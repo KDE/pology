@@ -42,6 +42,9 @@ Options common with other Pology tools:
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
             href="stdopt-wrapping.docbook"/>
 
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+            href="stdopt-filesfrom.docbook"/>
+
 </variablelist>
 </para>
 
@@ -50,7 +53,7 @@ Options common with other Pology tools:
 <sect2 id="sec-mirwcfg">
 <title>User Configuration</title>
 
-<para><command>porewrap</command> reads the wrapping fields as described in <xref linkend="sec-cmwrcfg"/>, from its <literal>[porewrap]</literal> section.</para>
+<para><command>porewrap</command> reads the wrapping mode fields as described in <xref linkend="sec-cmwrcfg"/>, from its <literal>[porewrap]</literal> section.</para>
 
 </sect2>
 
@@ -60,7 +63,140 @@ Options common with other Pology tools:
 <sect1 id="sec-miselfmerge">
 <title>Self-Merging PO Files with <command>poselfmerge</command></title>
 
-<para></para>
+<para>Normally, PO files are periodically merged with latest PO templates, to introduce changes from the source material while preserving as much of the existing translation as possible. <command>poselfmerge</command>, on the other hand, will merge the PO file with "itself". More precisely, it will derive the temporary template version of the PO file (by cleaning it from translations and other details), and then merge the original PO file with the derived template, by calling <command>msgmerge</command> internally. This can have several uses:
+<itemizedlist>
+
+<listitem>
+<para>The fuzzy matching algorithm of <command>msgmerge</command> is extremely fast and robust, but treats all messages the same and in isolation, without trying out more complicated (and necessarily much slower) heuristic criteria. This can cause the translator to spend more time updating a fuzzy message than it would take to translate it from scratch. <command>poselfmerge</command> can be therefore instructed to go over all fuzzy messages created by merging, and apply additional heuristics to determine whether to leave the message fuzzy or to clean it up and make it fully untranslated.</para>
+</listitem>
+
+<listitem>
+<para>Sometimes the PO file can contain a number of quite similar longer messages (this is especially the case when <link linkend="ch-summit">translating in summit</link>). A capable PO editor should automatically offer the previous translation on the next similar message (by using internal translation memory), and show the what the small differences in the original text are, thus greately speeding up the translation of that message. If, however, the PO editor is not that capable, or you use a plain text editor, while translating you can simply skip every long message that looks familiar, and afterwards run <command>poselfmerge</command> on the PO file to introduce fuzzy matches on those messages.</para>
+</listitem>
+
+<listitem>
+<para>More generally, if your PO editor does not have (a good enough) translation memory feature, or you edit PO files with a plain text editor, you can instruct <command>poselfmerge</command> to use one or more <emphasis>PO compendia</emphasis> to provide additional exact and fuzzy matches. This is essentially the batch application of translation memory. <xref linkend="sec-cbcompend"/> provides some hints on how to create and maintain PO compendia.</para>
+</listitem>
+
+</itemizedlist>
+</para>
+
+<para>Arguments to <command>poselfmerge</command> are any number of PO file paths or directories to search for PO files, which will be modified in place:
+<programlisting>
+$ poselfmerge foo.po bar.po somedir/
+</programlisting>
+However, this run will do almost nothing (except possibly rewrap files), just as <command>msgmerge</command> would do nothing if the same template were used twice. Instead, all special processing must be requested by command line options, or activated through the <link linkend="sec-cmconfig">user configuration</link> to avoid issuing some options with same values all the time.</para>
+
+<sect2 id="sec-mismopts">
+<title>Command Line Options</title>
+
+<para>Options specific to <command>poselfmerge</command>:
+<variablelist>
+
+<varlistentry>
+<term><option>-A <replaceable>RATIO</replaceable></option>, <option>--min-adjsim-fuzzy=<replaceable>RATIO</replaceable></option></term>
+<listitem>
+<para>The minimum required "adjust similarity" between the old and the new orginal text in a fuzzy message, in order to accept it and not clean it to untranslated state. The similarity is expressed as the ratio in range 0.0-1.0, with 0.0 meaning no similarity and 1.0 no difference. A practical range is 0.6-0.8. If this option is not issued, fuzzy messages are kept as they are (as if 0.0 would be given).</para>
+
+<para>The requirement for computation of adjusted similarity is that fuzzy messages contain previous strings, i.e. that the PO file was originally merged with <option>--previous</option> to <command>msgmerge</command>.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>-b</option>, <option>--rebase-fuzzies</option></term>
+<listitem>
+<para>Normally, when merging with template, the untranslated and fuzzy messages already present in the PO file are not checked again for approximate matches. This is on the one hand side a performance measure (why fuzzy match again something that was already matched before?), and on the other hand a safety measure (higher trust in an old fuzzy match based on the PO file itself than e.g. a new match from an arbitrary compendium). By issuing this option, prior to merging all untranslated message are removed from the PO file, as well as all fuzzy messages which still have their base translated message in the PO file (judging by previous strings). This activates fuzzy matching on untranslated messages (e.g. if new compendium given, or for similar messages skipped during translation), and updates base translated messages on fuzzy messages.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>-C <replaceable>POFILE</replaceable></option>, <option>--compendium=<replaceable>POFILE</replaceable></option></term>
+<listitem>
+<para>The PO file to use as compendium on merging, to produce more exact and fuzzy matches. This option can be repeated to add several compendia.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>-v</option>, <option>--verbose</option></term>
+<listitem>
+<para><command>poselfmerge</command> normally operates silently, and this option requests some progress information. Quite useful if processing a large collection of PO files, because merging and post-merge processing can take <emphasis>a lot</emphasis> of time (especially in presence of compendium).</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>-W <replaceable>NUMBER</replaceable></option>, <option>--min-words-exact=<replaceable>NUMBER</replaceable></option></term>
+<listitem>
+<para>When an exact match for an untranslated message is produced from the compendium, it is not always safe to silently accept it, because the compendium may contain translations from contexts totally unrelated with the current PO file. The shorter the message, the higher the chance that translation will not be suitable in current context. This option provides the minimum number of words (in the original) to accept an exact match from the compendium, or else the message is made fuzzy. The reasonable value depends on the relation between the source and the target language, with 5 to 10 probably being on the safe side.</para>
+
+<para>Note that afterwards you can see when an exact match has been demoted into a fuzzy one, by that message not having previous strings (<literal>#| msgid "..."</literal>, etc.).</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>-x</option>, <option>--fuzzy-exact</option></term>
+<listitem>
+<para>This option is used to unconditionally demote exact matches from the compendium into fuzzy messages (e.g. regardless of the length of the text, as done by <option>-W</option>/<option>--min-words-exact</option>). This may be needed, for example, when there is a strict review procedure in place, and the compendium is built from unreviewed translations.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</para>
+
+<para>
+Options common with other Pology tools:
+<variablelist>
+
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+            href="stdopt-wrapping.docbook"/>
+
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+            href="stdopt-filesfrom.docbook"/>
+
+</variablelist>
+</para>
+
+</sect2>
+
+<sect2 id="sec-mismcfg">
+<title>User Configuration</title>
+
+<para>It is likely that the translator will have a certain personal preference of the various match acceptance criteria provided by command line options. Instead of issuing those options all the time, the following user configuration fields may be set:
+<variablelist>
+
+<varlistentry>
+<term><literal>[poselfmerge]/fuzzy-exact=[yes|*no]</literal></term>
+<listitem>
+<para>Counterpart to the <option>-x</option>/<option>--fuzzy-exact</option> option.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><literal>[poselfmerge]/min-adjsim-fuzzy</literal></term>
+<listitem>
+<para>Counterpart to the <option>-A</option>/<option>--min-adjsim-fuzzy</option> option.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><literal>[poselfmerge]/min-words-exact</literal></term>
+<listitem>
+<para>Counterpart to the <option>-W</option>/<option>--min-words-exact</option> option.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><literal>[poselfmerge]/rebase-fuzzies=[yes|*no]</literal></term>
+<listitem>
+<para>Counterpart to the <option>-b</option>/<option>--rebase-fuzzies</option> option.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+Of course, command line options can be issued to override the user configuration fields when necessary.</para>
+
+<para><command>poselfmerge</command> also reads the wrapping mode fields as described in <xref linkend="sec-cmwrcfg"/>, from its <literal>[poselfmerge]</literal> section.</para>
+
+</sect2>
 
 </sect1>
 
