@@ -2,7 +2,10 @@
 # -*- coding: UTF-8 -*-
 
 """
-Merge PO file with itself, to produce fuzzy matches on similar messages.
+Merge PO file with itself or compendium,
+to produce fuzzy matches on similar messages.
+
+Documented in C{doc/user/misctools.docbook#sec-miselfmerge}.
 
 @author: Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
 @license: GPLv3
@@ -20,9 +23,10 @@ from pology.catalog import Catalog
 from pology.message import MessageUnsafe
 from pology.colors import ColorOptionParser
 import pology.config as pology_config
-from pology.fsops import collect_catalogs
+from pology.fsops import collect_paths_cmdline, collect_catalogs
 from pology.merge import merge_pofile
 from pology.report import report, error
+from pology.stdcmdopt import add_cmdopt_filesfrom
 
 import porewrap as REW
 
@@ -53,11 +57,20 @@ def main ():
 
     opars = ColorOptionParser(usage=usage, description=desc, version=ver)
     opars.add_option(
-        "-f", "--files-from",
-        metavar=_("@info command line value placeholder", "FILE"),
-        dest="files_from",
+        "-A", "--min-adjsim-fuzzy",
+        metavar=_("@info command line value placeholder", "RATIO"),
+        action="store", dest="min_adjsim_fuzzy", default=def_minasfz,
         help=_("@info command line option description",
-               "Get list of input files from a file (one path per line)."))
+               "On fuzzy matches, the minimum adjusted similarity "
+               "to accept the match, or else the message is left untranslated. "
+               "Range is 0.0-1.0, where 0 means always to accept the match, "
+               "and 1 never to accept; a practical range is 0.6-0.8."))
+    opars.add_option(
+        "-b", "--rebase-fuzzies",
+        action="store_true", dest="rebase_fuzzies", default=def_refuzz,
+        help=_("@info command line option description",
+               "Before merging, clear those fuzzy messages whose predecessor "
+               "(determined by previous fields) is still in the catalog."))
     opars.add_option(
         "-C", "--compendium",
         metavar=_("@info command line value placeholder", "POFILE"),
@@ -65,6 +78,11 @@ def main ():
         help=_("@info command line option description",
                "Catalog with existing translations, to additionally use for "
                "direct and fuzzy matches. Can be repeated."))
+    opars.add_option(
+        "-v", "--verbose",
+        action="store_true", dest="verbose", default=False,
+        help=_("@info command line option description",
+               "More detailed progress information."))
     opars.add_option(
         "-W", "--min-words-exact",
         metavar=_("@info command line value placeholder", "NUMBER"),
@@ -75,31 +93,12 @@ def main ():
                "to accept translation without making it fuzzy. "
                "Zero means to always accept an exact match."))
     opars.add_option(
-        "-A", "--min-adjsim-fuzzy",
-        metavar=_("@info command line value placeholder", "NUMBER"),
-        action="store", dest="min_adjsim_fuzzy", default=def_minasfz,
-        help=_("@info command line option description",
-               "When using compendium, in case of fuzzy match, "
-               "minimum adjusted similarity to accept the match. "
-               "Range is 0.0-1.0, where 0 means always to accept the match, "
-               "and 1 never to accept; a convenient range is 0.6-0.8."))
-    opars.add_option(
         "-x", "--fuzzy-exact",
         action="store_true", dest="fuzzy_exact", default=def_fuzzex,
         help=_("@info command line option description",
                "When using compendium, make all exact matches fuzzy."))
-    opars.add_option(
-        "-b", "--rebase-fuzzies",
-        action="store_true", dest="rebase_fuzzies", default=def_refuzz,
-        help=_("@info command line option description",
-               "Before merging, clear those fuzzy messages whose predecessor "
-               "(determined by previous fields) is still in the catalog."))
-    opars.add_option(
-        "-v", "--verbose",
-        action="store_true", dest="verbose", default=False,
-        help=_("@info command line option description",
-               "Output more detailed progress info."))
     REW.add_wrapping_options(opars)
+    add_cmdopt_filesfrom(opars)
 
     (op, fargs) = opars.parse_args()
 
@@ -113,28 +112,27 @@ def main ():
     except ImportError:
         pass
 
-    # Assemble list of files.
-    file_or_dir_paths = fargs
-    if op.files_from:
-        flines = open(op.files_from, "r").readlines()
-        file_or_dir_paths.extend([f.rstrip("\n") for f in flines])
-    fnames = collect_catalogs(file_or_dir_paths)
-
     # Convert non-string options to needed types.
     try:
         op.min_words_exact = int(op.min_words_exact)
     except:
         error(_("@info",
                 "Value to option %(opt)s must be an integer number, "
-                "given '%(val)s' instead).",
+                "given '%(val)s' instead.",
                 opt="--min-words-exact", val=op.min_words_exact))
     try:
         op.min_adjsim_fuzzy = float(op.min_adjsim_fuzzy)
     except:
         error(_("@info",
                 "Value to option %(opt)s must be a real number, "
-                "given '%(val)s' instead).",
+                "given '%(val)s' instead.",
                 opt="--min-adjsim-fuzzy", val=op.min_ajdsim_fuzzy))
+
+    # Assemble list of files.
+    fnames = collect_paths_cmdline(rawpaths=fargs,
+                                   filesfrom=op.files_from,
+                                   respathf=collect_catalogs,
+                                   abort=True)
 
     # Self-merge all catalogs.
     for fname in fnames:

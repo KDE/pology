@@ -2,48 +2,9 @@
 # -*- coding: UTF-8 -*-
 
 """
-Rewrap keyword text fields in PO files.
+Rewrap message strings in PO files.
 
-Keyword text fields (C{msgid}, C{msgstr}, etc.) in PO files may be wrapped
-in arbitrary fashion, without changing their semantics.
-(Unlike extracted or translator comments, where it is not safe to assume
-that line breaks are not significant.)
-
-Pology can wrap keyword text fields on newline characters only,
-on certain column width, and on various logical breaks
-(e.g. paragraph tags in markup text).
-By default, this script applies all known wrapping types,
-but the wrapping policy can be controlled from several sources:
-  - command line options C{--wrap} and C{--no-wrap} enable or disable
-    wrapping on column, and C{--fine-wrap}/C{--no-fine-wrap} wrapping
-    on logical breaks;
-  - L{configuration fields<config>} C{[porewrap]/wrap}
-    and C{[porewrap]/fine-wrap} may be set to C{yes} or C{no},
-    corresponding to previous command line options;
-  - catalogs themselves may state what wrapping should be applied.
-
-Catalogs can state wrapping policy through C{Wrapping} or C{X-Wrapping}
-header fields. The value is a comma-separated list of wrapping type
-keywords, which currently can be: C{basic} (wrapping on column),
-C{fine} (wrapping on logical breaks).
-For example, not to wrap on column but to wrap on logical breaks::
-
-    msgid ""
-    msgstr ""
-    "..."
-    "X-Wrapping: fine\\n"
-    "..."
-
-To specify wrapping within the catalog is advantageous when more people
-may be working on it, so that it does not go through constant rewrappings.
-Unless told otherwise, all Pology tools will by default recognize and apply
-wrapping policy specified like this.
-
-In case when wrapping policies from different sources conflict,
-this script decides wrapping policy for a given catalog with following
-increasing priority: user configuration, catalog header
-(overrides configuration), command line (overrides both configuration
-and header).
+Documented in C{doc/user/misctools.docbook#sec-mirewrap}.
 
 @author: Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
 @license: GPLv3
@@ -59,8 +20,9 @@ from pology import version, _, n_
 from pology.catalog import Catalog
 from pology.colors import ColorOptionParser
 import pology.config as pology_config
-from pology.fsops import collect_catalogs
+from pology.fsops import collect_paths_cmdline, collect_catalogs
 from pology.report import report, error
+from pology.stdcmdopt import add_cmdopt_filesfrom
 
 
 def main ():
@@ -75,7 +37,7 @@ def main ():
         "%(cmd)s [options] POFILE...",
         cmd="%prog")
     desc = _("@info command description",
-        "Rewrap keyword text fields in PO files.")
+        "Rewrap message strings in PO files.")
     ver = _("@info command version",
         u"%(cmd)s (Pology) %(version)s\n"
         u"Copyright © 2007, 2008, 2009, 2010 "
@@ -84,17 +46,12 @@ def main ():
 
     opars = ColorOptionParser(usage=usage, description=desc, version=ver)
     opars.add_option(
-        "-f", "--files-from",
-        metavar=_("@info command line value placeholder", "FILE"),
-        dest="files_from",
-        help=_("@info command line option description",
-               "Get list of input files from a file (one path per line)."))
-    add_wrapping_options(opars)
-    opars.add_option(
         "-v", "--verbose",
         action="store_true", dest="verbose", default=False,
         help=_("@info command line option description",
-               "Output more detailed progress info."))
+               "More detailed progress information."))
+    add_wrapping_options(opars)
+    add_cmdopt_filesfrom(opars)
 
     (op, fargs) = opars.parse_args()
 
@@ -109,11 +66,10 @@ def main ():
         pass
 
     # Assemble list of files.
-    file_or_dir_paths = fargs
-    if op.files_from:
-        flines = open(op.files_from, "r").readlines()
-        file_or_dir_paths.extend([f.rstrip("\n") for f in flines])
-    fnames = collect_catalogs(file_or_dir_paths)
+    fnames = collect_paths_cmdline(rawpaths=fargs,
+                                   filesfrom=op.files_from,
+                                   respathf=collect_catalogs,
+                                   abort=True)
 
     # Rewrap all catalogs.
     for fname in fnames:
@@ -125,6 +81,7 @@ def main ():
         cat.sync(force=True)
 
 
+# FIXME: Move to pology.stdcmdopt.
 def add_wrapping_options (opars):
 
     opars.add_option(
@@ -149,10 +106,11 @@ def add_wrapping_options (opars):
                "No fine wrapping."))
 
 
+# FIXME: Move to pology.?.
 def select_field_wrapping (cfgsec=None, cat=None, cmlopt=None):
 
-    # Select maximum wrapping initially.
-    wrapping = ["basic", "fine"]
+    # Default wrapping.
+    wrapping = ["basic"]
 
     # Helper to remove and add wrapping types.
     def waddrem (add, wtype):
