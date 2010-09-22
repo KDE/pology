@@ -11,7 +11,48 @@
 <sect1 id="sec-mirewrap">
 <title>Rewrapping PO Files with <command>porewrap</command></title>
 
-<para></para>
+<para>The <command>porewrap</command> script does one simple thing: it rewraps message strings (<varname>msgid</varname>, <varname>msgstr</varname>, etc.) in PO files. Gettext's tools, e.g. <command>msgcat</command>, can be used for rewrapping as well, so what is the reason of existence of <command>porewrap</command>? The lesser reason is convenience. Arbitrary number of PO file paths can be given to it as arguments, as well as directory paths which will be recursively search for PO files. The more important reason is that Pology can also perform "fine" wrapping, as described in <xref linkend="sec-cmwrap"/>. Thus, running:
+<programlisting>
+$ porewrap --no-wrap --fine-wrap somedir/
+</programlisting>
+will rewrap all PO files found in <filename>somedir/</filename> and below, such that basic wrapping (on column) is disabled (<literal>--no-wrap</literal>), while fine wrapping (on logical breaks) is enabled (<literal>--fine-wrap</literal>).</para>
+
+<para>Other than from command line options, <command>porewrap</command> will also consult the PO file header and the user configuration, for the wrapping mode. Command line options have the highest priority, followed by the PO header, and the user configuration at the end. For details on how to set the wrapping mode in PO headers, see the description of <literal>X-Wrapping</literal> header field in <xref linkend="sec-cmheader"/>. If none of these sources specify the wrapping mode, <command>porewrap</command> will apply basic wrapping.</para>
+
+<sect2 id="sec-mirwopts">
+<title>Command Line Options</title>
+
+<para>Options specific to <command>porewrap</command>:
+<variablelist>
+
+<varlistentry>
+<term><option>-v</option>, <option>--verbose</option></term>
+<listitem>
+<para>Since <command>porewrap</command> just opens and writes back all the PO files given to it, it normally does not report anything. But this option can be issued for it to report PO file paths as they have been written out.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</para>
+
+<para>
+Options common with other Pology tools:
+<variablelist>
+
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+            href="stdopt-wrapping.docbook"/>
+
+</variablelist>
+</para>
+
+</sect2>
+
+<sect2 id="sec-mirwcfg">
+<title>User Configuration</title>
+
+<para><command>porewrap</command> reads the wrapping fields as described in <xref linkend="sec-cmwrcfg"/>, from its <literal>[porewrap]</literal> section.</para>
+
+</sect2>
 
 </sect1>
 

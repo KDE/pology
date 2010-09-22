@@ -562,6 +562,127 @@ The <option>-R</option> of <command>less</command> tells it to interpret escape 
 </sect1>
 
 <!-- ======================================== -->
+<sect1 id="sec-cmwrap">
+<title>Line Wrapping in PO Messages</title>
+
+<para>While <link linkend="sec-powrap">line wrapping of message strings</link> irrelevant to programs that fetch translations from them, it may be significant to the translator, especially when editing the PO file with a plain text editor. Well-wrapped strings make it easier for the translator to follow the text structure, especially in longer messages.</para>
+
+<para>Most Gettext tools (<command>msgmerge</command>, <command>msgcat</command>, <command>msgfilter</command>, etc.) provide options to wrap or not to wrap strings, where wrapping is done on the given column and escaped newlines (<literal>\n</literal>). Pology can produce this type of wrapping ("basic" wrapping) as well, but it can also wrap on expected visual line breaks in known text markup, e.g. <literal>&lt;p&gt;</literal> and <literal>&lt;br&gt;</literal> in HTML ("fine" wrapping). Compare this message in basic wrapping alone:
+<programlisting>
+msgid ""
+"&lt;p>These settings control the storage of the corrected images. "
+"There are four modes to choose from:&lt;/p>&lt;p>&lt;ul>&lt;li>&lt;b>Subfolder:&lt;/"
+"b> The corrected images will be saved in a subfolder under the "
+"current album path.&lt;/li>&lt;li>&lt;b>Prefix:&lt;/b> A custom prefix will be "
+"added to the corrected image.&lt;/li>&lt;li>&lt;b>Suffix:&lt;/b> A custom "
+"suffix will be added to the corrected image.&lt;/li>&lt;li>&lt;b>Overwrite:&lt;/"
+"b> All original images will be replaced.&lt;/li>&lt;/ul>&lt;/p>&lt;p>Each of "
+"the four modes allows you to add an optional keyword to the image "
+"metadata.&lt;/p>"
+msgstr ""
+</programlisting>
+and in basic and fine wrapping together:
+<programlisting>
+msgid ""
+"&lt;p>These settings control the storage of the corrected images. "
+"There are four modes to choose from:&lt;/p>"
+"&lt;p>"
+"&lt;ul>"
+"&lt;li>&lt;b>Subfolder:&lt;/b> The corrected images will be saved in a "
+"subfolder under the current album path.&lt;/li>"
+"&lt;li>&lt;b>Prefix:&lt;/b> A custom prefix will be added to the corrected "
+"image.&lt;/li>"
+"&lt;li>&lt;b>Suffix:&lt;/b> A custom suffix will be added to the corrected "
+"image.&lt;/li>"
+"&lt;li>&lt;b>Overwrite:&lt;/b> All original images will be replaced.&lt;/li>"
+"&lt;/ul>"
+"&lt;/p>"
+"&lt;p>Each of the four modes allows you to add an optional keyword "
+"to the image metadata.&lt;/p>"
+msgstr ""
+</programlisting>
+If you are editing the PO file with a dedicated PO editor, it may itself provide finely tuned wrapping and ignore the wrapping in the PO file, in which case Pology's wrapping facilities are superfluous to you<footnote>
+<para>But if several people are working on a collection of PO files, it is nevertheless good to agree on fixed wrapping. This is both friendly to those exposed to original wrapping, and to version control systems.</para>
+</footnote>. But a PO editor may also present strings wrapped just as they are in the PO file (and most do!), when Pology's fine wrapping is just as useful as in combination with a plain text editor.</para>
+
+<para>At least for alphabetic languages, the most convenient wrapping may be fine wrapping alone (no basic wrapping), while turning on editor's dynamic (visual) line wrapping. This both makes the text structure easy to follow, and allows editing the translation by logical units (paragraphs, list items) without manually adjusting column breaks or putting up with ugly overlength or mid-broken lines. However, for ideographic languages, editor's dynamic line wrapping may produce bad results, and there basic wrapping might be necessary. In fact, for the moment, for ideographic languages it may be better to pass Pology's wrapping entirely and stick with Gettext's wrapping, since the wrapping algorithm in Gettext is more sophisticated and directly supports ideographic writing systems.</para>
+
+<para>If no wrapping mode is specified when the given PO file is written out, Pology will apply basic wrapping, just as Gettext tools do. There are three general sources from which Pology tools may try to determine the wrapping mode for the given PO file, in decreasing priority: from the command line options, from the PO file's header, and from the user configuration. A tool may or may not provide command line options and configuration fields for wrapping, but PO file headers are always consulted (since this is in Pology's core PO file handling facilities). See the description of <link linkend="hdr-x-wrapping">the <literal>X-Wrapping</literal> header field</link> for how to set the wrapping mode in the PO header, and <link linkend="sv-set-header">the <literal>set-header</literal> sieve</link> for how to set this field in many PO files at once.</para>
+
+<sect2 id="sec-cmwropts">
+<title>Common Command Line Options for Wrapping</title>
+
+<para>Pology tools in which the wrapping mode can be set from command line, will provide the following options:
+<variablelist>
+
+<varlistentry>
+<term><option>--wrap</option></term>
+<listitem>
+<para>Perform basic wrapping, on certain column.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>--no-wrap</option></term>
+<listitem>
+<para>Do not perform basic wrapping.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>--fine-wrap</option></term>
+<listitem>
+<para>Perform fine wrapping, on various expected visual breaks introduced by text markup in rendered text.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>--no-fine-wrap</option></term>
+<listitem>
+<para>Do not perform fine wrapping.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>--wrap-column=<replaceable>COL</replaceable></option></term>
+<listitem>
+<para>The column at which the text should be wrapped. The wrapped line in the PO file will never be longer than this many columns, including the outer quotes. If not given, the default is 79.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+Both positive and negative wrapping options are provided in order to be able to override the wrapping mode defined by the user configuration of the PO header. As in Gettext tools, strings are always wrapped on <literal>\n</literal> regardless of the wrapping mode.</para>
+
+</sect2>
+
+<sect2 id="sec-cmwrcfg">
+<title>Common User Configuration Fields for Wrapping</title>
+
+<para>The following configuration fields will be read by the tools which consult the user configuration for wrapping mode, in their respective configuration sections:
+<variablelist>
+
+<varlistentry>
+<term><literal>[<replaceable>section</replaceable>]/wrap=[*yes|no]</literal></term>
+<listitem>
+<para>Whether to perform basic wrapping, counterpart to <option>--wrap</option> and <option>--no-wrap</option> command line options.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><literal>[<replaceable>section</replaceable>]/fine-wrap=[yes|*no]</literal></term>
+<listitem>
+<para>Whether to perform fine wrapping, counterpart to <option>--fine-wrap</option> and <option>--no-fine-wrap</option> command line options.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</para>
+
+</sect2>
+
+</sect1>
+
+<!-- ======================================== -->
 <sect1 id="sec-cmheader">
 <title>Influential Header Fields</title>
 
@@ -622,7 +743,7 @@ The <option>-R</option> of <command>less</command> tells it to interpret escape 
 <varlistentry id="hdr-x-wrapping">
 <term><literal>X-Wrapping</literal></term>
 <listitem>
-<para>While <link linkend="sec-powrap">string wrapping in PO files</link> is irrelevant to programs that fetch translations from them, and possibly to some dedicated PO editors, it is important for good readability and editability of strings in plain text editors and some other PO editors. This header field can be set to tell Pology how to wrap strings in given PO file, for example, when <command>posieve</command> modifies a message and writes the modified PO file, or when rewrapping is done explicitly by <command>porewrap</command>. The value is a comma-separated list of wrapping modes, chosen from:
+<para>This header field can be set to tell Pology how to <link linkend="sec-cmwrap">wrap strings</link> in the current PO file, for example, when <command>posieve</command> modifies a message and writes the modified PO file, or when rewrapping is done explicitly by <command>porewrap</command>. The value is a comma-separated list of wrapping modes, chosen from:
 <itemizedlist>
 <listitem><para><literal>basic</literal> -- wrapping on certain column</para></listitem>
 <listitem><para><literal>fine</literal> -- wrapping on logical breaks (such as <literal>&lt;p&gt;</literal> or <literal>&lt;br/&gt;</literal> tags)</para></listitem>

@@ -3,8 +3,8 @@
  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
 
 <varlistentry>
-<term><option>-F FILE</option>, <option>--files-from=FILE</option></term>
+<term><option>--wrap</option>; <option>--no-wrap</option>; <option>--fine-wrap</option>; <option>--no-fine-wrap</option>; <option>--wrap-column=COL</option></term>
 <listitem>
-<para>See <xref linkend="sec-cmffrom"/>.</para>
+<para>See <xref linkend="sec-cmwropts"/>.</para>
 </listitem>
 </varlistentry>

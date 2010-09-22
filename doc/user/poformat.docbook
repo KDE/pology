@@ -118,7 +118,7 @@ msgstr "Nema INDI uređaja (...) u meniju uređaja."
 </programlisting>
 </para>
 
-<para>Dedicated PO editors may even not show wrapping to the translator, or wrap lines on their own independent of the underlying PO file. Curiosly enough, most of PO editors seem to follow the original wrapping, at least by default. At any rate, if you would like to have all strings non-wrapped (including <varname>msgid</varname>) or vice versa, there are command line tools to achieve this.</para>
+<para>Dedicated PO editors may even not show wrapping to the translator, or wrap lines on their own independently of the underlying PO file. Curiosly enough, most PO editors seem to follow the original wrapping, at least by default. At any rate, if you would like to have all strings non-wrapped (including <varname>msgid</varname>) or vice versa, there are command line tools to achieve this.</para>
 
 </sect2>
 
