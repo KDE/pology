@@ -294,7 +294,18 @@ def version ():
     @rtype: string
     """
 
-    return "0.0.0"
+    verstr = "?.?.?"
+    try:
+        verfile = os.path.join(rootdir(), "VERSION")
+        for line in open(verfile):
+            line = line.decode("UTF-8").strip()
+            if line:
+                verstr = line
+                break
+    except:
+        pass
+
+    return verstr
 
 
 # Collect data paths.
