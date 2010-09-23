@@ -382,7 +382,7 @@ def report_msg_content (msg, cat,
                 highlightd[pkey][2] = list(spans)
             else:
                 phspec[2].extend(spans)
-                # Take original text if available and not already taken.
+                # Take filtered text if available and not already taken.
                 if len(hspec) > 3 and len(phspec) <= 3:
                     phspec.append(hspec[3])
         highlight = highlightd.values()
