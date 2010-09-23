@@ -376,7 +376,10 @@ def report_msg_content (msg, cat,
             pkey = (name, item)
             phspec = highlightd.get(pkey)
             if phspec is None:
-                highlightd[pkey] = hspec
+                # Make needed copies in order not to modify
+                # the original highlight when adding stuff later.
+                highlightd[pkey] = list(hspec)
+                highlightd[pkey][2] = list(spans)
             else:
                 phspec[2].extend(spans)
                 # Take original text if available and not already taken.
