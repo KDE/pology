@@ -368,6 +368,22 @@ def report_msg_content (msg, cat,
         msg = Message(msg) # must work on copy, highlight modifies it
         ffmsg = fmsg or msg # use original message as filtered if not given
 
+        # Unify spans for same parts, to have single coloring pass per part
+        # (otherwise markup can get corrupted).
+        highlightd = {}
+        for hspec in highlight:
+            name, item, spans = hspec[:3]
+            pkey = (name, item)
+            phspec = highlightd.get(pkey)
+            if phspec is None:
+                highlightd[pkey] = hspec
+            else:
+                phspec[2].extend(spans)
+                # Take original text if available and not already taken.
+                if len(hspec) > 3 and len(phspec) <= 3:
+                    phspec.append(hspec[3])
+        highlight = highlightd.values()
+
         for hspec in highlight:
             name, item, spans = hspec[:3]
 
