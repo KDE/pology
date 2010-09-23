@@ -67,3 +67,4 @@ addFilterRegex match="\s*(\?{2,3}|\%{2,3}|\:{2,3}|\_{2,3})" repl="~" on="pmsgid,
 
 # Remove more usual smileis.
 addFilterRegex match="\s(\:\)|\(\-\:|\:\)|\(\:|\=\)|\)\-\:\)|\:\-\)|\:\-\(|\;\-\)|\;\)|\:D|\:\()" repl="~" on="pmsgid,pmsgstr"
+addFilterRegex match="\s(\"\:\-\)\")" repl="~" on="pmsgid,pmsgstr"
