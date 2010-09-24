@@ -43,6 +43,10 @@ hint="«de que» s'ha de substituir per «que» (error freqüent)"
 [\bdes\sde\sque\b]i
 hint="«des de que» s'ha de substituir per «des que» (error freqüent)"
 
+# «decodificar» ha de ser «descodificar».
+[\bdecodifi]i
+hint="«decodificar» s'ha de substituir per «descodificar» (error freqüent)"
+
 # «diferent a» ha de ser «diferent de».
 [\bdiferents?\sa\b]i
 hint="«diferent a» s'ha de substituir per «diferent de» (error freqüent)"

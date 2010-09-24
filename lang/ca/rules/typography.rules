@@ -171,7 +171,6 @@ hint="No s'ha de posar cap espai abans del signe de coma (tipografia)"
 
 [\,\S]
 validGroup beforePunctuation
-#valid after="\d" before="\d" 
 valid msgid="CREDIT_FOR_TRANSLATORS"
 valid ctx="\w+ OF TRANSLATORS"
 valid ctx="trans_comment"
@@ -199,6 +198,7 @@ hint="S'ha de posar un espai després del signe de cometa llatina de tancament (
 [\.\»] 
 valid after="\«"
 valid after="\.\."
+valid before="\sMeltzer" cat="amarok"
 hint="S'ha de posar el punt després del signe de cometa llatina de tancament (tipografia)"
 
 [\«]
@@ -365,7 +365,7 @@ valid after="(Malësi|Vielha|Montes)\s" cat="kgeography"
 valid ctx="Exponential"
 valid cat="kspread"
 valid after="seqüència.+" cat="digikam"
-hint="«e» sola és un error (error freqüent)"
+hint="«e» sola és un error (tipografia)"
 
 # «u» sola és un error.
 [\bu\b]i
@@ -378,6 +378,45 @@ valid after="di\(" cat="kate_regular-expressions" # docmessages
 valid after="multiplicitat\sd\'" cat="umbrello_uml_basics" # docmessages
 valid cat="kgoldrunner,kubrick,kfile_exr,libincidenceeditors,kspread,kbackgammon"
 valid ctx="Undefined"
-hint="«u» sola és un error (error freqüent)"
+hint="«u» sola és un error (tipografia)"
+
+# «`» un accent obert sol és un error (ull amb les ordres!).
+[`]
+valid after="Teo" cat="amarok"
+valid after="(Cometes|tabulació)\s.+" cat="kile"
+valid after="esperava\s`?" cat="kdevcpp"
+hint="Un accent obert sol «`» és un error, excepte a ordres de terminal (tipografia)"
+
+# «’» un accent tancat sol és un error (ull amb les ordres!).
+[’]
+hint="Un accent tancat sol «’» és un error, excepte a ordres de terminal (tipografia)"
+
+# « '» un apóstrof inicial és un error (ull amb les ordres!). Substituir per «
+[\s']
+valid after="servir" cat="kwriteconfig"
+valid ctx="qtdt-format"
+valid ctx="identifier separator" cat="kalgebra"
+hint="Un apòstrof inicial és un error, excepte a ordres de terminal (tipografia)"
+
+# «' » un apóstrof final és un error (ull amb les ordres!).  Substituir per »
+['\s]
+valid after="Surfin" cat="amarok"
+valid after="\\a?" cat="kile"
+valid after="esperava\s``\:'" cat="kdevcpp"
+valid after="servir\s'" cat="kwriteconfig"
+valid after="\s00"
+valid ctx="qtdt-format"
+hint="Un apòstrof final és un error, excepte a ordres de terminal (tipografia)"
+
+# Les cometes anglosaxones «"» s'han de substituir per les cometes llatines «»
+# En un teclat català, s'obtenen amb AltGr+z i AltGr+x (ull amb les ordres!).
+[\"]
+valid after="~.+" cat="amarokcollectionscanner_qt"
+valid after="3\.5|5\.25|\s00\.0|\s00"
+valid after="«.+" before=".+»"
+valid ctx="Name" cat="desktop_extragear-graphics_kipi-plugins"
+valid ctx="Query" cat="desktop_kdebase"
+valid ctx="Numbers and characters"
+hint="Cal utilitzar les cometes llatines «» (AltGr+z/x) en lloc de les anglosaxones (tipografia)"
 
 # End of rule file
