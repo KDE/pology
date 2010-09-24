@@ -719,6 +719,32 @@ hint="regular expression = регуларни израз [скр. regex = рег
 valid span="regular" msgstr="\bрегуларн\w+ израз"
 valid span="regex" msgstr="\bрегиз"
 
+{\brender}i
+id="render"
+hint="render = рендеровати [придеви: рендерски, рендеровани; резултат: рендеринг]"
+valid msgstr="\b(из)?рендер\w+"
+valid msgstr="&\w*render\S*;"
+
+{\brender}i
+id="render2"
+hint="render = рендерски"
+disabled # на render
+
+{\brendered}i
+id="render3"
+hint="rendered = рендеровани"
+disabled # на render
+
+{\brendering}i
+id="render4"
+hint="rendering = рендеринг"
+disabled # на render
+
+{\brenderer}i
+id="renderer"
+hint="renderer = рендерер"
+valid msgstr="\bрендерер"
+
 {\breset}i
 id="reset"
 hint="reset = ресетовати"

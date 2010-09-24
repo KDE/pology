@@ -220,6 +220,28 @@ id="force2"
 hint="force = наметнути"
 disabled
 
+{\bgames?\b}i
+id="game"
+hint="game = игра [можда: партија, позиција]"
+valid before="play" # на gameplay
+valid msgstr="\b(игр|игара|партиј|позициј)" !msgstr="\bигриц"
+
+{\bgames?\b}i
+id="game2"
+hint="game = партија"
+disabled # на game
+
+{\bgames?\b}i
+id="game3"
+hint="game|saved game = позиција"
+valid !after="(load|save)(s|ed|ing)?( \w+)?" !before=" (saved|loaded)" # na game
+valid msgstr="\bпозициј"
+
+{\bgamer}i
+id="gamer"
+hint="gamer = играч"
+valid msgstr="\bиграч"
+
 {\bhardware}i
 id="hardware"
 hint="hardware = хардвер"
