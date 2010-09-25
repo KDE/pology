@@ -47,6 +47,9 @@ translit_ascii = {
     u"©": "c",
     u"×": "x",
     u"\u2011": "-", # non-breaking hyphen
+    u"\u00a0": " ", # no-break space
+    u"\u2009": "", # thin space
+    u"\u202f": "", # narrow no-break space
     u"\u200b": "", # zero-width space
     u"ä": "ae",
     u"ö": "oe",
@@ -94,17 +97,17 @@ def _limit_to_chset (text, chset, translit, cname):
             ltext.append(c)
             continue
         ct = translit.get(c) # must come before translit_ascii
-        if ct:
+        if ct is not None:
             ltext.append(ct)
             continue
         ct = translit_ascii.get(c)
-        if ct:
+        if ct is not None:
             ltext.append(ct)
             continue
         warning(_("@info",
-                  "Character '%(char)s' cannot be transliterated "
+                  "Character '%(char)s' (%(code)s) cannot be transliterated "
                   "into character set %(charset)s, removing it.",
-                  char=c, charset=cname))
+                  char=c, code=("U+%X" % ord(c)), charset=cname))
         ltext.append("?")
 
     return "".join(ltext)
