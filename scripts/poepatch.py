@@ -523,7 +523,10 @@ def msg_apply_diff (cat, emsg, ecat, pmsgkeys, striplets):
     # Will be inserted if reembedding requested, so compute insertion.
     if not patch_specs:
         typ = _pt_insert
-        pos, weight = cat.insertion_inquiry(msg2)
+        if msg2 is not None:
+            pos, weight = cat.insertion_inquiry(msg2)
+        else:
+            pos = len(cat)
         patch_specs.append((emsg, _flag_ediff_no_match, typ, pos,
                             msg1, msg2, msg1_s, msg2_s))
 
