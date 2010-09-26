@@ -290,6 +290,12 @@ id="displaymanager"
 hint="login manager = менаџер пријављивања"
 valid msgstr="\bменаџер\w* пријављивања"
 
+{\bdrives?\b}i
+id="drive"
+hint="drive = јединица"
+valid after="hard(.?disk)? " # на harddisk
+valid msgstr="\bјединиц"
+
 {\bdriver}i
 id="driver"
 hint="driver = драјвер"
@@ -935,6 +941,16 @@ valid msgstr="\b(не)?поуздан"
 id="untrusted"
 hint="untrusted = непоуздан"
 valid msgstr="\bнепоуздан"
+
+{\bupload}i
+id="upload"
+hint="upload = отпремити"
+valid msgstr="\bотпрем"
+
+{\bupload}i
+id="upload2"
+hint="upload = отпремање"
+disabled # на upload
 
 {\bvalid\b}i
 id="valid2"
