@@ -666,6 +666,13 @@ Strings after the dot can be anything, but a sequence of numbers or letters in a
 </listitem>
 </varlistentry>
 
+<varlistentry>
+<term><option>mark</option></term>
+<listitem>
+<para>To each failed message a <literal>failed-rule</literal> flag is added, modifying the PO file. Modified files can then be opened in the editor, and failed messages looked up by this flag.</para>
+</listitem>
+</varlistentry>
+
 </variablelist>
 </para>
 

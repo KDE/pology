@@ -38,6 +38,9 @@ _MARSHALL="+++"
 # FIXME: More portable location of cache.
 _CACHEDIR=expandvars("$HOME/.pology-check_rules-cache/") 
 
+# Flag to add to failed messages, if requested.
+_flag_mark=u"failed-rule"
+
 
 def setup_sieve (p):
 
@@ -141,6 +144,11 @@ def setup_sieve (p):
                 desc=_("@info sieve parameter discription",
     "Write rule failures into an XML file instead of stdout."
     ))
+    p.add_param("mark", bool, defval=False,
+                desc=_("@info sieve parameter discription",
+    "Add '%(flag)s' flag to each message failed by a rule.",
+    flag=_flag_mark
+    ))
     add_param_poeditors(p)
 
 
@@ -174,6 +182,7 @@ class Sieve (object):
         self.showfmsg=params.showfmsg
         self.showmsg=params.showmsg
         self.lokalize=params.lokalize
+        self.mark=params.mark
 
         self.branches=params.branch and set(params.branch) or None
 
@@ -213,9 +222,10 @@ class Sieve (object):
 
         report("-"*40)
 
-        # Indicators to the caller:
-        self.caller_sync = False # no need to sync catalogs
-        self.caller_monitored = False # no need for monitored messages
+        # Unless marking requested, no need to monitor/sync.
+        if not self.mark:
+            self.caller_sync = False
+            self.caller_monitored = False
 
 
     def process_header (self, hdr, cat):
@@ -360,6 +370,9 @@ class Sieve (object):
                     if not self.showfmsg:
                         msgf=None
                     rule_error(msg, cat, rule, spans, msgf, self.showmsg)
+
+        if failedRules and self.mark:
+            msg.flag.add(_flag_mark)
 
         if failedRules and self.lokalize:
             repls = [_("@label", "Failed rules:")]
