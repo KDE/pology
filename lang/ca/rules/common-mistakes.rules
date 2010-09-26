@@ -26,6 +26,14 @@ hint="«al respecte» s'ha de substituir per «referent a això» (error freqüe
 [\ba\sno\sser\sque\b]i
 hint="«a no ser que» s'ha de substituir per «llevat que», «fora que» etc. (error freqüent)"
 
+# «cero» ha de ser «zero».
+[\bceros?\b]i
+hint="«cero» s'ha de substituir per «zero» (error freqüent)"
+
+## «darrera» (i derivats) ha de ser «darrere» (excepte femení de darrer).
+#[darrera]i
+#hint="«darrera» s'ha de substituir per «darrere», excepte femení de darrer (error freqüent)"
+
 # «de el» ha de ser «del».
 [\bde\sel\b]i
 hint="«de el» s'ha de substituir per «del» (error freqüent)"
@@ -47,6 +55,10 @@ hint="«des de que» s'ha de substituir per «des que» (error freqüent)"
 [\bdecodifi]i
 hint="«decodificar» s'ha de substituir per «descodificar» (error freqüent)"
 
+# «devant» (i derivats) ha de ser «davant».
+[devant]i
+hint="«devant» (i derivats) s'ha de substituir per «davant» (error freqüent)"
+
 # «diferent a» ha de ser «diferent de».
 [\bdiferents?\sa\b]i
 hint="«diferent a» s'ha de substituir per «diferent de» (error freqüent)"
@@ -61,6 +73,10 @@ hint="«doncs» s'ha de substituir per «perquè/ja que» (error freqüent)"
 # «enlloc de» ha de ser «en lloc de».
 [\benlloc\sde\b]i
 hint="«enlloc de» s'ha de substituir per «en lloc de» (error freqüent)"
+
+# «enrera» ha de ser «enrere».
+[enrera]i
+hint="«enrera» s'ha de substituir per «enrere» (error freqüent)"
 
 # «esperar a» ha de ser «esperar».
 [\besperar\sa\b]i
