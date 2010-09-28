@@ -423,6 +423,7 @@ hint="Merci de mettre un « e » à la fin de « texte » ou « contexte »"
 hint="Pas de tiret après « anti »"
 
 [\bDBUS\b]i
+valid after="&" before=";"
 hint="Il faut un tiret : « D-Bus »"
 
 [presse papier]i
