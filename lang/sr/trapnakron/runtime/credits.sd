@@ -1,8 +1,11 @@
 >../base/aff.sd
 >../avworks-themes.sd
+>../languages-prog.sd
 >../people-swcontribs.sd
 >../software-comm.sd
 >../software-engines.sd
+>../software-multimedia.sd
+>../software-office.sd
 >../software-swdevel.sd
 >../software-system.sd
 
@@ -13,43 +16,79 @@
 # (ознака ~x потребна да би се у обради видело да треба уклонити наредно x,
 # а оно да би се разрешио сукоб кључева).
 
+<a href='mailto\:sandroandrade@kde.org'>Sandro S. Andrade</a> (developer)<br/><a href='mailto\:leetolson@gmail.com'>Lee Olson</a> (artwork): <a href\='mailto:sandroandrade@kde.org'>|{Sandro Santos Andrade}</a> (програмер)<br/><a href\='mailto:leetolson@gmail.com'>|{Lee Olson}</a> (графика)
 Aaron Seigo: |{Aaron J. Seigo}
+Ace Jones\, Thomas Baumgart: |{Ace Jones}\, |{Thomas Baumgart}
 AdrienV: |{Adrien Vermeulen}
 ~x x André Duffeck: |{Andre Duffeck}
 Aleix Pol: |{Aleix Pol González}
+Alexandre Pereira: |{Alexandre Pereira de Oliveira}
+Alexis Mеnard: |{Alexis Ménard}
+Alex Richardson: |{Alexander Richardson}
 Анастасия Литвиненко (Anastasiya S. Litvinenk): |{Anastasiya Litvinenko}
 Anders Lund\, Franck Quélain\, Kevin Krammer\, Olivier Goffart: |{Anders Lund}\, |{Franck Quélain}\, |{Kevin Krammer}\, |{Olivier Goffart}
+Anselmo L S Melo: |{Anselmo Lacerda Silveira de Melo}
 Arend van Beelen jr.: |{Arend van Beelen}
+Artur Souza, Artur de Souza: |{Artur Duque de Souza}
+B. Navez and others: Б. Навез| и друг|и2->
+Chani: |{Chani Armitage}
+Chen Yew Ming: |{Yew-Ming Chen}
 Dawit Alemayehu\, Martin Koller: |{Dawit Alemayehu}\, |{Martin Koller}
 Denis Carl: |{Denis-Carl Robidoux}
 Diego R. Brogna: |{Diego Rosario Brogna}
 Duncan Mac-Vicar: |{Duncan Mac-Vicar Prett}
 Eugene Trounev [it-s]: |{Eugene Trounev} [it-s]
+Frederik Gladhorn\, Thomas Eitzenberger: |{Frederik Gladhorn}\, |{Thomas Eitzenberger}
+George Staikos and others: |{George Staikos} и друг|и2->
 ~x x Grzegorz Jaskiewicz: |{Grzegorz Jaśkiewicz}
+Gunnar Schmi Dt\, Sebastian Sauer: |{Gunnar Schmidt}\, |{Sebastian Sauer}
 Harald Fernengel\, Hamish Rodda: |{Harald Fernengel}\, |{Hamish Rodda}
 ~x x Ivan Cukic: |{Ivan Čukić}
 ~x x Ivan Vasic: |{Ivan Vasić}
+~x x Johannes Loehnert: |{Johannes Löhnert}
+John Adcock\, Tom Barry\, Steve Grimm (kdetv port by Dirk Ziegelmeier): |{John Adcock}\, |{Tom Barry}\, |{Steven Grimm} (на |kdetv~а пренео |{Dirk Ziegelmeier~н})
+Laurent Garnier (kdetv port by Dirk Ziegelmeier): |{Laurent Garnier} (на |kdetv~а пренео |{Dirk Ziegelmeier~н})
+Jonathan Schmidt-Dominé (The User): |{Jonathan Schmidt-Dominé} (Корисник|{})
+Jon de Andres: |{Jon de Andrés Frías}
 Joris Guisson\, Ivan Vasic: |{Joris Guisson}\, |{Ivan Vasić}
+Kashyap R Puranik: |{Kashyap Puranik}
 Kurt Granroth\, Rand2342: |{Kurt Granroth}\, Ранд|{}2342
 Lesly Weyts\, Kevin Andre and Joris Guisson: |{Lesly Weyts}\, |{Kevin Andre}\, |{Joris Guisson}
 ~x x Lubos Lunak: |{Luboš Luňák}
+Lubos Lunak & Lucas Murray, Luboš Luňák & Lucas Murray: |{Luboš Luňák} и |{Lucas Murray}
+Luboš Luňák & Sebastian Sauer: |{Luboš Luňák} и |{Sebastian Sauer}
 Lukas Tinkl\, Andreas Schlapbach: |{Lukáš Tinkl}\, |{Andreas Schlapbach}
+Martin Preuss\, Thomas Baumgart: |{Martin Preuss}\, |{Thomas Baumgart}
+Michał Dutkiewicz aka Emdek: |{Michał Dutkiewicz} зван|и> Емдек
 Montel Laurent: |{Laurent Montel}
+Nuno Pinheiro\, Casper Boemann\, Riccardo Iaconelli\, Huynh Huu Long\, Thomas Luebking\, Hugo Pereira Da Costa\, Matthew Woehlke, Nuno Pinheiro\, Casper Boemann\, Riccardo Iaconelli\, Uynh Huu Long\, Thomas Luebking\, Hugo Pereira Da Costa\, Matthew Woehlke: |{Nuno Pinheiro}\, |{Casper Boemann}\, |{Riccardo Iaconelli}\, |{Huỳnh Hữu Long}\, |{Thomas Lübking}\, |{Hugo Pereira Da Costa}\, |{Matthew Woehlke}
 Nuno Pinheiro & Vlad Gerasimov: |{Nuno Pinheiro} и |{Vlad Gerasimov}
 Olaf Schmidt: |{Olaf Jan Schmidt}
 Olivier Goffart\, Charles Connell\, with thanks to Felix Tiede: |{Olivier Goffart}\, |{Charles Connell}\, уз захвалнице |{Felix Tiede~д}
+~x x Onur Hayri Bakici: |{Onur Hayri Bakıcı}
 Park "segfault" J. K.: |{Park Joon-Kyu}
 Park "segfault" Joon-Kyu: |{Park Joon-Kyu}
 ~x x Petri.Damstén: |{Petri Damstén}
 Reneato Zanotti: |{Renato Zanotti}
 Riccardo Iaconelli\, Sven Burmeister: |{Riccardo Iaconelli}\, |{Sven Burmeister}
+Rich Moore: |{Richard Moore}
+Rich Moore and George Staikos: |{Richard Moore} и |{George Staikos}
 Richard J. Moore: |{Richard Moore}
 Richard Moore\, Andreas Schlapbach: |{Richard Moore}\, |{Andreas Schlapbach}
+Rivo Laks & Lucas Murray: |{Rivo Laks} и |{Lucas Murray}
+Rob Muller (kdetv port by Dirk Ziegelmeier): |{Rob Muller} (на |kdetv~а пренео |{Dirk Ziegelmeier~н})
 ~x x Sebastian Trueg: |{Sebastian Trüg}
+Sandro Andrade: |{Sandro Santos Andrade}
+Schutz sacha: |{Sacha Schutz}
 siraj: |{Siraj Razick}
 The Kafka Team\, Andreas Schlapbach: |{The Kafka Team}\, |{Andreas Schlapbach}
+The Plasma Team\, Perl translation by Chris Burel: |{The Plasma Team}\, на |Perl~а превео |{Chris Burel~н}
 Tigert: |{Tuomas Kuosmanen}
+Till Adam\, Thomas Moenicke: |{Till Adam}\, |{Thomas Mönicke}
+TM (kdetv port by Dirk Ziegelmeier): ТМ|- (на |kdetv~а пренео |{Dirk Ziegelmeier~н})
+Tom Barry (kdetv port by Dirk Ziegelmeier): |{Tom Barry} (на |kdetv~а пренео |{Dirk Ziegelmeier~н})
 ~x x Tobias Koenig: |{Tobias König}
+US Department of Agriculture: Министарств|о пољопривреде САД, _род!=м
 ~x x Wojciech Mis: |{Wojciech Miś}
 zack: |{Zack Rusin}
 
@@ -60,6 +99,7 @@ Kopete Developers: програмер|и- |Kopete~г
 Plasma Team: |{The Plasma Team}
 The Akonadi Team: тим| |Akonadi~г
 The Kafka Team: тим| |Kafka~г
+The KSpread Team: тим| |KSpread~г
 The KTimeTracker Team: тим| |KTimeTracker~г
 The Oxygen Project: пројек|ат |Oxygen~н
 The Plasma Team: тим| |Plasma~г
