@@ -5,7 +5,7 @@
 include file="puretext.filters"
 
 {\baccount}i
-id="account"
+id="t-account"
 hint="account = налог"
 valid before="ing" # рачуновођство
 valid after=~(takes|taken|taking|took)( \w[\w'"/-]*)* into ~ # „узети у обзир“
@@ -13,81 +13,81 @@ valid msgstr="\bнало(г|зи)"
 valid cat="khelpcenter_support" msgid="Account-Nr" msgstr="Account-Nr"
 
 {\badd-?on}i
-id="addon"
+id="t-addon"
 hint="addon = додатак"
 valid msgstr="\bдода(так|тк|ц)"
 
 {\bbookmark}i
-id="bookmark"
+id="t-bookmark"
 hint="bookmark = обележивач"
 valid msgstr="\bобележ(и|ен|авањ)"
 valid env="kde" msgstr="&\w*bookmark\S*;"
 
 {\bborder}i
-id="border"
+id="t-border"
 hint="border = ивица"
 valid msgstr="\bо?иви[цч]"
 valid cat="kate,katepart4,kwrite" after="icon " msgstr="појас\w* икон"
 
 {\bcells?\b}i
-id="cell"
+id="t-cell"
 hint="cell = ћелија"
 valid before=" ?phon"
 valid msgstr="\bћелиј"
 
 {\bcertificate}i
-id="certificate"
+id="t-certificate"
 hint="certificate = сертификат"
 valid msgstr="\bсертификат"
 valid cat="kdeqt" msgid="does not certificate" msgstr="не оверава"
 
 {\bcharacter}i
-id="character"
+id="t-character"
 hint="character = знак"
 valid msgstr="\bзнак"
 valid env="kde" !msgstr="\bзнац"
 
 {\bcharacter}i
-id="character2"
+id="t-character2"
 hint="character = знаковни"
 disabled
 
 {\bcheck ?box}i
-id="checkbox"
+id="t-checkbox"
 hint="checkbox|check box = кућица"
 valid msgstr="\bкућиц"
 
 {\bclient}i
-id="client"
+id="t-client"
 hint="client = клијент"
 valid msgstr="\bклијена?т"
 valid env="kde" msgstr="&\w*client\S*;"
 
 {\bcolumn}i
-id="column"
+id="t-column"
 hint="column = колона"
 valid msgstr="\bколон"
 valid cat="plasmaengineexplorer" msgstr="^све видљиве$"
 
 {\bcolumn}i
-id="column_page"
+id="t-column_page"
 hint="column = колона"
 disabled
 
 {\bcommand[ -]?line}i
-id="commandline"
+id="t-commandline"
 hint="command line = командна линија"
 valid msgstr="\bкомандн\w+ линиј"
 valid env="kde" msgstr="command[ -]?line"
 valid env="kde" msgstr="команднолинијск"
 
 {\bcomputer}i
-id="computer"
+id="t-computer"
 hint="computer = рачунар"
 valid !msgstr="компјутер"
 
 {\bconfigured?}i
-id="configure"
+id="t-configure"
 hint="configure = подесити"
 valid msgid="configured?( *\S+){,2} settings"
 valid msgstr="\bподе[сш]"
@@ -103,7 +103,7 @@ valid cat="kate" msgid="configured\s*for the document type"
 # каталога, нек пропушта неке типичне комбинације где је показивач
 # (нпр. /mouse cursor/), а обара када случај није изричито дат као исправан.
 {\bcursor}i
-id="cursor"
+id="t-cursor"
 hint="cursor = курсор"
 valid !cat="kwrite,kcontrol_kcmkonsole" !catrx="^kate|konsole|okteta|kasten|ktexteditor"
 valid after="mouse " msgstr="\bпоказивач"
@@ -111,12 +111,12 @@ valid before=" theme" msgstr="\bпоказивач" !msgstr="показивач�
 valid msgstr="\bкурсор"
 
 {customize}i
-id="customize"
+id="t-customize"
 hint="customize = прилагодити"
 valid msgstr="прилаго[дђ]" !msgstr="прилагодив"
 
 {\bcut(s|ting)?\b}i
-id="cut"
+id="t-cut"
 hint="cut = исећи"
 valid span="cutting" before=" edge"
 valid msgstr="\bисе[кцчћ]"
@@ -125,7 +125,7 @@ valid cat="dolphin" msgid="ctrl.*\bc\b.*cut" msgstr="copy"
 valid cat="dolphin" msgid="provide short cuts"
 
 {\bdefault}i
-id="default"
+id="t-default"
 hint="default = подразумеван"
 valid msgstr="\b(не)?подразумева"
 valid msgstr="\bподраз\." # скр.
@@ -144,23 +144,23 @@ valid cat="khelpcenter_contact,khelpcenter_help" msgid="default welcome page" ms
 valid cat="dolphin" msgid="By default Dolphin sets bookmarks for;"
 
 {\bfolder}i
-id="directory"
+id="t-directory"
 hint="folder = фасцикла"
 valid !msgstr="директориј|омотниц"
 
 {\bdownload}i
-id="download"
+id="t-download"
 hint="download = преузети"
 valid msgstr="\b(не)?преуз(е|м|им|имањ)"
 valid cat="kioclient" msgid="kioclient download"
 
 {\bdownload}i
-id="download2"
+id="t-download2"
 hint="download = преузимање"
 disabled
 
 {\beditor}i
-id="editor"
+id="t-editor"
 hint="editor = уређивач"
 valid msgstr="\bуређива" !msgstr="уређивачом"
 valid env="kde" msgstr="&\w*editor\S*;"
@@ -168,7 +168,7 @@ valid env="kde" msgid="Kate text editor" !msgstr="уредник|едитор"
 valid cat="lokalize" msgid="the editors" msgstr="уредниц"
 
 {\bemail}i
-id="email"
+id="t-email"
 hint="email = е-пошта"
 valid msgstr="\bе[‑-]пошт"
 valid before="s"
@@ -182,68 +182,68 @@ valid cat="sonnet" msgid="accept email-style" msgstr="из нужде"
 valid cat="khelpcenter_contact" msgid="email list"
 
 {\bencrypt}i
-id="encrypt"
+id="t-encrypt"
 hint="encrypt = шифровати"
 valid msgstr="\bшифр(ова|уј|арск)"
 
 {\bencryption}i
-id="encryption2"
+id="t-encryption2"
 hint="encryption = шифрарски"
 valid msgstr="\bшифр(арск|ова)"
 valid cat="knetattach" msgid="^use encryption" msgstr="^шифруј"
 
 {\bfile}i
-id="file"
+id="t-file"
 hint="file = датотека"
 valid !msgstr="\bфајл"
 
 {\bfile ?names?\b}i
-id="filename"
+id="t-filename"
 hint="filename = име датотеке"
 valid msgstr="\bиме\w* .*\bдатоте|датоте\w* .*\bиме" !msgstr="датотеч\w+ име"
 
 {\bfooter}i
-id="footer"
+id="t-footer"
 hint="footer = подножје"
 valid msgstr="\bподнож[јн]"
 
 # Покрива и force и force2.
 # Делимична провера, не може се разликовати ван контекста.
 {\bforce}i
-id="force"
+id="t-force"
 hint="force = приморати [или ‘наметнути’, ‘принудити’]"
 valid msgstr="\bпримора|\bнаме[тћ]|\bприну[дђ]"
 valid cat="khotkeys" msgid="force a restart" msgstr="сами .* из почетка"
 
 {\bforce}i
-id="force2"
+id="t-force2"
 hint="force = наметнути"
 disabled
 
 {\bgames?\b}i
-id="game"
+id="t-game"
 hint="game = игра [можда: партија, позиција]"
 valid before="play" # на gameplay
 valid msgstr="\b(игр|игара|партиј|позициј)" !msgstr="\bигриц"
 
 {\bgames?\b}i
-id="game2"
+id="t-game2"
 hint="game = партија"
 disabled # на game
 
 {\bgames?\b}i
-id="game3"
+id="t-game3"
 hint="game|saved game = позиција"
 valid !after="(load|save)(s|ed|ing)?( \w+)?" !before=" (saved|loaded)" # na game
 valid msgstr="\bпозициј"
 
 {\bgamer}i
-id="gamer"
+id="t-gamer"
 hint="gamer = играч"
 valid msgstr="\bиграч"
 
 {\bhardware}i
-id="hardware"
+id="t-hardware"
 hint="hardware = хардвер"
 valid msgstr="\bхардвер"
 valid cat="kcminfo" msgstr="подсист.{,9}рачунар"
@@ -251,27 +251,27 @@ valid cat="solid-hardware" msgstr="solid-hardware"
 valid env="kde" msgstr="&\w*hardware\w*-\S*;"
 
 {\bheader}i
-id="header"
+id="t-header"
 hint="header = заглавље"
 valid msgstr="\bзаглав[љн]"
 
 {\bheader}i
-id="header2"
+id="t-header2"
 hint="header = заглавље"
 disabled
 
 {\bheader}i
-id="header3"
+id="t-header3"
 hint="header = заглавље"
 disabled
 
 {\bheader}i
-id="header4"
+id="t-header4"
 hint="header = заглавље"
 disabled
 
 {\bhighlight}i
-id="highlight"
+id="t-highlight"
 hint="highlight = истакнути"
 valid before="er" # проследи на highlighter
 valid msgstr="\bиста(кн|ћи)"
@@ -281,7 +281,7 @@ valid msgstr="--highlight"
 valid after="non\W?" msgstr="\bнеистакн"
 
 {\b(user )?interfaces?}i
-id="interface"
+id="t-interface"
 hint="interface|user interface = корисничко сучеље|сучеље"
 valid env="kde" # на interface2
 valid after="(programming|network|hardware) " # на interface2
@@ -289,25 +289,25 @@ valid msgstr="\bсуче(љ|он)"
 valid env="kde" msgstr="&\w*interface\S*;"
 
 {\blabel}i
-id="label"
+id="t-label"
 hint="label = ознака"
 valid msgstr="\bознак"
 valid msgstr="\bознач"
 
 {\bleft\W?click}i
-id="leftclick2"
+id="t-leftclick2"
 hint="left click = леви клик"
 valid msgstr="\bлев\w+ клик"
 valid env="kde" msgstr="\bклик[нћ]\w+ левим"
 
 #! зезнут
 {\blist}i
-id="list2"
+id="t-list2"
 hint="list = листа"
 disabled
 
 {\blog\b}i
-id="log"
+id="t-log"
 hint="log = дневник"
 valid before=" ?(in|into|out|off|on)\b"
 valid msgstr="\bдневни[чк]"
@@ -316,7 +316,7 @@ valid msgstr="\b(за)?беле[шж]"
 valid msgstr="\b(за)?пи(са|ше)"
 
 {\blog(s|ged|ging)? ?(in|on)\b}i
-id="login"
+id="t-login"
 hint="log in = пријавити (се)"
 valid msgstr="\bпријав[аеиоунљ]"
 valid env="kde" msgstr="\blog ?in\b"
@@ -324,35 +324,35 @@ valid env="kde" msgstr="\bсамопријав"
 valid cat="ksysguard" msgid="shell to login to the remote host" msgstr="веза са удаљеним домаћином преко"
 
 {\blogin}i
-id="login2"
+id="t-login2"
 hint="login = пријавни"
 disabled
 
 {\blogin screen}i
-id="loginscreen"
+id="t-loginscreen"
 hint="login screen = пријавни екран"
 valid msgstr="\bпријавн\w+ екран"
 
 {\blog(s|ged|ging)? ?(out|off)\b}i
-id="logout"
+id="t-logout"
 hint="log out = одјавити (се)"
 valid msgstr="\bодјав[аеиоунљ]"
 valid env="kde" msgstr="log ?(out|off)\b"
 valid cat="kcmlocale" msgid="you will have to logout first" msgstr="пошто се следећи пут пријавите"
 
 {\blogout}i
-id="logout2"
+id="t-logout2"
 hint="logout = одјавни"
 disabled
 
 {\bmiddle\W?click}i
-id="middleclick2"
+id="t-middleclick2"
 hint="middle click = средњи клик"
 valid msgstr="\bсредњ\w+ клик"
 valid env="kde" msgstr="\bклик[нћ]\w+ средњим"
 
 {\bnetwork}i
-id="network"
+id="t-network"
 hint="network = мрежа"
 valid msgstr="\bу?мреж"
 valid env="kde" msgstr="&\w*network\S*;"
@@ -360,13 +360,13 @@ valid cat="desktop_kdebase" msgid="GNU Network Object Model Environment"
 valid cat="solid-network" msgid="solid-network"
 
 {\boblique}i
-id="oblique"
+id="t-oblique"
 hint="oblique = искошен"
 valid msgstr="\bискошен"
 valid env="kde" msgstr="&oblique\S*;"
 
 {\bpanel}i
-id="panel"
+id="t-panel"
 hint="panel = панел"
 valid msgstr="\bпанел"
 valid env="kde" msgstr="&\w*panel\S*;"
@@ -374,36 +374,36 @@ valid env="kde" msgid="control.*module" msgstr="контролн\w+ модул|�
 valid cat="dolphin" msgid="^This panel opens" msgstr="^Отвара"
 
 {\bpass\W?phrase}i
-id="passphrase"
+id="t-passphrase"
 hint="passphrase = лозинка"
 valid msgstr="\bлозинк"
 
 {\bpass\W?word}i
-id="password"
+id="t-password"
 hint="password = лозинка"
 valid msgstr="\bлозинк"
 valid before="@" msgstr="lozinka@"
 
 {\bpointer}i
-id="pointer2"
+id="t-pointer2"
 hint="pointer = показивач"
 valid msgstr="\bпоказивач" !msgstr="показивачом"
 valid env="kde" msgstr="&\w*pointer\w*-\S*;"
 
 {\bpointer}i
 hint="pointer = показивач"
-id="pointer3"
+id="t-pointer3"
 disabled
 
 {\breader}i
-id="reader"
+id="t-reader"
 hint="reader = читач"
 valid msgstr="\bчитач" !msgstr="читачом"
 valid msgstr="\bчита(лац|о[цч])"
 valid env="kde" msgstr="&\w*reader\S*;"
 
 {\brenam(e[sd]?|ing)\b}i
-id="rename"
+id="t-rename"
 hint="rename = преименовати"
 valid msgstr="\bпреиме[нњ]"
 valid msgstr="\bмењам? име|промен\w+ имена" # изузеци где је раздвојени облик понекад згоднији
@@ -411,13 +411,13 @@ valid cat="kcmkio" msgid="\.part"
 valid cat="dolphin" msgid="(e.g.|eg).*Undo\W*rename"
 
 {\bright\W?click}i
-id="rightclick2"
+id="t-rightclick2"
 hint="right click = десни клик"
 valid msgstr="\bдесн\w+ клик"
 valid env="kde" msgstr="\bклик[нћ]\w+ десним"
 
 {\bsav(e[ds]?|ing)\b}i
-id="save"
+id="t-save"
 hint="save = сачувати"
 valid after="power "
 valid before=" (space|time|up to)"
@@ -437,12 +437,12 @@ valid cat="userguide_programs-and-documents" msgid="save screen space" msgstr="\
 
 # Све провере на save.
 {\bsaving}i
-id="saving"
+id="t-saving"
 hint="saving = чување"
 disabled
 
 {\bserver}i
-id="server"
+id="t-server"
 hint="server = сервер"
 valid after="proxy " # на proxyserver
 valid before="-?less" # на serverless
@@ -452,20 +452,20 @@ valid cat="nepomuk" msgid="^Nepomuk Server -" !msgstr=" [-—]"
 valid cat="libplasmaweather" msgstr="метеосервер"
 
 {\bshortcut}i
-id="shortcut"
+id="t-shortcut"
 hint="shortcut = пречица"
 valid msgstr="\bпречиц"
 valid env="kde" msgstr="&\w*shortcut\S*;"
 
 {\bsoftware}i
-id="software"
+id="t-software"
 hint="software = софтвер"
 valid env="kde" msgstr="&\w*software\S*;"
 valid msgstr="\bсофтвер"
 valid msgstr="\bпрограм"
 
 {\bspaces?\b}i
-id="space"
+id="t-space"
 hint="space = размак [одн. простор ако се не ради о тастеру/знаку]"
 # који спадају под ‘простор’:
 valid span="space\b" before=" (available|required|of|on disk|left|information)" msgstr="\bпростор"
@@ -477,12 +477,12 @@ valid env="kde" msgstr="\bspace(key)?\b" # може и као ентитет и 
 valid cat="kcm_pci" msgid="^Space$"
 
 {\bsyntax\W?highlight}i
-id="syntaxhighlighting"
+id="t-syntaxhighlighting"
 hint="syntax highlighting = истицање синтаксе"
 valid msgstr="\bистицањ\w+ синтакс"
 
 {\btabs?\b}i
-id="tab"
+id="t-tab"
 hint="tab = језичак"
 valid msgstr="\bјезич[акц]|\bтабулатор"
 valid msgid="(press|pressing) &?tab|(tab|&tab;) key|alt\W*tab|ctrl\W*tab|shift\W*tab"
@@ -495,7 +495,7 @@ valid cat="konsole" msgid="^Tab bar display:$" msgstr="^Приказ:$"
 valid cat="konsole" msgid="^Tab bar position:$" msgstr="^Положај:$"
 
 {\btables?\b}i
-id="table"
+id="t-table"
 hint="table = табела"
 valid before=" of contents"
 valid msgstr="\bтабел"
@@ -504,20 +504,20 @@ valid cat="ksysguard" msgid="^Process Table$" msgstr="^Процеси$"
 valid cat="userguide_removable-disks" msgid="Process Table" msgstr="Процеси"
 
 {\btemplate}i
-id="template"
+id="t-template"
 hint="template = шаблон"
 valid msgstr="\bшаблон"
 valid env="kde" msgstr="&\w*template\S*;"
 
 {\btext\W?editor}i
-id="texteditor"
+id="t-texteditor"
 hint="text editor = уређивач текста"
 valid msgstr="\bуређива(ч(\b|[аеиу])|њ)\w*( \w+)? текста"
 valid env="kde" msgstr="&\w*texteditor\S*;"
 valid cat="desktop_kdesdk" msgid="Kate text editor" !msgstr="текст"
 
 {\bURL}i
-id="url"
+id="t-url"
 hint="URL = УРЛ"
 valid !env="kde" msgstr="\bУРЛ"
 valid env="kde" msgstr="&url\S*;"
@@ -528,7 +528,7 @@ valid cat="kcmkonqhtml" msgid="URLs of hyperlinks" msgstr="одредиш.{,}х�
 valid cat="khelpcenter_contact" msgid="url;"
 
 {^View$}
-id="view_menu"
+id="t-view_menu"
 hint="View = Приказ"
 valid msgstr="^Приказ$"
 valid cat="kcmcolors" msgstr="приказ"
@@ -536,12 +536,12 @@ valid ctx="[Aa]ction|[Ss]hortcut"
 valid comment="[Aa]ction|[Ss]hortcut"
 
 {\bwildcard}i
-id="wildcard"
+id="t-wildcard"
 hint="wildcard = џокер"
 valid msgstr="\bџокер"
 
 {\bXML\b}i
-id="xml"
+id="t-xml"
 hint="XML = XML"
 valid msgstr="\bXML"
 
