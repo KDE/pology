@@ -112,8 +112,9 @@ def main ():
         if len(free_args) < 1:
             opars.error(_("@info",
                           "Summit configuration file neither found "
-                          "in parent directories, "
-                          "nor given in command line."))
+                          "as '%(cfgfile)s' in parent directories, "
+                          "nor given in command line.",
+                          cfgfile="summit-config"))
         cfgpath = free_args.pop(0)
         if not os.path.isfile(cfgpath):
             error(_("@info",
@@ -1608,17 +1609,15 @@ def summit_gather_single_bcat (branch_id, branch_cat, is_primary,
             continue
 
         # Normalizations when gathering templates,
-        # in case extraction tool needs to have its sanity checked.
+        # in case extraction tool needs to have its sanity checked,
+        # or certain language files stand in for true templates.
         if project.lang == project.templates_lang:
-            # There should be no manual comments,
-            # convert them to automatic if present.
-            if msg.manual_comment:
-                for cmnt in msg.manual_comment:
-                    msg.auto_comment.append(cmnt)
-                msg.manual_comment = type(msg.manual_comment)()
-            # There should be no translations, discard if any.
-            for i in range(len(msg.msgstr)):
-                msg.msgstr[i] = u""
+            msg.manual_comment[:] = []
+            msg.unfuzzy()
+            if msg.msgid_plural is None:
+                msg.msgstr[:] = [u""]
+            else:
+                msg.msgstr[:] = [u"", u""]
 
         # Construct branch message with extended key.
         xkmsg = extkey_msg(msg)
