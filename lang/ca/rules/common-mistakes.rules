@@ -26,6 +26,10 @@ hint="«al respecte» s'ha de substituir per «referent a això» (error freqüe
 [\ba\sno\sser\sque\b]i
 hint="«a no ser que» s'ha de substituir per «llevat que», «fora que» etc. (error freqüent)"
 
+# «califica» ha de ser «qualifica».
+[\bcalifi]i
+hint="«califica» s'ha de substituir per «qualifica» (error freqüent)"
+
 # «cero» ha de ser «zero».
 [\bceros?\b]i
 hint="«cero» s'ha de substituir per «zero» (error freqüent)"

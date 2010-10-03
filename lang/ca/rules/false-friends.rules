@@ -22,11 +22,7 @@ hint="«Absolutelly» es tradueix per «Completament», no per «Absolutament» 
 # «Abstract» es tradueix per «Resum».
 {\babstracts?\b}i
 valid msgstr="resums?"
-valid msgstr="abstract(e|a)" cat="kdevphp"
-valid msgstr="abstract(e|a)" cat="kdevplatform"
-valid msgstr="abstracte" cat="kdeqt"
-valid msgstr="abstract(e|a)" cat="desktop_kdegames"
-valid msgstr="abstract(e|a)" cat="umbrello"
+valid msgstr="abstract(e|a)" cat="kdevphp,kdevplatform,kdeqt,desktop_kdegames,umbrello"
 valid msgstr="abstract(e|a|es)" cat="umbrello_uml_basics" #docmessage
 valid !msgstr="abstract(e|a|es)"
 hint="«Abstract» es tradueix per «Resum», no per «Abstracte» (fals amic)"
@@ -149,12 +145,11 @@ valid !msgstr="carbó"
 hint="«Carbon» es tradueix per «Carboni», no per «Carbó» (fals amic)"
 
 # «Card» es tradueix per «Targeta».
-{\bcard\b}i
-valid msgstr="targeta"
-valid msgstr="carta" cat="desktop_kdegames"
-valid msgstr="carta" cat="kpoker"
-valid msgstr="carta" cat="lskat"
-valid !msgstr="carta"
+{\bcards?\b}i
+valid msgstr="target(a|es)"
+valid msgstr="cart(a|es)" cat="desktop_kdegames,kpoker,lskat,kpat"
+valid msgstr="cartes" cat="desktop_kdebase" before="\sgames"
+valid !msgstr="cart(a|es)"
 hint="«Card» es tradueix per «Targeta», no per «Carta» (fals amic)"
 
 # «Career» es tradueix per «Professió».
@@ -577,10 +572,7 @@ hint="«Lyrics» es tradueix per «Lletra», no per «Lírica» (fals amic)"
 # «Net» es tradueix per «Xarxa».
 {\bnet\b}i
 valid msgstr="xarxa"
-valid msgstr=".net" cat="desktop_extragear-sdk_kdevelop"
-valid msgstr=".net" cat="desktop_extragear-sdk_kdevelop-plugins" #docmessage
-valid msgstr=".net" cat="desktop_extragear-sdk_php-docs"
-valid msgstr=".net" cat="kdevphpdocs"
+valid msgstr=".net" cat="desktop_extragear-sdk_kdevelop,desktop_extragear-sdk_kdevelop-plugins,desktop_extragear-sdk_php-docs,kdevphpdocs"
 valid msgstr="net" cat="kmymoney" before="\samount" # Valor total
 valid msgstr="net" cat="kmymoney" before="\sworth"  # Valor net
 valid msgstr="net" cat="ksirk" after="@kdetalk."
@@ -589,43 +581,13 @@ valid msgstr="net" cat="kuser" before="\sgetlocalsid"
 valid msgstr="net" cat="marble" after="rotate.aprs."
 valid msgstr="net" cat="plasma_applet_pastebin" after="hosting."
 valid msgstr="net" cat="skrooge" after=">\s" # Categoria
-valid msgstr="net" cat="skrooge" after=">\s" # Categoria
-valid msgstr="net" after="@att."
-valid msgstr="net" after="@cberger."
-valid msgstr="net" after="@comcast."
-valid msgstr="net" after="@earthlink."
-valid msgstr="net" after="@example."
-valid msgstr="net" after="@frogmouth."
-valid msgstr="net" after="@gmx."
-valid msgstr="net" after="@gmx\sDOT\s"
-valid msgstr="net" after="@ibm."
-valid msgstr="net" after="@kdab."
-valid msgstr="net" after="@kdemail."
-valid msgstr="net" after="@mediaone."
-valid msgstr="net" after="@meyerhome."
-valid msgstr="net" after="@nerim."
-valid msgstr="net" after="@netscape."
-valid msgstr="net" after="@openprojects."
-valid msgstr="net" after="@pacbell."
-valid msgstr="net" after="@planete."
-valid msgstr="net" after="@telecorp."
-valid msgstr="net" after="@tuxerver."
-valid msgstr="net" after="@usa."
-valid msgstr="net" after="@users.sf."
-valid msgstr="net" after="@verticaladdiction."
-valid msgstr="net" after="darkorb\s"
-valid msgstr="net" after="eigentlich\s"
-valid msgstr="net" after="gmx\s"
-valid msgstr="net" after="irc.freenode."
-valid msgstr="net" after="kdemail\s"
-valid msgstr="net" after="keys.gnupg."
-valid msgstr="net" after="linux\sru\s"
-valid msgstr="net" after="mis\s"
+valid msgstr="net" after="@(att|cberger|comcast|earthlink|example|frogmouth|gmx|ibm|kdab|kdemail|mediaone|meyerhome|nerim|netscape|openprojects|pacbell|planete|telecorp|tuxerver|usa|users\.sf|verticaladdiction)\."
+valid msgstr="net" after="(darkorb|eigentlich|gmx|@gmx\sDOT|kdemail|linux\sru|mis|shani|tantalo)\s"
+valid msgstr="net" after="irc\.freenode\."
+valid msgstr="net" after="keys\.gnupg\."
 valid msgstr="net" after="perldoc:/"
-valid msgstr="net" after="print.sf."
-valid msgstr="net" after="shani\s"
-valid msgstr="net" after="sourceforge."
-valid msgstr="net" after="tantalo\s"
+valid msgstr="net" after="print\.sf\."
+valid msgstr="net" after="sourceforge(\.|\s)"
 valid !msgstr="net"
 hint="«Net» es tradueix per «Xarxa», no per «Net» (fals amic)"
 
