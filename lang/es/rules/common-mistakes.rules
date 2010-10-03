@@ -8,6 +8,10 @@ include file="filter.include"
 # Remove accelerator and  hyphen inside words.
 addFilterRegex match="(\&|\-)" on="pmsgid,pmsgstr"
 
+# «A el» se escribe como «Al».
+[\ba\s[eé]l\b]i
+hint="« A el » se escribe como « Al » (error frecuente)"
+
 # «API» es femenino.
 [\b(la|una|esta|esa|los|unos|estos|esos)\API\b]i
 hint="« API » es de género femenino, pero empieza por 'A' (error frecuente)"
@@ -24,7 +28,7 @@ hint="« Caché » es de género femenino (error frecuente)"
 [\b(los|unos|estos|esos)\cachés\b]i
 hint="« Cachés » es de género femenino (error frecuente)"
 
-[\bcoger\b]i
+[\bcog(er|e|a|en|an|iendo|ido)\b]i
 hint="« Coger » no se debe utilizar, tiene connotaciones sexuales en México (error frecuente)"
 
 [\bcomandos?\b]i
@@ -33,11 +37,68 @@ hint="« Command » se traduce como « Orden » o « Instrucción », nunca como
 [\bcomputador(a|es|as)?\b]i
 hint="« Computer » se traduce como « Equipo », no como « Ordenador » o « Computadora » (error frecuente)"
 
-[\bcorreos?\-e\b]i
+[\bcorreo\-e\b]i
 hint="No utilice « Correo-e » solo « Correo » a secas (error frecuente)"
+
+[\bcorreos\-e\b]i
+hint="No utilice « Correos-e » solo « Correos » a secas (error frecuente)"
+
+# «Dá» se escribe como «Da».
+[\bdá\b]i
+hint="« Dá » se escribe como « Da » (error frecuente)"
+
+# «De el» se escribe como «Del».
+[\bde\sel\b]i
+hint="« De el » se escribe como « Del » (error frecuente)"
+
+# «De gratis» se escribe como «Gratis».
+[\bde\sgratis\b]i
+hint="« De gratis » se escribe como « Gratis », sin el « de » (error frecuente)"
+
+# «Dí» se escribe como «Di».
+[\bdí\b]i
+hint="« Dí » se escribe como « Di » (error frecuente)"
+
+# «Dió» se escribe como «Dio».
+[\bdió\b]i
+hint="« Dió » se escribe como « Dio » (error frecuente)"
+
+# «Exámen» se escribe como «Examen».
+[\bexámen\b]i
+hint="« Exámen » se escribe como « Examen » (error frecuente)"
+
+# «Fé» se escribe como «Fe».
+[\bfé\b]i
+hint="« Fé » se escribe como « Fe » (error frecuente)"
+
+# «Fié» se escribe como «Fie».
+[\bfié\b]i
+hint="« Fé » se escribe como « Fie » (error frecuente)"
+
+# «Fué» se escribe como «Fue».
+[\bfué\b]i
+hint="« Fé » se escribe como « Fue » (error frecuente)"
+
+# «Fuí» se escribe como «Fui».
+[\bfuí\b]i
+hint="« Fuí » se escribe como « Fui » (error frecuente)"
+
+[\be\-?mail\b]i
+hint="No utilice « Email » sino « Correo » (error frecuente)"
+
+[\be\-?mails\b]i
+hint="No utilice « Emails » sino « Correos » (error frecuente)"
 
 [\bordenador(es)?\b]i
 hint="« Computer » se traduce como « Equipo », no como « Ordenador » o « Computadora » (error frecuente)"
+
+# «Imágen» se escribe como «Imagen».
+[\bimágen\b]i
+hint="« Imagen » se escribe como « Imagen » (error frecuente)"
+
+# «Inflacción» se escribe como «Inflación».
+[\binflacción\b]i
+hint="« Inflacción » se escribe como « Inflación » (error frecuente)"
 
 # «Interfaz» es femenino.
 [\b(el|un|este|ese)\sinterfaz\b]i
@@ -51,6 +112,14 @@ hint="« Interfaces » es de género femenino (error frecuente)"
 [\b(el|un|los|unos|estos|esos)IRQ\b]i
 hint="« IRQ » es femenino (error frecuente)"
 
+# «Jóven» se escribe como «Joven».
+[\bjóven\b]i
+hint="« Jóven » se escribe como « Joven » (error frecuente)"
+
+# «Jugar un papel» se escribe como «Representar/Desempeñar un/su papel».
+[\bjugar\sun\spapel\b]i
+hint="« Jugar un papel » se escribe como « Representar/desempeñar un/su papel » (error frecuente)"
+
 # «Macro» es femenino.
 [\b(el|uno|este|ese)\macro\b]i
 hint="« Macro » es de género femenino (error frecuente)"
@@ -59,12 +128,48 @@ hint="« Macro » es de género femenino (error frecuente)"
 [\b(los|unos|estos|esos)\cachés\b]i
 hint="« Macros » es de género femenino (error frecuente)"
 
+# «Órden» se escribe como «Orden».
+[\bórden\b]i
+hint="« Órden » se escribe como « Orden » (error frecuente)"
+
+# «Orígen» se escribe como «Origen».
+[\borígen\b]i
+hint="« Orígen » se escribe como « Origen » (error frecuente)"
+
+# «Preveer» se escribe como «Prever».
+[\bpreveer\b]i
+hint="« Preveer » se escribe como « Prever » (error frecuente)"
+
+# «Preveerse» se escribe como «Preverse».
+[\bpreveerse\b]i
+hint="« Preveerse » se escribe como « Preverse » (error frecuente)"
+
 [\bsoport(ar|e|a|an|en|ado|ada)\b]i
 hint="«Support» se traduce como  «Admitir», «Implementar», «Reconocer», «Usar» o «Apoyar», nunca como « Soportar » (error frecuente)"
+
+# «Tí» se escribe como «Ti».
+[\btí\b]i
+hint="« Tí » se escribe como « Ti » (error frecuente)"
 
 # «URL» es femenino.
 [\b(el|un|los|unos|este|ese)\surl\b]i
 hint="« URL » es de género femenino (error frecuente)"
+
+# «Vease» se escribe como «Véase».
+[\bvease\b]i
+hint="« Vease » se escribe como « Véase » (error frecuente)"
+
+# «Via» se escribe como «Vía».
+[\bvia\b]i
+hint="« Via » se escribe como « Vía » (error frecuente)"
+
+# «Ví» se escribe como «Vi».
+[\bví\b]i
+hint="« Ví » se escribe como « Vi » (error frecuente)"
+
+# «Vió» se escribe como «Vio».
+[\bvió\b]i
+hint="« Vió » se escribe como « Vio » (error frecuente)"
 
 # «Web» es femenino.
 [\b(el|un|los|unos|este|ese)\sweb\b]i

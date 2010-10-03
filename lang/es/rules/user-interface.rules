@@ -13,17 +13,18 @@ hint="« Alt » se traduce como como « Alt » (regla de traducción de nombres 
 
 # «Backspace» se traduce como «Retroceso» (regla de traducción de nombres de teclas).
 {\bBackspace\b}
-valid msgstr="Retroceso"
+valid msgstr="[Rr]etroceso"
 hint="« Backspace » se traduce como como « Retroceso » (regla de traducción de nombres de teclas)"
 
 # «Caps Lock» se traduce como «Bloq Mayús» (regla de traducción de nombres de teclas).
 {\bCaps\sLock\b}
-valid msgstr="Bloq\sMayús"
-hint="« Caps Loack » se traduce como como « Bloq Mayús » (regla de traducción de nombres de teclas)"
+valid msgstr="Bloq\s?Mayús"
+hint="« Caps Lock » se traduce como como « Bloq Mayús » (regla de traducción de nombres de teclas)"
 
 # «Ctrl» se traduce como «Ctrl» (regla de traducción de nombres de teclas).
 {\bCtrl\b}
 valid msgstr="Ctrl"
+valid msgstr="Control"
 hint="« Ctrl » se traduce como como « Ctrl » (regla de traducción de nombres de teclas)"
 
 # «Del» se traduce como «Supr» (regla de traducción de nombres de teclas).
@@ -33,7 +34,7 @@ hint="« Del » se traduce como como « Supr » (regla de traducción de nombres
 
 ## «End» se traduce como «Fin» (regla de traducción de nombres de teclas).
 #{\bEnd\b}
-#valid msgstr="Fin"
+#valid msgstr="[Ff]in"
 #hint="« End » se traduce como como « Fin » (regla de traducción de nombres de teclas)"
 
 ## «Enter» se traduce como «Intro» (regla de traducción de nombres de teclas).
@@ -49,16 +50,17 @@ hint="« Esc » se traduce como como « Esc » (regla de traducción de nombres 
 # «Ins» se traduce como «Ins» (regla de traducción de nombres de teclas).
 {\bIns\b}
 valid msgstr="Ins"
+valid msgstr="Insert"
 hint="« Ins » se traduce como como « Ins » (regla de traducción de nombres de teclas)"
 
 # «Num Lock» se traduce como «Block Num» (regla de traducción de nombres de teclas).
 {\bNum\sLock\b}
-valid msgstr="Bloq\sNum"
+valid msgstr="Bloq\s?Num"
 hint="« Num Lock » se traduce como como « Bloq Num » (regla de traducción de nombres de teclas)"
 
 # «Pause» se traduce como «Pausa» (regla de traducción de nombres de teclas).
 {\bPause\b}
-valid msgstr="Pausa"
+valid msgstr="[Pp]ausa"
 hint="« Pause » se traduce como como « Pausa » (regla de traducción de nombres de teclas)"
 
 # «PgDn» se traduce como «Re Pag» (regla de traducción de nombres de teclas).
@@ -78,7 +80,7 @@ hint="« Print Screen » se traduce como como « Impr Pant » (regla de traducci
 
 # «Scroll Lock» se traduce como «Bloq Desp» (regla de traducción de nombres de teclas).
 {\bScroll\s?Lock\b}
-valid msgstr="Bloq\s?Desp"
+valid msgstr="Bloq\s?Despl?"
 hint="« Scroll Lock » se traduce como como « Bloq Desp » (regla de traducción de nombres de teclas)"
 
 # «Shift» se traduce como «Mayús» (regla de traducción de nombres de teclas).
@@ -88,7 +90,7 @@ hint="« Shift » se traduce como como « Mayus » (regla de traducción de nomb
 
 # «SysReq» se traduce como «Pet Sys» (regla de traducción de nombres de teclas).
 {\bSys\s?Req\b}
-valid msgstr="Pet\s?Sys"
+valid msgstr="Pet\s?Sis"
 hint="« SysReq » se traduce como como « Pet Sys » (regla de traducción de nombres de teclas)"
 
 # «Spacebar» se traduce como «Barra espaciadora» (regla de traducción de nombres de teclas).
@@ -100,5 +102,285 @@ hint="« Spacebar » se traduce como como « Barra espaciadora » (regla de trad
 #{\bTab\b}
 #valid msgstr="Tab"
 #hint="« Tab » se traduce como como « Tab » (regla de traducción de nombres de teclas)"
+
+# Menús de KDE
+
+# Menú Archivo
+
+# «New» se traduce como «Nuevo».
+{^New$}
+valid msgstr="Nuevo"
+hint="« New » se traduce como como « Nuevo » (regla de traducción de menús de KDE)"
+
+# «New file» se traduce como «Nuevo archivo».
+{^New file$}
+valid msgstr="Nuevo archivo"
+hint="« New file » se traduce como como « Nuevo archivo» (regla de traducción de menús de KDE)"
+
+# «From template» se traduce como «Desde plantilla».
+{^From template$}
+valid msgstr="Desde plantilla"
+hint="« From template » se traduce como como « Desde plantilla » (regla de traducción de menús de KDE)"
+
+# «New from template» se traduce como «Nuevo desde plantilla».
+{^New from template$}
+valid msgstr="Nuevo desde plantilla"
+hint="« From template » se traduce como como « Desde plantilla » (regla de traducción de menús de KDE)"
+
+# «Open...» se traduce como «Abrir...».
+{^Open\s?\.\.\.$}
+valid msgstr="Abrir\.\.\."
+hint="« Open... » se traduce como como « Abrir... » (regla de traducción de menús de KDE)"
+
+# «Open file» se traduce como «Abrir archivo».
+{^Open file$}
+valid msgstr="Abrir archivo"
+hint="« Open file » se traduce como como « Abrir archivo » (regla de traducción de menús de KDE)"
+
+# «Close» se traduce como «Cerrar».
+{^Close$}
+valid msgstr="Cerrar"
+hint="« Close » se traduce como como « Cerrar » (regla de traducción de menús de KDE)"
+
+# «Close file» se traduce como «Cerrar archivo».
+{^Close file$}
+valid msgstr="Cerrar archivo"
+hint="« Close file » se traduce como como « Cerrar archivo » (regla de traducción de menús de KDE)"
+
+# «Save» se traduce como «Guardar».
+{^Save$}
+valid msgstr="Guardar"
+hint="« Save » se traduce como como « Guardar » (regla de traducción de menús de KDE)"
+
+# «Save as...» se traduce como «Guardar como...».
+{^Save as\s?\.\.\.$}
+valid msgstr="Guardar como\.\.\."
+hint="« Save as...» se traduce como como « Guardar como...» (regla de traducción de menús de KDE)"
+
+# «Save all» se traduce como «Guardar todo».
+{^Save all$}
+valid msgstr="Guardar todo"
+hint="« Save all » se traduce como como « Guardar todo » (regla de traducción de menús de KDE)"
+
+# «Recent» se traduce como «Reciente».
+{^Recent$}
+valid msgstr="Reciente"
+hint="« Recent » se traduce como como « Reciente » (regla de traducción de menús de KDE)"
+
+# «Open recent» se traduce como «Abrir reciente».
+{^Open recent$}
+valid msgstr="Abrir reciente"
+hint="« Open recent » se traduce como como « Abrir reciente » (regla de traducción de menús de KDE)"
+
+# «Import» se traduce como «Importar».
+{^Import$}
+valid msgstr="Importar"
+hint="« Import » se traduce como como « Importar » (regla de traducción de menús de KDE)"
+
+# «Export» se traduce como «Exportar».
+{^Export$}
+valid msgstr="Exportar"
+hint="« Export » se traduce como como « Exportar » (regla de traducción de menús de KDE)"
+
+# «Print» se traduce como «Imprimir».
+{^Print$}
+valid msgstr="Imprimir"
+hint="« Print » se traduce como como « Imprimir » (regla de traducción de menús de KDE)"
+
+# «Print setup...» se traduce como «Configuración de impresión...».
+{^Print setup\s?\.\.\.$}
+valid msgstr="Configuración de impresión\.\.\."
+hint="« Print setup... » se traduce como como « Configuración de impresión... » (regla de traducción de menús de KDE)"
+
+# «Exit» se traduce como «Salir».
+{^Exit$}
+valid msgstr="Salir"
+hint="« Exit » se traduce como como « Salir » (regla de traducción de menús de KDE)"
+
+# «Quit» se traduce como «Salir».
+{^Quit$}
+valid msgstr="Salir"
+hint="« Exit » se traduce como como « Salir » (regla de traducción de menús de KDE)"
+
+# Menú Editar
+
+# «Clear» se traduce como «Borrar».
+{^Clear$}
+valid msgstr="Borrar"
+hint="« Clear » se traduce como como « Borrar » (regla de traducción de menús de KDE)"
+
+# «Cut» se traduce como «Cortar».
+{^Cut$}
+valid msgstr="Cortar"
+hint="« Cut » se traduce como como « Cortar » (regla de traducción de menús de KDE)"
+
+# «Copy» se traduce como «Copiar».
+{^Copy$}
+valid msgstr="Copiar"
+hint="« Copy » se traduce como como « Copiar » (regla de traducción de menús de KDE)"
+
+# «Paste» se traduce como «Pegar».
+{^Paste$}
+valid msgstr="Pegar"
+hint="« Paste » se traduce como como « Pegar » (regla de traducción de menús de KDE)"
+
+# «Go to line...» se traduce como «Ir a la línea...».
+{^Go to line\s?\.\.\.$}
+valid msgstr="Ir a la línea\.\.\."
+hint="« Go to line... » se traduce como como « Ir a la línea... » (regla de traducción de menús de KDE)"
+
+# «Indent» se traduce como «Sangrar».
+{^Indent$}
+valid msgstr="Sangrar"
+hint="« Indent » se traduce como como « Sangrar » (regla de traducción de menús de KDE)"
+
+# «Insert file» se traduce como «Insertar archivo».
+{^Insert file$}
+valid msgstr="Insertar archivo"
+hint="« Insert file » se traduce como como « Insertar archivo » (regla de traducción de menús de KDE)"
+
+# «Invert selection» se traduce como «Invertir selección».
+{^Invert selection$}
+valid msgstr="Invertir selección"
+hint="« Invert selection » se traduce como como « Invertir selección » (regla de traducción de menús de KDE)"
+
+# «Replace» se traduce como «Reemplazar».
+{^Replace$}
+valid msgstr="Reemplazar"
+hint="« Replace » se traduce como como « Reemplazar » (regla de traducción de menús de KDE)"
+
+# «Search» se traduce como «Buscar».
+{^Search$}
+valid msgstr="Buscar"
+hint="« Search » se traduce como como « Buscar » (regla de traducción de menús de KDE)"
+
+# «Search again» se traduce como «Repetir búsqueda».
+{^Search again$}
+valid msgstr="Repetir búsqueda"
+hint="« Search again » se traduce como como « Repetir búsqueda » (regla de traducción de menús de KDE)"
+
+# «Select» se traduce como «Seleccionar».
+{^Select$}
+valid msgstr="Seleccionar"
+hint="« Select » se traduce como como « Seleccionar » (regla de traducción de menús de KDE)"
+
+# «Select all» se traduce como «Seleccionar todo».
+{^Select all$}
+valid msgstr="Seleccionar todo"
+hint="« Select all » se traduce como como « Seleccionar todo » (regla de traducción de menús de KDE)"
+
+# «Unselect all» se traduce como «Deseleccionar todo».
+{^Unselect all$}
+valid msgstr="Deseleccionar todo"
+hint="« Unselect all » se traduce como como « Deseleccionar todo » (regla de traducción de menús de KDE)"
+
+# «Spellchecker» se traduce como «Corrector ortográfico».
+{^Spellchecker$}
+valid msgstr="Corrector ortográfico"
+hint="« Spellcheckerr » se traduce como como « Corrector ortográfico » (regla de traducción de menús de KDE)"
+
+# «Undo» se traduce como «Deshacer».
+{^Undo$}
+valid msgstr="Deshacer"
+hint="« Undo » se traduce como como « Deshacer » (regla de traducción de menús de KDE)"
+
+# «Redo» se traduce como «Rehacer».
+{^Redo$}
+valid msgstr="Rehacer"
+hint="« Redo » se traduce como como « Rehacer » (regla de traducción de menús de KDE)"
+
+
+# Menú Ver 
+
+# «Collapse tree view» se traduce como «Contraer vista de árbol».
+{^Collapse tree view$}
+valid msgstr="Contraer vista de árbol"
+hint="« Collapse tree view » se traduce como como « Contraer vista de árbol » (regla de traducción de menús de KDE)"
+
+# «Show» se traduce como «Mostrar».
+{^Show$}
+valid msgstr="Mostrar"
+hint="« Show » se traduce como como « Mostrar » (regla de traducción de menús de KDE)"
+
+# «Hide» se traduce como «Ocultar».
+{^Hide$}
+valid msgstr="Ocultar"
+hint="« Hide » se traduce como como « Ocultar » (regla de traducción de menús de KDE)"
+
+
+# Menú Preferencias/Opciones
+
+# «Edit options» se traduce como «Editar opciones».
+{^Edit options$}
+valid msgstr="Editar opciones"
+hint="« Edit options » se traduce como como « Editar opciones » (regla de traducción de menús de KDE)"
+
+# «Key bindings» se traduce como «Atajos de teclado».
+{^Key bindings$}
+valid msgstr="Atajos de teclado"
+hint="« Key bindings » se traduce como como « Atajos de teclado » (regla de traducción de menús de KDE)"
+
+# «Preferences» se traduce como «Preferencias».
+{^Preferences$}
+valid msgstr="Preferencias"
+hint="« Preferences » se traduce como como « Preferencias » (regla de traducción de menús de KDE)"
+
+# «Remove» se traduce como «Eliminar».
+{^Remove$}
+valid msgstr="Eliminar"
+hint="« Remove » se traduce como como « Eliminar » (regla de traducción de menús de KDE)"
+
+# «Delete» se traduce como «Borrar».
+{^Delete$}
+valid msgstr="Borrar"
+hint="« Delete » se traduce como como « Borrar » (regla de traducción de menús de KDE)"
+
+# «Save options» se traduce como «Guardar opciones».
+{^Save options$}
+valid msgstr="Guardar opciones"
+hint="« Save options » se traduce como como « Guardar opciones » (regla de traducción de menús de KDE)"
+
+# «Settings» se traduce como «Configuración».
+{^Settings$}
+valid msgstr="Configuración"
+hint="« Settings » se traduce como como « Configuración » (regla de traducción de menús de KDE)"
+
+# «Set up» se traduce como «Configurar».
+{^Set up$}
+valid msgstr="Configurar"
+hint="« Set up » se traduce como como « Configurar » (regla de traducción de menús de KDE)"
+
+
+# Menú Ayuda
+
+# «Contents» se traduce como «Contenido».
+{^Contents$}
+valid msgstr="Contenido"
+hint="« Contents » se traduce como como « Contenido » (regla de traducción de menús de KDE)"
+
+# «Manual» se traduce como «Manual».
+{^Manual$}
+valid msgstr="Manual"
+hint="« Manual » se traduce como como « Manual » (regla de traducción de menús de KDE)"
+
+# «Handbook» se traduce como «Manual».
+{^Handbook$}
+valid msgstr="Manual"
+hint="« Handbook » se traduce como como « Manual » (regla de traducción de menús de KDE)"
+
+# «Tip of the day» se traduce como «Consejo del día».
+{^Tip of the day$}
+valid msgstr="Consejo del día"
+hint="« Tip of the day » se traduce como como « Consejo del día » (regla de traducción de menús de KDE)"
+
+# «Hint» se traduce como «Consejo».
+{^Hint$}
+valid msgstr="Consejo"
+hint="« Hint » se traduce como como « Consejo » (regla de traducción de menús de KDE)"
+
+# «Credits» se traduce como «Créditos».
+{^Credits$}
+valid msgstr="Créditos"
+hint="« Crédits » se traduce como como « Créditos » (regla de traducción de menús de KDE)"
 
 # End of rule file

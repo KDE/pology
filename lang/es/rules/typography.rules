@@ -7,22 +7,22 @@
 include file="filter.include"
 
 validGroup beforePunctuation
-valid after="[a-zA-Z0-9ñÑçÇáéíóúÁÉÍÓÚüÜºª\>\»\)\]\}\»\%\-\&\<\^\\]"
+valid after="[\w\dñÑçÇáéíóúÁÉÍÓÚüÜºª\>\»\)\]\}\»\%\-\&\<\^\\]"
 valid before="$"
-valid after="\&[\w\-\_]*?\;"
+
 
 validGroup afterPunctuation
-valid before="[$a-zA-Z0-9ñÑçÇáéíóúÁÉÍÓÚüÜºª\>\»\(\[\{\«\%\-\&\<\^\\]"
+valid before="[$\w\dñÑçÇáéíóúÁÉÍÓÚüÜºª\>\»\(\[\{\«\%\-\&\<\^\\]"
 valid after="^"
 
 validGroup openQuotes
-valid after="[\<\>\(\[\{\-\=\.\,\;\:\s]"
-valid after="\&\w+?\;"
+valid after="[<>({=.,;:\-\[\s]"
+valid after="\&[\w\-\_]*?\;"
 valid after="^"
 valid before=".+»"
 
 validGroup closeQuotes
-valid before="[\<\>\)\]\}\-\=\.\,\;\:\s]"
+valid before="[<>)}=.,;:\-\]\s]"
 valid after="\&[\w\-\_]*?\;"
 valid before="$"
 valid after="«.+"
@@ -60,7 +60,7 @@ hint="No ponga un espacio antes del signo de punto y coma"
 
 [;\S]
 validGroup beforePunctuation
-valid after="\*\.[a-zA-Z]+" before="\*\.[a-zA-Z]+" # List of extension suffix
+valid after="\*\.\w+" before="\*\.\w+" # List of extension suffix
 valid after="center|empty|normal|pt|px|pre-wrap|\d+|[a-f]{1,2}" # CSS
 valid after="bold" before="'"   # CSS
 valid ctx="Numbers and characters"
@@ -81,7 +81,7 @@ valid span="\!$"
 hint="Ponga un espacio después del signo de cierre de admiración"
 
 [\¡]
-valid before=".*?[\!\(\{\[\«\"\']"
+valid before=".*?[!({«'\"\[]"
 hint="Cierre la admiración (deben ir emparejadas)"
 
 [\¡.*?\!\.]
@@ -104,7 +104,7 @@ valid span="\?$"
 hint="Ponga un espacio después del signo de cierre de interrogación"
 
 [\¿]
-valid before=".*?[\?\(\{\[\«\"\']"
+valid before=".*?[?({«'\"\[]"
 hint="Cierre la interrogación (deben ir emparejadas)"
 
 [\¿.*?\?\.]
@@ -122,7 +122,6 @@ hint="No ponga un espacio de separación antes del signo de coma"
 
 [\,\S]
 validGroup beforePunctuation
-#valid after="\d" before="\d" 
 valid ctx="\w+ OF TRANSLATORS"
 valid ctx="trans_comment"
 valid msgid="CREDIT_FOR_TRANSLATORS"
@@ -150,7 +149,7 @@ valid ctx="Numbers and characters"
 hint="Ponga un espacio antes del signo de comilla española de apertura"
 
 [\«]
-valid before=".*?[\»\(\{\[\«\"\']"
+valid before=".*?[»({«'\"\[]"
 hint="Cierre la comilla (deben ir emparejadas)"
 
 [\s\s+]
@@ -165,7 +164,6 @@ valid ctx="Numbers and characters"
 hint="No ponga un espacio de separación antes de un signo de porcentaje"
 
 [\s\.]
-#valid before="[A-Z]+?\b" # Keywords
 valid before="\w{2,4}\b" # Extensions
 valid before="\/\w+" # Files
 hint="No ponga espacios antes de un signo de punto"
@@ -183,8 +181,8 @@ valid ctx="EMAIL OF TRANSLATORS"
 valid ctx="trans_comment"
 valid ctx="Numbers and characters"
 valid msgid="CREDIT_FOR_TRANSLATORS"
-valid span="\.[A-Za-z]" before="\w{1,3}" # Extensions
-valid span=".F" after="Last" before="m"
+valid span="\.\w" before="\w{1,3}" # Extensions
+valid span=".F" after="Last\s" before="m"
 valid after="\.\." 
 valid span="\.\." before="\."
 valid span="\.\." after="\."
@@ -198,20 +196,20 @@ hint="No ponga un signo de punto después de puntos suspensivos"
 [&cr;]
 hint="Àbajo MS-DOS (quite el carácter de retorno de carro)"
 
-[\S\.\s[a-zñç]]
-valid after="\." span="\.\.\s[a-zñç]"
+[\S\.\s[a-zñçáéíóú]]
+valid span="\.\.\s[a-zñçáéíóú]" after="\."
 hint="Utilice mayúsculas después de punto"
 
 [\(]
-valid before=".*?[\)\(\{\[\«\"\']"
+valid before=".*?[)({«'\"\[]"
 hint="Cierre el paréntesis (deben ir emparejados)"
 
 #[\[]
-#valid before=".*?[\]\»\"\']"
+#valid before=".*?[\]({«'\"\[]"
 #hint="Cierre el corchete (deben ir emparejados)"
 
 [\{]
-valid before=".*?[\}\{\(\[\«\"\']"
+valid before=".*?[}{(«'\"\[]"
 hint="Cierre la llave (deben ir emparejadas)"
 
 [\(c\)]
@@ -230,8 +228,8 @@ hint="Las siglas se escriben en singular en español (quite la «s» final)"
 [\b\&[\w\d\-\_]+\;\'s\b]
 hint="Las siglas se escriben en singular en español (quite la «'s» final)"
 
-[\b([A-Za-záéíóúüñçÁÉÍÓÚÑÇ])+\b\.{1,2}\b(\1)\b]
-hint="Hay una palabra consecutiva repetida en el párrafo"
+#[\b([\wáéíóúüñçÁÉÍÓÚÑÇ]+)\s+\1]
+#hint="Hay una palabra consecutiva repetida en el párrafo"
 
 [ésto\ses\s]i
 hint="Ponga una coma después de «ésto es» (Consulte ortografía de la RAE)"

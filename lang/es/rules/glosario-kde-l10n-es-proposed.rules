@@ -17,6 +17,15 @@ valid msgstr="anex(ar|a|e)"
 valid !msgstr="ata(car|ca|que)"
 hint="« Attach » se traduce como como « Adjuntar/Anexar » (propuesta glosario)"
 
+# «Attached» se traduce como «Adjuntado/Anexado».
+{\battached\b}i
+valid msgstr="adjuntad(o|a)"
+valid msgstr="anexad(o|a)"
+valid msgstr="adjuntarse"
+valid msgstr="anexarse"
+valid !msgstr="atacad(o|a)"
+hint="« Attached » se traduce como como « Adjuntado/Anexado » (propuesta glosario)"
+
 # «Attachment» se traduce como «Adjunto/Anexo».
 {\battachment\b}i
 valid msgstr="adjunto"
@@ -28,6 +37,17 @@ hint="« Attachment » se traduce como como « Adjunto/Anexo » (propuesta glosa
 valid msgstr="autenti(car|ca|que)"
 hint="« Authenticate » se traduce como como « Autenticar » (propuesta glosario)"
 
+# «Authenticated» se traduce como «Autenticado».
+{\bauthenticated\b}i
+valid msgstr="autenticad(o|a)"
+valid msgstr="autenticarse"
+hint="« Authenticated » se traduce como como « Autenticado » (propuesta glosario)"
+
+# «Authenticates» se traduce como «Autentica».
+{\bauthenticates\b}i
+valid msgstr="autenti(car|ca|que)"
+hint="« Authenticates » se traduce como como « Autentica » (propuesta glosario)"
+
 # «Authentication» se traduce como «Autenticación».
 {\bauthentication\b}i
 valid msgstr="autenticación"
@@ -37,7 +57,15 @@ hint="« Authentication » se traduce como como « Autenticación » (propuesta 
 {\bautoprobe\b}i
 valid msgstr="autocomprobación"
 valid !msgstr="autoprueba"
-hint="« Authentication » se traduce como como « Autenticación » (propuesta glosario)"
+hint="« Autoprobe » se traduce como como « Autocomprobación » (propuesta glosario)"
+
+# «Autoprobed» se traduce como «Autocomprobado».
+{\bautoprobed\b}i
+valid msgstr="autocomprobad(o|a)"
+valid msgstr="autocomprobarse"
+valid !msgstr="autoprobad(o|a)"
+valid !msgstr="autoprobarse"
+hint="« Autoprobed » se traduce como como « Autocomprobado » (propuesta glosario)"
 
 # «Bandwith» se traduce como «Ancho de banda».
 {\bbandwith\b}i
@@ -60,6 +88,14 @@ valid msgstr="enlaz(ar|a|e)"
 valid msgstr="lig(ar|ue|a)"
 hint="« Bind » se traduce como como « Enlazar/Ligar » (propuesta glosario)"
 
+# «Binded» se traduce como «Enlazado/Ligado».
+{\bbinded\b}i
+valid msgstr="enlazad(o|a)"
+valid msgstr="ligad(o|a)"
+valid msgstr="enlazarse"
+valid msgstr="ligarse"
+hint="« Bind » se traduce como como « Enlazar/Ligar » (propuesta glosario)"
+
 # «Binding» se traduce como «Enlace/Ligadura».
 {\bbinding\b}i
 valid msgstr="enlace"
@@ -74,6 +110,7 @@ hint="« Bit mask » se traduce como como « Máscara de bits » (propuesta glos
 # «Bit masks» se traduce como «Máscaras de bits».
 {\bbits\s?mask\b}i
 valid msgstr="máscaras\sde\sbits"
+valid msgstr="máscara\sde\sbits" after="ninguna\s"
 hint="« Bit masks » se traduce como como « Máscaras de bits » (propuesta glosario)"
 
 # «Bit map» se traduce como «Mapa de bits».
@@ -84,11 +121,12 @@ hint="« Bit map » se traduce como como « Mapa de bits » (propuesta glosario)
 # «Bit maps» se traduce como «Mapas de bits».
 {\bbit\s?maps\b}i
 valid msgstr="mapas\sde\sbits"
+valid msgstr="mapa\sde\sbits" after="ningún\s"
 hint="« Bit maps » se traduce como como « Mapas de bits » (propuesta glosario)"
 
 # «Bit rate» se traduce como «Tasa de bits».
 {\bbit\s?rate\b}i
-valid msgstr="tasa\sde\sbits"
+valid msgstr="tasas?\sde\sbits"
 hint="« Bit rate » se traduce como como « Tasa de bits » (propuesta glosario)"
 
 # «Bit stream» se traduce como «Flujo de bits».
@@ -99,6 +137,7 @@ hint="« Bit stream » se traduce como como « Flujo de bits » (propuesta glosa
 # «Bit streams» se traduce como «Flujos de bits».
 {\bbit\s?streams\b}i
 valid msgstr="flujos\sde\sbits"
+valid msgstr="flujo\sde\sbits" after="ningún\s"
 hint="« Bit streams » se traduce como como « Flujos de bits » (propuesta glosario)"
 
 # «Boot loader» se traduce como «Gestor de arranque».
@@ -109,6 +148,7 @@ hint="« Boot loader » se traduce como como « Gestor de arranque » (propuesta
 # «Boot loaders» se traduce como «Gestores de arranque».
 {\bboot\s?loaders\b}i
 valid msgstr="gestores\sde\sarranque"
+valid msgstr="gestor\sde\sarranque" after="ningún\s"
 hint="« Boot loaders » se traduce como como « Gestores de arranque » (propuesta glosario)"
 
 # «Boot partition» se traduce como «Partición de arranque».
@@ -119,6 +159,7 @@ hint="« Boot partition » se traduce como como « Partición de arranque » (pr
 # «Boot partitions» se traduce como «Particiones de arranque».
 {\bboot\s?partitions\b}i
 valid msgstr="particiones\sde\sarranque"
+valid msgstr="partición\sde\sarranque" after="ninguna\s"
 hint="« Boot partitions » se traduce como como « Particiones de arranque » (propuesta glosario)"
 
 # «Boot record» se traduce como «Registro de arranque».
@@ -129,6 +170,7 @@ hint="« Boot record » se traduce como como « Registro de arranque » (propues
 # «Boot records» se traduce como «Registros de arranque».
 {\bboot\s?records\b}i
 valid msgstr="registros\sde\sarranque"
+valid msgstr="registro\sde\sarranque" after="ningún\s"
 hint="« Boot records » se traduce como como « Registros de arranque » (propuesta glosario)"
 
 # «Breakpoint» se traduce como «Punto de ruptura».
@@ -139,6 +181,7 @@ hint="« Breakpoint » se traduce como como « Punto de ruptura » (propuesta gl
 # «Breakpoints» se traduce como «Puntos de ruptura».
 {\bbreakpoints\b}i
 valid msgstr="puntos\sde\sruptura"
+valid msgstr="punto\sde\sruptura" after="ningún\s"
 hint="« Breakpoints » se traduce como como « Puntos de ruptura » (propuesta glosario)"
 
 # «Broadcast» se traduce como «Difusión/Difundir».
@@ -153,6 +196,11 @@ hint="« Broadcast » se traduce como como « Difusión/Difundir » (propuesta g
 valid msgstr="naveg(ar|a|ue)"
 hint="« Browse » se traduce como como « Navegar » (propuesta glosario)"
 
+# «Browses» se traduce como «Navega».
+{\bbrowses\b}i
+valid msgstr="naveg(ar|a|ue)"
+hint="« Browses » se traduce como como « Navega » (propuesta glosario)"
+
 # «Browser» se traduce como «Navegador».
 {\bbrowser\b}i
 valid msgstr="navegador"
@@ -161,6 +209,7 @@ hint="« Browser » se traduce como como « Navegador » (propuesta glosario)"
 # «Browsers» se traduce como «Navegadores».
 {\bbrowsers\b}i
 valid msgstr="navegadores"
+valid msgstr="navegador" after="ningún\s"
 hint="« Browsers » se traduce como como « Navegadores » (propuesta glosario)"
 
 # «Bug-fix» se traduce como «Corrección de error».
@@ -179,6 +228,14 @@ hint="« Built-in » se traduce como como « Incorporado » (propuesta glosario)
 valid msgstr="retrollamada"
 valid msgstr="devolución\sde\sllamada"
 hint="« Callback » se traduce como como « Retrollamada » (propuesta glosario)"
+
+# «Callbacks» se traduce como «Retrollamadas».
+{\bcallbacks\b}i
+valid msgstr="retrollamadas"
+valid msgstr="devolución\sde\sllamadas"
+valid msgstr="retrollamada" after="ninguna\s"
+valid msgstr="devolución\sde\sllamada" after="ninguna\s"
+hint="« Callbacks » se traduce como como « Retrollamadas » (propuesta glosario)"
 
 # «Canvas» se traduce como «Lienzo/Tapiz».
 {\bcanvas\b}i
@@ -205,6 +262,7 @@ hint="« Character set » se traduce como como « Juego de caracteres » (propue
 # «Character sets» se traduce como «Juegos de caracteres».
 {\bcharacter\ssets\b}i
 valid msgstr="juegos\sde\scaracteres"
+valid msgstr="juego\sde\scaracteres" after="ningún\s"
 hint="« Character sets » se traduce como como « Juegos de caracteres » (propuesta glosario)"
 
 # «Charset» se traduce como «Juego de caracteres».
@@ -215,6 +273,7 @@ hint="« Charset » se traduce como como « Juego de caracteres » (propuesta gl
 # «Charsets» se traduce como «Juegos de caracteres».
 {\bcharsets\b}i
 valid msgstr="juegos\sde\scaracteres"
+valid msgstr="juego\sde\scaracteres" after="ningún\s"
 hint="« Charsets » se traduce como como « Juegos de caracteres » (propuesta glosario)"
 
 # «Chat» se traduce como «Charla/Tertulia».
@@ -229,6 +288,9 @@ hint="« Chat » se traduce como como « Charla/Tertulia » (propuesta glosario)
 valid msgstr="charlas?"
 valid msgstr="tertulias"
 valid !msgstr="chats"
+valid msgstr="charla" after="ninguna\s"
+valid msgstr="tertulia"  after="ninguna\s"
+valid !msgstr="chat"
 hint="« Chats » se traduce como como « Charlas/Tertulias » (propuesta glosario)"
 
 # «Check» se traduce como «Consulte» en algunos contextos.
@@ -243,6 +305,12 @@ hint="« Chats » se traduce como como « Charlas/Tertulias » (propuesta glosar
 valid msgstr="botón\sde\sverificación"
 hint="« Check button » se traduce como « Botón de verificación » (propuesta glosario)"
 
+# «Check buttons» se traduce como «Botones de verificación».
+{\bcheck\s?buttons\b}i
+valid msgstr="botones\sde\sverificación"
+valid msgstr="botón\sde\sverificación" after="ningún\s"
+hint="« Check buttons » se traduce como « Botones de verificación » (propuesta glosario)"
+
 # «Check point» se traduce como «Punto de control».
 {\bcheck\s?point\b}i
 valid msgstr="punto\sde\scontrol"
@@ -251,6 +319,7 @@ hint="« Check point » se traduce como « Punto de control » (propuesta glosar
 # «Check points» se traduce como «Puntos de control».
 {\bcheck\s?points\b}i
 valid msgstr="puntos\sde\scontrol"
+valid msgstr="punto\sde\scontrol" after="ningún"
 hint="« Check points » se traduce como « Puntos de control » (propuesta glosario)"
 
 # «Clean» se traduce como «Limpio/Limpiar».
@@ -258,6 +327,12 @@ hint="« Check points » se traduce como « Puntos de control » (propuesta glos
 valid msgstr="limpi(ar|a|e)"
 valid msgstr="limpio"
 hint="« Clean » se traduce como « Limpiar/Limpio » (propuesta glosario)"
+
+# «Cleaned» se traduce como «Limpiado».
+{\bcleaned\b}i
+valid msgstr="limpiad(o|a)"
+valid msgstr="limpiarse"
+hint="« Cleaned » se traduce como « Limpiado » (propuesta glosario)"
 
 # «Cleans» se traduce como «Limpia».
 {\bcleana\b}i
@@ -268,13 +343,15 @@ hint="« Cleans » se traduce como « Limpia » (propuesta glosario)"
 # «Clear» se traduce como «Borrar».
 {\bclear\b}i
 valid msgstr="borr(ar|a|e)"
-valid !msgstr="claro"
+valid msgstr="aclar(ar|a|e)"
+valid msgstr="clar(o|a)"
 hint="« Clear » se traduce como « Borrar » (propuesta glosario)"
 
 # «Clears» se traduce como «Borra».
-{\bclear\b}i
+{\bclears\b}i
 valid msgstr="borr(a|e)"
-valid !msgstr="aclara"
+valid msgstr="aclara"
+valid msgstr="clar(os|as)"
 hint="« Clears » se traduce como « Borra » (propuesta glosario)"
 
 # «Clipboard» se traduce como «Portapapeles».
@@ -292,6 +369,8 @@ hint="« Closure » se traduce como « Clausura/Cierre » (propuesta glosario)"
 {\bclosures\b}i
 valid msgstr="clausuras"
 valid msgstr="cierres"
+valid msgstr="clausura" after="ninguna\s"
+valid msgstr="cierre" after="ningún\s"
 hint="« Closures » se traduce como « Clausuras/Cierres » (propuesta glosario)"
 
 # «Codec» se traduce como «Códec».
@@ -303,6 +382,12 @@ hint="« Codec » se traduce como « Códec » (propuesta glosario)"
 # «Cold boot» se traduce como «Arranque en frío».
 {\bcold\s?boot\b}i
 valid msgstr="arranque\sen\frío"
+hint="« Cold boot » se traduce como « Arranque en frío » (propuesta glosario)"
+
+# «Cold boots» se traduce como «Arranques en frío».
+{\bcold\s?boots\b}i
+valid msgstr="arranques\sen\frío"
+valid msgstr="arranque\sen\frío" after="ningún\s"
 hint="« Cold boot » se traduce como « Arranque en frío » (propuesta glosario)"
 
 # «Colon» se traduce como «Dos puntos».
@@ -325,7 +410,9 @@ hint="« Composer » se traduce como como « Editor » (propuesta glosario)"
 # «Composers» se traduce como «Editores».
 {\bcomposers\b}i
 valid msgstr="editores"
+valid msgstr="editor" after="ningún\s"
 valid catrx=".*amarok.*" msgstr="compositores"
+valid catrx=".*amarok.*" msgstr="compositor" after="ningún\s"
 hint="« Composers » se traduce como como « Editores » (propuesta glosario)"
 
 # «Computable» se traduce como «Calculable».
@@ -340,12 +427,13 @@ hint="« Computables » se traduce como como « Calculables » (propuesta glosar
 
 # «Constraint» se traduce como «Restricción».
 {\bconstraint\b}i
-valid msgstr="restricción"
+valid msgstr="restricci(ón|ones)"
 hint="« Constraint » se traduce como como « Restricción » (propuesta glosario)"
 
 # «Constraints» se traduce como «Restricciones».
 {\bconstraints\b}i
 valid msgstr="restricciones"
+valid msgstr="restricción" after="ninguna\s"
 hint="« Constraints » se traduce como como « Restricciones » (propuesta glosario)"
 
 # «Cordless» se traduce como «Inalámbrico».
@@ -358,10 +446,22 @@ hint="« Cordless » se traduce como como « Inalámbrico » (propuesta glosario
 valid msgstr="volcado\sde\smemoria"
 hint="« Core dump » se traduce como como « Volcado de memoria » (propuesta glosario)"
 
+# «Core dumps» se traduce como «Volcados de memoria».
+{\bcore\sdumps\b}i
+valid msgstr="volcados\sde\smemoria"
+valid msgstr="volcado\sde\smemoria" after="ningún\s"
+hint="« Core dumps » se traduce como como « Volcados de memoria » (propuesta glosario)"
+
 # «Cross compiler» se traduce como «Compilador cruzado».
 {\bcross\scompiler\b}i
 valid msgstr="compilador\scruzado"
 hint="« Cross compiler » se traduce como como « Compilador cruzado » (propuesta glosario)"
+
+# «Cross compilers» se traduce como «Compiladores cruzados».
+{\bcross\scompilers\b}i
+valid msgstr="compiladores\scruzados"
+valid msgstr="compilador\scruzado" after="ningún\s"
+hint="« Cross compilers » se traduce como como « Compiladores cruzados » (propuesta glosario)"
 
 # «Customize» se traduce como «Personalizar».
 {\bcustomize\b}i
@@ -386,6 +486,443 @@ hint="« Customizes » se traduce como como « Personaliza » (propuesta glosari
 valid msgstr="multiplataforma"
 hint="« Cross platform » se traduce como como « Multiplataforma » (propuesta glosario)"
 
+# «Data mining» se traduce como «Mineria de datos».
+{\bdata\smining\b}i
+valid msgstr="mineria\sde\sdatos"
+hint="« Data mining » se traduce como como « Mineria de datos » (propuesta glosario)"
+
+# «Database» se traduce como «Base de datos».
+{\bdatabase\b}i
+valid msgstr="base\sde\sdatos"
+hint="« Database » se traduce como como « Base de datos » (propuesta glosario)"
+
+# «Databases» se traduce como «Bases de datos».
+{\bdatabases\b}i
+valid msgstr="bases\sde\sdatos"
+valid msgstr="base\sde\sdatos" after="ninguna\s"
+hint="« Databases » se traduce como como « Bases de datos » (propuesta glosario)"
+
+# «Datagram» se traduce como «Datagrama».
+{\bdatagram\b}i
+valid msgstr="datagrama"
+hint="« Datagram » se traduce como como « Datagrama » (propuesta glosario)"
+
+# «Datagrams» se traduce como «Datagramas».
+{\bdatagrams\b}i
+valid msgstr="datagramas"
+valid msgstr="datagrama" after="ningún\s"
+hint="« Datagrams » se traduce como como « Datagramas » (propuesta glosario)"
+
+# «Deadlock» se traduce como «Bloqueo de datos/Interbloqueo».
+{\bdeadlock\b}i
+valid msgstr="bloqueo\sde\sdatos"
+valid msgstr="interbloqueo"
+hint="« Deadlock » se traduce como como « Bloqueo de datos/Interbloqueo » (propuesta glosario)"
+
+# «Deadlocks» se traduce como «Bloqueos de datos/Interbloqueos».
+{\bdeadlocks\b}i
+valid msgstr="bloqueos\sde\sdatos"
+valid msgstr="interbloqueos"
+valid msgstr="bloqueo\sde\sdatos" after="ningún\s"
+valid msgstr="interbloqueo" after="ningún\s"
+hint="« Deadlocks » se traduce como como « Bloqueos de datos/Interbloqueos » (propuesta glosario)"
+
+# «Debug» se traduce como «Depurar».
+{\bdebug\b}i
+valid msgstr="depur(ar|a|e)"
+hint="« Debug » se traduce como como « Depurar » (propuesta glosario)"
+
+# «Debugged» se traduce como «Depurado».
+{\bdebug\b}i
+valid msgstr="depurad(o|a)"
+valid msgstr="depurarse"
+hint="« Debugged » se traduce como como « Depurado » (propuesta glosario)"
+
+# «Debugger» se traduce como «Depurador».
+{\bdebugger\b}i
+valid msgstr="depurador"
+hint="« Debugger » se traduce como como « Depurador » (propuesta glosario)"
+
+# «Debugging» se traduce como «Depuración».
+{\bdebugging\b}i
+valid msgstr="depuración"
+hint="« Debugging » se traduce como como « Depuración » (propuesta glosario)"
+
+# «Debugs» se traduce como «Depura».
+{\bdebugs\b}i
+valid msgstr="depur(ar|a|e)"
+hint="« Debugs » se traduce como como « Depura » (propuesta glosario)"
+
+# «Defragment» se traduce como «Desfragmentar».
+{\bdefragment\b}i
+valid msgstr="desfragment(ar|a|e)"
+hint="« Defragment » se traduce como como « Desfragmentar » (propuesta glosario)"
+
+# «Defragments» se traduce como «Desfragmenta».
+{\bdefragments\b}i
+valid msgstr="desfragment(ar|a|e)"
+hint="« Defragments » se traduce como como « Desfragmenta » (propuesta glosario)"
+
+# «Defragmented» se traduce como «Desfragmentado».
+{\bdefragmented\b}i
+valid msgstr="desfragmentad(o|a)"
+valid msgstr="desfragmentarse"
+hint="« Defragmented » se traduce como como « Desfragmentado » (propuesta glosario)"
+
+# «Delay» se traduce como «Retardo».
+{\bdelay\b}i
+valid msgstr="retardo"
+hint="« Delay » se traduce como como « Retardo » (propuesta glosario)"
+
+# «Delays» se traduce como «Retardos».
+{\bdelays\b}i
+valid msgstr="retardos"
+valid msgstr="retardo" after="ningún\s"
+hint="« Delay » se traduce como como « Retardo » (propuesta glosario)"
+
+# «Delete» se traduce como «Borrar».
+{\bdelete\b}i
+valid msgstr="borr(ar|a|e)"
+hint="« Delete » se traduce como como « Borrar » (propuesta glosario)"
+
+# «Deletes» se traduce como «Borra».
+{\bdeletes\b}i
+valid msgstr="borr(a|e)"
+hint="« Deletes » se traduce como como « Borre » (propuesta glosario)"
+
+# «Deleted» se traduce como «Borrado».
+{\bdeleted\b}i
+valid msgstr="borrad(o|a)"
+valid msgstr="borrarse"
+hint="« Deleted » se traduce como como « Borrado » (propuesta glosario)"
+
+# «Delimiter» se traduce como «Delimitador/Separador».
+{\bdelimiter\b}i
+valid msgstr="delimitador"
+valid msgstr="separador"
+hint="« Delimiter » se traduce como como « Delimitador/Separador » (propuesta glosario)"
+
+# «Delimiters» se traduce como «Delimitadores/Separadores».
+{\bdelimiters\b}i
+valid msgstr="delimitadores"
+valid msgstr="separadores"
+valid msgstr="delimitador" after="ningún\s"
+valid msgstr="separador" after="ningún\s"
+hint="« Delimiters » se traduce como como « Delimitadores/Separadores » (propuesta glosario)"
+
+# «Delimited» se traduce como «Delimitado/Separado».
+{\bdelimited\b}i
+valid msgstr="delimitad(o|a)"
+valid msgstr="separad(o|a)"
+valid msgstr="delimitarse"
+valid msgstr="separarse"
+hint="« Delimited » se traduce como como « Delimitado/Separado » (propuesta glosario)"
+
+# «Demo» se traduce como «Demostración».
+{\bdemo\b}i
+valid msgstr="demostración"
+hint="« Demo » se traduce como como « Demostración » (propuesta glosario)"
+
+# «Demos» se traduce como «Demostraciones».
+{\bdemos\b}i
+valid msgstr="demostraciones"
+valid msgstr="demostración" after="ninguna\s"
+hint="« Demos » se traduce como como « Demostraciones » (propuesta glosario)"
+
+# «Demodulate» se traduce como «Demodular».
+{\bdemodulate\b}i
+valid msgstr="demodul(ar|a|e)"
+hint="« Demodulate » se traduce como como « Demodular » (propuesta glosario)"
+
+# «Demodulates» se traduce como «Demodula».
+{\bdemodulates\b}i
+valid msgstr="demodul(a|e)"
+hint="« Demodulates » se traduce como como « Demodula » (propuesta glosario)"
+
+# «Demodulated» se traduce como «Demodulado».
+{\bdemodulated\b}i
+valid msgstr="demodulad(o|a)"
+valid msgstr="demodularse"
+hint="« Demodulated » se traduce como como « Demodulado » (propuesta glosario)"
+
+# «Denial of service» se traduce como «Denegación de servicio».
+{\bdenial\s\of\sservice\b}i
+valid msgstr="denegación\sde\sservicio"
+hint="« Denial of service » se traduce como como « Denegación de servicio » (propuesta glosario)"
+
+# «Deny» se traduce como «Denegar».
+{\bdeny\b}i
+valid msgstr="denegar"
+valid msgstr="deniegu(e|a)"
+hint="« Deny » se traduce como como « Denegar » (propuesta glosario)"
+
+# «Denies» se traduce como «Deniega».
+{\bdenies\b}i
+valid msgstr="deniegu(e|a)"
+hint="« Denies » se traduce como como « Deniega » (propuesta glosario)"
+
+# «Denied» se traduce como «Denegado».
+{\bdenied\b}i
+valid msgstr="denegad(o|a)"
+valid msgstr="denegarse"
+hint="« Denied » se traduce como como « Denegado » (propuesta glosario)"
+
+# «Deploy» se traduce como «Desplegar».
+{\bdeploy\b}i
+valid msgstr="desplegar"
+valid msgstr="desplieg(e|a)"
+hint="« Deploy » se traduce como como « Desplegar » (propuesta glosario)"
+
+# «Deploys» se traduce como «Despliega».
+{\bdeplois\b}i
+valid msgstr="desplieg(e|a)"
+hint="« Deplois » se traduce como como « Despliega » (propuesta glosario)"
+
+# «Deployd» se traduce como «Desplegado».
+{\bdeploid\b}i
+valid msgstr="desplegad(o|a)"
+valid msgstr="desplegarse"
+hint="« Deploid » se traduce como como « Desplegado » (propuesta glosario)"
+
+# «Deployment» se traduce como «Despliegue».
+{\bdeployment\b}i
+valid msgstr="despliegue"
+hint="« Deployment » se traduce como como « Despliegue » (propuesta glosario)"
+
+# «Desktop» se traduce como «Escritorio».
+{\bdesktop\b}i
+valid msgstr="escritorio"
+hint="« Desktop » se traduce como como « Escritorio » (propuesta glosario)"
+
+# «Desktops» se traduce como «Escritorios».
+{\bdesktops\b}i
+valid msgstr="escritorios"
+valid msgstr="escritorio" after="ningún\s"
+hint="« Desktops » se traduce como como « Escritorios » (propuesta glosario)"
+
+# «Develop» se traduce como «Desarrollar».
+{\bdevelop\b}i
+valid msgstr="desarroll(ar|a|e)"
+hint="« Develop » se traduce como como « Desarrollar » (propuesta glosario)"
+
+# «Develops» se traduce como «Desarrolla».
+{\bdevelops\b}i
+valid msgstr="desarroll(a|e)"
+hint="« Develops » se traduce como como « Desarrolla » (propuesta glosario)"
+
+# «Developed» se traduce como «Desarrollado».
+{\bdeveloped\b}i
+valid msgstr="desarrollad(o|a)"
+valid msgstr="desarrollarse"
+hint="« Developed » se traduce como como « Desarrollado » (propuesta glosario)"
+
+# «Developer» se traduce como «Desarrollador».
+{\bdeveloper\b}i
+valid msgstr="desarrolladora?"
+hint="« Developer » se traduce como como « Desarrollador » (propuesta glosario)"
+
+# «Developers» se traduce como «Desarrolladores».
+{\bdevelopers\b}i
+valid msgstr="desarrolladores"
+valid msgstr="desarrollador" after="ningún\s"
+hint="« Developers » se traduce como como « Desarrolladores » (propuesta glosario)"
+
+# «Development» se traduce como «Desarrollo».
+{\bdevelopment\b}i
+valid msgstr="desarrollo"
+hint="« Development » se traduce como como « Desarrollo » (propuesta glosario)"
+
+# «Device» se traduce como «Dispositivo».
+{\bdevice\b}i
+valid msgstr="dispositivo"
+hint="« Device » se traduce como como « Dispositivo » (propuesta glosario)"
+
+# «Devices» se traduce como «Dispositivos».
+{\bdevices\b}i
+valid msgstr="dispositivos"
+valid msgstr="dispositivo" after="ningún\s"
+hint="« Devices » se traduce como como « Dispositivos » (propuesta glosario)"
+
+# «Dialog box» se traduce como «Cuadro de diálogo».
+{\bdialog\sbox\b}i
+valid msgstr="cuadro\sde\sdiálogo"
+hint="« Dialog box » se traduce como como « Cuadro de diálogo » (propuesta glosario)"
+
+# «Dialog boxes» se traduce como «Cuadros de diálogo».
+{\bdialog\sboxes\b}i
+valid msgstr="cuadros\sde\sdiálogo"
+valid msgstr="cuadro\sde\sdiálogo" after="ningún\s"
+hint="« Dialog boxes » se traduce como como « Cuadros de diálogo » (propuesta glosario)"
+
+# «Directory» se traduce como «Directorio».
+{\bdirectory\b}i
+valid msgstr="directorio"
+hint="« Directory » se traduce como como « Directorio » (propuesta glosario)"
+
+# «Directories» se traduce como «Directorios».
+{\bdirectories\b}i
+valid msgstr="directorios"
+valid msgstr="directorio" after="ningún\s"
+hint="« Directories » se traduce como como « Directorios » (propuesta glosario)"
+
+# «Discard» se traduce como «Deshacer».
+{\bdiscard\b}i
+valid msgstr="desha(cer|ce|ga)"
+hint="« Discard » se traduce como como « Deshacer » (propuesta glosario)"
+
+# «Discards» se traduce como «Deshace».
+{\bdiscards\b}i
+valid msgstr="desha(cer|ce|ga)"
+hint="« Discards » se traduce como como « Deshace » (propuesta glosario)"
+
+# «Discarged» se traduce como «Deshecho».
+{\bdiscarged\b}i
+valid msgstr="deshechos?"
+valid msgstr="deshecharse"
+hint="« Discarged » se traduce como como « Deshecho » (propuesta glosario)"
+
+# «Disposable» se traduce como «Desechable».
+{\bdisposable\b}i
+valid msgstr="desechable"
+hint="« Disposable » se traduce como como « Desechable » (propuesta glosario)"
+
+# «Disposables» se traduce como «Desechables».
+{\bdisposables\b}i
+valid msgstr="desechables"
+hint="« Disposable » se traduce como como « Desechable » (propuesta glosario)"
+
+# «Dithering» se traduce como «Difuminado».
+{\bdithering\b}i
+valid msgstr="difuminado"
+hint="« Dithering » se traduce como como « Difuminado » (propuesta glosario)"
+
+# «Documentation» se traduce como «Documentación».
+{\bdocumentation\b}i
+valid msgstr="documentación"
+hint="« Documentation » se traduce como como « Documentación » (propuesta glosario)"
+
+# «Dot» se traduce como «Punto».
+{\bdot\b}i
+valid msgstr="punto"
+hint="« Dot » se traduce como como « Punto » (propuesta glosario)"
+
+# «Dots» se traduce como «Puntos».
+{\bdots\b}i
+valid msgstr="puntos"
+valid msgstr="punto" after="ningún\s"
+hint="« Dots » se traduce como como « Puntos » (propuesta glosario)"
+
+# «Downgrade» se traduce como «Versión anterior».
+{\bdowngrade\b}i
+valid msgstr="versión\santerior"
+hint="« Downgrade » se traduce como como « Versión anterior » (propuesta glosario)"
+
+# «Download» se traduce como «Descargar».
+{\bdownload\b}i
+valid msgstr="descarg(ar|a|ue)"
+hint="« Download » se traduce como como « Descargar » (propuesta glosario)"
+
+# «Downloads» se traduce como «Descarga/Descargas».
+{\bdownloads\b}i
+valid msgstr="descarg(a|ue|as)"
+hint="« Downloads » se traduce como como « Descarga/Descargas » (propuesta glosario)"
+
+# «Downloaded» se traduce como «Descargado».
+{\bdownloaded\b}i
+valid msgstr="descargad(o|a)"
+valid msgstr="descargarse"
+hint="« Downloaded » se traduce como como « Descargado » (propuesta glosario)"
+
+# «Downtime» se traduce como «Tiempo de inactividad».
+{\bdowntime\b}i
+valid msgstr="tiempo\sde\sinactividad"
+hint="« Downtime » se traduce como como « Tiempo de inactividad » (propuesta glosario)"
+
+# «Draft» se traduce como «Borrador».
+{\bdraft\b}i
+valid msgstr="borrador"
+hint="« Draft » se traduce como como « Borradores » (propuesta glosario)"
+
+# «Drafts» se traduce como «Borradores».
+{\bdrafts\b}i
+valid msgstr="borradores"
+valid msgstr="borrador" after="ningún\s"
+hint="« Drafts » se traduce como como « Borradores » (propuesta glosario)"
+
+# «Drag and drop» se traduce como «Arrastrar y soltar».
+{\bdrag\sand\sdrop\b}i
+valid msgstr="arrastrar\sy\ssoltar"
+hint="« Drag and drop » se traduce como como « Arrastrar y soltar » (propuesta glosario)"
+
+# «Drive» se traduce como «Unidad/Dispositivo».
+{\bdrive\b}i
+valid msgstr="unidad"
+valid msgstr="dispositivo"
+hint="« Drive » se traduce como como « Unidad/Dispositivo » (propuesta glosario)"
+
+# «Driver» se traduce como «Controlador».
+{\bdriver\b}i
+valid msgstr="controladora?"
+hint="« Driver » se traduce como como « Controlador » (propuesta glosario)"
+
+# «Drivers» se traduce como «Controladores».
+{\bdrivers\b}i
+valid msgstr="controladores"
+valid msgstr="controlador" after="ningún\s"
+valid msgstr="controladora" after="ningúna\s"
+hint="« Drivers » se traduce como como « Controladores » (propuesta glosario)"
+
+# «Dual boot» se traduce como «Arranque dual».
+{\bdual\sboot\b}i
+valid msgstr="arranque\sdual"
+hint="« Dual boot » se traduce como como « Arranque dual » (propuesta glosario)"
+
+# «Dummy» se traduce como «Vacío».
+{\bdummy\b}i
+valid msgstr="vací(o|a)"
+hint="« Dummy » se traduce como como « Vacío » (propuesta glosario)"
+
+# «Dump» se traduce como «Volcado/Volcar».
+{\bdump\b}i
+valid msgstr="volca(r|do)"
+valid msgstr="vuel(que|ca)"
+hint="« Dump » se traduce como como « Volcado/Volcar » (propuesta glosario)"
+
+# «Dumps» se traduce como «Vuelca».
+{\bdumps\b}i
+valid msgstr="vuel(que|ca)"
+hint="« Dumps » se traduce como como « Vuelca » (propuesta glosario)"
+
+# «Dungeon» se traduce como «Mazmorra».
+{\bdungeon\b}i
+valid msgstr="mazmorra"
+hint="« Dungeon » se traduce como como « Mazmorra » (propuesta glosario)"
+
+# «Dungeons» se traduce como «Mazmorras».
+{\bdungeons\b}i
+valid msgstr="mazmorras"
+valid msgstr="mazmorra" after="ninguna\s"
+hint="« Dungeons » se traduce como como « Mazmorras » (propuesta glosario)"
+
+# «Egde» se traduce como «Límite/Borde».
+{\begde\b}i
+valid msgstr="límite"
+valid msgstr="borde"
+hint="« Egde » se traduce como como « Límite/Borde » (propuesta glosario)"
+
+# «Egdes» se traduce como «Límites/Bordes».
+{\begdes\b}i
+valid msgstr="límites"
+valid msgstr="bordes"
+valid msgstr="límite" after="ningún\s"
+valid msgstr="borde" after="ningún\s"
+hint="« Egdes » se traduce como como « Límites/Bordes » (propuesta glosario)"
+
+# «Ellipse» se traduce como «Elipse».
+{\bellipse\b}i
+valid msgstr="elipse"
+hint="« Ellipse » se traduce como como « Elipse » (propuesta glosario)"
+
 # «Email» se traduce como «Correo».
 {\be\-?mail\b}i
 valid msgstr="correo"
@@ -396,6 +933,8 @@ hint="« Email » se traduce como como « Correo » (propuesta glosario)"
 {\be\-?mails\b}i
 valid msgstr="correos"
 valid !msgstr="emails"
+valid msgstr="correo" after="ningún\s"
+valid !msgstr="email"
 hint="« Emails » se traduce como como « Correos » (propuesta glosario)"
 
 # «Encode» se traduce como «Codificar».
@@ -406,12 +945,132 @@ hint="« Encode » se traduce como como « Codificar » (propuesta glosario)"
 # «Encoded» se traduce como «Codificado».
 {\bencoded\b}i
 valid msgstr="codificad(o|a)"
+valid msgstr="codificarse"
 hint="« Encoded » se traduce como como « Codificado » (propuesta glosario)"
+
+# «Encoder» se traduce como «Codificador».
+{\bencoder\b}i
+valid msgstr="codificadora?"
+hint="« Encoder » se traduce como como « Codificador » (propuesta glosario)"
 
 # «Encodes» se traduce como «Codifica».
 {\bencode\b}i
 valid msgstr="codifi(ca|que)"
 hint="« Encodes » se traduce como como « Codifica » (propuesta glosario)"
+
+# «Encoding» se traduce como «Codificación».
+{\bencoding\b}i
+valid msgstr="codificación"
+hint="« Encoding » se traduce como como « Codificación » (propuesta glosario)"
+
+# «Encodings» se traduce como «Codificaciones».
+{\bencodings\b}i
+valid msgstr="codificaciones"
+valid msgstr="codificación" after="ninguna\s"
+hint="« Encodings » se traduce como como « Codificaciones » (propuesta glosario)"
+
+# «Enhancement» se traduce como «Mejora».
+{\benhancement\b}i
+valid msgstr="mejora"
+hint="« Enhancement » se traduce como como « Mejora » (propuesta glosario)"
+
+# «Enhancements» se traduce como «Mejoras».
+{\benhancements\b}i
+valid msgstr="mejoras"
+valid msgstr="mejora" after="ninguna\s"
+hint="« Enhancements » se traduce como como « Mejoras » (propuesta glosario)"
+
+# «Enlarge» se traduce como «Ampliar».
+{\benlarge\b}i
+valid msgstr="ampl(iar|ía|ie)"
+hint="« Enlarge » se traduce como como « Ampliar » (propuesta glosario)"
+
+# «Enlarges» se traduce como «Amplía».
+{\benlarges\b}i
+valid msgstr="ampl(iar|ie|ía)"
+hint="« Enlarges » se traduce como como « Amplíe » (propuesta glosario)"
+
+# «Enlarged» se traduce como «Ampliado».
+{\benlarged\b}i
+valid msgstr="ampliad(o|a)"
+valid msgstr="ampliarse"
+hint="« Enlarged » se traduce como como « Ampliado » (propuesta glosario)"
+
+# «Entity» se traduce como «Entidad».
+{\bentity\b}i
+valid msgstr="entidad"
+hint="« Entity » se traduce como como « Entidad » (propuesta glosario)"
+
+# «Entities» se traduce como «Entidades».
+{\bentities\b}i
+valid msgstr="entidades"
+valid msgstr="entidad" after="ninguna\s"
+hint="« Entities » se traduce como como « Entidades » (propuesta glosario)"
+
+# «Erase» se traduce como «Borrar».
+{\berase\b}i
+valid msgstr="borr(ar|a|e)"
+hint="« Erase » se traduce como como « Borrar » (propuesta glosario)"
+
+# «Erases» se traduce como «Borra».
+{\berases\b}i
+valid msgstr="borr(ar|a|e)"
+hint="« Erases » se traduce como como « Borra » (propuesta glosario)"
+
+# «Erased» se traduce como «Borrado».
+{\berased\b}i
+valid msgstr="borrad(o|a)"
+valid msgstr="borrarse"
+hint="« Erased » se traduce como como « Borrado » (propuesta glosario)"
+
+# «Error» se traduce como «Error».
+{\berror\b}i
+valid msgstr="error"
+hint="« Error » se traduce como como « Error » (propuesta glosario)"
+
+# «Errors» se traduce como «Errores».
+{\berrors\b}i
+valid msgstr="errores"
+valid msgstr="error" after="ningún\s"
+hint="« Errors » se traduce como como « Errores » (propuesta glosario)"
+
+# «Executable» se traduce como «Ejecutable».
+{\bexecutable\b}i
+valid msgstr="ejecutable"
+hint="« Executable » se traduce como como « Ejecutable » (propuesta glosario)"
+
+# «Executables» se traduce como «Ejecutables».
+{\bexecutables\b}i
+valid msgstr="ejecutables"
+valid msgstr="ejecutable" after="ningún\s"
+hint="« Executables » se traduce como como « Ejecutables » (propuesta glosario)"
+
+# «Execute» se traduce como «Ejecutar».
+{\bexecute\b}i
+valid msgstr="ejecut(ar|a|e)"
+hint="« Execute » se traduce como como « Ejecutar » (propuesta glosario)"
+
+# «Executes» se traduce como «Ejecuta».
+{\bexecutes\b}i
+valid msgstr="ejecut(ar|a|e)"
+hint="« Executes » se traduce como como « Ejecuta » (propuesta glosario)"
+
+# «Executed» se traduce como «Ejecutado».
+{\bexecuted\b}i
+valid msgstr="ejecutad(o|a)"
+valid msgstr="ejecutarse"
+hint="« Executed » se traduce como como « Ejecutado » (propuesta glosario)"
+
+# «Execution» se traduce como «Ejecución».
+{\bexecution\b}i
+valid msgstr="ejecución"
+hint="« Execution » se traduce como como « Ejecución » (propuesta glosario)"
+
+# «Executions» se traduce como «Ejecuciones».
+{\bexecutions\b}i
+valid msgstr="ejecuciones"
+valid msgstr="ejecución" after="ninguna\s"
+hint="« Executions » se traduce como como « Ejecuciones » (propuesta glosario)"
 
 # «Firewall» se traduce como «Cortafuegos».
 {\bfirewalls?\b}i
@@ -438,18 +1097,19 @@ hint="« Interface » se traduce como como « Interfaz » (propuesta glosario)"
 # «Interfaces» se traduce como «Interfaces».
 {\binterfaces\b}i
 valid msgstr="interfaces"
+valid msgstr="interfaz" after="ninguna"
 hint="« Interfaces » se traduce como como « Interfaces » (propuesta glosario)"
 
 # «Logon» se traduce como «Inicio de sesión».
 {\blog\s?on\b}i
 valid msgstr="inicio\sde\ssesión"
-valid msgstr="iniciar\ssesión"
+valid msgstr="inici(ar|a|e)\ssesión"
 hint="« Logon » se traduce como « Inicio de sesión », no se debe dejar sin traducir (propuesta glosario)"
 
 # «Logout» se traduce como «Fin de sesión».
 {\blog\s?out\b}i
 valid msgstr="fin\sde\ssesión"
-valid msgstr="finalizar\ssesión"
+valid msgstr="finaliz(ar|a|e)\ssesión"
 hint="« Logout » se traduce como « Fin de sesión », no se debe dejar sin traducir (propuesta glosario)"
 
 # «Macro» se traduce como «Macro».
@@ -460,6 +1120,7 @@ hint="« Macro » se traduce como « Macro », (propuesta glosario)"
 # «Macros» se traduce como «Macros».
 {\bmacros\b}i
 valid msgstr="macros"
+valid msgstr="macro" after="ninguna\s" 
 hint="« Macros » se traduce como « Macros », (propuesta glosario)"
 
 # «Manage» se traduce como «Gestionar».
@@ -477,11 +1138,20 @@ valid msgstr="espejo"
 valid !msgstr="mirror"
 hint="« Mirror » se traduce como como « Espejo » o « Réplica » (propuesta glosario)"
 
+# «Mirrors» se traduce como «Réplicas».
+# Creo que debería considerarse erróneo dejarlo en inglés como lo permite actualmente el glosario.
+{\bmirrors\b}i
+valid msgstr="réplicas"
+valid msgstr="repli(car|ca|que)"
+valid msgstr="espejos"
+valid !msgstr="mirrors"
+hint="« Mirrors » se traduce como como « Espejos » o « Réplicas » (propuesta glosario)"
+
 # «On line» se traduce como «Conectado».
 {\bon(\s|\-)line\b}i
 valid msgstr="conectad(o|a)"
 valid msgstr="con\sconexión"
-valid msgstr="en\sla\slínea\s+\d"
+valid msgstr="en\slínea\s+\d"
 hint="« On line » se traduce como como « Conectado » (propuesta glosario)"
 
 # «Off line» se traduce como «Desconectado».
@@ -499,8 +1169,9 @@ hint="« Passphrase » se traduce como « Frase de ontraseña » (propuesta glos
 # «Passphrases» se traduce como «Frases de contraseña».
 {\bpassphrases\b}i
 valid msgstr="frases\sde\scontraseña"
+valid msgstr="frase\sde\scontraseña" after="ninguna\s"
 valid !msgstr="passphrases"
-hint="« Passphrases » se traduce como « Frases de ontraseña » (propuesta glosario)"
+hint="« Passphrases » se traduce como « Frases de contraseña » (propuesta glosario)"
 
 # «Regular expression» se traduce como «Expresión regular».
 {\bregular\sexpression\b}i
@@ -510,6 +1181,7 @@ hint="« Regular expression » se traduce como « Expresión regular » (propues
 # «Regular expressions» se traduce como «Expresiones regulares».
 {\bregular\sexpressions\b}i
 valid msgstr="expresiones\sregulares"
+valid msgstr="expresión\sregular" after="ninguna\s"
 hint="« Regular expressions » se traduce como « Expresiones regulares » (propuesta glosario)"
 
 # «Remove» se traduce como «Eliminar/Quitar».
@@ -520,9 +1192,11 @@ hint="« Remove » se traduce como « Eliminar/Quitar » (propuesta glosario)"
 
 # «Removed» se traduce como «Eliminado/Quitado».
 {\bremoved\b}i
-valid msgstr="eliminad(o|a)"
-valid msgstr="quitad(o|a)"
+valid msgstr="elimina(r|do|da)"
+valid msgstr="quita(r|do|da)"
 valid msgstr="se\selimin(a|e)n?"
+valid msgstr="eliminarse"
+valid msgstr="quitarse"
 hint="« Removed » se traduce como « Eliminado/Quitado » (propuesta glosario)"
 
 # «Running» se traduce como «En ejecución».
@@ -540,6 +1214,7 @@ hint="« Screenshot » se traduce como « Captura de pantalla » (propuesta glos
 # «Screenshots» se traduce como «Capturas de pantalla».
 {\bscreenshots\b}i
 valid msgstr="capturas\s(de|las)\spantallas?"
+valid msgstr="captura\s(de|la)\spantalla" after="ninguna\s"
 hint="« Screenshots » se traduce como « Capturas de pantalla » (propuesta glosario)"
 
 # «Settings» se traduce como «Preferencias».
@@ -561,6 +1236,7 @@ hint="« Spellchecker » se traduce como como « Corrector ortográfico » (prop
 # «Spellcheckers» se traduce como «Correctores ortográficos».
 {\bspellcheckers\b}i
 valid msgstr="correctores\sortográficos"
+valid msgstr="corrector\sortográfico" after="ningún\s"
 hint="« Spellcheckers » se traduce como como « Correctores ortográficos » (propuesta glosario)"
 
 # «System board» se traduce como «Placa base».
@@ -571,6 +1247,7 @@ hint="« System board » se traduce como « Placa base » (propuesta glosario)"
 # «System boards» se traduce como «Placas base».
 {\bsystem\sboards\b}i
 valid msgstr="placas\sbase"
+valid msgstr="placa\sbase" after="ninguna\s"
 hint="« System boards » se traduce como « Placas base » (propuesta glosario)"
 
 # «Wildcard» se traduce como «Comodín».
@@ -581,6 +1258,7 @@ hint="« Wildcard » se traduce como « Comodín » (propuesta glosario)"
 # «Wildcards» se traduce como «Comodines».
 {\bwild\scards\b}i
 valid msgstr="comodines"
+valid msgstr="comodín" after="ningún\s"
 hint="« Wildcards » se traduce como « Comodines » (propuesta glosario)"
 
 # End of rule file

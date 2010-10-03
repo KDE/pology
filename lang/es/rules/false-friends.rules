@@ -20,13 +20,13 @@ hint="« Absolutelly » se traduce como como « Completamente », no como « Abs
 # «Abstract» se traduce como «Resumen».
 {\babstract\b}i
 valid msgstr="resumen"
-valid !msgstr="abstract(o|a)"
+valid msgstr="abstract(o|a)" after="tipo\s"
 hint="« Abstract » se traduce como como « Resumen », no como « Abstracto » (falso amigo)"
 
 # «Abstracts» se traduce como «Resúmenes».
 {\babstracts\b}i
 valid msgstr="resúmenes"
-valid !msgstr="abstract(o|a)s"
+valid msgstr="abstract(o|a)s" after="tipos\s"
 hint="« Abstracts » se traduce como como « Resúmenes », no como « Abstractos » (falso amigo)"
 
 # «Actual» se traduce como «Real».
@@ -90,6 +90,13 @@ valid !msgstr="advertir"
 valid !msgstr="adviert(a|e)"
 hint="« Advertise » se traduce como como « Anunciar », no como « Advertir » (falso amigo)"
 
+# «Advertised» se traduce como «Anunciado».
+{\badvertised\b}i
+valid msgstr="anunciad(o|a)"
+valid msgstr="anunciarse"
+valid !msgstr="advertido(o|a)"
+hint="« Advertised » se traduce como como « Anunciado », no como « Advertido » (falso amigo)"
+
 # «Advertisement» se traduce como «Anuncio».
 {\badvertisement\b}i
 valid msgstr="anuncio"
@@ -110,6 +117,15 @@ valid !msgstr="advertir"
 valid !msgstr="adviert(a|e)"
 hint="« Advise » se traduce como como « Aconsejar/Asesorar », no como « Advertir » (falso amigo)"
 
+# «Advised» se traduce como «Aconsejado/asesorado».
+{\badvised\b}i
+valid msgstr="aconsejad(o|a)"
+valid msgstr="aconsejarse"
+valid msgstr="asesorad(o|a)"
+valid msgstr="asesorarse"
+valid !msgstr="advertid(o|a)"
+hint="« Advise » se traduce como como « Aconsejar/Asesorar », no como « Advertir » (falso amigo)"
+
 # «Advises» se traduce como «Aconseja/asesora».
 {\badvises\b}i
 valid msgstr="aconsej(a|e)"
@@ -126,6 +142,7 @@ hint="« Affront » se traduce como como « Ofender », no como « Afrontar » (
 # «Allocated» se traduce como «Asignado».
 {\ballocated\b}i
 valid msgstr="asignad(o|a)"
+valid msgstr="asignarase"
 valid !msgstr="alocad(o|a)"
 hint="« Allocated » se traduce como como « Asignado » (falso amigo)"
 
@@ -491,6 +508,7 @@ hint="« Contest » se traduce como como « Competir », no como « Contestar »
 # «Constipated» se traduce como «Estreñido».
 {\bconstipated\b}i
 valid msgstr="estreñid(o|a)"
+valid msgstr="estreñirse"
 valid !msgstr="constipad(o|a)"
 valid !msgstr="resfriad(o|a)"
 hint="« Constipated » se traduce como como « Estreñido », no como « Constipado » (falso amigo)"
@@ -594,6 +612,13 @@ valid msgstr="intercambiar\sideas"
 valid !msgstr="discu(tir|ta|te)"
 hint="« Discuss » se traduce como como « Debatir », no como « Discutir » (falso amigo)"
 
+# «Discussed» se traduce como «Debatido».
+{\bdiscussed\b}i
+valid msgstr="debatid(o|a)"
+valid msgstr="debatirse"
+valid !msgstr="discutid(o|a)"
+hint="« Discuss » se traduce como como « Debatir », no como « Discutir » (falso amigo)"
+
 # «Discussion» se traduce como «Debate».
 {\bdiscussion\b}i
 valid msgstr="debate"
@@ -649,6 +674,13 @@ valid !msgstr="divertir"
 valid !msgstr="diviert(a|e|o)"
 hint="« Divert » se traduce como como « Desviar », no como « Divertir » (falso amigo)"
 
+# «Diverted» se traduce como «Desviado».
+{\bdiverted\b}i
+valid msgstr="desviad(o|a)"
+valid msgstr="desviarse"
+valid !msgstr="divertid(o|a)"
+hint="« Diverted » se traduce como como « Desviado », no como « Divertido » (falso amigo)"
+
 # «(to) Diverts» se traduce como «Desvía».
 {\bdiverts\b}i
 valid msgstr="desví(e|a)"
@@ -680,6 +712,7 @@ hint="« Duress » se traduce como como « Coacción/Presión », no como « Dur
 {\beducated\b}i
 valid msgstr="cult(o|a)"
 valid msgstr="instruid(o|a)"
+valid msgstr="instruirse"
 valid !msgstr="educad(o|a)"
 hint="« Educated » se traduce como como « Culto/Instruido », no como « Educado » (falso amigo)"
 
@@ -687,6 +720,8 @@ hint="« Educated » se traduce como como « Culto/Instruido », no como « Educ
 {\bembarrased\b}i
 valid msgstr="avergonzad(o|a)"
 valid msgstr="abochornas(o|a)"
+valid msgstr="avergonzarse"
+valid msgstr="abochornarse"
 valid !msgstr="embarazd(o|a)"
 hint="« Embarrassed » se traduce como como « Avergonzado/Abchornado », no como « Embarazado » (falso amigo)"
 
@@ -702,6 +737,20 @@ valid msgstr="agrand(ar|a|e)"
 valid !msgstr="alarg(ar|a|o)"
 valid !msgstr="alarg(ue|a)"
 hint="« Enlarge » se traduce como como « Agrandar », no como « Alargar » (falso amigo)"
+
+# «Enlarged» se traduce como «Agrandadado».
+{\benlarges\b}i
+valid msgstr="agrandad(o|a)"
+valid msgstr="agrandarse"
+valid !msgstr="alargad(o|a)"
+hint="« Enlarge » se traduce como como « Agrandar », no como « Alargar » (falso amigo)"
+
+# «Enlarges» se traduce como «Agrande».
+{\benlarges\b}i
+valid msgstr="agrand(ar|a|e)"
+valid !msgstr="alarg(ar|a|o)"
+valid !msgstr="alarg(ue|a)"
+hint="« Enlarges » se traduce como como « Agrande », no como « Alargue » (falso amigo)"
 
 # «Eventually» se traduce como «Finalmente».
 {\beventually\b}i
@@ -799,6 +848,13 @@ valid msgstr="banquete"
 valid msgstr="festín"
 valid !msgstr="fiesta"
 hint="« Feast » se traduce como como « Banquete/Festín », no como « Fiesta » (falso amigo)"
+
+# «Feasts» se traduce como «Banquetes/festines».
+{\bfeasts\b}i
+valid msgstr="banquetes"
+valid msgstr="festines"
+valid !msgstr="fiestas"
+hint="« Feasts » se traduce como como « Banquetes/Festines », no como « Fiesta » (falso amigo)"
 
 # «Genial» se traduce como «Simpático».
 {\bgenial\b}i
@@ -925,6 +981,13 @@ valid !msgstr="introduc(ir|e)"
 valid !msgstr="introduzc(a|o)"
 hint="« Introduce » se traduce como como « Presentar », no como « Introducir » (falso amigo)"
 
+# «Introduced» se traduce como «Presentado».
+{\bintroduced\b}i
+valid msgstr="presentad(o|a)"
+valid msgstr="presentarse"
+valid !msgstr="introducid(o|a)"
+hint="« Introduced » se traduce como como « Presentado », no como « Introducido » (falso amigo)"
+
 # «Introduces» se traduce como «Presenta».
 {\bintroduces\b}i
 valid msgstr="present(a|e)"
@@ -1024,6 +1087,7 @@ hint="« Ocurrence » se traduce como como « Aparición », no como « Ocurrenc
 # «Occurrences» se traduce como «Apariciones».
 {\boccurrences\b}i
 valid msgstr="apariciones"
+valid msgstr="ideas"
 valid !msgstr="ocurrencias"
 hint="« Ocurrences » se traduce como como « Apariciones », no como « Ocurrencias » (falso amigo)"
 
@@ -1045,6 +1109,13 @@ valid msgstr="oficina"
 valid msgstr="despacho"
 valid !msgstr="oficio"
 hint="« Office » se traduce como como « Oficina », no como « Oficio » (falso amigo)"
+
+# «Offices» se traduce como «Oficinas».
+{\boffices\b}i
+valid msgstr="oficinas"
+valid msgstr="despachos"
+valid !msgstr="oficios"
+hint="« Offices » se traduce como como « Oficinas », no como « Oficios » (falso amigo)"
 
 # «Ordinary» se traduce como «Común».
 {\bordinary\b}i
@@ -1112,6 +1183,7 @@ hint="« Physicians » se traduce como como « Médicos », no como « Físicos 
 # «Plain» se traduce como «Sencillo».
 {\bplain\b}i
 valid msgstr="sencill(o|a)"
+valid msgstr="sin\sformato" after="texto"
 valid !msgstr="plan(o|a)"
 hint="« Plain » se traduce como como « Sencillo », no como « Plano » (falso amigo)"
 
@@ -1405,6 +1477,15 @@ valid !msgstr="remover"
 valid !msgstr="remuev(a|e|o)"
 hint="« Remove » se traduce como como « Quitar », no como « Remover » (falso amigo)"
 
+# «Removed» se traduce como «Quitado».
+{\bremoved\b}i
+valid msgstr="quitad(o|o)"
+valid msgstr="eliminad(o|a)"
+valid msgstr="quitarse"
+valid msgstr="eliminarse"
+valid !msgstr="removid(o|a)"
+hint="« Remove » se traduce como como « Quitar », no como « Remover » (falso amigo)"
+
 # «Removes» se traduce como «Quita».
 {\bremoves\b}i
 valid msgstr="quit(a|e)"
@@ -1432,6 +1513,13 @@ valid msgstr="inform(ar|a|e)"
 valid !msgstr="report(ar|a|e)"
 hint="« Report » se traduce como como « Informar », no como « Reportar » (falso amigo)"
 
+# «Reported» se traduce como «Informado».
+{\breported\b}i
+valid msgstr="informad(o|a)"
+valid msgstr="informarse"
+valid !msgstr="reportad(o|a)"
+hint="« Reported » se traduce como como « Informado », no como « Reportado » (falso amigo)"
+
 # «Reports» se traduce como «Informa».
 {\breports\b}i
 valid msgstr="inform(a|e)"
@@ -1443,6 +1531,13 @@ hint="« Reporta » se traduce como como « Informe », no como « Reporte » (f
 valid msgstr="reanud(ar|a|e|o)"
 valid !msgstr="resumen"
 hint="« Resume » se traduce como como « Reanudar », no como « Resumen » (falso amigo)"
+
+# «Resumed» se traduce como «Reanudado».
+{\bresumed\b}i
+valid msgstr="reanudad(o|a)"
+valid msgstr="reanudarse"
+valid !msgstr="resumid(o|a)"
+hint="« Resumed » se traduce como como « Reanudado », no como « Resumido » (falso amigo)"
 
 # «Resumes» se traduce como «Reanuda».
 {\bresumes\b}i
@@ -1615,6 +1710,13 @@ valid msgstr="terrible"
 valid msgstr="tremend(o|a)"
 valid !msgstr="terrorífic(o|a)"
 hint="« Terrific » se traduce como como « Terrible/Tremendo », no como « Terrorífico » (falso amigo)"
+
+# «Terrifics» se traduce como «Terribles/Tremendos».
+{\bterrifics\b}i
+valid msgstr="terribles"
+valid msgstr="tremend(o|a)s"
+valid !msgstr="terrorífic(o|a)s"
+hint="« Terrifics » se traduce como como « Terribles/Tremendos », no como « Terrorífico » (falso amigo)"
 
 # «Topic» se traduce como «Tema».
 {\btopic\b}i
