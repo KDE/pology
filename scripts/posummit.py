@@ -45,8 +45,12 @@ def main ():
 
     # Setup options and parse the command line.
     usage = _("@info command usage",
-        "%(cmd)s [OPTIONS] CONFIG LANG OPMODE [PARTIAL...]",
-        cmd="%prog")
+        "\n"
+        "  %(cmd)s [OPTIONS] CFGFILE LANG OPMODE [PARTIAL...]\n"
+        "    (if there is no '%(cfgfile)s' file in a parent directory)\n"
+        "  %(cmd)s [OPTIONS] OPMODE [PARTIAL...]\n"
+        "    (if there is a '%(cfgfile)s' file in a parent directory)",
+        cmd="%prog", cfgfile="summit-config")
     desc = _("@info command description",
         "Translate PO files spread across different branches "
         "in a unified fashion.")
@@ -85,28 +89,53 @@ def main ():
     add_cmdopt_filesfrom(opars)
     add_cmdopt_incexc(opars)
 
-    (options, free_args) = opars.parse_args(str_to_unicode(sys.argv[1:]))
+    options, free_args = opars.parse_args(str_to_unicode(sys.argv[1:]))
 
-    if len(free_args) < 1:
-        opars.error(_("@info", "Summit configuration file name not given."))
-    options.fproj = free_args.pop(0)
-    if not os.path.isfile(options.fproj):
-        error(_("@info",
-                "Summit configuration file '%(file)s' does not exist.",
-                file=options.fproj))
+    # Look for the config file through parent directories.
+    parent = os.getcwd()
+    cfgpath = None
+    while True:
+        for cfgname in ("summit-config",):
+            cfgpath1 = os.path.join(parent, cfgname)
+            if os.path.isfile(cfgpath1):
+                cfgpath = cfgpath1
+                break
+        if cfgpath:
+            break
+        pparent = parent
+        parent = os.path.dirname(parent)
+        if parent == pparent:
+            break
 
-    if len(free_args) < 1:
-        opars.error(_("@info", "Language code not given."))
-    options.lang = free_args.pop(0)
+    # If config file not found, expect it and language as arguments.
+    if not cfgpath:
+        if len(free_args) < 1:
+            opars.error(_("@info",
+                          "Summit configuration file neither found "
+                          "in parent directories, "
+                          "nor given in command line."))
+        cfgpath = free_args.pop(0)
+        if not os.path.isfile(cfgpath):
+            error(_("@info",
+                    "Summit configuration file '%(file)s' does not exist.",
+                    file=cfgpath))
+
+        if len(free_args) < 1:
+            opars.error(_("@info",
+                          "Language code not given."))
+        lang = free_args.pop(0)
+    else:
+        lang = None
+        # ...will be read from config file.
 
     if len(free_args) < 1:
         opars.error(_("@info", "Operation mode not given."))
-    options.modes = free_args.pop(0).split(",")
-    for mode in options.modes:
-        if mode not in ("gather", "scatter", "merge"):
+    opmodes = free_args.pop(0).split(",")
+    for opmode in opmodes:
+        if opmode not in ("gather", "scatter", "merge"):
             error(_("@info",
                     "Unknown operation mode '%(mode)s'.",
-                    mode=mode))
+                    mode=opmode))
 
     # Could use some speedup.
     try:
@@ -116,20 +145,30 @@ def main ():
         pass
 
     # Read project definition.
-    project = Project(options)
-    project.include(options.fproj)
+    project = Project(lang, opmodes, options)
+    project.include(cfgpath)
+
+    # If config file was found in parent directories,
+    # it should have defined the language itself.
+    # Otherwise, its language is set to language given in command line.
+    if not lang:
+        if not project.lang:
+            error(_("@info",
+                    "Language code not set in configuration file."))
+        lang = project.lang
+    else:
+        project.lang = lang
 
     # In summit-over-dynamic-templates mode, derive special project data
     # for implicitly gathering templates on merge.
-    if project.templates_dynamic and "merge" in options.modes:
+    if project.templates_dynamic and "merge" in project.opmodes:
         project.toptions = copy.copy(options)
-        project.toptions.modes = ["gather"]
-        project.toptions.lang = project.templates_lang
         project.toptions.create = True
         project.toptions.force = True
         project.toptions.quiet = True
-        project.tproject = Project(project.toptions)
-        project.tproject.include(project.toptions.fproj)
+        project.tproject = Project(project.templates_lang, ["gather"],
+                                   project.toptions)
+        project.tproject.include(cfgpath)
         project.tproject.templates_dynamic = False
         project.tproject.version_control = "none"
         project.tproject.summit_wrap = False # performance
@@ -146,8 +185,8 @@ def main ():
     # Explicit gathering in summit-over-dynamic-templates mode
     # may be useful to check if gathering works.
     # Make some adjustments for this to go smoothly.
-    if (    project.templates_dynamic and "gather" in options.modes
-        and options.lang == project.templates_lang
+    if (    project.templates_dynamic and "gather" in project.opmodes
+        and project.lang == project.templates_lang
     ):
         options.create = True
         project.summit["topdir"] = project.summit["topdir_templates"]
@@ -168,24 +207,26 @@ def main ():
     options.selcatf = lambda x: cmdself(x) and ffself(x)
 
     # Invoke the appropriate operations on collected bundles.
-    for mode in options.modes:
+    for opmode in opmodes:
         if options.verbose:
             report(_("@info:progress",
                      "-----> Processing mode: %(mode)s",
-                     mode=mode))
-        if mode == "gather":
+                     mode=opmode))
+        if opmode == "gather":
             summit_gather(project, options)
-        elif mode == "scatter":
+        elif opmode == "scatter":
             summit_scatter(project, options)
-        elif mode == "merge":
+        elif opmode == "merge":
             summit_merge(project, options)
 
 
 class Project (object):
 
-    def __init__ (self, options):
+    def __init__ (self, lang, opmodes, options):
 
         self.__dict__.update({
+            "lang" : lang,
+            "opmodes" : opmodes,
             "options" : options,
 
             "summit" : "",
@@ -256,28 +297,13 @@ class Project (object):
                     field=att))
         self.__dict__[att] = val
 
-    def resolve_path (self, path):
-
-        new_path = path
-
-        # Substitute language code.
-        new_path = interpolate(new_path, {"lang" : self.options.lang})
-
-        return new_path
-
     def resolve_path_rooted (self, path):
 
-        new_path = path
-
-        # Ordinary resolve.
-        new_path = self.resolve_path(new_path)
-
-        # Resolve relative paths as relative to current root dir.
         rootdir = os.path.dirname(self.inclusion_trail[-1])
         if not os.path.isabs(path):
-            new_path = join_ncwd(rootdir, new_path)
+            path = join_ncwd(rootdir, path)
 
-        return new_path
+        return path
 
     def include (self, path):
 
@@ -344,7 +370,7 @@ def derive_project_data (project, options):
         b.topdir_templates = bd.pop("topdir_templates", None)
         b.by_lang = bd.pop("by_lang", None)
         if b.by_lang:
-            b.by_lang = interpolate(b.by_lang, {"lang" : options.lang})
+            b.by_lang = interpolate(b.by_lang, {"lang" : project.lang})
         b.scatter_create_filter = bd.pop("scatter_create_filter", None)
         b.skip_version_control = bd.pop("skip_version_control", False)
         b.merge_locally = bd.pop("merge_locally", False)
@@ -421,7 +447,7 @@ def derive_project_data (project, options):
     p.branches_wrapping = REW.select_field_wrapping(cmlopt=dummyopt)
 
     # Decide the extension of catalogs.
-    if p.templates_lang and options.lang == p.templates_lang:
+    if p.templates_lang and p.lang == p.templates_lang:
         catext = ".pot"
     else:
         catext = ".po"
@@ -479,8 +505,8 @@ def derive_project_data (project, options):
     # At scatter in summit-over-templates mode, add to the collection of
     # branch catalogs any that should be newly created.
     p.add_on_scatter = {}
-    if (    p.templates_lang and options.lang != p.templates_lang
-        and "scatter" in options.modes):
+    if (    p.templates_lang and p.lang != p.templates_lang
+        and "scatter" in p.opmodes):
 
         # Go through all mappings and collect branch names mapped to
         # summit catalogs per branch id and summit name, and vice versa.
@@ -576,8 +602,8 @@ def derive_project_data (project, options):
     # if automatic vivification of summit catalogs requested,
     # add to the collection of summit catalogs any that should be created.
     p.add_on_merge = {}
-    if (    p.templates_lang and options.lang != p.templates_lang
-        and "merge" in options.modes and (p.vivify_on_merge or options.create)
+    if (    p.templates_lang and p.lang != p.templates_lang
+        and "merge" in p.opmodes and (p.vivify_on_merge or options.create)
     ):
         # Collect all summit templates.
         if not p.templates_dynamic:
@@ -648,7 +674,7 @@ def derive_project_data (project, options):
                     # and creation is enabled.
                     # Record missing summit catalogs as halting the operation
                     # if the mode is gather and creation is not enabled.
-                    if "gather" in options.modes:
+                    if "gather" in p.opmodes:
                         if not options.create:
                             halting_pairs.append((branch_path, summit_path))
 
@@ -860,17 +886,17 @@ def collect_catalogs (topdir, catext, by_lang, ignored, project, options):
 
 def summit_gather (project, options):
 
-    if (    project.templates_lang and options.lang != project.templates_lang
+    if (    project.templates_lang and project.lang != project.templates_lang
         and not options.force):
         error(_("@info",
                 "Gathering possible only on '%(lang1)s' "
                 "in summit-over-templates mode. "
                 "If this is the very creation of the '%(lang2)s' summit, "
                 "run with options %(opts)s.",
-                lang1=project.templates_lang, lang2=options.lang,
+                lang1=project.templates_lang, lang2=project.lang,
                 opts="--create --force"))
     elif (    project.templates_dynamic
-          and options.lang == project.templates_lang and not options.force):
+          and project.lang == project.templates_lang and not options.force):
         warning(_("@info",
                   "Gathering on '%(lang)s' is superfluous in "
                   "summit-over-dynamic-templates mode. "
@@ -904,7 +930,7 @@ def summit_gather (project, options):
 
 def summit_scatter (project, options):
 
-    if project.templates_lang and options.lang == project.templates_lang:
+    if project.templates_lang and project.lang == project.templates_lang:
         error(_("@info",
                 "Scattering not possible on '%(lang)s' "
                 "in summit-over-templates mode.",
@@ -981,7 +1007,7 @@ def summit_scatter (project, options):
 
 def summit_merge (project, options):
 
-    if project.templates_lang and options.lang == project.templates_lang:
+    if project.templates_lang and project.lang == project.templates_lang:
         error(_("@info",
                 "Merging not possible on '%(lang)s' in "
                 "summit-over-templates mode.",
@@ -1583,7 +1609,7 @@ def summit_gather_single_bcat (branch_id, branch_cat, is_primary,
 
         # Normalizations when gathering templates,
         # in case extraction tool needs to have its sanity checked.
-        if options.lang == project.templates_lang:
+        if project.lang == project.templates_lang:
             # There should be no manual comments,
             # convert them to automatic if present.
             if msg.manual_comment:
