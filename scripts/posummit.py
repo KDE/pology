@@ -22,7 +22,7 @@ from pology.message import Message, MessageUnsafe
 from pology.colors import ColorOptionParser
 from pology.fsops import str_to_unicode
 from pology.fsops import mkdirpath, assert_system, collect_system
-from pology.fsops import join_ncwd
+from pology.fsops import getucwd, join_ncwd
 from pology.fsops import collect_paths_cmdline, build_path_selector
 from pology.merge import merge_pofile
 from pology.monitored import Monpair, Monlist
@@ -92,7 +92,7 @@ def main ():
     options, free_args = opars.parse_args(str_to_unicode(sys.argv[1:]))
 
     # Look for the config file through parent directories.
-    parent = os.getcwd()
+    parent = getucwd()
     cfgpath = None
     while True:
         for cfgname in ("summit-config",):

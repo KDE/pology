@@ -223,7 +223,7 @@ def system_wd (cmdline, wdir):
     @rtype: int
     """
 
-    cwd = os.getcwd()
+    cwd = getucwd()
     try:
         os.chdir(wdir)
         ret = os.system(cmdline)
@@ -253,7 +253,7 @@ def assert_system (cmdline, echo=False, wdir=None):
     if echo:
         report(cmdline)
     if wdir is not None:
-        cwd = os.getcwd()
+        cwd = getucwd()
         os.chdir(wdir)
     ret = os.system(unicode_to_str(cmdline))
     if wdir is not None:
@@ -292,7 +292,7 @@ def collect_system (cmdline, echo=False, wdir=None, env=None, instr=None):
     if echo:
         report(cmdline)
     if wdir is not None:
-        cwd = os.getcwd()
+        cwd = getucwd()
         os.chdir(wdir)
     stdin = instr is not None and subprocess.PIPE or None
     p = subprocess.Popen(unicode_to_str(cmdline), shell=True, env=env,
@@ -385,7 +385,7 @@ def join_ncwd (*elements):
     """
 
     path = os.path.join(*elements)
-    cwd = os.getcwd() + os.path.sep
+    cwd = getucwd() + os.path.sep
     apath = os.path.abspath(path)
     if apath.startswith(cwd):
         path = apath[len(cwd):]
@@ -897,7 +897,7 @@ def collect_paths_cmdline (rawpaths=None,
     # If neither direct paths nor files to read paths from were given,
     # add current working directory if requested.
     if elsecwd and not rawpaths and not filesfrom:
-        cwd = os.getcwd()
+        cwd = getucwd()
         if respathf:
             try:
                 paths.extend(respathf(cwd))
@@ -925,4 +925,21 @@ def collect_paths_cmdline (rawpaths=None,
         except Exception, e:
             abort_or_raise(e)
         return paths
+
+
+def getucwd ():
+    """
+    Get path of current working directory as Unicode string.
+
+    C{os.getcwd()} returns a raw byte sequence, to which
+    the L{str_to_unicode} function is applied to make best guess
+    at decoding it into a unicode string.
+
+    @returns: path of current working directory
+    @rtype: string
+    """
+
+    rawcwd = os.getcwd()
+    cwd = str_to_unicode(rawcwd)
+    return cwd
 
