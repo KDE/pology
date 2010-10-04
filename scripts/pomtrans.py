@@ -419,8 +419,10 @@ class Translator_google (object):
 
     def __init__ (self, slang, tlang, options):
 
-        self.slang = slang
-        self.tlang = tlang
+        if options.tmode is not None:
+            self.langpair = options.tmode
+        else:
+            self.langpair = "%s|%s" % (slang, tlang)
 
 
     def translate (self, texts):
@@ -435,11 +437,7 @@ class Translator_google (object):
                     mod="simplejson", pkg="python-simplejson"))
 
         baseurl = "http://ajax.googleapis.com/ajax/services/language/translate"
-        if options.tmode is not None:
-            langpair = options.tmode
-        else:
-            langpair = "%s|%s" % (self.slang, self.tlang)
-        baseparams = (("v", "1.0"), ("langpair", langpair), ("ie", "utf8"))
+        baseparams = (("v", "1.0"), ("langpair", self.langpair), ("ie", "utf8"))
 
         texts_tr = []
         for text in texts:
