@@ -44,6 +44,12 @@ id="t-authorize"
 hint="authorize = овластити"
 valid msgstr="\bовла(ст|шћ)"
 
+{\bback.?end}i
+id="t-backend"
+hint="backend = позадина"
+valid msgstr="\bпозадин" !msgstr="\bпозадин\w+ (систем|мотор)"
+valid msgstr="\bпозадин" before=" (system|engine)"
+
 {\bbackup}i
 id="t-backup"
 hint="backup = резерва"
