@@ -683,11 +683,10 @@ def derive_project_data (project, options):
                         # it will be created for real on gather.
                         p.catalogs[SUMMIT_ID][summit_name] = [(summit_path,
                                                                summit_subdir)]
-
     if halting_pairs:
         fmtlist = "\n".join("%s --> %s" % x for x in halting_pairs)
         error(_("@info",
-                "Missing summit catalogs to branch catalogs:\n"
+                "Some branch catalogs miss expected summit catalogs:\n"
                 "%(filelist)s",
                 filelist=fmtlist))
 
@@ -725,6 +724,25 @@ def derive_project_data (project, options):
                               "Missing expected summit catalog '%(name)s' "
                               "for branch catalog '%(file)s'.",
                               name=summit_name, file=bpath))
+
+    # Complain about summit catalogs to be removed.
+    halting_removals = []
+    for summit_name in p.catalogs[SUMMIT_ID]:
+        src_branch_ids = []
+        for branch_id in project.branch_ids:
+            if project.full_inverse_map[summit_name][branch_id]:
+                src_branch_ids.append(branch_id)
+        if not src_branch_ids:
+            if "gather" in p.opmodes:
+                if not options.create:
+                    summit_path = p.catalogs[SUMMIT_ID][summit_name][0][0]
+                    halting_removals.append(summit_path)
+    if halting_removals:
+        fmtlist = "\n".join(sorted(halting_removals))
+        error(_("@info",
+                "Some summit catalogs have no associated branch catalogs:\n"
+                "%(filelist)s",
+                filelist=fmtlist))
 
     # Fill in defaults for missing fields in hook specs.
     for attr in p.__dict__:
