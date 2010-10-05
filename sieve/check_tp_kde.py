@@ -13,9 +13,8 @@ import os
 import re
 
 from pology import _, n_
-from pology.comments import manc_parse_list
-from pology.escape import escape_c
 from pology.markup import flag_no_check_markup
+from pology.escape import escape_c
 from pology.markup import validate_kde4_l1
 from pology.markup import validate_qtrich_l1
 from pology.msgreport import report_on_msg_hl, report_msg_content
@@ -525,120 +524,4 @@ def _check_cat_kdeqt (msg, cat, pcache):
                      text1="LTR", text2="RTL")
 
 _add_cat_check(_check_cat_kdeqt, ["kdeqt"])
-
-
-def _check_cat_kcmlocale (msg, cat, pcache):
-
-    # Collect translated time and date format placeholders.
-    fmtkeyspec = pcache.get("fmtkeys")
-    if fmtkeyspec is None:
-        # FIXME: Format keyword messages should be given contexts.
-        # Until then, recognize them as having only ASCII letters,
-        # at least two, and al upper-case but possibly for the first.
-        fmtkeyrx = re.compile(r"^[a-zA-Z][A-Z]+$", re.U)
-        fmtkeyrx_tran = re.compile(r"^\w+$", re.U)
-        known_fmtkeys = set()
-        known_fmtkeys_orig = set()
-        known_fmtkeys_o2t = {}
-        invalid_fmtkeys = set()
-        for omsg in cat:
-            if omsg.translated and fmtkeyrx.search(omsg.msgid):
-                known_fmtkeys.add(omsg.msgstr[0])
-                known_fmtkeys_orig.add(omsg.msgid)
-                known_fmtkeys_o2t[omsg.msgid] = omsg.msgstr[0]
-                if not fmtkeyrx_tran.search(omsg.msgstr[0]):
-                    invalid_fmtkeys.add(omsg.msgstr[0])
-        fmtkeyspec = (known_fmtkeys, known_fmtkeys_orig, known_fmtkeys_o2t,
-                      invalid_fmtkeys)
-        pcache["fmtkeyspec"] = fmtkeyspec
-    (known_fmtkeys, known_fmtkeys_orig, known_fmtkeys_o2t,
-     invalid_fmtkeys) = fmtkeyspec
-
-    # If there were any invalid translations of format keywords,
-    # just report them when their message is up and skip other checks.
-    if msg.msgid in known_fmtkeys_orig and msg.msgstr[0] in invalid_fmtkeys:
-        return _("@info",
-                 "Translated datetime format keyword '%(kw)s' is not valid. "
-                 "Keywords should contain only letters, digits, and "
-                 "underscores (in any script, not necessarily ASCII).",
-                 kw=msg.msgstr[0])
-    if invalid_fmtkeys:
-        return
-
-    # Check whether valid format keywords have been used
-    # in messages known to contain them.
-    # NOTE: There is not really a way to automatically match such messages.
-    # For example, if the original text would contain one or more
-    # format keywords, a valid translation might contain none, one,
-    # or more, with or without other words, depending on the message.
-    errmsgs = []
-    if msg.msgctxt and "reasonable" in msg.msgctxt and "format" in msg.msgctxt:
-        # Parse explicitly allowed literal words from comments.
-        lcpref = "not-format-keywords:"
-        literals = manc_parse_list(msg, lcpref, ",")
-        # Parse words from the translation,
-        # checking if they are known format keywords,
-        # or explicitly declared literals.
-        wordrx = re.compile(r"\w+", re.U)
-        seen_fmtkeys = set()
-        unknown_fmtkeys = set()
-        repeated_fmtkeys = set()
-        for word in wordrx.findall(msg.msgstr[0]):
-            if word not in literals:
-                if word not in known_fmtkeys:
-                    unknown_fmtkeys.add(word)
-                elif word in seen_fmtkeys:
-                    repeated_fmtkeys.add(word)
-        if unknown_fmtkeys:
-            # FIXME: Once format keyword messages are equipped with contexts,
-            # use them in the error message instead of example keywords.
-            errmsgs.append(
-                _("@info",
-                  "The following datetime format keywords are not known: "
-                  "%(kwlist)s. "
-                  "The set of known keywords is defined by translations "
-                  "of messages 'HH', 'YYYY', 'SHORTDAY', etc. "
-                  "(If any of the unknown keywords are intended "
-                  "as literal words, add a translator comment "
-                  "starting with '%(prefix)s' and followed by "
-                  "comma-separated list of those words.)",
-                  kwlist=format_item_list(sorted(unknown_fmtkeys)),
-                  prefix=lcpref))
-        if repeated_fmtkeys:
-            errmsgs.append(
-                _("@info",
-                  "The following datetime format keywords have been used "
-                  "more than once in the format string: %(kwlist)s.",
-                  kwlist=format_item_list(sorted(repeated_fmtkeys))))
-
-    elif "<b>HH</b>" in msg.msgid or "<b>YYYY</b>" in msg.msgid:
-        # Parse format keywords from original text
-        # (only those which have translated counterparts).
-        wordrx = re.compile(r"\w+", re.U)
-        fmtkeys_orig = set()
-        for word in wordrx.findall(msg.msgid):
-            if word in known_fmtkeys_orig:
-                fmtkeys_orig.add(word)
-        # Parse format keywords from translated text.
-        fmtkeys_tran = set()
-        for word in wordrx.findall(msg.msgstr[0]):
-            if word in known_fmtkeys:
-                fmtkeys_tran.add(word)
-        # Make sure that translated counterparts for all
-        # original format keywords have been mentioned.
-        omitted_fmtkeys = set()
-        for ofmtkey in fmtkeys_orig:
-            tfmtkey = known_fmtkeys_o2t[ofmtkey]
-            if tfmtkey not in fmtkeys_tran:
-                omitted_fmtkeys.add(tfmtkey)
-        if omitted_fmtkeys:
-            errmsgs.append(
-                _("@info",
-                  "The following datetime format keywords should have been "
-                  "mentioned in the text but have been omitted: %(kwlist)s.",
-                  kwlist=format_item_list(sorted(omitted_fmtkeys))))
-
-    return errmsgs
-
-_add_cat_check(_check_cat_kcmlocale, ["kcmlocale"])
 
