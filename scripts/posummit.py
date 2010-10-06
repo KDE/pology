@@ -149,6 +149,10 @@ def main ():
     project = Project(lang, opmodes, options)
     project.include(cfgpath)
 
+    # In summit-over-templates mode, determine if templates are dynamic.
+    project.templates_dynamic = (    project.over_templates
+                                 and not project.summit.get("topdir_templates"))
+
     # If config file was found in parent directories,
     # it should have defined the language itself.
     # Otherwise, its language is set to language given in command line.
@@ -160,7 +164,7 @@ def main ():
     else:
         project.lang = lang
 
-    # In summit-over-dynamic-templates mode, derive special project data
+    # In summit-over-templates mode, derive special project data
     # for implicitly gathering templates on merge.
     if project.templates_dynamic and "merge" in project.opmodes:
         project.toptions = copy.copy(options)
@@ -183,7 +187,7 @@ def main ():
                                                project.toptions)
         project.summit["topdir_templates"] = tpd
 
-    # Explicit gathering in summit-over-dynamic-templates mode
+    # Explicit gathering in summit-over-templates mode
     # may be useful to check if gathering works.
     # Make some adjustments for this to go smoothly.
     if (    project.templates_dynamic and "gather" in project.opmodes
@@ -234,8 +238,8 @@ class Project (object):
             "branches" : [],
             "mappings" : [],
 
-            "templates_lang" : "",
-            "templates_dynamic" : False,
+            "over_templates" : False,
+            "templates_lang" : "templates",
 
             "summit_wrap" : False,
             "summit_fine_wrap" : True,
@@ -333,12 +337,6 @@ class Project (object):
 def derive_project_data (project, options):
 
     p = project # shortcut
-
-    # Assert that summit mode is properly specified.
-    if p.templates_dynamic and not p.templates_lang:
-        error(_("@info",
-                "Summit configuration declares dynamic-templates mode, "
-                "but does not declare dummy templates language name."))
 
     # Create summit object from summit dictionary.
     class Summit: pass
@@ -450,7 +448,7 @@ def derive_project_data (project, options):
     p.branches_wrapping = REW.select_field_wrapping(cmlopt=dummyopt)
 
     # Decide the extension of catalogs.
-    if p.templates_lang and p.lang == p.templates_lang:
+    if p.over_templates and p.lang == p.templates_lang:
         catext = ".pot"
     else:
         catext = ".po"
@@ -505,10 +503,10 @@ def derive_project_data (project, options):
                     "%(filelist)s",
                     name=name, filelist=fstr))
 
-    # At scatter in summit-over-templates mode, add to the collection of
-    # branch catalogs any that should be newly created.
+    # At scatter in summit-over-static-templates mode, add to the collection
+    # of branch catalogs any that should be newly created.
     p.add_on_scatter = {}
-    if (    p.templates_lang and p.lang != p.templates_lang
+    if (    p.over_templates and p.lang != p.templates_lang
         and "scatter" in p.opmodes):
 
         # Go through all mappings and collect branch names mapped to
@@ -605,7 +603,7 @@ def derive_project_data (project, options):
     # if automatic vivification of summit catalogs requested,
     # add to the collection of summit catalogs any that should be created.
     p.add_on_merge = {}
-    if (    p.templates_lang and p.lang != p.templates_lang
+    if (    p.over_templates and p.lang != p.templates_lang
         and "merge" in p.opmodes and (p.vivify_on_merge or options.create)
     ):
         # Collect all summit templates.
@@ -901,11 +899,11 @@ def collect_catalogs (topdir, catext, by_lang, ignored, project, options):
 
 def summit_gather (project, options):
 
-    if (    project.templates_lang and project.lang != project.templates_lang
+    if (    project.over_templates and project.lang != project.templates_lang
         and not options.force):
         error(_("@info",
                 "Gathering catalogs is normally not allowed "
-                "in summit-over-templates mode. "
+                "in summit-over-static-templates mode. "
                 "If this is the initial creation of summit catalogs, "
                 "or externally injected branch catalogs need to be gathered, "
                 "run with options %(opts)s.",
@@ -914,7 +912,7 @@ def summit_gather (project, options):
           and project.lang == project.templates_lang and not options.force):
         warning(_("@info",
                   "Gathering templates is superfluous in "
-                  "summit-over-dynamic-templates mode. "
+                  "summit-over-templates mode. "
                   "If this is done to check whether gathering works, "
                   "to supress this message run with option %(opt)s.",
                   opt="--force"))
@@ -944,7 +942,7 @@ def summit_gather (project, options):
 
 def summit_scatter (project, options):
 
-    if project.templates_lang and project.lang == project.templates_lang:
+    if project.over_templates and project.lang == project.templates_lang:
         error(_("@info",
                 "Scattering not possible on '%(lang)s' "
                 "in summit-over-templates mode.",
@@ -1021,7 +1019,7 @@ def summit_scatter (project, options):
 
 def summit_merge (project, options):
 
-    if project.templates_lang and project.lang == project.templates_lang:
+    if project.over_templates and project.lang == project.templates_lang:
         error(_("@info",
                 "Merging not possible on '%(lang)s' in "
                 "summit-over-templates mode.",
