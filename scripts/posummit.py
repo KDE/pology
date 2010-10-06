@@ -670,11 +670,8 @@ def derive_project_data (project, options):
                         summit_subdir = os.path.dirname(summit_subdir)
                     summit_path = join_ncwd(p.summit.topdir, summit_subdir,
                                             summit_name + catext)
-
-                    # Add missing summit catalog only on gathering.
+                    pending_additions.append((branch_path, summit_path))
                     if "gather" in p.opmodes:
-                        pending_additions.append((branch_path, summit_path))
-
                         # Add summit catalog into list of existing catalogs;
                         # it will be created for real on gather.
                         p.catalogs[SUMMIT_ID][summit_name] = [(summit_path,
@@ -695,7 +692,6 @@ def derive_project_data (project, options):
     # Add existing inverse mappings.
     for branch_id in p.branch_ids:
         for branch_name in p.catalogs[branch_id]:
-            missing_summmit_names = []
             for summit_name in p.direct_map[branch_id][branch_name]:
                 if summit_name in p.full_inverse_map:
                     # - part inverse:
@@ -706,14 +702,6 @@ def derive_project_data (project, options):
                     finv = p.full_inverse_map[summit_name][branch_id]
                     if branch_name not in finv:
                         finv.append(branch_name)
-                else:
-                    missing_summmit_names.append(summit_name)
-            for summit_name in missing_summmit_names:
-                for bpath, bdir in p.catalogs[branch_id][branch_name]:
-                    warning(_("@info",
-                              "Missing expected summit catalog '%(name)s' "
-                              "for branch catalog '%(file)s'.",
-                              name=summit_name, file=bpath))
 
     # Collect summit catalogs to be removed.
     pending_removals = []
@@ -723,13 +711,11 @@ def derive_project_data (project, options):
             if project.full_inverse_map[summit_name][branch_id]:
                 src_branch_ids.append(branch_id)
         if not src_branch_ids:
-            # Remove catalogs only on gathering.
-            if "gather" in p.opmodes:
-                summit_path = p.catalogs[SUMMIT_ID][summit_name][0][0]
-                pending_removals.append(summit_path)
+            summit_path = p.catalogs[SUMMIT_ID][summit_name][0][0]
+            pending_removals.append(summit_path)
 
     # If catalog creation is not allowed,
-    # complain and halt on pending additions and removals.
+    # complain about pending additions and removals.
     if not options.create and (pending_additions or pending_removals):
         if pending_additions:
             fmtlist = "\n".join("%s --> %s" % x for x in pending_additions)
@@ -746,9 +732,10 @@ def derive_project_data (project, options):
                       "associated branch catalogs:\n"
                       "%(filelist)s",
                       filelist=fmtlist))
-        error(_("@info",
-                "Halting because automatic catalog creation is not allowed "
-                "(consider issuing %(opt)s).", opt="--create"))
+        if "gather" in p.opmodes:
+            error(_("@info",
+                    "Halting because catalog creation is not allowed "
+                    "(consider issuing %(opt)s).", opt="--create"))
 
     # Fill in defaults for missing fields in hook specs.
     for attr in p.__dict__:
@@ -914,20 +901,19 @@ def summit_gather (project, options):
     if (    project.templates_lang and project.lang != project.templates_lang
         and not options.force):
         error(_("@info",
-                "Gathering possible only on '%(lang1)s' "
+                "Gathering catalogs is normally not allowed "
                 "in summit-over-templates mode. "
-                "If this is the very creation of the '%(lang2)s' summit, "
+                "If this is the initial creation of summit catalogs, "
+                "or externally injected branch catalogs need to be gathered, "
                 "run with options %(opts)s.",
-                lang1=project.templates_lang, lang2=project.lang,
                 opts="--create --force"))
     elif (    project.templates_dynamic
           and project.lang == project.templates_lang and not options.force):
         warning(_("@info",
-                  "Gathering on '%(lang)s' is superfluous in "
+                  "Gathering templates is superfluous in "
                   "summit-over-dynamic-templates mode. "
                   "If this is done to check whether gathering works, "
                   "to supress this message run with option %(opt)s.",
-                  lang=project.templates_lang,
                   opt="--force"))
 
     # Collect names of summit catalogs to gather.
