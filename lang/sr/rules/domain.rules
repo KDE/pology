@@ -17,7 +17,7 @@ include file="puretext.filters"
 environment lokalize
 
 {\b(entr(y|ies)|message|units?\b)}i
-id="entry"
+id="t-entry"
 hint="entry, message, unit = јединица [у датотеци превода или ТМ-у]"
 valid msgstr="једини[цч]"
 valid srcref="glossary"
@@ -25,13 +25,13 @@ valid after="glossary |term |menu "
 valid before=" term"
 
 {\b(entr(y|ies)|items?)\b}i
-id="entry2"
+id="t-entry2"
 hint="entry, item = унос [у појмовнику]"
 valid !srcref="glossary" !after="glossary |term " !before=" term"
 valid msgstr="унос"
 
 {translation file}i
-id="translationfile"
+id="t-translationfile"
 hint="translation file = фајл превода"
 valid msgstr="фајл\w* превода"
 
@@ -40,7 +40,7 @@ valid msgstr="фајл\w* превода"
 environment kget
 
 {drop target}i
-id="droptarget"
+id="t-droptarget"
 hint="drop target = место за спуштање"
 valid msgstr="мест\w+ за спуштање"
 
@@ -49,7 +49,7 @@ valid msgstr="мест\w+ за спуштање"
 environment kppp
 
 {\bcallback}i
-id="callback"
+id="t-callback"
 hint="callback = повратни позив [телефонски]"
 valid msgstr="\bповратн\w+ позив"
 
@@ -58,17 +58,17 @@ valid msgstr="\bповратн\w+ позив"
 environment ksirk
 
 {\bturns?\b}i
-id="turn"
+id="t-turn"
 hint="turn = потез"
 valid msgstr="\bпотез"
 
 {\bcountr(y|es)\b}i
-id="country"
+id="t-country"
 hint="country = земља"
 valid msgstr="\bземљ"
 
 {\bmaps?\b}i
-id="map"
+id="t-map"
 hint="map = карта"
 valid msgstr="\bкарт[аеиоу]"
 
@@ -77,27 +77,27 @@ valid msgstr="\bкарт[аеиоу]"
 environment kubrick
 
 {\bviews?\b}i
-id="view"
+id="t-view"
 hint="view = поглед"
 valid msgstr="\bпоглед"
 
 {\b(layers?|slices?)\b}i
-id="layer"
+id="t-layer"
 hint="layer, slice = слој"
 valid msgstr="\bслој"
 
 {\bwatch}i
-id="watch"
+id="t-watch"
 hint="watch = анимирати [пребачено на радњу из угла рачунара]"
 valid msgstr="\bанимир"
 
 {\bfaces?\b}i
-id="face"
+id="t-face"
 hint="face = страница"
 valid msgstr="\bстрани[цч]"
 
 {\bbrick}i
-id="brick"
+id="t-brick"
 hint="brick = квадар"
 valid msgstr="\bквада?р" !msgstr='\bцигл'
 
@@ -105,17 +105,17 @@ valid msgstr="\bквада?р" !msgstr='\bцигл'
 # Okteta (hex editor)
 
 {bit.?field}i
-id="bitfield"
+id="t-bitfield"
 hint="bitfield = битско поље"
 valid msgstr="битск\w+ пољ\w+"
 
 {byte array}i
-id="bytearray"
+id="t-bytearray"
 hint="byte array = низ бајтова"
 valid msgstr="низ\w* бајтова"
 
 {offset}i
-id="offset"
+id="t-offset"
 hint="offset = помак"
 valid msgstr="пома[кц]"
 
@@ -124,27 +124,27 @@ valid msgstr="пома[кц]"
 environment palapeli
 
 {\bpuzzle}i
-id="puzzle"
+id="t-puzzle"
 hint="puzzle = слагалица"
 valid msgstr="\bслага(лиц|чк|њ)|\bслаж[иеу]"
 
 {\btable}i
-id="table"
+id="t-table"
 hint="table = табла [играчка]"
 valid msgstr="\bтабл\w+"
 
 {puzzle table}i
-id="puzzletable"
+id="t-puzzletable"
 hint="puzzle table = слагачка табла"
 valid msgstr="слагачк\w+ табл\w+"
 
 {(puzzle )?table area}i
-id="puzzletablearea"
+id="t-puzzletablearea"
 hint="(puzzle) table area = површ (слагачке) табле"
 valid msgstr="површ\w* (слагачке )?табле"
 
 {viewport}i
-id="viewport"
+id="t-viewport"
 hint="viewport = поглед"
 valid msgstr="поглед"
 
@@ -153,26 +153,26 @@ valid msgstr="поглед"
 environment partitionmanager
 
 {\bbackup}i
-id="backup"
+id="t-backup"
 hint="backup = архивa"
 valid msgstr="\bархив"
 
 {\bback(ed|s)? up}i
-id="backup2"
+id="t-backup2"
 hint="back up = архивирати"
 valid msgstr="\bархивир"
 
 {\b(re)?create}i
-id="create"
+id="t-create"
 hint="create = направити, правити"
 valid msgstr="\bнаправ|\bправи|\bправљењ"
 
 {\brestore}i
-id="restore"
+id="t-restore"
 hint="restore = повратити, враћати"
 valid msgstr="\bповрат|\bвраћ[ае]"
 
 {\btarget}i
-id="target"
+id="t-target"
 hint="target = одредиште"
 valid msgstr="\bодредиш[тн]"

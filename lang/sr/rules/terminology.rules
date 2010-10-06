@@ -17,6 +17,22 @@ id="t-addon"
 hint="addon = додатак"
 valid msgstr="\bдода(так|тк|ц)"
 
+{\badvanced}i
+id="t-advanced"
+hint="advanced = напредан"
+valid msgstr="\bнапред(ан|н)"
+valid env="kde" msgstr="&\w*advanced\S*;"
+
+{\baligned}i
+id="t-aligned"
+hint="aligned = поравнат"
+valid msgstr="\bпоравнат"
+
+{\balignment}i
+id="t-alignment"
+hint="alignment = поравнање"
+valid msgstr="\bпоравнањ"
+
 {\bbookmark}i
 id="t-bookmark"
 hint="bookmark = обележивач"

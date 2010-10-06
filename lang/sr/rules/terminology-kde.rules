@@ -6,6 +6,12 @@ environment kde
 
 include file="puretext.filters"
 
+{\baction}i
+id="t-action"
+hint="action = радња"
+valid msgstr="\bрадњ"
+valid msgstr="&\w*action\S*;"
+
 {\bapplet}i
 id="t-applet"
 hint="applet = аплет"
@@ -47,7 +53,7 @@ valid msgstr="\bовла(ст|шћ)"
 {\bback.?end}i
 id="t-backend"
 hint="backend = позадина"
-valid msgstr="\bпозадин" !msgstr="\bпозадин\w+ (систем|мотор)"
+valid msgstr="\bпозадин" !msgstr="\bпозадинск\w+ (систем|мотор)"
 valid msgstr="\bпозадин" before=" (system|engine)"
 
 {\bbackup}i
