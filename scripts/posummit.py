@@ -321,15 +321,6 @@ class Project (object):
         self.inclusion_trail.pop()
 
 
-def interpolate (text, dict):
-
-    new_text = text
-    for name, value in dict.items():
-        new_text = new_text.replace("@%s@" % name, value)
-
-    return new_text
-
-
 def derive_project_data (project, options):
 
     p = project # shortcut
@@ -370,8 +361,6 @@ def derive_project_data (project, options):
         b.topdir = bd.pop("topdir", None)
         b.topdir_templates = bd.pop("topdir_templates", None)
         b.by_lang = bd.pop("by_lang", None)
-        if b.by_lang:
-            b.by_lang = interpolate(b.by_lang, {"lang" : project.lang})
         b.scatter_create_filter = bd.pop("scatter_create_filter", None)
         b.skip_version_control = bd.pop("skip_version_control", False)
         b.merge_locally = bd.pop("merge_locally", False)
