@@ -289,6 +289,7 @@ class Project (object):
 
         self.inclusion_trail = []
 
+
     def __setattr__ (self, att, val):
 
         # TODO: Do extensive checks.
@@ -298,13 +299,21 @@ class Project (object):
                     field=att))
         self.__dict__[att] = val
 
-    def resolve_path_rooted (self, path):
+
+    def relpath (self, path):
 
         rootdir = os.path.dirname(self.inclusion_trail[-1])
         if not os.path.isabs(path):
             path = join_ncwd(rootdir, path)
 
         return path
+
+
+    # FIXME: Temporary for backward compatibility, remove at some point.
+    def resolve_path_rooted (self, path):
+
+        return self.relpath(path)
+
 
     def include (self, path):
 
