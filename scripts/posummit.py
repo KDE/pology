@@ -653,8 +653,8 @@ def derive_project_data (project, options):
             if p.direct_map[branch_id][branch_name] == []:
                 p.direct_map[branch_id][branch_name].append(branch_name)
 
-    # Add or complain about missing summit catalogs.
-    halting_pairs = []
+    # Add missing summit catalogs.
+    pending_additions = []
     for branch_id in p.branch_ids:
         for branch_name in p.catalogs[branch_id]:
             summit_names = project.direct_map[branch_id][branch_name]
@@ -671,24 +671,14 @@ def derive_project_data (project, options):
                     summit_path = join_ncwd(p.summit.topdir, summit_subdir,
                                             summit_name + catext)
 
-                    # Add missing summit catalog if the mode is gather
-                    # and creation is enabled.
-                    # Record missing summit catalogs as halting the operation
-                    # if the mode is gather and creation is not enabled.
+                    # Add missing summit catalog only on gathering.
                     if "gather" in p.opmodes:
-                        if not options.create:
-                            halting_pairs.append((branch_path, summit_path))
+                        pending_additions.append((branch_path, summit_path))
 
                         # Add summit catalog into list of existing catalogs;
                         # it will be created for real on gather.
                         p.catalogs[SUMMIT_ID][summit_name] = [(summit_path,
                                                                summit_subdir)]
-    if halting_pairs:
-        fmtlist = "\n".join("%s --> %s" % x for x in halting_pairs)
-        error(_("@info",
-                "Some branch catalogs miss expected summit catalogs:\n"
-                "%(filelist)s",
-                filelist=fmtlist))
 
     # Initialize inverse mappings.
     # - part inverse:
@@ -725,24 +715,40 @@ def derive_project_data (project, options):
                               "for branch catalog '%(file)s'.",
                               name=summit_name, file=bpath))
 
-    # Complain about summit catalogs to be removed.
-    halting_removals = []
+    # Collect summit catalogs to be removed.
+    pending_removals = []
     for summit_name in p.catalogs[SUMMIT_ID]:
         src_branch_ids = []
         for branch_id in project.branch_ids:
             if project.full_inverse_map[summit_name][branch_id]:
                 src_branch_ids.append(branch_id)
         if not src_branch_ids:
+            # Remove catalogs only on gathering.
             if "gather" in p.opmodes:
-                if not options.create:
-                    summit_path = p.catalogs[SUMMIT_ID][summit_name][0][0]
-                    halting_removals.append(summit_path)
-    if halting_removals:
-        fmtlist = "\n".join(sorted(halting_removals))
+                summit_path = p.catalogs[SUMMIT_ID][summit_name][0][0]
+                pending_removals.append(summit_path)
+
+    # If catalog creation is not allowed,
+    # complain and halt on pending additions and removals.
+    if not options.create and (pending_additions or pending_removals):
+        if pending_additions:
+            fmtlist = "\n".join("%s --> %s" % x for x in pending_additions)
+            warning(_("@info",
+                      "Some branch catalogs have no "
+                      "associated summit catalog "
+                      "(expected summit path given):\n"
+                      "%(filelist)s",
+                      filelist=fmtlist))
+        if pending_removals:
+            fmtlist = "\n".join(sorted(pending_removals))
+            warning(_("@info",
+                      "Some summit catalogs have no "
+                      "associated branch catalogs:\n"
+                      "%(filelist)s",
+                      filelist=fmtlist))
         error(_("@info",
-                "Some summit catalogs have no associated branch catalogs:\n"
-                "%(filelist)s",
-                filelist=fmtlist))
+                "Halting because automatic catalog creation is not allowed "
+                "(consider issuing %(opt)s).", opt="--create"))
 
     # Fill in defaults for missing fields in hook specs.
     for attr in p.__dict__:
