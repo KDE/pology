@@ -372,7 +372,11 @@ def derive_project_data (project, options):
         b.by_lang = bd.pop("by_lang", None)
         b.scatter_create_filter = bd.pop("scatter_create_filter", None)
         b.skip_version_control = bd.pop("skip_version_control", False)
-        b.merge_locally = bd.pop("merge_locally", False)
+        # FIXME: merge_locally retained for backward compatibility,
+        # replace at some point with b.merge = bd.pop("merge", False).
+        b.merge = bd.pop("merge", None)
+        if b.merge is None:
+            b.merge = bd.pop("merge_locally", False)
 
         ignores = bd.pop("ignores", [])
 
@@ -709,8 +713,9 @@ def derive_project_data (project, options):
             if project.full_inverse_map[summit_name][branch_id]:
                 src_branch_ids.append(branch_id)
         if not src_branch_ids:
-            summit_path = p.catalogs[SUMMIT_ID][summit_name][0][0]
-            pending_removals.append(summit_path)
+            if "gather" in p.opmodes:
+                summit_path = p.catalogs[SUMMIT_ID][summit_name][0][0]
+                pending_removals.append(summit_path)
 
     # If catalog creation is not allowed,
     # complain about pending additions and removals.
@@ -733,7 +738,7 @@ def derive_project_data (project, options):
         if "gather" in p.opmodes:
             error(_("@info",
                     "Halting because catalog creation is not allowed "
-                    "(consider issuing %(opt)s).", opt="--create"))
+                    "(consider issuing %(opt)s option).", opt="--create"))
 
     # Fill in defaults for missing fields in hook specs.
     for attr in p.__dict__:
@@ -1064,7 +1069,7 @@ def summit_merge (project, options):
         branch = project.bdict[branch_id]
 
         # Skip branch if local merging not desired, or no templates defined.
-        if (not branch.merge_locally or branch.topdir_templates is None):
+        if (not branch.merge or branch.topdir_templates is None):
             continue
 
         # Collect branch catalogs to merge.
