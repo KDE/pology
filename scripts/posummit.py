@@ -587,12 +587,12 @@ def derive_project_data (project, options):
                             if branch.join_path:
                                 subpath = branch.join_path(branch_name, subdir,
                                                            branch.by_lang)
+                            elif branch.by_lang:
+                                subpath = os.path.join(subdir, branch_name,
+                                                       branch.by_lang + ".po")
                             else:
-                                if branch.by_lang:
-                                    poname = branch.by_lang + ".po"
-                                else:
-                                    poname = branch_name + ".po"
-                                subpath = os.path.join(subdir, poname)
+                                subpath = os.path.join(subdir,
+                                                       branch_name + ".po")
                             path = join_ncwd(branch.topdir, subpath)
 
                             # Skip this catalog if excluded from creation on
@@ -893,16 +893,15 @@ def collect_catalogs (topdir, catext, by_lang, ignored, split_path,
     for root, dirs, files in os.walk(topdir):
         for file in files:
             catn = ""
-            if not by_lang or catext == ".pot":
-                if file.endswith(catext):
+            if file.endswith(catext):
+                if not by_lang:
                     fpath = os.path.abspath(os.path.join(root, file))
                     if split_path:
                         catn, spath = split_path(fpath[len(topdir) + 1:])
                     else:
                         catn = file[0:file.rfind(".")]
                         spath = root[len(topdir) + 1:]
-            else:
-                if file == by_lang + ".po": # cannot be .pot, so no catext
+                elif file == by_lang + ".po" or catext == ".pot":
                     fpath = os.path.abspath(os.path.join(root, file))
                     if split_path:
                         catn, spath = split_path(fpath[len(topdir) + 1:])
