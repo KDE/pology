@@ -376,6 +376,7 @@ def derive_project_data (project, options):
         if b.merge is None:
             b.merge = bd.pop("merge_locally", False)
 
+        # Assemble ignore function.
         ignores = bd.pop("ignores", [])
 
         def ignrx_to_func (rxstr):
@@ -383,8 +384,8 @@ def derive_project_data (project, options):
                 rx = re.compile(rxstr, re.U)
             except:
                 error(_("@info",
-                        "Invalid ignoring regular expression '%(regex)s' "
-                        "in branch '%(branch)s'.",
+                        "Invalid regular expression '%(regex)s' "
+                        "in ignore list of branch '%(branch)s'.",
                         branch=b.id, regex=rxstr))
             return lambda x: bool(rx.search(x))
 
@@ -397,12 +398,46 @@ def derive_project_data (project, options):
                     ignfs.append(ign)
                 else:
                     error(_("@info",
-                            "Invalid ignoring y type '%(type)s' "
+                            "Invalid ignoring type '%(type)s' "
                             "in branch '%(branch)s'.",
-                            branch=b.id, type=ign))
+                            branch=b.id, type=type(ign)))
             return lambda x: reduce(lambda s, y: s or y(x), ignfs, False)
 
         b.ignored = chain_ignores()
+
+        # Assemble PO name getter function.
+        gpn = bd.pop("get_poname", None)
+
+        def gpnrx_to_func (rxstr):
+            try:
+                rx = re.compile(rxstr, re.U)
+            except:
+                error(_("@info",
+                        "Invalid regular expression '%(regex)s' "
+                        "as PO name getter of branch '%(branch)s'.",
+                        branch=b.id, regex=rxstr))
+            def gpnf (x):
+                m = rx.search(x)
+                if m is None:
+                    return ""
+                if len(m.groups()) != 1:
+                    error(_("@info",
+                            "PO name getter regular expression '%(regex)s' "
+                            "of branch '%(branch)s' does not contain "
+                            "exactly one match group.",
+                        branch=b.id, regex=rxstr))
+                return m.group(1)
+            return gpnf
+
+        if isinstance(gpn, basestring):
+            b.get_poname = gpnrx_to_func(gpn)
+        elif gpn is None or callable(gpn):
+            b.get_poname = gpn
+        else:
+            error(_("@info",
+                    "Invalid PO name getter type '%(type)s' "
+                    "in branch '%(branch)s'.",
+                    branch=b.id, type=type(gpn)))
 
         # Assert that there are no misnamed keys in the dictionary.
         if bd:
@@ -457,11 +492,12 @@ def derive_project_data (project, options):
     p.catalogs = {}
     for b in p.branches:
         p.catalogs[b.id] = collect_catalogs(b.topdir, catext,
-                                            b.by_lang, b.ignored,
+                                            b.by_lang, b.ignored, b.get_poname,
                                             project, options)
     # ...and from the summit.
     p.catalogs[SUMMIT_ID] = collect_catalogs(p.summit.topdir, catext,
-                                             None, None, project, options)
+                                             None, None, None,
+                                             project, options)
 
     # Resolve ascription filter.
     project.ascription_filter = None
@@ -542,6 +578,7 @@ def derive_project_data (project, options):
                 branch_templates = collect_catalogs(branch.topdir_templates,
                                                     ".pot", branch.by_lang,
                                                     branch.ignored,
+                                                    branch.get_poname,
                                                     project, options)
                 bt_cache[branch.topdir_templates] = branch_templates
 
@@ -609,7 +646,7 @@ def derive_project_data (project, options):
         # Collect all summit templates.
         if not p.templates_dynamic:
             summit_templates = collect_catalogs(p.summit.topdir_templates,
-                                                ".pot", False, None,
+                                                ".pot", None, None, None,
                                                 project, options)
         else:
             summit_templates = p.tproject.catalogs[SUMMIT_ID]
@@ -862,37 +899,44 @@ def hook_fill_defaults (specs):
 # name, the value is the list of tuples of file path and subdirectory
 # relative to top (list in case there are several same-named catalogs in
 # different subdirectories).
-def collect_catalogs (topdir, catext, by_lang, ignored, project, options):
+def collect_catalogs (topdir, catext, by_lang, ignored, get_poname,
+                      project, options):
 
     catalogs = {}
     topdir = os.path.normpath(topdir)
     for root, dirs, files in os.walk(topdir):
         for file in files:
             catn = ""
-            fpath = join_ncwd(root, file)
             if by_lang is None or catext == ".pot":
                 if file.endswith(catext):
-                    catn = file[0:file.rfind(".")]
+                    fpath = os.path.abspath(os.path.join(root, file))
                     spath = root[len(topdir) + 1:]
+                    if get_poname:
+                        catn = get_poname(fpath)
+                    if not catn:
+                        catn = file[0:file.rfind(".")]
             else:
                 if file == by_lang + ".po": # cannot be .pot, so no catext
                     mroot = root
                     if os.path.basename(root) == "po":
                         mroot = os.path.dirname(root)
-                    catn = os.path.basename(mroot)
+                    fpath = os.path.abspath(os.path.join(root, file))
                     spath = os.path.dirname(mroot)[len(topdir) + 1:]
+                    if get_poname:
+                        catn = get_poname(fpath)
+                    if not catn:
+                        catn = os.path.basename(mroot)
 
             if catn:
-                fpath = os.path.normpath(fpath)
-                spath = os.path.normpath(spath)
                 if not ignored or not ignored(fpath):
                     if catn not in catalogs:
                         catalogs[catn] = []
+                    fpath = join_ncwd(fpath)
+                    spath = os.path.normpath(spath)
                     catalogs[catn].append((fpath, spath))
 
     for catpaths in catalogs.values():
-        if len(catpaths) > 1:
-            catpaths.sort(key=lambda x: x[0])
+        catpaths.sort(key=lambda x: x[0])
 
     return catalogs
 
@@ -1043,7 +1087,7 @@ def summit_merge (project, options):
         # Collect template catalogs to use.
         if not project.templates_dynamic:
             template_catalogs = collect_catalogs(project.summit.topdir_templates,
-                                                 ".pot", None, None,
+                                                 ".pot", None, None, None,
                                                  project, options)
         else:
             template_catalogs = project.tproject.catalogs[SUMMIT_ID]
@@ -1076,6 +1120,7 @@ def summit_merge (project, options):
         # Collect template catalogs to use.
         template_catalogs = collect_catalogs(branch.topdir_templates, ".pot",
                                              branch.by_lang, branch.ignored,
+                                             branch.get_poname,
                                              project, options)
 
         # Collect data for branch catalogs to merge.
