@@ -132,11 +132,15 @@ def main ():
     if len(free_args) < 1:
         opars.error(_("@info", "Operation mode not given."))
     opmodes = free_args.pop(0).split(",")
+    opmodes_uniq = []
     for opmode in opmodes:
-        if opmode not in ("gather", "scatter", "merge"):
-            error(_("@info",
-                    "Unknown operation mode '%(mode)s'.",
-                    mode=opmode))
+        if opmode not in opmodes_uniq:
+            if opmode not in ("gather", "scatter", "merge"):
+                error(_("@info",
+                        "Unknown operation mode '%(mode)s'.",
+                        mode=opmode))
+            opmodes_uniq.append(opmode)
+    opmodes = opmodes_uniq
 
     # Could use some speedup.
     try:
@@ -664,27 +668,28 @@ def derive_project_data (project, options):
             if p.direct_map[branch_id][branch_name] == []:
                 p.direct_map[branch_id][branch_name].append(branch_name)
 
-    # Add missing summit catalogs.
-    pending_additions = []
-    if "gather" in p.opmodes:
-        for branch_id in p.branch_ids:
-            for branch_name in p.catalogs[branch_id]:
-                summit_names = project.direct_map[branch_id][branch_name]
-                for summit_name in summit_names:
-                    if summit_name not in p.catalogs[SUMMIT_ID]:
-                        # Compose the path for the missing summit catalog.
-                        # Default the subdir to that of the current branch,
-                        # as it is the primary branch for this catalog.
-                        branch_path, branch_subdir = \
-                            p.catalogs[branch_id][branch_name][0]
-                        summit_subdir = branch_subdir
-                        summit_path = join_ncwd(p.summit.topdir, summit_subdir,
-                                                summit_name + catext)
-                        pending_additions.append((branch_path, summit_path))
+    # Collect missing summit catalogs.
+    needed_additions = []
+    for branch_id in p.branch_ids:
+        for branch_name in p.catalogs[branch_id]:
+            summit_names = project.direct_map[branch_id][branch_name]
+            for summit_name in summit_names:
+                if summit_name not in p.catalogs[SUMMIT_ID]:
+                    # Compose the path for the missing summit catalog.
+                    # Default the subdir to that of the current branch,
+                    # as it is the primary branch for this catalog.
+                    branch_path, branch_subdir = \
+                        p.catalogs[branch_id][branch_name][0]
+                    summit_subdir = branch_subdir
+                    summit_path = join_ncwd(p.summit.topdir, summit_subdir,
+                                            summit_name + catext)
+                    if "gather" == p.opmodes[0] and options.create:
                         # Add summit catalog into list of existing catalogs;
                         # it will be created for real on gather.
                         p.catalogs[SUMMIT_ID][summit_name] = [(summit_path,
                                                                summit_subdir)]
+                    elif ["merge"] != p.opmodes:
+                        needed_additions.append((branch_path, summit_path))
 
     # Initialize inverse mappings.
     # - part inverse:
@@ -712,39 +717,42 @@ def derive_project_data (project, options):
                     if branch_name not in finv:
                         finv.append(branch_name)
 
-    # Collect summit catalogs to be removed.
-    pending_removals = []
-    if "gather" in p.opmodes:
-        for summit_name in p.catalogs[SUMMIT_ID]:
-            src_branch_ids = []
-            for branch_id in project.branch_ids:
-                if project.full_inverse_map[summit_name][branch_id]:
-                    src_branch_ids.append(branch_id)
-            if not src_branch_ids:
+    # Collect superfluous summit catalogs.
+    needed_removals = []
+    for summit_name in p.catalogs[SUMMIT_ID]:
+        src_branch_ids = []
+        for branch_id in project.branch_ids:
+            if project.full_inverse_map[summit_name][branch_id]:
+                src_branch_ids.append(branch_id)
+        if not src_branch_ids:
+            if (    not ("gather" == p.opmodes[0] and options.create)
+                and ["merge"] != p.opmodes
+            ):
                 summit_path = p.catalogs[SUMMIT_ID][summit_name][0][0]
-                pending_removals.append(summit_path)
+                needed_removals.append(summit_path)
 
     # If catalog creation is not allowed,
-    # complain about pending additions and removals.
-    if not options.create and (pending_additions or pending_removals):
-        if pending_additions:
-            fmtlist = "\n".join("%s --> %s" % x for x in pending_additions)
+    # complain about needed additions and removals.
+    if needed_additions or needed_removals:
+        if needed_additions:
+            fmtlist = "\n".join("%s --> %s" % x for x in needed_additions)
             warning(_("@info",
                       "Some branch catalogs have no "
                       "associated summit catalog "
                       "(expected summit path given):\n"
                       "%(filelist)s",
                       filelist=fmtlist))
-        if pending_removals:
-            fmtlist = "\n".join(sorted(pending_removals))
+        if needed_removals:
+            fmtlist = "\n".join(sorted(needed_removals))
             warning(_("@info",
                       "Some summit catalogs have no "
                       "associated branch catalogs:\n"
                       "%(filelist)s",
                       filelist=fmtlist))
-        error(_("@info",
-                "Halting because catalog creation is not allowed "
-                "(consider issuing %(opt)s option).", opt="--create"))
+        if "gather" in p.opmodes:
+            error(_("@info",
+                    "Halting because catalog creation is not allowed "
+                    "(consider issuing %(opt)s option).", opt="--create"))
 
     # Fill in defaults for missing fields in hook specs.
     for attr in p.__dict__:
@@ -1069,12 +1077,12 @@ def summit_merge (project, options):
 
         # Collect data for summit catalogs to merge.
         for name in summit_names:
+            summit_path, summit_subdir = project.catalogs[SUMMIT_ID][name][0]
             if name not in template_catalogs:
                 warning(_("@info",
-                          "No template for summit catalog '%(name)s'.",
-                          name=name))
+                          "No template for summit catalog '%(file)s'.",
+                          file=summit_path))
                 continue
-            summit_path, summit_subdir = project.catalogs[SUMMIT_ID][name][0]
             template_path = template_catalogs[name][0][0]
             merge_specs.append((SUMMIT_ID, name, summit_subdir,
                                 summit_path, template_path,
