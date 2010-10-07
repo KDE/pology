@@ -343,7 +343,7 @@ def derive_project_data (project, options):
     s = Summit()
     sd = p.summit
     s.id = SUMMIT_ID
-    s.by_lang = None
+    s.by_lang = False
     s.topdir = sd.pop("topdir", None)
     s.topdir_templates = sd.pop("topdir_templates", None)
     # Assert that there are no misnamed keys in the dictionary.
@@ -367,7 +367,9 @@ def derive_project_data (project, options):
         b.id = bd.pop("id", None)
         b.topdir = bd.pop("topdir", None)
         b.topdir_templates = bd.pop("topdir_templates", None)
-        b.by_lang = bd.pop("by_lang", None)
+        b.by_lang = bd.pop("by_lang", False)
+        if b.by_lang and isinstance(b.by_lang, bool):
+            b.by_lang = project.lang
         b.scatter_create_filter = bd.pop("scatter_create_filter", None)
         b.skip_version_control = bd.pop("skip_version_control", False)
         # FIXME: merge_locally retained for backward compatibility,
@@ -375,6 +377,7 @@ def derive_project_data (project, options):
         b.merge = bd.pop("merge", None)
         if b.merge is None:
             b.merge = bd.pop("merge_locally", False)
+        b.split_path, b.join_path = bd.pop("transform_path", (None, None))
 
         # Assemble ignore function.
         ignores = bd.pop("ignores", [])
@@ -404,40 +407,6 @@ def derive_project_data (project, options):
             return lambda x: reduce(lambda s, y: s or y(x), ignfs, False)
 
         b.ignored = chain_ignores()
-
-        # Assemble PO name getter function.
-        gpn = bd.pop("get_poname", None)
-
-        def gpnrx_to_func (rxstr):
-            try:
-                rx = re.compile(rxstr, re.U)
-            except:
-                error(_("@info",
-                        "Invalid regular expression '%(regex)s' "
-                        "as PO name getter of branch '%(branch)s'.",
-                        branch=b.id, regex=rxstr))
-            def gpnf (x):
-                m = rx.search(x)
-                if m is None:
-                    return ""
-                if len(m.groups()) != 1:
-                    error(_("@info",
-                            "PO name getter regular expression '%(regex)s' "
-                            "of branch '%(branch)s' does not contain "
-                            "exactly one match group.",
-                        branch=b.id, regex=rxstr))
-                return m.group(1)
-            return gpnf
-
-        if isinstance(gpn, basestring):
-            b.get_poname = gpnrx_to_func(gpn)
-        elif gpn is None or callable(gpn):
-            b.get_poname = gpn
-        else:
-            error(_("@info",
-                    "Invalid PO name getter type '%(type)s' "
-                    "in branch '%(branch)s'.",
-                    branch=b.id, type=type(gpn)))
 
         # Assert that there are no misnamed keys in the dictionary.
         if bd:
@@ -492,7 +461,7 @@ def derive_project_data (project, options):
     p.catalogs = {}
     for b in p.branches:
         p.catalogs[b.id] = collect_catalogs(b.topdir, catext,
-                                            b.by_lang, b.ignored, b.get_poname,
+                                            b.by_lang, b.ignored, b.split_path,
                                             project, options)
     # ...and from the summit.
     p.catalogs[SUMMIT_ID] = collect_catalogs(p.summit.topdir, catext,
@@ -578,7 +547,7 @@ def derive_project_data (project, options):
                 branch_templates = collect_catalogs(branch.topdir_templates,
                                                     ".pot", branch.by_lang,
                                                     branch.ignored,
-                                                    branch.get_poname,
+                                                    branch.split_path,
                                                     project, options)
                 bt_cache[branch.topdir_templates] = branch_templates
 
@@ -611,11 +580,16 @@ def derive_project_data (project, options):
                         for template in branch_templates[branch_name]:
                             # Compose the branch catalog subdir and path.
                             subdir = template[1]
-                            if branch.by_lang:
-                                poname = branch.by_lang + ".po"
+                            if branch.join_path:
+                                subpath = branch.join_path(branch_name, subdir,
+                                                           branch.by_lang)
                             else:
-                                poname = branch_name + ".po"
-                            path = join_ncwd(branch.topdir, subdir, poname)
+                                if branch.by_lang:
+                                    poname = branch.by_lang + ".po"
+                                else:
+                                    poname = branch_name + ".po"
+                                subpath = os.path.join(subdir, poname)
+                            path = join_ncwd(branch.topdir, subpath)
 
                             # Skip this catalog if excluded from creation on
                             # scatter, by filter on catalog name and subdir
@@ -692,23 +666,21 @@ def derive_project_data (project, options):
 
     # Add missing summit catalogs.
     pending_additions = []
-    for branch_id in p.branch_ids:
-        for branch_name in p.catalogs[branch_id]:
-            summit_names = project.direct_map[branch_id][branch_name]
-            for summit_name in summit_names:
-                if summit_name not in p.catalogs[SUMMIT_ID]:
-                    # Compose the path for the missing summit catalog.
-                    # Default the subdir to that of the current branch,
-                    # as it is the primary branch for this catalog.
-                    branch_path, branch_dir = \
-                        p.catalogs[branch_id][branch_name][0]
-                    summit_subdir = branch_dir
-                    if p.bdict[branch_id].by_lang:
-                        summit_subdir = os.path.dirname(summit_subdir)
-                    summit_path = join_ncwd(p.summit.topdir, summit_subdir,
-                                            summit_name + catext)
-                    pending_additions.append((branch_path, summit_path))
-                    if "gather" in p.opmodes:
+    if "gather" in p.opmodes:
+        for branch_id in p.branch_ids:
+            for branch_name in p.catalogs[branch_id]:
+                summit_names = project.direct_map[branch_id][branch_name]
+                for summit_name in summit_names:
+                    if summit_name not in p.catalogs[SUMMIT_ID]:
+                        # Compose the path for the missing summit catalog.
+                        # Default the subdir to that of the current branch,
+                        # as it is the primary branch for this catalog.
+                        branch_path, branch_subdir = \
+                            p.catalogs[branch_id][branch_name][0]
+                        summit_subdir = branch_subdir
+                        summit_path = join_ncwd(p.summit.topdir, summit_subdir,
+                                                summit_name + catext)
+                        pending_additions.append((branch_path, summit_path))
                         # Add summit catalog into list of existing catalogs;
                         # it will be created for real on gather.
                         p.catalogs[SUMMIT_ID][summit_name] = [(summit_path,
@@ -742,13 +714,13 @@ def derive_project_data (project, options):
 
     # Collect summit catalogs to be removed.
     pending_removals = []
-    for summit_name in p.catalogs[SUMMIT_ID]:
-        src_branch_ids = []
-        for branch_id in project.branch_ids:
-            if project.full_inverse_map[summit_name][branch_id]:
-                src_branch_ids.append(branch_id)
-        if not src_branch_ids:
-            if "gather" in p.opmodes:
+    if "gather" in p.opmodes:
+        for summit_name in p.catalogs[SUMMIT_ID]:
+            src_branch_ids = []
+            for branch_id in project.branch_ids:
+                if project.full_inverse_map[summit_name][branch_id]:
+                    src_branch_ids.append(branch_id)
+            if not src_branch_ids:
                 summit_path = p.catalogs[SUMMIT_ID][summit_name][0][0]
                 pending_removals.append(summit_path)
 
@@ -770,10 +742,9 @@ def derive_project_data (project, options):
                       "associated branch catalogs:\n"
                       "%(filelist)s",
                       filelist=fmtlist))
-        if "gather" in p.opmodes:
-            error(_("@info",
-                    "Halting because catalog creation is not allowed "
-                    "(consider issuing %(opt)s option).", opt="--create"))
+        error(_("@info",
+                "Halting because catalog creation is not allowed "
+                "(consider issuing %(opt)s option).", opt="--create"))
 
     # Fill in defaults for missing fields in hook specs.
     for attr in p.__dict__:
@@ -793,41 +764,48 @@ def split_path_in_project (project, path):
 
     splits = []
     for b in [project.summit] + project.branches:
-        # Split the path into directory and catalog name.
-        apath = os.path.abspath(path)
-        if os.path.isfile(path):
-            dirpath = os.path.dirname(apath)
-            basename = os.path.basename(apath)
-            catname = basename[:basename.rfind(".")]
-            if b.by_lang:
-                # If this is by-language mode,
-                # then catalog path can be split only if of proper language,
-                # and directory and catalog name should backtrack by one.
-                if catname != b.by_lang:
-                    continue
-                catname = os.path.basename(dirpath)
-                dirpath = os.path.dirname(dirpath)
-        elif os.path.isdir(path):
-            dirpath = apath
-            catname = None
-            if b.by_lang:
-                # If this is a leaf directory in by-language mode,
-                # then actually a catalog has been selected,
-                # and directory and catalog name should backtrack by one.
-                apath2 = os.path.join(dirpath, b.by_lang + ".po")
-                if os.path.isfile(apath2):
-                    catname = os.path.basename(dirpath)
-                    dirpath = os.path.dirname(dirpath)
-        # Deduce project branch and relative path of the directory within it.
         broot = os.path.abspath(b.topdir)
-        if dirpath.startswith(broot):
-            breldir = dirpath[len(broot):]
-            if not breldir or breldir.startswith(os.path.sep):
-                if not breldir:
-                    breldir = None
+        apath = os.path.abspath(path)
+        if apath.startswith(broot + os.path.sep):
+            subpath = apath[len(broot + os.path.sep):]
+            # Split the path into catalog name and subdirectory.
+            if os.path.isfile(apath):
+                if b.split_path:
+                    catname, subdir = b.split_path(subpath)
                 else:
-                    breldir = breldir[len(os.path.sep):]
-                splits.append((b.id, breldir, catname))
+                    subdir = os.path.dirname(subpath)
+                    basename = os.path.basename(subpath)
+                    catname = basename[:basename.rfind(".")]
+                    if b.by_lang:
+                        # If this is by-language mode,
+                        # catalog path can be split only if of proper language,
+                        # and subdirectory and catalog name should backtrack.
+                        if catname != b.by_lang:
+                            continue
+                        catname = os.path.basename(subdir)
+                        subdir = os.path.dirname(subdir)
+            elif os.path.isdir(apath):
+                if b.split_path:
+                    catname = None
+                    dummy_subpath = os.path.join(subpath, "__dummy__.po")
+                    subdir = b.split_path(dummy_subpath)[1]
+                else:
+                    subdir = subpath
+                    catname = None
+                    if b.by_lang:
+                        # If this is a leaf directory in by-language mode,
+                        # then actually a catalog has been selected,
+                        # and subdirectory and catalog name should backtrack.
+                        apath2 = os.path.join(subdir, b.by_lang + ".po")
+                        if os.path.isfile(apath2):
+                            catname = os.path.basename(subdir)
+                            subdir = os.path.dirname(subdir)
+            # Collect the splitting.
+            # Catalog name being None means that a subdirectory is selected,
+            # and if subdirectory too is None, the whole branch is selected.
+            if not catname and not subdir:
+                subdir = None
+            splits.append((b.id, subdir, catname))
     if not splits:
         error(_("@info",
                 "Path '%(path)s' is not covered by the summit configuration.",
@@ -899,7 +877,7 @@ def hook_fill_defaults (specs):
 # name, the value is the list of tuples of file path and subdirectory
 # relative to top (list in case there are several same-named catalogs in
 # different subdirectories).
-def collect_catalogs (topdir, catext, by_lang, ignored, get_poname,
+def collect_catalogs (topdir, catext, by_lang, ignored, split_path,
                       project, options):
 
     catalogs = {}
@@ -907,25 +885,22 @@ def collect_catalogs (topdir, catext, by_lang, ignored, get_poname,
     for root, dirs, files in os.walk(topdir):
         for file in files:
             catn = ""
-            if by_lang is None or catext == ".pot":
+            if not by_lang or catext == ".pot":
                 if file.endswith(catext):
                     fpath = os.path.abspath(os.path.join(root, file))
-                    spath = root[len(topdir) + 1:]
-                    if get_poname:
-                        catn = get_poname(fpath)
-                    if not catn:
+                    if split_path:
+                        catn, spath = split_path(fpath[len(topdir) + 1:])
+                    else:
                         catn = file[0:file.rfind(".")]
+                        spath = root[len(topdir) + 1:]
             else:
                 if file == by_lang + ".po": # cannot be .pot, so no catext
-                    mroot = root
-                    if os.path.basename(root) == "po":
-                        mroot = os.path.dirname(root)
                     fpath = os.path.abspath(os.path.join(root, file))
-                    spath = os.path.dirname(mroot)[len(topdir) + 1:]
-                    if get_poname:
-                        catn = get_poname(fpath)
-                    if not catn:
-                        catn = os.path.basename(mroot)
+                    if split_path:
+                        catn, spath = split_path(fpath[len(topdir) + 1:])
+                    else:
+                        catn = os.path.basename(root)
+                        spath = os.path.dirname(root)[len(topdir) + 1:]
 
             if catn:
                 if not ignored or not ignored(fpath):
@@ -1120,7 +1095,7 @@ def summit_merge (project, options):
         # Collect template catalogs to use.
         template_catalogs = collect_catalogs(branch.topdir_templates, ".pot",
                                              branch.by_lang, branch.ignored,
-                                             branch.get_poname,
+                                             branch.split_path,
                                              project, options)
 
         # Collect data for branch catalogs to merge.
