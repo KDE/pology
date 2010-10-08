@@ -33,6 +33,13 @@ id="t-alignment"
 hint="alignment = поравнање"
 valid msgstr="\bпоравнањ"
 
+{\barchive\w*}i
+id="t-archive"
+hint="archive = архива"
+valid span="archiver" # на archiver
+valid msgstr="\bархив"
+valid env="kde" msgstr="&\w*archive\S*;"
+
 {\bbookmark}i
 id="t-bookmark"
 hint="bookmark = обележивач"

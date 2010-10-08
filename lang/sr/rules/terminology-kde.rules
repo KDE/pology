@@ -23,6 +23,11 @@ id="t-application"
 hint="application = програм"
 valid !msgstr="\bаплика[цт]"
 
+{\barchiver}i
+id="t-archiver"
+hint="archiver = архивар"
+valid msgstr="\bархивар"
+
 {\bauthenticate}i
 id="t-authenticate"
 hint="authenticate = аутентификовати"
@@ -347,6 +352,24 @@ valid cat="khelpcenter" msgid="^Default encoding:$" msgstr="^Подразуме�
 id="t-extension"
 hint="plugin = прикључак"
 disabled
+
+{\b(cross[ -]?fade|fade)}i
+id="t-fade"
+hint="cross-fade|fade = претопити"
+valid !span="cross.?fade" before="[ -](in|out)" # na fadein/fadeout
+valid msgstr="\b(претопи|претапа|претопљ)"
+valid msgstr="\b(утапа|утопи|утопљ)" # за значење fadeout
+
+{\bfade[ -]in}i
+id="t-fadein"
+hint="fade in = изронити"
+valid msgstr="\b(изрони|израња|изроњ)"
+
+{\b(fade|fade[ -]?out|fade to black)}i
+id="t-fadeout"
+hint="fade|fade out|fade to black = утопити"
+valid msgstr="\b(утапа|утопи|утопљ)"
+valid msgstr="\b(претопи|претапа|претопљ)" # за значење fade
 
 {\bfeature}i
 id="t-feature"
