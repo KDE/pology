@@ -15,9 +15,9 @@ fi
 
 if test $mode = all || test $mode = extract; then
     echo ">>> Extracting template..."
-    cd $cdir/..
+    cd $cdir/../..
     srcfiles=`find -iname \*.py | sort`
-    potfile=po/$potbase.pot
+    potfile=po/pology/$potbase.pot
     xgettext --no-wrap \
         -k_:1c,2 -kn_:1c,2,3 -kt_:1c,2 -ktn_:1c,2,3 \
         -o $potfile $srcfiles
@@ -40,7 +40,7 @@ fi
 
 if test $mode = all || test $mode = compile; then
     echo ">>> Compiling catalogs..."
-    modir=$cdir/../mo
+    modir=$cdir/../../mo
     # Remove old compiled dir if in pristine state, otherwise warn and exit.
     if [ -d $modir ]; then
         nonmofiles=`find $modir -type f | egrep -v '.*\.mo$'`
