@@ -1,0 +1,27 @@
+
+[плазмоид]i
+hint="Plasma widgets по-русски называются виджетами"
+
+[унция жидкости]i
+hint="fluid ounce (fl.oz.) -- жидкая унция"
+
+[аудио-[а-я]]i
+hint="-> Слова аудио... пишутся слитно"
+
+[интернет]
+valid before="-"
+hint="-> Слово Интернет пишется с заглавной буквы"
+
+*msgid/^Maintainer$/
+valid msgstr="^Сопровождающий$"
+hint="Maintainer -- Сопровождающий"
+
+
+#   This often points to correct translations  :(
+#[: [А-Я]]
+#hint="После двоеточия должна быть строчная буква"
+
+#[  ]
+#valid msgid=".+  .+"
+#hint="Уберите двойной пробел"
+
