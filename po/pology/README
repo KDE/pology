@@ -9,10 +9,10 @@ extract, merge, compile. When merge or compile phase are run,
 the second argument can be the particular language code on which to operate
 (by default all languages are processed). 
 
-Compiled catalogs are put into ../mo, using proper locale hierarchy
+Compiled catalogs are put into ../../mo, using proper locale hierarchy
 such that they get picked up automatically by Pology scripts
 when run directly from the repository (without installing).
-Compiled catalogs and ../mo subdirectory are ignored by version control.
+Compiled catalogs and ../../mo subdirectory are ignored by version control.
 
 Run periodically to bring updated translations into action, possibly in the
 compile-only mode if you do not want to touch template and translations.
