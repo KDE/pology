@@ -383,34 +383,48 @@ def derive_project_data (project, options):
             b.merge = bd.pop("merge_locally", False)
         b.split_path, b.join_path = bd.pop("transform_path", (None, None))
 
-        # Assemble ignore function.
-        ignores = bd.pop("ignores", [])
+        # Assemble include-exclude functions.
+        includes = bd.pop("includes", [])
+        excludes = bd.pop("excludes", [])
 
-        def ignrx_to_func (rxstr):
+        def regex_to_func (rxstr):
             try:
                 rx = re.compile(rxstr, re.U)
             except:
                 error(_("@info",
                         "Invalid regular expression '%(regex)s' "
-                        "in ignore list of branch '%(branch)s'.",
+                        "in include-exclude specification "
+                        "of branch '%(branch)s'.",
                         branch=b.id, regex=rxstr))
             return lambda x: bool(rx.search(x))
 
-        def chain_ignores ():
-            ignfs = []
-            for ign in ignores:
-                if isinstance(ign, basestring):
-                    ignfs.append(ignrx_to_func(ign))
-                elif callable(ign):
-                    ignfs.append(ign)
+        def chain_tests (tests):
+            testfs = []
+            for test in tests:
+                if isinstance(test, basestring):
+                    testfs.append(regex_to_func(test))
+                elif callable(test):
+                    testfs.append(test)
                 else:
                     error(_("@info",
-                            "Invalid ignoring type '%(type)s' "
-                            "in branch '%(branch)s'.",
-                            branch=b.id, type=type(ign)))
-            return lambda x: reduce(lambda s, y: s or y(x), ignfs, False)
+                            "Invalid test type '%(type)s' "
+                            "in include-exclude specification "
+                            "of branch '%(branch)s'.",
+                            branch=b.id, type=type(test)))
+            return lambda x: reduce(lambda s, y: s or y(x), testfs, False)
 
-        b.ignored = chain_ignores()
+        if includes:
+            includef = chain_tests(includes)
+        if excludes:
+            excludef = chain_tests(excludes)
+        if includes and excludes:
+            b.ignored = lambda x: not includef(x) or excludef(x)
+        elif includes:
+            b.ignored = lambda x: not includef(x)
+        elif excludes:
+            b.ignored = lambda x: excludef(x)
+        else:
+            b.ignored = lambda x: False
 
         # Assert that there are no misnamed keys in the dictionary.
         if bd:
