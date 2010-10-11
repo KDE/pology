@@ -12,6 +12,21 @@ hint="action = радња"
 valid msgstr="\bрадњ"
 valid msgstr="&\w*action\S*;"
 
+{\bannotate}i
+id="t-annotate"
+hint="annotate = протумачити"
+valid msgstr="тумач"
+
+{\bannotated}i
+id="t-annotated"
+hint="annotated = с тумачењима"
+disabled # на annotate
+
+{\bannotation}i
+id="t-annotation"
+hint="annotation = тумачење"
+valid msgstr="\bтумачењ"
+
 {\bapplet}i
 id="t-applet"
 hint="applet = аплет"
@@ -135,11 +150,16 @@ hint="cache = кеш"
 valid msgstr="\bкеш"
 valid msgstr="&cache\S*;"
 
+{\bcaption}i
+id="t-caption"
+hint="caption = натпис"
+valid after="closed " # на t-subtitle
+valid msgstr="\bнатпис"
+
 {\bchat}i
 id="t-chat"
 hint="chat = ћаскати"
 valid msgstr="\bћаска(\b|[тњј])"
-valid cat="timezones4" msgid="Chatham"
 
 {\bcheck ?box}i
 id="t-checkbox"
@@ -151,7 +171,6 @@ id="t-chooser"
 hint="chooser|selector = бирач"
 valid msgstr="\bбирач" !msgstr="бирачом"
 valid msgstr="&\w*selector\S*;"
-valid cat="desktop_kdeaccessibility" msgid="chooser.*for" msgstr="бирањ"
 
 {\bcipher}i
 id="t-cipher"
@@ -178,7 +197,12 @@ id="t-clipboard"
 hint="clipboard = клипборд"
 valid msgstr="\bклипборд"
 valid msgstr="&\w*clipboard\S*;"
-valid cat="klipper" msgid="^Clipboard history size:$" msgstr="^Величина историјата:$"
+
+{\bcollection}i
+id="t-collection"
+hint="collection = збирка"
+valid msgstr="\bзбир(к|ци)"
+valid msgstr="&\w*collection\S*;"
 
 {\bcolor\W?scheme}i
 id="t-colorscheme"
