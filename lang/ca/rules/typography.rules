@@ -51,6 +51,7 @@ valid before="="
 valid before="ext\:"
 valid after="(TEX|BIB|BST)INPUTS\s.+" cat="kile"
 valid after="\d+" before="\s?\d+"
+valid after="^" cat="kalgebra"
 valid cat="amarokcollectionscanner_qt"
 hint="No s'ha de posar cap espai abans del signe dels dos punts (tipografia)"
 
