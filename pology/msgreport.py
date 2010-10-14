@@ -516,6 +516,87 @@ def rule_error(msg, cat, rule, highlight=None, fmsg=None, showmsg=True):
         report_on_msg_hl(highlight, msg, cat, fmsg)
 
 
+def multi_rule_error (msg, cat, rspec, showmsg=True):
+    """
+    Print formated rule error messages on screen.
+
+    Like L{rule_error}, but reports multiple failed rules at once.
+    Contents of the matched message is shown only once for all rules,
+    with all highlights embedded, and all rule information following.
+    This holds unless there are several different filtered messages,
+    when rule failures are reported in groups by filtered message.
+
+    @param msg: the message matched by rules
+    @type msg: Message
+    @param cat: the catalog in which the message resides
+    @type cat: Catalog
+    @param rspec: specification of failed rules. This is a list in which
+        each element can be one of:
+          - rule
+          - tuple of rule and highlight specification (see
+            L{report_msg_content} for details on highlight specifications).
+            Highlight can be None.
+          - tuple of rule, highlight, and filtered message which
+            the rule really matched.
+            Highlight and filtered message can be None.
+    @type rspec: [(Rule|(Rule, highlight)|(Rule, highlight, Message))*]
+    @param showmsg: whether to show contents of message
+        (both original and filtered if given)
+    @type showmsg: bool
+    """
+
+    # Expand elements in rule specification to full lengths.
+    rspec_mod = []
+    for el in rspec:
+        if not isinstance(el, tuple):
+            el = (el,)
+        el_mod = el + tuple(None for i in range(3 - len(el)))
+        rspec_mod.append(el_mod)
+    rspec = rspec_mod
+
+    # Split into groups by distinct filtered messages,
+    # or make one dummy group if content display not requested.
+    if showmsg:
+        rspec_groups = []
+        for rule, hl, fmsg in rspec:
+            rlhls = None
+            for ofmsg, rlhls in rspec_groups:
+                if fmsg == ofmsg: # check for apparent equality
+                    break
+            if rlhls is None:
+                rlhls = []
+                rspec_groups.append((fmsg, rlhls))
+            rlhls.append((rule, hl))
+    else:
+        rlhls = []
+        rspec_groups = [(None, rlhls)]
+        for rule, hl, fmsg in rspec:
+            rlhls.append((rule, hl))
+
+    # Report each rule group.
+    for fmsg, rlhls in rspec_groups:
+        rinfos = []
+        highlight = []
+        for rule, hl in rlhls:
+            rinfos.append(_("@info",
+                            "rule %(rule)s <bold><red>==></red></bold> "
+                            "<bold>%(msg)s</bold>",
+                            rule=rule.displayName, msg=rule.hint))
+            highlight.extend(hl)
+        if len(rinfos) > 1:
+            note = cjoin([""] + rinfos, "\n")
+        elif rinfos:
+            note = rinfos[0]
+        if showmsg:
+            report_msg_content(msg, cat,
+                               highlight=highlight,
+                               fmsg=fmsg, showfmsg=(fmsg is not None),
+                               note=note, delim=("-" * 40))
+        else:
+            report_on_msg(note, msg, cat)
+            report_on_msg_hl(highlight, msg, cat, fmsg)
+
+
 def rule_xml_error(msg, cat, rule, span, pluralId=0):
     """Create and returns rule error message in XML format
     @param msg: pology.message.Message object

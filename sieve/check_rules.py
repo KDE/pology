@@ -23,7 +23,7 @@ from pology.colors import cjoin
 from pology.comments import manc_parse_list, parse_summit_branches
 from pology.fsops import collect_files_by_ext
 from pology.message import MessageUnsafe
-from pology.msgreport import rule_error, rule_xml_error, report_msg_content
+from pology.msgreport import multi_rule_error, rule_xml_error
 from pology.msgreport import report_msg_to_lokalize
 from pology.report import report, warning, format_item_list
 from pology.rules import loadRules, printStat
@@ -353,7 +353,6 @@ class Sieve (object):
                 continue
             if spans:
                 self.nmatch+=1
-                failedRules.append((rule, spans))
                 if self.xmlFile:
                     # FIXME: rule_xml_error is actually broken,
                     # as it considers matching to always be on msgstr
@@ -369,20 +368,24 @@ class Sieve (object):
                     # Text format.
                     if not self.showfmsg:
                         msgf=None
-                    rule_error(msg, cat, rule, spans, msgf, self.showmsg)
+                failedRules.append((rule, spans, msgf))
 
-        if failedRules and self.mark:
-            msg.flag.add(_flag_mark)
+        if failedRules:
+            multi_rule_error(msg, cat, failedRules, self.showmsg)
 
-        if failedRules and self.lokalize:
-            repls = [_("@label", "Failed rules:")]
-            for rule, hl in failedRules:
-                repls.append(_("@item",
-                               "rule %(rule)s ==> %(msg)s",
-                               rule=rule.displayName, msg=rule.hint))
-                for part, item, spans, fval in hl:
-                    repls.extend([u"↳ %s" % x[2] for x in spans if len(x) > 2])
-            report_msg_to_lokalize(msg, cat, cjoin(repls, "\n"))
+            if self.mark:
+                msg.flag.add(_flag_mark)
+
+            if self.lokalize:
+                repls = [_("@label", "Failed rules:")]
+                for rule, hl, msgf in failedRules:
+                    repls.append(_("@item",
+                                "rule %(rule)s ==> %(msg)s",
+                                rule=rule.displayName, msg=rule.hint))
+                    for part, item, spans, fval in hl:
+                        repls.extend([u"↳ %s" % x[2]
+                                     for x in spans if len(x) > 2])
+                report_msg_to_lokalize(msg, cat, cjoin(repls, "\n"))
 
 
     def finalize (self):
