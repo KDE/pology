@@ -118,6 +118,12 @@ valid after="(pre|re)\W?" msgstr="\b(прет|пре)?поде[сш]"
 valid env="kde" msgstr="\bзада[вјлот]"
 valid cat="kate" msgid="configured\s*for the document type"
 
+{\bcontrast}i
+id="t-contrast"
+hint="contrast = контраст"
+valid after="in " before=" to" # израз /in contrast to/
+valid msgstr="\b(високо|ниско)?контраст"
+
 # Некад је у питању курсор (текстуални), некад показивач (миша), отприлике
 # пола-пола по учестаности. Међутим, делује да се само у одређеним каталозима
 # јавља већином као заиста курсор, а другде је обично показивач.
@@ -417,6 +423,28 @@ valid env="kde" msgstr="&\w*pointer\w*-\S*;"
 hint="pointer = показивач"
 id="t-pointer3"
 disabled
+
+{\bpuzzle}i
+id="t-puzzle"
+hint="puzzle = загонетка"
+disabled
+
+{\bpuzzle}i
+id="t-puzzle2"
+hint="puzzle = слагалица"
+valid !catrx="palapeli|kubrick|kxsconfig|ksudoku" \
+      !srcref="palapeli|kubrick|kxsconfig|sudoku|tangram"
+valid msgstr="\bслага(лиц|чк|њ)"
+valid msgstr="\bслаж[иеу]"
+valid after="jigsaw " before=" game" msgstr="игр\w+ слагања делова"
+valid after="fifteen[ -]" msgstr="петнаестиц"
+
+{\bpuzzle}i
+id="t-puzzle3"
+hint="puzzle = логички"
+valid !before=" game"
+valid msgstr="\bлогичк"
+valid after="jigsaw |tangram " msgstr="слагалиц|слагањ"
 
 {\breader}i
 id="t-reader"

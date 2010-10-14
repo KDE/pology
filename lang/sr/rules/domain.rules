@@ -123,11 +123,6 @@ valid msgstr="пома[кц]"
 # Palapeli (KDE jigsaw puzzle game)
 environment palapeli
 
-{\bpuzzle}i
-id="t-puzzle"
-hint="puzzle = слагалица"
-valid msgstr="\bслага(лиц|чк|њ)|\bслаж[иеу]"
-
 {\btable}i
 id="t-table"
 hint="table = табла [играчка]"

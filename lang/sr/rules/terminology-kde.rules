@@ -120,6 +120,11 @@ id="t-bootloader"
 hint="bootloader|boot manager = подизни учитавач"
 valid msgstr="\bподизн\w+ учитавач"
 
+{\bbrightness}i
+id="t-brightness"
+hint="brightness = осветљај"
+valid msgstr="\bосветљај"
+
 {\bbrowse(?!r)}i
 id="t-browse"
 hint="browse = прегледати"
