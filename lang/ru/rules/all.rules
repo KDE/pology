@@ -12,9 +12,36 @@ hint="-> Слова аудио... пишутся слитно"
 valid before="-"
 hint="-> Слово Интернет пишется с заглавной буквы"
 
-*msgid/^Maintainer$/
+*msgid/^(Current )?Maintainer$/i
 valid msgstr="^Сопровождающий$"
 hint="Maintainer -- Сопровождающий"
+
+*msgid/&/
+valid msgstr="&"
+valid msgid="& "
+valid msgid="Drag&Drop"
+valid msgid="R&B"
+valid msgid="&(nbsp|amp|reg|lt|gt|quot|deg|ge|ndash|copy|auml);"
+valid msgid="http://.+\?" # URL, not an accelerator
+hint="Не забудьте добавить акселератор (&)"
+
+[&[a-zA-Z]]
+valid msgid="Drag&Drop"
+valid msgid="R&B"
+valid msgid="&(nbsp|amp|reg|lt|gt|quot|deg|ge|ndash|copy|auml);"
+valid msgid="http://.+\?" # URL, not an accelerator
+hint="Акселераторы следует ставить на русские буквы"
+
+[ $]
+valid msgid=" $"
+hint="Уберите пробел на конце строки"
+
+[^ ]
+valid msgid="^ "
+hint="Уберите пробел в начале строки"
+
+[web-]i
+hint="Переводится как 'веб-...'"
 
 
 #   This often points to correct translations  :(

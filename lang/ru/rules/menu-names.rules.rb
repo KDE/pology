@@ -35,7 +35,7 @@ File.open('menu-names.rules', 'w') do |f|
 		f.puts "valid !comment=\"ectx: Menu\""
 		f.puts "valid msgstr=\"^(#{ pair[1]}|#{pair[1].tr('&', '') })$\""
 
-		f.puts "hint=\"Перевод названия меню не соответствует стандартному переводу\""
+		f.puts "hint=\"Перевод названия меню не соответствует стандартному переводу (#{pair[1]})\""
 		f.puts
 	end
 end

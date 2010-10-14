@@ -13,6 +13,13 @@ valid before="о"
 valid before="и"
 hint="Буква ё"
 
+[отключен]i
+valid before="а"
+valid before="ы"
+valid before="о"
+valid before="и"
+hint="Буква ё"
+
 [разрешен]i
 valid before="а"
 valid before="ы"
