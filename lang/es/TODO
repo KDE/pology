@@ -1,10 +1,9 @@
 0.- Crear un archivo «CREDITS AND LICENCE».
 
 1.- Reglas de puntuación:
-- No se escribe mayúscula después de dos puntos.
-- Tampoco se escribe en mayúscula la primera letra después de abrir paréntesis 
+- No se escribe en mayúscula la primera letra después de abrir paréntesis 
 (excepto en el caso de que sea una oración completa, que debería llevar punto al final, dentro del paréntesis).
-- Los nombres de los meses y los días de la semana se escriben siempre en minúscula.
+- Los nombres de los meses, días de la semana y estaciones del año se escriben en minúscula.
 - No aplicar la regla de obligatoriedad de espacio después 
 de un punto en el caso que siga un nombre de archivo 
 (archivo oculto o ejecución de orden).
@@ -20,13 +19,10 @@ auxiliares ingleses «did», «will», «would», «could», «should», ..., y 
 combinación con «not». 
 - Tratamiento de la tercera persona de los verbos ingleses.
 - Tratamiento de los «phrasal verbs» mas comunes y expresiones similares.
-- Considerar como válidas las formas reflexivas para la voz pasiva en inglés.
+- Considerar como válidas las formas reflexivas para la voz pasiva en inglés
+(se + palabra/s + infinitivo) y (3º persona+se).
 - Considerar válida la traducción del plurar como singular en frases negativas
 (después de ningún/ninguna). 
-* (Para estos casos, emplear la opción «span» de pology, para delimitar el 
-texto original al que se aplica cada variante específica).
-- Añadir mas reglas sobre «false friends». Lista de Eloy Cuadra en:
-http://www.eloihr.net/falsefriends/index.php?page=main
 - Incorporar a las reglas (y en su caso al glosario) las de los siguientes 
 equipos que resulten aplicables y de interés para nosotros:
     - gl/rules/terminology.rules

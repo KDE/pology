@@ -5,10 +5,25 @@
 
 include file="filter.include"
 
+# «Add-on» se traduce como «Complemento».
+{\baadd\-?on\b}i
+valid msgstr="complemento"
+hint="« Add-on » se traduce como como « Complemento » (propuesta glosario)"
+
+# «Add-ons» se traduce como «Complementos».
+{\baadd\-?ons\b}i
+valid msgstr="complementos"
+hint="« Add-ons » se traduce como como « Complementos » (propuesta glosario)"
+
 # «Anti-aliasing» se traduce como «Suavizado de bordes».
-{\banti\-aliasing\b}i
+{\banti\-?aliasing\b}i
 valid msgstr="suavizado\sde\sbordes"
-hint="« Anti-aliasing: » se traduce como como « Suavizado de bordes » (propuesta glosario)"
+hint="« Anti-aliasing » se traduce como como « Suavizado de bordes » (propuesta glosario)"
+
+# «Anti-aliasing» se traduce como «Suavizado de bordes».
+{\banti\-?aliasing\b}i
+valid msgstr="suavizado\sde\sbordes"
+hint="« Anti-aliasing » se traduce como como « Suavizado de bordes » (propuesta glosario)"
 
 # «Attach» se traduce como «Adjuntar/Anexar».
 {\battach\b}i
@@ -218,7 +233,7 @@ valid msgstr="corrección\sde\s(error|fallo)"
 hint="« Bug-fix » se traduce como como « Corrección de error » (propuesta glosario)"
 
 # «Built-in» se traduce como «Incorporado».
-{\bbuilt\-in\b}i
+{\bbuilt\-?in\b}i
 valid msgstr="incorporado"
 valid !msgstr="construido"
 hint="« Built-in » se traduce como como « Incorporado » (propuesta glosario)"
@@ -247,6 +262,16 @@ hint="« Canvas » se traduce como como « Lienzo/Tapiz » (propuesta glosario)"
 {\bcaret\b}i
 valid msgstr="circunflejo"
 hint="« Caret » se traduce como como « Circunflejo » (propuesta glosario)"
+
+# «Certficate authority» se traduce como «Autoridad certificadora».
+{\bcertificate\sauthority\b}i
+valid msgstr="autoridad\scertificadora"
+hint="« Certificate authority » se traduce como como « Autoridad certificadora » (propuesta glosario)"
+
+# «Certficate revocation list» se traduce como «Lista de revocación de certificados».
+{\bcertificate\srevocation\slis\b}i
+valid msgstr="lista\sde\srevocación\sde\scertificados"
+hint="« Certificate revocation list » se traduce como como « Lista de revocación de certificados » (propuesta glosario)"
 
 # «Changelog» se traduce como «Novedades/Últimos cambios».
 {\bchangelog\b}i
@@ -494,6 +519,7 @@ hint="« Data mining » se traduce como como « Mineria de datos » (propuesta g
 # «Database» se traduce como «Base de datos».
 {\bdatabase\b}i
 valid msgstr="base\sde\sdatos"
+valid msgstr="bases\sde\sdatos"
 hint="« Database » se traduce como como « Base de datos » (propuesta glosario)"
 
 # «Databases» se traduce como «Bases de datos».
@@ -526,32 +552,6 @@ valid msgstr="interbloqueos"
 valid msgstr="bloqueo\sde\sdatos" after="ningún\s"
 valid msgstr="interbloqueo" after="ningún\s"
 hint="« Deadlocks » se traduce como como « Bloqueos de datos/Interbloqueos » (propuesta glosario)"
-
-# «Debug» se traduce como «Depurar».
-{\bdebug\b}i
-valid msgstr="depur(ar|a|e)"
-hint="« Debug » se traduce como como « Depurar » (propuesta glosario)"
-
-# «Debugged» se traduce como «Depurado».
-{\bdebug\b}i
-valid msgstr="depurad(o|a)"
-valid msgstr="depurarse"
-hint="« Debugged » se traduce como como « Depurado » (propuesta glosario)"
-
-# «Debugger» se traduce como «Depurador».
-{\bdebugger\b}i
-valid msgstr="depurador"
-hint="« Debugger » se traduce como como « Depurador » (propuesta glosario)"
-
-# «Debugging» se traduce como «Depuración».
-{\bdebugging\b}i
-valid msgstr="depuración"
-hint="« Debugging » se traduce como como « Depuración » (propuesta glosario)"
-
-# «Debugs» se traduce como «Depura».
-{\bdebugs\b}i
-valid msgstr="depur(ar|a|e)"
-hint="« Debugs » se traduce como como « Depura » (propuesta glosario)"
 
 # «Defragment» se traduce como «Desfragmentar».
 {\bdefragment\b}i
@@ -781,6 +781,16 @@ valid msgstr="deshechos?"
 valid msgstr="deshecharse"
 hint="« Discarged » se traduce como como « Deshecho » (propuesta glosario)"
 
+# «Diskette» se traduce como «Disquete».
+{\bdiskette\b}i
+valid msgstr="disquete"
+hint="« Diskette » se traduce como como « Disquete » (propuesta glosario)"
+
+# «Diskettes» se traduce como «Disquetes».
+{\bdiskettes\b}i
+valid msgstr="disquetes"
+hint="« Diskettes » se traduce como como « Disquetes » (propuesta glosario)"
+
 # «Disposable» se traduce como «Desechable».
 {\bdisposable\b}i
 valid msgstr="desechable"
@@ -869,7 +879,7 @@ hint="« Driver » se traduce como como « Controlador » (propuesta glosario)"
 {\bdrivers\b}i
 valid msgstr="controladores"
 valid msgstr="controlador" after="ningún\s"
-valid msgstr="controladora" after="ningúna\s"
+valid msgstr="controladora" after="ninguna\s"
 hint="« Drivers » se traduce como como « Controladores » (propuesta glosario)"
 
 # «Dual boot» se traduce como «Arranque dual».
@@ -891,6 +901,7 @@ hint="« Dump » se traduce como como « Volcado/Volcar » (propuesta glosario)"
 # «Dumps» se traduce como «Vuelca».
 {\bdumps\b}i
 valid msgstr="vuel(que|ca)"
+valid msgstr="volcados"
 hint="« Dumps » se traduce como como « Vuelca » (propuesta glosario)"
 
 # «Dungeon» se traduce como «Mazmorra».
@@ -903,6 +914,11 @@ hint="« Dungeon » se traduce como como « Mazmorra » (propuesta glosario)"
 valid msgstr="mazmorras"
 valid msgstr="mazmorra" after="ninguna\s"
 hint="« Dungeons » se traduce como como « Mazmorras » (propuesta glosario)"
+
+# «Duplex» se traduce como «Dúplex».
+{\bduplex\b}i
+valid msgstr="dúplex"
+hint="« Duplex » se traduce como como « Dúplex » (propuesta glosario)"
 
 # «Egde» se traduce como «Límite/Borde».
 {\begde\b}i
@@ -1100,6 +1116,26 @@ valid msgstr="interfaces"
 valid msgstr="interfaz" after="ninguna"
 hint="« Interfaces » se traduce como como « Interfaces » (propuesta glosario)"
 
+# «Jumper» se traduce como «Puente».
+{\bjumper\b}i
+valid msgstr="puente"
+hint="« Jumper » se traduce como como « Puente » (propuesta glosario)"
+
+# «Jumpers» se traduce como «Puentes».
+{\bjumpers\b}i
+valid msgstr="puentes"
+hint="« Jumpers » se traduce como como « Puentes » (propuesta glosario)"
+
+# «Live bookmark» se traduce como «Marcador dinámico».
+{\blive\sbookmark\b}i
+valid msgstr="marcador\sdinámico"
+hint="« Live bookmark » se traduce como « Marcador dinámico » (propuesta glosario)"
+
+# «Live bookmarks» se traduce como «Marcadores dinámicos».
+{\blive\sbookmarks\b}i
+valid msgstr="marcadores\sdinámicos"
+hint="« Live bookmarks » se traduce como « Marcadores dinámicos » (propuesta glosario)"
+
 # «Logon» se traduce como «Inicio de sesión».
 {\blog\s?on\b}i
 valid msgstr="inicio\sde\ssesión"
@@ -1147,11 +1183,22 @@ valid msgstr="espejos"
 valid !msgstr="mirrors"
 hint="« Mirrors » se traduce como como « Espejos » o « Réplicas » (propuesta glosario)"
 
+# «Nick» se traduce como «Apodo».
+{\bmick\b}i
+valid msgstr="apodo"
+hint="« Nick » se traduce como « Apodo » (propuesta glosario)"
+
+# «Nicks» se traduce como «Apodos».
+{\bmicks\b}i
+valid msgstr="apodos"
+hint="« Nicks » se traduce como « Apodos » (propuesta glosario)"
+
 # «On line» se traduce como «Conectado».
 {\bon(\s|\-)line\b}i
 valid msgstr="conectad(o|a)"
 valid msgstr="con\sconexión"
 valid msgstr="en\slínea\s+\d"
+valid msgstr="(en|de)\s\la\slínea"
 hint="« On line » se traduce como como « Conectado » (propuesta glosario)"
 
 # «Off line» se traduce como «Desconectado».
@@ -1159,6 +1206,24 @@ hint="« On line » se traduce como como « Conectado » (propuesta glosario)"
 valid msgstr="desconectad(o|a)"
 valid msgstr="sin\sconexión"
 hint="« Off line » se traduce como como « Desconectado » (propuesta glosario)"
+
+# «Package» se traduce como «Paquete/Empaquetar».
+{\bpackage\b}i
+valid msgstr="paquete"
+valid msgstr="empaquet(ar|a|e)"
+hint="« Package » se traduce como « Paquete/Empaquetar » (propuesta glosario)"
+
+# «Packaged» se traduce como «Empaqueado».
+{\bpackaged\b}i
+valid msgstr="empaquetad(o|a)"
+hint="« Packaged » se traduce como « Empaquetado » (propuesta glosario)"
+
+# «Packages» se traduce como «Paquetes/Empaqueta».
+{\bpackages\b}i
+valid msgstr="paquetes"
+valid msgstr="paquete" after="ningún\s"
+valid msgstr="empaquet(ar|a|e)"
+hint="« Packages » se traduce como « Paquetes/Empaqueta » (propuesta glosario)"
 
 # «Passphrase» se traduce como «Frase de contraseña».
 {\bpassphrase\b}i
@@ -1172,6 +1237,11 @@ valid msgstr="frases\sde\scontraseña"
 valid msgstr="frase\sde\scontraseña" after="ninguna\s"
 valid !msgstr="passphrases"
 hint="« Passphrases » se traduce como « Frases de contraseña » (propuesta glosario)"
+
+# «Powered by» se traduce como «Basado en».
+{\bpowered\sby\b}i
+valid msgstr="basado\sen"
+hint="« Powered by » se traduce como « Basado en » (propuesta glosario)"
 
 # «Regular expression» se traduce como «Expresión regular».
 {\bregular\sexpression\b}i
@@ -1199,6 +1269,11 @@ valid msgstr="eliminarse"
 valid msgstr="quitarse"
 hint="« Removed » se traduce como « Eliminado/Quitado » (propuesta glosario)"
 
+# «Raply-to» se traduce como «Responder a».
+{\breply(\-|\s)to\b}i
+valid msgstr="responder\sa"
+hint="« Reply-to » se traduce como « Responder a » (propuesta glosario)"
+
 # «Running» se traduce como «En ejecución».
 {\brun\b}i
 valid msgstr="en\sejecución"
@@ -1216,6 +1291,11 @@ hint="« Screenshot » se traduce como « Captura de pantalla » (propuesta glos
 valid msgstr="capturas\s(de|las)\spantallas?"
 valid msgstr="captura\s(de|la)\spantalla" after="ninguna\s"
 hint="« Screenshots » se traduce como « Capturas de pantalla » (propuesta glosario)"
+
+# «Smiley» se traduce como «Emoticón».
+{\bsmiley\b}i
+valid msgstr="emoticón"
+hint="« Smiley » se traduce como « Emoticón » (propuesta glosario)"
 
 # «Settings» se traduce como «Preferencias».
 {\bsettings\b}i
@@ -1239,6 +1319,21 @@ valid msgstr="correctores\sortográficos"
 valid msgstr="corrector\sortográfico" after="ningún\s"
 hint="« Spellcheckers » se traduce como como « Correctores ortográficos » (propuesta glosario)"
 
+# «Subject» se traduce como «Asunto».
+{\bsubject\b}i
+valid msgstr="asunto"
+hint="« Subject » se traduce como como « Asunto » (propuesta glosario)"
+
+# «Switch» se traduce como «Conmutador/Conmutar».
+{\bswitch\b}i
+valid msgstr="conmut(ar|a|e|ador)"
+hint="« Switch » se traduce como como « Conmutador/Conmutar » (propuesta glosario)"
+
+# «Switches» se traduce como «Conmutadores/Conmuta».
+{\bswitches\b}i
+valid msgstr="conmut(ar|a|e|adores)"
+hint="« Switches » se traduce como como « Conmutadores/Conmuta » (propuesta glosario)"
+
 # «System board» se traduce como «Placa base».
 {\bsystem\sboard\b}i
 valid msgstr="placa\sbase"
@@ -1250,6 +1345,17 @@ valid msgstr="placas\sbase"
 valid msgstr="placa\sbase" after="ninguna\s"
 hint="« System boards » se traduce como « Placas base » (propuesta glosario)"
 
+# «Toner» se traduce como «Tóner».
+{\btoner\b}i
+valid msgstr="tóner"
+hint="« Toner » se traduce como como « Tóner » (propuesta glosario)"
+
+# «Warning» se traduce como «Aviso/Advertencia».
+{\bwarning\b}i
+valid msgstr="aviso"
+valid msgstr="advertencia"
+hint="« Warning » se traduce como « Aviso/Advertencia » (propuesta glosario)"
+
 # «Wildcard» se traduce como «Comodín».
 {\bwild\scard\b}i
 valid msgstr="comodín"
@@ -1260,5 +1366,16 @@ hint="« Wildcard » se traduce como « Comodín » (propuesta glosario)"
 valid msgstr="comodines"
 valid msgstr="comodín" after="ningún\s"
 hint="« Wildcards » se traduce como « Comodines » (propuesta glosario)"
+
+# «Window manager» se traduce como «Gestor de ventanas».
+{\bwindow\smanager\b}i
+valid msgstr="gestor\sde\sventanas"
+hint="« Window manager » se traduce como « Gestor de ventanas » (propuesta glosario)"
+
+# «Window managers» se traduce como «Gestores de ventanas».
+{\bwindow\smanagers\b}i
+valid msgstr="gestores\sde\sventanas"
+valid msgstr="gestor\s\de\ventanas" after="ningún\s"
+hint="« Window managers » se traduce como « Gestores de ventanas » (propuesta glosario)"
 
 # End of rule file

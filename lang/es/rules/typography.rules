@@ -10,7 +10,6 @@ validGroup beforePunctuation
 valid after="[\w\dñÑçÇáéíóúÁÉÍÓÚüÜºª\>\»\)\]\}\»\%\-\&\<\^\\]"
 valid before="$"
 
-
 validGroup afterPunctuation
 valid before="[$\w\dñÑçÇáéíóúÁÉÍÓÚüÜºª\>\»\(\[\{\«\%\-\&\<\^\\]"
 valid after="^"
@@ -228,43 +227,40 @@ hint="Las siglas se escriben en singular en español (quite la «s» final)"
 [\b\&[\w\d\-\_]+\;\'s\b]
 hint="Las siglas se escriben en singular en español (quite la «'s» final)"
 
-#[\b([\wáéíóúüñçÁÉÍÓÚÑÇ]+)\s+\1]
-#hint="Hay una palabra consecutiva repetida en el párrafo"
+[\besto\ses\s]
+hint="Ponga una coma después de «esto es» (Consulte ortografía de la RAE)"
 
-[ésto\ses\s]i
-hint="Ponga una coma después de «ésto es» (Consulte ortografía de la RAE)"
-
-[es\sdecir\s]i
+[\bes\sdecir\s]i
 hint="Ponga una coma después de «es decir» (Consulte ortografía de la RAE)"
 
-[en\sfin\s]i
+[\ben\sfin\s]i
 hint="Ponga una coma después de «en fin» (Consulte ortografía de la RAE)"
 
-[por\súltimo\s]i
+[\bpor\súltimo\s]i
 hint="Ponga una coma después de «por último» (Consulte ortografía de la RAE)"
 
-[por\sconsiguiente\s]i
+[\bpor\sconsiguiente\s]i
 hint="Ponga una coma después de «por consiguiente» (Consulte ortografía de la RAE)"
 
-[sin\sembargo\s]i
+[\bsin\sembargo\s]i
 hint="Ponga una coma después de «sin embargo» (Consulte ortografía de la RAE)"
 
-[no\sobstante\s]i
+[\bno\sobstante\s]i
 hint="Ponga una coma después de «no obstante» (Consulte ortografía de la RAE)"
 
 #[además\s]i
 #hint="Ponga una coma después de «además» (Consulte ortografía de la RAE)"
 
-[en\stal\scaso\s]i
+[\ben\stal\scaso\s]i
 hint="Ponga una coma después de «en tal caso» (Consulte ortografía de la RAE)"
 
-[por\slo\stanto\s]i
+[\bpor\slo\stanto\s]i
 hint="Ponga una coma después de «por lo tanto» (Consulte ortografía de la RAE)"
 
-[en\scambio\s]i
+[\ben\scambio\s]i
 hint="Ponga una coma después de «en cambio» (Consulte ortografía de la RAE)"
 
-[en\sprimer\slugar\s]i
+[\ben\sprimer\slugar\s]i
 hint="Ponga una coma después de «en primer lugar» (Consulte ortografía de la RAE)"
 
 [Generalmente\s]
@@ -287,5 +283,113 @@ hint="Ponga una coma después de «Por regla general» (Consulte ortografía de 
 
 [Quizá\s]
 hint="Ponga una coma después de «Quizá» (Consulte ortografía de la RAE)"
+
+[[^\,\.^]\so\sbien\b]
+hint="Ponga una coma antes de «o bien» (Consulte ortografía de la RAE)"
+
+[[^\,\.^]\sexcepto\b]
+hint="Ponga una coma antes de «excepto» (Consulte ortografía de la RAE)"
+
+[[^\,\.^]\ssalvo\b]
+hint="Ponga una coma antes de «salvo» (Consulte ortografía de la RAE)"
+
+[[^\,\.^]\conque\b]
+hint="Ponga una coma antes de «conque» (Consulte ortografía de la RAE)"
+
+[[^\,\.^]\sasí\sque\b]
+hint="Ponga una coma antes de «así que» (Consulte ortografía de la RAE)"
+
+[[^\,\.^]\sde\smanera\sque\b]
+hint="Ponga una coma antes de «de manera que» (Consulte ortografía de la RAE)"
+
+[[^\,\.^]\sesto\ses\b]
+hint="Ponga una coma antes de «esto es» (Consulte ortografía de la RAE)"
+
+[[^\,\.^]\ses\sdecir\b]
+hint="Ponga una coma antes de «es decir» (Consulte ortografía de la RAE)"
+
+[[^\,\.^]\sa\ssaber\b]
+hint="Ponga una coma antes de «a saber» (Consulte ortografía de la RAE)"
+
+[[^\,\.^]\spues\sbien\b]
+hint="Ponga una coma antes de «pues bien» (Consulte ortografía de la RAE)"
+
+[[^\,\.^]\sahora\sbien\b]
+hint="Ponga una coma antes de «ahora bien» (Consulte ortografía de la RAE)"
+
+[[^\,\.^]\sen\sprimer\slugar\b]
+hint="Ponga una coma antes de «en primer lugar» (Consulte ortografía de la RAE)"
+
+[[^\,\.^]\spor\sotro\lado\b]
+hint="Ponga una coma antes de «por otro lado» (Consulte ortografía de la RAE)"
+
+[[^\,\.^]\spor\sun\slado\b]
+hint="Ponga una coma antes de «por un lado» (Consulte ortografía de la RAE)"
+
+[[^\,\.^]\spor\suna\sparte\b]
+hint="Ponga una coma antes de «por una parte» (Consulte ortografía de la RAE)"
+
+[[^\,\.^]\spor\sotra\sparte\s]
+hint="Ponga una coma antes de «por otra parte» (Consulte ortografía de la RAE)"
+
+[[^\,\.^]\sen\sfin\b]
+hint="Ponga una coma antes de «en fin» (Consulte ortografía de la RAE)"
+
+[[^\,\.^]\spor\súltimo\b]
+hint="Ponga una coma antes de «por último» (Consulte ortografía de la RAE)"
+
+[[^\,\.^]\sdetrás\sde\b]
+hint="Ponga una coma antes de «detrás de» (Consulte ortografía de la RAE)"
+
+[[^\,\.^]\sademás\b]
+hint="Ponga una coma antes de «además» (Consulte ortografía de la RAE)"
+
+[[^\,\.^]\scon\stodo\b]
+hint="Ponga una coma antes de «con todo» (Consulte ortografía de la RAE)"
+
+[[^\,\.^]\sen\stal\scaso\b]
+hint="Ponga una coma antes de «en tal caso» (Consulte ortografía de la RAE)"
+
+[[^\,\.^]\ssin\sembargo\b]
+hint="Ponga una coma antes de «sin embargo» (Consulte ortografía de la RAE)"
+
+[[^\,\.^]\sno\sobstante\b]
+hint="Ponga una coma antes de «no obstante» (Consulte ortografía de la RAE)"
+
+[[^\,\.^]\spor\sel\scontrario\b]
+hint="Ponga una coma antes de «por el contrario» (Consulte ortografía de la RAE)"
+
+[[^\,\.^]\sen\scambio\b]
+hint="Ponga una coma antes de «en cambio» (Consulte ortografía de la RAE)"
+
+[[^\,\.^]\sefectivamente\b]
+hint="Ponga una coma antes de «efectivamente» (Consulte ortografía de la RAE)"
+
+[[^\,\.^]\sgeneralmente\b]
+hint="Ponga una coma antes de «generalmente» (Consulte ortografía de la RAE)"
+
+[[^\,\.^]\snaturalmente\b]
+hint="Ponga una coma antes de «naturalmente» (Consulte ortografía de la RAE)"
+
+[[^\,\.^]\spor\sregla\sgeneral\b]
+hint="Ponga una coma antes de «por regla general» (Consulte ortografía de la RAE)"
+
+[[^\,]\setcétera\b]i
+hint="Ponga una coma antes de «etc./&etc;/etcétera» (Consulte ortografía de la RAE)"
+
+[\,\s(y|e|o|u|ni)\s]
+hint="No se pone coma antes de las conjunciones « y, e, o, u, ni» salvo casos excepcionales (Consulte ortografía de la RAE)"
+
+[[^\.\?\!\:^]\s(Enero|Febrero|Marzo|Abril|Mayo|Junio|Julio|Agosto|Septiembre|Octubre|Noviembre|Diciembre)\b]
+hint="Los nombres de los meses se escriben en minúsculas (Consulte ortografía de la RAE)"
+
+[[^\.\?\!\:^]\s(Lunes|Martes|Miércoles|Jueves|Viernes|Sábado|(^Santo\s)Domingo)\b]
+hint="Los nombres de los días de la semana se escriben en minúsculas (Consulte ortografía de la RAE)"
+
+[[^\.\?\!\:^]\s(Primavera|Verano|Otoño|Invierno)\b]
+hint="Los nombres de las estaciones del año se escriben en minúsculas (Consulte ortografía de la RAE)"
+
+[[^\.\?\!\:^]\s(Usted|Señor|Don|Fray|San|Santo|Sor|Reverendo)\b]
+hint="Los tratamientos « Usted, Señor, Don, ... » se escriben en minúsculas (Consulte ortografía de la RAE)"
 
 # End of rule file

@@ -8,34 +8,233 @@ include file="filter.include"
 # Remove accelerator and  hyphen inside words.
 addFilterRegex match="(\&|\-)" on="pmsgid,pmsgstr"
 
+[\b([\wáéíóúüñçÁÉÍÓÚÑÇ]+)\s+\1\b]
+hint="Hay una palabra consecutiva repetida en el párrafo"
+
+# En plural se utiliza el masculino
+[\b([\wáéíóúñçÁÉÍÓÚÑÇ)]+?)os\sy\s\1as\b]
+hint="No utilice expresiones del tipo «ciudadanos y ciudadanas » (error frecuente)"
+
+# En plural se utiliza el masculino
+[\blos\s([\wáéíóúñçÁÉÍÓÚÑÇ)]+?)os\sy\slas\s\1as\b]
+hint="No utilice expresiones del tipo «los ciudadanos y las ciudadanas » (error frecuente)"
+
+# En plural se utiliza el masculino
+[\b([\wáéíóúñçÁÉÍÓÚÑÇ)]+?)as\sy\s\1os\b]
+hint="No utilice expresiones del tipo «ciudadanas y ciudadanos » (error frecuente)"
+
+# En plural se utiliza el masculino
+[\blas\s([\wáéíóúñçÁÉÍÓÚÑÇ)]+?)as\sy\slos\s\1os\b]
+hint="No utilice expresiones del tipo «las ciudadanas y los ciudadanos » (error frecuente)"
+
+# No utilizar la arroba para incluir masculino y femenino
+[\b\[\wáéíóuñçÁÉÍÓÚÑÇ]+\@[a-záéíóúñç]*\b]
+hint="No utilice la arroba para evitar el género, p.ej. «ciudadan@s» (error frecuente)"
+
+# No utilizar el guión para separar el prefijo de la palabra principal
+[\b\[\wáéíóuñçÁÉÍÓÚÑÇ]+\-[a-záéíóúñç]+\b]
+hint="No utilice el guión para separar el prefijo de la palabra principal, p.ej. «sub-menú» (error frecuente)"
+
+# «¿Adonde...» se escribe como «¿Adónde...».
+[\¿adonde\b]i
+hint="« ¿Adonde... » se escribe como « ¿Adónde... », (error frecuente)"
+
+# «¿Como...» se escribe como «¿Cómo...».
+[\¿como\b]i
+hint="« ¿Como... » se escribe como « ¿Cómo... », (error frecuente)"
+
+# «¿Cuantos...» se escribe como «¿Cúantos...».
+[\¿cuantos\b]i
+hint="« ¿Cuantos... » se escribe como « ¿Cúantos... », (error frecuente)"
+
+# «¿Cuan...» se escribe como «¿Cúan...».
+[\¿cuan\b]i
+hint="« ¿Cuan... » se escribe como « ¿Cúan... », (error frecuente)"
+
+# «¿De quien...» se escribe como «¿De quién...».
+[\¿de\squien\b]i
+hint="« ¿De quien... » se escribe como « ¿De quién... », (error frecuente)"
+
+# «¿Con que...» se escribe como «¿Con qué...».
+[\¿con\sque\b]i
+hint="« ¿Con que... » se escribe como « ¿Con qué... », (error frecuente)"
+
+# «¿Hasta cuando...» se escribe como «¿Hasta cúando...».
+[\¿hasta\scuando\b]i
+hint="« ¿Hasta cuando... » se escribe como « ¿Hasta cúando... », (error frecuente)"
+
+# «¿Por que...» se escribe como «¿Por qué...».
+[\¿por\sque\b]i
+hint="« ¿Por que... » se escribe como « ¿Por qué... », (error frecuente)"
+
+# «¿Que...» se escribe como «¿Qué...».
+[\¿que\b]i
+hint="« ¿Que... » se escribe como « ¿Qué... », (error frecuente)"
+
+# «¡Adonde...» se escribe como «¡Adónde...».
+[\¡adonde\b]i
+hint="« ¡Adonde... » se escribe como « ¡Adónde... », (error frecuente)"
+
+# «¡Como...» se escribe como «¡Cómo...».
+[\¡como\b]i
+hint="« ¡Como... » se escribe como « ¡Cómo... », (error frecuente)"
+
+# «¡Cuantos...» se escribe como «¡Cúantos...».
+[\¡cuantos\b]i
+hint="« ¡Cuantos... » se escribe como « ¡Cúantos... », (error frecuente)"
+
+# «¡Cuan...» se escribe como «¡Cúan...».
+[\¡cuan\b]i
+hint="« ¡Cuan... » se escribe como « ¡Cúan... », (error frecuente)"
+
+# «¡De quien...» se escribe como «¡De quién...».
+[\¡de\squien\b]i
+hint="« ¡De quien... » se escribe como « ¡De quién... », (error frecuente)"
+
+# «¡Con que...» se escribe como «¡Con qué...».
+[\¡con\sque\b]i
+hint="« ¡Con que... » se escribe como « ¡Con qué... », (error frecuente)"
+
+# «¡Hasta cuando...» se escribe como «¡Hasta cúando...».
+[\¡hasta\scuando\b]i
+hint="« ¡Hasta cuando... » se escribe como « ¡Hasta cúando... », (error frecuente)"
+
+# «¡Por que...» se escribe como «¡Por qué...».
+[\¡por\sque\b]i
+hint="« ¡Por que... » se escribe como « ¡Por qué... », (error frecuente)"
+
+# «¡Que...» se escribe como «¡Qué...».
+[\¡que\b]i
+hint="« ¡Que... » se escribe como « ¡Qué... », (error frecuente)"
+
+# «A condición que» se escribe como «A condición de que».
+[\ba\scondición\sque\b]i
+hint="« A condición que » se escribe como « A condición de que » (error frecuente: queismo)"
+
 # «A el» se escribe como «Al».
-[\ba\s[eé]l\b]i
+[\ba\sel\b]i
 hint="« A el » se escribe como « Al » (error frecuente)"
+
+# «A fin que» se escribe como «A fin de que».
+[\ba\sfin\sque\b]i
+hint="« A fin que » se escribe como « A fin de que » (error frecuente: queismo)"
+
+# «Al la» preposición duplicada.
+[\bal\sla\b]i
+hint="« Al la » preposición duplicada (error frecuente)"
+
+# «A nivel» se escribe como «En el ámbito/A escala».
+[\ba\snivel\b]i
+hint="« A nivel » e escribe como «En el ámbito/A escala». (error frecuente)"
+
+# «A medida de que» se escribe como «A medida que».
+[\ba\smedida\de\sque\b]i
+hint="« A medida de que » e escribe como «A medida que». (error frecuente: dequeismo)"
+
+# «A no ser de que» se escribe como «A no ser que».
+[\ba\sno\sser\de\sque\b]i
+hint="« A no ser de que » e escribe como «A no ser que». (error frecuente: dequeismo)"
+
+# «A pesar que» se escribe como «A pesar de que».
+[\ba\spesar\sque\b]i
+hint="« A pesar que » se escribe como « A pesar de que » (error frecuente: queismo)"
+
+# «Al rededor» se escribe como «Alrededor».
+[\bal\srededor\b]i
+hint="« Al rededor » se escribe como « Alrededor » (error frecuente)"
+
+# «A parte» se escribe como «Aparte».
+[\ba\sparte\b]i
+hint="« A parte » se escribe como « Aparte » (error frecuente)"
+
+# «Acordarse que» se escribe como «Acordarse de que».
+[\bacordarse\sque\b]i
+hint="« Acordarse que » se escribe como « Acordarse de que » (error frecuente: queismo)"
+
+# «Alegrarse que» se escribe como «Alegrarse de que».
+[\balegrase\sque\b]i
+hint="« Alegrarse que » se escribe como « Alegrarse de que » (error frecuente: queismo)"
+
+# «Almacenaje» se escribe como «Almacenamiento».
+[\balmacenaje\b]i
+hint="« Almacenaje » se escribe como « Almacenamiento » (error frecuente)"
 
 # «API» es femenino.
 [\b(la|una|esta|esa|los|unos|estos|esos)\API\b]i
 hint="« API » es de género femenino, pero empieza por 'A' (error frecuente)"
+
+# «Aquél» se escribe como «Aquel».
+[\bAquél\b]i
+hint="« Aquél » se escribe como « Aquel », salvo en casos muy excepcionales (error frecuente)"
+
+# «Aquélla» se escribe como «Aquella».
+[\bAquélla\b]i
+hint="« Aquélla » se escribe como « Aquella », salvo en casos muy excepcionales (error frecuente)"
+
+# «Aquéllas» se escribe como «Aquellas».
+[\bAquéllas\b]i
+hint="« Aquéllas » se escribe como « Aquellas », salvo en casos muy excepcionales (error frecuente)"
+
+# «Aquéllos» se escribe como «Aquellos».
+[\bAquéllos\b]i
+hint="« Áquellos » se escribe como « Aquellos », salvo en casos muy excepcionales (error frecuente)"
+
+# «Arbol» se escribe como «Árbol».
+[\barbol\b]i
+hint="« Arbol » se escribe como « Árbol » (error frecuente)"
+
+# «Arboles» se escribe como «Árboles».
+[\barboles\b]i
+hint="« Arboles » se escribe como « Árboles » (error frecuente)"
+
+# «Arrepentirse que» se escribe como «Arrepentirse de que».
+[\baarrepentirse\sque\b]i
+hint="« Arrepentirse que » se escribe como « Arrepentirse de que » (error frecuente: queismo)"
+
+# «Bién» se escribe como «Bien».
+[\bién\b]i
+hint="« Bién » se escribe como « Bien », salvo en casos muy excepcionales (error frecuente)"
 
 # «BIOS» es masculino.
 [\b(la|una|esta|esa|las|unas|estas|esas)\BIOS\b]i
 hint="« BIOS » es de género masculino (error frecuente)"
 
 # «Caché» es femenino.
-[\b(el|uno|este|ese)\caché\b]i
+[\b(el|del|uno|este|ese)\caché\b]i
 hint="« Caché » es de género femenino (error frecuente)"
 
 # «Cachés» es femenino.
 [\b(los|unos|estos|esos)\cachés\b]i
 hint="« Cachés » es de género femenino (error frecuente)"
 
+# «Caer en la cuenta que» se escribe como «Caer en la cuenta de que».
+[\bcaer\sen\sla\cuenta\sque\b]i
+hint="« Caer en la cuenta que » se escribe como « Caer en la cuenta de que » (error frecuente: queismo)"
+
+# «Caracter» se escribe como «Carácter».
+[\bcaracter\b]i
+hint="« Caracter » se escribe como « Carácter », salvo en casos muy excepcionales (error frecuente)"
+
+# «Carácteres» se escribe como «Caracteres».
+[\bcarácteres\b]i
+hint="« Carácteres » se escribe como « caracteres », salvo en casos muy excepcionales (error frecuente)"
+
+# «Cassette» se escribe como «Casete».
+[\bcassette\b]i
+hint="« Cassette » se escribe como « Casete » (error frecuente)"
+
 [\bcog(er|e|a|en|an|iendo|ido)\b]i
 hint="« Coger » no se debe utilizar, tiene connotaciones sexuales en México (error frecuente)"
 
-[\bcomandos?\b]i
-hint="« Command » se traduce como « Orden » o « Instrucción », nunca como « Comando » (error frecuente)"
+#[\bcomandos?\b]i
+#hint="« Command » se traduce como « Orden » o « Instrucción », nunca como « Comando » (error frecuente)"
 
-[\bcomputador(a|es|as)?\b]i
-hint="« Computer » se traduce como « Equipo », no como « Ordenador » o « Computadora » (error frecuente)"
+#[\bcomputador(a|es|as)?\b]i
+#hint="« Computer » se traduce como « Equipo », no como « Ordenador » o « Computadora » (error frecuente)"
+
+# «Convercer que» se escribe como «Convencer de que».
+[\bconvencer\sque\b]i
+hint="« Convencer que » se escribe como « Convencer de que » (error frecuente: queismo)"
 
 [\bcorreo\-e\b]i
 hint="No utilice « Correo-e » solo « Correo » a secas (error frecuente)"
@@ -47,6 +246,14 @@ hint="No utilice « Correos-e » solo « Correos » a secas (error frecuente)"
 [\bdá\b]i
 hint="« Dá » se escribe como « Da » (error frecuente)"
 
+# «Darse cuenta que» se escribe como «Darse cuenta de que».
+[\bdarse\scuenta\sque\b]i
+hint="« Darse cuenta que » se escribe como « Darse cuenta de que » (error frecuente: queismo)"
+
+# «De echo» se escribe como «De hecho».
+[\bde\secho\b]i
+hint="« De echo » se escribe como « De hecho » (error frecuente)"
+
 # «De el» se escribe como «Del».
 [\bde\sel\b]i
 hint="« De el » se escribe como « Del » (error frecuente)"
@@ -55,6 +262,22 @@ hint="« De el » se escribe como « Del » (error frecuente)"
 [\bde\sgratis\b]i
 hint="« De gratis » se escribe como « Gratis », sin el « de » (error frecuente)"
 
+# «Del el» preposición duplicada.
+[\bdel\sel\b]i
+hint="« Del el » preposición duplicada (error frecuente)"
+
+# «Del la» preposición duplicada.
+[\bdel\sla\b]i
+hint="« Del la » preposición duplicada (error frecuente)"
+
+# «Déme» se escribe como «Deme».
+[\bdéme\b]i
+hint="« Déme » se escribe como « Deme » (error frecuente)"
+
+# «Deténte» se escribe como «Detente».
+[\bdeténte\b]i
+hint="« Deténte » se escribe como « Detente », (error frecuente)"
+
 # «Dí» se escribe como «Di».
 [\bdí\b]i
 hint="« Dí » se escribe como « Di » (error frecuente)"
@@ -62,6 +285,84 @@ hint="« Dí » se escribe como « Di » (error frecuente)"
 # «Dió» se escribe como «Dio».
 [\bdió\b]i
 hint="« Dió » se escribe como « Dio » (error frecuente)"
+
+[\be\-?mail\b]i
+hint="No utilice « Email » sino « Correo » (error frecuente)"
+
+[\be\-?mails\b]i
+hint="No utilice « Emails » sino « Correos » (error frecuente)"
+
+# «El echo» se escribe como «El hecho».
+[\bel\secho\b]i
+hint="« El echo » se escribe como « El hecho » (error frecuente)"
+
+# «El la» preposición duplicada.
+[\bel\sla\b]i
+hint="« El la » preposición duplicada (error frecuente)"
+
+# «El porque» e escribe como «El porqué».
+[\bel\sporque\b]i
+hint="« El porque » e escribe como «El porqué». (error frecuente)"
+
+# «En caso que» se escribe como «En caso de que».
+[\ben\scaso\sque\b]i
+hint="« En caso que » se escribe como « En caso de que » (error frecuente: queismo)"
+
+# «En frente» se escribe como «Enfrente».
+[\ben\sfrente\b]i
+hint="« En frente » se escribe como « Enfrente » (error frecuente)"
+
+# «Entrar datos» se escribe como «Introducir datos».
+[\bentrar\sdatos\b]i
+hint="« Entrar datos » se escribe como « Introducir datos » (error frecuente)"
+
+# «Entrar en contacto» se escribe como «Ponerse en contacto».
+[\bentrar\sen\scontacto\b]i
+hint="« Entrar en contacto » se escribe como « Ponerse en contacto » (error frecuente)"
+
+# «Ésa» se escribe como «Esa».
+[\bésa\b]i
+hint="« Ésa » se escribe como « Esa », salvo en casos muy excepcionales (error frecuente)"
+
+# «Ésas» se escribe como «Esas».
+[\bésas\b]i
+hint="« Ésas » se escribe como « Esas », salvo en casos muy excepcionales (error frecuente)"
+
+# «Éso» se escribe como «Eso».
+[\béso\b]i
+hint="« Éso » se escribe como « Eso », salvo en casos muy excepcionales (error frecuente)"
+
+# «Ésos» se escribe como «Esos».
+[\bésos\b]i
+hint="« Ésos » se escribe como « Esos », salvo en casos muy excepcionales (error frecuente)"
+
+# «Ése» se escribe como «Ese».
+[\bése\b]i
+hint="« Ése » se escribe como « Ese », salvo en casos muy excepcionales (error frecuente)"
+
+# «Ésta» se escribe como «Esta».
+[\bésta\b]i
+hint="« Ésta » se escribe como « Esta », salvo en casos muy excepcionales (error frecuente)"
+
+# «Éste» se escribe como «Este».
+[\béste\b]i
+hint="« Éste » se escribe como « Este », salvo en casos muy excepcionales (error frecuente)"
+
+# «Éstas» se escribe como «Estas».
+[\béstas\b]i
+hint="« Éstas » se escribe como « Estas », salvo en casos muy excepcionales (error frecuente)"
+
+# «Estáte» se escribe como «Estate».
+[\bestáte\b]i
+hint="« Estáte » se escribe como « Estate », (error frecuente)"
+
+# «Ésto» se escribe como «Esto».
+[\bésto\b]i
+hint="« Ésto » se escribe como « Esto », salvo en casos muy excepcionales (error frecuente)"
+
+# «Éstos» se escribe como «Estos».
+[\béstos\b]i
+hint="« Éstos » se escribe como « Estos », salvo en casos muy excepcionales (error frecuente)"
 
 # «Exámen» se escribe como «Examen».
 [\bexámen\b]i
@@ -75,6 +376,18 @@ hint="« Fé » se escribe como « Fe » (error frecuente)"
 [\bfié\b]i
 hint="« Fé » se escribe como « Fie » (error frecuente)"
 
+# «Fijarse que» se escribe como «Fijarse en que».
+[\bfijarse\sque\b]i
+hint="« Fijarse que » se escribe como « Fijarse en que » (error frecuente: queismo)"
+
+# «Formula» se escribe como «Fórmula».
+[\bformula\b]i
+hint="« Formula » se escribe como « Fórmula », salvo 3ª persona del verbo formular (error frecuente)"
+
+# «Forum» se escribe como «Fórum».
+[\bforum\b]i
+hint="« Forum » se escribe como « Fórum », salvo en casos muy excepcionales (error frecuente)"
+
 # «Fué» se escribe como «Fue».
 [\bfué\b]i
 hint="« Fé » se escribe como « Fue » (error frecuente)"
@@ -83,14 +396,77 @@ hint="« Fé » se escribe como « Fue » (error frecuente)"
 [\bfuí\b]i
 hint="« Fuí » se escribe como « Fui » (error frecuente)"
 
-[\be\-?mail\b]i
-hint="No utilice « Email » sino « Correo » (error frecuente)"
+# «Habeas» se escribe como «Hábeas».
+[\bhabeas\b]i
+hint="« Habeas » se escribe como « Hábeas » (error frecuente)"
 
-[\be\-?mails\b]i
-hint="No utilice « Emails » sino « Correos » (error frecuente)"
+# «Habemos» se escribe como «Hemos».
+[\bhabemos\b]i
+hint="« Habemos » se escribe como « Hemos », se trata de un arcaismo (error frecuente)"
 
-[\bordenador(es)?\b]i
-hint="« Computer » se traduce como « Equipo », no como « Ordenador » o « Computadora » (error frecuente)"
+# «Habían algunos/muchos» se escribe como «Había algunos/muchos».
+[\bhabían\s(algunos|algunas|muchos|muchas)\b]i
+hint="« Habián algunos/muchos » se escribe como « Había algunos/muchos » (error frecuente)"
+
+# «Han habido algunos/muchos» se escribe como «Ha habido algunos/muchos».
+[\bhan\shabido\s(algunos|algunas|muchos|muchas)\b]i
+hint="« Han habido algunos/muchos » se escribe como « Ha habido algunos/muchos » (error frecuente)"
+
+# «Hasta el punto que» se escribe como «Hasta el punto de que».
+[\bhasta\sel\spunto\sque\b]i
+hint="« Hasta el punto que » se escribe como « Hasta el punto de que » (error frecuente: queismo)"
+
+# «Hay la posibilidad» se escribe como «Existe la posibilidad».
+[\bhay\sla\sposibilidad\b]i
+hint="« Hay la posibilidad » se escribe como « Existe la posibilidad » (error frecuente)"
+
+# «Hecha a» se escribe como «Echa a».
+[\bhech(o|a)\sa\b]i
+hint="« Hecha a » se escribe como « Echa a » (error frecuente)"
+
+# «Hecho/a de» se escribe como «Echo/a de».
+[\bhech(o|a)\sde\b]i
+hint="« Hecho de » se escribe como « Echo de » (error frecuente)"
+
+# «Hubieron algunos/muchos» se escribe como «Hubo algunos/muchos».
+[\bhubieron\s(algunos|algunas|muchos|muchas)\b]i
+hint="« Hubieron algunos/muchos » se escribe como « Hubo algunos/muchos » (error frecuente)"
+
+# «Interactuación» se escribe como «Interacción».
+[\binteractuación\b]i
+hint="« Interactuación » se escribe como « Interacción » (error frecuente)"
+
+# «Insistir que» se escribe como «Insistir de que».
+[\binsistir\sque\b]i
+hint="« Insistir que » se escribe como « Insistir en que » (error frecuente: queismo)"
+
+# «Isotopo» se escribe como «Isótopo».
+[\bisotopo\b]i
+hint="« Isotopo » se escribe como « Isótopo » (error frecuente)"
+
+# «Isotopos» se escribe como «Isótopos».
+[\bisotopos\b]i
+hint="« Isotopos » se escribe como « Isótopos » (error frecuente)"
+
+# «La agua» se escribe como «El agua».
+[\bla\sagua\b]i
+hint="« La agua » se escribe como « El agua » (error frecuente)"
+
+# «La área» se escribe como «El área».
+[\bla\sárea\b]i
+hint="« La área » se escribe como « El área » (error frecuente)"
+
+# «La el» preposición duplicada.
+[\bla\sel\b]i
+hint="« La el » preposición duplicada (error frecuente)"
+
+# «Linea» se escribe como «Línea».
+[\blinea\b]i
+hint="« Linea » se escribe como « Línea » (error frecuente)"
+
+# «Lineas» se escribe como «Líneas».
+[\blineas\b]i
+hint="« Lineas » se escribe como « Líneas » (error frecuente)"
 
 # «Imágen» se escribe como «Imagen».
 [\bimágen\b]i
@@ -101,32 +477,83 @@ hint="« Imagen » se escribe como « Imagen » (error frecuente)"
 hint="« Inflacción » se escribe como « Inflación » (error frecuente)"
 
 # «Interfaz» es femenino.
-[\b(el|un|este|ese)\sinterfaz\b]i
+[\b(el|del|un|este|ese)\sinterfaz\b]i
 hint="« Interfaz » es de género femenino (error frecuente)"
 
 # «Interfaces» es femenino.
 [\b(los|unos|estos|esos)\sinterfaces\b]i
 hint="« Interfaces » es de género femenino (error frecuente)"
 
+# «Internet» se escribe en mayúsculas.
+[\binternet\b]
+hint="« Internet » se escribe en mayúsculas (error frecuente)"
+
 # «IRQ» es femenino.
-[\b(el|un|los|unos|estos|esos)IRQ\b]i
+[\b(el|del|un|los|unos|estos|esos)IRQ\b]i
 hint="« IRQ » es femenino (error frecuente)"
 
 # «Jóven» se escribe como «Joven».
 [\bjóven\b]i
 hint="« Jóven » se escribe como « Joven » (error frecuente)"
 
+# «Juega un papel» se escribe como «Representa/Desempeña un/su papel».
+[\bjuega\sun\spapel\b]i
+hint="« Juega un papel » se escribe como « Representa/desempeña un/su papel » (error frecuente)"
+
 # «Jugar un papel» se escribe como «Representar/Desempeñar un/su papel».
 [\bjugar\sun\spapel\b]i
 hint="« Jugar un papel » se escribe como « Representar/desempeñar un/su papel » (error frecuente)"
 
+# «Latin» se escribe como «Latín».
+[\blatin\b]i
+hint="« Latin » se escribe como « Latín » (error frecuente)"
+
+# «Literatura sobre/en» e escribe como «Bibliografía sobre/en».
+[\bliteratura\s(sobre|en)\b]i
+hint="« Literatura sobre/en » e escribe como «Bibliografía sobre/en». (error frecuente)"
+
+# «Las y los» e escribe como «Los».
+[\blas\sy\slos\b]i
+hint="« Las y los » e escribe como «Los». (error frecuente)"
+
+# «Los y las» e escribe como «Los».
+[\blos\sy\slas\b]i
+hint="« Los y las » e escribe como «Los». (error frecuente)"
+
+# «Los porques» e escribe como «Los porqués».
+[\blos\sporques\b]i
+hint="« Los porques » e escribe como «Los porqués». (error frecuente)"
+
 # «Macro» es femenino.
-[\b(el|uno|este|ese)\macro\b]i
+[\b(el|del|uno|este|ese)\macro\b]i
 hint="« Macro » es de género femenino (error frecuente)"
 
 # «Macros» es femenino.
-[\b(los|unos|estos|esos)\cachés\b]i
+[\b(los|unos|estos|esos)\macros\b]i
 hint="« Macros » es de género femenino (error frecuente)"
+
+# «Me se» se escribe como «Se me».
+[\bme\sse\b]i
+hint="« Me se » se escribe como « Se me » (error frecuente)"
+
+# «Més» se escribe como «Mes».
+[\bmés\b]i
+hint="« Més » se escribe como « Mes » (error frecuente)"
+
+# «No cabe duda que» se escribe como «No cabe duda de que».
+[\bno\scabe\sduda\sque\b]i
+hint="« No cabe duda que » se escribe como « No cabe duda de que » (error frecuente: queismo)"
+
+# «O otros» se escribe como «U otros».
+[\bo\sotr(o|a)s\b]i
+hint="« O otros » se escribe como « U otros » (error frecuente)"
+
+# «Olvidarse que» se escribe como «Olvidarse de que».
+[\bolvidarse\sque\b]i
+hint="« Olvidarse que » se escribe como « Olvidarse de que » (error frecuente: queismo)"
+
+#[\bordenador(es)?\b]i
+#hint="« Computer » se traduce como « Equipo », no como « Ordenador » o « Computadora » (error frecuente)"
 
 # «Órden» se escribe como «Orden».
 [\bórden\b]i
@@ -136,24 +563,161 @@ hint="« Órden » se escribe como « Orden » (error frecuente)"
 [\borígen\b]i
 hint="« Orígen » se escribe como « Origen » (error frecuente)"
 
+# «P. e.» se escribe como «P. ej.».
+[\bp\.\s?e\.b]i
+hint="« P. e. » se escribe como « P. ej. » (error frecuente)"
+
+# «Pacifico» se escribe como «Pacífico».
+[\bpacifico\b]i
+hint="« Pacifico » se escribe como « Pacífico », salvo 1ª persona del verbo pacificar (error frecuente)"
+
+# «Pagina» se escribe como «Página».
+[\bpagina\b]i
+hint="« Pagina » se escribe como « Página », salvo 3ª persona del verbo paginar (error frecuente)"
+
+# «Pán» se escribe como «Pan».
+[\bPán\b]i
+hint="« Pán » se escribe como « Pan » (error frecuente)"
+
+# «Perfíl» se escribe como «Perfil».
+[\bperfíl\b]i
+hint="« Perfíl » se escribe como « Perfil » (error frecuente)"
+
+# «Palabras claves» se escribe como «Palabras clave».
+[\bpalabras\sclaves\b]i
+hint="« Palabras claves » se escribe como « Palabras clave » (error frecuente)"
+
+# «Por lo contrario» se escribe como «Por\sel\scontrario».
+[\bpor\lo\contrario\b]i
+hint="« Por lo contrario » se escribe como « Por el contario » (error frecuente)"
+
+# «Poster» se escribe como «Póster».
+[\bposter\b]i
+hint="« Poster » se escribe como « Póster », salvo en casos muy excepcionales (error frecuente)"
+
+# «Por contra» se escribe como «Por el contrario».
+[\bpor\scontra\b]i
+hint="« Por contra » se escribe como « Por el contrario », salvo en casos muy excepcionales (error frecuente)"
+
+# «Prevee» se escribe como «Prevé».
+[\bprevee\b]i
+hint="« Prevee » se escribe como « Prevé » (error frecuente)"
+
+# «Preveemos» se escribe como «Prevemos».
+[\bpreveemos\b]i
+hint="« Preveemos » se escribe como « Prevemos » (error frecuente)"
+
 # «Preveer» se escribe como «Prever».
 [\bpreveer\b]i
 hint="« Preveer » se escribe como « Prever » (error frecuente)"
+
+# «Preveyendo» se escribe como «Previendo».
+[\bpreveyendo\b]i
+hint="« Preveyendo » se escribe como « Preveiendo » (error frecuente)"
+
+# «Preveyera» se escribe como «Preveiera».
+[\bpreveyera\b]i
+hint="« Preveer » se escribe como « Preveiera » (error frecuente)"
+
+# «Preveyó» se escribe como «Preveó».
+[\bpreveyó\b]i
+hint="« Preveyó » se escribe como « Preveó » (error frecuente)"
+
+# «Preocuparse que» se escribe como «Preocuparse de/por que».
+[\bpreocuparse\sque\b]i
+hint="« Preocuparse que » se escribe como « Preocuparse de/por que » (error frecuente: queismo)"
 
 # «Preveerse» se escribe como «Preverse».
 [\bpreveerse\b]i
 hint="« Preveerse » se escribe como « Preverse » (error frecuente)"
 
-[\bsoport(ar|e|a|an|en|ado|ada)\b]i
-hint="«Support» se traduce como  «Admitir», «Implementar», «Reconocer», «Usar» o «Apoyar», nunca como « Soportar » (error frecuente)"
+# «Quorum» se escribe como «Quórum».
+[\bquorum\b]i
+hint="« Quorum » se escribe como « Quórum » (error frecuente)"
+
+# «Rabbi» se escribe como «Rabí».
+[\brabbi\b]i
+hint="« Rabbi » se escribe como « Rabí » (error frecuente)"
+
+# «Se esta» se escribe como «Se está».
+[\bse\sesta\b]i
+hint="« Se esta » se escribe como « Se está » (error frecuente)"
+
+# «Se pude» se escribe como «Se puede».
+[\bse\spude\b]i
+hint="« Se pude » se escribe como « Se puede » (error frecuente)"
+
+# «Se su» palabra duplicada.
+[\bse\ssu\b]i
+hint="« Se su » palabra duplicada (error frecuente)"
+
+# «Sobreescribir» se escribe como «Sobrescribir» (y sus derivados.
+[\bSobreescri(bir|be|ba|ben|ban|biendo|tura)\b]i
+hint="« Sobreescribir » se escribe como « Sobrescribir », igual para sus derivaciones (error frecuente)"
+
+# «Sobretodo» se escribe como «Sobre todo».
+[\bsobretodo\b]i
+hint="« Sobretodo » se escribe como « Sobre todo », salvo en caso de abrigos (error frecuente)"
+
+# «Sólo» se escribe como «Solo».
+[\bsólo\b]i
+hint="« Sólo » se escribe como « Solo », salvo en casos muy excepcionales (error frecuente)"
+
+# «Su se» palabra duplicada.
+[\bsu\sse\b]i
+hint="« Su se » palabra duplicada (error frecuente)"
+
+# «Te se» se escribe como «Se te».
+[\bte\sse\b]i
+hint="« Te se » se escribe como « Se te » (error frecuente)"
+
+# «Tenia» se escribe como «Tenía».
+[\btenia\b]i
+hint="« Tenia » se escribe como « Tenía », salvo cuando se trate del parásito intestinal (error frecuente)"
+
+# «Tenias» se escribe como «Tenías».
+[\btenias\b]i
+hint="« Tenias » se escribe como « Tenías », salvo cuando se trate de los parásitos intestinales (error frecuente)"
+
+# «Thesaurus» se escribe como «Tesauro».
+[\thesaurus\b]i
+hint="« Thesaurus » se escribe como « Tesauro » (error frecuente)"
 
 # «Tí» se escribe como «Ti».
 [\btí\b]i
 hint="« Tí » se escribe como « Ti » (error frecuente)"
 
+# «Torah» se escribe como «Torá».
+[\bTorah\b]i
+hint="« Torah » se escribe como « Torá » (error frecuente)"
+
+# «Tratar que» se escribe como «Tratar de que».
+[\btratar\sque\b]i
+hint="« Tratar que » se escribe como « Tratar de que » (error frecuente: queismo)"
+
+# «Un porque» e escribe como «Un porqué».
+[\bun\sporque\b]i
+hint="« Un porque » e escribe como «Un porqué». (error frecuente)"
+
+# «Una vez de que» se escribe como «Una vez que».
+[\buna\svez\de\sque\b]i
+hint="« Una vez de que » e escribe como «Una vez que». (error frecuente: dequeismo)"
+
+# «Unos porques» e escribe como «Unos porqués».
+[\bunos\sporques\b]i
+hint="« Unos porques » e escribe como «Unos porqués». (error frecuente)"
+
 # «URL» es femenino.
-[\b(el|un|los|unos|este|ese)\surl\b]i
+[\b(el|del|un|los|unos|este|ese)\surl\b]i
 hint="« URL » es de género femenino (error frecuente)"
+
+# «Uso horario» e escribe como «Huso horario».
+[\buso\shorario\b]i
+hint="« Uso horario » e escribe como «Huso horario». (error frecuente)"
+
+# «Usos horarios» e escribe como «Husos horarios».
+[\busos\shorarios\b]i
+hint="« Usos horarios » e escribe como «Husos horarios». (error frecuente)"
 
 # «Vease» se escribe como «Véase».
 [\bvease\b]i
@@ -167,12 +731,20 @@ hint="« Via » se escribe como « Vía » (error frecuente)"
 [\bví\b]i
 hint="« Ví » se escribe como « Vi » (error frecuente)"
 
+# «Video» se escribe como «Vídeo».
+[\bvideo\b]i
+hint="« Video » se escribe como « Vídeo » (error frecuente)"
+
+# «Videos» se escribe como «Vídeos».
+[\bvideos\b]i
+hint="« Videos » se escribe como « Vídeos » (error frecuente)"
+
 # «Vió» se escribe como «Vio».
 [\bvió\b]i
 hint="« Vió » se escribe como « Vio » (error frecuente)"
 
 # «Web» es femenino.
-[\b(el|un|los|unos|este|ese)\sweb\b]i
+[\b(el|del|un|los|unos|este|ese)\sweb\b]i
 hint="« Web » es femenino (error frecuente)"
 
 # End of rule file

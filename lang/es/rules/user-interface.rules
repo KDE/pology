@@ -192,6 +192,11 @@ hint="« Print » se traduce como como « Imprimir » (regla de traducción de m
 valid msgstr="Configuración de impresión\.\.\."
 hint="« Print setup... » se traduce como como « Configuración de impresión... » (regla de traducción de menús de KDE)"
 
+# «Print preview» se traduce como «Vista preliminar».
+{^Print preview$}
+valid msgstr="Vista preliminar"
+hint="« Print preview » se traduce como como « Vista preliminar » (regla de traducción de menús de KDE)"
+
 # «Exit» se traduce como «Salir».
 {^Exit$}
 valid msgstr="Salir"
@@ -340,10 +345,10 @@ hint="« Delete » se traduce como como « Borrar » (regla de traducción de me
 valid msgstr="Guardar opciones"
 hint="« Save options » se traduce como como « Guardar opciones » (regla de traducción de menús de KDE)"
 
-# «Settings» se traduce como «Configuración».
+# «Settings» se traduce como «Preferencias».
 {^Settings$}
-valid msgstr="Configuración"
-hint="« Settings » se traduce como como « Configuración » (regla de traducción de menús de KDE)"
+valid msgstr="Preferencias"
+hint="« Settings » se traduce como como « Preferencias » (regla de traducción de menús de KDE)"
 
 # «Set up» se traduce como «Configurar».
 {^Set up$}
@@ -382,5 +387,29 @@ hint="« Hint » se traduce como como « Consejo » (regla de traducción de men
 {^Credits$}
 valid msgstr="Créditos"
 hint="« Crédits » se traduce como como « Créditos » (regla de traducción de menús de KDE)"
+
+# Elementos gráficos
+
+# «Frame» se traduce como «Marco».
+{\bframe\b}i
+valid msgstr="marco"
+valid msgstr="fotograma"
+hint="« Frame » se traduce como como « Marco/Fotograma » (regla de traducción de elementos gráficos)"
+
+# «Frames» se traduce como «Marcos».
+{\bframes\b}i
+valid msgstr="marcos"
+valid msgstr="fotogramas"
+hint="« Frames » se traduce como como « Marco/Fotogramas » (regla de traducción de elementos gráficos)"
+
+# «Side bar» se traduce como «Panel lateral».
+{\bside\s?\barb}i
+valid msgstr="panel\slateral"
+hint="« Side bar » se traduce como como « Panel lateral » (regla de traducción de elementos gráficos)"
+ 
+# «Side bars» se traduce como «Paneles laterales».
+{\bside\s?\barsb}i
+valid msgstr="paneles\slaterales"
+hint="« Side bars » se traduce como como « Paneles laterales » (regla de traducción de elementos gráficos)"
 
 # End of rule file

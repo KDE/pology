@@ -84,6 +84,7 @@ hint="« API » no se traduce (ver glosario)"
 # «Applet» se traduce como «Miniaplicación».
 {\bapplet\b}i
 valid msgstr="miniaplicación"
+valid msgstr="miniaplicaciones"
 hint="« Applet » se traduce como « Miniaplicación » (ver glosario)"
 
 # «Applets» se traduce como «Miniaplicaciones».
@@ -95,7 +96,7 @@ hint="« Applets » se traduce como « Miniaplicaciones » (ver glosario)"
 # «Archive» se traduce como «Archivo comprimido».
 {\barchive\b}i
 valid msgstr="archivos?\scomprimidos?"
-valid msgstr="archivar"
+valid msgstr="archiv(ar|a|e)"
 hint="« Archive » se traduce como « Archivo comprimido » (ver glosario)"
 
 # «Archived» se traduce como «Archivado».
@@ -190,10 +191,15 @@ hint="« Batcher » se traduce como « Procesador por lotes » (ver glosario)"
 valid msgstr="proces(ar|o)\spor\slotes"
 hint="« Batching » se traduce como « Proceso por lotes » (ver glosario)"
 
-# «Bit» no se debe traducir.
-{\bbit\b}i
-valid msgstr="bit"
+# «A bit» se traduce como «Un poco/algo».
+{\ba\sbit\b}i
 valid msgstr="un\spoco"
+valid msgstr="algo"
+hint="« A bit » se traduce como «Un poco/algo»"
+
+# «Bit» no se debe traducir.
+{\b(^a\s)bit\b}i
+valid msgstr="bit"
 hint="« Bit » no se debe traducir (ver glosario)"
 
 # «Bits» no se debe traducir.
@@ -328,7 +334,7 @@ valid msgstr="comprueb(e|a)"
 valid msgstr="marcar?"
 valid msgstr="marque"
 valid msgstr="consult(ar|a|e)"
-hint="« Check » se traduce como « Comprobar » o « Consultar »(ver glosario)"
+hint="« Check » se traduce como « Comprobar/Consultar/Marcar »(ver glosario)"
 
 # «Checked» se traduce como «Comprobado».
 {\bchecked\b}i
@@ -338,15 +344,16 @@ valid msgstr="consultad(o|a)"
 valid msgstr="comprobarse"
 valid msgstr="marcarse"
 valid msgstr="consultarse"
-hint="« Checked » se traduce como « Comprobado » o « Consultado »(ver glosario)"
+hint="« Checked » se traduce como « Comprobado/Consultado/marcado » (ver glosario)"
 
 # «Checks» se traduce como «Compruebe».
 {\bchecks\b}i
 valid msgstr="comprueb(e|a)"
+vslid msgstr="comprobaciones"
 valid msgstr="marcar?"
 valid msgstr="marque"
 valid msgstr="consult(ar|a|e)"
-hint="« Checks » se traduce como « Compruebe » o « Consulte »(ver glosario)"
+hint="« Checks » se traduce como « Compruebe/Consulte/Marque » (ver glosario)"
 
 # «Checksum» se traduce como «suma de verificación».
 {\bchecksum\b}i
@@ -762,6 +769,7 @@ valid msgstr="pantalla"
 valid msgstr="visor"
 valid msgstr="mostrar"
 valid msgstr="muestr(a|e)"
+valid msgstr="mostrad(o|a)"
 valid msgstr="visualización"
 hint="« Display » se traduce como « Pantalla », « Visor » o « Mostrar » (ver glosario)"
 
@@ -770,6 +778,7 @@ hint="« Display » se traduce como « Pantalla », « Visor » o « Mostrar » 
 valid msgstr="pantallas"
 valid msgstr="visores"
 valid msgstr="muestr(a|e)"
+valid msgstr="mostrad(os|as)"
 valid msgstr="visualizaciones"
 valid msgstr="pantalla" after="ninguna\s"
 valid msgstr="visualización" after="ninguna\s"
@@ -926,7 +935,7 @@ valid msgstr="intro"
 valid msgstr="introducir"
 valid msgstr="acceder"
 valid !msgstr="entrar"
-hint="« Enter » se traduce como « Intro », « Introducir » o « Acceder », nunca como « Entrar » (ver glosario)"
+hint="« Enter » se traduce como « Intro », « Introducir/Acceder », nunca como « Entrar » (ver glosario)"
 
 # «Entry» se traduce como «Entrada».
 {\bentry\b}i
@@ -988,12 +997,14 @@ hint="« Features » se traduce como « Funcionalidades » o « Características
 {\b(^(line\s))feed\b}i
 valid msgstr="suministro"
 valid msgstr="fuente"
+valid msgstr="canal"
 hint="« Feed » se traduce como « Suministro » o « Fuente de noticias »(ver glosario)"
 
 # «Feeds» se traduce como «Suministros».
 {\b(^(line\s))feeds\b}i
 valid msgstr="suministros"
 valid msgstr="fuentes"
+valid msgstr="canales"
 hint="« Feeds » se traduce como « Suministros » o « Fuentes de noticias »(ver glosario)"
 
 # «Feedback» se traduce como «Comentarios y sugerencias».
@@ -1277,15 +1288,17 @@ hint="« Home directories » se traduce como « Directorios personales » (ver g
 
 # «Home page» se traduce como «Página inicial».
 {\bhome\s?page\b}i
+valid msgstr="página\sde\sinicio"
 valid msgstr="página\sinicial"
 valid msgstr="página\spersonal"
-hint="« Home page » se traduce como « Página inicial » (ver glosario)"
+hint="« Home page » se traduce como « Página de inicio » (ver glosario)"
 
 # «Home pages» se traduce como «Páginas iniciales».
 {\bhome\s?pages\b}i
+valid msgstr="páginas\de\inicio"
 valid msgstr="páginas\siniciales"
 valid msgstr="páginas\spersonales"
-hint="« Home pages » se traduce como « Páginas iniciales » (ver glosario)"
+hint="« Home pages » se traduce como « Páginas de inicio » (ver glosario)"
 
 # «Home address» se traduce como «Dirección particular».
 {\bhome\saddress\b}i
@@ -1681,6 +1694,7 @@ hint="« Mirror » se traduce como « Espejo » o « Reflejar » (ver glosario)"
 {\bmirrors\b}i
 valid msgstr="espejos"
 valid msgstr="refleja"
+valid msgstr="replica"
 valid msgstr="invierte"
 valid msgstr="réplicas"
 hint="« Mirrors » se traduce como « Espejos » o « Refleja » (ver glosario)"
@@ -1731,7 +1745,6 @@ hint="« Multitasking » se traduce como « Multitarea » (ver glosario)"
 {\bnetmask\b}i
 valid msgstr="máscara\sde\sred"
 hint="« Netmask » se traduce como « Máscara de red » (ver glosario)"
-
 
 # «Netmasks» se traduce como «Máscaras de red».
 {\bnetmasks\b}i
@@ -2083,11 +2096,13 @@ hint="« Raises » se traduce como « Provoca », « Alza », « Surge » o « A
 # «Range» se traduce como «Intervalo».
 {\brange\b}i
 valid msgstr="intervalo"
+valid msgstr="variedad"
 hint="« Range » se traduce como « Intervalo » (ver glosario)"
 
 # «Ranges» se traduce como «Intervalos».
 {\branges\b}i
 valid msgstr="intervalos"
+valid msgstr="variedades"
 hint="« Ranges » se traduce como « Intervalos » (ver glosario)"
 
 # «Raw mode» se traduce como «Modo sin formato».
@@ -2541,6 +2556,8 @@ hint="« Standards » se traduce como como « Estándares », (ver glosario)"
 valid msgstr="inici(o|a|e|ar|al)"
 valid msgstr="comien(zo|za|ce|zan|cen)"
 valid msgstr="comenzar"
+valid msgstr="empie(zo|za|ce|zan|cen)"
+valid msgstr="empezar"
 valid msgstr="principio"
 hint="« Start » se traduce como « Inicio » o « Iniciar » (ver glosario)"
 
@@ -2548,7 +2565,9 @@ hint="« Start » se traduce como « Inicio » o « Iniciar » (ver glosario)"
 {\bstarting\b}i
 valid msgstr="inici(o|e|ar|al|ando)"
 valid msgstr="comien(za|zan|ce|cen)"
+valid msgstr="empie(za|zan|ce|cen)"
 valid msgstr="comenzando"
+valid msgstr="empezando"
 valid msgstr="punto\sde\spartida"
 valid msgstr="a\spartir\sde"
 hint="« Starting » se traduce como « Inicio » (ver glosario)"
@@ -2557,6 +2576,7 @@ hint="« Starting » se traduce como « Inicio » (ver glosario)"
 {\bstarts\b}i
 valid msgstr="inici(a|e|o)"
 valid msgstr="comien(za|ce|zo)"
+valid msgstr="empie(za|ce|zo)"
 hint="« Starts » se traduce como « Inicia »  (ver glosario)"
 
 # «Stop» se traduce como o «Detener».
