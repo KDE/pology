@@ -349,7 +349,8 @@ hint="« Checked » se traduce como « Comprobado/Consultado/marcado » (ver glo
 # «Checks» se traduce como «Compruebe».
 {\bchecks\b}i
 valid msgstr="comprueb(e|a)"
-vslid msgstr="comprobaciones"
+valid msgstr="comprobar"
+valid msgstr="comprobaciones"
 valid msgstr="marcar?"
 valid msgstr="marque"
 valid msgstr="consult(ar|a|e)"
@@ -1319,6 +1320,7 @@ hint="« Home » se traduce como « Inicio » (ver glosario)"
 # «Host» se traduce como «Servidor».
 {\bhost\b}i
 valid msgstr="servidor"
+valid msgstr="equipo" before="\slocal"
 hint="« Host » se traduce como « Servidor » (ver glosario)"
 
 # «Hosts» se traduce como «Servidores».
@@ -1753,7 +1755,7 @@ hint="« Netmasks » se traduce como « Máscaras de red » (ver glosario)"
 
 # «News feed» se traduce como «Fuente de noticias».
 {\bnews\sfeed\b}i
-valid msgstr="fuente\sde\snoticias"
+valid msgstr="fuentes?\sde\snoticias"
 hint="« News feed » se traduce como « Fuente de noticias » (ver glosario)"
 
 # «News feeds» se traduce como «Fuentes de noticias».
@@ -1882,12 +1884,14 @@ hint="« Pins » se traduce como « Patillas » o « Códigos de acceso » (ver 
 # «Pipe» se traduce como «Redirección/redirigir».
 {\bpipe\b}i
 valid msgstr="redir(ección|igir|ije|ija|ijo)"
+valid msgstr="redireccion(ar|a|e)"
 hint="« Pipe » se traduce como « Redirección/redirigir » (ver glosario)"
 
 # «Pipes» se traduce como «Redirecciones/Redirige».
 {\bpipes\b}i
 valid msgstr="redireccion(es|a)"
-valid msgstr="redirig(e|a)"
+valid msgstr="redireccion(ar|a|e)"
+valid msgstr="redirig(ir|e|a)"
 hint="« Pipes » se traduce como « Redirecciones/redirige » (ver glosario)"
 
 # «Pixel» se traduce como «Píxel».
@@ -2156,9 +2160,10 @@ hint="« Relay » se traduce como « Transmisión » o « Retransmisión » (ver
 
 # «Rely on» se traduce como «Depender de», «Confiar en» o «Contar con».
 {\brely\son\b}i
-valid msgstr="depender\sde"
-valid msgstr="confiar\sen"
+valid msgstr="depend(er|en|an)\sde"
+valid msgstr="conf(iar|ían|íen)\sen"
 valid msgstr="contar\scon"
+valid msgstr="cuent(an|en)\scon"
 hint="« Rely on » se traduce como « Depender de », « Confiar en » o « Contar con » (ver glosario)"
 
 # «Requirement» se traduce como «Requisito».

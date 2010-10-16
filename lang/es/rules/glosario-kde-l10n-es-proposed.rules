@@ -5,6 +5,9 @@
 
 include file="filter.include"
 
+# Remove accelerator and  hyphen inside words.
+addFilterRegex match="(\&|\-)" on="pmsgid,pmsgstr"
+
 # «Add-on» se traduce como «Complemento».
 {\baadd\-?on\b}i
 valid msgstr="complemento"
@@ -99,7 +102,8 @@ hint="« Benchmarks » se traduce como como « Bancos de pruebas » (propuesta g
 
 # «Bind» se traduce como «Enlazar/Ligar».
 {\bbind\b}i
-valid msgstr="enlaz(ar|a|e)"
+valid msgstr="enlaz(ar|a)"
+valid msgstr="enlace"
 valid msgstr="lig(ar|ue|a)"
 hint="« Bind » se traduce como como « Enlazar/Ligar » (propuesta glosario)"
 
@@ -206,15 +210,17 @@ valid msgstr="difund(ir|e|a)"
 valid msgstr="anunci(ar|a|e)"
 hint="« Broadcast » se traduce como como « Difusión/Difundir » (propuesta glosario)"
 
-# «Browse» se traduce como «Navegar».
+# «Browse» se traduce como «Navegar/Examinar».
 {\bbrowse\b}i
 valid msgstr="naveg(ar|a|ue)"
-hint="« Browse » se traduce como como « Navegar » (propuesta glosario)"
+valid msgstr="examin(ar|a|e)"
+hint="« Browse » se traduce como como « Navegar/Examinar » (propuesta glosario)"
 
-# «Browses» se traduce como «Navega».
+# «Browses» se traduce como «Navega/Examina».
 {\bbrowses\b}i
 valid msgstr="naveg(ar|a|ue)"
-hint="« Browses » se traduce como como « Navega » (propuesta glosario)"
+valid msgstr="examin(ar|a|e)"
+hint="« Browses » se traduce como como « Navega/Examina » (propuesta glosario)"
 
 # «Browser» se traduce como «Navegador».
 {\bbrowser\b}i
@@ -768,18 +774,22 @@ hint="« Directories » se traduce como como « Directorios » (propuesta glosar
 # «Discard» se traduce como «Deshacer».
 {\bdiscard\b}i
 valid msgstr="desha(cer|ce|ga)"
-hint="« Discard » se traduce como como « Deshacer » (propuesta glosario)"
+valid msgstr="descart(ar|a|e)"
+hint="« Discard » se traduce como como « Deshacer/Descartar » (propuesta glosario)"
 
 # «Discards» se traduce como «Deshace».
 {\bdiscards\b}i
 valid msgstr="desha(cer|ce|ga)"
-hint="« Discards » se traduce como como « Deshace » (propuesta glosario)"
+valid msgstr="descart(ar|a|e)"
+hint="« Discards » se traduce como como « Deshace/Descarta » (propuesta glosario)"
 
 # «Discarged» se traduce como «Deshecho».
 {\bdiscarged\b}i
-valid msgstr="deshechos?"
+valid msgstr="deshech(o|a)s?"
+valid msgstr="descartad(o|a)"
 valid msgstr="deshecharse"
-hint="« Discarged » se traduce como como « Deshecho » (propuesta glosario)"
+valid msgstr="descartarse"
+hint="« Discarged » se traduce como como « Deshecho/Descartado » (propuesta glosario)"
 
 # «Diskette» se traduce como «Disquete».
 {\bdiskette\b}i
@@ -1145,8 +1155,9 @@ hint="« Logon » se traduce como « Inicio de sesión », no se debe dejar sin 
 # «Logout» se traduce como «Fin de sesión».
 {\blog\s?out\b}i
 valid msgstr="fin\sde\ssesión"
-valid msgstr="finaliz(ar|a|e)\ssesión"
-hint="« Logout » se traduce como « Fin de sesión », no se debe dejar sin traducir (propuesta glosario)"
+valid msgstr="cierre\s\de\ssesión"
+valid msgstr="cerrar\ssesión"
+hint="« Logout » se traduce como « Fin/cierre de sesión », no se debe dejar sin traducir (propuesta glosario)"
 
 # «Macro» se traduce como «Macro».
 {\bmacro\b}i
@@ -1283,7 +1294,7 @@ hint="« Running » se traduce como como « En ejecución » (propuesta glosario
 
 # «Screenshot» se traduce como «Captura de pantalla».
 {\bscreenshot\b}i
-valid msgstr="captura\s(de|la)\spantalla"
+valid msgstr="capturas?\s(de|la)\spantalla"
 hint="« Screenshot » se traduce como « Captura de pantalla » (propuesta glosario)"
 
 # «Screenshots» se traduce como «Capturas de pantalla».

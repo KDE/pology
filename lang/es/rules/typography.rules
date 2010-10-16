@@ -50,6 +50,8 @@ valid ctx="Hours:minutes:seconds"
 valid ctx="CSV separator"
 valid ctx="Query"
 valid span="\:$"
+valid span="\:\<" before="\/?p\>"
+valid span="\:\\" before="n"
 hint="Ponga un espacio después del signo de dos puntos"
 
 [\s\;]
@@ -186,7 +188,8 @@ valid after="\.\."
 valid span="\.\." before="\."
 valid span="\.\." after="\."
 valid span="\.$"
-valid span="\.\<" before="\/p\>"
+valid span="\.\<" before="\/?p\>"
+valid span="\.\\" before="n"
 hint="Ponga un espacio después de un signo de punto"
 
 [\.\.\.\s\.]
@@ -377,7 +380,7 @@ hint="Ponga una coma antes de «por regla general» (Consulte ortografía de la 
 [[^\,]\setcétera\b]i
 hint="Ponga una coma antes de «etc./&etc;/etcétera» (Consulte ortografía de la RAE)"
 
-[\,\s(y|e|o|u|ni)\s]
+[\,\s(y|e|o(^\sbien)|u|ni)\s]
 hint="No se pone coma antes de las conjunciones « y, e, o, u, ni» salvo casos excepcionales (Consulte ortografía de la RAE)"
 
 [[^\.\?\!\:^]\s(Enero|Febrero|Marzo|Abril|Mayo|Junio|Julio|Agosto|Septiembre|Octubre|Noviembre|Diciembre)\b]

@@ -12,19 +12,19 @@ addFilterRegex match="(\&|\-)" on="pmsgid,pmsgstr"
 hint="Hay una palabra consecutiva repetida en el párrafo"
 
 # En plural se utiliza el masculino
-[\b([\wáéíóúñçÁÉÍÓÚÑÇ)]+?)os\sy\s\1as\b]
+[\b([\wáéíóúñçÁÉÍÓÚÑÇ]+?)os\sy\s\1as\b]
 hint="No utilice expresiones del tipo «ciudadanos y ciudadanas » (error frecuente)"
 
 # En plural se utiliza el masculino
-[\blos\s([\wáéíóúñçÁÉÍÓÚÑÇ)]+?)os\sy\slas\s\1as\b]
+[\blos\s([\wáéíóúñçÁÉÍÓÚÑÇ]+?)os\sy\slas\s\1as\b]
 hint="No utilice expresiones del tipo «los ciudadanos y las ciudadanas » (error frecuente)"
 
 # En plural se utiliza el masculino
-[\b([\wáéíóúñçÁÉÍÓÚÑÇ)]+?)as\sy\s\1os\b]
+[\b([\wáéíóúñçÁÉÍÓÚÑÇ]+?)as\sy\s\1os\b]
 hint="No utilice expresiones del tipo «ciudadanas y ciudadanos » (error frecuente)"
 
 # En plural se utiliza el masculino
-[\blas\s([\wáéíóúñçÁÉÍÓÚÑÇ)]+?)as\sy\slos\s\1os\b]
+[\blas\s([\wáéíóúñçÁÉÍÓÚÑÇ]+?)as\sy\slos\s\1os\b]
 hint="No utilice expresiones del tipo «las ciudadanas y los ciudadanos » (error frecuente)"
 
 # No utilizar la arroba para incluir masculino y femenino
@@ -564,7 +564,7 @@ hint="« Órden » se escribe como « Orden » (error frecuente)"
 hint="« Orígen » se escribe como « Origen » (error frecuente)"
 
 # «P. e.» se escribe como «P. ej.».
-[\bp\.\s?e\.b]i
+[\bp\.\s?e\.\b]i
 hint="« P. e. » se escribe como « P. ej. » (error frecuente)"
 
 # «Pacifico» se escribe como «Pacífico».

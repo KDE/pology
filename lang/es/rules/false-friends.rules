@@ -367,16 +367,16 @@ valid !msgstr="cándid(o|a)s"
 hint="« Candids » se traduce como como « Abiertos/Francos/Sinceros », no como « Cándidos » (falso amigo)"
 
 # «Capture» se traduce como «Captar».
-{\bcapture\b}i
-valid msgstr="capt(ar|e|a)"
-valid !msgstr="captur(ar|a|e)"
-hint="« Capture » se traduce como como « Captar », no como « Capturar » (falso amigo)"
+#{\bcapture\b}i
+#valid msgstr="capt(ar|e|a)"
+#valid !msgstr="captur(ar|a|e)"
+#hint="« Capture » se traduce como como « Captar », no como « Capturar » (falso amigo)"
 
 # «Captured» se traduce como «Captado».
-{\bcaptured\b}i
-valid msgstr="captad(o|a)"
-valid !msgstr="capturad(o|a)"
-hint="« Captured » se traduce como como « Captado », no como « Capturado » (falso amigo)"
+#{\bcaptured\b}i
+#valid msgstr="captad(o|a)"
+#valid !msgstr="capturad(o|a)"
+#hint="« Captured » se traduce como como « Captado », no como « Capturado » (falso amigo)"
 
 # «Captures» se traduce como «Capta».
 {\bcaptures\b}i
