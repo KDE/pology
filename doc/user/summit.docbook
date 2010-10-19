@@ -5,6 +5,47 @@
 <chapter id="ch-summit">
 <title>Summitting Translation Branches</title>
 
+<para>Computer programs (though not only them) are sometimes concurrently developed and released from several <emphasis>branches</emphasis>. For example, there may be one "stable" branch, which sees only small fixes and from which periodical releases are made, and another, "development" branch, which undergoes larger changes and may or may not be periodically released as well; at one point, the development branch will become the new stable branch, and the old stable branch will be abandoned. There may also be more than two branches which see active work, such as "development", "stable", and "old stable".</para>
+
+<para>From programmers' point of view, working by branches can be very convenient. They can freely experiment with new features in the development branch, without having to wory that they will mess something up in the stable branch, from which periodical releases are made. In the stable branch they may fix some bugs discovered between the releases, or carry over some important and well-tested features from the development branch. For users who want to be on the cutting edge, they may provide experimental releases from the development branch.</para>
+
+<para>For translators, however, having to deal with different branches of the same collection of PO files is rarely a convenience. It is text to be translated just as any, only duplicated across two or more file hierarchies. This means that translators additionaly have to think about how to make sure that new and modified translations made in one branch appear in other branches too. It gets particularly ugly if there are mismatches in PO file collections in different branches, like when a PO file is renamed, split into two or more PO files, or merged into another PO file.<footnote>
+<para>One may think of relying upon the translation memory: translate only PO files from one branch, and batch-apply translation memory to PO files other branches, accepting only exact matches. This is dangerous, because short messages may need different translations in different PO files, resulting in hilarious mistranslations.</para>
+</footnote> Sometimes this branch juggling is not necessary; in strict two-branch setting, translators may choose to work only on the stable branch, and switch to the next stable branch when it gets created (or switch to the development branch shortly before it becomes stable). Even so, branch switching may not go very smooth in presence of mismatches in PO file collections.</para>
+
+<para>Instead, for translators the most convenient would be to work on a single, "supercollection" of PO files, from which new and modified translations would be automatically periodically sent to appropriate PO files in branches. Such a supercollection can be created and maintained by Pology's <command>posummit</command> script. In terms of this script, the supercollection is called the <emphasis>summit</emphasis>, the operation of creating and updating it is called <emphasis>gathering</emphasis>, and the operation of filling out branch PO files is called <emphasis>scattering</emphasis>.</para>
+
+<para>How do summit PO files look like? When all branches contain the same PO file, then the counterpart summit PO file is simply the union of all messages from branch PO files. A message in the summit PO file differs from branch messages only by having the special <literal>#. +> ...</literal> comment, which lists the branches that contain this message. If there would be two branches, named with <literal>devel</literal> and <literal>stable</literal> keywords, an excerpt from a summit PO file could be:
+<programlisting>
+#. +> devel
+#: kdeui/jobs/kwidgetjobtracker.cpp:469
+msgctxt "the destination URL of a job"
+msgid "Destination:"
+msgstr ""
+⁠
+#. +> stable
+#: kdeui/jobs/kwidgetjobtracker.cpp:469
+msgid "Destination:"
+msgstr ""
+⁠
+#. +> devel stable
+#: kdeui/jobs/kwidgetjobtracker.cpp:517
+msgid "Keep this window open after transfer is complete"
+msgstr ""
+</programlisting>
+The first message above exists only in the development branch, the second in only in the stable branch, and the third in both branches. The source reference always refers to the source file in the first listed branch. Any extracted comments (<literal>#.</literal>) other than the branch list are also taken from the first listed branch.</para>
+
+<para>Note that the first two messages are different only by context. The context was added in development branch, but not in stable, probably in order not to break the message freeze. However, due to special ordering of messages in summit PO files, these two messages appear together, allowing the translator to immediately make the correction in stable branch too if the new context in development branch shows it to be necessary.</para>
+
+<para>When a PO file from one branch has a different name in another branch, or several PO files from one branch are represented with a single PO file in another branch, the summit can still handle it gracefully, by manually <emphasis>mapping</emphasis> branch PO files to summit PO files. One branch PO file can be mapped to one or more summit PO files, and several branch PO files can be mapped to one summit PO file. Usually, but not necessarily, one branch (e.g. the development branch) is taken to be referent for the summit file organization, and stray PO files from other branches are mapped accordingly.</para>
+
+<para>When a team of translators works in the summit, it is sufficient that one team member (and possibly another one for backup) manages the summit. After the initial setup, this team member should periodically run <command>posummit</command> to update summit and branch PO files. All other team members can simply translate the summit PO files, oblivious of any summit operations behind the scene. It is also possible that other team members perform summit operations on their own, on a subset of PO files that they are about to work on. It is left to the team to decide the most convenient workflow.</para>
+
+<sect1 id="sec-susetup">
+<title>Setting Up The Summit</title>
+
 <para></para>
+
+</sect1>
 
 </chapter>
