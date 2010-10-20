@@ -359,6 +359,7 @@ def derive_project_data (project, options):
     if s.topdir is None:
         error(_("@info",
                 "Top directory not set in summit configuration."))
+    s.split_path = None # needed only on some checks later
     p.summit = s
 
     # Create branch objects from branch dictionaries.
@@ -788,7 +789,7 @@ def split_path_in_project (project, path):
     for b in [project.summit] + project.branches:
         broot = os.path.abspath(b.topdir)
         apath = os.path.abspath(path)
-        if apath.startswith(broot + os.path.sep):
+        if apath.startswith(broot + os.path.sep) or apath == broot:
             subpath = apath[len(broot + os.path.sep):]
             # Split the path into catalog name and subdirectory.
             if os.path.isfile(apath):
