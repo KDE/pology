@@ -172,6 +172,8 @@ hint="À remplacer par « utiliser »"
 
 [courier]i
 valid before=" bold"
+valid after="font-family:'?"
+valid after="New,"
 hint="À remplacer par « courrier »" 
 
 [language]i
@@ -327,7 +329,8 @@ hint="Ne pas oublier le trait d'union !"
 valid before="fond" 
 hint="En deux mots, c'est mieux (dela -> de la)"
 
-[digital] 
+[digital]
+valid ctx="Query"
 valid before=" CDE"
 valid before="podcast" 
 valid after="Compact Disc " before=" Audio"
@@ -382,6 +385,7 @@ valid after="[Ss]mb"
 valid after="Task"
 valid after="klink"
 valid after="default"
+valid after="/"
 valid before="view"
 valid before=">" after="<"
 valid cat="kcmkonqhtml" after="window\."

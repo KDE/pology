@@ -122,7 +122,8 @@ valid cat="kspread" before="\S+\)"
 valid cat="konsole" before="\\"
 valid cat="katepart4" after="plain|txt"
 valid ctx="Numbers and characters"
-valid ctx="CSV separator" 
+valid ctx="CSV separator"
+valid ctx="Query" 
 hint="Mettre une espace insécable avant et une espace après"
 
 [!]
@@ -195,6 +196,7 @@ valid cat="kommander" after="\([a-z]+"
 valid ctx="Numbers and characters"
 valid ctx="Keywords" 
 valid ctx="CSV separator"
+valid ctx="Query"
 hint="Pas d'espace avant une virgule (mais un après) !"
 
 [,(?=[a-zA-Z])]
@@ -381,6 +383,7 @@ valid after="&amp;([A-Za-z\-]*\.?)+" before="([A-Za-z\-]*\.?)+;"
 valid after="&amp;([A-Za-z\-]*\.?)+" before="([A-Za-z\-]*\.?)+\.mail;"
 valid after="&amp;[A-Za-z\-]*\.[A-Za-z\-]+" before="mail"
 valid ctx="Numbers and characters"
+valid ctx="Query"
 hint="Mettre une espace après un point"
 
 [&sp;\.]

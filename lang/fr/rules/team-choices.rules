@@ -161,6 +161,7 @@ valid after="/"
 valid after="-l "
 valid before="@"
 valid cat="cupsdconf4" after="<b>" before="</b>"
+valid cat="processui"
 hint="Dans un contexte utilisateur, utiliser la traduction « superutilisateur ». Seul l'identifiant est « root »"
 
 [additif|greffon]i
@@ -225,6 +226,7 @@ hint="Utiliser une formule en « Impossible de trouver » (homogénéité)"
 
 [ne peut pas @etre]
 valid cat="kcminfo"
+valid after="et "
 hint="Utiliser une formule en « Impossible de... » (homogénéite)"
 
 [Désirez-?vous]i
@@ -366,7 +368,10 @@ hint="Traduisez « Desktop effects » par « Effets de bureau »"
 
 {activity|activities}i
 valid msgstr="agencement"
+valid msgid="monitored session"
 valid before="For|By"
+valid after="inter|in|user "
+valid cat="processui" after="system "
 valid cat="konsole"
 hint="Traduisez « Activity » par « Agencement » dans le contexte du bureau plasma"
 
