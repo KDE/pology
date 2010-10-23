@@ -22,7 +22,7 @@ hint="«Absolutelly» es tradueix per «Completament», no per «Absolutament» 
 # «Abstract» es tradueix per «Resum».
 {\babstracts?\b}i
 valid msgstr="resums?"
-valid msgstr="abstract(e|a)" cat="kdevphp,kdevplatform,kdeqt,desktop_kdegames,umbrello"
+valid msgstr="abstract(e|a)" cat="kdevphp,kdevplatform,kdeqt,desktop_kdegames,krita,umbrello"
 valid msgstr="abstract(e|a|es)" cat="umbrello_uml_basics" #docmessage
 valid !msgstr="abstract(e|a|es)"
 hint="«Abstract» es tradueix per «Resum», no per «Abstracte» (fals amic)"
@@ -541,6 +541,7 @@ hint="«Institut» es tradueix per «Fundació o organització», no per «Insti
 {\bintroduce\b}i
 valid msgstr="present(ar|a|i)"
 valid msgstr="provo(car|ca|qui)"
+valid msgstr="introduir" cat="bluedevil"
 valid !msgstr="introdu(ir|eixi|eixin)"
 hint="«Introduce» es tradueix per «Presentar», no per «Introduir» (fals amic)"
 
@@ -575,11 +576,11 @@ valid msgstr="xarxa"
 valid msgstr=".net" cat="desktop_extragear-sdk_kdevelop,desktop_extragear-sdk_kdevelop-plugins,desktop_extragear-sdk_php-docs,kdevphpdocs"
 valid msgstr="net" cat="kmymoney" before="\samount" # Valor total
 valid msgstr="net" cat="kmymoney" before="\sworth"  # Valor net
-valid msgstr="net" cat="ksirk" after="@kdetalk."
+valid msgstr="net" cat="ksirk" after="@kdetalk\."
 valid msgstr="net" cat="kspread" before="\spresent value"# Valor actual net
 valid msgstr="net" cat="kuser" before="\sgetlocalsid"
-valid msgstr="net" cat="marble" after="rotate.aprs."
-valid msgstr="net" cat="plasma_applet_pastebin" after="hosting."
+valid msgstr="net" cat="marble" after="rotate\.aprs\."
+valid msgstr="net" cat="plasma_applet_pastebin" after="hosting\."
 valid msgstr="net" cat="skrooge" after=">\s" # Categoria
 valid msgstr="net" after="@(att|cberger|comcast|earthlink|example|frogmouth|gmx|ibm|kdab|kdemail|mediaone|meyerhome|nerim|netscape|openprojects|pacbell|planete|telecorp|tuxerver|usa|users\.sf|verticaladdiction)\."
 valid msgstr="net" after="(darkorb|eigentlich|gmx|@gmx\sDOT|kdemail|linux\sru|mis|shani|tantalo)\s"
