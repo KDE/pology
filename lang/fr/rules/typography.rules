@@ -124,6 +124,7 @@ valid cat="katepart4" after="plain|txt"
 valid ctx="Numbers and characters"
 valid ctx="CSV separator"
 valid ctx="Query" 
+valid ctx="unit synonyms for matching user input"
 hint="Mettre une espace insécable avant et une espace après"
 
 [!]
@@ -294,6 +295,7 @@ valid cat="ktimetracker" after="^"
 valid cat="kerry" msgstr="guillemet"
 valid ctx="Numbers and characters"
 valid ctx="characters are not allowed"
+valid ctx="unit synonyms for matching user input"
 hint="Utiliser de vrais guillemets (alt-gr w, z ou x), au lieu de guillemets anglais (homogénéité)"
 
 [’]
