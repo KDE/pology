@@ -264,11 +264,12 @@ def main ():
     rawmodename = free_args.pop(0)
     modename = mode_tolong.get(rawmodename)
     if modename is None:
+        flatmodes = ["/".join((x[0],) + x[1]) for x in mode_spec]
         error(_("@info",
                 "Unknown operation mode '%(mode)s' "
                 "(known modes: %(modelist)s).",
                 mode=rawmodename,
-                modelist=format_item_list("%s/%s" % x for x in mode_spec)))
+                modelist=format_item_list(flatmodes)))
 
     # For options not issued, read values from user configuration.
     # Configuration values can also be issued by mode using
