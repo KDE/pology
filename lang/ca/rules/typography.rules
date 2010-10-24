@@ -385,6 +385,7 @@ valid after="(filtre|en)\s" cat="kstars_colorandtemp" # docmessages
 valid after="prioritats\s.+" cat="korganizer" # docmessages
 valid after="di\(" cat="kate_regular-expressions" # docmessages
 valid after="multiplicitat\sd\'" cat="umbrello_uml_basics" # docmessages
+valid after="accelerador.*" cat="kspread_a11y,kpresenter_a11y" # docmessages
 valid cat="kgoldrunner,kubrick,kfile_exr,libincidenceeditors,kspread,kbackgammon"
 valid ctx="Undefined"
 hint="«u» sola és un error (tipografia)"
