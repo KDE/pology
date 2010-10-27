@@ -380,6 +380,11 @@ hint="middle click = средњи клик"
 valid msgstr="\bсредњ\w+ клик"
 valid env="kde" msgstr="\bклик[нћ]\w+ средњим"
 
+{\bmulti.?threaded}i
+id="t-multithreaded"
+hint="multithreaded = вишенитни"
+valid msgstr="\bвишенитн"
+
 {\bnetwork}i
 id="t-network"
 hint="network = мрежа"
@@ -471,6 +476,7 @@ valid env="kde" msgstr="\bклик[нћ]\w+ десним"
 id="t-save"
 hint="save = сачувати"
 valid after="power "
+valid span="saved" before=" game" # na game3
 valid before=" (space|time|up to)"
 valid msgstr="\bсачувати"
 valid msgstr="\bсачува" !msgstr="\bсачував"
@@ -566,6 +572,17 @@ hint="text editor = уређивач текста"
 valid msgstr="\bуређива(ч(\b|[аеиу])|њ)\w*( \w+)? текста"
 valid env="kde" msgstr="&\w*texteditor\S*;"
 valid cat="desktop_kdesdk" msgid="Kate text editor" !msgstr="текст"
+
+{\bthreads?\b}i
+id="t-thread2"
+hint="thread = нит [прог.]"
+valid msgstr="\bнит(и|има)?\b"
+
+{\bthreaded}i
+id="t-threaded2"
+hint="threaded = нитни [прог.]"
+valid after="multi." # на multithreaded
+valid msgstr="\bнитн[аеиоу]"
 
 {\bURL}i
 id="t-url"

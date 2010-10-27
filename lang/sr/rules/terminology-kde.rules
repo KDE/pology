@@ -955,6 +955,17 @@ valid msgstr="\bтра[кц]\w+ задатака"
 valid cat="dolphin" msgid="toggle the icon on the taskbar" msgstr="тра\w+ алат"
 valid cat="kcmtaskbar" msgid="^When Taskbar Full$" msgstr="^када је трака пуна$"
 
+{\bthreads?\b}i
+id="t-thread"
+hint="thread = нит [у разговору]"
+valid msgstr="\bнит(и|има)?\b"
+
+{\bthreaded}i
+id="t-threaded"
+hint="threaded = унизан [след порука]"
+valid after="multi." # на multithreaded
+valid msgstr="\bунизан"
+
 {\bthumbnail}i
 id="t-thumbnail"
 hint="thumbnail = сличица"
