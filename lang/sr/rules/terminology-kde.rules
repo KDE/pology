@@ -976,6 +976,16 @@ id="t-thunderbird"
 hint="Thunderbird = Тандерберд"
 valid msgstr="&thunderbird\S*;" !msgstr="\bТанд\w?рб\w?рд"
 
+{\btimeout}i
+id="t-timeout"
+hint="timeout = прековреме"
+valid msgstr="\bпрековрем"
+
+{\btime[ds] out}i
+id="t-timeout_g"
+hint="time out = истекло време …|истекло је време за …"
+valid msgstr="истек(ло|не).*време"
+
 {\btools?\b}i
 id="t-tool"
 hint="tool = алатка"
