@@ -30,6 +30,7 @@ valid msgid="Drag&Drop"
 valid msgid="R&B"
 valid msgid="&(nbsp|amp|reg|lt|gt|quot|deg|ge|ndash|copy|auml);"
 valid msgid="http://.+\?" # URL, not an accelerator
+valid !msgstr="[а-яА-Я]" # OK if there are no Russian letters in translation (should those strings also have "Russian" accelerators?)
 hint="Акселераторы следует ставить на русские буквы"
 
 [ $]
@@ -51,4 +52,8 @@ hint="Переводится как 'веб-...'"
 #[  ]
 #valid msgid=".+  .+"
 #hint="Уберите двойной пробел"
+
+
+[колон(к|ок)]i
+hint="column -- столбец"
 
