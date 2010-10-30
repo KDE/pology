@@ -135,6 +135,10 @@ hint="«por» s'ha de substituir per un mot correcte (error freqüent)"
 [\b(R|r)és\b]i
 hint="«rés» (de resar) no s'ha de confondre amb «res» (res de res) (error freqüent)"
 
+# «síntesi» en català, s'utilitza normalment en singular.
+[\b(S|s)íntesis\b]i
+hint="«síntesis» s'utilitza normalment en singular «síntesi» (error freqüent)"
+
 # «tal i com» ha de ser «tal com».
 [\btal\si\scom\b]i
 hint="«tal i com» s'ha de substituir per «tal com» (error freqüent)"
