@@ -71,7 +71,7 @@ valid msgstr="\bзнак"
 valid env="kde" !msgstr="\bзнац"
 
 {\bcharacter}i
-id="t-character2"
+id="t-character_p"
 hint="character = знаковни"
 disabled
 
@@ -184,7 +184,7 @@ valid msgstr="\b(не)?преуз(е|м|им|имањ)"
 valid cat="kioclient" msgid="kioclient download"
 
 {\bdownload}i
-id="t-download2"
+id="t-download_i"
 hint="download = преузимање"
 disabled
 
@@ -216,7 +216,7 @@ hint="encrypt = шифровати"
 valid msgstr="\bшифр(ова|уј|арск)"
 
 {\bencryption}i
-id="t-encryption2"
+id="t-encryption_p"
 hint="encryption = шифрарски"
 valid msgstr="\bшифр(арск|ова)"
 valid cat="knetattach" msgid="^use encryption" msgstr="^шифруј"
@@ -324,7 +324,7 @@ valid msgstr="\bознак"
 valid msgstr="\bознач"
 
 {\bleft\W?click}i
-id="t-leftclick2"
+id="t-leftclick_i"
 hint="left click = леви клик"
 valid msgstr="\bлев\w+ клик"
 valid env="kde" msgstr="\bклик[нћ]\w+ левим"
@@ -353,7 +353,7 @@ valid env="kde" msgstr="\bсамопријав"
 valid cat="ksysguard" msgid="shell to login to the remote host" msgstr="веза са удаљеним домаћином преко"
 
 {\blogin}i
-id="t-login2"
+id="t-login_p"
 hint="login = пријавни"
 disabled
 
@@ -370,12 +370,12 @@ valid env="kde" msgstr="log ?(out|off)\b"
 valid cat="kcmlocale" msgid="you will have to logout first" msgstr="пошто се следећи пут пријавите"
 
 {\blogout}i
-id="t-logout2"
+id="t-logout_p"
 hint="logout = одјавни"
 disabled
 
 {\bmiddle\W?click}i
-id="t-middleclick2"
+id="t-middleclick_i"
 hint="middle click = средњи клик"
 valid msgstr="\bсредњ\w+ клик"
 valid env="kde" msgstr="\bклик[нћ]\w+ средњим"
@@ -467,7 +467,7 @@ valid cat="kcmkio" msgid="\.part"
 valid cat="dolphin" msgid="(e.g.|eg).*Undo\W*rename"
 
 {\bright\W?click}i
-id="t-rightclick2"
+id="t-rightclick_i"
 hint="right click = десни клик"
 valid msgstr="\bдесн\w+ клик"
 valid env="kde" msgstr="\bклик[нћ]\w+ десним"

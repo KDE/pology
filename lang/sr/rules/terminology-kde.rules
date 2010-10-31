@@ -193,7 +193,7 @@ valid msgid="^Click here to" !msgstr="притисн"
 valid msgid="click and drag" msgstr="\bпреву[кцћ]"
 
 {\bclick}i
-id="t-click2"
+id="t-click_i"
 hint="click = клик"
 disabled
 
@@ -617,7 +617,7 @@ disabled
 
 #! зезнут
 {\blist}i
-id="t-list3"
+id="t-list_g"
 hint="list = набројати"
 disabled
 
@@ -627,7 +627,7 @@ hint="location bar = трака локације"
 valid msgstr="\bтра(ци|к\w+) локације"
 
 {\blog(ged|ging)?\b}i
-id="t-log2"
+id="t-log_g"
 hint="log = бележити"
 valid before=" ?(in|into|out|off|on)\b"
 valid msgstr="\b(за)?беле[жш]"
@@ -738,7 +738,7 @@ valid msgstr="&\w*plasma\w*-\S*;"
 
 # Све на plasma, колико може.
 {\bPlasma}i
-id="t-plasma2"
+id="t-plasma_p"
 hint="Plasma = плазма"
 disabled
 
@@ -796,17 +796,17 @@ valid msgstr="\b(из)?рендер\w+"
 valid msgstr="&\w*render\S*;"
 
 {\brender}i
-id="t-render2"
+id="t-render_p"
 hint="render = рендерски"
 disabled # на render
 
 {\brendered}i
-id="t-render3"
+id="t-render_pb"
 hint="rendered = рендеровани"
 disabled # на render
 
 {\brendering}i
-id="t-render4"
+id="t-render_i"
 hint="rendering = рендеринг"
 disabled # на render
 
@@ -1033,7 +1033,7 @@ hint="upload = отпремити"
 valid msgstr="\bотпрем"
 
 {\bupload}i
-id="t-upload2"
+id="t-upload_i"
 hint="upload = отпремање"
 disabled # на upload
 
@@ -1076,7 +1076,7 @@ valid span="^web\w" msgstr="\bвеб"
 valid msgstr="&\w*web\S*;"
 
 {\bweb}i
-id="t-web2"
+id="t-web_p"
 hint="web = веб"
 disabled
 
