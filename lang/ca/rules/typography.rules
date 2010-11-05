@@ -388,6 +388,7 @@ valid after="multiplicitat\sd\'" cat="umbrello_uml_basics" # docmessages
 valid after="accelerador.*" cat="kspread_a11y,kpresenter_a11y" # docmessages
 valid cat="kgoldrunner,kubrick,kfile_exr,libincidenceeditors,kspread,kbackgammon"
 valid ctx="Undefined"
+valid ctx="number 1"
 hint="«u» sola és un error (tipografia)"
 
 # «`» un accent obert sol és un error (ull amb les ordres!).
