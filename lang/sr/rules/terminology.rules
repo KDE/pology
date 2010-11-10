@@ -86,6 +86,16 @@ hint="client = клијент"
 valid msgstr="\bклијена?т"
 valid env="kde" msgstr="&\w*client\S*;"
 
+{\bcode}i
+id="t-code"
+hint="code = код"
+disabled
+
+{\bcode}i
+id="t-code2"
+hint="code = шифра"
+disabled
+
 {\bcolumn}i
 id="t-column"
 hint="column = колона"
@@ -520,6 +530,36 @@ hint="software = софтвер"
 valid env="kde" msgstr="&\w*software\S*;"
 valid msgstr="\bсофтвер"
 valid msgstr="\bпрограм"
+
+{\bsources?\b}i
+id="t-source"
+hint="source = извор [дат. сис.]"
+valid after="open[ -]?" # на opensource
+valid after="closed[ -]?" # на closedsource
+valid before=" code" # на sourcecode
+valid msgstr="\bизвор"
+valid after="sync " msgstr="синхроизвор"
+valid env="kde" msgstr="&\w*source\S*;"
+
+{\bsources?\b}i
+id="t-source2"
+hint="source = извор [прог.]"
+valid after="open[ -]?" # на opensource
+valid after="closed[ -]?" # на closedsource
+valid before=" code" # на sourcecode
+valid msgstr="\bизвор"
+valid after="sync " msgstr="синхроизвор"
+valid env="kde" msgstr="&\w*source\S*;"
+
+{\bsource}i
+id="t-source_p"
+hint="source = изворни"
+disabled
+
+{\bsource code}i
+id="t-sourcecode"
+hint="source code = изворни код"
+valid msgstr="\bизворн\w+ код"
 
 {\bspaces?\b}i
 id="t-space"
