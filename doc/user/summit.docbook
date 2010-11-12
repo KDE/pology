@@ -22,12 +22,12 @@
 msgctxt "the destination URL of a job"
 msgid "Destination:"
 msgstr ""
-⁠
+
 #. +> stable
 #: kdeui/jobs/kwidgetjobtracker.cpp:469
 msgid "Destination:"
 msgstr ""
-⁠
+
 #. +> devel stable
 #: kdeui/jobs/kwidgetjobtracker.cpp:517
 msgid "Keep this window open after transfer is complete"
@@ -39,10 +39,10 @@ The first message above exists only in the development branch, the second in onl
 
 <para>When a PO file from one branch has a different name in another branch, or several PO files from one branch are represented with a single PO file in another branch, the summit can still handle it gracefully, by manually <emphasis>mapping</emphasis> branch PO files to summit PO files. One branch PO file can be mapped to one or more summit PO files, and several branch PO files can be mapped to one summit PO file. Usually, but not necessarily, one branch (e.g. the development branch) is taken to be referent for the summit file organization, and stray PO files from other branches are mapped accordingly.</para>
 
-<para>When a team of translators works in the summit, it is sufficient that one team member (and possibly another one for backup) manages the summit. After the initial setup, this team member should periodically run <command>posummit</command> to update summit and branch PO files. All other team members can simply translate the summit PO files, oblivious of any summit operations behind the scene. It is also possible that other team members perform summit operations on their own, on a subset of PO files that they are about to work on. It is left to the team to decide the most convenient workflow.</para>
+<para>When a team of translators works in the summit, it is sufficient that one team member (and possibly another one as backup) manages the summit. After the initial setup, this team member should periodically run <command>posummit</command> to update summit and branch PO files. All other team members can simply translate the summit PO files, oblivious of any summit operations behind the scenes. It is also possible that team members perform summit operations on their own, on a subset of PO files that they want to work on. It is left to the team to decide the most convenient workflow.</para>
 
 <sect1 id="sec-susetup">
-<title>Setting Up The Summit</title>
+<title>Setting Up A Summit</title>
 
 <para></para>
 
