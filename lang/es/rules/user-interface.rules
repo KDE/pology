@@ -400,8 +400,15 @@ hint="« Frame » se traduce como como « Marco/Fotograma » (regla de traducci�
 {\bframes\b}i
 valid msgstr="marcos"
 valid msgstr="fotogramas"
+valid msgstr="marco" after="ningún\s"
+valid msgstr="fotograma" after="ningún\s"
 hint="« Frames » se traduce como como « Marco/Fotogramas » (regla de traducción de elementos gráficos)"
 
+# «Quick launch» se traduce como «Inicio rápido».
+{\bquick\s\launch\b}i
+valid msgstr="inicio\srápido"
+hint="« Quick launch » se traduce como como « Inicio rápido » (regla de traducción de elementos gráficos)"
+ 
 # «Side bar» se traduce como «Panel lateral».
 {\bside\s?\barb}i
 valid msgstr="panel\slateral"
@@ -410,6 +417,7 @@ hint="« Side bar » se traduce como como « Panel lateral » (regla de traducci
 # «Side bars» se traduce como «Paneles laterales».
 {\bside\s?\barsb}i
 valid msgstr="paneles\slaterales"
+valid msgstr="panel\slateral" after="ningún/s"
 hint="« Side bars » se traduce como como « Paneles laterales » (regla de traducción de elementos gráficos)"
 
 # End of rule file

@@ -9,7 +9,7 @@ include file="filter.include"
 {\byou\b}i
 valid msgstr="\busted\b"
 valid msgstr="\bustedes\b"
-valid msgstr="[\w\b]le\b"
+valid msgstr="[\w\b](le|se)\b"
 hint="« You » se traduce como como « Usted », sea educado"
 
 # «Please» se traduce como «Por favor».

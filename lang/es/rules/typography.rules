@@ -7,11 +7,13 @@
 include file="filter.include"
 
 validGroup beforePunctuation
-valid after="[\w\dñÑçÇáéíóúÁÉÍÓÚüÜºª\>\»\)\]\}\»\%\-\&\<\^\\]"
+#valid after="[\w\dñÑçÇáéíóúÁÉÍÓÚüÜºª\>\»\)\]\}\»\%\-\&\<\^\\]"
+valid after="(?u)[\w\d\>\»\)\]\}\»\%\-\&\<\^\\]"
 valid before="$"
 
 validGroup afterPunctuation
-valid before="[$\w\dñÑçÇáéíóúÁÉÍÓÚüÜºª\>\»\(\[\{\«\%\-\&\<\^\\]"
+#valid before="[$\w\dñÑçÇáéíóúÁÉÍÓÚüÜºª\>\»\(\[\{\«\%\-\&\<\^\\]"
+valid before="(?u)[$\w\d\>\»\(\[\{\«\%\-\&\<\^\\]"
 valid after="^"
 
 validGroup openQuotes

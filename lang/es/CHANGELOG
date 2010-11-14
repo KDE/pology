@@ -1,3 +1,22 @@
+Cambios 14/11/2010
+-----------------------
+1.- Cambios en «glosario-kde-l10n-es.rules»
+- Añadidas mas variantes de tercera persona, plurar y participio.
+
+2.- Cambios en «glosario-kde-l10n-es-proposed.rules»
+- Añadidas mas variantes de tercera persona, plurar y participio.
+- Se amplía el glosario con términos que comienzan con «f», «g», «h», «i» y «j»
+
+3.- Cambios en «common-mistakes.rules»
+- Uso de unicode para determinar los valores de \w y \d en expresiones regulares (?u).
+- Añadidos mas errores comunes
+
+4.- Cambios en «user-interface.rules»
+- Pequeñas correcciones.
+
+5.- Cambios en «typography.rules»
+- Uso de unicode para determinar los valores de \w y \d en expresiones regulares (?u).
+
 Cambios 14/10/2010
 -----------------------
 Pequeñas modificaciones en varios archivos de reglas para corregir 
