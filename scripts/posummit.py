@@ -172,8 +172,6 @@ def main ():
     # for implicitly gathering templates on merge.
     if project.templates_dynamic and "merge" in project.opmodes:
         project.toptions = copy.copy(options)
-        project.toptions.create = True
-        project.toptions.force = True
         project.toptions.quiet = True
         project.tproject = Project(project.templates_lang, ["gather"],
                                    project.toptions)
@@ -187,8 +185,10 @@ def main ():
             # FIXME: Portability.
             tpd = "/tmp/summit-templates-%d" % os.getpid()
         project.tproject.summit["topdir"] = tpd
+        project.tproject.lang = project.templates_lang
         project.tproject = derive_project_data(project.tproject,
-                                               project.toptions)
+                                               project.toptions,
+                                               project.summit["topdir"])
         project.summit["topdir_templates"] = tpd
 
     # Explicit gathering in summit-over-templates mode
@@ -338,7 +338,7 @@ class Project (object):
         self.inclusion_trail.pop()
 
 
-def derive_project_data (project, options):
+def derive_project_data (project, options, nwgrefpath=None):
 
     p = project # shortcut
 
@@ -486,6 +486,19 @@ def derive_project_data (project, options):
     p.catalogs[SUMMIT_ID] = collect_catalogs(p.summit.topdir, catext,
                                              None, None, None,
                                              project, options)
+    if (    p.lang == p.templates_lang and "gather" in p.opmodes
+        and nwgrefpath is not None
+    ):
+        # Also add summit templates which do not actually exist,
+        # but are going to be created on gather without warnings,
+        # by reflecting the catalogs found in the given path.
+        refcats = collect_catalogs(nwgrefpath, ".po",
+                                   None, None, None, project, options)
+        for name, spec in refcats.iteritems():
+            if name not in p.catalogs[SUMMIT_ID]:
+                path, subdir = spec[0] # all summit catalogs unique
+                tpath = join_ncwd(p.summit.topdir, subdir, name + ".pot")
+                p.catalogs[SUMMIT_ID][name] = [(tpath, subdir)]
 
     # Resolve ascription filter.
     project.ascription_filter = None
@@ -628,6 +641,10 @@ def derive_project_data (project, options):
                                 brcats.append((path, subdir))
                                 p.add_on_scatter[path] = template[0]
 
+    # In summit-over-dynamic-templates mode,
+    # automatic vivification of summit catalogs must be active.
+    if p.templates_dynamic:
+        p.vivify_on_merge = True
 
     # At merge in summit-over-templates mode,
     # if automatic vivification of summit catalogs requested,
@@ -750,6 +767,7 @@ def derive_project_data (project, options):
     # complain about needed additions and removals.
     if needed_additions or needed_removals:
         if needed_additions:
+            needed_additions.sort()
             fmtlist = "\n".join("%s --> %s" % x for x in needed_additions)
             warning(_("@info",
                       "Some branch catalogs have no "
@@ -758,6 +776,7 @@ def derive_project_data (project, options):
                       "%(filelist)s",
                       filelist=fmtlist))
         if needed_removals:
+            needed_removals.sort()
             fmtlist = "\n".join(sorted(needed_removals))
             warning(_("@info",
                       "Some summit catalogs have no "
