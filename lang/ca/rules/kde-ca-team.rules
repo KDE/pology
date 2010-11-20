@@ -1,0 +1,18 @@
+# KDE ca team rules
+# Copyrigth 2010, Josep Ma. Ferrer (txemaq@gmail.com)
+# by the KDE Catalan Team (kde-i18n-ca@kde.org)
+# License: GPLv3
+
+# Remove XML entities.
+include file="filter.include"
+
+# Remove accelerator and  hyphen inside words.
+addFilterRegex match="(\&|\-)" on="pmsgid,pmsgstr"
+
+# «wallpaper» es tradueix per «fons de pantalla».
+{\bwallpapers?\b}i
+valid msgstr="fons de pantall(a|es)"
+valid !msgstr="papers? pintats?"
+hint="«wallpaper» es tradueix per «fons de pantalla», no per «paper pintat» (kde-ca-team)"
+
+# End of rule file

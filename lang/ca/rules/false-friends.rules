@@ -638,14 +638,14 @@ valid msgstr="pan" before="\sflute"
 valid !msgstr="pa"
 hint="«Pan» es tradueix per «Cassola», no per «Pa» (fals amic)"
 
-# «Panel» es tradueix per «Equip/Grup/Jurat».
-{\bpanel\b}i
-valid msgstr="equip"
-valid msgstr="grup"
-valid msgstr="jurat"
-valid msgstr="plafó"
-valid !msgstr="panell"
-hint="«Panel» es tradueix per «Equip/Grup/Jurat», no per «Panell» (fals amic)"
+# «Panel» es tradueix per «Equip/Grup/Jurat/Plafó».
+{\bpanels?\b}i
+valid msgstr="equips?"
+valid msgstr="grups?"
+valid msgstr="jurats?"
+valid msgstr="plaf(ó|on)s?"
+valid !msgstr="panells?"
+hint="«Panel» es tradueix per «Equip/Grup/Jurat/Plafó», no per «Panell» (fals amic)"
 
 # «Parcel» es tradueix per «Paquet».
 {\bparcel\b}i
