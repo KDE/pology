@@ -689,13 +689,13 @@ def derive_project_data (project, options, nwgrefpath=None):
             p.direct_map[branch_id][branch_name] = []
 
     # Add direct mappings.
+    # - explicit
+    for mapping in p.mappings:
+        branch_id, branch_name = mapping[:2]
+        summit_names = mapping[2:]
+        p.direct_map[branch_id][branch_name] = summit_names
+    # - implicit
     for branch_id in p.branch_ids:
-        # - explicit
-        for mapping in p.mappings:
-            bid, bname = mapping[:2]
-            summit_names = mapping[2:]
-            p.direct_map[bid][bname] = summit_names
-        # - implicit
         for branch_name in p.catalogs[branch_id]:
             if p.direct_map[branch_id][branch_name] == []:
                 p.direct_map[branch_id][branch_name].append(branch_name)
@@ -704,7 +704,7 @@ def derive_project_data (project, options, nwgrefpath=None):
     needed_additions = []
     for branch_id in p.branch_ids:
         for branch_name in p.catalogs[branch_id]:
-            summit_names = project.direct_map[branch_id][branch_name]
+            summit_names = p.direct_map[branch_id][branch_name]
             for summit_name in summit_names:
                 if summit_name not in p.catalogs[SUMMIT_ID]:
                     # Compose the path for the missing summit catalog.
@@ -1474,7 +1474,8 @@ def summit_gather_single (summit_name, project, options,
                                                       project, options,
                                                       True, pre_summit_names_m,
                                                       update_progress)
-                dep_summit_cats.append(dep_summit_cat)
+                if dep_summit_cat is not None:
+                    dep_summit_cats.append(dep_summit_cat)
 
             # Open all branch catalogs of this name, ordered by path,
             # link them to the same dependent summit catalogs.
@@ -1513,6 +1514,11 @@ def summit_gather_single (summit_name, project, options,
                     branch_cat.sync_map()
 
                 bcat_pscats[branch_id].append((branch_cat, dep_summit_cats))
+
+    # On phony gather, in case of split mappings,
+    # it may happen that there are no corresponding branch catalogs.
+    if phony and not any(bcat_pscats.values()):
+        return None
 
     # Select primary branch catalog.
     prim_branch_cat = bcat_pscats[src_branch_ids[0]][0][0]
