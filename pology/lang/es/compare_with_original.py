@@ -11,7 +11,7 @@ import re
 
 from pology import _, n_
 
-_auto_cmnt_tag_rx = re.compile(r"^\s*Tag:\s*(%s)\s*$" % "|".join("""
+_auto_cmnt_tag_rx = re.compile("^\s*Tag:\s*(%s)\s*$" % "|".join("""
     trans_comment literallayout option programlisting othercredit author email holder
     surname personname affiliation address sect1 chapter chapterinfo date command option
     refentrytitle refentryinfo refname synopsis literal varname term glossterm
