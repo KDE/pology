@@ -123,6 +123,7 @@ Windows 2000: |*|windowsos 2000
 Windows 7: |*|windowsos 7
 Windows 95: |*|windowsos 95
 Windows 98: |*|windowsos 98
+Windows 9x: |*|windowsos 9x
 Windows CE: |*|windowsos ЦЕ
 Windows ME: |*|windowsos МЕ
 Windows NT: |*|windowsos НТ
@@ -473,6 +474,7 @@ KCMKWinCompositing: КЦМ-слагањ|{ње}-прозора
 KCMKWinDecoration: КЦМ-декорациј|{а}-прозора
 KCMKWinRules: КЦМ-правил|{а-}-прозора
 KCMKWinOptions: КЦМ-опциј|{е-}-прозора
+KCMLDAP: КЦМ-|LDAP
 KCMLIRC: КЦМ-|LIRC
 KCMLocale: КЦМ-локалитет|
 KCMMemory: КЦМ-мемориј|а
@@ -721,6 +723,7 @@ JunkBuster: Џанкбастер|, Џанкбастер|ов
 Kolab: Колаб|, Колаб|ов
 Leafnode: Лифноуд|, Лифноуд|ов
     @л: Leafnode|, Leafnode|ov
+Mailman: Поштар|, Поштар|ев
 OpenLDAP: ОпенЛДАП|-, ОпенЛДАП|-ов
 Samba: Самб|а, Самб|ин, самба|>
     @л: Samba|>
