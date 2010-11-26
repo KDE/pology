@@ -763,12 +763,37 @@ def derive_project_data (project, options, nwgrefpath=None):
                 summit_path = p.catalogs[SUMMIT_ID][summit_name][0][0]
                 needed_removals.append(summit_path)
 
+    # Collect summit catalogs that should be moved.
+    needed_moves = []
+    for summit_name in p.catalogs[SUMMIT_ID]:
+        branch_subdirs = []
+        for branch_id in p.full_inverse_map[summit_name]:
+            for branch_name in p.full_inverse_map[summit_name][branch_id]:
+                branch_subdirs_1 = []
+                for bpath, bsubdir in p.catalogs[branch_id][branch_name]:
+                    branch_subdirs_1.append(bsubdir)
+                branch_subdirs_1.sort()
+                branch_subdirs.extend(branch_subdirs_1)
+        if branch_subdirs:
+            summit_subdir = p.catalogs[SUMMIT_ID][summit_name][0][1]
+            if summit_subdir not in branch_subdirs:
+                summit_path = p.catalogs[SUMMIT_ID][summit_name][0][0]
+                dpaths = []
+                for bsubdir in branch_subdirs:
+                    dpath = join_ncwd(p.summit.topdir, bsubdir,
+                                      summit_name + catext)
+                    dpaths.append(dpath)
+                if (    not ("gather" == p.opmodes[0] and options.create)
+                    and ["merge"] != p.opmodes
+                ):
+                    needed_moves.append((summit_path, dpaths))
+
     # If catalog creation is not allowed,
-    # complain about needed additions and removals.
-    if needed_additions or needed_removals:
+    # complain about needed additions, removals, and moves.
+    if needed_additions or needed_removals or needed_moves:
         if needed_additions:
-            needed_additions.sort()
-            fmtlist = "\n".join("%s --> %s" % x for x in needed_additions)
+            fmtlist = "\n".join("%s --> %s" % x
+                                for x in sorted(needed_additions))
             warning(_("@info",
                       "Some branch catalogs have no "
                       "associated summit catalog "
@@ -776,11 +801,18 @@ def derive_project_data (project, options, nwgrefpath=None):
                       "%(filelist)s",
                       filelist=fmtlist))
         if needed_removals:
-            needed_removals.sort()
             fmtlist = "\n".join(sorted(needed_removals))
             warning(_("@info",
                       "Some summit catalogs have no "
                       "associated branch catalogs:\n"
+                      "%(filelist)s",
+                      filelist=fmtlist))
+        if needed_moves:
+            fmtlist = "\n".join("%s --| %s" % (x, " | ".join(y))
+                                for x, y in sorted(needed_moves))
+            warning(_("@info",
+                      "Some summit catalogs should be "
+                      "moved to another subdirectory:\n"
                       "%(filelist)s",
                       filelist=fmtlist))
         if "gather" in p.opmodes:
@@ -1578,43 +1610,77 @@ def summit_gather_single (summit_name, project, options,
         summit_created = True
         replace = True
 
-    if replace:
-        # Set template creation date for the summit catalog
-        # to the current date.
-        # Do not try to trust branch template creation dates,
-        # e.g. by copying the latest one.
-        summit_cat.header.set_field(u"POT-Creation-Date", ASC.format_datetime())
+    # Check if the catalog needs to be moved to another subdirectory.
+    branch_subdirs = []
+    for branch_id in project.full_inverse_map[summit_name]:
+        for branch_name in project.full_inverse_map[summit_name][branch_id]:
+            branch_subdirs_1 = []
+            for bpath, bsubdir in project.catalogs[branch_id][branch_name]:
+                branch_subdirs_1.append(bsubdir)
+            branch_subdirs_1.sort()
+            branch_subdirs.extend(branch_subdirs_1)
+    new_summit_path = summit_path
+    if branch_subdirs and summit_subdir not in branch_subdirs:
+        catext = summit_path[summit_path.rfind("."):]
+        new_summit_path = join_ncwd(project.summit.topdir, branch_subdirs[0],
+                                summit_name + catext)
 
-        # Sync to disk.
-        summit_cat.sync()
-
-        # Apply hooks to summit catalog file.
-        exec_hook_file(SUMMIT_ID, summit_cat.name, summit_subdir,
-                       summit_cat.filename, project.hook_on_gather_file)
-
+    if replace or summit_cat.filename != new_summit_path:
         added = False
-        if summit_created:
-            added = True
-        # Add to version control.
-        if project.vcs and not project.vcs.is_versioned(summit_cat.filename):
-            if not project.vcs.add(summit_cat.filename):
-                warning(_("@info",
-                          "Cannot add '%(file)s' to version control.",
-                          file=summit_cat.filename))
-            else:
+        moved = False
+
+        if replace:
+            # Set template creation date for the summit catalog
+            # to the current date.
+            # Do not try to trust branch template creation dates,
+            # e.g. by copying the latest one.
+            summit_cat.header.set_field(u"POT-Creation-Date",
+                                        ASC.format_datetime())
+
+            # Sync to disk.
+            summit_cat.sync()
+
+            # Apply hooks to summit catalog file.
+            exec_hook_file(SUMMIT_ID, summit_cat.name, summit_subdir,
+                           summit_cat.filename, project.hook_on_gather_file)
+
+            if summit_created:
                 added = True
+            # Add to version control.
+            if project.vcs and not project.vcs.is_versioned(summit_cat.filename):
+                if not project.vcs.add(summit_cat.filename):
+                    warning(_("@info",
+                            "Cannot add '%(file)s' to version control.",
+                            file=summit_cat.filename))
+                else:
+                    added = True
+
+        if summit_cat.filename != new_summit_path:
+            if project.vcs:
+                if not project.vcs.move(summit_cat.filename, new_summit_path):
+                    warning(_("@info",
+                              "Cannot move '%(srcfile)s' to '%(dstfile)s'.",
+                              srcfile=summit_cat.filename,
+                              dstfile=new_summit_path))
+                else:
+                    summit_cat.filename = new_summit_path
+                    moved = True
 
         branch_paths = []
         for branch_id in src_branch_ids:
             for branch_cat, dep_summit_cats in bcat_pscats[branch_id]:
                 branch_paths.append(branch_cat.filename)
         paths_str = " ".join(branch_paths)
-
         if options.verbose:
             if added:
                 actype = _("@item:intext action performed on a catalog",
                            "gathered-added")
                 report(">+   (%s) %s  %s"
+                       % (actype, summit_cat.filename, paths_str))
+            elif moved:
+                actype = _("@item:intext action performed on a catalog",
+                           "gathered-moved")
+                report(">|   (%s) %s  %s"
                        % (actype, summit_cat.filename, paths_str))
             else:
                 actype = _("@item:intext action performed on a catalog",
@@ -1624,6 +1690,8 @@ def summit_gather_single (summit_name, project, options,
         elif not options.quiet:
             if added:
                 report(">+   %s  %s" % (summit_cat.filename, paths_str))
+            elif moved:
+                report(">|   %s  %s" % (summit_cat.filename, paths_str))
             else:
                 report(">    %s  %s" % (summit_cat.filename, paths_str))
 
