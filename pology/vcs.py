@@ -140,6 +140,30 @@ class VcsBase (object):
               "Selected version control system does not define removing."))
 
 
+    def move (self, spath, dpath):
+        """
+        Move versioned file or directory within the repository.
+
+        It depends on the particular VCS what moving means,
+        but in general it should be the point where the subsequent L{commit()}
+        on source and destination path (or their common parent directory)
+        will record the move in the repository history.
+
+        @param spath: source path
+        @type spath: string
+        @param dpath: destination path
+        @type dpath: string
+
+        @return: C{True} if moving successful
+        @rtype: bool
+        """
+
+        raise PologyError(
+            _("@info",
+              "Selected version control system does not define moving."))
+
+
+
     def revision (self, path):
         """
         Get current revision ID of the path.
@@ -383,7 +407,7 @@ class VcsBase (object):
 
 class VcsNoop (VcsBase):
     """
-    VCS: Dummy VCS which silently passes any operation and does nothing.
+    VCS: Dummy VCS which perform only file system operations.
     """
 
     def add (self, paths, repadd=False):
@@ -395,6 +419,17 @@ class VcsNoop (VcsBase):
     def remove (self, path):
         # Base override.
 
+        if os.path.isdir(path):
+            shutil.rmtree(path)
+        else:
+            os.remove(path)
+        return True
+
+
+    def move (self, spath, dpath):
+        # Base override.
+
+        shutil.move(spath, dpath)
         return True
 
 
@@ -496,6 +531,14 @@ class VcsSubversion (VcsBase):
         if collect_system("svn remove %s" % path)[2] != 0:
             return False
 
+        return True
+
+
+    def move (self, spath, dpath):
+        # Base override.
+
+        if collect_system("svn move %s %s" % (self._ep(spath), dpath))[2] != 0:
+            return False
         return True
 
 
@@ -811,6 +854,22 @@ class VcsGit (VcsBase):
         root, path = self._gitroot(path)
 
         if collect_system("git rm %s" % path, wdir=root)[2] != 0:
+            return False
+
+        return True
+
+
+    def move (self, spath, dpath):
+        # Base override.
+
+        root1, spath = self._gitroot(spath)
+        root2, dpath = self._gitroot(dpath)
+        if root1 != root2:
+            warning(_("@info",
+                      "Trying to move paths between different repositories."))
+            return False
+
+        if collect_system("git mv %s %s" % (spath, dpath), wdir=root1)[2] != 0:
             return False
 
         return True
