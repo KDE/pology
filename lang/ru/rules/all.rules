@@ -8,6 +8,9 @@ hint="fluid ounce (fl.oz.) -- жидкая унция"
 [аудио-[а-я]]i
 hint="-> Слова аудио... пишутся слитно"
 
+[аудио файл]i
+hint="-> Слова аудио... пишутся слитно"
+
 [интернет]
 valid before="-"
 hint="-> Слово Интернет пишется с заглавной буквы"
@@ -21,6 +24,7 @@ valid msgstr="&"
 valid msgid="& "
 valid msgid="Drag&Drop"
 valid msgid="R&B"
+valid msgid="&&"
 valid msgid="&(nbsp|amp|reg|lt|gt|quot|deg|ge|ndash|copy|auml);"
 valid msgid="http://.+\?" # URL, not an accelerator
 hint="Не забудьте добавить акселератор (&)"
@@ -57,4 +61,19 @@ hint="column -- столбец"
 
 [в течении]i
 hint="«в течении» -- разве что «в течении реки»"
+
+[перезаписать]i
+hint="«overwrite» переводится как «заменить»"
+
+[настройки]i
+valid msgstr="модуль настройки"
+valid msgstr="для настройки"
+valid msgstr="мастер настройки"
+valid msgstr="неправильной настройки"
+valid msgstr="быстрой настройки"
+valid msgstr="автоматической настройки"
+hint="There's no such plural form 'настройки', use 'параметры' or something else. If you see this message but there is only 'настройки' as the genitive case of 'настройка', please, report it."
+
+[не смотря]i
+hint="'Несмотря на ...' пишется слитно."
 
