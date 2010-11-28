@@ -129,6 +129,7 @@ valid before="~"
 hint="S'ha de posar un espai després del signe d'admiració (tipografia)"
 
 [.*?\!\.]
+valid span="Qalculate\!\." cat="plasma_runner_qalculate_runner"
 valid span="\(valor\)\!\." cat="kspread"
 valid span="\sx\!\!\." cat="kspread"
 hint="No s'ha de posar cap punt després del signe d'admiració (tipografia)"
