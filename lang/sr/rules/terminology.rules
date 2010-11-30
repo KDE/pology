@@ -485,7 +485,7 @@ valid env="kde" msgstr="\bклик[нћ]\w+ десним"
 {\bsav(e[ds]?|ing)\b}i
 id="t-save"
 hint="save = сачувати"
-valid after="power "
+valid after="(power|energy) "
 valid span="saved" before=" game" # na game3
 valid before=" (space|time|up to)"
 valid msgstr="\bсачувати"
