@@ -29,6 +29,10 @@ valid msgid="&(nbsp|amp|reg|lt|gt|quot|deg|ge|ndash|copy|auml);"
 valid msgid="http://.+\?" # URL, not an accelerator
 hint="Не забудьте добавить акселератор (&)"
 
+[&[0-9a-zа-я]]i
+valid msgid="&[0-9a-zA-Z]"
+hint="В переводе не должно быть акселератора (&), если его не было в оригинале"
+
 [&[a-zA-Z]]
 valid msgid="Drag&Drop"
 valid msgid="R&B"
@@ -74,6 +78,9 @@ valid msgstr="быстрой настройки"
 valid msgstr="автоматической настройки"
 hint="There's no such plural form 'настройки', use 'параметры' or something else. If you see this message but there is only 'настройки' as the genitive case of 'настройка', please, report it."
 
+[настроек]i
+hint="There's no such plural form 'настройки', use 'параметры' or something else. If you see this message but there is only 'настройки' as the genitive case of 'настройка', please, report it."
+
 [не смотря]i
 hint="'Несмотря на ...' пишется слитно."
 
@@ -82,4 +89,31 @@ hint="KIPI"
 
 [Picasaweb]
 hint="PicasaWeb"
+
+[знач[её]к]i
+hint="орфография"
+
+[горяч]i
+hint="keyboard shortcut, hotkey -- комбинация клавиш"
+
+[ярлык]i
+hint="не используем слово 'ярлык'"
+
+[скач]i
+hint="не используем слова скачивать, скачивание и т.д."
+
+[рассклад]i
+hint="орфография"
+
+[фл[еэ]ш]i
+hint="Употребляется разве что в покере"
+
+[настроик]i
+hint="орфография"
+
+[моза[йе]к]i
+hint="орфография (правильно: мозаика, родительный падеж -- мозаик)"
+
+[фаил]i
+hint="орфография"
 
