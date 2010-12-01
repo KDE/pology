@@ -165,7 +165,8 @@ devel/
 
 <para>There is one important design decisions which holds for all summit modes: all summit PO files must be <emphasis role="strong">unique by domain name</emphasis> (i.e. base file name without extension), even if they are in different subdirectories within the summit top directory. This in turn means that in automatically supported branch organizations (by-domain and by-language) PO domains should be unique as well.<footnote>
 <para>More precisely, if there are two same-name PO domains inside one branch, they will both be gathered into the same summit PO file. The assumption is that PO files with same domain names have mostly common messages.</para>
-</footnote> This was done for two reasons. Less importantly, it is convenient to be able to identify a summit PO file simply by its domain name rather than the full path (especially in some <command>posummit</command> invocations). More importantly, uniqueness of domain names allows that PO files are located in different subdirectories between different branches. This happens, for example, in large projects in which applications move between modules. If branches do not satisfy this property, i.e. they contain same-name PO domains with totally different content, it is necessary to define a <link linkend="sec-qqq">path transformation</link> (described later) which will produce unique domain names with respect to the summit.</para>
+</footnote> This was done for two reasons. Less importantly, it is convenient to be able to identify a summit PO file simply by its domain name rather than the full path (especially in some <command>posummit</command> invocations). More importantly, uniqueness of domain names allows that PO files are located in different subdirectories between different branches. This happens, for example, in large projects in which applications move between modules. If branches do not satisfy this property, i.e. they contain same-name PO domains with totally different content, it is necessary to define a path transformation (described later) which will produce unique domain names with respect to the summit.</para>
+<!-- FIXME: Link <link linkend="sec-???">path transformation</link> -->
 
 <para>The following sections describe how to set up each of the modes, in each of the outlined branch organizations. They should be read in turn up to the mode that you want to use, because they build upon each other.</para>
 
@@ -479,6 +480,6 @@ Unlike gathering, scattering is always fully automatic. Some warnings may be iss
 
 <para></para>
 
-<sect1>
+</sect1>
 
 </chapter>
