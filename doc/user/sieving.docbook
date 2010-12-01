@@ -866,6 +866,10 @@ Strings after the dot can be anything, but a sequence of numbers or letters in a
 </listitem>
 
 <listitem>
+<para>HTML markup checking (<literal>htmlmarkup</literal>).</para>
+</listitem>
+
+<listitem>
 <para>No translation scripting in "dumb" messages (<literal>nots</literal>). Translations fetched at runtime by KDE4 translation system may use <ulink url="http://techbase.kde.org/Localization/Concepts/Transcript">translation scripting</ulink>. This check will make sure that scripting is not attempted for other types of messages (used by Qt-only code, for .desktop files, etc.).</para>
 </listitem>
 

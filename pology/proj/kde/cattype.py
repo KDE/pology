@@ -25,7 +25,7 @@ def get_project_subdir (catpath):
     apath = os.path.abspath(catpath)
     up1dir = os.path.basename(os.path.dirname(apath))
     up2dir = os.path.basename(os.path.dirname(os.path.dirname(apath)))
-    if (   not re.search(r"^(kde|koffice|extragear|playground|qt)", up1dir)
+    if (   not re.search(r"^(kde|koffice|extragear|playground|qt|www)", up1dir)
         or not re.search(r"^(|doc|wiki)messages$", up2dir)
     ):
         subdir = None
@@ -102,4 +102,22 @@ def is_docbook_cat (catname, subdir):
     up2dir = os.path.basename(os.path.dirname(subdir))
 
     return (up2dir == "docmessages")
+
+
+def is_html_cat (catname, subdir):
+    """
+    Check whether the project catalog covers HTML sources.
+
+    @param catname: catalog domain name
+    @type catname: string
+    @param subdir: catalog project subdirectory
+    @type subdir: string
+
+    @returns: C{True} if HTML catalog, C{False} otherwise
+    @rtype: bool
+    """
+
+    up1dir = os.path.basename(subdir)
+
+    return (up1dir == "www")
 

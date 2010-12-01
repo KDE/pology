@@ -15,8 +15,6 @@ import re
 from pology import _, n_
 from pology.markup import flag_no_check_markup
 from pology.escape import escape_c
-from pology.markup import validate_kde4_l1
-from pology.markup import validate_qtrich_l1
 from pology.msgreport import report_on_msg_hl, report_msg_content
 from pology.msgreport import report_msg_to_lokalize
 from pology.report import report, format_item_list
@@ -24,6 +22,7 @@ from pology.sieve import add_param_poeditors
 from pology.sieve import SieveError, SieveCatalogError, parse_sieve_flags
 from pology.proj.kde.cattype import get_project_subdir
 from pology.proj.kde.cattype import is_txt_cat, is_qt_cat, is_docbook_cat
+from pology.proj.kde.cattype import is_html_cat
 
 
 def setup_sieve (p):
@@ -110,6 +109,8 @@ class Sieve (object):
             add_checks(["qtmarkup", "qtdt", "nots"])
         elif is_docbook_cat(cname, csubdir):
             add_checks(["dbmarkup", "nots"])
+        elif is_html_cat(cname, csubdir):
+            add_checks(["htmlmarkup", "nots"])
         else: # default to native KDE4 catalog
             add_checks(["kde4markup", "qtdt", "trcredits", "plrunq"])
         add_checks(["catspec"]) # to all catalogs, will select internally
@@ -164,6 +165,8 @@ _known_checks = {}
 # --------------------------------------
 # Check for KDE4 markup.
 
+from pology.markup import validate_kde4_l1
+
 _tsfence = "|/|"
 
 def _check_kde4markup (msg, cat, pcache, hl):
@@ -176,8 +179,8 @@ def _check_kde4markup (msg, cat, pcache, hl):
     if flag_no_check_markup in parse_sieve_flags(msg):
         return 0
     if not strict:
-        if (   validate_kde4_l1(msg.msgid)
-            or validate_kde4_l1(msg.msgid_plural or u"")
+        if (   validate_kde4_l1(msg.msgid, ents=[])
+            or validate_kde4_l1(msg.msgid_plural or u"", ents=[])
         ):
             return 0
 
@@ -196,7 +199,7 @@ def _check_kde4markup (msg, cat, pcache, hl):
             pass
 
         for text in (msgstr, msgscript):
-            spans = validate_kde4_l1(text)
+            spans = validate_kde4_l1(text, ents=[])
             if spans:
                 nproblems += len(spans)
                 hl.append(("msgstr", i, spans))
@@ -208,6 +211,8 @@ _known_checks["kde4markup"] = _check_kde4markup
 # --------------------------------------
 # Check for Qt markup.
 
+from pology.markup import validate_qtrich_l1
+
 def _check_qtmarkup (msg, cat, pcache, hl):
 
     strict = pcache.get("strict", False)
@@ -215,14 +220,14 @@ def _check_qtmarkup (msg, cat, pcache, hl):
     if flag_no_check_markup in parse_sieve_flags(msg):
         return 0
     if not strict:
-        if (   validate_qtrich_l1(msg.msgid)
-            or validate_qtrich_l1(msg.msgid_plural or u"")
+        if (   validate_qtrich_l1(msg.msgid, ents=[])
+            or validate_qtrich_l1(msg.msgid_plural or u"", ents=[])
         ):
             return 0
 
     nproblems = 0
     for i in range(len(msg.msgstr)):
-        spans = validate_qtrich_l1(msg.msgstr[i])
+        spans = validate_qtrich_l1(msg.msgstr[i], ents=[])
         if spans:
             nproblems += len(spans)
             hl.append(("msgstr", i, spans))
@@ -251,6 +256,34 @@ def _check_dbmarkup (msg, cat, pcache, hl):
     return nproblems
 
 _known_checks["dbmarkup"] = _check_dbmarkup
+
+# --------------------------------------
+# Check for HTML markup.
+
+from pology.markup import validate_html_l1
+
+def _check_htmlmarkup (msg, cat, pcache, hl):
+
+    strict = pcache.get("strict", False)
+
+    if flag_no_check_markup in parse_sieve_flags(msg):
+        return 0
+    if not strict:
+        if (   validate_html_l1(msg.msgid, ents=[])
+            or validate_html_l1(msg.msgid_plural or u"", ents=[])
+        ):
+            return 0
+
+    nproblems = 0
+    for i in range(len(msg.msgstr)):
+        spans = validate_html_l1(msg.msgstr[i], ents=[])
+        if spans:
+            nproblems += len(spans)
+            hl.append(("msgstr", i, spans))
+
+    return nproblems
+
+_known_checks["htmlmarkup"] = _check_htmlmarkup
 
 # --------------------------------------
 # Check for no scripting in dumb messages.
