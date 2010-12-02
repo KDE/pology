@@ -2508,6 +2508,15 @@ Note that percent characters in the <literal>plural-forms</literal> field are es
 
 </sect2>
 
+<sect2 id="sv-ru:fill-doc-date-kde">
+<title><command>ru:fill-doc-date-kde</command></title>
+
+<para>Each translation file for a docbook in KDE has a string for documentation last update date in the format 'yyyy-mm-dd'. This sieve automatically translated those strings into Russian. The sieve uses <command>date</command> command in order to change date formatting. But Russian names of months are hardcoded, so that you do not need to set up Russian locale to use the sieve.</para>
+
+<para>There are no parameters.</para>
+
+</sect2>
+
 </sect1>
 
 <!-- ======================================== -->
