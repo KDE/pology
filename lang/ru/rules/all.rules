@@ -31,6 +31,7 @@ hint="Не забудьте добавить акселератор (&)"
 
 [&[0-9a-zа-я]]i
 valid msgid="&[0-9a-zA-Z]"
+valid msgstr="&(nbsp|amp|reg|lt|gt|quot|deg|ge|ndash|copy|auml);"
 hint="В переводе не должно быть акселератора (&), если его не было в оригинале"
 
 [&[a-zA-Z]]
@@ -76,6 +77,9 @@ valid msgstr="мастер настройки"
 valid msgstr="неправильной настройки"
 valid msgstr="быстрой настройки"
 valid msgstr="автоматической настройки"
+valid msgstr="диалоге настройки"
+valid msgstr="параметрах настройки"
+valid msgstr="файле настройки"
 hint="There's no such plural form 'настройки', use 'параметры' or something else. If you see this message but there is only 'настройки' as the genitive case of 'настройка', please, report it."
 
 [настроек]i
@@ -119,4 +123,37 @@ hint="орфография"
 
 [пл[еэ]й]i
 hint="playlist -- список воспроизведения"
+
+[e-?mail]i
+valid msgid="<email>"
+valid msgid="%EMAIL"
+hint="слово email нужно переводить"
+
+[не подписанн]i
+hint="'неподписанный' -- слитно (чаще всего)"
+
+[не зашифрованн]i
+hint="'незашифрованный' -- слитно (чаще всего)"
+
+[[а-я]</p>]i
+hint="В конце предложения должна быть точка."
+
+[,[а-я]]i
+valid msgid="^Your names$"
+hint="После запятой должен быть пробел."
+
+[#]
+valid msgstr="color:#"
+valid msgstr="«#»"
+hint="заменить на '№'?"
+
+[\bне не\b]i
+hint="Двойное 'не' (опечатка?)"
+
+*msgid/tooltip/i
+valid msgstr="сплывающ"
+hint="tooltip -- всплывающая подсказка"
+
+[для отправления]i
+hint="'для отправки'?"
 
