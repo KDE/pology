@@ -22,7 +22,7 @@ from pology.sieve import add_param_poeditors
 from pology.sieve import SieveError, SieveCatalogError, parse_sieve_flags
 from pology.proj.kde.cattype import get_project_subdir
 from pology.proj.kde.cattype import is_txt_cat, is_qt_cat, is_docbook_cat
-from pology.proj.kde.cattype import is_html_cat
+from pology.proj.kde.cattype import is_html_cat, is_unknown_cat
 
 
 def setup_sieve (p):
@@ -111,6 +111,8 @@ class Sieve (object):
             add_checks(["dbmarkup", "nots"])
         elif is_html_cat(cname, csubdir):
             add_checks(["htmlmarkup", "nots"])
+        elif is_unknown_cat(cname, csubdir):
+            add_checks([])
         else: # default to native KDE4 catalog
             add_checks(["kde4markup", "qtdt", "trcredits", "plrunq"])
         add_checks(["catspec"]) # to all catalogs, will select internally

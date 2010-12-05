@@ -14,6 +14,7 @@ from pology import _, n_
 from pology.report import warning
 from pology.proj.kde.cattype import get_project_subdir
 from pology.proj.kde.cattype import is_txt_cat, is_qt_cat, is_docbook_cat
+from pology.proj.kde.cattype import is_html_cat, is_unknown_cat
 
 
 def equip_header (hdr, cat):
@@ -65,6 +66,12 @@ def equip_header (hdr, cat):
     elif is_docbook_cat(cname, csubdir):
         accmark = ""
         mtypes = ["docbook4"]
+    elif is_html_cat(cname, csubdir):
+        accmark = ""
+        mtypes = ["html"]
+    elif is_unknown_cat(cname, csubdir):
+        accmark = None
+        mtypes = None
     else: # default to native KDE4 catalog
         accmark = "&"
         mtypes = ["kde4"]
@@ -73,12 +80,13 @@ def equip_header (hdr, cat):
     if cname == "desktop_kdebase":
         accmark = "&"
 
-    fvs = [
-        ("Language", lang, "Language-Team", False),
-        ("X-Environment", u"kde", None, True),
-        ("X-Accelerator-Marker", accmark, None, False),
-        ("X-Text-Markup", ", ".join(mtypes), None, False),
-    ]
+    fvs = []
+    fvs.append(("Language", lang, "Language-Team", False))
+    fvs.append(("X-Environment", u"kde", None, True))
+    if accmark is not None:
+        fvs.append(("X-Accelerator-Marker", accmark, None, False))
+    if mtypes is not None:
+        fvs.append(("X-Text-Markup", ", ".join(mtypes), None, False))
     for fnam, fval, fnamaft, fkeep in fvs:
         if fval is None:
             continue

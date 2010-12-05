@@ -25,7 +25,7 @@ def get_project_subdir (catpath):
     apath = os.path.abspath(catpath)
     up1dir = os.path.basename(os.path.dirname(apath))
     up2dir = os.path.basename(os.path.dirname(os.path.dirname(apath)))
-    if (   not re.search(r"^(kde|koffice|extragear|playground|qt|www)", up1dir)
+    if (   not re.search(r"^(kde|koffice|extragear|playground|qt|www|others)", up1dir)
         or not re.search(r"^(|doc|wiki)messages$", up2dir)
     ):
         subdir = None
@@ -48,6 +48,9 @@ def is_txt_cat (catname, subdir):
     @rtype: bool
     """
 
+    up1dir = os.path.basename(subdir)
+    if up1dir == "others":
+        return False
     return catname.startswith("desktop_") or catname.startswith("xml_")
 
 
@@ -120,4 +123,21 @@ def is_html_cat (catname, subdir):
     up1dir = os.path.basename(subdir)
 
     return (up1dir == "www")
+
+
+def is_unknown_cat (catname, subdir):
+    """
+    Check whether the project catalog covers unknown sources.
+
+    @param catname: catalog domain name
+    @type catname: string
+    @param subdir: catalog project subdirectory
+    @type subdir: string
+
+    @returns: C{True} if unknown catalog, C{False} otherwise
+    @rtype: bool
+    """
+
+    up1dir = os.path.basename(subdir)
+    return up1dir == "others"
 
