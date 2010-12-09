@@ -73,10 +73,7 @@ def organize (dictPath, reminv=False):
 
     # Read all words and eliminate duplicates.
     words=set()
-    invalidCharacters=re.compile(r"["
-                                 r"\s\x00-\x1F\x7F\!\#\$\%\&\(\)\*\+"
-                                 r"\,\.\/\:\;\<\=\>\?\@\[\]\^\_\\`\{\|\}\~"
-                                 r"]")
+    validCharacters=re.compile(ur"^[\w\d\'・-]+$", re.UNICODE)
     lno = 0
     for word in dictFile:
         lno += 1
@@ -87,7 +84,7 @@ def organize (dictPath, reminv=False):
             report("  " + _("@item:inlist",
                             "duplicate removed: %(word)s",
                             word=word))
-        elif invalidCharacters.search(word):
+        elif not validCharacters.match(word):
             if not reminv:
                 report("  " + _("@item:inlist",
                                 "*** invalid word at %(line)s: %(word)s",
