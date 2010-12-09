@@ -1,3 +1,29 @@
+Cambios 9/12/2010
+-----------------------
+1.- Cambios en «glosario-kde-l10n-es.rules»
+- Añadidas algunas variantes de palabras ya existentes.
+- Corrección de errores.
+
+2.- Cambios en «glosario-kde-l10n-es-proposed.rules»
+- Añadidas nuevas propuestas.
+- Corrección de errores.
+
+3.- Cambios en «common-mistakes.rules»
+- So ordenan las reglas alfabéticamente.
+- Pequeñas correcciones de errores.
+
+4.- Cambios en «user-interface.rules»
+- Añadido «menu item» y sus variantes.
+
+5.- Cambios en «typography.rules»
+- Corrección de errores.
+
+6.- Cambios «paired-words.rules»
+- Uso de filtro unicode en las expresiones regulares para determinar los valores de \w y \d en expresiones regulares (?u).
+
+7.- Cambios en «false-friends.rules»
+- Añadidos «corrupted» y «virtually».
+
 Cambios 14/11/2010
 -----------------------
 1.- Cambios en «glosario-kde-l10n-es.rules»
@@ -11,10 +37,10 @@ Cambios 14/11/2010
 - Uso de unicode para determinar los valores de \w y \d en expresiones regulares (?u).
 - Añadidos mas errores comunes
 
-4.- Cambios en «user-interface.rules»
+5.- Cambios en «user-interface.rules»
 - Pequeñas correcciones.
 
-5.- Cambios en «typography.rules»
+6.- Cambios en «typography.rules»
 - Uso de unicode para determinar los valores de \w y \d en expresiones regulares (?u).
 
 Cambios 14/10/2010

@@ -21,6 +21,13 @@ valid msgstr="interrumpirse"
 valid !msgstr="abortad(o|a)"
 hint="« Aborted » se traduce como como « Interrumpido », nunca como « Abortado » (ver glosario)"
 
+# «Aborting» se traduce como «Interumpiendo/Interrupción».
+{\baborting\b}i
+valid msgstr="interrumpiendo"
+valid msgstr="interrupción"
+valid !msgstr="abortando"
+hint="« Aborting » se traduce como como « Interrumpiendo/Interrupción », nunca como « Abortando » (ver glosario)"
+
 # «Aborts» se traduce como «Interumpe».
 {\baborts\b}i
 valid msgstr="interrump(ir|e|a)"
@@ -314,7 +321,8 @@ hint="« Bytes » no se traduce (ver glosario)"
 # «Cache» se traduce como «Caché».
 {\bcache\b}i
 valid msgstr="caché"
-hint="« Cache » se traduce como « Caché » (ver glosario)"
+valid msgstr="cache(ar|a|e)"
+hint="« Cache » se traduce como « Caché/cachear » (ver glosario)"
 
 ## «Cache memory» se traduce como «Memoria caché».
 #{\bcache\smemory\b}i
@@ -592,7 +600,9 @@ hint="« CTAN » no se debe traducir (ver glosario)"
 # «CUPS» no se traduce.
 {\bcups\b}
 valid msgstr="cups"
-hint="« CUPS » no se debe traducir (ver glosario)"
+valid msgstr="tazas"
+valid msgstr="taza" after="ninguna\s"
+hint="« CUPS » no se debe traducir, salvo si se trata de tazas (ver glosario)"
 
 # «Daemon» se traduce como «Demonio».
 {\bdaemon\b}i
@@ -980,8 +990,8 @@ hint="« Encrypted » se traduce como « Cifrado », nunca como « Encriptado »
 
 # «Encryption» se traduce como «Cifrado».
 {\bencryption\b}i
-valid msgstr="cifrardo"
-valid !msgstr="encript(o|a)"
+valid msgstr="cifrado"
+valid !msgstr="encriptad(o|a)"
 hint="« Encryption » se traduce como « Cifrado », nunca como « Encriptado » (ver glosario)"
 
 # «Encryptions» se traduce como «Cifrados».
@@ -1777,16 +1787,16 @@ valid msgstr="mape(ar|a|e|o)"
 valid msgstr="asign(ar|a|e|o)"
 valid msgstr="mapa"
 valid msgstr="maps?" after="Google\s"
-hint="« Map » se traduce como « Mapear » o « Asignar » (ver glosario)"
+hint="« Map » se traduce como « Mapa » o « Mapear/Asignar » (ver glosario)"
 
 # «Maps» se traduce como «Mapea» o «Asigna».
-{\bmap\b}i
+{\bmaps\b}i
 valid msgstr="mape(ar|a|e|o)"
 valid msgstr="asign(ar|a|e|o)"
 valid msgstr="mapas"
 valid msgstr="mapa" after="ningún\s"
 valid msgstr="maps?" after="Google\s"
-hint="« Maps » se traduce como « Mapea » o « Asigna » (ver glosario)"
+hint="« Maps » se traduce como « Mapas » o « Mapea/Asigna » (ver glosario)"
 
 # «Mask» se traduce como «Máscara» o «Enmascarar».
 {\bmask\b}i
@@ -1983,7 +1993,7 @@ valid msgstr="analizador"
 hint="« Parser » se traduce como « Analizador » (ver glosario)"
 
 # «Parsers» se traduce como «Analizadores».
-{\bparser\b}i
+{\bparsers\b}i
 valid msgstr="analizadores"
 valid msgstr="analizador" after="ningún\s"
 hint="« Parsers » se traduce como « Analizadores » (ver glosario)"
@@ -2057,7 +2067,8 @@ hint="« Pins » se traduce como « Patillas » o « Códigos de acceso » (ver 
 {\bpipe\b}i
 valid msgstr="redir(ección|igir|ije|ija|ijo)"
 valid msgstr="redireccion(ar|a|e)"
-hint="« Pipe » se traduce como « Redirección/redirigir » (ver glosario)"
+valid msgstr="barra\svertical"
+hint="« Pipe » se traduce como « Redirección/Redirigir/Barra vertical » (ver glosario)"
 
 # «Pipes» se traduce como «Redirecciones/Redirige».
 {\bpipes\b}i
@@ -2065,7 +2076,9 @@ valid msgstr="redireccion(es|a)"
 valid msgstr="redireccion(ar|a|e)"
 valid msgstr="redirección" after="ninguna\s"
 valid msgstr="redirig(ir|e|a)"
-hint="« Pipes » se traduce como « Redirecciones/redirige » (ver glosario)"
+valid msgstr="barras\sverticales"
+valid msgstr="barra\svertical" after="ninguna\s"
+hint="« Pipes » se traduce como « Redirecciones/Redirige/Barras verticales » (ver glosario)"
 
 # «Pixel» se traduce como «Píxel».
 {\bpixel\b}i
@@ -2581,7 +2594,7 @@ valid msgstr="puntua(ción|r|ndo)"
 hint="« Scoring » se traduce como « Puntuación » (ver glosario)"
 
 # «Scorings» se traduce como «Puntuaciones».
-{\bscoring\b}i
+{\bscorings\b}i
 valid msgstr="puntuaciones"
 valid msgstr="puntuación" after="ninguna\s"
 hint="« Scoring » se traduce como « Puntuación » (ver glosario)"
@@ -2591,6 +2604,7 @@ hint="« Scoring » se traduce como « Puntuación » (ver glosario)"
 valid msgstr="guión"
 valid msgstr="guiones"
 valid msgstr="script"
+valid msgstr="escritura"
 hint="« Script » se traduce como « Guión » o « Script » (ver glosario)"
 
 # «Scripts» se traduce como «Guiones» o «Scripts».
@@ -2598,6 +2612,8 @@ hint="« Script » se traduce como « Guión » o « Script » (ver glosario)"
 valid msgstr="guiones"
 valid msgstr="guión" after="ningún\s"
 valid msgstr="scripts?"
+valid msgstr="escrituras"
+valid msgstr="escritura" after="ninguna\s"
 hint="« Scripts » se traduce como « Guiones » o « Scripts » (ver glosario)"
 
 # «Scroll» se traduce como «Desplazamiento».
@@ -3137,7 +3153,7 @@ hint="« Verbatim copies » se traduce como « Copias literales » (ver glosario
 # «Web» no se traduce.
 {\bweb\b}i
 valid msgstr="web"
-valid msgstr="red" before="de\sconfianza"
+valid msgstr="red" before="\sde\sconfianza"
 hint="« Web » no se traduce (ver glosario)"
 
 # «Widget» se traduce como «Ventana», Control» o «Elemento gráfico».

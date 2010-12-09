@@ -611,6 +611,12 @@ valid !msgstr="constipad(o|a)"
 valid !msgstr="resfriad(o|a)"
 hint="« Constipated » se traduce como como « Estreñido », no como « Constipado » (falso amigo)"
 
+# «Corrupted» se traduce como «Dañado».
+{\bcorrupted\b}i
+valid msgstr="dañad(o|a)"
+valid !msgstr="corrompid(o|a)"
+hint="« Corrupted » se traduce como como « Dañado », no como « Corrompido » (falso amigo)"
+
 # «Convenient» se traduce como «Oportuno».
 {\bconvenient\b}i
 valid msgstr="oportun(o|a)"
@@ -2001,6 +2007,12 @@ valid msgstr="feroz"
 valid msgstr="malicios(o|a)"
 valid !msgstr="vicios(o|a)"
 hint="« Vicious » se traduce como como « Brutal/Feroz », no como « Vicioso » (falso amigo)"
+
+# «Virtually» se traduce como «Prácticamente».
+{\bvirtually\b}i
+valid msgstr="prácticamente"
+valid !msgstr="virtualmente"
+hint="« Virtually » se traduce como como « Prácticamente », no como « Virtualmente » (falso amigo)"
 
 # «Voluble» se traduce como «Locuaz/Hablador».
 {\bvoluble\b}i

@@ -13,8 +13,7 @@ hint="Existe una entidad en el texto original que no figura en la traducción"
 
 addFilterHook name="es:remove_subs/remove_paired_capital_words" on="msg"
 
-[(,|;)\s[A-Z].*?\b]
-#[[A-Z].*?\b]
+[(?u)(,|;)\s*[A-ZÑÇ]\w*]
 valid ctx="TRANSLATORS"
 valid ctx="trans_comment"
 valid msgid="TRANSLATORS"

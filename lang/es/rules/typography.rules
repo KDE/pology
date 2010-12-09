@@ -167,7 +167,7 @@ valid ctx="Numbers and characters"
 hint="No ponga un espacio de separación antes de un signo de porcentaje"
 
 [\s\.]
-valid before="\w{2,4}\b" # Extensions
+valid before="[\w\d]{2,4}\b" # Extensions
 valid before="\/\w+" # Files
 hint="No ponga espacios antes de un signo de punto"
 
@@ -192,6 +192,7 @@ valid span="\.\." after="\."
 valid span="\.$"
 valid span="\.\<" before="\/?p\>"
 valid span="\.\\" before="n"
+valid after="[\w\d]{2,4}\." # Extensions
 hint="Ponga un espacio después de un signo de punto"
 
 [\.\.\.\s\.]
@@ -232,8 +233,8 @@ hint="Las siglas se escriben en singular en español (quite la «s» final)"
 [\b\&[\w\d\-\_]+\;\'s\b]
 hint="Las siglas se escriben en singular en español (quite la «'s» final)"
 
-[\besto\ses\s]
-hint="Ponga una coma después de «esto es» (Consulte ortografía de la RAE)"
+#[\besto\ses\s]
+#hint="Ponga una coma después de «esto es» (Consulte ortografía de la RAE)"
 
 [\bes\sdecir\s]i
 hint="Ponga una coma después de «es decir» (Consulte ortografía de la RAE)"
@@ -253,8 +254,9 @@ hint="Ponga una coma después de «sin embargo» (Consulte ortografía de la RAE
 [\bno\sobstante\s]i
 hint="Ponga una coma después de «no obstante» (Consulte ortografía de la RAE)"
 
-#[además\s]i
-#hint="Ponga una coma después de «además» (Consulte ortografía de la RAE)"
+[además\s]i
+valid msgstr="además\sde\s"
+hint="Ponga una coma después de «además» (Consulte ortografía de la RAE)"
 
 [\ben\stal\scaso\s]i
 hint="Ponga una coma después de «en tal caso» (Consulte ortografía de la RAE)"
@@ -308,6 +310,7 @@ hint="Ponga una coma antes de «así que» (Consulte ortografía de la RAE)"
 hint="Ponga una coma antes de «de manera que» (Consulte ortografía de la RAE)"
 
 [[^\,\.^]\sesto\ses\b]
+valid after="si\s"
 hint="Ponga una coma antes de «esto es» (Consulte ortografía de la RAE)"
 
 [[^\,\.^]\ses\sdecir\b]
@@ -350,6 +353,7 @@ hint="Ponga una coma antes de «detrás de» (Consulte ortografía de la RAE)"
 hint="Ponga una coma antes de «además» (Consulte ortografía de la RAE)"
 
 [[^\,\.^]\scon\stodo\b]
+valid before="\sel"
 hint="Ponga una coma antes de «con todo» (Consulte ortografía de la RAE)"
 
 [[^\,\.^]\sen\stal\scaso\b]

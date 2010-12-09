@@ -109,7 +109,7 @@ hint="« Spacebar » se traduce como como « Barra espaciadora » (regla de trad
 
 # «New» se traduce como «Nuevo».
 {^New$}
-valid msgstr="Nuevo"
+valid msgstr="Nuev(o|a)"
 hint="« New » se traduce como como « Nuevo » (regla de traducción de menús de KDE)"
 
 # «New file» se traduce como «Nuevo archivo».
@@ -403,6 +403,17 @@ valid msgstr="fotogramas"
 valid msgstr="marco" after="ningún\s"
 valid msgstr="fotograma" after="ningún\s"
 hint="« Frames » se traduce como como « Marco/Fotogramas » (regla de traducción de elementos gráficos)"
+
+# «Menu item» se traduce como «Opción de menú».
+{\bmenu\s\item\b}i
+valid msgstr="opción\sde\smenú"
+hint="« Menu item » se traduce como como « Opción de menú » (regla de traducción de elementos gráficos)"
+
+# «Menu items» se traduce como «Opciones de menú».
+{\bmenu\s\items\b}i
+valid msgstr="opciones\sde\smenú"
+valid msgstr="opción\sde\smenú" after="ninguna\s"
+hint="« Menu items » se traduce como como « Opciones de menú » (regla de traducción de elementos gráficos)"
 
 # «Quick launch» se traduce como «Inicio rápido».
 {\bquick\s\launch\b}i
