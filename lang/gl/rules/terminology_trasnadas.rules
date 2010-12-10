@@ -33,8 +33,7 @@ hint="«Plugin» tradúcese como «Complemento» ou «engadido»"
 {\bwindow}i
 id="PT-2010-window"
 valid msgstr="xanela"
-valid !msgstr="fiestra"
-valid !msgstr="ventá"
+valid !msgstr="\b(fiestra|ventá)?"
 hint="«window» tradúcese como «xanela»"
 
 # «Attach» tradúcese como «anexar»
@@ -73,24 +72,23 @@ valid msgstr="inaceptábel"
 hint="«ilegal» tradúcese como «inaceptábel»"
 
 # «grid» tradúcese como «grella»
-{\bgrid}i
+{\bgrid?}i
 id="noPT-2010-grid"
-valid msgstr="\bgrella"
+valid msgstr="\bgrella?"
 hint="«grid» tradúcese como «grella»"
 
 # «show» tradúcese como «mostrar»
 {\bshow}i
 id="noPT-2010-show"
-valid msgstr="\bmostr"
-valid !msgstr="\bamos"
+valid msgstr="\bmostr?"
+valid !msgstr="\bamos?"
 hint="«show» tradúcese como «mostrar»"
 
 # «hide» tradúcese como «acochar»
 {\bhide(\b|s|ed)}i
 id="noPT-2010-hide"
 valid msgstr="\bacoch"
-valid !msgstr="ocult"
-valid !msgstr="agoch"
+valid !msgstr="(ocult|agoch)?"
 hint="«hide» tradúcese como «acochar»"
 
 # «insert» tradúcese como «inserir» ou «introducir»
@@ -101,12 +99,10 @@ valid msgstr="introduc"
 hint="«insert» tradúcese como «inserir» ou «introducir»"
 
 # «search» tradúcese como «buscar»/«busca»
-{search}i
+{\bsearch?}i
 id="PT-2010-search"
 valid msgstr="\bbusc"
-valid !msgstr="\bprocura"
-valid !msgstr="\bpesquis"
-valid !msgstr="\bpescud"
+valid !msgstr="\b(procura|pesquis|pescud)?"
 hint="«search» tradúcese como «busca(r)»"
 
 # «find» tradúcese como «atopar»
