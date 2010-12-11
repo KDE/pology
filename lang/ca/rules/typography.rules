@@ -15,6 +15,7 @@ addFilterHook name="remove/remove-accel-msg" on="msg"
 valid after="raphae"
 valid after="michae"
 valid after="\<email>"
+valid after="return\s" cat="katepart4"
 hint="La l·l geminada porta un punt volat (no un punt normal) (tipografia)"
 
 include file="filter.include"
