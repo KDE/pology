@@ -33,105 +33,117 @@ include file="filter.include"
 addFilterRegex match="(\&|\-)" on="pmsgid,pmsgstr"
 
 # «Lapela» traduce a «tab».
-[\blapela?|\btabula(ción|dor)]i
-id="PT-2010-dual_lapela, tabulador, tabulación->tab"
+[\blapela|\btabula(ción|dor)]i
+id="PT-2010-dual-lapela_tabulador_tabulación"
 valid msgid="\btab" !before="\border|\bstop" 
 hint="«Lapela»,«tabulador» e «tabulación» traducen a «Tab»"
 
 # Variantes de «tab»
 [\btabulación]i
-id="PT-2010-dual_tabulación->tab border, tab stop"
+id="PT-2010-dual-tabulación"
 valid msgid="\btab\b(border|stop)"
 valid msgid="\btab"
 hint="«tabulación» traduce a «Tab order» e «tab stop»"
  
-# «Complemento» e «engadido» traducen a «Plug.?in»
-[complemento?|engadido?]i
-id="PT-2010-dual_complemento, engadido->plugin, plug-in"
-valid msgid="\bplugin|\bplugin?"
-valid msgid="\bplug-in"
-hint="«Complemento» ou «engadido» traducen a «Plugin»"
+# «Complemento» traduce a «Plugin»
+[complemento]i
+id="PT-2010-dual_complemento"
+valid msgid="\bplugin"
+valid msgid="\bplug.?in"
+valid msgid="\badd.?on"
+hint="«Complemento» traduce a «Plugin» e a «add-on»"
+
+
+#«engadido» traduce a «Plugin» e a «added»
+[engadido]i
+id="PT-2010-dual_engadido"
+valid msgid="\bplugin"
+valid msgid="\bplug.?in"
+valid msgid="added\b"
+hint="«engadido» traduce a «Plugin» e a «added»"
 
 # «xanela» traduce a «Window»
-[\bxanela?]i
-id="PT-2010-dual_xanela->window"
+[\bxanela]i
+id="PT-2010-dual_xanela"
 valid msgid="\bwindow"
 hint="«xanela» traduce a «window»"
  
 # «anexar» traduce a «Attach»
 [\banex[a-z]+]i
-id="PT-2010-dual_anexar->attach"
+id="PT-2010-dual_anexar"
 valid msgid="\battach(\"\"|ed|s)"
 hint="«anexar» traduce a «attach»"
 
 # «anexo» traduce a «Attachment»
-[\banexo?]i
-id="PT-2010-dual_anexo->attachment"
+[\banexo]i
+id="PT-2010-dual_anexo"
 valid msgid="attachment?"
 hint="«anexo» traduce a «attachment»"
 
 # «orde» traduce a «Command»
 [\borde(\"\"|s)]i
-id="PT-2010-dual_orde->command"
+id="PT-2010-dual_orde"
 valid msgid="\bcommand"
 hint="«orde» traduce a «command»"
 
 # «invalid» tradúcese como «incorrecto»/«non é válido»
 [\bincorrecto|(non\s(é\s|"")válid(o|a))|(non\sson\sválid(o|a)s)]i
 valid !before="argumento"
-id="noPT-2010-dual_incorrecto, non valido->invalid"
+id="noPT-2010-dual_incorrecto"
 valid msgid="\binvalid"
 hint="«incorrecto»/«non é válido» traducen a «invalid»"
 
 # «inaceptábel» traduce a «ilegal»
 [\binaceptábe(l|is)\b]i
-id="PT-2010-dual_inaceptábel->ilegal"
+id="PT-2010-dual_inaceptábel"
 valid msgid="\bilegal"
 hint="«inaceptábel» traduce a «ilegal»"
 
 # «grella» traduce a «grid»
-[\grella?]i
-id="noPT-2010-dual_grid->grella"
+[\grella]i
+id="noPT-2010-dual_grid"
 valid msgid="\bgrid?"
 hint="«grella» traduce a «grid»"
 
 # «mostrar» traduce a «show»
-[\bmostr?]i
+[\bmostr]i
 #valid msgid="\b[sS]how(\"\"|s|ed|n)\b"
 valid msgid="\bshow"
 valid msgid="\bdisplay"
-id="noPT-2010-dual_mostrar->show, display"
+id="noPT-2010-dual_mostrar"
 hint="«mostrar» traduce a «show» e «display»"
 
 # «acochar» traduce a «hide»
 [\bacoch]i
 valid msgid="\bhide(\b|s|ed)"
-id="noPT-2010-dual_acochar->hide"
+valid msgid="\bhidden\b"
+id="noPT-2010-dual_acochar"
 hint="«acochar» traduce a «hide»"
 
 # «inserir» ou «introducir» traducen a «insert»
 [\bins(e|i)r|\bintroduc]i
-id="noPT-2010-dual_inserir, introducir->insert, enter"
+id="noPT-2010-dual_inserir"
 valid msgid="\binsert|\benter"
 hint="«inserir» ou «introducir» traducen a «insert» ou «enter»"
 
 # «buscar»/«busca» traducen a «search»
 [\bbusc]i
-valid msgid="\bsearch?"
+valid msgid="\bsearch"
 valid msgid="\bfind|\bfound"
 valid msgid="\blocate"
-id="PT-2010-dual_buscar->search, find, locate"
+id="PT-2010-dual_buscar"
 hint="«busca(r)» traduce a «search», «find» e «locate»"
 
-# «atopar» traducen a «find»
+# «atopar» traduce a «find» e «locate»
 [\batop]i
-valid msgid="\bfind|\bfound"
-valid msgid="\blocate"
-id="noPT-2010-dual_atopar-> find, locate"
+valid msgid="\bfind|\blocate"
+valid msgid="\bfound"
+id="noPT-2010-dual_atopar"
 hint="«atopar» traduce a «find» e «locate»"
 
 # «situar» traducen a «locate» ou «place»
 [\bsitu]i
+valid !span="ación\b|acións\b"
 valid msgid="\blocate|\bplace"
-id="PT-2010-dual_situar->locate,place"
+id="PT-2010-dual_situar"
 hint="«situar» traduce a «to locate» ou «to place»"
