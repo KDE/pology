@@ -13,6 +13,7 @@ from pology.lang.sr.wconv import ctol, hictoall
 from pology.lang.sr.trapnakron import rootdir
 from pology.lang.sr.trapnakron import trapnakron_ui
 from pology.lang.sr.trapnakron import norm_pkey, norm_rtkey
+from pology.lang.sr.trapnakron import _disamb_marker
 from pology.colors import ColorOptionParser
 from pology.fsops import str_to_unicode
 from pology.normalize import identify
@@ -126,9 +127,12 @@ def validate (tp, onlysrcs=None, onlykeys=None, demoexp=False, expwkeys=False):
                         warning(_("@info",
                                   "Derivation at %(file1)s:%(line1)d:%(col1)d "
                                   "has normalized nominative equal to "
-                                  "derivation at %(file2)s:%(line2)d:%(col2)d.",
+                                  "derivation at %(file2)s:%(line2)d:%(col2)d; "
+                                  "consider adding a disambiguation marker "
+                                  "(%(dchar)s).",
                                   file1=path, line1=lno, col1=cno,
-                                  file2=opath, line2=olno, col2=ocno))
+                                  file2=opath, line2=olno, col2=ocno,
+                                  dchar=_disamb_marker))
                         cnproblems += 1
                 for rtkey in rtkeys: # must be in new loop
                     dkeys_by_rtkey[rtkey] = dkey
