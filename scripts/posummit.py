@@ -241,6 +241,7 @@ class Project (object):
             "summit" : "",
             "branches" : [],
             "mappings" : [],
+            "subdir_mappings" : [],
 
             "over_templates" : False,
             "templates_lang" : "templates",
@@ -700,6 +701,11 @@ def derive_project_data (project, options, nwgrefpath=None):
             if p.direct_map[branch_id][branch_name] == []:
                 p.direct_map[branch_id][branch_name].append(branch_name)
 
+    # Convert subdir mappings into dictionary by branch ID and subdir.
+    p.subdir_map = {}
+    for bid, bsubdir, ssubdir in p.subdir_mappings:
+        p.subdir_map[(bid, bsubdir)] = ssubdir
+
     # Collect missing summit catalogs.
     needed_additions = []
     for branch_id in p.branch_ids:
@@ -710,9 +716,11 @@ def derive_project_data (project, options, nwgrefpath=None):
                     # Compose the path for the missing summit catalog.
                     # Default the subdir to that of the current branch,
                     # as it is the primary branch for this catalog.
+                    # Or use explicit subdir mapping if given.
                     branch_path, branch_subdir = \
                         p.catalogs[branch_id][branch_name][0]
-                    summit_subdir = branch_subdir
+                    dmkey = (branch_id, branch_subdir)
+                    summit_subdir = p.subdir_map.get(dmkey) or branch_subdir
                     summit_path = join_ncwd(p.summit.topdir, summit_subdir,
                                             summit_name + catext)
                     if "gather" == p.opmodes[0] and options.create:
@@ -771,7 +779,8 @@ def derive_project_data (project, options, nwgrefpath=None):
             for branch_name in p.full_inverse_map[summit_name][branch_id]:
                 branch_subdirs_1 = []
                 for bpath, bsubdir in p.catalogs[branch_id][branch_name]:
-                    branch_subdirs_1.append(bsubdir)
+                    dmkey = (branch_id, bsubdir)
+                    branch_subdirs_1.append(p.subdir_map.get(dmkey) or bsubdir)
                 branch_subdirs_1.sort()
                 branch_subdirs.extend(branch_subdirs_1)
         if branch_subdirs:
