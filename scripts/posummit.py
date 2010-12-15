@@ -135,7 +135,7 @@ def main ():
     opmodes_uniq = []
     for opmode in opmodes:
         if opmode not in opmodes_uniq:
-            if opmode not in ("gather", "scatter", "merge"):
+            if opmode not in ("gather", "scatter", "merge", "deps"):
                 error(_("@info",
                         "Unknown operation mode '%(mode)s'.",
                         mode=opmode))
@@ -227,6 +227,8 @@ def main ():
             summit_scatter(project, options)
         elif opmode == "merge":
             summit_merge(project, options)
+        elif opmode == "deps":
+            summit_deps(project, options)
 
 
 class Project (object):
@@ -1228,6 +1230,28 @@ def summit_merge (project, options):
     # Remove template tree in summit-over-dynamic-templates mode.
     if project.templates_dynamic:
         shutil.rmtree(project.tproject.summit.topdir)
+
+
+def summit_deps (project, options):
+
+    # Collect names of summit catalogs for which to report dependencies.
+    summit_names = select_summit_names(project, options)
+
+    # Report dependencies for all selected catalogs.
+    for summit_name in summit_names:
+        summit_path = project.catalogs[SUMMIT_ID][summit_name][0][0]
+        branch_paths = []
+        for branch_id in project.branch_ids:
+            for branch_name in project.full_inverse_map[summit_name][branch_id]:
+                for branch_path, d1 in project.catalogs[branch_id][branch_name]:
+                    branch_paths.append(branch_path)
+        fmtbpaths = " ".join(branch_paths)
+        if options.verbose:
+            actype = _("@item:intext action performed on a catalog",
+                        "depends")
+            report(":    (%s) %s  %s" % (actype, summit_path, fmtbpaths))
+        else:
+            report(":    %s  %s" % (summit_path, fmtbpaths))
 
 
 def select_branch_catalogs (branch_id, project, options):
