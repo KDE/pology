@@ -66,7 +66,7 @@ hint="«Advice» es tradueix per «Consell», no per «Avís» (fals amic)"
 {\bagenda\b}i
 valid msgstr="ordre\sdel\sdia"
 valid msgstr="agenda" cat="desktop_kdepim" before="\sview"
-valid msgstr="agenda" cat="korganizer"
+valid msgstr="agenda" cat="korganizer,korganizer-mobile"
 valid msgstr="agenda" cat="korganizer_plugins-chapter"
 valid msgstr="agenda" cat="libeventviews"
 valid msgstr="agenda" cat="calendarsupport"
@@ -302,7 +302,7 @@ hint="«Curse» es tradueix per «Malefici», no per «Curs» (fals amic)"
 {\bdates?\b}i
 valid msgstr="dat(a|es)"
 valid msgstr="cit(a|es)"
-valid msgstr="dates" before="\sor time" cat="kspread_basics" #docmessage
+valid msgstr="dates" before="\sor time" cat="tables_basics,kspread_basics" #docmessage
 valid !msgstr="dada"
 valid !msgstr="dades"
 hint="«Date» es tradueix per «Data», no per «Dada» (fals amic)"
@@ -497,7 +497,7 @@ valid msgstr="casa"
 valid msgstr="inici"
 valid msgstr="home" before="\senvironment\svariable"
 valid msgstr="home" cat="kcron" #docmessage
-valid msgstr="home" cat="kivio_credits" after="where\sopen\ssource\sis\sat\s" #docmessage
+valid msgstr="home" cat="flow_credits,kivio_credits" after="where\sopen\ssource\sis\sat\s" #docmessage
 valid msgstr="home" cat="kleopatra" after="gnupg"
 valid msgstr="home" cat="kleopatra" after="gnupg\s"
 valid msgstr="home" cat="kompare" #docmessage
@@ -578,7 +578,7 @@ valid msgstr=".net" cat="desktop_extragear-sdk_kdevelop,desktop_extragear-sdk_kd
 valid msgstr="net" cat="kmymoney" before="\samount" # Valor total
 valid msgstr="net" cat="kmymoney" before="\sworth"  # Valor net
 valid msgstr="net" cat="ksirk" after="@kdetalk\."
-valid msgstr="net" cat="kspread" before="\spresent value"# Valor actual net
+valid msgstr="net" cat="tables,kspread" before="\spresent value"# Valor actual net
 valid msgstr="net" cat="kuser" before="\sgetlocalsid"
 valid msgstr="net" cat="marble" after="rotate\.aprs\."
 valid msgstr="net" cat="plasma_applet_pastebin" after="hosting\."
