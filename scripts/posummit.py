@@ -1239,6 +1239,10 @@ def summit_deps (project, options):
 
     # Report dependencies for all selected catalogs.
     for summit_name in summit_names:
+        if summit_name not in project.catalogs[SUMMIT_ID]:
+            # May happen if there are some missing summit catalogs
+            # to current branch catalogs, i.e. gather has not been made.
+            continue
         summit_path = project.catalogs[SUMMIT_ID][summit_name][0][0]
         branch_paths = []
         for branch_id in project.branch_ids:
@@ -1442,7 +1446,7 @@ def select_summit_names (project, options):
 
     # Make names unique and sort by path.
     summit_names = list(set(summit_names))
-    summit_names.sort(key=lambda x: project.catalogs[SUMMIT_ID][x][0][0])
+    summit_names.sort(key=lambda x: project.catalogs[SUMMIT_ID].get(x, [[""]])[0][0])
 
     return summit_names
 
