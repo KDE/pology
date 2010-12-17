@@ -498,6 +498,7 @@ valid msgstr="inici"
 valid msgstr="home" before="\senvironment\svariable"
 valid msgstr="home" cat="kcron" #docmessage
 valid msgstr="home" cat="flow_credits,kivio_credits" after="where\sopen\ssource\sis\sat\s" #docmessage
+valid msgstr="home" cat="glossary" #docmessage
 valid msgstr="home" cat="kleopatra" after="gnupg"
 valid msgstr="home" cat="kleopatra" after="gnupg\s"
 valid msgstr="home" cat="kompare" #docmessage

@@ -452,6 +452,7 @@ valid after="import\s.*" cat="cervisia" # docmessages
 valid after="(comment|attribute|version).*" cat="kate_highlighting" # docmessages
 valid after="^~.+" cat="calligra,koffice" # docmessages
 valid after="~" # docmessages
+valid after="TFAQ" cat="glossary_kdeprintingglossary" # docmessages
 valid after="(GET|POST).*" cat="kdeprint_cups-config" # docmessages
 valid before="GET|POST" cat="kdeprint_cups-config" # docmessages
 valid cat="kcontrol_mouse" # docmessages
