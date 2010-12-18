@@ -4,6 +4,8 @@
 # ----------------------------------------------------------------------------
 # Окружења
 
+Calligra: Калигр|а, Калигр|ин
+    @л: Calligr|a, Calligr|in
 KOffice: К-офис|, К-офис|ов
     @л: KOffice|, KOffice|ov
 MS Office: МС Офис|, МС Офис|ов
@@ -17,9 +19,6 @@ OpenOffice.org: |*|{OpenOffice}.орг
 
 Abiword: Абиворд|, Абиворд|ов
     @л: Abiword|, Abiword|ov
-OpenOffice Writer, OpenOffice.org Writer: |OpenOffice~.мп |Writer
-Writer: Пис|ац, Пишч|ев
-    @л: Pisac|
 LyX: Ликс|, Ликс|ов
     @л: LyX|, LyX|ov
 Kile: Кајл|, Кајл|ов
@@ -27,6 +26,7 @@ Kile: Кајл|, Кајл|ов
 KWord: К-ворд|, К-ворд|ов
     @л: KWord|, KWord|ov
 Omega, |omegats: Омег|а, Омег|ин
+OpenOffice Writer, OpenOffice.org Writer: |OpenOffice~.мп |Writer
 Scribus: Скрибус|, Скрибус|ов
     @л: Scribus|, Scribus|ov
 TeX Live: Техлајв|, Техлајв|ов
@@ -38,6 +38,8 @@ Word: Ворд|, Ворд|ов
 WordPerfect: Вордперфект|, Вордперфект|ов
     @л: WordPerfect|, WordPerfect|ov
 WordPerfect 2000: |*|WordPerfect 2000
+Writer: Пис|ац, Пишч|ев
+    @л: Pisac|
 
 # ----------------------------------------------------------------------------
 # Табличари
@@ -84,6 +86,7 @@ xacc: Икс-ац|, Икс-ац|ов
 # ----------------------------------------------------------------------------
 # Организатори, планери, адресари
 
+Calligra Plan: |Calligra~.мп |Plan
 Gnome-Cal: |{Gnome~н}-кал|, |{Gnome~н}-кал|ов
     @л: |{Gnome~н}-Cal|, |{Gnome~н}-Cal|ov
 Gnome-Card: |{Gnome~н}-кард|, |{Gnome~н}-кард|ов
