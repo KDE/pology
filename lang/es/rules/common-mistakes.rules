@@ -24,11 +24,11 @@ hint="No utilice expresiones del tipo «los ciudadanos y las ciudadanas » (erro
 hint="No utilice expresiones del tipo «las ciudadanas y los ciudadanos » (error frecuente)"
 
 # No utilizar la arroba para incluir masculino y femenino
-[(?u)\b\w+\@[a-záéíóúñç]{1,2}\b]
+[(?u)\b\w+@[a-záéíóúñç]{1,2}\b]
 hint="No utilice la arroba para evitar el género, p.ej. «ciudadan@s» (error frecuente)"
 
 # No utilizar el guión para separar el prefijo de la palabra principal
-[(?u)\b\w+\-[a-záéíóúñç]+\b]
+[(?u)\b\w+-[a-záéíóúñç]+\b]
 hint="No utilice el guión para separar el prefijo de la palabra principal, p.ej. «sub-menú» (error frecuente)"
 
 # «¿Adonde...» se escribe como «¿Adónde...».
@@ -283,6 +283,10 @@ hint="« Carácteres » se escribe como « caracteres », salvo en casos muy exc
 [\bcassette\b]i
 hint="« Cassette » se escribe como « Casete » (error frecuente)"
 
+# «Cian» se escribe sin tilde.
+[\bcián\b]i
+hint="« Cián » se escribe como « Cian » (ver la nueva ortografía de la RAE)"
+
 [\bcog(er|e|a|en|an|iendo|ido)\b]i
 hint="« Coger » no se debe utilizar, tiene connotaciones sexuales en México (error frecuente)"
 
@@ -302,14 +306,14 @@ hint="« Con la condición que » se escribe como « Con la condición de que »
 [\bcon\smotivo\sa\b]i
 hint="« Con motivo a » se escribe como « Con motivo de/A causa de » (error frecuente)"
 
-# «Convercer que» se escribe como «Convencer de que».
+# «Convencer que» se escribe como «Convencer de que».
 [\bconvencer\sque\b]i
 hint="« Convencer que » se escribe como « Convencer de que » (error frecuente: queismo)"
 
-[\bcorreo\-e\b]i
+[\bcorreo-e\b]i
 hint="No utilice « Correo-e » solo « Correo » a secas (error frecuente)"
 
-[\bcorreos\-e\b]i
+[\bcorreos-e\b]i
 hint="No utilice « Correos-e » solo « Correos » a secas (error frecuente)"
 
 # «Cualesquieras» se escribe como «Cualesquiera».
@@ -380,10 +384,10 @@ hint="« Diferente a » se escribe como « Diferente de » (error frecuente)"
 [\bdió\b]i
 hint="« Dió » se escribe como « Dio » (error frecuente)"
 
-[\be\-?mail\b]i
+[\be-?mail\b]i
 hint="No utilice « Email » sino « Correo » (error frecuente)"
 
-[\be\-?mails\b]i
+[\be-?mails\b]i
 hint="No utilice « Emails » sino « Correos » (error frecuente)"
 
 # «El echo» se escribe como «El hecho».
@@ -498,6 +502,10 @@ hint="« Forum » se escribe como « Fórum », salvo en casos muy excepcionales
 [\bfué\b]i
 hint="« Fé » se escribe como « Fue » (error frecuente)"
 
+# «Guion» se escribe sin tilde.
+[\bguión\b]i
+hint="« Guión » se escribe como « Guion » (ver la nueva ortografía de la RAE)"
+
 # «Fuí» se escribe como «Fui».
 [\bfuí\b]i
 hint="« Fuí » se escribe como « Fui » (error frecuente)"
@@ -538,6 +546,10 @@ hint="« Hecha a » se escribe como « Echa a » (error frecuente)"
 [\bhubieron\s(algunos|algunas|muchos|muchas)\b]i
 hint="« Hubieron algunos/muchos » se escribe como « Hubo algunos/muchos » (error frecuente)"
 
+# «Huí» se escribe sin tilde.
+[\bhuí\b]i
+hint="« Huí » se escribe como « Hui » (ver la nueva ortografía de la RAE)"
+
 # «Imágen» se escribe como «Imagen».
 [\bimágen\b]i
 hint="« Imagen » se escribe como « Imagen » (error frecuente)"
@@ -565,6 +577,10 @@ hint="« Interfaces » es de género femenino (error frecuente)"
 # «Internet» se escribe en mayúsculas.
 [\binternet\b]
 hint="« Internet » se escribe en mayúsculas (error frecuente)"
+
+# «Irak» no se escribe con «q».
+[\biraq\b]i
+hint="« Iraq » se escribe como « Irak » (ver la nueva ortografía de la RAE)"
 
 # «IRQ» es femenino.
 [\b(el|del|un|los|unos|estos|esos)IRQ\b]i
@@ -650,6 +666,10 @@ hint="« Més » se escribe como « Mes » (error frecuente)"
 [\bno\scabe\sduda\sque\b]i
 hint="« No cabe duda que » se escribe como « No cabe duda de que » (error frecuente: queismo)"
 
+# «Ó» se escribe siempre sin tilde.
+[\bób]i
+hint="« Ó » se escribe siempre sin tilde, incluso entre números (ver nueva ortografía de la RAE)"
+
 # «O otros» se escribe como «U otros».
 [\bo\sotr(o|a)s\b]i
 hint="« O otros » se escribe como « U otros » (error frecuente)"
@@ -657,9 +677,6 @@ hint="« O otros » se escribe como « U otros » (error frecuente)"
 # «Olvidarse que» se escribe como «Olvidarse de que».
 [\bolvidarse\sque\b]i
 hint="« Olvidarse que » se escribe como « Olvidarse de que » (error frecuente: queismo)"
-
-#[\bordenador(es)?\b]i
-#hint="« Computer » se traduce como « Equipo », no como « Ordenador » o « Computadora » (error frecuente)"
 
 # «Órden» se escribe como «Orden».
 [\bórden\b]i
@@ -701,6 +718,10 @@ hint="« Perfíl » se escribe como « Perfil » (error frecuente)"
 [\bpalabras\sclaves\b]i
 hint="« Palabras claves » se escribe como « Palabras clave » (error frecuente)"
 
+# «Pié» se escribe sin tilde.
+[\bpié\b]i
+hint="« Pié » se escribe como « Pie » (ver la nueva ortografía de la RAE)"
+
 # «Por contra» se escribe como «Por el contrario/En cambio».
 [\bpor\scontra\b]i
 hint="« Por contra » se escribe como « Por el contario/En cambio » (error frecuente)"
@@ -735,11 +756,11 @@ hint="« Preveerse » se escribe como « Preverse » (error frecuente)"
 
 # «Preveyendo» se escribe como «Previendo».
 [\bpreveyendo\b]i
-hint="« Preveyendo » se escribe como « Preveiendo » (error frecuente)"
+hint="« Preveyendo » se escribe como « Previendo » (error frecuente)"
 
 # «Preveyera» se escribe como «Preveiera».
 [\bpreveyera\b]i
-hint="« Preveer » se escribe como « Preveiera » (error frecuente)"
+hint="« Preveyera » se escribe como « Preveiera » (error frecuente)"
 
 # «Preveyó» se escribe como «Preveó».
 [\bpreveyó\b]i
@@ -749,13 +770,25 @@ hint="« Preveyó » se escribe como « Preveó » (error frecuente)"
 [\bpreviamente\sa\b]i
 hint="« Previamente a » se escribe como « Antes de » (error frecuente)"
 
-# «Quorum» se escribe como «Quórum».
-[\bquorum\b]i
-hint="« Quorum » se escribe como « Quórum » (error frecuente)"
+# «Catar» no se escribe con «q».
+[\bqatar\b]i
+hint="« Qatar » se escribe como « Catar » (ver la nueva ortografía de la RAE)"
+
+# «Cuórum» se escribe sin «q».
+[\bqu[oó]rum\b]i
+hint="« Quórum » se escribe como « Cuórum » (error frecuente)"
+
+# «Cuásar» se escribe sin «q».
+[\bqu[aá]sar\b]i
+hint="« Quásar » se escribe como « Cuasar » (error frecuente)"
 
 # «Rabbi» se escribe como «Rabí».
 [\brabbi\b]i
 hint="« Rabbi » se escribe como « Rabí » (error frecuente)"
+
+# «Riáis» se escribe sin tilde.
+[\briáis\b]i
+hint="« Riáis » se escribe como « Riais » (ver la nueva ortografía de la RAE)"
 
 # «Se esta» se escribe como «Se está».
 [\bse\sesta\b]i
@@ -781,6 +814,10 @@ hint="« Seguidamente a » se escribe como « Después de/A continuación/Tras �
 [\bsimultáneamente\s(a|con)\b]i
 hint="« Simultáneamente a » se escribe como « A la vez que/Al mismo tiempo que/Coincidiendo con » (error frecuente)"
 
+# «Sión» se escribe sin tilde.
+[\bsión\b]i
+hint="« Sión » se escribe como « Sion » (ver la nueva ortografía de la RAE)"
+
 # «Sobreescribir» se escribe como «Sobrescribir» (y sus derivados.
 [\bSobreescri(bir|be|ba|ben|ban|biendo|tura)\b]i
 hint="« Sobreescribir » se escribe como « Sobrescribir », igual para sus derivaciones (error frecuente)"
@@ -791,7 +828,7 @@ hint="« Sobretodo » se escribe como « Sobre todo », salvo en caso de abrigos
 
 # «Sólo» se escribe como «Solo».
 [\bsólo\b]i
-hint="« Sólo » se escribe como « Solo », salvo en casos muy excepcionales (error frecuente)"
+hint="« Sólo » se escribe siempre como « Solo » (ver la nueva ortografía de la RAE)"
 
 # «Su se» palabra duplicada.
 [\bsu\sse\b]i
@@ -816,6 +853,10 @@ hint="« Tenias » se escribe como « Tenías », salvo cuando se trate de los p
 # «Thesaurus» se escribe como «Tesauro».
 [\thesaurus\b]i
 hint="« Thesaurus » se escribe como « Tesauro » (error frecuente)"
+
+# «Truhán» se escribe sin tilde.
+[\btruhán\b]i
+hint="« Truhán » se escribe como « Truhan » (ver la nueva ortografía de la RAE)"
 
 # «Tí» se escribe como «Ti».
 [\btí\b]i
@@ -864,6 +905,10 @@ hint="« Vease » se escribe como « Véase » (error frecuente)"
 # «Via» se escribe como «Vía».
 [\bvia\b]i
 hint="« Via » se escribe como « Vía » (error frecuente)"
+
+# «Veís» se escribe sin tilde.
+[\bveís\b]i
+hint="« Veís » se escribe como « Veis » (ver la nueva ortografía de la RAE)"
 
 # «Ví» se escribe como «Vi».
 [\bví\b]i

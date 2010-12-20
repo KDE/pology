@@ -17,8 +17,10 @@ from pology.report import report, warning, format_item_list
 # (beggining of paragraph, after some punctuation characters and after a new line)
 _valid_capital_word = re.compile("(?u)^[A-ZÑÇÁÉÍÓÚ]\w*|[.:?!>«\"]\s*[A-ZÑÇÁÉÍÓÚ]\w*|\\n\s*[A-ZÑÇÁÉÍÓÚ]\w*")
 
-# All capitals words in the original text in English,
+# All capital words in the original English text,
 _ent_capital_word = re.compile("(?u)[A-Z]\w*")
+# All plural full capital words (acronyms) without the final 's'.
+_ent_capital_word_plural = re.compile("(?u)[A-Z]+(?=s)")
 
 def remove_paired_capital_words (msg, cat):
     """
@@ -31,6 +33,7 @@ def remove_paired_capital_words (msg, cat):
     # Obtains all capitals words in the original English text. 
     ents_orig = set()
     ents_orig.update(_ent_capital_word.findall(msg.msgid))
+    ents_orig.update(_ent_capital_word_plural.findall(msg.msgid))
 
     # Obtains capitals words in valid contexts in the translated text.
     ents_trans = set()
