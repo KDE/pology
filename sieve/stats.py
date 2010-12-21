@@ -370,6 +370,11 @@ class Sieve (object):
                 if pf >= 0:
                     text = text[0:pf]
                 words = proper_words(text, True, cat.accelerator(), msg.format)
+                # If there are no proper words, set to one empty word
+                # in order for a fuzzy or an untranslated message not to be
+                # considered translated when only word counts are observed.
+                if not words:
+                    words = [""]
                 lnwords.append(len(words))
                 lnchars.append(len("".join(words)))
             nwords[src] += int(round(float(sum(lnwords)) / len(texts)))
