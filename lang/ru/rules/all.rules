@@ -71,7 +71,10 @@ hint="«в течении» -- разве что «в течении реки»"
 hint="«overwrite» переводится как «заменить»"
 
 [настройки]i
+valid msgstr="модуля настройки"
+valid msgstr="возможности настройки"
 valid msgstr="модуль настройки"
+valid msgstr="модули настройки"
 valid msgstr="для настройки"
 valid msgstr="мастер настройки"
 valid msgstr="неправильной настройки"
@@ -143,6 +146,14 @@ valid msgid="^Your names$"
 hint="После запятой должен быть пробел."
 
 [#]
+valid after="&" # character code in HTML
+valid after="/" # in link in HTML code
+valid after="link url='"
+valid after="href=\""
+valid after="%\^&-\+@~" # list of chars
+valid after="            " # command-line option description
+valid before="okular" # IRC channel
+valid before="kde-bugs" # IRC channel
 valid msgstr="color:#"
 valid msgstr="«#»"
 hint="заменить на '№'?"
@@ -186,4 +197,7 @@ hint="click -- щёлкнуть"
 
 [аккаунт]i
 hint="account -- учётная запись, счёт (но только если счёт в банке)"
+
+[отметьте, что]i
+hint="не по-русски"
 
