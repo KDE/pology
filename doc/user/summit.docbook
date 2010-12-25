@@ -483,7 +483,7 @@ $ posummit $SOMEWHERE/summit-config-shared aa merge
 $ posummit $SOMEWHERE/summit-config-shared bb merge
 ...
 </programlisting>
-Note that unlike when setting up the summit, no <option>--create</option> or <option>--force</option> options are used. Without them, <command>posummit</command> will warn about any new mismatches between branches and the summit and abort the operation, leaving the user to examine the situation and take corrective measures. This is discussed in detail in section <xref linkend="sec-sumntmism"/>.</para>
+Note that unlike when setting up the summit, no <option>--create</option> or <option>--force</option> options are used. Without them, <command>posummit</command> will warn about any new mismatches between branches and the summit and abort the operation, leaving the user to examine the situation and take corrective measures. <xref linkend="sec-sumntmism"/> discusses this in detail.</para>
 
 <para>Scattering to branches is always fully automatic. For direct summit and summit over dynamic templates it is performed with:
 <programlisting>
@@ -547,7 +547,7 @@ $ posummit scatter devel:foosuite/
 </programlisting>
 Note that trailing slash is significant here, since otherwise the argument would be interpreted as single PO file (<command>posummit</command> would exit with an error, reporting that such a file does not exist).</para>
 
-<para>When merging (or gathering in direct summit mode) is attempted, <command>posummit</command> may abort with the report of mismatches between branches and the summit, as described in section <xref linkend="sec-sumntmism"/>. The translator must then make the adjustments, or report it to someone else to handle.</para>
+<para>When merging (or gathering in direct summit mode) is attempted, <command>posummit</command> may abort with the report of mismatches between branches and the summit. The translator must then make the adjustments (<xref linkend="sec-sumntmism"/> describes how, case by case), or report it to someone else to handle.</para>
 
 <para>After selected summit and branch PO files have been updated, the translator can commit them. Alternatively, a half-distributed workflow could be used, where translators only update and commit summit PO files, while scattering to branches is centralized, and automatically performed at a given period. This makes sense because the scattering in no way interferes with translators' workflow and never needs any manual intervention.</para>
 
@@ -605,7 +605,7 @@ Each mapping entry is a sequence of strings in parenthesis. The first string is 
 <term>A branch PO file has been split into several files (<emphasis>splitting</emphasis>).</term>
 <listitem>
 <para>If a single PO file becomes very big, it may be split into several smaller files by categories of messages (e.g. UI and help texts). A program may also be modularized, when the factored modules may take over part of the messages from the main PO file into their own PO files. Either way, <command>posummit</command> will again simply report that some new branch PO files have appeared and possibly some disappeared, and you recognize that the cause of this is a splitting. Splitting typically happens in the newest branch, but not in older branches. You should then make the same split in summit PO files and map the monolithic PO file from older branches to the newly split summit files. For example, if <filename>foobaz.po</filename> in <literal>devel</literal> branch got split into <filename>foobaz.po</filename> (of reduced size), <filename>libfoobaz.po</filename>, and <filename>foobaz_help.po</filename>, the mapping for the old monolithic PO file in the <literal>stable</literal> branch would be:
-<programlisting>
+<programlisting id="l-splmap">
 S.mappings = [
     ...
     ("stable", "foobaz", "foobaz", "libfoobaz", "foobaz_help"),
@@ -624,7 +624,7 @@ The first string in the mapping is the branch name, the second string is the PO 
 <term>Several branch PO files have been merged into one (<emphasis>merging</emphasis>).</term>
 <listitem>
 <para>Sometimes formerly independent pieces of software are joined into a single package, for more effective maintenance and release. This can happen, for example, when selected plugins are taken into the host program distribution as "core plugins". Their separate PO files may then be merged into a single new PO file, or into an existing PO file. Like in the opposite case of splitting, <command>posummit</command> will simply report that some summit PO files no longer have branch counterparts, and possibly that a new branch PO file has appeared. This usually happens in the newest branch first, while older branches retain the separation. Then the same merging should be done in summit too, and mappings added for each of the old separate PO files in other branches. If <filename>foobaz_info.po</filename>, <filename>foobaz_backup.po</filename>, and <filename>foobaz_filters.po</filename> have been merged into existing <filename>foobaz.po</filename> in <literal>devel</literal> branch, the following mappings for the <literal>stable</literal> branch should be added:
-<programlisting>
+<programlisting id="l-mrgmap">
 S.mappings = [
     ...
     ("stable", "foobaz_info", "foobaz"),
@@ -661,6 +661,50 @@ The <option>--force</option> option is necessary because, in summit over templat
 
 <para>Important thing to note about mismatches is that reports produced by <command>posummit</command> may be misleading, especially in more complicated situations (splitting, merging). This means that you must carefully examine what has actually happened, not based only on the branch file trees themselves, but also by keeping an eye on channels (e.g. mailing lists) where information for translators is most likely to appear.</para>
 <!-- FIXME: Mention podescprob once documented. -->
+
+<para>There is also the possibility to map a whole branch subdirectory to another directory in the summit. Since summit PO files are unique by domain name, the only effect of subdirectory mapping is to prevent <command>posummit</command> from reporting that files should be moved to another subdirectory, and to have it report proper expected summit paths when new branch catalogs are discovered. For example, if the PO files from subdirectory <filename>foosuite/</filename> in <literal>devel</literal> branch and from subdirectory <filename>foopack/</filename> in <literal>stable</literal> branch should both be collected in summit subdirectory <filename>foo/</filename>, the subdirectory mapping would be:
+<programlisting>
+S.subdir_mappings = [
+    ...
+    ("devel", "foosuite", "foo"),
+    ("stable", "foopack", "foo"),
+    ...
+]
+</programlisting>
+Subdirectory mappings should be needed rarely compared to file mappings. A tentative example could be when two closely related software forks are translated within the same project, and they have many PO files in their own subdirectories.</para>
+
+</sect2>
+
+<sect2 id="sec-sumntdeps">
+<title>Checking Summit Dependencies</title>
+
+<para>As the number of mappings grows, it may not be clear which branch PO files are related to which summit PO files. Translator may need this information to know exactly which summit PO files to work on, in order to have some set of branch files fully translated. For this reason, <command>posummit</command> provides the operation mode <literal>deps</literal>, in which any number of operation targets are given in command line, and the dependency chains are reported for those targets.</para>
+
+<para>If you recall the <link linkend="l-mrgmap">example mapping due to merging</link>, you can check the dependency chain for the file <filename>foobaz_info.po</filename> in <literal>stable</literal> branch by executing one of:
+<programlisting>
+$ cd $SUMMITDIR
+$ posummit deps $STABLEDIR/foobaz_info.po
+$ posummit deps stable:foobaz_info
+</programlisting>
+in direct summit or summit over dynamic templates, or
+<programlisting>
+$ posummit $SOMEWHERE/summit-config-shared aa deps $STABLEDIR/foobaz_info.po
+$ posummit $SOMEWHERE/summit-config-shared aa deps stable:foobaz_info
+</programlisting>
+in summit over static templats. The output would look like this:
+<programlisting>
+:    <replaceable>summit-dir</replaceable>/foobaz.po  <replaceable>devel-dir</replaceable>/foobaz.po <replaceable>stable-dir</replaceable>/foobaz_info.po \
+     <replaceable>stable-dir</replaceable>/foobaz_backup.po <replaceable>stable-dir</replaceable>/foobaz_filters.po
+</programlisting>
+You can see that the complete dependency chain to which <filename>foobaz_info.po</filename> from <literal>stable</literal> belongs to has been written out. The first path in the chain is always the summit PO file, followed by all mapped PO files from each branch in turn.</para>
+
+<para>If the file for which the dependency is mapped to more than one summit PO file, then the dependency chains for each of them is displayed. In the <link linkend="l-splmap">example of mapping due to splitting</link>, if you request dependency for monolithic <filename>foobaz.po</filename> from <literal>stable</literal> branch, you would get three dependency chains:
+<programlisting>
+:    <replaceable>summit-dir</replaceable>/foobaz.po  <replaceable>devel-dir</replaceable>/foobaz.po  <replaceable>stable-dir</replaceable>/foobaz.po
+:    <replaceable>summit-dir</replaceable>/libfoobaz.po  <replaceable>devel-dir</replaceable>/libfoobaz.po  <replaceable>stable-dir</replaceable>/foobaz.po
+:    <replaceable>summit-dir</replaceable>/foobaz_help.po  <replaceable>devel-dir</replaceable>/foobaz_help.po  <replaceable>stable-dir</replaceable>/foobaz.po
+</programlisting>
+</para>
 
 </sect2>
 
@@ -702,6 +746,13 @@ The <option>--force</option> option is necessary because, in summit over templat
 
 <sect2 id="sec-sucfgbonsct">
 <title>Additional Scattering Options</title>
+
+<para></para>
+
+</sect2>
+
+<sect2 id="sec-sucfgascf">
+<title>Filtering by Ascription on Scatter</title>
 
 <para></para>
 
