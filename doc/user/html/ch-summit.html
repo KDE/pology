@@ -34,7 +34,7 @@
 </div>
 <p>Computer programs (though not only them) are sometimes concurrently developed and released from several <span class="emphasis"><em>branches</em></span>. For example, there may be one "stable" branch, which sees only small fixes and from which periodical releases are made, and another, "development" branch, which undergoes larger changes and may or may not be periodically released as well; at one point, the development branch will become the new stable branch, and the old stable branch will be abandoned. There may also be more than two branches which see active work, such as "development", "stable", and "old stable".</p>
 <p>From programmers' point of view, working by branches can be very convenient. They can freely experiment with new features in the development branch, without having to wory that they will mess something up in the stable branch, from which periodical releases are made. In the stable branch they may fix some bugs discovered between the releases, or carry over some important and well-tested features from the development branch. For users who want to be on the cutting edge, they may provide experimental releases from the development branch.</p>
-<p>For translators, however, having to deal with different branches of the same collection of PO files is rarely a convenience. It is text to be translated just as any, only duplicated across two or more file hierarchies. This means that translators additionaly have to think about how to make sure that new and modified translations made in one branch appear in other branches too. It gets particularly ugly if there are mismatches in PO file collections in different branches, like when a PO file is renamed, split into two or more PO files, or merged into another PO file.<sup>[<a name="id511272" href="#ftn.id511272" class="footnote" id="id511272">14</a>]</sup> Sometimes this branch juggling is not necessary; in strict two-branch setting, translators may choose to work only on the stable branch, and switch to the next stable branch when it gets created (or switch to the development branch shortly before it becomes stable). Even so, branch switching may not go very smooth in presence of mismatches in PO file collections.</p>
+<p>For translators, however, having to deal with different branches of the same collection of PO files is rarely a convenience. It is text to be translated just as any, only duplicated across two or more file hierarchies. This means that translators additionaly have to think about how to make sure that new and modified translations made in one branch appear in other branches too. It gets particularly ugly if there are mismatches in PO file collections in different branches, like when a PO file is renamed, split into two or more PO files, or merged into another PO file.<sup>[<a name="id378118" href="#ftn.id378118" class="footnote" id="id378118">14</a>]</sup> Sometimes this branch juggling is not necessary; in strict two-branch setting, translators may choose to work only on the stable branch, and switch to the next stable branch when it gets created (or switch to the development branch shortly before it becomes stable). Even so, branch switching may not go very smooth in presence of mismatches in PO file collections.</p>
 <p>Instead, for translators the most convenient would be to work on a single, "supercollection" of PO files, from which new and modified translations would be automatically periodically sent to appropriate PO files in branches. Such a supercollection can be created and maintained by Pology's <span class="command"><strong>posummit</strong></span> script. In terms of this script, the supercollection is called the <span class="emphasis"><em>summit</em></span>, the operation of creating and updating it is called <span class="emphasis"><em>gathering</em></span>, and the operation of filling out branch PO files is called <span class="emphasis"><em>scattering</em></span>.</p>
 <p>How do summit PO files look like? When all branches contain the same PO file, then the counterpart summit PO file is simply the union of all messages from branch PO files. A message in the summit PO file differs from branch messages only by having the special <code class="literal">#. +&gt; ...</code> comment, which lists the branches that contain this message. If there would be two branches, named with <code class="literal">devel</code> and <code class="literal">stable</code> keywords, an excerpt from a summit PO file could be:</p>
 <pre class="programlisting">
@@ -137,7 +137,7 @@ path/to/devel/
     bb/
         ...
 </pre>
-<p>while in by-domain categorization the domain directories could be within their respective sources<sup>[<a name="id496132" href="#ftn.id496132" class="footnote" id="id496132">15</a>]</sup>:</p>
+<p>while in by-domain categorization the domain directories could be within their respective sources<sup>[<a name="id407017" href="#ftn.id407017" class="footnote" id="id407017">15</a>]</sup>:</p>
 <pre class="screen">
 devel/
     appfoo/
@@ -159,8 +159,8 @@ devel/
         ...
 </pre>
 <p>There are three possible summit modes: direct summit, summit over dynamic templates, and summit over static templates. In the <span class="emphasis"><em>direct summit</em></span>, only branch PO files are processed, that is new and modifed messages are gathered from them and summit translations scattered to them. In <span class="emphasis"><em>summit over dynamic templates</em></span>, messages from branch PO files are gathered only once, at creation of the summit; after that, it is branch templates (POT files) that are gathered into summit templates, and then summit PO files are merged with them. Summit templates are not actually seen, but are gathered internally when merging command is issued and removed after merging is done. <span class="emphasis"><em>Summit over static templates</em></span> is quite the same, except that summit templates are explicitly gathered and kept around, and merging is done separately.</p>
-<p>What is the reason for having three summit modes to choose from? Direct summit mode is there because it is the easiest to explain and understand, and does not require that branches contain templates. It is however not recommended, for two reasons. Firstly, someone may mistakenly translate directly in a branch<sup>[<a name="id540215" href="#ftn.id540215" class="footnote" id="id540215">16</a>]</sup>, and those translations may be silently gathered into the summit. This is bad for quality control (review, etc.), as it is expected that the summit is the sole source of translations. Secondly, you may want to perform some automatic modifications on translation when scattering, but not to get those modifications back into the summit on gathering, which would happen with direct summit. These issues are avoided by using summit over dynamic templates, though now branches must provide templates. Finally, summmit over static templates makes sense when several language teams share the summit setup: since gathering is the most complicated operation and sometimes requires manual intervention, it can be done once (by one person) on summit templates, while language teams can then merge and scatter their summits in a fully automatic fashion.</p>
-<p>There is one important design decisions which holds for all summit modes: all summit PO files must be <span class="strong"><strong>unique by domain name</strong></span> (i.e. base file name without extension), even if they are in different subdirectories within the summit top directory. This in turn means that in automatically supported branch organizations (by-domain and by-language) PO domains should be unique as well.<sup>[<a name="id497684" href="#ftn.id497684" class="footnote" id="id497684">17</a>]</sup> This was done for two reasons. Less importantly, it is convenient to be able to identify a summit PO file simply by its domain name rather than the full path (especially in some <span class="command"><strong>posummit</strong></span> invocations). More importantly, uniqueness of domain names allows that PO files are located in different subdirectories between different branches. This happens, for example, in large projects in which code moves between modules. If branches do not satisfy this property, i.e. they contain same-name PO domains with totally different content, it is necessary to define a path transformation (described later) which will produce unique domain names with respect to the summit.</p>
+<p>What is the reason for having three summit modes to choose from? Direct summit mode is there because it is the easiest to explain and understand, and does not require that branches contain templates. It is however not recommended, for two reasons. Firstly, someone may mistakenly translate directly in a branch<sup>[<a name="id407068" href="#ftn.id407068" class="footnote" id="id407068">16</a>]</sup>, and those translations may be silently gathered into the summit. This is bad for quality control (review, etc.), as it is expected that the summit is the sole source of translations. Secondly, you may want to perform some automatic modifications on translation when scattering, but not to get those modifications back into the summit on gathering, which would happen with direct summit. These issues are avoided by using summit over dynamic templates, though now branches must provide templates. Finally, summmit over static templates makes sense when several language teams share the summit setup: since gathering is the most complicated operation and sometimes requires manual intervention, it can be done once (by one person) on summit templates, while language teams can then merge and scatter their summits in a fully automatic fashion.</p>
+<p>There is one important design decisions which holds for all summit modes: all summit PO files must be <span class="strong"><strong>unique by domain name</strong></span> (i.e. base file name without extension), even if they are in different subdirectories within the summit top directory. This in turn means that in automatically supported branch organizations (by-domain and by-language) PO domains should be unique as well.<sup>[<a name="id364534" href="#ftn.id364534" class="footnote" id="id364534">17</a>]</sup> This was done for two reasons. Less importantly, it is convenient to be able to identify a summit PO file simply by its domain name rather than the full path (especially in some <span class="command"><strong>posummit</strong></span> invocations). More importantly, uniqueness of domain names allows that PO files are located in different subdirectories between different branches. This happens, for example, in large projects in which code moves between modules. If branches do not satisfy this property, i.e. they contain same-name PO domains with totally different content, it is necessary to define a path transformation (described later) which will produce unique domain names with respect to the summit.</p>
 <p>The following sections describe how to set up each of the modes, in each of the outlined branch organizations. They should be read in turn up to the mode that you want to use, because they build upon each other.</p>
 <div class="sect2">
 <div class="titlepage">
@@ -434,7 +434,7 @@ S.branches = [
 $ cd .../summit/
 $ posummit summit-config-shared templates gather --create
 </pre>
-<p>The first two arguments are now the path to the configuration file and the language code, where <code class="literal">templates</code> is the dummy language code for templates<sup>[<a name="id532410" href="#ftn.id532410" class="footnote" id="id532410">18</a>]</sup>. After this is finished, language summits can be gathered:</p>
+<p>The first two arguments are now the path to the configuration file and the language code, where <code class="literal">templates</code> is the dummy language code for templates<sup>[<a name="id373428" href="#ftn.id373428" class="footnote" id="id373428">18</a>]</sup>. After this is finished, language summits can be gathered:</p>
 <pre class="programlisting">
 $ posummit summit-config-shared aa gather --create --force
 $ posummit summit-config-shared bb gather --create --force
@@ -478,7 +478,7 @@ $ posummit $SOMEWHERE/summit-config-shared aa merge
 $ posummit $SOMEWHERE/summit-config-shared bb merge
 ...
 </pre>
-<p>Note that unlike when setting up the summit, no <code class="option">--create</code> or <code class="option">--force</code> options are used. Without them, <span class="command"><strong>posummit</strong></span> will warn about any new mismatches between branches and the summit and abort the operation, leaving the user to examine the situation and take corrective measures. This is discussed in detail in section <a class="xref" href="ch-summit.html#sec-sumntmism" title="5.2.3.&nbsp;Handling Mismatches Between Branches and Summit">Section&nbsp;5.2.3, “Handling Mismatches Between Branches and Summit”</a>.</p>
+<p>Note that unlike when setting up the summit, no <code class="option">--create</code> or <code class="option">--force</code> options are used. Without them, <span class="command"><strong>posummit</strong></span> will warn about any new mismatches between branches and the summit and abort the operation, leaving the user to examine the situation and take corrective measures. <a class="xref" href="ch-summit.html#sec-sumntmism" title="5.2.3.&nbsp;Handling Mismatches Between Branches and Summit">Section&nbsp;5.2.3, “Handling Mismatches Between Branches and Summit”</a> discusses this in detail.</p>
 <p>Scattering to branches is always fully automatic. For direct summit and summit over dynamic templates it is performed with:</p>
 <pre class="programlisting">
 $ cd $SUMMITDIR
@@ -538,7 +538,7 @@ $ posummit scatter devel:foobaz
 $ posummit scatter devel:foosuite/
 </pre>
 <p>Note that trailing slash is significant here, since otherwise the argument would be interpreted as single PO file (<span class="command"><strong>posummit</strong></span> would exit with an error, reporting that such a file does not exist).</p>
-<p>When merging (or gathering in direct summit mode) is attempted, <span class="command"><strong>posummit</strong></span> may abort with the report of mismatches between branches and the summit, as described in section <a class="xref" href="ch-summit.html#sec-sumntmism" title="5.2.3.&nbsp;Handling Mismatches Between Branches and Summit">Section&nbsp;5.2.3, “Handling Mismatches Between Branches and Summit”</a>. The translator must then make the adjustments, or report it to someone else to handle.</p>
+<p>When merging (or gathering in direct summit mode) is attempted, <span class="command"><strong>posummit</strong></span> may abort with the report of mismatches between branches and the summit. The translator must then make the adjustments (<a class="xref" href="ch-summit.html#sec-sumntmism" title="5.2.3.&nbsp;Handling Mismatches Between Branches and Summit">Section&nbsp;5.2.3, “Handling Mismatches Between Branches and Summit”</a> describes how, case by case), or report it to someone else to handle.</p>
 <p>After selected summit and branch PO files have been updated, the translator can commit them. Alternatively, a half-distributed workflow could be used, where translators only update and commit summit PO files, while scattering to branches is centralized, and automatically performed at a given period. This makes sense because the scattering in no way interferes with translators' workflow and never needs any manual intervention.</p>
 </div>
 <div class="sect2">
@@ -581,7 +581,7 @@ S.mappings = [
 </dd>
 <dt><span class="term">A branch PO file has been split into several files (<span class="emphasis"><em>splitting</em></span>).</span></dt>
 <dd>
-<p>If a single PO file becomes very big, it may be split into several smaller files by categories of messages (e.g. UI and help texts). A program may also be modularized, when the factored modules may take over part of the messages from the main PO file into their own PO files. Either way, <span class="command"><strong>posummit</strong></span> will again simply report that some new branch PO files have appeared and possibly some disappeared, and you recognize that the cause of this is a splitting. Splitting typically happens in the newest branch, but not in older branches. You should then make the same split in summit PO files and map the monolithic PO file from older branches to the newly split summit files. For example, if <code class="filename">foobaz.po</code> in <code class="literal">devel</code> branch got split into <code class="filename">foobaz.po</code> (of reduced size), <code class="filename">libfoobaz.po</code>, and <code class="filename">foobaz_help.po</code>, the mapping for the old monolithic PO file in the <code class="literal">stable</code> branch would be:</p>
+<p>If a single PO file becomes very big, it may be split into several smaller files by categories of messages (e.g. UI and help texts). A program may also be modularized, when the factored modules may take over part of the messages from the main PO file into their own PO files. Either way, <span class="command"><strong>posummit</strong></span> will again simply report that some new branch PO files have appeared and possibly some disappeared, and you recognize that the cause of this is a splitting. Splitting typically happens in the newest branch, but not in older branches. You should then make the same split in summit PO files and map the monolithic PO file from older branches to the newly split summit files. For example, if <code class="filename">foobaz.po</code> in <code class="literal">devel</code> branch got split into <code class="filename">foobaz.po</code> (of reduced size), <code class="filename">libfoobaz.po</code>, and <code class="filename">foobaz_help.po</code>, the mapping for the old monolithic PO file in the <code class="literal">stable</code> branch would be: <a name="l-splmap" id="l-splmap"></a></p>
 <pre class="programlisting">
 S.mappings = [
     ...
@@ -590,11 +590,11 @@ S.mappings = [
 ]
 </pre>
 <p>The first string in the mapping is the branch name, the second string is the PO domain name in that branch, and all following strings are the new summit PO domain names which contain part of original messages. The order of summit PO domains is somewhat important: if a message exists only in the monolithic PO file in the <code class="literal">stable</code> branch and not in split PO files in <code class="literal">devel</code> branch, and summit heuristics detects no appropriate insertion point into one of the summit PO files, that message will be added to the end of the first summit PO file listed.</p>
-<p>"Making the same split in summit" deserves some special attention. For the templates summit (which exists in summit over static templates), this simply means adding any new files and removing old ones (<span class="command"><strong>posummit</strong></span> will do that itself if run with <code class="option">--create</code>). But for language summits, you should manually copy the original summit PO file to each new name in turn, and then perform gather (direct summit) or merge (summit over templates). In this way no translated messages will be lost in the split.<sup>[<a name="id537219" href="#ftn.id537219" class="footnote" id="id537219">19</a>]</sup></p>
+<p>"Making the same split in summit" deserves some special attention. For the templates summit (which exists in summit over static templates), this simply means adding any new files and removing old ones (<span class="command"><strong>posummit</strong></span> will do that itself if run with <code class="option">--create</code>). But for language summits, you should manually copy the original summit PO file to each new name in turn, and then perform gather (direct summit) or merge (summit over templates). In this way no translated messages will be lost in the split.<sup>[<a name="id442158" href="#ftn.id442158" class="footnote" id="id442158">19</a>]</sup></p>
 </dd>
 <dt><span class="term">Several branch PO files have been merged into one (<span class="emphasis"><em>merging</em></span>).</span></dt>
 <dd>
-<p>Sometimes formerly independent pieces of software are joined into a single package, for more effective maintenance and release. This can happen, for example, when selected plugins are taken into the host program distribution as "core plugins". Their separate PO files may then be merged into a single new PO file, or into an existing PO file. Like in the opposite case of splitting, <span class="command"><strong>posummit</strong></span> will simply report that some summit PO files no longer have branch counterparts, and possibly that a new branch PO file has appeared. This usually happens in the newest branch first, while older branches retain the separation. Then the same merging should be done in summit too, and mappings added for each of the old separate PO files in other branches. If <code class="filename">foobaz_info.po</code>, <code class="filename">foobaz_backup.po</code>, and <code class="filename">foobaz_filters.po</code> have been merged into existing <code class="filename">foobaz.po</code> in <code class="literal">devel</code> branch, the following mappings for the <code class="literal">stable</code> branch should be added:</p>
+<p>Sometimes formerly independent pieces of software are joined into a single package, for more effective maintenance and release. This can happen, for example, when selected plugins are taken into the host program distribution as "core plugins". Their separate PO files may then be merged into a single new PO file, or into an existing PO file. Like in the opposite case of splitting, <span class="command"><strong>posummit</strong></span> will simply report that some summit PO files no longer have branch counterparts, and possibly that a new branch PO file has appeared. This usually happens in the newest branch first, while older branches retain the separation. Then the same merging should be done in summit too, and mappings added for each of the old separate PO files in other branches. If <code class="filename">foobaz_info.po</code>, <code class="filename">foobaz_backup.po</code>, and <code class="filename">foobaz_filters.po</code> have been merged into existing <code class="filename">foobaz.po</code> in <code class="literal">devel</code> branch, the following mappings for the <code class="literal">stable</code> branch should be added: <a name="l-mrgmap" id="l-mrgmap"></a></p>
 <pre class="programlisting">
 S.mappings = [
     ...
@@ -624,7 +624,49 @@ $ ...
 </dl>
 </div>
 <p>Important thing to note about mismatches is that reports produced by <span class="command"><strong>posummit</strong></span> may be misleading, especially in more complicated situations (splitting, merging). This means that you must carefully examine what has actually happened, not based only on the branch file trees themselves, but also by keeping an eye on channels (e.g. mailing lists) where information for translators is most likely to appear.</p>
+<p>There is also the possibility to map a whole branch subdirectory to another directory in the summit. Since summit PO files are unique by domain name, the only effect of subdirectory mapping is to prevent <span class="command"><strong>posummit</strong></span> from reporting that files should be moved to another subdirectory, and to have it report proper expected summit paths when new branch catalogs are discovered. For example, if the PO files from subdirectory <code class="filename">foosuite/</code> in <code class="literal">devel</code> branch and from subdirectory <code class="filename">foopack/</code> in <code class="literal">stable</code> branch should both be collected in summit subdirectory <code class="filename">foo/</code>, the subdirectory mapping would be:</p>
+<pre class="programlisting">
+S.subdir_mappings = [
+    ...
+    ("devel", "foosuite", "foo"),
+    ("stable", "foopack", "foo"),
+    ...
+]
+</pre>
+<p>Subdirectory mappings should be needed rarely compared to file mappings. A tentative example could be when two closely related software forks are translated within the same project, and they have many PO files in their own subdirectories.</p>
 </div>
+<div class="sect2">
+<div class="titlepage">
+<div>
+<div>
+<h3 class="title"><a name="sec-sumntdeps" id="sec-sumntdeps"></a>5.2.4.&nbsp;Checking Summit Dependencies</h3>
+</div>
+</div>
+</div>
+<p>As the number of mappings grows, it may not be clear which branch PO files are related to which summit PO files. Translator may need this information to know exactly which summit PO files to work on, in order to have some set of branch files fully translated. For this reason, <span class="command"><strong>posummit</strong></span> provides the operation mode <code class="literal">deps</code>, in which any number of operation targets are given in command line, and the dependency chains are reported for those targets.</p>
+<p>If you recall the <a class="link" href="ch-summit.html#l-mrgmap">example mapping due to merging</a>, you can check the dependency chain for the file <code class="filename">foobaz_info.po</code> in <code class="literal">stable</code> branch by executing one of:</p>
+<pre class="programlisting">
+$ cd $SUMMITDIR
+$ posummit deps $STABLEDIR/foobaz_info.po
+$ posummit deps stable:foobaz_info
+</pre>
+<p>in direct summit or summit over dynamic templates, or</p>
+<pre class="programlisting">
+$ posummit $SOMEWHERE/summit-config-shared aa deps $STABLEDIR/foobaz_info.po
+$ posummit $SOMEWHERE/summit-config-shared aa deps stable:foobaz_info
+</pre>
+<p>in summit over static templats. The output would look like this:</p>
+<pre class="programlisting">
+:    <em class="replaceable"><code>summit-dir</code></em>/foobaz.po  <em class="replaceable"><code>devel-dir</code></em>/foobaz.po <em class="replaceable"><code>stable-dir</code></em>/foobaz_info.po \
+     <em class="replaceable"><code>stable-dir</code></em>/foobaz_backup.po <em class="replaceable"><code>stable-dir</code></em>/foobaz_filters.po
+</pre>
+<p>You can see that the complete dependency chain to which <code class="filename">foobaz_info.po</code> from <code class="literal">stable</code> belongs to has been written out. The first path in the chain is always the summit PO file, followed by all mapped PO files from each branch in turn.</p>
+<p>If the file for which the dependency is mapped to more than one summit PO file, then the dependency chains for each of them is displayed. In the <a class="link" href="ch-summit.html#l-splmap">example of mapping due to splitting</a>, if you request dependency for monolithic <code class="filename">foobaz.po</code> from <code class="literal">stable</code> branch, you would get three dependency chains:</p>
+<pre class="programlisting">
+:    <em class="replaceable"><code>summit-dir</code></em>/foobaz.po  <em class="replaceable"><code>devel-dir</code></em>/foobaz.po  <em class="replaceable"><code>stable-dir</code></em>/foobaz.po
+:    <em class="replaceable"><code>summit-dir</code></em>/libfoobaz.po  <em class="replaceable"><code>devel-dir</code></em>/libfoobaz.po  <em class="replaceable"><code>stable-dir</code></em>/foobaz.po
+:    <em class="replaceable"><code>summit-dir</code></em>/foobaz_help.po  <em class="replaceable"><code>devel-dir</code></em>/foobaz_help.po  <em class="replaceable"><code>stable-dir</code></em>/foobaz.po
+</pre></div>
 </div>
 <div class="sect1">
 <div class="titlepage">
@@ -679,6 +721,15 @@ $ ...
 </div>
 </div>
 </div>
+<div class="sect2">
+<div class="titlepage">
+<div>
+<div>
+<h3 class="title"><a name="sec-sucfgascf" id="sec-sucfgascf"></a>5.3.6.&nbsp;Filtering by Ascription on Scatter</h3>
+</div>
+</div>
+</div>
+</div>
 </div>
 <div class="sect1">
 <div class="titlepage">
@@ -692,10 +743,10 @@ $ ...
 <div class="footnotes"><br>
 <hr width="100" align="left">
 <div class="footnote">
-<p><sup>[<a name="ftn.id511272" href="#id511272" class="para" id="ftn.id511272">14</a>]</sup> One may think of relying upon the translation memory: translate only PO files from one branch, and batch-apply translation memory to PO files other branches, accepting only exact matches. This is dangerous, because short messages may need different translations in different PO files, resulting in hilarious mistranslations.</p>
+<p><sup>[<a name="ftn.id378118" href="#id378118" class="para" id="ftn.id378118">14</a>]</sup> One may think of relying upon the translation memory: translate only PO files from one branch, and batch-apply translation memory to PO files other branches, accepting only exact matches. This is dangerous, because short messages may need different translations in different PO files, resulting in hilarious mistranslations.</p>
 </div>
 <div class="footnote">
-<p><sup>[<a name="ftn.id496132" href="#id496132" class="para" id="ftn.id496132">15</a>]</sup> Unfortunatelly, the following common organization cannot be automatically supported:</p>
+<p><sup>[<a name="ftn.id407017" href="#id407017" class="para" id="ftn.id407017">15</a>]</sup> Unfortunatelly, the following common organization cannot be automatically supported:</p>
 <pre class="screen">
 path/to/devel/
     appfoo/
@@ -712,16 +763,16 @@ path/to/devel/
 </pre>
 The problem is that there is no way to determine domain names from the file tree alone, and that different handling would be required for sources which actually have multiple PO domains.</div>
 <div class="footnote">
-<p><sup>[<a name="ftn.id540215" href="#id540215" class="para" id="ftn.id540215">16</a>]</sup> New translations do not have to appear in branches only by mistake. For example, some external sources, which have been translated elsewhere, may be integrated into the project.</p>
+<p><sup>[<a name="ftn.id407068" href="#id407068" class="para" id="ftn.id407068">16</a>]</sup> New translations do not have to appear in branches only by mistake. For example, some external sources, which have been translated elsewhere, may be integrated into the project.</p>
 </div>
 <div class="footnote">
-<p><sup>[<a name="ftn.id497684" href="#id497684" class="para" id="ftn.id497684">17</a>]</sup> More precisely, if there are two same-name PO domains inside one branch, they will both be gathered into the same summit PO file. The assumption is that PO files with same domain names have mostly common messages.</p>
+<p><sup>[<a name="ftn.id364534" href="#id364534" class="para" id="ftn.id364534">17</a>]</sup> More precisely, if there are two same-name PO domains inside one branch, they will both be gathered into the same summit PO file. The assumption is that PO files with same domain names have mostly common messages.</p>
 </div>
 <div class="footnote">
-<p><sup>[<a name="ftn.id532410" href="#id532410" class="para" id="ftn.id532410">18</a>]</sup> It can be changed by assigning another string to <code class="literal">S.templates_lang</code>.</p>
+<p><sup>[<a name="ftn.id373428" href="#id373428" class="para" id="ftn.id373428">18</a>]</sup> It can be changed by assigning another string to <code class="literal">S.templates_lang</code>.</p>
 </div>
 <div class="footnote">
-<p><sup>[<a name="ftn.id537219" href="#id537219" class="para" id="ftn.id537219">19</a>]</sup> One could also skip this and allow immediate loss of translations, and rely on the translation memory when later translating new PO files. But, especially in centralized summit maintenance, it is better to make things right early. Also, translation memory matches may not be as reliable, since they come not only from the original PO file, but from all PO files in the project.</p>
+<p><sup>[<a name="ftn.id442158" href="#id442158" class="para" id="ftn.id442158">19</a>]</sup> One could also skip this and allow immediate loss of translations, and rely on the translation memory when later translating new PO files. But, especially in centralized summit maintenance, it is better to make things right early. Also, translation memory matches may not be as reliable, since they come not only from the original PO file, but from all PO files in the project.</p>
 </div>
 </div>
 </div>
