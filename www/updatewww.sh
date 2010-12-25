@@ -1,5 +1,7 @@
 #!/bin/sh
 
+cd $(dirname $0)
+
 mkdir tmpwww
 mkdir tmpwww/doc
 ln -s ../../../doc/user/html tmpwww/doc/user
