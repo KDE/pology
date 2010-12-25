@@ -71,7 +71,13 @@ hint="«в течении» -- разве что «в течении реки»"
 hint="«overwrite» переводится как «заменить»"
 
 [настройки]i
+valid after="параметры "
+valid after="сценарий "
+valid after="ошибка "
+valid after="диалога "
+valid after="диалог "
 valid after="модуля "
+valid after="модуле "
 valid after="возможности "
 valid after="модуль "
 valid after="модули "
@@ -124,7 +130,7 @@ hint="орфография (правильно: мозаика, родитель
 [фаил]i
 hint="орфография"
 
-[пл[еэ]й]i
+[пл[еэ]йл]i
 hint="playlist -- список воспроизведения"
 
 [e-?mail]i
@@ -138,8 +144,8 @@ hint="'неподписанный' -- слитно (чаще всего)"
 [не зашифрованн]i
 hint="'незашифрованный' -- слитно (чаще всего)"
 
-[[а-я]</p>]i
-hint="В конце предложения должна быть точка."
+#[[а-я]</p>]i
+#hint="В конце предложения должна быть точка."
 
 [,[а-я]]i
 valid msgid="^Your names$"
@@ -153,9 +159,12 @@ valid after="href=\""
 valid after="%\^&-\+@~" # list of chars
 valid after="            " # command-line option description
 valid before="okular" # IRC channel
+valid before="dragonplayer" # IRC channel
+valid before="amarok" # IRC channels
 valid before="kde-bugs" # IRC channel
-valid msgstr="color:#"
-valid msgstr="«#»"
+valid after="color:"
+valid after="color=\""
+valid msgstr="«#»" # FIXME: "before" or "after"?
 hint="заменить на '№'?"
 
 [\bне не\b]i
@@ -181,6 +190,7 @@ hint="мышью"
 hint="мыши"
 
 [икон]
+valid before="ечный"
 hint="icon -- значок"
 
 [быстрых клав]
@@ -198,6 +208,15 @@ hint="click -- щёлкнуть"
 [аккаунт]i
 hint="account -- учётная запись, счёт (но только если счёт в банке)"
 
-[отметьте, что]i
+[отметьте, что\b]i
+hint="не по-русски"
+
+[полноэкранный]i
+valid before=" режим"
+
+[удобство в KDE]i
+hint="wrong translation of 'accessibility'"
+
+[проверьте вашу установку]i
 hint="не по-русски"
 
