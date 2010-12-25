@@ -32,6 +32,698 @@
 </div>
 </div>
 </div>
+<p>Computer programs (though not only them) are sometimes concurrently developed and released from several <span class="emphasis"><em>branches</em></span>. For example, there may be one "stable" branch, which sees only small fixes and from which periodical releases are made, and another, "development" branch, which undergoes larger changes and may or may not be periodically released as well; at one point, the development branch will become the new stable branch, and the old stable branch will be abandoned. There may also be more than two branches which see active work, such as "development", "stable", and "old stable".</p>
+<p>From programmers' point of view, working by branches can be very convenient. They can freely experiment with new features in the development branch, without having to wory that they will mess something up in the stable branch, from which periodical releases are made. In the stable branch they may fix some bugs discovered between the releases, or carry over some important and well-tested features from the development branch. For users who want to be on the cutting edge, they may provide experimental releases from the development branch.</p>
+<p>For translators, however, having to deal with different branches of the same collection of PO files is rarely a convenience. It is text to be translated just as any, only duplicated across two or more file hierarchies. This means that translators additionaly have to think about how to make sure that new and modified translations made in one branch appear in other branches too. It gets particularly ugly if there are mismatches in PO file collections in different branches, like when a PO file is renamed, split into two or more PO files, or merged into another PO file.<sup>[<a name="id511272" href="#ftn.id511272" class="footnote" id="id511272">14</a>]</sup> Sometimes this branch juggling is not necessary; in strict two-branch setting, translators may choose to work only on the stable branch, and switch to the next stable branch when it gets created (or switch to the development branch shortly before it becomes stable). Even so, branch switching may not go very smooth in presence of mismatches in PO file collections.</p>
+<p>Instead, for translators the most convenient would be to work on a single, "supercollection" of PO files, from which new and modified translations would be automatically periodically sent to appropriate PO files in branches. Such a supercollection can be created and maintained by Pology's <span class="command"><strong>posummit</strong></span> script. In terms of this script, the supercollection is called the <span class="emphasis"><em>summit</em></span>, the operation of creating and updating it is called <span class="emphasis"><em>gathering</em></span>, and the operation of filling out branch PO files is called <span class="emphasis"><em>scattering</em></span>.</p>
+<p>How do summit PO files look like? When all branches contain the same PO file, then the counterpart summit PO file is simply the union of all messages from branch PO files. A message in the summit PO file differs from branch messages only by having the special <code class="literal">#. +&gt; ...</code> comment, which lists the branches that contain this message. If there would be two branches, named with <code class="literal">devel</code> and <code class="literal">stable</code> keywords, an excerpt from a summit PO file could be:</p>
+<pre class="programlisting">
+#. +&gt; devel
+#: kdeui/jobs/kwidgetjobtracker.cpp:469
+msgctxt "the destination URL of a job"
+msgid "Destination:"
+msgstr ""
+
+#. +&gt; stable
+#: kdeui/jobs/kwidgetjobtracker.cpp:469
+msgid "Destination:"
+msgstr ""
+
+#. +&gt; devel stable
+#: kdeui/jobs/kwidgetjobtracker.cpp:517
+msgid "Keep this window open after transfer is complete"
+msgstr ""
+</pre>
+<p>The first message above exists only in the development branch, the second only in the stable branch, and the third in both branches. The source reference always refers to the source file in the first listed branch. Any other extracted comments (<code class="literal">#.</code>) are also taken from the first listed branch.</p>
+<p>Note that the first two messages are different only by context. The context was added in development branch, but not in stable, probably in order not to break the message freeze. However, due to special ordering of messages in summit PO files, these two messages appear together, allowing the translator to immediately make the correction in stable branch too if the new context in development branch shows it to be necessary.</p>
+<p>When a PO file from one branch has a different name in another branch, or several PO files from one branch are represented with a single PO file in another branch, the summit can still handle it gracefully, by manually <span class="emphasis"><em>mapping</em></span> branch PO files to summit PO files. One branch PO file can be mapped to one or more summit PO files, and several branch PO files can be mapped to one summit PO file. Usually, but not necessarily, one branch (e.g. the development branch) is taken as reference for the summit file organization, and stray PO files from other branches are mapped accordingly.</p>
+<p>If a team of translators works in the summit, it is sufficient that one team member (and possibly another one as backup) manages the summit. After the initial setup, this team member should periodically run <span class="command"><strong>posummit</strong></span> to update summit and branch PO files. All other team members can simply translate the summit PO files, oblivious of any summit operations behind the scenes. It is also possible that team members perform summit operations on their own, on a subset of PO files that they are about to work on. It is up to the team to agree upon the most convenient workflow.</p>
+<div class="sect1">
+<div class="titlepage">
+<div>
+<div>
+<h2 class="title" style="clear: both"><a name="sec-susetup" id="sec-susetup"></a>5.1.&nbsp;Setting Up The Summit</h2>
+</div>
+</div>
+</div>
+<p>There are two major parts in setting up the summit: linking locations and organization of PO files in the branches to that of the summit, and deciding what summit <span class="emphasis"><em>mode</em></span> will be used.</p>
+<p>Great flexibility is possible in linking branches to the summit, but at the expense of possibly heavy configuring. To make it simpler, currently there are two types of branch organization which can be handled automatically, just by specifying a few paths and options. In the <span class="emphasis"><em>by-language</em></span> branch organization, PO files in branches are grouped by language and their file names reflect their domain names:</p>
+<pre class="screen">
+devel/                  # development branch
+    aa/                 # language A
+        alpha.po
+        bravo.po
+        charlie.po
+        ...
+    bb/                 # language B
+        alpha.po
+        bravo.po
+        charlie.po
+        ...
+    ...
+    templates/          # templates
+        alpha.pot
+        bravo.pot
+        charlie.pot
+        ...
+stable/                 # stable branch
+    aa/
+        ...
+    bb/
+        ...
+    templates/
+        ...
+...
+</pre>
+<p>The other organization that can be automatically handled is <span class="emphasis"><em>by-domain</em></span>:</p>
+<pre class="screen">
+devel/                  # development branch
+    alpha/              # domain alpha
+        aa.po           # language A
+        bb.po           # language B
+        ...
+        alpha.pot       # template
+    bravo/
+        aa.po
+        bb.po
+        ...
+        bravo.pot
+    charlie/
+        aa.po
+        bb.po
+        ...
+        charlie.pot
+    ...
+stable/                 # stable branch
+    alpha/
+        ...
+    bravo/
+        ...
+    charlie/
+        ...
+...
+</pre>
+<p>In both organizations, there can be any number of subdirectories in the middle, between the branch top directory and directory where PO files are. For example, in by-language organization there could be some categorization:</p>
+<pre class="screen">
+path/to/devel/
+    aa/
+        utilities/
+            alpha.po
+            bravo.po
+            ...
+        games/
+            charlie.po
+            ...
+    bb/
+        ...
+</pre>
+<p>while in by-domain categorization the domain directories could be within their respective sources<sup>[<a name="id496132" href="#ftn.id496132" class="footnote" id="id496132">15</a>]</sup>:</p>
+<pre class="screen">
+devel/
+    appfoo/
+        src/
+        doc/
+        po/
+            foo/
+                aa.po
+                bb.po
+                ...
+                foo.pot
+            libfoo/
+                aa.po
+                bb.po
+                ...
+                libfoo.pot
+        ...
+    appbar/
+        ...
+</pre>
+<p>There are three possible summit modes: direct summit, summit over dynamic templates, and summit over static templates. In the <span class="emphasis"><em>direct summit</em></span>, only branch PO files are processed, that is new and modifed messages are gathered from them and summit translations scattered to them. In <span class="emphasis"><em>summit over dynamic templates</em></span>, messages from branch PO files are gathered only once, at creation of the summit; after that, it is branch templates (POT files) that are gathered into summit templates, and then summit PO files are merged with them. Summit templates are not actually seen, but are gathered internally when merging command is issued and removed after merging is done. <span class="emphasis"><em>Summit over static templates</em></span> is quite the same, except that summit templates are explicitly gathered and kept around, and merging is done separately.</p>
+<p>What is the reason for having three summit modes to choose from? Direct summit mode is there because it is the easiest to explain and understand, and does not require that branches contain templates. It is however not recommended, for two reasons. Firstly, someone may mistakenly translate directly in a branch<sup>[<a name="id540215" href="#ftn.id540215" class="footnote" id="id540215">16</a>]</sup>, and those translations may be silently gathered into the summit. This is bad for quality control (review, etc.), as it is expected that the summit is the sole source of translations. Secondly, you may want to perform some automatic modifications on translation when scattering, but not to get those modifications back into the summit on gathering, which would happen with direct summit. These issues are avoided by using summit over dynamic templates, though now branches must provide templates. Finally, summmit over static templates makes sense when several language teams share the summit setup: since gathering is the most complicated operation and sometimes requires manual intervention, it can be done once (by one person) on summit templates, while language teams can then merge and scatter their summits in a fully automatic fashion.</p>
+<p>There is one important design decisions which holds for all summit modes: all summit PO files must be <span class="strong"><strong>unique by domain name</strong></span> (i.e. base file name without extension), even if they are in different subdirectories within the summit top directory. This in turn means that in automatically supported branch organizations (by-domain and by-language) PO domains should be unique as well.<sup>[<a name="id497684" href="#ftn.id497684" class="footnote" id="id497684">17</a>]</sup> This was done for two reasons. Less importantly, it is convenient to be able to identify a summit PO file simply by its domain name rather than the full path (especially in some <span class="command"><strong>posummit</strong></span> invocations). More importantly, uniqueness of domain names allows that PO files are located in different subdirectories between different branches. This happens, for example, in large projects in which code moves between modules. If branches do not satisfy this property, i.e. they contain same-name PO domains with totally different content, it is necessary to define a path transformation (described later) which will produce unique domain names with respect to the summit.</p>
+<p>The following sections describe how to set up each of the modes, in each of the outlined branch organizations. They should be read in turn up to the mode that you want to use, because they build upon each other.</p>
+<div class="sect2">
+<div class="titlepage">
+<div>
+<div>
+<h3 class="title"><a name="sec-sustpdirect" id="sec-sustpdirect"></a>5.1.1.&nbsp;Setting Up Direct Summit</h3>
+</div>
+</div>
+</div>
+<p>Let us assume that branches are organized by-language, that branch top directories are in the same parent directory, and that you want the summit top directory to be on the level of branch parent directory. That is:</p>
+<pre class="screen">
+branches/
+    devel-aa/
+        alpha.po
+        bravo.po
+        ...
+    stable-aa/
+        alpha.po
+        bravo.po
+        ...
+summit-aa/
+    alpha.po
+    bravo.po
+    ...
+    summit-config
+</pre>
+<p><code class="literal">aa</code> is the language code, which can be added for clarity, but is not necessary. It could also be a subdirectory, as in <code class="filename">branches/devel/aa</code> and <code class="filename">summit/aa</code>. At start you have the <code class="filename">branches/</code> directory ready; now you create the <code class="filename">summit-aa/</code> directory, and within it the summit configuration file <code class="filename">summit-config</code> with the following content:</p>
+<pre class="programlisting">
+S.lang = "aa"
+
+S.summit = dict(
+    topdir=S.relpath("."),
+)
+
+S.branches = [
+    dict(id="devel",
+         topdir=S.relpath("../branches/devel-aa")),
+    dict(id="stable",
+         topdir=S.relpath("../branches/stable-aa")),
+    # ...and any other branches.
+]
+
+S.mappings = [
+]
+</pre>
+<p>This is all that is necessary to set up a direct summit. The configuration file must be named exactly <code class="filename">summit-config</code>, because <span class="command"><strong>posummit</strong></span> will look for a file named like that through parent directories and automatically pick it up. As you may have recognized, <code class="filename">summit-config</code> is actually a Python source file; <span class="command"><strong>posummit</strong></span> will insert the special <code class="literal">S</code> object when evaluating <code class="filename">summit-config</code>, and it is through this object that summit options are set. <code class="literal">S.lang</code> states the language code of the summit. <code class="literal">S.summit</code> is a Python dictionary that holds options for the summit PO files (here only its location, through <code class="literal">topdir=</code> key), while <code class="literal">S.branches</code> is a list of dictionaries, each specifying options per branch (here the branch identifier by <code class="literal">id=</code> key and top directory). The <code class="function">S.relpath</code> function is used to make file and directory paths relative to <code class="filename">summit-config</code> itself. <code class="literal">S.mappings</code> is a list of PO file mappings, for cases of splitting, mergings and renamings between branches. In this example <code class="literal">S.mappings</code> is set to empty only to point out its importance, but it does not need to be present if there are no mappings.</p>
+<p>If branches are organized by-domain, the summit tree will still look the same, with PO files named by domain rather than by language:</p>
+<pre class="screen">
+branches/
+    devel/
+        alpha/
+            aa.po
+            bb.po
+            ...
+        bravo/
+            aa.po
+            bb.po
+            ...
+        ...
+    stable/
+        alpha/
+            aa.po
+            bb.po
+            ...
+        bravo/
+            aa.po
+            bb.po
+            ...
+        ...
+summit-aa/
+    alpha.po
+    bravo.po
+    ...
+    summit-config
+</pre>
+<p>The only difference in the summit configuration is the addition of <code class="literal">by_lang=</code> keys into the branch dictionaries:</p>
+<pre class="screen">
+S.branches = [
+    dict(id="devel",
+         topdir=S.relpath("../branches/devel"),
+         by_lang=S.lang),
+    dict(id="stable",
+         topdir=S.relpath("../branches/stable"),
+         by_lang=S.lang),
+]
+</pre>
+<p>Presence of the <code class="literal">by_lang=</code> key signals that the branch is organized by-domain (i.e. PO files named by language), and the value is the language code within the branch. Normaly it is set to previously defined <code class="literal">S.lang</code>, but it can also be something else in case different codes are used between the branches or the branches and the summit.</p>
+<p>When the configuration file has been written, the summit can be gathered for the first time (i.e. summit PO files created):</p>
+<pre class="programlisting">
+$ cd .../summit-aa/
+$ posummit gather --create
+</pre>
+<p>The path of each created summit PO file will be written out, along with paths of branch PO files from which messages were gathered into the summit file. After the run is finished, the summit is ready for use.</p>
+<p>While this was sufficient to set up a summit, there is a miriyad of options available for specialized purposes, which will be presented throughout this chapter. Also, given that summit configuration file is Python code, you can add into it any scripting that you wish. Some summit options (defined through the <code class="literal">S</code> object) even take Python functions as values.</p>
+</div>
+<div class="sect2">
+<div class="titlepage">
+<div>
+<div>
+<h3 class="title"><a name="sec-sustpdyntpl" id="sec-sustpdyntpl"></a>5.1.2.&nbsp;Setting Up Summit over Dynamic Templates</h3>
+</div>
+</div>
+</div>
+<p>Again consider by-language organization of branches, similar to the direct summit example above, except that now template directories too must be present in branches:</p>
+<pre class="screen">
+branches/
+    devel/
+        aa/
+            alpha.po
+            bravo.po
+            ...
+        templates/
+            alpha.pot
+            bravo.pot
+            ...
+    stable/
+        aa/
+            alpha.po
+            bravo.po
+            ...
+        templates/
+            alpha.pot
+            bravo.pot
+            ...
+summit-aa/
+    alpha.po
+    bravo.po
+    ...
+    summit-config
+</pre>
+<p>Here the language PO files and templates are put in subdirectories within the branch directory only for convenience, but this is not mandatory. For example, language files could reside in <code class="filename">branches/devel-aa</code> and templates in <code class="filename">branches/devel-templates</code>, no path connection is required between the two. This is because the template path per branch is explicitly given in <code class="filename">summit-config</code>, which would look like this:</p>
+<pre class="programlisting">
+S.lang = "aa"
+S.over_templates = True
+
+S.summit = dict(
+    topdir=S.relpath("."),
+)
+
+S.branches = [
+    dict(id="devel",
+         topdir=S.relpath("../branches/devel/aa"),
+         topdir_templates=S.relpath("../branches/devel/templates")),
+    dict(id="stable",
+         topdir=S.relpath("../branches/stable/aa",
+         topdir_templates=S.relpath("../branches/stable/templates")),
+]
+
+S.mappings = [
+]
+</pre>
+<p>Compared to the configuration of a direct summit, two things are added here. <code class="literal">S.over_templates</code> option is set to <code class="literal">True</code> to indicate that summit over templates is used. The path to templates is set with <code class="literal">topdir_templates=</code> key for each branch.</p>
+<p>In by-domain branch organization, the directory tree looks just the same as for direct summit, except that each domain directory also contains the templates:</p>
+<pre class="screen">
+branches/
+    devel/
+        alpha/
+            aa.po
+            bb.po
+            ...
+            alpha.pot
+        bravo/
+            aa.po
+            bb.po
+            ...
+            bravo.pot
+        ...
+    stable/
+        alpha/
+            aa.po
+            bb.po
+            ...
+            alpha.pot
+        bravo/
+            aa.po
+            bb.po
+            ...
+            bravo.pot
+        ...
+summit-aa/
+    alpha.po
+    bravo.po
+    ...
+    summit-config
+</pre>
+<p>Summit configuration is modified in the same way as it was for the direct summit, by adding the <code class="literal">by_lang=</code> key to branch specifications:</p>
+<pre class="programlisting">
+S.branches = [
+    dict(id="devel",
+         topdir=S.relpath("../branches/devel/aa"),
+         topdir_templates=S.relpath("../branches/devel/templates"),
+         by_lang=S.lang),
+    dict(id="stable",
+         topdir=S.relpath("../branches/stable/aa",
+         topdir_templates=S.relpath("../branches/stable/templates"),
+         by_lang=S.lang),
+]
+</pre>
+<p>Initial gathering of the summit is done slightly differently compared to the direct summit:</p>
+<pre class="programlisting">
+$ cd .../summit-aa/
+$ posummit gather --create --force
+</pre>
+<p>The <code class="option">--force</code> option must be used here because, unlike in direct summit, explicit gathering is not regularly done in summit over dynamic templates.</p>
+</div>
+<div class="sect2">
+<div class="titlepage">
+<div>
+<div>
+<h3 class="title"><a name="sec-suststattpl" id="sec-suststattpl"></a>5.1.3.&nbsp;Setting Up Summit over Static Templates</h3>
+</div>
+</div>
+</div>
+<p>As mentioned earlier, summit over static templates can be used when several language teams want to share the summit setup, for the reasons of greater efficiency. The branch directory tree looks exactly the same as in summit over dynamic templates (with several languages being present), but the summit tree is somewhat different:</p>
+<pre class="screen">
+branches/
+    # as before, either by-language or by-domain
+summit/
+    summit-config-shared
+    aa/
+        alpha.po
+        bravo.po
+        ...
+    bb/
+        alpha.po
+        bravo.po
+        ...
+    templates/
+        alpha.pot
+        bravo.pot
+        ...
+</pre>
+<p>First of all, there is now the <code class="filename">summit/</code> directory which contains subdirectories by language (the language summits) and one subdirectory for summit templates (the template summit). Then, there is no more the <code class="filename">summit-config</code> file, but <code class="filename">summit-config-shared</code>; the name can actually be anything, so long as it is not exactly <code class="filename">summit-config</code>. This is in order to prevent <span class="command"><strong>posummit</strong></span> from automatically picking it up, as now the configuration is not tied to a single language summit. Instead, the path to the configuration file and the language code are explicitly given as arguments to <span class="command"><strong>posummit</strong></span>.</p>
+<p>The configuration file for by-language branches looks like this:</p>
+<pre class="programlisting">
+S.over_templates = True
+
+S.summit = dict(
+    topdir=S.relpath("%s" % S.lang),
+    topdir_templates=S.relpath("templates")),
+)
+
+S.branches = [
+    dict(id="devel",
+         topdir=S.relpath("../branches/devel/%s" % S.lang),
+         topdir_templates=S.relpath("../branches/devel/templates")),
+    dict(id="stable",
+         topdir=S.relpath("../branches/stable/%s" % S.lang,
+         topdir_templates=S.relpath("../branches/stable/templates")),
+]
+
+S.mappings = [
+]
+</pre>
+<p>Compared to summit over dynamic templates, here <code class="literal">S.lang</code> is no longer hardcoded in the configuration file, but set at each run of <span class="command"><strong>posummit</strong></span> through the command line. This means that paths of language directories too have to be dynamically adapted based on <code class="literal">S.lang</code>, hence the string interpolations <code class="literal">"...%s..." % S.lang</code>.</p>
+<p>For by-domain branches, again simply <code class="literal">by_lang=</code> keys are added to branches:</p>
+<pre class="programlisting">
+S.branches = [
+    dict(id="devel",
+         topdir=S.relpath("../branches/devel/%s" % S.lang),
+         topdir_templates=S.relpath("../branches/devel/templates"),
+         by_lang=S.lang),
+    dict(id="stable",
+         topdir=S.relpath("../branches/stable/%s" % S.lang,
+         topdir_templates=S.relpath("../branches/stable/templates"),
+         by_lang=S.lang),
+]
+</pre>
+<p>In summit over static templates mode, initital gathering is first done for summit templates, like this:</p>
+<pre class="programlisting">
+$ cd .../summit/
+$ posummit summit-config-shared templates gather --create
+</pre>
+<p>The first two arguments are now the path to the configuration file and the language code, where <code class="literal">templates</code> is the dummy language code for templates<sup>[<a name="id532410" href="#ftn.id532410" class="footnote" id="id532410">18</a>]</sup>. After this is finished, language summits can be gathered:</p>
+<pre class="programlisting">
+$ posummit summit-config-shared aa gather --create --force
+$ posummit summit-config-shared bb gather --create --force
+$ ...
+</pre>
+<p>Note that <code class="option">--force</code> was not needed when gathering templates, because in this mode the template summit is periodically gathered, while language summits are not.</p>
+</div>
+</div>
+<div class="sect1">
+<div class="titlepage">
+<div>
+<div>
+<h2 class="title" style="clear: both"><a name="sec-sumaintain" id="sec-sumaintain"></a>5.2.&nbsp;Maintaining the Summit</h2>
+</div>
+</div>
+</div>
+<p>From time to time, summit PO files need to be updated to reflect changes in branch PO files, and scattered so that branch PO files get new translations from the summit. How are summit PO files updated, by whom and in which amount, depends on the summit mode and the organization of the translation team. The same holds for when and by whom the scattering is done.</p>
+<div class="sect2">
+<div class="titlepage">
+<div>
+<div>
+<h3 class="title"><a name="sec-sumntbasic" id="sec-sumntbasic"></a>5.2.1.&nbsp;Centralized Summit Maintenance</h3>
+</div>
+</div>
+</div>
+<p>The usual maintenance procedure would be for one designated person (e.g. the team coordinator) to update all summit PO files and to scatter new translations to branch PO files, at certain periods of time agreed upon in the translation team.</p>
+<p>If there are no mismatches between the branch and summit PO files, the summit update procedure is fully automatic. How the summit is updated depends on the summit mode. In direct summit, the update is performed by gathering:</p>
+<pre class="programlisting">
+$ cd $SUMMITDIR
+$ posummit gather
+</pre>
+<p>In summit over dynamic templates, merging is performed instead:</p>
+<pre class="programlisting">
+$ cd $SUMMITDIR
+$ posummit merge
+</pre>
+<p>Finally, in summit over static templates, first the template summit is gathered, and then language summits are merged:</p>
+<pre class="programlisting">
+$ posummit $SOMEWHERE/summit-config-shared templates gather
+$ posummit $SOMEWHERE/summit-config-shared aa merge
+$ posummit $SOMEWHERE/summit-config-shared bb merge
+...
+</pre>
+<p>Note that unlike when setting up the summit, no <code class="option">--create</code> or <code class="option">--force</code> options are used. Without them, <span class="command"><strong>posummit</strong></span> will warn about any new mismatches between branches and the summit and abort the operation, leaving the user to examine the situation and take corrective measures. This is discussed in detail in section <a class="xref" href="ch-summit.html#sec-sumntmism" title="5.2.3.&nbsp;Handling Mismatches Between Branches and Summit">Section&nbsp;5.2.3, “Handling Mismatches Between Branches and Summit”</a>.</p>
+<p>Scattering to branches is always fully automatic. For direct summit and summit over dynamic templates it is performed with:</p>
+<pre class="programlisting">
+$ cd $SUMMITDIR
+$ posummit scatter
+</pre>
+<p>For summit over static templates, scattering is done for each language summit:</p>
+<pre class="programlisting">
+$ posummit $SOMEWHERE/summit-config-shared aa scatter
+$ posummit $SOMEWHERE/summit-config-shared bb scatter
+...
+</pre>
+<p>If summit update (merge, gather, or both, depending on the summit mode) is scheduled to run automatically, the maintainer should make sure to be notified when <span class="command"><strong>posummit</strong></span> aborts, so that mismatches can be promptly handled.</p>
+<p>The obvious advantage of this maintenance method is that other team members do not need to know anything about workings of the summit. They only fetch updated summit PO files, translate them, and submit them back. The disadvantage is that summit update may interfere with a particular translator who happened to be working on a PO file which just got updated in the repository, causing merge conflicts when he attempts to submit that PO file.</p>
+</div>
+<div class="sect2">
+<div class="titlepage">
+<div>
+<div>
+<h3 class="title"><a name="sec-sumntdistrib" id="sec-sumntdistrib"></a>5.2.2.&nbsp;Distributed Summit Maintenance</h3>
+</div>
+</div>
+</div>
+<p>In this maintenance mode, each team member performs summit operations on exactly the PO files that he wants to work on. This has the advantage over centralized maintenance in that translators do not interfere in each others work, as summit PO files get updated only at the request of the translator working on it. Additionally, it may provide faster gather(-merge)-scatter turnaround time. Unfortunately, the disadvantage is that now all team members have to know how the summit is maintained, so this method is likely applicable only to strongly technical teams.</p>
+<p>Distributed maintenance is in general the same as centralized, except that now all <span class="command"><strong>posummit</strong></span> command lines take extra arguments, namely the selection of PO files to operate on -- so called <span class="emphasis"><em>operation targets</em></span>. Operation targets can be given in two ways. One is directly by file or directory paths. For example, in summit over dynamic templates mode, when working on the <code class="filename">foobaz.po</code> file, the translator would use the following summit commands to merge it and scatter to the branches:</p>
+<pre class="programlisting">
+$ cd $SUMMITDIR
+$ posummit merge foosuite/foobaz.po
+$ # ...update the translation...
+$ posummit scatter foosuite/foobaz.po
+</pre>
+<p>To update all files in <code class="filename">foosuite/</code> subdirectory at once, the translator can execute instead:</p>
+<pre class="programlisting">
+$ cd $SUMMITDIR
+$ posummit merge foosuite/
+$ posummit scatter foosuite/
+</pre>
+<p>It is also possible to single out a particular branch for scattering, by giving the path to the PO file in that branch instead of the summit. To scatter <code class="filename">foobaz.po</code> only to <code class="literal">devel</code> branch, in by-language branch organization the translator would use:</p>
+<pre class="programlisting">
+$ posummit scatter $SOMEWHERE/devel/aa/foosuite/foobaz.po
+</pre>
+<p>and in by-domain branch organization:</p>
+<pre class="programlisting">
+$ posummit scatter $SOMEWHERE/devel/foosuite/foobaz/po/foobaz/aa.po
+</pre>
+<p>Note that the current working directory still has to be within the summit directory, so that <span class="command"><strong>posummit</strong></span> can find the summit configuration file. (This requirement is not present for summit over static templates, as there the path to configuration file is given in command line.)</p>
+<p>The other kind of operation targets are PO domain names and subdirectory names alone. In this formulation, the first example above could be replaced with:</p>
+<pre class="programlisting">
+$ posummit merge foobaz
+$ posummit scatter foobaz
+</pre>
+<p>Since all summit PO file names are unique, this is sufficient information for <span class="command"><strong>posummit</strong></span> to know what it should operate on. To limit operation to a certain branch, the branch name is added in front of the domain names, separated by a colon. To scatter <code class="filename">foobaz.po</code> to <code class="literal">devel</code> branch:</p>
+<pre class="programlisting">
+$ posummit scatter devel:foobaz
+</pre>
+<p>and to scatter the complete <code class="filename">foosuite/</code> subdirectory to the same branch:</p>
+<pre class="programlisting">
+$ posummit scatter devel:foosuite/
+</pre>
+<p>Note that trailing slash is significant here, since otherwise the argument would be interpreted as single PO file (<span class="command"><strong>posummit</strong></span> would exit with an error, reporting that such a file does not exist).</p>
+<p>When merging (or gathering in direct summit mode) is attempted, <span class="command"><strong>posummit</strong></span> may abort with the report of mismatches between branches and the summit, as described in section <a class="xref" href="ch-summit.html#sec-sumntmism" title="5.2.3.&nbsp;Handling Mismatches Between Branches and Summit">Section&nbsp;5.2.3, “Handling Mismatches Between Branches and Summit”</a>. The translator must then make the adjustments, or report it to someone else to handle.</p>
+<p>After selected summit and branch PO files have been updated, the translator can commit them. Alternatively, a half-distributed workflow could be used, where translators only update and commit summit PO files, while scattering to branches is centralized, and automatically performed at a given period. This makes sense because the scattering in no way interferes with translators' workflow and never needs any manual intervention.</p>
+</div>
+<div class="sect2">
+<div class="titlepage">
+<div>
+<div>
+<h3 class="title"><a name="sec-sumntmism" id="sec-sumntmism"></a>5.2.3.&nbsp;Handling Mismatches Between Branches and Summit</h3>
+</div>
+</div>
+</div>
+<p>When something changes in the PO file tree in one of the branches, <span class="command"><strong>posummit</strong></span> will by default abort gathering (or merging in summit over dynamic templates), and present a list of its findings. At this point <span class="command"><strong>posummit</strong></span> could be made to continue by issuing the <code class="option">--create</code> option, but then it will resolve mismatches in a simplistic way, which will be wrong in many cases. Instead, you should examine what had happened in branches, possibly manually perform some operations on summit PO files and possibly add some branch-to-summit mappings, and rerun <span class="command"><strong>posummit</strong></span> after the necessary adjustments have been made.</p>
+<p>Typical mismatches and their remedies are as follows:</p>
+<div class="variablelist">
+<dl>
+<dt><span class="term">A branch PO file has been moved to another subdirectory (<span class="emphasis"><em>moving</em></span>).</span></dt>
+<dd>
+<p>In a translation project with modules represented by subdirectories, it may happen that a program or a library is moved from one module to another, with its PO files following the move. If this happened in all branches, <span class="command"><strong>posummit</strong></span> will report that the summit PO file should be moved as well; it can be rerun with <code class="option">--create</code> to do the move itself, or you can make the move manually. If the move happened in only one of the branches, <span class="command"><strong>posummit</strong></span> will not complain at all; more precisely, if at least one branch PO file is in same relative subdirectory as the summit PO file, it is not considered a mismatch.</p>
+</dd>
+<dt><span class="term">A totally new branch PO file has been added (<span class="emphasis"><em>addition</em></span>).</span></dt>
+<dd>
+<p>When a piece of software appears (created or imported) in the project, its PO files will appear with it. These PO files are "totally" new, in the sense that they are not derived from any existing PO file. In this case, <span class="command"><strong>posummit</strong></span> will report that new branch PO files have no corresponding summit PO files, and expected paths of the missing summit PO files. After having checked that the branch PO files are indeed totally new, you can rerun <span class="command"><strong>posummit</strong></span> with <code class="option">--create</code>, or manually copy branch PO files to expected summit paths (they will be equipped with summit-specific information when <span class="command"><strong>posummit</strong></span> rolls over them).</p>
+</dd>
+<dt><span class="term">A branch PO file has been removed (<span class="emphasis"><em>removal</em></span>).</span></dt>
+<dd>
+<p>A piece of software may be removed from the project (not maintained any more, moved to another project), which will cause its PO files to disappear. <span class="command"><strong>posummit</strong></span> will then report that some summit PO files have no corresponding branch PO files. You should check that branch PO files have indeed been simply removed, and then rerun <span class="command"><strong>posummit</strong></span> with <code class="option">--create</code>, or manually remove summit PO files.</p>
+</dd>
+<dt><span class="term">A branch PO file has been renamed (<span class="emphasis"><em>renaming</em></span>).</span></dt>
+<dd>
+<p>When, for example, a program changes its name, normally its PO file will be renamed as well. What will happen in this case is that <span class="command"><strong>posummit</strong></span> will report two problems: a branch PO file without corresponding summit PO file (new name), and a summit PO file without any corresponding branch PO files (old name). When you realize that the cause of these paired reports is indeed renaming (they could also be an unrelated addition and removal), you must rename the summit PO file manually. Note that if you had not done this and issued <code class="option">--create</code> option instead, the existing summit PO file would have been removed, and an empty one with the new name created -- definitely not what was desired.</p>
+<p>A more complicated case of renaming is when the name is changed in only one branch. <span class="command"><strong>posummit</strong></span> then reports only the branch PO file with the new name as having no summit PO file, since the existing summit PO file matches non-renamed branch PO files. In this case, the usual correction is to rename the summit PO file to new name and map old names from other branches to the new name. If <code class="filename">foobaz.po</code> was renamed to <code class="filename">fooqwyx.po</code> in <code class="literal">devel</code> branch, but kept its name in <code class="literal">stable</code>, then the mapping in the summit configuration file would be:</p>
+<pre class="programlisting">
+S.mappings = [
+    ...
+    ("stable", "foobaz", "fooqwyx"),
+    ...
+]
+</pre>
+<p>Each mapping entry is a sequence of strings in parenthesis. The first string is the branch name, the second string is the domain name of the PO file in that branch, and the third string the domain name of the PO file in summit. When you add this mapping (and rename summit <code class="filename">foobaz.po</code> to <code class="filename">fooqwyx.po</code>), you can rerun <span class="command"><strong>posummit</strong></span>.</p>
+<p>If the summit is over static templates, i.e. there are separate template and language summits, then renamings should be done in all of them.</p>
+</dd>
+<dt><span class="term">A branch PO file has been split into several files (<span class="emphasis"><em>splitting</em></span>).</span></dt>
+<dd>
+<p>If a single PO file becomes very big, it may be split into several smaller files by categories of messages (e.g. UI and help texts). A program may also be modularized, when the factored modules may take over part of the messages from the main PO file into their own PO files. Either way, <span class="command"><strong>posummit</strong></span> will again simply report that some new branch PO files have appeared and possibly some disappeared, and you recognize that the cause of this is a splitting. Splitting typically happens in the newest branch, but not in older branches. You should then make the same split in summit PO files and map the monolithic PO file from older branches to the newly split summit files. For example, if <code class="filename">foobaz.po</code> in <code class="literal">devel</code> branch got split into <code class="filename">foobaz.po</code> (of reduced size), <code class="filename">libfoobaz.po</code>, and <code class="filename">foobaz_help.po</code>, the mapping for the old monolithic PO file in the <code class="literal">stable</code> branch would be:</p>
+<pre class="programlisting">
+S.mappings = [
+    ...
+    ("stable", "foobaz", "foobaz", "libfoobaz", "foobaz_help"),
+    ...
+]
+</pre>
+<p>The first string in the mapping is the branch name, the second string is the PO domain name in that branch, and all following strings are the new summit PO domain names which contain part of original messages. The order of summit PO domains is somewhat important: if a message exists only in the monolithic PO file in the <code class="literal">stable</code> branch and not in split PO files in <code class="literal">devel</code> branch, and summit heuristics detects no appropriate insertion point into one of the summit PO files, that message will be added to the end of the first summit PO file listed.</p>
+<p>"Making the same split in summit" deserves some special attention. For the templates summit (which exists in summit over static templates), this simply means adding any new files and removing old ones (<span class="command"><strong>posummit</strong></span> will do that itself if run with <code class="option">--create</code>). But for language summits, you should manually copy the original summit PO file to each new name in turn, and then perform gather (direct summit) or merge (summit over templates). In this way no translated messages will be lost in the split.<sup>[<a name="id537219" href="#ftn.id537219" class="footnote" id="id537219">19</a>]</sup></p>
+</dd>
+<dt><span class="term">Several branch PO files have been merged into one (<span class="emphasis"><em>merging</em></span>).</span></dt>
+<dd>
+<p>Sometimes formerly independent pieces of software are joined into a single package, for more effective maintenance and release. This can happen, for example, when selected plugins are taken into the host program distribution as "core plugins". Their separate PO files may then be merged into a single new PO file, or into an existing PO file. Like in the opposite case of splitting, <span class="command"><strong>posummit</strong></span> will simply report that some summit PO files no longer have branch counterparts, and possibly that a new branch PO file has appeared. This usually happens in the newest branch first, while older branches retain the separation. Then the same merging should be done in summit too, and mappings added for each of the old separate PO files in other branches. If <code class="filename">foobaz_info.po</code>, <code class="filename">foobaz_backup.po</code>, and <code class="filename">foobaz_filters.po</code> have been merged into existing <code class="filename">foobaz.po</code> in <code class="literal">devel</code> branch, the following mappings for the <code class="literal">stable</code> branch should be added:</p>
+<pre class="programlisting">
+S.mappings = [
+    ...
+    ("stable", "foobaz_info", "foobaz"),
+    ("stable", "foobaz_backup", "foobaz"),
+    ("stable", "foobaz_filters", "foobaz"),
+    ...
+]
+</pre>
+<p>As for making the same merge in the summit, for templates summit (in summit over static templates) you should manually remove old separate files and possibly add the new monolithic one, or run <span class="command"><strong>posummit</strong></span> with <code class="option">--create</code>. In language summits, in order to retain all existing translations, you should manually concatenate separate files into one (using Gettext's <span class="command"><strong>msgcat</strong></span>) and then perform gather (direct summit) or merge (summit over templates).</p>
+</dd>
+<dt><span class="term">A language branch PO file has appeared in summit over templates (<span class="emphasis"><em>injection</em></span>).</span></dt>
+<dd>
+<p>In summit over templates modes (dynamic or static), the normal way for a language summit PO file to appear is by starting from a clean template, and the corresponding branch PO file is then created on scatter. However, when a program previously developed elsewhere is imported into the project, its PO files are imported too. This will lead to the situation where there are translated branch PO files with no corresponding language summit PO files. This is corrected by forced gathering of the "injected" branch PO file. If the injected file is <code class="filename">alien.po</code>, in summit over dynamic templates you would execute:</p>
+<pre class="programlisting">
+$ cd $SUMMITDIR
+$ posummit gather --create --force alien
+</pre>
+<p>and in summit over static templates:</p>
+<pre class="programlisting">
+$ posummit $SOMEWHERE/summit-config-shared aa gather --create --force alien
+$ posummit $SOMEWHERE/summit-config-shared bb gather --create --force alien
+$ ...
+</pre>
+<p>The <code class="option">--force</code> option is necessary because, in summit over template modes, language summit PO files are normally gathered just once when the summit is created, and later only merged.</p>
+</dd>
+</dl>
+</div>
+<p>Important thing to note about mismatches is that reports produced by <span class="command"><strong>posummit</strong></span> may be misleading, especially in more complicated situations (splitting, merging). This means that you must carefully examine what has actually happened, not based only on the branch file trees themselves, but also by keeping an eye on channels (e.g. mailing lists) where information for translators is most likely to appear.</p>
+</div>
+</div>
+<div class="sect1">
+<div class="titlepage">
+<div>
+<div>
+<h2 class="title" style="clear: both"><a name="sec-suconfig" id="sec-suconfig"></a>5.3.&nbsp;Elements of Summit Configuration</h2>
+</div>
+</div>
+</div>
+<div class="sect2">
+<div class="titlepage">
+<div>
+<div>
+<h3 class="title"><a name="sec-sucfghooks" id="sec-sucfghooks"></a>5.3.1.&nbsp;Summit Hooks</h3>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<div class="titlepage">
+<div>
+<div>
+<h3 class="title"><a name="sec-sucfgviv" id="sec-sucfgviv"></a>5.3.2.&nbsp;Vivification of Summit PO Files</h3>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<div class="titlepage">
+<div>
+<div>
+<h3 class="title"><a name="sec-sucfgbmrg" id="sec-sucfgbmrg"></a>5.3.3.&nbsp;Merging in Branches</h3>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<div class="titlepage">
+<div>
+<div>
+<h3 class="title"><a name="sec-sucfgbonmrg" id="sec-sucfgbonmrg"></a>5.3.4.&nbsp;Additional Merging Options</h3>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<div class="titlepage">
+<div>
+<div>
+<h3 class="title"><a name="sec-sucfgbonsct" id="sec-sucfgbonsct"></a>5.3.5.&nbsp;Additional Scattering Options</h3>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<div class="titlepage">
+<div>
+<div>
+<h2 class="title" style="clear: both"><a name="sec-suproblems" id="sec-suproblems"></a>5.4.&nbsp;Disadvantages to Summit Workflow and Remedies</h2>
+</div>
+</div>
+</div>
+</div>
+<div class="footnotes"><br>
+<hr width="100" align="left">
+<div class="footnote">
+<p><sup>[<a name="ftn.id511272" href="#id511272" class="para" id="ftn.id511272">14</a>]</sup> One may think of relying upon the translation memory: translate only PO files from one branch, and batch-apply translation memory to PO files other branches, accepting only exact matches. This is dangerous, because short messages may need different translations in different PO files, resulting in hilarious mistranslations.</p>
+</div>
+<div class="footnote">
+<p><sup>[<a name="ftn.id496132" href="#id496132" class="para" id="ftn.id496132">15</a>]</sup> Unfortunatelly, the following common organization cannot be automatically supported:</p>
+<pre class="screen">
+path/to/devel/
+    appfoo/
+        src/
+        doc/
+        po/
+            aa.po
+            bb.po
+            ...
+            # no template!
+        ...
+    appbar/
+        ...
+</pre>
+The problem is that there is no way to determine domain names from the file tree alone, and that different handling would be required for sources which actually have multiple PO domains.</div>
+<div class="footnote">
+<p><sup>[<a name="ftn.id540215" href="#id540215" class="para" id="ftn.id540215">16</a>]</sup> New translations do not have to appear in branches only by mistake. For example, some external sources, which have been translated elsewhere, may be integrated into the project.</p>
+</div>
+<div class="footnote">
+<p><sup>[<a name="ftn.id497684" href="#id497684" class="para" id="ftn.id497684">17</a>]</sup> More precisely, if there are two same-name PO domains inside one branch, they will both be gathered into the same summit PO file. The assumption is that PO files with same domain names have mostly common messages.</p>
+</div>
+<div class="footnote">
+<p><sup>[<a name="ftn.id532410" href="#id532410" class="para" id="ftn.id532410">18</a>]</sup> It can be changed by assigning another string to <code class="literal">S.templates_lang</code>.</p>
+</div>
+<div class="footnote">
+<p><sup>[<a name="ftn.id537219" href="#id537219" class="para" id="ftn.id537219">19</a>]</sup> One could also skip this and allow immediate loss of translations, and rely on the translation memory when later translating new PO files. But, especially in centralized summit maintenance, it is better to make things right early. Also, translation memory matches may not be as reliable, since they come not only from the original PO file, but from all PO files in the project.</p>
+</div>
+</div>
 </div>
 <div class="navfooter">
 <hr>
