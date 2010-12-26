@@ -81,6 +81,7 @@ hint="«overwrite» переводится как «заменить»"
 valid after="изменения "
 valid after="программу "
 valid after="окне "
+valid after="окна "
 valid after="файл "
 valid after="вашей "
 valid after="параметры "
@@ -187,9 +188,9 @@ hint="заменить на '№'?"
 [\bне не\b]i
 hint="Двойное 'не' (опечатка?)"
 
-*msgid/tooltip/i
-valid msgstr="сплывающ"
-hint="tooltip -- всплывающая подсказка"
+#*msgid/tooltip/i
+#valid msgstr="сплывающ"
+#hint="tooltip -- всплывающая подсказка"
 
 [для отправления]i
 hint="'для отправки'?"
