@@ -78,6 +78,9 @@ hint="«в течении» -- разве что «в течении реки»"
 hint="«overwrite» переводится как «заменить»"
 
 [настройки]i
+valid after="изменения "
+valid after="программу "
+valid after="окне "
 valid after="файл "
 valid after="вашей "
 valid after="параметры "
@@ -176,6 +179,8 @@ valid after="color:"
 valid after="color=\""
 valid after="bgcolor="
 valid after="href=\"[a-z]+"
+valid msgid="New name #" msgstr="Объект #" cat="dolphin" # '#' is hardcoded in Dolphin
+valid msgid="\(# will be replaced by ascending numbers\)" msgstr="\(символ # будет заменён порядковым номером\)" cat="dolphin" # '#' is hardcoded in Dolphin
 valid msgstr="«#»" # FIXME: "before" or "after"?
 hint="заменить на '№'?"
 
@@ -223,8 +228,8 @@ hint="account -- учётная запись, счёт (но только есл
 [отметьте, что\b]i
 hint="не по-русски"
 
-[полноэкранный]i
-valid before=" режим"
+#[полноэкранный]i
+#valid before=" режим"
 
 [удобство в KDE]i
 hint="wrong translation of 'accessibility'"
@@ -240,4 +245,13 @@ hint="Рядом стоят русская и латинская буквы"
 
 [[a-z][а-я]]i
 hint="Рядом стоят латинская и русская буквы"
+
+[\(c\)]i
+hint="Используйте специальный символ ©"
+
+[copyright]i
+hint="Используйте специальный символ ©"
+
+[\bне могу\b]i
+hint="-> 'не удалось'"
 
