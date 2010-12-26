@@ -15,6 +15,11 @@ hint="-> Слова аудио... пишутся слитно"
 valid before="-"
 hint="-> Слово Интернет пишется с заглавной буквы"
 
+[Интернет]
+valid !before="-"
+valid after="^"
+hint="В слова \"интернет-...\" пишутся со строчной буквы"
+
 *msgid/^(Current )?Maintainer$/i
 valid msgstr="^Сопровождающий$"
 hint="Maintainer -- Сопровождающий"
@@ -26,6 +31,7 @@ valid msgid="Drag&Drop"
 valid msgid="R&B"
 valid msgid="&&"
 valid msgid="&(nbsp|amp|reg|lt|gt|quot|deg|ge|ndash|copy|auml);"
+valid msgid="&([a-zA-Z]+);" # all docbook entities (only for docs!)
 valid msgid="http://.+\?" # URL, not an accelerator
 hint="Не забудьте добавить акселератор (&)"
 
@@ -38,6 +44,7 @@ hint="В переводе не должно быть акселератора (&
 valid msgid="Drag&Drop"
 valid msgid="R&B"
 valid msgid="&(nbsp|amp|reg|lt|gt|quot|deg|ge|ndash|copy|auml);"
+valid msgid="&([a-zA-Z]+);" # all docbook entities (only for docs!)
 valid msgid="http://.+\?" # URL, not an accelerator
 valid !msgstr="[а-яА-Я]" # OK if there are no Russian letters in translation (should those strings also have "Russian" accelerators?)
 hint="Акселераторы следует ставить на русские буквы"
@@ -59,7 +66,7 @@ hint="Переводится как 'веб-...'"
 
 [  ]
 valid msgid="  "
-hint="Уберите двойной пробел"
+hint="Уберите двойной пробел" # FIXME: not for docs!
 
 [колон(к|ок)]i
 hint="column -- столбец"
@@ -71,6 +78,8 @@ hint="«в течении» -- разве что «в течении реки»"
 hint="«overwrite» переводится как «заменить»"
 
 [настройки]i
+valid after="файл "
+valid after="вашей "
 valid after="параметры "
 valid after="сценарий "
 valid after="ошибка "
@@ -136,6 +145,7 @@ hint="playlist -- список воспроизведения"
 [e-?mail]i
 valid msgid="<email>"
 valid msgid="%EMAIL"
+valid before="\">"
 hint="слово email нужно переводить"
 
 [не подписанн]i
@@ -164,6 +174,8 @@ valid before="amarok" # IRC channels
 valid before="kde-bugs" # IRC channel
 valid after="color:"
 valid after="color=\""
+valid after="bgcolor="
+valid after="href=\"[a-z]+"
 valid msgstr="«#»" # FIXME: "before" or "after"?
 hint="заменить на '№'?"
 
@@ -219,4 +231,13 @@ hint="wrong translation of 'accessibility'"
 
 [проверьте вашу установку]i
 hint="не по-русски"
+
+[\bok\b]i
+hint="Ok -> ОК (русскими буквами)"
+
+[[а-я][a-z]]i
+hint="Рядом стоят русская и латинская буквы"
+
+[[a-z][а-я]]i
+hint="Рядом стоят латинская и русская буквы"
 
