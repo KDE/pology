@@ -68,7 +68,7 @@ class _MessageDict:
             self._lines_msgstr = []
 
 
-def _read_lines_and_encoding (file):
+def _read_lines_and_encoding (file, filename):
 
     fstr = file.read()
     # Determine line ending.
@@ -96,7 +96,19 @@ def _read_lines_and_encoding (file):
     if enc is None:
         enc = "UTF-8" # fall back to UTF-8 if encoding not found
 
-    enclines = [x.decode(enc) for x in lines]
+    enclines = []
+    lno = 0
+    for line in lines:
+        lno += 1
+        try:
+            encline = line.decode(enc)
+        except UnicodeDecodeError, e:
+            raise PologyError(
+                _("@info",
+                  "Text decoding failure at %(file)s:%(line)d:%(col)d "
+                  "under assumed encoding '%(enc)s'.",
+                  file=filename, line=lno, col=e.start, enc=enc))
+        enclines.append(encline)
 
     return enclines, enc
 
@@ -116,7 +128,7 @@ def _parse_po_file (file, MessageType=MessageMonitored,
                          "of data being read or written",
                          "&lt;stream&gt;").resolve("none")
         close_later = False
-    lines, fenc = _read_lines_and_encoding(file)
+    lines, fenc = _read_lines_and_encoding(file, filename)
     if close_later:
         file.close()
 
