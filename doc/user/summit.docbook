@@ -157,7 +157,7 @@ devel/
 </screen>
 </para>
 
-<para>There are three possible summit modes: direct summit, summit over dynamic templates, and summit over static templates. In the <emphasis>direct summit</emphasis>, only branch PO files are processed, that is new and modifed messages are gathered from them and summit translations scattered to them. In <emphasis>summit over dynamic templates</emphasis>, messages from branch PO files are gathered only once, at creation of the summit; after that, it is branch templates (POT files) that are gathered into summit templates, and then summit PO files are merged with them. Summit templates are not actually seen, but are gathered internally when merging command is issued and removed after merging is done. <emphasis>Summit over static templates</emphasis> is quite the same, except that summit templates are explicitly gathered and kept around, and merging is done separately.</para>
+<para>There are three possible summit modes: direct summit, summit over dynamic templates, and summit over static templates. In the <emphasis>direct summit</emphasis>, only branch PO files are processed, in that new and modifed messages are gathered from them and summit translations scattered to them. In <emphasis>summit over dynamic templates</emphasis>, messages from branch PO files are gathered only once, at creation of the summit; after that, it is branch templates (POT files) that are gathered into summit templates, and then summit PO files are merged with them. Summit templates are not actually seen, but are gathered internally when merging command is issued and removed after merging is done. <emphasis>Summit over static templates</emphasis> is quite the same, except that summit templates are explicitly gathered and kept around, and merging is done separately.</para>
 
 <para>What is the reason for having three summit modes to choose from? Direct summit mode is there because it is the easiest to explain and understand, and does not require that branches contain templates. It is however not recommended, for two reasons. Firstly, someone may mistakenly translate directly in a branch<footnote>
 <para>New translations do not have to appear in branches only by mistake. For example, some external sources, which have been translated elsewhere, may be integrated into the project.</para>
@@ -165,8 +165,7 @@ devel/
 
 <para>There is one important design decisions which holds for all summit modes: all summit PO files must be <emphasis role="strong">unique by domain name</emphasis> (i.e. base file name without extension), even if they are in different subdirectories within the summit top directory. This in turn means that in automatically supported branch organizations (by-domain and by-language) PO domains should be unique as well.<footnote>
 <para>More precisely, if there are two same-name PO domains inside one branch, they will both be gathered into the same summit PO file. The assumption is that PO files with same domain names have mostly common messages.</para>
-</footnote> This was done for two reasons. Less importantly, it is convenient to be able to identify a summit PO file simply by its domain name rather than the full path (especially in some <command>posummit</command> invocations). More importantly, uniqueness of domain names allows that PO files are located in different subdirectories between different branches. This happens, for example, in large projects in which code moves between modules. If branches do not satisfy this property, i.e. they contain same-name PO domains with totally different content, it is necessary to define a path transformation (described later) which will produce unique domain names with respect to the summit.</para>
-<!-- FIXME: Link <link linkend="sec-???">path transformation</link> -->
+</footnote> This was done for two reasons. Less importantly, it is convenient to be able to identify a summit PO file simply by its domain name rather than the full path (especially in some <command>posummit</command> invocations). More importantly, uniqueness of domain names allows that PO files are located in different subdirectories between different branches. This happens, for example, in large projects in which code moves between modules. If branches do not satisfy this property, i.e. they contain same-name PO domains with totally different content, it is necessary to define a <emphasis>path transformation</emphasis> (see <xref linkend="sec-sustpptransf"/>) which will produce unique domain names with respect to the summit.</para>
 
 <para>The following sections describe how to set up each of the modes, in each of the outlined branch organizations. They should be read in turn up to the mode that you want to use, because they build upon each other.</para>
 
@@ -211,7 +210,7 @@ S.mappings = [
 </programlisting>
 This is all that is necessary to set up a direct summit. The configuration file must be named exactly <filename>summit-config</filename>, because <command>posummit</command> will look for a file named like that through parent directories and automatically pick it up. As you may have recognized, <filename>summit-config</filename> is actually a Python source file; <command>posummit</command> will insert the special <literal>S</literal> object when evaluating <filename>summit-config</filename>, and it is through this object that summit options are set. <literal>S.lang</literal> states the language code of the summit. <literal>S.summit</literal> is a Python dictionary that holds options for the summit PO files (here only its location, through <literal>topdir=</literal> key), while <literal>S.branches</literal> is a list of dictionaries, each specifying options per branch (here the branch identifier by <literal>id=</literal> key and top directory). The <function>S.relpath</function> function is used to make file and directory paths relative to <filename>summit-config</filename> itself. <literal>S.mappings</literal> is a list of PO file mappings, for cases of splitting, mergings and renamings between branches. In this example <literal>S.mappings</literal> is set to empty only to point out its importance, but it does not need to be present if there are no mappings.</para>
 
-<para>If branches are organized by-domain, the summit tree will still look the same, with PO files named by domain rather than by language:
+<para id="p-bydomorg">If branches are organized by-domain, the summit tree will still look the same, with PO files named by domain rather than by language:
 <screen>
 branches/
     devel/
@@ -374,7 +373,7 @@ The <option>--force</option> option must be used here because, unlike in direct 
 
 </sect2>
 
-<sect2 id="sec-suststattpl">
+<sect2 id="sec-sustpstattpl">
 <title>Setting Up Summit over Static Templates</title>
 
 <para>As mentioned earlier, summit over static templates can be used when several language teams want to share the summit setup, for the reasons of greater efficiency. The branch directory tree looks exactly the same as in summit over dynamic templates (with several languages being present), but the summit tree is somewhat different:
@@ -450,6 +449,91 @@ $ posummit summit-config-shared bb gather --create --force
 $ ...
 </programlisting>
 Note that <option>--force</option> was not needed when gathering templates, because in this mode the template summit is periodically gathered, while language summits are not.</para>
+
+</sect2>
+
+<sect2 id="sec-sustpptransf">
+<title>Transforming Branch Paths</title>
+
+<para>When branches contain only PO files which are used natively, by programs fetching translations at runtime, then all branch PO files will be unique by their domain name (as mandated by the Gettext runtime system). It will not happen that two branch subdirectories contain a PO file with the same name. This fits perfectly with the summit requirement that all summit PO files be unique by domain names.</para>
+
+<para>However, if PO files are used as <link linkend="p-dynstattr">an intermediate</link> to other formats, branches may contain same-name PO files which have otherwise nothing in common, in different subdirectories. For example, each subdirectory may contain a PO file named <filename>index.po</filename>, <filename>help.po</filename>, etc. If this would be left unattended, all the same-name PO files would be collapsed into single summit PO file, which makes no sense given that they have (almost) no common messages. For this reason, it is possible to define transformations which modify absolute branch paths during processing, such that branch PO files are seen with unique names.</para>
+
+<para>Consider the following example of two branches for language <literal>aa</literal> (i.e. by-language organization) with PO files non-unique by domain name:
+<screen>
+branches/
+    devel-aa/
+        chapter1/
+            intro.po
+            glossary.po
+            ...
+        chapter2/
+            intro.po
+            glossary.po
+            ...
+        ...
+    stable-aa/
+        chapter1/
+            intro.po
+            glossary.po
+            ...
+        chapter2/
+            intro.po
+            glossary.po
+            ...
+        ...
+</screen>
+These branches cover some sort of a book, where each chapter has some standard elements, and thus some same-name PO files with totally different content in each chapter's subdirectory. To have unique domain names in the summit, you might decide upon a flat file tree with chapter in prefix:
+<screen>
+summit-aa/
+    chapter1-intro.po
+    chapter1-glossary.po
+    ...
+    chapter2-intro.po
+    chapter2-glossary.po
+    ...
+    summit-config
+</screen>
+To achieve this, you must first write two Python functions (remember that the summit configuration file is a normal Python source file), one to split branch paths and another to join them, and add them to branch specifications in <literal>S.branches</literal>.</para>
+
+<para>The function to split branch paths takes a single argument, the branch PO file path relative to the branch top directory, and returns the summit PO domain name and the summit subdirectory. For the example above, the splitting function would look like this:
+<programlisting>
+def split_branch_path (subpath):
+    import os
+    filename = os.path.basename(subpath)      # get PO file name
+    domain0 = filename[:filename.rfind(".")]  # strip .po extension
+    subdir0 = os.path.dirname(subpath)        # get branch subdirectory
+    domain = subdir0 + "-" + domain0          # set final domain name
+    subdir = ""                               # set summit subdirectory
+    return domain, subdir
+</programlisting>
+Note that the branch subdirectory was used only to construct the summit domain name, while the summit subdirectory is an empty string because summit flat file tree should be flat.</para>
+
+<para>The function to join branch paths takes three arguments. The first two are the summit PO domain name and the summit subdirectory. The third argument is the the value of <link linkend="p-bydomorg"><literal>by_lang=</literal> key</link> for the given branch. The return value is the branch PO file path relative to the branch top directory. It would look like this:
+<programlisting>
+def join_branch_path (domain, subdir, bylang):
+    import os
+    subdir0, domain0 = domain.split("-", 1)    # get branch domain name
+                                               # and branch subdirectory
+                                               # from summit domain name
+    filename = domain0 + ".po"                 # branch PO file name
+    subpath = os.path.join(subdir0, filename)  # branch relative path
+    return subpath
+</programlisting>
+Here the <varname>subdir</varname> argument (summit subdirectory) is not used is not used because it is always empty due to flat summit file tree, and <varname>bylang</varname> is not used because it is <literal>None</literal> due to by-language branch organization.</para>
+
+<para>The definitions of splitting and joining functions are written into the <filename>summit-config</filename> file somewhere before the <literal>S.branches</literal> branch specification, and added to each branch through <literal>transform_path=</literal> key:
+<programlisting>
+S.branches = [
+    dict(id="devel",
+         topdir=S.relpath("../branches/devel-aa"),
+         transform_path=(split_branch_path, join_branch_path)),
+    dict(id="stable",
+         topdir=S.relpath("../branches/stable-aa"),
+         transform_path=(split_branch_path, join_branch_path)),
+]
+</programlisting>
+This means that it is possible, if necessary, to define different splitting and joining functions per branch.</para>
 
 </sect2>
 
@@ -673,12 +757,14 @@ S.subdir_mappings = [
 </programlisting>
 Subdirectory mappings should be needed rarely compared to file mappings. A tentative example could be when two closely related software forks are translated within the same project, and they have many PO files in their own subdirectories.</para>
 
+<para>At some moment translation branches will be "shifted", for example <literal>devel</literal> will become the new <literal>stable</literal>, <literal>stable</literal> may become <literal>oldstable</literal> (if three branches are maintained), etc. When that happens, mappings should be shifted too. A typical case would be two branches, <literal>devel</literal> and <literal>stable</literal>, and some mappings only for <literal>stable</literal>; then, when the shift comes, all existing mappings would be simply removed.</para>
+
 </sect2>
 
 <sect2 id="sec-sumntdeps">
 <title>Checking Summit Dependencies</title>
 
-<para>As the number of mappings grows, it may not be clear which branch PO files are related to which summit PO files. Translator may need this information to know exactly which summit PO files to work on, in order to have some set of branch files fully translated. For this reason, <command>posummit</command> provides the operation mode <literal>deps</literal>, in which any number of operation targets are given in command line, and the dependency chains are reported for those targets.</para>
+<para>As the number of mappings grows, or if <link linkend="sec-sustpptransf">branch path transformation</link> is employed, it may not be readily clear which summit PO files are related to which branch PO files. Translator may need this information to know exactly which summit PO files to work on in order to have some set of branch files fully translated. For this reason, <command>posummit</command> provides the operation mode <literal>deps</literal>, in which any number of operation targets are given in command line, and the dependency chains are reported for those targets.</para>
 
 <para>If you recall the <link linkend="l-mrgmap">example mapping due to merging</link>, you can check the dependency chain for the file <filename>foobaz_info.po</filename> in <literal>stable</literal> branch by executing one of:
 <programlisting>
@@ -691,7 +777,7 @@ in direct summit or summit over dynamic templates, or
 $ posummit $SOMEWHERE/summit-config-shared aa deps $STABLEDIR/foobaz_info.po
 $ posummit $SOMEWHERE/summit-config-shared aa deps stable:foobaz_info
 </programlisting>
-in summit over static templats. The output would look like this:
+in summit over static templates. The output would look like this:
 <programlisting>
 :    <replaceable>summit-dir</replaceable>/foobaz.po  <replaceable>devel-dir</replaceable>/foobaz.po <replaceable>stable-dir</replaceable>/foobaz_info.po \
      <replaceable>stable-dir</replaceable>/foobaz_backup.po <replaceable>stable-dir</replaceable>/foobaz_filters.po
@@ -714,10 +800,207 @@ You can see that the complete dependency chain to which <filename>foobaz_info.po
 <sect1 id="sec-suconfig">
 <title>Elements of Summit Configuration</title>
 
-<para></para>
+<para>Other then the main configuration fields for setting the summit type, summit and branch locations, and mappings, there are many other optional configuration fields. They can be used to make the translation workflow yet more efficient, by relieving translators from taking care of various details.</para>
 
 <sect2 id="sec-sucfghooks">
 <title>Summit Hooks</title>
+
+<para>Summit operations (gather, merge, scatter) are characterized by having PO files and messages flowing between the summit and branches. It is then natural to think of adding some <emphasis>filtering</emphasis> into these flows. For example, on scatter, one could do small ortographic adjustments in translation, or automatically insert translated UI references.<footnote>
+<para>Another possibility are validation filters, which do not modify the text but report possible problems, though <link linkend="sec-lgrules">validation rules</link> and <link linkend="sv-check-rules">the <command>check-rules</command> sieve</link> are likely a better solution.</para>
+</footnote></para>
+
+<para>Filtering is implemented by being able to insert Pology hooks (see <xref linkend="sec-cmhooks"/>) into various stages of summit operations; a particular stage will admit only certain types of hooks. To <link linkend="sec-lguirefs">fetch and insert translated UI references</link> on scatter, the <literal>resolve-ui</literal> hook can be added like this:
+<programlisting>
+from pology.uiref import resolve_ui
+S.hook_on_scatter_msgstr = [
+    (resolve_ui(uicpathenv="UI_PO_DIR"),),
+]
+</programlisting>
+<literal>S.hook_on_scatter_msgstr</literal> is a list of hooks which are applied on translation (<varname>msgstr</varname> fields) before it is written into branch PO files on scatter. Each element of this list is a tuple of one to three elements. The first element in the tuple is the hook function, here <link linkend="hk-uiref-resolve-ui"><literal>resolve_ui</literal></link><footnote>
+<para><literal>resolve_ui</literal> is not the hook function itself, but a hook factory. It is called with the argument <literal>uicpathenv="UI_PO_DIR"</literal> to produced the actual hook function. See its documentation for details.</para>
+</footnote>. <literal>resolve_ui</literal> is an F3C hook, which is the type of hooks expected in <literal>S.hook_on_scatter_msgstr</literal> list.</para>
+
+<para>The second and third element in the hook tuple are, respectively, selectors by branch and file. These are used when the hook is not meant to be applied on all branches and all PO files. The selector can be either a regular expression string, which is matched against the branch name or PO domain name (positive match means to apply the hook), or a function (return value evaluating as true means to apply the hook). If it is a function, the branch selector gets the branch name as input argument, and the file selector gets the summit PO domain name and summit subdirectory. For example, to add the specialized <literal>resolve_ui_docbook4</literal> hook only to <literal>foobaz-manual.po</literal> file, and plain <literal>resolve_ui</literal> to all other files, the hook list would be:
+<programlisting>
+from pology.uiref import resolve_ui, resolve_ui_docbook4
+
+S.hook_on_scatter_msgstr = [
+    (resolve_ui_docbook4(uicpathenv="UI_PO_DIR"), "", "-manual$"),
+    (resolve_ui(uicpathenv="UI_PO_DIR"), "", "(?&lt;!-manual)$"),
+]
+</programlisting>
+The branch selector here is empty string, which means that both hooks apply to all branches (since empty regular expression matches any string). The <literal>resolve_ui_docbook4</literal> hook has <literal>"-manual$"</literal> regular expression as the file selector, which means that is should be applied to all PO domain names ending in <literal>-manual</literal>. The <literal>resolve_ui</literal> hook has been given the opposite regular expression, <literal>"(?&lt;!-manual)$"</literal>, which matches any PO domain name <emphasis>not</emphasis> ending in <literal>-manual</literal>.<footnote>
+<para>This pattern makes use of a <emphasis>negative lookbehind</emphasis> token, a fairly advanced bit of regular expression syntax.</para>
+</footnote> Regular expressions can quickly become unreadable, so here is how the same selection could be achieved with selector functions:
+<programlisting>
+from pology.uiref import resolve_ui, resolve_ui_docbook4
+
+def is_manual (domain, subdir):
+    return domain.endswith("-manual")
+def is_not_manual (domain, subdir):
+    return not is_manual(domain, subdir)
+
+S.hook_on_scatter_msgstr = [
+    (resolve_ui_docbook4(uicpathenv="UI_PO_DIR"), "", is_manual),
+    (resolve_ui(uicpathenv="UI_PO_DIR"), "", is_not_manual),
+]
+</programlisting>
+When is more than one hook in the list, they are applied in the order if which they are listed.</para>
+
+<para>This is all there is to say about hook application in general. What follows is a list of all presently defined hook insertion lists, with admissible hook types given in parentheses. Usually paired F* and S* hook types are possible, such that F* hooks are primary used for modification, while S* hooks could be employed for validation (e.g. writing out warnings).
+<variablelist>
+
+<varlistentry>
+<term><literal>S.hook_on_scatter_msgstr</literal> (F3A, F3C, S3A, S3C)</term>
+<listitem>
+<para>Applied to the branch translation (<varname>msgstr</varname> fields) on scatter, before it is written into the branch PO file.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><literal>S.hook_on_scatter_msg</literal> (F4A, S4A)</term>
+<listitem>
+<para>Applied to branch message on scatter, before it is written into the branch PO file. These hooks can modify any part of the message, like comments, or even the <varname>msgid</varname> field.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><literal>S.hook_on_scatter_cat</literal> (F5A, S5A)</term>
+<listitem>
+<para>Applied to the branch PO file while still in internal parsed state on scatter, after <literal>S.hook_on_scatter_msgstr</literal> had been applied to all messages.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><literal>S.hook_on_scatter_file</literal> (F6A, S6A)</term>
+<listitem>
+<para>Applied to the branch PO file as raw file on disk on scatter, after <literal>S.hook_on_scatter_cat</literal> had been applied. If one of the hooks reports non-zero value, the rest of the hooks in the list are not applied to that file.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><literal>S.hook_on_scatter_branch</literal></term>
+<listitem>
+<para>Applied to the complete branch on scatter, after all other hooks on scatter had been applied. Functions used here are not part of the formal hook system. They take a single argument, the branch name, and return a number. If the return value is not zero, rest of the hooks are skipped on that branch.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><literal>S.hook_on_gather_file_branch</literal> (F6A, S6A)</term>
+<listitem>
+<para>Applied to the branch PO file as raw file on disk on gather, before <literal>S.hook_on_gather_cat_branch</literal> is applied. The branch PO file will not be modified for real, but only its temporary copy.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><literal>S.hook_on_gather_cat_branch</literal> (F5A, S5A)</term>
+<listitem>
+<para>Applied to the branch PO file while still in internal parsed state on gather, before <literal>S.hook_on_gather_msg_branch</literal> is applied to all messages.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><literal>S.hook_on_gather_msg_branch</literal> (F4A, S4A)</term>
+<listitem>
+<para>Applied to the branch message on gather, before it is used to gather the corresponding summit message.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><literal>S.hook_on_gather_msg</literal> (F4A, S4A)</term>
+<listitem>
+<para>Applied to the summit message on gather, after it had been gathered from the corresponding branch messages, but before it is written into the summit PO file.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><literal>S.hook_on_gather_cat</literal> (F5A, S5A)</term>
+<listitem>
+<para>Applied to the summit PO file while still in internal parsed state on gather, after <literal>S.hook_on_gather_msgstr</literal> had been applied to all messages.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><literal>S.hook_on_gather_file</literal> (F6A, S6A)</term>
+<listitem>
+<para>Applied to the summit PO file as raw file on disk on gather, after <literal>S.hook_on_gather_cat</literal> had been applied.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><literal>S.hook_on_merge_head</literal> (F4B, S4B)</term>
+<listitem>
+<para>Applied to summit PO header on merge, after the summit PO file has been merged.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><literal>S.hook_on_merge_msg</literal> (F4A, S4A)</term>
+<listitem>
+<para>Applied to summit message on merge, after <literal>S.hook_on_merge_head</literal> had been applied.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><literal>S.hook_on_merge_cat</literal> (F5A, S6A)</term>
+<listitem>
+<para>Applied to the summit PO file while still in internal parsed state on merge, after <literal>S.hook_on_gather_msg</literal> had been applied to all messages.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><literal>S.hook_on_merge_file</literal> (F6A, S6A)</term>
+<listitem>
+<para>Applied to the summit PO file as raw file on disk on merge, after <literal>S.hook_on_merge_cat</literal> had been applied.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+You may notice that some logically possible hook insertion lists are missing (e.g. <literal>S.hook_on_merge_msgstr</literal>). This is because they are implemented on demand, as the need is observed in practice, and not before the fact.</para>
+
+<para>Here is another example of hook interplay. Branch PO files may still rely on <link linkend="p-embctxt">embedding the context</link> into the <varname>msgid</varname> field:
+<programlisting>
+msgid "create new document|New"
+msgstr ""
+</programlisting>
+but you would nevertheless like to have proper <varname>msgctxt</varname> contexts in the summit:
+<programlisting>
+msgctxt "create new document"
+msgid "New"
+msgstr ""
+</programlisting>
+You can achieve this by writing two small F4A hooks, and inserting them at proper points:
+<programlisting>
+def context_from_embedded (msg, cat):
+    if "|" in msg.msgid:
+        msg.msgctxt, msg.msgid = msg.msgid.split("|", 1)
+
+def context_to_embedded (msg, cat):
+    if msg.msgctxt is not None:
+        msg.msgid = "%s|%s" % (msg.msgctxt, msg.msgid)
+        msg.msgctxt = None
+
+S.hook_on_gather_msg_branch = [
+    (context_from_embedded,),
+]
+
+S.hook_on_scatter_msg = [
+    (context_to_embedded,),
+]
+</programlisting>
+In this way, branch messages will be converted to proper context just before they are gathered into the summit, and the proper context will be converted back into the embedded when the messages are scattered to branches.</para>
+
+</sect2>
+
+<sect2 id="sec-sucfgvcs">
+<title>Integration with Version Control System</title>
+
+<para></para>
+
+</sect2>
+
+<sect2 id="sec-sucfgwrap">
+<title>Wrapping in PO Files</title>
 
 <para></para>
 
@@ -737,15 +1020,22 @@ You can see that the complete dependency chain to which <filename>foobaz_info.po
 
 </sect2>
 
+<sect2 id="sec-sucfghead">
+<title>Propagation of Header Fields</title>
+
+<para></para>
+
+</sect2>
+
 <sect2 id="sec-sucfgbonmrg">
-<title>Additional Merging Options</title>
+<title>Additional Merge Options</title>
 
 <para></para>
 
 </sect2>
 
 <sect2 id="sec-sucfgbonsct">
-<title>Additional Scattering Options</title>
+<title>Additional Scatter Options</title>
 
 <para></para>
 
