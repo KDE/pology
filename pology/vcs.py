@@ -918,9 +918,14 @@ class VcsGit (VcsBase):
 
         root, path = self._gitroot(path)
 
-        res = collect_system("git status %s" % path, wdir=root)
-        if res[1]:
-            return False
+        res = collect_system("git status %s" % path, wdir=root, env=self._env)
+        rx = re.compile(r"untracked.*?:", re.I)
+        m = rx.search(res[0])
+        if m:
+            for line in res[0][m.end():].split("\n"):
+                line = line.lstrip("#").strip()
+                if line == path:
+                    return False
 
         return True
 
