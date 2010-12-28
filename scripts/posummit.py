@@ -255,7 +255,7 @@ class Project (object):
             "branches_fine_wrap" : True,
             "branches_fuzzy_merging" : True,
 
-            "version_control" : "", # FIXME: Deprecated, remove.
+            "version_control" : "",
             "summit_version_control" : "",
             "branches_version_control" : "",
 
@@ -466,7 +466,6 @@ def derive_project_data (project, options, nwgrefpath=None):
         p.summit_vcs = make_vcs(p.summit_version_control.lower())
     if p.branches_version_control:
         p.branches_vcs = make_vcs(p.branches_version_control.lower())
-    # FIXME: Deprecated, remove.
     if p.version_control:
         if p.summit_vcs is None:
             p.summit_vcs = make_vcs(p.version_control.lower())
