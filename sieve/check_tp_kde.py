@@ -526,6 +526,19 @@ def _check_catspec (msg, cat, pcache, hl):
 _known_checks["catspec"] = _check_catspec
 
 
+# Factory for confirming presence of functional tokens in transltions.
+def _check_cat_match_tokens (tokens):
+
+    def checkf (msg, cat, pcache):
+        for token in tokens:
+            if token in msg.msgid and token not in msg.msgstr[0]:
+                return _("@info",
+                         "Translation must contain '%(token)s'.",
+                         token=token)
+
+    return checkf
+
+
 # --------------------------------------
 # Catalog-specific checks.
 
@@ -559,4 +572,7 @@ def _check_cat_kdeqt (msg, cat, pcache):
                      text1="LTR", text2="RTL")
 
 _add_cat_check(_check_cat_kdeqt, ["kdeqt"])
+
+
+_add_cat_check(_check_cat_match_tokens(["%action"]), ["kiosktool"])
 
