@@ -526,7 +526,7 @@ def _check_catspec (msg, cat, pcache, hl):
 _known_checks["catspec"] = _check_catspec
 
 
-# Factory for confirming presence of functional tokens in transltions.
+# Factory of checks that functional tokens are preserved in translation.
 def _check_cat_match_tokens (tokens):
 
     def checkf (msg, cat, pcache):
