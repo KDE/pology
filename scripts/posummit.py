@@ -177,7 +177,7 @@ def main ():
                                    project.toptions)
         project.tproject.include(cfgpath)
         project.tproject.templates_dynamic = False
-        project.tproject.version_control = "none"
+        project.tproject.summit_version_control = "none"
         project.tproject.summit_wrap = False # performance
         project.tproject.summit_fine_wrap = False # performance
         tpd = project.tproject.summit.get("topdir_templates")
@@ -199,7 +199,7 @@ def main ():
     ):
         options.create = True
         project.summit["topdir"] = project.summit["topdir_templates"]
-        project.version_control = "none"
+        project.summit_version_control = "none"
 
     # Derive project data.
     project = derive_project_data(project, options)
@@ -255,7 +255,9 @@ class Project (object):
             "branches_fine_wrap" : True,
             "branches_fuzzy_merging" : True,
 
-            "version_control" : "",
+            "version_control" : "", # FIXME: Deprecated, remove.
+            "summit_version_control" : "",
+            "branches_version_control" : "",
 
             "hook_on_scatter_msgstr" : [],
             "hook_on_scatter_msg" : [],
@@ -457,11 +459,19 @@ def derive_project_data (project, options, nwgrefpath=None):
     # Dictionary of branches by branch id.
     p.bdict = dict([(x.id, x) for x in p.branches])
 
-    # Create the version control operator if given.
+    # Create version control operators if given.
+    p.summit_vcs = None
+    p.branches_vcs = None
+    if p.summit_version_control:
+        p.summit_vcs = make_vcs(p.summit_version_control.lower())
+    if p.branches_version_control:
+        p.branches_vcs = make_vcs(p.branches_version_control.lower())
+    # FIXME: Deprecated, remove.
     if p.version_control:
-        p.vcs = make_vcs(p.version_control.lower())
-    else:
-        p.vcs = None
+        if p.summit_vcs is None:
+            p.summit_vcs = make_vcs(p.version_control.lower())
+        if p.branches_vcs is None:
+            p.branches_vcs = make_vcs(p.version_control.lower())
 
     # Decide wrapping policies.
     class D: pass
@@ -1485,8 +1495,8 @@ def summit_gather_single (summit_name, project, options,
                     "Phony gather on summit catalog which is to be removed."))
 
         # Remove by version control, if any.
-        if project.vcs:
-            if not project.vcs.remove(summit_path):
+        if project.summit_vcs:
+            if not project.summit_vcs.remove(summit_path):
                 warning(_("@info",
                           "Cannot remove '%(path)s' from version control.",
                           path=summit_path))
@@ -1684,8 +1694,10 @@ def summit_gather_single (summit_name, project, options,
             if summit_created:
                 added = True
             # Add to version control.
-            if project.vcs and not project.vcs.is_versioned(summit_cat.filename):
-                if not project.vcs.add(summit_cat.filename):
+            if (    project.summit_vcs
+                and not project.summit_vcs.is_versioned(summit_cat.filename)
+            ):
+                if not project.summit_vcs.add(summit_cat.filename):
                     warning(_("@info",
                             "Cannot add '%(file)s' to version control.",
                             file=summit_cat.filename))
@@ -1693,8 +1705,9 @@ def summit_gather_single (summit_name, project, options,
                     added = True
 
         if summit_cat.filename != new_summit_path:
-            if project.vcs:
-                if not project.vcs.move(summit_cat.filename, new_summit_path):
+            if project.summit_vcs:
+                if not project.summit_vcs.move(summit_cat.filename,
+                                               new_summit_path):
                     warning(_("@info",
                               "Cannot move '%(srcfile)s' to '%(dstfile)s'.",
                               srcfile=summit_cat.filename,
@@ -2283,8 +2296,10 @@ def summit_scatter_single (branch_id, branch_name, branch_subdir,
                        branch_cat.filename, project.hook_on_scatter_file)
 
         # Add to version control.
-        if project.vcs and not project.bdict[branch_id].skip_version_control:
-            if not project.vcs.add(branch_cat.filename):
+        if (    project.branches_vcs
+            and not project.bdict[branch_id].skip_version_control
+        ):
+            if not project.branches_vcs.add(branch_cat.filename):
                 warning(_("@info",
                           "Cannot add '%(file)s' to version control.",
                           file=branch_cat.filename))
@@ -2713,12 +2728,13 @@ def summit_merge_single (branch_id, catalog_name, catalog_subdir,
         shutil.move(tmp_path, catalog_path)
 
         # Add to version control if not already added.
-        if (    project.vcs
+        vcs = project.summit_vcs if SUMMIT_ID else project.branches_vcs
+        if (    vcs
             and (    branch_id == SUMMIT_ID or
                  not project.bdict[branch_id].skip_version_control)
-            and not project.vcs.is_versioned(catalog_path)
+            and not vcs.is_versioned(catalog_path)
         ):
-            if not project.vcs.add(catalog_path):
+            if not vcs.add(catalog_path):
                 warning(_("@info",
                           "Cannot add '%(file)s' to version control.",
                           file=catalog_path))
