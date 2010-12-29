@@ -268,9 +268,6 @@ class Sieve (object):
   
         # New file handling
         if self.xmlFile and self.filename!=filename:
-            report(_("@info:progress",
-                     "(Processing '%(file)s'.)",
-                     file=filename))
             newFile=True
             self.cached=False # Reset flag
             self.cachePath=join(_CACHEDIR, abspath(cat.filename).replace("/", _MARSHALL))
@@ -359,7 +356,9 @@ class Sieve (object):
                     # Multiple span are now supported as well as msgstr index
 
                     # Now, write to XML file if defined
-                    xmlError=rule_xml_error(msg, cat, rule, spans[0][2], spans[0][1])
+                    rspans = [x[:2] for x in spans[0][2]]
+                    pluid = spans[0][1]
+                    xmlError=rule_xml_error(msg, cat, rule, rspans, pluid)
                     self.xmlFile.writelines(xmlError)
                     if not self.cached:
                         # Write result in cache
