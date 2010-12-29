@@ -15,7 +15,7 @@ import time
 
 import fallback_import_paths
 
-from pology import version, _, n_, t_
+from pology import version, _, n_, t_, PologyError
 from pology.catalog import Catalog
 from pology.header import Header
 from pology.message import Message, MessageUnsafe
@@ -2092,8 +2092,29 @@ def summit_scatter_single (branch_id, branch_name, branch_subdir,
         branch_path_mod = project.add_on_scatter[branch_path]
 
     # Open the branch catalog and all summit catalogs.
-    branch_cat = Catalog(branch_path_mod, wrapping=project.branches_wrapping)
-    summit_cats = [Catalog(x) for x in summit_paths]
+    try:
+        branch_cat = Catalog(branch_path_mod, wrapping=project.branches_wrapping)
+    except PologyError, e:
+        warning(_("@info",
+                  "Cannot open the branch catalog '%(file)s' "
+                  "to scatter to. The error was:\n"
+                  "%(msg)s",
+                  file=branch_path_mod, msg=unicode(e)))
+        return
+    summit_cats = []
+    for summit_path in summit_paths:
+        try:
+            # NOTE: Must be opened monitored to have compatible types
+            # when copying message parts to branch message.
+            summit_cat = Catalog(summit_path)
+        except PologyError, e:
+            warning(_("@info",
+                      "Cannot open the summit catalog '%(file)s' "
+                      "to scatter from. The error was:\n"
+                      "%(msg)s",
+                      file=summit_path, msg=unicode(e)))
+            return
+        summit_cats.append(summit_cat)
 
     # Collect and link ascription catalogs to summit catalogs.
     # (Do not open them here, but only later when a check is not cached.)
