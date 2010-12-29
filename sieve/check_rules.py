@@ -363,10 +363,8 @@ class Sieve (object):
                     if not self.cached:
                         # Write result in cache
                         self.cacheFile.writelines(xmlError)
-                else:
-                    # Text format.
-                    if not self.showfmsg:
-                        msgf=None
+                if not self.showfmsg:
+                    msgf=None
                 failedRules.append((rule, spans, msgf))
 
         if failedRules:
