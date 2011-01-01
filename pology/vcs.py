@@ -812,7 +812,7 @@ class VcsGit (VcsBase):
         rpaths = []
         for path in paths:
             path = os.path.abspath(path)
-            path = path[len(root) + len(os.path.sep):]
+            path = path[len(root) + len(os.path.sep):] or "."
             rpaths.append(path)
 
         if single:
@@ -921,10 +921,12 @@ class VcsGit (VcsBase):
         res = collect_system("git status", wdir=root, env=self._env)
         rx = re.compile(r"untracked.*?:", re.I)
         m = rx.search(res[0])
+        print "{%s}{%s}" % (root, path)
         if m:
             for line in res[0][m.end():].split("\n"):
                 line = line.lstrip("#").strip()
                 if line == path:
+                    print "here!"
                     return False
 
         return True
