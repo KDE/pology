@@ -71,7 +71,7 @@ def remove_paired_capital_words (msg, cat):
  
     return 0
     
-_ent_parameter = re.compile("(\%\d)")
+_ent_parameter = re.compile("(%\d)")
 
 def remove_paired_parameters (msg, cat):
     """
