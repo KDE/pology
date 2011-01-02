@@ -7,8 +7,8 @@
 
 include file="filter.include"
 
-# Remove accelerator and  hyphen inside words.
-addFilterRegex match="(\&|\-)" on="pmsgid,pmsgstr"
+# Remove accelerator inside words.
+addFilterRegex match="\&" on="pmsgid,pmsgstr"
 
 # «Absolutelly» se traduce como «Completamente».
 {\babsolutelly\b}i
@@ -378,11 +378,11 @@ hint="« Candids » se traduce como como « Abiertos/Francos/Sinceros », no com
 #valid !msgstr="capturad(o|a)"
 #hint="« Captured » se traduce como como « Captado », no como « Capturado » (falso amigo)"
 
-# «Captures» se traduce como «Capta».
-{\bcaptures\b}i
-valid msgstr="capt(ar|e|a)"
-valid !msgstr="captur(ar|a|e)"
-hint="« Captures » se traduce como como « Capta », no como « Captura » (falso amigo)"
+## «Captures» se traduce como «Capta».
+#{\bcaptures\b}i
+#valid msgstr="capt(ar|e|a)"
+#valid !msgstr="captur(ar|a|e)"
+#hint="« Captures » se traduce como como « Capta », no como « Captura » (falso amigo)"
 
 # «Carbon» se traduce como «Carbono».
 {\bcarbon\b}i

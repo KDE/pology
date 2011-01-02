@@ -43,8 +43,21 @@ equipos que resulten aplicables y de interés para nosotros:
 
 3.- Reglas de comparación entre el texto traducido y el original.
 - Incorporar las de KBabel.
+- Incorporar las de translate toolkit.
 
-4.- Vocabulario.
+4.- Otras reglas.
+- Ver la posibilidad de incluir un archivo «ignoredContext» con contextos a 
+los que no se aplican las reglas.
+- Comprobar las traducciones vacías, demasiado cortas/largas o iguales al texto 
+original.
+- Comprobar escapes del tipo \t y \n (igual nº en texto original y traducido). 
+
+5.- Vocabulario.
 - Buscar (principalmente en la Wikipedia y Wiktionary) mas glosarios temáticos.
 - Crear glosarios temáticos de unix/linux y gnome.
- 
+- Generar un glosario automáticamente mediante poterminology de translate-toolkit.
+ No verificar ortografía de:
+- Palabras con dos mayúsculas: \w*?[A-Z]+(\w*?[A-Z]+\w*)?
+- Palabras pertenecientes a páginas web, direcciones de correo, nombres de
+archivo, etc.
+

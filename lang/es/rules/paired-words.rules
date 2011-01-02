@@ -3,11 +3,35 @@
 # by the KDE Spanish Team (kde-l10n-es@kde.org)
 # License: GPLv3
 
+addFilterHook name="es:compare_with_original/remove_tags_without_translation" on="msg"
+
+*hook name="es:compare_with_original/test_if_empty_translation" on="msg"
+id="test_if_empty_translation"
+hint="El texto de la traducción está vacío"
+
+*hook name="es:compare_with_original/test_if_very_long_translation" on="msg"
+id="test_if_very_long_translation"
+valid msgstr="^\w+$" # Una sola palabra
+valid msgid="Your names"
+valid msgid="Your emails"
+hint="El texto de la traducción parece demasiado grande"
+
+*hook name="es:compare_with_original/test_if_very_short_translation" on="msg"
+id="test_if_very_short_translation"
+valid msgstr="^\w+$" # Una sola palabra
+hint="El texto de la traducción parece demasiado pequeño"
+
+*hook name="es:compare_with_original/test_if_not_translated" on="msg"
+id="test_if_not_translated"
+valid msgid="^\W+$" # Mensaje sin caracteres alfabéticos
+valid msgid="^[^a-z]+$" # Mensaje que no contiene minúsculas
+hint="No se ha traducido el mensaje original"
+
 addFilterHook name="remove/remove_paired_ents" on="msg"
 
-[\&[\w\d\-\_]*?\;]
+[\&[\w\d\-_]*?\;]
 hint="Existe una entidad en la traducción que no figura en el texto original"
-{\&[\w\d\-\_]*?\;}
+{\&[\w\d\-_]*?\;}
 hint="Existe una entidad en el texto original que no figura en la traducción"
 
 
@@ -17,8 +41,8 @@ addFilterHook name="es:remove_subs/remove_paired_capital_words" on="msg"
 valid ctx="TRANSLATORS"
 valid ctx="trans_comment"
 valid msgid="TRANSLATORS"
-valid msgid="$^"
-valid after="\&[\w\d\-\_]*?\;"
+valid msgid="^$"
+valid after="\&[\w\d\-_]*?\;"
 hint="Utilice minúsculas después de una coma o punto y coma"
 
 
@@ -30,17 +54,5 @@ hint="Existe un parámetro en la traducción que no figura en el texto original"
 {\%\d}
 hint="Existe un parámetro en el texto original que no figura en la traducción"
 
-
-*hook name="es:compare_with_original/test_if_empty_translation" on="msg"
-id="test_if_empty_translation"
-hint="El texto de la traducción está vacío"
-
-*hook name="es:compare_with_original/test_if_very_long_translation" on="msg"
-id="test_if_very_long_translation"
-hint="El texto de la traducción parece demasiado grande"
-
-*hook name="es:compare_with_original/test_if_not_translated" on="msg"
-id="test_if_not_translated"
-hint="No se ha traducido el mensaje original"
 
 # End of rule file

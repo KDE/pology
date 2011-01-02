@@ -7,24 +7,22 @@
 include file="filter.include"
 
 validGroup beforePunctuation
-#valid after="[\w\dñÑçÇáéíóúÁÉÍÓÚüÜºª\>\»\)\]\}\»\%\-\&\<\^\\]"
-valid after="(?u)[\w\d\>\»\)\]\}\»\%\-\&\<\^\\]"
+valid after="(?u)[\w\d\>\»\)\]\}\»\%\-\&\<\\^]"
 valid before="$"
 
 validGroup afterPunctuation
-#valid before="[$\w\dñÑçÇáéíóúÁÉÍÓÚüÜºª\>\»\(\[\{\«\%\-\&\<\^\\]"
-valid before="(?u)[$\w\d\>\»\(\[\{\«\%\-\&\<\^\\]"
+valid before="(?u)[$\w\d\>\»\(\[\{\«\%\-\&\<\\$]"
 valid after="^"
 
 validGroup openQuotes
 valid after="[<>({=.,;:\-\[\s]"
-valid after="\&[\w\-\_]*?\;"
+valid after="\&[\w\-_]*?\;"
 valid after="^"
 valid before=".+»"
 
 validGroup closeQuotes
 valid before="[<>)}=.,;:\-\]\s]"
-valid after="\&[\w\-\_]*?\;"
+valid after="\&[\w\-_]*?\;"
 valid before="$"
 valid after="«.+"
 
@@ -56,7 +54,7 @@ valid span="\:\<" before="\/?p\>"
 valid span="\:\\" before="n"
 hint="Ponga un espacio después del signo de dos puntos"
 
-[\s\;]
+[\s;]
 valid ctx="Numbers and characters"
 valid ctx="CSV separator" 
 hint="No ponga un espacio antes del signo de punto y coma"
@@ -83,14 +81,14 @@ valid ctx="CSV separator"
 valid span="\!$"
 hint="Ponga un espacio después del signo de cierre de admiración"
 
-[\¡]
+[¡]
 valid before=".*?[!({«'\"\[]"
 hint="Cierre la admiración (deben ir emparejadas)"
 
-[\¡.*?\!\.]
+[¡.*?\!\.]
 hint="No ponga punto después del cierre de admiración (Consulte ortografía de la RAE)"
 
-[\¡.*?\!\s[a-z]]
+[¡.*?\!\s[a-z]]
 hint="Ponga en mayúsculas la palabra posterior al cierre de admiración (Consulte ortografía de la RAE)"
 
 [\s\?]
@@ -106,24 +104,24 @@ valid ctx="Query"
 valid span="\?$"
 hint="Ponga un espacio después del signo de cierre de interrogación"
 
-[\¿]
+[¿]
 valid before=".*?[?({«'\"\[]"
 hint="Cierre la interrogación (deben ir emparejadas)"
 
-[\¿.*?\?\.]
+[¿.*?\?\.]
 hint="No ponga punto después del cierre de interrogación (Consulte ortografía de la RAE)"
 
-[\¿.*?\?\s[a-z]]
+[¿.*?\?\s[a-z]]
 hint="Ponga en mayúsculas la palabra posterior al cierre de interrogación (Consulte ortografía de la RAE)"
 
-[\s\,]
+[\s,]
 valid ctx="Numbers and characters"
 valid ctx="Keywords" 
 valid ctx="CSV separator"
 valid after="\d+" before="\s?\d+"
 hint="No ponga un espacio de separación antes del signo de coma"
 
-[\,\S]
+[,\S]
 validGroup beforePunctuation
 valid ctx="\w+ OF TRANSLATORS"
 valid ctx="trans_comment"
@@ -132,26 +130,26 @@ valid ctx="Numbers and characters"
 valid ctx="Keywords" 
 valid ctx="Query"
 valid ctx="CSV separator"
-valid span="\,\d" after="\d+\s?"
+valid span=",\d" after="\d+\s?"
 valid span="\,$"
 hint="Ponga un espacio de separación después del signo de coma"
 
-[\»]
+[»]
 validGroup closeQuotes 
 valid ctx="Numbers and characters"
 hint="Ponga un espacio después del signo de comilla española de cierre"
 
-[\.\»] 
+[\.»] 
 valid after="\«"
 valid after="\.\."
 hint="Ponga el punto después de la comilla de cierre y no antes"
 
-[\«]
+[«]
 validGroup openQuotes
 valid ctx="Numbers and characters"
 hint="Ponga un espacio antes del signo de comilla española de apertura"
 
-[\«]
+[«]
 valid before=".*?[»({«'\"\[]"
 hint="Cierre la comilla (deben ir emparejadas)"
 
@@ -184,7 +182,7 @@ valid ctx="EMAIL OF TRANSLATORS"
 valid ctx="trans_comment"
 valid ctx="Numbers and characters"
 valid msgid="CREDIT_FOR_TRANSLATORS"
-valid span="\.\w" before="\w{1,3}" # Extensions
+valid span="\.\w" before="[\w\d]{1,3}" # Extensions
 valid span=".F" after="Last\s" before="m"
 valid after="\.\." 
 valid span="\.\." before="\."
@@ -195,7 +193,7 @@ valid span="\.\\" before="n"
 valid after="[\w\d]{2,4}\." # Extensions
 hint="Ponga un espacio después de un signo de punto"
 
-[\.\.\.\s\.]
+[\.\.\.\s?\.]
 hint="No ponga un signo de punto después de puntos suspensivos"
 
 [&cr;]
@@ -227,10 +225,10 @@ hint="Las siglas se escriben en singular en español (quite la «s» final)"
 [\b[A-Z]{2,6}\'s\b]
 hint="Las siglas se escriben en singular en español (quite la «'s» final)"
 
-[\b\&[\w\d\-\_]+\;s\b]
+[\b\&[\w\d\-_]+\;s\b]
 hint="Las siglas se escriben en singular en español (quite la «s» final)"
 
-[\b\&[\w\d\-\_]+\;\'s\b]
+[\b\&[\w\d\-_]+\;\'s\b]
 hint="Las siglas se escriben en singular en español (quite la «'s» final)"
 
 #[\besto\ses\s]
@@ -291,114 +289,114 @@ hint="Ponga una coma después de «Por regla general» (Consulte ortografía de 
 [Quizá\s]
 hint="Ponga una coma después de «Quizá» (Consulte ortografía de la RAE)"
 
-[[^\,\.^]\so\sbien\b]
+[[^,.\A]\so\sbien\b]
 hint="Ponga una coma antes de «o bien» (Consulte ortografía de la RAE)"
 
-[[^\,\.^]\sexcepto\b]
+[[^,.\A]\sexcepto\b]
 hint="Ponga una coma antes de «excepto» (Consulte ortografía de la RAE)"
 
-[[^\,\.^]\ssalvo\b]
+[[^,.\A]\ssalvo\b]
 hint="Ponga una coma antes de «salvo» (Consulte ortografía de la RAE)"
 
-[[^\,\.^]\conque\b]
+[[^\,\.\A]\conque\b]
 hint="Ponga una coma antes de «conque» (Consulte ortografía de la RAE)"
 
-[[^\,\.^]\sasí\sque\b]
+[[^,.\A]\sasí\sque\b]
 hint="Ponga una coma antes de «así que» (Consulte ortografía de la RAE)"
 
-[[^\,\.^]\sde\smanera\sque\b]
+[[^,.\A]\sde\smanera\sque\b]
 hint="Ponga una coma antes de «de manera que» (Consulte ortografía de la RAE)"
 
-[[^\,\.^]\sesto\ses\b]
+[[^,.\A]\sesto\ses\b]
 valid after="si\s"
 hint="Ponga una coma antes de «esto es» (Consulte ortografía de la RAE)"
 
-[[^\,\.^]\ses\sdecir\b]
+[[^,.\A]\ses\sdecir\b]
 hint="Ponga una coma antes de «es decir» (Consulte ortografía de la RAE)"
 
-[[^\,\.^]\sa\ssaber\b]
+[[^,.\A]\sa\ssaber\b]
 hint="Ponga una coma antes de «a saber» (Consulte ortografía de la RAE)"
 
-[[^\,\.^]\spues\sbien\b]
+[[^,.\A]\spues\sbien\b]
 hint="Ponga una coma antes de «pues bien» (Consulte ortografía de la RAE)"
 
-[[^\,\.^]\sahora\sbien\b]
+[[^,.\A]\sahora\sbien\b]
 hint="Ponga una coma antes de «ahora bien» (Consulte ortografía de la RAE)"
 
-[[^\,\.^]\sen\sprimer\slugar\b]
+[[^,.\A]\sen\sprimer\slugar\b]
 hint="Ponga una coma antes de «en primer lugar» (Consulte ortografía de la RAE)"
 
-[[^\,\.^]\spor\sotro\lado\b]
+[[^,.\A]\spor\sotro\lado\b]
 hint="Ponga una coma antes de «por otro lado» (Consulte ortografía de la RAE)"
 
-[[^\,\.^]\spor\sun\slado\b]
+[[^,.\A]\spor\sun\slado\b]
 hint="Ponga una coma antes de «por un lado» (Consulte ortografía de la RAE)"
 
-[[^\,\.^]\spor\suna\sparte\b]
+[[^,.\A]\spor\suna\sparte\b]
 hint="Ponga una coma antes de «por una parte» (Consulte ortografía de la RAE)"
 
-[[^\,\.^]\spor\sotra\sparte\s]
+[[^,.\A]\spor\sotra\sparte\s]
 hint="Ponga una coma antes de «por otra parte» (Consulte ortografía de la RAE)"
 
-[[^\,\.^]\sen\sfin\b]
+[[^,.\A]\sen\sfin\b]
 hint="Ponga una coma antes de «en fin» (Consulte ortografía de la RAE)"
 
-[[^\,\.^]\spor\súltimo\b]
+[[^,.\A]\spor\súltimo\b]
 hint="Ponga una coma antes de «por último» (Consulte ortografía de la RAE)"
 
-[[^\,\.^]\sdetrás\sde\b]
+[[^,.\A]\sdetrás\sde\b]
 hint="Ponga una coma antes de «detrás de» (Consulte ortografía de la RAE)"
 
-[[^\,\.^]\sademás\b]
+[[^,.\A]\sademás\b]
 hint="Ponga una coma antes de «además» (Consulte ortografía de la RAE)"
 
-[[^\,\.^]\scon\stodo\b]
+[[^,.\A]\scon\stodo\b]
 valid before="\sel"
 hint="Ponga una coma antes de «con todo» (Consulte ortografía de la RAE)"
 
-[[^\,\.^]\sen\stal\scaso\b]
+[[^\,\.\A]\sen\stal\scaso\b]
 hint="Ponga una coma antes de «en tal caso» (Consulte ortografía de la RAE)"
 
-[[^\,\.^]\ssin\sembargo\b]
+[[^,.\A]\ssin\sembargo\b]
 hint="Ponga una coma antes de «sin embargo» (Consulte ortografía de la RAE)"
 
-[[^\,\.^]\sno\sobstante\b]
+[[^,.\A]\sno\sobstante\b]
 hint="Ponga una coma antes de «no obstante» (Consulte ortografía de la RAE)"
 
-[[^\,\.^]\spor\sel\scontrario\b]
+[[^,.\A]\spor\sel\scontrario\b]
 hint="Ponga una coma antes de «por el contrario» (Consulte ortografía de la RAE)"
 
-[[^\,\.^]\sen\scambio\b]
+[[^,.\A]\sen\scambio\b]
 hint="Ponga una coma antes de «en cambio» (Consulte ortografía de la RAE)"
 
-[[^\,\.^]\sefectivamente\b]
+[[^,.\A]\sefectivamente\b]
 hint="Ponga una coma antes de «efectivamente» (Consulte ortografía de la RAE)"
 
-[[^\,\.^]\sgeneralmente\b]
+[[^,.\A]\sgeneralmente\b]
 hint="Ponga una coma antes de «generalmente» (Consulte ortografía de la RAE)"
 
-[[^\,\.^]\snaturalmente\b]
+[[^,.\A]\snaturalmente\b]
 hint="Ponga una coma antes de «naturalmente» (Consulte ortografía de la RAE)"
 
-[[^\,\.^]\spor\sregla\sgeneral\b]
+[[^,.\A]\spor\sregla\sgeneral\b]
 hint="Ponga una coma antes de «por regla general» (Consulte ortografía de la RAE)"
 
-[[^\,]\setcétera\b]i
+[[^,]\setcétera\b]i
 hint="Ponga una coma antes de «etc./&etc;/etcétera» (Consulte ortografía de la RAE)"
 
 [\,\s(y|e|o(^\sbien)|u|ni)\s]
 hint="No se pone coma antes de las conjunciones « y, e, o, u, ni» salvo casos excepcionales (Consulte ortografía de la RAE)"
 
-[[^\.\?\!\:^]\s(Enero|Febrero|Marzo|Abril|Mayo|Junio|Julio|Agosto|Septiembre|Octubre|Noviembre|Diciembre)\b]
+[[^.?!:(\\n)]\s(Enero|Febrero|Marzo|Abril|Mayo|Junio|Julio|Agosto|Septiembre|Octubre|Noviembre|Diciembre)\b]
 hint="Los nombres de los meses se escriben en minúsculas (Consulte ortografía de la RAE)"
 
-[[^\.\?\!\:^]\s(Lunes|Martes|Miércoles|Jueves|Viernes|Sábado|(^Santo\s)Domingo)\b]
+[[^.?!:(\\n)]\s(Lunes|Martes|Miércoles|Jueves|Viernes|Sábado|(^Santo\s)Domingo)\b]
 hint="Los nombres de los días de la semana se escriben en minúsculas (Consulte ortografía de la RAE)"
 
-[[^\.\?\!\:^]\s(Primavera|Verano|Otoño|Invierno)\b]
+[[^.?!:(\\n))]\s(Primavera|Verano|Otoño|Invierno)\b]
 hint="Los nombres de las estaciones del año se escriben en minúsculas (Consulte ortografía de la RAE)"
 
-[[^\.\?\!\:^]\s(Usted|Señor|Don|Fray|San|Santo|Sor|Reverendo)\b]
+[[^.?!:(\\n)]\s(Usted|Señor|Don|Fray|San|Santo|Sor|Reverendo)\b]
 hint="Los tratamientos « Usted, Señor, Don, ... » se escriben en minúsculas (Consulte ortografía de la RAE)"
 
 # End of rule file

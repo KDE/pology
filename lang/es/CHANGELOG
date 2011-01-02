@@ -1,3 +1,54 @@
+Cambios 2/1/2011
+------------------
+1.- Cambios en diccionario.
+- Se añade un muevo contexto ignorado.
+
+2.- Cambios en guiones Python.
+- Se reescribe completamente «compare_with_original.py».
+
+3.- Cambios en «common-mistakes.rules».
+- Se modifica la regla de detección de palabras con guion intermedio.
+- Nuevas reglas con mas errores comunes.
+
+4.-Cambios en «glosario-kde-l10n-es.rules».
+- Se detectan nuevas formas de traducción de la voz pasiva inglesa.
+
+5.-Cambios en «glosario-kde-l10n-es-proposed.rules».
+- Se detectan nuevas formas de traducción de la voz pasiva inglesa.
+
+6.- Cambios en «user-interface.rules».
+- Se modifica la traducción de «menú item» para admitir un texto entre
+«opción» y «de menú».
+
+7.- Cambios en «typography.rules».
+- Corrección de estilo.
+
+8.- Cambios en «paragraph-end.rules».
+- Corrección de error en la detección de punto al final de párrafo.
+
+9.- Cambios «paired-words.rules».
+- Nuevas reglas para:
+  - Detectar mensajes sin traducir.
+  - Detectar traducciones demasiado largas.
+  - Detectar traducciones demasiado cortas.
+  - Detectar traducciones vacías.
+Nota: Para que estas reglas funcionen, deben estar instalados los paquetes:
+  - python-enchant
+  - aspell
+  - aspell-en
+  - aspell-es
+
+Cambios 19/12/2010
+------------------
+1.- Cambios en diccionario.
+- Se añaden nuevos términos.
+
+2.- Cambios en guiones Python.
+- Se considera como válida la traducción sin s final de las siglas en plural.
+
+3.- Cambios en «common-mistakes.rules»
+- Adaptación a la nueva ortografía de la RAE.
+
 Cambios 9/12/2010
 -----------------------
 1.- Cambios en «glosario-kde-l10n-es.rules»
@@ -9,7 +60,7 @@ Cambios 9/12/2010
 - Corrección de errores.
 
 3.- Cambios en «common-mistakes.rules»
-- So ordenan las reglas alfabéticamente.
+- Se ordenan las reglas alfabéticamente.
 - Pequeñas correcciones de errores.
 
 4.- Cambios en «user-interface.rules»

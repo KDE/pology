@@ -5,8 +5,8 @@
 
 include file="filter.include"
 
-# Remove accelerator and  hyphen inside words.
-addFilterRegex match="(\&|\-)" on="pmsgid,pmsgstr"
+# Remove accelerators inside words.
+addFilterRegex match="\&" on="pmsgid,pmsgstr"
 
 [(?u)\b(\w+)\s+\1\b]
 hint="Hay una palabra consecutiva repetida en el párrafo"
@@ -24,11 +24,11 @@ hint="No utilice expresiones del tipo «los ciudadanos y las ciudadanas » (erro
 hint="No utilice expresiones del tipo «las ciudadanas y los ciudadanos » (error frecuente)"
 
 # No utilizar la arroba para incluir masculino y femenino
-[(?u)\b\w+@[a-záéíóúñç]{1,2}\b]
+[(?u)\b\w+@[a-záéíóúñç]{0,2}\b]
 hint="No utilice la arroba para evitar el género, p.ej. «ciudadan@s» (error frecuente)"
 
 # No utilizar el guión para separar el prefijo de la palabra principal
-[(?u)\b\w+-[a-záéíóúñç]+\b]
+[(?u)\b\w{2,}\-[a-záéíóúñç]{3,}\b]
 hint="No utilice el guión para separar el prefijo de la palabra principal, p.ej. «sub-menú» (error frecuente)"
 
 # «¿Adonde...» se escribe como «¿Adónde...».
@@ -103,6 +103,30 @@ hint="« ¡Por que... » se escribe como « ¡Por qué... », (error frecuente)"
 [\¡que\b]i
 hint="« ¡Que... » se escribe como « ¡Qué... », (error frecuente)"
 
+# «A acá» se escribe como «Acá».
+[\ba\sacá\b]i
+hint="« A acá » se escribe como « Acá » (error frecuente: redundancia)"
+
+# «A afuera» se escribe como «Afuera».
+[\ba\safuera\b]i
+hint="« A afuera » se escribe como « Afuera » (error frecuente: redundancia)"
+
+# «A adelante» se escribe como «Adelante».
+[\ba\sadelante\b]i
+hint="« A adelante » se escribe como « Adelante » (error frecuente: redundancia)"
+
+# «A adentro» se escribe como «Adentro».
+[\ba\sadentro\b]i
+hint="« A adentro » se escribe como « Adentro » (error frecuente: redundancia)"
+
+# «A arriba» se escribe como «Arriba».
+[\ba\sarriba\b]i
+hint="« A arriba » se escribe como « Arriba » (error frecuente: redundancia)"
+
+# «A atrás» se escribe como «Atrás».
+[\ba\satrás\b]i
+hint="« A atrás » se escribe como « Atrás » (error frecuente: redundancia)"
+
 # «A condición que» se escribe como «A condición de que».
 [\ba\scondición\sque\b]i
 hint="« A condición que » se escribe como « A condición de que » (error frecuente: queismo)"
@@ -114,6 +138,10 @@ hint="« A efecto de » se escribe como « A efectos de » (error frecuente)"
 # «A el» se escribe como «Al».
 [\ba\sel\b]i
 hint="« A el » se escribe como « Al » (error frecuente)"
+
+# «A excepción hecha de» se escribe como «A excepción de».
+[\ba\sexcepción\hecha\sde\b]i
+hint="« A excepción hecha de » se escribe como « A excepción de » (error frecuente)"
 
 # «A fin que» se escribe como «A fin de que».
 [\ba\sfin\sque\b]i
@@ -163,6 +191,10 @@ hint="« Acordarse que » se escribe como « Acordarse de que » (error frecuent
 [\bal\sextremo\sde\b]i
 hint="« Al extremo de » se escribe como « Hasta el extremo » (error frecuente)"
 
+# «Al punto de » se escribe como «Hasta tal punto».
+[\bal\spunto\sde\b]i
+hint="« Al punto de » se escribe como « Hasta tal punto » (error frecuente)"
+
 # «Al punto que » se escribe como «Hasta el punto de que».
 [\bal\spunto\sque\b]i
 hint="« Al punto que » se escribe como « Hasta el punto de que » (error frecuente)"
@@ -186,6 +218,14 @@ hint="« Alegrarse que » se escribe como « Alegrarse de que » (error frecuent
 # «Almacenaje» se escribe como «Almacenamiento».
 [\balmacenaje\b]i
 hint="« Almacenaje » se escribe como « Almacenamiento » (error frecuente)"
+
+# «Amateur» se escribe como «Aficionado».
+[\bamateur\b]i
+hint="« Amateur » se escribe como « Aficionado » (error frecuente)"
+
+# «Amateurs» se escribe como «Aficionados».
+[\bamateurs\b]i
+hint="« Amateurs » se escribe como « Aficionados » (error frecuente)"
 
 # «Anteriormente a» se escribe como «Antes de/Con anterioridad a».
 [\banteriormente\sa\b]i
@@ -231,13 +271,25 @@ hint="« Arrepentirse que » se escribe como « Arrepentirse de que » (error fr
 [\basí\ses\sque\b]i
 hint="« Así es que » se escribe como « Así que » (error frecuente)"
 
-# «Bajo la base de» se escribe como «Sobre la base de».
-[\bbajo\sla\sbase\sde\b]i
-hint="« Bajo la base de » se escribe como « Sobre la base de » (error frecuente)"
+# «Atentar a» se escribe como «Atentar contra».
+[\batentar\sa\b]i
+hint="« Atentar a » se escribe como « Atentar contra » (error frecuente)"
 
-# «Bajo la condición» se escribe como «Con la condición».
-[\bbajo\sla\scondición\b]i
-hint="« Bajo la condición » se escribe como « Con la condición » (error frecuente)"
+# «Ayer mañana» se escribe como «Ayer por la mañana».
+[\bayer\smañana\b]i
+hint="« Ayer mañana » se escribe como « Ayer por la mañana » (error frecuente)"
+
+# «Ayer noche» se escribe como «Anoche».
+[\bayer\snoche\b]i
+hint="« Ayer noche » se escribe como « Anoche » (error frecuente)"
+
+# «Ayer tarde» se escribe como «Ayer por la tarde».
+[\bayer\starde\b]i
+hint="« Ayer tarde » se escribe como « Ayer por la tarde » (error frecuente)"
+
+# «Bajo el ángulo» se escribe como «Desde el ángulo».
+[\bbajo\sel\sángulo\b]i
+hint="« Bajo el ángulo » se escribe como « Desde el ángulo » (error frecuente)"
 
 # «Bajo el prisma» se escribe como «Desde el punto de vista».
 [\bbajo\sel\sprisma\b]i
@@ -247,6 +299,54 @@ hint="« Bajo el prisma » se escribe como « Desde el punto de vista » (error 
 [\bbajo\sel\spunto\sde\svista\b]i
 hint="« Bajo el punto de vista » se escribe como « Desde el punto de vista » (error frecuente)"
 
+# «Bajo el radio de acción» se escribe como «Dentro del radio de acción».
+[\bbajo\sel\sradio\sde\sacción\b]i
+hint="« Bajo el radio de acción » se escribe como « Dentro del radio de acción » (error frecuente)"
+
+# «Bajo encargo de» se escribe como «Por encargo de».
+[\bbajo\sencargo\sde\b]i
+hint="« Bajo encargo de » se escribe como « Por encargo de » (error frecuente)"
+
+# «Bajo esta premisa» se escribe como «Con esta premisa».
+[\bbajo\sesta\spremisa\b]i
+hint="« Bajo esta premisa » se escribe como « Con esta premisa » (error frecuente)"
+
+# «Bajo estas circunstancias» se escribe como «Con estas circunstancias».
+[\bbajo\sestas\scircunstancias\b]i
+hint="« Bajo estas circunstancias » se escribe como « Con estas circunstancias » (error frecuente)"
+
+# «Bajo estas condiciones» se escribe como «Con estas condiciones».
+[\bbajo\sestas\scondiciones\b]i
+hint="« Bajo estas condiciones » se escribe como « Con estas condiciones » (error frecuente)"
+
+# «Bajo este aspecto» se escribe como «En este aspecto».
+[\bbajo\seste\saspecto\b]i
+hint="« Bajo este aspecto » se escribe como « En este aspecto » (error frecuente)"
+
+# «Bajo este supuesto» se escribe como «En este supuesto».
+[\bbajo\seste\ssupuesto\b]i
+hint="« Bajo este supuesto » se escribe como « En este supuesto » (error frecuente)"
+
+# «Bajo la base» se escribe como «Desde la base».
+[\bbajo\sla\sbase\b]i
+hint="« Bajo la base » se escribe como « Desde la base » (error frecuente)"
+
+# «Bajo la base de» se escribe como «Sobre la base de».
+[\bbajo\sla\sbase\sde\b]i
+hint="« Bajo la base de » se escribe como « Sobre la base de » (error frecuente)"
+
+# «Bajo la condición» se escribe como «Con la condición».
+[\bbajo\sla\scondición\b]i
+hint="« Bajo la condición » se escribe como « Con la condición » (error frecuente)"
+
+# «Bajo que circunstancias» se escribe como «Con que circunstancias».
+[\bbajo\sque\scircunstancias\b]i
+hint="« Bajo que circunstancias » se escribe como « Con que circunstancias » (error frecuente)"
+
+# «Bajo que condiciones» se escribe como «Con que condiciones».
+[\bbajo\sque\scondiciones\b]i
+hint="« Bajo que condiciones » se escribe como « Con que condiciones » (error frecuente)"
+
 # «Bién» se escribe como «Bien».
 [\bién\b]i
 hint="« Bién » se escribe como « Bien », salvo en casos muy excepcionales (error frecuente)"
@@ -254,6 +354,10 @@ hint="« Bién » se escribe como « Bien », salvo en casos muy excepcionales (
 # «BIOS» es masculino.
 [\b(la|una|esta|esa|las|unas|estas|esas)\BIOS\b]i
 hint="« BIOS » es de género masculino (error frecuente)"
+
+# «Bonus» se escribe como «Bonificación/prima».
+[\bonus\b]i
+hint="« Bonus » se escribe como « Bonificación/Prima » (error frecuente)"
 
 # «Caben destacar» se escribe como «Cabe destacar».
 [\bcaben\sdestacar\b]i
@@ -306,14 +410,18 @@ hint="« Con la condición que » se escribe como « Con la condición de que »
 [\bcon\smotivo\sa\b]i
 hint="« Con motivo a » se escribe como « Con motivo de/A causa de » (error frecuente)"
 
+# «Conjuntamente con» se escribe como «Conjuntamente».
+[\bconjuntamente\scon\b]i
+hint="« Conjuntamente con » se escribe como « Conjuntamente » (error frecuente: redundancia)"
+
 # «Convencer que» se escribe como «Convencer de que».
 [\bconvencer\sque\b]i
 hint="« Convencer que » se escribe como « Convencer de que » (error frecuente: queismo)"
 
-[\bcorreo-e\b]i
+[\bcorreo\-e\b]i
 hint="No utilice « Correo-e » solo « Correo » a secas (error frecuente)"
 
-[\bcorreos-e\b]i
+[\bcorreos\-e\b]i
 hint="No utilice « Correos-e » solo « Correos » a secas (error frecuente)"
 
 # «Cualesquieras» se escribe como «Cualesquiera».
@@ -364,6 +472,10 @@ hint="« Del el » preposición duplicada (error frecuente)"
 [\bdel\sla\b]i
 hint="« Del la » preposición duplicada (error frecuente)"
 
+# «Delante suyo/a» se escribe como «Delante de él/ella».
+[\bdelante\ssuy[oa]\b]i
+hint="« Delante suyo/a » se escribe como « Delante de él/ella » (error frecuente)"
+
 # «Déme» se escribe como «Deme».
 [\bdéme\b]i
 hint="« Déme » se escribe como « Deme » (error frecuente)"
@@ -371,6 +483,10 @@ hint="« Déme » se escribe como « Deme » (error frecuente)"
 # «Deténte» se escribe como «Detente».
 [\bdeténte\b]i
 hint="« Deténte » se escribe como « Detente », (error frecuente)"
+
+# «Detrás suyo/a» se escribe como «Detrás de él/ella».
+[\bdetrás\ssuy[oa]\b]i
+hint="« Detrás suyo/a » se escribe como « Detrás de él/ella » (error frecuente)"
 
 # «Dí» se escribe como «Di».
 [\bdí\b]i
@@ -384,10 +500,22 @@ hint="« Diferente a » se escribe como « Diferente de » (error frecuente)"
 [\bdió\b]i
 hint="« Dió » se escribe como « Dio » (error frecuente)"
 
-[\be-?mail\b]i
+# «Distinto a» se escribe como «Distinto de».
+[\bdistinto\sa\b]i
+hint="« Distinto a » se escribe como « Distinto de » (error frecuente)"
+
+# «Dossier» se escribe como «Dosier».
+[\bdossier\b]i
+hint="« Dossier » se escribe como « Dosier » (error frecuente)"
+
+# «Dossiers» se escribe como «Dosieres».
+[\bdossiers\b]i
+hint="« Dossiers » se escribe como « Dosieres » (error frecuente)"
+
+[\be\-?mail\b]i
 hint="No utilice « Email » sino « Correo » (error frecuente)"
 
-[\be-?mails\b]i
+[\be\-?mails\b]i
 hint="No utilice « Emails » sino « Correos » (error frecuente)"
 
 # «El echo» se escribe como «El hecho».
@@ -406,13 +534,29 @@ hint="« El porque » e escribe como «El porqué». (error frecuente)"
 [\ben\scaso\sque\b]i
 hint="« En caso que » se escribe como « En caso de que » (error frecuente: queismo)"
 
+# «En cuanto que» se escribe como «En cuanto».
+[\ben\scuanto\sque\b]i
+hint="« En cuanto que » se escribe como « En cuanto » (error frecuente)"
+
+# «En dirección de» se escribe como «En dirección a».
+[\ben\sdirección\sde\b]i
+hint="« En dirección de » se escribe como « En dirección a » (error frecuente)"
+
 # «En el momento que» se escribe como «En el momento en que».
 [\ben\sel\smomento\sque\b]i
 hint="« En el momento que » se escribe como « En el momento en que » (error frecuente)"
 
+# «En evitación de» se escribe como «Para evitar».
+[\ben\sevitación\sde\b]i
+hint="« En evitación de » se escribe como « Para evitar » (error frecuente)"
+
 # «En frente» se escribe como «Enfrente».
 [\ben\sfrente\b]i
 hint="« En frente » se escribe como « Enfrente » (error frecuente)"
+
+# «En la medida de que» se escribe como «En la medida que».
+[\ben\sla\smedida\sde\sque\b]i
+hint="« En la medida de que » se escribe como « En la medida que » (error frecuente)"
 
 # «En ocasión de» se escribe como «Con ocasión que».
 [\ben\socasión\sde\b]i
@@ -445,6 +589,10 @@ hint="« Éso » se escribe como « Eso », salvo en casos muy excepcionales (er
 # «Ésos» se escribe como «Esos».
 [\bésos\b]i
 hint="« Ésos » se escribe como « Esos », salvo en casos muy excepcionales (error frecuente)"
+
+# «Espúreo» se escribe como «Espurio».
+[\bespúreo\b]i
+hint="« Espúreo » se escribe como « Espurio » (error frecuente)"
 
 # «Ésta» se escribe como «Esta».
 [\bésta\b]i
@@ -558,7 +706,7 @@ hint="« Imagen » se escribe como « Imagen » (error frecuente)"
 [\binflacción\b]i
 hint="« Inflacción » se escribe como « Inflación » (error frecuente)"
 
-# «Insistir que» se escribe como «Insistir de que».
+# «Insistir que» se escribe como «Insistir en que».
 [\binsistir\sque\b]i
 hint="« Insistir que » se escribe como « Insistir en que » (error frecuente: queismo)"
 
@@ -646,6 +794,10 @@ hint="« Los y las » se escribe como «Los». (error frecuente)"
 [\blos\sporques\b]i
 hint="« Los porques » se escribe como «Los porqués». (error frecuente)"
 
+# «Louisiana» se escribe como «Luisiana».
+[\blouisiana\b]i
+hint="« Louisiana » se escribe como « Luisiana » (error frecuente)"
+
 # «Macro» es femenino.
 [\b(el|del|uno|este|ese)\macro\b]i
 hint="« Macro » es de género femenino (error frecuente)"
@@ -654,6 +806,14 @@ hint="« Macro » es de género femenino (error frecuente)"
 [\b(los|unos|estos|esos)\macros\b]i
 hint="« Macros » es de género femenino (error frecuente)"
 
+# «Master» se escribe como «Máster».
+[\bmaster\b]i
+hint="« Master » se escribe como « Máster » (error frecuente)"
+
+# «Masters» se escribe como «Másteres».
+[\bmasters\b]i
+hint="« Masters » se escribe como « Másteres » (error frecuente)"
+
 # «Me se» se escribe como «Se me».
 [\bme\sse\b]i
 hint="« Me se » se escribe como « Se me » (error frecuente)"
@@ -661,6 +821,14 @@ hint="« Me se » se escribe como « Se me » (error frecuente)"
 # «Més» se escribe como «Mes».
 [\bmés\b]i
 hint="« Més » se escribe como « Mes » (error frecuente)"
+
+# «Mississippi» se escribe como «Misisipi».
+[\bmississippi\b]i
+hint="« Mississippi » se escribe como « Misisipi » (error frecuente)"
+
+# «Nexo de unión» se escribe como «Nexo».
+[\bnexos?\sde\sunión\b]i
+hint="« Nexo de unión » se escribe como « Nexo » (error frecuente: redundancia)"
 
 # «No cabe duda que» se escribe como «No cabe duda de que».
 [\bno\scabe\sduda\sque\b]i
@@ -762,9 +930,9 @@ hint="« Preveyendo » se escribe como « Previendo » (error frecuente)"
 [\bpreveyera\b]i
 hint="« Preveyera » se escribe como « Preveiera » (error frecuente)"
 
-# «Preveyó» se escribe como «Preveó».
+# «Preveyó» se escribe como «Preveió».
 [\bpreveyó\b]i
-hint="« Preveyó » se escribe como « Preveó » (error frecuente)"
+hint="« Preveyó » se escribe como « Preveió » (error frecuente)"
 
 # «Previamente a» se escribe como «Antes de».
 [\bpreviamente\sa\b]i
@@ -830,6 +998,10 @@ hint="« Sobretodo » se escribe como « Sobre todo », salvo en caso de abrigos
 [\bsólo\b]i
 hint="« Sólo » se escribe siempre como « Solo » (ver la nueva ortografía de la RAE)"
 
+# «Stock» se escribe como «Existencias/Reservas/Inventario/...».
+[\bstock\b]i
+hint="« Stock » se escribe siempre como « Existencias/Reservas/Inventario » (error frecuente)"
+
 # «Su se» palabra duplicada.
 [\bsu\sse\b]i
 hint="« Su se » palabra duplicada (error frecuente)"
@@ -837,6 +1009,10 @@ hint="« Su se » palabra duplicada (error frecuente)"
 # «Suelen haber» se escribe como «Suele haber».
 [\bsuelen\shaber\b]i
 hint="« Suelen haber » se escribe como « Suele haber » (error frecuente)"
+
+# «Sydney» se escribe como «Sidney».
+[\bsydney\b]i
+hint="« Sydney » se escribe como « Sydney » (error frecuente)"
 
 # «Te se» se escribe como «Se te».
 [\bte\sse\b]i
@@ -909,6 +1085,10 @@ hint="« Via » se escribe como « Vía » (error frecuente)"
 # «Veís» se escribe sin tilde.
 [\bveís\b]i
 hint="« Veís » se escribe como « Veis » (ver la nueva ortografía de la RAE)"
+
+# «Versus» se escribe como «Contra/Frente a/En comparación con».
+[\bversus\b]i
+hint="En lugar de « Versus » se emplea « Contra/Frente a/en comparación con » (error frecuente)"
 
 # «Ví» se escribe como «Vi».
 [\bví\b]i
