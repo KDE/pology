@@ -1,6 +1,6 @@
 
 *hook name="spell/check-spell-sp~" on="msgstr"
-addFilterRegex match="[a-z&áňŠěéČć³²]+" on="pmsgid,pmsgstr"
+addFilterRegex match="[a-z&áňŠěéČć³²äß]+" on="pmsgid,pmsgstr"
 addFilterRegex match="веб-страница" on="pmsgid,pmsgstr"
 addFilterRegex match="веб-страницу" on="pmsgid,pmsgstr"
 addFilterRegex match="веб-страницы" on="pmsgid,pmsgstr"
