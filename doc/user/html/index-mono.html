@@ -13,7 +13,7 @@
 <div class="titlepage">
 <div>
 <div>
-<h1 class="title"><a name="id277970" id="id277970"></a>Pology User Manual</h1>
+<h1 class="title"><a name="id277766" id="id277766"></a>Pology User Manual</h1>
 </div>
 <div>
 <div class="authorgroup">
@@ -183,7 +183,8 @@
 <dl>
 <dt><span class="sect2"><a href="#sec-sustpdirect">5.1.1. Setting Up Direct Summit</a></span></dt>
 <dt><span class="sect2"><a href="#sec-sustpdyntpl">5.1.2. Setting Up Summit over Dynamic Templates</a></span></dt>
-<dt><span class="sect2"><a href="#sec-suststattpl">5.1.3. Setting Up Summit over Static Templates</a></span></dt>
+<dt><span class="sect2"><a href="#sec-sustpstattpl">5.1.3. Setting Up Summit over Static Templates</a></span></dt>
+<dt><span class="sect2"><a href="#sec-sustpptransf">5.1.4. Transforming Branch Paths</a></span></dt>
 </dl>
 </dd>
 <dt><span class="sect1"><a href="#sec-sumaintain">5.2. Maintaining the Summit</a></span></dt>
@@ -199,11 +200,15 @@
 <dd>
 <dl>
 <dt><span class="sect2"><a href="#sec-sucfghooks">5.3.1. Summit Hooks</a></span></dt>
-<dt><span class="sect2"><a href="#sec-sucfgviv">5.3.2. Vivification of Summit PO Files</a></span></dt>
-<dt><span class="sect2"><a href="#sec-sucfgbmrg">5.3.3. Merging in Branches</a></span></dt>
-<dt><span class="sect2"><a href="#sec-sucfgbonmrg">5.3.4. Additional Merging Options</a></span></dt>
-<dt><span class="sect2"><a href="#sec-sucfgbonsct">5.3.5. Additional Scattering Options</a></span></dt>
-<dt><span class="sect2"><a href="#sec-sucfgascf">5.3.6. Filtering by Ascription on Scatter</a></span></dt>
+<dt><span class="sect2"><a href="#sec-sucfgvcs">5.3.2. Integration with Version Control Systems</a></span></dt>
+<dt><span class="sect2"><a href="#sec-sucfgwrap">5.3.3. Text Wrapping in PO Files</a></span></dt>
+<dt><span class="sect2"><a href="#sec-sucfgviv">5.3.4. Vivification of Summit PO Files</a></span></dt>
+<dt><span class="sect2"><a href="#sec-sucfgbmrg">5.3.5. Merging in Branches</a></span></dt>
+<dt><span class="sect2"><a href="#sec-sucfghead">5.3.6. Propagation of Header Parts</a></span></dt>
+<dt><span class="sect2"><a href="#sec-sucfgascf">5.3.7. Filtering by Ascription on Scatter</a></span></dt>
+<dt><span class="sect2"><a href="#sec-sucfgbranch">5.3.8. Other Branch Options</a></span></dt>
+<dt><span class="sect2"><a href="#sec-sucfgbonmrg">5.3.9. Other Merge Options</a></span></dt>
+<dt><span class="sect2"><a href="#sec-sucfgbonsct">5.3.10. Other Scatter Options</a></span></dt>
 </dl>
 </dd>
 <dt><span class="sect1"><a href="#sec-suproblems">5.4. Disadvantages to Summit Workflow and Remedies</a></span></dt>
@@ -242,7 +247,7 @@
 <dt><span class="sect1"><a href="#sec-lglangenv">8.1. The Notion of Language in Pology</a></span></dt>
 <dd>
 <dl>
-<dt><span class="sect2"><a href="#id328048">8.1.1. Supported Languages and Environments</a></span></dt>
+<dt><span class="sect2"><a href="#id366775">8.1.1. Supported Languages and Environments</a></span></dt>
 </dl>
 </dd>
 <dt><span class="sect1"><a href="#sec-lgspell">8.2. Spell Checking</a></span></dt>
@@ -377,7 +382,7 @@
 </div>
 <p>Many people like to use computer programs in their native language. On the average, the working language of developers of a computer program, and the native language of its users, are different. This means that programs need to be <span class="emphasis"><em>translated</em></span>. For this to be possible, first the program has to be written in such a way that it can fetch and display translations in the language set by the user. Then, there has to exist a method to collect discrete pieces of text (such as button labels, menu items, messages in dialogs...) from the program. Collected pieces of text are written into one or more files of a certain format, which the translators can work on. Finally, translated files may need to be converted into a form that the program can interpret and show translation to the user. There are many different translation systems, which support one or more of these elements of translation process.</p>
 <p>In the realm of free software, one particular translation system has become ubiquitous: the <a class="ulink" href="http://www.gnu.org/software/gettext/" target="_top">GNU Gettext</a>. It covers all the elements of the translation process. It provides a way for programmers to write translatable programs, a way for text to be extracted and collected for translation, a file format on which the translators work, and a set of tools for processing translation files. Beyond the technical aspects, Gettext has evolved a set of conventions, workflows and communication patterns -- a translation <span class="emphasis"><em>culture</em></span> of sorts.</p>
-<p>The most salient element of Gettext from translators' perspective is the translation file format it defines, the PO<sup>[<a name="id334273" href="#ftn.id334273" class="footnote" id="id334273">1</a>]</sup> format. Along with other parts of Gettext, the PO format has developed over the years into the technically most capable translation file format today. Its features both enable high quality and efficiency of translation, and yet can all "fit into one person's head". <a class="link" href="#ch-poformat" title="Chapter&nbsp;2.&nbsp;The PO Format">A chapter of this manual</a> provides a tour of the PO format from translator's perspective.</p>
+<p>The most salient element of Gettext from translators' perspective is the translation file format it defines, the PO<sup>[<a name="id334068" href="#ftn.id334068" class="footnote" id="id334068">1</a>]</sup> format. Along with other parts of Gettext, the PO format has developed over the years into the technically most capable translation file format today. Its features both enable high quality and efficiency of translation, and yet can all "fit into one person's head". <a class="link" href="#ch-poformat" title="Chapter&nbsp;2.&nbsp;The PO Format">A chapter of this manual</a> provides a tour of the PO format from translator's perspective.</p>
 <p>Aside from the tools provided by GNU Gettext itself, many other tools for processing PO files have been written. These consist of translation editors (or "PO editors"), which provide translators with more power in editing PO files, and batch-processing tools, for purposes more specific than those covered by Gettext (e.g. conversion from and to other file formats). <span class="emphasis"><em>Pology</em></span> is one of these specific batch-processing tools.</p>
 <p>Pology consists of a <a class="ulink" href="http://www.python.org/" target="_top">Python</a> library, with much translation-related functionality beyond basic manipulation of PO file objects, and a collection of scripts based on this library. Both the library and the scripts have this basic trait: they tend to go in depth. Pology is designed to apply precision tasks to standalone PO files, to process collections of PO files in sophisticated ways, and while doing this to cooperate well with other tools commonly used to handle PO files (such as PO editors and version control systems). On the programming side Pology strives for simplicity and robustness, so that users who know (some) Python can easily add functionality for their custom needs. To achieve this, Pology fully relies on the conventions of the PO format, without trying to abstract the translation file format.</p>
 <p>As one measure of attention to detail, Pology has sections of language-specific and project-specific functionality, and even combinations of those. Users are encouraged to contribute their custom solutions into the main distribution, if these solutions can possibly serve needs of others.</p>
@@ -390,7 +395,7 @@
 </div>
 </div>
 </div>
-<p>Pology is still not a released piece of software, so most likely it cannot be found in operating system's software repositories. Nevertheless, it can be obtained in prepared for use quite simply. To fetch the latest development version of Pology from its version control repository, execute<sup>[<a name="id285946" href="#ftn.id285946" class="footnote" id="id285946">2</a>]</sup>:</p>
+<p>Pology is still not a released piece of software, so most likely it cannot be found in operating system's software repositories. Nevertheless, it can be obtained in prepared for use quite simply. To fetch the latest development version of Pology from its version control repository, execute<sup>[<a name="id285742" href="#ftn.id285742" class="footnote" id="id285742">2</a>]</sup>:</p>
 <pre class="programlisting">
 $ cd <em class="replaceable"><code>PARDIR</code></em>
 $ svn checkout svn://anonsvn.kde.org/home/kde/trunk/l10n-support/pology
@@ -472,10 +477,10 @@ $ . <em class="replaceable"><code>PARDIR</code></em>/pology/completion/bash/polo
 <div class="footnotes"><br>
 <hr width="100" align="left">
 <div class="footnote">
-<p><sup>[<a name="ftn.id334273" href="#id334273" class="para" id="ftn.id334273">1</a>]</sup> "PO" is an acronym for "portable object". This phrase is a quite generic term from the depths of computer science, opaque for practicing translators. Texts on software translation therefore always write simply "PO format", "PO files", etc.</p>
+<p><sup>[<a name="ftn.id334068" href="#id334068" class="para" id="ftn.id334068">1</a>]</sup> "PO" is an acronym for "portable object". This phrase is a quite generic term from the depths of computer science, opaque for practicing translators. Texts on software translation therefore always write simply "PO format", "PO files", etc.</p>
 </div>
 <div class="footnote">
-<p><sup>[<a name="ftn.id285946" href="#id285946" class="para" id="ftn.id285946">2</a>]</sup> <span class="command"><strong>svn</strong></span> is the primary command of <a class="ulink" href="http://subversion.tigris.org/" target="_top">Subversion</a> version control system. Subversion is almost certainly ready for installation from your operating system's package repositories.</p>
+<p><sup>[<a name="ftn.id285742" href="#id285742" class="para" id="ftn.id285742">2</a>]</sup> <span class="command"><strong>svn</strong></span> is the primary command of <a class="ulink" href="http://subversion.tigris.org/" target="_top">Subversion</a> version control system. Subversion is almost certainly ready for installation from your operating system's package repositories.</p>
 </div>
 </div>
 </div>
@@ -612,7 +617,7 @@ msgstr "Nema INDI uređaja (...) u meniju uređaja."
 </div>
 </div>
 <p>A message in the PO file is <span class="emphasis"><em>uniquely identified</em></span> by its <code class="varname">msgid</code> string (this is not entirely true, as will be explained shortly, but consider it approximately true for the moment). This means that, as the source which is translated evolves in time, a message may change some of its elements or the position within the PO file, but as long as it has the same <code class="varname">msgid</code> string, it is the same message. Those other, non-identifying elements include the translation (<code class="varname">msgstr</code> string), source reference comments, etc. Position means either the line number in the PO file, or relative position to other messages.</p>
-<p>The first consequence of this fact is that the only reliable way to report a message to someone is to state its <code class="varname">msgid</code> string, in full or in sufficient part, even if the other person has access to the PO file where the message is found.<sup>[<a name="id278272" href="#ftn.id278272" class="footnote" id="id278272">3</a>]</sup> Newcomer translators are sometimes not briefed about this, and then they at first report the line number of the message, or its ordinal number in the range of all messages, without giving the <code class="varname">msgid</code>. Line numbers cannot work because, for example, of the arbitrary line wrapping as described previously. Ordinal numbers do not work because your PO file may be slightly older or newer than that of the other person, and the ordinals may have changed in the meantime.</p>
+<p>The first consequence of this fact is that the only reliable way to report a message to someone is to state its <code class="varname">msgid</code> string, in full or in sufficient part, even if the other person has access to the PO file where the message is found.<sup>[<a name="id278067" href="#ftn.id278067" class="footnote" id="id278067">3</a>]</sup> Newcomer translators are sometimes not briefed about this, and then they at first report the line number of the message, or its ordinal number in the range of all messages, without giving the <code class="varname">msgid</code>. Line numbers cannot work because, for example, of the arbitrary line wrapping as described previously. Ordinal numbers do not work because your PO file may be slightly older or newer than that of the other person, and the ordinals may have changed in the meantime.</p>
 <p>The second consequence is that there cannot be two messages with the same <code class="varname">msgid</code> in the same PO file (again not exactly true, see later). If the same text has been used two or more times in the source, then in the PO file it will appear as a single message, with its source reference comment (<code class="literal">#:</code>) listing all appearances. For example, the source reference of this message:</p>
 <pre class="programlisting">
 #: colorscheme.cpp:79 skycomponents/equator.cpp:31
@@ -733,7 +738,7 @@ msgid "S"
 msgstr ""
 </pre>
 <p>This is now a valid PO file, and you can translate each "S" on its own.</p>
-<p>This updates the earlier approximation that messages must be unique by <code class="varname">msgid</code> strings to the real requirement: messages must be unique by the combination of <code class="varname">msgctxt</code> and <code class="varname">msgid</code> strings. If the <code class="varname">msgctxt</code> string is missing, as it usually is, you can think of it as being present but null-valued.<sup>[<a name="id334534" href="#ftn.id334534" class="footnote" id="id334534">4</a>]</sup></p>
+<p>This updates the earlier approximation that messages must be unique by <code class="varname">msgid</code> strings to the real requirement: messages must be unique by the combination of <code class="varname">msgctxt</code> and <code class="varname">msgid</code> strings. If the <code class="varname">msgctxt</code> string is missing, as it usually is, you can think of it as being present but null-valued.<sup>[<a name="id334329" href="#ftn.id334329" class="footnote" id="id334329">4</a>]</sup></p>
 <p>A rather frequent example of need for disambiguating contexts is when the original text is a single adjective in English, and used at several places in the source:</p>
 <pre class="programlisting">
 #: utils/kateautoindent.cpp:78 utils/katestyletreewidget.cpp:132
@@ -752,7 +757,7 @@ msgctxt "Autoindent mode"
 msgid "Normal"
 msgstr "obično"
 </pre>
-<p>You can imagine that programmers in general cannot know when a certain phrase, same in English when used in two contexts, needs different translations in some other language. This means that you, the translator, should inform them to add a disambiguating context when you determine that you need one.<sup>[<a name="id334580" href="#ftn.id334580" class="footnote" id="id334580">5</a>]</sup></p>
+<p>You can imagine that programmers in general cannot know when a certain phrase, same in English when used in two contexts, needs different translations in some other language. This means that you, the translator, should inform them to add a disambiguating context when you determine that you need one.<sup>[<a name="id334375" href="#ftn.id334375" class="footnote" id="id334375">5</a>]</sup></p>
 <p><a name="p-embctxt" id="p-embctxt"></a>At the moment of this writing, the <code class="varname">msgctxt</code> string is one of the younger additions to the PO format. But the need for disambiguating contexts was observed much earlier, and different translation environments have historically used different custom solutions to provide them. Such older PO files can still be encountered, so it is useful to present a few examples of custom disambiguating contexts. Before the <code class="varname">msgctxt</code> was introduced, messages indeed had to be unique by <code class="varname">msgid</code> alone, so disambiguating context had to be a part of the <code class="varname">msgid</code>, embedded with some special syntax. Here is how the first message from the previous example would look like in a PO file comming from a KDE program of circa 2006:</p>
 <pre class="programlisting">
 #: utils/katestyletreewidget.cpp:132
@@ -916,7 +921,7 @@ msgstr ""
 </pre>
 <p>The Docbook tags are named somewhat differently to the HTML-like tags from the previous example. The describe the meaning of text that they wrap, rather than the visual appearance (the so called <span class="emphasis"><em>semantic</em></span> markup). But it is all the same for translator, except that knowing the meanings of text parts may be benefitial for context. Docbook tags will also sometimes provide one or few <span class="emphasis"><em>attributes</em></span> following the opening tag, such as <code class="literal">&lt;link linkend=...&gt;</code> in the second message above (HTML tags may have this too).</p>
 <p>When translating markup text, you should, in general, reproduce the same set of tags in the translation, assigning them to appropriate translated segments. Under no circumstances may the tags themselves be translated (e.g. <code class="literal">&lt;title&gt;</code> or <code class="literal">&lt;emphasis&gt;</code>), since they are processed by the computer to produce the final formatted text. As for tag attributes (<code class="literal">linkend='ai-skycoords'</code> in the example above), attribute names are also never translated, but in rare occasions their values in quotes may be (usually when a value is clearly a human-readable text).</p>
-<p>However, this is not to say that you should never modify markup. Especially with HTML-like tags, not so rarely the markup in the original text is sloppy (missing closing tags), and you are free to correct it in translation. Another example would be in CJK languages<sup>[<a name="id335096" href="#ftn.id335096" class="footnote" id="id335096">6</a>]</sup>, where bold text is hard to read at normal font sizes, so CJK translators tend to remove <code class="literal">&lt;b&gt;</code> tags in favor of quotes. In general, the more you are familiar with the particular markup, the more you can think of doing something other than directly copying it from the original text.</p>
+<p>However, this is not to say that you should never modify markup. Especially with HTML-like tags, not so rarely the markup in the original text is sloppy (missing closing tags), and you are free to correct it in translation. Another example would be in CJK languages<sup>[<a name="id334891" href="#ftn.id334891" class="footnote" id="id334891">6</a>]</sup>, where bold text is hard to read at normal font sizes, so CJK translators tend to remove <code class="literal">&lt;b&gt;</code> tags in favor of quotes. In general, the more you are familiar with the particular markup, the more you can think of doing something other than directly copying it from the original text.</p>
 <p>Sometimes there are parts in the original text that may look somewhat like XML-like markup, but are actually not. For example:</p>
 <pre class="programlisting">
 #: utils/katecmds.cpp:180
@@ -1220,7 +1225,7 @@ msgstr "Andromeda, galaksija"
 <p>Obsolete messages have no extracted comments or source references, as they are no longer present in the source. Translator comments and flags are retained, as they don't depend on the presence in the source.</p>
 <p>It could be said that obsolete messages are in fact no messages at all, given that they do not exist from the point of consumers of the PO file, and there is nothing for translators to do with them. PO tools in general will ignore them, except to preserve them when the PO file is modified. Dedicated PO editors will invariably not show obsolete messages to the translator, and may provide an option to automatically remove them from the file on saving.</p>
 <p>What is then the purpose of obsolete messages? It frequently happens that a section of the source content, e.g. the code around a certain feature of a program, is <span class="emphasis"><em>temporarily</em></span> removed. Authors sometimes want to improve a section of the text separately, outside of the main content which is being translated, and sometimes a section is even briefly omitted by mistake when there are moves and renames in the source. When this happens, the affected messages will become obsolete in the merged PO; but, when the missing section is put back into the source, the merging algorithm will take obsolete messages into account, and promote them to real messages (either translated or fuzzy) where possible. Thus, some previous translation work may be saved.</p>
-<p>What you should do with obsolete messages depends on the tools with which you work on PO files. For example, if you and other translators working on the given PO all use dedicated PO editors with internal storage of all previously encountered translations, the <span class="emphasis"><em>translation memory</em></span><sup>[<a name="id336024" href="#ftn.id336024" class="footnote" id="id336024">7</a>]</sup>, there is less need for keeping obsolete messages around, as the editor will be able to fill new messages from the memory; but there are some difficulties, as the need for translators to share the same memory. In practice, many translators choose to keep obsolete messages around for some time, and periodically (e.g. months apart) remove them from PO files. By this they achieve that accidental removals of source content, which are quickly corrected, do not bother them, while avoiding accretion of far too much obsolete material.</p>
+<p>What you should do with obsolete messages depends on the tools with which you work on PO files. For example, if you and other translators working on the given PO all use dedicated PO editors with internal storage of all previously encountered translations, the <span class="emphasis"><em>translation memory</em></span><sup>[<a name="id335819" href="#ftn.id335819" class="footnote" id="id335819">7</a>]</sup>, there is less need for keeping obsolete messages around, as the editor will be able to fill new messages from the memory; but there are some difficulties, as the need for translators to share the same memory. In practice, many translators choose to keep obsolete messages around for some time, and periodically (e.g. months apart) remove them from PO files. By this they achieve that accidental removals of source content, which are quickly corrected, do not bother them, while avoiding accretion of far too much obsolete material.</p>
 </div>
 <div class="sect2">
 <div class="titlepage">
@@ -1371,19 +1376,19 @@ msgstr ""
 <div class="footnotes"><br>
 <hr width="100" align="left">
 <div class="footnote">
-<p><sup>[<a name="ftn.id278272" href="#id278272" class="para" id="ftn.id278272">3</a>]</sup> You may want to point to a message when consulting with fellow translators, or when reporting a typo or another problem in the original text to the authors.</p>
+<p><sup>[<a name="ftn.id278067" href="#id278067" class="para" id="ftn.id278067">3</a>]</sup> You may want to point to a message when consulting with fellow translators, or when reporting a typo or another problem in the original text to the authors.</p>
 </div>
 <div class="footnote">
-<p><sup>[<a name="ftn.id334534" href="#id334534" class="para" id="ftn.id334534">4</a>]</sup> If the <code class="varname">msgctxt</code> is present but empty, i.e. <code class="literal">msgctxt ""</code>, this is actually different than the <code class="varname">msgctxt</code> not being present at all. Hence the term "null-valued" as opposed to simply "empty".</p>
+<p><sup>[<a name="ftn.id334329" href="#id334329" class="para" id="ftn.id334329">4</a>]</sup> If the <code class="varname">msgctxt</code> is present but empty, i.e. <code class="literal">msgctxt ""</code>, this is actually different than the <code class="varname">msgctxt</code> not being present at all. Hence the term "null-valued" as opposed to simply "empty".</p>
 </div>
 <div class="footnote">
-<p><sup>[<a name="ftn.id334580" href="#id334580" class="para" id="ftn.id334580">5</a>]</sup> Programmers of free software are frequently aware of this latent necessity, and readily reachable, so you should be able to make the request with little communication overhead.</p>
+<p><sup>[<a name="ftn.id334375" href="#id334375" class="para" id="ftn.id334375">5</a>]</sup> Programmers of free software are frequently aware of this latent necessity, and readily reachable, so you should be able to make the request with little communication overhead.</p>
 </div>
 <div class="footnote">
-<p><sup>[<a name="ftn.id335096" href="#id335096" class="para" id="ftn.id335096">6</a>]</sup> CJK is the usual acronym for ideographical east-Asian languages, the Chinese, Japanese, and Korean.</p>
+<p><sup>[<a name="ftn.id334891" href="#id334891" class="para" id="ftn.id334891">6</a>]</sup> CJK is the usual acronym for ideographical east-Asian languages, the Chinese, Japanese, and Korean.</p>
 </div>
 <div class="footnote">
-<p><sup>[<a name="ftn.id336024" href="#id336024" class="para" id="ftn.id336024">7</a>]</sup> Translation memory is an extremely important topic on its own when the translation is not done using the PO format. With PO files and the concept of merging with templates, translation memories are not of such great importance, but can come in handy.</p>
+<p><sup>[<a name="ftn.id335819" href="#id335819" class="para" id="ftn.id335819">7</a>]</sup> Translation memory is an extremely important topic on its own when the translation is not done using the PO format. With PO files and the concept of merging with templates, translation memories are not of such great importance, but can come in handy.</p>
 </div>
 </div>
 </div>
@@ -1875,7 +1880,7 @@ param-accel.1 = _
 </dd>
 <dt><span class="term"><code class="option">xml:<em class="replaceable"><code>file</code></em></code></span></dt>
 <dd>
-<p>By default, messages failed by rules are reported to standard output, and this parameter requests that they be written into a custom (but simple) XML format.</p>
+<p>By default, messages failed by rules are reported to standard output, and this parameter requests that they be written into a custom (but simple) XML format. This also causes results to be cached: on subsequent runs of <span class="command"><strong>check-rules</strong></span> only modified PO files will be checked again, and results for non-modified files will be pulled from the cache. The cache can be found in <code class="filename">$HOME/.pology-check_rules-cache/</code> directory.</p>
 </dd>
 <dt><span class="term"><code class="option">rfile:<em class="replaceable"><code>file</code></em></code></span></dt>
 <dd>
@@ -2502,7 +2507,7 @@ $ posieve find-messages -s msgstr:Foobar -s replace:Fumbar -scase
 <pre class="programlisting">
 msgstr "... f_oobar ..."
 </pre>
-<p>The search may still find the word (see the <code class="option">accel</code> parameter below), but direct replacement would cause the loss of accelerator marker, and therefore it is not done.<sup>[<a name="id416282" href="#ftn.id416282" class="footnote" id="id416282">8</a>]</sup> To see such cases, you should monitor the output of <span class="command"><strong>find-messages</strong></span> (always a good idea when doing batch replacement), where matched and replaced parts of the text will be highlighted.</p>
+<p>The search may still find the word (see the <code class="option">accel</code> parameter below), but direct replacement would cause the loss of accelerator marker, and therefore it is not done.<sup>[<a name="id404769" href="#ftn.id404769" class="footnote" id="id404769">8</a>]</sup> To see such cases, you should monitor the output of <span class="command"><strong>find-messages</strong></span> (always a good idea when doing batch replacement), where matched and replaced parts of the text will be highlighted.</p>
 <p>As usual for replacement based on regular expression, the replacement string may contain <code class="literal">\<em class="replaceable"><code>number</code></em></code> references to groups defined in the matching pattern. For example, the previous example of case-aware replacement could be more efficiently and more elegantly performed with:</p>
 <pre class="programlisting">
 $ posieve find-messages -s msgstr:'(f)oobar' -s replace:'\1umbar'
@@ -3240,7 +3245,7 @@ frobaz/sierra.po    65/22/ - msgs |¤¤¤¤¤¤¤¤¤¤¤¤¤¤××××××|
 </dd>
 <dt><span class="term"><code class="option">wfuzzy</code></span></dt>
 <dd>
-<p><code class="literal">untranslated</code> flags are added to fuzzy messages as well. This can be useful to be able to jump in the text editor through all incomplete message by just giving <strong class="userinput"><code>, untranslated</code></strong><sup>[<a name="id397769" href="#ftn.id397769" class="footnote" id="id397769">9</a>]</sup>, or when the set of messages to be updated has been limited somehow (e.g. by the <code class="option">branch</code> parameter).</p>
+<p><code class="literal">untranslated</code> flags are added to fuzzy messages as well. This can be useful to be able to jump in the text editor through all incomplete message by just giving <strong class="userinput"><code>, untranslated</code></strong><sup>[<a name="id392871" href="#ftn.id392871" class="footnote" id="id392871">9</a>]</sup>, or when the set of messages to be updated has been limited somehow (e.g. by the <code class="option">branch</code> parameter).</p>
 </dd>
 <dt><span class="term"><code class="option">branch:<em class="replaceable"><code>branch</code></em></code></span></dt>
 <dd>
@@ -3398,10 +3403,10 @@ plural-forms = nplurals=4; plural=n==1 ? 3 : n%%10==1 &amp;&amp; \
 <div class="footnotes"><br>
 <hr width="100" align="left">
 <div class="footnote">
-<p><sup>[<a name="ftn.id416282" href="#id416282" class="para" id="ftn.id416282">8</a>]</sup> Some heuristics for reinsertion of the accelerator marker may be implemented in the future.</p>
+<p><sup>[<a name="ftn.id404769" href="#id404769" class="para" id="ftn.id404769">8</a>]</sup> Some heuristics for reinsertion of the accelerator marker may be implemented in the future.</p>
 </div>
 <div class="footnote">
-<p><sup>[<a name="ftn.id397769" href="#id397769" class="para" id="ftn.id397769">9</a>]</sup> Alternatively, if the editor provides regular expressions for searches, you can search for <strong class="userinput"><code>, fuzzy|, untranslated</code></strong>.</p>
+<p><sup>[<a name="ftn.id392871" href="#id392871" class="para" id="ftn.id392871">9</a>]</sup> Alternatively, if the editor provides regular expressions for searches, you can search for <strong class="userinput"><code>, fuzzy|, untranslated</code></strong>.</p>
 </div>
 </div>
 </div>
@@ -3459,7 +3464,7 @@ msgstr "Beleške o Veštičjoj reci"
 </table>
 </div>
 <p>The line-level diff viewer will know to show word-level diff for modified translation, but it cannot know that it should also show word-level diff between the removed previous and current <code class="varname">msgid</code> strings, so that reviewer can see what has changed <span class="emphasis"><em>in the original</em></span> text (i.e. why had the message became fuzzy), and based on that judge whether the translation was properly adapted.</p>
-<p>A dedicated PO editor may be able to show the truly proper, <span class="emphasis"><em>message-level</em></span> difference.<sup>[<a name="id355092" href="#ftn.id355092" class="footnote" id="id355092">10</a>]</sup> Even then, however, it remains necessary to send around full PO files, and possibly to normalize them to a lesser extent before comparing. Additionally, the diff format becomes tied to the given PO editor, instead of being self-contained and processable by various tools (such as line-level diffs are).</p>
+<p>A dedicated PO editor may be able to show the truly proper, <span class="emphasis"><em>message-level</em></span> difference.<sup>[<a name="id343106" href="#ftn.id343106" class="footnote" id="id343106">10</a>]</sup> Even then, however, it remains necessary to send around full PO files, and possibly to normalize them to a lesser extent before comparing. Additionally, the diff format becomes tied to the given PO editor, instead of being self-contained and processable by various tools (such as line-level diffs are).</p>
 <p>This chapter therefore introduces the format and semantics for self-contained, message-level diffing of PO files -- the <span class="emphasis"><em>embedded diff</em></span> -- and presents the Pology tools which implement it.</p>
 <div class="sect1">
 <div class="titlepage">
@@ -3528,7 +3533,7 @@ msgstr "Beleške o Veštičjoj reci"
 </tbody>
 </table>
 </div>
-<p>It may happen that an opening or closing wrapper sequence occurs as a literal part of diffed strings<sup>[<a name="id349994" href="#ftn.id349994" class="footnote" id="id349994">11</a>]</sup>, so some method of escaping is necessary. This is done by inserting a <code class="literal">~</code> (tilde) in the middle of the literal sequence:</p>
+<p>It may happen that an opening or closing wrapper sequence occurs as a literal part of diffed strings<sup>[<a name="id416691" href="#ftn.id416691" class="footnote" id="id416691">11</a>]</sup>, so some method of escaping is necessary. This is done by inserting a <code class="literal">~</code> (tilde) in the middle of the literal sequence:</p>
 <div class="informaltable">
 <table border="1">
 <colgroup>
@@ -3601,7 +3606,7 @@ msgstr "Beleške o Veštičjoj reci"
 "{-The -}Record{+s+} of The Witch River"
 </pre>
 <p>as the former is (tentatively) easier to comprehend.</p>
-<p>Since every difference segment in the ediff message is represented in the described way, it is sufficient to upgrade the PO syntax highlighting of an editor<sup>[<a name="id403208" href="#ftn.id403208" class="footnote" id="id403208">12</a>]</sup> to indiscriminately highlight <code class="literal">{-...-}</code> and <code class="literal">{+...+}</code> segments everywhere in the message.</p>
+<p>Since every difference segment in the ediff message is represented in the described way, it is sufficient to upgrade the PO syntax highlighting of an editor<sup>[<a name="id396877" href="#ftn.id396877" class="footnote" id="id396877">12</a>]</sup> to indiscriminately highlight <code class="literal">{-...-}</code> and <code class="literal">{+...+}</code> segments everywhere in the message.</p>
 </div>
 <div class="sect2">
 <div class="titlepage">
@@ -3645,7 +3650,7 @@ msgstr "Beleške o Veštičjoj reci"
 </li>
 </ul>
 </div>
-<p>Strings and translator comments are presented in the ediff message as embedded word-level differences, as described earlier. Changes in state, fuzzy and obsolete, are represented differently. A special "extracted" comment is added to the ediff message, starting with <code class="literal">#. ediff:</code> and listing any extra information needed to describe the ediff, including the state changes. Here is an example of two messages and the ediff they would produce<sup>[<a name="id439453" href="#ftn.id439453" class="footnote" id="id439453">13</a>]</sup>:</p>
+<p>Strings and translator comments are presented in the ediff message as embedded word-level differences, as described earlier. Changes in state, fuzzy and obsolete, are represented differently. A special "extracted" comment is added to the ediff message, starting with <code class="literal">#. ediff:</code> and listing any extra information needed to describe the ediff, including the state changes. Here is an example of two messages and the ediff they would produce<sup>[<a name="id331795" href="#ftn.id331795" class="footnote" id="id331795">13</a>]</sup>:</p>
 <div class="informaltable">
 <table border="1">
 <colgroup>
@@ -4495,16 +4500,16 @@ $ poepatch -u foo.po
 <div class="footnotes"><br>
 <hr width="100" align="left">
 <div class="footnote">
-<p><sup>[<a name="ftn.id355092" href="#id355092" class="para" id="ftn.id355092">10</a>]</sup> For example Lokalize, when operating in <a class="ulink" href="http://docs.kde.org/stable/en/kdesdk/lokalize/sync.html" target="_top">merge mode</a>.</p>
+<p><sup>[<a name="ftn.id343106" href="#id343106" class="para" id="ftn.id343106">10</a>]</sup> For example Lokalize, when operating in <a class="ulink" href="http://docs.kde.org/stable/en/kdesdk/lokalize/sync.html" target="_top">merge mode</a>.</p>
 </div>
 <div class="footnote">
-<p><sup>[<a name="ftn.id349994" href="#id349994" class="para" id="ftn.id349994">11</a>]</sup> Although this should be quite rare. In the collection of PO files from several translation projects, with over 2 million words in total, there was not a single occurence where one of the chosen wrapper sequences was part of the text.</p>
+<p><sup>[<a name="ftn.id416691" href="#id416691" class="para" id="ftn.id416691">11</a>]</sup> Although this should be quite rare. In the collection of PO files from several translation projects, with over 2 million words in total, there was not a single occurence where one of the chosen wrapper sequences was part of the text.</p>
 </div>
 <div class="footnote">
-<p><sup>[<a name="ftn.id403208" href="#id403208" class="para" id="ftn.id403208">12</a>]</sup> At the moment, the following text and PO editors are known to have highlighting for ediffs: Kate, Kwrite, Lokalize.</p>
+<p><sup>[<a name="ftn.id396877" href="#id396877" class="para" id="ftn.id396877">12</a>]</sup> At the moment, the following text and PO editors are known to have highlighting for ediffs: Kate, Kwrite, Lokalize.</p>
 </div>
 <div class="footnote">
-<p><sup>[<a name="ftn.id439453" href="#id439453" class="para" id="ftn.id439453">13</a>]</sup> Whether two messages such as these would get paired for diffing in the first place, will be discussed later on.</p>
+<p><sup>[<a name="ftn.id331795" href="#id331795" class="para" id="ftn.id331795">13</a>]</sup> Whether two messages such as these would get paired for diffing in the first place, will be discussed later on.</p>
 </div>
 </div>
 </div>
@@ -4518,7 +4523,7 @@ $ poepatch -u foo.po
 </div>
 <p>Computer programs (though not only them) are sometimes concurrently developed and released from several <span class="emphasis"><em>branches</em></span>. For example, there may be one "stable" branch, which sees only small fixes and from which periodical releases are made, and another, "development" branch, which undergoes larger changes and may or may not be periodically released as well; at one point, the development branch will become the new stable branch, and the old stable branch will be abandoned. There may also be more than two branches which see active work, such as "development", "stable", and "old stable".</p>
 <p>From programmers' point of view, working by branches can be very convenient. They can freely experiment with new features in the development branch, without having to wory that they will mess something up in the stable branch, from which periodical releases are made. In the stable branch they may fix some bugs discovered between the releases, or carry over some important and well-tested features from the development branch. For users who want to be on the cutting edge, they may provide experimental releases from the development branch.</p>
-<p>For translators, however, having to deal with different branches of the same collection of PO files is rarely a convenience. It is text to be translated just as any, only duplicated across two or more file hierarchies. This means that translators additionaly have to think about how to make sure that new and modified translations made in one branch appear in other branches too. It gets particularly ugly if there are mismatches in PO file collections in different branches, like when a PO file is renamed, split into two or more PO files, or merged into another PO file.<sup>[<a name="id361168" href="#ftn.id361168" class="footnote" id="id361168">14</a>]</sup> Sometimes this branch juggling is not necessary; in strict two-branch setting, translators may choose to work only on the stable branch, and switch to the next stable branch when it gets created (or switch to the development branch shortly before it becomes stable). Even so, branch switching may not go very smooth in presence of mismatches in PO file collections.</p>
+<p>For translators, however, having to deal with different branches of the same collection of PO files is rarely a convenience. It is text to be translated just as any, only duplicated across two or more file hierarchies. This means that translators additionaly have to think about how to make sure that new and modified translations made in one branch appear in other branches too. It gets particularly ugly if there are mismatches in PO file collections in different branches, like when a PO file is renamed, split into two or more PO files, or merged into another PO file.<sup>[<a name="id307449" href="#ftn.id307449" class="footnote" id="id307449">14</a>]</sup> Sometimes this branch juggling is not necessary; in strict two-branch setting, translators may choose to work only on the stable branch, and switch to the next stable branch when it gets created (or switch to the development branch shortly before it becomes stable). Even so, branch switching may not go very smooth in presence of mismatches in PO file collections.</p>
 <p>Instead, for translators the most convenient would be to work on a single, "supercollection" of PO files, from which new and modified translations would be automatically periodically sent to appropriate PO files in branches. Such a supercollection can be created and maintained by Pology's <span class="command"><strong>posummit</strong></span> script. In terms of this script, the supercollection is called the <span class="emphasis"><em>summit</em></span>, the operation of creating and updating it is called <span class="emphasis"><em>gathering</em></span>, and the operation of filling out branch PO files is called <span class="emphasis"><em>scattering</em></span>.</p>
 <p>How do summit PO files look like? When all branches contain the same PO file, then the counterpart summit PO file is simply the union of all messages from branch PO files. A message in the summit PO file differs from branch messages only by having the special <code class="literal">#. +&gt; ...</code> comment, which lists the branches that contain this message. If there would be two branches, named with <code class="literal">devel</code> and <code class="literal">stable</code> keywords, an excerpt from a summit PO file could be:</p>
 <pre class="programlisting">
@@ -4621,7 +4626,7 @@ path/to/devel/
     bb/
         ...
 </pre>
-<p>while in by-domain categorization the domain directories could be within their respective sources<sup>[<a name="id343236" href="#ftn.id343236" class="footnote" id="id343236">15</a>]</sup>:</p>
+<p>while in by-domain categorization the domain directories could be within their respective sources<sup>[<a name="id325729" href="#ftn.id325729" class="footnote" id="id325729">15</a>]</sup>:</p>
 <pre class="screen">
 devel/
     appfoo/
@@ -4642,9 +4647,9 @@ devel/
     appbar/
         ...
 </pre>
-<p>There are three possible summit modes: direct summit, summit over dynamic templates, and summit over static templates. In the <span class="emphasis"><em>direct summit</em></span>, only branch PO files are processed, that is new and modifed messages are gathered from them and summit translations scattered to them. In <span class="emphasis"><em>summit over dynamic templates</em></span>, messages from branch PO files are gathered only once, at creation of the summit; after that, it is branch templates (POT files) that are gathered into summit templates, and then summit PO files are merged with them. Summit templates are not actually seen, but are gathered internally when merging command is issued and removed after merging is done. <span class="emphasis"><em>Summit over static templates</em></span> is quite the same, except that summit templates are explicitly gathered and kept around, and merging is done separately.</p>
-<p>What is the reason for having three summit modes to choose from? Direct summit mode is there because it is the easiest to explain and understand, and does not require that branches contain templates. It is however not recommended, for two reasons. Firstly, someone may mistakenly translate directly in a branch<sup>[<a name="id343287" href="#ftn.id343287" class="footnote" id="id343287">16</a>]</sup>, and those translations may be silently gathered into the summit. This is bad for quality control (review, etc.), as it is expected that the summit is the sole source of translations. Secondly, you may want to perform some automatic modifications on translation when scattering, but not to get those modifications back into the summit on gathering, which would happen with direct summit. These issues are avoided by using summit over dynamic templates, though now branches must provide templates. Finally, summmit over static templates makes sense when several language teams share the summit setup: since gathering is the most complicated operation and sometimes requires manual intervention, it can be done once (by one person) on summit templates, while language teams can then merge and scatter their summits in a fully automatic fashion.</p>
-<p>There is one important design decisions which holds for all summit modes: all summit PO files must be <span class="strong"><strong>unique by domain name</strong></span> (i.e. base file name without extension), even if they are in different subdirectories within the summit top directory. This in turn means that in automatically supported branch organizations (by-domain and by-language) PO domains should be unique as well.<sup>[<a name="id331187" href="#ftn.id331187" class="footnote" id="id331187">17</a>]</sup> This was done for two reasons. Less importantly, it is convenient to be able to identify a summit PO file simply by its domain name rather than the full path (especially in some <span class="command"><strong>posummit</strong></span> invocations). More importantly, uniqueness of domain names allows that PO files are located in different subdirectories between different branches. This happens, for example, in large projects in which code moves between modules. If branches do not satisfy this property, i.e. they contain same-name PO domains with totally different content, it is necessary to define a path transformation (described later) which will produce unique domain names with respect to the summit.</p>
+<p>There are three possible summit modes: direct summit, summit over dynamic templates, and summit over static templates. In the <span class="emphasis"><em>direct summit</em></span>, only branch PO files are processed, in that new and modifed messages are gathered from them and summit translations scattered to them. In <span class="emphasis"><em>summit over dynamic templates</em></span>, messages from branch PO files are gathered only once, at creation of the summit; after that, it is branch templates (POT files) that are gathered into summit templates, and then summit PO files are merged with them. Summit templates are not actually seen, but are gathered internally when merging command is issued and removed after merging is done. <span class="emphasis"><em>Summit over static templates</em></span> is quite the same, except that summit templates are explicitly gathered and kept around, and merging is done separately.</p>
+<p>What is the reason for having three summit modes to choose from? Direct summit mode is there because it is the easiest to explain and understand, and does not require that branches contain templates. It is however not recommended, for two reasons. Firstly, someone may mistakenly translate directly in a branch<sup>[<a name="id402785" href="#ftn.id402785" class="footnote" id="id402785">16</a>]</sup>, and those translations may be silently gathered into the summit. This is bad for quality control (review, etc.), as it is expected that the summit is the sole source of translations. Secondly, you may want to perform some automatic modifications on translation when scattering, but not to get those modifications back into the summit on gathering, which would happen with direct summit. These issues are avoided by using summit over dynamic templates, though now branches must provide templates. Finally, summmit over static templates makes sense when several language teams share the summit setup: since gathering is the most complicated operation and sometimes requires manual intervention, it can be done once (by one person) on summit templates, while language teams can then merge and scatter their summits in a fully automatic fashion.</p>
+<p>There is one important design decisions which holds for all summit modes: all summit PO files must be <span class="strong"><strong>unique by domain name</strong></span> (i.e. base file name without extension), even if they are in different subdirectories within the summit top directory. This in turn means that in automatically supported branch organizations (by-domain and by-language) PO domains should be unique as well.<sup>[<a name="id402813" href="#ftn.id402813" class="footnote" id="id402813">17</a>]</sup> This was done for two reasons. Less importantly, it is convenient to be able to identify a summit PO file simply by its domain name rather than the full path (especially in some <span class="command"><strong>posummit</strong></span> invocations). More importantly, uniqueness of domain names allows that PO files are located in different subdirectories between different branches. This happens, for example, in large projects in which code moves between modules. If branches do not satisfy this property, i.e. they contain same-name PO domains with totally different content, it is necessary to define a <span class="emphasis"><em>path transformation</em></span> (see <a class="xref" href="#sec-sustpptransf" title="5.1.4.&nbsp;Transforming Branch Paths">Section&nbsp;5.1.4, “Transforming Branch Paths”</a>) which will produce unique domain names with respect to the summit.</p>
 <p>The following sections describe how to set up each of the modes, in each of the outlined branch organizations. They should be read in turn up to the mode that you want to use, because they build upon each other.</p>
 <div class="sect2">
 <div class="titlepage">
@@ -4691,7 +4696,7 @@ S.mappings = [
 ]
 </pre>
 <p>This is all that is necessary to set up a direct summit. The configuration file must be named exactly <code class="filename">summit-config</code>, because <span class="command"><strong>posummit</strong></span> will look for a file named like that through parent directories and automatically pick it up. As you may have recognized, <code class="filename">summit-config</code> is actually a Python source file; <span class="command"><strong>posummit</strong></span> will insert the special <code class="literal">S</code> object when evaluating <code class="filename">summit-config</code>, and it is through this object that summit options are set. <code class="literal">S.lang</code> states the language code of the summit. <code class="literal">S.summit</code> is a Python dictionary that holds options for the summit PO files (here only its location, through <code class="literal">topdir=</code> key), while <code class="literal">S.branches</code> is a list of dictionaries, each specifying options per branch (here the branch identifier by <code class="literal">id=</code> key and top directory). The <code class="function">S.relpath</code> function is used to make file and directory paths relative to <code class="filename">summit-config</code> itself. <code class="literal">S.mappings</code> is a list of PO file mappings, for cases of splitting, mergings and renamings between branches. In this example <code class="literal">S.mappings</code> is set to empty only to point out its importance, but it does not need to be present if there are no mappings.</p>
-<p>If branches are organized by-domain, the summit tree will still look the same, with PO files named by domain rather than by language:</p>
+<p><a name="p-bydomorg" id="p-bydomorg"></a>If branches are organized by-domain, the summit tree will still look the same, with PO files named by domain rather than by language:</p>
 <pre class="screen">
 branches/
     devel/
@@ -4789,7 +4794,7 @@ S.branches = [
          topdir=S.relpath("../branches/devel/aa"),
          topdir_templates=S.relpath("../branches/devel/templates")),
     dict(id="stable",
-         topdir=S.relpath("../branches/stable/aa",
+         topdir=S.relpath("../branches/stable/aa"),
          topdir_templates=S.relpath("../branches/stable/templates")),
 ]
 
@@ -4838,7 +4843,7 @@ S.branches = [
          topdir_templates=S.relpath("../branches/devel/templates"),
          by_lang=S.lang),
     dict(id="stable",
-         topdir=S.relpath("../branches/stable/aa",
+         topdir=S.relpath("../branches/stable/aa"),
          topdir_templates=S.relpath("../branches/stable/templates"),
          by_lang=S.lang),
 ]
@@ -4854,7 +4859,7 @@ $ posummit gather --create --force
 <div class="titlepage">
 <div>
 <div>
-<h3 class="title"><a name="sec-suststattpl" id="sec-suststattpl"></a>5.1.3.&nbsp;Setting Up Summit over Static Templates</h3>
+<h3 class="title"><a name="sec-sustpstattpl" id="sec-sustpstattpl"></a>5.1.3.&nbsp;Setting Up Summit over Static Templates</h3>
 </div>
 </div>
 </div>
@@ -4892,7 +4897,7 @@ S.branches = [
          topdir=S.relpath("../branches/devel/%s" % S.lang),
          topdir_templates=S.relpath("../branches/devel/templates")),
     dict(id="stable",
-         topdir=S.relpath("../branches/stable/%s" % S.lang,
+         topdir=S.relpath("../branches/stable/%s" % S.lang),
          topdir_templates=S.relpath("../branches/stable/templates")),
 ]
 
@@ -4908,7 +4913,7 @@ S.branches = [
          topdir_templates=S.relpath("../branches/devel/templates"),
          by_lang=S.lang),
     dict(id="stable",
-         topdir=S.relpath("../branches/stable/%s" % S.lang,
+         topdir=S.relpath("../branches/stable/%s" % S.lang),
          topdir_templates=S.relpath("../branches/stable/templates"),
          by_lang=S.lang),
 ]
@@ -4918,13 +4923,96 @@ S.branches = [
 $ cd .../summit/
 $ posummit summit-config-shared templates gather --create
 </pre>
-<p>The first two arguments are now the path to the configuration file and the language code, where <code class="literal">templates</code> is the dummy language code for templates<sup>[<a name="id365584" href="#ftn.id365584" class="footnote" id="id365584">18</a>]</sup>. After this is finished, language summits can be gathered:</p>
+<p>The first two arguments are now the path to the configuration file and the language code, where <code class="literal">templates</code> is the dummy language code for templates<sup>[<a name="id435112" href="#ftn.id435112" class="footnote" id="id435112">18</a>]</sup>. After this is finished, language summits can be gathered:</p>
 <pre class="programlisting">
 $ posummit summit-config-shared aa gather --create --force
 $ posummit summit-config-shared bb gather --create --force
 $ ...
 </pre>
 <p>Note that <code class="option">--force</code> was not needed when gathering templates, because in this mode the template summit is periodically gathered, while language summits are not.</p>
+</div>
+<div class="sect2">
+<div class="titlepage">
+<div>
+<div>
+<h3 class="title"><a name="sec-sustpptransf" id="sec-sustpptransf"></a>5.1.4.&nbsp;Transforming Branch Paths</h3>
+</div>
+</div>
+</div>
+<p>When branches contain only PO files which are used natively, by programs fetching translations at runtime, then all branch PO files will be unique by their domain name (as mandated by the Gettext runtime system). It will not happen that two branch subdirectories contain a PO file with the same name. This fits perfectly with the summit requirement that all summit PO files be unique by domain names.</p>
+<p>However, if PO files are used as <a class="link" href="#p-dynstattr">an intermediate</a> to other formats, branches may contain same-name PO files which have otherwise nothing in common, in different subdirectories. For example, each subdirectory may contain a PO file named <code class="filename">index.po</code>, <code class="filename">help.po</code>, etc. If this would be left unattended, all the same-name PO files would be collapsed into single summit PO file, which makes no sense given that they have (almost) no common messages. For this reason, it is possible to define transformations which modify absolute branch paths during processing, such that branch PO files are seen with unique names.</p>
+<p>Consider the following example of two branches for language <code class="literal">aa</code> (i.e. by-language organization) with PO files non-unique by domain name:</p>
+<pre class="screen">
+branches/
+    devel-aa/
+        chapter1/
+            intro.po
+            glossary.po
+            ...
+        chapter2/
+            intro.po
+            glossary.po
+            ...
+        ...
+    stable-aa/
+        chapter1/
+            intro.po
+            glossary.po
+            ...
+        chapter2/
+            intro.po
+            glossary.po
+            ...
+        ...
+</pre>
+<p>These branches cover some sort of a book, where each chapter has some standard elements, and thus some same-name PO files with totally different content in each chapter's subdirectory. To have unique domain names in the summit, you might decide upon a flat file tree with chapter in prefix:</p>
+<pre class="screen">
+summit-aa/
+    chapter1-intro.po
+    chapter1-glossary.po
+    ...
+    chapter2-intro.po
+    chapter2-glossary.po
+    ...
+    summit-config
+</pre>
+<p>To achieve this, you must first write two Python functions (remember that the summit configuration file is a normal Python source file), one to split branch paths and another to join them, and add them to branch specifications in <code class="literal">S.branches</code>.</p>
+<p>The function to split branch paths takes a single argument, the branch PO file path relative to the branch top directory, and returns the summit PO domain name and the summit subdirectory. For the example above, the splitting function would look like this:</p>
+<pre class="programlisting">
+def split_branch_path (subpath):
+    import os
+    filename = os.path.basename(subpath)      # get PO file name
+    domain0 = filename[:filename.rfind(".")]  # strip .po extension
+    subdir0 = os.path.dirname(subpath)        # get branch subdirectory
+    domain = subdir0 + "-" + domain0          # set final domain name
+    subdir = ""                               # set summit subdirectory
+    return domain, subdir
+</pre>
+<p>Note that the branch subdirectory was used only to construct the summit domain name, while the summit subdirectory is an empty string because summit flat file tree should be flat.</p>
+<p>The function to join branch paths takes three arguments. The first two are the summit PO domain name and the summit subdirectory. The third argument is the the value of <a class="link" href="#p-bydomorg"><code class="literal">by_lang=</code> key</a> for the given branch. The return value is the branch PO file path relative to the branch top directory. It would look like this:</p>
+<pre class="programlisting">
+def join_branch_path (domain, subdir, bylang):
+    import os
+    subdir0, domain0 = domain.split("-", 1)    # get branch domain name
+                                               # and branch subdirectory
+                                               # from summit domain name
+    filename = domain0 + ".po"                 # branch PO file name
+    subpath = os.path.join(subdir0, filename)  # branch relative path
+    return subpath
+</pre>
+<p>Here the <code class="varname">subdir</code> argument (summit subdirectory) is not used is not used because it is always empty due to flat summit file tree, and <code class="varname">bylang</code> is not used because it is <code class="literal">None</code> due to by-language branch organization.</p>
+<p>The definitions of splitting and joining functions are written into the <code class="filename">summit-config</code> file somewhere before the <code class="literal">S.branches</code> branch specification, and added to each branch through <code class="literal">transform_path=</code> key:</p>
+<pre class="programlisting">
+S.branches = [
+    dict(id="devel",
+         topdir=S.relpath("../branches/devel-aa"),
+         transform_path=(split_branch_path, join_branch_path)),
+    dict(id="stable",
+         topdir=S.relpath("../branches/stable-aa"),
+         transform_path=(split_branch_path, join_branch_path)),
+]
+</pre>
+<p>This means that it is possible, if necessary, to define different splitting and joining functions per branch.</p>
 </div>
 </div>
 <div class="sect1">
@@ -5021,7 +5109,7 @@ $ posummit scatter devel:foobaz
 <pre class="programlisting">
 $ posummit scatter devel:foosuite/
 </pre>
-<p>Note that trailing slash is significant here, since otherwise the argument would be interpreted as single PO file (<span class="command"><strong>posummit</strong></span> would exit with an error, reporting that such a file does not exist).</p>
+<p>Note that trailing slash is significant here, since otherwise the argument would be interpreted as single PO file (<span class="command"><strong>posummit</strong></span> would exit with an error, reporting that such a file does not exist). Summit also has a "branch name" assigned for use in operation targets of this kind, and that is <code class="literal">+</code>.</p>
 <p>When merging (or gathering in direct summit mode) is attempted, <span class="command"><strong>posummit</strong></span> may abort with the report of mismatches between branches and the summit. The translator must then make the adjustments (<a class="xref" href="#sec-sumntmism" title="5.2.3.&nbsp;Handling Mismatches Between Branches and Summit">Section&nbsp;5.2.3, “Handling Mismatches Between Branches and Summit”</a> describes how, case by case), or report it to someone else to handle.</p>
 <p>After selected summit and branch PO files have been updated, the translator can commit them. Alternatively, a half-distributed workflow could be used, where translators only update and commit summit PO files, while scattering to branches is centralized, and automatically performed at a given period. This makes sense because the scattering in no way interferes with translators' workflow and never needs any manual intervention.</p>
 </div>
@@ -5074,7 +5162,7 @@ S.mappings = [
 ]
 </pre>
 <p>The first string in the mapping is the branch name, the second string is the PO domain name in that branch, and all following strings are the new summit PO domain names which contain part of original messages. The order of summit PO domains is somewhat important: if a message exists only in the monolithic PO file in the <code class="literal">stable</code> branch and not in split PO files in <code class="literal">devel</code> branch, and summit heuristics detects no appropriate insertion point into one of the summit PO files, that message will be added to the end of the first summit PO file listed.</p>
-<p>"Making the same split in summit" deserves some special attention. For the templates summit (which exists in summit over static templates), this simply means adding any new files and removing old ones (<span class="command"><strong>posummit</strong></span> will do that itself if run with <code class="option">--create</code>). But for language summits, you should manually copy the original summit PO file to each new name in turn, and then perform gather (direct summit) or merge (summit over templates). In this way no translated messages will be lost in the split.<sup>[<a name="id407382" href="#ftn.id407382" class="footnote" id="id407382">19</a>]</sup></p>
+<p>"Making the same split in summit" deserves some special attention. For the templates summit (which exists in summit over static templates), this simply means adding any new files and removing old ones (<span class="command"><strong>posummit</strong></span> will do that itself if run with <code class="option">--create</code>). But for language summits, you should manually copy the original summit PO file to each new name in turn, and then perform gather (direct summit) or merge (summit over templates). In this way no translated messages will be lost in the split.<sup>[<a name="id359874" href="#ftn.id359874" class="footnote" id="id359874">19</a>]</sup></p>
 </dd>
 <dt><span class="term">Several branch PO files have been merged into one (<span class="emphasis"><em>merging</em></span>).</span></dt>
 <dd>
@@ -5118,6 +5206,7 @@ S.subdir_mappings = [
 ]
 </pre>
 <p>Subdirectory mappings should be needed rarely compared to file mappings. A tentative example could be when two closely related software forks are translated within the same project, and they have many PO files in their own subdirectories.</p>
+<p>At some moment translation branches will be "shifted", for example <code class="literal">devel</code> will become the new <code class="literal">stable</code>, <code class="literal">stable</code> may become <code class="literal">oldstable</code> (if three branches are maintained), etc. When that happens, mappings should be shifted too. A typical case would be two branches, <code class="literal">devel</code> and <code class="literal">stable</code>, and some mappings only for <code class="literal">stable</code>; then, when the shift comes, all existing mappings would be simply removed.</p>
 </div>
 <div class="sect2">
 <div class="titlepage">
@@ -5127,7 +5216,7 @@ S.subdir_mappings = [
 </div>
 </div>
 </div>
-<p>As the number of mappings grows, it may not be clear which branch PO files are related to which summit PO files. Translator may need this information to know exactly which summit PO files to work on, in order to have some set of branch files fully translated. For this reason, <span class="command"><strong>posummit</strong></span> provides the operation mode <code class="literal">deps</code>, in which any number of operation targets are given in command line, and the dependency chains are reported for those targets.</p>
+<p>As the number of mappings grows, or if <a class="link" href="#sec-sustpptransf" title="5.1.4.&nbsp;Transforming Branch Paths">branch path transformation</a> is employed, it may not be readily clear which summit PO files are related to which branch PO files. Translator may need this information to know exactly which summit PO files to work on in order to have some set of branch files fully translated. For this reason, <span class="command"><strong>posummit</strong></span> provides the operation mode <code class="literal">deps</code>, in which any number of operation targets are given in command line, and the dependency chains are reported for those targets.</p>
 <p>If you recall the <a class="link" href="#l-mrgmap">example mapping due to merging</a>, you can check the dependency chain for the file <code class="filename">foobaz_info.po</code> in <code class="literal">stable</code> branch by executing one of:</p>
 <pre class="programlisting">
 $ cd $SUMMITDIR
@@ -5139,7 +5228,7 @@ $ posummit deps stable:foobaz_info
 $ posummit $SOMEWHERE/summit-config-shared aa deps $STABLEDIR/foobaz_info.po
 $ posummit $SOMEWHERE/summit-config-shared aa deps stable:foobaz_info
 </pre>
-<p>in summit over static templats. The output would look like this:</p>
+<p>in summit over static templates. The output would look like this:</p>
 <pre class="programlisting">
 :    <em class="replaceable"><code>summit-dir</code></em>/foobaz.po  <em class="replaceable"><code>devel-dir</code></em>/foobaz.po <em class="replaceable"><code>stable-dir</code></em>/foobaz_info.po \
      <em class="replaceable"><code>stable-dir</code></em>/foobaz_backup.po <em class="replaceable"><code>stable-dir</code></em>/foobaz_filters.po
@@ -5160,6 +5249,7 @@ $ posummit $SOMEWHERE/summit-config-shared aa deps stable:foobaz_info
 </div>
 </div>
 </div>
+<p>Other then the main configuration fields for setting the summit type, summit and branch locations, and mappings, there are many other optional configuration fields. They can be used to make the translation workflow yet more efficient, by relieving translators from taking care of various details.</p>
 <div class="sect2">
 <div class="titlepage">
 <div>
@@ -5168,51 +5258,334 @@ $ posummit $SOMEWHERE/summit-config-shared aa deps stable:foobaz_info
 </div>
 </div>
 </div>
+<p>Summit operations (gather, merge, scatter) are characterized by having PO files and messages flowing between the summit and branches. It is then natural to think of adding some <span class="emphasis"><em>filtering</em></span> into these flows. For example, on scatter, one could do small ortographic adjustments in translation, or automatically insert translated UI references.<sup>[<a name="id407952" href="#ftn.id407952" class="footnote" id="id407952">20</a>]</sup></p>
+<p>Filtering is implemented by being able to insert Pology hooks (see <a class="xref" href="#sec-cmhooks" title="9.10.&nbsp;Processing Hooks">Section&nbsp;9.10, “Processing Hooks”</a>) into various stages of summit operations; a particular stage will admit only certain types of hooks. To <a class="link" href="#sec-lguirefs" title="8.4.&nbsp;Automatic Insertion of UI Labels">fetch and insert translated UI references</a> on scatter, the <code class="literal">resolve-ui</code> hook can be added like this:</p>
+<pre class="programlisting">
+from pology.uiref import resolve_ui
+S.hook_on_scatter_msgstr = [
+    (resolve_ui(uicpathenv="UI_PO_DIR"),),
+]
+</pre>
+<p><code class="literal">S.hook_on_scatter_msgstr</code> is a list of hooks which are applied on translation (<code class="varname">msgstr</code> fields) before it is written into branch PO files on scatter. Each element of this list is a tuple of one to three elements. The first element in the tuple is the hook function, here <a class="link" href="#hk-uiref-resolve-ui"><code class="literal">resolve_ui</code></a><sup>[<a name="id408024" href="#ftn.id408024" class="footnote" id="id408024">21</a>]</sup>. <code class="literal">resolve_ui</code> is an F3C hook, which is the type of hooks expected in <code class="literal">S.hook_on_scatter_msgstr</code> list.</p>
+<p>The second and third element in the hook tuple are, respectively, selectors by branch and file. These are used when the hook is not meant to be applied on all branches and all PO files. The selector can be either a regular expression string, which is matched against the branch name or PO domain name (positive match means to apply the hook), or a function (return value evaluating as true means to apply the hook). If it is a function, the branch selector gets the branch name as input argument, and the file selector gets the summit PO domain name and summit subdirectory. For example, to add the specialized <code class="literal">resolve_ui_docbook4</code> hook only to <code class="literal">foobaz-manual.po</code> file, and plain <code class="literal">resolve_ui</code> to all other files, the hook list would be:</p>
+<pre class="programlisting">
+from pology.uiref import resolve_ui, resolve_ui_docbook4
+
+S.hook_on_scatter_msgstr = [
+    (resolve_ui_docbook4(uicpathenv="UI_PO_DIR"), "", "-manual$"),
+    (resolve_ui(uicpathenv="UI_PO_DIR"), "", "(?&lt;!-manual)$"),
+]
+</pre>
+<p>The branch selector here is empty string, which means that both hooks apply to all branches (since empty regular expression matches any string). The <code class="literal">resolve_ui_docbook4</code> hook has <code class="literal">"-manual$"</code> regular expression as the file selector, which means that is should be applied to all PO domain names ending in <code class="literal">-manual</code>. The <code class="literal">resolve_ui</code> hook has been given the opposite regular expression, <code class="literal">"(?&lt;!-manual)$"</code>, which matches any PO domain name <span class="emphasis"><em>not</em></span> ending in <code class="literal">-manual</code>.<sup>[<a name="id408131" href="#ftn.id408131" class="footnote" id="id408131">22</a>]</sup> Regular expressions can quickly become unreadable, so here is how the same selection could be achieved with selector functions:</p>
+<pre class="programlisting">
+from pology.uiref import resolve_ui, resolve_ui_docbook4
+
+def is_manual (domain, subdir):
+    return domain.endswith("-manual")
+def is_not_manual (domain, subdir):
+    return not is_manual(domain, subdir)
+
+S.hook_on_scatter_msgstr = [
+    (resolve_ui_docbook4(uicpathenv="UI_PO_DIR"), "", is_manual),
+    (resolve_ui(uicpathenv="UI_PO_DIR"), "", is_not_manual),
+]
+</pre>
+<p>When is more than one hook in the list, they are applied in the order if which they are listed.</p>
+<p>This is all there is to say about hook application in general. What follows is a list of all presently defined hook insertion lists, with admissible hook types given in parentheses. Usually paired F* and S* hook types are possible, such that F* hooks are primary used for modification, while S* hooks could be employed for validation (e.g. writing out warnings).</p>
+<div class="variablelist">
+<dl>
+<dt><span class="term"><code class="literal">S.hook_on_scatter_msgstr</code> (F3A, F3C, S3A, S3C)</span></dt>
+<dd>
+<p>Applied to the branch translation (<code class="varname">msgstr</code> fields) on scatter, before it is written into the branch PO file.</p>
+</dd>
+<dt><span class="term"><code class="literal">S.hook_on_scatter_msg</code> (F4A, S4A)</span></dt>
+<dd>
+<p>Applied to branch message on scatter, before it is written into the branch PO file. These hooks can modify any part of the message, like comments, or even the <code class="varname">msgid</code> field.</p>
+</dd>
+<dt><span class="term"><code class="literal">S.hook_on_scatter_cat</code> (F5A, S5A)</span></dt>
+<dd>
+<p>Applied to the branch PO file while still in internal parsed state on scatter, after <code class="literal">S.hook_on_scatter_msgstr</code> had been applied to all messages.</p>
+</dd>
+<dt><span class="term"><code class="literal">S.hook_on_scatter_file</code> (F6A, S6A)</span></dt>
+<dd>
+<p>Applied to the branch PO file as raw file on disk on scatter, after <code class="literal">S.hook_on_scatter_cat</code> had been applied. If one of the hooks reports non-zero value, the rest of the hooks in the list are not applied to that file.</p>
+</dd>
+<dt><span class="term"><code class="literal">S.hook_on_scatter_branch</code></span></dt>
+<dd>
+<p>Applied to the complete branch on scatter, after all other hooks on scatter had been applied. Functions used here are not part of the formal hook system. They take a single argument, the branch name, and return a number. If the return value is not zero, rest of the hooks are skipped on that branch.</p>
+</dd>
+<dt><span class="term"><code class="literal">S.hook_on_gather_file_branch</code> (F6A, S6A)</span></dt>
+<dd>
+<p>Applied to the branch PO file as raw file on disk on gather, before <code class="literal">S.hook_on_gather_cat_branch</code> is applied. The branch PO file will not be modified for real, but only its temporary copy.</p>
+</dd>
+<dt><span class="term"><code class="literal">S.hook_on_gather_cat_branch</code> (F5A, S5A)</span></dt>
+<dd>
+<p>Applied to the branch PO file while still in internal parsed state on gather, before <code class="literal">S.hook_on_gather_msg_branch</code> is applied to all messages.</p>
+</dd>
+<dt><span class="term"><code class="literal">S.hook_on_gather_msg_branch</code> (F4A, S4A)</span></dt>
+<dd>
+<p>Applied to the branch message on gather, before it is used to gather the corresponding summit message.</p>
+</dd>
+<dt><span class="term"><code class="literal">S.hook_on_gather_msg</code> (F4A, S4A)</span></dt>
+<dd>
+<p>Applied to the summit message on gather, after it had been gathered from the corresponding branch messages, but before it is written into the summit PO file.</p>
+</dd>
+<dt><span class="term"><code class="literal">S.hook_on_gather_cat</code> (F5A, S5A)</span></dt>
+<dd>
+<p>Applied to the summit PO file while still in internal parsed state on gather, after <code class="literal">S.hook_on_gather_msgstr</code> had been applied to all messages.</p>
+</dd>
+<dt><span class="term"><code class="literal">S.hook_on_gather_file</code> (F6A, S6A)</span></dt>
+<dd>
+<p>Applied to the summit PO file as raw file on disk on gather, after <code class="literal">S.hook_on_gather_cat</code> had been applied.</p>
+</dd>
+<dt><span class="term"><code class="literal">S.hook_on_merge_head</code> (F4B, S4B)</span></dt>
+<dd>
+<p>Applied to summit PO header on merge, after the summit PO file has been merged.</p>
+</dd>
+<dt><span class="term"><code class="literal">S.hook_on_merge_msg</code> (F4A, S4A)</span></dt>
+<dd>
+<p>Applied to summit message on merge, after <code class="literal">S.hook_on_merge_head</code> had been applied.</p>
+</dd>
+<dt><span class="term"><code class="literal">S.hook_on_merge_cat</code> (F5A, S6A)</span></dt>
+<dd>
+<p>Applied to the summit PO file while still in internal parsed state on merge, after <code class="literal">S.hook_on_gather_msg</code> had been applied to all messages.</p>
+</dd>
+<dt><span class="term"><code class="literal">S.hook_on_merge_file</code> (F6A, S6A)</span></dt>
+<dd>
+<p>Applied to the summit PO file as raw file on disk on merge, after <code class="literal">S.hook_on_merge_cat</code> had been applied.</p>
+</dd>
+</dl>
+</div>
+<p>You may notice that some logically possible hook insertion lists are missing (e.g. <code class="literal">S.hook_on_merge_msgstr</code>). This is because they are implemented on demand, as the need is observed in practice, and not before the fact.</p>
+<p>Here is another example of hook interplay. Branch PO files may still rely on <a class="link" href="#p-embctxt">embedding the context</a> into the <code class="varname">msgid</code> field:</p>
+<pre class="programlisting">
+msgid "create new document|New"
+msgstr ""
+</pre>
+<p>but you would nevertheless like to have proper <code class="varname">msgctxt</code> contexts in the summit:</p>
+<pre class="programlisting">
+msgctxt "create new document"
+msgid "New"
+msgstr ""
+</pre>
+<p>You can achieve this by writing two small F4A hooks, and inserting them at proper points:</p>
+<pre class="programlisting">
+def context_from_embedded (msg, cat):
+    if "|" in msg.msgid:
+        msg.msgctxt, msg.msgid = msg.msgid.split("|", 1)
+
+def context_to_embedded (msg, cat):
+    if msg.msgctxt is not None:
+        msg.msgid = "%s|%s" % (msg.msgctxt, msg.msgid)
+        msg.msgctxt = None
+
+S.hook_on_gather_msg_branch = [
+    (context_from_embedded,),
+]
+
+S.hook_on_scatter_msg = [
+    (context_to_embedded,),
+]
+</pre>
+<p>In this way, branch messages will be converted to proper context just before they are gathered into the summit, and the proper context will be converted back into the embedded when the messages are scattered to branches.</p>
 </div>
 <div class="sect2">
 <div class="titlepage">
 <div>
 <div>
-<h3 class="title"><a name="sec-sucfgviv" id="sec-sucfgviv"></a>5.3.2.&nbsp;Vivification of Summit PO Files</h3>
+<h3 class="title"><a name="sec-sucfgvcs" id="sec-sucfgvcs"></a>5.3.2.&nbsp;Integration with Version Control Systems</h3>
 </div>
 </div>
+</div>
+<p>Most likely, branch and summit directories will be kept under some sort of <a class="link" href="#sec-cmsuppvcs" title="9.7.2.&nbsp;Version Control Systems">version control</a>. This means that when <span class="command"><strong>posummit</strong></span> has finished running, any files that it had added, moved or removed, would have to be manually "reported" to the version control system (VCS). To avoid this, you can set in the summit configuration which VCS is used, among those supported by Pology, and <span class="command"><strong>posummit</strong></span> will issue proper VCS commands when changing the file tree. Then, after the <span class="command"><strong>posummit</strong></span> run, you can simply issue the VCS commit command on appropriate paths.</p>
+<p>Since different VCS may be used for the summit and the branches, it is possible to set them separately. For example, if branches are in a Subversion repository and the summit in a Git repository, the summit configuration would contain:</p>
+<pre class="programlisting">
+S.summit_version_control = "git"
+S.branches_version_control = "svn"
+</pre>
+<p>If the same VCS is used for branches and the summit (whether or not they are in the same repository), only one configuration field can be set:</p>
+<pre class="programlisting">
+S.version_control = "git"
+</pre>
+<p>If you would like <span class="command"><strong>posummit</strong></span> to execute VCS commands only in the summit and not in branches, then you would set only the <code class="literal">S.summit_version_control</code> field.</p>
+</div>
+<div class="sect2">
+<div class="titlepage">
+<div>
+<div>
+<h3 class="title"><a name="sec-sucfgwrap" id="sec-sucfgwrap"></a>5.3.3.&nbsp;Text Wrapping in PO Files</h3>
+</div>
+</div>
+</div>
+<p>While wrapping of text fields in PO files (<code class="varname">msgid</code>, <code class="varname">msgstr</code>, etc) makes no technical difference, it may be <a class="link" href="#sec-cmwrap" title="9.8.&nbsp;Line Wrapping in PO Messages">convenient for editing</a> for them to be wrapped in a particular way. Since <span class="command"><strong>posummit</strong></span> is anyway modifying PO files both in the summit and branches, it might as well be told what kind of wrapping to use.</p>
+<p>For example, a reasonable wrapping setup could be:</p>
+<pre class="programlisting">
+S.summit_wrap = False
+S.summit_fine_wrap = True
+S.branches_wrap = True
+S.branches_fine_wrap = False
+</pre>
+<p><code class="literal">S.*_wrap</code> fields activate or deactivate basic (column-based) wrapping, while <code class="literal">S.*_fine_wrap</code> fields do the same for logical breaks. So in this example, summit messages are wrapped only on logical breaks (may be good for editing), while branch messages are wrapped only on columns (may reduce size of VCS deltas).</p>
+<p>If not set, the default is basic wrapping without fine wrapping, for both branches and the summit.</p>
+</div>
+<div class="sect2">
+<div class="titlepage">
+<div>
+<div>
+<h3 class="title"><a name="sec-sucfgviv" id="sec-sucfgviv"></a>5.3.4.&nbsp;Vivification of Summit PO Files</h3>
+</div>
+</div>
+</div>
+<p>In direct summit, summit PO files spring into existence by gathering branch PO files. However, in summit over static templates, by default translators have to start a new PO file by copying over the summit template and initializing it. While dedicated PO editors can do this automatically, all translators in the team have to configure their PO editor correctly (language code, plural forms...), and they have to have templates at hand. Furthermore, any statistic processing on the translation project as whole has to specifically consider templates as empty PO files.</p>
+<p>Instead of this, it is possible to tell <span class="command"><strong>posummit</strong></span> to automatically initialize summit PO files from summit templates -- to "vivify" them -- when the language summit is merged. There is a summit configuration switch to enable vivification, as well as several fields to specify the information needed to initialize a PO file. Here is an example:</p>
+<pre class="programlisting">
+S.vivify_on_merge = True
+S.vivify_w_translator = "Simulacrum"
+S.vivify_w_langteam = "Nevernissian &lt;l10n@neverwhere.org&gt;"
+S.vivify_w_language = "nn"
+S.vivify_w_plurals = "nplurals=7; plural=(n==1 ? ...)"
+</pre>
+<p>Setting <code class="literal">S.vivify_on_merge</code> to <code class="literal">True</code> engages vivification. The <code class="literal">S.vivify_w_translator</code> field specifies the value of <code class="literal">Last-Translator:</code> header field in vivified PO file; it can be something catchy rather than a real translator's name, to be able to see later which summit PO files were not yet worked on. <code class="literal">S.vivify_w_langteam</code> is the contents of <code class="literal">Translation-Team:</code> header field (team's name and email address), <code class="literal">S.vivify_w_language</code> of <code class="literal">Language:</code> (language code), and <code class="literal">S.vivify_w_plurals</code> of <code class="literal">Plural-Forms:</code>.</p>
+<p>In summit over dynamic templates, vivification is unconditionally active, whether <code class="literal">S.vivify_on_merge</code> is set or not. This is because synchronization of branches and the summit is checked by comparing template trees, and summit PO files are the only indicator of "virtual" presence of summit templates (while in summit over static templates, the summit template tree is physically present). Without vivification, it would also be very hard for project-wide statistics to take templates into account as empty summit PO files.</p>
+</div>
+<div class="sect2">
+<div class="titlepage">
+<div>
+<div>
+<h3 class="title"><a name="sec-sucfgbmrg" id="sec-sucfgbmrg"></a>5.3.5.&nbsp;Merging in Branches</h3>
+</div>
+</div>
+</div>
+<p>By default it is assumed that branch PO files are merged with branch templates using a separate mechanism, which was already in place when the summit was introduced into the workflow. In summit over templates modes, if branch merging is performed asynchronously to summit merging, on scatter it may happen that some messages recently added to branch PO file are not yet present in corresponding summit PO file. In that case, <span class="command"><strong>posummit</strong></span> will issue warnings about missing messages in the summit. This is normally not a problem, because merging asynchronicity will stop causing such differences as the pre-release message freeze in the source sets in.</p>
+<p>However, on the one hand side, warnings of about messages missing in the summit may be somewhat disconcerting, or aesthetically offending in the otherwise clean scatter output. On the other hand side, perhaps the existing mechanism of merging in branches is not too clean, and it would be nice to replace it with something more thorough. Therefore, in summit over templates modes, it is possible to configure the summit such that on merge, <span class="command"><strong>posummit</strong></span> merges not only the summit PO files, but also all branch PO files. This is achieved simply by adding the <code class="literal">merge=</code> key to each branch that should be merged:</p>
+<pre class="programlisting">
+S.branches = [
+    dict(id="devel", ..., merge=True),
+    dict(id="stable", ..., merge=True),
+]
+</pre>
+<p>When merging in branches is activated, it is still possible to merge only the summit, or any single branch. This is done by using giving an operation target on merge, either the path to the branch top directory or the branch name. For example, in summit over dynamic templates:</p>
+<pre class="programlisting">
+$ cd $SUMMITDIR
+$ posummit merge $DEVELDIR/  # merge only the devel branch
+$ posummit merge devel:      # same
+$ posummit merge .           # merge only the summit
+$ posummit merge +:          # same
+</pre></div>
+<div class="sect2">
+<div class="titlepage">
+<div>
+<div>
+<h3 class="title"><a name="sec-sucfghead" id="sec-sucfghead"></a>5.3.6.&nbsp;Propagation of Header Parts</h3>
+</div>
+</div>
+</div>
+<p>PO headers are treated somewhat differently from PO messages in summit operations:</p>
+<div class="itemizedlist">
+<ul class="itemizedlist" type="disc">
+<li class="listitem">
+<p>On gather, almost all of the standard header field of the <span class="emphasis"><em>primary branch PO file</em></span> are copied into the summit PO file. The primary branch PO file is defined as the first branch PO file (in case of several branch files being mapped onto the same summit PO file) from the first branch (as listed in the branch specification in summit configuration). The only exception is the <code class="literal">POT-Creation-Date:</code>, which is set to the time of gathering, if there were any other modifications to the summit PO file. Header comments are not copied over, except when the summit PO files is being automatically created for the first time.</p>
+</li>
+<li class="listitem">
+<p>On merge, the summit PO file is merged with the summit PO template using <span class="command"><strong>msgmerge</strong></span>, so its header propagation rules apply. For example, no header comments will be touched, <code class="literal">POT-Creation-Date:</code> will be copied over from templates but <code class="literal">Last-Translator:</code> will not be touched, etc. This also means that, by default, any non-standard fields in the template (e.g. those starting with <code class="literal">X-*</code>) will be silently dropped.</p>
+</li>
+<li class="listitem">
+<p>On scatter, almost the complete header is copied over from the <span class="emphasis"><em>primary summit PO file</em></span> into the branch PO file. The primary summit PO file is defined as the first mapped summit PO file, in cases when the single branch PO file has been mapped to several summit PO files. The exception are <code class="literal">Report-Msgid-Bugs-To:</code> and <code class="literal">POT-Creation-Date:</code>, which are preserved as they are in the branch PO file. Also, <code class="literal">PO-Revision-Date:</code> is set to that of the primary summit PO file only if there were any other modifications to the branch PO file (because it may happen that all updates to the summit PO file since the last scatter were for messages from other branches).</p>
+</li>
+</ul>
+</div>
+<p>There exists the possibility to influence this default header propagation. In particular, non-standard header fields may be added into branch and summit PO files and templates by different tools, and it may be significant to preserve and propagate these fields in some contexts. The following summit configuartion fields can used for that purpose:</p>
+<div class="itemizedlist">
+<ul class="itemizedlist" type="disc">
+<li class="listitem">
+<p><code class="literal">S.header_propagate_fields</code> field can be set to a list of non-standard header field names which should be propagated in gather and merge operations, from branch into summit PO files. For example, to propagate fields named <code class="literal">X-Accelerator-Marker:</code> and <code class="literal">X-Sources-Root-URL:</code>, the following can be added to summit configuration:</p>
+<pre class="programlisting">
+S.header_propagate_fields = [
+    "X-Accelerator-Marker",
+    "X-Sources-Root-URL",
+]
+</pre>
+<p>Only the primary branch PO file is considered for determining the presence and getting the values of these header fields.</p>
+</li>
+<li class="listitem">
+<p>Instead of simply overwriting on scatter most of the branch PO header fields with summit PO header fields, some additional branch fields may be preserved by setting <code class="literal">S.header_skip_fields_on_scatter</code> to the list of header field names to preserve. For example, to preserve <code class="literal">X-Scheduled-Release-Date:</code> field in branch PO files:</p>
+<pre class="programlisting">
+S.header_skip_fields_on_scatter = [
+    "X-Scheduled-Release-Date",
+]
+</pre></li>
+</ul>
 </div>
 </div>
 <div class="sect2">
 <div class="titlepage">
 <div>
 <div>
-<h3 class="title"><a name="sec-sucfgbmrg" id="sec-sucfgbmrg"></a>5.3.3.&nbsp;Merging in Branches</h3>
+<h3 class="title"><a name="sec-sucfgascf" id="sec-sucfgascf"></a>5.3.7.&nbsp;Filtering by Ascription on Scatter</h3>
 </div>
 </div>
 </div>
+<p><a class="xref" href="#ch-ascript" title="Chapter&nbsp;6.&nbsp;Ascribing Modifications and Reviews">Chapter&nbsp;6, <i>Ascribing Modifications and Reviews</i></a> describes a translation review system available in Pology, in which every PO message has its modification and review history kept up to some depth in the past. Based on that history, it is possible to select which messages from working PO files (those under ascription) can be passed into release PO files, provided that these two file trees exist. Summit and branches can be viewed exactly as an instance of such separation, where the summit is the working tree, and each branch a release tree.</p>
+<p>In this context, only the summit tree should be kept under ascription. Filtering for release is then, naturally, performed on scatter: to each summit PO message a sequence of one or more ascription selectors is applied, and if the message is selected by the selector sequence, it is passed into the branch PO file. Several selector sequences may be defined, for use in various release situations, through <code class="literal">S.ascription_filters</code> configuration field.</p>
+<p>For example, to have a single filtering sequence which simply lets through all messages not modifed after last review, the following should be added to summit configuration:</p>
+<pre class="programlisting">
+S.ascription_filters = [
+    ("regular", ["nmodar"]),
+]
+</pre>
+<p>Each filtering sequence is represented by a two-element tuple. The first element is the name of the filtering sequence, here <code class="literal">regular</code>. You can set the name to anything you like; when there is only one filtering sequence, the name is actually nowhere used later. The second element of the tuple is a list of ascription selectors, which are given just as the values to <code class="option">-s</code> options in <span class="command"><strong>poascribe</strong></span> command line. Here only one selector is issued, <code class="literal">nmodar</code>, which is the negation of modified-after-review selector. This yields the desired filter to pass all messages "not modifed after last review".</p>
+<p>A more involving example would be that of having one filter for regular scatter, and another "emergency" filter, which relaxes the strictness a bit in case there was no time to properly review all new translations. This emergency filter may let through unreviewed messages if modified by a select few persons, which are known to produce sufficient quality translators in first attempt. If these persons are, for example, <code class="literal">alice</code> and <code class="literal">bob</code> (by their ascription user names), then the two-filter setup could look like this:</p>
+<pre class="programlisting">
+S.ascription_filters = [
+    ("regular", ["nmodar"]),
+    ("emergency", ["nmodar:~alice,bob"]),
+]
+</pre>
+<p>The <code class="literal">regular</code> filter looks like in the previous example. The <code class="literal">emergency</code> filter also uses just one <code class="literal">nmodar</code> selector, but with additional argument to consider all users except for <code class="literal">alice</code> and <code class="literal">bob</code>. Due to the fact that it is listed first, the <code class="literal">regular</code> filter is applied on scatter by default. Application of the <code class="literal">emergency</code> filter is requested by issuing the <code class="option">-a</code>/<code class="option">--asc-filter</code> option with filter name as value:</p>
+<pre class="programlisting">
+$ cd $SUMMITDIR
+$ posummit scatter -a emergency
+</pre>
+<p>When scattering is performed under the ascription filter, messages stopped by the filter will be counted and their number (if non-zero) reported per branch PO file.</p>
 </div>
 <div class="sect2">
 <div class="titlepage">
 <div>
 <div>
-<h3 class="title"><a name="sec-sucfgbonmrg" id="sec-sucfgbonmrg"></a>5.3.4.&nbsp;Additional Merging Options</h3>
+<h3 class="title"><a name="sec-sucfgbranch" id="sec-sucfgbranch"></a>5.3.8.&nbsp;Other Branch Options</h3>
 </div>
 </div>
 </div>
-</div>
-<div class="sect2">
-<div class="titlepage">
-<div>
-<div>
-<h3 class="title"><a name="sec-sucfgbonsct" id="sec-sucfgbonsct"></a>5.3.5.&nbsp;Additional Scattering Options</h3>
-</div>
-</div>
-</div>
+<p>Each branch entry in branch specification (<code class="literal">S.branches</code> configuration field) can have some keys in addition to those described earlier.</p>
+<p>It is possible to exclude some branch PO files from summit operations, or to include only certain branch PO files into summit operations. This is done by setting <code class="literal">excludes=</code> and <code class="literal">includes=</code> keys. The value is a list of tests on branch PO file absolute path: if any test matches, the file is matched on the whole (logical OR). Each test can be either a regular expression string, or a function taking the file path as argument and returning a truth value. If only <code class="literal">excludes=</code> is set, then all files not matched are operated on, and if <code class="literal">includes=</code> is set, only matched files are operated on. If both keys are set, then only files matched by <code class="literal">includes=</code> and not matched by <code class="literal">excludes=</code> are operated on.</p>
+<p>If branches are under version control and <span class="command"><strong>posummit</strong></span> is told to <a class="link" href="#sec-sucfgvcs" title="5.3.2.&nbsp;Integration with Version Control Systems">issue version control commands</a> as appropriate (i.e. <code class="literal">S.branches_version_control</code> configuration field is set), it is possible to exclude a specific branch from this, by setting its <code class="literal">skip_version_control=</code> key to <code class="literal">True</code>.</p>
 </div>
 <div class="sect2">
 <div class="titlepage">
 <div>
 <div>
-<h3 class="title"><a name="sec-sucfgascf" id="sec-sucfgascf"></a>5.3.6.&nbsp;Filtering by Ascription on Scatter</h3>
+<h3 class="title"><a name="sec-sucfgbonmrg" id="sec-sucfgbonmrg"></a>5.3.9.&nbsp;Other Merge Options</h3>
 </div>
 </div>
 </div>
+<p>As is usual, merging performed by <span class="command"><strong>posummit</strong></span> by default produces <a class="link" href="#sec-pofuzzy" title="2.5.1.&nbsp;Fuzzy Messages">fuzzy messages</a>; in summit PO files, as well as in branch PO files if <a class="link" href="#sec-sucfgbmrg" title="5.3.5.&nbsp;Merging in Branches">merging in branches</a> is enabled. It is possible to prevent fuzzy matching, by setting <code class="literal">S.summit_fuzzy_merging</code> and <code class="literal">S.branches_fuzzy_merging</code> configuration fields to <code class="literal">True</code>. There should be little reason to disable fuzzy matching in summit PO files, but it may be convenient to do so in branch PO files, which are not directly translated. For example, lack of fuzzy message will lead to smaller version control deltas.</p>
+<p>Fuzzy messages are by default produced by <span class="command"><strong>msgmerge</strong></span> alone. This can be more finely tuned by processing the PO file before and after it has been merged, as done by <a class="link" href="#sec-miselfmerge" title="7.2.&nbsp;Self-Merging PO Files with poselfmerge">the <span class="command"><strong>poselfmerge</strong></span> command</a>. The <code class="literal">S.merge_min_adjsim_fuzzy</code> configuration field can be set to a number in range from 0 to 1, having the same effect on fuzzy matching as the <code class="option">-A</code>/<code class="option">--min-adjsim-fuzzy</code> option of <span class="command"><strong>poselfmerge</strong></span>. The <code class="literal">S.merge_rebase_fuzzy</code> field can be set to <code class="literal">True</code>, with the same meaning as the <code class="option">-b</code>/<code class="option">--rebase-fuzzies</code> option of <span class="command"><strong>poselfmerge</strong></span>.</p>
+<p>Summit PO files may be merged by consulting a compendium, to produce additional exact and fuzzy matches. This possibility also draws on the functionality provided by <span class="command"><strong>poselfmerge</strong></span>. The <code class="literal">S.compendium_on_merge</code> configuration field is used to set the path to a compendium<sup>[<a name="id392813" href="#ftn.id392813" class="footnote" id="id392813">23</a>]</sup>, equivalently to the <code class="option">-C</code>/<code class="option">--compendium</code> option of <span class="command"><strong>poselfmerge</strong></span>. Since compendium matches are less likely to be appropriate than own matches, you may set the <code class="literal">S.compendium_fuzzy_exact</code> field to <code class="literal">False</code>, or the <code class="literal">S.compendium_min_words_exact</code> fiel to a positive integer number, with the same effect as <code class="option">-x</code>/<code class="option">--fuzzy-exact</code> and <code class="option">-W</code>/<code class="option">--min-words-exact</code> options of <span class="command"><strong>poselfmerge</strong></span>, respectively.</p>
+</div>
+<div class="sect2">
+<div class="titlepage">
+<div>
+<div>
+<h3 class="title"><a name="sec-sucfgbonsct" id="sec-sucfgbonsct"></a>5.3.10.&nbsp;Other Scatter Options</h3>
+</div>
+</div>
+</div>
+<p>Sometimes a summit PO file may be "pristine", meaning that all messages in it are clear, neither translated nor fuzzy. Pristine summit PO files may appear, for example, when <a class="link" href="#sec-sucfgviv" title="5.3.4.&nbsp;Vivification of Summit PO Files">vivification</a> is active. A pristine summit PO file will by default cause a likewise empty branch PO file to appear on scatter. This may or may not be a problem in a given project. If it is a problem, it is possible to set the minimal translation completeness of a summit PO file at which the branch PO file will be created on scatter. For example:</p>
+<pre class="programlisting">
+S.scatter_min_completeness = 0.8
+</pre>
+<p>sets the minimum completeness to scatter at 80%. Completeness is taken to be the ratio of the number of translated to all messages in the file (excluding obsolete).</p>
+<p>Translation completeness of a summit PO file may deteriorate over time, as it is periodically gathered or merged, and no one comes around to update the translation. At some point, the completeness may become too low to be considered useful, so that it is better to stop releasing remaining translations in that file until it is updated. The completeness at which this happens, at which the branch PO file is automatically cleared of all translations on scatter, can be set through <code class="literal">S.scatter_acc_completeness</code> configuration field. The meaning of the value of this field is the same as for <code class="literal">S.scatter_min_completeness</code>; in fact, one might ask why not simply use <code class="literal">S.scatter_min_completeness</code> for this purpose as well. The reason is that sometimes a higher bar is put for the initial release, and having two separate configuration fields enables you to make this difference.</p>
 </div>
 </div>
 <div class="sect1">
@@ -5223,14 +5596,26 @@ $ posummit $SOMEWHERE/summit-config-shared aa deps stable:foobaz_info
 </div>
 </div>
 </div>
+<p>Although hopefully shadowed by the advantages, working in summit is not without some disadvantages. These should be weighed in when deciding on whether to try out the summit workflow.</p>
+<p>In summit over template modes, any changes made manually in branch PO files will not propagate into summit, and will be soon lost to scattering. This means that the whole translation team must work in the summit. It is not possible for some members to use the summit, and some not. In direct summit mode, modifying branches directly would be even messier, as some changes would find their way into the summit and some not, depending on which branch contains the change and the order of gather and scatter operations.</p>
+<p>A summit PO file will necessarily have more messages than either of the branch files. For example, in two successive development-stable branch cyclings within the KDE translation project (at the time about 1100 PO files with 750.000 words), summit PO files were on average 5% bigger (by number of words) than their branch counterparts. This percentage can be taken as the top limit of possibly wasted translation effort due to messages in development branch coming and going, given that as the next branch cycling approaches more and more messages become fixed and make into the next stable branch.</p>
+<p>A more pressing issue with increased size of summit PO files is the following scenario: next stable release is around the corner, and the translation team has no time to update summit PO files fully, but could update only stable messages in them. For example, there are 1000 untranslated and fuzzy messages in the summit, out of which only 50 are coming from the stable branch. A clever dedicated PO editor could allow jumping only through untranslated and fuzzy messages which additionaly satisfy a general search criteria, in this case that a comment matches <code class="literal">\+&gt;.*stable</code> regular expression (assuming the stable branch is named <code class="literal">stable</code> in summit configuration). Lacking such a feature, with some external help it is enough if the editor can merely search through comments. First, Pology's <a class="link" href="#ch-sieve" title="Chapter&nbsp;3.&nbsp;Sieving"><span class="command"><strong>posieve</strong></span> command</a> can be used to equip all untranslated and fuzzy stable messages in summit PO files with an <code class="literal">untranslated</code> flag (producing <code class="literal">#, ..., untranslated</code> comment):</p>
+<pre class="programlisting">
+$ posieve tag-untranslated -sbranch:stable -swfuzzy <em class="replaceable"><code>paths...</code></em>
+</pre>
+<p>Then, in the PO editor you can jump through incomplete stable messages by simply searching for this flag. While doing that, you are not obligated to manually remove the flag: it will either automatically disappear on the next merge, or you can remove all flags afterwards by running:</p>
+<pre class="programlisting">
+$ posieve tag-untranslated -sstrip <em class="replaceable"><code>paths...</code></em>
+</pre>
+<p>There are some organizational issues with starting to use the summit, and, if it turns out counter-productive, stopping to use it. Team members have first to be reminded not to send in or commit branch PO files, and then if the summit is disbanded, to be reminded to go back to branch PO files. On the plus side, disbanding the summit is technically simple, simply removing its top directory and summit configuration file will do the job.</p>
 </div>
 <div class="footnotes"><br>
 <hr width="100" align="left">
 <div class="footnote">
-<p><sup>[<a name="ftn.id361168" href="#id361168" class="para" id="ftn.id361168">14</a>]</sup> One may think of relying upon the translation memory: translate only PO files from one branch, and batch-apply translation memory to PO files other branches, accepting only exact matches. This is dangerous, because short messages may need different translations in different PO files, resulting in hilarious mistranslations.</p>
+<p><sup>[<a name="ftn.id307449" href="#id307449" class="para" id="ftn.id307449">14</a>]</sup> One may think of relying upon the translation memory: translate only PO files from one branch, and batch-apply translation memory to PO files other branches, accepting only exact matches. This is dangerous, because short messages may need different translations in different PO files, resulting in hilarious mistranslations.</p>
 </div>
 <div class="footnote">
-<p><sup>[<a name="ftn.id343236" href="#id343236" class="para" id="ftn.id343236">15</a>]</sup> Unfortunatelly, the following common organization cannot be automatically supported:</p>
+<p><sup>[<a name="ftn.id325729" href="#id325729" class="para" id="ftn.id325729">15</a>]</sup> Unfortunatelly, the following common organization cannot be automatically supported:</p>
 <pre class="screen">
 path/to/devel/
     appfoo/
@@ -5247,16 +5632,28 @@ path/to/devel/
 </pre>
 The problem is that there is no way to determine domain names from the file tree alone, and that different handling would be required for sources which actually have multiple PO domains.</div>
 <div class="footnote">
-<p><sup>[<a name="ftn.id343287" href="#id343287" class="para" id="ftn.id343287">16</a>]</sup> New translations do not have to appear in branches only by mistake. For example, some external sources, which have been translated elsewhere, may be integrated into the project.</p>
+<p><sup>[<a name="ftn.id402785" href="#id402785" class="para" id="ftn.id402785">16</a>]</sup> New translations do not have to appear in branches only by mistake. For example, some external sources, which have been translated elsewhere, may be integrated into the project.</p>
 </div>
 <div class="footnote">
-<p><sup>[<a name="ftn.id331187" href="#id331187" class="para" id="ftn.id331187">17</a>]</sup> More precisely, if there are two same-name PO domains inside one branch, they will both be gathered into the same summit PO file. The assumption is that PO files with same domain names have mostly common messages.</p>
+<p><sup>[<a name="ftn.id402813" href="#id402813" class="para" id="ftn.id402813">17</a>]</sup> More precisely, if there are two same-name PO domains inside one branch, they will both be gathered into the same summit PO file. The assumption is that PO files with same domain names have mostly common messages.</p>
 </div>
 <div class="footnote">
-<p><sup>[<a name="ftn.id365584" href="#id365584" class="para" id="ftn.id365584">18</a>]</sup> It can be changed by assigning another string to <code class="literal">S.templates_lang</code>.</p>
+<p><sup>[<a name="ftn.id435112" href="#id435112" class="para" id="ftn.id435112">18</a>]</sup> It can be changed by assigning another string to <code class="literal">S.templates_lang</code>.</p>
 </div>
 <div class="footnote">
-<p><sup>[<a name="ftn.id407382" href="#id407382" class="para" id="ftn.id407382">19</a>]</sup> One could also skip this and allow immediate loss of translations, and rely on the translation memory when later translating new PO files. But, especially in centralized summit maintenance, it is better to make things right early. Also, translation memory matches may not be as reliable, since they come not only from the original PO file, but from all PO files in the project.</p>
+<p><sup>[<a name="ftn.id359874" href="#id359874" class="para" id="ftn.id359874">19</a>]</sup> One could also skip this and allow immediate loss of translations, and rely on the translation memory when later translating new PO files. But, especially in centralized summit maintenance, it is better to make things right early. Also, translation memory matches may not be as reliable, since they come not only from the original PO file, but from all PO files in the project.</p>
+</div>
+<div class="footnote">
+<p><sup>[<a name="ftn.id407952" href="#id407952" class="para" id="ftn.id407952">20</a>]</sup> Another possibility are validation filters, which do not modify the text but report possible problems, though <a class="link" href="#sec-lgrules" title="8.5.&nbsp;Validation Rules">validation rules</a> and <a class="link" href="#sv-check-rules" title="3.5.7.&nbsp;check-rules">the <span class="command"><strong>check-rules</strong></span> sieve</a> are likely a better solution.</p>
+</div>
+<div class="footnote">
+<p><sup>[<a name="ftn.id408024" href="#id408024" class="para" id="ftn.id408024">21</a>]</sup> <code class="literal">resolve_ui</code> is not the hook function itself, but a hook factory. It is called with the argument <code class="literal">uicpathenv="UI_PO_DIR"</code> to produced the actual hook function. See its documentation for details.</p>
+</div>
+<div class="footnote">
+<p><sup>[<a name="ftn.id408131" href="#id408131" class="para" id="ftn.id408131">22</a>]</sup> This pattern makes use of a <span class="emphasis"><em>negative lookbehind</em></span> token, a fairly advanced bit of regular expression syntax.</p>
+</div>
+<div class="footnote">
+<p><sup>[<a name="ftn.id392813" href="#id392813" class="para" id="ftn.id392813">23</a>]</sup> Here you can also use the <code class="literal">S.relpath()</code> function, to have the compendium path be relative to the directory of the summit configuration file.</p>
 </div>
 </div>
 </div>
@@ -5500,7 +5897,7 @@ $ pomtrans <em class="replaceable"><code>transerv</code></em> -s fr -t es -p es.
 <dl>
 <dt><span class="term"><code class="option">-a <em class="replaceable"><code>CHARS</code></em></code>, <code class="option">--accelerator=<em class="replaceable"><code>CHARS</code></em></code></span></dt>
 <dd>
-<p>Characters used as <a class="link" href="#sec-poaccel" title="2.3.4.&nbsp;Accelerators">accelerator markers</a> in user interface messages. They should be removed from the source language text before translation, in order not to confuse the translation service.<sup>[<a name="id467207" href="#ftn.id467207" class="footnote" id="id467207">20</a>]</sup></p>
+<p>Characters used as <a class="link" href="#sec-poaccel" title="2.3.4.&nbsp;Accelerators">accelerator markers</a> in user interface messages. They should be removed from the source language text before translation, in order not to confuse the translation service.<sup>[<a name="id457918" href="#ftn.id457918" class="footnote" id="id457918">24</a>]</sup></p>
 </dd>
 <dt><span class="term"><code class="option">-c <em class="replaceable"><code>FILE</code></em></code>, <code class="option">--parallel-compendium=<em class="replaceable"><code>FILE</code></em></code></span></dt>
 <dd>
@@ -5567,7 +5964,7 @@ $ pomtrans <em class="replaceable"><code>transerv</code></em> -s fr -t es -p es.
 <div class="footnotes"><br>
 <hr width="100" align="left">
 <div class="footnote">
-<p><sup>[<a name="ftn.id467207" href="#id467207" class="para" id="ftn.id467207">20</a>]</sup> This also means that, at the moment, machine-translated text has no accelerator when the original text did have one. Some heuristics may be implemented in the future to add the accelerator to translated text as well.</p>
+<p><sup>[<a name="ftn.id457918" href="#id457918" class="para" id="ftn.id457918">24</a>]</sup> This also means that, at the moment, machine-translated text has no accelerator when the original text did have one. Some heuristics may be implemented in the future to add the accelerator to translated text as well.</p>
 </div>
 </div>
 </div>
@@ -5598,7 +5995,7 @@ $ pomtrans <em class="replaceable"><code>transerv</code></em> -s fr -t es -p es.
 <div class="titlepage">
 <div>
 <div>
-<h3 class="title"><a name="id328048" id="id328048"></a>8.1.1.&nbsp;Supported Languages and Environments</h3>
+<h3 class="title"><a name="id366775" id="id366775"></a>8.1.1.&nbsp;Supported Languages and Environments</h3>
 </div>
 </div>
 </div>
@@ -5637,6 +6034,14 @@ $ pomtrans <em class="replaceable"><code>transerv</code></em> -s fr -t es -p es.
 </tr>
 <tr>
 <td>Norwegian Nynorsk (<code class="literal">nn</code>)</td>
+<td class="auto-generated">&nbsp;</td>
+</tr>
+<tr>
+<td>Romanian (<code class="literal">ro</code>)</td>
+<td class="auto-generated">&nbsp;</td>
+</tr>
+<tr>
+<td>Russian (<code class="literal">ru</code>)</td>
 <td class="auto-generated">&nbsp;</td>
 </tr>
 <tr>
@@ -5764,7 +6169,7 @@ msgstr ""
 </pre>
 <p>In the usual translation process, an embedded UI label is manually translated just like the surrounding text. You could directly translate the label, hoping that the original UI message was translated in the same way, but this will frequently not be the case (especially for longer labels). To be thorough, you could look up the UI message in its PO file, or run the program, to see how it was actually translated. There are two problems with being thorough in this way: it takes time to look up original UI messages, and worse, translation of a UI message might change in the future (e.g. after a review) and leave the referencing message out of date.</p>
 <p>An obvious solution to these problems, in principle, would be to leave embedded UI labels untranslated but properly marked (such as with <code class="literal">&lt;gui*&gt;</code> tags in Docbook), and have an automatic system fetch their translations from original UI messages and insert them into referencing messages. However, there could be many implementational variations of this approach (like at which stage of the translation chain the automatic insertion happens), with some significant details to get right.</p>
-<p>At present, Pology approaches automatic insertion of UI labels in a generalized way, which does not mandate any particular organization of PO files or translation workflow. It defines a syntax for wrapping and disambiguating UI references, for linking referencing and originating PO files, and provides a series of <a class="link" href="#hk-uiref-resolve-ui">hooks to resolve and validate UI references</a>. A UI reference resolving hook will simply replace a properly equipped non-translated UI label with its translation. This implies that PO files which are delivered must not be the same PO files which are directly translated, because resolving UI references in directly translated PO files would preclude their automatic update in the future<sup>[<a name="id399048" href="#ftn.id399048" class="footnote" id="id399048">21</a>]</sup>. It is upon the translator or the translation team to establish the separation between delivered and translated PO files. One way is by translating in summit (see <a class="xref" href="#ch-summit" title="Chapter&nbsp;5.&nbsp;Summitting Translation Branches">Chapter&nbsp;5, <i>Summitting Translation Branches</i></a>), which by definition provides the desired separation, and setting UI reference resolving hooks as filters on scatter.</p>
+<p>At present, Pology approaches automatic insertion of UI labels in a generalized way, which does not mandate any particular organization of PO files or translation workflow. It defines a syntax for wrapping and disambiguating UI references, for linking referencing and originating PO files, and provides a series of <a class="link" href="#hk-uiref-resolve-ui">hooks to resolve and validate UI references</a>. A UI reference resolving hook will simply replace a properly equipped non-translated UI label with its translation. This implies that PO files which are delivered must not be the same PO files which are directly translated, because resolving UI references in directly translated PO files would preclude their automatic update in the future<sup>[<a name="id398860" href="#ftn.id398860" class="footnote" id="id398860">25</a>]</sup>. It is upon the translator or the translation team to establish the separation between delivered and translated PO files. One way is by translating in summit (see <a class="xref" href="#ch-summit" title="Chapter&nbsp;5.&nbsp;Summitting Translation Branches">Chapter&nbsp;5, <i>Summitting Translation Branches</i></a>), which by definition provides the desired separation, and setting UI reference resolving hooks as <a class="link" href="#sec-sucfghooks" title="5.3.1.&nbsp;Summit Hooks">filters on scatter</a>.</p>
 <div class="sect2">
 <div class="titlepage">
 <div>
@@ -5898,7 +6303,7 @@ msgstr ""
 </div>
 </div>
 </div>
-<p>There are great many possible mistakes to be made when translating. Some of these mistakes can only be observed and corrected by a human reviewer<sup>[<a name="id398532" href="#ftn.id398532" class="footnote" id="id398532">22</a>]</sup>, and review is indeed an important part of the translation workflow. However, many mistakes, especially those more technical in nature, can be fully or partially detected by automatic means.</p>
+<p>There are great many possible mistakes to be made when translating. Some of these mistakes can only be observed and corrected by a human reviewer<sup>[<a name="id394075" href="#ftn.id394075" class="footnote" id="id394075">26</a>]</sup>, and review is indeed an important part of the translation workflow. However, many mistakes, especially those more technical in nature, can be fully or partially detected by automatic means.</p>
 <p>A number of tools are available to perform various checks on translation in PO files. The basic one is Gettext's <span class="command"><strong>msgfmt</strong></span> command, which, when run with <code class="option">-c</code>/<code class="option">--check</code> option, will detect many "hard" technical problems. These are the kind of problems which may cause the program that uses translation to crash, or that may cause loss of information to the program user. Another is <a class="ulink" href="http://translate.sourceforge.net/wiki/toolkit/pofilter" target="_top">Translate Toolkit's <span class="command"><strong>pofilter</strong></span> command</a>, which applies heuristic checks to detect common (and not so common) stylistic and semantic slips in translation. Dedicated PO editors may also provide some checks of their own, or make use of external batch tools.</p>
 <p>One commonality of existing validation tools is that they aim for generality, that is, try to apply a fixed battery of checks to all <a class="link" href="#sec-lglangenv" title="8.1.&nbsp;The Notion of Language in Pology">languages and environments</a> (although some differentiation by translation projects may be present, such as in <span class="command"><strong>pofilter</strong></span>). Another commonality, unavoidable in heuristic approaches, is wrong detection of valid translation as invalid, the so called "false positives". These two elements produce combined negative effect: since the number and specificity of checks is not that great compared to what a dedicated translator could come up with for given language and environment, and since many reported errors are false positives without possibility for cancelation, the motivation to apply automatic checks sharply decreases; the more so the greater the amount of translation.</p>
 <p>Pology therefore provides a system for users to assemble collections of <span class="emphasis"><em>validation rules</em></span> adapted to their language and environment, with multi-level facilities for applying or skipping rules in certain contexts, pre-filtering of text before applying rules, and post-filtering and opening problematic messages in PO editors. Rules can be written and tuned in the course of translation, and false positives can be systematically canceled, such that over time the collection of rules becomes both highly specific and highly accurate. Since Pology supports language and environment variations from the ground up, such rule collections can be committed to Pology source distribution, so that anyone may use them when applicable.</p>
@@ -5948,7 +6353,7 @@ $ posieve check-rules -s rfile:<em class="replaceable"><code>pathto</code></em>/
 [\w+'t\b]i
 </pre>
 <p>This regular expression will match one or more word-characters (<code class="literal">\w+</code>) followed by 't (<code class="literal">'t</code>) which is positioned at the word boundary (<code class="literal">\b</code>). More general patterns increase the likelyhood of false positives, but this is not really a problem, since tweaking the rules in the course of translation is expected. It is a bigger problem if the pattern is made too specific at first, such that it misses out some cases. It is therefore recommended to start with "greedy" patterns, and then constrain them as false positivies are observed.</p>
-<p>However, tweaking trigger patterns can only go so far.<sup>[<a name="id374475" href="#ftn.id374475" class="footnote" id="id374475">23</a>]</sup> The workhorse of rule flexibility is instead the mentioned <code class="literal">valid</code> subdirective. Within a single <code class="literal">valid</code> directive there may be several tests, and many types of tests are provided. The trigger will be canceled if all the tests in the <code class="literal">valid</code> subdirective are satisfied (boolean AND linking). There may be several <code class="literal">valid</code> subdirectives, each with its own battery of tests, and then the trigger is canceled if any of the <code class="literal">valid</code> subdirectives are satisfied (boolean OR linking). For example, to disallow a certain word in translation unless used in few specific constructs, the following set of <code class="literal">valid</code> subdirectives can be used:</p>
+<p>However, tweaking trigger patterns can only go so far.<sup>[<a name="id472290" href="#ftn.id472290" class="footnote" id="id472290">27</a>]</sup> The workhorse of rule flexibility is instead the mentioned <code class="literal">valid</code> subdirective. Within a single <code class="literal">valid</code> directive there may be several tests, and many types of tests are provided. The trigger will be canceled if all the tests in the <code class="literal">valid</code> subdirective are satisfied (boolean AND linking). There may be several <code class="literal">valid</code> subdirectives, each with its own battery of tests, and then the trigger is canceled if any of the <code class="literal">valid</code> subdirectives are satisfied (boolean OR linking). For example, to disallow a certain word in translation unless used in few specific constructs, the following set of <code class="literal">valid</code> subdirectives can be used:</p>
 <pre class="programlisting">
 [foo]i
 id="style-nofoo"
@@ -5976,7 +6381,7 @@ id="spelling"
 hint="Misspelled words detected."
 </pre>
 <p>The <code class="literal">name=</code> field specifies the hook, and the <code class="literal">on=</code> field what parts of the message it should operate on. The parts given by <code class="literal">on=</code> field must be appropriate for the hook type; since <code class="literal">spell/check-spell-sp</code> is a V3A hook, it can operate on any string in the message, including the translation as requested here. Validation hooks can provide some notes of their own (here list of replacement suggestions for a faulty word), which will be shown next to the note given by rule's <code class="literal">hint=</code> subdirective.</p>
-<p>Examples so far all suffer from one basic problem: the trigger pattern will fail to match a word which has an accelerator marker inside it.<sup>[<a name="id374629" href="#ftn.id374629" class="footnote" id="id374629">24</a>]</sup> This is actually an instance of a broader problem, that some rules should operate on a somewhat modified, filtered text, instead on the original text. This is why the rule system in Pology also provides extensive filtering capabilities. If the accelerator marker is <code class="literal">_</code> (the underscore), here is how it could be removed before applying the rules:</p>
+<p>Examples so far all suffer from one basic problem: the trigger pattern will fail to match a word which has an accelerator marker inside it.<sup>[<a name="id472444" href="#ftn.id472444" class="footnote" id="id472444">28</a>]</sup> This is actually an instance of a broader problem, that some rules should operate on a somewhat modified, filtered text, instead on the original text. This is why the rule system in Pology also provides extensive filtering capabilities. If the accelerator marker is <code class="literal">_</code> (the underscore), here is how it could be removed before applying the rules:</p>
 <pre class="programlisting">
 # Personal rules of Horatio the Indefatigable.
 
@@ -6358,7 +6763,7 @@ addFilterRegex match="\w+\(.*?\)" on="pmsgid,pmsgstr"
 {...}
 ...
 </pre>
-<p>Filters are added cumulatively to the filter set, and the current set is affecting all the rules below it.<sup>[<a name="id389381" href="#ftn.id389381" class="footnote" id="id389381">25</a>]</sup> If a <code class="literal">addFilter*</code> directive appears within the rule, it adds a filter only to the filter set of that rule:</p>
+<p>Filters are added cumulatively to the filter set, and the current set is affecting all the rules below it.<sup>[<a name="id458068" href="#ftn.id458068" class="footnote" id="id458068">29</a>]</sup> If a <code class="literal">addFilter*</code> directive appears within the rule, it adds a filter only to the filter set of that rule:</p>
 <pre class="programlisting">
 # Rule C, with an additional filter just for itself.
 {...}
@@ -6533,7 +6938,7 @@ addFilterHook name="remove/remove-accel-msg" on="msg"
 <pre class="programlisting">
 {(?&lt;!command )\blines?\b}i
 </pre>
-<p>However, it much less cryptic and more extensible to add a <code class="literal">valid</code> subdirective instead:</p>
+<p>However, it is much less cryptic and more extensible to add a <code class="literal">valid</code> subdirective instead:</p>
 <pre class="programlisting">
 {\blines?\b}i
 valid after="command "
@@ -6542,7 +6947,7 @@ valid after="command "
 <p><code class="literal">valid</code> subdirectives are particularly useful for wider rule cancelations, such as by PO domain (catalog) name. For example, the word "wizard" could be translated differently when denoting a step-by-step dialog in a utilitarian program and a learned magic wielding character in a computer game. Then the <code class="literal">cat=</code> test can be used to allow the other term in the game's PO file:</p>
 <pre class="programlisting">
 {\bwizard}i
-valid msgstr="<em class="replaceable"><code>term-for-step-by-step-dialog</code></em>
+valid msgstr="<em class="replaceable"><code>term-for-step-by-step-dialog</code></em>"
 valid cat="foodungeon" msgstr="<em class="replaceable"><code>term-for-magician</code></em>"
 </pre>
 <p>This requires specifying the domain names of all games with wizard characters to which the rule set is applied, which may not be that comfortable. Another way could be to introduce the <code class="literal">fantasy</code> environment and use the <code class="literal">env=</code> test:</p>
@@ -6576,7 +6981,7 @@ msgid "...the amount of froobaz-HX which led to..."
 msgstr "..."
 </pre>
 <p>The comment starts with <code class="literal">skip-rule:</code>, and is followed by a comma-separated list of rules to skip, by their identifiers (defined by <code class="literal">id=</code> in the rule).</p>
-<p>There is a catch to the translator comment approach, though. When a with <code class="literal">skip-rule:</code> comment message becomes fuzzy, it depends on the new text of the message whether the comment should be kept or removed. This means that on fuzzy messages translators have to observe and adapt translator comments just as they adapt the <code class="varname">msgstr</code> strings. Unfortunatelly, some translators do not pay sufficient attention to translator comments, which is further exacerbate by some PO editors, which underrepresent translator comments in the user interface (or even do not enable editing them!). However, from the point of view of PO translation workflow, not giving full attention to translator comments is plainly an error: translators should be told better, and PO editors should be upgraded.<sup>[<a name="id414587" href="#ftn.id414587" class="footnote" id="id414587">26</a>]</sup></p>
+<p>There is a catch to the translator comment approach, though. When a with <code class="literal">skip-rule:</code> comment message becomes fuzzy, it depends on the new text of the message whether the comment should be kept or removed. This means that on fuzzy messages translators have to observe and adapt translator comments just as they adapt the <code class="varname">msgstr</code> strings. Unfortunatelly, some translators do not pay sufficient attention to translator comments, which is further exacerbated by some PO editors which underrepresent translator comments in the user interface (or even do not enable editing them). However, from the point of view of PO translation workflow, not giving full attention to translator comments is plainly an error: translators should be told better, and PO editors should be upgraded.<sup>[<a name="id434373" href="#ftn.id434373" class="footnote" id="id434373">30</a>]</sup></p>
 </div>
 <div class="sect3">
 <div class="titlepage">
@@ -6637,8 +7042,8 @@ msgstr ""
 msgid "Open with %s"
 msgstr ""
 </pre>
-<p>In languages featuring noun inflection, it is likely that the program name in this message should have the grammar case different from the nominative (basic) case. This means that simply inserting the name read from the .desktop file, into directly translated text, will produce a grammatically incorrect phrase. Translator may try to adapt the message to the nominative form of the name (by shuffling words, adding "helper" words, adding punctuation), but this will produce stylistically suboptimal phrase. That is, style will be sacrificed for grammar. In order not to have to make such compromises, now and in the future certain <span class="emphasis"><em>translation scripting</em></span> systems may be available atop the PO format<sup>[<a name="id467243" href="#ftn.id467243" class="footnote" id="id467243">27</a>]</sup>, which would, in this example, enable the translator to specify which non-nominative form of the program name to fetch and insert.</p>
-<p>Whatever the shape the translation scripting system takes, different forms of phrases have to be derived somehow for use by that system. Given the nuances of spoken languages, fully automatic derivation is probably not going to be possible<sup>[<a name="id467270" href="#ftn.id467270" class="footnote" id="id467270">28</a>]</sup>. Pology therefore provides the <span class="emphasis"><em>syntagma<sup>[<a name="id467286" href="#ftn.id467286" class="footnote" id="id467286">29</a>]</sup> derivator</em></span> system (<span class="emphasis"><em>synder</em></span> for short), which allows manual derivation of phrase forms and properties with minimal verbosity, using macro expansion based on partial regularities in the grammar.</p>
+<p>In languages featuring noun inflection, it is likely that the program name in this message should have the grammar case different from the nominative (basic) case. This means that simply inserting the name read from the .desktop file, into directly translated text, will produce a grammatically incorrect phrase. Translator may try to adapt the message to the nominative form of the name (by shuffling words, adding "helper" words, adding punctuation), but this will produce stylistically suboptimal phrase. That is, style will be sacrificed for grammar. In order not to have to make such compromises, now and in the future certain <span class="emphasis"><em>translation scripting</em></span> systems may be available atop the PO format<sup>[<a name="id434565" href="#ftn.id434565" class="footnote" id="id434565">31</a>]</sup>, which would, in this example, enable the translator to specify which non-nominative form of the program name to fetch and insert.</p>
+<p>Whatever the shape the translation scripting system takes, different forms of phrases have to be derived somehow for use by that system. Given the nuances of spoken languages, fully automatic derivation is probably not going to be possible<sup>[<a name="id434592" href="#ftn.id434592" class="footnote" id="id434592">32</a>]</sup>. Pology therefore provides the <span class="emphasis"><em>syntagma<sup>[<a name="id434608" href="#ftn.id434608" class="footnote" id="id434608">33</a>]</sup> derivator</em></span> system (<span class="emphasis"><em>synder</em></span> for short), which allows manual derivation of phrase forms and properties with minimal verbosity, using macro expansion based on partial regularities in the grammar.</p>
 <p>Syntagma derivations can be written and maintained in a standalone plain text file, although currently Pology provides no end-user functionality to convert such files (i.e. derive all forms defined by them) to formats which a target translation system could consume. Instead, one can make use of the <code class="classname">Synder</code> class from the <span class="package">pology.synder</span> module to construct a custom converters. Of course, in the future, such converters may become part of Pology. There are already syntax highlighting definitions for the synder file format, for some text editors, in the <code class="filename">syntax/</code> directory of Pology distribution.</p>
 <p>What is provided right now in terms of end-user functionality is <a class="link" href="#sv-collect-pmap" title="3.5.12.&nbsp;collect-pmap">the <span class="command"><strong>collect-pmap</strong></span> sieve</a>. It enables translators to write syntagma derivations in translator comments in PO messages, and then extract them (deriving all forms) into a file in the appropriate format for the target translation system. The example message above from the .desktop file could be equipped with a synder entry like this:</p>
 <pre class="programlisting">
@@ -6968,31 +7373,31 @@ Earth: Zemlj|a
 <div class="footnotes"><br>
 <hr width="100" align="left">
 <div class="footnote">
-<p><sup>[<a name="ftn.id399048" href="#id399048" class="para" id="ftn.id399048">21</a>]</sup> Another advantage is that original text too will sometimes contain out-of-date UI references, which this process will automatically discover and enable the translation to be more up-to-date than the original. Of course, reporting the problem to the authors would be desireable, or even necessary when the related feature no longer exists.</p>
+<p><sup>[<a name="ftn.id398860" href="#id398860" class="para" id="ftn.id398860">25</a>]</sup> Another advantage is that original text too will sometimes contain out-of-date UI references, which this process will automatically discover and enable the translation to be more up-to-date than the original. Of course, reporting the problem to the authors would be desireable, or even necessary when the related feature no longer exists.</p>
 </div>
 <div class="footnote">
-<p><sup>[<a name="ftn.id398532" href="#id398532" class="para" id="ftn.id398532">22</a>]</sup> Taking into account the current level of artificial intelligence development, which, granted, may become more sophisticated in the future.</p>
+<p><sup>[<a name="ftn.id394075" href="#id394075" class="para" id="ftn.id394075">26</a>]</sup> Taking into account the current level of artificial intelligence development, which, granted, may become more sophisticated in the future.</p>
 </div>
 <div class="footnote">
-<p><sup>[<a name="ftn.id374475" href="#id374475" class="para" id="ftn.id374475">23</a>]</sup> And cause regular expressions to become horribly complicated.</p>
+<p><sup>[<a name="ftn.id472290" href="#id472290" class="para" id="ftn.id472290">27</a>]</sup> And cause regular expressions to become horribly complicated.</p>
 </div>
 <div class="footnote">
-<p><sup>[<a name="ftn.id374629" href="#id374629" class="para" id="ftn.id374629">24</a>]</sup> Why not remove accelerator markers automatically before applying rules? Because some rules might be exactly about accelerator markers, e.g. if it should not be put next to certain letters.</p>
+<p><sup>[<a name="ftn.id472444" href="#id472444" class="para" id="ftn.id472444">28</a>]</sup> Why not remove accelerator markers automatically before applying rules? Because some rules might be exactly about accelerator markers, e.g. if it should not be put next to certain letters.</p>
 </div>
 <div class="footnote">
-<p><sup>[<a name="ftn.id389381" href="#id389381" class="para" id="ftn.id389381">25</a>]</sup> These filtering examples are only for illustrative purposes, as there are more precise methods to remove markup, or literals such as command line options.</p>
+<p><sup>[<a name="ftn.id458068" href="#id458068" class="para" id="ftn.id458068">29</a>]</sup> These filtering examples are only for illustrative purposes, as there are more precise methods to remove markup, or literals such as command line options.</p>
 </div>
 <div class="footnote">
-<p><sup>[<a name="ftn.id414587" href="#id414587" class="para" id="ftn.id414587">26</a>]</sup> Until that is sufficiently satisfied, one simple safety measure is to remove <code class="literal">skip-rule:</code> comments from fuzzy messages just after the PO file is merged with template. This will sometimes cause false positive to reappear, but, after all, this is only a tertiary element in the translation workflow (after translation and review).</p>
+<p><sup>[<a name="ftn.id434373" href="#id434373" class="para" id="ftn.id434373">30</a>]</sup> Until that is sufficiently satisfied, one simple safety measure is to remove <code class="literal">skip-rule:</code> comments from fuzzy messages just after the PO file is merged with template. This will sometimes cause false positive to reappear, but, after all, this is only a tertiary element in the translation workflow (after translation and review).</p>
 </div>
 <div class="footnote">
-<p><sup>[<a name="ftn.id467243" href="#id467243" class="para" id="ftn.id467243">27</a>]</sup> As of this writting, one currently operative translation scripting system is <a class="ulink" href="http://techbase.kde.org/Localization/Concepts/Transcript" target="_top">KDE's Transcript</a>. Another one being developed, albeit not with PO format as base, is <a class="ulink" href="http://wiki.mozilla.org/L20n" target="_top">Mozilla's L20n</a>.</p>
+<p><sup>[<a name="ftn.id434565" href="#id434565" class="para" id="ftn.id434565">31</a>]</sup> As of this writting, one currently operative translation scripting system is <a class="ulink" href="http://techbase.kde.org/Localization/Concepts/Transcript" target="_top">KDE's Transcript</a>. Another one being developed, albeit not with PO format as base, is <a class="ulink" href="http://wiki.mozilla.org/L20n" target="_top">Mozilla's L20n</a>.</p>
 </div>
 <div class="footnote">
-<p><sup>[<a name="ftn.id467270" href="#id467270" class="para" id="ftn.id467270">28</a>]</sup> An exception would be <a class="ulink" href="http://en.wikipedia.org/wiki/Constructed_language" target="_top">constructed languages</a> with regular grammar, such as Esperanto.</p>
+<p><sup>[<a name="ftn.id434592" href="#id434592" class="para" id="ftn.id434592">32</a>]</sup> An exception would be <a class="ulink" href="http://en.wikipedia.org/wiki/Constructed_language" target="_top">constructed languages</a> with regular grammar, such as Esperanto.</p>
 </div>
 <div class="footnote">
-<p><sup>[<a name="ftn.id467286" href="#id467286" class="para" id="ftn.id467286">29</a>]</sup> A combination of words having a certain meaning, possibly greater than the sum of meanings of each word.</p>
+<p><sup>[<a name="ftn.id434608" href="#id434608" class="para" id="ftn.id434608">33</a>]</sup> A combination of words having a certain meaning, possibly greater than the sum of meanings of each word.</p>
 </div>
 </div>
 </div>
@@ -7277,7 +7682,7 @@ datadir = %(rootdir)s/data
 </dd>
 </dl>
 </div>
-<p>Especially those PO files which are used at runtime (as opposed to those used for <a class="link" href="#p-dynstattr">static translation</a>), but others too, are frequently sufficiently identified by their <span class="emphasis"><em>domain</em></span> name. The domain name is the base name of the installed MO file without the extension, e.g. for <code class="filename">/usr/share/locale/sr/LC_MESSAGES/foobar.mo</code> the domain name is <code class="literal">foobar</code>. If, in a given translation project, PO files for a given language are all collected under one top directory of that language, their base names are also formed of domain names.<sup>[<a name="id455774" href="#ftn.id455774" class="footnote" id="id455774">30</a>]</sup> When this is the case, it may be more convenient or safer to match PO files by their domain names instead of paths, which is done by options:</p>
+<p>Especially those PO files which are used at runtime (as opposed to those used for <a class="link" href="#p-dynstattr">static translation</a>), but others too, are frequently sufficiently identified by their <span class="emphasis"><em>domain</em></span> name. The domain name is the base name of the installed MO file without the extension, e.g. for <code class="filename">/usr/share/locale/sr/LC_MESSAGES/foobar.mo</code> the domain name is <code class="literal">foobar</code>. If, in a given translation project, PO files for a given language are all collected under one top directory of that language, their base names are also formed of domain names.<sup>[<a name="id415762" href="#ftn.id415762" class="footnote" id="id415762">34</a>]</sup> When this is the case, it may be more convenient or safer to match PO files by their domain names instead of paths, which is done by options:</p>
 <div class="variablelist">
 <dl>
 <dt><span class="term"><code class="option">-e <em class="replaceable"><code>REGEX</code></em></code>, <code class="option">--exclude-name=<em class="replaceable"><code>REGEX</code></em></code></span></dt>
@@ -7500,7 +7905,7 @@ msgid ""
 "to the image metadata.&lt;/p&gt;"
 msgstr ""
 </pre>
-<p>If you are editing the PO file with a dedicated PO editor, it may itself provide finely tuned wrapping and ignore the wrapping in the PO file, in which case Pology's wrapping facilities are superfluous to you<sup>[<a name="id465471" href="#ftn.id465471" class="footnote" id="id465471">31</a>]</sup>. But a PO editor may also present strings wrapped just as they are in the PO file (and most do!), when Pology's fine wrapping is just as useful as in combination with a plain text editor.</p>
+<p>If you are editing the PO file with a dedicated PO editor, it may itself provide finely tuned wrapping and ignore the wrapping in the PO file, in which case Pology's wrapping facilities are superfluous to you<sup>[<a name="id368322" href="#ftn.id368322" class="footnote" id="id368322">35</a>]</sup>. But a PO editor may also present strings wrapped just as they are in the PO file (and most do!), when Pology's fine wrapping is just as useful as in combination with a plain text editor.</p>
 <p>At least for alphabetic languages, the most convenient wrapping may be fine wrapping alone (no basic wrapping), while turning on editor's dynamic (visual) line wrapping. This both makes the text structure easy to follow, and allows editing the translation by logical units (paragraphs, list items) without manually adjusting column breaks or putting up with ugly overlength or mid-broken lines. However, for ideographic languages, editor's dynamic line wrapping may produce bad results, and there basic wrapping might be necessary. In fact, for the moment, for ideographic languages it may be better to pass Pology's wrapping entirely and stick with Gettext's wrapping, since the wrapping algorithm in Gettext is more sophisticated and directly supports ideographic writing systems.</p>
 <p>If no wrapping mode is specified when the given PO file is written out, Pology will apply basic wrapping, just as Gettext tools do. There are three general sources from which Pology tools may try to determine the wrapping mode for the given PO file, in decreasing priority: from the command line options, from the PO file's header, and from the user configuration. A tool may or may not provide command line options and configuration fields for wrapping, but PO file headers are always consulted (since this is in Pology's core PO file handling facilities). See the description of <a class="link" href="#hdr-x-wrapping">the <code class="literal">X-Wrapping</code> header field</a> for how to set the wrapping mode in the PO header, and <a class="link" href="#sv-set-header" title="3.5.29.&nbsp;set-header">the <code class="literal">set-header</code> sieve</a> for how to set this field in many PO files at once.</p>
 <div class="sect2">
@@ -7578,7 +7983,7 @@ msgstr ""
 </dd>
 <dt><a name="hdr-x-accelerator-marker" id="hdr-x-accelerator-marker"></a><span class="term"><code class="literal">X-Accelerator-Marker</code></span></dt>
 <dd>
-<p><a class="link" href="#sec-poaccel" title="2.3.4.&nbsp;Accelerators">Accelerator markers</a> are a frequent obstacle in text processing, such as <a class="link" href="#sv-find-messages" title="3.5.17.&nbsp;find-messages">searching</a> or <a class="link" href="#sec-lgspell" title="8.2.&nbsp;Spell Checking">spell-checking</a>, because they can split words apart. This field can be used to specify which character is used as accelerator marker throughout the file, if any. If there are several possible characters, they can be given as comma-separated list<sup>[<a name="id394998" href="#ftn.id394998" class="footnote" id="id394998">32</a>]</sup>. While it is usually possible to specify the accelerator marker through the command line, the header field is much more convenient and flexible: there is no need to remember to add the command line option at every run, and different PO files can have different accelerator markers. However, if command line option is issued, it will override the header field.</p>
+<p><a class="link" href="#sec-poaccel" title="2.3.4.&nbsp;Accelerators">Accelerator markers</a> are a frequent obstacle in text processing, such as <a class="link" href="#sv-find-messages" title="3.5.17.&nbsp;find-messages">searching</a> or <a class="link" href="#sec-lgspell" title="8.2.&nbsp;Spell Checking">spell-checking</a>, because they can split words apart. This field can be used to specify which character is used as accelerator marker throughout the file, if any. If there are several possible characters, they can be given as comma-separated list<sup>[<a name="id412314" href="#ftn.id412314" class="footnote" id="id412314">36</a>]</sup>. While it is usually possible to specify the accelerator marker through the command line, the header field is much more convenient and flexible: there is no need to remember to add the command line option at every run, and different PO files can have different accelerator markers. However, if command line option is issued, it will override the header field.</p>
 <p>There is a difference between this field not existing in the header, and existing but with an empty value (i.e. <code class="literal">"X-Accelerator-Marker: \n"</code>). If the field does not exist, some processing elements will go into the "greedy" mode, where they use a list of known frequent accelerator markers (e.g. to remove them from the text). If the field is set to empty value, these processing elements will take it that there are no accelerator markers in text.</p>
 </dd>
 <dt><a name="hdr-x-associated-ui-catalogs" id="hdr-x-associated-ui-catalogs"></a><span class="term"><code class="literal">X-Associted-UI-Catalogs</code></span></dt>
@@ -7653,7 +8058,7 @@ $ posieve find-messages -s filter:'remove/remove-xml-tags' ...
 <pre class="programlisting">
 $ posieve find-messages -s filter:'remove/remove-markup~"docbook4"' ...
 </pre>
-<p>Now the hook specification is <code class="literal">remove/remove-markup~"docbook4"</code>. Note that outer single quotes in the command line are necessary, as otherwise the shell would strip internal double quotes, which are here integral part of hook specification. <code class="literal">remove-markup</code> is actually a hook factory, which produces a hook based on the parameters given after the tilde (<code class="literal">~</code>) character. Here <code class="literal">"docbook4"</code> is that parameter; why must it be quoted? Because the part after the tilde is passed as argument list to a Python function, and <code class="literal">"docbook4"</code> must be of string type, which is in Python denoted by quotes. For a hook factory <code class="literal">foo/bar</code> which would take a string and a number, the hook specification would be <code class="literal">foo/bar~"qwyx",5</code>. Sometimes a hook factory has default values for some or all of its arguments; in the latter case, if the defaults are sufficient, the part after the tilde in the hook specification can be left empty (e.g. <code class="literal">foo/bar~</code>).</p>
+<p>Now the hook specification is <code class="literal">remove/remove-markup~"docbook4"</code>. Note that outer single quotes in the command line are necessary, as otherwise the shell would strip internal double quotes, which are here integral part of hook specification. <code class="literal">remove-markup</code> is actually a <span class="emphasis"><em>hook factory</em></span>, which produces a hook based on the parameters given after the tilde (<code class="literal">~</code>) character. Here <code class="literal">"docbook4"</code> is that parameter; why must it be quoted? Because the part after the tilde is passed as argument list to a Python function, and <code class="literal">"docbook4"</code> must be of string type, which is in Python denoted by quotes. For a hook factory <code class="literal">foo/bar</code> which would take a string and a number, the hook specification would be <code class="literal">foo/bar~"qwyx",5</code>. Sometimes a hook factory has default values for some or all of its arguments; in the latter case, if the defaults are sufficient, the part after the tilde in the hook specification can be left empty (e.g. <code class="literal">foo/bar~</code>).</p>
 <p>Hooks can be language- and project-dependent. Suppose that in your language the letters are sometimes accented, but the accents should be ignored on spell-checking. Then Pology may contain a hook which strips accents from text in your language. If your language code is <code class="literal">ll</code>, and the hook is <code class="literal">remove-accents</code> in (language-specific) module <code class="literal">remove</code>, you could check spelling while ignoring accents using the <a class="link" href="#sv-find-messages" title="3.5.17.&nbsp;find-messages">the <span class="command"><strong>check-spell-ec</strong></span> sieve</a>:</p>
 <pre class="programlisting">
 $ posieve check-spell-ec -s filter:'ll:remove/remove-accents' ...
@@ -7778,7 +8183,7 @@ $ posieve check-spell-ec -s filter:'ll:remove/remove-accents' ...
 </div>
 </div>
 </div>
-<p>Pology does not establish strict separation between users and programmers, but presents a continuum between pure use and pure programming, so that users can engage according to their needs and abilities. Hooks, in particular, occupy the middle of this range. On the one hand side, they can be used even from command line; on the other hand side, they are actually Python functions, and hook specifications (in command line and elsewhere) sometimes require Python argument lists (the part after the tilde). This makes it hard both to list all available hooks<sup>[<a name="id409024" href="#ftn.id409024" class="footnote" id="id409024">33</a>]</sup>, and to decide where and how to document them, in the user manual or in the library programming interface (API) documentation. Therefore, the following will be done. Here, in the user manual, only functions written specifically to be used as hooks will be listed (sometimes grouped by similarity), with their types and short descriptions. To that the link to the complete hook description in the API documentation will be added.<sup>[<a name="id409036" href="#ftn.id409036" class="footnote" id="id409036">34</a>]</sup></p>
+<p>Pology does not establish strict separation between users and programmers, but presents a continuum between pure use and pure programming, so that users can engage according to their needs and abilities. Hooks, in particular, occupy the middle of this range. On the one hand side, they can be used even from command line; on the other hand side, they are actually Python functions, and hook specifications (in command line and elsewhere) sometimes require Python argument lists (the part after the tilde). This makes it hard both to list all available hooks<sup>[<a name="id397615" href="#ftn.id397615" class="footnote" id="id397615">37</a>]</sup>, and to decide where and how to document them, in the user manual or in the library programming interface (API) documentation. Therefore, the following will be done. Here, in the user manual, only functions written specifically to be used as hooks will be listed (sometimes grouped by similarity), with their types and short descriptions. To that the link to the complete hook description in the API documentation will be added.<sup>[<a name="id397627" href="#ftn.id397627" class="footnote" id="id397627">38</a>]</sup></p>
 <div class="sect3">
 <div class="titlepage">
 <div>
@@ -7996,7 +8401,7 @@ $ posieve check-spell-ec -s filter:'ll:remove/remove-accents' ...
 msgid "..."
 msgstr "..."
 </pre>
-<p>Instructions are always composed of two or more words, separated by hyphens, ended by colon, and followed by an arbitrary argument string (e.g. a list of identifiers of checks to skip on this message). This makes it sufficiently unlikely that another, free-form translator comment will be accidentally interpreted as a known instruction.<sup>[<a name="id401690" href="#ftn.id401690" class="footnote" id="id401690">35</a>]</sup></p>
+<p>Instructions are always composed of two or more words, separated by hyphens, ended by colon, and followed by an arbitrary argument string (e.g. a list of identifiers of checks to skip on this message). This makes it sufficiently unlikely that another, free-form translator comment will be accidentally interpreted as a known instruction.<sup>[<a name="id472872" href="#ftn.id472872" class="footnote" id="id472872">39</a>]</sup></p>
 </li>
 <li class="listitem">
 <p><a name="p-trflag" id="p-trflag"></a>A special type of translator comment with processing instructions is a comment of the following form:</p>
@@ -8011,22 +8416,22 @@ msgstr "..."
 <div class="footnotes"><br>
 <hr width="100" align="left">
 <div class="footnote">
-<p><sup>[<a name="ftn.id455774" href="#id455774" class="para" id="ftn.id455774">30</a>]</sup> The other frequently encountered file organization is when there is one directory per PO domain, and that directory contains PO files for all languages, named as <code class="filename"><em class="replaceable"><code>LANG</code></em>.po</code>.</p>
+<p><sup>[<a name="ftn.id415762" href="#id415762" class="para" id="ftn.id415762">34</a>]</sup> The other frequently encountered file organization is when there is one directory per PO domain, and that directory contains PO files for all languages, named as <code class="filename"><em class="replaceable"><code>LANG</code></em>.po</code>.</p>
 </div>
 <div class="footnote">
-<p><sup>[<a name="ftn.id465471" href="#id465471" class="para" id="ftn.id465471">31</a>]</sup> But if several people are working on a collection of PO files, it is nevertheless good to agree on fixed wrapping. This is both friendly to those exposed to original wrapping, and to version control systems.</p>
+<p><sup>[<a name="ftn.id368322" href="#id368322" class="para" id="ftn.id368322">35</a>]</sup> But if several people are working on a collection of PO files, it is nevertheless good to agree on fixed wrapping. This is both friendly to those exposed to original wrapping, and to version control systems.</p>
 </div>
 <div class="footnote">
-<p><sup>[<a name="ftn.id394998" href="#id394998" class="para" id="ftn.id394998">32</a>]</sup> This does mean that the case when the comma itself is the accelerator marker is not covered, but this case is beyond unlikely.</p>
+<p><sup>[<a name="ftn.id412314" href="#id412314" class="para" id="ftn.id412314">36</a>]</sup> This does mean that the case when the comma itself is the accelerator marker is not covered, but this case is beyond unlikely.</p>
 </div>
 <div class="footnote">
-<p><sup>[<a name="ftn.id409024" href="#id409024" class="para" id="ftn.id409024">33</a>]</sup> For example, any Python function in Pology that takes one string and returns the modified version of that string can be considered an F1A hook!</p>
+<p><sup>[<a name="ftn.id397615" href="#id397615" class="para" id="ftn.id397615">37</a>]</sup> For example, any Python function in Pology that takes one string and returns the modified version of that string can be considered an F1A hook!</p>
 </div>
 <div class="footnote">
-<p><sup>[<a name="ftn.id409036" href="#id409036" class="para" id="ftn.id409036">34</a>]</sup> In the API documentation, the very first line of the function description will show if the function is a direct hook or a hook factory, the function header will list the inputs for a direct hook (which conform to the declared hook type) or the factory parameters for a hook factory, and the rest of the description will explain the operation of the hook and the meaning of factory parameters.</p>
+<p><sup>[<a name="ftn.id397627" href="#id397627" class="para" id="ftn.id397627">38</a>]</sup> In the API documentation, the very first line of the function description will show if the function is a direct hook or a hook factory, the function header will list the inputs for a direct hook (which conform to the declared hook type) or the factory parameters for a hook factory, and the rest of the description will explain the operation of the hook and the meaning of factory parameters.</p>
 </div>
 <div class="footnote">
-<p><sup>[<a name="ftn.id401690" href="#id401690" class="para" id="ftn.id401690">35</a>]</sup> Especially considering that free-form translator comments are more usually written in the language of the translation.</p>
+<p><sup>[<a name="ftn.id472872" href="#id472872" class="para" id="ftn.id472872">39</a>]</sup> Especially considering that free-form translator comments are more usually written in the language of the translation.</p>
 </div>
 </div>
 </div>
