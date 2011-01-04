@@ -113,6 +113,25 @@ object --+
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">bool</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.vcs.VcsBase-class.html#move" class="summary-sig-name">move</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">spath</span>,
+        <span class="summary-sig-arg">dpath</span>)</span><br />
+      Move versioned file or directory within the repository.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">string</span>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
@@ -394,6 +413,39 @@ object --+
     </ul></dd>
     <dt>Returns: bool</dt>
         <dd><code>True</code> if removal successful</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="move"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">move</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">spath</span>,
+        <span class="sig-arg">dpath</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Move versioned file or directory within the repository.</p>
+  <p>It depends on the particular VCS what moving means, but in general it 
+  should be the point where the subsequent <a 
+  href="pology.vcs.VcsBase-class.html#commit" class="link">commit()</a> on 
+  source and destination path (or their common parent directory) will 
+  record the move in the repository history.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>spath</code></strong> (string) - source path</li>
+        <li><strong class="pname"><code>dpath</code></strong> (string) - destination path</li>
+    </ul></dd>
+    <dt>Returns: bool</dt>
+        <dd><code>True</code> if moving successful</dd>
   </dl>
 </td></tr></table>
 </div>

@@ -409,6 +409,23 @@
       
     </td>
   </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">string</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.fsops-module.html#getucwd" class="summary-sig-name">getucwd</a>()</span><br />
+      Get path of current working directory as Unicode string.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
 </table>
 <!-- ==================== VARIABLES ==================== -->
 <a name="section-Variables"></a>
@@ -1109,6 +1126,31 @@
     </ul></dd>
     <dt>Returns: [string...] or ([string...], (string)-&gt;bool)</dt>
         <dd>collected paths, possibly with path selection function</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="getucwd"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">getucwd</span>()</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Get path of current working directory as Unicode string.</p>
+  <p><code>os.getcwd()</code> returns a raw byte sequence, to which the <a 
+  href="pology.fsops-module.html#str_to_unicode" 
+  class="link">str_to_unicode</a> function is applied to make best guess at
+  decoding it into a unicode string.</p>
+  <dl class="fields">
+    <dt>Returns: string</dt>
+        <dd>path of current working directory</dd>
   </dl>
 </td></tr></table>
 </div>

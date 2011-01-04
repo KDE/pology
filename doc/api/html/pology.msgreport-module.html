@@ -235,6 +235,26 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
+          <td><span class="summary-sig"><a href="pology.msgreport-module.html#multi_rule_error" class="summary-sig-name">multi_rule_error</a>(<span class="summary-sig-arg">msg</span>,
+        <span class="summary-sig-arg">cat</span>,
+        <span class="summary-sig-arg">rspec</span>,
+        <span class="summary-sig-arg">showmsg</span>=<span class="summary-sig-default">True</span>)</span><br />
+      Print formated rule error messages on screen.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
           <td><span class="summary-sig"><a href="pology.msgreport-module.html#rule_xml_error" class="summary-sig-name">rule_xml_error</a>(<span class="summary-sig-arg">msg</span>,
         <span class="summary-sig-arg">cat</span>,
         <span class="summary-sig-arg">rule</span>,
@@ -629,6 +649,58 @@
           class="link">report_msg_content</a>)</li>
         <li><strong class="pname"><code>fmsg</code></strong> - filtered message which the rule really matched</li>
         <li><strong class="pname"><code>showmsg</code></strong> - whether to show contents of message (either filtered or original)</li>
+    </ul></dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="multi_rule_error"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">multi_rule_error</span>(<span class="sig-arg">msg</span>,
+        <span class="sig-arg">cat</span>,
+        <span class="sig-arg">rspec</span>,
+        <span class="sig-arg">showmsg</span>=<span class="sig-default">True</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Print formated rule error messages on screen.</p>
+  <p>Like <a href="pology.msgreport-module.html#rule_error" 
+  class="link">rule_error</a>, but reports multiple failed rules at once. 
+  Contents of the matched message is shown only once for all rules, with 
+  all highlights embedded, and all rule information following. This holds 
+  unless there are several different filtered messages, when rule failures 
+  are reported in groups by filtered message.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>msg</code></strong> (Message) - the message matched by rules</li>
+        <li><strong class="pname"><code>cat</code></strong> (Catalog) - the catalog in which the message resides</li>
+        <li><strong class="pname"><code>rspec</code></strong> ([(Rule|(Rule, highlight)|(Rule, highlight, Message))*]) - specification of failed rules. This is a list in which each 
+          element can be one of:
+          <ul>
+            <li>
+              rule
+            </li>
+            <li>
+              tuple of rule and highlight specification (see <a 
+              href="pology.msgreport-module.html#report_msg_content" 
+              class="link">report_msg_content</a> for details on highlight 
+              specifications). Highlight can be None.
+            </li>
+            <li>
+              tuple of rule, highlight, and filtered message which the rule
+              really matched. Highlight and filtered message can be None.
+            </li>
+          </ul></li>
+        <li><strong class="pname"><code>showmsg</code></strong> (bool) - whether to show contents of message (both original and filtered 
+          if given)</li>
     </ul></dd>
   </dl>
 </td></tr></table>

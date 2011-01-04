@@ -79,7 +79,7 @@
           <td><span class="summary-sig"><a href="pology.lang.es.compare_with_original-module.html#remove_tags_without_translation" class="summary-sig-name">remove_tags_without_translation</a>(<span class="summary-sig-arg">msg</span>,
         <span class="summary-sig-arg">cat</span>)</span><br />
       Remove all paragraph that belong to contexts that do not have need of
-      translation.[type F4A hook].</td>
+      translation.</td>
           <td align="right" valign="top">
             
             
@@ -97,8 +97,8 @@
         <tr>
           <td><span class="summary-sig"><a href="pology.lang.es.compare_with_original-module.html#test_if_empty_translation" class="summary-sig-name">test_if_empty_translation</a>(<span class="summary-sig-arg">msg</span>,
         <span class="summary-sig-arg">cat</span>)</span><br />
-      Compare the translalion qith the original text, to test if the 
-      translation is empty.[type V4A hook].</td>
+      Compare the translation with the original text, testing if the 
+      translation is empty.</td>
           <td align="right" valign="top">
             
             
@@ -116,8 +116,28 @@
         <tr>
           <td><span class="summary-sig"><a href="pology.lang.es.compare_with_original-module.html#test_if_very_long_translation" class="summary-sig-name">test_if_very_long_translation</a>(<span class="summary-sig-arg">msg</span>,
         <span class="summary-sig-arg">cat</span>)</span><br />
-      Compare the translalion qith the original text, to test if the 
-      transaled text is much longer than the original.[type V4A hook].</td>
+      Compare the translation with the original text, testing if the 
+      transaled text is much longer than the original (As much twice with a
+      correction for small text).</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.lang.es.compare_with_original-module.html#test_if_very_short_translation" class="summary-sig-name">test_if_very_short_translation</a>(<span class="summary-sig-arg">msg</span>,
+        <span class="summary-sig-arg">cat</span>)</span><br />
+      Compare the translation with the original text, testing if the 
+      transaled text is much shorter than the original.</td>
           <td align="right" valign="top">
             
             
@@ -136,7 +156,7 @@
           <td><span class="summary-sig"><a href="pology.lang.es.compare_with_original-module.html#test_if_not_translated" class="summary-sig-name">test_if_not_translated</a>(<span class="summary-sig-arg">msg</span>,
         <span class="summary-sig-arg">cat</span>)</span><br />
       Compare the translalion qith the original text, to test if the 
-      paragraph is not translated.[type V4A hook].</td>
+      paragraph is not translated.</td>
           <td align="right" valign="top">
             
             
@@ -155,6 +175,21 @@
   <td align="left" colspan="2" class="table-header">
     <span class="table-header">Variables</span></td>
 </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="pology.lang.es.compare_with_original-module.html#auto_comment_tag" class="summary-name">auto_comment_tag</a> = <code title="['trans_comment',
+ 'literallayout',
+ 'option',
+ 'programlisting',
+ 'othercredit',
+ 'author',
+ 'email',
+ 'holder',
+..."><code class="variable-group">[</code><code class="variable-quote">'</code><code class="variable-string">trans_comment</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">literallayout</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">option</code><code class="variable-quote">'</code><code class="variable-ellipsis">...</code></code>
+    </td>
+  </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
@@ -188,7 +223,8 @@
   </tr></table>
   
   <p>Remove all paragraph that belong to contexts that do not have need of 
-  translation.[type F4A hook].</p>
+  translation.</p>
+  <p>[type F4A hook].</p>
   <dl class="fields">
     <dt>Returns:</dt>
         <dd>number of errors</dd>
@@ -210,11 +246,12 @@
     </td>
   </tr></table>
   
-  <p>Compare the translalion qith the original text, to test if the 
-  translation is empty.[type V4A hook].</p>
+  <p>Compare the translation with the original text, testing if the 
+  translation is empty.</p>
+  <p>[type V4A hook].</p>
   <dl class="fields">
     <dt>Returns:</dt>
-        <dd>number of errors</dd>
+        <dd>parts</dd>
   </dl>
 </td></tr></table>
 </div>
@@ -233,11 +270,37 @@
     </td>
   </tr></table>
   
-  <p>Compare the translalion qith the original text, to test if the 
-  transaled text is much longer than the original.[type V4A hook].</p>
+  <p>Compare the translation with the original text, testing if the 
+  transaled text is much longer than the original (As much twice with a 
+  correction for small text).</p>
+  <p>[type V4A hook].</p>
   <dl class="fields">
     <dt>Returns:</dt>
-        <dd>number of errors</dd>
+        <dd>parts</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="test_if_very_short_translation"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">test_if_very_short_translation</span>(<span class="sig-arg">msg</span>,
+        <span class="sig-arg">cat</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Compare the translation with the original text, testing if the 
+  transaled text is much shorter than the original.</p>
+  <p>[type V4A hook].</p>
+  <dl class="fields">
+    <dt>Returns:</dt>
+        <dd>parts</dd>
   </dl>
 </td></tr></table>
 </div>
@@ -257,10 +320,47 @@
   </tr></table>
   
   <p>Compare the translalion qith the original text, to test if the 
-  paragraph is not translated.[type V4A hook].</p>
+  paragraph is not translated.</p>
+  <p>[type V4A hook].</p>
   <dl class="fields">
     <dt>Returns:</dt>
-        <dd>number of errors</dd>
+        <dd>parts</dd>
+  </dl>
+</td></tr></table>
+</div>
+<br />
+<!-- ==================== VARIABLES DETAILS ==================== -->
+<a name="section-VariablesDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td align="left" colspan="2" class="table-header">
+    <span class="table-header">Variables Details</span></td>
+</tr>
+</table>
+<a name="auto_comment_tag"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <h3 class="epydoc">auto_comment_tag</h3>
+  
+  <dl class="fields">
+  </dl>
+  <dl class="fields">
+    <dt>Value:</dt>
+      <dd><table><tr><td><pre class="variable">
+<code class="variable-group">[</code><code class="variable-quote">'</code><code class="variable-string">trans_comment</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">literallayout</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">option</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">programlisting</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">othercredit</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">author</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">email</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">holder</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+<code class="variable-ellipsis">...</code>
+</pre></td></tr></table>
+</dd>
   </dl>
 </td></tr></table>
 </div>

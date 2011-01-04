@@ -140,6 +140,42 @@
       
     </td>
   </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">bool</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.proj.kde.cattype-module.html#is_html_cat" class="summary-sig-name">is_html_cat</a>(<span class="summary-sig-arg">catname</span>,
+        <span class="summary-sig-arg">subdir</span>)</span><br />
+      Check whether the project catalog covers HTML sources.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">bool</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.proj.kde.cattype-module.html#is_unknown_cat" class="summary-sig-name">is_unknown_cat</a>(<span class="summary-sig-arg">catname</span>,
+        <span class="summary-sig-arg">subdir</span>)</span><br />
+      Check whether the project catalog covers unknown sources.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
 </table>
 <!-- ==================== VARIABLES ==================== -->
 <a name="section-Variables"></a>
@@ -271,6 +307,61 @@
     </ul></dd>
     <dt>Returns: bool</dt>
         <dd><code>True</code> if Docbook catalog, <code>False</code> 
+          otherwise</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="is_html_cat"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">is_html_cat</span>(<span class="sig-arg">catname</span>,
+        <span class="sig-arg">subdir</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Check whether the project catalog covers HTML sources.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>catname</code></strong> (string) - catalog domain name</li>
+        <li><strong class="pname"><code>subdir</code></strong> (string) - catalog project subdirectory</li>
+    </ul></dd>
+    <dt>Returns: bool</dt>
+        <dd><code>True</code> if HTML catalog, <code>False</code> otherwise</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="is_unknown_cat"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">is_unknown_cat</span>(<span class="sig-arg">catname</span>,
+        <span class="sig-arg">subdir</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Check whether the project catalog covers unknown sources.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>catname</code></strong> (string) - catalog domain name</li>
+        <li><strong class="pname"><code>subdir</code></strong> (string) - catalog project subdirectory</li>
+    </ul></dd>
+    <dt>Returns: bool</dt>
+        <dd><code>True</code> if unknown catalog, <code>False</code> 
           otherwise</dd>
   </dl>
 </td></tr></table>
