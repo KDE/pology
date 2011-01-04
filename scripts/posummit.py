@@ -1662,6 +1662,7 @@ def summit_gather_single (summit_name, project, options,
         for branch_name in project.full_inverse_map[summit_name][branch_id]:
             branch_subdirs_1 = []
             for bpath, bsubdir in project.catalogs[branch_id][branch_name]:
+                bsubdir = project.subdir_map.get((branch_id, bsubdir), bsubdir)
                 branch_subdirs_1.append(bsubdir)
             branch_subdirs_1.sort()
             branch_subdirs.extend(branch_subdirs_1)
@@ -1669,7 +1670,7 @@ def summit_gather_single (summit_name, project, options,
     if branch_subdirs and summit_subdir not in branch_subdirs:
         catext = summit_path[summit_path.rfind("."):]
         new_summit_path = join_ncwd(project.summit.topdir, branch_subdirs[0],
-                                summit_name + catext)
+                                    summit_name + catext)
 
     if replace or summit_cat.filename != new_summit_path:
         added = False
