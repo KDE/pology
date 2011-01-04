@@ -370,10 +370,11 @@ class Sieve (object):
                 if pf >= 0:
                     text = text[0:pf]
                 words = proper_words(text, True, cat.accelerator(), msg.format)
-                # If there are no proper words, set to one empty word
-                # in order for a fuzzy or an untranslated message not to be
-                # considered translated when only word counts are observed.
-                if not words:
+                # If there are no proper words but there are some characters,
+                # set to one empty word in order for a fuzzy or
+                # an untranslated message not to be considered translated
+                # when only word counts are observed.
+                if not words and text:
                     words = [""]
                 lnwords.append(len(words))
                 lnchars.append(len("".join(words)))
@@ -747,7 +748,7 @@ class Sieve (object):
                   "w/tot-or"),
                 _("@title:column words in translation",
                   "w-tr"),
-                _("@title:column percentage of words to total in translation",
+                _("@title:column characters in original",
                   "ch-or"),
                 _("@title:column characters in translation",
                   "ch-tr")]
