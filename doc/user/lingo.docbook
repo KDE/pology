@@ -65,6 +65,14 @@
 </row>
 
 <row>
+<entry>Romanian (<literal>ro</literal>)</entry>
+</row>
+
+<row>
+<entry>Russian (<literal>ru</literal>)</entry>
+</row>
+
+<row>
 <entry>Serbian (<literal>sr</literal>)</entry>
 <entrytbl cols="1">
 <tbody>
@@ -1048,7 +1056,7 @@ But this would also catch the phrase "command line", which as a standalone conce
 <programlisting>
 {(?&lt;!command )\blines?\b}i
 </programlisting>
-However, it much less cryptic and more extensible to add a <literal>valid</literal> subdirective instead:
+However, it is much less cryptic and more extensible to add a <literal>valid</literal> subdirective instead:
 <programlisting>
 {\blines?\b}i
 valid after="command "
@@ -1058,7 +1066,7 @@ This cancels the rule if the word "line" was matched just after the word "comman
 <para><literal>valid</literal> subdirectives are particularly useful for wider rule cancelations, such as by PO domain (catalog) name. For example, the word "wizard" could be translated differently when denoting a step-by-step dialog in a utilitarian program and a learned magic wielding character in a computer game. Then the <literal>cat=</literal> test can be used to allow the other term in the game's PO file:
 <programlisting>
 {\bwizard}i
-valid msgstr="<replaceable>term-for-step-by-step-dialog</replaceable>
+valid msgstr="<replaceable>term-for-step-by-step-dialog</replaceable>"
 valid cat="foodungeon" msgstr="<replaceable>term-for-magician</replaceable>"
 </programlisting>
 This requires specifying the domain names of all games with wizard characters to which the rule set is applied, which may not be that comfortable. Another way could be to introduce the <literal>fantasy</literal> environment and use the <literal>env=</literal> test:
@@ -1091,7 +1099,7 @@ msgstr "..."
 </programlisting>
 The comment starts with <literal>skip-rule:</literal>, and is followed by a comma-separated list of rules to skip, by their identifiers (defined by <literal>id=</literal> in the rule).</para>
 
-<para>There is a catch to the translator comment approach, though. When a with <literal>skip-rule:</literal> comment message becomes fuzzy, it depends on the new text of the message whether the comment should be kept or removed. This means that on fuzzy messages translators have to observe and adapt translator comments just as they adapt the <varname>msgstr</varname> strings. Unfortunatelly, some translators do not pay sufficient attention to translator comments, which is further exacerbate by some PO editors, which underrepresent translator comments in the user interface (or even do not enable editing them!). However, from the point of view of PO translation workflow, not giving full attention to translator comments is plainly an error: translators should be told better, and PO editors should be upgraded.<footnote>
+<para>There is a catch to the translator comment approach, though. When a with <literal>skip-rule:</literal> comment message becomes fuzzy, it depends on the new text of the message whether the comment should be kept or removed. This means that on fuzzy messages translators have to observe and adapt translator comments just as they adapt the <varname>msgstr</varname> strings. Unfortunatelly, some translators do not pay sufficient attention to translator comments, which is further exacerbated by some PO editors which underrepresent translator comments in the user interface (or even do not enable editing them). However, from the point of view of PO translation workflow, not giving full attention to translator comments is plainly an error: translators should be told better, and PO editors should be upgraded.<footnote>
 <para>Until that is sufficiently satisfied, one simple safety measure is to remove <literal>skip-rule:</literal> comments from fuzzy messages just after the PO file is merged with template. This will sometimes cause false positive to reappear, but, after all, this is only a tertiary element in the translation workflow (after translation and review).</para>
 </footnote></para>
 

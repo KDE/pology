@@ -307,7 +307,7 @@ S.branches = [
          topdir=S.relpath("../branches/devel/aa"),
          topdir_templates=S.relpath("../branches/devel/templates")),
     dict(id="stable",
-         topdir=S.relpath("../branches/stable/aa",
+         topdir=S.relpath("../branches/stable/aa"),
          topdir_templates=S.relpath("../branches/stable/templates")),
 ]
 
@@ -357,7 +357,7 @@ S.branches = [
          topdir_templates=S.relpath("../branches/devel/templates"),
          by_lang=S.lang),
     dict(id="stable",
-         topdir=S.relpath("../branches/stable/aa",
+         topdir=S.relpath("../branches/stable/aa"),
          topdir_templates=S.relpath("../branches/stable/templates"),
          by_lang=S.lang),
 ]
@@ -411,7 +411,7 @@ S.branches = [
          topdir=S.relpath("../branches/devel/%s" % S.lang),
          topdir_templates=S.relpath("../branches/devel/templates")),
     dict(id="stable",
-         topdir=S.relpath("../branches/stable/%s" % S.lang,
+         topdir=S.relpath("../branches/stable/%s" % S.lang),
          topdir_templates=S.relpath("../branches/stable/templates")),
 ]
 
@@ -428,7 +428,7 @@ S.branches = [
          topdir_templates=S.relpath("../branches/devel/templates"),
          by_lang=S.lang),
     dict(id="stable",
-         topdir=S.relpath("../branches/stable/%s" % S.lang,
+         topdir=S.relpath("../branches/stable/%s" % S.lang),
          topdir_templates=S.relpath("../branches/stable/templates"),
          by_lang=S.lang),
 ]
@@ -629,7 +629,7 @@ and to scatter the complete <filename>foosuite/</filename> subdirectory to the s
 <programlisting>
 $ posummit scatter devel:foosuite/
 </programlisting>
-Note that trailing slash is significant here, since otherwise the argument would be interpreted as single PO file (<command>posummit</command> would exit with an error, reporting that such a file does not exist).</para>
+Note that trailing slash is significant here, since otherwise the argument would be interpreted as single PO file (<command>posummit</command> would exit with an error, reporting that such a file does not exist). Summit also has a "branch name" assigned for use in operation targets of this kind, and that is <literal>+</literal>.</para>
 
 <para>When merging (or gathering in direct summit mode) is attempted, <command>posummit</command> may abort with the report of mismatches between branches and the summit. The translator must then make the adjustments (<xref linkend="sec-sumntmism"/> describes how, case by case), or report it to someone else to handle.</para>
 
@@ -993,58 +993,203 @@ In this way, branch messages will be converted to proper context just before the
 </sect2>
 
 <sect2 id="sec-sucfgvcs">
-<title>Integration with Version Control System</title>
+<title>Integration with Version Control Systems</title>
 
-<para></para>
+<para>Most likely, branch and summit directories will be kept under some sort of <link linkend="sec-cmsuppvcs">version control</link>. This means that when <command>posummit</command> has finished running, any files that it had added, moved or removed, would have to be manually "reported" to the version control system (VCS). To avoid this, you can set in the summit configuration which VCS is used, among those supported by Pology, and <command>posummit</command> will issue proper VCS commands when changing the file tree. Then, after the <command>posummit</command> run, you can simply issue the VCS commit command on appropriate paths.</para>
+
+<para>Since different VCS may be used for the summit and the branches, it is possible to set them separately. For example, if branches are in a Subversion repository and the summit in a Git repository, the summit configuration would contain:
+<programlisting>
+S.summit_version_control = "git"
+S.branches_version_control = "svn"
+</programlisting>
+If the same VCS is used for branches and the summit (whether or not they are in the same repository), only one configuration field can be set:
+<programlisting>
+S.version_control = "git"
+</programlisting>
+If you would like <command>posummit</command> to execute VCS commands only in the summit and not in branches, then you would set only the <literal>S.summit_version_control</literal> field.</para>
 
 </sect2>
 
 <sect2 id="sec-sucfgwrap">
-<title>Wrapping in PO Files</title>
+<title>Text Wrapping in PO Files</title>
 
-<para></para>
+<para>While wrapping of text fields in PO files (<varname>msgid</varname>, <varname>msgstr</varname>, etc) makes no technical difference, it may be <link linkend="sec-cmwrap">convenient for editing</link> for them to be wrapped in a particular way. Since <command>posummit</command> is anyway modifying PO files both in the summit and branches, it might as well be told what kind of wrapping to use.</para>
+
+<para>For example, a reasonable wrapping setup could be:
+<programlisting>
+S.summit_wrap = False
+S.summit_fine_wrap = True
+S.branches_wrap = True
+S.branches_fine_wrap = False
+</programlisting>
+<literal>S.*_wrap</literal> fields activate or deactivate basic (column-based) wrapping, while <literal>S.*_fine_wrap</literal> fields do the same for logical breaks. So in this example, summit messages are wrapped only on logical breaks (may be good for editing), while branch messages are wrapped only on columns (may reduce size of VCS deltas).</para>
+
+<para>If not set, the default is basic wrapping without fine wrapping, for both branches and the summit.</para>
 
 </sect2>
 
 <sect2 id="sec-sucfgviv">
 <title>Vivification of Summit PO Files</title>
 
-<para></para>
+<para>In direct summit, summit PO files spring into existence by gathering branch PO files. However, in summit over static templates, by default translators have to start a new PO file by copying over the summit template and initializing it. While dedicated PO editors can do this automatically, all translators in the team have to configure their PO editor correctly (language code, plural forms...), and they have to have templates at hand. Furthermore, any statistic processing on the translation project as whole has to specifically consider templates as empty PO files.</para>
+
+<para>Instead of this, it is possible to tell <command>posummit</command> to automatically initialize summit PO files from summit templates -- to "vivify" them -- when the language summit is merged. There is a summit configuration switch to enable vivification, as well as several fields to specify the information needed to initialize a PO file. Here is an example:
+<programlisting>
+S.vivify_on_merge = True
+S.vivify_w_translator = "Simulacrum"
+S.vivify_w_langteam = "Nevernissian &lt;l10n@neverwhere.org&gt;"
+S.vivify_w_language = "nn"
+S.vivify_w_plurals = "nplurals=7; plural=(n==1 ? ...)"
+</programlisting>
+Setting <literal>S.vivify_on_merge</literal> to <literal>True</literal> engages vivification. The <literal>S.vivify_w_translator</literal> field specifies the value of <literal>Last-Translator:</literal> header field in vivified PO file; it can be something catchy rather than a real translator's name, to be able to see later which summit PO files were not yet worked on. <literal>S.vivify_w_langteam</literal> is the contents of <literal>Translation-Team:</literal> header field (team's name and email address), <literal>S.vivify_w_language</literal> of <literal>Language:</literal> (language code), and <literal>S.vivify_w_plurals</literal> of <literal>Plural-Forms:</literal>.</para>
+
+<para>In summit over dynamic templates, vivification is unconditionally active, whether <literal>S.vivify_on_merge</literal> is set or not. This is because synchronization of branches and the summit is checked by comparing template trees, and summit PO files are the only indicator of "virtual" presence of summit templates (while in summit over static templates, the summit template tree is physically present). Without vivification, it would also be very hard for project-wide statistics to take templates into account as empty summit PO files.</para>
 
 </sect2>
 
 <sect2 id="sec-sucfgbmrg">
 <title>Merging in Branches</title>
 
-<para></para>
+<para>By default it is assumed that branch PO files are merged with branch templates using a separate mechanism, which was already in place when the summit was introduced into the workflow. In summit over templates modes, if branch merging is performed asynchronously to summit merging, on scatter it may happen that some messages recently added to branch PO file are not yet present in corresponding summit PO file. In that case, <command>posummit</command> will issue warnings about missing messages in the summit. This is normally not a problem, because merging asynchronicity will stop causing such differences as the pre-release message freeze in the source sets in.</para>
+
+<para>However, on the one hand side, warnings of about messages missing in the summit may be somewhat disconcerting, or aesthetically offending in the otherwise clean scatter output. On the other hand side, perhaps the existing mechanism of merging in branches is not too clean, and it would be nice to replace it with something more thorough. Therefore, in summit over templates modes, it is possible to configure the summit such that on merge, <command>posummit</command> merges not only the summit PO files, but also all branch PO files. This is achieved simply by adding the <literal>merge=</literal> key to each branch that should be merged:
+<programlisting>
+S.branches = [
+    dict(id="devel", ..., merge=True),
+    dict(id="stable", ..., merge=True),
+]
+</programlisting>
+</para>
+
+<para>When merging in branches is activated, it is still possible to merge only the summit, or any single branch. This is done by using giving an operation target on merge, either the path to the branch top directory or the branch name. For example, in summit over dynamic templates:
+<programlisting>
+$ cd $SUMMITDIR
+$ posummit merge $DEVELDIR/  # merge only the devel branch
+$ posummit merge devel:      # same
+$ posummit merge .           # merge only the summit
+$ posummit merge +:          # same
+</programlisting>
+</para>
 
 </sect2>
 
 <sect2 id="sec-sucfghead">
-<title>Propagation of Header Fields</title>
+<title>Propagation of Header Parts</title>
 
-<para></para>
+<para>PO headers are treated somewhat differently from PO messages in summit operations:
+<itemizedlist>
 
-</sect2>
+<listitem>
+<para>On gather, almost all of the standard header field of the <emphasis>primary branch PO file</emphasis> are copied into the summit PO file. The primary branch PO file is defined as the first branch PO file (in case of several branch files being mapped onto the same summit PO file) from the first branch (as listed in the branch specification in summit configuration). The only exception is the <literal>POT-Creation-Date:</literal>, which is set to the time of gathering, if there were any other modifications to the summit PO file. Header comments are not copied over, except when the summit PO files is being automatically created for the first time.</para>
+</listitem>
 
-<sect2 id="sec-sucfgbonmrg">
-<title>Additional Merge Options</title>
+<listitem>
+<para>On merge, the summit PO file is merged with the summit PO template using <command>msgmerge</command>, so its header propagation rules apply. For example, no header comments will be touched, <literal>POT-Creation-Date:</literal> will be copied over from templates but <literal>Last-Translator:</literal> will not be touched, etc. This also means that, by default, any non-standard fields in the template (e.g. those starting with <literal>X-*</literal>) will be silently dropped.</para>
+</listitem>
 
-<para></para>
+<listitem>
+<para>On scatter, almost the complete header is copied over from the <emphasis>primary summit PO file</emphasis> into the branch PO file. The primary summit PO file is defined as the first mapped summit PO file, in cases when the single branch PO file has been mapped to several summit PO files. The exception are <literal>Report-Msgid-Bugs-To:</literal> and <literal>POT-Creation-Date:</literal>, which are preserved as they are in the branch PO file. Also, <literal>PO-Revision-Date:</literal> is set to that of the primary summit PO file only if there were any other modifications to the branch PO file (because it may happen that all updates to the summit PO file since the last scatter were for messages from other branches).</para>
+</listitem>
 
-</sect2>
+</itemizedlist>
+</para>
 
-<sect2 id="sec-sucfgbonsct">
-<title>Additional Scatter Options</title>
+<para>There exists the possibility to influence this default header propagation. In particular, non-standard header fields may be added into branch and summit PO files and templates by different tools, and it may be significant to preserve and propagate these fields in some contexts. The following summit configuartion fields can used for that purpose:
+<itemizedlist>
 
-<para></para>
+<listitem>
+<para><literal>S.header_propagate_fields</literal> field can be set to a list of non-standard header field names which should be propagated in gather and merge operations, from branch into summit PO files. For example, to propagate fields named <literal>X-Accelerator-Marker:</literal> and <literal>X-Sources-Root-URL:</literal>, the following can be added to summit configuration:
+<programlisting>
+S.header_propagate_fields = [
+    "X-Accelerator-Marker",
+    "X-Sources-Root-URL",
+]
+</programlisting>
+Only the primary branch PO file is considered for determining the presence and getting the values of these header fields.</para>
+</listitem>
+
+<listitem>
+<para>Instead of simply overwriting on scatter most of the branch PO header fields with summit PO header fields, some additional branch fields may be preserved by setting <literal>S.header_skip_fields_on_scatter</literal> to the list of header field names to preserve. For example, to preserve <literal>X-Scheduled-Release-Date:</literal> field in branch PO files:</para>
+<programlisting>
+S.header_skip_fields_on_scatter = [
+    "X-Scheduled-Release-Date",
+]
+</programlisting>
+</listitem>
+
+</itemizedlist>
+</para>
 
 </sect2>
 
 <sect2 id="sec-sucfgascf">
 <title>Filtering by Ascription on Scatter</title>
 
-<para></para>
+<para><xref linkend="ch-ascript"/> describes a translation review system available in Pology, in which every PO message has its modification and review history kept up to some depth in the past. Based on that history, it is possible to select which messages from working PO files (those under ascription) can be passed into release PO files, provided that these two file trees exist. Summit and branches can be viewed exactly as an instance of such separation, where the summit is the working tree, and each branch a release tree.</para>
+
+<!-- FIXME: Link ...ascription selectors... once documented. -->
+<para>In this context, only the summit tree should be kept under ascription. Filtering for release is then, naturally, performed on scatter: to each summit PO message a sequence of one or more ascription selectors is applied, and if the message is selected by the selector sequence, it is passed into the branch PO file. Several selector sequences may be defined, for use in various release situations, through <literal>S.ascription_filters</literal> configuration field.</para>
+
+<para>For example, to have a single filtering sequence which simply lets through all messages not modifed after last review, the following should be added to summit configuration:
+<programlisting>
+S.ascription_filters = [
+    ("regular", ["nmodar"]),
+]
+</programlisting>
+Each filtering sequence is represented by a two-element tuple. The first element is the name of the filtering sequence, here <literal>regular</literal>. You can set the name to anything you like; when there is only one filtering sequence, the name is actually nowhere used later. The second element of the tuple is a list of ascription selectors, which are given just as the values to <option>-s</option> options in <command>poascribe</command> command line. Here only one selector is issued, <literal>nmodar</literal>, which is the negation of modified-after-review selector. This yields the desired filter to pass all messages "not modifed after last review".</para>
+
+<para>A more involving example would be that of having one filter for regular scatter, and another "emergency" filter, which relaxes the strictness a bit in case there was no time to properly review all new translations. This emergency filter may let through unreviewed messages if modified by a select few persons, which are known to produce sufficient quality translators in first attempt. If these persons are, for example, <literal>alice</literal> and <literal>bob</literal> (by their ascription user names), then the two-filter setup could look like this:
+<programlisting>
+S.ascription_filters = [
+    ("regular", ["nmodar"]),
+    ("emergency", ["nmodar:~alice,bob"]),
+]
+</programlisting>
+The <literal>regular</literal> filter looks like in the previous example. The <literal>emergency</literal> filter also uses just one <literal>nmodar</literal> selector, but with additional argument to consider all users except for <literal>alice</literal> and <literal>bob</literal>. Due to the fact that it is listed first, the <literal>regular</literal> filter is applied on scatter by default. Application of the <literal>emergency</literal> filter is requested by issuing the <option>-a</option>/<option>--asc-filter</option> option with filter name as value:
+<programlisting>
+$ cd $SUMMITDIR
+$ posummit scatter -a emergency
+</programlisting>
+</para>
+
+<para>When scattering is performed under the ascription filter, messages stopped by the filter will be counted and their number (if non-zero) reported per branch PO file.</para>
+
+</sect2>
+
+<sect2 id="sec-sucfgbranch">
+<title>Other Branch Options</title>
+
+<para>Each branch entry in branch specification (<literal>S.branches</literal> configuration field) can have some keys in addition to those described earlier.</para>
+
+<para>It is possible to exclude some branch PO files from summit operations, or to include only certain branch PO files into summit operations. This is done by setting <literal>excludes=</literal> and <literal>includes=</literal> keys. The value is a list of tests on branch PO file absolute path: if any test matches, the file is matched on the whole (logical OR). Each test can be either a regular expression string, or a function taking the file path as argument and returning a truth value. If only <literal>excludes=</literal> is set, then all files not matched are operated on, and if <literal>includes=</literal> is set, only matched files are operated on. If both keys are set, then only files matched by <literal>includes=</literal> and not matched by <literal>excludes=</literal> are operated on.</para>
+
+<para>If branches are under version control and <command>posummit</command> is told to <link linkend="sec-sucfgvcs">issue version control commands</link> as appropriate (i.e. <literal>S.branches_version_control</literal> configuration field is set), it is possible to exclude a specific branch from this, by setting its <literal>skip_version_control=</literal> key to <literal>True</literal>.</para>
+
+</sect2>
+
+<sect2 id="sec-sucfgbonmrg">
+<title>Other Merge Options</title>
+
+<para>As is usual, merging performed by <command>posummit</command> by default produces <link linkend="sec-pofuzzy">fuzzy messages</link>; in summit PO files, as well as in branch PO files if <link linkend="sec-sucfgbmrg">merging in branches</link> is enabled. It is possible to prevent fuzzy matching, by setting <literal>S.summit_fuzzy_merging</literal> and <literal>S.branches_fuzzy_merging</literal> configuration fields to <literal>True</literal>. There should be little reason to disable fuzzy matching in summit PO files, but it may be convenient to do so in branch PO files, which are not directly translated. For example, lack of fuzzy message will lead to smaller version control deltas.</para>
+
+<para>Fuzzy messages are by default produced by <command>msgmerge</command> alone. This can be more finely tuned by processing the PO file before and after it has been merged, as done by <link linkend="sec-miselfmerge">the <command>poselfmerge</command> command</link>. The <literal>S.merge_min_adjsim_fuzzy</literal> configuration field can be set to a number in range from 0 to 1, having the same effect on fuzzy matching as the <option>-A</option>/<option>--min-adjsim-fuzzy</option> option of <command>poselfmerge</command>. The <literal>S.merge_rebase_fuzzy</literal> field can be set to <literal>True</literal>, with the same meaning as the <option>-b</option>/<option>--rebase-fuzzies</option> option of <command>poselfmerge</command>.</para>
+
+<para>Summit PO files may be merged by consulting a compendium, to produce additional exact and fuzzy matches. This possibility also draws on the functionality provided by <command>poselfmerge</command>. The <literal>S.compendium_on_merge</literal> configuration field is used to set the path to a compendium<footnote>
+<para>Here you can also use the <literal>S.relpath()</literal> function, to have the compendium path be relative to the directory of the summit configuration file.</para>
+</footnote>, equivalently to the <option>-C</option>/<option>--compendium</option> option of <command>poselfmerge</command>. Since compendium matches are less likely to be appropriate than own matches, you may set the <literal>S.compendium_fuzzy_exact</literal> field to <literal>False</literal>, or the <literal>S.compendium_min_words_exact</literal> fiel to a positive integer number, with the same effect as <option>-x</option>/<option>--fuzzy-exact</option> and <option>-W</option>/<option>--min-words-exact</option> options of <command>poselfmerge</command>, respectively.</para>
+
+</sect2>
+
+<sect2 id="sec-sucfgbonsct">
+<title>Other Scatter Options</title>
+
+<para>Sometimes a summit PO file may be "pristine", meaning that all messages in it are clear, neither translated nor fuzzy. Pristine summit PO files may appear, for example, when <link linkend="sec-sucfgviv">vivification</link> is active. A pristine summit PO file will by default cause a likewise empty branch PO file to appear on scatter. This may or may not be a problem in a given project. If it is a problem, it is possible to set the minimal translation completeness of a summit PO file at which the branch PO file will be created on scatter. For example:
+<programlisting>
+S.scatter_min_completeness = 0.8
+</programlisting>
+sets the minimum completeness to scatter at 80%. Completeness is taken to be the ratio of the number of translated to all messages in the file (excluding obsolete).</para>
+
+<para>Translation completeness of a summit PO file may deteriorate over time, as it is periodically gathered or merged, and no one comes around to update the translation. At some point, the completeness may become too low to be considered useful, so that it is better to stop releasing remaining translations in that file until it is updated. The completeness at which this happens, at which the branch PO file is automatically cleared of all translations on scatter, can be set through <literal>S.scatter_acc_completeness</literal> configuration field. The meaning of the value of this field is the same as for <literal>S.scatter_min_completeness</literal>; in fact, one might ask why not simply use <literal>S.scatter_min_completeness</literal> for this purpose as well. The reason is that sometimes a higher bar is put for the initial release, and having two separate configuration fields enables you to make this difference.</para>
 
 </sect2>
 
@@ -1054,7 +1199,23 @@ In this way, branch messages will be converted to proper context just before the
 <sect1 id="sec-suproblems">
 <title>Disadvantages to Summit Workflow and Remedies</title>
 
-<para></para>
+<para>Although hopefully shadowed by the advantages, working in summit is not without some disadvantages. These should be weighed in when deciding on whether to try out the summit workflow.</para>
+
+<para>In summit over template modes, any changes made manually in branch PO files will not propagate into summit, and will be soon lost to scattering. This means that the whole translation team must work in the summit. It is not possible for some members to use the summit, and some not. In direct summit mode, modifying branches directly would be even messier, as some changes would find their way into the summit and some not, depending on which branch contains the change and the order of gather and scatter operations.</para>
+
+<para>A summit PO file will necessarily have more messages than either of the branch files. For example, in two successive development-stable branch cyclings within the KDE translation project (at the time about 1100 PO files with 750.000 words), summit PO files were on average 5% bigger (by number of words) than their branch counterparts. This percentage can be taken as the top limit of possibly wasted translation effort due to messages in development branch coming and going, given that as the next branch cycling approaches more and more messages become fixed and make into the next stable branch.</para>
+
+<para>A more pressing issue with increased size of summit PO files is the following scenario: next stable release is around the corner, and the translation team has no time to update summit PO files fully, but could update only stable messages in them. For example, there are 1000 untranslated and fuzzy messages in the summit, out of which only 50 are coming from the stable branch. A clever dedicated PO editor could allow jumping only through untranslated and fuzzy messages which additionaly satisfy a general search criteria, in this case that a comment matches <literal>\+>.*stable</literal> regular expression (assuming the stable branch is named <literal>stable</literal> in summit configuration). Lacking such a feature, with some external help it is enough if the editor can merely search through comments. First, Pology's <link linkend="ch-sieve"><command>posieve</command> command</link> can be used to equip all untranslated and fuzzy stable messages in summit PO files with an <literal>untranslated</literal> flag (producing <literal>#, ..., untranslated</literal> comment):
+<programlisting>
+$ posieve tag-untranslated -sbranch:stable -swfuzzy <replaceable>paths...</replaceable>
+</programlisting>
+Then, in the PO editor you can jump through incomplete stable messages by simply searching for this flag. While doing that, you are not obligated to manually remove the flag: it will either automatically disappear on the next merge, or you can remove all flags afterwards by running:
+<programlisting>
+$ posieve tag-untranslated -sstrip <replaceable>paths...</replaceable>
+</programlisting>
+</para>
+
+<para>There are some organizational issues with starting to use the summit, and, if it turns out counter-productive, stopping to use it. Team members have first to be reminded not to send in or commit branch PO files, and then if the summit is disbanded, to be reminded to go back to branch PO files. On the plus side, disbanding the summit is technically simple, simply removing its top directory and summit configuration file will do the job.</para>
 
 </sect1>
 

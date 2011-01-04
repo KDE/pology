@@ -620,7 +620,7 @@ Strings after the dot can be anything, but a sequence of numbers or letters in a
 <varlistentry>
 <term><option>xml:<replaceable>file</replaceable></option></term>
 <listitem>
-<para>By default, messages failed by rules are reported to standard output, and this parameter requests that they be written into a custom (but simple) XML format.</para>
+<para>By default, messages failed by rules are reported to standard output, and this parameter requests that they be written into a custom (but simple) XML format. This also causes results to be cached: on subsequent runs of <command>check-rules</command> only modified PO files will be checked again, and results for non-modified files will be pulled from the cache. The cache can be found in <filename>$HOME/.pology-check_rules-cache/</filename> directory.</para>
 </listitem>
 </varlistentry>
 
