@@ -1,0 +1,150 @@
+# Translation choices of Galician team
+# by the KDE Galician Team (proxecto@trasno.net)
+# License: BSD 3-clause
+# Copyright (c) 2010, Proxecto Trasno
+# All rights reserved.
+# 
+# Redistribution and use in source and binary forms, with or without
+# modification, are permitted provided that the following conditions are met:
+#     * Redistributions of source code must retain the above copyright
+#       notice, this list of conditions and the following disclaimer.
+#     * Redistributions in binary form must reproduce the above copyright
+#       notice, this list of conditions and the following disclaimer in the
+#       documentation and/or other materials provided with the distribution.
+#     * Neither the name of the Proxecto Trasno nor the
+#       names of its contributors may be used to endorse or promote products
+#       derived from this software without specific prior written permission.
+# 
+# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+# AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+# IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+# ARE DISCLAIMED. IN NO EVENT SHALL <COPYRIGHT HOLDER> BE LIABLE FOR ANY
+# DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+# (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+# LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+# ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+# (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+# SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+
+include file="filter.include"
+
+# Remove accelerator and  hyphen inside words.
+addFilterRegex match="(\&|\-)" on="pmsgid,pmsgstr"
+
+# «Lapela» traduce a «tab».
+[\blapela|\btabula(ción|dor)]i
+id="PT-2010-dual-lapela_tabulador_tabulación"
+valid msgid="\btab" !before="\border|\bstop" 
+hint="«Lapela»,«tabulador» e «tabulación» traducen a «Tab»"
+
+# Variantes de «tab»
+[\btabulación]i
+id="PT-2010-dual-tabulación"
+valid msgid="\btab\b(border|stop)"
+valid msgid="\btab"
+hint="«tabulación» traduce a «Tab order» e «tab stop»"
+ 
+# «Complemento» traduce a «Plugin»
+[complemento]i
+id="PT-2010-dual_complemento"
+valid msgid="\bplugin"
+valid msgid="\bplug.?in"
+valid msgid="\badd.?on"
+hint="«Complemento» traduce a «Plugin» e a «add-on»"
+
+
+#«engadido» traduce a «Plugin» e a «added»
+[engadido]i
+id="PT-2010-dual_engadido"
+valid msgid="\bplugin"
+valid msgid="\bplug.?in"
+valid msgid="added\b"
+hint="«engadido» traduce a «Plugin» e a «added»"
+
+# «xanela» traduce a «Window»
+[\bxanela]i
+id="PT-2010-dual_xanela"
+valid msgid="\bwindow"
+hint="«xanela» traduce a «window»"
+ 
+# «anexar» traduce a «Attach»
+[\banex[a-z]+]i
+id="PT-2010-dual_anexar"
+valid msgid="\battach(\"\"|ed|s)"
+hint="«anexar» traduce a «attach»"
+
+# «anexo» traduce a «Attachment»
+[\banexo]i
+id="PT-2010-dual_anexo"
+valid msgid="attachment?"
+hint="«anexo» traduce a «attachment»"
+
+# «orde» traduce a «Command»
+[\borde(\"\"|s)]i
+id="PT-2010-dual_orde"
+valid msgid="\bcommand"
+hint="«orde» traduce a «command»"
+
+# «invalid» tradúcese como «incorrecto»/«non é válido»
+[\bincorrecto|(non\s(é\s|"")válid(o|a))|(non\sson\sválid(o|a)s)]i
+valid !before="argumento"
+id="noPT-2010-dual_incorrecto"
+valid msgid="\binvalid"
+hint="«incorrecto»/«non é válido» traducen a «invalid»"
+
+# «inaceptábel» traduce a «ilegal»
+[\binaceptábe(l|is)\b]i
+id="PT-2010-dual_inaceptábel"
+valid msgid="\bilegal"
+hint="«inaceptábel» traduce a «ilegal»"
+
+# «grella» traduce a «grid»
+[\grella]i
+id="noPT-2010-dual_grid"
+valid msgid="\bgrid?"
+hint="«grella» traduce a «grid»"
+
+# «mostrar» traduce a «show»
+[\bmostr]i
+#valid msgid="\b[sS]how(\"\"|s|ed|n)\b"
+valid msgid="\bshow"
+valid msgid="\bdisplay"
+id="noPT-2010-dual_mostrar"
+hint="«mostrar» traduce a «show» e «display»"
+
+# «acochar» traduce a «hide»
+[\bacoch]i
+valid msgid="\bhide(\b|s|ed)"
+valid msgid="\bhidden\b"
+id="noPT-2010-dual_acochar"
+hint="«acochar» traduce a «hide»"
+
+# «inserir» ou «introducir» traducen a «insert»
+[\bins(e|i)r|\bintroduc]i
+id="noPT-2010-dual_inserir"
+valid msgid="\binsert|\benter"
+hint="«inserir» ou «introducir» traducen a «insert» ou «enter»"
+
+# «buscar»/«busca» traducen a «search»
+[\bbusc]i
+valid msgid="\bsearch"
+valid msgid="\bfind|\bfound"
+valid msgid="\blocate"
+id="PT-2010-dual_buscar"
+hint="«busca(r)» traduce a «search», «find» e «locate»"
+
+# «atopar» traduce a «find» e «locate»
+[\batop]i
+valid msgid="\bfound"
+valid msgid="\bfind"
+valid msgid="\blocate"
+id="noPT-2010-dual_atopar"
+hint="«atopar» traduce a «find» e «locate»"
+
+# «situar» traducen a «locate» ou «place»
+[\bsitu]i
+valid !span="ación\b|acións\b"
+valid msgid="\blocate|\bplace"
+id="PT-2010-dual_situar"
+hint="«situar» traduce a «to locate» ou «to place»"

@@ -54,11 +54,16 @@ addFilterRegex match="\~\.?\/[\w\.\-\_]+" repl="~" on="pmsgid,pmsgstr"
 # Remove single characters in quotes.
 addFilterRegex match="«.»" repl="~" on="pmsgid,pmsgstr"
 
-# Especial treatment for «etc.», there may be a comma before it.
-addFilterRegex match="(etc\.|\&etc\;)" repl="etcétera" on="pmsgid,pmsgstr"
+# # Especial treatment for «etc.», there may be a comma before it.
+# addFilterRegex match="(etc\.|\&etc\;)" repl="etcétera" on="pmsgid,pmsgstr"
 
 # Remove some abreviations.
-addFilterRegex match="(a\.\s?m|apdo|art|atte|av|avda|C\.\s?\C|C\.\s?\P|cap|cent|cént|Cía|cta|dcha|dcho|depto|D|Dr|Dra|EE\.UU|([Pp]\.\s?)?[Ee]j|expr|Fdo|Gral|[Ii]d|Ilmo|izdo|JJ\.\s?OO|K\.\s?O|Ltd|Ltdo|Ltda|máx|mín|n\.\s?t|p\.\s?m|pág|Pdte|Pdta|pl|plza|ppal|pral|Prof|pza|Rep|Sr|Sra|S.\s?L|Srta|Sto|Sta|tel|trad|Univ|vv\.\s?aa|VV\.\s?AA)\." repl="~" on="pmsgid,pmsgstr"
+addFilterRegex match="\b(Ex\.|ex\.|p\.\sex\.|EUA|a\.m\.|p\.m\.|n\.t\.\expr\.)" repl="~" on="pmsgid,pmsgstr"
+addFilterRegex match="\b(Sr\.|Sra\.|Dr\.|Dra\.)" repl="~" on="pmsgid,pmsgstr"
+addFilterRegex match="\b(apt\.|art\.|avda\.|av\.|cent\.|dept\.)" repl="~" on="pmsgid,pmsgstr"
+addFilterRegex match="\b(máx.|mín\.|páx\.)" repl="~" on="pmsgstr"
+addFilterRegex match="\b(pl\.|pral\.|Prof\.|P\.\s\S\.|Rep\.|R\.\sI\.\P\.)" repl="~" on="pmsgid,pmsgstr"
+addFilterRegex match="\b(tel\.|trad\.|Univ\.)" repl="~" on="pmsgid,pmsgstr"
 
 # Remove special puntuactions.
 addFilterRegex match="(\?{2,3}|\%{2,3}|\:{2,3}|\_{2,3})" repl="~" on="pmsgid,pmsgstr"
@@ -66,9 +71,9 @@ addFilterRegex match="(\?{2,3}|\%{2,3}|\:{2,3}|\_{2,3})" repl="~" on="pmsgid,pms
 # Remove more usual smileis.
 addFilterRegex match="\s(\:\)|\(\-\:|\:\)|\(\:|\=\)|\)\-\:\)|\:\-\)|\:\-\(|\;\-\)|\;\))" repl="\s~" on="pmsgid,pmsgstr"
 
-# Remove numbers and dates
-addFilterRegex match="[^\%][\dXx]+([\.\,\:\/][\dXx]+)+" repl="~" on="pmsgid,pmsgstr"
+# # Remove numbers and dates
+# addFilterRegex match="[^\%][\dXx]+([\.\,\:\/][\dXx]+)+" repl="~" on="pmsgid,pmsgstr"
 
-# Remove some types of paragraph tags.
-addFilterHook name="es:remove_tags_without_translation/remove_tags_without_translation" on="msg"
+# # Remove some types of paragraph tags.
+# addFilterHook name="es:remove_tags_without_translation/remove_tags_without_translation" on="msg"
 

@@ -1,0 +1,121 @@
+# Translation choices of Galician team
+# by the KDE Galician Team (proxecto@trasno.net)
+# License: GPLv3
+
+include file="filter.include"
+
+# Remove accelerator and  hyphen inside words.
+addFilterRegex match="(\&|\-)" on="pmsgid,pmsgstr"
+
+# «Tab» tradúcese como «Lapela», tabulación ou tabulador.
+{\btab\b}i
+id="PT-2010-tab"
+valid msgstr="lapela"
+valid msgstr="tabula(ción|dor)"
+valid !msgstr="(separador|\baba\b|lingüeta|pestana)"
+hint="«Tab» tradúcese como «Lapela»,tabulador ou tabulación"
+
+# «Plugin» tradúcese como «Complemento» ou «engadido»
+{\bplugin}i
+id="PT-2010-plugin"
+valid msgstr="complemento"
+valid msgstr="engadido"
+hint="«Plugin» tradúcese como «Complemento» ou «engadido»"
+
+# «Plug-in» tradúcese como «Complemento», «engadido»
+{\bplug-in?\b}i
+id="PT-2010-plug-in"
+valid msgstr="complemento?"
+valid msgstr="engadido?"
+hint="«Plugin» tradúcese como «Complemento» ou «engadido»"
+
+# «Window» tradúcese como «xanela»
+{\bwindow}i
+id="PT-2010-window"
+valid msgstr="xanela"
+valid !msgstr="\b(fiestra|ventá)?"
+hint="«window» tradúcese como «xanela»"
+
+# «Attach» tradúcese como «anexar»
+{\battach\b}i
+id="PT-2010-attach"
+valid msgstr="anexar"
+valid !msgstr="adxuntar"
+hint="«attach» tradúcese como «anexar»"
+
+# «Attachment» tradúcese como «anexo»
+{\battachment\b}i
+id="PT-2010-attachment"
+valid msgstr="anexo"
+valid !msgstr="adxunto"
+hint="«attachment» tradúcese como «anexo»"
+
+# «Command» tradúcese como «orde»
+{\bcommand\b}i
+id="PT-2010-command"
+valid msgstr="orde"
+valid !msgstr="comando"
+hint="«command» tradúcese como «orde»"
+
+# «invalid» tradúcese como «incorrecto»/«non é válido»
+{\binvalid\b}i
+id="noPT-2010-invalid"
+valid msgstr="incorrecto"
+valid msgstr="non\sé\sválid(o|a)\b"
+valid msgstr="non\sválid(o|a)"
+hint="«invalid» tradúcese como «incorrecto»/«non é válido»"
+
+# «ilegal» tradúcese como «inaceptábel»
+{\bilegal\b}i
+id="PT-2010-ilegal"
+valid msgstr="inaceptábel"
+hint="«ilegal» tradúcese como «inaceptábel»"
+
+# «grid» tradúcese como «grella»
+{\bgrid?}i
+id="noPT-2010-grid"
+valid msgstr="\bgrella?"
+hint="«grid» tradúcese como «grella»"
+
+# «show» tradúcese como «mostrar»
+{\bshow}i
+id="noPT-2010-show"
+valid msgstr="\bmostr?"
+valid !msgstr="\bamos?"
+hint="«show» tradúcese como «mostrar»"
+
+# «hide» tradúcese como «acochar»
+{\bhide(\b|s|ed)}i
+id="noPT-2010-hide"
+valid msgstr="\bacoch"
+valid !msgstr="(ocult|agoch)?"
+hint="«hide» tradúcese como «acochar»"
+
+# «insert» tradúcese como «inserir» ou «introducir»
+{\binsert(ed|s)\b}i
+id="noPT-2010-insert"
+valid msgstr="ins(e|i)r"
+valid msgstr="introduc"
+hint="«insert» tradúcese como «inserir» ou «introducir»"
+
+# «search» tradúcese como «buscar»/«busca»
+{\bsearch?}i
+id="PT-2010-search"
+valid msgstr="\bbusc"
+valid !msgstr="\b(procura|pesquis|pescud)?"
+hint="«search» tradúcese como «busca(r)»"
+
+# «find» tradúcese como «atopar»
+{\bfind}i
+id="noPT-2010-find"
+valid msgstr="\batop"
+valid msgstr="\bbusc"
+hint="«find» tradúcese como «atopar», ou «buscar»"
+
+# «locate» tradúcese como «atopar», «buscar» ou «situar»
+{\blocate}i
+id="PT-2010-locate"
+valid msgstr="\batopa"
+valid msgstr="\bbusc"
+valid msgstr="\bsitu"
+hint="«locate» tradúcese como «atopar», «buscar» ou «situar»"

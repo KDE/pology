@@ -1,0 +1,104 @@
+# Translation choices of Galician team
+# by the KDE Galician Team (proxecto@trasno.net)
+# License: BSD 3-clause
+# Copyright (c) 2010, Proxecto Trasno
+# All rights reserved.
+# 
+# Redistribution and use in source and binary forms, with or without
+# modification, are permitted provided that the following conditions are met:
+#     * Redistributions of source code must retain the above copyright
+#       notice, this list of conditions and the following disclaimer.
+#     * Redistributions in binary form must reproduce the above copyright
+#       notice, this list of conditions and the following disclaimer in the
+#       documentation and/or other materials provided with the distribution.
+#     * Neither the name of the Proxecto Trasno nor the
+#       names of its contributors may be used to endorse or promote products
+#       derived from this software without specific prior written permission.
+# 
+# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+# AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+# IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+# ARE DISCLAIMED. IN NO EVENT SHALL <COPYRIGHT HOLDER> BE LIABLE FOR ANY
+# DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+# (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+# LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+# ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+# (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+# SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+
+include file="filter.include"
+
+# Remove accelerator and  hyphen inside words.
+addFilterRegex match="(\&|\-)" on="pmsgid,pmsgstr"
+
+# «Path» -> «ruta».
+# trust path é outra cousa
+{\bpath}i
+valid after="trust\s"
+id="mine_path"
+valid msgstr="\bruta"
+hint="Path -> ruta"
+
+#«Trust path» -> «cadea de confianza»
+{\b(?<=trust\s)path}i
+id="mine_trust-path"
+valid msgstr="\bcadea\sde\s\confianza"
+hint="«Trust path» -> «cadea de confianza»"
+
+# «Ruta» -> «path».
+[\bruta]i
+id="mine-dual_path"
+valid msgid="\bpath" !before="trust"
+hint="Ruta->path"
+
+# «cadea de confianza» -> «trust path»
+# WARNING
+[\bcadea\sde\s\confianza]i
+id="mine-dual_trust-path"
+valid msgid="\btrust\s(path|chain)"
+hint="cadea de confianza» -> «trust path»"
+
+# «abort» -> «interromper»
+{\babort}i
+disabled
+id="mine_abort"
+#valid msgstr="interromper"
+hint="abort -> interromper"
+
+# «encounter» -> «atopar» and not «achar»
+{\bencounter}i
+id="mine_encounter"
+valid msgstr="\batop"
+valid !msgstr="\bach"
+hint="encounter -> atopar"
+
+# «about» -> «acerca de»
+{\babout}i
+valid before="\sto\b"
+valid after="\bknow(s|\"\")\s"
+id="mine_about"
+valid msgstr="\bacerca\sd"
+valid msgstr="\brefer"
+hint="about -> acerca de"
+
+# «enable» 
+{\benable}i
+valid before="\sthis\s(option|checkbox)"
+valid after="\b(when|if)\sthis\s(option|checkbox)\sis\s"
+valid after="\b(when|if)\sthis\sis\s"
+valid after="\b(if|when)\s"
+id="mine_enable"
+valid msgstr="\bactiv"
+valid msgstr="\bpermit"
+hint="enable/disable = activar/desactivar"
+
+# «disable»
+{\bdisable}i
+valid before="\sthis\s(option|checkbox)"
+valid after="\b(when|if)\sthis\s(option|checkbox)\sis\s"
+valid after="\b(when|if)\sthis\sis\s"
+valid after="\b(if|when)\s"
+id="mine_disable"
+valid msgstr="\bdesactiv"
+hint="enable/disable = activar/desactivar"
