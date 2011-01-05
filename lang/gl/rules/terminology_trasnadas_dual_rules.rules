@@ -18,7 +18,7 @@
 # THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
 # AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
 # IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
-# ARE DISCLAIMED. IN NO EVENT SHALL <COPYRIGHT HOLDER> BE LIABLE FOR ANY
+# ARE DISCLAIMED. IN NO EVENT SHALL PROXECTO TRASNO BE LIABLE FOR ANY
 # DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
 # (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
 # LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
@@ -53,7 +53,6 @@ valid msgid="\bplug.?in"
 valid msgid="\badd.?on"
 hint="«Complemento» traduce a «Plugin» e a «add-on»"
 
-
 #«engadido» traduce a «Plugin» e a «added»
 [engadido]i
 id="PT-2010-dual_engadido"
@@ -69,9 +68,9 @@ valid msgid="\bwindow"
 hint="«xanela» traduce a «window»"
  
 # «anexar» traduce a «Attach»
-[\banex[a-z]+]i
+[\banex[a-z]{2,}]i
 id="PT-2010-dual_anexar"
-valid msgid="\battach(\"\"|ed|s)"
+valid msgid="\battach(\s|ed|s)"
 hint="«anexar» traduce a «attach»"
 
 # «anexo» traduce a «Attachment»
@@ -106,7 +105,7 @@ valid msgid="\bgrid?"
 hint="«grella» traduce a «grid»"
 
 # «mostrar» traduce a «show»
-[\bmostr]i
+[\bmostr(?!axe)]i
 #valid msgid="\b[sS]how(\"\"|s|ed|n)\b"
 valid msgid="\bshow"
 valid msgid="\bdisplay"
@@ -138,6 +137,7 @@ hint="«busca(r)» traduce a «search», «find» e «locate»"
 [\batop]i
 valid msgid="\bfind|\blocate"
 valid msgid="\bfound"
+valid msgid="\bencounter"
 id="noPT-2010-dual_atopar"
 hint="«atopar» traduce a «find» e «locate»"
 

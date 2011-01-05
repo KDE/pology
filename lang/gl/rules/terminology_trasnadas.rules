@@ -106,7 +106,7 @@ valid !msgstr="\b(procura|pesquis|pescud)?"
 hint="«search» tradúcese como «busca(r)»"
 
 # «find» tradúcese como «atopar»
-{\bfind}i
+{\bf(ind|ound)}i
 id="noPT-2010-find"
 valid msgstr="\batop"
 valid msgstr="\bbusc"

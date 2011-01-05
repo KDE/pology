@@ -18,7 +18,7 @@
 # THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
 # AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
 # IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
-# ARE DISCLAIMED. IN NO EVENT SHALL <COPYRIGHT HOLDER> BE LIABLE FOR ANY
+# ARE DISCLAIMED. IN NO EVENT SHALL PROXECTO TRASNO BE LIABLE FOR ANY
 # DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
 # (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
 # LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
@@ -40,7 +40,7 @@ id="mine_path"
 valid msgstr="\bruta"
 hint="Path -> ruta"
 
-#«Trust path» -> «cadea de confianza»
+# «Trust path» -> «cadea de confianza»
 {\b(?<=trust\s)path}i
 id="mine_trust-path"
 valid msgstr="\bcadea\sde\s\confianza"
@@ -74,17 +74,25 @@ valid !msgstr="\bach"
 hint="encounter -> atopar"
 
 # «about» -> «acerca de»
-{\babout}i
+{\b(?<!^)about}i
 valid before="\sto\b"
 valid after="\bknow(s|\"\")\s"
 id="mine_about"
 valid msgstr="\bacerca\sd"
 valid msgstr="\brefer"
+valid msgstr="\bsobre\b"
+hint="about -> sobre"
+
+# «about» -> «sobre»
+{^about}i
+id="mine_about2"
+valid msgstr="\bacerca\sd"
 hint="about -> acerca de"
 
 # «enable» 
 {\benable}i
 valid before="\sthis\s(option|checkbox)"
+valid before="/disable"
 valid after="\b(when|if)\sthis\s(option|checkbox)\sis\s"
 valid after="\b(when|if)\sthis\sis\s"
 valid after="\b(if|when)\s"
@@ -99,6 +107,13 @@ valid before="\sthis\s(option|checkbox)"
 valid after="\b(when|if)\sthis\s(option|checkbox)\sis\s"
 valid after="\b(when|if)\sthis\sis\s"
 valid after="\b(if|when)\s"
+valid after="enable/"
 id="mine_disable"
 valid msgstr="\bdesactiv"
 hint="enable/disable = activar/desactivar"
+
+# «enable/disable» -> «conmutar»
+{\benable/disable}i
+id="mine_enabledisable"
+valid msgstr="\bconmuta"
+hint="enable/disable = conmutar"
