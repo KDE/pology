@@ -5,6 +5,605 @@
 <chapter id="ch-ascript">
 <title>Ascribing Modifications and Reviews</title>
 
+<para>It may not be obvious, especially to new translators, to which extent the translation needs to be reviewed. If the translator has exercised due diligence, how "wrong" can the translation be? Even if the translator has good command of the source language -- typically English in context of PO files -- the answer is "very wrong", all aspects considered.</para>
+
+<para>With comparatively simple grammar of English, the meaning of a short English sentence (as typically encountered in program user interfaces) may vary much depend on the surrounding context. This context may not be obvious when the translator is going through isolated messages in the PO file, so he may commit the worst of errors from the reader's viewpoint: the senseless translation. An experienced reviewer will have developed sense for troublesome contexts, and will have at disposal several means to conclusively determine the context (including, for example, running the development version of the program).</para>
+
+<para>Even if the context is correctly established, the translator may use "wrong" terminology, which is the next worse thing for the reader. A term used in translation does not need to be wrong by itself, in fact it may be exactly the correct term -- in another translation project. The reviewer will have more experience with terminology of the present project, and be able to bring the translation in line with it.</para>
+
+<para>Style in the technical sense is a consistent choice between several perfectly valid constructs in target language when applied to text in the given technical context. For example, how to translate menu titles and items, button labels, or tooltips in user interface. Choices may include noun or verb forms, particular grammar categories, tone of address, and so on. There may be a style guide to the project which details such choices, and the reviewer will know it well.</para>
+
+<para>Style in the linguistic sense is especially applicable to longer texts, such as tooltips in user interface or paragraphs in documentation. A typical error of a new translator is to closely adhere to English style and grammar. This may produce translation which is semantically and grammatically valid in the target language, but very out of style. Reviewer then steps in to naturalize such constructs.</para>
+
+<para>Finally, while the reviewer may be an experienced translator, that does not mean that his own translations need no review. Immersion into the source language, distraction, and fatigue, will lead the reviewer into any of the above errors in translation, only with lesser frequency. This means that reviewers should also review one anothers' translations.</para>
+
+<para>This calls for a systematic approach to review in translation workflow.</para>
+
+<!-- ======================================== -->
+<sect1 id="sec-ascrevcomp">
+<title>Review Stages vs. Ascription</title>
+
+<para>Classical review workflow, <emphasis>by stages</emphasis>, seems simple enough. Translator translates a new PO file or updates an existing translation, and declares it ready to review. A reviewer reviews it, and declares it ready to commit into the pool from which PO files are periodically released. A committer finally commits the file. The process is iterative: the reviewer may return the file to the translator, and translator later again declare it as ready for review. There may be several stages of review (such as <emphasis>proof-reading</emphasis>, <emphasis>approving</emphasis>), each of which may return the translation to a previous stage, or forward it to some special stage. The process may also be implemented on the subfile level, where each PO message can go through stages separately.</para>
+
+<para>Regardless of the technical details, review workflows of this kind all have the following in common. Members of the translation team are assigned <emphasis>roles</emphasis> (such as <emphasis>translator</emphasis>, <emphasis>reviewer</emphasis>, <emphasis>committer</emphasis>) by which they step into the workflow. A single person can have more roles. Later review stages must wait for the earlier stages to complete, and the translation cannot be updated again before the current version clears the review pipeline (or the pipeline is aborted). Once the translation is committed, it becomes a part of simply "admitted" translations, with no further qualifiers.</para>
+
+<para>The system of prescribed roles requires that team members assign the roles between themselves, stick to them, and shuffle them along the way. The prescribed review pipeline requires a tool to keep track of the current review stage of translation. This makes the review workflow rigid, with probable bottlenecks. Distribution of roles may become disbalanced by people coming into and leaving the team, or the tracking tool may be prohibitive to some scenarios (e.g. single translator making small adjustments in dozens of files across the project, but having to upload each manually through a web interface).</para>
+
+<para>"Rigid" and "inefficient" are comparative qualifications, so what is it that review by stages can be compared to in this way?</para>
+
+<para>Review <emphasis>by ascriptions</emphasis> is even simpler conceptually, and yet less rigid and more efficient than the review by stages. It obligatory works on the PO message level, rather than PO file level. Anyone can simply translate some PO messages and directly commit modified PO files, without any review, but <emphasis>ascribing</emphasis> modifications to own name. Anyone can review any PO message at any moment, commit modifications made during the review, and ascribe the review to own name (and possibly to a certain class -- review of context, of terminology, style, etc). When the time comes to release the translation, <emphasis>insufficiently</emphasis> reviewed messages are automatically omitted, by evaluating the <emphasis>ascription history</emphasis> of each message.</para>
+
+<para>Based on the ascription history, the reviewer can select a subset of PO messages, and review only the difference between their historical and current versions. For example, Alice can select to review only messages modified since she or Bob had last reviewed them for style. She could see the difference from that last review to current version, e.g. if in the whole paragraph only a single word was changed by Charlie when he reviewed the terminology. Ascription history also propagate through merging of PO files with templates, so the reviewer can compare the change in original to the change in translation since the last review and judge if one fits the other.</para>
+
+<para>Since everyone just commits, translations can be efficiently kept in a version control repository, with the ascription system added on top. After having done some translating, the translator simply substitutes commit command of the version control system (VCS) with "ascribe modifications" command of the ascription system (AS, which calls the underlying VCS internally). After reviewing, the reviewer uses "ascribe reviews" command of the AS to commit reviews to ascription history (as well as any modifications made during the review). To select messages for review, the reviewer issues "diff for review" command of the AS, with suitable parameters to narrow the message set; selected messages are marked in-place in PO files and equipped with <link linkend="ch-diffpatch">embedded differences</link>, and possibly directly opened in a PO editor.</para>
+
+<para>When the translations are to be released, the release person issues "filter for release" command of the AS, which takes the working PO files and creates final PO files, in which the insufficiently reviewed messages are removed. Here "release time" can be understood figuratively: since filtering for release should be a fully automatic process, it can be performed at any interval of convenience.</para>
+
+<para>What constitutes "sufficient review" can be defined in fine detail. It could be specified that messages modified by Alice need to have only review for terminology, but not necessarily for style; Charlie may belong to the group which needs to be reviewed on style, but not necessarily on context; Bob's reviews for style may be nice to have, but never blocking the release if missing. These decisions do not preclude released messages to be reviewed later on missing points, after higher priority reviews have been completed. The definition of sufficiency may be changed at any point, e.g. as team members get more experienced and require less review, without interfering with direct translation and review activities.</para>
+
+<para>In summary, an AS preserves the operational efficiency of VCS, while at the same time providing great flexibility of review. All team members can be given commit access, no web or email detours are needed. There are no prescribed roles, but a functional equivalent of role assignment happens at the last possible moment (release time), can take into account both translators' and reviewers' abilities, and changing estimates of those over time. There is no staging between completing and committing the translation, which enables a translator to continue polishing the translation undisturbed until a reviewer comes around. There are no bottlenecks when performing small changes in many files, since a single AS command commits all changes just as a single VCS command would. On commit operations, the AS can also apply various checks (e.g. decline to commit syntactically invalid PO files) and modifications (e.g. update translator's data in the PO header).</para>
+
+</sect1>
+
+<!-- ======================================== -->
+<sect1 id="sec-ascsetup">
+<title>Setting up Ascription with <command>poascribe</command></title>
+
+<para>Pology provides an ascription system in the form of the <command>poascribe</command> command.</para>
+
+<para>Let the organization of PO files for the language <literal>nn</literal> in the version control repository be such:
+<programlisting>
+l10n-nn/
+    po/
+        ui/
+            alpha.po
+            bravo.po
+            ...
+        doc/
+            alpha.po
+            bravo.po
+            ...
+        ...
+</programlisting>
+Having PO files grouped by language can be taken as a hard prerequisite<footnote>
+<para><emphasis>Technically</emphasis>, PO files could also be grouped by PO domain:
+<programlisting>
+po/
+    ui/
+        alpha/
+            ...
+            nn.po
+            mm.po
+            ...
+</programlisting>
+but this would lead to a host of strange sharings of ascription settings and auxiliary file locations between different languages. In general, it is assumed that each translation team manages its own separate ascription.</para>
+</footnote>. Also necessary is a single top subdirectory for the whole PO file tree (here <filename>po/</filename>), rather than having several PO subdirectories directly in the language directory.</para>
+
+<para>Setting up ascription is now simple. Create the ascription configuration file named exactly <filename>ascription-config</filename> (<command>poascribe</command> expects this name), on the same level as the top PO directory:
+<programlisting>
+l10n-nn/
+    ascription-config
+    po/
+        ui/
+            ...
+        doc/
+            ...
+</programlisting>
+and set in it a few global configuration fields, and data for each known translator:
+<programlisting>
+# ---------------------------
+# Global ascription settings.
+
+[global]
+
+# Roots of the original and ascription trees.
+catalog-root = po
+ascript-root = po-ascript
+
+# The underlying version control system.
+version-control = svn
+
+# Data for updating PO headers on request.
+language = nn
+language-team = Nevernissian
+team-email = l10n-nn@neverwhere.org
+
+# Default commit message.
+commit-message = Translation updates.
+
+# -----------------------
+# Registered translators.
+
+[user-alice]
+name = Alice Akmalryn
+original-name = Алиса Акмалрин
+email = alice.akmalryn@someplacenice.org
+
+[user-bob]
+name = Bob Bromkin
+original-name = Бобан Бромкин
+email = bob.byomkin@otherplacenice.org
+
+# ...and so on.
+</programlisting>
+The configuration fields used in this example, and other possible configuration fields, are listed and described below.</para>
+
+<para>Global settings in the configuration file:
+<variablelist>
+
+<varlistentry>
+<term><literal>catalog-root</literal></term>
+<listitem>
+<para>The path to top PO subdirectory. This should be a relative path, and relative to the location of the configuration file.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><literal>ascript-root</literal></term>
+<listitem>
+<para>Relative path to the top directory of <link linkend="p-ascftree">the ascription file tree</link>, which will be created and updated by <command>poascribe</command>.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><literal>version-control</literal></term>
+<listitem>
+<para>The underlying version control system of the repository. The value is a keyword, see <xref linkend="sec-cmsuppvcs"/> for a list of VCS supported by Pology.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><literal>language</literal></term> <term><literal>language-team</literal></term> <term><literal>team-email</literal></term> <term><literal>plural-header</literal></term>
+<listitem>
+<para>These fields provide information about the language and the translation team, which <command>poascribe</command> uses to update header fields in modified PO files. <literal>language</literal> is the language code, while <literal>language-team</literal> is usually just the human-readable language name in English. <literal>plural-header</literal> is the exact contents of <literal>Plural-Forms:</literal> PO header field (if it contains a <literal>%</literal> character, you need to escape it as <literal>%%</literal>). For any of these fields that is not set, <command>poascribe</command> will remove the corresponding header field when updating the PO header.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><literal>title</literal></term>
+<listitem>
+<para>The first comment line in the PO header, set when <command>poascribe</command> updates the header. It can contain the following placeholders for inserting file-dependent information: <literal>%basename</literal> is the base PO file name (e.g. <literal>alpha.po</literal>), <literal>%poname</literal> the PO domain name (e.g. <literal>alpha</literal>), <literal>%langname</literal> the human-readable language name (supplied by the <literal>language-team</literal> field), and <literal>%langcode</literal> the language code (supplied by the <literal>language</literal> field). Note that these placeholders actually must be written as <literal>%%<replaceable>name</replaceable></literal>, to escape the special meaning of single <literal>%</literal> character. If <literal>title</literal> field is not set, <command>poascribe</command> will leave the title comment as it is in the PO file.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><literal>commit-message</literal></term>
+<listitem>
+<para>The default commit message for the underlying VCS, when <command>poascribe</command> calls upon it to commit modified PO files. If this field is not set, an editor window will pop up to input the commit message, or the <option>-m</option>/<option>--message</option> option can be used to set the message through the command line. If the field is set, <option>-m</option> can still be used to override the default commit message.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><literal>review-tags</literal></term>
+<listitem>
+<para>The set of accepted <link linkend="sec-ascfgrev">review tags</link>, given as whitespace-separated list of tags. If set, <command>poascribe</command> will abort when trying to use an unknown tag, otherwise it will accept any tag.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</para>
+
+<para>Each known translator is represented by a <literal>[user-<replaceable>name</replaceable>]</literal> configuration section. Translator's user name in the ascription system has no direct relation with the underlying VCS account name (if VCS uses them), but it makes sense for them to be equal. This also means that a translator does not even have to have VCS account (repository commit access), though this is expected for the sake of efficiency. Translator configuration sections can contain the following fields:
+<variablelist>
+
+<varlistentry>
+<term><literal>name</literal></term>
+<listitem>
+<para>Translator's name, in the form supposed to be readable in English. This means that if the name is not originally written in Latin script, some romanized form should be given.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><literal>original-name</literal></term>
+<listitem>
+<para>Translator's name in its original form, if it differs from the romanized form given by the <literal>name</literal> field.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><literal>email</literal></term>
+<listitem>
+<para>The email address at which the translator may be contacted.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</para>
+
+<para>As soon as <filename>ascription-config</filename> file is committed to the repository, the ascription system through <command>poascribe</command> is ready for use. The only expected regular modifications to the configuration file are those of adding new translators. On the other hand, translators should never be removed, because even after they go away, their ascription records remain in the system.</para>
+
+<sect2 id="sec-ascinit">
+<title>Initial Ascription</title>
+
+<para>The most common situation at the start of ascription workflow is that there already exists a considerable amount of translations, contributed by many different people over time. These existing translations should be ascribed as initial modifications -- but ascribed to whom? If it is not precisely known who translated what, the solution is to introduce a generic user in the configuration file, appropriately named "Unknown Hero" (or "Lost Translator", you can be inventive):
+<programlisting>
+[user-uhero]
+name = Unknown Hero
+original-name = Незнани јунак
+</programlisting>
+You should then ascribe all existing translations as modified and reviewed by this dummy translator:
+<programlisting>
+$ cd $LANGDIR
+$ poascribe commit -u uhero --all-reviewed -C  po/
+</programlisting>
+The <literal>commit</literal> argument is the ascription mode, and the <option>-u</option> option provides the user name to which ascriptions are made. This is an important point: ascriptions are made to a user defined in ascription configuration, and have nothing to do with VCS itself. It is the <option>--all-reviewed</option> option that declares all messages to be reviewed as well (this option is normally used only this once, and not in day to day operation). The <option>-C</option> option prevents automatic VCS adding and committing, which is useful for this initial step.</para>
+
+<para>When this command line is executed, a progress bar will appear and the following output will start to unfold:
+<programlisting>
+doc/alpha.po  (43/43)
+doc/bravo.po  (81/81)
+...
+ui/alpha.po  (582/582)
+ui/bravo.po  (931/931)
+...
+===== Ascription summary:
+-           modified  reviewed
+translated     11775     11775
+fuzzy           2943      2943
+obsolete/t       365       365
+obsolete/f        26        26
+</programlisting>
+The number in parenthesis indicates how many messages have been ascribed in the given PO file (modified/reviewed), and at the end the totals are given.</para>
+
+<para>If, on the contrary, it is known who translated and reviewed what up to that point, ascription can be performed piece-wise with user names of real translators:
+<programlisting>
+$ cd $LANGDIR
+$ poascribe commit -u alice --all-reviewed -C  po/ui/
+$ poascribe commit -u bob --all-reviewed -C  po/doc/
+$ ...
+</programlisting>
+</para>
+
+<para id="p-ascftree">After the initial ascription has been made, the <emphasis>ascription file tree</emphasis> will appear next to the original file tree. There will be one ascription PO file for each summit PO file, with the same name and relative location within the tree:
+<programlisting>
+l10n-nn/
+    po/
+        ui/
+            alpha.po
+            bravo.po
+            ...
+        ...
+    po-ascript/
+        ui/
+            alpha.po
+            bravo.po
+            ...
+        ...
+</programlisting>
+Ascription PO files are used by <command>poascribe</command> to store the ascription history, rather than e.g. a database of some sort. This has the disadvantage in performance, but advantage in simplicity and robustness. For example, ascription files will be under version control as well.</para>
+
+<para><command>poascribe</command> may also modify original PO files during this run, by removing any previous field comments (<literal>#| ...</literal>) on translated messages. These comments are sometimes erroneously left in when the PO file is translated with an older or less capable PO editor, and leaving them would result in unnecessary additions to ascription PO files.</para>
+
+<para>The newly created ascription tree, any modifications to the original tree, and the acription configuration file, can now be committed as usual. With Subversion as the VCS:
+<programlisting>
+$ cd $LANGDIR
+$ svn add ascription-config po-ascript
+$ svn commit ascription-config po po-ascript -m "Initial ascription."
+</programlisting>
+</para>
+
+</sect2>
+
+</sect1>
+
+<!-- ======================================== -->
+<sect1 id="sec-ascdailytr">
+<title>Daily Use for Translators</title>
+
+<para>While this is generally a good idea, with ascription in place translators must always update the complete language directory by VCS, rather than just one particular PO file or subdirectory, so that the original and the ascription PO file trees are kept in sync.<footnote>
+<para>There should be no technical problem here, since VCS updates are inexpensive in terms of network traffic, but there may be a problem of changing one's habits.</para>
+</footnote></para>
+
+<para>In order not to have to report their user name to <command>poascribe</command> all the time (by the <option>-u</option> option), translators can set it in <link linkend="sec-cmconfig">Pology user configuration</link>, the <literal>[poascribe]</literal> section:
+<programlisting>
+[poascribe]
+user = alice
+</programlisting>
+With this in place, translators can submit updated PO files simply by substituting VCS commit command with <literal>poascribe commit</literal> (or shortened: <literal>co</literal> or <literal>ci</literal>). With Subversion, this would look like:
+<programlisting>
+$ cd $LANGDIR
+$ poascribe co po/ui/*alpha*.po
+po/ui/alpha.po  (44)
+po/ui/libalpha.po  (15)
+===== Ascription summary:
+-           modified
+translated       169
+>>>>> VCS is committing catalogs:
+Sending      ui/alpha.po
+Sending      ui/libalpha.po
+Sending      summit-ascript/messages/kdefoo/fooapp.po
+Sending      LANG/summit-ascript/messages/kdefoo/libfooapp.po
+Transmitting file data ....
+Committed revision 1267069.
+$
+</programlisting>
+The lines after <literal>>>>>> VCS...</literal> are produce by the underlying VCS, which is Subversion in this example.<footnote>
+<para>If the underlying VCS would a distributed one, such Git, and the push to a designated central repository is expected afterwards, it must be performed manually.</para>
+</footnote></para>
+
+<para>As can be seen from the example output, <command>poascribe</command> will add ascription records into ascription PO files corresponding to original PO files, and commit them all. Like a VCS command, <command>poascribe co</command> can take any number of PO file or directory paths. For a directory path, only files with <filename>.po</filename> extension in it will be processed, and any other ignored. <command>poascribe</command> can be run from any working directory with appropriate paths as arguments, and it will always find the associated ascription configuration and files. If a default commit message has not been set in the ascription configuration, <command>poascribe</command> will ask for it; or it can be given in command line through <option>-m</option> option.</para>
+
+<sect2 id="sec-asctrnocomm">
+<title>Translators Without Commit Access</title>
+
+<para>With the ascription system in place, every regular translator should have the commit access to the repository. But, there may be some period of time before new translators are given commit access, or revision control may be too technical for some, and even those who have access may not be able to commit temporarily for some reason.</para>
+
+<para>These translators may send in their work by email or any other informal channel, to <emphasis>any</emphasis> member of the team how does have commit access. This team member can then commit received files without any review, as review can be conducted at any later time. If Bob sends some files to Alice, she can commit them immediately by stating Bob's user name:
+<programlisting>
+$ poascribe co -u bob <replaceable>files...</replaceable>
+</programlisting>
+For this to work, the translator who sent in the files has to be defined in the ascription configuration. There are no hidden costs or security issues to this (as opposed to giving VCS commit access), so every new translator should be defined there before any work of that person is committed.</para>
+
+</sect2>
+
+</sect1>
+
+<!-- ======================================== -->
+<sect1 id="sec-ascdailyrev">
+<title>Daily Use for Reviewers</title>
+
+<para>An ascription system opens up all sorts of possibilities for review patterns. Reviewers should keep in mind that for each message the full modification and review history is available, so that the translation team can think about how to make good use of it. What follows are some examples to illustrate the review functionality provided by <command>poascribe</command>.</para>
+
+<sect2 id="sec-ascbaserev">
+<title>Basic Reviewing</title>
+
+<para>At the very basic level (which is the only level in <link linkend="sec-ascrevcomp">review by stages</link>), messages can be classified as simply unreviewed or reviewed. Alice now wants to review all unreviewed messages in a subset of PO files, say the <filename>ui/</filename> subdirectory. She issues the following command (<literal>di</literal> is short for <literal>diff</literal>):
+<programlisting>
+$ poascribe di po/ui/
+po/ui/alpha.po  (2)
+po/ui/foxtrot.po  (7)
+po/ui/november.po  (12)
+===== Diffed for review: 21
+$
+</programlisting>
+With this, all unreviewed messages in listed PO files have been marked, and <emphasis>diffed</emphasis>. If these PO files had already been reviewed before, some of the messages modified since then (those now marked for review) may have changed very little. For example, a few changed words in a paragraph-length message, or even just some punctuation. Therefore, for each message marked for review, Alice also wants to see the diff since the last review to current version. Here are two messages with typical review elements added by <literal>poascribe di</literal>:
+<programlisting>
+#. ~ascto: charlie:m
+#: gui/mainwindow.cc:372
+#, ediff
+msgid "GAME OVER. {-You won-}{+Tie+}!"
+msgstr "KRAJ IGRE. {-Pobeda-}{+Nerešeno+}!"
+
+#. ~ascto: bob:m charlie:m
+#: game-state.cpp:117
+#, ediff-total
+msgid "Click the pause button again to resume the game."
+msgstr "Kliknite ponovo na dugme pauze da nastavite igru."
+</programlisting>
+</para>
+
+<para>In the first message, the first thing to note is the <literal>#. ~ascto:</literal> comment. This comment succinctly lists who did what with the message since the last review; here <literal>charlie:m</literal> means that Charlie is the one who modified it. Then there is the <literal>ediff</literal> flag, which Alice can search for in the editor to jump through messages marked for review. Finally, the original and translation have been diffed; here they show that, since the last review, the message was fuzzied by changing "You won" to "Tie", and what Charlie did in translation to unfuzzy it. Even on a message as short as this, the diff tells something useful to Alice: the phrase "Game over" likely has a formulaic translation, and the fact that it is not part of the diff means that the earlier reviewer had made sure it is consistent, so Alice does not have to check that.</para>
+
+<para>The <literal>#. ~ascto:</literal> comment of the second message reveals that both Charlie and Bob had been modifying it. The <literal>ediff-total</literal> flag instead of plain <literal>ediff</literal> means that this message had no reviews until now, so there are no embedded diffs in text fields.</para>
+
+<para>Alice can now go through marked messages in liste PO files, review translations, and possibly make modifications. When making changes in a message with embedded diffs, she can freely edit the text outside of difference segments and within <literal>{+...+}</literal> segments (as these are the ones which belong to current version of the text). While reviewing, Alice does <emphasis>not</emphasis> remove any of the added message elements (except for an occasional difference segment, if she modifies a translation), as these elements are needed for a subsequent invocation of <command>poascribe</command>. If a message is particularly hard to translate and Alice wants to defer reviewing it for some later time, she can add to it the <literal>unreviewed</literal> flag (or <literal>nrev</literal> for short).</para>
+
+<para>Once the review is complete, Alice simply commits the reviewed files:
+<programlisting>
+$ poascribe co po/ui/
+po/ui/alpha.po  (0/2)
+po/ui/foxtrot.po  (0/7)
+po/ui/november.po  (3/12)
+===== Ascription summary:
+-           modified  reviewed
+translated         3        21
+>>>>> VCS is committing catalogs:
+Sending      po/ui/november.po
+Sending      po-ascript/ui/alpha.po
+Sending      po-ascript/ui/foxtrot.po
+Sending      po-ascript/ui/november.po
+Transmitting file data ....
+Committed revision 1284220.
+$
+</programlisting>
+Three things have happened here. First, all review states (flags, embedded diffs, etc.) have been removed, restoring diffed PO files to original state. Then, any modifications that Alice has made during review are ascribed to her (here 3 out of 21 messages). Finally, all marked messages are ascribed as reviewed by Alice (any with <literal>unreviewed</literal> or <literal>nrev</literal> flags would have been omitted here). When committing, the only original PO file that got committed is the one with modifications made during review, and all the ascription PO files were committed because of the reviews recorded in them.</para>
+
+<para>When many PO files with few changes per file should be reviewed, it becomes burdensome to manually open each and every diffed file for review, and then to make sure that all are committed with <command>poascribe co</command>. To make this easier, <literal>-w toreview.out</literal> option can be added to the <literal>poascribe di</literal> command line, which requests that paths of all diffed PO files be written into <filename>toreview.out</filename> file. This file can then be used to batch-open diffed PO files in an editor, as well as to commit them leter by adding <literal>-f toreview.out</literal> to <literal>poascribe co</literal>. There is also <option>-o</option> option, which tells <command>poascribe</command> to directly open PO files in one of the supported PO editors (see <xref linkend="sec-cmsupped"/>). Putting it together, to efficiently review a whole bunch of small changes throughout many PO files, with Lokalize as the PO editor, Alice can execute:
+<programlisting>
+$ poascribe di <replaceable>paths...</replaceable> -w toreview.out -o lokalize
+$ # ...only marked messages opened in Lokalize, review them...
+$ poascribe co -f toreview.out
+</programlisting>
+</para>
+
+<para>If for whatever reason Alice wants to simply remove the review elements from messages without committing the PO files (effectively discarding her review), she can use the <literal>purge</literal> mode (short <literal>pu</literal>) of <command>poascribe</command>:
+<programlisting>
+$ poascribe pu <replaceable>paths...</replaceable>
+</programlisting>
+If <option>-k</option>/<option>--keep-flags</option> option is added to this command line, the flags which mark the messages as reviewed get preserved; more precisely, every <literal>ediff*</literal> flag is replaced with <literal>reviewed</literal> flag, and every <literal>unreviewed</literal> flag is left in, so that subsequent invocation of <literal>poascribe co</literal> can record reviews. Alice will want this limited purging if she has some automatic validation tools to run before committing her modifications, and these tools would be thrown off by review elements (most likely by embedded diffs).</para>
+
+</sect2>
+
+<sect2 id="sec-ascselrev">
+<title>Selecting Messages for Review</title>
+
+<para>Invocations of <command>poascribe di</command> without any options, as in the previous section, are equivalent to this:
+<programlisting>
+$ poascribe di -s modar <replaceable>paths...</replaceable>
+</programlisting>
+The <option>-s</option> option serves to issue a message <emphasis>selector</emphasis>. <literal>modar</literal> is the default selector for the <literal>diff</literal> operation mode, and stands for "MODified-After-Review": it selects the earliest historical modification of the message after the last (or no) review of that message, if there is any such. By selecting a historical modification of the message, the difference from it to current version can be computed and embedded into the PO file, as seen in earlier examples.</para>
+
+<para>There are various specialized selectors, and they fall into two groups: <emphasis>shallow selectors</emphasis> and <emphasis>history selectors</emphasis>. Shallow selectors look only into the current version of the message, and cannot select historical versions, which means that they cannot provide embedded diffs. History selectors (<literal>modar</literal> is of this type) can select messages from history and provide diffs. Several selectors can be issued on the command line, and the message is selected only if all selectors select it (boolean AND-linking). Shallow selectors are thus normally used as a pre-filters for history selectors. For example, to select messages modified after the last review, but only those <link linkend="ch-summit">found in the stable branch</link>, <literal>branch</literal> and <literal>modar</literal> selectors are chained like this:
+<programlisting>
+$ poascribe di -s branch:stable -s modar <replaceable>paths...</replaceable>
+</programlisting>
+It is important that the history selector is given last, because the last selector determines which historical message is selected for diffing. If the ordering had been reversed in this example, same messages would get selected, but they would not have embedded diffs, because <literal>branch</literal> is a shallow selector.</para>
+
+<para>Selectors can take parameters themselves, like <literal>branch:stable</literal> in the previous example. Parameters are separated from the selector name by any non-alphanumeric character; this is colon by convention, but if a parameter contains a colon, something else, like slash, tilde, etc. can be used. Number of parameters can vary, and <literal>modar</literal> in particular can take from none to three. If Alice wants to review only those messages modified <emphasis>by Charlie</emphasis> since the last review, she states this by first argument to <literal>modar</literal>:
+<programlisting>
+$ poascribe di -s modar:charlie <replaceable>paths...</replaceable>
+</programlisting>
+If Alice does not give much credit to other reviewers, she can request selection of messages modified after <emphasis>her own</emphasis> last review with second parameter to <literal>modar</literal>:
+<programlisting>
+$ poascribe di -s modar::alice <replaceable>paths...</replaceable>
+</programlisting>
+Here the first parameter ("modified by..."), which is not needed, must be explicitly skipped, before proceeding to the second parameter ("reviewed by..."). (The third optional parameter to <literal>modar</literal> will be demonstrated later on.)</para>
+
+<para>When a selector parameter is a user name, normally it can also be a comma-separated list of user names (<literal>modar:bob,charlie</literal>) or prefixed with tilde to negate, i.e. to select all users other than those listed (<literal>modar:~alice</literal>).</para>
+
+<para>Any selector can be negated by prepending <literal>n</literal> to its name. For example, the history selector <literal>modafter:<replaceable>date</replaceable></literal> selects first modification after the given date; to select messages modified after the last review, but only if modified during June 2010:
+<programlisting>
+$ poascribe di -s modafter:2010-06 -s nmodafter:2010-07 -s modar <replaceable>paths...</replaceable>
+</programlisting>
+Negating a history selector produces a shallow selector: while <literal>modafter</literal> is a history selector, <literal>nmodafter</literal> is shallow. But the mutual ordering of the two in this example is not important, since the last selector in the chain is the usual <literal>modar</literal>.</para>
+
+<para>Selectors can be issued in other modes too. If the PO file is big, and Alice has reviewed messages up to and including the message with entry number 246 when she has to pause until another day, she can commit reviews only up to this entry by issuing the <literal>espan</literal> selector:
+<programlisting>
+$ poascribe co -s espan::246 <replaceable>paths...</replaceable>
+</programlisting>
+The first parameter to <literal>espan</literal>, here omitted, would be the entry number of the first message to select, in case messages should not be selected starting from the first in the file. There is also the counterpart <literal>lspan</literal> selector, which works with referent line numbers (those of <varname>msgid</varname> keywords) instead of entry numbers.</para>
+
+</sect2>
+
+<sect2 id="sec-ascfgrev">
+<title>Fine-Grained Reviews</title>
+
+<para>In the introduction of this chapter, several distinct things that can go wrong in translation were described. Not all reviewers may be able to check translation against all those problems. Here is a typical scenario of this kind:</para>
+
+<para>Alice is computer-savvy and knows the translation project inside and out, which means that she can review well for context, terminology, and technical style. But, her language style leaves something to be desired, which shows in longer sentences and passages. Dan, on the other hand, is a very literary person, but not that much into the technical aspects. Dan's style reviews would thus be a perfect complement to Alice's general reviews.</para>
+
+<para><command>poascribe</command> can support this scenario in the following way. A <emphasis>review type</emphasis> tag <literal>lstyle</literal> for language style is defined in the ascription configuration, using the <literal>review-tags</literal> field:
+<programlisting>
+[global]
+...
+review-tags = lstyle
+</programlisting>
+With this addition to configuration, Alice can continue to review as she did before, without any changes in her workflow.</para>
+
+<para>Dan selects messages for review similarly to Alice, but aditionally giving the <literal>lstyle</literal> tag as the <emphasis>third</emphasis> parameter of <literal>modar</literal>, and indicating that reviews should be tagged as <literal>lstyle</literal> using the <option>-t</option> option:
+<programlisting>
+$ poascribe di -s modar:::lstyle -t lstyle <replaceable>paths...</replaceable>
+</programlisting>
+After finishing the review, Dan commits as usual:
+<programlisting>
+$ poascribe co PATHS...
+</programlisting>
+</para>
+
+<para>If Dan is always going to review the language style, in order not to have to issue the selector and the tag in command line all the time, he can make them default for the <literal>diff</literal> mode in Pology user configuration:
+<programlisting>
+[poascribe]
+user = dan
+selectors/diff = modar:::lstyle
+tags/diff = lstyle
+</programlisting>
+With this, Dan can use plain <literal>poascribe di</literal> just like Alice does.</para>
+
+<para>The important point of review tags is that they make reviews by types independent. For example, Dan may come around to review the language style of the given message after several modifications and general reviews have been ascribed to it -- <literal>modar:::lstyle</literal> will simply ignore all reviews other than <literal>lstyle</literal> reviews. This is going to be reflected in the <literal>~ascto:</literal> comment of diffed messages:
+<programlisting>
+#...
+#. ~ascto: charlie:m alice:r bob:m
+#...
+msgid "..."
+msgstr "..."
+</programlisting>
+Here Alice has made one review between Charlie's and Bob's modifications, and that review, being general instead of <literal>lstyle</literal>, did not cause <literal>modar</literal> to stop at it. After Dan reviews this message for language style, Alice runs selection for review and gets this:
+<programlisting>
+#...
+#. ascto: bob:m dan:r(lstyle)
+#...
+msgid "..."
+msgstr "..."
+</programlisting>
+Again, since <literal>lstyle</literal> reviews do not mix with general reviews<footnote>
+<para>General review too has a tag assigned, the empty string, in case the reviewer needs to explicitly issue it in some context.</para>
+</footnote>, Dan's review did not hide Bob's modification that Alice did not check so far.</para>
+
+</sect2>
+
+</sect1>
+
+<!-- ======================================== -->
+<sect1 id="sec-ascmaint">
+<title>General Maintenance Procedures</title>
+
+<para>After the ascription system is set up, there should be very little to do to maintain it. The details depend on the established translation workflow, and this section describes some of the procedures which may apply.</para>
+
+<sect2 id="sec-ascmerge">
+<title>Ascribing Merges</title>
+
+<para>If PO files are periodically merged with templates in a centralized manner, by one designated person or repository automation, these modifications must also be ascribed. This is done as any other ascription, by substituting the VCS commit command with <literal>poascribe co</literal>. For example:
+<programlisting>
+$ svn commit $LANGDIR -m "Everything merged."
+</programlisting>
+may be substituted with:
+<programlisting>
+$ poascribe commit $LANGDIR -m "Everything merged."
+</programlisting>
+Since the user is not explicitly given by the <option>-u</option> option, this will ascribe modifications due to merging to the person set in Pology user configuration on the system where the command is executed. This is just fine. It is also possible to define a dummy user to which modifications due to merging are ascribed, though there is no known advantage to that at present.</para>
+
+<para>Note that you can issue the <option>-C</option> option to prevent <command>poascribe</command> from automatically committing merged files, in case are some automatic post-merge operations that you would like to perform on merged PO files beforehand. Afterwards, standalone VCS commit command can be issued, but do not forget to include the ascription file tree in it as well.</para>
+
+</sect2>
+
+<sect2 id="sec-ascshuffle">
+<title>Shuffling Ascription PO Files</title>
+
+<para>Sometimes PO files are "shuffled" in the repository: renamed, moved to another subdirectory, etc. Such shuffling should be exactly mirrored in the ascription tree:
+<itemizedlist>
+
+<listitem>
+<para>If a PO file is moved or renamed, its counterpart ascription PO file should also be moved or renamed in the same way within the ascription tree.</para>
+</listitem>
+
+<listitem>
+<para>If a PO file is split into two, then it depends on how you handle the splitting. A good way would be to copy the old PO file to two new names, and then merge them with new templates. In this way as much of existing translation as possible will be preserved. If this is done, then the ascription PO files should be copied to new names, but then there is nothing to merge them with. This is just right, since message ascription histories generally interleave across the split (but also see <xref linkend="sec-asctrim"/>).</para>
+</listitem>
+
+<listitem>
+<para>If two PO files are merged into one, you should probably handle that by using <command>msgcat</command> to properly concatenate them into the new PO file, and then merge the new PO file with its template. Then, the old ascription PO files should be concatenated with <command>msgcat</command> as well, and nothing more. But, <emphasis>make sure</emphasis> that you issue the <option>--use-first</option> to <command>msgcat</command>, for both concatenations. This is because when in the two concatenated PO files there are two messages with same <varname>msgctxt</varname>+<varname>msgid</varname> but different <varname>msgstr</varname>, <command>msgcat</command> will by default make a free-form composition of <varname>msgstr</varname> texts, for translator to manually disentangle later. This would ruin the ascription entry of such a message in the concatenated ascription PO file.</para>
+</listitem>
+
+</itemizedlist>
+After the shuffling is performed in both file trees, <literal>poascribe co</literal> is executed to smooth out and commit modifications.</para>
+
+</sect2>
+
+<sect2 id="sec-ascfltrel">
+<title>Filtering for Release</title>
+
 <para></para>
+
+</sect2>
+
+<sect2 id="sec-asctrim">
+<title>Trimming Ascription History</title>
+
+<para></para>
+
+</sect2>
+
+</sect1>
+
+<!-- ======================================== -->
+<sect1 id="sec-ascoptions">
+<title>Command Line Options</title>
+
+<para></para>
+
+</sect1>
+
+<!-- ======================================== -->
+<sect1 id="sec-ascconfig">
+<title>User Configuration</title>
+
+<para></para>
+
+</sect1>
+
+<!-- ======================================== -->
+<sect1 id="sec-ascsels">
+<title>Review Selectors</title>
+
+<para></para>
+
+<sect2 id="sec-ascwrsel">
+<title>Writing Selector Functions</title>
+
+<para></para>
+
+</sect2>
+
+</sect1>
 
 </chapter>
