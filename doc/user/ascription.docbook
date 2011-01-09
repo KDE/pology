@@ -15,7 +15,7 @@
 
 <para>Style in the linguistic sense is especially applicable to longer texts, such as tooltips in user interface or paragraphs in documentation. A typical error of a new translator is to closely adhere to English style and grammar. This may produce translation which is semantically and grammatically valid in the target language, but very out of style. Reviewer then steps in to naturalize such constructs.</para>
 
-<para>Finally, while the reviewer may be an experienced translator, that does not mean that his own translations need no review. Immersion into the source language, distraction, and fatigue, will lead the reviewer into any of the above errors in translation, only with lesser frequency. This means that reviewers should also review one anothers' translations.</para>
+<para>Finally, while the reviewer may be an experienced translator, that does not mean that his own translations need no review. Immersion into the source language, distraction, and fatigue, will lead the reviewer into any of the above errors in translation, only with lesser frequency. This means that reviewers should also mutually review their own translations.</para>
 
 <para>This calls for a systematic approach to review in translation workflow.</para>
 
@@ -37,7 +37,7 @@
 
 <para>Since everyone just commits, translations can be efficiently kept in a version control repository, with the ascription system added on top. After having done some translating, the translator simply substitutes commit command of the version control system (VCS) with "ascribe modifications" command of the ascription system (AS, which calls the underlying VCS internally). After reviewing, the reviewer uses "ascribe reviews" command of the AS to commit reviews to ascription history (as well as any modifications made during the review). To select messages for review, the reviewer issues "diff for review" command of the AS, with suitable parameters to narrow the message set; selected messages are marked in-place in PO files and equipped with <link linkend="ch-diffpatch">embedded differences</link>, and possibly directly opened in a PO editor.</para>
 
-<para>When the translations are to be released, the release person issues "filter for release" command of the AS, which takes the working PO files and creates final PO files, in which the insufficiently reviewed messages are removed. Here "release time" can be understood figuratively: since filtering for release should be a fully automatic process, it can be performed at any interval of convenience.</para>
+<para id="p-asrel">When the translations are to be released, the release person issues "filter for release" command of the AS, which takes the working PO files and creates final PO files, in which the insufficiently reviewed messages are removed. Here "release time" can be understood figuratively: since filtering for release should be a fully automatic process, it can be performed at any interval of convenience.</para>
 
 <para>What constitutes "sufficient review" can be defined in fine detail. It could be specified that messages modified by Alice need to have only review for terminology, but not necessarily for style; Charlie may belong to the group which needs to be reviewed on style, but not necessarily on context; Bob's reviews for style may be nice to have, but never blocking the release if missing. These decisions do not preclude released messages to be reviewed later on missing points, after higher priority reviews have been completed. The definition of sufficiency may be changed at any point, e.g. as team members get more experienced and require less review, without interfering with direct translation and review activities.</para>
 
@@ -274,7 +274,7 @@ Ascription PO files are used by <command>poascribe</command> to store the ascrip
 
 <para><command>poascribe</command> may also modify original PO files during this run, by removing any previous field comments (<literal>#| ...</literal>) on translated messages. These comments are sometimes erroneously left in when the PO file is translated with an older or less capable PO editor, and leaving them would result in unnecessary additions to ascription PO files.</para>
 
-<para>The newly created ascription tree, any modifications to the original tree, and the acription configuration file, can now be committed as usual. With Subversion as the VCS:
+<para>The newly created ascription tree, any modifications to the original tree, and the ascription configuration file, can now be committed as usual. With Subversion as the VCS:
 <programlisting>
 $ cd $LANGDIR
 $ svn add ascription-config po-ascript
@@ -318,7 +318,7 @@ Committed revision 1267069.
 $
 </programlisting>
 The lines after <literal>>>>>> VCS...</literal> are produce by the underlying VCS, which is Subversion in this example.<footnote>
-<para>If the underlying VCS would a distributed one, such Git, and the push to a designated central repository is expected afterwards, it must be performed manually.</para>
+<para>If the underlying VCS would a distributed one, such Git, and the push to a designated central repository is expected afterward, it must be performed manually.</para>
 </footnote></para>
 
 <para>As can be seen from the example output, <command>poascribe</command> will add ascription records into ascription PO files corresponding to original PO files, and commit them all. Like a VCS command, <command>poascribe co</command> can take any number of PO file or directory paths. For a directory path, only files with <filename>.po</filename> extension in it will be processed, and any other ignored. <command>poascribe</command> can be run from any working directory with appropriate paths as arguments, and it will always find the associated ascription configuration and files. If a default commit message has not been set in the ascription configuration, <command>poascribe</command> will ask for it; or it can be given in command line through <option>-m</option> option.</para>
@@ -356,7 +356,7 @@ po/ui/november.po  (12)
 ===== Diffed for review: 21
 $
 </programlisting>
-With this, all unreviewed messages in listed PO files have been marked, and <emphasis>diffed</emphasis>. If these PO files had already been reviewed before, some of the messages modified since then (those now marked for review) may have changed very little. For example, a few changed words in a paragraph-length message, or even just some punctuation. Therefore, for each message marked for review, Alice also wants to see the diff since the last review to current version. Here are two messages with typical review elements added by <literal>poascribe di</literal>:
+With this, all unreviewed messages in listed PO files have been marked, and <emphasis>diffed</emphasis>. If these PO files had already been reviewed before, some of the messages modified since then (those now marked for review) may have changed very little. For example, a few changed words in a paragraph-length message, or even just some punctuation. Therefore, for each message marked for review, Alice also wants to see the difference since the last review to current version. Here are two messages with typical review elements added by <literal>poascribe di</literal>:
 <programlisting>
 #. ~ascto: charlie:m
 #: gui/mainwindow.cc:372
@@ -372,11 +372,11 @@ msgstr "Kliknite ponovo na dugme pauze da nastavite igru."
 </programlisting>
 </para>
 
-<para>In the first message, the first thing to note is the <literal>#. ~ascto:</literal> comment. This comment succinctly lists who did what with the message since the last review; here <literal>charlie:m</literal> means that Charlie is the one who modified it. Then there is the <literal>ediff</literal> flag, which Alice can search for in the editor to jump through messages marked for review. Finally, the original and translation have been diffed; here they show that, since the last review, the message was fuzzied by changing "You won" to "Tie", and what Charlie did in translation to unfuzzy it. Even on a message as short as this, the diff tells something useful to Alice: the phrase "Game over" likely has a formulaic translation, and the fact that it is not part of the diff means that the earlier reviewer had made sure it is consistent, so Alice does not have to check that.</para>
+<para>In the first message, the first thing to note is the <literal>#. ~ascto:</literal> comment. This comment succinctly lists who did what with the message since the last review; here <literal>charlie:m</literal> means that Charlie is the one who modified it. Then there is the <literal>ediff</literal> flag, which Alice can search for in the editor to jump through messages marked for review. Finally, the original and translation have been diffed; here they show that, since the last review, the message was fuzzied by changing "You won" to "Tie", and what Charlie did in translation to unfuzzy it. Even on a message as short as this, the difference tells something useful to Alice: the phrase "Game over" likely has a formulaic translation, and the fact that it is not part of the difference means that the earlier reviewer had made sure it is consistent, so Alice does not have to check that.</para>
 
-<para>The <literal>#. ~ascto:</literal> comment of the second message reveals that both Charlie and Bob had been modifying it. The <literal>ediff-total</literal> flag instead of plain <literal>ediff</literal> means that this message had no reviews until now, so there are no embedded diffs in text fields.</para>
+<para>The <literal>#. ~ascto:</literal> comment of the second message reveals that both Charlie and Bob had been modifying it. The <literal>ediff-total</literal> flag instead of plain <literal>ediff</literal> means that this message had no reviews until now, so there are no embedded differences in text fields.</para>
 
-<para>Alice can now go through marked messages in liste PO files, review translations, and possibly make modifications. When making changes in a message with embedded diffs, she can freely edit the text outside of difference segments and within <literal>{+...+}</literal> segments (as these are the ones which belong to current version of the text). While reviewing, Alice does <emphasis>not</emphasis> remove any of the added message elements (except for an occasional difference segment, if she modifies a translation), as these elements are needed for a subsequent invocation of <command>poascribe</command>. If a message is particularly hard to translate and Alice wants to defer reviewing it for some later time, she can add to it the <literal>unreviewed</literal> flag (or <literal>nrev</literal> for short).</para>
+<para>Alice can now go through marked messages in listed PO files, review translations, and possibly make modifications. When making changes in a message with embedded differences, she can freely edit the text outside of difference segments and within <literal>{+...+}</literal> segments (as these are the ones which belong to current version of the text). While reviewing, Alice does <emphasis>not</emphasis> remove any of the added message elements (except for an occasional difference segment, if she modifies a translation), as these elements are needed for a subsequent invocation of <command>poascribe</command>. If a message is particularly hard to translate and Alice wants to defer reviewing it for some later time, she can add to it the <literal>unreviewed</literal> flag (or <literal>nrev</literal> for short).</para>
 
 <para>Once the review is complete, Alice simply commits the reviewed files:
 <programlisting>
@@ -396,9 +396,9 @@ Transmitting file data ....
 Committed revision 1284220.
 $
 </programlisting>
-Three things have happened here. First, all review states (flags, embedded diffs, etc.) have been removed, restoring diffed PO files to original state. Then, any modifications that Alice has made during review are ascribed to her (here 3 out of 21 messages). Finally, all marked messages are ascribed as reviewed by Alice (any with <literal>unreviewed</literal> or <literal>nrev</literal> flags would have been omitted here). When committing, the only original PO file that got committed is the one with modifications made during review, and all the ascription PO files were committed because of the reviews recorded in them.</para>
+Three things have happened here. First, all review states (flags, embedded differences, etc.) have been removed, restoring diffed PO files to original state. Then, any modifications that Alice has made during review are ascribed to her (here 3 out of 21 messages). Finally, all marked messages are ascribed as reviewed by Alice (any with <literal>unreviewed</literal> or <literal>nrev</literal> flags would have been omitted here). When committing, the only original PO file that got committed is the one with modifications made during review, and all the ascription PO files were committed because of the reviews recorded in them.</para>
 
-<para>When many PO files with few changes per file should be reviewed, it becomes burdensome to manually open each and every diffed file for review, and then to make sure that all are committed with <command>poascribe co</command>. To make this easier, <literal>-w toreview.out</literal> option can be added to the <literal>poascribe di</literal> command line, which requests that paths of all diffed PO files be written into <filename>toreview.out</filename> file. This file can then be used to batch-open diffed PO files in an editor, as well as to commit them leter by adding <literal>-f toreview.out</literal> to <literal>poascribe co</literal>. There is also <option>-o</option> option, which tells <command>poascribe</command> to directly open PO files in one of the supported PO editors (see <xref linkend="sec-cmsupped"/>). Putting it together, to efficiently review a whole bunch of small changes throughout many PO files, with Lokalize as the PO editor, Alice can execute:
+<para>When many PO files with few changes per file should be reviewed, it becomes burdensome to manually open each and every diffed file for review, and then to make sure that all are committed with <command>poascribe co</command>. To make this easier, <literal>-w toreview.out</literal> option can be added to the <literal>poascribe di</literal> command line, which requests that paths of all diffed PO files be written into <filename>toreview.out</filename> file. This file can then be used to batch-open diffed PO files in an editor, as well as to commit them later by adding <literal>-f toreview.out</literal> to <literal>poascribe co</literal>. There is also <option>-o</option> option, which tells <command>poascribe</command> to directly open PO files in one of the supported PO editors (see <xref linkend="sec-cmsupped"/>). Putting it together, to efficiently review a whole bunch of small changes throughout many PO files, with Lokalize as the PO editor, you can execute:
 <programlisting>
 $ poascribe di <replaceable>paths...</replaceable> -w toreview.out -o lokalize
 $ # ...only marked messages opened in Lokalize, review them...
@@ -406,11 +406,11 @@ $ poascribe co -f toreview.out
 </programlisting>
 </para>
 
-<para>If for whatever reason Alice wants to simply remove the review elements from messages without committing the PO files (effectively discarding her review), she can use the <literal>purge</literal> mode (short <literal>pu</literal>) of <command>poascribe</command>:
+<para>If for whatever reason you want to simply remove the review elements from messages without committing the PO files (effectively discarding the review), you can use the <literal>purge</literal> mode (short <literal>pu</literal>) of <command>poascribe</command>:
 <programlisting>
 $ poascribe pu <replaceable>paths...</replaceable>
 </programlisting>
-If <option>-k</option>/<option>--keep-flags</option> option is added to this command line, the flags which mark the messages as reviewed get preserved; more precisely, every <literal>ediff*</literal> flag is replaced with <literal>reviewed</literal> flag, and every <literal>unreviewed</literal> flag is left in, so that subsequent invocation of <literal>poascribe co</literal> can record reviews. Alice will want this limited purging if she has some automatic validation tools to run before committing her modifications, and these tools would be thrown off by review elements (most likely by embedded diffs).</para>
+If <option>-k</option>/<option>--keep-flags</option> option is added to this command line, the flags which mark the messages as reviewed get preserved; more precisely, every <literal>ediff*</literal> flag is replaced with <literal>reviewed</literal> flag, and every <literal>unreviewed</literal> flag is left in, so that subsequent invocation of <literal>poascribe co</literal> can record reviews. You will want this limited purging if you have some automatic validation tools to run before committing, and these tools would be thrown off by review elements (most likely by embedded differences).</para>
 
 </sect2>
 
@@ -423,11 +423,11 @@ $ poascribe di -s modar <replaceable>paths...</replaceable>
 </programlisting>
 The <option>-s</option> option serves to issue a message <emphasis>selector</emphasis>. <literal>modar</literal> is the default selector for the <literal>diff</literal> operation mode, and stands for "MODified-After-Review": it selects the earliest historical modification of the message after the last (or no) review of that message, if there is any such. By selecting a historical modification of the message, the difference from it to current version can be computed and embedded into the PO file, as seen in earlier examples.</para>
 
-<para>There are various specialized selectors, and they fall into two groups: <emphasis>shallow selectors</emphasis> and <emphasis>history selectors</emphasis>. Shallow selectors look only into the current version of the message, and cannot select historical versions, which means that they cannot provide embedded diffs. History selectors (<literal>modar</literal> is of this type) can select messages from history and provide diffs. Several selectors can be issued on the command line, and the message is selected only if all selectors select it (boolean AND-linking). Shallow selectors are thus normally used as a pre-filters for history selectors. For example, to select messages modified after the last review, but only those <link linkend="ch-summit">found in the stable branch</link>, <literal>branch</literal> and <literal>modar</literal> selectors are chained like this:
+<para id="p-seltypes">There are various specialized selectors, and they fall into two groups: <emphasis>shallow selectors</emphasis> and <emphasis>history selectors</emphasis>. Shallow selectors look only into the current version of the message, and cannot select historical versions, which means that they cannot provide embedded differences. History selectors (<literal>modar</literal> is of this type) can select messages from history and provide differences. Several selectors can be issued on the command line, and the message is selected only if all selectors select it (boolean AND-linking). Shallow selectors are thus normally used as a pre-filters for history selectors. For example, to select messages modified after the last review, but only those <link linkend="ch-summit">found in the stable branch</link>, <literal>branch</literal> and <literal>modar</literal> selectors are chained like this:
 <programlisting>
 $ poascribe di -s branch:stable -s modar <replaceable>paths...</replaceable>
 </programlisting>
-It is important that the history selector is given last, because the last selector determines which historical message is selected for diffing. If the ordering had been reversed in this example, same messages would get selected, but they would not have embedded diffs, because <literal>branch</literal> is a shallow selector.</para>
+It is important that the history selector is given last, because the last selector determines which historical message is selected for diffing. If the ordering had been reversed in this example, same messages would get selected, but they would not have embedded differences, because <literal>branch</literal> is a shallow selector.</para>
 
 <para>Selectors can take parameters themselves, like <literal>branch:stable</literal> in the previous example. Parameters are separated from the selector name by any non-alphanumeric character; this is colon by convention, but if a parameter contains a colon, something else, like slash, tilde, etc. can be used. Number of parameters can vary, and <literal>modar</literal> in particular can take from none to three. If Alice wants to review only those messages modified <emphasis>by Charlie</emphasis> since the last review, she states this by first argument to <literal>modar</literal>:
 <programlisting>
@@ -453,6 +453,10 @@ $ poascribe co -s espan::246 <replaceable>paths...</replaceable>
 </programlisting>
 The first parameter to <literal>espan</literal>, here omitted, would be the entry number of the first message to select, in case messages should not be selected starting from the first in the file. There is also the counterpart <literal>lspan</literal> selector, which works with referent line numbers (those of <varname>msgid</varname> keywords) instead of entry numbers.</para>
 
+<para>If you do not want to immediately diff for review, but to see first how many messages would be selected by the selector chain that you assembled, you can use the <literal>status</literal> operation mode (<literal>st</literal> for short) instead of <literal>diff</literal>. It takes selectors in the same way as <literal>diff</literal>, and shows counts of selected messages by category. You can also add the <option>-b</option> option to have counts reported by PO file (where non-zero).</para>
+
+<para>You may also want to observe the complete recorded ascription history of a message, all its modifications and reviews, with differences between each two modifications. For this you can use the <literal>history</literal> operation mode (<literal>hi</literal> for short), typically with one of <literal>l</literal> or <literal>e</literal> selectors to single out a particular message. The history will be written out to terminal, starting from the newest to the oldest version of the message, with highlighted embedded differences.</para>
+
 </sect2>
 
 <sect2 id="sec-ascfgrev">
@@ -470,7 +474,7 @@ review-tags = lstyle
 </programlisting>
 With this addition to configuration, Alice can continue to review as she did before, without any changes in her workflow.</para>
 
-<para>Dan selects messages for review similarly to Alice, but aditionally giving the <literal>lstyle</literal> tag as the <emphasis>third</emphasis> parameter of <literal>modar</literal>, and indicating that reviews should be tagged as <literal>lstyle</literal> using the <option>-t</option> option:
+<para>Dan selects messages for review similarly to Alice, but additionally giving the <literal>lstyle</literal> tag as the <emphasis>third</emphasis> parameter of <literal>modar</literal>, and indicating that reviews should be tagged as <literal>lstyle</literal> using the <option>-t</option> option:
 <programlisting>
 $ poascribe di -s modar:::lstyle -t lstyle <replaceable>paths...</replaceable>
 </programlisting>
@@ -532,7 +536,7 @@ $ poascribe commit $LANGDIR -m "Everything merged."
 </programlisting>
 Since the user is not explicitly given by the <option>-u</option> option, this will ascribe modifications due to merging to the person set in Pology user configuration on the system where the command is executed. This is just fine. It is also possible to define a dummy user to which modifications due to merging are ascribed, though there is no known advantage to that at present.</para>
 
-<para>Note that you can issue the <option>-C</option> option to prevent <command>poascribe</command> from automatically committing merged files, in case are some automatic post-merge operations that you would like to perform on merged PO files beforehand. Afterwards, standalone VCS commit command can be issued, but do not forget to include the ascription file tree in it as well.</para>
+<para>Note that you can issue the <option>-C</option> option to prevent <command>poascribe</command> from automatically committing merged files, in case are some automatic post-merge operations that you would like to perform on merged PO files beforehand. Afterward, standalone VCS commit command can be issued, but do not forget to include the ascription file tree in it as well.</para>
 
 </sect2>
 
@@ -562,14 +566,16 @@ After the shuffling is performed in both file trees, <literal>poascribe co</lite
 <sect2 id="sec-ascfltrel">
 <title>Filtering for Release</title>
 
-<para></para>
+<para>At the moment of this writing, <link linkend="p-asrel">filtering for release</link> has not been implemented yet in <command>poascribe</command>, but it is planned.</para>
+
+<para>However, if you <link linkend="ch-summit">translate in summit</link>, it is possible to configure the summit to skip insufficiently reviewed messages when scattering to branches. See <xref linkend="sec-sucfgascf"/> for details.</para>
 
 </sect2>
 
 <sect2 id="sec-asctrim">
 <title>Trimming Ascription History</title>
 
-<para></para>
+<para>At the moment of this writing, trimming the ascription history has not been implemented yet in <command>poascribe</command>, but it is planned.</para>
 
 </sect2>
 
@@ -579,7 +585,220 @@ After the shuffling is performed in both file trees, <literal>poascribe co</lite
 <sect1 id="sec-ascoptions">
 <title>Command Line Options</title>
 
-<para></para>
+<para>Overview of operation modes:
+<variablelist>
+
+<varlistentry>
+<term><literal>commit</literal>, <literal>co</literal></term>
+<listitem>
+<para>Commits modifications and reviews to PO files. Default selector: <literal>any</literal>.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><literal>diff</literal>, <literal>di</literal></term>
+<listitem>
+<para>Adds embedded differences and other review elements to selected messages in PO files. Default selector: <literal>modar</literal>.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><literal>history</literal>, <literal>hi</literal></term>
+<listitem>
+<para>Outputs to terminal the complete history of modifications and reviews for selected messages. Default selector: <literal>any</literal>.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><literal>purge</literal>, <literal>pu</literal></term>
+<listitem>
+<para>Removes all review elements from PO files (unless <option>-k</option>/<option>--keep-flags</option> option is added, when only review flags are kept). Default selector: <literal>any</literal>.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><literal>release</literal>, <literal>re</literal></term>
+<listitem>
+<para><emphasis>Not implemented yet.</emphasis></para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><literal>status</literal>, <literal>st</literal></term>
+<listitem>
+<para>Shows ascription counts per message category (total for all selected messages, and also per PO file if <option>-b</option>/<option>--show-by-file</option> option is added). Default selector: <literal>any</literal>.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><literal>trim</literal>, <literal>tr</literal></term>
+<listitem>
+<para><emphasis>Not implemented yet.</emphasis></para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</para>
+
+<para>Options specific to <command>poascribe</command>:
+<variablelist>
+
+<varlistentry>
+<term><option>-a <replaceable>SELECTOR[:ARGS]</replaceable></option>, <option>--select-ascription=<replaceable>SELECTOR[:ARGS]</replaceable></option></term>
+<listitem>
+<para>By default, a historical message is selected for diffing with current message based on the last history selector given by <option>-s</option>/<option>--selector</option> option (if any). Instead, with this option you can explicitly set the selector for historical messages. It will be applied after the message has been selected by the primary selector chain. The option can be repeated, in which case a historical message is selected if all selectors match it.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>-A <replaceable>RATIO</replaceable></option>, <option>--min-adjsim-diff=<replaceable>RATIO</replaceable></option></term>
+<listitem>
+<para>The minimum adjusted similarity between the current and the historical message at which embedded differences will be shown.<footnote>
+<para>Unlike for example in fuzzy messages, the similarity between the current and the earlier message from the ascription history may be exactly zero, it the PO file has undergone several merges in between. For example, in a two-word message, the first merge could have replaced the first word, and the second merge the second word.</para>
+</footnote> This is a number in range from 0.0 (always show) to 1.0 (never show). If the difference is not shown due to this limit, the message will get the flag <literal>ediff-ignored</literal> instead of the usual <literal>ediff</literal>. A reasonable value may be 0.6 to 0.8.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>-b</option>, <option>--show-by-file</option></term>
+<listitem>
+<para>Some operation modes show summary at the end of the run, which is based on all processed PO files taken together. With this option you can request some of the summary elements to be shown per processed file.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>-C</option>, <option>--no-vcs-commit</option></term>
+<listitem>
+<para>Issue this option if you want <command>poascribe</command> not to commit modifications to version control itself. This may be useful if you want to examine raw modifications it made, to perform some checks, etc, and commit manually later. But <emphasis>do not</emphasis> modify any messages in between, as that would defeat the purpose of ascription.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>-d <replaceable>LEVEL</replaceable></option>, <option>--depth=<replaceable>LEVEL</replaceable></option></term>
+<listitem>
+<para>Operation modes normally consider ascription history of a message starting from the newest and going down to the earliest ascription. With this option you can set the depth to which history is examined, where 0 is the newest ascription only, 1 the current and first previous ascription, etc.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>-D <replaceable>SPEC</replaceable></option>, <option>--diff-reduce-history=<replaceable>SPEC</replaceable></option></term>
+<listitem>
+<para>Some special (possibly custom) selectors may need to examine only differences or commonalities between each two adjacent messages. In order not to have to build this functionality into each such selector, you can issue this option to preprocess ascription history such that each historical message is reduced based on the difference with the next earlier message. The message can be reduced to the parts equal, added or removed as compared to the earlier message. This is controlled by the <literal><replaceable>SPEC</replaceable></literal> value, which must start with one of the letters <literal>e</literal> (equal), <literal>a</literal> (added), or <literal>r</literal> (removed). This letter may be followed with an arbitrary sequence of characters, which will be used to separate the remaining parts of the text in the message; if there are no additional characters, space is used as the separator.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>-F <replaceable>HOOKSPEC</replaceable></option>, <option>--filter=<replaceable>HOOKSPEC</replaceable></option></term>
+<listitem>
+<para>Sometimes it may be necessary to apply selectors not to the ascription history as it is, but to a suitably filtered version of the history. This option can be used to set a Pology F1A hook as filter, see <xref linkend="sec-cmhooks"/> for details. It can be repeated to set several filters.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>-G</option>, <option>--show-filtered</option></term>
+<listitem>
+<para>When setting a filter on ascription history by the <option>-F</option>/<option>--filter</option> option in the <literal>diff</literal> mode, it may be good to see also the difference in filtered messages, those on which the selectors were actually applied. By issuing this option, every message field with an embedded difference will get added a visually conspicuous separator, followed by the filtered version of the text with difference as well. When you commit or purge the PO file diffed in this way, the separators and the filtered text are removed together with all other review elements.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>-k</option>, <option>--keep-flags</option></term>
+<listitem>
+<para>When the diffed PO file is purged of review elements, by default all review elements are removed, so that on subsequent commit only modifications would be ascribed, if there were any. Issuing this option on purge causes that all review elements except for flags are removed. More precisely, <literal>ediff*</literal> flags are replaced with <literal>reviewed</literal>, and <literal>unreviewed</literal> flags are simply kept. This makes the subsequent commit also ascribe reviews. You need this if you want to apply some automatic checks to the PO file after the review and before the commit, where more intrusive review elements (like embedded differences) would interfere.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>-m <replaceable>TEXT</replaceable></option>, <option>--message=<replaceable>TEXT</replaceable></option></term>
+<listitem>
+<para>The text of the commit message. If default commit message is set in the ascription configuration, this text overrides it. If default commit message is not set and this option is not issued, and editor window is opened to enter the commit message.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>-o <replaceable>EDITOR</replaceable></option>, <option>--open-in-editor=<replaceable>EDITOR</replaceable></option></term>
+<listitem>
+<para>When diffing for review, instead of manually opening diffed PO files and searching for messages by flags, this option can be issued to have <command>poascribe</command> automatically open PO files in a PO editor (and possibly have the editor filter the message list to only selected messages). This work only with PO editors explicitly supported by Pology; the <replaceable>EDITOR</replaceable> value is an editor keyword rather than an arbitrary editor command. See <xref linkend="sec-cmsupped"/> for the list of supported editors.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>-L <replaceable>RATIO</replaceable></option>, <option>--max-fraction-select=<replaceable>RATIO</replaceable></option></term>
+<listitem>
+<para>In <literal>diff</literal> mode, this option sets the ratio of selected messages to total messages in a given PO file, above which no message in that file will be selected although the selector chain matched them. The value is the number between 0.0 and 1.0; for example, 0.2 means to accept selection if the number of selected messages is at most 20% of the total number of messages. This can be used to discern between reviewing updated PO files and newly translated PO files, as the latter take much more time to review and hence may be of lesser priority.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>-s <replaceable>SELECTOR[:ARGS]</replaceable></option>, <option>--selector <replaceable>SELECTOR[:ARGS]</replaceable></option></term>
+<listitem>
+<para>The option to set a selector, in various modes. Can be repeated to create selector chains, in which case a message must match all selectors to be selected. In <literal>diff</literal> mode, if the last selector in the chain is not a <link linkend="p-seltypes">history selector</link>, selected messages will have no embedded differences (unless an ascription selector is explicitly given by the <option>-A</option>/<option>--select-ascription</option> option).</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>-t <replaceable>TAG</replaceable></option>, <option>--tag=<replaceable>TAG</replaceable></option></term>
+<listitem>
+<para>The review tag, denoting the type of the review. If <literal>review-tags</literal> field in ascription configuration set, this must be one of the tags defined there (general review has an empty string as tag, which is the default). The tag is normally issued in <literal>diff</literal> mode: it will be appended to review flags on diffed messages (e.g. <literal>ediff/<replaceable>tag</replaceable></literal>), which will cause on commit that the review of this type is ascribed. In <literal>commit</literal> mode, this option has effect only if <option>--all-reviewed</option> is issued as well, in which case this tag will override any from the PO file. Several tags may be given as comma-separated list.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>-u <replaceable>NAME</replaceable></option>, <option>--user=<replaceable>NAME</replaceable></option></term>
+<listitem>
+<para>The user, one of those defined in ascription configuration, to whom modifications and reviews are ascribed on commit.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>-U</option>, <option>--update-headers</option></term>
+<listitem>
+<para>If you work on PO files with a general text editor, you can issue this option on commit to have the header data in modified PO files automatically updated. The necessary information is fetched from the ascription configuration.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>-v</option>, <option>--verbose</option></term>
+<listitem>
+<para>More detailed information on progress of the operation.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>-w <replaceable>FILE</replaceable></option>, <option>--write-modified=<replaceable>FILE</replaceable></option></term>
+<listitem>
+<para>This option specifies the file into which to write the path of every PO file modified during the operation, one per line. This file can later be fed back to <command>poascribe</command> (and other Pology commands) with the <option>-f</option>/<option>--files-from</option> option.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>-x <replaceable>FILE</replaceable></option>, <option>--externals=<replaceable>FILE</replaceable></option></term>
+<listitem>
+<para>If you have <link linkend="sec-prascsel">written some custom selectors</link>, with this option you specify the path to the file containing them. It can be repeated to load several files with custom selectors.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>--all-reviewed</option></term>
+<listitem>
+<para>On commit, normally only messages having <literal>ediff*</literal> or <literal>reviewed</literal> flags will be ascribed as reviewed. If this option is used, instead all messages will be ascribed as reviewed (except for those having <literal>unreviewed</literal> flag).</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</para>
+
+<para>Options common with other Pology tools:
+<variablelist>
+
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+            href="stdopt-filesfrom.docbook"/>
+
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+            href="stdopt-incexc.docbook"/>
+
+</variablelist>
+</para>
 
 </sect1>
 
@@ -587,7 +806,88 @@ After the shuffling is performed in both file trees, <literal>poascribe co</lite
 <sect1 id="sec-ascconfig">
 <title>User Configuration</title>
 
-<para></para>
+<para>The following <link linkend="sec-cmconfig">configuration</link> fields can be used to modify general behavior of <command>poascribe</command>:
+<variablelist>
+
+<varlistentry>
+<term><literal>[poascribe]/aselectors</literal></term>
+<listitem>
+<para>The list of explicit selectors of historical messages, as if they were issued with multiple <option>-a</option>/<option>--aselector</option> options. The first character in the value must be non-alphanumeric (e.g. <literal>/</literal>), and that character is then used to separate selector specifications; the value must also end with this character.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><literal>[poascribe]/diff-reduce-history</literal></term>
+<listitem>
+<para>Counterpart to <option>-D</option>/<option>diff-reduce-history</option> command line option.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><literal>[poascribe]/filters</literal></term>
+<listitem>
+<para>Comma-separated list of history filters, as if they were issued with multiple <option>-F</option>/<option>--filter</option> options.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><literal>[poascribe]/max-fraction-select</literal></term>
+<listitem>
+<para>Counterpart to <option>-L</option>/<option>max-fraction-select</option> command line option.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><literal>[poascribe]/min-adjsim-diff</literal></term>
+<listitem>
+<para>Counterpart to <option>-A</option>/<option>--min-adjsim-diff</option> command line option.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><literal>[poascribe]/po-editor</literal></term>
+<listitem>
+<para>Counterpart to <option>-o</option>/<option>--open-in-editor</option> command line option.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><literal>[poascribe]/selectors</literal></term>
+<listitem>
+<para>List of message selectors, as if they were issued with multiple <option>-s</option>/<option>--selector</option> options. The first character in the value must be non-alphanumeric (e.g. <literal>/</literal>), and that character is then used to separate selector specifications; the value must also end with this character.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><literal>[poascribe]/tags</literal></term>
+<listitem>
+<para>Counterpart to <option>-t</option>/<option>--tag</option> command line option.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><literal>[poascribe]/update-headers=[yes|*no]</literal></term>
+<listitem>
+<para>Setting to <literal>yes</literal> is counterpart to <option>-U</option>/<option>--update-headers</option> command line option.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><literal>[poascribe]/user</literal></term>
+<listitem>
+<para>Counterpart to <option>-u</option>/<option>--user</option> command line option.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><literal>[poascribe]vcs-commit/=[*yes|no]</literal></term>
+<listitem>
+<para>Setting to <literal>no</literal> is counterpart to <option>-C</option>/<option>--no-vcs-commit</option> command line option.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</para>
 
 </sect1>
 
@@ -595,14 +895,171 @@ After the shuffling is performed in both file trees, <literal>poascribe co</lite
 <sect1 id="sec-ascsels">
 <title>Review Selectors</title>
 
-<para></para>
+<para><command>poascribe</command> provides a variety of internal selectors, and new selectors are added as general need for them is observed in practice. Selectors come in two types: history and shallow; the former also select a historical message from which to show the differences to the current message, while the latter do not. Arguments to selectors are added consistently separated with any non-alphanumeric character, customarily colon (<literal>:</literal>) when possible. If less arguments are given than the selector can take, all remaining arguments are set to empty (the selector may or may not accept this).</para>
 
-<sect2 id="sec-ascwrsel">
-<title>Writing Selector Functions</title>
+<para>Available internal selectors are as follows:
+<variablelist>
 
-<para></para>
+<varlistentry>
+<term><literal>any</literal> (shallow)</term>
+<listitem>
+<para>Selects any message.</para>
+</listitem>
+</varlistentry>
 
-</sect2>
+<varlistentry>
+<term><literal>active</literal> (shallow)</term>
+<listitem>
+<para>Selects active messages, i.e. those translated and not obsolete.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><literal>asc:<replaceable>USER</replaceable></literal> (history)</term>
+<listitem>
+<para>Selects latest historical message ascribed (modified or reviewed) by the given user, or to any user if the argument is empty. Multiple users can be given as a comma-separated list, and selection inverted by prepending <literal>~</literal>.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><literal>branch:<replaceable>NAME</replaceable></literal> (shallow)</term>
+<listitem>
+<para>Selects messages belonging to the given branch (see <xref linkend="ch-summit"/>). Several branch names may be given, as comma-separated list.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><literal>current</literal> (shallow)</term>
+<listitem>
+<para>Selects current messages, i.e. those not obsolete.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><literal>e:<replaceable>ENTRYNUM</replaceable></literal> (shallow)</term>
+<listitem>
+<para>Selects a message with given entry number in the PO file (first message has entry number 1, second 2, etc).</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><literal>espan:<replaceable>START</replaceable>:<replaceable>END</replaceable></literal> (shallow)</term>
+<listitem>
+<para>Select messages with entry numbers between given start and end, including both. If start is empty, 1 is assumed; if end is empty, number of messages is assumed.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><literal>fexpr:<replaceable>EXPRESSION</replaceable></literal> (shallow)</term>
+<listitem>
+<para>Selects messages matching a boolean search expression on message parts. It has same syntax as the <link linkend="p-fexprdesc"><literal>fexpr</literal> parameter</link> of the <command>find-messages</command> sieve.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><literal>hexpr:<replaceable>EXPRESSION</replaceable>:<replaceable>USER</replaceable>:<replaceable>DIFFSPEC</replaceable></literal> (history)</term>
+<listitem>
+<para>Like <literal>fexpr</literal>, but matches through historical messages starting from the latest ascription. If user argument is not empty, matches only messages ascribed to that user. Multiple users can be given as a comma-separated list, and selection inverted by prepending <literal>~</literal>. The last argument, if not empty, requests to reduce historical messages by incremental differences before matching them; see the <option>--diff-reduce-history</option> option for the syntax and other details.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><literal>l:<replaceable>LINENUM</replaceable></literal> (shallow)</term>
+<listitem>
+<para>Selects a message with given referent line number in the PO file. This is the line number of <varname>msgid</varname> message field. ±1 offset is accepted.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><literal>lspan:<replaceable>START</replaceable>:<replaceable>END</replaceable></literal> (shallow)</term>
+<listitem>
+<para>Select messages with referent line numbers between given start and end, including both. If start is empty, 1 is assumed; if end is empty, total number of lines is assumed.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><literal>mod:<replaceable>USER</replaceable></literal> (history)</term>
+<listitem>
+<para>Selects latest historical message modified by the given user, or by any user if the argument is empty. Multiple users can be given as a comma-separated list, and selection inverted by prepending <literal>~</literal>.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><literal>modafter:<replaceable>TIMESTAMP</replaceable>:<replaceable>USER</replaceable></literal> (history)</term>
+<listitem>
+<para>Selects the earliest historical message modified at or after the given date and time. The full timestamp format is <literal><replaceable>YEAR</replaceable>-<replaceable>MONTH</replaceable> <replaceable>DAY</replaceable> <replaceable>HOUR</replaceable>:<replaceable>MINUTE</replaceable>:<replaceable>SECOND</replaceable></literal>, but trailing elements can be omitted as logical; for example, <literal>2010-10</literal> would be interpreted as <literal>2010-10-01 00:00:00</literal>. If the user argument is not empty, only modifications by that user are considered; multiple users can be given as a comma-separated list, and selection inverted by prepending <literal>~</literal>.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><literal>modam:<replaceable>USER1</replaceable>:<replaceable>USER2</replaceable></literal> (history)</term>
+<listitem>
+<para>Selects the earliest historical message which introduced modifications after the last modification, or the very first historical message. This makes sense only if one or both of the user arguments are not empty. If the first user argument is not empty, only modifications by that user are considered for selection. If the second user argument is not empty, only the modifications by that user are considered as base. For both user arguments, multiple users can be given as a comma-separated list, and selection inverted by prepending <literal>~</literal>.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><literal>modar:<replaceable>MODUSER</replaceable>:<replaceable>REVUSER</replaceable>:<replaceable>TAG</replaceable></literal> (history)</term>
+<listitem>
+<para>Selects the earliest historical message which introduced modifications after the last review, or the very first historical message if there was no review yet. If the first user argument is not empty, only modifications by that user are considered and reviews by that user are ignored. If the second user argument is not empty, only reviews by that user are considered and modifications by that user are ignored. For both user arguments, multiple users can be given as a comma-separated list, and selection inverted by prepending <literal>~</literal>. The last argument determines which review types (by review tag) to consider, where empty value means "general review"; multiple tags can be given as comma-separated list.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><literal>modarm:<replaceable>MODUSER</replaceable>:<replaceable>REVUSER</replaceable>:<replaceable>TAG</replaceable></literal> (history)</term>
+<listitem>
+<para>Like <literal>modar</literal>, but uses as base for selection the last review <emphasis>or</emphasis> the last modification. This generally makes sense only if some combination of user arguments is given too.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><literal>rev:<replaceable>USER</replaceable></literal> (history)</term>
+<listitem>
+<para>Selects latest historical message reviewed by the given user, or by any user if the argument is empty. Multiple users can be given as a comma-separated list, and selection inverted by prepending <literal>~</literal>.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><literal>revbm:<replaceable>REVUSER</replaceable>:<replaceable>MODUSER</replaceable>:<replaceable>TAG</replaceable></literal> (history)</term>
+<listitem>
+<para>Selects the earliest historical message which has been reviewed just before a modification occurred. If the first user argument is not empty, only reviews by that user are considered and modifications by that user are ignored. If the second user argument is not empty, only modifications by that user are considered and reviews by that user are ignored. For both user arguments, multiple users can be given as a comma-separated list, and selection inverted by prepending <literal>~</literal>. The last argument determines which review types (by review tag) to consider, where empty value means "general review"; multiple tags can be given as comma-separated list.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><literal>tmodar:<replaceable>MODUSER</replaceable>:<replaceable>REVUSER</replaceable>:<replaceable>TAG</replaceable></literal> (history)</term>
+<listitem>
+<para>Like <literal>modar</literal>, but considers as modified only those historical messages with modifications in translation (<varname>msgstr</varname>).</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><literal>unasc</literal> (shallow)</term>
+<listitem>
+<para>Select messages that are not yet ascribed, i.e. those which are modified but not yet committed.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</para>
+
+<para>Every selector automatically gets a negative counterpart, with the name prefixed by <literal>n*</literal>. The negative selector is always shallow, regardless of the type of the original selector.</para>
+
+<para>Custom selectors can be written in a standalone Python source file, which is then fed to <command>poascribe</command> using the <option>-x</option>/<option>--externals</option> option. A file with several custom selectors should have this layout:
+<programlisting>
+def selector_foo (args):
+    ...
+
+def selector_bar (args):
+    ...
+
+xm_selector_factories = {
+    # key: (factory, is_history_selector)
+    "foo": (selector_foo, False),
+    "bar": (selector_bar, True),
+}
+</programlisting>
+<function>selector_foo</function> and <function>selector_bar</function> are factory functions for selectors <literal>foo</literal> and <literal>bar</literal>. After loading the file, <command>poascribe</command> will look for the <varname>xm_selector_factories</varname> dictionary to see which selectors are defined and of what type they are. See <xref linkend="sec-prascsel"/> for the instructions on writing selector factory functions.</para>
 
 </sect1>
 
