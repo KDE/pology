@@ -2963,8 +2963,8 @@ def selector_revbm (args):
 
     if not 0 <= len(args) <= 3:
         raise PologyError(_("@info", "Wrong number of arguments."))
-    muser_spec = args[0] if len(args) > 0 else ""
-    ruser_spec = args[1] if len(args) > 1 else ""
+    ruser_spec = args[0] if len(args) > 0 else ""
+    muser_spec = args[1] if len(args) > 1 else ""
     atag_spec = args[2] if len(args) > 2 else ""
 
     def selector (msg, cat, history, config):
