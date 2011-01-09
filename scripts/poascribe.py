@@ -2367,46 +2367,38 @@ def parse_datetime (dstr):
     return dt
 
 
-def parse_users (userstr, config, cid=None):
+def parse_users (userstr, config):
     """
     Parse users from comma-separated list, verifying that they exist.
 
     If the list starts with tilde (~), all users found in the config
     but for the listed will be selected (inverted selection).
-
-    C{cid} is the string identifying the caller, for error report in
-    case the a parsed user does not exist.
     """
 
     return parse_fixed_set(userstr, config, config.users,
                            t_("@info",
-                              "User '%(name)s' not defined in '%(file)s'."),
-                           cid)
+                              "User '%(name)s' not defined in '%(file)s'."))
 
 
-def parse_tags (tagstr, config, cid=None):
+def parse_tags (tagstr, config):
     """
     Parse tags from comma-separated list, verifying that they exist.
 
     If the list starts with tilde (~), all tags found in the config
     but for the listed will be selected (inverted selection).
-
-    C{cid} is the string identifying the caller, for error report in
-    case the a parsed user does not exist.
     """
 
     tags = parse_fixed_set(tagstr, config, config.review_tags,
                            t_("@info",
                               "Review tag '%(name)s' "
-                              "not defined in '%(file)s'."),
-                           cid)
+                              "not defined in '%(file)s'."))
     if not tags:
         tags = set([""])
 
     return tags
 
 
-def parse_fixed_set (elstr, config, knownels, errfmt, cid=None):
+def parse_fixed_set (elstr, config, knownels, errfmt):
 
     if not elstr:
         return set()
@@ -2420,8 +2412,8 @@ def parse_fixed_set (elstr, config, knownels, errfmt, cid=None):
     els = set(elstr.split(","))
     for el in els:
         if el not in knownels:
-            error(errfmt.with_args(name=el, file=config.path).to_string(),
-                  subsrc=cid)
+            raise PologyError(
+                errfmt.with_args(name=el, file=config.path).to_string())
     if inverted:
         els = set(knownels).difference(els)
 
@@ -2464,20 +2456,36 @@ def make_selector (selspecs, hist=False):
                         "Negated selectors (here '%(sel)s') cannot be used "
                         "as history selectors.",
                         sel=sname))
-        selector = sfactory(*sargs)
+        try:
+            selector = sfactory(sargs)
+        except PologyError, e:
+            error(_("@info",
+                    "Selector '%(sel)s' not created due to "
+                    "the following error:\n"
+                    "%(msg)s",
+                    sel=selspec, msg=unicode(e)))
         if negated:
             selector = negate_selector(selector)
-        selectors.append(selector)
+        selectors.append((selector, selspec))
 
     # Compound selector.
     if hist:
         res0 = None
     else:
         res0 = False
-    def cselector (*a):
+    def cselector (msg, cat, history, config):
         res = res0
-        for selector in selectors:
-            res = selector(*a)
+        for selector, selspec in selectors:
+            try:
+                res = selector(msg, cat, history, config)
+            except PologyError, e:
+                error(_("@info",
+                        "Selector '%(sel)s' failed on message "
+                        "%(file)s:%(line)d:(#%(entry)d) "
+                        "with the following error:\n"
+                        "%(msg)s",
+                        sel=selspec, file=cat.filename, line=msg.refline,
+                        entry=msg.refentry, msg=unicode(e)))
             if not res:
                 return res
         return res
@@ -2498,7 +2506,7 @@ def negate_selector (selector):
 
 _cache = {}
 
-def cached_matcher (expr, cid):
+def cached_matcher (expr):
 
     key = ("matcher", expr)
     if key not in _cache:
@@ -2507,20 +2515,20 @@ def cached_matcher (expr, cid):
     return _cache[key]
 
 
-def cached_users (user_spec, config, cid, utype=None):
+def cached_users (user_spec, config, utype=None):
 
     key = ("users", user_spec, config, utype)
     if key not in _cache:
-        _cache[key] = parse_users(user_spec, config, cid)
+        _cache[key] = parse_users(user_spec, config)
 
     return _cache[key]
 
 
-def cached_tags (tag_spec, config, cid):
+def cached_tags (tag_spec, config):
 
     key = ("tags", tag_spec, config)
     if key not in _cache:
-        _cache[key] = parse_tags(tag_spec, config, cid)
+        _cache[key] = parse_tags(tag_spec, config)
 
     return _cache[key]
 
@@ -2537,8 +2545,10 @@ def cached_tags (tag_spec, config, cid):
 # returns from both types of selectors can be tested for simple falsity/truth,
 # and non-zero integer return always indicates history selection.
 
-def selector_any ():
-    cid = "s:any"
+def selector_any (args):
+
+    if len(args) != 0:
+        raise PologyError(_("@info", "Wrong number of arguments."))
 
     def selector (msg, cat, history, config):
 
@@ -2547,8 +2557,10 @@ def selector_any ():
     return selector
 
 
-def selector_active ():
-    cid = "s:active"
+def selector_active (args):
+
+    if len(args) != 0:
+        raise PologyError(_("@info", "Wrong number of arguments."))
 
     def selector (msg, cat, history, config):
 
@@ -2557,8 +2569,10 @@ def selector_active ():
     return selector
 
 
-def selector_current ():
-    cid = "s:current"
+def selector_current (args):
+
+    if len(args) != 0:
+        raise PologyError(_("@info", "Wrong number of arguments."))
 
     def selector (msg, cat, history, config):
 
@@ -2567,11 +2581,13 @@ def selector_current ():
     return selector
 
 
-def selector_branch (branch=None):
-    cid = "s:branch"
+def selector_branch (args):
 
+    if len(args) != 1:
+        raise PologyError(_("@info", "Wrong number of arguments."))
+    branch = args[0]
     if not branch:
-        error(_("@info", "Branch ID not given."), subsrc=cid)
+        raise PologyError(_("@info", "Branch ID must not be empty."))
     branches = set(branch.split(","))
 
     def selector (msg, cat, history, config):
@@ -2581,8 +2597,10 @@ def selector_branch (branch=None):
     return selector
 
 
-def selector_unasc ():
-    cid = "s:unasc"
+def selector_unasc (args):
+
+    if len(args) != 0:
+        raise PologyError(_("@info", "Wrong number of arguments."))
 
     def selector (msg, cat, history, config):
 
@@ -2592,27 +2610,31 @@ def selector_unasc ():
     return selector
 
 
-def selector_fexpr (expr=None):
-    cid = "s:fexpr"
+def selector_fexpr (args):
 
-    if not (expr or "").strip():
-        error(_("@info", "Match expression cannot be empty."), subsrc=cid)
+    if len(args) != 1:
+        raise PologyError(_("@info", "Wrong number of arguments."))
+    expr = args[0]
+    if not expr:
+        raise PologyError(_("@info", "Match expression must not be empty."))
 
     def selector (msg, cat, history, config):
 
-        matcher = cached_matcher(expr, cid)
+        matcher = cached_matcher(expr)
         return bool(matcher(msg, cat))
 
     return selector
 
 
-def selector_e (entry=None):
-    cid = "s:e"
+def selector_e (args):
 
+    if len(args) != 1:
+        raise PologyError(_("@info", "Wrong number of arguments."))
+    entry = args[0]
     if not entry or not entry.isdigit():
-        error(_("@info",
-                "Message entry number must be a positive integer."),
-              subsrc=cid)
+        raise PologyError(
+            _("@info",
+              "Message entry number must be a positive integer."))
     refentry = int(entry)
 
     def selector (msg, cat, history, config):
@@ -2622,13 +2644,15 @@ def selector_e (entry=None):
     return selector
 
 
-def selector_l (line=None):
-    cid = "s:l"
+def selector_l (args):
 
+    if len(args) != 1:
+        raise PologyError(_("@info", "Wrong number of arguments."))
+    line = args[0]
     if not line or not line.isdigit():
-        error(_("@info",
-                "Message line number must be a positive integer."),
-              subsrc=cid)
+        raise PologyError(
+            _("@info",
+              "Message line number must be a positive integer."))
     refline = int(line)
 
     def selector (msg, cat, history, config):
@@ -2641,22 +2665,25 @@ def selector_l (line=None):
 # Select messages between and including first and last reference by entry.
 # If first entry is not given, all messages to the last entry are selected.
 # If last entry is not given, all messages from the first entry are selected.
-def selector_espan (first=None, last=None):
-    cid = "s:espan"
+def selector_espan (args):
 
+    if not 1 <= len(args) <= 2:
+        raise PologyError(_("@info", "Wrong number of arguments."))
+    first = args[0]
+    last = args[1] if len(args) > 1 else ""
     if not first and not last:
-        error(_("@info",
-                "At least one of the first and last message entry numbers "
-                "must be given."),
-              subsrc=cid)
+        raise PologyError(
+            _("@info",
+              "At least one of the first and last message entry numbers "
+              "must be given."))
     if first and not first.isdigit():
-        error(_("@info",
-                "First message entry number must be a positive integer."),
-              subsrc=cid)
+        raise PologyError(
+            _("@info",
+              "First message entry number must be a positive integer."))
     if last and not last.isdigit():
-        error(_("@info",
-                "Last message entry number must be a positive integer."),
-              subsrc=cid)
+        raise PologyError(
+            _("@info",
+              "Last message entry number must be a positive integer."))
     first_entry = (first and [int(first)] or [None])[0]
     last_entry = (last and [int(last)] or [None])[0]
 
@@ -2674,22 +2701,25 @@ def selector_espan (first=None, last=None):
 # Select messages between and including first and last reference by line.
 # If first line is not given, all messages to the last line are selected.
 # If last line is not given, all messages from the first line are selected.
-def selector_lspan (first=None, last=None):
-    cid = "s:lspan"
+def selector_lspan (args):
 
+    if not 1 <= len(args) <= 2:
+        raise PologyError(_("@info", "Wrong number of arguments."))
+    first = args[0]
+    last = args[1] if len(args) > 1 else ""
     if not first and not last:
-        error(_("@info",
-                "At least one of the first and last message line numbers "
-                "must be given."),
-              subsrc=cid)
+        raise PologyError(
+            _("@info",
+              "At least one of the first and last message line numbers "
+              "must be given."))
     if first and not first.isdigit():
-        error(_("@info",
-                "First message line number must be a positive integer."),
-              subsrc=cid)
+        raise PologyError(
+            _("@info",
+              "First message line number must be a positive integer."))
     if last and not last.isdigit():
-        error(_("@info",
-                "Last message line number must be a positive integer."),
-              subsrc=cid)
+        raise PologyError(
+            _("@info",
+              "Last message line number must be a positive integer."))
     first_line = (first and [int(first)] or [None])[0]
     last_line = (last and [int(last)] or [None])[0]
 
@@ -2704,19 +2734,25 @@ def selector_lspan (first=None, last=None):
     return selector
 
 
-def selector_hexpr (expr=None, user_spec=None, addrem=None):
-    cid = "s:hexpr"
+def selector_hexpr (args):
 
-    if not (expr or "").strip():
-        error(_("@info", "Match expression cannot be empty."), subsrc=cid)
+    if not 1 <= len(args) <= 3:
+        raise PologyError(_("@info", "Wrong number of arguments."))
+    expr = args[0]
+    user_spec = args[1] if len(args) > 1 else ""
+    addrem = args[2] if len(args) > 2 else ""
+    if not expr:
+        raise PologyError(
+            _("@info",
+              "Match expression cannot be empty."))
 
     def selector (msg, cat, history, config):
 
         if history[0].user is None:
             return 0
 
-        matcher = cached_matcher(expr, cid)
-        users = cached_users(user_spec, config, cid)
+        matcher = cached_matcher(expr)
+        users = cached_users(user_spec, config)
 
         if not addrem:
             i = 0
@@ -2763,15 +2799,18 @@ def selector_hexpr (expr=None, user_spec=None, addrem=None):
 
 
 # Select last ascription (any, or by users).
-def selector_asc (user_spec=None):
-    cid = "s:asc"
+def selector_asc (args):
+
+    if not 0 <= len(args) <= 1:
+        raise PologyError(_("@info", "Wrong number of arguments."))
+    user_spec = args[0] if len(args) > 0 else ""
 
     def selector (msg, cat, history, config):
 
         if history[0].user is None:
             return 0
 
-        users = cached_users(user_spec, config, cid)
+        users = cached_users(user_spec, config)
 
         hi_sel = 0
         for i in range(len(history)):
@@ -2786,15 +2825,18 @@ def selector_asc (user_spec=None):
 
 
 # Select last modification (any or by users).
-def selector_mod (user_spec=None):
-    cid = "s:mod"
+def selector_mod (args):
+
+    if not 0 <= len(args) <= 1:
+        raise PologyError(_("@info", "Wrong number of arguments."))
+    user_spec = args[0] if len(args) > 0 else ""
 
     def selector (msg, cat, history, config):
 
         if history[0].user is None:
             return 0
 
-        users = cached_users(user_spec, config, cid)
+        users = cached_users(user_spec, config)
 
         hi_sel = 0
         for i in range(len(history)):
@@ -2812,55 +2854,50 @@ def selector_mod (user_spec=None):
 
 # Select first modification (any or by m-users, and not by r-users)
 # after last review (any or by r-users, and not by m-users).
-def selector_modar (muser_spec=None, ruser_spec=None, atag_spec=None):
-    cid = "s:modar"
+def selector_modar (args):
 
-    return w_selector_modax(cid, False, True,
-                            muser_spec, ruser_spec, atag_spec)
+    return w_selector_modax(False, True, args, 3)
 
 
 # Select first modification (any or by m-users, and not by mm-users)
 # after last modification (any or by mm-users, and not by m-users).
-def selector_modam (muser_spec=None, mmuser_spec=None):
-    cid = "s:modam"
+def selector_modam (args):
 
-    return w_selector_modax(cid, True, False,
-                            muser_spec, mmuser_spec)
+    return w_selector_modax(True, False, args, 2)
 
 
 # Select first modification (any or by m-users, and not by rm-users)
 # after last review or modification (any or by m-users, and not by rm-users).
-def selector_modarm (muser_spec=None, rmuser_spec=None, atag_spec=None):
-    cid = "s:modarm"
+def selector_modarm (args):
 
-    return w_selector_modax(cid, True, True,
-                            muser_spec, rmuser_spec, atag_spec)
+    return w_selector_modax(True, True, args, 3)
 
 
 # Select first modification of translation
 # (any or by m-users, and not by r-users)
 # after last review (any or by r-users, and not by m-users).
-def selector_tmodar (muser_spec=None, ruser_spec=None, atag_spec=None):
-    cid = "s:tmodar"
+def selector_tmodar (args):
 
-    return w_selector_modax(cid, False, True,
-                            muser_spec, ruser_spec, atag_spec,
-                            True)
+    return w_selector_modax(False, True, args, 3, True)
 
 
 # Worker for builders of *moda* selectors.
-def w_selector_modax (cid, amod, arev,
-                      muser_spec=None, rmuser_spec=None, atag_spec=None,
-                      tronly=False):
+def w_selector_modax (amod, arev, args, maxnarg, tronly=False):
+
+    if not 0 <= len(args) <= maxnarg:
+        raise PologyError(_("@info", "Wrong number of arguments."))
+    muser_spec = args[0] if len(args) > 0 else ""
+    rmuser_spec = args[1] if len(args) > 1 else ""
+    atag_spec = args[2] if len(args) > 2 else ""
 
     def selector (msg, cat, history, config):
 
         if history[0].user is None:
             return 0
 
-        musers = cached_users(muser_spec, config, cid, utype="m")
-        rmusers = cached_users(rmuser_spec, config, cid, utype="rm")
-        atags = cached_tags(atag_spec, config, cid)
+        musers = cached_users(muser_spec, config, utype="m")
+        rmusers = cached_users(rmuser_spec, config, utype="rm")
+        atags = cached_tags(atag_spec, config)
 
         hi_sel = 0
         for i in range(len(history)):
@@ -2891,16 +2928,20 @@ def w_selector_modax (cid, amod, arev,
 
 
 # Select last review (any or by users).
-def selector_rev (user_spec=None, atag_spec=None):
-    cid = "s:rev"
+def selector_rev (args):
+
+    if not 0 <= len(args) <= 2:
+        raise PologyError(_("@info", "Wrong number of arguments."))
+    user_spec = args[0] if len(args) > 0 else ""
+    atag_spec = args[1] if len(args) > 1 else ""
 
     def selector (msg, cat, history, config):
 
         if history[0].user is None:
             return 0
 
-        users = cached_users(user_spec, config, cid)
-        atags = cached_tags(atag_spec, config, cid)
+        users = cached_users(user_spec, config)
+        atags = cached_tags(atag_spec, config)
 
         hi_sel = 0
         for i in range(len(history)):
@@ -2918,17 +2959,22 @@ def selector_rev (user_spec=None, atag_spec=None):
 
 # Select first review (any or by r-users, and not by m-users)
 # before last modification (any or by m-users, and not by r-users).
-def selector_revbm (ruser_spec=None, muser_spec=None, atag_spec=None):
-    cid = "s:revbm"
+def selector_revbm (args):
+
+    if not 0 <= len(args) <= 3:
+        raise PologyError(_("@info", "Wrong number of arguments."))
+    muser_spec = args[0] if len(args) > 0 else ""
+    ruser_spec = args[1] if len(args) > 1 else ""
+    atag_spec = args[2] if len(args) > 2 else ""
 
     def selector (msg, cat, history, config):
 
         if history[0].user is None:
             return 0
 
-        rusers = cached_users(ruser_spec, config, cid, utype="r")
-        musers = cached_users(muser_spec, config, cid, utype="m")
-        atags = cached_tags(atag_spec, config, cid)
+        rusers = cached_users(ruser_spec, config, utype="r")
+        musers = cached_users(muser_spec, config, utype="m")
+        atags = cached_tags(atag_spec, config)
 
         hi_sel = 0
         can_select = False
@@ -2955,11 +3001,16 @@ def selector_revbm (ruser_spec=None, muser_spec=None, atag_spec=None):
 
 
 # Select first modification (any or by users) at or after given time.
-def selector_modafter (time_spec=None, user_spec=None):
-    cid = "s:modafter"
+def selector_modafter (args):
 
+    if not 0 <= len(args) <= 2:
+        raise PologyError(_("@info", "Wrong number of arguments."))
+    time_spec = args[0] if len(args) > 0 else ""
+    user_spec = args[1] if len(args) > 1 else ""
     if not time_spec:
-        error(_("@info", "Time specification cannot be empty."), subsrc=cid)
+        raise PologyError(
+            _("@info",
+              "Time specification cannot be empty."))
 
     date = parse_datetime(time_spec)
 
@@ -2968,7 +3019,7 @@ def selector_modafter (time_spec=None, user_spec=None):
         if history[0].user is None:
             return 0
 
-        users = cached_users(user_spec, config, cid)
+        users = cached_users(user_spec, config)
 
         hi_sel = 0
         for i in range(len(history) - 1, -1, -1):
