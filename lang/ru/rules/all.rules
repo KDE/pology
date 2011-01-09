@@ -80,8 +80,13 @@ hint="«в течении» -- разве что «в течении реки»"
 hint="«overwrite» переводится как «заменить»"
 
 [настройки]i
+valid after="при ошибке установки или "
+valid after="мастера "
+valid after="Центр "
+valid after="утилиты "
 valid after="возможность "
 valid after="изменения "
+valid after="Программа "
 valid after="программу "
 valid after="окне "
 valid after="окно "
@@ -106,6 +111,9 @@ valid after="автоматической "
 valid after="диалоге "
 valid after="параметрах "
 valid after="файле "
+hint="There's no such plural form 'настройки', use 'параметры' or something else. If you see this message but there is only 'настройки' as the genitive case of 'настройка', please, report it."
+
+[настройках]i
 hint="There's no such plural form 'настройки', use 'параметры' or something else. If you see this message but there is only 'настройки' as the genitive case of 'настройка', please, report it."
 
 [настроек]i
@@ -287,4 +295,10 @@ hint="Поставьте пробел после точки в конце пре
 
 [директори]i
 hint="directory -- каталог"
+
+[пиктогр]i
+hint="не используем слово 'пиктограмма'"
+
+[обозревател]i
+hint="обозреватель [Интернета] -> веб-браузер"
 
