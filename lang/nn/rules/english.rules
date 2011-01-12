@@ -2,12 +2,14 @@
 # Karl Ove Hufthammer <karl@huftis.org>
 # License: GPLv3
 
+include file="puretext.filters"
+
 [printer]i
 id="printer"
 hint="printer → skrivar"
 valid after="system-config-"
 
-[\bserver(en|ar)?\b]i
+[\bserv[ae]r(en|ar|ane)?\b]i
 id="server"
 hint="server → tenar"
 

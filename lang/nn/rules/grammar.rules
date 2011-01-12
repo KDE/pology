@@ -3,6 +3,8 @@
 # Karl Ove Hufthammer <karl@huftis.org>
 # License: GPLv3
 
+include file="puretext.filters"
+
 {\bplease\b}i
 hint="Ikkje bruk venlegst / ver så snill e.l. på norsk [avsnittet «Høflegheit» i retningslinjene"
 valid !msgstr="[Vv]enn?leg"
