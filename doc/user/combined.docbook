@@ -24,7 +24,7 @@
 <para>To be sure, some short messages can be quite similar in many unrelated PO files. But having TM matches only on such messages will result in very small time savings, if measurable at all.</para>
 </footnote> Nevertheless, having a well maintained TM in the form of PO compendium cannot hurt, while providing for the (hopefully) rare situations where TM matching is actually needed.</para>
 
-<para>Many dedicated PO editors will automatically maintain an internal TM, usually in a database format, into which they will scoop messages from all PO files that were opened in them. However, in a team environment, these internal TMs are inferior to a PO compendium. For one, different translators will have different TMs; a translator may start to work on a file for which there are TM matches in another translator's internal TM. Internal TMs may be volatile, for example corrupted due to an editor bug, or perish during system maintainence. There is no control over which messages are scooped by the editor, and how they are treated (e.g. which message parts are being ignored).</para>
+<para>Many dedicated PO editors will automatically maintain an internal TM, usually in a database format, into which they will scoop messages from all PO files that were opened in them. However, in a team environment, these internal TMs are inferior to a PO compendium. For one, different translators will have different TMs; a translator may start to work on a file for which there are TM matches in another translator's internal TM. Internal TMs may be volatile, for example corrupted due to an editor bug, or perish during system maintenance. There is no control over which messages are scooped by the editor, and how they are treated (e.g. which message parts are being ignored).</para>
 
 <para>On the other hand, a PO compendium can be maintained in a central place, and, being a PO file in itself, kept in version control just like all other PO files. In this way, all translators have fast access to a unified TM, which is secured from accidental corruption. Tight control over which messages are collected and how they are collected may be asserted, in the script which is written to update the compendium. This script can be made to run periodically, and to automatically commit updated compendium the version control repository.</para>
 
@@ -251,15 +251,284 @@ The <option>-C</option> option to <command>msgmerge</command> specifies the comp
 <sect1 id="sec-cbeffedit">
 <title>Efficiently Translating with a Text Editor</title>
 
-<para></para>
+<para>Dedicated PO editors provide not only direct editing enhancements (no dealing with PO format syntax, jumping through incomplete messages, automatic removal of fuzzy elements, etc), but also translation-oriented features like spell checking, translation memory collection and application, glossary suggestions, and, going beyond standalone PO files, translation project overview and statistics. Why would someone, in spite of this, prefer to work on PO files with a general text editor? There are various reasons. Some people do not like how elements of currently translated PO message are scattered all over the window (as is typical of many PO editors), out of eye focus, and some elements even not shown. Other people like to have modularity in the translation workflow, rather than relying on the PO editor for everything and accepting its limitations. Some people are simply well accustomed to their text editor and do not want a higher level editor "abstracting" the PO format for them.</para>
+
+<para>When translating PO files with a general text editor, you will have to use some command line tools to achieve reasonable efficiency and quality.</para>
+
+<sect2 id="sec-cbeffedfeat">
+<title>Expected Features of the Text Editor</title>
+
+<para>Starting from the text editor itself, it should have several general text-editing features. Capable editors all have these features, but they should nevertheless be mentioned, so that you can look for them.</para>
+
+<para>The most important feature is probably <emphasis>syntax highlighting</emphasis>, where special parts of the text are displayed in different color, weight, or slant. In a PO file, message field keywords (<varname>msgid</varname>, <varname>msgstr</varname>) should stand out from the text itself, text in comments should look different from the text in fields, internal text elements (e.g. markup tags) should be highlighted, etc. In this way you can quickly focus on what you should be editing, and on the surrounding context of the text. Syntax higlighting was originaly introduced for various programming language source files, but has since spread to other types of structured text files; established editors should have syntax highlighting for PO files as well.</para>
+
+<para>Capable editors usually provide special methods of navigating through the file, above simply scrolling up and down line by line or page by page. One particularly useful method would be <emphasis>line bookmarking</emphasis>. While in the middle of editing a given line, you have to search through the PO file for something (e.g. how a certain phrase was translated earlier): you can then bookmark the line, search as much as you like, and return to the same line by jumping to the bookmark. Otherwise you would have to remember which line (by number) it was to jump back to it, or search for the text that you remember from that line.<footnote>
+<para>One trick is also hitting undo once, which will normally skip to the line in which the last modification was made, and then hit redo to recover the modification.</para>
+</footnote></para>
+
+<para>It will usually be possible to start the editor with one or more file paths as command-line arguments, to open those files at once. This is useful when a selection of PO files in need of some editing is determined by an external command, which writes out their paths. These paths can then be fed directly to the editor, rather than having to open them manually one by one (and possibly missing some) through editor's file dialog.</para>
+
+</sect2>
+
+<sect2 id="sec-cbeffstats">
+<title>Statistics on PO Files</title>
+
+<para>Having good statistics on a single or a group of PO files is necessary for estimating the translation effort, for example how much time should be allotted for updating the existing translation for impending next release of the source material. Pology's workhorse for computing statistics is <link linkend="sv-stats">the <command>stats</command> sieve</link> of <command>posieve</command>.</para>
+
+<para id="p-trpsetup1">Assume the following arrangement of PO files for language <literal>nn</literal> and their templates:
+<programlisting>
+l10n-nn/
+    ui/
+        alpha.po
+        bravo.po
+        ...
+    doc/
+        alpha.po
+        bravo.po
+        ...
+l10n-templates/
+    ui/
+        alpha.pot
+        bravo.pot
+        ...
+    doc/
+        alpha.pot
+        bravo.pot
+        ...
+</programlisting>
+If the current working directory is <filename>l10n-nn/</filename>, to compute statistics on a single PO file, <command>posieve</command> can be executed like this:
+<programlisting>
+$ posieve stats ui/alpha.po
+</programlisting>
+This will display a table with message counts, word counts and characters counts, as well as ratios to total, per category of messages (translated, fuzzy, untranslated, obsolete). To have the same output for all PO files in the <filename>ui/</filename> directory taken together, or in the whole project, respectively:
+<programlisting>
+$ posieve stats ui/
+$ posieve stats
+</programlisting>
+Note that word count is a much better base for estimating the translation effort than message count.</para>
+
+<para>When statistics is computed for several PO files (or a directory, or several directories full of PO files), frequently it is necessary to get statistics per file (or per directory). This is done by adding the <option>byfile</option> or <option>bydir</option> sieve parameter:
+<programlisting>
+$ posieve stats -s byfile ui/
+</programlisting>
+However, this will output one full table for each file, which may be a bit too much data to grasp. Instead, you can request bar display, where each file is represented by a single-line bar. The bar shows either the number of messages or the number words per category, depending on whether <option>msgbar</option> or <option>wbar</option> was issued. To get word bars per file in <filename>ui/</filename> directory, you can execute:
+<programlisting>
+$ posieve stats -s byfile -s wbar ui/
+</programlisting>
+</para>
+
+<para>Fuzzy messages introduce some uncertainty in effort estimation. If the statistics shows 50 fuzzy messages with 700 words, you cannot conclude from that if changes in those messages are small (e.g. cleaned style, punctuation) and translation can be quickly updated, or substantial (entirely new messages with passing similarity to earlier message) and require heavy editing. For this reason the <command>stats</command> sieve provides the <option>ondiff</option> parameter: for each fuzzy message the difference from previous message is computed, and based on that a part of the word count is assigned to translated category and the rest to untranslated (thus leaving nominal zero words in the fuzzy category). The result is that, for example, a PO file with a lot of messages fuzzy due to punctuation changes will show in statistics as almost completely translated by number of words.</para>
+
+<para>If the translation project is organized such that new empty PO files are not automatically derived from new PO templates, then when running statistics just over language PO files it will happen that templates which do not have a counterpart PO file are not counted as fully empty PO files. To have such templates counted, the two-argument <option>templates</option> parameter can be issued; the first parameter is a path segment of the language directory, and the second parameter what to replace it with to get the corresponding template directory path. In the translation project setup as above, this is how you would compute the statistics on <filename>ui/</filename> directory while taking templates into account:
+<programlisting>
+$ posieve stats -s templates:l10n-nn:l10n-templates ui/
+</programlisting>
+The path replacement is always done on absolute paths, so in this example it is not a problem that the relative paths (<filename>ui/alpha.po</filename>...) do not contain original and replacement segments.</para>
+
+<para>The translation project may not be organized such that each language has its own top directory. Instead, language PO files may be grouped by application and PO domain, and named by language code:
+<programlisting>
+project/
+    alpha/
+        po/
+            aa.po
+            bb.po
+            ...
+    bravo/
+        po/
+            aa.po
+            bb.po
+            ...
+    ...
+</programlisting>
+In this setup the <command>stats</command> sieve can still be run on directory paths as arguments, in order to get statistics on all PO files of a given language, by using the <option>-I</option>/<option>--include-path</option> option of <command>posieve</command> to single out the desired language. For example, to get statistics on all PO files of the <literal>nn</literal> language in a single table:
+<programlisting>
+$ posieve stats project/ -I 'nn.po'
+</programlisting>
+or by file in form of message bars:
+<programlisting>
+$ posieve stats -s byfile -s msgbar project/ -I 'nn.po'
+</programlisting>
+The value of the <option>-I</option> option is in fact a <link linkend="sec-cmregex">regular expression</link>, and the option can be repeated, which allows to finely tune the file selection when necessary.</para>
+
+<para>As for other statistics tools, Gettext's <command>msgfmt</command> with <option>--statistics</option> option could be considered as one (though it shows only translated, fuzzy, and untranslated message counts), and especially the <ulink url="http://translate.sourceforge.net/wiki/toolkit/pocount">the <command>pocount</command> command from Translate Toolkit</ulink>.</para>
+
+</sect2>
+
+<sect2 id="sec-cbeffupdate">
+<title>Updating PO Files After Merging</title>
+
+<para>When a single PO file is to be translated from scratch, then it is easy to just open it in the text editor and start translating messages one by one. However, usually more frequent than this is translation maintenance, in which you need to go through a bunch of freshly merged PO files and update new untranslated and fuzzy messages. The problem then is twofold: how to efficiently check which files need updating, and how to efficiently go through messages that need to be updated within a file.</para>
+
+<para>To see which PO files need to be updated, you can simply run the <command>stats</command> sieve with <option>byfile</option> and <option>msgbar</option>/<option>wbar</option> parameters (and possibly <option>ondiff</option>), as explained in the previous section. After that you would have to manually observe incomplete files and open them in the editor one by one, which is tedious and prone to oversight. Instead, you can also add the <option>incompfile</option> parameter to <command>stats</command>, which will write paths of all incomplete PO files into a file. If PO files are organized as in <link linkend="p-trpsetup1">the previous example</link>, and you want to update translations in <filename>ui/</filename> subdirectory, you would run:
+<programlisting>
+$ posieve stats -s byfile -s wbar -s incompfile:toupdate.out ui/
+</programlisting>
+Now <filename>toupdate.out</filename> will contain the paths of incomplete files. If the editor can be started from the command line with a number of file path arguments, you can directly feed it <filename>toupdate.out</filename>, e.g. by adding <filename>`cat toupdate.out`</filename> to the editor command.</para>
+
+<para>If the translation project is organized such that each new template results in new empty PO file, you may wish to update only those PO files which where worked on before, i.e. those not entirely empty. For this you can add the <option>mincomp</option> parameter, which sets the minimal completeness (the ratio of translated to total messages) at which to take a PO file into consideration, with a very small value:
+<programlisting>
+$ posieve stats -s mincomp:1e-6 -s incompfile:toupdate.out ui/
+</programlisting>
+<literal>1e-6</literal> is short for <literal>0.000001</literal>, which means to take into consideration only those PO files which have more than one in a million translated files. Since there is no PO file with a million messages, this effectively means to include every PO file which has at least one translated message in it.</para>
+
+<para>Once the incomplete PO files are open in the editor, to be able to jump through incomplete messages, you need to somehow use editor's search function. For fuzzy messages it is easy, you can just search for the <literal>, fuzzy</literal> string. Untranslated messages, on the other hand, are more problematic. You may think of searching for <literal>msgstr ""</literal>, but this would also find long wrapped messages:
+<programlisting>
+msgid ""
+"Blah blah blah [...]"
+"blah blah."
+msgstr ""
+"Bla bla bla [...]"
+"bla bla."
+</programlisting>
+To make untranslated messages stand out unambiguously, there is <link linkend="sv-tag-untranslated">the <command>tag-untranslated</command> sieve</link>. It simply adds <literal>untranslated</literal> flag to all untranslated messages (but not to fuzzy unless explicitly requested), so that you can search for <literal>, untranslated</literal> in the editor. The most convenient is to run <command>tag-untranslated</command> on the <filename>toupdate.out</filename> file produced by <command>stats</command> using the <option>-f</option>/<option>--from-files</option>:
+<programlisting>
+$ posieve tag-untranslated -f toupdate.out
+</programlisting>
+</para>
+
+<para>Fuzzy messages may be such only due to small changes in the original text, for example a single word changed in a paragraph-length message. This is not so easy to see by manually comparing the original and the translation. However, since fuzzy messages should have the previous original text in comments (if merged with <option>--previous</option> option of <command>msgmerge</command>), it is possible to automatically embed differences into those comments with <link linkend="sv-diff-previous">the <command>sv-diff-previous</command> sieve</link>; see its documentation for an example. You should run this sieve on <filename>toupdate.out</filename> as well:
+<programlisting>
+$ posieve diff-previous -f toupdate.out
+</programlisting>
+Your editor may even highlight the difference segments added to the previous original text, making them stand out quite clearly.</para>
+
+<para>Since normally you want both to mark untranslated messages and to add differences to fuzzy messages before going through PO files, you can run the two sieves at once:
+<programlisting>
+$ posieve tag-untranslated,diff-previous -f toupdate.out
+</programlisting>
+</para>
+
+<para>As you go through incomplete messages and update the translation, you should remove any <literal>fuzzy</literal> or <literal>untranslated</literal> flags, and previous fields in <literal>#| ...</literal> comments, so that in the end you can commit (upload, send) clean updated PO files. But sometimes it will happen that you realize that you do not have enough time to update everything, and you want to commit what you have completed by that moment. The problem is that there will still be some <literal>untranslated</literal> flags and embedded differences remaining throughout the files, and leftover embedded differences would e.g. interfere with subsequent merging. To automatically remove these remaining elements, you simply run the two sieves with the <option>strip</option> parameter:
+<programlisting>
+$ posieve tag-untranslated,diff-previous -s strip -f toupdate.out
+</programlisting>
+</para>
+
+<para>When you update a PO file, for the sake of clarity and copyright you should also update its header with your personal data (the author comment, the <literal>Last-Translator:</literal> field, etc.) You could do this manually, but it is much simpler to set your data once in the <link linkend="sec-cmconfig">Pology user configuration</link> and run <link linkend="sv-update-header">the <command>update-header</command> sieve</link> over all updated files<footnote>
+<para>If you use <link linkend="ch-ascript">ascription</link>, you should instead tell <command>poascribe</command> to update headers for you when committing. This is done by adding <literal>update-headers = yes</literal> to <literal>[poascribe]</literal> section in user configuration.</para>
+</footnote>:
+<programlisting>
+$ posieve update-header -f toupdate.out
+</programlisting>
+</para>
+
+</sect2>
 
 </sect1>
 
 <!-- ======================================== -->
 <sect1 id="sec-cbsumasc">
-<title>Summit and Ascription</title>
+<title>Summit with Ascription</title>
 
-<para></para>
+<para>Summit and ascription workflows, described in <xref linkend="ch-summit"/> and <xref linkend="ch-ascript"/>, fit excellently together. Ascription enables review-based release control on summit scatter (<xref linkend="sec-sucfgascf"/> shows how to do it), while summit removes the needed for different ascription file trees per branch (and the associated effort at branch cycling). All the information that you need to set up a summit with ascription are explained in the chapters mentioned; the only thing left for this section is to show the order of actions and the resulting file structure, as implied by the technical requirements.</para>
+
+<para>The first thing to set up is the summit. From the viewpoint of ascription, it is not important which summit mode is used; indeed, while the direct summit is still not advised, putting ascription on top would alleviate some of its disadvantages. In the following the summit over dynamic templates is assumed, because it is a bit less involved than the summit over static templates, but nevertheless demonstrates all important points.</para>
+
+<para>After configuring and initializing the summit over dynamic templates, let the summit top directory only (that is, omitting branches) look like this:
+<programlisting>
+l10n-nn/
+    summit/
+        foo-module/
+            alpha.po
+            bravo.po
+            ...
+        bar-module/
+            kilo.po
+            lima.po
+            ...
+        ...
+    summit-config
+</programlisting>
+PO files in the summit are shown split into several submodules for generality. Unlike in the chapter on summit, the summit directory is placed here within a parent language directory, and the summit configuration file <filename>summit-config</filename> in the parent directory instead of the summit directory. This is in order to have a clearer structure when the ascription is added.</para>
+
+<para>The ascription is set up after the summit, such that it takes only the summit directory into account, having nothing to do with branches. After the ascription is configured and initialized, the summit with ascription tree should look like this:
+<programlisting>
+l10n-nn/
+    summit/
+        foo-module/
+            alpha.po
+            bravo.po
+            ...
+        bar-module/
+            kilo.po
+            lima.po
+            ...
+        ...
+    summit-ascript/
+        foo-module/
+            alpha.po
+            bravo.po
+            ...
+        bar-module/
+            kilo.po
+            lima.po
+            ...
+        ...
+    ascription-config
+    summit-config
+</programlisting>
+Here the ascription tree root is set to <filename>summit-ascript/</filename> in the ascription configuration file <filename>ascription-config</filename>. With this, setting up the summit with ascription workflow is completed.</para>
+
+<sect2 id="sec-cbsamultsum">
+<title>Several Summits with Unified Ascription</title>
+
+<para>In some circumstances you may want to have <emphasis>several</emphasis> separate summits with unified ascription. This may be the case, for example, when the translation project is such that the user interface and documentation PO files are put into separate file trees in branches, and most paired UI-documentation PO files have same names.<footnote>
+<para>On the other hand, you may still have a unified summit, by defining a <link linkend="sec-sustpptransf">path transformation</link> in summit configuration to disambiguate UI and documentation PO files sharing the same domain name.</para>
+</footnote></para>
+
+<para>The parent language directory in this scenario, with summits and ascription set up, could look like this:
+<programlisting>
+l10n-nn/
+    summit/
+        ui/
+            foo-module/
+                alpha.po
+                bravo.po
+                ...
+            bar-module/
+                kilo.po
+                lima.po
+                ...
+            ...
+            summit-config
+        doc/
+            foo-module/
+                alpha.po
+                bravo.po
+                ...
+            bar-module/
+                kilo.po
+                lima.po
+                ...
+            summit-config
+    summit-ascript/
+        ui/
+            foo-module/
+                alpha.po
+                bravo.po
+                ...
+            bar-module/
+                kilo.po
+                lima.po
+                ...
+            ...
+        doc/
+            foo-module/
+                alpha.po
+                bravo.po
+                ...
+            bar-module/
+                kilo.po
+                lima.po
+                ...
+            ...
+    ascription-config
+</programlisting>
+Note here the location of <literal>summit-config</literal> files: each is within its own summit directory, which are <filename>summit/ui/</filename> and <filename>summit/doc/</filename>. On the other hand, there is a single <literal>ascription-config</literal> file, which covers all summits. This means that summit operations (merging, scattering) must be performed from within their respective summit directories (since <command>posummit</command> looks through the parent directories for first <literal>summit-config</literal> file), while ascription operations can be performed from anywhere.</para>
+
+<para>Having unified ascription is especially convenient in <link linkend="sec-sumntbasic">centralized summit maintenance</link>, since translators and reviewers are concerned only with ascription (running <command>poascribe</command> to commit, select for review, etc.) regardless of how many summits there are.</para>
+
+</sect2>
 
 </sect1>
 

@@ -1127,7 +1127,6 @@ S.header_skip_fields_on_scatter = [
 
 <para><xref linkend="ch-ascript"/> describes a translation review system available in Pology, in which every PO message has its modification and review history kept up to some depth in the past. Based on that history, it is possible to select which messages from working PO files (those under ascription) can be passed into release PO files, provided that these two file trees exist. Summit and branches can be viewed exactly as an instance of such separation, where the summit is the working tree, and each branch a release tree.</para>
 
-<!-- FIXME: Link ...ascription selectors... once documented. -->
 <para>In this context, only the summit tree should be kept under ascription. Filtering for release is then, naturally, performed on scatter: to each summit PO message a sequence of one or more ascription selectors is applied, and if the message is selected by the selector sequence, it is passed into the branch PO file. Several selector sequences may be defined, for use in various release situations, through <literal>S.ascription_filters</literal> configuration field.</para>
 
 <para>For example, to have a single filtering sequence which simply lets through all messages not modifed after last review, the following should be added to summit configuration:
