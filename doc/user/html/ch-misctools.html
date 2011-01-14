@@ -107,7 +107,7 @@ $ porewrap --no-wrap --fine-wrap somedir/
 <p>Sometimes the PO file can contain a number of quite similar longer messages (this is especially the case when <a class="link" href="ch-summit.html" title="Chapter&nbsp;5.&nbsp;Summitting Translation Branches">translating in summit</a>). A capable PO editor should automatically offer the previous translation on the next similar message (by using internal translation memory), and show the what the small differences in the original text are, thus greately speeding up the translation of that message. If, however, the PO editor is not that capable, or you use a plain text editor, while translating you can simply skip every long message that looks familiar, and afterwards run <span class="command"><strong>poselfmerge</strong></span> on the PO file to introduce fuzzy matches on those messages.</p>
 </li>
 <li class="listitem">
-<p>More generally, if your PO editor does not have (a good enough) translation memory feature, or you edit PO files with a plain text editor, you can instruct <span class="command"><strong>poselfmerge</strong></span> to use one or more <span class="emphasis"><em>PO compendia</em></span> to provide additional exact and fuzzy matches. This is essentially the batch application of translation memory. <a class="xref" href="ch-combined.html#sec-cbcompend" title="10.1.&nbsp;Creating and Using Compendia">Section&nbsp;10.1, “Creating and Using Compendia”</a> provides some hints on how to create and maintain PO compendia.</p>
+<p>More generally, if your PO editor does not have (a good enough) translation memory feature, or you edit PO files with a plain text editor, you can instruct <span class="command"><strong>poselfmerge</strong></span> to use one or more <span class="emphasis"><em>PO compendia</em></span> to provide additional exact and fuzzy matches. This is essentially the batch application of translation memory. <a class="xref" href="ch-combined.html#sec-cbcompend" title="10.1.&nbsp;Creating and Using PO Compendia">Section&nbsp;10.1, “Creating and Using PO Compendia”</a> provides some hints on how to create and maintain PO compendia.</p>
 </li>
 </ul>
 </div>
@@ -255,7 +255,7 @@ $ pomtrans <em class="replaceable"><code>transerv</code></em> -s fr -t es -p es.
 <dl>
 <dt><span class="term"><code class="option">-a <em class="replaceable"><code>CHARS</code></em></code>, <code class="option">--accelerator=<em class="replaceable"><code>CHARS</code></em></code></span></dt>
 <dd>
-<p>Characters used as <a class="link" href="ch-poformat.html#sec-poaccel" title="2.3.4.&nbsp;Accelerators">accelerator markers</a> in user interface messages. They should be removed from the source language text before translation, in order not to confuse the translation service.<sup>[<a name="id520496" href="#ftn.id520496" class="footnote" id="id520496">29</a>]</sup></p>
+<p>Characters used as <a class="link" href="ch-poformat.html#sec-poaccel" title="2.3.4.&nbsp;Accelerators">accelerator markers</a> in user interface messages. They should be removed from the source language text before translation, in order not to confuse the translation service.<sup>[<a name="id443480" href="#ftn.id443480" class="footnote" id="id443480">29</a>]</sup></p>
 </dd>
 <dt><span class="term"><code class="option">-c <em class="replaceable"><code>FILE</code></em></code>, <code class="option">--parallel-compendium=<em class="replaceable"><code>FILE</code></em></code></span></dt>
 <dd>
@@ -322,7 +322,7 @@ $ pomtrans <em class="replaceable"><code>transerv</code></em> -s fr -t es -p es.
 <div class="footnotes"><br>
 <hr width="100" align="left">
 <div class="footnote">
-<p><sup>[<a name="ftn.id520496" href="#id520496" class="para" id="ftn.id520496">29</a>]</sup> This also means that, at the moment, machine-translated text has no accelerator when the original text did have one. Some heuristics may be implemented in the future to add the accelerator to translated text as well.</p>
+<p><sup>[<a name="ftn.id443480" href="#id443480" class="para" id="ftn.id443480">29</a>]</sup> This also means that, at the moment, machine-translated text has no accelerator when the original text did have one. Some heuristics may be implemented in the future to add the accelerator to translated text as well.</p>
 </div>
 </div>
 </div>

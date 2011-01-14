@@ -32,13 +32,235 @@
 </div>
 </div>
 </div>
+<p>While each particular PO processing tool from Pology and other packages may be documented in itself, it may not be always obvious how to use these tools together. This chapter presents some scenarios where combined tool usage may increase the quality and efficiency of daily work on translation.</p>
 <div class="sect1">
 <div class="titlepage">
 <div>
 <div>
-<h2 class="title" style="clear: both"><a name="sec-cbcompend" id="sec-cbcompend"></a>10.1.&nbsp;Creating and Using Compendia</h2>
+<h2 class="title" style="clear: both"><a name="sec-cbcompend" id="sec-cbcompend"></a>10.1.&nbsp;Creating and Using PO Compendia</h2>
 </div>
 </div>
+</div>
+<p>A <span class="emphasis"><em>PO compendium</em></span> is simply a PO file which aggregates messages from many other normal PO files, usually all same-language PO files in a given translation project. It may aggregate only the messages currently present in project PO files, but also messages that were present once and are no longer. As such, the compendium can be regarded as an instance of a <span class="emphasis"><em>translation memory</em></span>. This section explains how to create, update, and apply such a translation memory.</p>
+<div class="sect2">
+<div class="titlepage">
+<div>
+<div>
+<h3 class="title"><a name="sec-cbcomptm" id="sec-cbcomptm"></a>10.1.1.&nbsp;Why Translation Memory?</h3>
+</div>
+</div>
+</div>
+<p>Imagine that the translator wants to start translating a PO file that was so far never translated, but which has content similar to some other, translated PO files. Perhaps it was even derived from those other PO files, by merging, splitting, etc. This means that many messages in the present PO file may have been translated already in some other PO file, or at least that very similar translated messages exist in other PO files. Since the translation memory (TM) contains all known translated messages, it can be used to automatically produce translated and fuzzy messages in the present PO file, significantly reducing translation effort. Matching against the TM can be performed either as the translator goes from message to message in the editor (if the editor has a TM feature), or at once for all messages (by a specialized command) before starting to go through messages in the editor.</p>
+<p>In most non-PO based translation workflows, translation memories are crucial for efficiency. This is because most non-PO formats have no concept of merging with templates. Each new revision of the source material results in (an equivalent of) entirely empty translation files, and it is translator's duty to somehow bring old translations into the new context. A carefully maintained TM, with a corresponding matching tool, is the foremost way to do this.</p>
+<p>In a PO-based translation workflow, merging with templates already provides most of what TM is essential for. In effect, the old PO file that is being merged can be considered as a TM for the new PO file that will become based on the new template. Even when PO files are renamed, merged, or split, if that is properly done, no translations will be lost. A TM for PO files is therefore useful mostly to smooth out glitches in translation maintenance procedures (e.g. a PO file improperly split).<sup>[<a name="id378114" href="#ftn.id378114" class="footnote" id="id378114">45</a>]</sup> Nevertheless, having a well maintained TM in the form of PO compendium cannot hurt, while providing for the (hopefully) rare situations where TM matching is actually needed.</p>
+<p>Many dedicated PO editors will automatically maintain an internal TM, usually in a database format, into which they will scoop messages from all PO files that were opened in them. However, in a team environment, these internal TMs are inferior to a PO compendium. For one, different translators will have different TMs; a translator may start to work on a file for which there are TM matches in another translator's internal TM. Internal TMs may be volatile, for example corrupted due to an editor bug, or perish during system maintenance. There is no control over which messages are scooped by the editor, and how they are treated (e.g. which message parts are being ignored).</p>
+<p>On the other hand, a PO compendium can be maintained in a central place, and, being a PO file in itself, kept in version control just like all other PO files. In this way, all translators have fast access to a unified TM, which is secured from accidental corruption. Tight control over which messages are collected and how they are collected may be asserted, in the script which is written to update the compendium. This script can be made to run periodically, and to automatically commit updated compendium the version control repository.</p>
+</div>
+<div class="sect2">
+<div class="titlepage">
+<div>
+<div>
+<h3 class="title"><a name="sec-cmcompcr" id="sec-cmcompcr"></a>10.1.2.&nbsp;Maintaining a Centralized PO Compendium</h3>
+</div>
+</div>
+</div>
+<p>As a first attempt, the PO compendium can be created simply by concatenting all PO files in the project into one called <code class="filename">compendium.po</code>, using <span class="command"><strong>msgcat</strong></span>. If PO files are organized by language (all PO files of a given language kept in directory of that language), then the concatenation command would be:</p>
+<pre class="programlisting">
+$ cd $LANGDIR
+$ find -iname \*.po | xargs msgcat -o compendium.po
+</pre>
+<p>Unfortunatelly, a compendium created in this way has a number of drawbacks:</p>
+<div class="itemizedlist">
+<ul class="itemizedlist" type="disc">
+<li class="listitem">
+<p>Aside from translated messages, the compendium will also contain untranslated and fuzzy messages. While untranslated messages are obviously dead weight, a case could be made for taking in fuzzy messages. But in light of the suggested usage of the compendium in the following section, fuzzy messages too should be ignored.</p>
+</li>
+<li class="listitem">
+<p>Messages in the compendium will contain all parts as normal messages do. Some of these parts (such as source references) are unnecessary, since they will be ignored when applying the compendium later. Other than increasing the size of the compendium, another problem with these parts is that changes in them will cause unnecessary version control differences, so they should be stripped from the compendium.</p>
+</li>
+<li class="listitem">
+<p>Messages will be ordered as they are seen in concatenated PO files. The ordering of messages in the compendium is also of no importance for application. But, any changes in message ordering between two compendium updates will cause unnecessary version control differences, so it is best to sort messages by their keys (<code class="varname">msgid</code> and <code class="varname">msgctxt</code> fields).</p>
+</li>
+<li class="listitem">
+<p>When two or more PO files contain the same message by key (<code class="varname">msgid</code> and <code class="varname">msgctxt</code>) but with different translations (due to context), such as:</p>
+<pre class="programlisting">
+msgid "Open File"
+msgstr "Otvori datoteku"
+
+msgid "Open File"
+msgstr "Otvaranje datoteke"
+</pre>
+<p><span class="command"><strong>msgcat</strong></span> will <span class="emphasis"><em>aggregate</em></span> translations (and translator comments if any) in the compendium message, and make it fuzzy:</p>
+<pre class="programlisting">
+#, fuzzy
+msgid "Open File"
+msgstr ""
+"#-#-#-#-#  alpha.po (alpha-1.2.9)  #-#-#-#-#\n"
+"Otvori datoteku\n"
+"#-#-#-#-#  bravo.po (bravo-0.8.12)  #-#-#-#-#\n"
+"Otvaranje datoteke"
+</pre>
+<p>Since the context should be double-checked anyway when applying the compendium later (especially for short messages), it is better to instead pick one of the translations and have a normal translated compendium message. If each translation appears only once, then it does not matter which is picked; but if one translation appears 10 times and the other once, clearly the former should be picked. That is, the most frequent translation should be picked.</p>
+</li>
+<li class="listitem">
+<p>The PO header is treated in the same way as messages by <span class="command"><strong>msgcat</strong></span>: since all headers have equal <code class="varname">msgid</code> field (empty), their <code class="varname">msgstr</code> fields will be aggregated. This too is just dead weight since the header is not used in applications of the compendium. Instead, a brief and informative header should be explicitly set (mentioning that this is a compendium PO file, for which project and language, etc).</p>
+</li>
+<li class="listitem">
+<p>In some translation projects, PO files frequently contain <span class="emphasis"><em>meta-messages</em></span>, such as those where translators can add their names and contact addresses. These messages have the same key (<code class="varname">msgid</code>) in all PO files, but should be translated differently in general, the more so the more the people in the translation team. So it may be better to omit such messages from the compendium.</p>
+</li>
+</ul>
+</div>
+<p>It must be noted that none of these problems are an actual deficiency of <span class="command"><strong>msgcat</strong></span> itself. Since its function is general concatenation of PO files, it cannot make any of the assumptions necessary for the present application. Instead, <span class="command"><strong>msgcat</strong></span> should be used as a part of a wider script, in which the necessary additional processing happens, tailored to the particular translation project and translation team.</p>
+<p>Let us assume the following layout of the top directory for the translation project <code class="literal">foo</code> and translation team (language) <code class="literal">nn</code>:</p>
+<pre class="programlisting">
+foo-nn/
+    ui/
+        alpha.po
+        bravo.po
+        ...
+    doc/
+        alpha.po
+        bravo.po
+        ...
+    update-compendium-foo-nn.sh
+    compendium-foo-nn.po
+</pre>
+<p><code class="filename">update-compendium-foo-nn.sh</code> will be the script to create or update the compendium, <code class="filename">compendium-foo-nn.po</code> the compendium itself. It helps clarity to add the project name and language into names of these two files, because both are tailored to that project and that language. Taking into account the aforementioned drawbacks of a simple compendium made by <span class="command"><strong>msgcat</strong></span> and the suggested resolutions, <code class="filename">update-compendium-foo-nn.sh</code> could look like this<sup>[<a name="id389558" href="#ftn.id389558" class="footnote" id="id389558">46</a>]</sup>:</p>
+<pre class="programlisting">
+#!/bin/sh
+#
+# Create the PO compendium of Foo in Nevernissian language.
+#
+# Usage:
+#   update-compendium-foo-nn.sh [trim]
+#
+# The script can be called from anywhere, because PO paths are
+# hardcoded within the script relative to its own location.
+# If the 'trim' argument is not given (i.e. script is called
+# without arguments), messages in the old compendium that are
+# no longer found in project PO files are preserved in
+# the new compendium; if 'trim' is given, they are removed.
+
+# Directory where this script resides.
+cmddir=`dirname $0`
+# Paths of directories containing PO files, space-separated.
+# (Make sure the compendium itself is not in here!)
+podirs="$cmddir/ui $cmddir/doc"
+# Path to the compendium.
+comppo="$cmddir/compendium-foo-nn.po"
+
+trim=$1
+
+# If there is already a compendium, preserve it for later.
+test -f $comppo &amp;&amp; mv $comppo $comppo.old
+
+# Collect PO files from given paths into a file.
+find $podirs -iname \*.po | sort &gt; polist
+
+# Pre-process PO files in the project, creating temporary
+# PO files named *.po.tmpcomp:
+# - remove fuzzy and untranslated messages
+# - declare obsolete messages non-obsolete
+# - remove extracted comments, source references, flags
+for pofile in `cat polist`; do
+    msgattrib $pofile \
+        --translated --no-fuzzy --clear-obsolete --force-po \
+    | grep -v '^#[:.,]' &gt; $pofile.tmpcomp
+done
+# Update file list to contain temporary PO files.
+sed -i "s/$/.tmpcomp/" polist
+
+# Reduce headers of temporary PO files to necessary minimum,
+# proper header for the compendium will be added later.
+posieve -q set-header -f polist \
+    -srmallcomm \
+    -sremoverx:'^(?!MIME-Version$|Content-Type$|Content-Transfer-Encoding$)'
+
+# Create raw compendium from temporary PO files:
+# - aggregate translations for repeated messages
+# - sort messages by key
+msgcat --sort-output --force-po -f polist -o $comppo
+
+# Clean up temporary PO files and file list.
+cat polist | xargs rm
+rm polist
+
+# Resolve aggregated messages to most frequent variant.
+# It is safe to unfuzzy resolved messages, since at
+# this point assured that only translated messages
+# have been aggregated.
+posieve -q resolve-aggregates $comppo -sunfuzzy
+
+# Remove meta-messages which are found in many PO files but
+# should in general be differently translated in each.
+msggrep -v $comppo -o $comppo \
+    -JFe 'NAME OF TRANSLATORS' \
+    -JFe 'EMAIL OF TRANSLATORS' \
+    -JFe 'ROLES_OF_TRANSLATORS' \
+    -JFe 'CREDIT_FOR_TRANSLATORS' \
+
+# Set the compendium header.
+# Use current date as revision date.
+dtnow=`date '+%Y-%m-%d %H:%M%z'`
+posieve -q set-header $comppo -screate \
+    -stitle:'Compendium of Foo translation into Nevernissian.' \
+    -sfield:'Project-Id-Version:compendium-foo-nn' \
+    -sfield:"PO-Revision-Date:$dtnow" \
+    -sfield:'Last-Translator:Simulacrum' \
+    -sfield:'Language-Team:Nevernissian &lt;l10n-nn@neverwhere.org&gt;' \
+    -sfield:'Language:nn' \
+    -sfield:'Plural-Forms:nplurals=9; plural=n==1 ? ...' \
+
+# If the old compendium was preserved, add it to the new compendium
+# in order to retain messages no longer found in the project
+# (unless trimming was requested).
+if test -f $comppo.old &amp;&amp; test x"$trim" != xtrim; then
+    msgcat --use-first --sort-output $comppo $comppo.old -o $comppo
+    # ...old compendium must be the second argument, in order
+    # not to override possibly updated translations of
+    # existing messages in the project.
+fi
+
+# Test if new compendium is different from the old, with
+# the exception  of creation time. If they are the same,
+# discard the new compendium.
+if test -f $comppo.old; then
+    for cpfile in $comppo $comppo.old; do
+        grep -v '^"PO-Revision-Date:.*\\n"$' $cpfile &gt;$cpfile.nrd
+    done
+    if cmp -s $comppo.nrd $comppo.old.nrd; then
+        mv $comppo.old $comppo
+    else
+        rm $comppo.old
+    fi
+    rm $comppo.nrd $comppo.old.nrd
+fi
+
+# Canonically wrap the compendium.
+msgcat $comppo -o $comppo
+
+# All done.
+</pre>
+<p>This script should be periodically called to update the compendium, and the updated file committed, such that all translators will automatically get it when they update their local repository copies. If after some (long) time the compendium becomes to big due to accumulation of old messages, running the script once with the <code class="literal">trim</code> argument will cause all old messages to be dropped.</p>
+</div>
+<div class="sect2">
+<div class="titlepage">
+<div>
+<div>
+<h3 class="title"><a name="sec-cmcompuse" id="sec-cmcompuse"></a>10.1.3.&nbsp;Applying the PO Compendium</h3>
+</div>
+</div>
+</div>
+<p>With a centralized PO compendium in place,</p>
+<p>Translators who use a dedicated PO editor with internal TM should configure the editor to read the compendium into the internal TM. This may be done, for example, by including the compendium PO file (or the directory in which it resides) into editor's translation project paths. If the compendium is kept under version control, the editor should automatically update its internal TM from the compendium whenever the repository is updated and the editor started again. In this way, editor's internal TM becomes transient in nature, there being no problem if it gets corrupted or deleted.</p>
+<p>When working on a particular PO file with a properly configured PO editor, as the translator jumps from one to another incomplete (untranslated or fuzzy) message, when the message is similar to one or few messages in the compendium (i.e. in internal TM) the editor will somehow "offer" those similar messages. Ideally, for each similar message the editor should show not only the possible translation, but also the difference between the two original texts (that of the current message and the TM match). This will allow the translator to quickly see how the offered translation should be adapted to fit the current original.</p>
+<p>Dedicated PO editors may also offer <span class="emphasis"><em>batch</em></span> application of the TM. This means that when the PO file is opened, the translator executes a command which fills in all untranslated messages with matches from the TM, making some translated (on exact matches) and some fuzzy (partial matches). However, simpleminded <span class="emphasis"><em>batch application of the TM should be considered dangerous</em></span>. For one, exact matches in the source language may not be exact matches in the original; especially short messages frequently need different translations. But the translator will simply jump over each batch-translated message and fail to see this. The other problem comes up if the material in the compendium is not sufficiently reviewed, in which case every match from the TM, even on long messages, should be at least casually reviewed by the translator. Thus, if there is no way to configure batch application to be less indiscriminate, it is best to avoid it alltogether, or else the quality of translation may suffer.</p>
+<p>Translators who use a general text editor to work on PO files can still make use of the compendium. One option could be merging the PO file with its template in presence of the compendium, just before starting to work on it:</p>
+<pre class="programlisting">
+$ msgmerge alpha.po alpha.pot -C compendium.po --update --previous
+</pre>
+<p>The <code class="option">-C</code> option to <span class="command"><strong>msgmerge</strong></span> specifies the compendium from which to draw exact and partial matches, when there is no match in the PO file itself. This option can be repeated to add several compendia. The <code class="option">--update</code> option is to modify the PO file in place, rather than writing the merged PO file to standard output. The <code class="option">--previous</code> option is to get previous fields (<code class="literal">#| ...</code> comments) on fuzzy messages. Unfortunatelly, this method is a command line version of the batch application of the TM in a dedicated PO editor, and suffers from the same problem of indiscriminate exact matches that the translator will later fail to check. Therefore it should not be used (at least not for general translation).</p>
+<p>Fortunatelly, Pology provides the <span class="command"><strong>poselfmerge</strong></span> command, which is a wrapper around <span class="command"><strong>msgmerge</strong></span>, and has several options to mitigate the indiscriminancy problem of batch application of TM. To avoid silent exact matches on short messages, the <code class="option">-W</code>/<code class="option">--min-words-exact</code> can be used to set the minimum length of a message in words at which the exact match will be accepted; otherwise the message is made fuzzy. If every exact match should be checked by the translator, no matter the length of the message, there is the <code class="option">-x</code>/<code class="option">--fuzzy-exact</code> to make all exact matches fuzzy.<sup>[<a name="id402275" href="#ftn.id402275" class="footnote" id="id402275">47</a>]</sup> These options have counterpart fields in Pology user configuration, so that the translator does not have to remember to use them on every run, and the PO template is not used at all. See <a class="xref" href="ch-misctools.html#sec-miselfmerge" title="7.2.&nbsp;Self-Merging PO Files with poselfmerge">Section&nbsp;7.2, “Self-Merging PO Files with <span class="command"><strong>poselfmerge</strong></span>”</a> for details.</p>
 </div>
 </div>
 <div class="sect1">
@@ -49,23 +271,284 @@
 </div>
 </div>
 </div>
-</div>
-<div class="sect1">
+<p>Dedicated PO editors provide not only direct editing enhancements (no dealing with PO format syntax, jumping through incomplete messages, automatic removal of fuzzy elements, etc), but also translation-oriented features like spell checking, translation memory collection and application, glossary suggestions, and, going beyond standalone PO files, translation project overview and statistics. Why would someone, in spite of this, prefer to work on PO files with a general text editor? There are various reasons. Some people do not like how elements of currently translated PO message are scattered all over the window (as is typical of many PO editors), out of eye focus, and some elements even not shown. Other people like to have modularity in the translation workflow, rather than relying on the PO editor for everything and accepting its limitations. Some people are simply well accustomed to their text editor and do not want a higher level editor "abstracting" the PO format for them.</p>
+<p>When translating PO files with a general text editor, you will have to use some command line tools to achieve reasonable efficiency and quality.</p>
+<div class="sect2">
 <div class="titlepage">
 <div>
 <div>
-<h2 class="title" style="clear: both"><a name="sec-cbsumasc" id="sec-cbsumasc"></a>10.3.&nbsp;Summit and Ascription</h2>
+<h3 class="title"><a name="sec-cbeffedfeat" id="sec-cbeffedfeat"></a>10.2.1.&nbsp;Expected Features of the Text Editor</h3>
 </div>
 </div>
+</div>
+<p>Starting from the text editor itself, it should have several general text-editing features. Capable editors all have these features, but they should nevertheless be mentioned, so that you can look for them.</p>
+<p>The most important feature is probably <span class="emphasis"><em>syntax highlighting</em></span>, where special parts of the text are displayed in different color, weight, or slant. In a PO file, message field keywords (<code class="varname">msgid</code>, <code class="varname">msgstr</code>) should stand out from the text itself, text in comments should look different from the text in fields, internal text elements (e.g. markup tags) should be highlighted, etc. In this way you can quickly focus on what you should be editing, and on the surrounding context of the text. Syntax higlighting was originaly introduced for various programming language source files, but has since spread to other types of structured text files; established editors should have syntax highlighting for PO files as well.</p>
+<p>Capable editors usually provide special methods of navigating through the file, above simply scrolling up and down line by line or page by page. One particularly useful method would be <span class="emphasis"><em>line bookmarking</em></span>. While in the middle of editing a given line, you have to search through the PO file for something (e.g. how a certain phrase was translated earlier): you can then bookmark the line, search as much as you like, and return to the same line by jumping to the bookmark. Otherwise you would have to remember which line (by number) it was to jump back to it, or search for the text that you remember from that line.<sup>[<a name="id372560" href="#ftn.id372560" class="footnote" id="id372560">48</a>]</sup></p>
+<p>It will usually be possible to start the editor with one or more file paths as command-line arguments, to open those files at once. This is useful when a selection of PO files in need of some editing is determined by an external command, which writes out their paths. These paths can then be fed directly to the editor, rather than having to open them manually one by one (and possibly missing some) through editor's file dialog.</p>
 </div>
 <div class="sect2">
 <div class="titlepage">
 <div>
 <div>
-<h3 class="title"><a name="sec-cbrelflt" id="sec-cbrelflt"></a>10.3.1.&nbsp;Filtering for Release</h3>
+<h3 class="title"><a name="sec-cbeffstats" id="sec-cbeffstats"></a>10.2.2.&nbsp;Statistics on PO Files</h3>
 </div>
 </div>
 </div>
+<p>Having good statistics on a single or a group of PO files is necessary for estimating the translation effort, for example how much time should be allotted for updating the existing translation for impending next release of the source material. Pology's workhorse for computing statistics is <a class="link" href="ch-sieve.html#sv-stats" title="3.5.30.&nbsp;stats">the <span class="command"><strong>stats</strong></span> sieve</a> of <span class="command"><strong>posieve</strong></span>.</p>
+<p><a name="p-trpsetup1" id="p-trpsetup1"></a>Assume the following arrangement of PO files for language <code class="literal">nn</code> and their templates:</p>
+<pre class="programlisting">
+l10n-nn/
+    ui/
+        alpha.po
+        bravo.po
+        ...
+    doc/
+        alpha.po
+        bravo.po
+        ...
+l10n-templates/
+    ui/
+        alpha.pot
+        bravo.pot
+        ...
+    doc/
+        alpha.pot
+        bravo.pot
+        ...
+</pre>
+<p>If the current working directory is <code class="filename">l10n-nn/</code>, to compute statistics on a single PO file, <span class="command"><strong>posieve</strong></span> can be executed like this:</p>
+<pre class="programlisting">
+$ posieve stats ui/alpha.po
+</pre>
+<p>This will display a table with message counts, word counts and characters counts, as well as ratios to total, per category of messages (translated, fuzzy, untranslated, obsolete). To have the same output for all PO files in the <code class="filename">ui/</code> directory taken together, or in the whole project, respectively:</p>
+<pre class="programlisting">
+$ posieve stats ui/
+$ posieve stats
+</pre>
+<p>Note that word count is a much better base for estimating the translation effort than message count.</p>
+<p>When statistics is computed for several PO files (or a directory, or several directories full of PO files), frequently it is necessary to get statistics per file (or per directory). This is done by adding the <code class="option">byfile</code> or <code class="option">bydir</code> sieve parameter:</p>
+<pre class="programlisting">
+$ posieve stats -s byfile ui/
+</pre>
+<p>However, this will output one full table for each file, which may be a bit too much data to grasp. Instead, you can request bar display, where each file is represented by a single-line bar. The bar shows either the number of messages or the number words per category, depending on whether <code class="option">msgbar</code> or <code class="option">wbar</code> was issued. To get word bars per file in <code class="filename">ui/</code> directory, you can execute:</p>
+<pre class="programlisting">
+$ posieve stats -s byfile -s wbar ui/
+</pre>
+<p>Fuzzy messages introduce some uncertainty in effort estimation. If the statistics shows 50 fuzzy messages with 700 words, you cannot conclude from that if changes in those messages are small (e.g. cleaned style, punctuation) and translation can be quickly updated, or substantial (entirely new messages with passing similarity to earlier message) and require heavy editing. For this reason the <span class="command"><strong>stats</strong></span> sieve provides the <code class="option">ondiff</code> parameter: for each fuzzy message the difference from previous message is computed, and based on that a part of the word count is assigned to translated category and the rest to untranslated (thus leaving nominal zero words in the fuzzy category). The result is that, for example, a PO file with a lot of messages fuzzy due to punctuation changes will show in statistics as almost completely translated by number of words.</p>
+<p>If the translation project is organized such that new empty PO files are not automatically derived from new PO templates, then when running statistics just over language PO files it will happen that templates which do not have a counterpart PO file are not counted as fully empty PO files. To have such templates counted, the two-argument <code class="option">templates</code> parameter can be issued; the first parameter is a path segment of the language directory, and the second parameter what to replace it with to get the corresponding template directory path. In the translation project setup as above, this is how you would compute the statistics on <code class="filename">ui/</code> directory while taking templates into account:</p>
+<pre class="programlisting">
+$ posieve stats -s templates:l10n-nn:l10n-templates ui/
+</pre>
+<p>The path replacement is always done on absolute paths, so in this example it is not a problem that the relative paths (<code class="filename">ui/alpha.po</code>...) do not contain original and replacement segments.</p>
+<p>The translation project may not be organized such that each language has its own top directory. Instead, language PO files may be grouped by application and PO domain, and named by language code:</p>
+<pre class="programlisting">
+project/
+    alpha/
+        po/
+            aa.po
+            bb.po
+            ...
+    bravo/
+        po/
+            aa.po
+            bb.po
+            ...
+    ...
+</pre>
+<p>In this setup the <span class="command"><strong>stats</strong></span> sieve can still be run on directory paths as arguments, in order to get statistics on all PO files of a given language, by using the <code class="option">-I</code>/<code class="option">--include-path</code> option of <span class="command"><strong>posieve</strong></span> to single out the desired language. For example, to get statistics on all PO files of the <code class="literal">nn</code> language in a single table:</p>
+<pre class="programlisting">
+$ posieve stats project/ -I 'nn.po'
+</pre>
+<p>or by file in form of message bars:</p>
+<pre class="programlisting">
+$ posieve stats -s byfile -s msgbar project/ -I 'nn.po'
+</pre>
+<p>The value of the <code class="option">-I</code> option is in fact a <a class="link" href="ch-common.html#sec-cmregex" title="9.3.&nbsp;Regular Expressions">regular expression</a>, and the option can be repeated, which allows to finely tune the file selection when necessary.</p>
+<p>As for other statistics tools, Gettext's <span class="command"><strong>msgfmt</strong></span> with <code class="option">--statistics</code> option could be considered as one (though it shows only translated, fuzzy, and untranslated message counts), and especially the <a class="ulink" href="http://translate.sourceforge.net/wiki/toolkit/pocount" target="_top">the <span class="command"><strong>pocount</strong></span> command from Translate Toolkit</a>.</p>
+</div>
+<div class="sect2">
+<div class="titlepage">
+<div>
+<div>
+<h3 class="title"><a name="sec-cbeffupdate" id="sec-cbeffupdate"></a>10.2.3.&nbsp;Updating PO Files After Merging</h3>
+</div>
+</div>
+</div>
+<p>When a single PO file is to be translated from scratch, then it is easy to just open it in the text editor and start translating messages one by one. However, usually more frequent than this is translation maintenance, in which you need to go through a bunch of freshly merged PO files and update new untranslated and fuzzy messages. The problem then is twofold: how to efficiently check which files need updating, and how to efficiently go through messages that need to be updated within a file.</p>
+<p>To see which PO files need to be updated, you can simply run the <span class="command"><strong>stats</strong></span> sieve with <code class="option">byfile</code> and <code class="option">msgbar</code>/<code class="option">wbar</code> parameters (and possibly <code class="option">ondiff</code>), as explained in the previous section. After that you would have to manually observe incomplete files and open them in the editor one by one, which is tedious and prone to oversight. Instead, you can also add the <code class="option">incompfile</code> parameter to <span class="command"><strong>stats</strong></span>, which will write paths of all incomplete PO files into a file. If PO files are organized as in <a class="link" href="ch-combined.html#p-trpsetup1">the previous example</a>, and you want to update translations in <code class="filename">ui/</code> subdirectory, you would run:</p>
+<pre class="programlisting">
+$ posieve stats -s byfile -s wbar -s incompfile:toupdate.out ui/
+</pre>
+<p>Now <code class="filename">toupdate.out</code> will contain the paths of incomplete files. If the editor can be started from the command line with a number of file path arguments, you can directly feed it <code class="filename">toupdate.out</code>, e.g. by adding <code class="filename">`cat toupdate.out`</code> to the editor command.</p>
+<p>If the translation project is organized such that each new template results in new empty PO file, you may wish to update only those PO files which where worked on before, i.e. those not entirely empty. For this you can add the <code class="option">mincomp</code> parameter, which sets the minimal completeness (the ratio of translated to total messages) at which to take a PO file into consideration, with a very small value:</p>
+<pre class="programlisting">
+$ posieve stats -s mincomp:1e-6 -s incompfile:toupdate.out ui/
+</pre>
+<p><code class="literal">1e-6</code> is short for <code class="literal">0.000001</code>, which means to take into consideration only those PO files which have more than one in a million translated files. Since there is no PO file with a million messages, this effectively means to include every PO file which has at least one translated message in it.</p>
+<p>Once the incomplete PO files are open in the editor, to be able to jump through incomplete messages, you need to somehow use editor's search function. For fuzzy messages it is easy, you can just search for the <code class="literal">, fuzzy</code> string. Untranslated messages, on the other hand, are more problematic. You may think of searching for <code class="literal">msgstr ""</code>, but this would also find long wrapped messages:</p>
+<pre class="programlisting">
+msgid ""
+"Blah blah blah [...]"
+"blah blah."
+msgstr ""
+"Bla bla bla [...]"
+"bla bla."
+</pre>
+<p>To make untranslated messages stand out unambiguously, there is <a class="link" href="ch-sieve.html#sv-tag-untranslated" title="3.5.31.&nbsp;tag-untranslated">the <span class="command"><strong>tag-untranslated</strong></span> sieve</a>. It simply adds <code class="literal">untranslated</code> flag to all untranslated messages (but not to fuzzy unless explicitly requested), so that you can search for <code class="literal">, untranslated</code> in the editor. The most convenient is to run <span class="command"><strong>tag-untranslated</strong></span> on the <code class="filename">toupdate.out</code> file produced by <span class="command"><strong>stats</strong></span> using the <code class="option">-f</code>/<code class="option">--from-files</code>:</p>
+<pre class="programlisting">
+$ posieve tag-untranslated -f toupdate.out
+</pre>
+<p>Fuzzy messages may be such only due to small changes in the original text, for example a single word changed in a paragraph-length message. This is not so easy to see by manually comparing the original and the translation. However, since fuzzy messages should have the previous original text in comments (if merged with <code class="option">--previous</code> option of <span class="command"><strong>msgmerge</strong></span>), it is possible to automatically embed differences into those comments with <a class="link" href="ch-sieve.html#sv-diff-previous" title="3.5.13.&nbsp;diff-previous">the <span class="command"><strong>sv-diff-previous</strong></span> sieve</a>; see its documentation for an example. You should run this sieve on <code class="filename">toupdate.out</code> as well:</p>
+<pre class="programlisting">
+$ posieve diff-previous -f toupdate.out
+</pre>
+<p>Your editor may even highlight the difference segments added to the previous original text, making them stand out quite clearly.</p>
+<p>Since normally you want both to mark untranslated messages and to add differences to fuzzy messages before going through PO files, you can run the two sieves at once:</p>
+<pre class="programlisting">
+$ posieve tag-untranslated,diff-previous -f toupdate.out
+</pre>
+<p>As you go through incomplete messages and update the translation, you should remove any <code class="literal">fuzzy</code> or <code class="literal">untranslated</code> flags, and previous fields in <code class="literal">#| ...</code> comments, so that in the end you can commit (upload, send) clean updated PO files. But sometimes it will happen that you realize that you do not have enough time to update everything, and you want to commit what you have completed by that moment. The problem is that there will still be some <code class="literal">untranslated</code> flags and embedded differences remaining throughout the files, and leftover embedded differences would e.g. interfere with subsequent merging. To automatically remove these remaining elements, you simply run the two sieves with the <code class="option">strip</code> parameter:</p>
+<pre class="programlisting">
+$ posieve tag-untranslated,diff-previous -s strip -f toupdate.out
+</pre>
+<p>When you update a PO file, for the sake of clarity and copyright you should also update its header with your personal data (the author comment, the <code class="literal">Last-Translator:</code> field, etc.) You could do this manually, but it is much simpler to set your data once in the <a class="link" href="ch-common.html#sec-cmconfig" title="9.2.&nbsp;User Configuration">Pology user configuration</a> and run <a class="link" href="ch-sieve.html#sv-update-header" title="3.5.35.&nbsp;update-header">the <span class="command"><strong>update-header</strong></span> sieve</a> over all updated files<sup>[<a name="id370170" href="#ftn.id370170" class="footnote" id="id370170">49</a>]</sup>:</p>
+<pre class="programlisting">
+$ posieve update-header -f toupdate.out
+</pre></div>
+</div>
+<div class="sect1">
+<div class="titlepage">
+<div>
+<div>
+<h2 class="title" style="clear: both"><a name="sec-cbsumasc" id="sec-cbsumasc"></a>10.3.&nbsp;Summit with Ascription</h2>
+</div>
+</div>
+</div>
+<p>Summit and ascription workflows, described in <a class="xref" href="ch-summit.html" title="Chapter&nbsp;5.&nbsp;Summitting Translation Branches">Chapter&nbsp;5, <i>Summitting Translation Branches</i></a> and <a class="xref" href="ch-ascript.html" title="Chapter&nbsp;6.&nbsp;Ascribing Modifications and Reviews">Chapter&nbsp;6, <i>Ascribing Modifications and Reviews</i></a>, fit excellently together. Ascription enables review-based release control on summit scatter (<a class="xref" href="ch-summit.html#sec-sucfgascf" title="5.3.7.&nbsp;Filtering by Ascription on Scatter">Section&nbsp;5.3.7, “Filtering by Ascription on Scatter”</a> shows how to do it), while summit removes the needed for different ascription file trees per branch (and the associated effort at branch cycling). All the information that you need to set up a summit with ascription are explained in the chapters mentioned; the only thing left for this section is to show the order of actions and the resulting file structure, as implied by the technical requirements.</p>
+<p>The first thing to set up is the summit. From the viewpoint of ascription, it is not important which summit mode is used; indeed, while the direct summit is still not advised, putting ascription on top would alleviate some of its disadvantages. In the following the summit over dynamic templates is assumed, because it is a bit less involved than the summit over static templates, but nevertheless demonstrates all important points.</p>
+<p>After configuring and initializing the summit over dynamic templates, let the summit top directory only (that is, omitting branches) look like this:</p>
+<pre class="programlisting">
+l10n-nn/
+    summit/
+        foo-module/
+            alpha.po
+            bravo.po
+            ...
+        bar-module/
+            kilo.po
+            lima.po
+            ...
+        ...
+    summit-config
+</pre>
+<p>PO files in the summit are shown split into several submodules for generality. Unlike in the chapter on summit, the summit directory is placed here within a parent language directory, and the summit configuration file <code class="filename">summit-config</code> in the parent directory instead of the summit directory. This is in order to have a clearer structure when the ascription is added.</p>
+<p>The ascription is set up after the summit, such that it takes only the summit directory into account, having nothing to do with branches. After the ascription is configured and initialized, the summit with ascription tree should look like this:</p>
+<pre class="programlisting">
+l10n-nn/
+    summit/
+        foo-module/
+            alpha.po
+            bravo.po
+            ...
+        bar-module/
+            kilo.po
+            lima.po
+            ...
+        ...
+    summit-ascript/
+        foo-module/
+            alpha.po
+            bravo.po
+            ...
+        bar-module/
+            kilo.po
+            lima.po
+            ...
+        ...
+    ascription-config
+    summit-config
+</pre>
+<p>Here the ascription tree root is set to <code class="filename">summit-ascript/</code> in the ascription configuration file <code class="filename">ascription-config</code>. With this, setting up the summit with ascription workflow is completed.</p>
+<div class="sect2">
+<div class="titlepage">
+<div>
+<div>
+<h3 class="title"><a name="sec-cbsamultsum" id="sec-cbsamultsum"></a>10.3.1.&nbsp;Several Summits with Unified Ascription</h3>
+</div>
+</div>
+</div>
+<p>In some circumstances you may want to have <span class="emphasis"><em>several</em></span> separate summits with unified ascription. This may be the case, for example, when the translation project is such that the user interface and documentation PO files are put into separate file trees in branches, and most paired UI-documentation PO files have same names.<sup>[<a name="id382241" href="#ftn.id382241" class="footnote" id="id382241">50</a>]</sup></p>
+<p>The parent language directory in this scenario, with summits and ascription set up, could look like this:</p>
+<pre class="programlisting">
+l10n-nn/
+    summit/
+        ui/
+            foo-module/
+                alpha.po
+                bravo.po
+                ...
+            bar-module/
+                kilo.po
+                lima.po
+                ...
+            ...
+            summit-config
+        doc/
+            foo-module/
+                alpha.po
+                bravo.po
+                ...
+            bar-module/
+                kilo.po
+                lima.po
+                ...
+            summit-config
+    summit-ascript/
+        ui/
+            foo-module/
+                alpha.po
+                bravo.po
+                ...
+            bar-module/
+                kilo.po
+                lima.po
+                ...
+            ...
+        doc/
+            foo-module/
+                alpha.po
+                bravo.po
+                ...
+            bar-module/
+                kilo.po
+                lima.po
+                ...
+            ...
+    ascription-config
+</pre>
+<p>Note here the location of <code class="literal">summit-config</code> files: each is within its own summit directory, which are <code class="filename">summit/ui/</code> and <code class="filename">summit/doc/</code>. On the other hand, there is a single <code class="literal">ascription-config</code> file, which covers all summits. This means that summit operations (merging, scattering) must be performed from within their respective summit directories (since <span class="command"><strong>posummit</strong></span> looks through the parent directories for first <code class="literal">summit-config</code> file), while ascription operations can be performed from anywhere.</p>
+<p>Having unified ascription is especially convenient in <a class="link" href="ch-summit.html#sec-sumntbasic" title="5.2.1.&nbsp;Centralized Summit Maintenance">centralized summit maintenance</a>, since translators and reviewers are concerned only with ascription (running <span class="command"><strong>poascribe</strong></span> to commit, select for review, etc.) regardless of how many summits there are.</p>
+</div>
+</div>
+<div class="footnotes"><br>
+<hr width="100" align="left">
+<div class="footnote">
+<p><sup>[<a name="ftn.id378114" href="#id378114" class="para" id="ftn.id378114">45</a>]</sup> To be sure, some short messages can be quite similar in many unrelated PO files. But having TM matches only on such messages will result in very small time savings, if measurable at all.</p>
+</div>
+<div class="footnote">
+<p><sup>[<a name="ftn.id389558" href="#id389558" class="para" id="ftn.id389558">46</a>]</sup> At one point, the script creates a temporary PO file for each original PO file, and then calls <span class="command"><strong>msgcat</strong></span> on these temporary files to create the first, raw compendium. These temporary files have fuzzy and untranslated messages removed, and some other adjustments, before concatenation. One could think that all these adjustments could instead be done on the raw compendium. The problem is that then there would be no unambiguous way to tell which fuzzy messages in the raw compendium were fuzzy to begin with, and which were made fuzzy by <span class="command"><strong>msgcat</strong></span> due to agreggation of translations. With fuzzy messages removed prior to concatenation, in de-aggregation by frequency that follows it is known that messages with fuzzy flags are those aggregated.</p>
+</div>
+<div class="footnote">
+<p><sup>[<a name="ftn.id402275" href="#id402275" class="para" id="ftn.id402275">47</a>]</sup> The translator can still see when the match was exact, because normal fuzzy messages will have previous fields and fuzzied exact matches will not.</p>
+</div>
+<div class="footnote">
+<p><sup>[<a name="ftn.id372560" href="#id372560" class="para" id="ftn.id372560">48</a>]</sup> One trick is also hitting undo once, which will normally skip to the line in which the last modification was made, and then hit redo to recover the modification.</p>
+</div>
+<div class="footnote">
+<p><sup>[<a name="ftn.id370170" href="#id370170" class="para" id="ftn.id370170">49</a>]</sup> If you use <a class="link" href="ch-ascript.html" title="Chapter&nbsp;6.&nbsp;Ascribing Modifications and Reviews">ascription</a>, you should instead tell <span class="command"><strong>poascribe</strong></span> to update headers for you when committing. This is done by adding <code class="literal">update-headers = yes</code> to <code class="literal">[poascribe]</code> section in user configuration.</p>
+</div>
+<div class="footnote">
+<p><sup>[<a name="ftn.id382241" href="#id382241" class="para" id="ftn.id382241">50</a>]</sup> On the other hand, you may still have a unified summit, by defining a <a class="link" href="ch-summit.html#sec-sustpptransf" title="5.1.4.&nbsp;Transforming Branch Paths">path transformation</a> in summit configuration to disambiguate UI and documentation PO files sharing the same domain name.</p>
 </div>
 </div>
 </div>
