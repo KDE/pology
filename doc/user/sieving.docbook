@@ -36,7 +36,7 @@ Tagged 42 untranslated messages.
 </programlisting>
 <command>posieve</command> itself tracks message modifications and informs about modified PO files, whereas the final line in this example has been output by the <command>tag-untranslated</command> sieve. Sieves will frequently issue such final reports of their actions.</para>
 
-<para>If a sieve defines some parameters to control its behavior, these can be issued using the <option>-s</option>. This option takes the parameter specification as the argument, which is of the form <literal><replaceable>name</replaceable>:<replaceable>value</replaceable></literal> or just <literal><replaceable>name</replaceable></literal> for switch-type parameters. More than one parameter can be issued by repeating the <option>-s</option>. For example, the <command>stats</command> sieve can be instructed to take into account only messages with at most 5 words:
+<para id="p-svparam">If a sieve defines some parameters to control its behavior, these can be issued using the <option>-s</option>. This option takes the parameter specification as the argument, which is of the form <literal><replaceable>name</replaceable>:<replaceable>value</replaceable></literal> or just <literal><replaceable>name</replaceable></literal> for switch-type parameters. More than one parameter can be issued by repeating the <option>-s</option>. For example, the <command>stats</command> sieve can be instructed to take into account only messages with at most 5 words:
 <programlisting>
 $ posieve stats -s maxwords:5 frobaz/
 </programlisting>

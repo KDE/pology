@@ -4,7 +4,10 @@
 [
     <!ENTITY apibase "../../api/en_US">
     <!ENTITY ap "&apibase;/pology.">
-    <!ENTITY am "-module.html#">
+    <!ENTITY amm "-module.html">
+    <!ENTITY am "&amm;#">
+    <!ENTITY acc "-class.html">
+    <!ENTITY ac "&acc;#">
 ]>
 
 <chapter id="ch-prog">
@@ -18,21 +21,28 @@
 
 <para></para>
 
-<sect2 id="sec-prmsg">
+<sect2 id="sec-prflmon">
+<title>Monitored Objects</title>
+
+<para></para>
+
+</sect2>
+
+<sect2 id="sec-prflmsg">
 <title>Message</title>
 
 <para></para>
 
 </sect2>
 
-<sect2 id="sec-prcat">
+<sect2 id="sec-prflcat">
 <title>Catalog</title>
 
 <para></para>
 
 </sect2>
 
-<sect2 id="sec-prhead">
+<sect2 id="sec-prflhead">
 <title>Header</title>
 
 <para></para>
@@ -42,18 +52,149 @@
 </sect1>
 
 <!-- ======================================== -->
-<sect1 id="sec-prmonitor">
-<title>Monitored Objects</title>
-
-<para></para>
-
-</sect1>
-
-<!-- ======================================== -->
 <sect1 id="sec-prsieves">
 <title>Writing Sieves</title>
 
-<para></para>
+<para><link linkend="ch-sieve">Pology sieves</link> are filtering-like processing elements applied by the <command>posieve</command> script to collections of PO files. A sieve can examine as well as modify the PO entries passed through it. Each sieve is written in a separate file. If the sieve file is put into <filename>sieve/</filename> directory of Pology distribution (or intallation), the sieve can be referenced on <command>posieve</command> command line by the shorthand notation; otherwise the path to the sieve file is given. The former is called an internal sieve, and the latter an external sieve, but the sieve file layout and the sieve definition are same for both cases.</para>
+
+<para>In the following, <command>posieve</command> will be referred to as "the client". This is because tools other than <command>posieve</command> may start to use sieves in the future, and it will also be described what these clients should adhere to when using sieves.</para>
+
+<sect2 id="sec-prsvlayout">
+<title>Sieve Layout</title>
+
+<para>The sieve file must define the <classname>Sieve</classname> class, with some mandatory and some optional interface methods and instance variables. There are no restrictions at what you can put into the sieve file beside this class, only keep in mind that <command>posieve</command> will load the sieve file as a Python module, exactly once during a single run.</para>
+
+<para>Here is a simple sieve (also the complete sieve file) which just counts the number of translated messages:
+<programlisting>
+class Sieve (object):
+
+    def __init__ (self, params):
+
+        self.ntranslated = 0
+
+    def process (self, msg, cat):
+
+        if msg.translated:
+            self.ntranslated += 1
+
+    def finalize (self):
+
+        report("Total translated: %d" % self.ntranslated)
+</programlisting>
+The constructor takes as argument an object specifying any sieve parameters (more on that soon). The <methodname>process</methodname> method gets called for each message in each PO file processed by the client, and must take as parameters the message (instance of <ulink url="&ap;message.Message_base&acc;"><classname>Message_base</classname></ulink>) and the catalog which contains it (<ulink url="&ap;catalog.Catalog&acc;"><classname>Catalog</classname></ulink>). The client calls the <methodname>finalize</methodname> method after no more messages will be fed to the sieve, but this method does need to be defined (client should check if it exists before placing the call).</para>
+
+<para>Another optional method is <methodname>process_header</methodname>, which the client calls on the PO header:
+<programlisting>
+def process_header (self, hdr, cat):
+    # ...
+</programlisting>
+<literal>hdr</literal> is an instance of <ulink url="&ap;header.Header&acc;"><classname>Header</classname></ulink>, and <literal>cat</literal> is the containing catalog. The client will check for the presence of this method, and if it is defined, it will call it prior to any <methodname>process</methodname> call on the messages from the given catalog. In other words, the client is not allowed to switch catalogs between two calls to <methodname>process</methodname> without calling <methodname>process_header</methodname> in between.</para>
+
+<para>There is also the optional <methodname>process_header_last</methodname> method, for which everything holds just like for <methodname>process_header</methodname>, except that, when present, the client must call it <emphasis>after</emphasis> all consecutive <methodname>process</methodname> calls on messages from the same catalog:
+<programlisting>
+def process_header_last (self, hdr, cat):
+    # ...
+</programlisting>
+</para>
+
+<para>Sieve methods should not abort program execution in case of errors, instead they should throw an exception. In particular, if the <methodname>process</methodname> method throws <ulink url="&ap;sieve.SieveMessageError&acc;"><classname>SieveMessageError</classname></ulink>, it means that the sieve can still process other messages in the same catalog; if it throws <ulink url="&ap;sieve.SieveCatalogError&acc;"><classname>SieveCatalogError</classname></ulink>, then any following messages from the same catalog must be skipped, but other catalogs may be processed. Similarly, if <methodname>process_header</methodname> throws <classname>SieveCatalogError</classname>, other catalogs may still be processed. Any other type of exception tells the client that the sieve should no longer be used.</para>
+
+<para>The <methodname>process</methodname> and <methodname>process_header</methodname> methods should either return <literal>None</literal> or an integer exit code. A return value which is neither <literal>None</literal> nor <literal>0</literal> indicates that while the evaluation was successfull (no exception was thrown), the processed entry (message or header) should not be passed further along the <link linkend="sec-svchains">sieve chain</link>.</para>
+
+</sect2>
+
+<sect2 id="sec-prsvparams">
+<title>Sieve Parameter Handling</title>
+
+<para>The <literal>params</literal> parameter of the sieve constructor is an object with data attributes as <link linkend="p-svparam">parameters which may influence</link> the sieve operation. The sieve file can define the <function>setup_sieve</function> function, which the client will call with
+a <ulink url="&ap;subcmd.SubcmdView&acc;"><classname>SubcmdView</classname></ulink> object as the single argument, to fill in the sieve description and define all mandatory and optional parameters. For example, if the sieve takes an optional parameter named <literal>checklevel</literal>, which controles the level (an integer) at which to perform some checks, here is how <function>setup_sieve</function> could look like:
+<programlisting>
+def setup_sieve (p):
+
+    p.set_desc("An example sieve.")
+    p.add_param("checklevel", int, defval=0,
+                desc="Validity checking level.")
+
+
+class Sieve (object):
+
+    def __init__ (self, params):
+
+        if params.checklevel >= 1:
+            # ...setup some level 1 validity checks...
+        if params.checklevel >= 2:
+            # ...setup some level 2 validity checks...
+        #...
+
+    ...
+</programlisting>
+See the <ulink url="&ap;subcmd.SubcmdView&ac;add_param"><methodname>add_param</methodname></ulink> method for details on defining sieve parameters.</para>
+
+<para>The client is not obliged to call <function>setup_sieve</function>, but it must make sure that the object it sends to the sieve as <literal>params</literal> has all the instance variable according to the defined parameters.</para>
+
+</sect2>
+
+<sect2 id="sec-prsvregime">
+<title>Catalog Regime Indicators</title>
+
+<para>There are two boolean instance variables that the sieve may define, and
+which the client may check for to decide on the regime in which the
+catalogs are opened and closed:
+<programlisting>
+class Sieve (object):
+
+    def __init__ (self, params):
+
+        # These are the defaults:
+        self.caller_sync = True
+        self.caller_monitored = True
+
+    ...
+</programlisting>
+The variables are:
+<itemizedlist>
+
+<listitem>
+<para><varname>caller_sync</varname> instructs the client whether catalogs processed by the sieve should be synced to disk at the end. If the sieve does not define this variable, the client should assume <literal>True</literal> and sync catalogs. This variable is typically set to <literal>False</literal> in sieves which do not modify anything, because syncing catalogs takes time.</para>
+</listitem>
+
+<listitem>
+<para><varname>caller_monitored</varname> tells the client whether it should open catalogs in monitored mode. If this variable is not set, the client should assume it <literal>True</literal>. This is another way of reducing processing time for sieves which do not modify PO entries.</para>
+</listitem>
+
+</itemizedlist>
+</para>
+
+<para>Usually a modifying sieve will set neither of these variables, i.e. catalogs will be monitored and synced by default, while a checker sieve will set both to <literal>False</literal>. For a modifying sieve that unconditionally modifies all entries sent to it, only <varname>caller_monitored</varname> may be set to <literal>False</literal> and <varname>caller_sync</varname> left undefined (i.e. <literal>True</literal>).</para>
+
+<para>If a sieve requests no monitoring or no syncing, the client is not obliged to satisfy these requests. On the other hand, if a sieve does request monitoring or syncing (either explicitly or by not defining the corresponding variables), the client must provide catalogs in that regime. This is because there may be several sieves operating at the same time (a sieve chain), and monitoring and syncing is usually necessary for proper operation of those sieves that request it.</para>
+
+</sect2>
+
+<sect2 id="sec-prsvnotes">
+<title>Further Notes on Sieves</title>
+
+<para>Since monitored catalogs have modification counters, the sieve may use them within its <methodname>process*</methodname> methods to find out if any modification really took place. The proper way to do this is to record the counter at start, and check for increase at end:
+<programlisting>
+def process (self, msg, cat):
+
+    startcount = msg.modcount
+
+    # ...
+    # ... do some stuff
+    # ...
+
+    if msg.modcount > startcount:
+        self.nmodified += 1
+</programlisting>
+The <emphasis>wrong</emphasis> way to do it would be to merely check if <literal>msg.modcount > 0</literal>, because several modifying sieves may be operating at the same time, each increasing the counters.</para>
+
+<para>If the sieve wants to remove the message from the catalog, if at all possible it should use catalog's <methodname>remove_on_sync</methodname> instead of <methodname>remove</methodname> method, to defer actual removal to sync time. This is because <methodname>remove</methodname> will probably ruin client's iteration over the catalog, so if it must be used, the sieve documentation should state it clearly. <methodname>remove</methodname> also has linear execution time, while <methodname>remove_on_sync</methodname> has constant.</para>
+
+<para>If the sieve is to become part of Pology distribution, it should be properly documented. This means fully equipped <function>setup_sieve</function> function in the sieve file, and a piece of user manual documentation.
+The <classname>Sieve</classname> class itself should not be documented in general. Only when <methodname>process*</methodname> are returning an exit code, this should be stated in their own comments (and in the user manual).</para>
+
+</sect2>
 
 </sect1>
 
