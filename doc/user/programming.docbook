@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
- "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+ "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd"
+[
+    <!ENTITY apibase "../../api/en_US">
+    <!ENTITY ap "&apibase;/pology.">
+    <!ENTITY am "-module.html#">
+]>
 
 <chapter id="ch-prog">
 <title>Programming with Pology</title>
@@ -56,7 +61,183 @@
 <sect1 id="sec-prhooks">
 <title>Writing Hooks</title>
 
-<para></para>
+<para>Hooks are functions with specified sets of input parameters, return values, processing intent, and behavioral constraints. They can be used as modification and validation plugins in many processing contexts in Pology. There are three broad categories of hooks: filtering, validation and side-effect hooks.</para>
+
+<para>Filtering hooks modify some of their inputs. Modifications are done in-place whenever the input is mutable (like a PO message), otherwise the modified input is provided in a return value (like a PO message text field).</para>
+
+<para>Validation hooks perform certain checks on their inputs, and return a list of <emphasis>annotated spans</emphasis> or <emphasis>annotated parts</emphasis>, which record all the encountered errors:
+<itemizedlist>
+
+<listitem>
+<para id="p-annspans">Annotated spans are reported when the object of validation is a piece of text. Each span is a tuple of start and end index of the problematic segment in the text, and a note which explains the problem. The return value of a text-validation hook will thus be a list:
+<programlisting>
+[(start1, end1, "note1"), (start2, end2, "note1"), ...]
+</programlisting>
+The note can also be <literal>None</literal>, if there is nothing to say about the problem.</para>
+</listitem>
+
+<listitem>
+<para id="p-annparts">Annotated parts are reported for an object which has more than one distinct piece of text, such as a PO message. Each annotated part is a tuple stating the name of the problematic part of the object (e.g. <literal>"msgid"</literal>, <literal>"msgstr"</literal>), the item index for array-like parts (e.g. for <literal>msgstr</literal>), and the list of problems in appropriate form (for a PO message this is a list of annotated spans).
+The return value of a PO message-validation hook will look like this:
+<programlisting>
+[("part1", item1, [(start11, end11, "note11"), ...]),
+ ("part2", item2, [(start21, end21, "note21"), ...]),
+ ...]
+</programlisting>
+</para>
+</listitem>
+
+</itemizedlist>
+</para>
+
+<para>Side-effect hooks neither modify their inputs nor report validation information, but can be used for whatever purpose which is independent of the processing chain into which the hook is inserted. For example, a validation hook can be implemented like this as well, when it is enough that it reports problems to standard output, or where the hook client does not know how to use structured validation data (annotated spans or parts). The return value of a side-effect hook the number of errors encountered internally by the hook (an integer). Clients may use this number to decide upon further behavior. For example, if a side-effect hook modified a temporary copy of a file, the client may decide to abandon the result and use the original file if there were some errors.</para>
+
+<sect2 id="sec-prhktypes">
+<title>Hook Taxonomy</title>
+
+<para>In this section a number of hook types are described and assigned a formal
+type keyword, so that they can be conveniently referred to elsewhere in Pology documentation.</para>
+
+<para>Each type keyword has the form <emphasis>&lt;letter1&gt;&lt;number&gt;&lt;letter2&gt;</emphasis>, e.g. F1A. The first letter represents the hook category: <emphasis>F</emphasis> for filtering hooks, <emphasis>V</emphasis> for validation hooks, and <emphasis>S</emphasis> for side-effect hooks. The number enumerates the input signature by parameter types, and the final letter denotes the difference in semantics of input parameters for equal input signatures. As a handy mnemonic, each type is also given an informal signature in the form of <literal>(param1, param2, ...) -> result</literal>; in them, <literal>spans</literal> stand for <link linkend="p-annspans">annotated spans</link>, <literal>parts</literal> for <link linkend="p-annparts">annotated parts</link>, and <literal>numerr</literal> for number of errors.</para>
+
+<para>Hooks on pure text:
+<itemizedlist>
+<listitem>
+<para>F1A (<literal>(text) -> text</literal>): filters the text</para>
+</listitem>
+<listitem>
+<para>V1A (<literal>(text) -> spans</literal>): validates the text</para>
+</listitem>
+<listitem>
+<para>S1A (<literal>(text) -> numerr</literal>): side-effects on text</para>
+</listitem>
+</itemizedlist>
+</para>
+
+<para>Hooks on text fields in a PO message in a catalog:
+<itemizedlist>
+<listitem>
+<para>F3A (<literal>(text, msg, cat) -> text</literal>): filters any text field</para>
+</listitem>
+<listitem>
+<para>V3A (<literal>(text, msg, cat) -> spans</literal>): validates any text field</para>
+</listitem>
+<listitem>
+<para>S3A (<literal>(text, msg, cat) -> numerr</literal>): side-effects on any text field</para>
+</listitem>
+<listitem>
+<para>F3B (<literal>(msgid, msg, cat) -> msgid</literal>): filters an original text field; original fields are either <literal>msgid</literal> or <literal>msgid_plural</literal></para>
+</listitem>
+<listitem>
+<para>V3B (<literal>(msgid, msg, cat) -> spans</literal>): validates an original text field</para>
+</listitem>
+<listitem>
+<para>S3B (<literal>(msgid, msg, cat) -> numerr</literal>): side-effects on an original text field</para>
+</listitem>
+<listitem>
+<para>F3C (<literal>(msgstr, msg, cat) -> msgstr</literal>): filters a translation text field; translation fields are the <literal>msgstr</literal> array</para>
+</listitem>
+<listitem>
+<para>V3C (<literal>(msgstr, msg, cat) -> spans</literal>): validates a translation text field</para>
+</listitem>
+<listitem>
+<para>S3C (<literal>(msgstr, msg, cat) -> numerr</literal>): side-effects on a translation text field</para>
+</listitem>
+</itemizedlist>
+</para>
+
+<para>*3B and *3C hook series are introduced next to *3A for cases when it does not make sense for text field to be any other but one of the original, or translation fields. For example, to process the translation sometimes the original (obtained by <literal>msg</literal> parameter) must be consulted. If a *3B or *3C hook is applied on an inappropriate text field, the results are undefined.</para>
+
+<para>Hooks on PO entries in a catalog:
+<itemizedlist>
+<listitem>
+<para><literal>F4A</literal> (<literal>(msg, cat) -> numerr</literal>): filters a message, modifying it</para>
+</listitem>
+<listitem>
+<para><literal>V4A</literal> (<literal>(msg, cat) -> parts</literal>): validates a message</para>
+</listitem>
+<listitem>
+<para><literal>S4A</literal> (<literal>(msg, cat) -> numerr</literal>): side-effects on a message (no modification)</para>
+</listitem>
+<listitem>
+<para><literal>F4B</literal> (<literal>(hdr, cat) -> numerr</literal>): filters a header, modifying it</para>
+</listitem>
+<listitem>
+<para><literal>V4B</literal> (<literal>(hdr, cat) -> parts</literal>): validates a header</para>
+</listitem>
+<listitem>
+<para><literal>S4B</literal> (<literal>(hdr, cat) -> numerr</literal>): side-effects on a header (no modification)</para>
+</listitem>
+</itemizedlist>
+</para>
+
+<para>Hooks on PO catalogs:
+<itemizedlist>
+<listitem>
+<para><literal>F5A</literal> (<literal>(cat) -> numerr</literal>): filters a catalog, modifying it in any way</para>
+</listitem>
+<listitem>
+<para><literal>S5A</literal> (<literal>(cat) -> numerr</literal>): side-effects on a catalog (no modification)</para>
+</listitem>
+</itemizedlist>
+</para>
+
+<para>Hooks on file paths:
+<itemizedlist>
+<listitem>
+<para><literal>F6A</literal> (<literal>(filepath) -> numerr</literal>): filters a file, modifying it in any way</para>
+</listitem>
+<listitem>
+<para><literal>S6A</literal> (<literal>(filepath) -> numerr</literal>): side-effects on a file, no modification</para>
+</listitem>
+</itemizedlist>
+</para>
+
+<para>The *2* hook series (with signatures <literal>(text, msg) -> ...</literal>) has been skipped because no need for them was observed so far next to *3* hooks.</para>
+
+</sect2>
+
+<sect2 id="sec-prhkfact">
+<title>Hook Factories</title>
+
+<para>Since hooks have fixed input signatures by type, the way to customize
+a given hook behavior is to produce its function by another function.
+The hook-producing function is called a I{hook factory}. It works by
+preparing anything needed for the hook, and then defining the hook proper
+and returning it, thereby creating a lexical closure around it:
+<programlisting>
+def hook_factory (param1, param2, ...):
+
+    # Use param1, param2, ... to setup hook definition.
+
+    def hook (...):
+
+        # Perhaps use param1, param2, ... in the hook definition too.
+
+    return hook
+</programlisting>
+</para>
+
+<para>In fact, most internal Pology hooks are defined by factories.</para>
+
+</sect2>
+
+<sect2 id="sec-prhknotes">
+<title>Further Notes on Hooks</title>
+
+<para>General hooks should be defined in top level modules, language-dependent hooks in <literal>lang.<replaceable>code</replaceable>.<replaceable>module</replaceable></literal>,
+project-dependent hooks in <literal>proj.<replaceable>name</replaceable>.<replaceable>module</replaceable></literal>,
+and hooks that are both language- and project-dependent in <literal>lang.<replaceable>code</replaceable>.proj.<replaceable>name</replaceable>.<replaceable>module</replaceable></literal>. Hooks placed like this can be fetched by <ulink url="&ap;getfunc&am;get_hook_ireq"><function>getfunc.get_hook_ireq</function></ulink> in various non-code contexts, in particular from Pology utilities which allow users to insert hooks into processing through command line options or configurations. If the complete module is dedicated to a single hook, the hook function (or factory) should be named same as the module, so that users can select it by giving only the hook module name.</para>
+
+<para><link linkend="p-annparts">Annotated parts</link> for PO messages returned by hooks are a reduced but valid instance of highlight specifications used by reporting functions, e.g. <ulink url="&ap;msgreport&am;report_msg_content"><function>msgreport.report_msg_content</function></ulink>. Annotated parts do not have the optional fourth element of a tuple in highlight specification, which is used to provide the filtered text against which spans were constructed, instead of the original text. If a validation hook constructs the list of problematic spans against the filtered text, just before returning it can apply <ulink url="&ap;diff&am;adapt_spans"><function>diff.adapt_spans</function></ulink>
+to reconstruct the spans against the original text.</para>
+
+<para>The documentation to a hook function should state the hook type within the short description, in square brackets at the end as <literal>[type ... hook]</literal>. Input parameters should be named like in the informal signatures in the taxonomy above, and should not be omitted in <literal>@param:</literal> Epydoc entries; but the return should be given under <literal>@return:</literal>, also using one of the listed return names, in order to complete the hook signature.</para>
+
+<para>The documentation to a hook factory should have <literal>[hook factory]</literal> at the end of the short description. It should normally list all the input parameters, while the return value should be given as <literal>@return: type ... hook</literal>, and
+the hook signature as the <literal>@rtype:</literal> Epydoc field.</para>
+
+</sect2>
 
 </sect1>
 
@@ -74,12 +255,14 @@
 
 <para></para>
 
+<!-- reporting, exceptions -->
+
 <sect2 id="sec-prcsi18n">
 <title>User-Visible Text and Internationalization</title>
 
 <para></para>
 
-<!-- TODO: named format directives, well-formed XML, color markup, proper sentences, every message with context -->
+<!-- named format directives, well-formed XML, color markup, proper sentences, every message with context -->
 
 </sect2>
 
