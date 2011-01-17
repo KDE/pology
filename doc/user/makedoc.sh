@@ -22,5 +22,7 @@ tidy -q --show-warnings no -utf8 -w 0 -m $htmldir/*.html; test -z
 # because they cause a tooltip to be shown wherever the pointer is.
 perl -pi -e 's/(<div[^>]*?class="(abstract|article|book|chapter|sect)[^>]*?) *title=".*?"/\1/' $htmldir/*.html
 
-svn status $htmldir | grep '^!' | sed 's/.//' | xargs -r svn rm
-svn status $htmldir | grep '^?' | sed 's/.//' | xargs -r svn add
+if test -d $htmldir/.svn; then
+    svn status $htmldir | grep '^!' | sed 's/.//' | xargs -r svn rm
+    svn status $htmldir | grep '^?' | sed 's/.//' | xargs -r svn add
+fi

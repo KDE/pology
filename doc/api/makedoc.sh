@@ -26,5 +26,7 @@ epydoc pology \
 | xargs perl -pi -e 's/(Generated\b.*?) *on\b.*?(<|$)/$1$2/'
 
 # Peform repository ops.
-svn status $htmldir | grep '^!' | sed 's/.//' | xargs -r svn rm
-svn status $htmldir | grep '^?' | sed 's/.//' | xargs -r svn add
+if test -d $htmldir/.svn; then
+    svn status $htmldir | grep '^!' | sed 's/.//' | xargs -r svn rm
+    svn status $htmldir | grep '^?' | sed 's/.//' | xargs -r svn add
+fi
