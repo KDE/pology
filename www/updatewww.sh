@@ -2,8 +2,8 @@
 
 cd $(dirname $0)
 
-cp -a base tmpwww
-ln -s ../../doc-html tmpwww/doc
+cp -aL base tmpwww
+cp -aL ../doc-html/* tmpwww/doc/
 # Expects www-pology entry in SSH config.
-rsync -raLv --delete --cvs-exclude tmpwww/ www-pology:pology.nedohodnik.net/
+rsync -rav --delete --cvs-exclude tmpwww/ www-pology:pology.nedohodnik.net/
 rm -rf tmpwww
