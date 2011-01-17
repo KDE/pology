@@ -12,7 +12,7 @@ fi
 # Proper module path for epydoc to follow.
 export PYTHONPATH=../../pology:$PYTHONPATH
 
-htmldir=../../doc-html/user/en_US
+htmldir=../../doc-html/api/en_US
 
 rm -rf $htmldir/*
 find ../../ -iname \*.pyc | xargs -r rm

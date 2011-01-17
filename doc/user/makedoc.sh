@@ -16,7 +16,7 @@ revdir=../../../doc/user
 rm -rf $htmldir/*; mkdir -p $htmldir
 ln -s $revdir/html-data $htmldir/data
 xsltproc --xinclude html-mono.xsl $topdbk >$htmldir/index-mono.html
-xsltproc --xinclude html-chapters.xsl $topdbk
+xsltproc --xinclude html-chapters.xsl $topdbk && mv html/* $htmldir && rmdir html
 tidy -q --show-warnings no -utf8 -w 0 -m $htmldir/*.html; test -z
 # Remove title= attributes to sectioning classes,
 # because they cause a tooltip to be shown wherever the pointer is.
