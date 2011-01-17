@@ -12,17 +12,19 @@ fi
 # Proper module path for epydoc to follow.
 export PYTHONPATH=../../pology:$PYTHONPATH
 
-rm -rf html/*
+htmldir=../../doc-html/user/en_US
+
+rm -rf $htmldir/*
 find ../../ -iname \*.pyc | xargs -r rm
 
 epydoc pology \
-       -o html -v \
+       -o $htmldir -v \
        --no-sourcecode --no-frames --no-private --exclude=external
 
 # Kill generation timestamps, to not have diffs just due to it.
-  find html -iname \*.html \
+  find $htmldir -iname \*.html \
 | xargs perl -pi -e 's/(Generated\b.*?) *on\b.*?(<|$)/$1$2/'
 
 # Peform repository ops.
-svn status html/ | grep '^!' | sed 's/.//' | xargs -r svn rm
-svn status html/ | grep '^?' | sed 's/.//' | xargs -r svn add
+svn status $htmldir | grep '^!' | sed 's/.//' | xargs -r svn rm
+svn status $htmldir | grep '^?' | sed 's/.//' | xargs -r svn add
