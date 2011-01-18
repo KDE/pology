@@ -59,12 +59,12 @@ id="mine-dual_trust-path"
 valid msgid="\btrust\s(path|chain)"
 hint="cadea de confianza» -> «trust path»"
 
-# «abort» -> «interromper»
-{\babort}i
-disabled
-id="mine_abort"
-#valid msgstr="interromper"
-hint="abort -> interromper"
+# # «abort» -> «interromper»
+# {\babort}i
+# disabled
+# id="mine_abort"
+# #valid msgstr="interromper"
+# hint="abort -> interromper"
 
 # «encounter» -> «atopar» and not «achar»
 {\bencounter}i
@@ -117,3 +117,16 @@ hint="enable/disable = activar/desactivar"
 id="mine_enabledisable"
 valid msgstr="\bconmuta"
 hint="enable/disable = conmutar"
+
+# «accept» -> «aceptar»
+{\baccept}i
+id="mine_accept"
+valid msgstr="\bacept"
+hint="accept = aceptar"
+
+# «aceptar» -> «accept»
+[\bacept]i
+id="mine-dual_accept"
+valid msgid="\baccept"
+valid msgid="\bOK\b"
+hint="aceptar = accept"

@@ -60,7 +60,7 @@ hint="«command» tradúcese como «orde»"
 # «invalid» tradúcese como «incorrecto»/«non é válido»
 {\binvalid\b}i
 id="noPT-2010-invalid"
-valid msgstr="incorrecto"
+valid msgstr="incorrect(o|a)"
 valid msgstr="non\sé\sválid(o|a)\b"
 valid msgstr="non\sválid(o|a)"
 hint="«invalid» tradúcese como «incorrecto»/«non é válido»"
@@ -106,7 +106,7 @@ valid !msgstr="\b(procura|pesquis|pescud)?"
 hint="«search» tradúcese como «busca(r)»"
 
 # «find» tradúcese como «atopar»
-{\bf(ind|ound)}i
+{\bf(ind|ound(?!ation))}i
 id="noPT-2010-find"
 valid msgstr="\batop"
 valid msgstr="\bbusc"

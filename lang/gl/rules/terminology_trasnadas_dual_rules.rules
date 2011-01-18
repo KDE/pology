@@ -59,24 +59,25 @@ id="PT-2010-dual_engadido"
 valid msgid="\bplugin"
 valid msgid="\bplug.?in"
 valid msgid="added\b"
-hint="«engadido» traduce a «Plugin» e a «added»"
+valid msgid="\badd.?on"
+hint="«engadido» traduce a «Plugin», «added» e «addon»"
 
 # «xanela» traduce a «Window»
 [\bxanela]i
 id="PT-2010-dual_xanela"
-valid msgid="\bwindow"
+valid msgid="\bwindow(\b|s|\s)"
 hint="«xanela» traduce a «window»"
  
 # «anexar» traduce a «Attach»
 [\banex[a-z]{2,}]i
 id="PT-2010-dual_anexar"
-valid msgid="\battach(\s|ed|s)"
+valid msgid="\battach(\s|ed|s|ing)"
 hint="«anexar» traduce a «attach»"
 
 # «anexo» traduce a «Attachment»
 [\banexo]i
 id="PT-2010-dual_anexo"
-valid msgid="attachment?"
+valid msgid="\battach"
 hint="«anexo» traduce a «attachment»"
 
 # «orde» traduce a «Command»
@@ -120,7 +121,7 @@ id="noPT-2010-dual_acochar"
 hint="«acochar» traduce a «hide»"
 
 # «inserir» ou «introducir» traducen a «insert»
-[\bins(e|i)r|\bintroduc]i
+[\bins(e|i)r|\bintroduc(?!ión)]i
 id="noPT-2010-dual_inserir"
 valid msgid="\binsert|\benter"
 hint="«inserir» ou «introducir» traducen a «insert» ou «enter»"
