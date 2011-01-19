@@ -3,15 +3,15 @@
 # License: GPLv3
 
 # Remove XML entities.
-addFilterRegex match="\&[\w\d\.\-]+?\;" repl="~" on="pmsgid,pmsgstr"
+addFilterRegex match="\&[\w\d\.\-]+?\;" repl="" on="pmsgid,pmsgstr"
 
 # Remove function calls like foo(x, y).
-addFilterRegex match="\w+\([\w\s\.\,\-\_]*?\)" repl="~" on="pmsgid,pmsgstr"
+addFilterRegex match="\w+\([\w\s\.\,\-\_]*?\)" repl="" on="pmsgid,pmsgstr"
 
 # Remove XML-like tags.
-addFilterRegex match="\<\s*(bcode|command|envar|filename|icode|shortcut|placeholder|style|code|tt|literal|screen|option|keycap|userinput|systemitem|prompt|function|foreignphrase|varname|programlisting|token|markup|parameter|keysym|methodname|sgmltag|arg|classname|type)\b.*?\b\1\>" repl="~" on="pmsgid,pmsgstr"
-addFilterRegex match="\<\s*(email|link)\s*>\b.*?\b\1\>" repl="~" on="pmsgid,pmsgstr"     
-addFilterRegex match="\<.*?\>" repl="~" on="pmsgid,pmsgstr"
+addFilterRegex match="\<\s*(bcode|command|envar|filename|icode|shortcut|placeholder|style|code|tt|literal|screen|option|keycap|userinput|systemitem|prompt|function|foreignphrase|varname|programlisting|token|markup|parameter|keysym|methodname|sgmltag|arg|classname|type)\b.*?\b\1\>" repl="" on="pmsgid,pmsgstr"
+addFilterRegex match="\<\s*(email|link)\s*>\b.*?\b\1\>" repl="" on="pmsgid,pmsgstr"     
+addFilterRegex match="\<.*?\>" repl="" on="pmsgid,pmsgstr"
 
 # Alternatives directives
 addFilterRegex match="~@(.)(.*?)\1(.*?)\1" repl="~" on="pmsgid,pmsgstr"

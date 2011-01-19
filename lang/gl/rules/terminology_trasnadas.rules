@@ -5,7 +5,9 @@
 include file="filter.include"
 
 # Remove accelerator and  hyphen inside words.
-addFilterRegex match="(\&|\-)" on="pmsgid,pmsgstr"
+# addFilterRegex match="(\&|\-)" on="pmsgid,pmsgstr"
+addFilterHook name="remove/remove-accel-msg" on="msg"
+
 
 # «Tab» tradúcese como «Lapela», tabulación ou tabulador.
 {\btab\b}i
@@ -23,42 +25,43 @@ valid msgstr="engadido"
 hint="«Plugin» tradúcese como «Complemento» ou «engadido»"
 
 # «Plug-in» tradúcese como «Complemento», «engadido»
-{\bplug-in?\b}i
+{\bplug-in}i
 id="PT-2010-plug-in"
-valid msgstr="complemento?"
-valid msgstr="engadido?"
+valid msgstr="complemento"
+valid msgstr="engadido"
 hint="«Plugin» tradúcese como «Complemento» ou «engadido»"
 
 # «Window» tradúcese como «xanela»
 {\bwindow}i
 id="PT-2010-window"
 valid msgstr="xanela"
+valid msgstr="window"
 valid !msgstr="\b(fiestra|ventá)?"
 hint="«window» tradúcese como «xanela»"
 
 # «Attach» tradúcese como «anexar»
-{\battach\b}i
+{\battach(ment?!)}i
 id="PT-2010-attach"
 valid msgstr="anexar"
 valid !msgstr="adxuntar"
 hint="«attach» tradúcese como «anexar»"
 
 # «Attachment» tradúcese como «anexo»
-{\battachment\b}i
+{\battachment}i
 id="PT-2010-attachment"
 valid msgstr="anexo"
 valid !msgstr="adxunto"
 hint="«attachment» tradúcese como «anexo»"
 
 # «Command» tradúcese como «orde»
-{\bcommand\b}i
+{\bcommand}i
 id="PT-2010-command"
 valid msgstr="orde"
 valid !msgstr="comando"
 hint="«command» tradúcese como «orde»"
 
 # «invalid» tradúcese como «incorrecto»/«non é válido»
-{\binvalid\b}i
+{\binvalid}i
 id="noPT-2010-invalid"
 valid msgstr="incorrect(o|a)"
 valid msgstr="non\sé\sválid(o|a)\b"
@@ -66,15 +69,15 @@ valid msgstr="non\sválid(o|a)"
 hint="«invalid» tradúcese como «incorrecto»/«non é válido»"
 
 # «ilegal» tradúcese como «inaceptábel»
-{\bilegal\b}i
+{\bilegal}i
 id="PT-2010-ilegal"
 valid msgstr="inaceptábel"
 hint="«ilegal» tradúcese como «inaceptábel»"
 
 # «grid» tradúcese como «grella»
-{\bgrid?}i
+{\bgrid}i
 id="noPT-2010-grid"
-valid msgstr="\bgrella?"
+valid msgstr="\bgrella"
 hint="«grid» tradúcese como «grella»"
 
 # «show» tradúcese como «mostrar»
@@ -92,16 +95,16 @@ valid !msgstr="(ocult|agoch)?"
 hint="«hide» tradúcese como «acochar»"
 
 # «insert» tradúcese como «inserir» ou «introducir»
-{\binsert(ed|s)\b}i
+{\binsert(ed|s)}i
 id="noPT-2010-insert"
 valid msgstr="ins(e|i)r"
 valid msgstr="introduc"
 hint="«insert» tradúcese como «inserir» ou «introducir»"
 
 # «search» tradúcese como «buscar»/«busca»
-{\bsearch?}i
+{\bsearch}i
 id="PT-2010-search"
-valid msgstr="\bbusc"
+valid msgstr="\bbus(c|qu)"
 valid !msgstr="\b(procura|pesquis|pescud)?"
 hint="«search» tradúcese como «busca(r)»"
 

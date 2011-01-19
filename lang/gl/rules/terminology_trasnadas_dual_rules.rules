@@ -30,7 +30,9 @@
 include file="filter.include"
 
 # Remove accelerator and  hyphen inside words.
-addFilterRegex match="(\&|\-)" on="pmsgid,pmsgstr"
+#addFilterRegex match="(\&|\-)" on="pmsgid,pmsgstr"
+addFilterHook name="remove/remove-accel-msg" on="msg"
+
 
 # «Lapela» traduce a «tab».
 [\blapela|\btabula(ción|dor)]i
@@ -110,8 +112,9 @@ hint="«grella» traduce a «grid»"
 #valid msgid="\b[sS]how(\"\"|s|ed|n)\b"
 valid msgid="\bshow"
 valid msgid="\bdisplay"
+valid msgid="\bprint"
 id="noPT-2010-dual_mostrar"
-hint="«mostrar» traduce a «show» e «display»"
+hint="«mostrar» traduce a «show», «display» e algúns «print»"
 
 # «acochar» traduce a «hide»
 [\bacoch]i

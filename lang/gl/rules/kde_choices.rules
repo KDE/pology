@@ -30,7 +30,8 @@
 include file="filter.include"
 
 # Remove accelerator and  hyphen inside words.
-addFilterRegex match="(\&|\-)" on="pmsgid,pmsgstr"
+# addFilterRegex match="(\&|\-)" on="pmsgid,pmsgstr"
+addFilterHook name="remove/remove-accel-msg" on="msg"
 
 # «Path» -> «ruta».
 # trust path é outra cousa
@@ -130,3 +131,16 @@ id="mine-dual_accept"
 valid msgid="\baccept"
 valid msgid="\bOK\b"
 hint="aceptar = accept"
+
+# «print» -> «imprimir», «mostra»
+{\bprint}i
+id="mine_print"
+valid msgstr="\bimprim"
+valid msgstr="\bmostr"
+hint="print = imprimir ou mostrar"
+
+# «imprimit» -> «print»
+[\bimprim]i
+id="mine-dual_print"
+valid msgid="\bprint(?!er)"
+hint="imprimir = print"
