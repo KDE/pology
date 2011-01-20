@@ -1,0 +1,102 @@
+# Internal rules intended to check for common mistakes in Galician L10n,
+# and to promote the usage of a controlled language.
+# by the Proxecto Trasno (proxecto@trasno.net)
+# License: BSD 3-clause
+# Copyright (c) 2010, Proxecto Trasno
+# All rights reserved.
+# 
+# Redistribution and use in source and binary forms, with or without
+# modification, are permitted provided that the following conditions are met:
+#     * Redistributions of source code must retain the above copyright
+#       notice, this list of conditions and the following disclaimer.
+#     * Redistributions in binary form must reproduce the above copyright
+#       notice, this list of conditions and the following disclaimer in the
+#       documentation and/or other materials provided with the distribution.
+#     * Neither the name of the Proxecto Trasno nor the
+#       names of its contributors may be used to endorse or promote products
+#       derived from this software without specific prior written permission.
+# 
+# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+# AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+# IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+# ARE DISCLAIMED. IN NO EVENT SHALL PROXECTO TRASNO BE LIABLE FOR ANY
+# DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+# (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+# LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+# ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+# (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+# SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+
+include file="filter.include"
+
+# Remove accelerator and  hyphen inside words.
+addFilterHook name="remove/remove-accel-msg" on="msg"
+
+#descarta o uso de «achar» en favor de «encontrar»
+[\bach]i
+id="clGL-gnome_achar"
+hint="achar -> encontrar"
+
+#evitar usar «lanzar» en favor de «iniciar» (un executábel)
+[\blanz]i
+valid !msgid="\blaunch"
+id="clGL-all_lanzar"
+hint="lanzar -> iniciar"
+
+#descarta o uso de «xerir» en favor de «xestionar»
+[\bxeri(?!(nga|có))]i
+id="clGL-all_xerir"
+hint="xerir -> xestionar"
+
+#coidado cos derivados de licenza que trocan o z
+[\blicenci(?=(oso|osa|osamente|atura|amento|ado|ada|ados|ada)s)]i
+id="clGL-all_licenza"
+hint="algúns derivados de licenza trocan o «z» por «cia»"
+
+#terminación en bel
+[(?!\b(fe|ca))ble[s]{,1}\b]i
+id="clGL-all_bel"
+hint="terminación en -bel"
+
+#descarta o uso de «mudar» en favor de «trocar»
+[\bmud(a|o|e)]i
+id="clGL-gnome_mudar"
+hint="mudar -> trocar"
+
+#descarta o uso de «válido» en favor de «correcto»
+[\bvalid(o|a)]i
+id="clGL-gnome_valido"
+hint="valido -> correcto"
+
+#descarta o uso de «dende» en favor de «desde»
+[\bdende\b]i
+id="clGL-all_dende"
+hint="dende -> desde"
+
+#descarta o uso de «amosar» en favor de «mostrar»
+[\bamos(a|o|e)]i
+id="clGL-all_amosar"
+hint="amosar -> mostrar"
+
+#descarta o uso de «colar» en favor de «(a)pegar»
+[\bcol(a|e|o)(?!(c|m|re|ri|ra|b|q|x))]i
+valid msgstr="\bcolor"
+valid msgstr="\bcola" msgid="\b(queue|dequeue|tail)"
+id="clGL-all_colar"
+hint="colar -> (a)pegar"
+
+#descarta o uso de «ocorrencia» en favor de «aparición»
+[\boc(o|u)rrencia]i
+id="clGL-all_ocorrencia"
+hint="ocorrencia -> aparición"
+
+#descarta o uso de «ocorreu» en favor de «produciuse»
+[\bocorreu]i
+id="clGL-all_ocorreu"
+hint="ocorreu -> produciuse"
+
+#descarta o uso de «predefinido» en favor de «predeterminado»
+[\bpredefinid]i
+id="clGL-all_predefinido"
+hint="predefinido -> predeterminado"

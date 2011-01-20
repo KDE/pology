@@ -5066,26 +5066,6 @@
     valid msgstr="emulador"
     hint="emulator = emulador"
 
-    {\benable\b}i
-    valid msgstr="activar"
-    hint="enable = activar"
-
-    {\benable/disable\b}i
-    valid msgstr="activar/desactivar"
-    hint="enable/disable = activar/desactivar"
-
-    {\benable/disable\b}i
-    valid msgstr="habilitar/deshabilitar"
-    hint="enable/disable = habilitar/deshabilitar"
-
-    {\benabled\b}i
-    valid msgstr="activado"
-    hint="enabled = activado"
-
-    {\benabling\b}i
-    valid msgstr="activando"
-    hint="enabling = activando"
-
     {\benclose\b}i
     valid msgstr="incluír"
     hint="enclose = incluír"
