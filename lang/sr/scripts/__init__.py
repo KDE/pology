@@ -1,8 +1,8 @@
-# -*- coding: UTF-8 -*
+# -*- coding: utf-8 -*-
 
 """
-Scripts specific for Serbian.
+Scripts specific for Spanish.
 
-@author: Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
+@author: Javier Viñal <fjvinal@gmail.com>
 @license: GPLv3
 """
