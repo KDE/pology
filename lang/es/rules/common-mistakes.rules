@@ -8,27 +8,27 @@ include file="filter.include"
 # Remove accelerators inside words.
 addFilterRegex match="\&" on="pmsgid,pmsgstr"
 
-[(?u)\b(\w+)\s+\1\b]
+[(?u)\b(\w+)\s+\1\b]i
 hint="Hay una palabra consecutiva repetida en el párrafo"
 
-[(?u)\b(\w+?)os\sy\s\1as\b]
+[(?u)\b(\w+?)os\sy\s\1as\b]i
 hint="No utilice expresiones del tipo «ciudadanos y ciudadanas » (error frecuente)"
 
-[(?u)\b(\w+?)as\sy\s\1os\b]
+[(?u)\b(\w+?)as\sy\s\1os\b]i
 hint="No utilice expresiones del tipo «ciudadanas y ciudadanos » (error frecuente)"
 
-[(?u)\blos\s(\w+?)os\sy\slas\s\1as\b]
+[(?u)\blos\s(\w+?)os\sy\slas\s\1as\b]i
 hint="No utilice expresiones del tipo «los ciudadanos y las ciudadanas » (error frecuente)"
 
-[(?u)\blas\s(\w+?)as\sy\slos\s\1os\b]
+[(?u)\blas\s(\w+?)as\sy\slos\s\1os\b]i
 hint="No utilice expresiones del tipo «las ciudadanas y los ciudadanos » (error frecuente)"
 
 # No utilizar la arroba para incluir masculino y femenino
-[(?u)\b\w+@[a-záéíóúñç]{0,2}\b]
+[(?u)\b\w+@[a-záéíóúñç]{0,2}\b]i
 hint="No utilice la arroba para evitar el género, p.ej. «ciudadan@s» (error frecuente)"
 
 # No utilizar el guión para separar el prefijo de la palabra principal
-[(?u)\b\w{2,}\-[a-záéíóúñç]{3,}\b]
+[(?u)\b(auto|bi|de|des|meta|mini|multi|pos|post|pre|re|sobre|sub|tri)\-[a-záéíóúñç]{3,}\b]i
 hint="No utilice el guión para separar el prefijo de la palabra principal, p.ej. «sub-menú» (error frecuente)"
 
 # «¿Adonde...» se escribe como «¿Adónde...».
@@ -683,12 +683,12 @@ hint="« Hasta el punto que » se escribe como « Hasta el punto de que » (erro
 hint="« Hay la posibilidad » se escribe como « Existe la posibilidad » (error frecuente)"
 
 # «Hecha a» se escribe como «Echa a».
-[\bhech(o|a)\sa\b]i
+[\bhecha\sa\b]i
 hint="« Hecha a » se escribe como « Echa a » (error frecuente)"
 
-## «Hecho/a de» se escribe como «Echo/a de».
-#[\bhech(o|a)\sde\b]i
-#hint="« Hecho de » se escribe como « Echo de » (error frecuente)"
+# «Hecha de» se escribe como «Echa de».
+[\bhecha\sde\b]i
+hint="« Hecha de » se escribe como « Echa de » (error frecuente)"
 
 # «Hubieron algunos/muchos» se escribe como «Hubo algunos/muchos».
 [\bhubieron\s(algunos|algunas|muchos|muchas)\b]i

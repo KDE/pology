@@ -2,8 +2,8 @@
 
 1.- Reglas de puntuación:
 - No se escribe en mayúscula la primera letra después de abrir paréntesis 
-(excepto en el caso de que sea una oración completa, que debería llevar punto al final, dentro del paréntesis).
-- Los nombres de los meses, días de la semana y estaciones del año se escriben en minúscula.
+(excepto en el caso de que sea una oración completa, que debería llevar punto 
+al final, dentro del paréntesis).
 - No aplicar la regla de obligatoriedad de espacio después 
 de un punto en el caso que siga un nombre de archivo 
 (archivo oculto o ejecución de orden).
@@ -21,8 +21,9 @@ combinación con «not».
 - Tratamiento de los «phrasal verbs» mas comunes y expresiones similares.
 - Considerar como válidas las formas reflexivas para la voz pasiva en inglés
 (se + palabra/s + infinitivo) y (3º persona+se).
-- Considerar válida la traducción del plurar como singular en frases negativas
-(después de ningún/ninguna). 
+- Considerar válida la traducción del plural como singular en frases negativas
+(después de ningún/ninguna/cualquier, considerando la posiblidad de una palabra 
+intermedia en caso de adjetivos/adverbios). 
 - Incorporar a las reglas (y en su caso al glosario) las de los siguientes 
 equipos que resulten aplicables y de interés para nosotros:
     - gl/rules/terminology.rules
@@ -46,18 +47,14 @@ equipos que resulten aplicables y de interés para nosotros:
 - Incorporar las de translate toolkit.
 
 4.- Otras reglas.
-- Ver la posibilidad de incluir un archivo «ignoredContext» con contextos a 
-los que no se aplican las reglas.
-- Comprobar las traducciones vacías, demasiado cortas/largas o iguales al texto 
-original.
-- Comprobar escapes del tipo \t y \n (igual nº en texto original y traducido). 
+- Comprobar caracteres de escape del tipo \t y \n (igual nº en texto original y traducido). 
 
 5.- Vocabulario.
 - Buscar (principalmente en la Wikipedia y Wiktionary) mas glosarios temáticos.
 - Crear glosarios temáticos de unix/linux y gnome.
 - Generar un glosario automáticamente mediante poterminology de translate-toolkit.
  No verificar ortografía de:
-- Palabras con dos mayúsculas: \w*?[A-Z]+(\w*?[A-Z]+\w*)?
+- Palabras con dos mayúsculas:
 - Palabras pertenecientes a páginas web, direcciones de correo, nombres de
 archivo, etc.
 

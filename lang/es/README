@@ -30,7 +30,7 @@ not considered by this rules:
 - System files
 - Some system files and directories
 - Home hidden files and directories
-- Abbreviations (Spanish)
+- Abreviattions (Spanish)
 - Usual smilies
 - Complete messages with specific tags.
 - Dates and numbers.
@@ -55,10 +55,10 @@ main glossary.
 - XML entities.
 - Capital words (upper case).
 - Parameters.
+- Number of tabs and new lines.
 - Empty translations.
-- Very long translations.
+- Very long/short translations.
 - Not translated when it should be.
-(The last three are not full checked yet).
 
 1.5.- "paragraph-begin.rules"
   Use of spaces and capitalization at the beginning of a new paragraph.

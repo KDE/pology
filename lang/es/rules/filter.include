@@ -50,7 +50,7 @@ addFilterRegex match="\.\/?(\w+rc|\w+config|aspell\w*|bash\w*|calendar|directory
 # Remove more important (as I guess) commands.
 addFilterRegex match="\.\/configure" repl="~" on="pmsgid,pmsgstr"
 
-# Remove references home directory files.
+# Remove references to home directory files.
 addFilterRegex match="\~\.?\/[\w\.\-_]+" repl="~" on="pmsgid,pmsgstr"
 
 # Remove single characters in quotes.

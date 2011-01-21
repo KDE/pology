@@ -292,7 +292,7 @@ valid msgstr="revisión" after="(ninguna|cualquier)\s"
 hint="« Builds » se traduce como « Genera/Revisiones » (propuesta glosario)"
 
 # «Built» se traduce como «Generado/Revisión».
-{\bbuilt\b}i
+{\bbuilt(^\-in)\b}i
 valid msgstr="generad(o|a)"
 valid msgstr="revisión"
 hint="« Built » se traduce como « Generado/Revisión » (propuesta glosario)"
@@ -1021,6 +1021,7 @@ hint="« Drafts » se traduce como « Borradores » (propuesta glosario)"
 # «Drag and drop» se traduce como «Arrastrar y soltar».
 {\bdrag\sand\sdrop\b}i
 valid msgstr="arrastrar\sy\ssoltar"
+valid msgstr="arratr(e|a)\sy\ssuelt(e|a)"
 hint="« Drag and drop » se traduce como « Arrastrar y soltar » (propuesta glosario)"
 
 # «Drive» se traduce como «Unidad/Dispositivo».
@@ -1079,6 +1080,23 @@ hint="« Dungeons » se traduce como « Mazmorras » (propuesta glosario)"
 valid msgstr="dúplex"
 hint="« Duplex » se traduce como « Dúplex » (propuesta glosario)"
 
+# «Ebook» se traduce como «Libro electrónico».
+{\be\-?book\b}i
+valid msgstr="libro\selectrónico"
+valid !msgstr="e\-?book"
+valid !msgstr="e\-?libro"
+valid !msgstr="libro\-?e"
+hint="« Ebook » se traduce como « Libro electrónico » (propuesta glosario)"
+
+# «Ebooks» se traduce como «Libros electrónicos».
+{\be\-?books\b}i
+valid msgstr="libros\selectrónicos"
+valid msgstr="libro\selectrónico" after="(ningún|cualquier)\s"
+valid !msgstr="e\-?books?"
+valid !msgstr="e\-?libros?"
+valid !msgstr="libros?\-?e"
+hint="« Ebooks » se traduce como « Libros electrónicos » (propuesta glosario)"
+
 # «Egde» se traduce como «Límite/Borde».
 {\begde\b}i
 valid msgstr="límite"
@@ -1101,15 +1119,14 @@ hint="« Ellipse » se traduce como « Elipse » (propuesta glosario)"
 # «Email» se traduce como «Correo».
 {\be\-?mail\b}i
 valid msgstr="correo"
-valid !msgstr="email"
+valid !msgstr="e\-?mail"
 hint="« Email » se traduce como « Correo » (propuesta glosario)"
 
 # «Emails» se traduce como «Correos».
 {\be\-?mails\b}i
 valid msgstr="correos"
-valid !msgstr="emails"
 valid msgstr="correo" after="(ningún|cualquier)\s"
-valid !msgstr="email"
+valid !msgstr="e\-?mails?"
 hint="« Emails » se traduce como « Correos » (propuesta glosario)"
 
 # «Embedded» se traduce como «Empotrado».
@@ -1274,6 +1291,7 @@ hint="« Facility » se traduce como « Instalación/equipo » (propuesta glosar
 {\bfade\b}i
 valid msgstr="aten(uar|úa|úe)"
 valid msgstr="desvane(cer|ce|zca)"
+valid msgstr="atenuación"
 hint="« Fade » se traduce como « Atenuar/Desvanecer » (propuesta glosario)"
 
 # «Failure» se traduce como «Fallo».
@@ -1609,21 +1627,24 @@ valid msgstr="consejos"
 valid msgstr="consejo" after="(ningún|cualquier)\s"
 hint="« Hints » se traduce como « Consejos » (propuesta glosario)"
 
-# «Hit» se traduce como «Acierto/Acceso/Visita».
+# «Hit» se traduce como «Acierto/Acceso/Visita/Golpe».
 {\bhit\b}i
 valid msgstr="acierto"
 valid msgstr="acceso"
 valid msgstr="visita"
-hint="« Hit » se traduce como « Acierto/Acceso/Visita » (propuesta glosario)"
+valid msgstr="golpe"
+hint="« Hit » se traduce como « Acierto/Acceso/Visita/golpe » (propuesta glosario)"
 
-# «Hits» se traduce como «Aciertos/Accesos/Visitas».
+# «Hits» se traduce como «Aciertos/Accesos/Visitas/Golpes».
 {\bhits\b}i
 valid msgstr="aciertos"
 valid msgstr="accesos"
 valid msgstr="visitas"
+valid msgstr="golpes"
 valid msgstr="acierto" after="(ningún|cualquier)\s"
 valid msgstr="acceso" after="(ningún|cualquier)\s"
 valid msgstr="visita" after="(ninguna|cualquier)\s"
+valid msgstr="golpe" after="(ningún|cualquier)\s"
 hint="« Hits » se traduce como « Aciertos/Visitas » (propuesta glosario)"
 
 # «Hub» se traduce como «Concentrador».
@@ -1639,7 +1660,7 @@ hint="« Hubs » se traduce como « Concentradores » (propuesta glosario)"
 
 # «Hyphen» se traduce como «Guión».
 {\bhyphen\b}i
-valid msgstr="guión"
+valid msgstr="guion"
 hint="« Hyphen » se traduce como « Guión » (propuesta glosario)"
 
 # «Hyphens» se traduce como «Guiones».
@@ -1850,13 +1871,21 @@ hint="« Jigsaw puzzle » se traduce como « Rompecabezas » (propuesta glosario
 # «Job» se traduce como «Trabajo».
 {\bjob\b}i
 valid msgstr="trabajo"
+valid msgstr="tarea"
 hint="« Job » se traduce como « Trabajo » (propuesta glosario)"
 
 # «Jobs» se traduce como «Trabajos».
 {\bjobs\b}i
 valid msgstr="trabajos"
+valid msgstr="tareas"
 valid msgstr="trabajo" after="(ningún|cualquier)\s"
+valid msgstr="tareas" after="(ninguna|cualquier)\s"
 hint="« Job » se traduce como « Trabajo » (propuesta glosario)"
+
+# «Journaling» se traduce como «Transaccional».
+{\bjournaling\b}i
+valid msgstr="transaccional"
+hint="« Journaling » se traduce como « Transaccional » (propuesta glosario)"
 
 # «Jumper» se traduce como «Puente/Conector».
 {\bjumper\b}i
@@ -1900,6 +1929,113 @@ hint="« Justifies » se traduce como « Alinéa » (propuesta glosario)"
 valid msgstr="alin(ear|ée|éa)"
 hint="« Justify » se traduce como « Alinear » (propuesta glosario)"
 
+# «Keep alive» se traduce como «Mantener activo».
+{\bkeep\salive\b}i
+valid msgstr="mantener\sactiv(o|a)"
+hint="« Keep alive » se traduce como « Mantener activo » (propuesta glosario)"
+
+# «Keyboard» se traduce como «Teclado».
+{\bkeyboard\b}i
+valid msgstr="teclado"
+hint="« Keyboard » se traduce como « Teclado » (propuesta glosario)"
+
+# «Keyboards» se traduce como «Teclados».
+{\bkeyboards\b}i
+valid msgstr="teclados"
+valid msgstr="teclado" after="(ningún|cualquier)\s"
+hint="« Keyboards » se traduce como « Teclados » (propuesta glosario)"
+
+# «Keyring» se traduce como «Anillo de claves».
+{\bkeyring\b}i
+valid msgstr="anillo\sde\sclaves"
+hint="« Keyring » se traduce como « Anillo de claves » (propuesta glosario)"
+
+# «Keyrings» se traduce como «Anillos de claves».
+{\bkeyrings\b}i
+valid msgstr="anillos\sde\sclaves"
+valid msgstr="anillo\sde\claves" after="(ningún|cualquier)\s"
+hint="« Keyrings » se traduce como « Anillos de claves » (propuesta glosario)"
+
+# «Keyword» se traduce como «Palabra clave».
+{\bkeyword\b}i
+valid msgstr="palabra\sclave"
+hint="« Keyword » se traduce como « Palabra clave » (propuesta glosario)"
+
+# «Keywords» se traduce como «Palabras clave».
+{\bkeywords\b}i
+valid msgstr="palabras\sclave"
+valid msgstr="palabra\sclave" after="(ninguna|cualquier)\s"
+hint="« Keywords » se traduce como « Palabras clave » (propuesta glosario)"
+
+# «Label» se traduce como «Etiqueta».
+{\blabel\b}i
+valid msgstr="etiqueta"
+hint="« Label » se traduce como « Etiqueta » (propuesta glosario)"
+
+# «Labels» se traduce como «Etiquetas».
+{\blabels\b}i
+valid msgstr="etiquetas"
+valid msgstr="etiqueta" after="(ninguna|cualquier)\s"
+hint="« Labels » se traduce como « Etiquetas » (propuesta glosario)"
+
+# «Latency» se traduce como «Latencia».
+{\blatency\b}i
+valid msgstr="latencia"
+hint="« Latency » se traduce como « Latencia » (propuesta glosario)"
+
+# «Lattice» se traduce como «Red/Trama».
+{\blattice\b}i
+valid msgstr="red"
+valid msgstr="trama"
+hint="« Lattice » se traduce como « Red/Trama » (propuesta glosario)"
+
+# «Lattices» se traduce como «Redes/Tramas».
+{\blattices\b}i
+valid msgstr="redes"
+valid msgstr="tramas"
+valid msgstr="red" after="(ninguna|cualquier)\s"
+valid msgstr="trama" after="(ninguna|cualquier)\s"
+hint="« Lattices » se traduce como « Redes/Tramas » (propuesta glosario)"
+
+# «Layer» se traduce como «Capa».
+{\blayer\b}i
+valid msgstr="capa"
+hint="« Layer » se traduce como « Capa » (propuesta glosario)"
+
+# «Layers» se traduce como «Capas».
+{\blayers\b}i
+valid msgstr="capas"
+valid msgstr="capa" after="(ninguna|cualquier)\s"
+hint="« Layers » se traduce como « Capas » (propuesta glosario)"
+
+# «Leak» se traduce como «Fuga/Escape/Pérdida».
+{\bleak\b}i
+valid msgstr="fuga"
+valid msgstr="escape"
+valid msgstr="pérdida"
+hint="« Leak » se traduce como « Fuga/Escape/Pérdida » (propuesta glosario)"
+
+# «Leaks» se traduce como «Fugas/Escapes/Pérdidas».
+{\bleaks\b}i
+valid msgstr="fugas"
+valid msgstr="escapes"
+valid msgstr="pérdidas"
+valid msgstr="fuga" after="(ninguna|cualquier)\s"
+valid msgstr="escape" after="(ningún|cualquier)\s"
+valid msgstr="pérdida" after="(ninguna|cualquier)\s"
+hint="« Leaks » se traduce como « Fugas/Escapes/Pérdidas » (propuesta glosario)"
+
+# «Linker» se traduce como «Enlazador».
+{\blinker\b}i
+valid msgstr="enlazador"
+hint="« Linker » se traduce como « Enlazador » (propuesta glosario)"
+
+# «Linkers» se traduce como «Enlazadores».
+{\blinkers\b}i
+valid msgstr="enlazadores"
+valid msgstr="enlazador" after="(ningún|cualquier)\s"
+hint="« Linkers » se traduce como « Enlazadores » (propuesta glosario)"
+
 # «Live bookmark» se traduce como «Marcador dinámico».
 {\blive\sbookmark\b}i
 valid msgstr="marcador\sdinámico"
@@ -1923,6 +2059,32 @@ valid msgstr="cierre\s\de\ssesión"
 valid msgstr="cerrar\ssesión"
 hint="« Logout » se traduce como « Fin/cierre de sesión », no se debe dejar sin traducir (propuesta glosario)"
 
+# «Loop» se traduce como «Ciclo/Bucle/Repetir».
+{\bloop\b}i
+valid msgstr="ciclo"
+valid msgstr="bucle"
+valid msgstr="repet(ir|e|a)"
+hint="« Loop » se traduce como « Ciclo/Bucle/Repetir » (propuesta glosario)"
+
+# «Loops» se traduce como «Ciclos/Bucles/Repita».
+{\bloops\b}i
+valid msgstr="ciclos"
+valid msgstr="bucles"
+valid msgstr="repit(e|a)"
+valid msgstr="ciclo" after="(ningún|cualquier)\s"
+valid msgstr="bucle" after="(ningún|cualquier)\s"
+hint="« Loops » se traduce como « Ciclos/Bucles/Repita » (propuesta glosario)"
+
+# «Lossy» se traduce como «Con pérdida».
+{\blossy\b}i
+valid msgstr="con\spérdida"
+hint="« Lossy » se traduce como « Con pérdida » (propuesta glosario)"
+
+# «Luminance» se traduce como «Luminancia».
+{\bluminance\b}i
+valid msgstr="luminancia"
+hint="« Luminance » se traduce como « Luminancia » (propuesta glosario)"
+
 # «Macro» se traduce como «Macro».
 {\bmacro\b}i
 valid msgstr="macro"
@@ -1933,6 +2095,56 @@ hint="« Macro » se traduce como « Macro », (propuesta glosario)"
 valid msgstr="macros"
 valid msgstr="macro" after="(ninguna|cualquier)\s" 
 hint="« Macros » se traduce como « Macros », (propuesta glosario)"
+
+# «Mail» se traduce como «Correo/Mensaje».
+{\bmail\b}i
+valid msgstr="correo"
+valid msgstr="mensaje"
+hint="« Mail » se traduce como « Correo/Mensaje » (propuesta glosario)"
+
+# «Mails» se traduce como «Correos/Mensajes».
+{\bmails\b}i
+valid msgstr="correos"
+valid msgstr="mensajes"
+valid msgstr="correo" after="(ningún|cualquier)\s"
+valid msgstr="mensaje" after="(ningún|cualquier)\s"  
+hint="« Mails » se traduce como « Correos/Mensajes » (propuesta glosario)"
+
+# «Mailbox» se traduce como «Buzón».
+{\bmailbox\b}i
+valid msgstr="buzón"
+hint="« Mailbox » se traduce como « Buzón » (propuesta glosario)"
+
+# «Mailboxes» se traduce como «Buzones».
+{\bmailboxes\b}i
+valid msgstr="buzones"
+valid msgstr="buzón" after="(ningún|cualquier)\s" 
+hint="« Mailbox » se traduce como « Buzón » (propuesta glosario)"
+
+# «Mailing list» se traduce como «Lista de correo».
+{\bmailing\slist\b}i
+valid msgstr="lista\sde\scorreo"
+hint="« Mailing list » se traduce como « Lista de correo » (propuesta glosario)"
+
+# «Mailing lists» se traduce como «Listas de correo».
+{\bmailing\slists\b}i
+valid msgstr="listas\sde\scorreo"
+valid msgstr="lista\sde\scorreo" after="(ninguna|cualquier)\s" 
+hint="« Mailing lists » se traduce como « Listas de correo » (propuesta glosario)"
+
+# «Maintainer» se traduce como «Responsable/Encargado».
+{\bmaintainer\b}i
+valid msgstr="responsable"
+valid msgstr="encargado" 
+hint="« Maintainer » se traduce como « Responsable/encargado » (propuesta glosario)"
+
+# «Maintainers» se traduce como «Responsables/Encargados».
+{\bmaintainers\b}i
+valid msgstr="responsables"
+valid msgstr="encargados" 
+valid msgstr="responsable" after="(ningún|cualquier)\s"  
+valid msgstr="encargado" after="(ningún|cualquier)\s"  
+hint="« Maintainer » se traduce como « Responsables/Encargados » (propuesta glosario)"
 
 # «Manage» se traduce como «Gestionar».
 {\bmanage\b}i
@@ -1947,6 +2159,83 @@ valid msgstr="gestora?"
 valid msgstr="administradora?"
 valid !msgstr="manejadoa?"
 hint="« Manager » se traduce como « Gestor/Administrador » (propuesta glosario)"
+
+# «Markup» se traduce como «Marcado».
+{\bmarkup\b}i
+valid msgstr="marcado"
+hint="« Markup » se traduce como « Marcado » (propuesta glosario)"
+
+# «Mask» se traduce como «Máscara/Enmascarar».
+{\bmask\b}i
+valid msgstr="máscara"
+valid msgstr="enmascar(ar|a|e)"
+hint="« Mask » se traduce como « Máscara/Enmascarar » (propuesta glosario)"
+
+# «Masks» se traduce como «Máscaras/Enmascara».
+{\bmasks\b}i
+valid msgstr="máscaras"
+valid msgstr="enmascar(a|e)"
+valid msgstr="máscara" after="(ninguna|cualquier)\s"  
+hint="« Masks » se traduce como « Máscaras/Enmascara » (propuesta glosario)"
+
+# «Maskerading» se traduce como «Enmascaramiento/enmascarado».
+{\bmaskerading\b}i
+valid msgstr="enmascaramiento"
+valid msgstr="enmascarado"
+hint="« Maskerading » se traduce como « Enmascaramiento/Enmascarado » (propuesta glosario)"
+
+# «Masking» se traduce como «Enmascaramiento».
+{\bmasking\b}i
+valid msgstr="enmascaramiento"
+hint="« Masking » se traduce como « Enmascaramiento » (propuesta glosario)"
+
+# «Measure» se traduce como «Medida/Métrica/Medir».
+{\bmeasure\b}i
+valid msgstr="medida"
+valid msgstr="métrica"
+valid msgstr="medir"
+valid msgstr="mid(e|a)"
+hint="« Measure » se traduce como « Medida/Métrica » (propuesta glosario)"
+
+# «Measured» se traduce como «Medido».
+{\bmeasured\b}i
+valid msgstr="medid(a|o)"
+valid msgstr="medirse"
+hint="« Measured » se traduce como « Medido » (propuesta glosario)"
+
+# «Measures» se traduce como «Medidas/Métricas».
+{\bmeasures\b}i
+valid msgstr="medidas"
+valid msgstr="métricas"
+valid msgstr="medida" after="(ninguna|cualquier)\s"
+valid msgstr="métrica" after="(ninguna|cualquier)\s"
+valid msgstr="mid(es|as)"
+hint="« Measures » se traduce como « Medidas/Métricas » (propuesta glosario)"
+
+# «Method» se traduce como «Método».
+{\bmethod\b}i
+valid msgstr="método"
+hint="« Method » se traduce como « Método » (propuesta glosario)"
+
+# «Methods» se traduce como «Métodos».
+{\bmethods\b}i
+valid msgstr="métodos"
+valid msgstr="método" after="(ningún|cualquier)\s"
+hint="« Methods » se traduce como « Métodos » (propuesta glosario)"
+
+# «Milestone» se traduce como «Hito/Punto de referencia».
+{\bmilestone\b}i
+valid msgstr="hito"
+valid msgstr="punto\sde\sreferencia"
+hint="« Milestone » se traduce como « Hito/Punto de referencia » (propuesta glosario)"
+
+# «Milestones» se traduce como «Hitos/Puntos de referencia».
+{\bmilestones\b}i
+valid msgstr="hitos"
+valid msgstr="puntos\sde\sreferencia"
+valid msgstr="hito" after="(ningún|cualquier)\s"
+valid msgstr="punto\sde\sreferencia" after="(ningún|cualquier)\s"
+hint="« Milestone » se traduce como « Hito/Punto de referencia » (propuesta glosario)"
 
 # «Mirror» se traduce como «Réplica».
 # Creo que debería considerarse erróneo dejarlo en inglés como lo permite actualmente el glosario.
@@ -1965,14 +2254,206 @@ valid msgstr="espejos"
 valid !msgstr="mirrors"
 hint="« Mirrors » se traduce como « Espejos » o « Réplicas » (propuesta glosario)"
 
+# «Mismatch» se traduce como «Discordancia».
+{\bmismatch\b}i
+valid msgstr="discordancia"
+valid msgstr="no\sconcuerdan?"
+hint="« Mismatch » se traduce como « Discordancia » (propuesta glosario)"
+
+# «Mismatchs» se traduce como «Discordancias».
+{\bmismatchs\b}i
+valid msgstr="discordancias"
+valid msgstr="discordancia" after="(ninguna|cualquier)\s"
+valid msgstr="no\sconcuerdan?"
+hint="« Mismatchs » se traduce como « Discordancias » (propuesta glosario)"
+
+# «Mix» se traduce como «Mezclar».
+{\bmix\b}i
+valid msgstr="mezcl(ar|a|e)"
+hint="« Mix » se traduce como « Mezclar » (propuesta glosario)"
+
+# «Mixed» se traduce como «Mezclado/mixto».
+{\bmixed\b}i
+valid msgstr="mezclad(o|a)"
+valid msgstr="mezclarse"
+valid msgstr="mixt(o|a)"
+hint="« Mixed » se traduce como « Mezclado/Mixto » (propuesta glosario)"
+
+# «Mixer» se traduce como «Mezclador».
+{\bmixer\b}i
+valid msgstr="mezclador"
+hint="« Mixer » se traduce como « Mezclador » (propuesta glosario)"
+
+# «Mixers» se traduce como «Mezcladores».
+{\bmixer\b}i
+valid msgstr="mezcladores"
+valid msgstr="mezclador" after="(ningún|cualquier)\s"
+hint="« Mixer » se traduce como « Mezclador » (propuesta glosario)"
+
+# «Mobile» se traduce como «Móvil/Portátil».
+{\bmobile\b}i
+valid msgstr="móvil"
+valid msgstr="portátil"
+hint="« Mobile » se traduce como « Móvil/Portátil » (propuesta glosario)"
+
+# «Module» se traduce como «Módulo».
+{\bmodule\b}i
+valid msgstr="módulo"
+hint="« Module » se traduce como « Módulo » (propuesta glosario)"
+
+# «Modules» se traduce como «Módulos».
+{\bmodules\b}i
+valid msgstr="módulos"
+valid msgstr="módulo" after="(ningún|cualquier)\s"
+hint="« Modules » se traduce como « Módulos » (propuesta glosario)"
+
+# «Mount» se traduce como «Montaje/Montar».
+{\bmount\b}i
+valid msgstr="montaje"
+valid msgstr="mont(ar|a|e)"
+hint="« Mount » se traduce como « Montaje/Montar » (propuesta glosario)"
+
+# «Mounted» se traduce como «Montado».
+{\bmounted\b}i
+valid msgstr="montad(o|a)"
+valid msgstr="montarse"
+hint="« Mounted » se traduce como « Montado » (propuesta glosario)"
+
+# «Mounts» se traduce como «Montajes/Monte».
+{\bmounts\b}i
+valid msgstr="montajes"
+valid msgstr="montaje" after="(ningún|cualquier)\s"
+valid msgstr="mont(a|e)"
+hint="« Mounts » se traduce como « Montajes/Monte » (propuesta glosario)"
+
+# «Mute» se traduce como «Silencio/Silenciar».
+{\bmute\b}i
+valid msgstr="silencio"
+valid msgstr="silenci(ar|a|e)"
+hint="« Mute » se traduce como « Silencio/Silenciar » (propuesta glosario)"
+
+# «Muted» se traduce como «Silenciado».
+{\bmuted\b}i
+valid msgstr="silenciad(o|a)"
+valid msgstr="silenciarse"
+hint="« Muted » se traduce como « Silenciado » (propuesta glosario)"
+
+# «Mutes» se traduce como «Silencios/Silencie».
+{\bmutes\b}i
+valid msgstr="silencios"
+valid msgstr="silenci(a|e)"
+valid msgstr="silencio" after="(ningún|cualquier)\s"
+hint="« Mutes » se traduce como « Silencios/Silencie » (propuesta glosario)"
+
+# «Namespace» se traduce como «Espacio de nombres».
+{\bnamespace\b}i
+valid msgstr="espacio\sde\snombres"
+hint="« Namespace » se traduce como « Espacio de nombres » (propuesta glosario)"
+
+# «Namespaces» se traduce como «Espacios de nombres».
+{\bnamespaces\b}i
+valid msgstr="espacios\sde\snombres"
+valid msgstr="espacio\sde\snombres" after="(ningún|cualquier)\s"
+hint="« Namespaces » se traduce como « Espacios de nombres » (propuesta glosario)"
+
+# «Nest» se traduce como «Anidar/Conectar/Nido».
+{\bnest\b}i
+valid msgstr="anid(ar|e|a)"
+valid msgstr="conect(ar|a|e)"
+valid msgstr="nido"
+hint="« Nest » se traduce como « Anidar/Conectar/Nido » (propuesta glosario)"
+
+# «Nested» se traduce como «Anidadado/Conectado».
+{\bnested\b}i
+valid msgstr="anidad(o|a)"
+valid msgstr="conectado(o|a)"
+valid msgstr="anidarse"
+valid msgstr="conectarse"
+hint="« Nest » se traduce como « Anidar/Conectar/Nido » (propuesta glosario)"
+
+# «Nests» se traduce como «Anide/Conecte/Nidos».
+{\bnests\b}i
+valid msgstr="anid(e|a)"
+valid msgstr="conect(a|e)"
+valid msgstr="nidos"
+valid msgstr="nido" after="(ningún|cualquier)\s"
+hint="« Nest » se traduce como « Anidar/Conectar/Nido » (propuesta glosario)"
+
+# «Netmask» se traduce como «Máscara de red».
+{\bnetmask\b}i
+valid msgstr="máscara\sde\sred"
+hint="« Netmask » se traduce como « Máscara de red » (propuesta glosario)"
+
+# «Netmasks» se traduce como «Máscaras de red».
+{\bnetmasks\b}i
+valid msgstr="máscaras\sde\sred"
+valid msgstr="máscara\sde\sred" after="(ninguna|cualquier)\s"
+hint="« Netmasks » se traduce como « Máscaras de red » (propuesta glosario)"
+
+# «Network» se traduce como «Red».
+{\bnetwork\b}i
+valid msgstr="red"
+hint="« Network » se traduce como « Red » (propuesta glosario)"
+
+# «Networks» se traduce como «Redes».
+{\bnetworks\b}i
+valid msgstr="redes"
+valid msgstr="red" after="(ninguna|cualquier)\s"
+hint="« Networks » se traduce como « Redes » (propuesta glosario)"
+
+# «New» se traduce como «Nuevo».
+{\bnew\b}i
+valid msgstr="nuev(o|a)"
+valid msgstr="novedad(es)?"
+hint="« New » se traduce como « Nuevo » (propuesta glosario)"
+
+# «Newbie» se traduce como «Principiante».
+{\bnewbie\b}i
+valid msgstr="principiante"
+hint="« Newbie » se traduce como « Principiante » (propuesta glosario)"
+
+# «Newbies» se traduce como «Principiantes».
+{\bnewbies\b}i
+valid msgstr="principiantes"
+valid msgstr="principiante" after="(ningún|cualquier)\s"
+hint="« Newbies » se traduce como « Principiantes » (propuesta glosario)"
+
+# «News» se traduce como «Noticias».
+{\bnews\b}i
+valid msgstr="noticias"
+hint="« News » se traduce como « Noticias » (propuesta glosario)"
+
+# «Newsgroup» se traduce como «Grupo de noticias».
+{\bnewsgroup\b}i
+valid msgstr="grupo\sde\snoticias"
+hint="« Newsgroup » se traduce como « Grupo de noticias » (propuesta glosario)"
+
+# «Newsgroups» se traduce como «Grupos de noticias».
+{\bnewsgroups\b}i
+valid msgstr="grupos\sde\snoticias"
+valid msgstr="grupo\sde\snoticias" after="(ningún|cualquier)\s"
+hint="« Newsgroups » se traduce como « Grupos de noticias » (propuesta glosario)"
+
 # «Nick» se traduce como «Apodo».
-{\bmick\b}i
+{\bnick\b}i
 valid msgstr="apodo"
 hint="« Nick » se traduce como « Apodo » (propuesta glosario)"
 
-# «Nicks» se traduce como «Apodos».
-{\bmicks\b}i
+# «Nickname» se traduce como «Apodo».
+{\bnickname\b}i
+valid msgstr="apodo"
+hint="« Nickname » se traduce como « Apodo » (propuesta glosario)"
+
+# «Nicknames» se traduce como «Apodos».
+{\bnicknames\b}i
 valid msgstr="apodos"
+valid msgstr="apodo" after="(ningún|cualquier)\s"
+hint="« Nicknames » se traduce como « Apodos » (propuesta glosario)"
+
+# «Nicks» se traduce como «Apodos».
+{\bnicks\b}i
+valid msgstr="apodos"
+valid msgstr="apodo" after="(ningún|cualquier)\s"
 hint="« Nicks » se traduce como « Apodos » (propuesta glosario)"
 
 # «On line» se traduce como «Conectado».
