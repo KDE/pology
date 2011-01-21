@@ -122,3 +122,9 @@ valid msgstr="\batopa"
 valid msgstr="\bbusc"
 valid msgstr="\bsitu"
 hint="«locate» tradúcese como «atopar», «buscar» ou «situar»"
+
+# «daemon» tradúcese como «daemon»
+{\bdaemon}i
+id="noPT_daemon"
+valid msgstr="\bdaemon"
+hint="«daemon» tradúcese como «daemon»"

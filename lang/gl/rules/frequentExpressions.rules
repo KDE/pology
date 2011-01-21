@@ -1,0 +1,103 @@
+# Internal rules intended to check for common mistakes in Galician L10n,
+# in frequently used expressions.
+# by the Proxecto Trasno (proxecto@trasno.net)
+# License: BSD 3-clause
+# Copyright (c) 2010, Proxecto Trasno
+# All rights reserved.
+# 
+# Redistribution and use in source and binary forms, with or without
+# modification, are permitted provided that the following conditions are met:
+#     * Redistributions of source code must retain the above copyright
+#       notice, this list of conditions and the following disclaimer.
+#     * Redistributions in binary form must reproduce the above copyright
+#       notice, this list of conditions and the following disclaimer in the
+#       documentation and/or other materials provided with the distribution.
+#     * Neither the name of the Proxecto Trasno nor the
+#       names of its contributors may be used to endorse or promote products
+#       derived from this software without specific prior written permission.
+# 
+# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+# AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+# IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+# ARE DISCLAIMED. IN NO EVENT SHALL PROXECTO TRASNO BE LIABLE FOR ANY
+# DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+# (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+# LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+# ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+# (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+# SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+include file="filter.include"
+
+# Remove accelerator and  hyphen inside words.
+addFilterHook name="remove/remove-accel-msg" on="msg"
+
+
+#checks requested by Fran Dieguez
+
+# «Non se puido» -> «Non foi posíbel»
+[\bnon\sse\spuido\b]i
+id="expression-intra_non se puido"
+hint="non se puido -> non foi posíbel"
+
+# «houbo un erro» -> «produciuse un erro»
+[\bhoubo\sun\s(erro|fallo)\b]i
+id="expression-intra_houbo un erro|fallo"
+hint="houbo un erro|fallo -> produciuse un erro|fallo ao"
+
+# «fallo ao» -> «produciuse un fallo ao»
+[\bfallo\sao\b]i
+id="expression-intra_fallo ao"
+valid after="\bproduciuse\sun"
+hint="fallo ao -> produciuse un fallo ao"
+#/end checks requested by Fran Dieguez
+
+##now Marce options
+
+# «enable this option» 
+{\benable\sthis\s(option|checkbox)}i
+id="expression_enable this option| checkbox"
+valid msgstr="\bescoll(a|er)\sesta\sopción"
+hint="enable this option = escolla esta opción"
+
+# «when/if this option/checkbox is enabled»-> «se escolleu/sinalou esta opción»
+{\b(when|if)\sthis\s(option|checkbox)\sis\senabled}i
+id="expression_when|if this option|checkbox is enabled"
+valid msgstr="\bse\escolle\sesta\sopción"
+hint="when|if this option|checkbox is enabled -> se escolle esta opción"
+
+# «enable» 
+{\b(when|if)\sthis\sis\senabled}i
+id="expression_when|if this is enabled"
+valid msgstr="\bse\sescolle\sesta\sopción"
+hint="is this is enabled -> se escolleu/sinalou esta opción"
+
+# «enable» 
+{\b(if|when)\senabled}i
+id="expression_when/if enabled"
+valid msgstr="\bse\sactiva\sesta\sopción"
+hint="when/if enabled -> se escolle/sinala esta opción"
+
+# «disable this option/checkbox»
+{\bdisable\sthis\s(option|checkbox)}i
+id="expression_disable this option/checkbox"
+valid msgstr="\bdesmarque\sesta\sopción"
+hint="disable this option/checkbox -> desmarque esta opción"
+
+# «when/if this option/checkbox is disabled»
+{\b(when|if)\sthis\s(option|checkbox)\sis\sdisabled}i
+id="expression_when/if this option/checkbox is disabled"
+valid msgstr="\bse\sopción\snon\sestá\s(escollid|marcad)a"
+hint="when/if this option/checkbox is disabled -> se esta opción non está escollida/sinalada"
+
+# «when/if this is disabled»
+{\b(when|if)\sthis\sis\sdisabled}i
+id="expression_when this is disabled"
+valid msgstr="\bse\sesta\opción\snon\sestá\s(escollid|marcad)a"
+hint="when/if this is disabled -> se esta opción non está escollida/sinalada"
+
+# «if/when disables»
+{\b(if|when)\sdisabled}i
+id="expression_if/when disabled"
+valid msgstr="\bse\sdesmarca\sesta\opción"
+hint="if/when disabled -> se desmarca esta opción"
