@@ -97,3 +97,4 @@ def remove_paired_parameters (msg, cat):
             msg.msgstr[i] = msg.msgstr[i].replace(ent, "")
 
     return 0
+
