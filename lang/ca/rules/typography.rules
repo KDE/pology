@@ -144,6 +144,7 @@ hint="En català no s'utilitza el signe d'obertura d'admiració «¡» (tipograf
 [\s\?]
 valid ctx="Numbers and characters"
 valid ctx="Query"
+valid comment="Tag\:\suserinput" cat="kioslave_nepomuksearch" # docmessages
 valid after="i" cat="lokalize"
 hint="No s'ha de posar cap espai abans del signe d'interrogació (tipografia)"
 
@@ -152,6 +153,7 @@ validGroup beforePunctuation
 valid ctx=".*one character"
 valid ctx="Numbers and characters"
 valid ctx="Query"
+valid comment="Tag\:\suserinput" cat="kioslave_nepomuksearch" # docmessages
 valid span="\?$"
 valid span="\?\»"
 valid span="\?d" cat="kio_audiocd,kioslave_audiocd"
@@ -262,6 +264,7 @@ valid after="usant" cat="kile"
 valid after="columna\sn\sentrada.+" cat="kile"
 valid span="\s\.$" cat="ktouch,kile"
 valid ctx="function prototype"
+valid comment="Tag\:\suserinput" cat="kioslave_nepomuksearch" # docmessages
 hint="No s'ha de posar cap espai abans del signe de punt (tipografia)"
 
 [\.\S]
@@ -415,6 +418,7 @@ valid before="$" cat="kdeqt"
 valid comment="Tag\:\sscreen" cat="kdeprint_cups-config" # docmessages
 valid ctx="identifier separator" cat="kalgebra"
 valid ctx="hour in the messages below"
+valid comment="Tag\:\suserinput" cat="kioslave_nepomuksearch" # docmessages
 hint="Un apòstrof inicial és un error, excepte a ordres de terminal (tipografia)"
 
 # «' » un apóstrof final és un error (ull amb les ordres!).  Substituir per »
