@@ -92,6 +92,8 @@ hint="«в течении» -- разве что «в течении реки»"
 hint="«overwrite» переводится как «заменить»"
 
 [настройки]i
+valid after="средства "
+valid after="кнопку "
 valid after="при ошибке установки или "
 valid after="мастера "
 valid after="Центр "
@@ -202,6 +204,9 @@ valid before="okular" # IRC channel
 valid before="dragonplayer" # IRC channel
 valid before="amarok" # IRC channels
 valid before="kde-bugs" # IRC channel
+valid before="if" # C/C++ preprocessor
+valid before="endif" # C/C++ preprocessor
+valid before="else" # C/C++ preprocessor
 valid after="color:"
 valid after="color=\""
 valid after="bgcolor="
