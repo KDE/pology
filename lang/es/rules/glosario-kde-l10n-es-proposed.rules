@@ -866,17 +866,6 @@ hint="« Developers » se traduce como « Desarrolladores » (propuesta glosario
 valid msgstr="desarrollo"
 hint="« Development » se traduce como « Desarrollo » (propuesta glosario)"
 
-# «Device» se traduce como «Dispositivo».
-{\bdevice\b}i
-valid msgstr="dispositivo"
-hint="« Device » se traduce como « Dispositivo » (propuesta glosario)"
-
-# «Devices» se traduce como «Dispositivos».
-{\bdevices\b}i
-valid msgstr="dispositivos"
-valid msgstr="dispositivo" after="(ningún|cualquier)\s"
-hint="« Devices » se traduce como « Dispositivos » (propuesta glosario)"
-
 # «Dialog box» se traduce como «Cuadro de diálogo».
 {\bdialog\sbox\b}i
 valid msgstr="cuadro\sde\sdiálogo"
@@ -1955,17 +1944,6 @@ hint="« Keyring » se traduce como « Anillo de claves » (propuesta glosario)"
 valid msgstr="anillos\sde\sclaves"
 valid msgstr="anillo\sde\claves" after="(ningún|cualquier)\s"
 hint="« Keyrings » se traduce como « Anillos de claves » (propuesta glosario)"
-
-# «Keyword» se traduce como «Palabra clave».
-{\bkeyword\b}i
-valid msgstr="palabra\sclave"
-hint="« Keyword » se traduce como « Palabra clave » (propuesta glosario)"
-
-# «Keywords» se traduce como «Palabras clave».
-{\bkeywords\b}i
-valid msgstr="palabras\sclave"
-valid msgstr="palabra\sclave" after="(ninguna|cualquier)\s"
-hint="« Keywords » se traduce como « Palabras clave » (propuesta glosario)"
 
 # «Label» se traduce como «Etiqueta».
 {\blabel\b}i
