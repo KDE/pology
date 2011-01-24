@@ -87,7 +87,7 @@ hint="amosar -> mostrar"
 #descarta o uso de «colar» en favor de «(a)pegar»
 [\bcol(a|e|o)(?!(c|m|re|ri|ra|ps|b|q|x|nia))]i
 valid msgstr="\bcolor"
-valid msgstr="\bcola" msgid="\b(queue|dequeue|tail)"
+valid msgstr="\bcola" msgid="\b(queue|dequeue|enqueue|tail)"
 id="clGL-all_colar"
 hint="colar -> (a)pegar"
 

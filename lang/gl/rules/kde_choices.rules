@@ -110,7 +110,7 @@ valid after="\b(when|if)\sthis\sis\s"
 valid after="\b(if|when)\s"
 valid after="enable/"
 id="mine_disable"
-valid msgstr="\bdesactiv"
+valid msgstr="\bdesact(i|í)v"
 hint="enable/disable = activar/desactivar"
 
 # «enable/disable» -> «conmutar»

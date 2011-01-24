@@ -48,7 +48,7 @@ hint="houbo un erro|fallo -> produciuse un erro|fallo ao"
 # «fallo ao» -> «produciuse un fallo ao»
 [\bfallo\sao\b]i
 id="expression-intra_fallo ao"
-valid after="\bproduciuse\sun"
+valid after="\bproduciuse\suns"
 hint="fallo ao -> produciuse un fallo ao"
 #/end checks requested by Fran Dieguez
 
