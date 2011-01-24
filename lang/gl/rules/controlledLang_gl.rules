@@ -60,7 +60,7 @@ id="clGL-all_licenza"
 hint="algúns derivados de licenza trocan o «z» por «cia»"
 
 #terminación en bel
-[(?!\b(fe|ca))ble[s]{,1}\b]i
+[(?!(\b|\s)(fe|ca))ble[s]{,1}\b]i
 id="clGL-all_bel"
 hint="terminación en -bel"
 

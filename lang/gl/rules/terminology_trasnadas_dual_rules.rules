@@ -29,8 +29,7 @@
 
 include file="filter.include"
 
-# Remove accelerator and  hyphen inside words.
-#addFilterRegex match="(\&|\-)" on="pmsgid,pmsgstr"
+# Remove accelerator mark
 addFilterHook name="remove/remove-accel-msg" on="msg"
 
 

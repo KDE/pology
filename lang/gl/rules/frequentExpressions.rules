@@ -75,8 +75,8 @@ hint="is this is enabled -> se escolleu/sinalou esta opción"
 # «enable» 
 {\b(if|when)\senabled}i
 id="expression_when/if enabled"
-valid msgstr="\bse\sactiva\sesta\sopción"
-hint="when/if enabled -> se escolle/sinala esta opción"
+valid msgstr="\bse\sescolle\sesta\sopción"
+hint="when/if enabled -> se escolle esta opción"
 
 # «disable this option/checkbox»
 {\bdisable\sthis\s(option|checkbox)}i
