@@ -2,39 +2,52 @@
 # by the KDE Galician Team (proxecto@trasno.net)
 # License: GPLv3
 
+# Remove literal parts of messages, according to the markup
+addFilterHook name="remove/remove-marlits-msg" on="msg"
+# Remove markup as per declared in header
+addFilterHook name="remove/remove-markup-msg" on="msg"
+# Remove entities present both in source and target text
+addFilterHook name="remove/remove-paired-ents" on="msg"
+# Remove accelerator mark
+addFilterHook name="remove/remove-accel-msg" on="msg"
+# Replace format directives by a tilde
+addFilterHook name="remove/remove-fmtdirs-msg-tick~'$'" on="msg"
+# Replace unvariant parts of the message
+addFilterHook name="remove/remove_literals_msg_tick~'£'" on="msg" 
+
 # Remove XML entities.
 addFilterRegex match="\&[\w\d\.\-]+?\;" repl="" on="pmsgid,pmsgstr"
 
 # Remove function calls like foo(x, y).
-addFilterRegex match="\w+\([\w\s\.\,\-\_]*?\)" repl="" on="pmsgid,pmsgstr"
+addFilterRegex match="\w+\([\w\s\.\,\-\_]*?\)" repl="€" on="pmsgid,pmsgstr"
 
 # Remove XML-like tags.
-addFilterRegex match="\<\s*(bcode|command|envar|filename|icode|shortcut|placeholder|style|code|tt|literal|screen|option|keycap|userinput|systemitem|prompt|function|foreignphrase|varname|programlisting|token|markup|parameter|keysym|methodname|sgmltag|arg|classname|type)\b.*?\b\1\>" repl="" on="pmsgid,pmsgstr"
-addFilterRegex match="\<\s*(email|link)\s*>\b.*?\b\1\>" repl="" on="pmsgid,pmsgstr"     
-addFilterRegex match="\<.*?\>" repl="" on="pmsgid,pmsgstr"
+# addFilterRegex match="\<\s*(bcode|command|envar|filename|icode|shortcut|placeholder|style|code|tt|literal|screen|option|keycap|userinput|systemitem|prompt|function|foreignphrase|varname|programlisting|token|markup|parameter|keysym|methodname|sgmltag|arg|classname|type)\b.*?\b\1\>" repl="" on="pmsgid,pmsgstr"
+# addFilterRegex match="\<\s*(email|link)\s*>\b.*?\b\1\>" repl="" on="pmsgid,pmsgstr"     
+# addFilterRegex match="\<.*?\>" repl="" on="pmsgid,pmsgstr"
 
 # Alternatives directives
-addFilterRegex match="~@(.)(.*?)\1(.*?)\1" repl="~" on="pmsgid,pmsgstr"
+addFilterRegex match="~@(.)(.*?)\1(.*?)\1" repl="¶" on="pmsgid,pmsgstr"
 
 # Extension filter, e.g. "*.png|PNG files"
-addFilterRegex match="^.*\*\..*\|" repl="~" on="pmsgid,pmsgstr"
+addFilterRegex match="^.*\*\..*\|" repl="Ŧ" on="pmsgid,pmsgstr"
 
 # Wiki stuff
-addFilterRegex match="\[\[[^\]]*(\||\])" repl="~" on="pmsgid,pmsgstr"
-addFilterRegex match="\[[^\s]*" repl="~" on="pmsgid,pmsgstr"
-addFilterRegex match="\{\{.*?(\||\}\})" repl="~" on="pmsgid,pmsgstr"
+addFilterRegex match="\[\[[^\]]*(\||\])" repl="¥" on="pmsgid,pmsgstr"
+addFilterRegex match="\[[^\s]*" repl="↑" on="pmsgid,pmsgstr"
+addFilterRegex match="\{\{.*?(\||\}\})" repl="ı" on="pmsgid,pmsgstr"
 
 # Remove long command-line options.
-addFilterRegex match="\-\-\w[\w\_\-]*?\b" repl="~" on="pmsgid,pmsgstr"
+addFilterRegex match="\-\-\w[\w\_\-]*?\b" repl="" on="pmsgid,pmsgstr"
 
 # Remove environment variables.
-addFilterRegex match="\$\<?[A-Z]+\>?" repl="~" on="pmsgid,pmsgstr"
+addFilterRegex match="\$\<?[A-Z]+\>?" repl="Þ" on="pmsgid,pmsgstr"
 
 # Remove web pages.
-addFilterRegex match="((http|https|ftp|sftp)\:\/\/)?([\w\_\-]+\.)+((gov|edu|com|mil|org|net|aero|biz|coop|info|museum|name|pro|mobi)|([a-z]{2,4})|\5\.\6)(\:\d{2,4})?(\/[\w\.\-\_]+)*\/?(\?(\w+\=\w+)(\&(\w+\=\w+))*?)?(\#\w+)?" repl="~" on="pmsgid,pmsgstr"
+# addFilterRegex match="((http|https|ftp|sftp)\:\/\/)?([\w\_\-]+\.)+((gov|edu|com|mil|org|net|aero|biz|coop|info|museum|name|pro|mobi)|([a-z]{2,4})|\5\.\6)(\:\d{2,4})?(\/[\w\.\-\_]+)*\/?(\?(\w+\=\w+)(\&(\w+\=\w+))*?)?(\#\w+)?" repl="~" on="pmsgid,pmsgstr"
 
 # Remove email addresses.
-addFilterRegex match="(mailto\:)?([\w\d\_\-]+)(\.\2)*\@(\2\.)+[\w]{2,4}" repl="~" on="pmsgid,pmsgstr"
+# addFilterRegex match="(mailto\:)?([\w\d\_\-]+)(\.\2)*\@(\2\.)+[\w]{2,4}" repl="~" on="pmsgid,pmsgstr"
 
 # Remove system files.
 addFilterRegex match="(file\:|\#\!)?\/(bin|etc|lib|media|proc|srv|var|boot|home|lib32|mnt|root|sys|cdrom|lib64|sbin|tmp|dev|lost\+found|opt|selinux|usr)(\/[\w\.\-\_]+)*\/?" repl="~" on="pmsgid,pmsgstr"
@@ -52,10 +65,10 @@ addFilterRegex match="\.\/configure" repl="~" on="pmsgid,pmsgstr"
 addFilterRegex match="\~\.?\/[\w\.\-\_]+" repl="~" on="pmsgid,pmsgstr"
 
 # Remove single characters in quotes.
-addFilterRegex match="«.»" repl="~" on="pmsgid,pmsgstr"
+# addFilterRegex match="«.»" repl="~" on="pmsgid,pmsgstr"
 
 # # Especial treatment for «etc.», there may be a comma before it.
-# addFilterRegex match="(etc\.|\&etc\;)" repl="etcétera" on="pmsgid,pmsgstr"
+addFilterRegex match="(etc\.|\&etc\;)" repl="etcétera" on="pmsgid,pmsgstr"
 
 # Remove some abreviations.
 addFilterRegex match="\b(Ex\.|ex\.|p\.\sex\.|EUA|a\.m\.|p\.m\.|n\.t\.\expr\.)" repl="~" on="pmsgid,pmsgstr"

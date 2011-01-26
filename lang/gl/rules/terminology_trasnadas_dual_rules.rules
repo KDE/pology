@@ -29,10 +29,6 @@
 
 include file="filter.include"
 
-# Remove accelerator mark
-addFilterHook name="remove/remove-accel-msg" on="msg"
-
-
 # «Lapela» traduce a «tab».
 [\blapela|\btabula(ción|dor)]i
 id="PT-2010-dual-lapela_tabulador_tabulación"
@@ -84,6 +80,7 @@ hint="«anexo» traduce a «attachment»"
 # «orde» traduce a «Command»
 [\borde(\"\"|s)]i
 id="PT-2010-dual_orde"
+valid !before="\sinterpretes?\sde\s"
 valid msgid="\bcommand"
 hint="«orde» traduce a «command»"
 

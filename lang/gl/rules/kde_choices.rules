@@ -29,13 +29,9 @@
 
 include file="filter.include"
 
-# Remove accelerator and  hyphen inside words.
-# addFilterRegex match="(\&|\-)" on="pmsgid,pmsgstr"
-addFilterHook name="remove/remove-accel-msg" on="msg"
-
 # «Path» -> «ruta».
 # trust path é outra cousa
-{\bpath}i
+{\bpath(\b|\s|s)}i
 valid after="trust\s"
 id="mine_path"
 valid msgstr="\bruta"
@@ -97,10 +93,18 @@ valid before="/disable"
 valid after="\b(when|if)\sthis\s(option|checkbox)\sis\s"
 valid after="\b(when|if)\sthis\sis\s"
 valid after="\b(if|when)\s"
+valid after="\bnot"
 id="mine_enable"
 valid msgstr="\bactiv"
 valid msgstr="\bpermit"
 hint="enable/disable = activar/desactivar"
+
+# «not enabled»
+{\bnot enabled\b}
+id="mine_not enabled"
+valid msgstr="\bdesactivad(o|a)"
+valid msgstr="\bnon\sestá\sactivad(o|a)"
+hint="not enabled -> desactivado"
 
 # «disable»
 {\bdisable}i
@@ -130,16 +134,27 @@ hint="accept = aceptar"
 id="mine-dual_accept"
 valid msgid="\baccept"
 valid msgid="\bOK\b"
+valid msgid="\bagree"
 hint="aceptar = accept"
 
 # «print» -> «imprimir», «mostra»
-{\bprint}i
+{\bprint(?!ing)}i
+valid !after="screen"
+valid !before="\spreview"
 id="mine_print"
 valid msgstr="\bimprim"
+valid msgstr="\bimpreso"
 valid msgstr="\bmostr"
-hint="print = imprimir ou mostrar"
+hint="print = imprimir, impreso ou mostrar"
 
-# «imprimit» -> «print»
+# «printing» -> «imprimir», «impresión»
+{\bprinting}i
+id="mine_printing"
+valid msgstr="\bimpresión"
+valid msgstr="\bimprim"
+hint="printing = imprimir, impresión"
+
+# «imprimir» -> «print»
 [\bimprim]i
 id="mine-dual_print"
 valid msgid="\bprint(?!er)"

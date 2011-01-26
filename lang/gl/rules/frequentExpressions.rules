@@ -29,50 +29,27 @@
 
 include file="filter.include"
 
-# Remove accelerator and  hyphen inside words.
-addFilterHook name="remove/remove-accel-msg" on="msg"
-
-
-#checks requested by Fran Dieguez
-
-# «Non se puido» -> «Non foi posíbel»
-[\bnon\sse\spuido\b]i
-id="expression-intra_non se puido"
-hint="non se puido -> non foi posíbel"
-
-# «houbo un erro» -> «produciuse un erro»
-[\bhoubo\sun\s(erro|fallo)\b]i
-id="expression-intra_houbo un erro|fallo"
-hint="houbo un erro|fallo -> produciuse un erro|fallo ao"
-
-# «fallo ao» -> «produciuse un fallo ao»
-[\bfallo\sao\b]i
-id="expression-intra_fallo ao"
-valid after="\bproduciuse\suns"
-hint="fallo ao -> produciuse un fallo ao"
-#/end checks requested by Fran Dieguez
-
-##now Marce options
+##Marce options
 
 # «enable this option» 
 {\benable\sthis\s(option|checkbox)}i
 id="expression_enable this option| checkbox"
 valid msgstr="\bescoll(a|er)\sesta\sopción"
-hint="enable this option = escolla esta opción"
+hint="enable this option = escolla/er esta opción"
 
 # «when/if this option/checkbox is enabled»-> «se escolleu/sinalou esta opción»
 {\b(when|if)\sthis\s(option|checkbox)\sis\senabled}i
 id="expression_when|if this option|checkbox is enabled"
-valid msgstr="\bse\escolle\sesta\sopción"
+valid msgstr="\bse\sescolle\sesta\sopción"
 hint="when|if this option|checkbox is enabled -> se escolle esta opción"
 
 # «enable» 
 {\b(when|if)\sthis\sis\senabled}i
 id="expression_when|if this is enabled"
 valid msgstr="\bse\sescolle\sesta\sopción"
-hint="is this is enabled -> se escolleu/sinalou esta opción"
+hint="is this is enabled -> se escolle esta opción"
 
-# «enable» 
+# «enable»
 {\b(if|when)\senabled}i
 id="expression_when/if enabled"
 valid msgstr="\bse\sescolle\sesta\sopción"
@@ -87,17 +64,29 @@ hint="disable this option/checkbox -> desmarque esta opción"
 # «when/if this option/checkbox is disabled»
 {\b(when|if)\sthis\s(option|checkbox)\sis\sdisabled}i
 id="expression_when/if this option/checkbox is disabled"
-valid msgstr="\bse\sopción\snon\sestá\s(escollid|marcad)a"
-hint="when/if this option/checkbox is disabled -> se esta opción non está escollida/sinalada"
+valid msgstr="\bse\sesta\sopción\snon\sestá\s(escollid|marcad)a"
+valid msgstr="\bse\snon\sescolle\sesta\sopción"
+hint="when/if this option/checkbox is disabled -> se esta opción non está escollida/marcada"
 
 # «when/if this is disabled»
 {\b(when|if)\sthis\sis\sdisabled}i
 id="expression_when this is disabled"
-valid msgstr="\bse\sesta\opción\snon\sestá\s(escollid|marcad)a"
+valid msgstr="\bse\sesta\sopción\snon\sestá\s(escollid|marcad)a"
 hint="when/if this is disabled -> se esta opción non está escollida/sinalada"
 
 # «if/when disables»
 {\b(if|when)\sdisabled}i
 id="expression_if/when disabled"
-valid msgstr="\bse\sdesmarca\sesta\opción"
+valid msgstr="\bse\sdesmarca\sesta\sopción"
 hint="if/when disabled -> se desmarca esta opción"
+
+# end of Marce options
+
+# «print preview» -> «previsualización da impresión» / «vista previa do impreso»
+{\bprint\spreview(?!\s(window|part))}i
+id="expression_print preview"
+valid msgstr="\bprevisualizacións?\sda\impresión"
+valid msgstr="\bvistas?\sprevia\sdos?\simpresos?"
+valid msgstr="\bprevisualizar\so\simpreso"
+valid msgstr="\bimprimir\sa\svista\sprevia"
+hint="«print preview» -> «previsualización da impresión» / «vista previa do impreso»"

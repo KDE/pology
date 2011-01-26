@@ -1,0 +1,116 @@
+# Translation choices of Galician team
+# by the KDE Galician Team (proxecto@trasno.net)
+# License: BSD 3-clause
+# Copyright (c) 2010, Proxecto Trasno
+# All rights reserved.
+# 
+# Redistribution and use in source and binary forms, with or without
+# modification, are permitted provided that the following conditions are met:
+#     * Redistributions of source code must retain the above copyright
+#       notice, this list of conditions and the following disclaimer.
+#     * Redistributions in binary form must reproduce the above copyright
+#       notice, this list of conditions and the following disclaimer in the
+#       documentation and/or other materials provided with the distribution.
+#     * Neither the name of the Proxecto Trasno nor the
+#       names of its contributors may be used to endorse or promote products
+#       derived from this software without specific prior written permission.
+# 
+# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+# AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+# IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+# ARE DISCLAIMED. IN NO EVENT SHALL PROXECTO TRASNO BE LIABLE FOR ANY
+# DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+# (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+# LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+# ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+# (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+# SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+
+include file="filter.include"
+
+
+#checks requested by Fran Dieguez
+
+# translator credits
+{^translator-credits$}i
+id="gnome_translator credits"
+hint="comprobar o formato dos creditos da tradución"
+
+# «shell» -> «shell» ou «intérprete de ordes»
+{\bshell}i
+id="gnome_shell"
+valid msgstr="\bshell"
+valid msgstr="\binterpretes?\sde\sordes?"
+hint="shell -> shell ou interprete de ordes"
+
+# «validation,validity» -> «validación»
+{\bvalid(ation|idit(y|ies))}i
+id="gnome_validation"
+valid msgstr="\bvalidación"
+hint="validation -> validación"
+
+# «validación» -> «validaction»
+[\bvalidación]i
+id="gnome-dual_validation"
+valid msgstr="\bvalidation"
+hint="validación -> validation"
+
+# «Non se puido» -> «Non foi posíbel»
+[\bnon\sse\spuido\b]i
+id="expression-gnome_non se puido"
+hint="non se puido -> non foi posíbel"
+
+# «houbo un erro» -> «produciuse un erro»
+[\bhoubo\sun\s(erro|fallo)\b]i
+id="expression-gnome_houbo un erro|fallo"
+hint="houbo un erro|fallo -> produciuse un erro|fallo ao"
+
+# «fallo ao» -> «produciuse un fallo ao»
+[\bfallo\sao\b]i
+id="expression-gnome_fallo ao"
+valid after="\bproduciuse\sun\s"
+hint="fallo ao -> produciuse un fallo ao"
+
+#substituir tres puntos seguidos por unhas reticencias U2026
+[\.{3}]i
+id="clGL-gnome_reticencias"
+hint="... -> …"
+
+#descarta o uso de «achar» en favor de «encontrar»
+[\bach]i
+id="clGL-gnome_achar"
+hint="achar -> encontrar"
+
+#descarta o uso de «apropiado» en favor de «axeitado»
+[\bapropriad]i
+id="clGL-gnome_apropiado"
+hint="achar -> axeitado"
+
+#descarta o uso de «mudar» en favor de «trocar»
+[\bmud(a|o|e)]i
+id="clGL-gnome_mudar"
+hint="mudar -> trocar"
+
+#descarta o uso de «válido» en favor de «correcto»
+[\bvalid(o|a(?!ción))]i
+id="clGL-gnome_valido"
+hint="valido -> correcto"
+
+#descarta o uso de «predefinido» en favor de «predeterminado»
+[\bpredefinid]i
+id="clGL-gnome_predefinido"
+hint="predefinido -> predeterminado"
+
+#descarta o uso de «aplicación» en favor de «aplicativo»
+[\baplicación]i
+id="clGL-gnome_aplicación"
+hint="aplicación -> aplicativo"
+
+#comprobar caixa de «GNOME»
+[\bgnome]i
+# valid msgid="\bgnome"
+id="clGL-gnome_GNOME"
+hint="clGL-all_gnome"
+
+#/end checks requested by Fran Dieguez

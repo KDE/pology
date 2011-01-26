@@ -30,19 +30,6 @@
 
 include file="filter.include"
 
-# Remove accelerator and  hyphen inside words.
-addFilterHook name="remove/remove-accel-msg" on="msg"
-
-#substituir tres puntos seguidos por unhas reticencias U2026
-[\.{3}]i
-id="clGL-gnome_reticencias"
-hint="... -> …"
-
-#descarta o uso de «achar» en favor de «encontrar»
-[\bach]i
-id="clGL-gnome_achar"
-hint="achar -> encontrar"
-
 #evitar usar «lanzar» en favor de «iniciar» (un executábel)
 [\blanz]i
 valid !msgid="\blaunch"
@@ -60,19 +47,9 @@ id="clGL-all_licenza"
 hint="algúns derivados de licenza trocan o «z» por «cia»"
 
 #terminación en bel
-[(?!(\b|\s)(fe|ca))ble[s]{,1}\b]i
+[(?!(\b|\s|[/])(fe|ca|dou))ble[s]{,1}\b]i
 id="clGL-all_bel"
 hint="terminación en -bel"
-
-#descarta o uso de «mudar» en favor de «trocar»
-[\bmud(a|o|e)]i
-id="clGL-gnome_mudar"
-hint="mudar -> trocar"
-
-#descarta o uso de «válido» en favor de «correcto»
-[\bvalid(o|a)]i
-id="clGL-gnome_valido"
-hint="valido -> correcto"
 
 #descarta o uso de «dende» en favor de «desde»
 [\bdende\b]i
@@ -87,7 +64,7 @@ hint="amosar -> mostrar"
 #descarta o uso de «colar» en favor de «(a)pegar»
 [\bcol(a|e|o)(?!(c|m|re|ri|ra|ps|b|q|x|nia))]i
 valid msgstr="\bcolor"
-valid msgstr="\bcola" msgid="\b(queue|dequeue|enqueue|tail)"
+valid msgstr="\bcola" msgid="\b((de|en)queue|queue|tail|spool)"
 id="clGL-all_colar"
 hint="colar -> (a)pegar"
 
@@ -101,32 +78,16 @@ hint="ocorrencia -> aparición"
 id="clGL-all_ocorreu"
 hint="ocorreu -> produciuse"
 
-#descarta o uso de «predefinido» en favor de «predeterminado»
-[\bpredefinid]i
-id="clGL-all_predefinido"
-hint="predefinido -> predeterminado"
-
-#descarta o uso de «aplicación» en favor de «aplicativo»
-[\baplicación]i
-id="clGL-gnome_aplicación"
-hint="aplicación -> aplicativo"
-
 #comprobar «zoom», preferir «ampliación»
 [\bzoom]i
 id="clGL-all_zoom"
 hint="zoom -> ampliación ?"
 
 #comprobar «TAB» e «separador», preferir «lapela»
-[\b(tab|separador)]i
+[\b(tab(?!let)|separador)]i
 valid !msgid="\btab"
 id="clGL-all_tab/separador"
 hint="tab ou separador -> lapela"
-
-#comprobar caixa de «GNOME»
-{\bgnome}i
-valid msgid="\bGNOME"
-id="clGL-all_GNOME"
-hint="clGL-all_gnome"
 
 #descarta o uso de «ubicación, ubicar» en favor de «localización, localizar»
 [\bubica]i
