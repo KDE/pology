@@ -33,39 +33,39 @@ include file="filter.include"
 # trust path é outra cousa
 {\bpath(\b|\s|s)}i
 valid after="trust\s"
-id="mine_path"
+id="kde_path"
 valid msgstr="\bruta"
 hint="Path -> ruta"
 
 # «Trust path» -> «cadea de confianza»
 {\b(?<=trust\s)path}i
-id="mine_trust-path"
+id="kde_trust-path"
 valid msgstr="\bcadea\sde\s\confianza"
 hint="«Trust path» -> «cadea de confianza»"
 
 # «Ruta» -> «path».
 [\bruta]i
-id="mine-dual_path"
+id="kde-dual_path"
 valid msgid="\bpath" !before="trust"
 hint="Ruta->path"
 
 # «cadea de confianza» -> «trust path»
 # WARNING
 [\bcadea\sde\s\confianza]i
-id="mine-dual_trust-path"
+id="kde-dual_trust-path"
 valid msgid="\btrust\s(path|chain)"
 hint="cadea de confianza» -> «trust path»"
 
 # # «abort» -> «interromper»
 # {\babort}i
 # disabled
-# id="mine_abort"
+# id="kde_abort"
 # #valid msgstr="interromper"
 # hint="abort -> interromper"
 
 # «encounter» -> «atopar» and not «achar»
 {\bencounter}i
-id="mine_encounter"
+id="kde_encounter"
 valid msgstr="\batop"
 valid !msgstr="\bach"
 hint="encounter -> atopar"
@@ -74,7 +74,7 @@ hint="encounter -> atopar"
 {\b(?<!^)about}i
 valid before="\sto\b"
 valid after="\bknow(s|\"\")\s"
-id="mine_about"
+id="kde_about"
 valid msgstr="\bacerca\sd"
 valid msgstr="\brefer"
 valid msgstr="\bsobre\b"
@@ -82,7 +82,7 @@ hint="about -> sobre"
 
 # «about» -> «sobre»
 {^about}i
-id="mine_about2"
+id="kde_about2"
 valid msgstr="\bacerca\sd"
 hint="about -> acerca de"
 
@@ -94,14 +94,14 @@ valid after="\b(when|if)\sthis\s(option|checkbox)\sis\s"
 valid after="\b(when|if)\sthis\sis\s"
 valid after="\b(if|when)\s"
 valid after="\bnot"
-id="mine_enable"
+id="kde_enable"
 valid msgstr="\bactiv"
 valid msgstr="\bpermit"
 hint="enable/disable = activar/desactivar"
 
 # «not enabled»
 {\bnot enabled\b}
-id="mine_not enabled"
+id="kde_not enabled"
 valid msgstr="\bdesactivad(o|a)"
 valid msgstr="\bnon\sestá\sactivad(o|a)"
 hint="not enabled -> desactivado"
@@ -113,35 +113,35 @@ valid after="\b(when|if)\sthis\s(option|checkbox)\sis\s"
 valid after="\b(when|if)\sthis\sis\s"
 valid after="\b(if|when)\s"
 valid after="enable/"
-id="mine_disable"
+id="kde_disable"
 valid msgstr="\bdesact(i|í)v"
 hint="enable/disable = activar/desactivar"
 
 # «enable/disable» -> «conmutar»
 {\benable/disable}i
-id="mine_enabledisable"
+id="kde_enabledisable"
 valid msgstr="\bconmuta"
 hint="enable/disable = conmutar"
 
 # «accept» -> «aceptar»
 {\baccept}i
-id="mine_accept"
+id="kde_accept"
 valid msgstr="\bacept"
 hint="accept = aceptar"
 
 # «aceptar» -> «accept»
 [\bacept]i
-id="mine-dual_accept"
+id="kde-dual_accept"
 valid msgid="\baccept"
 valid msgid="\bOK\b"
 valid msgid="\bagree"
 hint="aceptar = accept"
 
 # «print» -> «imprimir», «mostra»
-{\bprint(?!ing)}i
+{\bprint(?!(ing|er))}i
 valid !after="screen"
 valid !before="\spreview"
-id="mine_print"
+id="kde_print"
 valid msgstr="\bimprim"
 valid msgstr="\bimpreso"
 valid msgstr="\bmostr"
@@ -149,13 +149,15 @@ hint="print = imprimir, impreso ou mostrar"
 
 # «printing» -> «imprimir», «impresión»
 {\bprinting}i
-id="mine_printing"
+id="kde_printing"
 valid msgstr="\bimpresión"
 valid msgstr="\bimprim"
 hint="printing = imprimir, impresión"
+"
+
 
 # «imprimir» -> «print»
 [\bimprim]i
-id="mine-dual_print"
+id="kde-dual_print"
 valid msgid="\bprint(?!er)"
 hint="imprimir = print"
