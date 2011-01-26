@@ -8,6 +8,7 @@
 addFilterHook name="remove/remove-marlits-msg" on="msg"
 addFilterHook name="remove/remove-markup-msg" on="msg"
 addFilterHook name="remove/remove-accel-msg" on="msg"
+#addFilterHook name="remove/remove-paired-ents-tick~'~'" on="msg"
 addFilterHook name="remove/remove-fmtdirs-msg-tick~'~'" on="msg"
 addFilterHook name="remove/remove_literals_msg_tick~'~'" on="msg" 
 addFilterHook name="remove/remove-ignored-entities-msg" on="msg"

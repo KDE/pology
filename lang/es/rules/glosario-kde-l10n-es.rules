@@ -6,7 +6,7 @@
 include file="filter.include"
 
 # Remove accelerator inside words.
-addFilterRegex match="\&" on="pmsgid,pmsgstr"
+# addFilterRegex match="\&" on="pmsgid,pmsgstr"
 
 # «Abort» se traduce como «Interumpir».
 {\babort\b}i

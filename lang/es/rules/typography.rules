@@ -388,16 +388,16 @@ hint="Ponga una coma antes de «etc./&etc;/etcétera» (Consulte ortografía de 
 [\,\s(y|e|o(^\sbien)|u|ni)\s]
 hint="No se pone coma antes de las conjunciones « y, e, o, u, ni» salvo casos excepcionales (Consulte ortografía de la RAE)"
 
-[[^\.?!:(\\n)]\s(Enero|Febrero|Marzo|Abril|Mayo|Junio|Julio|Agosto|Septiembre|Octubre|Noviembre|Diciembre)\b]
+[[^\.?!:\A(\\n)]\s(Enero|Febrero|Marzo|Abril|Mayo|Junio|Julio|Agosto|Septiembre|Octubre|Noviembre|Diciembre)\b]
 hint="Los nombres de los meses se escriben en minúsculas (Consulte ortografía de la RAE)"
 
-[[^\.?!:(\\n)]\s(Lunes|Martes|Miércoles|Jueves|Viernes|Sábado|(^Santo\s)Domingo)\b]
+[[^\.?!:\A(\\n)]\s(Lunes|Martes|Miércoles|Jueves|Viernes|Sábado|(^Santo\s)Domingo)\b]
 hint="Los nombres de los días de la semana se escriben en minúsculas (Consulte ortografía de la RAE)"
 
-[[^\.?!:(\\n))]\s(Primavera|Verano|Otoño|Invierno)\b]
+[[^\.?!:\A(\\n))]\s(Primavera|Verano|Otoño|Invierno)\b]
 hint="Los nombres de las estaciones del año se escriben en minúsculas (Consulte ortografía de la RAE)"
 
-[[^\.?!:(\\n)]\s(Usted|Señor|Don|Fray|San|Santo|Sor|Reverendo)\b]
+[[^\.?!:\A(\\n)]\s(Usted|Señor|Don|Fray|San|Santo|Sor|Reverendo)\b]
 hint="Los tratamientos « Usted, Señor, Don, ... » se escriben en minúsculas (Consulte ortografía de la RAE)"
 
 # End of rule file

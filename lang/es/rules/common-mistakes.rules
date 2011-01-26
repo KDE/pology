@@ -6,7 +6,7 @@
 include file="filter.include"
 
 # Remove accelerators inside words.
-addFilterRegex match="\&" on="pmsgid,pmsgstr"
+# addFilterRegex match="\&" on="pmsgid,pmsgstr"
 
 [(?u)\b(\w+)\s+\1\b]i
 hint="Hay una palabra consecutiva repetida en el párrafo"
@@ -24,11 +24,11 @@ hint="No utilice expresiones del tipo «los ciudadanos y las ciudadanas » (erro
 hint="No utilice expresiones del tipo «las ciudadanas y los ciudadanos » (error frecuente)"
 
 # No utilizar la arroba para incluir masculino y femenino
-[(?u)\b\w+@[a-záéíóúñç]{0,2}\b]i
+[(?u)\b\w+@[a-záéíóúñç]{0,2}?\b]i
 hint="No utilice la arroba para evitar el género, p.ej. «ciudadan@s» (error frecuente)"
 
 # No utilizar el guión para separar el prefijo de la palabra principal
-[(?u)\b(auto|bi|de|des|meta|mini|multi|pos|post|pre|re|sobre|sub|tri)\-[a-záéíóúñç]{3,}\b]i
+[(?u)\b(auto|bi|de|des|meta|mini|multi|pos|post|pre|re|sobre|sub|tri)\-[a-záéíóúñç]{3,}?\b]i
 hint="No utilice el guión para separar el prefijo de la palabra principal, p.ej. «sub-menú» (error frecuente)"
 
 # «¿Adonde...» se escribe como «¿Adónde...».

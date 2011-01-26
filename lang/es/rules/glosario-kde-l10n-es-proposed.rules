@@ -6,7 +6,7 @@
 include file="filter.include"
 
 # Remove accelerator inside words.
-addFilterRegex match="\&" on="pmsgid,pmsgstr"
+# addFilterRegex match="\&" on="pmsgid,pmsgstr"
 
 # «Add-on» se traduce como «Complemento».
 {\baadd\-?on\b}i
@@ -114,6 +114,11 @@ hint="« Baud » se traduce como « Baudio » (propuesta glosario)"
 {\bbauds\b}i
 valid msgstr="baudios"
 hint="« Bauds » se traduce como « Baudios » (propuesta glosario)"
+
+# «Bcc» se traduce como «Cco».
+{\bbcc\b}i
+valid msgstr="cco"
+hint="« Bcc » (copia oculta), se traduce como « Cco » (propuesta glosario)"
 
 # «Benchmark» se traduce como «Banco de pruebas».
 {\bbenchmark\b}i

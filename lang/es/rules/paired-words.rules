@@ -3,7 +3,7 @@
 # by the KDE Spanish Team (kde-l10n-es@kde.org)
 # License: GPLv3
 
-addFilterHook name="es:compare_with_original/remove_tags_without_translation" on="msg"
+addFilterHook name="es:remove_subs/remove_tags_without_translation" on="msg"
 
 *hook name="es:compare_with_original/test_if_empty_translation" on="msg"
 id="test_if_empty_translation"

@@ -8,7 +8,7 @@
 include file="filter.include"
 
 # Remove accelerator inside words.
-addFilterRegex match="\&" on="pmsgid,pmsgstr"
+# addFilterRegex match="\&" on="pmsgid,pmsgstr"
 
 # «Absolutelly» se traduce como «Completamente».
 {\babsolutelly\b}i
