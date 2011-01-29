@@ -11,7 +11,7 @@ import copy
 import difflib
 import os
 import re
-import signal
+import tempfile
 import time
 import types
 
@@ -1107,7 +1107,7 @@ class Catalog (Monitored):
         self.__dict__["#"]["*"] += 1 # indicate sequence change (pending)
 
 
-    def sync (self, force=False, nosigcap=False, noobsend=False, writefh=None):
+    def sync (self, force=False, noobsend=False, writefh=None):
         """
         Write catalog file to disk if any message has been modified.
 
@@ -1121,12 +1121,10 @@ class Catalog (Monitored):
         catalog can be written to a file-like object provided by
         C{writefh} parameter.
         Same as when writing to file on disk, text will be encoded
-        using catalog's encoding before writing it C{writefh}.
+        using catalog's encoding before writing it to C{writefh}.
 
         @param force: whether to reformat unmodified messages
         @type force: bool
-        @param nosigcap: do not try to capture signals on file writing
-        @type nosigcap: bool
         @param noobsend: do not reorder messages to group all obsolete at end
         @type noobsend: bool
         @param writefh: file to write the catalog to
@@ -1205,13 +1203,13 @@ class Catalog (Monitored):
         enclines = [x.encode(self._encoding) for x in flines]
         if self._tail:
             enctail = self._tail.encode(self._encoding)
-        # Create the parent directory if it does not exist.
-        mkdirpath(os.path.dirname(self._filename))
-        # Write to file atomically wrt. SIGINT.
-        if not nosigcap:
-            signal.signal(signal.SIGINT, signal.SIG_IGN)
         if not writefh:
-            ofl = open(self._filename, "w")
+            # Create the parent directory if it does not exist.
+            pdirpath = os.path.dirname(self._filename)
+            mkdirpath(pdirpath)
+            # Write to file atomically: directly write to temporary file,
+            # then rename it to destination file.
+            ofl = tempfile.NamedTemporaryFile(delete=False, dir=pdirpath)
         else:
             ofl = writefh
         ofl.writelines(enclines)
@@ -1219,8 +1217,7 @@ class Catalog (Monitored):
             ofl.write(enctail)
         if not writefh:
             ofl.close()
-        if not nosigcap:
-            signal.signal(signal.SIGINT, signal.SIG_DFL)
+            os.rename(ofl.name, self._filename)
 
         # Indicate the catalog is no longer created from scratch, if it was.
         self._created_from_scratch = False
