@@ -943,3 +943,32 @@ def getucwd ():
     cwd = str_to_unicode(rawcwd)
     return cwd
 
+
+def exit_on_exception (func, cleanup=None):
+    """
+    Gracefully exit a Pology script when an exception is received.
+
+    Any error message will be printed, any progress lines will be cleared,
+    and keyboard interrupt will exist silently.
+
+    @param func: a zero-argument function
+    @type func: () -> any
+    @param cleanup: a zero-argument function to execute before exiting
+    @type cleanup: () -> any
+
+    @returns: path of current working directory
+    @rtype: string
+    """
+
+    try:
+        func()
+    except KeyboardInterrupt:
+        report("", newline=False)
+        if cleanup:
+            cleanup()
+    except Exception, e:
+        report("", newline=False)
+        if cleanup:
+            cleanup()
+        error(unicode(e), code=1)
+
