@@ -21,6 +21,7 @@ from pology.catalog import Catalog
 from pology.colors import ColorOptionParser
 import pology.config as pology_config
 from pology.fsops import collect_paths_cmdline, collect_catalogs
+from pology.fsops import exit_on_exception
 from pology.report import report, error
 from pology.stdcmdopt import add_cmdopt_filesfrom
 
@@ -138,4 +139,4 @@ def select_field_wrapping (cfgsec=None, cat=None, cmlopt=None):
 
 
 if __name__ == '__main__':
-    main()
+    exit_on_exception(main)

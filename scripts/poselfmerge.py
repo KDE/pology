@@ -24,6 +24,7 @@ from pology.message import MessageUnsafe
 from pology.colors import ColorOptionParser
 import pology.config as pology_config
 from pology.fsops import collect_paths_cmdline, collect_catalogs
+from pology.fsops import exit_on_exception
 from pology.merge import merge_pofile
 from pology.report import report, error
 from pology.stdcmdopt import add_cmdopt_filesfrom
@@ -185,4 +186,4 @@ def self_merge_pofile (catpath, compendiums=[],
 
 
 if __name__ == '__main__':
-    main()
+    exit_on_exception(main)

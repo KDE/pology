@@ -28,6 +28,7 @@ from pology.fsops import str_to_unicode
 from pology.fsops import collect_catalogs, collect_system
 from pology.fsops import build_path_selector, collect_paths_from_file
 from pology.fsops import collect_paths_cmdline
+from pology.fsops import exit_on_exception
 from pology.msgreport import report_on_msg, warning_on_msg, error_on_msg
 from pology.report import error, warning, report, encwrite
 from pology.report import init_file_progress
@@ -434,8 +435,6 @@ def main ():
 
         try:
             cat = Catalog(fname, monitored=use_monitored, headonly=use_headonly)
-        except KeyboardInterrupt:
-            sys.exit(130)
         except Exception, e:
             errwarn(_("@info:progress",
                       "%(file)s: Parsing failed: %(msg)s",
@@ -623,7 +622,4 @@ def read_config_params (scviews, cmdline_parspecs):
 
 
 if __name__ == '__main__':
-    try:
-        main()
-    except KeyboardInterrupt:
-        report("", newline=False)
+    exit_on_exception(main)

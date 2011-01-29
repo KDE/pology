@@ -23,6 +23,7 @@ from pology.colors import ColorOptionParser
 from pology.report import report, error, warning
 from pology.fsops import collect_catalogs, collect_system
 from pology.fsops import str_to_unicode
+from pology.fsops import exit_on_exception
 import pology.config as pology_config
 from pology.entities import read_entities
 from pology.resolve import resolve_entities_simple
@@ -468,4 +469,4 @@ _init()
 
 
 if __name__ == '__main__':
-    main()
+    exit_on_exception(main)

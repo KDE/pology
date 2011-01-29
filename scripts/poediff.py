@@ -25,6 +25,7 @@ from pology.message import MessageUnsafe
 from pology.colors import ColorOptionParser, set_coloring_globals, cjoin
 import pology.config as pology_config
 from pology.fsops import str_to_unicode, collect_catalogs
+from pology.fsops import exit_on_exception
 from pology.diff import msg_ediff
 from pology.merge import merge_pofile
 from pology.report import error, warning, report, format_item_list
@@ -812,8 +813,4 @@ def rmobs_no_sync (cat):
 
 
 if __name__ == '__main__':
-    try:
-        main()
-    except:
-        cleanup_tmppaths()
-        raise
+    exit_on_exception(main, cleanup_tmppaths)

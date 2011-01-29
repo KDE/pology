@@ -27,6 +27,7 @@ from pology.diff import editprob
 from pology.fsops import str_to_unicode, unicode_to_str
 from pology.fsops import collect_paths_cmdline, collect_catalogs
 from pology.fsops import mkdirpath, join_ncwd
+from pology.fsops import exit_on_exception
 from pology.getfunc import get_hook_ireq
 from pology.match import make_msg_fmatcher
 from pology.merge import merge_pofile
@@ -3101,5 +3102,4 @@ def collect_externals (xmod_path):
 # -----------------------------------------------------------------------------
 
 if __name__ == "__main__":
-    main()
-
+    exit_on_exception(main)

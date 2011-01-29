@@ -24,6 +24,7 @@ from pology.report import error, warning, report
 from pology.msgreport import error_on_msg, warning_on_msg
 import pology.config as pology_config
 from pology.fsops import str_to_unicode, mkdirpath, collect_catalogs
+from pology.fsops import exit_on_exception
 from pology.catalog import Catalog
 from pology.message import Message, MessageUnsafe
 from pology.header import Header
@@ -811,4 +812,4 @@ def unembed_ediff (path, all=False, old=False):
 
 
 if __name__ == '__main__':
-    main()
+    exit_on_exception(main)

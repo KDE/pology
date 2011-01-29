@@ -24,6 +24,7 @@ from pology.fsops import str_to_unicode
 from pology.fsops import mkdirpath, assert_system, collect_system
 from pology.fsops import getucwd, join_ncwd
 from pology.fsops import collect_paths_cmdline, build_path_selector
+from pology.fsops import exit_on_exception
 from pology.merge import merge_pofile
 from pology.monitored import Monpair, Monlist
 from pology.msgreport import report_on_msg
@@ -2878,4 +2879,4 @@ def clear_msg (msg):
 
 
 if __name__ == '__main__':
-    main()
+    exit_on_exception(main)
