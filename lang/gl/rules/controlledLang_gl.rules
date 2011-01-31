@@ -30,6 +30,47 @@
 
 include file="filter.include"
 
+#regras delicadas, afectan ao modelo de língua.
+
+# Prefírese a terminación en bel
+[\b[A-Za-z]+bles?(\s|\b)]i
+valid span="(fe|ca|dou)bles?"
+id="clGL-modling_bel"
+hint="terminación en -bel"
+
+# Prefírese prep(a)+art(o) -> ao , non "ó"
+[\bós?\s]i
+id="clGL-modling_ao"
+hint="prep(a) + art(o) -> ao"
+
+# Evitar usar ¿ e ¡ (interrogación e exclamación iniciais)
+[(¡|¿)]i
+id="clGL-modling_inter/excl iniciais"
+hint="evitar usar sinais iniciais de interrogación ou exclamación"
+
+# Coma min/ti/el/ela/nos/nosoutros/vos/vosoutros/eles/elas.
+[\bcoma\s(?!(min|ti|el|ela|nos|vos|nosoutr(o|a)s|vosoutr(o|a)s|el(e|a)s))]i
+id="clGL-modling_coma"
+hint="usar «coma» cando sexa imprescindíbel"
+
+# Ca min/ti/el/ela/nos/nosoutros/vos/vosoutros/eles/elas.
+[\bca\s(?!(min|ti|el|ela|nos|vos|nosoutr(o|a)s|vosoutr(o|a)s|el(e|a)s))]
+id="clGL-modling_ca"
+hint="usar «ca» (que + a) cando sexa imprescindíbel"
+
+# Prefírese a terminación en -aría(s), agás palabras obrigadas como batería, galería...
+[\b[A-Za-z]+erías?(\s|\b)]i
+valid span="^(pod|deb|quer|ser|s|ter|ref|bat|gal)ería"
+id="clGL-modling_aria"
+hint="prefírese a terminación en -aría"
+
+# Evitar o uso da segunda forma do artígo
+[\b[A-Za-z]+-l(o|a)s?(\b|\s)]i
+id="clGL-modling_alomorfoartigo"
+hint="evitar o uso da segunda forma do artígo"
+
+# fin de regras delicadas
+
 #evitar usar «lanzar» en favor de «iniciar» (un executábel)
 [\blanz]i
 valid !msgid="\blaunch"
@@ -45,11 +86,6 @@ hint="xerir -> xestionar"
 [\blicenci(?=(oso|osa|osamente|atura|amento|ado|ada|ados|ada)s)]i
 id="clGL-all_licenza"
 hint="algúns derivados de licenza trocan o «z» por «cia»"
-
-#terminación en bel
-[(?!(\b|\s|[/])(fe|ca|dou))ble[s]{,1}\b]i
-id="clGL-all_bel"
-hint="terminación en -bel"
 
 #descarta o uso de «dende» en favor de «desde»
 [\bdende\b]i

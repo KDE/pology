@@ -34,6 +34,7 @@ include file="filter.include"
 # «enable this option» 
 {\benable\sthis\s(option|checkbox)}i
 id="expression_enable this option| checkbox"
+valid !after="\bif\syou"
 valid msgstr="\bescoll(a|er)\sesta\sopción"
 hint="enable this option = escolla/er esta opción"
 
