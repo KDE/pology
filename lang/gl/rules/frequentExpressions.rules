@@ -75,11 +75,44 @@ id="expression_when this is disabled"
 valid msgstr="\bse\sesta\sopción\snon\sestá\s(escollid|marcad)a"
 hint="when/if this is disabled -> se esta opción non está escollida/sinalada"
 
-# «if/when disables»
+# «if/when disabled»
 {\b(if|when)\sdisabled}i
 id="expression_if/when disabled"
 valid msgstr="\bse\sdesmarca\sesta\sopción"
 hint="if/when disabled -> se desmarca esta opción"
+
+# «when selected»
+{\bwhen\sselected}i
+id="expression_when selected"
+valid msgstr="\bse\so\sescolle"
+valid msgstr="\bse\sescolle\sesta\sopción"
+hint="when selected -> se o escolle (experimental)"
+
+# «...not found.» -> «Non se atopou...»
+{\b\w+\snot\sfound\.}i
+id="expression_not found."
+valid msgstr="\bNon\s(se\satopou|foi\sposíbel\satopar)\s(\w+\s)+\w+"
+hint="...not found. -> Non se atopou/foi posíbel atopar ... ..."
+
+# «Error while...» -> «Aconteceu/Produciuse un mentres se / ao»
+{\bError\swhile\s}i
+id="expression_error while."
+valid msgstr="\b(Aconteceu|Produciuse)\sun\erro\s(mentres\sse\s\w+ía|ao\s\w+r)"
+hint="Error while -> Aconteceu/Produciuse un mentres se / ao"
+
+# «Are you sure you want to» -> «Desexa realmente+infinitivo»
+{\bare\syou\ssure\syou\swant\sto(\s(\w+|\W+))+\?}i
+id="expression_interrogation1"
+valid msgstr="\bDesexa\srealmente\s\w+(a|e|i|í|po)r(\s(\w+|\W+))*"
+valid msgstr="\bDesexa\srealmente\s\w+l(o|a)s?(\s\w+)*\?"
+hint="«Are you sure you want to» -> «Desexa realmente+infinitivo»"
+
+# «Do you really ...» -> «Desexa realmente + infinitivo»
+{\bdo\syou\sreally(\s(\w+|\W+))+\?}i
+id="expression_interrogation2"
+valid msgstr="\bDesexa\srealmente\s\w+(a|e|i|í|po)r(\s(\w+|\W+))*"
+valid msgstr="\bDesexa\srealmente\s\w+l(o|a)s?(\s\w+)*\?"
+hint="«Are you sure you want to» -> «Desexa realmente+infinitivo»"
 
 # end of Marce options
 

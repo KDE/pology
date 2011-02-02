@@ -38,7 +38,7 @@ valid span="(fe|ca|dou)bles?"
 id="clGL-modling_bel"
 hint="terminación en -bel"
 
-# Prefírese prep(a)+art(o) -> ao , non "ó"
+# Prefírese contracción prep(a)+art(o) -> ao , non "ó"
 [\bós?\s]i
 id="clGL-modling_ao"
 hint="prep(a) + art(o) -> ao"
@@ -49,12 +49,12 @@ id="clGL-modling_inter/excl iniciais"
 hint="evitar usar sinais iniciais de interrogación ou exclamación"
 
 # Coma min/ti/el/ela/nos/nosoutros/vos/vosoutros/eles/elas.
-[\bcoma\s(?!(min|ti|el|ela|nos|vos|nosoutr(o|a)s|vosoutr(o|a)s|el(e|a)s))]i
+[\bcoma\s(?!(min|ti|el|si|min|ela|nos|vos|nosoutr(o|a)s|vosoutr(o|a)s|el(e|a)s))]i
 id="clGL-modling_coma"
 hint="usar «coma» cando sexa imprescindíbel"
 
 # Ca min/ti/el/ela/nos/nosoutros/vos/vosoutros/eles/elas.
-[\bca\s(?!(min|ti|el|ela|nos|vos|nosoutr(o|a)s|vosoutr(o|a)s|el(e|a)s))]
+[\bca\s(?!(min|ti|el|ela|si|min|nos|vos|nosoutr(o|a)s|vosoutr(o|a)s|el(e|a)s))]
 id="clGL-modling_ca"
 hint="usar «ca» (que + a) cando sexa imprescindíbel"
 
