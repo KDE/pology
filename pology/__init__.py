@@ -139,16 +139,16 @@ def n_ (_ctxt_, _stext_, _ptext_, **kwargs):
 
 def t_ (_ctxt_, _text_, **kwargs):
     """
-    Get delayed translation of the text into user's language.
+    Get deferred translation of the text into user's language.
 
-    Like L{_()<_>}, but returns delayed translation object
+    Like L{_()<_>}, but returns deferred translation object
     instead of translated text as string.
     In this way some or all arguments for named formatting directives
     can be supplied at a later point, using L{with_args<TextTrans.with_args>}
     method, and then the translated string obtained
     by L{to_string<TextTrans.to_string>} method.
 
-    @returns: delayed translation
+    @returns: deferred translation
     @rtype: L{TextTrans}
     """
 
@@ -159,16 +159,16 @@ def t_ (_ctxt_, _text_, **kwargs):
 
 def tn_ (_ctxt_, _stext_, _ptext_, **kwargs):
     """
-    Get delayed translation of the singular/plural text into user's language.
+    Get deferred translation of the singular/plural text into user's language.
 
-    Like L{n_()<_>}, but returns delayed translation object
+    Like L{n_()<_>}, but returns deferred translation object
     instead of translated text as string.
     In this way some or all arguments for named formatting directives
     can be supplied at a later point, using L{with_args<TextTrans.with_args>}
     method, and then the translated string obtained
     by L{to_string<TextTrans.to_string>} method.
 
-    @returns: delayed translation
+    @returns: deferred translation
     @rtype: L{TextTrans}
     """
 
@@ -208,7 +208,7 @@ class TextTrans:
         """
         Add arguments for substitution in the text, creating new object.
 
-        @returns: new delayed translation
+        @returns: new deferred translation
         @rtype: L{TextTrans}
         """
 
