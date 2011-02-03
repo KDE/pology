@@ -137,12 +137,6 @@ class Monitored (object):
                         self.__dict__["#"][att] += mc_diff
                 self.__dict__[attp] = val
 
-    def __str__ (self):
-        return str(self.data())
-
-    def __repr__ (self):
-        return repr(self.data())
-
     def __eq__ (self, other):
         return isinstance(self, type(other)) and self.data() == other.data()
 
@@ -260,6 +254,17 @@ class Monpair (Monitored):
         self.assert_spec_init(_Monpair_spec)
 
 
+    def __repr__ (self):
+
+        elfmt = ", ".join((repr(self._first), repr(self._second)))
+        return "%s([%s])" % (self.__class__.__name__, elfmt)
+
+
+    def __str__ (self):
+
+        return self.__repr__()
+
+
     def __len__ (self):
 
         return 2
@@ -307,6 +312,17 @@ class Monlist (Monitored):
         else:
             self.__dict__["*"] = list()
         self.assert_spec_init(_Monlist_spec)
+
+
+    def __repr__ (self):
+
+        elfmt = ", ".join(repr(x) for x in self.__dict__["*"])
+        return "%s([%s])" % (self.__class__.__name__, elfmt)
+
+
+    def __str__ (self):
+
+        return self.__repr__()
 
 
     def __len__ (self):
@@ -437,6 +453,17 @@ class Monset (Monitored):
                 if val not in self.__dict__["*"]:
                     self.__dict__["*"].append(val)
         self.assert_spec_init(_Monset_spec)
+
+
+    def __repr__ (self):
+
+        elfmt = ", ".join(repr(x) for x in self.__dict__["*"])
+        return "%s([%s])" % (self.__class__.__name__, elfmt)
+
+
+    def __str__ (self):
+
+        return self.__repr__()
 
 
     def __len__ (self):

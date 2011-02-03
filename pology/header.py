@@ -39,8 +39,8 @@ class Header (Monitored):
 
     The PO header is syntactically just another entry in the catalog,
     but with different semantics. Therefore, instead operating on it using
-    L{Message}, this class provides a different set of interface instance
-    variables and methods.
+    L{Message}, this class provides a different set of interface attributes
+    and methods.
 
     Like L{Message}, this class implements monitoring; the starred-types
     (e.g. C{list*}) are according to the same convention as for messages,
@@ -168,7 +168,7 @@ class Header (Monitored):
         """
         Attribute getter.
 
-        Processes read-only variables, and sends others to the base class.
+        Processes read-only attributes, and sends others to the base class.
 
         @param att: name of the attribute to get
         @returns: attribute value
@@ -195,21 +195,21 @@ class Header (Monitored):
             return Monitored.__getattr__(self, att)
 
 
-    def get (self, ivar, default=None):
+    def get (self, att, default=None):
         """
-        Get instance variable value.
+        Get attribute value.
 
         Allows accessing the header like a dictionary.
 
-        @param ivar: name of the instance variable to get
-        @type ivar: string
-        @param default: value to return if instance variable does not exist
+        @param att: name of the attribute to get
+        @type att: string
+        @param default: value to return if the attribute does not exist
 
-        @returns: value of the instance variable or default
+        @returns: value of the attribute or the default value
         """
 
-        if hasattr(self, ivar):
-            return getattr(self, ivar)
+        if hasattr(self, att):
+            return getattr(self, att)
         else:
             return default
 
@@ -218,12 +218,13 @@ class Header (Monitored):
 
         m = self._message
 
-        if force \
-        or self.title_modcount or self.title.modcount \
-        or self.copyright_modcount \
-        or self.license_modcount \
-        or self.author_modcount or self.author.modcount \
-        or self.comment_modcount or self.comment.modcount:
+        if (force
+            or self.title_modcount or self.title.modcount
+            or self.copyright_modcount
+            or self.license_modcount
+            or self.author_modcount or self.author.modcount
+            or self.comment_modcount or self.comment.modcount
+        ):
             m.manual_comment = Monlist()
             for t in self.title:
                 m.manual_comment.append(t)

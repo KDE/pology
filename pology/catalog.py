@@ -418,7 +418,7 @@ class Catalog (Monitored):
     Class for access and operations on PO catalogs.
 
     Catalog behaves as an ordered sequence of messages. The typical way of
-    iterating over the messages from a PO file would be::
+    iterating over the messages from a PO file on disk would be::
 
         cat = Catalog("relative/path/foo.po")
         for msg in cat:
@@ -428,37 +428,15 @@ class Catalog (Monitored):
         cat.sync()
 
     where L{sync()<sync>} method is used to write any modifications back to
-    the PO file on disk.
+    the disk.
 
     The header entry of the catalog is not part of the message sequence,
-    but is provided by the L{header} instance variable, an object of
+    but is provided by the L{header} attribute, an object of
     type different from an ordinary message entry.
 
-    The catalog is a I{monitored} class. The instance variables are limited
-    to a prescribed set and type-checked on assignment, have shadowing
-    I{modification counters}, and any modifications are reflected on the top
-    modification counter for the catalog as whole. For example:
-
-        >>> cat = Catalog("relative/path/foo.po")
-        >>> cat.filename  # file name of the catalog
-        'relative/path/foo.po'
-        >>> cat[0].msgid  # first message in the catalog
-        u'Welcome to Foobar'
-        >>> cat.modcount  # the top modcounter
-        0
-        >>> cat.filename_modcount  # shadowing counter to instance variable
-        0
-        >>> cat.filename = "relative/path/bar.po"  # change the file name
-        >>> cat.modcount, cat.filename_modcount  # both counters increase
-        (1, 1)
-        >>> cat.remove(0)  # remove the first message from the catalog
-        >>> cat.modcount  # the top counter increases again
-        2
-
+    The catalog is a I{monitored} class.
     Catalog message entries themeselves may also be monitored (default),
-    but need not, depending on the mode of creation. If the entries are
-    monitored, then any change to an entry also increases catalog's top
-    modcounter.
+    but need not, depending on the mode of creation.
 
     @ivar header: the header entry
     @type header: L{Header}
@@ -495,7 +473,7 @@ class Catalog (Monitored):
 
         Catalog can also be opened in header-only mode, for better
         performance when only the header data is needed. This mode provides
-        L{header} instance variable as usual, but the rest of entries are
+        L{header} attribute as usual, but the rest of entries are
         unavailable. If any of the operations dealing with message entries
         are invoked, an error is signaled.
 
@@ -640,7 +618,7 @@ class Catalog (Monitored):
         """
         Attribute getter.
 
-        Processes read-only variables, and sends others to the base class.
+        Processes read-only attributes, and sends others to the base class.
 
         @param att: name of the attribute to get
         @returns: attribute value
@@ -2171,11 +2149,13 @@ class Catalog (Monitored):
 
         If a piece of information is not given (i.e. C{None}),
         the corresponding header field is left unmodified.
-        If it is given as empty string, the corresponding header field is removed.
+        If it is given as empty string, the corresponding header field
+        is removed.
         PO revision date is updated always, to current date.
 
-        Some fields (as noted in parameter descriptions) are expanded on variables
-        by applying the L{expand_vars<pology.resolve.expand_vars>} function.
+        Some fields (as noted in parameter descriptions) are expanded
+        on variables by applying the
+        L{expand_vars<pology.resolve.expand_vars>} function.
         For example::
 
             title="Translation of %project into %langname."

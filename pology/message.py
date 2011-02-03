@@ -133,29 +133,29 @@ class Message_base (object):
     """
     Abstract base class for entries in PO catalogs.
 
-    Elements of the message are accessed through instance variables.
+    Elements of the message are accessed through instance attributes.
     Some of them are read-only, typically those that are derived from the
-    normal read-write variables and cannot be set independently.
+    normal read-write attributes and cannot be set independently.
 
-    The precise type of each variable depends on the subclass through which
+    The precise type of each attribute depends on the subclass through which
     it is accessed, but has a general behavior of one of the standard types.
     E.g. when the behavior is that of a list, the type is stated as C{list*}.
     All strings are assumed unicode, except where noted otherwise.
 
-    Regardless of the exact composition of the message, each will have all
-    the instance variables listed. In case the message actually does not have
-    an element corresponding to an instance variable, that variable will have
-    an appropriate null value.
+    Regardless of the exact composition of the message, each message object
+    will have all the instance attributes listed. In case the message actually
+    does not have an element corresponding to an instance attribute,
+    that attribute will have an appropriate null value.
 
-    Only the read-only instance variables are provided by this base class,
-    while the read-write variables are to be provided by its subclasses.
+    Only the read-only attributes are provided by this base class,
+    while the read-write attributes are to be provided by its subclasses.
     All are listed here, however, as the interface that all subclasses
     should implement.
 
     @ivar manual_comment: manual (translator) comments (C{# ...})
     @type manual_comment: list* of strings
 
-    @ivar auto_comment: automatic comments (C{#. ...})
+    @ivar auto_comment: automatic (extracted) comments (C{#. ...})
     @type auto_comment: list* of strings
 
     @ivar source: source references, as filepath:lineno pairs (C{#: ...})
@@ -233,7 +233,7 @@ class Message_base (object):
 
         The state of fuzziness can be also checked and set by looking for
         and adding/removing the C{fuzzy} flag from the set of flags,
-        but this is needed frequently enough to deserve an instance variable.
+        but this is needed frequently enough to deserve a standalone attribute.
         Note: To "thoroughly" unfuzzy the message, see method L{unfuzzy}.
     @type fuzzy: bool
 
@@ -281,7 +281,7 @@ class Message_base (object):
 
         @param getsetattr:
             the object with C{__getattr__} and C{__setattr__} methods,
-            as handler for unhandled instance variables
+            as handler for unhandled instance attributes
         """
 
         self.__dict__["^getsetattr"] = getsetattr
@@ -292,7 +292,7 @@ class Message_base (object):
         """
         Attribute getter.
 
-        Processes read-only variables, and sends others to the getter
+        Processes read-only attributes, and sends others to the getter
         given by the constructor.
 
         @param att: name of the attribute to get
@@ -377,21 +377,21 @@ class Message_base (object):
         return "\x04".join(fmtvals)
 
 
-    def get (self, ivar, default=None):
+    def get (self, att, default=None):
         """
-        Get instance variable value.
+        Get attribute value.
 
         Allows accessing the message like a dictionary.
 
-        @param ivar: name of the instance variable to get
-        @type ivar: string
-        @param default: value to return if instance variable does not exist
+        @param att: name of the attribute to get
+        @type att: string
+        @param default: value to return if attribute does not exist
 
-        @returns: value of the instance variable or default
+        @returns: value of the attribute or the default value
         """
 
-        if hasattr(self, ivar):
-            return getattr(self, ivar)
+        if hasattr(self, att):
+            return getattr(self, att)
         else:
             return default
 
@@ -681,14 +681,14 @@ class Message_base (object):
 
         Strictly speaking, a message is fuzzy if it has the C{fuzzy} flag set.
         Thus a message can be unfuzzied by removing this flag, either
-        manually from the C{flag} set, or through instance variable C{fuzzy}.
+        manually from the C{flag} set, or through attribute C{fuzzy}.
         But if there were previous fields (e.g. C{msgid_previous})
         added to the message when it was made fuzzy on merge, they will
         remain in the message after it has been unfuzzied in this way.
         This is normally not wanted, and in such cases this method may
         be used to I{thouroughly} unfuzzy the message: remove C{fuzzy} flag,
-        set C{fuzzy} instance variable to C{False}, and all C{*_previous}
-        instance variables to C{None}.
+        set C{fuzzy} attribute to C{False}, and all C{*_previous}
+        attributes to C{None}.
 
         If the message is not strictly fuzzy upon this call,
         it is undefined whether any present previous fields will be
@@ -781,8 +781,7 @@ class Message_base (object):
         """
         Copy all key parts from the other message.
 
-        See L{key} instance variable for the description
-        and list of key parts.
+        See L{key} attribute for the description and list of key parts.
 
         All mutable parts are deeply copied.
 
@@ -799,8 +798,7 @@ class Message_base (object):
         """
         Copy all format parts from the other message.
 
-        See L{fmt} instance variable for the description
-        and list of format parts.
+        See L{fmt} attribute for the description and list of format parts.
 
         All mutable parts are deeply copied.
 
@@ -817,8 +815,8 @@ class Message_base (object):
         """
         Copy extraction-invariant parts from the other message.
 
-        See L{inv} instance variable for the description
-        and list of extraction-invariant parts.
+        See L{inv} attribute for the description and list of
+        extraction-invariant parts.
 
         All mutable parts are deeply copied.
 
@@ -856,57 +854,16 @@ class Message (Message_base, Monitored): # order important for get/setattr
     The default class for catalog entries.
 
     The interface is inherited from L{Message_base}, but when used through
-    this class it behaves in a special way: the modifications are I{monitored}.
+    this class it behaves in a special way: the modifications are I{monitored},
+    such that no new attributes can be created by assignment
+    and all assignments are checked for value types.
     If you don't need to modify the messages after creation, consider using
     the faster L{MessageUnsafe} class.
 
-    The message interface variables are kept under tight check:
-    no new variable can be created by assignment (silent typos not possible),
-    and all assignment are checked for value types (cannot assign a number
-    where a unicode string is expected).
-
-    Each instance variable has a counterpart modification counter,
-    as well as the message as whole. For example:
-
-        >>> msg = Message()
-        >>> msg.modcount
-        0
-        >>> msg.msgid_modcount
-        0
-        >>> msg.msgid = u"Blah, blah..."
-        >>> msg.msgid_modcount
-        1
-        >>> msg.modcount
-        1
-
-    The modifications are tracked by value-comparison, assigning the same
-    value does not increase the counters. A typicall use of the counters
-    would be to record the top counter, do some operations on the message,
-    and check afterwards if the top counter has increased to know if the
-    message was modified.
-
-    To implement monitoring, the loosely defined types in the base class
-    (those with a star) are actually of one of the internal C{Mon*} types:
-    L{Monlist}, L{Monset}, L{Monpair}. They implement some, but not all, of
-    the functionality of their standard counterparts. Like this class, they
-    inherit from L{Monitored} and have own modification counters:
-
-        >>> msg = Message()
-        >>> msg.msgstr = Monlist([u"Foo, bar, "])
-        >>> msg.msgstr_modcount
-        1
-        >>> msg.modcount
-        1
-        >>> msg.msgstr[0] += "baz..."
-        >>> msg.msgstr.modcount
-        1
-        >>> msg.modcount
-        2
-
-    Note the difference between C{msg.msgstr_modcount} and
-    C{msg.msgstr.modcount} -- the first increases when the instance variable
-    is assigned a different monitored list, while the second when the elements
-    of the list object change.
+    The loosely defined types in the base class (those with a star)
+    are resolved into one of C{Mon*} types: L{Monlist}, L{Monset}, L{Monpair}.
+    They implement some, but not all, of the functionality of their standard
+    counterparts.
 
     @see: L{Message_base}
     @see: L{MessageUnsafe}
@@ -917,7 +874,7 @@ class Message (Message_base, Monitored): # order important for get/setattr
         """
         Initializes the message elements by the values in the dictionary.
 
-        The dictionary keys are like the names of instance variables in the
+        The dictionary keys are like the names of attributes in the
         interface, and not all must be supplied. Those left out will be
         initialized to appropriate null values.
 
@@ -963,8 +920,7 @@ class Message (Message_base, Monitored): # order important for get/setattr
         self._lines_flag = init.get("_lines_flag", [])[:]
         self._lines_msgctxt_previous = init.get("_lines_msgctxt_previous", [])[:]
         self._lines_msgid_previous = init.get("_lines_msgid_previous", [])[:]
-        self._lines_msgid_plural_previous = \
-            init.get("_lines_msgid_plural_previous", [])[:]
+        self._lines_msgid_plural_previous = init.get("_lines_msgid_plural_previous", [])[:]
         self._lines_msgctxt = init.get("_lines_msgctxt", [])[:]
         self._lines_msgid = init.get("_lines_msgid", [])[:]
         self._lines_msgid_plural = init.get("_lines_msgid_plural", [])[:]
@@ -975,10 +931,10 @@ class Message (Message_base, Monitored): # order important for get/setattr
 
         if not self.obsolete_modcount:
             mod = {}
-            mod["manual_comment"] =    self.manual_comment_modcount \
-                                    or self.manual_comment.modcount
-            mod["auto_comment"] =    self.auto_comment_modcount \
-                                or self.auto_comment.modcount
+            mod["manual_comment"] = (   self.manual_comment_modcount
+                                     or self.manual_comment.modcount)
+            mod["auto_comment"] = (   self.auto_comment_modcount
+                                   or self.auto_comment.modcount)
             mod["source"] = self.source_modcount or self.source.modcount
             mod["flag"] = self.flag_modcount or self.flag.modcount
             for att in _Message_single_fields:
@@ -997,18 +953,17 @@ class MessageUnsafe (Message_base):
     """
     The lightweight class for catalog entries, for read-only applications.
 
-    Unlike the L{Message}, this class does nothing fancy with the interface
-    variables. The interface instance variables are implemented as in
-    L{Message_base}, where the starred lists are standard lists, starred sets
+    Unlike the L{Message}, this class does nothing special with attributes.
+    The interface attributes are implemented as in L{Message_base},
+    where the starred lists are standard lists, starred sets
     standard sets, etc. There is no assignment and type checking, nor
     modification monitoring. You should use this class when messages are not
-    expected to be modified, for the performance benefit. This is typical for
-    PO-checking applications.
+    expected to be modified, for the performance benefit.
 
     The top modification counter still exists, but only as an ordinary
-    inactive instance variable, which the client code can manually increase
+    inactive attribute, which the client code can manually increase
     to signal that the message has changed. This may be necessary for some
-    other client code, which relies on top counter, to function properly.
+    client code, which relies on top counter to function properly.
 
     @see: L{Message_base}
     """
@@ -1017,7 +972,7 @@ class MessageUnsafe (Message_base):
         """
         Initializes the message elements by the values in the dictionary.
 
-        The dictionary keys are like the names of instance variables in the
+        The dictionary keys are like the names of attributes in the
         interface, and not all must be supplied. Those left out will be
         initialized to appropriate null values.
 
