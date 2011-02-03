@@ -1045,6 +1045,9 @@ After the shuffling is performed in both file trees, <literal>poascribe co</lite
 
 <para>Every selector automatically gets a negative counterpart, with the name prefixed by <literal>n*</literal>. The negative selector is always shallow, regardless of the type of the original selector.</para>
 
+<sect2 id="sec-asccustsels">
+<title>Custom Review Selectors</title>
+
 <para>Custom selectors can be written in a standalone Python source file, which is then fed to <command>poascribe</command> using the <option>-x</option>/<option>--externals</option> option. A file with several custom selectors should have this layout:
 <programlisting>
 def selector_foo (args):
@@ -1060,6 +1063,8 @@ xm_selector_factories = {
 }
 </programlisting>
 <function>selector_foo</function> and <function>selector_bar</function> are factory functions for selectors <literal>foo</literal> and <literal>bar</literal>. After loading the file, <command>poascribe</command> will look for the <varname>xm_selector_factories</varname> dictionary to see which selectors are defined and of what type they are. See <xref linkend="sec-prascsel"/> for the instructions on writing selector factory functions.</para>
+
+</sect2>
 
 </sect1>
 

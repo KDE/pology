@@ -272,6 +272,105 @@ This leads to the following question: what happens if you modify the key of a me
 </sect1>
 
 <!-- ======================================== -->
+<sect1 id="sec-prcodconv">
+<title>Coding Conventions</title>
+
+<para>This section describes the style and conventions that the code which is intended to be included in Pology distribution should adhere to. The general coding style is expected to follow the Python style guide described in <ulink url="http://www.python.org/dev/peps/pep-0008/">PEP 8</ulink>.</para>
+
+<para>Lines should be up to 80 characters long. Class names should be written in camel case, and all other names in lower case with underscores:
+<programlisting>
+class SomeThingy (object):
+    ...
+
+    def some_method (self, ...):
+
+        ...
+        longer_variable = ...
+
+
+def some_function (...):
+    ...
+</programlisting>
+Long expressions with operators should be wrapped in parentheses and before the binary operator, with the first line indented to the level of the other operand:
+<programlisting>
+some_quantity = (  a_number_of_thingies * quantity_of_that_per_unit
+                  + the_base_offset)
+</programlisting>
+In particular, long conditions in <literal>if</literal> and <literal>while</literal> statements should be written like this:
+<programlisting>
+if (    something and something_else and yet_something
+    and somewhere_in_between and who_knows_what_else
+):
+    do_something_appropriate()
+</programlisting>
+</para>
+
+<para>All messages, warnings, and errors should be issued through <ulink url="&ap;report&amm;"><literal>msgreport</literal></ulink> and <ulink url="&ap;msgreport&amm;"><literal>msgreport</literal></ulink> modules. There should be no <function>print</function> statements or raw writes to <literal>sys.stdout</literal>/<literal>sys.stderr</literal>.</para>
+
+<para>For the code in Pology library, it is always preferable to raise an exception instead of aborting execution. On the other hand, it is fine to add optional parameters by which the client can select if the function should abort rather than raise an exception. All topical problems should raise <classname>pology.PologyError</classname> or a subclass of it, and built-in exceptions only for simple general problems (e.g. <classname>IndexError</classname> for indexing past the end of something).</para>
+
+<sect2 id="sec-prcsi18n">
+<title>User-Visible Text and Internationalization</title>
+
+<para>All user-visible text, be it reports, warnings, errors (including exception messages) should be wrapped for internationalization through Gettext. The top <ulink url="&ap;pology&amm;"><literal>pology</literal></ulink> module provides several wrappers for Gettext functions, which have the following special traits: context is mandatory on every wrapped text, all format directives must be named, and arguments are specified as keyword-value pairs just after the text argument (unless deferred translation is used). Some examples:
+<programlisting>
+# Simple message with context marker.
+_("@info",
+  "Trying to sync unnamed catalog.")
+
+# Simple message with extended context.
+_("@info command description",
+  "Keep track of who, when, and how, has translated, modified, "
+  "or reviewed messages in a collection of PO files.")
+
+# Another context marker and extended context.
+_("@title:column words per message in original",
+  "w/msg-or")
+
+# Parameter substitution.
+_("@info",
+  "Review tag '%(tag)s' not defined in '%(file)s'.",
+  tag=rev_tag, file=config_path)
+
+# Plural message
+n_("@item:inlist",
+   "written %(num)d word", "written %(num)d words",
+   num=nwords)
+
+# Deferred translation, when arguments are known later.
+tmsg = t_("@info:progress",
+          "Examining state: %(file)s")
+...
+msg = tmsg.with_args(file=some_path).to_string()
+</programlisting>
+Every context starts with the "context marker" in form of <literal>@<replaceable>keyword</replaceable></literal>, drawn from a predefined set (see the <ulink url="http://techbase.kde.org/Development/Tutorials/Localization/i18n_Semantics#Context_Markers">article on i18n semantics</ulink> at KDE Techbase); it is most often <literal>@info</literal> in Pology code. The context marker may be, and should be, followed by a free-form extend context whenever it can help the translator to understand how and where the message is used. It is usual to have the context, text and arguments in different lines, though not necessary if they are short enough to fit one line.</para>
+
+<para>Pology defines lightweight XML markup for coloring text in the <ulink url="&ap;colors&amm;"><literal>colors</literal></ulink> module. In fact, Gettext wrappers do not return ordinary strings, but <classname>ColorString</classname> objects, and functions from <literal>report</literal> and <literal>msgreport</literal> modules know how to convert it to raw strings for given output destination (file, terminal, web page...). Therefore you can use colors in any wrapped string:
+<programlisting>
+_("@info:progress",
+  "&lt;green&gt;History follows:&lt;/green&gt;")
+
+_("@info",
+  "&lt;bold&gt;Context:&lt;/bold&gt; %(snippet)s",
+  snippet=some_text)
+</programlisting>
+Coloring should be used sparingly, only when it will help to cue user's eyes to significant elements of the output.</para>
+
+<para>There are two consequences of having text markup available throughout. The first is that every message must be well-formed XML, which means that it must contain no unballanced tags, and that literal <literal>&lt;</literal> characters must be escaped (and then also <literal>&gt;</literal> for style):
+<programlisting>
+_("@item automatic name for anonymous input stream",
+  "&amp;lt;stream-%(num)s&amp;gt;",
+  num=strno)
+</programlisting>
+The other consequence is that <classname>ColorString</classname> instances must be joined and interpolated with dedicated functions; see <function>cjoin()</function> and <function>cinterp()</function> functions in <literal>colors</literal> module.</para>
+
+<para>Unless the text of the message is specifically intended to be a title or an insert (i.e. <literal>@title</literal> or <literal>@item</literal> context markers), it should be a proper sentence, starting with a capital letter and ending with a dot.</para>
+
+</sect2>
+
+</sect1>
+
+<!-- ======================================== -->
 <sect1 id="sec-prsieves">
 <title>Writing Sieves</title>
 
@@ -606,26 +705,44 @@ the hook signature as the <literal>@rtype:</literal> Epydoc field.</para>
 <sect1 id="sec-prascsel">
 <title>Writing Ascription Selectors</title>
 
-<para></para>
-
-</sect1>
-
-<!-- ======================================== -->
-<sect1 id="sec-prcstyle">
-<title>Coding Style</title>
+<!-- FIXME: This section does not make sense until some elements are factored out of scripts/poascribe.py into a library module. -->
 
 <para></para>
 
-<!-- reporting, exceptions -->
+<!--
+<para>Ascription selectors are functions used by <command>poascribe<command> in the translation review workflow as described in <xref linkend="ch-ascript"/>. This section describes how you can write your own specialized ascription selector, which you can then put to use by following the instructions in <xref linkend="sec-sec-asccustsels"/>.</para>
 
-<sect2 id="sec-prcsi18n">
-<title>User-Visible Text and Internationalization</title>
+<para>In terms of code, an ascription selector is a function factory, which construct the actual selector function based on supplied selector arguments. It has the following form:
+<programlisting>
+def selector_foo (args):
 
-<para></para>
+    # Validate input arguments.
+    if (...):
+        raise PologyError(...)
 
-<!-- named format directives, well-formed XML, color markup, proper sentences, every message with context -->
+    # Prepare selector definition.
+    ...
 
-</sect2>
+    # The selector function itself.
+    def selector (msg, cat, history, config):
+
+        # Prepare selection process.
+        ...
+
+        # Iterate through ascription history looking for something.
+        for i, asc in enumerate(history):
+            ...
+
+        # Return False or True if a shallow selector,
+        # and 0 or 1-based history index if history selector.
+        return ...
+
+    return selector
+</programlisting>
+It is customary to name the selector function <function>selector_<replaceable>something</replaceable></function>, where <replaceable><literal>something</literal></replaceable> will also be used as the selector name (in command line, etc), but not necessary. The input <varname>args</varname> parameter is always a list of strings. It should therefore first be validated, insofar as possible without having in hand the particular message, catalog, history or ascription configuration. Whatever does not depend on any of these can also be precomputed for later use in the selector function.</para>
+
+<para>The selector function is called on each PO message, and takes as arguments that message (<classname>Message</classname> or <classname>MessageUnsafe</classname>), the catalog (<classname>Catalog</classname>) it comes from, the ascription history, and the ascription configuration objects. The ascription configuration is a simple attribute object which reflects the content of <filename>ascription-config</filename>...</para>
+-->
 
 </sect1>
 
