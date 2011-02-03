@@ -13,39 +13,259 @@
 <chapter id="ch-prog">
 <title>Programming with Pology</title>
 
-<para></para>
+<para>You may find it odd that the user manual contains the section on programming, as that is normally the matter for a separate, programmer-oriented document. On the other hand, while reading the "pure user" sections of this manual, you may have noticed that in Pology the distinction between a user and a programmer is more blurry than one would expect of a translation-related tool. Indeed, before getting into writing standalone Python programs which use the Pology library, there are many places in Pology itself where you can plug in some Python code to adapt the behavior to your language and translation environment. This section exists to support and stimulate such interaction with Pology.</para>
+
+<para>The Pology library is quite simple conceptually and organizationally. It consists of a small core abstraction of the PO format, and a lot of mutually unrelated functionality that may come in handy in particular translation processing scenarios. Everything is covered by <ulink url="&apibase;">the Pology API documentation</ulink>, but since API documentation tends to be non-linear and full of details obstructing the bigger picture, the following subsections are there to provide synthesis and rationale of salient points.</para>
 
 <!-- ======================================== -->
 <sect1 id="sec-prfile">
-<title>PO File Abstraction</title>
+<title>PO Format Abstraction</title>
 
-<para></para>
+<para>The PO format abstraction in Pology is a quite direct and fine-grained reflexion of PO format elements and conventions. This was a design goal from the start; no attempt was made at a more general abstraction, which would tentatively support various translation file formats.</para>
+
+<para>There is, however, one glaring but intentional omission: multi-domain PO files (those which contain <literal>domain "..."</literal> directives) are not supported. We had never observed a multi-domain PO file in the wild, nor thought of a significant advantage it could have today over multiple single-domain PO files. Supporting multi-domain PO files would mean not only always needing two nested loops to iterate through messages in a PO file, but it would also interfere with higher levels in Pology which assume equivalence between PO files and domains. Pology will simply report an error when trying to read a multi-domain PO file.</para>
 
 <sect2 id="sec-prflmon">
 <title>Monitored Objects</title>
 
-<para></para>
+<para>Because the PO abstraction is intended to be robust against programming errors when quickly writting custom scripts, and frugal on file modifications, by default some of the abstracted objects are "monitored". This means that they are checked for expected data types and have modification counters. Main monitored objects are PO files, PO headers, and PO messages, but also their attributes which are not plain data types (strings or numbers). For the moment, these secondary monitored types include <ulink url="&ap;monitored.Monlist&acc;"><classname>Monlist</classname></ulink> (the monitored counterpart to built-in <type>list</type>), <ulink url="&ap;monitored.Monset&acc;"><classname>Monset</classname></ulink> (counterpart to <type>set</type>), and <ulink url="&ap;monitored.Monpair&acc;"><classname>Monpair</classname></ulink> (like two-element <type>tuple</type>). Monitored types do not in general provide the full scope of functionality of their built-in counterparts, so sometimes it may be easier (and faster) to work with built-in types and convert them to monitored at the moment of adding to PO objects.</para>
+
+<para>To take a <classname>Monlist</classname> instance as an example, here is how it behaves on its own:
+<programlisting>
+>>> from pology.monitored import Monlist
+>>> l = Monlist([u"a", u"b", u"c"])
+>>> l.modcount
+0
+>>> l.append(10)
+>>> l
+Monlist([u"a", u"b", u"c", 10])
+>>> l.modcount
+1
+>>>
+</programlisting>
+Appending an element has caused the modification counter to increase, but, as expected, it was possible to add an integer in spite of previous elements being strings. However, if the monitored list comes from a PO message:
+<programlisting>
+>>> from pology.message import Message
+>>> msg = Message()
+>>> msg.msgstr
+Monlist([])
+>>> msg.msgstr.append(10)
+Traceback (most recent call last):
+...
+pology.PologyError: Expected &lt;type 'unicode'&gt; for sequence element, got &lt;type 'int'&gt;.
+>>> msg.msgstr.append(u"bar")
+>>> msg.msgstr.modcount
+1
+>>> msg.modcount
+1
+</programlisting>
+The <classname>Message</classname> class has type constraints added to its attributes, and therefore addition of an integer to the <varname>.msgstr</varname> list was rejected: only <type>unicode</type> values are allowed. This is particularly important due to the basic string type in Python being the raw byte array <type>str</type><footnote>
+<para>In Python 2 to be precise, on which Pology is based, while in Python 3 there are only Unicode strings.</para>
+</footnote>, to automatically prevent carelessness with encodings. Once a proper string was added to <varname>.msgstr</varname> list, its modification counter increased, but also the modification counter of the parent object.</para>
+
+<para>A few more notes on modification counters. Consider this example:
+<programlisting>
+>>> msg = Message()
+>>> msg.msgstr = Monlist(u"foo")
+>>> msg.msgstr.modcount
+0
+>>> msg.msgstr_modcount
+1
+>>> msg.modcount
+1
+>>> msg.msgstr[0] = u"foo"
+>>> msg.msgstr.modcount
+0
+>>> msg.msgstr = Monlist(u"foo")
+>>> msg.msgstr_modcount
+1
+>>> msg.modcount
+1
+</programlisting>
+<literal>Monlist(u"foo")</literal> itself is a fresh list with modification counter at 0, so after it was assigned to <varname>msg.msgstr</varname>, its modification counter is still 0. However, every attribute of a parent monitored object also has the associated <emphasis>attribute</emphasis> modification counter, denoted with trailing <literal>_modcount</literal>; therefore <varname>msg.msgstr_modcount</varname> did increase on assignment, and so did the parent <varname>msg.modcount</varname>. Modification tracking actually checks for equality of values, so when same-valued objects are repeadetly assigned (starting from <literal>msg.msgstr[0] = u"foo"</literal> above), modification counters do not increase.</para>
+
+<para>Compound monitored objects may also have the attributes themselves constrained, to prevent typos and other brain glitches from causing mysterious wrong behavior when processing PO files. For example:
+<programlisting>
+>>> msg = Message()
+>>> msg.msgtsr = Monlist(u"foo")
+Traceback (most recent call last):
+...
+pology.PologyError: Attribute 'msgtsr' is not among specified.
+>>>
+</programlisting>
+</para>
+
+<para>You may conclude that modification tracking and type and attribute constraining would slow down processing, and you would be right. Since PO messages are by far the most processed objects, a non-monitored counterpart to <classname>Message</classname> is provided as well, for occasions where the code is only reading PO files, or has been sufficiently tested, and speed is of importance. See <xref linkend="sec-prflmsg"/> for details.</para>
 
 </sect2>
 
 <sect2 id="sec-prflmsg">
 <title>Message</title>
 
-<para></para>
+<para>PO messages are by default represented with the <ulink url="&ap;message.Message&acc;"><classname>Message</classname></ulink> class. It is monitored for modifications, and constrained on attributes and attribute types. It provides direct attribute access to parts of a PO message:
+<programlisting>
+>>> from pology.monitored import Monpair
+>>> from pology.message import Message
+>>> msg = Message()
+>>> msg.msgid = u"Foo %s"
+>>> msg.msgstr.append(u"Bar %s")
+>>> msg.flag.add(u"c-format")
+>>> msg.fuzzy = True
+>>> print msg.to_string(),
+#, fuzzy, c-format
+msgid "Foo %s"
+msgstr "Bar %s"
 
-</sect2>
+>>>
+</programlisting>
+Attribute access provides the least hassle, while being guarded by monitoring, and makes clear the semantics of particular message parts. For example, the <varname>.flag</varname> attribute is a set, to indicate that the order of flags should be of no importance to either a human translator or a PO processor, and the <varname>.msgstr</varname> attribute is always a list in order to prevent the programmer from not taking into account plural messages. While the fuzzy state is formally indicated by a flag, it is considered special enough to have a separate attribute.</para>
 
-<sect2 id="sec-prflcat">
-<title>Catalog</title>
+<para>Some message parts may or may not be present in a message, and when they are not present, the corresponding attributes are either empty if sequences (e.g. <varname>.manual_comment</varname> list for translator comments), or set to <literal>None</literal> if strings<footnote>
+<para>The canonical way to check if message is a plural message is <literal>msg.msgid_plural is not None</literal>.</para>
+</footnote> (e.g. <varname>.msgctxt</varname>).</para>
 
-<para></para>
+<para>There are also several derived, read-only attributes for special purposes. For example, if in some context the messages are to be tracked in a dictionary by their keys, there is the <varname>.key</varname> attribute available, which is an undefined but unique combination of <varname>.msgctxt</varname> and <varname>.msgid</varname> attributes. Or, there is the <varname>.active</varname> attribute which is <literal>True</literal> if the message is neither fuzzy nor obsolete, i.e. its translation (if there is one) would be used by the consumer of the PO file that the message is part of.</para>
+
+<para><classname>Message</classname> has a number of methods for frequent operations that need to read or modify more than one attribute. For example, to thoroughly unfuzzy a message, it is not sufficient to just remove its fuzzy flag (by setting <varname>.fuzzy</varname> to <literal>False</literal> or removing <literal>u"fuzzy"</literal> from <varname>.flag</varname> set), but previous field comments (<literal>#| ...</literal>) should be removed as well, and this is what <function>.unfuzzy()</function> method does:
+<programlisting>
+>>> print msg.to_string(),
+#| msgid "Foubar"
+#, fuzzy
+msgid "Foobar"
+msgstr "Fubar"
+
+>>> msg.unfuzzy()
+>>> print msg.to_string(),
+msgid "Foobar"
+msgstr "Fubar"
+
+</programlisting>
+Other methods include those to copy over a subset of parts from another message, to revert the message to pristine untranslated state, and so on.</para>
+
+<para>There exists a non-monitored counterpart to <classname>Message</classname>, the <ulink url="&ap;message.MessageUnsafe&acc;"><classname>MessageUnsafe</classname></ulink>class. Its attributes are of built-in types, e.g. <varname>.msgstr</varname> is plain <classname>list</classname>, and there is no type nor attribute checking. By using <classname>MessageUnsafe</classname>, a speedup of 50% to 100% has been observed in practical applications, so it makes for a good trade-off when you know what you are doing (e.g. you are certain that no modifications will be made). A PO file is opened with non-monitored messages by issuing the <literal>monitored=False</literal> argument to <classname>Catalog</classname> constructor.</para>
+
+<para>Read-only code could should work with <classname>Message</classname> and <classname>MessageUnsafe</classname> objects without any type-based specialization. Code that writes may need some care to achieve the same, for example:
+<programlisting>
+def translate_moo_as_mu (msg):
+
+    if msg.msgid == u"Moo!":  # works for both
+        msg.msgstr = [u"Mu!"]  # raises exception if Message
+        msg.msgstr[:] = [u"Mu!"]  # works for both
+        msg.msgstr[0] = u"Mu!"  # works for both (when not empty)
+</programlisting>
+If you need to create an empty message of the same type as another message, or make a same-type copy of the message, you can use <function>type</function> built-in:
+<programlisting>
+newmsg1 = type(msg)()  # create empty
+newmsg2 = type(msg)(msg)  # copy
+</programlisting>
+<classname>Message</classname> and <classname>MessageUnsafe</classname> share the virtual base class <classname>Message_base</classname>, so you can use <literal>isinstance(obj, Message_base)</literal> to check if an object is a PO message of either type.</para>
 
 </sect2>
 
 <sect2 id="sec-prflhead">
 <title>Header</title>
 
-<para></para>
+<para>The PO header could be treated as just another message, but that would both be inconvenient for operating on it, and disruptive in iteration over a catalog. Instead the <ulink url="&ap;header.Header&acc;"><classname>Header</classname></ulink> class is introduced. Similar to <classname>Message</classname>, it provides both direct attribute access to parts of the header (like the <varname>.field</varname> list of name-value pairs), and methods for usual manipulations which would need a sequence of basic data manipulations (like <function>.set_field()</function> to either modify an existing or add a new header field with the given value).</para>
+
+<para>In particular, header comments are represented by a number of attributes (<varname>.title</varname>, <varname>.author</varname>, etc.), some of which are strings and some lists, depending on semantics. Unfortunatelly, the PO format does not define this separation formally, so when the PO file is parsed, comments are split heuristically (<varname>.title</varname> will be the first comment line, <varname>.author</varname> will get every line which looks like it has an email address and a year in it, etc.)</para>
+
+<para><classname>Header</classname> is a monitored class just like <classname>Message</classname>, but unlike <classname>Message</classname> it has no non-monitored counterpart. This is because in practice the header operations make a small part of total processing, so there is no real advantage at having non-monitored headers.</para>
+
+</sect2>
+
+<sect2 id="sec-prflcat">
+<title>Catalog</title>
+
+<para>PO files are read and written through <ulink url="&ap;catalog.Catalog&acc;"><classname>Catalog</classname></ulink> objects. A small script to open a PO file on disk (given as the first argument), find all messages that contain a certain substring in the original text (given as the second argument), and write those messages to standard output, would look like this:
+<programlisting>
+import sys
+from pology.catalog import Catalog
+from pology.msgreport import report_msg_content
+
+popath = sys.argv[1]
+substr = sys.argv[2]
+
+cat = Catalog(popath)
+for msg in cat:
+    if substr in msg.msgid:
+        report_msg_content(msg, cat)
+</programlisting>
+Note the minimalistic code, both by raw length and access interface. Instead of using something like <literal>print msg.to_string()</literal> to output the message, already in this example we introduce the <ulink url="&ap;msgreport&amm;"><literal>msgreport</literal></ulink> module, which contains various functions for reporting on PO messages;<footnote>
+<para>There is also the <ulink url="&ap;report&amm;"><literal>report</literal></ulink> module for reporting general strings. In fact, all code in Pology distribution is expected to use function from these modules for writing to output streams, and there should not be a <function>print</function> in sight.</para>
+</footnote> <function>report_msg_content()</function> will first output the PO file name and location of the message (line and entry number) within the file, and then the message content itself, with some highlighting (for field keywords, fuzzy state, etc.) if the output destination permits it. Since no modifications are done to messages, this example would be just as safe but run significantly faster if the PO file were opened in non-monitored mode. This is done by adding the <literal>monitored=False</literal> argument to <classname>Catalog</classname> constructor:
+<programlisting>
+cat = Catalog(popath, monitored=False)
+</programlisting>
+and no other modification is required.</para>
+
+<para>When some messages are modified in a catalog created by opening a PO file on disk, the modifications will not be written back to disk until the <function>.sync()</function> method is called -- not even if the program exists. If the catalog is monitored and there were no modifications to it up to the moment <function>.sync()</function> is called, the file on disk will not be touched, and <function>.sync()</function> will return <literal>False</literal> (it returns <literal>True</literal> if the file is written).<footnote>
+<para>This holds only for catalogs created with monitoring, i.e. no <literal>monitored=True</literal> constructor argument. For non-monitored <function>.sync()</function> will always touch the file and report <literal>True</literal>.</para>
+</footnote> In a scenario where a bunch of PO files are processed, this allows you to report only those which were actually modified. Take as an example a simplistic<footnote>
+<para>As opposed to <link linkend="sv-find-messages">the <command>find-messages</command> sieve</link>.</para>
+</footnote> script to search and replace in translation:
+<programlisting>
+import sys
+from pology.catalog import Catalog
+from pology.fsops import collect_catalogs
+from pology.report import report
+
+serchstr = sys.argv[1]
+replacestr = sys.argv[2]
+popaths = sys.argv[3:]
+
+popaths = collect_catalogs(popaths)
+for popath in popaths:
+    cat = Catalog(popath)
+    for msg in cat:
+        for i, text in enumerate(msg.msgstr):
+            msg.msgstr[i] = text.replace(searchstr, replacestr)
+    if cat.sync():
+        report("%s (%d)" % (cat.filename, cat.modcount))
+</programlisting>
+This script takes the search and replace strings as the first two arguments, followed by any number of PO paths. The paths do not have to be only file paths, but can also be directory paths, in which case the <function>collect_catalogs()</function> function from <ulink url="&ap;msgreport&amm;"><literal>fsops</literal></ulink> module will recursively collect any PO files in them. After the search and replace iteration through a catalog is done (<varname>msgstr</varname> being properly handled on plain and plural messages alike), its <function>.sync()</function> method is called, and if it reports that the file was modified, the file's path and number of modified texts is output. The latter is obtained simply as the modification counter state of the catalog, since it was bumped up by one on each text that actually got modified. Note the use of <varname>.filename</varname> attribute for illustration, although in this particular case we had the path available in <varname>popath</varname> variable.</para>
+
+<para>Syncing to disk is an atomic operation. This means that if you or something else aborts the program in the middle of execution, none of the processed PO files will become corrupted; they will either be in their original state, or in the expected modified state.</para>
+
+<para>As can be seen, at its base the <classname>Catalog</classname> class is an iterable container of messages. However, the precise nature of this container is less obvious. To the consumer (a program or converter) the PO file is a dictionary of messages by keys (<varname>msgctxt</varname> and <varname>msgid</varname> fields); there can be no two messages with the same key, and the order of messages is of no importance. For the human translator, however, the order of messages in the PO file is of great importance, because it is one of <link linkend="sec-pocontext">context indicators</link>. Message keys are parts of the messages themselves, which means that a message is both its own dictionary key and the value. Taking these constraints together, in Pology the PO file is treated as an <emphasis>ordered set</emphasis>, and the <classname>Catalog</classname> class interface is made to reflect this.</para>
+
+<para>The ordered set nature of catalogs comes into play when the composition of messages, rather than just the messages themselves, is modified. For example, to remove all obsolete messages from the catalog, the <function>.remove()</function> method <emphasis>could</emphasis> be used:
+<programlisting>
+for msg in list(cat):
+    if msg.obsolete:
+        cat.remove(msg)
+cat.sync()
+</programlisting>
+Note that the message sequence was first copied into a list, since the removal would otherwise clobber the iteration. Unfortunatelly, this code will be very slow (linear time wrt. catalog size), since when a message is removed, internal indexing has to be updated to maintain both the order and quick lookups. Instead, the better way to remove messges is the <function>.remove_on_sync()</function> method, which marks the message for removal on syncing. This runs fast (constant time wrt. catalog size) and requires no copying into a list prior to iteration:
+<programlisting>
+for msg in cat:
+    if msg.obsolete:
+        cat.remove_on_sync(msg)
+cat.sync()
+</programlisting>
+</para>
+
+<para>A message is added to the catalog using the <function>.add()</function> method. If <function>.add()</function> is given only the message itself, it will overwrite the message with the same key if there is one such, or else insert it according to source references, or append it to the end. If <function>.add()</function> is also given the insertion position, it will insert the message at that position only if the message with the same key does not exist in the catalog; if it does, it will ignore the given position and overwrite the existing message. When the message is inserted, <function>.add()</function> suffers the same performance problem as <function>.remove()</function>: it runs in linear time. However, the common case when an empty catalog is created and messages added one by one to the end can run in constant time, and this is what <function>.add_last()</function> method does.<footnote>
+<para>In fact, <function>.add_last()</function> does a bit more: if both non-obsolete and obsolete messages are added in mixed order, in the catalog they will be separated such that all non-obsolete come before all obsolete, but otherwise maintaining the order of addition.</para>
+</footnote></para>
+
+<para>The basic way to check if a message with the same key exists in the catalog is to use the <literal>in</literal> operator. Since the catalog is ordered, if the position of the message is wanted, <function>.find()</function> method can be used instead. Both these methods are fast, running in constant time. There is a series of <function>.select_*()</function> methods for looking up messages by other than the key, which run in linear time, and return lists of messages since the result may not be unique any more.</para>
+
+<para>Since it is ordered, the catalog can be indexed, and that either by a position or by a message (whose key is used for lookup). To replace a message in the catalog with a message which has the same key but is otherwise different, you can either first fetch its position and then use it as the index, or use the message itself as the index:
+<programlisting>
+# Idexing by position.
+pos = cat.find(msg)
+cat[pos] = msg
+
+# Indexing by message key.
+cat[msg] = msg
+</programlisting>
+This leads to the following question: what happens if you modify the key of a message (its <varname>.msgctxt</varname> or <varname>.msgid</varname> attributes) in the catalog? In that case the internal index goes out of sync, rather than being automatically updated. This is a necessary performance measure. If you need to change message keys, while doing that you should treat the catalog as a pure list, using only <literal>in</literal> iteration and positional indexing. Afterwards you should either call <function>.sync()</function> if you are done with the catalog, or <function>.sync_map()</function> to only update indexing (and remove messages marked with <function>.remove_on_sync()</function>) without writing out the PO file.</para>
+
+<para>The <classname>Catalog</classname> class provides a number of convenience methods which report things about the catalog based on the header information, rather than having to manually examine the header. These include the number of plural forms, the <varname>msgstr</varname> index for the given plural number, as well as information important in some Pology contexts, like language code, accelerator markers, markup types, etc. Each of these methods has a counterpart which sets the appropriate value, but this value is not written to disk when the catalog is synced. This is because frequently there are more ways in which the value can be determined from the header, so it is ambiguous how to write it out. Instead, these methods are used to set or override values provided by the catalog (e.g. based on command line options) for the duration of processing only.</para>
+
+<para>To create an empty catalog if it does not exist on disk, the <literal>create=True</literal> argument can be added to the constructor. If the catalog does exist, it will be opened as usual; if it did not exist, the new PO file will be written to disk on sync. To unconditionally create an empty catalog, whether the PO file exists or not at the given path, the <literal>truncate=True</literal> parameter should be added as well. In this case, if the PO file did exist, it will be overwritten with the new content only when the catalog is synced. The catalog can also be created with an empty string for path, in which case it is guaranteed to be empty even without setting <literal>truncate=True</literal>. If a catalog with empty path should later be synced (as opposed to being transient during processing), its <varname>.filename</varname> attribute can simply be assigned a valid path before calling <function>.sync()</function>.</para>
+
+<para>In summary, it can be said that the <classname>Catalog</classname> class is biased, in terms of performance and ease of use, towards processing existing PO files rather than creating PO files from scratch, and towards processing existing messages in the PO file rather than shuffling them around.</para>
 
 </sect2>
 
@@ -349,7 +569,7 @@ and returning it, thereby creating a lexical closure around it:
 <programlisting>
 def hook_factory (param1, param2, ...):
 
-    # Use param1, param2, ... to setup hook definition.
+    # Use param1, param2, ... to prepare for hook definition.
 
     def hook (...):
 
