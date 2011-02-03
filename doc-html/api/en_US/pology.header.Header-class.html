@@ -64,8 +64,7 @@
   <p>The PO header is syntactically just another entry in the catalog, but 
   with different semantics. Therefore, instead operating on it using <a 
   href="pology.message.Message-class.html" class="link">Message</a>, this 
-  class provides a different set of interface instance variables and 
-  methods.</p>
+  class provides a different set of interface attributes and methods.</p>
   <p>Like <a href="pology.message.Message-class.html" 
   class="link">Message</a>, this class implements monitoring; the 
   starred-types (e.g. <code>list*</code>) are according to the same 
@@ -132,9 +131,9 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a href="pology.header.Header-class.html#get" class="summary-sig-name">get</a>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">ivar</span>,
+        <span class="summary-sig-arg">att</span>,
         <span class="summary-sig-arg">default</span>=<span class="summary-sig-default">None</span>)</span><br />
-      Get instance variable value.</td>
+      Get attribute value.</td>
           <td align="right" valign="top">
             
             
@@ -205,7 +204,7 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a href="pology.header.Header-class.html#to_lines" class="summary-sig-name">to_lines</a>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">wrapf</span>=<span class="summary-sig-default">&lt;function wrap_field at 0x24bd5f0&gt;</span>,
+        <span class="summary-sig-arg">wrapf</span>=<span class="summary-sig-default">&lt;function wrap_field at 0x1f275f0&gt;</span>,
         <span class="summary-sig-arg">force</span>=<span class="summary-sig-default">False</span>)</span><br />
       The line-representation of the header.</td>
           <td align="right" valign="top">
@@ -224,7 +223,7 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a href="pology.header.Header-class.html#to_string" class="summary-sig-name">to_string</a>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">wrapf</span>=<span class="summary-sig-default">&lt;function wrap_field at 0x24bd5f0&gt;</span>,
+        <span class="summary-sig-arg">wrapf</span>=<span class="summary-sig-default">&lt;function wrap_field at 0x1f275f0&gt;</span>,
         <span class="summary-sig-arg">force</span>=<span class="summary-sig-default">False</span>)</span><br />
       The string-representation of the header.</td>
           <td align="right" valign="top">
@@ -336,9 +335,7 @@
   <tr>
     <td colspan="2" class="summary">
     <p class="indent-wrapped-lines"><b>Inherited from <code><a href="pology.monitored.Monitored-class.html">monitored.Monitored</a></code></b>:
-      <code><a href="pology.monitored.Monitored-class.html#__repr__">__repr__</a></code>,
       <code><a href="pology.monitored.Monitored-class.html#__setattr__">__setattr__</a></code>,
-      <code><a href="pology.monitored.Monitored-class.html#__str__">__str__</a></code>,
       <code><a href="pology.monitored.Monitored-class.html#assert_spec_getattr">assert_spec_getattr</a></code>,
       <code><a href="pology.monitored.Monitored-class.html#assert_spec_getitem">assert_spec_getitem</a></code>,
       <code><a href="pology.monitored.Monitored-class.html#assert_spec_init">assert_spec_init</a></code>,
@@ -354,7 +351,9 @@
       <code>__new__</code>,
       <code>__reduce__</code>,
       <code>__reduce_ex__</code>,
+      <code>__repr__</code>,
       <code>__sizeof__</code>,
+      <code>__str__</code>,
       <code>__subclasshook__</code>
       </p>
     </td>
@@ -497,7 +496,8 @@
   </tr></table>
   
   <p>Attribute getter.</p>
-  <p>Processes read-only variables, and sends others to the base class.</p>
+  <p>Processes read-only attributes, and sends others to the base 
+  class.</p>
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
@@ -519,7 +519,7 @@
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">get</span>(<span class="sig-arg">self</span>,
-        <span class="sig-arg">ivar</span>,
+        <span class="sig-arg">att</span>,
         <span class="sig-arg">default</span>=<span class="sig-default">None</span>)</span>
   </h3>
   </td><td align="right" valign="top"
@@ -527,16 +527,16 @@
     </td>
   </tr></table>
   
-  <p>Get instance variable value.</p>
+  <p>Get attribute value.</p>
   <p>Allows accessing the header like a dictionary.</p>
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
-        <li><strong class="pname"><code>ivar</code></strong> (string) - name of the instance variable to get</li>
-        <li><strong class="pname"><code>default</code></strong> - value to return if instance variable does not exist</li>
+        <li><strong class="pname"><code>att</code></strong> (string) - name of the attribute to get</li>
+        <li><strong class="pname"><code>default</code></strong> - value to return if the attribute does not exist</li>
     </ul></dd>
     <dt>Returns:</dt>
-        <dd>value of the instance variable or default</dd>
+        <dd>value of the attribute or the default value</dd>
   </dl>
 </td></tr></table>
 </div>
@@ -633,7 +633,7 @@
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">to_lines</span>(<span class="sig-arg">self</span>,
-        <span class="sig-arg">wrapf</span>=<span class="sig-default">&lt;function wrap_field at 0x24bd5f0&gt;</span>,
+        <span class="sig-arg">wrapf</span>=<span class="sig-default">&lt;function wrap_field at 0x1f275f0&gt;</span>,
         <span class="sig-arg">force</span>=<span class="sig-default">False</span>)</span>
   </h3>
   </td><td align="right" valign="top"
@@ -659,7 +659,7 @@
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">to_string</span>(<span class="sig-arg">self</span>,
-        <span class="sig-arg">wrapf</span>=<span class="sig-default">&lt;function wrap_field at 0x24bd5f0&gt;</span>,
+        <span class="sig-arg">wrapf</span>=<span class="sig-default">&lt;function wrap_field at 0x1f275f0&gt;</span>,
         <span class="sig-arg">force</span>=<span class="sig-default">False</span>)</span>
   </h3>
   </td><td align="right" valign="top"

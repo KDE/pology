@@ -68,57 +68,19 @@
   <p>The interface is inherited from <a 
   href="pology.message.Message_base-class.html" 
   class="link">Message_base</a>, but when used through this class it 
-  behaves in a special way: the modifications are <i>monitored</i>. If you 
-  don't need to modify the messages after creation, consider using the 
-  faster <a href="pology.message.MessageUnsafe-class.html" 
+  behaves in a special way: the modifications are <i>monitored</i>, such 
+  that no new attributes can be created by assignment and all assignments 
+  are checked for value types. If you don't need to modify the messages 
+  after creation, consider using the faster <a 
+  href="pology.message.MessageUnsafe-class.html" 
   class="link">MessageUnsafe</a> class.</p>
-  <p>The message interface variables are kept under tight check: no new 
-  variable can be created by assignment (silent typos not possible), and 
-  all assignment are checked for value types (cannot assign a number where 
-  a unicode string is expected).</p>
-  <p>Each instance variable has a counterpart modification counter, as well
-  as the message as whole. For example:</p>
-<pre class="py-doctest">
-<span class="py-prompt">&gt;&gt;&gt; </span>msg = Message()
-<span class="py-prompt">&gt;&gt;&gt; </span>msg.modcount
-<span class="py-output">0</span>
-<span class="py-output"></span><span class="py-prompt">&gt;&gt;&gt; </span>msg.msgid_modcount
-<span class="py-output">0</span>
-<span class="py-output"></span><span class="py-prompt">&gt;&gt;&gt; </span>msg.msgid = u<span class="py-string">&quot;Blah, blah...&quot;</span>
-<span class="py-prompt">&gt;&gt;&gt; </span>msg.msgid_modcount
-<span class="py-output">1</span>
-<span class="py-output"></span><span class="py-prompt">&gt;&gt;&gt; </span>msg.modcount
-<span class="py-output">1</span></pre>
-  <p>The modifications are tracked by value-comparison, assigning the same 
-  value does not increase the counters. A typicall use of the counters 
-  would be to record the top counter, do some operations on the message, 
-  and check afterwards if the top counter has increased to know if the 
-  message was modified.</p>
-  <p>To implement monitoring, the loosely defined types in the base class 
-  (those with a star) are actually of one of the internal <code>Mon*</code>
-  types: <a href="pology.monitored.Monlist-class.html" 
-  class="link">Monlist</a>, <a href="pology.monitored.Monset-class.html" 
-  class="link">Monset</a>, <a href="pology.monitored.Monpair-class.html" 
-  class="link">Monpair</a>. They implement some, but not all, of the 
-  functionality of their standard counterparts. Like this class, they 
-  inherit from <a href="pology.monitored.Monitored-class.html" 
-  class="link">Monitored</a> and have own modification counters:</p>
-<pre class="py-doctest">
-<span class="py-prompt">&gt;&gt;&gt; </span>msg = Message()
-<span class="py-prompt">&gt;&gt;&gt; </span>msg.msgstr = Monlist([u<span class="py-string">&quot;Foo, bar, &quot;</span>])
-<span class="py-prompt">&gt;&gt;&gt; </span>msg.msgstr_modcount
-<span class="py-output">1</span>
-<span class="py-output"></span><span class="py-prompt">&gt;&gt;&gt; </span>msg.modcount
-<span class="py-output">1</span>
-<span class="py-output"></span><span class="py-prompt">&gt;&gt;&gt; </span>msg.msgstr[0] += <span class="py-string">&quot;baz...&quot;</span>
-<span class="py-prompt">&gt;&gt;&gt; </span>msg.msgstr.modcount
-<span class="py-output">1</span>
-<span class="py-output"></span><span class="py-prompt">&gt;&gt;&gt; </span>msg.modcount
-<span class="py-output">2</span></pre>
-  <p>Note the difference between <code>msg.msgstr_modcount</code> and 
-  <code>msg.msgstr.modcount</code> -- the first increases when the instance
-  variable is assigned a different monitored list, while the second when 
-  the elements of the list object change.</p>
+  <p>The loosely defined types in the base class (those with a star) are 
+  resolved into one of <code>Mon*</code> types: <a 
+  href="pology.monitored.Monlist-class.html" class="link">Monlist</a>, <a 
+  href="pology.monitored.Monset-class.html" class="link">Monset</a>, <a 
+  href="pology.monitored.Monpair-class.html" class="link">Monpair</a>. They
+  implement some, but not all, of the functionality of their standard 
+  counterparts.</p>
 
 <hr />
 <div class="fields">      <dl><dt>See Also:</dt>
@@ -176,8 +138,6 @@
       <code><a href="pology.message.Message_base-class.html#unfuzzy">unfuzzy</a></code>
       </p>
     <p class="indent-wrapped-lines"><b>Inherited from <code><a href="pology.monitored.Monitored-class.html">monitored.Monitored</a></code></b>:
-      <code><a href="pology.monitored.Monitored-class.html#__repr__">__repr__</a></code>,
-      <code><a href="pology.monitored.Monitored-class.html#__str__">__str__</a></code>,
       <code><a href="pology.monitored.Monitored-class.html#assert_spec_getattr">assert_spec_getattr</a></code>,
       <code><a href="pology.monitored.Monitored-class.html#assert_spec_getitem">assert_spec_getitem</a></code>,
       <code><a href="pology.monitored.Monitored-class.html#assert_spec_init">assert_spec_init</a></code>,
@@ -193,7 +153,9 @@
       <code>__new__</code>,
       <code>__reduce__</code>,
       <code>__reduce_ex__</code>,
+      <code>__repr__</code>,
       <code>__sizeof__</code>,
+      <code>__str__</code>,
       <code>__subclasshook__</code>
       </p>
     </td>
@@ -279,9 +241,9 @@
   </tr></table>
   
   <p>Initializes the message elements by the values in the dictionary.</p>
-  <p>The dictionary keys are like the names of instance variables in the 
-  interface, and not all must be supplied. Those left out will be 
-  initialized to appropriate null values.</p>
+  <p>The dictionary keys are like the names of attributes in the interface,
+  and not all must be supplied. Those left out will be initialized to 
+  appropriate null values.</p>
   <p>The monitored sequences should be supplied as their ordinary 
   counterparts (e.g. a <code>list</code> in place of <a 
   href="pology.monitored.Monlist-class.html" class="link">Monlist</a>),</p>

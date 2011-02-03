@@ -63,18 +63,18 @@
 <p>The lightweight class for catalog entries, for read-only 
   applications.</p>
   <p>Unlike the <a href="pology.message.Message-class.html" 
-  class="link">Message</a>, this class does nothing fancy with the 
-  interface variables. The interface instance variables are implemented as 
-  in <a href="pology.message.Message_base-class.html" 
+  class="link">Message</a>, this class does nothing special with 
+  attributes. The interface attributes are implemented as in <a 
+  href="pology.message.Message_base-class.html" 
   class="link">Message_base</a>, where the starred lists are standard 
   lists, starred sets standard sets, etc. There is no assignment and type 
   checking, nor modification monitoring. You should use this class when 
-  messages are not expected to be modified, for the performance benefit. 
-  This is typical for PO-checking applications.</p>
+  messages are not expected to be modified, for the performance 
+  benefit.</p>
   <p>The top modification counter still exists, but only as an ordinary 
-  inactive instance variable, which the client code can manually increase 
-  to signal that the message has changed. This may be necessary for some 
-  other client code, which relies on top counter, to function properly.</p>
+  inactive attribute, which the client code can manually increase to signal
+  that the message has changed. This may be necessary for some client code,
+  which relies on top counter to function properly.</p>
 
 <hr />
 <div class="fields">      <p><strong>See Also:</strong>
@@ -221,9 +221,9 @@
   </tr></table>
   
   <p>Initializes the message elements by the values in the dictionary.</p>
-  <p>The dictionary keys are like the names of instance variables in the 
-  interface, and not all must be supplied. Those left out will be 
-  initialized to appropriate null values.</p>
+  <p>The dictionary keys are like the names of attributes in the interface,
+  and not all must be supplied. Those left out will be initialized to 
+  appropriate null values.</p>
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">

@@ -52,7 +52,7 @@
 </table>
 <!-- ==================== MODULE DESCRIPTION ==================== -->
 <h1 class="epydoc">Module compare_with_original</h1><p class="nomargin-top"></p>
-<p>Make some comparations between the translation and the riginal 
+<p>Make some comparations between the translation and the original 
   text.</p>
 
 <hr />
@@ -70,25 +70,6 @@
   <td align="left" colspan="2" class="table-header">
     <span class="table-header">Functions</span></td>
 </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a href="pology.lang.es.compare_with_original-module.html#remove_tags_without_translation" class="summary-sig-name">remove_tags_without_translation</a>(<span class="summary-sig-arg">msg</span>,
-        <span class="summary-sig-arg">cat</span>)</span><br />
-      Remove all paragraph that belong to contexts that do not have need of
-      translation.</td>
-          <td align="right" valign="top">
-            
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
@@ -155,8 +136,44 @@
         <tr>
           <td><span class="summary-sig"><a href="pology.lang.es.compare_with_original-module.html#test_if_not_translated" class="summary-sig-name">test_if_not_translated</a>(<span class="summary-sig-arg">msg</span>,
         <span class="summary-sig-arg">cat</span>)</span><br />
-      Compare the translalion qith the original text, to test if the 
+      Compare the translation with the original text, testing if the 
       paragraph is not translated.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.lang.es.compare_with_original-module.html#test_paired_new_lines" class="summary-sig-name">test_paired_new_lines</a>(<span class="summary-sig-arg">msg</span>,
+        <span class="summary-sig-arg">cat</span>)</span><br />
+      Compare number of new lines between original and translated text.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.lang.es.compare_with_original-module.html#test_paired_tabs" class="summary-sig-name">test_paired_tabs</a>(<span class="summary-sig-arg">msg</span>,
+        <span class="summary-sig-arg">cat</span>)</span><br />
+      Compare number of tabs between original and translated text.</td>
           <td align="right" valign="top">
             
             
@@ -179,21 +196,6 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="pology.lang.es.compare_with_original-module.html#auto_comment_tag" class="summary-name">auto_comment_tag</a> = <code title="['trans_comment',
- 'literallayout',
- 'option',
- 'programlisting',
- 'othercredit',
- 'author',
- 'email',
- 'holder',
-..."><code class="variable-group">[</code><code class="variable-quote">'</code><code class="variable-string">trans_comment</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">literallayout</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">option</code><code class="variable-quote">'</code><code class="variable-ellipsis">...</code></code>
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
         <a name="__package__"></a><span class="summary-name">__package__</span> = <code title="'pology.lang.es'"><code class="variable-quote">'</code><code class="variable-string">pology.lang.es</code><code class="variable-quote">'</code></code>
     </td>
   </tr>
@@ -207,30 +209,6 @@
     <span class="table-header">Function Details</span></td>
 </tr>
 </table>
-<a name="remove_tags_without_translation"></a>
-<div>
-<table class="details" border="1" cellpadding="3"
-       cellspacing="0" width="100%" bgcolor="white">
-<tr><td>
-  <table width="100%" cellpadding="0" cellspacing="0" border="0">
-  <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">remove_tags_without_translation</span>(<span class="sig-arg">msg</span>,
-        <span class="sig-arg">cat</span>)</span>
-  </h3>
-  </td><td align="right" valign="top"
-    >&nbsp;
-    </td>
-  </tr></table>
-  
-  <p>Remove all paragraph that belong to contexts that do not have need of 
-  translation.</p>
-  <p>[type F4A hook].</p>
-  <dl class="fields">
-    <dt>Returns:</dt>
-        <dd>number of errors</dd>
-  </dl>
-</td></tr></table>
-</div>
 <a name="test_if_empty_translation"></a>
 <div>
 <table class="details" border="1" cellpadding="3"
@@ -319,7 +297,7 @@
     </td>
   </tr></table>
   
-  <p>Compare the translalion qith the original text, to test if the 
+  <p>Compare the translation with the original text, testing if the 
   paragraph is not translated.</p>
   <p>[type V4A hook].</p>
   <dl class="fields">
@@ -328,39 +306,49 @@
   </dl>
 </td></tr></table>
 </div>
-<br />
-<!-- ==================== VARIABLES DETAILS ==================== -->
-<a name="section-VariablesDetails"></a>
-<table class="details" border="1" cellpadding="3"
-       cellspacing="0" width="100%" bgcolor="white">
-<tr bgcolor="#70b0f0" class="table-header">
-  <td align="left" colspan="2" class="table-header">
-    <span class="table-header">Variables Details</span></td>
-</tr>
-</table>
-<a name="auto_comment_tag"></a>
+<a name="test_paired_new_lines"></a>
 <div>
 <table class="details" border="1" cellpadding="3"
        cellspacing="0" width="100%" bgcolor="white">
 <tr><td>
-  <h3 class="epydoc">auto_comment_tag</h3>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">test_paired_new_lines</span>(<span class="sig-arg">msg</span>,
+        <span class="sig-arg">cat</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
   
+  <p>Compare number of new lines between original and translated text.</p>
+  <p>[type V4A hook].</p>
   <dl class="fields">
+    <dt>Returns:</dt>
+        <dd>parts</dd>
   </dl>
+</td></tr></table>
+</div>
+<a name="test_paired_tabs"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">test_paired_tabs</span>(<span class="sig-arg">msg</span>,
+        <span class="sig-arg">cat</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Compare number of tabs between original and translated text.</p>
+  <p>[type V4A hook].</p>
   <dl class="fields">
-    <dt>Value:</dt>
-      <dd><table><tr><td><pre class="variable">
-<code class="variable-group">[</code><code class="variable-quote">'</code><code class="variable-string">trans_comment</code><code class="variable-quote">'</code><code class="variable-op">,</code>
- <code class="variable-quote">'</code><code class="variable-string">literallayout</code><code class="variable-quote">'</code><code class="variable-op">,</code>
- <code class="variable-quote">'</code><code class="variable-string">option</code><code class="variable-quote">'</code><code class="variable-op">,</code>
- <code class="variable-quote">'</code><code class="variable-string">programlisting</code><code class="variable-quote">'</code><code class="variable-op">,</code>
- <code class="variable-quote">'</code><code class="variable-string">othercredit</code><code class="variable-quote">'</code><code class="variable-op">,</code>
- <code class="variable-quote">'</code><code class="variable-string">author</code><code class="variable-quote">'</code><code class="variable-op">,</code>
- <code class="variable-quote">'</code><code class="variable-string">email</code><code class="variable-quote">'</code><code class="variable-op">,</code>
- <code class="variable-quote">'</code><code class="variable-string">holder</code><code class="variable-quote">'</code><code class="variable-op">,</code>
-<code class="variable-ellipsis">...</code>
-</pre></td></tr></table>
-</dd>
+    <dt>Returns:</dt>
+        <dd>parts</dd>
   </dl>
 </td></tr></table>
 </div>

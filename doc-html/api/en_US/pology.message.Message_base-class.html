@@ -65,21 +65,21 @@ object --+
 
 <hr />
 <p>Abstract base class for entries in PO catalogs.</p>
-  <p>Elements of the message are accessed through instance variables. Some 
+  <p>Elements of the message are accessed through instance attributes. Some
   of them are read-only, typically those that are derived from the normal 
-  read-write variables and cannot be set independently.</p>
-  <p>The precise type of each variable depends on the subclass through 
+  read-write attributes and cannot be set independently.</p>
+  <p>The precise type of each attribute depends on the subclass through 
   which it is accessed, but has a general behavior of one of the standard 
   types. E.g. when the behavior is that of a list, the type is stated as 
   <code>list*</code>. All strings are assumed unicode, except where noted 
   otherwise.</p>
-  <p>Regardless of the exact composition of the message, each will have all
-  the instance variables listed. In case the message actually does not have
-  an element corresponding to an instance variable, that variable will have
-  an appropriate null value.</p>
-  <p>Only the read-only instance variables are provided by this base class,
-  while the read-write variables are to be provided by its subclasses. All 
-  are listed here, however, as the interface that all subclasses should 
+  <p>Regardless of the exact composition of the message, each message 
+  object will have all the instance attributes listed. In case the message 
+  actually does not have an element corresponding to an instance attribute,
+  that attribute will have an appropriate null value.</p>
+  <p>Only the read-only attributes are provided by this base class, while 
+  the read-write attributes are to be provided by its subclasses. All are 
+  listed here, however, as the interface that all subclasses should 
   implement.</p>
 
 <hr />
@@ -142,9 +142,9 @@ object --+
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a href="pology.message.Message_base-class.html#get" class="summary-sig-name">get</a>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">ivar</span>,
+        <span class="summary-sig-arg">att</span>,
         <span class="summary-sig-arg">default</span>=<span class="summary-sig-default">None</span>)</span><br />
-      Get instance variable value.</td>
+      Get attribute value.</td>
           <td align="right" valign="top">
             
             
@@ -216,7 +216,7 @@ object --+
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a href="pology.message.Message_base-class.html#to_lines" class="summary-sig-name">to_lines</a>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">wrapf</span>=<span class="summary-sig-default">&lt;function wrap_field at 0x24bd5f0&gt;</span>,
+        <span class="summary-sig-arg">wrapf</span>=<span class="summary-sig-default">&lt;function wrap_field at 0x1f275f0&gt;</span>,
         <span class="summary-sig-arg">force</span>=<span class="summary-sig-default">False</span>,
         <span class="summary-sig-arg">colorize</span>=<span class="summary-sig-default">0</span>)</span><br />
       The line-representation of the message.</td>
@@ -236,7 +236,7 @@ object --+
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a href="pology.message.Message_base-class.html#to_string" class="summary-sig-name">to_string</a>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">wrapf</span>=<span class="summary-sig-default">&lt;function wrap_field at 0x24bd5f0&gt;</span>,
+        <span class="summary-sig-arg">wrapf</span>=<span class="summary-sig-default">&lt;function wrap_field at 0x1f275f0&gt;</span>,
         <span class="summary-sig-arg">force</span>=<span class="summary-sig-default">False</span>,
         <span class="summary-sig-arg">colorize</span>=<span class="summary-sig-default">0</span>)</span><br />
       The string-representation of the message.</td>
@@ -414,7 +414,7 @@ object --+
       <span class="summary-type">list* of strings</span>
     </td><td class="summary">
         <a name="auto_comment"></a><span class="summary-name">auto_comment</span><br />
-      automatic comments (<code>#. ...</code>)
+      automatic (extracted) comments (<code>#. ...</code>)
     </td>
   </tr>
 <tr>
@@ -636,7 +636,7 @@ object --+
     <dd><ul class="nomargin-top">
         <li><strong class="pname"><code>getsetattr</code></strong> - the object with <code>__getattr__</code> and 
           <code>__setattr__</code> methods, as handler for unhandled 
-          instance variables</li>
+          instance attributes</li>
     </ul></dd>
     <dt>Overrides:
         object.__init__
@@ -661,8 +661,8 @@ object --+
   </tr></table>
   
   <p>Attribute getter.</p>
-  <p>Processes read-only variables, and sends others to the getter given by
-  the constructor.</p>
+  <p>Processes read-only attributes, and sends others to the getter given 
+  by the constructor.</p>
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
@@ -681,7 +681,7 @@ object --+
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">get</span>(<span class="sig-arg">self</span>,
-        <span class="sig-arg">ivar</span>,
+        <span class="sig-arg">att</span>,
         <span class="sig-arg">default</span>=<span class="sig-default">None</span>)</span>
   </h3>
   </td><td align="right" valign="top"
@@ -689,16 +689,16 @@ object --+
     </td>
   </tr></table>
   
-  <p>Get instance variable value.</p>
+  <p>Get attribute value.</p>
   <p>Allows accessing the message like a dictionary.</p>
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
-        <li><strong class="pname"><code>ivar</code></strong> (string) - name of the instance variable to get</li>
-        <li><strong class="pname"><code>default</code></strong> - value to return if instance variable does not exist</li>
+        <li><strong class="pname"><code>att</code></strong> (string) - name of the attribute to get</li>
+        <li><strong class="pname"><code>default</code></strong> - value to return if attribute does not exist</li>
     </ul></dd>
     <dt>Returns:</dt>
-        <dd>value of the instance variable or default</dd>
+        <dd>value of the attribute or the default value</dd>
   </dl>
 </td></tr></table>
 </div>
@@ -790,7 +790,7 @@ object --+
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">to_lines</span>(<span class="sig-arg">self</span>,
-        <span class="sig-arg">wrapf</span>=<span class="sig-default">&lt;function wrap_field at 0x24bd5f0&gt;</span>,
+        <span class="sig-arg">wrapf</span>=<span class="sig-default">&lt;function wrap_field at 0x1f275f0&gt;</span>,
         <span class="sig-arg">force</span>=<span class="sig-default">False</span>,
         <span class="sig-arg">colorize</span>=<span class="sig-default">0</span>)</span>
   </h3>
@@ -833,7 +833,7 @@ object --+
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">to_string</span>(<span class="sig-arg">self</span>,
-        <span class="sig-arg">wrapf</span>=<span class="sig-default">&lt;function wrap_field at 0x24bd5f0&gt;</span>,
+        <span class="sig-arg">wrapf</span>=<span class="sig-default">&lt;function wrap_field at 0x1f275f0&gt;</span>,
         <span class="sig-arg">force</span>=<span class="sig-default">False</span>,
         <span class="sig-arg">colorize</span>=<span class="sig-default">0</span>)</span>
   </h3>
@@ -871,14 +871,14 @@ object --+
   <p>Thoroughly unfuzzy the message.</p>
   <p>Strictly speaking, a message is fuzzy if it has the <code>fuzzy</code>
   flag set. Thus a message can be unfuzzied by removing this flag, either 
-  manually from the <code>flag</code> set, or through instance variable 
+  manually from the <code>flag</code> set, or through attribute 
   <code>fuzzy</code>. But if there were previous fields (e.g. 
   <code>msgid_previous</code>) added to the message when it was made fuzzy 
   on merge, they will remain in the message after it has been unfuzzied in 
   this way. This is normally not wanted, and in such cases this method may 
   be used to <i>thouroughly</i> unfuzzy the message: remove 
-  <code>fuzzy</code> flag, set <code>fuzzy</code> instance variable to 
-  <code>False</code>, and all <code>*_previous</code> instance variables to
+  <code>fuzzy</code> flag, set <code>fuzzy</code> attribute to 
+  <code>False</code>, and all <code>*_previous</code> attributes to 
   <code>None</code>.</p>
   <p>If the message is not strictly fuzzy upon this call, it is undefined 
   whether any present previous fields will be left untouched, or removed 
@@ -989,8 +989,8 @@ object --+
   
   <p>Copy all key parts from the other message.</p>
   <p>See <a href="pology.message.Message_base-class.html#key" 
-  class="link">key</a> instance variable for the description and list of 
-  key parts.</p>
+  class="link">key</a> attribute for the description and list of key 
+  parts.</p>
   <p>All mutable parts are deeply copied.</p>
   <dl class="fields">
     <dt>Parameters:</dt>
@@ -1020,8 +1020,8 @@ object --+
   
   <p>Copy all format parts from the other message.</p>
   <p>See <a href="pology.message.Message_base-class.html#fmt" 
-  class="link">fmt</a> instance variable for the description and list of 
-  format parts.</p>
+  class="link">fmt</a> attribute for the description and list of format 
+  parts.</p>
   <p>All mutable parts are deeply copied.</p>
   <dl class="fields">
     <dt>Parameters:</dt>
@@ -1051,7 +1051,7 @@ object --+
   
   <p>Copy extraction-invariant parts from the other message.</p>
   <p>See <a href="pology.message.Message_base-class.html#inv" 
-  class="link">inv</a> instance variable for the description and list of 
+  class="link">inv</a> attribute for the description and list of 
   extraction-invariant parts.</p>
   <p>All mutable parts are deeply copied.</p>
   <dl class="fields">
@@ -1117,7 +1117,7 @@ object --+
   whether the message is fuzzy
   <p>The state of fuzziness can be also checked and set by looking for and 
   adding/removing the <code>fuzzy</code> flag from the set of flags, but 
-  this is needed frequently enough to deserve an instance variable. Note: 
+  this is needed frequently enough to deserve a standalone attribute. Note:
   To &quot;thoroughly&quot; unfuzzy the message, see method <a 
   href="pology.message.Message_base-class.html#unfuzzy" 
   class="link">unfuzzy</a>.</p>

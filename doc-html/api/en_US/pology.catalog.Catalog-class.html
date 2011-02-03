@@ -62,7 +62,7 @@
 <hr />
 <p>Class for access and operations on PO catalogs.</p>
   <p>Catalog behaves as an ordered sequence of messages. The typical way of
-  iterating over the messages from a PO file would be:</p>
+  iterating over the messages from a PO file on disk would be:</p>
 <pre class="literalblock">
    cat = Catalog(&quot;relative/path/foo.po&quot;)
    for msg in cat:
@@ -73,36 +73,14 @@
 </pre>
   <p>where <a href="pology.catalog.Catalog-class.html#sync" 
   class="link">sync()</a> method is used to write any modifications back to
-  the PO file on disk.</p>
+  the disk.</p>
   <p>The header entry of the catalog is not part of the message sequence, 
   but is provided by the <a href="pology.catalog.Catalog-class.html#header"
-  class="link">header</a> instance variable, an object of type different 
-  from an ordinary message entry.</p>
-  <p>The catalog is a <i>monitored</i> class. The instance variables are 
-  limited to a prescribed set and type-checked on assignment, have 
-  shadowing <i>modification counters</i>, and any modifications are 
-  reflected on the top modification counter for the catalog as whole. For 
-  example:</p>
-<pre class="py-doctest">
-<span class="py-prompt">&gt;&gt;&gt; </span>cat = Catalog(<span class="py-string">&quot;relative/path/foo.po&quot;</span>)
-<span class="py-prompt">&gt;&gt;&gt; </span>cat.filename  <span class="py-comment"># file name of the catalog</span>
-<span class="py-output">'relative/path/foo.po'</span>
-<span class="py-output"></span><span class="py-prompt">&gt;&gt;&gt; </span>cat[0].msgid  <span class="py-comment"># first message in the catalog</span>
-<span class="py-output">u'Welcome to Foobar'</span>
-<span class="py-output"></span><span class="py-prompt">&gt;&gt;&gt; </span>cat.modcount  <span class="py-comment"># the top modcounter</span>
-<span class="py-output">0</span>
-<span class="py-output"></span><span class="py-prompt">&gt;&gt;&gt; </span>cat.filename_modcount  <span class="py-comment"># shadowing counter to instance variable</span>
-<span class="py-output">0</span>
-<span class="py-output"></span><span class="py-prompt">&gt;&gt;&gt; </span>cat.filename = <span class="py-string">&quot;relative/path/bar.po&quot;</span>  <span class="py-comment"># change the file name</span>
-<span class="py-prompt">&gt;&gt;&gt; </span>cat.modcount, cat.filename_modcount  <span class="py-comment"># both counters increase</span>
-<span class="py-output">(1, 1)</span>
-<span class="py-output"></span><span class="py-prompt">&gt;&gt;&gt; </span>cat.remove(0)  <span class="py-comment"># remove the first message from the catalog</span>
-<span class="py-prompt">&gt;&gt;&gt; </span>cat.modcount  <span class="py-comment"># the top counter increases again</span>
-<span class="py-output">2</span></pre>
-  <p>Catalog message entries themeselves may also be monitored (default), 
-  but need not, depending on the mode of creation. If the entries are 
-  monitored, then any change to an entry also increases catalog's top 
-  modcounter.</p>
+  class="link">header</a> attribute, an object of type different from an 
+  ordinary message entry.</p>
+  <p>The catalog is a <i>monitored</i> class. Catalog message entries 
+  themeselves may also be monitored (default), but need not, depending on 
+  the mode of creation.</p>
 
 <hr />
 <div class="fields">      <dl><dt>See Also:</dt>
@@ -435,7 +413,6 @@
         <tr>
           <td><span class="summary-sig"><a href="pology.catalog.Catalog-class.html#sync" class="summary-sig-name">sync</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">force</span>=<span class="summary-sig-default">False</span>,
-        <span class="summary-sig-arg">nosigcap</span>=<span class="summary-sig-default">False</span>,
         <span class="summary-sig-arg">noobsend</span>=<span class="summary-sig-default">False</span>,
         <span class="summary-sig-arg">writefh</span>=<span class="summary-sig-default">None</span>)</span><br />
       Write catalog file to disk if any message has been modified.</td>
@@ -922,9 +899,7 @@
   <tr>
     <td colspan="2" class="summary">
     <p class="indent-wrapped-lines"><b>Inherited from <code><a href="pology.monitored.Monitored-class.html">monitored.Monitored</a></code></b>:
-      <code><a href="pology.monitored.Monitored-class.html#__repr__">__repr__</a></code>,
       <code><a href="pology.monitored.Monitored-class.html#__setattr__">__setattr__</a></code>,
-      <code><a href="pology.monitored.Monitored-class.html#__str__">__str__</a></code>,
       <code><a href="pology.monitored.Monitored-class.html#assert_spec_getattr">assert_spec_getattr</a></code>,
       <code><a href="pology.monitored.Monitored-class.html#assert_spec_getitem">assert_spec_getitem</a></code>,
       <code><a href="pology.monitored.Monitored-class.html#assert_spec_init">assert_spec_init</a></code>,
@@ -940,7 +915,9 @@
       <code>__new__</code>,
       <code>__reduce__</code>,
       <code>__reduce_ex__</code>,
+      <code>__repr__</code>,
       <code>__sizeof__</code>,
+      <code>__str__</code>,
       <code>__subclasshook__</code>
       </p>
     </td>
@@ -1040,9 +1017,9 @@
   <p>Catalog can also be opened in header-only mode, for better performance
   when only the header data is needed. This mode provides <a 
   href="pology.catalog.Catalog-class.html#header" class="link">header</a> 
-  instance variable as usual, but the rest of entries are unavailable. If 
-  any of the operations dealing with message entries are invoked, an error 
-  is signaled.</p>
+  attribute as usual, but the rest of entries are unavailable. If any of 
+  the operations dealing with message entries are invoked, an error is 
+  signaled.</p>
   <p>Instead of opening and reading from catalog's filename, catalog can be
   read from a file-like object provided by <code>readfh</code> parameter. 
   Same as when reading from file on disk, text will be decoded using 
@@ -1090,7 +1067,8 @@
   </tr></table>
   
   <p>Attribute getter.</p>
-  <p>Processes read-only variables, and sends others to the base class.</p>
+  <p>Processes read-only attributes, and sends others to the base 
+  class.</p>
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
@@ -1576,7 +1554,6 @@
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">sync</span>(<span class="sig-arg">self</span>,
         <span class="sig-arg">force</span>=<span class="sig-default">False</span>,
-        <span class="sig-arg">nosigcap</span>=<span class="sig-default">False</span>,
         <span class="sig-arg">noobsend</span>=<span class="sig-default">False</span>,
         <span class="sig-arg">writefh</span>=<span class="sig-default">None</span>)</span>
   </h3>
@@ -1593,12 +1570,11 @@
   <p>Instead of opening and writing into catalog's filename, catalog can be
   written to a file-like object provided by <code>writefh</code> parameter.
   Same as when writing to file on disk, text will be encoded using 
-  catalog's encoding before writing it <code>writefh</code>.</p>
+  catalog's encoding before writing it to <code>writefh</code>.</p>
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
         <li><strong class="pname"><code>force</code></strong> (bool) - whether to reformat unmodified messages</li>
-        <li><strong class="pname"><code>nosigcap</code></strong> (bool) - do not try to capture signals on file writing</li>
         <li><strong class="pname"><code>noobsend</code></strong> (bool) - do not reorder messages to group all obsolete at end</li>
         <li><strong class="pname"><code>writefh</code></strong> (file-like object) - file to write the catalog to</li>
     </ul></dd>
