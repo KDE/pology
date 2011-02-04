@@ -96,9 +96,9 @@ hint="...not found. -> Non se atopou/foi posíbel atopar ... ..."
 
 # «Error while...» -> «Aconteceu/Produciuse un mentres se / ao»
 {\bError\swhile\s}i
-id="expression_error while."
-valid msgstr="\b(Aconteceu|Produciuse)\sun\erro\s(mentres\sse\s\w+ía|ao\s\w+r)"
-hint="Error while -> Aconteceu/Produciuse un mentres se / ao"
+id="expression_error while"
+valid msgstr="\b(Aconteceu|Produciuse)\sun\serro\smentres\s(se\s\w+(ía|aba)|ao\s\w+(r|rse))"
+hint="Error while -> Aconteceu/Produciuse un erro mentres se / ao"
 
 # «Are you sure you want to» -> «Desexa realmente+infinitivo»
 {\bare\syou\ssure\syou\swant\sto(\s(\w+|\W+))+\?}i

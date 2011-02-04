@@ -120,7 +120,7 @@ id="clGL-all_zoom"
 hint="zoom -> ampliación ?"
 
 #comprobar «TAB» e «separador», preferir «lapela»
-[\b(tab(?!let)|separador)]i
+[\b(tab(?!(let|ula)|separador))]i
 valid !msgid="\btab"
 id="clGL-all_tab/separador"
 hint="tab ou separador -> lapela"
