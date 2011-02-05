@@ -286,7 +286,7 @@ valid span="\.\." after="\."
 valid span="\.$"
 valid span="KDE\se.V."
 valid span="\.~"
-valid span="\.h" cat="desktop_kdesdk,kateopenheader"
+valid span="\.h" cat="desktop_kdebase_kate,desktop_kdesdk,kateopenheader"
 hint="S'ha de posar un espai després d'un signe de punt (tipografia)"
 
 [\.\)]
@@ -462,7 +462,7 @@ valid before="GET|POST" cat="kdeprint_cups-config" # docmessages
 valid cat="kcontrol_mouse" # docmessages
 valid cat="kopete_pipes" # docmessages
 valid ctx="Name" cat="desktop_extragear-graphics_kipi-plugins"
-valid ctx="Query" cat="desktop_kdebase"
+valid ctx="Query" cat="desktop_kdebase_kde-runtime"
 valid ctx="Numbers and characters"
 valid ctx="Qoute character option" cat="kaddressbook"
 valid ctx="angle unit symbol"
