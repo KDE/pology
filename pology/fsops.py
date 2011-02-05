@@ -966,6 +966,7 @@ def exit_on_exception (func, cleanup=None):
         report("", newline=False)
         if cleanup:
             cleanup()
+        exit(100)
     except Exception, e:
         report("", newline=False)
         if cleanup:
