@@ -28,7 +28,7 @@ hint="No utilice expresiones del tipo «las ciudadanas y los ciudadanos » (erro
 hint="No utilice la arroba para evitar el género, p.ej. «ciudadan@s» (error frecuente)"
 
 # No utilizar el guión para separar el prefijo de la palabra principal
-[(?u)\b(auto|bi|de|des|meta|mini|multi|pos|post|pre|re|sobre|sub|tri)\-[a-záéíóúñç]{3,}?\b]i
+[(?u)\b(auto|bi|de|des|hiper|in|macro|meta|micro|mini|mono|multi|pos|post|pre|re|sobre|sub|super|tri)\-[a-záéíóúñç]{3,}?\b]i
 hint="No utilice el guión para separar el prefijo de la palabra principal, p.ej. «sub-menú» (error frecuente)"
 
 # «¿Adonde...» se escribe como «¿Adónde...».
@@ -466,11 +466,11 @@ hint="« De tal suerte que » se escribe como « De manera que/De modo que/De su
 
 # «Del el» preposición duplicada.
 [\bdel\sel\b]i
-hint="« Del el » preposición duplicada (error frecuente)"
+hint="« Del el » artículo duplicado (error frecuente)"
 
 # «Del la» preposición duplicada.
 [\bdel\sla\b]i
-hint="« Del la » preposición duplicada (error frecuente)"
+hint="« Del la » artículo duplicada (error frecuente)"
 
 # «Delante suyo/a» se escribe como «Delante de él/ella».
 [\bdelante\ssuy[oa]\b]i
@@ -524,11 +524,23 @@ hint="« El echo » se escribe como « El hecho » (error frecuente)"
 
 # «El la» preposición duplicada.
 [\bel\sla\b]i
-hint="« El la » preposición duplicada (error frecuente)"
+hint="« El la » articulo duplicado (error frecuente)"
 
 # «El porque» e escribe como «El porqué».
 [\bel\sporque\b]i
 hint="« El porque » e escribe como «El porqué». (error frecuente)"
+
+# «El limite» e escribe como «El límite».
+[\bel\slimite\b]i
+hint="« El limite » e escribe como «El límite». (error frecuente)"
+
+# «El numero» e escribe como «El número».
+[\bel\snumero\b]i
+hint="« El numero » e escribe como «El número». (error frecuente)"
+
+# «El titulo» e escribe como «El título».
+[\bel\stitulo\b]i
+hint="« El titulo » e escribe como «El título». (error frecuente)"
 
 # «En caso que» se escribe como «En caso de que».
 [\ben\scaso\sque\b]i
@@ -768,7 +780,7 @@ hint="« La área » se escribe como « El área » (error frecuente)"
 
 # «La el» preposición duplicada.
 [\bla\sel\b]i
-hint="« La el » preposición duplicada (error frecuente)"
+hint="« La el » artículo duplicado (error frecuente)"
 
 # «Las y los» se escribe como «Los».
 [\blas\sy\slos\b]i
@@ -785,6 +797,10 @@ hint="« Lineas » se escribe como « Líneas » (error frecuente)"
 # «Literatura sobre/en» e escribe como «Bibliografía sobre/en».
 [\bliteratura\s(sobre|en)\b]i
 hint="« Literatura sobre/en » e escribe como «Bibliografía sobre/en». (error frecuente)"
+
+# «Los la» duplicado artículo.
+[\blos\sla\b]i
+hint="« Los la » duplicado artículo. (error frecuente)"
 
 # «Los y las» se escribe como «Los».
 [\blos\sy\slas\b]i
@@ -878,6 +894,10 @@ hint="« Par que » se escribe como « Para que » (error frecuente)"
 [\bpar\suna?\b]i
 hint="« Par un/una » se escribe como « Para un/una » (error frecuente)"
 
+# «Par su» se escribe como «Por su/Para su».
+[\bpar\ssu\b]i
+hint="« Par su » se escribe como « Por su/Para su » (error frecuente)"
+
 # «Perfíl» se escribe como «Perfil».
 [\bperfíl\b]i
 hint="« Perfíl » se escribe como « Perfil » (error frecuente)"
@@ -958,6 +978,10 @@ hint="« Rabbi » se escribe como « Rabí » (error frecuente)"
 [\briáis\b]i
 hint="« Riáis » se escribe como « Riais » (ver la nueva ortografía de la RAE)"
 
+# «Se esperada» se escribe como «Se esperaba».
+[\bse\sesperada\b]i
+hint="« Se esperaba » se escribe como « Se esperaba » (error frecuente)"
+
 # «Se esta» se escribe como «Se está».
 [\bse\sesta\b]i
 hint="« Se esta » se escribe como « Se está » (error frecuente)"
@@ -969,6 +993,10 @@ hint="« Se este » se escribe como « Se esté » (error frecuente)"
 # «Se pude» se escribe como «Se puede/Se pudo».
 [\bse\spude\b]i
 hint="« Se pude » se escribe como « Se puede/Se pudo » (error frecuente)"
+
+# «Se puedo» se escribe como «Se puede».
+[\bse\spuedo\b]i
+hint="« Se puedo » se escribe como « Se puede » (error frecuente)"
 
 # «Se su» palabra duplicada.
 [\bse\ssu\b]i
@@ -1001,6 +1029,10 @@ hint="« Sólo » se escribe siempre como « Solo » (ver la nueva ortografía d
 # «Stock» se escribe como «Existencias/Reservas/Inventario/...».
 [\bstock\b]i
 hint="« Stock » se escribe siempre como « Existencias/Reservas/Inventario » (error frecuente)"
+
+# «Su limite» e escribe como «Su límite».
+[\bsu\slimite\b]i
+hint="« Su limite » e escribe como «Su límite». (error frecuente)"
 
 # «Su se» palabra duplicada.
 [\bsu\sse\b]i

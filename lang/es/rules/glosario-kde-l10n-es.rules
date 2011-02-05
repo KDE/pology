@@ -1120,6 +1120,7 @@ hint="« Feeds » se traduce como « Suministros » o « Fuentes de noticias »(
 # «Feedback» se traduce como «Comentarios y sugerencias».
 {\bfeedbacks?\b}i
 valid msgstr="comentarios\sy\ssugerencias"
+valid msgstr="sugerencias"
 hint="« Feedback » se traduce como « Comentarios y sugerencias » (ver glosario)"
 
 # «File» se traduce como «Archivo».
@@ -2128,7 +2129,7 @@ hint="« Plugin » se traduce como « Complemento » (ver glosario)"
 {\bplugins\b}i
 valid msgstr="complementos"
 valid msgstr="complemento" after="(ningún|cualquier)\s"
-valid !msgstr="plugins"
+valid msgstr="plugins" after="kipi\-"
 hint="« Plugins » se traduce como « Complementos » (ver glosario)"
 
 # «Policy» se traduce como «Política».
@@ -2732,6 +2733,7 @@ hint="« Shorthands » se traduce como « Abreviados » (ver glosario)"
 # «Shutdown» se traduce como «Apagar el sistema».
 {\bshutdown\b}i
 valid msgstr="apagar\sel\ssistema"
+valid msgstr="apagar"
 hint="« Shutdown » se traduce como « Apagar el sistema » (ver glosario)"
 
 # «Signal» se traduce como «Señal».

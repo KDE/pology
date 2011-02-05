@@ -11,6 +11,8 @@ de un punto en el caso que siga un nombre de archivo
 - Comprobar palabras en mayúsculas que no figuren en un diccionario de 
 nombres propios, cuando no sigan a principio de un párrafo, punto, 
 dos puntos, cierre de interrogación o admiración, comillas o etiqueta XML.
+- No obligar a poner un espacio después de un punto cuando está precedido 
+y seguido por un número.
 
 2.- Reglas de vocabulario:
 - Comprobación de la concordancia de género y número.
@@ -40,21 +42,8 @@ equipos que resulten aplicables y de interés para nosotros:
 - Laismo, leismo y loismo.
 - Queismo, dequeismo.
 - Voseo y tuteo.
-- Revisar las normas de traducción de OpenOffice y Ubuntu.
 
-3.- Reglas de comparación entre el texto traducido y el original.
-- Incorporar las de KBabel.
-- Incorporar las de translate toolkit.
-
-4.- Otras reglas.
-- Comprobar caracteres de escape del tipo \t y \n (igual nº en texto original y traducido). 
-
-5.- Vocabulario.
+3.- Vocabulario.
 - Buscar (principalmente en la Wikipedia y Wiktionary) mas glosarios temáticos.
-- Crear glosarios temáticos de unix/linux y gnome.
 - Generar un glosario automáticamente mediante poterminology de translate-toolkit.
- No verificar ortografía de:
-- Palabras con dos mayúsculas:
-- Palabras pertenecientes a páginas web, direcciones de correo, nombres de
-archivo, etc.
 
