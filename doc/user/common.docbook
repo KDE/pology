@@ -1140,6 +1140,7 @@ in one or all strings in the message, or replaces them with a fixed placeholder.
 
 <varlistentry id="hk-remove-remove-paired-ents">
 <term><ulink url="&ap;remove&am;remove_paired_ents"><literal>remove/remove-paired-ents</literal></ulink> (F4A)</term>
+<term><ulink url="&ap;remove&am;remove_paired_ents_tick"><literal>remove/remove-paired-ents-tick</literal></ulink> (F4A)</term>
 <listitem>
 <para>Removes all XML-like entities (<literal>&amp;foo;</literal>) from the original text, and all XML-like entities from the translation that were encountered in the original. This may be useful prior to markup validity checks, when the list of defined entities cannot be provided.</para>
 </listitem>
