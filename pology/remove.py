@@ -1,4 +1,4 @@
-# -*- coding: UTF-8 -*-
+# -*- coding: utf-8 -*-
 
 """
 Remove special substrings from text.
@@ -736,20 +736,44 @@ def remove_paired_ents (msg, cat):
     @return: number of errors
     """
 
+    return _rm_paired_ents(msg, cat)
+
+
+def remove_paired_ents_tick (tick):
+    """
+    Like L{remove_paired_ents}, except that each XML-like entity is
+    replaced by a non-whitespace "tick" instead of plainly removed
+    [hook factory].
+
+    @param tick: the tick sequence
+    @type tick: string
+
+    @return: type F3A hook
+    @rtype: C{(cat, msg, text) -> text}
+    """
+
+    def hook (msg, cat):
+        return _rm_paired_ents(msg, cat, tick)
+
+    return hook
+
+
+def _rm_paired_ents (msg, cat, tick=''):
+
     ents_orig = set()
     ents_orig.update(_ent_rx.findall(msg.msgid))
     for ent in ents_orig:
-        msg.msgid = msg.msgid.replace(ent, "")
+        msg.msgid = msg.msgid.replace(ent, tick)
 
     if msg.msgid_plural:
         ents_orig.update(_ent_rx.findall(msg.msgid_plural))
         for ent in ents_orig:
-            msg.msgid_plural = msg.msgid_plural.replace(ent, "")
+            msg.msgid_plural = msg.msgid_plural.replace(ent, tick)
 
     for i in range(len(msg.msgstr)):
         ents_trans = set(_ent_rx.findall(msg.msgstr[i]))
         for ent in ents_trans.intersection(ents_orig):
-            msg.msgstr[i] = msg.msgstr[i].replace(ent, "")
+            msg.msgstr[i] = msg.msgstr[i].replace(ent, tick)
 
     return 0
 
