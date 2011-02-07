@@ -1653,6 +1653,9 @@ def summit_gather_single (summit_name, project, options,
                     summit_cat[pos] = old_cat[old_pos]
                 else:
                     replace = True
+        # Compare lengths.
+        if len(summit_cat) != len(old_cat):
+            replace = True
     else:
         summit_created = True
         replace = True
