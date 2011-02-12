@@ -886,6 +886,10 @@ hint="« Pagina » se escribe como « Página », salvo 3ª persona del verbo pa
 [\bPán\b]i
 hint="« Pán » se escribe como « Pan » (error frecuente)"
 
+# «Par el» se escribe como «Para el/Por el».
+[\bpar\sel\b]i
+hint="« Par el » se escribe como « Para el/Por el » (error frecuente)"
+
 # «Par que» se escribe como «Para que».
 [\bpar\sque\b]i
 hint="« Par que » se escribe como « Para que » (error frecuente)"

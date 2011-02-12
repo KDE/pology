@@ -9,7 +9,6 @@ Make some comparations between the translation and the original text.
 
 import re
 import pology.external.pyaspell as A
-import math
 from pology import _, n_, split
 
 
@@ -45,10 +44,10 @@ def test_if_very_long_translation (msg, cat):
    
     for i in range(len(msg.msgstr)):
         if i == 1:
-            lm = len(msg.msgid_plural)
+            lm = len(msg.msgid_plural.split())
         else:
-            lm = len(msg.msgid)
-        if lm > 0 and len(msg.msgstr[i]) > (1.66 * lm + 20 / math.sqrt(lm) + 5):
+            lm = len(msg.msgid.split())
+        if lm > 0 and len(msg.msgstr[i].split()) > (1.5 * lm + 3):
              return [("msgstr", 0, [(0, 0, None)])]    
 
     return []
@@ -68,10 +67,10 @@ def test_if_very_short_translation (msg, cat):
     for i in range(len(msg.msgstr)):
         if len(msg.msgstr[i]) > 0:
             if i == 1:
-                lm = len(msg.msgid_plural)
+                lm = len(msg.msgid_plural.split())
             else:
-                lm = len(msg.msgid)
-            if lm > (1.66 * len(msg.msgstr[i]) + 20 / math.sqrt(len(msg.msgstr[i])) + 5):
+                lm = len(msg.msgid.split())
+            if lm > (1.5 * len(msg.msgstr[i].split()) +  3):
                 return [("msgstr", 0, [(0, 0, None)])]    
 
     return []
@@ -123,7 +122,7 @@ def test_paired_new_lines (msg, cat):
              msgid = msg.msgid
              
         cont_orig = len(_ent_new_line.findall(msgid))
-        cont_trans = len (_ent_new_line.findall(msg.msgstr[i]))
+        cont_trans = len(_ent_new_line.findall(msg.msgstr[i]))
     
         if cont_orig < cont_trans:
             return [("msgstr", 0, [(0, 0, "Sobran saltos de linea en la traducción")])]
@@ -150,7 +149,7 @@ def test_paired_tabs (msg, cat):
              msgid = msg.msgid
 
         cont_orig = len(_ent_tab.findall(msgid))
-        cont_trans = len (_ent_tab.findall(msg.msgstr[i]))
+        cont_trans = len(_ent_tab.findall(msg.msgstr[i]))
     
         if cont_orig < cont_trans:
             return [("msgstr", 0, [(0, 0, "Sobran tabuladores en la traducción")])]

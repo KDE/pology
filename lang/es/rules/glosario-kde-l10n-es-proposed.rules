@@ -423,7 +423,7 @@ hint="« Check buttons » se traduce como « Botones de verificación » (propue
 
 # «Check point» se traduce como «Punto de control».
 {\bcheck\s?point\b}i
-valid msgstr="punto\sde\scontrol"
+valid msgstr="puntos?\sde\scontrol"
 hint="« Check point » se traduce como « Punto de control » (propuesta glosario)"
 
 # «Check points» se traduce como «Puntos de control».
@@ -538,8 +538,8 @@ hint="« Compliant » se traduce como « Conforme con/Compatible » (propuesta g
 # «Composer» se traduce como «Editor».
 {\bcomposer\b}i
 valid msgstr="editor"
-valid cat="amarok" msgstr="compositor"
-valid cat="k3b" msgstr="compositor"
+valid msgstr="compositor" cat="amarok" 
+valid msgstr="compositor" cat="k3b" 
 hint="« Composer » se traduce como « Editor » (propuesta glosario)"
 
 # «Composers» se traduce como «Editores».
@@ -2126,7 +2126,7 @@ hint="« Mailbox » se traduce como « Buzón » (propuesta glosario)"
 
 # «Mailing list» se traduce como «Lista de correo».
 {\bmailing\slist\b}i
-valid msgstr="lista\sde\scorreo"
+valid msgstr="listas?\sde\scorreo"
 hint="« Mailing list » se traduce como « Lista de correo » (propuesta glosario)"
 
 # «Mailing lists» se traduce como «Listas de correo».
@@ -2204,6 +2204,7 @@ hint="« Measure » se traduce como « Medida/Métrica » (propuesta glosario)"
 {\bmeasured\b}i
 valid msgstr="medid(a|o)"
 valid msgstr="medirse"
+valid msgstr="miden?" after="se\s"
 hint="« Measured » se traduce como « Medido » (propuesta glosario)"
 
 # «Measures» se traduce como «Medidas/Métricas».
@@ -2429,7 +2430,7 @@ hint="« News » se traduce como « Noticias » (propuesta glosario)"
 
 # «Newsgroup» se traduce como «Grupo de noticias».
 {\bnewsgroup\b}i
-valid msgstr="grupo\sde\snoticias"
+valid msgstr="grupos?\sde\snoticias"
 hint="« Newsgroup » se traduce como « Grupo de noticias » (propuesta glosario)"
 
 # «Newsgroups» se traduce como «Grupos de noticias».

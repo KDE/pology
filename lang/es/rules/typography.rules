@@ -191,7 +191,7 @@ valid span="\.\." after="\."
 valid span="\.$"
 valid span="\.\<" before="\/?p\>"
 valid span="\.\\" before="n"
-valid after="[\w\d]{2,4}\." # Extensions
+valid after="\star" # Extensions
 hint="Ponga un espacio después de un signo de punto"
 
 [\.\.\.\s?\.]
