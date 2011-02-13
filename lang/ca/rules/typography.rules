@@ -337,7 +337,7 @@ hint="S'han d'obrir i tancar les claus {}. Sempre aparellats (tipografia)"
 #hint="Cal utilitzar el símbol «©» en lloc de «(c)» (tipografia)"
 
 [\b[A-Z]{2,6}s\b]
-hint="Cal escriure les sigles en singular en català (treueiu la «s» final) (tipografia)"
+hint="Cal escriure les sigles en singular en català (treieu la «s» final) (tipografia)"
 
 [\b[A-Z]{2,6}\'s\b]
 hint="Cal escriure les sigles en singular en català (treieu la «'s» final) (tipografia)"
@@ -386,7 +386,7 @@ hint="«e» sola és un error (tipografia)"
 valid before="\:|\-|\s\(massa\)|\sper\scent|\s\(USA\)|\."
 valid after="\-|\~|\{|\%|\+|virtual\s|[Pp]àgina\s|Complement\sa\s"
 valid after="\%\d\s" cat="plasma_engine_kalzium"
-valid after="(filtre|en)\s" cat="kstars_colorandtemp" # docmessages
+valid after="(filtre|en|regions)\s" cat="kstars_colorandtemp" # docmessages
 valid after="prioritats\s.+" cat="korganizer" # docmessages
 valid after="di\(" cat="kate_regular-expressions" # docmessages
 valid after="multiplicitat\sd\'" cat="umbrello_uml_basics" # docmessages

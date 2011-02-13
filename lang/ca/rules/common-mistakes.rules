@@ -65,6 +65,7 @@ hint="«devant» (i derivats) s'ha de substituir per «davant» (error freqüent
 
 # «diferent a» ha de ser «diferent de».
 [\bdiferents?\sa\b]i
+valid msgstr="diferent a través" cat="kstars_indi" #docmessages
 hint="«diferent a» s'ha de substituir per «diferent de» (error freqüent)"
 
 # «doncs» ha de ser «perquè/ja que».
@@ -93,6 +94,7 @@ hint="«esta» s'ha de substituir per «està» (error freqüent)"
 # «esteu/sou/quedeu» + +adj plural (com «esteu segurs»)
 # La persona és "vós", per tant ha de ser «esteu segur» (i similars).
 [\b(esteu|sou|quedeu)\s[a-zàèòéíóú]+s\b]i
+valid msgstr="sou curiós" cat="kstars_scriptbuilder" #docmessages
 hint="«(vós) esteu segurs» s'ha de substituir per «(vós) esteu segur» (error freqüent)"
 
 # «fixe» ha de ser «fix» (i prefix, sufix).
