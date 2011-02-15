@@ -2,3 +2,9 @@
 [: [А-Я]]
 hint="После двоеточия предложение продолжается со строчной буквы"
 
+[&[0-9a-zа-я]]i
+valid msgid="&[0-9a-zA-Z]"
+valid msgstr="&(nbsp|amp|reg|lt|gt|quot|deg|ge|ndash|copy|auml);"
+valid before="[a-z]*="
+hint="В переводе не должно быть акселератора (&), если его не было в оригинале"
+

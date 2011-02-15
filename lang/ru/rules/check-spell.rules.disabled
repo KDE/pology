@@ -22,4 +22,9 @@ addFilterRegex match="веб-службы" on="pmsgid,pmsgstr"
 addFilterRegex match="веб-мастеру" on="pmsgid,pmsgstr"
 addFilterRegex match="веб-мастера" on="pmsgid,pmsgstr"
 hint="неизвестное или неправильное написание слова"
+valid ctx="^City in " # ignore names from KStars
+valid ctx="^Constellation name \(optional\)$"
+valid ctx="^Region/state in "
+valid ctx="^star name$"
+valid ctx="\.kgm$" # ignore geographic names from KGeography
 
