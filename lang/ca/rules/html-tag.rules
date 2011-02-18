@@ -1,0 +1,12 @@
+# Catalan html tag rules
+# Copyrigth 2011, Antoni Bella Pérez (antonibella5@orange.es), Josep Ma. Ferrer (txemaq@gmail.com)
+# by the KDE Catalan Team (kde-i18n-ca@kde.org)
+# License: GPLv3
+
+# L'etiqueta html «quote» crea una cometa anglosaxona ('). 
+# En català s'utilitzen les cometes llatines « i », per tant, cal substituir 
+# l'etiqueta <quote> per « i l'etiqueta </quote> per »
+[\<quote>|\</quote>]
+hint="Cal substituir les etiquetes «<quote>|</quote>» per '«' o '»' corresponent (etiquetes html)"
+
+# End of rule file

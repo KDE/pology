@@ -107,6 +107,10 @@ valid msgstr="fixes" cat="kstars_sidereal" after="estrelles\s«" #docmessages
 valid msgstr="fixes" cat="keurocalc" after="cotitzacions\s"
 hint="«fixe (sufixe/prefixe)» s'ha de substituir per «fix (sufix/prefix)» (error freqüent)"
 
+# «gaseós» ha de ser «gasós»
+[gase(os|ós)(a|es)]
+hint="«gaseosa» s'ha de substituir per «gasós, gasosa, gasoses» (error freqüent)"
+
 # «mapejar» ha de ser «mapar».
 [\bmapej[a-zàé]+\b]i
 hint="«mapejar» s'ha de substituir per «mapar» (error freqüent)"

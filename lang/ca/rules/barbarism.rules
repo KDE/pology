@@ -1,0 +1,84 @@
+# Catalan barbarisms
+# by KDE Catalan Team (kde-i18n-ca@kde.org)
+# License: GPLv3
+
+include file="filter.include"
+
+# Hook to eliminate accel mark,
+# it works with"X-Accelerator-Marker" header in PO files
+addFilterHook name="remove/remove-accel-msg" on="msg"
+
+# Estrangerismes
+#<http://www.uoc.edu/serveilinguistic/criteris/lexic/castellanismes.html>
+#<http://boncatala.com/articles.htm>
+
+# namefile: estrangerismes_UOC.include
+#VAR="No s'han de fer servir castellanismes o altres estrangerismes, encara que siguin discutits, si tenim l'equivalent català."
+
+[baffle(s)]
+hint="«baffle» s'ha de substituir per «altaveu» (barbarisme)"
+
+[\bcalenta(r|dor|dors)\b]
+hint="«calentar|calentador» s'ha de substituir per «escalfar|escalfador» (barbarisme)"
+
+[colindant(s)]
+hint="«colindant» s'ha de substituir per «adjacent, confrontant, limítrof/a» (barbarisme)"
+
+[col·lisiona(r)]
+hint="«col·lisionar» s'ha de substituir per «col·lidir, topar» (barbarisme)"
+
+[customitza(r|ble)]
+hint="«customitzar» s'ha de substituir per «personalitzar, adaptar al(s) client(s)» (barbarisme)"
+
+[desvela(r)]
+hint="«desvelar» s'ha de substituir per «revelar, descobrir» (barbarisme)"
+
+[empotra(r)]
+hint="«empotrar» s'ha de substituir per «encastar» (barbarisme)"
+
+[espònsor(s)]
+hint="«espònsor» s'ha de substituir per «patrocinador» (barbarisme)"
+
+[\blink(s)\b]
+hint="«link» s'ha de substituir per «enllaç» (barbarisme)"
+
+[noved(ós|osa|osos|oses)]
+hint="«novedós/osa» s'ha de substituir per «nou/nova, innovador/a» (barbarisme)"
+
+[nòvi(o|os|a|es)]
+hint="«nòvio/a» s'ha de substituir per «xicot/a, promès/esa, nuvi/núvia» (barbarisme)"
+
+[peatonal(s)]
+hint="«peatonal» s'ha de substituir per «de vianants» (barbarisme)"
+
+[pegatin(a|es)|enganxin(a|es)]
+hint="«pegatina|enganxina» s'ha de substituir per «adhesiu» (barbarisme)"
+
+[policial(s)]
+hint="«policial» s'ha de substituir per «policíac/a» (barbarisme)"
+
+[privacitat(s)]
+hint="«privacitat» s'ha de substituir per «confidencialitat, secret, intimitat, privadesa» (barbarisme)"
+
+[subleva(r|ció|cions)]
+hint="«sublevació» s'ha de substituir per «revolta, insurrecció» (barbarisme)"
+
+[suggerent(s)]
+hint="«suggerent» s'ha de substituir per «suggeridor/a» (barbarisme)"
+
+[taladrador(a|es)]
+hint="«taladradora» s'ha de substituir per «perforadora, màquina de foradar, trepant» (barbarisme)"
+
+[tamany(s)]
+hint="«tamany» s'ha de substituir per «mida, grandària, dimensió» (barbarisme)"
+
+[tonteri(a|es)]
+hint="«tonteria» s'ha de substituir per «ximpleria» (barbarisme)"
+
+[\btont(o|a|os|es)\b]
+hint="«tonto/a» s'ha de substituir per «ximple, tòtil/a, tanoca, babau/a» (barbarisme)"
+
+[vivend(a|es)]
+hint="«vivenda» s'ha de substituir per «habitatge, casa» (barbarisme)"
+
+# End of barbarism rules file
