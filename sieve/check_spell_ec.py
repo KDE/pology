@@ -173,7 +173,7 @@ class Sieve (object):
             # Eliminate from checking words matching the skip regex.
             if self.skip_rx:
                 words = [x for x in words if not self.skip_rx.search(x)]
-                
+
             # Eliminate from checking words explicitly listed as good.
             locally_ignored = manc_parse_list(msg, elist_well_spelled, ",")
             words = [x for x in words if x not in locally_ignored]
@@ -264,7 +264,7 @@ def _create_checker (providers, langtag, words):
 
     if checker:
         for word in words or []:
-            checker.add(word)
+            checker.add_to_session(word)
     return checker
 
 
@@ -306,7 +306,7 @@ def _get_word_list_files (lang, env):
 def _read_wlist_aspell (fname):
 
     # Parse the header for encoding.
-    
+
     defenc = "UTF-8"
     fl = codecs.open(fname, "r", defenc)
     header = fl.readline()
