@@ -996,7 +996,7 @@ class VcsGit (VcsBase):
         ipaths = self._paths_to_commit(root)
         rpaths = list(set(ipaths).difference(paths))
         if rpaths:
-            warning(_("@info"
+            warning(_("@info",
                       "Git is resetting paths in index which are "
                       "not to be committed."))
             cmdline = "git reset %s" % " ".join(rpaths)
