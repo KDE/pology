@@ -8,3 +8,14 @@ valid msgstr="&(nbsp|amp|reg|lt|gt|quot|deg|ge|ndash|copy|auml);"
 valid before="[a-z]*="
 hint="В переводе не должно быть акселератора (&), если его не было в оригинале"
 
+*msgid/&/
+valid msgstr="&"
+valid msgid="& "
+valid msgid="Drag&Drop"
+valid msgid="R&B"
+valid msgid="&&"
+valid msgid="&(nbsp|amp|reg|lt|gt|quot|deg|ge|ndash|copy|auml);"
+valid msgid="&([a-zA-Z]+);" # all docbook entities (only for docs!)
+valid msgid="http://.+\?" # URL, not an accelerator
+hint="Не забудьте добавить акселератор (&)"
+
