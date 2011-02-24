@@ -391,7 +391,8 @@ valid after="prioritats\s.+" cat="korganizer" # docmessages
 valid after="di\(" cat="kate_regular-expressions" # docmessages
 valid after="multiplicitat\sd\'" cat="umbrello_uml_basics" # docmessages
 valid after="accelerador.*" cat="tables_a11y,stage_a11y,kspread_a11y,kpresenter_a11y" # docmessages
-valid cat="kalzium,kgoldrunner,kubrick,kfile_exr,libincidenceeditors,tables,kspread,kbackgammon"
+valid cat="kalzium,plasma_applet_Molmasscalculator,kgoldrunner,kubrick,kfile_exr"
+valid cat="libincidenceeditors,tables,kspread,kbackgammon"
 valid ctx="Undefined"
 valid ctx="number 1"
 hint="«u» sola és un error (tipografia)"
