@@ -20,14 +20,15 @@ hint="« Absolutelly » se traduce como como « Completamente », no como « Abs
 # «Abstract» se traduce como «Resumen».
 {\babstract\b}i
 valid msgstr="resumen"
-valid msgstr="abstract(o|a)" after="tipo\s"
+valid msgstr="abstract[oa]" after="tipo\s"
 hint="« Abstract » se traduce como como « Resumen », no como « Abstracto » (falso amigo)"
 
 # «Abstracts» se traduce como «Resúmenes».
 {\babstracts\b}i
 valid msgstr="resúmenes"
-valid msgstr="resumen" after="(ningún|cualquier)\s"
-valid msgstr="abstract(o|a)s" after="tipos\s"
+valid msgstr="resumen" after="ningún\s"
+valid msgstr="resumen" after="cualquier\s"
+valid msgstr="abstract[oa]s" after="tipos\s"
 hint="« Abstracts » se traduce como como « Resúmenes », no como « Abstractos » (falso amigo)"
 
 # «Actual» se traduce como «Real».
@@ -93,9 +94,9 @@ hint="« Advertise » se traduce como como « Anunciar », no como « Advertir �
 
 # «Advertised» se traduce como «Anunciado».
 {\badvertised\b}i
-valid msgstr="anunciad(o|a)"
+valid msgstr="anunciad[oa]"
 valid msgstr="anunciarse"
-valid !msgstr="advertido(o|a)"
+valid !msgstr="advertido[oa]"
 hint="« Advertised » se traduce como como « Anunciado », no como « Advertido » (falso amigo)"
 
 # «Advertisement» se traduce como «Anuncio».
@@ -107,8 +108,9 @@ hint="« Advertisement » se traduce como como « Anuncio », no como « Adverte
 # «Advertisements» se traduce como «Anuncios».
 {\badvertisements\b}i
 valid msgstr="anuncios"
-valid msgstr="anuncio" after="(ningún|cualquier)\s"
-valid !msgstr="advertencias"
+valid msgstr="anuncio" after="ningún\s"
+valid msgstr="anuncio" after="cualquier\s"
+valid !msgstr="advertencias?"
 hint="« Advertisements » se traduce como como « Anuncios », no como « Advertencias » (falso amigo)"
 
 # «Advice» se traduce como «Aconsejar/asesorar».
@@ -121,11 +123,11 @@ hint="« Advice » se traduce como como « Aconsejar/Asesorar », no como « Adv
 
 # «Adviced» se traduce como «Aconsejado/asesorado».
 {\badvised\b}i
-valid msgstr="aconsejad(o|a)"
+valid msgstr="aconsejad[oa]"
 valid msgstr="aconsejarse"
-valid msgstr="asesorad(o|a)"
+valid msgstr="asesorad[oa]"
 valid msgstr="asesorarse"
-valid !msgstr="advertid(o|a)"
+valid !msgstr="advertid[oa]"
 hint="« Adviced » se traduce como como « Aconsejado/Asesorado », no como « Advertir » (falso amigo)"
 
 # «Advices» se traduce como «Aconseja/asesora».
@@ -149,9 +151,9 @@ hint="« Affront » se traduce como como « Ofender », no como « Afrontar » (
 
 # «Allocated» se traduce como «Asignado».
 {\ballocated\b}i
-valid msgstr="asignad(o|a)"
+valid msgstr="asignad[oa]"
 valid msgstr="asignarase"
-valid !msgstr="alocad(o|a)"
+valid !msgstr="alocad[oa]"
 hint="« Allocated » se traduce como como « Asignado » (falso amigo)"
 
 # «Allocation» se traduce como «Asignación».
@@ -163,22 +165,24 @@ hint="« Allocation » se traduce como como « Asignación » (falso amigo)"
 # «Allocations» se traduce como «Asignaciones».
 {\ballocations\b}i
 valid msgstr="asignaciones"
-valid msgstr="asignación" after="(ninguna|cualquier)\s"
+valid msgstr="asignación" after="ninguna\s"
+valid msgstr="asignación" after="cualquier\s"
 valid !msgstr="alocaciones"
 hint="« Allocations » se traduce como como « Asignaciones » (falso amigo)"
 
 # «Ancient» se traduce como «Antiguo».
 {\bancient\b}i
-valid msgstr="antigu(o|a)"
-valid !msgstr="ancian(o|a)"
+valid msgstr="antigu[oa]"
+valid !msgstr="ancian[oa]"
 hint="« Ancient » se traduce como como « Antiguo » (falso amigo)"
 
 # «Ancients» se traduce como «Antiguos».
 {\bancients\b}i
-valid msgstr="antigu(o|a)s"
-valid msgstr="antiguo" after="(ningún|cualquier)\s"
-valid msgstr="antigua" after="(ninguna|cualquier)\s"
-valid !msgstr="ancian(o|a)s"
+valid msgstr="antigu[oa]s"
+valid msgstr="antiguo" after="ningún\s"
+valid msgstr="antigua" after="ninguna\s"
+valid msgstr="antigu[oa]" after="cualquier\s"
+valid !msgstr="ancian[oa]s"
 hint="« Ancients » se traduce como como « Antiguos » (falso amigo)"
 
 # «Annotate» se traduce como «Comentar».
@@ -189,8 +193,8 @@ hint="« Annotate » se traduce como como « Comentar », no como « Anotar » (
 
 # «Annotated» se traduce como «Comentado».
 {\bannotate\b}i
-valid msgstr="comentad(o|a)"
-valid !msgstr="anotad(o|a)"
+valid msgstr="comentad[oa]"
+valid !msgstr="anotad[oa]"
 hint="« Annotated » se traduce como como « Comentado », no como « Anotado » (falso amigo)"
 
 # «Annotates» se traduce como «Comentas».
@@ -208,7 +212,8 @@ hint="« Apology » se traduce como como « Disculpa », no como « Apología »
 # «Apologies» se traduce como «Disculpas».
 {\bapologies\b}i
 valid msgstr="disculpas"
-valid msgstr="disculpa" after="(ninguna|cualquier)\s"
+valid msgstr="disculpa" after="ninguna\s"
+valid msgstr="disculpa" after="cualquier\s"
 valid !msgstr="apologías"
 hint="« Apologies » se traduce como como « Disculpas », no como « Apologías » (falso amigo)"
 
@@ -227,7 +232,8 @@ hint="« Aspersion » se traduce como como « Calumnia » (falso amigo)"
 # «Aspersions» se traduce como «Calumnias».
 {\baspersions\b}i
 valid msgstr="calumnias"
-valid msgstr="calumnia" after="(cualquier|ninguna)\s"
+valid msgstr="calumnia" after="cualquier\s"
+valid msgstr="calumnia" after="ninguna\s"
 valid !msgstr="aspersiones"
 hint="« Aspersions » se traduce como como « Calumnias » (falso amigo)"
 
@@ -242,7 +248,7 @@ hint="« Assist » se traduce como como « Ayudar », no como « Asistir » (fal
 # «Assume» se traduce como «Suponer».
 {\bassume\b}i
 valid msgstr="supon(er|e)"
-valid msgstr="supong(o|a)"
+valid msgstr="supong[oa]"
 valid !msgstr="asum(ir|a|e)"
 hint="« Assume » se traduce como como « Suponer », no como « Asumir » (falso amigo)"
 
@@ -255,15 +261,16 @@ hint="« Assumes » se traduce como como « Supone », no como « Asumir » (fal
 
 # «Bachelor» se traduce como «Soltero».
 {\bbachelor\b}i
-valid msgstr="solter(o|a)"
+valid msgstr="solter[oa]"
 valid !msgstr="bachiller"
 hint="« Bachelor » se traduce como como « Soltero » no como « Bachiller »(falso amigo)"
 
 # «Bachelors» se traduce como «Solteros».
 {\bbachelors\b}i
-valid msgstr="solter(o|a)s"
-valid msgstr="soltero" after="(ningún|cualquier)\s"
-valid msgstr="soltera" after="(ninguna|cualquier)\s"
+valid msgstr="solter[oa]s"
+valid msgstr="soltero" after="ningún\s"
+valid msgstr="soltera" after="ninguna\s"
+valid msgstr="solter[oa]" after="cualquier\s"
 valid !msgstr="bachilleres"
 hint="« Bachelors » se traduce como como « Solteros » no como « Bachilleres »(falso amigo)"
 
@@ -276,7 +283,8 @@ hint="« Balloon » se traduce como como « Globo », no como « Balón » (fals
 # «Balloons» se traduce como «Globos».
 {\bballoons\b}i
 valid msgstr="globos"
-valid msgstr="globo" after="(ningún|cualquier)\s"
+valid msgstr="globo" after="ningún\s"
+valid msgstr="globo" after="cualquier\s"
 valid !msgstr="balones"
 hint="« Balloons » se traduce como como « Globos », no como « Balones » (falso amigo)"
 
@@ -295,14 +303,15 @@ hint="« Biannuals » se traduce como como « Semestrales », no como « Bianual
 # «Bigot» se traduce como «Intolerante/Fanático».
 {\bbigot\b}i
 valid msgstr="intolerante"
-valid msgstr="fanátic(o|a)"
+valid msgstr="fanátic[oa]"
 hint="« Bigot » se traduce como como « Intolerante/Fanático », no como « Bigote » (falso amigo)"
 
 # «Bigots» se traduce como «Intolerantes/Fanáticos».
 {\bbigots\b}i
 valid msgstr="intolerantes"
-valid msgstr="intolerante" after="(ningún|cualquier)\s"
-valid msgstr="fanátic(o|a)s"
+valid msgstr="intolerante" after="ningún\s"
+valid msgstr="intolerante" after="cualquier\s"
+valid msgstr="fanátic[oa]s"
 hint="« Bigots » se traduce como como « Intolerantes/Fanáticos », no como « Bigote » (falso amigo)"
 
 # «Billion» se traduce como «Millardo».
@@ -315,42 +324,44 @@ hint="« Billion » se traduce como como « Millardo », no como « Billón » (
 # «Billions» se traduce como «Millardos».
 {\bbillions\b}i
 valid msgstr="millardos"
-valid msgstr="millardo" after="(ningún|cualquier)\s"
+valid msgstr="millardo" after="ningún\s"
+valid msgstr="millardo" after="cualquier\s"
 valid msgstr="miles\sde\smillones"
 valid !msgstr="billones"
 hint="« Billions » se traduce como como « Millardos », no como « Billones » (falso amigo)"
 
 # «Bizarre» se traduce como «Extraño/Extravagante».
 {\bbizarre\b}i
-valid msgstr="extrañ(o|a)"
+valid msgstr="extrañ[oa]"
 valid msgstr="extravagante"
-valid !msgstr="bizarr(o|a)"
+valid !msgstr="bizarr[oa]"
 hint="« Bizarre » se traduce como como « Extraño/extravagante », no como « Bizarro » (falso amigo)"
 
 # «Bizarres» se traduce como «Extraños/Extravagantes».
 {\bbizarres\b}i
-valid msgstr="extrañ(o|a)s"
-valid msgstr="extraño" after="(ningún|cualquier)\s"
-valid msgstr="extraña" after="(ninguna|cualquier)\s"
+valid msgstr="extrañ[oa]s"
+valid msgstr="extraño" after="ningún\s"
+valid msgstr="extraña" after="ninguna\s"
+valid msgstr="extrañ[oa]" after="cualquier\s"
 valid msgstr="extravagantes"
 valid msgstr="extravagante" after="(ningún|cualquier)\s"
-valid !msgstr="bizarr(o|a)s"
+valid !msgstr="bizarr[oa]s"
 hint="« Bizarres » se traduce como como « Extraños/extravagantes », no como « Bizarros » (falso amigo)"
 
 # «Bland» se traduce como «Soso/Insulso/Inśipido».
 {\bbland\b}i
-valid msgstr="sos(o|a)"
-valid msgstr="insuls(o|a)"
-valid msgstr="insípid(o|a)"
-valid !msgstr="bland(o|a)"
+valid msgstr="sos[oa]"
+valid msgstr="insuls[oa]"
+valid msgstr="insípid[oa]"
+valid !msgstr="bland[oa]"
 hint="« Bland » se traduce como como « Soso/Insulso/insípido », no como « Blando » (falso amigo)"
 
 # «Blands» se traduce como «Sosos/Insulsos/Inśipidos».
 {\bblands\b}i
-valid msgstr="sos(o|a)s"
-valid msgstr="insuls(o|a)s"
-valid msgstr="insípid(o|a)s"
-valid !msgstr="bland(o|a)s"
+valid msgstr="sos[oa]s"
+valid msgstr="insuls[oa]s"
+valid msgstr="insípid[oa]s"
+valid !msgstr="bland[oa]s"
 hint="« Blands » se traduce como como « Sosos/Insulsos/insípidos », no como « Blandos » (falso amigo)"
 
 # «Camp» se traduce como «Campamento».
@@ -362,24 +373,25 @@ hint="« Camp » se traduce como como « Campamento », no como « Campo » (fal
 # «Camps» se traduce como «Campamentos».
 {\bcamps\b}i
 valid msgstr="campamentos"
-valid msgstr="campamento" after="(ningún|cualquier)\s"
+valid msgstr="campamento" after="ningún\s"
+valid msgstr="campamento" after="cualquier\s"
 valid !msgstr="campos"
 hint="« Camps » se traduce como como « Campamentos », no como « Campos » (falso amigo)"
 
 # «Candid» se traduce como «Abierto/franco/Sincero».
 {\bcandid\b}i
-valid msgstr="abiert(o|a)"
-valid msgstr="franc(o|a)"
-valid msgstr="sincer(o|a)"
-valid !msgstr="cándid(o|a)"
+valid msgstr="abiert[oa]"
+valid msgstr="franc[oa]"
+valid msgstr="sincer[oa]"
+valid !msgstr="cándid[oa]"
 hint="« Candid » se traduce como como « Abierto/Franco/Sincero », no como « Cándido » (falso amigo)"
 
 # «Candids» se traduce como «Abiertos/Francos/Sinceros».
 {\bcandids\b}i
-valid msgstr="abiert(o|a)s"
-valid msgstr="franc(o|a)s"
-valid msgstr="sincer(o|a)s"
-valid !msgstr="cándid(o|a)s"
+valid msgstr="abiert[oa]s"
+valid msgstr="franc[oa]s"
+valid msgstr="sincer[oa]s"
+valid !msgstr="cándid[oa]s"
 hint="« Candids » se traduce como como « Abiertos/Francos/Sinceros », no como « Cándidos » (falso amigo)"
 
 # «Capture» se traduce como «Captar».
@@ -390,8 +402,8 @@ hint="« Candids » se traduce como como « Abiertos/Francos/Sinceros », no com
 
 # «Captured» se traduce como «Captado».
 #{\bcaptured\b}i
-#valid msgstr="captad(o|a)"
-#valid !msgstr="capturad(o|a)"
+#valid msgstr="captad[oa]"
+#valid !msgstr="capturad[oa]"
 #hint="« Captured » se traduce como como « Captado », no como « Capturado » (falso amigo)"
 
 ## «Captures» se traduce como «Capta».
@@ -416,9 +428,11 @@ hint="« Cargo » se traduce como como « Carga/Cargamento », no como « Cargo 
 # «Cargos» se traduce como «Cargas/Cargamentos».
 {\bcargos\b}i
 valid msgstr="cargas"
-valid msgstr="carga" after="(ninguna|cualquier)\s"
+valid msgstr="carga" after="ninguna\s"
+valid msgstr="carga" after="cualquier\s"
 valid msgstr="cargamentos"
-valid msgstr="cargamento" after="(ningún|cualquier)\s"
+valid msgstr="cargamento" after="ningún\s"
+valid msgstr="cargamento" after="cualquier\s"
 valid !msgstr="cargos"
 hint="« Cargos » se traduce como como « Cargas/Cargamentos », no como « Cargos » falso amigo)"
 
@@ -431,7 +445,8 @@ hint="« Carpet » se traduce como como « Alfombra », no como « Carpeta » (f
 # «Carpets» se traduce como «Alfombras».
 {\bcarpets\b}i
 valid msgstr="alfombras"
-valid msgstr="alfombra" after="(ninguna|cualquier)\s"
+valid msgstr="alfombra" after="ninguna\s"
+valid msgstr="alfombra" after="cualquier\s"
 valid !msgstr="carpetas"
 hint="« Carpets » se traduce como como « Alfombras », no como « Carpetas » (falso amigo)"
 
@@ -453,9 +468,11 @@ hint="« Casualty » se traduce como como « Baja/Víctima », no como « Casual
 # «Casualties» se traduce como «Bajas/Víctimas».
 {\bcasualties\b}i
 valid msgstr="bajas"
-valid msgstr="baja" after="(ninguna|cualquier)\s"
+valid msgstr="baja" after="ninguna\s"
+valid msgstr="baja" after="cualquier\s"
 valid msgstr="víctimas"
-valid msgstr="víctima" after="(ninguna|cualquier)\s"
+valid msgstr="víctima" after="ninguna\s"
+valid msgstr="víctima" after="cualquier\s"
 valid !msgstr="casualidades"
 hint="« Casualties » se traduce como como « Bajas/Víctimas », no como « Casualidades » (falso amigo)"
 
@@ -473,8 +490,8 @@ hint="« Clarify » se traduce como como « Aclarar », no como « Clarificar »
 
 # «Clarified» se traduce como «Aclarado».
 {\bclarified\b}i
-valid msgstr="aclarad(o|a)"
-valid !msgstr="clarificad(o|a)"
+valid msgstr="aclarad[oa]"
+valid !msgstr="clarificad[oa]"
 hint="« Clarified » se traduce como como « Aclarado », no como « Clarificado » (falso amigo)"
 
 # «Clarifies» se traduce como «Aclara».
@@ -492,7 +509,8 @@ hint="« Collar » se traduce como como « Cuello », no como « Collar » (fals
 # «Collars» se traduce como «Cuellos».
 {\bcollars\b}i
 valid msgstr="cuellos"
-valid msgstr="cuello" after="(ningún|cualquier)\s"
+valid msgstr="cuello" after="ningún\s"
+valid msgstr="cuello" after="cualquier\s"
 valid !msgstr="collares"
 hint="« Collars » se traduce como como « Cuellos », no como « Collares » (falso amigo)"
 
@@ -505,7 +523,8 @@ hint="« College » se traduce como como « Universidad », no como « Colegio �
 # «Colleges» se traduce como «Universidades».
 {\bcolleges\b}i
 valid msgstr="universidades"
-valid msgstr="universidad" after="(ninguna|cualquier)\s"
+valid msgstr="universidad" after="ninguna\s"
+valid msgstr="universidad" after="cualquier\s"
 valid !msgstr="colegios"
 hint="« Colleges » se traduce como como « Universidades », no como « Colegios » (falso amigo)"
 
@@ -520,11 +539,14 @@ hint="« Commodity » se traduce como como « Producto/Mercancía », no como «
 # «Commodities» se traduce como «Productos/Mercancías».
 {\bcommodities\b}i
 valid msgstr="productos"
-valid msgstr="producto" after="(ningún|cualquier)\s"
+valid msgstr="producto" after="ningún\s"
+valid msgstr="producto" after="cualquier\s"
 valid msgstr="mercancías"
-valid msgstr="mercancía" after="(ninguna|cualquier)\s"
+valid msgstr="mercancía" after="ninguna\s"
+valid msgstr="mercancía" after="cualquier\s"
 valid msgstr="artículos"
-valid msgstr="artículo" after="(ningún|cualquier)\s"
+valid msgstr="artículo" after="ningún\s"
+valid msgstr="artículo" after="cualquier\s"
 valid !msgstr="comodidades"
 hint="« Commodities » se traduce como como « Productos/Mercancías », no como « Comodidades » (falso amigo)"
 
@@ -536,16 +558,16 @@ hint="« Compass » se traduce como como « Brújula », no como « Compás » (
 
 # «Comprehensive» se traduce como «Extenso».
 {\bcomprehensive\b}i
-valid msgstr="extens(o|a)"
-valid msgstr="exhaustiv(o|a)"
-valid !msgstr="comprensiv(o|a)"
+valid msgstr="extens[oa]"
+valid msgstr="exhaustiv[oa]"
+valid !msgstr="comprensiv[oa]"
 hint="« Comprehensive » se traduce como como « Extenso », no como « Comprensivo » (falso amigo)"
 
 # «Comprehensives» se traduce como «Extensos».
 {\bcomprehensives\b}i
-valid msgstr="extens(o|a)s"
-valid msgstr="exhaustiv(o|a)s"
-valid !msgstr="comprensiv(o|a)s"
+valid msgstr="extens[oa]s"
+valid msgstr="exhaustiv[oa]s"
+valid !msgstr="comprensiv[oa]s"
 hint="« Comprehensives » se traduce como como « Extensos », no como « Comprensivos » (falso amigo)"
 
 # «Compromise» se traduce como «Concesión».
@@ -560,11 +582,14 @@ hint="« Compromise » se traduce como como « Convenio », no como « Compromis
 # «Compromises» se traduce como «Concesiones».
 {\bcompromises\b}i
 valid msgstr="concesiones"
-valid msgstr="concesión" after="(ninguna|cualquier)\s"
+valid msgstr="concesión" after="ninguna\s"
+valid msgstr="concesión" after="cualquier\s"
 valid msgstr="componendas"
-valid msgstr="componenda" after="(ninguna|cualquier)\s"
+valid msgstr="componenda" after="ninguna\s"
+valid msgstr="componenda" after="cualquier\s"
 valid msgstr="convenios"
-valid msgstr="convenio" after="(ningún|cualquier)\s"
+valid msgstr="convenio" after="ningún\s"
+valid msgstr="convenio" after="cualquier\s"
 valid msgstr="arreglos\sde\sdiferencias"
 valid !msgstr="compromisos"
 hint="« Compromises » se traduce como como « Convenios », no como « Compromisos » (falso amigo)"
@@ -578,13 +603,15 @@ hint="« Conductor » se traduce como como « Director/Cobrador », no como « C
 
 # «Conductors» se traduce como «Directores/Cobradores».
 {\bconductors\b}i
-valid msgstr="director(e|a)s"
-valid msgstr="director" after="(ningún|cualquier)\s"
-valid msgstr="directora" after="(ninguna|cualquier)\s"
+valid msgstr="director[es]s"
+valid msgstr="director" after="ningún\s"
+valid msgstr="directora" after="ninguna\s"
+valid msgstr="directora?" after="cualquier\s"
 valid msgstr="cobrador(e|a)s"
-valid msgstr="cobrador" after="(ningún|cualquier)\s"
-valid msgstr="cobradora" after="(ninguna|cualquier)\s"
-valid !msgstr="conductor(e|a)s"
+valid msgstr="cobrador" after="ningún\s"
+valid msgstr="cobradora" after="ninguna\s"
+valid msgstr="cobradora?" after="cualquier\s"
+valid !msgstr="conductor[ea]s"
 hint="« Conductors » se traduce como como « Directores/Cobradores », no como « Conductores » (falso amigo)"
 
 # «Conference» se traduce como «Congreso».
@@ -596,21 +623,22 @@ hint="« Conference » se traduce como como « Congreso », no como « Conferenc
 # «Conferences» se traduce como «Congresos».
 {\bconferences\b}i
 valid msgstr="congresos"
-valid msgstr="congreso" after="(ningún|cualquier)\s"
-valid !msgstr="conferencias"
+valid msgstr="congreso" after="ningún\s"
+valid msgstr="congreso" after="cualquier\s"
+valid !msgstr="conferencias?"
 hint="« Conferences » se traduce como como « Congresos », no como « Conferencias » (falso amigo)"
 
 # «Confident» se traduce como «Confiado».
 {\bconfident\b}i
-valid msgstr="confiad(o|a)"
-valid msgstr="segur(o|a)\sde\ssi\smismo"
+valid msgstr="confiad[oa]"
+valid msgstr="segur[oa]\sde\ssi\smismo"
 valid !msgstr="confidente"
 hint="« Confident » se traduce como como « Confiado », no como « Confidente » (falso amigo)"
 
 # «Confidents» se traduce como «Confiados».
 {\bconfidents\b}i
-valid msgstr="confiad(o|a)s"
-valid msgstr="segur(o|a)s\sde\ssi\smismo"
+valid msgstr="confiad[oa]s"
+valid msgstr="segur[oa]s\sde\ssi\smismo"
 valid !msgstr="confidentes"
 hint="« Confidents » se traduce como como « Confiados », no como « Confidentes » (falso amigo)"
 
@@ -639,27 +667,27 @@ hint="« Contest » se traduce como como « Competir », no como « Contestar »
 
 # «Constipated» se traduce como «Estreñido».
 {\bconstipated\b}i
-valid msgstr="estreñid(o|a)"
+valid msgstr="estreñid[oa]"
 valid msgstr="estreñirse"
-valid !msgstr="constipad(o|a)"
-valid !msgstr="resfriad(o|a)"
+valid !msgstr="constipad[oa]"
+valid !msgstr="resfriad[oa]"
 hint="« Constipated » se traduce como como « Estreñido », no como « Constipado » (falso amigo)"
 
 # «Corrupted» se traduce como «Dañado».
 {\bcorrupted\b}i
-valid msgstr="dañad(o|a)"
-valid !msgstr="corrompid(o|a)"
+valid msgstr="dañad[oa]"
+valid !msgstr="corrompid[oa]"
 hint="« Corrupted » se traduce como como « Dañado », no como « Corrompido » (falso amigo)"
 
 # «Convenient» se traduce como «Oportuno».
 {\bconvenient\b}i
-valid msgstr="oportun(o|a)"
+valid msgstr="oportun[oa]"
 valid !msgstr="conveniente"
 hint="« Convenient » se traduce como como « Oportuno », no como « Conveniente » (falso amigo)"
 
 # «Convenients» se traduce como «Oportunos».
 {\bconvenients\b}i
-valid msgstr="oportun(o|a)s"
+valid msgstr="oportun[oa]s"
 valid !msgstr="convenientes"
 hint="« Convenients » se traduce como como « Oportunos », no como « Convenientes » (falso amigo)"
 
@@ -675,7 +703,8 @@ hint="« Cover » se traduce como como « Informar/Portada », no como « Cubrir
 {\bcovers\b}i
 valid msgstr="inform(ar|a|e)"
 valid msgstr="portadas"
-valid msgstr="portada" after="(ninguna|cualquier)\s"
+valid msgstr="portada" after="ninguna\s"
+valid msgstr="portada" after="cualquier\s"
 valid !msgstr="cubr(ir|e|a)"
 valid !msgstr="cubiertas"
 hint="« Covers » se traduce como como « Informa/Portadas », no como « Cubre » (falso amigo)"
@@ -689,7 +718,8 @@ hint="« Crime » se traduce como como « Delito », no como « Crimen » (falso
 # «Crimes» se traduce como «Delitos».
 {\bcrimes\b}i
 valid msgstr="delitos"
-valid msgstr="delito" after="(ningún\cualquier)\s"
+valid msgstr="delito" after="ningún\s"
+valid msgstr="delito" after="cualquier\s"
 valid !msgstr="crímenes"
 hint="« Crimes » se traduce como como « Delitos », no como « Crímenes » (falso amigo)"
 
@@ -702,7 +732,8 @@ hint="« Criminal » se traduce como como « Delincuante », no como « Criminal
 # «Criminals» se traduce como «Delincuentes».
 {\bcriminals\b}i
 valid msgstr="delincuentes"
-valid msgstr="delincuante" after="(ningún|cualquier)\s"
+valid msgstr="delincuente" after="ningún\s"
+valid msgstr="delincuente" after="cualquier\s"
 valid !msgstr="criminales"
 hint="« Criminals » se traduce como como « Delincuentes », no como « Criminales » (falso amigo)"
 
@@ -742,9 +773,11 @@ hint="« Date » se traduce como como « Fecha », no como « Dato » (falso ami
 # «Dates» se traduce como «Fechas».
 {\bdates\b}i
 valid msgstr="fechas"
-valid msgstr="fecha" after="(ninguna|cualquier)\s"
+valid msgstr="fecha" after="ninguna\s"
+valid msgstr="fecha" after="cualquier\s"
 valid msgstr="citas"
-valid msgstr="cita" after="(ninguna|cualquier)\s"
+valid msgstr="cita" after="ninguna\s"
+valid msgstr="cita" after="cualquier\s"
 valid !msgstr="datos"
 hint="« Dates » se traduce como como « Fechas », no como « Datos » (falso amigo)"
 
@@ -757,7 +790,8 @@ hint="« Deception » se traduce como como « Engaño », no como « Decepción 
 # «Deceptions» se traduce como «Engaños».
 {\bdeceptions\b}i
 valid msgstr="engaños"
-valid msgstr="engaño" after="(ningún|cualquier)\s"
+valid msgstr="engaño" after="ningún\s"
+valid msgstr="engaño" after="cualquier\s"
 valid !msgstr="decepciones"
 hint="« Deceptions » se traduce como como « Engaños », no como « Decepciones » (falso amigo)"
 
@@ -773,16 +807,16 @@ hint="« Deprecates » se traduce como como « Desaprueba » (falso amigo)"
 
 # «Derogatory» se traduce como «Despectivo».
 {\bderogatory\b}i
-valid msgstr="despectiv(o|a)"
-valid msgstr="peyorativ(o|a)"
-valid !msgstr="derogatori(o|a)"
+valid msgstr="despectiv[oa]"
+valid msgstr="peyorativ[oa]"
+valid !msgstr="derogatori[oa]"
 hint="« Derogatory » se traduce como como « Despectivo », no como « Derogatorio » (falso amigo)"
 
 # «Derogatories» se traduce como «Despectivos».
 {\bderogatories\b}i
-valid msgstr="despectiv(o|a)s"
-valid msgstr="peyorativ(o|a)s"
-valid !msgstr="derogatori(o|a)s"
+valid msgstr="despectiv[oa]s"
+valid msgstr="peyorativ[oa]s"
+valid !msgstr="derogatori[oa]s"
 hint="« Derogatories » se traduce como como « Despectivos », no como « Derogatorios » (falso amigo)"
 
 # «Discuss» se traduce como «Debatir».
@@ -794,9 +828,9 @@ hint="« Discuss » se traduce como como « Debatir », no como « Discutir » (
 
 # «Discussed» se traduce como «Debatido».
 {\bdiscussed\b}i
-valid msgstr="debatid(o|a)"
+valid msgstr="debatid[oa]"
 valid msgstr="debatirse"
-valid !msgstr="discutid(o|a)"
+valid !msgstr="discutid[oa]"
 hint="« Discuss » se traduce como como « Debatir », no como « Discutir » (falso amigo)"
 
 # «Discussion» se traduce como «Debate».
@@ -809,7 +843,8 @@ hint="« Discussion » se traduce como como « Debate », no como « Discusión 
 # «Discussions» se traduce como «Debates».
 {\bdiscussions\b}i
 valid msgstr="debates"
-valid msgstr="debate" after="(ningún|cualquier)\s"
+valid msgstr="debate" after="ningún\s"
+valid msgstr="debate" after="cualquier\s"
 valid msgstr="intercambios\sde\sideas"
 valid !msgstr="discusiones"
 hint="« Discussions » se traduce como como « Debates », no como « Discusiones » (falso amigo)"
@@ -824,7 +859,7 @@ hint="« Disgust » se traduce como como « Repugnar », no como « Disgustar »
 # «Disgusting» se traduce como «Repugnante».
 {\bdisgusting\b}i
 valid msgstr="repugnante"
-valid msgstr="asqueros(o|a)"
+valid msgstr="asqueros[oa]"
 valid !msgstr="disgustante"
 hint="« Disgusting » se traduce como como « Repugnante », no como « Disgustante » (falso amigo)"
 
@@ -837,7 +872,8 @@ hint="« Disorder » se traduce como como « Trastorno », no como « Desorden �
 # «Disorders» se traduce como «Trastornos».
 {\bdisorders\b}i
 valid msgstr="trastornos"
-valid msgstr="trastorno" after="(ningún|cualquier)\s"
+valid msgstr="trastorno" after="ningún\s"
+valid msgstr="trastorno" after="cualquier\s"
 valid !msgstr="desórdenes"
 hint="« Disorders » se traduce como como « Trastornos », no como « Desórdenes » (falso amigo)"
 
@@ -851,9 +887,11 @@ hint="« Diversion » se traduce como como « Distracción », no como « Divers
 # «Diversions» se traduce como «Distracciones».
 {\bdiversions\b}i
 valid msgstr="distracciones"
-valid msgstr="distracción" after="(ninguna|cualquier)\s"
+valid msgstr="distracción" after="ninguna\s"
+valid msgstr="distracción" after="cualquier\s"
 valid msgstr="desvíos"
-valid msgstr="desvío" after="(ningún|cualquier)\s"
+valid msgstr="desvío" after="ningún\s"
+valid msgstr="desvío" after="cualquier\s"
 valid !msgstr="diversiones"
 hint="« Diversions » se traduce como como « Distracciones », no como « Diversiones » (falso amigo)"
 
@@ -867,9 +905,9 @@ hint="« Divert » se traduce como como « Desviar », no como « Divertir » (f
 
 # «Diverted» se traduce como «Desviado».
 {\bdiverted\b}i
-valid msgstr="desviad(o|a)"
+valid msgstr="desviad[oa]"
 valid msgstr="desviarse"
-valid !msgstr="divertid(o|a)"
+valid !msgstr="divertid[oa]"
 hint="« Diverted » se traduce como como « Desviado », no como « Divertido » (falso amigo)"
 
 # «(to) Diverts» se traduce como «Desvía».
@@ -881,16 +919,17 @@ hint="« Diverts » se traduce como como « Desvía », no como « Divierta » (
 # «Domestic» se traduce como «Nacional».
 {\bdomestic\b}i
 valid msgstr="nacional"
-valid msgstr="intern(o|a)"
-valid !msgstr="doméstic(o|a)"
+valid msgstr="intern[oa]"
+valid !msgstr="doméstic[oa]"
 hint="« Domestic » se traduce como como « Nacional », no como « Doméstico » (falso amigo)"
 
 # «Domestics» se traduce como «Nacionales».
 {\bdomestics\b}i
 valid msgstr="nacionales"
-valid msgstr="nacional" after="(ningún|cualquier)\s"
-valid msgstr="intern(o|a)s"
-valid !msgstr="doméstic(o|a)s"
+valid msgstr="nacional" after="ningún\s"
+valid msgstr="nacional" after="cualquier\s"
+valid msgstr="intern[oa]s"
+valid !msgstr="doméstic[oa]s"
 hint="« Domestics » se traduce como como « Nacionales », no como « Domésticos » (falso amigo)"
 
 # «Duress» se traduce como «Coacción/Presión».
@@ -902,19 +941,19 @@ hint="« Duress » se traduce como como « Coacción/Presión », no como « Dur
 
 # «Educated» se traduce como «Culto/Instruido».
 {\beducated\b}i
-valid msgstr="cult(o|a)"
-valid msgstr="instruid(o|a)"
+valid msgstr="cult[oa]"
+valid msgstr="instruid[oa]"
 valid msgstr="instruirse"
-valid !msgstr="educad(o|a)"
+valid !msgstr="educad[oa]"
 hint="« Educated » se traduce como como « Culto/Instruido », no como « Educado » (falso amigo)"
 
 # «Embarrassed» se traduce como «Avergonzado/abochornado».
 {\bembarrased\b}i
-valid msgstr="avergonzad(o|a)"
-valid msgstr="abochornas(o|a)"
+valid msgstr="avergonzad[oa]"
+valid msgstr="abochornas[oa]"
 valid msgstr="avergonzarse"
 valid msgstr="abochornarse"
-valid !msgstr="embarazd(o|a)"
+valid !msgstr="embarazd[oa]"
 hint="« Embarrassed » se traduce como como « Avergonzado/Abchornado », no como « Embarazado » (falso amigo)"
 
 # «Engross» se traduce como «Absorver».
@@ -932,9 +971,9 @@ hint="« Enlarge » se traduce como como « Agrandar », no como « Alargar » (
 
 # «Enlarged» se traduce como «Agrandadado».
 {\benlarges\b}i
-valid msgstr="agrandad(o|a)"
+valid msgstr="agrandad[oa]"
 valid msgstr="agrandarse"
-valid !msgstr="alargad(o|a)"
+valid !msgstr="alargad[oa]"
 hint="« Enlarge » se traduce como como « Agrandar », no como « Alargar » (falso amigo)"
 
 # «Enlarges» se traduce como «Agrande».
@@ -960,7 +999,8 @@ hint="« Evidence » se traduce como como « Prueba », no como « Evidencia » 
 # «Evidences» se traduce como «Pruebas».
 {\bevidences\b}i
 valid msgstr="pruebas"
-valid msgstr="prueba" after="(ninguna|cualquier)\s"
+valid msgstr="prueba" after="ninguna\s"
+valid msgstr="prueba" after="cualquier\s"
 valid !msgstr="evidencias"
 hint="« Evidences » se traduce como como « Pruebas », no como « Evidencias » (falso amigo)"
 
@@ -973,7 +1013,8 @@ hint="« Exit » se traduce como como « Salida », no como « Éxito » (falso 
 # «Exits» se traduce como «Salidas».
 {\bexits\b}i
 valid msgstr="salidas"
-valid msgstr="salida" after="(ninguna|cualquier)\s"
+valid msgstr="salida" after="ninguna\s"
+valid msgstr="salida" after="cualquier\s"
 valid !msgstr="éxitos"
 hint="« Exits » se traduce como como « Salidas », no como « Éxitos » (falso amigo)"
 
@@ -986,7 +1027,8 @@ hint="« Expectation » se traduce como como « Expectativa », no como « Expec
 # «Expectations» se traduce como «Expectativas».
 {\bexpectations\b}i
 valid msgstr="expectativas"
-valid msgstr="expectativa" after="(ninguna|cualquier)\s"
+valid msgstr="expectativa" after="ninguna\s"
+valid msgstr="expectativa" after="cualquier\s"
 valid !msgstr="expectaciones"
 hint="« Expectations » se traduce como como « Expectativas », no como « Expectaciones » (falso amigo)"
 
@@ -1006,41 +1048,46 @@ hint="« Fabric » se traduce como como « Tela/Tejido », no como « Fábrica �
 # «Fabrics» se traduce como «Telas/Tejidos».
 {\bfabrics\b}i
 valid msgstr="telas"
-valid msgstr="tela" after="(ninguna|cualquier)\s"
+valid msgstr="tela" after="ninguna\s"
+valid msgstr="tela" after="cualquier\s"
 valid msgstr="tejidos"
-valid msgstr="tejido" after="(ningún|cualquier)\s"
+valid msgstr="tejido" after="ningún\s"
+valid msgstr="tejido" after="cualquier\s"
 valid !msgstr="fábricas"
 hint="« Fabrics » se traduce como como « Telas/Tejidos », no como « Fábricas » (falso amigo)"
 
 # «Facilities» se traduce como «Instalaciones».
 {\bfacilities\b}i
 valid msgstr="instalaciones"
-valid msgstr="instalación" after="(ninguna|cualquier)\s"
+valid msgstr="instalación" after="ninguna\s"
+valid msgstr="instalación" after="cualquier\s"
 valid !msgstr="facilidades"
 hint="« Facilities » se traduce como como « Instalaciones », no como « Facilidades » (falso amigo)"
 
 # «Fastidious» se traduce como «Muy exigente/Quisquilloso».
 {\bfastidious\b}i
 valid msgstr="muy\sexigente"
-valid msgstr="quisquillos(o|a)"
-valid msgstr="maniátic(o|a)"
-valid msgstr="meticulos(o|a)"
-valid !msgstr="fastidios(o|a)"
+valid msgstr="quisquillos[oa]"
+valid msgstr="maniátic[oa]"
+valid msgstr="meticulos[oa]"
+valid !msgstr="fastidios[oa]"
 hint="« Fastidious » se traduce como como « Muy exigente/Quisquilloso », no como « Fastidioso » (falso amigo)"
 
 # «Fatality» se traduce como «Muerto/víctima».
 {\bfatality\b}i
-valid msgstr="muert(o|a)"
+valid msgstr="muert[oa]"
 valid msgstr="victima"
 valid !msgstr="fatalidad"
 hint="« Fatality » se traduce como como « Muerto/Víctima », no como « Fatalidad » (falso amigo)"
 
 # «Fatalities» se traduce como «Muertos/Víctimas».
 {\bfatalities\b}i
-valid msgstr="muert(o|a)s"
-valid msgstr="muerto" after="(ningún|cualquier)\s"
+valid msgstr="muert[oa]s"
+valid msgstr="muerto" after="ningún\s"
+valid msgstr="muerto" after="cualquier\s"
 valid msgstr="victimas"
-valid msgstr="víctima" after="(ninguna|cualquier)\s"
+valid msgstr="víctima" after="ninguna\s"
+valid msgstr="víctima" after="cualquier\s"
 valid !msgstr="fatalidades"
 hint="« Fatalities » se traduce como como « Muertos/Víctimas », no como « Fatalidades » (falso amigo)"
 
@@ -1056,9 +1103,11 @@ hint="« Fault » se traduce como como « Culpa », no como « Falta » (falso a
 # «Faults» se traduce como «Culpas/Defectos».
 {\bfaults\b}i
 valid msgstr="culpas"
-valid msgstr="culpa" after="(ninguna|cualquier)\s"
+valid msgstr="culpa" after="ninguna\s"
+valid msgstr="culpa" after="cualquier\s"
 valid msgstr="defectos"
-valid msgstr="defecto" after="(ningún|cualquier)\s"
+valid msgstr="defecto" after="ningún\s"
+valid msgstr="defecto" after="cualquier\s"
 valid !msgstr="faltas"
 hint="« Faults » se traduce como como « Culpas », no como « Faltas » (falso amigo)"
 
@@ -1072,43 +1121,45 @@ hint="« Feast » se traduce como como « Banquete/Festín », no como « Fiesta
 # «Feasts» se traduce como «Banquetes/festines».
 {\bfeasts\b}i
 valid msgstr="banquetes"
-valid msgstr="banquete" after="(ningún|cualquier)\s"
+valid msgstr="banquete" after="ningún\s"
+valid msgstr="banquete" after="cualquier\s"
 valid msgstr="festines"
-valid msgstr="festín" after="(ningún|cualquier)\s"
+valid msgstr="festín" after="ningún\s"
+valid msgstr="festín" after="cualquier\s"
 valid !msgstr="fiestas"
 hint="« Feasts » se traduce como como « Banquetes/Festines », no como « Fiesta » (falso amigo)"
 
 # «Genial» se traduce como «Simpático».
 {\bgenial\b}i
-valid msgstr="simpátic(o|a)"
+valid msgstr="simpátic[oa]"
 valid msgstr="jovial"
 valid msgstr="cordial"
-valid msgstr="amistos(o|a)"
+valid msgstr="amistos[oa]"
 valid !msgstr="genial"
 hint="« Genial » se traduce como como « Simpático », no como « Genial » (falso amigo)"
 
 # «Genials» se traduce como «Simpáticos».
 {\bgenials\b}i
-valid msgstr="simpátic(o|a)s"
+valid msgstr="simpátic[oa]s"
 valid msgstr="joviales"
 valid msgstr="cordiales"
-valid msgstr="amistos(o|a)s"
+valid msgstr="amistos[oa]s"
 valid !msgstr="geniales"
 hint="« Genials » se traduce como como « Simpáticos », no como « Geniales » (falso amigo)"
 
 # «Gentle» se traduce como «Suave».
 {\bgentle\b}i
 valid msgstr="suave"
-valid msgstr="mans(o|a)"
-valid msgstr="moderad(o|a)"
+valid msgstr="mans[oa]"
+valid msgstr="moderad[oa]"
 valid !msgstr="gentil"
 hint="« Gentle » se traduce como como « Suave », no como « Gentil » (falso amigo)"
 
 # «Gentles» se traduce como «Suaves».
 {\bgentles\b}i
 valid msgstr="suaves"
-valid msgstr="mans(o|a)s"
-valid msgstr="moderad(o|a)s"
+valid msgstr="mans[oa]s"
+valid msgstr="moderad[oa]s"
 valid !msgstr="gentiles"
 hint="« Gentles » se traduce como como « Suaves », no como « Gentiles » (falso amigo)"
 
@@ -1122,14 +1173,15 @@ hint="« Gently » se traduce como como « Con cuidado/suavidad », no como « G
 # «Glove» se traduce como «Guante».
 {\bglobe\b}i
 valid msgstr="guante"
-valid msgstr="globo" before="terráqueo"
+valid msgstr="globo" before="\sterráqueo"
 hint="« Glove » se traduce como como « Guante », no como « Globo » (falso amigo)"
 
 # «Gloves» se traduce como «Guantes».
 {\bglobes\b}i
 valid msgstr="guantes"
-valid msgstr="guante" after="(ningún|cualquier)\s"
-valid msgstr="globos" before="terráqueos"
+valid msgstr="guante" after="ningún\s"
+valid msgstr="guante" after="cualquier\s"
+valid msgstr="globos" before="\sterráqueos"
 hint="« Gloves » se traduce como como « Guantes », no como « Globos » (falso amigo)"
 
 # «Gracious» se traduce como «Gentíl/Cortés».
@@ -1137,14 +1189,14 @@ hint="« Gloves » se traduce como como « Guantes », no como « Globos » (fal
 valid msgstr="gentíl"
 valid msgstr="cortés"
 valid msgstr="elegante"
-valid msgstr="garbos(o|a)"
-valid !msgstr="gracios(o|a)"
+valid msgstr="garbos[oa]"
+valid !msgstr="gracios[oa]"
 hint="« Gracious » se traduce como como « Getíl/Cortés », no como « Gracioso » (falso amigo)"
 
 # «Honest» se traduce como «Honrado».
 {\bhonest\b}i
-valid msgstr="honrad(o|a)"
-valid !msgstr="honest(o|a)"
+valid msgstr="honrad[oa]"
+valid !msgstr="honest[oa]"
 hint="« Honest » se traduce como como « Honrado », no como « Honesto » (falso amigo)"
 
 # «Idiom» se traduce como «Modismo».
@@ -1157,7 +1209,8 @@ hint="« idiom » se traduce como como « Modismo », no como « Idioma » (fals
 # «Idioms» se traduce como «Modismos».
 {\bidioms\b}i
 valid msgstr="modismos"
-valid msgstr="modismo" after="(ningún|cualquier)\s"
+valid msgstr="modismo" after="ningún\s"
+valid msgstr="modismo" after="cualquier\s"
 valid msgstr="expresiones\sidiomáticas"
 valid !msgstr="idiomas"
 hint="« idioms » se traduce como como « Modismos », no como « Idiomas » (falso amigo)"
@@ -1186,15 +1239,15 @@ hint="« In front of » se traduce como como « Delante de », no como « Enfren
 
 # «Indignant» se traduce como «Indignado».
 {\bindignant\b}i
-valid msgstr="indignad(o|a)"
+valid msgstr="indignad[oa]"
 valid !msgstr="indignante"
 hint="« Indignant » se traduce como como « Indignado », no como « Indignante » (falso amigo)"
 
 # «Intoxicated» se traduce como «Borracho/Ebrio».
 {\bintoxicated\b}i
-valid msgstr="borrach(o|a)"
-valid msgstr="ebrio(o|a)"
-valid !msgstr="intoxicad(o|a)"
+valid msgstr="borrach[oa]"
+valid msgstr="ebrio[oa]"
+valid !msgstr="intoxicad[oa]"
 hint="« Intoxicated » se traduce como como « Borracho/Ebrio », no como « Intoxicado » (falso amigo)"
 
 # «Intoxication» se traduce como «Borrachera/Embriaguez».
@@ -1213,9 +1266,9 @@ hint="« Introduce » se traduce como como « Presentar », no como « Introduci
 
 # «Introduced» se traduce como «Presentado».
 {\bintroduced\b}i
-valid msgstr="presentad(o|a)"
+valid msgstr="presentad[oa]"
 valid msgstr="presentarse"
-valid !msgstr="introducid(o|a)"
+valid !msgstr="introducid[oa]"
 hint="« Introduced » se traduce como como « Presentado », no como « Introducido » (falso amigo)"
 
 # «Introduces» se traduce como «Presenta».
@@ -1233,14 +1286,14 @@ hint="« Jubilation » se traduce como como « Júbilo », no como « Jubilació
 # «Large» se traduce como «Grande».
 {\blarge\b}i
 valid msgstr="grande"
-valid !msgstr="larg(o|a)"
+valid !msgstr="larg[oa]"
 hint="« Large » se traduce como como « Grande », no como « Largo » (falso amigo)"
 
 # «Larger» se traduce como «Mas grande/Mayor».
 {\blarger\b}i
 valid msgstr="mas\sgrande"
 valid msgstr="mayor"
-valid !msgstr="mas\slarg(o|a)"
+valid !msgstr="mas\slarg[oa]"
 hint="« Larger » se traduce como como « Mas grande/Mayor », no como « Mas largo » (falso amigo)"
 
 # «Lecture» se traduce como «Conferencia».
@@ -1252,7 +1305,8 @@ hint="« Lecture » se traduce como como « Conferencia », no como « Lectura �
 # «Lectures» se traduce como «Conferencias».
 {\blectures\b}i
 valid msgstr="conferencias"
-valid msgstr="conferencia" after="(ninguna|cualquier)\s"
+valid msgstr="conferencia" after="ninguna\s"
+valid msgstr="conferencia" after="cualquier\s"
 valid !msgstr="lecturas"
 hint="« Lectures » se traduce como como « Conferencias », no como « Lecturas » (falso amigo)"
 
@@ -1281,15 +1335,20 @@ hint="« Misery » se traduce como como « Sufrimiento/Aflicción », no como «
 # «Miseries» se traduce como «Sufrimientos/Aflicciones».
 {\bmiseries\b}i
 valid msgstr="sufrimientos"
-valid msgstr="sufrimiento" after="(ningún|cualquier)\s"
+valid msgstr="sufrimiento" after="ningún\s"
+valid msgstr="sufrimiento" after="cualquier\s"
 valid msgstr="aflicciones"
-valid msgstr="aflicción" after="(ninguna|cualquier)\s"
+valid msgstr="aflicción" after="ninguna\s"
+valid msgstr="aflicción" after="cualquier\s"
 valid msgstr="desgracias"
-valid msgstr="desgracia" after="(ninguna|cualquier)\s"
+valid msgstr="desgracia" after="ninguna\s"
+valid msgstr="desgracia" after="cualquier\s"
 valid msgstr="desdichas"
-valid msgstr="desdicha" after="(ninguna|cualquier)\s"
+valid msgstr="desdicha" after="ninguna\s"
+valid msgstr="desdicha" after="cualquier\s"
 valid msgstr="angustias"
-valid msgstr="angustia" after="(ninguna|cualquier)\s"
+valid msgstr="angustia" after="ninguna\s"
+valid msgstr="angustia" after="cualquier\s"
 valid !msgstr="miserias"
 hint="« Miseries » se traduce como como « Sufrimientos/Aflicciones », no como « Miserias » (falso amigo)"
 
@@ -1330,9 +1389,11 @@ hint="« Ocurrence » se traduce como como « Aparición », no como « Ocurrenc
 # «Occurrences» se traduce como «Apariciones».
 {\boccurrences\b}i
 valid msgstr="apariciones"
-valid msgstr="aparición" after="(ninguna|cualquier)\s"
+valid msgstr="aparición" after="ninguna\s"
+valid msgstr="aparición" after="cualquier\s"
 valid msgstr="ideas"
-valid msgstr="idea" after="(ninguna|cualquier)\s"
+valid msgstr="idea" after="ninguna\s"
+valid msgstr="idea" after="cualquier\s"
 valid !msgstr="ocurrencias"
 hint="« Ocurrences » se traduce como como « Apariciones », no como « Ocurrencias » (falso amigo)"
 
@@ -1345,7 +1406,8 @@ hint="« Offense/Offence » se traduce como como « Delito », no como « Ofensa
 # «Offenses/Offences» se traduce como «Delitos».
 {\boffen(s|c)es\b}i
 valid msgstr="delitos"
-valid msgstr="delito" after="(ningún|cualquier)\s"
+valid msgstr="delito" after="ningún\s"
+valid msgstr="delito" after="cualquier\s"
 valid !msgstr="ofensas"
 hint="« Offenses/Offences » se traduce como como « Delitos », no como « Ofensas » (falso amigo)"
 
@@ -1359,9 +1421,11 @@ hint="« Office » se traduce como como « Oficina », no como « Oficio » (fal
 # «Offices» se traduce como «Oficinas».
 {\boffices\b}i
 valid msgstr="oficinas"
-valid msgstr="oficina" after="(ninguna|cualquier)\s"
+valid msgstr="oficina" after="ninguna\s"
+valid msgstr="oficina" after="cualquier\s"
 valid msgstr="despachos"
-valid msgstr="despacho" after="(ningún|cualquier)\s"
+valid msgstr="despacho" after="ningún\s"
+valid msgstr="despacho" after="cualquier\s"
 valid !msgstr="oficios"
 hint="« Offices » se traduce como como « Oficinas », no como « Oficios » (falso amigo)"
 
@@ -1369,14 +1433,14 @@ hint="« Offices » se traduce como como « Oficinas », no como « Oficios » (
 {\bordinary\b}i
 valid msgstr="común"
 valid msgstr="normal"
-valid !msgstr="ordinari(o|a)"
+valid !msgstr="ordinari[oa]"
 hint="« Ordinary » se traduce como como « Común », no como « Ordinario » (falso amigo)"
 
 # «Ordinaries» se traduce como «Comunes».
 {\bordinaries\b}i
 valid msgstr="comunes"
 valid msgstr="normales"
-valid !msgstr="ordinari(o|a)s"
+valid !msgstr="ordinari[oa]s"
 hint="« Ordinaries » se traduce como como « Comunes », no como « Ordinarios » (falso amigo)"
 
 # «Ore» se traduce como «Mineral».
@@ -1394,7 +1458,8 @@ hint="« Pain » se traduce como como « Dolor », no como « Pena » (falso ami
 # «Pains» se traduce como «Dolores».
 {\bpains\b}i
 valid msgstr="dolores"
-valid msgstr="dolor" after="(ningún|cualquier)\s"
+valid msgstr="dolor" after="ningún\s"
+valid msgstr="dolor" after="cualquier\s"
 valid !msgstr="penas"
 hint="« Pains » se traduce como como « Dolores », no como « Penas » (falso amigo)"
 
@@ -1408,7 +1473,8 @@ hint="« Parent » se traduce como como « Padre/madre », no como « Pariente �
 # «Parents» se traduce como «Padres».
 {\bparents\b}i
 valid msgstr="padres"
-valid msgstr="padre" after="(ningún|cualquier)"
+valid msgstr="padre" after="ningún"
+valid msgstr="padre" after="cualquier"
 valid !msgstr="parientes"
 hint="« Parents » se traduce como como « Padres », no como « Parientes » (falso amigo)"
 
@@ -1427,21 +1493,22 @@ hint="« Physician » se traduce como como « Médico », no como « Físico » 
 # «Physicians» se traduce como «Médicos».
 {\bphysicians\b}i
 valid msgstr="médicos"
-valid msgstr="médico" after="(ningún|cualquier)\s"
-valid !msgstr="físicos"
+valid msgstr="médico" after="ningún\s"
+valid msgstr="médico" after="cualquier\s"
+valid !msgstr="físicos?"
 hint="« Physicians » se traduce como como « Médicos », no como « Físicos » (falso amigo)"
 
 # «Plain» se traduce como «Sencillo».
 {\bplain\b}i
-valid msgstr="sencill(o|a)"
-valid msgstr="sin\sformato" after="texto"
-valid !msgstr="plan(o|a)"
+valid msgstr="sencill[oa]"
+valid msgstr="sin\sformato" after="texto\s"
+valid !msgstr="plan[oa]"
 hint="« Plain » se traduce como como « Sencillo », no como « Plano » (falso amigo)"
 
 # «Plains» se traduce como «Sencillos».
 {\bplains\b}i
-valid msgstr="sencill(o|a)s"
-valid !msgstr="plan(o|a)s"
+valid msgstr="sencill[oa]s"
+valid !msgstr="plan[oa]s?"
 hint="« Plains » se traduce como como « Sencillos », no como « Planos » (falso amigo)"
 
 # «Politic» se traduce como «Diplomático/prudente».
@@ -1527,14 +1594,14 @@ hint="« Produces » se traduce como como « Presente », no como « Produce » 
 
 # «Proper» se traduce como «Correcto».
 {\bproper\b}i
-valid msgstr="correct(o|a)"
-valid !msgstr="propi(o|a)"
+valid msgstr="correct[oa]"
+valid !msgstr="propi[oa]"
 hint="« Proper » se traduce como como « Correcto », no como « Propio » (falso amigo)"
 
 # «Propers» se traduce como «Correctos».
 {\bpropers\b}i
-valid msgstr="correct(o|a)s"
-valid !msgstr="propi(o|a)s"
+valid msgstr="correct[oa]s"
+valid !msgstr="propi[oa]s"
 hint="« Propers » se traduce como como « Correctos », no como « Propios » (falso amigo)"
 
 # «Properly» se traduce como «Correctamente/Del todo».
@@ -1555,9 +1622,11 @@ hint="« Qualification » se traduce como como « Título/diploma », no como «
 # «Qualifications» se traduce como «Títulos/diplomas».
 {\bqualifications\b}i
 valid msgstr="títulos"
-valid msgstr="título" after="(ningún|cualquier)\s"
+valid msgstr="título" after="ningún\s"
+valid msgstr="título" after="cualquier\s"
 valid msgstr="requisitos"
-valid msgstr="requisito" after="(ningún|cualquier)\s"
+valid msgstr="requisito" after="ningún\s"
+valid msgstr="requisito" after="cualquier\s"
 valid !msgstr="cualificaciones"
 hint="« Qualifications » se traduce como como « Títulos/diplomas », no como « Cualificaciones » (falso amigo)"
 
@@ -1582,26 +1651,27 @@ hint="« Question » se traduce como como « Pregunta », no como « Cuestión �
 # «Questions» se traduce como «Preguntas».
 {\bcuestions\b}i
 valid msgstr="preguntas"
-valid msgstr="pregunta" after="(ninguna|cualquier)\s"
+valid msgstr="pregunta" after="ninguna\s"
+valid msgstr="pregunta" after="cualquier\s"
 valid !msgstr="cuestiones"
 hint="« Questions » se traduce como como « Preguntas », no como « Cuestiones » (falso amigo)"
 
 # «Quiet» se traduce como «Calmado».
 {\bquiet\b}i
-valid msgstr="calmad(o|a)"
-valid msgstr="callad(o|a)"
+valid msgstr="calmad[oa]"
+valid msgstr="callad[oa]"
 valid msgstr="en\ssilencio"
-valid msgstr="tranquil(o|a)"
-valid !msgstr="quiet(o|a)"
+valid msgstr="tranquil[oa]"
+valid !msgstr="quiet[oa]"
 hint="« Quiet » se traduce como como « Calmado », no como « Quieto » (falso amigo)"
 
 # «Quiets» se traduce como «Calmados».
 {\bquiets\b}i
-valid msgstr="calmad(o|a)s"
-valid msgstr="callad(o|a)s"
+valid msgstr="calmad[oa]s"
+valid msgstr="callad[oa]s"
 valid msgstr="en\ssilencio"
-valid msgstr="tranquil(o|a)s"
-valid !msgstr="quiet(o|a)s"
+valid msgstr="tranquil[oa]s"
+valid !msgstr="quiet[oa]s"
 hint="« Quiets » se traduce como como « Calmados », no como « Quietos » (falso amigo)"
 
 # «Quit» se traduce como «Dejar/Abandonar».
@@ -1641,7 +1711,8 @@ hint="« Recipient » se traduce como como « Receptor », no como « Recipiente
 # «Recipients» se traduce como «Receptores».
 {\brecipients\b}i
 valid msgstr="receptores"
-valid msgstr="receptor" after="(ningún|cualquier)\s"
+valid msgstr="receptor" after="ningún\s"
+valid msgstr="receptor" after="cualquier\s"
 valid !msgstr="recipientes"
 hint="« Recipients » se traduce como como « Receptores », no como « Recipientes » (falso amigo)"
 
@@ -1680,7 +1751,8 @@ hint="« Recollection » se traduce como como « Recuerdo », no como « Recolec
 # «Recollections» se traduce como «Recuerdos».
 {\brecollections\b}i
 valid msgstr="recuerdos"
-valid msgstr="recuerdo" after="(ningún|cualquier)\s"
+valid msgstr="recuerdo" after="ningún\s"
+valid msgstr="recuerdo" after="cualquier\s"
 valid !msgstr="recolecciones"
 hint="« Recollections » se traduce como como « Recuerdos », no como « Recolecciones » (falso amigo)"
 
@@ -1700,7 +1772,8 @@ valid msgstr="apunt(e|a)"
 valid msgstr="grab(e|a)"
 valid msgstr="registr(e|a)"
 valid msgstr="registros"
-valid msgstr="registro" after="(ningún|cualquier)\s"
+valid msgstr="registro" after="ningún\s"
+valid msgstr="registro" after="cualquier\s"
 valid !msgstr="recuerd(e|a)"
 hint="« Records » se traduce como como « Anota/Apunta/Graba », no como « Recuerda » (falso amigo)"
 
@@ -1750,10 +1823,10 @@ hint="« Remove » se traduce como como « Quitar », no como « Remover » (fal
 # «Removed» se traduce como «Quitado».
 {\bremoved\b}i
 valid msgstr="quitad(o|o)"
-valid msgstr="eliminad(o|a)"
+valid msgstr="eliminad[oa]"
 valid msgstr="quitarse"
 valid msgstr="eliminarse"
-valid !msgstr="removid(o|a)"
+valid !msgstr="removid[oa]"
 hint="« Remove » se traduce como como « Quitar », no como « Remover » (falso amigo)"
 
 # «Removes» se traduce como «Quita».
@@ -1773,7 +1846,8 @@ hint="« Rent » se traduce como como « Alquiler », no como « Renta » (falso
 # «Rents» se traduce como «Alquileres».
 {\brents\b}i
 valid msgstr="alquileres"
-valid msgstr="alquiler" after="(ningún|cualquier)\s"
+valid msgstr="alquiler" after="ningún\s"
+valid msgstr="alquiler" after="cualquier\s"
 valid msgstr="alquil(a|e)s"
 valid !msgstr="rentas?"
 hint="« Rents » se traduce como como « Alquileres », no como « Rentas » (falso amigo)"
@@ -1786,16 +1860,17 @@ hint="« Report » se traduce como como « Informar », no como « Reportar » (
 
 # «Reported» se traduce como «Informado».
 {\breported\b}i
-valid msgstr="informad(o|a)"
+valid msgstr="informad[oa]"
 valid msgstr="informarse"
-valid !msgstr="reportad(o|a)"
+valid !msgstr="reportad[oa]"
 hint="« Reported » se traduce como como « Informado », no como « Reportado » (falso amigo)"
 
 # «Reports» se traduce como «Informa».
 {\breports\b}i
 valid msgstr="inform(a|e)"
 valid msgstr="informes"
-valid msgstr="informe" after="(ningún|cualquier)\s"
+valid msgstr="informe" after="ningún\s"
+valid msgstr="informe" after="cualquier\s"
 valid !msgstr="report(a|e)"
 hint="« Reporta » se traduce como como « Informe », no como « Reporte » (falso amigo)"
 
@@ -1807,9 +1882,9 @@ hint="« Resume » se traduce como como « Reanudar », no como « Resumen » (f
 
 # «Resumed» se traduce como «Reanudado».
 {\bresumed\b}i
-valid msgstr="reanudad(o|a)"
+valid msgstr="reanudad[oa]"
 valid msgstr="reanudarse"
-valid !msgstr="resumid(o|a)"
+valid !msgstr="resumid[oa]"
 hint="« Resumed » se traduce como como « Reanudado », no como « Resumido » (falso amigo)"
 
 # «Resumes» se traduce como «Reanuda».
@@ -1820,9 +1895,9 @@ hint="« Resumes » se traduce como como « Reanudas », no como « Resumes » (
 
 # «Sane» se traduce como «Cuerdo/Sensato».
 {\bsane\b}i
-valid msgstr="cuerd(o|a)"
-valid msgstr="sensat(o|a)"
-valid !msgstr="san(o|a)"
+valid msgstr="cuerd[oa]"
+valid msgstr="sensat[oa]"
+valid !msgstr="san[oa]"
 hint="« Sane » se traduce como como « Cuerdo/Sensato », no como « Sano » (falso amigo)"
 
 # «Sanity» se traduce como «Cordura/Juicio».
@@ -1835,44 +1910,46 @@ hint="« Sanity » se traduce como como « Cordura/juicio », no como « Sanidad
 
 # «Scholar» se traduce como «Erudito».
 {\bscholar\b}i
-valid msgstr="erudit(o|a)"
-valid msgstr="académic(o|a)"
+valid msgstr="erudit[oa]"
+valid msgstr="académic[oa]"
 valid !msgstr="escolar"
 hint="« Scholar » se traduce como como « Erudito », no como « Escolar » (falso amigo)"
 
 # «Scholars» se traduce como «Eruditos».
 {\bscholars\b}i
-valid msgstr="erudit(o|a)s"
-valid msgstr="erudito" after="(ningún|cualquier)\s"
-valid msgstr="académic(o|a)s"
-valid msgstr="académico" after="(ningún|cualquier)\s"
+valid msgstr="erudit[oa]s"
+valid msgstr="erudito" after="ningún\s"
+valid msgstr="erudito" after="cualquier\s"
+valid msgstr="académic[oa]s"
+valid msgstr="académico" after="ningún\s"
+valid msgstr="académico" after="cualquier\s"
 valid !msgstr="escolares"
 hint="« Scholars » se traduce como como « Eruditos », no como « Escolares » (falso amigo)"
 
 # «Sensible» se traduce como «Razonable/Sensato».
 {\bsensible\b}i
 valid msgstr="razonable"
-valid msgstr="sensat(o|a)"
+valid msgstr="sensat[oa]"
 valid !msgstr="sensible"
 hint="« Sensible » se traduce como como « Razonable/Sensato », no como « Sensible » (falso amigo)"
 
 # «Sensibles» se traduce como «Razonables/Sensatos».
 {\bsensibles\b}i
 valid msgstr="razonables"
-valid msgstr="sensat(o|a)s"
+valid msgstr="sensat[oa]s"
 valid !msgstr="sensibles"
 hint="« Sensibles » se traduce como como « Razonables/Sensatos », no como « Sensibles » (falso amigo)"
 
 # «Sensitive» se traduce como «Confidencial».
 {\bsensitive\b}i
 valid msgstr="confidencial"
-valid !msgstr="sensitiv(o|a)"
+valid !msgstr="sensitiv[oa]"
 hint="« Sensitive » se traduce como como « Confidencial », no como « Sensitivo » (falso amigo)"
 
 # «Sensitives» se traduce como «Confidenciales».
 {\bsensitives\b}i
 valid msgstr="confidenciales"
-valid !msgstr="sensitiv(o|a)s"
+valid !msgstr="sensitiv[oa]s"
 hint="« Sensitives » se traduce como como « Confidenciales », no como « Sensitivos » (falso amigo)"
 
 # «Silicon» se traduce como «Silicio».
@@ -1883,14 +1960,14 @@ hint="« Silicon » se traduce como como « Silicio », no como « Silicona » (
 
 # «Simple» se traduce como «Sencillo».
 {\bsimple\b}i
-valid msgstr="sencill(o|a)"
+valid msgstr="sencill[oa]"
 valid !msgstr="simple"
 hint="« Simple » se traduce como como « Sencillo », no como « Simple » (falso amigo)"
 
 # «Simples» se traduce como «Sencillos».
 {\bsimples\b}i
-valid msgstr="sencill(o|a)s"
-valid !msgstr="simples"
+valid msgstr="sencill[oa]s"
+valid !msgstr="simples?"
 hint="« Simples » se traduce como como « Sencillos », no como « Simples » (falso amigo)"
 
 # «Spade» se traduce como «Pala».
@@ -1902,30 +1979,35 @@ hint="« Spade » se traduce como como « Pala », no como « Espada » (falso a
 # «Spades» se traduce como «Palas».
 {\bspades\b}i
 valid msgstr="palas"
-valid msgstr="pala" after="(ninguna|cualquier)\s"
-valid !msgstr="espadas"
+valid msgstr="pala" after="ninguna\s"
+valid msgstr="pala" after="cualquier\s"
+valid !msgstr="espadas?"
 hint="« Spades » se traduce como como « Palas », no como « Espadas » (falso amigo)"
 
 # «Stranger» se traduce como «Forastero».
 {\bstranger\b}i
-valid msgstr="foraster(o|a)"
-valid msgstr="extrañ(o|a)"
-valid !msgstr="extranjer(o|a)"
+valid msgstr="foraster[oa]"
+valid msgstr="extrañ[oa]"
+valid !msgstr="extranjer[oa]"
 hint="« Stranger » se traduce como como « Forastero », no como « Extranjero » (falso amigo)"
 
 # «Strangers» se traduce como «Forasteros».
 {\bstrangers\b}i
-valid msgstr="foraster(o|a)s"
-valid msgstr="forastero" after="(ningún|cualquier)\s"
-valid msgstr="extrañ(o|a)s"
-valid msgstr="extraño" after="(ningún|cualquier)\s"
-valid !msgstr="extranjer(o|a)s"
+valid msgstr="foraster[oa]s"
+valid msgstr="forastero" after="ningún\s"
+valid msgstr="forastera" after="ninguna\s"
+valid msgstr="foraster[oa]" after="cualquier\s"
+valid msgstr="extrañ[oa]s"
+valid msgstr="extraño" after="ningún\s"
+valid msgstr="extraña" after="ninguna\s"
+valid msgstr="extrañ[oa]" after="cualquier\s"
+valid !msgstr="extranjer[oa]s?"
 hint="« Strangers » se traduce como como « Forasteros », no como « Extranjeros » (falso amigo)"
 
 # «Success» se traduce como «Éxito».
 {\bsuccess\b}i
 valid msgstr="éxito"
-valid msgstr="satisfactori(o|a)"
+valid msgstr="satisfactori[oa]"
 valid !msgstr="suceso"
 hint="« Success » se traduce como como « Éxito », no como « Suceso » (falso amigo)"
 
@@ -1938,22 +2020,23 @@ hint="« Suggestion » se traduce como como « Sugerencia », no como « Sugesti
 # «Suggestions» se traduce como «Sugerencias».
 {\bsuggestions\b}i
 valid msgstr="sugerencias"
-valid msgstr="sugerencia" after="(ninguna|cualquier)\s"
+valid msgstr="sugerencia" after="ninguna\s"
+valid msgstr="sugerencia" after="cualquier\s"
 valid !msgstr="sugestiones"
 hint="« Suggestions » se traduce como como « Sugerencias », no como « Sugestiones » (falso amigo)"
 
 # «Sympathetic» se traduce como «Compasivo».
 {\bsymphatetic\b}i
-valid msgstr="compasiv(o|a)"
-valid msgstr="comprensiv(o|a)"
-valid !msgstr="simpátic(o|a)"
+valid msgstr="compasiv[oa]"
+valid msgstr="comprensiv[oa]"
+valid !msgstr="simpátic[oa]"
 hint="« Sympathetic » se traduce como como « Compasivo », no como « Simpático » (falso amigo)"
 
 # «Sympathetics» se traduce como «Compasivos».
 {\bsymphatetics\b}i
-valid msgstr="compasiv(o|a)s"
-valid msgstr="comprensiv(o|a)s"
-valid !msgstr="simpátic(o|a)s"
+valid msgstr="compasiv[oa]s"
+valid msgstr="comprensiv[oa]s"
+valid !msgstr="simpátic[oa]s?"
 hint="« Sympathetics » se traduce como como « Compasivos », no como « Simpáticos » (falso amigo)"
 
 # «Sympathy» se traduce como «Compasión».
@@ -1979,10 +2062,12 @@ hint="« Target » se traduce como como « Blanco », no como « Tarjeta » (fal
 # «Targets» se traduce como «Blancos».
 {\btargets\b}i
 valid msgstr="blancos"
-valid msgstr="blanco" after="(ningún|cualquier)\s"
+valid msgstr="blanco" after="ningún\s"
+valid msgstr="blanco" after="cualquier\s"
 valid msgstr="objetivos"
-valid msgstr="objetivo" after="(ningún|cualquier)\s"
-valid !msgstr="tarjetas"
+valid msgstr="objetivo" after="ningún\s"
+valid msgstr="objetivo" after="cualquier\s"
+valid !msgstr="tarjetas?"
 hint="« Targets » se traduce como como « Blancos », no como « Tarjetas » (falso amigo)"
 
 # «Tenant» se traduce como «Inquilino».
@@ -1993,23 +2078,25 @@ hint="« Tenant » se traduce como como « Inquilino », no como « Teniente » 
 
 # «Tenants» se traduce como «Inquilinos».
 {\btenants\b}i
-valid msgstr="inquilinos"
-valid msgstr="inquilino" after="(ningún|cualquier)\s"
+valid msgstr="inquilin[oa]s"
+valid msgstr="inquilino" after="ningún\s"
+valid msgstr="inquilina" after="ninguna\s"
+valid msgstr="inquilin[oa]" after="cualquier\s"
 valid !msgstr="tenientes"
 hint="« Tenants » se traduce como como « Inquilinos », no como « Tenientes » (falso amigo)"
 
 # «Terrific» se traduce como «Terrible/Tremendo».
 {\bterrific\b}i
 valid msgstr="terrible"
-valid msgstr="tremend(o|a)"
-valid !msgstr="terrorífic(o|a)"
+valid msgstr="tremend[oa]"
+valid !msgstr="terrorífic[oa]"
 hint="« Terrific » se traduce como como « Terrible/Tremendo », no como « Terrorífico » (falso amigo)"
 
 # «Terrifics» se traduce como «Terribles/Tremendos».
 {\bterrifics\b}i
 valid msgstr="terribles"
-valid msgstr="tremend(o|a)s"
-valid !msgstr="terrorífic(o|a)s"
+valid msgstr="tremend[oa]s"
+valid !msgstr="terrorífic[oa]s"
 hint="« Terrifics » se traduce como como « Terribles/Tremendos », no como « Terrorífico » (falso amigo)"
 
 # «Topic» se traduce como «Tema».
@@ -2021,7 +2108,8 @@ hint="« Topic » se traduce como como « Tema », no como « Tópico » (falso 
 # «Topics» se traduce como «Temas».
 {\btopic\b}i
 valid msgstr="temas"
-valid msgstr="tema" after="(ningún|cualquier)\s"
+valid msgstr="tema" after="ningún\s"
+valid msgstr="tema" after="cualquier\s"
 valid !msgstr="tópicos"
 hint="« Topics » se traduce como como « Temas », no como « Tópicos » (falso amigo)"
 
@@ -2029,7 +2117,7 @@ hint="« Topics » se traduce como como « Temas », no como « Tópicos » (fal
 {\btramp\b}i
 valid msgstr="vagabundo"
 valid !msgstr="trampa"
-valid !msgstr="tramper(o|a)"
+valid !msgstr="tramper[oa]"
 hint="« Tramp » se traduce como como « Vagabundo », no como « Trampa/Trampero » (falso amigo)"
 
 # «Trascend» se traduce como «Sobrepasar/Rebasar».
@@ -2064,15 +2152,15 @@ hint="« Ulteriors » se traduce como como « Ocultos », no como « Ulteriores 
 # «Ultimate» se traduce como «Lo más reciente».
 {\bultimate\b}i
 valid msgstr="lo\smás\sreciente"
-valid msgstr="definitiv(o|a)"
-valid !msgstr="últim(o|a)"
+valid msgstr="definitiv[oa]"
+valid !msgstr="últim[oa]"
 hint="« Ultimate » se traduce como como « Lo más reciente », no como « Último » (falso amigo)"
 
 # «Ultimates» se traduce como «Los más recientes».
 {\bultimates\b}i
 valid msgstr="los\smás\srecientes"
-valid msgstr="definitiv(o|a)s"
-valid !msgstr="últim(o|a)s"
+valid msgstr="definitiv[oa]s"
+valid !msgstr="últim[oa]s?"
 hint="« Ultimates » se traduce como como « Los más recientes », no como « Últimos » (falso amigo)"
 
 # «Ultimately» se traduce como «Finalmente»
@@ -2090,16 +2178,17 @@ hint="« Vase » se traduce como como « Jarrón », no como « Vaso » (falso a
 # «Vases» se traduce como «Jarrones».
 {\bvases\b}i
 valid msgstr="jarrones"
-valid msgstr="jarrón" after="(ningún|cualquier)\s"
-valid !msgstr="vasos"
+valid msgstr="jarrón" after="ningún\s"
+valid msgstr="jarrón" after="cualquier\s"
+valid !msgstr="vasos?"
 hint="« Vases » se traduce como como « Jarrones », no como « Vasos » (falso amigo)"
 
 # «Vicious» se traduce como «Brutal/Feroz».
 {\bvicious\b}i
 valid msgstr="brutal"
 valid msgstr="feroz"
-valid msgstr="malicios(o|a)"
-valid !msgstr="vicios(o|a)"
+valid msgstr="malicios[oa]"
+valid !msgstr="vicios[oa]"
 hint="« Vicious » se traduce como como « Brutal/Feroz », no como « Vicioso » (falso amigo)"
 
 # «Virtually» se traduce como «Prácticamente».
@@ -2119,7 +2208,7 @@ hint="« Voluble » se traduce como como « Locuaz/Hablador », no como « Volub
 {\bvolubles\b}i
 valid msgstr="locuaces"
 valid msgstr="habladores"
-valid !msgstr="volubles"
+valid !msgstr="volubles?"
 hint="« Volubles » se traduce como como « Locuaces/Habladores », no como « Volubles » (falso amigo)"
 
 # «Volubility» se traduce como «Locuacidad».

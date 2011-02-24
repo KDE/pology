@@ -109,7 +109,7 @@ hint="« Spacebar » se traduce como como « Barra espaciadora » (regla de trad
 
 # «New» se traduce como «Nuevo».
 {^New$}
-valid msgstr="Nuev(o|a)"
+valid msgstr="Nuev[oa]"
 hint="« New » se traduce como como « Nuevo » (regla de traducción de menús de KDE)"
 
 # «New file» se traduce como «Nuevo archivo».
@@ -400,35 +400,39 @@ hint="« Frame » se traduce como como « Marco/Fotograma » (regla de traducci�
 {\bframes\b}i
 valid msgstr="marcos"
 valid msgstr="fotogramas"
-valid msgstr="marco" after="(cualquier|ningún)\s"
-valid msgstr="fotograma" after="(cualquier|ningún)\s"
+valid msgstr="marco" after="cualquier\s"
+valid msgstr="marco" after="ningún\s"
+valid msgstr="fotograma" after="cualquier\s"
+valid msgstr="fotograma" after="ningún\s"
 hint="« Frames » se traduce como como « Marco/Fotogramas » (regla de traducción de elementos gráficos)"
 
 # «Menu item» se traduce como «Opción de menú».
-{\bmenu\s\item\b}i
+{\bmenu\sitem\b}i
 valid msgstr="opción.+?del?\smenú"
 hint="« Menu item » se traduce como como « Opción de menú » (regla de traducción de elementos gráficos)"
 
 # «Menu items» se traduce como «Opciones de menú».
-{\bmenu\s\items\b}i
+{\bmenu\sitems\b}i
 valid msgstr="opciones.+?del?\smenú"
-valid msgstr="opción.+?del?\smenú" after="(cualquier|ninguna)\s"
+valid msgstr="opción.+?del?\smenú" after="cualquier\s"
+valid msgstr="opción.+?del?\smenú" after="ninguna\s"
 hint="« Menu items » se traduce como como « Opciones de menú » (regla de traducción de elementos gráficos)"
 
 # «Quick launch» se traduce como «Inicio rápido».
-{\bquick\s\launch\b}i
+{\bquick\slaunch\b}i
 valid msgstr="inicio\srápido"
 hint="« Quick launch » se traduce como como « Inicio rápido » (regla de traducción de elementos gráficos)"
  
 # «Side bar» se traduce como «Panel lateral».
-{\bside\s?\barb}i
+{\bside\s?bar\b}i
 valid msgstr="panel\slateral"
 hint="« Side bar » se traduce como como « Panel lateral » (regla de traducción de elementos gráficos)"
  
 # «Side bars» se traduce como «Paneles laterales».
-{\bside\s?\barsb}i
+{\bside\s?bars\b}i
 valid msgstr="paneles\slaterales"
-valid msgstr="panel\slateral" after="(cualquier|ningún)/s"
+valid msgstr="panel\slateral" after="cualquier/s"
+valid msgstr="panel\slateral" after="ningún/s"
 hint="« Side bars » se traduce como como « Paneles laterales » (regla de traducción de elementos gráficos)"
 
 # End of rule file

@@ -5,9 +5,6 @@
 
 include file="filter.include"
 
-# Remove accelerators inside words.
-# addFilterRegex match="\&" on="pmsgid,pmsgstr"
-
 [(?u)\b(\w+)\s+\1\b]i
 hint="Hay una palabra consecutiva repetida en el párrafo"
 
