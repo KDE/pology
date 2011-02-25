@@ -450,6 +450,7 @@ valid after="konsolekalendar.+" cat="konsolekalendar"
 valid after="~" before="~" cat="quanta"
 valid after="(I18n|type).+" cat="quanta"
 valid after="\s(1\/2|2|7\/16|7|3\/4|4)" cat="ppdtranslations4"
+valid after="AutoAdvance=1" cat="kdiff3"
 valid after="8|12|16" cat="kstars_indi" # docmessages
 valid after="KSpeech\ssay\s.*" cat="jovie" # docmessages
 valid after="\sid\=.*" cat="kopete_chatstyle" # docmessages
@@ -459,6 +460,7 @@ valid after="^~.+" cat="calligra,koffice" # docmessages
 valid after="~" # docmessages
 valid after="TFAQ" cat="glossary_kdeprintingglossary" # docmessages
 valid after="(GET|POST).*" cat="kdeprint_cups-config" # docmessages
+valid before="AutoAdvance=1" cat="kdiff3"
 valid before="GET|POST" cat="kdeprint_cups-config" # docmessages
 valid cat="kcontrol_mouse" # docmessages
 valid cat="kopete_pipes" # docmessages
