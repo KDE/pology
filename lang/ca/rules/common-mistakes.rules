@@ -65,6 +65,7 @@ hint="«devant» (i derivats) s'ha de substituir per «davant» (error freqüent
 
 # «diferent a» ha de ser «diferent de».
 [\bdiferents?\sa\b]i
+valid msgstr="diferents a un dispositiu" cat="phonon-xine"
 valid msgstr="diferent a través" cat="kstars_indi" #docmessages
 hint="«diferent a» s'ha de substituir per «diferent de» (error freqüent)"
 

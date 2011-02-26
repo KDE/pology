@@ -491,22 +491,13 @@ valid msgstr="mal\sde\sventre"
 valid !msgstr="grip"
 hint="«Gripe» es tradueix per «Mal de ventre», no per «Grip» (fals amic)"
 
+### Regla desactivada: molts falsos positius
 # «Home» es tradueix per «Casa o inici».
-{\bhome\b}i
-valid msgstr="casa"
-valid msgstr="inici"
-valid msgstr="home" before="\senvironment\svariable"
-valid msgstr="home" cat="kcron" #docmessage
-valid msgstr="home" cat="flow_credits,kivio_credits" after="where\sopen\ssource\sis\sat\s" #docmessage
-valid msgstr="home" cat="glossary" #docmessage
-valid msgstr="home" cat="kleopatra" after="gnupg"
-valid msgstr="home" cat="kleopatra" after="gnupg\s"
-valid msgstr="home" cat="kompare" #docmessage
-valid msgstr="home" cat="partitionmanager_appendix" #docmessage
-valid msgstr="home" cat="partitionmanager_installoshowto" #docmessage
-valid msgstr="home" cat="quanta"
-valid !msgstr="home"
-hint="«Home» es tradueix per «Casa», no per «Home» (fals amic)"
+#{\bhome\b}i
+#valid msgstr="casa"
+#valid msgstr="inici"
+#valid !msgstr="home"
+#hint="«Home» es tradueix per «Casa», no per «Home» (fals amic)"
 
 # «Idiom» es tradueix per «Frase feta».
 {\bidioms?\b}i

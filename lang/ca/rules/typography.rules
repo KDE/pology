@@ -16,6 +16,7 @@ valid after="raphae"
 valid after="michae"
 valid after="\<email>"
 valid after="return\s" cat="katepart4"
+valid before="unak@kde"
 hint="La l·l geminada porta un punt volat (no un punt normal) (tipografia)"
 
 include file="filter.include"
@@ -69,8 +70,11 @@ valid after="font-family|font-size|font-style|font-weight|text-align|text-decora
 valid after="white-space" # CSS
 valid after="~"
 valid after="mètode\s" cat="cervisia"
+valid after="\[" cat="cervisia,kstars_indi"
 valid after="(TEX|BIB|BST)INPUTS\s.+" cat="kile"
 valid after="fontdir\/" cat="kdeprint_cups-config"
+valid after="A-Za-z_.*" cat="lokalize,kate_highlighting"
+valid after="ordinador\["
 valid before="~"
 valid ctx="List of words.*"
 valid ctx="Numbers and characters"
@@ -98,6 +102,7 @@ valid after="&amp;[0-9a-zA-Z\.\-]+"
 valid after="\*\.[a-zA-Z]+" before="\*\.[a-zA-Z]+" # List of extension suffix
 valid after="center|empty|normal|pt|px|pre-wrap|\d+|[a-f]{1,2}" # CSS
 valid after="bold" before="'"   # CSS
+valid after="A-Za-z_.*" cat="lokalize"
 valid before="~"
 valid ctx="Numbers and characters"
 valid ctx="CSV separator" 
@@ -105,6 +110,7 @@ valid ctx="unit synonyms for matching user input"
 valid ctx="Query"
 valid cat="tables,kspread"
 valid span=";$"
+valid span=";*" cat="kfilereplace"
 valid span=";[eN]" cat="kleopatra" # docmessages
 hint="S'ha de posar un espai després del signe de punt i coma (tipografia)"
 
@@ -146,6 +152,7 @@ valid ctx="Numbers and characters"
 valid ctx="Query"
 valid comment="Tag\:\suserinput" cat="kioslave_nepomuksearch" # docmessages
 valid after="i" cat="lokalize"
+valid after="seleccioneu.*" cat="koffice"
 hint="No s'ha de posar cap espai abans del signe d'interrogació (tipografia)"
 
 [\?\S]
@@ -164,6 +171,7 @@ valid span="\?\:" cat="quanta"
 valid after="~"
 valid after="i\s" cat="lokalize"
 valid after="\*" cat="adblock"
+valid after="seleccioneu\s.*" cat="koffice"
 hint="S'ha de posar un espai després del signe d'interrogació (tipografia)"
 
 [\¿.*?\?\.]
@@ -193,14 +201,16 @@ valid ctx="Query"
 valid ctx="CSV separator"
 valid after="\d+\s?" span="\,\d"
 valid after="0123456789\-\+"
+valid after="(\-|\+)?[0-9]*"
 valid after="DANKA_P450.+" cat="kdeprint_cups-config" # docmessages
+valid after="~" span="\,\." cat="ksystemlog,kig"
 valid span="\,$"
 valid span="\,\?"
 valid span="\,\«"
 valid span="\,~"
 valid span="\,\." cat="ktimetracker"
 valid span="\,1" cat="kate_regular-expressions"
-valid span="\,\}" cat="kile"
+valid span="\,\}" cat="kdevgrepview,kile"
 hint="S'ha de posar un espai després del signe de coma (tipografia)"
 
 [\»]
@@ -276,17 +286,18 @@ valid ctx="unit synonyms for matching user input"
 valid msgid="CREDIT_FOR_TRANSLATORS"
 valid before="D?COPserver"
 valid before="\w{1,16}\b" # Extensions
-valid after="~" cat="cupsdconf4"
+valid after="~" cat="cupsdconf4,katepart4,kfileshare,kppp,kexi"
 valid after="XXX"
 valid after="\.\." 
 valid after="\*" 
+valid after="\(" 
 valid span="Last\.Fm"
 valid span="\.\." before="\."
 valid span="\.\." after="\."
 valid span="\.$"
 valid span="KDE\se.V."
 valid span="\.~"
-valid span="\.h" cat="desktop_kdebase_kate,desktop_kdesdk,kateopenheader"
+valid span="\.(h|c)" cat="desktop_kdebase_kate,desktop_kdesdk,kateopenheader"
 hint="S'ha de posar un espai després d'un signe de punt (tipografia)"
 
 [\.\)]
@@ -312,7 +323,7 @@ hint="S'ha detectat un caràcter incorrecte de «retorn de carro» (tipografia)"
 [\(]
 valid before=".*?[\)\(\{\[\«\"\'~]"
 valid before="\s(esquerre|dret)" cat="kile"
-valid after="\%1" cat="kalgebra"
+valid after="~" cat="kalgebra"
 valid after="\.\s" cat="kstars"
 valid after="QPixmap" cat="kommander"
 valid ctx="unction name in function prototype"
@@ -375,10 +386,13 @@ hint="Cal apostrofar «la» davant de vocal (o h), excepte i,u,hi,hu àtones (ti
 [\be\b]
 valid before="\:|\-|/|\.|\^"
 valid after="\-|\~|\{|\%|base\s"
+valid after="\[(sub|i)\]" cat="kalzium"
 valid after="(Malësi|Vielha|Montes)\s" cat="kgeography"
+valid after="seqüència.+" cat="digikam"
+valid after="\(" before="\)" cat="kio4"
+valid after="\(«" before="~" cat="kate"
 valid ctx="Exponential"
 valid cat="tables,kspread"
-valid after="seqüència.+" cat="digikam"
 hint="«e» sola és un error (tipografia)"
 
 # «u» sola és un error.
@@ -386,12 +400,13 @@ hint="«e» sola és un error (tipografia)"
 valid before="\:|\-|\s\(massa\)|\sper\scent|\s\(USA\)|\."
 valid after="\-|\~|\{|\%|\+|virtual\s|[Pp]àgina\s|Complement\sa\s"
 valid after="\%\d\s" cat="plasma_engine_kalzium"
+valid after="més\s" cat="kcachegrind_qt"
 valid after="(filtre|en|regions)\s" cat="kstars_colorandtemp" # docmessages
 valid after="prioritats\s.+" cat="korganizer" # docmessages
 valid after="di\(" cat="kate_regular-expressions" # docmessages
 valid after="multiplicitat\sd\'" cat="umbrello_uml_basics" # docmessages
 valid after="accelerador.*" cat="tables_a11y,stage_a11y,kspread_a11y,kpresenter_a11y" # docmessages
-valid cat="kalzium,plasma_applet_Molmasscalculator,kgoldrunner,kubrick,kfile_exr"
+valid cat="kalzium,plasma_engine_kalzium,plasma_applet_Molmasscalculator,kgoldrunner,kubrick,kfile_exr"
 valid cat="libincidenceeditors,tables,kspread,kbackgammon"
 valid ctx="Undefined"
 valid ctx="number 1"
@@ -439,7 +454,9 @@ hint="Un apòstrof final és un error, excepte a ordres de terminal (tipografia)
 # Les cometes anglosaxones «"» s'han de substituir per les cometes llatines «»
 # En un teclat català, s'obtenen amb AltGr+z i AltGr+x (ull amb les ordres!).
 [\"]
+valid after="~"
 valid after="~.+" cat="amarokcollectionscanner_qt"
+valid after="00" cat="marble"
 valid after="3\.5|5\.25|\s00\.0|\s00"
 valid after="«.+" before=".+»"
 valid after="^" before="$" cat="konsolekalendar,ktimetracker,calligra,calligrafilters,krossmoduletables,koffice,kofficefilters,krossmodulekspread"
@@ -447,6 +464,7 @@ valid after="(BOOL2STRING|find|CHARTOASCII|DECSEX|ARABIC|DSUM|DAVERAGE|DCOUNTA?|
 valid after="caràcters\s.?" cat="kexi"
 valid after="query\:.*" cat="kexi"
 valid after="konsolekalendar.+" cat="konsolekalendar"
+valid after="~\." cat="katepart4"
 valid after="~" before="~" cat="quanta"
 valid after="(I18n|type).+" cat="quanta"
 valid after="\s(1\/2|2|7\/16|7|3\/4|4)" cat="ppdtranslations4"
@@ -458,10 +476,13 @@ valid after="import\s.*" cat="cervisia" # docmessages
 valid after="(comment|attribute|version).*" cat="kate_highlighting" # docmessages
 valid after="^~.+" cat="calligra,koffice" # docmessages
 valid after="~" # docmessages
+valid after="XRenderSetPictureFilter\("
 valid after="TFAQ" cat="glossary_kdeprintingglossary" # docmessages
 valid after="(GET|POST).*" cat="kdeprint_cups-config" # docmessages
 valid before="AutoAdvance=1" cat="kdiff3"
 valid before="GET|POST" cat="kdeprint_cups-config" # docmessages
+valid before="\)\s?~" cat="kcmkwincompositing"
+valid cat="plasma_applet_kdeobservatory"
 valid cat="kcontrol_mouse" # docmessages
 valid cat="kopete_pipes" # docmessages
 valid ctx="Name" cat="desktop_extragear-graphics_kipi-plugins"
@@ -471,7 +492,7 @@ valid ctx="Qoute character option" cat="kaddressbook"
 valid ctx="angle unit symbol"
 valid ctx="unit synonyms for matching user input"
 valid comment="Tag\:\s(entry|para)" cat="quanta_extending-quanta" # docmessages
-valid comment="Tag\:\sscreen" cat="kdeprint_cups-config" # docmessages
+valid comment="Tag\:\sscreen" cat="kdeprint_cups-config,kjs_man-kjs.1" # docmessages
 hint="Cal utilitzar les cometes llatines «» (AltGr+z/x) en lloc de les anglosaxones (tipografia)"
 
 # End of rule file
