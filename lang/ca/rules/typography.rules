@@ -152,7 +152,7 @@ valid ctx="Numbers and characters"
 valid ctx="Query"
 valid comment="Tag\:\suserinput" cat="kioslave_nepomuksearch" # docmessages
 valid after="i" cat="lokalize"
-valid after="seleccioneu.*" cat="koffice"
+valid after="seleccioneu.*" cat="koffice,calligra"
 hint="No s'ha de posar cap espai abans del signe d'interrogació (tipografia)"
 
 [\?\S]
@@ -171,7 +171,7 @@ valid span="\?\:" cat="quanta"
 valid after="~"
 valid after="i\s" cat="lokalize"
 valid after="\*" cat="adblock"
-valid after="seleccioneu\s.*" cat="koffice"
+valid after="seleccioneu\s.*" cat="koffice,calligra"
 hint="S'ha de posar un espai després del signe d'interrogació (tipografia)"
 
 [\¿.*?\?\.]
@@ -245,7 +245,7 @@ hint="No s'ha de posar més d'un espai consecutiu (tipografia)"
 valid before="\w"
 valid before="$"
 valid before=":m"
-valid before="\{(APPNAME|AUTHOR|album|title|dest)"
+valid before="\{(APPNAME|AUTHOR|album|title|dest|campa|\.)"
 valid before="\s"
 valid before="~" cat="krecipes,krusader"
 valid after="\,"
@@ -265,6 +265,7 @@ valid before="adiumMessageStyle"
 valid before="cvsignore"
 valid before="\.\." cat="kate_highlighting,quanta_extending-quanta" # docmessages
 valid before="%1" cat="kxsldbg"
+valid after="~" comment="tipoftheday" cat="digikam"
 valid after="\:"
 valid after="exec"
 valid after="gdbserver"
@@ -286,7 +287,7 @@ valid ctx="unit synonyms for matching user input"
 valid msgid="CREDIT_FOR_TRANSLATORS"
 valid before="D?COPserver"
 valid before="\w{1,16}\b" # Extensions
-valid after="~" cat="cupsdconf4,katepart4,kfileshare,kppp,kexi"
+valid after="~" cat="cupsdconf4,katepart4,kfileshare,kppp,kexi,krusader"
 valid after="XXX"
 valid after="\.\." 
 valid after="\*" 
@@ -298,11 +299,13 @@ valid span="\.$"
 valid span="KDE\se.V."
 valid span="\.~"
 valid span="\.(h|c)" cat="desktop_kdebase_kate,desktop_kdesdk,kateopenheader"
+valid span="\.\*" cat="kdiff3,kdeprint4"
 hint="S'ha de posar un espai després d'un signe de punt (tipografia)"
 
 [\.\)]
 valid after="\.\."
 valid after="S\.u\.S\.E"
+valid after="dim" cat="kipiplugin_batchprocessimages"
 valid after="\." cat="krusader"
 valid before="\$" cat="quanta"
 valid cat="tables,kspread"
@@ -416,6 +419,7 @@ hint="«u» sola és un error (tipografia)"
 [`]
 valid after="Teo" cat="amarok"
 valid after="(Cometes|tabulació)\s.+" cat="kile"
+valid after="PREFIX=|~" cat="amarok"
 valid after="esperava\s`?" cat="kdevcpp"
 valid after="CONSOLEOWNER.+" cat="kcontrol_mouse" # docmessages
 valid cat="kdecalendarsystems"
@@ -469,6 +473,8 @@ valid after="~" before="~" cat="quanta"
 valid after="(I18n|type).+" cat="quanta"
 valid after="\s(1\/2|2|7\/16|7|3\/4|4)" cat="ppdtranslations4"
 valid after="AutoAdvance=1" cat="kdiff3"
+valid after="x(5|6|7|8|10|12|18|20|24|30)" cat="digikam"
+valid after="install" cat="amarok"
 valid after="8|12|16" cat="kstars_indi" # docmessages
 valid after="KSpeech\ssay\s.*" cat="jovie" # docmessages
 valid after="\sid\=.*" cat="kopete_chatstyle" # docmessages
@@ -479,6 +485,7 @@ valid after="~" # docmessages
 valid after="XRenderSetPictureFilter\("
 valid after="TFAQ" cat="glossary_kdeprintingglossary" # docmessages
 valid after="(GET|POST).*" cat="kdeprint_cups-config" # docmessages
+valid before="make" cat="amarok"
 valid before="AutoAdvance=1" cat="kdiff3"
 valid before="GET|POST" cat="kdeprint_cups-config" # docmessages
 valid before="\)\s?~" cat="kcmkwincompositing"
