@@ -249,7 +249,8 @@ hint="Utiliser la forme « en suivant votre PATH »"
 valid before=" équestre| de randonnée| de bézier"
 valid cat="klines"
 valid cat="kgoldrunner"
-hint="Traduisez « path » par « emplacement »"
+valid cat="koffice"
+hint="Traduisez « path » par « emplacement » dans le contexte de dossiers/fichiers"
 
 [désinitialiser]i
 hint="Utiliser « libérer » dans le cas d'un périphérique (mot « umount » en anglais)"
