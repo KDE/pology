@@ -44,18 +44,18 @@ def remove_paired_capital_words (msg, cat):
         ents_trans = set (_valid_capital_word.findall(msg.msgstr[i]))
         # Joins both set of words an remove it from the message.
         for ent in ents_trans.union(ents_orig):
-             msg.msgstr[i] = msg.msgstr[i].replace(ent, "")
+             msg.msgstr[i] = msg.msgstr[i].replace(ent, "~")
           
     # The remainning words could have wrong capitalization in the translated message.
 
     return 0
     
-_ent_parameter = re.compile("%\d")
+_ent_parameter = re.compile("(?u)%\d%?|\$\{.+?\}|\$\w+|%(\d\$)?[ds]|%\|.+?\|")
 
 def remove_paired_parameters (msg, cat):
     """
-    Remove all parameters from original, and from translation
-    all that are also found in original [type F4A hook].
+    Remove format strings from the original text, and from translation
+    all that are also found in the original text [type F4A hook].
 
     @return: number of errors
     """
@@ -63,17 +63,22 @@ def remove_paired_parameters (msg, cat):
     ents_orig = set()
     ents_orig.update(_ent_parameter.findall(msg.msgid))
     for ent in ents_orig:
-        msg.msgid = msg.msgid.replace(ent, "")
+        msg.msgid = msg.msgid.replace(ent, "~")
 
     if msg.msgid_plural:
-        ents_orig.update(_ent_parameter.findall(msg.msgid_plural))
-        for ent in ents_orig:
-            msg.msgid_plural = msg.msgid_plural.replace(ent, "")
+        ents_orig_plural = set()
+        ents_orig_plural.update(_ent_parameter.findall(msg.msgid_plural))
+        for ent in ents_orig_plural:
+            msg.msgid_plural = msg.msgid_plural.replace(ent, "~")
 
     for i in range(len(msg.msgstr)):
         ents_trans = set(_ent_parameter.findall(msg.msgstr[i]))
-        for ent in ents_trans.intersection(ents_orig):
-            msg.msgstr[i] = msg.msgstr[i].replace(ent, "")
+        if i == 0:
+            for ent in ents_trans.intersection(ents_orig):
+                msg.msgstr[i] = msg.msgstr[i].replace(ent, "~")
+        else:
+            for ent in ents_trans.intersection(ents_orig_plural):
+                msg.msgstr[i] = msg.msgstr[i].replace(ent, "~")
 
     return 0
 
@@ -81,7 +86,8 @@ def remove_paired_parameters (msg, cat):
 _auto_comment_tag = ["trans_comment", "literallayout", "option", "programlisting", "othercredit", "author", "email", "holder", 
     "surname", "personname", "affiliation", "address", "sect1", "chapter", "chapterinfo", "date", "command", "option", 
     "refentrytitle", "refentryinfo", "refname", "synopsis", "literal", "varname", "term", "glossterm", 
-    "filename", "entry", "envar", "userinput", "cmdsynopsis", "releaseinfo", "language", "Name"]
+    "filename", "entry", "envar", "userinput", "cmdsynopsis", "releaseinfo", "language", "Name", 
+    "City", "Region", "unit", "Query"]
 
 def remove_tags_without_translation (msg, cat):
     """

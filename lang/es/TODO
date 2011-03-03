@@ -4,10 +4,6 @@
 - No se escribe en mayúscula la primera letra después de abrir paréntesis 
 (excepto en el caso de que sea una oración completa, que debería llevar punto 
 al final, dentro del paréntesis).
-- No aplicar la regla de obligatoriedad de espacio después 
-de un punto en el caso que siga un nombre de archivo 
-(archivo oculto o ejecución de orden).
-(De momento ya está hecho para algunos casos frecuentes).
 - Comprobar palabras en mayúsculas que no figuren en un diccionario de 
 nombres propios, cuando no sigan a principio de un párrafo, punto, 
 dos puntos, cierre de interrogación o admiración, comillas o etiqueta XML.
@@ -38,6 +34,7 @@ equipos que resulten aplicables y de interés para nosotros:
     - OpenTranslation
     - ORCA
     - Ubuntu
+- Revisar documentación de la web «Wikilengua»
 - Detección del uso inadecuado del gerundio.
 - Laismo, leismo y loismo.
 - Queismo, dequeismo.
@@ -47,3 +44,5 @@ equipos que resulten aplicables y de interés para nosotros:
 - Buscar (principalmente en la Wikipedia y Wiktionary) mas glosarios temáticos.
 - Generar un glosario automáticamente mediante poterminology de translate-toolkit.
 
+4.- Revisión gramatical.
+- Incorporar la revisón gramatical de «languaje tool» con «posieve check-grammar».

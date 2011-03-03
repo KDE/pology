@@ -96,7 +96,7 @@ def test_if_not_translated (msg, cat):
             dict_local = A.Aspell()
             wordList = split.proper_words(msgid, markup=True, accels=['&'])
             for word in wordList:
-                if dict_en.check(str(word)) and not dict_local.check(str(word)):
+                if dict_en.check(repr(word)) and not dict_local.check(repr(word)):
                     dict_en.close()
                     dict_local.close()
                     return [("msgstr", 0, [(0, 0, None)])]

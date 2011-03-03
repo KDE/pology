@@ -25,7 +25,7 @@ hint="No utilice expresiones del tipo «las ciudadanas y los ciudadanos » (erro
 hint="No utilice la arroba para evitar el género, p.ej. «ciudadan@s» (error frecuente)"
 
 # No utilizar el guión para separar el prefijo de la palabra principal
-[(?u)\b(auto|bi|de|des|hiper|in|macro|meta|micro|mini|mono|multi|pos|post|pre|re|sobre|sub|super|tri)\-[a-záéíóúñç]{3,}?\b]i
+[(?u)\b(auto|bi|de|des|hiper|in|macro|meta|micro|mini|mono|multi|pos|post|pre|re|sobre|sub|super|tele|tri)\-[a-záéíóúñç]{3,}?\b]i
 hint="No utilice el guión para separar el prefijo de la palabra principal, p.ej. «sub-menú» (error frecuente)"
 
 # «¿Adonde...» se escribe como «¿Adónde...».
@@ -563,7 +563,7 @@ hint="« De acuerdo a » se escribe como « De acuerdo con » (error frecuente: 
 
 # «De arriba a abajo» se escribe como «De arriba abajo».
 [\bde\sarriba\sa\sabajo\b]i
-hint="« De arriba a abajo » se escribe como « De arriba a abajo » (error frecuente: solecismo)"
+hint="« De arriba a abajo » se escribe como « De arriba abajo » (error frecuente: solecismo)"
 
 # «De conformidad a» se escribe como «De conformidad con».
 [\bde\sconformidad\sa\b]i

@@ -44,21 +44,21 @@ hint="Existe una entidad en el texto original que no figura en la traducción"
 
 addFilterHook name="es:remove_subs/remove_paired_capital_words" on="msg"
 
-[(?u)[,;\:]\s+[A-ZÑÇ]\w*]
+[(?u)[,;\:\(]\s+[A-ZÑÇ]\w*]
 valid ctx="TRANSLATORS"
 valid ctx="trans_comment"
 valid msgid="TRANSLATORS"
 valid msgid="^$"
 valid after="\&[\w\d\-_]+;"
-hint="Utilice minúsculas después de coma, punto y coma o dos puntos"
+hint="Utilice minúsculas después de coma, punto y coma, dos puntos o apertura de paréntesis"
 
 addFilterHook name="remove/remove-fmtdirs-msg-tick~'~'" on="msg"
 #addFilterHook name="es:remove_subs/remove_paired_parameters" on="msg"
 
-[\D%([ +-]?\d*\.?\d*[a-z]|\(.*?\)|L?\d{1,2})]
+[(?<![\w\n^])%([ +-]?\d*\.?\d*[a-z]|\(.*?\)|L?\d{1,2})]
 hint="Existe una cadena de formato en la traducción que no figura en el texto original"
 
-{\D%([ +-]?\d*\.?\d*[a-z]|\(.*?\)|L?\d{1,2})}
+{(?<![\w\n^])%([ +-]?\d*\.?\d*[a-z]|\(.*?\)|L?\d{1,2})}
 hint="Existe una cadena de formato en el texto original que no figura en la traducción"
 
 # End of rule file
