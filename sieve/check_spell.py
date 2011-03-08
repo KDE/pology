@@ -126,15 +126,8 @@ class Sieve (object):
         if params.skip:
             self.skipRx = re.compile(params.skip, re.U|re.I)
 
-        self.pfilters = []
-        for hreq in params.filter or []:
-            pfilter = get_hook_ireq(hreq)
-            if pfilter:
-                self.pfilters.append((pfilter, hreq))
-            else:
-                warning(_("@info",
-                          "Cannot load filter '%(filt)s'.",
-                          filt=hreq))
+        self.pfilters = [[get_hook_ireq(x, abort=True), x]
+                         for x in (params.filter or [])]
 
         self.envs = None
         if self.envs is None and params.env is not None:

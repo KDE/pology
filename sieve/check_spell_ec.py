@@ -74,15 +74,8 @@ class Sieve (object):
         if params.skip is not None:
             self.skip_rx = re.compile(params.skip, re.U|re.I)
 
-        self.pfilters = []
-        for hreq in params.filter or []:
-            pfilter = get_hook_ireq(hreq)
-            if pfilter:
-                self.pfilters.append((pfilter, hreq))
-            else:
-                warning(_("@info",
-                          "Cannot load filter '%(filt)s'.",
-                          filt=hreq))
+        self.pfilters = [[get_hook_ireq(x, abort=True), x]
+                         for x in (params.filter or [])]
 
         self.suponly = params.suponly
 
@@ -154,7 +147,7 @@ class Sieve (object):
                 continue
 
             # Apply precheck filters.
-            for pfilter, hreq in self.pfilters:
+            for pfilter, pfname in self.pfilters:
                 try: # try as type F1A hook
                     msgstr = pfilter(msgstr)
                 except TypeError:
@@ -164,7 +157,7 @@ class Sieve (object):
                         raise SieveError(
                             _("@info",
                               "Cannot execute filter '%(filt)s'.",
-                              filt=hreq))
+                              filt=pfname))
 
             # Split text into words.
             # TODO: See to use markup types somehow.

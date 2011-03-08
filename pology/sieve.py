@@ -69,6 +69,42 @@ def parse_sieve_flags (msg):
     return set(manc_parse_flag_list(msg, "|"))
 
 
+def add_param_langenv (p, langappx=None, envappx=None):
+    """
+    Add C{lang} and C{env} parameters to sieve parameters.
+
+    @param langappx: one or more trailing paragraphs for the C{lang}
+        parameter description
+    @type langappx: string
+    @param envappx: one or more trailing paragraphs for the C{env}
+        parameter description
+    @type envappx: string
+    """
+
+    langdesc = _("@info sieve parameter discription",
+    "The language of translation. "
+    "If the user configuration or a catalog header specifies the language, "
+    "this parameter takes precedence."
+    )
+    if langappx:
+        langdesc = "%s\n\n%s" % (langdesc, langappx)
+    p.add_param("lang", unicode,
+                metavar=_("@info sieve parameter value placeholder", "CODE"),
+                desc=langdesc)
+
+    envdesc = _("@info sieve parameter discription",
+    "The environment (language variation) of translation. "
+    "If the user configuration or a catalog header specifies the environment, "
+    "this parameter takes precedence. "
+    "Several environments can be given as comma-separated list."
+    )
+    if envappx:
+        envdesc = "%s\n\n%s" % (envdesc, envappx)
+    p.add_param("env", unicode, seplist=True,
+                metavar=_("@info sieve parameter value placeholder", "CODE"),
+                desc=envdesc)
+
+
 def add_param_filter (p, intro=None):
     """
     Add C{filter} parameter to sieve parameters.
@@ -137,21 +173,19 @@ def add_param_spellcheck (p):
     Add parameters for spell checking to sieve parameters.
     """
 
-    p.add_param("lang", unicode,
-                metavar=_("@info sieve parameter value placeholder", "CODE"),
-                desc=_("@info sieve parameter discription",
-    "The language dictionary to use."
-    "If a catalog header specifies language itself, this parameter takes "
-    "precedence over it."
-    ))
-    p.add_param("env", unicode, seplist=True,
-                metavar=_("@info sieve parameter value placeholder", "CODE"),
-                desc=_("@info sieve parameter discription",
-    "Use supplement word lists for this environment within given language. "
-    "Pology configuration and catalog headers may also specify environments, "
-    "this parameter takes precedence over them. "
-    "Several environments can be given as comma-separated list."
-    ))
+    add_param_langenv(p,
+        langappx=_("@info sieve parameter discription",
+        "The language determines which system dictionary, "
+        "as well as internal word lists, to use for spell-checking. "
+        "If the language is left undefined for a given catalog, "
+        "it will be skipped and a warning may be output."
+        ),
+        envappx=_("@info sieve parameter discription",
+        "The environment determines which additional "
+        "internal word lists to use for spell-checking. "
+        "If the environment is left undefined for a given catalog, "
+        "only environment-agnostic internal word lists will be used."
+        ))
     p.add_param("accel", unicode, multival=True,
                 metavar=_("@info sieve parameter value placeholder", "CHAR"),
                 desc=_("@info sieve parameter discription",
@@ -168,13 +202,11 @@ def add_param_spellcheck (p):
                 desc=_("@info sieve parameter discription",
     "Regular expression to eliminate from spell-checking words that match it."
     ))
-    p.add_param("filter", unicode, multival=True,
-                metavar=_("@info sieve parameter value placeholder", "HOOK"),
-                desc=_("@info sieve parameter discription",
-    "F1A or F3A/C hook specification, to filter the translation through "
-    "before spell-checking it. "
-    "Several hooks can be specified by repeating the parameter."
-    ))
+    add_param_filter(p,
+        intro=_("@info sieve parameter discription",
+        "The F1A or F3A/C hook through which to filter the translation "
+        "before passing it to spell-checking."
+        ))
     p.add_param("suponly", bool, defval=False,
                 desc=_("@info sieve parameter discription",
     "Use only internal supplement word lists, and not the system dictionary."

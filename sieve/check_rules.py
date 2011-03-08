@@ -27,7 +27,7 @@ from pology.msgreport import multi_rule_error, rule_xml_error
 from pology.msgreport import report_msg_to_lokalize
 from pology.report import report, warning, format_item_list
 from pology.rules import loadRules, printStat
-from pology.sieve import add_param_poeditors
+from pology.sieve import add_param_poeditors, add_param_langenv
 from pology.timeout import TimedOutException
 from pology.sieve import SieveError, SieveCatalogError
 
@@ -48,21 +48,15 @@ def setup_sieve (p):
     "Apply rules to messages and report those that do not pass."
     ))
 
-    p.add_param("lang", unicode,
-                metavar=_("@info sieve parameter value placeholder", "CODE"),
-                desc=_("@info sieve parameter discription",
-    "Load rules for this language "
-    "(if not given, attempt is made to detect language by catalog headers)."
-    ))
-    p.add_param("env", unicode, seplist=True,
-                metavar=_("@info sieve parameter value placeholder", "CODE"),
-                desc=_("@info sieve parameter discription",
-    "Load rules for this environment within language. "
-    "If not given, environments may be read from the catalog header. "
-    "If no environment is given or found, only environment-agnostic rules "
-    "are loaded. "
-    "Several environments can be given as comma-separated list."
-    ))
+    add_param_langenv(p,
+        langappx=_("@info sieve parameter discription",
+        "If the language is left undefined for a given catalog, "
+        "it will be skipped and a warning may be output."
+        ),
+        envappx=_("@info sieve parameter discription",
+        "If the environment is left undefined for a given catalog, "
+        "only environment-agnostic rules will be applied."
+        ))
     p.add_param("stat", bool, defval=False,
                 desc=_("@info sieve parameter discription",
     "Output statistics on application of rules."
