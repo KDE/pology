@@ -19,6 +19,7 @@ from pology import _, n_
 from pology.msgreport import warning_on_msg
 from pology.report import report, warning
 from pology.sieve import SieveError, SieveCatalogError
+from pology.sieve import add_param_langenv, add_param_filter
 
 
 _REQUEST="/?language=%s&%s"
@@ -35,12 +36,15 @@ def setup_sieve (p):
     "is running before this sieve is run."
     ))
 
-    p.add_param("lang", unicode, defval=None,
-                metavar=_("@info sieve parameter value placeholder", "CODE"),
-                desc=_("@info sieve parameter discription",
-    "Apply rules for this language. "
-    "If not given, attempt is made to detect language by catalog headers."
-    ))
+    add_param_langenv(p,
+        envappx=_("@info sieve parameter discription",
+        "(Currently not used, for future compatibility.)"
+        ))
+    add_param_filter(p,
+        intro=_("@info sieve parameter discription",
+        "The F1A or F3A/C hook through which to filter the translation "
+        "before passing it to grammar checking."
+        ))
     p.add_param("host", str, defval="localhost",
                 metavar=_("@info sieve parameter value placeholder", "NAME"),
                 desc=_("@info sieve parameter discription",
@@ -54,9 +58,9 @@ def setup_sieve (p):
 
 
 class Sieve (object):
-    
+
     def __init__ (self, params):
-    
+
         self.nmatch = 0 # Number of match for finalize
         self.connection=None # Connection to LanguageTool server
 
@@ -66,13 +70,16 @@ class Sieve (object):
         host=params.host
         port=params.port
         #TODO: autodetect tcp port by reading LanguageTool config file if host is localhost
-        
+
         # As LT server does not seem to read disabled rules from his config file, we manage exception here
         #TODO: investigate deeper this problem and make a proper bug report to LT devs.
-        self.disabledRules=["UPPERCASE_SENTENCE_START","COMMA_PARENTHESIS_WHITESPACE"] 
-        
+        self.disabledRules=["UPPERCASE_SENTENCE_START","COMMA_PARENTHESIS_WHITESPACE"]
+
         # Create connection to the LanguageTool server
         self.connection=HTTPConnection(host, port)
+
+        self.pfilters = [[get_hook_ireq(x, abort=True), x]
+                         for x in (params.filter or [])]
 
 
     def process_header (self, hdr, cat):
@@ -84,6 +91,12 @@ class Sieve (object):
                   "Cannot determine language for catalog '%(file)s'.",
                   file=cat.filename))
 
+        # Force explicitly given accelerators and markup.
+        if self.accel is not None:
+            cat.set_accelerator(self.accel)
+        if self.markup is not None:
+            cat.set_markup(self.markup)
+
 
     def process (self, msg, cat):
 
@@ -92,6 +105,20 @@ class Sieve (object):
 
         try:
             for msgstr in msg.msgstr:
+
+                # Apply precheck filters.
+                for pfilter, pfname in self.pfilters:
+                    try: # try as type F1A hook
+                        msgstr = pfilter(msgstr)
+                    except TypeError:
+                        try: # try as type F3* hook
+                            msgstr = pfilter(msgstr, msg, cat)
+                        except TypeError:
+                            raise SieveError(
+                                _("@info",
+                                  "Cannot execute filter '%(filt)s'.",
+                                  filt=pfname))
+
                 self.connection.request("GET", _REQUEST % (self.lang, urlencode({"text":msgstr.encode("UTF-8")})))
                 response=self.connection.getresponse()
                 if response:
@@ -120,7 +147,7 @@ class Sieve (object):
             raise SieveError(_("@info",
                                "Cannot connect to LanguageTool server. "
                                "Did you start it?"))
-                        
+
 
     def finalize (self):
         if self.nmatch:
