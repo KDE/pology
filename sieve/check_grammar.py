@@ -19,7 +19,9 @@ from pology import _, n_
 from pology.msgreport import warning_on_msg
 from pology.report import report, warning
 from pology.sieve import SieveError, SieveCatalogError
-from pology.sieve import add_param_langenv, add_param_filter
+from pology.sieve import add_param_lang, add_param_accel, add_param_markup
+from pology.sieve import add_param_filter
+from pology.getfunc import get_hook_ireq
 
 
 _REQUEST="/?language=%s&%s"
@@ -36,10 +38,9 @@ def setup_sieve (p):
     "is running before this sieve is run."
     ))
 
-    add_param_langenv(p,
-        envappx=_("@info sieve parameter discription",
-        "(Currently not used, for future compatibility.)"
-        ))
+    add_param_lang(p)
+    add_param_accel(p)
+    add_param_markup(p)
     add_param_filter(p,
         intro=_("@info sieve parameter discription",
         "The F1A or F3A/C hook through which to filter the translation "
@@ -65,6 +66,8 @@ class Sieve (object):
         self.connection=None # Connection to LanguageTool server
 
         self.setLang=params.lang
+        self.setAccel=params.accel
+        self.setMarkup=params.markup
 
         # LanguageTool server parameters.
         host=params.host
@@ -92,10 +95,10 @@ class Sieve (object):
                   file=cat.filename))
 
         # Force explicitly given accelerators and markup.
-        if self.accel is not None:
-            cat.set_accelerator(self.accel)
-        if self.markup is not None:
-            cat.set_markup(self.markup)
+        if self.setAccel is not None:
+            cat.set_accelerator(self.setAccel)
+        if self.setMarkup is not None:
+            cat.set_markup(self.setMarkup)
 
 
     def process (self, msg, cat):

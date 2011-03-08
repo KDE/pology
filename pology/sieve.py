@@ -69,40 +69,82 @@ def parse_sieve_flags (msg):
     return set(manc_parse_flag_list(msg, "|"))
 
 
-def add_param_langenv (p, langappx=None, envappx=None):
+def add_param_lang (p, appx=None):
     """
-    Add C{lang} and C{env} parameters to sieve parameters.
+    Add C{lang} parameter to sieve parameters.
 
-    @param langappx: one or more trailing paragraphs for the C{lang}
-        parameter description
-    @type langappx: string
-    @param envappx: one or more trailing paragraphs for the C{env}
-        parameter description
-    @type envappx: string
+    @param appx: one or more trailing paragraphs for the parameter description
+    @type appx: string
     """
 
-    langdesc = _("@info sieve parameter discription",
+    desc = _("@info sieve parameter discription",
     "The language of translation. "
     "If the user configuration or a catalog header specifies the language, "
     "this parameter takes precedence."
     )
-    if langappx:
-        langdesc = "%s\n\n%s" % (langdesc, langappx)
+    if appx:
+        desc = "%s\n\n%s" % (desc, appx)
     p.add_param("lang", unicode,
                 metavar=_("@info sieve parameter value placeholder", "CODE"),
-                desc=langdesc)
+                desc=desc)
 
-    envdesc = _("@info sieve parameter discription",
+
+def add_param_env (p, appx=None):
+    """
+    Add C{env} parameter to sieve parameters.
+
+    @param appx: one or more trailing paragraphs for the parameter description
+    @type appx: string
+    """
+
+    desc = _("@info sieve parameter discription",
     "The environment (language variation) of translation. "
     "If the user configuration or a catalog header specifies the environment, "
     "this parameter takes precedence. "
     "Several environments can be given as comma-separated list."
     )
-    if envappx:
-        envdesc = "%s\n\n%s" % (envdesc, envappx)
+    if appx:
+        desc = "%s\n\n%s" % (desc, appx)
     p.add_param("env", unicode, seplist=True,
                 metavar=_("@info sieve parameter value placeholder", "CODE"),
-                desc=envdesc)
+                desc=desc)
+
+
+def add_param_accel (p, appx=None):
+    """
+    Add parameter C{accel} to sieve parameters.
+
+    @param appx: one or more trailing paragraphs for the parameter description
+    @type appx: string
+    """
+
+    desc = _("@info sieve parameter discription",
+    "Character which is used as UI accelerator marker in text fields."
+    )
+    if appx:
+        desc = "%s\n\n%s" % (desc, appx)
+    p.add_param("accel", unicode, multival=True,
+                metavar=_("@info sieve parameter value placeholder", "CHAR"),
+                desc=desc)
+
+
+def add_param_markup (p, appx=None):
+    """
+    Add parameter C{markup} to sieve parameters.
+
+    @param appx: one or more trailing paragraphs for the parameter description
+    @type appx: string
+    """
+
+    desc = _("@info sieve parameter discription",
+    "Markup that can be expected in text fields, as special keyword. "
+    "Several markups can be given as comma-separated list."
+    )
+    if appx:
+        desc = "%s\n\n%s" % (desc, appx)
+    p.add_param("markup", unicode, seplist=True,
+                metavar=_("@info sieve parameter value placeholder", "KEYWORD"),
+                desc=desc)
 
 
 def add_param_filter (p, intro=None):
@@ -173,30 +215,20 @@ def add_param_spellcheck (p):
     Add parameters for spell checking to sieve parameters.
     """
 
-    add_param_langenv(p,
-        langappx=_("@info sieve parameter discription",
+    add_param_lang(p, appx=_("@info sieve parameter discription",
         "The language determines which system dictionary, "
         "as well as internal word lists, to use for spell-checking. "
         "If the language is left undefined for a given catalog, "
         "it will be skipped and a warning may be output."
-        ),
-        envappx=_("@info sieve parameter discription",
+        ))
+    add_param_env(p, appx=_("@info sieve parameter discription",
         "The environment determines which additional "
         "internal word lists to use for spell-checking. "
         "If the environment is left undefined for a given catalog, "
         "only environment-agnostic internal word lists will be used."
         ))
-    p.add_param("accel", unicode, multival=True,
-                metavar=_("@info sieve parameter value placeholder", "CHAR"),
-                desc=_("@info sieve parameter discription",
-    "Character which is used as UI accelerator marker in text fields."
-    ))
-    p.add_param("markup", unicode, seplist=True,
-                metavar=_("@info sieve parameter value placeholder", "KEYWORD"),
-                desc=_("@info sieve parameter discription",
-    "Markup that can be expected in text fields, as special keyword. "
-    "Several markups can be given as comma-separated list."
-    ))
+    add_param_accel(p)
+    add_param_markup(p)
     p.add_param("skip", unicode,
                 metavar=_("@info sieve parameter value placeholder", "REGEX"),
                 desc=_("@info sieve parameter discription",

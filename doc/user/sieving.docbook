@@ -482,13 +482,6 @@ Strings after the dot can be anything, but a sequence of numbers or letters in a
 </varlistentry>
 
 <varlistentry>
-<term><option>env:<replaceable>environment></replaceable></option></term>
-<listitem>
-<para>(Currently not used, for future compatibility.)</para>
-</listitem>
-</varlistentry>
-
-<varlistentry>
 <term><option>host:<replaceable>hostname</replaceable></option> [<literal>localhost</literal>]</term>
 <listitem>
 <para>Name of the host where the LanguageTool server is running. The default value of <literal>localhost</literal> means that it is running on the same computer where the sieve is run.</para>

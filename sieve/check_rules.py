@@ -27,7 +27,7 @@ from pology.msgreport import multi_rule_error, rule_xml_error
 from pology.msgreport import report_msg_to_lokalize
 from pology.report import report, warning, format_item_list
 from pology.rules import loadRules, printStat
-from pology.sieve import add_param_poeditors, add_param_langenv
+from pology.sieve import add_param_lang, add_param_env, add_param_poeditors
 from pology.timeout import TimedOutException
 from pology.sieve import SieveError, SieveCatalogError
 
@@ -48,12 +48,11 @@ def setup_sieve (p):
     "Apply rules to messages and report those that do not pass."
     ))
 
-    add_param_langenv(p,
-        langappx=_("@info sieve parameter discription",
+    add_param_lang(p, appx=_("@info sieve parameter discription",
         "If the language is left undefined for a given catalog, "
         "it will be skipped and a warning may be output."
-        ),
-        envappx=_("@info sieve parameter discription",
+        ))
+    add_param_env(p, appx=_("@info sieve parameter discription",
         "If the environment is left undefined for a given catalog, "
         "only environment-agnostic rules will be applied."
         ))
