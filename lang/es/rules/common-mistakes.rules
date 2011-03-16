@@ -25,8 +25,16 @@ hint="No utilice expresiones del tipo «las ciudadanas y los ciudadanos » (erro
 hint="No utilice la arroba para evitar el género, p.ej. «ciudadan@s» (error frecuente)"
 
 # No utilizar el guión para separar el prefijo de la palabra principal
-[(?u)\b(auto|bi|de|des|hiper|in|macro|meta|micro|mini|mono|multi|pos|post|pre|re|sobre|sub|super|tele|tri)\-[a-záéíóúñç]{3,}?\b]i
+[(?u)\b(auto|bi|de|des|extra|hiper|in|macro|meta|micro|mini|mono|multi|pos|post|pre|re|sobre|sub|super|tele|tri)\-[a-záéíóúñç]{3,}?\b]i
 hint="No utilice el guión para separar el prefijo de la palabra principal, p.ej. «sub-menú» (error frecuente)"
+
+# «y» ante palabras que empiezan por «i» o «hi»
+[(?u)\by\sh?i\w+\b]i
+hint="Delante de palabras que empiezan por «i» se usa «e» en lugar de «y» (error frecuente)"
+
+# «o» ante palabras que empiezan por «o» o «ho»
+[(?u)\bo\sh?o\w+\b]i
+hint="Delante de palabras que empiezan por «o» se usa «u» en lugar de «o» (error frecuente)"
 
 # «¿Adonde...» se escribe como «¿Adónde...».
 [\¿adonde\b]i
@@ -145,7 +153,7 @@ hint="« A cuenta de » se escribe como « Por cuenta de » (error frecuente: so
 hint="« A efecto de » se escribe como « A efectos de » (error frecuente)"
 
 # «A el» se escribe como «Al».
-[\ba\sel\b]i
+[\b[Aa]\sel\b]
 hint="« A el » se escribe como « Al » (error frecuente)"
 
 # «A excepción hecha de» se escribe como «A excepción de».
@@ -281,7 +289,7 @@ hint="« Antes de ahora » se escribe como « Hasta ahora » (error frecuente: s
 hint="« Aparte que » se escribe como « Aparte de » (error frecuente)"
 
 # «API» es femenino.
-[\b(la|una|esta|esa|los|unos|estos|esos)\API\b]i
+[\b(la|una|los|unos|esta|estos|esa|esos)\API\b]i
 hint="« API » es de género femenino, pero empieza por 'A' (error frecuente)"
 
 # «Aquél» se escribe como «Aquel».
@@ -515,6 +523,10 @@ hint="« Contínuo » se escribe siempre como « Continuo » (ver la nueva ortog
 [\bcontra\sgustos\b]i
 hint="« Contra gustos » se escribe como « Sobre gustos » (error frecuente: solecismo)"
 
+# «Contra más» se escribe como «Cuanto más».
+[\bcontra\smás\b]i
+hint="« Contra más » se escribe como « Cuanto más » (error frecuente: solecismo)"
+
 # «Convencer que» se escribe como «Convencer de que».
 [\bconvenc\w{1,4}?\sque\b]i
 hint="« Convencer que » se escribe como « Convencer de que » (error frecuente: queismo)"
@@ -574,7 +586,7 @@ hint="« De conformidad a » se escribe como « De conformidad con » (error fre
 hint="« De echo » se escribe como « De hecho » (error frecuente)"
 
 # «De el» se escribe como «Del».
-[\bde\sel\b]i
+[\b[Dd]e\sel\b]
 hint="« De el » se escribe como « Del » (error frecuente)"
 
 # «De gratis» se escribe como «Gratis».
@@ -770,6 +782,14 @@ hint="« Espúreo » se escribe como « Espurio » (error frecuente)"
 # «Ésta» se escribe como «Esta».
 [\bésta\b]i
 hint="« Ésta » se escribe como « Esta », salvo en casos muy excepcionales (error frecuente)"
+
+# «Este agua» se escribe como «Esta agua».
+[\beste\sagua\b]i
+hint="« Este agua » se escribe como « Esta agua » (error frecuente)"
+
+# «Este área» se escribe como «Esta área».
+[\beste\sárea\b]i
+hint="« Este área » se escribe como « Esta área » (error frecuente)"
 
 # «Esta seguro» se escribe como «Está seguro».
 [\besta\ssegur(o|a)\b]i
@@ -1011,6 +1031,10 @@ hint="« Literatura sobre/en » e escribe como «Bibliografía sobre/en». (erro
 [\bllam\w{1,4}?\sla\satención\sde\sque\b]i
 hint="« Llamar la atención de que » se escribe como « Llamar la atención que » (error frecuente: dequeismo)"
 
+# «Lo se» se escribe como «Lo sé».
+[\blo\sse\b]i
+hint="« Lo se » se escribe como « Lo sé ». (error frecuente)"
+
 # «Los la» duplicado artículo.
 [\blos\sla\b]i
 hint="« Los la » duplicado artículo. (error frecuente)"
@@ -1067,10 +1091,9 @@ hint="« Més » se escribe como « Mes » (error frecuente)"
 [\bmississippi\b]i
 hint="« Mississippi » se escribe como « Misisipi » (error frecuente)"
 
-# «Muý» se escribe como «Muy».
-[\bMuý\b]i
-hint="« Muý » se escribe como « Muy » (error frecuente)"
-
+# «Múy» se escribe como «Muy».
+[\bMúy\b]i
+hint="« Múy » se escribe como « Muy » (error frecuente)"
 
 # «Negar de que» se escribe como «Negar que».
 [\bneg\w{1,4}?\sde\sque\b]i

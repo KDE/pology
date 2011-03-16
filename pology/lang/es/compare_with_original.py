@@ -21,7 +21,7 @@ def test_if_empty_translation (msg, cat):
     @return: parts
     """
     for i in range(len(msg.msgstr)):
-        if i == 1:
+        if i > 0:
              lm = len(msg.msgid_plural)
         else:
              lm = len(msg.msgid)
@@ -43,7 +43,7 @@ def test_if_very_long_translation (msg, cat):
 
    
     for i in range(len(msg.msgstr)):
-        if i == 1:
+        if i > 0:
             lm = len(msg.msgid_plural.split())
         else:
             lm = len(msg.msgid.split())
@@ -66,7 +66,7 @@ def test_if_very_short_translation (msg, cat):
 
     for i in range(len(msg.msgstr)):
         if len(msg.msgstr[i]) > 0:
-            if i == 1:
+            if i > 0:
                 lm = len(msg.msgid_plural.split())
             else:
                 lm = len(msg.msgid.split())
@@ -86,7 +86,7 @@ def test_if_not_translated (msg, cat):
     """
   
     for i in range(len(msg.msgstr)):
-        if i == 1:
+        if i > 0:
            msgid = msg.msgid_plural
         else:
            msgid = msg.msgid
@@ -116,7 +116,7 @@ def test_paired_new_lines (msg, cat):
     @return: parts
     """
     for i in range(len(msg.msgstr)):
-        if i == 1:
+        if i > 0:
              msgid = msg.msgid_plural
         else:
              msgid = msg.msgid
@@ -143,7 +143,7 @@ def test_paired_tabs (msg, cat):
     @return: parts
     """
     for i in range(len(msg.msgstr)):
-        if i == 1:
+        if i > 0:
              msgid = msg.msgid_plural
         else:
              msgid = msg.msgid

@@ -37,7 +37,7 @@ valid !msgstr="abort(ar|a|e)"
 hint="« Aborts » se traduce como como « Interrumpe », nunca como « Abortar » (ver glosario)"
 
 # «Adress» se traduce como «Dirección».
-{\badress^(\sbooks?)\b}i
+{\badress(?!\sbooks?)\b}i
 valid msgstr="dirección"
 hint="« Adress » se traduce como « Dirección » (ver glosario)"
 
@@ -104,6 +104,7 @@ hint="« Allocation » como se traduce como « Asignación » (ver glosario)"
 
 # «API» no se debe traducir.
 {\bAPI\b}i
+valid msgstr="api"
 valid msgstr="API"
 hint="« API » no se traduce (ver glosario)"
 
@@ -231,13 +232,13 @@ valid msgstr="proces(ar|o)\spor\slotes"
 hint="« Batching » se traduce como « Proceso por lotes » (ver glosario)"
 
 # «A bit» se traduce como «Un poco/algo».
-{\ba\sbit(^\srate)\b}i
+{\ba\sbit(?!\srate)\b}i
 valid msgstr="un\spoco"
 valid msgstr="algo"
 hint="« A bit » se traduce como «Un poco/algo»"
 
 # «Bit» no se debe traducir.
-{\b(^a\s)bit\b}i
+{\b(?<!a\s)bit\b}i
 valid msgstr="bit"
 hint="« Bit » no se debe traducir (ver glosario)"
 
@@ -365,6 +366,7 @@ hint="« Catch-all-entry » se traduce como « Entrada para la ruta por omisión
 # «CD» no se traduce.
 {\bcd\b}i
 valid msgstr="cd"
+valid msgstr="CD"
 hint="« CD » significa « Compact disk », no se traduce (ver glosario)"
 
 # «Check box» se traduce como «Casilla de verificación».
@@ -380,7 +382,7 @@ valid msgstr="casilla\sde\sverificación" after="cualquier\s"
 hint="« Check boxes » se traduce como « Casillas de verificación » (ver glosario)"
 
 # «Check» se traduce como «Comprobar».
-{\bcheck^(\sbox(es)?)\b}i
+{\bcheck(?!\sbox(es)?)\b}i
 valid msgstr="comprob(ar|ación)"
 valid msgstr="comprueb(e|a)"
 valid msgstr="marcar?"
@@ -504,6 +506,7 @@ hint="« Comboboxes » se traduce como « Listas desplegables » (ver glosario)"
 valid msgstr="orden"
 valid msgstr="órdenes"
 valid msgstr="instrucción"
+valid msgstr="CONMAND"
 hint="« Command » se traduce como « Orden » o « Instrucción », nunca como « Comando » (ver glosario)"
 
 # «Commands» se traduce como «Órdenes o «Instrucciones».
@@ -529,7 +532,7 @@ valid msgstr="disco\scompacto" after="cualquier\s"
 hint="« Compact disks » se traduce como « Discos compactos » (ver glosario)"
 
 # «Compact» se traduce como «Comprimir».
-{\bcompact^(\sdisks?)\b}i
+{\bcompact(?!\sdisks?)\b}i
 valid msgstr="comprim(e|a|ir|ido|ida)"
 hint="« Compact » se traduce como « Comprimir » (ver glosario)"
 
@@ -625,6 +628,7 @@ hint="« Covers » se traduce como « Carátulas », preferible a « Portadas »
 # «CPAN» no se traduce.
 {\bcpan\b}i
 valid msgstr="cpan"
+valid msgstr="CPAN"
 hint="« CPAN » no se debe traducir (ver glosario)"
 
 # «Crypt» se traduce como «Cifrar».
@@ -650,12 +654,14 @@ hint="« Crypts » se traduce como « Cifra », nunca como « Encripta » (ver g
 
 # «CTAN» no se traduce.
 {\bCTAN\b}
+valid msgstr="ctan"
 valid msgstr="CTAN"
 hint="« CTAN » no se debe traducir (ver glosario)"
 
 # «CUPS» no se traduce.
 {\bcups\b}
 valid msgstr="cups"
+valid msgstr="CUPS"
 valid msgstr="tazas"
 valid msgstr="taza" after="ninguna\s"
 valid msgstr="taza" after="cualquier\s"
@@ -908,6 +914,7 @@ valid msgstr="mostrar"
 valid msgstr="muestr(a|e)"
 valid msgstr="mostrad[oa]"
 valid msgstr="visualización"
+valid msgstr="DISPLAY"
 hint="« Display » se traduce como « Pantalla », « Visor » o « Mostrar » (ver glosario)"
 
 # «Displays» se traduce como «Pantallas», «Visores» o «Muestra».
@@ -934,9 +941,14 @@ valid msgstr="descarg(a|as)"
 hint="« Downloads » se traduce como « Descargas » (ver glosario)"
 
 # «Drag» se traduce como «Arrastrar».
-{\bdrag\b}i
+{\bdrag(?!\sit)\b}i
 valid msgstr="arrastr(ar|e|a|o)"
 hint="« Drag » se traduce como « Arrastrar » (ver glosario)"
+
+# «Drag it » se traduce como «Arrástrelo».
+{\bdrag\sit\b}i
+valid msgstr="arrástrel[oa]"
+hint="« Drag it» se traduce como « Arrástrelo » (ver glosario)"
 
 # «Drags» se traduce como «Arrastra».
 {\bdrags\b}i
@@ -962,15 +974,26 @@ hint="« Drivers » se traduce como « Controladores » (ver glosario)"
 valid msgstr="desplega(r|ble)"
 hint="« Drop down » se traduce como « Desplegar » (ver glosario)"
 
-# «Drop» se traduce como «Soltar».
-{\bdrop^(\sdown)\b}i
+# «Drop» se traduce como «Soltar/Caer/Caída/Descenso».
+{\bdrop(?!\sdown)\b}i
 valid msgstr="soltar"
 valid msgstr="suelt(e|a)"
-hint="« Drop » se traduce como « Soltar » (ver glosario)"
+valid msgstr="caer"
+valid msgstr="caiga"
+valid msgstr="caída"
+valid msgstr="descenso"
+hint="« Drop » se traduce como « Soltar/Caer/Caída/Descenso » (ver glosario)"
 
 # «Drops» se traduce como «Suelta».
 {\bdrops\b}i
 valid msgstr="suelt(e|a)"
+valid msgstr="caiga"
+valid msgstr="caídas"
+valid msgstr="descensos"
+valid msgstr="caída" after="ninguna\s"
+valid msgstr="caída" after="cualquier\s"
+valid msgstr="descenso" after="ningún\s"
+valid msgstr="descenso" after="cualquier\s"
 hint="« Drops » se traduce como « Suelta » (ver glosario)"
 
 # «Dumb» se traduce como «Mudo» o «Tonto».
@@ -988,6 +1011,7 @@ hint="« Dumb » se traduce como « Mudo » o « Tonto » (ver glosario)"
 # «DVD» no se traduce.
 {\bdvd\b}i
 valid msgstr="dvd"
+valid msgstr="DVD"
 hint="« DVD » no se traduce (ver glosario)"
 
 # «Electronic mail» se traduce como «Correo electrónico».
@@ -1178,14 +1202,14 @@ valid msgstr="ofrece"
 hint="« Features » se traduce como « Funcionalidades » o « Características » (ver glosario)"
 
 # «Feed» se traduce como «Suministro».
-{\b(^(line\s))feed\b}i
+{\b(?<!line\s)feed\b}i
 valid msgstr="suministro"
 valid msgstr="fuente"
 valid msgstr="canal"
 hint="« Feed » se traduce como « Suministro » o « Fuente de noticias »(ver glosario)"
 
 # «Feeds» se traduce como «Suministros».
-{\b(^(line\s))feeds\b}i
+{\b(?<!line\s)feeds\b}i
 valid msgstr="suministros"
 valid msgstr="fuentes"
 valid msgstr="canales"
@@ -1204,7 +1228,7 @@ valid msgstr="sugerencias"
 hint="« Feedback » se traduce como « Comentarios y sugerencias » (ver glosario)"
 
 # «File» se traduce como «Archivo».
-{\bfile(^(\ssystems?))\b}i
+{\bfile(?!\ssystems?)\b}i
 valid msgstr="archivo"
 valid !msgstr="fichero"
 hint="« File » se traduce como « Archivo », nunca como « Fichero « (ver glosario)"
@@ -1262,7 +1286,7 @@ valid msgstr="crítica\sdestructiva" after="cualquier\s"
 hint="« Flames » se traduce como « Críticas destructivas » (ver glosario)"
 
 # «Floppy» se traduce como «Disquete».
-{\bfloppy(^(\sdrives?))\b}i
+{\bfloppy(?!\sdrives?)\b}i
 valid msgstr="disquete"
 valid !msgstr="floppy"
 hint="« Floppy » se traduce como « Disquete » (ver glosario)"
@@ -1400,23 +1424,34 @@ hint="« Gateways » se traduce como « Puertas de enlace » o « Pasarelas » (
 # «(to) Get back» se traduce como «Volver».
 {\bget\sback\b}i
 valid msgstr="volver"
-hint="« (to) Get back » se traduce como « Volver » (ver glosario)"
+valid msgstr="vuelv(e|a)"
+valid msgstr="regresar"
+valid msgstr="regres(e|a)"
+valid msgstr="recuper(ar|a|e)"
+hint="« (to) Get back » se traduce como « Volver/Recuperar » (ver glosario)"
 
 # «(to) Get» se traduce como «Obtener».
-{\bget^(\sback)\b}i
-valid msgstr="obtener"
-valid msgstr="obtiene"
-valid msgstr="obtenga"
-valid msgstr="conseguir"
-valid msgstr="consigu(e|a)"
-hint="« (to) Get » se traduce como « Obtener » (ver glosario)"
+#{\bget(?!\sback)\b}i
+#valid msgstr="obtener"
+#valid msgstr="obtiene"
+#valid msgstr="obtenga"
+#valid msgstr="conseguir"
+#valid msgstr="consigu(e|a)"
+#hint="« (to) Get » se traduce como « Obtener » (ver glosario)"
+
+#«Gets back» se traduce como «Vuelve».
+{\bgets\sback\b}i
+valid msgstr="vuelv(e|a)"
+valid msgstr="regres(e|a)"
+valid msgstr="recuper(a|e)"
+hint="« (to) Get back » se traduce como « Vuelva/Recupere » (ver glosario)"
 
 # « Gets» se traduce como «Obtiene».
-{\bget^(\sback)\b}i
-valid msgstr="obtiene"
-valid msgstr="obtenga"
-valid msgstr="consigu(e|a)"
-hint="« (to) Gets » se traduce como « Obtiene » (ver glosario)"
+#{\bgets(?!\sback)\b}i
+#valid msgstr="obtiene"
+#valid msgstr="obtenga"
+#valid msgstr="consigu(e|a)"
+#hint="« (to) Gets » se traduce como « Obtiene » (ver glosario)"
 
 # «GNU General Public License» se traduce como «Licencia Pública General GNU».
 {\bGNU\sGeneral\sPublic\sLicense\b}i
@@ -1439,7 +1474,8 @@ valid msgstr="interfaz\sgráfica\sde\susuario"
 hint="« GUI » se traduce como « Interfaz gráfica de usuario » (ver glosario)"
 
 # «GUID» no se traduce.
-{\bGUID\b}
+{\bGUID\b}i
+valid msgstr="guid"
 valid msgstr="GUID"
 hint="« GUID » no se traduce (ver glosario)"
 
@@ -1562,10 +1598,11 @@ valid msgstr="dirección\sparticular" after="ninguna\s"
 valid msgstr="dirección\sparticular" after="cualquier\s"
 hint="« Home addresses » se traduce como « Direcciones particulares » (ver glosario)"
 
-# «Home» en otras situaciones y en minúsculas se traduce como «Inicio».
-{\b[H|h]ome(^(\sfolders?|\sdirector(y|ies)|\spages?|\saddress(es)?))\b}
-valid msgstr="[I|i]nici(o|al)"
-valid msgstr="[P|p]articular"
+# «Home» en otras situaciones se traduce como «Inicio».
+{\bhome(?!\s(folders?|director(y|ies)|pages?|address(es)?))\b}i
+valid msgstr="inici(o|al)"
+valid msgstr="particular"
+valid msgstr="HOME"
 hint="« Home » se traduce como « Inicio » (ver glosario)"
 
 # «Host» se traduce como «Servidor».
@@ -1633,6 +1670,7 @@ hint="« Interfaces » se traduce como « Interfaces » (ver glosario)"
 # «IRQ» no se traduce.
 {\birq\b}i
 valid msgstr="irq"
+valid msgstr="IRQ"
 hint="« IRQ » no se traduce (ver glosario)"
 
 # «I/O» se traduce como «E/S».
@@ -1826,7 +1864,7 @@ valid msgstr="registro" after="cualquier\s"
 hint="« Logs » se traduce como « Registros » (ver glosario)"
 
 # «Login» se traduce como «Inicio de sesión».
-{\blog\s?in\s(^(banner))]\b}i
+{\blog\s?in(?!\sbanner)\b}i
 valid msgstr="inicio\sde\ssesión"
 valid msgstr="iniciar\ssesión"
 valid !msgstr="login"
@@ -2211,8 +2249,9 @@ hint="« Patchs » se traduce como « Parches » (ver glosario)"
 
 # «Path» se traduce como «Ruta».
 # Escrito en mayúculas puede ser una variable de entorno
-{\b[P|p]ath\b}
-valid msgstr="[R|r]uta"
+{\bpath\b}i
+valid msgstr="ruta"
+valid msgstr="PATH"
 hint="« Path » se traduce como « Ruta » (ver glosario)"
 
 # «Paths» se traduce como «Rutas».
@@ -2313,14 +2352,14 @@ hint="« Policy issues » se traduce como « Aspectos de normativa » (ver glosa
 
 # «Pop-up» se traduce como «Ventana emergente».
 {\bpop\-up\b}i
-valid msgstr="semergente"
+valid msgstr="emergente"
 hint="« Pop-up » se traduce como « Ventana emergente » (ver glosario)"
 
 # «Pop-ups» se traduce como «Ventanas emergentes».
 {\bpop\-ups\b}i
-valid msgstr="semergentes"
-valid msgstr="semergente" after="ninguna\s"
-valid msgstr="semergente" after="cualquier\s"
+valid msgstr="emergentes"
+valid msgstr="emergente" after="ninguna\s"
+valid msgstr="emergente" after="cualquier\s"
 hint="« Pop-ups » se traduce como « Ventanas emergentes » (ver glosario)"
 
 # «Port» se traduce como «Puerto».
@@ -2644,7 +2683,7 @@ valid msgstr="sistema\sde\sresolución"
 hint="« Resolver » se traduce como « Sistema de resolución » (ver glosario)"
 
 # «Resolvers» se traduce como «Sistemas de resolución».
-{\bresolvers(^(\slibrary))\b}i
+{\bresolvers(?!\slibrary)\b}i
 valid msgstr="sistemas\sde\sresolución"
 valid msgstr="sistema\sde\sresolución" after="ningún\s"
 valid msgstr="sistema\sde\sresolución" after="cualquier\s"
@@ -2723,7 +2762,7 @@ valid msgstr="encamina(miento|r|ndo)"
 hint="« Routing » se traduce como « Encaminamiento » (ver glosario)"
 
 # «Run» se traduce como «Ejecución».
-{\brun(^(\-time))\b}i
+{\brun(?!\-time)\b}i
 valid msgstr="ejecución"
 valid msgstr="ejecut(ar|a|e)"
 valid !msgstr="corr(er|a|e|o)"
@@ -3403,12 +3442,15 @@ hint="« Uploads » se traduce como « Carga » o « Envío » (ver glosario)"
 # «UPS» se traduce como «SAI» o «UPS».
 {\bups\b}i
 valid msgstr="sai"
+valid msgstr="SAI"
 valid msgstr="ups"
+valid msgstr="UPS"
 hint="« UPS » se traduce como « SAI » o « UPS »  (ver glosario)"
 
 # «URL» no se traduce.
-{\b^(el|un)url\b}i
+{\burl\b}i
 valid msgstr="url"
+valid msgstr="URL"
 hint="« URL » no se traduce y es de género femenino (ver glosario)"
 
 # «Verbatim copy» se traduce como «Copia literal».

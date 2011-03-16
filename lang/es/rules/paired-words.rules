@@ -55,10 +55,10 @@ hint="Utilice minúsculas después de coma, punto y coma, dos puntos o apertura 
 addFilterHook name="remove/remove-fmtdirs-msg-tick~'~'" on="msg"
 #addFilterHook name="es:remove_subs/remove_paired_parameters" on="msg"
 
-[(?<![\w\n^])%([ +-]?\d*\.?\d*[a-z]|\(.*?\)|L?\d{1,2})]
+[(?<![\w\d^])%([ +-]?\d*\.?\d*[a-z]|\(.*?\)|L?\d{1,2})]
 hint="Existe una cadena de formato en la traducción que no figura en el texto original"
 
-{(?<![\w\n^])%([ +-]?\d*\.?\d*[a-z]|\(.*?\)|L?\d{1,2})}
+{(?<![\w\d^])%([ +-]?\d*\.?\d*[a-z]|\(.*?\)|L?\d{1,2})}
 hint="Existe una cadena de formato en el texto original que no figura en la traducción"
 
 # End of rule file

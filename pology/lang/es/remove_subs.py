@@ -36,14 +36,19 @@ def remove_paired_capital_words (msg, cat):
     ents_orig.update(_ent_capital_word_plural.findall(msg.msgid))
 
     if msg.msgid_plural:
-        ents_orig.update(_ent_capital_word.findall(msg.msgid_plural))
-        ents_orig.update(_ent_capital_word_plural.findall(msg.msgid_plural))
+        ents_orig_plural = set()
+        ents_orig_plural.update(_ent_capital_word.findall(msg.msgid_plural))
+        ents_orig_plural.update(_ent_capital_word_plural.findall(msg.msgid_plural))
 
     # Obtains capitals words in valid contexts in the translated text.
     for i in range(len(msg.msgstr)):
         ents_trans = set (_valid_capital_word.findall(msg.msgstr[i]))
+        if i == 0:
+	    ents = ents_orig
+	else:
+	    ents = ents_orig_plural
         # Joins both set of words an remove it from the message.
-        for ent in ents_trans.union(ents_orig):
+        for ent in ents_trans.union(ents):
              msg.msgstr[i] = msg.msgstr[i].replace(ent, "~")
           
     # The remainning words could have wrong capitalization in the translated message.
@@ -60,24 +65,20 @@ def remove_paired_parameters (msg, cat):
     @return: number of errors
     """
 
-    ents_orig = set()
-    ents_orig.update(_ent_parameter.findall(msg.msgid))
-    for ent in ents_orig:
-        msg.msgid = msg.msgid.replace(ent, "~")
+    ents_orig.set(_ent_parameter.findall(msg.msgid))
 
     if msg.msgid_plural:
-        ents_orig_plural = set()
-        ents_orig_plural.update(_ent_parameter.findall(msg.msgid_plural))
-        for ent in ents_orig_plural:
-            msg.msgid_plural = msg.msgid_plural.replace(ent, "~")
+        ents_orig_plural.set(_ent_parameter.findall(msg.msgid_plural))
 
     for i in range(len(msg.msgstr)):
         ents_trans = set(_ent_parameter.findall(msg.msgstr[i]))
         if i == 0:
             for ent in ents_trans.intersection(ents_orig):
+	        msg.msgid = msg.msgid.replace(ent, "~")
                 msg.msgstr[i] = msg.msgstr[i].replace(ent, "~")
         else:
             for ent in ents_trans.intersection(ents_orig_plural):
+	        msg.msgid_plural = msg.msgid_plural.replace(ent, "~")
                 msg.msgstr[i] = msg.msgstr[i].replace(ent, "~")
 
     return 0
