@@ -446,8 +446,8 @@ class Translator_google (object):
             parfmt = "&".join(["%s=%s" % (p, urllib.quote_plus(v))
                                for p, v in params])
             execurl = "%s?%s" % (baseurl, parfmt)
-            res = simplejson.load(urllib.FancyURLopener().open(execurl))
             try:
+                res = simplejson.load(urllib.FancyURLopener().open(execurl))
                 text_tr = unicode(res["responseData"]["translatedText"])
             except:
                 text_tr = u""
