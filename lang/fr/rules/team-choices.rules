@@ -419,4 +419,8 @@ hint="Traduisez « groupware » par « logiciel de collaboration » lorsque c'es
 valid msgstr="dépôt" 
 hint="Traduisez « repository » par « dépôt »"
 
+{\bwidgets?\b}i
+valid msgstr="éléments? graphique?"
+hint="Traduisez « widget » par « élément graphique »"
+
 # End of rule file
