@@ -644,8 +644,16 @@ def remove_fmtdirs (text, format, subs=""):
     return text
 
 
-# FIXME: Make it tighter.
-_fmtdir_tail_c = r"[ +-]?\d*\.?\d*[a-z]"
+#_fmtdir_tail_c = r"[ +-]?\d*\.?\d*[a-z]"
+# A conversion specifier begins with the % character. After the % character come the following in this order:
+# [flags]	 Control the conversion (optional).
+# [width]	 Defines the number of characters to print (optional).
+# [.precision]	 Defines the amount of precision to print for a number type (optional).
+# [modifier]	 Overrides the size (type) of the argument (optional).
+# [type]	 The type of conversion to be applied (required).
+# from http://www.acm.uiuc.edu/webmonkeys/book/c_guide/2.12.html#printf
+
+_fmtdir_tail_c = r"[ +-0]?(\d+|\*)?(\.(\d+|\*))?[hlL]?[cdieEfgGosuxXpn%]"
 _fmtdir_tail_c_rx = re.compile(_fmtdir_tail_c)
 
 def _remove_fmtdirs_c (text, subs=""):
@@ -673,7 +681,6 @@ def _remove_fmtdirs_c (text, subs=""):
     return type(text)("").join(nsegs)
 
 
-# FIXME: Make it tighter?
 _fmtdir_tail_python_rx = re.compile(r"(\(.*?\))?" + _fmtdir_tail_c)
 
 def _remove_fmtdirs_python (text, subs=""):
@@ -789,7 +796,7 @@ def _remove_by_rx (text, rx, subs=""):
     return type(text)("").join(nsegs)
 
 
-_literal_url_rx = re.compile(r"\S+://\S*[\w&=]", re.U)
+_literal_url_rx = re.compile(r"\S+://\S*[\w\d&=]", re.U)
 
 def _remove_literals_url (text, subs=""):
 
@@ -823,7 +830,7 @@ def _remove_literals_cmd (text, subs=""):
 
 
 _literal_filehome_rx = re.compile(r"~(/[\w.-]+)+/?", re.I|re.U)
-_literal_fileext_rx = re.compile(r"\*\.[a-z\d]+", re.I)
+_literal_fileext_rx = re.compile(r"\*(\.[a-z\d]+){1,2}", re.I)
 
 def _remove_literals_file (text, subs=""):
 
