@@ -40,7 +40,7 @@ hint="Maintainer -- Сопровождающий"
 valid before="[a-z]*="
 valid msgid="Drag&Drop"
 valid msgid="R&B"
-valid msgid="&(nbsp|amp|reg|lt|gt|quot|deg|ge|ndash|copy|auml);"
+valid msgid="&(nbsp|amp|reg|lt|gt|quot|deg|ge|ndash|copy|auml|mdash);"
 valid msgid="&([a-zA-Z]+);" # all docbook entities (only for docs!)
 valid msgid="http://.+\?" # URL, not an accelerator
 valid !msgstr="[а-яА-Я]" # OK if there are no Russian letters in translation (should those strings also have "Russian" accelerators?)
@@ -302,6 +302,7 @@ valid after="а" span="е" before="\.м\." # а.е.м.
 valid after="а\.е" span="м" before="\." # а.е.м.
 valid after="мм рт" span="с" before="т\." # мм рт.ст.
 valid after="дюймов рт" span="с" before="т\." # дюймов рт.ст.
+valid after="дюймы рт" span="с" before="т\." # дюймы рт.ст.
 hint="Поставьте пробел после точки в конце предложения"
 
 [директори]i
@@ -334,4 +335,19 @@ hint="используйте специальных символ «×»"
 
 [bpp]i
 hint="нужно переводить"
+
+[по окончани]i
+valid before="и"
+hint="по окончании (в смысле 'после окончания')"
+
+[по завершени]i
+valid before="и"
+hint="по завершении (в смысле 'после завершения')"
+
+[по достижени]i
+valid before="и"
+hint="по достижении (в смысле 'после достижения')"
+
+[модул[а-я]* управл]i
+hint="control module -- модуль настройки"
 
