@@ -3,6 +3,8 @@
 # by the KDE Spanish Team (kde-l10n-es@kde.org)
 # License: GPLv3
 
+include file="filter.include"
+
 addFilterHook name="es:remove_subs/remove_tags_without_translation" on="msg"
 
 *hook name="es:compare_with_original/test_if_empty_translation" on="msg"
@@ -33,15 +35,6 @@ hint="No coincide el número de tabuladores"
 id="test_paired_new_lines"
 hint="No coincide el número de saltos de línea"
 
-
-addFilterHook name="remove/remove-paired-ents-tick~'~'" on="msg"
-
-[\&[\w\d\-_]+;]
-hint="Existe una entidad en la traducción que no figura en el texto original"
-{\&[\w\d\-_]+;}
-hint="Existe una entidad en el texto original que no figura en la traducción"
-
-
 addFilterHook name="es:remove_subs/remove_paired_capital_words" on="msg"
 
 [(?u)[,;\:\(]\s+[A-ZÑÇ]\w*]
@@ -52,13 +45,11 @@ valid msgid="^$"
 valid after="\&[\w\d\-_]+;"
 hint="Utilice minúsculas después de coma, punto y coma, dos puntos o apertura de paréntesis"
 
-addFilterHook name="remove/remove-fmtdirs-msg-tick~'~'" on="msg"
-#addFilterHook name="es:remove_subs/remove_paired_parameters" on="msg"
+#addFilterHook name="remove/remove-paired-ents-tick~'~'" on="msg"
 
-[(?<![\w\d^])%([ +-]?\d*\.?\d*[a-z]|\(.*?\)|L?\d{1,2})]
-hint="Existe una cadena de formato en la traducción que no figura en el texto original"
-
-{(?<![\w\d^])%([ +-]?\d*\.?\d*[a-z]|\(.*?\)|L?\d{1,2})}
-hint="Existe una cadena de formato en el texto original que no figura en la traducción"
+[\&[\w\d\-_]+;]
+hint="Existe una entidad en la traducción que no figura en el texto original"
+{\&[\w\d\-_]+;}
+hint="Existe una entidad en el texto original que no figura en la traducción"
 
 # End of rule file

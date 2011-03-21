@@ -1,4 +1,5 @@
 README of pology rules, dictionary and hooks of the KDE l10n Spanish team.
+
 In this moment there is not any web page about pology in Spanish.
 A good reference about the use of pology by translators is the page of 
 the French translation team at: http://fr.i18n.kde.org/pology.php
@@ -30,12 +31,10 @@ not considered by this rules:
 - System files
 - Some system files and directories
 - Home hidden files and directories
-- Abreviattions (Spanish)
-- Usual smilies
+- Abbreviations (Spanish)
+- Usual smileys
 - Complete messages with specific tags.
 - Dates and numbers.
-This filter is based in the documentation examples, regular expressions 
-obtained from the Wikipedia and in the code of the Servian team.
 
 1.4.- "gerund-detector.rules.disabled".
   Try to detect incorrect translation of English gerund into Spanish.
@@ -45,12 +44,12 @@ It is not finished yet.
   Rules based in the glossary of the Spanish team:
 http://es.l10n.kde.org/glosario.php
 
-1.5.- "glosario-kde-l10n-es-proposed.rules"
+1.6.- "glosario-kde-l10n-es-proposed.rules"
   New rules about translations that can be included in the glossary.
 When being approved by the team coordinator, will be moved to the 
 main glossary.
 
-1.5.- "paired-words.rules"
+1.7.- "paired-words.rules"
   Check the occurrence of some words both the original and the translated texts.
 - XML entities.
 - Capital words (upper case).
@@ -60,20 +59,20 @@ main glossary.
 - Very long/short translations.
 - Not translated when it should be.
 
-1.5.- "paragraph-begin.rules"
+1.8.- "paragraph-begin.rules"
   Use of spaces and capitalization at the beginning of a new paragraph.
 Similar at the functions included in KBabel.
 
-1.5.- "paragraph-end.rules"
+1.9.- "paragraph-end.rules"
   Use of spaces, capitalization and punctuation at the end of a new paragraph.
 Similar at the functions included in KBabel, but more complete and 
 adapted to Spanish language.
 
-1.6.- "translator.rules"
+1.10.- "translator.rules"
   Detects frequent errors related with the list of names and emails of translators.
 The main mistake is the presence of unnecessary spaces between names or emails.
 
-1.6.- "typography.rules"
+1.11.- "typography.rules"
   Use of punctuation sings, according the Real Academia Española.
 It is based in the file with the same name of the French team, but has been 
 widely simplified and modified.

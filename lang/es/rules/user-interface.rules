@@ -400,10 +400,8 @@ hint="« Frame » se traduce como como « Marco/Fotograma » (regla de traducci�
 {\bframes\b}i
 valid msgstr="marcos"
 valid msgstr="fotogramas"
-valid msgstr="marco" after="cualquier\s"
-valid msgstr="marco" after="ningún\s"
-valid msgstr="fotograma" after="cualquier\s"
-valid msgstr="fotograma" after="ningún\s"
+valid msgstr="(cualquier|ningún)\smarco"
+valid msgstr="(cualquier|ningún)\sfotograma"
 hint="« Frames » se traduce como como « Marco/Fotogramas » (regla de traducción de elementos gráficos)"
 
 # «Menu item» se traduce como «Opción de menú».
@@ -414,8 +412,7 @@ hint="« Menu item » se traduce como como « Opción de menú » (regla de trad
 # «Menu items» se traduce como «Opciones de menú».
 {\bmenu\sitems\b}i
 valid msgstr="opciones.+?del?\smenú"
-valid msgstr="opción.+?del?\smenú" after="cualquier\s"
-valid msgstr="opción.+?del?\smenú" after="ninguna\s"
+valid msgstr="(cualquier|ninguna)\sopción.+?del?\smenú"
 hint="« Menu items » se traduce como como « Opciones de menú » (regla de traducción de elementos gráficos)"
 
 # «Quick launch» se traduce como «Inicio rápido».
@@ -431,8 +428,7 @@ hint="« Side bar » se traduce como como « Panel lateral » (regla de traducci
 # «Side bars» se traduce como «Paneles laterales».
 {\bside\s?bars\b}i
 valid msgstr="paneles\slaterales"
-valid msgstr="panel\slateral" after="cualquier/s"
-valid msgstr="panel\slateral" after="ningún/s"
+valid msgstr="(cualquier|ningún)\spanel\slateral"
 hint="« Side bars » se traduce como como « Paneles laterales » (regla de traducción de elementos gráficos)"
 
 # End of rule file

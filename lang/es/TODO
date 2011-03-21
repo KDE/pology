@@ -21,7 +21,9 @@ combinación con «not».
 (se + palabra/s + infinitivo) y (3º persona+se).
 - Considerar válida la traducción del plural como singular en frases negativas
 (después de ningún/ninguna/cualquier, considerando la posiblidad de una palabra 
-intermedia en caso de adjetivos/adverbios). 
+intermedia en caso de adjetivos/adverbios).
+- Reglas sobre traducción de «phrasal verbs». Buscar lista en la Wikipedia.
+- Incorporar reglas de «languagetool»
 - Incorporar a las reglas (y en su caso al glosario) las de los siguientes 
 equipos que resulten aplicables y de interés para nosotros:
     - gl/rules/terminology.rules
@@ -34,6 +36,7 @@ equipos que resulten aplicables y de interés para nosotros:
     - OpenTranslation
     - ORCA
     - Ubuntu
+    - Xfce
 - Revisar documentación de la web «Wikilengua»
 - Detección del uso inadecuado del gerundio.
 - Laismo, leismo y loismo.
@@ -45,4 +48,11 @@ equipos que resulten aplicables y de interés para nosotros:
 - Generar un glosario automáticamente mediante poterminology de translate-toolkit.
 
 4.- Revisión gramatical.
-- Incorporar la revisón gramatical de «languaje tool» con «posieve check-grammar».
+- Incorporar la revisón gramatical de «languagetool» con «posieve check-grammar».
+
+5.- Colaboración con «languagetool».
+- Remitir casos de falsos positivos encontrados en las revisiones.
+- Remitir reglas de «pology» sobre:
+  - Errores comunes.
+  - Falsos amigos.
+  - Puntuación.
