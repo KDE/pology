@@ -72,6 +72,7 @@ hint="bouton du milieu -> bouton central"
 
 [compact]i
 valid after="le mode &?"
+valid after="bar d'outils "
 valid before=" ?Flash"
 valid before=" Disc"
 hint="Choix de l'équipe : « compresser » (au lieu de « compacter »)"
@@ -402,6 +403,7 @@ hint="Traduisez « Control Panel » par « Tableau de bord »"
 valid msgstr="curseur"
 valid before=" algorithm"
 valid before="Handle"
+valid after="Progress "
 hint="Traduisez « slider » par « curseur »"
 
 {Do not ask again}i
