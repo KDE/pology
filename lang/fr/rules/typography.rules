@@ -311,6 +311,7 @@ validGroup inParenthesis
 validGroup inQuotes
 validGroup optionTag
 validGroup tokenTag
+valid ctx="kdedt-format"
 valid after="&unbsp;" before="[,\. \)]"
 valid after="&unbsp;" before="&unbsp;[\?!,]"
 valid after="font-size:[0-9]+"# CSS

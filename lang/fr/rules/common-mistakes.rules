@@ -286,6 +286,7 @@ valid cat="kuser" msgid="CRYPT"
 valid after="x-en"
 valid after="x-de"
 valid after="identity-"
+valid after="KCM"
 hint="Il est préférable d'utiliser le verbe « chiffrer »"
 
 [profiles]i
@@ -358,6 +359,7 @@ valid after="script-" before="player"
 valid after="/"
 valid before=":/"
 valid before="Device"
+valid before="Wiki"
 hint="media -> média"
 
 [médias]i
