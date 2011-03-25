@@ -20,6 +20,7 @@ valid msgstr="interrumpid[oa]"
 valid msgstr="interrumpirse"
 valid msgstr="se\sinterrump[ea]n?"
 valid msgstr="interrumpió"
+valid msgstr="se\s(\w+\s){1,3}interrumpir"
 valid !msgstr="abortad[oa]"
 hint="« Aborted » se traduce como como « Interrumpido », nunca como « Abortado » (ver glosario)"
 
@@ -77,6 +78,7 @@ valid msgstr="asignad[oa]"
 valid msgstr="asignarse"
 valid msgstr="se\sasign[ea]n?"
 valid msgstr="asignó"
+valid msgstr="se\s(\w+\s){1,3}asignar"
 valid !msgstr="alocad[oa]"
 hint="« Allocate » como se traduce como « Asignar » (ver glosario)"
 
@@ -129,6 +131,7 @@ valid msgstr="archivad[oa]"
 valid msgstr="archivarse"
 valid msgstr="se\sarchiv[ea]n?"
 valid msgstr="archivó"
+valid msgstr="se\s(\w+\s){1,3}archivar"
 hint="« Archive » se traduce como « Archivo comprimido » (ver glosario)"
 
 # «Archives» se traduce como «Archivos comprimido».
@@ -383,6 +386,9 @@ valid msgstr="se\sconsult[ea]n?"
 valid msgstr="comprobó"
 valid msgstr="marcó"
 valid msgstr="consultó"
+valid msgstr="se\s(\w+\s){1,3}comprobar"
+valid msgstr="se\s(\w+\s){1,3}marcar"
+valid msgstr="se\s(\w+\s){1,3}consultar"
 hint="« Checked » se traduce como « Comprobado/Consultado/marcado » (ver glosario)"
 
 # «Checks» se traduce como «Compruebe».
@@ -429,6 +435,7 @@ valid msgstr="limpi[oa]"
 valid msgstr="limpiarse"
 valid msgstr="se\slimpi[ea]n?"
 valid msgstr="limpió"
+valid msgstr="se\s(\w+\s){1,3}limpiar"
 hint="« Clean » se traduce como « Limpiar » (ver glosario)"
 
 # «Cleaner» se traduce como «Limpiador».
@@ -512,6 +519,7 @@ valid msgstr="comprim(ido|ida)"
 valid msgstr="comprimirse"
 valid msgstr="se\scomprim[ea]n?"
 valid msgstr="comprimió"
+valid msgstr="se\s(\w+\s){1,3}comprimir"
 hint="« Compacted » se traduce como « Comprimido » (ver glosario)"
 
 # «Compacts» se traduce como «Comprime».
@@ -571,6 +579,7 @@ valid msgstr="dañad[oa]"
 valid msgstr="dañarse"
 valid msgstr="se\sdañ[ea]n?"
 valid msgstr="dañó"
+valid msgstr="se\s(\w+\s){1,3}dañar"
 valid !msgstr="corrupt[oa]"
 valid !msgstr="corrompid[oa]"
 valid !msgstr="corromperse"
@@ -609,6 +618,7 @@ valid msgstr="cifrad[oa]"
 valid msgstr="cifrarse"
 valid msgstr="se\scifr[ea]n?"
 valid msgstr="cifró"
+valid msgstr="se\s(\w+\s){1,3}cifrar"
 valid !msgstr="encriptad[oa]"
 hint="« Crypted » se traduce como « Cifrado », nunca como « Encriptado » (ver glosario)"
 
@@ -694,6 +704,7 @@ valid msgstr="des?codificad[oa]"
 valid msgstr="des?codificarse"
 valid msgstr="se\sdes?codifi(ca|que)n?"
 valid msgstr="des?codificó"
+valid msgstr="se\s(\w+\s){1,3}des?codificar"
 hint="« Decoded » se traduce como « Descodificado » (ver glosario)"
 
 # «Decodes» se traduce como «Descodifica».
@@ -720,6 +731,7 @@ valid msgstr="descifrad[oa]"
 valid msgstr="descifrarse"
 valid msgstr="se\sdescifr[ea]n?"
 valid msgstr="descifró"
+valid msgstr="se\s(\w+\s){1,3}descifrar"
 valid !msgstr="desencriptad[oa]"
 hint="« Decrypted » se traduce como « Descifrado », nunca como « Desencriptado » (ver glosario)"
 
@@ -755,6 +767,7 @@ valid msgstr="desfragmentad[oa]"
 valid msgstr="desfragmentarse"
 valid msgstr="se\sdesfragmet[ea]n?"
 valid msgstr="desfragmentó"
+valid msgstr="se\s(\w+\s){1,3}desfragmentar"
 hint="« Defragmented » se traduce como « Desfragmentado » (ver glosario)"
 
 # «Defragments» se traduce como «Desfragmenta».
@@ -773,6 +786,7 @@ valid msgstr="desarrollad[oa]"
 valid msgstr="desarrollarse"
 valid msgstr="se\sdesarroll(a|e)n?"
 valid msgstr="desarrolló"
+valid msgstr="se\s(\w+\s){1,3}desarrollar"
 hint="« Developed » se traduce como « Desarrollado » (ver glosario)"
 
 # «Develops» se traduce como «Desarrolla».
@@ -848,6 +862,8 @@ valid msgstr="se\sdesactiv[ea]n?"
 valid msgstr="se\sinutiliz[ea]n?"
 valid msgstr="desactivó"
 valid msgstr="initilizó"
+valid msgstr="se\s(\w+\s){1,3}desactivar"
+valid msgstr="se\s(\w+\s){1,3}inutilizar"
 valid !msgstr="deshabilitad(o|a|os|as)"
 hint="« Disabled » se traduce como « Desactivado » o « Inutilizado » según el contexto (ver glosario)"
 
@@ -999,6 +1015,9 @@ valid msgstr="se\sintegr(a|ue)n?"
 valid msgstr="empotró"
 valid msgstr="incrustó"
 valid msgstr="integró"
+valid msgstr="se\s(\w+\s){1,3}empotrar"
+valid msgstr="se\s(\w+\s){1,3}incrustar"
+valid msgstr="se\s(\w+\s){1,3}integrar"
 hint="« Embebded » se traduce como « Empotrado », « Incrustado » o « Integrado » (ver glosario)"
 
 # «Embebs» se traduce como «Empotra» o «Incrusta».
@@ -1024,6 +1043,7 @@ valid msgstr="se\spermit[ea]n?"
 valid msgstr="activó"
 valid msgstr="permitió"
 valid msgstr="se\s(\w+\s){1,3}activar"
+valid msgstr="se\s(\w+\s){1,3}permitir"
 hint="« Enabled » se traduce como « Activado » (ver glosario)"
 
 # «Enables» se traduce como «Activa/Permita».
@@ -1055,6 +1075,7 @@ valid msgstr="cifrad[oa]"
 valid msgstr="cifrarse"
 valid msgstr="se\scifr[ea]n?"
 valid msgstr="cifró"
+valid msgstr="se\s(\w+\s){1,3}cifrar"
 valid !msgstr="encriptad[oa]"
 hint="« Encrypted » se traduce como « Cifrado », nunca como « Encriptado » (ver glosario)"
 
@@ -1102,7 +1123,7 @@ hint="« Entries » se traduce como « Entradas » (ver glosario)"
 # «Environment» se traduce como «Entorno».
 {\benvironment\b}i
 valid msgstr="entorno"
-valid msgstr="environment" after="k\sdesktop\s"
+valid msgstr="environment" after="K\sDesktop\s"
 hint="« Environment » se traduce como « Entorno » (ver glosario)"
 
 # «Environments» se traduce como «Entornos».
@@ -1275,6 +1296,7 @@ valid msgstr="formatead[oa]"
 valid msgstr="formatearse"
 valid msgstr="se\sformate[ea]n?"
 valid msgstr="formateó"
+valid msgstr="se\s(\w+\s){1,3}formatear"
 hint="« (to) Formated » se traduce como « Formateado » (ver glosario)"
 
 # « Formats» se traduce como «Formatea».
@@ -1718,6 +1740,7 @@ valid msgstr="enlazad[oa]"
 valid msgstr="enlazarse"
 valid msgstr="se\senla(za|ce)n?"
 valid msgstr="enlazó"
+valid msgstr="se\s(\w+\s){1,3}enlazar"
 valid !msgstr="linkad[oa]"
 valid !msgstr="linkarse"
 hint="« Linked » se traduce como « Enlazado », nunca como « Linkado » (ver glosario)"
@@ -1877,6 +1900,7 @@ hint="« Managers » se traduce como « Gestores », nunca como « Administrador
 valid msgstr="mapea(do|da|rse)"
 valid msgstr="se\smape[ea]n?"
 valid msgstr="mapeó"
+valid msgstr="se\s(\w+\s){1,3}mapear"
 hint="« Mapped » se traduce como « Mapeado » (ver glosario)"
 
 # «Map» se traduce como «Mapear» o «Asignar».
@@ -2403,10 +2427,13 @@ hint="« Quotes » se traduce como « Citas », « Cita », « Cuotas » o « Co
 valid msgstr="entrecomillad(o|a|as|os)"
 valid msgstr="entrecomillarse"
 valid msgstr="se\sentrecomill(a|e)n?"
+valid msgstr="entreconilló"
+valid msgstr="se\s(\w+\s){1,3}entrecomillar"
 valid msgstr="citad(o|a|os|as)"
 valid msgstr="citarse"
 valid msgstr="se\scit(a|e)n?"
 valid msgstr="citó"
+valid msgstr="se\s(\w+\s){1,3}citar"
 hint="« Quoted » se traduce como « Entrecomillado » o « Texto citado » (ver glosario)"
 
 # «Quotelike» se traduce como «Semejante a las comillas».
