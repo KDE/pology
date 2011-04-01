@@ -86,6 +86,7 @@ hint="« Scroll Lock » se traduce como como « Bloq Desp » (regla de traducci�
 # «Shift» se traduce como «Mayús» (regla de traducción de nombres de teclas).
 {\bShift\b}
 valid msgstr="Mayús"
+valid msgstr="turno"
 hint="« Shift » se traduce como como « Mayus » (regla de traducción de nombres de teclas)"
 
 # «SysReq» se traduce como «Pet Sys» (regla de traducción de nombres de teclas).
@@ -322,12 +323,12 @@ hint="« Hide » se traduce como como « Ocultar » (regla de traducción de men
 
 # «Default» se traduce como «Predeterminado».
 {^Default$}
-valid msgstr="Predeterminado"
+valid msgstr="Predeterminad[oa]"
 hint="« Default » se traduce como como « Predeterminado » (regla de traducción de menús de KDE)"
 
 # «Defaults» se traduce como «Predeterminados».
 {^Defaults$}
-valid msgstr="Predeterminados"
+valid msgstr="Predeterminad[oa]s"
 hint="« Defaults » se traduce como como « Predeterminados » (regla de traducción de menús de KDE)"
 
 # «Edit options» se traduce como «Editar opciones».
@@ -433,6 +434,7 @@ hint="« Close active window » se traduce como como « Cerrar ventana activa »
 # «New window» se traduce como «Nueva ventana».
 {\bnew\swindow\b}i
 valid msgstr="nueva\sventana"
+valid msgstr="ventana\snueva"
 hint="« New window » se traduce como como « Nueva ventana » (regla de traducción de elementos gráficos)"
 
 # «Duplicate window» se traduce como «Duplicar ventana».
@@ -443,6 +445,7 @@ hint="« Duplicate window » se traduce como como « Duplicar ventana » (regla 
 # «New tab» se traduce como «Nueva pestaña».
 {\bnew\stab\b}i
 valid msgstr="nueva\spestaña"
+valid msgstr="pestaña\snueva"
 hint="« New tab » se traduce como como « Nueva pestaña » (regla de traducción de elementos gráficos)"
 
 # «Duplicate tab» se traduce como «Duplicar pestaña».
@@ -480,6 +483,7 @@ hint="« Close current tab » se traduce como como « Close pestaña actual» (r
 # «Button» se traduce como «Botón».
 {\bbutton\b}i
 valid msgstr="botón"
+valid msgstr="botones"
 hint="« Button » se traduce como como « Botón » (regla de traducción de elementos gráficos)"
 
 # «Buttons» se traduce como «Botones».
@@ -583,10 +587,11 @@ valid msgstr="(cualquier|ningún)\scuadro\sde\sdiálogo"
 hint="« Dialog boxes » se traduce como como « Cuadros de diálogo » (regla de traducción de elementos gráficos)"
 
 # «Drag and drop» se traduce como «Arrastrar y soltar».
-{\bdrag\sand\sdrop\b}i
+{\bdrag[\s\-]and[\s\-]drop\b}i
 valid msgstr="arrastrar\sy\ssoltar"
 valid msgstr="arrastr[ea]\sy\ssuelt[ea]"
 valid msgstr="arrastrarl[oa]s?\sy\ssiltarl[oa]s?"
+valid msgstr="arrastrará\sy\ssoltará" after="will\s"
 hint="« Drag and drop » se traduce como « Arrastrar y soltar » (propuesta glosario)"
 
 # «Drop down menu» se traduce como «Menú desplegable».
@@ -686,6 +691,7 @@ hint="« Listboxes » se traduce como como « Cuadros de lista » (regla de trad
 # «Maximise» se traduce como «Maximizar».
 {\bmaximi[sz]e\b}i
 valid msgstr="maximi(zar|za|ce)"
+valid msgstr="maximizará" after="will\s"
 hint="« Maximise » se traduce como como « Maximizar » (regla de traducción de elementos gráficos)"
 
 # «Menu bar» se traduce como «Barra de menú».
@@ -713,6 +719,7 @@ hint="« Menu items » se traduce como como « Opciones de menú » (regla de tr
 # «Minimise» se traduce como «Minimizar».
 {\bminimi[sz]e\b}i
 valid msgstr="minimi(zar|za|ce)"
+valid msgstr="minimizará" after="will\s"
 hint="« Minimise » se traduce como como « Minimizar » (regla de traducción de elementos gráficos)"
 
 # «Progressbar» se traduce como «Barra de progreso».

@@ -55,6 +55,8 @@ hint="« Actually » se traduce como como « En realidad », no como « Actualme
 {\bactuate\b}i
 valid msgstr="anim(ar|a|e)"
 valid msgstr="motiv(ar|a|e)"
+valid msgstr="animará" after="will\s"
+valid msgstr="motivará" after="will\s"
 valid !msgstr="act(uar|úa|úe)"
 hint="« Actuate » se traduce como como « Animar/Motivar », no como « Actuar » (falso amigo)"
 
@@ -74,6 +76,8 @@ hint="« Adequates » se traduce como como « Suficientes », no como « Adecuad
 {\badjudicate\b}i
 valid msgstr="juzg(ar|a|ue)"
 valid msgstr="arbitr(ar|a|e)"
+valid msgstr="juzgará" after="will\s"
+valid msgstr="arbitrará" after="will\s"
 valid !msgstr="adjudi(car|ca|que)"
 hint="« Adjudicate » se traduce como como « Juzgar/arbitrar », no como « Adjudicar » (falso amigo)"
 
@@ -87,6 +91,7 @@ hint="« Adjudicates » se traduce como como « Juzga/Arbitra », no como « Adj
 # «Advertise» se traduce como «Anunciar».
 {\badvertise\b}i
 valid msgstr="anunci(ar|a|e)"
+valid msgstr="anunciará" after="will\s"
 valid !msgstr="advertir"
 valid !msgstr="adviert(a|e)"
 hint="« Advertise » se traduce como como « Anunciar », no como « Advertir » (falso amigo)"
@@ -119,6 +124,8 @@ hint="« Advertisements » se traduce como como « Anuncios », no como « Adver
 {\badvice\b}i
 valid msgstr="aconsej(ar|a|e)"
 valid msgstr="asesor(ar|a|e)"
+valid msgstr="aconsejará" after="will\s"
+valid msgstr="asesorará" after="will\s"
 valid !msgstr="advertir"
 valid !msgstr="adviert(a|e)"
 hint="« Advice » se traduce como como « Aconsejar/Asesorar », no como « Advertir » (falso amigo)"
@@ -148,6 +155,7 @@ hint="« Advices » se traduce como como « Aconseja/Asesora », no como « Advi
 # «Affront» se traduce como «Ofender».
 {\baffront\b}i
 valid msgstr="ofend(er|e|a)"
+valid msgstr="ofenderá" after="will\s"
 valid !msgstr="afront(ar|a|e)"
 hint="« Affront » se traduce como como « Ofender », no como « Afrontar » (falso amigo)"
 
@@ -197,6 +205,7 @@ hint="« Ancients » se traduce como como « Antiguos » (falso amigo)"
 # «Annotate» se traduce como «Comentar».
 {\bannotate\b}i
 valid msgstr="coment(ar|e|a)"
+valid msgstr="comentará" after="will\s"
 valid !msgstr="anot(ar|a|e)"
 hint="« Annotate » se traduce como como « Comentar », no como « Anotar » (falso amigo)"
 
@@ -247,6 +256,8 @@ hint="« Aspersions » se traduce como como « Calumnias » (falso amigo)"
 valid msgstr="ayud(ar|e|a)"
 valid msgstr="atender"
 valid msgstr="atiend(a|e)"
+valid msgstr="ayudará" after="will\s"
+valid msgstr="atenderá" after="will\s"
 valid !msgstr="asist(ir|a|e|o)"
 hint="« Assist » se traduce como como « Ayudar », no como « Asistir » (falso amigo)"
 
@@ -254,6 +265,7 @@ hint="« Assist » se traduce como como « Ayudar », no como « Asistir » (fal
 {\bassume\b}i
 valid msgstr="supon(er|e)"
 valid msgstr="supong[oa]"
+valid msgstr="supondrá" after="will\s"
 valid !msgstr="asum(ir|a|e)"
 hint="« Assume » se traduce como como « Suponer », no como « Asumir » (falso amigo)"
 
@@ -456,6 +468,8 @@ hint="« Casualties » se traduce como como « Bajas/Víctimas », no como « Ca
 {\bclarify\b}i
 valid msgstr="aclar(ar|a|e)"
 valid msgstr="clarific(ar|a|e)"
+valid msgstr="aclarará" after="will\s"
+valid msgstr="clarificará" after="will\s"
 hint="« Clarify » se traduce como como « Aclarar », no como « Clarificar » (falso amigo)"
 
 # «Clarified» se traduce como «Aclarado».
@@ -760,6 +774,8 @@ hint="« Deceptions » se traduce como como « Engaños », no como « Decepcion
 # «Deprecate» se traduce como «Desaprobar».
 {\bdeprecate\b}i
 valid msgstr="desaprobar"
+valid msgstr="desaprueb(a|e)"
+valid msgstr="desaprobará" after="will\s"
 hint="« Deprecate » se traduce como como « Desaprobar » (falso amigo)"
 
 # «Deprecates» se traduce como «Desaprueba».
@@ -783,8 +799,9 @@ hint="« Derogatories » se traduce como como « Despectivos », no como « Dero
 
 # «Discuss» se traduce como «Debatir».
 {\bdiscuss\b}i
-valid msgstr="debatir"
+valid msgstr="debat(ir|a|e)"
 valid msgstr="intercambiar\sideas"
+valid msgstr="debatirá" after="will\s"
 valid !msgstr="discu(tir|ta|te)"
 hint="« Discuss » se traduce como como « Debatir », no como « Discutir » (falso amigo)"
 
@@ -817,6 +834,8 @@ hint="« Discussions » se traduce como como « Debates », no como « Discusion
 {\bdisgust\b}i
 valid msgstr="repugn(ar|a|e)"
 valid msgstr="asque(ar|e|a)"
+valid msgstr="repugnará" after="will\s"
+valid msgstr="asqueará" after="will\s"
 valid !msgstr="disgust(ar|a|e)"
 hint="« Disgust » se traduce como como « Repugnar », no como « Disgustar » (falso amigo)"
 
@@ -860,6 +879,7 @@ hint="« Diversions » se traduce como como « Distracciones », no como « Dive
 {\bdivert\b}i
 valid msgstr="desviar"
 valid msgstr="desví(e|a|o)"
+valid msgstr="desviará" after="will\s"
 valid !msgstr="divertir"
 valid !msgstr="diviert(a|e|o)"
 hint="« Divert » se traduce como como « Desviar », no como « Divertir » (falso amigo)"
@@ -937,6 +957,7 @@ hint="« Engross » se traduce como como « Absorver », no como « Engrosar » 
 # «Enlarge» se traduce como «Agrandar».
 {\benlarge\b}i
 valid msgstr="agrand(ar|a|e)"
+valid msgstr="agrandará" after="will\s"
 valid !msgstr="alarg(ar|a|o)"
 valid !msgstr="alarg(ue|a)"
 hint="« Enlarge » se traduce como como « Agrandar », no como « Alargar » (falso amigo)"
@@ -1221,6 +1242,7 @@ hint="« Intoxication » se traduce como como « Embriaguez/Borrachera », no co
 # «Introduce» se traduce como «Presentar».
 {\bintroduce\b}i
 valid msgstr="present(ar|a|e)"
+valid msgstr="presentará" after="will\s"
 valid !msgstr="introduc(ir|e)"
 valid !msgstr="introduzc(a|o)"
 hint="« Introduce » se traduce como como « Presentar », no como « Introducir » (falso amigo)"
@@ -1322,6 +1344,9 @@ hint="« Motorist » se traduce como como « Automovilista/Conductor », no como
 valid msgstr="avis(o|ar|e|a)"
 valid msgstr="notificac(ión|ar)"
 valid msgstr="darse\scuenta"
+valid msgstr="avisará" after="will\s"
+valid msgstr="notificará" after="will\s"
+valid msgstr="se\sdará\scuenta" after="will\s"
 valid !msgstr="noticia"
 hint="« Notice » se traduce como como « Darse cuenta », no como « Noticia » (falso amigo)"
 
@@ -1329,6 +1354,7 @@ hint="« Notice » se traduce como como « Darse cuenta », no como « Noticia �
 {\boccur\b}i
 valid msgstr="aparecer?"
 valid msgstr="aparezca"
+valid msgstr="aparecerá" after="will\s"
 valid !msgstr="ocurr(ir|e|a)"
 hint="« Occur » se traduce como como « Aparecer », no como « Ocurrir » (falso amigo)"
 
@@ -1449,9 +1475,8 @@ valid !msgstr="físicos?"
 hint="« Physicians » se traduce como como « Médicos », no como « Físicos » (falso amigo)"
 
 # «Plain» se traduce como «Sencillo».
-{\bplain\b}i
+{\bplain(?!\stext)\b}i
 valid msgstr="sencill[oa]"
-valid msgstr="texto\ssin\sformato"
 valid !msgstr="plan[oa]"
 hint="« Plain » se traduce como como « Sencillo », no como « Plano » (falso amigo)"
 
@@ -1472,6 +1497,8 @@ hint="« Politic » se traduce como como « Diplomático/Prudente », no como «
 {\bpresume\b}i
 valid msgstr="supon(er|ga|e)"
 valid msgstr="atreverse"
+valid msgstr="supondrá" after="will\s"
+valid msgstr="se\satreverá" after="will\s"
 valid !msgstr="presum(ir|e|a)"
 hint="« Presume » se traduce como como « Suponer/Atreverse », no como « Presumir » (falso amigo)"
 
@@ -1486,6 +1513,7 @@ hint="« Presumes » se traduce como como « Supone/Se atreve », no como « Pre
 {\bpretend\b}i
 valid msgstr="fingir"
 valid msgstr="finj(a|e|o)"
+valid msgstr="fingirá" after="will\s"
 valid !msgstr="pretend(er|e|a|o)"
 hint="« Pretend » se traduce como como « Fingir », no como « Pretender » (falso amigo)"
 
@@ -1500,6 +1528,8 @@ hint="« Pretends » se traduce como como « Finja », no como « Pretenda » (f
 valid msgstr="evit(ar|a|e|o)"
 valid msgstr="impedir"
 valid msgstr="impid(a|e|o)"
+valid msgstr="evitará" after="will\s"
+valid msgstr="impedirá" after="will\s"
 valid !msgstr="prevenir"
 valid !msgstr="preven(ga|go)"
 hint="« Prevent » se traduce como como « Evitar », no como « Prevenir » (falso amigo)"
@@ -1532,6 +1562,7 @@ hint="« Proves » se traduce como como « Investigue/Sondeae », no como « Pru
 # «Produce» se traduce como «Presentar».
 {\bproduce\b}i
 valid msgstr="present(ar|a|e)"
+valid msgstr="presentará" after="will\s"
 valid !msgstr="produc(ir|e)"
 valid !msgstr="produzca"
 hint="« Produce » se traduce como como « Presentar », no como « Producir » (falso amigo)"
@@ -1540,7 +1571,7 @@ hint="« Produce » se traduce como como « Presentar », no como « Producir »
 {\bproduces\b}i
 valid msgstr="present(a|e)"
 valid !msgstr="produce"
-hint="« Produces » se traduce como como « Presente », no como « Produce » (falso amigo)"
+hint="« Produces » se traduce como como « Presenta », no como « Produce » (falso amigo)"
 
 # «Proper» se traduce como «Correcto».
 {\bproper\b}i
@@ -1626,6 +1657,9 @@ hint="« Quiets » se traduce como como « Calmados », no como « Quietos » (f
 valid msgstr="dej(ar|a|e)"
 valid msgstr="abandon(ar|a|e)"
 valid msgstr="dimit(ir|a|e)"
+valid msgstr="dejará" after="will\s"
+valid msgstr="abandonará" after="will\s"
+valid msgstr="dimitirá" after="will\s"
 valid !msgstr="quit(ar|a|e)"
 hint="« Quit » se traduce como como « Dejar/Abandonar », no como « Quitar » (falso amigo)"
 
@@ -1666,6 +1700,8 @@ hint="« Recipients » se traduce como como « Receptores », no como « Recipie
 {\breclaim\b}i
 valid msgstr="recuper(ar|a|e|o)"
 valid msgstr="sane(ar|a|e|o)"
+valid msgstr="recuperará" after="will\s"
+valid msgstr="saneará" after="will\s"
 valid !msgstr="reclam(ar|a|e|o)"
 hint="« Reclaim » se traduce como como « Recuperar », no como « Reclamar » (falso amigo)"
 
@@ -1679,6 +1715,8 @@ hint="« Reclaims » se traduce como como « Recupera », no como « Reclama » 
 # «Recollect» se traduce como «Recordar».
 {\brecollect\b}i
 valid msgstr="recordar"
+valid msgstr="recuerd(a|e)"
+valid msgstr="recordará" after="will\s"
 valid !msgstr="recolectar"
 hint="« Recollect » se traduce como como « Recordar », no como « Recolectar » (falso amigo)"
 
@@ -1703,10 +1741,13 @@ hint="« Recollections » se traduce como como « Recuerdos », no como « Recol
 
 # «Record» se traduce como «Anotar/Apuntar/Grabar».
 {\brecord\b}i
-valid msgstr="anotar"
-valid msgstr="apuntar"
-valid msgstr="grabar"
+valid msgstr="anot(ar|a|e)"
+valid msgstr="apunt(ar|a|e)"
+valid msgstr="grab(ar|a|e)"
 valid msgstr="registro"
+valid msgstr="anotará" after="will\s"
+valid msgstr="apuntará" after="will\s"
+valid msgstr="grabará" after="will\s"
 valid !msgstr="recordar"
 hint="« Record » se traduce como como « Anotar/Apuntar/Grabar », no como « Recordar » (falso amigo)"
 
@@ -1733,6 +1774,7 @@ hint="« Refrain » se traduce como como « Estribillo/Abstenerse de », no como
 # «Refund» se traduce como «Reembolsar».
 {\brefund\b}i
 valid msgstr="reembols(ar|a|e)"
+valid msgstr="reembolsará" after="will\s"
 valid !msgstr="refund(ir|e|a)"
 hint="« Refund » se traduce como como « Reembolsar », no como « Refundir » (falso amigo)"
 
@@ -1760,6 +1802,8 @@ hint="« Relevants » se traduce como como « Pertinentes », no como « Relevan
 {\bremove\b}i
 valid msgstr="quit(ar|a|e|o)"
 valid msgstr="elimin(ar|a|e|o)"
+valid msgstr="quitará" after="will\s"
+valid msgstr="eliminará" after="will\s"
 valid !msgstr="remover"
 valid !msgstr="remuev(a|e|o)"
 hint="« Remove » se traduce como como « Quitar », no como « Remover » (falso amigo)"
@@ -1804,6 +1848,7 @@ hint="« Rents » se traduce como como « Alquileres », no como « Rentas » (f
 # «Report» se traduce como «Informar».
 {\breport\b}i
 valid msgstr="inform(ar|a|e)"
+valid msgstr="informará" after="will\s"
 valid !msgstr="report(ar|a|e)"
 hint="« Report » se traduce como como « Informar », no como « Reportar » (falso amigo)"
 
@@ -1828,6 +1873,7 @@ hint="« Reporta » se traduce como como « Informe », no como « Reporte » (f
 # «Resume» se traduce como «Reanudar».
 {\bresume\b}i
 valid msgstr="reanud(ar|a|e|o)"
+valid msgstr="reanudará" after="will\s"
 valid !msgstr="resumen?"
 hint="« Resume » se traduce como como « Reanudar », no como « Resumen » (falso amigo)"
 
@@ -2069,6 +2115,9 @@ hint="« Tramp » se traduce como como « Vagabundo », no como « Trampa/Trampe
 valid msgstr="sobrepas(ar|e|a)"
 valid msgstr="super(ar|a|e)"
 valid msgstr="rebas(ar|a|e)"
+valid msgstr="sobrepasará" after="will\s"
+valid msgstr="superará" after="will\s"
+valid msgstr="rebasará" after="will\s"
 valid !msgstr="trascender"
 valid !msgstr="trasciend(e|a)"
 hint="« Trascend » se traduce como como « Sobrepasar/Rebasar », no como « Trascender » (falso amigo)"

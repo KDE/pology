@@ -908,8 +908,8 @@ hint="« Hay la posibilidad » se escribe como « Existe la posibilidad » (erro
 hint="« Hecha a » se escribe como « Echa a » (error frecuente)"
 
 # «Hecha de» se escribe como «Echa de».
-[\bhecha\sde\b]i
-hint="« Hecha de » se escribe como « Echa de » (error frecuente)"
+#[\bhecha\sde\b]i
+#hint="« Hecha de » se escribe como « Echa de » (error frecuente)"
 
 # «Hóy» se escribe como «Hoy».
 [\bHóy\b]i
@@ -1429,6 +1429,8 @@ hint="« Tí » se escribe como « Ti » (error frecuente)"
 
 # «Torah» se escribe como «Torá».
 [\bTorah\b]i
+valid after="[A-Z]\w+\s"
+valid before="\s[A-Z]\w+"
 hint="« Torah » se escribe como « Torá » (error frecuente)"
 
 # «Tratar que» se escribe como «Tratar de que».
