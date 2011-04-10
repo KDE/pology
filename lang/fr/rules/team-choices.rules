@@ -369,13 +369,14 @@ hint="Traduisez « controller » par « contrôleur »"
 [effets? du bureau]i
 hint="Traduisez « Desktop effects » par « Effets de bureau »"
 
-{activity|activities}i
+{\bactivity|\bactivities}i
 valid msgstr="agencement"
 valid msgid="monitored session"
 valid before="For|By"
-valid after="inter|in|user "
-valid cat="processui" after="system "
-valid cat="konsole"
+valid after="inter|in|user|thread|keyboard "
+valid cat="processui,krunner" after="system "
+valid cat="kcmkio,kcmperformance" after="browsing "
+valid cat="libmessagelist,libmessagelist,konsolekalendar,kmail,kopete,umbrello,konsole,ktorrent,choqok,cantor,kxsconfig,kjumpingcube,rsibreak,workout_qt,workout,kmymoney,konversation"
 hint="Traduisez « Activity » par « Agencement » dans le contexte du bureau plasma"
 
 [événement]
