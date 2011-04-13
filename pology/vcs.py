@@ -1080,8 +1080,10 @@ class VcsGit (VcsBase):
         for line in res[0].split("\n"):
             m = sect_rx.search(line)
             if m:
-                if (   m.group(1).endswith("to be committed") # git 1.6.x
-                    or m.group(1).endswith("but not updated") # git 1.7.x
+                mstr = m.group(1)
+                if (   mstr.endswith("to be committed") # git 1.6.x
+                    or mstr.endswith("but not updated") # git 1.7.x
+                    or mstr.endswith("not staged for commit") # git 1.7.x
                 ):
                     inlist = True
                 else:
