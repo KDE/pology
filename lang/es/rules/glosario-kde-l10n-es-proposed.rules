@@ -11,11 +11,13 @@ include file="filter.include"
 # «Account» se traduce como «Cuenta».
 {\baccount\b}i
 valid msgstr="cuenta"
+valid msgstr="contabili(zar|za|ce)"
 hint="« Account » se traduce como « Cuenta » (propuesta glosario)"
 
 # «Accounts» se traduce como «Cuentas».
 {\baccounts\b}i
 valid msgstr="cuentas"
+valid msgstr="contabili(za|ce)"
 valid msgstr="(ninguna|cualquier)\scuenta" 
 hint="« Accounts » se traduce como « Cuentas » (propuesta glosario)"
 
@@ -238,6 +240,7 @@ hint="« Bit streams » se traduce como « Flujos de bits » (propuesta glosario
 valid msgstr="placa"
 valid msgstr="tarjeta"
 valid msgstr="tablero"
+valid msgstr="tabón"
 hint="« Board » se traduce como « Placa/Tarjeta » (propuesta glosario)"
 
 # «Boards» se traduce como «Placas/Tarjetas».
@@ -245,9 +248,11 @@ hint="« Board » se traduce como « Placa/Tarjeta » (propuesta glosario)"
 valid msgstr="placas"
 valid msgstr="tarjetas"
 valid msgstr="tableros"
+valid msgstr="tablones"
 valid msgstr="(ninguna|cualquier)\splaca"
 valid msgstr="(ninguna|cualquier)\starjeta"
 valid msgstr="(ningún|cualquier)\stablero"
+valid msgstr="(ningún|cualquier)\stablón"
 hint="« Boards » se traduce como « Placas/Tarjetas » (propuesta glosario)"
 
 # «Boot loader» se traduce como «Gestor de arranque».
@@ -367,6 +372,7 @@ hint="« Builds » se traduce como « Genera/Revisiones » (propuesta glosario)"
 # «Built» se traduce como «Generado/Revisión».
 {\bbuilt(?!\-in)\b}i
 valid msgstr="generad[oa]"
+valid msgstr="compilad[oa]"
 valid msgstr="revisión"
 hint="« Built » se traduce como « Generado/Revisión » (propuesta glosario)"
 
@@ -961,9 +967,7 @@ valid msgstr="sinteti(zar|za|ce)"
 valid msgstr="síntesis"
 valid msgstr="resumirá" after="will\s"
 valid msgstr="sintetizará" after="will\s"
-valid msgstr="DIGEST"
-valid before="\-md5"
-valid before="\-MD5"
+valid msgstr="DIGEST-MD5"
 hint="« Digest » se traduce como « Resumen/Síntesis » (propuesta glosario)"
 
 # «Digests» se traduce como «Resumen/Síntesis».
@@ -1042,6 +1046,7 @@ hint="« Documentation » se traduce como « Documentación » (propuesta glosar
 # «Dot» se traduce como «Punto».
 {\bdot\b}i
 valid msgstr="punto"
+valid after="K\s" before="\sNews"
 hint="« Dot » se traduce como « Punto » (propuesta glosario)"
 
 # «Dots» se traduce como «Puntos».
@@ -1319,7 +1324,7 @@ hint="« Error » se traduce como « Error » (propuesta glosario)"
 # «Errors» se traduce como «Errores».
 {\berrors\b}i
 valid msgstr="errores"
-valid msgstr="(ningún|cualquier)\serror"
+valid msgstr="(ningún|cualquier|algún)\serror"
 hint="« Errors » se traduce como « Errores » (propuesta glosario)"
 
 # «Executable» se traduce como «Ejecutable».
@@ -1541,6 +1546,7 @@ hint="« Foerings keys » se traduce como « Claves ajenas » (propuesta glosari
 # «Folder» se traduce como «Carpeta».
 {\bfolder\b}i
 valid msgstr="carpeta"
+valid msgstr="papelera" after="trash\s"
 hint="« Folder » se traduce como « Carpeta » (propuesta glosario)"
 
 # «Folders» se traduce como «Carpeta».
@@ -2264,6 +2270,7 @@ hint="« Mails » se traduce como « Correos/Mensajes » (propuesta glosario)"
 # «Mailbox» se traduce como «Buzón».
 {\bmailbox\b}i
 valid msgstr="buzón"
+valid msgstr="mailbox"
 hint="« Mailbox » se traduce como « Buzón » (propuesta glosario)"
 
 # «Mailboxes» se traduce como «Buzones».
@@ -2614,7 +2621,8 @@ hint="« Newbies » se traduce como « Principiantes » (propuesta glosario)"
 
 # «News» se traduce como «Noticias».
 {\bnews\b}i
-valid msgstr="noticias"
+valid msgstr="noticias?"
+valid after="K\sDot\s"
 hint="« News » se traduce como « Noticias » (propuesta glosario)"
 
 # «Newsgroup» se traduce como «Grupo de noticias».
@@ -2785,13 +2793,14 @@ hint="« Overrides » se traduce como « Redefine/Reescribe/Reemplaza » (propue
 
 # «Owner» se traduce como «Propietario».
 {\bowner\b}i
-valid msgstr="propietario"
+valid msgstr="propietari[oa]"
 hint="« Owner » se traduce como « Propietario » (propuesta glosario)"
 
 # «Owners» se traduce como «Propietarios».
 {\bowners\b}i
-valid msgstr="propietarios"
+valid msgstr="propietari[oa]s"
 valid msgstr="(ningún|cualquier)\spropietario"
+valid msgstr="(ninguna|cualquier)\spropietaria"
 hint="« Owners » se traduce como « Propietarios » (propuesta glosario)"
 
 # «Package» se traduce como «Paquete/Empaquetar».
@@ -2895,6 +2904,7 @@ hint="« Patch » se traduce como « Parche/Modificación/Actualizar/Parchear »
 valid msgstr="camino"
 valid msgstr="trayectoria"
 valid msgstr="ruta"
+valid msgstr="PATH"
 hint="« Path » se traduce como « Camino/Trayectoria/Ruta » (propuesta glosario)"
 
 # «Paths» se traduce como «Caminos/Trayectorias/Rutas».
@@ -3423,6 +3433,9 @@ hint="« Reliables » se traduce como « Fiables/Confiables » (propuesta glosar
 valid msgstr="dependers\sde"
 valid msgstr="confiar\sen"
 valid msgstr="delegar\sen"
+valid msgstr="dependans\sde"
+valid msgstr="confien\sen"
+valid msgstr="delegen\sen"
 hint="« Rely on » se traduce como « Depender de/Confiar en/Delegar en » (propuesta glosario)"
 
 # «Remove» se traduce como «Eliminar/Quitar/Extraer».
@@ -3881,7 +3894,7 @@ valid msgstr="(ninguna|cualquier)\sespecificación"
 hint="« Specifications » se traduce como « Especificaciones » (propuesta glosario)"
 
 # «Spell» se traduce como «Deletrear/Hechizo».
-{\bspell(?!\s(check|checking|checkers?))\b}i
+{\bspell(?![\s\-](check|checking|checkers?))\b}i
 valid msgstr="deletre(ar|a|e)"
 valid msgstr="hechizo"
 valid msgstr="deletreará" after="will\s"

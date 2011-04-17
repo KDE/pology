@@ -508,7 +508,7 @@ hint="« Comboboxes » se traduce como « Listas desplegables » (ver glosario)"
 valid msgstr="orden"
 valid msgstr="órdenes"
 valid msgstr="instrucción"
-valid msgstr="CONMAND"
+valid msgstr="COMMAND"
 hint="« Command » se traduce como « Orden » o « Instrucción », nunca como « Comando » (ver glosario)"
 
 # «Commands» se traduce como «Órdenes o «Instrucciones».
@@ -1222,14 +1222,14 @@ valid msgstr="ofrece"
 hint="« Features » se traduce como « Funcionalidades » o « Características » (ver glosario)"
 
 # «Feed» se traduce como «Suministro».
-{\b(?!<line\s)feed\b}i
+{\b(?<!line\s)feed\b}i
 valid msgstr="suministro"
 valid msgstr="fuente"
 valid msgstr="canal"
 hint="« Feed » se traduce como « Suministro » o « Fuente de noticias »(ver glosario)"
 
 # «Feeds» se traduce como «Suministros».
-{\b(?!<line\s)feeds\b}i
+{\b(?<!line\s)feeds\b}i
 valid msgstr="suministros"
 valid msgstr="fuentes"
 valid msgstr="canales"
@@ -1867,6 +1867,7 @@ hint="« Logs » se traduce como « Registros » (ver glosario)"
 valid msgstr="inicio\sde\ssesión"
 valid msgstr="iniciar\ssesión"
 valid msgstr="iniciará\ssesión" after="will\s"
+valid msgstr="LOGIN"
 valid !msgstr="login"
 hint="« Login » se traduce como « Inicio de sesión », no se debe dejar sin traducir (ver glosario)"
 
@@ -2230,6 +2231,7 @@ hint="« Passwords » se traduce como « Contraseñas » (ver glosario)"
 # «Patch» se traduce como «Parche».
 {\bpatch\b}i
 #valid after="\-"
+valid after="x\-"
 valid msgstr="parch(e|ea)?"
 valid msgstr="parcheará" after="will\s"
 valid catrx=".*kmid.*" msgstr="instrumento"
@@ -3194,7 +3196,7 @@ hint="« Subnetting » se traduce como « Segmentación de redes » (ver glosari
 {\bsupport\b}i
 valid msgstr="admit(ir|e|a|en|an)"
 valid msgstr="implement(ar|a|e|en|an|ación)"
-valid msgstr="recono(cer?|cimiento|zcan?)"
+valid msgstr="recono(cer?|cimiento|zcan?|cid[oa]s?)"
 valid msgstr="us(ar|o|e|a|en|an)"
 valid msgstr="apoy(ar|o|e|a|en|an)"
 valid msgstr="admitirá" after="will\s"
@@ -3422,7 +3424,7 @@ valid msgstr="env(iar|ío|ía|íe|íen)"
 hint="« Uploads » se traduce como « Carga » o « Envío » (ver glosario)"
 
 # «UPS» se traduce como «SAI» o «UPS».
-{\bups\b}i
+{\b(?<!follow\-)ups\b}i
 valid msgstr="sai"
 valid msgstr="SAI"
 valid msgstr="ups"
@@ -3449,7 +3451,7 @@ hint="« Verbatim copies » se traduce como « Copias literales » (ver glosario
 # «Web» no se traduce.
 {\bweb\b}i
 valid msgstr="web"
-valid msgstr="red" before="\sde\sconfianza\s"
+valid msgstr="red" before="\sof\sTrust"
 hint="« Web » no se traduce (ver glosario)"
 
 # «Widget» se traduce como «Ventana», Control» o «Elemento gráfico».
