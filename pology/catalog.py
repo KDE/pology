@@ -1187,7 +1187,12 @@ class Catalog (Monitored):
             mkdirpath(pdirpath)
             # Write to file atomically: directly write to temporary file,
             # then rename it to destination file.
-            ofl = tempfile.NamedTemporaryFile(delete=False, dir=pdirpath)
+            #ofl = tempfile.NamedTemporaryFile(delete=False, dir=pdirpath)
+            #tmpfname = ofl.name
+            # ...needs Python 2.6
+            tmpfname = os.path.join(pdirpath,
+                                    os.path.basename(self._filename) + "~tmpw")
+            ofl = open(tmpfname, "w")
         else:
             ofl = writefh
         ofl.writelines(enclines)
@@ -1195,7 +1200,7 @@ class Catalog (Monitored):
             ofl.write(enctail)
         if not writefh:
             ofl.close()
-            os.rename(ofl.name, self._filename)
+            os.rename(tmpfname, self._filename)
 
         # Indicate the catalog is no longer created from scratch, if it was.
         self._created_from_scratch = False
