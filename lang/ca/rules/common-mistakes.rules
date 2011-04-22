@@ -26,6 +26,12 @@ hint="«al respecte» s'ha de substituir per «referent a això» (error freqüe
 [\ba\sno\sser\sque\b]i
 hint="«a no ser que» s'ha de substituir per «llevat que», «fora que» etc. (error freqüent)"
 
+# «beep» es tradueix per «so d'avís» o «timbre» (maquinari).
+{\bbeeps?\b}i
+valid msgstr="so d'avís"
+valid msgstr="timbre" # Quan es refereix a maquinari
+hint="«beep» es tradueix per «so d'avís» o «timbre» (error freqüent)"
+
 # «califica» ha de ser «qualifica».
 [\bcalifi]i
 hint="«califica» s'ha de substituir per «qualifica» (error freqüent)"
@@ -142,6 +148,11 @@ hint="«por» s'ha de substituir per un mot correcte (error freqüent)"
 [\b(R|r)és\b]i
 hint="«rés» (de resar) no s'ha de confondre amb «res» (res de res) (error freqüent)"
 
+# «router» es tradueix per «encaminador».
+{\brouters?\b}i
+valid msgstr="encaminadors?"
+hint="«router» es tradueix per «encaminador» (error freqüent)"
+
 # «síntesi» en català, s'utilitza normalment en singular.
 [\b(S|s)íntesis\b]i
 hint="«síntesis» s'utilitza normalment en singular «síntesi» (error freqüent)"
@@ -164,6 +175,13 @@ valid msgstr="enemics\ste\sl" cat="kgoldrunner"
 valid after="\-"
 hint="«té» (verb tenir) cal que porti accent (error freqüent)"
 
+# «tutorial» es tradueix per «guia d'aprenentatge».
+{\btutorials?\b}i
+valid msgstr="gui(a|es) d'aprenentatge"
+valid msgstr="program(a|es) d'aprenentatge"
+valid msgstr="(camp|partida) d'aprenentatge"
+hint="«tutorial» es tradueix per «guia d'aprenentatge» (error freqüent)"
+
 # «venen» del verb venir cal que porti accent «vénen».
 [\bvenen\b]i
 hint="«venen» (verb venir) cal que porti accent «vénen» (error freqüent)"
@@ -171,6 +189,11 @@ hint="«venen» (verb venir) cal que porti accent «vénen» (error freqüent)"
 # «ves» del verb anar cal que porti accent «vés».
 [\bves\b]i
 hint="«ves» (verb anar) cal que porti accent «vés» (error freqüent)"
+
+# «widget» es tradueix per «estri».
+{\bwidgets?\b}i
+valid msgstr="estris?"
+hint="«widget» es tradueix per «estri» (error freqüent)"
 
 # «world» es tradueix per «món» (amb accent).
 {\bworld\b}i
