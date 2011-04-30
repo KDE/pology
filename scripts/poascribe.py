@@ -704,7 +704,7 @@ def assert_review_tags (configs_catpaths, tags):
 
 def assert_syntax (configs_catpaths, onabortf=None):
 
-    checkf = msgfmt(options="--check")
+    checkf = msgfmt(options=["--check"])
     numerr = 0
     for config, catpaths in configs_catpaths:
         for catpath, acatpath in catpaths:
