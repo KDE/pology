@@ -27,11 +27,11 @@ def msgfilter (filtr, options=[]):
     extra options to C{msgfilter}.
     Both C{filtr} and C{options} are lists of command line arguments
     rather than monolithic strings, to avoid shell quoting problems.
-    For example, to rewrap the file at 70 columns::
+    For example, to rewrap the PO file at 70 columns::
 
         msgfilter(["cat"], ["-w", "70"])
 
-    or to replace every C{foo} with C{bar}:
+    or to replace every C{foo} with C{bar} in translation::
 
         msgfilter(["sed", "s/foo/bar/g"])
 
