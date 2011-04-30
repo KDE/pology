@@ -421,8 +421,8 @@ def main ():
             update_progress(fname)
 
         if op.msgfmt_check:
-            # TODO: Make it more portable?
-            d1, oerr, ret = collect_system("msgfmt -o/dev/null -c %s" % fname)
+            d1, oerr, ret = collect_system(["msgfmt", "-o", "/dev/null", "-c",
+                                            fname])
             if ret != 0:
                 oerr = oerr.strip()
                 errwarn(_("@info:progress",

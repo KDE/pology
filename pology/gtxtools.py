@@ -8,12 +8,14 @@ Wrappers for commands from Gettext tools.
 """
 
 import os
+import subprocess
 
 from pology import _, n_
 from pology.report import warning
+from pology.fsops import unicode_to_str
 
 
-def msgfilter (filtr, options=""):
+def msgfilter (filtr, options=[]):
     """
     Pass PO file through C{msgfilter(1)} [hook factory].
 
@@ -23,11 +25,20 @@ def msgfilter (filtr, options=""):
 
     where C{options} parameter may be used to pass any
     extra options to C{msgfilter}.
+    Both C{filtr} and C{options} are lists of command line arguments
+    rather than monolithic strings, to avoid shell quoting problems.
+    For example, to rewrap the file at 70 columns::
 
-    @param filtr: filter to use (e.g. C{cat} for no-op)
-    @type filtr: string
+        msgfilter(["cat"], ["-w", "70"])
+
+    or to replace every C{foo} with C{bar}:
+
+        msgfilter(["sed", "s/foo/bar/g"])
+
+    @param filtr: filter to use
+    @type filtr: [string*]
     @param options: additional options to pass to C{msgfilter}
-    @type options: string
+    @type options: [string*]
 
     @return: type F6A hook
     @rtype: C{(filepath) -> numerr}
@@ -38,11 +49,12 @@ def msgfilter (filtr, options=""):
 
     # FIXME: Check availability and version of msgfilter.
 
-    base_cmdline = "msgfilter " + options + " "
+    base_cmdargs = ["msgfilter"] + options
 
     def wrapper (filepath):
-        cmdline = base_cmdline + "-i %s -o %s " % (filepath, filepath) + filtr
-        ret = os.system(cmdline)
+        cmdargs = base_cmdargs + ["-i", filepath, "-o", filepath] + filtr
+        cmdargs = map(unicode_to_str, cmdargs)
+        ret = subprocess.call(cmdargs)
         if ret:
             warning(_("@info",
                       "%(file)s: %(cmd)s failed with exit code %(num)d "
@@ -55,19 +67,21 @@ def msgfilter (filtr, options=""):
     return wrapper
 
 
-def msgfmt (options=""):
+def msgfmt (options=[]):
     """
     Pass PO file through C{msgfmt(1)} [hook factory].
 
     The file is not modified; the executed command is::
 
-        msgfilter <options> -o/dev/null <filepath>
+        msgfilter <options> -o /dev/null <filepath>
 
     where C{options} parameter may be used to pass any
     extra options to C{msgfmt}.
+    C{options} is a list of command line arguments
+    rather than a monolithic string, to avoid shell quoting problems.
 
     @param options: additional options to pass to C{msgfmt}
-    @type options: string
+    @type options: [string*]
 
     @return: type S6A hook
     @rtype: C{(filepath) -> numerr}
@@ -78,11 +92,12 @@ def msgfmt (options=""):
 
     # FIXME: Check availability and version of msgfmt.
 
-    base_cmdline = "msgfmt " + options + " -o/dev/null "
+    base_cmdargs = ["msgfmt"] + options + ["-o", "/dev/null"]
 
     def wrapper (filepath):
-        cmdline = base_cmdline + filepath
-        ret = os.system(cmdline)
+        cmdargs = base_cmdargs + [filepath]
+        cmdargs = map(unicode_to_str, cmdargs)
+        ret = subprocess.call(cmdargs)
         if ret:
             warning(_("@info",
                       "%(file)s: %(cmd)s failed with exit code %(num)d "

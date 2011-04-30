@@ -234,13 +234,18 @@ def system_wd (cmdline, wdir):
     return ret
 
 
-# Execute command line and assert success.
-# In case of failure, report the failed command line if echo is False.
 def assert_system (cmdline, echo=False, wdir=None):
     """
     Execute command line and assert success.
 
     If the command exits with non-zero zero state, the program aborts.
+
+    C{cmdline} can be either a monolithic string, in which case it is
+    executed through a shell, or a list of argument strings,
+    when the process is started directly with these arguments.
+
+    C{cmdline} is processed with L{unicode_to_str} to convert any
+    unicode strings to raw byte strings in expected system encoding.
 
     @param cmdline: command line to execute
     @type cmdline: string
@@ -255,7 +260,13 @@ def assert_system (cmdline, echo=False, wdir=None):
     if wdir is not None:
         cwd = getucwd()
         os.chdir(wdir)
-    ret = os.system(unicode_to_str(cmdline))
+    if isinstance(cmdline, basestring):
+        cmdline = unicode_to_str(cmdline)
+        shell = True
+    else:
+        cmdline = map(unicode_to_str, cmdline)
+        shell = False
+    ret = subprocess.call(cmdline, shell=shell, env=env)
     if wdir is not None:
         os.chdir(cwd)
     if ret:
@@ -270,12 +281,17 @@ def assert_system (cmdline, echo=False, wdir=None):
 
 def collect_system (cmdline, echo=False, wdir=None, env=None, instr=None):
     """
-    Execute command line and collect stdout, stderr, and return code.
+    Execute command line and collect stdout, stderr, and exit code.
 
-    Normally the output will 
+    C{cmdline} can be either a monolithic string, in which case it is
+    executed through a shell, or a list of argument strings,
+    when the process is started directly with these arguments.
+
+    C{cmdline} is processed with L{unicode_to_str} to convert any
+    unicode strings to raw byte strings in expected system encoding.
 
     @param cmdline: command line to execute
-    @type cmdline: string
+    @type cmdline: string or [string*]
     @param echo: whether to echo the command line, as well as stdout/stderr
     @type echo: bool
     @param wdir: working directory for the command (CWD if none given)
@@ -295,7 +311,13 @@ def collect_system (cmdline, echo=False, wdir=None, env=None, instr=None):
         cwd = getucwd()
         os.chdir(wdir)
     stdin = instr is not None and subprocess.PIPE or None
-    p = subprocess.Popen(unicode_to_str(cmdline), shell=True, env=env,
+    if isinstance(cmdline, basestring):
+        cmdline = unicode_to_str(cmdline)
+        shell = True
+    else:
+        cmdline = map(unicode_to_str, cmdline)
+        shell = False
+    p = subprocess.Popen(cmdline, shell=shell, env=env,
                          stdout=subprocess.PIPE, stderr=subprocess.PIPE,
                          stdin=stdin)
     if instr is not None:
