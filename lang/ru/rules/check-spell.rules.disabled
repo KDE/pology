@@ -21,6 +21,8 @@ addFilterRegex match="веб-службу" on="pmsgid,pmsgstr"
 addFilterRegex match="веб-службы" on="pmsgid,pmsgstr"
 addFilterRegex match="веб-мастеру" on="pmsgid,pmsgstr"
 addFilterRegex match="веб-мастера" on="pmsgid,pmsgstr"
+addFilterRegex match="адрес[а]? эл. почты" on="pmsgid,pmsgstr"
+addFilterRegex match="\b(8|64|24)-битн(ый|ых|ое)\b" on="pmsgid,pmsgstr"
 hint="неизвестное или неправильное написание слова"
 valid ctx="^City in " # ignore names from KStars
 valid ctx="^Constellation name \(optional\)$"
