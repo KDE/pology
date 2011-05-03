@@ -266,7 +266,7 @@ def assert_system (cmdline, echo=False, wdir=None):
     else:
         cmdline = map(unicode_to_str, cmdline)
         shell = False
-    ret = subprocess.call(cmdline, shell=shell, env=env)
+    ret = subprocess.call(cmdline, shell=shell)
     if wdir is not None:
         os.chdir(cwd)
     if ret:
