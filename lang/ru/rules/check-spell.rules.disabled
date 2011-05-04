@@ -1,6 +1,6 @@
 
 *hook name="spell/check-spell-sp~lang='ru'" on="msgstr"
-addFilterRegex match="[a-z&áňŠěéČć³²äß]+" on="pmsgid,pmsgstr"
+addFilterRegex match="[a-z&áňŠěéČć³²äßří]+" on="pmsgid,pmsgstr"
 addFilterRegex match="веб-страница" on="pmsgid,pmsgstr"
 addFilterRegex match="веб-страницу" on="pmsgid,pmsgstr"
 addFilterRegex match="веб-страницы" on="pmsgid,pmsgstr"
@@ -22,7 +22,8 @@ addFilterRegex match="веб-службы" on="pmsgid,pmsgstr"
 addFilterRegex match="веб-мастеру" on="pmsgid,pmsgstr"
 addFilterRegex match="веб-мастера" on="pmsgid,pmsgstr"
 addFilterRegex match="адрес[а]? эл. почты" on="pmsgid,pmsgstr"
-addFilterRegex match="\b(8|64|24)-битн(ый|ых|ое)\b" on="pmsgid,pmsgstr"
+addFilterRegex match="по эл. почте" on="pmsgid,pmsgstr"
+addFilterRegex match="\b(2|10|11|8|64|24)-битн(ый|ых|ое)\b" on="pmsgid,pmsgstr"
 hint="неизвестное или неправильное написание слова"
 valid ctx="^City in " # ignore names from KStars
 valid ctx="^Constellation name \(optional\)$"
