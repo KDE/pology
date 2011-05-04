@@ -136,6 +136,7 @@ hint="орфография"
 hint="keyboard shortcut, hotkey -- комбинация клавиш"
 
 [ярлык]i
+valid msgstr="^ярлык Windows$"
 hint="не используем слово 'ярлык'"
 
 [скач]i
@@ -189,6 +190,7 @@ valid after="href=\""
 valid after="%\^&-\+@~" # list of chars
 valid after="            " # command-line option description
 valid before="okular" # IRC channel
+valid before="krusader" # IRC channel
 valid before="dragonplayer" # IRC channel
 valid before="amarok" # IRC channels
 valid before="kde-bugs" # IRC channel
@@ -202,6 +204,7 @@ valid after="href=\"[a-z]+"
 valid msgid="New name #" msgstr="Объект #" cat="dolphin" # '#' is hardcoded in Dolphin
 valid msgid="\(# will be replaced by ascending numbers\)" msgstr="\(символ # будет заменён порядковым номером\)" cat="dolphin" # '#' is hardcoded in Dolphin
 valid msgstr="«#»" # FIXME: "before" or "after"?
+valid msgstr="^\*99#$"
 hint="заменить на '№'?"
 
 [\bне не\b]i
@@ -241,6 +244,7 @@ hint="shortcut -- комбинация клавиш"
 hint="superuser нужно перевести"
 
 [\bклик]i
+valid before="омания" # GNOME click-o-mania
 hint="click -- щёлкнуть"
 
 [аккаунт]i
@@ -303,6 +307,7 @@ valid after="а\.е" span="м" before="\." # а.е.м.
 valid after="мм рт" span="с" before="т\." # мм рт.ст.
 valid after="дюймов рт" span="с" before="т\." # дюймов рт.ст.
 valid after="дюймы рт" span="с" before="т\." # дюймы рт.ст.
+valid after="\.\." span="\.ч" before="то"
 hint="Поставьте пробел после точки в конце предложения"
 
 [директори]i
@@ -361,4 +366,7 @@ hint="В кнопке 'Отмена' акселератор ставьте на 
 
 [ \.\.\.]
 hint="В командах меню перед многоточием не ставьте пробел."
+
+[«спам]
+hint="'спам' должно быть без кавычек"
 
