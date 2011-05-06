@@ -1200,7 +1200,14 @@ class Catalog (Monitored):
             ofl.write(enctail)
         if not writefh:
             ofl.close()
-            os.rename(tmpfname, self._filename)
+            if os.name == "nt":
+                # NT does not allow to overwrite on rename.
+                tmpfname2 = self._filename + "~tmpo"
+                os.rename(self._filename, tmpfname2)
+                os.rename(tmpfname, self._filename)
+                os.remove(tmpfname2)
+            else:
+                os.rename(tmpfname, self._filename)
 
         # Indicate the catalog is no longer created from scratch, if it was.
         self._created_from_scratch = False
