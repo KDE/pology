@@ -153,6 +153,7 @@ valid ctx="Query"
 valid comment="Tag\:\suserinput" cat="kioslave_nepomuksearch" # docmessages
 valid after="i" cat="lokalize"
 valid after="seleccioneu.*" cat="koffice,calligra"
+valid after="Nivell" cat="blinken"
 hint="No s'ha de posar cap espai abans del signe d'interrogació (tipografia)"
 
 [\?\S]

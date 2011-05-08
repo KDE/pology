@@ -9,6 +9,20 @@ include file="filter.include"
 # Remove accelerator and  hyphen inside words.
 addFilterRegex match="(\&|\-)" on="pmsgid,pmsgstr"
 
+# «screenshot» es tradueix per «captura de pantalla».
+{\bscreenshots?\b}i
+valid msgstr="captur(a|es) de pantalla"
+valid msgstr="captur(a|es)" cat="marble_qt"
+valid msgstr="screenshots" cat="desktop_extragear-graphics_kipi-plugins,kipiplugin_debianscreenshots"
+hint="«screenshot» es tradueix per «captura de pantalla» (kde-ca-team)"
+
+# «snapshot» es tradueix generalment per «captura de pantalla».
+{\bsnapshots?\b}i
+valid msgstr="captur(a|es) de pantalla"
+valid msgstr="instantàni(a|es)" cat="digikam"
+valid msgstr="punt de sincronisme" 
+hint="«snapshot» es tradueix *generalment* per «captura de pantalla» (kde-ca-team)"
+
 # «wallpaper» es tradueix per «fons de pantalla».
 {\bwallpapers?\b}i
 valid msgstr="fons de pantall(a|es)"
