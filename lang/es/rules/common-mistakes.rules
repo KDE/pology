@@ -1116,7 +1116,7 @@ hint="« No hay duda que » se escribe como « No hay duda de que » (error frec
 hint="« Notar de que » se escribe como « Notar que » (error frecuente: dequeismo)"
 
 # «Ó» se escribe siempre sin tilde.
-[\bób]i
+[\bó\b]i
 hint="« Ó » se escribe siempre sin tilde, incluso entre números (ver nueva ortografía de la RAE)"
 
 # «O otros» se escribe como «U otros».

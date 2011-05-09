@@ -26,6 +26,24 @@ valid after="\&[\w\-_]*?\;"
 valid before="$"
 valid after="«.+"
 
+validGroup beforeCaps
+valid after="^"
+valid after="\.\s"
+valid after="\?\s"
+valid after="\!\s"
+valid after="\<p\>\s?"
+valid after="\<para\>\s?"
+valid after="\\n\s?"
+valid after="¿"
+valid after="¡"
+
+validGroup beforeComma
+valid after="^"
+valid after=",\s"
+valid after=";\s"
+valid after="\:\s"
+valid after="\("
+
 [\s\:]
 valid ctx="Numbers and characters"
 valid ctx="CSV separator"
@@ -305,51 +323,27 @@ hint="Ponga una coma después de «Por regla general» (Consulte ortografía de 
 hint="Ponga una coma después de «Quizá» (Consulte ortografía de la RAE)"
 
 [\bo\sbien\b]
-valid after="^"
-valid after=",\s"
-valid after=";\s"
-valid after="\:\s"
-valid after="\("
+validGroup beforeComma
 hint="Ponga una coma antes de «o bien» (Consulte ortografía de la RAE)"
 
 [\bexcepto\b]
-valid after="^"
-valid after=",\s"
-valid after=";\s"
-valid after="\:\s"
-valid after="\("
+validGroup beforeComma
 hint="Ponga una coma antes de «excepto» (Consulte ortografía de la RAE)"
 
 [\bsalvo\b]
-valid after="^"
-valid after=",\s"
-valid after=";\s"
-valid after="\:\s"
-valid after="\("
+validGroup beforeComma
 hint="Ponga una coma antes de «salvo» (Consulte ortografía de la RAE)"
 
 [\bconque\b]
-valid after="^"
-valid after=",\s"
-valid after=";\s"
-valid after="\:\s"
-valid after="\("
+validGroup beforeComma
 hint="Ponga una coma antes de «conque» (Consulte ortografía de la RAE)"
 
 [\basí\sque\b]
-valid after="^"
-valid after=",\s"
-valid after=";\s"
-valid after="\:\s"
-valid after="\("
+validGroup beforeComma
 hint="Ponga una coma antes de «así que» (Consulte ortografía de la RAE)"
 
 [\bde\smanera\sque\b]
-valid after="^"
-valid after=",\s"
-valid after=";\s"
-valid after="\:\s"
-valid after="\("
+validGroup beforeComma
 hint="Ponga una coma antes de «de manera que» (Consulte ortografía de la RAE)"
 
 #[[^,\A]\sesto\ses\b]
@@ -357,102 +351,55 @@ hint="Ponga una coma antes de «de manera que» (Consulte ortografía de la RAE)
 #hint="Ponga una coma antes de «esto es» (Consulte ortografía de la RAE)"
 
 [\bes\sdecir\b]
-valid after="^"
-valid after=",\s"
-valid after=";\s"
-valid after="\:\s"
-valid after="\("
+validGroup beforeComma
 hint="Ponga una coma antes de «es decir» (Consulte ortografía de la RAE)"
 
 [\ba\ssaber\b]
-valid after="^"
-valid after=",\s"
-valid after=";\s"
-valid after="\:\s"
-valid after="\("
+validGroup beforeComma
 hint="Ponga una coma antes de «a saber» (Consulte ortografía de la RAE)"
 
 [\bpues\sbien\b]
-valid after="^"
-valid after=",\s"
-valid after=";\s"
-valid after="\:\s"
-valid after="\("
+validGroup beforeComma
 hint="Ponga una coma antes de «pues bien» (Consulte ortografía de la RAE)"
 
 [\bahora\sbien\b]
-valid after="^"
-valid after=",\s"
-valid after=";\s"
-valid after="\:\s"
-valid after="\("
+validGroup beforeComma
 hint="Ponga una coma antes de «ahora bien» (Consulte ortografía de la RAE)"
 
 [\ben\sprimer\slugar\b]
-valid after="^"
-valid after=",\s"
-valid after=";\s"
-valid after="\:\s"
-valid after="\("
+validGroup beforeComma
 hint="Ponga una coma antes de «en primer lugar» (Consulte ortografía de la RAE)"
 
 [\bpor\sotro\lado\b]
-valid after="^"
-valid after=",\s"
-valid after=";\s"
-valid after="\:\s"
+validGroup beforeComma
 valid after="\("
 hint="Ponga una coma antes de «por otro lado» (Consulte ortografía de la RAE)"
 
 [\bpor\sun\slado\b]
-valid after="^"
-valid after=",\s"
-valid after=";\s"
-valid after="\:\s"
-valid after="\("
+validGroup beforeComma
 hint="Ponga una coma antes de «por un lado» (Consulte ortografía de la RAE)"
 
 [\bpor\suna\sparte\b]
-valid after="^"
-valid after=",\s"
-valid after=";\s"
-valid after="\:\s"
-valid after="\("
+validGroup beforeComma
 hint="Ponga una coma antes de «por una parte» (Consulte ortografía de la RAE)"
 
 [\bpor\sotra\sparte\s]
-valid after="^"
-valid after=",\s"
-valid after=";\s"
-valid after="\:\s"
-valid after="\("
+validGroup beforeComma
 hint="Ponga una coma antes de «por otra parte» (Consulte ortografía de la RAE)"
 
 [\ben\sfin\b]
-valid after="^"
-valid after=",\s"
-valid after=";\s"
-valid after="\:\s"
-valid after="\("
+validGroup beforeComma
 hint="Ponga una coma antes de «en fin» (Consulte ortografía de la RAE)"
 
 [\bpor\súltimo\b]
-valid after="^"
-valid after=",\s"
-valid after=";\s"
-valid after="\:\s"
-valid after="\("
+validGroup beforeComma
 hint="Ponga una coma antes de «por último» (Consulte ortografía de la RAE)"
 
 #[[^,\A]\sdetrás\sde\b]
 #hint="Ponga una coma antes de «detrás de» (Consulte ortografía de la RAE)"
 
 [\bademás\b]
-valid after="^"
-valid after=",\s"
-valid after=";\s"
-valid after="\:\s"
-valid after="\("
+validGroup beforeComma
 hint="Ponga una coma antes de «además» (Consulte ortografía de la RAE)"
 
 #[[^,\A]\scon\stodo\b]
@@ -460,75 +407,39 @@ hint="Ponga una coma antes de «además» (Consulte ortografía de la RAE)"
 #hint="Ponga una coma antes de «con todo» (Consulte ortografía de la RAE)"
 
 [\ben\stal\scaso\b]
-valid after="^"
-valid after=",\s"
-valid after=";\s"
-valid after="\:\s"
-valid after="\("
+validGroup beforeComma
 hint="Ponga una coma antes de «en tal caso» (Consulte ortografía de la RAE)"
 
 [\bsin\sembargo\b]
-valid after="^"
-valid after=",\s"
-valid after=";\s"
-valid after="\:\s"
-valid after="\("
+validGroup beforeComma
 hint="Ponga una coma antes de «sin embargo» (Consulte ortografía de la RAE)"
 
 [\bno\sobstante\b]
-valid after="^"
-valid after=",\s"
-valid after=";\s"
-valid after="\:\s"
-valid after="\("
+validGroup beforeComma
 hint="Ponga una coma antes de «no obstante» (Consulte ortografía de la RAE)"
 
 [\bpor\sel\scontrario\b]
-valid after="^"
-valid after=",\s"
-valid after=";\s"
-valid after="\:\s"
-valid after="\("
+validGroup beforeComma
 hint="Ponga una coma antes de «por el contrario» (Consulte ortografía de la RAE)"
 
 [\ben\scambio\b]
-valid after="^"
-valid after=",\s"
-valid after=";\s"
-valid after="\:\s"
-valid after="\("
+validGroup beforeComma
 hint="Ponga una coma antes de «en cambio» (Consulte ortografía de la RAE)"
 
 [\befectivamente\b]
-valid after="^"
-valid after=",\s"
-valid after=";\s"
-valid after="\:\s"
-valid after="\("
+validGroup beforeComma
 hint="Ponga una coma antes de «efectivamente» (Consulte ortografía de la RAE)"
 
 [\bgeneralmente\b]
-valid after="^"
-valid after=",\s"
-valid after=";\s"
-valid after="\:\s"
-valid after="\("
+validGroup beforeComma
 hint="Ponga una coma antes de «generalmente» (Consulte ortografía de la RAE)"
 
 [\bnaturalmente\b]
-valid after="^"
-valid after=",\s"
-valid after=";\s"
-valid after="\:\s"
-valid after="\("
+validGroup beforeComma
 hint="Ponga una coma antes de «naturalmente» (Consulte ortografía de la RAE)"
 
 [\bpor\sregla\sgeneral\b]
-valid after="^"
-valid after=",\s"
-valid after=";\s"
-valid after="\:\s"
-valid after="\("
+validGroup beforeComma
 hint="Ponga una coma antes de «por regla general» (Consulte ortografía de la RAE)"
 
 [\betcétera\b]i
@@ -540,53 +451,21 @@ hint="Ponga una coma antes de «etc./&etc;/etcétera» (Consulte ortografía de 
 hint="No se pone coma antes de las conjunciones « y, e, o, u, ni» salvo casos excepcionales (Consulte ortografía de la RAE)"
 
 [\b(Enero|Febrero|Marzo|Abril|Mayo|Junio|Julio|Agosto|Septiembre|Octubre|Noviembre|Diciembre)\b]
-valid after="^"
-valid after="\.\s"
-valid after="\?\s"
-valid after="\!\s"
-valid after="\<p\>\s?"
-valid after="\<para\>\s?"
-valid after="\\n\s?"
-valid after="¿"
-valid after="¡"
+validGroup beforeCaps
 valid span="Julio" before="\s[A-Z]"
 hint="Los nombres de los meses se escriben en minúsculas (Consulte ortografía de la RAE)"
 
 [\b(Lunes|Martes|Miércoles|Jueves|Viernes|Sábado|Domingo)\b]
-valid after="^"
-valid after="\.\s"
-valid after="\?\s"
-valid after="\!\s"
-valid after="\<p\>\s?"
-valid after="\<para\>\s?"
-valid after="\\n\s?"
-valid after="¿"
-valid after="¡"
+validGroup beforeCaps
 valid span="Domingo" after="Santo\s"
 hint="Los nombres de los días de la semana se escriben en minúsculas (Consulte ortografía de la RAE)"
 
 [\b(Primavera|Verano|Otoño|Invierno)\b]
-valid after="^"
-valid after="\.\s"
-valid after="\?\s"
-valid after="\!\s"
-valid after="\<p\>\s?"
-valid after="\<para\>\s?"
-valid after="\\n\s?"
-valid after="¿"
-valid after="¡"
+validGroup beforeCaps
 hint="Los nombres de las estaciones del año se escriben en minúsculas (Consulte ortografía de la RAE)"
 
 [\b(Usted|Señor|Don|Fray|San|Santo|Sor|Reverendo)\b]
-valid after="^"
-valid after="\.\s"
-valid after="\?\s"
-valid after="\!\s"
-valid after="\<p\>\s?"
-valid after="\<para\>\s?"
-valid after="\\n\s?"
-valid after="¿"
-valid after="¡"
+validGroup beforeCaps
 hint="Los tratamientos « Usted, Señor, Don, ... » se escriben en minúsculas (Consulte ortografía de la RAE)"
 
 # End of rule file

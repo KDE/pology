@@ -514,7 +514,7 @@ hint="« Captions » se traduce como como « Títulos/Leyendas » (regla de trad
 
 # «Checkbox» se traduce como «Casilla de verificación».
 {\bcheckbox\b}i
-valid msgstr="casilla\sde\sverificación"
+valid msgstr="casillas?\sde\sverificación"
 hint="« Checkbox » se traduce como como « Casilla de verificación » (regla de traducción de elementos gráficos)"
 
 # «Checkboxes» se traduce como «Casillas de verificación».
@@ -525,7 +525,7 @@ hint="« Checkboxes » se traduce como como « Casillas de verificación » (reg
 
 # «Check button» se traduce como «Botón de verificación».
 {\bcheck\s?button\b}i
-valid msgstr="botón\sde\sverificación"
+valid msgstr="bot(ón|ones)\sde\sverificación"
 hint="« Check button » se traduce como « Botón de verificación » (propuesta glosario)"
 
 # «Check buttons» se traduce como «Botones de verificación».
@@ -537,6 +537,7 @@ hint="« Check buttons » se traduce como « Botones de verificación » (propue
 # «Child window» se traduce como «Ventana secundaria».
 {\bchild\swindow\b}i
 valid msgstr="ventana\ssecundaria"
+valid msgstr="ventanas\ssecundarias"
 hint="« Child window » se traduce como como « Ventana secundaria » (regla de traducción de elementos gráficos)"
 
 # «Child windows» se traduce como «Ventanas secundarias».
@@ -548,6 +549,7 @@ hint="« Child windows » se traduce como como « Ventanas secundarias » (regla
 # «Combo box» se traduce como «Lista desplegable».
 {\bcombo\s?box\b}i
 valid msgstr="lista\sdesplegable"
+valid msgstr="listas\sdesplegables"
 hint="« Combo box » se traduce como como « Lista desplegable » (regla de traducción de elementos gráficos)"
 
 # «Combo boxes» se traduce como «Listas desplegables».
@@ -578,7 +580,7 @@ hint="« Desktops » se traduce como « Escritorios » (propuesta glosario)"
 
 # «Dialog box» se traduce como «Cuadro de diálogo».
 {\bdialog\s?box\b}i
-valid msgstr="cuadro\sde\sdiálogo"
+valid msgstr="cuadros?\sde\sdiálogo"
 hint="« Dialog box » se traduce como como « Cuadro de diálogo » (regla de traducción de elementos gráficos)"
 
 # «Dialog boxes» se traduce como «Cuadros de diálogo».
@@ -598,6 +600,7 @@ hint="« Drag and drop » se traduce como « Arrastrar y soltar » (propuesta gl
 # «Drop down menu» se traduce como «Menú desplegable».
 {\bdrop\sdown\menu\b}i
 valid msgstr="menú\sdesplegable"
+valid msgstr="menús\sdesplegables"
 hint="« Drop down menu » se traduce como como « Menú desplegable » (regla de traducción de elementos gráficos)"
 
 # «Drop down menus» se traduce como «Menús desplegables».
@@ -680,7 +683,7 @@ hint="« Labels » se traduce como como « Etiquetas » (regla de traducción de
 
 # «Listbox» se traduce como «Cuadro de lista».
 {\blist\s?box\b}i
-valid msgstr="cuadro\sde\slista"
+valid msgstr="cuadros?\sde\slista"
 hint="« Listbox » se traduce como como « Cuadro de lista » (regla de traducción de elementos gráficos)"
 
 # «Listboxes» se traduce como «Cuadros de lista».
@@ -697,7 +700,7 @@ hint="« Maximise » se traduce como como « Maximizar » (regla de traducción 
 
 # «Menu bar» se traduce como «Barra de menú».
 {\bmenu\sbar\b}i
-valid msgstr="barra\sde\smenú"
+valid msgstr="barras?\sde\smenú"
 hint="« Menu bar » se traduce como como « Barra de menú » (regla de traducción de elementos gráficos)"
 
 # «Menu bars» se traduce como «Barras de menú».
@@ -725,7 +728,7 @@ hint="« Minimise » se traduce como como « Minimizar » (regla de traducción 
 
 # «Progressbar» se traduce como «Barra de progreso».
 {\bprogress\s?bar\b}i
-valid msgstr="barra\sde\sprogreso"
+valid msgstr="barras?\sde\sprogreso"
 hint="« Progressbar » se traduce como como « Barra de progreso » (regla de traducción de elementos gráficos)"
 
 # «Quick launch» se traduce como «Inicio rápido».
@@ -735,7 +738,7 @@ hint="« Quick launch » se traduce como como « Inicio rápido » (regla de tra
  
 # «Root window» se traduce como «Ventana de fondo».
 {\broot\s?window\b}i
-valid msgstr="ventana\sde\sfondo"
+valid msgstr="ventanas?\sde\sfondo"
 hint="« Root window » se traduce como como « Ventana de fondo » (regla de traducción de elementos gráficos)"
 
 # «Root windows» se traduce como «Ventanas de fondo».
@@ -746,7 +749,7 @@ hint="« Root windows » se traduce como como « Ventanas de fondo » (regla de 
 
 # «Scroll bar» se traduce como «Barra de desplazamiento».
 {\bscroll\s?bar\b}i
-valid msgstr="barra\sde\sdesplazamiento"
+valid msgstr="barras?\sde\sdesplazamiento"
 hint="« Scroll bar » se traduce como como « Barra de desplzamiento » (regla de traducción de elementos gráficos)"
  
 # «Scroll bars» se traduce como «Barras de desplazamiento».
@@ -758,6 +761,7 @@ hint="« Scroll bars » se traduce como como « Barras de desplzamiento » (regl
 # «Service menu» se traduce como «Menú contextual».
 {\bservice\smenu\b}i
 valid msgstr="menú\scontextual"
+valid msgstr="menús\scontextuales"
 hint="« Service menu » se traduce como « Menú contextual » (propuesta glosario)"
 
 # «Service menus» se traduce como «Menús contextuales».
@@ -770,6 +774,7 @@ hint="« Service menus » se traduce como « Menús contextuales » (propuesta g
 # «Side bar» se traduce como «Panel lateral».
 {\bside\s?bar\b}i
 valid msgstr="panel\slateral"
+valid msgstr="paneles\slaterales"
 hint="« Side bar » se traduce como como « Panel lateral » (regla de traducción de elementos gráficos)"
  
 # «Side bars» se traduce como «Paneles laterales».
@@ -791,7 +796,7 @@ hint="« Splitters » se traduce como como « Separadores » (regla de traducci�
 
 # «Status bar» se traduce como «Barra de estado».
 {\bstatus\s?bar\b}i
-valid msgstr="barra\sde\sestado"
+valid msgstr="barras?\sde\sestado"
 hint="« Status bar » se traduce como como « Barra de estado » (regla de traducción de elementos gráficos)"
 
 # «Status bars» se traduce como «Barras de estado».
@@ -802,12 +807,12 @@ hint="« Status bars » se traduce como como « Barras de estado » (regla de tr
 
 # «Taskbar» se traduce como «Barra de tareas».
 {\btaskbar\b}i
-valid msgstr="barra\sde\stareas"
+valid msgstr="barras?\sde\stareas"
 hint="« Taskbar » se traduce como « Barra de tareas » (propuesta glosario)"
 
 # «Text box» se traduce como «Área de texto».
 {\btext\s?box\b}i
-valid msgstr="área\sde\stexto"
+valid msgstr="áreas?\sde\stexto"
 hint="« Text box » se traduce como como « Área de texto » (regla de traducción de elementos gráficos)"
 
 # «Text boxes» se traduce como «Áreas de texto».
@@ -818,7 +823,7 @@ hint="« Text boxes » se traduce como como « Áreas de texto » (regla de trad
 
 # «Text field» se traduce como «Campo de texto».
 {\btext\s?field\b}i
-valid msgstr="campo\sde\stexto"
+valid msgstr="campos?\sde\stexto"
 hint="« Text field » se traduce como como « Campo de texto » (regla de traducción de elementos gráficos)"
 
 # «Text fields» se traduce como «Campos de texto».
@@ -829,7 +834,7 @@ hint="« Text fields » se traduce como como « Campos de texto » (regla de tra
 
 # «Title bar» se traduce como «Barra de título».
 {\btitle\s?bar\b}i
-valid msgstr="barra\sde\stítulo"
+valid msgstr="barras?\sde\stítulo"
 hint="« Title bar » se traduce como como « Barra de título » (regla de traducción de elementos gráficos)"
 
 # «Title bars» se traduce como «Barras de título».
@@ -840,7 +845,7 @@ hint="« Title bars » se traduce como como « Barras de título » (regla de tr
 
 # «Tool bar» se traduce como «Barra de herramientas».
 {\btool\s?bar\b}i
-valid msgstr="barra\sde\sherramientas"
+valid msgstr="barras?\sde\sherramientas"
 hint="« Tool bar » se traduce como como « Barra de herramietas » (regla de traducción de elementos gráficos)"
 
 # «Tool bars» se traduce como «Barras de herramientas».
