@@ -119,15 +119,20 @@ hint="There's no such plural form 'настройки', use 'параметры'
 [не смотря]i
 hint="'Несмотря на ...' пишется слитно."
 
-[Kipi]
+[kipi]i
+valid span="KIPI"
 hint="KIPI"
 
-[Picasaweb]
+[picasaweb]i
+valid span="PicasaWeb"
 hint="PicasaWeb"
 
 [latex]i
 valid span="LaTeX"
 hint="LaTeX"
+
+[\butp\b]
+hint="µTP (если речь идёт о протоколе BitTorrent)"
 
 [знач[её]к]i
 hint="орфография"
