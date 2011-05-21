@@ -1165,7 +1165,7 @@ def commit_cat (options, config, user, catpath, acatpath, stest):
         mid_cat = create_post_merge_cat(cat, prev_msgs)
         for msg in check_mid_msgs:
             mid_msg = mid_cat.get(msg)
-            if mid_msg is not None and mid_msg.fuzzy:
+            if mid_msg is not None and mid_msg.fuzzy and not asc_eq(mid_msg, msg):
                 mod_mid_msgs.append(mid_msg)
 
     # Ascribe modifications.
