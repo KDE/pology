@@ -708,7 +708,7 @@ def assert_syntax (configs_catpaths, onabortf=None):
     numerr = 0
     for config, catpaths in configs_catpaths:
         for catpath, acatpath in catpaths:
-            numerr = checkf(catpath)
+            numerr += checkf(catpath)
     if numerr:
         if onabortf:
             onabortf()
@@ -2244,7 +2244,7 @@ def sync_and_rep (cat, shownmod=True, nmod=None):
                 nmod[0] += 1
 
     modified = cat.sync()
-    if sum(nmod) > 0: # DO NOT check instead modified == True
+    if nmod and sum(nmod) > 0: # DO NOT check instead modified == True
         if shownmod:
             nmodfmt = "/".join("%d" % x for x in nmod)
             report("%s  (%s)" % (cat.filename, nmodfmt))
