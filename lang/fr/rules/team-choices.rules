@@ -74,7 +74,7 @@ hint="bouton du milieu -> bouton central"
 valid after="le mode &?"
 valid after="bar d'outils "
 valid before=" ?Flash"
-valid before=" Disc"
+valid before=" Disc|PCI"
 hint="Choix de l'équipe : « compresser » (au lieu de « compacter »)"
 
 [[Gg]ard(é|er)]
