@@ -159,6 +159,7 @@ hint="plugin -> module externe"
 validGroup inParenthesis
 valid after="uid |UID "
 valid after="/"
+valid after="-"
 valid after="-l "
 valid before="@"
 valid cat="cupsdconf4" after="<b>" before="</b>"
