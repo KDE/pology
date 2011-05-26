@@ -559,7 +559,6 @@ KMouth: К-уст|а-
 KNetAttach: К-мрежохват|, К-мрежохват|ов
 KNetworkConf: К-мрежн|{а>}-постав|а
 Kompare: К-поређе|ње
-KPackage: К-пакет|, К-пакет|ов
 KPager: К-лист|ач, К-листач|ев
 KPPPLogview: |{KPPP~н}-приказ|{}-дневника
 KPrinter: К-штамп|ач, К-штампач|ев
@@ -660,8 +659,6 @@ Solid Browser: |Solid~.мп преглед|ач
 SuperKaramba: Суперкарамб|а, Суперкарамб|ин, суперкарамба|>
     @л: SuperKaramb|a, SuperKaramb|in
 Sweeper: Чист|ач, Чистач|ев
-Synaptic: Синаптик|, Синаптик|ов
-    @л: Synaptic|, Synaptic|ov
 System Settings: Системск|е-> поставк|е-и
 TightVNC: ТајтВНЦ|-, ТајтВНЦ|-ов
     @л: TightVNC|-, TightVNC|-ov
@@ -770,10 +767,18 @@ XsLite: Ексес-лајт|, Ексес-лајт|ов
     @л: XsLite|, XsLite|ov
 
 # ----------------------------------------------------------------------------
-# Пакетарски системи
+# Пакетарски системи и менаџери
 
 APT: АПТ|-, АПТ|-ов, АПТ|>
+Adept: Адепт|, Адепт|ов
+Aptitude: Аптитјуд|, Аптитјуд|ов
+    @л: Aptitude|, Aptitude|ov
+KPackage: К-пакет|, К-пакет|ов
 Ports: Портс|, Портс|ов, портс|>
     @л: Ports|, Ports|ov, Ports|>
 pkgsrc: Пкгсрц|, Пкгсрц|ов, пкгсрц|>
     @л: pkgsrc|, pkgsrc|ov, pkgsrc|>
+QApt: Ку-апт|, Ку-апт|ов
+    @л: QApt|, QApt|ov
+Synaptic: Синаптик|, Синаптик|ов
+    @л: Synaptic|, Synaptic|ov
