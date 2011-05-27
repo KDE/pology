@@ -7,11 +7,11 @@
 include file="filter.include"
 
 validGroup beforePunctuation
-valid after="(?u)[\w\d\>\»\)\]\}\»\%\-\&\<\\^]"
+valid after="(?u)[\w\>\»\)\]\}\»\%\-\&\<\\^]"
 valid before="$"
 
 validGroup afterPunctuation
-valid before="(?u)[$\w\d\>\»\(\[\{\«\%\-\&\<\\$]"
+valid before="(?u)[$\w\>\»\(\[\{\«\%\-\&\<\\$]"
 valid after="^"
 
 validGroup openQuotes
@@ -104,13 +104,13 @@ valid span="\!$"
 hint="Ponga un espacio después del signo de cierre de admiración"
 
 [¡]
-valid before=".*?[!({«'\"\[]"
+valid before="(?s).*?[!({«'\"\[]"
 hint="Cierre la admiración (deben ir emparejadas)"
 
-[¡.*?\!\.]
+[(?s)¡.*?\!\.]
 hint="No ponga punto después del cierre de admiración (Consulte ortografía de la RAE)"
 
-[¡.*?\!\s[a-z]]
+[(?s)¡.*?\!\s[a-z]]
 hint="Ponga en mayúsculas la palabra posterior al cierre de admiración (Consulte ortografía de la RAE)"
 
 [\s\?]
@@ -127,13 +127,13 @@ valid span="\?$"
 hint="Ponga un espacio después del signo de cierre de interrogación"
 
 [¿]
-valid before=".*?[?({«'\"\[]"
+valid before="(?s).*?[?({«'\"\[]"
 hint="Cierre la interrogación (deben ir emparejadas)"
 
-[¿.*?\?\.]
+[(?s)¿.*?\?\.]
 hint="No ponga punto después del cierre de interrogación (Consulte ortografía de la RAE)"
 
-[¿.*?\?\s[a-z]]
+[(?s)¿.*?\?\s[a-z]]
 hint="Ponga en mayúsculas la palabra posterior al cierre de interrogación (Consulte ortografía de la RAE)"
 
 [\s,]
@@ -172,7 +172,7 @@ valid ctx="Numbers and characters"
 hint="Ponga un espacio antes del signo de comilla española de apertura"
 
 [«]
-valid before=".*?[»({«'\"\[]"
+valid before="(?s).*?[»({«'\"\[]"
 hint="Cierre la comilla (deben ir emparejadas)"
 
 [\s\s+]
@@ -187,7 +187,7 @@ valid ctx="Numbers and characters"
 hint="No ponga un espacio de separación antes de un signo de porcentaje"
 
 [\s\.]
-valid before="[\w\d]{2,4}\b" # Extensions
+valid before="\w{2,4}\b" # Extensions
 valid before="\/\w+" # Files
 valid before="\.\."
 valid before="desktop"
@@ -207,8 +207,8 @@ valid ctx="EMAIL OF TRANSLATORS"
 valid ctx="trans_comment"
 valid ctx="Numbers and characters"
 valid msgid="CREDIT_FOR_TRANSLATORS"
-valid span="\.\w" before="[\w\d]{1,3}" # Extensions
-valid span=".F" after="Last\s" before="m"
+valid span="\.\w" before="\w{1,3}\b" # Extensions
+valid span=".F" after="Last\s" before="m\b"
 valid after="\.\." 
 valid span="\.\." before="\."
 valid span="\.\." after="\."
@@ -218,6 +218,8 @@ valid span="\.\\" before="n"
 valid after="\star" # Extensions
 valid span="\.\<" before="\/para\>"
 valid span="\.\<" before="\/p\>"
+valid span="\.l" before="ock\b"
+valid span="\.c" before="alendar\b"
 hint="Ponga un espacio después de un signo de punto"
 
 [\.\.\.\s?\.]
@@ -237,15 +239,15 @@ valid span="\.\.\s[a-zñçáéíóú]" after="\."
 hint="Utilice mayúsculas después de punto"
 
 [\(]
-valid before=".*?[)({«'\"\[]"
+valid before="(?s).*?[)({«'\"\[]"
 hint="Cierre el paréntesis (deben ir emparejados)"
 
 #[\[]
-#valid before=".*?[\]({«'\"\[]"
+#valid before="(?s).*?[\]({«'\"\[]"
 #hint="Cierre el corchete (deben ir emparejados)"
 
 [\{]
-valid before=".*?[}{(«'\"\[]"
+valid before="(?s).*?[}{(«'\"\[]"
 hint="Cierre la llave (deben ir emparejadas)"
 
 [\(c\)]
@@ -258,10 +260,10 @@ hint="Las siglas se escriben en singular en español (quite la «s» final)"
 [\b[A-Z]{2,6}\'s\b]
 hint="Las siglas se escriben en singular en español (quite la «'s» final)"
 
-[\b\&[\w\d\-_]+\;s\b]
+[\b\&[\w\-_]+\;s\b]
 hint="Las siglas se escriben en singular en español (quite la «s» final)"
 
-[\b\&[\w\d\-_]+\;\'s\b]
+[\b\&[\w\-_]+\;\'s\b]
 hint="Las siglas se escriben en singular en español (quite la «'s» final)"
 
 #[\besto\ses\s]
@@ -447,7 +449,7 @@ valid after=",\s"
 valid after=";\s"
 hint="Ponga una coma antes de «etc./&etc;/etcétera» (Consulte ortografía de la RAE)"
 
-[\,\s(y|e|o(^\sbien)|u|ni)\s]
+[\,\s(y|e|o(?!\sbien)|u|ni)\s]
 hint="No se pone coma antes de las conjunciones « y, e, o, u, ni» salvo casos excepcionales (Consulte ortografía de la RAE)"
 
 [\b(Enero|Febrero|Marzo|Abril|Mayo|Junio|Julio|Agosto|Septiembre|Octubre|Noviembre|Diciembre)\b]

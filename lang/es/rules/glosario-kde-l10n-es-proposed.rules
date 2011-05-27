@@ -216,6 +216,7 @@ hint="« Bit masks » se traduce como « Máscaras de bits » (propuesta glosari
 # «Bit map» se traduce como «Mapa de bits».
 {\bbit\s?map\b}i
 valid msgstr="mapas?\sde\sbits"
+valid span="Bitmap" after="Windows\s"
 hint="« Bit map » se traduce como « Mapa de bits » (propuesta glosario)"
 
 # «Bit maps» se traduce como «Mapas de bits».
@@ -475,7 +476,8 @@ valid msgstr="charl(ar|a|e)"
 valid msgstr="tertulia"
 valid msgstr="charlará" after="will\s"
 valid msgstr="charló" after="did\s"
-valid !msgstr="chat"
+valid msgstr="CHAT"
+valid after="Internet\srelay\s"
 hint="« Chat » se traduce como « Charla/Tertulia » (propuesta glosario)"
 
 # «Chats» se traduce como «Charlas/Tertulias».
@@ -1064,7 +1066,7 @@ hint="« Documentation » se traduce como « Documentación » (propuesta glosar
 # «Dot» se traduce como «Punto».
 {\bdot\b}i
 valid msgstr="punto"
-valid after="K\s" before="\sNews"
+valid after="K(de)?\s" before="\snews"
 hint="« Dot » se traduce como « Punto » (propuesta glosario)"
 
 # «Dots» se traduce como «Puntos».
@@ -1521,12 +1523,12 @@ hint="« Floating » se traduce como « Flotante » (propuesta glosario)"
 
 # «Flow chart» se traduce como «Diagrama de flujo».
 {\bflowchart\b}i
-valid msgstr="diagramas?\sde\flujo"
+valid msgstr="diagramas?\sde\sflujo"
 hint="« Flow chart » se traduce como « Diagrama de flujo » (propuesta glosario)"
 
 # «Flow charts» se traduce como «Diagramas de flujo».
 {\bflowcharts\b}i
-valid msgstr="diagramas\sde\flujo"
+valid msgstr="diagramas\sde\sflujo"
 valid msgstr="(ningún|cualquier)\sdiagrama\sde\sflujo"
 hint="« Flow charts » se traduce como « Diagramas de flujo » (propuesta glosario)"
 
@@ -1665,7 +1667,7 @@ hint="« Guideliness » se traduce como « Directivas » (propuesta glosario)"
 {\bgroupware\b}i
 valid msgstr="trabajos?\sen\sgrupo"
 valid msgstr="colaboración"
-valid !msgstr="groupware"
+valid after="open\s"
 hint="« Groupware » se traduce como « Trabajo en grupo/colaboración » (propuesta glosario)"
 
 # «Hall» se traduce como «Vestíbulo/Entrada».
@@ -1900,6 +1902,7 @@ valid msgstr="índice"
 valid msgstr="index(ar|a|e)"
 valid msgstr="indexará" after="will\s"
 valid msgstr="indexó" after="did\s"
+valid msgstr="INDEX"
 hint="« Index » se traduce como « Índice/Indexar » (propuesta glosario)"
 
 # «Indexed» se traduce como «Indexado».
@@ -2168,7 +2171,9 @@ hint="« Lattices » se traduce como « Redes/Tramas » (propuesta glosario)"
 # «Layer» se traduce como «Capa».
 {\blayer\b}i
 valid msgstr="capa"
-valid after="Secure\sSocket\s"
+valid after="secure\ssocket\s"
+valid after="MPEG\s(\d?\s?Audio\s)?"
+valid after="mpeg\s(\d?\s?Audio\s)?"
 hint="« Layer » se traduce como « Capa » (propuesta glosario)"
 
 # «Layers» se traduce como «Capas».
@@ -2396,13 +2401,16 @@ hint="« Measures » se traduce como « Medidas/Métricas » (propuesta glosario
 # «Method» se traduce como «Método».
 {\bmethod\b}i
 valid msgstr="método"
-valid after="X\sInput\s"
+valid msgstr="mecanismo"
+valid after="X\sinput\s"
 hint="« Method » se traduce como « Método » (propuesta glosario)"
 
 # «Methods» se traduce como «Métodos».
 {\bmethods\b}i
 valid msgstr="métodos"
+valid msgstr="mecanismos"
 valid msgstr="(ningún|cualquier)\smétodo"
+valid msgstr="(ningún|cualquier)\smécanismo"
 hint="« Methods » se traduce como « Métodos » (propuesta glosario)"
 
 # «Milestone» se traduce como «Hito/Punto de referencia».
@@ -2590,7 +2598,7 @@ hint="« Netmasks » se traduce como « Máscaras de red » (propuesta glosario)
 # «Network» se traduce como «Red».
 {\bnetwork\b}i
 valid msgstr="red"
-valid after="Portable\s" before="\sGraphics"
+valid after="portable\s" before="\sgraphics"
 hint="« Network » se traduce como « Red » (propuesta glosario)"
 
 # «Networks» se traduce como «Redes».
@@ -2620,7 +2628,7 @@ hint="« Newbies » se traduce como « Principiantes » (propuesta glosario)"
 # «News» se traduce como «Noticias».
 {\bnews\b}i
 valid msgstr="noticias?"
-valid after="K\sDot\s"
+valid after="K\sdot\s"
 hint="« News » se traduce como « Noticias » (propuesta glosario)"
 
 # «Newsgroup» se traduce como «Grupo de noticias».
@@ -3021,6 +3029,10 @@ valid msgstr="se\s(\w+\s){1,3}tocar"
 valid msgstr="se\s(\w+\s){1,3}jugar"
 valid msgstr="se\s(\w+\s){1,3}interpretar"
 valid msgstr="se\s(\w+\s){1,3}tocar"
+valid msgstr="reproducirá" after="will\sbe\s"
+valid msgstr="tocará" after="will\sbe\s"
+valid msgstr="interpretará" after="will\sbe\s"
+valid msgstr="jugará" after="will\sbe\s"
 hint="« Played » se traduce como « Reproducido/Tocado » (propuesta glosario)"
 
 # «Player» se traduce como «Jugador/Reproductor/intérprete».
@@ -3081,6 +3093,8 @@ hint="« Pointers» se traduce como « Punteros/Índices » (propuesta glosario)
 # «Portable» se traduce como «Portátil».
 {\bportable\b}i
 valid msgstr="portátil"
+valid before="\snetwork\sgraphics"
+valid before="\sdocument\s(file|format)"
 hint="« Portable» se traduce como « Portátil » (propuesta glosario)"
 
 # «Portables» se traduce como «Portátiles».
@@ -3110,6 +3124,8 @@ valid msgstr="presionará" after="will\s"
 valid msgstr="oprimió" after="did\s"
 valid msgstr="pulsó" after="did\s"
 valid msgstr="presionó" after="did\s"
+valid msgstr="prensa"
+valid after="United\s"
 hint="« Press » se traduce como « Oprimir/Pulsar » (propuesta glosario)"
 
 # «Pressed» se traduce como «Oprimido/Pulsado».
@@ -3131,19 +3147,22 @@ valid msgstr="se\s(\w+\s){1,3}pulsar"
 valid msgstr="se\s(\w+\s){1,3}presionar"
 hint="« Pressed » se traduce como « Oprimido/Pulsado » (propuesta glosario)"
 
-# «Preview» se traduce como «Vista previa/Previsualizar».
+# «Preview» se traduce como «Vista previa/Previsualizar/Avance».
 {\bpreview\b}i
 valid msgstr="vista\sprevia"
 valid msgstr="previsuali(zar|za|ce)"
 valid msgstr="previsualizará" after="will\s"
 valid msgstr="previsualizó" after="did\s"
-hint="« Preview » se traduce como « Vista previa/Previsualizar » (propuesta glosario)"
+valid msgstr="avance"
+hint="« Preview » se traduce como « Vista previa/Previsualizar/Avance » (propuesta glosario)"
 
-# «Previews» se traduce como «Vistas previas».
+# «Previews» se traduce como «Vistas previas/Avances».
 {\bpreviews\b}i
 valid msgstr="vistas\sprevias"
 valid msgstr="(ninguna|cualquier)\svista\sprevia"
-hint="« Previews » se traduce como « Vistas previas » (propuesta glosario)"
+valid msgstr="avances"
+valid msgstr="(ningún|cualquier)\savance"
+hint="« Previews » se traduce como « Vistas previas/Avances » (propuesta glosario)"
 
 # «Primary key» se traduce como «Clave primaria».
 {\bprimary\skey\b}i
@@ -3159,6 +3178,7 @@ hint="« Primary keys » se traduce como « Claves primarias » (propuesta glosa
 
 # «Private» se traduce como «Privado/Confidencial».
 {\bprivate\b}i
+valid after="\:\:"
 valid msgstr="privad[oa]"
 valid msgstr="confidencial"
 hint="« Private » se traduce como « Privado/Confidencial » (propuesta glosario)"
@@ -3171,7 +3191,7 @@ valid msgstr="perfilará" after="will\s"
 valid msgstr="perfiló" after="did\s"
 valid msgstr="análisis\sde\srendimiento"
 valid msgstr="anali(zar|za|ce)\srendimiento"
-hint="« Profile » se traduce como « Perfil/Perfilar » (propuesta glosario)"
+hint="« Profile » se traduce como « Perfil/Perfilar/Analizar rendimiento » (propuesta glosario)"
 
 # «Profiles» se traduce como «Perfiles/Perfila».
 {\bprofiles\b}i
@@ -3180,7 +3200,7 @@ valid msgstr="perfil(e|a)"
 valid msgstr="(ningún|cualquier)\sperfil"
 valid msgstr="análisis\sde\srendimiento"
 valid msgstr="anali(za|ce)\srendimiento"
-hint="« Profiles » se traduce como « Perfiles/Perfila » (propuesta glosario)"
+hint="« Profiles » se traduce como « Perfiles/Perfila/Analiza rendimiento » (propuesta glosario)"
 
 # «Programmer» se traduce como «Programador».
 {\bprogrammer\b}i
@@ -3868,6 +3888,7 @@ hint="« Snippets » se traduce como « Recortes » (propuesta glosario)"
 {\bsource\b}i
 valid msgstr="origen"
 valid msgstr="fuente"
+valid msgstr="código\sabierto" after="open\s"
 hint="« Source » se traduce como « Origen/Fuente » (propuesta glosario)"
 
 # «Sources» se traduce como «Orígenes/Fuentes».
@@ -4182,21 +4203,25 @@ hint="« Toner » se traduce como « Tóner » (propuesta glosario)"
 valid msgstr="papelera"
 hint="« Trash » se traduce como « Papelera » (propuesta glosario)"
 
-# «Trigger» se traduce como «Desencadenar/Provocar/Disparador».
+# «Trigger» se traduce como «Desencadenar/Provocar/Activar/Disparador».
 {\btrigger\b}i
 valid msgstr="desencaden(ar|a|e)"
 valid msgstr="provo(car|ca|que)"
+valid msgstr="activ(ar|a|e)"
 valid msgstr="disparador"
 valid msgstr="desencadenará" after="will\s"
 valid msgstr="provocará" after="will\s"
+valid msgstr="activará" after="will\s"
 valid msgstr="desencadenó" after="did\s"
 valid msgstr="provocó" after="did\s"
-hint="« Trigger » se traduce como « Desencadenar/Provocar/Disparador » (propuesta glosario)"
+valid msgstr="activó" after="did\s"
+hint="« Trigger » se traduce como « Desencadenar/Provocar/Activar/Disparador » (propuesta glosario)"
 
 # «Triggers» se traduce como «Disparadores».
 {\btriggers\b}i
 valid msgstr="desencaden(a|e)"
 valid msgstr="provo(ca|que)"
+valid msgstr="activ(a|e)"
 valid msgstr="disparadores"
 valid msgstr="(ningún|cualquier)\sdisparador"
 hint="« Triggers » se traduce como « Desencadena/Provoca/Disparadores » (propuesta glosario)"

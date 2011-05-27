@@ -805,9 +805,15 @@ valid msgstr="barras\sde\sestado"
 valid msgstr="(cualquier|ninguna)\sbarra\sde\sestado"
 hint="« Status bars » se traduce como como « Barras de estado » (regla de traducción de elementos gráficos)"
 
-# «Taskbar» se traduce como «Barra de tareas».
-{\btaskbar\b}i
+# «Task bar» se traduce como «Barra de tareas».
+{\btask\s?bar\b}i
 valid msgstr="barras?\sde\stareas"
+hint="« Taskbar » se traduce como « Barra de tareas » (propuesta glosario)"
+
+# «Task bars» se traduce como «Barras de tareas».
+{\btask\s?bars\b}i
+valid msgstr="barras\sde\stareas"
+valid msgstr="(cualquier|ninguna)\sbarra\sde\stareas"
 hint="« Taskbar » se traduce como « Barra de tareas » (propuesta glosario)"
 
 # «Text box» se traduce como «Área de texto».

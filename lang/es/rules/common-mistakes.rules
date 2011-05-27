@@ -5,7 +5,7 @@
 
 include file="filter.include"
 
-[(?u)\b(\w+)\s+\1\b]i
+[(?u)\b(\w+)(?!\n)\s+\1\b]i
 hint="Hay una palabra consecutiva repetida en el párrafo"
 
 [(?u)\b(\w+?)os\sy\s\1as\b]i
@@ -21,7 +21,7 @@ hint="No utilice expresiones del tipo «los ciudadanos y las ciudadanas » (erro
 hint="No utilice expresiones del tipo «las ciudadanas y los ciudadanos » (error frecuente)"
 
 # No utilizar la arroba para incluir masculino y femenino
-[(?u)\b\w+@[a-záéíóúñç]{0,2}?\b]i
+[(?u)\b\w+@[a-záéíóúñç]{0,2}\b]i
 hint="No utilice la arroba para evitar el género, p.ej. «ciudadan@s» (error frecuente)"
 
 # No utilizar el guión para separar el prefijo de la palabra principal
@@ -929,7 +929,7 @@ hint="« Huír » se escribe como « Huir » (ver la nueva ortografía de la RAE
 
 # «Imágen» se escribe como «Imagen».
 [\bimágen\b]i
-hint="« Imagen » se escribe como « Imagen » (error frecuente)"
+hint="« Imágen » se escribe como « Imagen » (error frecuente)"
 
 # «Imaginar de que» se escribe como «Imaginar que».
 [\bimagin\w{1,4}?\sde\sque\b]i
@@ -1397,7 +1397,7 @@ hint="« Suponer de que » se escribe como « Suponer que » (error frecuente: d
 
 # «Sydney» se escribe como «Sidney».
 [\bsydney\b]i
-hint="« Sydney » se escribe como « Sydney » (error frecuente)"
+hint="« Sydney » se escribe como « Sidney » (error frecuente)"
 
 # «Tan es así» se escribe como «Tanto es así».
 [\btan\ses\sasí\b]i
