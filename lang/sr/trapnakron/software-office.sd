@@ -1,5 +1,6 @@
 >base/aff.sd
 >software-system.sd
+>spec-protocols.sd
 
 # ----------------------------------------------------------------------------
 # Окружења
@@ -84,16 +85,25 @@ xacc: Икс-ац|, Икс-ац|ов
     @л: xacc|, xacc|ov
 
 # ----------------------------------------------------------------------------
-# Организатори, планери, адресари
+# Организатори, планери, адресари, подсетници
 
 Calligra Plan: |Calligra~.мп |Plan
+Citadel: Цитадел|а, Цитадел|ин
+Coiscéim: Кушкејм|, Кушкејм|ов, _нр=ирс
+    @л: Coiscéim|, Coiscéim|ov
+DAViCal: ДАВикал|, ДАВикал|ов
+    @л: DAViCal|, DAViCal|ov
+DBUSCalendar: |{^D-Bus~н}-календар|, |{^D-Bus~н}-календар|ов
+    @л: DBUSCalendar|, DBUSCalendar|ov
+EGroupware: Е-групвер|, Е-групвер|ов
+    @л: EGroupware|, EGroupware|ov
 Gnome-Cal: |{Gnome~н}-кал|, |{Gnome~н}-кал|ов
     @л: |{Gnome~н}-Cal|, |{Gnome~н}-Cal|ov
 Gnome-Card: |{Gnome~н}-кард|, |{Gnome~н}-кард|ов
     @л: |{Gnome~н}-Card|, |{Gnome~н}-Card|ov
 Gnome Time Tracker: |Gnome~.мп прати|лац времена
-iCal: Икал|, Икал|ов
-    @л: Ical|, Ical|ov
+iCal: И-кал|, И-кал|ов
+    @л: iCal|, iCal|ov
 KAddressBook: К-адрес|ар, К-адресар|ов
 KDE PIM: КДЕ-ПИМ|-, КДЕ-ПИМ|-ов
 KFormula: К-формул|а, К-формул|ин
@@ -101,6 +111,13 @@ KFormula: К-формул|а, К-формул|ин
 KNotes: К-беле|шке-
 Kontact: Контакт|, Контакт|ов
     @л: Kontact|, Kontact|ov
+Kontact Touch: |Kontact додирн|и>
+Kontact Touch Calendar: Календар| |{Kontact Touch~г}
+Kontact Touch Contacts: Контакт|и- |{Kontact Touch~г}
+Kontact Touch Mail: Пошт|а |{Kontact Touch~г}
+Kontact Touch Notes: Беле|шке- |{Kontact Touch~г}
+    @иј: Биље|шке- |{Kontact Touch~г}
+Kontact Touch Tasks: Зада|ци-т |{Kontact Touch~г}
 KOrganizer: К-организатор|, К-организатор|ов
 KPilot: К-пилот|, К-пилот|ов
     @л: KPilot|, KPilot|ov
@@ -111,9 +128,19 @@ Kroupware: Крупвер|, Крупвер|ов
 Netscape Addressbook: |Netscape~.мп адрес|ар
 MrProject: Мр-пројект|, Мр-пројект|ов
     @л: MrProject|, MrProject|ov
+OpenGroupware: Опенгрупвер|, Опенгрупвер|ов
+    @л: OpenGroupware|, OpenGroupware|ov
 Plan: План|, План|ов
+ScalableOGo: Скејлабл-ог|о, Скејлабл-ог|ов, _род!=м
+    @л: ScalableOG|o, ScalableOG|ov
+SOGo: СОГ|о, СОГ|ов, _пр=|ScalableOGo
+Scalix: Скejликс|, Скejликс|ов
+    @л: Scalix|, Scalix|ov
 Toltec: Толтек|, Толтек|ов
     @л: Toltec|, Toltec|ov
+Trips: Путев|и-
+Zarafa: Зараф|а, Зараф|ин
+Zimbra: Зимбр|а, Зимбр|ин
 
 # ----------------------------------------------------------------------------
 # Формуле, дијаграми, извештаји
