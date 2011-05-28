@@ -23,7 +23,7 @@ addFilterRegex match="веб-мастеру" on="pmsgid,pmsgstr"
 addFilterRegex match="веб-мастера" on="pmsgid,pmsgstr"
 addFilterRegex match="адрес[а]? эл. почты" on="pmsgid,pmsgstr"
 addFilterRegex match="по эл. почте" on="pmsgid,pmsgstr"
-addFilterRegex match="\b(2|10|11|8|64|24|128)-битн(ый|ых|ое)\b" on="pmsgid,pmsgstr"
+addFilterRegex match="\b(2|10|11|7|8|64|24|128)-битн(ый|ых|ое|ой|ые)\b" on="pmsgid,pmsgstr"
 hint="неизвестное или неправильное написание слова"
 valid ctx="^City in " # ignore names from KStars
 valid ctx="^Constellation name \(optional\)$"
