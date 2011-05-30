@@ -407,3 +407,7 @@ hint="paragraph -- абзац"
 valid !msgid="distrib"
 hint="Список рассылки -- это 'mailing list'. Distribution list -- это другое."
 
+[провер]i
+valid !msgid="checkout"
+hint="'checkout' в контексте систем управления версиями -- извлечение из репозитория, переход на ревизию или смена ветки"
+
