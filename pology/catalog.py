@@ -16,7 +16,7 @@ import time
 import types
 
 from pology import PologyError, _, n_
-from pology.header import Header
+from pology.header import Header, format_datetime
 from pology.message import Message as MessageMonitored
 from pology.message import MessageUnsafe as MessageUnsafe
 from pology.escape import escape_c as escape
@@ -2245,8 +2245,7 @@ class Catalog (Monitored):
         elif project == "":
             hdr.remove_field(u"Project-Id-Version")
 
-        rdate = time.strftime("%Y-%m-%d %H:%M%z")
-        hdr.set_field(u"PO-Revision-Date", unicode(rdate))
+        hdr.set_field(u"PO-Revision-Date", format_datetime())
 
         if name or email:
             if name and email:

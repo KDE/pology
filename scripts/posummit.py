@@ -16,8 +16,11 @@ import time
 import fallback_import_paths
 
 from pology import version, _, n_, t_, PologyError
+from pology.ascript import collect_ascription_associations
+from pology.ascript import collect_ascription_history
+from pology.ascript import make_ascription_selector
 from pology.catalog import Catalog
-from pology.header import Header
+from pology.header import Header, format_datetime
 from pology.message import Message, MessageUnsafe
 from pology.colors import ColorOptionParser
 from pology.fsops import str_to_unicode
@@ -33,7 +36,6 @@ from pology.report import init_file_progress
 from pology.stdcmdopt import add_cmdopt_incexc, add_cmdopt_filesfrom
 from pology.vcs import make_vcs
 
-import poascribe as ASC
 import porewrap as REW
 
 
@@ -518,9 +520,9 @@ def derive_project_data (project, options, nwgrefpath=None):
     for afname, afspec in project.ascription_filters:
         if options.asc_filter is None or afname == options.asc_filter:
             if isinstance(afspec, basestring):
-                afcall = ASC.make_selector([afspec])
+                afcall = make_ascription_selector([afspec])
             elif isinstance(afspec, (tuple, list)):
-                afcall = ASC.make_selector(afspec)
+                afcall = make_ascription_selector(afspec)
             elif callable(afspec):
                 afcall = afspec
             else:
@@ -540,9 +542,9 @@ def derive_project_data (project, options, nwgrefpath=None):
     if project.ascription_filter:
         tmp0 = [(x, y[0][0]) for x, y in p.catalogs[SUMMIT_ID].items()]
         tmp1 = [x[0] for x in tmp0]
-        tmp2 = ASC.collect_configs_catpaths([x[1] for x in tmp0])
+        tmp2 = collect_ascription_associations([x[1] for x in tmp0])
         tmp3 = zip([tmp2[0][0]] * len(tmp1), [x[1] for x in tmp2[0][1]])
-        p.asc_configs_acatpaths = dict(zip(tmp1, tmp3))
+        p.aconfs_acatpaths = dict(zip(tmp1, tmp3))
 
     # Assure that summit catalogs are unique.
     for name, spec in p.catalogs[SUMMIT_ID].items():
@@ -1685,8 +1687,7 @@ def summit_gather_single (summit_name, project, options,
             # to the current date.
             # Do not try to trust branch template creation dates,
             # e.g. by copying the latest one.
-            summit_cat.header.set_field(u"POT-Creation-Date",
-                                        ASC.format_datetime())
+            summit_cat.header.set_field(u"POT-Creation-Date", format_datetime())
 
             # Sync to disk.
             summit_cat.sync()
@@ -2126,7 +2127,7 @@ def summit_scatter_single (branch_id, branch_name, branch_subdir,
     if project.ascription_filter:
         aconfs_acats = {}
         for summit_cat in summit_cats:
-            aconf, acatpath = project.asc_configs_acatpaths[summit_cat.name]
+            aconf, acatpath = project.aconfs_acatpaths[summit_cat.name]
             aconfs_acats[summit_cat.name] = (aconf, None, acatpath)
             if acatpath not in _asc_check_cache:
                 _asc_check_cache[acatpath] = {}
@@ -2186,8 +2187,8 @@ def summit_scatter_single (branch_id, branch_name, branch_subdir,
                     acat = Catalog(acatpath, monitored=False, create=True)
                     aconfs_acats[summit_cat.name] = (aconf, acat, acatpath)
                 hfilter = project.ascription_history_filter
-                ahist = ASC.asc_collect_history(summit_msg, acat, aconf,
-                                                nomrg=True, hfilter=hfilter)
+                ahist = collect_ascription_history(summit_msg, acat, aconf,
+                                                   nomrg=True, hfilter=hfilter)
                 afilter = project.ascription_filter
                 res = afilter(summit_msg, summit_cat, ahist, aconf)
                 _asc_check_cache[acatpath][summit_msg.key] = res

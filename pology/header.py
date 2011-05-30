@@ -7,10 +7,12 @@ Header entry in PO catalogs.
 @license: GPLv3
 """
 
+from pology import PologyError
 from pology.wrap import wrap_field
 from pology.monitored import Monitored, Monlist, Monpair
 from message import Message
 
+import datetime
 import time
 import re
 
@@ -143,7 +145,7 @@ class Header (Monitored):
             self._field = Monlist([
                 Monpair((u"Project-Id-Version", u"PACKAGE VERSION")),
                 Monpair((u"Report-Msgid-Bugs-To", u"")),
-                Monpair((u"POT-Creation-Date", unicode(time.strftime("%Y-%m-%d %H:%M%z")))),
+                Monpair((u"POT-Creation-Date", format_datetime())),
                 Monpair((u"PO-Revision-Date", u"YEAR-MO-DA HO:MI+ZONE")),
                 Monpair((u"Last-Translator", u"FULL NAME <EMAIL@ADDRESS>")),
                 Monpair((u"Language-Team", u"LANGUAGE <LL@li.org>")),
@@ -478,4 +480,140 @@ class Header (Monitored):
                 i += 1
 
         return nrem
+
+
+_dt_fmt = "%Y-%m-%d %H:%M:%S%z"
+_dt_fmt_nosec = "%Y-%m-%d %H:%M%z"
+
+def format_datetime (dt=None, wsec=False):
+    """
+    Format datetime as found in PO header fields.
+
+    If a particular datetime object C{dt} is not given,
+    current datetime is used instead.
+
+    If C{wsec} is C{False}, the formatted string will not contain
+    the seconds component, which is usual for PO header datetimes.
+    If seconds accuracy is desired, C{wsec} can be set to C{True}.
+
+    @param dt: datetime
+    @type dt: datetime.datetime
+    @param wsec: whether to add seconds component
+    @type wsec: bool
+
+    @return: formatted datetime
+    @rtype: string
+    """
+
+    if dt is not None:
+        if wsec:
+            dtstr = dt.strftime(_dt_fmt)
+        else:
+            dtstr = dt.strftime(_dt_fmt_nosec)
+        # If timezone is not present, assume UTC.
+        if dt.tzinfo is None:
+            dtstr += "+0000"
+    else:
+        if wsec:
+            dtstr = time.strftime(_dt_fmt)
+        else:
+            dtstr = time.strftime(_dt_fmt_nosec)
+
+    return unicode(dtstr)
+
+
+_parse_date_rxs = [re.compile(x) for x in (
+    r"^ *(\d+)-(\d+)-(\d+) *(\d+):(\d+):(\d+) *([+-]\d+) *$",
+    r"^ *(\d+)-(\d+)-(\d+) *(\d+):(\d+)() *([+-]\d+) *$",
+    # ...needs empty group to differentiate from the next case.
+    r"^ *(\d+)-(\d+)-(\d+) *(\d+):(\d+):(\d+) *$",
+    r"^ *(\d+)-(\d+)-(\d+) *(\d+):(\d+) *$",
+    r"^ *(\d+)-(\d+)-(\d+) *$",
+    r"^ *(\d+)-(\d+) *$",
+    r"^ *(\d+) *$",
+)]
+
+def parse_datetime (dstr):
+    """
+    Parse formatted datetime from a PO header field into a datetime object.
+
+    The formatted datetime may also have a seconds component,
+    which is typically not present in PO headers.
+    It may also lack a contiguous number of components from the back,
+    e.g. having no time zone offset, or no time at all.
+
+    @param dstr: formatted datetime
+    @type dstr: string
+
+    @return: datetime object
+    @rtype: datetime.datetime
+    """
+
+    for parse_date_rx in _parse_date_rxs:
+        m = parse_date_rx.search(dstr)
+        if m:
+            break
+    if not m:
+        raise PologyError(_("@info",
+                            "Cannot parse datetime string '%(str)s'.",
+                            str=dstr))
+    pgroups = list([int(x or 0) for x in m.groups()])
+    pgroups.extend([1] * (3 - len(pgroups)))
+    pgroups.extend([0] * (7 - len(pgroups)))
+    year, month, day, hour, minute, second, off = pgroups
+    offhr = off // 100
+    offmin = off % 100
+    dt = datetime.datetime(year=year, month=month, day=day,
+                           hour=hour, minute=minute, second=second,
+                           tzinfo=TZInfo(hours=offhr, minutes=offmin))
+    return dt
+
+
+class TZInfo (datetime.tzinfo):
+    """
+    A simple derived time zone info for use in datetime objects.
+    """
+
+    def __init__ (self, hours=None, minutes=None):
+        """
+        Create a time zone with given offset in hours and minutes.
+
+        The offset given by C{minutes} is added to that given by C{hours},
+        e.g. C{hours=2} and C{minutes=30} means two and a half hours offset.
+        If C{minutes} is given but C{hours} is not, C{hours} is considered zero.
+        If neither C{hours} nor C{minutes} are given,
+        the offset is read from system time zone.
+
+        @param hours: the time zone offset in hours
+        @type hours: int
+        @param minutes: additional offset in minutes
+        @type minutes: int
+        """
+
+        self._isdst = time.localtime()[-1]
+        if hours is None and minutes is None:
+            tzoff_sec = -(time.altzone if self._isdst else time.timezone)
+            tzoff_hr = tzoff_sec // 3600
+            tzoff_min = (tzoff_sec - tzoff_hr * 3600) // 60
+        else:
+            tzoff_hr = hours or 0
+            tzoff_min = minutes or 0
+
+        self._dst = datetime.timedelta(0)
+        self._utcoffset = datetime.timedelta(hours=tzoff_hr, minutes=tzoff_min)
+
+
+    def utcoffset (self, dt):
+
+        return self._utcoffset
+
+
+    def dst (self, dt):
+
+        return self._dst
+
+
+    def tzname (self, dt):
+
+        return time.tzname[self._isdst]
 
