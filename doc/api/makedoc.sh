@@ -10,7 +10,7 @@ if test x`which epydoc` = x; then
 fi
 
 # Proper module path for epydoc to follow.
-export PYTHONPATH=../../pology:$PYTHONPATH
+export PYTHONPATH=../../:$PYTHONPATH
 
 htmldir=../../doc-html/api/en_US
 
