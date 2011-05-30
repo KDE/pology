@@ -74,7 +74,7 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a href="pology.gtxtools-module.html#msgfilter" class="summary-sig-name">msgfilter</a>(<span class="summary-sig-arg">filtr</span>,
-        <span class="summary-sig-arg">options</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string"></code><code class="variable-quote">'</code></span>)</span><br />
+        <span class="summary-sig-arg">options</span>=<span class="summary-sig-default"><code class="variable-group">[</code><code class="variable-group">]</code></span>)</span><br />
       Pass PO file through <code>msgfilter(1)</code> [hook factory].</td>
           <td align="right" valign="top">
             
@@ -91,7 +91,7 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="pology.gtxtools-module.html#msgfmt" class="summary-sig-name">msgfmt</a>(<span class="summary-sig-arg">options</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string"></code><code class="variable-quote">'</code></span>)</span><br />
+          <td><span class="summary-sig"><a href="pology.gtxtools-module.html#msgfmt" class="summary-sig-name">msgfmt</a>(<span class="summary-sig-arg">options</span>=<span class="summary-sig-default"><code class="variable-group">[</code><code class="variable-group">]</code></span>)</span><br />
       Pass PO file through <code>msgfmt(1)</code> [hook factory].</td>
           <td align="right" valign="top">
             
@@ -136,7 +136,7 @@
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">msgfilter</span>(<span class="sig-arg">filtr</span>,
-        <span class="sig-arg">options</span>=<span class="sig-default"><code class="variable-quote">'</code><code class="variable-string"></code><code class="variable-quote">'</code></span>)</span>
+        <span class="sig-arg">options</span>=<span class="sig-default"><code class="variable-group">[</code><code class="variable-group">]</code></span>)</span>
   </h3>
   </td><td align="right" valign="top"
     >&nbsp;
@@ -149,12 +149,23 @@
    msgfilter &lt;options&gt; -i &lt;filepath&gt; -o &lt;filepath&gt; &lt;filtr&gt;
 </pre>
   <p>where <code>options</code> parameter may be used to pass any extra 
-  options to <code>msgfilter</code>.</p>
+  options to <code>msgfilter</code>. Both <code>filtr</code> and 
+  <code>options</code> are lists of command line arguments rather than 
+  monolithic strings, to avoid shell quoting problems. For example, to 
+  rewrap the PO file at 70 columns:</p>
+<pre class="literalblock">
+   msgfilter([&quot;cat&quot;], [&quot;-w&quot;, &quot;70&quot;])
+</pre>
+  <p>or to replace every <code>foo</code> with <code>bar</code> in 
+  translation:</p>
+<pre class="literalblock">
+   msgfilter([&quot;sed&quot;, &quot;s/foo/bar/g&quot;])
+</pre>
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
-        <li><strong class="pname"><code>filtr</code></strong> (string) - filter to use (e.g. <code>cat</code> for no-op)</li>
-        <li><strong class="pname"><code>options</code></strong> (string) - additional options to pass to <code>msgfilter</code></li>
+        <li><strong class="pname"><code>filtr</code></strong> ([string*]) - filter to use</li>
+        <li><strong class="pname"><code>options</code></strong> ([string*]) - additional options to pass to <code>msgfilter</code></li>
     </ul></dd>
     <dt>Returns: <code>(filepath) -&gt; numerr</code></dt>
         <dd>type F6A hook</dd>
@@ -172,7 +183,7 @@
 <tr><td>
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">msgfmt</span>(<span class="sig-arg">options</span>=<span class="sig-default"><code class="variable-quote">'</code><code class="variable-string"></code><code class="variable-quote">'</code></span>)</span>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">msgfmt</span>(<span class="sig-arg">options</span>=<span class="sig-default"><code class="variable-group">[</code><code class="variable-group">]</code></span>)</span>
   </h3>
   </td><td align="right" valign="top"
     >&nbsp;
@@ -182,14 +193,16 @@
   <p>Pass PO file through <code>msgfmt(1)</code> [hook factory].</p>
   <p>The file is not modified; the executed command is:</p>
 <pre class="literalblock">
-   msgfilter &lt;options&gt; -o/dev/null &lt;filepath&gt;
+   msgfilter &lt;options&gt; -o /dev/null &lt;filepath&gt;
 </pre>
   <p>where <code>options</code> parameter may be used to pass any extra 
-  options to <code>msgfmt</code>.</p>
+  options to <code>msgfmt</code>. <code>options</code> is a list of command
+  line arguments rather than a monolithic string, to avoid shell quoting 
+  problems.</p>
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
-        <li><strong class="pname"><code>options</code></strong> (string) - additional options to pass to <code>msgfmt</code></li>
+        <li><strong class="pname"><code>options</code></strong> ([string*]) - additional options to pass to <code>msgfmt</code></li>
     </ul></dd>
     <dt>Returns: <code>(filepath) -&gt; numerr</code></dt>
         <dd>type S6A hook</dd>

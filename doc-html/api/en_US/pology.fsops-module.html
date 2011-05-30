@@ -222,7 +222,7 @@
         <span class="summary-sig-arg">wdir</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">env</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">instr</span>=<span class="summary-sig-default">None</span>)</span><br />
-      Execute command line and collect stdout, stderr, and return code.</td>
+      Execute command line and collect stdout, stderr, and exit code.</td>
           <td align="right" valign="top">
             
             
@@ -690,6 +690,13 @@
   
   <p>Execute command line and assert success.</p>
   <p>If the command exits with non-zero zero state, the program aborts.</p>
+  <p><code>cmdline</code> can be either a monolithic string, in which case 
+  it is executed through a shell, or a list of argument strings, when the 
+  process is started directly with these arguments.</p>
+  <p><code>cmdline</code> is processed with <a 
+  href="pology.fsops-module.html#unicode_to_str" 
+  class="link">unicode_to_str</a> to convert any unicode strings to raw 
+  byte strings in expected system encoding.</p>
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
@@ -718,12 +725,18 @@
     </td>
   </tr></table>
   
-  <p>Execute command line and collect stdout, stderr, and return code.</p>
-  <p>Normally the output will</p>
+  <p>Execute command line and collect stdout, stderr, and exit code.</p>
+  <p><code>cmdline</code> can be either a monolithic string, in which case 
+  it is executed through a shell, or a list of argument strings, when the 
+  process is started directly with these arguments.</p>
+  <p><code>cmdline</code> is processed with <a 
+  href="pology.fsops-module.html#unicode_to_str" 
+  class="link">unicode_to_str</a> to convert any unicode strings to raw 
+  byte strings in expected system encoding.</p>
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
-        <li><strong class="pname"><code>cmdline</code></strong> (string) - command line to execute</li>
+        <li><strong class="pname"><code>cmdline</code></strong> (string or [string*]) - command line to execute</li>
         <li><strong class="pname"><code>echo</code></strong> (bool) - whether to echo the command line, as well as stdout/stderr</li>
         <li><strong class="pname"><code>wdir</code></strong> (path) - working directory for the command (CWD if none given)</li>
         <li><strong class="pname"><code>env</code></strong> ({string: string}) - environment for the execution (variable name-value pairs)</li>

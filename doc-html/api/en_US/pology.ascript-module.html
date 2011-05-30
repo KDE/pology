@@ -1,0 +1,1100 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>pology.ascript</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="pology-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="pology-module.html">Package&nbsp;pology</a> ::
+        Module&nbsp;ascript
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+      </table>
+    </td>
+  </tr>
+</table>
+<!-- ==================== MODULE DESCRIPTION ==================== -->
+<h1 class="epydoc">Module ascript</h1><p class="nomargin-top"></p>
+<p>Process ascription configurations, catalogs, and histories.</p>
+
+<hr />
+<div class="fields">      <p><strong>Note:</strong>
+        For the moment, this module is only for internal use within Pology.
+        Interfaces may change arbitrarily between any two Pology releases.
+      </p>
+      <p><strong>Author:</strong>
+        Chusslove Illich (&#1063;&#1072;&#1089;&#1083;&#1072;&#1074; &#1048;&#1083;&#1080;&#1115;) &lt;caslav.ilic@gmx.net&gt;
+      </p>
+      <p><strong>License:</strong>
+        GPLv3
+      </p>
+</div><!-- ==================== CLASSES ==================== -->
+<a name="section-Classes"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td align="left" colspan="2" class="table-header">
+    <span class="table-header">Classes</span></td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="pology.ascript.AscConfig-class.html" class="summary-name">AscConfig</a><br />
+      Representation of an ascription configuration file.
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="pology.ascript.AscUser-class.html" class="summary-name">AscUser</a><br />
+      Representation of an ascription user.
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="pology.ascript.AscPoint-class.html" class="summary-name">AscPoint</a><br />
+      Representation of an ascription point.
+    </td>
+  </tr>
+</table>
+<!-- ==================== FUNCTIONS ==================== -->
+<a name="section-Functions"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td align="left" colspan="2" class="table-header">
+    <span class="table-header">Functions</span></td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">[(AscConfig, [(string, string)*])*]</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.ascript-module.html#collect_ascription_associations" class="summary-sig-name">collect_ascription_associations</a>(<span class="summary-sig-arg">catpaths</span>)</span><br />
+      Build up ascription associations for catalog paths.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">[AscPoint*]</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.ascript-module.html#collect_ascription_history" class="summary-sig-name">collect_ascription_history</a>(<span class="summary-sig-arg">msg</span>,
+        <span class="summary-sig-arg">acat</span>,
+        <span class="summary-sig-arg">aconf</span>,
+        <span class="summary-sig-arg">nomrg</span>=<span class="summary-sig-default">False</span>,
+        <span class="summary-sig-arg">hfilter</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">shallow</span>=<span class="summary-sig-default">False</span>,
+        <span class="summary-sig-arg">addrem</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Collect ascription history of a message.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">[AscPoint*]</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.ascript-module.html#collect_ascription_history_segment" class="summary-sig-name">collect_ascription_history_segment</a>(<span class="summary-sig-arg">amsg</span>,
+        <span class="summary-sig-arg">acat</span>,
+        <span class="summary-sig-arg">aconf</span>)</span><br />
+      Collect a segment of an ascription history.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.ascript-module.html#ascribe_modification" class="summary-sig-name">ascribe_modification</a>(<span class="summary-sig-arg">msg</span>,
+        <span class="summary-sig-arg">user</span>,
+        <span class="summary-sig-arg">dt</span>,
+        <span class="summary-sig-arg">acat</span>,
+        <span class="summary-sig-arg">aconf</span>)</span><br />
+      Ascribe message modification.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.ascript-module.html#ascribe_review" class="summary-sig-name">ascribe_review</a>(<span class="summary-sig-arg">msg</span>,
+        <span class="summary-sig-arg">user</span>,
+        <span class="summary-sig-arg">dt</span>,
+        <span class="summary-sig-arg">tags</span>,
+        <span class="summary-sig-arg">acat</span>,
+        <span class="summary-sig-arg">aconf</span>)</span><br />
+      Ascribe message review.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">bool</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.ascript-module.html#ascription_equal" class="summary-sig-name">ascription_equal</a>(<span class="summary-sig-arg">msg1</span>,
+        <span class="summary-sig-arg">msg2</span>)</span><br />
+      Whether two messages are equal from the ascription viewpoint.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">bool</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.ascript-module.html#merge_modified" class="summary-sig-name">merge_modified</a>(<span class="summary-sig-arg">msg1</span>,
+        <span class="summary-sig-arg">msg2</span>)</span><br />
+      Whether second message may have been derived from first by merging 
+      with templates.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">int</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.ascript-module.html#first_non_fuzzy" class="summary-sig-name">first_non_fuzzy</a>(<span class="summary-sig-arg">ahist</span>,
+        <span class="summary-sig-arg">start</span>=<span class="summary-sig-default">0</span>)</span><br />
+      Find first non fuzzy message in the ascription history.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">bool</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.ascript-module.html#has_tracked_parts" class="summary-sig-name">has_tracked_parts</a>(<span class="summary-sig-arg">msg</span>)</span><br />
+      Check whether the message has any parts which are tracked for 
+      ascription.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">set(string*)</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.ascript-module.html#parse_users" class="summary-sig-name">parse_users</a>(<span class="summary-sig-arg">userspec</span>,
+        <span class="summary-sig-arg">aconf</span>)</span><br />
+      Parse ascription user specification.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">set(string*)</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.ascript-module.html#parse_review_tags" class="summary-sig-name">parse_review_tags</a>(<span class="summary-sig-arg">tagspec</span>,
+        <span class="summary-sig-arg">aconf</span>)</span><br />
+      Parse review tag specification.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">(<a href="pology.message.Message_base-class.html" 
+      class="link">Message_base</a>, <a 
+      href="pology.catalog.Catalog-class.html" 
+      class="link">Catalog</a>)-&gt;bool</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.ascript-module.html#cached_matcher" class="summary-sig-name">cached_matcher</a>(<span class="summary-sig-arg">expr</span>)</span><br />
+      Fetch a cached message matcher for the given expression, for use in 
+      ascription selectors.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">set(string*)</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.ascript-module.html#cached_users" class="summary-sig-name">cached_users</a>(<span class="summary-sig-arg">userspec</span>,
+        <span class="summary-sig-arg">aconf</span>,
+        <span class="summary-sig-arg">utype</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Fetch a cached set of users for the given user specification, for use
+      in ascription selectors.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">set(string*)</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.ascript-module.html#cached_review_tags" class="summary-sig-name">cached_review_tags</a>(<span class="summary-sig-arg">tagspec</span>,
+        <span class="summary-sig-arg">aconf</span>)</span><br />
+      Fetch a cached set of review tags for the given tag specification, 
+      for use in ascription selectors.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">(<a href="pology.message.Message_base-class.html" 
+      class="link">Message_base</a>, <a 
+      href="pology.catalog.Catalog-class.html" class="link">Catalog</a>, 
+      [AscPoint*], <a href="pology.ascript.AscConfig-class.html" 
+      class="link">AscConfig</a>)-&gt;bool (shallow), (...)-&gt;int/None 
+      (history)</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.ascript-module.html#make_ascription_selector" class="summary-sig-name">make_ascription_selector</a>(<span class="summary-sig-arg">selspecs</span>,
+        <span class="summary-sig-arg">hist</span>=<span class="summary-sig-default">False</span>)</span><br />
+      Build compound ascription selector out of string specifications of 
+      basic selectors.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.ascript-module.html#import_ascription_extensions" class="summary-sig-name">import_ascription_extensions</a>(<span class="summary-sig-arg">modpath</span>)</span><br />
+      Import extensions to ascription functionality from a Python module.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+</table>
+<!-- ==================== VARIABLES ==================== -->
+<a name="section-Variables"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td align="left" colspan="2" class="table-header">
+    <span class="table-header">Variables</span></td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="fld_sep"></a><span class="summary-name">fld_sep</span> = <code title="':'"><code class="variable-quote">'</code><code class="variable-string">:</code><code class="variable-quote">'</code></code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="__package__"></a><span class="summary-name">__package__</span> = <code title="'pology'"><code class="variable-quote">'</code><code class="variable-string">pology</code><code class="variable-quote">'</code></code>
+    </td>
+  </tr>
+</table>
+<!-- ==================== FUNCTION DETAILS ==================== -->
+<a name="section-FunctionDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td align="left" colspan="2" class="table-header">
+    <span class="table-header">Function Details</span></td>
+</tr>
+</table>
+<a name="collect_ascription_associations"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">collect_ascription_associations</span>(<span class="sig-arg">catpaths</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Build up ascription associations for catalog paths.</p>
+  <p>For each catalog path, the ascription configuration to which it 
+  belongs is found and parsed, and the corresponding ascription catalog 
+  path assembled. The association is organized as list of two-tuples; the 
+  first element is the parsed ascription configuration, and the second 
+  element the list of two-tuples of original catalog paths and associated 
+  ascription catalog paths (whether the ascription catalog already exists 
+  or not). For example, if the input is:</p>
+<pre class="literalblock">
+   [&quot;foo/alpha.po&quot;, &quot;foo/bravo.po&quot;, &quot;bar/november.po&quot;]
+</pre>
+  <p>and the files are covered by ascription configurations at 
+  <code>foo/ascription-config</code> and 
+  <code>bar/ascription-config</code>, the return value is:</p>
+<pre class="literalblock">
+   [(AscConfig(&quot;foo/ascription-config&quot;),
+    [(&quot;foo/alpha.po&quot;, &quot;foo-ascript/alpha.po&quot;),
+     (&quot;foo/bravo.po&quot;, &quot;foo-ascript/bravo.po&quot;)]),
+    (AscConfig(&quot;bar/ascription-config&quot;),
+     [(&quot;bar/november.po&quot;, &quot;bar-ascript/november.po&quot;)])]
+</pre>
+  <p>(assuming that both ascription configurations set 
+  <code>*-ascript/</code> directories as corresponding ascription catalog 
+  roots).</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>catpaths</code></strong> ([string*]) - a list of catalog paths</li>
+    </ul></dd>
+    <dt>Returns: [(AscConfig, [(string, string)*])*]</dt>
+        <dd>the ascription association list</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="collect_ascription_history"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">collect_ascription_history</span>(<span class="sig-arg">msg</span>,
+        <span class="sig-arg">acat</span>,
+        <span class="sig-arg">aconf</span>,
+        <span class="sig-arg">nomrg</span>=<span class="sig-default">False</span>,
+        <span class="sig-arg">hfilter</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">shallow</span>=<span class="sig-default">False</span>,
+        <span class="sig-arg">addrem</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Collect ascription history of a message.</p>
+  <p>The ascription history of <code>msg</code> is collected from the 
+  ascription catalog <code>acat</code>, falling under the ascription 
+  configuration <code>aconf</code>. The ascription history is a list of <a 
+  href="pology.ascript.AscPoint-class.html" class="link">AscPoint</a> 
+  objects, ordered from the newest to the oldest by date of ascription.</p>
+  <p>Some ascription points may be due to merging with template, when the 
+  ascriptions on a catalog were made just after merging. In many cases of 
+  examining the history these ascriptions are not useful, so they can be 
+  removed by setting <code>nomrg</code> to <code>True</code>.</p>
+  <p>Sometimes it may be convenient to operate on history in which the 
+  translations of historical messages have been filtered, and this filter 
+  can be specified with <code>hfilter</code>. If under filter two 
+  consecutive historical messages become equal, one of them will be 
+  eliminated from the history.</p>
+  <p>History normally extends in the past through merging with templates 
+  (think of a paragraph-length message in which only one word was changed),
+  so it may contain messages with keys different from the current message 
+  from some point and onwards. If only the history up to the earliest 
+  message with equal key is desired, <code>shallow</code> can be set to 
+  <code>True</code>.</p>
+  <p>Sometimes it may be convenient to operate on <i>incremental</i> 
+  history, in which every historical message is actually a partial 
+  difference (added, removed or equal segments) from the previous 
+  historical message. This can be requested by setting <code>addrem</code> 
+  to one of the values as described in <a 
+  href="pology.diff-module.html#msg_diff" class="link">msg_diff</a> 
+  function.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>msg</code></strong> (<a href="pology.message.Message_base-class.html" 
+          class="link">Message_base</a>) - the message from the original catalog</li>
+        <li><strong class="pname"><code>acat</code></strong> (<a href="pology.catalog.Catalog-class.html" 
+          class="link">Catalog</a>) - the ascription catalog corresponding to the original catalog</li>
+        <li><strong class="pname"><code>aconf</code></strong> (<a href="pology.ascript.AscConfig-class.html" 
+          class="link">AscConfig</a>) - the ascription configuration which covers the catalogs</li>
+        <li><strong class="pname"><code>nomrg</code></strong> (bool) - whether to eliminate from history pure merge ascriptions</li>
+        <li><strong class="pname"><code>hfilter</code></strong> ((string)-&gt;string) - the filter to apply to <code>msgstr</code> fields of historical 
+          messages</li>
+        <li><strong class="pname"><code>shallow</code></strong> (bool) - whether to collect history only up to last historical message 
+          with same key</li>
+        <li><strong class="pname"><code>addrem</code></strong> (string) - make each historical message an incremental difference from the 
+          first earlier historical message; see same-name parameter of <a 
+          href="pology.diff-module.html#msg_diff" class="link">msg_diff</a>
+          for possible values</li>
+    </ul></dd>
+    <dt>Returns: [AscPoint*]</dt>
+        <dd>the ascription history</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="collect_ascription_history_segment"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">collect_ascription_history_segment</span>(<span class="sig-arg">amsg</span>,
+        <span class="sig-arg">acat</span>,
+        <span class="sig-arg">aconf</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Collect a segment of an ascription history.</p>
+  <p><code>amsg</code> is an ascription message from the ascription catalog
+  <code>acat</code>, falling under the ascription configuration 
+  <code>aconf</code>, and it contains a part of the ascription history of 
+  some message. This function is used to get only that part of the 
+  ascription history. The ascription history segment is a list of <a 
+  href="pology.ascript.AscPoint-class.html" class="link">AscPoint</a> 
+  objects, ordered from the newest to the oldest by date of ascription.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>amsg</code></strong> (<a href="pology.message.Message_base-class.html" 
+          class="link">Message_base</a>) - the ascription message from the ascription catalog</li>
+        <li><strong class="pname"><code>acat</code></strong> (<a href="pology.catalog.Catalog-class.html" 
+          class="link">Catalog</a>) - the ascription catalog</li>
+        <li><strong class="pname"><code>aconf</code></strong> (<a href="pology.ascript.AscConfig-class.html" 
+          class="link">AscConfig</a>) - the ascription configuration which covers the catalogs</li>
+    </ul></dd>
+    <dt>Returns: [AscPoint*]</dt>
+        <dd>the ascription history segment</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="ascribe_modification"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">ascribe_modification</span>(<span class="sig-arg">msg</span>,
+        <span class="sig-arg">user</span>,
+        <span class="sig-arg">dt</span>,
+        <span class="sig-arg">acat</span>,
+        <span class="sig-arg">aconf</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Ascribe message modification.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>msg</code></strong> (<a href="pology.message.Message_base-class.html" 
+          class="link">Message_base</a>) - modified message which is being ascribed</li>
+        <li><strong class="pname"><code>user</code></strong> (string) - user to whom the ascription is made</li>
+        <li><strong class="pname"><code>dt</code></strong> (datetime.datetime) - the time stamp when the ascription is made</li>
+        <li><strong class="pname"><code>acat</code></strong> (<a href="pology.catalog.Catalog-class.html" 
+          class="link">Catalog</a>) - the ascription catalogs</li>
+        <li><strong class="pname"><code>aconf</code></strong> (<a href="pology.ascript.AscConfig-class.html" 
+          class="link">AscConfig</a>) - the ascription configuration</li>
+    </ul></dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="ascribe_review"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">ascribe_review</span>(<span class="sig-arg">msg</span>,
+        <span class="sig-arg">user</span>,
+        <span class="sig-arg">dt</span>,
+        <span class="sig-arg">tags</span>,
+        <span class="sig-arg">acat</span>,
+        <span class="sig-arg">aconf</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Ascribe message review.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>msg</code></strong> (<a href="pology.message.Message_base-class.html" 
+          class="link">Message_base</a>) - reviewed message which is being ascribed</li>
+        <li><strong class="pname"><code>user</code></strong> (string) - user to whom the ascription is made</li>
+        <li><strong class="pname"><code>dt</code></strong> (datetime.datetime) - the time stamp when the ascription is made</li>
+        <li><strong class="pname"><code>tags</code></strong> ([string*]) - review tags</li>
+        <li><strong class="pname"><code>acat</code></strong> (<a href="pology.catalog.Catalog-class.html" 
+          class="link">Catalog</a>) - the ascription catalogs</li>
+        <li><strong class="pname"><code>aconf</code></strong> (<a href="pology.ascript.AscConfig-class.html" 
+          class="link">AscConfig</a>) - the ascription configuration</li>
+    </ul></dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="ascription_equal"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">ascription_equal</span>(<span class="sig-arg">msg1</span>,
+        <span class="sig-arg">msg2</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Whether two messages are equal from the ascription viewpoint.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>msg1</code></strong> (<a href="pology.message.Message_base-class.html" 
+          class="link">Message_base</a>) - first message</li>
+        <li><strong class="pname"><code>msg2</code></strong> (<a href="pology.message.Message_base-class.html" 
+          class="link">Message_base</a>) - second message</li>
+    </ul></dd>
+    <dt>Returns: bool</dt>
+        <dd><code>True</code> if messages are equal, <code>False</code> 
+          otherwise</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="merge_modified"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">merge_modified</span>(<span class="sig-arg">msg1</span>,
+        <span class="sig-arg">msg2</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Whether second message may have been derived from first by merging 
+  with templates.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>msg1</code></strong> (<a href="pology.message.Message_base-class.html" 
+          class="link">Message_base</a>) - first message</li>
+        <li><strong class="pname"><code>msg2</code></strong> (<a href="pology.message.Message_base-class.html" 
+          class="link">Message_base</a>) - second message</li>
+    </ul></dd>
+    <dt>Returns: bool</dt>
+        <dd><code>True</code> if <code>msg2</code> is derived by merging from
+          <code>msg1</code>, <code>False</code> otherwise</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="first_non_fuzzy"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">first_non_fuzzy</span>(<span class="sig-arg">ahist</span>,
+        <span class="sig-arg">start</span>=<span class="sig-default">0</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Find first non fuzzy message in the ascription history.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>ahist</code></strong> ([AscPoint*]) - the ascription history</li>
+        <li><strong class="pname"><code>start</code></strong> (int) - position in history to start searching from</li>
+    </ul></dd>
+    <dt>Returns: int</dt>
+        <dd>index of first non-fuzzy message, or None if there is none such</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="has_tracked_parts"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">has_tracked_parts</span>(<span class="sig-arg">msg</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Check whether the message has any parts which are tracked for 
+  ascription.</p>
+  <p>For example, a pristine untranslated message is considered to have no 
+  tracked parts.</p>
+  <dl class="fields">
+    <dt>Returns: bool</dt>
+        <dd><code>True</code> if there are any tracked parts, 
+          <code>False</code> otherwise</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="parse_users"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">parse_users</span>(<span class="sig-arg">userspec</span>,
+        <span class="sig-arg">aconf</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Parse ascription user specification.</p>
+  <p>The user specification is a comma-separated list of user names. If the
+  list starts with tilde (~), all users defined in the ascription 
+  configuration but for those listed will be selected (inverted 
+  selection).</p>
+  <p>If an undefined user (according to ascription configuration) is 
+  mentioned, an exception is raised.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>userspec</code></strong> (string) - the user specification</li>
+        <li><strong class="pname"><code>aconf</code></strong> (<a href="pology.ascript.AscConfig-class.html" 
+          class="link">AscConfig</a>) - the ascription configuration</li>
+    </ul></dd>
+    <dt>Returns: set(string*)</dt>
+        <dd>selected user names</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="parse_review_tags"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">parse_review_tags</span>(<span class="sig-arg">tagspec</span>,
+        <span class="sig-arg">aconf</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Parse review tag specification.</p>
+  <p>The tag specification is a comma-separated list of tags. If the list 
+  starts with tilde (~), all review tags defined in the ascription 
+  configuration but for those listed will be selected (inverted 
+  selection).</p>
+  <p>If an undefined tag (according to ascription configuration) is 
+  mentioned, an exception is raised.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>tagspec</code></strong> (string) - the review tag specification</li>
+        <li><strong class="pname"><code>aconf</code></strong> (<a href="pology.ascript.AscConfig-class.html" 
+          class="link">AscConfig</a>) - the ascription configuration</li>
+    </ul></dd>
+    <dt>Returns: set(string*)</dt>
+        <dd>selected review tags</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="cached_matcher"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">cached_matcher</span>(<span class="sig-arg">expr</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Fetch a cached message matcher for the given expression, for use in 
+  ascription selectors.</p>
+  <p>When this function is called for the first time on a new expression, 
+  the matcher function is created and cached. On subsequent invocations 
+  with the same expression, the matcher is fetched from the cache rather 
+  than created anew.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>expr</code></strong> (string) - the matching expression; see <a 
+          href="pology.match-module.html#make_msg_matcher" 
+          class="link">make_msg_matcher</a> for details</li>
+    </ul></dd>
+    <dt>Returns: (<a href="pology.message.Message_base-class.html" 
+      class="link">Message_base</a>, <a 
+      href="pology.catalog.Catalog-class.html" 
+      class="link">Catalog</a>)-&gt;bool</dt>
+        <dd>the matcher function</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="cached_users"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">cached_users</span>(<span class="sig-arg">userspec</span>,
+        <span class="sig-arg">aconf</span>,
+        <span class="sig-arg">utype</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Fetch a cached set of users for the given user specification, for use 
+  in ascription selectors.</p>
+  <p>When this function is called for the first time on a new combination 
+  of user specification <code>userspec</code>, ascription configuration 
+  <code>aconf</code>, and &quot;user type&quot; <code>utype</code>, the 
+  specification is parsed and users collected. On subsequent invocations 
+  with the same combination, the user set is fetched from the cache rather 
+  than created anew. <code>utype</code> is actually just an arbitrary 
+  string, for when you need to cache users by different categories.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>userspec</code></strong> (string) - the user specification; see <a 
+          href="pology.ascript-module.html#parse_users" 
+          class="link">parse_users</a> for details</li>
+        <li><strong class="pname"><code>aconf</code></strong> (<a href="pology.ascript.AscConfig-class.html" 
+          class="link">AscConfig</a>) - the ascription configuration</li>
+        <li><strong class="pname"><code>utype</code></strong> (string) - user type</li>
+    </ul></dd>
+    <dt>Returns: set(string*)</dt>
+        <dd>the set of users</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="cached_review_tags"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">cached_review_tags</span>(<span class="sig-arg">tagspec</span>,
+        <span class="sig-arg">aconf</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Fetch a cached set of review tags for the given tag specification, for
+  use in ascription selectors.</p>
+  <p>When this function is called for the first time on a new combination 
+  of tag specification <code>tagspec</code> and ascription configuration 
+  <code>aconf</code>, the specification is parsed and tags collected. On 
+  subsequent invocations with the same combination, the tag set is fetched 
+  from the cache rather than created anew.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>tagspec</code></strong> (string) - the tag specification; see <a 
+          href="pology.ascript-module.html#parse_review_tags" 
+          class="link">parse_review_tags</a> for details</li>
+        <li><strong class="pname"><code>aconf</code></strong> (<a href="pology.ascript.AscConfig-class.html" 
+          class="link">AscConfig</a>) - the ascription configuration</li>
+    </ul></dd>
+    <dt>Returns: set(string*)</dt>
+        <dd>the set of tags</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="make_ascription_selector"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">make_ascription_selector</span>(<span class="sig-arg">selspecs</span>,
+        <span class="sig-arg">hist</span>=<span class="sig-default">False</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Build compound ascription selector out of string specifications of 
+  basic selectors.</p>
+  <p>Selector specification string has the format NAME:ARG1:ARG2:... 
+  Instead of colon, separator can be any non-alphanumeric character used 
+  consistently, except for underscore and hyphen. The compound selector is 
+  obtained by constructing each basic selector according to the 
+  specification in turn, and linking them with AND-boolean semantics.</p>
+  <p>Parameter <code>hist</code> determines whether the compound selector 
+  should be a shallow selector (<code>True</code>) or a history selector 
+  (<code>False</code>). If a history selector is required but cannot be 
+  made from the given composition of basic selectors, an exception is 
+  raised.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>selspecs</code></strong> ([string*]) - specifications of basic selectors</li>
+        <li><strong class="pname"><code>hist</code></strong> (bool) - <code>True</code> if the compound selector should be history 
+          selector, <code>False</code> if it should be shallow selector</li>
+    </ul></dd>
+    <dt>Returns: (<a href="pology.message.Message_base-class.html" 
+      class="link">Message_base</a>, <a 
+      href="pology.catalog.Catalog-class.html" class="link">Catalog</a>, 
+      [AscPoint*], <a href="pology.ascript.AscConfig-class.html" 
+      class="link">AscConfig</a>)-&gt;bool (shallow), (...)-&gt;int/None 
+      (history)</dt>
+        <dd>the compound selector</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="import_ascription_extensions"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">import_ascription_extensions</span>(<span class="sig-arg">modpath</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Import extensions to ascription functionality from a Python 
+  module.</p>
+  <p>Additional selector factories can be introduced by defining the 
+  <code>asc_selector_factories</code> dictionary, in which the key is the 
+  selector name, and the value a tuple of the selector factory function and
+  the indicator of whether the selector can be used as a history selector 
+  or not. For example:</p>
+<pre class="literalblock">
+   asc_selector_factories = {
+       # key: (function, can_be_used_as_history_selector),
+       &quot;specsel1&quot;: (selector_specsel1, True),
+       &quot;specsel2&quot;: (selector_specsel2, False),
+       ...
+   }
+</pre>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>modpath</code></strong> (string) - path to Python file</li>
+    </ul></dd>
+  </dl>
+</td></tr></table>
+</div>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="pology-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

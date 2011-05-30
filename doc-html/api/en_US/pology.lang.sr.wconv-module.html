@@ -408,7 +408,8 @@
           <td><span class="summary-sig"><a href="pology.lang.sr.wconv-module.html#tohi" class="summary-sig-name">tohi</a>(<span class="summary-sig-arg">text1</span>,
         <span class="summary-sig-arg">text2</span>,
         <span class="summary-sig-arg">ekord</span>=<span class="summary-sig-default">None</span>,
-        <span class="summary-sig-arg">delims</span>=<span class="summary-sig-default"><code class="variable-quote">u'</code><code class="variable-string">/|&#166;</code><code class="variable-quote">'</code></span>)</span><br />
+        <span class="summary-sig-arg">delims</span>=<span class="summary-sig-default"><code class="variable-quote">u'</code><code class="variable-string">/|&#166;</code><code class="variable-quote">'</code></span>,
+        <span class="summary-sig-arg">parthyb</span>=<span class="summary-sig-default">False</span>)</span><br />
       Construct hybrid Ijekavian text out of Ekavian and Ijekavian texts.</td>
           <td align="right" valign="top">
             
@@ -671,7 +672,8 @@
   <h3 class="epydoc"><span class="sig"><span class="sig-name">tohi</span>(<span class="sig-arg">text1</span>,
         <span class="sig-arg">text2</span>,
         <span class="sig-arg">ekord</span>=<span class="sig-default">None</span>,
-        <span class="sig-arg">delims</span>=<span class="sig-default"><code class="variable-quote">u'</code><code class="variable-string">/|&#166;</code><code class="variable-quote">'</code></span>)</span>
+        <span class="sig-arg">delims</span>=<span class="sig-default"><code class="variable-quote">u'</code><code class="variable-string">/|&#166;</code><code class="variable-quote">'</code></span>,
+        <span class="sig-arg">parthyb</span>=<span class="sig-default">False</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     >&nbsp;
@@ -696,6 +698,11 @@
   which segment is put first in the directive (i.e. considered Ekavian), 
   that of <code>text1</code> or of <code>text2</code>. Any other value of 
   <code>ekord</code> leads to undefined behavior.</p>
+  <p>It is possible that input texts are already partially hybridized, and 
+  only some parts of them need to be additionally hybridized. Setting 
+  <code>parthyb</code> to <code>True</code> will tell the function to 
+  detect and skip already hybridized segments, and hybridize only the 
+  rest.</p>
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
@@ -704,6 +711,7 @@
         <li><strong class="pname"><code>ekord</code></strong> (None, 1, 2) - enumerates the text to be considered Ekavian when adding 
           alternatives directives</li>
         <li><strong class="pname"><code>delims</code></strong> (string) - possible delimiter characters for alternatives directives</li>
+        <li><strong class="pname"><code>parthyb</code></strong> (bool) - whether input texts are already partially hybridized</li>
     </ul></dd>
     <dt>Returns: string</dt>
         <dd>hybrid Ijekavian text</dd>
