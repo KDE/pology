@@ -518,7 +518,7 @@ def hitoei (htext):
     return hitoe(htext), hitoi(htext)
 
 
-def tohi (text1, text2, ekord=None, delims=u"/|¦"):
+def tohi (text1, text2, ekord=None, delims=u"/|¦", parthyb=False):
     """
     Construct hybrid Ijekavian text out of Ekavian and Ijekavian texts.
 
@@ -539,6 +539,11 @@ def tohi (text1, text2, ekord=None, delims=u"/|¦"):
     (i.e. considered Ekavian), that of C{text1} or of C{text2}.
     Any other value of C{ekord} leads to undefined behavior.
 
+    It is possible that input texts are already partially hybridized,
+    and only some parts of them need to be additionally hybridized.
+    Setting C{parthyb} to C{True} will tell the function to detect
+    and skip already hybridized segments, and hybridize only the rest.
+
     @param text1: first text
     @type text1: string
     @param text2: second text
@@ -548,6 +553,8 @@ def tohi (text1, text2, ekord=None, delims=u"/|¦"):
     @type ekord: None, 1, 2
     @param delims: possible delimiter characters for alternatives directives
     @type delims: string
+    @param parthyb: whether input texts are already partially hybridized
+    @type parthyb: bool
 
     @returns: hybrid Ijekavian text
     @rtype: string
@@ -558,7 +565,12 @@ def tohi (text1, text2, ekord=None, delims=u"/|¦"):
     segs = []
     while True:
         while i1 < len1 and i2 < len2 and text1[i1] == text2[i2]:
-            i1 += 1; i2 += 1
+            if not parthyb:
+                i1 += 1
+                i2 += 1
+            else:
+                i1 += _step_over_hyb(text1, i1)
+                i2 += _step_over_hyb(text2, i2)
         if i1 == len1 and i2 == len2:
             segs.append(text1[i1p:]) # same as text2[i2p:]
             break
@@ -619,7 +631,46 @@ def tohi (text1, text2, ekord=None, delims=u"/|¦"):
         i1 = i1p
         i2 = i2p
 
-    return "".join(segs)
+    htext = "".join(segs)
+
+    return htext
+
+
+_reflex_spec_dehyb_by_tick = dict((x[0], x[1:]) for x in _reflex_spec_dehyb)
+
+def _step_over_hyb (text, pos):
+
+    refspec = _reflex_spec_dehyb_by_tick.get(text[pos])
+    if refspec is not None: # there is a reflex
+        refmap, ijklen_min, ijklen_max = refspec
+        ijklen = ijklen_min
+        ekvfrm = None
+        while ijklen <= ijklen_max and ekvfrm is None:
+            ijkfrm = text[pos + 1:pos + 1 + ijklen]
+            ekvfrm = refmap.get(ijkfrm)
+            ijklen += 1
+        if ekvfrm is not None:
+            steplen = 1 + len(ijkfrm)
+        else: # malformed reflex
+            steplen = 1
+    elif text.startswith(_dhyb_althead): # there is an alternatives directive
+        if pos + len(_dhyb_althead) < len(text):
+            sep = text[pos + len(_dhyb_althead)]
+            pos2 = text.find(sep, pos + len(_dhyb_althead) + 1)
+            if pos2 < len(text):
+                pos3 = text.find(sep, pos2 + 1)
+                if pos3 < len(text):
+                    steplen = pos3 - pos
+                else: # malformed directive
+                    steplen = 1
+            else: # malformed directive
+                steplen = 1
+        else: # malformed directive
+            steplen = 1
+    else: # there is plain text
+        steplen = 1
+
+    return steplen
 
 
 def hictoec (text):

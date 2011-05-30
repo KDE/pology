@@ -149,10 +149,10 @@ def hybdl (path, path0, accnohyb=False):
         textsh = []
         textshinv = []
         for text0, text in zip(msg0.msgstr, msg.msgstr):
-            texth = tohi(text0, text)
+            texth = tohi(text0, text, parthyb=True)
             textsh.append(texth)
             if not accnohyb:
-                texthinv = tohi(text, text0)
+                texthinv = tohi(text, text0, parthyb=True)
                 textshinv.append(texthinv)
         if accnohyb or textsh == textshinv:
             for i, texth in zip(range(len(msg.msgstr)), textsh):
