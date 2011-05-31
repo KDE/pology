@@ -8,6 +8,16 @@
   CMake?
 
 
+* Web site.
+
+  Minimal, informative web site, at pology.nedohodnik.net
+  (currently there is only documentation there).
+  All manually modified files should reside in www/,
+  and the web site should be updateable with www/updatewww.sh.
+
+  How to handle new release tarballs?
+
+
 * Translation of the user manual.
 
   All current Docbook-PO extractor-injectors are unacceptable,
