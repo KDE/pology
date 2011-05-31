@@ -81,7 +81,7 @@ l10n-nn/
             ...
         ...
 </pre>
-<p>Having PO files grouped by language can be taken as a hard prerequisite<sup>[<a name="id367573" href="#ftn.id367573" class="footnote" id="id367573">24</a>]</sup>. Also necessary is a single top subdirectory for the whole PO file tree (here <code class="filename">po/</code>), rather than having several PO subdirectories directly in the language directory.</p>
+<p>Having PO files grouped by language can be taken as a hard prerequisite<sup>[<a name="idp9714688" href="#ftn.idp9714688" class="footnote" id="idp9714688">24</a>]</sup>. Also necessary is a single top subdirectory for the whole PO file tree (here <code class="filename">po/</code>), rather than having several PO subdirectories directly in the language directory.</p>
 <p>Setting up ascription is now simple. Create the ascription configuration file named exactly <code class="filename">ascription-config</code> (<span class="command"><strong>poascribe</strong></span> expects this name), on the same level as the top PO directory:</p>
 <pre class="programlisting">
 l10n-nn/
@@ -257,7 +257,7 @@ $ svn commit ascription-config po po-ascript -m "Initial ascription."
 </div>
 </div>
 </div>
-<p>While this is generally a good idea, with ascription in place translators must always update the complete language directory by VCS, rather than just one particular PO file or subdirectory, so that the original and the ascription PO file trees are kept in sync.<sup>[<a name="id415538" href="#ftn.id415538" class="footnote" id="id415538">25</a>]</sup></p>
+<p>While this is generally a good idea, with ascription in place translators must always update the complete language directory by VCS, rather than just one particular PO file or subdirectory, so that the original and the ascription PO file trees are kept in sync.<sup>[<a name="idp12889792" href="#ftn.idp12889792" class="footnote" id="idp12889792">25</a>]</sup></p>
 <p>In order not to have to report their user name to <span class="command"><strong>poascribe</strong></span> all the time (by the <code class="option">-u</code> option), translators can set it in <a class="link" href="ch-common.html#sec-cmconfig" title="9.2.&nbsp;User Configuration">Pology user configuration</a>, the <code class="literal">[poascribe]</code> section:</p>
 <pre class="programlisting">
 [poascribe]
@@ -281,7 +281,7 @@ Transmitting file data ....
 Committed revision 1267069.
 $
 </pre>
-<p>The lines after <code class="literal">&gt;&gt;&gt;&gt;&gt; VCS...</code> are produce by the underlying VCS, which is Subversion in this example.<sup>[<a name="id407065" href="#ftn.id407065" class="footnote" id="id407065">26</a>]</sup></p>
+<p>The lines after <code class="literal">&gt;&gt;&gt;&gt;&gt; VCS...</code> are produce by the underlying VCS, which is Subversion in this example.<sup>[<a name="idp15255024" href="#ftn.idp15255024" class="footnote" id="idp15255024">26</a>]</sup></p>
 <p>As can be seen from the example output, <span class="command"><strong>poascribe</strong></span> will add ascription records into ascription PO files corresponding to original PO files, and commit them all. Like a VCS command, <span class="command"><strong>poascribe co</strong></span> can take any number of PO file or directory paths. For a directory path, only files with <code class="filename">.po</code> extension in it will be processed, and any other ignored. <span class="command"><strong>poascribe</strong></span> can be run from any working directory with appropriate paths as arguments, and it will always find the associated ascription configuration and files. If a default commit message has not been set in the ascription configuration, <span class="command"><strong>poascribe</strong></span> will ask for it; or it can be given in command line through <code class="option">-m</code> option.</p>
 <div class="sect2">
 <div class="titlepage">
@@ -463,7 +463,7 @@ msgstr "..."
 msgid "..."
 msgstr "..."
 </pre>
-<p>Again, since <code class="literal">lstyle</code> reviews do not mix with general reviews<sup>[<a name="id463063" href="#ftn.id463063" class="footnote" id="id463063">27</a>]</sup>, Dan's review did not hide Bob's modification that Alice did not check so far.</p>
+<p>Again, since <code class="literal">lstyle</code> reviews do not mix with general reviews<sup>[<a name="idp15949792" href="#ftn.idp15949792" class="footnote" id="idp15949792">27</a>]</sup>, Dan's review did not hide Bob's modification that Alice did not check so far.</p>
 </div>
 </div>
 <div class="sect1">
@@ -590,7 +590,7 @@ $ poascribe commit $LANGDIR -m "Everything merged."
 </dd>
 <dt><span class="term"><code class="option">-A <em class="replaceable"><code>RATIO</code></em></code>, <code class="option">--min-adjsim-diff=<em class="replaceable"><code>RATIO</code></em></code></span></dt>
 <dd>
-<p>The minimum adjusted similarity between the current and the historical message at which embedded differences will be shown.<sup>[<a name="id426862" href="#ftn.id426862" class="footnote" id="id426862">28</a>]</sup> This is a number in range from 0.0 (always show) to 1.0 (never show). If the difference is not shown due to this limit, the message will get the flag <code class="literal">ediff-ignored</code> instead of the usual <code class="literal">ediff</code>. A reasonable value may be 0.6 to 0.8.</p>
+<p>The minimum adjusted similarity between the current and the historical message at which embedded differences will be shown.<sup>[<a name="idp19133792" href="#ftn.idp19133792" class="footnote" id="idp19133792">28</a>]</sup> This is a number in range from 0.0 (always show) to 1.0 (never show). If the difference is not shown due to this limit, the message will get the flag <code class="literal">ediff-ignored</code> instead of the usual <code class="literal">ediff</code>. A reasonable value may be 0.6 to 0.8.</p>
 </dd>
 <dt><span class="term"><code class="option">-b</code>, <code class="option">--show-by-file</code></span></dt>
 <dd>
@@ -849,19 +849,19 @@ def selector_foo (args):
 def selector_bar (args):
     ...
 
-xm_selector_factories = {
+asc_selector_factories = {
     # key: (factory, is_history_selector)
     "foo": (selector_foo, False),
     "bar": (selector_bar, True),
 }
 </pre>
-<p><code class="function">selector_foo</code> and <code class="function">selector_bar</code> are factory functions for selectors <code class="literal">foo</code> and <code class="literal">bar</code>. After loading the file, <span class="command"><strong>poascribe</strong></span> will look for the <code class="varname">xm_selector_factories</code> dictionary to see which selectors are defined and of what type they are. See <a class="xref" href="ch-prog.html#sec-prascsel" title="11.5.&nbsp;Writing Ascription Selectors">Section&nbsp;11.5, “Writing Ascription Selectors”</a> for the instructions on writing selector factory functions.</p>
+<p><code class="function">selector_foo</code> and <code class="function">selector_bar</code> are factory functions for selectors <code class="literal">foo</code> and <code class="literal">bar</code>. After loading the file, <span class="command"><strong>poascribe</strong></span> will look for the <code class="varname">asc_selector_factories</code> dictionary to see which selectors are defined and of what type they are. See <a class="xref" href="ch-prog.html#sec-prascsel" title="11.5.&nbsp;Writing Ascription Selectors">Section&nbsp;11.5, “Writing Ascription Selectors”</a> for the instructions on writing selector factory functions.</p>
 </div>
 </div>
 <div class="footnotes"><br>
 <hr width="100" align="left">
 <div class="footnote">
-<p><sup>[<a name="ftn.id367573" href="#id367573" class="para" id="ftn.id367573">24</a>]</sup> <span class="emphasis"><em>Technically</em></span>, PO files could also be grouped by PO domain:</p>
+<p><sup>[<a name="ftn.idp9714688" href="#idp9714688" class="para" id="ftn.idp9714688">24</a>]</sup> <span class="emphasis"><em>Technically</em></span>, PO files could also be grouped by PO domain:</p>
 <pre class="programlisting">
 po/
     ui/
@@ -873,16 +873,16 @@ po/
 </pre>
 but this would lead to a host of strange sharings of ascription settings and auxiliary file locations between different languages. In general, it is assumed that each translation team manages its own separate ascription.</div>
 <div class="footnote">
-<p><sup>[<a name="ftn.id415538" href="#id415538" class="para" id="ftn.id415538">25</a>]</sup> There should be no technical problem here, since VCS updates are inexpensive in terms of network traffic, but there may be a problem of changing one's habits.</p>
+<p><sup>[<a name="ftn.idp12889792" href="#idp12889792" class="para" id="ftn.idp12889792">25</a>]</sup> There should be no technical problem here, since VCS updates are inexpensive in terms of network traffic, but there may be a problem of changing one's habits.</p>
 </div>
 <div class="footnote">
-<p><sup>[<a name="ftn.id407065" href="#id407065" class="para" id="ftn.id407065">26</a>]</sup> If the underlying VCS would a distributed one, such Git, and the push to a designated central repository is expected afterward, it must be performed manually.</p>
+<p><sup>[<a name="ftn.idp15255024" href="#idp15255024" class="para" id="ftn.idp15255024">26</a>]</sup> If the underlying VCS would a distributed one, such Git, and the push to a designated central repository is expected afterward, it must be performed manually.</p>
 </div>
 <div class="footnote">
-<p><sup>[<a name="ftn.id463063" href="#id463063" class="para" id="ftn.id463063">27</a>]</sup> General review too has a tag assigned, the empty string, in case the reviewer needs to explicitly issue it in some context.</p>
+<p><sup>[<a name="ftn.idp15949792" href="#idp15949792" class="para" id="ftn.idp15949792">27</a>]</sup> General review too has a tag assigned, the empty string, in case the reviewer needs to explicitly issue it in some context.</p>
 </div>
 <div class="footnote">
-<p><sup>[<a name="ftn.id426862" href="#id426862" class="para" id="ftn.id426862">28</a>]</sup> Unlike for example in fuzzy messages, the similarity between the current and the earlier message from the ascription history may be exactly zero, it the PO file has undergone several merges in between. For example, in a two-word message, the first merge could have replaced the first word, and the second merge the second word.</p>
+<p><sup>[<a name="ftn.idp19133792" href="#idp19133792" class="para" id="ftn.idp19133792">28</a>]</sup> Unlike for example in fuzzy messages, the similarity between the current and the earlier message from the ascription history may be exactly zero, it the PO file has undergone several merges in between. For example, in a two-word message, the first merge could have replaced the first word, and the second merge the second word.</p>
 </div>
 </div>
 </div>

@@ -78,7 +78,7 @@ msgstr "Beleške o Veštičjoj reci"
 </table>
 </div>
 <p>The line-level diff viewer will know to show word-level diff for modified translation, but it cannot know that it should also show word-level diff between the removed previous and current <code class="varname">msgid</code> strings, so that reviewer can see what has changed <span class="emphasis"><em>in the original</em></span> text (i.e. why had the message became fuzzy), and based on that judge whether the translation was properly adapted.</p>
-<p>A dedicated PO editor may be able to show the truly proper, <span class="emphasis"><em>message-level</em></span> difference.<sup>[<a name="id377380" href="#ftn.id377380" class="footnote" id="id377380">10</a>]</sup> Even then, however, it remains necessary to send around full PO files, and possibly to normalize them to a lesser extent before comparing. Additionally, the diff format becomes tied to the given PO editor, instead of being self-contained and processable by various tools (such as line-level diffs are).</p>
+<p>A dedicated PO editor may be able to show the truly proper, <span class="emphasis"><em>message-level</em></span> difference.<sup>[<a name="idp9898800" href="#ftn.idp9898800" class="footnote" id="idp9898800">10</a>]</sup> Even then, however, it remains necessary to send around full PO files, and possibly to normalize them to a lesser extent before comparing. Additionally, the diff format becomes tied to the given PO editor, instead of being self-contained and processable by various tools (such as line-level diffs are).</p>
 <p>This chapter therefore introduces the format and semantics for self-contained, message-level diffing of PO files -- the <span class="emphasis"><em>embedded diff</em></span> -- and presents the Pology tools which implement it.</p>
 <div class="sect1">
 <div class="titlepage">
@@ -147,7 +147,7 @@ msgstr "Beleške o Veštičjoj reci"
 </tbody>
 </table>
 </div>
-<p>It may happen that an opening or closing wrapper sequence occurs as a literal part of diffed strings<sup>[<a name="id432105" href="#ftn.id432105" class="footnote" id="id432105">11</a>]</sup>, so some method of escaping is necessary. This is done by inserting a <code class="literal">~</code> (tilde) in the middle of the literal sequence:</p>
+<p>It may happen that an opening or closing wrapper sequence occurs as a literal part of diffed strings<sup>[<a name="idp9547408" href="#ftn.idp9547408" class="footnote" id="idp9547408">11</a>]</sup>, so some method of escaping is necessary. This is done by inserting a <code class="literal">~</code> (tilde) in the middle of the literal sequence:</p>
 <div class="informaltable">
 <table border="1">
 <colgroup>
@@ -220,7 +220,7 @@ msgstr "Beleške o Veštičjoj reci"
 "{-The -}Record{+s+} of The Witch River"
 </pre>
 <p>as the former is (tentatively) easier to comprehend.</p>
-<p>Since every difference segment in the ediff message is represented in the described way, it is sufficient to upgrade the PO syntax highlighting of an editor<sup>[<a name="id410043" href="#ftn.id410043" class="footnote" id="id410043">12</a>]</sup> to indiscriminately highlight <code class="literal">{-...-}</code> and <code class="literal">{+...+}</code> segments everywhere in the message.</p>
+<p>Since every difference segment in the ediff message is represented in the described way, it is sufficient to upgrade the PO syntax highlighting of an editor<sup>[<a name="idp11857888" href="#ftn.idp11857888" class="footnote" id="idp11857888">12</a>]</sup> to indiscriminately highlight <code class="literal">{-...-}</code> and <code class="literal">{+...+}</code> segments everywhere in the message.</p>
 </div>
 <div class="sect2">
 <div class="titlepage">
@@ -264,7 +264,7 @@ msgstr "Beleške o Veštičjoj reci"
 </li>
 </ul>
 </div>
-<p>Strings and translator comments are presented in the ediff message as embedded word-level differences, as described earlier. Changes in state, fuzzy and obsolete, are represented differently. A special "extracted" comment is added to the ediff message, starting with <code class="literal">#. ediff:</code> and listing any extra information needed to describe the ediff, including the state changes. Here is an example of two messages and the ediff they would produce<sup>[<a name="id414174" href="#ftn.id414174" class="footnote" id="id414174">13</a>]</sup>:</p>
+<p>Strings and translator comments are presented in the ediff message as embedded word-level differences, as described earlier. Changes in state, fuzzy and obsolete, are represented differently. A special "extracted" comment is added to the ediff message, starting with <code class="literal">#. ediff:</code> and listing any extra information needed to describe the ediff, including the state changes. Here is an example of two messages and the ediff they would produce<sup>[<a name="idp16689936" href="#ftn.idp16689936" class="footnote" id="idp16689936">13</a>]</sup>:</p>
 <div class="informaltable">
 <table border="1">
 <colgroup>
@@ -1114,16 +1114,16 @@ $ poepatch -u foo.po
 <div class="footnotes"><br>
 <hr width="100" align="left">
 <div class="footnote">
-<p><sup>[<a name="ftn.id377380" href="#id377380" class="para" id="ftn.id377380">10</a>]</sup> For example Lokalize, when operating in <a class="ulink" href="http://docs.kde.org/stable/en/kdesdk/lokalize/sync.html" target="_top">merge mode</a>.</p>
+<p><sup>[<a name="ftn.idp9898800" href="#idp9898800" class="para" id="ftn.idp9898800">10</a>]</sup> For example Lokalize, when operating in <a class="ulink" href="http://docs.kde.org/stable/en/kdesdk/lokalize/sync.html" target="_top">merge mode</a>.</p>
 </div>
 <div class="footnote">
-<p><sup>[<a name="ftn.id432105" href="#id432105" class="para" id="ftn.id432105">11</a>]</sup> Although this should be quite rare. In the collection of PO files from several translation projects, with over 2 million words in total, there was not a single occurence where one of the chosen wrapper sequences was part of the text.</p>
+<p><sup>[<a name="ftn.idp9547408" href="#idp9547408" class="para" id="ftn.idp9547408">11</a>]</sup> Although this should be quite rare. In the collection of PO files from several translation projects, with over 2 million words in total, there was not a single occurence where one of the chosen wrapper sequences was part of the text.</p>
 </div>
 <div class="footnote">
-<p><sup>[<a name="ftn.id410043" href="#id410043" class="para" id="ftn.id410043">12</a>]</sup> At the moment, the following text and PO editors are known to have highlighting for ediffs: Kate, Kwrite, Lokalize.</p>
+<p><sup>[<a name="ftn.idp11857888" href="#idp11857888" class="para" id="ftn.idp11857888">12</a>]</sup> At the moment, the following text and PO editors are known to have highlighting for ediffs: Kate, Kwrite, Lokalize.</p>
 </div>
 <div class="footnote">
-<p><sup>[<a name="ftn.id414174" href="#id414174" class="para" id="ftn.id414174">13</a>]</sup> Whether two messages such as these would get paired for diffing in the first place, will be discussed later on.</p>
+<p><sup>[<a name="ftn.idp16689936" href="#idp16689936" class="para" id="ftn.idp16689936">13</a>]</sup> Whether two messages such as these would get paired for diffing in the first place, will be discussed later on.</p>
 </div>
 </div>
 </div>
