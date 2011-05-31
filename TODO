@@ -24,3 +24,11 @@
   Docbook can be reconstructed from the PO file alone.
 
 
+* Man-pages.
+
+  Probably by updating and factoring out sections of the user manual
+  which currently list command line options of scripts,
+  so that they can be used in both the user manual
+  and in standalone man-page producing Docbooks.
+
+
