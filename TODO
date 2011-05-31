@@ -1,0 +1,26 @@
+* Build system.
+
+  Distutils take too Python-centric view,
+  while Pology contains a lot of non-Python data.
+  In the future, it may also contain C/C++ modules,
+  or even end-user executables.
+  A general-purpose build system is needed.
+  CMake?
+
+
+* Translation of the user manual.
+
+  All current Docbook-PO extractor-injectors are unacceptable,
+  because some combination of:
+  - they do not provide sufficient structural information for context
+  - they pull out too much structural information from messages
+  - they produce ill-formed XML on the single message level
+  - they introduce non-Docbook tags as placeholders
+  Therefore first a new Docbook-PO extractor-injector is needed.
+
+  A possible goal could also be to extract Docbook so completely
+  that the original Docbook is not necessary on injection.
+  I.e. there is actually no injection as such, but the translated
+  Docbook can be reconstructed from the PO file alone.
+
+
