@@ -14,7 +14,7 @@ htmldir=../../doc-html/user/en_US
 revdir=../../../doc/user
 
 rm -rf $htmldir/*; mkdir -p $htmldir
-cp -r html-data $htmldir/data
+cp html-data/* $htmldir
 xsltproc --xinclude html-mono.xsl $topdbk >$htmldir/index-mono.html
 xsltproc --xinclude html-chapters.xsl $topdbk && mv html/* $htmldir && rmdir html
 tidy -q --show-warnings no -utf8 -w 0 -m $htmldir/*.html; test -z

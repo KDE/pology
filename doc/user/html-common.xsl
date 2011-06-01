@@ -3,7 +3,7 @@
 
 <!-- Make each generated HTML page include the style sheet file. -->
 <xsl:param name="html.stylesheet.type">text/css</xsl:param>
-<xsl:param name="html.stylesheet" select="'data/style.css'"/>
+<xsl:param name="html.stylesheet" select="'style.css'"/>
 
 <!-- Format sections as "X.Y.Z. Title". -->
 <xsl:param name="section.autolabel" select="1"/>
