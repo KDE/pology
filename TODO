@@ -42,3 +42,12 @@
   and in standalone man-page producing Docbooks.
 
 
+* Unit tests.
+
+  First priority are modules catalog, message, and header,
+  and everything they use from other modules.
+  Then comes the rest of the library based on how flaky it is.
+  Scripts the least priority.
+
+  Custom tests, or using some framework?
+
