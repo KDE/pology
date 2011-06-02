@@ -38,6 +38,7 @@ hint="Maintainer -- Сопровождающий"
 
 [&[a-zA-Z]]
 valid before="[a-z]*="
+valid before="(nbsp|amp|reg|lt|gt|quot|deg|ge|ndash|copy|auml|mdash);"
 valid msgid="Drag&Drop"
 valid msgid="R&B"
 valid msgid="&(nbsp|amp|reg|lt|gt|quot|deg|ge|ndash|copy|auml|mdash);"
@@ -343,6 +344,7 @@ hint="случайно не «мастер»?"
 hint="artist -- исполнитель"
 
 [x ?%]i
+valid after=" 0" # hex number
 hint="используйте специальных символ «×»"
 
 [bpp]i
