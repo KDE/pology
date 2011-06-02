@@ -45,16 +45,10 @@ rm NEWS.head NEWS.tail
 
 echo "Removing repository bookkeeping..."
 find -iname \.svn | xargs rm -rf
-rm `basename $0` # i.e. this script
 
 echo "Removing transient files..."
-find -iname \.svn | xargs rm -rf
 find -iname \*.pyc | xargs rm -rf
 find -iname \*.sdc | xargs rm -rf
-
-echo "Removing experimental stuff..."
-rm scripts/poextinj.py bin/poextinj
-rm scripts/podescprob.py bin/podescprob
 
 echo "Regenerating API documentation..."
 doc/api/makedoc.sh || exit 1
