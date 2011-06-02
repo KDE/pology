@@ -371,14 +371,8 @@ hint="Traduisez « controller » par « contrôleur »"
 hint="Traduisez « Desktop effects » par « Effets de bureau »"
 
 {\bactivity|\bactivities}i
-valid msgstr="agencement"
-valid msgid="monitored session"
-valid before="For|By"
-valid after="inter|in|user|thread|keyboard "
-valid cat="processui,krunner" after="system "
-valid cat="kcmkio,kcmperformance" after="browsing "
-valid cat="libmessagelist,libmessagelist,konsolekalendar,kmail,kopete,umbrello,konsole,ktorrent,choqok,cantor,kxsconfig,kjumpingcube,rsibreak,workout_qt,workout,kmymoney,konversation"
-hint="Traduisez « Activity » par « Agencement » dans le contexte du bureau plasma"
+valid msgstr="activités?"
+hint="Traduisez « Activity » par « Activité » dans le contexte du bureau plasma"
 
 [événement]
 hint="Utilisez « évènement » (homogénéité)"
