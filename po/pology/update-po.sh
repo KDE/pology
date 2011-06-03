@@ -16,7 +16,19 @@ fi
 if test $mode = all || test $mode = extract; then
     echo ">>> Extracting template..."
     cd $cdir/../..
-    srcfiles=`find -iname \*.py | sort`
+    # Do not just look for all *.py, keep some ordering.
+    srcfiles_lib=`find pology -maxdepth 1 -iname \*.py | sort`
+    srcfiles_libpr=`find pology/proj/* -maxdepth 1 -iname \*.py | sort`
+    srcfiles_liblg=`find pology/lang/* -maxdepth 1 -iname \*.py | sort`
+    srcfiles_script=`find scripts -maxdepth 1 -iname \*.py | sort`
+    srcfiles_scriptlg=`find lang -iname \*.py | grep /scripts/ | sort`
+    srcfiles_sieve=`find sieve -maxdepth 1 -iname \*.py | sort`
+    srcfiles_sievelg=`find lang -iname \*.py | grep /sieve/ | sort`
+    srcfiles="\
+              $srcfiles_lib $srcfiles_libpr $srcfiles_liblg \
+              $srcfiles_script $srcfiles_scriptlg \
+              $srcfiles_sieve $srcfiles_sievelg \
+             "
     potfile=po/$potbase/$potbase.pot
     xgettext --no-wrap \
         -k_:1c,2 -kn_:1c,2,3 -kt_:1c,2 -ktn_:1c,2,3 \
