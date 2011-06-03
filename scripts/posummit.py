@@ -1043,14 +1043,14 @@ def summit_gather (project, options):
     if not options.verbose:
         catpaths = [project.catalogs[SUMMIT_ID][x][0][0] for x in summit_names]
         upprog = init_file_progress(catpaths,
-                                    addfmt=t_("@info:progres",
+                                    addfmt=t_("@info:progress",
                                               "Gathering: %(file)s"))
 
     # Gather all selected catalogs.
     for name in summit_names:
         catpath = project.catalogs[SUMMIT_ID][name][0][0]
         if options.verbose:
-            report(_("@info:progres",
+            report(_("@info:progress",
                      "Gathering %(file)s...",
                      file=catpath))
         upprogc = lambda: upprog(catpath)
@@ -1112,7 +1112,7 @@ def summit_scatter (project, options):
     if not options.verbose:
         catpaths = [x[3] for x in scatter_specs if x[1]]
         upprog = init_file_progress(catpaths,
-                                    addfmt=t_("@info:progres",
+                                    addfmt=t_("@info:progress",
                                               "Scattering: %(file)s"))
 
     # Scatter to branch catalogs.
@@ -1120,7 +1120,7 @@ def summit_scatter (project, options):
         branch_id, catpath = scatter_spec[0], scatter_spec[3]
         if catpath is not None:
             if options.verbose:
-                report(_("@info:progres",
+                report(_("@info:progress",
                          "Scattering %(file)s...",
                          file=catpath))
             upprogc = lambda: upprog(catpath)
@@ -1128,7 +1128,7 @@ def summit_scatter (project, options):
         else:
             # Apply post-scatter hooks.
             if options.verbose:
-                report(_("@info:progres",
+                report(_("@info:progress",
                          "Applying post-hook to branch %(branch)s...",
                          branch=branch_id))
             exec_hook_branch(branch_id, project.hook_on_scatter_branch)
@@ -1228,14 +1228,14 @@ def summit_merge (project, options):
     if not options.verbose:
         catpaths = [x[3] for x in merge_specs]
         upprog = init_file_progress(catpaths,
-                                    addfmt=t_("@info:progres",
+                                    addfmt=t_("@info:progress",
                                               "Merging: %(file)s"))
 
     # Merge catalogs.
     for merge_spec in merge_specs:
         catpath = merge_spec[3]
         if options.verbose:
-            report(_("@info:progres",
+            report(_("@info:progress",
                      "Merging %(file)s...",
                      file=catpath))
         upprogc = lambda: upprog(catpath)
