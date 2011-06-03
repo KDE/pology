@@ -140,7 +140,7 @@ cherry
 </programlisting>
 Actually the only significant element of the header is the encoding. Language code and number of words can be arbitrary, as Pology will not use them.</para>
 
-<para>Pology provides the <command>organizeDict.py</command> script which sorts word list files alphabetically (and corrects the word count in the header, even if not important), so that you do not have to manually insert new words in proper order. The script is simply run with arbitrary number of word list files as arguments, and modifies them in place. In case of duplicate words, it will report duplicates and eliminate them. In case of words with invalid characters (e.g. space), the script will output a warning, but it will not remove them; automatic removal of invalid words can be requested with <option>-r</option>/<option>--remove-invalid</option> option.</para>
+<para>Pology provides the <command>normalize-aspell-word-list</command> command which sorts word list files alphabetically (and corrects the word count in the header, even if not important), so that you do not have to manually insert new words in proper order. The script is simply run with arbitrary number of word list files as arguments, and modifies them in place. In case of duplicate words, it will report duplicates and eliminate them. In case of words with invalid characters (e.g. space), the script will output a warning, but it will not remove them; automatic removal of invalid words can be requested with <option>-r</option>/<option>--remove-invalid</option> option.</para>
 
 </sect2>
 
