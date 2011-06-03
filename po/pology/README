@@ -1,7 +1,7 @@
 This is the translation domain for Pology user interface strings.
-Language PO files should be named LANGCODE.po (e.g. de.po, fr.po).
-When a new language PO file is added, the language code must be added
-to set(languages ...) variable in the top CMakeLists.txt file.
+PO files should be named LANGCODE.po (e.g. de.po, fr.po).
+When a new PO file is introduced, its language code must be added
+to LINGUAS file in this directory or else it will not get installed.
 
 Running the update-po.sh without arguments will do the following:
 
@@ -12,7 +12,7 @@ Running the update-po.sh without arguments will do the following:
 Each of this phases can be run separately by giving as argument one of:
 extract, merge, compile. When merge or compile phase are run,
 the second argument can be the particular language code on which to operate
-(by default all languages are processed). 
+(by default all PO files are processed, irrespective of LINGUAS file). 
 
 Compiled catalogs are put into ../../mo, using proper locale hierarchy
 such that they get picked up automatically by Pology scripts
