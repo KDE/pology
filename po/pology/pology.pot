@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-06-03 15:18+0200\n"
+"POT-Creation-Date: 2011-06-03 15:40+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3810,13 +3810,13 @@ msgstr ""
 
 #: scripts/posummit.py:1047
 #, python-format
-msgctxt "@info:progres"
+msgctxt "@info:progress"
 msgid "Gathering: %(file)s"
 msgstr ""
 
 #: scripts/posummit.py:1054
 #, python-format
-msgctxt "@info:progres"
+msgctxt "@info:progress"
 msgid "Gathering %(file)s..."
 msgstr ""
 
@@ -3834,19 +3834,19 @@ msgstr ""
 
 #: scripts/posummit.py:1116
 #, python-format
-msgctxt "@info:progres"
+msgctxt "@info:progress"
 msgid "Scattering: %(file)s"
 msgstr ""
 
 #: scripts/posummit.py:1124
 #, python-format
-msgctxt "@info:progres"
+msgctxt "@info:progress"
 msgid "Scattering %(file)s..."
 msgstr ""
 
 #: scripts/posummit.py:1132
 #, python-format
-msgctxt "@info:progres"
+msgctxt "@info:progress"
 msgid "Applying post-hook to branch %(branch)s..."
 msgstr ""
 
@@ -3876,13 +3876,13 @@ msgstr ""
 
 #: scripts/posummit.py:1232
 #, python-format
-msgctxt "@info:progres"
+msgctxt "@info:progress"
 msgid "Merging: %(file)s"
 msgstr ""
 
 #: scripts/posummit.py:1239
 #, python-format
-msgctxt "@info:progres"
+msgctxt "@info:progress"
 msgid "Merging %(file)s..."
 msgstr ""
 
