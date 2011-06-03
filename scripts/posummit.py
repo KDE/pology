@@ -116,11 +116,11 @@ def main ():
     # If config file not found, expect it and language as arguments.
     if not cfgpath:
         if len(free_args) < 1:
-            opars.error(_("@info",
-                          "Summit configuration file neither found "
-                          "as '%(cfgfile)s' in parent directories, "
-                          "nor given in command line.",
-                          cfgfile="summit-config"))
+            error(_("@info",
+                    "Summit configuration file neither found "
+                    "as '%(cfgfile)s' in parent directories, "
+                    "nor given in command line.",
+                    cfgfile="summit-config"))
         cfgpath = free_args.pop(0)
         if not os.path.isfile(cfgpath):
             error(_("@info",
@@ -128,15 +128,15 @@ def main ():
                     file=cfgpath))
 
         if len(free_args) < 1:
-            opars.error(_("@info",
-                          "Language code not given."))
+            error(_("@info",
+                    "Language code not given."))
         lang = free_args.pop(0)
     else:
         lang = None
         # ...will be read from config file.
 
     if len(free_args) < 1:
-        opars.error(_("@info", "Operation mode not given."))
+        error(_("@info", "Operation mode not given."))
     opmodes = free_args.pop(0).split(",")
     opmodes_uniq = []
     for opmode in opmodes:

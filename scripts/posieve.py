@@ -174,7 +174,7 @@ def main ():
         sys.exit(0)
 
     if len(free_args) < 1 and not (op.list_sieves or op.list_sieve_names):
-        opars.error(_("@info", "No sieve to apply given."))
+        error(_("@info", "No sieve to apply given."))
 
     op.raw_sieves = []
     op.raw_paths = []

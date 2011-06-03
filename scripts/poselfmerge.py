@@ -107,7 +107,7 @@ def main ():
     (op, fargs) = opars.parse_args()
 
     if len(fargs) < 1 and not op.files_from:
-        opars.error(_("@info", "No input files given."))
+        error(_("@info", "No input files given."))
 
     # Could use some speedup.
     try:
