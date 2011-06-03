@@ -1,0 +1,7171 @@
+# Translation of pology into Serbian.
+# Chusslove Illich <caslav.ilic@gmx.net>, 2010.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: pology\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-06-03 15:27+0200\n"
+"PO-Revision-Date: 2010-06-05 15:12+0200\n"
+"Last-Translator: Chusslove Illich <caslav.ilic@gmx.net>\n"
+"Language-Team: Serbian <kde-i18n-sr@kde.org>\n"
+"Language: sr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=n==1 ? 3 : n%10==1 && n%100!=11 ? 0 : n"
+"%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Kate\n"
+
+#: pology/ascript.py:103
+#, python-format
+msgctxt "@info"
+msgid ""
+"Catalog root and ascription root for '%(file)s' resolve to same path '%(dir)"
+"s'."
+msgstr ""
+
+#: pology/ascript.py:133
+#, python-format
+msgctxt "@info"
+msgid "Repeated user '%(user)s' in '%(file)s'."
+msgstr ""
+
+#: pology/ascript.py:138
+#, python-format
+msgctxt "@info"
+msgid "The name is missing for user '%(user)s' in '%(file)s'."
+msgstr ""
+
+#: pology/ascript.py:294
+#, python-format
+msgctxt "@info"
+msgid "Cannot find ascription configuration for '%(file)s'."
+msgstr ""
+
+#: pology/ascript.py:617
+#, python-format
+msgctxt "@info"
+msgid "No type in ascription comment '%(cmnt)s'."
+msgstr ""
+
+#: pology/ascript.py:630
+#, python-format
+msgctxt "@info"
+msgid "Wrong number of descriptors in ascription comment '%(cmnt)s'."
+msgstr ""
+
+#: pology/ascript.py:638
+#, python-format
+msgctxt "@info"
+msgid "Malformed user string in ascription comment '%(cmnt)s'."
+msgstr ""
+
+#: pology/ascript.py:644
+#, python-format
+msgctxt "@info"
+msgid "Unknown user in ascription comment '%(cmnt)s'."
+msgstr ""
+
+#: pology/ascript.py:654
+#, python-format
+msgctxt "@info"
+msgid "Malformed date string in ascription comment '%(cmnt)s'."
+msgstr ""
+
+#: pology/ascript.py:678
+#, python-format
+msgctxt "@info"
+msgid "Malformed separator length in ascription comment '%(cmnt)s'."
+msgstr ""
+
+#: pology/ascript.py:1137
+#, python-format
+msgctxt "@info"
+msgid "User '%(name)s' not defined in '%(file)s'."
+msgstr "Корисник ‘%(name)s’ није дефинисан у ‘%(file)s’."
+
+#: pology/ascript.py:1163
+#, python-format
+msgctxt "@info"
+msgid "Review tag '%(name)s' not defined in '%(file)s'."
+msgstr "Ознака прегледа ‘%(name)s’ није дефинисана у ‘%(file)s’."
+
+#: pology/ascript.py:1335
+#, python-format
+msgctxt "@info"
+msgid "Unknown selector '%(sel)s'."
+msgstr ""
+
+#: pology/ascript.py:1341
+#, python-format
+msgctxt "@info"
+msgid "Selector '%(sel)s' cannot be used as history selector."
+msgstr ""
+
+#: pology/ascript.py:1347
+#, python-format
+msgctxt "@info"
+msgid "Negated selectors (here '%(sel)s') cannot be used as history selectors."
+msgstr ""
+
+#: pology/ascript.py:1355
+#, python-format
+msgctxt "@info"
+msgid ""
+"Selector '%(sel)s' not created due to the following error:\n"
+"%(msg)s"
+msgstr ""
+
+#: pology/ascript.py:1376
+#, python-format
+msgctxt "@info"
+msgid ""
+"Selector '%(sel)s' failed on message %(file)s:%(line)d:(#%(entry)d) with the "
+"following error:\n"
+"%(msg)s"
+msgstr ""
+
+#: pology/ascript.py:1428
+#, python-format
+msgctxt "@info"
+msgid "Cannot load external module '%(file)s'."
+msgstr ""
+
+#: pology/ascript.py:1451
+#, python-format
+msgctxt "@info"
+msgid "Unknown external resource '%(res)s' in module '%(file)s'."
+msgstr ""
+
+#: pology/ascript.py:1476 pology/ascript.py:1490 pology/ascript.py:1504
+#: pology/ascript.py:1518 pology/ascript.py:1536 pology/ascript.py:1551
+#: pology/ascript.py:1569 pology/ascript.py:1589 pology/ascript.py:1612
+#: pology/ascript.py:1650 pology/ascript.py:1685 pology/ascript.py:1752
+#: pology/ascript.py:1780 pology/ascript.py:1847 pology/ascript.py:1893
+#: pology/ascript.py:1926 pology/ascript.py:1970
+msgctxt "@info"
+msgid "Wrong number of arguments."
+msgstr ""
+
+#: pology/ascript.py:1521
+msgctxt "@info"
+msgid "Branch ID must not be empty."
+msgstr ""
+
+#: pology/ascript.py:1554
+msgctxt "@info"
+msgid "Match expression must not be empty."
+msgstr ""
+
+#: pology/ascript.py:1574
+msgctxt "@info"
+msgid "Message entry number must be a positive integer."
+msgstr ""
+
+#: pology/ascript.py:1594
+msgctxt "@info"
+msgid "Message line number must be a positive integer."
+msgstr ""
+
+#: pology/ascript.py:1618
+msgctxt "@info"
+msgid "At least one of the first and last message entry numbers must be given."
+msgstr ""
+
+#: pology/ascript.py:1623
+msgctxt "@info"
+msgid "First message entry number must be a positive integer."
+msgstr ""
+
+#: pology/ascript.py:1627
+msgctxt "@info"
+msgid "Last message entry number must be a positive integer."
+msgstr ""
+
+#: pology/ascript.py:1656
+msgctxt "@info"
+msgid "At least one of the first and last message line numbers must be given."
+msgstr ""
+
+#: pology/ascript.py:1661
+msgctxt "@info"
+msgid "First message line number must be a positive integer."
+msgstr ""
+
+#: pology/ascript.py:1665
+msgctxt "@info"
+msgid "Last message line number must be a positive integer."
+msgstr ""
+
+#: pology/ascript.py:1692
+msgctxt "@info"
+msgid "Match expression cannot be empty."
+msgstr ""
+
+#: pology/ascript.py:1976
+msgctxt "@info"
+msgid "Time specification cannot be empty."
+msgstr ""
+
+#: pology/bpatterns.py:64 pology/bpatterns.py:121
+#, python-format
+msgctxt "@info"
+msgid "Bad pattern '%(pattern)s' detected."
+msgstr "Откривен лош обрзац ‘%(pattern)s’."
+
+#: pology/catalog.py:108
+#, python-format
+msgctxt "@info"
+msgid ""
+"Text decoding failure at %(file)s:%(line)d:%(col)d under assumed encoding '%"
+"(enc)s'."
+msgstr ""
+
+#: pology/catalog.py:129
+msgctxt ""
+"@item generic name for the source or destination of data being read or "
+"written"
+msgid "&lt;stream&gt;"
+msgstr ""
+
+#: pology/catalog.py:239
+#, python-format
+msgctxt "@info"
+msgid "Unknown comment type at %(file)s:%(line)d."
+msgstr "Непознат тип коментара код %(file)s:%(line)d."
+
+#: pology/catalog.py:283 pology/catalog.py:293
+#, python-format
+msgctxt "@info"
+msgid "Malformed '%(field)s' ordinal at %(file)s:%(line)d."
+msgstr ""
+
+#: pology/catalog.py:303
+#, python-format
+msgctxt "@info"
+msgid "Unknown field name at %(file)s:%(line)d."
+msgstr "Непознато име поља код %(file)s:%(line)d."
+
+#: pology/catalog.py:328
+#, python-format
+msgctxt "@info"
+msgid "Expected string continuation at %(file)s:%(line)d."
+msgstr "Очекиван наставак ниске код %(file)s:%(line)d."
+
+#: pology/catalog.py:353 pology/catalog.py:367 pology/catalog.py:372
+#, python-format
+msgctxt "@info"
+msgid "Internal problem (%(id)d) at %(file)s:%(line)d."
+msgstr "Унутрашњи проблем (%(id)d) код %(file)s:%(line)d."
+
+#: pology/catalog.py:530
+#, python-format
+msgctxt "@info"
+msgid "File '%(file)s' does not exist."
+msgstr "Датотека ‘%(file)s’ не постоји."
+
+#: pology/catalog.py:614
+msgctxt "@info"
+msgid "Trying to access catalog messages in header-only mode."
+msgstr "Покушај приступања порукама у каталогу у режиму само-заглавље."
+
+#: pology/catalog.py:885
+msgctxt "@info"
+msgid "Trying to insert message with empty key into catalog."
+msgstr "Покушај уметања поруке са празним кључем у каталог."
+
+#: pology/catalog.py:900
+msgctxt "@info"
+msgid "Trying to insert message into catalog by position out of range."
+msgstr ""
+
+#: pology/catalog.py:1120
+msgctxt "@info"
+msgid "Trying to sync unnamed catalog."
+msgstr "Покушај синхронизовања безименог каталога."
+
+#: pology/config.py:119
+#, python-format
+msgctxt "@info"
+msgid ""
+"User configuration: value '%(val)s' of field '%(field)s' in section '%(sec)"
+"s' cannot be converted into '%(type)s' type."
+msgstr ""
+
+#: pology/config.py:126
+#, python-format
+msgctxt "@info"
+msgid ""
+"User configuration: value '%(val)s' of field '%(field)s' in section '%(sec)"
+"s' cannot be converted into requested type."
+msgstr ""
+
+#: pology/config.py:227
+#, python-format
+msgctxt "@info"
+msgid ""
+"User configuration: value '%(val)s' of field '%(field)s' in section '%(sec)"
+"s' is too short for a delimited list."
+msgstr ""
+
+#: pology/config.py:232
+#, python-format
+msgctxt "@info"
+msgid ""
+"User configuration: value '%(val)s' of field '%(field)s' in section '%(sec)"
+"s' does not start with a non-alphanumeric delimiter character."
+msgstr ""
+
+#: pology/config.py:241
+#, python-format
+msgctxt "@info"
+msgid ""
+"User configuration: value '%(val)s' of field '%(field)s' in section '%(sec)"
+"s' does not end with the delimiter character with which it starts."
+msgstr ""
+
+#: pology/diff.py:48
+msgctxt "@info \"ediff\" is shorthand for \"embedded difference\""
+msgid "All ediff wrapper elements must be of unit length."
+msgstr ""
+
+#: pology/diff.py:135
+#, python-format
+msgctxt "@info \"opcode\" is shorthand for \"operation code\""
+msgid "Unknown opcode '%(code)s' from sequence matcher."
+msgstr ""
+
+#: pology/diff.py:1154
+#, python-format
+msgctxt "@info"
+msgid "Unknown selection mode '%(mode)s' for partial differencing."
+msgstr ""
+
+#: pology/diff.py:1224 pology/diff.py:1411
+#, python-format
+msgctxt "@info"
+msgid "Unhandled message part '%(part)s' encountered while differencing."
+msgstr ""
+
+#: pology/diff.py:1573
+msgctxt "@info"
+msgid "Malformed padded context."
+msgstr ""
+
+#: pology/diff.py:1611
+#, python-format
+msgctxt "@info"
+msgid ""
+"Unhandled message part '%(part)s' encountered while resolving difference."
+msgstr ""
+
+#: pology/diff.py:1776
+#, python-format
+msgctxt "@info"
+msgid "Cannot read file '%(file)s'."
+msgstr "Не могу да читам датотеку ‘%(file)s’."
+
+#: pology/entities.py:59
+#, python-format
+msgctxt "@info error report for a named source"
+msgid "%(src)s: %(msg)s"
+msgstr ""
+
+#: pology/entities.py:64
+#, python-format
+msgctxt "@info error report for a string"
+msgid "&lt;string&gt;: %(msg)s"
+msgstr ""
+
+#: pology/entities.py:142
+#, python-format
+msgctxt "@info"
+msgid ""
+"Environment variable with paths to entity definitions '%(envar)s' is not set."
+msgstr ""
+
+#: pology/escape.py:76
+#, python-format
+msgctxt "@info \"C\" is the C programming language"
+msgid "Invalid C escape sequence after '%(snippet)s'."
+msgstr ""
+
+#: pology/fsops.py:77 scripts/poediff.py:187 scripts/poepatch.py:139
+#, python-format
+msgctxt "@info"
+msgid "Path '%(path)s' does not exist."
+msgstr ""
+
+#: pology/fsops.py:82
+#, python-format
+msgctxt "@info"
+msgid "Path '%(path)s' is neither a file nor a directory."
+msgstr ""
+
+#: pology/fsops.py:275
+msgctxt "@info"
+msgid "Non-zero exit from the previous command."
+msgstr ""
+
+#: pology/fsops.py:278
+#, python-format
+msgctxt "@info"
+msgid ""
+"Non-zero exit from the command:\n"
+"%(cmdline)s"
+msgstr ""
+
+#: pology/fsops.py:334
+msgctxt "@info ^^^ points to the earlier output in the terminal"
+msgid "===== stdout from the command above ====="
+msgstr ""
+
+#: pology/fsops.py:339
+msgctxt "@info ^^^ points to the earlier output in the terminal"
+msgid "***** stderr from the command ^^^ *****"
+msgstr ""
+
+#: pology/fsops.py:371
+#, python-format
+msgctxt "@info"
+msgid "Cannot open '%(file)s' for reading."
+msgstr ""
+
+#: pology/fsops.py:378
+#, python-format
+msgctxt "@info"
+msgid "Cannot read content of '%(file)s' using %(enc)s encoding."
+msgstr ""
+
+#: pology/fsops.py:677
+#, python-format
+msgctxt "@info"
+msgid "Cannot convert object '%(obj)s' into a string matcher."
+msgstr ""
+
+#: pology/fsops.py:787
+#, python-format
+msgctxt "@info"
+msgid ""
+"Invalid regular expression in inclusion/exclusion directive at %(file)s:%"
+"(line)d."
+msgstr ""
+
+#: pology/fsops.py:795
+#, python-format
+msgctxt "@info"
+msgid "Unknown inclusion/exclusion directive at %(file)s:%(line)d."
+msgstr ""
+
+#: pology/getfunc.py:74 pology/msgreport.py:46
+#, python-format
+msgctxt "@info"
+msgid "Cannot import module '%(mod)s'."
+msgstr ""
+
+#: pology/getfunc.py:152
+#, python-format
+msgctxt "@info"
+msgid "Invalid path '%(path)s' in item request '%(req)s'."
+msgstr ""
+
+#: pology/getfunc.py:156
+#, python-format
+msgctxt "@info"
+msgid "Invalid language code '%(code)s' in item request '%(req)s.'"
+msgstr ""
+
+#: pology/getfunc.py:161
+#, python-format
+msgctxt "@info"
+msgid "Invalid project code '%(code)s' in item request '%(req)s.'"
+msgstr ""
+
+#: pology/getfunc.py:166
+#, python-format
+msgctxt "@info"
+msgid "Invalid item '%(item)s' in item request '%(req)s'."
+msgstr ""
+
+#: pology/getfunc.py:217
+#, python-format
+msgctxt "@info"
+msgid "Module '%(mod)s' does not define '%(func)s' function."
+msgstr ""
+
+#: pology/getfunc.py:226
+#, python-format
+msgctxt "@info"
+msgid ""
+"Cannot create hook by applying function '%(func)s' to argument list %(args)"
+"s; reported error:\n"
+"%(msg)s"
+msgstr ""
+
+#: pology/getfunc.py:321
+#, python-format
+msgctxt "@info"
+msgid "Module '%(mod)s' does not define function '%(func)s'."
+msgstr ""
+
+#: pology/getfunc.py:329
+#, python-format
+msgctxt "@info"
+msgid ""
+"Evaluating function '%(func)s' with argument list %(args)s failed; reported "
+"error:\n"
+"%(msg)s"
+msgstr ""
+
+#: pology/gtxtools.py:60
+#, python-format
+msgctxt "@info"
+msgid ""
+"%(file)s: %(cmd)s failed with exit code %(num)d (filter: '%(filter)s', "
+"options: '%(options)s')"
+msgstr ""
+"%(file)s: %(cmd)s обуставила са излазним кодом %(num)d (филтер: ‘%(filter)"
+"s’, опције: ‘%(options)s’)"
+
+#: pology/gtxtools.py:103
+#, python-format
+msgctxt "@info"
+msgid ""
+"%(file)s: %(cmd)s failed with exit code %(num)d (options: '%(options)s')"
+msgstr ""
+"%(file)s: %(cmd)s обуставила са излазним кодом %(num)d (опције: ‘%(options)"
+"s’)"
+
+#: pology/header.py:558
+#, python-format
+msgctxt "@info"
+msgid "Cannot parse datetime string '%(str)s'."
+msgstr ""
+
+#: pology/__init__.py:241
+#, python-format
+msgctxt "@info"
+msgid "No '%(arg)s' keyword argument to plural translation request."
+msgstr ""
+
+#: pology/markup.py:713
+#, python-format
+msgctxt "@info \"L1-spec\" is shorthand for \"level 1 specification\""
+msgid "[L1-spec] %(file)s:%(line)d:%(col)d: %(msg)s"
+msgstr ""
+
+#: pology/markup.py:752
+#, python-format
+msgctxt "@info the regex is already quoted when inserted"
+msgid "Cannot compile regular expression %(regex)s."
+msgstr ""
+
+#: pology/markup.py:769
+msgctxt "@info"
+msgid "Entry not terminated after the initial tag."
+msgstr ""
+
+#: pology/markup.py:773
+#, python-format
+msgctxt "@info"
+msgid "Invalid tag name '%(tag)s'."
+msgstr ""
+
+#: pology/markup.py:803
+#, python-format
+msgctxt "@info"
+msgid "Duplicate attribute '%(attr)s'."
+msgstr ""
+
+#: pology/markup.py:807
+#, python-format
+msgctxt "@info"
+msgid "Invalid attribute name '%(attr)s'."
+msgstr ""
+
+#: pology/markup.py:822
+msgctxt "@info"
+msgid "Entry not terminated after the attribute list."
+msgstr ""
+
+#: pology/markup.py:831 pology/markup.py:837
+msgctxt "@info"
+msgid "End of input inside the value constraint."
+msgstr ""
+
+#: pology/markup.py:847
+#, python-format
+msgctxt "@info"
+msgid "Regex flag '%(flag)s' is already issued."
+msgstr ""
+
+#: pology/markup.py:853
+#, python-format
+msgctxt "@info"
+msgid "Unknown regex flag '%(flag)s'."
+msgstr ""
+
+#: pology/markup.py:872
+#, python-format
+msgctxt "@info"
+msgid "Repeated subtag '%(tag)s'."
+msgstr ""
+
+#: pology/markup.py:880
+msgctxt "@info"
+msgid "Entry not terminated after the subtag list."
+msgstr ""
+
+#: pology/markup.py:1014
+#, python-format
+msgctxt "@info a problem in the given type of markup (e.g. HTML, Docbook)"
+msgid "%(mtype)s markup: %(snippet)s."
+msgstr ""
+
+#: pology/markup.py:1105
+#, python-format
+msgctxt "@info"
+msgid "%(mtype)s markup: unrecognized tag '%(tag)s'."
+msgstr ""
+
+#: pology/markup.py:1123
+#, python-format
+msgctxt "@info"
+msgid "%(mtype)s markup: invalid attribute '%(attr)s' to tag '%(tag)s'."
+msgstr ""
+
+#: pology/markup.py:1130
+#, python-format
+msgctxt "@info"
+msgid "%(mtype)s markup: invalid value '%(val)s' to attribute '%(attr)s'."
+msgstr ""
+
+#: pology/markup.py:1142
+#, python-format
+msgctxt "@info"
+msgid "%(mtype)s markup: tag '%(tag1)s' cannot be a subtag of '%(tag2)s'."
+msgstr ""
+
+#: pology/markup.py:1165
+#, python-format
+msgctxt "@info"
+msgid "%(mtype)s markup: invalid numeric entity '%(ent)s'."
+msgstr ""
+
+#: pology/markup.py:1176
+#, python-format
+msgctxt "@info"
+msgid "%(mtype)s markup: unknown entity '%(ent)s' (suggestions: %(entlist)s)."
+msgstr ""
+
+#: pology/markup.py:1181
+#, python-format
+msgctxt "@info"
+msgid "%(mtype)s markup: unknown entity '%(ent)s'."
+msgstr ""
+
+#: pology/markup.py:1371
+msgctxt "@item markup type"
+msgid "Docbook4"
+msgstr ""
+
+#: pology/markup.py:1477
+msgctxt "@item markup type"
+msgid "HTML"
+msgstr ""
+
+#: pology/markup.py:1539
+msgctxt "@item markup type"
+msgid "Qt-rich"
+msgstr ""
+
+#: pology/markup.py:1596
+msgctxt "@item markup type"
+msgid "KUIT"
+msgstr ""
+
+#: pology/markup.py:1635
+msgctxt "@item markup type"
+msgid "KDE4"
+msgstr ""
+
+#: pology/markup.py:1692
+msgctxt "@item markup type"
+msgid "Pango"
+msgstr ""
+
+#: pology/markup.py:1806
+#, python-format
+msgctxt "@info"
+msgid "Invalid numeric entity '%(ent)s'."
+msgstr ""
+
+#: pology/markup.py:1816
+#, python-format
+msgctxt "@info"
+msgid "Unknown entity '%(ent)s' (suggestions: %(entlist)s)."
+msgstr ""
+
+#: pology/markup.py:1821
+#, python-format
+msgctxt "@info"
+msgid "Unknown entity '%(ent)s'."
+msgstr ""
+
+#: pology/markup.py:1902
+#, python-format
+msgctxt "@info"
+msgid "Missing placeholder tags in translation: %(taglist)s."
+msgstr ""
+
+#: pology/markup.py:1908
+#, python-format
+msgctxt "@info"
+msgid "Superfluous placeholder tags in translation: %(taglist)s."
+msgstr ""
+
+#: pology/match.py:70
+#, python-format
+msgctxt "@info"
+msgid "Invalid expression at %(col)d [%(snippet)s]: %(reason)s."
+msgstr ""
+
+#: pology/match.py:75
+#, python-format
+msgctxt "@info"
+msgid "Invalid expression: %(reason)s."
+msgstr ""
+
+#: pology/match.py:79
+#, python-format
+msgctxt "@info"
+msgid "Invalid expression at %(col)d [%(snippet)s]."
+msgstr ""
+
+#: pology/match.py:82
+msgctxt "@info"
+msgid "Invalid expression."
+msgstr ""
+
+#: pology/match.py:165 pology/match.py:329
+msgctxt "@item:intext"
+msgid "premature end of expression"
+msgstr ""
+
+#: pology/match.py:243
+msgctxt "@item:intext"
+msgid "expected operator"
+msgstr ""
+
+#: pology/match.py:247
+msgctxt "@item:intext"
+msgid "no closing parenthesis"
+msgstr ""
+
+#: pology/match.py:261
+msgctxt "@item:intext"
+msgid "unexpected unary operator"
+msgstr ""
+
+#: pology/match.py:265
+msgctxt "@item:intext"
+msgid "unexpected binary operator"
+msgstr ""
+
+#: pology/match.py:273
+msgctxt "@item:intext"
+msgid "expected an operator"
+msgstr ""
+
+#: pology/match.py:282
+msgctxt "@item:intext"
+msgid "expected token starting with a letter"
+msgstr ""
+
+#: pology/match.py:300
+#, python-format
+msgctxt "@item:intext"
+msgid "unknown unary operator '%(op)s'"
+msgstr ""
+
+#: pology/match.py:321
+#, python-format
+msgctxt "@item:intext"
+msgid "unknown binary operator '%(op)s'"
+msgstr ""
+
+#: pology/match.py:332
+msgctxt "@item:intext"
+msgid "expected subexpression"
+msgstr ""
+
+#: pology/match.py:354
+#, python-format
+msgctxt "@item:intext"
+msgid "unknown matcher '%(match)s'"
+msgstr ""
+
+#: pology/match.py:365
+msgctxt "@item:intext"
+msgid "expected parameter delimiter"
+msgstr ""
+
+#: pology/match.py:371
+msgctxt "@item:intext"
+msgid "expected closing delimiter"
+msgstr ""
+
+#: pology/match.py:404
+#, python-format
+msgctxt "@item:intext"
+msgid "unknown modifiers %(modlist)s to matcher '%(match)s'"
+msgstr ""
+
+#: pology/match.py:416 sieve/collect_pmap.py:367
+#, python-format
+msgctxt "@item:intext"
+msgid "invalid regular expression '%(regex)s'"
+msgstr ""
+
+#: pology/match.py:496
+msgctxt "@item:intext"
+msgid "invalid line span"
+msgstr ""
+
+#: pology/match.py:506
+msgctxt "@item:intext"
+msgid "invalid entry span"
+msgstr ""
+
+#: pology/match.py:523
+msgctxt "@item:intext"
+msgid "unknown matcher"
+msgstr ""
+
+#: pology/merge.py:173
+#, python-format
+msgctxt "@info"
+msgid "Compendium does not exist at '%(path)s'."
+msgstr ""
+
+#: pology/merge.py:185
+#, python-format
+msgctxt "@info"
+msgid "Cannot merge PO file '%(file1)s' with template '%(file2)s'."
+msgstr ""
+
+#: pology/monitored.py:64 pology/monitored.py:179
+#, python-format
+msgctxt "@info"
+msgid "Expected %(type1)s for attribute '%(attr)s', got %(type2)s."
+msgstr ""
+
+#: pology/monitored.py:70
+#, python-format
+msgctxt "@info"
+msgid "Expected %(type1)s for sequence element, got %(type2)s."
+msgstr ""
+
+#: pology/monitored.py:172
+#, python-format
+msgctxt "@info"
+msgid "Derived attribute '%(attr)s' is read-only."
+msgstr ""
+
+#: pology/monitored.py:185 pology/monitored.py:194
+#, python-format
+msgctxt "@info"
+msgid "Attribute '%(attr)s' is not among specified."
+msgstr ""
+
+#: pology/monitored.py:205 pology/monitored.py:214
+#, python-format
+msgctxt "@info"
+msgid "Object '%(obj)s' is not specified to be a sequence."
+msgstr ""
+
+#: pology/monitored.py:248
+msgctxt "@info"
+msgid "Initializer sequence for a pair must contain exactly two elements."
+msgstr ""
+
+#: pology/msgreport.py:41
+#, python-format
+msgctxt "@info"
+msgid ""
+"Cannot import module '%(mod)s'; consequence:\n"
+"%(msg)s"
+msgstr ""
+
+#: pology/msgreport.py:175 pology/msgreport.py:427
+#, python-format
+msgctxt "@info"
+msgid "Unknown field '%(field)s' in highlighting specification."
+msgstr ""
+
+#: pology/msgreport.py:231
+#, python-format
+msgctxt "@info"
+msgid ""
+"Communication with Lokalize not possible. Try installing the '%(pkg)s' "
+"package."
+msgstr ""
+
+#: pology/msgreport.py:444
+#, python-format
+msgctxt "@info"
+msgid "<bold>[note]</bold> %(msg)s"
+msgstr "<bold>[напомена]</bold> %(msg)s"
+
+#: pology/msgreport.py:462
+#, python-format
+msgctxt "@item:intext shortened longer text"
+msgid "%(snippet)s..."
+msgstr ""
+
+#: pology/msgreport.py:471
+#, python-format
+msgctxt "@info"
+msgid "[%(pos)s]: %(msg)s"
+msgstr ""
+
+#: pology/msgreport.py:478
+msgctxt "@info"
+msgid ">>> Filtered message was:"
+msgstr ">>> Филтрирана порука:"
+
+#: pology/msgreport.py:505 pology/msgreport.py:582
+#, python-format
+msgctxt "@info"
+msgid "rule %(rule)s <bold><red>==></red></bold> <bold>%(msg)s</bold>"
+msgstr "правило %(rule)s <bold><red>==></red></bold> <bold>%(msg)s</bold>"
+
+#: pology/msgreport.py:637 sieve/check_grammar.py:142
+#, python-format
+msgctxt "@info"
+msgid "<bold>Context:</bold> %(snippet)s"
+msgstr "<bold>Контекст:</bold> %(snippet)s"
+
+#: pology/msgreport.py:641
+#, python-format
+msgctxt "@info"
+msgid "<bold>Faulty word:</bold> <red>%(word)s</red>"
+msgstr ""
+
+#: pology/msgreport.py:645
+#, python-format
+msgctxt "@info"
+msgid "<bold>Suggestions:</bold> %(wordlist)s"
+msgstr ""
+
+#: pology/normalize.py:383
+#, python-format
+msgctxt "@info"
+msgid ""
+"%(file)s: Cannot parse name and email address from translator comment '%"
+"(cmnt)s'."
+msgstr ""
+
+#: pology/normalize.py:396
+#, python-format
+msgctxt "@info"
+msgid "%(file)s: Missing years in translator comment '%(cmnt)s'."
+msgstr ""
+
+#: pology/normalize.py:409
+#, python-format
+msgctxt "@info"
+msgid "%(file)s: Cannot parse years in translator comment '%(cmnt)s'."
+msgstr ""
+
+#: pology/remove.py:303
+#, python-format
+msgctxt "@info"
+msgid "Field %(field)s states malformed regex '%(re)s'."
+msgstr ""
+
+#: pology/remove.py:592
+msgctxt "@info"
+msgid "No patterns in rewrite directive."
+msgstr "Нема образаца у директиви преуређивања."
+
+#: pology/remove.py:598
+#, python-format
+msgctxt "@info"
+msgid "Wrongly separated patterns in rewrite directive '%(dir)s'."
+msgstr "Лоше растављени обрасци у директиви преуређивања ‘%(dir)s’."
+
+#: pology/remove.py:608
+#, python-format
+msgctxt "@info"
+msgid "Invalid search pattern in rewrite directive '%(dir)s'."
+msgstr "Лош образац претраге у директиви преуређивања ‘%(dir)s’."
+
+#: pology/remove.py:622
+#, python-format
+msgctxt "@info"
+msgid "Error in application of rewrite directive '%(dir)s'."
+msgstr ""
+
+#: pology/remove.py:672
+msgctxt "@info"
+msgid "More than one inverse rewrite directive encountered."
+msgstr ""
+
+#: pology/remove.py:682
+#, python-format
+msgctxt "@info"
+msgid "Invalid search pattern '%(pattern)s' in inverse rewrite directive."
+msgstr "Лош обрзац претраге ‘%(pattern)s’ у директиви инверзног преуређивања."
+
+#: pology/remove.py:691
+msgctxt "@info"
+msgid ""
+"There are no other messages with same translation, needed by inverse rewrite "
+"directive."
+msgstr ""
+
+#: pology/remove.py:701
+msgctxt "@info"
+msgid ""
+"Inverse rewrite directive matches none of the other messages with same "
+"translation."
+msgstr ""
+
+#: pology/remove.py:707
+msgctxt "@info"
+msgid ""
+"Inverse rewrite directive matches more than one other message with same "
+"translation."
+msgstr ""
+
+#: pology/report.py:127
+#, python-format
+msgctxt "@info"
+msgid "<bold>[warning]</bold> <orange>%(msg)s</orange>"
+msgstr "<bold>[упозорење]</bold> <orange>%(msg)s</orange>"
+
+#: pology/report.py:149
+#, python-format
+msgctxt "@info"
+msgid "<bold>[error]</bold> <red>%(msg)s</red>"
+msgstr "<bold>[грешка]</bold> <red>%(msg)s</red>"
+
+#: pology/report.py:326
+msgctxt ""
+"@item:intext general separator for inline lists of items, e.g. \", \" in "
+"\"apples, bananas, cherries, and plums\""
+msgid ", "
+msgstr ", "
+
+#: pology/report.py:329
+msgctxt ""
+"@item:intext last separator for inline lists of items, e.g. \", and \" in "
+"\"apples, bananas, cherries, and plums\""
+msgid ", and "
+msgstr " и "
+
+#: pology/report.py:332
+msgctxt ""
+"@item:intext separator for inline list of exactly two items, e.g. \" and \" "
+"in \"apples and bananas\""
+msgid " and "
+msgstr " и "
+
+#: pology/report.py:335
+msgctxt ""
+"@item:intext trailing string for incomplete lists, e.g. \"...\" in \"apples, "
+"bananas, cherries...\""
+msgid "..."
+msgstr "…"
+
+#: pology/report.py:337
+#, python-format
+msgctxt "@item:intext quotes around each element in the list"
+msgid "'%(el)s'"
+msgstr ""
+
+#: pology/resolve.py:114
+#, python-format
+msgctxt "@info"
+msgid "%(file)s: Unknown entity '%(ent)s' (near matches: %(entlist)s)."
+msgstr ""
+
+#: pology/resolve.py:120
+#, python-format
+msgctxt "@info"
+msgid "%(file)s: Unknown entity '%(ent)s'."
+msgstr ""
+
+#: pology/resolve.py:234
+#, python-format
+msgctxt "@info"
+msgid "%(file)s: Malformed alternatives directive '...%(snippet)s'."
+msgstr ""
+
+#: pology/resolve.py:254
+#, python-format
+msgctxt "@info"
+msgid ""
+"%(file)s: Too few alternatives in the alternatives directive '...%(snippet)"
+"s'."
+msgstr ""
+
+#: pology/resolve.py:477
+#, python-format
+msgctxt "@info"
+msgid ""
+"Empty variable expansion directive at column %(col)d in string '%(str)s'."
+msgstr ""
+
+#: pology/resolve.py:495
+#, python-format
+msgctxt "@info"
+msgid ""
+"Unclosed variable expansion directive at column %(col)d in string '%(str)s'."
+msgstr ""
+
+#: pology/resolve.py:506
+#, python-format
+msgctxt "@info"
+msgid ""
+"Unknown variable '%(var)s' in variable expansion directive at column %(col)d "
+"in string '%(str)s'."
+msgstr ""
+
+#: pology/rules.py:53
+msgctxt "@label"
+msgid "Rule application statistics:"
+msgstr ""
+
+#: pology/rules.py:54
+msgctxt "@title:column"
+msgid "calls"
+msgstr ""
+
+#: pology/rules.py:55
+msgctxt "@title:column avg = average"
+msgid "avg-time [ms]"
+msgstr ""
+
+#: pology/rules.py:56
+msgctxt "@title:column tot = total"
+msgid "tot-time [s]"
+msgstr ""
+
+#: pology/rules.py:57
+msgctxt "@title:column"
+msgid "time-share"
+msgstr ""
+
+#: pology/rules.py:61
+#, python-format
+msgctxt "@info statistics"
+msgid "Total application time [s]: %(num).1f"
+msgstr ""
+
+#: pology/rules.py:64
+#, python-format
+msgctxt "@info statistics"
+msgid "Average application time per message [ms]: %(num).1f"
+msgstr ""
+
+#: pology/rules.py:83
+msgctxt "@info:progress"
+msgid "Using external rules."
+msgstr ""
+
+#: pology/rules.py:89
+#, python-format
+msgctxt "@info"
+msgid "There are no internal rules for language '%(langcode)s'."
+msgstr ""
+
+#: pology/rules.py:92
+#, python-format
+msgctxt "@info:progress"
+msgid "Using internal rules for language '%(langcode)s'."
+msgstr ""
+
+#: pology/rules.py:259
+#, python-format
+msgctxt "@info"
+msgid "Unknown match modifier '%(mod)s' in trigger pattern."
+msgstr ""
+
+#: pology/rules.py:270
+#, python-format
+msgctxt "@info"
+msgid "Unknown keyword '%(kw)s' in rule trigger."
+msgstr "Непозната реч ‘%(kw)s’ у окидачу правила."
+
+#: pology/rules.py:278
+#, python-format
+msgctxt "@info"
+msgid "Directive '%(dir)s' outside of rule or validity group."
+msgstr ""
+
+#: pology/rules.py:288 pology/rules.py:297 pology/rules.py:311
+#, python-format
+msgctxt "@info"
+msgid "Directive '%(dir)s' outside of rule."
+msgstr ""
+
+#: pology/rules.py:320 pology/rules.py:336
+#, python-format
+msgctxt "@info"
+msgid "Directive '%(dir)s' inside validity group."
+msgstr ""
+
+#: pology/rules.py:375
+#, python-format
+msgctxt "@info"
+msgid "Unknown filter directive '%(dir)s'."
+msgstr ""
+
+#: pology/rules.py:394
+msgctxt "@info"
+msgid "Expected no fields in all-filter removal directive."
+msgstr ""
+
+#: pology/rules.py:407
+#, python-format
+msgctxt "@info"
+msgid "Directive '%(dir)s' inside a rule or group."
+msgstr ""
+
+#: pology/rules.py:415
+#, python-format
+msgctxt "@info"
+msgid "Unknown directive '%(dir)s'."
+msgstr ""
+
+#: pology/rules.py:421
+#, python-format
+msgctxt "@info"
+msgid ""
+"Identifier '%(id)s' at %(file)s:%(line)d previously encountered at %(pos)s."
+msgstr ""
+
+#: pology/rules.py:427
+#, python-format
+msgctxt "@info"
+msgid "Cannot read rule file '%(file)s'. The error was: %(msg)s"
+msgstr "Не могу да читам датотеку правила ‘%(file)s’. Пријављена грешка: %(msg)s"
+
+#: pology/rules.py:432
+#, python-format
+msgctxt "@info"
+msgid ""
+"Syntax error at %(file)s:%(line)d:\n"
+"%(msg)s"
+msgstr ""
+
+#: pology/rules.py:445
+#, python-format
+msgctxt "@info"
+msgid "Duplicate fields in '%(dir)s' directive."
+msgstr ""
+
+#: pology/rules.py:454
+#, python-format
+msgctxt "@info"
+msgid "Unknown fields in '%(dir)s' directive: %(fieldlist)s."
+msgstr ""
+
+#: pology/rules.py:461
+#, python-format
+msgctxt "@info"
+msgid "Mandatory field '%(field)s' missing in '%(dir)s' directive."
+msgstr ""
+
+#: pology/rules.py:478
+#, python-format
+msgctxt "@info"
+msgid "Including one rule file into another, '%(file1)s' from '%(file2)s'."
+msgstr ""
+
+#: pology/rules.py:518
+#, python-format
+msgctxt "@info"
+msgid "No filters with these handles to remove: %(handlelist)s."
+msgstr ""
+
+#: pology/rules.py:548
+#, python-format
+msgctxt "@info"
+msgid "Unknown message parts for the filter to act on: %(partlist)s."
+msgstr ""
+
+#: pology/rules.py:559
+msgctxt "@info"
+msgid "No message parts specified for the filter to act on."
+msgstr ""
+
+#: pology/rules.py:687
+#, python-format
+msgctxt "@info"
+msgid "Unknown rule part '%(part)s' for the filter to act on."
+msgstr ""
+
+#: pology/rules.py:804
+#, python-format
+msgctxt "@info"
+msgid "Unknown message part '%(part)s' for trigger to act on."
+msgstr ""
+
+#: pology/rules.py:846
+#, python-format
+msgctxt "@info"
+msgid "Cannot convert '%(val)s' to a boolean value."
+msgstr ""
+
+#: pology/rules.py:924
+#, python-format
+msgctxt "@info"
+msgid "Unknown message part '%(part)s' set for the rule's trigger pattern."
+msgstr ""
+
+#: pology/rules.py:951
+#, python-format
+msgctxt "@info"
+msgid ""
+"Invalid pattern '%(pattern)s', disabling rule:\n"
+"%(msg)s"
+msgstr ""
+"Лош образац ‘%(pattern)s’, деактивирам правило:\n"
+"%(msg)s"
+
+#: pology/rules.py:959 pology/rules.py:978
+#, python-format
+msgctxt "@item:intext"
+msgid "[id=%(rule)s]"
+msgstr ""
+
+#: pology/rules.py:963
+#, python-format
+msgctxt "@item:intext"
+msgid "[pattern=%(pattern)s]"
+msgstr ""
+
+#: pology/rules.py:982
+msgctxt "@item:intext"
+msgid "[function]"
+msgstr ""
+
+#: pology/rules.py:999
+#, python-format
+msgctxt "@info"
+msgid "Invalid keyword '%(kw)s' in validity definition, skipped."
+msgstr ""
+
+#: pology/rules.py:1020
+#, python-format
+msgctxt "@info"
+msgid ""
+"Invalid validity definition '%(dfn)s', skipped. The error was:\n"
+"%(msg)s"
+msgstr ""
+
+#: pology/rules.py:1053
+msgctxt "@info"
+msgid "Rule trigger not defined, rule skipped."
+msgstr ""
+
+#: pology/rules.py:1112
+#, python-format
+msgctxt "@info"
+msgid "Unknown message part '%(part)s' referenced in the rule."
+msgstr ""
+
+#: pology/rules.py:1392
+#, python-format
+msgctxt "@info"
+msgid "Unbalanced '%(delim)s' in shorthand trigger pattern."
+msgstr ""
+
+#: pology/rules.py:1408
+#, python-format
+msgctxt "@info"
+msgid "Missing '%(kw)s' keyword in the rule trigger."
+msgstr ""
+
+#: pology/rules.py:1418
+msgctxt "@info"
+msgid "Malformed rule trigger."
+msgstr ""
+
+#: pology/rules.py:1429
+#, python-format
+msgctxt "@info"
+msgid "No pattern after the trigger keyword '%(kw)s'."
+msgstr ""
+
+#: pology/rules.py:1464
+#, python-format
+msgctxt "@info"
+msgid "Invalid field name '%(field)s'."
+msgstr ""
+
+#: pology/rules.py:1525
+#, python-format
+msgctxt "@info"
+msgid "Non-terminated quoted string '%(snippet)s'."
+msgstr ""
+
+#: pology/sieve.py:81
+msgctxt "@info sieve parameter discription"
+msgid ""
+"The language of translation. If the user configuration or a catalog header "
+"specifies the language, this parameter takes precedence."
+msgstr ""
+
+#: pology/sieve.py:88 pology/sieve.py:109
+msgctxt "@info sieve parameter value placeholder"
+msgid "CODE"
+msgstr ""
+
+#: pology/sieve.py:101
+msgctxt "@info sieve parameter discription"
+msgid ""
+"The environment (language variation) of translation. If the user "
+"configuration or a catalog header specifies the environment, this parameter "
+"takes precedence. Several environments can be given as comma-separated list."
+msgstr ""
+
+#: pology/sieve.py:122
+msgctxt "@info sieve parameter discription"
+msgid "Character which is used as UI accelerator marker in text fields."
+msgstr ""
+
+#: pology/sieve.py:127 sieve/check_rules.py:69 sieve/find_messages.py:234
+#: sieve/stats.py:42
+msgctxt "@info sieve parameter value placeholder"
+msgid "CHAR"
+msgstr ""
+
+#: pology/sieve.py:140
+msgctxt "@info sieve parameter discription"
+msgid ""
+"Markup that can be expected in text fields, as special keyword. Several "
+"markups can be given as comma-separated list."
+msgstr ""
+
+#: pology/sieve.py:146 sieve/check_rules.py:76
+msgctxt "@info sieve parameter value placeholder"
+msgid "KEYWORD"
+msgstr ""
+
+#: pology/sieve.py:159
+msgctxt "@info sieve parameter description"
+msgid ""
+"For a module pology.FOO which defines FOO() function, the hook specification "
+"is simply FOO. If the hook function is named BAR() instead of FOO(), then "
+"the hook specification is FOO/BAR. Language specific hooks (pology.lang.LANG."
+"FOO) are aditionally preceded by the language code with colon, as LANG:FOO "
+"or LANG:FOO/BAR. \n"
+"\n"
+"If the function is actually a hook factory, the arguments for the factory "
+"are passed separated by tilde: LANG:FOO/BAR~ARGS (where LANG: and /BAR may "
+"be omitted under previous conditions). The ARGS string is a list of "
+"arguments as it would appear in the function call in Python code, omitting "
+"parenthesis. \n"
+"\n"
+"Several hooks can be given by repeating the parameter, when they are applied "
+"in the given order."
+msgstr ""
+
+#: pology/sieve.py:180
+msgctxt "@info sieve parameter value placeholder"
+msgid "HOOKSPEC"
+msgstr ""
+
+#: pology/sieve.py:191
+msgctxt "@info sieve parameter discription"
+msgid "Open catalogs on reported messages in Lokalize."
+msgstr ""
+
+#: pology/sieve.py:205
+msgctxt ""
+"@info sieve parameter discription; in the last line only 'entname' and "
+"'entvalue' should be translated"
+msgid ""
+"File defining the entities used in messages (parameter can be repeated to "
+"add more files). Entity file defines entities one per line, in the format:\n"
+"\n"
+"&lt;!ENTITY entname 'entvalue'&gt;"
+msgstr ""
+
+#: pology/sieve.py:219
+msgctxt "@info sieve parameter discription"
+msgid ""
+"The language determines which system dictionary, as well as internal word "
+"lists, to use for spell-checking. If the language is left undefined for a "
+"given catalog, it will be skipped and a warning may be output."
+msgstr ""
+
+#: pology/sieve.py:225
+msgctxt "@info sieve parameter discription"
+msgid ""
+"The environment determines which additional internal word lists to use for "
+"spell-checking. If the environment is left undefined for a given catalog, "
+"only environment-agnostic internal word lists will be used."
+msgstr ""
+
+#: pology/sieve.py:233 sieve/check_rules.py:112 sieve/check_rules.py:124
+#: sieve/find_messages.py:52 sieve/find_messages.py:58
+#: sieve/find_messages.py:64 sieve/find_messages.py:70
+#: sieve/find_messages.py:76 sieve/find_messages.py:82
+#: sieve/find_messages.py:88 sieve/find_messages.py:94
+#: sieve/find_messages.py:124 sieve/find_messages.py:129
+#: sieve/remove_fuzzy_comments.py:33 sieve/remove_fuzzy_comments.py:38
+#: sieve/set_header.py:73
+msgctxt "@info sieve parameter value placeholder"
+msgid "REGEX"
+msgstr ""
+
+#: pology/sieve.py:235
+msgctxt "@info sieve parameter discription"
+msgid ""
+"Regular expression to eliminate from spell-checking words that match it."
+msgstr ""
+
+#: pology/sieve.py:239
+msgctxt "@info sieve parameter discription"
+msgid ""
+"The F1A or F3A/C hook through which to filter the translation before passing "
+"it to spell-checking."
+msgstr ""
+
+#: pology/sieve.py:244
+msgctxt "@info sieve parameter discription"
+msgid "Use only internal supplement word lists, and not the system dictionary."
+msgstr ""
+
+#: pology/sieve.py:248
+msgctxt "@info sieve parameter discription"
+msgid "Output only a simple sorted list of unknown words."
+msgstr ""
+
+#: pology/spell.py:152 sieve/check_grammar.py:94 sieve/check_rules.py:239
+#: sieve/check_spell_ec.py:106 sieve/check_spell.py:172
+#, python-format
+msgctxt "@info"
+msgid "Cannot determine language for catalog '%(file)s'."
+msgstr "Не могу да одредим језик за каталог ‘%(file)s’."
+
+#: pology/spell.py:195 sieve/check_spell_ec.py:191
+#, python-format
+msgctxt "@info"
+msgid "Unknown word '%(word)s' (suggestions: %(wordlist)s)."
+msgstr "Непозната реч ‘%(word)s’ (предлози: %(wordlist)s)."
+
+#: pology/spell.py:200 sieve/check_spell_ec.py:197
+#, python-format
+msgctxt "@info"
+msgid "Unknown word '%(word)s'."
+msgstr "Непозната реч ‘%(word)s’."
+
+#: pology/spell.py:241 sieve/check_spell.py:196
+#, python-format
+msgctxt "@info"
+msgid ""
+"Aspell configuration error:\n"
+"%(msg)s"
+msgstr ""
+"Грешка у постави &aspell-g;:\n"
+"%(msg)s"
+
+#: pology/spell.py:245 sieve/check_spell.py:201
+#, python-format
+msgctxt "@info"
+msgid ""
+"Cannot initialize Aspell:\n"
+"%(msg)s"
+msgstr ""
+"Не могу да припремим &aspell-a;:\n"
+"%(msg)s"
+
+#: pology/spell.py:252 sieve/check_spell.py:209
+msgctxt "@info"
+msgid "No supplemental dictionaries found."
+msgstr "Нису нађени допунски речници."
+
+#: pology/spell.py:307
+#, python-format
+msgctxt "@info"
+msgid ""
+"Cannot create composited spelling dictionary in current working directory:\n"
+"%(msg)s"
+msgstr ""
+"На могу да направим здружени правописни речник у текућем радном "
+"директоријуму:\n"
+"%(msg)s"
+
+#: pology/spell.py:324 sieve/check_spell_ec.py:309 sieve/check_spell.py:427
+#, python-format
+msgctxt "@info"
+msgid "Malformed header in dictionary file '%(file)s'."
+msgstr "Лоше заглавље у речничкој датотеци ‘%(file)s’."
+
+#: pology/stdcmdopt.py:34
+msgctxt "@info command line option description (partial: incexc)"
+msgid ""
+"The option can be repeated, in which case a file is included only if all "
+"expressions match it."
+msgstr ""
+
+#: pology/stdcmdopt.py:37
+msgctxt "@info command line option description (partial: incexc)"
+msgid ""
+"The option can be repeated, in which case a file is excluded only if all "
+"expressions match it."
+msgstr ""
+
+#: pology/stdcmdopt.py:41
+msgctxt "@info command line option description (partial: incexc)"
+msgid ""
+"The option can be repeated, in which case a file is included if at least one "
+"expression matches it."
+msgstr ""
+
+#: pology/stdcmdopt.py:44
+msgctxt "@info command line option description (partial: incexc)"
+msgid ""
+"The option can be repeated, in which case a file is excluded if at least one "
+"expression matches it."
+msgstr ""
+
+#: pology/stdcmdopt.py:49 pology/stdcmdopt.py:59 pology/stdcmdopt.py:68
+#: pology/stdcmdopt.py:78
+msgctxt "@info command line value placeholder"
+msgid "REGEX"
+msgstr ""
+
+#: pology/stdcmdopt.py:53
+#, python-format
+msgctxt ""
+"@info command line option description. %(incexc)s is one of the above "
+"partial descriptions."
+msgid ""
+"Exclude from processing files with names (base name without extension) "
+"matching given regular expression. %(incexc)s"
+msgstr ""
+
+#: pology/stdcmdopt.py:63
+#, python-format
+msgctxt ""
+"@info command line option description. %(incexc)s is one of the partial "
+"descriptions above."
+msgid ""
+"Exclude from processing files with paths matching given regular expression. %"
+"(incexc)s"
+msgstr ""
+
+#: pology/stdcmdopt.py:72
+#, python-format
+msgctxt ""
+"@info command line option description. %(incexc)s is one of the above "
+"partial descriptions."
+msgid ""
+"Include into processing only files with names (base name without extension) "
+"matching given regular expression. %(incexc)s"
+msgstr ""
+
+#: pology/stdcmdopt.py:82
+#, python-format
+msgctxt ""
+"@info command line option description. %(incexc)s is one of the above "
+"partial descriptions."
+msgid ""
+"Include into processing only files with paths matching given regular "
+"expression. %(incexc)s"
+msgstr ""
+
+#: pology/stdcmdopt.py:104
+msgctxt "@info command line option description (partial: head)"
+msgid ""
+"Collect paths of files and directories from given file, which contains one "
+"path per line. If a path is not absolute, it is considered relative to "
+"current working directory."
+msgstr ""
+
+#: pology/stdcmdopt.py:109
+msgctxt "@info command line option description (partial: cmnts)"
+msgid "Lines starting with '#' are treated as comments and skipped."
+msgstr ""
+
+#: pology/stdcmdopt.py:112
+msgctxt "@info command line option description (partial: incexc)"
+msgid ""
+"Lines starting with ':' are treated as directives to include or exclude "
+"files/directories from processing, as follows: :-REGEX excludes by base name "
+"without extension; :/-REGEX excludes by full path; :+REGEX includes by base "
+"name without extension; :/+REGEX excludes by full path. If read directories "
+"are expanded into subpaths, these directives apply to those paths too."
+msgstr ""
+
+#: pology/stdcmdopt.py:122
+msgctxt "@info command line option description (partial: tail)"
+msgid "The option can be repeated to collect paths from several files."
+msgstr ""
+
+#: pology/stdcmdopt.py:129
+#, python-format
+msgctxt ""
+"@info command line option description; combined from the partial "
+"descriptions above"
+msgid "%(head)s %(cmnts)s %(incexc)s %(tail)s"
+msgstr ""
+
+#: pology/stdcmdopt.py:133
+#, python-format
+msgctxt ""
+"@info command line option description; combined from the partial "
+"descriptions above"
+msgid "%(head)s %(incexc)s %(tail)s"
+msgstr ""
+
+#: pology/stdcmdopt.py:137
+#, python-format
+msgctxt ""
+"@info command line option description; combined from the partial "
+"descriptions above"
+msgid "%(head)s %(cmnts)s %(tail)s"
+msgstr ""
+
+#: pology/stdcmdopt.py:141
+#, python-format
+msgctxt ""
+"@info command line option description; combined from the partial "
+"descriptions above"
+msgid "%(head)s %(tail)s"
+msgstr ""
+
+#: pology/stdcmdopt.py:145 scripts/poascribe.py:239 scripts/poepatch.py:91
+#: scripts/pomtrans.py:67 scripts/posieve.py:128
+msgctxt "@info command line value placeholder"
+msgid "FILE"
+msgstr ""
+
+#: pology/stdcmdopt.py:159
+msgctxt "@info command line option description"
+msgid ""
+"Syntax coloring in output independent of destination (whether terminal or "
+"file)."
+msgstr ""
+
+#: pology/stdcmdopt.py:164
+msgctxt "@info command line value placeholder"
+msgid "TYPE"
+msgstr ""
+
+#: pology/stdcmdopt.py:167
+#, python-format
+msgctxt "@info command line option description"
+msgid ""
+"Type of syntax coloring in output. Available types: %(typelist)s; default: %"
+"(type)s."
+msgstr ""
+
+#: pology/subcmd.py:92
+#, python-format
+msgctxt "@info"
+msgid "Trying to add subcommand '%(cmd)s' more than once."
+msgstr ""
+
+#: pology/subcmd.py:115
+#, python-format
+msgctxt "@info"
+msgid "Trying to get a view for an unknown subcommand '%(cmd)s'."
+msgstr ""
+
+#: pology/subcmd.py:146
+#, python-format
+msgctxt "@info"
+msgid "Trying to get help for an unknown subcommand '%(cmd)s'."
+msgstr ""
+
+#: pology/subcmd.py:178
+msgctxt "@item:intext splitter between a subcommand name and its description"
+msgid " - "
+msgstr ""
+
+#: pology/subcmd.py:190
+#, python-format
+msgctxt "@info"
+msgid "Trying to include an unknown subcommand '%(cmd)s' into listing."
+msgstr ""
+
+#: pology/subcmd.py:266
+#, python-format
+msgctxt "@info"
+msgid "Unregistered subcommand '%(cmd)s' issued."
+msgstr ""
+
+#: pology/subcmd.py:287
+#, python-format
+msgctxt "@info"
+msgid "Parameter '%(par)s' repeated more than once."
+msgstr ""
+
+#: pology/subcmd.py:294
+#, python-format
+msgctxt "@info"
+msgid "Parameter '%(par)s' is a flag, no value expected."
+msgstr ""
+
+#: pology/subcmd.py:299
+#, python-format
+msgctxt "@info"
+msgid "Value expected for parameter '%(par)s'."
+msgstr ""
+
+#: pology/subcmd.py:314
+#, python-format
+msgctxt "@info"
+msgid ""
+"Cannot convert value '%(val)s' to parameter '%(par)s' into expected type '%"
+"(type)s'."
+msgstr ""
+
+#: pology/subcmd.py:326
+#, python-format
+msgctxt "@info"
+msgid ""
+"Cannot convert value '%(val)s' to parameter '%(par)s' into list of elements "
+"of expected type '%(type)s'."
+msgstr ""
+
+#: pology/subcmd.py:339
+#, python-format
+msgctxt "@info"
+msgid ""
+"Value '%(val)s' to parameter '%(par)s' not in the admissible set: %(vallist)"
+"s."
+msgstr ""
+
+#: pology/subcmd.py:368
+#, python-format
+msgctxt "@info"
+msgid "Mandatory parameter '%(par)s' to subcommand '%(cmd)s' not issued."
+msgstr ""
+
+#: pology/subcmd.py:515
+#, python-format
+msgctxt "@info"
+msgid ""
+"Trying to add parameter '%(par)s' to subcommand '%(cmd)s' with default value "
+"'%(val)s' different from its stated type '%(type)s'."
+msgstr ""
+
+#: pology/subcmd.py:523
+#, python-format
+msgctxt "@info"
+msgid ""
+"Trying to add parameter '%(par)s' to subcommand '%(cmd)s' with default value "
+"'%(val)s' which contains some elements different from their stated type '%"
+"(type)s'."
+msgstr ""
+
+#: pology/subcmd.py:532
+#, python-format
+msgctxt "@info"
+msgid ""
+"Trying to add parameter '%(par)s' to subcommand '%(cmd)s' with default value "
+"'%(val)s' not from the admissible set: %(vallist)s."
+msgstr ""
+
+#: pology/subcmd.py:541
+#, python-format
+msgctxt "@info"
+msgid ""
+"Trying to add parameter '%(par)s' to subcommand '%(cmd)s' more than once."
+msgstr ""
+
+#: pology/subcmd.py:548
+#, python-format
+msgctxt "@info"
+msgid ""
+"Parameter '%(par)s' to subcommand '%(cmd)s' is stated to be list-valued, but "
+"the default value is not given as a list or tuple."
+msgstr ""
+
+#: pology/subcmd.py:564 pology/subcmd.py:572 pology/subcmd.py:580
+#, python-format
+msgctxt "@info"
+msgid ""
+"Trying to add parameter '%(par)s' to subcommand '%(cmd)s' with '%(field)s' "
+"field different from the same parameter in other subcommands."
+msgstr ""
+
+#: pology/subcmd.py:642
+msgctxt "@item:intext indicator that the parameter is a flag"
+msgid "[flag]"
+msgstr ""
+
+#: pology/subcmd.py:648
+msgctxt "@item:intext default placehodler for the parameter argument"
+msgid "ARG"
+msgstr ""
+
+#: pology/subcmd.py:655
+#, python-format
+msgctxt "@item:intext default value for the argument"
+msgid "[default %(arg)s=%(val)s]"
+msgstr ""
+
+#: pology/subcmd.py:661
+#, python-format
+msgctxt "@item:intext admissible argument values"
+msgid "[%(arg)s is one of: %(vallist)s]"
+msgstr ""
+
+#: pology/subcmd.py:681
+msgctxt "@info"
+msgid "No description available."
+msgstr ""
+
+#: pology/subcmd.py:686
+msgctxt "@info"
+msgid "Mandatory parameters:"
+msgstr ""
+
+#: pology/subcmd.py:693
+msgctxt "@info"
+msgid "Optional parameters:"
+msgstr ""
+
+#: pology/synder.py:68
+#, python-format
+msgctxt "@info context of error"
+msgid "[synder-%(code)d]: %(msg)s"
+msgstr ""
+
+#: pology/synder.py:72
+#, python-format
+msgctxt "@info context of error"
+msgid "[synder-%(code)d] in %(source)s: %(msg)s"
+msgstr ""
+
+#: pology/synder.py:76
+#, python-format
+msgctxt "@info context of error"
+msgid "[synder-%(code)d] at %(source)s:%(line)d: %(msg)s"
+msgstr ""
+
+#: pology/synder.py:81
+#, python-format
+msgctxt "@info context of error"
+msgid "[synder-%(code)d] at %(source)s:%(line)d:%(col)d: %(msg)s"
+msgstr ""
+
+#: pology/synder.py:172
+#, python-format
+msgctxt "@item automatic name for anonymous input stream"
+msgid "&lt;stream-%(num)s&gt;"
+msgstr ""
+
+#: pology/synder.py:244
+#, python-format
+msgctxt "@info"
+msgid "Included file '%(name)s' not found at '%(path)s'."
+msgstr "Укључена датотека '%(name)s' не налази се на '%(path)s'."
+
+#: pology/synder.py:316
+msgctxt "@info"
+msgid "No derivation yet for which to start an environment."
+msgstr ""
+
+#: pology/synder.py:323
+msgctxt "@info"
+msgid "Inconsistent indenting of environment head."
+msgstr ""
+
+#: pology/synder.py:335
+msgctxt "@info"
+msgid "Inconsistent indenting of derivation head."
+msgstr ""
+
+#: pology/synder.py:384
+#, python-format
+msgctxt "@info"
+msgid "Unexpected end of derivation head started at %(line)d:%(col)d."
+msgstr ""
+
+#: pology/synder.py:400
+msgctxt "@info"
+msgid "Empty environment name."
+msgstr ""
+
+#: pology/synder.py:406
+#, python-format
+msgctxt "@info"
+msgid "Repeated environment name '%(env)s'."
+msgstr ""
+
+#: pology/synder.py:415
+#, python-format
+msgctxt "@info"
+msgid "Unexpected end of environment head started at %(line)d:%(col)d."
+msgstr ""
+
+#: pology/synder.py:495
+#, python-format
+msgctxt "@info"
+msgid "Unexpected end of expander started at %(line)d:%(col)d."
+msgstr ""
+
+#: pology/synder.py:540
+#, python-format
+msgctxt "@info"
+msgid "Unexpected end of tag started at %(line)d:%(col)d."
+msgstr ""
+
+#: pology/synder.py:566
+msgctxt "@info"
+msgid "Empty target path in inclusion directive."
+msgstr ""
+
+#: pology/synder.py:1091
+#, python-format
+msgctxt "@info"
+msgid ""
+"Unknown extra arguments for transformation function requested in derivator "
+"constructor: %(arglist)s"
+msgstr ""
+
+#: pology/synder.py:1263
+#, python-format
+msgctxt "@info"
+msgid ""
+"Derivation at %(pos1)s eliminated due to key conflict with the following "
+"derivations:\n"
+"%(pos2list)s"
+msgstr ""
+
+#: pology/synder.py:1476
+#, python-format
+msgctxt "@info"
+msgid "Expansion '%(ref)s' does not reference a known derivation."
+msgstr ""
+
+#: pology/synder.py:1541
+#, python-format
+msgctxt "@info"
+msgid "Expansion '%(ref)s' expands into nothing."
+msgstr ""
+
+#: pology/timeout.py:38
+msgctxt "@info:progress"
+msgid ">>>>> Operation timed out."
+msgstr ""
+
+#: pology/uiref.py:301
+#, python-format
+msgctxt "@info \"tag\" is a tag in HTML/XML context"
+msgid "Non-terminated UI reference by tag '%(tag)s'."
+msgstr ""
+
+#: pology/uiref.py:319
+#, python-format
+msgctxt ""
+"@info \"head\" is the leading part of UI reference, e.g. '~%' in '~%/Save "
+"All/'"
+msgid "Non-terminated UI reference by head '%(head)s'."
+msgstr ""
+
+#: pology/uiref.py:477
+#, python-format
+msgctxt "@info"
+msgid ""
+"UI catalog '%(catname1)s' associated to '%(catname2)s' is not among known "
+"catalog paths."
+msgstr ""
+
+#: pology/uiref.py:544
+msgctxt "@info"
+msgid "Hash function has returned same result for two different strings."
+msgstr ""
+
+#: pology/uiref.py:605
+#, python-format
+msgctxt ""
+"@info \"tail\" is the trailing remainder of a UI reference string after "
+"parsing"
+msgid "Superfluous tail '%(str)s' in UI reference '%(ref)s'."
+msgstr ""
+
+#: pology/uiref.py:643
+#, python-format
+msgctxt "@info"
+msgid "Invalid argument specification '%(arg)s' in UI reference '%(ref)s'."
+msgstr ""
+
+#: pology/uiref.py:674
+#, python-format
+msgctxt "@info"
+msgid "UI reference '%(ref)s' not translated at %(file)s:%(line)d(#%(entry)d)."
+msgstr ""
+
+#: pology/uiref.py:691
+#, python-format
+msgctxt ""
+"@item condensed display of text and its translation; they should stand out "
+"well, hence the {{...}} wrapping"
+msgid "{{%(text)s}}={{%(translation)s}} at %(file)s:%(line)d(#%(entry)d)"
+msgstr ""
+
+#: pology/uiref.py:701
+#, python-format
+msgctxt ""
+"@item condensed display of text without translation; it should stand out "
+"well, hence the {{...}} wrapping"
+msgid "{{%(text)s}}=(untranslated) at %(file)s:%(line)d(#%(entry)d)"
+msgstr ""
+
+#: pology/uiref.py:709
+#, python-format
+msgctxt "@info"
+msgid ""
+"UI reference '%(ref)s' cannot be resolved; close matches:\n"
+"%(matches)s"
+msgstr ""
+
+#: pology/uiref.py:715
+#, python-format
+msgctxt "@info"
+msgid "UI reference '%(ref)s' cannot be resolved."
+msgstr ""
+
+#: pology/uiref.py:732
+#, python-format
+msgctxt "@info"
+msgid ""
+"Placeholder '%(plhold)s' not found in resolved UI reference text '%(text)s' "
+"to reference '%(ref)s'."
+msgstr ""
+
+#: pology/vcs.py:84
+#, python-format
+msgctxt "@info"
+msgid "Unknown version control system requested by key '%(key)s'."
+msgstr ""
+
+#: pology/vcs.py:120
+msgctxt "@info"
+msgid "Selected version control system does not define adding."
+msgstr ""
+
+#: pology/vcs.py:140
+msgctxt "@info"
+msgid "Selected version control system does not define removing."
+msgstr ""
+
+#: pology/vcs.py:163
+msgctxt "@info"
+msgid "Selected version control system does not define moving."
+msgstr ""
+
+#: pology/vcs.py:180
+msgctxt "@info"
+msgid "Selected version control system does not define revision query."
+msgstr ""
+
+#: pology/vcs.py:199
+msgctxt "@info"
+msgid "Selected version control system does not define state query."
+msgstr ""
+
+#: pology/vcs.py:215
+msgctxt "@info"
+msgid ""
+"Selected version control system does not define checking whether a path is "
+"version controlled."
+msgstr ""
+
+#: pology/vcs.py:248
+msgctxt "@info"
+msgid ""
+"Selected version control system does not define fetching of a versioned path."
+msgstr ""
+
+#: pology/vcs.py:293
+msgctxt "@info"
+msgid "Selected version control system does not define committing of paths."
+msgstr ""
+
+#: pology/vcs.py:328
+msgctxt "@info"
+msgid "Selected version control system does not define revision history query."
+msgstr ""
+
+#: pology/vcs.py:350
+msgctxt "@info"
+msgid ""
+"Selected version control system does not define listing of non-committed "
+"paths."
+msgstr ""
+
+#: pology/vcs.py:385
+msgctxt "@info"
+msgid "Selected version control system does not define diffing."
+msgstr ""
+
+#: pology/vcs.py:404
+msgctxt "@info"
+msgid ""
+"Selected version control system does not define reverting a versioned path."
+msgstr ""
+
+#: pology/vcs.py:710
+msgctxt "@info \"Subversion\" is a version control system"
+msgid "Subversion cannot diff from working copy to a named revision."
+msgstr ""
+
+#: pology/vcs.py:718
+#, python-format
+msgctxt "@info"
+msgid ""
+"Subversion reports it cannot diff path '%(path)s':\n"
+"%(msg)s"
+msgstr ""
+
+#: pology/vcs.py:753
+#, python-format
+msgctxt "@info"
+msgid ""
+"Subversion reports it cannot revert path '%(path)s':\n"
+"%(msg)s"
+msgstr ""
+
+#: pology/vcs.py:809
+#, python-format
+msgctxt "@info \"Git\" is a version control system"
+msgid "Cannot find Git repository for '%(path)s'."
+msgstr ""
+
+#: pology/vcs.py:850
+#, python-format
+msgctxt "@info"
+msgid "Git cannot remove directories (tried on '%(path)s')."
+msgstr ""
+
+#: pology/vcs.py:869
+msgctxt "@info"
+msgid "Trying to move paths between different repositories."
+msgstr ""
+
+#: pology/vcs.py:985
+#, python-format
+msgid "@infoGit cannot commit non-versioned path '%(path)s'."
+msgstr ""
+
+#: pology/vcs.py:990
+#, python-format
+msgid "@infoGit cannot add path '%(path)s' to index."
+msgstr ""
+
+#: pology/vcs.py:1000
+msgctxt "@info"
+msgid "Git is resetting paths in index which are not to be committed."
+msgstr ""
+
+#: pology/vcs.py:1111
+msgid "@infoGit cannot diff from non-staged paths to a commit."
+msgstr ""
+
+#: pology/vcs.py:1119
+#, python-format
+msgid ""
+"@infoGit reports it cannot diff path '%(path)s':\n"
+"%(msg)s"
+msgstr ""
+
+#: pology/vcs.py:1156
+#, python-format
+msgid ""
+"@infoGit reports it cannot revert path '%(path)s':\n"
+"%(msg)s"
+msgstr ""
+
+#: pology/wrap.py:153
+msgctxt "@info"
+msgid "Wrapping is too tight, cannot fit leading and trailing text."
+msgstr ""
+
+#: pology/proj/kde/header.py:45
+#, python-format
+msgctxt "@info TP stands for Translation Project"
+msgid ""
+"Cannot determine KDE TP subdirectory of '%(file)s', skipping header updates."
+msgstr ""
+"Не могу да одредим поддиректоријум &kdetp-g; за ‘%(file)s’, прескачем "
+"ажурирање заглавља."
+
+#: pology/lang/nn/exclusion.py:60
+#, python-format
+msgctxt "@info"
+msgid "Inofficial form '%(word)s'."
+msgstr "Незванични облик ‘%(word)s’."
+
+#: pology/lang/sr/charsets.py:108
+#, python-format
+msgctxt "@info"
+msgid ""
+"Character '%(char)s' (%(code)s) cannot be transliterated into character set %"
+"(charset)s, removing it."
+msgstr ""
+
+#: pology/lang/sr/checks.py:116
+#, python-format
+msgctxt "@info"
+msgid "Naked Latin segment '%(snippet)s'."
+msgstr ""
+
+#: pology/lang/sr/nobr.py:70
+#, python-format
+msgctxt "@info"
+msgid "Unknown hyphen replacement mode %(mode)s."
+msgstr ""
+
+#: pology/lang/sr/trapnakron.py:326
+msgctxt "@info"
+msgid ""
+"Invalid combination of Ekavian/Ijekavian Cyrillic/Latin environments to "
+"trapnakron derivator."
+msgstr ""
+
+#: pology/lang/sr/trapnakron.py:332
+#, python-format
+msgctxt "@info"
+msgid ""
+"Unknown markup type '%(mtype)s' to trapnakron derivator (known markups: %"
+"(mtypelist)s)."
+msgstr ""
+
+#: pology/lang/sr/trapnakron.py:363
+msgctxt "@info"
+msgid "Sequence of gender-number suffixes must have exactly 8 elements."
+msgstr ""
+
+#: pology/lang/sr/trapnakron.py:390
+msgctxt "@info"
+msgid "Sequence of person name suffixes must have exactly 2 elements."
+msgstr ""
+
+#: pology/lang/sr/trapnakron.py:865
+#, python-format
+msgctxt "@info"
+msgid ""
+"Normalization of property keys requested on unsupported data type '%(type)s'."
+msgstr ""
+
+#: pology/lang/sr/trapres.py:71
+#, python-format
+msgctxt ""
+"@info \"trapnakron\" is a shorthand for \"Transcriptions and Translations of "
+"Names and Acronyms\" in Serbian"
+msgid "Unknown trapnakron constructor '%(name)s'."
+msgstr ""
+
+#: pology/lang/sr/wconv.py:445
+#, python-format
+msgctxt "@info \"alternatives directive\" is a term"
+msgid ""
+"Malformed Ekavian-Ijekavian alternatives directive encountered after %(num)d "
+"good directive."
+msgid_plural ""
+"Malformed Ekavian-Ijekavian alternatives directive encountered after %(num)d "
+"good directives."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+
+#: pology/lang/sr/wconv.py:489
+#, python-format
+msgctxt "@info \"jat\" is the name of an old Serbian letter"
+msgid "Unknown jat-reflex starting from '%(snippet)s'."
+msgstr ""
+
+#: pology/lang/sr/wconv.py:763
+#, python-format
+msgctxt "@info"
+msgid ""
+"No delimiter from '%(delimstr)s' can be used for alternatives directive "
+"containing: %(snippetlist)s."
+msgstr ""
+
+#: scripts/normalize-aspell-word-list.py:46 scripts/organizeDict.py:46
+#, python-format
+msgctxt "@info"
+msgid "Unknown option '%(opt)s' in command line."
+msgstr ""
+
+#: scripts/normalize-aspell-word-list.py:68 scripts/organizeDict.py:68
+#, python-format
+msgctxt "@info"
+msgid "Malformed header of the dictionary file '%(file)s'."
+msgstr "Лоше заглавље речничке датотеке ‘%(file)s’."
+
+#: scripts/normalize-aspell-word-list.py:88 scripts/organizeDict.py:88
+#, python-format
+msgctxt "@item:inlist"
+msgid "duplicate removed: %(word)s"
+msgstr ""
+
+#: scripts/normalize-aspell-word-list.py:93 scripts/organizeDict.py:93
+#, python-format
+msgctxt "@item:inlist"
+msgid "*** invalid word at %(line)s: %(word)s"
+msgstr ""
+
+#: scripts/normalize-aspell-word-list.py:98 scripts/organizeDict.py:98
+#, python-format
+msgctxt "@item:inlist"
+msgid "invalid word removed: %(word)s"
+msgstr ""
+
+#: scripts/normalize-aspell-word-list.py:116 scripts/organizeDict.py:116
+#, python-format
+msgctxt "@item:inlist"
+msgid "written %(num)d word"
+msgid_plural "written %(num)d words"
+msgstr[0] "уписана %(num)d реч"
+msgstr[1] "уписане %(num)d речи"
+msgstr[2] "уписано %(num)d речи"
+msgstr[3] "уписана %(num)d реч"
+
+#: scripts/normalize-aspell-word-list.py:123 scripts/organizeDict.py:123
+#, python-format
+msgctxt "@info"
+msgid "Usage: %(cmd)s [-r|--remove-invalid] DICTFILE..."
+msgstr ""
+
+#: scripts/poascribe.py:102
+#, python-format
+msgctxt "@info command usage"
+msgid "%(cmd)s MODE [OPTIONS] [PATHS...]"
+msgstr ""
+
+#: scripts/poascribe.py:105
+msgctxt "@info command description"
+msgid ""
+"Keep track of who, when, and how, has translated, modified, or reviewed "
+"messages in a collection of PO files."
+msgstr ""
+
+#: scripts/poascribe.py:108
+#, python-format
+msgctxt "@info command version"
+msgid ""
+"%(cmd)s (Pology) %(version)s\n"
+"Copyright © 2008, 2009, 2010 Chusslove Illich (Часлав Илић) &lt;%(email)s&gt;"
+msgstr ""
+
+#: scripts/poascribe.py:116 scripts/poascribe.py:207
+msgctxt "@info command line value placeholder"
+msgid "SELECTOR[:ARGS]"
+msgstr ""
+
+#: scripts/poascribe.py:119
+msgctxt "@info command line option description"
+msgid ""
+"Select a message from ascription history by this selector. Can be repeated, "
+"in which case the message is selected if all selectors match it."
+msgstr ""
+
+#: scripts/poascribe.py:124 scripts/poselfmerge.py:65
+msgctxt "@info command line value placeholder"
+msgid "RATIO"
+msgstr ""
+
+#: scripts/poascribe.py:127
+#, python-format
+msgctxt "@info command line option description"
+msgid ""
+"Minimum adjusted similarity between two versions of a message needed to show "
+"the embedded difference. Range 0.0-1.0, where 0 means always to show the "
+"difference, and 1 never to show it; a convenient range is 0.6-0.8. When the "
+"difference is not shown, the '%(flag)s' flag is added to the message."
+msgstr ""
+
+#: scripts/poascribe.py:138
+msgctxt "@info command line option description"
+msgid "Next to global summary, also present results by file."
+msgstr ""
+
+#: scripts/poascribe.py:143
+msgctxt "@info command line option description"
+msgid ""
+"Do not commit catalogs to version control (when version control is used)."
+msgstr ""
+
+#: scripts/poascribe.py:147
+msgctxt "@info command line value placeholder"
+msgid "LEVEL"
+msgstr ""
+
+#: scripts/poascribe.py:150
+msgctxt "@info command line option description"
+msgid "Consider ascription history up to this level into the past."
+msgstr ""
+
+#: scripts/poascribe.py:153
+msgctxt "@info command line value placeholder"
+msgid "SPEC"
+msgstr ""
+
+#: scripts/poascribe.py:156
+msgctxt "@info command line option description"
+msgid ""
+"Reduce each message in history to a part of the difference from the first "
+"earlier modification: to added, removed, or equal segments. The value begins "
+"with one of the characters 'a', 'r', or 'e', followed by substring that will "
+"be used to separate selected difference segments in resulting messages (if "
+"this substring is empty, space is used)."
+msgstr ""
+
+#: scripts/poascribe.py:165
+msgctxt "@info command line value placeholder"
+msgid "NAME"
+msgstr ""
+
+#: scripts/poascribe.py:168
+msgctxt "@info command line option description"
+msgid ""
+"Pass relevant message text fields through a filter before matching or "
+"comparing them (relevant in some modes). Can be repeated to add several "
+"filters."
+msgstr ""
+
+#: scripts/poascribe.py:175
+msgctxt "@info command line option description"
+msgid ""
+"When operating under a filter, also show filtered versions of whatever is "
+"shown in original (e.g. in diffs)."
+msgstr ""
+
+#: scripts/poascribe.py:181
+msgctxt "@info command line option description"
+msgid ""
+"Do not remove review-significant flags from messages (possibly convert them "
+"as appropriate)."
+msgstr ""
+
+#: scripts/poascribe.py:185
+msgctxt "@info command line value placeholder"
+msgid "TEXT"
+msgstr ""
+
+#: scripts/poascribe.py:188
+#, python-format
+msgctxt "@info command line option description"
+msgid ""
+"Version control commit message for original catalogs, when %(opt)s is in "
+"effect."
+msgstr ""
+
+#: scripts/poascribe.py:196
+msgctxt "@info command line option description"
+msgid "Open selected messages in one of the supported PO editors."
+msgstr ""
+
+#: scripts/poascribe.py:199
+msgctxt "@info command line value placeholder"
+msgid "FRACTION"
+msgstr ""
+
+#: scripts/poascribe.py:202
+msgctxt "@info command line option description"
+msgid ""
+"Select messages in a catalog only if the total number of selected messages "
+"in that catalog would be at most the given fraction (0.0-1.0) of total "
+"number of messages."
+msgstr ""
+
+#: scripts/poascribe.py:210
+msgctxt "@info command line option description"
+msgid ""
+"Consider only messages matched by this selector. Can be repeated, in which "
+"case the message is selected if all selectors match it."
+msgstr ""
+
+#: scripts/poascribe.py:215
+msgctxt "@info command line value placeholder"
+msgid "TAG"
+msgstr ""
+
+#: scripts/poascribe.py:218
+msgctxt "@info command line option description"
+msgid ""
+"Tag to add or consider in ascription records. Several tags may be given "
+"separated by commas."
+msgstr ""
+
+#: scripts/poascribe.py:222
+msgctxt "@info command line value placeholder"
+msgid "USER"
+msgstr ""
+
+#: scripts/poascribe.py:225
+msgctxt "@info command line option description"
+msgid "User in whose name the operation is performed."
+msgstr ""
+
+#: scripts/poascribe.py:230
+msgctxt "@info command line option description"
+msgid ""
+"Update headers in catalogs which contain modifications before committing "
+"them, with user's translator information."
+msgstr ""
+
+#: scripts/poascribe.py:236
+msgctxt "@info command line option description"
+msgid "Output more detailed progress info."
+msgstr "Исписуј детаљније информације о напретку."
+
+#: scripts/poascribe.py:242
+msgctxt "@info command line option description"
+msgid ""
+"Write paths of all original catalogs modified by ascription operations into "
+"the given file."
+msgstr ""
+
+#: scripts/poascribe.py:246
+msgctxt "@info command line value placeholder"
+msgid "PYFILE"
+msgstr ""
+
+#: scripts/poascribe.py:249
+msgctxt "@info command line option description"
+msgid ""
+"Collect optional functionality from an external Python file (selectors, etc)."
+msgstr ""
+
+#: scripts/poascribe.py:255
+#, python-format
+msgctxt "@info command line option description"
+msgid ""
+"Ascribe all messages as reviewed on commit, overriding any existing review "
+"elements. Tags given by %(opt)s apply. This should not be done in day-to-day "
+"practice; the primary use is initial review ascription."
+msgstr ""
+
+#: scripts/poascribe.py:268 scripts/posummit.py:139
+msgctxt "@info"
+msgid "Operation mode not given."
+msgstr ""
+
+#: scripts/poascribe.py:274
+#, python-format
+msgctxt "@info"
+msgid "Unknown operation mode '%(mode)s' (known modes: %(modelist)s)."
+msgstr ""
+
+#: scripts/poascribe.py:312
+#, python-format
+msgctxt "@info"
+msgid "PO editor '%(ed)s' is not among the supported editors: %(edlist)s."
+msgstr ""
+
+#: scripts/poascribe.py:331
+#, python-format
+msgctxt "@info"
+msgid "Value '%(val)s' to option '%(opt)s' is of wrong type."
+msgstr ""
+
+#: scripts/poascribe.py:360
+#, python-format
+msgctxt "@info"
+msgid ""
+"Value '%(val)s' to option '%(opt)s' must start with '%(char1)s', '%(char2)"
+"s', or '%(char3)s'."
+msgstr ""
+
+#: scripts/poascribe.py:406
+#, python-format
+msgctxt "@info"
+msgid "Unhandled operation mode '%(mode)s'."
+msgstr ""
+
+#: scripts/poascribe.py:413
+#, python-format
+msgctxt "@info"
+msgid "Operation mode '%(mode)s' requires a user to be specified."
+msgstr ""
+
+#: scripts/poascribe.py:419
+#, python-format
+msgctxt "@info"
+msgid "Operation mode '%(mode)s' does not accept selectors."
+msgstr ""
+
+#: scripts/poascribe.py:423
+#, python-format
+msgctxt "@info"
+msgid "Operation mode '%(mode)s' does not accept history selectors."
+msgstr ""
+
+#: scripts/poascribe.py:453
+#, python-format
+msgctxt "@info"
+msgid "Paths of modified catalogs written to '%(file)s'."
+msgstr ""
+
+#: scripts/poascribe.py:460
+msgctxt "@info:progress VCS is acronym for \"version control system\""
+msgid ">>>>> VCS is committing catalogs:"
+msgstr ""
+
+#: scripts/poascribe.py:489
+msgctxt "@info"
+msgid "VCS reports that some catalogs cannot be added."
+msgstr ""
+
+#: scripts/poascribe.py:497
+msgctxt "@info"
+msgid "VCS reports that some catalogs cannot be committed."
+msgstr ""
+
+#: scripts/poascribe.py:501
+#, python-format
+msgctxt "@info"
+msgid ""
+"VCS reports that some catalogs cannot be committed (commit message preserved "
+"in '%(file)s')."
+msgstr ""
+
+#: scripts/poascribe.py:538
+#, python-format
+msgctxt "@info"
+msgid "Еrror from editor command '%(cmd)s' for commit message."
+msgstr ""
+
+#: scripts/poascribe.py:542
+#, python-format
+msgctxt "@info"
+msgid "Editor command '%(cmd)s' did not produce a file."
+msgstr ""
+
+#: scripts/poascribe.py:565
+#, python-format
+msgctxt "@info"
+msgid "User '%(user)s' not defined in '%(file)s'."
+msgstr "Корисник ‘%(user)s’ није дефинисан у ‘%(file)s’."
+
+#: scripts/poascribe.py:575
+#, python-format
+msgctxt "@info"
+msgid "Review tag '%(tag)s' not defined in '%(file)s'."
+msgstr "Ознака прегледа ‘%(tag)s’ није дефинисана у ‘%(file)s’."
+
+#: scripts/poascribe.py:590
+msgctxt "@info"
+msgid ""
+"Invalid syntax in some files, see the reports above. Ascription aborted."
+msgstr ""
+
+#: scripts/poascribe.py:622
+#, python-format
+msgctxt "@info:progress"
+msgid "Examining state: %(file)s"
+msgstr "Испитујем стање: %(file)s"
+
+#: scripts/poascribe.py:670
+msgctxt "@title:column translated messages"
+msgid "msg/t"
+msgstr "пор/п"
+
+#: scripts/poascribe.py:671 sieve/stats.py:647
+msgctxt "@title:column fuzzy messages"
+msgid "msg/f"
+msgstr "пор/м"
+
+#: scripts/poascribe.py:672 sieve/stats.py:649
+msgctxt "@title:column untranslated messages"
+msgid "msg/u"
+msgstr "пор/н"
+
+#: scripts/poascribe.py:673
+msgctxt "@title:column obsolete translated messages"
+msgid "msg/ot"
+msgstr "пор/зп"
+
+#: scripts/poascribe.py:674
+msgctxt "@title:column obsolete fuzzy messages"
+msgid "msg/of"
+msgstr "пор/зм"
+
+#: scripts/poascribe.py:675
+msgctxt "@title:column obsolete untranslated messages"
+msgid "msg/ou"
+msgstr "пор/зн"
+
+#: scripts/poascribe.py:694
+msgctxt "@title:row number of ascribed messages"
+msgid "ascribed"
+msgstr "приписано"
+
+#: scripts/poascribe.py:698
+msgctxt "@title:row number of unascribed messages"
+msgid "unascribed"
+msgstr "неприписано"
+
+#: scripts/poascribe.py:711 sieve/stats.py:645
+msgctxt "@title:column"
+msgid "catalog"
+msgstr "каталог"
+
+#: scripts/poascribe.py:712
+msgctxt "@title:column state (asc/nasc)"
+msgid "st"
+msgstr "ст"
+
+#: scripts/poascribe.py:722
+msgctxt "@item:intable number of ascribed messages"
+msgid "asc"
+msgstr "прип"
+
+#: scripts/poascribe.py:729
+msgctxt "@item:intable number of unascribed messages"
+msgid "nasc"
+msgstr "нприп"
+
+#: scripts/poascribe.py:761
+#, python-format
+msgctxt "@info:progress"
+msgid "Restoring reviews: %(file)s"
+msgstr "Обнављам прегледе: %(file)s"
+
+#: scripts/poascribe.py:784
+#, python-format
+msgctxt "@info:progress"
+msgid "===== Review elements restored to %(num)d message."
+msgid_plural "===== Review elements restored to %(num)d messages."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+
+#: scripts/poascribe.py:809
+#, python-format
+msgctxt "@info:progress"
+msgid "Ascribing: %(file)s"
+msgstr "Приписујем: %(file)s"
+
+#: scripts/poascribe.py:845
+msgctxt "@title:column number of modified messages"
+msgid "modified"
+msgstr "измењено"
+
+#: scripts/poascribe.py:851
+msgctxt "@title:row number of translated messages"
+msgid "translated"
+msgstr "преведено"
+
+#: scripts/poascribe.py:854
+msgctxt "@title:row number of fuzzy messages"
+msgid "fuzzy"
+msgstr "мутно"
+
+#: scripts/poascribe.py:857
+msgctxt "@title:row number of untranslated messages"
+msgid "untranslated"
+msgstr "непреведено"
+
+#: scripts/poascribe.py:860
+msgctxt "@title:row number of obsolete translated messages"
+msgid "obsolete/t"
+msgstr "застарело-п"
+
+#: scripts/poascribe.py:863
+msgctxt "@title:row number of obsolete fuzzy messages"
+msgid "obsolete/f"
+msgstr "застарело-м"
+
+#: scripts/poascribe.py:866
+msgctxt "@title:row number of obsolete untranslated messages"
+msgid "obsolete/u"
+msgstr "застарело-н"
+
+#: scripts/poascribe.py:870
+msgctxt "@title:column number of reviewed messages"
+msgid "reviewed"
+msgstr "прегледано"
+
+#: scripts/poascribe.py:878
+msgctxt "@info:progress"
+msgid "===== Ascription summary:"
+msgstr "===== Сажетак приписивања:"
+
+#: scripts/poascribe.py:893
+#, python-format
+msgctxt "@info:progress"
+msgid "Diffing for review: %(file)s"
+msgstr "Разликујем за преглед: %(file)s"
+
+#: scripts/poascribe.py:903
+#, python-format
+msgctxt "@info:progress"
+msgid "===== %(num)d message diffed for review."
+msgid_plural "===== %(num)d messages diffed for review."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+
+#: scripts/poascribe.py:912
+#, python-format
+msgctxt "@info:progress"
+msgid "Purging review elements: %(file)s"
+msgstr "Чистим елементе прегледа: %(file)s"
+
+#: scripts/poascribe.py:924
+#, python-format
+msgctxt "@info:progress"
+msgid "===== Review elements purged from %(num)d message."
+msgid_plural "===== Review elements purged from %(num)d messages."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+
+#: scripts/poascribe.py:929
+#, python-format
+msgctxt "@info:progress"
+msgid "===== Review elements purged from %(num)d message (flags kept)."
+msgid_plural "===== Review elements purged from %(num)d messages (flags kept)."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+
+#: scripts/poascribe.py:942
+#, python-format
+msgctxt "@info:progress"
+msgid "Computing histories: %(file)s"
+msgstr "Рачунам историјате: %(file)s"
+
+#: scripts/poascribe.py:952
+#, python-format
+msgctxt "@info:progress"
+msgid "===== Histories computed for %(num)d message."
+msgid_plural "===== Histories computed for %(num)d messages."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+
+#: scripts/poascribe.py:1005
+#, python-format
+msgctxt "@info"
+msgid "Unknown review tags: %(taglist)s."
+msgstr ""
+
+#: scripts/poascribe.py:1185
+msgctxt "@info note on selected message"
+msgid "Selected for review."
+msgstr ""
+
+#: scripts/poascribe.py:1279
+msgctxt "@info:progress"
+msgid "<green>>>> History follows:</green>"
+msgstr ""
+
+#: scripts/poascribe.py:1285
+#, python-format
+msgctxt "@item:intable"
+msgid "<bold>#%(pos)d</bold> modified by %(user)s on %(date)s"
+msgstr ""
+
+#: scripts/poascribe.py:1291
+#, python-format
+msgctxt "@item:intable"
+msgid "<bold>#%(pos)d</bold> reviewed by %(user)s on %(date)s"
+msgstr ""
+
+#: scripts/poascribe.py:1296
+#, python-format
+msgctxt "@item:intable"
+msgid "<bold>#%(pos)d</bold> reviewed (%(tag)s) by %(user)s on %(date)s"
+msgstr ""
+
+#: scripts/poascribe.py:1302
+#, python-format
+msgctxt "@info"
+msgid "Unknown ascription type '%(type)s' found in history."
+msgstr ""
+
+#: scripts/poediff.py:57
+#, python-format
+msgctxt "@info command usage"
+msgid ""
+"%(cmd)s [OPTIONS] FILE1 FILE2\n"
+"%(cmd)s [OPTIONS] DIR1 DIR2\n"
+"%(cmd)s -c VCS [OPTIONS] [PATHS...]"
+msgstr ""
+
+#: scripts/poediff.py:62
+msgctxt "@info command description"
+msgid "Create embedded diffs of PO files."
+msgstr ""
+
+#: scripts/poediff.py:64 scripts/poepatch.py:65 scripts/pomtrans.py:53
+#: scripts/poselfmerge.py:57 lang/sr/scripts/pohybdl.py:40
+#: lang/sr/scripts/traplint.py:453
+#, python-format
+msgctxt "@info command version"
+msgid ""
+"%(cmd)s (Pology) %(version)s\n"
+"Copyright © 2009, 2010 Chusslove Illich (Часлав Илић) &lt;%(email)s&gt;"
+msgstr ""
+
+#: scripts/poediff.py:77
+msgctxt "@info command line option description"
+msgid "Do not diff obsolete messages."
+msgstr ""
+
+#: scripts/poediff.py:80
+msgctxt "@info command line value placeholder"
+msgid "VCS"
+msgstr ""
+
+#: scripts/poediff.py:83
+#, python-format
+msgctxt "@info command line option description"
+msgid ""
+"Paths are under version control by given VCS; can be one of: %(vcslist)s."
+msgstr ""
+
+#: scripts/poediff.py:90 scripts/posieve.py:115
+msgctxt "@info command line option description"
+msgid "List the names of available options."
+msgstr "Наброји имена доступних опција."
+
+#: scripts/poediff.py:95
+msgctxt "@info command line option description"
+msgid "List the keywords of known version control systems."
+msgstr ""
+
+#: scripts/poediff.py:100 scripts/poepatch.py:99
+msgctxt "@info command line option description"
+msgid "Do not try to indirectly pair messages by merging catalogs."
+msgstr ""
+
+#: scripts/poediff.py:103 scripts/poselfmerge.py:80
+msgctxt "@info command line value placeholder"
+msgid "POFILE"
+msgstr ""
+
+#: scripts/poediff.py:106
+msgctxt "@info command line option description"
+msgid "Output diff catalog to a file instead of stdout."
+msgstr ""
+
+#: scripts/poediff.py:111
+msgctxt "@info command line option description"
+msgid ""
+"When two directories are diffed, ignore catalogs which are not present in "
+"both directories."
+msgstr ""
+
+#: scripts/poediff.py:117
+#, python-format
+msgctxt "@info command line option description"
+msgid "Equivalent to %(opt)s."
+msgstr ""
+
+#: scripts/poediff.py:121
+msgctxt "@info command line value placeholder"
+msgid "REV1[:REV2]"
+msgstr ""
+
+#: scripts/poediff.py:124
+msgctxt "@info command line option description"
+msgid ""
+"Revision from which to diff to current working copy, or from first to second "
+"revision (if VCS is given)."
+msgstr ""
+
+#: scripts/poediff.py:130
+msgctxt "@info command line option description"
+msgid ""
+"Do not diff headers and do not write out the top header (resulting output "
+"cannot be used as patch)."
+msgstr ""
+
+#: scripts/poediff.py:162
+#, python-format
+msgctxt "@info"
+msgid "Unknown VCS '%(vcs)s' selected."
+msgstr ""
+
+#: scripts/poediff.py:171
+msgctxt "@info"
+msgid "Exactly two paths are needed for diffing."
+msgstr ""
+
+#: scripts/poediff.py:180
+msgctxt "@info"
+msgid "Both paths must be either files or directories."
+msgstr ""
+
+#: scripts/poediff.py:191
+#, python-format
+msgctxt "@info"
+msgid "Path '%(path)s' is not under version control."
+msgstr ""
+
+#: scripts/poediff.py:206
+#, python-format
+msgctxt "@info"
+msgid "Too many revisions given: %(revlist)s."
+msgstr ""
+
+#: scripts/poediff.py:277
+#, python-format
+msgctxt "@info"
+msgid "Cannot parse catalog '%(file)s'."
+msgstr "Не могу да рашчланим каталог ‘%(file)s’."
+
+#: scripts/poediff.py:726
+msgctxt "@info"
+msgid "Internal problem with path collection (200)."
+msgstr "Унутрашњи проблем са збирком путања (200)."
+
+#: scripts/poediff.py:753
+#, python-format
+msgctxt "@info"
+msgid "Cannot export path '%(path)s' in revision '%(rev)s'."
+msgstr ""
+
+#: scripts/poepatch.py:59
+#, python-format
+msgctxt "@info command usage"
+msgid ""
+"%(cmd)s [OPTIONS] [OPTIONS] &lt; EDIFF\n"
+"%(cmd)s -u [OPTIONS] PATHS..."
+msgstr ""
+
+#: scripts/poepatch.py:63
+msgctxt "@info command description"
+msgid "Apply embedded diff of PO files as patch."
+msgstr ""
+
+#: scripts/poepatch.py:75
+msgctxt "@info command line option description"
+msgid ""
+"Apply every message to its paired message in the target file, irrespective "
+"of whether its non-pairing parts match too."
+msgstr ""
+
+#: scripts/poepatch.py:79
+msgctxt "@info command line value placeholder"
+msgid "DIR"
+msgstr ""
+
+#: scripts/poepatch.py:82
+msgctxt "@info command line option description"
+msgid "Prepend this directory path to any resolved target file path."
+msgstr ""
+
+#: scripts/poepatch.py:87
+msgctxt "@info command line option description"
+msgid ""
+"Instead of applying resolved newer version of the message, add the full "
+"embedded diff into the target file."
+msgstr ""
+
+#: scripts/poepatch.py:94
+msgctxt "@info command line option description"
+msgid "Read the patch from the given file instead of standard input."
+msgstr ""
+
+#: scripts/poepatch.py:102
+msgctxt "@info command line value placeholder"
+msgid "NUM"
+msgstr ""
+
+#: scripts/poepatch.py:105
+msgctxt "@info command line option description"
+msgid ""
+"Strip the smallest prefix containing NUM leading slashes from each file name "
+"found in the ediff file (like in patch(1)). If not given, only the base name "
+"of each file is taken."
+msgstr ""
+
+#: scripts/poepatch.py:112
+msgctxt "@info command line option description"
+msgid ""
+"Instead of applying a patch, resolve all embedded differences in given paths "
+"to newer versions of messages."
+msgstr ""
+
+#: scripts/poepatch.py:127
+#, python-format
+msgctxt "@info"
+msgid "Too many arguments in command line: %(argspec)s"
+msgstr ""
+
+#: scripts/poepatch.py:131
+#, python-format
+msgctxt "@info"
+msgid "Option %(opt)s expects a positive integer value."
+msgstr ""
+
+#: scripts/poepatch.py:156
+#, python-format
+msgctxt "@info"
+msgid "Path '%(path)s' is not a file or does not exist."
+msgstr "Путања ‘%(path)s’ није датотека или не постоји."
+
+#: scripts/poepatch.py:167
+#, python-format
+msgctxt "@info ediff is shorthand for \"embedded difference\""
+msgid "Error reading ediff '%(file)s'."
+msgstr "Грешка при читању у-разлике ‘%(file)s’."
+
+#: scripts/poepatch.py:175
+#, python-format
+msgctxt "@info"
+msgid "Header field '%(field)s' is missing in the ediff."
+msgstr ""
+
+#: scripts/poepatch.py:232
+#, python-format
+msgctxt "@info"
+msgid "Path '%(path)s' is not a file or does not exist, skipping it."
+msgstr ""
+
+#: scripts/poepatch.py:240 scripts/poepatch.py:253 scripts/poepatch.py:755
+#, python-format
+msgctxt "@info"
+msgid "Error reading catalog '%(file)s', skipping it."
+msgstr ""
+
+#: scripts/poepatch.py:257
+#, python-format
+msgctxt "@info"
+msgid "Cannot create catalog '%(file)s', skipping it."
+msgstr "Не могу да створим каталог ‘%(file)s’, прескачем."
+
+#: scripts/poepatch.py:262
+msgctxt "@info"
+msgid "Both catalogs in ediff indicated not to exist."
+msgstr ""
+
+#: scripts/poepatch.py:268
+#, python-format
+msgctxt "@info"
+msgid "Catalog '%(file)s' already contains embedded differences, skipping it."
+msgstr ""
+
+#: scripts/poepatch.py:278
+#, python-format
+msgctxt "@info"
+msgid ""
+"Patch for catalog '%(file)s' contains unresolved split differences, skipping "
+"it."
+msgstr ""
+
+#: scripts/poepatch.py:293
+#, python-format
+msgctxt "@info:progress E is for \"with embedding\""
+msgid "Partially patched (E): %(file)s"
+msgstr ""
+
+#: scripts/poepatch.py:297
+#, python-format
+msgctxt "@info:progress"
+msgid "Partially patched: %(file)s"
+msgstr "Делимично закрпљена: %(file)s"
+
+#: scripts/poepatch.py:301
+#, python-format
+msgctxt "@info:progress E is for \"with embedding\""
+msgid "Patched (E): %(file)s"
+msgstr "Закрпљена (У): %(file)s"
+
+#: scripts/poepatch.py:305
+#, python-format
+msgctxt "@info:progress"
+msgid "Patched: %(file)s"
+msgstr "Закрпљена: %(file)s"
+
+#: scripts/poepatch.py:310
+#, python-format
+msgctxt "@info:progress E is for \"with embedding\""
+msgid "Created (E): %(file)s"
+msgstr "Створена (У): %(file)s"
+
+#: scripts/poepatch.py:314
+#, python-format
+msgctxt "@info:progress"
+msgid "Created: %(file)s"
+msgstr "Створена: %(file)s"
+
+#: scripts/poepatch.py:321
+#, python-format
+msgctxt "@info:progress"
+msgid "Removed: %(file)s"
+msgstr "Уклоњена: %(file)s"
+
+#: scripts/poepatch.py:358
+#, python-format
+msgctxt ""
+"@info:progress file to which rejected parts of the patch have been written to"
+msgid "*** Rejects: %(file)s"
+msgstr "*** Одбачено: %(file)s"
+
+#: scripts/poepatch.py:439
+#, python-format
+msgctxt "@info"
+msgid "Unknown patch type %(type)s."
+msgstr ""
+
+#: scripts/poepatch.py:490
+msgctxt "@info"
+msgid "Neither the old nor the new message in the diff is indicated to exist."
+msgstr ""
+
+#: scripts/poepatch.py:781
+#, python-format
+msgctxt "@info"
+msgid ""
+"Unembedding results in duplicate header, previous header at %(line)d(#%"
+"(entry)d); skipping it."
+msgstr ""
+
+#: scripts/poepatch.py:800
+#, python-format
+msgctxt "@info"
+msgid ""
+"Unembedding results in duplicate message, previous message at %(line)d(#%"
+"(entry)d); skipping it."
+msgstr ""
+
+#: scripts/poepatch.py:813
+#, python-format
+msgctxt "@info:progress"
+msgid "Unembedded: %(file)s"
+msgstr "Разугнежђена: %(file)s"
+
+#: scripts/pomtrans.py:48
+#, python-format
+msgctxt "@info command usage"
+msgid "%(cmd)s [OPTIONS] TRANSERV PATHS..."
+msgstr ""
+
+#: scripts/pomtrans.py:51
+msgctxt "@info command description"
+msgid "Perform machine translation of PO files."
+msgstr ""
+
+#: scripts/pomtrans.py:61
+msgctxt "@info command line value placeholder"
+msgid "CHAR"
+msgstr ""
+
+#: scripts/pomtrans.py:63
+msgctxt "@info command line option description"
+msgid ""
+"Accelerator marker character used in messages. Detected from catalogs if not "
+"given."
+msgstr ""
+
+#: scripts/pomtrans.py:69
+msgctxt "@info command line option description"
+msgid ""
+"Translate from translation to another language, found in compendium file at "
+"the given path."
+msgstr ""
+
+#: scripts/pomtrans.py:79
+#, python-format
+msgctxt "@info command line option description"
+msgid "Add '%(flag)s' flag to translated messages."
+msgstr ""
+
+#: scripts/pomtrans.py:83
+msgctxt "@info command line value placeholder"
+msgid "MODE"
+msgstr ""
+
+#: scripts/pomtrans.py:85
+msgctxt "@info command line option description"
+msgid ""
+"Translation mode for the chosen translation service. Overrides the default "
+"translation mode constructed based on source and target language. Mode "
+"string format is translation service dependent."
+msgstr ""
+
+#: scripts/pomtrans.py:93
+#, python-format
+msgctxt "@info command line option description"
+msgid "Do not add '%(flag)s' flag to translated messages."
+msgstr ""
+
+#: scripts/pomtrans.py:97
+msgctxt "@info command line value placeholder"
+msgid "SEARCH:REPLACE"
+msgstr ""
+
+#: scripts/pomtrans.py:99
+msgctxt "@info command line option description"
+msgid ""
+"Translate from translation to another language found in parallel catalogs. "
+"For given target catalog path, the path to parallel catalog is constructed "
+"by replacing once SEARCH with REPLACE."
+msgstr ""
+
+#: scripts/pomtrans.py:105 scripts/pomtrans.py:111
+msgctxt "@info command line value placeholder"
+msgid "LANG"
+msgstr ""
+
+#: scripts/pomtrans.py:107
+msgctxt "@info command line option description"
+msgid "Source language code. Detected from catalogs if not given."
+msgstr ""
+
+#: scripts/pomtrans.py:113
+msgctxt "@info command line option description"
+msgid "Target language code. Detected from catalogs if not given."
+msgstr ""
+
+#: scripts/pomtrans.py:117
+msgctxt "@info command line value placeholder"
+msgid "PATH"
+msgstr ""
+
+#: scripts/pomtrans.py:119
+msgctxt "@info command line option description"
+msgid "Custom path to translation service executable (where applicable)."
+msgstr ""
+
+#: scripts/pomtrans.py:137
+msgctxt "@info"
+msgid "Translation service not specified."
+msgstr ""
+
+#: scripts/pomtrans.py:141
+#, python-format
+msgctxt "@info"
+msgid "Translation service '%(serv)s' not known."
+msgstr ""
+
+#: scripts/pomtrans.py:181 scripts/pomtrans.py:275
+#, python-format
+msgctxt "@info"
+msgid "Translation service failure on '%(file)s'."
+msgstr ""
+
+#: scripts/pomtrans.py:214
+#, python-format
+msgctxt "@info"
+msgid "Compendium '%(file)s' does not exist."
+msgstr "Зборник ‘%(file)s’ не постоји."
+
+#: scripts/pomtrans.py:222
+#, python-format
+msgctxt "@info"
+msgid "Invalid search and replace specification '%(spec)s'."
+msgstr ""
+
+#: scripts/pomtrans.py:235
+#, python-format
+msgctxt "@info"
+msgid "Parallel catalog and target catalog are same files for '%(file)s'."
+msgstr ""
+
+#: scripts/pomtrans.py:325
+#, python-format
+msgctxt "@info"
+msgid "Cannot determine language of source catalog '%(file)s'."
+msgstr "Не могу да одредим језик изворног каталога ‘%(file)s’."
+
+#: scripts/pomtrans.py:331
+#, python-format
+msgctxt "@info"
+msgid "Cannot determine language of target catalog '%(file)s'."
+msgstr "Не могу да одредим језик циљног каталога ‘%(file)s’."
+
+#: scripts/pomtrans.py:360
+#, python-format
+msgctxt "@info Apertium is machine translation software"
+msgid "Apertium executable not found at '%(path)s'."
+msgstr ""
+
+#: scripts/pomtrans.py:396
+#, python-format
+msgctxt "@info"
+msgid ""
+"Executing Apertium failed:\n"
+"%(output)s"
+msgstr ""
+
+#: scripts/pomtrans.py:404
+#, python-format
+msgctxt "@info"
+msgid ""
+"Apertium reported wrong number of translations, %(num1)d instead of %(num2)d."
+msgstr ""
+
+#: scripts/pomtrans.py:439
+#, python-format
+msgctxt "@info"
+msgid ""
+"Python module '%(mod)s' not available. Try installing the '%(pkg)s' package."
+msgstr ""
+
+#: scripts/porewrap.py:41 scripts/poselfmerge.py:51
+#, python-format
+msgctxt "@info command usage"
+msgid "%(cmd)s [options] POFILE..."
+msgstr ""
+
+#: scripts/porewrap.py:44
+msgctxt "@info command description"
+msgid "Rewrap message strings in PO files."
+msgstr ""
+
+#: scripts/porewrap.py:46 scripts/posieve.py:68 scripts/posummit.py:64
+#, python-format
+msgctxt "@info command version"
+msgid ""
+"%(cmd)s (Pology) %(version)s\n"
+"Copyright © 2007, 2008, 2009, 2010 Chusslove Illich (Часлав Илић) &lt;%"
+"(email)s&gt;"
+msgstr ""
+
+#: scripts/porewrap.py:56 scripts/poselfmerge.py:89
+msgctxt "@info command line option description"
+msgid "More detailed progress information."
+msgstr "Детаљније информације о напретку."
+
+#: scripts/porewrap.py:63 scripts/poselfmerge.py:110
+msgctxt "@info"
+msgid "No input files given."
+msgstr ""
+
+#: scripts/porewrap.py:81
+#, python-format
+msgctxt "@info:progress"
+msgid "Rewrapping: %(file)s"
+msgstr "Преламам: %(file)s"
+
+#: scripts/porewrap.py:95
+msgctxt "@info command line option description"
+msgid "Basic wrapping: on colum count."
+msgstr ""
+
+#: scripts/porewrap.py:100
+msgctxt "@info command line option description"
+msgid "No basic wrapping."
+msgstr ""
+
+#: scripts/porewrap.py:105
+msgctxt "@info command line option description"
+msgid "Fine wrapping: on logical breaks, like some markup tags."
+msgstr ""
+
+#: scripts/porewrap.py:110
+msgctxt "@info command line option description"
+msgid "No fine wrapping."
+msgstr ""
+
+#: scripts/poselfmerge.py:54
+msgctxt "@info command description"
+msgid ""
+"Merge PO file with itself or compendium, to produce fuzzy matches on similar "
+"messages."
+msgstr ""
+
+#: scripts/poselfmerge.py:68
+msgctxt "@info command line option description"
+msgid ""
+"On fuzzy matches, the minimum adjusted similarity to accept the match, or "
+"else the message is left untranslated. Range is 0.0-1.0, where 0 means "
+"always to accept the match, and 1 never to accept; a practical range is 0.6-"
+"0.8."
+msgstr ""
+
+#: scripts/poselfmerge.py:76
+msgctxt "@info command line option description"
+msgid ""
+"Before merging, clear those fuzzy messages whose predecessor (determined by "
+"previous fields) is still in the catalog."
+msgstr ""
+
+#: scripts/poselfmerge.py:83
+msgctxt "@info command line option description"
+msgid ""
+"Catalog with existing translations, to additionally use for direct and fuzzy "
+"matches. Can be repeated."
+msgstr ""
+
+#: scripts/poselfmerge.py:92
+msgctxt "@info command line value placeholder"
+msgid "NUMBER"
+msgstr ""
+
+#: scripts/poselfmerge.py:95
+msgctxt "@info command line option description"
+msgid ""
+"When using compendium, in case of exact match, minimum number of words that "
+"original text must have to accept translation without making it fuzzy. Zero "
+"means to always accept an exact match."
+msgstr ""
+
+#: scripts/poselfmerge.py:103
+msgctxt "@info command line option description"
+msgid "When using compendium, make all exact matches fuzzy."
+msgstr ""
+
+#: scripts/poselfmerge.py:124
+#, python-format
+msgctxt "@info"
+msgid ""
+"Value to option %(opt)s must be an integer number, given '%(val)s' instead."
+msgstr ""
+
+#: scripts/poselfmerge.py:131
+#, python-format
+msgctxt "@info"
+msgid "Value to option %(opt)s must be a real number, given '%(val)s' instead."
+msgstr ""
+
+#: scripts/poselfmerge.py:144
+#, python-format
+msgctxt "@info:progress"
+msgid "Self-merging: %(file)s"
+msgstr "Самостапам: %(file)s"
+
+#: scripts/posieve.py:58
+#, python-format
+msgctxt "@info command usage"
+msgid "%(cmd)s [OPTIONS] SIEVE [POPATHS...]"
+msgstr ""
+
+#: scripts/posieve.py:61
+msgctxt "@info command description"
+msgid ""
+"Apply sieves to PO paths, which may be either single PO files or directories "
+"to search recursively for PO files. Some of the sieves only examine PO "
+"files, while others modify them as well. The first non-option argument is "
+"the sieve name; a list of several comma-separated sieves can be given too."
+msgstr ""
+
+#: scripts/posieve.py:78
+msgctxt "@info command line option description"
+msgid "Announce that header or message is just about to be sieved."
+msgstr ""
+
+#: scripts/posieve.py:83
+msgctxt "@info command line option description"
+msgid "Do not sieve obsolete messages."
+msgstr ""
+
+#: scripts/posieve.py:88
+#, python-format
+msgctxt "@info command line option description"
+msgid "Check catalogs by %(cmd)s and skip those which do not pass."
+msgstr ""
+
+#: scripts/posieve.py:94
+msgctxt "@info command line option description"
+msgid "Force rewriting of all messages, whether modified or not."
+msgstr ""
+
+#: scripts/posieve.py:99
+msgctxt "@info command line option description"
+msgid "Show help for applied sieves."
+msgstr "Прикажи помоћ за примењена сита."
+
+#: scripts/posieve.py:104
+msgctxt "@info command line option description"
+msgid ""
+"Show all issued sieve parameters (from command line and user configuration)."
+msgstr ""
+
+#: scripts/posieve.py:110
+msgctxt "@info command line option description"
+msgid "List available internal sieves."
+msgstr "Наброји доступна унутрашња сита."
+
+#: scripts/posieve.py:120
+msgctxt "@info command line option description"
+msgid "List the names of available internal sieves."
+msgstr "Наброји имена доступних унутрашњих сита."
+
+#: scripts/posieve.py:125
+msgctxt "@info command line option description"
+msgid "List the parameters known to issued sieves."
+msgstr "Наброји параметре познате издатим ситима."
+
+#: scripts/posieve.py:131
+msgctxt "@info command line option description"
+msgid "Output names of modified files into FILE."
+msgstr ""
+
+#: scripts/posieve.py:136
+msgctxt "@info command line option description"
+msgid "Do not try to skip catalogs which signal errors."
+msgstr ""
+
+#: scripts/posieve.py:141
+msgctxt "@info command line option description"
+msgid "Do not write any modifications to catalogs."
+msgstr ""
+
+#: scripts/posieve.py:146
+msgctxt "@info command line option description"
+msgid ""
+"Do not display any progress info (does not influence sieves themselves)."
+msgstr ""
+
+#: scripts/posieve.py:150 scripts/posieve.py:156
+msgctxt "@info command line value placeholder"
+msgid "NAME[:VALUE]"
+msgstr ""
+
+#: scripts/posieve.py:153
+msgctxt "@info command line option description"
+msgid "Pass a parameter to sieves."
+msgstr ""
+
+#: scripts/posieve.py:159
+msgctxt "@info command line option description"
+msgid ""
+"Remove a parameter to sieves (e.g. if it was issued through user "
+"configuration)."
+msgstr "Уклони параметар сита (нпр. када је издат кроз корисничку поставу)."
+
+#: scripts/posieve.py:165
+msgctxt "@info command line option description"
+msgid "Output more detailed progress information."
+msgstr "Исписуј детаљније информације о напретку."
+
+#: scripts/posieve.py:177
+msgctxt "@info"
+msgid "No sieve to apply given."
+msgstr ""
+
+#: scripts/posieve.py:242
+#, python-format
+msgctxt "@info"
+msgid "Cannot load sieve '%(file)s'."
+msgstr "Не могу учитам сито ‘%(file)s’."
+
+#: scripts/posieve.py:253
+#, python-format
+msgctxt "@info"
+msgid "Module '%(file)s' does not define %(classname)s class."
+msgstr "Модул ‘%(file)s’ не дефинише класу %(classname)s."
+
+#: scripts/posieve.py:270
+msgctxt "@info"
+msgid "Available internal sieves:"
+msgstr "Доступна унутрашња сита:"
+
+#: scripts/posieve.py:280
+msgctxt "@info"
+msgid "Help for sieves:"
+msgstr "Помоћ за сита:"
+
+#: scripts/posieve.py:319
+#, python-format
+msgctxt "@info"
+msgid "Parameters not accepted by any of issued subcommands: %(paramlist)s."
+msgstr ""
+
+#: scripts/posieve.py:363
+msgctxt "@info:progress"
+msgid "--> Not monitoring messages."
+msgstr "--> Не надгледам поруке."
+
+#: scripts/posieve.py:376
+msgctxt "@info:progress"
+msgid "--> Not syncing after sieving."
+msgstr "--> Не синхронизујем после просејавања."
+
+#: scripts/posieve.py:393
+msgctxt "@info:progress"
+msgid "--> Opening catalogs in header-only mode."
+msgstr "--> Отварам каталоге у режиму само-заглавље."
+
+#: scripts/posieve.py:416
+#, python-format
+msgctxt "@info:progress"
+msgid "Sieving: %(file)s"
+msgstr "Просејавам: %(file)s"
+
+#: scripts/posieve.py:422
+#, python-format
+msgctxt "@info:progress"
+msgid "Sieving %(file)s..."
+msgstr "Просејавам %(file)s..."
+
+#: scripts/posieve.py:432
+#, python-format
+msgctxt "@info:progress"
+msgid ""
+"%(file)s: %(cmd)s check failed:\n"
+"%(msg)s"
+msgstr ""
+"%(file)s: неуспешна провера %(cmd)s:\n"
+"%(msg)s"
+
+#: scripts/posieve.py:436
+msgctxt "@info:progress"
+msgid "Skipping catalog due to syntax check failure."
+msgstr "Прескачем каталог због неуспешне провере синтаксе."
+
+#: scripts/posieve.py:443
+#, python-format
+msgctxt "@info:progress"
+msgid "%(file)s: Parsing failed: %(msg)s"
+msgstr "%(file)s: Неуспешно рашчлањивање: %(msg)s"
+
+#: scripts/posieve.py:446
+msgctxt "@info:progress"
+msgid "Skipping catalog due to parsing failure."
+msgstr "Прескачем каталог због неуспешног рашчлањивања."
+
+#: scripts/posieve.py:453
+#, python-format
+msgctxt "@info:progress"
+msgid "Sieving header of %(file)s..."
+msgstr "Просејавам заглавље у %(file)s..."
+
+#: scripts/posieve.py:459 scripts/posieve.py:465
+#, python-format
+msgctxt "@info:progress"
+msgid "%(file)s:header: Sieving failed: %(msg)s"
+msgstr "%(file)s:заглавље: Неуспешно просејавање: %(msg)s"
+
+#: scripts/posieve.py:471
+msgctxt "@info:progress"
+msgid "Skipping catalog due to header sieving failure."
+msgstr "Прескачем каталог због неуспешног просејавања заглавља."
+
+#: scripts/posieve.py:486
+#, python-format
+msgctxt "@info:progress"
+msgid "Sieving %(file)s:%(line)d(#%(entry)d)..."
+msgstr "Просејавам %(file)s:%(line)d(#%(entry)d)..."
+
+#: scripts/posieve.py:494 scripts/posieve.py:499 scripts/posieve.py:505
+#, python-format
+msgctxt "@info:progress"
+msgid "Sieving failed: %(msg)s"
+msgstr "Неуспешно просејавање: %(msg)s"
+
+#: scripts/posieve.py:513
+msgctxt "@info:progress"
+msgid "Skipping catalog due to message sieving failure."
+msgstr "Прескачем каталог због неуспешног просејавања поруке."
+
+#: scripts/posieve.py:519
+#, python-format
+msgctxt "@info:progress"
+msgid "Sieving header (after messages) in %(file)s..."
+msgstr "Просејавам заглавље (после порука) у %(file)s..."
+
+#: scripts/posieve.py:526 scripts/posieve.py:533
+#, python-format
+msgctxt "@info:progress"
+msgid "%(file)s:header: Sieving (after messages) failed: %(msg)s"
+msgstr "%(file)s:заглавље: Неуспешно просејавање (после порука): %(msg)s"
+
+#: scripts/posieve.py:540
+msgctxt "@info:progress"
+msgid "Skipping catalog due to header sieving (after messages) failure."
+msgstr "Прескачем каталог због неуспешног просејавања заглавља (после порука)."
+
+#: scripts/posieve.py:548
+#, python-format
+msgctxt "@info:progress leading ! is a shorthand state indicator"
+msgid "! (MODIFIED) %(file)s"
+msgstr "! (ИЗМЕЊЕНА) %(file)s"
+
+#: scripts/posieve.py:553
+#, python-format
+msgctxt "@info:progress leading ! is a shorthand state indicator"
+msgid "! %(file)s"
+msgstr "! %(file)s"
+
+#: scripts/posieve.py:566
+#, python-format
+msgctxt "@info:progress"
+msgid "Finalization failed: %(msg)s"
+msgstr "Неуспешна финализација: %(msg)s"
+
+#: scripts/posummit.py:54
+#, python-format
+msgctxt "@info command usage"
+msgid ""
+"\n"
+"  %(cmd)s [OPTIONS] CFGFILE LANG OPMODE [PARTIAL...]\n"
+"    (if there is no '%(cfgfile)s' file in a parent directory)\n"
+"  %(cmd)s [OPTIONS] OPMODE [PARTIAL...]\n"
+"    (if there is a '%(cfgfile)s' file in a parent directory)"
+msgstr ""
+
+#: scripts/posummit.py:61
+msgctxt "@info command description"
+msgid ""
+"Translate PO files spread across different branches in a unified fashion."
+msgstr ""
+
+#: scripts/posummit.py:74
+msgctxt "@info command line option description"
+msgid "Apply a non-default ascription filter on scatter."
+msgstr ""
+
+#: scripts/posummit.py:79
+msgctxt "@info command line option description"
+msgid "Allow creation of new summit catalogs."
+msgstr ""
+
+#: scripts/posummit.py:84
+msgctxt "@info command line option description"
+msgid "Force some operations that are normally not advised."
+msgstr ""
+
+#: scripts/posummit.py:89
+msgctxt "@info command line option description"
+msgid "Output less detailed progress info."
+msgstr "Исписуј мање детаљне информације о напретку."
+
+#: scripts/posummit.py:94
+msgctxt "@info command line option description"
+msgid "Output more detailed progress info"
+msgstr "Исписуј детаљније информације о напретку."
+
+#: scripts/posummit.py:120
+#, python-format
+msgctxt "@info"
+msgid ""
+"Summit configuration file neither found as '%(cfgfile)s' in parent "
+"directories, nor given in command line."
+msgstr ""
+"Датотека поставе самита нити је нађен као ‘%(cfgfile)s’ у родитељским "
+"директоријумима, нити је дат у командној линији."
+
+#: scripts/posummit.py:127
+#, python-format
+msgctxt "@info"
+msgid "Summit configuration file '%(file)s' does not exist."
+msgstr "Датотека поставе самита ‘%(file)s’ не постоји."
+
+#: scripts/posummit.py:132
+msgctxt "@info"
+msgid "Language code not given."
+msgstr ""
+
+#: scripts/posummit.py:146
+#, python-format
+msgctxt "@info"
+msgid "Unknown operation mode '%(mode)s'."
+msgstr "Непознат режим рада ‘%(mode)s’."
+
+#: scripts/posummit.py:172
+msgctxt "@info"
+msgid "Language code not set in configuration file."
+msgstr ""
+
+#: scripts/posummit.py:228
+#, python-format
+msgctxt "@info:progress"
+msgid "-----> Processing mode: %(mode)s"
+msgstr ""
+
+#: scripts/posummit.py:317
+#, python-format
+msgctxt "@info"
+msgid "Unknown summit configuration field '%(field)s'."
+msgstr ""
+
+#: scripts/posummit.py:342
+#, python-format
+msgctxt "@info"
+msgid "Circular inclusion of '%(file)s' attempted in summit configuration."
+msgstr ""
+
+#: scripts/posummit.py:367
+#, python-format
+msgctxt "@info"
+msgid "Unknown keys in summit configuration: %(keylist)s."
+msgstr ""
+
+#: scripts/posummit.py:372
+msgctxt "@info"
+msgid "Top directory not set in summit configuration."
+msgstr ""
+
+#: scripts/posummit.py:407
+#, python-format
+msgctxt "@info"
+msgid ""
+"Invalid regular expression '%(regex)s' in include-exclude specification of "
+"branch '%(branch)s'."
+msgstr ""
+
+#: scripts/posummit.py:422
+#, python-format
+msgctxt "@info"
+msgid ""
+"Invalid test type '%(type)s' in include-exclude specification of branch '%"
+"(branch)s'."
+msgstr ""
+
+#: scripts/posummit.py:444
+#, python-format
+msgctxt "@info"
+msgid "Unknown keys in specification of branch '%(branch)s': %(keylist)s."
+msgstr ""
+
+#: scripts/posummit.py:454
+msgctxt "@info"
+msgid "Branch with undefined ID."
+msgstr ""
+
+#: scripts/posummit.py:457
+#, python-format
+msgctxt "@info"
+msgid "Non-unique branch ID '%(branch)s'."
+msgstr ""
+
+#: scripts/posummit.py:462
+#, python-format
+msgctxt "@info"
+msgid "Top directory not set for branch '%(branch)s'."
+msgstr ""
+
+#: scripts/posummit.py:533
+#, python-format
+msgctxt "@info"
+msgid "Unknown type of definition for ascription filter '%(filt)s'."
+msgstr ""
+
+#: scripts/posummit.py:540
+#, python-format
+msgctxt "@info"
+msgid "Summit configuration does not define ascription filter '%(filt)s'."
+msgstr ""
+
+#: scripts/posummit.py:557
+#, python-format
+msgctxt "@info"
+msgid ""
+"Non-unique summit catalog '%(name)s', found as:\n"
+"%(filelist)s"
+msgstr ""
+""
+
+#: scripts/posummit.py:824
+#, python-format
+msgctxt "@info"
+msgid ""
+"Some branch catalogs have no associated summit catalog (expected summit path "
+"given):\n"
+"%(filelist)s"
+msgstr ""
+"Неки грански каталози немају придружен ниједан самитни (наведена очекивана "
+"путања у самиту):\n"
+"%(filelist)s"
+
+#: scripts/posummit.py:832
+#, python-format
+msgctxt "@info"
+msgid ""
+"Some summit catalogs have no associated branch catalogs:\n"
+"%(filelist)s"
+msgstr ""
+"Неки самитни каталози немају придружен ниједан грански:\n"
+"%(filelist)s"
+
+#: scripts/posummit.py:840
+#, python-format
+msgctxt "@info"
+msgid ""
+"Some summit catalogs should be moved to another subdirectory:\n"
+"%(filelist)s"
+msgstr ""
+"Неке самитне каталоге треба преместити у други поддиректоријум:\n"
+"%(filelist)s"
+
+#: scripts/posummit.py:846
+#, python-format
+msgctxt "@info"
+msgid ""
+"Halting because catalog creation is not allowed (consider issuing %(opt)s "
+"option)."
+msgstr ""
+
+#: scripts/posummit.py:862
+#, python-format
+msgctxt "@info"
+msgid "Non-PO file '%(file)s' given as catalog."
+msgstr ""
+
+#: scripts/posummit.py:911
+#, python-format
+msgctxt "@info"
+msgid "Path '%(path)s' is not covered by the summit configuration."
+msgstr ""
+
+#: scripts/posummit.py:947
+#, python-format
+msgctxt "@info"
+msgid "Branch '%(branch)s' is not defined in the summit configuration."
+msgstr ""
+
+#: scripts/posummit.py:1023
+#, python-format
+msgctxt "@info"
+msgid ""
+"Gathering catalogs is normally not allowed in summit-over-static-templates "
+"mode. If this is the initial creation of summit catalogs, or externally "
+"injected branch catalogs need to be gathered, run with options %(opts)s."
+msgstr ""
+
+#: scripts/posummit.py:1032
+#, python-format
+msgctxt "@info"
+msgid ""
+"Gathering templates is superfluous in summit-over-templates mode. If this is "
+"done to check whether gathering works, to supress this message run with "
+"option %(opt)s."
+msgstr ""
+
+#: scripts/posummit.py:1047
+#, python-format
+msgctxt "@info:progress"
+msgid "Gathering: %(file)s"
+msgstr "Сакупљам: %(file)s"
+
+#: scripts/posummit.py:1054
+#, python-format
+msgctxt "@info:progress"
+msgid "Gathering %(file)s..."
+msgstr "Сакупљам %(file)s..."
+
+#: scripts/posummit.py:1065
+#, python-format
+msgctxt "@info"
+msgid "Scattering not possible on '%(lang)s' in summit-over-templates mode."
+msgstr ""
+
+#: scripts/posummit.py:1107
+#, python-format
+msgctxt "@info"
+msgid "Missing necessary summit catalogs: %(namelist)s."
+msgstr ""
+
+#: scripts/posummit.py:1116
+#, python-format
+msgctxt "@info:progress"
+msgid "Scattering: %(file)s"
+msgstr "Расипам: %(file)s"
+
+#: scripts/posummit.py:1124
+#, python-format
+msgctxt "@info:progress"
+msgid "Scattering %(file)s..."
+msgstr "Расипам %(file)s..."
+
+#: scripts/posummit.py:1132
+#, python-format
+msgctxt "@info:progress"
+msgid "Applying post-hook to branch %(branch)s..."
+msgstr ""
+
+#: scripts/posummit.py:1142
+#, python-format
+msgctxt "@info"
+msgid "Merging not possible on '%(lang)s' in summit-over-templates mode."
+msgstr ""
+
+#: scripts/posummit.py:1174
+#, python-format
+msgctxt "@info"
+msgid "No template for summit catalog '%(file)s'."
+msgstr "Нема шаблона за самитни каталог ‘%(file)s’."
+
+#: scripts/posummit.py:1208
+#, python-format
+msgctxt "@info"
+msgid "No template for branch catalog '%(file)s'."
+msgstr "Нема шаблона за грански каталог ‘%(file)s’."
+
+#: scripts/posummit.py:1218
+#, python-format
+msgctxt "@info"
+msgid "No exact template for branch catalog '%(file)s'."
+msgstr "Нема тачног шаблона за грански каталог ‘%(file)s’."
+
+#: scripts/posummit.py:1232
+#, python-format
+msgctxt "@info:progress"
+msgid "Merging: %(file)s"
+msgstr "Стапам: %(file)s"
+
+#: scripts/posummit.py:1239
+#, python-format
+msgctxt "@info:progress"
+msgid "Merging %(file)s..."
+msgstr "Стапам %(file)s..."
+
+#: scripts/posummit.py:1270
+msgctxt "@item:intext action performed on a catalog"
+msgid "depends"
+msgstr ""
+
+#: scripts/posummit.py:1311
+#, python-format
+msgctxt "@info"
+msgid "No catalogs in subdirectory '%(dir)s' of branch '%(branch)s'."
+msgstr ""
+
+#: scripts/posummit.py:1328 scripts/posummit.py:1453
+#, python-format
+msgctxt "@info"
+msgid "No catalog named '%(name)s' in branch '%(branch)s'."
+msgstr ""
+
+#: scripts/posummit.py:1372 scripts/posummit.py:1425
+#, python-format
+msgctxt "@info"
+msgid "No summit catalog named '%(name)s'."
+msgstr "Нема самитног каталога по имену ‘%(name)s’."
+
+#: scripts/posummit.py:1418
+#, python-format
+msgctxt "@info"
+msgid "No summit directory named '%(name)s'."
+msgstr ""
+
+#: scripts/posummit.py:1445
+#, python-format
+msgctxt "@info"
+msgid "No directory named '%(name)s' in branch '%(branch)s'."
+msgstr ""
+
+#: scripts/posummit.py:1500
+msgctxt "@info"
+msgid "Phony gather on summit catalog which is to be removed."
+msgstr ""
+
+#: scripts/posummit.py:1506
+#, python-format
+msgctxt "@info"
+msgid "Cannot remove '%(path)s' from version control."
+msgstr ""
+
+#: scripts/posummit.py:1513
+#, python-format
+msgctxt "@info"
+msgid "Cannot remove '%(path)s' from disk."
+msgstr ""
+
+#: scripts/posummit.py:1519
+msgctxt "@item:intext action performed on a catalog"
+msgid "gathered-removed"
+msgstr ""
+
+#: scripts/posummit.py:1710 scripts/posummit.py:2333 scripts/posummit.py:2768
+#, python-format
+msgctxt "@info"
+msgid "Cannot add '%(file)s' to version control."
+msgstr "Не могу да додам ‘%(file)s’ под управљање верзијама."
+
+#: scripts/posummit.py:1720
+#, python-format
+msgctxt "@info"
+msgid "Cannot move '%(srcfile)s' to '%(dstfile)s'."
+msgstr "Не могу да преместим ‘%(srcfile)s’ на ‘%(dstfile)s’."
+
+#: scripts/posummit.py:1735
+msgctxt "@item:intext action performed on a catalog"
+msgid "gathered-added"
+msgstr ""
+
+#: scripts/posummit.py:1740
+msgctxt "@item:intext action performed on a catalog"
+msgid "gathered-moved"
+msgstr ""
+
+#: scripts/posummit.py:1745
+msgctxt "@item:intext action performed on a catalog"
+msgid "gathered"
+msgstr ""
+
+#: scripts/posummit.py:2013
+msgctxt "@info"
+msgid "Cannot gather messages with different keys."
+msgstr ""
+
+#: scripts/posummit.py:2016
+msgctxt "@info"
+msgid "Cannot gather messages with different plurality."
+msgstr ""
+
+#: scripts/posummit.py:2108
+#, python-format
+msgctxt "@info"
+msgid ""
+"Cannot open the branch catalog '%(file)s' to scatter to. The error was:\n"
+"%(msg)s"
+msgstr ""
+
+#: scripts/posummit.py:2121
+#, python-format
+msgctxt "@info"
+msgid ""
+"Cannot open the summit catalog '%(file)s' to scatter from. The error was:\n"
+"%(msg)s"
+msgstr ""
+
+#: scripts/posummit.py:2180
+msgctxt "@info:progress"
+msgid "Message not in the summit."
+msgstr ""
+
+#: scripts/posummit.py:2208
+#, python-format
+msgctxt "@info:progress"
+msgid "%(file)s: %(num)d message stopped by ascription filter."
+msgid_plural "%(file)s: %(num)d messages stopped by ascription filter."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+
+#: scripts/posummit.py:2239
+msgctxt "@info"
+msgid "Cannot scatter messages with different plurality."
+msgstr ""
+
+#: scripts/posummit.py:2340
+msgctxt "@item:intext action performed on a catalog"
+msgid "scattered-added"
+msgstr ""
+
+#: scripts/posummit.py:2345
+msgctxt "@item:intext action performed on a catalog"
+msgid "scattered"
+msgstr ""
+
+#: scripts/posummit.py:2645
+#, python-format
+msgctxt "@info"
+msgid ""
+"Catalog '%(file1)s' not merged with template '%(file2)s' due to errors on "
+"merging."
+msgstr ""
+
+#: scripts/posummit.py:2774
+msgctxt "@item:intext action performed on a catalog"
+msgid "merged-added"
+msgstr ""
+
+#: scripts/posummit.py:2778
+msgctxt "@item:intext action performed on a catalog"
+msgid "merged"
+msgstr ""
+
+#: lang/es/scripts/createProperWordsDict.py:36 lang/sr/scripts/pohybdl.py:34
+#, python-format
+msgctxt "@info command usage"
+msgid "%(cmd)s [OPTIONS] VCS [POPATHS...]"
+msgstr ""
+
+#: lang/es/scripts/createProperWordsDict.py:39
+msgctxt "@info command description"
+msgid "Obtains a list of proper words from the message text "
+msgstr ""
+
+#: lang/es/scripts/createProperWordsDict.py:41
+#, python-format
+msgctxt "@info command version"
+msgid ""
+"%(cmd)s (Pology) %(version)s\n"
+"Copyright ©  2011 Javier Viñal &lt;%(email)s&gt;"
+msgstr ""
+
+#: lang/sr/scripts/pohybdl.py:37
+msgctxt "@info command description"
+msgid ""
+"Compose hybridized Ijekavian-Ekavian translation out of translation modified "
+"from Ekavian to Ijekavian or vice-versa."
+msgstr ""
+
+#: lang/sr/scripts/pohybdl.py:50
+msgctxt "@info command line option description"
+msgid ""
+"Accept messages which have some changes between base and reconstructed base "
+"text."
+msgstr ""
+
+#: lang/sr/scripts/pohybdl.py:54
+msgctxt "@info command line value placeholder"
+msgid "REVISION"
+msgstr ""
+
+#: lang/sr/scripts/pohybdl.py:57
+msgctxt "@info command line option description"
+msgid ""
+"Use the given revision as base for hybridization, instead of local latest "
+"revision."
+msgstr ""
+
+#: lang/sr/scripts/pohybdl.py:74
+#, python-format
+msgctxt "@info"
+msgid "Version control system not given (can be one of: %(vcslist)s)."
+msgstr ""
+
+#: lang/sr/scripts/pohybdl.py:80
+#, python-format
+msgctxt "@info"
+msgid "Unknown version control system '%(vcs)s'."
+msgstr ""
+
+#: lang/sr/scripts/pohybdl.py:95
+#, python-format
+msgctxt "@info"
+msgid "Catalog '%(file)s' is not under version control."
+msgstr ""
+
+#: lang/sr/scripts/pohybdl.py:104
+#, python-format
+msgctxt "@info"
+msgid "Version control system cannot export file '%(file)s'."
+msgstr ""
+
+#: lang/sr/scripts/pohybdl.py:137
+msgctxt "@info"
+msgid "Message does not exist in the original catalog."
+msgstr ""
+
+#: lang/sr/scripts/pohybdl.py:143
+msgctxt "@info"
+msgid "Number of translations not same as in the original message."
+msgstr ""
+
+#: lang/sr/scripts/pohybdl.py:178
+#, python-format
+msgctxt "@info"
+msgid "%(num)d message in '%(file)s' cannot be cleanly hybridized."
+msgid_plural "%(num)d messages in '%(file)s' cannot be cleanly hybridized."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+
+#: lang/sr/scripts/traplint.py:108
+#, python-format
+msgctxt "@info"
+msgid ""
+"Derivation at %(file)s:%(line)d:%(col)d defines unknown environment '%(env)"
+"s'."
+msgstr ""
+
+#: lang/sr/scripts/traplint.py:131
+#, python-format
+msgctxt "@info"
+msgid ""
+"Derivation at %(file1)s:%(line1)d:%(col1)d has normalized nominative equal "
+"to derivation at %(file2)s:%(line2)d:%(col2)d; consider adding a "
+"disambiguation marker (%(dchar)s)."
+msgstr ""
+
+#: lang/sr/scripts/traplint.py:148
+#, python-format
+msgctxt "@info"
+msgid "Derivation at %(file)s:%(line)d:%(col)d does not define gender."
+msgstr ""
+
+#: lang/sr/scripts/traplint.py:156
+#, python-format
+msgctxt "@info"
+msgid ""
+"Derivation at %(file)s:%(line)d:%(col)d defines unknown gender '%(gen)s'."
+msgstr ""
+
+#: lang/sr/scripts/traplint.py:187
+#, python-format
+msgctxt "@info"
+msgid "Sources requested by name not found: %(srclist)s."
+msgstr ""
+
+#: lang/sr/scripts/traplint.py:193
+#, python-format
+msgctxt "@info"
+msgid "Derivations requested by key not found: %(keylist)s."
+msgstr ""
+
+#: lang/sr/scripts/traplint.py:226
+#, python-format
+msgctxt "@info"
+msgid "Unknown matcher type '%(type)s'."
+msgstr ""
+
+#: lang/sr/scripts/traplint.py:426
+msgctxt ""
+"@info statistics; side note stating that not all entries have been taken "
+"into account, but only some selected"
+msgid "(Selection active.)"
+msgstr ""
+
+#: lang/sr/scripts/traplint.py:428
+#, python-format
+msgctxt "@info statistics"
+msgid "Total derivations: %(num)d"
+msgstr ""
+
+#: lang/sr/scripts/traplint.py:432
+#, python-format
+msgctxt "@info statistics"
+msgid "Total files: %(num)d"
+msgstr ""
+
+#: lang/sr/scripts/traplint.py:435
+#, python-format
+msgctxt "@info statistics"
+msgid "Average derivations per file: %(num).1f"
+msgstr ""
+
+#: lang/sr/scripts/traplint.py:439
+#, python-format
+msgctxt "@info statistics"
+msgid "Most derivations in a file: %(num)d (%(file)s)"
+msgstr ""
+
+#: lang/sr/scripts/traplint.py:448
+#, python-format
+msgctxt "@info command usage"
+msgid "%(cmd)s [OPTIONS] [DKEY|SRCPATH|:SRCNAME]..."
+msgstr ""
+
+#: lang/sr/scripts/traplint.py:451
+msgctxt "@info command description"
+msgid "Check validity and expand derivations from internal trapnakron."
+msgstr ""
+
+#: lang/sr/scripts/traplint.py:463
+msgctxt "@info command line option description"
+msgid "Show a sample of expanded properties for each valid derivation."
+msgstr ""
+
+#: lang/sr/scripts/traplint.py:469
+msgctxt "@info command line option description"
+msgid "When expanding, also show all derivation keys by derivation."
+msgstr ""
+
+#: lang/sr/scripts/traplint.py:474
+msgctxt "@info command line option description"
+msgid "Validate or expand only modified derivations."
+msgstr ""
+
+#: lang/sr/scripts/traplint.py:479
+msgctxt "@info command line option description"
+msgid ""
+"Source names and derivation keys given in command line are regular "
+"expressions."
+msgstr ""
+
+#: lang/sr/scripts/traplint.py:485
+msgctxt "@info command line option description"
+msgid "Show statistics."
+msgstr ""
+
+#: sieve/apply_filter.py:23
+msgctxt "@info sieve discription"
+msgid ""
+"Apply hooks to translation.\n"
+"\n"
+"Message msgstr fields are passed through one or more of F1A, F3A/C, V1A, V3A/"
+"C, S1A, S3A/C hooks."
+msgstr ""
+
+#: sieve/apply_filter.py:30
+msgctxt "@info sieve parameter discription"
+msgid "Specification of the hook through which msgstr fields are passed."
+msgstr ""
+
+#: sieve/apply_filter.py:34
+msgctxt "@info sieve parameter discription"
+msgid "Report message to standard output if it got modified."
+msgstr ""
+
+#: sieve/apply_filter.py:65 sieve/apply_header_filter.py:54
+#: sieve/check_grammar.py:122 sieve/check_spell_ec.py:159
+#: sieve/check_spell.py:283
+#, python-format
+msgctxt "@info"
+msgid "Cannot execute filter '%(filt)s'."
+msgstr ""
+
+#: sieve/apply_filter.py:93
+#, python-format
+msgctxt "@info:progress"
+msgid "Modified %(num)d message by filtering."
+msgid_plural "Modified %(num)d messages by filtering."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+
+#: sieve/apply_header_filter.py:22
+msgctxt "@info sieve discription"
+msgid ""
+"Apply hooks to header.\n"
+"\n"
+"Catalog header is passed through one or more of F4B, V4B, S4B hooks. "
+msgstr ""
+
+#: sieve/apply_header_filter.py:29
+msgctxt "@info sieve parameter discription"
+msgid "Specification of the hook through which headers are passed."
+msgstr ""
+
+#: sieve/apply_header_filter.py:79
+#, python-format
+msgctxt "@info:progress"
+msgid "Modified %(num)d header by filtering."
+msgid_plural "Modified %(num)d headers by filtering."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+
+#: sieve/bad_patterns.py:22
+msgctxt "@info sieve discription"
+msgid "Check for presence of bad patterns in translation."
+msgstr ""
+
+#: sieve/bad_patterns.py:26 sieve/collect_pmap.py:50 sieve/collect_pmap.py:55
+#: sieve/normctxt_delim.py:26 sieve/normctxt_delim.py:31
+#: sieve/normctxt_sep.py:26
+msgctxt "@info sieve parameter value placeholder"
+msgid "STRING"
+msgstr ""
+
+#: sieve/bad_patterns.py:28
+#, python-format
+msgctxt "@info sieve parameter discription"
+msgid ""
+"A pattern to check against. The pattern can be a substring or regular "
+"expression, depending on the '%s' parameter. This parameter can be repeated "
+"to add several patterns."
+msgstr ""
+
+#: sieve/bad_patterns.py:34 sieve/check_rules.py:86 sieve/check_rules.py:136
+msgctxt "@info sieve parameter value placeholder"
+msgid "PATH"
+msgstr ""
+
+#: sieve/bad_patterns.py:36
+msgctxt "@info sieve parameter discription"
+msgid ""
+"Read patterns to check against from a file. The file format is as follows: "
+"each line contains one pattern, leading and trailing whitespace is removed, "
+"empty lines are ignored; # denotes start of comment, which extends to end of "
+"line.This parameter can be repeated to add several files."
+msgstr ""
+
+#: sieve/bad_patterns.py:46
+msgctxt "@info sieve parameter discription"
+msgid "Treat patterns as regular expressions; default is substring matching."
+msgstr ""
+
+#: sieve/bad_patterns.py:50
+msgctxt "@info sieve parameter discription"
+msgid "Set case-sensitive matching; default is case-insensitive."
+msgstr ""
+
+#: sieve/bad_patterns.py:84
+#, python-format
+msgctxt "@info:progress"
+msgid "Detected %(num)d bad pattern in translation."
+msgid_plural "Detected %(num)d bad patterns in translation."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+
+#: sieve/check_docbook4.py:23
+msgctxt "@info sieve discription"
+msgid "Check catalogs covering Docbook 4.x documents for various problems."
+msgstr ""
+
+#: sieve/check_docbook4.py:28
+msgctxt "@info sieve parameter discription"
+msgid "Also show the full message which has a problem."
+msgstr ""
+
+#: sieve/check_docbook4.py:73
+#, python-format
+msgctxt "@info:progress"
+msgid "Found %(num)d problem in Docbook translations."
+msgid_plural "Found %(num)d problems in Docbook translations."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+
+#: sieve/check_grammar.py:32
+msgctxt "@info sieve discription"
+msgid ""
+"Check language of translation using LanguageTool.\n"
+"\n"
+"LanguageTool (http://www.languagetool.org) is an open source language "
+"checker, which may be used as a standalone application, or in server-client "
+"mode. This sieve runs in client-server mode, so make sure Language Tool is "
+"running before this sieve is run."
+msgstr ""
+
+#: sieve/check_grammar.py:46
+msgctxt "@info sieve parameter discription"
+msgid ""
+"The F1A or F3A/C hook through which to filter the translation before passing "
+"it to grammar checking."
+msgstr ""
+
+#: sieve/check_grammar.py:50 sieve/check_spell_ec.py:39
+msgctxt "@info sieve parameter value placeholder"
+msgid "NAME"
+msgstr ""
+
+#: sieve/check_grammar.py:52
+msgctxt "@info sieve parameter discription"
+msgid "Name of the host where the server is running."
+msgstr ""
+
+#: sieve/check_grammar.py:55 sieve/stats.py:81 sieve/stats.py:87
+msgctxt "@info sieve parameter value placeholder"
+msgid "NUMBER"
+msgstr ""
+
+#: sieve/check_grammar.py:57
+msgctxt "@info sieve parameter discription"
+msgid "TCP port on the host which server uses to listen for queries."
+msgstr ""
+
+#: sieve/check_grammar.py:137
+#, python-format
+msgctxt "@info"
+msgid "<bold>%(file)s:%(line)d(#%(entry)d)</bold>"
+msgstr "<bold>%(file)s:%(line)d(#%(entry)d)</bold>"
+
+#: sieve/check_grammar.py:145
+#, python-format
+msgctxt "@info"
+msgid "(%(rule)s) <bold><red>==></red></bold> %(note)s"
+msgstr ""
+
+#: sieve/check_grammar.py:151
+msgctxt "@info"
+msgid "Cannot connect to LanguageTool server. Did you start it?"
+msgstr ""
+
+#: sieve/check_grammar.py:158
+#, python-format
+msgctxt "@info:progress"
+msgid "Detected %(num)d problem in grammar and style."
+msgid_plural "Detected %(num)d problems in grammar and style."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+
+#: sieve/check_kde4.py:25
+msgctxt "@info sieve discription"
+msgid "Check native KDE4 PO files for various problems."
+msgstr ""
+
+#: sieve/check_kde4.py:29
+msgctxt "@info sieve parameter discription"
+msgid ""
+"Check for problems in translation regardless of whether the original itself "
+"is free of problems (default is to check translation only if the original "
+"has no problems)."
+msgstr ""
+
+#: sieve/check_kde4.py:87
+#, python-format
+msgctxt "@info:progress"
+msgid "Found %(num)d problem in KDE4 translations."
+msgid_plural "Found %(num)d problems in KDE4 translations."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+
+#: sieve/check_kde4.py:92
+#, python-format
+msgctxt "@info:progress"
+msgid "Found %(num)d problem in KDE4 translations (strict mode)."
+msgid_plural "Found %(num)d problems in KDE4 translations (strict mode)."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+
+#: sieve/check_rules.py:48
+msgctxt "@info sieve discription"
+msgid "Apply rules to messages and report those that do not pass."
+msgstr ""
+
+#: sieve/check_rules.py:52
+msgctxt "@info sieve parameter discription"
+msgid ""
+"If the language is left undefined for a given catalog, it will be skipped "
+"and a warning may be output."
+msgstr ""
+
+#: sieve/check_rules.py:56
+msgctxt "@info sieve parameter discription"
+msgid ""
+"If the environment is left undefined for a given catalog, only environment-"
+"agnostic rules will be applied."
+msgstr ""
+
+#: sieve/check_rules.py:61
+msgctxt "@info sieve parameter discription"
+msgid "Output statistics on application of rules."
+msgstr ""
+
+#: sieve/check_rules.py:65
+#, python-format
+msgctxt "@info sieve parameter discription"
+msgid "Load only rules explicitly belonging to environment given by '%(par)s'."
+msgstr ""
+
+#: sieve/check_rules.py:71
+msgctxt "@info sieve parameter discription"
+msgid ""
+"Character which is used as UI accelerator marker in text fields. If a "
+"catalog defines accelerator marker in the header, this value overrides it."
+msgstr ""
+
+#: sieve/check_rules.py:78
+msgctxt "@info sieve parameter discription"
+msgid ""
+"Markup that can be expected in text fields, as special keyword (see "
+"documentation to pology.catalog, Catalog.set_markup(), for markup keywords "
+"currently known to Pology). If a catalog defines markup type in the header, "
+"this value overrides it.Several markups can be given as comma-separated list."
+msgstr ""
+
+#: sieve/check_rules.py:88
+msgctxt "@info sieve parameter discription"
+msgid ""
+"Load rules from a file, rather than internal Pology rules. Several rule "
+"files can be given by repeating the parameter."
+msgstr ""
+
+#: sieve/check_rules.py:92
+msgctxt "@info sieve parameter value placeholder"
+msgid "DIRPATH"
+msgstr ""
+
+#: sieve/check_rules.py:94
+msgctxt "@info sieve parameter discription"
+msgid ""
+"Load rules from a directory, rather than internal Pology rules.Several rule "
+"directories can be given by repeating the parameter."
+msgstr ""
+
+#: sieve/check_rules.py:99
+msgctxt "@info sieve parameter discription"
+msgid "Show filtered message too when reporting message failed by a rule."
+msgstr ""
+
+#: sieve/check_rules.py:103
+msgctxt "@info sieve parameter discription"
+msgid "Do not show message content at all when reporting failures."
+msgstr ""
+
+#: sieve/check_rules.py:106 sieve/check_rules.py:118
+msgctxt "@info sieve parameter value placeholder"
+msgid "RULEID"
+msgstr ""
+
+#: sieve/check_rules.py:108
+msgctxt "@info sieve parameter discription"
+msgid ""
+"Apply only the rule given by this identifier. Several identifiers can be "
+"given as comma-separated list."
+msgstr ""
+
+#: sieve/check_rules.py:114
+msgctxt "@info sieve parameter discription"
+msgid ""
+"Apply only the rules with identifiers matching this regular expression. "
+"Several patterns can be given by repeating the parameter."
+msgstr ""
+
+#: sieve/check_rules.py:120
+msgctxt "@info sieve parameter discription"
+msgid ""
+"Do not apply rule given by this identifier. Several identifiers can be given "
+"as comma-separated list."
+msgstr ""
+
+#: sieve/check_rules.py:126
+msgctxt "@info sieve parameter discription"
+msgid ""
+"Do not apply the rules with identifiers matching this regular expression. "
+"Several patterns can be given by repeating the parameter."
+msgstr ""
+
+#: sieve/check_rules.py:130 sieve/diff_previous.py:32
+#: sieve/find_messages.py:186 sieve/find_messages.py:192 sieve/stats.py:75
+#: sieve/tag_untranslated.py:33
+msgctxt "@info sieve parameter value placeholder"
+msgid "BRANCH"
+msgstr ""
+
+#: sieve/check_rules.py:132 sieve/tag_untranslated.py:35
+msgctxt "@info sieve parameter discription"
+msgid ""
+"In summit catalogs, consider only messages belonging to given branch. "
+"Several branches can be given as comma-separated list."
+msgstr ""
+
+#: sieve/check_rules.py:138
+msgctxt "@info sieve parameter discription"
+msgid "Write rule failures into an XML file instead of stdout."
+msgstr ""
+
+#: sieve/check_rules.py:142
+#, python-format
+msgctxt "@info sieve parameter discription"
+msgid "Add '%(flag)s' flag to each message failed by a rule."
+msgstr ""
+
+#: sieve/check_rules.py:203 sieve/check_spell.py:119 sieve/generate_xml.py:60
+#, python-format
+msgctxt "@info"
+msgid "Cannot open file '%(file)s'. XML output disabled."
+msgstr ""
+
+#: sieve/check_rules.py:212
+#, python-format
+msgctxt "@info"
+msgid ""
+"Cannot create cache directory '%(dir)s':\n"
+"%(msg)s"
+msgstr ""
+
+#: sieve/check_rules.py:293
+msgctxt "@info:progress"
+msgid "Using cache."
+msgstr ""
+
+#: sieve/check_rules.py:299
+msgctxt "@info"
+msgid "No cache available, processing file."
+msgstr ""
+
+#: sieve/check_rules.py:341
+#, python-format
+msgctxt "@info:progress"
+msgid "Rule '%(rule)s' timed out, skipping it."
+msgstr ""
+
+#: sieve/check_rules.py:370
+msgctxt "@label"
+msgid "Failed rules:"
+msgstr ""
+
+#: sieve/check_rules.py:373
+#, python-format
+msgctxt "@item"
+msgid "rule %(rule)s ==> %(msg)s"
+msgstr ""
+
+#: sieve/check_rules.py:395
+#, python-format
+msgctxt "@info:progress"
+msgid "Rules detected %(num)d problem."
+msgid_plural "Rules detected %(num)d problems."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+
+#: sieve/check_rules.py:424
+#, python-format
+msgctxt "@info"
+msgid "Some explicitly selected rules are missing: %(rulelist)s."
+msgstr ""
+
+#: sieve/check_rules.py:454
+#, python-format
+msgctxt "@info"
+msgid "Some explicitly excluded rules are missing: %(rulelist)s."
+msgstr ""
+
+#: sieve/check_rules.py:475
+#, python-format
+msgctxt "@item:intext inserted below as %(tot)s"
+msgid "Loaded %(num)d rule"
+msgid_plural "Loaded %(num)d rules"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+
+#: sieve/check_rules.py:479
+#, python-format
+msgctxt "@item:intext inserted below as %(env)s"
+msgid "[only: %(envlist)s]"
+msgstr ""
+
+#: sieve/check_rules.py:483
+#, python-format
+msgctxt "@item:intext inserted below as %(env)s"
+msgid "[%(envlist)s]"
+msgstr ""
+
+#: sieve/check_rules.py:486
+#, python-format
+msgctxt "@item:intext inserted below as %(act)s"
+msgid "%(num)d active"
+msgid_plural "%(num)d active"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+
+#: sieve/check_rules.py:489
+#, python-format
+msgctxt "@item:intext inserted below as %(dis)s"
+msgid "%(num)d disabled"
+msgid_plural "%(num)d disabled"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+
+#: sieve/check_rules.py:494
+#, python-format
+msgctxt "@info:progress insertions from above"
+msgid "%(tot)s %(env)s (%(act)s, %(dis)s)."
+msgstr ""
+
+#: sieve/check_rules.py:497
+#, python-format
+msgctxt "@info:progress insertions from above"
+msgid "%(tot)s (%(act)s, %(dis)s)."
+msgstr ""
+
+#: sieve/check_rules.py:500
+#, python-format
+msgctxt "@info:progress insertions from above"
+msgid "%(tot)s %(env)s."
+msgstr ""
+
+#: sieve/check_rules.py:503
+#, python-format
+msgctxt "@info:progress insertions from above"
+msgid "%(tot)s."
+msgstr ""
+
+#: sieve/check_rules.py:511
+#, python-format
+msgctxt "@info:progress"
+msgid "Selected rules: %(rulelist)s."
+msgstr ""
+
+#: sieve/check_rules.py:515
+#, python-format
+msgctxt "@info:progress"
+msgid "Selected %(num)d rule."
+msgid_plural "Selected %(num)d rules."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+
+#: sieve/check_rules.py:523
+#, python-format
+msgctxt "@info:progress"
+msgid "Excluded rules: %(rulelist)s."
+msgstr ""
+
+#: sieve/check_rules.py:527
+#, python-format
+msgctxt "@info:progress"
+msgid "Excluded %(num)d rule."
+msgid_plural "Excluded %(num)d rules."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+
+#: sieve/check_rules.py:539
+#, python-format
+msgctxt "@info:progress"
+msgid "Active rules define %(num)d distinct filter set."
+msgid_plural "Active rules define %(num)d distinct filter sets."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+
+#: sieve/check_spell_ec.py:35
+msgctxt "@info sieve discription"
+msgid "Spell-check translation using Enchant."
+msgstr ""
+
+#: sieve/check_spell_ec.py:41
+msgctxt "@info sieve parameter discription"
+msgid ""
+"The spell-checking provider to use. Several provider can be given as comma-"
+"separated list."
+msgstr ""
+
+#: sieve/check_spell_ec.py:121
+#, python-format
+msgctxt "@info"
+msgid "No spelling dictionary for language '%(lang)s' and provider '%(prov)s'."
+msgstr ""
+
+#: sieve/check_spell_ec.py:202 sieve/check_spell.py:327
+msgctxt "@label"
+msgid "Spelling errors:"
+msgstr ""
+
+#: sieve/check_spell_ec.py:207 sieve/check_spell.py:332
+#, python-format
+msgctxt "@item"
+msgid "%(word)s (suggestions: %(wordlist)s)"
+msgstr "%(word)s (предлози: %(wordlist)s)"
+
+#: sieve/check_spell_ec.py:220 sieve/check_spell.py:353
+#, python-format
+msgctxt "@info:progress"
+msgid "Encountered %(num)d unknown word."
+msgid_plural "Encountered %(num)d unknown words."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+
+#: sieve/check_spell_ec.py:238
+#, python-format
+msgctxt "@info"
+msgid ""
+"Python wrapper for Enchant not found, please install it (possible package "
+"names: %(pkglist)s)."
+msgstr ""
+
+#: sieve/check_spell.py:37
+msgctxt "@info sieve discription"
+msgid "Spell-check translation using Aspell."
+msgstr ""
+
+#: sieve/check_spell.py:44
+msgctxt "@info sieve parameter value placeholder"
+msgid "ENCODING"
+msgstr ""
+
+#: sieve/check_spell.py:46
+msgctxt "@info sieve parameter discription"
+msgid "Encoding for text sent to Aspell."
+msgstr ""
+
+#: sieve/check_spell.py:50
+msgctxt "@info sieve parameter value placeholder"
+msgid "VARIETY"
+msgstr ""
+
+#: sieve/check_spell.py:52
+msgctxt "@info sieve parameter discription"
+msgid "Variety of the Aspell dictionary."
+msgstr ""
+
+#: sieve/check_spell.py:55 sieve/collect_pmap.py:30 sieve/collect_pmap.py:36
+#: sieve/collect_pmap.py:45 sieve/generate_xml.py:33 sieve/stats.py:58
+msgctxt "@info sieve parameter value placeholder"
+msgid "FILE"
+msgstr ""
+
+#: sieve/check_spell.py:57
+msgctxt "@info sieve parameter discription"
+msgid "Build XML report file at given path."
+msgstr ""
+
+#: sieve/check_spell.py:61
+msgctxt "@info sieve parameter discription"
+msgid "Split text into words in a simpler way (deprecated,)."
+msgstr ""
+
+#: sieve/check_spell.py:321
+#, python-format
+msgctxt "@info"
+msgid "Cannot encode word '%(word)s' in selected encoding '%(enc)s'."
+msgstr ""
+
+#: sieve/check_tp_kde.py:31
+msgctxt "@info sieve discription"
+msgid "Check validity of messages in catalogs within KDE Translation Project."
+msgstr ""
+
+#: sieve/check_tp_kde.py:35
+msgctxt "@info sieve parameter discription"
+msgid ""
+"Check translations strictly: report problems in translation regardless of "
+"whether original itself is valid (default is to check translation only if "
+"original passes checks)."
+msgstr ""
+
+#: sieve/check_tp_kde.py:43 sieve/check_tp_wesnoth.py:36
+msgctxt "@info sieve parameter value placeholder"
+msgid "KEYWORD,..."
+msgstr ""
+
+#: sieve/check_tp_kde.py:45 sieve/check_tp_wesnoth.py:38
+#, python-format
+msgctxt "@info sieve parameter discription"
+msgid ""
+"Run only this check instead of all (currently available: %(chklist)s). "
+"Several checks can be specified as a comma-separated list."
+msgstr ""
+
+#: sieve/check_tp_kde.py:51 sieve/check_tp_wesnoth.py:44
+msgctxt "@info sieve parameter discription"
+msgid "Also show the full message that had some problems."
+msgstr ""
+
+#: sieve/check_tp_kde.py:74 sieve/check_tp_wesnoth.py:63
+#, python-format
+msgctxt "@info"
+msgid "Unknown checks selected: %(chklist)s."
+msgstr ""
+
+#: sieve/check_tp_kde.py:93
+#, python-format
+msgctxt "@info"
+msgid "Cannot determine project subdirectory of the catalog '%(file)s'."
+msgstr ""
+
+#: sieve/check_tp_kde.py:150
+#, python-format
+msgctxt "@info:progress TP stands for Translation Project"
+msgid "Found %(num)d problem in KDE TP translations."
+msgid_plural "Found %(num)d problems in KDE TP translations."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+
+#: sieve/check_tp_kde.py:155
+#, python-format
+msgctxt "@info:progress"
+msgid "Found %(num)d problem in KDE TP translations (strict mode)."
+msgid_plural "Found %(num)d problems in KDE TP translations (strict mode)."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+
+#: sieve/check_tp_kde.py:304
+msgctxt "@info"
+msgid "Dumb message, translation cannot be scripted."
+msgstr ""
+
+#: sieve/check_tp_kde.py:345
+#, python-format
+msgctxt "@info"
+msgid ""
+"Qt date-format mismatch: original contains fields {%(fieldlist1)s} while "
+"translation contains {%(fieldlist2)s}."
+msgstr ""
+
+#: sieve/check_tp_kde.py:436
+#, python-format
+msgctxt "@info"
+msgid "Invalid email address '%(email)s'."
+msgstr ""
+
+#: sieve/check_tp_kde.py:446
+#, python-format
+msgctxt "@info"
+msgid ""
+"Different number of translator names (%(num1)d) and email addresses (%(num2)"
+"d)."
+msgstr ""
+
+#: sieve/check_tp_kde.py:454
+#, python-format
+msgctxt "@info"
+msgid "Both name and email address of translator no. %(ord)d are empty."
+msgstr ""
+
+#: sieve/check_tp_kde.py:477
+#, python-format
+msgctxt "@info"
+msgid "Plasma runner query placeholder '%(plhold)s' is missing in translation."
+msgstr ""
+
+#: sieve/check_tp_kde.py:536
+#, python-format
+msgctxt "@info"
+msgid "Translation must contain '%(token)s'."
+msgstr ""
+
+#: sieve/check_tp_kde.py:550 sieve/check_tp_kde.py:571
+#, python-format
+msgctxt "@info"
+msgid "Translation must be exactly '%(text1)s' or '%(text2)s'."
+msgstr ""
+
+#: sieve/check_tp_kde.py:561
+msgctxt "@info"
+msgid "Translation must contain only letters."
+msgstr ""
+
+#: sieve/check_tp_wesnoth.py:30
+msgctxt "@info sieve discription"
+msgid "Check validity of messages in catalogs of The Battle for Wesnoth."
+msgstr ""
+
+#: sieve/check_tp_wesnoth.py:127
+#, python-format
+msgctxt "@info:progress BfW stands for \"Battle for Wesnoth\""
+msgid "Found %(num)d problem in BfW translations."
+msgid_plural "Found %(num)d problems in BfW translations."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+
+#: sieve/check_tp_wesnoth.py:144
+msgctxt "@info"
+msgid "Stray context separator."
+msgstr ""
+
+#: sieve/check_tp_wesnoth.py:176
+#, python-format
+msgctxt "@info"
+msgid "Missing interpolations: %(interplist)s."
+msgstr ""
+
+#: sieve/check_tp_wesnoth.py:184
+#, python-format
+msgctxt "@info"
+msgid "Unknown interpolations: %(interplist)s."
+msgstr ""
+
+#: sieve/check_tp_wesnoth.py:239
+#, python-format
+msgctxt "@info"
+msgid "Missing links: %(linklist)s."
+msgstr ""
+
+#: sieve/check_tp_wesnoth.py:247
+#, python-format
+msgctxt "@info"
+msgid "Unknown links: %(linklist)s."
+msgstr ""
+
+#: sieve/check_tp_wesnoth.py:301
+msgctxt "@info"
+msgid "End of string within tag."
+msgstr ""
+
+#: sieve/check_tp_wesnoth.py:305
+msgctxt "@info"
+msgid "Invalid tag syntax."
+msgstr ""
+
+#: sieve/check_tp_wesnoth.py:308
+msgctxt "@info"
+msgid "Unknown tag."
+msgstr ""
+
+#: sieve/check_tp_wesnoth.py:312
+msgctxt "@info"
+msgid "Unclosed tag."
+msgstr ""
+
+#: sieve/check_tp_wesnoth.py:317
+msgctxt "@info"
+msgid "Unterminated closing tag."
+msgstr ""
+
+#: sieve/check_tp_wesnoth.py:324
+msgctxt "@info"
+msgid "Mismatched opening and closing tags."
+msgstr ""
+
+#: sieve/check_tp_wesnoth.py:352
+msgctxt "@info"
+msgid "End of tag content within attribute."
+msgstr ""
+
+#: sieve/check_tp_wesnoth.py:358
+#, python-format
+msgctxt "@info"
+msgid "'%(attr)s' is not an attribute of tag '%(tag)s'."
+msgstr ""
+
+#: sieve/check_tp_wesnoth.py:363
+msgctxt "@info"
+msgid "No equal sign after attribute."
+msgstr ""
+
+#: sieve/check_tp_wesnoth.py:368
+#, python-format
+msgctxt "@info"
+msgid "Attribute '%(attr)s' repeated."
+msgstr ""
+
+#: sieve/check_tp_wesnoth.py:387
+#, python-format
+msgctxt "@info"
+msgid "Invalid value to attribute '%(attr)s'."
+msgstr ""
+
+#: sieve/check_tp_wesnoth.py:399
+#, python-format
+msgctxt "@info"
+msgid "Missing mandatory attribute '%(attr)s'."
+msgstr ""
+
+#: sieve/check_tp_wesnoth.py:464
+msgctxt "@info"
+msgid "Missing trailing space."
+msgstr ""
+
+#: sieve/check_tp_wesnoth.py:470
+msgctxt "@info"
+msgid "Missing leading space."
+msgstr ""
+
+#: sieve/check_tp_wesnoth.py:486
+msgctxt "@info"
+msgid "Extra leading space."
+msgstr ""
+
+#: sieve/collect_pmap.py:26
+msgctxt "@info sieve discription"
+msgid "Assemble a property map from entries in manual comments."
+msgstr ""
+
+#: sieve/collect_pmap.py:32
+msgctxt "@info sieve parameter discription"
+msgid ""
+"File to output the property map into. If not given, nothing is output "
+"(useful for validation runs)."
+msgstr ""
+
+#: sieve/collect_pmap.py:38
+msgctxt "@info sieve parameter discription"
+msgid "File defining the constraints on property keys and values."
+msgstr ""
+
+#: sieve/collect_pmap.py:42
+msgctxt "@info sieve parameter discription"
+msgid "Allow defining additional entry keys."
+msgstr ""
+
+#: sieve/collect_pmap.py:47
+msgctxt "@info sieve parameter discription"
+msgid "File defining the derivators used in derived entries."
+msgstr ""
+
+#: sieve/collect_pmap.py:52
+msgctxt "@info sieve parameter discription"
+msgid "Prefix which starts property map entries in comments."
+msgstr ""
+
+#: sieve/collect_pmap.py:57
+msgctxt "@info sieve parameter discription"
+msgid "Prefix which starts syntagma derivator entries in comments."
+msgstr ""
+
+#: sieve/collect_pmap.py:76
+msgctxt "@info"
+msgid "Prefix which starts property map entries in comments cannot be empty."
+msgstr ""
+
+#: sieve/collect_pmap.py:80
+msgctxt "@info"
+msgid ""
+"Prefix which starts syntagma derivator entries in comments cannot be empty."
+msgstr ""
+
+#: sieve/collect_pmap.py:113
+#, python-format
+msgctxt "@info"
+msgid ""
+"An alphanumeric separator is used for property map entry in comment no. %"
+"(ord)d."
+msgstr ""
+
+#: sieve/collect_pmap.py:122
+#, python-format
+msgctxt "@info"
+msgid ""
+"Inconsistent separators for continued property map entry in comment no. %"
+"(ord)d."
+msgstr ""
+
+#: sieve/collect_pmap.py:135
+#, python-format
+msgctxt "@info"
+msgid ""
+"Missing terminating separator for property map entry in comment no. %(ord)d."
+msgstr ""
+
+#: sieve/collect_pmap.py:149
+#, python-format
+msgctxt "@info"
+msgid ""
+"Additional entry key '%(key)s' is defined but not allowed for property map "
+"entry in comment no. %(ord)d."
+msgstr ""
+
+#: sieve/collect_pmap.py:169
+#, python-format
+msgctxt "@info"
+msgid ""
+"Invalid derivation '%(deriv)s':\n"
+"%(msg)s"
+msgstr ""
+
+#: sieve/collect_pmap.py:180
+#, python-format
+msgctxt "@info"
+msgid ""
+"No known separator are applicable to keys and values derived from '%(deriv)"
+"s'."
+msgstr ""
+
+#: sieve/collect_pmap.py:188
+#, python-format
+msgctxt "@info"
+msgid ""
+"Previously selected separators are not applicable to keys and values derived "
+"from '%(deriv)s'."
+msgstr ""
+
+#: sieve/collect_pmap.py:200
+msgctxt "@info"
+msgid ""
+"Some additional entry keys are defined for property map entry, but there are "
+"no properties."
+msgstr ""
+
+#: sieve/collect_pmap.py:217
+#, python-format
+msgctxt "@info"
+msgid ""
+"Property map entry fails validation:\n"
+"%(msgs)s"
+msgstr ""
+
+#: sieve/collect_pmap.py:254
+msgctxt "@info split to link below"
+msgid "Property map entries removed due to translation conflict with..."
+msgstr ""
+
+#: sieve/collect_pmap.py:259
+msgctxt "@info continuation from above"
+msgid "...this message."
+msgstr ""
+
+#: sieve/collect_pmap.py:289
+#, python-format
+msgctxt "@info:progress"
+msgid "Collected %(num)d entry for the property map."
+msgid_plural "Collected %(num)d entries for the property map."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+
+#: sieve/collect_pmap.py:309
+#, python-format
+msgctxt "@info"
+msgid "Property constraint file '%(file)s' does not exist."
+msgstr "Датотека ограничења својстава ‘%(file)s’ не постоји."
+
+#: sieve/collect_pmap.py:325
+#, python-format
+msgctxt "@info"
+msgid "Invalid property map constraint at %(file)s:%(line)d: %(snippet)s."
+msgstr ""
+
+#: sieve/collect_pmap.py:338
+msgctxt "@item:intext"
+msgid "alphanumeric separators not allowed"
+msgstr ""
+
+#: sieve/collect_pmap.py:343
+msgctxt "@item:intext"
+msgid "too few separators"
+msgstr ""
+
+#: sieve/collect_pmap.py:346
+msgctxt "@item:intext"
+msgid "too many separators"
+msgstr ""
+
+#: sieve/collect_pmap.py:354
+#, python-format
+msgctxt "@item:intext"
+msgid "unknown flags %(flaglist)s"
+msgstr ""
+
+#: sieve/collect_pmap.py:394
+#, python-format
+msgctxt "@info"
+msgid "Value '%(val)s' to key '%(key)s' does not match '%(pattern)s'."
+msgstr ""
+
+#: sieve/collect_pmap.py:404
+#, python-format
+msgctxt "@info"
+msgid ""
+"Value '%(val)s' to key '%(key)s' does not match translation of the message."
+msgstr ""
+
+#: sieve/collect_pmap.py:410
+#, python-format
+msgctxt "@info"
+msgid "Key '%(key)s' does not match any constraint."
+msgstr ""
+
+#: sieve/collect_pmap.py:417
+#, python-format
+msgctxt "@info"
+msgid "No key matched required constraint '%(pattern)s'."
+msgstr ""
+
+#: sieve/diff_previous.py:23
+msgctxt "@info sieve discription"
+msgid "Diff previous to current fields in fuzzy messages."
+msgstr ""
+
+#: sieve/diff_previous.py:28
+msgctxt "@info sieve parameter discription"
+msgid "Remove embedded differences from previous fields."
+msgstr ""
+
+#: sieve/diff_previous.py:34
+msgctxt "@info sieve parameter discription"
+msgid ""
+"In summit catalogs, process only messages belonging to given branch. Several "
+"branches can be given as comma-separated list."
+msgstr ""
+
+#: sieve/diff_previous.py:101
+#, python-format
+msgctxt "@info:progress"
+msgid "Added differences to %(num)d fuzzy message."
+msgid_plural "Added differences to %(num)d fuzzy messages."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+
+#: sieve/diff_previous.py:106
+#, python-format
+msgctxt "@info:progress"
+msgid "Stripped differences from %(num)d fuzzy message."
+msgid_plural "Stripped differences from %(num)d fuzzy messages."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+
+#: sieve/empty_fuzzies.py:19
+msgctxt "@info sieve discription"
+msgid "Clear all fuzzy messages of translation."
+msgstr ""
+
+#: sieve/empty_fuzzies.py:24
+msgctxt "@info sieve parameter discription"
+msgid "Also remove translator comments from fuzzy messages."
+msgstr ""
+
+#: sieve/empty_fuzzies.py:28
+msgctxt "@info sieve parameter discription"
+msgid "Clear only fuzzy messages which do not have previous fields."
+msgstr ""
+
+#: sieve/empty_fuzzies.py:58
+#, python-format
+msgctxt "@info:progress"
+msgid "Cleared %(num)d fuzzy message of translation."
+msgid_plural "Cleared %(num)d fuzzy messages of translation."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+
+#: sieve/equip_header_tp_kde.py:19
+msgctxt "@info sieve discription"
+msgid ""
+"Equip catalog headers within KDE Translation Project with extra information."
+msgstr ""
+
+#: sieve/fancy_quote.py:25
+msgctxt "@info sieve discription"
+msgid "Transform ASCII single and double quotes into fancy counterparts."
+msgstr ""
+
+#: sieve/fancy_quote.py:29 sieve/fancy_quote.py:34
+msgctxt "@info sieve parameter value placeholder"
+msgid "QUOTES"
+msgstr ""
+
+#: sieve/fancy_quote.py:31
+msgctxt "@info sieve parameter discription"
+msgid "Opening and closing single quote (two characters)."
+msgstr ""
+
+#: sieve/fancy_quote.py:36
+msgctxt "@info sieve parameter discription"
+msgid "Opening and closing double quote (two characters)."
+msgstr ""
+
+#: sieve/fancy_quote.py:40 sieve/fancy_quote.py:46
+msgctxt "@info sieve parameter value placeholder"
+msgid "OPEN,CLOSED"
+msgstr ""
+
+#: sieve/fancy_quote.py:42
+msgctxt "@info sieve parameter discription"
+msgid "Opening and closing single quote longer than single character."
+msgstr ""
+
+#: sieve/fancy_quote.py:48
+msgctxt "@info sieve parameter discription"
+msgid "Opening and closing double quote longer than single character."
+msgstr ""
+
+#: sieve/fancy_quote.py:68
+msgctxt "@info"
+msgid "Both single- and multi-character replacement of single quotes issued."
+msgstr ""
+
+#: sieve/fancy_quote.py:75
+#, python-format
+msgctxt "@info"
+msgid ""
+"Invalid specification of single quotes (%(quotes)s), expected two characters."
+msgstr ""
+
+#: sieve/fancy_quote.py:84
+#, python-format
+msgctxt "@info"
+msgid ""
+"Invalid specification of single quotes (%(quotes)s), expected two strings."
+msgstr ""
+
+#: sieve/fancy_quote.py:94
+msgctxt "@info"
+msgid "Both single- and multi-character replacement of double quotes issued."
+msgstr ""
+
+#: sieve/fancy_quote.py:101
+#, python-format
+msgctxt "@info"
+msgid ""
+"Invalid specification of double quotes (%(quotes)s), expected two characters."
+msgstr ""
+
+#: sieve/fancy_quote.py:110
+#, python-format
+msgctxt "@info"
+msgid ""
+"Invalid specification of double quotes '%(quotes)s', expected two strings."
+msgstr ""
+
+#: sieve/fancy_quote.py:152
+#, python-format
+msgctxt "@info:progress"
+msgid ""
+"Replaced %(num)d pair of quotes in translation (single+double: %(nums)d+%"
+"(numd)d)."
+msgid_plural ""
+"Replaced %(num)d pairs of quotes in translation (single+double: %(nums)d+%"
+"(numd)d)."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+
+#: sieve/find_messages.py:33
+#, python-format
+msgctxt "@info sieve discription"
+msgid ""
+"Find messages in catalogs.\n"
+"\n"
+"Each message is matched according to one or several criteria, and if it "
+"matches as whole, it is displayed to standard output, along with the catalog "
+"path and referent line and entry number.\n"
+"\n"
+"When several matching parameters are given, by default a message is matched "
+"if all of them match (AND-relation). This can be changed to OR-relation for "
+"matching in text fields (%(fieldlist)s) using the '%(par)s' parameter. Any "
+"matching parameter can be repeated when it makes sense (e.g. two matches on "
+"msgid)."
+msgstr ""
+
+#: sieve/find_messages.py:54 sieve/find_messages.py:66
+#: sieve/find_messages.py:78
+#, python-format
+msgctxt "@info sieve parameter discription"
+msgid "Matches if the '%(field)s' field matches the regular expression."
+msgstr ""
+
+#: sieve/find_messages.py:60 sieve/find_messages.py:72
+#: sieve/find_messages.py:84
+#, python-format
+msgctxt "@info sieve parameter discription"
+msgid "Matches if the '%(field)s' field does not match the regular expression."
+msgstr ""
+
+#: sieve/find_messages.py:90
+msgctxt "@info sieve parameter discription"
+msgid ""
+"Matches if a comment line (extracted or translator) matches the regular "
+"expression."
+msgstr ""
+
+#: sieve/find_messages.py:96
+msgctxt "@info sieve parameter discription"
+msgid ""
+"Matches if a comment line (extracted or translator) does not match the "
+"regular expression."
+msgstr ""
+
+#: sieve/find_messages.py:101
+msgctxt "@info sieve parameter discription"
+msgid "Matches if the message is translated."
+msgstr ""
+
+#: sieve/find_messages.py:105
+msgctxt "@info sieve parameter discription"
+msgid "Matches if the message is not translated."
+msgstr ""
+
+#: sieve/find_messages.py:109
+msgctxt "@info sieve parameter discription"
+msgid "Matches if the message is obsolete."
+msgstr ""
+
+#: sieve/find_messages.py:113
+msgctxt "@info sieve parameter discription"
+msgid "Matches if the message is not obsolete."
+msgstr ""
+
+#: sieve/find_messages.py:117
+msgctxt "@info sieve parameter discription"
+msgid "Matches if the message is active (translated and not obsolete)."
+msgstr ""
+
+#: sieve/find_messages.py:121
+msgctxt "@info sieve parameter discription"
+msgid "Matches if the message is not active (not translated or obsolete)."
+msgstr ""
+
+#: sieve/find_messages.py:126
+msgctxt "@info sieve parameter discription"
+msgid "Matches if one of the flags matches the regular expression."
+msgstr ""
+
+#: sieve/find_messages.py:131
+msgctxt "@info sieve parameter discription"
+msgid "Matches if none of the flags matches the regular expression."
+msgstr ""
+
+#: sieve/find_messages.py:135
+msgctxt "@info sieve parameter discription"
+msgid "Matches if the message is plural."
+msgstr ""
+
+#: sieve/find_messages.py:139
+msgctxt "@info sieve parameter discription"
+msgid "Matches if the message is not plural."
+msgstr ""
+
+#: sieve/find_messages.py:142 sieve/find_messages.py:150
+msgctxt "@info sieve parameter value placeholder"
+msgid "NUM"
+msgstr ""
+
+#: sieve/find_messages.py:144
+#, python-format
+msgctxt "@info sieve parameter discription"
+msgid ""
+"Matches if both the '%(field1)s' and '%(field2)s' field have at most this "
+"many characters (0 or less means any number of characters)."
+msgstr ""
+
+#: sieve/find_messages.py:152
+#, python-format
+msgctxt "@info sieve parameter discription"
+msgid ""
+"Matches if either the '%(field1)s' or '%(field2)s' field have more than this "
+"many characters (0 or less means any number of characters)."
+msgstr ""
+
+#: sieve/find_messages.py:159 sieve/find_messages.py:166
+#: sieve/find_messages.py:173 sieve/find_messages.py:180
+msgctxt "@info sieve parameter value placeholder"
+msgid "START:END"
+msgstr ""
+
+#: sieve/find_messages.py:161
+msgctxt "@info sieve parameter discription"
+msgid ""
+"Matches if the message line number is in the given range (including starting "
+"line, excluding ending line)."
+msgstr ""
+
+#: sieve/find_messages.py:168
+msgctxt "@info sieve parameter discription"
+msgid ""
+"Matches if the message line number is not in the given range (including "
+"starting line, excluding ending line)."
+msgstr ""
+
+#: sieve/find_messages.py:175
+msgctxt "@info sieve parameter discription"
+msgid ""
+"Matches if the message entry number is in the given range (including "
+"starting entry, excluding ending entry)."
+msgstr ""
+
+#: sieve/find_messages.py:182
+msgctxt "@info sieve parameter discription"
+msgid ""
+"Matches if the message entry number is not in the given range (including "
+"starting entry, excluding ending entry)."
+msgstr ""
+
+#: sieve/find_messages.py:188
+msgctxt "@info sieve parameter discription"
+msgid ""
+"In summit catalogs, match only messages belonging to given branch. Several "
+"branches can be given as comma-separated list."
+msgstr ""
+
+#: sieve/find_messages.py:194
+msgctxt "@info sieve parameter discription"
+msgid "Match only messages not belonging to given branch."
+msgstr ""
+
+#: sieve/find_messages.py:198 sieve/find_messages.py:216
+msgctxt "@info sieve parameter value placeholder"
+msgid "EXPRESSION"
+msgstr ""
+
+#: sieve/find_messages.py:200
+msgctxt "@info sieve parameter discription"
+msgid ""
+"Matches if the logical expression matches. The expression is composed of "
+"direct matchers (not starting with n*), explicitly linked with AND, OR, and "
+"NOT operators, and parenthesis. Base matchers taking parameters are given as "
+"MATCHER/VALUE/, where slash can be replaced consistently with any other "
+"character. Global matching modifiers can be overriden using MATCHER/VALUE/"
+"MODS, or MATCHER/MODS for parameterless matchers (currently available: c/i "
+"for case-sensitive/insensitive). Examples:\n"
+"\n"
+"fexpr:'(msgctxt/foo/ or comment/foo/) and msgid/bar/'\n"
+"\n"
+"fexpr:'msgid/quuk/ and msgstr/Qaak/c'"
+msgstr ""
+
+#: sieve/find_messages.py:218
+msgctxt "@info sieve parameter discription"
+msgid "Matches if the logical expression does not match."
+msgstr ""
+
+#: sieve/find_messages.py:222
+msgctxt "@info sieve parameter discription"
+msgid ""
+"Use OR-relation for matching text fields: if any of the patterns matches, "
+"the message is matched as whole."
+msgstr ""
+
+#: sieve/find_messages.py:227
+msgctxt "@info sieve parameter discription"
+msgid "Invert the condition: report messages which do not match."
+msgstr ""
+
+#: sieve/find_messages.py:231
+msgctxt "@info sieve parameter discription"
+msgid "Case-sensitive text matching."
+msgstr ""
+
+#: sieve/find_messages.py:236
+msgctxt "@info sieve parameter discription"
+msgid ""
+"Character which is used as UI accelerator marker in text fields, to ignore "
+"it on matching. If a catalog defines accelerator marker in the header, this "
+"value overrides it."
+msgstr ""
+
+#: sieve/find_messages.py:243
+#, python-format
+msgctxt "@info sieve parameter discription"
+msgid "Add '%(flag)s' flag to each matched message."
+msgstr ""
+
+#: sieve/find_messages.py:247 sieve/stats.py:143
+msgctxt "@info sieve parameter value placeholder"
+msgid "HOOK"
+msgstr ""
+
+#: sieve/find_messages.py:249
+msgctxt "@info sieve parameter discription"
+msgid ""
+"F1A hook specification, to filter the msgstr fields through before matching "
+"them. Several hooks can be specified by repeating the parameter."
+msgstr ""
+
+#: sieve/find_messages.py:255
+msgctxt "@info sieve parameter value placeholder"
+msgid "REPLSTR"
+msgstr ""
+
+#: sieve/find_messages.py:257
+msgctxt "@info sieve parameter discription"
+msgid ""
+"Replace all substrings matched by msgstr pattern with REPLSTR. It can "
+"include back-references to matched groups (\\1, \\2, etc.)"
+msgstr ""
+
+#: sieve/find_messages.py:262
+msgctxt "@info sieve parameter discription"
+msgid ""
+"Do not report message to standard output (when only the number of matches is "
+"wanted)."
+msgstr ""
+
+#: sieve/find_messages.py:339
+#, python-format
+msgctxt "@info"
+msgid "Cannot perform replacement if match on '%(field)s' is not given."
+msgstr ""
+
+#: sieve/find_messages.py:413
+#, python-format
+msgctxt "@info:progress"
+msgid "Found %(num)d message satisfying the conditions."
+msgid_plural "Found %(num)d messages satisfying the conditions."
+msgstr[0] "Нађена %(num)d порука која задовољава услове."
+msgstr[1] "Нађене %(num)d поруке које задовољавају услове."
+msgstr[2] "Нађено %(num)d порука које задовољавају услове."
+msgstr[3] "Нађена %(num)d порука која задовољава услове."
+
+#: sieve/generate_xml.py:27
+msgctxt "@info sieve discription"
+msgid ""
+"Generate an XML tree from the input PO files.\n"
+"\n"
+"See documentation for the description of the XML format used."
+msgstr ""
+
+#: sieve/generate_xml.py:35
+msgctxt "@info sieve parameter discription"
+msgid "Write the XML tree into a file instead to standard output."
+msgstr ""
+
+#: sieve/generate_xml.py:40
+msgctxt "@info sieve parameter discription"
+msgid "Consider only translated messages."
+msgstr ""
+
+#: sieve/merge_corr_tree.py:25
+msgctxt "@info sieve discription"
+msgid ""
+"Merge translation corrections from partial PO files tree into main tree.\n"
+"\n"
+"Give main PO files tree as input and provide the path difference to where "
+"the partial correction tree is available."
+msgstr ""
+
+#: sieve/merge_corr_tree.py:33
+msgctxt "@info sieve parameter value placeholder"
+msgid "FIND[:REPLACE]"
+msgstr ""
+
+#: sieve/merge_corr_tree.py:35
+msgctxt "@info sieve parameter discription"
+msgid ""
+"Specify that partial tree is available at path obtained when first FIND in "
+"the input path is replaced with REPLACE. If REPLACE is not given, FIND is "
+"just removed. Example:\n"
+"\n"
+"pathdelta:ui:ui-check"
+msgstr ""
+
+#: sieve/merge_corr_tree.py:102
+#, python-format
+msgctxt "@info:progress"
+msgid "Merged %(num)d corrected message."
+msgid_plural "Merged %(num)d corrected messages."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+
+#: sieve/normalize_header.py:19
+msgctxt "@info sieve discription"
+msgid "Check and rearrange content of PO header into canonical form."
+msgstr ""
+
+#: sieve/normctxt_delim.py:22
+msgctxt "@info sieve discription"
+msgid "Convert delimiter-embedded context to Gettext context."
+msgstr ""
+
+#: sieve/normctxt_delim.py:28
+msgctxt "@info sieve parameter discription"
+msgid "Start of the msgid field which indicates that the context follows."
+msgstr ""
+
+#: sieve/normctxt_delim.py:33
+msgctxt "@info sieve parameter discription"
+msgid "End of context in msgid field, after which the text follows."
+msgstr ""
+
+#: sieve/normctxt_delim.py:46
+msgctxt "@info"
+msgid "Context head cannot be empty string."
+msgstr ""
+
+#: sieve/normctxt_delim.py:50
+msgctxt "@info"
+msgid "Context tail cannot be empty string."
+msgstr ""
+
+#: sieve/normctxt_delim.py:65
+msgctxt "@info"
+msgid "Malformed embedded context."
+msgstr ""
+
+#: sieve/normctxt_delim.py:72
+msgctxt "@info"
+msgid "Empty context or text."
+msgstr ""
+
+#: sieve/normctxt_delim.py:85
+#, python-format
+msgctxt "@info:progress"
+msgid "Converted %(num)d delimiter-embedded context."
+msgid_plural "Converted %(num)d delimiter-embedded contexts."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+
+#: sieve/normctxt_sep.py:22
+msgctxt "@info sieve discription"
+msgid "Convert separator-embedded context to Gettext context."
+msgstr ""
+
+#: sieve/normctxt_sep.py:28
+msgctxt "@info sieve parameter discription"
+msgid "Separator between the context and the text in msgid field."
+msgstr ""
+
+#: sieve/normctxt_sep.py:41
+msgctxt "@info"
+msgid "Context separator cannot be empty string."
+msgstr ""
+
+#: sieve/normctxt_sep.py:69
+#, python-format
+msgctxt "@info:progress"
+msgid "Converted %(num)d separator-embedded context."
+msgid_plural "Converted %(num)d separator-embedded contexts."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+
+#: sieve/remove_fuzzy_comments.py:21
+msgctxt "@info sieve discription"
+msgid "Remove selected manual comments from fuzzy messages."
+msgstr ""
+
+#: sieve/remove_fuzzy_comments.py:26
+msgctxt "@info sieve parameter discription"
+msgid "Remove all manual comments."
+msgstr ""
+
+#: sieve/remove_fuzzy_comments.py:30
+msgctxt "@info sieve parameter discription"
+msgid "Remove embedded lists of no-pipe flags (# |, foo, ...)."
+msgstr ""
+
+#: sieve/remove_fuzzy_comments.py:35
+msgctxt "@info sieve parameter discription"
+msgid "Remove comments matching the regular expression."
+msgstr ""
+
+#: sieve/remove_fuzzy_comments.py:40
+msgctxt "@info sieve parameter discription"
+msgid "Remove comments not matching the regular expression."
+msgstr ""
+
+#: sieve/remove_fuzzy_comments.py:44
+msgctxt "@info sieve parameter discription"
+msgid "Case-sensitive pattern matching."
+msgstr ""
+
+#: sieve/remove_fuzzy_comments.py:120
+#, python-format
+msgctxt "@info:progress"
+msgid "Removed some comments from %(num)d fuzzy message."
+msgid_plural "Removed some comments from %(num)d fuzzy messages."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+
+#: sieve/remove_obsolete.py:19
+msgctxt "@info sieve discription"
+msgid "Remove obsolete messages from catalogs."
+msgstr ""
+
+#: sieve/remove_obsolete.py:41
+#, python-format
+msgctxt "@info:progress"
+msgid "Removed %(num)d obsolete message."
+msgid_plural "Removed %(num)d obsolete messages."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+
+#: sieve/remove_previous.py:19
+msgctxt "@info sieve discription"
+msgid "Remove previous fields (#| ...) from messages."
+msgstr ""
+
+#: sieve/remove_previous.py:24
+msgctxt "@info sieve parameter discription"
+msgid ""
+"Remove previous fields from all messages (by default previous fields are not "
+"removed from fuzzy messages)."
+msgstr ""
+
+#: sieve/remove_previous.py:53
+#, python-format
+msgctxt "@info:progress"
+msgid "Cleared previous fields from %(num)d message."
+msgid_plural "Cleared previous fields from %(num)d messages."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+
+#: sieve/resolve_aggregates.py:33
+#, python-format
+msgctxt "@info sieve discription"
+msgid "Resolve aggregate messages produced by '%(cmd)s'."
+msgstr ""
+
+#: sieve/resolve_aggregates.py:39
+msgctxt "@info sieve parameter discription"
+msgid ""
+"Always pick the first variant (by default, aggregate messages are resolved "
+"by taking the most frequent variant)."
+msgstr ""
+
+#: sieve/resolve_aggregates.py:44
+msgctxt "@info sieve parameter discription"
+msgid ""
+"Unfuzzy resolved messages. DANGEROUS: Use only if all messages in "
+"aggregation can be guaranteed not to be fuzzy."
+msgstr ""
+
+#: sieve/resolve_aggregates.py:50
+msgctxt "@info sieve parameter discription"
+msgid "Keep source reference on resolved messages instead of removing them."
+msgstr ""
+
+#: sieve/resolve_aggregates.py:62
+msgctxt "@info"
+msgid "Only one resolution criterion for aggregate messages can be given."
+msgstr ""
+
+#: sieve/resolve_aggregates.py:99
+#, python-format
+msgctxt "@info:progress"
+msgid "Resolved %(num)d aggregate header."
+msgid_plural "Resolved %(num)d aggregate headers."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+
+#: sieve/resolve_aggregates.py:105
+#, python-format
+msgctxt "@info:progress"
+msgid "Resolved %(num)d aggregate message."
+msgid_plural "Resolved %(num)d aggregate messages."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+
+#: sieve/resolve_alternatives.py:27
+msgctxt "@info sieve discription"
+msgid "Resolve alternative directives in translation."
+msgstr ""
+
+#: sieve/resolve_alternatives.py:31
+msgctxt "@info sieve parameter value placeholder"
+msgid "N,Mt"
+msgstr ""
+
+#: sieve/resolve_alternatives.py:33
+msgctxt "@info sieve parameter discription"
+msgid ""
+"N is index (1-based) of the alternative to take from each directive, and M "
+"the number of alternatives per directive. Example:\n"
+"\n"
+"alt:1,2t"
+msgstr ""
+
+#: sieve/resolve_alternatives.py:55
+#, python-format
+msgctxt "@info"
+msgid "Malformed specification for resolution of alternatives '%(spec)s'."
+msgstr ""
+
+#: sieve/resolve_alternatives.py:61
+msgctxt "@info"
+msgid "Number of alternatives per directive not given."
+msgstr ""
+
+#: sieve/resolve_alternatives.py:65
+msgctxt "@info"
+msgid "Index of selected alternative not given."
+msgstr ""
+
+#: sieve/resolve_alternatives.py:69
+#, python-format
+msgctxt "@info"
+msgid ""
+"Number of alternatives specified as %(num)d, but must be greater than 1."
+msgstr ""
+
+#: sieve/resolve_alternatives.py:75
+#, python-format
+msgctxt "@info"
+msgid "Selected alternative no. %(ord)d is out of range."
+msgstr ""
+
+#: sieve/resolve_alternatives.py:91
+msgctxt "@info"
+msgid "Invalid alternatives directive in translation."
+msgstr ""
+
+#: sieve/resolve_alternatives.py:99
+#, python-format
+msgctxt "@info:progress"
+msgid "Resolved %(num)d alternative in translation."
+msgid_plural "Resolved %(num)d alternatives in translation."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+
+#: sieve/resolve_entities.py:23
+msgctxt "@info sieve discription"
+msgid "Resolve XML entities in translation."
+msgstr ""
+
+#: sieve/resolve_entities.py:29
+msgctxt "@info sieve parameter value placeholder"
+msgid "ENTITY1,..."
+msgstr ""
+
+#: sieve/resolve_entities.py:31
+msgctxt "@info sieve parameter discription"
+msgid "Comma-separated list of entity names to ignore."
+msgstr ""
+
+#: sieve/resolve_entities.py:61
+#, python-format
+msgctxt "@info"
+msgid "Unknown entities in translation: %(entlist)s."
+msgstr ""
+
+#: sieve/resolve_entities.py:71
+#, python-format
+msgctxt "@info:progress"
+msgid "Resolved %(num)d entity in translation."
+msgid_plural "Resolved %(num)d entities in translation."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+
+#: sieve/set_header.py:24
+#, python-format
+msgctxt "@info sieve discription"
+msgid ""
+"Set elements of the PO header.\n"
+"\n"
+"Sometimes a header field needs to be modified, added or removed in many "
+"catalogs, and this sieve serves that purpose.\n"
+"\n"
+"%%-character in the value is used to expand known variables. Currently these "
+"are: %%%(var1)s - name of the catalog. If literal %% is needed (e.g. in "
+"plural forms header), it can be escaped as %%%%."
+msgstr ""
+
+#: sieve/set_header.py:38
+msgctxt "@info sieve parameter value placeholder"
+msgid "FIELD:VALUE"
+msgstr ""
+
+#: sieve/set_header.py:40
+msgctxt "@info sieve parameter discription"
+msgid ""
+"Set a header field to the given value. This parameter can be repeated, to "
+"set several fields in single run."
+msgstr ""
+
+#: sieve/set_header.py:45
+msgctxt "@info sieve parameter discription"
+msgid ""
+"Add the field if not present (by default the field value is set only if the "
+"field already exists in the header)."
+msgstr ""
+
+#: sieve/set_header.py:50 sieve/set_header.py:56 sieve/set_header.py:68
+msgctxt "@info sieve parameter value placeholder"
+msgid "FIELD"
+msgstr ""
+
+#: sieve/set_header.py:52
+msgctxt "@info sieve parameter discription"
+msgid ""
+"When the new field is being added, add it after this field. If such field "
+"does not exist, the new field is added as the last one."
+msgstr ""
+
+#: sieve/set_header.py:58
+msgctxt "@info sieve parameter discription"
+msgid ""
+"When the new field is being added, add it before this field. If such field "
+"does not exist, the new field is added as the last one."
+msgstr ""
+
+#: sieve/set_header.py:63
+#, python-format
+msgctxt "@info sieve parameter discription"
+msgid ""
+"If the field to be set is present, but not in the order implied by '%(par1)"
+"s' and '%(par2)s' parameters, reinsert it accordingly."
+msgstr ""
+
+#: sieve/set_header.py:70
+msgctxt "@info sieve parameter discription"
+msgid "Remove the field."
+msgstr ""
+
+#: sieve/set_header.py:75
+msgctxt "@info sieve parameter discription"
+msgid ""
+"Remove all fields matching the regular expression. Matching is not case-"
+"sensitive."
+msgstr ""
+
+#: sieve/set_header.py:79 sieve/set_header.py:90 sieve/set_header.py:99
+#: sieve/set_header.py:108 sieve/set_header.py:119
+msgctxt "@info sieve parameter value placeholder"
+msgid "VALUE"
+msgstr ""
+
+#: sieve/set_header.py:81
+msgctxt "@info sieve parameter discription"
+msgid ""
+"Set title comment to the given value.Can be repeated to set several title "
+"lines. All existing title lines are removed before setting the new ones."
+msgstr ""
+
+#: sieve/set_header.py:87
+msgctxt "@info sieve parameter discription"
+msgid "Remove title comments."
+msgstr ""
+
+#: sieve/set_header.py:92
+msgctxt "@info sieve parameter discription"
+msgid "Set copyright comment to the given value."
+msgstr ""
+
+#: sieve/set_header.py:96
+msgctxt "@info sieve parameter discription"
+msgid "Remove the copyright comment."
+msgstr ""
+
+#: sieve/set_header.py:101
+msgctxt "@info sieve parameter discription"
+msgid "Set license comment to the given value."
+msgstr ""
+
+#: sieve/set_header.py:105
+msgctxt "@info sieve parameter discription"
+msgid "Remove the license comment."
+msgstr ""
+
+#: sieve/set_header.py:110
+msgctxt "@info sieve parameter discription"
+msgid ""
+"Set author comment to the given value. Can be repeated to set several "
+"authors. All existing authors are removed before setting the new ones."
+msgstr ""
+
+#: sieve/set_header.py:116
+msgctxt "@info sieve parameter discription"
+msgid "Remove author comments."
+msgstr ""
+
+#: sieve/set_header.py:121
+msgctxt "@info sieve parameter discription"
+msgid ""
+"Set free comment to the given value. Can be repeated to set several free "
+"comment lines. All existing comment lines are removed before setting the new "
+"ones."
+msgstr ""
+
+#: sieve/set_header.py:127
+msgctxt "@info sieve parameter discription"
+msgid "Remove free comments."
+msgstr ""
+
+#: sieve/set_header.py:131
+msgctxt "@info sieve parameter discription"
+msgid "Remove all header comments."
+msgstr ""
+
+#: sieve/set_header.py:146
+#, python-format
+msgctxt "@info"
+msgid "Invalid specification '%(spec)s' of header field and value."
+msgstr ""
+
+#: sieve/set_header.py:165
+#, python-format
+msgctxt "@info"
+msgid "Invalid regular expression '%(regex)s' for removing fields."
+msgstr ""
+
+#: sieve/set_header.py:177
+#, python-format
+msgctxt "@info"
+msgid ""
+"Invalid value '%(val)s' for title comment (it contains some elements "
+"appropriate for other types of comments)."
+msgstr ""
+
+#: sieve/set_header.py:185
+#, python-format
+msgctxt "@info"
+msgid ""
+"Invalid value '%(val)s' for copyright comment (missing the word "
+"'copyright'?)."
+msgstr ""
+
+#: sieve/set_header.py:192
+#, python-format
+msgctxt "@info"
+msgid ""
+"Invalid value '%(val)s' for license comment (missing the word 'license'?)."
+msgstr ""
+
+#: sieve/set_header.py:199
+#, python-format
+msgctxt "@info"
+msgid ""
+"Invalid value '%(val)s' for author comment (missing the email address?)."
+msgstr ""
+
+#: sieve/stats.py:34
+msgctxt "@info sieve discription"
+msgid ""
+"Compute translation statistics.\n"
+"\n"
+"Provides basic count of number of messages by type (translated, fuzzy, "
+"etc.), along with words and character counts, and some other derived "
+"statistics on request."
+msgstr ""
+
+#: sieve/stats.py:44
+msgctxt "@info sieve parameter discription"
+msgid ""
+"Character which is used as UI accelerator marker in text fields, to remove "
+"it before counting. If a catalog defines accelerator marker in the header, "
+"this value overrides it."
+msgstr ""
+
+#: sieve/stats.py:51
+msgctxt "@info sieve parameter discription"
+msgid "Compute and display some derived statistical quantities."
+msgstr ""
+
+#: sieve/stats.py:55
+msgctxt "@info sieve parameter discription"
+msgid ""
+"List catalogs which are not fully translated, with incompletness counts."
+msgstr ""
+
+#: sieve/stats.py:60
+msgctxt "@info sieve parameter discription"
+msgid ""
+"Write paths of catalogs that are not fully translated into a file, one per "
+"line."
+msgstr ""
+
+#: sieve/stats.py:65
+msgctxt "@info sieve parameter value placeholder"
+msgid "FIND:REPLACE"
+msgstr ""
+
+#: sieve/stats.py:67
+msgctxt "@info sieve parameter discription"
+msgid ""
+"Count in templates without a corresponding catalog (i.e. translation on it "
+"has not started yet) into statistics. Assumes that translated catalogs and "
+"templates live in two root directories with same structure; then for each "
+"path of an existing catalog, its directory is taken and the path to "
+"corresponding templates directory constructed by replacing first occurence "
+"of FIND with REPLACE."
+msgstr ""
+
+#: sieve/stats.py:77
+msgctxt "@info sieve parameter discription"
+msgid ""
+"In summit catalogs, count in only messages belonging to given branch. "
+"Several branches can be given as comma-separated list."
+msgstr ""
+
+#: sieve/stats.py:83
+msgctxt "@info sieve parameter discription"
+msgid ""
+"Count in only messages which have at most this many words, either in "
+"original or translation."
+msgstr ""
+
+#: sieve/stats.py:89
+msgctxt "@info sieve parameter discription"
+msgid ""
+"Count in only messages which have at least this many words, either in "
+"original or translation."
+msgstr ""
+
+#: sieve/stats.py:93 sieve/stats.py:100
+msgctxt "@info sieve parameter value placeholder"
+msgid "FROM:TO"
+msgstr ""
+
+#: sieve/stats.py:95
+msgctxt "@info sieve parameter discription"
+msgid ""
+"Count in only messages at or after line FROM, and before line TO. If FROM is "
+"empty, 0 is assumed; if TO is empty, total number of lines is assumed."
+msgstr ""
+
+#: sieve/stats.py:102
+msgctxt "@info sieve parameter discription"
+msgid ""
+"Count in only messages at or after entry FROM, and before entry TO. If FROM "
+"is empty, 0 is assumed; if TO is empty, total number of entries is assumed."
+msgstr ""
+
+#: sieve/stats.py:108
+msgctxt "@info sieve parameter discription"
+msgid "Report statistics per leaf directory in searched paths."
+msgstr ""
+
+#: sieve/stats.py:112
+msgctxt "@info sieve parameter discription"
+msgid "Report statistics per catalog."
+msgstr ""
+
+#: sieve/stats.py:116
+msgctxt "@info sieve parameter discription"
+msgid "Show statistics in form of word bars."
+msgstr ""
+
+#: sieve/stats.py:120
+msgctxt "@info sieve parameter discription"
+msgid "Show statistics in form of message bars."
+msgstr ""
+
+#: sieve/stats.py:124
+#, python-format
+msgctxt "@info sieve parameter discription"
+msgid ""
+"Scale lengths of word and message bars to numbers they represent, rather "
+"than relative to percentage of translation state. Useful with '%(par1)s' and "
+"'%(par2)s' parameters, to compare sizes of different translation units."
+msgstr ""
+
+#: sieve/stats.py:132
+msgctxt "@info sieve parameter discription"
+msgid ""
+"Reduce word and character counts in fuzzy messages based on difference ratio "
+"between current and previous original text, and add the removed parts to "
+"translated category."
+msgstr ""
+
+#: sieve/stats.py:137
+msgctxt "@info sieve parameter value placeholder"
+msgid "RATIO"
+msgstr ""
+
+#: sieve/stats.py:139
+msgctxt "@info sieve parameter discription"
+msgid ""
+"Include into statistics only catalogs with sufficient completeness, as ratio "
+"of translated to other messages (real value between 0 and 1)."
+msgstr ""
+
+#: sieve/stats.py:145
+msgctxt "@info sieve parameter discription"
+msgid ""
+"F1A hook specification, to filter the translation through. Several filters "
+"can be specified by repeating the parameter."
+msgstr ""
+
+#: sieve/stats.py:183
+msgctxt "@title:row translated messages/words/characters"
+msgid "translated"
+msgstr "преведено"
+
+#: sieve/stats.py:186
+msgctxt "@title:row fuzzy messages/words/characters"
+msgid "fuzzy"
+msgstr "мутно"
+
+#: sieve/stats.py:189
+msgctxt "@title:row untranslated messages/words/characters"
+msgid "untranslated"
+msgstr "непреведено"
+
+#: sieve/stats.py:192
+msgctxt "@title:row fuzzy messages/words/characters"
+msgid "total"
+msgstr "укупно"
+
+#: sieve/stats.py:195
+msgctxt "@title:row fuzzy messages/words/characters"
+msgid "obsolete"
+msgstr "застарело"
+
+#: sieve/stats.py:208
+#, python-format
+msgctxt "@info"
+msgid "Wrong number of elements in span specification '%(spec)s'."
+msgstr ""
+
+#: sieve/stats.py:221
+#, python-format
+msgctxt "@info"
+msgid "Not an integer number in span specification '%(spec)s'."
+msgstr ""
+
+#: sieve/stats.py:301
+#, python-format
+msgctxt "@info"
+msgid "Expected template catalog '%(file)s' is missing."
+msgstr ""
+
+#: sieve/stats.py:546 sieve/stats.py:554
+msgctxt "@item:intable sum of all other entries"
+msgid "(overall)"
+msgstr "(укупно)"
+
+#: sieve/stats.py:564
+#, python-format
+msgctxt "@item:intext"
+msgid "branches (%(branchlist)s)"
+msgstr "гране (%(branchlist)s)"
+
+#: sieve/stats.py:568
+#, python-format
+msgctxt "@item:intext"
+msgid "at most %(num)d word"
+msgid_plural "at most %(num)d words"
+msgstr[0] "највише %(num)d реч"
+msgstr[1] "највише %(num)d речи"
+msgstr[2] "највише %(num)d речи"
+msgstr[3] "највише %(num)d реч"
+
+#: sieve/stats.py:573
+#, python-format
+msgctxt "@item:intext"
+msgid "at least %(num)d word"
+msgid_plural "at least %(num)d words"
+msgstr[0] "најмање %(num)d реч"
+msgstr[1] "најмање %(num)d речи"
+msgstr[2] "најмање %(num)d речи"
+msgstr[3] "најмање %(num)d реч"
+
+#: sieve/stats.py:578
+#, python-format
+msgctxt "@item:intext"
+msgid "from %(num1)d to %(num)d word"
+msgid_plural "from %(num1)d to %(num)d words"
+msgstr[0] "између %(num1)d и %(num)d речи"
+msgstr[1] "између %(num1)d и %(num)d речи"
+msgstr[2] "између %(num1)d и %(num)d речи"
+msgstr[3] "између %(num1)d и %(num)d речи"
+
+#: sieve/stats.py:583
+#, python-format
+msgctxt "@item:intext"
+msgid "line span %(span)s"
+msgstr "опсег редова %(span)s"
+
+#: sieve/stats.py:587
+#, python-format
+msgctxt "@item:intext"
+msgid "entry span %(span)s"
+msgstr "опсег уноса %(span)s"
+
+#: sieve/stats.py:591
+msgctxt "@item:intext"
+msgid "scaled fuzzy counts"
+msgstr "сведено бројање мутних"
+
+#: sieve/stats.py:614
+#, python-format
+msgctxt "@title"
+msgid "<bold>%(title)s</bold>"
+msgstr "<bold>%(title)s</bold>"
+
+#: sieve/stats.py:651
+msgctxt "@title:column fuzzy and untranslated messages"
+msgid "msg/f+u"
+msgstr "пор/м+н"
+
+#: sieve/stats.py:653
+msgctxt "@title:column words in fuzzy messages"
+msgid "w/f"
+msgstr "р/м"
+
+#: sieve/stats.py:655
+msgctxt "@title:column words in untranslated messages"
+msgid "w/u"
+msgstr "р/н"
+
+#: sieve/stats.py:657
+msgctxt "@title:column words in fuzzy and untranslated messages"
+msgid "w/f+u"
+msgstr "р/м+н"
+
+#: sieve/stats.py:676
+#, python-format
+msgctxt "@item:intable"
+msgid "modifiers: %(modlist)s"
+msgstr "модификатори: %(modlist)s"
+
+#: sieve/stats.py:742
+msgctxt "@title:column messages"
+msgid "msg"
+msgstr "пор"
+
+#: sieve/stats.py:744
+msgctxt "@title:column percentage of total messages"
+msgid "msg/tot"
+msgstr "пор/укп"
+
+#: sieve/stats.py:746
+msgctxt "@title:column words in original"
+msgid "w-or"
+msgstr "р-из"
+
+#: sieve/stats.py:748
+msgctxt "@title:column percentage of words to total in original"
+msgid "w/tot-or"
+msgstr "р/укп-из"
+
+#: sieve/stats.py:750
+msgctxt "@title:column words in translation"
+msgid "w-tr"
+msgstr "р-пр"
+
+#: sieve/stats.py:752
+msgctxt "@title:column characters in original"
+msgid "ch-or"
+msgstr "з-из"
+
+#: sieve/stats.py:754
+msgctxt "@title:column characters in translation"
+msgid "ch-tr"
+msgstr "з-пр"
+
+#: sieve/stats.py:759
+msgctxt "@title:column word efficiency"
+msgid "w-ef"
+msgstr "р-еф"
+
+#: sieve/stats.py:761
+msgctxt "@title:column character efficiency"
+msgid "ch-ef"
+msgstr "з-еф"
+
+#: sieve/stats.py:763
+msgctxt "@title:column words per message in original"
+msgid "w/msg-or"
+msgstr "р/пор-из"
+
+#: sieve/stats.py:765
+msgctxt "@title:column words per message in translation"
+msgid "w/msg-tr"
+msgstr "р/пор-пр"
+
+#: sieve/stats.py:767
+msgctxt "@title:column characters per message in original"
+msgid "ch/w-or"
+msgstr "з/р-из"
+
+#: sieve/stats.py:769
+msgctxt "@title:column characters per message in translation"
+msgid "ch/w-tr"
+msgstr "з/р-пр"
+
+#: sieve/stats.py:782
+msgctxt "@item:intable number of messages"
+msgid "msgs"
+msgstr "пор"
+
+#: sieve/stats.py:790
+msgctxt "@item:intable number of words in original"
+msgid "w-or"
+msgstr "р-из"
+
+#: sieve/stats.py:878
+msgctxt "@info"
+msgid "Count too large, cannot display bar graph."
+msgstr ""
+
+#: sieve/tag_untranslated.py:20
+#, python-format
+msgctxt "@info sieve discription"
+msgid "Tag all untranslated messages with '%(flag)s' flag."
+msgstr ""
+
+#: sieve/tag_untranslated.py:26
+msgctxt "@info sieve parameter discription"
+msgid "Remove tags from messages."
+msgstr ""
+
+#: sieve/tag_untranslated.py:30
+msgctxt "@info sieve parameter discription"
+msgid "Also add tags to fuzzy messages."
+msgstr ""
+
+#: sieve/tag_untranslated.py:86
+#, python-format
+msgctxt "@info:progress"
+msgid "Tagged %(num)d untranslated message."
+msgid_plural "Tagged %(num)d untranslated messages."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+
+#: sieve/tag_untranslated.py:92
+#, python-format
+msgctxt "@info:progress"
+msgid "Cleared untranslated tag from %(num)d message."
+msgid_plural "Cleared untranslated tag from %(num)d messages."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+
+#: sieve/unfuzzy_context_only.py:22
+#, python-format
+msgctxt "@info sieve discription"
+msgid ""
+"Unfuzzy messages which got fuzzy only due to changed context.\n"
+"\n"
+"Possible only if catalogs were merged with --previous option.\n"
+"\n"
+"By default, unfuzzied messages will get a translator comment with the string "
+"'%(str)s', so that they can be reviewed later."
+msgstr ""
+
+#: sieve/unfuzzy_context_only.py:33 sieve/unfuzzy_ctxmark_only.py:32
+msgctxt "@info sieve parameter discription"
+msgid "Do not add translator comment indicating unreviewed context."
+msgstr ""
+
+#: sieve/unfuzzy_context_only.py:37
+msgctxt "@info sieve parameter discription"
+msgid ""
+"Do not unfuzzy messages which have same msgid as another message, and report "
+"them together with all other messages with the same msgid."
+msgstr ""
+
+#: sieve/unfuzzy_context_only.py:109
+#, python-format
+msgctxt "@info:progress"
+msgid "Unfuzzied %(num)d message fuzzy due to difference in context only."
+msgid_plural ""
+"Unfuzzied %(num)d messages fuzzy due to difference in context only."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+
+#: sieve/unfuzzy_context_only.py:117
+#, python-format
+msgctxt "@info:progress"
+msgid "Reported %(num)d message due to equality of '%(field)s' field."
+msgid_plural "Reported %(num)d messages due to equality of '%(field)s' field."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+
+#: sieve/unfuzzy_ctxmark_only.py:21
+#, python-format
+msgctxt "@info sieve discription"
+msgid ""
+"Unfuzzy messages which got fuzzy only due to changed context marker.\n"
+"\n"
+"Possible only if catalogs were merged with --previous option.\n"
+"\n"
+"By default, unfuzzied messages will get a translator comment with the string "
+"'%(str)s', so that they can be reviewed later."
+msgstr ""
+
+#: sieve/unfuzzy_ctxmark_only.py:76
+#, python-format
+msgctxt "@info:progress"
+msgid ""
+"Unfuzzied %(num)d message fuzzy due to difference in context marker only."
+msgid_plural ""
+"Unfuzzied %(num)d messages fuzzy due to difference in context marker only."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+
+#: sieve/unfuzzy_inplace_only.py:22
+#, python-format
+msgctxt "@info sieve discription"
+msgid ""
+"Unfuzzy messages fuzzied only due to some tags being closed in-place (like '%"
+"(tag1)s' to '%(tag2)s').\n"
+"\n"
+"Possible only if catalogs were merged with --previous option."
+msgstr ""
+
+#: sieve/unfuzzy_inplace_only.py:86
+#, python-format
+msgctxt "@info:progress"
+msgid "Unfuzzied %(num)d message due to closing tags in-place."
+msgid_plural "Unfuzzied %(num)d messages due to closing tags in-place."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+
+#: sieve/unfuzzy_inplace_only.py:94
+#, python-format
+msgctxt "@info:progress"
+msgid "Modified %(num)d translations by closing tags in-place."
+msgid_plural "Modified %(num)d translations by closing tags in-place."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+
+#: sieve/update_header.py:26
+msgctxt "@info sieve discription"
+msgid "Initialize or update the PO header with own translator data."
+msgstr ""
+
+#: sieve/update_header.py:29
+msgctxt "@info sieve parameter value placeholder"
+msgid "ID"
+msgstr ""
+
+#: sieve/update_header.py:31
+msgctxt "@info sieve parameter discription"
+msgid ""
+"Project ID in Pology configuration file, which contains the necessary "
+"project data to update the header."
+msgstr ""
+
+#: sieve/update_header.py:36
+msgctxt "@info sieve parameter discription"
+msgid ""
+"Consider header as uninitialized, removing any existing information before "
+"adding own and project data."
+msgstr ""
+
+#: sieve/update_header.py:41
+msgctxt "@info sieve parameter discription"
+msgid ""
+"Update header only if the catalog was otherwise modified (in sieve chains)."
+msgstr ""
+
+#: sieve/update_header.py:57
+#, python-format
+msgctxt "@info"
+msgid "Project '%(id)s' is not defined in user configuration."
+msgstr ""
+
+#: sieve/update_header.py:67 sieve/update_header.py:73
+#, python-format
+msgctxt "@info"
+msgid "Field '%(field)s' is not set in project or user configuration."
+msgstr ""
+
+#: sieve/update_header.py:79 sieve/update_header.py:86
+#: sieve/update_header.py:96
+#, python-format
+msgctxt "@info"
+msgid "Field '%(field)s' is not set in project configuration."
+msgstr ""
+
+#: lang/fr/sieve/setUbsp.py:20
+msgctxt "@info sieve description"
+msgid "Replace normal space by non-breaking space where needed."
+msgstr ""
+
+#: lang/fr/sieve/setUbsp.py:46
+#, python-format
+msgctxt "@info"
+msgid "Non-breaking spaces added in %(num)d message."
+msgid_plural "Non-breaking spaces added in %(num)d messages."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+
+#: lang/ru/sieve/fill_doc_date_kde.py:22
+msgctxt "@info sieve discription"
+msgid "Reformat documentation update date for Russian KDE Team."
+msgstr ""
