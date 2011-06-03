@@ -57,3 +57,9 @@
   - scripts/normalize-aspell-word-list.py
   - lang/sr/scripts/traplint.py
 
+
+* Convert all errors in scripts to exceptions, rely on exit_on_exception().
+
+  Make it possible to disable hiding the backtrace in exit_on_exception(),
+  through user configuration and environment variable.
+
