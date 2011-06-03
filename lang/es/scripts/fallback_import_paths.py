@@ -1,9 +1,9 @@
 # -*- coding: UTF-8 -*-
 
 """
-Insert fallback import paths in scripts for Serbian language.
+Insert fallback import paths in scripts for Spanish language.
 
-Used within scripts for Serbian language like its counterpart
+Used within scripts for Spanish language like its counterpart
 for general scripts (scripts/fallback_import_paths.py).
 
 @author: Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
