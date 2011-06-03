@@ -51,3 +51,9 @@
 
   Custom tests, or using some framework?
 
+
+* Update scripts to Pology conventions (i18n, ColorOptionParser...).
+
+  - scripts/normalize-aspell-word-list.py
+  - lang/sr/scripts/traplint.py
+
