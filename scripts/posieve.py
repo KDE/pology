@@ -10,7 +10,10 @@ Reference documentation in C{doc/user/sieving.docbook}.
 @license: GPLv3
 """
 
-import fallback_import_paths
+try:
+    import fallback_import_paths
+except:
+    pass
 
 import glob
 import imp

@@ -17,7 +17,10 @@ import shutil
 import sys
 import time
 
-import fallback_import_paths
+try:
+    import fallback_import_paths
+except:
+    pass
 
 from pology import version, _, n_
 from pology.catalog import Catalog

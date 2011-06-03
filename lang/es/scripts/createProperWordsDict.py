@@ -7,7 +7,10 @@
 # It is a tool that helps to complete the local dictionary.
 # The code is adapted from the Servian team pology scripts by Chusslove Illich.
 
-import fallback_import_paths
+try:
+    import fallback_import_paths
+except:
+    pass
 
 import sys
 import os

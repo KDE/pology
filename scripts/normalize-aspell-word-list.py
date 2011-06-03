@@ -22,7 +22,10 @@ from os.path import abspath, basename
 import re
 import sys
 
-import fallback_import_paths
+try:
+    import fallback_import_paths
+except:
+    pass
 from pology import _, n_
 from pology.report import report, error
 

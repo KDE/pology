@@ -1,7 +1,10 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
 
-import fallback_import_paths
+try:
+    import fallback_import_paths
+except:
+    pass
 
 import sys
 import os

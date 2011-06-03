@@ -10,7 +10,10 @@ Documented in C{doc/user/diffpatch.docbook#sec-dpdiff}.
 @license: GPLv3
 """
 
-import fallback_import_paths
+try:
+    import fallback_import_paths
+except:
+    pass
 
 import sys
 import os
