@@ -1172,15 +1172,40 @@ class Catalog (Monitored):
                 if flines[-1] != "\n":
                     flines.append("\n")
                 i += 1
-
-        # Remove trailing newlines unless there is a tail.
         if not self._tail:
+            # Remove trailing empty lines.
             while flines and flines[-1] == "\n":
                 flines.pop(-1)
-        # Encode lines and any tail.
-        enclines = [x.encode(self._encoding) for x in flines]
-        if self._tail:
-            enctail = self._tail.encode(self._encoding)
+        else:
+            # Tail has to be converted to separate lines,
+            # so that possibly new encoding is applied to it too
+            # while being able to report line/column on error.
+            flines.extend(x + "\n" for x in self._tail.split("\n"))
+            if self._tail.endswith("\n"):
+                flines.pop(-1)
+
+        # Remove temporarily inserted header.
+        self._messages.pop(0)
+
+        # Update message map.
+        self.sync_map()
+
+        # Reset modification state throughout.
+        self.modcount = 0
+
+        # Encode lines and write file.
+        enclines = []
+        for i, line in enumerate(flines):
+            try:
+                encline = line.encode(self._encoding)
+            except UnicodeEncodeError, e:
+                raise PologyError(
+                    _("@info",
+                      "Text encoding failure at %(file)s:%(line)d:%(col)d "
+                      "under assumed encoding '%(enc)s'.",
+                      file=self._filename, line=(i + 1), col=e[2],
+                      enc=self._encoding))
+            enclines.append(encline)
         if not writefh:
             # Create the parent directory if it does not exist.
             pdirpath = os.path.dirname(self._filename)
@@ -1196,8 +1221,6 @@ class Catalog (Monitored):
         else:
             ofl = writefh
         ofl.writelines(enclines)
-        if self._tail: # write tail if any
-            ofl.write(enctail)
         if not writefh:
             ofl.close()
             if os.name == "nt":
@@ -1212,19 +1235,12 @@ class Catalog (Monitored):
         # Indicate the catalog is no longer created from scratch, if it was.
         self._created_from_scratch = False
 
-        # Remove temporarily inserted header, indicate it has been committed.
-        self._messages.pop(0)
+        # Indicate header has been committed.
         self._header._committed = True
-
-        # Update message map.
-        self.sync_map()
 
         # Indicate for each message that it has been committed.
         for msg in self._messages:
             msg._committed = True
-
-        # Reset modification state throughout.
-        self.modcount = 0
 
         return True
 
@@ -1686,6 +1702,41 @@ class Catalog (Monitored):
 
         return selected_msgs
 
+
+    def encoding (self):
+        """
+        Report encoding used when syncing the catalog.
+
+        Encoding is determined from C{Content-Type} header field.
+
+        It is not defined when the header will be examined,
+        or if it will be reexamined when it changes.
+        If you want to set encoding after the catalog has been
+        opened, use L{set_encoding}.
+
+        @returns: the encoding name
+        @rtype: string
+        """
+
+        return self._encoding
+
+
+    def set_encoding (self, encoding):
+        """
+        Set encoding used when syncing the catalog.
+
+        Encoding set by this method will later be readable by
+        the L{encoding} method.
+        This will also modify the catalog header C{Content-Type} field.
+
+        @param encoding: the encoding name
+        @type encoding: string
+        """
+
+        self._encoding = encoding
+
+        ctval = u"text/plain; charset=%s" % encoding
+        self.header.set_field(u"Content-Type", ctval)
 
 
     def accelerator (self):
