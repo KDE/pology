@@ -471,7 +471,7 @@ def wrap_field_fine_unwrap (field, text, preseq=""):
 
 def select_field_wrapper (wrapkw):
     """
-    Select wrap function for PO message fields.
+    Select wrap function for PO message fields based on keywords.
 
     Wrap function is selected by specifying a sequence of keywords,
     from the following set:
@@ -504,4 +504,59 @@ def select_field_wrapper (wrapkw):
             wrapf = wrap_field_unwrap
 
     return wrapf
+
+
+def select_field_wrapping (cfgsec=None, cat=None, cmlopt=None):
+    """
+    Select wrapping keywords for PO message fields based on various inputs.
+
+    There are three possible sources of wrapping information:
+      - a user configuration section, possibly containing wrapping fields
+      - the catalog to which the wrapping should be applied,
+        possibly defining wrapping in its header
+      - command line options for wrapping
+    This function will examine these three sources with increasing priority,
+    and return a tuple of applicable L{wrapping keywords<select_field_wrapper>}.
+    Any of these sources can also be omitted;
+    if all are omitted, C{("basic",)} is returned.
+
+    @param cfgsec: a section of user configuration
+    @type cfgsec: L{section<config.section>}
+    @param cat: the catalog to be wrapped
+    @type cat: L{Catalog<catalog.Catalog>}
+    @param cmlopt: command line options
+    @type cmlopt: optparse.ConfigParser
+
+    @returns: wrapping keywords
+    @rtype: (string*)
+
+    @see: L{select_field_wrapper}
+    """
+
+    # Default wrapping.
+    wrapping = ["basic"]
+
+    # Helper to remove and add wrapping types.
+    def waddrem (add, wtype):
+        if add is False and wtype in wrapping:
+            wrapping.remove(wtype)
+        elif add is True and wtype not in wrapping:
+            wrapping.append(wtype)
+
+    # Restrict wrapping in following priority of overrides.
+    # - configuration
+    if cfgsec is not None:
+        waddrem(cfgsec.boolean("wrap", None), "basic")
+        waddrem(cfgsec.boolean("fine-wrap", None), "fine")
+    # - catalog
+    wrapping_cat = cat.wrapping() if cat is not None else None
+    if wrapping_cat is not None:
+        waddrem("basic" in wrapping_cat, "basic")
+        waddrem("fine" in wrapping_cat, "fine")
+    # - command line
+    if cmlopt is not None:
+        waddrem(cmlopt.do_wrap, "basic")
+        waddrem(cmlopt.do_fine_wrap, "fine")
+
+    return tuple(sorted(wrapping))
 
