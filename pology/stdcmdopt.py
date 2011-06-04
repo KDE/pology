@@ -168,3 +168,30 @@ def add_cmdopt_colors (opars):
                "Available types: %(typelist)s; default: %(type)s.",
                typelist=format_item_list(get_coloring_types()), type=defctype))
 
+
+def add_cmdopt_wrapping (opars):
+    """
+    Options for wrapping in catalogs when writing them out.
+    """
+
+    opars.add_option(
+        "--wrap",
+        action="store_true", dest="do_wrap", default=None,
+        help=_("@info command line option description",
+               "Basic wrapping: on colum count."))
+    opars.add_option(
+        "--no-wrap",
+        action="store_false", dest="do_wrap", default=None,
+        help=_("@info command line option description",
+               "No basic wrapping."))
+    opars.add_option(
+        "--fine-wrap",
+        action="store_true", dest="do_fine_wrap", default=None,
+        help=_("@info command line option description",
+               "Fine wrapping: on logical breaks (e.g. some markup tags)."))
+    opars.add_option(
+        "--no-fine-wrap",
+        action="store_false", dest="do_fine_wrap", default=None,
+        help=_("@info command line option description",
+               "No fine wrapping."))
+
