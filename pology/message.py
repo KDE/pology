@@ -271,6 +271,15 @@ class Message_base (object):
         catalog).
     @type refentry: int
 
+    @ivar key_previous: (read-only) previous key composition
+
+        Like L{key}, except this is for previous fields.
+        If there are no previous fields, this is C{None}.
+
+        The value is an undefined serialization of C{msgctxt_previous}
+        and C{msgid_previous}.
+    @type key: string or C{None}
+
     @see: L{Message}
     @see: L{MessageUnsafe}
     """
@@ -351,6 +360,12 @@ class Message_base (object):
 
         elif att == "fuzzy":
             return u"fuzzy" in self.flag
+
+        elif att == "key_previous":
+            if self.msgid_previous is not None:
+                return self._compose(["msgctxt_previous", "msgid_previous"])
+            else:
+                return None
 
         else:
             return self.__dict__["^getsetattr"].__getattr__(self, att)
