@@ -38,8 +38,7 @@ from pology.report import report, error, warning, format_item_list
 from pology.report import init_file_progress
 from pology.stdcmdopt import add_cmdopt_incexc, add_cmdopt_filesfrom
 from pology.vcs import make_vcs
-
-import porewrap as REW
+from pology.wrap import select_field_wrapping
 
 
 SUMMIT_ID = "+" # must not start with word-character (\w)
@@ -483,10 +482,10 @@ def derive_project_data (project, options, nwgrefpath=None):
     dummyopt = D()
     dummyopt.do_wrap = p.summit_wrap
     dummyopt.do_fine_wrap = p.summit_fine_wrap
-    p.summit_wrapping = REW.select_field_wrapping(cmlopt=dummyopt)
+    p.summit_wrapping = select_field_wrapping(cmlopt=dummyopt)
     dummyopt.do_wrap = p.branches_wrap
     dummyopt.do_fine_wrap = p.branches_fine_wrap
-    p.branches_wrapping = REW.select_field_wrapping(cmlopt=dummyopt)
+    p.branches_wrapping = select_field_wrapping(cmlopt=dummyopt)
 
     # Decide the extension of catalogs.
     if p.over_templates and p.lang == p.templates_lang:
@@ -1880,7 +1879,7 @@ def summit_gather_single_bcat (branch_id, branch_cat, is_primary,
             msgs_by_src = [("", branch_cat)]
 
         # Collect possible source file synonyms to those in the summit catalog.
-        fnsyn = fuzzy_match_source_files(branch_cat, [summit_cat])
+        fnsyn = branch_cat.detect_renamed_sources(summit_cat)
 
         # Prepare messages for insertion into summit.
         summit_msg_by_msg = {}
@@ -2786,79 +2785,6 @@ def summit_merge_single (branch_id, catalog_name, catalog_subdir,
     # Remove the temporary merged catalog.
     if os.path.exists(tmp_path):
         os.remove(tmp_path)
-
-
-# FIXME: Export as library function (method of Catalog?), used by poediff too.
-# For each source file mentioned in the test catalog, if it is not mentioned
-# in any of the other catalogs, check for any different, but possibly only
-# renamed/moved source files from the other catalogs (if the these contain
-# the test catalog itself, it is skipped automatically).
-# The heuristics uses number of messages common to both files
-# to ascertain the possibility. The amount of commonality can be set.
-# Return the dictionary of possible "synonyms", i.e. possible other names
-# for each of the determined matches.
-def fuzzy_match_source_files (cat, other_cats, minshare=0.7):
-
-    syns = {}
-
-    # Collect all own sources, to avoid fuzzy matching for them.
-    ownfs = {}
-    for msg in cat:
-        for file, lno in msg.source:
-            ownfs[file] = True
-
-    for ocat in other_cats:
-        if cat is ocat:
-            continue
-
-        fcnts = {}
-        ccnts = {}
-        for msg in cat:
-            p = ocat.find(msg)
-            if p <= 0:
-                continue
-            omsg = ocat[p]
-
-            for file, lno in msg.source:
-                if file not in fcnts:
-                    fcnts[file] = 0.0
-                    ccnts[file] = {}
-                # Weigh each message disproportionally to the number of
-                # files it appears in (i.e. the sum of counts == 1).
-                fcnts[file] += 1.0 / len(msg.source)
-                counted = {}
-                for ofile, olno in omsg.source:
-                    if ofile not in ownfs and ofile not in counted:
-                        if ofile not in ccnts[file]:
-                            ccnts[file][ofile] = 0.0
-                        ccnts[file][ofile] += 1.0 / len(omsg.source)
-                        counted[ofile] = True
-
-        # Select match groups.
-        fuzzies = {}
-        for file, fcnt in fcnts.iteritems():
-            shares = []
-            for ofile, ccnt in ccnts[file].iteritems():
-                share = ccnt / (fcnt + 1.0) # tip a bit to avoid fcnt of 0.x
-                if share >= minshare:
-                    shares.append((ofile, share))
-            if shares:
-                shares.sort(key=lambda x: x[1]) # not necessary atm
-                fuzzies[file] = [f for f, s in shares]
-
-        # Update the dictionary of synonyms.
-        for file, fuzzfiles in fuzzies.iteritems():
-            group = [file] + fuzzfiles
-            for file in group:
-                if file not in syns:
-                    syns[file] = []
-                for syn in group:
-                    if file != syn and syn not in syns[file]:
-                        syns[file].append(syn)
-                if not syns[file]:
-                    syns.pop(file)
-
-    return syns
 
 
 # Put header fields in canonical form, for equality checking.

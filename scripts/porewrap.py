@@ -26,7 +26,8 @@ import pology.config as pology_config
 from pology.fsops import collect_paths_cmdline, collect_catalogs
 from pology.fsops import exit_on_exception
 from pology.report import report, error
-from pology.stdcmdopt import add_cmdopt_filesfrom
+from pology.stdcmdopt import add_cmdopt_filesfrom, add_cmdopt_wrapping
+from pology.wrap import select_field_wrapping
 
 
 def main ():
@@ -54,7 +55,7 @@ def main ():
         action="store_true", dest="verbose", default=False,
         help=_("@info command line option description",
                "More detailed progress information."))
-    add_wrapping_options(opars)
+    add_cmdopt_wrapping(opars)
     add_cmdopt_filesfrom(opars)
 
     (op, fargs) = opars.parse_args()
@@ -83,62 +84,6 @@ def main ():
         wrapping = select_field_wrapping(cfgsec, cat, op)
         cat.set_wrapping(wrapping)
         cat.sync(force=True)
-
-
-# FIXME: Move to pology.stdcmdopt.
-def add_wrapping_options (opars):
-
-    opars.add_option(
-        "--wrap",
-        action="store_true", dest="do_wrap", default=None,
-        help=_("@info command line option description",
-               "Basic wrapping: on colum count."))
-    opars.add_option(
-        "--no-wrap",
-        action="store_false", dest="do_wrap", default=None,
-        help=_("@info command line option description",
-               "No basic wrapping."))
-    opars.add_option(
-        "--fine-wrap",
-        action="store_true", dest="do_fine_wrap", default=None,
-        help=_("@info command line option description",
-               "Fine wrapping: on logical breaks, like some markup tags."))
-    opars.add_option(
-        "--no-fine-wrap",
-        action="store_false", dest="do_fine_wrap", default=None,
-        help=_("@info command line option description",
-               "No fine wrapping."))
-
-
-# FIXME: Move to pology.?.
-def select_field_wrapping (cfgsec=None, cat=None, cmlopt=None):
-
-    # Default wrapping.
-    wrapping = ["basic"]
-
-    # Helper to remove and add wrapping types.
-    def waddrem (add, wtype):
-        if add is False and wtype in wrapping:
-            wrapping.remove(wtype)
-        elif add is True and wtype not in wrapping:
-            wrapping.append(wtype)
-
-    # Restrict wrapping in following priority of overrides.
-    # - configuration
-    if cfgsec is not None:
-        waddrem(cfgsec.boolean("wrap", None), "basic")
-        waddrem(cfgsec.boolean("fine-wrap", None), "fine")
-    # - catalog
-    wrapping_cat = cat.wrapping() if cat is not None else None
-    if wrapping_cat is not None:
-        waddrem("basic" in wrapping_cat, "basic")
-        waddrem("fine" in wrapping_cat, "fine")
-    # - command line
-    if cmlopt is not None:
-        waddrem(cmlopt.do_wrap, "basic")
-        waddrem(cmlopt.do_fine_wrap, "fine")
-
-    return tuple(sorted(wrapping))
 
 
 if __name__ == '__main__':

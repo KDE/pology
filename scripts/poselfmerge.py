@@ -30,9 +30,8 @@ from pology.fsops import collect_paths_cmdline, collect_catalogs
 from pology.fsops import exit_on_exception
 from pology.merge import merge_pofile
 from pology.report import report, error
-from pology.stdcmdopt import add_cmdopt_filesfrom
-
-import porewrap as REW
+from pology.stdcmdopt import add_cmdopt_filesfrom, add_cmdopt_wrapping
+from pology.wrap import select_field_wrapping
 
 
 def main ():
@@ -101,7 +100,7 @@ def main ():
         action="store_true", dest="fuzzy_exact", default=def_fuzzex,
         help=_("@info command line option description",
                "When using compendium, make all exact matches fuzzy."))
-    REW.add_wrapping_options(opars)
+    add_cmdopt_wrapping(opars)
     add_cmdopt_filesfrom(opars)
 
     (op, fargs) = opars.parse_args()
@@ -166,7 +165,7 @@ def self_merge_pofile (catpath, compendiums=[],
     cat = Catalog(potpath, monitored=False)
 
     # Decide wrapping policy.
-    wrapping = REW.select_field_wrapping(cfgsec, cat, cmlopt)
+    wrapping = select_field_wrapping(cfgsec, cat, cmlopt)
 
     # From the dummy template, clean all active messages and
     # remove all obsolete messages.
