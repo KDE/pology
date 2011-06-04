@@ -598,7 +598,7 @@ def resolve_diff_pair (emsg):
     # Cases f-nf-*.
     elif msg1_s.fuzzy and not msg2_s.fuzzy:
         # Case f-nf-ecc.
-        if (    not msg2_s.key_previous is not None
+        if (    msg2_s.key_previous is None
             and not msg_eq_fields(msg1_s, msg2_s, _msg_curr_fields)
         ):
             msg1 = MessageUnsafe(msg1_s)
@@ -614,7 +614,7 @@ def resolve_diff_pair (emsg):
     # Cases nf-f-*.
     elif not msg1_s.fuzzy and msg2_s.fuzzy:
         # Case nf-f-ecp.
-        if (    not msg1_s.key_previous is not None
+        if (    msg1_s.key_previous is None
             and not msg_eq_fields(msg1_s, msg2_s, _msg_curr_fields)
         ):
             msg2 = MessageUnsafe(msg2_s)
