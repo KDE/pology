@@ -63,3 +63,12 @@
   Make it possible to disable hiding the backtrace in exit_on_exception(),
   through user configuration and environment variable.
 
+
+* Make Enchant spell-checking hooks.
+
+  Currently there is the check-spell-ec sieve using Enchant,
+  but spell-checking hooks are still available only in direct Aspell variant.
+  One could rewrite internals of existing spell-checking hooks to use Enchant,
+  but perhaps it is best to leave them be and make another set of hooks
+  (like check-spell-ec vs. check-spell sieve).
+
