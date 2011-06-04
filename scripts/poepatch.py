@@ -45,6 +45,14 @@ _flags_all = (
     _flag_ediff_no_match,
 )
 
+# FIXME: Define categories of message parts in message moduel.
+_msg_curr_fields = [
+    "msgctxt", "msgid", "msgid_plural",
+]
+_msg_prev_fields = [x + "_previous" for x in _msg_curr_fields]
+_msg_currprev_fields = zip(_msg_curr_fields, _msg_prev_fields)
+_msg_prevcurr_fields = zip(_msg_prev_fields, _msg_curr_fields)
+
 
 def main ():
 
@@ -547,12 +555,12 @@ def msg_patchable (msg, msg1, msg2):
     # Old and new are translated, but current is fuzzy and has previous fields.
     # Transform current to its previous state, from which it may have became
     # fuzzy by merging with templates.
-    elif (    msg and msg.fuzzy and ED.has_prev_fields(msg)
+    elif (    msg and msg.fuzzy and msg.key_previous is not None
           and msg1 and not msg1.fuzzy and msg2 and not msg2.fuzzy
     ):
         msg_m = MessageUnsafe(msg)
-        ED.msg_copy_fields(msg, msg_m, ED._msg_prevcurr_fields)
-        ED.msg_null_fields(msg_m, ED._msg_prev_fields)
+        msg_copy_fields(msg, msg_m, _msg_prevcurr_fields)
+        msg_clear_prev_fields(msg_m)
         msg_m.fuzzy = False
 
     # Old is None, new is translated, and current is untranslated.
@@ -560,7 +568,7 @@ def msg_patchable (msg, msg1, msg2):
     # untranslated after merging with templates.
     elif msg and msg.untranslated and not msg1 and msg2 and msg2.translated:
         msg_m = MessageUnsafe(msg)
-        ED.msg_copy_fields(msg2, msg_m, ["msgstr"])
+        msg_copy_fields(msg2, msg_m, ["msgstr"])
 
     if msg1 and msg2:
         return msg and msg_m.inv in (msg1.inv, msg2.inv)
@@ -590,33 +598,33 @@ def resolve_diff_pair (emsg):
     # Cases f-nf-*.
     elif msg1_s.fuzzy and not msg2_s.fuzzy:
         # Case f-nf-ecc.
-        if (    not ED.has_prev_fields(msg2_s)
-            and not ED.msg_eq_fields(msg1_s, msg2_s, ED._msg_curr_fields)
+        if (    not msg2_s.key_previous is not None
+            and not msg_eq_fields(msg1_s, msg2_s, _msg_curr_fields)
         ):
             msg1 = MessageUnsafe(msg1_s)
-            ED.msg_copy_fields(msg1_s, msg1, ED._msg_currprev_fields)
-            ED.msg_copy_fields(msg2_s, msg1, ED._msg_curr_fields)
+            msg_copy_fields(msg1_s, msg1, _msg_currprev_fields)
+            msg_copy_fields(msg2_s, msg1, _msg_curr_fields)
         # Case f-nf-necc.
-        elif ED.has_prev_fields(msg2_s):
+        elif msg2_s.key_previous is not None:
             msg1 = MessageUnsafe(msg1_s)
             msg2 = MessageUnsafe(msg2_s)
-            ED.msg_copy_fields(msg2_s, msg1, ED._msg_prevcurr_fields)
-            ED.msg_null_fields(msg2, ED._msg_prev_fields)
+            msg_copy_fields(msg2_s, msg1, _msg_prevcurr_fields)
+            msg_clear_prev_fields(msg2)
 
     # Cases nf-f-*.
     elif not msg1_s.fuzzy and msg2_s.fuzzy:
         # Case nf-f-ecp.
-        if (    not ED.has_prev_fields(msg1_s)
-            and not ED.msg_eq_fields(msg1_s, msg2_s, ED._msg_curr_fields)
+        if (    not msg1_s.key_previous is not None
+            and not msg_eq_fields(msg1_s, msg2_s, _msg_curr_fields)
         ):
             msg2 = MessageUnsafe(msg2_s)
-            ED.msg_copy_fields(msg1_s, msg2, ED._msg_currprev_fields)
+            msg_copy_fields(msg1_s, msg2, _msg_currprev_fields)
         # Case nf-f-necp.
-        elif ED.has_prev_fields(msg1_s):
+        elif msg1_s.key_previous is not None:
             msg1 = MessageUnsafe(msg1_s)
             msg2 = MessageUnsafe(msg2_s)
-            ED.msg_copy_fields(msg1_s, msg2, ED._msg_prev_fields)
-            ED.msg_null_fields(msg1, ED._msg_prev_fields)
+            msg_copy_fields(msg1_s, msg2, _msg_prev_fields)
+            msg_clear_prev_fields(msg1)
 
     return msg1, msg2, msg1_s, msg2_s
 
@@ -812,6 +820,42 @@ def unembed_ediff (path, all=False, old=False):
         report(_("@info:progress",
                  "Unembedded: %(file)s",
                  file=cat.filename))
+
+
+# FIXME: Export somehow to message module.
+def msg_eq_fields (m1, m2, fields):
+
+    if (m1 is None) != (m2 is None):
+        return False
+    elif m1 is None and m2 is None:
+        return True
+
+    for field in fields:
+        if not isinstance(field, tuple):
+            field = (field, field)
+        if m1.get(field[0]) != m2.get(field[1]):
+            return False
+
+    return True
+
+
+# FIXME: Export somehow to message module.
+def msg_copy_fields (m1, m2, fields):
+
+    if m1 is None:
+        m1 = MessageUnsafe()
+
+    for field in fields:
+        if not isinstance(field, tuple):
+            field = (field, field)
+        setattr(m2, field[1], m1.get(field[0]))
+
+
+# FIXME: Export somehow to message module.
+def msg_clear_prev_fields (m):
+
+    for field in _msg_prev_fields:
+        setattr(m, field, None)
 
 
 if __name__ == '__main__':

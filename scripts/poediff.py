@@ -36,12 +36,18 @@ from pology.report import list_options
 from pology.stdcmdopt import add_cmdopt_colors
 from pology.vcs import available_vcs, make_vcs
 
-from posummit import fuzzy_match_source_files
-
 
 _hmsgctxt_field = u"X-Ediff-Header-Context" # by spec
 _hmsgctxt_el = u"~" # by spec
 _filerev_sep = u" <<< " # by spec
+
+# FIXME: Define categories of message parts in message moduel.
+_msg_curr_fields = [
+    "msgctxt", "msgid", "msgid_plural",
+]
+_msg_prev_fields = [x + "_previous" for x in _msg_curr_fields]
+_msg_currprev_fields = zip(_msg_curr_fields, _msg_prev_fields)
+_msg_prevcurr_fields = zip(_msg_prev_fields, _msg_curr_fields)
 
 
 def main ():
@@ -379,14 +385,6 @@ def get_msgctxt_for_headers (cat):
     return hmsgctxt
 
 
-_msg_curr_fields = [
-    "msgctxt", "msgid", "msgid_plural",
-]
-_msg_prev_fields = [x + "_previous" for x in _msg_curr_fields]
-_msg_currprev_fields = zip(_msg_curr_fields, _msg_prev_fields)
-_msg_prevcurr_fields = zip(_msg_prev_fields, _msg_curr_fields)
-
-
 def diff_cats (cat1, cat2, ecat,
                merge=True, colorize=False, wrem=True, wadd=True, noobs=False):
 
@@ -484,7 +482,7 @@ def diff_cats (cat1, cat2, ecat,
     dpairs_by1 = [x for x in dpairs if not x[1]]
     fnsyn = None
     if dpairs_by1:
-        fnsyn = fuzzy_match_source_files(cat2, [cat1])
+        fnsyn = cat2.detect_renamed_sources(cat1)
 
     # Make the diffs.
     # Must not add diffed messages directly to global ediff catalog,
@@ -531,7 +529,7 @@ def msg_invert_cp (msg):
         return None
 
     lmsg = MessageUnsafe()
-    if has_prev_fields(msg):
+    if msg.key_previous is not None:
         # Need to invert only key fields, but whadda hell.
         for fcurr, fprev in _msg_currprev_fields:
             setattr(lmsg, fcurr, msg.get(fprev))
@@ -576,12 +574,12 @@ def create_special_diff_pair (msg1, msg2):
         pass
 
     # Cases f-nf-*.
-    elif msg1.fuzzy and has_prev_fields(msg1) and not msg2.fuzzy:
+    elif msg1.fuzzy and msg1.key_previous is not None and not msg2.fuzzy:
         # Case f-nf-ecc.
         if msg_eq_fields(msg1, msg2, _msg_curr_fields):
             msg1_s = MessageUnsafe(msg1)
             msg_copy_fields(msg1, msg1_s, _msg_prevcurr_fields)
-            msg_null_fields(msg1_s, _msg_prev_fields)
+            msg_clear_prev_fields(msg1_s)
         # Case f-nf-necc.
         else:
             msg1_s = MessageUnsafe(msg1)
@@ -590,11 +588,11 @@ def create_special_diff_pair (msg1, msg2):
             msg_copy_fields(msg1, msg2_s, _msg_currprev_fields)
 
     # Cases nf-f-*.
-    elif not msg1.fuzzy and msg2.fuzzy and has_prev_fields(msg2):
+    elif not msg1.fuzzy and msg2.fuzzy and msg2.key_previous is not None:
         # Case nf-f-ecp.
         if msg_eq_fields(msg1, msg2, _msg_currprev_fields):
             msg2_s = MessageUnsafe(msg2)
-            msg_null_fields(msg2_s, _msg_prev_fields)
+            msg_clear_prev_fields(msg2_s)
         # Case nf-f-necp.
         else:
             msg1_s = MessageUnsafe(msg1)
@@ -646,6 +644,7 @@ def msg_cleanup (msg):
                 setattr(msg, field, None)
 
 
+# FIXME: Export somehow to message module.
 def msg_eq_fields (m1, m2, fields):
 
     if (m1 is None) != (m2 is None):
@@ -662,11 +661,7 @@ def msg_eq_fields (m1, m2, fields):
     return True
 
 
-def has_prev_fields (m):
-
-    return m.msgid_previous is not None
-
-
+# FIXME: Export somehow to message module.
 def msg_copy_fields (m1, m2, fields):
 
     if m1 is None:
@@ -678,9 +673,10 @@ def msg_copy_fields (m1, m2, fields):
         setattr(m2, field[1], m1.get(field[0]))
 
 
-def msg_null_fields (m, fields):
+# FIXME: Export somehow to message module.
+def msg_clear_prev_fields (m):
 
-    for field in fields:
+    for field in _msg_prev_fields:
         setattr(m, field, None)
 
 
