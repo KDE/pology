@@ -181,6 +181,9 @@ def translate_direct (paths, tsbuilder, options):
                       "Translation service failure on '%(file)s'.",
                       file=catpath))
             continue
+        for i, text in enumerate(texts_tr):
+            text = reduce_for_encoding(text, cat.encoding())
+            texts_tr[i] = text
 
         # Put translated texts into messages.
         singlepls = cat.plural_indices_single()
@@ -286,7 +289,9 @@ def translate_parallel (paths, tsbuilder, options):
             for msg, smsg in zip(msgs, smsgs):
                 ctexts = []
                 for i in range(len(smsg.msgstr)):
-                    ctexts.append(texts.pop(0))
+                    text = texts.pop(0)
+                    text = reduce_for_encoding(text, cat.encoding())
+                    ctexts.append(text)
                 for i in range(len(msg.msgstr)):
                     msg.msgstr[i] = i < len(ctexts) and ctexts[i] or ctexts[-1]
                     decorate(msg, options)
@@ -342,6 +347,19 @@ def sync_rep (cat, mmsgs):
 
     if cat.sync():
         report("! %s (%s)" % (cat.filename, len(mmsgs)))
+
+
+def reduce_for_encoding (text, enc):
+
+    while True:
+        try:
+            text.encode(enc)
+        except UnicodeEncodeError, e:
+            start, end = e[2], e[3]
+            text = text[:start] + ("?" * (end - start)) + text[end:]
+        finally:
+            break
+    return text
 
 
 # ----------------------------------------
