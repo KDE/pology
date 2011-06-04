@@ -841,7 +841,7 @@ class Catalog (Monitored):
         @type pos: int or None
 
         @param srefsyn: synonymous names to some of the source files
-        @type srefsyn: {string: list of strings}
+        @type srefsyn: {string: [string*]*}
 
         @returns: if inserted, the position where inserted
         @rtype: int or None
@@ -870,7 +870,7 @@ class Catalog (Monitored):
         @param cumulative: whether input positions are cumulative
         @type cumulative: bool
         @param srefsyn: synonymous names to some of the source files
-        @type srefsyn: {string: list of strings}
+        @type srefsyn: {string: [string*]*}
 
         @returns: positions where inserted, or None where replaced
         @rtype: [int or None, ...]
@@ -1298,7 +1298,7 @@ class Catalog (Monitored):
         @param msg: message to compute the tentative insertion for
         @type msg: L{Message_base}
         @param srefsyn: synonymous names to some of the source files
-        @type srefsyn: {string: list of strings}
+        @type srefsyn: {string: [string*]*}
 
         @returns: the insertion position and its weight
         @rtype: int, float
@@ -1471,7 +1471,7 @@ class Catalog (Monitored):
         Indices of the msgstr fields which are used for single number only.
 
         @returns: msgstr indices used for single numbers
-        @rtype: list of ints
+        @rtype: [int*]
         """
 
         # Get plural definition from the header.
@@ -1505,7 +1505,7 @@ class Catalog (Monitored):
         @type wobs: bool
 
         @returns: selected messages
-        @rtype: list of L{Message_base}
+        @rtype: [L{Message_base}*]
         """
 
         m = MessageUnsafe({"msgctxt" : msgctxt, "msgid" : msgid})
@@ -1543,7 +1543,7 @@ class Catalog (Monitored):
         @type wobs: bool
 
         @returns: selected messages
-        @rtype: list of L{Message_base}
+        @rtype: [L{Message_base}*]
         """
 
         if exctxt and exid:
@@ -1589,7 +1589,7 @@ class Catalog (Monitored):
         @type wobs: bool
 
         @returns: selected messages
-        @rtype: list of L{Message_base}
+        @rtype: [L{Message_base}*]
         """
 
         selected_msgs = []
@@ -1620,7 +1620,7 @@ class Catalog (Monitored):
         @type wobs: bool
 
         @returns: selected messages
-        @rtype: list of L{Message_base}
+        @rtype: [L{Message_base}*]
         """
 
         # Build dictionary of message keys by msgid;
@@ -1669,7 +1669,7 @@ class Catalog (Monitored):
         @type lazy: bool
 
         @returns: selected messages
-        @rtype: list of L{Message_base}
+        @rtype: [L{Message_base}*]
         """
 
         if not lazy:
@@ -1709,7 +1709,7 @@ class Catalog (Monitored):
         opened, use L{set_accelerator}.
 
         @returns: accelerator markers
-        @rtype: set of strings or C{None}
+        @rtype: set(string*) or C{None}
         """
 
         if self._accels_determined:
@@ -1786,7 +1786,7 @@ class Catalog (Monitored):
         opened, use L{set_markup} method.
 
         @returns: markup names
-        @rtype: set of strings or C{None}
+        @rtype: set(string*) or C{None}
         """
 
         if self._mtypes_determined:
@@ -1943,7 +1943,7 @@ class Catalog (Monitored):
         opened, use L{set_environment} method.
 
         @returns: environment keywords
-        @rtype: list of strings or C{None}
+        @rtype: [string*] or C{None}
         """
 
         if self._envs_determined:
@@ -2321,4 +2321,107 @@ class Catalog (Monitored):
             hdr.remove_field(u"X-Generator")
 
         return hdr
+
+
+    def detect_renamed_sources (self, cat, minshare=0.7):
+        """
+        Heuristically determine possible renamings of source files
+        from this catalog based on source files in the other catalog.
+
+        To determine the possibility that the source file A from this catalog
+        has been renamed into source file B in the other catalog C{cat},
+        primarily the share of common messages to A and B is considered.
+        The minimum needed commonality can be given by C{minshare} parameter.
+
+        When a source file from this catalog is directly mentioned in
+        the other catalog, it is immediatelly considered to have
+        no possible renamings.
+
+        The return value is a dictionary in which the key is
+        the source file and the value is the list of its possible
+        renamed counterparts.
+        The renaming list is never empty, i.e. if no renamings
+        were detected for a given source file, that source file
+        will not be present in the dictionary.
+        The dictionary is fully symmetric: if source file B is in
+        the renaming list of file A, then there will be
+        an entry for file B with A in its renaming list
+        (even when B is comming from the other catalog).
+
+        Instead of a single other catalog to test against,
+        a sequence of several other catalogs can be given.
+
+        @param cat: catalog against which to test for renamings
+        @type cat: Catalog or [Catalog*]
+        @param minshare: the minimum commonality between two source files
+            to consider them as possible renaming pair (0.0-1.0)
+        @type minshare: float
+
+        @returns: the renaming dictionary
+        @rtype: {string: [string*]*}
+        """
+
+        renamings = {}
+
+        # Collect all own sources, to avoid matching for them.
+        ownfs = set()
+        for msg in self._messages:
+            for src, lno in msg.source:
+                ownfs.add(src)
+
+        if isinstance(cat, Catalog):
+            cats = [cat]
+        else:
+            cats = cat
+
+        for ocat in cats:
+            if self is ocat:
+                continue
+
+            fcnts = {}
+            ccnts = {}
+            for msg in self._messages:
+                omsg = ocat.get(msg)
+                if omsg is None:
+                    continue
+                for src, lno in msg.source:
+                    if src not in fcnts:
+                        fcnts[src] = 0.0
+                        ccnts[src] = {}
+                    # Weigh each message disproportionally to the number of
+                    # files it appears in (i.e. the sum of counts == 1).
+                    fcnts[src] += 1.0 / len(msg.source)
+                    counted = {}
+                    for osrc, olno in omsg.source:
+                        if osrc not in ownfs and osrc not in counted:
+                            if osrc not in ccnts[src]:
+                                ccnts[src][osrc] = 0.0
+                            ccnts[src][osrc] += 1.0 / len(omsg.source)
+                            counted[osrc] = True
+
+            # Select match groups.
+            fuzzies = {}
+            for src, fcnt in fcnts.iteritems():
+                shares = []
+                for osrc, ccnt in ccnts[src].iteritems():
+                    share = ccnt / (fcnt + 1.0) # tip a bit to avoid fcnt of 0.x
+                    if share >= minshare:
+                        shares.append((osrc, share))
+                if shares:
+                    shares.sort(key=lambda x: x[1]) # not necessary atm
+                    fuzzies[src] = [f for f, s in shares]
+
+            # Update the dictionary of renamings.
+            for src, fuzzsrcs in fuzzies.iteritems():
+                group = [src] + fuzzsrcs
+                for src in group:
+                    if src not in renamings:
+                        renamings[src] = []
+                    for osrc in group:
+                        if src != osrc and osrc not in renamings[src]:
+                            renamings[src].append(osrc)
+                    if not renamings[src]:
+                        renamings.pop(src)
+
+        return renamings
 
