@@ -1,4 +1,5 @@
 # -*- coding: UTF-8 -*-
+# l10n.nn.__init__
 
 """
 Language-specific tools for Norwegian Nynorsk.

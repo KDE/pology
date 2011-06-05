@@ -15,7 +15,7 @@ import os
 import re
 import codecs
 
-from pology import datadir, _, n_
+from pology import rootdir, _, n_
 from pology.fsops import collect_files_by_ext
 from pology.split import split_text
 
@@ -73,7 +73,7 @@ def _init_phrases ():
 
     global _maxwords
 
-    exdir = os.path.join(datadir(), "lang", "nn", "exclusion")
+    exdir = os.path.join(rootdir(), "lang", "nn", "exclusion")
     exfiles = collect_files_by_ext(exdir, "dat")
 
     for exfile in exfiles:
