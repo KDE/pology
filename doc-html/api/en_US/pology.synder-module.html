@@ -115,6 +115,25 @@
       
     </td>
   </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">bool</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.synder-module.html#compile_file" class="summary-sig-name">compile_file</a>(<span class="summary-sig-arg">path</span>,
+        <span class="summary-sig-arg">cpath</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">doraise</span>=<span class="summary-sig-default">False</span>)</span><br />
+      Import file with derivations.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
 </table>
 <!-- ==================== VARIABLES ==================== -->
 <a name="section-Variables"></a>
@@ -162,6 +181,41 @@
   function erases all sources from the cache, when loading files anew on 
   future load instructions is desired.</p>
   <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="compile_file"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">compile_file</span>(<span class="sig-arg">path</span>,
+        <span class="sig-arg">cpath</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">doraise</span>=<span class="sig-default">False</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Import file with derivations.</p>
+  <p>If the compile file path <code>cpath</code> is not given, it is 
+  constructed as <code>path</code> plus standard extension suffix.</p>
+  <p>If the file cannot be compiled, the behavior depends on 
+  <code>doraise</code>. If <code>doraise</code> is <code>False</code>, a 
+  warning is reported to standard error; if <code>doraise</code> is 
+  <code>True</code>, an <a href="pology.synder.SynderError-class.html" 
+  class="link">SynderError</a> exception is raised.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>path</code></strong> (string) - the path to file to compile</li>
+        <li><strong class="pname"><code>cpath</code></strong> (string) - the path to compiled file</li>
+    </ul></dd>
+    <dt>Returns: bool</dt>
+        <dd><code>True</code> if the file was successfully compiled</dd>
   </dl>
 </td></tr></table>
 </div>
