@@ -430,7 +430,7 @@ def rootdir ():
     @rtype: string
     """
 
-    return os.path.join(pology.rootdir(), "lang", "sr", "trapnakron")
+    return os.path.join(pology.datadir(), "lang", "sr", "trapnakron")
 
 
 def _get_trapnakron_files (runtime=False):
