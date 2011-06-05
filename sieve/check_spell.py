@@ -17,7 +17,7 @@ import re
 import sys
 from time import strftime
 
-from pology import rootdir, _, n_
+from pology import datadir, _, n_
 from pology.spell import flag_no_check_spell, elist_well_spelled
 from pology.colors import cjoin
 from pology.comments import manc_parse_list, manc_parse_flag_list
@@ -211,7 +211,7 @@ class Sieve (object):
 
             # Load list of contexts by which to ignore messages.
             self.ignoredContexts[ckey] = []
-            ignoredContextFile=join(rootdir(), "lang", clang, "spell", "ignoredContext")
+            ignoredContextFile=join(datadir(), "lang", clang, "spell", "ignoredContext")
             if isfile(ignoredContextFile):
                 for line in open(ignoredContextFile, "r", "utf-8"):
                     line=line.strip()
@@ -402,7 +402,7 @@ class Sieve (object):
         # Collect all applicable dictionaries.
 
         dictFiles=set()
-        spellRoot=join(rootdir(), "lang", lang, "spell")
+        spellRoot=join(datadir(), "lang", lang, "spell")
         spellSub=join(".", (env or ""))
         while spellSub:
             spellDir=join(spellRoot, spellSub)

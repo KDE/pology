@@ -38,9 +38,9 @@ import os
 from pology.colors import ColorString
 
 
-def rootdir ():
+def datadir ():
     """
-    Get root directory of Pology installation.
+    Get data directory of Pology installation.
 
     @return: absolute directory path
     @rtype: string
@@ -59,7 +59,7 @@ def version ():
 
     verstr = "?.?.?"
     try:
-        verfile = os.path.join(rootdir(), "VERSION")
+        verfile = os.path.join(datadir(), "VERSION")
         for line in open(verfile):
             line = line.decode("UTF-8").strip()
             if line:
@@ -78,7 +78,7 @@ try:
     import pology._paths as _paths
     _mo_dir = _paths.mo
 except ImportError:
-    _mo_dir = os.path.join(rootdir(), "mo")
+    _mo_dir = os.path.join(datadir(), "mo")
 
 
 # Setup translations.

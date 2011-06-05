@@ -22,7 +22,7 @@ import os
 import re
 import sys
 
-from pology import rootdir, version, _, n_, t_
+from pology import datadir, version, _, n_, t_
 from pology.catalog import Catalog
 from pology.colors import ColorOptionParser, set_coloring_globals
 import pology.config as pology_config
@@ -195,14 +195,14 @@ def main ():
     sieves_requested = []
     if op.list_sieves or op.list_sieve_names:
         # Global sieves.
-        modpaths = glob.glob(os.path.join(rootdir(), "sieve", "[a-z]*.py"))
+        modpaths = glob.glob(os.path.join(datadir(), "sieve", "[a-z]*.py"))
         modpaths.sort()
         for modpath in modpaths:
             sname = os.path.basename(modpath)[:-3] # minus .py
             sname = sname.replace("_", "-")
             sieves_requested.append(sname)
         # Language-specific sieves.
-        modpaths = glob.glob(os.path.join(rootdir(),
+        modpaths = glob.glob(os.path.join(datadir(),
                                           "lang", "*", "sieve", "[a-z]*.py"))
         modpaths.sort()
         for modpath in modpaths:
@@ -231,7 +231,7 @@ def main ():
             else:
                 sieve_path_base = os.path.join("sieve", sieve_name)
             sieve_path_base = sieve_path_base.replace("-", "_") + ".py"
-            sieve_path = os.path.join(rootdir(), sieve_path_base)
+            sieve_path = os.path.join(datadir(), sieve_path_base)
         else:
             # Sieve name is its path.
             sieve_path = sieve_name

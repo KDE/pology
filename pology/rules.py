@@ -24,7 +24,7 @@ import re
 import sys
 from time import time
 
-from pology import PologyError, rootdir, _, n_
+from pology import PologyError, datadir, _, n_
 from pology.message import MessageUnsafe
 from pology.config import strbool
 from pology.getfunc import get_hook_ireq, split_ireq
@@ -76,7 +76,7 @@ def loadRules(lang, envs=[], envOnly=False, ruleFiles=None, stat=False):
     """
     ruleDir=""             # Rules directory
     rules=[]               # List of rule objects
-    langDir=join(rootdir(), "lang") # Base of rule files per language
+    langDir=join(datadir(), "lang") # Base of rule files per language
 
     # Collect rule files.
     if ruleFiles is not None:

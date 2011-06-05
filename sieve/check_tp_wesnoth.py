@@ -538,10 +538,10 @@ _known_checks = {
 # Detection is conservative: better report no markup, than wrong markup.
 
 from pology.markup import collect_xml_spec_l1
-from pology import rootdir
+from pology import datadir
 
 _tags_wml = _known_tags
-_specpath = os.path.join(rootdir(), "spec", "pango.l1")
+_specpath = os.path.join(datadir(), "spec", "pango.l1")
 _tags_pango = collect_xml_spec_l1(_specpath).keys()
 
 _first_tag_rx = re.compile(r"<\s*(\w+)[^>]*>", re.U)

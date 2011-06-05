@@ -13,7 +13,7 @@ import codecs
 import xml.parsers.expat
 import difflib
 
-from pology import PologyError, rootdir, _, n_
+from pology import PologyError, datadir, _, n_
 from pology.comments import manc_parse_flag_list
 from pology.diff import adapt_spans
 from pology.entities import read_entities
@@ -589,7 +589,7 @@ def _prep_docbook4_to_plain ():
 
     global _dbk_tags, _dbk_subs, _dbk_ents, _dbk_keepws, _dbk_ignels
 
-    specpath = os.path.join(rootdir(), "spec", "docbook4.l1")
+    specpath = os.path.join(datadir(), "spec", "docbook4.l1")
     docbook4_l1 = collect_xml_spec_l1(specpath)
     _dbk_tags = set(docbook4_l1.keys())
 
@@ -1365,7 +1365,7 @@ def validate_docbook4_l1 (text, ents=None):
 
     global _docbook4_l1
     if _docbook4_l1 is None:
-        specpath = os.path.join(rootdir(), "spec", "docbook4.l1")
+        specpath = os.path.join(datadir(), "spec", "docbook4.l1")
         _docbook4_l1 = collect_xml_spec_l1(specpath)
 
     xmlfmt = _("@item markup type", "Docbook4")
@@ -1441,7 +1441,7 @@ def check_docbook4_msg (strict=False, entities={}, mkeyw=None):
     return checkf
 
 
-_entpath_html = os.path.join(rootdir(), "spec", "html.entities")
+_entpath_html = os.path.join(datadir(), "spec", "html.entities")
 html_entities = read_entities(_entpath_html)
 
 _html_l1 = None
@@ -1468,7 +1468,7 @@ def validate_html_l1 (text, ents=None):
 
     global _html_l1
     if _html_l1 is None:
-        specpath = os.path.join(rootdir(), "spec", "html.l1")
+        specpath = os.path.join(datadir(), "spec", "html.l1")
         _html_l1 = collect_xml_spec_l1(specpath)
 
     if ents is not None:
@@ -1530,7 +1530,7 @@ def validate_qtrich_l1 (text, ents=None):
 
     global _qtrich_l1
     if _qtrich_l1 is None:
-        specpath = os.path.join(rootdir(), "spec", "qtrich.l1")
+        specpath = os.path.join(datadir(), "spec", "qtrich.l1")
         _qtrich_l1 = collect_xml_spec_l1(specpath)
 
     if ents is not None:
@@ -1590,7 +1590,7 @@ def validate_kuit_l1 (text, ents=None):
 
     global _kuit_l1
     if _kuit_l1 is None:
-        specpath = os.path.join(rootdir(), "spec", "kuit.l1")
+        specpath = os.path.join(datadir(), "spec", "kuit.l1")
         _kuit_l1 = collect_xml_spec_l1(specpath)
 
     xmlfmt = _("@item markup type", "KUIT")
@@ -1623,9 +1623,9 @@ def validate_kde4_l1 (text, ents=None):
     global _kde4_l1, _kde4_ents
     if _kde4_l1 is None:
         _kde4_l1 = {}
-        spath1 = os.path.join(rootdir(), "spec", "qtrich.l1")
+        spath1 = os.path.join(datadir(), "spec", "qtrich.l1")
         _kde4_l1.update(collect_xml_spec_l1(spath1))
-        spath2 = os.path.join(rootdir(), "spec", "kuit.l1")
+        spath2 = os.path.join(datadir(), "spec", "kuit.l1")
         _kde4_l1.update(collect_xml_spec_l1(spath2))
         _kde4_ents = html_entities.copy()
 
@@ -1683,7 +1683,7 @@ def validate_pango_l1 (text, ents=None):
 
     global _pango_l1
     if _pango_l1 is None:
-        specpath = os.path.join(rootdir(), "spec", "pango.l1")
+        specpath = os.path.join(datadir(), "spec", "pango.l1")
         _pango_l1 = collect_xml_spec_l1(specpath)
 
     if ents is not None:

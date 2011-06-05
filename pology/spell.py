@@ -12,7 +12,7 @@ import codecs
 import re
 import tempfile
 
-from pology import rootdir, _, n_
+from pology import datadir, _, n_
 from pology.comments import manc_parse_flag_list, manc_parse_list
 from pology.msgreport import report_on_msg
 from pology.report import warning, error, format_item_list
@@ -271,7 +271,7 @@ def _compose_personal_dict (lang, envs):
     # Collect all applicable dictionary files
     # (for a given environment, in its subdirectiory and all above).
     dictpaths = set()
-    spell_root = os.path.join(rootdir(), "lang", lang, "spell")
+    spell_root = os.path.join(datadir(), "lang", lang, "spell")
     for env in (envs or [""]):
         spell_sub = os.path.join(".", env)
         while spell_sub:

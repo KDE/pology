@@ -15,7 +15,7 @@ import os
 import re
 import tempfile
 
-from pology import PologyError, rootdir, _, n_
+from pology import PologyError, datadir, _, n_
 from pology.spell import flag_no_check_spell, elist_well_spelled
 from pology.colors import cjoin
 from pology.comments import manc_parse_list, manc_parse_flag_list
@@ -283,7 +283,7 @@ def _get_word_list_files (lang, env):
 
     # Collect word list paths.
     wlist_files = set()
-    spell_root = os.path.join(rootdir(), "lang", lang, "spell")
+    spell_root = os.path.join(datadir(), "lang", lang, "spell")
     spell_subdir = os.path.join(".", (env or ""))
     while spell_subdir:
         spell_dir = os.path.join(spell_root, spell_subdir)

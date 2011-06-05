@@ -19,7 +19,7 @@ import sys
 import os
 import locale
 
-from pology import rootdir, version, _, n_
+from pology import datadir, version, _, n_
 from pology.catalog import Catalog
 from pology.message import MessageUnsafe
 from pology.colors import ColorOptionParser
@@ -385,7 +385,7 @@ class Translator_apertium (object):
 
         self.cmdline = "%s %s -u -f html" % (cmdpath, mode)
 
-        entpath = os.path.join(rootdir(), "spec", "html.entities")
+        entpath = os.path.join(datadir(), "spec", "html.entities")
         self.htmlents = read_entities(entpath)
 
 
