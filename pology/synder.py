@@ -260,9 +260,7 @@ def compile_file (path, cpath=None, doraise=False):
     try:
         _compile_file_w(path, cpath)
     except Exception, e:
-        print "here1"
         if doraise:
-            print "here2"
             raise
         else:
             warning(_("@info",
