@@ -19,7 +19,8 @@ find ../../ -iname \*.pyc | xargs -r rm
 
 epydoc pology \
        -o $htmldir -v \
-       --no-sourcecode --no-frames --no-private --exclude=external
+       --no-sourcecode --no-frames --no-private \
+       --exclude=external --exclude=internal
 
 # Kill generation timestamps, to not have diffs just due to it.
   find $htmldir -iname \*.html \
