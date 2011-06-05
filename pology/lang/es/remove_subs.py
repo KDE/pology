@@ -41,9 +41,9 @@ def remove_paired_capital_words (msg, cat):
     for i in range(len(msg.msgstr)):
         ents_trans = set (_valid_capital_word.findall(msg.msgstr[i]))
         if i == 0:
-        ents = ents_orig
-    else:
-        ents = ents_orig_plural
+            ents = ents_orig
+        else:
+            ents = ents_orig_plural
         # Joins both set of words an remove it from the message.
         for ent in ents_trans.union(ents):
              msg.msgstr[i] = msg.msgstr[i].replace(ent, "~")
@@ -71,11 +71,11 @@ def remove_paired_parameters (msg, cat):
         ents_trans = set(_ent_parameter.findall(msg.msgstr[i]))
         if i == 0:
             for ent in ents_trans.intersection(ents_orig):
-            msg.msgid = msg.msgid.replace(ent, "~")
+                msg.msgid = msg.msgid.replace(ent, "~")
                 msg.msgstr[i] = msg.msgstr[i].replace(ent, "~")
         else:
             for ent in ents_trans.intersection(ents_orig_plural):
-            msg.msgid_plural = msg.msgid_plural.replace(ent, "~")
+                msg.msgid_plural = msg.msgid_plural.replace(ent, "~")
                 msg.msgstr[i] = msg.msgstr[i].replace(ent, "~")
 
     return 0
@@ -100,7 +100,7 @@ def remove_tags_without_translation (msg, cat):
         msg.msgid = ""
         msg.msgid_plural = ""
         for i in range(len(msg.msgstr)):
-        msg.msgstr[i] = ""
+            msg.msgstr[i] = ""
         return 0
 
     # Avoid specially tagged messages.
@@ -110,7 +110,7 @@ def remove_tags_without_translation (msg, cat):
                 msg.msgid = ""
                 msg.msgid_plural = ""
                 for i in range(len(msg.msgstr)):
-                msg.msgstr[i] = ""
+                    msg.msgstr[i] = ""
                 return 0
 
     if msg.msgctxt:
@@ -119,7 +119,7 @@ def remove_tags_without_translation (msg, cat):
                 msg.msgid = ""
                 msg.msgid_plural = ""
                 for i in range(len(msg.msgstr)):
-                msg.msgstr[i] = ""
+                    msg.msgstr[i] = ""
                 return 0
 
     return 0
