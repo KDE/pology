@@ -46,7 +46,10 @@ def datadir ():
     @rtype: string
     """
 
-    return os.path.dirname(__path__[0])
+    datadir = "@DATADIR@" # configured if installed
+    if not os.path.isdir(datadir):
+        datadir = os.path.dirname(__path__[0]) # if running from source dir
+    return datadir
 
 
 def version ():
