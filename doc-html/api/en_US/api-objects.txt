@@ -1110,6 +1110,7 @@ pology.stdcmdopt.add_cmdopt_incexc	pology.stdcmdopt-module.html#add_cmdopt_incex
 pology.stdcmdopt.n_	pology-module.html#n_
 pology.stdcmdopt.__package__	pology.stdcmdopt-module.html#__package__
 pology.stdcmdopt.add_cmdopt_colors	pology.stdcmdopt-module.html#add_cmdopt_colors
+pology.stdcmdopt.add_cmdopt_wrapping	pology.stdcmdopt-module.html#add_cmdopt_wrapping
 pology.stdcmdopt.add_cmdopt_filesfrom	pology.stdcmdopt-module.html#add_cmdopt_filesfrom
 pology.stdcmdopt.format_item_list	pology.report-module.html#format_item_list
 pology.stdcmdopt._	pology-module.html#_
@@ -1264,16 +1265,17 @@ pology.wrap.wrap_field_fine	pology.wrap-module.html#wrap_field_fine
 pology.wrap.__package__	pology.wrap-module.html#__package__
 pology.wrap.wrap_field	pology.wrap-module.html#wrap_field
 pology.wrap.wrap_comment	pology.wrap-module.html#wrap_comment
-pology.wrap.wrap_field_unwrap	pology.wrap-module.html#wrap_field_unwrap
+pology.wrap._tag_split_rx	pology.wrap-module.html#_tag_split_rx
 pology.wrap._tag_split	pology.wrap-module.html#_tag_split
 pology.wrap._natbr_after	pology.wrap-module.html#_natbr_after
 pology.wrap._atomize	pology.wrap-module.html#_atomize
+pology.wrap.wrap_field_unwrap	pology.wrap-module.html#wrap_field_unwrap
 pology.wrap._tagbr_inplace	pology.wrap-module.html#_tagbr_inplace
 pology.wrap._	pology-module.html#_
 pology.wrap.wrap_text	pology.wrap-module.html#wrap_text
 pology.wrap._postbr	pology.wrap-module.html#_postbr
 pology.wrap.select_field_wrapper	pology.wrap-module.html#select_field_wrapper
-pology.wrap._tag_split_rx	pology.wrap-module.html#_tag_split_rx
+pology.wrap.select_field_wrapping	pology.wrap-module.html#select_field_wrapping
 pology.wrap._natbr_before	pology.wrap-module.html#_natbr_before
 pology.wrap.wrap_field_fine_unwrap	pology.wrap-module.html#wrap_field_fine_unwrap
 pology.PologyError	pology.PologyError-class.html
@@ -1320,8 +1322,9 @@ pology.ascript.AscUser.email	pology.ascript.AscUser-class.html#email
 pology.ascript.AscUser.__init__	pology.ascript.AscUser-class.html#__init__
 pology.ascript.AscUser.oname	pology.ascript.AscUser-class.html#oname
 pology.catalog.Catalog	pology.catalog.Catalog-class.html
+pology.catalog.Catalog.set_encoding	pology.catalog.Catalog-class.html#set_encoding
 pology.catalog.Catalog.accelerator	pology.catalog.Catalog-class.html#accelerator
-pology.catalog.Catalog.select_by_key_match	pology.catalog.Catalog-class.html#select_by_key_match
+pology.catalog.Catalog.encoding	pology.catalog.Catalog-class.html#encoding
 pology.monitored.Monitored.assert_spec_init	pology.monitored.Monitored-class.html#assert_spec_init
 pology.catalog.Catalog.set_accelerator	pology.catalog.Catalog-class.html#set_accelerator
 pology.catalog.Catalog.sync	pology.catalog.Catalog-class.html#sync
@@ -1330,7 +1333,7 @@ pology.catalog.Catalog.plural_indices_single	pology.catalog.Catalog-class.html#p
 pology.monitored.Monitored.data	pology.monitored.Monitored-class.html#data
 pology.catalog.Catalog.find	pology.catalog.Catalog-class.html#find
 pology.catalog.Catalog.__init__	pology.catalog.Catalog-class.html#__init__
-pology.catalog.Catalog.environment	pology.catalog.Catalog-class.html#environment
+pology.catalog.Catalog._assert_headonly	pology.catalog.Catalog-class.html#_assert_headonly
 pology.monitored.Monitored.__setattr__	pology.monitored.Monitored-class.html#__setattr__
 pology.monitored.Monitored.assert_spec_getitem	pology.monitored.Monitored-class.html#assert_spec_getitem
 pology.monitored.Monitored.assert_spec_setitem	pology.monitored.Monitored-class.html#assert_spec_setitem
@@ -1339,14 +1342,14 @@ pology.catalog.Catalog.remove_on_sync	pology.catalog.Catalog-class.html#remove_o
 pology.catalog.Catalog.update_header	pology.catalog.Catalog-class.html#update_header
 pology.catalog.Catalog.__getattr__	pology.catalog.Catalog-class.html#__getattr__
 pology.catalog.Catalog.filename	pology.catalog.Catalog-class.html#filename
-pology.catalog.Catalog._assert_headonly	pology.catalog.Catalog-class.html#_assert_headonly
+pology.catalog.Catalog.environment	pology.catalog.Catalog-class.html#environment
 pology.catalog.Catalog.add	pology.catalog.Catalog-class.html#add
 pology.catalog.Catalog.add_last	pology.catalog.Catalog-class.html#add_last
 pology.catalog.Catalog.select_by_msgid	pology.catalog.Catalog-class.html#select_by_msgid
 pology.catalog.Catalog.wrapf	pology.catalog.Catalog-class.html#wrapf
 pology.catalog.Catalog.messages_by_source	pology.catalog.Catalog-class.html#messages_by_source
 pology.catalog.Catalog.__len__	pology.catalog.Catalog-class.html#__len__
-pology.catalog.Catalog.__ne__	pology.catalog.Catalog-class.html#__ne__
+pology.catalog.Catalog.select_by_key_match	pology.catalog.Catalog-class.html#select_by_key_match
 pology.catalog.Catalog.__getitem__	pology.catalog.Catalog-class.html#__getitem__
 pology.catalog.Catalog.get	pology.catalog.Catalog-class.html#get
 pology.monitored.Monitored.assert_spec_getattr	pology.monitored.Monitored-class.html#assert_spec_getattr
@@ -1357,6 +1360,8 @@ pology.catalog.Catalog.insertion_inquiry	pology.catalog.Catalog-class.html#inser
 pology.catalog.Catalog.__setitem__	pology.catalog.Catalog-class.html#__setitem__
 pology.catalog.Catalog.select_by_msgstr	pology.catalog.Catalog-class.html#select_by_msgstr
 pology.catalog.Catalog.sort_by_source	pology.catalog.Catalog-class.html#sort_by_source
+pology.catalog.Catalog.detect_renamed_sources	pology.catalog.Catalog-class.html#detect_renamed_sources
+pology.catalog.Catalog.__ne__	pology.catalog.Catalog-class.html#__ne__
 pology.catalog.Catalog.set_language	pology.catalog.Catalog-class.html#set_language
 pology.catalog.Catalog.__eq__	pology.catalog.Catalog-class.html#__eq__
 pology.catalog.Catalog.select_by_msgid_fuzzy	pology.catalog.Catalog-class.html#select_by_msgid_fuzzy
@@ -1510,6 +1515,7 @@ pology.message.Message_base.to_string	pology.message.Message_base-class.html#to_
 pology.monitored.Monitored.assert_spec_getitem	pology.monitored.Monitored-class.html#assert_spec_getitem
 pology.message.Message_base.msgid	pology.message.Message_base-class.html#msgid
 pology.message.Message_base.format	pology.message.Message_base-class.html#format
+pology.message.Message_base.key_previous	pology.message.Message_base-class.html#key_previous
 pology.message.Message_base._append_to_list	pology.message.Message_base-class.html#_append_to_list
 pology.message.MessageUnsafe	pology.message.MessageUnsafe-class.html
 pology.message.Message_base.manual_comment	pology.message.Message_base-class.html#manual_comment
@@ -1555,6 +1561,7 @@ pology.message.Message_base._renew_lines_bymod	pology.message.Message_base-class
 pology.message.Message_base.to_string	pology.message.Message_base-class.html#to_string
 pology.message.Message_base.msgid	pology.message.Message_base-class.html#msgid
 pology.message.Message_base.format	pology.message.Message_base-class.html#format
+pology.message.Message_base.key_previous	pology.message.Message_base-class.html#key_previous
 pology.message.Message_base._append_to_list	pology.message.Message_base-class.html#_append_to_list
 pology.message.Message_base	pology.message.Message_base-class.html
 pology.message.Message_base.manual_comment	pology.message.Message_base-class.html#manual_comment
@@ -1599,6 +1606,7 @@ pology.message.Message_base._renew_lines_bymod	pology.message.Message_base-class
 pology.message.Message_base.to_string	pology.message.Message_base-class.html#to_string
 pology.message.Message_base.msgid	pology.message.Message_base-class.html#msgid
 pology.message.Message_base.translated	pology.message.Message_base-class.html#translated
+pology.message.Message_base.key_previous	pology.message.Message_base-class.html#key_previous
 pology.message.Message_base._append_to_list	pology.message.Message_base-class.html#_append_to_list
 pology.monitored.Monitored	pology.monitored.Monitored-class.html
 pology.monitored.Monitored.assert_spec_init	pology.monitored.Monitored-class.html#assert_spec_init

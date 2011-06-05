@@ -228,7 +228,27 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a href="pology.wrap-module.html#select_field_wrapper" class="summary-sig-name">select_field_wrapper</a>(<span class="summary-sig-arg">wrapkw</span>)</span><br />
-      Select wrap function for PO message fields.</td>
+      Select wrap function for PO message fields based on keywords.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">(string*)</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pology.wrap-module.html#select_field_wrapping" class="summary-sig-name">select_field_wrapping</a>(<span class="summary-sig-arg">cfgsec</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">cat</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">cmlopt</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Select wrapping keywords for PO message fields based on various 
+      inputs.</td>
           <td align="right" valign="top">
             
             
@@ -538,7 +558,7 @@
     </td>
   </tr></table>
   
-  <p>Select wrap function for PO message fields.</p>
+  <p>Select wrap function for PO message fields based on keywords.</p>
   <p>Wrap function is selected by specifying a sequence of keywords, from 
   the following set:</p>
   <ul>
@@ -564,6 +584,60 @@
 <div class="fields">      <p><strong>See Also:</strong>
         <a href="pology.wrap-module.html#wrap_field" 
         class="link">wrap_field</a>
+      </p>
+</div></td></tr></table>
+</div>
+<a name="select_field_wrapping"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">select_field_wrapping</span>(<span class="sig-arg">cfgsec</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">cat</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">cmlopt</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Select wrapping keywords for PO message fields based on various 
+  inputs.</p>
+  <p>There are three possible sources of wrapping information:</p>
+  <ul>
+    <li>
+      a user configuration section, possibly containing wrapping fields
+    </li>
+    <li>
+      the catalog to which the wrapping should be applied, possibly 
+      defining wrapping in its header
+    </li>
+    <li>
+      command line options for wrapping
+    </li>
+  </ul>
+  <p>This function will examine these three sources with increasing 
+  priority, and return a tuple of applicable <a 
+  href="pology.wrap-module.html#select_field_wrapper" class="link">wrapping
+  keywords</a>. Any of these sources can also be omitted; if all are 
+  omitted, <code>(&quot;basic&quot;,)</code> is returned.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>cfgsec</code></strong> (<a href="pology.config.section-class.html" 
+          class="link">section</a>) - a section of user configuration</li>
+        <li><strong class="pname"><code>cat</code></strong> (<a href="pology.catalog.Catalog-class.html" 
+          class="link">Catalog</a>) - the catalog to be wrapped</li>
+        <li><strong class="pname"><code>cmlopt</code></strong> (optparse.ConfigParser) - command line options</li>
+    </ul></dd>
+    <dt>Returns: (string*)</dt>
+        <dd>wrapping keywords</dd>
+  </dl>
+<div class="fields">      <p><strong>See Also:</strong>
+        <a href="pology.wrap-module.html#select_field_wrapper" 
+        class="link">select_field_wrapper</a>
       </p>
 </div></td></tr></table>
 </div>

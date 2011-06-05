@@ -63,11 +63,7 @@ $ svn update
 $ export PATH=<em class="replaceable"><code>PARDIR</code></em>/pology/bin:$PATH
 $ export PYTHONPATH=<em class="replaceable"><code>PARDIR</code></em>/pology:$PYTHONPATH
 </pre>
-<p>You can put these commands in the shell startup script (<code class="filename">~/.bashrc</code> for Bash shell), so that paths are already set whenever you start a shell. Setting <code class="envar">PATH</code> will ready Pology's script for execution, and <code class="envar">PYTHONPATH</code> its Python library for use in custom Python scripts. It is also possible that there are some scripts in Pology which are specific to the language into which you translte. To make these ready for use as well, additionally add to path:</p>
-<pre class="programlisting">
-$ export PATH=<em class="replaceable"><code>PARDIR</code></em>/pology/lang/<em class="replaceable"><code>LANG</code></em>/bin:$PATH
-</pre>
-<p>where <em class="replaceable"><code>LANG</code></em> is the language code of your language.</p>
+<p>You can put these commands in the shell startup script (<code class="filename">~/.bashrc</code> for Bash shell), so that paths are already set whenever you start a shell. Setting <code class="envar">PATH</code> will ready Pology's script for execution, and <code class="envar">PYTHONPATH</code> its Python library for use in custom Python scripts.</p>
 <p>Pology provides <a class="link" href="ch-common.html#sec-cmshellcomp" title="9.1.&nbsp;Shell Completion"><span class="emphasis"><em>shell completion</em></span></a> for some of the included scripts, which you can activate by sourcing the corresponding completion definition file. For example, for Bash:</p>
 <pre class="programlisting">
 $ . <em class="replaceable"><code>PARDIR</code></em>/pology/completion/bash/pology
