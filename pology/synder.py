@@ -197,25 +197,9 @@ def _parse_file (path):
         # Set attributes discarded on compiling.
         source.name = path
 
+    # If still no hit, compile the file.
     if source is None:
-        # Parse the file.
-        ifs = open(path, "r")
-        lines = ifs.readlines()
-        ifs.close()
-
-        m = re.search(r"^#\s+~~~\s+(\S+)\s+~~~\s*$", lines[0]) if lines else None
-        enc = m and m.group(1) or "UTF-8"
-        lines = [x.decode(enc) for x in lines]
-
-        instr = "".join(lines)
-        source = _parse_string_w(instr, path)
-
-        # Write out parsed file.
-        # Temporarily discard attributes relative to importing.
-        iname = source.name
-        source.name = None
-        _write_parsed_file(source, apath)
-        source.name = iname
+        source = _compile_file_w(path)
 
     # Cache the source by absolute path (before procesing includes).
     _parsed_sources[apath] = source
@@ -224,6 +208,71 @@ def _parse_file (path):
     source.incsources = _include_sources(source, source.incsources)
 
     return source
+
+
+def _compile_file_w (path, cpath=None):
+
+    if cpath is None:
+        cpath = path + _compfile_suff
+
+    # Parse the file.
+    ifs = open(path, "r")
+    lines = ifs.readlines()
+    ifs.close()
+
+    m = re.search(r"^#\s+~~~\s+(\S+)\s+~~~\s*$", lines[0]) if lines else None
+    enc = m and m.group(1) or "UTF-8"
+    lines = [x.decode(enc) for x in lines]
+
+    instr = "".join(lines)
+    source = _parse_string_w(instr, path)
+
+    # Write out parsed file.
+    # Temporarily discard attributes relative to importing.
+    iname = source.name
+    source.name = None
+    _write_parsed_file(source, path, cpath)
+    source.name = iname
+
+    return source
+
+
+def compile_file (path, cpath=None, doraise=False):
+    """
+    Import file with derivations.
+
+    If the compile file path C{cpath} is not given,
+    it is constructed as C{path} plus standard extension suffix.
+
+    If the file cannot be compiled, the behavior depends on C{doraise}.
+    If C{doraise} is C{False}, a warning is reported to standard error;
+    if C{doraise} is C{True}, an L{SynderError} exception is raised.
+
+    @param path: the path to file to compile
+    @type path: string
+    @param cpath: the path to compiled file
+    @type cpath: string
+
+    @returns: C{True} if the file was successfully compiled
+    @rtype: bool
+    """
+
+    try:
+        _compile_file_w(path, cpath)
+    except Exception, e:
+        print "here1"
+        if doraise:
+            print "here2"
+            raise
+        else:
+            warning(_("@info",
+                      "Derivation file '%(file)s' cannot be compiled "
+                      "due to the following error:\n"
+                      "%(msg)s",
+                      file=path, msg=unicode(e)))
+            return False
+    else:
+        return True
 
 
 def _include_sources (source, incpaths):
@@ -253,9 +302,10 @@ _compfile_suff = "c"
 _compfile_dver = "0003"
 _compfile_hlen = hashlib.md5().digest_size * 2
 
-def _write_parsed_file (source, path):
+def _write_parsed_file (source, path, cpath=None):
 
-    cpath = path + _compfile_suff
+    if cpath is None:
+        cpath = path + _compfile_suff
     try:
         fhc = open(cpath, "wb")
         fh = open(path, "rb")
