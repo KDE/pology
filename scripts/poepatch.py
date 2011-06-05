@@ -33,7 +33,13 @@ from pology.message import Message, MessageUnsafe
 from pology.header import Header
 from pology.diff import msg_ediff, msg_ediff_to_new, msg_ediff_to_old
 
-import poediff as ED
+from pology.internal.poediffpatch import MPC, EDST
+from pology.internal.poediffpatch import msg_eq_fields, msg_copy_fields
+from pology.internal.poediffpatch import msg_clear_prev_fields
+from pology.internal.poediffpatch import diff_cats
+from pology.internal.poediffpatch import init_ediff_header
+from pology.internal.poediffpatch import get_msgctxt_for_headers
+
 
 _flag_ediff = u"ediff"
 _flag_ediff_to_cur = u"%s-to-cur" % _flag_ediff
@@ -44,14 +50,6 @@ _flags_all = (
     _flag_ediff_to_cur, _flag_ediff_to_new,
     _flag_ediff_no_match,
 )
-
-# FIXME: Define categories of message parts in message moduel.
-_msg_curr_fields = [
-    "msgctxt", "msgid", "msgid_plural",
-]
-_msg_prev_fields = [x + "_previous" for x in _msg_curr_fields]
-_msg_currprev_fields = zip(_msg_curr_fields, _msg_prev_fields)
-_msg_prevcurr_fields = zip(_msg_prev_fields, _msg_curr_fields)
 
 
 def main ():
@@ -177,11 +175,11 @@ def apply_ediff (op):
 
     # Split ediff by diffed catalog into original and new file paths,
     # header message, and ordinary messages.
-    hmsgctxt = ecat.header.get_field_value(ED._hmsgctxt_field)
+    hmsgctxt = ecat.header.get_field_value(EDST.hmsgctxt_field)
     if hmsgctxt is None:
         error(_("@info",
                 "Header field '%(field)s' is missing in the ediff.",
-                field=ED._hmsgctxt_field))
+                field=EDST.hmsgctxt_field))
     edsplits = []
     cehmsg = None
     smsgid = u"\x00"
@@ -202,7 +200,7 @@ def apply_ediff (op):
                 # Convert to planform path separators.
                 fpath = re.sub(r"/+", os.path.sep, fpath)
                 # Remove revision indicator.
-                p = fpath.find(ED._filerev_sep)
+                p = fpath.find(EDST.filerev_sep)
                 if p >= 0:
                     fpath = fpath[:p]
                 # Strip path and append directory as requested.
@@ -227,7 +225,7 @@ def apply_ediff (op):
 
     # Prepare catalog for rejects and merges.
     rcat = Catalog("", create=True, monitored=False, wrapping=ecat.wrapping())
-    ED.init_ediff_header(rcat.header, hmsgctxt=hmsgctxt, extitle="rejects")
+    init_ediff_header(rcat.header, hmsgctxt=hmsgctxt, extitle="rejects")
 
     # Apply diff to catalogs.
     for fpaths, ehmsg, emsgs in edsplits:
@@ -271,7 +269,7 @@ def apply_ediff (op):
 
         # Do not try to patch catalog with embedded differences
         # (i.e. previously patched using -e).
-        if cat.header.get_field_value(ED._hmsgctxt_field) is not None:
+        if cat.header.get_field_value(EDST.hmsgctxt_field) is not None:
             warning(_("@info",
                       "Catalog '%(file)s' already contains "
                       "embedded differences, skipping it.",
@@ -559,7 +557,7 @@ def msg_patchable (msg, msg1, msg2):
           and msg1 and not msg1.fuzzy and msg2 and not msg2.fuzzy
     ):
         msg_m = MessageUnsafe(msg)
-        msg_copy_fields(msg, msg_m, _msg_prevcurr_fields)
+        msg_copy_fields(msg, msg_m, MPC.prevcurr_fields)
         msg_clear_prev_fields(msg_m)
         msg_m.fuzzy = False
 
@@ -599,31 +597,31 @@ def resolve_diff_pair (emsg):
     elif msg1_s.fuzzy and not msg2_s.fuzzy:
         # Case f-nf-ecc.
         if (    msg2_s.key_previous is None
-            and not msg_eq_fields(msg1_s, msg2_s, _msg_curr_fields)
+            and not msg_eq_fields(msg1_s, msg2_s, MPC.curr_fields)
         ):
             msg1 = MessageUnsafe(msg1_s)
-            msg_copy_fields(msg1_s, msg1, _msg_currprev_fields)
-            msg_copy_fields(msg2_s, msg1, _msg_curr_fields)
+            msg_copy_fields(msg1_s, msg1, MPC.currprev_fields)
+            msg_copy_fields(msg2_s, msg1, MPC.curr_fields)
         # Case f-nf-necc.
         elif msg2_s.key_previous is not None:
             msg1 = MessageUnsafe(msg1_s)
             msg2 = MessageUnsafe(msg2_s)
-            msg_copy_fields(msg2_s, msg1, _msg_prevcurr_fields)
+            msg_copy_fields(msg2_s, msg1, MPC.prevcurr_fields)
             msg_clear_prev_fields(msg2)
 
     # Cases nf-f-*.
     elif not msg1_s.fuzzy and msg2_s.fuzzy:
         # Case nf-f-ecp.
         if (    msg1_s.key_previous is None
-            and not msg_eq_fields(msg1_s, msg2_s, _msg_curr_fields)
+            and not msg_eq_fields(msg1_s, msg2_s, MPC.curr_fields)
         ):
             msg2 = MessageUnsafe(msg2_s)
-            msg_copy_fields(msg1_s, msg2, _msg_currprev_fields)
+            msg_copy_fields(msg1_s, msg2, MPC.currprev_fields)
         # Case nf-f-necp.
         elif msg1_s.key_previous is not None:
             msg1 = MessageUnsafe(msg1_s)
             msg2 = MessageUnsafe(msg2_s)
-            msg_copy_fields(msg1_s, msg2, _msg_prev_fields)
+            msg_copy_fields(msg1_s, msg2, MPC.prev_fields)
             msg_clear_prev_fields(msg1)
 
     return msg1, msg2, msg1_s, msg2_s
@@ -657,9 +655,9 @@ def build_splitting_triplets (emsgs, cat, options):
 
     # Create the old-to-current and current-to-new diffs.
     ecat_1c = Catalog("", create=True, monitored=False)
-    ED.diff_cats(cat1, cat, ecat_1c, options.do_merge, wadd=False, wrem=False)
+    diff_cats(cat1, cat, ecat_1c, options.do_merge, wadd=False, wrem=False)
     ecat_c2 = Catalog("", create=True, monitored=False)
-    ED.diff_cats(cat, cat2, ecat_c2, options.do_merge, wadd=False, wrem=False)
+    diff_cats(cat, cat2, ecat_c2, options.do_merge, wadd=False, wrem=False)
 
     # Mine splitting triplets out of diffs.
     sdoublets_1c = {}
@@ -717,9 +715,9 @@ def patch_header (cat, ehmsg, ecat, options):
                 cat.header = Header(hmsg2)
             ehmsg = MessageUnsafe(ehmsg)
             ehmsg.flag.add(_flag_ediff)
-            hmsgctxt = ED.get_msgctxt_for_headers(cat)
+            hmsgctxt = get_msgctxt_for_headers(cat)
             ehmsg.msgctxt = hmsgctxt
-            cat.header.set_field(ED._hmsgctxt_field, hmsgctxt)
+            cat.header.set_field(EDST.hmsgctxt_field, hmsgctxt)
             cat.add(Message(ehmsg), 0)
         return None
     else:
@@ -764,9 +762,9 @@ def unembed_ediff (path, all=False, old=False):
                   file=path))
         return
 
-    hmsgctxt = cat.header.get_field_value(ED._hmsgctxt_field)
+    hmsgctxt = cat.header.get_field_value(EDST.hmsgctxt_field)
     if hmsgctxt is not None:
-        cat.header.remove_field(ED._hmsgctxt_field)
+        cat.header.remove_field(EDST.hmsgctxt_field)
 
     uehmsg = None
     unembedded = {}
@@ -820,42 +818,6 @@ def unembed_ediff (path, all=False, old=False):
         report(_("@info:progress",
                  "Unembedded: %(file)s",
                  file=cat.filename))
-
-
-# FIXME: Export somehow to message module.
-def msg_eq_fields (m1, m2, fields):
-
-    if (m1 is None) != (m2 is None):
-        return False
-    elif m1 is None and m2 is None:
-        return True
-
-    for field in fields:
-        if not isinstance(field, tuple):
-            field = (field, field)
-        if m1.get(field[0]) != m2.get(field[1]):
-            return False
-
-    return True
-
-
-# FIXME: Export somehow to message module.
-def msg_copy_fields (m1, m2, fields):
-
-    if m1 is None:
-        m1 = MessageUnsafe()
-
-    for field in fields:
-        if not isinstance(field, tuple):
-            field = (field, field)
-        setattr(m2, field[1], m1.get(field[0]))
-
-
-# FIXME: Export somehow to message module.
-def msg_clear_prev_fields (m):
-
-    for field in _msg_prev_fields:
-        setattr(m, field, None)
 
 
 if __name__ == '__main__':
