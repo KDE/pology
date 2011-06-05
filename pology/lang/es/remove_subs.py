@@ -9,9 +9,6 @@ Remove special substrings from parts of the message.
 
 import re
 
-from pology import rootdir, _, n_
-from pology.fsops import system_wd
-from pology.report import report, warning, format_item_list
 
 # Capitals words in valid contexts in the translated text according with Spanish grammar
 # (beggining of paragraph, after some punctuation characters and after a new line)
@@ -30,7 +27,7 @@ def remove_paired_capital_words (msg, cat):
     @return: number of errors
     """
 
-    # Obtains all capitals words in the original English text. 
+    # Obtains all capitals words in the original English text.
     ents_orig = set()
     ents_orig.update(_ent_capital_word.findall(msg.msgid))
     ents_orig.update(_ent_capital_word_plural.findall(msg.msgid))
@@ -44,17 +41,17 @@ def remove_paired_capital_words (msg, cat):
     for i in range(len(msg.msgstr)):
         ents_trans = set (_valid_capital_word.findall(msg.msgstr[i]))
         if i == 0:
-	    ents = ents_orig
-	else:
-	    ents = ents_orig_plural
+        ents = ents_orig
+    else:
+        ents = ents_orig_plural
         # Joins both set of words an remove it from the message.
         for ent in ents_trans.union(ents):
              msg.msgstr[i] = msg.msgstr[i].replace(ent, "~")
-          
+
     # The remainning words could have wrong capitalization in the translated message.
 
     return 0
-    
+
 _ent_parameter = re.compile("(?u)%\d%?|\$\{.+?\}|\$\w+|%(\d\$)?[ds]|%\|.+?\|")
 
 def remove_paired_parameters (msg, cat):
@@ -74,36 +71,36 @@ def remove_paired_parameters (msg, cat):
         ents_trans = set(_ent_parameter.findall(msg.msgstr[i]))
         if i == 0:
             for ent in ents_trans.intersection(ents_orig):
-	        msg.msgid = msg.msgid.replace(ent, "~")
+            msg.msgid = msg.msgid.replace(ent, "~")
                 msg.msgstr[i] = msg.msgstr[i].replace(ent, "~")
         else:
             for ent in ents_trans.intersection(ents_orig_plural):
-	        msg.msgid_plural = msg.msgid_plural.replace(ent, "~")
+            msg.msgid_plural = msg.msgid_plural.replace(ent, "~")
                 msg.msgstr[i] = msg.msgstr[i].replace(ent, "~")
 
     return 0
 
 
-_auto_comment_tag = ["trans_comment", "literallayout", "option", "programlisting", "othercredit", "author", "email", "holder", 
-    "surname", "personname", "affiliation", "address", "sect1", "chapter", "chapterinfo", "date", "command", "option", 
-    "refentrytitle", "refentryinfo", "refname", "synopsis", "literal", "varname", "term", "glossterm", 
-    "filename", "entry", "envar", "userinput", "cmdsynopsis", "releaseinfo", "language", "Name", 
+_auto_comment_tag = ["trans_comment", "literallayout", "option", "programlisting", "othercredit", "author", "email", "holder",
+    "surname", "personname", "affiliation", "address", "sect1", "chapter", "chapterinfo", "date", "command", "option",
+    "refentrytitle", "refentryinfo", "refname", "synopsis", "literal", "varname", "term", "glossterm",
+    "filename", "entry", "envar", "userinput", "cmdsynopsis", "releaseinfo", "language", "Name",
     "City", "Region", "unit", "Query"]
 
 def remove_tags_without_translation (msg, cat):
     """
-    Remove all paragraph that belong to contexts that do not 
+    Remove all paragraph that belong to contexts that do not
     have need of translation.
-    
+
     [type F4A hook].
     @return: number of errors
     """
- 
+
     if msg.msgctxt in ("EMAIL OF TRANSLATORS", "NAME OF TRANSLATORS", "ROLES OF TRANSLATORS"):
         msg.msgid = ""
         msg.msgid_plural = ""
         for i in range(len(msg.msgstr)):
-	    msg.msgstr[i] = ""
+        msg.msgstr[i] = ""
         return 0
 
     # Avoid specially tagged messages.
@@ -113,16 +110,16 @@ def remove_tags_without_translation (msg, cat):
                 msg.msgid = ""
                 msg.msgid_plural = ""
                 for i in range(len(msg.msgstr)):
-	            msg.msgstr[i] = ""
+                msg.msgstr[i] = ""
                 return 0
 
     if msg.msgctxt:
-        for tag in msg.msgctxt.split(): 
+        for tag in msg.msgctxt.split():
             if tag in _auto_comment_tag:
                 msg.msgid = ""
                 msg.msgid_plural = ""
                 for i in range(len(msg.msgstr)):
-	            msg.msgstr[i] = ""
+                msg.msgstr[i] = ""
                 return 0
 
     return 0
