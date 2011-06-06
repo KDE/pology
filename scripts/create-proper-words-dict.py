@@ -5,7 +5,6 @@
 # contains an intermediate capital letter)
 # that are not included yet in the local dictionary.
 # It is a tool that helps to complete the local dictionary.
-# The code is adapted from the Servian team pology scripts by Chusslove Illich.
 
 try:
     import fallback_import_paths
@@ -23,8 +22,7 @@ from pology.catalog import Catalog
 from pology.colors import ColorOptionParser
 from pology.fsops import str_to_unicode, collect_catalogs
 from pology.fsops import collect_paths_cmdline
-from pology.msgreport import warning_on_msg, report_msg_content
-from pology.report import report, warning, error, format_item_list
+from pology.report import report
 from pology.stdcmdopt import add_cmdopt_filesfrom
 
 
