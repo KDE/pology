@@ -53,6 +53,9 @@ find -iname \*.sdc | xargs rm -rf
 echo "Generating documentation..."
 doc/api/local.sh build || exit 1
 doc/user/local.sh build || exit 1
+for local in lang/*/doc/local.sh; do
+    $local build || exit 1
+done
 
 echo "Updating translations..."
 po/pology/update-po.sh || exit 1
