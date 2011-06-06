@@ -46,7 +46,7 @@ def datadir ():
     @rtype: string
     """
 
-    datadir = "@DATADIR@" # configured if installed
+    datadir = "@CONFIG_DATADIR@" # configured if installed
     if not os.path.isdir(datadir):
         datadir = os.path.dirname(__path__[0]) # if running from source dir
     return datadir
@@ -60,7 +60,7 @@ def version ():
     @rtype: string
     """
 
-    verstr = "@VERSION@" # configured if installed
+    verstr = "@CONFIG_VERSION@" # configured if installed
     if verstr.startswith("@"): # if running from source dir
         try:
             verfile = os.path.join(datadir(), "VERSION")
