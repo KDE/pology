@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+ "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<book lang="sr">
+
+<title>Подршка за српски језик у Пологији</title>
+
+<bookinfo>
+
+    <authorgroup>
+        <author>
+            <firstname>Часлав</firstname> <surname>Илић</surname>
+            <email>caslav.ilic@gmx.net</email>
+        </author>
+    </authorgroup>
+
+    <!--
+    <copyright>
+        <year>2011</year>
+        <holder>Часлав Илић</holder>
+    </copyright>
+
+    <legalnotice>
+        <para>Овај документ издаје се под Гнуовом Општом јавном лиценцом верзије 3 (ОЈЛв3).</para>
+    </legalnotice>
+    -->
+
+    <abstract>
+
+    <para>Овај документ описује елементе Пологије који су непосредно изведени ради подршке за српски језик, као и како примењивати неке опште елементе на специфичности српског језика.</para>
+
+    </abstract>
+
+</bookinfo>
+
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude"
+            href="trapnakron.docbook"/>
+
+</book>
