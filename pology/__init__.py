@@ -60,16 +60,17 @@ def version ():
     @rtype: string
     """
 
-    verstr = "?.?.?"
-    try:
-        verfile = os.path.join(datadir(), "VERSION")
-        for line in open(verfile):
-            line = line.decode("UTF-8").strip()
-            if line:
-                verstr = line
-                break
-    except:
-        pass
+    verstr = "@VERSION@" # configured if installed
+    if verstr.startswith("@"): # if running from source dir
+        try:
+            verfile = os.path.join(datadir(), "VERSION")
+            for line in open(verfile):
+                line = line.decode("UTF-8").strip()
+                if line:
+                    verstr = line
+                    break
+        except:
+            pass
 
     return verstr
 
