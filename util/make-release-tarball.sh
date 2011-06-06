@@ -23,10 +23,10 @@ date=`date -I`
 pkgname=pology-$version
 
 echo "Creating tarball directory..."
-pdir=`dirname $0`
+cmddir=`dirname $0`
 tdir=/tmp/$pkgname
 rm -rf $tdir
-cp -r $pdir $tdir
+cp -r $cmddir/.. $tdir
 # All following actions happen in tarball directory.
 cd $tdir
 
@@ -50,10 +50,9 @@ echo "Removing transient files..."
 find -iname \*.pyc | xargs rm -rf
 find -iname \*.sdc | xargs rm -rf
 
-echo "Regenerating API documentation..."
-doc/api/makedoc.sh || exit 1
-echo "Regenerating user manual..."
-doc/user/makedoc.sh || exit 1
+echo "Generating documentation..."
+doc/api/local.sh build || exit 1
+doc/user/local.sh build || exit 1
 
 echo "Updating translations..."
 po/pology/update-po.sh || exit 1

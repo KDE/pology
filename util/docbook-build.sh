@@ -5,8 +5,7 @@ function exit_usage ()
     cmd=`basename $0`
     echo "\
 Usage:
-  $cmd TOPDBKFILE HTMLOUTDIR
-"
+  $cmd TOPDBKFILE HTMLOUTDIR"
     exit 100
 }
 

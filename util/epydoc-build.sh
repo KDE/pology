@@ -1,21 +1,33 @@
 #!/bin/sh
-# Generate API documentation from Python sources with the Epydoc tool
+# Generate API documentation from Python sources with the Epydoc tool.
 
-cd $(dirname $0)
+function exit_usage ()
+{
+    cmd=`basename $0`
+    echo "\
+Usage:
+  $cmd PYPKGDIR HTMLOUTDIR"
+    exit 100
+}
+
+pypkgdir=$1
+test -n "$pypkgdir" || exit_usage
+htmldir=$2
+test -n "$pypkgdir" || exit_usage
 
 if test x`which epydoc` = x; then
-    echo "Epydoc not found. Please install it from Epydoc website : http://epydoc.sf.net"
-    echo "or use your distribution package (apt-get install python-epydoc or yum install epydoc)"
+    echo "\
+Epydoc not found. Install it from Epydoc website at http://epydoc.sf.net,
+or use your distribution package (apt-get install python-epydoc or
+yum install epydoc)."
     exit 1
 fi
 
 # Proper module path for epydoc to follow.
-export PYTHONPATH=../../:$PYTHONPATH
-
-htmldir=../../doc-html/api/en_US
+export PYTHONPATH=$pypkgdir:$PYTHONPATH
 
 rm -rf $htmldir/*
-find ../../ -iname \*.pyc | xargs -r rm
+find $pypkgdir -iname \*.pyc | xargs -r rm
 
 epydoc pology \
        -o $htmldir -v \
