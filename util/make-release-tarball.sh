@@ -43,12 +43,11 @@ EOF
 cat NEWS.head NEWS.tail >NEWS
 rm NEWS.head NEWS.tail
 
-echo "Removing repository bookkeeping..."
+echo "Removing non-distributed files..."
 find -iname \.svn | xargs rm -rf
-
-echo "Removing transient files..."
 find -iname \*.pyc | xargs rm -rf
 find -iname \*.sdc | xargs rm -rf
+rm -rf www
 
 echo "Generating documentation..."
 doc/api/local.sh build || exit 1
