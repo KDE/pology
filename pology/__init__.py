@@ -33,6 +33,7 @@ and translation projects.
 import gettext
 import locale
 import os
+import re
 
 
 from pology.colors import ColorString
@@ -73,6 +74,27 @@ def version ():
             pass
 
     return verstr
+
+
+def version_info ():
+    """
+    Get Pology version information.
+
+    Pology version information consists of three version numbers
+    (major, minor, bugfix) and an arbitrary suffix (may be empty).
+
+    @return: version tuple (major, minor, bugfix, suffix)
+    @rtype: (int, int, int, string)
+    """
+
+    verstr = version()
+    verrx = re.compile(r"^(\d+)\.(\d+)\.(\d+)(.*)$")
+    m = verrx.match(verstr)
+    major, minor, bugfix = map(int, m.groups()[:3])
+    suffix = m.groups()[-1]
+    verinfo = (major, minor, bugfix, suffix)
+
+    return verinfo
 
 
 # Collect data paths.
