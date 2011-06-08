@@ -31,11 +31,7 @@ $xsltproc --xinclude $cmddir/docbook-html-chapters.xsl $topdbk \
 
 # Sanitize HTML pages.
 tidy=${TIDY_EXECUTABLE:-tidy}
-if test -z "`which $tidy`"; then
-    echo "Tidy (http://tidy.sourceforge.net/) not found, but continuing."
-    exit 1
-fi
-if test -n "`which tidy`"; then
+if test -n "`which $tidy`"; then
     tidy -q --show-warnings no -utf8 -w 0 -m $htmldir/*.html; test -z
 fi
 # Remove title= attributes to sectioning classes,
