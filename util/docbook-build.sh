@@ -36,8 +36,7 @@ if test -n "`which $tidy`"; then
 fi
 # Remove title= attributes to sectioning classes,
 # because they cause a tooltip to be shown wherever the pointer is.
-perl=${PERL_EXECUTABLE:-perl}
-$perl -pi -e 's/(<div[^>]*?class="(abstract|article|book|chapter|sect)[^>]*?) *title=".*?"/\1/' $htmldir/*.html
+sed -i -r 's/(<div[^>]* class="(abstract|article|book|chapter|sect)[^>]*) title="[^"]*"/\1/g' $htmldir/*.html
 
 # Copy HTML data.
 dbkdir=`dirname $topdbk`
