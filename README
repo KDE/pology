@@ -27,17 +27,35 @@ kept up to date from the Subversion repository at:
 Installing
 ----------
 
-Currently there is no build and installation system in place.
-The scripts and the library can be used directly from the source directory,
-by setting (in Bash):
+Pology can be used either installed or directly from its source directory.
 
-  $ export PYTHONPATH=<somewhere>/pology:$PYTHONPATH
-  $ export PATH=<somewhere>/pology/bin:$PATH
+To install Pology into default installation prefix, execute
 
-For convenience, shell completion for some Pology scripts can be activated
-as well (in Bash):
+  $ cd <pology-source>
+  $ mkdir build && cd build
+  $ cmake ..
+  $ make && make install
 
-  $ . <somewhere>/pology/completion/bash/pology
+CMake, the build system, will notify you of any missing requirements
+and provide notes about the command line options that you can use
+to customize the build (e.g. installation prefix, etc).
+Note that if you install Pology outside of default installation prefix,
+you may need to make modify the environment as listed below.
+
+To use Pology directly from the source directory, you only need to
+set some environment variables (in Bash):
+
+  $ export PYTHONPATH=<pology-source>:$PYTHONPATH
+  $ export PATH=<pology-source>/bin:$PATH
+
+For convenience, you can activate shell completion for Pology scripts.
+If you have installed Pology, then (in Bash):
+
+  $ . <pology-install-prefix>/share/pology/completion/bash/pology
+
+and if running from source directory:
+
+  $ . <pology-source>/completion/bash/pology
 
 
 Documentation
