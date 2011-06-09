@@ -17,7 +17,7 @@ test -n "$htmldir" || exit_usage
 cmddir=`dirname $0`
 $cmddir/docbook-check.sh $topdbk || exit 1
 
-rm -rf $htmldir/*; mkdir -p $htmldir
+rm -rf $htmldir && mkdir -p $htmldir
 
 # Build HTML pages.
 xsltproc=${XSLTPROC_EXECUTABLE:-xsltproc}
@@ -46,7 +46,3 @@ find $dbkdir -maxdepth 1 \
     -iname '*.jpg' -o \
     -name DUMMY | xargs -r cp -t $htmldir
 
-if test -d $htmldir/.svn; then
-    svn status $htmldir | grep '^!' | sed 's/.//' | xargs -r svn rm
-    svn status $htmldir | grep '^?' | sed 's/.//' | xargs -r svn add
-fi

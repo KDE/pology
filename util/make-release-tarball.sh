@@ -47,18 +47,10 @@ echo "Removing non-distributed files..."
 find -iname \.svn | xargs rm -rf
 find -iname \*.pyc | xargs rm -rf
 find -iname \*.sdc | xargs rm -rf
-rm -rf www
-
-echo "Generating documentation..."
-doc/api/local.sh build || exit 1
-doc/user/local.sh build || exit 1
-for local in lang/*/doc/local.sh; do
-    $local build || exit 1
-done
-
-echo "Updating translations..."
-po/pology/update-po.sh || exit 1
+rm -rf build
+rm -rf doc-html
 rm -rf mo
+rm -rf www
 
 echo "Making tarball..."
 cd ..
