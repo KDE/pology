@@ -46,8 +46,7 @@ $ mkdir build &amp;&amp; cd build
 $ cmake ..
 $ make &amp;&amp; make install
 </programlisting>
-CMake will 
-</para>
+CMake will warn you of missing requirements, and give some hints on how to customize the build (e.g. installation prefix, etc). Run like this, Pology will be installed into default system locations, and be ready to use. If you install it into a custom location (e.g. inside home directory), then you may need to set some environment variables (see below).</para>
 
 <para>If you want to run Pology from its source directory, it is sufficient to set two environment variables:
 <programlisting>
