@@ -1175,7 +1175,7 @@ $ posummit scatter -a emergency
 
 <para>Summit PO files may be merged by consulting a compendium, to produce additional exact and fuzzy matches. This possibility also draws on the functionality provided by <command>poselfmerge</command>. The <literal>S.compendium_on_merge</literal> configuration field is used to set the path to a compendium<footnote>
 <para>Here you can also use the <literal>S.relpath()</literal> function, to have the compendium path be relative to the directory of the summit configuration file.</para>
-</footnote>, equivalently to the <option>-C</option>/<option>--compendium</option> option of <command>poselfmerge</command>. Since compendium matches are less likely to be appropriate than own matches, you may set the <literal>S.compendium_fuzzy_exact</literal> field to <literal>False</literal>, or the <literal>S.compendium_min_words_exact</literal> fiel to a positive integer number, with the same effect as <option>-x</option>/<option>--fuzzy-exact</option> and <option>-W</option>/<option>--min-words-exact</option> options of <command>poselfmerge</command>, respectively.</para>
+</footnote>, equivalently to the <option>-C</option>/<option>--compendium</option> option of <command>poselfmerge</command>. Since compendium matches are less likely to be appropriate than own matches, you may set the <literal>S.compendium_fuzzy_exact</literal> field to <literal>True</literal>, or the <literal>S.compendium_min_words_exact</literal> field to a positive integer number, with the same effect as <option>-x</option>/<option>--fuzzy-exact</option> and <option>-W</option>/<option>--min-words-exact</option> options of <command>poselfmerge</command>, respectively.</para>
 
 </sect2>
 
