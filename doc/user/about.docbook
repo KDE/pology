@@ -39,14 +39,28 @@ $ svn update
 </programlisting>
 and only the modifications since the checkout (or the last update) will be downloaded and applied to the existing source tree.</para>
 
-<para>To prepare Pology for use, it is sufficient to set two environment variables, e.g. in the Bash shell:
+<para>To prepare Pology for use, you can either properly install it or use it directly from its source directory. To install it, you first run CMake in a separate build directory to configure the build, and then <command>make</command> and <command>make install</command> to build it and install it:
+<programlisting>
+$ cd <replaceable>PARDIR</replaceable>/pology
+$ mkdir build &amp;&amp; cd build
+$ cmake ..
+$ make &amp;&amp; make install
+</programlisting>
+CMake will 
+</para>
+
+<para>If you want to run Pology from its source directory, it is sufficient to set two environment variables:
 <programlisting>
 $ export PATH=<replaceable>PARDIR</replaceable>/pology/bin:$PATH
 $ export PYTHONPATH=<replaceable>PARDIR</replaceable>/pology:$PYTHONPATH
 </programlisting>
 You can put these commands in the shell startup script (<filename>~/.bashrc</filename> for Bash shell), so that paths are already set whenever you start a shell. Setting <envar>PATH</envar> will ready Pology's script for execution, and <envar>PYTHONPATH</envar> its Python library for use in custom Python scripts.</para>
 
-<para>Pology provides <link linkend="sec-cmshellcomp"><emphasis>shell completion</emphasis></link> for some of the included scripts, which you can activate by sourcing the corresponding completion definition file. For example, for Bash:
+<para>Pology provides <link linkend="sec-cmshellcomp"><emphasis>shell completion</emphasis></link> for some of the included scripts, which you can activate by sourcing the corresponding completion definition file. If you have installed Pology:
+<programlisting>
+$ . <replaceable>INSTDIR</replaceable>/share/pology/completion/bash/pology
+</programlisting>
+and if running Pology from the source directory
 <programlisting>
 $ . <replaceable>PARDIR</replaceable>/pology/completion/bash/pology
 </programlisting>
@@ -70,7 +84,10 @@ $ . <replaceable>PARDIR</replaceable>/pology/completion/bash/pology
 <para>Required general software:
 <itemizedlist>
 <listitem>
-<para><ulink url="http://www.gnu.org/software/gettext/">Gettext</ulink> >= 0.17. Some Pology scripts use Gettext tools internally, and the library module <ulink url="../../api/html/pology.gtxtools-module.html"><literal>pology.gtxtools</literal></ulink> wraps some of Gettext tools for use inside Python scripts.</para>
+<para><ulink url="http://www.cmake.org/">CMake</ulink> >= 2.8. The build system used for Pology.</para>
+</listitem>
+<listitem>
+<para><ulink url="http://www.gnu.org/software/gettext/">Gettext</ulink> >= 0.17. Some Pology scripts use Gettext tools internally, and the library module <ulink url="../../api/html/pology.gtxtools-module.html"><literal>pology.gtxtools</literal></ulink> wraps some of Gettext tools for use inside Python scripts. Also needed to build Pology user interface and documentation translations.</para>
 </listitem>
 <listitem>
 <para><ulink url="http://www.python.org/">Python</ulink> >= 2.5.</para>
@@ -95,7 +112,16 @@ $ . <replaceable>PARDIR</replaceable>/pology/completion/bash/pology
 <para><ulink url="http://www.apertium.org/">Apertium</ulink> >= 0.2. A free/open-source machine translation platform, used by <link linkend="sec-mimtrans">the <command>pomtrans</command> script</link>.</para>
 </listitem>
 <listitem>
+<para><ulink url="http://wiki.docbook.org/DocBookXslStylesheets">Docbook XSL</ulink> >= 1.75.2. XSL transformations for converting Docbook into various end-user formats, used for building Pology documentation..</para>
+</listitem>
+<listitem>
+<para><ulink url="http://epydoc.sourceforge.net">Epydoc</ulink> >= 3.0. Python doctring to HTML doc generator. Needed to build the API documentation of Pology Python library.</para>
+</listitem>
+<listitem>
 <para><ulink url="http://www.languagetool.org/">LanguageTool</ulink> >= 1.0. Open source language checker, used by the <link linkend="sv-check-grammar"><command>check-grammar</command></link> sieve.</para>
+</listitem>
+<listitem>
+<para><ulink url="http://xmlsoft.org/">Libxml2</ulink>. XML processing library. Some of command line tools that come with it are needed to build Pology documentation (<command>xmllint</command>, <command>xsltproc</command>).</para>
 </listitem>
 <listitem>
 <para>Version control systems. Used by various Pology scripts that process PO files on the collection level, when the PO files are under version control. Currently supported: <ulink url="http://git-scm.com/">Git</ulink> >= 1.6, <ulink url="http://subversion.tigris.org/">Subversion</ulink> >= 1.4.</para>
