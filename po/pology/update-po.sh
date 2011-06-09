@@ -2,7 +2,7 @@
 
 wdir=`pwd`
 cdir=`dirname $0`
-potbase=pology
+podomain=pology
 
 mode=all
 if test -n "$1"; then
@@ -11,6 +11,12 @@ fi
 lang=
 if test -n "$2"; then
     lang=$2
+fi
+
+if [[ :all:extract:test:compile: != *:$mode:* ]]; then
+    echo "*** Unknown mode '$mode'."
+    echo "*** (Known modes: all, extract, merge, compile.)"
+    exit 1
 fi
 
 if test $mode = all || test $mode = extract; then
@@ -26,11 +32,11 @@ if test $mode = all || test $mode = extract; then
     srcfiles_sieve=`find sieve -maxdepth 1 -iname \*.py | sort`
     srcfiles_sievelg=`find lang -iname \*.py | grep /sieve/ | sort`
     srcfiles="\
-              $srcfiles_lib $srcfiles_libpr $srcfiles_liblg $srcfiles_libin \
-              $srcfiles_script $srcfiles_scriptlg \
-              $srcfiles_sieve $srcfiles_sievelg \
-             "
-    potfile=po/$potbase/$potbase.pot
+        $srcfiles_lib $srcfiles_libpr $srcfiles_liblg $srcfiles_libin \
+        $srcfiles_script $srcfiles_scriptlg \
+        $srcfiles_sieve $srcfiles_sievelg \
+    "
+    potfile=po/$podomain/$podomain.pot
     xgettext --no-wrap \
         -k_:1c,2 -kn_:1c,2,3 -kt_:1c,2 -ktn_:1c,2,3 \
         -o $potfile $srcfiles
@@ -39,13 +45,18 @@ fi
 
 if test $mode = all || test $mode = merge; then
     echo ">>> Merging catalogs..."
-    potfile=$cdir/$potbase.pot
+    potfile=$cdir/$podomain.pot
     if [ -z "$lang" ]; then
-        pofiles=`find $cdir -iname \*.po`
+        langs=`cat $cdir/LINGUAS | sed 's/#.*//'`
     else
-        pofiles=`find $cdir -iname $lang.po`
+        langs=$lang
     fi
-    for pofile in $pofiles; do
+    for lang in $langs; do
+        pofile=$cdir/$lang.po
+        if test ! -f $pofile; then
+            echo "--- $pofile is missing."
+            continue
+        fi
         echo -n "$pofile  "
         msgmerge -U --backup=none --no-wrap --previous $pofile $potfile
     done
@@ -71,17 +82,21 @@ if test $mode = all || test $mode = compile; then
     fi
 
     if [ -z "$lang" ]; then
-        pofiles=`find $cdir -iname \*.po`
+        langs=`cat $cdir/LINGUAS | sed 's/#.*//'`
     else
-        pofiles=`find $cdir -iname $lang.po`
+        langs=$lang
     fi
-    for pofile in $pofiles; do
+    for lang in $langs; do
+        pofile=$cdir/$lang.po
+        if test ! -f $pofile; then
+            echo "--- $pofile is missing."
+            continue
+        fi
         echo -n "$pofile  "
         pobase=`basename $pofile`
-        lang=${pobase/.po/}
         mosubdir=$modir/$lang/LC_MESSAGES
         mkdir -p $mosubdir
-        mofile=$mosubdir/$potbase.mo
+        mofile=$mosubdir/$podomain.mo
         msgfmt -c --statistics $pofile -o $mofile
     done
 fi
