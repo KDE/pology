@@ -128,7 +128,7 @@ lang/
                 general.aspell
                 propernames.aspell
 </programlisting>
-</para>
+When one of Pology's spell-checking routes is applied for a given language without further qualifiers, only the environment-agnostic dictionaries of that language are automatically included. It must be explicitly requested to additionaly include dictionaries from one of the environments (e.g. by <option>env:</option> parameter to <command>check-spell</command> sieve).</para>
 
 <para>Dictionary files are in the Aspell word list format (regardless of the spell-checker actually used), and must have <filename>.aspell</filename> extension. This is a simple plain text format, listing one word per line. Only the first line is special, the header, which states the language code, number of words in the list, and the encoding. For example:
 <programlisting>
