@@ -1,0 +1,39 @@
+set(sieves
+    apply_filter.py
+    apply_header_filter.py
+    bad_patterns.py
+    check_docbook4.py
+    check_grammar.py
+    check_kde4.py
+    check_rules.py
+    check_spell_ec.py
+    check_spell.py
+    check_tp_kde.py
+    check_tp_wesnoth.py
+    collect_pmap.py
+    diff_previous.py
+    empty_fuzzies.py
+    equip_header_tp_kde.py
+    fancy_quote.py
+    find_messages.py
+    generate_xml.py
+    merge_corr_tree.py
+    normalize_header.py
+    normctxt_delim.py
+    normctxt_sep.py
+    remove_fuzzy_comments.py
+    remove_obsolete.py
+    remove_previous.py
+    resolve_aggregates.py
+    resolve_alternatives.py
+    resolve_entities.py
+    set_header.py
+    stats.py
+    tag_untranslated.py
+    unfuzzy_context_only.py
+    unfuzzy_ctxmark_only.py
+    unfuzzy_inplace_only.py
+    update_header.py
+)
+get_current_source_subdir(srcsubdir)
+install(FILES ${sieves} DESTINATION ${DATA_INSTALL_DIR}/${srcsubdir})

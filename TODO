@@ -1,13 +1,3 @@
-* Build system.
-
-  Distutils take too Python-centric view,
-  while Pology contains a lot of non-Python data.
-  In the future, it may also contain C/C++ modules,
-  or even end-user executables.
-  A general-purpose build system is needed.
-  CMake?
-
-
 * Web site.
 
   Minimal, informative web site, at pology.nedohodnik.net

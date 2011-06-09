@@ -1,0 +1,73 @@
+set(sdfiles
+    avworks-fonts.sd
+    avworks-movies.sd
+    avworks-shows.sd
+    avworks-themes.sd
+    civil-high.sd
+    civil-low.sd
+    electro-comphw.sd
+    electro-pockethw.sd
+    games-social.sd
+    languages-fiction.sd
+    languages-human.sd
+    languages-prog.sd
+    mech-aircraft.sd
+    mech-cars.sd
+    mech-fiction.sd
+    mech-ships.sd
+    mech-spacecraft.sd
+    misc-acronyms.sd
+    misc-products.sd
+    org-activist.sd
+    org-comitees.sd
+    org-companies.sd
+    org-education.sd
+    org-government.sd
+    org-media.sd
+    org-members.sd
+    org-projects.sd
+    org-services.sd
+    people-artists.sd
+    people-authors.sd
+    people-engineers.sd
+    people-explorers.sd
+    people-fiction.sd
+    people-informats.sd
+    people-scientists.sd
+    people-sportists.sd
+    people-swcontribs.sd
+    places-cities.sd
+    places-countries.sd
+    places-fiction.sd
+    places-internet.sd
+    races-fiction.sd
+    software-appext.sd
+    software-comm.sd
+    software-education.sd
+    software-engineering.sd
+    software-engines.sd
+    software-games.sd
+    software-graphics.sd
+    software-multimedia.sd
+    software-niche.sd
+    software-office.sd
+    software-science.sd
+    software-sound.sd
+    software-swdevel.sd
+    software-system.sd
+    software-toys.sd
+    spec-algorithms.sd
+    spec-formats.sd
+    spec-keyboard.sd
+    spec-protocols.sd
+    spec-technologies.sd
+    writings-licences.sd
+    writings-manuals.sd
+    writings-press.sd
+    writings-scifi.sd
+)
+get_current_source_subdir(srcsubdir)
+install_synder_files(${DATA_INSTALL_DIR}/${srcsubdir} ${sdfiles})
+
+add_subdirectory(base)
+add_subdirectory(runtime)
