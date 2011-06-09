@@ -609,9 +609,10 @@ def derive_project_data (project, options, nwgrefpath=None):
                 if (    branch.id in mapped_summit_names
                     and summit_name in mapped_summit_names[branch.id]):
                     branch_names = mapped_summit_names[branch.id][summit_name]
-                # If no mapped catalogs, use summit name as the branch name.
-                if not branch_names:
-                    branch_names.append(summit_name)
+                # Unconditionally add summit name as one possible branch name,
+                # since otherwise a mapped branch catalog could shadow
+                # a direct branch catalog.
+                branch_names.append(summit_name)
 
                 # For each collected branch name, check if there are some
                 # branch templates for which the corresponding branch path
