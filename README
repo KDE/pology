@@ -27,9 +27,12 @@ kept up to date from the Subversion repository at:
 Installing
 ----------
 
-Pology can be used either installed or directly from its source directory.
+Pology may be already packaged for your operating system distribution,
+in which case you can install it as usual through the package system.
 
-To install Pology into default installation prefix, execute
+If you want to use Pology from source, you can either install it
+or use it directly from the source directory.
+To build and install Pology into default installation prefix, execute:
 
   $ cd <pology-source>
   $ mkdir build && cd build
@@ -43,13 +46,22 @@ Note that if you install Pology outside of default installation prefix,
 you may need to make modify the environment as listed below.
 
 To use Pology directly from the source directory, you only need to
-set some environment variables (in Bash):
+set some environment variables:
 
   $ export PYTHONPATH=<pology-source>:$PYTHONPATH
   $ export PATH=<pology-source>/bin:$PATH
 
-For convenience, you can activate shell completion for Pology scripts.
-If you have installed Pology, then (in Bash):
+To this you may also want to enable translations of command line messages
+from Pology scripts, using:
+
+  $ <pology-source>/po/pology/local.sh build [LANG]
+
+where you can supply the language code LANG when you want to build
+translations only for that one language.
+
+For more efficient use of Pology scripts in the command line,
+there are some shell completion definitions provided for the Bash shell.
+If you have installed Pology, you can activate them with:
 
   $ . <pology-install-prefix>/share/pology/completion/bash/pology
 
@@ -61,14 +73,35 @@ and if running from source directory:
 Documentation
 -------------
 
-Pology comes with user and API documentation. User manual can be found in:
+Pology comes with user and API documentation.
+If you installed Pology from distribution packages, you will likely
+find the user manual at:
 
-  doc-html/user/en_US/index.html  (one page by chapter)
-  doc-html/user/en_US/index-mono.html  (everything on one page)
+  /usr/share/doc/pology/user/en_US/index.html  (one page by chapter)
+  /usr/share/doc/pology/user/en_US/index-mono.html  (everything on one page)
 
-and API documentation in:
+and the API documentation at:
 
-  doc-html/api/en_US/index.html
+  /usr/share/doc/pology/api/en_US/index.html
+
+There may also be some documentation for language-specific support,
+e.g. for language LANG and in language LANG (this may sound a bit weird,
+but after all Pology is a piece of software concerned with languages):
+
+    /usr/share/doc/pology/lang/LANG/LANG/index.html
+    /usr/share/doc/pology/lang/LANG/LANG/index-mono.html
+
+If you built and installed Pology yourself, then look for similar paths
+in the installation directory that you set.
+If you opted to run Pology from sources, you can also build documentation
+within the source directory, by executing:
+
+  $ <pology-source>/doc/user/local.sh build  (user manual)
+  $ <pology-source>/doc/api/local.sh build  (API documentation)
+  $ <pology-source>/lang/LANG/doc/local.sh build  (language-specific)
+
+These lines will produce the <pology-source>/doc-html directory,
+with similar subpaths as above (user/, api/, etc.)
 
 
 Contact
