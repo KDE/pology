@@ -28,32 +28,32 @@ hint="Compruebe el uso de espacio posterior a «\n» (sobra en la traducción)."
 
 # Mayúsculas al principio del párrafo.
 {^\s*[A-Z]}i
-valid msgstr="^\s*[A-ZÁÉÍÓÚ©«0-9\¿\¡\&\%\<]"
+valid msgstr="^\s*[A-ZÁÉÍÓÚ©«0-9\¿\¡\&\%\<\(\_]"
 hint="Compruebe el uso de mayúscula al principio del párrafo"
 
 # Mayúsculas después de un salto de línea.
 {\\n\s*[A-Z]}i
-valid msgstr="\\n\s*[A-ZÁÉÍÓÚ©«0-9\¿\¡\&\%\<]"
+valid msgstr="\\n\s*[A-ZÁÉÍÓÚ©«0-9\¿\¡\&\%\<\(\_]"
 hint="Compruebe el uso de mayúscula posterior a «\n».."
 
 # Mayúsculas después de un nuevo párrafo.
 {\<p\>\s*[A-Z]}i
-valid msgstr="\<p\>\s*[A-ZÁÉÍÓÚ©«0-9\¿\¡\&\%\<]"
+valid msgstr="\<p\>\s*[A-ZÁÉÍÓÚ©«0-9\¿\¡\&\%\<\(\_]"
 hint="Compruebe el uso de mayúscula posterior a «\n».."
 
 # Minúsculas al principio del párrafo.
 {^\s*[a-z]}i
-valid msgstr="^\s*[a-záéíóú©«0-9\¿\¡\&\%\<]"
+valid msgstr="^\s*[a-záéíóú©«0-9\¿\¡\&\%\<\(\_]"
 hint="Compruebe el uso de minúscula al principio del párrafo."
 
 # Minúsculas después de un salto de línea.
 {\\n\s*[a-z]}i
-valid msgstr="\\n\s*[a-záéíóú©«0-9\¿\¡\&\%\<]"
+valid msgstr="\\n\s*[a-záéíóú©«0-9\¿\¡\&\%\<\(\_]"
 hint="Compruebe el uso de minúscula posterior a «\n».."
 
 # Minúsculas después de un nuevo párrafo.
 {\<p\>\s*[a-z]}i
-valid msgstr="\<p\>\s*[a-záéíóú©«0-9\¿\¡\&\%\<]"
+valid msgstr="\<p\>\s*[a-záéíóú©«0-9\¿\¡\&\%\<\(\_]"
 hint="Compruebe el uso de minúscula posterior a «<p>».."
 
 # End of rule file 

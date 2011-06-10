@@ -6,6 +6,9 @@
 # Remove XML entities.
 addFilterHook name="remove/remove-paired-ents-tick~'~'" on="msg"
 
+# Remove some abreviations.
+addFilterRegex match="\b(admin|cartr|cert|dec|Dr|etc|expr|hex|id|inc|lab|Mr|no|obs|oct|org|seq|sync|torr)\." repl="~" on="pmsgid"
+
 # Falta espacio al final del párrafo.
 {\s$}i
 valid msgstr="\s$"
@@ -101,7 +104,7 @@ hint="Compruebe el uso de punto y coma al final del párrafo «</p>»."
 valid msgstr="\)\.\s*$"
 valid msgstr="etc\.\)s*$"
 valid msgstr="\w\.$"
-valid msgstr="\w\.\.\.\)$"
+valid msgstr="\.\.\.\)$"
 hint="Compruebe el orden del paréntesis y punto al final del párrafo (al revés que en inglés)."
 
 # Paréntesis en el fin de línea «\n».
@@ -109,7 +112,7 @@ hint="Compruebe el orden del paréntesis y punto al final del párrafo (al revé
 valid msgstr="\)\.\s*\\n"
 valid msgstr="etc\.\)\s*\\n"
 valid msgstr="\w\.\\n"
-valid msgstr="\w\.\.\.\\n"
+valid msgstr="\.\.\.\\n"
 hint="Compruebe el orden del paréntesis y punto antes del fin de línea «\n» (al revés que en inglés)."
 
 # Paréntesis al final del párrafo.
@@ -117,7 +120,7 @@ hint="Compruebe el orden del paréntesis y punto antes del fin de línea «\n» 
 valid msgstr="\)\.\s*\<\/p\>"
 valid msgstr="etc\.\)s*\<\/p\>"
 valid msgstr="\w\.\<\/p\>"
-valid msgstr="\w\.\.\.\)\<\/p\>"
+valid msgstr="\.\.\.\)\<\/p\>"
 hint="Compruebe el orden del paréntesis y punto al final del párrafo «</p>» (al revés que en inglés)."
 
 # Comilla española al final del párrafo.
@@ -125,7 +128,7 @@ hint="Compruebe el orden del paréntesis y punto al final del párrafo «</p>» 
 valid msgstr="\»\.\s*$"
 valid msgstr="etc\.\)s*$"
 valid msgstr="\w\.$"
-valid msgstr="\w\.\.\.\»$"
+valid msgstr="\.\.\.\»$"
 hint="Compruebe el orden del paréntesis y comillas al final del párrafo (al revés que en inglés)."
 
 # Comilla española en el fin de línea «\n».
@@ -133,7 +136,7 @@ hint="Compruebe el orden del paréntesis y comillas al final del párrafo (al re
 valid msgstr="\»\.\s*\\n"
 valid msgstr="etc\.\»\s*\\n"
 valid msgstr="\w\.\\n"
-valid msgstr="\w\.\.\.\»\\n"
+valid msgstr="\.\.\.\»\\n"
 hint="Compruebe el orden del paréntesis y comillas antes del fin de línea «\n» (al revés que en inglés)."
 
 # Comilla española al final del párrafo.
@@ -141,7 +144,7 @@ hint="Compruebe el orden del paréntesis y comillas antes del fin de línea «\n
 valid msgstr="\»\.\s*\<\/p\>"
 valid msgstr="etc\.\»s*\<\/p\>"
 valid msgstr="\w\.\<\/p\>"
-valid msgstr="\w\.\.\.\»\<\/p\>"
+valid msgstr="\.\.\.\»\<\/p\>"
 hint="Compruebe el orden del paréntesis y comillas al final del párrafo «</p>» (al revés que en inglés)."
 
 # End of rule file

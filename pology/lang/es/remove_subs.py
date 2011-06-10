@@ -61,22 +61,24 @@ def remove_paired_parameters (msg, cat):
 
     @return: number of errors
     """
-
-    ents_orig.set(_ent_parameter.findall(msg.msgid))
+  
+    pars_orig = set()
+    pars_orig.update(_ent_parameter.findall(msg.msgid))
 
     if msg.msgid_plural:
-        ents_orig_plural.set(_ent_parameter.findall(msg.msgid_plural))
+        pars_orig_plural = set()
+        pars_orig_plural.update(_ent_parameter.findall(msg.msgid_plural))
 
     for i in range(len(msg.msgstr)):
-        ents_trans = set(_ent_parameter.findall(msg.msgstr[i]))
+        pars_trans = set(_ent_parameter.findall(msg.msgstr[i]))
         if i == 0:
-            for ent in ents_trans.intersection(ents_orig):
-                msg.msgid = msg.msgid.replace(ent, "~")
-                msg.msgstr[i] = msg.msgstr[i].replace(ent, "~")
+            for par in pars_trans.intersection(pars_orig):
+                msg.msgid = msg.msgid.replace(par, "~")
+                msg.msgstr[i] = msg.msgstr[i].replace(par, "~")
         else:
-            for ent in ents_trans.intersection(ents_orig_plural):
-                msg.msgid_plural = msg.msgid_plural.replace(ent, "~")
-                msg.msgstr[i] = msg.msgstr[i].replace(ent, "~")
+            for par in pars_trans.intersection(pars_orig_plural):
+                msg.msgid_plural = msg.msgid_plural.replace(par, "~")
+                msg.msgstr[i] = msg.msgstr[i].replace(par, "~")
 
     return 0
 
