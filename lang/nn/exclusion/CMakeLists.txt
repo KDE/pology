@@ -1,2 +1,5 @@
-add_subdirectory(exclusion)
-add_subdirectory(rules)
+set(files
+    klammeformer.dat
+)
+get_current_source_subdir(srcsubdir)
+install(FILES ${files} DESTINATION ${DATA_INSTALL_DIR}/${srcsubdir})
