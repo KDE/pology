@@ -245,6 +245,7 @@ hint="Utiliser de vrais guillemets, au lieu d'une apostrophe (homogénéité)"
 ['(?=[^\wéèàêâÉÈÀÊÂ«œ])]
 valid before="&amp;[\wéèàêâ]" 
 valid before="&lt;b&gt;"
+valid before="&lt;a "
 valid before="&lt;em&gt;"
 valid before="&lt;b&gt;[\wéèàê]"
 valid before="&lt;i&gt;[\wéèàê]"
