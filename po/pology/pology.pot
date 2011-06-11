@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-06-03 15:40+0200\n"
+"POT-Creation-Date: 2011-06-12 01:17+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -279,6 +279,12 @@ msgctxt "@info"
 msgid "Trying to sync unnamed catalog."
 msgstr ""
 
+#: pology/catalog.py:1204
+#, python-format
+msgctxt "@info"
+msgid "Text encoding failure at %(file)s:%(line)d:%(col)d under assumed encoding '%(enc)s'."
+msgstr ""
+
 #: pology/config.py:119
 #, python-format
 msgctxt "@info"
@@ -373,7 +379,7 @@ msgctxt "@info \"C\" is the C programming language"
 msgid "Invalid C escape sequence after '%(snippet)s'."
 msgstr ""
 
-#: pology/fsops.py:77 scripts/poediff.py:187 scripts/poepatch.py:139
+#: pology/fsops.py:77 scripts/poediff.py:185 scripts/poepatch.py:145
 #, python-format
 msgctxt "@info"
 msgid "Path '%(path)s' does not exist."
@@ -514,7 +520,7 @@ msgctxt "@info"
 msgid "Cannot parse datetime string '%(str)s'."
 msgstr ""
 
-#: pology/__init__.py:241
+#: pology/__init__.py:267
 #, python-format
 msgctxt "@info"
 msgid "No '%(arg)s' keyword argument to plural translation request."
@@ -1612,7 +1618,7 @@ msgctxt "@info command line option description; combined from the partial descri
 msgid "%(head)s %(tail)s"
 msgstr ""
 
-#: pology/stdcmdopt.py:145 scripts/poascribe.py:239 scripts/poepatch.py:91
+#: pology/stdcmdopt.py:145 scripts/poascribe.py:239 scripts/poepatch.py:97
 #: scripts/pomtrans.py:67 scripts/posieve.py:128
 msgctxt "@info command line value placeholder"
 msgid "FILE"
@@ -1632,6 +1638,26 @@ msgstr ""
 #, python-format
 msgctxt "@info command line option description"
 msgid "Type of syntax coloring in output. Available types: %(typelist)s; default: %(type)s."
+msgstr ""
+
+#: pology/stdcmdopt.py:181
+msgctxt "@info command line option description"
+msgid "Basic wrapping: on colum count."
+msgstr ""
+
+#: pology/stdcmdopt.py:186
+msgctxt "@info command line option description"
+msgid "No basic wrapping."
+msgstr ""
+
+#: pology/stdcmdopt.py:191
+msgctxt "@info command line option description"
+msgid "Fine wrapping: on logical breaks (e.g. some markup tags)."
+msgstr ""
+
+#: pology/stdcmdopt.py:196
+msgctxt "@info command line option description"
+msgid "No fine wrapping."
 msgstr ""
 
 #: pology/subcmd.py:92
@@ -1814,74 +1840,82 @@ msgctxt "@item automatic name for anonymous input stream"
 msgid "&lt;stream-%(num)s&gt;"
 msgstr ""
 
-#: pology/synder.py:244
+#: pology/synder.py:267
+#, python-format
+msgctxt "@info"
+msgid ""
+"Derivation file '%(file)s' cannot be compiled due to the following error:\n"
+"%(msg)s"
+msgstr ""
+
+#: pology/synder.py:291
 #, python-format
 msgctxt "@info"
 msgid "Included file '%(name)s' not found at '%(path)s'."
 msgstr ""
 
-#: pology/synder.py:316
+#: pology/synder.py:364
 msgctxt "@info"
 msgid "No derivation yet for which to start an environment."
 msgstr ""
 
-#: pology/synder.py:323
+#: pology/synder.py:371
 msgctxt "@info"
 msgid "Inconsistent indenting of environment head."
 msgstr ""
 
-#: pology/synder.py:335
+#: pology/synder.py:383
 msgctxt "@info"
 msgid "Inconsistent indenting of derivation head."
 msgstr ""
 
-#: pology/synder.py:384
+#: pology/synder.py:432
 #, python-format
 msgctxt "@info"
 msgid "Unexpected end of derivation head started at %(line)d:%(col)d."
 msgstr ""
 
-#: pology/synder.py:400
+#: pology/synder.py:448
 msgctxt "@info"
 msgid "Empty environment name."
 msgstr ""
 
-#: pology/synder.py:406
+#: pology/synder.py:454
 #, python-format
 msgctxt "@info"
 msgid "Repeated environment name '%(env)s'."
 msgstr ""
 
-#: pology/synder.py:415
+#: pology/synder.py:463
 #, python-format
 msgctxt "@info"
 msgid "Unexpected end of environment head started at %(line)d:%(col)d."
 msgstr ""
 
-#: pology/synder.py:495
+#: pology/synder.py:543
 #, python-format
 msgctxt "@info"
 msgid "Unexpected end of expander started at %(line)d:%(col)d."
 msgstr ""
 
-#: pology/synder.py:540
+#: pology/synder.py:588
 #, python-format
 msgctxt "@info"
 msgid "Unexpected end of tag started at %(line)d:%(col)d."
 msgstr ""
 
-#: pology/synder.py:566
+#: pology/synder.py:614
 msgctxt "@info"
 msgid "Empty target path in inclusion directive."
 msgstr ""
 
-#: pology/synder.py:1091
+#: pology/synder.py:1139
 #, python-format
 msgctxt "@info"
 msgid "Unknown extra arguments for transformation function requested in derivator constructor: %(arglist)s"
 msgstr ""
 
-#: pology/synder.py:1263
+#: pology/synder.py:1311
 #, python-format
 msgctxt "@info"
 msgid ""
@@ -1889,13 +1923,13 @@ msgid ""
 "%(pos2list)s"
 msgstr ""
 
-#: pology/synder.py:1476
+#: pology/synder.py:1524
 #, python-format
 msgctxt "@info"
 msgid "Expansion '%(ref)s' does not reference a known derivation."
 msgstr ""
 
-#: pology/synder.py:1541
+#: pology/synder.py:1589
 #, python-format
 msgctxt "@info"
 msgid "Expansion '%(ref)s' expands into nothing."
@@ -2204,6 +2238,12 @@ msgctxt "@info"
 msgid "No delimiter from '%(delimstr)s' can be used for alternatives directive containing: %(snippetlist)s."
 msgstr ""
 
+#: pology/internal/poediffpatch.py:27
+#, python-format
+msgctxt "@info"
+msgid "Class '%(clss)s' only provides static attributes, objects of this type cannot be constructed."
+msgstr ""
+
 #: scripts/normalize-aspell-word-list.py:46 scripts/organizeDict.py:46
 #, python-format
 msgctxt "@info"
@@ -2277,7 +2317,7 @@ msgctxt "@info command line option description"
 msgid "Select a message from ascription history by this selector. Can be repeated, in which case the message is selected if all selectors match it."
 msgstr ""
 
-#: scripts/poascribe.py:124 scripts/poselfmerge.py:65
+#: scripts/poascribe.py:124 scripts/poselfmerge.py:64
 msgctxt "@info command line value placeholder"
 msgid "RATIO"
 msgstr ""
@@ -2420,7 +2460,7 @@ msgctxt "@info command line option description"
 msgid "Ascribe all messages as reviewed on commit, overriding any existing review elements. Tags given by %(opt)s apply. This should not be done in day-to-day practice; the primary use is initial review ascription."
 msgstr ""
 
-#: scripts/poascribe.py:268 scripts/posummit.py:139
+#: scripts/poascribe.py:268 scripts/posummit.py:138
 msgctxt "@info"
 msgid "Operation mode not given."
 msgstr ""
@@ -2750,7 +2790,7 @@ msgctxt "@info"
 msgid "Unknown ascription type '%(type)s' found in history."
 msgstr ""
 
-#: scripts/poediff.py:57
+#: scripts/poediff.py:55
 #, python-format
 msgctxt "@info command usage"
 msgid ""
@@ -2759,13 +2799,13 @@ msgid ""
 "%(cmd)s -c VCS [OPTIONS] [PATHS...]"
 msgstr ""
 
-#: scripts/poediff.py:62
+#: scripts/poediff.py:60
 msgctxt "@info command description"
 msgid "Create embedded diffs of PO files."
 msgstr ""
 
-#: scripts/poediff.py:64 scripts/poepatch.py:65 scripts/pomtrans.py:53
-#: scripts/poselfmerge.py:57 lang/sr/scripts/pohybdl.py:40
+#: scripts/poediff.py:62 scripts/poepatch.py:71 scripts/pomtrans.py:53
+#: scripts/poselfmerge.py:56 lang/sr/scripts/pohybdl.py:40
 #: lang/sr/scripts/traplint.py:453
 #, python-format
 msgctxt "@info command version"
@@ -2774,119 +2814,119 @@ msgid ""
 "Copyright © 2009, 2010 Chusslove Illich (Часлав Илић) &lt;%(email)s&gt;"
 msgstr ""
 
-#: scripts/poediff.py:77
+#: scripts/poediff.py:75
 msgctxt "@info command line option description"
 msgid "Do not diff obsolete messages."
 msgstr ""
 
-#: scripts/poediff.py:80
+#: scripts/poediff.py:78
 msgctxt "@info command line value placeholder"
 msgid "VCS"
 msgstr ""
 
-#: scripts/poediff.py:83
+#: scripts/poediff.py:81
 #, python-format
 msgctxt "@info command line option description"
 msgid "Paths are under version control by given VCS; can be one of: %(vcslist)s."
 msgstr ""
 
-#: scripts/poediff.py:90 scripts/posieve.py:115
+#: scripts/poediff.py:88 scripts/posieve.py:115
 msgctxt "@info command line option description"
 msgid "List the names of available options."
 msgstr ""
 
-#: scripts/poediff.py:95
+#: scripts/poediff.py:93
 msgctxt "@info command line option description"
 msgid "List the keywords of known version control systems."
 msgstr ""
 
-#: scripts/poediff.py:100 scripts/poepatch.py:99
+#: scripts/poediff.py:98 scripts/poepatch.py:105
 msgctxt "@info command line option description"
 msgid "Do not try to indirectly pair messages by merging catalogs."
 msgstr ""
 
-#: scripts/poediff.py:103 scripts/poselfmerge.py:80
+#: scripts/poediff.py:101 scripts/poselfmerge.py:79
 msgctxt "@info command line value placeholder"
 msgid "POFILE"
 msgstr ""
 
-#: scripts/poediff.py:106
+#: scripts/poediff.py:104
 msgctxt "@info command line option description"
 msgid "Output diff catalog to a file instead of stdout."
 msgstr ""
 
-#: scripts/poediff.py:111
+#: scripts/poediff.py:109
 msgctxt "@info command line option description"
 msgid "When two directories are diffed, ignore catalogs which are not present in both directories."
 msgstr ""
 
-#: scripts/poediff.py:117
+#: scripts/poediff.py:115
 #, python-format
 msgctxt "@info command line option description"
 msgid "Equivalent to %(opt)s."
 msgstr ""
 
-#: scripts/poediff.py:121
+#: scripts/poediff.py:119
 msgctxt "@info command line value placeholder"
 msgid "REV1[:REV2]"
 msgstr ""
 
-#: scripts/poediff.py:124
+#: scripts/poediff.py:122
 msgctxt "@info command line option description"
 msgid "Revision from which to diff to current working copy, or from first to second revision (if VCS is given)."
 msgstr ""
 
-#: scripts/poediff.py:130
+#: scripts/poediff.py:128
 msgctxt "@info command line option description"
 msgid "Do not diff headers and do not write out the top header (resulting output cannot be used as patch)."
 msgstr ""
 
-#: scripts/poediff.py:162
+#: scripts/poediff.py:160
 #, python-format
 msgctxt "@info"
 msgid "Unknown VCS '%(vcs)s' selected."
 msgstr ""
 
-#: scripts/poediff.py:171
+#: scripts/poediff.py:169
 msgctxt "@info"
 msgid "Exactly two paths are needed for diffing."
 msgstr ""
 
-#: scripts/poediff.py:180
+#: scripts/poediff.py:178
 msgctxt "@info"
 msgid "Both paths must be either files or directories."
 msgstr ""
 
-#: scripts/poediff.py:191
+#: scripts/poediff.py:189
 #, python-format
 msgctxt "@info"
 msgid "Path '%(path)s' is not under version control."
 msgstr ""
 
-#: scripts/poediff.py:206
+#: scripts/poediff.py:204
 #, python-format
 msgctxt "@info"
 msgid "Too many revisions given: %(revlist)s."
 msgstr ""
 
-#: scripts/poediff.py:277
+#: scripts/poediff.py:275
 #, python-format
 msgctxt "@info"
 msgid "Cannot parse catalog '%(file)s'."
 msgstr ""
 
-#: scripts/poediff.py:726
+#: scripts/poediff.py:356
 msgctxt "@info"
 msgid "Internal problem with path collection (200)."
 msgstr ""
 
-#: scripts/poediff.py:753
+#: scripts/poediff.py:383
 #, python-format
 msgctxt "@info"
 msgid "Cannot export path '%(path)s' in revision '%(rev)s'."
 msgstr ""
 
-#: scripts/poepatch.py:59
+#: scripts/poepatch.py:65
 #, python-format
 msgctxt "@info command usage"
 msgid ""
@@ -2894,188 +2934,188 @@ msgid ""
 "%(cmd)s -u [OPTIONS] PATHS..."
 msgstr ""
 
-#: scripts/poepatch.py:63
+#: scripts/poepatch.py:69
 msgctxt "@info command description"
 msgid "Apply embedded diff of PO files as patch."
 msgstr ""
 
-#: scripts/poepatch.py:75
+#: scripts/poepatch.py:81
 msgctxt "@info command line option description"
 msgid "Apply every message to its paired message in the target file, irrespective of whether its non-pairing parts match too."
 msgstr ""
 
-#: scripts/poepatch.py:79
+#: scripts/poepatch.py:85
 msgctxt "@info command line value placeholder"
 msgid "DIR"
 msgstr ""
 
-#: scripts/poepatch.py:82
+#: scripts/poepatch.py:88
 msgctxt "@info command line option description"
 msgid "Prepend this directory path to any resolved target file path."
 msgstr ""
 
-#: scripts/poepatch.py:87
+#: scripts/poepatch.py:93
 msgctxt "@info command line option description"
 msgid "Instead of applying resolved newer version of the message, add the full embedded diff into the target file."
 msgstr ""
 
-#: scripts/poepatch.py:94
+#: scripts/poepatch.py:100
 msgctxt "@info command line option description"
 msgid "Read the patch from the given file instead of standard input."
 msgstr ""
 
-#: scripts/poepatch.py:102
+#: scripts/poepatch.py:108
 msgctxt "@info command line value placeholder"
 msgid "NUM"
 msgstr ""
 
-#: scripts/poepatch.py:105
+#: scripts/poepatch.py:111
 msgctxt "@info command line option description"
 msgid "Strip the smallest prefix containing NUM leading slashes from each file name found in the ediff file (like in patch(1)). If not given, only the base name of each file is taken."
 msgstr ""
 
-#: scripts/poepatch.py:112
+#: scripts/poepatch.py:118
 msgctxt "@info command line option description"
 msgid "Instead of applying a patch, resolve all embedded differences in given paths to newer versions of messages."
 msgstr ""
 
-#: scripts/poepatch.py:127
+#: scripts/poepatch.py:133
 #, python-format
 msgctxt "@info"
 msgid "Too many arguments in command line: %(argspec)s"
 msgstr ""
 
-#: scripts/poepatch.py:131
+#: scripts/poepatch.py:137
 #, python-format
 msgctxt "@info"
 msgid "Option %(opt)s expects a positive integer value."
 msgstr ""
 
-#: scripts/poepatch.py:156
+#: scripts/poepatch.py:162
 #, python-format
 msgctxt "@info"
 msgid "Path '%(path)s' is not a file or does not exist."
 msgstr ""
 
-#: scripts/poepatch.py:167
+#: scripts/poepatch.py:173
 #, python-format
 msgctxt "@info ediff is shorthand for \"embedded difference\""
 msgid "Error reading ediff '%(file)s'."
 msgstr ""
 
-#: scripts/poepatch.py:175
+#: scripts/poepatch.py:181
 #, python-format
 msgctxt "@info"
 msgid "Header field '%(field)s' is missing in the ediff."
 msgstr ""
 
-#: scripts/poepatch.py:232
+#: scripts/poepatch.py:238
 #, python-format
 msgctxt "@info"
 msgid "Path '%(path)s' is not a file or does not exist, skipping it."
 msgstr ""
 
-#: scripts/poepatch.py:240 scripts/poepatch.py:253 scripts/poepatch.py:755
+#: scripts/poepatch.py:246 scripts/poepatch.py:259 scripts/poepatch.py:761
 #, python-format
 msgctxt "@info"
 msgid "Error reading catalog '%(file)s', skipping it."
 msgstr ""
 
-#: scripts/poepatch.py:257
+#: scripts/poepatch.py:263
 #, python-format
 msgctxt "@info"
 msgid "Cannot create catalog '%(file)s', skipping it."
 msgstr ""
 
-#: scripts/poepatch.py:262
+#: scripts/poepatch.py:268
 msgctxt "@info"
 msgid "Both catalogs in ediff indicated not to exist."
 msgstr ""
 
-#: scripts/poepatch.py:268
+#: scripts/poepatch.py:274
 #, python-format
 msgctxt "@info"
 msgid "Catalog '%(file)s' already contains embedded differences, skipping it."
 msgstr ""
 
-#: scripts/poepatch.py:278
+#: scripts/poepatch.py:284
 #, python-format
 msgctxt "@info"
 msgid "Patch for catalog '%(file)s' contains unresolved split differences, skipping it."
 msgstr ""
 
-#: scripts/poepatch.py:293
+#: scripts/poepatch.py:299
 #, python-format
 msgctxt "@info:progress E is for \"with embedding\""
 msgid "Partially patched (E): %(file)s"
 msgstr ""
 
-#: scripts/poepatch.py:297
+#: scripts/poepatch.py:303
 #, python-format
 msgctxt "@info:progress"
 msgid "Partially patched: %(file)s"
 msgstr ""
 
-#: scripts/poepatch.py:301
+#: scripts/poepatch.py:307
 #, python-format
 msgctxt "@info:progress E is for \"with embedding\""
 msgid "Patched (E): %(file)s"
 msgstr ""
 
-#: scripts/poepatch.py:305
+#: scripts/poepatch.py:311
 #, python-format
 msgctxt "@info:progress"
 msgid "Patched: %(file)s"
 msgstr ""
 
-#: scripts/poepatch.py:310
+#: scripts/poepatch.py:316
 #, python-format
 msgctxt "@info:progress E is for \"with embedding\""
 msgid "Created (E): %(file)s"
 msgstr ""
 
-#: scripts/poepatch.py:314
+#: scripts/poepatch.py:320
 #, python-format
 msgctxt "@info:progress"
 msgid "Created: %(file)s"
 msgstr ""
 
-#: scripts/poepatch.py:321
+#: scripts/poepatch.py:327
 #, python-format
 msgctxt "@info:progress"
 msgid "Removed: %(file)s"
 msgstr ""
 
-#: scripts/poepatch.py:358
+#: scripts/poepatch.py:364
 #, python-format
 msgctxt "@info:progress file to which rejected parts of the patch have been written to"
 msgid "*** Rejects: %(file)s"
 msgstr ""
 
-#: scripts/poepatch.py:439
+#: scripts/poepatch.py:445
 #, python-format
 msgctxt "@info"
 msgid "Unknown patch type %(type)s."
 msgstr ""
 
-#: scripts/poepatch.py:490
+#: scripts/poepatch.py:496
 msgctxt "@info"
 msgid "Neither the old nor the new message in the diff is indicated to exist."
 msgstr ""
 
-#: scripts/poepatch.py:781
+#: scripts/poepatch.py:787
 #, python-format
 msgctxt "@info"
 msgid "Unembedding results in duplicate header, previous header at %(line)d(#%(entry)d); skipping it."
 msgstr ""
 
-#: scripts/poepatch.py:800
+#: scripts/poepatch.py:806
 #, python-format
 msgctxt "@info"
 msgid "Unembedding results in duplicate message, previous message at %(line)d(#%(entry)d); skipping it."
 msgstr ""
 
-#: scripts/poepatch.py:813
+#: scripts/poepatch.py:819
 #, python-format
 msgctxt "@info:progress"
 msgid "Unembedded: %(file)s"
@@ -3175,49 +3215,49 @@ msgctxt "@info"
 msgid "Translation service '%(serv)s' not known."
 msgstr ""
 
-#: scripts/pomtrans.py:181 scripts/pomtrans.py:275
+#: scripts/pomtrans.py:181 scripts/pomtrans.py:278
 #, python-format
 msgctxt "@info"
 msgid "Translation service failure on '%(file)s'."
 msgstr ""
 
-#: scripts/pomtrans.py:214
+#: scripts/pomtrans.py:217
 #, python-format
 msgctxt "@info"
 msgid "Compendium '%(file)s' does not exist."
 msgstr ""
 
-#: scripts/pomtrans.py:222
+#: scripts/pomtrans.py:225
 #, python-format
 msgctxt "@info"
 msgid "Invalid search and replace specification '%(spec)s'."
 msgstr ""
 
-#: scripts/pomtrans.py:235
+#: scripts/pomtrans.py:238
 #, python-format
 msgctxt "@info"
 msgid "Parallel catalog and target catalog are same files for '%(file)s'."
 msgstr ""
 
-#: scripts/pomtrans.py:325
+#: scripts/pomtrans.py:330
 #, python-format
 msgctxt "@info"
 msgid "Cannot determine language of source catalog '%(file)s'."
 msgstr ""
 
-#: scripts/pomtrans.py:331
+#: scripts/pomtrans.py:336
 #, python-format
 msgctxt "@info"
 msgid "Cannot determine language of target catalog '%(file)s'."
 msgstr ""
 
-#: scripts/pomtrans.py:360
+#: scripts/pomtrans.py:378
 #, python-format
 msgctxt "@info Apertium is machine translation software"
 msgid "Apertium executable not found at '%(path)s'."
 msgstr ""
 
-#: scripts/pomtrans.py:396
+#: scripts/pomtrans.py:414
 #, python-format
 msgctxt "@info"
 msgid ""
@@ -3225,30 +3265,30 @@ msgid ""
 "%(output)s"
 msgstr ""
 
-#: scripts/pomtrans.py:404
+#: scripts/pomtrans.py:422
 #, python-format
 msgctxt "@info"
 msgid "Apertium reported wrong number of translations, %(num1)d instead of %(num2)d."
 msgstr ""
 
-#: scripts/pomtrans.py:439
+#: scripts/pomtrans.py:457
 #, python-format
 msgctxt "@info"
 msgid "Python module '%(mod)s' not available. Try installing the '%(pkg)s' package."
 msgstr ""
 
-#: scripts/porewrap.py:41 scripts/poselfmerge.py:51
+#: scripts/porewrap.py:42 scripts/poselfmerge.py:50
 #, python-format
 msgctxt "@info command usage"
 msgid "%(cmd)s [options] POFILE..."
 msgstr ""
 
-#: scripts/porewrap.py:44
+#: scripts/porewrap.py:45
 msgctxt "@info command description"
 msgid "Rewrap message strings in PO files."
 msgstr ""
 
-#: scripts/porewrap.py:46 scripts/posieve.py:68 scripts/posummit.py:64
+#: scripts/porewrap.py:47 scripts/posieve.py:68 scripts/posummit.py:63
 #, python-format
 msgctxt "@info command version"
 msgid ""
@@ -3256,90 +3296,70 @@ msgid ""
 "Copyright © 2007, 2008, 2009, 2010 Chusslove Illich (Часлав Илић) &lt;%(email)s&gt;"
 msgstr ""
 
-#: scripts/porewrap.py:56 scripts/poselfmerge.py:89
+#: scripts/porewrap.py:57 scripts/poselfmerge.py:88
 msgctxt "@info command line option description"
 msgid "More detailed progress information."
 msgstr ""
 
-#: scripts/porewrap.py:63 scripts/poselfmerge.py:110
+#: scripts/porewrap.py:64 scripts/poselfmerge.py:109
 msgctxt "@info"
 msgid "No input files given."
 msgstr ""
 
-#: scripts/porewrap.py:81
+#: scripts/porewrap.py:82
 #, python-format
 msgctxt "@info:progress"
 msgid "Rewrapping: %(file)s"
 msgstr ""
 
-#: scripts/porewrap.py:95
-msgctxt "@info command line option description"
-msgid "Basic wrapping: on colum count."
-msgstr ""
-
-#: scripts/porewrap.py:100
-msgctxt "@info command line option description"
-msgid "No basic wrapping."
-msgstr ""
-
-#: scripts/porewrap.py:105
-msgctxt "@info command line option description"
-msgid "Fine wrapping: on logical breaks, like some markup tags."
-msgstr ""
-
-#: scripts/porewrap.py:110
-msgctxt "@info command line option description"
-msgid "No fine wrapping."
-msgstr ""
-
-#: scripts/poselfmerge.py:54
+#: scripts/poselfmerge.py:53
 msgctxt "@info command description"
 msgid "Merge PO file with itself or compendium, to produce fuzzy matches on similar messages."
 msgstr ""
 
-#: scripts/poselfmerge.py:68
+#: scripts/poselfmerge.py:67
 msgctxt "@info command line option description"
 msgid "On fuzzy matches, the minimum adjusted similarity to accept the match, or else the message is left untranslated. Range is 0.0-1.0, where 0 means always to accept the match, and 1 never to accept; a practical range is 0.6-0.8."
 msgstr ""
 
-#: scripts/poselfmerge.py:76
+#: scripts/poselfmerge.py:75
 msgctxt "@info command line option description"
 msgid "Before merging, clear those fuzzy messages whose predecessor (determined by previous fields) is still in the catalog."
 msgstr ""
 
-#: scripts/poselfmerge.py:83
+#: scripts/poselfmerge.py:82
 msgctxt "@info command line option description"
 msgid "Catalog with existing translations, to additionally use for direct and fuzzy matches. Can be repeated."
 msgstr ""
 
-#: scripts/poselfmerge.py:92
+#: scripts/poselfmerge.py:91
 msgctxt "@info command line value placeholder"
 msgid "NUMBER"
 msgstr ""
 
-#: scripts/poselfmerge.py:95
+#: scripts/poselfmerge.py:94
 msgctxt "@info command line option description"
 msgid "When using compendium, in case of exact match, minimum number of words that original text must have to accept translation without making it fuzzy. Zero means to always accept an exact match."
 msgstr ""
 
-#: scripts/poselfmerge.py:103
+#: scripts/poselfmerge.py:102
 msgctxt "@info command line option description"
 msgid "When using compendium, make all exact matches fuzzy."
 msgstr ""
 
-#: scripts/poselfmerge.py:124
+#: scripts/poselfmerge.py:123
 #, python-format
 msgctxt "@info"
 msgid "Value to option %(opt)s must be an integer number, given '%(val)s' instead."
 msgstr ""
 
-#: scripts/poselfmerge.py:131
+#: scripts/poselfmerge.py:130
 #, python-format
 msgctxt "@info"
 msgid "Value to option %(opt)s must be a real number, given '%(val)s' instead."
 msgstr ""
 
-#: scripts/poselfmerge.py:144
+#: scripts/poselfmerge.py:143
 #, python-format
 msgctxt "@info:progress"
 msgid "Self-merging: %(file)s"
@@ -3595,7 +3615,7 @@ msgctxt "@info:progress"
 msgid "Finalization failed: %(msg)s"
 msgstr ""
 
-#: scripts/posummit.py:54
+#: scripts/posummit.py:53
 #, python-format
 msgctxt "@info command usage"
 msgid ""
@@ -3606,141 +3626,141 @@ msgid ""
 "    (if there is a '%(cfgfile)s' file in a parent directory)"
 msgstr ""
 
-#: scripts/posummit.py:61
+#: scripts/posummit.py:60
 msgctxt "@info command description"
 msgid "Translate PO files spread across different branches in a unified fashion."
 msgstr ""
 
-#: scripts/posummit.py:74
+#: scripts/posummit.py:73
 msgctxt "@info command line option description"
 msgid "Apply a non-default ascription filter on scatter."
 msgstr ""
 
-#: scripts/posummit.py:79
+#: scripts/posummit.py:78
 msgctxt "@info command line option description"
 msgid "Allow creation of new summit catalogs."
 msgstr ""
 
-#: scripts/posummit.py:84
+#: scripts/posummit.py:83
 msgctxt "@info command line option description"
 msgid "Force some operations that are normally not advised."
 msgstr ""
 
-#: scripts/posummit.py:89
+#: scripts/posummit.py:88
 msgctxt "@info command line option description"
 msgid "Output less detailed progress info."
 msgstr ""
 
-#: scripts/posummit.py:94
+#: scripts/posummit.py:93
 msgctxt "@info command line option description"
 msgid "Output more detailed progress info"
 msgstr ""
 
-#: scripts/posummit.py:120
+#: scripts/posummit.py:119
 #, python-format
 msgctxt "@info"
 msgid "Summit configuration file neither found as '%(cfgfile)s' in parent directories, nor given in command line."
 msgstr ""
 
-#: scripts/posummit.py:127
+#: scripts/posummit.py:126
 #, python-format
 msgctxt "@info"
 msgid "Summit configuration file '%(file)s' does not exist."
 msgstr ""
 
-#: scripts/posummit.py:132
+#: scripts/posummit.py:131
 msgctxt "@info"
 msgid "Language code not given."
 msgstr ""
 
-#: scripts/posummit.py:146
+#: scripts/posummit.py:145
 #, python-format
 msgctxt "@info"
 msgid "Unknown operation mode '%(mode)s'."
 msgstr ""
 
-#: scripts/posummit.py:172
+#: scripts/posummit.py:171
 msgctxt "@info"
 msgid "Language code not set in configuration file."
 msgstr ""
 
-#: scripts/posummit.py:228
+#: scripts/posummit.py:227
 #, python-format
 msgctxt "@info:progress"
 msgid "-----> Processing mode: %(mode)s"
 msgstr ""
 
-#: scripts/posummit.py:317
+#: scripts/posummit.py:316
 #, python-format
 msgctxt "@info"
 msgid "Unknown summit configuration field '%(field)s'."
 msgstr ""
 
-#: scripts/posummit.py:342
+#: scripts/posummit.py:341
 #, python-format
 msgctxt "@info"
 msgid "Circular inclusion of '%(file)s' attempted in summit configuration."
 msgstr ""
 
-#: scripts/posummit.py:367
+#: scripts/posummit.py:366
 #, python-format
 msgctxt "@info"
 msgid "Unknown keys in summit configuration: %(keylist)s."
 msgstr ""
 
-#: scripts/posummit.py:372
+#: scripts/posummit.py:371
 msgctxt "@info"
 msgid "Top directory not set in summit configuration."
 msgstr ""
 
-#: scripts/posummit.py:407
+#: scripts/posummit.py:406
 #, python-format
 msgctxt "@info"
 msgid "Invalid regular expression '%(regex)s' in include-exclude specification of branch '%(branch)s'."
 msgstr ""
 
-#: scripts/posummit.py:422
+#: scripts/posummit.py:421
 #, python-format
 msgctxt "@info"
 msgid "Invalid test type '%(type)s' in include-exclude specification of branch '%(branch)s'."
 msgstr ""
 
-#: scripts/posummit.py:444
+#: scripts/posummit.py:443
 #, python-format
 msgctxt "@info"
 msgid "Unknown keys in specification of branch '%(branch)s': %(keylist)s."
 msgstr ""
 
-#: scripts/posummit.py:454
+#: scripts/posummit.py:453
 msgctxt "@info"
 msgid "Branch with undefined ID."
 msgstr ""
 
-#: scripts/posummit.py:457
+#: scripts/posummit.py:456
 #, python-format
 msgctxt "@info"
 msgid "Non-unique branch ID '%(branch)s'."
 msgstr ""
 
-#: scripts/posummit.py:462
+#: scripts/posummit.py:461
 #, python-format
 msgctxt "@info"
 msgid "Top directory not set for branch '%(branch)s'."
 msgstr ""
 
-#: scripts/posummit.py:533
+#: scripts/posummit.py:532
 #, python-format
 msgctxt "@info"
 msgid "Unknown type of definition for ascription filter '%(filt)s'."
 msgstr ""
 
-#: scripts/posummit.py:540
+#: scripts/posummit.py:539
 #, python-format
 msgctxt "@info"
 msgid "Summit configuration does not define ascription filter '%(filt)s'."
 msgstr ""
 
-#: scripts/posummit.py:557
+#: scripts/posummit.py:556
 #, python-format
 msgctxt "@info"
 msgid ""
@@ -4040,18 +4060,18 @@ msgctxt "@item:intext action performed on a catalog"
 msgid "merged"
 msgstr ""
 
-#: lang/es/scripts/createProperWordsDict.py:36 lang/sr/scripts/pohybdl.py:34
+#: lang/es/scripts/createProperWordsDict.py:34 lang/sr/scripts/pohybdl.py:34
 #, python-format
 msgctxt "@info command usage"
 msgid "%(cmd)s [OPTIONS] VCS [POPATHS...]"
 msgstr ""
 
-#: lang/es/scripts/createProperWordsDict.py:39
+#: lang/es/scripts/createProperWordsDict.py:37
 msgctxt "@info command description"
 msgid "Obtains a list of proper words from the message text "
 msgstr ""
 
-#: lang/es/scripts/createProperWordsDict.py:41
+#: lang/es/scripts/createProperWordsDict.py:39
 #, python-format
 msgctxt "@info command version"
 msgid ""
