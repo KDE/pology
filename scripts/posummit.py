@@ -190,6 +190,10 @@ def main ():
             # FIXME: Portability.
             tpd = "/tmp/summit-templates-%d" % os.getpid()
         project.tproject.summit["topdir"] = tpd
+        for tb in project.tproject.branches:
+            tbpd = tb.get("topdir_templates")
+            if tbpd is not None:
+                tb["topdir"] = tbpd
         project.tproject.lang = project.templates_lang
         project.tproject = derive_project_data(project.tproject,
                                                project.toptions,
