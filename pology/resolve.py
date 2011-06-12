@@ -39,7 +39,7 @@ def resolve_entities (text, entities, ignored=set(), srcname=None,
     @param text: the text to transform
     @type text: string
     @param entities: entity name-value pairs
-    @type entities: dict
+    @type entities: has .get() with dict.get() semantics
     @param ignored: entities to ignore; a sequence of entity names,
         or function taking the entity name and returning C{True} if ignored
     @type ignored: a sequence or (string)->bool
