@@ -68,6 +68,8 @@ _flagtagsep = "/"
 
 _diffflags = (_diffflag, _diffflag_tot, _diffflag_ign)
 _all_flags = _diffflags + _revdflags + _urevdflags
+_all_flags = sorted(_all_flags, key=lambda x: (-len(x), x))
+# ...this order is necessary for proper |-linking in regexes.
 _all_cmnts = (_achncmnt,)
 
 # Datetime at the moment the script is started.
