@@ -30,7 +30,7 @@ BM: БМ|-, БМ|>
 BOM: БОМ|-, БОМ|>, _пр=Byte Order Mark
 BOZ: БОЗ|-, БОЗ|>, _пр=Fotran binary/octal/hexadecimal constant
 BPP: бпр|*, бпр|>, _род!=м
-BPM: опм|*, _род!=м # beats per minute, откуцаја по минуту
+BPM: опм|*, _род!=м, _пр=откуцаја по минуту, _про=beats per minute
 BRI: БР|И-, БРИ|>
 BS: БС|-, БС|>, _пр=Backspace
 BSOD: БСОД|-, БСОД|>
