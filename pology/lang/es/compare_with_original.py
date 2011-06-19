@@ -75,7 +75,7 @@ def test_if_very_short_translation (msg, cat):
 
     return []
 
-
+_valid_word = re.compile("(?u)^[^\W\d_]+$")
 def test_if_not_translated (msg, cat):
     """
     Compare the translation with the original text, testing if the paragraph is 
@@ -92,14 +92,16 @@ def test_if_not_translated (msg, cat):
            msgid = msg.msgid
            
         if len(msgid) > 0 and msgid == msg.msgstr[i]:
-            dict_en = A.Aspell(("lang", "en"))
-            dict_local = A.Aspell()
+            dict_en = A.Aspell((("lang", "en"),("encoding", "utf-8")))
+            dict_local = A.Aspell(("encoding", "utf-8"))
             wordList = split.proper_words(msgid, markup=True, accels=['&'])
             for word in wordList:
-                if dict_en.check(repr(word)) and not dict_local.check(repr(word)):
-                    dict_en.close()
-                    dict_local.close()
-                    return [("msgstr", 0, [(0, 0, None)])]
+	        word = word.encode("utf-8")
+	        if _valid_word.match(word):
+                    if dict_en.check(word) and not dict_local.check(word):
+                        dict_en.close()
+                        dict_local.close()
+                        return [("msgstr", 0, [(0, 0, None)])]
             dict_en.close()
             dict_local.close()
 

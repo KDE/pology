@@ -12,12 +12,12 @@ import re
 
 # Capitals words in valid contexts in the translated text according with Spanish grammar
 # (beggining of paragraph, after some punctuation characters and after a new line)
-_valid_capital_word = re.compile("(?u)^[A-ZÑÇÁÉÍÓÚ]\w*|[.:?!>«\"]\s*[A-ZÑÇÁÉÍÓÚ]\w*|\\n\s*[A-ZÑÇÁÉÍÓÚ]\w*")
+_valid_capital_word = re.compile("(?u)^[[:upper:]]\w*|[.:?!>«\"]\s*[[:upper:]]\w*|\\n\s*[[:upper:]]\w*")
 
 # All capital words in the original English text,
-_ent_capital_word = re.compile("(?u)[A-Z]\w*")
+_ent_capital_word = re.compile("(?u)[[:upper:]]\w*")
 # All plural full capital words (acronyms) without the final 's'.
-_ent_capital_word_plural = re.compile("(?u)[A-Z]+(?=s)")
+_ent_capital_word_plural = re.compile("(?u)[[:upper:]]+(?=s)")
 
 def remove_paired_capital_words (msg, cat):
     """
@@ -32,8 +32,8 @@ def remove_paired_capital_words (msg, cat):
     ents_orig.update(_ent_capital_word.findall(msg.msgid))
     ents_orig.update(_ent_capital_word_plural.findall(msg.msgid))
 
+    ents_orig_plural = set()
     if msg.msgid_plural:
-        ents_orig_plural = set()
         ents_orig_plural.update(_ent_capital_word.findall(msg.msgid_plural))
         ents_orig_plural.update(_ent_capital_word_plural.findall(msg.msgid_plural))
 
@@ -65,8 +65,8 @@ def remove_paired_parameters (msg, cat):
     pars_orig = set()
     pars_orig.update(_ent_parameter.findall(msg.msgid))
 
+    pars_orig_plural = set()
     if msg.msgid_plural:
-        pars_orig_plural = set()
         pars_orig_plural.update(_ent_parameter.findall(msg.msgid_plural))
 
     for i in range(len(msg.msgstr)):
@@ -83,11 +83,11 @@ def remove_paired_parameters (msg, cat):
     return 0
 
 
-_auto_comment_tag = ["trans_comment", "literallayout", "option", "programlisting", "othercredit", "author", "email", "holder",
+_auto_comment_tag = ("trans_comment", "literallayout", "option", "programlisting", "othercredit", "author", "email", "holder",
     "surname", "personname", "affiliation", "address", "sect1", "chapter", "chapterinfo", "date", "command", "option",
     "refentrytitle", "refentryinfo", "refname", "synopsis", "literal", "varname", "term", "glossterm",
     "filename", "entry", "envar", "userinput", "cmdsynopsis", "releaseinfo", "language", "Name",
-    "City", "Region", "unit", "Query"]
+    "City", "Region", "unit", "Query")
 
 def remove_tags_without_translation (msg, cat):
     """
@@ -110,7 +110,8 @@ def remove_tags_without_translation (msg, cat):
         for tag in tagline.split():
             if tag in _auto_comment_tag:
                 msg.msgid = ""
-                msg.msgid_plural = ""
+                if msg.msgid_plural:
+                    msg.msgid_plural = ""
                 for i in range(len(msg.msgstr)):
                     msg.msgstr[i] = ""
                 return 0
@@ -119,7 +120,8 @@ def remove_tags_without_translation (msg, cat):
         for tag in msg.msgctxt.split():
             if tag in _auto_comment_tag:
                 msg.msgid = ""
-                msg.msgid_plural = ""
+                if msg.msgid_plural:
+                    msg.msgid_plural = ""
                 for i in range(len(msg.msgstr)):
                     msg.msgstr[i] = ""
                 return 0
