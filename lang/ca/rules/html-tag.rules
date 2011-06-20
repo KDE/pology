@@ -6,7 +6,9 @@
 # L'etiqueta html «quote» crea una cometa anglosaxona ('). 
 # En català s'utilitzen les cometes llatines « i », per tant, cal substituir 
 # l'etiqueta <quote> per « i l'etiqueta </quote> per »
-[\<quote>|\</quote>]
-hint="Cal substituir les etiquetes «<quote>|</quote>» per '«' o '»' corresponent (etiquetes html)"
+# Es desactiva aquesta regla: cal substituir la definició de "quote" per "«" o "»" a
+# http://docbook.svn.sourceforge.net/viewvc/docbook/trunk/gentext/locale/ca.xml
+#[\<quote>|\</quote>]
+#hint="Cal substituir les etiquetes «<quote>|</quote>» per '«' o '»' corresponent (etiquetes html)"
 
 # End of rule file
