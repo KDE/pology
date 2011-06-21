@@ -6,6 +6,7 @@ set(files
     filter.include
     html-tag.rules
     kde-ca-team.rules
+    keys.rules
     typography.rules
 )
 get_current_source_subdir(srcsubdir)
