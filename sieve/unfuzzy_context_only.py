@@ -84,7 +84,7 @@ class Sieve (object):
                     continue
                 msgs = self.msgs_by_msgid.get(msg.msgid)
                 msgs_to_unfuzzy = self.msgs_to_unfuzzy_by_msgid.get(msg.msgid)
-                if len(msgs) > 1 and msgs_to_unfuzzy:
+                if msgs and msgs_to_unfuzzy and len(msgs) > 1:
                     msgs_to_report.append(msg)
                     keys_of_msgs_to_report.add(msg.key)
 
