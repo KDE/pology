@@ -1,10 +1,8 @@
 set(scripts
     normalize-aspell-word-list.py
     poascribe.py
-    podescprob.py
     poediff.py
     poepatch.py
-    poextinj.py
     pomtrans.py
     porewrap.py
     poselfmerge.py
