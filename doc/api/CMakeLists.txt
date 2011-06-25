@@ -20,5 +20,6 @@ epydoc_to_html(
     OUTDIR ${lang}
     EPYOPTS --no-sourcecode --no-frames --no-private
             --exclude=external --exclude=internal
+            --quiet --fail-on-docstring-warning
     DESTINATION ${DOC_INSTALL_DIR}/${doctype}
 )
