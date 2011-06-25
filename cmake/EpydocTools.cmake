@@ -66,7 +66,8 @@ macro(EPYDOC_TO_HTML)
                          'you must remove them.'
                     && exit 1)
         COMMAND rm -rf ${outdir} && mkdir -p ${outdir}
-        COMMAND ${EPYDOC_EXECUTABLE} ${pypkgdir}/ -o ${outdir} -v
+        COMMAND PYTHONDONTWRITEBYTECODE=1 # do not pollute srcdir with *.pyc files
+                ${EPYDOC_EXECUTABLE} ${pypkgdir}/ -o ${outdir} -v
                 ${EPYT_H_EPYOPTS}
         COMMAND touch ${targfile}
         DEPENDS ${pyfiles}
