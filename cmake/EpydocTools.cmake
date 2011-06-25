@@ -67,7 +67,7 @@ macro(EPYDOC_TO_HTML)
                     && exit 1)
         COMMAND rm -rf ${outdir} && mkdir -p ${outdir}
         COMMAND PYTHONDONTWRITEBYTECODE=1 # do not pollute srcdir with *.pyc files
-                ${EPYDOC_EXECUTABLE} ${pypkgdir}/ -o ${outdir} -v
+                ${EPYDOC_EXECUTABLE} ${pypkgdir}/ -o ${outdir}
                 ${EPYT_H_EPYOPTS}
         COMMAND touch ${targfile}
         DEPENDS ${pyfiles}
