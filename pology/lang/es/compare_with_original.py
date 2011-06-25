@@ -47,7 +47,7 @@ def test_if_very_long_translation (msg, cat):
             lm = len(msg.msgid_plural.split())
         else:
             lm = len(msg.msgid.split())
-        if lm > 0 and len(msg.msgstr[i].split()) > (1.5 * lm + 3):
+        if lm > 0 and len(msg.msgstr[i].split()) > (1.6 * lm + 5):
              return [("msgstr", 0, [(0, 0, None)])]    
 
     return []
@@ -70,12 +70,13 @@ def test_if_very_short_translation (msg, cat):
                 lm = len(msg.msgid_plural.split())
             else:
                 lm = len(msg.msgid.split())
-            if lm > (1.5 * len(msg.msgstr[i].split()) +  3):
+            if lm > (1.6 * len(msg.msgstr[i].split()) +  5):
                 return [("msgstr", 0, [(0, 0, None)])]    
 
     return []
 
 _valid_word = re.compile("(?u)^[^\W\d_]+$")
+_capital_word = re.compile("(?u)^[A-Z]+$")
 def test_if_not_translated (msg, cat):
     """
     Compare the translation with the original text, testing if the paragraph is 
@@ -97,7 +98,7 @@ def test_if_not_translated (msg, cat):
             wordList = split.proper_words(msgid, markup=True, accels=['&'])
             for word in wordList:
 	        word = word.encode("utf-8")
-	        if _valid_word.match(word):
+	        if _valid_word.match(word) and not _capital_word.match(word):
                     if dict_en.check(word) and not dict_local.check(word):
                         dict_en.close()
                         dict_local.close()

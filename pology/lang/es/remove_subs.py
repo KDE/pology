@@ -12,12 +12,12 @@ import re
 
 # Capitals words in valid contexts in the translated text according with Spanish grammar
 # (beggining of paragraph, after some punctuation characters and after a new line)
-_valid_capital_word = re.compile("(?u)^[[:upper:]]\w*|[.:?!>«\"]\s*[[:upper:]]\w*|\\n\s*[[:upper:]]\w*")
+_valid_capital_word = re.compile("(?u)^[A-Z]\w*|[.:?!>«\"]\s*[A-Z]\w*|\\n\s*[A-Z]\w*")
 
 # All capital words in the original English text,
-_ent_capital_word = re.compile("(?u)[[:upper:]]\w*")
+_ent_capital_word = re.compile("(?u)[A-Z]\w*")
 # All plural full capital words (acronyms) without the final 's'.
-_ent_capital_word_plural = re.compile("(?u)[[:upper:]]+(?=s)")
+_ent_capital_word_plural = re.compile("(?u)[A-Z]+(?=s)")
 
 def remove_paired_capital_words (msg, cat):
     """
@@ -87,7 +87,7 @@ _auto_comment_tag = ("trans_comment", "literallayout", "option", "programlisting
     "surname", "personname", "affiliation", "address", "sect1", "chapter", "chapterinfo", "date", "command", "option",
     "refentrytitle", "refentryinfo", "refname", "synopsis", "literal", "varname", "term", "glossterm",
     "filename", "entry", "envar", "userinput", "cmdsynopsis", "releaseinfo", "language", "Name",
-    "City", "Region", "unit", "Query")
+    "City", "Region", "Region/state", "unit", "Query", "Kgm")
 
 def remove_tags_without_translation (msg, cat):
     """

@@ -49,7 +49,7 @@ valid msgid="^[^a-z]+$" # Mensaje que no contiene minúsculas
 hint="No se ha traducido el mensaje original"
 
 addFilterHook name="es:remove_subs/remove_paired_capital_words" on="msg"
-[(?u)[,;\:\(]\s+[A-ZÑÇ]\w*]
+[(?u)[,;\:\(]\s+[A-ZÑÇ][a-záéíóúüñç]+]
 valid ctx="TRANSLATORS"
 valid ctx="trans_comment"
 valid msgid="TRANSLATORS"
