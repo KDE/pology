@@ -1,5 +1,6 @@
 # Configure paths in __init__.py
 set(CONFIG_DATADIR ${DATA_INSTALL_DIR})
+set(CONFIG_LOCALEDIR ${MO_INSTALL_DIR})
 set(CONFIG_VERSION ${PROJECT_VERSION})
 configure_file(__init__.py ${CMAKE_CURRENT_BINARY_DIR}/__init__.py @ONLY)
 

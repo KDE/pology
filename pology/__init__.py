@@ -48,9 +48,23 @@ def datadir ():
     """
 
     datadir = "@CONFIG_DATADIR@" # configured if installed
-    if not os.path.isdir(datadir):
-        datadir = os.path.dirname(__path__[0]) # if running from source dir
+    if not os.path.isdir(datadir): # if running from source dir
+        datadir = os.path.dirname(__path__[0])
     return datadir
+
+
+def localedir ():
+    """
+    Get locale directory of Pology installation.
+
+    @return: absolute directory path
+    @rtype: string
+    """
+
+    localedir = "@CONFIG_LOCALEDIR@" # configured if installed
+    if not os.path.isdir(localedir): # if running from source dir
+        localedir = os.path.join(os.path.dirname(__path__[0]), "mo")
+    return localedir
 
 
 def version ():
@@ -98,18 +112,10 @@ def version_info ():
 
 
 # Collect data paths.
-# Either as installed, when the _paths.py module will be available,
-# or assume locations within the repository.
-try:
-    import pology._paths as _paths
-    _mo_dir = _paths.mo
-except ImportError:
-    _mo_dir = os.path.join(datadir(), "mo")
-
 
 # Setup translations.
 try:
-    _tr = gettext.translation("pology", _mo_dir)
+    _tr = gettext.translation("pology", localedir())
 except IOError:
     _tr = gettext.NullTranslations()
 
