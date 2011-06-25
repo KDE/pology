@@ -91,7 +91,9 @@ macro(DOCBOOK_BOOK_TO_HTML_CHUNKED)
                 ${xslfile} ${mdocfile}
         COMMAND mv ${outdir} ${outdir}-tmp
         COMMAND mv ${outdir}-tmp ${rnmdir}
-        COMMAND sed -i -r ${sedrepl_notitle} ${rnmdir}/*.html
+        # There seems to be a race condition in parallel build
+        # that causes the *.html glob below to fail without the sleep.
+        COMMAND sleep 1 && sed -i -r ${sedrepl_notitle} ${rnmdir}/*.html
         COMMAND touch ${targfile}
         DEPENDS ${docfiles} ${xslfile}
     )
@@ -162,7 +164,9 @@ macro(DOCBOOK_BOOK_TO_HTML_SINGLE)
                 ${mdocfile}
         COMMAND ${XSLTPROC_EXECUTABLE} --xinclude ${pipeopt}
                 ${xslfile} ${mdocfile}
-        COMMAND sed -i -r ${sedrepl_notitle} ${rnmdir}/*.html
+        # There seems to be a race condition in parallel build
+        # that causes the *.html glob below to fail without the sleep.
+        COMMAND sleep 1 && sed -i -r ${sedrepl_notitle} ${rnmdir}/*.html
         DEPENDS ${docfiles} ${xslfile}
     )
     add_custom_target(${target} ALL DEPENDS ${outfile})
