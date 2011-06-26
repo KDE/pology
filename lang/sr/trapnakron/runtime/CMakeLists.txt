@@ -1,4 +1,5 @@
 set(sdfiles
+    aggregates.sd
     calendar.sd
     credits.sd
     dotdesktop.sd
