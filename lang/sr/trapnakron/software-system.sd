@@ -439,6 +439,7 @@ Gnome Who: |Gnome~.мп ко|
 GnuPG: ГнуПГ|--, ГнуПГ|-ов, гнуПГ|>
 GPG: ГПГ|--, ГПГ|-ов, ГПГ|>
 Grub: Груб|, Груб|ов
+Grub 2: |Grub 2|*
 Icon Finder: Налаз|ач икона
 Imlib: Имлиб|, Имлиб|ов, имлиб|>
 Irkick: Иркик|, Иркик|ов
@@ -644,6 +645,8 @@ Minitools: Миниалатк|е-
 MiniUPnP: МиниУПнП|-, МиниУПнП|-ов
 MouseTool: Мишоклик|
 NepomukBackup: |Nepomuk~.жп резерв|а
+Nepomuk Controller: |Nepomuk~.мп управљ|ач
+NepomukIndexer: |Nepomuk~.мп индексар|
 Nmapfe: Нмапфе|, Нмапфе|ов
 OClock: О-сат|, О-сат|ов
 Okteta: Октет|а, Октет|ин
@@ -654,8 +657,10 @@ PeerGuardian: Пиргардијан|, Пиргардијан|ов
     @л: PeerGuardian|, PeerGuardian|ov
 PGP: ПГП|--, ПГП|-ов, ПГП|>
 Plasma Applet Viewer: |{Plasma~.мп} приказив|ач аплета
-Plasma Package Manager: |{Plasma~.мп} менаџер| пакета
 Plasma for the Screensaver: |*|Plasma за чувар екрана
+Plasma Package Manager: |{Plasma~.мп} менаџер| пакета
+Plasma Remote Widgets Browser: |{Plasma~.мп} преглед|ач удаљених виџета
+Plasma Remote Widget Helper: |{Plasma~.мп} помоћник| за удаљене виџете
 Plasma Wallpaper Viewer: |{Plasma~.мп} приказив|ач тапета
 Plasma Widget Viewer: |{Plasma~.мп} приказив|ач виџета
 Plasma Widgets Shell: Шкољк|а |{Plasma~гмк} виџета
@@ -787,11 +792,15 @@ Adept: Адепт|, Адепт|ов
 Aptitude: Аптитјуд|, Аптитјуд|ов
     @л: Aptitude|, Aptitude|ov
 KPackage: К-пакет|, К-пакет|ов
+KPackageKit: К-пакиџ-кит|, К-пакиџ-кит|ов
+    @л: KPackageKit|, KPackageKit|ov
 Muon: Муон|, Муон|ов
 Muon Notification Daemon: |Muon~.мп демон| обавештења
 Muon Package Manager: |Muon~.мп менаџер| пакета
 Muon Software Center: |Muon~.мп софтверск|и> цент|ар
 Muon Update Manager: |Muon~.мп менаџер| ажурирања
+PackageKit: Пакиџ-кит|, Пакиџ-кит|ов
+    @л: PackageKit|, PackageKit|ov
 Ports: Портс|, Портс|ов, портс|>
     @л: Ports|, Ports|ov, Ports|>
 pkgsrc: Пкгсрц|, Пкгсрц|ов, пкгсрц|>
