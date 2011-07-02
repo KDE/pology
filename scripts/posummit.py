@@ -2276,6 +2276,7 @@ def summit_scatter_single (branch_id, branch_name, branch_subdir,
     if not branch_cat.modcount and branch_cat.header.initialized:
         keep_fields.extend([
             "PO-Revision-Date",
+            "Last-Translator",
         ])
     # Fields to keep due to explicitly being told to.
     keep_fields.extend(project.header_skip_fields_on_scatter)
