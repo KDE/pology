@@ -4,11 +4,13 @@
 
 include file="puretext.filters"
 
-# Test av e-infinitiv for nokre av dei
-# vanligaste verba (men for eksempel
-# «flytte» kan ikkje vera med, då dette
-# finst som adjektiv òg).
-[\b(vert|bruk|endr|lagr|lag|avslutt|velj|slett|rediger|start|køyr)e\b]i
+# Test av e-infinitiv for verb der
+# det ikkje finst andre ord som vert
+# skrivne på same måten (me kan for
+# eksempel ikkje testa på «opne»,
+# då det òg kan vera eit adjektiv
+# («du har opne filer …»)
+*hook name="nn:exclusion/exclude-forms~['e-infinitiv']" on="msgstr"
 id="e-infinitiv"
 hint="Bruk konsekvent a-infinitiv."
 

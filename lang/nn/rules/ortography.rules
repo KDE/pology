@@ -135,8 +135,4 @@ valid span="Saudi" before="-Arabia"
 valid span="pH-verdi"
 valid span="\b[Kk]rets(en|ar|ane)?\b"
 
-*hook name="nn:exclusion/exclude-forms~['e-infinitiv']" on="msgstr"
-id="e-inf"
-hint="e-infinitiv → a-infinitiv"
-
 # End of rules
