@@ -20,71 +20,74 @@ from pology.fsops import collect_files_by_ext
 from pology.split import split_text
 
 
-def inofficial_forms (msgstr, msg, cat):
+def exclude_forms (dictnames):
     """
-    Check for inofficial ortography forms in translation [type V3C hook].
+    Check for excluded ortography forms in translation [hook factory].
 
-    @return: erroneous spans
+    @param dictnames: base names of files from which to collect excluded forms;
+        file paths will be assembled as
+        C{<datadir>/lang/nn/exclusion/<dictname>.dat}
+    @type dictnames: <string*>
+
+    @return: type V3C hook
+    @rtype: C{(msgstr, msg, cat) -> spans}
     """
 
-    if not _phrases:
-        _init_phrases()
+    phrases = _load_phrases(dictnames)
+    maxwords = max(map(lambda x: len(split_text(x)[0]), phrases))
 
-    spans = []
+    def hook (msgstr, msg, cat):
 
-    words, interps = split_text(msgstr)
-    for phstart in range(len(words)):
-        for phlen in range(min(_maxwords, len(words) - phstart), 0, -1):
-            # Construct and test the following phrases:
-            # - with inner and trailing intersections
-            # - with leading and inner intersections
-            # - with inner intersections
-            for off1, off2 in ((1, 1), (0, 0), (1, 0)):
-                parts = []
-                if off1 == 0:
-                    parts.append(interps[phstart])
-                parts.append(words[phstart])
-                for i in range(1, phlen):
-                    parts.append(interps[phstart + i])
-                    parts.append(words[phstart + i])
-                if off2 == 1:
-                    parts.append(interps[phstart + phlen])
+        spans = []
 
-                phrase = _normph("".join(parts))
-                if phrase in _phrases:
-                    p1 = (  sum(map(len, words[:phstart]))
-                        + sum(map(len, interps[:phstart + off1])))
-                    p2 = (  sum(map(len, words[:phstart + phlen]))
-                        + sum(map(len, interps[:phstart + phlen + off2])))
-                    emsg = _("@info",
-                             "Inofficial form '%(word)s'.",
-                             word=msgstr[p1:p2].strip())
-                    spans.append((p1, p2, emsg))
-                    break
+        words, interps = split_text(msgstr)
+        for phstart in range(len(words)):
+            for phlen in range(min(maxwords, len(words) - phstart), 0, -1):
+                # Construct and test the following phrases:
+                # - with inner and trailing intersections
+                # - with leading and inner intersections
+                # - with inner intersections
+                for off1, off2 in ((1, 1), (0, 0), (1, 0)):
+                    parts = []
+                    if off1 == 0:
+                        parts.append(interps[phstart])
+                    parts.append(words[phstart])
+                    for i in range(1, phlen):
+                        parts.append(interps[phstart + i])
+                        parts.append(words[phstart + i])
+                    if off2 == 1:
+                        parts.append(interps[phstart + phlen])
 
-    return spans
+                    phrase = _normph("".join(parts))
+                    if phrase in phrases:
+                        p1 = (  sum(map(len, words[:phstart]))
+                            + sum(map(len, interps[:phstart + off1])))
+                        p2 = (  sum(map(len, words[:phstart + phlen]))
+                            + sum(map(len, interps[:phstart + phlen + off2])))
+                        emsg = _("@info",
+                                "Excluded form '%(word)s'.",
+                                word=msgstr[p1:p2].strip())
+                        spans.append((p1, p2, emsg))
+                        break
+
+        return spans
+
+    return hook
 
 
-# Set of excluded phrases and maximum number of words per phrase.
-_phrases = set()
-_maxwords = 0
+def _load_phrases (dictnames):
 
-def _init_phrases ():
+    phrases = set()
 
-    global _maxwords
+    for dictname in dictnames:
+        exfile = os.path.join(datadir(), "lang", "nn", "exclusion",
+                              dictname + ".dat")
 
-    exdir = os.path.join(datadir(), "lang", "nn", "exclusion")
-    exfiles = collect_files_by_ext(exdir, "dat")
+        phrases1 = codecs.open(exfile, "r", "UTF-8").read().split("\n")[:-1]
+        phrases1 = map(_normph, phrases1)
+        phrases.update(phrases1)
 
-    for exfile in exfiles:
-
-        phrases = codecs.open(exfile, "r", "UTF-8").read().split("\n")[:-1]
-        phrases = map(_normph, phrases)
-        _phrases.update(phrases)
-
-        maxwords = max(map(lambda x: len(split_text(x)[0]), phrases))
-        if _maxwords < maxwords:
-            _maxwords = maxwords
+    return phrases
 
 
 _wsseq_rx = re.compile(r"\s{2,}", re.U)
