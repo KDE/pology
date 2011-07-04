@@ -1,9 +1,13 @@
-Exclusion dictionaries for Norwegian Nynorsk
-────────────────────────────────────────────
-
-The file ‘klammeformer.dat’ is generated from ‘fullform_nn.txt’
-from Norsk ordbank (http://www.edd.uio.no/prosjekt/ordbanken/)
-using these commands:
+# Exclusion dictionaries for Norwegian Nynorsk
+# ────────────────────────────────────────────
+#
+# [Note: This file is runnable using ‘sh’.]
+# 
+# The file ‘klammeformer.dat’ contains a list of all unoffical
+# forms (‘klammeformer’ and ‘unormerte ord/former’) of 
+# Norwegian Nynorsk words listed in Norsk ordbank 
+# (http://www.edd.uio.no/prosjekt/ordbanken/). It is generated
+# from ‘fullform_nn.txt’ using these commands:
 
 grep -v '^*' fullform_nn.txt > alle.txt
 grep -Fv "unormert" alle.txt |
@@ -14,3 +18,18 @@ cut -f3 -d'	' hovudformer.txt | sort | uniq > hovudformer.dat
 comm -3 alle.dat hovudformer.dat > klammeformer.dat
 
 rm -f alle.* hovudformer.*
+
+
+# The file ‘e-infinitiv.dat’ contains a list of all infinitives
+# ending in -e where there are no other word forms with the 
+# exact same spelling. For example, it contains the word ‘lagre’
+# (should be spelled ‘lagra’ according to our translation guidelines), 
+# but not the word ‘opne’, as ‘opne’ is also used as an adjective,
+# for example in ‘fleire opne program’. The file is generated from
+# ‘fullform_nn.txt’ using these commands:
+
+fgrep '	verb ' fullform_nn.txt | fgrep ' inf ' | cut -f3 -d'	' | grep e$ | sort -u > e-inf.txt
+fgrep -v 'verb' fullform_nn.txt | cut -f3 -d'	' | grep e$ | sort -u > e-ord.txt
+comm -23 e-inf.txt e-ord.txt > e-infinitiv.dat
+rm -f e-inf.txt e-ord.txt
+
