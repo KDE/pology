@@ -29,7 +29,9 @@ rm -f alle.* hovudformer.*
 # ‘fullform_nn.txt’ using these commands:
 
 fgrep '	verb ' fullform_nn.txt | fgrep ' inf ' | cut -f3 -d'	' | grep e$ | sort -u > e-inf.txt
+fgrep '	verb ' fullform_nn.txt | fgrep ' inf ' | cut -f3 -d'	' | grep a$ | sed 's/a$/e/' | sort -u > a-inf.txt
+comm -12 e-inf.txt a-inf.txt > ea-inf.txt
 fgrep -v 'verb' fullform_nn.txt | cut -f3 -d'	' | grep e$ | sort -u > e-ord.txt
-comm -23 e-inf.txt e-ord.txt > e-infinitiv.dat
-rm -f e-inf.txt e-ord.txt
+comm -23 ea-inf.txt e-ord.txt > e-infinitiv.dat
+rm -f e-inf.txt a-inf.txt ea-inf.txt e-ord.txt
 
