@@ -15,10 +15,11 @@ id="e-infinitiv"
 hint="Bruk konsekvent a-infinitiv."
 valid span="style"
 valid span="title"
+valid before="-"
 
 # Fang opp nokre e-infinitiv som òg
 # finst som adjektiv.
-[å (flytt|opn|skriv|kunn)e\b]i
+[å (flytt|opn|skriv|kunn|mått)e\b]i
 id="e-infinitiv2"
 hint="Bruk konsekvent a-infinitiv."
 valid after="p"
