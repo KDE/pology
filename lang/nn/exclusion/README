@@ -28,10 +28,14 @@ rm -f alle.* hovudformer.*
 # for example in ‘fleire opne program’. The file is generated from
 # ‘fullform_nn.txt’ using these commands:
 
-fgrep '	verb ' fullform_nn.txt | fgrep ' inf ' | cut -f3 -d'	' | grep e$ | sort -u > e-inf.txt
-fgrep '	verb ' fullform_nn.txt | fgrep ' inf ' | cut -f3 -d'	' | grep a$ | sed 's/a$/e/' | sort -u > a-inf.txt
-comm -12 e-inf.txt a-inf.txt > ea-inf.txt
+awk -F'\t' '
+{
+  form=substr($4,1,8)
+  bokstav=substr($3,length($3),length($3))
+  stamme=substr($3,1,length($3)-1)
+  if( (form=="verb inf" || form=="verb imp") && bokstav=="a" && $2 == stamme "e")
+    print $2
+}' fullform_nn.txt | sort -u > ea-inf.txt
 grep -v '	verb i\(nf\|mp\)' fullform_nn.txt | cut -f3 -d'	' | grep e$ | sort -u > e-ord.txt
 comm -23 ea-inf.txt e-ord.txt > e-infinitiv.dat
-rm -f e-inf.txt a-inf.txt ea-inf.txt e-ord.txt
-
+rm -f a-inf.txt ea-inf.txt e-ord.txt
