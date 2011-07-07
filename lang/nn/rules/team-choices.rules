@@ -13,6 +13,8 @@ include file="puretext.filters"
 *hook name="nn:exclusion/exclude-forms~['e-infinitiv']" on="msgstr"
 id="e-infinitiv"
 hint="Bruk konsekvent a-infinitiv."
+valid span="style"
+valid span="title"
 
 # Fang opp nokre e-infinitiv som òg
 # finst som adjektiv.
