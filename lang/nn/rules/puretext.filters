@@ -28,3 +28,7 @@ addFilterHook name="remove/remove-fmtdirs-msg-tick~'~'" on="msg" handle="fmtdirs
 # function in pology.remove module.
 # (-> after markup removal)
 addFilterHook name="remove/remove-literals-msg-tick~'xxxxx'" on="msg" handle="literals"
+
+# Remove invisible characters, e.g., soft hyphens.
+addFilterHook name="normalize/noinvisible" on="pmsgstr" handle="noinvisible"
+
