@@ -273,7 +273,7 @@ def report_msg_to_lokalize (msg, cat, report=None):
         setEntryFilteredOut(msg.refentry-1,False)
         if report:
             addTemporaryEntryNote=editorobj.get_dbus_method('addTemporaryEntryNote','org.kde.Lokalize.Editor')
-            addTemporaryEntryNote(msg.refentry-1,report)
+            addTemporaryEntryNote(msg.refentry-1,report.resolve(ctype="none"))
 
     except:
         return
