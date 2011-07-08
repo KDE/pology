@@ -146,6 +146,41 @@ def xentitize (s):
     return ns
 
 
+# As defined by http://www.unicode.org/faq/unsup_char.html.
+_invisible_character_codepoints = ([]
+    + [0x200C, 0x200D] # cursive joiners
+    + range(0x202A, 0x202E + 1) # bidirectional format controls
+    + [0x00AD] # soft hyphen
+    + [0x2060, 0xFEFF] # word joiners
+    + [0x200B] # the zero width space
+    + range(0x2061, 0x2064 + 1) # invisible math operators
+    + [0x115F, 0x1160] # Jamo filler characters
+    + range(0xFE00, 0xFE0F + 1) # variation selectors
+)
+_invchstr = "".join(map(unichr, _invisible_character_codepoints))
+_invisible_character_replrx = re.compile("[%s]" % _invchstr, re.U)
+
+def noinvisible (s):
+    """
+    Remove all invisible characters from the string.
+    
+    Invisible characters are those which have zero width,
+    i.e. do not have any visual representation in the text
+    (when the text is rendered proportionally).
+    See U{http://www.unicode.org/faq/unsup_char.html} for the list
+    of these characters as defined by Unicode.
+    
+    @param s: string to normalize
+    @type s: string
+
+    @returns: normalized string
+    @rtype: string
+    """
+    
+    ns = _invisible_character_replrx.sub("", s)
+    return ns
+
+
 def demangle_srcrefs (collsrcs=None, collsrcmap=None, truesrcheads=None,
                       compexts=None):
     """
