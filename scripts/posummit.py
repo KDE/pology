@@ -714,10 +714,12 @@ def derive_project_data (project, options, nwgrefpath=None):
     # - explicit
     for mapping in p.mappings:
         branch_id, branch_name = mapping[:2]
-        if branch_id not in p.catalogs or branch_name not in p.catalogs[branch_id]:
+        if (    "gather" in p.opmodes
+            and (   branch_id not in p.catalogs
+                 or branch_name not in p.catalogs[branch_id])
+        ):
             warning(_("@info",
-                      "There is no branch catalog corresponding "
-                      "to mapping %(mapping)s "
+                      "No branch catalog corresponding to mapping %(mapping)s "
                       "set by the summit configuration.",
                       mapping=("('%s', '%s', ...)" % (branch_id, branch_name))))
             continue
