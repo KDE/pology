@@ -61,10 +61,7 @@ macro(EPYDOC_TO_HTML)
     set(targfile ${outdir}/${targfilebase})
     add_custom_command(
         OUTPUT ${targfile}
-        COMMAND test x == `find ${pypkgdir} -iname *.pyc -print0`x
-                || (echo 'There are some .pyc files in ${pypkgdir},'
-                         'you must remove them.'
-                    && exit 1)
+        COMMAND find ${pypkgdir} -iname *.pyc -print0 | xargs -0r rm -rf
         COMMAND rm -rf ${outdir} && mkdir -p ${outdir}
         COMMAND PYTHONDONTWRITEBYTECODE=1 # do not pollute srcdir with *.pyc files
                 ${EPYDOC_EXECUTABLE} ${pypkgdir}/ -o ${outdir}
