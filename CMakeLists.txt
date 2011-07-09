@@ -35,6 +35,13 @@ find_package(Msgmerge 0.17)
 
 if(DOCBOOKXSL_FOUND AND LIBXML2_FOUND AND XSLTPROC_FOUND)
     set(CAN_BUILD_DOCBOOK yes)
+    # Configure paths in style sheet extensions.
+    set(CONFIG_DBXSLDIR ${DOCBOOK_XSL_DIR})
+    file(GLOB_RECURSE xslfiles RELATIVE ${CMAKE_SOURCE_DIR} "util/*.xsl")
+    foreach(xslfile ${xslfiles})
+        configure_file(${CMAKE_SOURCE_DIR}/${xslfile}
+                       ${CMAKE_BINARY_DIR}/${xslfile} @ONLY)
+    endforeach()
 else()
     set(CAN_BUILD_DOCBOOK no)
 endif()

@@ -29,7 +29,7 @@ get_current_source_subdir(doctype -1 -1)
 docbook_book_to_html_chunked(
     DOCS ${docs} EXTRAS ${images}
     CSSFILE ${CMAKE_SOURCE_DIR}/util/docbook-html-style.css
-    XSLFILE ${CMAKE_SOURCE_DIR}/util/docbook-html-chapters.xsl
+    XSLFILE ${CMAKE_BINARY_DIR}/util/docbook-html-chapters.xsl
     OUTDIR html
     DESTINATION ${DOC_INSTALL_DIR}/${doctype}
     RENAME ${lang}
@@ -39,7 +39,7 @@ docbook_book_to_html_chunked(
 docbook_book_to_html_single(
     DOCS ${docs} EXTRAS ${images}
     CSSFILE ${CMAKE_SOURCE_DIR}/util/docbook-html-style.css
-    XSLFILE ${CMAKE_SOURCE_DIR}/util/docbook-html-mono.xsl
+    XSLFILE ${CMAKE_BINARY_DIR}/util/docbook-html-mono.xsl
     OUTFILE index-mono.html PIPEOUT
     DESTINATION ${DOC_INSTALL_DIR}/${doctype}/${lang}
     RENAME index-mono.html
