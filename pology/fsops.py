@@ -15,6 +15,7 @@ import subprocess
 import sys
 
 from pology import PologyError, _, n_
+import pology.config
 from pology.report import report, error, warning
 
 
@@ -973,6 +974,9 @@ def exit_on_exception (func, cleanup=None):
     Any error message will be printed, any progress lines will be cleared,
     and keyboard interrupt will exist silently.
 
+    The backtrace can be shown instead (on non-keyboard interrupt exceptions)
+    by setting C{[general]/show-backtrace} user configuration field to true.
+
     @param func: a zero-argument function
     @type func: () -> any
     @param cleanup: a zero-argument function to execute before exiting
@@ -993,5 +997,8 @@ def exit_on_exception (func, cleanup=None):
         report("", newline=False)
         if cleanup:
             cleanup()
-        error(unicode(e), code=1)
+        if pology.config.section("global").boolean("show-backtrace"):
+            raise
+        else:
+            error(unicode(e), code=1)
 

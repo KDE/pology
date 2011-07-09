@@ -38,6 +38,8 @@ will show all parameters to <command>stats</command> beginning with <literal>m</
 
 <para>The configuration file is in the <ulink url="http://en.wikipedia.org/wiki/INI_file">INI</ulink> format, which is composed of sections beginning with a <literal>[<replaceable>section</replaceable>]</literal> line, and fields of the form <literal><replaceable>field</replaceable> = <replaceable>value</replaceable></literal> within a section. Comments can be written after <literal>#</literal> character at the beginning of the line. Here is an example of a <filename>~/.pologyrc</filename> file:
 <programlisting>
+[global]
+
 [user]
 name = Chusslove Illich
 original-name = Часлав Илић
@@ -59,7 +61,7 @@ language-team = Serbian
 team-email = kde-i18n-sr@kde.org
 plural-forms = nplurals=4; plural=n==1 ? ...
 </programlisting>
-This configuration contains four sections: <literal>[user]</literal>, <literal>[enchant]</literal>, <literal>[posieve]</literal>, and <literal>[project-kde]</literal>. The <literal>[user]</literal> section provides some information on the person who uses Pology. The <literal>[enchant]</literal> section configures the Enchant spell checker wrapper, used by Pology for spell checking. The <literal>[posieve]</literal> section configures the behavior of the <link linkend="ch-sieve"><command>posieve</command></link> script. The <literal>[project-kde]</literal> section provides information on a project that the user contributes translation to.</para>
+This configuration contains five sections: <literal>[global]</literal>, <literal>[user]</literal>, <literal>[enchant]</literal>, <literal>[posieve]</literal>, and <literal>[project-kde]</literal>. The <literal>[global]</literal> section set options that have an effect throught Pology, and here it is empty. The <literal>[user]</literal> section provides some information on the person who uses Pology. The <literal>[enchant]</literal> section configures the Enchant spell checker wrapper, used by Pology for spell checking. The <literal>[posieve]</literal> section configures the behavior of the <link linkend="ch-sieve"><command>posieve</command></link> script. The <literal>[project-kde]</literal> section provides information on a project that the user contributes translation to.</para>
 
 <para>Some details about the configuration file syntax are as follows. Leading and trailing whitespace in section and field names and values is not significant,  e.g. <literal>foo=bar</literal> is same as <literal>foo = bar</literal>. Percent (%) character is used to expand the value of another field, for example:
 <programlisting>
@@ -71,7 +73,7 @@ where the <literal>%(...)s</literal> is Python's string interpolation syntax. Im
 <para>Sections in the configuration can be of one of four general types:
 <itemizedlist>
 <listitem>
-<para>General sections, which provide information used by various parts of Pology as they need them. The <literal>[user]</literal> section from the previous example is a general section.</para>
+<para>General sections, which provide information used by various parts of Pology as they need them. The <literal>[global]</literal> and <literal>[user]</literal> sections from the previous example are general sections.</para>
 </listitem>
 <listitem>
 <para>External tool sections, which are used to configure external libraries and programs used within Pology. The <literal>[enchant]</literal> section from the previous example is of this type.</para>
@@ -86,6 +88,28 @@ where the <literal>%(...)s</literal> is Python's string interpolation syntax. Im
 Internal tool sections are documented together with the respective tools, while sections of other types are described in the following.</para>
 
 <para>When mentioning configuration fields in their documentation and elsewhere, they are referred to as <literal>[<replaceable>section</replaceable>]/<replaceable>field</replaceable></literal>. If there is only a fixed number of possible values to a field, this is denoted as <literal>[<replaceable>section</replaceable>]/<replaceable>field</replaceable>=[<replaceable>VALUE1</replaceable>|<replaceable>VALUE2</replaceable>|<replaceable>VALUE3</replaceable>|...]</literal>; if one of the values is the default, it is prefixed with a star (*).</para>
+
+<sect2 id="sec-cmcfgglobal">
+<title>The <literal>[global]</literal> section</title>
+
+<para>The <literal>[global]</literal> section contains options which can have effect on various otherwise unrelated parts of Pology.</para>
+
+<para>Known configuration fields are as follows:
+<variablelist>
+
+<varlistentry>
+<term><literal>[global]/show-backtrace=[yes|*no]</literal></term>
+<listitem>
+<para>When one of Pology commands stops execution with an error, by default only the error message is shown. However, for reporting problems and debugging, it is much better to get a <emphasis>backtrace</emphasis> instead. Backtraces can be activated by this option.</para>
+
+<para><emphasis>Whenever you want to report a problem where a Pology command aborts with an error, make sure to activate this option and submit the full backtrace.</emphasis></para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</para>
+
+</sect2>
 
 <sect2 id="sec-cmcfguser">
 <title>The <literal>[user]</literal> section</title>
