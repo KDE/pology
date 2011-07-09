@@ -68,3 +68,9 @@
   but perhaps it is best to leave them be and make another set of hooks
   (like check-spell-ec vs. check-spell sieve).
 
+
+* Move check functions from check-tp-kde sieve into pology.proj.kde module.
+
+  Then the checks could be used as hooks (e.g. in rules).
+
+
