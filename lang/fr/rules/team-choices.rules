@@ -177,7 +177,7 @@ hint="Utilisez « Ok » (homogénéité)"
 
 [tuyau]i
 valid cat="kxsconfig" after="&sp;"
-valid cat="kalzium" after="un "
+valid cat="kalzium" msgid="pipe"
 hint="hint/tip -> astuce (homogénéité)"
 
 [clef]i
@@ -424,6 +424,7 @@ hint="Traduisez « widget » par « composant graphique »"
 
 [\bfavoris?]i
 valid msgstr="signet"
+valid msgstr="favoris[e|é|a]"
 valid msgid="favorite"
 hint="Utilisez « signet » et non « favori »"
 
