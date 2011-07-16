@@ -40,7 +40,7 @@ validGroup alone
 valid after="&unbsp;" before="\t"
 valid after="https?://\S+"
 valid after="file|gg|mailto|man|whatsthis|kmail|addMsg|config"
-valid after="about|audiocd|bookmarks|camera|ed2k|exec|ftps?|fonts|help|https?|lan|lpr|media|news|network|okular|pmp|parallel|smb|system|trash|umax|vdvd|videodvd|webdavs?" before="/" 
+valid after="about|audiocd|bookmarks|camera|ed2k|exec|ftps?|fonts|help|https?|lan|lpr|media|news|network|okular|pmp|parallel|smb|system|trash|umax|vdvd|videodvd|webdavs?|irc" before="/" 
 valid after="gg|google" before="KDE|[a-z]+"
 valid after="smb://\[nom\[" before="motdepasse"
 valid after="\d\d?" before="\d\d?"
