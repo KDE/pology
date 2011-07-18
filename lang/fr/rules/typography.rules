@@ -399,7 +399,7 @@ hint="Mettre une espace après un point"
 [&sp;\.]
 valid before="desktop&sp;"
 valid before="xinitrc"
-valid before="cfg|doc|dvi|h|kwd|eps|js|html?|m3u|pls|png|ps|spec|txt|WRI|xml|kalcul"
+valid before="cfg|doc|dvi|h|kwd|eps|js|html?|m3u|pls|png|ps|spec|txt|WRI|xml|kalcul|css|zip"
 valid before="NET|kde"
 valid before="/\S+"
 valid cat="konsole" before="schema"
