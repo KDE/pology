@@ -491,21 +491,27 @@ def make_matcher (name, value, mods, params, neg=False):
         try:
             start, end = value.split(":", 1)
             start = int(start) if start else 0
-            end = int(end) if end else (cat[-1].refline + 1)
+            end = int(end) if end else None
         except:
             raise ExprError(value, _("@item:intext", "invalid line span"), 0)
         def matcher (msgf, msg, cat, hl=[]):
-            return msg.refline >= start and msg.refline < end
+            cend = end
+            if cend is None:
+                cend = cat[-1].refline + 1
+            return msg.refline >= start and msg.refline < cend
 
     elif name == "espan":
         try:
             start, end = value.split(":", 1)
             start = int(start) if start else 0
-            end = int(end) if end else (cat[-1].refentry + 1)
+            end = int(end) if end else None
         except:
             raise ExprError(value, _("@item:intext", "invalid entry span"), 0)
         def matcher (msgf, msg, cat, hl=[]):
-            return msg.refentry >= start and msg.refentry < end
+            cend = end
+            if cend is None:
+                cend = cat[-1].refentry + 1
+            return msg.refentry >= start and msg.refentry < cend
 
     elif name == "branch":
         def matcher (msgf, msg, cat, hl=[]):
