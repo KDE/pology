@@ -590,6 +590,7 @@ valid cat="konsole" msgid="^Tab title format:$" msgstr="^Формат насло
 valid cat="konsole" msgid="^Remote tab title format:$" msgstr="^Формат удаљеног наслова:$"
 valid cat="konsole" msgid="^Tab bar display:$" msgstr="^Приказ:$"
 valid cat="konsole" msgid="^Tab bar position:$" msgstr="^Положај:$"
+valid cat="amarok" srcref="applets/tabs" # таблатуре за гитару
 
 {\btables?\b}i
 id="t-table"
