@@ -37,6 +37,7 @@ BSOD: БСОД|-, БСОД|>
 CA: ЦА|-, ЦА|>
 CAPI: ЦАП|И-, ЦАПИ|>
 CAT: ЦАТ|-, ЦАТ|>
+CBR: ЦБР|-, ЦБР|>, _пр=constant bit rate
 CC: ЦЦ|-, ЦЦ|>
 CDC: ЦДЦ|-, ЦДЦ|>
 CDDA: ЦДДА|-, ЦДДА|>
@@ -113,7 +114,6 @@ FEC: ФЕЦ|-, ФЕЦ|>, _пр=forward error correction
 FEP: ФЕП|-, ФЕП|>, _пр=front-end processor
 FHT: ФХТ|-, ФХТ|>
 FIFO: ФИФО|-, ФИФО|>, _пр=first in\, first out
-FLAC: ФЛАЦ|-, ФЛАЦ|>
 FLV: ФЛВ|-, ФЛВ|>
 FPU: ФПУ|-, ФПУ|>, _пр=floating-point processing unit
 g11n: г11н|*, _род!=м
@@ -369,7 +369,7 @@ UPS: УПС|-, УПС|-ов, УПС|>, _пр=uninterruptible power supply
 USALS: УСАЛС|-, УСАЛС|>, _пр=universal satellite automatic location system
 UTC: УТЦ|-, УТЦ|>
 UUID: УУИД|-, УУИД|>
-VBR: ВБР|-, ВБР|>
+VBR: ВБР|-, ВБР|>, _пр=variable bit rate
 VGA: ВГА|-, ВГА|>
 VPN: ВПН|-, ВПН|>
 VT100: ВТ100|*, ВТ100|>, _род!=м
