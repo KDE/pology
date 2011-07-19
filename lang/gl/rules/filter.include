@@ -13,7 +13,7 @@ addFilterHook name="remove/remove-accel-msg" on="msg"
 # Replace format directives by a tilde
 addFilterHook name="remove/remove-fmtdirs-msg-tick~'$'" on="msg"
 # Replace unvariant parts of the message
-addFilterHook name="remove/remove_literals_msg_tick~'£'" on="msg" 
+addFilterHook name="remove/remove_literals_msg_tick~u'£'" on="msg" 
 
 # Remove XML entities.
 addFilterRegex match="\&[\w\d\.\-]+?\;" repl="" on="pmsgid,pmsgstr"
