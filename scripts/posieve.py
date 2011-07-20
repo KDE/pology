@@ -501,9 +501,9 @@ def main ():
                         skip = True
                         break
                     except Exception, e:
-                        errwarn_on_msg(_("@info:progress",
-                                         "Sieving failed: %(msg)s", msg=e),
-                                         msg, cat)
+                        error_on_msg(_("@info:progress",
+                                       "Sieving failed: %(msg)s", msg=e),
+                                     msg, cat)
                     if ret not in (None, 0):
                         break
                 if skip:
