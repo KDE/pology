@@ -247,7 +247,7 @@ class Message_base (object):
 
     @ivar active: (read-only)
         whether the translation of the message is used at destination
-        (False for fuzzy and obsolete messages)
+        (C{False} for untranslated, fuzzy and obsolete messages)
     @type active: bool
 
     @ivar format: (read-only)
