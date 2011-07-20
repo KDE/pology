@@ -74,3 +74,8 @@
   Then the checks could be used as hooks (e.g. in rules).
 
 
+* Replace .caller_* attributes of sieves with p.*() calls in setup_sieve().
+
+  This is now possible because all old-style sieves were erradicated.
+
+
