@@ -57,6 +57,16 @@ class Sieve (object):
             if not ctxt or not text:
                 # Something is strange, skip.
                 return
+            exmsgs = cat.select_by_key(ctxt, text, wobs=True)
+            if exmsgs:
+                exmsg = exmsgs[0]
+                if not msg.obsolete and exmsg.obsolete:
+                    cat.remove_on_sync(exmsg)
+                elif msg.obsolete and not exmsg.obsolete:
+                    cat.remove_on_sync(msg)
+                    return
+                else:
+                    return
             msg.msgctxt = ctxt
             msg.msgid = text
             self.nconv += 1

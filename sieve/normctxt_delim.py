@@ -72,9 +72,23 @@ class Sieve (object):
                 warning_on_msg(_("@info", "Empty context or text."), msg, cat)
                 return
 
+            exmsgs = cat.select_by_key(ctxt, text, wobs=True)
+            if exmsgs:
+                exmsg = exmsgs[0]
+                if not msg.obsolete and exmsg.obsolete:
+                    cat.remove_on_sync(exmsg)
+                elif msg.obsolete and not exmsg.obsolete:
+                    cat.remove_on_sync(msg)
+                    return
+                else:
+                    warning_on_msg(
+                        _("@info",
+                          "A non-obsolete message with same context and text "
+                          "already exist."), msg, cat)
+                    return
+
             msg.msgctxt = ctxt
             msg.msgid = text
-
             self.nconv += 1
 
 
