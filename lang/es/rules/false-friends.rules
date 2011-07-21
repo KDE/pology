@@ -679,6 +679,7 @@ hint="« Corrupted » se traduce como como « Dañado », no como « Corrompido 
 # «Convenient» se traduce como «Oportuno».
 {\bconvenient\b}i
 valid msgstr="oportun[oa]"
+valid msgstr="apropiad[oa]"
 valid !msgstr="conveniente"
 hint="« Convenient » se traduce como como « Oportuno », no como « Conveniente » (falso amigo)"
 
@@ -761,6 +762,7 @@ hint="« Curse » se traduce como como « Maldición », no como « Curse » (fa
 {\bdate\b}i
 valid msgstr="fecha"
 valid msgstr="cita"
+valid msgstr="actualizad[oa]" after="up\sto\s"
 valid !msgstr="dato"
 hint="« Date » se traduce como como « Fecha », no como « Dato » (falso amigo)"
 
@@ -1178,6 +1180,7 @@ hint="« Gently » se traduce como como « Con cuidado/suavidad », no como « G
 {\bglobe\b}i
 valid msgstr="guante"
 valid msgstr="globo" after="(virtual|desktop)\s"
+valid msgstr="globo" cat="kstarts,marble"
 hint="« Glove » se traduce como como « Guante », no como « Globo » (falso amigo)"
 
 # «Gloves» se traduce como «Guantes».
@@ -1608,8 +1611,9 @@ hint="« Produces » se traduce como como « Presenta », no como « Produce » 
 # «Proper» se traduce como «Correcto».
 {\bproper\b}i
 valid msgstr="correct[oa]"
+valid msgstr="apropiad[oa]"
 valid !msgstr="propi[oa]"
-hint="« Proper » se traduce como como « Correcto », no como « Propio » (falso amigo)"
+hint="« Proper » se traduce como como « Correcto/Apropiado », no como « Propio » (falso amigo)"
 
 # «Propers» se traduce como «Correctos».
 {\bpropers\b}i
@@ -1830,8 +1834,9 @@ hint="« Refund » se traduce como como « Reembolsar », no como « Refundir »
 {\brelevant\b}i
 valid msgstr="pertinente"
 valid msgstr="aplicable"
+valid msgstr="adecuad[oa]"
 valid !msgstr="relevante"
-hint="« Relevant » se traduce como como « pertinente », no como « Relevante » (falso amigo)"
+hint="« Relevant » se traduce como como « Pertinente/Adecuado », no como « Relevante » (falso amigo)"
 
 # «Relevants» se traduce como «Pertinentes».
 {\brelevants\b}i

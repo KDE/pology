@@ -241,7 +241,7 @@ valid msgstr="un\sbit"
 hint="« A bit » se traduce como «Un poco/algo»"
 
 # «Bit» no se debe traducir.
-{\b(?<!a\s)bit\b}i
+{\b(?!<a\s(little\s)?)bit\b}i
 valid msgstr="bit"
 hint="« Bit » no se debe traducir (ver glosario)"
 
@@ -393,6 +393,7 @@ valid msgstr="comprobará" after="will\s"
 valid msgstr="marcará" after="will\s"
 valid msgstr="comprobó" after="did\s"
 valid msgstr="marcó" after="did\s"
+valid msgstr="márquel[oa]" before="\s(it|this)"
 valid msgstr="consult(ar|a|e)"
 valid msgstr="verifi(car|ca|que)"
 valid msgstr="corrección" after="spell\s"

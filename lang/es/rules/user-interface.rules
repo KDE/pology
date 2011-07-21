@@ -37,10 +37,17 @@ hint="« Del » se traduce como como « Supr » (regla de traducción de nombres
 #valid msgstr="[Ff]in"
 #hint="« End » se traduce como como « Fin » (regla de traducción de nombres de teclas)"
 
-## «Enter» se traduce como «Intro» (regla de traducción de nombres de teclas).
-#{\bEnter\b}
-#valid msgstr="Intro"
-#hint="« Enter » se traduce como como « Intro » (regla de traducción de nombres de teclas)"
+# «Enter» se traduce como «Intro».
+{\benter\b}i
+valid msgstr="intro"
+valid msgstr="introdu(cir|ce|zca)"
+valid msgstr="acced(er|e|a)"
+valid msgstr="introducirá" after="will\s"
+valid msgstr="accederá" after="will\s"
+valid msgstr="introdujo" after="did\s"
+valid msgstr="accedió" after="did\s"
+valid !msgstr="entr(ar|e|a)"
+hint="« Enter » se traduce como « Intro », « Introducir/Acceder », nunca como « Entrar » (ver glosario)"
 
 # «Esc» se traduce como «Esc» (regla de traducción de nombres de teclas).
 {\bEsc\b}
@@ -61,7 +68,8 @@ hint="« Num Lock » se traduce como como « Bloq Num » (regla de traducción d
 # «Pause» se traduce como «Pausa» (regla de traducción de nombres de teclas).
 {\bPause\b}
 valid msgstr="[Pp]ausa"
-hint="« Pause » se traduce como como « Pausa » (regla de traducción de nombres de teclas)"
+valid msgstr="Pausar"
+hint="« Pause » se traduce como como « Pausar/Pausa » (regla de traducción de nombres de teclas)"
 
 # «PgDn» se traduce como «Re Pag» (regla de traducción de nombres de teclas).
 {\bPg\s?Dn\b}
@@ -87,7 +95,9 @@ hint="« Scroll Lock » se traduce como como « Bloq Desp » (regla de traducci�
 {\bShift\b}
 valid msgstr="Mayús"
 valid msgstr="turno"
-hint="« Shift » se traduce como como « Mayus » (regla de traducción de nombres de teclas)"
+valid msgstr="despla(zar|za|ce)"
+valid msgstr="desplazamiento"
+hint="« Shift » se traduce como como « Mayús » (regla de traducción de nombres de teclas)"
 
 # «SysReq» se traduce como «Pet Sys» (regla de traducción de nombres de teclas).
 {\bSys\s?Req\b}
@@ -186,6 +196,7 @@ hint="« Export » se traduce como como « Exportar » (regla de traducción de 
 # «Print» se traduce como «Imprimir».
 {^Print$}
 valid msgstr="Imprimir"
+valid msgstr="Impresión"
 hint="« Print » se traduce como como « Imprimir » (regla de traducción de menús de KDE)"
 
 # «Print setup...» se traduce como «Configuración de impresión...».
@@ -201,11 +212,13 @@ hint="« Print preview » se traduce como como « Vista preliminar » (regla de 
 # «Exit» se traduce como «Salir».
 {^Exit$}
 valid msgstr="Salir"
+valid msgstr="Salida"
 hint="« Exit » se traduce como como « Salir » (regla de traducción de menús de KDE)"
 
 # «Quit» se traduce como «Salir».
 {^Quit$}
 valid msgstr="Salir"
+valid msgstr="Salida"
 hint="« Exit » se traduce como como « Salir » (regla de traducción de menús de KDE)"
 
 # Menú Editar
@@ -213,21 +226,22 @@ hint="« Exit » se traduce como como « Salir » (regla de traducción de menú
 # «Clear» se traduce como «Borrar».
 {^Clear$}
 valid msgstr="Borrar"
+valid msgstr="Despejado"
 hint="« Clear » se traduce como como « Borrar » (regla de traducción de menús de KDE)"
 
 # «Cut» se traduce como «Cortar».
 {^Cut$}
-valid msgstr="Cortar"
+valid msgstr="Cort(ar|a|e)"
 hint="« Cut » se traduce como como « Cortar » (regla de traducción de menús de KDE)"
 
 # «Copy» se traduce como «Copiar».
 {^Copy$}
-valid msgstr="Copiar"
-hint="« Copy » se traduce como como « Copiar » (regla de traducción de menús de KDE)"
+valid msgstr="Copi(ar|ie|a)"
+hint="« Copy » se traduce como como « Copiar/Copia » (regla de traducción de menús de KDE)"
 
 # «Paste» se traduce como «Pegar».
 {^Paste$}
-valid msgstr="Pegar"
+valid msgstr="Peg(ar|a|e)"
 hint="« Paste » se traduce como como « Pegar » (regla de traducción de menús de KDE)"
 
 # «Go to line...» se traduce como «Ir a la línea...».
@@ -238,7 +252,8 @@ hint="« Go to line... » se traduce como como « Ir a la línea... » (regla de
 # «Indent» se traduce como «Sangrar».
 {^Indent$}
 valid msgstr="Sangrar"
-hint="« Indent » se traduce como como « Sangrar » (regla de traducción de menús de KDE)"
+valid msgstr="Sangría"
+hint="« Indent » se traduce como como « Sangrar/Sangría » (regla de traducción de menús de KDE)"
 
 # «Insert file» se traduce como «Insertar archivo».
 {^Insert file$}
@@ -250,15 +265,18 @@ hint="« Insert file » se traduce como como « Insertar archivo » (regla de tr
 valid msgstr="Invertir selección"
 hint="« Invert selection » se traduce como como « Invertir selección » (regla de traducción de menús de KDE)"
 
-# «Replace» se traduce como «Reemplazar».
+# «Replace» se traduce como «Reemplazar/Sustituir».
 {^Replace$}
-valid msgstr="Reemplazar"
+valid msgstr="Ree?mplazar"
+valid msgstr="Ree?mplazo"
+valid msgstr="Sustituir"
 hint="« Replace » se traduce como como « Reemplazar » (regla de traducción de menús de KDE)"
 
 # «Search» se traduce como «Buscar».
 {^Search$}
 valid msgstr="Buscar"
-hint="« Search » se traduce como como « Buscar » (regla de traducción de menús de KDE)"
+valid msgstr="Búsqueda"
+hint="« Search » se traduce como como « Buscar/Búsqueda » (regla de traducción de menús de KDE)"
 
 # «Search again» se traduce como «Repetir búsqueda».
 {^Search again$}
@@ -311,6 +329,7 @@ hint="« Collapse tree view » se traduce como como « Contraer vista de árbol 
 # «Show» se traduce como «Mostrar».
 {^Show$}
 valid msgstr="Mostrar"
+valid msgstr="Muestra"
 hint="« Show » se traduce como como « Mostrar » (regla de traducción de menús de KDE)"
 
 # «Hide» se traduce como «Ocultar».
@@ -321,10 +340,11 @@ hint="« Hide » se traduce como como « Ocultar » (regla de traducción de men
 
 # Menú Preferencias/Opciones
 
-# «Default» se traduce como «Predeterminado».
+# «Default» se traduce como «Predeterminado/Por omisión».
 {^Default$}
 valid msgstr="Predeterminad[oa]"
-hint="« Default » se traduce como como « Predeterminado » (regla de traducción de menús de KDE)"
+valid msgstr="Por\somisión"
+hint="« Default » se traduce como como « Predeterminado/Por omisión » (regla de traducción de menús de KDE)"
 
 # «Defaults» se traduce como «Predeterminados».
 {^Defaults$}
@@ -394,10 +414,11 @@ hint="« Handbook » se traduce como como « Manual » (regla de traducción de 
 valid msgstr="Consejo del día"
 hint="« Tip of the day » se traduce como como « Consejo del día » (regla de traducción de menús de KDE)"
 
-# «Hint» se traduce como «Consejo».
+# «Hint» se traduce como «Consejo/Pista».
 {^Hint$}
 valid msgstr="Consejo"
-hint="« Hint » se traduce como como « Consejo » (regla de traducción de menús de KDE)"
+valid msgstr="Pista"
+hint="« Hint » se traduce como como « Consejo/Pista » (regla de traducción de menús de KDE)"
 
 # «Credits» se traduce como «Créditos».
 {^Credits$}
@@ -624,6 +645,7 @@ hint="« Fields » se traduce como « Campos » (propuesta glosario)"
 {\bframe\b}i
 valid msgstr="marco"
 valid msgstr="fotograma"
+valid before="\sBuffer"
 hint="« Frame » se traduce como como « Marco/Fotograma » (regla de traducción de elementos gráficos)"
 
 # «Frames» se traduce como «Marcos».
@@ -750,13 +772,13 @@ hint="« Root windows » se traduce como como « Ventanas de fondo » (regla de 
 # «Scroll bar» se traduce como «Barra de desplazamiento».
 {\bscroll\s?bar\b}i
 valid msgstr="barras?\sde\sdesplazamiento"
-hint="« Scroll bar » se traduce como como « Barra de desplzamiento » (regla de traducción de elementos gráficos)"
+hint="« Scroll bar » se traduce como como « Barra de desplazamiento » (regla de traducción de elementos gráficos)"
  
 # «Scroll bars» se traduce como «Barras de desplazamiento».
 {\bscroll\s?bars\b}i
 valid msgstr="barras\sde\sdesplazamiento"
 valid msgstr="(cualquier|ninguna)\sbarra\sde\sdesplazamiento"
-hint="« Scroll bars » se traduce como como « Barras de desplzamiento » (regla de traducción de elementos gráficos)"
+hint="« Scroll bars » se traduce como como « Barras de desplazamiento » (regla de traducción de elementos gráficos)"
 
 # «Service menu» se traduce como «Menú contextual».
 {\bservice\smenu\b}i

@@ -810,6 +810,7 @@ hint="« Delay » se traduce como « Retardo/Retarde » (propuesta glosario)"
 valid msgstr="borr(ar|a|e)"
 valid msgstr="borrará" after="will\s"
 valid msgstr="borró" after="did\s"
+valid msgstr="bórrel[oa]" before="\sit"
 hint="« Delete » se traduce como « Borrar » (propuesta glosario)"
 
 # «Deletes» se traduce como «Borra».
@@ -1252,6 +1253,7 @@ hint="« Encodes » se traduce como « Codifica » (propuesta glosario)"
 {\bencoding\b}i
 valid msgstr="codificación"
 valid msgstr="codificando"
+valid msgstr="codificar"
 hint="« Encoding » se traduce como « Codificación » (propuesta glosario)"
 
 # «Encodings» se traduce como «Codificaciones».
@@ -2995,7 +2997,7 @@ valid msgstr="reprodu(cir|ce|zca)"
 valid msgstr="to(car|ca|que)"
 valid msgstr="interpret(ar|a|e)"
 valid msgstr="ju(gar|ega|ego|egue)"
-valid msgstr="reproducción"
+valid msgstr="reproducci(ón|ones)"
 valid msgstr="reproducirá" after="will\s"
 valid msgstr="tocará" after="will\s"
 valid msgstr="interpretará" after="will\s"
@@ -3526,6 +3528,7 @@ hint="« Render » se traduce como « Representar/Interpretar/Reproducir » (pro
 # «Rendering» se traduce como «Representación».
 {\brendering\b}i
 valid msgstr="representación"
+valid msgstr="representar"
 hint="« Rendering » se traduce como « Representación » (propuesta glosario)"
 
 # «Reply-to» se traduce como «Responder a».
@@ -3887,7 +3890,8 @@ hint="« Snippets » se traduce como « Recortes » (propuesta glosario)"
 # «Source» se traduce como «Origen/Fuente».
 {\bsource\b}i
 valid msgstr="origen"
-valid msgstr="fuente"
+valid msgstr="orígenes"
+valid msgstr="fuentes?"
 valid msgstr="código\sabierto" after="open\s"
 hint="« Source » se traduce como « Origen/Fuente » (propuesta glosario)"
 
