@@ -103,6 +103,7 @@ valid after="\*\.[a-zA-Z]+" before="\*\.[a-zA-Z]+" # List of extension suffix
 valid after="center|empty|normal|pt|px|pre-wrap|\d+|[a-f]{1,2}" # CSS
 valid after="bold" before="'"   # CSS
 valid after="A-Za-z_.*" cat="lokalize"
+valid after="punt i coma \("
 valid before="~"
 valid ctx="Numbers and characters"
 valid ctx="CSV separator" 
@@ -406,6 +407,7 @@ valid before="\:|\-|\s\(massa\)|\sper\scent|\s\(USA\)|\."
 valid after="\-|\~|\{|\%|\+|virtual\s|[Pp]àgina\s|Complement\sa\s"
 valid after="\%\d\s" cat="plasma_engine_kalzium"
 valid after="més\s" cat="kcachegrind_qt"
+valid after="\(" cat="liboktetakasten" 
 valid after="(filtre|en|regions)\s" cat="kstars_colorandtemp" # docmessages
 valid after="prioritats\s.+" cat="korganizer" # docmessages
 valid after="di\(" cat="kate_regular-expressions" # docmessages

@@ -9,6 +9,103 @@ include file="filter.include"
 # Remove accelerator and  hyphen inside words.
 addFilterRegex match="(\&|\-)" on="pmsgid,pmsgstr"
 
+{\bciphertext\b}i
+valid msgstr="text xifrat"
+hint="Es tradueix per «text xifrat» (kde-ca-team)"
+
+# (to)
+{\bdecypher\b}i
+valid msgstr="desxifrar"
+hint="Es tradueix per «desxifrar» (kde-ca-team)"
+
+{\bdecyphered\b}i
+valid msgstr="desxifra(t|da)?"
+hint="Es tradueix per «desxifrat, desxifrada» (kde-ca-team)"
+
+{\bdecypherment\b}i
+valid msgstr="desxifratge"
+hint="Es tradueix per «desxifratge» (kde-ca-team)"
+
+# (to)
+{\bdecode\b}i
+valid msgstr="descodifica(r?)"
+hint="Es tradueix per «descodificar» (kde-ca-team)"
+
+{\bdecoded\b}i
+valid msgstr="descodifica(t|da)?"
+hint="Es tradueix per «descodificat, descodificada» (kde-ca-team)"
+
+{\bdecoder(s?)\b}i
+valid msgstr="descodificador(s?)"
+hint="Es tradueix per «descodificador» (kde-ca-team)"
+
+{\bdecoding(s?)\b}i
+valid msgstr="descodificaci(ó|ons)"
+valid msgstr="descodifica(nt|va|ven)"
+valid msgstr="descodificar" cat="libkdcraw"
+hint="Es tradueix per «descodificació, descodificacions, descodificant» (kde-ca-team)"
+
+# (to)
+{\bdecrypt(ing?)\b}i
+valid msgstr="desencripta(r?)"
+hint="Es tradueix per «desencriptar» (kde-ca-team)"
+
+{\bdecrypted\b}i
+valid msgstr="desencripta(t|da)?"
+valid msgstr="desencriptar"
+valid msgstr="desencripti"
+hint="Es tradueix per «desencripti, desencriptat, desencriptada» (kde-ca-team)"
+
+{\bdecryption\b}i
+valid msgstr="desencriptatge"
+valid msgstr="desencriptar"
+hint="Es tradueix per «desencriptatge» (kde-ca-team)"
+
+{\bencode\b}i
+valid msgstr="codifica(r?)"
+hint="Es tradueix per «codificar» (kde-ca-team)"
+
+{\bencoded\b}i
+valid msgstr="codifica(t|ts|da|des)"
+hint="Es tradueix per «codificat, codificada» (kde-ca-team)"
+
+{\bencoder(s?)\b}i
+valid msgstr="codificador(s?)"
+hint="Es tradueix per «codificador» (kde-ca-team)"
+
+{\bencoding(s?)\b}i
+valid msgid="Content-Transfer-Encoding"
+valid msgstr="codificaci(ó|ons)"
+valid msgstr="codificant"
+hint="Es tradueix per «codificació, codificacions, codificant» (kde-ca-team)"
+
+{\bencrypt(ing?)\b}i
+valid msgstr="encripta(r?)"
+hint="Es tradueix per «encriptar» (kde-ca-team)"
+
+{\bencrypted\b}i
+valid msgstr="encripta(t|ts|da|des)"
+valid msgstr="encriptar"
+valid msgstr="encripti"
+hint="Es tradueix per «encripti, encriptat, encriptada» (kde-ca-team)"
+
+{\bencryption\b}i
+valid msgstr="encriptatge"
+valid msgstr="encriptar"
+hint="Es tradueix per «encriptatge» (kde-ca-team)"
+
+{\bencypher\b}i
+valid msgstr="xifrar"
+hint="Es tradueix per «xifrar» (kde-ca-team)"
+
+{\bencyphered\b}i
+valid msgstr="xifra(t|da)"
+hint="Es tradueix per «xifrat, xifrada» (kde-ca-team)"
+
+{\bencypherment\b}i
+valid msgstr="xifratge"
+hint="Es tradueix per «xifratge» (kde-ca-team)"
+
 # «screenshot» es tradueix per «captura de pantalla».
 {\bscreenshots?\b}i
 valid msgstr="captur(a|es) de pantalla"
@@ -22,6 +119,12 @@ valid msgstr="captur(a|es) de pantalla"
 valid msgstr="instantàni(a|es)" cat="digikam"
 valid msgstr="punt de sincronisme" 
 hint="«snapshot» es tradueix *generalment* per «captura de pantalla» (kde-ca-team)"
+
+{\bunencrypted\b}i
+valid msgstr="sense encriptar"
+valid msgstr="no està encripta(t|da)"
+valid msgstr="no encriptades"
+hint="Es tradueix per «sense encriptar, no està encriptada, no encriptades» (kde-ca-team)"
 
 # «wallpaper» es tradueix per «fons de pantalla».
 {\bwallpapers?\b}i
