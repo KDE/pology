@@ -482,6 +482,7 @@ valid msgstr="origens?"
 valid msgstr="<font\s"
 valid msgstr="\bfont\b" cat="kleopatra"
 valid msgstr="font" cat="quanta" after="replace\s"
+valid msgstr="font" cat="kdm_theme-ref"
 valid !msgstr="fonts?"
 hint="«Font» es tradueix per «Tipus (de lletra)», no per «Font» (fals amic)"
 
@@ -582,6 +583,7 @@ valid msgstr="net" after="keys\.gnupg\."
 valid msgstr="net" after="perldoc:/"
 valid msgstr="net" after="print\.sf\."
 valid msgstr="net" after="sourceforge(\.|\s)"
+valid msgstr="net" before="\seffect"
 valid !msgstr="net"
 hint="«Net» es tradueix per «Xarxa», no per «Net» (fals amic)"
 
@@ -827,6 +829,7 @@ hint="«Rest» es tradueix per «Descansar», no per «Restar» (fals amic)"
 valid msgstr="repren(dre|c|s)"
 valid msgstr="resumint" cat="libkdcraw"
 valid msgstr="resume" cat="konversation" after="dcc\s"
+valid msgstr="resume" cat="kdm" # docmessages
 valid !msgstr="resum"
 hint="«Resume» es tradueix per «Reprendre», no per «Resum» (fals amic)"
 

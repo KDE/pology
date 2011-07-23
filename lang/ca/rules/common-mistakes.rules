@@ -180,6 +180,7 @@ hint="«té» (verb tenir) cal que porti accent (error freqüent)"
 valid msgstr="gui(a|es) d'aprenentatge"
 valid msgstr="program(a|es) d'aprenentatge"
 valid msgstr="(camp|partida) d'aprenentatge"
+valid before="~" comment="Tag\:\spara" cat="konsole,glossary" # docmessages
 hint="«tutorial» es tradueix per «guia d'aprenentatge» (error freqüent)"
 
 # «venen» del verb venir cal que porti accent «vénen».
@@ -192,6 +193,7 @@ hint="«ves» (verb anar) cal que porti accent «vés» (error freqüent)"
 
 # «widget» es tradueix per «estri».
 {\bwidgets?\b}i
+valid msgstr="widget" cat="kdm_theme-ref"
 valid msgstr="estris?"
 hint="«widget» es tradueix per «estri» (error freqüent)"
 
@@ -202,7 +204,7 @@ valid msgstr="món"
 valid msgstr="mundial"
 valid msgstr="web"
 valid msgstr="world"
-valid msgstr="altres|tothom" cat="kfileshare"
+valid msgstr="altres|tothom" cat="kfileshare,kdm_kdmrc-ref"
 valid msgstr="tots" cat="kdeprint_theory" #docmessage
 valid msgstr="WWW" before="\swide\sweb"
 hint="«world» es tradueix per «món» (amb accent) (error freqüent)"
