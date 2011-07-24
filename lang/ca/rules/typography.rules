@@ -254,7 +254,7 @@ hint="No s'ha de posar més d'un espai consecutiu (tipografia)"
 valid before="\w"
 valid before="$"
 valid before=":m"
-valid before="\{(APPNAME|AUTHOR|album|title|dest|campa|\.)"
+valid before="\{(APPNAME|AUTHOR|album|title|dest|campa|itemid|\.)"
 valid before="\s"
 valid before="~" cat="krecipes,krusader"
 valid after="\,"
@@ -285,7 +285,7 @@ valid after="columna\sn\sentrada.+" cat="kile"
 valid span="\s\.$" cat="ktouch,kile"
 valid ctx="function prototype"
 valid comment="Tag\:\suserinput" cat="kioslave_nepomuksearch" # docmessages
-valid comment="Tag\:\sprogramlisting" cat="kate_advanced" # docmessages
+valid comment="Tag\:\sprogramlisting" cat="kate_advanced,kleopatra" # docmessages
 hint="No s'ha de posar cap espai abans del signe de punt (tipografia)"
 
 [\.\S]
@@ -405,6 +405,7 @@ valid after="(Malësi|Vielha|Montes)\s" cat="kgeography"
 valid after="seqüència.+" cat="digikam"
 valid after="\(" before="\)" cat="kio4"
 valid after="\(«" before="~" cat="kate"
+valid after="CN\[\$" cat="kleopatra" # docmessages
 valid ctx="Exponential"
 valid cat="tables,kcells,kspread"
 hint="«e» sola és un error (tipografia)"
@@ -516,7 +517,7 @@ valid ctx="angle unit symbol"
 valid ctx="unit synonyms for matching user input"
 valid comment="Tag\:\s(entry|para)" cat="quanta_extending-quanta" # docmessages
 valid comment="Tag\:\sscreen" cat="kdm,kdeprint_cups-config,kjs_man-kjs.1" # docmessages
-valid comment="Tag\:\sprogramlisting" cat="kdm,kdm_theme-ref" # docmessages
+valid comment="Tag\:\sprogramlisting" cat="kdm,kdm_theme-ref,kleopatra" # docmessages
 hint="Cal utilitzar les cometes llatines «» (AltGr+z/x) en lloc de les anglosaxones (tipografia)"
 
 # End of rule file
