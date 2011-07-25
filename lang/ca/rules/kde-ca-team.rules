@@ -13,6 +13,11 @@ addFilterRegex match="(\&|\-)" on="pmsgid,pmsgstr"
 valid msgstr="text xifrat"
 hint="Es tradueix per «text xifrat» (kde-ca-team)"
 
+{\bcrypto\b}i
+valid msgstr="criptografia"
+valid msgstr="criptogràfics?"
+hint="Es tradueix per «criptografia/criptografic» (kde-ca-team)"
+
 # (to)
 {\bdecypher\b}i
 valid msgstr="desxifrar"
@@ -46,13 +51,14 @@ valid msgstr="descodificar" cat="libkdcraw"
 hint="Es tradueix per «descodificació, descodificacions, descodificant» (kde-ca-team)"
 
 # (to)
-{\bdecrypt(ing?)\b}i
-valid msgstr="desencripta(r?)"
+{\bdecrypt(ing)?\b}i
+valid msgstr="desencriptar?"
+valid msgstr="desencript(eu|is)"
+valid msgstr="decrypt" cat="kleopatra"
 hint="Es tradueix per «desencriptar» (kde-ca-team)"
 
 {\bdecrypted\b}i
-valid msgstr="desencripta(t|da)?"
-valid msgstr="desencriptar"
+valid msgstr="desencripta(t|da|r)?"
 valid msgstr="desencripti"
 hint="Es tradueix per «desencripti, desencriptat, desencriptada» (kde-ca-team)"
 
@@ -81,13 +87,13 @@ valid msgstr="codificar"
 valid msgstr="encoding="
 hint="Es tradueix per «codificació, codificacions, codificant» (kde-ca-team)"
 
-{\bencrypt(ing?)\b}i
-valid msgstr="encripta(r?)"
+{\bencrypt(ing)?\b}i
+valid msgstr="encript(ar?|is?|o)"
+valid msgstr="encrypt" cat="kleopatra,okular_poppler"
 hint="Es tradueix per «encriptar» (kde-ca-team)"
 
 {\bencrypted\b}i
-valid msgstr="encripta(t|ts|da|des)"
-valid msgstr="encriptar"
+valid msgstr="encripta(t|ts|da|des|r)"
 valid msgstr="encripti"
 hint="Es tradueix per «encripti, encriptat, encriptada» (kde-ca-team)"
 
@@ -126,8 +132,8 @@ hint="«snapshot» es tradueix *generalment* per «captura de pantalla» (kde-ca
 {\bunencrypted\b}i
 valid msgstr="sense encriptar"
 valid msgstr="no està encripta(t|da)"
-valid msgstr="no encriptades"
-hint="Es tradueix per «sense encriptar, no està encriptada, no encriptades» (kde-ca-team)"
+valid msgstr="no encriptad(a|es)"
+hint="Es tradueix per «sense encriptar, no està encriptat/da, no encriptada/es» (kde-ca-team)"
 
 # «wallpaper» es tradueix per «fons de pantalla».
 {\bwallpapers?\b}i
