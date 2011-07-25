@@ -18,9 +18,9 @@ hint="Es tradueix per «&Retro;, <key?>Retrocés</key?>» (keys)"
 {(&Ctrl;|<key(cap|sym)>Ctrl</key(cap|sym)>)}
 valid msgstr="&Ctrl;" # <keysym>Ctrl</keysym>
 valid msgstr="<key(cap|sym)>Ctrl</key(cap|sym)>"
-hint="Es tradueix per «&Ctrl;, <key?>Ctrl</key?» (keys)"
+hint="Es tradueix per «&Ctrl;, <key?>Ctrl</key?>» (keys)"
 
-{<key(cap|sym)>Del(ete?)</key(cap|sym)>}
+{<key(cap|sym)>Del(ete)?</key(cap|sym)>}
 valid msgstr="<key(cap|sym)>Supr</key(cap|sym)>"
 hint="Es tradueix per «<key?>Supr</key?>» (keys)"
 
@@ -31,7 +31,7 @@ hint="Es tradueix per «<key?>Fi</key?>» (keys)"
 {(&Enter;|<key(cap|sym)>Enter</key(cap|sym)>)}
 valid msgstr="&Intro;" # <keysym>Retorn</keysym>
 valid msgstr="<key(cap|sym)>Retorn</key(cap|sym)>"
-hint="Es tradueix per «&Intro;, <key?>Retorn</key?» (keys)"
+hint="Es tradueix per «&Intro;, <key?>Retorn</key?>» (keys)"
 
 {(&Esc;|<key(cap|sym)>Esc</key(cap|sym)>)}
 valid msgstr="&Esc;" # <keysym>Esc</keysym>
@@ -58,42 +58,42 @@ hint="Es tradueix per «<key?>Espai</key?>» (keys)"
 {(&Tab;|<key(cap|sym)>Tab</key(cap|sym)>|TAB key)}
 valid msgstr="&Tab;" # <keycap>Tabulador</keycap>
 valid msgstr="tecla &Tab;"
-valid msgstr="<key(cap|sym)>Majús.</key(cap|sym)>"
-hint="Es tradueix per «&Tab;, tecla &Tab;, <key?>Majús.</key?>» (keys)"
+valid msgstr="<key(cap|sym)>Tabulador</key(cap|sym)>"
+hint="Es tradueix per «&Tab;, tecla &Tab;, <key?>Tabulador</key?>» (keys)"
 
 # Arrow keys
-{(<key(cap|sym)>?)Page Down(</key(cap|sym)?)>}
+{(<key(cap|sym)>)Page Down(</key(cap|sym))>}
 valid msgstr="<key(cap|sym)>Av. Pàg.</key(cap|sym)>"
 valid msgstr="AvPàg" # A l'IGU
 hint="Es tradueix per «AvPàg (a l'IGU), <key?>Av. Pàg.</key?> (a la DOC)» (keys)"
 
-{(<key(cap|sym)>?)Page Up(</key(cap|sym)?)>}
+{(<key(cap|sym)>)Page Up(</key(cap|sym))>}
 valid msgstr="<key(cap|sym)>Re. Pàg.</key(cap|sym)>"
 valid msgstr="RePàg" # A l'IGU
 hint="Es tradueix per «RePàg (a l'IGU), <key?>Re. Pàg.</key?> (a la DOC)» (keys)"
 
 # Cursor keys
-{<key(cap|sym)>Down( Arrow?)</key(cap|sym)>}
+{<key(cap|sym)>Down( Arrow)?</key(cap|sym)>}
 valid msgstr="<key(cap|sym)>Cursor avall</key(cap|sym)>"
 valid msgstr="<key(cap|sym)>Amunt</key(cap|sym)> i <key(cap|sym)>Avall</key(cap|sym)>"
-# valid msgstr="fletxa avall" # A l'IGU
+valid msgstr="fletxa avall" # A l'IGU
 hint="Es tradueix per «fletxa avall (a l'IGU), <key?>Cursor avall</key?>|<key?>Amunt</key?> i <key?>Avall</key?> (a la DOC)» (keys)"
 
-{<key(cap|sym)>Up( Arrow?)</key(cap|sym)>}
+{<key(cap|sym)>Up( Arrow)?</key(cap|sym)>}
 valid msgstr="<key(cap|sym)>Cursor amunt</key(cap|sym)>"
 valid msgstr="<key(cap|sym)>Amunt</key(cap|sym)> i <key(cap|sym)>Avall</key(cap|sym)>"
-# valid msgstr="fletxa amunt" # A l'IGU
+valid msgstr="fletxa amunt" # A l'IGU
 hint="Es tradueix per «fletxa amunt (a l'IGU), <key?>Cursor amunt</key?>|<key?>Amunt</key?> i <key?>Avall</key?> (a la DOC)» (keys)"
 
-{<key(cap|sym)>Left( Arrow?)</key(cap|sym)>}
+{<key(cap|sym)>Left( Arrow)?</key(cap|sym)>}
 valid msgstr="<key(cap|sym)>Cursor esquerre</key(cap|sym)>"
 valid msgstr="<key(cap|sym)>Esquerre</key(cap|sym)> i <key(cap|sym)>Dret</key(cap|sym)>"
-# valid msgstr="fletxa esquerra" # A l'IGU
+valid msgstr="fletxa esquerra" # A l'IGU
 hint="Es tradueix per «fletxa esquerra (a l'IGU), <key?>Cursor esquerre</key?>|<key?>Esquerre</key?> i <key?)>Dret</key?)> (a la DOC)» (keys)"
 
-{<key(cap|sym)>Right( Arrow?)</key(cap|sym)>}
+{<key(cap|sym)>Right( Arrow)?</key(cap|sym)>}
 valid msgstr="<key(cap|sym)>Cursor dret</key(cap|sym)>"
 valid msgstr="<key(cap|sym)>Esquerre</key(cap|sym)> i <key(cap|sym)>Dret</key(cap|sym)>"
-# valid msgstr="fletxa dreta" # A l'IGU
+valid msgstr="fletxa dreta" # A l'IGU
 hint="Es tradueix per «fletxa dreta (a l'IGU), <key?>Cursor dret</key?>, <key?>Esquerre</key?> i <key?)>Dret</key?)> (a la DOC)» (keys)"
  
