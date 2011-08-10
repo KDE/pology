@@ -796,7 +796,7 @@ def derive_project_data (project, options, nwgrefpath=None):
                 src_branch_ids.append(branch_id)
         if not src_branch_ids:
             if (    not ("gather" == p.opmodes[0] and options.create)
-                and ["merge"] != p.opmodes
+                and ["merge"] != p.opmodes and ["deps"] != p.opmodes
             ):
                 summit_path = p.catalogs[SUMMIT_ID][summit_name][0][0]
                 needed_removals.append(summit_path)
