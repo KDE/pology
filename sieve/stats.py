@@ -129,9 +129,9 @@ def setup_sieve (p):
     ))
     p.add_param("ondiff", bool, defval=False,
                 desc=_("@info sieve parameter discription",
-    "Reduce word and character counts in fuzzy messages based on "
-    "difference ratio between current and previous original text, "
-    "and add the removed parts to translated category."
+    "Split word and character counts of fuzzy messages "
+    "into translated and untranslated categories (leaving zero in fuzzy), "
+    "based on difference ratio between current and previous original text."
     ))
     p.add_param("mincomp", float, defval=None,
                 metavar=_("@info sieve parameter value placeholder", "RATIO"),
@@ -401,13 +401,12 @@ class Sieve (object):
             # Reduce difference ratio to a smaller range by some threshold.
             # Texts more different than the threshold need full review.
             drth = 0.4
-            dr2 = dr / drth
-            if dr2 > 1.0:
-                dr2 = 1.0
+            #dr2 = dr if dr < drth else 1.0
+            dr2 = min(dr / drth, 1.0)
             # Split counts between primary fuzzy count, and secondary
             # translated, so that total remains the same.
-            nswords.update({"trn": {}, "fuz": {}})
-            nschars.update({"trn": {}, "fuz": {}})
+            nswords.update({"trn": {}, "fuz": {}, "unt": {}})
+            nschars.update({"trn": {}, "fuz": {}, "unt": {}})
             for nitems, nitems2, src in (
                 (nwords, nswords, "orig"), (nwords, nswords, "tran"),
                 (nchars, nschars, "orig"), (nchars, nschars, "tran"),
@@ -422,7 +421,8 @@ class Sieve (object):
                 else:
                     rnum = 1
                 nitems2["trn"][src] = num - rnum
-                nitems2["fuz"][src] = rnum
+                nitems2["fuz"][src] = 0
+                nitems2["unt"][src] = rnum
 
         # Detect categories and add the counts.
         categories = set()

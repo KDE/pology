@@ -2169,7 +2169,7 @@ $ posieve stats -s templates:my_lang:templates my_lang/
 <varlistentry>
 <term><option>ondiff</option></term>
 <listitem>
-<para>Fuzzy messages are often very easy to correct (e.g. a typo fixed), which may make their word count misleading when estimating translation effort. This can be amended by issuing this parameter, to reduce word and character counts of fuzzy messages by the difference ratio between current and previous original text, providing that the previous original is available and that the difference is smaller than some threshold. Removed parts of counts are added to translated category, so that total counts remain the same.</para>
+<para>Fuzzy messages are often very easy to correct (e.g. a typo fixed), which may make their word count misleading when estimating translation effort. This can be amended by issuing this parameter, to split word and character counts of fuzzy messages into translated and untranslated counts. The split is based on the difference ratio between current and previous original text, and a threshold. If the difference ratio is larger than the threshold, everything is counted as untranslated. The fuzzy count is left at zero. If previous original text is missing, the correction is not made, and counts are assigned to fuzzy as usual.</para>
 </listitem>
 </varlistentry>
 
