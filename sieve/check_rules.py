@@ -334,6 +334,10 @@ class Sieve (object):
                 locally_ignored.extend(x for x in els1 if x)
                 locally_applied.extend(x for x in els2 if x)
 
+        # NOTE: It would be nice to warn if an explicitly applied rule
+        # is not defined, but this is not generally possible because
+        # different rule files may be loaded for different runs.
+
         # Prepare filtered messages for checking.
         envSet=set(self.envs)
         msgByFilter={}
