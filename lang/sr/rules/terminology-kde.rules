@@ -127,7 +127,7 @@ valid msgstr="\bосветљај"
 
 {\bbrowse(?!r)}i
 id="t-browse"
-hint="browse = прегледати"
+hint="browse = прегледати [али ‘потражити/пронаћи/изабрати’ за ‘browse for’]"
 # /browse for/ се изузима, и *не* треба преведено са „прегледати...“
 valid before="d? for" msgstr="\b(по)?траж|пронађ|изабер"
 valid !before="d? for" msgstr="\bпрегледа(\b|[њтјол])"
@@ -298,31 +298,20 @@ hint="delimiter = издвајач"
 valid !cat="fooxyz"
 valid msgstr="\bиздвајач" !msgstr="издвајачом"
 
-validGroup desktop-extras
-valid before=" publishing"
-valid after="K " before=" Environment" msgstr="\bkde(\b|_)"
-valid after="\." msgstr="&dotdesktop"
-valid !after="\." msgstr="&\w*desktop\S*;"
-valid cat="nepomuk" msgid="Strigi.*Desktop File Indexer" msgstr="\bstrigi\b"
-valid cat="nepomuk" msgid="Strigi.*Desktop Search" msgstr="\bstrigi\b"
-valid cat="nepomuk" msgid="Nepomuk.*Semantic Desktop" msgstr="\bnepomuk\b"
-valid cat="kcmcomponentchooser" msgid="KDE desktop" msgstr="\bkde\b"
-valid cat="kcm_autostart" msgid="^Desktop file$" msgstr="^програми$"
-valid cat="desktop_kdebase" msgid="indexes files on the desktop" msgstr="индексирање фајлова"
-valid cat="kcontrol_autostart" # увек у смислу .десктоп датотека, ређе desktop2
-
 {\bdesktop}i
 id="t-desktop"
-hint="desktop = површ"
+hint="desktop = површ [елемент графичког сучеља]"
 valid msgstr="\bповрш(?!ин)" !msgstr="радн\w+ површ"
-validGroup desktop-extras
+valid before=" publishing"
+valid after="K " before=" Environment" # KDE (K Desktop Environment)
+valid after="\." msgstr="&dotdesktop"
+valid !after="\." msgstr="&\w*desktop\S*;"
 
 {\bdesktop}i
 id="t-desktop2"
-hint="desktop = радна површ"
-# колико да потврди да ипак има ‘површ’ кад је desktop изричито прескочено
-valid msgstr="\bповрш(?!ин)"
-validGroup desktop-extras
+hint="desktop = радна површ [концепт употребе рачунара]"
+manual # обично t-desktop
+valid msgstr="\bрадн\w+ површ"
 
 {\bdeveloper}i
 id="t-developer"
@@ -766,27 +755,13 @@ valid cat="ktraderclient" msgid="KMyApp/Plugin"
 valid cat="desktop_kdesdk" msgid="Kate Python Browser Plugin"
 valid cat="katefiletemplates" !msgid="^Template Plugin$"
 
-# (Види коментар уз правило cursor).
-# Пошто cursor аутоматски пропушта каталоге који му нису изричито задати,
-# а у њима проверава и једно и друго, онда ово правило ради обрнуто:
-# у каталозима који нису међу оним за cursor увек тражи ‘показивач’,
-# иначе обара ако случај није изричито дефинисан као исправан.
 {\b(cursor|pointer)}i
 id="t-pointer"
-hint="cursor|pointer = показивач"
-valid cat="kwrite,kcontrol_kcmkonsole"
-valid catrx="^kate|konsole|okteta|kasten|ktexteditor"
+hint="cursor|pointer = показивач [миша или сличног уређаја]"
 valid msgstr="\bпоказивач" !msgstr="показивачом"
 valid msgstr="&\w*pointer\w*-\S*;"
-valid span="cursor" after="(text|keyboard) " msgstr="курсор"
-valid cat="kdmconfig" msgid="place the cursor in the password field" msgstr="курсор"
-valid cat="desktop_kdelibs" msgid="insert.*at cursor position" msgstr="курсор"
-valid cat="kdelibs4" msgid="current cursor location" msgstr="курсор"
-valid cat="lokalize" msgid="cursor column" msgstr="курсор"
-valid cat="userguide_panel-and-desktop" msgid="placed the cursor" msgstr="курсор"
-valid cat="userguide_standard-menu-entries" msgid="inserted where the cursor" msgstr="курсор"
-valid cat="kdeqt" srcref="qwebpage|scriptdebugger" msgstr="курсор"
-valid cat="kopete_menus" msgid="pasted at the current cursor" msgstr="курсор"
+valid span="cursor" after="(text|keyboard) " # на t-cursor
+valid catrx="kwrite|^kate|konsole|okteta|kasten|ktexteditor" # на t-cursor
 
 {\bproxy}i
 id="t-proxy"

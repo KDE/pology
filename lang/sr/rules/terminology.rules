@@ -135,18 +135,10 @@ hint="contrast = контраст"
 valid after="in " before=" to" # израз /in contrast to/
 valid msgstr="\b(високо|ниско)?контраст"
 
-# Некад је у питању курсор (текстуални), некад показивач (миша), отприлике
-# пола-пола по учестаности. Међутим, делује да се само у одређеним каталозима
-# јавља већином као заиста курсор, а другде је обично показивач.
-# Зато: аутоматски нек пропушта кад год није тачно наведен каталог, тако
-# да се оставља правилу pointer да разреши даље; кад јесте један од наведених
-# каталога, нек пропушта неке типичне комбинације где је показивач
-# (нпр. /mouse cursor/), а обара када случај није изричито дат као исправан.
 {\bcursor}i
 id="t-cursor"
-hint="cursor = курсор"
-valid !cat="kwrite,kcontrol_kcmkonsole" !catrx="^kate|konsole|okteta|kasten|ktexteditor"
-valid after="mouse " msgstr="\bпоказивач"
+hint="cursor = курсор [у тексту]"
+valid after="mouse " # на t-pointer
 valid before=" theme" msgstr="\bпоказивач" !msgstr="показивачом"
 valid msgstr="\bкурсор"
 
@@ -183,7 +175,7 @@ valid cat="katepart4" msgid="wrap" msgid="View Defaults" msgstr="изглед"
 valid cat="khelpcenter_contact,khelpcenter_help" msgid="default welcome page" msgstr="почетн\w+ стран\w+ добродошлиц"
 valid cat="dolphin" msgid="By default Dolphin sets bookmarks for;"
 
-{\bfolder}i
+{\bfolder|director(y|ies)}i
 id="t-directory"
 hint="folder = фасцикла"
 valid !msgstr="директориј|омотниц"
@@ -630,7 +622,7 @@ valid msgstr="\bнитн[аеиоу]"
 id="t-url"
 hint="URL = УРЛ"
 valid !env="kde" msgstr="\bУРЛ"
-valid env="kde" msgstr="&url\S*;"
+valid env="kde" msgstr="&\w*url\S*;"
 valid cat="desktop_kdebase" after="Alexa " msgstr="&alexaurl\S*;"
 valid cat="kio_trash" msgid="'url'"
 valid cat="kioclient" msgid="'url'"
