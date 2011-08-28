@@ -162,6 +162,7 @@ def loadRulesFromFile(filePath, stat, envs=set(), seenMsgFilters={}):
     hint=u""
     ident=None
     disabled=False
+    manual=False
     casesens=True
     environ=None
     validGroup={}
@@ -221,7 +222,8 @@ def loadRulesFromFile(filePath, stat, envs=set(), seenMsgFilters={}):
                     rules.append(Rule(pattern, msgpart,
                                       hint=hint, valid=valid,
                                       stat=stat, casesens=casesens,
-                                      ident=ident, disabled=disabled,
+                                      ident=ident,
+                                      disabled=disabled, manual=manual,
                                       environ=(environ or globalEnviron),
                                       mfilter=msgFilterFunc,
                                       rfilter=ruleFilterFunc,
@@ -231,6 +233,7 @@ def loadRulesFromFile(filePath, stat, envs=set(), seenMsgFilters={}):
                     hint=u""
                     ident=None
                     disabled=False
+                    manual=False
                     casesens=True
                     environ=None
                     msgFilters=None
@@ -311,6 +314,15 @@ def loadRulesFromFile(filePath, stat, envs=set(), seenMsgFilters={}):
                           "Directive '%(dir)s' outside of rule.",
                           dir="disabled"))
                 disabled=True
+            
+            # Whether rule is manually applied
+            elif fields[0][0]=="manual":
+                if not inRule:
+                    raise _SyntaxError(
+                        _("@info",
+                          "Directive '%(dir)s' outside of rule.",
+                          dir="manual"))
+                manual=True
             
             # Validgroup 
             elif fields[0][0]=="validGroup":
@@ -874,7 +886,8 @@ class Rule(object):
     _listKeywords = set(("env", "cat"))
 
     def __init__(self, pattern, msgpart, hint=None, valid=[],
-                       stat=False, casesens=True, ident=None, disabled=False,
+                       stat=False, casesens=True, ident=None,
+                       disabled=False, manual=False,
                        environ=None, mfilter=None, rfilter=None,
                        trigger=None):
         """Create a rule
@@ -892,6 +905,8 @@ class Rule(object):
         @type ident: unicode or C{None}
         @param disabled: whether rule is disabled
         @type disabled: bool
+        @param manual: whether rule is manually applied
+        @type manual: bool
         @param environ: environment in which the rule applies
         @type environ: string or C{None}
         @param mfilter: filter to apply to message before checking
@@ -909,6 +924,7 @@ class Rule(object):
         self.hint=hint    # Hint message return to user
         self.ident=ident    # Rule identifier
         self.disabled=disabled # Whether rule is disabled
+        self.manual=manual # Whether rule is manually applied
         self.count=0      # Number of time rule have been triggered
         self.time=0       # Total time of rule process calls
         self.stat=stat    # Wheter to gather stat or not. Default is false (10% perf hit due to time() call)

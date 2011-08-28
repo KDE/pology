@@ -29,7 +29,7 @@ from pology.report import report, warning, format_item_list
 from pology.rules import loadRules, printStat
 from pology.sieve import add_param_lang, add_param_env, add_param_poeditors
 from pology.timeout import TimedOutException
-from pology.sieve import SieveError, SieveCatalogError
+from pology.sieve import SieveError, SieveCatalogError, SieveMessageError
 
 
 # Pattern used to marshall path of cached files
@@ -313,6 +313,27 @@ class Sieve (object):
         # Collect explicitly ignored rules by ID for this message.
         locally_ignored=manc_parse_list(msg, "skip-rule:", ",")
 
+        # Collect explicitly applied rules by ID for this message.
+        locally_applied=manc_parse_list(msg, "apply-rule:", ",")
+
+        # Collect ignored/applied rules by switching comment.
+        swprefix="switch-rule:"
+        swsep=">"
+        for cmnt in msg.manual_comment:
+            if cmnt.strip().startswith(swprefix):
+                p1=cmnt.find(swprefix)+len(swprefix)
+                p2=cmnt.find(swsep, p1)
+                if p2<0:
+                    raise SieveMessageError(
+                        _("@info",
+                          "Separator  character '%(sep)s' missing in "
+                          "'%(prefix)s' comment.",
+                          sep=swsep, prefix=swprefix))
+                els1=[x.strip() for x in cmnt[p1:p2].split(",")]
+                els2=[x.strip() for x in cmnt[p2+len(swsep):].split(",")]
+                locally_ignored.extend(x for x in els1 if x)
+                locally_applied.extend(x for x in els2 if x)
+
         # Prepare filtered messages for checking.
         envSet=set(self.envs)
         msgByFilter={}
@@ -332,6 +353,8 @@ class Sieve (object):
             if rule.environ and rule.environ not in envSet:
                 continue
             if rule.ident in locally_ignored:
+                continue
+            if rule.manual and not rule.ident in locally_applied:
                 continue
             msgf = msgByFilter[rule.mfilter]
             try:

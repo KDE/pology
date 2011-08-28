@@ -667,7 +667,7 @@ The <literal>casesens=</literal> field in trigger hook specification controls wh
 </varlistentry>
 
 <varlistentry>
-<term><literal>after</literal></term>
+<term><literal>after="<replaceable>REGEX</replaceable>"</literal></term>
 <listitem>
 <para>The text segment matched by the trigger pattern must be placed exactly after one of the text segments matched by this regular expression.</para>
 </listitem>
@@ -706,18 +706,18 @@ The <literal>casesens=</literal> field in trigger hook specification controls wh
 
 <para>Each test can be negated by prefixing it with <literal>!</literal>. For example, <literal>!cat="foo,bar"</literal> will match if the PO domain name is neither <literal>foo</literal> nor <literal>bar</literal>. Tests are "short-circuiting", so it is good for performance to put simple direct matching tests (e.g. <literal>cat=</literal>, <literal>env=</literal>) before more more expensive regular expression tests (<literal>msgid=</literal>, <literal>msgstr=</literal>, etc.).</para>
 
-<para>Subdirectives other than <literal>valid</literal> set states and properties of the rule. The property directives are written simply as <literal><replaceable>property</replaceable>="<replaceable>value</replaceable>"</literal>. These include:
+<para>Subdirectives other than <literal>valid</literal> set states and properties of the rule. Property directives are written simply as <literal><replaceable>property</replaceable>="<replaceable>value</replaceable>"</literal>. These include:
 <variablelist>
 
 <varlistentry>
-<term><literal>hint</literal></term>
+<term><literal>hint="<replaceable>TEXT</replaceable>"</literal></term>
 <listitem>
 <para>A note to show to the user when the rule fails a message.</para>
 </listitem>
 </varlistentry>
 
 <varlistentry>
-<term><literal>id</literal></term>
+<term><literal>id="<replaceable>IDENT</replaceable>"</literal></term>
 <listitem>
 <para>An "almost unique" identifier for the rule (see <xref linkend="sec-lgrlenvs"/>).</para>
 </listitem>
@@ -745,7 +745,14 @@ keyword parameters: <literal><replaceable>directive</replaceable> <replaceable>a
 <varlistentry>
 <term><literal>disabled</literal></term>
 <listitem>
-<para>Disables the rule, so that it is no longer applied to messages. Disabled rule can still be applied by direct request (e.g. using the <option>rule:</option> parameter of <command>check-rules</command> sieve).</para>
+<para>Disables the rule, so that it is no longer applied to messages. Disabled rule can still be applied by explicit request (e.g. using the <option>rule:</option> parameter of <command>check-rules</command> sieve).</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="p-rulemanual">
+<term><literal>manual</literal></term>
+<listitem>
+<para>Makes it necessary to manually apply the rule to a message, by using one of <link linkend="p-rulemanappcmnt">special translator comments</link> (e.g. <literal>apply-rule:</literal>).</para>
 </listitem>
 </varlistentry>
 
@@ -1022,7 +1029,7 @@ addFilterHook name="remove/remove-accel-msg" on="msg"
 <sect3 id="sec-lgrlfpdisable">
 <title>Disabling a Rule</title>
 
-<para>The <literal>disable</literal> subdirective can be added to the rule to disable its application. This may seem a quaint method of "handling false positivies", but it is not outright ridiculous, because a disabled rule can still be applied by directly requesting it (e.g. <option>rule:</option> parameter of <command>check-rules</command>). This is useful for rules which produce too many false positivies to be applied as part of a rule set, but which are still better than ad-hoc searches. In other words, such rules can be understood as codified special searches, to be run only when the user has enough time to wade through all the false positives in search for the few real problems.</para>
+<para>The <literal>disable</literal> subdirective can be added to the rule to disable its application. This may seem a quaint method of "handling false positivies", but it is not outright ridiculous, because a disabled rule can still be applied by directly requesting it (e.g. <option>rule:</option> parameter of <command>check-rules</command>). This is useful for rules which produce too many false positivies to be applied as part of a rule set, but which are still better than ad-hoc searches. In other words, such rules can be understood as codified special searches, which you would round only when you have enough time to wade through all the false positives in search for the few real problems.</para>
 
 </sect3>
 
@@ -1080,7 +1087,7 @@ and to add the <literal>fantasy</literal> environment <link linkend="hdr-x-envir
 </sect3>
 
 <sect3 id="sec-lgrlfpskip">
-<title>Skipping the Rule on a Message</title>
+<title>Skipping and Manually Applying The Rule on A Message</title>
 
 <para>Sometimes there is just a single strange message that falsely triggers the rule, such that there is nothing to generalize about the false positive. You could still cancel this false positivie in the rule definition itself, by adding a <literal>valid</literal> directive with the <literal>cat=</literal> test for the PO domain name and <literal>msgid=</literal> test to single out the troublesome message:
 <programlisting>
@@ -1099,8 +1106,22 @@ msgstr "..."
 </programlisting>
 The comment starts with <literal>skip-rule:</literal>, and is followed by a comma-separated list of rules to skip, by their identifiers (defined by <literal>id=</literal> in the rule).</para>
 
-<para>There is a catch to the translator comment approach, though. When a with <literal>skip-rule:</literal> comment message becomes fuzzy, it depends on the new text of the message whether the comment should be kept or removed. This means that on fuzzy messages translators have to observe and adapt translator comments just as they adapt the <varname>msgstr</varname> strings. Unfortunatelly, some translators do not pay sufficient attention to translator comments, which is further exacerbated by some PO editors which underrepresent translator comments in the user interface (or even do not enable editing them). However, from the point of view of PO translation workflow, not giving full attention to translator comments is plainly an error: translators should be told better, and PO editors should be upgraded.<footnote>
-<para>Until that is sufficiently satisfied, one simple safety measure is to remove <literal>skip-rule:</literal> comments from fuzzy messages just after the PO file is merged with template. This will sometimes cause false positive to reappear, but, after all, this is only a tertiary element in the translation workflow (after translation and review).</para>
+<para id="p-rulemanappcmnt">The other way around, a rule can be set for manual application only, by adding the <literal>manual</literal> subdirective to it. Then the <literal>apply-rule:</literal> translator comment must be added to apply that rule to a particular message:
+<programlisting>
+# apply-rule: term-froobaz
+msgid "...the amount of froobaz-HX which led to..."
+msgstr "..."
+</programlisting>
+There is a pattern where an automatic rule and a manual rule are somehow closely related, so that on a particular message the automatic one should be skipped and the manual one applied. To make this pattern obvious and avoid adding two translator comments (both <literal>skip-rule:</literal> and <literal>apply-rule:</literal>), a single <literal>switch-rule:</literal> comment can be added instead:
+<programlisting>
+# switch-rule: term-froobaz > term-froobaz-chem
+msgid "...the amount of froobaz-HX which led to..."
+msgstr "..."
+</programlisting>
+The rule before <literal>&gt;</literal> is skipped, and the rule after <literal>&gt;</literal> is applied. Several rules can be stated as a comma-separated list, on both sides of <literal>&gt;</literal>.</para>
+
+<para>There is a catch to the translator comment approach, though. When the message becomes fuzzy, it depends on the new text whether the rule application comment should be kept or removed. This means that on fuzzy messages translators have to observe and adapt translator comments just as they adapt the <varname>msgstr</varname> strings. Unfortunately, some translators do not pay sufficient attention to translator comments, which is further exacerbated by some PO editors not presenting translator comments conspicuously enough (or even do not enable editing them). However, from the point of view of PO translation workflow, not giving full attention to translator comments is plainly an error: unwary translators should be told better, and deficient PO editors should be upgraded.<footnote>
+<para>Until that is sufficiently satisfied, one simple safety measure is to remove rule application comments from fuzzy messages just after the PO file is merged with template. This will sometimes cause false positive to reappear, but, after all, this is only a tertiary element in the translation workflow (after translation and review).</para>
 </footnote></para>
 
 </sect3>
