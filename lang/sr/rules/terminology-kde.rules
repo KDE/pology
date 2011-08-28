@@ -1039,9 +1039,9 @@ disabled # на upload
 
 {\bvalid\b}i
 id="t-valid2"
-hint="valid = ваљан [криптокључ, сертификат]"
+hint="valid = ваљан [криптокључ, сертификат; ‘важећи’ ако о трајању]"
 valid !msgid="\bkey|certificate|\bCA\b|authorit"
-valid msgstr="\bваљан|\bважи(о|ла|ти|ће)?"
+valid msgstr="\bваљан|\bважи(о|ла|ти|ће)?|\bваже\b"
 
 {\bviewer}i
 id="t-viewer"
