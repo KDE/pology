@@ -275,12 +275,14 @@ hint="Mettre une majuscule à « Centre de configuration de KDE »"
 [visualis]
 hint="Utiliser « afficheur » plutôt que « visualiseur » (ou ses dérivés) ou alors « aperçu » pour traduire « preview »"
 
-[r@ecup@er]
+[r@ecup@er]i
+valid msgid="recover"
 valid after="ir"
+valid before="er le contrôle"
 valid cat="kgoldrunner"
 valid cat="kalzium"
-valid cat="konqueror" after="une "
-hint="Choix de l'équipe : « réception/recevoir » (au lieu de « récupération/récupérer »)"
+valid cat="konqueror" before="ation" msgid="retrieval"
+hint="Connotation familière. Choix de l'équipe : « réception/recevoir » (au lieu de « récupération/récupérer ») ou « accéder à »"
 
 [paquet(?!a)]
 valid after="[E|e]m"
