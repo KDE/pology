@@ -26,6 +26,8 @@ BMP: БМП|-, БМП|>
 bzip: бзип|, бзип|>
 bzip2: бзип|{}2, бзип2|>
 CHM: ЦХМ|-, ЦХМ|>
+COFF: КОФФ|-, КОФФ|>, _пр=Common Object File Format
+    @л: COFF|-, COFF|>
 ComicBook: комикбук|, комикбук|ов, комикбук|>
     @л: ComicBook|, ComicBook|ov, ComicBook|>
 CSV: ЦСВ|-, ЦСВ|>
@@ -34,11 +36,14 @@ cue: кју|, кју|>
 DivX: дивИкс|, дивИкс|>
     @л: DivX|-, DivX|>
 DjVu: ДјВу|, ДјВу|>
+DLL: ДЛЛ|-, ДЛЛ|>, _пр=Dynamic-Link Library
 DLS: ДЛС|-, ДЛС|>, _пр=DownLoadable Sound
 DTS: ДТС|-, ДТС|-ов, ДТС|>
 DVI: ДВ|И-, ДВИ|>
-ELF: ЕЛФ|-, ЕЛФ|>
-EPS: ЕПС|-, ЕПС|>
+DWARF: ДВАРФ|-, ДВАРФ|>, _пр=Debug With Arbitrary Record Format
+    @л: DWARF|-, DWARF|>
+ELF: ЕЛФ|-, ЕЛФ|>, _пр=Executable and Linkable Format
+EPS: ЕПС|-, ЕПС|>, _пр=Encapsulated PostScript
 EPUB: ЕПУБ|-, ЕПУБ|>
 FLAC: ФЛАЦ|-, ФЛАЦ|>
 Flash, |flashfmt: флеш|, флеш|>
