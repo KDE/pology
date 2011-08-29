@@ -503,7 +503,7 @@ def trapnakron_ui (envec=u"", envel=u"л", envic=u"иј", envil=u"ијл"):
         npkeyto=("am", ("am", "gm")),
         nobrhyp=True,
         disamb=u"\u2060",
-        runtime=True,
+        runtime=True, # needed for resolution of UI references
     )
 
 
@@ -539,6 +539,7 @@ def trapnakron_docbook4 (envec=u"", envel=u"л", envic=u"иј", envil=u"ијл",
         nmsuff=_pname_suffs,
         npkeyto=("am", ("am", "gm")),
         nobrhyp=True,
+        runtime=True,
     )
 
 
