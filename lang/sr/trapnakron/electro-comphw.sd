@@ -85,7 +85,12 @@ CRX: ЦРИкс|-, ЦРИкс|-ов, _од=|{National Semiconductor~н}
     @л: CRX|-, CRX|-ov
 DSP56000: ДСП|- 56000, н&а=ДСП-56000, ДСП-56000|>, _син=DSP56k
 DSP56k: ДСП|- 56к, н&а=ДСП-56к, ДСП-56к|>, _син=DSP56000
+e500: е500|*, е500|>, _род!=м, _од=|IBM~н
 EMU10k1: ЕМУ10к1|*, _род!=м
+ESA/390: ЕСА|{*}/390, ЕСА/390|>, _род!=м, _пр=Enterprise Systems Architecture/390, _од=|IBM~н
+    @л: ESA|{*}/390, ESA/390|>
+ETRAX: ЕТРАКС|-, ЕТРАКС|-ов, _од=|{National Semiconductor~н}
+    @л: ETRAX|-, ETRAX|-ov
 龙芯, lóngxīn, Loongson: лунгсин|, лунгсин|и+, лунгсин|ов, лунгсин|>
     @л: Loongson|, Loongson|i+, Loongson|ov, Loongson|>
 MIPS: МИПС|-, МИПС|-ови+, МИПС|-ов, МИПС|>
