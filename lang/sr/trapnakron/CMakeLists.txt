@@ -61,10 +61,10 @@ set(sdfiles
     spec-keyboard.sd
     spec-protocols.sd
     spec-technologies.sd
+    writings-fiction.sd
     writings-licences.sd
     writings-manuals.sd
     writings-press.sd
-    writings-scifi.sd
 )
 get_current_source_subdir(srcsubdir)
 install_synder_files(${DATA_INSTALL_DIR}/${srcsubdir} ${sdfiles})
