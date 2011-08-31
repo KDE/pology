@@ -7,6 +7,9 @@
 
 CSE: ЦСЕ|-, ЦСЕ|>, _пр=common subexpression elimination
 DFA: ДФА|-, ДФА|>, _пр=deterministic finite automaton
+FRE: ФРЕ|-, ФРЕ|>, _пр=full redundancy elimination
+GCSE: ГЦСЕ|-, ГЦСЕ|>, _пр=global common subexpression elimination
+PRE: ПРЕ|-, ПРЕ|>, _пр=partial redundancy elimination
 
 # ----------------------------------------------------------------------------
 # Криптографија
