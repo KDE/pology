@@ -295,7 +295,7 @@ valid msgstr="&\w+dataengine-\S*;"
 id="t-delimiter"
 hint="delimiter = издвајач"
 # само у каталозима који разликују separator/delimiter
-valid !cat="fooxyz"
+manual
 valid msgstr="\bиздвајач" !msgstr="издвајачом"
 
 {\bdesktop}i
