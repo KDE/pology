@@ -90,3 +90,6 @@ addFilterHook name="remove/remove-ignored-entities-msg" on="msg"
 # then remove accents from letters alltogether.
 addFilterHook name="sr:accents/resolve_agraphs" on="pmsgstr"
 addFilterHook name="sr:accents/remove_accents" on="pmsgstr"
+
+# Convert action-loaded characters to their ordinary counterparts.
+addFilterRegex match=" " repl=" " on="pmsgid,pmsgstr" # no-break space
