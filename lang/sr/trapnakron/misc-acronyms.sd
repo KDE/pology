@@ -195,6 +195,9 @@ JVM: ЈВМ|-, ЈВМ|>, _пр=Java Virtual Machine
 KCM: КЦМ|-, КЦМ|>, _пр=KDE control module
 KDEAP: КДЕ-АП|-, КДЕ-АП|>
 KLM: КЛМ|-, КЛМ|>
+L1: Л1|*, Л1|>, _род!=м, _пр=level 1
+L2: Л2|*, Л2|>, _род!=м, _пр=level 2
+L3: Л3|*, Л3|>, _род!=м, _пр=level 3
 l10n: л10н|*, л10н|>, _род!=м
 LAN: ЛАН|-, ЛАН|>
 LCD: ЛЦД|-, ЛЦД|>
@@ -220,6 +223,7 @@ LTSP: ЛТСП|-, ЛТСП|-ов, ЛТСП|>
 LTR: ЛнД|-, ЛнД|>
     @л: LnD|-, LnD|>
 MAC, |macaddr: МАЦ|-, МАЦ|>
+MCU: МЦУ|-, МЦУ|>, _пр=microcontroller
 MDB: МДБ|-, МДБ|>
 MDC: МДЦ|-, МДЦ|>
 MDN: МДН|-, МДН|>, _пр=message disposition notification
@@ -329,8 +333,8 @@ RSH: РСХ|-, РСХ|>
 RTC: РТЦ|-, РТЦ|>
 RTF: РТФ|-, РТФ|>
 RTFM: РТФМ|-, РТФМ|>
-RTL: ДнЛ|-, ДнЛ|>
-    @л: DnL|-, DnL|>
+RTL, |rtldir: ДнЛ|-, ДнЛ|>
+RTL, |rtllang: РТЛ|-, РТЛ|>, _пр=register transfer language
 RTTI: РТТ|И-, РТТИ|>
 RTSPT: РТСПТ|-, РТСПТ|>
 RTSPU: РТСПУ|-, РТСПУ|>
