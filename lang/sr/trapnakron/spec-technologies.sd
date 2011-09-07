@@ -48,6 +48,7 @@ GS, |gsmidi: ГС|-, ГС|-ов, ГС|>
 HDR: ХДР|-, ХДР|>
 HyperTransport: хипертранспорт|, хипертранспорт|>
     @л: HyperTransport|, HyperTransport|>
+i386: и386|*, и386|>, _род!=м
 IDE: ИДЕ|-, ИДЕ|>
 IEC 958: ИЕЦ|- 958, ИЕЦ 958|>
     @л: IEC|- 958, IEC 958|>
@@ -66,8 +67,13 @@ MicroChannel: микрочанел|, микрочанел|ов, микрочан
     @л: MicroChannel|, MicroChannel|ov, MicroChannel|>
 mini-ITX: мини-ИТИкс|, мини-ИТИкс|>
     @л: mini-ITX|-, mini-ITX|>
+MIPS16: МИПС|- 16, н&а=МИПС16, МИПС16|>
+MIPS-3D: МИПС|- 3Д, н&а=МИПС-3Д, МИПС-3Д|>
+MIPS-DSP: МИПС|- ДСП, н&а=МИПС-ДСП, МИПС-ДСП|>
 MMX: ММИкс|-, ММИкс|-ов, ММИкс|, _пр=Multimedia Extensions
     @л: MMX|-, MMX|-ov, MMX|>
+MMIX: ММИКС|-, ММИКС|-ов, ММИКС|>
+    @л: MMIX|-, MMIX|-ov, MMIX|>
 NuBus: нубус|, нубус|ов, нубус|>
     @л: NuBus|, NuBus|ov, NuBus|>
 OHCI: ОХЦ|И-, ОХЦИ|>
@@ -100,6 +106,8 @@ UART: УАРТ|-, УАРТ|>, _пр=universal asynchronous receiver/transmitter
 UHCI: УХЦ|И-, УХЦИ|>
 USB: УСБ|-, УСБ|>
 UUCP: УУЦП|-, УУЦП|>
+x86: икс86|*, икс86|>, _род!=м
+    @л: x86|*, x86|>
 XG, |xgmidi: ИксГ|-, ИксГ|-ов, ИксГ|>
     @л: XG|-, XG|-ov, XG|>
 ZeroConf: зироконф|, зироконф|>
@@ -133,6 +141,7 @@ DRI: ДР|И-, ДРИ|>
 HAL: ХАЛ|-, ХАЛ|>
 iCalendar: и-календар|, и-календар|ски
 MMC, |mmccmd: ¤ММЦ|-, ММЦ|>, _пр=MultiMedia Commands
+MPI: МПИ|-, МПИ|>, _пр=Message-Passing Interface
 ODF: ОДФ|-, ОДФ|>
 Open Collaboration Services: сервис|и- отворене сарадње
 OpenAL: опенАЛ|-, опенАЛ|-ов, опенАЛ|>
@@ -143,6 +152,7 @@ OpenGL: опенГЛ|-, опенГЛ|-ов, опенГЛ|>
     @л: OpenGL|-, OpenGL|-ov, OpenGL|>
 OpenGL ES: |OpenGL ЕС, |<пп
 OpenGL MT: |OpenGL МТ, |<пп
+OpenMP: опенМП|-, опенМП|-ов, опенМП|>
 PK, |pkfnt: ПК|-, ПК|>
 sendmail: сендмејл|, сендмејл|>
     @л: sendmail|, sendmail|>
