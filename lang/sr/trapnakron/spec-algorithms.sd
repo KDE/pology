@@ -11,6 +11,7 @@ FRE: ФРЕ|-, ФРЕ|>, _пр=full redundancy elimination
 GCSE: ГЦСЕ|-, ГЦСЕ|>, _пр=global common subexpression elimination
 ILP32: ИЛП32|*, ИЛП32|>, _род!=м, _пр=integer/long/pointer 32 bit
 LP64: ЛП64|*, ЛП64|>, _род!=м, _пр=long/pointer 64 bit
+PLT: ПЛТ|-, ПЛТ|>, _пр=procedure linkage table
 PRE: ПРЕ|-, ПРЕ|>, _пр=partial redundancy elimination
 
 # ----------------------------------------------------------------------------
