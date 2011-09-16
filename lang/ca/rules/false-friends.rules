@@ -149,7 +149,7 @@ hint="«Carbon» es tradueix per «Carboni», no per «Carbó» (fals amic)"
 {\bcards?\b}i
 valid msgstr="target(a|es)"
 valid msgstr="cart(a|es)" cat="desktop_kdegames,kpoker,lskat,kpat"
-valid msgstr="cartes" cat="desktop_kdebase_kde-runtime" before="\sgames"
+valid msgstr="cartes" cat="desktop_kde-runtime,muon-installer" before="\sgames"
 valid !msgstr="cart(a|es)"
 hint="«Card» es tradueix per «Targeta», no per «Carta» (fals amic)"
 
@@ -452,7 +452,7 @@ hint="«Fabric» es tradueix per «Teixit o tela», no per «Fàbrica» (fals am
 # «Facilities» es tradueix per «Instal·lacions».
 {\bfacilities\b}i
 valid msgstr="instal·lacions"
-valid msgstr="facilitats" cat="desktop_kdelibs,desktop_kdebase_kate"
+valid msgstr="facilitats" cat="desktop_kdelibs,desktop_kde-baseapps_kate"
 valid !msgstr="facilitats"
 hint="«Facilities» es tradueix per «Instal·lacions», no per «Facilitats» (fals amic)"
 
