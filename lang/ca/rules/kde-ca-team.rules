@@ -9,6 +9,37 @@ include file="filter.include"
 # Remove accelerator and  hyphen inside words.
 addFilterRegex match="(\&|\-)" on="pmsgid,pmsgstr"
 
+{\bapplet(s?)\b}i
+valid msgid="nm-applet"
+valid msgstr="miniaplicaci(ó|ons)"
+hint="Es tradueix per «miniaplicació/ons» (kde-ca-team)"
+
+{\bbackend(s?)\b}i
+valid msgstr="dorsal(s?)"
+valid msgstr="gestor" cat="apper,libshaman"
+hint="Es tradueix per «dorsal» (kde-ca-team)"
+#NOTA: El Termcat tradueix «backend» per «processador dorsal»
+
+{\bbackground(s?)\b}i
+valid msgstr="fons"
+valid msgstr="al darrere"
+valid msgstr="segon pla"
+valid !msgstr="rerefons"
+valid msgstr="style=\".*?background:.*?\""
+hint="Es tradueix per -segons el sentit- «fons i al darrere (pantalla), segon pla (executa)» (kde-ca-team)"
+
+{\bcharacter set\b}i
+valid msgstr="joc de caràcters"
+hint="Es tradueix per «joc de caràcters» (kde-ca-team)"
+
+{\b(checkmark|check-mark|check mark)(s?)\b}i
+valid msgstr="mar(ca|ques) de selecció"
+hint="Es tradueix per «marca/ques de selecció» (kde-ca-team)"
+
+{/bchecksum(s?)/b}
+valid msgstr="sum(a|es) de comprovació"
+hint="Es tradueix per «suma de comprovació» (kde-ca-team)"
+
 {\bciphertext\b}i
 valid msgstr="text xifrat"
 hint="Es tradueix per «text xifrat» (kde-ca-team)"
