@@ -9,18 +9,18 @@ include file="filter.include"
 # Remove accelerator and  hyphen inside words.
 addFilterRegex match="(\&|\-)" on="pmsgid,pmsgstr"
 
-{\bapplet(s?)\b}i
+{\bapplets?\b}i
 valid msgid="nm-applet"
 valid msgstr="miniaplicaci(ó|ons)"
 hint="Es tradueix per «miniaplicació/ons» (kde-ca-team)"
 
-{\bbackend(s?)\b}i
-valid msgstr="dorsal(s?)"
+{\bbackends?\b}i
+valid msgstr="dorsals?"
 valid msgstr="gestor" cat="apper,libshaman"
 hint="Es tradueix per «dorsal» (kde-ca-team)"
 #NOTA: El Termcat tradueix «backend» per «processador dorsal»
 
-{\bbackground(s?)\b}i
+{\bbackgrounds?\b}i
 valid msgstr="fons"
 valid msgstr="al darrere"
 valid msgstr="segon pla"
@@ -32,11 +32,11 @@ hint="Es tradueix per -segons el sentit- «fons i al darrere (pantalla), segon p
 valid msgstr="joc de caràcters"
 hint="Es tradueix per «joc de caràcters» (kde-ca-team)"
 
-{\b(checkmark|check-mark|check mark)(s?)\b}i
+{\b(checkmark|check-mark|check mark)s?\b}i
 valid msgstr="mar(ca|ques) de selecció"
 hint="Es tradueix per «marca/ques de selecció» (kde-ca-team)"
 
-{/bchecksum(s?)/b}
+{/bchecksums?/b}
 valid msgstr="sum(a|es) de comprovació"
 hint="Es tradueix per «suma de comprovació» (kde-ca-team)"
 
@@ -44,10 +44,19 @@ hint="Es tradueix per «suma de comprovació» (kde-ca-team)"
 valid msgstr="text xifrat"
 hint="Es tradueix per «text xifrat» (kde-ca-team)"
 
+{\bcontext menus?\b}i
+valid msgstr="menús? contextuals?"
+hint="Es tradueix per «menú/s contextual/s» (kde-ca-team)"
+
 {\bcrypto\b}i
 valid msgstr="criptografia"
 valid msgstr="criptogràfics?"
 hint="Es tradueix per «criptografia/criptografic» (kde-ca-team)"
+
+{\bdashboards?\b}i
+valid msgstr="taulers?"
+valid !msgstr="tauler de control"
+hint="Es tradueix per «tauler» (kde-ca-team)"
 
 # (to)
 {\bdecypher\b}i
