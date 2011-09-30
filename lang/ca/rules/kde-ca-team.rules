@@ -107,19 +107,29 @@ valid msgstr="desencriptatge"
 valid msgstr="desencriptar"
 hint="Es tradueix per «desencriptatge» (kde-ca-team)"
 
+# Sempre serà «diàleg».
+{\bdialogs? boxs?\b}i
+valid !msgstr="caix(a|es) de diàleg"
+# valid msgstr="diàlegs?" # Sense comentar no dona positiu -falla si coincideix amb la bona-.
+hint="Es tradueix per «diàleg» (kde-ca-team)"
+
+{\bemoticons?\b}i
+valid msgstr="emoticon(a|es)"
+hint="Es tradueix per «emoticona/es» (kde-ca-team)"
+
 {\bencode\b}i
-valid msgstr="codifica(r?)"
+valid msgstr="codificar?"
 hint="Es tradueix per «codificar» (kde-ca-team)"
 
 {\bencoded\b}i
 valid msgstr="codifica(t|ts|da|des)"
 hint="Es tradueix per «codificat, codificada» (kde-ca-team)"
 
-{\bencoder(s?)\b}i
+{\bencoders?\b}i
 valid msgstr="codificador(s?)"
 hint="Es tradueix per «codificador» (kde-ca-team)"
 
-{\bencoding(s?)\b}i
+{\bencodings?\b}i
 valid msgid="Content-Transfer-Encoding"
 valid msgstr="codificaci(ó|ons)"
 valid msgstr="codificant"
@@ -153,6 +163,14 @@ hint="Es tradueix per «xifrat, xifrada» (kde-ca-team)"
 {\bencypherment\b}i
 valid msgstr="xifratge"
 hint="Es tradueix per «xifratge» (kde-ca-team)"
+
+{\bfavicons?\b}i
+valid msgstr="icon(a|es) de web"
+hint="Es tradueix per «icona de web» (kde-ca-team)"
+
+{\b(frontend|front-end|front end)s?\b}i
+valid msgstr="frontals?"
+hint="Es tradueix per «frontal» (kde-ca-team)"
 
 # «screenshot» es tradueix per «captura de pantalla».
 {\bscreenshots?\b}i
