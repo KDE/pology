@@ -172,6 +172,56 @@ hint="Es tradueix per «icona de web» (kde-ca-team)"
 valid msgstr="frontals?"
 hint="Es tradueix per «frontal» (kde-ca-team)"
 
+{\bgreeters?\b}i
+valid msgstr="X-.-Greeter" # kdm_kdmrc-ref
+valid msgstr="benvingud(a|es)"
+valid msgstr="pantalla de benvinguda"
+hint="Es tradueix per «pantalla de benvinguda, benvinguda» (kde-ca-team)"
+
+{\bicon lists?\b}i
+valid msgstr="llist(a|es) d'icones"
+#valid msgstr="emoticon list" # fals positiu a la cerca
+hint="Es tradueix per «llista/es d'icones» (kde-ca-team)"
+
+{\bInfo Box(es)?\b}i
+valid msgstr="rètols? informatius?" # KStars
+hint="Es tradueix per «rètol/s informatiu/s» (kde-ca-team)"
+
+{\bitems?\b}i
+valid msgstr="elements?"
+valid !msgstr="guimenuitem>" # etiqueta XML
+hint="Es tradueix per «element» (kde-ca-team)"
+
+{\bitems? node\b}i
+valid msgstr="nodes? d'element"
+hint="Es tradueix per «node d'element» (kde-ca-team)"
+
+{/bkey(box| box)(ing)?(es|s)?/b}
+valid msgstr="anells? de claus"
+hint="Es tradueix per «anell de claus» (personal)"
+
+{\bmailbox(es)?\b}i
+valid msgstr="bústi(a|es) de correu"
+valid msgstr="bústi(a|es)"
+hint="Es tradueix per ««bústia/es, bústia/es de correu» (kde-ca-team)"
+
+{\b(mailing list|mailing-list)s?\b}i
+valid msgstr="llist(a|es) de correu"
+hint="Es tradueix per «llista/es de correu» (kde-ca-team)"
+
+{\bmultimeter\b}i
+valid msgstr="multímetre"
+hint="Es tradueix per «multímetre» (kde-ca-team)"
+# NOTA: el Termcat tradueix «multimeter» per «multímetre», i «polimeter» per «polímetre» 
+
+{\bnetbooks?\b}i
+valid msgstr="ultraportàtils?"
+hint="Es tradueix per «ultra-portàtil» (kde-ca-team)"
+
+{\b(progressbar|progress bar)s?\b}i
+valid msgstr="barr(a|es) de progrés"
+hint="Es tradueix per «barra/es de progrés» (kde-ca-team)"
+
 # «screenshot» es tradueix per «captura de pantalla».
 {\bscreenshots?\b}i
 valid msgstr="captur(a|es) de pantalla"
@@ -180,12 +230,122 @@ valid msgstr="screenshots" cat="desktop_extragear-graphics_kipi-plugins,kipiplug
 valid msgstr="screenshot" cat="kdm_theme-ref" # docmessages
 hint="«screenshot» es tradueix per «captura de pantalla» (kde-ca-team)"
 
+{\bscripts?\b}i
+valid msgstr="scripts?"
+hint="Es tradueix per «script/s» (kde-ca-team)"
+
+{\b(scrollbar|scroll bar)s?\b}i
+valid msgstr="barr(a|es) de desplaçament"
+hint="Es tradueix per «barra de desplaçament» (kde-ca-team)"
+
+{\bshortcuts?\b}i
+valid msgstr="drecer(a|es)"
+valid msgstr="acc(és|sos) ràpids?"
+valid msgstr="shortcut>" # marca XML
+hint="Es tradueix per -segons el sentit que tingui- «drecera/es|accés ràpid» (kde-ca-team)"
+
+{\b(show )(menubar|menu bar)s?\b}i
+valid msgstr="barr(a|es) de menús"
+valid msgstr="mostra la barra de menú"
+valid !msgstr="menuchoice>" # etiqueta XML
+valid !msgstr="guimenuitem>" # etiqueta XML
+hint="Es tradueix per «barra de menús, Mostra la barra de menús» (kde-ca-team)"
+
+{\b(show )?(statusbar|status bar)s?\b}i
+valid msgstr="línia d'estat" cat="kalzium,khangman,ktouch" # fals positiu
+valid !msgstr="barr(a|es) d'estat" cat="kalzium,khangman,ktouch" # fals positiu
+valid msgstr="barr(a|es) d'estat"
+valid msgstr="barres d'eines i d'estat" # fals positiu
+valid msgstr="mostra la barra d'estat"
+hint="Es tradueix per «barra d'estat, Mostra la barra d'estat» (kde-ca-team)"
+
+{\bsliders?\b}i
+valid msgstr="bot(ó|ons) lliscants?"
+valid !msgstr="lliscadors?"
+hint="Es tradueix per «botó lliscant» (kde-ca-team)"
+
+{\b(smartcard|smart card)s?\b}i
+valid msgstr="target(a|es) intel·ligents?"
+hint="Es tradueix per «targeta/es intel·ligent/s» (kde-ca-team)"
+
 # «snapshot» es tradueix generalment per «captura de pantalla».
 {\bsnapshots?\b}i
 valid msgstr="captur(a|es) de pantalla"
 valid msgstr="instantàni(a|es)" cat="digikam,glossary"
 valid msgstr="punts? de sincronisme"
 hint="«snapshot» es tradueix *generalment* per «captura de pantalla» (kde-ca-team)"
+
+{\bsplitters?\b}i
+valid msgstr="divisors?"
+valid msgstr="separadors?"
+hint="Es tradueix per «divisor, separador» (kde-ca-team)"
+
+{\bspool\b}i
+valid before="\sfile" # «spool file» es comprova més endavant
+valid msgstr="encuar" # Verb «to spool»
+valid msgstr="gestió de cues" # Nom «spool»
+hint="Es tradueix per «encuar/gestió de cues» (kde-ca-team)"
+
+{\bspoolers?\b}i
+valid msgstr="enviar als? gestors? de cues"
+valid msgstr="gestors? de cues"
+hint="Es tradueix per «gestor de cues» (kde-ca-team)"
+
+{\bspooling\b}i
+valid msgstr="encuar"
+valid msgstr="enviament al gestor de cues"
+valid !msgstr="meta-spooling" # glossary_kdeprintingglossary
+hint="Es tradueix per «enviament al gestor de cues» (kde-ca-team)"
+
+{\b(spoolfile|spool file)s?\b}i
+valid msgstr="fitxers? del gestor de cues"
+hint="Es tradueix per «fitxer del gestor de cues» (kde-ca-team)"
+
+{\bsticky notes?\b}i
+valid msgstr="not(a|es) adhesiv(a|es)"
+hint="Es tradueix per «nota adhesiva» (kde-ca-team)"
+
+{\b(systemtray|system tray)s?\b}i
+valid msgstr="safat(a|es) del sistema"
+hint="Es tradueix per «safata del sistema» (kde-ca-team)"
+
+{\btabs?( character)?\b}i
+valid msgid="Alt\+Tab" # fals positiu
+valid msgstr="&Tab;" # fals positiu
+valid msgstr="Tab" after="alt+"
+valid msgstr="<(option|command)>(.*)tab(.*)</(option|command)>" # fals positiu
+valid msgstr="pestany(a|es)"
+valid msgstr="tabuladors?"
+valid msgstr="tabulaci(ó|ons)"
+# valid msgstr="pestanya" after="-"
+valid msgstr="caràcter de tabulació"
+valid msgstr="tab" cat="kdelibs4,kabcclient,kdeqt" # Tecla Tab
+valid before="\swindow manager" cat="desktop_kde-workspace"
+hint="Es tradueix per «pestanya/es|tabulació/ons/dor, caràcter de tabulació» (kde-ca-team)"
+
+{\btabbed windows?\b}i
+valid msgstr="finestr(a|es) amb pestanyes"
+valid msgstr="té dues pestanyes" cat="kdf"
+hint="Es tradueix per «finestra/es amb pestanyes» (kde-ca-team)"
+
+{\b(taskbar|task bar)s?\b}i
+valid msgstr="barr(a|es) de tasques"
+hint="Es tradueix per «barra de tasques» (kde-ca-team)"
+
+{\b(titlebar|title bar)s?\b}i
+valid msgstr="barr(a|es) de títol"
+hint="Es tradueix per «barra/es de títol» (kde-ca-team)"
+
+{\b(toolbar|tool bar)s?\b}i
+valid msgstr="barr(a|es) d'eines"
+valid msgstr="barra de localització" # fals positiu (Location Toolbar)
+valid msgstr="Barra de simulació" # fals positiu (Simulation Toolbar)
+hint="Es tradueix per «barra/es d'eines» (kde-ca-team)"
+
+{\b(tooltip|tool-tip|tool tip)s?\b}i
+valid msgstr="consells?"
+valid !msgstr="consells? d'eina"
+hint="Es tradueix per «consells» (kde-ca-team)"
 
 {\bunencrypted\b}i
 valid msgstr="sense encriptar"
@@ -198,5 +358,15 @@ hint="Es tradueix per «sense encriptar, no està encriptat/da, no encriptada/es
 valid msgstr="fons de pantall(a|es)"
 valid !msgstr="papers? pintats?"
 hint="«wallpaper» es tradueix per «fons de pantalla», no per «paper pintat» (kde-ca-team)"
+
+{\bworksheets?\b}i
+valid msgstr="fulls? de treball"
+valid msgstr="fulls? de càlcul"
+hint="Es tradueix per «full de càlcul (KOffice), full de treball» (kde-ca-team)"
+
+{\b(workspace|work space)s?\b}i
+valid msgstr="espais? de treball"
+valid !msgstr="àrea de treball"
+hint="Es tradueix per «espai de treball» (kde-ca-team)" 
 
 # End of rule file
