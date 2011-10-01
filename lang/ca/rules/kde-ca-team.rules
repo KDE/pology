@@ -317,9 +317,9 @@ valid msgstr="<(option|command)>(.*)tab(.*)</(option|command)>" # fals positiu
 valid msgstr="pestany(a|es)"
 valid msgstr="tabuladors?"
 valid msgstr="tabulaci(ó|ons)"
-# valid msgstr="pestanya" after="-"
 valid msgstr="caràcter de tabulació"
 valid msgstr="tab" cat="kdelibs4,kabcclient,kdeqt" # Tecla Tab
+valid msgstr="tabulatur(a|es)" cat="amarok" # Tablature -> Tabulatura (Termcat: música)
 valid before="\swindow manager" cat="desktop_kde-workspace"
 hint="Es tradueix per «pestanya/es|tabulació/ons/dor, caràcter de tabulació» (kde-ca-team)"
 
