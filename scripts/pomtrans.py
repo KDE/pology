@@ -189,16 +189,17 @@ def translate_direct (paths, tsbuilder, options):
         singlepls = cat.plural_indices_single()
         for msg in msgs:
             msgid_tr = texts_tr.pop(0)
-            if msg.msgid_plural is not None:
-                msgid_plural_tr = texts_tr.pop(0)
-                for i in range(len(msg.msgstr)):
-                    if i in singlepls:
-                        msg.msgstr[i] = msgid_tr
-                    else:
-                        msg.msgstr[i] = msgid_plural_tr
-            else:
-                msg.msgstr[0] = msgid_tr
-            decorate(msg, options)
+            if msgid_tr:
+                if msg.msgid_plural is not None:
+                    msgid_plural_tr = texts_tr.pop(0)
+                    for i in range(len(msg.msgstr)):
+                        if i in singlepls:
+                            msg.msgstr[i] = msgid_tr
+                        else:
+                            msg.msgstr[i] = msgid_plural_tr
+                else:
+                    msg.msgstr[0] = msgid_tr
+                decorate(msg, options)
 
         sync_rep(cat, msgs)
 
