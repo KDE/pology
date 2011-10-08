@@ -466,6 +466,7 @@ valid after="esperava\s``\:'" cat="kdevcpp"
 valid after="servir\s'" cat="kwriteconfig"
 valid after="\s00"
 valid after="Luciash\sd" cat="kopete"
+valid after="presa" cat="digikam"
 valid after="\ssed\s.+" cat="kopete" # docmessages
 valid before="mm|ss"
 valid comment="Tag\:\sscreen" cat="kdeprint_cups-config" # docmessages
