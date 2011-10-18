@@ -358,6 +358,11 @@ valid msgstr="navegadores"
 valid msgstr="(ningún|cualquier)\snavegador"
 hint="« Browsers » se traduce como « Navegadores » (propuesta glosario)"
 
+# «Browsing» se traduce como «Navegación».
+{\bbrowsing\b}i
+valid msgstr="navegación"
+hint="« Browsing » se traduce como « Navegación » (propuesta glosario)"
+
 # «Bug-fix» se traduce como «Corrección de error».
 {\bbug\-?fix\b}i
 valid msgstr="correcci(ón|ones)\sde\s(error(es)?|fallos?)"
@@ -1876,7 +1881,7 @@ valid msgstr="implement(ar|a|e)"
 hint="« Implements » se traduce como « Implementa » (propuesta glosario)"
 
 # «Inbox» se traduce como «Bandeja de entrada».
-{\binbox\b}i
+{\bin(\s|\-)?box\b}i
 valid msgstr="bandeja\sde\sentrada"
 hint="« Inbox » se traduce como « Bandeja de entrada » (propuesta glosario)"
 
@@ -2723,6 +2728,11 @@ valid msgstr="(ninguna|cualquier)\sposibilidad"
 valid msgstr="OPTIONS"
 hint="« Options » se traduce como « Opciones » (propuesta glosario)"
 
+# «Outbox» se traduce como «Bandeja de salida».
+{\bout(\s|\-)?box\b}i
+valid msgstr="bandeja de salida"
+hint="« Outbox » se traduce como « Bandeja de salida » (propuesta glosario)"
+
 # «Outline» se traduce como «Bosquejo».
 {\boutline\b}i
 valid msgstr="bosquejo"
@@ -3091,6 +3101,11 @@ valid msgstr="índices"
 valid msgstr="(ningún|cualquier)\spuntero"
 valid msgstr="(ningún|cualquier)\síndice"
 hint="« Pointers» se traduce como « Punteros/Índices » (propuesta glosario)"
+
+# «Pop up» se traduce como «Emergente».
+{\bpop(\s|\-)?up\b}i
+valid msgstr="emergente"
+hint="« Pop up » se traduce como « Emergente » (propuesta glosario)"
 
 # «Portable» se traduce como «Portátil».
 {\bportable\b}i
@@ -3478,6 +3493,11 @@ valid msgstr="dependans\sde"
 valid msgstr="confien\sen"
 valid msgstr="delegen\sen"
 hint="« Rely on » se traduce como « Depender de/Confiar en/Delegar en » (propuesta glosario)"
+
+# «Removable» se traduce como «Extraíble».
+{\bremovable\b}i
+valid msgstr="extraíble"
+hint="« Removable » se traduce como « Extraíble » (propuesta glosario)"
 
 # «Remove» se traduce como «Eliminar/Quitar/Extraer».
 {\bremove\b}i
@@ -4000,6 +4020,17 @@ hint="« Spreadsheet » se traduce como « Hoja de cálculo » (propuesta glosar
 valid msgstr="hojas\sde\scálculo"
 valid msgstr="(ninguna|cualquier)\shoja\sde\scálculo"
 hint="« Spreadsheet » se traduce como « Hoja de cálculo » (propuesta glosario)"
+
+# «Square bracket» se traduce como «Corchete».
+{\bsquare\sbracket\b}i
+valid msgstr="corchete"
+hint="« Square bracket » se traduce como « Corchete » (propuesta glosario)"
+
+# «Square brackets» se traduce como «Corchetes».
+{\bsquare\sbrackets\b}i
+valid msgstr="corchetes"
+valid msgstr="(ningún|cualquier)\scorchete"
+hint="« Square brackets » se traduce como « Corchetes » (propuesta glosario)"
 
 # «Stack» se traduce como «Pila».
 {\bstack\b}i

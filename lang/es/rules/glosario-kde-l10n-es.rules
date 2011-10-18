@@ -2864,11 +2864,16 @@ valid msgstr="revertir"
 valid msgstr="reviert(e|a)"
 valid msgstr="revertirá" after="will\s"
 valid msgstr="revertió" after="did\s"
+valid msgstr="deshacer?"
+valid msgstr="desahaga"
+valid msgstr="deshará" after="will\s"
+valid msgstr="deshizo" after="did\s"
 hint="« Revert » se traduce como « Revertir » (ver glosario)"
 
 # «Reverts» se traduce como «Revierte».
 {\breverts\b}i
 valid msgstr="reviert(e|a)"
+valid msgstr="deshaga"
 hint="« Reverts » se traduce como « Revierte » (ver glosario)"
 
 # «Role» se traduce como «Papel».
