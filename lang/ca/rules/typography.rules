@@ -97,6 +97,7 @@ hint="S'ha de posar un espai després del signe dels dos punts (tipografia)"
 valid ctx="Numbers and characters"
 valid ctx="CSV separator" 
 valid after="Algerian\s*" cat="calligra,koffice"
+valid after="sleep\s3" cat="konsole" # docmessages
 valid span="\s\;$" cat="kleopatra" # docmessages
 hint="No s'ha de posar cap espai abans del signe de punt i coma (tipografia)"
 
@@ -436,6 +437,7 @@ valid after="Teo" cat="amarok"
 valid after="(Cometes|tabulació)\s.+" cat="kile"
 valid after="PREFIX=|~" cat="amarok"
 valid after="esperava\s`?" cat="kdevcpp"
+valid after="invertides \(" cat="kcmgrub2"
 valid after="CONSOLEOWNER.+" cat="kcontrol_mouse" # docmessages
 valid cat="kdecalendarsystems"
 valid comment="Tag\:\sprogramlisting" cat="kdm" # docmessages

@@ -166,7 +166,7 @@ hint="Es tradueix per «xifratge» (kde-ca-team)"
 
 {\bfavicons?\b}i
 valid msgstr="icon(a|es) de web"
-hint="Es tradueix per «icona de web» (kde-ca-team)"
+hint="Es tradueix per «icon(a|es) de web» (kde-ca-team)"
 
 {\b(frontend|front-end|front end)s?\b}i
 valid msgstr="frontals?"
@@ -318,7 +318,7 @@ valid msgstr="pestany(a|es)"
 valid msgstr="tabuladors?"
 valid msgstr="tabulaci(ó|ons)"
 valid msgstr="caràcter de tabulació"
-valid msgstr="tab" cat="kdelibs4,kabcclient,kdeqt" # Tecla Tab
+valid msgstr="tab" cat="kdelibs4,kabcclient,kdeqt,katepart4" # Tecla Tab
 valid msgstr="tabulatur(a|es)" cat="amarok" # Tablature -> Tabulatura (Termcat: música)
 valid before="\swindow manager" cat="desktop_kde-workspace"
 hint="Es tradueix per «pestanya/es|tabulació/ons/dor, caràcter de tabulació» (kde-ca-team)"
