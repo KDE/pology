@@ -117,6 +117,7 @@ valid ctx="Query"
 valid cat="tables,kcells,kspread"
 valid span=";$"
 valid span=";*" cat="kfilereplace"
+valid span=";~" cat="kfind" # docmessages
 valid span=";[eN]" cat="kleopatra" # docmessages
 hint="S'ha de posar un espai després del signe de punt i coma (tipografia)"
 
