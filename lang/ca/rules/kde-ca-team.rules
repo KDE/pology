@@ -115,6 +115,7 @@ hint="Es tradueix per «diàleg» (kde-ca-team)"
 
 {\bemoticons?\b}i
 valid msgstr="emoticon(a|es)"
+valid msgstr="emoticons" after="apps\/kopete\/pics\/"
 hint="Es tradueix per «emoticona/es» (kde-ca-team)"
 
 {\bencode\b}i
@@ -173,7 +174,7 @@ valid msgstr="frontals?"
 hint="Es tradueix per «frontal» (kde-ca-team)"
 
 {\bgreeters?\b}i
-valid msgstr="X-.-Greeter" # kdm_kdmrc-ref
+valid msgstr="greeter" cat="kdm_kdmrc-ref,kdm_theme-ref"
 valid msgstr="benvingud(a|es)"
 valid msgstr="pantalla de benvinguda"
 hint="Es tradueix per «pantalla de benvinguda, benvinguda» (kde-ca-team)"
@@ -203,6 +204,7 @@ hint="Es tradueix per «anell de claus» (personal)"
 {\bmailbox(es)?\b}i
 valid msgstr="bústi(a|es) de correu"
 valid msgstr="bústi(a|es)"
+valid msgstr="Mailbox" after="fitxers\s" cat="kmail_faq"
 hint="Es tradueix per ««bústia/es, bústia/es de correu» (kde-ca-team)"
 
 {\b(mailing list|mailing-list)s?\b}i
@@ -242,6 +244,7 @@ hint="Es tradueix per «barra de desplaçament» (kde-ca-team)"
 valid msgstr="drecer(a|es)"
 valid msgstr="acc(és|sos) ràpids?"
 valid msgstr="shortcut>" # marca XML
+valid msgstr="abreujament" cat="kmouth" # docmessages
 hint="Es tradueix per -segons el sentit que tingui- «drecera/es|accés ràpid» (kde-ca-team)"
 
 {\b(show )(menubar|menu bar)s?\b}i
@@ -277,13 +280,16 @@ hint="«snapshot» es tradueix *generalment* per «captura de pantalla» (kde-ca
 
 {\bsplitters?\b}i
 valid msgstr="divisors?"
+valid msgstr="divisòri(a|es)"
 valid msgstr="separadors?"
+valid msgstr="separador(a|es)"
 hint="Es tradueix per «divisor, separador» (kde-ca-team)"
 
 {\bspool\b}i
 valid before="\sfile" # «spool file» es comprova més endavant
 valid msgstr="encuar" # Verb «to spool»
 valid msgstr="gestió de cues" # Nom «spool»
+valid msgstr="Spool" after="Meta\sPrint\s" # docmessages
 hint="Es tradueix per «encuar/gestió de cues» (kde-ca-team)"
 
 {\bspoolers?\b}i
@@ -318,8 +324,9 @@ valid msgstr="pestany(a|es)"
 valid msgstr="tabuladors?"
 valid msgstr="tabulaci(ó|ons)"
 valid msgstr="caràcter de tabulació"
-valid msgstr="tab" cat="kdelibs4,kabcclient,kdeqt,katepart4" # Tecla Tab
+valid msgstr="tab" cat="kdelibs4,kabcclient,kdeqt,katepart4,ktouch" # Tecla Tab
 valid msgstr="tabulatur(a|es)" cat="amarok" # Tablature -> Tabulatura (Termcat: música)
+valid msgstr="encastat" cat="kcontrol_filetypes" # docmessages
 valid before="\swindow manager" cat="desktop_kde-workspace"
 hint="Es tradueix per «pestanya/es|tabulació/ons/dor, caràcter de tabulació» (kde-ca-team)"
 
