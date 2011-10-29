@@ -171,7 +171,7 @@ valid ctx="Numbers and characters"
 valid ctx="Query"
 valid ctx=".*regular expression.*" cat="plasma_applet_publictransport,plasma_runner_publictransport"
 valid comment="Tag\:\suserinput" cat="kioslave_nepomuksearch" # docmessages
-valid comment="Tag\:\sprogramlisting" cat="kdm_theme-ref" # docmessages
+valid comment="Tag\:\sprogramlisting" cat="kdm_theme-ref,kcontrol_kremotecontrol" # docmessages
 valid span="\?$"
 valid span="\?\»"
 valid span="\?d" cat="kio_audiocd,kioslave_audiocd"
@@ -316,6 +316,7 @@ valid span="KDE\se.V."
 valid span="\.~"
 valid span="\.(h|c)" cat="desktop_kde-baseapps_kate,desktop_kdesdk,kateopenheader,kate_plugins"
 valid span="\.\*" cat="kdiff3,kdeprint4"
+valid comment="Tag\:\sscreen" cat="kmail_faq" # docmessages
 hint="S'ha de posar un espai després d'un signe de punt (tipografia)"
 
 [\.\)]
@@ -427,7 +428,7 @@ valid after="(filtre|en|regions)\s" cat="kstars_colorandtemp" # docmessages
 valid after="prioritats\s.+" cat="korganizer" # docmessages
 valid after="di\(" cat="kate_regular-expressions" # docmessages
 valid after="multiplicitat\sd\'" cat="umbrello_uml_basics" # docmessages
-valid after="accelerador.*" cat="tables_a11y,stage_a11y,kspread_a11y,kpresenter_a11y" # docmessages
+valid after="accelerador.*" cat="tables_a11y,stage_a11y,kspread_a11y,kpresenter_a11y,kcells_a11y" # docmessages
 valid cat="kalzium,plasma_engine_kalzium,plasma_applet_Molmasscalculator,kgoldrunner,kubrick,kfile_exr"
 valid cat="libincidenceeditors,tables,kcells,kspread,kbackgammon"
 valid ctx="Undefined"
@@ -444,6 +445,7 @@ valid after="invertides \(" cat="kcmgrub2"
 valid after="CONSOLEOWNER.+" cat="kcontrol_mouse" # docmessages
 valid cat="kdecalendarsystems"
 valid comment="Tag\:\sprogramlisting" cat="kdm" # docmessages
+valid comment="Tag\:\sscreen" cat="kmail_faq" # docmessages
 hint="Un accent obert sol «`» és un error, excepte a ordres de terminal (tipografia)"
 
 # «’» un accent tancat sol és un error (ull amb les ordres!).
@@ -455,8 +457,9 @@ hint="Un accent tancat sol «’» és un error, excepte a ordres de terminal (t
 valid after="servir" cat="kwriteconfig"
 valid after="hh|mm|ss"
 valid after="\ssed\s.+" cat="kopete" # docmessages
+valid after="_language\s.+" # docmessages
 valid before="$" cat="kdeqt"
-valid comment="Tag\:\sscreen" cat="kdeprint_cups-config" # docmessages
+valid comment="Tag\:\sscreen" cat="kdeprint_cups-config,kmail_faq" # docmessages
 valid comment="Tag\:\sprogramlisting" cat="kdm" # docmessages
 valid ctx="identifier separator" cat="kalgebra"
 valid ctx="hour in the messages below"
@@ -474,7 +477,7 @@ valid after="Luciash\sd" cat="kopete"
 valid after="presa" cat="digikam"
 valid after="\ssed\s.+" cat="kopete" # docmessages
 valid before="mm|ss"
-valid comment="Tag\:\sscreen" cat="kdeprint_cups-config" # docmessages
+valid comment="Tag\:\sscreen" cat="kdeprint_cups-config,kmail-faq" # docmessages
 valid comment="Tag\:\sprogramlisting" cat="kdm" # docmessages
 valid ctx="hour in the messages below"
 hint="Un apòstrof final és un error, excepte a ordres de terminal (tipografia)"
@@ -510,6 +513,8 @@ valid after="~" # docmessages
 valid after="XRenderSetPictureFilter\("
 valid after="TFAQ" cat="glossary_kdeprintingglossary" # docmessages
 valid after="(GET|POST).*" cat="kdeprint_cups-config" # docmessages
+valid after="charset=.+" cat="kontact-admin" # docmessages
+valid after="DIGIT.+" cat="kontact-admin" # docmessages
 valid before="make" cat="amarok"
 valid before="AutoAdvance=1" cat="kdiff3"
 valid before="GET|POST" cat="kdeprint_cups-config" # docmessages
@@ -524,8 +529,8 @@ valid ctx="Qoute character option" cat="kaddressbook"
 valid ctx="angle unit symbol"
 valid ctx="unit synonyms for matching user input"
 valid comment="Tag\:\s(entry|para)" cat="quanta_extending-quanta" # docmessages
-valid comment="Tag\:\sscreen" cat="kdm,kdeprint_cups-config,kjs_man-kjs.1,kturtle_glossary,kturtle_programming-reference" # docmessages
-valid comment="Tag\:\sprogramlisting" cat="kdm,kdm_theme-ref,kleopatra,klettres" # docmessages
+valid comment="Tag\:\sscreen" cat="kdm,kdeprint_cups-config,kjs_man-kjs.1,kturtle_glossary,kturtle_programming-reference,kmail_faq" # docmessages
+valid comment="Tag\:\sprogramlisting" cat="kdm,kdm_theme-ref,kleopatra,klettres,kcontrol_kremotecontrol" # docmessages
 valid comment="Tag\:\sliterallayout" cat="kabcclient_man-kabcclient.1" # docmessages
 hint="Cal utilitzar les cometes llatines «» (AltGr+z/x) en lloc de les anglosaxones (tipografia)"
 

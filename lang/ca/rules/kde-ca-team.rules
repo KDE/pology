@@ -17,6 +17,7 @@ hint="Es tradueix per «miniaplicació/ons» (kde-ca-team)"
 {\bbackends?\b}i
 valid msgstr="dorsals?"
 valid msgstr="gestor" cat="apper,libshaman"
+valid msgstr="backend" cat="kdeprint_cups-config,kdeprint_cupsoptions" # docmessages
 hint="Es tradueix per «dorsal» (kde-ca-team)"
 #NOTA: El Termcat tradueix «backend» per «processador dorsal»
 
@@ -204,8 +205,8 @@ hint="Es tradueix per «anell de claus» (personal)"
 {\bmailbox(es)?\b}i
 valid msgstr="bústi(a|es) de correu"
 valid msgstr="bústi(a|es)"
-valid msgstr="Mailbox" after="fitxers\s" cat="kmail_faq"
-hint="Es tradueix per ««bústia/es, bústia/es de correu» (kde-ca-team)"
+valid msgstr="mailbox" before="\sfiles?" cat="kmail_faq,kmail_importing"
+hint="Es tradueix per «bústia/es, bústia/es de correu» (kde-ca-team)"
 
 {\b(mailing list|mailing-list)s?\b}i
 valid msgstr="llist(a|es) de correu"
