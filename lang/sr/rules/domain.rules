@@ -171,3 +171,8 @@ valid msgstr="\bповрат|\bвраћ[ае]"
 id="t-target"
 hint="target = одредиште"
 valid msgstr="\bодредиш[тн]"
+
+{\bextended}i
+id="t-extended"
+hint="extended = продужена [партиција]"
+valid msgstr="\bпродужен"
