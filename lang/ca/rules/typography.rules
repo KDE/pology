@@ -302,6 +302,7 @@ valid ctx="unit synonyms for matching user input"
 valid msgid="CREDIT_FOR_TRANSLATORS"
 valid before="D?COPserver"
 valid before="\w{1,16}\b" # Extensions
+valid after="adreces IP.+" cat="kcmkio"
 valid after="~" cat="cupsdconf4,katepart4,kfileshare,kppp,kexi,krusader"
 valid after="XXX"
 valid after="\.\." 
