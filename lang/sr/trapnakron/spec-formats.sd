@@ -159,6 +159,7 @@ ZIP, |zipfmt: ЗИП|-, ЗИП|>
 
 Blue Book, |bluebookfmt: блубук|, блубук|ов, блубук|>
     @л: Blue Book|, Blue Book|ov, Blue Book|>
+btrfs: бтрфс|-, бтрфс|-ов, бтрфс|>, _пр=b-tree file system
 CD-Extra: ЦД-екстра|*, ЦД-екстра|>, _род!=м, _син=|bluebookfmt~н
     @л: CD-Extra|*, CD-Extra|>
 CD-Plus: ЦД-плус|, ЦД-плус|>, _син=|bluebookfmt~н
@@ -184,6 +185,7 @@ HFS: ХФС|-, ХФС|-ов, ХФС|>
 HFS Plus: ХФС|- плус, ХФС плус|>
     @л: HFS|- Plus, HFS Plus|>
 High Quality Video CD: |*|{Video CD} високог квалитета
+HPFS: ХПФС|-, ХПФС|-ов, ХПФС|>, _пр=High Performance File System
 HP Service: ХП-сервис|, ХП-сервис|-ов, ХП-сервис|>
     @л: HP Service|, HP Service|-ov, HP Service|>
 HQ-VCD: ХКу-ВЦД|-, ХКу-ВЦД|>, _пр=High Quality Video CD, _син=|{High Quality Video CD}~н
@@ -195,9 +197,12 @@ Joliet: џолијет|, џолијет|ов, џолијет|>
     @л: Joliet|, Joliet|ov, Joliet|>
 linuxswap: |{`Linux~н}-размен|а
     @иј: |{`Linux~н}-размијен|а
+LUKS: ЛУКС|-, ЛУКС|-ов, ЛУКС|>, _пр=Linux Unified Key Setup
 LVM: ЛВМ|-, ЛВМ|-ов, ЛВМ|>
 NFS: НФС|-, НФС|>
 NTFS: НТФС|-, НТФС|-ов, НТФС|>
+OCFS: ОЦФС|-, ОЦФС|-ов, ОЦФС|>, _пр=Oracle Cluster File System
+OCFS2: ОЦФС|- 2, н&а=ОЦФС2, ОЦФС2|>, _пр=Oracle Cluster File System 2
 PALO: ПАЛО|-, ПАЛО|-ов, ПАЛО|>
 PReP: ПРеП|-, ПРеП|-ов, ПРеП|>
 reiser: рајзер|, рајзер|ов, рајзер|>

@@ -45,6 +45,8 @@ Firewire: фајервајер|, фајервајер|>
 FLASH, |flashmem: ¤флеш|, флеш|>
     @л: ¤FLASH|-, FLASH|>
 GS, |gsmidi: ГС|-, ГС|-ов, ГС|>
+G-Sense: г-сенс|, г-сенс|ов, г-сенс|>
+    @л: G-Sense|, G-Sense|ov, G-Sense|>
 HDR: ХДР|-, ХДР|>
 HyperTransport: хипертранспорт|, хипертранспорт|>
     @л: HyperTransport|, HyperTransport|>
@@ -62,7 +64,7 @@ iVec: и-век|, и-век|ов, и-век|>
     @л: iVec|, iVec|ov, iVec|>
 JustLink: џастлинк|, џастлинк|>, _син=|BurnFree~н
     @л: JustLink|, JustLink|>
-LBA: ЛБА|-, ЛБА|>
+LBA: ЛБА|-, ЛБА|>, _пр=logical block addressing
 MicroChannel: микрочанел|, микрочанел|ов, микрочанел|>
     @л: MicroChannel|, MicroChannel|ov, MicroChannel|>
 mini-ITX: мини-ИТИкс|, мини-ИТИкс|>
@@ -99,6 +101,7 @@ SCSI: сказ|и, скази|>
     @л: SCS|I-, SCSI|>
 SERCOS: СЕРКОС|-, СЕРКОС|>
     @л: SERCOS|-, SERCOS|>
+SMART: СМАРТ|-, СМАРТ|>, _пр=Self-Monitoring, Analysis and Reporting Technology
 SMBus: СМбус|, СМбус|>
     @л: SMBus|, SMBus|>
 SSE: ССЕ|-, ССЕ|-ов, ССЕ|>, _пр=Streaming SIMD Extensions
@@ -109,6 +112,7 @@ SSE3: ССЕ|- 2, н&а=ССЕ3, ССЕ3|>
 SSE4: ССЕ|- 4, н&а=ССЕ4, ССЕ4|>
     @л: SSE|- 4, н&а=SSE4, SSE4|>
 UART: УАРТ|-, УАРТ|>, _пр=universal asynchronous receiver/transmitter
+UDMA: УДМА|-, УДМА|>
 UHCI: УХЦ|И-, УХЦИ|>
 USB: УСБ|-, УСБ|>
 UUCP: УУЦП|-, УУЦП|>
