@@ -86,6 +86,7 @@ DSA: ДСА|-, ДСА|>
 DSCP: ДСЦП|-, ДСЦП|>
 DST: ЧВО|-, ЧВО|>, _пр=чување времена обданице, _про=daylight saving time
 DTE: ДТЕ|-, ДТЕ|>, _пр=data terminal equipment
+DUN: ДУН|-, ДУН|>, _пр=dial-up network
 DVB: ДВБ|-, ДВБ|>, _пр=digital video broadcasting
 DVB-C: ДВБ|- Ц, н&а=ДВБ-Ц, ДВБ-Ц|>, _пр=digital video broadcasting\, cable
 DVB-CA: ДВБ|- ЦА, н&а=ДВБ-ЦА, ДВБ-ЦА|>, _пр=digital video broadcasting\, conditional access
@@ -201,8 +202,8 @@ L1: Л1|*, Л1|>, _род!=м, _пр=level 1
 L2: Л2|*, Л2|>, _род!=м, _пр=level 2
 L3: Л3|*, Л3|>, _род!=м, _пр=level 3
 l10n: л10н|*, л10н|>, _род!=м
-LAN: ЛАН|-, ЛАН|>
-LCD: ЛЦД|-, ЛЦД|>
+LAN: ЛАН|-, ЛАН|>, _пр=local area network
+LCD: ЛЦД|-, ЛЦД|>, _пр=liquid crystal display
 LF: ЛФ|-, ЛФ|>, _пр=Line Feed
 LM: ЛМ|-, ЛМ|>
 LNB: ЛНБ|-, ЛНБ|>, _пр=low-noise block converter
@@ -263,6 +264,8 @@ OS: ОС|-, ОС|-ов
 OSD: ОСД|-, ОСД|>
 p2p: п2п|-, п2п|>
 PAM: ПАМ|-, ПАМ|>
+PAN, |pannet: ¤ПАН|-, ПАН|>, _пр=personal area network
+PANU: ПАНУ|-, ПАНУ|>, _пр=personal area network user
 PA-RISC: ПА-РИСК|-, ПА-РИСК|>
     @л: PA-RISC|-, PA-RISC|>
 PBC: ПБЦ|-, ПБЦ|>, _пр=playback control
@@ -393,7 +396,7 @@ VPN: ВПН|-, ВПН|>
 VT100: ВТ100|*, ВТ100|>, _род!=м
 VT420: ВТ420|*, ВТ420|>, _род!=м
 VU: ВУ|-, ВУ|>
-WAN: ВАН|-, ВАН|>
+WAN: ВАН|-, ВАН|>, _пр=wide area network
     @л: WAN|-, WAN|>
 WEP: ВЕП|-, ВЕП|>
     @л: WEP|-, WEP|>
