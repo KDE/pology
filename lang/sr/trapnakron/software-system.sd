@@ -585,6 +585,8 @@ KPPPLogview: |{KPPP~н}-приказ|{}-дневника
 KPrinter: К-штамп|ач, К-штампач|ев
 KPyBrowser: К-пи-преглед|ач
     @л: K-Py-pregled|ač
+KQF: ККуФ|-, ККуФ|-ов
+    @л: KQF|-, KQF|-ov
 KRandR: К-рандр|, К-рандр|ов
     @л: K-RandR|-, K-RandR|-ov
 KRandRTray: К-рандр-касет|а, К-рандр-касет|ин
@@ -596,6 +598,7 @@ Krell: Крел|, Крел|ов
 KRDC: КРДЦ|-, КРДЦ|-ов
 KRFB: КРФБ|-, КРФБ|-ов
 KRootImage: К-корен|{а>}-сли|ка
+KrossWordPuzzle: К-укрштениц|а, К-укрштениц|ин
 KRuler: К-лењир|, К-лењир|ов
 KSayIt: К-изговор|, К-изговор|ов
 KScan: К-скен|, К-скен|ов
@@ -608,6 +611,7 @@ KSMServer: КСМ-сервер|, КСМ-сервер|ов
     @л: KSMServer|, KSMServer|ov
 KSnapShot: К-сним|ак, К-снимк|ов
 KSpeak: К-говор|, К-говор|ов
+KSpiral: К-спирал|а, К-спирал|ин
 KSplash: К-сплеш|, К-сплеш|ов
     @л: KSplash|, KSplash|ov
 KStart: К-покрет|, К-покрет|ов
@@ -616,6 +620,7 @@ KSycoca: К-|Sycoca
 KSysGuard: К-систембран|, К-систембран|ов
 KSystemLog: К-системск|{и>}-дневник|
 KSysTrayCmd: К-касетнаредб|а, К-касетнаредб|ин
+KTic-Tac-Toe: К-икс-окс|, К-икс-окс|ов
 KTimer: К-одбројав|ач, К-одбројавач|ев
 KTimeTracker: К-прати|{лац}-времена
 KTip: К-савет|, К-савет|ов
@@ -819,3 +824,14 @@ QApt: Ку-апт|, Ку-апт|ов
     @л: QApt|, QApt|ov
 Synaptic: Синаптик|, Синаптик|ов
     @л: Synaptic|, Synaptic|ov
+
+# ----------------------------------------------------------------------------
+# Емулатори
+
+DOSBox: ДОСбокс|, ДОСбокс|ов
+    @л: DOSBox|-, DOSBox|ov
+Gamefu: Гејмфу|, Гејмфу|ов
+    @л: Gamefu|, Gamefu|ov
+MAME: МАМЕ|-, МАМЕ|-ов, _пр=Multiple Arcade Machine Emulator
+WinUAE: ВинУАЕ|-, ВинУАЕ|-ов
+    @л: WinUAE|-, WinUAE|-ov

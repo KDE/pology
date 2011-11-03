@@ -54,12 +54,16 @@ Gomoku: Гомоку|, Гомоку|ов
 Granatier: Гренадир|!, Гренадир|ов
 GTali: Гтал|и, Гтал|ијев
     @л: GTal|i, GTal|ijev
+HiQ, |hiqapp: ¤Хај-кју|, ¤Хај-кју|ов
+    @л: HiQ|, HiQ|-ov
 Iagno: Ијањ|о, Ијањ|ов, _род!=м
     @л: Iagn|o, Iagn|ov
 KAtomic: К-атомик|а, К-атомик|ин
 Kajongg: Кађонг|, Кађонг|ов
+Kamala: Камал|а, Камал|ин
 Kapman: Капмен|, Капмен|ов
     @л: Kapman|, Kapman|ov
+KBackgammon: К-бекгемон|, К-бекгемон|ов
 KBattleship: К-подморниц|е-
 KBlackBox: К-црн|{а>}-кутиј|а
 KBlocks: К-блоков|и-
@@ -83,10 +87,18 @@ KMines: К-мин|е-
 KNetWalk: К-мрежоход|, К-мрежоход|ов
 Knights, |knightschess: Коњ|и-
 Kolf: Колф|, Колф|ов
+Kolf-NG: Колф|{}-НГ
+Kollagame: Колагејм|, Колагејм|ов
+    @л: Kollagame|, Kollagame|ov
 Kollision: Колизиј|а, Колизиј|ин
 Kolor Lines: Обојен|е-> линиј|е-
+Kombination: Комбинациј|а, Комбинациј|ин
 Konquest: К-осваја|ње
+KOware: Ковер|, Ковер|ов
+    @л: KOware|, KOware|ov
 KPatience: К-пасијанс|, К-пасијанс|ов
+KPeg: К-клин|, К-клин|ов
+KPicross: К-сликрштениц|а, К-сликрштениц|ин
 KReversi: К-|Reversi|*п
 KSame: К-|SameGame|*п
 KSirk: К-сирк|, К-сирк|ов
@@ -115,9 +127,11 @@ Naval Battle: Поморск|а> би|тка
 NetHack: Нетхак|, Нетхак|ов
     @л: NetHack|, NetHack|ov
 Nibbles: Змијиц|е-
+Nonogram, |nonogramapp: ¤Нонограм|, Нонограм|ов
 Pacman: Пакмен|, Пакмен|ов
     @л: Pacman|, Pacman|ov
 Palapeli: Палапел|и, Палапел|ијев
+Parsek: Парсек|, Парсек|ов
 Penguin Command: Пингвинск|а> команд|а
 Pingus: Пингус|, Пингус|ов
 Pong: Понг|, Понг|ов
@@ -168,9 +182,3 @@ XTron: Икс-|Tron|*п
     @л: X-|Tron|*p
 ZAngband: Зангбанд|, Зангбанд|ов
     @л: ZAngband|, ZAngband|ov
-
-# ----------------------------------------------------------------------------
-# Емулатори играчких машина
-
-Gamefu: Гејмфу|, Гејмфу|ов
-    @л: Gamefu|, Gamefu|ov

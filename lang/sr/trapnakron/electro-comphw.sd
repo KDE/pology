@@ -48,7 +48,27 @@ PDP-11: ПДП|- 11
 # ----------------------------------------------------------------------------
 # Играчке конзоле
 
-NES, |nescons: НЕС|-, НЕС|-ови+, НЕС|ов, НЕС|>
+Game Boy: гејмбој|, гејмбој|ев, _од=|Nintendo~н
+    @л: Game Boy|, Game Boy|ev
+Game Boy Advance: |*|{Game Boy} адванс, _од=|Nintendo~н
+    @л: |*|{Game Boy} Advance
+Game Boy Color: |*|{Game Boy} колор, _од=|Nintendo~н
+    @л: |*|{Game Boy} Color
+GBA: ГБА|-, ГБА|-ови+, ГБА|-ов, ГБА|>, _син=|{Game Boy Advance~н}, _од=|Nintendo~н
+GBX: ГБИкс|-, ГБИкс|-ови+, ГБИкс|-ов, ГБИкс|>, _син=|{Game Boy~н}, _од=|Nintendo~н
+Genesis, |genesiscons: џенесис|, џенесис|ов, _од=|Sega~н
+    @л: Genesis|, Genesis|ov
+Megadrive: мегадрајв|, мегадрајв|ов, _од=|Sega~н
+    @л: Megadrive|, Megadrive|ov
+NDS: НДС|-, НДС|-ов, НДС|>, _син=|{Nintendo DS~н}, _од=|Nintendo~н
+NES, |nescons: НЕС|-, НЕС|-ови+, НЕС|-ов, НЕС|>, _син=|{Nintendo Entertainment System~н}, _од=|Nintendo~н
+Nintendo DS: нинтендо ДС|-, нинтендо ДС|-ов, _од=|Nintendo~н
+    @л: Nintendo DS|-, Nintendo DS|-ov
+Nintendo Entertainment System: нинтендо ентертејнмент систем|, _од=|Nintendo~н
+    @л: Nintendo Entertainment System|
+SNES: СНЕС|-, СНЕС|-ови+, СНЕС|-ов, СНЕС|>, _син=|{Super Nintendo Entertainment System~н}, _од=|Nintendo~н
+Super Nintendo Entertainment System: супер нинтендо ентертејнмент систем|, _од=|Nintendo~н
+    @л: Super Nintendo Entertainment System|
 
 # ----------------------------------------------------------------------------
 # Мултимедија
