@@ -43,6 +43,7 @@ DVI: ДВ|И-, ДВИ|>
 DWARF: ДВАРФ|-, ДВАРФ|>, _пр=Debug With Arbitrary Record Format
     @л: DWARF|-, DWARF|>
 ELF: ЕЛФ|-, ЕЛФ|>, _пр=Executable and Linkable Format
+EMF: ЕМФ|-, ЕМФ|>, _пр=Enhanced Metafile
 EPS: ЕПС|-, ЕПС|>, _пр=Encapsulated PostScript
 EPUB: ЕПУБ|-, ЕПУБ|>
 FDPIC ELF: ФДПИЦ ЕЛФ|-, ФДПИЦ ЕЛФ|>
@@ -146,6 +147,8 @@ WAV: ВАВ|-, ВАВ|>
     @л: WAV|-, WAV|>
 WMA: ВМА|-, ВМА|>, _пр=Windows Media Audio
     @л: WMA|-, WMA|>
+WMF: ВМФ|-, ВМФ|>, _пр=Windows Metafile
+    @л: WMF|-, WMF|>
 XCF: ИксЦФ|-, ИксЦФ|>
     @л: XCF|-, XCF|>
 XLIFF: ИксЛИФФ|-, ИксЛИФФ|>
