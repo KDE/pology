@@ -1,5 +1,5 @@
 # Translation choices of Galician team
-# by the KDE Galician Team (proxecto@trasno.net)
+# by the K Galician Team (proxecto@trasno.net)
 # License: GPLv3
 
 include file="filter.include"
@@ -143,3 +143,270 @@ hint="«locate» tradúcese como «atopar», «buscar», «situar» ou «colocar
 id="noPT_daemon"
 valid msgstr="\bdaemon"
 hint="«daemon» tradúcese como «daemon»"
+
+
+
+# «firewall» tradúcese como «devasa»
+{\bfirewall}i
+id="PT-2011_firewall"
+valid msgstr="\bdevasa"
+hint="«firewall» tradúcese como «devasa»"
+
+# «password» tradúcese como «contrasinal»
+{\bpassword}i
+id="PT-2011_password"
+valid msgstr="\bcontrasina"
+hint="«password» tradúcese como «contrasinal»"
+
+# «passphrase» tradúcese como «frase de paso»
+{\bpassphrase}i
+id="PT-2011_passphrase"
+valid msgstr="\bfrases?\sde\spaso"
+hint="«passphrase» tradúcese como «frase de paso»"
+
+# «keyword» tradúcese como «palabra clave» ou «palabra chave»
+{\bkeyword}i
+id="PT-2011_keyword"
+valid msgstr="\bpalabras?\sc(l|h)ave"
+hint="«keyword» tradúcese como «palabra clave» (buscas) ou «palabra chave» (acceso)"
+
+# «update» tradúcese como «actualizar» ou «actualización»
+{\bupdate}i
+id="PT-2011_update"
+valid msgstr="\bactualiza(r|do|ción)"
+hint="«update» tradúcese como «actualizar» ou «actualización»"
+
+# «upgrade» tradúcese como «anovar» ou «anovación»
+{\bupgrade}i
+id="PT-2011_upgrade"
+valid msgstr="\banova(r|do|ción)"
+hint="«upgrade» tradúcese como «anovar» ou «anovación»"
+
+# «downgrade» tradúcese como «reverter» ou «reversión»
+{\bdowngrade}i
+id="PT-2011_downgrade"
+valid msgstr="\brevert(er|ido)"
+valid msgstr="\breversión"
+hint="«dowgrade» tradúcese como «reverter» ou «reversión»"
+
+# «rollback» tradúcese como «regresión» ou «regresar»
+{\brollback}i
+id="PT-2011_rollback"
+valid msgstr="\bregres(ar|ado|ión)"
+hint="«rollback» tradúcese como «regresión» ou «regresar»"
+
+# «encrypt» tradúcese como «cifrar»
+{\bencrypt}i
+id="PT-2011_encrypt"
+valid msgstr="\bcifr"
+hint="«encript» tradúcese como «cifrar»"
+
+# «decrypt» tradúcese como «decifrar»
+{\bdecrypt}i
+id="PT-2011_decrypt"
+valid msgstr="\bdescifr"
+hint="«decript» tradúcese como «descifrar»"
+
+# «commit» tradúcese como «remitir»
+{\bcommit}i
+id="PT-2011_commit"
+valid msgstr="\bremi(tir|tido|sión)"
+hint="«commit» tradúcese como «remitir»"
+
+# # «applet» tradúcese como «applet»
+# {\bapplet}i
+# id="PT-2011_applet"
+# valid msgstr="\bapplet"
+# hint="«applet» tradúcese como «applet»"
+
+# # «widget» tradúcese como «trebello»
+# {\bwidget}i
+# id="PT-2011_widget"
+# valid msgstr="\btrebello"
+# hint="«widget» tradúcese como «trebello»"
+
+# «gradient» tradúcese como «gradiente» ou «gradación»
+{\bgradient}i
+id="PT-2011_gradient"
+valid msgstr="\bgrad(iente|ación)"
+hint="«gradient» tradúcese como «gradiente» ou «gradación»"
+
+# «highlight» tradúcese como «realzar»
+{\bhighlight}i
+id="PT-2011_highlight"
+valid msgstr="\breal(zar|zado|ce)"
+hint="«highlight» tradúcese como «realzar»"
+
+# «file» tradúcese como «ficheiro»
+{\bfile}i
+valid !before="\sa\s(bug\s)report"
+id="PT-2011_file"
+valid msgstr="\bficheiro"
+hint="«highlight» tradúcese como «realzar»"
+
+# «file package» tradúcese como «paquete de ficheiros»
+{\bfile\spackage}i
+id="PT-2011_file-package"
+valid msgstr="\bpaquete\sde\sficheiros"
+hint="«file package» tradúcese como «paquete de ficheiros»"
+
+# «file a» tradúcese como «enviar un»
+{\bfile\sa\s}i
+id="PT-2011_file-a"
+valid msgstr="\benviar\sun"
+hint="«file a bug report» tradúcese como «enviar un informe de erro»"
+
+# «bug report» tradúcese como «informe de erro»
+{\bbug\sreport}i
+id="PT-2011_bug-report"
+valid msgstr="\binformes?\sde\serro"
+hint="«bug report» tradúcese como «informe de erro»"
+
+# «history» tradúcese como «historial»
+{\bhistory}i
+id="PT-2011_history"
+valid msgstr="\bhistorial"
+hint="«history» tradúcese como «historial»"
+
+# «library» tradúcese como «biblioteca»
+{\blibrar(y|ies)}i
+id="PT-2011_library"
+valid msgstr="\bbiblioteca"
+hint="«library» tradúcese como «biblioteca»"
+
+# «bookmark» tradúcese como «marcador» ou «marcar»
+{\bbookmark}i
+id="PT-2011_bookmark"
+valid msgstr="\bmarcador"
+valid msgstr="\bmarca\b"
+hint="«bookmark» tradúcese como «marcador» ou «marcar»"
+
+# «buffer» tradúcese como «búfer»
+{\bbuffer}i
+id="PT-2011_buffer"
+valid msgstr="\bbúfer"
+hint="«buffer» tradúcese como «búfer»"
+
+# «environment» tradúcese como «entorno»
+{\benvironment}i
+id="PT-2011_environment"
+valid msgstr="\bentorno"
+hint="«environment» tradúcese como «entorno»"
+
+# «edit» tradúcese como «editar»
+{\bedit}i
+id="PT-2011_edit"
+valid msgstr="\bedi(t|c)"
+hint="«edit» tradúcese como «editar»"
+
+# «close» tradúcese como «pechar»
+{\bclose}i
+id="PT-2011_close"
+valid msgstr="\bpech"
+hint="«close» tradúcese como «pech»"
+
+# «develop» tradúcese como «desenvolver»
+{\bdevelop}i
+id="noPT-2011_develop"
+valid msgstr="\bdesenvolv"
+hint="«develop» tradúcese como «desenvolver»"
+
+# «provide» tradúcese como «fornecer»
+{\bprovide}i
+id="noPT-2011_provide"
+valid msgstr="\bfornec"
+valid msgstr="\bespecific"
+hint="«provide» tradúcese como «fornecer»"
+
+# «replace» tradúcese como «substituir»
+{\breplace}i
+id="PT-2011_replace"
+valid msgstr="\bsubstitu"
+hint="«replace» tradúcese como «substituír»"
+
+# «disable» tradúcese como «desactivar»
+{\bdisable}i
+id="PT-2011_disable"
+valid msgstr="\bdesact(i|í)v"
+hint="«disable» tradúcese como «desactivar»"
+
+# «enable» tradúcese como «activar» 
+{\benable}i
+id="PT-2011_enable"
+valid msgstr="\bactiv"
+hint="«enable» tradúcese como «activar»"
+
+# «font» tradúcese como «letra»
+{\bfont}i
+id="PT-2011_font"
+valid msgstr="\bletra"
+hint="«font» tradúcese como «letra»"
+
+# «redo» tradúcese como «refacer»
+{\bredo}i
+id="PT-2011_redo"
+valid msgstr="\brefacer"
+hint="«redo» tradúcese como «refacer»"
+
+# «undo» tradúcese como «desfacer»
+{\bundo}i
+id="PT-2011_undo"
+valid msgstr="\bdesfacer"
+hint="«undo» tradúcese como «desfacer»"
+
+# «driver» tradúcese como «controlador»
+{\bdriver}i
+id="PT-2011_driver"
+valid msgstr="\bcontrolador"
+hint="«driver» tradúcese como «controlador»"
+
+# «icon» tradúcese como «icona»
+{\bicon}i
+id="PT-2011_icon"
+valid msgstr="\bicona"
+hint="«icon» tradúcese como «icona»"
+
+# «item» tradúcese como «elemento»
+{\bitem}i
+id="PT-2011_item"
+valid msgstr="\belemento"
+hint="«item» tradúcese como «elemento»"
+
+# «initialize» tradúcese como «inicializar»
+{\binitializ}i
+id="PT-2011_initialize"
+valid msgstr="\biniciali(z|c)"
+hint="«initialize» tradúcese como «inicializar»"
+
+# «retry» tradúcese como «reintentar» ou «tentar de novo»
+{\bretry}i
+id="PT-2011_retry"
+valid msgstr="\breintent"
+valid msgid="\b(tentar|ténteo)\sde\snovo"
+hint="«retry» tradúcese como «reintentar» ou «tentar de novo»"
+
+# «check» tradúcese como «comprobar», «revisar» ou «marcar»
+{\bcheck}i
+id="PT-2011_check"
+valid msgstr="\bcomprob"
+valid msgstr="\brevis"
+valid msgstr="\bmarque"
+valid msgstr="\bmarc(ar|ado|ou)"
+hint="«check» tradúcese como «comprobar», «revisar» ou «marcar»"
+
+# «checksum» tradúcese como «suma de comprobación»
+{\bchecksum}i
+id="PT-2011_checksum"
+valid msgstr="\bsumas?\sde\scomprobación"
+hint="«checksum» tradúcese como «suma de comprobación»"
+
+# «support» tradúcese como «asistencia técnica», «ser compatíbel con», «admitir», «permitir utilizar», «incluír»
+{\bsupport}i
+id="PT-2011_support"
+valid msgstr="\basistencia\stécnica"
+valid msgstr="\b(ser|é)\scompatíbel\scon"
+valid msgstr="\bson\scompatibeis\scon"
+valid msgstr="\badmit"
+valid msgstr="\bpermit(e|en|ir)\sutilizar"
+valid msgstr="\bincl(u|ú)"
+hint="«support» tradúcese como «asistencia técnica», «ser compatíbel con», «admitir», «permitir utilizar», «incluír»"

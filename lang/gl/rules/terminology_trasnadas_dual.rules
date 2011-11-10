@@ -147,3 +147,286 @@ valid !span="ación\b|acións\b"
 valid msgid="\blocate|\bplace"
 id="PT-2010-dual_situar"
 hint="«situar» traduce a «to locate» ou «to place»"
+
+
+
+
+# «devasa» traduce a «firewall»
+[\bdevasa]i
+valid msgid="\bfirewall"
+id="PT-2011-dual_firewall"
+hint="«devasa» traduce a «firewall»"
+
+# «frase de paso» traduce a «passphrase»
+[\bfrases?\sde\spaso]i
+id="PT-2011-dual_passphrase"
+valid msgid="\bpassphrase"
+hint="«frase de paso» traduce a «passphrase»"
+
+# «actualizar» ou «actualización» traducen a «update»
+[\bactualiza(r|do|ción)]i
+id="PT-2011-dual_update"
+valid msgid="\bupdate"
+hint="«actualizar» ou «actualización» traducen a «update»"
+
+# «anovar» ou «anovación» traducen a «upgrade»
+[\banova(r|do|ción)]i
+id="PT-2011-dual_upgrade"
+valid msgid="\bupgrade"
+hint="«anovar» ou «anovación» traducen a «upgrade»"
+
+# «reverter» ou «reversión» traducen a «downgrade»
+[\brever(ter|tido|sión)]i
+id="PT-2011-dual_downgrade"
+valid msgid="\bdowngrade"
+hint="«reverter» ou «reversión» traducen a «downgrade»"
+
+# «regresión» ou «regresar» traducen a «rollback»
+[\bregres(ar|ado|ión)]i
+id="PT-2011-dual_rollback"
+valid msgid="\brollback"
+hint="«regresión» ou «regresar» traducen a «rollback»"
+
+# «cifrar» traduce a «encrypt»
+[\bcifr]i
+id="PT-2011-dual_encrypt"
+valid msgid="\bencrypt"
+hint="«cifrar» traduce a «encrypt»"
+
+# «descifrar» traduce a «decrypt»
+[\bdescifr]i
+id="PT-2011-dual_decrypt"
+valid msgid="\bdecrypt"
+hint="«descifrar» traduce a «decrypt»"
+
+# «remitir» traduce a «commit»
+[\bremi(tir|tido|sión)]i
+id="PT-2011-dual_commit"
+valid msgid="\bcommit"
+hint="«remitir» traduce a «commit»"
+
+# # «applet» traduce a «applet»
+# [\bapplet]i
+# id="PT-2011-dual_applet"
+# valid msgid="\bapplet"
+# hint="«applet» traduce a «applet»"
+
+# # «trebello» traduce a «widget»
+# [\btrebello]i
+# id="PT-2011-dual_widget"
+# valid msgid="\bwidget"
+# hint="«trebello» traduce a «widget»"
+
+# «gradiente» e «gradación» traduce a «gradient»
+[\bgrad(iente|ación)]i
+id="PT-2011-dual_gradient"
+valid msgid="\bgradient"
+hint="«gradiente» e «gradación» traduce a «gradient»"
+
+# «realzar» traduce a «highlight»
+[\breal(zar|zado|ce)]i
+id="PT-2011-dual_highlight"
+valid msgstr="\bhighlight"
+hint="«realzar» traduce a «highlight»"
+
+# «ficheiro» traduce a «file»
+[\bficheiro]i
+valid msgid="\bfile"
+valid !before="\sa\s"
+id="PT-2011-dual_file"
+hint="«ficheiro» traduce a «file»"
+
+# «paquete de ficheiros» traduce a «file package»
+[\bpaquetes?\sde\sficheiros]i
+id="PT-2011-dual_file-package"
+valid msgid="\bfile\spackage"
+hint="«paquete de ficheiros» traduce a «file package»"
+
+# «enviar un informe de erro» traduce «file a bug report»
+[\benviar\sun\s]i
+id="PT-2011-dual_file-a"
+valid msgid="\bfile\sa\s"
+hint="«enviar un informe de erro» traduce «file a bug report»"
+
+# «informe de erro» traduce a «bug report»
+[\binformes?\sde\serro]i
+id="PT-2011-dual_bug-report"
+valid msgid="\bbug\sreport"
+hint="«informe de erro» traduce a «bug report»"
+
+# «historial» traduce a «history»
+[\bhistorial]i
+id="PT-2011-dual_history"
+valid msgid="\bhistory"
+hint="«historial» traduce a «history»"
+
+# «biblioteca» traduce a «library»
+[\bbiblioteca]i
+id="PT-2011-dual_library"
+valid msgid="\blibrar(y|ies)"
+hint="«biblioteca» traduce a «library»"
+
+# «marcador» traduce a «bookmark»
+[\bmarcador]i
+id="PT-2011-dual_bookmark"
+valid msgid="\bbookmark"
+hint="«marcador» traduce a «bookmark»"
+
+# «búfer» tradúcese como «buffer»
+[\bbúfer]i
+id="PT-2011-dual_buffer"
+valid msgid="\bbuffer"
+hint="«búfer» tradúcese como «buffer»"
+
+# «entorno» traduce a «environment»
+[\bentorno]i
+id="PT-2011-dual_environment"
+valid msgid="\benvironment"
+hint="«entorno» traduce a «environment»"
+
+# «editar» traduce a «edit»
+[\bedi(t|c)]i
+id="PT-2011-dual_edit"
+valid msgid="\bedit"
+hint="«editar» traduce a «edit»"
+
+# «pechar» traduce a «close»
+[\bpech]i
+id="PT-2011-dual_close"
+valid msgid="\bclose"
+hint="«pechar» traduce a «close»"
+
+# «desenvolver» traduce a «develop»
+[\bdesenvolv]i
+id="PT-2011-dual_develop"
+valid msgid="\bdevelop"
+hint="«desenvolver» traduce a «develop»"
+
+# «fornecer» traduce a «provide»
+[\bfornec]i
+id="noPT-2011-dual_provide"
+valid msgid="\bprovide"
+hint="«fornecer» traduce a «provide»"
+
+# «substituir» traduce a «replace»
+[\bsubstitu]i
+id="PT-2011-dual_replace"
+valid msgid="\breplace"
+hint="«substituir» traduce a «replace»"
+
+# «desactivar» traduce a «disable»
+[\bdesact(i|í)v]i
+id="PT-2011_disable"
+valid msgid="\bdisable"
+hint="«desactivar» traduce a «disable»"
+
+# «activar» traduce a «disable»
+[\bactiv]i
+id="PT-2011-dual_disable"
+valid msgid="\benable"
+hint="«activar» traduce a «enable»"
+
+# «letra» traduce a «font»
+[\bletra]i
+id="PT-2011-dual_font"
+valid msgid="\bfont"
+hint="«letra» traduce a «font»"
+
+# «refacer» traduce a  «redo»
+[\brefacer]i
+id="PT-2011-dual_redo"
+valid msgid="\bredo"
+hint="«refacer» traduce a  «redo»"
+
+# «desfacer» traduce a «undo»
+[\bdesfacer]i
+id="PT-2011-dual_undo"
+{\bundo}i
+hint="«desfacer» traduce a «undo»"
+
+# «controlador» traduce a «driver»
+[\bcontrolador]i
+id="PT-2011-dual_driver"
+valid msgid="\bdriver"
+hint="«controlador» traduce a «driver»"
+
+# «icona» traduce a «icon»
+[\bicona]i
+id="PT-2011-dual_icon"
+valid msgid="\bicon"
+hint="«icona» traduce a «icon»"
+
+# «elemento» traduce a «item»
+[\belemento]i
+id="PT-2011-dual_item"
+valid msgid="\bitem"
+hint="«elemento» traduce a «item»"
+
+# «inicializar» traduce a «initialize»
+[\biniciali]i
+id="PT-2011-dual_initialize"
+valid msgid="\binitializ"
+hint="«inicializar» traduce a «initialize»"
+
+# «reintentar» traduce a «retry»
+[\breintent]i
+id="PT-2011-dual_retry"
+valid msgid="\bretry"
+hint="«reintentar» traduce a «retry»"
+
+# «comprobar» traduce a «check»
+[\bcomprob]i
+id="PT-2011-dual_check"
+valid msgid="\bcheck"
+hint="«comprobar» traduce a «check»"
+# «revisar» traduce a «check»
+[\brevis]i
+id="PT-2011-dual_check2"
+valid msgid="\bcheck"
+hint="«revisar» traduce a «check»"
+# «marcar» traduce a «check»
+[\bmar(c|que)]i
+id="PT-2011-dual_check3"
+valid msgid="\bcheck"
+hint="«marcar» traduce a «check»"
+
+# «suma de comprobación» traduce a «checksum»
+[\bsumas?\sde\scomprobación]i
+id="PT-2011-dual_checksum"
+{\bchecksum}i
+hint="«suma de comprobación» traduce a «checksum»"
+
+# «asistencia técnica» traduce a «support»
+[\basistencia\stécnica]i
+id="PT-2011-dual_support1"
+valid msgid="\bsupport"
+hint="«asistencia técnica» traduce a «support»"
+
+# «ser compatíbel con» traduce a «support»
+[\b(ser|é|son)\scompat(íbel|ibeis)\scon]i
+id="PT-2011-dual_support2"
+valid msgid="\bsupport"
+hint="«ser compatíbel con» traduce a «support»"
+
+# «admitir» traduce a «support»
+[\badmit]i
+id="PT-2011-dual_support3"
+valid msgid="\bsupport"
+hint="«admitir» traduce a «support»"
+
+# «permitir utilizar» traduce a «support»
+[\bpermit(e|en|ir)\sutilizar]i
+id="PT-2011-dual_support4"
+valid msgid="\bsupport"
+hint="«permitir utilizar» traduce a «support»"
+
+# «incluír» traduce a «support»
+[\bincl(u|ú)"id="PT-2011-dual_support]i
+id="PT-2011-dual_support5"
+valid msgid="\bsupport"
+hint="«incluír» traduce a «support»"
+
+
+
+
+

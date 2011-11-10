@@ -32,12 +32,6 @@ include file="filter.include"
 
 #regras delicadas, afectan ao modelo de língua.
 
-# Prefírese a terminación en bel
-[\b[A-Za-z]+bles?(\s|\b)]i
-valid span="(fe|ca|dou)bles?"
-id="clGL-modling_bel"
-hint="terminación en -bel"
-
 # Prefírese contracción prep(a)+art(o) -> ao , non "ó"
 [\bós?\s]i
 id="clGL-modling_ao"
@@ -71,12 +65,6 @@ hint="evitar o uso da segunda forma do artígo"
 
 # fin de regras delicadas
 
-#evitar usar «lanzar» en favor de «iniciar» (un executábel)
-[\blanz]i
-valid !msgid="\blaunch"
-id="clGL-all_lanzar"
-hint="lanzar -> iniciar"
-
 #descarta o uso de «xerir» en favor de «xestionar»
 [\bxeri(?!(nga|có))]i
 id="clGL-all_xerir"
@@ -86,11 +74,6 @@ hint="xerir -> xestionar"
 [\blicenci(?=(oso|osa|osamente|atura|amento|ado|ada|ados|ada)s)]i
 id="clGL-all_licenza"
 hint="algúns derivados de licenza trocan o «z» por «cia»"
-
-#descarta o uso de «dende» en favor de «desde»
-[\bdende\b]i
-id="clGL-all_dende"
-hint="dende -> desde"
 
 #descarta o uso de «amosar» en favor de «mostrar»
 [\bamos(a|o|e)]i

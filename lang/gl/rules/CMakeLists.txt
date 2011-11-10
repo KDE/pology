@@ -1,11 +1,11 @@
 set(files
+    filter.include    
+    controlledLang_trasnadas.rules
+    terminology_trasnadas.rules
+    terminology_trasnadas_dual.rules
     controlledLang_gl.rules
-    filter.include
     frequentExpressions.rules
     kde_choices.rules
-    terminology.rules.blocked
-    terminology_trasnadas_dual.rules
-    terminology_trasnadas.rules
     xfceGnome_choices.rules
 )
 get_current_source_subdir(srcsubdir)
