@@ -322,6 +322,7 @@ hint="«desactivar» traduce a «disable»"
 
 # «activar» traduce a «disable»
 [\bactiv]i
+valid !after="idade"
 id="PT-2011-dual_disable"
 valid msgid="\benable"
 hint="«activar» traduce a «enable»"
@@ -386,6 +387,7 @@ valid msgid="\bcheck"
 hint="«revisar» traduce a «check»"
 # «marcar» traduce a «check»
 [\bmar(c|que)]i
+valid !after="e\s"
 id="PT-2011-dual_check3"
 valid msgid="\bcheck"
 hint="«marcar» traduce a «check»"
