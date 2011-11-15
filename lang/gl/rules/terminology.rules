@@ -34,6 +34,12 @@ include file="filter.include"
 # id="PT-2011_applet"
 # valid msgstr="\bapplet"
 # hint="«applet» tradúcese como «applet»"
+#
+# # «applet» traduce a «applet»
+# [\bapplet]i
+# id="PT-2011-dual_applet"
+# valid msgid="\bapplet"
+# hint="«applet» traduce a «applet»"
 
 # «Attach» tradúcese como «anexar»
 {\battach(ment?!)}i
@@ -42,12 +48,24 @@ valid msgstr="anexar"
 valid !msgstr="adxuntar"
 hint="«attach» tradúcese como «anexar»"
 
+# «anexar» traduce a «Attach»
+[\banex[a-z]{2,}]i
+id="PT-2010-dual_attach"
+valid msgid="\battach(\s|ed|s|ing)"
+hint="«anexar» traduce a «attach»"
+
 # «Attachment» tradúcese como «anexo»
 {\battachment}i
 id="PT-2010_attachment"
 valid msgstr="anexo"
 valid !msgstr="adxunto"
 hint="«attachment» tradúcese como «anexo»"
+
+# «anexo» traduce a «Attachment»
+[\banexo]i
+id="PT-2010-dual_attachment"
+valid msgid="\battach"
+hint="«anexo» traduce a «attachment»"
 
 # «bookmark» tradúcese como «marcador» ou «marcar»
 {\bbookmark}i
@@ -57,17 +75,35 @@ valid msgstr="\bmarca\b"
 valid msgstr="\bmarcar"
 hint="«bookmark» tradúcese como «marcador» ou «marcar»"
 
+# «marcador» traduce a «bookmark»
+[\bmarcador]i
+id="PT-2011-dual_bookmark"
+valid msgid="\bbookmark"
+hint="«marcador» traduce a «bookmark»"
+
 # «buffer» tradúcese como «búfer»
 {\bbuffer}i
 id="PT-2011_buffer"
 valid msgstr="\bbúfer"
 hint="«buffer» tradúcese como «búfer»"
 
+# «búfer» tradúcese como «buffer»
+[\bbúfer]i
+id="PT-2011-dual_buffer"
+valid msgid="\bbuffer"
+hint="«búfer» tradúcese como «buffer»"
+
 # «bug report» tradúcese como «informe de erro»
 {\bbug\sreport}i
 id="PT-2011_bug-report"
 valid msgstr="\binformes?\sde\serro"
 hint="«bug report» tradúcese como «informe de erro»"
+
+# «informe de erro» traduce a «bug report»
+[\binformes?\sde\serro]i
+id="PT-2011-dual_bug-report"
+valid msgid="\bbug\sreport"
+hint="«informe de erro» traduce a «bug report»"
 
 # «check» tradúcese como «comprobar», «revisar» ou «marcar»
 {\bcheck(s|ed|ing|)?}i
@@ -81,17 +117,49 @@ valid msgstr="\bmar(quear|ado|ou)"
 valid msgstr="\bescoll"
 hint="«check» tradúcese como «comprobar», «revisar» ou «marcar» (e «escoller»)"
 
+# «comprobar» traduce a «check»
+[\bcomprob]i
+id="PT-2011-dual_check"
+valid msgid="\bcheck"
+hint="«comprobar» traduce a «check»"
+
+# «revisar» traduce a «check»
+[\brevis]i
+id="PT-2011-dual_check2"
+valid msgid="\bcheck"
+hint="«revisar» traduce a «check»"
+
+# «marcar» traduce a «check»
+[\bmar(c|que)]i
+valid !after="e\s"
+valid !after="ador"
+id="PT-2011-dual_check3"
+valid msgid="\bcheck"
+hint="«marcar» traduce a «check»"
+
 # «checksum» tradúcese como «suma de comprobación»
 {\bchecksum}i
 id="PT-2011_checksum"
 valid msgstr="\bsumas?\sde\scomprobación"
 hint="«checksum» tradúcese como «suma de comprobación»"
 
+# «suma de comprobación» traduce a «checksum»
+[\bsumas?\sde\scomprobación]i
+id="PT-2011-dual_checksum"
+{\bchecksum}i
+hint="«suma de comprobación» traduce a «checksum»"
+
 # «close» tradúcese como «pechar»
 {\bclose}i
 id="PT-2011_close"
 valid msgstr="\bpech"
 hint="«close» tradúcese como «pech»"
+
+# «pechar» traduce a «close»
+[\bpech]i
+id="PT-2011-dual_close"
+valid msgid="\bclos(e|ed|ing)"
+hint="«pechar» traduce a «close»"
 
 # «Command» tradúcese como «orde»
 {\bcommand}i
@@ -100,11 +168,24 @@ valid msgstr="orde"
 valid !msgstr="comando"
 hint="«command» tradúcese como «orde»"
 
+# «orde» traduce a «Command»
+[\borde(\"\"|s)]i
+id="PT-2010-dual_command"
+valid !before="\sinterpretes?\sde\s"
+valid msgid="\bcommand"
+hint="«orde» traduce a «command»"
+
 # «commit» tradúcese como «remitir»
 {\bcommit}i
 id="PT-2011_commit"
 valid msgstr="\bremi(tir|tido|sión)"
 hint="«commit» tradúcese como «remitir»"
+
+# «remitir» traduce a «commit»
+[\bremi(tir|tido|sión)]i
+id="PT-2011-dual_commit"
+valid msgid="\bcommit"
+hint="«remitir» traduce a «commit»"
 
 # «daemon» tradúcese como «daemon»
 {\bdaemon}i
@@ -118,11 +199,23 @@ id="PT-2011_decrypt"
 valid msgstr="\bdescifr"
 hint="«decript» tradúcese como «descifrar»"
 
+# «descifrar» traduce a «decrypt»
+[\bdescifr]i
+id="PT-2011-dual_decrypt"
+valid msgid="\bdecrypt"
+hint="«descifrar» traduce a «decrypt»"
+
 # «develop» tradúcese como «desenvolver»
 {\bdevelop}i
 id="noPT-2011_develop"
 valid msgstr="\bdesenvolv"
 hint="«develop» tradúcese como «desenvolver»"
+
+# «desenvolver» traduce a «develop»
+[\bdesenvolv]i
+id="PT-2011-dual_develop"
+valid msgid="\bdevelop"
+hint="«desenvolver» traduce a «develop»"
 
 # «disable» tradúcese como «desactivar»
 {\bdisable}i
@@ -131,6 +224,13 @@ valid msgstr="\bdesact(i|í)v"
 valid msgstr="\bnot\senabled"
 hint="«disable» tradúcese como «desactivar»"
 
+# «desactivar» traduce a «disable»
+[\bdesact(i|í)v]i
+id="noPT-2011-dual_disable"
+valid msgid="\bdisable"
+valid msgid="\bnot\senabled"
+hint="«desactivar» traduce a «disable»"
+
 # «downgrade» tradúcese como «reverter» ou «reversión»
 {\bdowngrade}i
 id="PT-2011_downgrade"
@@ -138,11 +238,24 @@ valid msgstr="\brevert(er|ido)"
 valid msgstr="\breversión"
 hint="«dowgrade» tradúcese como «reverter» ou «reversión»"
 
+# «reverter» ou «reversión» traducen a «downgrade»
+[\brever(ter|tido|sión)]i
+id="PT-2011-dual_downgrade"
+valid msgid="\bdowngrade"
+valid msgid="\brevert(ed|ing)?"
+hint="«reverter» ou «reversión» traducen a «downgrade»"
+
 # «driver» tradúcese como «controlador»
 {\bdriver}i
 id="PT-2011_driver"
 valid msgstr="\bcontrolador"
 hint="«driver» tradúcese como «controlador»"
+
+# «controlador» traduce a «driver»
+[\bcontrolador]i
+id="PT-2011-dual_driver"
+valid msgid="\bdriver"
+hint="«controlador» traduce a «driver»"
 
 # «encrypt» tradúcese como «cifrar»
 {\bencrypt}i
@@ -150,12 +263,25 @@ id="PT-2011_encrypt"
 valid msgstr="\bcifr"
 hint="«encript» tradúcese como «cifrar»"
 
+# «cifrar» traduce a «encrypt»
+[\bcifr]i
+id="noPT-2011-dual_encrypt"
+valid msgid="\b(un)?encrypt"
+valid msgid="\bcryptograph"
+hint="«cifrar» traduce a «encrypt»"
+
 # «edit» tradúcese como «editar»
 {\bedit}i
 valid before="\sbox"
 id="noPT-2011_edit"
 valid msgstr="\bedi(t|c)"
 hint="«edit» tradúcese como «editar»"
+
+# «editar» traduce a «edit»
+[\bedi(t|c)]i
+id="PT-2011-dual_edit"
+valid msgid="\bedit"
+hint="«editar» traduce a «edit»"
 
 # «enable» tradúcese como «activar» 
 {\benable}i
@@ -165,12 +291,25 @@ id="noPT-2011_enable"
 valid msgstr="\bactiv"
 hint="«enable» tradúcese como «activar»"
 
+# «activar» traduce a «enable»
+[\bactiv]i
+valid !after="idade"
+id="PT-2011-dual_enable"
+valid msgid="\benable"
+hint="«activar» traduce a «enable»"
+
 # «environment» tradúcese como «entorno»
 {\benvironment}i
 id="noPT-2011_environment"
 valid msgstr="\bentorno"
 valid msgstr="\bmedio\sambiente"
 hint="«environment» tradúcese como «entorno»"
+
+# «entorno» traduce a «environment»
+[\bentorno]i
+id="PT-2011-dual_environment"
+valid msgid="\benvironment"
+hint="«entorno» traduce a «environment»"
 
 # «file» tradúcese como «ficheiro»
 {\bfile(\b|s\b)}i
@@ -179,17 +318,37 @@ id="PT-2011_file"
 valid msgstr="\bficheiro"
 hint="«file» tradúcese como «ficheiro»"
 
+# «ficheiro» traduce a «file»
+[\bficheiro]i
+valid msgid="\bfile"
+valid !before="\sa\s"
+id="PT-2011-dual_file"
+hint="«ficheiro» traduce a «file»"
+
 # «file a» tradúcese como «enviar un»
 {\bfile\sa\s}i
 id="PT-2011_file-a"
 valid msgstr="\benv(iar|íe)\sun"
 hint="«file a bug report» tradúcese como «enviar un informe de erro»"
 
+# «enviar un informe de erro» traduce «file a bug report»
+[\benviar\sun\s]i
+id="PT-2011-dual_file-a"
+valid msgid="\bfile\sa\s"
+valid msgid="\bsubmit(ting)? a "
+hint="«enviar un informe de erro» traduce «file (ou submit) a bug report»"
+
 # «file package» tradúcese como «paquete de ficheiros»
 {\bfile\spackage}i
 id="PT-2011_file-package"
 valid msgstr="\bpaquete\sde\sficheiros"
 hint="«file package» tradúcese como «paquete de ficheiros»"
+
+# «paquete de ficheiros» traduce a «file package»
+[\bpaquetes?\sde\sficheiros]i
+id="PT-2011-dual_file-package"
+valid msgid="\bfile\spackage"
+hint="«paquete de ficheiros» traduce a «file package»"
 
 # «find» tradúcese como «atopar»
 {\bfind}i
@@ -208,11 +367,25 @@ valid msgstr="\bfundación"
 valid msgstr="\baparición"
 hint="«find» tradúcese como «atopar», ou «buscar»; «foundation» como fundación; e «found» tamén pode ser unha aparición"
 
+# «atopar» traduce a «find» e «locate»
+[\batop]i
+valid msgid="\bfind|\blocate"
+valid msgid="\bfound"
+valid msgid="\bencounter"
+id="noPT-2010-dual_find"
+hint="«atopar» traduce a «find» e «locate»"
+
 # «firewall» tradúcese como «devasa»
 {\bfirewall}i
 id="PT-2011_firewall"
 valid msgstr="\bdevasa"
 hint="«firewall» tradúcese como «devasa»"
+
+# «devasa» traduce a «firewall»
+[\bdevasa]i
+valid msgid="\bfirewall"
+id="PT-2011-dual_firewall"
+hint="«devasa» traduce a «firewall»"
 
 # «font» tradúcese como «letra»
 {\bfont}i
@@ -221,17 +394,36 @@ valid msgstr="\bletra"
 valid msgstr="\bfonte\stipográfica"
 hint="«font» tradúcese como «letra» (e «fonte tipográfica»"
 
+# «letra» traduce a «font»
+[\bletra]i
+id="noPT-2011-dual_font"
+valid msgid="\bfont"
+valid msgid="\bletter"
+hint="«letra» traduce a «font» e a «letter»"
+
 # «gradient» tradúcese como «gradiente» ou «gradación»
 {\bgradient}i
 id="PT-2011_gradient"
 valid msgstr="\bgrad(iente|ación)"
 hint="«gradient» tradúcese como «gradiente» ou «gradación»"
 
+# «gradiente» e «gradación» traduce a «gradient»
+[\bgrad(iente|ación)]i
+id="PT-2011-dual_gradient"
+valid msgid="\bgradient"
+hint="«gradiente» e «gradación» traduce a «gradient»"
+
 # «grid» tradúcese como «grella»
 {\bgrid}i
 id="noPT-2010_grid"
 valid msgstr="\bgrella"
 hint="«grid» tradúcese como «grella»"
+
+# «grella» traduce a «grid»
+[\grella]i
+id="noPT-2010-dual_grid"
+valid msgid="\bgrid?"
+hint="«grella» traduce a «grid»"
 
 # «hide» tradúcese como «acochar»
 {\bhide(\b|s|ed)}i
@@ -240,11 +432,24 @@ valid msgstr="\bacoch"
 valid !msgstr="(ocult|agoch)?"
 hint="«hide» tradúcese como «acochar»"
 
+# «acochar» traduce a «hide»
+[\bacoch]i
+valid msgid="\bhide(\b|s|ed)"
+valid msgid="\bhidden\b"
+id="noPT-2010-dual_hide"
+hint="«acochar» traduce a «hide»"
+
 # «highlight» tradúcese como «realzar»
 {\bhighlight}i
 id="PT-2011_highlight"
 valid msgstr="\breal(zar|zado|ce)"
 hint="«highlight» tradúcese como «realzar»"
+
+# «realzar» traduce a «highlight»
+[\breal(zar|zado|ce)]i
+id="PT-2011-dual_highlight"
+valid msgid="\bhighlight"
+hint="«realzar» traduce a «highlight»"
 
 # «history» tradúcese como «historial»
 {\bhistory}i
@@ -252,11 +457,23 @@ id="PT-2011_history"
 valid msgstr="\bhistorial"
 hint="«history» tradúcese como «historial»"
 
+# «historial» traduce a «history»
+[\bhistorial]i
+id="PT-2011-dual_history"
+valid msgid="\bhistory"
+hint="«historial» traduce a «history»"
+
 # «icon» tradúcese como «icona»
 {\bicon}i
 id="PT-2011_icon"
 valid msgstr="\bicona"
 hint="«icon» tradúcese como «icona»"
+
+# «icona» traduce a «icon»
+[\bicona]i
+id="PT-2011-dual_icon"
+valid msgid="\bicon"
+hint="«icona» traduce a «icon»"
 
 # «ilegal» tradúcese como «inaceptábel»
 {\bilegal}i
@@ -264,11 +481,23 @@ id="PT-2010_ilegal"
 valid msgstr="inaceptábel"
 hint="«ilegal» tradúcese como «inaceptábel»"
 
+# «inaceptábel» traduce a «ilegal»
+[\binaceptábe(l|is)\b]i
+id="PT-2010-dual_inaceptábel"
+valid msgid="\bilegal"
+hint="«inaceptábel» traduce a «ilegal»"
+
 # «initialize» tradúcese como «inicializar»
 {\binitializ}i
 id="PT-2011_initialize"
 valid msgstr="\biniciali(z|c)"
 hint="«initialize» tradúcese como «inicializar»"
+
+# «inicializar» traduce a «initialize»
+[\biniciali]i
+id="PT-2011-dual_initialize"
+valid msgid="\binitializ"
+hint="«inicializar» traduce a «initialize»"
 
 # «insert» tradúcese como «inserir» ou «introducir»
 {\binsert(ed|s)}i
@@ -276,6 +505,12 @@ id="noPT-2010_insert"
 valid msgstr="ins(e|i)r"
 valid msgstr="introduc"
 hint="«insert» tradúcese como «inserir» ou «introducir»"
+
+# «inserir» ou «introducir» traducen a «insert»
+[\bins(e|i)r|\bintroduc(?!ión)]i
+id="noPT-2010-dual_insert"
+valid msgid="\binsert|\benter"
+hint="«inserir» ou «introducir» traducen a «insert» ou «enter»"
 
 # «invalid» tradúcese como «incorrecto»/«non é válido»
 {\binvalid(?!ate)}i
@@ -294,11 +529,25 @@ valid msgstr="\bnon\sser\s(válid|correct)(o|a)"
 valid msgstr="\bser\sincorrect(o|a)"
 hint="«to be invalid» -> «non ser correto/válido» ou «ser incorrecto»"
 
+# «invalid» tradúcese como «incorrecto»/«non é válido»
+[\bincorrecto|(non\s(é\s|"")válid(o|a))|(non\sson\sválid(o|a)s)]i
+valid !before="argumento"
+id="noPT-2010-dual_invalid"
+valid msgid="\binvalid"
+hint="«incorrecto»/«non é válido» traducen a «invalid»"
+
 # «item» tradúcese como «elemento»
 {\bitem}i
 id="PT-2011_item"
 valid msgstr="\belemento"
 hint="«item» tradúcese como «elemento»"
+
+# «elemento» traduce a «item»
+[\belemento]i
+id="PT-2011-dual_item"
+valid msgid="\bitem"
+valid msgid="\belement"
+hint="«elemento» traduce a «item»"
 
 # «keyword» tradúcese como «palabra clave» ou «palabra chave»
 {\bkeyword}i
@@ -312,6 +561,12 @@ id="PT-2011_library"
 valid msgstr="\bbiblioteca"
 hint="«library» tradúcese como «biblioteca»"
 
+# «biblioteca» traduce a «library»
+[\bbiblioteca]i
+id="PT-2011-dual_library"
+valid msgid="\blibrar(y|ies)"
+hint="«biblioteca» traduce a «library»"
+
 # «locate» tradúcese como «atopar», «buscar» ou «situar»
 {\blocate}i
 id="noPT-2010_locate"
@@ -321,11 +576,24 @@ valid msgstr="\bsitu"
 valid msgstr="\bcoloc"
 hint="«locate» tradúcese como «atopar», «buscar», «situar» ou «colocar»"
 
+# «situar» traducen a «locate» ou «place»
+[\bsitu]i
+valid !span="ación\b|acións\b"
+valid msgid="\blocate|\bplace"
+id="PT-2010-dual_locate"
+hint="«situar» traduce a «to locate» ou «to place»"
+
 # «passphrase» tradúcese como «frase de paso»
 {\bpassphrase}i
 id="PT-2011_passphrase"
 valid msgstr="\bfrases?\sde\spaso"
 hint="«passphrase» tradúcese como «frase de paso»"
+
+# «frase de paso» traduce a «passphrase»
+[\bfrases?\sde\spaso]i
+id="PT-2011-dual_passphrase"
+valid msgid="\bpassphrase"
+hint="«frase de paso» traduce a «passphrase»"
 
 # «password» tradúcese como «contrasinal»
 {\bpassword}i
@@ -347,6 +615,23 @@ valid msgstr="complemento"
 valid msgstr="engadido"
 hint="«Plugin» tradúcese como «Complemento» ou «engadido»"
 
+#«engadido» traduce a «Plugin» e a «added»
+[engadido]i
+id="PT-2010-dual_plugin"
+valid msgid="\bplugin"
+valid msgid="\bplug.?in"
+valid msgid="added\b"
+valid msgid="\badd.?on"
+hint="«engadido» traduce a «Plugin», «added» e «addon»"
+
+# «Complemento» traduce a «Plugin»
+[complemento]i
+id="PT-2010-dual_plugin2"
+valid msgid="\bplugin"
+valid msgid="\bplug.?in"
+valid msgid="\badd.?on"
+hint="«Complemento» traduce a «Plugin» e a «add-on»"
+
 # «provide» tradúcese como «fornecer»
 {\bprovide}i
 valid before="\ssupport"
@@ -356,17 +641,36 @@ valid msgstr="\bespecific"
 valid msgstr="\bdá\s"
 hint="«provide» tradúcese como «fornecer» (ou «especificar» ou «dar»)"
 
+# «fornecer» traduce a «provide»
+[\bfornec]i
+id="noPT-2011-dual_provide"
+valid msgid="\bprovid(e|i)"
+hint="«fornecer» traduce a «provide»"
+
 # «redo» tradúcese como «refacer»
 {\bredo}i
 id="PT-2011_redo"
 valid msgstr="\brefacer"
 hint="«redo» tradúcese como «refacer»"
 
+# «refacer» traduce a  «redo»
+[\brefacer]i
+id="PT-2011-dual_redo"
+valid msgid="\bredo"
+hint="«refacer» traduce a  «redo»"
+
 # «replace» tradúcese como «substituir»
 {\breplace}i
 id="PT-2011_replace"
 valid msgstr="\bsubstitu"
 hint="«replace» tradúcese como «substituír»"
+
+# «substituir» traduce a «replace»
+[\bsubstitu]i
+valid after="car(a|á)cter(es)?\sde\s"
+id="PT-2011-dual_replace"
+valid msgid="\breplace"
+hint="«substituir» traduce a «replace»"
 
 # «retry» tradúcese como «reintentar» ou «tentar de novo»
 {\bretry}i
@@ -375,11 +679,24 @@ valid msgstr="\breintent"
 valid msgstr="\bt(entar|énteo|ente)\sde\snovo"
 hint="«retry» tradúcese como «reintentar» ou «tentar de novo»"
 
+# «reintentar» traduce a «retry»
+[\breintent]i
+id="PT-2011-dual_retry"
+valid msgid="\bretry"
+hint="«reintentar» traduce a «retry»"
+
 # «rollback» tradúcese como «regresión» ou «regresar»
 {\brollback}i
 id="PT-2011_rollback"
 valid msgstr="\bregres(ar|ado|ión)"
 hint="«rollback» tradúcese como «regresión» ou «regresar»"
+
+# «regresión» ou «regresar» traducen a «rollback»
+[\bregres(ar|ado|ión)]i
+id="noPT-2011-dual_rollback"
+valid msgid="\brollback"
+valid msgid="\bregress"
+hint="«regresión» ou «regresar» traducen a «rollback»"
 
 # «search» tradúcese como «buscar»/«busca»
 {\bsearch}i
@@ -388,12 +705,29 @@ valid msgstr="\bbus(c|qu)"
 valid !msgstr="\b(procura|pesquis|pescud)?"
 hint="«search» tradúcese como «busca(r)»"
 
+# «buscar»/«busca» traducen a «search»
+[\bbusc]i
+valid msgid="\bsearch"
+valid msgid="\bfind|\bfound"
+valid msgid="\blocate"
+id="noPT-2010-dual_search"
+hint="«busca(r)» traduce a «search», «find» e «locate»"
+
 # «show» tradúcese como «mostrar»
 {\bshow}i
 id="noPT-2010_show"
 valid msgstr="\bmostr?"
 valid !msgstr="\bamos?"
 hint="«show» tradúcese como «mostrar»"
+
+# «mostrar» traduce a «show»
+[\bmostr(?!axe)]i
+#valid msgid="\b[sS]how(\"\"|s|ed|n)\b"
+valid msgid="\bshow"
+valid msgid="\bdisplay"
+valid msgid="\bprint"
+id="noPT-2010-dual_mostrar"
+hint="«mostrar» traduce a «show», «display» e algúns «print»"
 
 # «support» tradúcese como «asistencia técnica», «ser compatíbel con», «admitir», «permitir utilizar», «incluír»
 {\bsupport}i
@@ -406,425 +740,6 @@ valid msgstr="\badmit"
 valid msgstr="\bpermit(e|en|ir)\sutilizar"
 valid msgstr="\bincl(u|ú)"
 hint="«support» tradúcese como «asistencia técnica», «ser compatíbel con», «admitir», «permitir utilizar», «incluír»"
-
-# «Tab» tradúcese como «Lapela», tabulación ou tabulador.
-{\btab}i
-id="PT-2010_tab"
-valid msgstr="lapela"
-valid msgstr="tabula(ción|dor)"
-valid !msgstr="(separador|\baba\b|lingüeta|pestana)"
-hint="«Tab» tradúcese como «Lapela»,tabulador ou tabulación"
-
-# «undo» tradúcese como «desfacer»
-{\bundo}i
-valid !after="cument"
-id="PT-2011_undo"
-valid msgstr="\bdesfacer"
-hint="«undo» tradúcese como «desfacer»"
-
-# «update» tradúcese como «actualizar» ou «actualización»
-{\bupdate}i
-id="PT-2011_update"
-valid msgstr="\bactualiza(r|do|ción)"
-hint="«update» tradúcese como «actualizar» ou «actualización»"
-
-# «upgrade» tradúcese como «anovar» ou «anovación»
-{\bupgrade}i
-id="PT-2011_upgrade"
-valid msgstr="\banova(r|do|ción)"
-hint="«upgrade» tradúcese como «anovar» ou «anovación»"
-
-# # «widget» tradúcese como «trebello»
-# {\bwidget}i
-# id="PT-2011_widget"
-# valid msgstr="\btrebello"
-# hint="«widget» tradúcese como «trebello»"
-
-# «Window» tradúcese como «xanela»
-{\bwindow}i
-id="PT-2010_window"
-valid msgstr="xanela"
-valid msgstr="window"
-valid !msgstr="\b(fiestra|ventá)?"
-hint="«window» tradúcese como «xanela»"
-
-# «Lapela» traduce a «tab».
-[\blapela|\btabula(ción|dor)]i
-id="PT-2010-dual-lapela_tabulador_tabulación"
-valid msgid="\btab" !before="\border|\bstop" 
-hint="«Lapela»,«tabulador» e «tabulación» traducen a «Tab»"
-
-# Variantes de «tab»
-[\btabulación]i
-id="PT-2010-dual-tabulación"
-valid msgid="\btab\b(border|stop)"
-valid msgid="\btab"
-hint="«tabulación» traduce a «Tab order» e «tab stop»"
- 
-# «Complemento» traduce a «Plugin»
-[complemento]i
-id="PT-2010-dual_complemento"
-valid msgid="\bplugin"
-valid msgid="\bplug.?in"
-valid msgid="\badd.?on"
-hint="«Complemento» traduce a «Plugin» e a «add-on»"
-
-#«engadido» traduce a «Plugin» e a «added»
-[engadido]i
-id="PT-2010-dual_engadido"
-valid msgid="\bplugin"
-valid msgid="\bplug.?in"
-valid msgid="added\b"
-valid msgid="\badd.?on"
-hint="«engadido» traduce a «Plugin», «added» e «addon»"
-
-# «xanela» traduce a «Window»
-[\bxanelas?\b]i
-id="PT-2010-dual_xanela"
-valid msgid="\bwindow(\b|s|\s)"
-hint="«xanela» traduce a «window»"
- 
-# «anexar» traduce a «Attach»
-[\banex[a-z]{2,}]i
-id="PT-2010-dual_anexar"
-valid msgid="\battach(\s|ed|s|ing)"
-hint="«anexar» traduce a «attach»"
-
-# «anexo» traduce a «Attachment»
-[\banexo]i
-id="PT-2010-dual_anexo"
-valid msgid="\battach"
-hint="«anexo» traduce a «attachment»"
-
-# «orde» traduce a «Command»
-[\borde(\"\"|s)]i
-id="PT-2010-dual_orde"
-valid !before="\sinterpretes?\sde\s"
-valid msgid="\bcommand"
-hint="«orde» traduce a «command»"
-
-# «invalid» tradúcese como «incorrecto»/«non é válido»
-[\bincorrecto|(non\s(é\s|"")válid(o|a))|(non\sson\sválid(o|a)s)]i
-valid !before="argumento"
-id="noPT-2010-dual_incorrecto"
-valid msgid="\binvalid"
-hint="«incorrecto»/«non é válido» traducen a «invalid»"
-
-# «inaceptábel» traduce a «ilegal»
-[\binaceptábe(l|is)\b]i
-id="PT-2010-dual_inaceptábel"
-valid msgid="\bilegal"
-hint="«inaceptábel» traduce a «ilegal»"
-
-# «grella» traduce a «grid»
-[\grella]i
-id="noPT-2010-dual_grid"
-valid msgid="\bgrid?"
-hint="«grella» traduce a «grid»"
-
-# «mostrar» traduce a «show»
-[\bmostr(?!axe)]i
-#valid msgid="\b[sS]how(\"\"|s|ed|n)\b"
-valid msgid="\bshow"
-valid msgid="\bdisplay"
-valid msgid="\bprint"
-id="noPT-2010-dual_mostrar"
-hint="«mostrar» traduce a «show», «display» e algúns «print»"
-
-# «acochar» traduce a «hide»
-[\bacoch]i
-valid msgid="\bhide(\b|s|ed)"
-valid msgid="\bhidden\b"
-id="noPT-2010-dual_acochar"
-hint="«acochar» traduce a «hide»"
-
-# «inserir» ou «introducir» traducen a «insert»
-[\bins(e|i)r|\bintroduc(?!ión)]i
-id="noPT-2010-dual_inserir"
-valid msgid="\binsert|\benter"
-hint="«inserir» ou «introducir» traducen a «insert» ou «enter»"
-
-# «buscar»/«busca» traducen a «search»
-[\bbusc]i
-valid msgid="\bsearch"
-valid msgid="\bfind|\bfound"
-valid msgid="\blocate"
-id="PT-2010-dual_buscar"
-hint="«busca(r)» traduce a «search», «find» e «locate»"
-
-# «atopar» traduce a «find» e «locate»
-[\batop]i
-valid msgid="\bfind|\blocate"
-valid msgid="\bfound"
-valid msgid="\bencounter"
-id="noPT-2010-dual_atopar"
-hint="«atopar» traduce a «find» e «locate»"
-
-# «situar» traducen a «locate» ou «place»
-[\bsitu]i
-valid !span="ación\b|acións\b"
-valid msgid="\blocate|\bplace"
-id="PT-2010-dual_situar"
-hint="«situar» traduce a «to locate» ou «to place»"
-
-
-
-
-# «devasa» traduce a «firewall»
-[\bdevasa]i
-valid msgid="\bfirewall"
-id="PT-2011-dual_firewall"
-hint="«devasa» traduce a «firewall»"
-
-# «frase de paso» traduce a «passphrase»
-[\bfrases?\sde\spaso]i
-id="PT-2011-dual_passphrase"
-valid msgid="\bpassphrase"
-hint="«frase de paso» traduce a «passphrase»"
-
-# «actualizar» ou «actualización» traducen a «update»
-[\bactualiza(r|do|ción)]i
-id="PT-2011-dual_update"
-valid msgid="\bupdat(e|ing)"
-hint="«actualizar» ou «actualización» traducen a «update»"
-
-# «anovar» ou «anovación» traducen a «upgrade»
-[\banova(r|do|ción)]i
-id="PT-2011-dual_upgrade"
-valid msgid="\bupgrade"
-hint="«anovar» ou «anovación» traducen a «upgrade»"
-
-# «reverter» ou «reversión» traducen a «downgrade»
-[\brever(ter|tido|sión)]i
-id="PT-2011-dual_downgrade"
-valid msgid="\bdowngrade"
-valid msgid="\brevert(ed|ing)?"
-hint="«reverter» ou «reversión» traducen a «downgrade»"
-
-# «regresión» ou «regresar» traducen a «rollback»
-[\bregres(ar|ado|ión)]i
-id="noPT-2011-dual_rollback"
-valid msgid="\brollback"
-valid msgid="\bregress"
-hint="«regresión» ou «regresar» traducen a «rollback»"
-
-# «cifrar» traduce a «encrypt»
-[\bcifr]i
-id="noPT-2011-dual_encrypt"
-valid msgid="\b(un)?encrypt"
-valid msgid="\bcryptograph"
-hint="«cifrar» traduce a «encrypt»"
-
-# «descifrar» traduce a «decrypt»
-[\bdescifr]i
-id="PT-2011-dual_decrypt"
-valid msgid="\bdecrypt"
-hint="«descifrar» traduce a «decrypt»"
-
-# «remitir» traduce a «commit»
-[\bremi(tir|tido|sión)]i
-id="PT-2011-dual_commit"
-valid msgid="\bcommit"
-hint="«remitir» traduce a «commit»"
-
-# # «applet» traduce a «applet»
-# [\bapplet]i
-# id="PT-2011-dual_applet"
-# valid msgid="\bapplet"
-# hint="«applet» traduce a «applet»"
-
-# # «trebello» traduce a «widget»
-# [\btrebello]i
-# id="PT-2011-dual_widget"
-# valid msgid="\bwidget"
-# hint="«trebello» traduce a «widget»"
-
-# «gradiente» e «gradación» traduce a «gradient»
-[\bgrad(iente|ación)]i
-id="PT-2011-dual_gradient"
-valid msgid="\bgradient"
-hint="«gradiente» e «gradación» traduce a «gradient»"
-
-# «realzar» traduce a «highlight»
-[\breal(zar|zado|ce)]i
-id="PT-2011-dual_highlight"
-valid msgid="\bhighlight"
-hint="«realzar» traduce a «highlight»"
-
-# «ficheiro» traduce a «file»
-[\bficheiro]i
-valid msgid="\bfile"
-valid !before="\sa\s"
-id="PT-2011-dual_file"
-hint="«ficheiro» traduce a «file»"
-
-# «paquete de ficheiros» traduce a «file package»
-[\bpaquetes?\sde\sficheiros]i
-id="PT-2011-dual_file-package"
-valid msgid="\bfile\spackage"
-hint="«paquete de ficheiros» traduce a «file package»"
-
-# «enviar un informe de erro» traduce «file a bug report»
-[\benviar\sun\s]i
-id="PT-2011-dual_file-a"
-valid msgid="\bfile\sa\s"
-valid msgid="\bsubmit(ting)? a "
-hint="«enviar un informe de erro» traduce «file (ou submit) a bug report»"
-
-# «informe de erro» traduce a «bug report»
-[\binformes?\sde\serro]i
-id="PT-2011-dual_bug-report"
-valid msgid="\bbug\sreport"
-hint="«informe de erro» traduce a «bug report»"
-
-# «historial» traduce a «history»
-[\bhistorial]i
-id="PT-2011-dual_history"
-valid msgid="\bhistory"
-hint="«historial» traduce a «history»"
-
-# «biblioteca» traduce a «library»
-[\bbiblioteca]i
-id="PT-2011-dual_library"
-valid msgid="\blibrar(y|ies)"
-hint="«biblioteca» traduce a «library»"
-
-# «marcador» traduce a «bookmark»
-[\bmarcador]i
-id="PT-2011-dual_bookmark"
-valid msgid="\bbookmark"
-hint="«marcador» traduce a «bookmark»"
-
-# «búfer» tradúcese como «buffer»
-[\bbúfer]i
-id="PT-2011-dual_buffer"
-valid msgid="\bbuffer"
-hint="«búfer» tradúcese como «buffer»"
-
-# «entorno» traduce a «environment»
-[\bentorno]i
-id="PT-2011-dual_environment"
-valid msgid="\benvironment"
-hint="«entorno» traduce a «environment»"
-
-# «editar» traduce a «edit»
-[\bedi(t|c)]i
-id="PT-2011-dual_edit"
-valid msgid="\bedit"
-hint="«editar» traduce a «edit»"
-
-# «pechar» traduce a «close»
-[\bpech]i
-id="PT-2011-dual_close"
-valid msgid="\bclos(e|ed|ing)"
-hint="«pechar» traduce a «close»"
-
-# «desenvolver» traduce a «develop»
-[\bdesenvolv]i
-id="PT-2011-dual_develop"
-valid msgid="\bdevelop"
-hint="«desenvolver» traduce a «develop»"
-
-# «fornecer» traduce a «provide»
-[\bfornec]i
-id="noPT-2011-dual_provide"
-valid msgid="\bprovid(e|i)"
-hint="«fornecer» traduce a «provide»"
-
-# «substituir» traduce a «replace»
-[\bsubstitu]i
-valid after="car(a|á)cter(es)?\sde\s"
-id="PT-2011-dual_replace"
-valid msgid="\breplace"
-hint="«substituir» traduce a «replace»"
-
-# «desactivar» traduce a «disable»
-[\bdesact(i|í)v]i
-id="noPT-2011-dual_disable"
-valid msgid="\bdisable"
-valid msgid="\bnot\senabled"
-hint="«desactivar» traduce a «disable»"
-
-# «activar» traduce a «disable»
-[\bactiv]i
-valid !after="idade"
-id="PT-2011-dual_disable"
-valid msgid="\benable"
-hint="«activar» traduce a «enable»"
-
-# «letra» traduce a «font»
-[\bletra]i
-id="noPT-2011-dual_font"
-valid msgid="\bfont"
-valid msgid="\bletter"
-hint="«letra» traduce a «font» e a «letter»"
-
-# «refacer» traduce a  «redo»
-[\brefacer]i
-id="PT-2011-dual_redo"
-valid msgid="\bredo"
-hint="«refacer» traduce a  «redo»"
-
-# «desfacer» traduce a «undo»
-[\bdesfacer]i
-id="PT-2011-dual_undo"
-valid msgid="\bundo"
-hint="«desfacer» traduce a «undo»"
-
-# «controlador» traduce a «driver»
-[\bcontrolador]i
-id="PT-2011-dual_driver"
-valid msgid="\bdriver"
-hint="«controlador» traduce a «driver»"
-
-# «icona» traduce a «icon»
-[\bicona]i
-id="PT-2011-dual_icon"
-valid msgid="\bicon"
-hint="«icona» traduce a «icon»"
-
-# «elemento» traduce a «item»
-[\belemento]i
-id="PT-2011-dual_item"
-valid msgid="\bitem"
-valid msgid="\belement"
-hint="«elemento» traduce a «item»"
-
-# «inicializar» traduce a «initialize»
-[\biniciali]i
-id="PT-2011-dual_initialize"
-valid msgid="\binitializ"
-hint="«inicializar» traduce a «initialize»"
-
-# «reintentar» traduce a «retry»
-[\breintent]i
-id="PT-2011-dual_retry"
-valid msgid="\bretry"
-hint="«reintentar» traduce a «retry»"
-
-# «comprobar» traduce a «check»
-[\bcomprob]i
-id="PT-2011-dual_check"
-valid msgid="\bcheck"
-hint="«comprobar» traduce a «check»"
-# «revisar» traduce a «check»
-[\brevis]i
-id="PT-2011-dual_check2"
-valid msgid="\bcheck"
-hint="«revisar» traduce a «check»"
-# «marcar» traduce a «check»
-[\bmar(c|que)]i
-valid !after="e\s"
-valid !after="ador"
-id="PT-2011-dual_check3"
-valid msgid="\bcheck"
-hint="«marcar» traduce a «check»"
-
-# «suma de comprobación» traduce a «checksum»
-[\bsumas?\sde\scomprobación]i
-id="PT-2011-dual_checksum"
-{\bchecksum}i
-hint="«suma de comprobación» traduce a «checksum»"
 
 # «asistencia técnica» traduce a «support»
 [\basistencia\stécnica]i
@@ -855,3 +770,87 @@ hint="«permitir utilizar» traduce a «support»"
 id="PT-2011-dual_support5"
 valid msgid="\bsupport"
 hint="«incluír» traduce a «support»"
+
+# «Tab» tradúcese como «Lapela», tabulación ou tabulador.
+{\btab}i
+id="PT-2010_tab"
+valid msgstr="lapela"
+valid msgstr="tabula(ción|dor)"
+valid !msgstr="(separador|\baba\b|lingüeta|pestana)"
+hint="«Tab» tradúcese como «Lapela»,tabulador ou tabulación"
+
+# «Lapela» traduce a «tab».
+[\blapela|\btabula(ción|dor)]i
+id="PT-2010-dual_tab"
+valid msgid="\btab" !before="\border|\bstop" 
+hint="«Lapela»,«tabulador» e «tabulación» traducen a «Tab»"
+
+# Variantes de «tab»
+[\btabulación]i
+id="PT-2010-dual_tab2"
+valid msgid="\btab\b(border|stop)"
+valid msgid="\btab"
+hint="«tabulación» traduce a «Tab order» e «tab stop»"
+
+# «undo» tradúcese como «desfacer»
+{\bundo}i
+valid !after="cument"
+id="PT-2011_undo"
+valid msgstr="\bdesfacer"
+hint="«undo» tradúcese como «desfacer»"
+
+# «desfacer» traduce a «undo»
+[\bdesfacer]i
+id="PT-2011-dual_undo"
+valid msgid="\bundo"
+hint="«desfacer» traduce a «undo»"
+
+# «update» tradúcese como «actualizar» ou «actualización»
+{\bupdate}i
+id="PT-2011_update"
+valid msgstr="\bactualiza(r|do|ción)"
+hint="«update» tradúcese como «actualizar» ou «actualización»"
+
+# «actualizar» ou «actualización» traducen a «update»
+[\bactualiza(r|do|ción)]i
+id="PT-2011-dual_update"
+valid msgid="\bupdat(e|ing)"
+hint="«actualizar» ou «actualización» traducen a «update»"
+
+# «upgrade» tradúcese como «anovar» ou «anovación»
+{\bupgrade}i
+id="PT-2011_upgrade"
+valid msgstr="\banova(r|do|ción)"
+hint="«upgrade» tradúcese como «anovar» ou «anovación»"
+
+# «anovar» ou «anovación» traducen a «upgrade»
+[\banova(r|do|ción)]i
+id="PT-2011-dual_upgrade"
+valid msgid="\bupgrade"
+hint="«anovar» ou «anovación» traducen a «upgrade»"
+
+# # «widget» tradúcese como «trebello»
+# {\bwidget}i
+# id="PT-2011_widget"
+# valid msgstr="\btrebello"
+# hint="«widget» tradúcese como «trebello»"
+#
+# # «trebello» traduce a «widget»
+# [\btrebello]i
+# id="PT-2011-dual_widget"
+# valid msgid="\bwidget"
+# hint="«trebello» traduce a «widget»"
+
+# «Window» tradúcese como «xanela»
+{\bwindow}i
+id="PT-2010_window"
+valid msgstr="xanela"
+valid msgstr="window"
+valid !msgstr="\b(fiestra|ventá)?"
+hint="«window» tradúcese como «xanela»"
+
+# «xanela» traduce a «Window»
+[\bxanelas?\b]i
+id="PT-2010-dual_window"
+valid msgid="\bwindow(\b|s|\s)"
+hint="«xanela» traduce a «window»"
