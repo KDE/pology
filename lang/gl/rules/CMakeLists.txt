@@ -1,10 +1,7 @@
 set(files
     filter.include    
-    controlledLang_trasnadas.rules
-    terminology_trasnadas.rules
-    terminology_trasnadas_dual.rules
-    controlledLang_gl.rules
-    frequentExpressions.rules
+    controlledLang.rules
+    terminology.rules
     kde_choices.rules
     xfceGnome_choices.rules
 )
