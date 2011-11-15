@@ -105,6 +105,30 @@ id="PT-2011-dual_bug-report"
 valid msgid="\bbug\sreport"
 hint="«informe de erro» traduce a «bug report»"
 
+# «chat» tradúcese como «conversa»
+{\bchat}i
+id="PT-2011_chat"
+valid msgstr="\bconvers"
+hint="«chat» tradúcese como «conversa»"
+
+# «conversa» traduce a «chat»
+[\bconvers]i
+id="PT-2011-dual_chat"
+valid msgid="\bchat"
+hint="«conversa» traduce a «chat»"
+
+# «chat room» tradúcese como «sala de conversas»
+{\bchat\sroom}i
+id="PT-2011_chat-room"
+valid msgstr="\bsalas?\sde\sconversas"
+hint="«chat room» tradúcese como «sala de conversas»"
+
+# «sala de conversas» traduce a «chat room»
+[\bsalas?\sde\sconversas]i
+id="PT-2011-dual_chat-rom"
+valid msgid="\bchat\sroom"
+hint="«sala de conversas» traduce a «chat»"
+
 # «check» tradúcese como «comprobar», «revisar» ou «marcar»
 {\bcheck(s|ed|ing|)?}i
 valid after="\bspell "
@@ -548,6 +572,20 @@ id="PT-2011-dual_item"
 valid msgid="\bitem"
 valid msgid="\belement"
 hint="«elemento» traduce a «item»"
+
+#«key» tradúcese como «tecla»
+{\bkey}i
+valid !span="word"
+id="PT-2011_key"
+valid msgstr="\btecla"
+hint="«key» tradúcese como «tecla»
+
+# «tecla» traduce a «key»
+[\btecla]i
+id="PT-2011-dual_key"
+valid msgid="\bkey"
+valid !span="word"
+hint="«tecla» traduce a «key»"
 
 # «keyword» tradúcese como «palabra clave» ou «palabra chave»
 {\bkeyword}i
