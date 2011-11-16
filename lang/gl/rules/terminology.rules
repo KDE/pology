@@ -29,17 +29,46 @@
 
 include file="filter.include"
 
-# # «applet» tradúcese como «applet»
-# {\bapplet}i
-# id="PT-2011_applet"
-# valid msgstr="\bapplet"
-# hint="«applet» tradúcese como «applet»"
-#
-# # «applet» traduce a «applet»
-# [\bapplet]i
-# id="PT-2011-dual_applet"
-# valid msgid="\bapplet"
-# hint="«applet» traduce a «applet»"
+# «abort» tradúcese como «interromper»
+{\babort}i
+id="PT-2011_abort"
+valid msgstr="interromper"
+hint="«abort» tradúcese como «interromper»"
+
+# «interromper» traduce a «abort»
+[\binterromp]i
+id="PT-2011-dual_abort"
+valid msgid="\babort"
+hint="«interromper» traduce a «abort»"
+
+# «applet» tradúcese como «applet»
+{\bapplet}i
+id="PT-2011_applet"
+valid msgstr="\bapplet"
+hint="«applet» tradúcese como «applet»"
+valid !env="kde"
+
+# «applet» traduce a «applet»
+[\bapplet]i
+id="PT-2011-dual_applet"
+valid msgid="\bapplet"
+hint="«applet» traduce a «applet»"
+valid !env="kde"
+
+# «application» tradúcese como «aplicativo»
+{\bapplication}i
+id="PT-2011_application"
+valid msgstr="\baplicación"
+valid msgstr="\bprograma"
+hint="«application» tradúcese como «aplicación ou programa»"
+valid !env="kde"
+
+# «applet» traduce a «applet»
+[\bapplet]i
+id="PT-2011-dual_applet"
+valid msgid="\bapplet"
+hint="«applet» traduce a «applet»"
+valid !env="kde"
 
 # «Attach» tradúcese como «anexar»
 {\battach(ment?!)}i
@@ -81,6 +110,12 @@ id="PT-2011-dual_bookmark"
 valid msgid="\bbookmark"
 hint="«marcador» traduce a «bookmark»"
 
+# «breadcrumbs» tradúcese como «ronsel»
+{\bbreadcrumbs}i
+id="PT-2011_breadcrumbs"
+valid msgstr="\bronsel"
+hint="«breadcrumbs» tradúcese como «ronsel»"
+
 # «buffer» tradúcese como «búfer»
 {\bbuffer}i
 id="PT-2011_buffer"
@@ -93,17 +128,31 @@ id="PT-2011-dual_buffer"
 valid msgid="\bbuffer"
 hint="«búfer» tradúcese como «buffer»"
 
+# «bug» tradúcese como «fallo»
+{\bbugs?}i
+id="PT-2011_bug"
+valid msgstr="\bfallos?"
+hint="«bug» tradúcese como «fallo»"
+
+# «fallo» traduce a «bug»
+[\bfallos?]i
+id="PT-2011-dual_bug"
+valid msgid="\bbugs?"
+valid msgid="\bfa(il(s|ed|ure)?|ult)"
+hint="«fallo» traduce a «bug», «fail», «fault» e «failure»"
+
 # «bug report» tradúcese como «informe de erro»
 {\bbug\sreport}i
-id="PT-2011_bug-report"
-valid msgstr="\binformes?\sde\serro"
-hint="«bug report» tradúcese como «informe de erro»"
+id="noPT-2011_bug-report"
+valid msgstr="\binformes?\sde\sfallos"
+valid msgstr="\binformes?\sdo\sfallo\b"
+hint="«bug report» tradúcese como «informe do fallo»"
 
 # «informe de erro» traduce a «bug report»
-[\binformes?\sde\serro]i
+[\binformes?\sd(e\sfallos|o\sfallo)]i
 id="PT-2011-dual_bug-report"
 valid msgid="\bbug\sreport"
-hint="«informe de erro» traduce a «bug report»"
+hint="«informe de fallos» traduce a «bug report»"
 
 # «chat» tradúcese como «conversa»
 {\bchat}i
@@ -177,7 +226,7 @@ hint="«suma de comprobación» traduce a «checksum»"
 {\bclose}i
 id="PT-2011_close"
 valid msgstr="\bpech"
-hint="«close» tradúcese como «pech»"
+hint="«close» tradúcese como «pechar»"
 
 # «pechar» traduce a «close»
 [\bpech]i
@@ -211,6 +260,13 @@ id="PT-2011-dual_commit"
 valid msgid="\bcommit"
 hint="«remitir» traduce a «commit»"
 
+# «crash» tradúcese como «quebra»
+{\bcrash}i
+id="PT-2011_crash"
+valid msgstr="\bquebr.?"
+hint="«crash» tradúcese como «quebra»
+valid !env="kde"
+
 # «daemon» tradúcese como «daemon»
 {\bdaemon}i
 id="noPT_daemon"
@@ -243,9 +299,13 @@ hint="«desenvolver» traduce a «develop»"
 
 # «disable» tradúcese como «desactivar»
 {\bdisable}i
+valid before="\sthis\s(option|checkbox)"
+valid after="\b(when|if)\sthis\s(option|checkbox)\sis\s"
+valid after="\b(when|if)\sthis\sis\s"
+valid after="\b(if|when)\s"
+valid after="enable/"
 id="noPT-2011_disable"
 valid msgstr="\bdesact(i|í)v"
-valid msgstr="\bnot\senabled"
 hint="«disable» tradúcese como «desactivar»"
 
 # «desactivar» traduce a «disable»
@@ -309,10 +369,15 @@ hint="«editar» traduce a «edit»"
 
 # «enable» tradúcese como «activar» 
 {\benable}i
-valid before="\sthis\soption"
+valid before="\sthis\s(option|checkbox)"
+valid before="/disable"
+valid after="\b(when|if)\sthis\s(option|checkbox)\sis\s"
+valid after="\b(when|if)\sthis\sis\s"
+valid after="\b(if|when)\s"
 valid after="\bnot\s"
 id="noPT-2011_enable"
 valid msgstr="\bactiv"
+valid msgstr="\bpermit"
 hint="«enable» tradúcese como «activar»"
 
 # «activar» traduce a «enable»
@@ -335,6 +400,15 @@ id="PT-2011-dual_environment"
 valid msgid="\benvironment"
 hint="«entorno» traduce a «environment»"
 
+# «fail» e relacionados tradúcense como «fallo»
+{\bfa(il(s|ed|ure)?|ult)}i
+id="PT-2011_fail"
+valid msgid="\bfall."
+hint="«fail» e relacionados tradúcense como «fallo»"
+
+#«fallo» traduce a «fail»
+#ver regra inversa de «bug»
+
 # «file» tradúcese como «ficheiro»
 {\bfile(\b|s\b)}i
 valid before="\sa\s(bug\s)report"
@@ -353,14 +427,14 @@ hint="«ficheiro» traduce a «file»"
 {\bfile\sa\s}i
 id="PT-2011_file-a"
 valid msgstr="\benv(iar|íe)\sun"
-hint="«file a bug report» tradúcese como «enviar un informe de erro»"
+hint="«file a bug report» tradúcese como «enviar un informe de fallos»"
 
 # «enviar un informe de erro» traduce «file a bug report»
 [\benviar\sun\s]i
 id="PT-2011-dual_file-a"
 valid msgid="\bfile\sa\s"
 valid msgid="\bsubmit(ting)? a "
-hint="«enviar un informe de erro» traduce «file (ou submit) a bug report»"
+hint="«enviar un informe de fallos» traduce «file (ou submit) a bug report»"
 
 # «file package» tradúcese como «paquete de ficheiros»
 {\bfile\spackage}i
@@ -560,6 +634,18 @@ id="noPT-2010-dual_invalid"
 valid msgid="\binvalid"
 hint="«incorrecto»/«non é válido» traducen a «invalid»"
 
+# «issue» tradúcese como «incidencia»
+{\bissue}i
+id="noPT-2011_issue"
+valid msgstr="\sincidencia"
+hint="«issue» tradúcese como «incidencia»"
+
+# «incidencia» traduce a «issue»
+[\bincidencia]i
+id="noPT-2011-dual_issue"
+valid msgid="\bissue"
+hint="«incidencia» traduce a «issue»"
+
 # «item» tradúcese como «elemento»
 {\bitem}i
 id="PT-2011_item"
@@ -573,7 +659,7 @@ valid msgid="\bitem"
 valid msgid="\belement"
 hint="«elemento» traduce a «item»"
 
-#«key» tradúcese como «tecla»
+# «key» tradúcese como «tecla»
 {\bkey}i
 valid !span="word"
 id="PT-2011_key"
@@ -592,6 +678,25 @@ hint="«tecla» traduce a «key»"
 id="PT-2011_keyword"
 valid msgstr="\bpalabras?\sc(l|h)ave"
 hint="«keyword» tradúcese como «palabra clave» (buscas) ou «palabra chave» (acceso)"
+
+# «kill» tradúcese como «matar»
+{\bkill}i
+id="PT-2011_kill"
+valid msgstr="\bmat(ar|ou)"
+hint="«kill» tradúcese como «matar»"
+
+# «matar» traduce a «kill»
+[\bmat(ar|ou)]i
+id="PT-2011-dual_kill"
+valid msgid="\bkill"
+hint="«matar» traduce a «kill»"
+
+# «leave» tradúcese como «deixar» ou «saír»
+{\bleav(e|ed|es|ing)}i
+id="PT-2011_leave"
+valid msgid="\bsa(i|í)(r|u|che)"
+valid msgid="\bdeix"
+hint="«leave» tradúcese como «deixar» ou «saír»"
 
 # «library» tradúcese como «biblioteca»
 {\blibrar(y|ies)}i
@@ -639,6 +744,56 @@ id="PT-2011_password"
 valid msgstr="\bcontrasina"
 hint="«password» tradúcese como «contrasinal»"
 
+# «contrasinal» traduce a «password»
+[\bcontrasina]i
+id="PT-2011-dual_password"
+valid msgid="\bpassword"
+hint="«contrasinal» traduce a «password»"
+
+# «terminate» tradúcese como «terminar»
+{\bterminat}i
+id="PT-2011_terminat"
+valid msgstr="\btermin"
+hint="«terminate» tradúcese como «terminar»"
+
+# «terminar» traduce a «terminate»
+[\btermin]i
+id="PT-2011-dual_terminate"
+valid msgid="\bterminat"
+hint="«terminar» traduce a «terminate»"
+
+# «Path» tradúcese como «ruta».
+{\bpath(\b|\s|s)}i
+valid after="trust\s"
+id="noPT-2011_path"
+valid msgstr="\bruta"
+valid msgstr="\bsecuencias?\sde\svértices"
+hint="«Path» tradúcese como «ruta» (ou secuencia de vértices)"
+
+# «Trust path» tradúcese como «cadea de confianza»
+{\b(?<=trust\s)path}i
+id="PT-2011_trust-path"
+valid msgstr="\bcadea\sde\s\confianza"
+hint="«Trust path» tradúcese como «cadea de confianza»"
+
+# «Ruta» traduce a «path».
+[\bruta]i
+id="PT-2011-dual_path"
+valid msgid="\bpath" !before="trust"
+hint="«Ruta» traduce a «path»"
+
+# «secuencia de vértices» traduce a «path»
+[\bsecuencias?\sde\svértices]i
+id="PT-2011-dual_trust-path2"
+valid msgid="\bpath"
+hint="«secuencia de vértices» traduce a «path»"
+
+# «cadea de confianza» traduce a «trust path»
+[\bcadea\sde\sconfianza]i
+id="PT-2011-dual_trust-path"
+valid msgid="\btrust\s(path|chain)"
+hint="«cadea de confianza» traduce a «trust path»"
+
 # «Plugin» tradúcese como «Complemento» ou «engadido»
 {\bplugin}i
 id="PT-2010_plugin"
@@ -684,6 +839,21 @@ hint="«provide» tradúcese como «fornecer» (ou «especificar» ou «dar»)"
 id="noPT-2011-dual_provide"
 valid msgid="\bprovid(e|i)"
 hint="«fornecer» traduce a «provide»"
+
+# «quit», «exit» tradúcense como «saír»
+{\b(quit|exit)}i
+id="PT-2011_quit"
+valid msgstr="\bsa(ír|iu)"
+valid msgstr="\bsaída"
+hint="«quit», «exit» tradúcense como «saír»"
+
+# «saír» traduce a «quit», «exit»
+[\bsa(í|i)(r|u|che|da)]i
+id="PT-2011-dual_quit"
+valid msgid="\b(quit|exit)"
+hint="«saír» traduce a «quit», «exit»"
+
+
 
 # «redo» tradúcese como «refacer»
 {\bredo}i
@@ -830,6 +1000,85 @@ valid msgid="\btab\b(border|stop)"
 valid msgid="\btab"
 hint="«tabulación» traduce a «Tab order» e «tab stop»"
 
+# # «bug tracker» tradúcese como «(sistema de) seguimento de incidencias»
+# {\bbug\stracker}i
+# id="PT-2011_tracker4"
+# valid msgstr="\b(sistema\sde\s)?seguimento\sde\sincidencias"
+# hint="«bug tracker» tradúcese como «(sistema de) seguimento de incidencias»"
+# 
+# # «(sistema de) seguimento de incidencias» traduce a «bug tracker»
+# [\b(sistema\sde\s)?seguimento\sde\sincidencias]i
+# id="PT-2011-dual_tracker4"
+# valid msgid="\bbug\stracker"
+# hint="«(sistema de) seguimento de incidencias» traduce a «bug tracker»"
+
+# «track» tradúcese como «pista» ou «seguir/rastrexar»
+{\btrack\b}i
+id="PT-2011_track"
+valid msgstr="\bpista"
+valid msgstr="\bs(e|i)g(o|ue|ui)"
+valid msgstr="\brastrex"
+hint="«track» tradúcese como «pista» ou «seguir/rastrexar»"
+
+# «pista» traduce a «track»
+[\bpista]i
+id="PT-2011-dual_track"
+valid msgid="\btrack\b"
+hint="«pista» traduce a «track»"
+
+# «seguir» traduce a «track»
+[\bs(e|i)g(o|ue|ui)]i
+id="PT-2011-dual_track2"
+valid msgid="\btrack\b"
+hint="«seguir» traduce a «track»"
+
+# «rastrexar» traduce a «track»
+[\brastrex]i
+id="PT-2011-dual_track3"
+valid msgid="\btrack\b"
+hint="«rastrexar» traduce a «track»"
+
+# «tracker» tradúcese como «localizador» (para: !bittorrent)
+{\btracker}i
+id="PT-2011_tracker"
+env="bittorrent"
+valid !env="bittorrent"
+valid msgstr="\blocalizador"
+hint="«tracker» tradúcese como «localizador» (para: !bittorrent)"
+
+# «rastrexador» traduce a «tracker» (para: !bittorrent)
+[\brastrexador]i
+id="PT-2011-dual_tracker"
+valis !env="bittorrent"
+valid msgid="\btracker"
+hint="«localizador» traduce a «tracker» (para: !bittorrent)"
+
+# «tracker» tradúcese como «localizador» (para: bittorrent)
+{\btracker}i
+id="PT-2011_tracker2"
+env="bittorrent"
+valid msgstr="\blocalizador"
+hint="«tracker» tradúcese como «localizador» (para: bittorrent)"
+
+# «localizador» traduce a «tracker» (para: bittorrent)
+[\blocalizador]i
+id="PT-2011-dual_tracker2"
+env="bittorrent"
+valid msgid="\btracker"
+hint="«localizador» traduce a «tracker» (para: bittorrent)"
+
+# «bug tracker» tradúcese como «(sistema de) seguimento de incidencias»
+{\bbug\stracker}i
+id="PT-2011_tracker3"
+valid msgstr="\b(sistema\sde\s)?seguimento\sde\sincidencias"
+hint="«bug tracker» tradúcese como «(sistema de) seguimento de incidencias»"
+
+# «(sistema de) seguimento de incidencias» traduce a «bug tracker»
+[\b(sistema\sde\s)?seguimento\sde\sincidencias]i
+id="PT-2011-dual_tracker3"
+valid msgid="\bbug\stracker"
+hint="«(sistema de) seguimento de incidencias» traduce a «bug tracker»"
+
 # «undo» tradúcese como «desfacer»
 {\bundo}i
 valid !after="cument"
@@ -867,17 +1116,19 @@ id="PT-2011-dual_upgrade"
 valid msgid="\bupgrade"
 hint="«anovar» ou «anovación» traducen a «upgrade»"
 
-# # «widget» tradúcese como «trebello»
-# {\bwidget}i
-# id="PT-2011_widget"
-# valid msgstr="\btrebello"
-# hint="«widget» tradúcese como «trebello»"
-#
-# # «trebello» traduce a «widget»
-# [\btrebello]i
-# id="PT-2011-dual_widget"
-# valid msgid="\bwidget"
-# hint="«trebello» traduce a «widget»"
+# «widget» tradúcese como «trebello»
+{\bwidget}i
+id="PT-2011_widget"
+valid msgstr="\btrebello"
+hint="«widget» tradúcese como «trebello»"
+valid !env="kde"
+
+# «trebello» traduce a «widget»
+[\btrebello]i
+id="PT-2011-dual_widget"
+valid msgid="\bwidget"
+hint="«trebello» traduce a «widget»"
+valid !env="kde"
 
 # «Window» tradúcese como «xanela»
 {\bwindow}i
@@ -892,3 +1143,114 @@ hint="«window» tradúcese como «xanela»"
 id="PT-2010-dual_window"
 valid msgid="\bwindow(\b|s|\s)"
 hint="«xanela» traduce a «window»"
+
+#####
+# Regras específicas de KDE
+#####
+
+# «about» -> «acerca de»
+{\b(?<!^)about}i
+valid before="\sto\b"
+valid after="\bknow(s|\"\")\s"
+id="kde_about"
+env="kde"
+valid msgstr="\bacerca\sd"
+valid msgstr="\brefer"
+valid msgstr="\bsobre\b"
+hint="about -> sobre"
+
+# «about» -> «sobre»
+{^about}i
+id="kde_about2"
+env="kde"
+valid msgstr="\bacerca\sd"
+hint="about -> acerca de"
+
+# «accept» -> «aceptar»
+{\baccept}i
+id="kde_accept"
+env="kde"
+valid msgstr="\bacept"
+hint="accept = aceptar"
+
+# «aceptar» -> «accept»
+[\bacept]i
+id="kde-dual_accept"
+env="kde"
+valid msgid="\baccept"
+valid msgid="\bOK\b"
+valid msgid="\bagree"
+hint="aceptar = accept"
+
+# «not enabled»
+{\bnot enabled\b}
+id="kde_not enabled"
+env="kde"
+valid msgstr="\bdesactivad(o|a)"
+valid msgstr="\bnon\sestá\sactivad(o|a)"
+hint="not enabled -> desactivado"
+
+# «enable/disable» -> «conmutar»
+{\benable/disable}i
+id="kde_enabledisable"
+env="kde"
+valid msgstr="\bconmuta"
+hint="enable/disable = conmutar"
+
+# «encounter» -> «atopar» and not «achar»
+{\bencounter}i
+id="kde_encounter"
+env="kde"
+valid msgstr="\batop"
+valid !msgstr="\bach"
+hint="encounter -> atopar"
+
+# «print» -> «imprimir», «mostra»
+{\bprint(?!(ing|er))}i
+valid !after="screen"
+valid !before="\spreview"
+id="kde_print"
+env="kde"
+valid msgstr="\bimprim"
+valid msgstr="\bimpreso"
+valid msgstr="\bmostr"
+hint="print = imprimir, impreso ou mostrar"
+
+# «printing» -> «imprimir», «impresión»
+{\bprinting}i
+id="kde_printing"
+env="kde"
+valid msgstr="\bimpresión"
+valid msgstr="\bimprim"
+hint="printing = imprimir, impresión"
+
+# «imprimir» -> «print»
+[\bimprim]i
+id="kde-dual_print"
+env="kde"
+valid msgid="\bprint(?!er)"
+hint="imprimir = print"
+
+
+#####
+# Regras específicas de GNOME
+#####
+
+# «shell» -> «shell» ou «intérprete de ordes»
+{\bshell}i
+id="gnome_shell"
+valid msgstr="\bshell"
+valid msgstr="\binterpretes?\sde\sordes?"
+hint="shell -> shell ou interprete de ordes"
+
+# «validation,validity» -> «validación»
+{\bvalid(ation|idit(y|ies))}i
+id="gnome_validation"
+valid msgstr="\bvalidación"
+hint="validation -> validación"
+
+# «validación» -> «validation»
+[\bvalidación]i
+id="gnome-dual_validation"
+valid msgstr="\bvalidation"
+hint="validación -> validation"
