@@ -16,21 +16,28 @@ else
     dstdir=www-pology:pology.nedohodnik.net
     srvroot=http://pology.nedohodnik.net
 fi
+if test -n "$3"; then
+    builddoc=$3
+else
+    builddoc=1
+fi
 
 echo "Copying base files..."
 cp -aLf base tmpwww
 find tmpwww -type f | xargs sed -i -r "s|@srvroot@|$srvroot|g"
 
-echo "Building local documentation:"
-rm -rf $srcdir/doc-html
-echo "- user manual..."
-$srcdir/doc/user/local.sh build
-echo "- language support manuals..."
-for local in $srcdir/lang/*/doc/local.sh; do
-    $local build || exit 1
-done
-echo "- API documentation..."
-$srcdir/doc/api/local.sh build
+if test ! $builddoc = 0; then
+    echo "Building local documentation:"
+    rm -rf $srcdir/doc-html
+    echo "- user manual..."
+    $srcdir/doc/user/local.sh build
+    echo "- language support manuals..."
+    for local in $srcdir/lang/*/doc/local.sh; do
+        $local build || exit 1
+    done
+    echo "- API documentation..."
+    $srcdir/doc/api/local.sh build
+fi
 cp -aL $srcdir/doc-html/* tmpwww/doc/
 
 echo "Syncing with web site..."
