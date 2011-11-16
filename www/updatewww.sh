@@ -5,13 +5,21 @@ srcdir=..
 
 if test -n "$1"; then
     dstdir=$1
+    if test -z "$2"; then
+        echo "If destination directory is given in command line, "\
+             "server root must be given as well."
+        exit 1
+    fi
+    srvroot=$2
 else
     # Expects www-pology entry in SSH config.
     dstdir=www-pology:pology.nedohodnik.net
+    srvroot=http://pology.nedohodnik.net
 fi
 
 echo "Copying base files..."
 cp -aLf base tmpwww
+find tmpwww -type f | xargs sed -i -r "s|@srvroot@|$srvroot|g"
 
 echo "Building local documentation:"
 rm -rf $srcdir/doc-html

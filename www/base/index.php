@@ -1,1 +1,1 @@
-<?php header("Location: http://pology.nedohodnik.net/doc/user/en_US/");?>
+<?php header("Location: @srvroot@/doc/user/en_US/");?>
