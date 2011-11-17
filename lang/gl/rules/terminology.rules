@@ -58,43 +58,57 @@ valid !env="kde"
 # «application» tradúcese como «aplicativo»
 {\bapplication}i
 id="PT-2011_application"
-valid msgstr="\baplicación"
-valid msgstr="\bprograma"
+valid msgstr="\baplicativo"
 hint="«application» tradúcese como «aplicación ou programa»"
 valid !env="kde"
 
 # «applet» traduce a «applet»
-[\bapplet]i
-id="PT-2011-dual_applet"
-valid msgid="\bapplet"
+[\baplicativo]i
+id="PT-2011-dual_application"
+valid msgid="\baplicativo"
 hint="«applet» traduce a «applet»"
 valid !env="kde"
 
-# «Attach» tradúcese como «anexar»
+# «Attach» tradúcese como «anexar», «conectar»
 {\battach(ment?!)}i
 id="PT-2010_attach"
 valid msgstr="anexar"
 valid !msgstr="adxuntar"
-hint="«attach» tradúcese como «anexar»"
+valid msgstr="\bconect"
+hint="«attach» tradúcese como «anexar», «conectar»"
 
-# «anexar» traduce a «Attach»
-[\banex[a-z]{2,}]i
+# «anexar» ou «conectar» traduce a «Attach»
+[\b(anex[a-z]{2,}|conect[a-z]{1,}]i
 id="PT-2010-dual_attach"
 valid msgid="\battach(\s|ed|s|ing)"
-hint="«anexar» traduce a «attach»"
+hint="«anexar» ou «conectar» traduce a «attach»"
 
-# «Attachment» tradúcese como «anexo»
+# «Attachment» tradúcese como «anexo» ou «conexión»
 {\battachment}i
 id="PT-2010_attachment"
 valid msgstr="anexo"
 valid !msgstr="adxunto"
-hint="«attachment» tradúcese como «anexo»"
+valid msgstr="\bconexión"
+hint="«attachment» tradúcese como «anexo» ou «conexión»"
 
-# «anexo» traduce a «Attachment»
-[\banexo]i
+# «anexo» ou «conexión» traduce a «Attachment»
+[\b(anexo|conexión)]i
 id="PT-2010-dual_attachment"
 valid msgid="\battach"
-hint="«anexo» traduce a «attachment»"
+hint="«anexo»  ou «conexión» traduce a «attachment»"
+
+# «backend» tradúcece como «infraestrutura»
+{\bbackend}i
+id="PT-2011_backend"
+valid msgstr="\binfraestrutura"
+hint="«backend» tradúcece como «infraestrutura»"
+
+# «infraestrutura» traduce a «backend»
+[\binfraestrutura]i
+id="PT-2011-dual_backend"
+valid msgid="\bbackend"
+valid msgid="\bframework"
+hint="«infraestrutura» traduce a «backend» e «framework»"
 
 # «bookmark» tradúcese como «marcador» ou «marcar»
 {\bbookmark}i
@@ -264,7 +278,7 @@ hint="«remitir» traduce a «commit»"
 {\bcrash}i
 id="PT-2011_crash"
 valid msgstr="\bquebr.?"
-hint="«crash» tradúcese como «quebra»
+hint="«crash» tradúcese como «quebra»"
 valid !env="kde"
 
 # «daemon» tradúcese como «daemon»
@@ -285,6 +299,18 @@ id="PT-2011-dual_decrypt"
 valid msgid="\bdecrypt"
 hint="«descifrar» traduce a «decrypt»"
 
+# «detach» tradúcese como «desconectar», «desprender»
+{\bdetach}i
+id="PT-2011_detach"
+valid msgstr="\bdes(conect|prend)."
+hint="«detach» tradúcese como «desconectar», «desprender»"
+
+# «desconectar», «desprender» traducen a «detach»
+[\bdes(conect|prend).]i
+id="PT-2011-dual_detach"
+valid msgid="\bdetach"
+hint="«desconectar», «desprender» traducen a «detach»"
+
 # «develop» tradúcese como «desenvolver»
 {\bdevelop}i
 id="noPT-2011_develop"
@@ -296,6 +322,19 @@ hint="«develop» tradúcese como «desenvolver»"
 id="PT-2011-dual_develop"
 valid msgid="\bdevelop"
 hint="«desenvolver» traduce a «develop»"
+
+# «device» tradúcese como «dispositivo»
+{\bdevice}i
+id="PT-2011_device"
+valid msgid="\bdispositivo"
+hint="«device» tradúcese como «dispositivo»"
+
+# «dispositivo» traduce a «device»
+[\bdispositivo]i
+id="PT-2011-dual_device"
+valid msgid="\bdevice"
+hint="«dispositivo» traduce a «device»"
+
 
 # «disable» tradúcese como «desactivar»
 {\bdisable}i
@@ -315,6 +354,20 @@ valid msgid="\bdisable"
 valid msgid="\bnot\senabled"
 hint="«desactivar» traduce a «disable»"
 
+# «dock» tradúcese como «doca»
+{\bdock}i
+id="PT-2011_dock"
+valid !env="kde"
+valid msgstr="\bdoca"
+hint="«dock» tradúcese como «doca»"
+
+# «doca» traduce a «dock»
+[\bdoca]i
+id="PT-2011-dual_dock"
+valid !env="kde"
+valid msgid="\bdock"
+hint="«doca» traduce a «dock»"
+
 # «downgrade» tradúcese como «reverter» ou «reversión»
 {\bdowngrade}i
 id="PT-2011_downgrade"
@@ -328,6 +381,31 @@ id="PT-2011-dual_downgrade"
 valid msgid="\bdowngrade"
 valid msgid="\brevert(ed|ing)?"
 hint="«reverter» ou «reversión» traducen a «downgrade»"
+
+# «download» tradúcese como «descargar»
+{\bdownload}i
+id="PT-2011_download"
+valid msgstr="\bdescarg"
+hint="«download» tradúcese como «descargar»"
+
+# «descargar» traduce a «download»
+[\bdescarg]i
+id="PT-2011-dual_download"
+valid msgid="\bdownload"
+hint="«descargar» traduce a «download»"
+
+# «drive» tradúcese como «unidade»
+{\bdrive\b}i
+id="PT-2011_drive"
+valid msgstr="\bunidade"
+hint="«drive» tradúcese como «unidade»"
+
+# «unidade» traduce a «drive»
+[\bunidade]i
+id="noPT-2011-dual_drive"
+valid msgid="\bdriver"
+valid msgid="\bunit"
+hint="«unidade» traduce a «driver» (e «unit»)"
 
 # «driver» tradúcese como «controlador»
 {\bdriver}i
@@ -499,6 +577,19 @@ valid msgid="\bfont"
 valid msgid="\bletter"
 hint="«letra» traduce a «font» e a «letter»"
 
+# «framework» tradúcese como «marco de traballo» ou «infraestrutura»
+{\bframework}i
+id="PT-2011_framework"
+valid msgstr="\bmarcos?\sde\straballo"
+valid msgstr="\binfraestrutura"
+hint="«framework» tradúcese como «marco de traballo» ou «infraestrutura»"
+
+# «marco de traballo» traduce a «framework»
+[\bmarco\sde\straballo]i
+id="PT-2011-dual_framework"
+valid msgid="\bframework"
+hint="«marco de traballo» traduce a «framework»"
+
 # «gradient» tradúcese como «gradiente» ou «gradación»
 {\bgradient}i
 id="PT-2011_gradient"
@@ -664,7 +755,7 @@ hint="«elemento» traduce a «item»"
 valid !span="word"
 id="PT-2011_key"
 valid msgstr="\btecla"
-hint="«key» tradúcese como «tecla»
+hint="«key» tradúcese como «tecla»"
 
 # «tecla» traduce a «key»
 [\btecla]i
@@ -725,6 +816,66 @@ valid !span="ación\b|acións\b"
 valid msgid="\blocate|\bplace"
 id="PT-2010-dual_locate"
 hint="«situar» traduce a «to locate» ou «to place»"
+
+######
+## Aquí vai o cristo de login
+######
+
+# «logout» e «logoff» tradúcense como «saída»
+{\blogo(ut|off)}i
+id="PT-2011_logout-logoff"
+valid msgstr="\bsaída"
+# valid msgstr="\bsaí(r|u|che)"
+# valid msgstr="\bsae\b"
+hint="«logout» e «logoff» tradúcense como «saída»"
+
+# «saída» traduce a «logout», «logoff»
+[\bsaída]i
+id="PT-2011-dual_logout-logoff"
+valid msgid="\blogo(ut|off)"
+hint="«saída» traduce a «logout», «logoff»"
+
+# «log/sign out» e «log/sign off» tradúcense como «saír»
+{\b(log|sign)\so(ut|off)}i
+id="PT-2011_log/signout-log/signoff"
+valid msgstr="\bsaí(r|u|che)"
+valid msgstr="\bsae\b"
+hint="«log/sign out» e «log/sign off» tradúcense como «saír»"
+
+# «saír» traduce a «quit», «exit», «log/sign out» e «log/sign off»
+[\bsa(í(r|mos|des|n|che|u|s|ron|a|as|an|ra)|i(o|amos|ades|ramos|rades|re(i|mos|des)|rá|rí|a)|e\b)]i
+id="PT-2011-dual_log/signout-log/signoff"
+valid msgid="\b(quit|exit)"
+valid msgid="\blog|sign)\so(ut|off)"
+hint="«saír» traduce a «quit», «exit», «log/sign out» e «log/sign off»"
+
+# «login», «log/sign in», «log/sign on» tradúcense como «acceder» ou «identificarse»
+{\b(log\s?|sign\s)(i|o)n}i
+id="PT-2011_login"
+valid msgstr="\bacce(d|so)"
+valid msgstr="\bidentifi(c|qu)"
+valid !msgstr="\bautentic"
+valid !msgstr="\bacredit"
+valid !msgstr="\binici(ar|e|ou)\ssesión"
+hint="«login», «log/sign in», «log/sign on» tradúcense como «acceder» ou «identificarse»"
+
+# «acceder» traduce a «login», «log/sign in», «log/sign on»
+[\bacce(d|so)]i
+id="PT-2011-dual_login1"
+valid msgid="\b(log\s?|sign\s)(i|o)n"
+hint="«acceder» traduce a «login», «log/sign in», «log/sign on»"
+
+# «identificar» traduce a «login», «log/sign in», «log/sign on» (e identificar)
+[\bidentifi(c|qu)]i
+id="noPT-2011-dual_login2"
+valid msgid="\b(log\s?|sign\s)(i|o)n"
+valid msgid="\bidentif"
+hint="«identificar» traduce a «login», «log/sign in», «log/sign on» (e identificar)"
+
+#####
+## Fin de login
+#####
+
 
 # «passphrase» tradúcese como «frase de paso»
 {\bpassphrase}i
@@ -848,12 +999,7 @@ valid msgstr="\bsaída"
 hint="«quit», «exit» tradúcense como «saír»"
 
 # «saír» traduce a «quit», «exit»
-[\bsa(í|i)(r|u|che|da)]i
-id="PT-2011-dual_quit"
-valid msgid="\b(quit|exit)"
-hint="«saír» traduce a «quit», «exit»"
-
-
+# ver regra para log out
 
 # «redo» tradúcese como «refacer»
 {\bredo}i
@@ -866,6 +1012,18 @@ hint="«redo» tradúcese como «refacer»"
 id="PT-2011-dual_redo"
 valid msgid="\bredo"
 hint="«refacer» traduce a  «redo»"
+
+# «removable» tradúcese como «extraíbel»
+{\bremovable}i
+id="PT-2011_removable"
+valid msgstr="\bextra(íbel|ibeis)"
+hint="«removable» tradúcese como «extraíbel»"
+
+# «extraíbel» traduce a «removable»
+[\bextra(íbel|ibeis)]i
+id="PT-2011-dual_removable"
+valid msgid="\bremovable"
+hint="«extraíbel» traduce a «removable»"
 
 # «replace» tradúcese como «substituir»
 {\breplace}i
@@ -1041,7 +1199,6 @@ hint="«rastrexar» traduce a «track»"
 # «tracker» tradúcese como «localizador» (para: !bittorrent)
 {\btracker}i
 id="PT-2011_tracker"
-env="bittorrent"
 valid !env="bittorrent"
 valid msgstr="\blocalizador"
 hint="«tracker» tradúcese como «localizador» (para: !bittorrent)"
@@ -1049,21 +1206,21 @@ hint="«tracker» tradúcese como «localizador» (para: !bittorrent)"
 # «rastrexador» traduce a «tracker» (para: !bittorrent)
 [\brastrexador]i
 id="PT-2011-dual_tracker"
-valis !env="bittorrent"
+valid !env="bittorrent"
 valid msgid="\btracker"
 hint="«localizador» traduce a «tracker» (para: !bittorrent)"
 
 # «tracker» tradúcese como «localizador» (para: bittorrent)
 {\btracker}i
 id="PT-2011_tracker2"
-env="bittorrent"
+valid env="bittorrent"
 valid msgstr="\blocalizador"
 hint="«tracker» tradúcese como «localizador» (para: bittorrent)"
 
 # «localizador» traduce a «tracker» (para: bittorrent)
 [\blocalizador]i
 id="PT-2011-dual_tracker2"
-env="bittorrent"
+valid env="bittorrent"
 valid msgid="\btracker"
 hint="«localizador» traduce a «tracker» (para: bittorrent)"
 
@@ -1116,6 +1273,18 @@ id="PT-2011-dual_upgrade"
 valid msgid="\bupgrade"
 hint="«anovar» ou «anovación» traducen a «upgrade»"
 
+# «upload» tradúcese como «enviar»
+{\bupload}i
+id="PT-2011_upload"
+valid msgstr="\benv(i|í)."
+hint="«upload» tradúcese como «enviar»"
+
+# «enviar» traduce a «upload»
+[\benv(i|í)]i
+id="PT-2011_upload"
+valid msgid="\bupload"
+hint="«enviar» traduce a «upload»"
+
 # «widget» tradúcese como «trebello»
 {\bwidget}i
 id="PT-2011_widget"
@@ -1153,7 +1322,7 @@ hint="«xanela» traduce a «window»"
 valid before="\sto\b"
 valid after="\bknow(s|\"\")\s"
 id="kde_about"
-env="kde"
+valid env="kde"
 valid msgstr="\bacerca\sd"
 valid msgstr="\brefer"
 valid msgstr="\bsobre\b"
@@ -1162,21 +1331,21 @@ hint="about -> sobre"
 # «about» -> «sobre»
 {^about}i
 id="kde_about2"
-env="kde"
+valid env="kde"
 valid msgstr="\bacerca\sd"
 hint="about -> acerca de"
 
 # «accept» -> «aceptar»
 {\baccept}i
 id="kde_accept"
-env="kde"
+valid env="kde"
 valid msgstr="\bacept"
 hint="accept = aceptar"
 
 # «aceptar» -> «accept»
 [\bacept]i
 id="kde-dual_accept"
-env="kde"
+valid env="kde"
 valid msgid="\baccept"
 valid msgid="\bOK\b"
 valid msgid="\bagree"
@@ -1185,7 +1354,7 @@ hint="aceptar = accept"
 # «not enabled»
 {\bnot enabled\b}
 id="kde_not enabled"
-env="kde"
+valid env="kde"
 valid msgstr="\bdesactivad(o|a)"
 valid msgstr="\bnon\sestá\sactivad(o|a)"
 hint="not enabled -> desactivado"
@@ -1193,14 +1362,14 @@ hint="not enabled -> desactivado"
 # «enable/disable» -> «conmutar»
 {\benable/disable}i
 id="kde_enabledisable"
-env="kde"
+valid env="kde"
 valid msgstr="\bconmuta"
 hint="enable/disable = conmutar"
 
 # «encounter» -> «atopar» and not «achar»
 {\bencounter}i
 id="kde_encounter"
-env="kde"
+valid env="kde"
 valid msgstr="\batop"
 valid !msgstr="\bach"
 hint="encounter -> atopar"
@@ -1210,7 +1379,7 @@ hint="encounter -> atopar"
 valid !after="screen"
 valid !before="\spreview"
 id="kde_print"
-env="kde"
+valid env="kde"
 valid msgstr="\bimprim"
 valid msgstr="\bimpreso"
 valid msgstr="\bmostr"
@@ -1219,7 +1388,7 @@ hint="print = imprimir, impreso ou mostrar"
 # «printing» -> «imprimir», «impresión»
 {\bprinting}i
 id="kde_printing"
-env="kde"
+valid env="kde"
 valid msgstr="\bimpresión"
 valid msgstr="\bimprim"
 hint="printing = imprimir, impresión"
@@ -1227,7 +1396,7 @@ hint="printing = imprimir, impresión"
 # «imprimir» -> «print»
 [\bimprim]i
 id="kde-dual_print"
-env="kde"
+valid env="kde"
 valid msgid="\bprint(?!er)"
 hint="imprimir = print"
 
