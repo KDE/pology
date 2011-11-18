@@ -209,9 +209,11 @@ def merge_pofile (catpath, tplpath,
         # In case compendium is being used,
         # make fuzzy exact matches which do not pass the word limit.
         if correct_exact_matches:
+            acc = cat.accelerator()
             for msg in cat:
                 if (    msg.key in nontrkeys and msg.translated
-                    and (fuzzex or len(proper_words(msg.msgid)) < minwnex)
+                    and (   fuzzex
+                         or len(proper_words(msg.msgid, accels=acc)) < minwnex)
                 ):
                     msg.fuzzy = True
 

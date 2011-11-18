@@ -150,7 +150,7 @@ _remove_fmtd_rxs = [
 _word_ok_rx = re.compile(r"^[^_]*$", re.U)
 
 
-def proper_words (text, markup=False, accels=[], format=None):
+def proper_words (text, markup=False, accels=None, format=None):
     """
     Mine proper words out of the text.
 
