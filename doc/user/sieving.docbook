@@ -731,7 +731,7 @@ Strings after the dot can be anything, but a sequence of numbers or letters in a
 <varlistentry>
 <term><option>provider:<replaceable>keyword</replaceable></option></term>
 <listitem>
-<para>The spell-checker that Enchant should use. The value is one of keywords defined by Enchant (e.g. <literal>aspell</literal>, <literal>hunspell</literal>...), and can be seen by running <command>enchant-lsmod</command> command (only providers available on the system are shown). If not given either by this parameter or in user configuration, Enchant will try to select a provider on its own.</para>
+<para>The spell-checker that Enchant should use. The value is one of keywords defined by Enchant (e.g. <literal>aspell</literal>, <literal>myspell</literal>...), and can be seen by running <command>enchant-lsmod</command> command (only providers available on the system are shown). If not given either by this parameter or in user configuration, Enchant will try to select a provider on its own.</para>
 </listitem>
 </varlistentry>
 
