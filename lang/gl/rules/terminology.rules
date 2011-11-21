@@ -37,9 +37,10 @@ hint="«abort» tradúcese como «interromper»"
 
 # «interromper» traduce a «abort»
 [\binterromp]i
-id="PT-2011-dual_abort"
+id="noPT-2011-dual_abort"
 valid msgid="\babort"
-hint="«interromper» traduce a «abort»"
+valid msgid="\binterrupt"
+hint="«interromper» traduce a «abort» (e a «interrupt»"
 
 # «applet» tradúcese como «applet»
 {\bapplet}i
@@ -214,10 +215,10 @@ hint="«sala de conversas» traduce a «chat»"
 valid after="\bspell "
 valid before="box"
 valid before=" spell"
-id="noPT-2011_check"
+id="noPT-2011-check"
 valid msgstr="\b(com)?prob"
 valid msgstr="\brevis"
-valid msgstr="\bmar(que|ar|ado|ou)"
+valid msgstr="\bmar(que|car|cado|cou)"
 valid msgstr="\bescoll"
 hint="«check» tradúcese como «comprobar», «revisar» ou «marcar» (e «escoller»)"
 
@@ -241,6 +242,7 @@ valid before="sa"
 valid before="ha"
 valid before="as?\sde\ssubstitución"
 valid before="as?\srexistrada"
+valid !before="o\s"
 id="noPT-2011-dual_check3"
 valid msgid="\bcheck"
 valid msgid="\bmark"
@@ -268,6 +270,7 @@ hint="«close» tradúcese como «pechar»"
 # «pechar» traduce a «close»
 [\bpech]i
 valid before="es?\sinesperado" env="kde"
+valid before="ouse\sinesperad" env="kde"
 id="noPT-2011-dual_close"
 valid msgid="\bclos(e|ed|ing)"
 hint="«pechar» traduce a «close»"
@@ -295,7 +298,7 @@ hint="«commit» tradúcese como «remitir»"
 # «remitir» traduce a «commit»
 [\bremi(tir|tido|sión)]i
 id="PT-2011-dual_commit"
-valid msgid="\bcommit"
+valid msgid="\b(auto)?commit"
 hint="«remitir» traduce a «commit»"
 
 # «crash» tradúcese como «quebra»
@@ -303,6 +306,7 @@ hint="«remitir» traduce a «commit»"
 id="noPT-2011_crash"
 valid msgstr="\bquebr.?" !env="kde"
 valid msgstr="\bpeches?\sinesperado" env="kde"
+valid msgstr="\bpechouse\sinesperad" env="kde"
 hint="«crash» tradúcese como «quebra»"
 
 # «daemon» tradúcese como «daemon»
@@ -329,11 +333,18 @@ id="PT-2011_detach"
 valid msgstr="\bdes(conect|prend)."
 hint="«detach» tradúcese como «desconectar», «desprender»"
 
-# «desconectar», «desprender» traducen a «detach»
-[\bdes(conect|prend).]i
+# «desprender» traduce a «detach»
+[\bdesprend.]i
 id="PT-2011-dual_detach"
 valid msgid="\bdetach"
-hint="«desconectar», «desprender» traducen a «detach»"
+hint="«desprender» traduce a «detach»"
+
+# «desconectar» traduce a «detach» (e a «disconnect»)
+[\bdesprend.]i
+id="noPT-2011-dual_detach2"
+valid msgid="\bdetach"
+valid msgid="\bdisconnect"
+hint="«desconectar» traduce a «detach» (e a «disconnect»)"
 
 # «develop» tradúcese como «desenvolver»
 {\bdevelop}i
@@ -414,9 +425,10 @@ hint="«download» tradúcese como «descargar»"
 
 # «descargar» traduce a «download»
 [\bdescarg]i
-id="PT-2011-dual_download"
+id="noPT-2011-dual_download"
 valid msgid="\bdownload"
-hint="«descargar» traduce a «download»"
+valid msgid="\bunload" env="kde"
+hint="«descargar» traduce a «download» (e unload)"
 
 # «drive» tradúcese como «unidade»
 {\bdrive\b}i
@@ -761,7 +773,8 @@ valid after="argumento"
 id="noPT-2010-dual_invalid2"
 valid msgid="\binvalid"
 valid msgid="\bincorrect"
-hint="«incorrecto» traduce a «invalid» (e a «incorrect»"
+valid msgid="\bwrong"
+hint="«incorrecto» traduce a «invalid» (e a «incorrect», e a «wrong»)"
 
 # «issue» tradúcese como «incidencia»
 {\bissue}i
@@ -888,7 +901,7 @@ hint="«log/sign out» e «log/sign off» tradúcense como «saír»"
 [\bsa(í(r|mos|des|n|che|u|s|ron|a|as|an|ra)|i(o|amos|ades|ramos|rades|re(i|mos|des)|rá|rí|a)|e\b)]i
 id="noPT-2011-dual_log/signout-log/signoff"
 valid msgid="\b(quit|exit)"
-valid msgid="\b(log|sign)\so(ut|ff)"
+valid msgid="\b(log|sign)\s?o(ut|ff)"
 valid msgid="\bleaving"
 hint="«saír» traduce a «quit», «exit», «log/sign out» e «log/sign off» (e «leave»)"
 
@@ -906,6 +919,7 @@ hint="«login», «log/sign in», «log/sign on» tradúcense como «acceder» o
 [\bacce(d|so)]i
 id="noPT-2011-dual_login1"
 valid msgid="\b(log\s?|sign\s)(i|o)n"
+valid msgid="\blogging" env="kde"
 valid msgid="\baccess"
 hint="«acceder» traduce a «login», «log/sign in», «log/sign on» (e access)"
 
@@ -1085,7 +1099,8 @@ valid after="marcas?\sde\s"
 id="noPT-2011-dual_replace"
 valid msgid="\breplac(e|ing)"
 valid msgid="\bsurrogat"
-hint="«substituir» traduce a «replace» (e a «surrogate»)"
+valid msgid="\bsubstitut"
+hint="«substituir» traduce a «replace» (e a «surrogate», e a «substitute»)"
 
 # «retry» tradúcese como «reintentar» ou «tentar de novo»
 {\bretry}i
@@ -1198,7 +1213,7 @@ hint="«Tab» tradúcese como «Lapela»,tabulador ou tabulación"
 # «Lapela» traduce a «tab».
 [\blapela|\btabulador]i
 id="PT-2010-dual_tab"
-valid msgid="\btab" before="\border|\bstop" 
+valid msgid="\btab" # before="\border|\bstop" 
 hint="«Lapela» e «tabulador» traducen a «Tab»"
 
 # Variantes de «tab»
@@ -1208,17 +1223,17 @@ valid msgid="\btab" before="\sborder|\sstop"
 valid msgid="\btab"
 hint="«tabulación» traduce a «tab»,«Tab order» e «tab stop»"
 
-# # «bug tracker» tradúcese como «(sistema de) seguimento de incidencias»
-# {\bbug\stracker}i
-# id="PT-2011_tracker4"
+# «bug tracker» tradúcese como «(sistema de) seguimento de incidencias»
+{\bbug\stracker}i
+id="PT-2011_tracker4"
 # valid msgstr="\b(sistema\sde\s)?seguimento\sde\sincidencias"
-# hint="«bug tracker» tradúcese como «(sistema de) seguimento de incidencias»"
-# 
-# # «(sistema de) seguimento de incidencias» traduce a «bug tracker»
-# [\b(sistema\sde\s)?seguimento\sde\sincidencias]i
-# id="PT-2011-dual_tracker4"
-# valid msgid="\bbug\stracker"
-# hint="«(sistema de) seguimento de incidencias» traduce a «bug tracker»"
+hint="«bug tracker» tradúcese como «(sistema de) seguimento de incidencias»"
+
+# «(sistema de) seguimento de incidencias» traduce a «bug tracker»
+[\b(sistema\sde\s)?seguimento\sde\sincidencias]i
+id="PT-2011-dual_tracker4"
+valid msgid="\bbug\stracker"
+hint="«(sistema de) seguimento de incidencias» traduce a «bug tracker»"
 
 # «track» tradúcese como «pista» ou «seguir/rastrexar»
 {\btrack\b}i
@@ -1231,7 +1246,7 @@ hint="«track» tradúcese como «pista» ou «seguir/rastrexar»"
 # «pista» traduce a «track»
 [\bpista]i
 id="PT-2011-dual_track"
-valid msgid="\btrack\b"
+valid msgid="\btracks?\b"
 hint="«pista» traduce a «track»"
 
 # «seguir» traduce a «track»
@@ -1427,17 +1442,27 @@ hint="not enabled -> desactivado"
 # «enable/disable» -> «conmutar»
 {\benable/disable}i
 id="kde_enabledisable"
-valid env="kde"
-valid msgstr="\bconmuta"
+valid msgstr="\bconmuta" env="kde"
 hint="enable/disable = conmutar"
 
 # «encounter» -> «atopar» and not «achar»
 {\bencounter}i
 id="kde_encounter"
-valid env="kde"
-valid msgstr="\batop"
-valid !msgstr="\bach"
+valid msgstr="\batop" env="kde"
+valid !msgstr="\bach" env="kde"
 hint="encounter -> atopar"
+
+# «frame» -> «marco»
+{\bframe}i
+id="kde_frame"
+valid msgstr="\bmarco" env="kde"
+hint="«frame» -> «marco»"
+
+# «marco» -> «frame»
+[\bmarco]i
+id="kde-dual_frame"
+valid msgid="\bframe" env="kde"
+hint="«marco» -> «frame»"
 
 # «print» -> «imprimir», «mostra»
 {\bprint(?!(ing|er))}i
