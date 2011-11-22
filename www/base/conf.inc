@@ -1,0 +1,5 @@
+<php?
+
+// $srvroot = "@srvroot@";
+
+?>
