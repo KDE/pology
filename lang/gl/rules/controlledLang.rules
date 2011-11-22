@@ -40,7 +40,7 @@ include file="filter.include"
 
 # Prefírese a terminación en bel
 [\b[A-Za-z]+bles?(\s|\b)]i
-valid span="(fe|ca|dou)bles?"
+valid span="(fe|ca|dou|tre|ipta)bles?"
 id="PT-2011-gl_bel"
 hint="terminación en -bel"
 

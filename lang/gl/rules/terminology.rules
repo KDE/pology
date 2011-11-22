@@ -825,6 +825,7 @@ hint="«keyword» tradúcese como «palabra clave» (buscas) ou «palabra chave�
 
 # «kill» tradúcese como «matar»
 {\bkill}i
+valid before="ustrator"
 id="PT-2011_kill"
 valid msgstr="\bmat(ar|ou)"
 hint="«kill» tradúcese como «matar»"
@@ -1275,28 +1276,20 @@ hint="«rastrexar» traduce a «track»"
 {\btracker}i
 id="PT-2011_tracker"
 valid !env="bittorrent"
-valid msgstr="\blocalizador"
-hint="«tracker» tradúcese como «localizador» (para: !bittorrent)"
+valid msgstr="\blocalizador" env="bittorrent"
+valid msgstr="\brastrexador" !env="bittorrent"
+hint="«tracker» tradúcese como «localizador» (env=bittorrent) ou «rastrexador»"
 
 # «rastrexador» traduce a «tracker» (para: !bittorrent)
 [\brastrexador]i
 id="PT-2011-dual_tracker"
-valid !env="bittorrent"
-valid msgid="\btracker"
+valid msgid="\btracker" !env="bittorrent"
 hint="«localizador» traduce a «tracker» (para: !bittorrent)"
-
-# «tracker» tradúcese como «localizador» (para: bittorrent)
-{\btracker}i
-id="PT-2011_tracker2"
-valid env="bittorrent"
-valid msgstr="\blocalizador"
-hint="«tracker» tradúcese como «localizador» (para: bittorrent)"
 
 # «localizador» traduce a «tracker» (para: bittorrent)
 [\blocalizador]i
 id="PT-2011-dual_tracker2"
-valid env="bittorrent"
-valid msgid="\btracker"
+valid msgid="\btracker" env="bittorrent"
 hint="«localizador» traduce a «tracker» (para: bittorrent)"
 
 # «bug tracker» tradúcese como «(sistema de) seguimento de incidencias»
