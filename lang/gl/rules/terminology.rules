@@ -58,6 +58,11 @@ valid !env="kde"
 
 # «application» tradúcese como «aplicativo»
 {\bapplication}i
+valid after="</?" before=">" env="xfce"
+valid before="/x-executable"
+valid before="/x-shellscript"
+valid before="/x-desktop"
+valid after="Type="
 id="PT-2011_application"
 valid msgstr="\baplicativo" !env="kde"
 valid msgstr="\bprograma" env="kde"
@@ -67,7 +72,7 @@ hint="«application» tradúcese como «aplicativo»"
 # «aplicativo» traduce a «application»
 [\baplicativo]i
 id="PT-2011-dual_application"
-valid msgid="\bapplication" env="kde"
+valid msgid="\bapplication" !env="kde"
 hint="«aplicativo» traduce a «application»"
 
 # «Attach» tradúcese como «anexar», «conectar»
@@ -242,7 +247,7 @@ valid before="sa"
 valid before="ha"
 valid before="as?\sde\ssubstitución"
 valid before="as?\srexistrada"
-valid !before="o\s"
+valid before="o\s"
 id="noPT-2011-dual_check3"
 valid msgid="\bcheck"
 valid msgid="\bmark"
@@ -501,7 +506,7 @@ valid before="idade"
 valid before="amente"
 id="noPT-2011-dual_enable"
 valid msgid="\benable"
-valid msgid="\bactivate"
+valid msgid="\bactiv"
 hint="«activar» traduce a «enable» (e a activate)"
 
 # «environment» tradúcese como «entorno»
@@ -696,7 +701,7 @@ hint="«historial» traduce a «history»"
 # «icon» tradúcese como «icona»
 {\bicon}i
 id="PT-2011_icon"
-valid msgstr="\bicona"
+valid msgstr="\bicon(a|iz)"
 hint="«icon» tradúcese como «icona»"
 
 # «icona» traduce a «icon»
@@ -903,7 +908,7 @@ hint="«log/sign out» e «log/sign off» tradúcense como «saír»"
 id="noPT-2011-dual_log/signout-log/signoff"
 valid msgid="\b(quit|exit)"
 valid msgid="\b(log|sign)\s?o(ut|ff)"
-valid msgid="\bleaving"
+valid msgid="\bleav(e|ing)"
 hint="«saír» traduce a «quit», «exit», «log/sign out» e «log/sign off» (e «leave»)"
 
 # «login», «log/sign in», «log/sign on» tradúcense como «acceder» ou «identificarse»
@@ -983,7 +988,7 @@ valid msgstr="\bsecuencias?\sde\svértices"
 hint="«Path» tradúcese como «ruta» (ou secuencia de vértices)"
 
 # «Trust path» tradúcese como «cadea de confianza»
-{\b(?<=trust\s)path}i
+{\btrust\spath}i
 id="PT-2011_trust-path"
 valid msgstr="\bcadea\sde\s\confianza"
 hint="«Trust path» tradúcese como «cadea de confianza»"
@@ -1257,7 +1262,7 @@ valid before="mento"
 id="noPT-2011-dual_track2"
 valid msgid="\btrack(\b|\s|s|ed)"
 valid msgid="\bobserve" env="kde"
-valid msgid="\bfollow" env="kde"
+valid msgid="\bfollow"
 hint="«seguir» traduce a «track» (e a «follow»)"
 
 # «seguimento» traduce a «tracking»
@@ -1395,18 +1400,10 @@ hint="«xanela» traduce a «window»"
 valid before="\sto\b"
 valid after="\bknow(s|\"\")\s"
 id="kde_about"
-valid env="kde"
-valid msgstr="\bacerca\sd"
-valid msgstr="\brefer"
-valid msgstr="\bsobre\b"
+valid msgstr="\bacerca\sd" env="kde"
+valid msgstr="\brefer" env="kde"
+valid msgstr="\bsobre\b" !env="kde"
 hint="about -> sobre"
-
-# «about» -> «sobre»
-{^about}i
-id="kde_about2"
-valid env="kde"
-valid msgstr="\bacerca\sd"
-hint="about -> acerca de"
 
 # «accept» -> «aceptar»
 {\baccept}i
