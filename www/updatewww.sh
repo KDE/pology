@@ -1,48 +1,55 @@
 #!/bin/sh
 
-cd $(dirname $0)
+scriptdir=$(dirname $0)
+cd $scriptdir
+
 srcdir=..
 
 if test -n "$1"; then
-    dstdir=$1
-    if test -z "$2"; then
-        echo "If destination directory is given in command line, "\
+    relsrcdir="$(revpath $scriptdir)/$1"
+else
+    relsrcdir=
+fi
+
+if test -n "$2"; then
+    dstdir=$2
+    if test -z "$3"; then
+        echo "If destination directory is given in command line,"
              "server root must be given as well."
         exit 1
     fi
-    srvroot=$2
+    srvroot=$3
 else
     # Expects www-pology entry in SSH config.
     dstdir=www-pology:pology.nedohodnik.net
     srvroot=http://pology.nedohodnik.net
 fi
-if test -n "$3"; then
-    builddoc=$3
-else
-    builddoc=1
-fi
 
 echo "Copying base files..."
 cp -aLf base tmpwww
-find tmpwww -type f | xargs sed -i -r "s|@srvroot@|$srvroot|g"
+find tmpwww -type f | xargs grep -lI '@srvroot@' \
+| xargs sed -i -r "s|@srvroot@|$srvroot|g"
 
-if test ! $builddoc = 0; then
-    echo "Building local documentation:"
-    rm -rf $srcdir/doc-html
+if test -n "$relsrcdir"; then
+    echo "Building release documentation:"
+    rm -rf $relsrcdir/doc-html
     echo "- user manual..."
-    $srcdir/doc/user/local.sh build
+    $relsrcdir/doc/user/local.sh build
     echo "- language support manuals..."
-    for local in $srcdir/lang/*/doc/local.sh; do
-        $local build || exit 1
+    for locbld in $relsrcdir/lang/*/doc/local.sh; do
+        $locbld build || exit 1
     done
     echo "- API documentation..."
-    $srcdir/doc/api/local.sh build
+    $relsrcdir/doc/api/local.sh build
+    cp -aL $srcdir/doc-html/* tmpwww/doc/
+    excldoc=
+else
+    excldoc="--exclude doc/"
 fi
-cp -aL $srcdir/doc-html/* tmpwww/doc/
 
 echo "Syncing with web site..."
 rsync -rav --delete \
-      --cvs-exclude --exclude release/ \
+      --cvs-exclude --exclude release/ $excldoc \
       tmpwww/ $dstdir/
 rm -rf tmpwww
 
