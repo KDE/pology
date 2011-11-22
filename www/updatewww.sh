@@ -41,8 +41,9 @@ fi
 cp -aL $srcdir/doc-html/* tmpwww/doc/
 
 echo "Syncing with web site..."
-# Expects www-pology entry in SSH config.
-rsync -rav --delete --cvs-exclude tmpwww/ $dstdir/
+rsync -rav --delete \
+      --cvs-exclude --exclude release/ \
+      tmpwww/ $dstdir/
 rm -rf tmpwww
 
 echo "All done."
