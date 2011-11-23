@@ -6,7 +6,11 @@ cd $scriptdir
 srcdir=..
 
 if test -n "$1"; then
-    relsrcdir="$(revpath $scriptdir)/$1"
+    if [[ "$1" != /* ]]; then
+       relsrcdir="$(revpath $scriptdir)/$1"
+    else
+       relsrcdir="$1"
+    fi
 else
     relsrcdir=
 fi
@@ -41,7 +45,7 @@ if test -n "$relsrcdir"; then
     done
     echo "- API documentation..."
     $relsrcdir/doc/api/local.sh build
-    cp -aL $srcdir/doc-html/* tmpwww/doc/
+    cp -aL $relsrcdir/doc-html/* tmpwww/doc/
     excldoc=
 else
     excldoc="--exclude doc/"
