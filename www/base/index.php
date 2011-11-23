@@ -59,7 +59,7 @@ $manurl_mono = path_for_lang(sprintf("%s/doc/user/%%s/index-mono.html", $rooturl
                              $lang);
 t_("<p class='first'>The user manual is contained in the Pology distribution, and it will be built from the source if all documentation-generation dependencies are satisfied. The user manual for latest Pology release is available on-line:</p>".
    "<div class='inset'>".
-   "<p><a href='%s'>HTML — one page by chapter</a></p>".
+   "<p><a href='%s'>HTML — one page per chapter</a></p>".
    "<p><a href='%s'>HTML — everything on single page</a></p>".
    "</div>",
    $manurl_chunk, $manurl_mono);
@@ -86,7 +86,7 @@ t_("<p>There are separate user manuals describing language-specific functionalit
 $apiurl_curr = path_for_lang(sprintf("%s/doc/api/%%s/index.html", $rooturl),
                              $lang);
 t_("<p>For programming with Pology, the API reference is included in the distribution. The online version for the latest Pology release is here:</p>".
-   "<div class='inset'><p><a href='%s'>HTML — one page by node</a></p></div>",
+   "<div class='inset'><p><a href='%s'>HTML — one page per node</a></p></div>",
    $apiurl_curr);
 
 // ========================================
