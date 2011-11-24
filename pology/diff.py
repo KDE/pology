@@ -87,7 +87,7 @@ def tdiff (seq_old, seq_new, reductf=None, diffr=False):
         >>> s2 = "A kind of foo".split()
         >>> tdiff(s1, s2)
         [(' ', 'A'), ('-', 'type'), ('+', 'kind'), (' ', 'of'), (' ', 'foo')]
-        >>> word_diff(s1, s2, diffr=True)
+        >>> tdiff(s1, s2, diffr=True)
         ([(' ', 'A'), ('-', 'type'), ('+', 'kind'), (' ', 'of'), (' ', 'foo')],
         0.25)
 
@@ -156,10 +156,10 @@ def itdiff (seq_old, seq_new, reductf=None, cutoff=0.6, diffr=False):
 
         >>> s1 = "Two blue airplanes".split()
         >>> s2 = "Two bluish ships".split()
-        >>> D.tdiff(s1, s2)
+        >>> tdiff(s1, s2)
         [(' ', 'Two'), ('-', 'blue'), ('-', 'airplanes'), ('+', 'bluish'),
          ('+', 'ships')]
-        >>> D.itdiff(s1, s2)
+        >>> itdiff(s1, s2)
         [(' ', 'Two'), ('-', 'blue'), ('+', 'bluish'), ('-', 'airplanes'),
          ('+', 'ships')]
 
