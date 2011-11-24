@@ -234,27 +234,28 @@ def main ():
                                    colorize=(not op.output),
                                    shdr=op.strip_headers,
                                    noobs=op.skip_obsolete)
-        hmsgctxt = ecat.header.get_field_value(EDST.hmsgctxt_field)
-        lines = []
-        msgs = list(ecat)
-        if not op.strip_headers:
-            msgs.insert(0, ecat.header.to_msg())
-        for msg in msgs:
-            if op.strip_headers and msg.msgctxt == hmsgctxt:
-                sepl = []
-                sepl += [msg.manual_comment[0]]
-                sepl += msg.msgid.split("\n")[:2]
-                lines.extend(["# %s\n" % x for x in sepl])
-                lines.append("\n")
+        if ndiffed > 0:
+            hmsgctxt = ecat.header.get_field_value(EDST.hmsgctxt_field)
+            lines = []
+            msgs = list(ecat)
+            if not op.strip_headers:
+                msgs.insert(0, ecat.header.to_msg())
+            for msg in msgs:
+                if op.strip_headers and msg.msgctxt == hmsgctxt:
+                    sepl = []
+                    sepl += [msg.manual_comment[0]]
+                    sepl += msg.msgid.split("\n")[:2]
+                    lines.extend(["# %s\n" % x for x in sepl])
+                    lines.append("\n")
+                else:
+                    lines.extend(msg.to_lines(force=True, wrapf=ecat.wrapf()))
+            diffstr = cjoin(lines)[:-1] # remove last newline
+            if op.output:
+                file = open(op.output, "w")
+                file.write(diffstr.encode(ecat.encoding()))
+                file.close()
             else:
-                lines.extend(msg.to_lines(force=True, wrapf=ecat.wrapf()))
-        diffstr = cjoin(lines)[:-1] # remove last newline
-        if op.output:
-            file = open(op.output, "w")
-            file.write(diffstr.encode(ecat.encoding()))
-            file.close()
-        else:
-            report(diffstr)
+                report(diffstr)
     else:
         updeff = pairs_update_effort(pspecs)
         ls = []
