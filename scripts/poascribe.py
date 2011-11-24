@@ -1359,7 +1359,9 @@ def purge_msg (msg, keepflags=False):
             tags = [x.strip() for x in tagstr.split(_flagtagsep)]
             if sflag not in _urevdflags:
                 revtags.update(tags)
-                if sflag in _diffflags:
+                if sflag == _diffflag:
+                    # ...must not check ...in _diffflags because with
+                    # those other flags there is actually no diff.
                     diffed = True
             else:
                 unrevd = True
