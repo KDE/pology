@@ -817,6 +817,13 @@ Options specific to <command>poediff</command>:
 </listitem>
 </varlistentry>
 
+<varlistentry>
+<term><option>-U</option>, <option>--update-effort</option></term>
+<listitem>
+<para>Instead of outputing the diff, the <emphasis>translation update effort</emphasis> is computed. It is expressed as the nominal number of newly translated words, from old to new paths. The procedure to compute this quantity is not straightforward, but the intention is that it roughly approximate the number of words (in original text) as if messages were translated from scratch. Options <option>-b</option> and <option>-n</option> are ignored.</para>
+</listitem>
+</varlistentry>
+
 </variablelist>
 </para>
 

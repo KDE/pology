@@ -15,7 +15,7 @@ import time
 from pology import PologyError, _
 from pology.catalog import Catalog
 import pology.config as pology_config
-from pology.diff import msg_ediff
+from pology.diff import msg_ediff, tdiff
 from pology.merge import merge_pofile
 from pology.message import MessageUnsafe
 
@@ -96,9 +96,106 @@ def msg_cleanup (msg):
             if msg.get(field) is not None:
                 setattr(msg, field, None)
 
-
 def diff_cats (cat1, cat2, ecat,
                merge=True, colorize=False, wrem=True, wadd=True, noobs=False):
+
+    dpairs = _pair_msgs(cat1, cat2, merge, wrem, wadd, noobs)
+
+    # Order pairings such that they follow order of messages in
+    # the new catalog wherever the new message exists.
+    # For unpaired old messages, do heuristic analysis of any
+    # renamings of source files, and then insert diffed messages
+    # according to source references of old messages.
+    dpairs_by2 = [x for x in dpairs if x[1]]
+    dpairs_by2.sort(key=lambda x: x[1].refentry)
+    dpairs_by1 = [x for x in dpairs if not x[1]]
+    fnsyn = None
+    if dpairs_by1:
+        fnsyn = cat2.detect_renamed_sources(cat1)
+
+    # Make the diffs.
+    # Must not add diffed messages directly to global ediff catalog,
+    # because then heuristic insertion would throw them all over.
+    # Instead add to local ediff catalog, then copy in order to global.
+    ndiffed = 0
+    lecat = Catalog("", create=True, monitored=False)
+    for cdpairs, cfnsyn in ((dpairs_by2, None), (dpairs_by1, fnsyn)):
+        for msg1, msg2 in cdpairs:
+            ndiffed += _add_msg_diff(msg1, msg2, lecat, colorize, cfnsyn)
+    for emsg in lecat:
+        ecat.add(emsg, len(ecat))
+
+    return ndiffed
+
+
+def cats_update_effort (cat1, cat2, merge=True):
+
+    dpairs = _pair_msgs(cat1, cat2, merge, wrem=False, wadd=True, noobs=False)
+
+    nntw_total = 0
+
+    for msg1, msg2 in dpairs:
+
+        if not msg2.active:
+            continue
+        if msg1 is None:
+            msg1 = MessageUnsafe()
+
+        # The update effort of the given old-new message pair is equal
+        # to "nominal number of newly translated words" (NNTW),
+        # which is defined as follows:
+        # - nominal length of a word in msgid is set to 6 characters (WL).
+        # - number of characters in new msgid is divided by WL
+        #   to give nominal number of words in new msgid (NWO)
+        # - number of equal characters in old and new msgid is divided by WL
+        #   to give nominal number of equal words in msgid (NEWO)
+        # - number of characters in new msgstr is divided by number of
+        #   characters in new msgid to give translation expansion factor (EF)
+        # - number of equal characters in old and new msgstr is divided
+        #   by WL*EF to give nominal number of equal words in msgstr (NEWT)
+        # - character-based similarity ratio of old and new msgid
+        #   (from 0.0 for no similarity to 1.0 for equality) is computed (SRO)
+        # - character-based similarity ratio of old and new msgstr
+        #   is computed (SRT)
+        # - similarity ratio threshold is set to 0.5 (SRB)
+        # - reduction due to similiarity factor is computed as
+        #   RSF = (min(SRO, SRT) - SRB) / (1 - SRB)
+        # - nominal number of newly translated words is computed as
+        #   NNTW = min(NWO - max(NEWO, NEWT) * RSF, NWO)
+        #
+        # Only those pairs where the new message is active are counted in.
+        #
+        # On plural messages, for the moment only msgid and msgstr[0]
+        # are considered, and the above procedured applied to them.
+        # This underestimates the effort of updating a new plural message
+        # when old message was ordinary.
+
+        wl = 6.0
+        nwo = len(msg2.msgid) / wl
+        diffo, dro = tdiff(msg1.msgid, msg2.msgid, diffr=True)
+        newo = len([c for t, c in diffo if t == " "]) / wl
+        ef = float(len(msg2.msgstr[0])) / len(msg2.msgid)
+        difft, drt = tdiff(msg1.msgstr[0], msg2.msgstr[0], diffr=True)
+        newt = len([c for t, c in difft if t == " "]) / (wl * ef)
+        sro = 1.0 - dro
+        srt = 1.0 - drt
+        srb = 0.5
+        rsf = (min(sro, srt) - srb) / (1.0 - srb)
+        nntw = max(min(nwo - max(newo, newt) * rsf, nwo), 0.0)
+        nntw_total += nntw
+
+    return nntw_total
+
+
+def _calc_text_update_effort (text1, text2):
+
+    dr1 = 0.5
+    ediff, dr = word_ediff(text1, text2, markup=True, diffr=True)
+
+
+
+def _pair_msgs (cat1, cat2,
+                merge=True, wrem=True, wadd=True, noobs=False):
 
     # Remove obsolete messages if they are not to be diffed.
     if noobs:
@@ -183,31 +280,7 @@ def diff_cats (cat1, cat2, ecat,
         if msg1 not in msgs1_paired:
             dpairs.append((msg1, None))
 
-    # Order pairings such that they follow order of messages in
-    # the new catalog wherever the new message exists.
-    # For unpaired old messages, do heuristic analysis of any
-    # renamings of source files, and then insert diffed messages
-    # according to source references of old messages.
-    dpairs_by2 = [x for x in dpairs if x[1]]
-    dpairs_by2.sort(key=lambda x: x[1].refentry)
-    dpairs_by1 = [x for x in dpairs if not x[1]]
-    fnsyn = None
-    if dpairs_by1:
-        fnsyn = cat2.detect_renamed_sources(cat1)
-
-    # Make the diffs.
-    # Must not add diffed messages directly to global ediff catalog,
-    # because then heuristic insertion would throw them all over.
-    # Instead add to local ediff catalog, then copy in order to global.
-    ndiffed = 0
-    lecat = Catalog("", create=True, monitored=False)
-    for cdpairs, cfnsyn in ((dpairs_by2, None), (dpairs_by1, fnsyn)):
-        for msg1, msg2 in cdpairs:
-            ndiffed += _add_msg_diff(msg1, msg2, lecat, colorize, cfnsyn)
-    for emsg in lecat:
-        ecat.add(emsg, len(ecat))
-
-    return ndiffed
+    return dpairs
 
 
 def _rmobs_no_sync (cat):

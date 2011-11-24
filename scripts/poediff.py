@@ -40,6 +40,7 @@ from pology.internal.poediffpatch import msg_clear_prev_fields
 from pology.internal.poediffpatch import diff_cats, diff_hdrs
 from pology.internal.poediffpatch import init_ediff_header
 from pology.internal.poediffpatch import get_msgctxt_for_headers
+from pology.internal.poediffpatch import cats_update_effort
 
 
 def main ():
@@ -127,6 +128,15 @@ def main ():
         help=_("@info command line option description",
                "Do not diff headers and do not write out the top header "
                "(resulting output cannot be used as patch)."))
+    opars.add_option(
+        "-U", "--update-effort",
+        action="store_true", dest="update_effort", default=False,
+        help=_("@info command line option description",
+               "Instead of outputting the diff, calculate and output "
+               "an estimate of the effort that was needed to update "
+               "the translation from old to new paths. "
+               "Ignores %(opt1)s and %(opt1)s options.",
+               opt1="-b", opt2="-n"))
     add_cmdopt_colors(opars)
 
     (op, free_args) = opars.parse_args(str_to_unicode(sys.argv[1:]))
@@ -219,13 +229,11 @@ def main ():
             paths.sort()
         pspecs = collect_pspecs_from_vcs(vcs, paths, revs, op.paired_only)
 
-    # Create the diff.
-    ecat, ndiffed = diff_pairs(pspecs, op.do_merge,
-                               colorize=(not op.output), shdr=op.strip_headers,
-                               noobs=op.skip_obsolete)
-
-    # Write out the diff, if any messages diffed.
-    if ndiffed > 0:
+    if not op.update_effort:
+        ecat, ndiffed = diff_pairs(pspecs, op.do_merge,
+                                   colorize=(not op.output),
+                                   shdr=op.strip_headers,
+                                   noobs=op.skip_obsolete)
         hmsgctxt = ecat.header.get_field_value(EDST.hmsgctxt_field)
         lines = []
         msgs = list(ecat)
@@ -243,10 +251,18 @@ def main ():
         diffstr = cjoin(lines)[:-1] # remove last newline
         if op.output:
             file = open(op.output, "w")
-            file.write(diffstr.encode(ecat.encoding))
+            file.write(diffstr.encode(ecat.encoding()))
             file.close()
         else:
             report(diffstr)
+    else:
+        updeff = pairs_update_effort(pspecs)
+        ls = []
+        for kw, desc, val, fmtval in updeff:
+            ls.append(_("@info",
+                        "%(quantity)s: %(value)s",
+                        quantity=desc, value=fmtval))
+        report("\n".join(ls))
 
     # Clean up.
     cleanup_tmppaths()
@@ -408,6 +424,31 @@ def collect_pspecs_from_vcs (vcs, paths, revs, paired_only):
             pspecs.append((fpaths, vpaths))
 
     return pspecs
+
+
+def pairs_update_effort (pspecs):
+
+    nntw_total = 0.0
+    for fpaths, vpaths in pspecs:
+        # Quick check if files are binary equal.
+        if fpaths[0] and fpaths[1] and filecmp.cmp(*fpaths):
+            continue
+        cats = []
+        for fpath in fpaths:
+            try:
+                cats.append(Catalog(fpath, create=True, monitored=False))
+            except:
+                error_wcl(_("@info",
+                            "Cannot parse catalog '%(file)s'.",
+                            file=fpath), norem=[fpath])
+        nntw = cats_update_effort(cats[0], cats[1], merge=True)
+        nntw_total += nntw
+
+    updeff = [
+        ("nntw", _("@item", "nominal newly translated words"),
+         nntw_total, "%.0f" % nntw_total),
+    ]
+    return updeff
 
 
 # Cleanup of temporary paths.
