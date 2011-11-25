@@ -5,9 +5,9 @@ Pology
 What Is This?
 -------------
 
-Pology is a Python library and collection of scripts for in-depth processing
-of PO files, which are the predominant medium for translation of free software
-and associated documents.
+Pology is a Python library and collection of command-line tools
+for in-depth processing of PO files, which are the predominant
+medium for translation of free software and associated documents.
 
 Pology is licensed under the GNU General Public License, version 3.
 
@@ -15,13 +15,10 @@ Pology is licensed under the GNU General Public License, version 3.
 Obtaining
 ---------
 
-Pology is still not released, so it is likely not available through operating
-system's package manager. The latest development version can be obtained and
-kept up to date from the Subversion repository at:
+Source releases of Pology can be fetched from http://pology.nedohodnik.net/.
+The latest development code can be obtained from a Subversion repository:
 
-  $ cd <somewhere>
   $ svn checkout svn://anonsvn.kde.org/home/kde/trunk/l10n-support/pology
-  $ svn update pology
 
 
 Installing
@@ -30,7 +27,7 @@ Installing
 Pology may be already packaged for your operating system distribution,
 in which case you can install it as usual through the package system.
 
-If you want to use Pology from source, you can either install it
+If you want to use Pology from the source, you can either install it
 or use it directly from the source directory.
 To build and install Pology into default installation prefix, execute:
 
@@ -74,7 +71,7 @@ Documentation
 -------------
 
 Pology comes with user and API documentation.
-If you installed Pology from distribution packages, you will likely
+If you installed Pology from operating system packages, you will likely
 find the user manual at:
 
   /usr/share/doc/pology/user/en_US/index.html  (one page by chapter)
@@ -86,7 +83,7 @@ and the API documentation at:
 
 There may also be some documentation for language-specific support,
 e.g. for language LANG and in language LANG (this may sound a bit weird,
-but after all Pology is a piece of software concerned with languages):
+but after all, Pology is a piece of software concerned with languages):
 
     /usr/share/doc/pology/lang/LANG/LANG/index.html
     /usr/share/doc/pology/lang/LANG/LANG/index-mono.html
