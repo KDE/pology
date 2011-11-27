@@ -12,7 +12,7 @@ validGroup inQuotes
 valid after="«&unbsp;" before="&unbsp;»"
 
 [(\b[Ee]ntrer\b)|(\b[Ee]ntré[^e])|(\b[Ee]ntrez\b)]
-valid before="&sp;dans&sp;" 
+valid before="&sp;dans&sp;"
 valid before="&sp;en&sp;"
 valid after="C&"
 valid cat="kolf" before=" ((la)|(une)) balle"
@@ -49,13 +49,13 @@ hint="Le mot « joystick » ne doit pas être traduit (choix de l'équipe)"
 valid after="il&sp;"
 valid after="XML non "
 hint="Choix de l'équipe : « valable/non valable » (au lieu de « valide/non valide »)"
- 
+
 [\bstop\b]
 valid cat="konsole"
-valid cat="ksysv" after="^" before="$" 
-valid cat="ksysv" 
+valid cat="ksysv" after="^" before="$"
+valid cat="ksysv"
 hint="préférons « arrêt » à « stop »"
- 
+
 [[Rr]@épertoire]
 valid after="services? de " before="s"
 valid before=" téléphon"
@@ -92,11 +92,11 @@ valid cat="gwenview" after="^"
 hint="Utilisez le mot « Remarque : » (homogénéité)"
 
 [r@eguli@ere]
-valid after="vérification&sp;" 
-valid after="casse&sp;" 
-valid after="adresse&sp;" 
-valid cat="konqueror" after="colonne&sp;" 
-valid before="ment" 
+valid after="vérification&sp;"
+valid after="casse&sp;"
+valid after="adresse&sp;"
+valid cat="konqueror" after="colonne&sp;"
+valid before="ment"
 valid after="ir"
 valid after="pauses? "
 valid cat="kverbos"
@@ -105,7 +105,7 @@ hint="Choix de l'équipe : « expression rationnelle » (et non régulière)"
 
 [rendez vous]i
 valid cat="korganizer"
-hint="Utiliser plutôt 'Aller...' (sinon, ca fait un peu 'Rendez-vous, vous êtes cerné !')"
+hint="Utiliser plutôt 'Aller...' (sinon, ca fait un peu 'Rendez-vous, vous êtes cerné(e)s !')"
 
 [sauver]i
 hint="sauver -> enregistrer"
@@ -120,7 +120,7 @@ valid after="&sp;des?&sp;" before="gardes?"
 valid after="&sp;une&sp;" before="garde"
 hint="sauver -> enregistrer (homogénéité)"
 
-[([Ee]nregistrer|[Aa]fficher|[Ss]électionner) tout$]
+[(enregistrer|afficher|sélectionner) tout$]i
 hint="Mettez le mot « tout » en premier, par exemple « Tout enregistrer »"
 
 [systray]i
@@ -238,7 +238,7 @@ hint="« Désirez-vous » -> « Voulez-vous » (homogénéité)"
 hint="« Souhaitez-vous » -> « Voulez-vous » (homogénéité)"
 
 [Va ]
-valid after="Ja" 
+valid after="Ja"
 hint="« Va » -> « Aller » (à l'infinitif)"
 
 [dans votre \$?PATH]
@@ -269,7 +269,7 @@ hint="Utiliser « nom d'utilisateur » à la place..."
 hint="On peut sûrement supprimer le « en train de » pour alléger..."
 
 [entre de configuration]
-valid after="C" 
+valid after="C"
 hint="Mettre une majuscule à « Centre de configuration de KDE »"
 
 [visualis]
@@ -395,7 +395,7 @@ hint="Traduisez « seeding » par « partage »"
 valid !msgid="control panel"
 valid cat="kcm_platform"
 valid cat="kstars"
-hint="Traduisez « Control Panel » par « Tableau de bord »" 
+hint="Traduisez « Control Panel » par « Tableau de bord »"
 
 {slider}i
 valid msgstr="curseur"
@@ -412,11 +412,11 @@ hint="Traduisez cela tout simplement par « Ne plus poser la question »"
 hint="Utilisez plutôt « Mettre en valeur » (homogénéité)"
 
 {\bgroupware\b}i
-valid msgstr="collaboration" 
+valid msgstr="collaboration"
 hint="Traduisez « groupware » par « logiciel de collaboration » lorsque c'est un nom ou « collaboration » dans le contexte d'un adjectif"
 
 {\brepositor}i
-valid msgstr="dépôt" 
+valid msgstr="dépôt"
 hint="Traduisez « repository » par « dépôt »"
 
 {\bwidgets?\b}i
