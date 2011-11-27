@@ -1,0 +1,22 @@
+# Doc standard header checking
+# by the KDE French Team (kde-francophone@kde.org)
+# License: GPLv3
+
+addFilterHook name="fr:patternAccents" on="pattern"
+addFilterHook name="fr:patternEntities" on="pattern"
+
+[^\d\d\d\d-\d\d-\d\d$]
+valid msgstr="\d\d/\d\d/\d\d\d\d"
+hint="Mettez le format de la date en Français : jj/mm/aaaa"
+
+
+{ROLES_OF_TRANSLATORS}
+valid msgstr="(&.+;)+"
+hint="Ce message doit contenir la liste des entités des noms des traducteurs"
+
+
+{CREDIT_FOR_TRANSLATORS}
+valid msgstr="<para>Traduction française par .*</para>"
+hint="Ce paragraphe doit commencer par « <para>Traduction française par » et s'achever par « </para> »"
+
+# End of rule file
