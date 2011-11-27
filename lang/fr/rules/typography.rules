@@ -40,9 +40,9 @@ validGroup alone
 valid after="&unbsp;" before="\t"
 valid after="https?://\S+"
 valid after="file|gg|mailto|man|whatsthis|kmail|addMsg|config"
-valid after="about|audiocd|bookmarks|camera|ed2k|exec|ftps?|fonts|help|https?|lan|lpr|media|news|network|okular|pmp|parallel|smb|system|trash|umax|vdvd|videodvd|webdavs?|irc" before="/" 
+valid after="about|audiocd|bookmarks|camera|ed2k|exec|ftps?|fonts|help|https?|lan|lpr|media|news|network|okular|pmp|parallel|smb|system|trash|umax|vdvd|videodvd|webdavs?|irc|protocole" before="/" 
 valid after="gg|google" before="KDE|[a-z]+"
-valid after="smb://\[nom\[" before="motdepasse"
+valid after=".+://(nom|utilisateur)" before="mot_?de_?passe"
 valid after="\d\d?" before="\d\d?"
 valid after="([pH]H|hh?|%h+)" before="(MM|mm|%m+)"
 valid after="(MM|mm?|%m+)" before="(SS|ss|%s+)"
@@ -112,6 +112,7 @@ validGroup alone
 valid after="&amp;[0-9a-zA-Z\.\-]+"
 valid after="\*\.[a-zA-Z]+" before="\*\.[a-zA-Z]+" # List of extension suffix
 valid after="center|empty|normal|pt|px|pre-wrap|\d+|[a-f]{1,2}" # CSS
+valid after="font-family:.+" # CSS
 valid after="bold" before="'"   # CSS
 valid before=" font" # CSS
 valid before="-\)" # Smiley
@@ -189,6 +190,7 @@ valid after="[^&sp;(]" before="&sp;"
 valid after="[^&sp;(]" before="\n"
 valid after="[^&sp;(]" before="</td>"
 valid after="[0-9]" before="[0-9]"
+valid after="font-family:.+" # CSS
 valid after="https?://\S+" 
 valid after="^" before="&sp;"
 valid ctx="\w+ OF TRANSLATORS"  
@@ -207,6 +209,7 @@ hint="Pas d'espace avant une virgule (mais un après) !"
 [,(?=[a-zA-Z])]
 valid after="x" before="y"
 valid after="^Keywords="
+valid after="font-family:.+" # CSS
 valid ctx="Query"
 valid cat="kspread"
 valid cat="kcmkwinrules" after="\+"
@@ -264,7 +267,7 @@ valid cat="plasma_applet_desktop"
 valid cat="plasma_applet_frame"
 valid after="="
 valid before="\s*/?>|&gt|}"
-valid before=";" after="'[\w\s]+" # CSS
+valid before=";" after="'.+" # CSS
 valid before=" ou \""
 valid after="\d+"
 valid cat="kmplot" after="f'?" before="'|\("

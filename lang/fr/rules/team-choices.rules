@@ -35,7 +35,7 @@ hint="Utilisez cette expression au pluriel « entrées / sorties »"
 
 [k?ioslave]
 valid after="kcm|/"
-valid before="&unbsp;» en anglais"
+valid before="&unbsp;» (ou|en anglais)"
 hint="Traduisez ce mot par « module d'entrée / sortie »"
 
 [^[Ii]ci]
@@ -73,8 +73,7 @@ hint="bouton du milieu -> bouton central"
 [compact]i
 valid after="le mode &?"
 valid after="bar d'outils "
-valid before=" ?Flash"
-valid before=" Disc|PCI"
+valid before=" (Disc|PCI|GSM|Flash)"
 hint="Choix de l'équipe : « compresser » (au lieu de « compacter »)"
 
 [[Gg]ard(é|er)]
@@ -204,7 +203,7 @@ hint="Utiliser « serveur mandataire » (au lieu de « serveur de proximité » 
 [proxy]i
 valid before="\)" after="\(&?"
 valid after="http_|HTTP_|FTP_|HTTPS_"
-valid after="no_|no &|mon"
+valid after="no_|no &|mon|Find"
 valid cat="kmail" after="mon"
 hint="Utiliser « serveur mandataire » (au lieu de « serveur de proximité » ou « proxy »)"
 
