@@ -82,41 +82,37 @@ hint="audio -> son"
 # Regras específicas de KDE
 #####
 
+environment="kde"
+
 # Evitar o uso da segunda forma do artígo
 [\b[A-Za-z]+-l(o|a)s?(\b|\s)]i
 id="clGL-modling_alomorfoartigo"
-valid env="kde"
 hint="evitar o uso da segunda forma do artígo"
 
 # Prefírese a terminación en -aría(s), agás palabras obrigadas como batería, galería...
 [\b[A-Za-z]+erías?(\s|\b)]i
 valid span="^(pod|deb|quer|ser|s|ter|ref|bat|gal)ería"
-valid env="kde"
 id="clGL-modling_aria"
 hint="prefírese a terminación en -aría"
 
 # Prefírese contracción prep(a)+art(o) -> ao , non "ó"
 [\bós?\s]i
 id="clGL-modling_ao"
-valid env="kde"
 hint="prep(a) + art(o) -> ao"
 
 # Ca min/ti/el/ela/nos/nosoutros/vos/vosoutros/eles/elas.
 [\bca\s(?!(min|ti|el|ela|si|min|nos|vos|nosoutr(o|a)s|vosoutr(o|a)s|el(e|a)s))]
 id="clGL-modling_ca"
-valid env="kde"
 hint="usar «ca» (que + a) cando sexa imprescindíbel"
 
 # Coma min/ti/el/ela/nos/nosoutros/vos/vosoutros/eles/elas.
 [\bcoma\s(?!(min|ti|el|si|min|ela|nos|vos|nosoutr(o|a)s|vosoutr(o|a)s|el(e|a)s))]i
 id="clGL-modling_coma"
-valid env="kde"
 hint="usar «coma» cando sexa imprescindíbel"
 
 # Evitar usar ¿ e ¡ (interrogación e exclamación iniciais)
 [(¡|¿)]i
 id="clGL-modling_inter/excl iniciais"
-valid env="kde"
 hint="evitar usar sinais iniciais de interrogación ou exclamación"
 
 
@@ -125,64 +121,54 @@ hint="evitar usar sinais iniciais de interrogación ou exclamación"
 #descarta o uso de «amosar» en favor de «mostrar»
 [\bamos(a|o|e)]i
 id="clGL-all_amosar"
-valid env="kde"
 hint="amosar -> mostrar"
 
 #descarta o uso de «colar» en favor de «(a)pegar»
-[\bcol(a|e|o)(?!(c|m|re|ri|ra|ps|b|q|x|nia))]i
+[\bcol(a|e|o)(?!(c|m|re|ri|ra|ps|b|q|x|nia|fón))]i
 valid msgstr="\bcolor"
 valid msgstr="\bcola" msgid="\b((de|en)queue|queue|tail|spool)"
 id="clGL-all_colar"
-valid env="kde"
 hint="colar -> (a)pegar"
 
 #coidado cos derivados de licenza que trocan o z
 [\blicenci(?=(oso|osa|osamente|atura|amento|ado|ada|ados|ada)s)]i
 id="clGL-all_licenza"
-valid env="kde"
 hint="algúns derivados de licenza trocan o «z» por «cia»"
 
 #descarta o uso de «ocorrencia» en favor de «aparición»
 [\boc(o|u)rrencia]i
 id="clGL-all_ocorrencia"
-valid env="kde"
 hint="ocorrencia -> aparición"
 
 #descarta o uso de «ocorreu» en favor de «produciuse»
 [\bocorreu]i
 id="clGL-all_ocorreu"
-valid env="kde"
 hint="ocorreu -> produciuse"
 
 #comprobar «TAB» e «separador», preferir «lapela»
 [\b(tab(?!(let|ula)|separador))]i
-valid !msgid="\btab"
+valid !msgid="\btabs?\b"
 id="clGL-all_tab/separador"
-valid env="kde"
 hint="tab ou separador -> lapela"
 
 #descarta o uso de «ubicación, ubicar» en favor de «localización, localizar»
 [\bubica]i
 id="clGL-all_ubicación"
-valid env="kde"
 hint="«ubicación, ubicar» -> «localización, localizar»"
 
 #descarta o uso de «xerir» en favor de «xestionar»
 [\bxeri(?!(nga|có))]i
 id="clGL-all_xerir"
-valid env="kde"
 hint="xerir -> xestionar"
 
 #comprobar «zoom», preferir «ampliación»
 [\bzoom]i
 id="clGL-all_zoom"
-valid env="kde"
 hint="zoom -> ampliación ?"
 
 # «enable this option» 
 {\benable\sthis\s(option|checkbox)}i
 id="expression_enable this option| checkbox"
-valid env="kde"
 valid !after="\bif\syou"
 valid msgstr="\bescoll(a|er)\sesta\sopción"
 hint="enable this option = escolla/er esta opción"
@@ -190,35 +176,30 @@ hint="enable this option = escolla/er esta opción"
 # «when/if this option/checkbox is enabled»-> «se escolleu/sinalou esta opción»
 {\b(when|if)\sthis\s(option|checkbox)\sis\senabled}i
 id="expression_when|if this option|checkbox is enabled"
-valid env="kde"
 valid msgstr="\bse\sescolle\sesta\sopción"
 hint="when|if this option|checkbox is enabled -> se escolle esta opción"
 
 # «enable» 
 {\b(when|if)\sthis\sis\senabled}i
 id="expression_when|if this is enabled"
-valid env="kde"
 valid msgstr="\bse\sescolle\sesta\sopción"
 hint="is this is enabled -> se escolle esta opción"
 
 # «enable»
 {\b(if|when)\senabled}i
 id="expression_when/if enabled"
-valid env="kde"
 valid msgstr="\bse\sescolle\sesta\sopción"
 hint="when/if enabled -> se escolle esta opción"
 
 # «disable this option/checkbox»
 {\bdisable\sthis\s(option|checkbox)}i
 id="expression_disable this option/checkbox"
-valid env="kde"
 valid msgstr="\bdesmarque\sesta\sopción"
 hint="disable this option/checkbox -> desmarque esta opción"
 
 # «when/if this option/checkbox is disabled»
 {\b(when|if)\sthis\s(option|checkbox)\sis\sdisabled}i
 id="expression_when/if this option/checkbox is disabled"
-valid env="kde"
 valid msgstr="\bse\sesta\sopción\snon\sestá\s(escollid|marcad)a"
 valid msgstr="\bse\snon\sescolle\sesta\sopción"
 hint="when/if this option/checkbox is disabled -> se esta opción non está escollida/marcada"
@@ -226,21 +207,18 @@ hint="when/if this option/checkbox is disabled -> se esta opción non está esco
 # «when/if this is disabled»
 {\b(when|if)\sthis\sis\sdisabled}i
 id="expression_when this is disabled"
-valid env="kde"
 valid msgstr="\bse\sesta\sopción\snon\sestá\s(escollid|marcad)a"
 hint="when/if this is disabled -> se esta opción non está escollida/sinalada"
 
 # «if/when disabled»
 {\b(if|when)\sdisabled}i
 id="expression_if/when disabled"
-valid env="kde"
 valid msgstr="\bse\sdesmarca\sesta\sopción"
 hint="if/when disabled -> se desmarca esta opción"
 
 # «when selected»
 {\bwhen\sselected}i
 id="expression_when selected"
-valid env="kde"
 valid msgstr="\bse\so\sescolle"
 valid msgstr="\bse\sescolle\sesta\sopción"
 hint="when selected -> se o escolle (experimental)"
@@ -248,21 +226,18 @@ hint="when selected -> se o escolle (experimental)"
 # «...not found.» -> «Non se atopou...»
 {\b\w+\snot\sfound\.}i
 id="expression_not found."
-valid env="kde"
 valid msgstr="\bNon\s(se\satopou|foi\sposíbel\satopar)\s(\w+\s)+\w+"
 hint="...not found. -> Non se atopou/foi posíbel atopar ... ..."
 
 # «Error while...» -> «Aconteceu/Produciuse un mentres se / ao»
 {\bError\swhile\s}i
 id="expression_error while"
-valid env="kde"
 valid msgstr="\b(Aconteceu|Produciuse)\sun\serro\smentres\s(se\s\w+(ía|aba)|ao\s\w+(r|rse))"
 hint="Error while -> Aconteceu/Produciuse un erro mentres se / ao"
 
 # «Are you sure you want to» -> «Desexa realmente+infinitivo»
 {\bare\syou\ssure\syou\swant\sto(\s(\w+|\W+))+\?}i
 id="expression_interrogation1"
-valid env="kde"
 valid msgstr="\bDesexa\srealmente\s\w+(a|e|i|í|po)r(\s(\w+|\W+))*"
 valid msgstr="\bDesexa\srealmente\s\w+l(o|a)s?(\s\w+)*\?"
 hint="«Are you sure you want to» -> «Desexa realmente+infinitivo»"
@@ -270,7 +245,6 @@ hint="«Are you sure you want to» -> «Desexa realmente+infinitivo»"
 # «Do you really ...» -> «Desexa realmente + infinitivo»
 {\bdo\syou\sreally(\s(\w+|\W+))+\?}i
 id="expression_interrogation2"
-valid env="kde"
 valid msgstr="\bDesexa\srealmente\s\w+(a|e|i|í|po)r(\s(\w+|\W+))*"
 valid msgstr="\bDesexa\srealmente\s\w+l(o|a)s?(\s\w+)*\?"
 hint="«Are you sure you want to» -> «Desexa realmente+infinitivo»"
@@ -291,6 +265,8 @@ hint="«print preview» -> «previsualización da impresión» / «vista previa 
 #####
 # Regras específicas de GNOME
 #####
+
+environment="gnome"
 
 # translator credits
 {^translator-credits$}i
@@ -329,7 +305,7 @@ id="gnome-gl_apropiado"
 hint="achar -> axeitado"
 
 #comprobar caixa de «GNOME»
-[\b(G|g)nome]
+[\b(G|g)nome\s]
 # valid msgid="\bgnome"
 id="gnome-gl_GNOME"
 hint="gnome->GNOME"
@@ -350,6 +326,6 @@ id="gnome-gl_reticencias"
 hint="... -> …"
 
 #descarta o uso de «válido» en favor de «correcto»
-[\bvalid(o|a(?!ción))]i
+[\bválid(o|a)]i
 id="gnome-gl_valido"
 hint="valido -> correcto"

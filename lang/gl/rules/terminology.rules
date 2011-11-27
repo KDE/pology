@@ -218,9 +218,10 @@ hint="«sala de conversas» traduce a «chat»"
 # «check» tradúcese como «comprobar», «revisar» ou «marcar»
 {\bcheck(s|ed|ing|)?}i
 valid after="\bspell "
-valid before="box"
+valid before="\s?box"
 valid before=" spell"
-id="noPT-2011-check"
+valid before=" out"
+id="noPT-2011_check"
 valid msgstr="\b(com)?prob"
 valid msgstr="\brevis"
 valid msgstr="\bmar(que|car|cado|cou)"
@@ -297,11 +298,11 @@ hint="«orde» traduce a «command»"
 # «commit» tradúcese como «remitir»
 {\bcommit}i
 id="PT-2011_commit"
-valid msgstr="\bremi(tir|tido|sión)"
+valid msgstr="\bremi(tir|tido|tindo|sión|sor)"
 hint="«commit» tradúcese como «remitir»"
 
 # «remitir» traduce a «commit»
-[\bremi(tir|tido|sión)]i
+[\bremi(tir|tido|tindo|sión|sor)]i
 id="PT-2011-dual_commit"
 valid msgid="\b(auto)?commit"
 hint="«remitir» traduce a «commit»"
@@ -334,8 +335,9 @@ hint="«descifrar» traduce a «decrypt»"
 
 # «detach» tradúcese como «desconectar», «desprender»
 {\bdetach}i
-id="PT-2011_detach"
+id="noPT-2011_detach"
 valid msgstr="\bdes(conect|prend)."
+valid env="gnome" msgstr="\bdesacopl"
 hint="«detach» tradúcese como «desconectar», «desprender»"
 
 # «desprender» traduce a «detach»
@@ -1045,6 +1047,7 @@ hint="«Complemento» traduce a «Plugin» e a «add-on»"
 # «provide» tradúcese como «fornecer»
 {\bprovide}i
 valid before="\ssupport"
+valid after="if\s" env= gnome
 id="noPT-2011_provide"
 valid msgstr="\bforn(e|é)c"
 valid msgstr="\bespecific"
@@ -1061,7 +1064,7 @@ hint="«fornecer» traduce a «provide» (e a «supply»)"
 # «quit», «exit» tradúcense como «saír»
 {\b(quit|exit)}i
 id="PT-2011_quit"
-valid msgstr="\bsa(ír|iu)"
+valid msgstr="\bsaí(r|u)"
 valid msgstr="\bsaída"
 hint="«quit», «exit» tradúcense como «saír»"
 
@@ -1175,6 +1178,9 @@ valid msgstr="\bson\scompatibeis\scon"
 valid msgstr="\badmit"
 valid msgstr="\bpermit(e|en|ir)\sutilizar"
 valid msgstr="\bincl(u|ú)"
+valid msgstr="\bpermit(ir|e|a)" env="gnome"
+valid msgstr="\bde\scompatibilidade"
+valid msgset="\bcompatibilidade\sde" env="gnome"
 hint="«support» tradúcese como «asistencia técnica», «ser compatíbel con», «admitir», «permitir utilizar», «incluír»"
 
 # «asistencia técnica» traduce a «support»
@@ -1210,6 +1216,7 @@ hint="«incluír» traduce a «support»"
 
 # «Tab» tradúcese como «Lapela», tabulación ou tabulador.
 {\btab}i
+valid before="leau"
 id="PT-2010_tab"
 valid msgstr="lapela"
 valid msgstr="tabula(ción|dor)"
@@ -1314,6 +1321,7 @@ hint="«(sistema de) seguimento de incidencias» traduce a «bug tracker»"
 valid before="cument"
 id="PT-2011_undo"
 valid msgstr="\bdesfacer"
+valid msgstr="\bdesfágaa"
 hint="«undo» tradúcese como «desfacer»"
 
 # «desfacer» traduce a «undo»
@@ -1489,7 +1497,7 @@ hint="imprimir = print"
 {\bshell}i
 id="gnome_shell"
 valid msgstr="\bshell"
-valid msgstr="\binterpretes?\sde\sordes?"
+valid msgstr="\bint(e|é)rpretes?\sde\sordes?"
 hint="shell -> shell ou interprete de ordes"
 
 # «validation,validity» -> «validación»
@@ -1497,6 +1505,18 @@ hint="shell -> shell ou interprete de ordes"
 id="gnome_validation"
 valid msgstr="\bvalidación"
 hint="validation -> validación"
+
+# «validate» -> «validar»
+{\bvalidat(e|es|ed|ing)}i
+id="gnome_validate"
+valid msgstr="\bvalida" !before="dor"
+hint="validate -> validar"
+
+# «validator» -> «validador»
+{\bvalidator}i
+id="gnome_validator"
+valid msgstr="\bvalidador"
+hint="validator -> validador"
 
 # «validación» -> «validation»
 [\bvalidación]i
