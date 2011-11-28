@@ -1486,7 +1486,7 @@ def _parseRuleLine (lines, lno):
                 # Collect field value.
                 p += 1 # skip equal-character
                 if p >= llen or line[p].isspace():
-                    fields.append(fname, "")
+                    fields.append((fname, ""))
                 else:
                     quote = line[p]
                     p1 = p + 1
