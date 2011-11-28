@@ -82,7 +82,7 @@ hint="audio -> son"
 # Regras específicas de KDE
 #####
 
-environment="kde"
+environment kde
 
 # Evitar o uso da segunda forma do artígo
 [\b[A-Za-z]+-l(o|a)s?(\b|\s)]i
@@ -265,8 +265,6 @@ hint="«print preview» -> «previsualización da impresión» / «vista previa 
 #####
 # Regras específicas de GNOME
 #####
-
-environment="gnome"
 
 # translator credits
 {^translator-credits$}i
