@@ -215,6 +215,8 @@ def init_file_progress (fpaths, timeint=1.0, stream=sys.stderr, addfmt=None):
             pstr = addfmt.with_args(file=pstr).to_string()
         elif addfmt:
             pstr = addfmt % dict(file=pstr)
+        if isinstance(pstr, ColorString):
+            pstr = pstr.resolve(dest=stream)
         return pstr
 
     pfmt = ("%%1s %%%dd/%d %%s" % (len(str(len(fpaths))), len(fpaths)))
