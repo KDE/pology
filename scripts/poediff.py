@@ -21,7 +21,7 @@ try:
 except:
     pass
 
-from pology import version, _, n_
+from pology import version, _, n_, t_
 from pology.catalog import Catalog
 from pology.message import MessageUnsafe
 from pology.colors import ColorOptionParser, set_coloring_globals, cjoin
@@ -31,6 +31,7 @@ from pology.fsops import exit_on_exception
 from pology.diff import msg_ediff
 from pology.report import error, warning, report, format_item_list
 from pology.report import list_options
+from pology.report import init_file_progress
 from pology.stdcmdopt import add_cmdopt_colors
 from pology.vcs import available_vcs, make_vcs
 
@@ -109,6 +110,11 @@ def main ():
         help=_("@info command line option description",
                "When two directories are diffed, ignore catalogs which "
                "are not present in both directories."))
+    opars.add_option(
+        "-q", "--quiet",
+        action="store_true", dest="quiet", default=False,
+        help=_("@info command line option description",
+               "Do not display any progress info."))
     opars.add_option(
         "-Q", "--quick",
         action="store_true", dest="quick", default=False,
@@ -233,7 +239,8 @@ def main ():
         ecat, ndiffed = diff_pairs(pspecs, op.do_merge,
                                    colorize=(not op.output),
                                    shdr=op.strip_headers,
-                                   noobs=op.skip_obsolete)
+                                   noobs=op.skip_obsolete,
+                                   quiet=op.quiet)
         if ndiffed > 0:
             hmsgctxt = ecat.header.get_field_value(EDST.hmsgctxt_field)
             lines = []
@@ -257,7 +264,7 @@ def main ():
             else:
                 report(diffstr)
     else:
-        updeff = pairs_update_effort(pspecs)
+        updeff = pairs_update_effort(pspecs, quiet=op.quiet)
         ls = []
         for kw, desc, val, fmtval in updeff:
             ls.append(_("@info",
@@ -270,7 +277,8 @@ def main ():
 
 
 def diff_pairs (pspecs, merge,
-                colorize=False, wrem=True, wadd=True, shdr=False, noobs=False):
+                colorize=False, wrem=True, wadd=True, shdr=False, noobs=False,
+                quiet=False):
 
     # Create diffs of messages.
     # Note: Headers will be collected and diffed after all messages,
@@ -279,7 +287,14 @@ def diff_pairs (pspecs, merge,
     ecat = Catalog("", create=True, monitored=False)
     hspecs = []
     ndiffed = 0
+    update_progress = None
+    if len(pspecs) > 1 and not quiet:
+        update_progress = init_file_progress([vp[1] for fp, vp in pspecs],
+                            addfmt=t_("@info:progress", "Diffing: %(file)s"))
     for fpaths, vpaths in pspecs:
+        if update_progress:
+            upprogf = lambda: update_progress(vpaths[1])
+            upprogf()
         # Quick check if files are binary equal.
         if fpaths[0] and fpaths[1] and filecmp.cmp(*fpaths):
             continue
@@ -293,7 +308,7 @@ def diff_pairs (pspecs, merge,
                             file=fpath), norem=[fpath])
         tpos = len(ecat)
         cndiffed = diff_cats(cats[0], cats[1], ecat,
-                             merge, colorize, wrem, wadd, noobs)
+                             merge, colorize, wrem, wadd, noobs, upprogf)
         hspecs.append(([not x.created() and x.header or None
                         for x in cats], vpaths, tpos, cndiffed))
         ndiffed += cndiffed
@@ -302,6 +317,8 @@ def diff_pairs (pspecs, merge,
         if wrapping not in wrappings:
             wrappings[wrapping] = 0
         wrappings[wrapping] += 1
+    if update_progress:
+        update_progress()
 
     # Find appropriate length of context for header messages.
     hmsgctxt = get_msgctxt_for_headers(ecat)
@@ -427,10 +444,17 @@ def collect_pspecs_from_vcs (vcs, paths, revs, paired_only):
     return pspecs
 
 
-def pairs_update_effort (pspecs):
+def pairs_update_effort (pspecs, quiet=False):
 
+    update_progress = None
+    if len(pspecs) > 1 and not quiet:
+        update_progress = init_file_progress([vp[1] for fp, vp in pspecs],
+                            addfmt=t_("@info:progress", "Diffing: %(file)s"))
     nntw_total = 0.0
     for fpaths, vpaths in pspecs:
+        if update_progress:
+            upprogf = lambda: update_progress(vpaths[1])
+            upprogf()
         # Quick check if files are binary equal.
         if fpaths[0] and fpaths[1] and filecmp.cmp(*fpaths):
             continue
@@ -442,8 +466,10 @@ def pairs_update_effort (pspecs):
                 error_wcl(_("@info",
                             "Cannot parse catalog '%(file)s'.",
                             file=fpath), norem=[fpath])
-        nntw = cats_update_effort(cats[0], cats[1], merge=True)
+        nntw = cats_update_effort(cats[0], cats[1], upprogf)
         nntw_total += nntw
+    if update_progress:
+        update_progress()
 
     updeff = [
         ("nntw", _("@item", "nominal newly translated words"),

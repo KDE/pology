@@ -97,9 +97,10 @@ def msg_cleanup (msg):
                 setattr(msg, field, None)
 
 def diff_cats (cat1, cat2, ecat,
-               merge=True, colorize=False, wrem=True, wadd=True, noobs=False):
+               merge=True, colorize=False, wrem=True, wadd=True, noobs=False,
+               upprogf=(lambda: None)):
 
-    dpairs = _pair_msgs(cat1, cat2, merge, wrem, wadd, noobs)
+    dpairs = _pair_msgs(cat1, cat2, merge, wrem, wadd, noobs, upprogf)
 
     # Order pairings such that they follow order of messages in
     # the new catalog wherever the new message exists.
@@ -121,6 +122,7 @@ def diff_cats (cat1, cat2, ecat,
     lecat = Catalog("", create=True, monitored=False)
     for cdpairs, cfnsyn in ((dpairs_by2, None), (dpairs_by1, fnsyn)):
         for msg1, msg2 in cdpairs:
+            upprogf()
             ndiffed += _add_msg_diff(msg1, msg2, lecat, colorize, cfnsyn)
     for emsg in lecat:
         ecat.add(emsg, len(ecat))
@@ -128,13 +130,15 @@ def diff_cats (cat1, cat2, ecat,
     return ndiffed
 
 
-def cats_update_effort (cat1, cat2, merge=True):
+def cats_update_effort (cat1, cat2, upprogf=(lambda: None)):
 
-    dpairs = _pair_msgs(cat1, cat2, merge, wrem=False, wadd=True, noobs=False)
+    dpairs = _pair_msgs(cat1, cat2, merge=True, wrem=False, wadd=True,
+                        noobs=False, upprogf=upprogf)
 
     nntw_total = 0
 
     for msg1, msg2 in dpairs:
+        upprogf()
 
         if not msg2.active:
             continue
@@ -182,6 +186,7 @@ def cats_update_effort (cat1, cat2, merge=True):
         srb = 0.5
         rsf = (min(sro, srt) - srb) / (1.0 - srb)
         nntw = max(min(nwo - max(newo, newt) * rsf, nwo), 0.0)
+
         nntw_total += nntw
 
     return nntw_total
@@ -195,7 +200,8 @@ def _calc_text_update_effort (text1, text2):
 
 
 def _pair_msgs (cat1, cat2,
-                merge=True, wrem=True, wadd=True, noobs=False):
+                merge=True, wrem=True, wadd=True, noobs=False,
+                upprogf=(lambda: None)):
 
     # Remove obsolete messages if they are not to be diffed.
     if noobs:
@@ -205,6 +211,7 @@ def _pair_msgs (cat1, cat2,
     # Clean up inconsistencies in messages.
     for cat in (cat1, cat2):
         for msg in cat:
+            upprogf()
             msg_cleanup(msg)
 
     # Delay inverting of catalogs until necessary.
@@ -213,6 +220,7 @@ def _pair_msgs (cat1, cat2,
             #print "===> inverting: %s" % cat.filename
             icat = Catalog("", create=True, monitored=False)
             for msg in cat:
+                upprogf()
                 imsg = _msg_invert_cp(msg)
                 if imsg not in icat:
                     icat.add_last(imsg)
@@ -255,6 +263,7 @@ def _pair_msgs (cat1, cat2,
     dpairs = []
 
     for msg2 in cat2:
+        upprogf()
         msg1 = _get_msg_pair(msg2, cat1, icat1, mcat12)
         if msg1 and msg1 not in msgs1_paired:
             # Record pairing.
@@ -263,6 +272,7 @@ def _pair_msgs (cat1, cat2,
             dpairs.append((msg1, msg2))
 
     for msg1 in cat1:
+        upprogf()
         if msg1 in msgs1_paired:
             continue
         msg2 = _get_msg_pair(msg1, cat2, icat2, mcat21)
@@ -273,10 +283,12 @@ def _pair_msgs (cat1, cat2,
             dpairs.append((msg1, msg2))
 
     for msg2 in (wadd and cat2 or []):
+        upprogf()
         if msg2 not in msgs2_paired:
             dpairs.append((None, msg2))
 
     for msg1 in (wrem and cat1 or []):
+        upprogf()
         if msg1 not in msgs1_paired:
             dpairs.append((msg1, None))
 
