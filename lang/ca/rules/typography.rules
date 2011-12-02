@@ -263,6 +263,7 @@ valid before="~" cat="krecipes,krusader"
 valid after="\,"
 valid after="o"
 valid after="-"
+valid after="\(en" cat="amarok"
 valid after="width=\"\d+" before="\"" # HTML
 valid ctx="Numbers and characters"
 hint="No s'ha de posar cap espai abans del signe de percentatge (tipografia)"
@@ -415,7 +416,7 @@ valid after="\(" before="\)" cat="kio4"
 valid after="\(«" before="~" cat="kate"
 valid after="CN\[\$" cat="kleopatra" # docmessages
 valid ctx="Exponential"
-valid cat="tables,kcells,kspread"
+valid cat="tables,kcells,kspread,kdenlive"
 hint="«e» sola és un error (tipografia)"
 
 # «u» sola és un error.
@@ -431,7 +432,7 @@ valid after="di\(" cat="kate_regular-expressions" # docmessages
 valid after="multiplicitat\sd\'" cat="umbrello_uml_basics" # docmessages
 valid after="accelerador.*" cat="tables_a11y,stage_a11y,kspread_a11y,kpresenter_a11y,kcells_a11y" # docmessages
 valid cat="kalzium,plasma_engine_kalzium,plasma_applet_Molmasscalculator,kgoldrunner,kubrick,kfile_exr"
-valid cat="libincidenceeditors,tables,kcells,kspread,kbackgammon"
+valid cat="libincidenceeditors,tables,kcells,kspread,kbackgammon,kdenlive"
 valid ctx="Undefined"
 valid ctx="number 1"
 hint="«u» sola és un error (tipografia)"
@@ -460,6 +461,7 @@ valid after="hh|mm|ss"
 valid after="\ssed\s.+" cat="kopete" # docmessages
 valid after="_language\s.+" # docmessages
 valid before="$" cat="kdeqt"
+valid before="audio|video" cat="konversation"
 valid comment="Tag\:\sscreen" cat="kdeprint_cups-config,kmail_faq" # docmessages
 valid comment="Tag\:\sprogramlisting" cat="kdm" # docmessages
 valid ctx="identifier separator" cat="kalgebra"
@@ -477,6 +479,7 @@ valid after="\s00"
 valid after="Luciash\sd" cat="kopete"
 valid after="presa" cat="digikam"
 valid after="\ssed\s.+" cat="kopete" # docmessages
+valid after="audio|video" cat="konversation"
 valid before="mm|ss"
 valid comment="Tag\:\sscreen" cat="kdeprint_cups-config,kmail-faq" # docmessages
 valid comment="Tag\:\sprogramlisting" cat="kdm" # docmessages
