@@ -1047,7 +1047,7 @@ hint="«Complemento» traduce a «Plugin» e a «add-on»"
 # «provide» tradúcese como «fornecer»
 {\bprovide}i
 valid before="\ssupport"
-valid after="if\s" env= gnome
+valid after="if\s" env="gnome"
 id="noPT-2011_provide"
 valid msgstr="\bforn(e|é)c"
 valid msgstr="\bespecific"
@@ -1180,7 +1180,7 @@ valid msgstr="\bpermit(e|en|ir)\sutilizar"
 valid msgstr="\bincl(u|ú)"
 valid msgstr="\bpermit(ir|e|a)" env="gnome"
 valid msgstr="\bde\scompatibilidade"
-valid msgset="\bcompatibilidade\sde" env="gnome"
+valid msgstr="\bcompatibilidade\sde" env="gnome"
 hint="«support» tradúcese como «asistencia técnica», «ser compatíbel con», «admitir», «permitir utilizar», «incluír»"
 
 # «asistencia técnica» traduce a «support»
@@ -1398,128 +1398,3 @@ hint="«window» tradúcese como «xanela»"
 id="PT-2010-dual_window"
 valid msgid="\bwindow(\b|s|\s)"
 hint="«xanela» traduce a «window»"
-
-#####
-# Regras específicas de KDE
-#####
-
-# «about» -> «acerca de»
-{\b(?<!^)about}i
-valid before="\sto\b"
-valid after="\bknow(s|\"\")\s"
-id="kde_about"
-valid msgstr="\bacerca\sd" env="kde"
-valid msgstr="\brefer" env="kde"
-valid msgstr="\bsobre\b" !env="kde"
-hint="about -> sobre"
-
-# «accept» -> «aceptar»
-{\baccept}i
-id="kde_accept"
-valid env="kde"
-valid msgstr="\bacept"
-hint="accept = aceptar"
-
-# «aceptar» -> «accept»
-[\bacept]i
-id="kde-dual_accept"
-valid env="kde"
-valid msgid="\baccept"
-valid msgid="\bOK\b"
-valid msgid="\bagree"
-hint="aceptar = accept"
-
-# «not enabled»
-{\bnot enabled\b}
-id="kde_not enabled"
-valid env="kde"
-valid msgstr="\bdesactivad(o|a)"
-valid msgstr="\bnon\sestá\sactivad(o|a)"
-hint="not enabled -> desactivado"
-
-# «enable/disable» -> «conmutar»
-{\benable/disable}i
-id="kde_enabledisable"
-valid msgstr="\bconmuta" env="kde"
-hint="enable/disable = conmutar"
-
-# «encounter» -> «atopar» and not «achar»
-{\bencounter}i
-id="kde_encounter"
-valid msgstr="\batop" env="kde"
-valid !msgstr="\bach" env="kde"
-hint="encounter -> atopar"
-
-# «frame» -> «marco»
-{\bframe}i
-id="kde_frame"
-valid msgstr="\bmarco" env="kde"
-hint="«frame» -> «marco»"
-
-# «marco» -> «frame»
-[\bmarco]i
-id="kde-dual_frame"
-valid msgid="\bframe" env="kde"
-hint="«marco» -> «frame»"
-
-# «print» -> «imprimir», «mostra»
-{\bprint(?!(ing|er))}i
-valid before="screen"
-valid after="\spreview"
-id="kde_print"
-valid env="kde"
-valid msgstr="\bimprim"
-valid msgstr="\bimpreso"
-valid msgstr="\bmostr"
-hint="print = imprimir, impreso ou mostrar"
-
-# «printing» -> «imprimir», «impresión»
-{\bprinting}i
-id="kde_printing"
-valid env="kde"
-valid msgstr="\bimpresión"
-valid msgstr="\bimprim"
-hint="printing = imprimir, impresión"
-
-# «imprimir» -> «print»
-[\bimprim]i
-id="kde-dual_print"
-valid env="kde"
-valid msgid="\bprint(?!er)"
-hint="imprimir = print"
-
-
-#####
-# Regras específicas de GNOME
-#####
-
-# «shell» -> «shell» ou «intérprete de ordes»
-{\bshell}i
-id="gnome_shell"
-valid msgstr="\bshell"
-valid msgstr="\bint(e|é)rpretes?\sde\sordes?"
-hint="shell -> shell ou interprete de ordes"
-
-# «validation,validity» -> «validación»
-{\bvalid(ation|idit(y|ies))}i
-id="gnome_validation"
-valid msgstr="\bvalidación"
-hint="validation -> validación"
-
-# «validate» -> «validar»
-{\bvalidat(e|es|ed|ing)}i
-id="gnome_validate"
-valid msgstr="\bvalida" !before="dor"
-hint="validate -> validar"
-
-# «validator» -> «validador»
-{\bvalidator}i
-id="gnome_validator"
-valid msgstr="\bvalidador"
-hint="validator -> validador"
-
-# «validación» -> «validation»
-[\bvalidación]i
-id="gnome-dual_validation"
-valid msgstr="\bvalidation"
-hint="validación -> validation"
