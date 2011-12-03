@@ -292,6 +292,7 @@ def diff_pairs (pspecs, merge,
         update_progress = init_file_progress([vp[1] for fp, vp in pspecs],
                             addfmt=t_("@info:progress", "Diffing: %(file)s"))
     for fpaths, vpaths in pspecs:
+        upprogf = None
         if update_progress:
             upprogf = lambda: update_progress(vpaths[1])
             upprogf()
@@ -452,6 +453,7 @@ def pairs_update_effort (pspecs, quiet=False):
                             addfmt=t_("@info:progress", "Diffing: %(file)s"))
     nntw_total = 0.0
     for fpaths, vpaths in pspecs:
+        upprogf = None
         if update_progress:
             upprogf = lambda: update_progress(vpaths[1])
             upprogf()

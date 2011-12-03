@@ -98,7 +98,9 @@ def msg_cleanup (msg):
 
 def diff_cats (cat1, cat2, ecat,
                merge=True, colorize=False, wrem=True, wadd=True, noobs=False,
-               upprogf=(lambda: None)):
+               upprogf=None):
+
+    upprogf = upprogf or (lambda: None)
 
     dpairs = _pair_msgs(cat1, cat2, merge, wrem, wadd, noobs, upprogf)
 
@@ -130,7 +132,9 @@ def diff_cats (cat1, cat2, ecat,
     return ndiffed
 
 
-def cats_update_effort (cat1, cat2, upprogf=(lambda: None)):
+def cats_update_effort (cat1, cat2, upprogf=None):
+
+    upprogf = upprogf or (lambda: None)
 
     dpairs = _pair_msgs(cat1, cat2, merge=True, wrem=False, wadd=True,
                         noobs=False, upprogf=upprogf)
@@ -201,7 +205,9 @@ def _calc_text_update_effort (text1, text2):
 
 def _pair_msgs (cat1, cat2,
                 merge=True, wrem=True, wadd=True, noobs=False,
-                upprogf=(lambda: None)):
+                upprogf=None):
+
+    upprogf = upprogf or (lambda: None)
 
     # Remove obsolete messages if they are not to be diffed.
     if noobs:
