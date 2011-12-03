@@ -8,9 +8,9 @@ mode=all
 if test -n "$1"; then
     mode=$1
 fi
-lang=
+onelang=
 if test -n "$2"; then
-    lang=$2
+    onelang=$2
 fi
 
 if [[ :all:extract:test:compile: != *:$mode:* ]]; then
@@ -46,10 +46,10 @@ fi
 if test $mode = all || test $mode = merge; then
     echo ">>> Merging catalogs..."
     potfile=$cdir/$podomain.pot
-    if [ -z "$lang" ]; then
+    if [ -z "$onelang" ]; then
         langs=`cat $cdir/LINGUAS | sed 's/#.*//'`
     else
-        langs=$lang
+        langs=$onelang
     fi
     for lang in $langs; do
         pofile=$cdir/$lang.po
@@ -81,10 +81,10 @@ if test $mode = all || test $mode = compile; then
         exit 1
     fi
 
-    if [ -z "$lang" ]; then
+    if [ -z "$onelang" ]; then
         langs=`cat $cdir/LINGUAS | sed 's/#.*//'`
     else
-        langs=$lang
+        langs=$onelang
     fi
     for lang in $langs; do
         pofile=$cdir/$lang.po
