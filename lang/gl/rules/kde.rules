@@ -32,40 +32,6 @@ include file="filter.include"
 
 environment kde
 
-# Evitar o uso da segunda forma do artígo
-[\b[A-Za-z]+-l(o|a)s?(\b|\s)]i
-id="clGL-modling_alomorfoartigo"
-hint="evitar o uso da segunda forma do artígo"
-
-# Prefírese a terminación en -aría(s), agás palabras obrigadas como batería, galería...
-[\b[A-Za-z]+erías?(\s|\b)]i
-valid span="^(pod|deb|quer|ser|s|ter|ref|bat|gal)ería"
-id="clGL-modling_aria"
-hint="prefírese a terminación en -aría"
-
-# Prefírese contracción prep(a)+art(o) -> ao , non "ó"
-[\bós?\s]i
-id="clGL-modling_ao"
-hint="prep(a) + art(o) -> ao"
-
-# Ca min/ti/el/ela/nos/nosoutros/vos/vosoutros/eles/elas.
-[\bca\s(?!(min|ti|el|ela|si|min|nos|vos|nosoutr(o|a)s|vosoutr(o|a)s|el(e|a)s))]
-id="clGL-modling_ca"
-hint="usar «ca» (que + a) cando sexa imprescindíbel"
-
-# Coma min/ti/el/ela/nos/nosoutros/vos/vosoutros/eles/elas.
-[\bcoma\s(?!(min|ti|el|si|min|ela|nos|vos|nosoutr(o|a)s|vosoutr(o|a)s|el(e|a)s))]i
-id="clGL-modling_coma"
-hint="usar «coma» cando sexa imprescindíbel"
-
-# Evitar usar ¿ e ¡ (interrogación e exclamación iniciais)
-[(¡|¿)]i
-id="clGL-modling_inter/excl iniciais"
-hint="evitar usar sinais iniciais de interrogación ou exclamación"
-
-
-# fin de regras delicadas
-
 #descarta o uso de «amosar» en favor de «mostrar»
 [\bamos(a|o|e)]i
 id="clGL-all_amosar"
@@ -180,7 +146,8 @@ hint="...not found. -> Non se atopou/foi posíbel atopar ... ..."
 # «Error while...» -> «Aconteceu/Produciuse un mentres se / ao»
 {\bError\swhile\s}i
 id="expression_error while"
-valid msgstr="\b(Aconteceu|Produciuse)\sun\serro\smentres\s(se\s\w+(ía|aba)|ao\s\w+(r|rse))"
+valid msgstr="\b(Aconteceu|Produciuse)\sun\serro\smentres\sse\s\w+(ía|aba)"
+valid msgstr="\b(Aconteceu|Produciuse)\sun\serro\sao\s\w+(r|rse)"
 hint="Error while -> Aconteceu/Produciuse un erro mentres se / ao"
 
 # «Are you sure you want to» -> «Desexa realmente+infinitivo»

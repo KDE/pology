@@ -115,6 +115,7 @@ hint="«anexo»  ou «conexión» traduce a «attachment»"
 id="noPT-2010-dual_attachment2"
 valid msgid="\battach"
 valid msgid="\bconnection"
+valid msgid="\bconnecting" env="kde"
 hint="«conexión» traduce a «connection» e «attachment»"
 
 # «backend» tradúcece como «infraestrutura»
@@ -248,7 +249,7 @@ valid before="sa"
 valid before="ha"
 valid before="as?\sde\ssubstitución"
 valid before="as?\srexistrada"
-valid before="o\s"
+valid before="o(\s|\b)"
 id="noPT-2011-dual_check3"
 valid msgid="\bcheck"
 valid msgid="\bmark"
@@ -279,6 +280,7 @@ valid before="es?\sinesperado" env="kde"
 valid before="ouse\sinesperad" env="kde"
 id="noPT-2011-dual_close"
 valid msgid="\bclos(e|ed|ing)"
+valid after="non\s" msgid="unclos(e|ed)" env="kde"
 hint="«pechar» traduce a «close»"
 
 # «Command» tradúcese como «orde»
@@ -337,7 +339,7 @@ hint="«descifrar» traduce a «decrypt»"
 {\bdetach}i
 id="noPT-2011_detach"
 valid msgstr="\bdes(conect|prend)."
-valid env="gnome" msgstr="\bdesacopl"
+valid msgstr="\bdesacopl" env="gnome" 
 hint="«detach» tradúcese como «desconectar», «desprender»"
 
 # «desprender» traduce a «detach»
@@ -481,6 +483,7 @@ hint="«cifrar» traduce a «encrypt»"
 valid before="\sbox"
 id="noPT-2011_edit"
 valid msgstr="\bedi(t|c)"
+valid before="s?\?" msgstr="\bmodificación" env="kde"
 hint="«edit» tradúcese como «editar»"
 
 # «editar» traduce a «edit»
@@ -509,6 +512,7 @@ valid before="amente"
 id="noPT-2011-dual_enable"
 valid msgid="\benable"
 valid msgid="\bactiv"
+valid msgid="\bto\sset\s" env="kde"
 hint="«activar» traduce a «enable» (e a activate)"
 
 # «environment» tradúcese como «entorno»
@@ -750,13 +754,15 @@ valid msgid="\binsert|\benter"
 hint="«inserir» ou «introducir» traducen a «insert» ou «enter»"
 
 # «invalid» tradúcese como «incorrecto»/«non é válido»
-{\binvalid(?!ate)}i
+{\binvalid}i
 valid after="\bto\sbe\s"
+valid before="ate"
 id="noPT-2010_invalid"
 valid msgstr="incorrect(o|a)"
 valid msgstr="\bnon\s(ser|é|era|será|sexa|seña)\sválid(o|a)(\b|\s)"
 valid msgstr="\bnon\s(son|eran|sexan|señan)\sválid(o|a)s"
 valid msgstr="non\sválid(o|a)"
+valid msgstr="\bnon\sé\sun(ha)?\s(\w+\s){1,4}válid(o|a)" env="kde"
 hint="«invalid» tradúcese como «incorrecto»/«non é válido»"
 
 # «invalid» tradúcese como «incorrecto»/«non é válido»
@@ -767,11 +773,12 @@ valid msgstr="\bser\sincorrect(o|a)"
 hint="«to be invalid» -> «non ser correto/válido» ou «ser incorrecto»"
 
 # «invalid» tradúcese como «non é válido»
-[\b(non\s(é\s|"")válid(o|a))|(non\sson\sválid(o|a)s)]i
+[\b(non\s(é\s)?válid(o|a))|(non\sson\sválid(o|a)s)]i
 valid after="argumento"
 id="noPT-2010-dual_invalid"
 valid msgid="\binvalid"
-valid msgid="\b(is|are)\snot\svalid" env="kde"
+valid msgid="\b(is|are)?\snot\svalid" env="kde"
+valid after="\baínda\s" msgid="\bnot\syet\svalid" env="kde"
 hint="«non é válido» traducen a «invalid» (e «not valid»"
 
 # «invalid» tradúcese como «incorrecto»
@@ -781,6 +788,7 @@ id="noPT-2010-dual_invalid2"
 valid msgid="\binvalid"
 valid msgid="\bincorrect"
 valid msgid="\bwrong"
+valid msgid="\bbad\s\w+" env="kde"
 hint="«incorrecto» traduce a «invalid» (e a «incorrect», e a «wrong»)"
 
 # «issue» tradúcese como «incidencia»
@@ -807,7 +815,7 @@ hint="«item» tradúcese como «elemento»"
 [\belemento]i
 id="PT-2011-dual_item"
 valid msgid="\bitem"
-valid msgid="\belement"
+valid msgid="\b(list)?element"
 hint="«elemento» traduce a «item»"
 
 # «key» tradúcese como «tecla»
@@ -937,6 +945,7 @@ id="noPT-2011-dual_login2"
 valid msgid="\b(log\s?|sign\s)(i|o)n"
 valid msgid="\bidentif"
 valid msgid="\bid\b" env="kde"
+valid after="non\s" msgid="\bunidentif"
 hint="«identificar» traduce a «login», «log/sign in», «log/sign on» (e identificar)"
 
 #####
@@ -979,6 +988,7 @@ hint="«terminate» tradúcese como «terminar»"
 valid before="al"
 id="PT-2011-dual_terminate"
 valid msgid="\bterminat"
+valid after="non\s" msgid="unterminat" env="kde"
 hint="«terminar» traduce a «terminate»"
 
 # «Path» tradúcese como «ruta».
@@ -1181,6 +1191,11 @@ valid msgstr="\bincl(u|ú)"
 valid msgstr="\bpermit(ir|e|a)" env="gnome"
 valid msgstr="\bde\scompatibilidade"
 valid msgstr="\bcompatibilidade\sde" env="gnome"
+valid msgstr="\bcompatibilidade" env="kde"
+valid msgstr="\bpermit(e|ir)" env="kde"
+valid before="\sfor" msgstr="\bimplementación(s)?\sde" env="kde"
+valid msgstr="\bimplementación" env="kde"
+valid before="ed" msgstr="\bimplementad(o|a)s?" env="kde"
 hint="«support» tradúcese como «asistencia técnica», «ser compatíbel con», «admitir», «permitir utilizar», «incluír»"
 
 # «asistencia técnica» traduce a «support»
@@ -1369,6 +1384,7 @@ id="noPT-2011-dual_upload"
 valid msgid="\bupload"
 valid msgid="\bsen(d|t)"
 valid msgid="\bsubmit" env="kde"
+valid msgid="\bputting\sfile" env="kde"
 hint="«enviar» traduce a «upload» (e a «send» e «submit»)"
 
 # «widget» tradúcese como «trebello»
