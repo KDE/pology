@@ -97,10 +97,38 @@ RACEway: рејсвеј|, рејсвеј|ев, рејсвеј|>
     @л: RACEway|, RACEway|ev, RACEway|>
 RAID: РАИД|-, РАИД|>
 S-ATA, SATA: С-АТ|А, С-АТА|>
+SCORE 5: СКОР|- 5, СКОР 5|>
+    @л: SCORE|- 5, SCORE|> 5
+SCORE 5U: СКОР|- 5У, СКОР 5У|>
+    @л: SCORE|- 5U, SCORE|> 5U
+SCORE 7: СКОР|- 7, СКОР 7|>
+    @л: SCORE|- 7, SCORE|> 7
+SCORE 7D: СКОР|- 7Д, СКОР 7Д|>
+    @л: SCORE|- 7D, SCORE 7D|>
 SCSI: сказ|и, скази|>
     @л: SCS|I-, SCSI|>
 SERCOS: СЕРКОС|-, СЕРКОС|>
     @л: SERCOS|-, SERCOS|>
+SH-1: СХ-1|*, СХ-1|>, _род!=м
+SH-2: СХ-2|*, СХ-2|>, _род!=м
+SH-2A: СХ-2А|*, СХ-2А|>, _род!=м
+SH-2E: СХ-2Е|*, СХ-2Е|>, _род!=м
+SH-3: СХ-3|*, СХ-3|>, _род!=м
+SH-3E: СХ-3Е|*, СХ-3Е|>, _род!=м
+SH-4: СХ-4|*, СХ-4|>, _род!=м
+SH-4-100: СХ-4-100|*, СХ-4-100|>, _род!=м
+SH-4-200: СХ-4-200|*, СХ-4-200|>, _род!=м
+SH-4-400: СХ-4-400|*, СХ-4-400|>, _род!=м
+SH-4-500: СХ-4-500|*, СХ-4-500|>, _род!=м
+SH-4A: СХ-4А|*, СХ-4А|>, _род!=м
+SH-4AL-DSP: СХ-4АЛ-ДСП|*, СХ-4АЛ-ДСП|>, _род!=м
+SH-5: СХ-5|*, СХ-5|>, _род!=м
+SHcompact: СХ-компакт|, СХ-компакт|>
+    @л: SHcompact|, SHcompact|>
+SHmedia: СХ-медиј|а, СХ-медија|>
+    @л: SHmed|ia, SHmedia|>
+SHmedia32: СХ-медиј|а 32, СХ-медиј|а 32|>
+    @л: SHmed|ia 32, SHmedia|> 32
 SMART: СМАРТ|-, СМАРТ|>, _пр=Self-Monitoring, Analysis and Reporting Technology
 SMBus: СМбус|, СМбус|>
     @л: SMBus|, SMBus|>
@@ -111,6 +139,8 @@ SSE3: ССЕ|- 2, н&а=ССЕ3, ССЕ3|>
     @л: SSE|- 3, н&а=SSE3, SSE3|>
 SSE4: ССЕ|- 4, н&а=ССЕ4, ССЕ4|>
     @л: SSE|- 4, н&а=SSE4, SSE4|>
+SuperH: суперХ|-, суперХ|>
+    @л: SuperH|-, SuperH|>
 UART: УАРТ|-, УАРТ|>, _пр=universal asynchronous receiver/transmitter
 UDMA: УДМА|-, УДМА|>
 UHCI: УХЦ|И-, УХЦИ|>
@@ -167,6 +197,7 @@ PK, |pkfnt: ПК|-, ПК|>
 sendmail: сендмејл|, сендмејл|>
     @л: sendmail|, sendmail|>
 S/MIME: С/МИМЕ|-, С/МИМЕ|>
+SVR4: СВР4|*, СВР4|>, _род!=м, _пр=System V Release 4
 Truetype: трутајп|, трутајп|>
     @л: Truetype|, truetype|>
 Truetype (OT), |truetypeot: |{Truetype} (ОТ)

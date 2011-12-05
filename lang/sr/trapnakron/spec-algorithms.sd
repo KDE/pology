@@ -5,6 +5,7 @@
 # ----------------------------------------------------------------------------
 # Интерпретација и компилација
 
+CCP: ЦЦП|-, ЦЦП|>, _пр=conditional constant propagation
 CSE: ЦСЕ|-, ЦСЕ|>, _пр=common subexpression elimination
 DFA: ДФА|-, ДФА|>, _пр=deterministic finite automaton
 FRE: ФРЕ|-, ФРЕ|>, _пр=full redundancy elimination
@@ -13,6 +14,7 @@ ILP32: ИЛП32|*, ИЛП32|>, _род!=м, _пр=integer/long/pointer 32 bit
 LP64: ЛП64|*, ЛП64|>, _род!=м, _пр=long/pointer 64 bit
 PLT: ПЛТ|-, ПЛТ|>, _пр=procedure linkage table
 PRE: ПРЕ|-, ПРЕ|>, _пр=partial redundancy elimination
+SSA: ССА|-, ССА|>, _пр=static single assignment
 
 # ----------------------------------------------------------------------------
 # Криптографија
