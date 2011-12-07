@@ -141,15 +141,29 @@ SSE4: ССЕ|- 4, н&а=ССЕ4, ССЕ4|>
     @л: SSE|- 4, н&а=SSE4, SSE4|>
 SuperH: суперХ|-, суперХ|>
     @л: SuperH|-, SuperH|>
+Thumb: там|, там|>
+    @л: Thumb|, Thumb|>
 UART: УАРТ|-, УАРТ|>, _пр=universal asynchronous receiver/transmitter
 UDMA: УДМА|-, УДМА|>
 UHCI: УХЦ|И-, УХЦИ|>
 USB: УСБ|-, УСБ|>
 UUCP: УУЦП|-, УУЦП|>
+V8+, |v8pabi: В8+|*, В8+|>, _род!=м
+V9, |v9abi: В9|*, В9|>, _род!=м
+VAX: ВАКС|-, ВАКС|-ов, ВАКС|>
+    @л: VAX|-, VAX|-ov, VAX|>
+VFP: ВФП|-, ВФП|>, _пр=Vector Floating Point
+VIS: ВИС|-, ВИС|>, _пр=Visual Instruction Set
+VLIW: ВЛИВ|-, ВЛИВ|>, _пр=very long instruction word
+    @л: VLIW|-, VLIW|>
 x86: икс86|*, икс86|>, _род!=м
     @л: x86|*, x86|>
+x86-64: икс86-64|*, икс86-64|>, _род!=м
+    @л: x86-64|*, x86-64|>
 XG, |xgmidi: ИксГ|-, ИксГ|-ов, ИксГ|>
     @л: XG|-, XG|-ov, XG|>
+z/Architecture: з/архитектур|а, з/архитектур|ин, з/архитектур|ски
+    @л: z/Architectur|e-a, z/Architectur|in, z/Architectur|ski
 ZeroConf: зироконф|, зироконф|>
     @л: ZeroConf|, zeroconf|>
 
@@ -214,6 +228,8 @@ vCard: в-кард|, в-кард|ови+, в-кард|>
     @л: vCard|, vCard|ovi+, vCard|>
 WebGL: вебГЛ|-, вебГЛ|-ов, вебГЛ|>
     @л: WebGL|-, WebGL|-ov, WebGL|>
+Zero-Link: зиро-линк|, зиро-линк|ов, зиро-линк|>
+    @л: Zero-Link|, Zero-Link|ov, Zero-Link|>
 
 # ----------------------------------------------------------------------------
 # Комуникационе

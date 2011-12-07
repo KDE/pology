@@ -119,7 +119,7 @@ tar: тар|, тар|>
 TBX: ТБИкс|-, ТБИкс|>
     @л: TBX|-, TBX|>
 TGA: ТГА|-, ТГА|>
-TOC: ТОЦ|-, ТОЦ|>
+TOC: ТОЦ|-, ТОЦ|>, _пр=table of contents
 Theora: теор|а, теор|ин, теора|>
     @л: Theor|a, Theor|in, Theora|>
 TIFF: ТИФФ|-, ТИФФ|>
@@ -152,6 +152,8 @@ WMF: ВМФ|-, ВМФ|>, _пр=Windows Metafile
     @л: WMF|-, WMF|>
 XCF: ИксЦФ|-, ИксЦФ|>
     @л: XCF|-, XCF|>
+XCOFF: ИксКОФФ|-, ИксКОФФ|>
+    @л: XCOFF|-, XCOFF|>
 XLIFF: ИксЛИФФ|-, ИксЛИФФ|>
     @л: XLIFF|-, XLIFF|>
 Xvid: Иксвид|, Иксвид|ов, иксвид|>
