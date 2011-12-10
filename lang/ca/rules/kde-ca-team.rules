@@ -29,6 +29,11 @@ valid !msgstr="rerefons"
 valid msgstr="style=\".*?background:.*?\""
 hint="Es tradueix per -segons el sentit- «fons i al darrere (pantalla), segon pla (executa)» (kde-ca-team)"
 
+{\bblurs?\b}i
+valid msgstr="difumina(t|s)?"
+valid !msgstr="desenfo.+"
+hint="Es tradueix per «difuminat» (kde-ca-team)"
+
 {\bcharacter set\b}i
 valid msgstr="joc de caràcters"
 hint="Es tradueix per «joc de caràcters» (kde-ca-team)"
