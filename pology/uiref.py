@@ -439,10 +439,6 @@ def _load_norm_ui_cats (cat, uicpaths, xmlescape):
     # used to resolve references in face of duplicates over catalogs.
     catnames = []
 
-    # - the catalog itself, if among UI catalogs paths
-    if cat.name in uicpaths:
-        catnames.append(cat.name)
-
     # - catalogs listed in some header fields
     # NOTE: Mention in module docustring when adding/removing fields.
     afnames = (
@@ -459,6 +455,10 @@ def _load_norm_ui_cats (cat, uicpaths, xmlescape):
             if p >= 0:
                 lststr = lststr[:p]
             catnames.extend(lststr.split())
+
+    # - the catalog itself, if among UI catalogs paths and not explicitly given
+    if cat.name in uicpaths and not cat.name in catnames:
+        catnames.insert(0, cat.name) # highest priority
 
     # Make catalog names unique, preserving order.
     uniq_catnames = []
