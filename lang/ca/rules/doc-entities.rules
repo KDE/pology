@@ -2,8 +2,9 @@
 # by KDE Catalan Team (kde-i18n-ca@kde.org)
 # License: GPLv3
 
-[&Backspace;]
-hint="Cal substituir «&Backspace;» per «&Retro;» (doc-entitats)"
+# La regla següent ja està al fitxer key.rules
+#[&Backspace;]
+#hint="Cal substituir «&Backspace;» per «&Retro;» (doc-entitats)"
 
 [&centrecontrol;]
 hint="ATENCIÓ: Cal revisar l'etiqueta «&centrecontrol;» perquè l'aplicació s'ha substituit per «systemsettings» (doc-entitats)"
@@ -20,8 +21,9 @@ hint="Cal substituir «&dpi;» per «&ppp;» (doc-entitats)"
 [&eg;]
 hint="Cal substituir «&eg;» per «&pex;» (doc-entitats)"
 
-[&Enter;]
-hint="Cal substituir «&Enter;» per «&Intro;» (doc-entitats)"
+# La regla següent ja està al fitxer key.rules
+#[&Enter;]
+#hint="Cal substituir «&Enter;» per «&Intro;» (doc-entitats)"
 
 [&GUI;]
 hint="Cal substituir «&GUI;» per «&IGU;» (doc-entitats)"
@@ -41,8 +43,9 @@ hint="Cal substituir «&OS;» per «&SO;» (doc-entitats)"
 [(&RMB;|&LMB;|&MMB;)]
 hint="Cal substituir «&RMB;/&LMB;/&MMB;» per «&BDR;/&BER;/&BMR;» (doc-entitats)"
 
-[&Shift;]
-hint="Cal substituir «&Shift;» per «&Maj;» (doc-entitats)"
+# La regla següent ja està al fitxer key.rules
+#[&Shift;]
+#hint="Cal substituir «&Shift;» per «&Maj;» (doc-entitats)"
 
 [&systemtray;]
 hint="Cal substituir «&systemtray;» per «&safatasistema;» (doc-entitats)"
