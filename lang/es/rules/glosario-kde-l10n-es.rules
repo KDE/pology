@@ -301,6 +301,7 @@ valid msgstr="memoria\sintermedia"
 valid msgstr="memorias\stemporales"
 valid msgstr="memorias\sintermedias"
 valid msgstr="búfer"
+valid after="Frame\s"
 hint="« Buffer » se traduce como « Memoria temporal/intermedia » o como « Búfer » (ver glosario)"
 
 # «Buffers» se traduce como «Memorias temporales/intermedias».
@@ -579,6 +580,7 @@ hint="« Compact » se traduce como « Comprimir » (ver glosario)"
 # «Computer» se traduce como «Equipo».
 {\bcomputer\b}i
 valid msgstr="equipo"
+valid after="Network\s"
 hint="« Computer » se traduce como « Equipo », no como « Ordenador » o « Computadora » (ver glosario)"
 
 # «Computers» se traduce como «Equipos».
