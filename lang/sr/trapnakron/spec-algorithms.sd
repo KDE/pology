@@ -5,15 +5,20 @@
 # ----------------------------------------------------------------------------
 # Интерпретација и компилација
 
+BB: ОБ|-, ОБ|>, _пр=основни блок, _про=basic block
 CCP: ЦЦП|-, ЦЦП|>, _пр=conditional constant propagation
+COMDAT: КОМДАТ|-, КОМДАТ|>, _пр=common data
+    @л: COMDAT|-, COMDAT|>
 CSE: ЦСЕ|-, ЦСЕ|>, _пр=common subexpression elimination
 DFA: ДФА|-, ДФА|>, _пр=deterministic finite automaton
 FRE: ФРЕ|-, ФРЕ|>, _пр=full redundancy elimination
 GCSE: ГЦСЕ|-, ГЦСЕ|>, _пр=global common subexpression elimination
 ILP32: ИЛП32|*, ИЛП32|>, _род!=м, _пр=integer/long/pointer 32 bit
+IPA, |ipacomp: ¤ИПА|-, ИПА|>, _пр=inter-procedural analysis
 LP64: ЛП64|*, ЛП64|>, _род!=м, _пр=long/pointer 64 bit
 PLT: ПЛТ|-, ПЛТ|>, _пр=procedure linkage table
 PRE: ПРЕ|-, ПРЕ|>, _пр=partial redundancy elimination
+SRA: СРА|-, СРА|>, _пр=scalar replacement of aggregates
 SSA: ССА|-, ССА|>, _пр=static single assignment
 
 # ----------------------------------------------------------------------------

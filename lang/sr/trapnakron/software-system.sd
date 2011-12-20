@@ -288,16 +288,20 @@ XFTP: ИксФТП|-, ИксФТП|-ов
 
 Aterm: Атерм|, Атерм|ов
 Bash, |bashapp: Басх|, Басх|ов, басх|>
+    @л: Bash|, Bash|ov, Bash|>
 Konsole: Конзол|а, Конзол|ин
     @л: Konsol|e-a, Konsol|in
 Kvt: Квт|, Квт|ов
 RXVT: РИксВТ|-, РИксВТ|-ов
     @л: RXVT|-, RXVT|-ov
-Tcsh: Тцсх|, Тцсх|-ов, тцсх|>
+Tcsh, |tcshapp: Тцсх|-, Тцсх|-ов, Тцсх|>
+    @л: Tcsh|-, Tcsh|-ov, Tcsh|>
 XTerm: Икс-терм|, Икс-терм|ов
     @л: XTerm|, XTerm|ov
 Yakuake: Јакуаке|, Јакуаке|ов
     @л: Yakuake|, Yakuake|ov
+Zsh, |zshapp: Зсх|-, Зсх|-ов, зсх|>
+    @л: Zsh|-, Zsh|-ov, Zsh|>
 
 # ----------------------------------------------------------------------------
 # Менаџери прозора
@@ -413,6 +417,7 @@ BlueDevil: Блудевил|, Блудевил|ов
     @л: BlueDevil|, BlueDevil|ov
 Bourne Shell: Борнов|а> шкољк|а
     @л: Bourneov|a> školjk|a
+Burg: Бург|, Бург|ов
 Calctool: Калктул|, Калктул|ов
     @л: Calctool|, Calctool|ov
 Chiasmus: Хијазмус|, Хијазмус|ов
@@ -550,6 +555,7 @@ KDEPrint: К-штампа|ње
 KDE Shutdown: Гаше|ње |KDE~г
 KDE ssh: |{KDE~.м} ссх|
 KDE su: |{KDE~.м} су|
+KDE System Settings: |KDE~.ж Системск|е-> поставк|е-и
 KDevmon: КДевмон|, КДевмон|ов
 KDE Wallet Service: |KDE~.мп сервис| новчаника
 KDialog: К-дијалог|, К-дијалог|ов
