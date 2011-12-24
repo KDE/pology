@@ -157,6 +157,8 @@ VFP: ВФП|-, ВФП|>, _пр=Vector Floating Point
 VIS: ВИС|-, ВИС|>, _пр=Visual Instruction Set
 VLIW: ВЛИВ|-, ВЛИВ|>, _пр=very long instruction word
     @л: VLIW|-, VLIW|>
+VSX: ВСИкс|-, ВСИкс|>, _пр=Vector-Scalar Extended
+    @л: VSX|-, VSX|>
 x86: икс86|*, икс86|>, _род!=м
     @л: x86|*, x86|>
 x86-64: икс86-64|*, икс86-64|>, _род!=м
