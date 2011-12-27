@@ -80,6 +80,17 @@ hint="xerir -> xestionar"
 id="clGL-all_zoom"
 hint="zoom -> ampliación ?"
 
+# preferir «estase a + infinitivo» no cando de «a + infinitivo»
+[^a\s\w+[aei]r\s]i
+valid after="Están\s"
+valid after="Estanse\s"
+valid after="Está\s"
+valid after="Estase\s"
+valid after="estex?a\s"
+valid after="estar\s"
+id="clGL-all_a+infinitivo"
+hint="«a+infinitivo» -> «estase a infinitivo"
+
 # «enable this option» 
 {\benable\sthis\s(option|checkbox)}i
 id="expression_enable this option| checkbox"
