@@ -34,10 +34,16 @@ addFilterRegex match="\b(a\.\s?m|apdo|art|atte|av|avda|C\.\s?C|C\.\s?P|cap|cent|
 addFilterRegex match="(\?{2,3}|\%{2,3}|\:{2,3}\w*\b|\_{2,3})" repl="~" on="pmsgid,pmsgstr"
 
 # Remove more usual smileis.
-addFilterRegex match="\s(\:\)|\(\-\:|\:\)|\(\:|\=\)|\)\-\:\)|\:\-\)|\:\-\(|\;\-\)|\;\))" repl="\s~" on="pmsgid,pmsgstr"
+addFilterRegex match="\s(\:\)|\(\-\:|\:\)|\(\:|\=\)|\)\-\:\)|\:\-\)|\:\-\(|\;\-\)|\;\)|\:\-\{|\:\-\()" repl="\s~" on="pmsgid,pmsgstr"
 
 # Remove numbers and dates
 addFilterRegex match="[^\%][\dXx]+([\.\,\:\/][\dXx]+)+" repl="~" on="pmsgid,pmsgstr"
+
+# Remove email addresses with "at"
+addFilterRegex match="\b\(\w+\sat\s\w+\s\w{2,3}\s\w{2,3}?\)\b" repl="~" on="pmsgid,pmsgstr"
+
+# Remove some special tags between '%'
+addFilterRegex match="\b\%\w+\%\b" repl="~" on="pmsgid,pmsgstr"
 
 # Remove some types of paragraph tags.
 addFilterHook name="es:remove_subs/remove_tags_without_translation" on="msg"

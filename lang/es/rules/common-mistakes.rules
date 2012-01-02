@@ -34,7 +34,7 @@ hint="No utilice expresiones del tipo «las ciudadanas y los ciudadanos » (erro
 hint="No utilice la arroba para evitar el género, p.ej. «ciudadan@s» (error frecuente)"
 
 # No utilizar el guión para separar el prefijo de la palabra principal
-[(?u)\b(auto|bi|(?!\-)de|des|extra|hiper|in|macro|meta|micro|mini|mono|multi|pos|post|pre|re|sobre|sub|super|tele|tri)\-([a-záéíóúñç]){3,}?\b]i
+[(?u)\b(auto|bi|des|extra|hiper|in|macro|meta|micro|mini|mono|multi|pos|post|pre|re|sobre|sub|super|tele|tri)\-([a-záéíóúñç]){3,}?\b]i
 hint="No utilice el guión para separar el prefijo de la palabra principal, p.ej. «sub-menú» (error frecuente)"
 
 # «y» ante palabras que empiezan por «i» o «hi»
@@ -781,6 +781,10 @@ hint="« Ésa » se escribe como « Esa », salvo en casos muy excepcionales (er
 [\bésas\b]i
 hint="« Ésas » se escribe como « Esas », salvo en casos muy excepcionales (error frecuente)"
 
+# «Escáners» se escribe como «Escáneres».
+[\besc[aá]ners\b]i
+hint="« Escáners » se escribe como « Escáneres », (error frecuente)"
+
 # «Ése» se escribe como «Ese».
 [\bése\b]i
 hint="« Ése » se escribe como « Ese », salvo en casos muy excepcionales (error frecuente)"
@@ -1082,7 +1086,7 @@ hint="« Macros » es de género femenino (error frecuente)"
 hint="« Master » se escribe como « Máster » (error frecuente)"
 
 # «Masters» se escribe como «Másteres».
-[\bmasters\b]i
+[\bm[aá]sters\b]i
 hint="« Masters » se escribe como « Másteres » (error frecuente)"
 
 # «Mayor a» se escribe como «Mayor que».

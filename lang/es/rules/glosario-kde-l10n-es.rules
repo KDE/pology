@@ -232,17 +232,12 @@ hint="« Batcher » se traduce como « Procesador por lotes » (ver glosario)"
 valid msgstr="proces(ar|os?)\spor\slotes"
 hint="« Batching » se traduce como « Proceso por lotes » (ver glosario)"
 
-# «A bit» se traduce como «Un poco/algo».
-{\ba\s(little\s)?bit(?!\srate)\b}i
-valid msgstr="un\spoco"
-valid msgstr="algo"
-valid msgstr="una\sparte"
-valid msgstr="un\sbit"
-hint="« A bit » se traduce como «Un poco/algo»"
-
 # «Bit» no se debe traducir.
-{\b(?!<a\s(little\s)?)bit\b}i
+{\bbit\b}i
 valid msgstr="bit"
+valid msgstr="un\spoco" after="a\s"
+valid msgstr="algo" after="a\s"
+valid msgstr="una\sparte" after="a\s"
 hint="« Bit » no se debe traducir (ver glosario)"
 
 # «Bits» no se debe traducir.
@@ -1296,6 +1291,7 @@ hint="« Features » se traduce como « Funcionalidades » o « Características
 valid msgstr="suministro"
 valid msgstr="fuente"
 valid msgstr="canal"
+valid msgstr="salto\sde\slínea" after="line\s"
 hint="« Feed » se traduce como « Suministro » o « Fuente de noticias »(ver glosario)"
 
 # «Feeds» se traduce como «Suministros».
@@ -1718,6 +1714,7 @@ hint="« Hosts » se traduce como « Servidores » (ver glosario)"
 # «Hosting» se traduce como «Hospedaje».
 {\bhosting\b}i
 valid msgstr="hosped(ar|a|e|aje)"
+valid msgstr="aloja"
 hint="« Hosting » se traduce como « Hospedaje » (ver glosario)"
 
 # «Hotkey» se traduce como «Atajo de teclado».

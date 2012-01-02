@@ -361,6 +361,7 @@ hint="« Browsers » se traduce como « Navegadores » (propuesta glosario)"
 # «Browsing» se traduce como «Navegación».
 {\bbrowsing\b}i
 valid msgstr="navegación"
+valid msgstr="navegar"
 hint="« Browsing » se traduce como « Navegación » (propuesta glosario)"
 
 # «Bug-fix» se traduce como «Corrección de error».
@@ -1077,7 +1078,7 @@ hint="« Documentation » se traduce como « Documentación » (propuesta glosar
 # «Dot» se traduce como «Punto».
 {\bdot\b}i
 valid msgstr="punto"
-valid after="K(de)?\s" before="\snews"
+valid after="K(de)?\s(Dot\s)?" before="\snews"
 hint="« Dot » se traduce como « Punto » (propuesta glosario)"
 
 # «Dots» se traduce como «Puntos».
@@ -1427,6 +1428,7 @@ hint="« Failures » se traduce como « Fallos » (propuesta glosario)"
 # «Fake» se traduce como «Falso».
 {\bfake\b}i
 valid msgstr="fals[oa]"
+valid msgstr="false(ar|a|e)"
 hint="« Fake » se traduce como « Falso » (propuesta glosario)"
 
 # «Fakes» se traduce como «Falsos».
@@ -1583,6 +1585,7 @@ hint="« Folder » se traduce como « Carpeta » (propuesta glosario)"
 # «Folders» se traduce como «Carpeta».
 {\bfolders\b}i
 valid msgstr="carpetas"
+valid msgstr="papeleras" after="trash\s"
 valid msgstr="(ninguna|cualquier)\scarpeta"
 hint="« Folders » se traduce como « Carpetas » (propuesta glosario)"
 
@@ -1777,6 +1780,7 @@ hint="« Heuristic » se traduce como « Heurístico » (propuesta glosario)"
 # «Hierarchy» se traduce como «Jerarquía».
 {\bhierarchy\b}i
 valid msgstr="jerarquía"
+valid msgstr="jerárquic[oa]"
 hint="« Hierachy » se traduce como « Jerarquía » (propuesta glosario)"
 
 # «Hint» se traduce como «Consejo».
@@ -2041,14 +2045,17 @@ hint="« Interrupts » se traduce como « Interrupciones/Interrumpe » (propuest
 {(?<!menu\s)\bitem\b}i
 valid msgstr="elemento"
 valid msgstr="objeto"
+valid msgstr="opción"
 hint="« Item » se traduce como « Elemento/Objeto » (propuesta glosario)"
 
 # «Items» se traduce como «Elementos/objetos».
 {(?<!menu\s)\bitems\b}i
 valid msgstr="elementos"
 valid msgstr="objetos"
+valid msgstr="opciones"
 valid msgstr="(ningún|cualquier)\selemento"
 valid msgstr="(ningún|cualquier)\sobjeto"
+valid msgstr="(ningún|cualquier)\sopción"
 hint="« Items » se traduce como « Elementos/Objetos » (propuesta glosario)"
 
 # «Iteration» se traduce como «Iteración».
@@ -2419,6 +2426,7 @@ hint="« Measures » se traduce como « Medidas/Métricas » (propuesta glosario
 {\bmethod\b}i
 valid msgstr="método"
 valid msgstr="mecanismo"
+valid msgstr="forma"
 valid after="X\sinput\s"
 hint="« Method » se traduce como « Método » (propuesta glosario)"
 
@@ -2515,6 +2523,7 @@ hint="« Mobile » se traduce como « Móvil/Portátil » (propuesta glosario)"
 # «Module» se traduce como «Módulo».
 {\bmodule\b}i
 valid msgstr="módulo"
+valid msgstr="asistente" after="helper\s"
 hint="« Module » se traduce como « Módulo » (propuesta glosario)"
 
 # «Modules» se traduce como «Módulos».
@@ -2572,7 +2581,7 @@ hint="« Namespaces » se traduce como « Espacios de nombres » (propuesta glos
 valid msgstr="anid(ar|e|a)"
 valid msgstr="conect(ar|a|e)"
 valid msgstr="nido"
-valid msgstr="nest" after="Echo"
+valid msgstr="nest" after="echo\s"
 valid msgstr="anidará" after="will\s"
 valid msgstr="conectará" after="will\s"
 valid msgstr="anidó" after="did\s"
@@ -3002,6 +3011,7 @@ hint="« Performance » se traduce como « Rendimiento » (propuesta glosario)"
 # «Pipelining» se traduce como «Redireccionamiento».
 {\bpipelining\b}i
 valid msgstr="redireccionamiento"
+valid msgstr="paralelismo"
 hint="« Pipelining » se traduce como « Redireccionamiento » (propuesta glosario)"
 
 # «Pixmap» se traduce como «Imagen».
@@ -3642,18 +3652,18 @@ hint="« Resamples » se traduce como « Remuestrea » (propuesta glosario)"
 # «Resize» se traduce como «Redimensionar».
 {\bresize\b}i
 valid msgstr="redimension(ar|a|e)"
-valid msgstr="cambi(ar|a|e)\sel\stamaño"
+valid msgstr="cambi(ar|a|e)\s(el|de)\stamaño"
 valid msgstr="modifi(car|ca|que)\sel\stamaño"
 valid msgstr="redimensionará" after="will\s"
-valid msgstr="(cambiará|modificará)\sel\stamaño" after="will\s"
+valid msgstr="(cambiará|modificará)\s(el|de)\stamaño" after="will\s"
 valid msgstr="redimensionó" after="did\s"
-valid msgstr="(cambió|modificó)\sel\stamaño" after="did\s"
+valid msgstr="(cambió|modificó)\s(el|de)\stamaño" after="did\s"
 hint="« Resize » se traduce como « Redimensionar » (propuesta glosario)"
 
 # «Resizes» se traduce como «Redimensiona».
 {\bresizes\b}i
 valid msgstr="redimension(a|e)"
-valid msgstr="cambi(a|e)\sel\stamaño"
+valid msgstr="cambi(a|e)\s(el|de)\stamaño"
 valid msgstr="modifi(ca|que)\sel\stamaño"
 hint="« Resizes » se traduce como « Redimensiona » (propuesta glosario)"
 
@@ -4244,6 +4254,7 @@ hint="« Tips » se traduce como « Consejos o Puntas» (propuesta glosario)"
 # «Tool» se traduce como «Herramienta».
 {\btool\b}i
 valid msgstr="herramienta"
+valid msgstr="consejos?\semergentes?" before="\stips?"
 valid after="\-"
 hint="« Tool » se traduce como « Herramienta » (propuesta glosario)"
 

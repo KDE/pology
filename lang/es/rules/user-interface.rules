@@ -591,6 +591,7 @@ hint="« Cut and paste » se traduce como « Cortar y pegar » (propuesta glosar
 valid msgstr="escritorio"
 valid msgstr="Desktop" after="K\s"
 valid after="\."
+valid before="\sBus"
 hint="« Desktop » se traduce como « Escritorio » (propuesta glosario)"
 
 # «Desktops» se traduce como «Escritorios».
@@ -614,7 +615,8 @@ hint="« Dialog boxes » se traduce como como « Cuadros de diálogo » (regla d
 {\bdrag[\s\-]and[\s\-]drop\b}i
 valid msgstr="arrastrar\sy\ssoltar"
 valid msgstr="arrastr[ea]\sy\ssuelt[ea]"
-valid msgstr="arrastrarl[oa]s?\sy\ssiltarl[oa]s?"
+valid msgstr="arrastrarl[oa]s?\sy\ssoltarl[oa]s?"
+valid msgstr="arrastrándol[oa]s?\sy\ssoltándol[oa]s?"
 valid msgstr="arrastrará\sy\ssoltará" after="will\s"
 hint="« Drag and drop » se traduce como « Arrastrar y soltar » (propuesta glosario)"
 
