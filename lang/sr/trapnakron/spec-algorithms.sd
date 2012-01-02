@@ -27,6 +27,7 @@ SSA: ССА|-, ССА|>, _пр=static single assignment
 Adler-32: адлер|{}-32, адлер-32|>
     @л: Adler|{}-32, Adler-32|>
 AES: АЕС|-, АЕС|>
+AES-256: АЕС-256|*, АЕС-256|>, _род!=м
 Blowfish: блоуфиш|, блоуфиш|ов
     @л: Blowfish|, Blowfish|ov
 BTIH: БТИХ|-, БТИХ|>, _пр=BitTorrent Info Hash
