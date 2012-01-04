@@ -439,7 +439,7 @@ Strings after the dot can be anything, but a sequence of numbers or letters in a
 <varlistentry>
 <term><option>lokalize</option></term>
 <listitem>
-<para>Open the PO file on reported messages in Lokalize.</para>
+<para>Open the PO file on reported messages in Lokalize. Lokalize must be already running with the project that contains the PO file opened.</para>
 </listitem>
 </varlistentry>
 
@@ -518,7 +518,7 @@ Strings after the dot can be anything, but a sequence of numbers or letters in a
 <varlistentry>
 <term><option>lokalize</option></term>
 <listitem>
-<para>Open the PO file on reported messages in Lokalize.</para>
+<para>Open the PO file on reported messages in Lokalize. Lokalize must be already running with the project that contains the PO file opened.</para>
 </listitem>
 </varlistentry>
 
@@ -662,7 +662,7 @@ Strings after the dot can be anything, but a sequence of numbers or letters in a
 <varlistentry>
 <term><option>lokalize</option></term>
 <listitem>
-<para>Open the PO file on reported messages in Lokalize.</para>
+<para>Open the PO file on reported messages in Lokalize. Lokalize must be already running with the project that contains the PO file opened.</para>
 </listitem>
 </varlistentry>
 
@@ -794,7 +794,7 @@ Strings after the dot can be anything, but a sequence of numbers or letters in a
 <varlistentry>
 <term><option>lokalize</option></term>
 <listitem>
-<para>Open the PO file on messages containing unknown words in Lokalize.</para>
+<para>Open the PO file on messages containing unknown words in Lokalize. Lokalize must be already running with the project that contains the PO file opened.</para>
 </listitem>
 </varlistentry>
 
@@ -843,7 +843,7 @@ Strings after the dot can be anything, but a sequence of numbers or letters in a
 <varlistentry>
 <term><option>lokalize</option></term>
 <listitem>
-<para>Open the PO file on reported messages in Lokalize.</para>
+<para>Open the PO file on reported messages in Lokalize. Lokalize must be already running with the project that contains the PO file opened.</para>
 </listitem>
 </varlistentry>
 
@@ -921,7 +921,7 @@ Strings after the dot can be anything, but a sequence of numbers or letters in a
 <varlistentry>
 <term><option>lokalize</option></term>
 <listitem>
-<para>Open the PO file on reported messages in Lokalize.</para>
+<para>Open the PO file on reported messages in Lokalize. Lokalize must be already running with the project that contains the PO file opened.</para>
 </listitem>
 </varlistentry>
 
@@ -1520,7 +1520,7 @@ and selected messages looked up by this flag. This is typically done when someth
 <varlistentry>
 <term><option>lokalize</option></term>
 <listitem>
-<para>Open the PO file on selected messages in Lokalize (unless <option>nomsg</option> is in effect).</para>
+<para>Open the PO file on selected messages in Lokalize (unless <option>nomsg</option> is in effect). Lokalize must be already running with the project that contains the PO file opened.</para>
 </listitem>
 </varlistentry>
 
@@ -2397,7 +2397,7 @@ with <literal>unreviewed-context</literal> string, so that you may find and revi
 <varlistentry>
 <term><option>lokalize</option></term>
 <listitem>
-<para>Open the PO file on reported messages in Lokalize.</para>
+<para>Open the PO file on reported messages in Lokalize. Lokalize must be already running with the project that contains the PO file opened.</para>
 </listitem>
 </varlistentry>
 

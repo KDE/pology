@@ -188,7 +188,9 @@ def add_param_poeditors (p):
 
     p.add_param("lokalize", bool, defval=False,
                 desc=_("@info sieve parameter discription",
-    "Open catalogs on reported messages in Lokalize."
+    "Open catalogs on reported messages in Lokalize. "
+    "Lokalize must be already running with the project "
+    "that contains the sieved catalogs opened."
     ))
 
 
