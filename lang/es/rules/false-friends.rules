@@ -762,7 +762,7 @@ hint="« Curse » se traduce como como « Maldición », no como « Curse » (fa
 {\bdate\b}i
 valid msgstr="fecha"
 valid msgstr="cita"
-valid msgstr="actualizad[oa]" after="up\sto\s"
+valid msgstr="actualizad[oa]" after="up[\s\-]to[\s\-]"
 valid !msgstr="dato"
 hint="« Date » se traduce como como « Fecha », no como « Dato » (falso amigo)"
 

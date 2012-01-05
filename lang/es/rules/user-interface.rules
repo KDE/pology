@@ -736,12 +736,15 @@ hint="« Menu bars » se traduce como como « Barras de menú » (regla de tradu
 # «Menu item» se traduce como «Opción de menú».
 {\bmenu\sitem\b}i
 valid msgstr="opción.+?del?\smenú"
+valid msgstr="opción.+?del?\ssubmenú" after="sub\s"
 hint="« Menu item » se traduce como como « Opción de menú » (regla de traducción de elementos gráficos)"
 
 # «Menu items» se traduce como «Opciones de menú».
 {\bmenu\sitems\b}i
 valid msgstr="opciones.+?del?\smenú"
+valid msgstr="opciones.+?del?\ssubmenú" after="sub\s"
 valid msgstr="(cualquier|ninguna)\sopción.+?del?\smenú"
+valid msgstr="(cualquier|ninguna)\sopción.+?del?\ssubmenú" after="sub\s"
 hint="« Menu items » se traduce como como « Opciones de menú » (regla de traducción de elementos gráficos)"
 
 # «Minimise» se traduce como «Minimizar».

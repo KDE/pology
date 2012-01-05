@@ -175,16 +175,16 @@ hint="Cierre la comilla (deben ir emparejadas)"
 valid msgid="\s\s+"
 hint="No coloque más de un espacio consecutivo"
 
-[\s\%]
-valid before="[\w\d]"
-valid before="$"
-valid before="\{\w+\}"
-valid after="width=\"\d+" before="\"" # HTML                         
-valid ctx="Numbers and characters"
-hint="No ponga un espacio de separación antes de un signo de porcentaje"
+#[\s\%]
+#valid before="[\w\d]"
+#valid before="$"
+#valid before="\{\w+\}"
+#valid after="width=\"\d+" before="\"" # HTML                         
+#valid ctx="Numbers and characters"
+#hint="No ponga un espacio de separación antes de un signo de porcentaje"
 
 [\s\.]
-valid before="\w{2,4}\b" # Extensions
+valid before="\w{2,4}" # Extensions
 valid before="\/\w+" # Files
 valid before="\.\."
 valid before="(desktop|calendar|directory|h|html|lock|moc|xml)\b"

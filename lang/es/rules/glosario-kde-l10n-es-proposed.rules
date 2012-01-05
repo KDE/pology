@@ -246,7 +246,7 @@ hint="« Bit streams » se traduce como « Flujos de bits » (propuesta glosario
 valid msgstr="placa"
 valid msgstr="tarjeta"
 valid msgstr="tablero"
-valid msgstr="tabón"
+valid msgstr="tablón"
 hint="« Board » se traduce como « Placa/Tarjeta » (propuesta glosario)"
 
 # «Boards» se traduce como «Placas/Tarjetas».
@@ -1270,7 +1270,7 @@ hint="« Encoding » se traduce como « Codificación » (propuesta glosario)"
 # «Encodings» se traduce como «Codificaciones».
 {\bencodings\b}i
 valid msgstr="codificaciones"
-valid msgstr="(ninguna|cualquier)\scodificación"
+valid msgstr="codificación"
 hint="« Encodings » se traduce como « Codificaciones » (propuesta glosario)"
 
 # «Endless» se traduce como «Interminable».
@@ -1580,6 +1580,9 @@ hint="« Foerings keys » se traduce como « Claves ajenas » (propuesta glosari
 {\bfolder\b}i
 valid msgstr="carpeta"
 valid msgstr="papelera" after="trash\s"
+valid msgstr="bandeja\sde\ssalida" after="outbox\s"
+valid msgstr="bandeja\sde\sentrada" after="inbox\s"
+valid msgstr="correo\sbasura" after="spam\s"
 hint="« Folder » se traduce como « Carpeta » (propuesta glosario)"
 
 # «Folders» se traduce como «Carpeta».
@@ -1710,12 +1713,13 @@ hint="« Handicap » se traduce como « Minusvalía/Discapacidad/Inconveniente/P
 {\bhandle\b}i
 valid msgstr="manipul(ar|a|e)"
 valid msgstr="manej(ar|a|e)"
+valid msgstr="encargarse\sde"
 valid msgstr="asa"
 valid msgstr="manipulará" after="will\s"
 valid msgstr="manejará" after="will\s"
 valid msgstr="manipuló" after="did\s"
 valid msgstr="manejó" after="did\s"
-hint="« Handle » se traduce como « Manipular/Manejar » (propuesta glosario)"
+hint="« Handle » se traduce como « Manipular/Manejar/Encargarse de » (propuesta glosario)"
 
 # «Handler» se traduce como «Manipulador».
 {\bhandler\b}i
@@ -2042,14 +2046,14 @@ valid msgstr="(ninguna|cualquier)\sinterrupción"
 hint="« Interrupts » se traduce como « Interrupciones/Interrumpe » (propuesta glosario)"
 
 # «Item» se traduce como «Elemento/objeto».
-{(?<!menu\s)\bitem\b}i
+{\bitem\b}i
 valid msgstr="elemento"
 valid msgstr="objeto"
 valid msgstr="opción"
 hint="« Item » se traduce como « Elemento/Objeto » (propuesta glosario)"
 
 # «Items» se traduce como «Elementos/objetos».
-{(?<!menu\s)\bitems\b}i
+{\bitems\b}i
 valid msgstr="elementos"
 valid msgstr="objetos"
 valid msgstr="opciones"
@@ -2655,7 +2659,7 @@ hint="« Newbies » se traduce como « Principiantes » (propuesta glosario)"
 # «News» se traduce como «Noticias».
 {\bnews\b}i
 valid msgstr="noticias?"
-valid after="K\sdot\s"
+valid after="KDE\sDot\s"
 hint="« News » se traduce como « Noticias » (propuesta glosario)"
 
 # «Newsgroup» se traduce como «Grupo de noticias».
@@ -3045,6 +3049,11 @@ valid msgstr="reprodujo" after="did\s"
 valid msgstr="tocó" after="did\s"
 valid msgstr="interpretó" after="did\s"
 valid msgstr="jugó" after="did\s"
+valid msgstr="reproduzco" after="I\s"
+valid msgstr="interpreto" after="I\s"
+valid msgstr="juego" after="I\s"
+valid msgstr="toco" after="I\s"
+valid after="Plug\sand\s"
 hint="« Play » se traduce como « Reproducir/Tocar/Interpretar/Jugar/Reproducción » (propuesta glosario)"
 
 # «Played» se traduce como «Reproducido/Tocado/Interpretado/Jugado».
@@ -3132,10 +3141,13 @@ valid msgstr="(ningún|cualquier)\spuntero"
 valid msgstr="(ningún|cualquier)\síndice"
 hint="« Pointers» se traduce como « Punteros/Índices » (propuesta glosario)"
 
-# «Pop up» se traduce como «Emergente».
+# «Pop up» se traduce como «Emergente/Desplegable».
 {\bpop(\s|\-)?up\b}i
 valid msgstr="emergente"
-hint="« Pop up » se traduce como « Emergente » (propuesta glosario)"
+valid msgstr="desplegable"
+valid msgstr="emergerá" after="will\s"
+valid msgstr="desplegaerá" after="will\s"
+hint="« Pop up » se traduce como « Emergente/desplegable » (propuesta glosario)"
 
 # «Portable» se traduce como «Portátil».
 {\bportable\b}i
@@ -3537,6 +3549,9 @@ valid msgstr="extraerá" after="will\s"
 valid msgstr="eliminó" after="did\s"
 valid msgstr="quitó" after="did\s"
 valid msgstr="extrajo" after="did\s"
+valid msgstr="elimino" after="I\s"
+valid msgstr="quito" after="I\s"
+valid msgstr="extraígo" after="I\s"
 hint="« Remove » se traduce como « Eliminar/Quitar/Extraer » (propuesta glosario)"
 
 # «Removed» se traduce como «Eliminado/Quitado/Extraído».
@@ -3968,7 +3983,7 @@ hint="« Sources » se traduce como « Orígenes/Fuentes » (propuesta glosario)
 
 # «Spam» se traduce como «Correo basura/no deseado».
 {\bspam\b}i
-valid msgstr="correos?\sbasura"
+valid msgstr="correos?[\s\-]basura"
 valid msgstr="correo\s\no\deseado"
 valid msgstr="correos\s\no\deseados"
 hint="« Spam » se traduce como « Correo basura/no deseado » (propuesta glosario)"
@@ -4105,6 +4120,7 @@ hint="« Stalled » se traduce como « Atascado » (propuesta glosario)"
 # «Stat» se traduce como «Estadística».
 {\bstat\b}i
 valid msgstr="estadística"
+valid msgstr="STAT"
 hint="« Stat » se traduce como « Estadística » (propuesta glosario)"
 
 # «Stats» se traduce como «Estadísticas».
@@ -4145,17 +4161,21 @@ hint="« Submit » se traduce como « Remitir/Enviar » (propuesta glosario)"
 {\bswitch\b}i
 valid msgstr="conmut(ar|a|e|ador)"
 valid msgstr="cambi(ar|a|e|o)"
+valid msgstr="interruptor"
 valid msgstr="apag(ar|a|ue)" before="\soff"
 valid msgstr="enc(ender|ienda|iende)" before="\son"
-hint="« Switch » se traduce como « Conmutador/Cambio/Conmutar/Cambiar » (propuesta glosario)"
+valid msgstr="v(olver|uelve|uelva)" before="\sback"
+hint="« Switch » se traduce como « Interruptor/Conmutador/Cambio/Conmutar/Cambiar » (propuesta glosario)"
 
 # «Switches» se traduce como «Conmutadores/Conmuta».
 {\bswitches\b}i
 valid msgstr="conmut(ar|a|e|adores)"
 valid msgstr="cambi(ar|a|e|os)"
+valid msgstr="interruptores"
 valid msgstr="(ningún|cualquier)\sconmutador"
 valid msgstr="(ningún|cualquier)\scambio"
-hint="« Switches » se traduce como « Conmutadores/Conmuta » (propuesta glosario)"
+valid msgstr="(ningún|cualquier)\sinterruptor"
+hint="« Switches » se traduce como « Interruptores/Conmutadores/Conmuta » (propuesta glosario)"
 
 # «System board» se traduce como «Placa base».
 {\bsystem\sboard\b}i

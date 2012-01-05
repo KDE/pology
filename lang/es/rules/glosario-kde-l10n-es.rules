@@ -235,7 +235,7 @@ hint="« Batching » se traduce como « Proceso por lotes » (ver glosario)"
 # «Bit» no se debe traducir.
 {\bbit\b}i
 valid msgstr="bit"
-valid msgstr="un\spoco" after="a\s"
+valid msgstr="un\spoco" after="a\s(little\s)?"
 valid msgstr="algo" after="a\s"
 valid msgstr="una\sparte" after="a\s"
 hint="« Bit » no se debe traducir (ver glosario)"
@@ -883,8 +883,7 @@ hint="« Device » se traduce como « Dispositivo » (ver glosario)"
 
 # «Devices» se traduce como «Dispositivos».
 {\bdevices\b}i
-valid msgstr="dispositivos"
-valid msgstr="(cualquier|ningún)\sdispositivo"
+valid msgstr="dispositivos?"
 hint="« Devices » se traduce como « Dispositivos » (ver glosario)"
 
 # «Dial\-up» se traduce como «Marcación telefónica».
@@ -984,7 +983,7 @@ valid msgstr="descarg(a|as)"
 hint="« Downloads » se traduce como « Descargas » (ver glosario)"
 
 # «Drag» se traduce como «Arrastrar».
-{\bdrag(?!\s(it|them))\b}i
+{\bdrag(?!\s(on|it|them))\b}i
 valid msgstr="arrastr(ar|e|a|o)"
 valid msgstr="arrastrará" after="will\s"
 valid msgstr="arrastró" after="did\s"
@@ -1033,12 +1032,13 @@ valid msgstr="caer"
 valid msgstr="caiga"
 valid msgstr="caída"
 valid msgstr="descenso"
+valid msgstr="pérdida"
 valid msgstr="gota"
 valid msgstr="soltará" after="will\s"
 valid msgstr="soltó" after="did\s"
 valid msgstr="caerá" after="will\s"
 valid msgstr="cayó" after="did\s"
-hint="« Drop » se traduce como « Soltar/Caer/Caída/Descenso » (ver glosario)"
+hint="« Drop » se traduce como « Soltar/Caer/Caída/Descenso/Pérdida » (ver glosario)"
 
 # «Drops» se traduce como «Suelta».
 {\bdrops\b}i
@@ -1291,7 +1291,7 @@ hint="« Features » se traduce como « Funcionalidades » o « Características
 valid msgstr="suministro"
 valid msgstr="fuente"
 valid msgstr="canal"
-valid msgstr="salto\sde\slínea" after="line\s"
+valid msgstr="salto\sde\slínea" after="line[\s\-]"
 hint="« Feed » se traduce como « Suministro » o « Fuente de noticias »(ver glosario)"
 
 # «Feeds» se traduce como «Suministros».
@@ -2139,6 +2139,7 @@ hint="« Match » se traduce como « Empareja », « Coincide » o « Concuerda 
 # «Menu» se traduce como «Menú».
 {\bmenu\b}i
 valid msgstr="menú"
+valid msgstr="submenú" after="sub\s"
 hint="« Menu » se traduce como « Menú » (ver glosario)"
 
 # «Menus» se traduce como «Menús».
@@ -2444,8 +2445,9 @@ hint="« Plugin » se traduce como « Complemento » (ver glosario)"
 {\bplugins\b}i
 valid msgstr="complementos"
 valid msgstr="(cualquier|ningún)\scomplemento"
-valid msgstr="plugins" after="kipi[\-\s]"
-valid msgstr="plugins" after="KIPI[\-\s]"
+valid after="kipi[\-\s]"
+valid after="KIPI[\-\s]"
+valid after="\-"
 hint="« Plugins » se traduce como « Complementos » (ver glosario)"
 
 # «Policy» se traduce como «Política».
@@ -2467,6 +2469,8 @@ hint="« Policy issues » se traduce como « Aspectos de normativa » (ver glosa
 # «Pop-up» se traduce como «Ventana emergente».
 {\bpop\-up\b}i
 valid msgstr="emergente"
+valid msgstr="emergerá" after="will\s"
+valid msgstr="desplegará" after="will\s"
 hint="« Pop-up » se traduce como « Ventana emergente » (ver glosario)"
 
 # «Pop-ups» se traduce como «Ventanas emergentes».
@@ -3034,6 +3038,7 @@ hint="« Scripts » se traduce como « Guiones » o « Scripts » (ver glosario)
 {\bscroll\b}i
 valid msgstr="desplazamiento"
 valid msgstr="despla(zar|za|ce)"
+valid msgstr="desplácelo"
 valid msgstr="despl" before="\slock"
 hint="« Scroll » se traduce como « Desplazamiento » (ver glosario)"
 
@@ -3075,7 +3080,8 @@ hint="« Sends » se traduce como « Envía » (ver glosario)"
 # «Server» se traduce como «Servidor».
 {\bserver\b}i
 valid msgstr="servidor"
-valid msgstr="server" after="media\s"
+valid after="media\s"
+valid after="MySql[\s\-]"
 hint="« Server » se traduce como « Servidor » (ver glosario)"
 
 # «Servers» se traduce como «Servidores».
@@ -3095,6 +3101,7 @@ hint="« Setting up » se traduce como « Configuración » (ver glosario)"
 valid msgstr="configur(ación|ar|ado|ada|a|e)"
 valid msgstr="configurará" after="will\s"
 valid msgstr="configuró" after="did\s"
+valid msgstr="configuro" after="I\s"
 valid after="k3b\:\:"
 hint="« Set up » se traduce como « Configuración » o « Configurar » (ver glosario)"
 
@@ -3339,6 +3346,8 @@ hint="« Stop » se traduce como « Detener » (ver glosario)"
 {\bstopping\b}i
 valid msgstr="para(da|r|ndo)"
 valid msgstr="detención"
+valid msgstr="detener"
+valid msgstr="parar"
 hint="« Stopping » se traduce como « Parada » (ver glosario)"
 
 # «Subclassing» se traduce como «Derivación de clase».
@@ -3597,6 +3606,7 @@ valid msgstr="tipo"
 valid msgstr="tecle(ar|a|e)"
 valid msgstr="tecleará" after="will\s"
 valid msgstr="tecleó" after="did\s"
+valid msgstr="tecléel[oa]s" before="\sthem"
 hint="« Type » se traduce como « Tipo » o « Teclear » (ver glosario)"
 
 # «Types» se traduce como «Tipos» o «Teclea».

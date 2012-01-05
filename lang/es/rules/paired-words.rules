@@ -46,6 +46,7 @@ hint="El texto de la traducción parece demasiado pequeño"
 id="test_if_not_translated"
 valid msgid="^\W+$" # Mensaje sin caracteres alfabéticos
 valid msgid="^[^a-z]+$" # Mensaje que no contiene minúsculas
+valid msgid="([A-Z]\w*[\s\-$])+" # Mensaje con todas las palabras comenzando por mayúscula
 hint="No se ha traducido el mensaje original"
 
 addFilterHook name="es:remove_subs/remove_paired_capital_words" on="msg"
