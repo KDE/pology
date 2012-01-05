@@ -150,6 +150,7 @@ valid span="\sx\!\!\." cat="tables,kcells,kspread"
 hint="No s'ha de posar cap punt després del signe d'admiració (tipografia)"
 
 [.*?\!\s[a-z]]
+valid span="Qalculate\!\s." cat="cantor"
 hint="S'ha de posar en majúscula la paraula posterior al signe d'admiració (tipografia)"
 
 [¡]
@@ -351,6 +352,7 @@ valid before=".*?[\)\(\{\[\«\"\'~]"
 valid before="\s(esquerre|dret)" cat="kile"
 valid after="~" cat="kalgebra"
 valid after="\.\s" cat="kstars"
+valid after="CDV\s" cat="kstars"
 valid after="QPixmap" cat="kommander"
 valid after="~" cat="analitza"
 valid ctx="unction name in function prototype"
@@ -485,6 +487,7 @@ valid after="Luciash\sd" cat="kopete"
 valid after="presa" cat="digikam"
 valid after="\ssed\s.+" cat="kopete" # docmessages
 valid after="audio|video" cat="konversation"
+valid after="CDV\s.*" cat="kstars"
 valid before="mm|ss"
 valid comment="Tag\:\sscreen" cat="kdeprint_cups-config,kmail-faq" # docmessages
 valid comment="Tag\:\sprogramlisting" cat="kdm" # docmessages
@@ -529,6 +532,7 @@ valid before="AutoAdvance=1" cat="kdiff3"
 valid before="GET|POST" cat="kdeprint_cups-config" # docmessages
 valid before="\)\s?~" cat="kcmkwincompositing"
 valid cat="plasma_applet_kdeobservatory"
+valid cat="marble_qt"
 valid cat="kcontrol_mouse" # docmessages
 valid cat="kopete_pipes" # docmessages
 valid ctx="Name" cat="desktop_extragear-graphics_kipi-plugins"

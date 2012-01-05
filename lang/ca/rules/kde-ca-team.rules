@@ -226,6 +226,12 @@ hint="Es tradueix per «multímetre» (kde-ca-team)"
 valid msgstr="ultraportàtils?"
 hint="Es tradueix per «ultra-portàtil» (kde-ca-team)"
 
+{\bpaths?\b}i
+valid msgstr="cam(í|ins)"
+valid msgstr="variable d'entorn PATH"
+valid !msgstr="rut(a|es)"
+hint="Es tradueix per «camí» o «variable d'entorn PATH» (kde-ca-team)"
+
 {\b(progressbar|progress bar)s?\b}i
 valid msgstr="barr(a|es) de progrés"
 hint="Es tradueix per «barra/es de progrés» (kde-ca-team)"
@@ -281,7 +287,7 @@ hint="Es tradueix per «targeta/es intel·ligent/s» (kde-ca-team)"
 # «snapshot» es tradueix generalment per «captura de pantalla».
 {\bsnapshots?\b}i
 valid msgstr="captur(a|es) de pantalla"
-valid msgstr="instantàni(a|es)" cat="digikam,glossary"
+valid msgstr="instantàni(a|es)" cat="digikam,glossary,kstars"
 valid msgstr="punts? de sincronisme"
 hint="«snapshot» es tradueix *generalment* per «captura de pantalla» (kde-ca-team)"
 
