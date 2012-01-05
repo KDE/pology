@@ -250,12 +250,16 @@ def report_msg_to_lokalize (msg, cat, report=None):
         except:
             bus = dbus.SessionBus()
             lokalize_dbus_instances=lambda:filter(lambda name: name.startswith('org.kde.lokalize'),bus.list_names())
-            try:
-                globals()['lokalizeinst']=lokalize_dbus_instances()[0]
-                globals()['lokalizeobj']=bus.get_object(globals()['lokalizeinst'],'/ThisIsWhatYouWant')
-                globals()['openFileInEditor']=globals()['lokalizeobj'].get_dbus_method('openFileInEditor','org.kde.Lokalize.MainWindow')
-                globals()['visitedcats']={}
-            except: return
+            for lokalize_dbus_instance in lokalize_dbus_instances():
+                try:
+                    globals()['lokalizeinst']=lokalize_dbus_instance
+                    globals()['lokalizeobj']=bus.get_object(globals()['lokalizeinst'],'/ThisIsWhatYouWant')
+                    globals()['openFileInEditor']=globals()['lokalizeobj'].get_dbus_method('openFileInEditor','org.kde.Lokalize.MainWindow')
+                    globals()['visitedcats']={}
+                except:
+                    pass
+            if 'openFileInEditor' not in globals():
+                return
 
         index=globals()['openFileInEditor'](os.path.abspath(cat.filename))
         editorobj=dbus.SessionBus().get_object(globals()['lokalizeinst'],'/ThisIsWhatYouWant/Editor/%d' % index)
