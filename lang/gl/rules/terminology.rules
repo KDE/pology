@@ -29,6 +29,15 @@
 
 include file="filter.include"
 
+# «about» tradúcese como «sobre»
+{\b(?<!^)about}i
+valid before="\sto\b"
+valid after="\bknow(s|\"\")\s"
+id="PT-2011_about"
+valid env="kde"
+valid msgstr="\bsobre\b"
+hint="«about» tradúcese como «sobre»"
+
 # «abort» tradúcese como «interromper»
 {\babort}i
 id="PT-2011_abort"

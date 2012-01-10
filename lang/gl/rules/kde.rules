@@ -203,9 +203,8 @@ hint="«print preview» -> «previsualización da impresión» / «vista previa 
 valid before="\sto\b"
 valid after="\bknow(s|\"\")\s"
 id="kde_about"
-valid msgstr="\bacerca\sd" env="kde"
-valid msgstr="\brefer" env="kde"
-valid msgstr="\bsobre\b" !env="kde"
+valid msgstr="\bacerca\sd"
+valid msgstr="\brefer"
 hint="about -> sobre"
 
 # «accept» -> «aceptar»
@@ -250,7 +249,7 @@ hint="encounter -> atopar"
 id="kde_event"
 valid msgstr="\bevento" env="development"
 valid !msgstr="\bevento"
-hint="event-> acontecemento (not development environment)
+hint="event-> acontecemento (not development environment)"
 
 # «frame» -> «marco»
 {\bframe}i
