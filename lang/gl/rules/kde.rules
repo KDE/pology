@@ -94,6 +94,7 @@ hint="«a+infinitivo» -> «estase a infinitivo"
 #comprobar «lista»
 [\blista]i
 valid before="xe"
+valid before="(r|n)"
 id="clGL-all_listaxe"
 hint="«lista» -> «listaxe»?"
 
@@ -201,7 +202,8 @@ hint="«print preview» -> «previsualización da impresión» / «vista previa 
 # «about» -> «acerca de»
 {\b(?<!^)about}i
 valid before="\sto\b"
-valid after="\bknow(s|\"\")\s"
+valid after="\bknows?\s"
+valid after="\bforgets?\s"
 id="kde_about"
 valid msgstr="\bacerca\sd"
 valid msgstr="\brefer"
@@ -244,12 +246,19 @@ valid msgstr="\batop" env="kde"
 valid !msgstr="\bach" env="kde"
 hint="encounter -> atopar"
 
-#«event» -> «acontecemento»
+#«event» -> «acontecemento» ou «suceso»
 {\bevent}i
 id="kde_event"
 valid msgstr="\bevento" env="development"
-valid !msgstr="\bevento"
-hint="event-> acontecemento (not development environment)"
+valid msgstr="\bacontecemento" !msgstr="\bevento"
+valid msgstr="\bsuceso" !msgstr="\bevento"
+hint="event-> acontecemento ou suceso (not development environment)"
+
+#«acontecemento» -> «event»
+[\bacontecemento]i
+id="kde-dual_event"
+valid msgid="\bevent"
+hint="acontecemento-> event"
 
 # «frame» -> «marco»
 {\bframe}i

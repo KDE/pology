@@ -33,6 +33,7 @@ include file="filter.include"
 {\b(?<!^)about}i
 valid before="\sto\b"
 valid after="\bknow(s|\"\")\s"
+valid after="\bforgets?\s"
 id="PT-2011_about"
 valid env="kde"
 valid msgstr="\bsobre\b"
@@ -49,7 +50,8 @@ hint="«abort» tradúcese como «interromper»"
 id="noPT-2011-dual_abort"
 valid msgid="\babort"
 valid msgid="\binterrupt"
-hint="«interromper» traduce a «abort» (e a «interrupt»"
+valid msgid="\bbreak" env="kde"
+hint="«interromper» traduce a «abort» (e a «interrupt») (e a «break»)"
 
 # «applet» tradúcese como «applet»
 {\bapplet}i
@@ -95,7 +97,7 @@ hint="«attach» tradúcese como «anexar», «conectar»"
 # «anexar» ou «conectar» traduce a «Attach»
 [\banex[a-z]{2,}]i
 id="PT-2010-dual_attach"
-valid msgid="\battach(\s|ed|s|ing)"
+valid msgid="\battach(\s|ed|s|ing|ments?)"
 hint="«anexar» ou «conectar» traduce a «attach»"
 
 # «anexar» ou «conectar» traduce a «Attach»
@@ -180,7 +182,9 @@ valid msgstr="\bfallos?"
 hint="«bug» tradúcese como «fallo»"
 
 # «fallo» traduce a «bug»
-[\bfallos?]i
+[\bfallo]i
+valid before="s"
+valid before="u"
 id="PT-2011-dual_bug"
 valid msgid="\bbugs?"
 valid msgid="\bfa(il(s|ed|ure)?|ult)"
@@ -189,8 +193,8 @@ hint="«fallo» traduce a «bug», «fail», «fault» e «failure»"
 # «bug report» tradúcese como «informe de erro»
 {\bbug\sreport}i
 id="noPT-2011_bug-report"
-valid msgstr="\binformes?\sde\sfallos"
-valid msgstr="\binforme\sdo\sfallo"
+valid msgstr="\binformes?\sde\sfallos?"
+valid msgstr="\binformes?\sdo\sfallo"
 hint="«bug report» tradúcese como «informe do fallo»"
 
 # «informe de erro» traduce a «bug report»
@@ -211,6 +215,7 @@ hint="«chat» tradúcese como «conversa»"
 valid before="ión"
 id="PT-2011-dual_chat"
 valid msgid="\bchat"
+valid msgid="\bconversation"
 hint="«conversa» traduce a «chat»"
 
 # «chat room» tradúcese como «sala de conversas»
@@ -246,8 +251,10 @@ hint="«comprobar» traduce a «check»"
 
 # «revisar» traduce a «check»
 [\brevis]i
-id="PT-2011-dual_check2"
+id="noPT-2011-dual_check2"
 valid msgid="\bcheck"
+valid msgid="\breview" env="kde"
+valid msgid="\brevis(e|ing|ion)" env="kde"
 hint="«revisar» traduce a «check»"
 
 # «marcar» traduce a «check»
@@ -290,6 +297,7 @@ valid before="ouse\sinesperad" env="kde"
 id="noPT-2011-dual_close"
 valid msgid="\bclos(e|ed|ing)"
 valid after="non\s" msgid="unclos(e|ed)" env="kde"
+valid before="es?\s" msgid="crash" env="kde"
 hint="«pechar» traduce a «close»"
 
 # «Command» tradúcese como «orde»
@@ -323,7 +331,10 @@ hint="«remitir» traduce a «commit»"
 id="noPT-2011_crash"
 valid msgstr="\bquebr.?" !env="kde"
 valid msgstr="\bpeches?\sinesperado" env="kde"
+valid msgstr="\bpeche" env="kde"
 valid msgstr="\bpechouse\sinesperad" env="kde"
+valid msgstr="\bfallo" env="kde"
+valid before="ed" msgstr="\bfall(ou|ase)" env="kde"
 hint="«crash» tradúcese como «quebra»"
 
 # «daemon» tradúcese como «daemon»
@@ -405,12 +416,13 @@ hint="«disable» tradúcese como «desactivar»"
 id="noPT-2011-dual_disable"
 valid msgid="\bdisable"
 valid msgid="\bnot\senabled"
+valid msgid="\bdeactivate" env="kde"
 hint="«desactivar» traduce a «disable»"
 
 # «dock» tradúcese como «doca»
 {\bdock}i
 id="noPT-2011_dock"
-valid msgstr="\bacoplar" env="kde"
+valid msgstr="\bacopl." env="kde"
 valid msgstr="\bdoca" !env="kde"
 hint="«dock» tradúcese como «doca» (e «acoplar»)"
 
@@ -470,9 +482,10 @@ hint="«driver» tradúcese como «controlador»"
 
 # «controlador» traduce a «driver»
 [\bcontrolador]i
-id="PT-2011-dual_driver"
+id="noPT-2011-dual_driver"
 valid msgid="\bdriver"
-hint="«controlador» traduce a «driver»"
+valid msgid="\bcontroller"
+hint="«controlador» traduce a «driver» (e a «controller»)"
 
 # «encrypt» tradúcese como «cifrar»
 {\bencrypt}i
@@ -482,6 +495,7 @@ hint="«encript» tradúcese como «cifrar»"
 
 # «cifrar» traduce a «encrypt»
 [\bcifr]i
+valid before="as?\sdecima(l|is)"
 id="noPT-2011-dual_encrypt"
 valid msgid="\b(un)?encrypt"
 valid msgid="\bcryptograph"
@@ -549,6 +563,7 @@ hint="«fail» e relacionados tradúcense como «fallo»"
 
 # «file» tradúcese como «ficheiro»
 {\bfile(\b|s\b)}i
+valid after="<" before=">"
 valid before="\sa\s"
 id="PT-2011_file"
 valid msgstr="\bficheiro"
@@ -558,6 +573,7 @@ hint="«file» tradúcese como «ficheiro»"
 [\bficheiro]i
 valid msgid="\bfile"
 valid after="\sa\s"
+valid before="\sde\srexistro" msgid="logfile"
 id="PT-2011-dual_file"
 hint="«ficheiro» traduce a «file»"
 
@@ -715,6 +731,7 @@ hint="«historial» traduce a «history»"
 
 # «icon» tradúcese como «icona»
 {\bicon}i
+valid before="if."
 id="PT-2011_icon"
 valid msgstr="\bicon(a|iz)"
 hint="«icon» tradúcese como «icona»"
@@ -805,7 +822,9 @@ hint="«incorrecto» traduce a «invalid» (e a «incorrect», e a «wrong»)"
 valid before="r"
 id="noPT-2011_issue"
 valid msgstr="\sincidencia"
-valid msgstr="\bexpendi" env="kde"
+valid msgstr="\bexpendi." env="kde"
+valid msgstr="\bemiti." env="kde"
+valid msgstr="\bproblema" env="kde"
 hint="«issue» tradúcese como «incidencia» (e «expendido»)"
 
 # «incidencia» traduce a «issue»
@@ -864,7 +883,7 @@ hint="«matar» traduce a «kill»"
 {\bleav(e|ed|es|ing)}i
 id="PT-2011_leave"
 valid msgstr="\bsa(i|í)(r|u|che)"
-valid msgstr="\bdeix"
+valid msgstr="\bd(e|é)ix"
 hint="«leave» tradúcese como «deixar» ou «saír»"
 
 # «library» tradúcese como «biblioteca»
@@ -903,7 +922,7 @@ hint="«situar» traduce a «to locate» ou «to place»"
 {\blogo(ut|off)}i
 id="PT-2011_logout-logoff"
 valid msgstr="\bsaída"
-# valid msgstr="\bsaí(r|u|che)"
+valid msgstr="\bsaír"
 # valid msgstr="\bsae\b"
 hint="«logout» e «logoff» tradúcense como «saída»"
 
@@ -1003,6 +1022,7 @@ hint="«terminar» traduce a «terminate»"
 # «Path» tradúcese como «ruta».
 {\bpath(\b|\s|s)}i
 valid after="trust\s"
+valid after="<" before=">"
 id="noPT-2011_path"
 valid msgstr="\bruta"
 valid msgstr="\bsecuencias?\sde\svértices"
@@ -1068,9 +1088,12 @@ hint="«Complemento» traduce a «Plugin» e a «add-on»"
 valid before="\ssupport"
 valid after="if\s" env="gnome"
 id="noPT-2011_provide"
-valid msgstr="\bforn(e|é)c"
+valid msgstr="\bforn(e|é)c."
+valid msgstr="\bforn(e|é)z."
 valid msgstr="\bespecific"
 valid msgstr="\bdá\s"
+valid before="r" msgstr="provedor" env="kde"
+valid after="searchs?\s" before="r" msgstr="motor(es)?\sde\sbusca" env="kde"
 hint="«provide» tradúcese como «fornecer» (ou «especificar» ou «dar»)"
 
 # «fornecer» traduce a «provide»
@@ -1082,7 +1105,8 @@ hint="«fornecer» traduce a «provide» (e a «supply»)"
 
 # «quit», «exit» tradúcense como «saír»
 {\b(quit|exit)}i
-id="PT-2011_quit"
+valid before="ter"
+id="noPT-2011_quit"
 valid msgstr="\bsaí(r|u)"
 valid msgstr="\bsaída"
 hint="«quit», «exit» tradúcense como «saír»"
@@ -1134,7 +1158,7 @@ hint="«substituir» traduce a «replace» (e a «surrogate», e a «substitute�
 {\bretry}i
 id="PT-2011_retry"
 valid msgstr="\breintent"
-valid msgstr="\bt(entar|énteo|ente)\sde\snovo"
+valid msgstr="\bt(entar|énteo|ente|entalo)\sde\snovo"
 hint="«retry» tradúcese como «reintentar» ou «tentar de novo»"
 
 # «reintentar» traduce a «retry»
@@ -1192,10 +1216,10 @@ hint="«mostrar» traduce a «show», «display» e algúns «print»"
 id="noPT-2011_support"
 valid msgstr="\basistencia\stécnica"
 valid msgstr="\bservizos?\stécnico"
-valid msgstr="\b(ser|é)\scompatíbel\scon"
-valid msgstr="\bson\scompatibeis\scon"
+valid msgstr="\b(ser|é|son)\scompatíbe(l|is)"
+valid msgstr="\bson\scompatibeis"
 valid msgstr="\badmit"
-valid msgstr="\bpermit(e|en|ir)\sutilizar"
+valid msgstr="\bpermit(e|en|an|ir)\s\w+[aei]r"
 valid msgstr="\bincl(u|ú)"
 valid msgstr="\bpermit(ir|e|a)" env="gnome"
 valid msgstr="\bde\scompatibilidade"
@@ -1274,6 +1298,7 @@ hint="«(sistema de) seguimento de incidencias» traduce a «bug tracker»"
 
 # «track» tradúcese como «pista» ou «seguir/rastrexar»
 {\btrack\b}i
+valid after="keeps? "
 id="PT-2011_track"
 valid msgstr="\bpista"
 valid msgstr="\bs(e|i)g(o|ue|ui)"
@@ -1359,6 +1384,7 @@ hint="«desfacer» traduce a «undo»"
 id="PT-2011_update"
 valid msgstr="\bactualiza(r|do|ción)"
 valid msgstr="\bactualice"
+valid msgstr="\bactualiza"
 hint="«update» tradúcese como «actualizar» ou «actualización»"
 
 # «actualizar» ou «actualización» traducen a «update»
