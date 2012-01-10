@@ -91,6 +91,12 @@ valid after="estar\s"
 id="clGL-all_a+infinitivo"
 hint="«a+infinitivo» -> «estase a infinitivo"
 
+#comprobar «lista»
+[\blista]i
+valid before="xe"
+id="clGL-all_listaxe"
+hint="«lista» -> «listaxe»?"
+
 # «enable this option» 
 {\benable\sthis\s(option|checkbox)}i
 id="expression_enable this option| checkbox"
@@ -238,6 +244,13 @@ id="kde_encounter"
 valid msgstr="\batop" env="kde"
 valid !msgstr="\bach" env="kde"
 hint="encounter -> atopar"
+
+#«event» -> «acontecemento»
+{\bevent}i
+id="kde_event"
+valid msgstr="\bevento" env="development"
+valid !msgstr="\bevento"
+hint="event-> acontecemento (not development environment)
 
 # «frame» -> «marco»
 {\bframe}i

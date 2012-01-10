@@ -48,3 +48,10 @@ CASO ESPECIAL:
 que indica que a aplicación desa regra non segue estritamente o decidido nas Trasnadas. O por que é variábel.
 
 NOTA: As regras de modelo de lingua e linguaxe controlada (as clGL e PT-xxxx-gl) só revisan o texto en galego.
+
+
+Ambientes:
+kde
+gnome
+bittorrent
+development
