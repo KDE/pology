@@ -1154,7 +1154,7 @@ hint="« Enabling » se traduce como « Activación » (ver glosario)"
 
 # «Enabling it/you» se traduce como «Permitiéndole».
 {\benabling\s(it|you)\b}i
-valid msgstr="permitiéndol[eo]"
+valid msgstr="permitiéndo(l[eo])?"
 valid msgstr="activándol[eo]"
 valid msgstr="activación"
 hint="« Enabling it» se traduce como « Permitiéndole » (ver glosario)"
@@ -1292,6 +1292,7 @@ valid msgstr="suministro"
 valid msgstr="fuente"
 valid msgstr="canal"
 valid msgstr="salto\sde\slínea" after="line[\s\-]"
+valid msgstr="subministrará" after="will\s"
 hint="« Feed » se traduce como « Suministro » o « Fuente de noticias »(ver glosario)"
 
 # «Feeds» se traduce como «Suministros».

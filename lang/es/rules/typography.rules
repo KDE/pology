@@ -203,6 +203,7 @@ validGroup beforePunctuation
 valid ctx="EMAIL OF TRANSLATORS"
 valid ctx="trans_comment"
 valid ctx="Numbers and characters"
+valid ctx="X\-KDE\-Keywords"
 valid msgid="CREDIT_FOR_TRANSLATORS"
 valid span="\.\w{1,4}\b" # Extensions
 valid span=".Fm" after="Last\s"
@@ -211,6 +212,7 @@ valid span="\.$"
 valid span="\.\*"
 valid span="\.\<\/?(p|para|qt|i)\>"
 valid span="\.\\n"
+valid span="\.\~"
 valid after="\btar" # Extensions
 valid after="\*"
 valid span="\.(calendar|desktop|directory|h|html|lock|moc|xml)\b"
