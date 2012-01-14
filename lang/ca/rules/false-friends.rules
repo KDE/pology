@@ -618,7 +618,7 @@ valid msgstr="dos"
 valid !msgstr="parella"
 hint="«Pair» es tradueix per «Parell/Dos», no per «Parella» (fals amic)"
 
-# «Pan» es tradueix per «Cassola».
+# «Pan» es tradueix per «Panorama/Cassola».
 {\bpan\b}i
 valid msgstr="cassola"
 valid msgstr="paella"
@@ -631,7 +631,7 @@ valid msgstr="pan" cat="kdecalendarsystems"
 valid msgstr="pan" cat="kdelibs4"
 valid msgstr="pan" before="\sflute"
 valid !msgstr="pa"
-hint="«Pan» es tradueix per «Cassola», no per «Pa» (fals amic)"
+hint="«Pan» es tradueix per «Panorama/Cassola», no per «Pa» (fals amic)"
 
 # «Panel» es tradueix per «Equip/Grup/Jurat/Plafó».
 {\bpanels?\b}i

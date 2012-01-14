@@ -188,6 +188,10 @@ valid msgstr="(camp|partida) d'aprenentatge"
 valid before="~" comment="Tag\:\spara" cat="konsole,glossary" # docmessages
 hint="«tutorial» es tradueix per «guia d'aprenentatge» (error freqüent)"
 
+# «URL» és masculí (Localitzador Uniforme de Recursos)
+[\b(la|les|una|unes)\sURL\b]i
+hint="«URL» és masculí (Localitzador Uniforme de Recursos) (error freqüent)"
+
 # «venen» del verb venir cal que porti accent «vénen».
 [\bvenen\b]i
 hint="«venen» (verb venir) cal que porti accent «vénen» (error freqüent)"
