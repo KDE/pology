@@ -46,12 +46,16 @@ Umbrello: Умбрел|о, Умбрел|ов, _род!=м
 # ----------------------------------------------------------------------------
 # Системи за управљање верзијама
 
+Bazaar: Базар|, Базар|ов
+    @л: Bazaar|, Bazaar|ov
 Cervisia: Цервисиј|а, Цервисиј|ин
     @л: Cervis|ia
 ClearCase: Клиркејс|, Клиркејс|ов
     @л: ClearCase|, ClearCase|ov
 CVS: ЦВС|-, ЦВС|-ов, ЦВС|>
 Git: Гит|, Гит|ов, гит|>
+Mercurial: Меркјуријал|, Меркјуријал|ов
+    @л: Mercurial|, Mercurial|ov
 RCS: РЦС|-, РЦС|ов, РЦС|>
 SVN: СВН|-, СВН|-ов, СВН|>, _син=|Subversion~н
 Subversion: Субверзиј|а, Субверзиј|ин, субверзиј|ски
@@ -100,6 +104,8 @@ Massif: Масиф|, Масиф|ов
     @л: Massif|, Massif|ov
 Memcheck: Мемчек|, Мемчек|ов
     @л: Memcheck|, Memcheck|ov
+QCacheGrind: Ку-кешгринд|, Ку-кешгринд|ов
+    @л: QCacheGrind|, QCacheGrind|ov
 Scheck: С-провер|а
 Valgrind: Валгринд|, Валгринд|ов
 
