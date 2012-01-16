@@ -623,17 +623,21 @@ class VcsSubversion (VcsBase):
 
         if incparents:
             # Move up any path that needs its parent committed too.
-            paths_up = []
+            paths_mod = []
             for path in paths:
-                path_up = path
-                while not self.revision(path_up):
-                    path_up = os.path.dirname(path_up)
-                    if not path_up or not self.is_versioned(path_up):
-                        # Let simply Subversion complain.
-                        path_up = path
+                path_mod = path
+                while True:
+                    path_mod_up = os.path.dirname(path_mod)
+                    if self.revision(path_mod_up):
                         break
-                paths_up.append(path_up)
-            paths = paths_up
+                    elif not path_mod_up or not self.is_versioned(path_mod_up):
+                        # Let simply Subversion complain.
+                        path_mod = path
+                        break
+                    else:
+                        path_mod = path_mod_up
+                paths_mod.append(path_mod)
+            paths = paths_mod
 
         cmdline = "svn commit "
         if message is not None:
