@@ -1,6 +1,7 @@
 set(files
     english.rules
     grammar.rules
+    kde.rules
     ortography.rules
     puretext.filters
     team-choices.rules

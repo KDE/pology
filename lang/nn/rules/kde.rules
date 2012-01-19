@@ -1,0 +1,18 @@
+# KDE-specific rules for Norwegian Nynorsk.
+# Karl Ove Hufthammer <karl@huftis.org>
+# License: GPLv3
+
+include file="puretext.filters"
+
+# Skildring av tema, brett og liknande
+# skal avsluttast med punktum på norsk
+# (sidan dei *av og til* består av fleire
+# setningar, og då *må* ha punktum). Merk
+# at dei engelske originaltekstane er
+# inkonsekvente her.
+[[^.]$]
+id="skildring-punktum"
+hint="Skildringar av tema, brett o.l. må avsluttast med punktum."
+valid !catrx="^desktop_.*"
+valid !ctx="^Description$"
+
