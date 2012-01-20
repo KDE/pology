@@ -90,6 +90,10 @@ hint="«enlloc de» s'ha de substituir per «en lloc de» (error freqüent)"
 [enrera]i
 hint="«enrera» s'ha de substituir per «enrere» (error freqüent)"
 
+[\bes\s(s|ce|ci)]
+valid msgstr="\/es senar"
+hint="Davant de paraules començades per «s» o «ce|ci», el pronom «es» es canvia per la forma «se» (se substitueix/se senten/se suprimeix...) (error freqüent)"
+
 # «esperar a» ha de ser «esperar».
 [\besperar\sa\b]i
 hint="«esperar a» s'ha de substituir per «esperar» (error freqüent)"
