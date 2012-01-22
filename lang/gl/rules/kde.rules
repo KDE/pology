@@ -168,9 +168,9 @@ valid msgstr="\b(Aconteceu|Produciuse)\sun\serro\smentres\sse\s\w+(ía|aba)"
 valid msgstr="\b(Aconteceu|Produciuse)\sun\serro\sao\s\w+(r|rse)"
 hint="Error while -> Aconteceu/Produciuse un erro mentres se / ao"
 
-
 # there was an error ....
 {\bthere\swas\san?}i
+valid after="\bif\s"
 id="expression_there-was-an-error"
 valid msgstr="\b(Aconteceu|Produciuse)\sun(\b|s|ha)"
 hint="There was an error -> Aconteceu/Produciuse un erro"
