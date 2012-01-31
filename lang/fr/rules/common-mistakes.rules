@@ -224,6 +224,8 @@ hint="Écriture officielle : « PostScript » (avec 2 majuscules)"
 
 [[Ll]atex|la[tT]ex|[Ll]ate[x|X]|laTeX|LATEX]
 valid after="«&unbsp;" before="&unbsp;»"
+valid after="&" before=";"
+valid after="&pdf" before=";"
 hint="Écriture officielle : « LaTeX » (avec 3 majuscules)"
 
 [\bhttp:/\b]i
