@@ -48,6 +48,10 @@ t_("<p>Latest development code can be obtained from a Subversion repository:</p>
 
 t_("<p>Pology has been mostly tested on GNU/Linux-based operating systems. The software which Pology depends on, as well as most of the optional software for additional functionality, is already packaged on these platforms. Pology has been reported to run on contemporary Windows systems, albeit from the source tree only and likely with some reduction in functionality.</p>");
 
+$lcurl = "http://www.gnu.org/copyleft/gpl.html";
+t_("<p>Pology is distributed under the terms of <a href='%s'>GNU GPL, version 3</a>.</p>",
+    $lcurl);
+
 // ========================================
 t_("<h2>Documentation</h2>");
 
