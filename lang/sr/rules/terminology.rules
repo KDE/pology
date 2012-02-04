@@ -51,7 +51,7 @@ valid env="kde" msgstr="&\w*bookmark\S*;"
 id="t-border"
 hint="border = ивица"
 valid msgstr="\bо?иви[цч]"
-valid cat="kate,katepart4,kwrite" after="icon " msgstr="појас\w* икон"
+valid catrx="kate|katepart4|kwrite" after="icon " msgstr="појас\w* икон"
 
 {\bcells?\b}i
 id="t-cell"
