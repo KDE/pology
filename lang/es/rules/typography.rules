@@ -4,6 +4,9 @@
 # based in the work of the KDE French Team
 # License: GPLv3
 
+[\d\.\d{3}]
+hint="No separe con puntos los miles de los números (excepto en direcciones IP)"
+
 include file="filter.include"
 
 validGroup beforePunctuation
@@ -42,6 +45,7 @@ valid after="\("
 valid after="\<(p|para|qt)\>\s?"
 valid after="\\n\s?"
 valid after="~\s?"
+
 
 [\s\:]
 valid ctx="Numbers and characters"
