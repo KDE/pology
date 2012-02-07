@@ -4,6 +4,16 @@
 # some ideas taken from the hook "sr/checks.py" by Chusslove Illich
 # License: GPLv3
 
+# Replace &nbsp; by space.
+addFilterRegex match="\&nbsp\;" repl=" " on="pmsgid,pmsgstr"
+
+# Especial treatment for «etc.», there may be a comma before it.
+addFilterRegex match="(etc\.(\.\.)?|\&etc\;)" repl="etcétera" on="pmsgid,pmsgstr"
+
+# Especial treatment for « & » and « && ».
+addFilterRegex match="(\s\&{1,2}\s)" repl=" y " on="pmsgid,pmsgstr"
+
+
 # Remove some types of paragraph tags.
 addFilterHook name="remove/remove-marlits-msg" on="msg"
 addFilterHook name="remove/remove-markup-msg" on="msg"
@@ -18,20 +28,23 @@ addFilterRegex match="\<\s*(bcode|command|envar|filename|icode|shortcut|placehol
 addFilterRegex match="\<\s*(email|link)\s*>\b.*?\b\1\>" repl="~" on="pmsgid,pmsgstr"     
 addFilterRegex match="\<.*?\>" repl="~" on="pmsgid,pmsgstr"
 
+# Remove functions calls
+addFilterRegex match="\w[\w\d]*(\-[\w\d]+)*\(\)" repl="~" on="pmsgid,pmsgstr"
+
+# Remove C++ methods
+addFilterRegex match="\:\:\w[\w\d]*(\-[\w\d]+)*" repl="~" on="pmsgid,pmsgstr"
+
+# Remove program parameters
+addFilterRegex match="\-\-\w[\w\d]*(\-[\w\d]+)*" repl="~" on="pmsgid,pmsgstr"
+
 # Remove single characters in quotes.
 addFilterRegex match="«.»" repl="~" on="pmsgid,pmsgstr"
-
-# Replace &nbsp; by space.
-addFilterRegex match="\&nbsp\;" repl=" " on="pmsgid,pmsgstr"
-
-# Especial treatment for «etc.», there may be a comma before it.
-addFilterRegex match="(etc\.(\.\.)?|\&etc\;)" repl="etcétera" on="pmsgid,pmsgstr"
 
 # Remove some abreviations.
 addFilterRegex match="\b(a\.\s?m|apdo|art|atte|av|avda|C\.\s?C|C\.\s?P|cap|cent|cént|Cía|cta|dcha|dcho|depto|D|Dr|Dra|EE\.UU|([Pp]\.\s?)?[Ee]j|expr|Fdo|Gral|[Ii]d|Ilmo|izdo|JJ\.\s?OO|K\.\s?O|Ltd|Ltdo|Ltda|máx|mín|[Nn]úm|n\.\s?t|p\.\s?m|pág|Pdte|Pdta|pl|plza|ppal|pral|Prof|pza|Rep|Sr|Sra|S.\s?L|sinc|Srta|Sto|Sta|tel|trad|Univ|vv\.\s?aa|VV\.\s?AA)\.(\.\.)?" repl="~" on="pmsgid,pmsgstr"
 
 # Remove special puntuactions.
-addFilterRegex match="(\?{2,3}|\%{2,3}|\:{2,3}\w*\b|\_{2,3})" repl="~" on="pmsgid,pmsgstr"
+addFilterRegex match="(\?{2,3}|\%{2,3}|\:{2,3}|\_{2,3})" repl="~" on="pmsgid,pmsgstr"
 
 # Remove more usual smileis.
 addFilterRegex match="\s(\:\)|\(\-\:|\:\)|\(\:|\=\)|\)\-\:\)|\:\-\)|\:\-\(|\;\-\)|\;\)|\:\-\{|\:\-\()" repl="\s~" on="pmsgid,pmsgstr"
@@ -44,6 +57,9 @@ addFilterRegex match="\(\w+\sat\s\w+(\s\w{2,3}){1,2}\)" repl="~" on="pmsgid,pmsg
 
 # Remove some special tags between '%'
 addFilterRegex match="\%\w+\%" repl="~" on="pmsgid,pmsgstr"
+
+# Remove some special tags between ':'
+addFilterRegex match="\:\w+\:" repl="~" on="pmsgid,pmsgstr"
 
 # Remove some types of paragraph tags.
 addFilterHook name="es:remove_subs/remove_tags_without_translation" on="msg"

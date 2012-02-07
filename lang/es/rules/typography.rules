@@ -4,8 +4,13 @@
 # based in the work of the KDE French Team
 # License: GPLv3
 
-[\d\.\d{3}]
+[\d\.\d{3}[\D$]]
+valid msgid="\d\.\d{3}[\D$]"
 hint="No separe con puntos los miles de los números (excepto en direcciones IP)"
+
+#[\&\W]
+#hint="Tecla aceleradora no válida"
+
 
 include file="filter.include"
 

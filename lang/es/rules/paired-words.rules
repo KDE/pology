@@ -11,6 +11,18 @@ hint="No coincide el número de tabuladores"
 id="test_paired_new_lines"
 hint="No coincide el número de saltos de línea"
 
+*hook name="es:compare_with_original/test_paired_functions" on="msg"
+id="test_paired_new_functions"
+hint="Nombres de funciones en la traducción distintos al original"
+
+*hook name="es:compare_with_original/test_paired_parameters" on="msg"
+id="test_paired_new_parameters"
+hint="Nombres de parámetros en la traducción distintos al original"
+
+*hook name="es:compare_with_original/test_paired_numbers" on="msg"
+id="test_paired_numbers"
+hint="Valores de números o fechas en la traducción distintos al original"
+
 addFilterHook name="es:remove_subs/remove_paired_parameters" on="msg"
 [\%\d]
 hint="Existe un parámetro en la traducción que no figura en el texto original"
