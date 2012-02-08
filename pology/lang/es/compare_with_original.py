@@ -30,6 +30,7 @@ def test_if_empty_translation (msg, cat):
 
     return ""
 
+    
 def test_if_very_long_translation (msg, cat):
     """
     Compare the translation with the original text, testing if the transaled text 
@@ -52,6 +53,7 @@ def test_if_very_long_translation (msg, cat):
 
     return []
 
+    
 def test_if_very_short_translation (msg, cat):
     """
     Compare the translation with the original text, testing if the transaled text 
@@ -75,8 +77,10 @@ def test_if_very_short_translation (msg, cat):
 
     return []
 
-_valid_word = re.compile("(?u)^[^\W\d_]+$")
-_capital_word = re.compile("(?u)^[A-Z]+$")
+_valid_word = re.compile(r"(?u)^[^\W\d_]+$")
+_capital_word = re.compile(r"(?u)^[A-Z]+$")
+
+
 
 def test_if_not_translated (msg, cat):
     """
@@ -110,7 +114,7 @@ def test_if_not_translated (msg, cat):
     return []
 
 
-_ent_new_line = re.compile("\\n")
+_ent_new_line = re.compile(r"\\n")
 
 def test_paired_new_lines (msg, cat):
     """
@@ -129,15 +133,16 @@ def test_paired_new_lines (msg, cat):
         cont_trans = len(_ent_new_line.findall(msg.msgstr[i]))
     
         if cont_orig < cont_trans:
-            return [("msgstr", 0, [(0, 0, "Sobran saltos de linea en la traducción")])]
+            return [("msgstr", 0, [(0, 0, u"Sobran saltos de linea en la traducción")])]
     
         if cont_orig > cont_trans:
-            return [("msgstr", 0, [(0, 0, "Faltan saltos de linea en la traducción")])]
+            return [("msgstr", 0, [(0, 0, u"Faltan saltos de linea en la traducción")])]
 
 
     return []
 
-_ent_tab = re.compile("\\t")
+    
+_ent_tab = re.compile(r"\\t")
 
 def test_paired_tabs (msg, cat):
     """
@@ -156,15 +161,15 @@ def test_paired_tabs (msg, cat):
         cont_trans = len(_ent_tab.findall(msg.msgstr[i]))
     
         if cont_orig < cont_trans:
-            return [("msgstr", 0, [(0, 0, "Sobran tabuladores en la traducción")])]
+            return [("msgstr", 0, [(0, 0, u"Sobran tabuladores en la traducción")])]
     
         if cont_orig > cont_trans:
-            return [("msgstr", 0, [(0, 0, "Faltan tabuladores en la traducción")])]
+            return [("msgstr", 0, [(0, 0, u"Faltan tabuladores en la traducción")])]
 
     return []
     
 
-_ent_function = re.compile("\w[\w\d]*(\-[\w\d]+)*\(\)")
+_ent_function = re.compile(r"\w[\w\d]*(\_[\w\d]+)*\(\)")
 
 def test_paired_functions (msg, cat):
     """
@@ -183,12 +188,12 @@ def test_paired_functions (msg, cat):
         function_trans = _ent_function.findall(msg.msgstr[i])
     
         if function_orig != function_trans:
-            return [("msgstr", 0, [(0, 0, "Nombres de función distintos en la traducción")])]
+            return [("msgstr", 0, [(0, 0, u"Nombres de función distintos en la traducción")])]
  
     return []
     
     
-_ent_parameter = re.compile("\-\-\w[\w\d]*(\-[\w\d]+)*")
+_ent_parameter = re.compile(r"\-\-\w[\w\d]*(\-[\w\d]+)*")
 
 def test_paired_parameters (msg, cat):
     """
@@ -207,12 +212,12 @@ def test_paired_parameters (msg, cat):
         parameter_trans = _ent_parameter.findall(msg.msgstr[i])
     
         if parameter_orig != parameter_trans:
-            return [("msgstr", 0, [(0, 0, "Nombres de parámetros distintos en la traducción")])]
+            return [("msgstr", 0, [(0, 0, u"Nombres de parámetros distintos en la traducción")])]
  
     return []
 
     
-_ent_number = re.compile("[^\%][\dXx]+([\.\,\:\/][\dXx]+)+")
+_ent_number = re.compile(r"[^\%][\dXx]+([\.\,\:\/][\dXx]+)+")
 
 def test_paired_numbers (msg, cat):
     """
@@ -231,7 +236,7 @@ def test_paired_numbers (msg, cat):
         number_trans = _ent_number.findall(msg.msgstr[i])
     
         if number_orig != number_trans:
-            return [("msgstr", 0, [(0, 0, "Valores de números distintos en la traducción")])]
+            return [("msgstr", 0, [(0, 0, u"Valores de números distintos en la traducción")])]
  
     return []
 
