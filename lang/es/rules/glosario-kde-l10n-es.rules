@@ -2348,9 +2348,13 @@ hint="« Passwords » se traduce como « Contraseñas » (ver glosario)"
 # «Patch» se traduce como «Parche».
 {\bpatch\b}i
 valid after="x\-"
-valid msgstr="parch(e|ea)?"
+valid msgstr="parch(ear|e|ea|ee)?"
+valid msgstr="modificación"
+valid msgstr="actuali(zar|za|ce)"
 valid msgstr="parcheará" after="will\s"
+valid msgstr="actualizará" after="will\s"
 valid msgstr="parcheó" after="did\s"
+valid msgstr="actualizó" after="did\s"
 valid msgstr="instrumento" cat="kmid"
 valid after="diff."
 hint="« Patch » se traduce como « Parche » (ver glosario)"
@@ -3603,6 +3607,7 @@ hint="« Troubleshooting » se traduce como « Resolución de problemas » (ver 
 # «Type» se traduce como «Tipo» o «Teclear».
 {\btype\b}i
 valid before="[\=\-\:]"
+valid after="content\-"
 valid msgstr="tipo"
 valid msgstr="tecle(ar|a|e)"
 valid msgstr="tecleará" after="will\s"

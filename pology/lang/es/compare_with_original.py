@@ -169,11 +169,12 @@ def test_paired_tabs (msg, cat):
     return []
     
 
-_ent_function = re.compile(r"\w[\w\d]*(\_[\w\d]+)*\(\)")
+_ent_function = re.compile(r"(\w+\:\:)?\w+\(\)")
 
 def test_paired_functions (msg, cat):
     """
-    Compare functions names between original and translated text. 
+    Compare functions names between original and translated text.
+    Should be the same.
     
     [type V4A hook].
     @return: parts
@@ -184,8 +185,8 @@ def test_paired_functions (msg, cat):
         else:
              msgid = msg.msgid
 
-        function_orig = _ent_function.findall(msgid)
-        function_trans = _ent_function.findall(msg.msgstr[i])
+        function_orig = sorted(_ent_function.findall(msgid))
+        function_trans = sorted(_ent_function.findall(msg.msgstr[i]))
     
         if function_orig != function_trans:
             return [("msgstr", 0, [(0, 0, u"Nombres de función distintos en la traducción")])]
@@ -193,11 +194,12 @@ def test_paired_functions (msg, cat):
     return []
     
     
-_ent_parameter = re.compile(r"\-\-\w[\w\d]*(\-[\w\d]+)*")
+_ent_parameter = re.compile(r"[\W^]\-\-\w+(\-\w+)*")
 
 def test_paired_parameters (msg, cat):
     """
     Compare parameters names between original and translated text. 
+    Should be the same.
     
     [type V4A hook].
     @return: parts
@@ -208,8 +210,8 @@ def test_paired_parameters (msg, cat):
         else:
              msgid = msg.msgid
 
-        parameter_orig = _ent_parameter.findall(msgid)
-        parameter_trans = _ent_parameter.findall(msg.msgstr[i])
+        parameter_orig = sorted(_ent_parameter.findall(msgid))
+        parameter_trans = sorted(_ent_parameter.findall(msg.msgstr[i]))
     
         if parameter_orig != parameter_trans:
             return [("msgstr", 0, [(0, 0, u"Nombres de parámetros distintos en la traducción")])]
@@ -217,11 +219,12 @@ def test_paired_parameters (msg, cat):
     return []
 
     
-_ent_number = re.compile(r"[^\%][\dXx]+([\.\,\:\/][\dXx]+)+")
+_ent_number = re.compile(r"[^\%\w]\d+([\.\,\:\/]\d+)*")
 
 def test_paired_numbers (msg, cat):
     """
     Compare numbers and dates between original and translated text. 
+    Should be the same (except for commas/colons and one digit numbers)
     
     [type V4A hook].
     @return: parts
@@ -232,8 +235,18 @@ def test_paired_numbers (msg, cat):
         else:
              msgid = msg.msgid
 
-        number_orig = _ent_number.findall(msgid)
-        number_trans = _ent_number.findall(msg.msgstr[i])
+        number_orig = sorted(_ent_number.findall(msgid))
+        number_trans = sorted(_ent_number.findall(msg.msgstr[i]))
+        
+        for number in number_orig:
+	    number.replace(',','.')
+	    if len(number) < 2:
+		number_orig.remove(number)
+		
+	for number in number_trans:
+	    number.replace(',','.')
+	    if len(number) < 2:
+		number_trans.remove(number)
     
         if number_orig != number_trans:
             return [("msgstr", 0, [(0, 0, u"Valores de números distintos en la traducción")])]

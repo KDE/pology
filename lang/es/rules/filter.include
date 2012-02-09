@@ -29,13 +29,13 @@ addFilterRegex match="\<\s*(email|link)\s*>\b.*?\b\1\>" repl="~" on="pmsgid,pmsg
 addFilterRegex match="\<.*?\>" repl="~" on="pmsgid,pmsgstr"
 
 # Remove functions calls
-addFilterRegex match="\w[\w\d]*(\-[\w\d]+)*\(\)" repl="~" on="pmsgid,pmsgstr"
+addFilterRegex match="(\w+\:\:)*\w+\(\)" repl="~" on="pmsgid,pmsgstr"
 
 # Remove C++ methods
-addFilterRegex match="\:\:\w[\w\d]*(\-[\w\d]+)*" repl="~" on="pmsgid,pmsgstr"
+addFilterRegex match="\:\:\w+" repl="~" on="pmsgid,pmsgstr"
 
 # Remove program parameters
-addFilterRegex match="\-\-\w[\w\d]*(\-[\w\d]+)*" repl="~" on="pmsgid,pmsgstr"
+addFilterRegex match="\-\-\w+(\-\w+)*" repl="~" on="pmsgid,pmsgstr"
 
 # Remove single characters in quotes.
 addFilterRegex match="«.»" repl="~" on="pmsgid,pmsgstr"

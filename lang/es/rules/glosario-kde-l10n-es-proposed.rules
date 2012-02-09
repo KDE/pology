@@ -1864,6 +1864,7 @@ hint="« Hyphens » se traduce como « Guiones » (propuesta glosario)"
 {\bidle\b}i
 valid msgstr="inactiv[oa]"
 valid msgstr="inactividad"
+valid msgstr="IDLE"
 hint="« Idle » se traduce como « Inactivo » (propuesta glosario)"
 
 # «Idles» se traduce como «Inactivos».
@@ -2939,18 +2940,6 @@ valid msgstr="frases\sde\scontraseña"
 valid msgstr="(ninguna|cualquier)\sfrase\sde\scontraseña"
 valid !msgstr="passphrases"
 hint="« Passphrases » se traduce como « Frases de contraseña » (propuesta glosario)"
-
-# «Patch» se traduce como «Parche/Modificación/Actualizar/Parchear».
-{\bpatch\b}i
-valid msgstr="parche"
-valid msgstr="modificación"
-valid msgstr="actuali(zar|za|ce)"
-valid msgstr="parche(ar|a|e)"
-valid msgstr="actualizará" after="will\s"
-valid msgstr="parcheará" after="will\s"
-valid msgstr="actualizó" after="did\s"
-valid msgstr="parcheó"
-hint="« Patch » se traduce como « Parche/Modificación/Actualizar/Parchear » (propuesta glosario)"
 
 # «Path» se traduce como «Camino/Trayectoria/Ruta».
 {\bpath\b}i
@@ -4498,6 +4487,8 @@ hint="« Wallpapers » se traduce como « Fondos de pantalla » (propuesta glosa
 {\bwarning\b}i
 valid msgstr="aviso"
 valid msgstr="advertencia"
+valid msgstr="se\s(le\s)?avise"
+valid msgstr="se\s(le\s)?advierta"
 hint="« Warning » se traduce como « Aviso/Advertencia » (propuesta glosario)"
 
 # «Weblog» se traduce como «Bitácora/Diario».
