@@ -2941,24 +2941,6 @@ valid msgstr="(ninguna|cualquier)\sfrase\sde\scontraseña"
 valid !msgstr="passphrases"
 hint="« Passphrases » se traduce como « Frases de contraseña » (propuesta glosario)"
 
-# «Path» se traduce como «Camino/Trayectoria/Ruta».
-{\bpath\b}i
-valid msgstr="camino"
-valid msgstr="trayectoria"
-valid msgstr="ruta"
-valid msgstr="PATH"
-hint="« Path » se traduce como « Camino/Trayectoria/Ruta » (propuesta glosario)"
-
-# «Paths» se traduce como «Caminos/Trayectorias/Rutas».
-{\bpaths\b}i
-valid msgstr="caminos"
-valid msgstr="trayectorias"
-valid msgstr="rutas"
-valid msgstr="(ningún|cualquier)\scamino"
-valid msgstr="(ninguna|cualquier)\strayectoria"
-valid msgstr="(ninguna|cualquier)\sruta"
-hint="« Paths » se traduce como « Caminos/Trayectorias/Rutas » (propuesta glosario)"
-
 # «Pattern» se traduce como «Patrón».
 {\bpattern\b}i
 valid msgstr="patrón"
@@ -3159,7 +3141,7 @@ hint="« Postponed» se traduce como « Pendiente » (propuesta glosario)"
 
 # «Powered by» se traduce como «Basado en».
 {\bpowered\sby\b}i
-valid msgstr="basado\sen"
+valid msgstr="basad[oa]\sen"
 hint="« Powered by » se traduce como « Basado en » (propuesta glosario)"
 
 # «Press» se traduce como «Oprimir/Pulsar».
@@ -3174,6 +3156,7 @@ valid msgstr="oprimió" after="did\s"
 valid msgstr="pulsó" after="did\s"
 valid msgstr="presionó" after="did\s"
 valid msgstr="prensa"
+valid msgstr="presión"
 valid after="United\s"
 hint="« Press » se traduce como « Oprimir/Pulsar » (propuesta glosario)"
 

@@ -575,13 +575,16 @@ hint="« Compact » se traduce como « Comprimir » (ver glosario)"
 # «Computer» se traduce como «Equipo».
 {\bcomputer\b}i
 valid msgstr="equipo"
+valid msgstr="máquina"
 valid after="Network\s"
 hint="« Computer » se traduce como « Equipo », no como « Ordenador » o « Computadora » (ver glosario)"
 
 # «Computers» se traduce como «Equipos».
 {\bcomputers\b}i
 valid msgstr="equipos"
+valid msgstr="máqinas"
 valid msgstr="(cualquier|ningún)\sequipo"
+valid msgstr="(cualquier|ninguna)\smáquina"
 hint="« Computers » se traduce como « Equipos », no como « Ordenadores » o « Computadoras » (ver glosario)"
 
 # «Container» se traduce como «Contenedor».
@@ -1034,10 +1037,13 @@ valid msgstr="caída"
 valid msgstr="descenso"
 valid msgstr="pérdida"
 valid msgstr="gota"
+valid msgstr="abandon(ar|a|e)"
 valid msgstr="soltará" after="will\s"
 valid msgstr="soltó" after="did\s"
 valid msgstr="caerá" after="will\s"
 valid msgstr="cayó" after="did\s"
+valid msgstr="abandonará" after="will\s"
+valid msgstr="abandonó" after="did\s"
 hint="« Drop » se traduce como « Soltar/Caer/Caída/Descenso/Pérdida » (ver glosario)"
 
 # «Drops» se traduce como «Suelta».
@@ -1047,6 +1053,7 @@ valid msgstr="caiga"
 valid msgstr="caídas"
 valid msgstr="descensos"
 valid msgstr="gotas"
+valid msgstr="abandon(e|a)"
 valid msgstr="(cualquier|ninguna)\scaída"
 valid msgstr="(cualquier|ningún)\sdescenso"
 valid msgstr="(cualquier|ninguna)\sgota"
@@ -1437,13 +1444,16 @@ hint="« (to) Formats » se traduce como « Formatea » (ver glosario)"
 # «Formatting» se traduce como «Formateo».
 {\bformatting\b}i
 valid msgstr="formate(o|ar)"
+valid msgstr="formato"
 valid msgstr="formateando"
 hint="« Formatting » se traduce como « Formateo » (ver glosario)"
 
 # «Formattings» se traduce como «Formateos».
 {\bformattings\b}i
 valid msgstr="formateos"
+valid msgstr="formatos"
 valid msgstr="(cualquier|ningún)\sformateo"
+valid msgstr="(cualquier|ningún)\sformato"
 hint="« Formattings » se traduce como « Formateos » (ver glosario)"
 
 # «Forwading» se traduce como «Redirección».
@@ -1703,13 +1713,16 @@ hint="« Home » se traduce como « Inicio/Domicilio » (ver glosario)"
 # «Host» se traduce como «Servidor».
 {\bhost\b}i
 valid msgstr="servidor"
+valid msgstr="máquina"
 valid msgstr="equipo" before="\slocal"
 hint="« Host » se traduce como « Servidor » (ver glosario)"
 
 # «Hosts» se traduce como «Servidores».
 {\bhosts\b}i
 valid msgstr="servidores"
+valid msgstr="máquina"
 valid msgstr="(cualquier|ningún)\sservidor"
+valid msgstr="(cualquier|ninguna)\smáquina"
 hint="« Hosts » se traduce como « Servidores » (ver glosario)"
 
 # «Hosting» se traduce como «Hospedaje».
@@ -2120,6 +2133,7 @@ valid msgstr="coincid(ir|an|e|a)"
 valid msgstr="concordar"
 valid msgstr="concuerd(a|e)"
 valid msgstr="partida"
+valid msgstr="coincidencia"
 valid msgstr="emparejará" after="will\s"
 valid msgstr="coincidirá" after="will\s"
 valid msgstr="concordará" after="will\s"
@@ -2134,7 +2148,9 @@ valid msgstr="emparej(a|e)"
 valid msgstr="coincid(e|a)"
 valid msgstr="concuerd(e|a)"
 valid msgstr="partidas"
+valid msgstr="coincidencias"
 valid msgstr="(cualquier|ninguna)\spartida"
+valid msgstr="(cualquier|ninguna)\scoincidencia"
 hint="« Match » se traduce como « Empareja », « Coincide » o « Concuerda » (ver glosario)"
 
 # «Menu» se traduce como «Menú».
@@ -2370,14 +2386,20 @@ hint="« Patchs » se traduce como « Parches » (ver glosario)"
 # Escrito en mayúculas puede ser una variable de entorno
 {\bpath\b}i
 valid msgstr="ruta"
+valid msgstr="camino"
+valid msgstr="trayectoria"
 valid msgstr="PATH"
-hint="« Path » se traduce como « Ruta » (ver glosario)"
+hint="« Path » se traduce como « Ruta/Camino/Trayectoria » (ver glosario)"
 
 # «Paths» se traduce como «Rutas».
 {\bpaths\b}i
 valid msgstr="rutas"
+valid msgstr="caminos"
+valid msgstr="trayectorias"
 valid msgstr="(cualquier|ninguna)\sruta"
-hint="« Paths » se traduce como « Rutas » (ver glosario)"
+valid msgstr="(cualquier|ningún)\scamino"
+valid msgstr="(cualquier|ninguna)\strayectoria"
+hint="« Paths » se traduce como « Rutas/Caminos/Trayectoria » (ver glosario)"
 
 # «Patience» se traduce como «Solitario».
 {\bpatience\b}i
@@ -3340,12 +3362,13 @@ valid msgstr="detener"
 valid msgstr="detenga"
 valid msgstr="detiene"
 valid msgstr="par(ar|a|e)"
+valid msgstr="parada"
 valid msgstr="detendrá" after="will\s"
 valid msgstr="parará" after="will\s"
 valid msgstr="detuvo" after="did\s"
 valid msgstr="paró" after="did\s"
 valid msgstr="STOP"
-hint="« Stop » se traduce como « Detener » (ver glosario)"
+hint="« Stop » se traduce como « Detener/Parada » (ver glosario)"
 
 # «Stopping» se traduce como «Parada».
 {\bstopping\b}i

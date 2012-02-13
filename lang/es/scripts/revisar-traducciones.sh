@@ -8,25 +8,25 @@ RUTA_LT=/usr/share/languagetool
 
 case $1 in
     "reglas")
-	OPCION=check-rules
-	PARAMETROS="-s lang:$IDIOMA -s accel:& -s env:kde";;
-    "ortografía")
-	OPCION=check-spell
-	PARAMETROS="-s lang:$IDIOMA -s accel:& -s skip:^[A-Z0-9\W]+$";;
+		OPCION=check-rules
+		PARAMETROS="-s lang:$IDIOMA -s accel:& -s env:kde";;
+	"ortografía")
+		OPCION=check-spell
+		PARAMETROS="-s lang:$IDIOMA -s accel:& -s skip:^[A-Z0-9\W]+$";;
     "gramática")
-	OPCION=check-grammar
-	PARAMETROS="-s lang:$IDIOMA -s accel:&"
-	java -jar $RUTA_LT/LanguageToolGUI.jar &
-	sleep 5;;
+		OPCION=check-grammar
+		PARAMETROS="-s lang:$IDIOMA -s accel:&"
+		java -jar $RUTA_LT/LanguageToolGUI.jar &
+		sleep 5;;
     "kde4")
-	OPCION=check-kde4
-	PARAMETROS="";;
+		OPCION=check-kde4
+		PARAMETROS="";;
     "tp-kde")
-	OPCION=check-tp-kde
-	PARAMETROS="";;
+		OPCION=check-tp-kde
+		PARAMETROS="";;
     *)	
-	echo "El parámetro debe ser: reglas|ortografía|gramática|kde4|tp-kde";
-	exit 1;;
+		echo "El parámetro debe ser: reglas|ortografía|gramática|kde4|tp-kde";
+		exit 1;;
 esac
 
 for TIPO in "messages" "docmessages"; do
@@ -35,7 +35,7 @@ for TIPO in "messages" "docmessages"; do
     mkdir -p $DESTINO
     for PAQUETE in $ORIGEN/*; do
 	if [ -d $PAQUETE ]; then
-	    $PROGRAMA $OPCION $PARAMETROS $PAQUETE > $DESTINO/$(basename $PAQUETE)
+	    $PROGRAMA '--skip-obsolete' $OPCION $PARAMETROS $PAQUETE > $DESTINO/$(basename $PAQUETE)
 	fi
     done
 done

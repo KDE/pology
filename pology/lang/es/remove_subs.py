@@ -46,11 +46,11 @@ def remove_paired_capital_words (msg, cat):
             ents = ents_orig_plural
         # Joins both set of words an remove it from the message.
         for ent in ents_trans.union(ents):
-             msg.msgstr[i] = msg.msgstr[i].replace(ent, "~")
+            msg.msgstr[i] = msg.msgstr[i].replace(ent, "~")
 
     # The remainning words could have wrong capitalization in the translated message.
-
     return 0
+
 
 _ent_parameter = re.compile(r"(?u)%\d%?|\$\{.+?\}|\$\w+|%(\d\$)?[ds]|%\|.+?\|")
 
@@ -61,7 +61,7 @@ def remove_paired_parameters (msg, cat):
 
     @return: number of errors
     """
-  
+
     pars_orig = set()
     pars_orig.update(_ent_parameter.findall(msg.msgid))
 
