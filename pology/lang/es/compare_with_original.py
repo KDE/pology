@@ -111,6 +111,93 @@ def test_if_not_translated (msg, cat):
 
     return []
 
+def test_paired_strings (msg, cat):
+    """
+    Compare number of some strings between original and translated text.
+
+    [type V4A hook].
+    @return: parts
+    """
+
+    for i in range(len(msg.msgstr)):
+        if i > 0:
+            msgid = msg.msgid_plural
+        else:
+            msgid = msg.msgid
+
+        for s in ([r"\t", u"tabuladores"],
+                  [r"\n", u"saltos de línea"]
+                  ):
+            cont_orig = msgid.count(s[0])
+            cont_tran = msg.msgstr[i].count(s[0])
+
+            if cont_orig < cont_tran:
+                return [("msgstr", 0, [(0, 0, u"Sobran " + s[1] + u" en la traducción")])]
+            elif cont_orig > cont_tran:
+                return [("msgstr", 0, [(0, 0, u"Faltan " + s[1] + u" en la traducción")])]
+    return []
+
+
+def test_paired_brackets (msg, cat):
+    """
+    Compare number of some brackets between original and translated text.
+
+    [type V4A hook].
+    @return: parts
+    """
+
+    for i in range(len(msg.msgstr)):
+        if i > 0:
+            msgid = msg.msgid_plural
+        else:
+            msgid = msg.msgid
+
+        for s in ([u"(", u")", u"paréntesis"],
+                  [u"{", u"}", u"llaves"],
+                  [u"[", u"]", u"corchetes"],
+                  [u"«", u"»", u"comillas españolas"]
+                  ):
+            cont_orig_open = msgid.count(s[0])
+            cont_orig_close = msgid.count(s[1])
+            if cont_orig_open != cont_orig_close:
+                continue
+            cont_tran_open = msg.msgstr[i].count(s[0])
+            cont_tran_close = msg.msgstr[i].count(s[1])
+
+            if cont_tran_open < cont_tran_close:
+                return [("msgstr", 0, [(0, 0, u"Sobran " + s[2] + u" en la traducción")])]
+            elif cont_tran_open > cont_tran_close:
+                return [("msgstr", 0, [(0, 0, u"Faltan " + s[2] + u" en la traducción")])]
+    return []
+
+_ent_function = re.compile(r"(\w+\:\:)*\w+\(\)")
+_ent_parameter = re.compile(r"[\W^]\-\-\w+(\-\w+)*")
+
+def test_paired_expressions (msg, cat):
+    """
+    Compare expressions (functions, parameters) between original and translated text.
+    Should be the same.
+
+    [type V4A hook].
+    @return: parts
+    """
+    for i in range(len(msg.msgstr)):
+        if i > 0:
+            msgid = msg.msgid_plural
+        else:
+            msgid = msg.msgid
+
+        for expr in ([_ent_function, u"Nombres de función"],
+                     [_ent_parameter, u"Parámetros de orden"]
+                     ):
+            expr_orig = sorted(expr[0].findall(msgid))
+            expr_trans = sorted(expr[0].findall(msg.msgstr[i]))
+
+            if expr_orig != expr_trans:
+                return [("msgstr", 0, [(0, 0, expr[1] + u" distintos en la traducción")])]
+
+    return []
+
 
 _ent_new_line = re.compile(r"\\n")
 
@@ -166,7 +253,6 @@ def test_paired_tabs (msg, cat):
     return []
 
 
-_ent_function = re.compile(r"(\w+\:\:)*\w+\(\)")
 
 def test_paired_functions (msg, cat):
     """
@@ -191,7 +277,6 @@ def test_paired_functions (msg, cat):
     return []
 
 
-_ent_parameter = re.compile(r"[\W^]\-\-\w+(\-\w+)*")
 
 def test_paired_parameters (msg, cat):
     """
@@ -235,13 +320,17 @@ def test_paired_numbers (msg, cat):
         number_orig = sorted(_ent_number.findall(msgid))
         number_trans = sorted(_ent_number.findall(msg.msgstr[i]))
 
+        for ind, number in enumerate(number_orig):
+            number_orig[ind] = number.replace(",", ".")
+
         for number in number_orig:
-            number = number.replace(',','.')
             if len(number) < 2:
                 number_orig.remove(number)
 
+        for ind, number in enumerate(number_trans):
+            number_trans[ind] = number.replace(",", ".")
+
         for number in number_trans:
-            number = number.replace(',','.')
             if len(number) < 2:
                 number_trans.remove(number)
 

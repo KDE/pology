@@ -3,21 +3,34 @@
 # by the KDE Spanish Team (kde-l10n-es@kde.org)
 # License: GPLv3
 
-*hook name="es:compare_with_original/test_paired_tabs" on="msg"
-id="test_paired_tabs"
-hint="No coincide el número de tabuladores"
+*hook name="es:compare_with_original/test_paired_strings" on="msg"
+id="test_paired_strings"
+hint="Error en tabuladores o saltos de línea"
 
-*hook name="es:compare_with_original/test_paired_new_lines" on="msg"
-id="test_paired_new_lines"
-hint="No coincide el número de saltos de línea"
+*hook name="es:compare_with_original/test_paired_brackets" on="msg"
+id="test_paired_brackets"
+hint="Error en paréntesis, llaves, corchetes o comillas"
 
-*hook name="es:compare_with_original/test_paired_functions" on="msg"
-id="test_paired_functions"
-hint="Nombres de funciones en la traducción distintos al original"
+*hook name="es:compare_with_original/test_paired_expressions" on="msg"
+id="test_paired_expressions"
+hint="Error en funciones o parámetros"
 
-*hook name="es:compare_with_original/test_paired_parameters" on="msg"
-id="test_paired_parameters"
-hint="Nombres de parámetros en la traducción distintos al original"
+
+#*hook name="es:compare_with_original/test_paired_tabs" on="msg"
+#id="test_paired_tabs"
+#hint="No coincide el número de tabuladores"
+
+#*hook name="es:compare_with_original/test_paired_new_lines" on="msg"
+#id="test_paired_new_lines"
+#hint="No coincide el número de saltos de línea"
+
+#*hook name="es:compare_with_original/test_paired_functions" on="msg"
+#id="test_paired_functions"
+#hint="Nombres de funciones en la traducción distintos al original"
+
+#*hook name="es:compare_with_original/test_paired_parameters" on="msg"
+#id="test_paired_parameters"
+#hint="Nombres de parámetros en la traducción distintos al original"
 
 *hook name="es:compare_with_original/test_paired_numbers" on="msg"
 id="test_paired_numbers"
