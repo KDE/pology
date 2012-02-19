@@ -266,6 +266,7 @@ valid cat="kwriteconfig"
 valid cat="plasma_applet_desktop"
 valid cat="plasma_applet_frame"
 valid after="="
+valid before=" \S+="
 valid before="\s*/?>|&gt|}"
 valid before=";" after="'.+" # CSS
 valid before=" ou \""

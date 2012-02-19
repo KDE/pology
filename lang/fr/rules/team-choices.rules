@@ -83,7 +83,7 @@ valid before=" au repos"
 hint="Choix de l'équipe : utilisation du verbe conserver"
 
 [Notes?&unbsp;:|P\.?S\.?&unbsp;:]
-valid after="CU"
+valid after="CU|X|Moteur "
 valid msgid="Rating:"
 valid cat="knotes"
 valid cat="korganizer"
@@ -202,7 +202,7 @@ hint="Utiliser « serveur mandataire » (au lieu de « serveur de proximité » 
 
 [proxy]i
 valid before="\)" after="\(&?"
-valid after="http_|HTTP_|FTP_|HTTPS_"
+valid after="http_|HTTP_|FTP_|HTTPS_|SOCKS_"
 valid after="no_|no &|mon|Find"
 valid cat="kmail" after="mon"
 hint="Utiliser « serveur mandataire » (au lieu de « serveur de proximité » ou « proxy »)"
@@ -247,10 +247,11 @@ hint="Utiliser la forme « en suivant votre PATH »"
 hint="Utiliser la forme « en suivant votre PATH »"
 
 [chemins?]i
-valid before=" équestre| de randonnée| de bézier"
+valid before=" équestre| de randonnée| de bézier| critique"
 valid cat="klines"
 valid cat="kgoldrunner"
 valid cat="koffice"
+valid cat="planlibs"
 hint="Traduisez « path » par « emplacement » dans le contexte de dossiers/fichiers"
 
 [désinitialiser]i
