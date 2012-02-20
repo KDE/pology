@@ -63,12 +63,12 @@ valid msgstr="tecla Tab"
 hint="Es tradueix per «&Tab;, tecla &Tab;, <key?>Tabulador</key?>» (keys)"
 
 # Arrow keys
-{(<key(cap|sym)>)Page Down(</key(cap|sym))>}
+{(<key(cap|sym)>)(Page Down|PgDown)(</key(cap|sym))>}
 valid msgstr="<key(cap|sym)>Av. Pàg.</key(cap|sym)>"
 valid msgstr="AvPàg" # A l'IGU
 hint="Es tradueix per «AvPàg (a l'IGU), <key?>Av. Pàg.</key?> (a la DOC)» (keys)"
 
-{(<key(cap|sym)>)Page Up(</key(cap|sym))>}
+{(<key(cap|sym)>)(Page Up|PgUp)(</key(cap|sym))>}
 valid msgstr="<key(cap|sym)>Re. Pàg.</key(cap|sym)>"
 valid msgstr="RePàg" # A l'IGU
 hint="Es tradueix per «RePàg (a l'IGU), <key?>Re. Pàg.</key?> (a la DOC)» (keys)"
