@@ -69,6 +69,13 @@ def organize (dictPath, reminv=False):
                 file=dictPath))
     dictType, dictLang, numWords, dictEnc=m.groups()
 
+    expDictType = "personal_ws-1.1"
+    if dictType != expDictType:
+        dictType = expDictType
+        report("  " + _("@item:inlist",
+                        "dictionary type changed to '%(dtype)s'",
+                        dtype=expDictType))
+
     # Reopen in correct encoding if not the default.
     if dictEnc.lower() != dictEncDefault.lower():
         dictFile.close()
