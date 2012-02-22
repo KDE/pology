@@ -84,7 +84,7 @@ valid msgstr="se\sasign[ea]n?"
 valid msgstr="asignó"
 valid msgstr="se\s(\w+\s){1,3}asignar"
 valid !msgstr="alocad[oa]"
-hint="« Allocate » como se traduce como « Asignar » (ver glosario)"
+hint="« Allocated » como se traduce como « Asignado » (ver glosario)"
 
 # «Allocates» se traduce como «Asigna».
 {\ballocates\b}i
@@ -103,7 +103,7 @@ hint="« Allocation » como se traduce como « Asignación » (ver glosario)"
 valid msgstr="asignaciones"
 valid msgstr="(cualquier|ninguna)\sasignación"
 valid !msgstr="alocaciones"
-hint="« Allocation » como se traduce como « Asignación » (ver glosario)"
+hint="« Allocations » como se traduce como « Asignaciones » (ver glosario)"
 
 # «API» no se debe traducir.
 {\bAPI\b}i
@@ -138,7 +138,7 @@ valid msgstr="archivarse"
 valid msgstr="se\sarchiv[ea]n?"
 valid msgstr="archivó"
 valid msgstr="se\s(\w+\s){1,3}archivar"
-hint="« Archive » se traduce como « Archivo comprimido » (ver glosario)"
+hint="« Archived » se traduce como « Archivado » (ver glosario)"
 
 # «Archives» se traduce como «Archivos comprimido».
 {\barchives\b}i
@@ -176,7 +176,7 @@ hint="« Backends » se traduce como « Motores » (ver glosario)"
 {\bbackground\b}i
 valid msgstr="segundo\splano"
 valid msgstr="fondo"
-hint="« Background » se traduce como « Segundo plano » o « Fondo » según el contexto(ver glosario)"
+hint="« Background » se traduce como « Segundo plano » o « Fondo » según el contexto (ver glosario)"
 
 # «Backup» se traduce como «Copia de respaldo».
 {\bbackup\b}i
@@ -202,7 +202,7 @@ hint="« Backslash » se traduce como « Barra inversa », nunca como « Barra i
 valid msgstr="barras\sinversas"
 valid msgstr="(cualquier|ninguna)\sbarra\sinversa"
 valid !msgstr="barras\sinvertidas?"
-hint="« Backslashs » se traduce como « Barras inversas », nunca como « Barras invertidas » (ver glosario)"
+hint="« Backslashes » se traduce como « Barras inversas », nunca como « Barras invertidas » (ver glosario)"
 
 # «Bandwith» se traduce como «Ancho de banda».
 {\bbandwith\b}i
@@ -225,7 +225,7 @@ hint="« Batcher » se traduce como « Procesador por lotes » (ver glosario)"
 {\bbatchers\b}i
 valid msgstr="procesadores\spor\slotes"
 valid msgstr="(cualquier|ningún)\sprocesador\spor\slotes"
-hint="« Batcher » se traduce como « Procesador por lotes » (ver glosario)"
+hint="« Batchers » se traduce como « Procesadores por lotes » (ver glosario)"
 
 # «Batching» se traduce como «Proceso por lotes».
 {\bbatching\b}i
@@ -297,7 +297,7 @@ valid msgstr="memorias\stemporales"
 valid msgstr="memorias\sintermedias"
 valid msgstr="búfer"
 valid after="Frame\s"
-hint="« Buffer » se traduce como « Memoria temporal/intermedia » o como « Búfer » (ver glosario)"
+hint="« Buffer » se traduce como « Memoria temporal/intermedia » o « Búfer » (ver glosario)"
 
 # «Buffers» se traduce como «Memorias temporales/intermedias».
 {\bbuffers\b}i
@@ -307,7 +307,7 @@ valid msgstr="(cualquier|ninguna)\smemoria\stemporal"
 valid msgstr="(cualquier|ninguna)\smemoria\sintermedia"
 valid msgstr="(cualquier|ningún)\sbúfer"
 valid msgstr="búferes"
-hint="« Buffers » se traduce como « Memorias temporales/intermedias » o como « Búferes » (ver glosario)"
+hint="« Buffers » se traduce como « Memorias temporales/intermedias » o « Búferes » (ver glosario)"
 
 # «Buffering» se traduce como «Almacenamiento temporal».
 {\bbuffering\b}i
@@ -473,18 +473,18 @@ valid msgstr="limpiarse"
 valid msgstr="se\slimpi[ea]n?"
 valid msgstr="limpió"
 valid msgstr="se\s(\w+\s){1,3}limpiar"
-hint="« Clean » se traduce como « Limpiar » (ver glosario)"
+hint="« Cleaned » se traduce como « Limpio » (ver glosario)"
 
 # «Cleaner» se traduce como «Limpiador».
 {\bcleaner\b}i
 valid msgstr="limpiadora?"
-hint="« Clean » se traduce como « Limpiar » (ver glosario)"
+hint="« Cleaner » se traduce como « Limpiador » (ver glosario)"
 
 # «Cleans» se traduce como «Limpia».
 {\bcleans\b}i
 valid msgstr="limpi(a|e)"
 valid msgstr="limpios"
-hint="« Clean » se traduce como « Limpiar » (ver glosario)"
+hint="« Cleans » se traduce como « Limpia » (ver glosario)"
 
 # «Click» se traduce como «Pulsación» o «clic».
 {\bclick\b}i
@@ -503,7 +503,7 @@ valid msgstr="clics"
 valid msgstr="(cualquier|ninguna)\spulsación"
 valid msgstr="(cualquier|ningún)\sclic"
 valid !msgstr="clicks"
-hint="« Click » se traduce como « Pulsaciones », « Pulsa » o « Clics » (ver glosario)"
+hint="« Clicks » se traduce como « Pulsaciones », « Pulsa » o « Clics » (ver glosario)"
 
 # «Clumsy» se traduce como «Torpe».
 {\bclumsy\b}i
@@ -570,7 +570,7 @@ valid msgstr="comprim(e|a|ir)"
 valid msgstr="comprimid[oa]s"
 valid msgstr="comprimirá" after="will\s"
 valid msgstr="comprimió" after="did\s"
-hint="« Compact » se traduce como « Comprimir » (ver glosario)"
+hint="« Compacts » se traduce como « Comprime » (ver glosario)"
 
 # «Computer» se traduce como «Equipo».
 {\bcomputer\b}i
@@ -1069,7 +1069,7 @@ hint="« Dumb » se traduce como « Mudo » o « Tonto » (ver glosario)"
 {\bdumb\b}i
 valid msgstr="mudos?"
 valid msgstr="tontos?"
-hint="« Dumb » se traduce como « Mudo » o « Tonto » (ver glosario)"
+hint="« Dumbs » se traduce como « Mudos » o « Tontos » (ver glosario)"
 
 # «DVD» no se traduce.
 {\bdvd\b}i
@@ -1184,7 +1184,7 @@ hint="« Encrypt » se traduce como « Cifrar », nunca como « Encriptar » (ve
 {\bencrypts\b}i
 valid msgstr="cifr(a|e)"
 valid !msgstr="encript(ar|a|e)"
-hint="« Encrypt » se traduce como « Cifrar », nunca como « Encriptar » (ver glosario)"
+hint="« Encrypts » se traduce como « Cifra », nunca como « Encripta » (ver glosario)"
 
 # «Encrypted» se traduce como «Cifrado».
 {\bencrypted\b}i
@@ -1813,7 +1813,7 @@ hint="« Kernel » se traduce como « Núcleo » o « Kernel » (ver glosario)"
 valid msgstr="núcleos"
 valid msgstr="kernels?"
 valid msgstr="(cualquier|ningún)\snúcleo"
-hint="« Kernels » se traduce como « Núcleos » o « Kernel » (ver glosario)"
+hint="« Kernels » se traduce como « Núcleos » o « Kernels » (ver glosario)"
 
 # «Keyboard» se traduce como «Teclado».
 {\bkeyboard\b}i
@@ -2151,7 +2151,7 @@ valid msgstr="partidas"
 valid msgstr="coincidencias"
 valid msgstr="(cualquier|ninguna)\spartida"
 valid msgstr="(cualquier|ninguna)\scoincidencia"
-hint="« Match » se traduce como « Empareja », « Coincide » o « Concuerda » (ver glosario)"
+hint="« Matchs » se traduce como « Empareja », « Coincide » o « Concuerda » (ver glosario)"
 
 # «Menu» se traduce como «Menú».
 {\bmenu\b}i
@@ -2561,7 +2561,7 @@ hint="« Postmaster » se traduce como « Administrador de correo » (ver glosar
 {\bpostmasters\b}i
 valid msgstr="administradores\sde\scorreo"
 valid msgstr="(cualquier|ningún)\sadministrador\sde\scorreo"
-hint="« Postmaster » se traduce como « Administrador de correo » (ver glosario)"
+hint="« Postmasters » se traduce como « Administradores de correo » (ver glosario)"
 
 # «Profile» se traduce como «Perfil».
 {\bprofile\b}i
@@ -2618,7 +2618,7 @@ hint="« Promtp » se traduce como « Cursor » (ver glosario)"
 valid msgstr="cursores"
 valid msgstr="(cualquier|ningún)\scursor"
 valid msgstr="promtp"
-hint="« Promtp » se traduce como « Cursor » (ver glosario)"
+hint="« Promtps » se traduce como « Cursores » (ver glosario)"
 
 # «Provide» se traduce como «Proporcionar» o «proveer».
 {\bprovide\b}i
@@ -2788,7 +2788,7 @@ hint="« Real time » se traduce como « Tiempo real » (ver glosario)"
 valid msgstr="reinici(o|ar|a|e)"
 valid msgstr="reiniciará" after="will\s"
 valid msgstr="reinició" after="did\s"
-hint="« Reboot » se traduce como « Reiniciar » (ver glosario)"
+hint="« Reboot » se traduce como « Reiniciar/Reinicio » (ver glosario)"
 
 # «Reboots» se traduce como «Reinicia».
 {\breboots\b}i
@@ -2842,9 +2842,9 @@ valid msgstr="reinici(o|ar|e|a)"
 valid msgstr="reiniciará" after="will\s"
 valid msgstr="reinició" after="did\s"
 valid !msgstr="restaur(ar|a|e|o)"
-hint="« Reset » se traduce como « Reinicio » (ver glosario)"
+hint="« Reset » se traduce como « Reiniciar/Reinicio » (ver glosario)"
 
-# «Resets» se traduce como «Reinicio».
+# «Resets» se traduce como «Reinicia».
 {\bresets\b}i
 valid msgstr="reinici(e|a)"
 valid msgstr="(cualquier|ningún)\sreinicio"
@@ -3041,7 +3041,7 @@ hint="« Scoring » se traduce como « Puntuación » (ver glosario)"
 {\bscorings\b}i
 valid msgstr="puntuaciones"
 valid msgstr="(cualquier|ninguna)\spuntuación"
-hint="« Scoring » se traduce como « Puntuación » (ver glosario)"
+hint="« Scorings » se traduce como « Puntuaciones » (ver glosario)"
 
 # «Script» se traduce como «Guion» o «Script».
 {\bscript\b}i
@@ -3067,7 +3067,7 @@ valid msgstr="desplazamiento"
 valid msgstr="despla(zar|za|ce)"
 valid msgstr="desplácelo"
 valid msgstr="despl" before="\slock"
-hint="« Scroll » se traduce como « Desplazamiento » (ver glosario)"
+hint="« Scroll » se traduce como « Desplazar/Desplazamiento » (ver glosario)"
 
 # «Scrolling» se traduce como «Desplazamiento».
 {\bscrolling\b}i

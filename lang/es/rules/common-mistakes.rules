@@ -620,6 +620,7 @@ hint="« De sitio a sitio » se escribe como « De sitio en sitio » (error frec
 
 # «De sí» se escribe como «De por sí».
 [\bde\ssí\b]i
+valid before="\smism[oa]s?"
 hint="« De sí » se escribe como « De por sí » (error frecuente: solecismo)"
 
 # «De tal suerte que» se escribe como «De manera que/De modo que/De suerte que».

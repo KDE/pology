@@ -32,10 +32,10 @@ hint="« Ctrl » se traduce como como « Ctrl » (regla de traducción de nombre
 valid msgstr="Supr"
 hint="« Del » se traduce como como « Supr » (regla de traducción de nombres de teclas)"
 
-## «End» se traduce como «Fin» (regla de traducción de nombres de teclas).
-#{\bEnd\b}
-#valid msgstr="[Ff]in"
-#hint="« End » se traduce como como « Fin » (regla de traducción de nombres de teclas)"
+# «End» se traduce como «Fin» (regla de traducción de nombres de teclas).
+{^End$}
+valid msgstr="[Ff]in"
+hint="« End » se traduce como como « Fin » (regla de traducción de nombres de teclas)"
 
 # «Enter» se traduce como «Intro».
 {\benter\b}i
@@ -47,7 +47,7 @@ valid msgstr="accederá" after="will\s"
 valid msgstr="introdujo" after="did\s"
 valid msgstr="accedió" after="did\s"
 valid !msgstr="entr(ar|e|a)"
-hint="« Enter » se traduce como « Intro », « Introducir/Acceder », nunca como « Entrar » (ver glosario)"
+hint="« Enter » se traduce como « Intro », « Introducir/Acceder », nunca como « Entrar » (ver glosario, regla de traducción de nombres de teclas)"
 
 # «Esc» se traduce como «Esc» (regla de traducción de nombres de teclas).
 {\bEsc\b}
@@ -109,10 +109,10 @@ hint="« SysReq » se traduce como como « Pet Sys » (regla de traducción de n
 valid msgstr="Barra\sespaciadora"
 hint="« Spacebar » se traduce como como « Barra espaciadora » (regla de traducción de nombres de teclas)"
 
-## «Tab» se traduce como «Tab» (regla de traducción de nombres de teclas).
-#{\bTab\b}
-#valid msgstr="Tab"
-#hint="« Tab » se traduce como como « Tab » (regla de traducción de nombres de teclas)"
+# «Tab» se traduce como «Tab» (regla de traducción de nombres de teclas).
+{^Tab$}
+valid msgstr="Tab"
+hint="« Tab » se traduce como como « Tab » (regla de traducción de nombres de teclas)"
 
 # Menús de KDE
 
@@ -219,7 +219,7 @@ hint="« Exit » se traduce como como « Salir » (regla de traducción de menú
 {^Quit$}
 valid msgstr="Salir"
 valid msgstr="Salida"
-hint="« Exit » se traduce como como « Salir » (regla de traducción de menús de KDE)"
+hint="« Quit » se traduce como como « Salir » (regla de traducción de menús de KDE)"
 
 # Menú Editar
 
@@ -497,7 +497,7 @@ hint="« Close tab » se traduce como como « Cerrar pestaña » (regla de tradu
 # «Close current tab» se traduce como «Cerrar pestaña actual».
 {\bclose\scurrent\stab\b}i
 valid msgstr="cerrar\spestaña\sactual"
-hint="« Close current tab » se traduce como como « Close pestaña actual» (regla de traducción de elementos gráficos)"
+hint="« Close current tab » se traduce como como « Cerrar pestaña actual» (regla de traducción de elementos gráficos)"
 
 # Elementos gráficos
 
@@ -517,7 +517,7 @@ hint="« Buttons » se traduce como como « Botones » (regla de traducción de 
 {\bcanvas\b}i
 valid msgstr="lienzo"
 valid msgstr="tapiz"
-hint="« Canvas » se traduce como « Lienzo/Tapiz » (propuesta glosario)"
+hint="« Canvas » se traduce como « Lienzo/Tapiz » (regla de traducción de elementos gráficos)"
 
 # «Caption» se traduce como «Título/Leyenda».
 {\bcaption\b}i
@@ -547,13 +547,13 @@ hint="« Checkboxes » se traduce como como « Casillas de verificación » (reg
 # «Check button» se traduce como «Botón de verificación».
 {\bcheck\s?button\b}i
 valid msgstr="bot(ón|ones)\sde\sverificación"
-hint="« Check button » se traduce como « Botón de verificación » (propuesta glosario)"
+hint="« Check button » se traduce como « Botón de verificación » (regla de traducción de elementos gráficos)"
 
 # «Check buttons» se traduce como «Botones de verificación».
 {\bcheck\s?buttons\b}i
 valid msgstr="botones\sde\sverificación"
 valid msgstr="(ningún|cualquier)\sbotón\sde\sverificación"
-hint="« Check buttons » se traduce como « Botones de verificación » (propuesta glosario)"
+hint="« Check buttons » se traduce como « Botones de verificación » (regla de traducción de elementos gráficos)"
 
 # «Child window» se traduce como «Ventana secundaria».
 {\bchild\swindow\b}i
@@ -584,7 +584,7 @@ hint="« Combo boxes » se traduce como como « Listas desplegables » (regla de
 valid msgstr="cortar\sy\spegar"
 valid msgstr="corte\sy\spegue"
 valid msgstr="corta\sy\spega"
-hint="« Cut and paste » se traduce como « Cortar y pegar » (propuesta glosario)"
+hint="« Cut and paste » se traduce como « Cortar y pegar » (regla de traducción de elementos gráficos)"
 
 # «Desktop» se traduce como «Escritorio».
 {\bdesktop\b}i
@@ -592,13 +592,13 @@ valid msgstr="escritorio"
 valid msgstr="Desktop" after="K\s"
 valid after="\."
 valid before="\sBus"
-hint="« Desktop » se traduce como « Escritorio » (propuesta glosario)"
+hint="« Desktop » se traduce como « Escritorio » (regla de traducción de elementos gráficos)"
 
 # «Desktops» se traduce como «Escritorios».
 {\bdesktops\b}i
 valid msgstr="escritorios"
 valid msgstr="(ningún|cualquier)\sescritorio"
-hint="« Desktops » se traduce como « Escritorios » (propuesta glosario)"
+hint="« Desktops » se traduce como « Escritorios » (regla de traducción de elementos gráficos)"
 
 # «Dialog box» se traduce como «Cuadro de diálogo».
 {\bdialog\s?box\b}i
@@ -618,7 +618,7 @@ valid msgstr="arrastr[ea]\sy\ssuelt[ea]"
 valid msgstr="arrastrarl[oa]s?\sy\ssoltarl[oa]s?"
 valid msgstr="arrastrándol[oa]s?\sy\ssoltándol[oa]s?"
 valid msgstr="arrastrará\sy\ssoltará" after="will\s"
-hint="« Drag and drop » se traduce como « Arrastrar y soltar » (propuesta glosario)"
+hint="« Drag and drop » se traduce como « Arrastrar y soltar » (regla de traducción de elementos gráficos)"
 
 # «Drop down menu» se traduce como «Menú desplegable».
 {\bdrop\sdown\menu\b}i
@@ -635,13 +635,13 @@ hint="« Drop down menus » se traduce como como « Menús desplegables » (regl
 # «Field» se traduce como «Campo».
 {\bfield\b}i
 valid msgstr="campo"
-hint="« Field » se traduce como « Campo » (propuesta glosario)"
+hint="« Field » se traduce como « Campo » (regla de traducción de elementos gráficos)"
 
 # «Fields» se traduce como «Campos».
 {\bfields\b}i
 valid msgstr="campos"
 valid msgstr="(ningún|cualquier)\scampo"
-hint="« Fields » se traduce como « Campos » (propuesta glosario)"
+hint="« Fields » se traduce como « Campos » (regla de traducción de elementos gráficos)"
 
 # «Frame» se traduce como «Marco».
 {\bframe\b}i
@@ -656,13 +656,13 @@ valid msgstr="marcos"
 valid msgstr="fotogramas"
 valid msgstr="(cualquier|ningún)\smarco"
 valid msgstr="(cualquier|ningún)\sfotograma"
-hint="« Frames » se traduce como como « Marco/Fotogramas » (regla de traducción de elementos gráficos)"
+hint="« Frames » se traduce como como « Marcos/Fotogramas » (regla de traducción de elementos gráficos)"
 
 # «Grid» se traduce como «Rejilla/Cuadrícula».
 {\bgrid\b}i
 valid msgstr="rejilla"
 valid msgstr="cuadrícula"
-hint="« Grid » se traduce como « Rejilla/Cuadrícula » (propuesta glosario)"
+hint="« Grid » se traduce como « Rejilla/Cuadrícula » (regla de traducción de elementos gráficos)"
 
 # «Grids» se traduce como «Rejillas/Cuadrículas».
 {\bgrids\b}i
@@ -670,7 +670,7 @@ valid msgstr="rejillas"
 valid msgstr="cuadrículas"
 valid msgstr="(ninguna|cualquier)\srejilla"
 valid msgstr="(ninguna|cualquier)\scuadrícula"
-hint="« Grid » se traduce como « Rejilla/Cuadrícula » (propuesta glosario)"
+hint="« Grids » se traduce como « Rejillas/Cuadrículas » (regla de traducción de elementos gráficos)"
 
 # «Helper» se traduce como «Asistente».
 {\bhelper\b}i
@@ -686,13 +686,13 @@ hint="« Helpers » se traduce como como « Asistentes » (regla de traducción 
 # «Icon» se traduce como «Icono».
 {\bicon\b}i
 valid msgstr="icono"
-hint="« Icon » se traduce como « Icono » (propuesta glosario)"
+hint="« Icon » se traduce como « Icono » (regla de traducción de elementos gráficos)"
 
 # «Icons» se traduce como «Iconos».
 {\bicons\b}i
 valid msgstr="iconos"
 valid msgstr="(ningún|cualquier)\sicono"
-hint="« Icons » se traduce como « Iconos » (propuesta glosario)"
+hint="« Icons » se traduce como « Iconos » (regla de traducción de elementos gráficos)"
 
 # «Label» se traduce como «Etiqueta».
 {\blabel\b}i
@@ -789,14 +789,14 @@ hint="« Scroll bars » se traduce como como « Barras de desplazamiento » (reg
 {\bservice\smenu\b}i
 valid msgstr="menú\scontextual"
 valid msgstr="menús\scontextuales"
-hint="« Service menu » se traduce como « Menú contextual » (propuesta glosario)"
+hint="« Service menu » se traduce como « Menú contextual » (regla de traducción de elementos gráficos)"
 
 # «Service menus» se traduce como «Menús contextuales».
 {\bservice\smenus\b}i
 valid msgstr="menús\scontextuales"
 valid msgstr="cualquier\smenú\scontextual"
 valid msgstr="ningún\smenú\scontextual"
-hint="« Service menus » se traduce como « Menús contextuales » (propuesta glosario)"
+hint="« Service menus » se traduce como « Menús contextuales » (regla de traducción de elementos gráficos)"
 
 # «Side bar» se traduce como «Panel lateral».
 {\bside\s?bar\b}i
@@ -835,13 +835,13 @@ hint="« Status bars » se traduce como como « Barras de estado » (regla de tr
 # «Task bar» se traduce como «Barra de tareas».
 {\btask\s?bar\b}i
 valid msgstr="barras?\sde\stareas"
-hint="« Taskbar » se traduce como « Barra de tareas » (propuesta glosario)"
+hint="« Taskbar » se traduce como « Barra de tareas » (regla de traducción de elementos gráficos)"
 
 # «Task bars» se traduce como «Barras de tareas».
 {\btask\s?bars\b}i
 valid msgstr="barras\sde\stareas"
 valid msgstr="(cualquier|ninguna)\sbarra\sde\stareas"
-hint="« Taskbar » se traduce como « Barra de tareas » (propuesta glosario)"
+hint="« Taskbar » se traduce como « Barra de tareas » (regla de traducción de elementos gráficos)"
 
 # «Text box» se traduce como «Área de texto».
 {\btext\s?box\b}i
@@ -879,7 +879,7 @@ hint="« Title bars » se traduce como como « Barras de título » (regla de tr
 # «Tool bar» se traduce como «Barra de herramientas».
 {\btool\s?bar\b}i
 valid msgstr="barras?\sde\sherramientas"
-hint="« Tool bar » se traduce como como « Barra de herramietas » (regla de traducción de elementos gráficos)"
+hint="« Tool bar » se traduce como como « Barra de herramientas » (regla de traducción de elementos gráficos)"
 
 # «Tool bars» se traduce como «Barras de herramientas».
 {\btool\s?bars\b}i

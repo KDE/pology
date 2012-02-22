@@ -8,8 +8,8 @@
 valid msgid="\d\.\d{3}[\D$]"
 hint="No separe con puntos los miles de los números (excepto en direcciones IP)"
 
-#[\&\W]
-#hint="Tecla aceleradora no válida"
+[\&\W]
+hint="Tecla aceleradora no válida"
 
 
 include file="filter.include"
@@ -24,20 +24,23 @@ valid after="^"
 
 validGroup openQuotes
 valid after="[<>({=.,;:\-\[\s]"
-valid after="\&[\w\-_]*?\;"
+#valid after="\&[\w\-_]*?\;"
+valid after="\~"
 valid after="^"
 valid before=".+»"
 
 validGroup closeQuotes
 valid before="[<>)}=.,;:\-\]\s]"
-valid after="\&[\w\-_]*?\;"
+#valid after="\&[\w\-_]*?\;"
+valid after="\~"
 valid before="$"
 valid after="«.+"
 
 validGroup beforeCaps
 valid after="^"
 valid after="[\.\?\!]\s"
-valid after="\<(p|para|qt)\>\s?"
+#valid after="\<(p|para|qt)\>\s?"
+valid after="\~\s?"
 valid after="\\n\s?"
 valid after="¿"
 valid after="¡"
@@ -47,7 +50,8 @@ validGroup beforeComma
 valid after="^"
 valid after="[,;\:]\s"
 valid after="\("
-valid after="\<(p|para|qt)\>\s?"
+#valid after="\<(p|para|qt)\>\s?"
+valid after="\~\s?"
 valid after="\\n\s?"
 valid after="~\s?"
 
@@ -75,7 +79,7 @@ valid ctx="Hours:minutes:seconds"
 valid ctx="CSV separator"
 valid ctx="Query"
 valid span="\:$"
-valid span="\:\<\/?(p|para|qt)\>"
+valid span="\:\~"
 valid span="\:\\n"
 valid span="\:\w+\b" after="\w+\:"
 hint="Ponga un espacio después del signo de dos puntos"
@@ -105,6 +109,8 @@ validGroup beforePunctuation
 valid ctx="Numbers and characters"
 valid ctx="CSV separator"
 valid span="\!$"
+valid span="\!\~"
+valid span="\!\\n"
 hint="Ponga un espacio después del signo de cierre de admiración"
 
 [¡]
@@ -128,6 +134,8 @@ valid ctx=".*one character"
 valid ctx="Numbers and characters"
 valid ctx="Query"
 valid span="\?$"
+valid span="\?\~"
+valid span="\?\\n"
 hint="Ponga un espacio después del signo de cierre de interrogación"
 
 [¿]
@@ -161,7 +169,7 @@ valid span=",\d" after="\d+\s?"
 valid span="\,$"
 hint="Ponga un espacio de separación después del signo de coma"
 
-[»]
+[»\S]
 validGroup closeQuotes 
 valid ctx="Numbers and characters"
 hint="Ponga un espacio después del signo de comilla española de cierre"
@@ -171,7 +179,7 @@ valid after="\«"
 valid after="\.\."
 hint="Ponga el punto después de la comilla de cierre y no antes"
 
-[«]
+[\S«]
 validGroup openQuotes
 valid ctx="Numbers and characters"
 hint="Ponga un espacio antes del signo de comilla española de apertura"
@@ -183,14 +191,6 @@ hint="Cierre la comilla (deben ir emparejadas)"
 [\s\s+]
 valid msgid="\s\s+"
 hint="No coloque más de un espacio consecutivo"
-
-#[\s\%]
-#valid before="[\w\d]"
-#valid before="$"
-#valid before="\{\w+\}"
-#valid after="width=\"\d+" before="\"" # HTML                         
-#valid ctx="Numbers and characters"
-#hint="No ponga un espacio de separación antes de un signo de porcentaje"
 
 [\s\.]
 valid before="\w{2,4}" # Extensions
@@ -219,10 +219,11 @@ valid span=".Fm" after="Last\s"
 valid span="\.\.\."
 valid span="\.$"
 valid span="\.\*"
-valid span="\.\<\/?(p|para|qt|i)\>"
+#valid span="\.\<\/?(p|para|qt|i)\>"
+valid span="\.\~"
 valid span="\.\\n"
 valid span="\.\~"
-valid after="\btar" # Extensions
+valid after="\Wtar" # Extensions
 valid after="\*"
 valid span="\.(calendar|desktop|directory|h|html|lock|moc|xml)\b"
 hint="Ponga un espacio después de un signo de punto"
@@ -241,6 +242,7 @@ hint="Àbajo MS-DOS (quite el carácter de retorno de carro)"
 
 [\S+\.\s[a-zñçáéíóú]]
 valid span="\.\.\.\s[a-zñçáéíóú]"
+valid before="[a-z]*[A-Z]"
 hint="Utilice mayúsculas después de punto"
 
 [\(]
@@ -270,6 +272,10 @@ hint="Las siglas se escriben en singular en español (quite la «s» final)"
 
 [\b\&[\w\-_]+\;\'s\b]
 hint="Las siglas se escriben en singular en español (quite la «'s» final)"
+
+[(\w\.\s?){3,}]
+valid span="(\d\.\s?){3,}"
+hint="Las siglas se escriben sin puntos intermedios (todas las letras juntas)"
 
 #[\besto\ses\s]
 #hint="Ponga una coma después de «esto es» (Consulte ortografía de la RAE)"
