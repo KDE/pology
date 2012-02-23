@@ -932,10 +932,6 @@ Strings after the dot can be anything, but a sequence of numbers or letters in a
 <itemizedlist>
 
 <listitem>
-<para> (<literal></literal>).</para>
-</listitem>
-
-<listitem>
 <para>Stray context separators in translation (<literal>ctxtsep</literal>). Wesnoth is still embedding disambiguating context into <varname>msgid</varname>, by putting it in front of the actual text and separated by <literal>^</literal>. An unwary translator will sometimes mistakes such context for part of the original text, and translate it too.</para>
 </listitem>
 
@@ -962,6 +958,10 @@ Strings after the dot can be anything, but a sequence of numbers or letters in a
 
 <listitem>
 <para>Docbook validity (<literal>docbook</literal>). Docbook is actually not used as a source format anywhere in Wesnoth, but the Wesnoth manual is converted into Docbook specifically to facilitate translation (weird as it may sound).</para>
+</listitem>
+
+<listitem>
+<para>Man page validity (<literal>man</literal>).</para>
 </listitem>
 
 </itemizedlist>
