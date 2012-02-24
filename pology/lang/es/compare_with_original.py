@@ -77,8 +77,8 @@ def test_if_very_short_translation (msg, cat):
     return []
 
 
-_valid_word = re.compile(r"(?u)^[^\W\d_]+$")
-_capital_word = re.compile(r"(?u)^[A-Z]+$")
+_valid_word = re.compile("(?u)^[^\W\d_]+$")
+_capital_word = re.compile("(?u)^[A-Z]+$")
 
 def test_if_not_translated (msg, cat):
     """
@@ -170,8 +170,8 @@ def test_paired_brackets (msg, cat):
                 return [("msgstr", 0, [(0, 0, u"Faltan " + s[2] + u" en la traducción")])]
     return []
 
-_ent_function = re.compile(r"(\w+\:\:)*\w+\(\)")
-_ent_parameter = re.compile(r"[\W^]\-\-\w+(\-\w+)*")
+_ent_function = re.compile("(\w+\:\:)*\w+\(\)")
+_ent_parameter = re.compile("[\W^]\-\-\w+(\-\w+)*")
 
 def test_paired_expressions (msg, cat):
     """
@@ -199,7 +199,7 @@ def test_paired_expressions (msg, cat):
     return []
 
 
-_ent_new_line = re.compile(r"\\n")
+_ent_new_line = re.compile(r"\n")
 
 def test_paired_new_lines (msg, cat):
     """
@@ -226,7 +226,7 @@ def test_paired_new_lines (msg, cat):
     return []
 
 
-_ent_tab = re.compile(r"\\t")
+_ent_tab = re.compile(r"\t")
 
 def test_paired_tabs (msg, cat):
     """
@@ -301,7 +301,7 @@ def test_paired_parameters (msg, cat):
     return []
 
 
-_ent_number = re.compile(r"[\W^]\d+([\.\,\:\/]\d+)*")
+_ent_number = re.compile("[\W^]\d+([\.\,\:\/]\d+)*")
 
 def test_paired_numbers (msg, cat):
     """

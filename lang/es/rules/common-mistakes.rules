@@ -34,7 +34,7 @@ hint="No utilice expresiones del tipo «las ciudadanas y los ciudadanos » (erro
 hint="No utilice la arroba para evitar el género, p.ej. «ciudadan@s» (error frecuente)"
 
 # No utilizar el guión para separar el prefijo de la palabra principal
-[(?u)\b(auto|bi|des|extra|hiper|in|macro|meta|micro|mini|mono|multi|pos|post|pre|re|sobre|sub|super|tele|tri)\-([a-záéíóúñç]){3,}?\b]i
+[(?u)\b(anti|archi|auto|bi|co|contra|des|ex|extra|híper|in|macro|meta|micro|mini|mono|multi|pos|post|pre|pro|re|semi|sim|sin|sobre|sub|super|tele|trans|tras|tri|vice)\-([a-záéíóúñç]){3,}?\b]i
 hint="No utilice el guión para separar el prefijo de la palabra principal, p.ej. «sub-menú» (error frecuente)"
 
 # «y» ante palabras que empiezan por «i» o «hi»

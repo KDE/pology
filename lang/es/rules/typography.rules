@@ -40,21 +40,20 @@ validGroup beforeCaps
 valid after="^"
 valid after="[\.\?\!]\s"
 #valid after="\<(p|para|qt)\>\s?"
-valid after="\~\s?"
-valid after="\\n\s?"
-valid after="¿"
-valid after="¡"
-valid after="~\s?"
+valid after="\~\s*"
+valid after="\\n\s*"
+valid after="[¿¡«\(]\s*"
 
 validGroup beforeComma
 valid after="^"
 valid after="[,;\:]\s"
 valid after="\("
-#valid after="\<(p|para|qt)\>\s?"
-valid after="\~\s?"
-valid after="\\n\s?"
-valid after="~\s?"
+#valid after="\<(p|para|qt)\>\s*"
+valid after="\~\s*"
+valid after="\\n\s*"
 
+[\d\%]
+hint="Ponga un espacio de separación entre el número y el símbolo de procentaje"
 
 [\s\:]
 valid ctx="Numbers and characters"
@@ -193,10 +192,10 @@ valid msgid="\s\s+"
 hint="No coloque más de un espacio consecutivo"
 
 [\s\.]
-valid before="\w{2,4}" # Extensions
+valid before="\w{2,4}[\W$]" # Extensions
 valid before="\/\w+" # Files
 valid before="\.\."
-valid before="(desktop|calendar|directory|h|html|lock|moc|xml)\b"
+valid before="(desktop|calendar|directory)\b"
 hint="No ponga espacios antes de un signo de punto"
 
 [\.\)]
@@ -476,6 +475,11 @@ hint="Los nombres de los días de la semana se escriben en minúsculas (Consulte
 [\b(Primavera|Verano|Otoño|Invierno)\b]
 validGroup beforeCaps
 hint="Los nombres de las estaciones del año se escriben en minúsculas (Consulte ortografía de la RAE)"
+
+[\b(Norte|Sur|Este|Oeste)\b]
+validGroup beforeCaps
+valid after="del\s"
+hint="Los nombres de los puntos cardinales se escriben en minúsculas (Consulte ortografía de la RAE)"
 
 [\b(Usted|Señor|Don|Fray|San|Santo|Sor|Reverendo)\b]
 validGroup beforeCaps
