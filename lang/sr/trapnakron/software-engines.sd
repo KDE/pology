@@ -195,10 +195,18 @@ Virtuoso: Виртуоз|о, Виртуоз|ов, _род!=м
 # ----------------------------------------------------------------------------
 # Мрежни
 
+Butterfly: Батерфлај|2, Батерфлај|ев
+    @л: Butterfly|2, Butterfly|ev
 Bonjour: Бонжур|, Бонжур|ов, бонжур|>
     @л: Bonjour|, Bonjour|ov, bonjour|>
+Gabble: Габл|, Габл|ов
+    @л: Gabble|, Gabble|ov
 GSMLib: ГСМ-либ|, ГСМ-либ|ов
     @л: GSMLib|, GSMLib|ov
+Haze: Хејз|, Хејз|ов
+    @л: Haze|, Haze|ov
+Idle, |idleeng: Ајдл|, Ајдл|ов
+    @л: Idle|, Idle|ov
 Iris: Ајрис|, Ајрис|ов
     @л: Iris|, Iris|ov
 KNewStuff: К-новотариј|е-
@@ -211,8 +219,15 @@ MP3tunes Harmony: Хармон|и за |MP3Tunes~а
     @л: Harmon|y za |MP3Tunes~а
 NetworkManager: Менаџер| мреже
 OpenSSL: ОпенССЛ|-, ОпенССЛ|-ов
+Rakia: Ракиј|а, Ракиј|ин
+    @л: Rak|ia, Rakij|in
 Reslisa: Реслиз|а, Реслиз|ин
     @л: Reslis|a, Reslis|in
+Salut: Салут|, Салут|ов
+SofiaSIP: СофијаСИП|-, СофијаСИП|-ов
+    @л: SofiaSIP|-, SofiaSIP|-ov
+Sunshine: Саншајн|, Саншајн|ов
+    @л: Sunshine|, Sunshine|ov
 Telepathy: Телепатиј|а, Телепатиј|ин, телепатиј|ски
     @л: Telepath|y, Telepath|yjev, Telepathy|>
 Winbind: Винбинд|, Винбинд|ов
