@@ -42,15 +42,15 @@ hint="No utilice el guión para separar el prefijo de la palabra principal, p.ej
 hint="Delante de palabras que empiezan por «i» se usa «e» en lugar de «y» (error frecuente)"
 
 # «o» ante palabras que empiezan por «o» o «ho»
-[(?u)\bo\sh?o\w+\b]i
+[(?u)\bo\sh?[oó8]\w+\b]i
 hint="Delante de palabras que empiezan por «o» se usa «u» en lugar de «o» (error frecuente)"
 
 # «e» ante palabras que no empiezan por «i» o «hi»
-[(?u)\be\s(?!h?[iíy]\w+)\b]i
+[(?u)\be\s(?!h?[iíy]\w+)\b]
 hint="La «e» no se usa suelta salvo delante de palabras que empiezen por «i» (error frecuente)"
 
 # «u» ante palabras que no empiezan por «o» o «ho»
-[(?u)\bu\s(?!h?[oó]\w+)\b]i
+[(?u)\bu\s(?!h?[oó8]\w+)\b]i
 hint="La «u» no se usa suelta salvo delante de palabras que empiezen por «o» (error frecuente)"
 
 # «i» suelta
@@ -481,6 +481,14 @@ hint="« Caché » es de género femenino (error frecuente)"
 [\b(los|unos|estos|esos)\cachés\b]i
 hint="« Cachés » es de género femenino (error frecuente)"
 
+# «Cada una de los» se escribe como «Cada uno de los».
+[\bcada\suna\sde\slos\b]i
+hint="« Cada una de los » se escribe como « Cada uno de los/Cada una de las » (error frecuente)"
+
+# «Cada uno de las» se escribe como «Cada una de las».
+[\bcada\suno\sde\slas\b]i
+hint="« Cada uno de las » se escribe como « Cada uno de los/Cada una de las » (error frecuente)"
+
 # «Caer en la cuenta que» se escribe como «Caer en la cuenta de que».
 [\bca\w{1,4}?\sen\sla\cuenta\sque\b]i
 hint="« Caer en la cuenta que » se escribe como « Caer en la cuenta de que » (error frecuente: queismo)"
@@ -685,6 +693,10 @@ hint="No utilice « Email » sino « Correo » (error frecuente)"
 
 [\be\-?mails\b]i
 hint="No utilice « Emails » sino « Correos » (error frecuente)"
+
+# «El» se escribe como «Él» al final de frase.
+[\bel($|\.|\?|\!|\<p\>)]i
+hint="« el » se escribe como « él » al final de frase(error frecuente)"
 
 # «El echo» se escribe como «El hecho».
 [\bel\secho\b]i
@@ -1086,6 +1098,14 @@ hint="« Macros » es de género femenino (error frecuente)"
 [\bmas\b]i
 hint="« Mas » se escribe como « Más » salvo si es preposición, caso poco habitual (error frecuente)"
 
+# «Más bueno» se escribe como «Mejor».
+[\bmás\sbuen[oa]s?\b]i
+hint="« Más bueno» se escribe como « Mejor » (error frecuente)"
+
+# «Más malo» se escribe como «Peor».
+[\bmás\smal[oa]s?\b]i
+hint="« Más malo» se escribe como « Peor » (error frecuente)"
+
 # «Master» se escribe como «Máster».
 [\bmaster\b]i
 hint="« Master » se escribe como « Máster » (error frecuente)"
@@ -1334,6 +1354,10 @@ hint="« Saíz » se escribe como « Saiz » (error frecuente)"
 [\bsánz\b]i
 hint="« Sánz » se escribe como « Sanz » (error frecuente)"
 
+# «Se» se escribe como «Sé» al final de frase.
+[\bse($|\.|\?|\!|\<p\>)]i
+hint="« se » se escribe como « sé » al final de frase(error frecuente)"
+
 # «Se esperada» se escribe como «Se esperaba».
 [\bse\sesperada\b]i
 hint="« Se esperaba » se escribe como « Se esperaba » (error frecuente)"
@@ -1459,6 +1483,10 @@ hint="« Torah » se escribe como « Torá » (error frecuente)"
 # «Tratar que» se escribe como «Tratar de que».
 [\btratar\sque\b]i
 hint="« Tratar que » se escribe como « Tratar de que » (error frecuente: queismo)"
+
+# «Tu» se escribe como «Tú» al final de frase.
+[\btu($|\.|\?|\!|\<p\>)]i
+hint="« tu » se escribe como « tú » al final de frase(error frecuente)"
 
 # «Un porque» e escribe como «Un porqué».
 [\bun\sporque\b]i
