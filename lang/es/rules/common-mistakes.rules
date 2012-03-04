@@ -38,19 +38,19 @@ hint="No utilice la arroba para evitar el género, p.ej. «ciudadan@s» (error f
 hint="No utilice el guión para separar el prefijo de la palabra principal, p.ej. «sub-menú» (error frecuente)"
 
 # «y» ante palabras que empiezan por «i» o «hi»
-[(?u)\by\sh?i\w+\b]i
+[(?u)\by\sh?[iíIÍ]\w+\b]
 hint="Delante de palabras que empiezan por «i» se usa «e» en lugar de «y» (error frecuente)"
 
 # «o» ante palabras que empiezan por «o» o «ho»
-[(?u)\bo\sh?[oó8]\w+\b]i
+[(?u)\bo\sh?[oó8OÓ]\w+\b]
 hint="Delante de palabras que empiezan por «o» se usa «u» en lugar de «o» (error frecuente)"
 
 # «e» ante palabras que no empiezan por «i» o «hi»
-[(?u)\be\s(?!h?[iíy]\w+)\b]
+[(?u)\be\s(?!h?[iíIÍ]\w+)\b]
 hint="La «e» no se usa suelta salvo delante de palabras que empiezen por «i» (error frecuente)"
 
 # «u» ante palabras que no empiezan por «o» o «ho»
-[(?u)\bu\s(?!h?[oó8]\w+)\b]i
+[(?u)\bu\s(?!h?[oó8OÓ]\w+)\b]
 hint="La «u» no se usa suelta salvo delante de palabras que empiezen por «o» (error frecuente)"
 
 # «i» suelta

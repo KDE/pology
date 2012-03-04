@@ -77,8 +77,8 @@ def test_if_very_short_translation (msg, cat):
     return []
 
 
-_valid_word = re.compile("(?u)^[^\W\d_]+$")
-_capital_word = re.compile("(?u)^[A-Z]+$")
+_valid_word = re.compile("(?u)^\w+$")
+_capital_word = re.compile("(?u)^[A-ZÑÇ]+$")
 
 def test_if_not_translated (msg, cat):
     """
@@ -98,10 +98,9 @@ def test_if_not_translated (msg, cat):
         if len(msgid) > 0 and msgid == msg.msgstr[i]:
             dict_en = A.Aspell((("lang", "en"),("encoding", "utf-8")))
             dict_local = A.Aspell(("encoding", "utf-8"))
-            wordList = split.proper_words(msgid, markup=True, accels=['&'])
-            for word in wordList:
-                word = word.encode("utf-8")
+            for word in split.proper_words(msgid, markup=True, accels=['&']):
                 if _valid_word.match(word) and not _capital_word.match(word):
+                    word = word.encode("utf-8")
                     if dict_en.check(word) and not dict_local.check(word):
                         dict_en.close()
                         dict_local.close()
@@ -171,7 +170,7 @@ def test_paired_brackets (msg, cat):
     return []
 
 _ent_function = re.compile("(\w+\:\:)*\w+\(\)")
-_ent_parameter = re.compile("[\W^]\-\-\w+(\-\w+)*")
+_ent_parameter = re.compile("(?=\W|^)\-\-\w+(\-\w+)*")
 
 def test_paired_expressions (msg, cat):
     """
@@ -199,109 +198,8 @@ def test_paired_expressions (msg, cat):
     return []
 
 
-_ent_new_line = re.compile(r"\n")
-
-def test_paired_new_lines (msg, cat):
-    """
-    Compare number of new lines between original and translated text.
-
-    [type V4A hook].
-    @return: parts
-    """
-    for i in range(len(msg.msgstr)):
-        if i > 0:
-            msgid = msg.msgid_plural
-        else:
-            msgid = msg.msgid
-
-        cont_orig = len(_ent_new_line.findall(msgid))
-        cont_trans = len(_ent_new_line.findall(msg.msgstr[i]))
-
-        if cont_orig < cont_trans:
-            return [("msgstr", 0, [(0, 0, u"Sobran saltos de linea en la traducción")])]
-
-        if cont_orig > cont_trans:
-            return [("msgstr", 0, [(0, 0, u"Faltan saltos de linea en la traducción")])]
-
-    return []
-
-
-_ent_tab = re.compile(r"\t")
-
-def test_paired_tabs (msg, cat):
-    """
-    Compare number of tabs between original and translated text.
-
-    [type V4A hook].
-    @return: parts
-    """
-    for i in range(len(msg.msgstr)):
-        if i > 0:
-            msgid = msg.msgid_plural
-        else:
-            msgid = msg.msgid
-
-        cont_orig = len(_ent_tab.findall(msgid))
-        cont_trans = len(_ent_tab.findall(msg.msgstr[i]))
-
-        if cont_orig < cont_trans:
-            return [("msgstr", 0, [(0, 0, u"Sobran tabuladores en la traducción")])]
-
-        if cont_orig > cont_trans:
-            return [("msgstr", 0, [(0, 0, u"Faltan tabuladores en la traducción")])]
-
-    return []
-
-
-
-def test_paired_functions (msg, cat):
-    """
-    Compare functions names between original and translated text.
-    Should be the same.
-
-    [type V4A hook].
-    @return: parts
-    """
-    for i in range(len(msg.msgstr)):
-        if i > 0:
-            msgid = msg.msgid_plural
-        else:
-            msgid = msg.msgid
-
-        function_orig = sorted(_ent_function.findall(msgid))
-        function_trans = sorted(_ent_function.findall(msg.msgstr[i]))
-
-        if function_orig != function_trans:
-            return [("msgstr", 0, [(0, 0, u"Nombres de función distintos en la traducción")])]
-
-    return []
-
-
-
-def test_paired_parameters (msg, cat):
-    """
-    Compare parameters names between original and translated text.
-    Should be the same.
-
-    [type V4A hook].
-    @return: parts
-    """
-    for i in range(len(msg.msgstr)):
-        if i > 0:
-            msgid = msg.msgid_plural
-        else:
-            msgid = msg.msgid
-
-        parameter_orig = sorted(_ent_parameter.findall(msgid))
-        parameter_trans = sorted(_ent_parameter.findall(msg.msgstr[i]))
-
-        if parameter_orig != parameter_trans:
-            return [("msgstr", 0, [(0, 0, u"Nombres de parámetros distintos en la traducción")])]
-
-    return []
-
-
-_ent_number = re.compile("[\W^]\d+([\.\,\:\/]\d+)*")
+_ent_number = re.compile("(?=\W|^)\d+([-.,:/]\d+)*")
+_digit = re.compile("\d")
 
 def test_paired_numbers (msg, cat):
     """
@@ -317,24 +215,17 @@ def test_paired_numbers (msg, cat):
         else:
             msgid = msg.msgid
 
-        number_orig = sorted(_ent_number.findall(msgid))
-        number_trans = sorted(_ent_number.findall(msg.msgstr[i]))
-
-        for ind, number in enumerate(number_orig):
-            number_orig[ind] = number.replace(",", ".")
-
-        for number in number_orig:
-            if len(number) < 2:
-                number_orig.remove(number)
-
-        for ind, number in enumerate(number_trans):
-            number_trans[ind] = number.replace(",", ".")
-
-        for number in number_trans:
-            if len(number) < 2:
-                number_trans.remove(number)
-
-        if number_orig != number_trans:
+        number_orig = []
+        for number in _ent_number.findall(msgid):
+	    if len(number) > 1:
+		number_orig.append(_digit.split(number))
+	 
+        number_trans = []
+        for number in _ent_number.findall(msg.msgstr[i]):
+	    if len(number) > 1:
+		number_trans.append(_digit.split(number))
+        
+        if number_orig.sort() != number_trans.sort():
             return [("msgstr", 0, [(0, 0, u"Valores de números distintos en la traducción")])]
 
     return []

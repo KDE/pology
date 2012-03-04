@@ -1740,15 +1740,16 @@ hint="« Handlers » se traduce como « Controladores/Manipuladores » (propuest
 {\bhandles\b}i
 valid msgstr="manipul(ar|a|e)"
 valid msgstr="manej(ar|a|e)"
+valid msgstr="se\s\encarga\sde"
 valid msgstr="asas"
 valid msgstr="(ninguna|cualquier)\sasa"
-hint="« Handles » se traduce como « Maneja/Manipula » (propuesta glosario)"
+hint="« Handles » se traduce como « Maneja/Manipula/Se encarga de » (propuesta glosario)"
 
 # «Hang» se traduce como «Colgar».
 {\bhang\b}i
 valid msgstr="colgar"
 valid msgstr="cuelg(a|ue)"
-valid msgstr="bloqu(ear|ee|ea|eo)"
+valid msgstr="bloq(ear|ee|ea|eo)"
 valid msgstr="colgará" after="will\s(not\s)?"
 valid msgstr="bloqueará" after="will\s(not\s)?"
 valid msgstr="colgó" after="did\s(not\s)?"
@@ -1759,7 +1760,7 @@ hint="« Hang » se traduce como « Colgar » (propuesta glosario)"
 {\bhangs\b}i
 valid msgstr="colgar"
 valid msgstr="cuelg(a|ue)"
-valid msgstr="bloqu(ee|ea|eos)"
+valid msgstr="bloq(ee|ea|eos)"
 valid msgstr="(ningún|cualquier)\sbloqueo"
 hint="« Hangs » se traduce como « Cuelga » (propuesta glosario)"
 
@@ -2266,9 +2267,9 @@ hint="« Logon » se traduce como « Inicio de sesión », no se debe dejar sin 
 # «Logout» se traduce como «Fin de sesión».
 {\blogout\b}i
 valid msgstr="fin\sde\ssesión"
-valid msgstr="cierre\s\de\ssesión"
-valid msgstr="cierra\s\la\ssesión"
-valid msgstr="cerrar\ssesión"
+valid msgstr="cierre\s(de\s)?sesión"
+valid msgstr="cierra\s(la\s)?sesión"
+valid msgstr="cerrar\s(la\s)?sesión"
 valid msgstr="finalizar\ssesión"
 valid msgstr="cerrará\ssesión" after="will\s(not\s)?"
 valid msgstr="finalizará\ssesión" after="will\s(not\s)?"
