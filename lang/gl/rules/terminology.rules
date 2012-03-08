@@ -605,13 +605,17 @@ hint="«paquete de ficheiros» traduce a «file package»"
 
 # «find» tradúcese como «atopar»
 {\bfind}i
+valid before="\sout"
 id="noPT-2010_find"
 valid msgstr="\batop"
 valid msgstr="\bbusc"
 hint="«find» tradúcese como «atopar», ou «buscar»"
 
 #  «find» tradúcese como «atopar», et al
-{\bfound(?!(ation|ed))}i
+{\bfound}i
+valid before="ation"
+valid before="ed"
+valid before="\sout"
 id="noPT-2010_find2"
 valid msgstr="\batop"
 valid msgstr="\bbusc"
@@ -644,7 +648,8 @@ hint="«devasa» traduce a «firewall»"
 {\bfont}i
 id="noPT-2011_font"
 valid msgstr="\bletra"
-valid msgstr="\bfonte\stipográfica"
+valid msgstr="\btipos?\sde\sletra"
+valid msgstr="\bfonte\stipográfica" env="kde"
 hint="«font» tradúcese como «letra» (e «fonte tipográfica»"
 
 # «letra» traduce a «font»
@@ -864,14 +869,17 @@ hint="«tecla» traduce a «key»"
 {\bkeyword}i
 id="PT-2011_keyword"
 valid msgstr="\bpalabras?\sc(l|h)ave"
-hint="«keyword» tradúcese como «palabra clave» (buscas) ou «palabra chave» (acceso)"
+valid msgstr="\bpalabras?\sreservada"
+hint="«keyword» tradúcese como «palabra clave» (buscas) ou «palabra chave» (acceso), (ou palabra reservada)"
 
 # «kill» tradúcese como «matar»
 {\bkill}i
 valid before="ustrator"
-id="PT-2011_kill"
+id="noPT-2011_kill"
 valid msgstr="\bmat(ar|ou)"
-hint="«kill» tradúcese como «matar»"
+valid before="ed" msgstr="\bmatado"
+valid msgstr="\bkill"
+hint="«kill» tradúcese como «matar» (ollo, que pode ser a orde kill)"
 
 # «matar» traduce a «kill»
 [\bmat(ar|ou)]i
@@ -1104,12 +1112,21 @@ valid msgid="\bsuppl(y|i)" env="kde"
 hint="«fornecer» traduce a «provide» (e a «supply»)"
 
 # «quit», «exit» tradúcense como «saír»
-{\b(quit|exit)}i
+{\bquit}i
 valid before="ter"
 id="noPT-2011_quit"
 valid msgstr="\bsaí(r|u)"
 valid msgstr="\bsaída"
 hint="«quit», «exit» tradúcense como «saír»"
+
+# «quit», «exit» tradúcense como «saír»
+{\bexit}i
+valid before="ter"
+id="noPT-2011_quit2"
+valid msgstr="\bsaí(r|u)"
+valid msgstr="\bsaída"
+valid msgstr="\bexit"
+hint="«exit» tradúcese como «saír» (e ás veces como exit, caso da orde da shell"
 
 # «saír» traduce a «quit», «exit»
 # ver regra para log out
@@ -1224,7 +1241,7 @@ valid msgstr="\bincl(u|ú)"
 valid msgstr="\bpermit(ir|e|a)" env="gnome"
 valid msgstr="\bde\scompatibilidade"
 valid msgstr="\bcompatibilidade\sde" env="gnome"
-valid msgstr="\bcompatibilidade" env="kde"
+valid msgstr="\bcompatibilidade"
 valid msgstr="\bpermit(e|ir)" env="kde"
 valid before="\sfor" msgstr="\bimplementación(s)?\sde" env="kde"
 valid msgstr="\bimplementación" env="kde"
