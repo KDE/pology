@@ -169,8 +169,8 @@ def test_paired_brackets (msg, cat):
                 return [("msgstr", 0, [(0, 0, u"Faltan " + s[2] + u" en la traducción")])]
     return []
 
-_ent_function = re.compile("(\w+\:\:)*\w+\(\)")
-_ent_parameter = re.compile("(?=\W|^)\-\-\w+(\-\w+)*")
+_ent_function = re.compile("(?:\w+\:\:)*\w+\(\)")
+_ent_parameter = re.compile("(?=\W|^)\-\-\w+(?:\-\w+)*")
 
 def test_paired_expressions (msg, cat):
     """
@@ -198,8 +198,8 @@ def test_paired_expressions (msg, cat):
     return []
 
 
-_ent_number = re.compile("(?=\W|^)\d+([-.,:/]\d+)*")
-_digit = re.compile("\d")
+_ent_number = re.compile("\d+(?:[-.,:/]\d+)*")
+_not_digit = re.compile("\D")
 
 def test_paired_numbers (msg, cat):
     """
@@ -217,15 +217,15 @@ def test_paired_numbers (msg, cat):
 
         number_orig = []
         for number in _ent_number.findall(msgid):
-	    if len(number) > 1:
-		number_orig.append(_digit.split(number))
-	 
+            if len(number) > 1:
+                number_orig += _not_digit.split(number)
+    
         number_trans = []
         for number in _ent_number.findall(msg.msgstr[i]):
-	    if len(number) > 1:
-		number_trans.append(_digit.split(number))
-        
-        if number_orig.sort() != number_trans.sort():
+            if len(number) > 1:
+                number_trans += _not_digit.split(number)
+                    
+        if sorted(number_orig) != sorted(number_trans):
             return [("msgstr", 0, [(0, 0, u"Valores de números distintos en la traducción")])]
 
     return []

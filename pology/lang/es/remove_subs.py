@@ -52,7 +52,7 @@ def remove_paired_capital_words (msg, cat):
     return 0
 
 
-_ent_parameter = re.compile("(?u)%\d%?|\$\{.+?\}|\$\w+|%(\d\$)?[ds]|%\|.+?\|")
+_ent_parameter = re.compile("(?u)%\d%?|\$\{.+?\}|\$\w+|%(?:\d\$)?[ds]|%\|.+?\|")
 
 def remove_paired_parameters (msg, cat):
     """
