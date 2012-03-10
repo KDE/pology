@@ -70,8 +70,9 @@ hint="evitar usar sinais iniciais de interrogación ou exclamación"
 #####
 
 # Prefírese a terminación en bel
-[\b[A-Za-z]+bles?(\s|\b)]i
+[\b[\w\-_]+bles?(\s|\b)]i
 valid span="(fe|ca|dou|tre|ipta)bles?"
+valid span="[\-_]+"
 id="PT-2011-gl_bel"
 hint="terminación en -bel"
 

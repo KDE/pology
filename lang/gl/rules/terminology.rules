@@ -1457,7 +1457,7 @@ valid !env="kde"
 {\bwindow}i
 id="PT-2010_window"
 valid msgstr="xanela"
-valid msgstr="window"
+valid after="\bX\s" msgstr="\bx\swindow"
 valid !msgstr="\b(fiestra|ventá)?"
 hint="«window» tradúcese como «xanela»"
 
