@@ -462,10 +462,12 @@ hint="«descargar» traduce a «download» (e unload)"
 
 # «drive» tradúcese como «unidade»
 {\bdrive\b}i
-valid after="hard\s" env="kde"
 id="PT-2011_drive"
 valid msgstr="\bunidade"
-hint="«drive» tradúcese como «unidade»"
+valid after="floppy\s" msgstr="disqueteira" env="kde"
+valid after="CD\s" msgstr="lector\sde\sCD" env="kde"
+valid after="hard\s" env="kde"
+hint="«drive» tradúcese como «unidade» (en kde aceptase disqueteira ou lector de CD)"
 
 # «unidade» traduce a «drive»
 [\bunidade]i
@@ -1458,6 +1460,7 @@ valid !env="kde"
 id="PT-2010_window"
 valid msgstr="xanela"
 valid after="\bX\s" msgstr="\bx\swindow"
+valid before="s\b" msgstr="windows"
 valid !msgstr="\b(fiestra|ventá)?"
 hint="«window» tradúcese como «xanela»"
 

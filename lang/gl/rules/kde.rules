@@ -26,11 +26,12 @@
 
 include file="filter.include"
 
+environment kde
+
 #####
 # Regras específicas de KDE para modelo de lingua
 #####
 
-environment kde
 
 #descarta o uso de «amosar» en favor de «mostrar»
 [\bamos(a|o|e)]i
@@ -222,14 +223,12 @@ hint="about -> sobre"
 # «accept» -> «aceptar»
 {\baccept}i
 id="kde_accept"
-valid env="kde"
 valid msgstr="\bacept"
 hint="accept = aceptar"
 
 # «aceptar» -> «accept»
 [\bacept]i
 id="kde-dual_accept"
-valid env="kde"
 valid msgid="\baccept"
 valid msgid="\bOK\b"
 valid msgid="\bagree"
@@ -238,7 +237,6 @@ hint="aceptar = accept"
 # «not enabled»
 {\bnot enabled\b}
 id="kde_not enabled"
-valid env="kde"
 valid msgstr="\bdesactivad(o|a)"
 valid msgstr="\bnon\sestá\sactivad(o|a)"
 hint="not enabled -> desactivado"
@@ -246,14 +244,14 @@ hint="not enabled -> desactivado"
 # «enable/disable» -> «conmutar»
 {\benable/disable}i
 id="kde_enabledisable"
-valid msgstr="\bconmuta" env="kde"
+valid msgstr="\bconmuta"
 hint="enable/disable = conmutar"
 
 # «encounter» -> «atopar» and not «achar»
 {\bencounter}i
 id="kde_encounter"
-valid msgstr="\batop" env="kde"
-valid !msgstr="\bach" env="kde"
+valid msgstr="\batop"
+valid !msgstr="\bach"
 hint="encounter -> atopar"
 
 #«event» -> «acontecemento» ou «suceso»
@@ -273,21 +271,21 @@ hint="acontecemento-> event"
 # «frame» -> «marco»
 {\bframe}i
 id="kde_frame"
-valid msgstr="\bmarco" env="kde"
+valid msgstr="\bmarco"
 hint="«frame» -> «marco»"
 
 # «marco» -> «frame»
 [\bmarco]i
 id="kde-dual_frame"
-valid msgid="\bframe" env="kde"
-hint="«marco» -> «frame»"
+valid msgid="\bframe"
+valid msgid="\bmarks?"
+hint="«marco» -> «frame»/«mark» (moeda)"
 
 # «print» -> «imprimir», «mostra»
 {\bprint(?!(ing|er))}i
 valid before="screen"
 valid after="\spreview"
 id="kde_print"
-valid env="kde"
 valid msgstr="\bimprim"
 valid msgstr="\bimpreso"
 valid msgstr="\bmostr"
@@ -296,7 +294,6 @@ hint="print = imprimir, impreso ou mostrar"
 # «printing» -> «imprimir», «impresión»
 {\bprinting}i
 id="kde_printing"
-valid env="kde"
 valid msgstr="\bimpresión"
 valid msgstr="\bimprim"
 hint="printing = imprimir, impresión"
@@ -304,6 +301,5 @@ hint="printing = imprimir, impresión"
 # «imprimir» -> «print»
 [\bimprim]i
 id="kde-dual_print"
-valid env="kde"
 valid msgid="\bprint(?!er)"
 hint="imprimir = print"
