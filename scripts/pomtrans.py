@@ -175,7 +175,7 @@ def translate_direct (paths, tsbuilder, options):
 
         # Translate collected texts.
         transerv = get_transerv("en", options.tlang, cat, cat, tsbuilder)
-        texts_tr = transerv.translate(texts)
+        texts_tr = transerv.translate(texts) if texts else []
         if texts_tr is None:
             warning(_("@info",
                       "Translation service failure on '%(file)s'.",
