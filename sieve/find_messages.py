@@ -17,6 +17,7 @@ import sys
 from pology import _, n_
 from pology.message import MessageUnsafe
 from pology.remove import remove_accel_msg
+from pology.fsops import str_to_unicode
 from pology.getfunc import get_hook_ireq
 from pology.match import make_msg_matcher, make_matcher, make_filtered_msg
 from pology.match import ExprError
@@ -304,7 +305,7 @@ class Sieve (object):
                         else:
                             m = make_matcher(name, value, [], params, neg)
                     except ExprError, e:
-                        raise SieveError(unicode(e))
+                        raise SieveError(str_to_unicode(str(e)))
                     matchers.append(m)
 
             if orlinked:

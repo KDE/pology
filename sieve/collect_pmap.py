@@ -13,10 +13,11 @@ import os
 import re
 
 from pology import _, n_
-from pology.sieve import SieveError
 from pology.colors import cjoin
+from pology.fsops import str_to_unicode
 from pology.msgreport import warning_on_msg
 from pology.report import report, format_item_list
+from pology.sieve import SieveError
 from pology.synder import Synder
 
 
@@ -164,7 +165,7 @@ class Sieve (object):
                     self.synder.import_string(sdexpr)
                     cprops = self.synder.props(sdkey)
                 except Exception, e:
-                    errmsg = unicode(e)
+                    errmsg = str_to_unicode(str(e))
                     warning_on_msg(_("@info",
                                      "Invalid derivation '%(deriv)s':\n"
                                      "%(msg)s", deriv=sddef, msg=errmsg),

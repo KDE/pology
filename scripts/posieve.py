@@ -260,7 +260,7 @@ def main ():
         try:
             scview = pp.add_subcmd(name)
         except Exception, e:
-            error(unicode(e))
+            error(str_to_unicode(str(e)))
         if hasattr(mod, "setup_sieve"):
             mod.setup_sieve(scview)
         snames.append(name)
@@ -313,7 +313,7 @@ def main ():
     try:
         sparams, nacc_params = pp.parse(sieve_params, snames)
     except Exception, e:
-        error(unicode(e))
+        error(str_to_unicode(str(e)))
     if nacc_params:
         error(_("@info",
                 "Parameters not accepted by any of issued subcommands: "
@@ -350,7 +350,7 @@ def main ():
         try:
             sieves.append(mod.Sieve(sparams[name]))
         except Exception, e:
-            error(unicode(e))
+            error(str_to_unicode(str(e)))
 
     # Get the message monitoring indicator from the sieves.
     # Monitor unless all sieves have requested otherwise.

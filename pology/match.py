@@ -11,6 +11,7 @@ import re
 
 from pology import _, n_
 from pology.comments import parse_summit_branches
+from pology.fsops import str_to_unicode
 from pology.message import MessageUnsafe
 from pology.remove import remove_accel_msg
 from pology.report import error
@@ -165,7 +166,7 @@ def make_msg_matcher (exprstr, mopts=None, abort=False):
                                        "premature end of expression"))
     except ExprError, e:
         if abort:
-            error(unicode(e))
+            error(str_to_unicode(str(e)))
         else:
             raise
     return expr
