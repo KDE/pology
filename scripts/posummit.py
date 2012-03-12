@@ -2121,7 +2121,7 @@ def summit_scatter_single (branch_id, branch_name, branch_subdir,
                   "Cannot open the branch catalog '%(file)s' "
                   "to scatter to. The error was:\n"
                   "%(msg)s",
-                  file=branch_path_mod, msg=unicode(e)))
+                  file=branch_path_mod, msg=str_to_unicode(str(e))))
         return
     summit_cats = []
     for summit_path in summit_paths:
@@ -2134,7 +2134,7 @@ def summit_scatter_single (branch_id, branch_name, branch_subdir,
                       "Cannot open the summit catalog '%(file)s' "
                       "to scatter from. The error was:\n"
                       "%(msg)s",
-                      file=summit_path, msg=unicode(e)))
+                      file=summit_path, msg=str_to_unicode(str(e))))
             return
         summit_cats.append(summit_cat)
 

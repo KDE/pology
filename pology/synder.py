@@ -22,6 +22,7 @@ import os
 import re
 
 from pology import PologyError, _, n_
+from pology.fsops import str_to_unicode
 from pology.normalize import simplify
 from pology.report import warning, format_item_list
 from pology.resolve import first_to_upper, first_to_lower
@@ -267,7 +268,7 @@ def compile_file (path, cpath=None, doraise=False):
                       "Derivation file '%(file)s' cannot be compiled "
                       "due to the following error:\n"
                       "%(msg)s",
-                      file=path, msg=unicode(e)))
+                      file=path, msg=str_to_unicode(str(e))))
             return False
     else:
         return True

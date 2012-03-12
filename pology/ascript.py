@@ -23,7 +23,7 @@ from pology.header import format_datetime, parse_datetime
 from pology.message import Message, MessageUnsafe
 from pology.comments import parse_summit_branches
 from pology.diff import msg_ediff
-from pology.fsops import join_ncwd
+from pology.fsops import join_ncwd, str_to_unicode
 from pology.match import make_msg_fmatcher
 from pology.monitored import Monlist
 from pology.msgreport import warning_on_msg
@@ -1355,7 +1355,7 @@ def make_ascription_selector (selspecs, hist=False):
                   "Selector '%(sel)s' not created due to "
                   "the following error:\n"
                   "%(msg)s",
-                  sel=selspec, msg=unicode(e)))
+                  sel=selspec, msg=str_to_unicode(str(e))))
         if negated:
             selector = _negate_selector(selector)
         selectors.append((selector, selspec))
@@ -1378,7 +1378,7 @@ def make_ascription_selector (selspecs, hist=False):
                       "with the following error:\n"
                       "%(msg)s",
                       sel=selspec, file=cat.filename, line=msg.refline,
-                      entry=msg.refentry, msg=unicode(e)))
+                      entry=msg.refentry, msg=str_to_unicode(str(e))))
             if not res:
                 return res
         return res

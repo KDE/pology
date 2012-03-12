@@ -110,7 +110,7 @@ def validate (tp, onlysrcs=None, onlykeys=None, demoexp=False, expwkeys=False):
                               file=path, line=lno, col=cno, env=cenv))
                     cnproblems += 1
         except Exception, e:
-            warning(unicode(e))
+            warning(str_to_unicode(str(e)))
             cnproblems += 1
             continue
 

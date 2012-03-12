@@ -754,7 +754,7 @@ def collect_paths_from_file (fpath, cmnts=True, incexc=True, respathf=None,
 
     if abort:
         def abort_or_raise (e):
-            error(unicode(e))
+            error(str_to_unicode(str(e)))
     else:
         def abort_or_raise (e):
             raise
@@ -891,7 +891,7 @@ def collect_paths_cmdline (rawpaths=None,
 
     if abort:
         def abort_or_raise (e):
-            error(unicode(e))
+            error(str_to_unicode(str(e)))
     else:
         def abort_or_raise (e):
             raise
@@ -1000,5 +1000,5 @@ def exit_on_exception (func, cleanup=None):
         if pology.config.section("global").boolean("show-backtrace"):
             raise
         else:
-            error(unicode(e), code=1)
+            error(str_to_unicode(str(e)), code=1)
 
