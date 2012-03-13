@@ -175,7 +175,8 @@ def translate_direct (paths, tsbuilder, options):
                 msgs.append(msg)
 
         # Translate collected texts.
-        transerv = get_transerv("en", options.tlang, cat, cat, tsbuilder)
+        slang = options.slang or "en"
+        transerv = get_transerv(slang, options.tlang, cat, cat, tsbuilder)
         texts_tr = transerv.translate(texts) if texts else []
         if texts_tr is None:
             warning(_("@info",
