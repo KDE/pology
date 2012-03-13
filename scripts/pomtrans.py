@@ -400,14 +400,16 @@ class Translator_apertium (object):
         # FIXME: Any way to really translate each text in turn,
         # without it being horribly slow?
         sep0 = "<br class='..."
-        sep1 = ""
+        sep1 = "..."
         sep2 = "'/>."
         sep = None
+        nsep = 0
         while not sep: # determine shortest acceptable separator
-            sep = sep0 + sep1 + sep2
+            sep = sep0 + sep1 * nsep + sep2
             for text in texts:
                 if sep in text:
                     sep = None
+                    nsep += 1
                     break
         stext = sep.join(texts)
 
