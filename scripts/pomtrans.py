@@ -15,22 +15,23 @@ try:
 except:
     pass
 
+import locale
+import errno
 import sys
 import os
-import locale
 
 from pology import datadir, version, _, n_
 from pology.catalog import Catalog
-from pology.message import MessageUnsafe
 from pology.colors import ColorOptionParser
-from pology.report import report, error, warning
+import pology.config as pology_config
+from pology.entities import read_entities
 from pology.fsops import collect_catalogs, collect_system
 from pology.fsops import str_to_unicode
 from pology.fsops import exit_on_exception
-import pology.config as pology_config
-from pology.entities import read_entities
-from pology.resolve import resolve_entities_simple
+from pology.message import MessageUnsafe
 from pology.remove import remove_accel_msg
+from pology.report import report, error, warning
+from pology.resolve import resolve_entities_simple
 
 
 def main ():
@@ -409,6 +410,17 @@ class Translator_apertium (object):
                     sep = None
                     break
         stext = sep.join(texts)
+
+        # Translate empty string to test language pair.
+        # Otherwise, if a lot of text is sent and language pair not good,
+        # Apertium may just signal broken pipe.
+        res = collect_system(self.cmdline, instr="")
+        if res[2] != 0:
+            warning(_("@info",
+                      "Executing Apertium failed:\n%(output)s",
+                      output=res[0]))
+            # ...really res[0], error is output to stdout. Tsk.
+            return None
 
         res = collect_system(self.cmdline, instr=stext)
         if res[2] != 0:
