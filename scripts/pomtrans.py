@@ -16,7 +16,7 @@ except:
     pass
 
 import locale
-import errno
+import subprocess
 import sys
 import os
 
@@ -374,10 +374,11 @@ class Translator_apertium (object):
 
     def __init__ (self, slang, tlang, options):
 
-        cmdpath = "/usr/bin/apertium"
-        if options.transerv_bin:
-            cmdpath = options.transerv_bin
-        if not os.path.isfile(cmdpath):
+        cmdpath = options.transerv_bin or "apertium"
+        try:
+            subprocess.call(cmdpath,
+                            stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        except OSError:
             error(_("@info Apertium is machine translation software",
                     "Apertium executable not found at '%(path)s'.",
                     path=cmdpath))
