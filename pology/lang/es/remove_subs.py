@@ -82,6 +82,8 @@ def remove_paired_parameters (msg, cat):
 
     return 0
 
+_ent_xml_entity = re.compile("\<\/?\w+\>")
+
 
 _auto_comment_tag = ("trans_comment", "literallayout", "option", "programlisting", "othercredit", "author", "email", "holder",
     "surname", "personname", "affiliation", "address", "sect1", "chapter", "chapterinfo", "date", "command", "option",

@@ -4072,13 +4072,15 @@ hint="« Square brackets » se traduce como « Corchetes » (propuesta glosario)
 # «Stack» se traduce como «Pila».
 {\bstack\b}i
 valid msgstr="pila"
-hint="« Stack » se traduce como « Pila » (propuesta glosario)"
+valid msgstr="aplil(ar|a|e)"
+hint="« Stack » se traduce como « Pila/Apilar » (propuesta glosario)"
 
 # «Stacks» se traduce como «Pilas».
 {\bstacks\b}i
 valid msgstr="pilas"
+valid msgstr="aplil(a|e)"
 valid msgstr="(ninguna|cualquier)\spila"
-hint="« Stacks » se traduce como « Pilas » (propuesta glosario)"
+hint="« Stacks » se traduce como « Pilas/Apile » (propuesta glosario)"
 
 # «Staff» se traduce como «Personal».
 {\bstaff\b}i

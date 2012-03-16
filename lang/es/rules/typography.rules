@@ -56,9 +56,11 @@ valid after="\\n\s*"
 hint="Ponga un espacio de separación entre el número y el símbolo de procentaje"
 
 [\s\)]
+valid msgid="\(\s.*?\s\)"
 hint="No ponga un espacio antes del cierre de paréntesis"
 
 [\(\s]
+valid msgid="\(\s.*?\s\)"
 hint="No ponga un espacio después de la apertura de paréntesis"
 
 [\s\:]
@@ -118,6 +120,13 @@ valid span="\!\~"
 valid span="\!\\n"
 hint="Ponga un espacio después del signo de cierre de admiración"
 
+[\w\!]
+validGroup beforePunctuation
+valid ctx="Numbers and characters"
+valid ctx="CSV separator"
+valid after="¡.*?"
+hint="Abra la admiración (deben ir emparejadas)"
+
 [¡]
 valid before="(?s).*?(\!|\(|\{|\«|\'|\"\[)"
 hint="Cierre la admiración (deben ir emparejadas)"
@@ -142,6 +151,13 @@ valid span="\?$"
 valid span="\?\~"
 valid span="\?\\n"
 hint="Ponga un espacio después del signo de cierre de interrogación"
+
+[\w\?]
+validGroup beforePunctuation
+valid ctx="Numbers and characters"
+valid ctx="CSV separator"
+valid after="¿.*"
+hint="Abra la interrogación (deben ir emparejadas)"
 
 [¿]
 valid before="(?s).*?[?({«'\"\[]"
@@ -501,5 +517,9 @@ hint="Los nombres de los puntos cardinales se escriben en minúsculas (Consulte 
 validGroup beforeCaps
 valid span="Santo" before="\sDomingo"
 hint="Los tratamientos « Usted, Señor, Don, ... » se escriben en minúsculas (Consulte ortografía de la RAE)"
+
+[\b(Rey|Papa|Ministro|Presidente|Embajador|Director|Obispo|Juez|Magistrado|Príncipe)\b]
+validGroup beforeCaps
+hint="Los cargos « Rey, Papa, Ministro, Presidente, ... » se escriben en minúsculas (Consulte ortografía de la RAE)"
 
 # End of rule file

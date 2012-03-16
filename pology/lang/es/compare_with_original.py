@@ -31,6 +31,35 @@ def test_if_empty_translation (msg, cat):
     return []
 
 
+_purepunc = re.compile("^\W+$")
+
+def test_if_purepunc (msg, cat):
+    """
+    Compare the translation with the original text, testing if the translation
+    is different when the original text has not alphanumeric text.
+
+    [type V4A hook].
+    @return: parts
+    """
+    for i in range(len(msg.msgstr)):
+        if i > 0:
+            msgid = msg.msgid_plural
+        else:
+            msgid = msg.msgid
+
+        if _purepunc.match(msgid):
+            msgid = msgid.replace('"', '')
+            msgid = msgid.replace("'", "")
+            msgstr = msg.msgstr[i].replace('"', '')
+            msgstr = msgstr.replace("'", "")
+            msgstr = msgstr.replace(u"«", "")
+            msgstr = msgstr.replace(u"»", "")
+            if msgid != msgstr:    
+                return [("msgstr", 0, [(0, 0, u'Se ha traducido un texto no alfanumérico')])]
+
+    return []
+
+
 def test_if_very_long_translation (msg, cat):
     """
     Compare the translation with the original text, testing if the transaled text
@@ -219,14 +248,64 @@ def test_paired_numbers (msg, cat):
         for number in _ent_number.findall(msgid):
             if len(number) > 1:
                 number_orig += _not_digit.split(number)
-    
+
         number_trans = []
         for number in _ent_number.findall(msg.msgstr[i]):
             if len(number) > 1:
                 number_trans += _not_digit.split(number)
-                    
+
         if sorted(number_orig) != sorted(number_trans):
             return [("msgstr", 0, [(0, 0, u"Valores de números distintos en la traducción")])]
 
     return []
 
+_ent_context_tags = re.compile("\<(application|bcode|command|email|envar|filename|icode|link)\>(.+?)\<\/\1\>")
+
+def test_paired_context_tags (msg, cat):
+    """
+    Compare context tags between original and translated text.
+    Some of them should not be changed in the translation.
+
+    [type V4A hook].
+    @return: parts
+    """
+    for i in range(len(msg.msgstr)):
+        if i > 0:
+            msgid = msg.msgid_plural
+        else:
+            msgid = msg.msgid
+
+        for tag in _ent_context_tags.findall(msgid):
+            if not (tag[1] in msg.msgstr[i]):
+                return [("msgstr", 0, [(0, 0, u"Valor de etiqueta de contexto" + tag[1] + u"traducido indebidamente")])]
+
+    return []
+
+_ent_xml_entities = re.compile("\<\/?\w+\>")
+
+def test_paired_xml_entities (msg, cat):
+    """
+    Compare xml entities between original and translated text.
+    Some of them should not be changed in the translation.
+
+    [type V4A hook].
+    @return: parts
+    """
+    if msg.msgid in ("ROLES_OF_TRANSLATORS", "CREDIT_FOR_TRANSLATORS",):
+        return []
+
+    for i in range(len(msg.msgstr)):
+        if i > 0:
+            msgid = msg.msgid_plural
+        else:
+            msgid = msg.msgid
+
+        for tag in _ent_xml_entities.findall(msgid):
+            if not (tag in msg.msgstr[i]):
+                return [("msgstr", 0, [(0, 0, u"Etiqueta XML" + tag + u"no encontrada en la traducción")])]
+
+        for tag in _ent_xml_entities.findall(msg.msgstr[i]):
+            if not (tag in msgid):
+                return [("msgstr", 0, [(0, 0, u"Etiqueta XML" + tag + u"no encontrada en el texto original")])]
+
+    return []

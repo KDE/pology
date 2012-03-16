@@ -30,7 +30,7 @@ hint="No utilice expresiones del tipo «los ciudadanos y las ciudadanas » (erro
 hint="No utilice expresiones del tipo «las ciudadanas y los ciudadanos » (error frecuente)"
 
 # No utilizar la arroba para incluir masculino y femenino
-[(?u)\b\w+@[a-záéíóúñç]{0,2}[\W$]]i
+[(?u)\b\w+@[a-záéíóúñç]{0,2}\b]i
 hint="No utilice la arroba para evitar el género, p.ej. «ciudadan@s» (error frecuente)"
 
 # No utilizar el guión para separar el prefijo de la palabra principal
@@ -38,27 +38,27 @@ hint="No utilice la arroba para evitar el género, p.ej. «ciudadan@s» (error f
 hint="No utilice el guión para separar el prefijo de la palabra principal, p.ej. «sub-menú» (error frecuente)"
 
 # «y» ante palabras que empiezan por «i» o «hi»
-[(?u)\by\sh?[iíIÍ]\w+\b]
+[(?u)\by\s[hH]?[iíIÍ]\w+\b]
 hint="Delante de palabras que empiezan por «i» se usa «e» en lugar de «y» (error frecuente)"
 
 # «o» ante palabras que empiezan por «o» o «ho»
-[(?u)\bo\sh?[oó8OÓ]\w+\b]
+[(?u)\bo\s[hH]?[oó8OÓ]\w+\b]
 hint="Delante de palabras que empiezan por «o» se usa «u» en lugar de «o» (error frecuente)"
 
 # «e» ante palabras que no empiezan por «i» o «hi»
-[(?u)\be\s(?!h?[iíIÍ]\w+)\b]
+[(?u)\be\s(?![hH]?[iíIÍ]\w+)\b]
 hint="La «e» no se usa suelta salvo delante de palabras que empiezen por «i» (error frecuente)"
 
 # «u» ante palabras que no empiezan por «o» o «ho»
-[(?u)\bu\s(?!h?[oó8OÓ]\w+)\b]
+[(?u)\bu\s(?![hH]?[oó8OÓ]\w+)\b]
 hint="La «u» no se usa suelta salvo delante de palabras que empiezen por «o» (error frecuente)"
 
 # «i» suelta
-[(?u)\si\s]i
+[\bi\b]
 hint="La «i» no se usa suelta (error frecuente)"
 
 # Vocales con tilde sueltas
-[(?u)\b[áéíóúü]\s]i
+[\b[áéíóúüÁÉÍÓÚÜ]\b]
 hint="Las vocales con tilde no se usan sueltas (error frecuente)"
 
 # «¿Adonde...» se escribe como «¿Adónde...».
@@ -132,10 +132,6 @@ hint="« ¡Por que... » se escribe como « ¡Por qué... », (error frecuente)"
 # «¡Que...» se escribe como «¡Qué...».
 [\¡que\b]i
 hint="« ¡Que... » se escribe como « ¡Qué... », (error frecuente)"
-
-# «Á» se escribe como «A».
-[\bá\b]i
-hint="« Á » se escribe como « A » (error frecuente)"
 
 # «A acá» se escribe como «Acá».
 [\ba\sacá\b]i
@@ -356,6 +352,14 @@ hint="« Asímismo » se escribe siempre como « Asimismo » (ver la nueva ortog
 # «Atentar a» se escribe como «Atentar contra».
 [\batentar\sa\b]i
 hint="« Atentar a » se escribe como « Atentar contra » (error frecuente)"
+
+# «Aún así» se escribe como «Aun así».
+[\baún\sasí\b]i
+hint="« Aún así » se escribe como « Aun así » (error frecuente)"
+
+# «Aún cuando» se escribe como «Aun cuando».
+[\baún\scuando\b]i
+hint="« Aún cuando » se escribe como « Aun cuando » (error frecuente)"
 
 # «Ayer mañana» se escribe como «Ayer por la mañana».
 [\bayer\smañana\b]i
@@ -766,14 +770,6 @@ hint="« En la medida de que » se escribe como « En la medida que » (error fr
 [\ben\socasión\sde\b]i
 hint="« En ocasión de » se escribe como « Con ocasión que » (error frecuente: queismo)"
 
-# «Entrar datos» se escribe como «Introducir datos».
-[\bentrar\sdatos\b]i
-hint="« Entrar datos » se escribe como « Introducir datos » (error frecuente)"
-
-# «Entrar en contacto» se escribe como «Ponerse en contacto».
-[\bentrar\sen\scontacto\b]i
-hint="« Entrar en contacto » se escribe como « Ponerse en contacto » (error frecuente: solecismo)"
-
 # «En razón a» se escribe como «En razón de».
 [\ben\srazón\sa\b]i
 hint="« En razón a » se escribe como « En razón de » (error frecuente: solecismo)"
@@ -782,9 +778,29 @@ hint="« En razón a » se escribe como « En razón de » (error frecuente: sol
 [\ben\srelación\sa\b]i
 hint="« En relación a » se escribe como « En relación con/Con relación a » (error frecuente: solecismo)"
 
+# «En términos de» se escribe como «Partiendo de/En función de».
+[\ben\stérminos\sde\b]i
+hint="« En téminos de » se escribe como « Partiendo de/En función de » (error frecuente: anglicismo)"
+
 # «En vistas a» se escribe como «Con vistas a/En vista de».
 [\ben\svistas\sa\b]i
 hint="« En vistas a » se escribe como « Con vistas a/En vista de » (error frecuente: solecismo)"
+
+# «Entrar datos» se escribe como «Introducir datos».
+[\bentrar\sdatos\b]i
+hint="« Entrar datos » se escribe como « Introducir datos » (error frecuente)"
+
+# «Entrar en contacto» se escribe como «Ponerse en contacto».
+[\bentrar\sen\scontacto\b]i
+hint="« Entrar en contacto » se escribe como « Ponerse en contacto » (error frecuente: solecismo)"
+
+# «Entre más» se escribe como «Cuanto más».
+[\bentre\smás\b]i
+hint="« Entre más » se escribe como « Cuanto más » (error frecuente)"
+
+# «Entre menos» se escribe como «Cuanto menos».
+[\bentre\smenos\b]i
+hint="« Entre menos » se escribe como « Cuanto menos » (error frecuente)"
 
 # «Ésa» se escribe como «Esa».
 [\bésa\b]i
@@ -1146,6 +1162,10 @@ hint="« Negar de que » se escribe como « Negar que » (error frecuente: deque
 [\bnexos?\sde\sunión\b]i
 hint="« Nexo de unión » se escribe como « Nexo » (error frecuente: redundancia)"
 
+# «Ni aún» se escribe como «Ni aun».
+[\bni\saún\b]i
+hint="« Ni aún » se escribe como « Ni aun » (error frecuente: redundancia)"
+
 # «No cabe duda que» se escribe como «No cabe duda de que».
 [\bno\scab\w{1,4}?\sduda\sque\b]i
 hint="« No cabe duda que » se escribe como « No cabe duda de que » (error frecuente: queismo)"
@@ -1157,10 +1177,6 @@ hint="« No hay duda que » se escribe como « No hay duda de que » (error frec
 # «Notar de que» se escribe como «Notar que».
 [\bnot\w{1,4}?\sde\sque\b]i
 hint="« Notar de que » se escribe como « Notar que » (error frecuente: dequeismo)"
-
-# «Ó» se escribe siempre sin tilde.
-[\bó\b]i
-hint="« Ó » se escribe siempre sin tilde, incluso entre números (ver nueva ortografía de la RAE)"
 
 # «O otros» se escribe como «U otros».
 [\bo\sotr(o|a)s\b]i
@@ -1543,14 +1559,6 @@ hint="En lugar de « Versus » se emplea « Contra/Frente a/en comparación con 
 # «Ví» se escribe como «Vi».
 [\bví\b]i
 hint="« Ví » se escribe como « Vi » (error frecuente)"
-
-# «Video» se escribe como «Vídeo».
-# [\bvideo\b]i
-#hint="« Video » se escribe como « Vídeo » (error frecuente)"
-
-# «Videos» se escribe como «Vídeos».
-#[\bvideos\b]i
-#hint="« Videos » se escribe como « Vídeos » (error frecuente)"
 
 # «Vió» se escribe como «Vio».
 [\bvió\b]i

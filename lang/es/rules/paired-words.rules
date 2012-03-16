@@ -15,26 +15,17 @@ hint="Error en paréntesis, llaves, corchetes o comillas"
 id="test_paired_expressions"
 hint="Error en funciones o parámetros"
 
-
-#*hook name="es:compare_with_original/test_paired_tabs" on="msg"
-#id="test_paired_tabs"
-#hint="No coincide el número de tabuladores"
-
-#*hook name="es:compare_with_original/test_paired_new_lines" on="msg"
-#id="test_paired_new_lines"
-#hint="No coincide el número de saltos de línea"
-
-#*hook name="es:compare_with_original/test_paired_functions" on="msg"
-#id="test_paired_functions"
-#hint="Nombres de funciones en la traducción distintos al original"
-
-#*hook name="es:compare_with_original/test_paired_parameters" on="msg"
-#id="test_paired_parameters"
-#hint="Nombres de parámetros en la traducción distintos al original"
-
 *hook name="es:compare_with_original/test_paired_numbers" on="msg"
 id="test_paired_numbers"
 hint="Valores de números o fechas en la traducción distintos al original"
+
+*hook name="es:compare_with_original/test_paired_context_tags" on="msg"
+id="test_paired_context_tags"
+hint="Traducidos valores contenidos entre etiquetas de contexto no traducibles"
+
+*hook name="es:compare_with_original/test_paired_xml_entities" on="msg"
+id="test_paired_xml_entities"
+hint="Sobran o faltan etiquetas XML (texto entre < y >)"
 
 addFilterHook name="es:remove_subs/remove_paired_parameters" on="msg"
 [\%\d]
@@ -57,6 +48,10 @@ addFilterHook name="es:remove_subs/remove_tags_without_translation" on="msg"
 id="test_if_empty_translation"
 hint="El texto de la traducción está vacío"
 
+*hook name="es:compare_with_original/test_if_purepunc" on="msg"
+id="test_if_purepunc"
+hint="Se ha traducido un texto sin caracteres alfanuméricos significativos"
+
 *hook name="es:compare_with_original/test_if_very_long_translation" on="msg"
 id="test_if_very_long_translation"
 valid msgid="Your names"
@@ -71,14 +66,15 @@ hint="El texto de la traducción parece demasiado pequeño"
 id="test_if_not_translated"
 valid msgid="^\W+$" # Mensaje sin caracteres alfabéticos
 valid msgid="^[^a-z]+$" # Mensaje que no contiene minúsculas
-valid msgid="([A-Z]\w*[\s\-$])+" # Mensaje con todas las palabras comenzando por mayúscula
+valid msgid="^[A-Z]\w*(\s[A-Z]\w*)*$" # Mensaje con todas las palabras comenzando por mayúscula
+valid msgid="^\w+(\-\w+)+$" # Palabra compuesta unida por guiones
 hint="No se ha traducido el mensaje original"
 
 addFilterHook name="es:remove_subs/remove_paired_capital_words" on="msg"
 [(?u)[,;\:\(]\s+[A-ZÑÇ][a-záéíóúüñç]+]
-valid ctx="TRANSLATORS"
+valid ctx=".*?TRANSLATORS"
 valid ctx="trans_comment"
-valid msgid="TRANSLATORS"
+valid msgid=".*?TRANSLATORS"
 valid msgid="^$"
 valid after="\&[\w\d\-_]+;"
 hint="Utilice minúsculas después de coma, punto y coma, dos puntos o apertura de paréntesis"

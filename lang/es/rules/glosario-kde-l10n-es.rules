@@ -1136,6 +1136,8 @@ valid msgstr="activará" after="will\s(not\s)?"
 valid msgstr="permitirá" after="will\s(not\s)?"
 valid msgstr="activó" after="did\s(not\s)?"
 valid msgstr="permitió" after="did\s(not\s)?"
+valid msgstr="actível[oa]" before="\sit"
+valid msgstr="actível[oa]s" before="\sthem"
 hint="« Enable » se traduce como « Activar/Permitir » (ver glosario)"
 
 # «Enabled» se traduce como «Activado».
@@ -1969,8 +1971,10 @@ hint="« Log » se traduce como « Registro » (ver glosario)"
 
 # «Logs» se traduce como «Registros».
 {\blogs\b}i
-valid msgstr="registr(os|a)"
+valid msgstr="registr(os|a|e)"
 valid msgstr="(cualquier|ningún)\sregistro"
+valid msgstr="se\sidentifica" before="\sin"
+valid msgstr="inici[ae]\ssesión" before="\sin"
 hint="« Logs » se traduce como « Registros » (ver glosario)"
 
 # «Login» se traduce como «Inicio de sesión».
