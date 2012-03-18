@@ -1,3 +1,16 @@
+Release 0.10.1:
+
+  Fixed bugs:
+
+  * Reporting error messages itself was prone to crashing at various
+    places, depending on message content and locale.
+
+  * pomtrans: Some problems with invoking Apertium (hardcoded binary path,
+    too late language pair validation, etc).
+
+  * When reporting PO messages to Lokalize, sometimes a non-responsive
+    instance of Lokalize was used, resulting in no message being reported.
+
 Release 0.10:
 
 * First formal release.
