@@ -555,7 +555,7 @@ Strings after the dot can be anything, but a sequence of numbers or letters in a
 </varlistentry>
 
 <varlistentry>
-<term><option>env:<replaceable>environment></replaceable></option></term>
+<term><option>env:<replaceable>environment</replaceable></option></term>
 <listitem>
 <para>The language environment for which to apply the rules (see <xref linkend="sec-lglangenv"/>). Several environments can be given as comma-separated list, in which case the later environment in the list takes precedence on conflicted rules. If not given, it may also be read from PO files (see <link linkend="hdr-x-environment"><literal>X-Environment</literal></link> in <xref linkend="sec-cmheader"/>).</para>
 </listitem>
@@ -743,7 +743,7 @@ Strings after the dot can be anything, but a sequence of numbers or letters in a
 </varlistentry>
 
 <varlistentry>
-<term><option>env:<replaceable>environment></replaceable></option></term>
+<term><option>env:<replaceable>environment</replaceable></option></term>
 <listitem>
 <para>The language environment for which to include supplemental dictionaries (see <xref linkend="sec-lglangenv"/>). Several environments can be given as comma-separated list, in which case the union of their dictionaries is used. If not given, environments may be read from PO files (see <link linkend="hdr-x-environment"><literal>X-Environment</literal></link> in <xref linkend="sec-cmheader"/>) or from user configuration.</para>
 </listitem>

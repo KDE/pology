@@ -225,8 +225,6 @@ This script should be periodically called to update the compendium, and the upda
 <sect2 id="sec-cmcompuse">
 <title>Applying the PO Compendium</title>
 
-<para>With a centralized PO compendium in place, </para>
-
 <para>Translators who use a dedicated PO editor with internal TM should configure the editor to read the compendium into the internal TM. This may be done, for example, by including the compendium PO file (or the directory in which it resides) into editor's translation project paths. If the compendium is kept under version control, the editor should automatically update its internal TM from the compendium whenever the repository is updated and the editor started again. In this way, editor's internal TM becomes transient in nature, there being no problem if it gets corrupted or deleted.</para>
 
 <para>When working on a particular PO file with a properly configured PO editor, as the translator jumps from one to another incomplete (untranslated or fuzzy) message, when the message is similar to one or few messages in the compendium (i.e. in internal TM) the editor will somehow "offer" those similar messages. Ideally, for each similar message the editor should show not only the possible translation, but also the difference between the two original texts (that of the current message and the TM match). This will allow the translator to quickly see how the offered translation should be adapted to fit the current original.</para>
