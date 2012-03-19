@@ -1,8 +1,11 @@
 >base/aff.sd
+>software-comm.sd
 
 # ----------------------------------------------------------------------------
 # Мрежни
 
+AdiumXtra: |{Adium~н}-икстр|а, |{Adium~н}-икстра|>
+    @л: AdiumXtr|a, AdiumXtra|>
 APOP: АПОП|-, АПОП|>
 ASMTP: АСМТП|-, АСМТП|>
 Atom: атом|, атом|>
@@ -83,6 +86,9 @@ RFB: РФБ|-, РФБ|>
 rlogin: рлогин|, рлогин|ов, рлогин|>
 SASL: САСЛ|-, САСЛ|>
 SFTP: СФТП|-, СФТП|>
+SIMPLE, |simpleprot: СИМПЛ|-, СИМПЛ|>
+    @л: SIMPLE|-, SIMPLE|>
+SIP: СИП|-, СИП|>, _пр=Session Initiation Protocol
 SMB: СМБ|-, СМБ|>
 SMS: СМС|-, СМС|>
 SMTP: СМТП|-, СМТП|>
@@ -95,6 +101,7 @@ SOCKS5: СОКС|- 5, н&а=СОКС-5, СОКС-5|>
     @л: SOCKS|- 5, н&а=SOCKS5, SOCKS5|>
 SSH: ССХ|-, ССХ|>
 SSL: ССЛ|-, ССЛ|>
+STUN: СТУН|-, СТУН|>
 TCP: ТЦП|-, ТЦП|>
 TELNET: ТЕЛНЕТ|-, ТЕЛНЕТ|>
 TLS: ТЛС|-, ТЛС|>
@@ -136,24 +143,26 @@ ICQ2000: ајсикју| 2000, ајсикју 2000|>
 IRC: ИРЦ|-, ИРЦ|>
 IRC2000: ИРЦ|- 2000, ИРЦ 2000|>
 Jabber: џабер|, џабер|ов, џабер|>
-    @л: Jabber|, Jabber|ov, jabber|>
+    @л: Jabber|, Jabber|ov, Jabber|>
 Jingle: џингл|, џингл|ов, џингл|>
-    @л: Jingle|, Jingle|ov, jingle|>
+    @л: Jingle|, Jingle|ov, Jingle|>
 Meanwhile: минвајл|, минвајл|ов, минвајл|>
-    @л: Meanwhile|, Meanwhile|ov, meanwhile|>
+    @л: Meanwhile|, Meanwhile|ov, Meanwhile|>
 MSN: МСН|-, МСН|-ов, МСН|>
 Off-The-Record: оф-д-рекорд|, оф-д-рекорд|ов, оф-д-рекорд|>
-    @л: Off-The-Record|, Off-The-Record|ov, off-the-record|>
+    @л: Off-The-Record|, Off-The-Record|ov, Off-The-Record|>
 Oscar: оскар|, оскар|ов, оскар|>
-    @л: Oscar|, Oscar|ov, oscar|>
+    @л: Oscar|, Oscar|ov, Oscar|>
 OTR: ОТР|-, ОТР|-ов, ОТР|>
 QQ: ку-ку|, ку-ку|ов, ку-ку|>
-    @л: QQ|, QQ|-ov, QQ|>
+    @л: QQ|-, QQ|-ov, QQ|>
 Sametime: сејмтајм|, сејмтајм|ов, сејмтајм|>
-    @л: Sametime|, Sametime|ov, sametime|>
+    @л: Sametime|, Sametime|ov, Sametime|>
 SILC: СИЛЦ|-, СИЛЦ|>
 XMPP: ИксМПП|, ИксМПП|-ов, ИксМПП|>
     @л: XMPP|, XMPP|-ov, XMPP|>
+Zephyr, |zephyrim: зефир|, зефир|ов, зефир|>
+    @л: Zephyr|, Zephyr|ov, Zephyr|>
 
 # ----------------------------------------------------------------------------
 # Системски
