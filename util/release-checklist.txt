@@ -1,0 +1,75 @@
+== Release checklist ==
+
+* setup environment
+
+    repo=foo/bar/baz
+    branch=x.y
+    version=x.y.z # no .0 for first x.y branch release
+
+* update POs
+
+    cd $repo/branches/pology/$branch
+    po/pology/update-po.sh
+
+* update news
+
+    cd $repo/branches/pology/$branch
+    vim NEWS # version... changes... features... bugs...
+    cd $repo/trunk/l10n-support/pology
+    vim NEWS # merge additions from $branch
+
+* update version
+
+    echo $version > VERSION
+    sed -i "s/pology-[^ ]*\.tar/pology-$version.tar/" www/base/index.php
+
+* create tarball
+
+    cd $repo/branches/pology/$branch
+    util/make-release-tarball.sh
+
+* check build
+
+    cd /tmp/pology-$version
+    mkdir build && cd build
+    cmake .. -DCMAKE_INSTALL_PREFIX=/tmp/pology-$version-inst -DPYTHON2_PACKAGES_DIR=/tmp/pology-$version-inst/lib/python/dist-packages
+    make && make install
+
+  on errors: fix, commit, merge to trunk, go back to pack or earlier
+
+* submit changes
+
+    cd $repo/branches/pology/$branch
+    svn ci po -m "Updated POs."
+    svn ci NEWS -m "Updated NEWS."
+    svn ci . -m "Prepared for Pology $version release."
+    cd $repo/trunk/l10n-support/pology
+    svn ci NEWS -m "Merged NEWS from branch $branch."
+
+* tag release
+
+    svn cp $repo/branches/pology/$branch $repo/tags/pology/$version
+    svn ci $repo/tags/pology/$version -m "Tagged Pology $version."
+
+* upload release
+
+    scp /tmp/pology-$version.tar.bz2 www-pology:pology.nedohodnik.net/release/
+
+* sync web site
+
+    cd $repo/branches/pology/$branch
+    www/updatewww.sh .
+
+* clean up
+
+    rm -rf /tmp/pology-$version*
+
+* announce release
+
+  to: pology@lists.nedohodnik.net
+  subject: [ANN] Pology $version
+  body:
+    what is it (feature/bugfix)
+    link http://pology.nedohodnik.net/release/pology-$version.tar.bz2
+    some abbreviated from NEWS
+
