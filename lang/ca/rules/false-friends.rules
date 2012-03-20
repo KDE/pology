@@ -571,7 +571,7 @@ valid msgstr=".net" cat="desktop_extragear-sdk_kdevelop,desktop_extragear-sdk_kd
 valid msgstr="net" cat="kmymoney" before="\samount" # Valor total
 valid msgstr="net" cat="kmymoney" before="\sworth"  # Valor net
 valid msgstr="net" cat="ksirk" after="@kdetalk\."
-valid msgstr="net" cat="tables,kcells,kspread" before="\spresent value"# Valor actual net
+valid msgstr="net" cat="tables,kcells,kspread,sheets" before="\spresent value"# Valor actual net
 valid msgstr="net" cat="kuser" before="\sgetlocalsid"
 valid msgstr="net" cat="marble" after="rotate\.aprs\."
 valid msgstr="net" cat="plasma_applet_pastebin" after="hosting\."

@@ -117,7 +117,7 @@ valid ctx="Numbers and characters"
 valid ctx="CSV separator" 
 valid ctx="unit synonyms for matching user input"
 valid ctx="Query"
-valid cat="tables,kcells,kspread"
+valid cat="tables,kcells,kspread,sheets"
 valid span=";$"
 valid span=";*" cat="kfilereplace"
 valid span=";~" cat="kfind" # docmessages
@@ -147,8 +147,8 @@ hint="S'ha de posar un espai després del signe d'admiració (tipografia)"
 
 [.*?\!\.]
 valid span="Qalculate\!\." cat="plasma_runner_qalculate_runner"
-valid span="\(valor\)\!\." cat="tables,kcells,kspread"
-valid span="\sx\!\!\." cat="tables,kcells,kspread"
+valid span="\(valor\)\!\." cat="tables,kcells,kspread,sheets"
+valid span="\sx\!\!\." cat="tables,kcells,kspread,sheets"
 hint="No s'ha de posar cap punt després del signe d'admiració (tipografia)"
 
 [.*?\!\s[a-z]]
@@ -293,7 +293,7 @@ valid after="usant" cat="kile"
 valid after="columna\sn\sentrada.+" cat="kile"
 valid after="paràmetres," cat="analitza"
 valid after="pogut\scopiar" cat="kmail_faq" # docmessages
-valid span="\s\.$" cat="ktouch,kile"
+valid span="\s\.$" cat="ktouch,kile,kexi"
 valid ctx="function prototype"
 valid comment="Tag\:\suserinput" cat="kioslave_nepomuksearch" # docmessages
 valid comment="Tag\:\sprogramlisting" cat="kate_advanced,kleopatra,klettres" # docmessages
@@ -424,7 +424,7 @@ valid after="\(" before="\)" cat="kio4"
 valid after="\(«" before="~" cat="kate"
 valid after="CN\[\$" cat="kleopatra" # docmessages
 valid ctx="Exponential"
-valid cat="tables,kcells,kspread,kdenlive"
+valid cat="tables,kcells,kspread,kdenlive,sheets"
 hint="«e» sola és un error (tipografia)"
 
 # «u» sola és un error.
@@ -440,7 +440,7 @@ valid after="di\(" cat="kate_regular-expressions" # docmessages
 valid after="multiplicitat\sd\'" cat="umbrello_uml_basics" # docmessages
 valid after="accelerador.*" cat="tables_a11y,stage_a11y,kspread_a11y,kpresenter_a11y,kcells_a11y" # docmessages
 valid cat="kalzium,plasma_engine_kalzium,plasma_applet_Molmasscalculator,kgoldrunner,kubrick,kfile_exr"
-valid cat="libincidenceeditors,tables,kcells,kspread,kbackgammon,kdenlive,krita"
+valid cat="libincidenceeditors,tables,kcells,kspread,kbackgammon,kdenlive,krita,sheets"
 valid ctx="Undefined"
 valid ctx="number 1"
 hint="«u» sola és un error (tipografia)"
@@ -467,6 +467,7 @@ hint="Un accent tancat sol «’» és un error, excepte a ordres de terminal (t
 valid after="servir" cat="kwriteconfig"
 valid after="hh|mm|ss"
 valid after="\'\," cat="analitza"
+valid after="useu" cat="kexi"
 valid after="\ssed\s.+" cat="kopete" # docmessages
 valid after="_language\s.+" # docmessages
 valid before="$" cat="kdeqt"
@@ -490,6 +491,7 @@ valid after="presa" cat="digikam"
 valid after="\ssed\s.+" cat="kopete" # docmessages
 valid after="audio|video" cat="konversation"
 valid after="CDV\s.*" cat="kstars"
+valid after="useu\s.*" cat="kexi"
 valid before="mm|ss"
 valid comment="Tag\:\sscreen" cat="kdeprint_cups-config,kmail-faq" # docmessages
 valid comment="Tag\:\sprogramlisting" cat="kdm" # docmessages
@@ -505,7 +507,8 @@ valid after="00" cat="marble"
 valid after="3\.5|5\.25|\s00\.0|\s00"
 valid after="«.+" before=".+»"
 valid after="^" before="$" cat="konsolekalendar,ktimetracker,calligra,calligrafilters,krossmoduletables,koffice,kofficefilters,krossmodulekspread"
-valid after="(BOOL2STRING|find|CHARTOASCII|DECSEX|ARABIC|DSUM|DAVERAGE|DCOUNTA?|DGET|DMAX|DMIN|DPRODUCT|DSTDEVP?|DVARP?|GETPIVOTDATA|WEEKDAY|DAYS360|TIMEVALUE|DATEVALUE|EDATE|EOMONTH|YEARS?|MONTHS?|DAYS?|HOURS?|MINUTES?|SECONDS?|WEEKS|DATEDIF|DATE2UNIX|CONVERT|OCT2BIN|OCT2DEC|OCT2HEX|BIN2DEC|BIN2OCT|BIN2HEX|HEX2DEC|HEX2OCT|HEX2BIN|IMAGINARY|IMREAL|IMCOSH?|IMSINH?|IMTANH?|IMCSCH?|IMSECH?|IMEXP|IMLN|IMLOG2|IMLOG10|IMSQRT|IMPOWER|IMSUM|IMDIV|IMSUB|IMPRODUCT|IMCONJUGATE|IMARGUMENT|IMABS|ACCRINT|AMORDEGRC|AMORLINC|COUPNUM|DISC|DURATION_ADD|EURO|EUROCONVERT|INTRATE|MDURATION|ACCRINTM|RECEIVED|TBILLEQ|TBILLPRICE|TBILLYIELD|N|ISTIME|ISDATE|ISREF|ISTEXT|ISNONTEXT|ISNOTTEXT|COUNT(A|IF)?|SUMIF|ADDRESS|CHOOSE|INDIRECT|AVERAGEA|SUBSTITUTE|SEARCH|T|TEXT|PROPER|COMPARE|EXACT|REPLACE|FIND|MID|LEN|TRIM|CONCATENATE|RIGHT|LEFT|REPT|ROT13|TOGGLE|SLEEK|UPPER|LOWER|CODE|VALUE|REGEXP|REGEXPRE|UNICODE)\(.*" cat="tables,kcells,kspread"
+valid after="(BOOL2STRING|find|CHARTOASCII|DECSEX|ARABIC|DSUM|DAVERAGE|DCOUNTA?|DGET|DMAX|DMIN|DPRODUCT|DSTDEVP?|DVARP?|GETPIVOTDATA|WEEKDAY|DAYS360|TIMEVALUE|DATEVALUE|EDATE|EOMONTH|YEARS?|MONTHS?|DAYS?|HOURS?|MINUTES?|SECONDS?|WEEKS|DATEDIF|DATE2UNIX|CONVERT|OCT2BIN|OCT2DEC|OCT2HEX|BIN2DEC|BIN2OCT|BIN2HEX|HEX2DEC|HEX2OCT|HEX2BIN|IMAGINARY|IMREAL|IMCOSH?|IMSINH?|IMTANH?|IMCSCH?|IMSECH?|IMEXP|IMLN|IMLOG2|IMLOG10|IMSQRT|IMPOWER|IMSUM|IMDIV|IMSUB|IMPRODUCT|IMCONJUGATE|IMARGUMENT|IMABS|ACCRINT|AMORDEGRC|AMORLINC|COUPNUM|DISC|DURATION_ADD|EURO|EUROCONVERT|INTRATE|MDURATION|ACCRINTM|RECEIVED|TBILLEQ|TBILLPRICE|TBILLYIELD|N|ISTIME|ISDATE|ISREF|ISTEXT|ISNONTEXT|ISNOTTEXT|COUNT(A|IF)?|SUMIF|ADDRESS|CHOOSE|INDIRECT|AVERAGEA|SUBSTITUTE|SEARCH|T|TEXT|PROPER|COMPARE|EXACT|REPLACE|FIND|MID|LEN|TRIM|CONCATENATE|RIGHT|LEFT|REPT|ROT13|TOGGLE|SLEEK|UPPER|LOWER|CODE|VALUE|REGEXP|REGEXPRE|UNICODE)\(.*" cat="tables,kcells,kspread,sheets"
+valid after="CELL\(.*" cat="sheets"
 valid after="caràcters\s.?" cat="kexi"
 valid after="query\:.*" cat="kexi"
 valid after="konsolekalendar.+" cat="konsolekalendar"
@@ -516,6 +519,7 @@ valid after="\s(1\/2|2|7\/16|7|3\/4|4)" cat="ppdtranslations4"
 valid after="AutoAdvance=1" cat="kdiff3"
 valid after="x(5|6|7|8|10|12|18|20|24|30)" cat="digikam"
 valid after="install" cat="amarok"
+valid after="expressió regular.+" cat="kphotoalbum"
 valid after="8|12|16" cat="kstars_indi" # docmessages
 valid after="KSpeech\ssay\s.*" cat="jovie" # docmessages
 valid after="\sid\=.*" cat="kopete_chatstyle" # docmessages
