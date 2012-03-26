@@ -179,6 +179,26 @@ hint="Es tradueix per «icon(a|es) de web» (kde-ca-team)"
 valid msgstr="frontals?"
 hint="Es tradueix per «frontal» (kde-ca-team)"
 
+# «gesture» es tradueix per «gest».
+{\bgesture(s?)\b}i
+valid msgstr="gest(os)?"
+valid msgid="mouse Gesture(s?)"
+valid msgid="keyboard gesture(s?)"
+valid msgid="gesture trigger"
+hint="Es tradueix per «gest/os» (kde-ca-team)"
+
+{\bgesture trigger\b}i
+valid msgstr="activador del gest"
+hint="Es tradueix per «activador del gest» (kde-ca-team)"
+
+{\bmouse gesture(s?)\b}i
+valid msgstr="gest(os)? del ratolí"
+hint="Es tradueix per «gest/os del ratolí» (kde-ca-team)"
+
+{\bkeyboard gesture(s?)\b}i
+valid msgstr="gest(os)? del teclat"
+hint="Es tradueix per «gest/os del teclat» (kde-ca-team)"
+
 {\bgreeters?\b}i
 valid msgstr="greeter" cat="kdm_kdmrc-ref,kdm_theme-ref"
 valid msgstr="benvingud(a|es)"
