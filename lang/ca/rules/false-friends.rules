@@ -585,6 +585,7 @@ valid msgstr="net" after="print\.sf\."
 valid msgstr="net" after="sourceforge(\.|\s)"
 valid msgstr="net" before="\seffect"
 valid !msgstr="net"
+valid msgstr=" dot net" # Fals positiu amb les adreces de correu
 hint="«Net» es tradueix per «Xarxa», no per «Net» (fals amic)"
 
 # «Notice» es tradueix per «Anunci».

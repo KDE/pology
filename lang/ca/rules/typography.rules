@@ -94,6 +94,7 @@ valid span="\:\="
 valid span="\:e"
 valid span="\:(0|1|\*)" cat="kdm_kdmrc-ref" # docmessages
 valid cat="kdevcvs"
+valid msgstr="HH:MM\[\:SS\]" # docmessages
 hint="S'ha de posar un espai després del signe dels dos punts (tipografia)"
 
 [\s\;]
@@ -533,10 +534,13 @@ valid after="TFAQ" cat="glossary_kdeprintingglossary" # docmessages
 valid after="(GET|POST).*" cat="kdeprint_cups-config" # docmessages
 valid after="charset=.+" cat="kontact-admin" # docmessages
 valid after="DIGIT.+" cat="kontact-admin" # docmessages
+valid after=" en_GB" cat="kalarm" # docmessages
+valid after="(echo |executant)" cat="ktimetracker" # docmessages
 valid before="make" cat="amarok"
 valid before="AutoAdvance=1" cat="kdiff3"
 valid before="GET|POST" cat="kdeprint_cups-config" # docmessages
 valid before="\)\s?~" cat="kcmkwincompositing"
+valid before="fr " cat="kalarm" # docmessages
 valid cat="plasma_applet_kdeobservatory"
 valid cat="marble_qt"
 valid cat="kcontrol_mouse" # docmessages
@@ -551,6 +555,7 @@ valid comment="Tag\:\s(entry|para)" cat="quanta_extending-quanta" # docmessages
 valid comment="Tag\:\sscreen" cat="kdm,kdeprint_cups-config,kjs_man-kjs.1,kturtle_glossary,kturtle_programming-reference,kmail_faq" # docmessages
 valid comment="Tag\:\sprogramlisting" cat="kdm,kdm_theme-ref,kleopatra,klettres,kcontrol_kremotecontrol" # docmessages
 valid comment="Tag\:\sliterallayout" cat="kabcclient_man-kabcclient.1" # docmessages
+valid msgstr="PRINT \"HOLA MÓN\"" cat="kjots" # docmessages
 hint="Cal utilitzar les cometes llatines «» (AltGr+z/x) en lloc de les anglosaxones (tipografia)"
 
 # End of rule file
