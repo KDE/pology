@@ -277,6 +277,7 @@ valid msgstr="drecer(a|es)"
 valid msgstr="acc(és|sos) ràpids?"
 valid msgstr="shortcut>" # marca XML
 valid msgstr="abreujament" cat="kmouth" # docmessages
+valid msgstr="abreviatura" cat="knode_using-subscribing" # docmessages
 hint="Es tradueix per -segons el sentit que tingui- «drecera/es|accés ràpid» (kde-ca-team)"
 
 {\b(show )(menubar|menu bar)s?\b}i

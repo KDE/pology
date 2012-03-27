@@ -103,6 +103,7 @@ valid ctx="CSV separator"
 valid after="Algerian\s*" cat="calligra,koffice"
 valid after="sleep\s3" cat="konsole" # docmessages
 valid span="\s\;$" cat="kleopatra" # docmessages
+valid comment="Tag\:\sprogramlisting" cat="kipi-plugins_geolocation" # docmessages
 hint="No s'ha de posar cap espai abans del signe de punt i coma (tipografia)"
 
 [;\S]
@@ -154,6 +155,7 @@ hint="No s'ha de posar cap punt després del signe d'admiració (tipografia)"
 
 [.*?\!\s[a-z]]
 valid span="Qalculate\!\s." cat="cantor"
+valid span="Yahoo\!\s." cat="knode_using-firststart"
 hint="S'ha de posar en majúscula la paraula posterior al signe d'admiració (tipografia)"
 
 [¡]
@@ -205,6 +207,7 @@ valid ctx="Keywords"
 valid ctx="CSV separator"
 valid comment="Tag\:\sprogramlisting" cat="kdm" # docmessages
 valid after="\d+" before="\s?\d+"
+valid comment="Tag\:\sliterallayout" cat="ktimetracker" # docmessages
 hint="No s'ha de posar cap espai abans del signe de coma (tipografia)"
 
 [\,\S]
@@ -272,6 +275,7 @@ valid after="-"
 valid after="\(en" cat="amarok"
 valid after="width=\"\d+" before="\"" # HTML
 valid ctx="Numbers and characters"
+valid comment="Tag\:\sprogramlisting" cat="kipi-plugins_geolocation" # docmessages
 hint="No s'ha de posar cap espai abans del signe de percentatge (tipografia)"
 
 [\s\.]
@@ -308,9 +312,10 @@ valid ctx="trans_comment"
 valid ctx="Numbers and characters"
 valid ctx="unit synonyms for matching user input"
 valid msgid="CREDIT_FOR_TRANSLATORS"
+valid msgstr="\.\*" cat="knode_using-morefeatures"
 valid before="D?COPserver"
 valid before="\w{1,16}\b" # Extensions
-valid after="adreces IP.+" cat="kcmkio"
+valid after="adreces IP.+" cat="kcmkio,kcontrol_proxy"
 valid after="~" cat="cupsdconf4,katepart4,kfileshare,kppp,kexi,krusader"
 valid after="XXX"
 valid after="\.\." 
@@ -337,6 +342,7 @@ valid after="punt \(" cat="kmymoney"
 valid before="\$" cat="quanta"
 valid cat="tables,kcells,kspread"
 valid cat="kstars"
+valid msgstr="\sdim\.\)" cat="kipi-plugins_resizeimages"
 hint="S'ha de posar el punt després del parèntesi i no abans (tipografia)"
 
 [\.\.\.\s\.]
@@ -473,11 +479,11 @@ valid after="\ssed\s.+" cat="kopete" # docmessages
 valid after="_language\s.+" # docmessages
 valid before="$" cat="kdeqt"
 valid before="audio|video" cat="konversation"
-valid comment="Tag\:\sscreen" cat="kdeprint_cups-config,kmail_faq" # docmessages
-valid comment="Tag\:\sprogramlisting" cat="kdm" # docmessages
+valid comment="Tag\:\sscreen" cat="kdeprint_cups-config,kmail_faq,knode_faq" # docmessages
+valid comment="Tag\:\sprogramlisting" cat="kdm,kipi-plugins_geolocation" # docmessages
+valid comment="Tag\:\suserinput" cat="kioslave_nepomuksearch,kate_advanced" # docmessages
 valid ctx="identifier separator" cat="kalgebra"
 valid ctx="hour in the messages below"
-valid comment="Tag\:\suserinput" cat="kioslave_nepomuksearch" # docmessages
 hint="Un apòstrof inicial és un error, excepte a ordres de terminal (tipografia)"
 
 # «' » un apóstrof final és un error (ull amb les ordres!).  Substituir per »
@@ -495,7 +501,7 @@ valid after="CDV\s.*" cat="kstars"
 valid after="useu\s.*" cat="kexi"
 valid before="mm|ss"
 valid comment="Tag\:\sscreen" cat="kdeprint_cups-config,kmail-faq" # docmessages
-valid comment="Tag\:\sprogramlisting" cat="kdm" # docmessages
+valid comment="Tag\:\sprogramlisting" cat="kdm,kipi-plugins_geolocation" # docmessages
 valid ctx="hour in the messages below"
 hint="Un apòstrof final és un error, excepte a ordres de terminal (tipografia)"
 
@@ -552,9 +558,10 @@ valid ctx="Qoute character option" cat="kaddressbook"
 valid ctx="angle unit symbol"
 valid ctx="unit synonyms for matching user input"
 valid comment="Tag\:\s(entry|para)" cat="quanta_extending-quanta" # docmessages
-valid comment="Tag\:\sscreen" cat="kdm,kdeprint_cups-config,kjs_man-kjs.1,kturtle_glossary,kturtle_programming-reference,kmail_faq" # docmessages
-valid comment="Tag\:\sprogramlisting" cat="kdm,kdm_theme-ref,kleopatra,klettres,kcontrol_kremotecontrol" # docmessages
-valid comment="Tag\:\sliterallayout" cat="kabcclient_man-kabcclient.1" # docmessages
+valid comment="Tag\:\sscreen" cat="kdm,kdeprint_cups-config,kjs_man-kjs.1,kturtle_glossary,kturtle_programming-reference,kmail_faq,konsolekalendar" # docmessages
+valid comment="Tag\:\sprogramlisting" cat="kdm,kdm_theme-ref,kleopatra,klettres,kcontrol_kremotecontrol,kipi-plugins_geolocation,kate_plugins" # docmessages
+valid comment="Tag\:\sliterallayout" cat="kabcclient_man-kabcclient.1,ktimetracker" # docmessages
+valid comment="Tag\:\suserinput" cat="kate_advanced" # docmessages
 valid msgstr="PRINT \"HOLA MÓN\"" cat="kjots" # docmessages
 hint="Cal utilitzar les cometes llatines «» (AltGr+z/x) en lloc de les anglosaxones (tipografia)"
 
