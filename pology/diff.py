@@ -953,13 +953,13 @@ def adapt_spans (otext, ftext, spans, merge=True):
 
         if isinstance(start, int):
             if start < 0:
-                start = flen - start
+                start = flen + start
         else:
             valid = False
 
         if isinstance(end, int):
             if end < 0:
-                end = flen - end
+                end = flen + end
         else:
             valid = False
 
