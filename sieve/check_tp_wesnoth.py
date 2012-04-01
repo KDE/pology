@@ -460,7 +460,7 @@ def _check_space (msg, cat, strict, hl):
         if (    hastail_o and not hastail_t
             and (outspcsig or haslead_o or tailnspc_o in ":")
         ):
-            hl.append(("msgstr", i, [(-1, 0,
+            hl.append(("msgstr", i, [(-1, -1,
                                       _("@info", "Missing trailing space."))]))
             nproblems += 1
 
@@ -475,7 +475,7 @@ def _check_space (msg, cat, strict, hl):
         # If original has no trailing space,
         # translation should also have none.
         if not hastail_o and hastail_t:
-            hl.append(("msgstr", i, [(-1, 0, "extra trailing space")]))
+            hl.append(("msgstr", i, [(-1, -1, "extra trailing space")]))
             nproblems += 1
         """
 
