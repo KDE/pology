@@ -963,6 +963,9 @@ def adapt_spans (otext, ftext, spans, merge=True):
         else:
             valid = False
 
+        if valid and start > end:
+            valid = False
+
         if valid:
             fspans.append((start, end) + span[2:])
         else:
