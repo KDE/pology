@@ -8,8 +8,8 @@
 valid msgid="\d\.\d{3}(\D|$)"
 hint="No separe con puntos los miles de los números (excepto en direcciones IP)"
 
-[\&\W]
-hint="Tecla aceleradora no válida"
+[\&[áéíóúüÁÉÍÓÚÜ]]
+hint="Tecla aceleradora no válida (en vocal con tilde)"
 
 
 include file="filter.include"
@@ -38,7 +38,7 @@ valid after="«.+"
 
 validGroup beforeCaps
 valid after="^"
-valid after="(\.|\?|\!)\s"
+valid after="(\.|\?|\!\:)\s"
 #valid after="\<(p|para|qt)\>\s?"
 valid after="\~\s*"
 valid after="\\n\s*"
@@ -165,9 +165,6 @@ hint="Cierre la interrogación (deben ir emparejadas)"
 
 [(?s)¿.*?\?\.]
 hint="No ponga punto después del cierre de interrogación (Consulte ortografía de la RAE)"
-
-[(?s)¿.*?\?\s[a-z]]
-hint="Ponga en mayúsculas la palabra posterior al cierre de interrogación (Consulte ortografía de la RAE)"
 
 [\s,]
 valid ctx="Numbers and characters"

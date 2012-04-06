@@ -5,7 +5,7 @@
 
 include file="filter.include"
 
-[(?u)\b(\w+)(?!\n)\s+\1\b]i
+[(?u)\b(\w+)(?!\n)\s+\1\b]
 hint="Hay una palabra consecutiva repetida en el párrafo"
 
 [(?u)\b(el|la|lo|los|las)(?!\n)\s+(el|la|lo|los|las)\b]i
@@ -38,23 +38,23 @@ hint="No utilice la arroba para evitar el género, p.ej. «ciudadan@s» (error f
 hint="No utilice el guión para separar el prefijo de la palabra principal, p.ej. «sub-menú» (error frecuente)"
 
 # «y» ante palabras que empiezan por «i» o «hi»
-[(?u)\by\s[hH]?[iíIÍ]\w+\b]
+[(?u)\by\s[hH]?[iíyIÍY]\w*\b]
 hint="Delante de palabras que empiezan por «i» se usa «e» en lugar de «y» (error frecuente)"
 
 # «o» ante palabras que empiezan por «o» o «ho»
-[(?u)\bo\s[hH]?[oó8OÓ]\w+\b]
+[(?u)\bo\s[hH]?[oó8OÓ]\w*\b]
 hint="Delante de palabras que empiezan por «o» se usa «u» en lugar de «o» (error frecuente)"
 
 # «e» ante palabras que no empiezan por «i» o «hi»
-[(?u)\be\s(?![hH]?[iíIÍ]\w+)\b]
+[(?u)\be\s(?![hH]?[iíyIÍY]\w*)\b]
 hint="La «e» no se usa suelta salvo delante de palabras que empiezen por «i» (error frecuente)"
 
 # «u» ante palabras que no empiezan por «o» o «ho»
-[(?u)\bu\s(?![hH]?[oó8OÓ]\w+)\b]
+[(?u)\bu\s(?![hH]?[oó8OÓ]\w*)\b]
 hint="La «u» no se usa suelta salvo delante de palabras que empiezen por «o» (error frecuente)"
 
 # «i» suelta
-[\bi\b]
+[\si\s]
 hint="La «i» no se usa suelta (error frecuente)"
 
 # Vocales con tilde sueltas
@@ -699,7 +699,7 @@ hint="No utilice « Email » sino « Correo » (error frecuente)"
 hint="No utilice « Emails » sino « Correos » (error frecuente)"
 
 # «El» se escribe como «Él» al final de frase.
-[\bel($|\.|\?|\!|\<p\>)]i
+[\bel(\.|\?|\!|\<p\>)]i
 hint="« el » se escribe como « él » al final de frase(error frecuente)"
 
 # «El echo» se escribe como «El hecho».
@@ -1371,7 +1371,8 @@ hint="« Saíz » se escribe como « Saiz » (error frecuente)"
 hint="« Sánz » se escribe como « Sanz » (error frecuente)"
 
 # «Se» se escribe como «Sé» al final de frase.
-[\bse($|\.|\?|\!|\<p\>)]i
+[\bse(\.|\?|\!|\<p\>)]i
+valid msgstr="SE"
 hint="« se » se escribe como « sé » al final de frase(error frecuente)"
 
 # «Se esperada» se escribe como «Se esperaba».
@@ -1501,7 +1502,7 @@ hint="« Torah » se escribe como « Torá » (error frecuente)"
 hint="« Tratar que » se escribe como « Tratar de que » (error frecuente: queismo)"
 
 # «Tu» se escribe como «Tú» al final de frase.
-[\btu($|\.|\?|\!|\<p\>)]i
+[\btu(\.|\?|\!|\<p\>)]i
 hint="« tu » se escribe como « tú » al final de frase(error frecuente)"
 
 # «Un porque» e escribe como «Un porqué».

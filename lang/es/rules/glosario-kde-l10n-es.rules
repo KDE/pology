@@ -66,6 +66,7 @@ hint="« Adress books » se traduce como « Libretas de direcciones », nunca co
 # «Alias» se traduce como «Apodo» si se refiere a personas.
 {\balias\b}i
 valid msgstr="apodo"
+valid msgstr="alias"
 hint="« Alias » se traduce como « Apodo » si se refiere a personas (ver glosario)"
 
 # «Allocate» se traduce como «Asignar».
@@ -180,14 +181,14 @@ hint="« Background » se traduce como « Segundo plano » o « Fondo » según 
 
 # «Backup» se traduce como «Copia de respaldo».
 {\bbackup\b}i
-valid msgstr="copias?\sde\srespaldo"
+valid msgstr="copias?\sde\s(respaldo|seguridad)"
 valid after="\-"
 hint="« Backup » se traduce como « Copia de respaldo » (ver glosario)"
 
 # «Backups» se traduce como «Copias de respaldo».
 {\bbackups\b}i
 valid msgstr="copias\sde\srespaldo"
-valid msgstr="(cualquier|ninguna)\scopia\sde\srespaldo"
+valid msgstr="(cualquier|ninguna)\scopia\sde\s(respaldo|seguridad)"
 valid after="\-"
 hint="« Backups » se traduce como « Copias de respaldo » (ver glosario)"
 
@@ -395,6 +396,8 @@ valid msgstr="verifi(car|ca|que)"
 valid msgstr="corrección" after="spell\s"
 valid msgstr="cheque" cat="kmymomey,skrooge"
 valid msgstr="jaque" cat="knights"
+valid msgstr="cheque"
+valid msgstr="puntos?\sde\scontrol" before="\spoint"
 hint="« Check » se traduce como « Comprobar/Consultar/Marcar »(ver glosario)"
 
 # «Checked» se traduce como «Comprobado».
@@ -553,6 +556,7 @@ hint="« Compact disks » se traduce como « Discos compactos » (ver glosario)"
 # «Compact» se traduce como «Comprimir».
 {\bcompact(?!\sdisks?)\b}i
 valid msgstr="comprim(e|a|ir|ido|ida)"
+valid msgstr="compact[oa]"
 hint="« Compact » se traduce como « Comprimir » (ver glosario)"
 
 # «Compacted» se traduce como «Comprimido».
@@ -976,6 +980,7 @@ hint="« Displays » se traduce como « Pantallas », « Visores » o « Muestra
 # «Download» se traduce como «Descargar».
 {\bdownload\b}i
 valid msgstr="descarg(ar|a|ue)"
+valid msgstr="bajada"
 valid msgstr="descargará" after="will\s(not\s)?"
 valid msgstr="descargó" after="did\s(not\s)?"
 hint="« Download » se traduce como « Descargar » (ver glosario)"
@@ -983,26 +988,17 @@ hint="« Download » se traduce como « Descargar » (ver glosario)"
 # «Downloads» se traduce como «Descargas».
 {\bdownloads\b}i
 valid msgstr="descarg(a|as)"
+valid msgstr="bajadas"
 hint="« Downloads » se traduce como « Descargas » (ver glosario)"
 
 # «Drag» se traduce como «Arrastrar».
-{\bdrag(?!\s(on|it|them))\b}i
+{\bdrag\b}i
 valid msgstr="arrastr(ar|e|a|o)"
+valid msgstr="arrástrel[oa]" before="(on\s)?it\s"
+valid msgstr="arrástrel[oa]s" before="(on\s)?them\s"
 valid msgstr="arrastrará" after="will\s(not\s)?"
 valid msgstr="arrastró" after="did\s(not\s)?"
 hint="« Drag » se traduce como « Arrastrar » (ver glosario)"
-
-# «Drag it » se traduce como «Arrástrelo».
-{\bdrag\s(on\s)?it\b}i
-valid msgstr="arrastrarl[oa]"
-valid msgstr="arrástrel[oa]"
-hint="« Drag it» se traduce como « Arrástrelo » (ver glosario)"
-
-# «Drag them » se traduce como «Arrástrelos».
-{\bdrag\s(on\s)?them\b}i
-valid msgstr="arrastrarl[oa]s"
-valid msgstr="arrástrel[oa]s"
-hint="« Drag them» se traduce como « Arrástrelos » (ver glosario)"
 
 # «Drags» se traduce como «Arrastra».
 {\bdrags\b}i
@@ -1040,6 +1036,8 @@ valid msgstr="pierd(a|e)"
 valid msgstr="pérdida"
 valid msgstr="gota"
 valid msgstr="abandon(ar|a|e)"
+valid msgstr="suéltel[oa]" before="it\s"
+valid msgstr="suéltel[oa]s" before="them\s"
 valid msgstr="soltará" after="will\s(not\s)?"
 valid msgstr="soltó" after="did\s(not\s)?"
 valid msgstr="caerá" after="will\s(not\s)?"
@@ -1150,6 +1148,9 @@ valid msgstr="permitirse"
 valid msgstr="se\spermit[ea]n?"
 valid msgstr="activó"
 valid msgstr="permitió"
+valid msgstr="activar" after="be\s"
+valid msgstr="permitir" after="be\s"
+valid msgstr="activo" after="is\s"
 valid msgstr="se\s(\w+\s){1,3}activar"
 valid msgstr="se\s(\w+\s){1,3}permitir"
 hint="« Enabled » se traduce como « Activado » (ver glosario)"
@@ -1574,8 +1575,8 @@ hint="« Greedies » se traduce como « Voraces » (ver glosario)"
 
 # «GUI» se traduce como «Interfaz gráfica de usuario».
 {\bGUI\b}i
-valid msgstr="interfaz\sgráfica\sde\susuario"
-valid msgstr="interfaces\sgráficaa\sde\susuario"
+valid msgstr="interfaz\sgráfica(\sde\susuario)?"
+valid msgstr="interfaces\sgráficaa(\sde\susuario)?"
 hint="« GUI » se traduce como « Interfaz gráfica de usuario » (ver glosario)"
 
 # «GUID» no se traduce.
@@ -1771,6 +1772,7 @@ valid msgstr="interfaz"
 valid msgstr="interact(uar|úa|úe)"
 valid msgstr="interactuará" after="will\s(not\s)?"
 valid msgstr="interactuó" after="did\s(not\s)?"
+valid msgstr="de\sinterfaces"
 hint="« Interface » se traduce como « Interfaz » (ver glosario)"
 
 # «Interfaces» se traduce como «Interfaces».
@@ -2148,7 +2150,7 @@ valid msgstr="concordará" after="will\s(not\s)?"
 valid msgstr="emparejó" after="did\s(not\s)?"
 valid msgstr="coincidió" after="did\s(not\s)?"
 valid msgstr="concordó" after="did\s(not\s)?"
-hint="« Match » se traduce como « Emparejar », « Coincidir » o « Concordar » (ver glosario)"
+hint="« Match » se traduce como « Emparejar », « Coincidir », « Coincidencia » o « Concordar » (ver glosario)"
 
 # «Matchs» se traduce como «Empareja», «Coincide» o «Concuerda».
 {\bmatchs\b}i
@@ -2159,7 +2161,7 @@ valid msgstr="partidas"
 valid msgstr="coincidencias"
 valid msgstr="(cualquier|ninguna)\spartida"
 valid msgstr="(cualquier|ninguna)\scoincidencia"
-hint="« Matchs » se traduce como « Empareja », « Coincide » o « Concuerda » (ver glosario)"
+hint="« Matchs » se traduce como « Empareja », « Coincide », « Coincidencias » o « Concuerda » (ver glosario)"
 
 # «Menu» se traduce como «Menú».
 {\bmenu\b}i
@@ -2574,7 +2576,7 @@ hint="« Postmasters » se traduce como « Administradores de correo » (ver glo
 # «Profile» se traduce como «Perfil».
 {\bprofile\b}i
 valid msgstr="perfil(ar|a|e)?"
-valid msgstr="analizar\sel\srendimiento"
+valid msgstr="analizar(\sel)?\srendimiento"
 valid msgstr="analizará" after="will\s(not\s)?"
 valid msgstr="analizó" after="did\s(not\s)?"
 hint="« Profile » se traduce como « Perfil » (ver glosario)"
@@ -2683,36 +2685,43 @@ valid msgstr="(cualquier|ninguna)\sconsulta"
 valid !msgstr="queries"
 hint="« Queries » se traduce como « Consultas » o « Preguntas » (ver glosario)"
 
-# «Quote» se traduce como «Cita», «Cuota», «Comillas» o «Citar».
+# «Quote» se traduce como «Comilla/Cita».
 {\bquote\b}i
-valid msgstr="cit(ar|a|e)"
+valid msgstr="comilla"
+valid msgstr="cit(ar|e|a)"
+valid msgstr="entrecomill(ar|a|e)"
 valid msgstr="citará" after="will\s(not\s)?"
+valid msgstr="entrecomillará" after="will\s(not\s)?"
 valid msgstr="citó" after="did\s(not\s)?"
+valid msgstr="entrecomilló" after="did\s(not\s)?"
 valid msgstr="cuota"
+valid msgstr="cotización"
+valid msgstr="coti(zar|za|ce)"
 valid msgstr="comillas"
 hint="« Quote » se traduce como « Citar », « Cita », « Cuota » o « Comillas » (ver glosario)"
 
-# «Quotes» se traduce como «Citas», «Cuotas», «Comillas» o «Cite».
-{\bquotes\b}i
-valid msgstr="cit(as|a)"
-valid msgstr="cuotas"
-valid msgstr="comillas"
-valid msgstr="(cualquier|ninguna)\scita"
-hint="« Quotes » se traduce como « Citas », « Cita », « Cuotas » o « Comillas » (ver glosario)"
-
-# «Quoted» se traduce como «Entrecomillado» o «Texto citado».
+# «Quoted» se traduce como «Entrecomillado/Citado».
 {\bquoted\b}i
 valid msgstr="entrecomillad(o|a|as|os)"
-valid msgstr="entrecomillarse"
-valid msgstr="se\sentrecomill(a|e)n?"
-valid msgstr="entreconilló"
-valid msgstr="se\s(\w+\s){1,3}entrecomillar"
 valid msgstr="citad(o|a|os|as)"
+valid msgstr="entrecomillarse"
 valid msgstr="citarse"
-valid msgstr="se\scit(a|e)n?"
+valid msgstr="se\sentrecomill(a|e)n?" 
+valid msgstr="se\scit(a|e)n?" 
 valid msgstr="citó"
+valid msgstr="entrecomilló"
 valid msgstr="se\s(\w+\s){1,3}citar"
-hint="« Quoted » se traduce como « Entrecomillado » o « Texto citado » (ver glosario)"
+valid msgstr="se\s(\w+\s){1,3}entrecomillar"
+hint="« Quoted » se traduce como « Entrecomillado/Citado » (propuesta glosario)"
+
+# «Quotes» se traduce como «Comillas/Citas».
+{\bquotes\b}i
+valid msgstr="comillas"
+valid msgstr="cit(e|a|as)"
+valid msgstr="entrecomill(a|e)"
+valid msgstr="(ninguna|cualquier)\scomilla"
+valid msgstr="(cualquier|ninguna)\scita"
+hint="« Quotes » se traduce como « Comillas/Citas » (propuesta glosario)"
 
 # «Quotelike» se traduce como «Semejante a las comillas».
 {\bquotelike\b}i
@@ -3266,6 +3275,7 @@ hint="« Sort » se traduce como « Ordenar » (ver glosario)"
 {\bsorts\b}i
 valid msgstr="orden(a|e)?"
 valid msgstr="órdenes"
+valid msgstr="clases"
 valid msgstr="(cualquier|ningún)\sorden"
 hint="« Sorts » se traduce como « Ordena » (ver glosario)"
 
@@ -3329,6 +3339,8 @@ valid msgstr="comenzar"
 valid msgstr="empie(zo|za|ce|zan|cen)"
 valid msgstr="empezar"
 valid msgstr="principio"
+valid msgstr="iníciel[oa]" before="\sit"
+valid msgstr="iníciel[oa]s" before="\sthem"
 valid msgstr="iniciará" after="will\s(not\s)?"
 valid msgstr="comenzará" after="will\s(not\s)?"
 valid msgstr="empezará" after="will\s(not\s)?"
@@ -3649,6 +3661,8 @@ valid msgstr="tecleará" after="will\s(not\s)?"
 valid msgstr="escribirá" after="will\s(not\s)?"
 valid msgstr="tecleó" after="did\s(not\s)?"
 valid msgstr="escribió" after="did\s(not\s)?"
+valid msgstr="tecléel[oa]" before="\sit"
+valid msgstr="escríbal[oa]" before="\sit"
 valid msgstr="tecléel[oa]s" before="\sthem"
 valid msgstr="escríbal[oa]s" before="\sthem"
 hint="« Type » se traduce como « Tipo » o « Teclear/Escribir » (ver glosario)"
@@ -3664,6 +3678,8 @@ hint="« Types » se traduce como « Tipos » o « Teclea » (ver glosario)"
 {\bupload\b}i
 valid msgstr="cargar?"
 valid msgstr="carguen?"
+valid msgstr="subida"
+valid msgstr="sub(ir|a|e)"
 valid msgstr="env(iar|ío|ía|íe|íen)"
 valid msgstr="cargará" after="will\s(not\s)?"
 valid msgstr="enviará" after="will\s(not\s)?"
@@ -3675,6 +3691,9 @@ hint="« Upload » se traduce como « Cargar » o « Enviar » (ver glosario)"
 {\buploada\b}i
 valid msgstr="cargar?"
 valid msgstr="carguen?"
+valid msgstr="envíos"
+valid msgstr="subidas"
+valid msgstr="sub(e|a)"
 valid msgstr="env(iar|ío|ía|íe|íen)"
 hint="« Uploads » se traduce como « Carga » o « Envío » (ver glosario)"
 

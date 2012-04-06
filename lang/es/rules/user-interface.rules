@@ -96,7 +96,10 @@ hint="« Scroll Lock » se traduce como como « Bloq Desp » (regla de traducci�
 valid msgstr="Mayús"
 valid msgstr="turno"
 valid msgstr="despla(zar|za|ce)"
+valid msgstr="desplazarse"
 valid msgstr="desplazamiento"
+valid msgstr="cambi(ar|e|a|o)"
+valid msgstr="cambiarse"
 hint="« Shift » se traduce como como « Mayús » (regla de traducción de nombres de teclas)"
 
 # «SysReq» se traduce como «Pet Sys» (regla de traducción de nombres de teclas).
@@ -456,6 +459,7 @@ hint="« Close active window » se traduce como como « Cerrar ventana activa »
 {\bnew\swindow\b}i
 valid msgstr="nueva\sventana"
 valid msgstr="ventana\snueva"
+valid msgstr="gestor\sde\sventanas" before="\smanager"
 hint="« New window » se traduce como como « Nueva ventana » (regla de traducción de elementos gráficos)"
 
 # «Duplicate window» se traduce como «Duplicar ventana».
@@ -697,6 +701,7 @@ hint="« Icons » se traduce como « Iconos » (regla de traducción de elemento
 # «Label» se traduce como «Etiqueta».
 {\blabel\b}i
 valid msgstr="etiquet(ar|a|e)"
+valid msgstr="discográfica" after="record\s"
 hint="« Label » se traduce como como « Etiqueta » (regla de traducción de elementos gráficos)"
 
 # «Labels» se traduce como «Etiquetas».
