@@ -85,6 +85,7 @@ hint="Il manque un « s »"
 
 [v[eè]rif]i
 valid after="Q"
+valid before="IED"
 valid cat="kleopatra" after="Decrypt"
 hint="Mettre un accent aigu sur le « e »"
 
@@ -423,7 +424,7 @@ valid before="Label"
 valid after="K"
 valid after="CD"
 valid after="[G|g]et"
-valid before="[F|f]ilter|Range|object"
+valid before="[F|f]ilter|Range|object|box"
 valid after="set|start|CD\-|[I|i]nsert|Widget|sub|block\-"
 valid after="\."
 valid after="-"
