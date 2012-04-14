@@ -42,9 +42,9 @@ hint="Es tradueix per «joc de caràcters» (kde-ca-team)"
 valid msgstr="mar(ca|ques) de selecció"
 hint="Es tradueix per «marca/ques de selecció» (kde-ca-team)"
 
-{/bchecksums?/b}
-valid msgstr="sum(a|es) de comprovació"
-hint="Es tradueix per «suma de comprovació» (kde-ca-team)"
+{\bchecksums?\b}i
+valid msgstr="sum(a|es) de verificació"
+hint="Es tradueix per «suma de verificació» (kde-ca-team)"
 
 {\bciphertext\b}i
 valid msgstr="text xifrat"
@@ -223,7 +223,7 @@ hint="Es tradueix per «element» (kde-ca-team)"
 valid msgstr="nodes? d'element"
 hint="Es tradueix per «node d'element» (kde-ca-team)"
 
-{/bkey(box| box)(ing)?(es|s)?/b}
+{\bkey(box| box)(ing)?(es|s)?\b}i
 valid msgstr="anells? de claus"
 hint="Es tradueix per «anell de claus» (personal)"
 
