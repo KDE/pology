@@ -102,6 +102,7 @@ valid ctx="Numbers and characters"
 valid ctx="Hours:minutes:seconds"
 valid ctx="CSV separator"
 valid ctx="Query"
+valid cat="jointhegame" ctx="member|join|payment"
 hint="Mettre une espace insécable avant et une espace après"
 
 [;]
