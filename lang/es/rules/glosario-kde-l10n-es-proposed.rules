@@ -476,6 +476,7 @@ hint="« Character sets » se traduce como « Juegos de caracteres » (propuesta
 # «Charset» se traduce como «Juego de caracteres».
 {\bcharset\b}i
 valid msgstr="juegos?\sde\scaracteres"
+valid before="\="
 hint="« Charset » se traduce como « Juego de caracteres » (propuesta glosario)"
 
 # «Charsets» se traduce como «Juegos de caracteres».
@@ -517,20 +518,24 @@ hint="« Cipher » se traduce como « Cifrar/Cifrado » (propuesta glosario)"
 {\bclear\b}i
 valid msgstr="borr(ar|a|e)"
 valid msgstr="aclar(ar|a|e)"
+valid msgstr="despej(ar|a|e)"
 valid msgstr="clar[oa]"
 valid msgstr="despejad[oa]"
 valid msgstr="borrará" after="will\s(not\s)?"
 valid msgstr="aclarará" after="will\s(not\s)?"
+valid msgstr="despejará" after="will\s(not\s)?"
 valid msgstr="borró" after="did\s(not\s)?"
 valid msgstr="aclaró" after="did\s(not\s)?"
-hint="« Clear » se traduce como « Borrar » (propuesta glosario)"
+valid msgstr="despejó" after="did\s(not\s)?"
+hint="« Clear » se traduce como « Borrar/Aclarar/Despejar » (propuesta glosario)"
 
 # «Clears» se traduce como «Borra».
 {\bclears\b}i
 valid msgstr="borr[ea]"
-valid msgstr="aclara"
+valid msgstr="aclar(e|a)"
+valid msgstr="despej(a|e)"
 valid msgstr="clar(os|as)"
-hint="« Clears » se traduce como « Borra » (propuesta glosario)"
+hint="« Clears » se traduce como « Borra/Aclara/Despeja » (propuesta glosario)"
 
 # «Clipboard» se traduce como «Portapapeles».
 {\bclipboards?\b}i
@@ -833,6 +838,7 @@ valid msgstr="se\sborr[ea]n?"
 valid msgstr="borró"
 valid msgstr="borrar" after="be\s"
 valid msgstr="se\s(\w+\s){1,3}borrar"
+valid msgstr="borrando" after="being\s"
 hint="« Deleted » se traduce como « Borrado » (propuesta glosario)"
 
 # «Delimiter» se traduce como «Delimitador/Separador».
@@ -1096,6 +1102,8 @@ valid msgstr="descargarse"
 valid msgstr="se\sdescarg(a|ue)n?"
 valid msgstr="descargó"
 valid msgstr="se\s(\w+\s){1,3}descargar"
+valid msgstr="descargando" after="being\s"
+valid msgstr="descargar" after="be\s"
 hint="« Downloaded » se traduce como « Descargado » (propuesta glosario)"
 
 # «Downtime» se traduce como «Tiempo de inactividad».
@@ -1123,6 +1131,7 @@ hint="« Drive » se traduce como « Unidad/Dispositivo » (propuesta glosario)"
 # «Driver» se traduce como «Controlador».
 {\bdriver\b}i
 valid msgstr="controladora?"
+valid msgstr="conductor" after="car\s"
 hint="« Driver » se traduce como « Controlador » (propuesta glosario)"
 
 # «Drivers» se traduce como «Controladores».
@@ -1353,6 +1362,7 @@ hint="« Errors » se traduce como « Errores » (propuesta glosario)"
 # «Executable» se traduce como «Ejecutable».
 {\bexecutable\b}i
 valid msgstr="ejecutable"
+valid after="x\-"
 hint="« Executable » se traduce como « Ejecutable » (propuesta glosario)"
 
 # «Executables» se traduce como «Ejecutables».
@@ -1714,11 +1724,12 @@ valid msgstr="manipul(ar|a|e)"
 valid msgstr="manej(ar|a|e)"
 valid msgstr="encargarse\sde"
 valid msgstr="asa"
+valid msgstr="mango"
 valid msgstr="manipulará" after="will\s(not\s)?"
 valid msgstr="manejará" after="will\s(not\s)?"
 valid msgstr="manipuló" after="did\s(not\s)?"
 valid msgstr="manejó" after="did\s(not\s)?"
-hint="« Handle » se traduce como « Manipular/Manejar/Encargarse de » (propuesta glosario)"
+hint="« Handle » se traduce como « Manipular/Manejar/Encargarse de/Mango » (propuesta glosario)"
 
 # «Handler» se traduce como «Manipulador».
 {\bhandler\b}i
@@ -1740,8 +1751,10 @@ valid msgstr="manipul(ar|a|e)"
 valid msgstr="manej(ar|a|e)"
 valid msgstr="se\s\encarga\sde"
 valid msgstr="asas"
+valid msgstr="mangos"
 valid msgstr="(ninguna|cualquier)\sasa"
-hint="« Handles » se traduce como « Maneja/Manipula/Se encarga de » (propuesta glosario)"
+valid msgstr="(ningún|cualquier)\smango"
+hint="« Handles » se traduce como « Maneja/Manipula/Se encarga de/Mangos » (propuesta glosario)"
 
 # «Hang» se traduce como «Colgar».
 {\bhang\b}i
@@ -1771,7 +1784,7 @@ hint="« Header » se traduce como « Cabecera/Encabezado » (propuesta glosario
 # «Headers» se traduce como «Cabeceras/Encabezados».
 {\bheaders\b}i
 valid msgstr="cabeceras"
-valid msgstr="encabeza(dos|mientos)"
+valid msgstr="encabeza(do|dos|mientos)"
 valid msgstr="(ninguna|cualquier)\scabecera"
 valid msgstr="(ningún|cualquier)\sencabeza(do|miento)"
 hint="« Headers » se traduce como « Cabeceras/Encabezados » (propuesta glosario)"
@@ -2586,7 +2599,7 @@ hint="« Namespaces » se traduce como « Espacios de nombres » (propuesta glos
 valid msgstr="anid(ar|e|a)"
 valid msgstr="conect(ar|a|e)"
 valid msgstr="nido"
-valid msgstr="nest" after="echo\s"
+valid after="Echo\s"
 valid msgstr="anidará" after="will\s(not\s)?"
 valid msgstr="conectará" after="will\s(not\s)?"
 valid msgstr="anidó" after="did\s(not\s)?"
@@ -2721,8 +2734,8 @@ hint="« Offset » se traduce como « Desplazamiento » (propuesta glosario)"
 
 # «Offsets» se traduce como «Desplazamientos».
 {\boffsets\b}i
-valid msgstr="desplazamientos"
-valid msgstr="(ningún|cualquier)\sdesplazamiento"
+valid msgstr="desplazamientos?"
+#valid msgstr="(ningún|cualquier)\sdesplazamiento"
 hint="« Offsets » se traduce como « Desplazamientos » (propuesta glosario)"
 
 # «On line» se traduce como «Conectado».
@@ -3058,6 +3071,8 @@ valid msgstr="reproducirá" after="will\s(not\s)?be\s"
 valid msgstr="tocará" after="will\s(not\s)?be\s"
 valid msgstr="interpretará" after="will\s(not\s)?be\s"
 valid msgstr="jugará" after="will\s(not\s)?be\s"
+valid msgstr="reproduciendo" after="being\s"
+valid msgstr="reproduc(e|ir)" after="be\s"
 hint="« Played » se traduce como « Reproducido/Tocado » (propuesta glosario)"
 
 # «Player» se traduce como «Jugador/Reproductor/intérprete».
@@ -3120,8 +3135,9 @@ hint="« Pointers» se traduce como « Punteros/Índices » (propuesta glosario)
 {\bpop(\s|\-)?up\b}i
 valid msgstr="emergente"
 valid msgstr="desplegable"
+valid msgstr="despl(egar|iega|iegue)"
 valid msgstr="emergerá" after="will\s(not\s)?"
-valid msgstr="desplegaerá" after="will\s(not\s)?"
+valid msgstr="desplegará" after="will\s(not\s)?"
 hint="« Pop up » se traduce como « Emergente/desplegable » (propuesta glosario)"
 
 # «Portable» se traduce como «Portátil».
@@ -3518,6 +3534,7 @@ valid msgstr="extrajo"
 valid msgstr="se\s(\w+\s){1,3}eliminar"
 valid msgstr="se\s(\w+\s){1,3}quitar"
 valid msgstr="se\s(\w+\s){1,3}extraer"
+valid msgstr="eliminar" after="be\s"
 hint="« Removed » se traduce como « Eliminado/Quitado/Extraído » (propuesta glosario)"
 
 # «Render» se traduce como «Representar/Interpretar/Reproducir».
@@ -3565,6 +3582,7 @@ valid msgstr="peticiones"
 valid msgstr="pedir"
 valid msgstr="pid(e|a)"
 valid msgstr="solicitud"
+valid msgstr="acuse"
 valid msgstr="solicit(ar|e|a)"
 valid msgstr="pedirá" after="will\s(not\s)?"
 valid msgstr="solicitará" after="will\s(not\s)?"
@@ -3916,6 +3934,7 @@ hint="« Source » se traduce como « Origen/Fuente » (propuesta glosario)"
 {\bsources\b}i
 valid msgstr="orígenes"
 valid msgstr="fuentes"
+valid msgstr="código\sfuente"
 valid msgstr="(ningún|cualquier)\sorigen"
 valid msgstr="(ninguna|cualquier)\sfuente"
 hint="« Sources » se traduce como « Orígenes/Fuentes » (propuesta glosario)"
@@ -4083,6 +4102,9 @@ hint="« Sticky » se traduce como « Adhesivo » (propuesta glosario)"
 # «Subject» se traduce como «Asunto».
 {\bsubject\b}i
 valid msgstr="asunto"
+valid msgstr="sujeto" after="is\s"
+valid msgstr="sujetos" after="are\s"
+valid msgstr="sujeto\sa" before="\sto"
 hint="« Subject » se traduce como « Asunto » (propuesta glosario)"
 
 # «Subjects» se traduce como «Asuntos».
@@ -4110,6 +4132,8 @@ valid msgstr="interruptor"
 valid msgstr="apag(ar|a|ue)" before="\soff"
 valid msgstr="enc(ender|ienda|iende)" before="\son"
 valid msgstr="v(olver|uelve|uelva)" before="\sback"
+valid msgstr="desactiv(ar|a|e)" before=".*\soff"
+valid msgstr="activ(ar|a|e)" before=".*\son"
 hint="« Switch » se traduce como « Interruptor/Conmutador/Cambio/Conmutar/Cambiar » (propuesta glosario)"
 
 # «Switches» se traduce como «Conmutadores/Conmuta».

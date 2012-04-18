@@ -616,7 +616,7 @@ valid msgstr="(cualquier|ningún)\scuadro\sde\sdiálogo"
 hint="« Dialog boxes » se traduce como como « Cuadros de diálogo » (regla de traducción de elementos gráficos)"
 
 # «Drag and drop» se traduce como «Arrastrar y soltar».
-{\bdrag[\s\-]and[\s\-]drop\b}i
+{\bdrag(\s|\-)and(\s|\-)drop\b}i
 valid msgstr="arrastrar\sy\ssoltar"
 valid msgstr="arrastr[ea]\sy\ssuelt[ea]"
 valid msgstr="arrastrarl[oa]s?\sy\ssoltarl[oa]s?"

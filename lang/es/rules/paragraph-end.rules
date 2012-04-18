@@ -29,16 +29,19 @@ hint="Compruebe el uso de espacio antes del fin de párrafo «</p>» (falta en l
 # Punto al final del párrafo.
 {\.\s*$}i
 valid msgstr="[\.\!\?\~]\s*$"
+valid msgstr="\.\.\.»\s*$"
 hint="Compruebe el uso de punto al final del párrafo (falta en la traducción)."
 
 # Punto en el fin de línea «\n».
 {\.\s*\\n}i
 valid msgstr="[\.\!\?\~]\s*\\n"
+valid msgstr="\.\.\.»\s*\\n"
 hint="Compruebe el uso de punto antes del fin de línea «\n» (falta en la traducción)."
 
 # Punto en el fin de párrafo.
 {\.\s*\<\/p\>}i
 valid msgstr="[\.\!\?\~]\s*\<\/p\>"
+valid msgstr="\.\.\.»\s*\<\/p\>"
 hint="Compruebe el uso de punto antes del fin de párrafo «</p>» (falta en la traduccción)."
 
 # Dos puntos al final del párrafo.

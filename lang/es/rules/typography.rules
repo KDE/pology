@@ -373,6 +373,7 @@ hint="Ponga una coma antes de «excepto» (Consulte ortografía de la RAE)"
 
 [\bsalvo\b]
 validGroup beforeComma
+valid after="a\s"
 hint="Ponga una coma antes de «salvo» (Consulte ortografía de la RAE)"
 
 [\bconque\b]
@@ -487,6 +488,9 @@ hint="Ponga una coma antes de «por regla general» (Consulte ortografía de la 
 valid after=",\s"
 valid after=";\s"
 hint="Ponga una coma antes de «etc./&etc;/etcétera» (Consulte ortografía de la RAE)"
+
+[\betcéteras?\s?\.\.\.]i
+hint="No ponga puntos suspensivos después de «etc./&etc;/etcétera» (Consulte ortografía de la RAE)"
 
 #[\,\s(y|e|o(?!\sbien)|u|ni)\s]
 #hint="No se pone coma antes de las conjunciones « y, e, o, u, ni» salvo casos excepcionales (Consulte ortografía de la RAE)"

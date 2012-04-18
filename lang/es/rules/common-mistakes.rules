@@ -8,6 +8,9 @@ include file="filter.include"
 [(?u)\b(\w+)(?!\n)\s+\1\b]
 hint="Hay una palabra consecutiva repetida en el párrafo"
 
+[(?u)\b(\w+\s\w+\s)(?!\n)\s+\1\b]
+hint="Hay un grupo de dos palabras consecutivas repetido en el párrafo"
+
 [(?u)\b(el|la|lo|los|las)(?!\n)\s+(el|la|lo|los|las)\b]i
 hint="Hay dos artículos determinados consecutivos en el párrafo"
 
@@ -30,7 +33,7 @@ hint="No utilice expresiones del tipo «los ciudadanos y las ciudadanas » (erro
 hint="No utilice expresiones del tipo «las ciudadanas y los ciudadanos » (error frecuente)"
 
 # No utilizar la arroba para incluir masculino y femenino
-[(?u)\b\w+@[a-záéíóúñç]{0,2}\b]i
+[(?u)\b\w+@[a-záéíóúñç]{0,2}\W]i
 hint="No utilice la arroba para evitar el género, p.ej. «ciudadan@s» (error frecuente)"
 
 # No utilizar el guión para separar el prefijo de la palabra principal
@@ -38,7 +41,7 @@ hint="No utilice la arroba para evitar el género, p.ej. «ciudadan@s» (error f
 hint="No utilice el guión para separar el prefijo de la palabra principal, p.ej. «sub-menú» (error frecuente)"
 
 # «y» ante palabras que empiezan por «i» o «hi»
-[(?u)\by\s[hH]?[iíyIÍY]\w*\b]
+[(?u)\by\s[hH]?[iíIÍ]\w*\b]
 hint="Delante de palabras que empiezan por «i» se usa «e» en lugar de «y» (error frecuente)"
 
 # «o» ante palabras que empiezan por «o» o «ho»
@@ -60,6 +63,14 @@ hint="La «i» no se usa suelta (error frecuente)"
 # Vocales con tilde sueltas
 [\b[áéíóúüÁÉÍÓÚÜ]\b]
 hint="Las vocales con tilde no se usan sueltas (error frecuente)"
+
+# «¿A donde...» se escribe como «¿Adónde...».
+[\¿a\sdonde\b]i
+hint="« ¿A donde... » se escribe como « ¿Adónde... », (error frecuente)"
+
+# «¿A dónde...» se escribe como «¿Adónde...».
+[\¿a\sdónde\b]i
+hint="« ¿A donde... » se escribe como « ¿Adónde... », (error frecuente)"
 
 # «¿Adonde...» se escribe como «¿Adónde...».
 [\¿adonde\b]i
@@ -671,6 +682,10 @@ hint="« Dí » se escribe como « Di » (error frecuente)"
 [\bdiferente\sa\b]i
 hint="« Diferente a » se escribe como « Diferente de » (error frecuente)"
 
+# «Dijo de que» se escribe como «Dijo que».
+[\bdijo\sde\sque\b]i
+hint="« Dijo de que » se escribe como « Dijo que » (error frecuente: dequeismo)"
+
 # «Dió» se escribe como «Dio».
 [\bdió\b]i
 hint="« Dió » se escribe como « Dio » (error frecuente)"
@@ -930,6 +945,10 @@ hint="« Habeas » se escribe como « Hábeas » (error frecuente)"
 [\bhabemos\b]i
 hint="« Habemos » se escribe como « Hemos », se trata de un arcaismo (error frecuente)"
 
+# «Habían» se escribe como «Había» al principio de frase.
+[\bHabían\b]
+hint="« Habián » se escribe como « Había » al principo de frase (error frecuente)"
+
 # «Habían algunos/muchos» se escribe como «Había algunos/muchos».
 [\bhabían\s(algunos|algunas|muchos|muchas)\b]i
 hint="« Habián algunos/muchos » se escribe como « Había algunos/muchos » (error frecuente)"
@@ -961,6 +980,10 @@ hint="« Hecha a » se escribe como « Echa a » (error frecuente)"
 # «Hóy» se escribe como «Hoy».
 [\bHóy\b]i
 hint="« Hóy » se escribe como « Hoy » (error frecuente)"
+
+# «Hubieron» se escribe como «Hubo» al principio de frase.
+[\bHubieron\b]
+hint="« Hubieron » se escribe como « Hubo » al principo de frase (error frecuente)"
 
 # «Hubieron algunos/muchos» se escribe como «Hubo algunos/muchos».
 [\bhubieron\s(algunos|algunas|muchos|muchas)\b]i
@@ -1190,6 +1213,10 @@ hint="« Observar de que » se escribe como « Observar que » (error frecuente:
 # [\bolvidarse\sque\b]i
 # hint="« Olvidarse que » se escribe como « Olvidarse de que » (error frecuente: queismo)"
 
+# «Opino de que» se escribe como «Opino que».
+[\bopino\sde\sque\b]i
+hint="« Opino de que » se escribe como « Opino que » (error frecuente: dequeismo)"
+
 # «Órden» se escribe como «Orden».
 [\bórden\b]i
 hint="« Órden » se escribe como « Orden » (error frecuente)"
@@ -1253,6 +1280,10 @@ hint="« Perfíl » se escribe como « Perfil » (error frecuente)"
 # «Pié» se escribe sin tilde.
 [\bpié\b]i
 hint="« Pié » se escribe como « Pie » (ver la nueva ortografía de la RAE)"
+
+# «Pienso de que» se escribe como «Pienso que».
+[\bpienso\sde\sque\b]i
+hint="« Piendo de que » se escribe como « Pienso que » (error frecuente: dequeismo)"
 
 # «Por contra» se escribe como «Por el contrario/En cambio».
 [\bpor\scontra\b]i
@@ -1474,6 +1505,10 @@ hint="« Te se » se escribe como « Se te » (error frecuente)"
 # «Tenia» se escribe como «Tenía».
 [\btenia\b]i
 hint="« Tenia » se escribe como « Tenía », salvo cuando se trate del parásito intestinal (error frecuente)"
+
+# «Tenían que haber» se escribe como «Tenía que haber».
+[\btenían\sque\shaber\b]i
+hint="« Tenían que haber » se escribe como « Tenía que haber » (error frecuente)"
 
 # «Tenias» se escribe como «Tenías».
 [\btenias\b]i
