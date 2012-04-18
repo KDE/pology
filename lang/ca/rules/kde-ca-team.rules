@@ -44,6 +44,7 @@ hint="Es tradueix per «marca/ques de selecció» (kde-ca-team)"
 
 {\bchecksums?\b}i
 valid msgstr="sum(a|es) de verificació"
+valid msgstr="Checksum Definition \#1" cat="kleopatra"
 hint="Es tradueix per «suma de verificació» (kde-ca-team)"
 
 {\bciphertext\b}i
@@ -371,6 +372,10 @@ valid msgstr="finestr(a|es) amb pestanyes"
 valid msgstr="té dues pestanyes" cat="kdf"
 hint="Es tradueix per «finestra/es amb pestanyes» (kde-ca-team)"
 
+{\btar\s?balls?\b}
+valid msgstr="arxius? tar"
+hint="Es tradueix per «arxiu/s tar» (kde-ca-team)"
+
 {\b(taskbar|task bar)s?\b}i
 valid msgstr="barr(a|es) de tasques"
 hint="Es tradueix per «barra de tasques» (kde-ca-team)"
@@ -383,6 +388,7 @@ hint="Es tradueix per «barra/es de títol» (kde-ca-team)"
 valid msgstr="barr(a|es) d'eines"
 valid msgstr="barra de localització" # fals positiu (Location Toolbar)
 valid msgstr="Barra de simulació" # fals positiu (Simulation Toolbar)
+valid msgstr="toolbar" cat="calligra"
 hint="Es tradueix per «barra/es d'eines» (kde-ca-team)"
 
 {\b(tooltip|tool-tip|tool tip)s?\b}i

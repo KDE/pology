@@ -55,11 +55,15 @@ hint="Es tradueix per «&Maj;, <key?>Majús.</key?>» (keys)"
 valid msgstr="<key(cap|sym)>Espai</key(cap|sym)>"
 hint="Es tradueix per «<key?>Espai</key?>» (keys)"
 
+{<key(cap|sym)>Start</key(cap|sym)>}
+valid msgstr="<key(cap|sym)>Inici</key(cap|sym)>"
+hint="Es tradueix per «<key?>Inici</key?>» (keys)"
+
 {(&Tab;|<key(cap|sym)>Tab</key(cap|sym)>|TAB key)}
 valid msgstr="&Tab;" # <keycap>Tabulador</keycap>
 valid msgstr="<key(cap|sym)>Tabulador</key(cap|sym)>"
-valid msgstr="tecla &Tab;"
-valid msgstr="tecla Tab"
+valid msgstr="tecla &Tab;" # a la doc
+valid msgstr="tecla Tab" # a l'IGU
 hint="Es tradueix per «&Tab;, tecla &Tab;, <key?>Tabulador</key?>» (keys)"
 
 # Arrow keys
