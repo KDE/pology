@@ -17,7 +17,7 @@ import shutil
 import tempfile
 
 from pology import PologyError, _, n_
-from pology.fsops import collect_system, system_wd, unicode_to_str
+from pology.fsops import collect_system, system_wd, unicode_to_str, join_ncwd
 from pology.report import report, warning
 
 
@@ -927,7 +927,6 @@ class VcsGit (VcsBase):
             for line in res[0][m.end():].split("\n"):
                 line = line.lstrip("#").strip()
                 if line == path:
-                    print "here!"
                     return False
 
         return True
@@ -1061,6 +1060,8 @@ class VcsGit (VcsBase):
         root, path = self._gitroot(path)
 
         ncpaths = self._paths_to_commit(root, path or ".")
+
+        ncpaths = [join_ncwd(root, p) for p in ncpaths]
 
         return ncpaths
 
