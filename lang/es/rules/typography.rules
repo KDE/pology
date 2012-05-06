@@ -15,15 +15,15 @@ hint="Tecla aceleradora no válida (en vocal con tilde)"
 include file="filter.include"
 
 validGroup beforePunctuation
-valid after="(?u)(\w|\>|\»|\)|\]|\}|\»|\%|\-|\&|\<|\\^)"
+valid after="(?u)(\w|\>|\»|\)|\]|\}|\»|\%|\-|\&|\<|\\\\|^)"
 valid before="$"
 
 validGroup afterPunctuation
-valid before="(?u)($|\w|\>|\»|\(|\[|\{|\«|\%|\-|\&|\<|\\$)"
+valid before="(?u)($|\w|\>|\»|\(|\[|\{|\«|\%|\-|\&|\<|\\\\|$)"
 valid after="^"
 
 validGroup openQuotes
-valid after="(\<|\>|\(|\{|\=|\.|\,|\;|\:|\\|\-|\[|\s)"
+valid after="(\<|\>|\(|\{|\=|\.|\,|\;|\:|\\\\|\-|\[|\s)"
 #valid after="\&(\w|\-|\_)*?\;"
 valid after="\~"
 valid after="^"
@@ -41,7 +41,7 @@ valid after="^"
 valid after="(\.|\?|\!\:)\s"
 #valid after="\<(p|para|qt)\>\s?"
 valid after="\~\s*"
-valid after="\\n\s*"
+valid after="\\\\n\s*"
 valid after="(\¿|\¡|\«|\()\s*"
 
 validGroup beforeComma
@@ -50,7 +50,7 @@ valid after="(\,|\;|\:)\s"
 valid after="\("
 #valid after="\<(p|para|qt)\>\s*"
 valid after="\~\s*"
-valid after="\\n\s*"
+valid after="\\\\n\s*"
 
 [\d\%]
 hint="Ponga un espacio de separación entre el número y el símbolo de procentaje"
@@ -87,7 +87,7 @@ valid ctx="CSV separator"
 valid ctx="Query"
 valid span="\:$"
 valid span="\:\~"
-valid span="\:\\n"
+valid span="\:\\\\n"
 valid span="\:\w+" after="\w+\:"
 hint="Ponga un espacio después del signo de dos puntos"
 
@@ -117,7 +117,7 @@ valid ctx="Numbers and characters"
 valid ctx="CSV separator"
 valid span="\!$"
 valid span="\!\~"
-valid span="\!\\n"
+valid span="\!\\\\n"
 hint="Ponga un espacio después del signo de cierre de admiración"
 
 [\w\!]
@@ -149,7 +149,7 @@ valid ctx="Numbers and characters"
 valid ctx="Query"
 valid span="\?$"
 valid span="\?\~"
-valid span="\?\\n"
+valid span="\?\\\\n"
 hint="Ponga un espacio después del signo de cierre de interrogación"
 
 [\w\?]
@@ -239,7 +239,7 @@ valid span="\.$"
 valid span="\.\*"
 #valid span="\.\<\/?(p|para|qt|i)\>"
 valid span="\.\~"
-valid span="\.\\n"
+valid span="\.\\\\n"
 valid span="\.\~"
 valid after="\Wtar" # Extensions
 valid after="\*"

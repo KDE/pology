@@ -8,8 +8,8 @@ include file="filter.include"
 [(?u)\b(\w+)(?!\n)\s+\1\b]
 hint="Hay una palabra consecutiva repetida en el párrafo"
 
-[(?u)\b(\w+\s\w+\s)(?!\n)\s+\1\b]
-hint="Hay un grupo de dos palabras consecutivas repetido en el párrafo"
+[(?u)\b(\w+(\s\w+)+)(\s|\.|\,|\;|\:)+\1\b]
+hint="Hay un grupo de dos o más palabras consecutivas repetido en el párrafo"
 
 [(?u)\b(el|la|lo|los|las)(?!\n)\s+(el|la|lo|los|las)\b]i
 hint="Hay dos artículos determinados consecutivos en el párrafo"

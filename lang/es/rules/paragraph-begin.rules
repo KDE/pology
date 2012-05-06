@@ -9,8 +9,8 @@ valid msgstr="^\s"
 hint="Compruebe el uso de espacio al principio del párrafo (falta en la traducción)."
 
 # Espacios después de un salto de línea.
-{\\n\s}i
-valid msgstr="\\n\s"
+{\\\\n\s}i
+valid msgstr="\\\\n\s"
 hint="Compruebe el uso de espacio posterior a «\n» (falta en la traducción)."
 
 # Espacios después de un nuevo párrafo.
@@ -24,8 +24,8 @@ valid msgstr="^\W*[A-ZÁÉÍÓÚ©«0-9\¿\¡\&\%\<\(\_]"
 hint="Compruebe el uso de mayúscula al principio del párrafo (falta en la traducción)."
 
 # Mayúsculas después de un salto de línea.
-{\\n\W*[A-Z]}i
-valid msgstr="\\n\W*[A-ZÁÉÍÓÚ©«0-9\¿\¡\&\%\<\(\_]"
+{\\\\n\W*[A-Z]}i
+valid msgstr="\\\\n\W*[A-ZÁÉÍÓÚ©«0-9\¿\¡\&\%\<\(\_]"
 hint="Compruebe el uso de mayúscula posterior a «\n» (falta en la traducción)."
 
 # Mayúsculas después de un nuevo párrafo.
@@ -39,8 +39,8 @@ valid msgstr="^\W*[a-záéíóú©«0-9\¿\¡\&\%\<\(\_]"
 hint="Compruebe el uso de minúscula al principio del párrafo (falta en la traducción)."
 
 # Minúsculas después de un salto de línea.
-{\\n\W*[a-z]}i
-valid msgstr="\\n\W*[a-záéíóú©«0-9\¿\¡\&\%\<\(\_]"
+{\\\\n\W*[a-z]}i
+valid msgstr="\\\\n\W*[a-záéíóú©«0-9\¿\¡\&\%\<\(\_]"
 hint="Compruebe el uso de minúscula posterior a «\n» (falta en la traducción)."
 
 # Minúsculas después de un nuevo párrafo.
@@ -55,8 +55,8 @@ valid msgid="^\s"
 hint="Compruebe el uso de espacio al principio del párrafo (sobra en la traducción)."
 
 # Espacios después de un salto de línea.
-[\\n\s]i
-valid msgid="\\n\s"
+[\\\\n\s]i
+valid msgid="\\\\n\s"
 hint="Compruebe el uso de espacio posterior a «\n» (sobra en la traducción)."
 
 # Espacios después de un nuevo párrafo.
@@ -70,8 +70,8 @@ valid msgid="(?u)^\W*[A-Z©«0-9\&\%\<\(\_]"
 hint="Compruebe el uso de mayúscula al principio del párrafo (sobra en la traducción)"
 
 # Mayúsculas después de un salto de línea.
-[(?u)\\n\W*[A-ZÁÉÍÓÚ]]i
-valid msgid="(?u)\\n\W*[A-Z©«0-9\&\%\<\(\_]"
+[(?u)\\\\n\W*[A-ZÁÉÍÓÚ]]i
+valid msgid="(?u)\\\\n\W*[A-Z©«0-9\&\%\<\(\_]"
 hint="Compruebe el uso de mayúscula posterior a «\n» (sobra en la traducción)."
 
 # Mayúsculas después de un nuevo párrafo.
@@ -85,8 +85,8 @@ valid msgid="(?u)^\W*[a-z©«0-9\&\%\<\(\_]"
 hint="Compruebe el uso de minúscula al principio del párrafo (sobra en la traducción)."
 
 # Minúsculas después de un salto de línea.
-[(?u)\\n\W*[a-záéíóú]]i
-valid msgid="(?u)\\n\W*[a-z©«0-9\&\%\<\(\_]"
+[(?u)\\\\n\W*[a-záéíóú]]i
+valid msgid="(?u)\\\\n\W*[a-z©«0-9\&\%\<\(\_]"
 hint="Compruebe el uso de minúscula posterior a «\n» (sobra en la traducción)."
 
 # Minúsculas después de un nuevo párrafo.
