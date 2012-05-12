@@ -12,7 +12,7 @@ import re
 
 # Capitals words in valid contexts in the translated text according with Spanish grammar
 # (beggining of paragraph, after some punctuation characters and after a new line)
-_valid_capital_word = re.compile("(?u)^[A-Z]\w*|[.:?!>«\"]\s*[A-Z]\w*|\\n\s*[A-Z]\w*")
+_valid_capital_word = re.compile("(?u)^[A-Z]\w*|[.:?!>«\"]\s*[A-Z]\w*|\\\\n\s*[A-Z]\w*")
 
 # All capital words in the original English text,
 _ent_capital_word = re.compile("(?u)[A-Z]\w*")
