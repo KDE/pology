@@ -54,6 +54,25 @@ hint="callback = повратни позив [телефонски]"
 valid msgstr="\bповратн\w+ позив"
 
 # ====================
+# Krusader (file manager)
+environment krusader
+
+{\bKonfigurator}i
+id="t-konfigurator"
+hint="Konfigurator = Кр-подешивач"
+valid msgstr="\bКр-подешивач"
+
+{\bKrViewer}i
+id="t-krviewer"
+hint="KrViewer = Кр-приказивач"
+valid msgstr="\bКр-приказивач"
+
+{\bpacker}i
+id="t-packer"
+hint="packer = архивар"
+valid msgstr="\bархивар"
+
+# ====================
 # KSirk (game)
 environment ksirk
 
