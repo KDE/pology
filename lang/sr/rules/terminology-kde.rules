@@ -585,8 +585,8 @@ valid cat="kxkb" msgid="shortcut.*switching.*handle" msgstr="пречиц.*ру�
 {\bleft\W?click}i
 id="t-leftclick"
 hint="left click = кликнути левим"
-valid msgstr="\bлев\w+ клик([^нћ]|\b)" # само именички
-valid msgstr="\bклик[нћ]\w+ левим" # глаголски
+valid msgstr="\bлев\w+ клик([^нтћ]|\b)" # само именички
+valid msgstr="\bклик[нтћ]\w+ левим" # глаголски
 
 {\blines?\b}i
 id="t-line"
@@ -825,8 +825,8 @@ valid cat="kcmicons" msgid="\"Reset\" button to discard your changes"
 {\bright\W?click}i
 id="t-rightclick"
 hint="right click = кликнути десним"
-valid msgstr="\bдесн\w+ клик([^нћ]|\b)" # само именички
-valid msgstr="\bклик[нћ]\w+ десним" # глаголски
+valid msgstr="\bдесн\w+ клик([^нтћ]|\b)" # само именички
+valid msgstr="\bклик[нтћ]\w+ десним" # глаголски
 
 # Превише гњави, ‘ред’ и ‘врста’ су уобичајени синоними.
 {\brows?\b}i

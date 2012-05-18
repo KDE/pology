@@ -330,7 +330,7 @@ valid msgstr="\bознач"
 id="t-leftclick_i"
 hint="left click = леви клик"
 valid msgstr="\bлев\w+ клик"
-valid env="kde" msgstr="\bклик[нћ]\w+ левим"
+valid env="kde" msgstr="\bклик[нтћ]\w+ левим"
 
 #! зезнут
 {\blist}i
@@ -405,7 +405,7 @@ valid env="kde" msgstr="&oblique\S*;"
 {\bpanel}i
 id="t-panel"
 hint="panel = панел"
-valid msgstr="\bпанел"
+valid msgstr="\b(дво|тро)?панел"
 valid env="kde" msgstr="&\w*panel\S*;"
 valid env="kde" msgid="control.*module" msgstr="контролн\w+ модул|модул контролн\w+"
 valid cat="dolphin" msgid="^This panel opens" msgstr="^Отвара"
@@ -473,7 +473,7 @@ valid cat="dolphin" msgid="(e.g.|eg).*Undo\W*rename"
 id="t-rightclick_i"
 hint="right click = десни клик"
 valid msgstr="\bдесн\w+ клик"
-valid env="kde" msgstr="\bклик[нћ]\w+ десним"
+valid env="kde" msgstr="\bклик[нтћ]\w+ десним"
 
 {\bsav(e[ds]?|ing)\b}i
 id="t-save"
