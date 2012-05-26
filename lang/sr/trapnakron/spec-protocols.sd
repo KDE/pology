@@ -82,8 +82,10 @@ POP: ПОП|-, ПОП|>
 POP3: ПОП3|*, ПОП3|>, _род!=м
 POP3S: ПОП3С|*, ПОП3С|>, _род!=м
 PPP: ППП|-, ППП|-ов, ППП|>, _пр=Point to Point Protocol
+PPTP: ППТП|-, ППТП|>, _пр=Point-to-Point Tunneling Protocol
 RFB: РФБ|-, РФБ|>
 rlogin: рлогин|, рлогин|ов, рлогин|>
+RSN: РСН|-, РСН|>, _пр=Robust Security Network
 SASL: САСЛ|-, САСЛ|>
 SFTP: СФТП|-, СФТП|>
 SIMPLE, |simpleprot: СИМПЛ|-, СИМПЛ|>
@@ -124,6 +126,10 @@ WebDAV: вебДАВ|-, вебДАВ|>
     @л: WebDAV|-, webDAV|>
 WebDAVs: вебДАВс|-, вебДАВс|>
     @л: WebDAVs|-, webDAVs|>
+WPA: ВПА|-, ВПА|>, _пр=Wi-Fi Protected Access
+    @л: WPA|-, WPA|>
+WPA2: ВПА|- 2, н&а=ВПА2, ВПА2|>, _пр=Wi-Fi Protected Access II
+    @л: WPA|- 2, н&а=WPA2, WPA2|>
 WPAD: ВПАД|-, ВПАД|>, _пр=Web Proxy Auto-Discovery
     @л: WPAD|-, WPAD|>
 XML-RPC: ИксМЛ-РПЦ|-, ИксМЛ-РПЦ|>
