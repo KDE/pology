@@ -34,6 +34,7 @@ BPP: бпр|*, бпр|>, _род!=м
 BPM: опм|*, _род!=м, _пр=откуцаја по минуту, _про=beats per minute
 BRI: БР|И-, БРИ|>
 BS: БС|-, БС|>, _пр=Backspace
+BSSID: БССИД|-, БССИД|>, _пр=basic service set identifier
 BSOD: БСОД|-, БСОД|>
 CA: ЦА|-, ЦА|>
 CAPI: ЦАП|И-, ЦАПИ|>
@@ -106,7 +107,7 @@ EGD: ЕГД|-, ЕГД|>
 EGL: ЕГЛ|-, ЕГЛ|>
 EOF: ЕОФ|-, ЕОФ|>, _пр=end of file
 EPG: ЕПГ|-, ЕПГ|>, _пр=electronic program guide
-ESSID: ЕССИД|-, ЕССИД|>
+ESSID: ЕССИД|-, ЕССИД|>, _пр=extended service set identifier
 EXIF: ЕКСИФ|-, ЕКСИФ|>
     @л: EXIF|-, EXIF|>
 EXR: ЕИксР|-, ЕИксР|>
@@ -372,7 +373,7 @@ SPNEGO: СПНЕГО|-, СПНЕГО|>
 SPP: СПП|-, СПП|>
 SRM: СРМ|-, СРМ|-, _пр=sequential recording mode
 SSF: ССФ|-, ССФ|>
-SSID: ССИД|-, ССИД|>
+SSID: ССИД|-, ССИД|>, _пр=service set identifier
 SSO: ССО|-, ССО|>, _пр=single sign-on
 sUID: сУИД|-, сУИД|>
 TAO: ТАО|-, ТАО|>, _пр=track-at-once
@@ -408,8 +409,6 @@ VT420: ВТ420|*, ВТ420|>, _род!=м
 VU: ВУ|-, ВУ|>
 WAN: ВАН|-, ВАН|>, _пр=wide area network
     @л: WAN|-, WAN|>
-WEP: ВЕП|-, ВЕП|>
-    @л: WEP|-, WEP|>
 WINS: ВИНС|-, ВИНС|>
     @л: WINS|-, WINS|>
 WLAN: ВЛАН|-, ВЛАН|>

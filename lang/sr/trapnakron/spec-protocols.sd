@@ -23,6 +23,7 @@ DAAP: ДААП|-, ДААП|>
 DICT: ДИКТ|-, ДИКТ|>
     @л: DICT|-, DICT|>
 dIMAP: дИМАП|-, дИМАП|>
+EAP: ЕАП|-, ЕАП|>, _пр=Extensible Authentication Protocol
 eDonkey: Едонк|и, Едонк|ијев, едонки|>
     @л: eDonke|y, eDonke|yjev, eDonkey|>
 Finger: фингер|, фингер|>
@@ -76,6 +77,7 @@ OpenID: опенИД|-, опенИД|>
     @л: OpenID|-, OpenID|>
 OCSP: ОЦСП|-, ОЦСП|>, _пр=Online Certificates Status Protocol
 PAP: ПАП|-, ПАП|>
+PEAP: ПЕАП|-, ПЕАП|>, _пр=Protected Extensible Authentication Protocol
 PLAIN: ПЛЕЈН|-, ПЛЕЈН|>
     @л: PLAIN|-, PLAIN|>
 POP: ПОП|-, ПОП|>
@@ -126,6 +128,8 @@ WebDAV: вебДАВ|-, вебДАВ|>
     @л: WebDAV|-, webDAV|>
 WebDAVs: вебДАВс|-, вебДАВс|>
     @л: WebDAVs|-, webDAVs|>
+WEP: ВЕП|-, ВЕП|>, _пр=Wired Equivalent Privacy
+    @л: WEP|-, WEP|>
 WPA: ВПА|-, ВПА|>, _пр=Wi-Fi Protected Access
     @л: WPA|-, WPA|>
 WPA2: ВПА|- 2, н&а=ВПА2, ВПА2|>, _пр=Wi-Fi Protected Access II
