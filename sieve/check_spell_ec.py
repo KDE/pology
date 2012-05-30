@@ -256,8 +256,13 @@ def _create_checker (providers, langtag, words):
         os.unlink(tmpf.name)
 
     if checker:
+        pname = checker.provider.name.split()[0].lower()
+        need_upcasing = (pname in ("personal", "myspell"))
         for word in words or []:
             checker.add_to_session(word)
+            if need_upcasing:
+                checker.add_to_session(word[0].upper() + word[1:])
+                checker.add_to_session(word.upper())
     return checker
 
 
