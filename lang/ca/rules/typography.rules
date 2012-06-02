@@ -367,7 +367,7 @@ valid after="~" cat="analitza"
 valid ctx="unction name in function prototype"
 valid ctx="inlist all matches should be found"
 valid ctx="calculator button"
-valid span="\(" cat="kteatime"
+valid span="\(" cat="kteatime,simoncalculatorcommand"
 hint="S'han d'obrir i tancar els parèntesis (). Sempre aparellats (tipografia)"
 
 #[\[]
