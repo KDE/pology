@@ -549,6 +549,7 @@ valid before="\)\s?~" cat="kcmkwincompositing"
 valid before="fr " cat="kalarm" # docmessages
 valid cat="plasma_applet_kdeobservatory"
 valid cat="marble_qt"
+valid cat="cocoon"
 valid cat="kcontrol_mouse" # docmessages
 valid cat="kopete_pipes" # docmessages
 valid ctx="Name" cat="desktop_extragear-graphics_kipi-plugins"
