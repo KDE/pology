@@ -44,11 +44,14 @@ DIGEST-MD5: ДАЈЏЕСТ-МД5|*, ДАЈЏЕСТ-МД5|>, _род!=м
 ECB, |ecbalg: ¤ЕЦБ|-, ЕЦБ|>, _пр=electronic codebook
 ElGamal: елгамал|, Елгамал|ов
     @л: ElGamal|, ElGamal|ov
+HMAC: ХМАЦ|-, ХМАЦ|>, _пр=Hash-based Message Authentication Code
 MD2: МД2|*, МД2|>, _род!=м
 MD4: МД4|*, МД4|>, _род!=м
 MD5: МД5|*, МД5|>, _род!=м
 OpenPGP: опенПГП|-, опенПГП|-ов, опенПГП|>
     @л: OpenPGP|-, OpenPGP|-ov, OpenPGP|>
+PFS: ПФС|-, ПФС|>, _пр=Perfect Forward Secrecy
+RIPEMD-160: РИПЕМД-160|*, РИПЕМД-160|>, _род!=м, _пр=RACE Integrity Primitives Evaluation Message Digest
 SHA: СХА|-, СХА|>
 SHA-0: СХА-0|*, СХА-0|>, _род!=м
 SHA-1: СХА-1|*, СХА-1|>, _род!=м

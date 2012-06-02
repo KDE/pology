@@ -17,6 +17,7 @@ AI: ВИ|*, ВИ|>, _род!=ж, _пр=вештачка интелигенциј
 AP: АП|-, АП|-ов, АП|>, _пр=access point
 APG: АГЛ|-, АГЛ|-ов, АГЛ|>, _пр=аутоматски генератор листи нумера, _про=automatic playlist generator
 API: АП|И-, АПИ|>
+APN: АПН|-, АПН|>, _пр=access point name
 APS: АПС|-, АПС|>
 ARGB: АРГБ|-, АРГБ|>, _пр=alpha-red-green-blue
 ASB: АСБ|-, АСБ|>, _пр=automatic speed buffering
@@ -69,6 +70,7 @@ DC: ДЦ|-, ДЦ|>
 DCMI: ДЦМ|И-, ДЦМИ|>
 DDS: ДДС|-, ДДС|>
 DER: ДЕР|-, ДЕР|>
+DH, |dhgrp: ДХ|-, ДХ|>, _пр=Diffie-Hellman
 DHCP: ДХЦП|-, ДХЦП|>
 DHT: ДХТ|-, ДХТ|>
 DiSEqC: дајсек|, дајсек|>, _пр=digital satellite equipment control
@@ -124,6 +126,7 @@ FPU: ФПУ|-, ФПУ|>, _пр=floating-point processing unit
 FPR: ФПР|-, ФПР|>, _пр=floating-point register
 FQDN: ФКуДН|-, ФКуДН|>, _пр=fully qualified domain name
     @л: FQDN|-, FQDN|>
+FSID: ФСИД|-, ФСИД|>, _пр=file system ID
 g11n: г11н|*, _род!=м
 G3: Г3|*, Г3|>, _род!=м
 G4: Г4|*, Г4|>, _род!=м
@@ -147,6 +150,7 @@ GPR: ГПР|-, ГПР|>, _пр=general purpose register
 GPS: ГПС|-, ГПС|>, _пр=Global Positioning System
 GPU: ГПУ|-, ГПУ|>, _пр=graphics processing unit
 GSSAPI: ГССАП|И-, ГССАПИ|>
+GTC: ГТЦ|-, ГТЦ|>, _пр=generic token card
 GUI: ГУ|И-, ГУИ|>, _пр=graphical user interface
 GUID: ГУИД|-, ГУИД|>
 HDLC: ХДЛЦ|-, ХДЛЦ|>
@@ -246,11 +250,15 @@ MOTD: МОТД|-, МОТД|>, _пр=message of the day
 MPC: МПЦ|-, МПЦ|>
 MRL: МРЛ|-, МРЛ|>
 MRML: МРМЛ|-, МРМЛ|>
+MRU: МРУ|-, МРУ|>, _пр=maximum receive unit
 MSB: МСБ|-, МСБ|>
 MSDFS: МСДФС|-, МСДФС|>
 MSI-X: МСИ-Икс|, МСИ-Икс|>
     @л: MSI-X|-, MSI-X|>
+MSS: МСС|-, МСС|>, _пр=maximum segment size
+MTU: МТУ|-, МТУ|>, _пр=maximum transmission unit
 NaN: НаН|-, НаН|>, _пр=not a number
+NAP, |nappnt: НАП|-, НАП|>, _пр=network access point
 NIS: НИС|-, НИС|>
 NRL: НРЛ|-, НРЛ|>
 NTA: НТА|-, НТА|>
@@ -285,10 +293,11 @@ PGM: ПГМ|-, ПГМ|>
 PDQ: ПДКу|-, ПДКу|>
     @л: PDQ|-, PDQ|>
 PEM: ПЕМ|-, ПЕМ|>
+PF, |pfgrp: ПФ|-, ПФ|>, _пр=perfect forward
 PIC: ПИЦ|-, ПИЦ|>
 PID: ПИД|-, ПИД|>
 PIM: ПИМ|-, ПИМ|>
-PIN: ПИН|-, ПИН|>
+PIN: ПИН|-, ПИН|>, _пр=personal identification number
 PME: ПМЕ|-, ПМЕ|>
 PM: ПМ|-, ПМ|>
 PMC: ПМЦ|-, ПМЦ|>
@@ -307,6 +316,7 @@ PtP: ПтП|-, ПтП|>, _пр=point-to-point
 PTY: ПТ|И-, ПТИ|>
     @л: PT|Y-, PTY|>
 PUF: ПУФ|-, ПУФ|>
+PUK: ПУК|-, ПУК|>, _пр=PIN unblocking key
 PW: ПВ|-, ПВ|>
     @л: PW|-, PW|>
 Q.921: Ку.921|*, Ку.921|>, _род!=м
@@ -334,7 +344,6 @@ RFC: РФЦ|-, РФЦ|>
 RGB: РГБ|-, РГБ|>
 RID: РИД|-, РИД|>
 RIP: РИП|-, РИП|>
-RIPEMD-160: РИПЕМД-160|*, РИПЕМД-160|>, _род!=м
 RLM: РЛМ|-, РЛМ|>
 RLE: РЛЕ|-, РЛЕ|>
 RLO: РЛО|-, РЛО|>
@@ -361,6 +370,7 @@ SDI: СД|И-, СДИ|>
 SDK: СДК|-, СДК|>
 Shift-JIS: шифт-|JIS
     @л: Shift-|JIS
+SIM: СИМ|-, СИМ|>, _пр=subscriber identity module
 SIMD: СИМД|-, СИМД|>, _пр=single instruction\, multiple data
 SLC: СЛЦ|-, СЛЦ|>
 SLP: СЛП|-, СЛП|>
@@ -376,7 +386,10 @@ SSF: ССФ|-, ССФ|>
 SSID: ССИД|-, ССИД|>, _пр=service set identifier
 SSO: ССО|-, ССО|>, _пр=single sign-on
 sUID: сУИД|-, сУИД|>
+SWAN: СВАН|-, СВАН|>, _пр=secure wide area network
+    @л: SWAN|-, SWAN|>
 TAO: ТАО|-, ТАО|>, _пр=track-at-once
+TAP: ТАП|-, ТАП|>, _пр=network tap
 TDA: ТДА|-, ТДА|>, _пр=tiny data area
 TFT: ТФТ|-, ТФТ|>
 TIS: ТИС|-, ТИС|>
@@ -385,6 +398,9 @@ TTL: ТТЛ|-, ТТЛ|>
 TTS: ТТС|-, ТТС|>
 TTY: ТТ|И-, ТТИ|>
     @л: TT|Y-, TTY|>
+TUN: ТУН|-, ТУН|>, _пр=network tunnel
+tx: т-икс|-, т-икс|>, _пр=transmit
+    @л: tx|-, tx|>
 UA: УА|*, УА|>, _род!=м
 UBI: УБ|И-, УБИ|>
 UCS-4: УЦС-4|*, УЦС-4|>, _род!=м
@@ -417,8 +433,6 @@ WTS: ВТС|-, ВТС|>
     @л: WTS|-, WTS|>
 X500: Икс500|*, Икс500|>, _род!=м
     @л: X500|*, X500|>
-X509: Икс509|*, Икс509|>, _род!=м
-    @л: X509|*, X509|>
 XA: ИксА|-, ИксА|>, _пр=extended architecture
     @л: XA|-, XA|>
 XBEL: ИксБЕЛ|-, ИксБЕЛ|>

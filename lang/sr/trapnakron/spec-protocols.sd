@@ -17,7 +17,8 @@ CalDAV: калДАВ|-, калДАВ|>
 CardDAV: кардДАВ|-, кардДАВ|>
     @л: CardDAV|-, CardDAV|>
 CBCP: ЦБЦП|-, ЦБЦП|-ов, ЦБЦП|>, _пр=Callback Control Protocol
-CHAP: ЦХАП|-, ЦХАП|>
+CCMP: ЦЦМП|-, ЦЦМП|>, _пр=Counter Cipher Mode Protocol
+CHAP: ЦХАП|-, ЦХАП|>, _пр=Challenge-Handshake Authentication Protocol
 CTCP: ЦТЦП|-, ЦТЦП|>
 DAAP: ДААП|-, ДААП|>
 DICT: ДИКТ|-, ДИКТ|>
@@ -40,6 +41,7 @@ GroupWise: групвајз|, групвајз|>
 HKP: ХКП|-, ХКП|>, _пр=HTTP Keyserver Protocol
 HTTP: ХТТП|-, ХТТП|-ов, ХТТП|>
 HTTPS: ХТТПС|-, ХТТПС|-ов, ХТТПС|>
+IKE: ИКЕ|-, ИКЕ|>, _пр=Internet Key Exchange
 IMAP: ИМАП|-, ИМАП|>
 IMAPS: ИМАПС|-, ИМАПС|>
 IMAP4: ИМАП4|*, ИМАП4|>, _род!=м
@@ -56,7 +58,9 @@ Kerberos4: |{Kerberos}-4
     @л: |{Kerberos}4
 Kerberos5: |{Kerberos}-5
     @л: |{Kerberos}5
+LCP: ЛЦП|-, ЛЦП|>, _пр=Link Control Protocol
 LDAP: ЛДАП|-, ЛДАП|>
+LEAP: ЛЕАП|-, ЛЕАП|>, _пр=Lightweight Extensible Authentication Protocol
 LOGIN: ЛОГИН|-, ЛОГИН|>
 Magnet: магнет|, магнет|и+, магнет|ов, магнет|ски
 ManageSieve: менаџсив|, менаџсив|ов, менаџсив|
@@ -67,6 +71,8 @@ MetaLink: металинк|, металинк|ов, металинк|>
 MNP: МНП|-, МНП|>, _пр=Microcom Networking Protocol
 MNP-4: МНП|- 4, н&а=МНП-4, МНП-4|>
 MNP-5: МНП|- 5, н&а=МНП-5, МНП-5|>
+MPPE: МППЕ|-, МППЕ|>, _пр=Microsoft Point-To-Point Encryption
+MS-CHAP: МС-ЦХАП|-, МС-ЦХАП|>, _пр=Microsoft CHAP
 MTP: МТП|-, МТП|-ов, МТП|>
 µTP, |microtp: µТП|-, µТП|>
 NAT: НАТ|-, НАТ|>, _пр=network address translation
@@ -108,7 +114,9 @@ SSL: ССЛ|-, ССЛ|>
 STUN: СТУН|-, СТУН|>
 TCP: ТЦП|-, ТЦП|>
 TELNET: ТЕЛНЕТ|-, ТЕЛНЕТ|>
-TLS: ТЛС|-, ТЛС|>
+TKIP: ТКИП|-, ТКИП|>, _пр=Temporal Key Integrity Protocol
+TLS: ТЛС|-, ТЛС|>, _пр=Transport Layer Security
+TTLS: ТТЛС|-, ТТЛС|>, _пр=Tunneled TLS
 UCI: УЦ|И-, УЦИ|>, _пр=Universal Chess Interface
 UDP: УДП|-, УДП|>
 URI: УР|И-, УРИ|>
