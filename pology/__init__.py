@@ -47,9 +47,10 @@ def datadir ():
     @rtype: string
     """
 
-    datadir = "@CONFIG_DATADIR@" # configured if installed
+    lenc = locale.getpreferredencoding()
+    datadir = "@CONFIG_DATADIR@".decode(lenc) # configured if installed
     if not os.path.isdir(datadir): # if running from source dir
-        datadir = os.path.dirname(__path__[0])
+        datadir = os.path.dirname(__path__[0]).decode(lenc)
     return datadir
 
 
@@ -61,9 +62,10 @@ def localedir ():
     @rtype: string
     """
 
-    localedir = "@CONFIG_LOCALEDIR@" # configured if installed
+    lenc = locale.getpreferredencoding()
+    localedir = "@CONFIG_LOCALEDIR@".decode(lenc) # configured if installed
     if not os.path.isdir(localedir): # if running from source dir
-        localedir = os.path.join(os.path.dirname(__path__[0]), "mo")
+        localedir = os.path.join(os.path.dirname(__path__[0]), "mo").decode(lenc)
     return localedir
 
 
@@ -75,7 +77,8 @@ def version ():
     @rtype: string
     """
 
-    verstr = "@CONFIG_VERSION@" # configured if installed
+    lenc = locale.getpreferredencoding()
+    verstr = "@CONFIG_VERSION@".decode(lenc) # configured if installed
     if verstr.startswith("@"): # if running from source dir
         try:
             verfile = os.path.join(datadir(), "VERSION")

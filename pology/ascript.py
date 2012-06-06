@@ -23,7 +23,7 @@ from pology.header import format_datetime, parse_datetime
 from pology.message import Message, MessageUnsafe
 from pology.comments import parse_summit_branches
 from pology.diff import msg_ediff
-from pology.fsops import join_ncwd, str_to_unicode
+from pology.fsops import join_ncwd, str_to_unicode, unicode_to_str
 from pology.match import make_msg_fmatcher
 from pology.monitored import Monlist
 from pology.msgreport import warning_on_msg
@@ -1421,7 +1421,8 @@ def import_ascription_extensions (modpath):
 
     # Load external module.
     try:
-        modfile = open(modpath)
+        modfile = open(unicode_to_str(modpath))
+        # ...unicode_to_str because of exec below.
     except IOError:
         raise PologyError(
             _("@info",

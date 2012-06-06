@@ -27,7 +27,7 @@ from pology.catalog import Catalog
 from pology.colors import ColorOptionParser, set_coloring_globals
 import pology.config as pology_config
 from pology.escape import escape_sh
-from pology.fsops import str_to_unicode
+from pology.fsops import str_to_unicode, unicode_to_str
 from pology.fsops import collect_catalogs, collect_system
 from pology.fsops import build_path_selector, collect_paths_from_file
 from pology.fsops import collect_paths_cmdline
@@ -236,7 +236,8 @@ def main ():
             # Sieve name is its path.
             sieve_path = sieve_name
         try:
-            sieve_file = open(sieve_path)
+            sieve_file = open(unicode_to_str(sieve_path))
+            # ...unicode_to_str because of exec below.
         except IOError:
             error(_("@info",
                     "Cannot load sieve '%(file)s'.",
