@@ -26,7 +26,7 @@ from pology.catalog import Catalog
 from pology.header import Header, format_datetime
 from pology.message import Message, MessageUnsafe
 from pology.colors import ColorOptionParser
-from pology.fsops import str_to_unicode
+from pology.fsops import str_to_unicode, unicode_to_str
 from pology.fsops import mkdirpath, assert_system, collect_system
 from pology.fsops import getucwd, join_ncwd
 from pology.fsops import collect_paths_cmdline, build_path_selector
@@ -347,7 +347,7 @@ class Project (object):
                     file=path))
         self.inclusion_trail.append(path)
         self.locked = True
-        exec open(path) in {"S" : self}
+        exec open(unicode_to_str(path)) in {"S" : self}
         self.locked = False
         self.inclusion_trail.pop()
 
