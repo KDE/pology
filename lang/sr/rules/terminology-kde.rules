@@ -81,6 +81,7 @@ id="t-backup"
 hint="backup = резерва"
 valid before=" copy" msgstr="\bрезервн\w+ копиј"
 valid msgstr="\bрезерв\w+(?! копиј)"
+valid msgstr="&backup\S*;"
 
 {\bback(ed|s)? up}i
 id="t-backup2"
@@ -819,7 +820,7 @@ valid msgstr="\bризни[цч]"
 id="t-reset"
 hint="reset = ресетовати"
 valid msgstr="\bресет(ов|уј|\b)"
-valid msgstr="\bвра(ти|ће).*подразумев"
+valid msgstr="\bвра(ти|ће|ћа).*подразумев"
 valid cat="kcmicons" msgid="\"Reset\" button to discard your changes"
 
 {\bright\W?click}i
