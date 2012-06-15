@@ -247,11 +247,11 @@ hint="Es tradueix per «multímetre» (kde-ca-team)"
 valid msgstr="ultraportàtils?"
 hint="Es tradueix per «ultra-portàtil» (kde-ca-team)"
 
-{\bpaths?\b}i
-valid msgstr="cam(í|ins)"
-valid msgstr="variable d'entorn PATH"
-valid !msgstr="rut(a|es)"
-hint="Es tradueix per «camí» o «variable d'entorn PATH» (kde-ca-team)"
+#{\bpaths?\b}i
+#valid msgstr="cam(í|ins)"
+#valid msgstr="variable d'entorn PATH"
+#valid !msgstr="rut(a|es)"
+#hint="Es tradueix per «camí» o «variable d'entorn PATH» (kde-ca-team)"
 
 {\b(progressbar|progress bar)s?\b}i
 valid msgstr="barr(a|es) de progrés"

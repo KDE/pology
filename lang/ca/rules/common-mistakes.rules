@@ -15,6 +15,7 @@ hint="«a el» s'ha de substituir per «al» (error freqüent)"
 
 # «afectar a» ha de ser «afectar» (és transitiu).
 [\bafect[a-zàé]+\sa(ls?)\b]i
+valid msgstr="no afectarà al reconeixement" cat="simon" # docmessages
 hint="«afectar a» s'ha de substituir per «afectar» (error freqüent)"
 
 # «al respecte» (castellanisme) ha de ser «pel que fa al cas», «referent a això», «respecte a».
@@ -219,8 +220,9 @@ valid msgstr="web"
 valid msgstr="world"
 valid msgstr="altres|tothom" cat="kfileshare,kdm_kdmrc-ref,knode_using-firststart"
 valid msgstr="WWW" before="\swide\sweb"
-valid msgstr="tots" cat="kdeprint_theory" #docmessage
-valid msgstr="famoses" cat="kturtle_programming-reference" #docmessage
+valid msgstr="tots" cat="kdeprint_theory" #docmessages
+valid msgstr="famoses" cat="kturtle_programming-reference" #docmessages
+valid msgstr="exemples reals\." cat="simon" #docmessages
 hint="«world» es tradueix per «món» (amb accent) (error freqüent)"
 
 # End of common mistakes rules file

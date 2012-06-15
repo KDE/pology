@@ -169,6 +169,8 @@ valid after="i" cat="lokalize"
 valid after="TipusAssociació" cat="umbrello"
 valid after="seleccioneu.*" cat="koffice,calligra"
 valid after="Nivell" cat="blinken"
+valid before=">\n" cat="kfilereplace" # docmessages
+valid msgstr="^El nivell ?\s" cat="blinken" # docmessages
 hint="No s'ha de posar cap espai abans del signe d'interrogació (tipografia)"
 
 [\?\S]
@@ -190,6 +192,7 @@ valid after="~"
 valid after="i\s" cat="lokalize"
 valid after="\*" cat="adblock"
 valid after="seleccioneu\s.*" cat="koffice,calligra"
+valid msgstr=">\n" cat="kfilereplace" # docmessages
 hint="S'ha de posar un espai després del signe d'interrogació (tipografia)"
 
 [\¿.*?\?\.]
@@ -430,6 +433,7 @@ valid after="seqüència.+" cat="digikam"
 valid after="\(" before="\)" cat="kio4"
 valid after="\(«" before="~" cat="kate"
 valid after="CN\[\$" cat="kleopatra" # docmessages
+valid msgstr="ko r r e u" cat="simon" # docmessages
 valid ctx="Exponential"
 valid cat="tables,kcells,kspread,kdenlive,sheets"
 hint="«e» sola és un error (tipografia)"
@@ -446,6 +450,9 @@ valid after="prioritats\s.+" cat="korganizer" # docmessages
 valid after="di\(" cat="kate_regular-expressions" # docmessages
 valid after="multiplicitat\sd\'" cat="umbrello_uml_basics" # docmessages
 valid after="accelerador.*" cat="tables_a11y,stage_a11y,kspread_a11y,kpresenter_a11y,kcells_a11y" # docmessages
+valid msgstr="ko r r e u" cat="simon" # docmessages
+valid msgstr="només un u " cat="simon" # docmessages
+valid msgstr="from Sample s inner join User u" cat="sscd" # docmessages
 valid cat="kalzium,plasma_engine_kalzium,plasma_applet_Molmasscalculator,kgoldrunner,kubrick,kfile_exr"
 valid cat="libincidenceeditors,tables,kcells,kspread,kbackgammon,kdenlive,krita,sheets"
 valid ctx="Undefined"
@@ -463,6 +470,9 @@ valid after="CONSOLEOWNER.+" cat="kcontrol_mouse" # docmessages
 valid cat="kdecalendarsystems"
 valid comment="Tag\:\sprogramlisting" cat="kdm" # docmessages
 valid comment="Tag\:\sscreen" cat="kmail_faq" # docmessages
+valid before="\/share\/apps\/" # docmessages
+valid before="kde4-config" # docmessages
+valid before="\/ssc\/texts\/" # docmessages
 hint="Un accent obert sol «`» és un error, excepte a ordres de terminal (tipografia)"
 
 # «’» un accent tancat sol és un error (ull amb les ordres!).
@@ -475,8 +485,9 @@ valid after="servir" cat="kwriteconfig"
 valid after="hh|mm|ss"
 valid after="\'\," cat="analitza"
 valid after="useu" cat="kexi"
-valid after="\ssed\s.+" cat="kopete" # docmessages
+valid after="\ssed\s.+" cat="kopete,sscd" # docmessages
 valid after="_language\s.+" # docmessages
+valid before="1d" cat="sscd" # docmessages
 valid before="$" cat="kdeqt"
 valid before="audio|video" cat="konversation"
 valid comment="Tag\:\sscreen" cat="kdeprint_cups-config,kmail_faq,knode_faq" # docmessages
@@ -495,7 +506,7 @@ valid after="servir\s'" cat="kwriteconfig"
 valid after="\s00"
 valid after="Luciash\sd" cat="kopete"
 valid after="presa" cat="digikam"
-valid after="\ssed\s.+" cat="kopete" # docmessages
+valid after="\ssed\s.+" cat="kopete,sscd" # docmessages
 valid after="audio|video" cat="konversation"
 valid after="CDV\s.*" cat="kstars"
 valid after="useu\s.*" cat="kexi"
@@ -552,6 +563,7 @@ valid cat="marble_qt"
 valid cat="cocoon"
 valid cat="kcontrol_mouse" # docmessages
 valid cat="kopete_pipes" # docmessages
+valid cat="kfilereplace" # docmessages
 valid ctx="Name" cat="desktop_extragear-graphics_kipi-plugins"
 valid ctx="Query" cat="desktop_kdebase_kde-runtime"
 valid ctx="Numbers and characters"
