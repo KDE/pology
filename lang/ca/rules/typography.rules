@@ -104,6 +104,7 @@ valid after="Algerian\s*" cat="calligra,koffice"
 valid after="sleep\s3" cat="konsole" # docmessages
 valid span="\s\;$" cat="kleopatra" # docmessages
 valid comment="Tag\:\sprogramlisting" cat="kipi-plugins_geolocation" # docmessages
+valid comment="Tag\:\sscreen" cat="sscd" # docmessages
 hint="No s'ha de posar cap espai abans del signe de punt i coma (tipografia)"
 
 [;\S]
