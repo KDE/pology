@@ -55,6 +55,10 @@ hint="Es tradueix per «text xifrat» (kde-ca-team)"
 valid msgstr="menús? contextuals?"
 hint="Es tradueix per «menú/s contextual/s» (kde-ca-team)"
 
+{\bcorpus(es)?\b}i
+valid msgstr="corpus"
+hint="Es tradueix per «corpus» (kde-ca-team)"
+
 {\bcrypto\b}i
 valid msgstr="criptografia"
 valid msgstr="criptogràfi(cs?|ca|ques)"
