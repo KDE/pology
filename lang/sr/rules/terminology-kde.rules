@@ -732,7 +732,7 @@ valid cat="desktop_kdebase" msgid="paste history utility"
 {\bpattern}i
 id="t-pattern"
 hint="pattern = образац"
-valid msgstr="\bобра(зац|сц)"
+valid msgstr="\b(против)?обра(зац|сц)"
 valid cat="desktop_kdebase" msgid="pattern="
 
 {\bPlasma}i
