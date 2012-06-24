@@ -72,7 +72,10 @@ class Sieve (object):
 
         self.skip_rx = None
         if params.skip is not None:
-            self.skip_rx = re.compile(params.skip, re.U|re.I)
+            flags = re.U
+            if not params.case:
+                flags |= re.I
+            self.skip_rx = re.compile(params.skip, flags)
 
         self.pfilters = [[get_hook_ireq(x, abort=True), x]
                          for x in (params.filter or [])]

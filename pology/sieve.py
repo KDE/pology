@@ -236,6 +236,10 @@ def add_param_spellcheck (p):
                 desc=_("@info sieve parameter discription",
     "Regular expression to eliminate from spell-checking words that match it."
     ))
+    p.add_param("case", bool, defval=False,
+                desc=_("@info sieve parameter discription",
+    "Make matching patterns given as parameter values case-sensitive."
+    ))
     add_param_filter(p,
         intro=_("@info sieve parameter discription",
         "The F1A or F3A/C hook through which to filter the translation "

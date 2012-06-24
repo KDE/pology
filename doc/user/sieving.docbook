@@ -707,6 +707,20 @@ Strings after the dot can be anything, but a sequence of numbers or letters in a
 </varlistentry>
 
 <varlistentry>
+<term><option>skip:<replaceable>regex</replaceable></option></term>
+<listitem>
+<para>Words matched by this regular expression are not sent to spell-checker.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>case</option></term>
+<listitem>
+<para>Matching patterns given as parameter values (e.g. with <option>skip:</option>) are by default case-insensitive, and this parameter switches them to case-sensitive.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
 <term><option>xml:<replaceable>file</replaceable></option></term>
 <listitem>
 <para>By default, messages with unknown words are reported to standard output, and this parameter requests that they be written into a custom (but simple) XML format.</para>
@@ -767,6 +781,13 @@ Strings after the dot can be anything, but a sequence of numbers or letters in a
 <term><option>skip:<replaceable>regex</replaceable></option></term>
 <listitem>
 <para>Words matched by this regular expression are not sent to spell-checker.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>case</option></term>
+<listitem>
+<para>Matching patterns given as parameter values (e.g. with <option>skip:</option>) are by default case-insensitive, and this parameter switches them to case-sensitive.</para>
 </listitem>
 </varlistentry>
 
