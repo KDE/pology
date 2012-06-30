@@ -380,7 +380,7 @@ disabled
 {\b(cross[ -]?fade|fade)}i
 id="t-fade"
 hint="cross-fade|fade = претопити"
-valid !span="cross.?fade" before="[ -](in|out)" # na fadein/fadeout
+valid !span="cross.?fade" before="[ -](in|out)" # на fadein/fadeout
 valid msgstr="\b(претопи|претапа|претопљ)"
 valid msgstr="\b(утапа|утопи|утопљ)" # за значење fadeout
 
@@ -392,6 +392,7 @@ valid msgstr="\b(изрони|израња|изроњ)"
 {\b(fade|fade[ -]?out|fade to black)}i
 id="t-fadeout"
 hint="fade|fade out|fade to black = утопити"
+valid before="[ -]in" # на fadein
 valid msgstr="\b(утапа|утопи|утопљ)"
 valid msgstr="\b(претопи|претапа|претопљ)" # за значење fade
 

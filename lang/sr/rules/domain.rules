@@ -36,6 +36,21 @@ hint="translation file = фајл превода"
 valid msgstr="фајл\w* превода"
 
 # ====================
+# KAlarm (alarm scheduler)
+environment kalarm
+
+{\b(re)?schedule\w+}i
+id="t-schedule"
+hint="schedule = заказати"
+valid span="scheduler"
+valid msgstr="\bзаказ"
+
+{\btrigger}i
+id="t-trigger"
+hint="trigger = огласити (се)"
+valid msgstr="\bогла[сш]"
+
+# ====================
 # KGet (download manager)
 environment kget
 
