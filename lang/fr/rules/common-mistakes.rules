@@ -78,6 +78,7 @@ valid after="</?"
 valid before="s="
 valid cat="kio_groupwise" after="/" before="sbook/"
 valid cat="kmail" after="^\[" before="sBook\]$"
+valid cat="kspread,sheets" msgid="ADDRESS"
 hint="Seulement un « d » en français"
 
 [dosier]i
@@ -364,6 +365,7 @@ valid after="/"
 valid before=":/"
 valid before="Device"
 valid before="Wiki"
+valid cat="kspread,sheets" before="n"
 hint="media -> média"
 
 [médias]i
@@ -428,6 +430,7 @@ valid before="[F|f]ilter|Range|object|box"
 valid after="set|start|CD\-|[I|i]nsert|Widget|sub|block\-"
 valid after="\."
 valid after="-"
+valid cat="kspread,sheets"
 valid before=":"
 valid before="all"
 hint="Merci de mettre un « e » à la fin de « texte » ou « contexte »"
