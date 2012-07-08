@@ -30,7 +30,7 @@ t_("<p class='first'>Some of the prominent elements of Pology functionality incl
 // ========================================
 t_("<h2>Availability</h2>");
 
-$relfile = "pology-0.11.tar.bz2";
+$relfile = "pology-0.12.tar.bz2";
 
 $reldir = "release";
 t_("<p class='first'>Latest release can be downloaded from here:</p>".

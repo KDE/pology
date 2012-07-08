@@ -1,4 +1,30 @@
+Release 0.12:
+
 Release 0.11:
+
+  New functionality:
+
+  * Word capitalization in internal word lists for spell checking is now
+    treated the same for Hunspell as for Aspell (upcased word in text
+    compared to word in word list allowed, downcased not allowed).
+
+  * check-spell-* sieve: parameter 'case' to make matching patterns
+    case-sensitive.
+
+  * Updated language support (spelling, rules, etc):
+    Catalan, French, Galician, Serbian, Spanish.
+
+  Modified functionality:
+
+  * Bumped CMake requirement to 2.8.3.
+
+  Fixed bugs:
+
+  * Highlighting spans of negative length in message reporting no longer
+    cause the message to be dropped.
+
+  * File paths are now thoroughly decoded and encoded as required,
+    so that non-ASCII paths will work properly in all contexts.
 
 Release 0.10.1:
 
