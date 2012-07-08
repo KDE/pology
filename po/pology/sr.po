@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pology\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-12-03 21:49+0100\n"
+"POT-Creation-Date: 2012-07-08 14:12+0200\n"
 "PO-Revision-Date: 2010-06-05 15:12+0200\n"
 "Last-Translator: Chusslove Illich <caslav.ilic@gmx.net>\n"
 "Language-Team: Serbian <kde-i18n-sr@kde.org>\n"
@@ -122,84 +122,84 @@ msgid ""
 "%(msg)s"
 msgstr ""
 
-#: pology/ascript.py:1428
+#: pology/ascript.py:1429
 #, python-format
 msgctxt "@info"
 msgid "Cannot load external module '%(file)s'."
 msgstr ""
 
-#: pology/ascript.py:1451
+#: pology/ascript.py:1452
 #, python-format
 msgctxt "@info"
 msgid "Unknown external resource '%(res)s' in module '%(file)s'."
 msgstr ""
 
-#: pology/ascript.py:1476 pology/ascript.py:1490 pology/ascript.py:1504
-#: pology/ascript.py:1518 pology/ascript.py:1536 pology/ascript.py:1551
-#: pology/ascript.py:1569 pology/ascript.py:1589 pology/ascript.py:1612
-#: pology/ascript.py:1650 pology/ascript.py:1685 pology/ascript.py:1752
-#: pology/ascript.py:1780 pology/ascript.py:1847 pology/ascript.py:1893
-#: pology/ascript.py:1926 pology/ascript.py:1970
+#: pology/ascript.py:1477 pology/ascript.py:1491 pology/ascript.py:1505
+#: pology/ascript.py:1519 pology/ascript.py:1537 pology/ascript.py:1552
+#: pology/ascript.py:1570 pology/ascript.py:1590 pology/ascript.py:1613
+#: pology/ascript.py:1651 pology/ascript.py:1686 pology/ascript.py:1753
+#: pology/ascript.py:1781 pology/ascript.py:1848 pology/ascript.py:1894
+#: pology/ascript.py:1927 pology/ascript.py:1971
 msgctxt "@info"
 msgid "Wrong number of arguments."
 msgstr ""
 
-#: pology/ascript.py:1521
+#: pology/ascript.py:1522
 msgctxt "@info"
 msgid "Branch ID must not be empty."
 msgstr ""
 
-#: pology/ascript.py:1554
+#: pology/ascript.py:1555
 msgctxt "@info"
 msgid "Match expression must not be empty."
 msgstr ""
 
-#: pology/ascript.py:1574
+#: pology/ascript.py:1575
 msgctxt "@info"
 msgid "Message entry number must be a positive integer."
 msgstr ""
 
-#: pology/ascript.py:1594
+#: pology/ascript.py:1595
 msgctxt "@info"
 msgid "Message line number must be a positive integer."
 msgstr ""
 
-#: pology/ascript.py:1618
+#: pology/ascript.py:1619
 msgctxt "@info"
 msgid "At least one of the first and last message entry numbers must be given."
 msgstr ""
 
-#: pology/ascript.py:1623
+#: pology/ascript.py:1624
 msgctxt "@info"
 msgid "First message entry number must be a positive integer."
 msgstr ""
 
-#: pology/ascript.py:1627
+#: pology/ascript.py:1628
 msgctxt "@info"
 msgid "Last message entry number must be a positive integer."
 msgstr ""
 
-#: pology/ascript.py:1656
+#: pology/ascript.py:1657
 msgctxt "@info"
 msgid "At least one of the first and last message line numbers must be given."
 msgstr ""
 
-#: pology/ascript.py:1661
+#: pology/ascript.py:1662
 msgctxt "@info"
 msgid "First message line number must be a positive integer."
 msgstr ""
 
-#: pology/ascript.py:1665
+#: pology/ascript.py:1666
 msgctxt "@info"
 msgid "Last message line number must be a positive integer."
 msgstr ""
 
-#: pology/ascript.py:1692
+#: pology/ascript.py:1693
 msgctxt "@info"
 msgid "Match expression cannot be empty."
 msgstr ""
 
-#: pology/ascript.py:1976
+#: pology/ascript.py:1977
 msgctxt "@info"
 msgid "Time specification cannot be empty."
 msgstr ""
@@ -324,30 +324,30 @@ msgctxt "@info \"opcode\" is shorthand for \"operation code\""
 msgid "Unknown opcode '%(code)s' from sequence matcher."
 msgstr ""
 
-#: pology/diff.py:1154
+#: pology/diff.py:1157
 #, python-format
 msgctxt "@info"
 msgid "Unknown selection mode '%(mode)s' for partial differencing."
 msgstr ""
 
-#: pology/diff.py:1224 pology/diff.py:1411
+#: pology/diff.py:1227 pology/diff.py:1414
 #, python-format
 msgctxt "@info"
 msgid "Unhandled message part '%(part)s' encountered while differencing."
 msgstr ""
 
-#: pology/diff.py:1573
+#: pology/diff.py:1576
 msgctxt "@info"
 msgid "Malformed padded context."
 msgstr ""
 
-#: pology/diff.py:1611
+#: pology/diff.py:1614
 #, python-format
 msgctxt "@info"
 msgid "Unhandled message part '%(part)s' encountered while resolving difference."
 msgstr ""
 
-#: pology/diff.py:1776
+#: pology/diff.py:1779
 #, python-format
 msgctxt "@info"
 msgid "Cannot read file '%(file)s'."
@@ -518,7 +518,7 @@ msgctxt "@info"
 msgid "Cannot parse datetime string '%(str)s'."
 msgstr ""
 
-#: pology/__init__.py:273
+#: pology/__init__.py:276
 #, python-format
 msgctxt "@info"
 msgid "No '%(arg)s' keyword argument to plural translation request."
@@ -700,120 +700,120 @@ msgctxt "@info"
 msgid "Superfluous placeholder tags in translation: %(taglist)s."
 msgstr ""
 
-#: pology/match.py:70
+#: pology/match.py:71
 #, python-format
 msgctxt "@info"
 msgid "Invalid expression at %(col)d [%(snippet)s]: %(reason)s."
 msgstr ""
 
-#: pology/match.py:75
+#: pology/match.py:76
 #, python-format
 msgctxt "@info"
 msgid "Invalid expression: %(reason)s."
 msgstr ""
 
-#: pology/match.py:79
+#: pology/match.py:80
 #, python-format
 msgctxt "@info"
 msgid "Invalid expression at %(col)d [%(snippet)s]."
 msgstr ""
 
-#: pology/match.py:82
+#: pology/match.py:83
 msgctxt "@info"
 msgid "Invalid expression."
 msgstr ""
 
-#: pology/match.py:165 pology/match.py:329
+#: pology/match.py:166 pology/match.py:330
 msgctxt "@item:intext"
 msgid "premature end of expression"
 msgstr ""
 
-#: pology/match.py:243
+#: pology/match.py:244
 msgctxt "@item:intext"
 msgid "expected operator"
 msgstr ""
 
-#: pology/match.py:247
+#: pology/match.py:248
 msgctxt "@item:intext"
 msgid "no closing parenthesis"
 msgstr ""
 
-#: pology/match.py:261
+#: pology/match.py:262
 msgctxt "@item:intext"
 msgid "unexpected unary operator"
 msgstr ""
 
-#: pology/match.py:265
+#: pology/match.py:266
 msgctxt "@item:intext"
 msgid "unexpected binary operator"
 msgstr ""
 
-#: pology/match.py:273
+#: pology/match.py:274
 msgctxt "@item:intext"
 msgid "expected an operator"
 msgstr ""
 
-#: pology/match.py:282
+#: pology/match.py:283
 msgctxt "@item:intext"
 msgid "expected token starting with a letter"
 msgstr ""
 
-#: pology/match.py:300
+#: pology/match.py:301
 #, python-format
 msgctxt "@item:intext"
 msgid "unknown unary operator '%(op)s'"
 msgstr ""
 
-#: pology/match.py:321
+#: pology/match.py:322
 #, python-format
 msgctxt "@item:intext"
 msgid "unknown binary operator '%(op)s'"
 msgstr ""
 
-#: pology/match.py:332
+#: pology/match.py:333
 msgctxt "@item:intext"
 msgid "expected subexpression"
 msgstr ""
 
-#: pology/match.py:354
+#: pology/match.py:355
 #, python-format
 msgctxt "@item:intext"
 msgid "unknown matcher '%(match)s'"
 msgstr ""
 
-#: pology/match.py:365
+#: pology/match.py:366
 msgctxt "@item:intext"
 msgid "expected parameter delimiter"
 msgstr ""
 
-#: pology/match.py:371
+#: pology/match.py:372
 msgctxt "@item:intext"
 msgid "expected closing delimiter"
 msgstr ""
 
-#: pology/match.py:404
+#: pology/match.py:405
 #, python-format
 msgctxt "@item:intext"
 msgid "unknown modifiers %(modlist)s to matcher '%(match)s'"
 msgstr ""
 
-#: pology/match.py:416 sieve/collect_pmap.py:367
+#: pology/match.py:417 sieve/collect_pmap.py:368
 #, python-format
 msgctxt "@item:intext"
 msgid "invalid regular expression '%(regex)s'"
 msgstr ""
 
-#: pology/match.py:496
+#: pology/match.py:497
 msgctxt "@item:intext"
 msgid "invalid line span"
 msgstr ""
 
-#: pology/match.py:509
+#: pology/match.py:510
 msgctxt "@item:intext"
 msgid "invalid entry span"
 msgstr ""
 
-#: pology/match.py:529
+#: pology/match.py:530
 msgctxt "@item:intext"
 msgid "unknown matcher"
 msgstr ""
@@ -873,7 +873,7 @@ msgid ""
 "%(msg)s"
 msgstr ""
 
-#: pology/msgreport.py:175 pology/msgreport.py:427
+#: pology/msgreport.py:175 pology/msgreport.py:431
 #, python-format
 msgctxt "@info"
 msgid "Unknown field '%(field)s' in highlighting specification."
@@ -885,48 +885,48 @@ msgctxt "@info"
 msgid "Communication with Lokalize not possible. Try installing the '%(pkg)s' package."
 msgstr ""
 
-#: pology/msgreport.py:444
+#: pology/msgreport.py:448
 #, python-format
 msgctxt "@info"
 msgid "<bold>[note]</bold> %(msg)s"
 msgstr "<bold>[напомена]</bold> %(msg)s"
 
-#: pology/msgreport.py:462
+#: pology/msgreport.py:466
 #, python-format
 msgctxt "@item:intext shortened longer text"
 msgid "%(snippet)s..."
 msgstr ""
 
-#: pology/msgreport.py:471
+#: pology/msgreport.py:475
 #, python-format
 msgctxt "@info"
 msgid "[%(pos)s]: %(msg)s"
 msgstr ""
 
-#: pology/msgreport.py:478
+#: pology/msgreport.py:482
 msgctxt "@info"
 msgid ">>> Filtered message was:"
 msgstr ">>> Филтрирана порука:"
 
-#: pology/msgreport.py:505 pology/msgreport.py:582
+#: pology/msgreport.py:509 pology/msgreport.py:586
 #, python-format
 msgctxt "@info"
 msgid "rule %(rule)s <bold><red>==></red></bold> <bold>%(msg)s</bold>"
 msgstr "правило %(rule)s <bold><red>==></red></bold> <bold>%(msg)s</bold>"
 
-#: pology/msgreport.py:637 sieve/check_grammar.py:142
+#: pology/msgreport.py:641 sieve/check_grammar.py:142
 #, python-format
 msgctxt "@info"
 msgid "<bold>Context:</bold> %(snippet)s"
 msgstr "<bold>Контекст:</bold> %(snippet)s"
 
-#: pology/msgreport.py:641
+#: pology/msgreport.py:645
 #, python-format
 msgctxt "@info"
 msgid "<bold>Faulty word:</bold> <red>%(word)s</red>"
 msgstr ""
 
-#: pology/msgreport.py:645
+#: pology/msgreport.py:649
 #, python-format
 msgctxt "@info"
 msgid "<bold>Suggestions:</bold> %(wordlist)s"
@@ -1385,7 +1385,7 @@ msgctxt "@info sieve parameter discription"
 msgid "Character which is used as UI accelerator marker in text fields."
 msgstr ""
 
-#: pology/sieve.py:127 sieve/check_rules.py:69 sieve/find_messages.py:234
+#: pology/sieve.py:127 sieve/check_rules.py:69 sieve/find_messages.py:235
 #: sieve/stats.py:42
 msgctxt "@info sieve parameter value placeholder"
 msgid "CHAR"
@@ -1418,10 +1418,10 @@ msgstr ""
 
 #: pology/sieve.py:191
 msgctxt "@info sieve parameter discription"
-msgid "Open catalogs on reported messages in Lokalize."
+msgid "Open catalogs on reported messages in Lokalize. Lokalize must be already running with the project that contains the sieved catalogs opened."
 msgstr ""
 
-#: pology/sieve.py:205
+#: pology/sieve.py:207
 msgctxt "@info sieve parameter discription; in the last line only 'entname' and 'entvalue' should be translated"
 msgid ""
 "File defining the entities used in messages (parameter can be repeated to add more files). Entity file defines entities one per line, in the format:\n"
@@ -1429,68 +1429,73 @@ msgid ""
 "&lt;!ENTITY entname 'entvalue'&gt;"
 msgstr ""
 
-#: pology/sieve.py:219
+#: pology/sieve.py:221
 msgctxt "@info sieve parameter discription"
 msgid "The language determines which system dictionary, as well as internal word lists, to use for spell-checking. If the language is left undefined for a given catalog, it will be skipped and a warning may be output."
 msgstr ""
 
-#: pology/sieve.py:225
+#: pology/sieve.py:227
 msgctxt "@info sieve parameter discription"
 msgid "The environment determines which additional internal word lists to use for spell-checking. If the environment is left undefined for a given catalog, only environment-agnostic internal word lists will be used."
 msgstr ""
 
-#: pology/sieve.py:233 sieve/check_rules.py:112 sieve/check_rules.py:124
-#: sieve/find_messages.py:52 sieve/find_messages.py:58
-#: sieve/find_messages.py:64 sieve/find_messages.py:70
-#: sieve/find_messages.py:76 sieve/find_messages.py:82
-#: sieve/find_messages.py:88 sieve/find_messages.py:94
-#: sieve/find_messages.py:124 sieve/find_messages.py:129
+#: pology/sieve.py:235 sieve/check_rules.py:112 sieve/check_rules.py:124
+#: sieve/find_messages.py:53 sieve/find_messages.py:59
+#: sieve/find_messages.py:65 sieve/find_messages.py:71
+#: sieve/find_messages.py:77 sieve/find_messages.py:83
+#: sieve/find_messages.py:89 sieve/find_messages.py:95
+#: sieve/find_messages.py:125 sieve/find_messages.py:130
 #: sieve/remove_fuzzy_comments.py:33 sieve/remove_fuzzy_comments.py:38
 #: sieve/set_header.py:73
 msgctxt "@info sieve parameter value placeholder"
 msgid "REGEX"
 msgstr ""
 
-#: pology/sieve.py:235
+#: pology/sieve.py:237
 msgctxt "@info sieve parameter discription"
 msgid "Regular expression to eliminate from spell-checking words that match it."
 msgstr ""
 
-#: pology/sieve.py:239
+#: pology/sieve.py:241
+msgctxt "@info sieve parameter discription"
+msgid "Make matching patterns given as parameter values case-sensitive."
+msgstr ""
+
+#: pology/sieve.py:245
 msgctxt "@info sieve parameter discription"
 msgid "The F1A or F3A/C hook through which to filter the translation before passing it to spell-checking."
 msgstr ""
 
-#: pology/sieve.py:244
+#: pology/sieve.py:250
 msgctxt "@info sieve parameter discription"
 msgid "Use only internal supplement word lists, and not the system dictionary."
 msgstr ""
 
-#: pology/sieve.py:248
+#: pology/sieve.py:254
 msgctxt "@info sieve parameter discription"
 msgid "Output only a simple sorted list of unknown words."
 msgstr ""
 
 #: pology/spell.py:152 sieve/check_grammar.py:94 sieve/check_rules.py:239
-#: sieve/check_spell_ec.py:106 sieve/check_spell.py:172
+#: sieve/check_spell_ec.py:109 sieve/check_spell.py:175
 #, python-format
 msgctxt "@info"
 msgid "Cannot determine language for catalog '%(file)s'."
 msgstr "Не могу да одредим језик за каталог ‘%(file)s’."
 
-#: pology/spell.py:195 sieve/check_spell_ec.py:191
+#: pology/spell.py:195 sieve/check_spell_ec.py:194
 #, python-format
 msgctxt "@info"
 msgid "Unknown word '%(word)s' (suggestions: %(wordlist)s)."
 msgstr "Непозната реч ‘%(word)s’ (предлози: %(wordlist)s)."
 
-#: pology/spell.py:200 sieve/check_spell_ec.py:197
+#: pology/spell.py:200 sieve/check_spell_ec.py:200
 #, python-format
 msgctxt "@info"
 msgid "Unknown word '%(word)s'."
 msgstr "Непозната реч ‘%(word)s’."
 
-#: pology/spell.py:241 sieve/check_spell.py:196
+#: pology/spell.py:241 sieve/check_spell.py:199
 #, python-format
 msgctxt "@info"
 msgid ""
@@ -1500,7 +1505,7 @@ msgstr ""
 "Грешка у постави &aspell-g;:\n"
 "%(msg)s"
 
-#: pology/spell.py:245 sieve/check_spell.py:201
+#: pology/spell.py:245 sieve/check_spell.py:204
 #, python-format
 msgctxt "@info"
 msgid ""
@@ -1510,7 +1515,7 @@ msgstr ""
 "Не могу да припремим &aspell-a;:\n"
 "%(msg)s"
 
-#: pology/spell.py:252 sieve/check_spell.py:209
+#: pology/spell.py:252 sieve/check_spell.py:212
 msgctxt "@info"
 msgid "No supplemental dictionaries found."
 msgstr "Нису нађени допунски речници."
@@ -1525,7 +1530,7 @@ msgstr ""
 "На могу да направим здружени правописни речник у текућем радном директоријуму:\n"
 "%(msg)s"
 
-#: pology/spell.py:324 sieve/check_spell_ec.py:309 sieve/check_spell.py:427
+#: pology/spell.py:324 sieve/check_spell_ec.py:317 sieve/check_spell.py:430
 #, python-format
 msgctxt "@info"
 msgid "Malformed header in dictionary file '%(file)s'."
@@ -1626,7 +1631,7 @@ msgid "%(head)s %(tail)s"
 msgstr ""
 
 #: pology/stdcmdopt.py:145 scripts/poascribe.py:241 scripts/poepatch.py:97
-#: scripts/pomtrans.py:67 scripts/posieve.py:128
+#: scripts/pomtrans.py:68 scripts/posieve.py:128
 msgctxt "@info command line value placeholder"
 msgid "FILE"
 msgstr ""
@@ -1817,37 +1822,37 @@ msgctxt "@info"
 msgid "Optional parameters:"
 msgstr ""
 
-#: pology/synder.py:68
+#: pology/synder.py:69
 #, python-format
 msgctxt "@info context of error"
 msgid "[synder-%(code)d]: %(msg)s"
 msgstr ""
 
-#: pology/synder.py:72
+#: pology/synder.py:73
 #, python-format
 msgctxt "@info context of error"
 msgid "[synder-%(code)d] in %(source)s: %(msg)s"
 msgstr ""
 
-#: pology/synder.py:76
+#: pology/synder.py:77
 #, python-format
 msgctxt "@info context of error"
 msgid "[synder-%(code)d] at %(source)s:%(line)d: %(msg)s"
 msgstr ""
 
-#: pology/synder.py:81
+#: pology/synder.py:82
 #, python-format
 msgctxt "@info context of error"
 msgid "[synder-%(code)d] at %(source)s:%(line)d:%(col)d: %(msg)s"
 msgstr ""
 
-#: pology/synder.py:172
+#: pology/synder.py:173
 #, python-format
 msgctxt "@item automatic name for anonymous input stream"
 msgid "&lt;stream-%(num)s&gt;"
 msgstr ""
 
-#: pology/synder.py:267
+#: pology/synder.py:268
 #, python-format
 msgctxt "@info"
 msgid ""
@@ -1855,74 +1860,74 @@ msgid ""
 "%(msg)s"
 msgstr ""
 
-#: pology/synder.py:291
+#: pology/synder.py:292
 #, python-format
 msgctxt "@info"
 msgid "Included file '%(name)s' not found at '%(path)s'."
 msgstr "Укључена датотека '%(name)s' не налази се на '%(path)s'."
 
-#: pology/synder.py:364
+#: pology/synder.py:365
 msgctxt "@info"
 msgid "No derivation yet for which to start an environment."
 msgstr ""
 
-#: pology/synder.py:371
+#: pology/synder.py:372
 msgctxt "@info"
 msgid "Inconsistent indenting of environment head."
 msgstr ""
 
-#: pology/synder.py:383
+#: pology/synder.py:384
 msgctxt "@info"
 msgid "Inconsistent indenting of derivation head."
 msgstr ""
 
-#: pology/synder.py:432
+#: pology/synder.py:433
 #, python-format
 msgctxt "@info"
 msgid "Unexpected end of derivation head started at %(line)d:%(col)d."
 msgstr ""
 
-#: pology/synder.py:448
+#: pology/synder.py:449
 msgctxt "@info"
 msgid "Empty environment name."
 msgstr ""
 
-#: pology/synder.py:454
+#: pology/synder.py:455
 #, python-format
 msgctxt "@info"
 msgid "Repeated environment name '%(env)s'."
 msgstr ""
 
-#: pology/synder.py:463
+#: pology/synder.py:464
 #, python-format
 msgctxt "@info"
 msgid "Unexpected end of environment head started at %(line)d:%(col)d."
 msgstr ""
 
-#: pology/synder.py:543
+#: pology/synder.py:544
 #, python-format
 msgctxt "@info"
 msgid "Unexpected end of expander started at %(line)d:%(col)d."
 msgstr ""
 
-#: pology/synder.py:588
+#: pology/synder.py:589
 #, python-format
 msgctxt "@info"
 msgid "Unexpected end of tag started at %(line)d:%(col)d."
 msgstr ""
 
-#: pology/synder.py:614
+#: pology/synder.py:615
 msgctxt "@info"
 msgid "Empty target path in inclusion directive."
 msgstr ""
 
-#: pology/synder.py:1139
+#: pology/synder.py:1140
 #, python-format
 msgctxt "@info"
 msgid "Unknown extra arguments for transformation function requested in derivator constructor: %(arglist)s"
 msgstr ""
 
-#: pology/synder.py:1311
+#: pology/synder.py:1312
 #, python-format
 msgctxt "@info"
 msgid ""
@@ -1930,13 +1935,13 @@ msgid ""
 "%(pos2list)s"
 msgstr ""
 
-#: pology/synder.py:1524
+#: pology/synder.py:1525
 #, python-format
 msgctxt "@info"
 msgid "Expansion '%(ref)s' does not reference a known derivation."
 msgstr ""
 
-#: pology/synder.py:1589
+#: pology/synder.py:1590
 #, python-format
 msgctxt "@info"
 msgid "Expansion '%(ref)s' expands into nothing."
@@ -2086,12 +2091,12 @@ msgctxt "@info"
 msgid "Selected version control system does not define reverting a versioned path."
 msgstr ""
 
-#: pology/vcs.py:710
+#: pology/vcs.py:714
 msgctxt "@info \"Subversion\" is a version control system"
 msgid "Subversion cannot diff from working copy to a named revision."
 msgstr ""
 
-#: pology/vcs.py:718
+#: pology/vcs.py:722
 #, python-format
 msgctxt "@info"
 msgid ""
@@ -2099,7 +2104,7 @@ msgid ""
 "%(msg)s"
 msgstr ""
 
-#: pology/vcs.py:753
+#: pology/vcs.py:757
 #, python-format
 msgctxt "@info"
 msgid ""
@@ -2107,50 +2112,50 @@ msgid ""
 "%(msg)s"
 msgstr ""
 
-#: pology/vcs.py:809
+#: pology/vcs.py:813
 #, python-format
 msgctxt "@info \"Git\" is a version control system"
 msgid "Cannot find Git repository for '%(path)s'."
 msgstr ""
 
-#: pology/vcs.py:850
+#: pology/vcs.py:854
 #, python-format
 msgctxt "@info"
 msgid "Git cannot remove directories (tried on '%(path)s')."
 msgstr ""
 
-#: pology/vcs.py:869
+#: pology/vcs.py:873
 msgctxt "@info"
 msgid "Trying to move paths between different repositories."
 msgstr ""
 
-#: pology/vcs.py:985
+#: pology/vcs.py:988
 #, python-format
 msgid "@infoGit cannot commit non-versioned path '%(path)s'."
 msgstr ""
 
-#: pology/vcs.py:990
+#: pology/vcs.py:993
 #, python-format
 msgid "@infoGit cannot add path '%(path)s' to index."
 msgstr ""
 
-#: pology/vcs.py:1000
+#: pology/vcs.py:1003
 msgctxt "@info"
 msgid "Git is resetting paths in index which are not to be committed."
 msgstr ""
 
-#: pology/vcs.py:1111
+#: pology/vcs.py:1116
 msgid "@infoGit cannot diff from non-staged paths to a commit."
 msgstr ""
 
-#: pology/vcs.py:1119
+#: pology/vcs.py:1124
 #, python-format
 msgid ""
 "@infoGit reports it cannot diff path '%(path)s':\n"
 "%(msg)s"
 msgstr ""
 
-#: pology/vcs.py:1156
+#: pology/vcs.py:1161
 #, python-format
 msgid ""
 "@infoGit reports it cannot revert path '%(path)s':\n"
@@ -2267,25 +2272,31 @@ msgctxt "@info"
 msgid "Malformed header of the dictionary file '%(file)s'."
 msgstr "Лоше заглавље речничке датотеке ‘%(file)s’."
 
-#: scripts/normalize-aspell-word-list.py:88 scripts/organizeDict.py:88
+#: scripts/normalize-aspell-word-list.py:76 scripts/organizeDict.py:76
+#, python-format
+msgctxt "@item:inlist"
+msgid "dictionary type changed to '%(dtype)s'"
+msgstr ""
+
+#: scripts/normalize-aspell-word-list.py:95 scripts/organizeDict.py:95
 #, python-format
 msgctxt "@item:inlist"
 msgid "duplicate removed: %(word)s"
 msgstr ""
 
-#: scripts/normalize-aspell-word-list.py:93 scripts/organizeDict.py:93
+#: scripts/normalize-aspell-word-list.py:100 scripts/organizeDict.py:100
 #, python-format
 msgctxt "@item:inlist"
 msgid "*** invalid word at %(line)s: %(word)s"
 msgstr ""
 
-#: scripts/normalize-aspell-word-list.py:98 scripts/organizeDict.py:98
+#: scripts/normalize-aspell-word-list.py:105 scripts/organizeDict.py:105
 #, python-format
 msgctxt "@item:inlist"
 msgid "invalid word removed: %(word)s"
 msgstr ""
 
-#: scripts/normalize-aspell-word-list.py:116 scripts/organizeDict.py:116
+#: scripts/normalize-aspell-word-list.py:123 scripts/organizeDict.py:123
 #, python-format
 msgctxt "@item:inlist"
 msgid "written %(num)d word"
@@ -2295,7 +2306,7 @@ msgstr[1] "уписане %(num)d речи"
 msgstr[2] "уписано %(num)d речи"
 msgstr[3] "уписана %(num)d реч"
 
-#: scripts/normalize-aspell-word-list.py:123 scripts/organizeDict.py:123
+#: scripts/normalize-aspell-word-list.py:130 scripts/organizeDict.py:130
 #, python-format
 msgctxt "@info"
 msgid "Usage: %(cmd)s [-r|--remove-invalid] DICTFILE..."
@@ -2827,7 +2838,7 @@ msgctxt "@info command description"
 msgid "Create embedded diffs of PO files."
 msgstr ""
 
-#: scripts/poediff.py:64 scripts/poepatch.py:71 scripts/pomtrans.py:53
+#: scripts/poediff.py:64 scripts/poepatch.py:71 scripts/pomtrans.py:54
 #: scripts/poselfmerge.py:56 lang/sr/scripts/pohybdl.py:40
 #: lang/sr/scripts/traplint.py:453
 #, python-format
@@ -2952,7 +2963,7 @@ msgctxt "@info"
 msgid "%(quantity)s: %(value)s"
 msgstr ""
 
-#: scripts/poediff.py:293 scripts/poediff.py:452
+#: scripts/poediff.py:293 scripts/poediff.py:453
 #, fuzzy, python-format
 #| msgctxt "@info:progress"
 #| msgid "Sieving: %(file)s"
@@ -2960,24 +2971,24 @@ msgctxt "@info:progress"
 msgid "Diffing: %(file)s"
 msgstr "Просејавам: %(file)s"
 
-#: scripts/poediff.py:307 scripts/poediff.py:467
+#: scripts/poediff.py:308 scripts/poediff.py:469
 #, python-format
 msgctxt "@info"
 msgid "Cannot parse catalog '%(file)s'."
 msgstr "Не могу да рашчланим каталог ‘%(file)s’."
 
-#: scripts/poediff.py:390
+#: scripts/poediff.py:391
 msgctxt "@info"
 msgid "Internal problem with path collection (200)."
 msgstr "Унутрашњи проблем са збирком путања (200)."
 
-#: scripts/poediff.py:417
+#: scripts/poediff.py:418
 #, python-format
 msgctxt "@info"
 msgid "Cannot export path '%(path)s' in revision '%(rev)s'."
 msgstr ""
 
-#: scripts/poediff.py:475
+#: scripts/poediff.py:477
 msgctxt "@item"
 msgid "nominal newly translated words"
 msgstr ""
@@ -3177,143 +3188,143 @@ msgctxt "@info:progress"
 msgid "Unembedded: %(file)s"
 msgstr "Разугнежђена: %(file)s"
 
-#: scripts/pomtrans.py:48
+#: scripts/pomtrans.py:49
 #, python-format
 msgctxt "@info command usage"
 msgid "%(cmd)s [OPTIONS] TRANSERV PATHS..."
 msgstr ""
 
-#: scripts/pomtrans.py:51
+#: scripts/pomtrans.py:52
 msgctxt "@info command description"
 msgid "Perform machine translation of PO files."
 msgstr ""
 
-#: scripts/pomtrans.py:61
+#: scripts/pomtrans.py:62
 msgctxt "@info command line value placeholder"
 msgid "CHAR"
 msgstr ""
 
-#: scripts/pomtrans.py:63
+#: scripts/pomtrans.py:64
 msgctxt "@info command line option description"
 msgid "Accelerator marker character used in messages. Detected from catalogs if not given."
 msgstr ""
 
-#: scripts/pomtrans.py:69
+#: scripts/pomtrans.py:70
 msgctxt "@info command line option description"
 msgid "Translate from translation to another language, found in compendium file at the given path."
 msgstr ""
 
-#: scripts/pomtrans.py:79
+#: scripts/pomtrans.py:80
 #, python-format
 msgctxt "@info command line option description"
 msgid "Add '%(flag)s' flag to translated messages."
 msgstr ""
 
-#: scripts/pomtrans.py:83
+#: scripts/pomtrans.py:84
 msgctxt "@info command line value placeholder"
 msgid "MODE"
 msgstr ""
 
-#: scripts/pomtrans.py:85
+#: scripts/pomtrans.py:86
 msgctxt "@info command line option description"
 msgid "Translation mode for the chosen translation service. Overrides the default translation mode constructed based on source and target language. Mode string format is translation service dependent."
 msgstr ""
 
-#: scripts/pomtrans.py:93
+#: scripts/pomtrans.py:94
 #, python-format
 msgctxt "@info command line option description"
 msgid "Do not add '%(flag)s' flag to translated messages."
 msgstr ""
 
-#: scripts/pomtrans.py:97
+#: scripts/pomtrans.py:98
 msgctxt "@info command line value placeholder"
 msgid "SEARCH:REPLACE"
 msgstr ""
 
-#: scripts/pomtrans.py:99
+#: scripts/pomtrans.py:100
 msgctxt "@info command line option description"
 msgid "Translate from translation to another language found in parallel catalogs. For given target catalog path, the path to parallel catalog is constructed by replacing once SEARCH with REPLACE."
 msgstr ""
 
-#: scripts/pomtrans.py:105 scripts/pomtrans.py:111
+#: scripts/pomtrans.py:106 scripts/pomtrans.py:112
 msgctxt "@info command line value placeholder"
 msgid "LANG"
 msgstr ""
 
-#: scripts/pomtrans.py:107
+#: scripts/pomtrans.py:108
 msgctxt "@info command line option description"
 msgid "Source language code. Detected from catalogs if not given."
 msgstr ""
 
-#: scripts/pomtrans.py:113
+#: scripts/pomtrans.py:114
 msgctxt "@info command line option description"
 msgid "Target language code. Detected from catalogs if not given."
 msgstr ""
 
-#: scripts/pomtrans.py:117
+#: scripts/pomtrans.py:118
 msgctxt "@info command line value placeholder"
 msgid "PATH"
 msgstr ""
 
-#: scripts/pomtrans.py:119
+#: scripts/pomtrans.py:120
 msgctxt "@info command line option description"
 msgid "Custom path to translation service executable (where applicable)."
 msgstr ""
 
-#: scripts/pomtrans.py:137
+#: scripts/pomtrans.py:138
 msgctxt "@info"
 msgid "Translation service not specified."
 msgstr ""
 
-#: scripts/pomtrans.py:141
+#: scripts/pomtrans.py:142
 #, python-format
 msgctxt "@info"
 msgid "Translation service '%(serv)s' not known."
 msgstr ""
 
-#: scripts/pomtrans.py:181 scripts/pomtrans.py:280
+#: scripts/pomtrans.py:183 scripts/pomtrans.py:282
 #, python-format
 msgctxt "@info"
 msgid "Translation service failure on '%(file)s'."
 msgstr ""
 
-#: scripts/pomtrans.py:219
+#: scripts/pomtrans.py:221
 #, python-format
 msgctxt "@info"
 msgid "Compendium '%(file)s' does not exist."
 msgstr "Зборник ‘%(file)s’ не постоји."
 
-#: scripts/pomtrans.py:227
+#: scripts/pomtrans.py:229
 #, python-format
 msgctxt "@info"
 msgid "Invalid search and replace specification '%(spec)s'."
 msgstr ""
 
-#: scripts/pomtrans.py:240
+#: scripts/pomtrans.py:242
 #, python-format
 msgctxt "@info"
 msgid "Parallel catalog and target catalog are same files for '%(file)s'."
 msgstr ""
 
-#: scripts/pomtrans.py:332
+#: scripts/pomtrans.py:334
 #, python-format
 msgctxt "@info"
 msgid "Cannot determine language of source catalog '%(file)s'."
 msgstr "Не могу да одредим језик изворног каталога ‘%(file)s’."
 
-#: scripts/pomtrans.py:338
+#: scripts/pomtrans.py:340
 #, python-format
 msgctxt "@info"
 msgid "Cannot determine language of target catalog '%(file)s'."
 msgstr "Не могу да одредим језик циљног каталога ‘%(file)s’."
 
-#: scripts/pomtrans.py:380
+#: scripts/pomtrans.py:383
 #, python-format
 msgctxt "@info Apertium is machine translation software"
 msgid "Apertium executable not found at '%(path)s'."
 msgstr ""
 
-#: scripts/pomtrans.py:416
+#: scripts/pomtrans.py:424 scripts/pomtrans.py:432
 #, python-format
 msgctxt "@info"
 msgid ""
@@ -3321,13 +3332,13 @@ msgid ""
 "%(output)s"
 msgstr ""
 
-#: scripts/pomtrans.py:424
+#: scripts/pomtrans.py:440
 #, python-format
 msgctxt "@info"
 msgid "Apertium reported wrong number of translations, %(num1)d instead of %(num2)d."
 msgstr ""
 
-#: scripts/pomtrans.py:459
+#: scripts/pomtrans.py:475
 #, python-format
 msgctxt "@info"
 msgid "Python module '%(mod)s' not available. Try installing the '%(pkg)s' package."
@@ -3523,62 +3534,62 @@ msgctxt "@info"
 msgid "No sieve to apply given."
 msgstr ""
 
-#: scripts/posieve.py:242
+#: scripts/posieve.py:243
 #, python-format
 msgctxt "@info"
 msgid "Cannot load sieve '%(file)s'."
 msgstr "Не могу учитам сито ‘%(file)s’."
 
-#: scripts/posieve.py:253
+#: scripts/posieve.py:254
 #, python-format
 msgctxt "@info"
 msgid "Module '%(file)s' does not define %(classname)s class."
 msgstr "Модул ‘%(file)s’ не дефинише класу %(classname)s."
 
-#: scripts/posieve.py:270
+#: scripts/posieve.py:271
 msgctxt "@info"
 msgid "Available internal sieves:"
 msgstr "Доступна унутрашња сита:"
 
-#: scripts/posieve.py:280
+#: scripts/posieve.py:281
 msgctxt "@info"
 msgid "Help for sieves:"
 msgstr "Помоћ за сита:"
 
-#: scripts/posieve.py:319
+#: scripts/posieve.py:320
 #, python-format
 msgctxt "@info"
 msgid "Parameters not accepted by any of issued subcommands: %(paramlist)s."
 msgstr ""
 
-#: scripts/posieve.py:363
+#: scripts/posieve.py:364
 msgctxt "@info:progress"
 msgid "--> Not monitoring messages."
 msgstr "--> Не надгледам поруке."
 
-#: scripts/posieve.py:376
+#: scripts/posieve.py:377
 msgctxt "@info:progress"
 msgid "--> Not syncing after sieving."
 msgstr "--> Не синхронизујем после просејавања."
 
-#: scripts/posieve.py:393
+#: scripts/posieve.py:394
 msgctxt "@info:progress"
 msgid "--> Opening catalogs in header-only mode."
 msgstr "--> Отварам каталоге у режиму само-заглавље."
 
-#: scripts/posieve.py:416
+#: scripts/posieve.py:417
 #, python-format
 msgctxt "@info:progress"
 msgid "Sieving: %(file)s"
 msgstr "Просејавам: %(file)s"
 
-#: scripts/posieve.py:422
+#: scripts/posieve.py:423
 #, python-format
 msgctxt "@info:progress"
 msgid "Sieving %(file)s..."
 msgstr "Просејавам %(file)s..."
 
-#: scripts/posieve.py:432
+#: scripts/posieve.py:433
 #, python-format
 msgctxt "@info:progress"
 msgid ""
@@ -3588,86 +3599,86 @@ msgstr ""
 "%(file)s: неуспешна провера %(cmd)s:\n"
 "%(msg)s"
 
-#: scripts/posieve.py:436
+#: scripts/posieve.py:437
 msgctxt "@info:progress"
 msgid "Skipping catalog due to syntax check failure."
 msgstr "Прескачем каталог због неуспешне провере синтаксе."
 
-#: scripts/posieve.py:443
+#: scripts/posieve.py:444
 #, python-format
 msgctxt "@info:progress"
 msgid "%(file)s: Parsing failed: %(msg)s"
 msgstr "%(file)s: Неуспешно рашчлањивање: %(msg)s"
 
-#: scripts/posieve.py:446
+#: scripts/posieve.py:447
 msgctxt "@info:progress"
 msgid "Skipping catalog due to parsing failure."
 msgstr "Прескачем каталог због неуспешног рашчлањивања."
 
-#: scripts/posieve.py:453
+#: scripts/posieve.py:454
 #, python-format
 msgctxt "@info:progress"
 msgid "Sieving header of %(file)s..."
 msgstr "Просејавам заглавље у %(file)s..."
 
-#: scripts/posieve.py:459 scripts/posieve.py:465
+#: scripts/posieve.py:460 scripts/posieve.py:466
 #, python-format
 msgctxt "@info:progress"
 msgid "%(file)s:header: Sieving failed: %(msg)s"
 msgstr "%(file)s:заглавље: Неуспешно просејавање: %(msg)s"
 
-#: scripts/posieve.py:471
+#: scripts/posieve.py:472
 msgctxt "@info:progress"
 msgid "Skipping catalog due to header sieving failure."
 msgstr "Прескачем каталог због неуспешног просејавања заглавља."
 
-#: scripts/posieve.py:486
+#: scripts/posieve.py:487
 #, python-format
 msgctxt "@info:progress"
 msgid "Sieving %(file)s:%(line)d(#%(entry)d)..."
 msgstr "Просејавам %(file)s:%(line)d(#%(entry)d)..."
 
-#: scripts/posieve.py:494 scripts/posieve.py:499 scripts/posieve.py:505
+#: scripts/posieve.py:495 scripts/posieve.py:500 scripts/posieve.py:506
 #, python-format
 msgctxt "@info:progress"
 msgid "Sieving failed: %(msg)s"
 msgstr "Неуспешно просејавање: %(msg)s"
 
-#: scripts/posieve.py:513
+#: scripts/posieve.py:514
 msgctxt "@info:progress"
 msgid "Skipping catalog due to message sieving failure."
 msgstr "Прескачем каталог због неуспешног просејавања поруке."
 
-#: scripts/posieve.py:519
+#: scripts/posieve.py:520
 #, python-format
 msgctxt "@info:progress"
 msgid "Sieving header (after messages) in %(file)s..."
 msgstr "Просејавам заглавље (после порука) у %(file)s..."
 
-#: scripts/posieve.py:526 scripts/posieve.py:533
+#: scripts/posieve.py:527 scripts/posieve.py:534
 #, python-format
 msgctxt "@info:progress"
 msgid "%(file)s:header: Sieving (after messages) failed: %(msg)s"
 msgstr "%(file)s:заглавље: Неуспешно просејавање (после порука): %(msg)s"
 
-#: scripts/posieve.py:540
+#: scripts/posieve.py:541
 msgctxt "@info:progress"
 msgid "Skipping catalog due to header sieving (after messages) failure."
 msgstr "Прескачем каталог због неуспешног просејавања заглавља (после порука)."
 
-#: scripts/posieve.py:548
+#: scripts/posieve.py:549
 #, python-format
 msgctxt "@info:progress leading ! is a shorthand state indicator"
 msgid "! (MODIFIED) %(file)s"
 msgstr "! (ИЗМЕЊЕНА) %(file)s"
 
-#: scripts/posieve.py:553
+#: scripts/posieve.py:554
 #, python-format
 msgctxt "@info:progress leading ! is a shorthand state indicator"
 msgid "! %(file)s"
 msgstr "! %(file)s"
 
-#: scripts/posieve.py:566
+#: scripts/posieve.py:567
 #, python-format
 msgctxt "@info:progress"
 msgid "Finalization failed: %(msg)s"
@@ -4341,8 +4352,8 @@ msgid "Report message to standard output if it got modified."
 msgstr ""
 
 #: sieve/apply_filter.py:65 sieve/apply_header_filter.py:54
-#: sieve/check_grammar.py:122 sieve/check_spell_ec.py:159
-#: sieve/check_spell.py:283
+#: sieve/check_grammar.py:122 sieve/check_spell_ec.py:162
+#: sieve/check_spell.py:286
 #, python-format
 msgctxt "@info"
 msgid "Cannot execute filter '%(filt)s'."
@@ -4386,7 +4397,7 @@ msgctxt "@info sieve discription"
 msgid "Check for presence of bad patterns in translation."
 msgstr ""
 
-#: sieve/bad_patterns.py:26 sieve/collect_pmap.py:50 sieve/collect_pmap.py:55
+#: sieve/bad_patterns.py:26 sieve/collect_pmap.py:51 sieve/collect_pmap.py:56
 #: sieve/normctxt_delim.py:26 sieve/normctxt_delim.py:31
 #: sieve/normctxt_sep.py:26
 msgctxt "@info sieve parameter value placeholder"
@@ -4626,7 +4637,7 @@ msgid "Do not apply the rules with identifiers matching this regular expression.
 msgstr ""
 
 #: sieve/check_rules.py:130 sieve/diff_previous.py:32
-#: sieve/find_messages.py:186 sieve/find_messages.py:192 sieve/stats.py:75
+#: sieve/find_messages.py:187 sieve/find_messages.py:193 sieve/stats.py:75
 #: sieve/tag_untranslated.py:33
 msgctxt "@info sieve parameter value placeholder"
 msgid "BRANCH"
@@ -4835,24 +4846,24 @@ msgctxt "@info sieve parameter discription"
 msgid "The spell-checking provider to use. Several provider can be given as comma-separated list."
 msgstr ""
 
-#: sieve/check_spell_ec.py:121
+#: sieve/check_spell_ec.py:124
 #, python-format
 msgctxt "@info"
 msgid "No spelling dictionary for language '%(lang)s' and provider '%(prov)s'."
 msgstr ""
 
-#: sieve/check_spell_ec.py:202 sieve/check_spell.py:327
+#: sieve/check_spell_ec.py:205 sieve/check_spell.py:330
 msgctxt "@label"
 msgid "Spelling errors:"
 msgstr ""
 
-#: sieve/check_spell_ec.py:207 sieve/check_spell.py:332
+#: sieve/check_spell_ec.py:210 sieve/check_spell.py:335
 #, python-format
 msgctxt "@item"
 msgid "%(word)s (suggestions: %(wordlist)s)"
 msgstr "%(word)s (предлози: %(wordlist)s)"
 
-#: sieve/check_spell_ec.py:220 sieve/check_spell.py:353
+#: sieve/check_spell_ec.py:223 sieve/check_spell.py:356
 #, python-format
 msgctxt "@info:progress"
 msgid "Encountered %(num)d unknown word."
@@ -4862,7 +4873,7 @@ msgstr[1] ""
 msgstr[2] ""
 msgstr[3] ""
 
-#: sieve/check_spell_ec.py:238
+#: sieve/check_spell_ec.py:241
 #, python-format
 msgctxt "@info"
 msgid "Python wrapper for Enchant not found, please install it (possible package names: %(pkglist)s)."
@@ -4893,8 +4904,8 @@ msgctxt "@info sieve parameter discription"
 msgid "Variety of the Aspell dictionary."
 msgstr ""
 
-#: sieve/check_spell.py:55 sieve/collect_pmap.py:30 sieve/collect_pmap.py:36
-#: sieve/collect_pmap.py:45 sieve/generate_xml.py:33 sieve/stats.py:58
+#: sieve/check_spell.py:55 sieve/collect_pmap.py:31 sieve/collect_pmap.py:37
+#: sieve/collect_pmap.py:46 sieve/generate_xml.py:33 sieve/stats.py:58
 msgctxt "@info sieve parameter value placeholder"
 msgid "FILE"
 msgstr ""
@@ -4909,7 +4920,7 @@ msgctxt "@info sieve parameter discription"
 msgid "Split text into words in a simpler way (deprecated,)."
 msgstr ""
 
-#: sieve/check_spell.py:321
+#: sieve/check_spell.py:324
 #, python-format
 msgctxt "@info"
 msgid "Cannot encode word '%(word)s' in selected encoding '%(enc)s'."
@@ -5148,76 +5159,76 @@ msgctxt "@info"
 msgid "Extra leading space."
 msgstr ""
 
-#: sieve/collect_pmap.py:26
+#: sieve/collect_pmap.py:27
 msgctxt "@info sieve discription"
 msgid "Assemble a property map from entries in manual comments."
 msgstr ""
 
-#: sieve/collect_pmap.py:32
+#: sieve/collect_pmap.py:33
 msgctxt "@info sieve parameter discription"
 msgid "File to output the property map into. If not given, nothing is output (useful for validation runs)."
 msgstr ""
 
-#: sieve/collect_pmap.py:38
+#: sieve/collect_pmap.py:39
 msgctxt "@info sieve parameter discription"
 msgid "File defining the constraints on property keys and values."
 msgstr ""
 
-#: sieve/collect_pmap.py:42
+#: sieve/collect_pmap.py:43
 msgctxt "@info sieve parameter discription"
 msgid "Allow defining additional entry keys."
 msgstr ""
 
-#: sieve/collect_pmap.py:47
+#: sieve/collect_pmap.py:48
 msgctxt "@info sieve parameter discription"
 msgid "File defining the derivators used in derived entries."
 msgstr ""
 
-#: sieve/collect_pmap.py:52
+#: sieve/collect_pmap.py:53
 msgctxt "@info sieve parameter discription"
 msgid "Prefix which starts property map entries in comments."
 msgstr ""
 
-#: sieve/collect_pmap.py:57
+#: sieve/collect_pmap.py:58
 msgctxt "@info sieve parameter discription"
 msgid "Prefix which starts syntagma derivator entries in comments."
 msgstr ""
 
-#: sieve/collect_pmap.py:76
+#: sieve/collect_pmap.py:77
 msgctxt "@info"
 msgid "Prefix which starts property map entries in comments cannot be empty."
 msgstr ""
 
-#: sieve/collect_pmap.py:80
+#: sieve/collect_pmap.py:81
 msgctxt "@info"
 msgid "Prefix which starts syntagma derivator entries in comments cannot be empty."
 msgstr ""
 
-#: sieve/collect_pmap.py:113
+#: sieve/collect_pmap.py:114
 #, python-format
 msgctxt "@info"
 msgid "An alphanumeric separator is used for property map entry in comment no. %(ord)d."
 msgstr ""
 
-#: sieve/collect_pmap.py:122
+#: sieve/collect_pmap.py:123
 #, python-format
 msgctxt "@info"
 msgid "Inconsistent separators for continued property map entry in comment no. %(ord)d."
 msgstr ""
 
-#: sieve/collect_pmap.py:135
+#: sieve/collect_pmap.py:136
 #, python-format
 msgctxt "@info"
 msgid "Missing terminating separator for property map entry in comment no. %(ord)d."
 msgstr ""
 
-#: sieve/collect_pmap.py:149
+#: sieve/collect_pmap.py:150
 #, python-format
 msgctxt "@info"
 msgid "Additional entry key '%(key)s' is defined but not allowed for property map entry in comment no. %(ord)d."
 msgstr ""
 
-#: sieve/collect_pmap.py:169
+#: sieve/collect_pmap.py:170
 #, python-format
 msgctxt "@info"
 msgid ""
@@ -5225,24 +5236,24 @@ msgid ""
 "%(msg)s"
 msgstr ""
 
-#: sieve/collect_pmap.py:180
+#: sieve/collect_pmap.py:181
 #, python-format
 msgctxt "@info"
 msgid "No known separator are applicable to keys and values derived from '%(deriv)s'."
 msgstr ""
 
-#: sieve/collect_pmap.py:188
+#: sieve/collect_pmap.py:189
 #, python-format
 msgctxt "@info"
 msgid "Previously selected separators are not applicable to keys and values derived from '%(deriv)s'."
 msgstr ""
 
-#: sieve/collect_pmap.py:200
+#: sieve/collect_pmap.py:201
 msgctxt "@info"
 msgid "Some additional entry keys are defined for property map entry, but there are no properties."
 msgstr ""
 
-#: sieve/collect_pmap.py:217
+#: sieve/collect_pmap.py:218
 #, python-format
 msgctxt "@info"
 msgid ""
@@ -5250,17 +5261,17 @@ msgid ""
 "%(msgs)s"
 msgstr ""
 
-#: sieve/collect_pmap.py:254
+#: sieve/collect_pmap.py:255
 msgctxt "@info split to link below"
 msgid "Property map entries removed due to translation conflict with..."
 msgstr ""
 
-#: sieve/collect_pmap.py:259
+#: sieve/collect_pmap.py:260
 msgctxt "@info continuation from above"
 msgid "...this message."
 msgstr ""
 
-#: sieve/collect_pmap.py:289
+#: sieve/collect_pmap.py:290
 #, python-format
 msgctxt "@info:progress"
 msgid "Collected %(num)d entry for the property map."
@@ -5270,58 +5281,58 @@ msgstr[1] ""
 msgstr[2] ""
 msgstr[3] ""
 
-#: sieve/collect_pmap.py:309
+#: sieve/collect_pmap.py:310
 #, python-format
 msgctxt "@info"
 msgid "Property constraint file '%(file)s' does not exist."
 msgstr "Датотека ограничења својстава ‘%(file)s’ не постоји."
 
-#: sieve/collect_pmap.py:325
+#: sieve/collect_pmap.py:326
 #, python-format
 msgctxt "@info"
 msgid "Invalid property map constraint at %(file)s:%(line)d: %(snippet)s."
 msgstr ""
 
-#: sieve/collect_pmap.py:338
+#: sieve/collect_pmap.py:339
 msgctxt "@item:intext"
 msgid "alphanumeric separators not allowed"
 msgstr ""
 
-#: sieve/collect_pmap.py:343
+#: sieve/collect_pmap.py:344
 msgctxt "@item:intext"
 msgid "too few separators"
 msgstr ""
 
-#: sieve/collect_pmap.py:346
+#: sieve/collect_pmap.py:347
 msgctxt "@item:intext"
 msgid "too many separators"
 msgstr ""
 
-#: sieve/collect_pmap.py:354
+#: sieve/collect_pmap.py:355
 #, python-format
 msgctxt "@item:intext"
 msgid "unknown flags %(flaglist)s"
 msgstr ""
 
-#: sieve/collect_pmap.py:394
+#: sieve/collect_pmap.py:395
 #, python-format
 msgctxt "@info"
 msgid "Value '%(val)s' to key '%(key)s' does not match '%(pattern)s'."
 msgstr ""
 
-#: sieve/collect_pmap.py:404
+#: sieve/collect_pmap.py:405
 #, python-format
 msgctxt "@info"
 msgid "Value '%(val)s' to key '%(key)s' does not match translation of the message."
 msgstr ""
 
-#: sieve/collect_pmap.py:410
+#: sieve/collect_pmap.py:411
 #, python-format
 msgctxt "@info"
 msgid "Key '%(key)s' does not match any constraint."
 msgstr ""
 
-#: sieve/collect_pmap.py:417
+#: sieve/collect_pmap.py:418
 #, python-format
 msgctxt "@info"
 msgid "No key matched required constraint '%(pattern)s'."
@@ -5471,7 +5482,7 @@ msgstr[1] ""
 msgstr[2] ""
 msgstr[3] ""
 
-#: sieve/find_messages.py:33
+#: sieve/find_messages.py:34
 #, python-format
 msgctxt "@info sieve discription"
 msgid ""
@@ -5482,139 +5493,139 @@ msgid ""
 "When several matching parameters are given, by default a message is matched if all of them match (AND-relation). This can be changed to OR-relation for matching in text fields (%(fieldlist)s) using the '%(par)s' parameter. Any matching parameter can be repeated when it makes sense (e.g. two matches on msgid)."
 msgstr ""
 
-#: sieve/find_messages.py:54 sieve/find_messages.py:66
-#: sieve/find_messages.py:78
+#: sieve/find_messages.py:55 sieve/find_messages.py:67
+#: sieve/find_messages.py:79
 #, python-format
 msgctxt "@info sieve parameter discription"
 msgid "Matches if the '%(field)s' field matches the regular expression."
 msgstr ""
 
-#: sieve/find_messages.py:60 sieve/find_messages.py:72
-#: sieve/find_messages.py:84
+#: sieve/find_messages.py:61 sieve/find_messages.py:73
+#: sieve/find_messages.py:85
 #, python-format
 msgctxt "@info sieve parameter discription"
 msgid "Matches if the '%(field)s' field does not match the regular expression."
 msgstr ""
 
-#: sieve/find_messages.py:90
+#: sieve/find_messages.py:91
 msgctxt "@info sieve parameter discription"
 msgid "Matches if a comment line (extracted or translator) matches the regular expression."
 msgstr ""
 
-#: sieve/find_messages.py:96
+#: sieve/find_messages.py:97
 msgctxt "@info sieve parameter discription"
 msgid "Matches if a comment line (extracted or translator) does not match the regular expression."
 msgstr ""
 
-#: sieve/find_messages.py:101
+#: sieve/find_messages.py:102
 msgctxt "@info sieve parameter discription"
 msgid "Matches if the message is translated."
 msgstr ""
 
-#: sieve/find_messages.py:105
+#: sieve/find_messages.py:106
 msgctxt "@info sieve parameter discription"
 msgid "Matches if the message is not translated."
 msgstr ""
 
-#: sieve/find_messages.py:109
+#: sieve/find_messages.py:110
 msgctxt "@info sieve parameter discription"
 msgid "Matches if the message is obsolete."
 msgstr ""
 
-#: sieve/find_messages.py:113
+#: sieve/find_messages.py:114
 msgctxt "@info sieve parameter discription"
 msgid "Matches if the message is not obsolete."
 msgstr ""
 
-#: sieve/find_messages.py:117
+#: sieve/find_messages.py:118
 msgctxt "@info sieve parameter discription"
 msgid "Matches if the message is active (translated and not obsolete)."
 msgstr ""
 
-#: sieve/find_messages.py:121
+#: sieve/find_messages.py:122
 msgctxt "@info sieve parameter discription"
 msgid "Matches if the message is not active (not translated or obsolete)."
 msgstr ""
 
-#: sieve/find_messages.py:126
+#: sieve/find_messages.py:127
 msgctxt "@info sieve parameter discription"
 msgid "Matches if one of the flags matches the regular expression."
 msgstr ""
 
-#: sieve/find_messages.py:131
+#: sieve/find_messages.py:132
 msgctxt "@info sieve parameter discription"
 msgid "Matches if none of the flags matches the regular expression."
 msgstr ""
 
-#: sieve/find_messages.py:135
+#: sieve/find_messages.py:136
 msgctxt "@info sieve parameter discription"
 msgid "Matches if the message is plural."
 msgstr ""
 
-#: sieve/find_messages.py:139
+#: sieve/find_messages.py:140
 msgctxt "@info sieve parameter discription"
 msgid "Matches if the message is not plural."
 msgstr ""
 
-#: sieve/find_messages.py:142 sieve/find_messages.py:150
+#: sieve/find_messages.py:143 sieve/find_messages.py:151
 msgctxt "@info sieve parameter value placeholder"
 msgid "NUM"
 msgstr ""
 
-#: sieve/find_messages.py:144
+#: sieve/find_messages.py:145
 #, python-format
 msgctxt "@info sieve parameter discription"
 msgid "Matches if both the '%(field1)s' and '%(field2)s' field have at most this many characters (0 or less means any number of characters)."
 msgstr ""
 
-#: sieve/find_messages.py:152
+#: sieve/find_messages.py:153
 #, python-format
 msgctxt "@info sieve parameter discription"
 msgid "Matches if either the '%(field1)s' or '%(field2)s' field have more than this many characters (0 or less means any number of characters)."
 msgstr ""
 
-#: sieve/find_messages.py:159 sieve/find_messages.py:166
-#: sieve/find_messages.py:173 sieve/find_messages.py:180
+#: sieve/find_messages.py:160 sieve/find_messages.py:167
+#: sieve/find_messages.py:174 sieve/find_messages.py:181
 msgctxt "@info sieve parameter value placeholder"
 msgid "START:END"
 msgstr ""
 
-#: sieve/find_messages.py:161
+#: sieve/find_messages.py:162
 msgctxt "@info sieve parameter discription"
 msgid "Matches if the message line number is in the given range (including starting line, excluding ending line)."
 msgstr ""
 
-#: sieve/find_messages.py:168
+#: sieve/find_messages.py:169
 msgctxt "@info sieve parameter discription"
 msgid "Matches if the message line number is not in the given range (including starting line, excluding ending line)."
 msgstr ""
 
-#: sieve/find_messages.py:175
+#: sieve/find_messages.py:176
 msgctxt "@info sieve parameter discription"
 msgid "Matches if the message entry number is in the given range (including starting entry, excluding ending entry)."
 msgstr ""
 
-#: sieve/find_messages.py:182
+#: sieve/find_messages.py:183
 msgctxt "@info sieve parameter discription"
 msgid "Matches if the message entry number is not in the given range (including starting entry, excluding ending entry)."
 msgstr ""
 
-#: sieve/find_messages.py:188
+#: sieve/find_messages.py:189
 msgctxt "@info sieve parameter discription"
 msgid "In summit catalogs, match only messages belonging to given branch. Several branches can be given as comma-separated list."
 msgstr ""
 
-#: sieve/find_messages.py:194
+#: sieve/find_messages.py:195
 msgctxt "@info sieve parameter discription"
 msgid "Match only messages not belonging to given branch."
 msgstr ""
 
-#: sieve/find_messages.py:198 sieve/find_messages.py:216
+#: sieve/find_messages.py:199 sieve/find_messages.py:217
 msgctxt "@info sieve parameter value placeholder"
 msgid "EXPRESSION"
 msgstr ""
 
-#: sieve/find_messages.py:200
+#: sieve/find_messages.py:201
 msgctxt "@info sieve parameter discription"
 msgid ""
 "Matches if the logical expression matches. The expression is composed of direct matchers (not starting with n*), explicitly linked with AND, OR, and NOT operators, and parenthesis. Base matchers taking parameters are given as MATCHER/VALUE/, where slash can be replaced consistently with any other character. Global matching modifiers can be overriden using MATCHER/VALUE/MODS, or MATCHER/MODS for parameterless matchers (currently available: c/i for case-sensitive/insensitive). Examples:\n"
@@ -5624,69 +5635,69 @@ msgid ""
 "fexpr:'msgid/quuk/ and msgstr/Qaak/c'"
 msgstr ""
 
-#: sieve/find_messages.py:218
+#: sieve/find_messages.py:219
 msgctxt "@info sieve parameter discription"
 msgid "Matches if the logical expression does not match."
 msgstr ""
 
-#: sieve/find_messages.py:222
+#: sieve/find_messages.py:223
 msgctxt "@info sieve parameter discription"
 msgid "Use OR-relation for matching text fields: if any of the patterns matches, the message is matched as whole."
 msgstr ""
 
-#: sieve/find_messages.py:227
+#: sieve/find_messages.py:228
 msgctxt "@info sieve parameter discription"
 msgid "Invert the condition: report messages which do not match."
 msgstr ""
 
-#: sieve/find_messages.py:231
+#: sieve/find_messages.py:232
 msgctxt "@info sieve parameter discription"
 msgid "Case-sensitive text matching."
 msgstr ""
 
-#: sieve/find_messages.py:236
+#: sieve/find_messages.py:237
 msgctxt "@info sieve parameter discription"
 msgid "Character which is used as UI accelerator marker in text fields, to ignore it on matching. If a catalog defines accelerator marker in the header, this value overrides it."
 msgstr ""
 
-#: sieve/find_messages.py:243
+#: sieve/find_messages.py:244
 #, python-format
 msgctxt "@info sieve parameter discription"
 msgid "Add '%(flag)s' flag to each matched message."
 msgstr ""
 
-#: sieve/find_messages.py:247 sieve/stats.py:143
+#: sieve/find_messages.py:248 sieve/stats.py:143
 msgctxt "@info sieve parameter value placeholder"
 msgid "HOOK"
 msgstr ""
 
-#: sieve/find_messages.py:249
+#: sieve/find_messages.py:250
 msgctxt "@info sieve parameter discription"
 msgid "F1A hook specification, to filter the msgstr fields through before matching them. Several hooks can be specified by repeating the parameter."
 msgstr ""
 
-#: sieve/find_messages.py:255
+#: sieve/find_messages.py:256
 msgctxt "@info sieve parameter value placeholder"
 msgid "REPLSTR"
 msgstr ""
 
-#: sieve/find_messages.py:257
+#: sieve/find_messages.py:258
 msgctxt "@info sieve parameter discription"
 msgid "Replace all substrings matched by msgstr pattern with REPLSTR. It can include back-references to matched groups (\\1, \\2, etc.)"
 msgstr ""
 
-#: sieve/find_messages.py:262
+#: sieve/find_messages.py:263
 msgctxt "@info sieve parameter discription"
 msgid "Do not report message to standard output (when only the number of matches is wanted)."
 msgstr ""
 
-#: sieve/find_messages.py:339
+#: sieve/find_messages.py:340
 #, python-format
 msgctxt "@info"
 msgid "Cannot perform replacement if match on '%(field)s' is not given."
 msgstr ""
 
-#: sieve/find_messages.py:413
+#: sieve/find_messages.py:414
 #, python-format
 msgctxt "@info:progress"
 msgid "Found %(num)d message satisfying the conditions."
