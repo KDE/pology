@@ -15,35 +15,35 @@ addFilterHook name="remove/remove-accel-msg" on="msg"
 # namefile: estrangerismes_UOC.include
 #VAR="No s'han de fer servir castellanismes o altres estrangerismes, encara que siguin discutits, si tenim l'equivalent català."
 
-[\ba base de\b]
+[\ba base de\b]i
 hint="«a base de» -locució incorrecta- quan vol dir «a força de, a còpia de, gràcies a» \
 Exemple: \
 # A base de repetir-ho, s'ho han cregut. \
 # A còpia de repetir-ho, s'ho han cregut. \
 (barbarisme)"
 
-[baffle(s)]
+[baffle(s)]i
 hint="«baffle» s'ha de substituir per «altaveu» (barbarisme)"
 
-[calenta(r|dor|dors)]
+[calenta(r|dor|dors)]i
 hint="«calentar|calentador» -mot incorrecte- s'ha de substituir per «escalfar|escalfador» (barbarisme)"
 
-[col(\.l)?indant(s)?]
+[col(\.l)?indant(s)?]i
 hint="«colindant» -mots incorrectes- s'han de substituir per «adjacent, confrontant, limítrof/a, veí -ïna» (barbarisme)"
 
-[col(\·l)isiona(r)?]
+[col(\·l)isiona(r)?]i
 hint="«col·lisionar» -mots incorrectes- s'han de substituir per «col·lidir» (barbarisme)"
 
-[\bcom a molt\b]
+[\bcom a molt\b]i
 hint="«com a molt» -locució adverbial incorrecta- s'ha de substituir per \
 «com a màxim, a tot estirar, pel cap alt» \
 Exemple: # Com a màxim serem vuit. \
 (barbarisme)"
 
-[customitza(r|ble)]
+[customitza(r|ble)]i
 hint="«customitzar» s'ha de substituir per «personalitzar, adaptar al(s) client(s)» (barbarisme)"
 
-[\bdest(í|ins)\b]
+[\bdest(í|ins)\b]i
 hint="«destí» s'ha de substituir per «destinació/ons» \
 Explicació: \
 No s'ha de confondre destí ('potència sobrehumana que fixa per endavant el curs dels esdeveniments i la sort reservada a cadascú', 'sort reservada a cadascú') amb destinació ('acció de destinar', 'fi a què algú o alguna cosa són destinats', 'lloc on és tramesa alguna cosa o es dirigeix algú'). \
@@ -52,20 +52,20 @@ Exemple: \
 # Investiguen la destinació que els detinguts volien donar a la marihuana. \
 (barbarisme)"
 
-[desvela(r)]
+[desvela(r)]i
 hint="«desvelar» s'ha de substituir per «revelar, descobrir» (barbarisme)"
 
-[empotra(r)]
+[empotra(r)]i
 hint="«empotrar» s'ha de substituir per «encastar» (barbarisme)"
 
-[\bentorn a\b]
+[\bentorn a\b]i
 valid msgstr="\bun entorn a\b"
 hint="«entorn a» s'ha de substituir per «entorn de» (barbarisme)"
 
-[espònsor(s)]
+[espònsor(s)]i
 hint="«espònsor» s'ha de substituir per «patrocinador» (barbarisme)"
 
-[\bigual\b]
+[\bigual\b]i
 valid msgstr="\bigual (a|al|als)( la| les)?\b" # aïllament per a la següent entrada
 valid msgstr="^igual$"
 valid msgstr="^és igual$"
@@ -78,7 +78,8 @@ valid msgstr="Més petit o igual"
 valid msgstr="signe .?igual.?"
 valid msgstr="igual o després"
 valid msgstr="igual o abans"
-valid msgstr="igual" cat="htmlsearch"
+valid msgstr="igual" cat="htmlsearch,simoncalculatorcommand,digikam,amarok,krusader,analitza"
+valid msgstr="Compartir Igual" cat="simonlib,kipiplugin_mediawiki"
 valid msgstr="d'igual a igual" # extragear-base/libknetworkmanager.po
 hint="«igual» és incorrecte l'ús d'aquest adjectiu en funció adverbial \
 de possibilitat en comptes de: \
@@ -92,33 +93,37 @@ Exemples: \
  # Potser [o A la millor] ara pensa en nosaltres. \
 (barbarisme)"
 
-[\bigual (a|al|als)( la| les)?\b]
+[\bigual (a|al|als)( la| les)?\b]i
 valid msgstr="d'igual a igual" # extragear-base/libknetworkmanager.po
 valid msgstr="és igual a l'esperada"
+valid msgstr="igual a ~" cat="digikam"
+valid msgstr="igual al nom" cat="digikam"
+valid msgstr="igual a" cat="libmailcommon"
+valid msgstr="igual a .+(massa|vector)" cat="kalzium,kig"
 hint="«igual a» -en comparacions- s'ha de substituir per «igual que, major que, menor que» (barbarisme)"
 
-[\blink(s)\b]
+[\blink(s)\b]i
 hint="«link» s'ha de substituir per «enllaç» (barbarisme)"
 
-[\bnovat(o|a|os|es)\b]
+[\bnovat(o|a|os|es)\b]i
 hint="«novato/a» -mot incorrecte- s'ha de substituir per «aprenent/a, novell/a, novençà/ana, passerell, principiant» segons el matís que tingui (barbarisme)"
 
-[noved(ós|osa|osos|oses)]
+[noved(ós|osa|osos|oses)]i
 hint="«novedós/osa» -mot incorrecte- s'ha de substituir per «nou/nova, innovador/a» (barbarisme)"
 
-[nòvi(o|os|a|es)]
+[nòvi(o|os|a|es)]i
 hint="«nòvio/a» -mot incorrecte- s'ha de substituir per «xicot/a, promès/esa, nuvi/núvia» (barbarisme)"
 
-[peatonal(s)]
+[peatonal(s)]i
 hint="«peatonal» -adjectiu incorrecte- s'ha de substituir per «de vianants» \
 Exemple: \
 # Zona de vianants \
 (barbarisme)"
 
-[(pegatin(a|es)|enganxin(a|es))]
+[(pegatin(a|es)|enganxin(a|es))]i
 hint="«pegatina|enganxina» -mot incorrecte- s'ha de substituir per «adhesiu» (barbarisme)"
 
-[per última?]
+[per última?]i
 valid msgstr="darrera vegada"
 hint="«per últim/a» -locució adverbial incorrecta- s'ha de substituir per «darrera vegada, finalment, per acabar, a l'últim, per fi» \
 Exemple: \
@@ -126,40 +131,40 @@ Exemple: \
 # I finalment parlarem dels projectes d'enguany. \
 (barbarisme)"
 
-[policial(s)]
+[policial(s)]i
 hint="«policial» s'ha de substituir per «policíac/a» (barbarisme)"
 
-[privacitat(s)]
+[privacitat(s)]i
 hint="«privacitat» s'ha de substituir per «confidencialitat, secret, intimitat, privadesa» (barbarisme)"
 
-[\bse(ca|car|ques)\b]
+[\bse(ca|car|ques)\b]i
 hint="«secar» -mot incorrecte- s'ha de substituir per \
 «assecar (la fruita, el peix, etc.), \
 eixugar (els cabells, la roba, els plats, el terra, etc.), \
 eixarreir, ressecar (el cor, l'herba, les plantes, etc.)» (barbarisme)"
 
-[\bsembla ser\b]
+[\bsembla ser\b]i
 hint="«sembla ser» -ús incorrecte d'aquesta expressió- s'ha de substituir per «sembla, pel que sembla, pel que es veu, segons sembla o segons es veu» (barbarisme)"
 
-[subleva(r|ció|cions)]
+[subleva(r|ció|cions)]i
 hint="«sublevació» s'ha de substituir per «revolta, insurrecció» (barbarisme)"
 
-[suggerent(s)]
+[suggerent(s)]i
 hint="«suggerent» s'ha de substituir per «suggeridor/a» (barbarisme)"
 
-[taladrador(a|es)]
+[taladrador(a|es)]i
 hint="«taladradora» s'ha de substituir per «perforadora, màquina de foradar, trepant» (barbarisme)"
 
-[tamany(s)]
+[tamany(s)]i
 hint="«tamany» s'ha de substituir per «mida, grandària, dimensió» (barbarisme)"
 
-[tonteri(a|es)]
+[tonteri(a|es)]i
 hint="«tonteria» s'ha de substituir per «ximpleria» (barbarisme)"
 
-[\btont(o|a|os|es)\b]
+[\btont(o|a|os|es)\b]i
 hint="«tonto/a» s'ha de substituir per «ximple, tòtil/a, tanoca, babau/a» (barbarisme)"
 
-[\bune?s\b]
+[\bune?s\b]i
 valid msgstr="une?s quant(s|es)"
 valid msgstr="une?s po(cs|ques)"
 valid msgstr="une?s [0-9]" # el jòquer «\d» tampoc funciona
@@ -187,6 +192,7 @@ valid msgstr="fixa uns valors de temperatura"
 valid msgstr="utilitzar uns nous missatges"
 valid msgstr="uns temps de"
 valid msgstr="une?s" cat="htmlsearch"
+valid msgstr="unes (línies|llistes)" cat="digikam,kipiplugin_metadataedit"
 valid msgstr="No corris amb unes tisores"
 hint="«uns / unes (quantitatiu)» -com a quantitatiu- s'ha de substituir per: \
 «- alguns \
@@ -194,7 +200,7 @@ hint="«uns / unes (quantitatiu)» -com a quantitatiu- s'ha de substituir per: \
  - unes quantes \
  - uns pocs / unes poques, etc.» (barbarisme)"
 
-[vivend(a|es)]
+[vivend(a|es)]i
 hint="«vivenda» s'ha de substituir per «habitatge, casa» (barbarisme)"
 
 # End of barbarism rules file
