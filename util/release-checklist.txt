@@ -23,6 +23,13 @@
     echo $version > VERSION
     sed -i "s/pology-[^ ]*\.tar/pology-$version.tar/" www/base/index.php
 
+  if new x.y branch:
+
+    cd $repo/trunk/l10n-support/pology
+    versiondev=x.y+1
+    echo $versiondev > VERSION
+    sed -i "s/pology-[^ ]*\.tar/pology-$versiondev.tar/" www/base/index.php
+
 * create tarball
 
     cd $repo/branches/pology/$branch
@@ -35,7 +42,7 @@
     cmake .. -DCMAKE_INSTALL_PREFIX=/tmp/pology-$version-inst -DPYTHON2_PACKAGES_DIR=/tmp/pology-$version-inst/lib/python/dist-packages
     make && make install
 
-  on errors: fix, commit, merge to trunk, go back to pack or earlier
+  on errors: fix, commit, merge to trunk, go back to tarball creation or earlier.
 
 * submit changes
 
@@ -43,8 +50,16 @@
     svn ci po -m "Updated POs."
     svn ci NEWS -m "Updated NEWS."
     svn ci . -m "Prepared for Pology $version release."
+
+  if not new x.y branch:
+
     cd $repo/trunk/l10n-support/pology
-    svn ci NEWS -m "Merged NEWS from branch $branch."
+    svn ci NEWS -m "Merged NEWS from release $version."
+
+  if new x.y branch:
+
+    cd $repo/trunk/l10n-support/pology
+    svn ci NEWS VERSION www/base/index.php -m "Merged NEWS from release $version and bumped development version."
 
 * tag release
 
