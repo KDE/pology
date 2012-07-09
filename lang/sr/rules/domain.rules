@@ -99,12 +99,17 @@ valid msgstr="\bпотез"
 {\bcountr(y|es)\b}i
 id="t-country"
 hint="country = земља"
-valid msgstr="\bземљ"
+valid msgstr="\bзем(љ|аљ)"
 
 {\bmaps?\b}i
 id="t-map"
 hint="map = карта"
 valid msgstr="\bкарт[аеиоу]"
+
+{\bskin?\b}i
+id="t-skin"
+hint="skin = маска"
+valid msgstr="\bмаск[аеиоу]"
 
 # ====================
 # Kubrick (game)
