@@ -1,4 +1,4 @@
-personal_ws-1.1 es 3042 utf-8
+personal_ws-1.1 es 3107 utf-8
 aac
 AAC
 ABAP
@@ -334,6 +334,7 @@ catalogmanager
 CBR
 CC
 CCD
+cco
 CCO
 CD
 cd
@@ -464,6 +465,7 @@ CRC
 Creative
 CRL
 CRM
+crond
 crontab
 Crossfire
 CrossOver
@@ -496,6 +498,7 @@ CVS
 cvs
 CVSDiff
 cvsignore
+cvsroot
 cvsservice
 CvsService
 CWWM
@@ -693,6 +696,7 @@ EPS
 epsf
 Epson
 EPub
+epub
 ESC
 Esc
 Escáner
@@ -727,6 +731,7 @@ EXR
 Extranet
 ezppp
 Facebook
+facebook
 Fairchild
 fakeroot
 Famelix
@@ -741,6 +746,7 @@ Favicon
 Fax
 FBDD
 FCAPS
+fcntl
 FDDI
 Fdisk
 FEC
@@ -834,6 +840,7 @@ Frotz
 Frozen
 FryingPan
 FS
+fsck
 fsf
 FSK
 FSpot
@@ -842,12 +849,14 @@ fstab
 FSView
 ftp
 FTP
+ftps
 FTPS
 FTTH
 FTTP
 FTTx
 Fujitsu
 FVWM
+fvwm
 FX
 Fyre
 Gabber
@@ -903,8 +912,8 @@ Gentoo
 GeoCities
 Geoetiquetado
 Getmail
-Gettext
 gettext
+Gettext
 Geyes
 gfloppy
 gFTP
@@ -915,6 +924,7 @@ GhostView
 Ghostview
 GiB
 GID
+gid
 gif
 GIF
 Gigabit
@@ -986,6 +996,7 @@ gnotski
 Gnotski
 gnu
 GNU
+gnubg
 gnuboy
 gnucash
 GnuCash
@@ -997,9 +1008,11 @@ GNUMERIC
 gnupg
 GnuPG
 Gnuplot
+gnuplot
 Gnus
 Gnustep
 Gnutella
+gocr
 GOCR
 gok
 Golay
@@ -1020,8 +1033,8 @@ GoogleMaps
 Googleplex
 GoogleTalk
 GOP
-Gopher
 gopher
+Gopher
 gorc
 Gournal
 GPa
@@ -1047,9 +1060,12 @@ GPL
 GPRS
 GPS
 gps
+gpsbabel
+gpsd
 GPSSync
 GPU
 GPUs
+gpx
 GPX
 Gqview
 Gr
@@ -1062,8 +1078,8 @@ GRD
 GRE
 Grip
 GroupBox
-GroupDAV
 GroupDav
+GroupDAV
 GroupWise
 Groupwise
 groupwisewizard
@@ -1124,6 +1140,7 @@ Hewlett
 Hexen
 HF
 hfs
+hfsutils
 HH
 HiFi
 hifi
@@ -1137,6 +1154,7 @@ Horde
 Hostid
 Hostname
 Hotmail
+hotmail
 HotSync
 HP
 HPLIP
@@ -1182,6 +1200,7 @@ ICal
 iCalendar
 ICalendar
 Icalendar
+icalendar
 Icam
 ICANN
 icc
@@ -1195,6 +1214,7 @@ IChat
 ICMP
 ICO
 ICQ
+ics
 Ide
 ide
 IDE
@@ -1258,6 +1278,7 @@ intranet
 Intranet
 Intro
 IO
+ioctl
 Iomega
 IP
 IPA
@@ -1285,6 +1306,7 @@ IPTV
 IPv
 IPX
 IQ
+irc
 IRC
 IRCAM
 IRCd
@@ -1340,6 +1362,7 @@ jdk
 JDK
 JEDEC
 JetBee
+jfsutils
 JID
 Jingle
 Jini
@@ -1351,6 +1374,7 @@ JOGL
 John
 Jokosher
 joliet
+josm
 Jovie
 jpeg
 Jpeg
@@ -1382,8 +1406,8 @@ Laserdisc
 LaserJet
 LastFM
 LaTeX
-LaTex
 latex
+LaTex
 Launchpad
 lbm
 LCD
@@ -1397,8 +1421,11 @@ Less
 Lexmark
 LGPL
 Lha
+libapalm
 libavcodec
+libbeagle
 Libburnia
+libc
 libcdparanoia
 LibClapack
 libcrypto
@@ -1409,8 +1436,12 @@ libfftw
 libglade
 LibGphoto
 libgpod
+libgstreamer
+libical
+libipsec
 LibJasper
 LibJPEG
+libkcal
 LibKdcraw
 LibKDE
 LibKExiv
@@ -1421,6 +1452,7 @@ LibLCMS
 LibLensFun
 LibLqr
 libmad
+libmath
 libogg
 libpackagekit
 libparted
@@ -1428,11 +1460,13 @@ libpcsclite
 LibPGF
 Libpng
 LibPNG
+libpoppler
 LibQt
 LibRaw
 LibreDWG
 librss
 Librsvg
+libsane
 libsmbclient
 libsqlite
 libssh
@@ -1486,6 +1520,7 @@ logview
 Loki
 Lotus
 lp
+lpadmin
 LPC
 LPCM
 lpd
@@ -1686,6 +1721,7 @@ MS
 MSAU
 MSB
 MSCHAP
+msgstr
 MSN
 MT
 MTA
@@ -1769,6 +1805,7 @@ Nexuiz
 Nexus
 NFL
 NFS
+nfs
 NG
 NIC
 Nikon
@@ -1804,8 +1841,8 @@ ntfs
 ntfsprogs
 Ntop
 NTP
-NTSC
 ntsc
+NTSC
 NTTP
 NuBus
 Num
@@ -1836,6 +1873,7 @@ OGain
 Ogg
 OGG
 ogg
+oggenc
 oggvorbis
 OGRE
 OHCI
@@ -1857,8 +1895,8 @@ OpenCity
 OpenCL
 OpenCV
 openDesktop
-OpenDesktop
 Opendesktop
+OpenDesktop
 OpenDivX
 OpenDNS
 OpenDocument
@@ -1900,6 +1938,7 @@ OpenWrt
 Opera
 Opie
 OPML
+opml
 OR
 Oracle
 Orkut
@@ -1935,6 +1974,7 @@ Pardus
 Parted
 PartitionMagic
 Passwd
+passwd
 PATH
 Pausa
 PayPal
@@ -1959,6 +1999,7 @@ PDB
 PDF
 pdf
 PDFLaTeX
+pdflatex
 PDFLatex
 pdfsync
 PdfTeX
@@ -1992,7 +2033,9 @@ Picasa
 PicAsm
 PICMG
 PID
+pid
 Pidgin
+pidof
 Pidof
 PigeonRank
 PIM
@@ -2054,6 +2097,7 @@ POWERLINK
 PowerShot
 PPa
 PPA
+ppd
 PPD
 PPG
 ppm
@@ -2090,8 +2134,8 @@ pstoraster
 PTE
 PTY
 PUBLIC
-pulseaudio
 PulseAudio
+pulseaudio
 PureBasic
 PureVideo
 Pvcd
@@ -2177,6 +2221,7 @@ Reddit
 RedHat
 RedIRIS
 RedLibre
+regexp
 Regnum
 reiserfs
 Rekonq
@@ -2268,6 +2313,7 @@ sbin
 Scaffold
 Scam
 Sced
+scilab
 SciTE
 Scorched
 Scribes
@@ -2295,6 +2341,8 @@ SEK
 sendmail
 SenseCam
 Serpentine
+setgid
+setuid
 Setuid
 SFTP
 sftp
@@ -2344,10 +2392,12 @@ SlotMusic
 SmartCard
 SmarterChild
 SmartMedia
+smb
 Smb
 SMB
 smbc
 smbclient
+smbcvpn
 smbfs
 SMBFS
 smbstatus
@@ -2427,11 +2477,14 @@ STDOUT
 Stepmania
 StepMania
 Strace
+strcpy
+strftime
 strigi
 Stronghold
 STUN
 Stunnel
 Subversion
+subversion
 sudo
 SUID
 suid
@@ -2473,6 +2526,7 @@ syslog
 Syslog
 Tab
 TagLib
+taglib
 TagMatch
 Taiko
 TAO
@@ -2540,6 +2594,7 @@ Top
 TORCS
 torrent
 TorrentFlux
+torrents
 Toshiba
 Totem
 Tournament
@@ -2558,11 +2613,14 @@ Trolltech
 TrueColor
 TrueSpace
 TrueType
+truetype
 TRY
 TS
 ttf
 TTL
 TTLS
+tts
+ttsd
 TTY
 tty
 Tubo
@@ -2618,6 +2676,7 @@ UNIX
 unrar
 Unreal
 unzip
+updatedb
 UPnP
 UPNP
 ups
@@ -2667,6 +2726,7 @@ VCDHD
 VcdImager
 vcdimager
 vcdxrip
+vcs
 VDR
 Vdrift
 VDSL
@@ -2716,6 +2776,8 @@ Vorest
 VPI
 VPN
 vpnc
+vpncdydx
+vpncpid
 vpncvpnc
 VR
 VRAM
@@ -2865,6 +2927,7 @@ xconsole
 XDCC
 XDG
 XDM
+xdm
 XDMCP
 xdmctl
 xdmctlcpp
@@ -2894,6 +2957,7 @@ Xgammon
 xgettext
 Xgl
 XGlobe
+xhost
 xhtml
 XHTML
 XIM
@@ -3029,6 +3093,7 @@ Zip
 ZIP
 zip
 Ziptorrent
+zlib
 ZLib
 ZModem
 ZoneMinder
