@@ -498,10 +498,17 @@ def _add_cat_check_hl (check, catspecs):
         if check not in _known_checks_by_cat[catspec]:
             _known_checks_by_cat[catspec].append(check)
 
+def _on_cat_hl (catspecs): # as decorator
+    def dec (check):
+        _add_cat_check_hl(check, catspecs)
+    return dec
+
 
 # Like _add_cat_check_hl, except that instead of updating the highlight,
 # check function returns a single error message or a list of error messages.
 def _add_cat_check (check, catspecs):
+    if isinstance(catspecs, basestring):
+        catspecs = [catspecs]
     def check_mod (msg, cat, pcache, hl):
         errors = check(msg, cat, pcache)
         if errors:
@@ -512,6 +519,11 @@ def _add_cat_check (check, catspecs):
         else:
             return 0
     _add_cat_check_hl(check_mod, catspecs)
+
+def _on_cat (catspecs): # as decorator
+    def dec (check):
+        _add_cat_check(check, catspecs)
+    return dec
 
 
 # Global check to apply appropriate catalog-specific checks.
@@ -526,22 +538,20 @@ def _check_catspec (msg, cat, pcache, hl):
 _known_checks["catspec"] = _check_catspec
 
 
-# Factory of checks that functional tokens are preserved in translation.
-def _check_cat_match_tokens (tokens):
+# Checks that functional tokens are preserved in translation.
+def _check_cat_match_tokens (msg, cat, pcache, tokens):
 
-    def checkf (msg, cat, pcache):
-        for token in tokens:
-            if token in msg.msgid and token not in msg.msgstr[0]:
-                return _("@info",
-                         "Translation must contain '%(token)s'.",
-                         token=token)
-
-    return checkf
+    for token in tokens:
+        if token in msg.msgid and token not in msg.msgstr[0]:
+            return _("@info",
+                     "Translation must contain '%(token)s'.",
+                     token=token)
 
 
 # --------------------------------------
 # Catalog-specific checks.
 
+@_on_cat("libkleopatra")
 def _check_cat_libkleopatra (msg, cat, pcache):
 
     if "'yes' or 'no'" in (msg.msgctxt or ""):
@@ -550,9 +560,8 @@ def _check_cat_libkleopatra (msg, cat, pcache):
                      "Translation must be exactly '%(text1)s' or '%(text2)s'.",
                      text1="yes", text2="no")
 
-_add_cat_check(_check_cat_libkleopatra, ["libkleopatra"])
 
-
+@_on_cat("kplatolibs")
 def _check_cat_kplatolibs (msg, cat, pcache):
 
     if "Letter(s) only" in (msg.msgctxt or ""):
@@ -560,9 +569,8 @@ def _check_cat_kplatolibs (msg, cat, pcache):
             return _("@info",
                      "Translation must contain only letters.")
 
-_add_cat_check(_check_cat_kplatolibs, ["kplatolibs"])
 
-
+@_on_cat("kdeqt")
 def _check_cat_kdeqt (msg, cat, pcache):
 
     if msg.msgid == "QT_LAYOUT_DIRECTION":
@@ -571,8 +579,10 @@ def _check_cat_kdeqt (msg, cat, pcache):
                      "Translation must be exactly '%(text1)s' or '%(text2)s'.",
                      text1="LTR", text2="RTL")
 
-_add_cat_check(_check_cat_kdeqt, ["kdeqt"])
 
+@_on_cat("kiosktool")
+def _check_cat_kiosktool (msg, cat, pcache):
 
-_add_cat_check(_check_cat_match_tokens(["%action"]), ["kiosktool"])
+    return _check_cat_match_tokens(msg, cat, pcache, ["%action"])
+
 
