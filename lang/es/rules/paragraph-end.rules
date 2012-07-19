@@ -156,18 +156,21 @@ hint="Compruebe el uso de espacio antes del fin de párrafo «</p>» (sobra en l
 [\.\s*$]i
 valid msgid="[\.\~]\s*$"
 valid msgid="\.\)\s*$"
+valid msgid="\!\s*$"
 hint="Compruebe el uso de punto al final del párrafo (sobra en la traducción)."
 
 # Punto en el fin de línea «\n».
 [\.\s*\\\\n]i
 valid msgid="[\.\~]\s*\\\\n"
 valid msgid="\.\)\s*\\\\n"
+valid msgid="\!\s*\\\\n"
 hint="Compruebe el uso de punto antes del fin de línea «\n» (sobra en la traducción)."
 
 # Punto en el fin de párrafo.
 [\.\s*\<\/p\>]i
 valid msgid="[\.\~]\s*\<\/p\>"
 valid msgid="\.\)\s*\<\/p\>"
+valid msgid="\!\s*\<\/p\>"
 hint="Compruebe el uso de punto antes del fin de párrafo «</p>» (sobra en la traducción)."
 
 # Dos puntos al final del párrafo.

@@ -564,13 +564,13 @@ hint="« Codec » se traduce como « Códec » (propuesta glosario)"
 
 # «Cold boot» se traduce como «Arranque en frío».
 {\bcold\s?boot\b}i
-valid msgstr="arranques?\sen\frío"
+valid msgstr="arranques?\sen\sfrío"
 hint="« Cold boot » se traduce como « Arranque en frío » (propuesta glosario)"
 
 # «Cold boots» se traduce como «Arranques en frío».
 {\bcold\s?boots\b}i
-valid msgstr="arranques\sen\frío"
-valid msgstr="(ningún|cualquier)\sarranque\sen\frío"
+valid msgstr="arranques\sen\sfrío"
+valid msgstr="(ningún|cualquier)\sarranque\sen\sfrío"
 hint="« Cold boots » se traduce como « Arranques en frío » (propuesta glosario)"
 
 # «Colon» se traduce como «Dos puntos».
@@ -902,7 +902,7 @@ valid msgstr="se\s(\w+\s){1,3}demodular"
 hint="« Demodulated » se traduce como « Demodulado » (propuesta glosario)"
 
 # «Denial of service» se traduce como «Denegación de servicio».
-{\bdenial\s\of\sservice\b}i
+{\bdenial\sof\sservice\b}i
 valid msgstr="denegaci(ón|ones)\sde\sservicio"
 hint="« Denial of service » se traduce como « Denegación de servicio » (propuesta glosario)"
 
@@ -1644,7 +1644,9 @@ hint="« Functions » se traduce como « Funciones/Funciona » (propuesta glosar
 # «Gag» se traduce como «Chiste».
 {\bgag\b}i
 valid msgstr="chiste"
-hint="« Gag » se traduce como « Chiste » (propuesta glosario)"
+valid msgstr="broma"
+valid msgstr="mordaza"
+hint="« Gag » se traduce como « Chiste/Broma/Mordaza » (propuesta glosario)"
 
 # «Glyph» se traduce como «Glifo».
 {\bglyph\b}i
@@ -1708,7 +1710,8 @@ hint="« Hall » se traduce como « Sala/Vestíbulo/Entrada » (propuesta glosar
 # «Handheld» se traduce como «De mano».
 {\bhandheld\b}i
 valid msgstr="de\smano"
-hint="« Handheld » se traduce como « De mano » (propuesta glosario)"
+valid msgstr="agenda\selectrónica"
+hint="« Handheld » se traduce como « De mano/Agenda electrónica » (propuesta glosario)"
 
 # «Handicap» se traduce como «Minusvalía/Discapacidad/Inconveniente».
 {\bhandicap\b}i
@@ -1749,7 +1752,7 @@ hint="« Handlers » se traduce como « Controladores/Manipuladores » (propuest
 {\bhandles\b}i
 valid msgstr="manipul(ar|a|e)"
 valid msgstr="manej(ar|a|e)"
-valid msgstr="se\s\encarga\sde"
+valid msgstr="se\sencarga\sde"
 valid msgstr="asas"
 valid msgstr="mangos"
 valid msgstr="(ninguna|cualquier)\sasa"
@@ -2187,7 +2190,7 @@ hint="« Keyring » se traduce como « Anillo de claves » (propuesta glosario)"
 # «Keyrings» se traduce como «Anillos de claves».
 {\bkeyrings\b}i
 valid msgstr="anillos\sde\sclaves"
-valid msgstr="(ningún|cualquier)\sanillo\sde\claves"
+valid msgstr="(ningún|cualquier)\sanillo\sde\sclaves"
 hint="« Keyrings » se traduce como « Anillos de claves » (propuesta glosario)"
 
 # «Latency» se traduce como «Latencia».
@@ -2270,7 +2273,7 @@ hint="« Live bookmarks » se traduce como « Marcadores dinámicos » (propuest
 # «Logon» se traduce como «Inicio de sesión».
 {\blogon\b}i
 valid msgstr="inicio\sde\ssesión"
-valid msgstr="inici(ar|a|e)\ssesión"
+valid msgstr="inici(ar|a|e)\s(la\s)?sesión"
 valid msgstr="iniciará\ssesión" after="will\s(not\s)?"
 valid msgstr="inición\ssesión" after="did\s(not\s)?"
 hint="« Logon » se traduce como « Inicio de sesión », no se debe dejar sin traducir (propuesta glosario)"
@@ -2743,7 +2746,7 @@ hint="« Offsets » se traduce como « Desplazamientos » (propuesta glosario)"
 valid msgstr="conectad[oa]"
 valid msgstr="con\sconexión"
 valid msgstr="en\slínea"
-valid msgstr="(en|de)\s\la\slínea"
+valid msgstr="(en|de)\sla\slínea"
 hint="« On line » se traduce como « Conectado/En línea » (propuesta glosario)"
 
 # «On the fly» se traduce como «Sobre la marcha».
@@ -3942,8 +3945,8 @@ hint="« Sources » se traduce como « Orígenes/Fuentes » (propuesta glosario)
 # «Spam» se traduce como «Correo basura/no deseado».
 {\bspam\b}i
 valid msgstr="correos?[\s\-]basura"
-valid msgstr="correo\s\no\deseado"
-valid msgstr="correos\s\no\deseados"
+valid msgstr="correo\sno\sdeseado"
+valid msgstr="correos\sno\sdeseados"
 hint="« Spam » se traduce como « Correo basura/no deseado » (propuesta glosario)"
 
 # «Specification» se traduce como «Especificación».
@@ -4067,7 +4070,9 @@ hint="« Stacks » se traduce como « Pilas/Apile » (propuesta glosario)"
 # «Staff» se traduce como «Personal».
 {\bstaff\b}i
 valid msgstr="personal"
-hint="« Staff » se traduce como « Personal » (propuesta glosario)"
+valid msgstr="empleados"
+valid msgstr="pentagrama"
+hint="« Staff » se traduce como « Personal/Pentagrama » (propuesta glosario)"
 
 # «Stalled» se traduce como «Atascado».
 {\bstalled\b}i
@@ -4077,7 +4082,7 @@ valid msgstr="estancado"
 valid msgstr="estancarse"
 valid msgstr="se\satas(ca|que)n?" 
 valid msgstr="se\s(\w+\s){1,3}atascar"
-valid msgstr="se\estan(ca|que)n?" 
+valid msgstr="se\sestan(ca|que)n?" 
 valid msgstr="se\s(\w+\s){1,3}estancar"
 hint="« Stalled » se traduce como « Atascado » (propuesta glosario)"
 
@@ -4102,6 +4107,7 @@ hint="« Sticky » se traduce como « Adhesivo » (propuesta glosario)"
 # «Subject» se traduce como «Asunto».
 {\bsubject\b}i
 valid msgstr="asunto"
+valid msgstr="tema"
 valid msgstr="sujeto" after="is\s"
 valid msgstr="sujetos" after="are\s"
 valid msgstr="sujeto\sa" before="\sto"
@@ -4110,7 +4116,9 @@ hint="« Subject » se traduce como « Asunto » (propuesta glosario)"
 # «Subjects» se traduce como «Asuntos».
 {\bsubjects\b}i
 valid msgstr="asuntos"
+valid msgstr="temas"
 valid msgstr="(ningún|cualquier)\sasunto"
+valid msgstr="(ningún|cualquier)\stema"
 hint="« Subjects » se traduce como « Asuntos » (propuesta glosario)"
 
 # «Submit» se traduce como «Remitir/Enviar».
@@ -4506,7 +4514,7 @@ hint="« Window manager » se traduce como « Gestor de ventanas » (propuesta g
 # «Window managers» se traduce como «Gestores de ventanas».
 {\bwindow\smanagers\b}i
 valid msgstr="gestores\sde\sventanas"
-valid msgstr="(ningún|cualquier)\sgestor\s\de\ventanas"
+valid msgstr="(ningún|cualquier)\sgestor\sde\ventanas"
 hint="« Window managers » se traduce como « Gestores de ventanas » (propuesta glosario)"
 
 # «Wireless» se traduce como «Inalámbrico».
@@ -4521,7 +4529,7 @@ hint="« Wishlist » se traduce como « Lista de mejoras » (propuesta glosario)
 
 # «Word wrap» se traduce como «Ajuste de línea».
 {\bword\swarp\b}i
-valid msgstr="ajustes?\sde\líneas?"
+valid msgstr="ajustes?\sde\slíneas?"
 hint="« Word wrap » se traduce como « Ajuste de línea » (propuesta glosario)"
 
 # «Workaraund» se traduce como «Arreglo temporal».

@@ -625,13 +625,13 @@ valid msgstr="arrastrará\sy\ssoltará" after="will\s"
 hint="« Drag and drop » se traduce como « Arrastrar y soltar » (regla de traducción de elementos gráficos)"
 
 # «Drop down menu» se traduce como «Menú desplegable».
-{\bdrop\sdown\menu\b}i
+{\bdrop\sdown\smenu\b}i
 valid msgstr="menú\sdesplegable"
 valid msgstr="menús\sdesplegables"
 hint="« Drop down menu » se traduce como como « Menú desplegable » (regla de traducción de elementos gráficos)"
 
 # «Drop down menus» se traduce como «Menús desplegables».
-{\bdrop\sdown\menus\b}i
+{\bdrop\sdown\smenus\b}i
 valid msgstr="menús\sdesplegables"
 valid msgstr="(cualquier|ningún)\smenú\sdesplegable"
 hint="« Drop down menus » se traduce como como « Menús desplegables » (regla de traducción de elementos gráficos)"

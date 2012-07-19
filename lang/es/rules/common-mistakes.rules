@@ -37,7 +37,7 @@ hint="No utilice expresiones del tipo «las ciudadanas y los ciudadanos » (erro
 hint="No utilice la arroba para evitar el género, p.ej. «ciudadan@s» (error frecuente)"
 
 # No utilizar el guión para separar el prefijo de la palabra principal
-[(?u)\b(anti|archi|auto|bi|co|contra|des|ex|extra|híper|in|macro|meta|micro|mini|mono|multi|pos|post|pre|pro|re|semi|sim|sin|sobre|sub|super|tele|trans|tras|tri|vice)\-([a-záéíóúñç]){3,}?\b]i
+[(?u)\b(anti|archi|auto|bi|co|contra|des|ex|extra|foto|geo|h[ií]per|in|inter|iso|macro|meta|micro|mini|mono|multi|pos|post|pre|pro|re|semi|sim|sin|sobre|sub|s[uú]per|tele|trans|tras|tri|vice)\-([a-záéíóúñç]){3,}?\b]i
 hint="No utilice el guión para separar el prefijo de la palabra principal, p.ej. «sub-menú» (error frecuente)"
 
 # «y» ante palabras que empiezan por «i» o «hi»
@@ -189,7 +189,7 @@ hint="« A efecto de » se escribe como « A efectos de » (error frecuente)"
 hint="« A el » se escribe como « Al » (error frecuente)"
 
 # «A excepción hecha de» se escribe como «A excepción de».
-[\ba\sexcepción\hecha\sde\b]i
+[\ba\sexcepción\shecha\sde\b]i
 hint="« A excepción hecha de » se escribe como « A excepción de/Excepción hecha de » (error frecuente: solecismo)"
 
 # «A fin que» se escribe como «A fin de que».
@@ -213,15 +213,15 @@ hint="« A lo que se ve » se escribe como « Por lo que se ve » (error frecuen
 hint="« A lo que veo » se escribe como « Por lo que veo » (error frecuente: solecismo)"
 
 # «A medida de que» se escribe como «A medida que».
-[\ba\smedida\de\sque\b]i
+[\ba\smedida\sde\sque\b]i
 hint="« A medida de que » e escribe como «A medida que». (error frecuente: dequeismo)"
 
 # «A nivel de» se escribe como «En el ámbito de/Con respecto a/Entre/En».
-[\ba\snivel\bde\b]i
+[\ba\snivel\sde\b]i
 hint="« A nivel de » e escribe como «En el ámbito de/Con respecto a/Entre/En». (error frecuente)"
 
 # «A no ser de que» se escribe como «A no ser que».
-[\ba\sno\sser\de\sque\b]i
+[\ba\sno\sser\sde\sque\b]i
 hint="« A no ser de que » e escribe como «A no ser que». (error frecuente: dequeismo)"
 
 # «A parte» se escribe como «Aparte».
@@ -303,6 +303,10 @@ hint="« Amateur » se escribe como « Aficionado » (error frecuente)"
 # «Amateurs» se escribe como «Aficionados».
 [\bamateurs\b]i
 hint="« Amateurs » se escribe como « Aficionados » (error frecuente)"
+
+# «Ambos dos» se escribe como «Ambos».
+[\bambos\sdos\b]i
+hint="« Ambos dos » se escribe como « Ambos » (error frecuente)"
 
 # «Anteriormente a» se escribe como «Antes de/Con anterioridad a».
 [\banteriormente\sa\b]i
@@ -496,6 +500,14 @@ hint="« Caché » es de género femenino (error frecuente)"
 [\b(los|unos|estos|esos)\cachés\b]i
 hint="« Cachés » es de género femenino (error frecuente)"
 
+# «Cada cúal» se escribe como «Cada cual».
+[\bcada\scúal\b]i
+hint="« Cada cual » se escribe sin tilde (error frecuente)"
+
+# «Cada quién» se escribe como «Cada quien».
+[\bcada\squién\b]i
+hint="« Cada quien » se escribe sin tilde (error frecuente)"
+
 # «Cada una de los» se escribe como «Cada uno de los».
 [\bcada\suna\sde\slos\b]i
 hint="« Cada una de los » se escribe como « Cada uno de los/Cada una de las » (error frecuente)"
@@ -505,7 +517,7 @@ hint="« Cada una de los » se escribe como « Cada uno de los/Cada una de las �
 hint="« Cada uno de las » se escribe como « Cada uno de los/Cada una de las » (error frecuente)"
 
 # «Caer en la cuenta que» se escribe como «Caer en la cuenta de que».
-[\bca\w{1,4}?\sen\sla\cuenta\sque\b]i
+[\bca\w{1,4}?\sen\sla\scuenta\sque\b]i
 hint="« Caer en la cuenta que » se escribe como « Caer en la cuenta de que » (error frecuente: queismo)"
 
 # «Caracter» se escribe como «Carácter».
@@ -553,7 +565,7 @@ hint="« Con motivo a » se escribe como « Con motivo de/A causa de » (error f
 
 # «Conjuntamente con» se escribe como «Conjuntamente».
 [\bconjuntamente\scon\b]i
-hint="« Conjuntamente con » se escribe como « Conjuntamente » (error frecuente: redundancia)"
+hint="« Conjuntamente con » se escribe como « Conjuntamente/Junto con » (error frecuente: redundancia)"
 
 # «Contestar de que» se escribe como «Contestar que».
 [\bcontest\w{1,4}?\sde\sque\b]i
@@ -624,6 +636,19 @@ hint="« De arriba a abajo » se escribe como « De arriba abajo » (error frecu
 # «De conformidad a» se escribe como «De conformidad con».
 [\bde\sconformidad\sa\b]i
 hint="« De conformidad a » se escribe como « De conformidad con » (error frecuente: solecismo)"
+
+# «De cuándo en cuándo» se escribe como «De cuando en cuando».
+[\bde\scuándo\sen\scuándo\b]i
+hint="« De cuando en cuando » se escribe sin tilde (error frecuente: solecismo)"
+
+# «De cuándo en cuándo» se escribe como «De cuando en cuando».
+[\bde\scuándo\sen\scuando\b]i
+hint="« De cuando en cuando » se escribe sin tilde (error frecuente: solecismo)"
+
+# «De cuándo en cuándo» se escribe como «De cuando en cuando».
+[\bde\scuando\sen\scuándo\b]i
+hint="« De cuando en cuando » se escribe sin tilde (error frecuente: solecismo)"
+
 
 # «De echo» se escribe como «De hecho».
 [\bde\secho\b]i
@@ -1105,6 +1130,11 @@ hint="« Llamar la atención de que » se escribe como « Llamar la atención qu
 [\blo\sse\b]i
 hint="« Lo se » se escribe como « Lo sé ». (error frecuente)"
 
+# «Los ambos» se escribe como «Ambos».
+[\bl[oa]s\sambos\b]i
+hint="« Los ambos » se escribe como « Ambos ». (error frecuente)"
+
+
 # «Los la» duplicado artículo.
 [\blos\sla\b]i
 hint="« Los la » duplicado artículo. (error frecuente)"
@@ -1126,11 +1156,11 @@ hint="« Louisiana » se escribe como « Luisiana » (error frecuente)"
 hint="« Luís » se escribe siempre como « Luis » (ver la nueva ortografía de la RAE)"
 
 # «Macro» es femenino.
-[\b(el|del|uno|este|ese)\macro\b]i
+[\b(el|del|uno|este|ese)\smacro\b]i
 hint="« Macro » es de género femenino (error frecuente)"
 
 # «Macros» es femenino.
-[\b(los|unos|estos|esos)\macros\b]i
+[\b(los|unos|estos|esos)\smacros\b]i
 hint="« Macros » es de género femenino (error frecuente)"
 
 # «Mas» se escribe como «Más» salvo si es preposición.
@@ -1188,6 +1218,10 @@ hint="« Nexo de unión » se escribe como « Nexo » (error frecuente: redundan
 # «Ni aún» se escribe como «Ni aun».
 [\bni\saún\b]i
 hint="« Ni aún » se escribe como « Ni aun » (error frecuente: redundancia)"
+
+# «Ni qué decir tiene» se escribe como «Ni que decir tiene».
+[\bni\squé\sdecir\stiene\b]i
+hint="« Ni que decir tiene » se escribe como sin tilde (error frecuente: queismo)"
 
 # «No cabe duda que» se escribe como «No cabe duda de que».
 [\bno\scab\w{1,4}?\sduda\sque\b]i
@@ -1515,7 +1549,7 @@ hint="« Tenían que haber » se escribe como « Tenía que haber » (error frec
 hint="« Tenias » se escribe como « Tenías », salvo cuando se trate de los parásitos intestinales (error frecuente)"
 
 # «Thesaurus» se escribe como «Tesauro».
-[\thesaurus\b]i
+[\bthesaurus\b]i
 hint="« Thesaurus » se escribe como « Tesauro » (error frecuente)"
 
 # «Truhán» se escribe sin tilde.
@@ -1545,8 +1579,16 @@ hint="« tu » se escribe como « tú » al final de frase(error frecuente)"
 hint="« Un porque » e escribe como «Un porqué». (error frecuente)"
 
 # «Una vez de que» se escribe como «Una vez que».
-[\buna\svez\de\sque\b]i
+[\buna\svez\sde\sque\b]i
 hint="« Una vez de que » e escribe como «Una vez que». (error frecuente: dequeismo)"
+
+# «Una de ambas» se escribe como «Una de las dos».
+[\buna\sde\sambas\b]i
+hint="« Una de ambas » e escribe como « Una de los dos ». (error frecuente: dequeismo)"
+
+# «Uno de ambos» se escribe como «Uno de los dos».
+[\buno\sde\sambos\b]i
+hint="« Uno de ambos » e escribe como « Uno de los dos ». (error frecuente: dequeismo)"
 
 # «Unos porques» e escribe como «Unos porqués».
 [\bunos\sporques\b]i

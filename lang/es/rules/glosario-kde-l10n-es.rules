@@ -1310,16 +1310,15 @@ valid msgstr="ofrece"
 hint="« Features » se traduce como « Funcionalidades » o « Características » (ver glosario)"
 
 # «Feed» se traduce como «Suministro».
-{\b(?<!line\s)feed\b}i
+{\b(?<!(line|form)(\s|\-))feed\b}i
 valid msgstr="suministro"
 valid msgstr="fuente"
 valid msgstr="canal"
-valid msgstr="salto\sde\slínea" after="line[\s\-]"
 valid msgstr="subministrará" after="will\s(not\s)?"
 hint="« Feed » se traduce como « Suministro » o « Fuente de noticias »(ver glosario)"
 
 # «Feeds» se traduce como «Suministros».
-{\b(?<!line\s)feeds\b}i
+{\b(?<!(line|form)(\s|\-))feeds\b}i
 valid msgstr="suministros"
 valid msgstr="fuentes"
 valid msgstr="canales"
@@ -1369,15 +1368,15 @@ hint="« Firewall » se traduce como « Cortafuegos » (ver glosario)"
 # «Flag» se traduce como «Indicador».
 {\bflag\b}i
 valid msgstr="indicador"
-valid msgstr="bandera" cat="kgeography,krita"
+valid msgstr="bandera" cat="kgeography,ksirkskineditor,krita,edu_www"
 hint="« Flag » se traduce como « Indicador » (ver glosario)"
 
 # «Flags» se traduce como «Indicadores».
 {\bflags\b}i
 valid msgstr="indicadores"
 valid msgstr="(cualquier|ningún)\sindicador"
-valid msgstr="banderas" cat="kgeography,ksirkskineditor"
-valid msgstr="(cualquier|ninguna)\sbandera" cat="kgeography,ksirkskineditor"
+valid msgstr="banderas" cat="kgeography,ksirkskineditor,krita,edu_www"
+valid msgstr="(cualquier|ninguna)\sbandera" cat="kgeography,ksirkskineditor,krita,edu_www"
 hint="« Flags » se traduce como « Indicadores » (ver glosario)"
 
 # «Flame» se traduce como «Crítica destructiva».
@@ -1689,6 +1688,7 @@ hint="« Home directories » se traduce como « Directorios personales » (ver g
 {\bhome\s?page\b}i
 valid msgstr="páginas?\sde\sinicio"
 valid msgstr="página\sinicial"
+valid msgstr="página\sprincipal"
 valid msgstr="página\spersonal"
 valid msgstr="páginas\siniciales"
 valid msgstr="páginas\spersonales"
@@ -1696,12 +1696,14 @@ hint="« Home page » se traduce como « Página de inicio » (ver glosario)"
 
 # «Home pages» se traduce como «Páginas iniciales».
 {\bhome\s?pages\b}i
-valid msgstr="páginas\de\inicio"
+valid msgstr="páginas\sde\sinicio"
 valid msgstr="páginas\siniciales"
 valid msgstr="páginas\spersonales"
+valid msgstr="páginas\sprincipales"
 valid msgstr="(cualquier|ninguna)\spágina\sde\sinicio"
 valid msgstr="(cualquier|ninguna)\spágina\sinicial"
 valid msgstr="(cualquier|ninguna)\spágina\spersonal"
+valid msgstr="(cualquier|ninguna)\spágina\sprincipal"
 hint="« Home pages » se traduce como « Páginas de inicio » (ver glosario)"
 
 # «Home address» se traduce como «Dirección particular».
@@ -2301,7 +2303,7 @@ hint="« Ok » se traduce como « Aceptar » en botones o « Correcto » en otro
 
 # «Overlap» se traduce como «Superponer» o «Solapar».
 {\boverlap\b}i
-valid msgstr="superpon(er|e\ga)"
+valid msgstr="superpon(er|e|ga)"
 valid msgstr="solap(ar|a|e)"
 valid msgstr="superpondrá" after="will\s(not\s)?"
 valid msgstr="solapará" after="will\s(not\s)?"
@@ -2572,7 +2574,7 @@ valid msgstr="public(ar|a|o)"
 valid msgstr="publique"
 valid msgstr="publicaciones"
 valid !msgstr="poste(ar|a|e|o)"
-hint="« Posts » se traduce como « Remita\Envíe » o « Envios » (ver glosario)"
+hint="« Posts » se traduce como « Remita/Envíe » o « Envios » (ver glosario)"
 
 # «Postmaster» se traduce como «Administrador de correo».
 {\bpostmaster\b}i

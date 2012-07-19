@@ -195,6 +195,7 @@ hint="Ponga un espacio después del signo de comilla española de cierre"
 [\.»] 
 valid after="\«"
 valid after="\.\."
+valid after="\([A-ZÑÇ].+?"
 hint="Ponga el punto después de la comilla de cierre y no antes"
 
 [\S«]
@@ -251,6 +252,7 @@ hint="No ponga un signo de punto después de puntos suspensivos"
 
 [\.\.]
 valid after="\d" before="\d"
+valid after="\%\d" before="\%\d"
 valid after="\."
 valid before="\."
 hint="No ponga dos signos de punto consecutivos"
@@ -264,12 +266,10 @@ valid before="[a-z]*[A-Z]"
 hint="Utilice mayúsculas después de punto"
 
 [\S+\?\s[a-zñçáéíóú]]
-valid span="\.\.\.\s[a-zñçáéíóú]"
 valid before="[a-z]*[A-Z]"
 hint="Utilice mayúsculas después de cierre de interrogación"
 
 [\S+\!\s[a-zñçáéíóú]]
-valid span="\.\.\.\s[a-zñçáéíóú]"
 valid before="[a-z]*[A-Z]"
 hint="Utilice mayúsculas después de cierre de admiración"
 
@@ -316,6 +316,9 @@ hint="Ponga una coma después de «en fin» (Consulte ortografía de la RAE)"
 
 [\bpor\súltimo\s]i
 hint="Ponga una coma después de «por último» (Consulte ortografía de la RAE)"
+
+[\bo\ssea\s]i
+hint="Ponga una coma después de «o sea» (Consulte ortografía de la RAE)"
 
 [\bpor\sconsiguiente\s]i
 hint="Ponga una coma después de «por consiguiente» (Consulte ortografía de la RAE)"
@@ -366,6 +369,10 @@ hint="Ponga una coma después de «Quizá» (Consulte ortografía de la RAE)"
 [\bo\sbien\b]
 validGroup beforeComma
 hint="Ponga una coma antes de «o bien» (Consulte ortografía de la RAE)"
+
+[\bo\ssea\b]
+validGroup beforeComma
+hint="Ponga una coma antes de «o sea» (Consulte ortografía de la RAE)"
 
 [\bexcepto\b]
 validGroup beforeComma
