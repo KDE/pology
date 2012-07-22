@@ -551,7 +551,7 @@ def _check_cat_match_tokens (msg, cat, pcache, tokens):
                              token=token)
 
 
-# Checks that functional tokens are preserved in translation.
+# Checks that translation is an ASCII identifier-like string.
 def _check_cat_ascii_identifier (msg, cat, pcache):
 
     for msgstr in msg.msgstr:
