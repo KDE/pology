@@ -93,11 +93,9 @@ id="clGL-all_a+infinitivo"
 hint="«a+infinitivo» -> «estase a infinitivo"
 
 #comprobar «lista»
-[\blista]i
-valid before="xe"
-valid before="(r|n)"
+[\blistaxe]i
 id="clGL-all_listaxe"
-hint="«lista» -> «listaxe»?"
+hint="«listaxe» -> «lista»?"
 
 # «enable this option» 
 {\benable\sthis\s(option|checkbox)}i
@@ -234,6 +232,18 @@ valid msgid="\bOK\b"
 valid msgid="\bagree"
 hint="aceptar = accept"
 
+# «append» -> «amecer»
+{\bappend}i
+id="kde_append"
+valid msgstr="\bamecer"
+hint=" append -> amecer"
+
+# «amecer» -> «append»
+[\bamec]i
+id="kde-dual_append"
+valid msgid="\bappend"
+hint=" amecer -> append"
+
 # «not enabled»
 {\bnot enabled\b}
 id="kde_not enabled"
@@ -280,6 +290,18 @@ id="kde-dual_frame"
 valid msgid="\bframe"
 valid msgid="\bmarks?"
 hint="«marco» -> «frame»/«mark» (moeda)"
+
+# «inline» -> «intercalar»
+{\bin\s?line}i
+id="kde_inline"
+valid msgstr="\bintercala(r|d(o|a)s?)" !env="development"
+hint="«frame» -> «marco»"
+
+# «ing mode» -> «médoto de»
+{}i
+id="kde_ing"
+valid msgstr="métodos?\sde\s\w+"
+hint="«ing mode» -> «médoto de»
 
 # «print» -> «imprimir», «mostra»
 {\bprint(?!(ing|er))}i
