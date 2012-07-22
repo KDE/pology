@@ -17,6 +17,7 @@ from pology.markup import flag_no_check_markup
 from pology.escape import escape_c
 from pology.msgreport import report_on_msg_hl, report_msg_content
 from pology.msgreport import report_msg_to_lokalize
+from pology.normalize import identify
 from pology.report import report, format_item_list
 from pology.sieve import add_param_poeditors
 from pology.sieve import SieveError, SieveCatalogError, parse_sieve_flags
@@ -542,10 +543,23 @@ _known_checks["catspec"] = _check_catspec
 def _check_cat_match_tokens (msg, cat, pcache, tokens):
 
     for token in tokens:
-        if token in msg.msgid and token not in msg.msgstr[0]:
+        if token in msg.msgid:
+            for msgstr in msg.msgstr:
+                if token not in msgstr:
+                    return _("@info",
+                             "Translation must contain '%(token)s'.",
+                             token=token)
+
+
+# Checks that functional tokens are preserved in translation.
+def _check_cat_ascii_identifier (msg, cat, pcache):
+
+    for msgstr in msg.msgstr:
+        if msgstr.lower() != identify(msgstr):
             return _("@info",
-                     "Translation must contain '%(token)s'.",
-                     token=token)
+                     "Translation must be composed only of ASCII letters, "
+                     "numbers, and underscores, "
+                     "and must not start with a number.")
 
 
 # --------------------------------------
@@ -584,5 +598,12 @@ def _check_cat_libkleopatra (msg, cat, pcache):
             return _("@info",
                      "Translation must be exactly '%(text1)s' or '%(text2)s'.",
                      text1="yes", text2="no")
+
+
+@_on_cat("libknetworkmanager")
+def _check_cat_libknetworkmanager (msg, cat, pcache):
+
+    if "ASCII letters and underscore" in (msg.msgctxt or ""):
+        return _check_cat_ascii_identifier(msg, cat, pcache)
 
 
