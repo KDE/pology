@@ -551,25 +551,6 @@ def _check_cat_match_tokens (msg, cat, pcache, tokens):
 # --------------------------------------
 # Catalog-specific checks.
 
-@_on_cat("libkleopatra")
-def _check_cat_libkleopatra (msg, cat, pcache):
-
-    if "'yes' or 'no'" in (msg.msgctxt or ""):
-        if msg.msgstr[0] not in ("yes", "no"):
-            return _("@info",
-                     "Translation must be exactly '%(text1)s' or '%(text2)s'.",
-                     text1="yes", text2="no")
-
-
-@_on_cat("kplatolibs")
-def _check_cat_kplatolibs (msg, cat, pcache):
-
-    if "Letter(s) only" in (msg.msgctxt or ""):
-        if not msg.msgstr[0].isalpha():
-            return _("@info",
-                     "Translation must contain only letters.")
-
-
 @_on_cat("kdeqt")
 def _check_cat_kdeqt (msg, cat, pcache):
 
@@ -584,5 +565,24 @@ def _check_cat_kdeqt (msg, cat, pcache):
 def _check_cat_kiosktool (msg, cat, pcache):
 
     return _check_cat_match_tokens(msg, cat, pcache, ["%action"])
+
+
+@_on_cat("kplatolibs")
+def _check_cat_kplatolibs (msg, cat, pcache):
+
+    if "Letter(s) only" in (msg.msgctxt or ""):
+        if not msg.msgstr[0].isalpha():
+            return _("@info",
+                     "Translation must contain only letters.")
+
+
+@_on_cat("libkleopatra")
+def _check_cat_libkleopatra (msg, cat, pcache):
+
+    if "'yes' or 'no'" in (msg.msgctxt or ""):
+        if msg.msgstr[0] not in ("yes", "no"):
+            return _("@info",
+                     "Translation must be exactly '%(text1)s' or '%(text2)s'.",
+                     text1="yes", text2="no")
 
 
