@@ -307,8 +307,8 @@ id="t-highlight"
 hint="highlight = истакнути"
 valid before="er" # проследи на highlighter
 valid msgstr="\bиста(кн|ћи)"
-valid msgstr="\bистица[њтол]"
-valid msgstr="\bистич[еу]"
+valid msgstr="\bистица[нњтол]"
+valid msgstr="\bистич[еиу]"
 valid msgstr="--highlight"
 valid after="non\W?" msgstr="\bнеистакн"
 
