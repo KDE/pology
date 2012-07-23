@@ -177,6 +177,7 @@ hint="«búfer» tradúcese como «buffer»"
 # «bug» tradúcese como «fallo»
 {\bbugs?}i
 valid before="\sreport"
+valid before="\stracker"
 id="PT-2011_bug"
 valid msgstr="\bfallos?"
 hint="«bug» tradúcese como «fallo»"
@@ -317,7 +318,7 @@ hint="«orde» traduce a «command»"
 # «commit» tradúcese como «remitir»
 {\bcommit}i
 id="PT-2011_commit"
-valid msgstr="\bremi(tir|tido|tindo|sión|sor)"
+valid msgstr="\bremi(ti(r|do|do)|s(ión|sor)|tíron)"
 hint="«commit» tradúcese como «remitir»"
 
 # «remitir» traduce a «commit»
@@ -832,12 +833,14 @@ valid msgstr="\sincidencia"
 valid msgstr="\bexpendi." env="kde"
 valid msgstr="\bemiti." env="kde"
 valid msgstr="\bproblema" env="kde"
+valid msgstr="\bnúmero" cat="commit-digest"
 hint="«issue» tradúcese como «incidencia» (e «expendido»)"
 
 # «incidencia» traduce a «issue»
 [\bincidencia]i
 id="noPT-2011-dual_issue"
 valid msgid="\bissue"
+valid after="\bseguimento\sde\s" msgid="\bbug\stracker"
 hint="«incidencia» traduce a «issue»"
 
 # «item» tradúcese como «elemento»
@@ -881,6 +884,7 @@ id="noPT-2011_kill"
 valid msgstr="\bmat(ar|ou)"
 valid before="ed" msgstr="\bmatado"
 valid msgstr="\bkill"
+valid before="er" msgstr="\basasino"
 hint="«kill» tradúcese como «matar» (ollo, que pode ser a orde kill)"
 
 # «matar» traduce a «kill»
@@ -957,6 +961,7 @@ id="noPT-2011-dual_log/signout-log/signoff"
 valid msgid="\b(quit|exit)"
 valid msgid="\b(log|sign)\s?o(ut|ff)"
 valid msgid="\bleav(e|ing)"
+valid span="saín" before="tes" msgid="\boutgoing"
 hint="«saír» traduce a «quit», «exit», «log/sign out» e «log/sign off» (e «leave»)"
 
 # «login», «log/sign in», «log/sign on» tradúcense como «acceder» ou «identificarse»
@@ -1211,8 +1216,9 @@ hint="«search» tradúcese como «busca(r)»"
 valid msgid="\bsearch"
 valid msgid="\bfind|\bfound"
 valid msgid="\blocate"
+valid msgid="\bseek"
 id="noPT-2010-dual_search"
-hint="«busca(r)» traduce a «search», «find» e «locate»"
+hint="«busca(r)» traduce a «search», «find», «locate» e «seek»"
 
 # «show» tradúcese como «mostrar»
 {\bshow}i
@@ -1306,7 +1312,7 @@ hint="«tabulación» traduce a «tab»,«Tab order» e «tab stop»"
 # «bug tracker» tradúcese como «(sistema de) seguimento de incidencias»
 {\bbug\stracker}i
 id="PT-2011_tracker4"
-# valid msgstr="\b(sistema\sde\s)?seguimento\sde\sincidencias"
+valid msgstr="\b(sistema(\sweb)?\sde\s)?seguimento\sde\sincidencias"
 hint="«bug tracker» tradúcese como «(sistema de) seguimento de incidencias»"
 
 # «(sistema de) seguimento de incidencias» traduce a «bug tracker»
@@ -1344,6 +1350,7 @@ hint="«seguir» traduce a «track» (e a «follow»)"
 [\bseguimento]i
 id="noPT-2011-dual_track3"
 valid msgid="\btracking" env="kde"
+valid before="\sde\sincidencias"  msgid="\bbug\stracker"
 hint="«seguimento» traduce a «tracking»"
 
 # «rastrexar» traduce a «track»
