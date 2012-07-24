@@ -25,27 +25,27 @@ hint="Compruebe el uso de mayúscula al principio del párrafo (falta en la trad
 
 # Mayúsculas después de un salto de línea.
 {\\\\n\W*[A-Z]}i
-valid msgstr="\\\\n\W*[A-ZÁÉÍÓÚ©«0-9\¿\¡\&\%\<\(\_]"
+valid msgstr="\\\\n\W*[A-ZÁÉÍÓÚ©«0-9¿¡\&\%\<\(\_]"
 hint="Compruebe el uso de mayúscula posterior a «\n» (falta en la traducción)."
 
 # Mayúsculas después de un nuevo párrafo.
 {\<p\>\W*[A-Z]}i
-valid msgstr="\<p\>\W*[A-ZÁÉÍÓÚ©«0-9\¿\¡\&\%\<\(\_]"
+valid msgstr="\<p\>\W*[A-ZÁÉÍÓÚ©«0-9¿¡\&\%\<\(\_]"
 hint="Compruebe el uso de mayúscula posterior a «\n» (falta en la traducción)."
 
 # Minúsculas al principio del párrafo.
 {^\W*[a-z]}i
-valid msgstr="^\W*[a-záéíóú©«0-9\¿\¡\&\%\<\(\_]"
+valid msgstr="^\W*[a-záéíóú©«0-9¿¡\&\%\<\(\_]"
 hint="Compruebe el uso de minúscula al principio del párrafo (falta en la traducción)."
 
 # Minúsculas después de un salto de línea.
 {\\\\n\W*[a-z]}i
-valid msgstr="\\\\n\W*[a-záéíóú©«0-9\¿\¡\&\%\<\(\_]"
+valid msgstr="\\\\n\W*[a-záéíóú©«0-9¿¡\&\%\<\(\_]"
 hint="Compruebe el uso de minúscula posterior a «\n» (falta en la traducción)."
 
 # Minúsculas después de un nuevo párrafo.
 {\<p\>\W*[a-z]}i
-valid msgstr="\<p\>\W*[a-záéíóú©«0-9\¿\¡\&\%\<\(\_]"
+valid msgstr="\<p\>\W*[a-záéíóú©«0-9¿¡\&\%\<\(\_]"
 hint="Compruebe el uso de minúscula posterior a «<p>» (falta en la traducción)."
 
 

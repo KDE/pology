@@ -183,12 +183,14 @@ hint="« Background » se traduce como « Segundo plano » o « Fondo » según 
 # «Backup» se traduce como «Copia de respaldo».
 {\bbackup\b}i
 valid msgstr="copias?\sde\s(respaldo|seguridad)"
+valid msgstr="respald(ar|a|e)"
 valid after="\-"
 hint="« Backup » se traduce como « Copia de respaldo » (ver glosario)"
 
 # «Backups» se traduce como «Copias de respaldo».
 {\bbackups\b}i
 valid msgstr="copias\sde\srespaldo"
+valid msgstr="respald(a|e)"
 valid msgstr="(cualquier|ninguna)\scopia\sde\s(respaldo|seguridad)"
 valid after="\-"
 hint="« Backups » se traduce como « Copias de respaldo » (ver glosario)"
@@ -387,6 +389,8 @@ valid msgstr="prueba"
 valid msgstr="comprueb(e|a)"
 valid msgstr="marcar?"
 valid msgstr="marque"
+valid msgstr="control"
+valid msgstr="verifica(r|ción)"
 valid msgstr="comprobará" after="will\s(not\s)?"
 valid msgstr="marcará" after="will\s(not\s)?"
 valid msgstr="comprobó" after="did\s(not\s)?"
@@ -400,7 +404,7 @@ valid msgstr="jaque" cat="knights"
 valid msgstr="cheque"
 valid msgstr="puntos?\sde\scontrol" before="\spoint"
 valid after="\-"
-hint="« Check » se traduce como « Comprobar/Consultar/Marcar »(ver glosario)"
+hint="« Check » se traduce como « Comprobar/Consultar/Marcar/Control/Marca »(ver glosario)"
 
 # «Checked» se traduce como «Comprobado».
 {\bchecked\b}i
@@ -434,7 +438,11 @@ hint="« Checked » se traduce como « Comprobado/Consultado/marcado » (ver glo
 valid msgstr="comprueb(e|a)"
 valid msgstr="comprobar"
 valid msgstr="comprobaciones"
+valid msgstr="controles"
+valid msgstr="verificaciones"
 valid msgstr="(cualquier|ninguna)\scomprobación"
+valid msgstr="(cualquier|ninguna)\sverificación"
+valid msgstr="(cualquier|ningún)\scontrol"
 valid msgstr="marcar?"
 valid msgstr="marque"
 valid msgstr="consult(a|e)"
@@ -442,7 +450,7 @@ valid msgstr="verifi(ca|que)"
 valid msgstr="cheques" cat="kmymomey,skrooge"
 valid msgstr="(cualquier|ninguna)\scheque" cat="kmymomey,skrooge"
 valid msgstr="jaques" cat="knights"
-hint="« Checks » se traduce como « Compruebe/Consulte/Marque » (ver glosario)"
+hint="« Checks » se traduce como « Compruebe/Consulte/Marque/Controles/Marcas » (ver glosario)"
 
 # «Checksum» se traduce como «suma de verificación».
 {\bchecksum\b}i
@@ -1568,7 +1576,7 @@ hint="« (to) Get back » se traduce como « Vuelva/Recupere » (ver glosario)"
 
 # «GNU General Public License» se traduce como «Licencia Pública General GNU».
 {\bGNU\sGeneral\sPublic\sLicense\b}i
-valid msgstr="Licencia\sPública\sGeneral\sGNU"
+valid msgstr="Licencia\sPública\sGeneral\s(de\s)?GNU"
 hint="« GNU General Public License » se traduce como « Licencia Pública General GNU » (ver glosario)"
 
 # «Greedy» se traduce como «Voraz».
@@ -2590,6 +2598,7 @@ hint="« Postmasters » se traduce como « Administradores de correo » (ver glo
 # «Profile» se traduce como «Perfil».
 {\bprofile\b}i
 valid msgstr="perfil(ar|a|e)?"
+valid msgstr="análisis\sde\srendimiento"
 valid msgstr="analizar(\sel)?\srendimiento"
 valid msgstr="analizará" after="will\s(not\s)?"
 valid msgstr="analizó" after="did\s(not\s)?"
@@ -2733,6 +2742,7 @@ hint="« Quoted » se traduce como « Entrecomillado/Citado » (propuesta glosar
 valid msgstr="comillas"
 valid msgstr="cit(e|a|as)"
 valid msgstr="entrecomill(a|e)"
+valid msgstr="cotizaciones"
 valid msgstr="(ninguna|cualquier)\scomilla"
 valid msgstr="(cualquier|ninguna)\scita"
 hint="« Quotes » se traduce como « Comillas/Citas » (propuesta glosario)"
@@ -3411,9 +3421,7 @@ hint="« Stop » se traduce como « Detener/Parada » (ver glosario)"
 # «Stopping» se traduce como «Parada».
 {\bstopping\b}i
 valid msgstr="para(da|r|ndo)"
-valid msgstr="detención"
-valid msgstr="detener"
-valid msgstr="parar"
+valid msgstr="deten(er|ción|iendo)"
 hint="« Stopping » se traduce como « Parada » (ver glosario)"
 
 # «Subclassing» se traduce como «Derivación de clase».

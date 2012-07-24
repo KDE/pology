@@ -58,6 +58,7 @@ hint="La «u» no se usa suelta salvo delante de palabras que empiezen por «o»
 
 # «i» suelta
 [\si\s]
+valid after="[A-Z]\w+\s" before="\s[A-Z]\w+"
 hint="La «i» no se usa suelta (error frecuente)"
 
 # Vocales con tilde sueltas
@@ -65,83 +66,83 @@ hint="La «i» no se usa suelta (error frecuente)"
 hint="Las vocales con tilde no se usan sueltas (error frecuente)"
 
 # «¿A donde...» se escribe como «¿Adónde...».
-[\¿a\sdonde\b]i
+[¿a\sdonde\b]i
 hint="« ¿A donde... » se escribe como « ¿Adónde... », (error frecuente)"
 
 # «¿A dónde...» se escribe como «¿Adónde...».
-[\¿a\sdónde\b]i
+[¿a\sdónde\b]i
 hint="« ¿A donde... » se escribe como « ¿Adónde... », (error frecuente)"
 
 # «¿Adonde...» se escribe como «¿Adónde...».
-[\¿adonde\b]i
+[¿adonde\b]i
 hint="« ¿Adonde... » se escribe como « ¿Adónde... », (error frecuente)"
 
 # «¿Como...» se escribe como «¿Cómo...».
-[\¿como\b]i
+[¿como\b]i
 hint="« ¿Como... » se escribe como « ¿Cómo... », (error frecuente)"
 
 # «¿Con que...» se escribe como «¿Con qué...».
-[\¿con\sque\b]i
+[¿con\sque\b]i
 hint="« ¿Con que... » se escribe como « ¿Con qué... », (error frecuente)"
 
 # «¿Cuan...» se escribe como «¿Cúan...».
-[\¿cuan\b]i
+[¿cuan\b]i
 hint="« ¿Cuan... » se escribe como « ¿Cúan... », (error frecuente)"
 
 # «¿Cuantos...» se escribe como «¿Cúantos...».
-[\¿cuantos\b]i
+[¿cuantos\b]i
 hint="« ¿Cuantos... » se escribe como « ¿Cúantos... », (error frecuente)"
 
 # «¿De quien...» se escribe como «¿De quién...».
-[\¿de\squien\b]i
+[¿de\squien\b]i
 hint="« ¿De quien... » se escribe como « ¿De quién... », (error frecuente)"
 
 # «¿Hasta cuando...» se escribe como «¿Hasta cúando...».
-[\¿hasta\scuando\b]i
+[¿hasta\scuando\b]i
 hint="« ¿Hasta cuando... » se escribe como « ¿Hasta cúando... », (error frecuente)"
 
 # «¿Por que...» se escribe como «¿Por qué...».
-[\¿por\sque\b]i
+[¿por\sque\b]i
 hint="« ¿Por que... » se escribe como « ¿Por qué... », (error frecuente)"
 
 # «¿Que...» se escribe como «¿Qué...».
-[\¿que\b]i
+[¿que\b]i
 hint="« ¿Que... » se escribe como « ¿Qué... », (error frecuente)"
 
 # «¡Adonde...» se escribe como «¡Adónde...».
-[\¡adonde\b]i
+[¡adonde\b]i
 hint="« ¡Adonde... » se escribe como « ¡Adónde... », (error frecuente)"
 
 # «¡Como...» se escribe como «¡Cómo...».
-[\¡como\b]i
+[¡como\b]i
 hint="« ¡Como... » se escribe como « ¡Cómo... », (error frecuente)"
 
 # «¡Con que...» se escribe como «¡Con qué...».
-[\¡con\sque\b]i
+[¡con\sque\b]i
 hint="« ¡Con que... » se escribe como « ¡Con qué... », (error frecuente)"
 
 # «¡Cuan...» se escribe como «¡Cúan...».
-[\¡cuan\b]i
+[¡cuan\b]i
 hint="« ¡Cuan... » se escribe como « ¡Cúan... », (error frecuente)"
 
 # «¡Cuantos...» se escribe como «¡Cúantos...».
-[\¡cuantos\b]i
+[¡cuantos\b]i
 hint="« ¡Cuantos... » se escribe como « ¡Cúantos... », (error frecuente)"
 
 # «¡De quien...» se escribe como «¡De quién...».
-[\¡de\squien\b]i
+[¡de\squien\b]i
 hint="« ¡De quien... » se escribe como « ¡De quién... », (error frecuente)"
 
 # «¡Hasta cuando...» se escribe como «¡Hasta cúando...».
-[\¡hasta\scuando\b]i
+[¡hasta\scuando\b]i
 hint="« ¡Hasta cuando... » se escribe como « ¡Hasta cúando... », (error frecuente)"
 
 # «¡Por que...» se escribe como «¡Por qué...».
-[\¡por\sque\b]i
+[¡por\sque\b]i
 hint="« ¡Por que... » se escribe como « ¡Por qué... », (error frecuente)"
 
 # «¡Que...» se escribe como «¡Qué...».
-[\¡que\b]i
+[¡que\b]i
 hint="« ¡Que... » se escribe como « ¡Qué... », (error frecuente)"
 
 # «A acá» se escribe como «Acá».
@@ -321,7 +322,7 @@ hint="« Antes de ahora » se escribe como « Hasta ahora » (error frecuente: s
 hint="« Aparte que » se escribe como « Aparte de » (error frecuente)"
 
 # «API» es femenino.
-[\b(la|una|los|unos|esta|estos|esa|esos)\API\b]i
+[\b(la|una|los|unos|esta|estos|esa|esos)\sAPI\b]i
 hint="« API » es de género femenino, pero empieza por 'A' (error frecuente)"
 
 # «Aquél» se escribe como «Aquel».
@@ -493,11 +494,11 @@ hint="« Bonus » se escribe como « Bonificación/Prima » (error frecuente)"
 hint="« Caben destacar » se escribe como « Cabe destacar » (error frecuente)"
 
 # «Caché» es femenino.
-[\b(el|del|uno|este|ese)\caché\b]i
+[\b(el|del|uno|este|ese)\scaché\b]i
 hint="« Caché » es de género femenino (error frecuente)"
 
 # «Cachés» es femenino.
-[\b(los|unos|estos|esos)\cachés\b]i
+[\b(los|unos|estos|esos)\scachés\b]i
 hint="« Cachés » es de género femenino (error frecuente)"
 
 # «Cada cúal» se escribe como «Cada cual».
@@ -547,6 +548,10 @@ hint="« Coger » no se debe utilizar, tiene connotaciones sexuales en México (
 [\bcomprob\w{1,4}?\sde\sque\b]i
 hint="« Comprobar de que » se escribe como « Comprobar que » (error frecuente: dequeismo)"
 
+# «Comunicar de que» se escribe como «Comunicar que».
+[\bcomunic\w{1,4}?\sde\sque\b]i
+hint="« Comunicar de que » se escribe como « Comunicar que » (error frecuente: dequeismo)"
+
 # «Con arreglo de» se escribe como «Con arreglo a».
 [\bcon\sarreglo\sde\b]i
 hint="« Con arreglo de » se escribe como « Con arreglo a » (error frecuente: solecismo)"
@@ -566,6 +571,10 @@ hint="« Con motivo a » se escribe como « Con motivo de/A causa de » (error f
 # «Conjuntamente con» se escribe como «Conjuntamente».
 [\bconjuntamente\scon\b]i
 hint="« Conjuntamente con » se escribe como « Conjuntamente/Junto con » (error frecuente: redundancia)"
+
+# «Considerar de que» se escribe como «Considerar que».
+[\bconsider\w{1,4}?\sde\sque\b]i
+hint="« Considerar de que » se escribe como « Considerar que » (error frecuente: dequeismo)"
 
 # «Contestar de que» se escribe como «Contestar que».
 [\bcontest\w{1,4}?\sde\sque\b]i
@@ -649,7 +658,6 @@ hint="« De cuando en cuando » se escribe sin tilde (error frecuente: solecismo
 [\bde\scuando\sen\scuándo\b]i
 hint="« De cuando en cuando » se escribe sin tilde (error frecuente: solecismo)"
 
-
 # «De echo» se escribe como «De hecho».
 [\bde\secho\b]i
 hint="« De echo » se escribe como « De hecho » (error frecuente)"
@@ -674,6 +682,10 @@ hint="« De sí » se escribe como « De por sí » (error frecuente: solecismo)
 # «De tal suerte que» se escribe como «De manera que/De modo que/De suerte que».
 [\bde\stal\ssuerte\sque\b]i
 hint="« De tal suerte que » se escribe como « De manera que/De modo que/De suerte que » (error frecuente)"
+
+# «Decir de que» se escribe como «Decir que».
+[\bdecir\sde\sque\b]i
+hint="« Decir de que » se escribe como « Decir que » (error frecuente: dequeismo)"
 
 # «Del el» preposición duplicada.
 [\bdel\sel\b]i
@@ -914,6 +926,10 @@ hint="« Exámen » se escribe como « Examen » (error frecuente)"
 [\bexplic\w{1,4}?\sde\sque\b]i
 hint="« Explicar de que » se escribe como « Explicar que » (error frecuente: dequeismo)"
 
+# «Exponer de que» se escribe como «Exponer que».
+[\bexpon\w{1,4}?\sde\sque\b]i
+hint="« Exponer de que » se escribe como « Exponer que » (error frecuente: dequeismo)"
+
 # «Fé» se escribe como «Fe».
 [\bfé\b]i
 hint="« Fé » se escribe como « Fe » (error frecuente)"
@@ -929,6 +945,10 @@ hint="« Fé » se escribe como « Fie » (error frecuente)"
 # «Fijarse que» se escribe como «Fijarse en que».
 [\bfijarse\sque\b]i
 hint="« Fijarse que » se escribe como « Fijarse en que » (error frecuente)"
+
+# «Fijarse que» se escribe como «Fijarse en que».
+[\bfijarse\sde\sque\b]i
+hint="« Fijarse de que » se escribe como « Fijarse en que » (error frecuente)"
 
 # «Fín» se escribe como «Fin».
 [\bfín\b]i
@@ -1042,6 +1062,10 @@ hint="« Inflacción » se escribe como « Inflación » (error frecuente)"
 [\binsist\w{1,4}?\sque\b]i
 hint="« Insistir que » se escribe como « Insistir en que » (error frecuente: queismo)"
 
+# «Insistir que» se escribe como «Insistir en que».
+[\binsist\w{1,4}?\sde\sque\b]i
+hint="« Insistir de que » se escribe como « Insistir en que » (error frecuente: queismo)"
+
 # «Interactuación» se escribe como «Interacción».
 [\binteractuación\b]i
 hint="« Interactuación » se escribe como « Interacción » (error frecuente)"
@@ -1108,6 +1132,7 @@ hint="« Las y los » se escribe como «Los». (error frecuente)"
 
 # «Latin» se escribe como «Latín».
 [\blatin\b]i
+valid before="\-"
 hint="« Latin » se escribe como « Latín » (error frecuente)"
 
 # «Linea» se escribe como «Línea».
@@ -1243,13 +1268,17 @@ hint="« O otros » se escribe como « U otros » (error frecuente)"
 [\bobserv\w{1,4}?\sde\sque\b]i
 hint="« Observar de que » se escribe como « Observar que » (error frecuente: dequeismo)"
 
+# «Oir de que» se escribe como «Oir que».
+[\boir\sde\sque\b]i
+hint="« Oir de que » se escribe como « Oir que » (error frecuente: dequeismo)"
+
 # «Olvidarse que» se escribe como «Olvidarse de que».
 # [\bolvidarse\sque\b]i
 # hint="« Olvidarse que » se escribe como « Olvidarse de que » (error frecuente: queismo)"
 
-# «Opino de que» se escribe como «Opino que».
-[\bopino\sde\sque\b]i
-hint="« Opino de que » se escribe como « Opino que » (error frecuente: dequeismo)"
+# «Opinar de que» se escribe como «Opinar que».
+[\bopin\w{1,4}?\sde\sque\b]i
+hint="« Opinar de que » se escribe como « Opinar que » (error frecuente: dequeismo)"
 
 # «Órden» se escribe como «Orden».
 [\bórden\b]i
@@ -1536,6 +1565,10 @@ hint="« Tan es así » se escribe como « Tanto es así » (error frecuente: so
 [\bte\sse\b]i
 hint="« Te se » se escribe como « Se te » (error frecuente)"
 
+# «Temer de que» se escribe como «Temer que».
+[\btemer\sde\sque\b]i
+hint="« Temer de que » se escribe como « Temer que » (error frecuente: dequeismo)"
+
 # «Tenia» se escribe como «Tenía».
 [\btenia\b]i
 hint="« Tenia » se escribe como « Tenía », salvo cuando se trate del parásito intestinal (error frecuente)"
@@ -1629,6 +1662,10 @@ hint="« Via » se escribe como « Vía » (error frecuente)"
 # «Veís» se escribe sin tilde.
 [\bveís\b]i
 hint="« Veís » se escribe como « Veis » (ver la nueva ortografía de la RAE)"
+
+# «Ver de que» se escribe como «Ver que».
+[\bver\sde\sque\b]i
+hint="« Ver de que » se escribe como « Ver que » (error frecuente: dequeismo)"
 
 # «Versus» se escribe como «Contra/Frente a/En comparación con».
 [\bversus\b]i

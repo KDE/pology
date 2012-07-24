@@ -15,11 +15,11 @@ hint="Tecla aceleradora no válida (en vocal con tilde)"
 include file="filter.include"
 
 validGroup beforePunctuation
-valid after="(?u)(\w|\>|\»|\)|\]|\}|\»|\%|\-|\&|\<|\\\\|^)"
+valid after="(?u)(\w|\>|»|\)|\]|\}|»|\%|\-|\&|\<|\\\\|^)"
 valid before="$"
 
 validGroup afterPunctuation
-valid before="(?u)($|\w|\>|\»|\(|\[|\{|\«|\%|\-|\&|\<|\\\\|$)"
+valid before="(?u)($|\w|\>|»|\(|\[|\{|«|\%|\-|\&|\<|\\\\|$)"
 valid after="^"
 
 validGroup openQuotes
@@ -192,11 +192,20 @@ validGroup closeQuotes
 valid ctx="Numbers and characters"
 hint="Ponga un espacio después del signo de comilla española de cierre"
 
+[»\s[A-Z]]
+hint="Ponga un punto después de la comilla de cierre antes de una nueva frase en mayúsculas"
+
 [\.»] 
 valid after="\«"
 valid after="\.\."
 valid after="\([A-ZÑÇ].+?"
 hint="Ponga el punto después de la comilla de cierre y no antes"
+
+[»\?] 
+hint="Ponga el signo de cierre de interrogación antes de la comilla de cierre y no después"
+
+[»\!] 
+hint="Ponga el signo de cierre de admiración antes de la comilla de cierre y no después"
 
 [\S«]
 validGroup openQuotes
@@ -206,6 +215,12 @@ hint="Ponga un espacio antes del signo de comilla española de apertura"
 [«]
 valid before="(?s).*?[»({«'\"\[]"
 hint="Cierre la comilla (deben ir emparejadas)"
+
+[¿«]
+hint="Ponga el signo de apertura de interrogación después de la comilla de apertura y no antes"
+
+[¡«]
+hint="Ponga el signo de apertura de admiración después de la comilla de apertura y no antes"
 
 [\s\s+]
 valid msgid="\s\s+"
@@ -234,6 +249,7 @@ valid ctx="Numbers and characters"
 valid ctx="X\-KDE\-Keywords"
 valid msgid="CREDIT_FOR_TRANSLATORS"
 valid span="\.\w{1,4}" # Extensions
+valid span="\.\wrc" # Configuration files
 valid span=".Fm" after="Last\s"
 valid span="\.\.\."
 valid span="\.$"
@@ -242,7 +258,7 @@ valid span="\.\*"
 valid span="\.\~"
 valid span="\.\\\\n"
 valid span="\.\~"
-valid after="\Wtar" # Extensions
+valid after="tar" # Extensions
 valid after="\*"
 valid span="\.(calendar|desktop|directory|h|html|lock|moc|xml)"
 hint="Ponga un espacio después de un signo de punto"
@@ -256,6 +272,11 @@ valid after="\%\d" before="\%\d"
 valid after="\."
 valid before="\."
 hint="No ponga dos signos de punto consecutivos"
+
+[\']
+valid after='[a-zA-Z]'
+valid before='[a-zA-Z]'
+hint="No ponga el signo de apóstrofo suelto o antes de números"
 
 [&cr;]
 hint="Àbajo MS-DOS (quite el carácter de retorno de carro)"
@@ -344,6 +365,24 @@ hint="Ponga una coma después de «en cambio» (Consulte ortografía de la RAE)"
 
 [\ben\sprimer\slugar\s]i
 hint="Ponga una coma después de «en primer lugar» (Consulte ortografía de la RAE)"
+
+[en\scuanto\sa\s]i
+hint="Ponga una coma después de «En cuanto a» (Consulte ortografía de la RAE)"
+
+[respecto\sde\s]i
+hint="Ponga una coma después de «Respecto de» (Consulte ortografía de la RAE)"
+
+[con\srespecto\sa\s]i
+hint="Ponga una coma después de «Con respecto a» (Consulte ortografía de la RAE)"
+
+[en\srelación\scon\s]i
+hint="Ponga una coma después de «En relación con» (Consulte ortografía de la RAE)"
+
+[con\sreferencia\sa\s]i
+hint="Ponga una coma después de «Con referencia a» (Consulte ortografía de la RAE)"
+
+[a\stenor\sde\s]i
+hint="Ponga una coma después de «A tenor de» (Consulte ortografía de la RAE)"
 
 [Generalmente\s]
 hint="Ponga una coma después de «Generalmente» (Consulte ortografía de la RAE)"
