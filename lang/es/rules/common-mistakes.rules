@@ -1,149 +1,9 @@
 # Translation choices of spanish team
-# Copyrigth 2010, Javier Viñal (fjvinal@gmail.com)
+# Copyrigth 2010-2012, Javier Viñal (fjvinal@gmail.com)
 # by the KDE Spanish Team (kde-l10n-es@kde.org)
 # License: GPLv3
 
 include file="filter.include"
-
-[(?u)\b(\w+)(?!\n)\s+\1\b]
-hint="Hay una palabra consecutiva repetida en el párrafo"
-
-[(?u)\b(\w+(\s\w+)+)(\s|\.|\,|\;|\:)+\1\b]
-hint="Hay un grupo de dos o más palabras consecutivas repetido en el párrafo"
-
-[(?u)\b(el|la|lo|los|las)(?!\n)\s+(el|la|lo|los|las)\b]i
-hint="Hay dos artículos determinados consecutivos en el párrafo"
-
-[(?u)\b(un|una|unos|unas)(?!\n)\s+(un|una|unos|unas)\b]i
-hint="Hay dos artículos indeterminados consecutivos en el párrafo"
-
-[(?u)\b(este|ese|aquel|estas?|esas?|aquellas?|estos?|esos?|aquellos?)(?!\n)\s+(este|ese|aquel|estas?|esas?|aquellas?|estos?|esos?|aquellos?)\b]i
-hint="Hay dos demostrativos consecutivos en el párrafo"
-
-[(?u)\b(\w+?)os\sy\s\1as\b]i
-hint="No utilice expresiones del tipo «ciudadanos y ciudadanas » (error frecuente)"
-
-[(?u)\b(\w+?)as\sy\s\1os\b]i
-hint="No utilice expresiones del tipo «ciudadanas y ciudadanos » (error frecuente)"
-
-[(?u)\blos\s(\w+?)os\sy\slas\s\1as\b]i
-hint="No utilice expresiones del tipo «los ciudadanos y las ciudadanas » (error frecuente)"
-
-[(?u)\blas\s(\w+?)as\sy\slos\s\1os\b]i
-hint="No utilice expresiones del tipo «las ciudadanas y los ciudadanos » (error frecuente)"
-
-# No utilizar la arroba para incluir masculino y femenino
-[(?u)\b\w+@[a-záéíóúñç]{0,2}\W]i
-hint="No utilice la arroba para evitar el género, p.ej. «ciudadan@s» (error frecuente)"
-
-# No utilizar el guión para separar el prefijo de la palabra principal
-[(?u)\b(anti|archi|auto|bi|co|contra|des|ex|extra|foto|geo|h[ií]per|in|inter|iso|macro|meta|micro|mini|mono|multi|pos|post|pre|pro|re|semi|sim|sin|sobre|sub|s[uú]per|tele|trans|tras|tri|vice)\-([a-záéíóúñç]){3,}?\b]i
-hint="No utilice el guión para separar el prefijo de la palabra principal, p.ej. «sub-menú» (error frecuente)"
-
-# «y» ante palabras que empiezan por «i» o «hi»
-[(?u)\by\s[hH]?[iíIÍ]\w*\b]
-hint="Delante de palabras que empiezan por «i» se usa «e» en lugar de «y» (error frecuente)"
-
-# «o» ante palabras que empiezan por «o» o «ho»
-[(?u)\bo\s[hH]?[oó8OÓ]\w*\b]
-hint="Delante de palabras que empiezan por «o» se usa «u» en lugar de «o» (error frecuente)"
-
-# «e» ante palabras que no empiezan por «i» o «hi»
-[(?u)\be\s(?![hH]?[iíyIÍY]\w*)\b]
-hint="La «e» no se usa suelta salvo delante de palabras que empiezen por «i» (error frecuente)"
-
-# «u» ante palabras que no empiezan por «o» o «ho»
-[(?u)\bu\s(?![hH]?[oó8OÓ]\w*)\b]
-hint="La «u» no se usa suelta salvo delante de palabras que empiezen por «o» (error frecuente)"
-
-# «i» suelta
-[\si\s]
-valid after="[A-Z]\w+\s" before="\s[A-Z]\w+"
-hint="La «i» no se usa suelta (error frecuente)"
-
-# Vocales con tilde sueltas
-[\b[áéíóúüÁÉÍÓÚÜ]\b]
-hint="Las vocales con tilde no se usan sueltas (error frecuente)"
-
-# «¿A donde...» se escribe como «¿Adónde...».
-[¿a\sdonde\b]i
-hint="« ¿A donde... » se escribe como « ¿Adónde... », (error frecuente)"
-
-# «¿A dónde...» se escribe como «¿Adónde...».
-[¿a\sdónde\b]i
-hint="« ¿A donde... » se escribe como « ¿Adónde... », (error frecuente)"
-
-# «¿Adonde...» se escribe como «¿Adónde...».
-[¿adonde\b]i
-hint="« ¿Adonde... » se escribe como « ¿Adónde... », (error frecuente)"
-
-# «¿Como...» se escribe como «¿Cómo...».
-[¿como\b]i
-hint="« ¿Como... » se escribe como « ¿Cómo... », (error frecuente)"
-
-# «¿Con que...» se escribe como «¿Con qué...».
-[¿con\sque\b]i
-hint="« ¿Con que... » se escribe como « ¿Con qué... », (error frecuente)"
-
-# «¿Cuan...» se escribe como «¿Cúan...».
-[¿cuan\b]i
-hint="« ¿Cuan... » se escribe como « ¿Cúan... », (error frecuente)"
-
-# «¿Cuantos...» se escribe como «¿Cúantos...».
-[¿cuantos\b]i
-hint="« ¿Cuantos... » se escribe como « ¿Cúantos... », (error frecuente)"
-
-# «¿De quien...» se escribe como «¿De quién...».
-[¿de\squien\b]i
-hint="« ¿De quien... » se escribe como « ¿De quién... », (error frecuente)"
-
-# «¿Hasta cuando...» se escribe como «¿Hasta cúando...».
-[¿hasta\scuando\b]i
-hint="« ¿Hasta cuando... » se escribe como « ¿Hasta cúando... », (error frecuente)"
-
-# «¿Por que...» se escribe como «¿Por qué...».
-[¿por\sque\b]i
-hint="« ¿Por que... » se escribe como « ¿Por qué... », (error frecuente)"
-
-# «¿Que...» se escribe como «¿Qué...».
-[¿que\b]i
-hint="« ¿Que... » se escribe como « ¿Qué... », (error frecuente)"
-
-# «¡Adonde...» se escribe como «¡Adónde...».
-[¡adonde\b]i
-hint="« ¡Adonde... » se escribe como « ¡Adónde... », (error frecuente)"
-
-# «¡Como...» se escribe como «¡Cómo...».
-[¡como\b]i
-hint="« ¡Como... » se escribe como « ¡Cómo... », (error frecuente)"
-
-# «¡Con que...» se escribe como «¡Con qué...».
-[¡con\sque\b]i
-hint="« ¡Con que... » se escribe como « ¡Con qué... », (error frecuente)"
-
-# «¡Cuan...» se escribe como «¡Cúan...».
-[¡cuan\b]i
-hint="« ¡Cuan... » se escribe como « ¡Cúan... », (error frecuente)"
-
-# «¡Cuantos...» se escribe como «¡Cúantos...».
-[¡cuantos\b]i
-hint="« ¡Cuantos... » se escribe como « ¡Cúantos... », (error frecuente)"
-
-# «¡De quien...» se escribe como «¡De quién...».
-[¡de\squien\b]i
-hint="« ¡De quien... » se escribe como « ¡De quién... », (error frecuente)"
-
-# «¡Hasta cuando...» se escribe como «¡Hasta cúando...».
-[¡hasta\scuando\b]i
-hint="« ¡Hasta cuando... » se escribe como « ¡Hasta cúando... », (error frecuente)"
-
-# «¡Por que...» se escribe como «¡Por qué...».
-[¡por\sque\b]i
-hint="« ¡Por que... » se escribe como « ¡Por qué... », (error frecuente)"
-
-# «¡Que...» se escribe como «¡Qué...».
-[¡que\b]i
-hint="« ¡Que... » se escribe como « ¡Qué... », (error frecuente)"
 
 # «A acá» se escribe como «Acá».
 [\ba\sacá\b]i
@@ -173,10 +33,6 @@ hint="« A atrás » se escribe como « Atrás » (error frecuente: redundancia)
 [\ba\sbuen\sfin\b]i
 hint="« A buen fin » se escribe como « Con buen fin » (error frecuente: solecismo)"
 
-# «A condición que» se escribe como «A condición de que».
-[\ba\scondición\sque\b]i
-hint="« A condición que » se escribe como « A condición de que » (error frecuente: queismo)"
-
 # «A cuenta de» se escribe como «Por cuenta de».
 [\ba\scuenta\sde\b]i
 hint="« A cuenta de » se escribe como « Por cuenta de » (error frecuente: solecismo)"
@@ -192,10 +48,6 @@ hint="« A el » se escribe como « Al » (error frecuente)"
 # «A excepción hecha de» se escribe como «A excepción de».
 [\ba\sexcepción\shecha\sde\b]i
 hint="« A excepción hecha de » se escribe como « A excepción de/Excepción hecha de » (error frecuente: solecismo)"
-
-# «A fin que» se escribe como «A fin de que».
-[\ba\sfin\sque\b]i
-hint="« A fin que » se escribe como « A fin de que » (error frecuente: queismo)"
 
 # «A grosso modo» se escribe como «Grosso modo».
 [\ba\sgrosso\smodo\b]i
@@ -213,25 +65,13 @@ hint="« A lo que se ve » se escribe como « Por lo que se ve » (error frecuen
 [\ba\slo\sque\sveo\b]i
 hint="« A lo que veo » se escribe como « Por lo que veo » (error frecuente: solecismo)"
 
-# «A medida de que» se escribe como «A medida que».
-[\ba\smedida\sde\sque\b]i
-hint="« A medida de que » e escribe como «A medida que». (error frecuente: dequeismo)"
-
 # «A nivel de» se escribe como «En el ámbito de/Con respecto a/Entre/En».
 [\ba\snivel\sde\b]i
 hint="« A nivel de » e escribe como «En el ámbito de/Con respecto a/Entre/En». (error frecuente)"
 
-# «A no ser de que» se escribe como «A no ser que».
-[\ba\sno\sser\sde\sque\b]i
-hint="« A no ser de que » e escribe como «A no ser que». (error frecuente: dequeismo)"
-
 # «A parte» se escribe como «Aparte».
 [\ba\sparte\b]i
 hint="« A parte » se escribe como « Aparte » (error frecuente)"
-
-# «A pesar que» se escribe como «A pesar de que».
-[\ba\spesar\sque\b]i
-hint="« A pesar que » se escribe como « A pesar de que » (error frecuente: queismo)"
 
 # «A pretexto de» se escribe como «Bajo pretexto de».
 [\ba\spretexto\sde\b]i
@@ -245,25 +85,13 @@ hint="« A resultas de » se escribe como « De resultas » (error frecuente: so
 [\ba\stal\sextremo\sde\b]i
 hint="« A tal extremo de » se escribe como « Hasta tal extremo » (error frecuente: solecismo)"
 
-# «Aconsejar de que» se escribe como «Aconsejar que».
-[\baconsej\w{1,4}?\sde\sque\b]i
-hint="« Aconsejar de que » se escribe como « Aconsejar que » (error frecuente: dequeismo)"
-
-# «Acordarse que» se escribe como «Acordarse de que».
-[\bacordarse\sque\b]i
-hint="« Acordarse que » se escribe como « Acordarse de que » (error frecuente: queismo)"
-
-# «Afirmar de que» se escribe como «Afirmar que».
-[\bafirm\w{1,4}?\sde\sque\b]i
-hint="« Afirmar de que » se escribe como « Afirmar que » (error frecuente: dequeismo)"
-
 # «Al extremo de » se escribe como «Hasta el extremo».
 [\bal\sextremo\sde\b]i
 hint="« Al extremo de » se escribe como « Hasta el extremo » (error frecuente: solecismo)"
 
-# «Al la» preposición duplicada.
-[\bal\sla\b]i
-hint="« Al la » preposición duplicada (error frecuente)"
+## «Al la» preposición duplicada.
+#[\bal\sla\b]i
+#hint="« Al la » preposición duplicada (error frecuente)"
 
 # «Al objeto de» se escribe como «Con el objeto de».
 [\ba\sobjeto\sde\b]i
@@ -272,10 +100,6 @@ hint="« Al objeto de » se escribe como « Con el objeto de » (error frecuente
 # «Al punto de » se escribe como «Hasta tal punto/Hasta el punto de».
 [\bal\spunto\sde\b]i
 hint="« Al punto de » se escribe como « Hasta tal punto/Hasta el punto de » (error frecuente: solecismo)"
-
-# «Al punto que » se escribe como «Hasta el punto de que».
-[\bal\spunto\sque\b]i
-hint="« Al punto que » se escribe como « Hasta el punto de que » (error frecuente: solecismo)"
 
 # «Al rededor» se escribe como «Alrededor».
 [\bal\srededor\b]i
@@ -288,10 +112,6 @@ hint="« Al respecto de » se escribe como « Con respecto a/de » (error frecue
 # «Al tiempo que » se escribe como «A tiempo que».
 [\bal\stiempo\sque\b]i
 hint="« Al tiempo que » se escribe como « A tiempo que » (error frecuente: solecismo)"
-
-# «Alegrarse que» se escribe como «Alegrarse de que».
-[\balegrase\sque\b]i
-hint="« Alegrarse que » se escribe como « Alegrarse de que » (error frecuente: queismo)"
 
 # «Almacenaje» se escribe como «Almacenamiento».
 [\balmacenaje\b]i
@@ -348,14 +168,6 @@ hint="« Arbol » se escribe como « Árbol » (error frecuente)"
 # «Arboles» se escribe como «Árboles».
 [\barboles\b]i
 hint="« Arboles » se escribe como « Árboles » (error frecuente)"
-
-# «Arrepentirse que» se escribe como «Arrepentirse de que».
-[\baarrepentirse\sque\b]i
-hint="« Arrepentirse que » se escribe como « Arrepentirse de que » (error frecuente: queismo)"
-
-# «Asegurar de que» se escribe como «Asegurar que».
-[\basegur\w{1,4}?\sde\sque\b]i
-hint="« Asegurar de que » se escribe como « Asegurar que » (error frecuente: dequeismo)"
 
 # «Así es que» se escribe como «Así que».
 [\basí\ses\sque\b]i
@@ -517,10 +329,6 @@ hint="« Cada una de los » se escribe como « Cada uno de los/Cada una de las �
 [\bcada\suno\sde\slas\b]i
 hint="« Cada uno de las » se escribe como « Cada uno de los/Cada una de las » (error frecuente)"
 
-# «Caer en la cuenta que» se escribe como «Caer en la cuenta de que».
-[\bca\w{1,4}?\sen\sla\scuenta\sque\b]i
-hint="« Caer en la cuenta que » se escribe como « Caer en la cuenta de que » (error frecuente: queismo)"
-
 # «Caracter» se escribe como «Carácter».
 [\bcaracter\b]i
 hint="« Caracter » se escribe como « Carácter », salvo en casos muy excepcionales (error frecuente)"
@@ -544,14 +352,6 @@ hint="« Cián » se escribe como « Cian » (ver la nueva ortografía de la RAE
 [\bcog(er|e|a|en|an|iendo|ido)\b]i
 hint="« Coger » no se debe utilizar, tiene connotaciones sexuales en México (error frecuente)"
 
-# «Comprobar de que» se escribe como «Comprobar que».
-[\bcomprob\w{1,4}?\sde\sque\b]i
-hint="« Comprobar de que » se escribe como « Comprobar que » (error frecuente: dequeismo)"
-
-# «Comunicar de que» se escribe como «Comunicar que».
-[\bcomunic\w{1,4}?\sde\sque\b]i
-hint="« Comunicar de que » se escribe como « Comunicar que » (error frecuente: dequeismo)"
-
 # «Con arreglo de» se escribe como «Con arreglo a».
 [\bcon\sarreglo\sde\b]i
 hint="« Con arreglo de » se escribe como « Con arreglo a » (error frecuente: solecismo)"
@@ -560,10 +360,6 @@ hint="« Con arreglo de » se escribe como « Con arreglo a » (error frecuente:
 [\bcon\sbase\s(en|a)\b]i
 hint="« Con base en/a » se escribe como « Según/Conforme a/de acuerdo con/Basándose en » (error frecuente: solecismo)"
 
-# «Con la condición que» se escribe como «Con la condición de que».
-[\bcon\sla\scondición\sque\b]i
-hint="« Con la condición que » se escribe como « Con la condición de que » (error frecuente: queismo)"
-
 # «Con motivo a» se escribe como «Con motivo de/A causa de».
 [\bcon\smotivo\sa\b]i
 hint="« Con motivo a » se escribe como « Con motivo de/A causa de » (error frecuente:solecismo)"
@@ -571,14 +367,6 @@ hint="« Con motivo a » se escribe como « Con motivo de/A causa de » (error f
 # «Conjuntamente con» se escribe como «Conjuntamente».
 [\bconjuntamente\scon\b]i
 hint="« Conjuntamente con » se escribe como « Conjuntamente/Junto con » (error frecuente: redundancia)"
-
-# «Considerar de que» se escribe como «Considerar que».
-[\bconsider\w{1,4}?\sde\sque\b]i
-hint="« Considerar de que » se escribe como « Considerar que » (error frecuente: dequeismo)"
-
-# «Contestar de que» se escribe como «Contestar que».
-[\bcontest\w{1,4}?\sde\sque\b]i
-hint="« Contestar de que » se escribe como « Contestar que » (error frecuente: dequeismo)"
 
 # «Contínuo» se escribe como «Continuo».
 [\bcontínuo\b]i
@@ -592,19 +380,11 @@ hint="« Contra gustos » se escribe como « Sobre gustos » (error frecuente: s
 [\bcontra\smás\b]i
 hint="« Contra más » se escribe como « Cuanto más » (error frecuente: solecismo)"
 
-# «Convencer que» se escribe como «Convencer de que».
-[\bconvenc\w{1,4}?\sque\b]i
-hint="« Convencer que » se escribe como « Convencer de que » (error frecuente: queismo)"
-
 [\bcorreo\-e\b]i
 hint="No utilice « Correo-e » solo « Correo » a secas (error frecuente)"
 
 [\bcorreos\-e\b]i
 hint="No utilice « Correos-e » solo « Correos » a secas (error frecuente)"
-
-# «Creer de que» se escribe como «Creer que».
-[\bcree\w{1,4}?\sde\sque\b]i
-hint="« Creer de que » se escribe como « Creer que » (error frecuente: dequeismo)"
 
 # «Críar» se escribe como «Criar».
 [\bcríar\b]i
@@ -621,14 +401,6 @@ hint="« Cualesquieras » se escribe como « Cualesquiera » (error frecuente)"
 # «Dá» se escribe como «Da».
 [\bdá\b]i
 hint="« Dá » se escribe como « Da » (error frecuente)"
-
-# «Dar la casualidad que» se escribe como «Dar la casualidad de que».
-[\bd\w{1,4}?\sla\scasualidad\sde\sque\b]i
-hint="« Dar la casualidad que » se escribe como « ar la casualidad de que » (error frecuente: queismo)"
-
-# «Darse cuenta que» se escribe como «Darse cuenta de que».
-[\bdarse\scuenta\sque\b]i
-hint="« Darse cuenta que » se escribe como « Darse cuenta de que » (error frecuente: queismo)"
 
 # «Darse de cuenta» se escribe como «Darse cuenta».
 [\bdarse\sde\scuenta\b]i
@@ -658,6 +430,10 @@ hint="« De cuando en cuando » se escribe sin tilde (error frecuente: solecismo
 [\bde\scuando\sen\scuándo\b]i
 hint="« De cuando en cuando » se escribe sin tilde (error frecuente: solecismo)"
 
+# «De deben» se escribe como «Se deben».
+[\bde\sdeben\b]i
+hint="« De deben » se escribe como « Se deben » (error frecuente)"
+
 # «De echo» se escribe como «De hecho».
 [\bde\secho\b]i
 hint="« De echo » se escribe como « De hecho » (error frecuente)"
@@ -669,6 +445,10 @@ hint="« De el » se escribe como « Del » (error frecuente)"
 # «De gratis» se escribe como «Gratis».
 [\bde\sgratis\b]i
 hint="« De gratis » se escribe como « Gratis », sin el « de » (error frecuente: solecismo)"
+
+# «De indica» se escribe como «Se indica».
+[\bde\sindica\b]i
+hint="« De indica » se escribe como « Se indica » (error frecuente: solecismo)"
 
 # «De sitio a sitio» se escribe como «De sitio en sitio».
 [\bde\ssitio\sa\ssitio\b]i
@@ -683,18 +463,6 @@ hint="« De sí » se escribe como « De por sí » (error frecuente: solecismo)
 [\bde\stal\ssuerte\sque\b]i
 hint="« De tal suerte que » se escribe como « De manera que/De modo que/De suerte que » (error frecuente)"
 
-# «Decir de que» se escribe como «Decir que».
-[\bdecir\sde\sque\b]i
-hint="« Decir de que » se escribe como « Decir que » (error frecuente: dequeismo)"
-
-# «Del el» preposición duplicada.
-[\bdel\sel\b]i
-hint="« Del el » artículo duplicado (error frecuente)"
-
-# «Del la» preposición duplicada.
-[\bdel\sla\b]i
-hint="« Del la » artículo duplicada (error frecuente)"
-
 # «Delante suyo/a» se escribe como «Delante de él/ella».
 [\bdelante\ssuy[oa]\b]i
 hint="« Delante suyo/a » se escribe como « Delante de él/ella » (error frecuente)"
@@ -707,9 +475,9 @@ hint="« Déme » se escribe como « Deme » (error frecuente)"
 [\bdeténte\b]i
 hint="« Deténte » se escribe como « Detente », (error frecuente)"
 
-# «Detrás suyo/a» se escribe como «Detrás de él/ella».
-[\bdetrás\ssuy[oa]\b]i
-hint="« Detrás suyo/a » se escribe como « Detrás de él/ella » (error frecuente)"
+## «Detrás suyo/a» se escribe como «Detrás de él/ella».
+#[\bdetrás\ssuy[oa]\b]i
+#hint="« Detrás suyo/a » se escribe como « Detrás de él/ella » (error frecuente)"
 
 # «Dí» se escribe como «Di».
 [\bdí\b]i
@@ -718,10 +486,6 @@ hint="« Dí » se escribe como « Di » (error frecuente)"
 # «Diferente a» se escribe como «Diferente de».
 [\bdiferente\sa\b]i
 hint="« Diferente a » se escribe como « Diferente de » (error frecuente)"
-
-# «Dijo de que» se escribe como «Dijo que».
-[\bdijo\sde\sque\b]i
-hint="« Dijo de que » se escribe como « Dijo que » (error frecuente: dequeismo)"
 
 # «Dió» se escribe como «Dio».
 [\bdió\b]i
@@ -750,29 +514,29 @@ hint="No utilice « Email » sino « Correo » (error frecuente)"
 [\be\-?mails\b]i
 hint="No utilice « Emails » sino « Correos » (error frecuente)"
 
-# «El» se escribe como «Él» al final de frase.
-[\bel(\.|\?|\!|\<p\>)]i
-hint="« el » se escribe como « él » al final de frase(error frecuente)"
-
 # «El echo» se escribe como «El hecho».
 [\bel\secho\b]i
 hint="« El echo » se escribe como « El hecho » (error frecuente)"
 
 # «El limite» e escribe como «El límite».
 [\bel\slimite\b]i
-hint="« El limite » e escribe como «El límite». (error frecuente)"
+hint="« El limite » se escribe como «El límite». (error frecuente)"
 
-# «El numero» e escribe como «El número».
+# «El numero» se escribe como «El número».
 [\bel\snumero\b]i
-hint="« El numero » e escribe como «El número». (error frecuente)"
+hint="« El numero » se escribe como «El número». (error frecuente)"
 
-# «El porque» e escribe como «El porqué».
+# «El porque» se escribe como «El porqué».
 [\bel\sporque\b]i
-hint="« El porque » e escribe como «El porqué». (error frecuente)"
+hint="« El porque » se escribe como «El porqué». (error frecuente)"
 
-# «El titulo» e escribe como «El título».
+# «El termino» se escribe como «El término».
+[\bel\stermino\b]i
+hint="« El termino » se escribe como «El término». (error frecuente)"
+
+# «El titulo» se escribe como «El título».
 [\bel\stitulo\b]i
-hint="« El titulo » e escribe como «El título». (error frecuente)"
+hint="« El titulo » se escribe como «El título». (error frecuente)"
 
 # «En ahí» se escribe como «Ahí».
 [\ben\sahí\b]i
@@ -789,10 +553,6 @@ hint="« En aquí » se escribe como « Aquí » (error frecuente: solecismo)"
 # «En base a» se escribe como «Basándose en/Teniendo en cuenta/A partir de ...».
 [\ben\sbase\sa\b]i
 hint="« En base a » se escribe como « Basándose en/Teniendo en cuenta/A partir de ... » (error frecuente: solecismo)"
-
-# «En caso que» se escribe como «En caso de que».
-[\ben\scaso\sque\b]i
-hint="« En caso que » se escribe como « En caso de que » (error frecuente: queismo)"
 
 # «En cuanto que» se escribe como «En cuanto».
 [\ben\scuanto\sque\b]i
@@ -814,13 +574,9 @@ hint="« En evitación de » se escribe como « Para evitar » (error frecuente:
 [\ben\sfrente\b]i
 hint="« En frente » se escribe como « Enfrente » (error frecuente)"
 
-# «En la medida de que» se escribe como «En la medida que».
-[\ben\sla\smedida\sde\sque\b]i
-hint="« En la medida de que » se escribe como « En la medida que » (error frecuente: solecismo)"
-
 # «En ocasión de» se escribe como «Con ocasión que».
 [\ben\socasión\sde\b]i
-hint="« En ocasión de » se escribe como « Con ocasión que » (error frecuente: queismo)"
+hint="« En ocasión de » se escribe como « Con ocasión que » (error frecuente)"
 
 # «En razón a» se escribe como «En razón de».
 [\ben\srazón\sa\b]i
@@ -898,13 +654,13 @@ hint="« Éstas » se escribe como « Estas », salvo en casos muy excepcionales
 [\bestáte\b]i
 hint="« Estáte » se escribe como « Estate », (error frecuente)"
 
-# «Este agua» se escribe como «Esta agua».
-[\beste\sagua\b]i
-hint="« Este agua » se escribe como « Esta agua » (error frecuente)"
+## «Este agua» se escribe como «Esta agua».
+#[\beste\sagua\b]i
+#hint="« Este agua » se escribe como « Esta agua » (error frecuente)"
 
-# «Este área» se escribe como «Esta área».
-[\beste\sárea\b]i
-hint="« Este área » se escribe como « Esta área » (error frecuente)"
+## «Este área» se escribe como «Esta área».
+#[\beste\sárea\b]i
+#hint="« Este área » se escribe como « Esta área » (error frecuente)"
 
 # «Éste» se escribe como «Este».
 [\béste\b]i
@@ -922,14 +678,6 @@ hint="« Éstos » se escribe como « Estos », salvo en casos muy excepcionales
 [\bexámen\b]i
 hint="« Exámen » se escribe como « Examen » (error frecuente)"
 
-# «Explicar de que» se escribe como «Explicar que».
-[\bexplic\w{1,4}?\sde\sque\b]i
-hint="« Explicar de que » se escribe como « Explicar que » (error frecuente: dequeismo)"
-
-# «Exponer de que» se escribe como «Exponer que».
-[\bexpon\w{1,4}?\sde\sque\b]i
-hint="« Exponer de que » se escribe como « Exponer que » (error frecuente: dequeismo)"
-
 # «Fé» se escribe como «Fe».
 [\bfé\b]i
 hint="« Fé » se escribe como « Fe » (error frecuente)"
@@ -946,7 +694,7 @@ hint="« Fé » se escribe como « Fie » (error frecuente)"
 [\bfijarse\sque\b]i
 hint="« Fijarse que » se escribe como « Fijarse en que » (error frecuente)"
 
-# «Fijarse que» se escribe como «Fijarse en que».
+# «Fijarse de que» se escribe como «Fijarse en que».
 [\bfijarse\sde\sque\b]i
 hint="« Fijarse de que » se escribe como « Fijarse en que » (error frecuente)"
 
@@ -978,9 +726,13 @@ hint="« Guión » se escribe como « Guion » (ver la nueva ortografía de la R
 [\bguíar\b]i
 hint="« Guíar » se escribe como « Guiar » (error frecuente)"
 
-# «Gustar de que» se escribe como «Gustar que».
-[\bgust\w{1,4}?\sde\sque\b]i
-hint="« Gustar de que » se escribe como « Gustar que » (error frecuente: dequeismo)"
+# 'Haber que' se escribe 'A ver que'.
+[\bhaber\sque\b]i
+hint="'Haber que' se escribe 'A ver que'"
+
+# 'Haber sí' se escribe 'A ver sí'.
+[^haber\ssí\b]i
+hint="'Haber sí' al principio de frase se escribe 'A ver sí'"
 
 # «Habeas» se escribe como «Hábeas».
 [\bhabeas\b]i
@@ -1001,10 +753,6 @@ hint="« Habián algunos/muchos » se escribe como « Había algunos/muchos » (
 # «Han habido algunos/muchos» se escribe como «Ha habido algunos/muchos».
 [\bhan\shabido\s(algunos|algunas|muchos|muchas)\b]i
 hint="« Han habido algunos/muchos » se escribe como « Ha habido algunos/muchos » (error frecuente)"
-
-# «Hasta el punto que» se escribe como «Hasta el punto de que».
-[\bhasta\sel\spunto\sque\b]i
-hint="« Hasta el punto que » se escribe como « Hasta el punto de que » (error frecuente: queismo)"
 
 # «Háy» se escribe como «Hay».
 [\bháy\b]i
@@ -1046,25 +794,9 @@ hint="« Huír » se escribe como « Huir » (ver la nueva ortografía de la RAE
 [\bimágen\b]i
 hint="« Imágen » se escribe como « Imagen » (error frecuente)"
 
-# «Imaginar de que» se escribe como «Imaginar que».
-[\bimagin\w{1,4}?\sde\sque\b]i
-hint="« Imaginar de que » se escribe como « Imaginar que » (error frecuente: dequeismo)"
-
-# «Indicar de que» se escribe como «Indicar que».
-[\bindic\w{1,4}?\sde\sque\b]i
-hint="« Indicar de que » se escribe como « Indicar que » (error frecuente: dequeismo)"
-
 # «Inflacción» se escribe como «Inflación».
 [\binflacción\b]i
 hint="« Inflacción » se escribe como « Inflación » (error frecuente)"
-
-# «Insistir que» se escribe como «Insistir en que».
-[\binsist\w{1,4}?\sque\b]i
-hint="« Insistir que » se escribe como « Insistir en que » (error frecuente: queismo)"
-
-# «Insistir que» se escribe como «Insistir en que».
-[\binsist\w{1,4}?\sde\sque\b]i
-hint="« Insistir de que » se escribe como « Insistir en que » (error frecuente: queismo)"
 
 # «Interactuación» se escribe como «Interacción».
 [\binteractuación\b]i
@@ -1118,13 +850,13 @@ hint="« Juega un papel » se escribe como « Representa/desempeña un/su papel 
 [\bjugar\sun\spapel\b]i
 hint="« Jugar un papel » se escribe como « Representar/desempeñar un/su papel » (error frecuente)"
 
-# «La agua» se escribe como «El agua».
-[\bla\sagua\b]i
-hint="« La agua » se escribe como « El agua » (error frecuente)"
+## «La agua» se escribe como «El agua».
+#[\bla\sagua\b]i
+#hint="« La agua » se escribe como « El agua » (error frecuente)"
 
-# «La área» se escribe como «El área».
-[\bla\sárea\b]i
-hint="« La área » se escribe como « El área » (error frecuente)"
+## «La área» se escribe como «El área».
+#[\bla\sárea\b]i
+#hint="« La área » se escribe como « El área » (error frecuente)"
 
 # «Las y los» se escribe como «Los».
 [\blas\sy\slos\b]i
@@ -1147,22 +879,17 @@ hint="« Lineas » se escribe como « Líneas » (error frecuente)"
 [\bliteratura\s(sobre|en)\b]i
 hint="« Literatura sobre/en » e escribe como «Bibliografía sobre/en». (error frecuente)"
 
-# «Llamar la atención de que» se escribe como «Llamar la atención que».
-[\bllam\w{1,4}?\sla\satención\sde\sque\b]i
-hint="« Llamar la atención de que » se escribe como « Llamar la atención que » (error frecuente: dequeismo)"
-
 # «Lo se» se escribe como «Lo sé».
 [\blo\sse\b]i
-hint="« Lo se » se escribe como « Lo sé ». (error frecuente)"
+hint="« Lo se » se escribe como « Lo sé/Se lo ». (error frecuente)"
 
 # «Los ambos» se escribe como «Ambos».
 [\bl[oa]s\sambos\b]i
 hint="« Los ambos » se escribe como « Ambos ». (error frecuente)"
 
-
-# «Los la» duplicado artículo.
-[\blos\sla\b]i
-hint="« Los la » duplicado artículo. (error frecuente)"
+## «Los la» duplicado artículo.
+#[\blos\sla\b]i
+#hint="« Los la » duplicado artículo. (error frecuente)"
 
 # «Los y las» se escribe como «Los».
 [\blos\sy\slas\b]i
@@ -1232,10 +959,6 @@ hint="« Mississippi » se escribe como « Misisipi » (error frecuente)"
 [\bMúy\b]i
 hint="« Múy » se escribe como « Muy » (error frecuente)"
 
-# «Negar de que» se escribe como «Negar que».
-[\bneg\w{1,4}?\sde\sque\b]i
-hint="« Negar de que » se escribe como « Negar que » (error frecuente: dequeismo)"
-
 # «Nexo de unión» se escribe como «Nexo».
 [\bnexos?\sde\sunión\b]i
 hint="« Nexo de unión » se escribe como « Nexo » (error frecuente: redundancia)"
@@ -1246,39 +969,11 @@ hint="« Ni aún » se escribe como « Ni aun » (error frecuente: redundancia)"
 
 # «Ni qué decir tiene» se escribe como «Ni que decir tiene».
 [\bni\squé\sdecir\stiene\b]i
-hint="« Ni que decir tiene » se escribe como sin tilde (error frecuente: queismo)"
-
-# «No cabe duda que» se escribe como «No cabe duda de que».
-[\bno\scab\w{1,4}?\sduda\sque\b]i
-hint="« No cabe duda que » se escribe como « No cabe duda de que » (error frecuente: queismo)"
-
-# «No hay duda que» se escribe como «No hay duda de que».
-[\bno\sha\w{1,4}?\sduda\sque\b]i
-hint="« No hay duda que » se escribe como « No hay duda de que » (error frecuente: queismo)"
-
-# «Notar de que» se escribe como «Notar que».
-[\bnot\w{1,4}?\sde\sque\b]i
-hint="« Notar de que » se escribe como « Notar que » (error frecuente: dequeismo)"
+hint="« Ni que decir tiene » se escribe como sin tilde (error frecuente)"
 
 # «O otros» se escribe como «U otros».
 [\bo\sotr(o|a)s\b]i
 hint="« O otros » se escribe como « U otros » (error frecuente)"
-
-# «Observar de que» se escribe como «Observar que».
-[\bobserv\w{1,4}?\sde\sque\b]i
-hint="« Observar de que » se escribe como « Observar que » (error frecuente: dequeismo)"
-
-# «Oir de que» se escribe como «Oir que».
-[\boir\sde\sque\b]i
-hint="« Oir de que » se escribe como « Oir que » (error frecuente: dequeismo)"
-
-# «Olvidarse que» se escribe como «Olvidarse de que».
-# [\bolvidarse\sque\b]i
-# hint="« Olvidarse que » se escribe como « Olvidarse de que » (error frecuente: queismo)"
-
-# «Opinar de que» se escribe como «Opinar que».
-[\bopin\w{1,4}?\sde\sque\b]i
-hint="« Opinar de que » se escribe como « Opinar que » (error frecuente: dequeismo)"
 
 # «Órden» se escribe como «Orden».
 [\bórden\b]i
@@ -1308,33 +1003,17 @@ hint="« Palabras claves » se escribe como « Palabras clave » (error frecuent
 [\bPán\b]i
 hint="« Pán » se escribe como « Pan » (error frecuente)"
 
-# «Par el» se escribe como «Para el/Por el».
-[\bpar\sel\b]i
-hint="« Par el » se escribe como « Para el/Por el » (error frecuente)"
+# «Para mostrase» se escribe como «Para mostrarse».
+[\bpara\smostrase\b]i
+hint="« Para mostrase » se escribe como « Para mostrarse » (error frecuente)"
 
-# «Par que» se escribe como «Para que».
-[\bpar\sque\b]i
-hint="« Par que » se escribe como « Para que » (error frecuente)"
-
-# «Par su» se escribe como «Por su/Para su».
-[\bpar\ssu\b]i
-hint="« Par su » se escribe como « Por su/Para su » (error frecuente)"
-
-# «Par un/una» se escribe como «Para un/una».
-[\bpar\suna?\b]i
-hint="« Par un/una » se escribe como « Para un/una » (error frecuente)"
+# «Para tenga» se escribe como «Que tenga».
+[\bpara\stenga\b]i
+hint="« Para tenga » se escribe como « Que tenga » (error frecuente)"
 
 # «Páz» se escribe como «Paz».
 [\bpáz\b]i
 hint="« Páz » se escribe como « Paz » (error frecuente)"
-
-# «Pedir de que» se escribe como «Pedir que».
-[\bped\w{1,4}?\sde\sque\b]i
-hint="« Pedir de que » se escribe como « Pedir que » (error frecuente: dequeismo)"
-
-# «Pensar de que» se escribe como «Pensar que».
-[\bpens\w{1,4}?\sde\sque\b]i
-hint="« Pensar de que » se escribe como « Pensar que » (error frecuente: dequeismo)"
 
 # «Perfíl» se escribe como «Perfil».
 [\bperfíl\b]i
@@ -1343,10 +1022,6 @@ hint="« Perfíl » se escribe como « Perfil » (error frecuente)"
 # «Pié» se escribe sin tilde.
 [\bpié\b]i
 hint="« Pié » se escribe como « Pie » (ver la nueva ortografía de la RAE)"
-
-# «Pienso de que» se escribe como «Pienso que».
-[\bpienso\sde\sque\b]i
-hint="« Piendo de que » se escribe como « Pienso que » (error frecuente: dequeismo)"
 
 # «Por contra» se escribe como «Por el contrario/En cambio».
 [\bpor\scontra\b]i
@@ -1371,14 +1046,6 @@ hint="« Por siempre » se escribe como « Para siempre » (error frecuente: sol
 # «Poster» se escribe como «Póster».
 [\bposter\b]i
 hint="« Poster » se escribe como « Póster », salvo en casos muy excepcionales (error frecuente)"
-
-# «Preocuparse que» se escribe como «Preocuparse de/por que».
-[\bpreocuparse\sque\b]i
-hint="« Preocuparse que » se escribe como « Preocuparse de/por que » (error frecuente: queismo)"
-
-# «Pretender de que» se escribe como «Pretender que».
-[\bpretend\w{1,4}?\sde\sque\b]i
-hint="« Pretender de que » se escribe como « Pretender que » (error frecuente: dequeismo)"
 
 # «Prevee» se escribe como «Prevé».
 [\bprevee\b]i
@@ -1412,10 +1079,6 @@ hint="« Preveyó » se escribe como « Preveió » (error frecuente)"
 [\bpreviamente\sa\b]i
 hint="« Previamente a » se escribe como « Antes de » (error frecuente)"
 
-# «Prohibir de que» se escribe como «Prohibir que».
-[\bprohib\w{1,4}?\sde\sque\b]i
-hint="« Prohibir de que » se escribe como « Prohibir que » (error frecuente: dequeismo)"
-
 # «Catar» no se escribe con «q».
 [\bqatar\b]i
 hint="« Qatar » se escribe como « Catar » (ver la nueva ortografía de la RAE)"
@@ -1432,10 +1095,6 @@ hint="« Quásar » se escribe como « Cuasar » (error frecuente)"
 [\brabbi\b]i
 hint="« Rabbi » se escribe como « Rabí » (error frecuente)"
 
-# «Recordar de que» se escribe como «Recordar que».
-[\brecord\w{1,4}?\sde\sque\b]i
-hint="« Recordar de que » se escribe como « Recordar que » (error frecuente: dequeismo)"
-
 # «Resúmen» se escribe como «Resumen».
 [\bresúmen\b]i
 hint="« Resúmen » se escribe siempre como « Resumen » (ver la nueva ortografía de la RAE)"
@@ -1447,10 +1106,6 @@ hint="« Riáis » se escribe como « Riais » (ver la nueva ortografía de la R
 # «Río» se escribe como «Rio».
 [\brío\b]i
 hint="« Río » se escribe como « Rio » (error frecuente)"
-
-# «Saber de que» se escribe como «Saber que».
-[\sab\w{1,4}?\sde\sque\b]i
-hint="« Saber de que » se escribe como « Saber que » (error frecuente: dequeismo)"
 
 # «Saínz» se escribe como «Sainz».
 [\bsaínz\b]i
@@ -1464,10 +1119,13 @@ hint="« Saíz » se escribe como « Saiz » (error frecuente)"
 [\bsánz\b]i
 hint="« Sánz » se escribe como « Sanz » (error frecuente)"
 
-# «Se» se escribe como «Sé» al final de frase.
-[\bse(\.|\?|\!|\<p\>)]i
-valid msgstr="SE"
-hint="« se » se escribe como « sé » al final de frase(error frecuente)"
+# «Se cancelo» se escribe como «Se canceló».
+[\bse\scancelo\b]i
+hint="« Se cancelo » se escribe como « Se canceló » (error frecuente)"
+
+# «Se deber» se escribe como «Se debem».
+[\bse\sdeber\b]i
+hint="« Se deber » se escribe como « Se deben » (error frecuente)"
 
 # «Se esperada» se escribe como «Se esperaba».
 [\bse\sesperada\b]i
@@ -1480,6 +1138,14 @@ hint="« Se esta » se escribe como « Se está » (error frecuente)"
 # «Se este» se escribe como «Se esté».
 [\bse\seste\b]i
 hint="« Se este » se escribe como « Se esté » (error frecuente)"
+
+# «Se gestión» se escribe como «De gestión».
+[\bse\sgestión\b]i
+hint="« Se gestión » se escribe como « De gestión » (error frecuente)"
+
+# «Se manera» se escribe como «De manera».
+[\bse\smanera\b]i
+hint="« Se manera » se escribe como « De manera » (error frecuente)"
 
 # «Se pude» se escribe como «Se puede/Se pudo».
 [\bse\spude\b]i
@@ -1529,10 +1195,6 @@ hint="« Sóla » se escribe siempre como « Sola » (ver la nueva ortografía d
 [\bsólo\b]i
 hint="« Sólo » se escribe siempre como « Solo » (ver la nueva ortografía de la RAE)"
 
-# «Sospechar de que» se escribe como «Sospechar que».
-[\bsospech\w{1,4}?\sde\sque\b]i
-hint="« Sospechar de que » se escribe como « Sospechar que » (error frecuente: dequeismo)"
-
 # «Stock» se escribe como «Existencias/Reservas/Inventario/...».
 [\bstock\b]i
 hint="« Stock » se escribe siempre como « Existencias/Reservas/Inventario » (error frecuente)"
@@ -1549,10 +1211,6 @@ hint="« Su se » palabra duplicada (error frecuente)"
 [\bsuelen\shaber\b]i
 hint="« Suelen haber » se escribe como « Suele haber » (error frecuente)"
 
-# «Suponer de que» se escribe como «Suponer que».
-[\bsupon\w{1,4}?\sde\sque\b]i
-hint="« Suponer de que » se escribe como « Suponer que » (error frecuente: dequeismo)"
-
 # «Sydney» se escribe como «Sidney».
 [\bsydney\b]i
 hint="« Sydney » se escribe como « Sidney » (error frecuente)"
@@ -1564,10 +1222,6 @@ hint="« Tan es así » se escribe como « Tanto es así » (error frecuente: so
 # «Te se» se escribe como «Se te».
 [\bte\sse\b]i
 hint="« Te se » se escribe como « Se te » (error frecuente)"
-
-# «Temer de que» se escribe como «Temer que».
-[\btemer\sde\sque\b]i
-hint="« Temer de que » se escribe como « Temer que » (error frecuente: dequeismo)"
 
 # «Tenia» se escribe como «Tenía».
 [\btenia\b]i
@@ -1599,33 +1253,29 @@ valid after="[A-Z]\w+\s"
 valid before="\s[A-Z]\w+"
 hint="« Torah » se escribe como « Torá » (error frecuente)"
 
-# «Tratar que» se escribe como «Tratar de que».
-[\btratar\sque\b]i
-hint="« Tratar que » se escribe como « Tratar de que » (error frecuente: queismo)"
-
 # «Tu» se escribe como «Tú» al final de frase.
 [\btu(\.|\?|\!|\<p\>)]i
 hint="« tu » se escribe como « tú » al final de frase(error frecuente)"
 
 # «Un porque» e escribe como «Un porqué».
 [\bun\sporque\b]i
-hint="« Un porque » e escribe como «Un porqué». (error frecuente)"
-
-# «Una vez de que» se escribe como «Una vez que».
-[\buna\svez\sde\sque\b]i
-hint="« Una vez de que » e escribe como «Una vez que». (error frecuente: dequeismo)"
+hint="« Un porque » se escribe como «Un porqué». (error frecuente)"
 
 # «Una de ambas» se escribe como «Una de las dos».
 [\buna\sde\sambas\b]i
-hint="« Una de ambas » e escribe como « Una de los dos ». (error frecuente: dequeismo)"
+hint="« Una de ambas » se escribe como « Una de los dos ». (error frecuente)"
+
+# «Una vez se» se escribe como «Una vez que se».
+[\buna\svez\sse\b]i
+hint="« Una vez se » se escribe como «Una vez que se». (error frecuente)"
 
 # «Uno de ambos» se escribe como «Uno de los dos».
 [\buno\sde\sambos\b]i
-hint="« Uno de ambos » e escribe como « Uno de los dos ». (error frecuente: dequeismo)"
+hint="« Uno de ambos » se escribe como « Uno de los dos ». (error frecuente)"
 
 # «Unos porques» e escribe como «Unos porqués».
 [\bunos\sporques\b]i
-hint="« Unos porques » e escribe como «Unos porqués». (error frecuente)"
+hint="« Unos porques » se escribe como «Unos porqués». (error frecuente)"
 
 # «URL» es femenino.
 [\b(el|del|un|los|unos|este|ese)\surl\b]i
@@ -1633,15 +1283,11 @@ hint="« URL » es de género femenino (error frecuente)"
 
 # «Uso horario» e escribe como «Huso horario».
 [\buso\shorario\b]i
-hint="« Uso horario » e escribe como «Huso horario». (error frecuente)"
+hint="« Uso horario » se escribe como «Huso horario». (error frecuente)"
 
 # «Usos horarios» e escribe como «Husos horarios».
 [\busos\shorarios\b]i
-hint="« Usos horarios » e escribe como «Husos horarios». (error frecuente)"
-
-# «Valer la pena de que» se escribe como «Valer la pena que».
-[\bval\w{1,4}?\sla\spena\sde\sque\b]i
-hint="« Valer la pena de que » se escribe como « Valer la pena que que » (error frecuente: dequeismo)"
+hint="« Usos horarios » se escribe como «Husos horarios». (error frecuente)"
 
 # «Valido» se escribe como «Válido».
 [\bvalido\b]i
@@ -1651,10 +1297,6 @@ hint="« Valido » se escribe como « Válido » (error frecuente)"
 [\bvease\b]i
 hint="« Vease » se escribe como « Véase » (error frecuente)"
 
-# «Verificar de que» se escribe como «Verificar que».
-[\bverifi\w{1,4}?\sde\sque\b]i
-hint="« Verificar de que » se escribe como « Verificar que » (error frecuente: dequeismo)"
-
 # «Via» se escribe como «Vía».
 [\bvia\b]i
 hint="« Via » se escribe como « Vía » (error frecuente)"
@@ -1662,10 +1304,6 @@ hint="« Via » se escribe como « Vía » (error frecuente)"
 # «Veís» se escribe sin tilde.
 [\bveís\b]i
 hint="« Veís » se escribe como « Veis » (ver la nueva ortografía de la RAE)"
-
-# «Ver de que» se escribe como «Ver que».
-[\bver\sde\sque\b]i
-hint="« Ver de que » se escribe como « Ver que » (error frecuente: dequeismo)"
 
 # «Versus» se escribe como «Contra/Frente a/En comparación con».
 [\bversus\b]i

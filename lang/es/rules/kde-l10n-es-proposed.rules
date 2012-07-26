@@ -1479,34 +1479,39 @@ valid msgstr="fallos"
 valid msgstr="(ningún|cualquier)\sfallo"
 hint="« Faults » se traduce como « Fallos » (propuesta glosario)"
 
-# «Fetch» se traduce como «Buscar/Extraer/Entregar/Traer».
+# «Fetch» se traduce como «Buscar/Extraer/Entregar/Traer/Obtener».
 {\bfetch\b}i
 valid msgstr="bus(car|ca|que)"
 valid msgstr="extra(er|e|iga)"
 valid msgstr="entreg(ar|a|ue)"
 valid msgstr="tra(er|e|iga)"
+valid msgstr="obten(er|ga)"
+valid msgstr="obtiene"
 valid msgstr="extracción"
 valid msgstr="buscará" after="will\s(not\s)?"
 valid msgstr="buscó" after="did\s(not\s)?"
 valid msgstr="extraerá" after="will\s(not\s)?"
 valid msgstr="extrajo" after="did\s(not\s)?"
-valid msgstr="entregará" after="will\s(not\s)?"
-valid msgstr="entregó" after="did\s(not\s)?"
 valid msgstr="traerá" after="will\s(not\s)?"
 valid msgstr="trajo" after="did\s(not\s)?"
-hint="« Fetch » se traduce como « Buscar/Extraer/Entregar/Traer » (propuesta glosario)"
+valid msgstr="entregará" after="will\s(not\s)?"
+valid msgstr="entregó" after="did\s(not\s)?"
+valid msgstr="obtendrá" after="will\s(not\s)?"
+valid msgstr="obtuvo" after="did\s(not\s)?"
+hint="« Fetch » se traduce como « Buscar/Extraer/Entregar/Traer/Obtener » (propuesta glosario)"
 
-# «Fetchs» se traduce como «Busca/Extraiga/Entregue/Traiga».
+# «Fetchs» se traduce como «Busca/Extraiga/Entregue/Traiga/Obtenga».
 {\bfetchs\b}i
 valid msgstr="bus(ca|que)"
 valid msgstr="extra(e|iga)"
 valid msgstr="entreg(a|ue)"
 valid msgstr="tra(e|iga)"
+valid msgstr="obt(iene|tenga)"
 valid msgstr="extracciones"
 valid msgstr="entregas"
 valid msgstr="(ninguna|cualquier)\sextracción"
 valid msgstr="(ninguna|cualquier)\sentrega"
-hint="« Fetchs » se traduce como « Busca/Extraiga/Entregue/Traiga » (propuesta glosario)"
+hint="« Fetchs » se traduce como « Busca/Extraiga/Entregue/Traiga/Obtenga » (propuesta glosario)"
 
 # «Filter» se traduce como «Filtro/Filtrar».
 {\bfilter\b}i
@@ -2992,6 +2997,10 @@ hint="« Pattern » se traduce como « Patrón » (propuesta glosario)"
 valid msgstr="patrones"
 valid msgstr="(ningún|cualquier)\spatrón"
 hint="« Patterns » se traduce como « Patrones » (propuesta glosario)"
+
+# «PC» se traduce como «Equipo».
+{\b(el|la|del|su)\sPC\b}i
+hint="« PC » se traduce como « Equipo » (propuesta glosario)"
 
 # «Peer-to-peer» se traduce como «Entre iguales».
 {\bpeer\-to\-peer\b}i
