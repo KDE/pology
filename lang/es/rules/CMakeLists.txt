@@ -1,4 +1,5 @@
 set(files
+    filter.include
     being-polite.rules.disabled
     common-mistakes.rules
     false-friends.rules
