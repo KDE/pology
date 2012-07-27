@@ -71,12 +71,12 @@ valid msgid="^\w+(\-\w+)+$" # Palabra compuesta unida por guiones
 hint="No se ha traducido el mensaje original"
 
 addFilterHook name="es:remove_subs/remove_paired_capital_words" on="msg"
-[(?u)[,;\:\(]\s+[A-ZÑÇ][a-záéíóúüñç]+]
+[(?u)[,;\(]\s+[A-ZÑÇ][a-záéíóúüñç]+]
 valid ctx=".*?TRANSLATORS"
 valid ctx="trans_comment"
 valid msgid=".*?TRANSLATORS"
 valid msgid="^$"
 valid after="\&[\w\d\-_]+;"
-hint="Utilice minúsculas después de coma, punto y coma, dos puntos o apertura de paréntesis"
+hint="Utilice minúsculas después de coma, punto y coma o apertura de paréntesis"
 
 # End of rule file

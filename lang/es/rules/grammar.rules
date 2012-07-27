@@ -23,20 +23,24 @@ valid after="\("
 valid after="\~\s*"
 valid after="\\n\s*"
 
+#
+# REPETICIÓN DE PALABRAS
+#
+
 [(?u)\b(\w+)(?!\n)\s+\1\b]
 hint="Hay una palabra consecutiva repetida en el párrafo (error gramatical)"
 
 [(?u)\b(\w+(\s\w+)+)(\s|\.|\,|\;|\:)+\1\b]
 hint="Hay un grupo de dos o más palabras consecutivas repetido en el párrafo (error gramatical)"
 
-[(?u)\b(el|la|lo|los|las)(?!\n)\s+(el|la|lo|los|las)\b]i
+[(?u)\b(el|la|los|las)(?!\n)\s+(el|la|los|las)\b]i
 hint="Hay dos artículos determinados consecutivos en el párrafo (error gramatical)"
 
 [(?u)\b(un|una|unos|unas)(?!\n)\s+(un|una|unos|unas)\b]i
 hint="Hay dos artículos indeterminados consecutivos en el párrafo (error gramatical)"
 
 # Artículo después de artículo contraído
-[(?u)\b(al|del)\s(el|la|lo|los|las|un|una|unos|unas)\b]i
+[(?u)\b(al|del)\s(el|la|los|las|un|una|unos|unas)\b]i
 hint="Hay un artículo después de uno contraído «Al/Del» (error gramatical)" 
 
 [(?u)\b(este|ese|aquel|estas?|esas?|aquellas?|estos?|esos?|aquellos?)(?!\n)\s+(este|ese|aquel|estas?|esas?|aquellas?|estos?|esos?|aquellos?)\b]i
@@ -44,6 +48,10 @@ hint="Hay dos demostrativos consecutivos en el párrafo (error gramatical)"
 
 [(?u)\b(yo|tú|vos|él|ellas?|ellos?|usted|ustedes|nosotr[oa]s|mí|ti|sí)(?!\n)\s+(yo|tú|vos|él|ellas?|ellos?|usted|ustedes|nosotr[oa]s|mí|ti|sí)\b]i
 hint="Hay dos pronombres consecutivos en el párrafo (error gramatical)"
+
+#
+# EXPRESIONES INCORRECTAS
+#
 
 [(?u)\b(\w+?)os\sy\s\1as\b]i
 hint="No utilice expresiones del tipo «ciudadanos y ciudadanas » (error gramatical)"
@@ -58,12 +66,33 @@ hint="No utilice expresiones del tipo «los ciudadanos y las ciudadanas » (erro
 hint="No utilice expresiones del tipo «las ciudadanas y los ciudadanos » (error gramatical)"
 
 # No utilizar la arroba para incluir masculino y femenino
-[(?u)\b\w+@[a-záéíóúñç]{0,2}\W]i
+[(?u)\b\w+@\w{0,2}\b]i
 hint="No utilice la arroba para evitar el género, p.ej. «ciudadan@s» (error gramatical)"
 
 # No utilizar el guión para separar el prefijo de la palabra principal
-[(?u)\b(anti|archi|auto|bi|co|contra|des|ex|extra|foto|geo|h[ií]per|in|inter|iso|macro|meta|micro|mini|mono|multi|pos|post|pre|pro|re|semi|sim|sin|sobre|sub|s[uú]per|tele|trans|tras|tri|vice)\-[a-záéíóúñç]+?\b]i
+[(?u)\b(ante|anti|archi|auto|bi|bien|co|con|contra|cuasi|des|epi|eqi|ex|extra|foto|geo|hemi|h[ií]per|im|in|infra|inter|intra|iso|macro|maxi|mega|meta|micro|mini|mono|multi|neo|peri|pluri|poli|pos|post|pre|pro|re|retro|semi|seudo|sim|sin|sobre|sub|s[uú]per|supra|tele|trans|tras|tri|ultra|uni|vice)\-\w+?\b]i
+valid span="(?u)\b\w+\-[A-Z]\w+?\b"
 hint="No utilice el guión para separar el prefijo de la palabra principal, p.ej. «sub-menú» (error gramatical)"
+
+[(?u)\b[A-Z]{2,6}s\b]
+hint="Las siglas se escriben en singular en español, quite la «s» final (error gramatical)"
+
+[(?u)\b[A-Z]{2,6}\'s\b]
+hint="Las siglas se escriben en singular en español, quite la «'s» final (error gramatical)"
+
+[(?u)\b\&[\w\-_]+\;s\b]
+hint="Las siglas se escriben en singular en español, quite la «s» final (error gramatical)"
+
+[(?u)\b\&[\w\-_]+\;\'s\b]
+hint="Las siglas se escriben en singular en español, quite la «'s» final (error gramatical)"
+
+[(?u)([A-Z]\.\s?){3,}]
+valid span="(\d\.\s?){3,}"
+hint="Las siglas se escriben sin puntos intermedios, todas las letras juntas (error gramatical)"
+
+#
+# ERRORES CON CONJUNCIONES/VOCALES SUELTAS
+#
 
 # «y» ante palabras que empiezan por «i» o «hi»
 [(?u)\by\s[hH]?[iíIÍ]\w*\b]
@@ -91,6 +120,10 @@ hint="La «i» no se usa suelta (error gramatical)"
 valid after="~"
 valid before="~"
 hint="Las vocales con tilde no se usan sueltas (error gramatical)"
+
+#
+# ORACIONES CON INTERROGACIÓN/ADMINACIÓN
+#
 
 # «¿A donde...» se escribe como «¿Adónde...».
 [¿a\sdonde\b]i
@@ -172,21 +205,9 @@ hint="« ¡Por que... » se escribe como « ¡Por qué... », (error gramatical)
 [¡que\b]i
 hint="« ¡Que... » se escribe como « ¡Qué... », (error gramatical)"
 
-[\b[A-Z]{2,6}s\b]
-hint="Las siglas se escriben en singular en español, quite la «s» final (error gramatical)"
-
-[\b[A-Z]{2,6}\'s\b]
-hint="Las siglas se escriben en singular en español, quite la «'s» final (error gramatical)"
-
-[\b\&[\w\-_]+\;s\b]
-hint="Las siglas se escriben en singular en español, quite la «s» final (error gramatical)"
-
-[\b\&[\w\-_]+\;\'s\b]
-hint="Las siglas se escriben en singular en español, quite la «'s» final (error gramatical)"
-
-[(\w\.\s?){3,}]
-valid span="(\d\.\s?){3,}"
-hint="Las siglas se escriben sin puntos intermedios, todas las letras juntas (error gramatical)"
+#
+# ERRORES DE PUNTUACIÓN
+#
 
 #[\besto\ses\s]
 #hint="Ponga una coma después de «esto es» (error gramatical)"
@@ -296,10 +317,6 @@ hint="Ponga una coma antes de «así que» (error gramatical)"
 validGroup beforeComma
 hint="Ponga una coma antes de «de manera que» (error gramatical)"
 
-#[[^,\A]\sesto\ses\b]
-#valid after="si\s"
-#hint="Ponga una coma antes de «esto es» (error gramatical)"
-
 [\bes\sdecir\b]
 validGroup beforeComma
 hint="Ponga una coma antes de «es decir» (error gramatical)"
@@ -344,9 +361,6 @@ hint="Ponga una coma antes de «en fin» (error gramatical)"
 [\bpor\súltimo\b]
 validGroup beforeComma
 hint="Ponga una coma antes de «por último» (error gramatical)"
-
-#[[^,\A]\sdetrás\sde\b]
-#hint="Ponga una coma antes de «detrás de» (error gramatical)"
 
 [\bademás\b]
 validGroup beforeComma
@@ -397,20 +411,24 @@ valid after=",\s"
 valid after=";\s"
 hint="Ponga una coma antes de «etc./&etc;/etcétera» (error gramatical)"
 
-[\betcéteras?\s?\.\.\.]i
+[\betcétera\s?\.\.\.]i
 hint="No ponga puntos suspensivos después de «etc./&etc;/etcétera» (error gramatical)"
 
 #[\,\s(y|e|o(?!\sbien)|u|ni)\s]
 #hint="No se pone coma antes de las conjunciones « y, e, o, u, ni» salvo casos excepcionales (error gramatical)"
 
+#
+# PALABRAS QUE SE ESCRIBEN EN MINÚSCULA
+#
+
 [\b(Enero|Febrero|Marzo|Abril|Mayo|Junio|Julio|Agosto|Septiembre|Octubre|Noviembre|Diciembre)\b]
 validGroup beforeCaps
-valid span="Julio" before="\s[A-Z]"
+#valid span="Julio" before="\s[A-Z]"
 hint="Los nombres de los meses se escriben en minúsculas (error gramatical)"
 
 [\b(Lunes|Martes|Miércoles|Jueves|Viernes|Sábado|Domingo)\b]
 validGroup beforeCaps
-valid span="Domingo" after="Santo\s"
+#valid span="Domingo" after="Santo\s"
 hint="Los nombres de los días de la semana se escriben en minúsculas (error gramatical)"
 
 [\b(Primavera|Verano|Otoño|Invierno)\b]
@@ -424,25 +442,24 @@ hint="Los nombres de los puntos cardinales se escriben en minúsculas (error gra
 
 [\b(Usted|Señor|Don|Fray|San|Santo|Sor|Reverendo)\b]
 validGroup beforeCaps
-valid span="Santo" before="\sDomingo"
+#valid span="Santo" before="\sDomingo"
 hint="Los tratamientos « Usted, Señor, Don, ... » se escriben en minúsculas (error gramatical)"
 
 [\b(Rey|Papa|Ministro|Presidente|Embajador|Director|Obispo|Juez|Magistrado|Príncipe)\b]
 validGroup beforeCaps
 hint="Los cargos « Rey, Papa, Ministro, Presidente, ... » se escriben en minúsculas (error gramatical)"
 
-#[\b(Do|Re|Mi|Fa|Sol|La|Si)\b]
-#validGroup beforeCaps
-#valid span="La" before="\s[A-Z]\w+"
-#hint="Las notas musicales se escriben en minúsculas (error gramatical)"
+#
+# ERRORES CON PREPOSICIONES, CONJUNCIONES Y ARTÍCULOS
+#
 
 # Preposición de posición + posesivo
-[\b(detrás|delante|debajo|encima|cerca)\s(mi[oa]|tuy[oa]|suy[oa]|nuestr[oa]|vuestr[oa])\b]i
+[(?u)\b(detrás|delante|debajo|encima|cerca)\s(mi[oa]|tuy[oa]|suy[oa]|nuestr[oa]|vuestr[oa])\b]i
 hint="La expresión correcta es «detrás|delante|debajo|encima|cerca» de «mí/ti/él/nosotros/vosotros» (error gramatical)."
 
 # Después de pronombre personal no puede aparecer preposición.
-[(?u)\b(me|te|se|nos|os|los?|las?|les?)\s(a|ante|con|contra|desde|durante|en|hacia|hasta|por|según|sin|tras)\b]i
-hint="Después de pronombre personal no puede aparecer preposición (error gramatical)"
+[(?u)(?u)\b(me|te|se|nos|os|los?|las?|les?)\s(a|ante|con|contra|desde|durante|en|hacia|hasta|por|según|sin|tras)\b]i
+hint="Después de pronombre personal no suele aparecer preposición (error gramatical)"
 
 # Preposición al final de frase.
 [(?u)\b(a|ante|con|contra|de|desde|durante|en|entre|hacia|hasta|para|por|según|sin|tras)(\.|\?|\!|\<p\>)]i
@@ -451,9 +468,13 @@ valid span="A\."
 hint="Una preposición no puede aparecer al final de frase (error gramatical)"
 
 # Conjunción al final de frase.
-[(?u)\b(pero|mas|sino|porque|pues|que|como|si|aunque|conque)(\.|\?|\!|\<p\>)]i
+[(?u)\b(ni|pero|mas|sino|porque|pues|que|como|si|aunque|conque|o\ssea|es\sdecir|es\smás)(\.|\?|\!|\<p\>)]i
 valid span="(?u)\b\w+\." before="\.\."
 hint="Una conjunción no puede aparecer al final de frase (error gramatical)"
+
+#
+# ERRORES CON PRONOMBRES
+#
 
 # Pronombre personal al final de frase.
 [(?u)\b(me|te|se|nos|os|los?|las?|les?)(\.|\?|\!|\<p\>)]i
@@ -476,22 +497,17 @@ hint="« Se » se escribe como « Sé » al final de frase (error gramatical)"
 valid span="(?u)\b\w+\." before="\.\."
 hint="« Tu » se escribe como « Tú » al final de frase (error gramatical)"
 
+#
+# ERRORES CON VERBOS
+#
+
 # El verbo «haber» no puede aparecer seguido de gerundio.
 [(?u)\b(haber|habiendo|habido|he|has|ha|hemos|habéis|han|habí\w+|hub\w+|habr\w+)\s\w+?(ando|iendo|yendo)\b]i
 hint="El verbo «haber» no puede aparecer seguido de gerundio (error gramatical)"
 
-## El verbo «ser» no puede aparecer seguido de gerundio.
-#[(?u)\b(ser|siendo|sido|soy|eres|es|somos|sois|son|era\w+{1,3}|fui\w+|ser\w+{1,3})\s\w+?(ando|iendo|yendo)\b]i
-#valid span="(?u)\b\w+\scuando\b"
-#hint="El verbo «ser» no puede aparecer seguido de gerundio (error gramatical)"
-
-# «Par» se escribe como para en la mayor parte de los casos.
-[(?u)\bpar\b]i
-valid after="(el|un|que|mi|tu|su)\s"
-valid before="\sde"
-valid after="número\s(\w+\s)*"
-valid msgstr="^par$"
-hint="«Par» se escribe como «Para» en la mayor parte de los casos (error gramatical)"
+# El verbo «ser» no puede aparecer seguido de gerundio.
+[(?u)\b(ser|siendo|sido|soy|eres|es|somos|sois|son|era\w+|hub\w+|ser\w+)\s\w+?(ando|iendo|yendo)\b]i
+hint="El verbo «ser» no puede aparecer seguido de gerundio (error gramatical)"
 
 # «Esta» se ecribe como «Está» antes de participio.
 [(?u)\besta\s\w+?ado\b]i
@@ -502,11 +518,11 @@ hint="«Esta» se escribe como «Está» antes de participio (error gramatical)"
 hint="«Esta» se escribe como «Está» antes de gerundio (error gramatical)"
 
 # Inconsistencia de género con el participio.
-[(?u)\buna\s\w+?ado\b]i
+[(?u)\buna\s\w+?(ado|ido)\b]i
 hint="Se ha encontrado «una» seguido de participio en masculino (error gramatical)"
 
 # Inconsistencia de género con el participio.
-[(?u)\bun\s\w+?ada\b]i
+[(?u)\bun\s\w+?(ada|ida)\b]i
 hint="Se ha encontrado «un» seguido de participio en femenino (error gramatical)"
 
 ## «A» en lugar de «Ha» antes participio.
@@ -516,7 +532,7 @@ hint="Se ha encontrado «un» seguido de participio en femenino (error gramatica
 # No vale, p. ej.: cambia a dañado
 
 # «E» en lugar de «He» antes participio.
-[(?u)\be\s\w+?ad[oa]\b]i
+[(?u)\be\s\w+?(ad[oa]|id[oa])\b]i
 valid span="(?u)\be\s(i|hi|Y)\w+?ad[oa]\b"
 hint="Se ha encontrado «E» en lugar de «He» antes de un participio (error gramatical)"
 
@@ -532,16 +548,33 @@ hint="Se ha encontrado «Ha» en lugar de «A» antes de un infinitivo (error gr
 [(?u)\b(ir|voy|vas|va|vamos|ibas?|iré|irás?)\s\w+?(ar|er|ir)\b]i
 hint="«Ir» lleva una «A» antes de un infinitivo (error gramatical)"
 
+#
+# ERRORES DE CONCORDANCIA DE GÉNERO o NÚMERO
+#
+
 # Inconsistencia de plural.
 [(?u)\b(la|su)\s\w+?as\b]i
 hint="«la» o «su» seguido de plural se escribe como «las» o «sus» (error gramatical)"
+
+#
+# ERRORES DIVERSOS
+#
 
 # «En» seguido de día del mes es incorrecto.
 [(?u)\ben\s(\d|\d\d|uno|dos|tres|cuatro|cinco|seis|siete|ocho|nueve|diez)\sde\s(\d|\d\d|enero|febrero|marzo|abril|mayo|junio|julio|agosto|septiembre|octubre|noviembre|diciembre)\b]i
 hint="«En» seguido de día del mes es incorrecto, debe usuarse «El» o «A» (error gramatical)"
 
+# «Par» se escribe como para en la mayor parte de los casos.
+[(?u)\bpar\b]i
+valid after="(el|un|que|mi|tu|su)\s"
+valid before="\sde"
+valid after="número\s(\w+\s)*"
+valid before=".*?impar"
+valid msgstr="^par\s?\~?$"
+hint="«Par» se escribe como «Para» en la mayor parte de los casos (error gramatical)"
+
 # Palabras que empiezan por fonema A tónico
-[\bla\s(aura|ágata|ágora|águila|álgebra|áncora|ánfora|ánima|área|árnica|acta|afta|agua|aguasal|aguaviva|ala|alba|alga|algia|alma|alza|ama|anca|ancla|ansia|ara|arca|archa|aria|arma|arpa|arria|arte|asa|ascua|asma|aspa|asta|aula|ave|aya|haba|habla|hacha|hada|hambre|hampa|haya)\b]i
+[\bla\s(aura|ágata|ágora|águila|álgebra|áncora|ánfora|ánima|área|árnica|acta|afta|agua|aguasal|aguaviva|ala|alba|alga|algia|alma|alza|ama|anca|ancla|ansia|ara|arca|archa|aria|arma|arpa|arria|arte|asa|ascua|asma|aspa|asta|aula|ave|aya|haba|habla|hacha|hada|hambre|hampa)\b]i
 hint="Antes de una palabra que empieza por «a» o «ha» tónicas, se emplea el determinante masculino (error de concordancia)"
 
 # Palabras que empiezan por fonema A tónico
@@ -553,79 +586,79 @@ hint="Antes de una palabra que empieza por «a» o «ha» tónicas, se emplea «
 #
 
 # Infinitivo tipo convencer + pron.pers + que
-[\b(alegrar|enterar|informar|dudar|convencer|hartar|quejar|protestar)(me|te|l[ea][s]?|se|nos|os)\sque\b]i
+[(?u)\b(alegrar|enterar|informar|dudar|convencer|hartar|quejar|protestar)(me|te|l[ea][s]?|se|nos|os)\sque\b]i
 hint="Los verbos de tipo «Convencer» van seguido normalmente de la preposición «de», queismo (error gramatical)"
 
 # Estar + seguro + que
-[\b(est\w{1,4}?)\s(segur[oa]|alegre|triste|entristecid[oa]|sorprendid[oa]|convencid[oa]|agobiad[oa]|preocupad[oa]|hart[oa]|cansad[oa]|aburrid[oa])s?\sque\b]i
+[(?u)\b(est\w{1,4}?)\s(segur[oa]|alegre|triste|entristecid[oa]|sorprendid[oa]|convencid[oa]|agobiad[oa]|preocupad[oa]|hart[oa]|cansad[oa]|aburrid[oa])s?\sque\b]i
 hint="En este contexto, el verbo va seguido normalmente de la preposición «de», queismo (error gramatical)"
 
 # «A condición que» se escribe como «A condición de que».
-[\ba\scondición\sque\b]i
+[(?u)\ba\scondición\sque\b]i
 hint="« A condición que » se escribe como « A condición de que », queismo (error gramatical)"
 
 # «A fin que» se escribe como «A fin de que».
-[\ba\sfin\sque\b]i
+[(?u)\ba\sfin\sque\b]i
 hint="« A fin que » se escribe como « A fin de que », queismo (error gramatical)"
 
 # «Acordarse que» se escribe como «Acordarse de que».
-[\bacordarse\sque\b]i
+[(?u)\bacordarse\sque\b]i
 hint="« Acordarse que » se escribe como « Acordarse de que », queismo (error gramatical)"
 
 # «Al punto que » se escribe como «Hasta el punto de que».
-[\bal\spunto\sque\b]i
+[(?u)\bal\spunto\sque\b]i
 hint="« Al punto que » se escribe como « Hasta el punto de que » queismo (error gramatical)"
 
 # «A pesar que» se escribe como «A pesar de que».
-[\ba\spesar\sque\b]i
+[(?u)\ba\spesar\sque\b]i
 hint="« A pesar que » se escribe como « A pesar de que », queismo (error gramatical)"
 
 # «Arrepentirse que» se escribe como «Arrepentirse de que».
-[\baarrepentirse\sque\b]i
+[(?u)\baarrepentirse\sque\b]i
 hint="« Arrepentirse que » se escribe como « Arrepentirse de que », queismo (error gramatical)"
 
 # «Caer en la cuenta que» se escribe como «Caer en la cuenta de que».
-[\bca\w{1,4}?\sen\sla\scuenta\sque\b]i
+[(?u)\bca\w{1,4}?\sen\sla\scuenta\sque\b]i
 hint="« Caer en la cuenta que » se escribe como « Caer en la cuenta de que », queismo (error gramatical)"
 
 # «Con la condición que» se escribe como «Con la condición de que».
-[\bcon\sla\scondición\sque\b]i
+[(?u)\bcon\sla\scondición\sque\b]i
 hint="« Con la condición que » se escribe como « Con la condición de que », queismo (error gramatical)"
 
 # «Dar la casualidad que» se escribe como «Dar la casualidad de que».
-[\bd\w{1,4}?\sla\scasualidad\sde\sque\b]i
+[(?u)\bd\w{1,4}?\sla\scasualidad\sde\sque\b]i
 hint="« Dar la casualidad que » se escribe como « ar la casualidad de que », queismo (error gramatical)"
 
 # «Darse cuenta que» se escribe como «Darse cuenta de que».
-[\bdarse\scuenta\sque\b]i
+[(?u)\bdarse\scuenta\sque\b]i
 hint="« Darse cuenta que » se escribe como « Darse cuenta de que », queismo (error gramatical)"
 
 # «En caso que» se escribe como «En caso de que».
-[\ben\scaso\sque\b]i
+[(?u)\ben\scaso\sque\b]i
 hint="« En caso que » se escribe como « En caso de que », queismo (error gramatical)"
 
 # «Hasta el punto que» se escribe como «Hasta el punto de que».
-[\bhasta\sel\spunto\sque\b]i
+[(?u)\bhasta\sel\spunto\sque\b]i
 hint="« Hasta el punto que » se escribe como « Hasta el punto de que », queismo (error gramatical)"
 
 # «Insistir que» se escribe como «Insistir en que».
-[\binsist\w{1,4}?\sque\b]i
+[(?u)\binsist\w{1,4}?\sque\b]i
 hint="« Insistir que » se escribe como « Insistir en que », queismo (error gramatical)"
 
 # «No cabe duda que» se escribe como «No cabe duda de que».
-[\bno\scab\w{1,4}?\sduda\sque\b]i
+[(?u)\bno\scab\w{1,4}?\sduda\sque\b]i
 hint="« No cabe duda que » se escribe como « No cabe duda de que », queismo (error gramatical)"
 
 # «No hay duda que» se escribe como «No hay duda de que».
-[\bno\sha\w{1,4}?\sduda\sque\b]i
+[(?u)\bno\sha\w{1,4}?\sduda\sque\b]i
 hint="« No hay duda que » se escribe como « No hay duda de que », queismo (error gramatical)"
 
 # «Preocuparse que» se escribe como «Preocuparse de/por que».
-[\bpreocuparse\sque\b]i
+[(?u)\bpreocuparse\sque\b]i
 hint="« Preocuparse que » se escribe como « Preocuparse de/por que », queismo (error gramatical)"
 
 # «Tratar que» se escribe como «Tratar de que».
-[\btratar\sque\b]i
+[(?u)\btrat\w{1,4}?\sque\b]i
 hint="« Tratar que » se escribe como « Tratar de que », queismo (error gramatical)"
 
 #
@@ -633,143 +666,143 @@ hint="« Tratar que » se escribe como « Tratar de que », queismo (error grama
 #
 
 # verbo tipo pensar + de que	
-[\b(pens\w{1,4}?|piens\w{1,4}?|opin\w{1,4}?|cree\w{,4}?|creo|coment\w{1,4}?|expres\w{1,4}?|deci\w{1,4}?|dice\w{0,4}?|dijo|deduc\w{1,4}?|deduzco|infer\w{1,4}?|infiero|coleg\w{1,4}?|colijo|razon\w{1,4}?|comunic\w{1,4}?|confirm\w{1,4}?|corrobor\w{1,4}?|desment\w{1,4}?|desmient\w{1,4}?|const\w{1,4}?|result\w{1,4}?|aconsej\w{1,4}?|ver|observ\w{1,4}?)\sde\sque\b]i
+[(?u)\b(pens\w{1,4}?|piens\w{1,4}?|opin\w{1,4}?|cree\w{,4}?|creo|coment\w{1,4}?|expres\w{1,4}?|deci\w{1,4}?|dice\w{0,4}?|dijo|deduc\w{1,4}?|deduzco|infer\w{1,4}?|infiero|coleg\w{1,4}?|colijo|razon\w{1,4}?|comunic\w{1,4}?|confirm\w{1,4}?|corrobor\w{1,4}?|desment\w{1,4}?|desmient\w{1,4}?|const\w{1,4}?|result\w{1,4}?|aconsej\w{1,4}?|ver|observ\w{1,4}?)\sde\sque\b]i
 hint="Posible dequeísmo (error gramatical)"
 
 # Verbo tipo estar + AQ + de que
-#Pattern:	ser|estar|encontrar|ver|entender /RG|AQ.* de que
-#Message:	Posible dequeísmo: \1 \2 \4.
+[(?u)\b(ser|soy|eres|es|somos|sois|son|eras?|éramos|érais|eran|estar|estoy|estás?|estamos|estáis|están|encontr{1,4}?|encuentr\w{1,4}?|ver{0,4}?|veo|ves|ve|vemos|veis|ven|veía\w{1,4}?|entend{1,4}?|entiend{1,4}?)\s\w+?\sde\sque\b]i
+hint="Posible dequeísmo «Ser/Estar/Encontrar/Ver/Entender ... de que» (Error gramatical)"
 
 # dequeismo
-[\b(me|te|se|nos|os|los?|las?|les?)\s(alegra|entristece|agobia|importa|resbala|harta|emociona|altera|aburre|falta|preocupa)\sde\sque\b]i
+[(?u)\b(me|te|se|nos|os|los?|las?|les?)\s(alegra|entristece|agobia|importa|resbala|harta|emociona|altera|aburre|falta|preocupa)\sde\sque\b]i
 hint="Posible dequeísmo (error gramatical)"
 
 # Verbo tipo insistir + de que
-[insist\w{1,4}?\sde\sque]i
+[(?u)insist\w{1,4}?\sde\sque]i
 hint="Posible dequeísmo (error gramatical)"
 
 # «A medida de que» se escribe como «A medida que».
-[\ba\smedida\sde\sque\b]i
+[(?u)\ba\smedida\sde\sque\b]i
 hint="« A medida de que » e escribe como «A medida que»., dequeismo (error gramatical)"
 
 # «A no ser de que» se escribe como «A no ser que».
-[\ba\sno\sser\sde\sque\b]i
+[(?u)\ba\sno\sser\sde\sque\b]i
 hint="« A no ser de que » e escribe como «A no ser que»., dequeismo (error gramatical)"
 
 # «Afirmar de que» se escribe como «Afirmar que».
-[\bafirm\w{1,4}?\sde\sque\b]i
+[(?u)\bafirm\w{1,4}?\sde\sque\b]i
 hint="« Afirmar de que » se escribe como « Afirmar que », dequeismo (error gramatical)"
 
 # «Asegurar de que» se escribe como «Asegurar que».
-[\basegur\w{1,4}?\sde\sque\b]i
+[(?u)\basegur\w{1,4}?\sde\sque\b]i
 hint="« Asegurar de que » se escribe como « Asegurar que », dequeismo (error gramatical)"
 
 # «Comprobar de que» se escribe como «Comprobar que».
-[\bcomprob\w{1,4}?\sde\sque\b]i
+[(?u)\bcomprob\w{1,4}?\sde\sque\b]i
 hint="« Comprobar de que » se escribe como « Comprobar que », dequeismo (error gramatical)"
 
 # «Considerar de que» se escribe como «Considerar que».
-[\bconsider\w{1,4}?\sde\sque\b]i
+[(?u)\bconsider\w{1,4}?\sde\sque\b]i
 hint="« Considerar de que » se escribe como « Considerar que », dequeismo (error gramatical)"
 
 # «Contestar de que» se escribe como «Contestar que».
-[\bcontest\w{1,4}?\sde\sque\b]i
+[(?u)\bcontest\w{1,4}?\sde\sque\b]i
 hint="« Contestar de que » se escribe como « Contestar que », dequeismo (error gramatical)"
 
 # «Creer de que» se escribe como «Creer que».
-[\bcree\w{1,4}?\sde\sque\b]i
+[(?u)\bcree\w{1,4}?\sde\sque\b]i
 hint="« Creer de que » se escribe como « Creer que », dequeismo (error gramatical)"
 
 # «En la medida de que» se escribe como «En la medida que».
-[\ben\sla\smedida\sde\sque\b]i
+[(?u)\ben\sla\smedida\sde\sque\b]i
 hint="« En la medida de que » se escribe como « En la medida que », dequeismo (error gramatical)"
 
 # «Explicar de que» se escribe como «Explicar que».
-[\bexplic\w{1,4}?\sde\sque\b]i
+[(?u)\bexplic\w{1,4}?\sde\sque\b]i
 hint="« Explicar de que » se escribe como « Explicar que », dequeismo (error gramatical)"
 
 # «Exponer de que» se escribe como «Exponer que».
-[\bexpon\w{1,4}?\sde\sque\b]i
+[(?u)\bexpon\w{1,4}?\sde\sque\b]i
 hint="« Exponer de que » se escribe como « Exponer que », dequeismo (error gramatical)"
 
 # «Gustar de que» se escribe como «Gustar que».
-[\bgust\w{1,4}?\sde\sque\b]i
+[(?u)\bgust\w{1,4}?\sde\sque\b]i
 hint="« Gustar de que » se escribe como « Gustar que », dequeismo (error gramatical)"
 
 # «Imaginar de que» se escribe como «Imaginar que».
-[\bimagin\w{1,4}?\sde\sque\b]i
+[(?u)\bimagin\w{1,4}?\sde\sque\b]i
 hint="« Imaginar de que » se escribe como « Imaginar que », dequeismo (error gramatical)"
 
 # «Indicar de que» se escribe como «Indicar que».
-[\bindic\w{1,4}?\sde\sque\b]i
+[(?u)\bindic\w{1,4}?\sde\sque\b]i
 hint="« Indicar de que » se escribe como « Indicar que », dequeismo (error gramatical)"
 
 # «Insistir de que» se escribe como «Insistir en que».
-[\binsist\w{1,4}?\sde\sque\b]i
+[(?u)\binsist\w{1,4}?\sde\sque\b]i
 hint="« Insistir de que » se escribe como « Insistir en que », dequeismo (error gramatical)"
 
 # «Llamar la atención de que» se escribe como «Llamar la atención que».
-[\bllam\w{1,4}?\sla\satención\sde\sque\b]i
+[(?u)\bllam\w{1,4}?\sla\satención\sde\sque\b]i
 hint="« Llamar la atención de que » se escribe como « Llamar la atención que », dequeismo (error gramatical)"
 
 # «Negar de que» se escribe como «Negar que».
-[\bneg\w{1,4}?\sde\sque\b]i
+[(?u)\bneg\w{1,4}?\sde\sque\b]i
 hint="« Negar de que » se escribe como « Negar que », dequeismo (error gramatical)"
 
 # «Notar de que» se escribe como «Notar que».
-[\bnot\w{1,4}?\sde\sque\b]i
+[(?u)\bnot\w{1,4}?\sde\sque\b]i
 hint="« Notar de que » se escribe como « Notar que », dequeismo (error gramatical)"
 
 # «Observar de que» se escribe como «Observar que».
-[\bobserv\w{1,4}?\sde\sque\b]i
+[(?u)\bobserv\w{1,4}?\sde\sque\b]i
 hint="« Observar de que » se escribe como « Observar que », dequeismo (error gramatical)"
 
 # «Oir de que» se escribe como «Oir que».
-[\boir\sde\sque\b]i
+[(?u)\b(oir|oigo|oyes?|oimos|ois|oías?|oiré|oirás?)\sde\sque\b]i
 hint="« Oir de que » se escribe como « Oir que », dequeismo (error gramatical)"
 
 # «Pedir de que» se escribe como «Pedir que».
-[\bped\w{1,4}?\sde\sque\b]i
+[(?u)\bped\w{1,4}?\sde\sque\b]i
 hint="« Pedir de que » se escribe como « Pedir que », dequeismo (error gramatical)"
 
 # «Pretender de que» se escribe como «Pretender que».
-[\bpretend\w{1,4}?\sde\sque\b]i
+[(?u)\bpretend\w{1,4}?\sde\sque\b]i
 hint="« Pretender de que » se escribe como « Pretender que », dequeismo (error gramatical)"
 
 # «Prohibir de que» se escribe como «Prohibir que».
-[\bprohib\w{1,4}?\sde\sque\b]i
+[(?u)\bprohib\w{1,4}?\sde\sque\b]i
 hint="« Prohibir de que » se escribe como « Prohibir que », dequeismo (error gramatical)"
 
 # «Recordar de que» se escribe como «Recordar que».
-[\brecord\w{1,4}?\sde\sque\b]i
+[(?u)\brecord\w{1,4}?\sde\sque\b]i
 hint="« Recordar de que » se escribe como « Recordar que », dequeismo (error gramatical)"
 
 # «Saber de que» se escribe como «Saber que».
-[\sab\w{1,4}?\sde\sque\b]i
+[(?u)\sab\w{1,4}?\sde\sque\b]i
 hint="« Saber de que » se escribe como « Saber que », dequeismo (error gramatical)"
 
 # «Sospechar de que» se escribe como «Sospechar que».
-[\bsospech\w{1,4}?\sde\sque\b]i
+[(?u)\bsospech\w{1,4}?\sde\sque\b]i
 hint="« Sospechar de que » se escribe como « Sospechar que », dequeismo (error gramatical)"
 
 # «Suponer de que» se escribe como «Suponer que».
-[\bsupon\w{1,4}?\sde\sque\b]i
+[(?u)\bsupon\w{1,4}?\sde\sque\b]i
 hint="« Suponer de que » se escribe como « Suponer que », dequeismo (error gramatical)"
 
 # «Temer de que» se escribe como «Temer que».
-[\btemer\sde\sque\b]i
+[(?u)\btem\w{1,4}?\sde\sque\b]i
 hint="« Temer de que » se escribe como « Temer que », dequeismo (error gramatical)"
 
 # «Una vez de que» se escribe como «Una vez que».
-[\buna\svez\sde\sque\b]i
+[(?u)\buna\svez\sde\sque\b]i
 hint="« Una vez de que » se escribe como «Una vez que»., dequeismo (error gramatical)"
 
 # «Valer la pena de que» se escribe como «Valer la pena que».
-[\bval\w{1,4}?\sla\spena\sde\sque\b]i
+[(?u)\bval\w{1,4}?\sla\spena\sde\sque\b]i
 hint="« Valer la pena de que » se escribe como « Valer la pena que que », dequeismo (error gramatical)"
 
 # «Verificar de que» se escribe como «Verificar que».
-[\bverifi\w{1,4}?\sde\sque\b]i
+[(?u)\bverifi\w{1,4}?\sde\sque\b]i
 hint="« Verificar de que » se escribe como « Verificar que », dequeismo (error gramatical)"
 
 # End of rule file

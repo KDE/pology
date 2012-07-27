@@ -42,7 +42,8 @@ def test_if_purepunc (msg, cat):
     @return: parts
     """
     for i in range(len(msg.msgstr)):
-        if i > 0:
+        msgstr = msg.msgstr[i]
+	if i > 0:
             msgid = msg.msgid_plural
         else:
             msgid = msg.msgid
@@ -50,10 +51,12 @@ def test_if_purepunc (msg, cat):
         if _purepunc.match(msgid):
             msgid = msgid.replace('"', '')
             msgid = msgid.replace("'", "")
-            msgstr = msg.msgstr[i].replace('"', '')
+	    msgid = msgid.replace(" ", "")
+            msgstr = msgstr.replace('"', '')
             msgstr = msgstr.replace("'", "")
             msgstr = msgstr.replace(u"«", "")
             msgstr = msgstr.replace(u"»", "")
+	    msgstr = msgstr.replace(" ", "")
             if msgid != msgstr:    
                 return [("msgstr", 0, [(0, 0, u'Se ha traducido un texto no alfanumérico')])]
 
@@ -124,7 +127,7 @@ def test_if_not_translated (msg, cat):
         else:
             msgid = msg.msgid
 
-        if len(msgid) > 0 and msgid == msg.msgstr[i]:
+        if len(msgid) > 0 and msgid == msg.msgstr[i] and not _purepunc.match(msgid):
             dict_en = A.Aspell((("lang", "en"),("encoding", "utf-8")))
             dict_local = A.Aspell(("encoding", "utf-8"))
             for word in split.proper_words(msgid, markup=True, accels=['&']):
@@ -284,7 +287,7 @@ def test_paired_context_tags (msg, cat):
 
     return []
 
-_ent_xml_entities = re.compile("\<\/?\w+\>")
+_ent_xml_entities = re.compile("\<\/?\w+?\>")
 
 def test_paired_xml_entities (msg, cat):
     """
