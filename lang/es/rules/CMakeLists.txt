@@ -2,10 +2,10 @@ set(files
     being-polite.rules.disabled
     common-mistakes.rules
     false-friends.rules
-    filter.include
     gerund-detector.rules.disabled
-    glosario-kde-l10n-es-proposed.rules
-    glosario-kde-l10n-es.rules
+    grammar.rules
+    kde-l10n-es-proposed.rules
+    kde-l10n-es.rules
     paired-words.rules
     paragraph-begin.rules
     paragraph-end.rules
