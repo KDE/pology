@@ -12,12 +12,12 @@ import re
 
 # Capitals words in valid contexts in the translated text according with Spanish grammar
 # (beggining of paragraph, after some punctuation characters and after a new line)
-_valid_capital_word = re.compile("(?u)(^[A-Z]\w*|[.:?!>«\"]\s*[A-Z]\w*|\\\\n\s*[A-Z]\w*)\b")
+_valid_capital_word = re.compile("(?u)(\A|\\\\n|\.|\:|\?|\!|\>|«|\")\s*[A-Z]\w*")
 
 # All capital words in the original English text,
-_ent_capital_word = re.compile("(?u)[A-Z]\w*\b")
+_ent_capital_word = re.compile("(?u)[A-Z]\w*")
 # All plural full capital words (acronyms) without the final 's'.
-_ent_capital_word_plural = re.compile("(?u)[A-Z]+(?=s)\b")
+_ent_capital_word_plural = re.compile("(?u)[A-Z]+(?=s)")
 
 def remove_paired_capital_words (msg, cat):
     """
@@ -27,25 +27,20 @@ def remove_paired_capital_words (msg, cat):
     @return: number of errors
     """
 
-    # Obtains all capitals words in the original English text.
-    ents_orig = set()
-    ents_orig.update(_ent_capital_word.findall(msg.msgid))
-    ents_orig.update(_ent_capital_word_plural.findall(msg.msgid))
-
-    ents_orig_plural = set()
-    if msg.msgid_plural:
-        ents_orig_plural.update(_ent_capital_word.findall(msg.msgid_plural))
-        ents_orig_plural.update(_ent_capital_word_plural.findall(msg.msgid_plural))
-
     # Obtains capitals words in valid contexts in the translated text.
     for i in range(len(msg.msgstr)):
-        ents_trans = set (_valid_capital_word.findall(msg.msgstr[i]))
+        ents = set()
+        ents.update(_valid_capital_word.findall(msg.msgstr[i]))
         if i == 0:
-            ents = ents_orig
+            # Obtains all capitals words in the original English text.
+            ents.update(_ent_capital_word.findall(msg.msgid))
+            ents.update(_ent_capital_word_plural.findall(msg.msgid))
         else:
-            ents = ents_orig_plural
+            if msg.msgid_plural:
+                ents.update(_ent_capital_word.findall(msg.msgid_plural))
+                ents.update(_ent_capital_word_plural.findall(msg.msgid_plural))
         # Joins both set of words an remove it from the message.
-        for ent in ents_trans.union(ents):
+        for ent in ents:
             msg.msgstr[i] = msg.msgstr[i].replace(ent, "~")
 
     # The remainning words could have wrong capitalization in the translated message.

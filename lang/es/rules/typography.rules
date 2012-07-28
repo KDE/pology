@@ -177,6 +177,7 @@ valid ctx="Numbers and characters"
 hint="Ponga un espacio después del signo de comilla española de cierre"
 
 [»\s[A-Z]]
+valid after="[A-Z]\w*\s«\w+(\s\w+)*"
 hint="Ponga un punto después de la comilla de cierre antes de una nueva frase en mayúsculas"
 
 [\.»] 

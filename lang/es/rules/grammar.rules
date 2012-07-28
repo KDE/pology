@@ -70,7 +70,7 @@ hint="No utilice expresiones del tipo «las ciudadanas y los ciudadanos » (erro
 hint="No utilice la arroba para evitar el género, p.ej. «ciudadan@s» (error gramatical)"
 
 # No utilizar el guión para separar el prefijo de la palabra principal
-[(?u)\b(ante|anti|archi|auto|bi|bien|co|con|contra|cuasi|des|epi|eqi|ex|extra|foto|geo|hemi|h[ií]per|im|in|infra|inter|intra|iso|macro|maxi|mega|meta|micro|mini|mono|multi|neo|peri|pluri|poli|pos|post|pre|pro|re|retro|semi|seudo|sim|sin|sobre|sub|s[uú]per|supra|tele|trans|tras|tri|ultra|uni|vice)\-\w+?\b]i
+[(?u)\b(ante|anti|archi|auto|bi|bien|co|con|contra|cuasi|des|epi|eqi|ex|extra|foto|geo|hemi|h[ií]per|im|in|infra|inter|intra|macro|maxi|mega|meta|micro|mini|mono|multi|neo|peri|pluri|poli|pos|post|pre|pro|re|retro|semi|seudo|sim|sin|sobre|sub|s[uú]per|supra|tele|trans|tras|tri|ultra|uni|vice)\-\w+?\b]i
 valid span="(?u)\b\w+\-[A-Z]\w+?\b"
 hint="No utilice el guión para separar el prefijo de la palabra principal, p.ej. «sub-menú» (error gramatical)"
 
@@ -258,8 +258,8 @@ hint="Ponga una coma después de «Respecto de» (error gramatical)"
 [con\srespecto\sa\s]i
 hint="Ponga una coma después de «Con respecto a» (error gramatical)"
 
-[en\srelación\scon\s]i
-hint="Ponga una coma después de «En relación con» (error gramatical)"
+#[en\srelación\scon\s]i
+#hint="Ponga una coma después de «En relación con» (error gramatical)"
 
 [con\sreferencia\sa\s]i
 hint="Ponga una coma después de «Con referencia a» (error gramatical)"
@@ -423,7 +423,7 @@ hint="No ponga puntos suspensivos después de «etc./&etc;/etcétera» (error gr
 
 [\b(Enero|Febrero|Marzo|Abril|Mayo|Junio|Julio|Agosto|Septiembre|Octubre|Noviembre|Diciembre)\b]
 validGroup beforeCaps
-#valid span="Julio" before="\s[A-Z]"
+valid span="Julio" before="\s[A-Z]"
 hint="Los nombres de los meses se escriben en minúsculas (error gramatical)"
 
 [\b(Lunes|Martes|Miércoles|Jueves|Viernes|Sábado|Domingo)\b]
@@ -442,7 +442,7 @@ hint="Los nombres de los puntos cardinales se escriben en minúsculas (error gra
 
 [\b(Usted|Señor|Don|Fray|San|Santo|Sor|Reverendo)\b]
 validGroup beforeCaps
-#valid span="Santo" before="\sDomingo"
+valid span="Santo" before="\sDomingo"
 hint="Los tratamientos « Usted, Señor, Don, ... » se escriben en minúsculas (error gramatical)"
 
 [\b(Rey|Papa|Ministro|Presidente|Embajador|Director|Obispo|Juez|Magistrado|Príncipe)\b]
@@ -465,6 +465,7 @@ hint="Después de pronombre personal no suele aparecer preposición (error grama
 [(?u)\b(a|ante|con|contra|de|desde|durante|en|entre|hacia|hasta|para|por|según|sin|tras)(\.|\?|\!|\<p\>)]i
 valid span="(?u)\b\w+\." before="\.\."
 valid span="A\."
+valid span="de\.\S"
 hint="Una preposición no puede aparecer al final de frase (error gramatical)"
 
 # Conjunción al final de frase.
@@ -504,10 +505,6 @@ hint="« Tu » se escribe como « Tú » al final de frase (error gramatical)"
 # El verbo «haber» no puede aparecer seguido de gerundio.
 [(?u)\b(haber|habiendo|habido|he|has|ha|hemos|habéis|han|habí\w+|hub\w+|habr\w+)\s\w+?(ando|iendo|yendo)\b]i
 hint="El verbo «haber» no puede aparecer seguido de gerundio (error gramatical)"
-
-# El verbo «ser» no puede aparecer seguido de gerundio.
-[(?u)\b(ser|siendo|sido|soy|eres|es|somos|sois|son|era\w+|hub\w+|ser\w+)\s\w+?(ando|iendo|yendo)\b]i
-hint="El verbo «ser» no puede aparecer seguido de gerundio (error gramatical)"
 
 # «Esta» se ecribe como «Está» antes de participio.
 [(?u)\besta\s\w+?ado\b]i
@@ -669,9 +666,9 @@ hint="« Tratar que » se escribe como « Tratar de que », queismo (error grama
 [(?u)\b(pens\w{1,4}?|piens\w{1,4}?|opin\w{1,4}?|cree\w{,4}?|creo|coment\w{1,4}?|expres\w{1,4}?|deci\w{1,4}?|dice\w{0,4}?|dijo|deduc\w{1,4}?|deduzco|infer\w{1,4}?|infiero|coleg\w{1,4}?|colijo|razon\w{1,4}?|comunic\w{1,4}?|confirm\w{1,4}?|corrobor\w{1,4}?|desment\w{1,4}?|desmient\w{1,4}?|const\w{1,4}?|result\w{1,4}?|aconsej\w{1,4}?|ver|observ\w{1,4}?)\sde\sque\b]i
 hint="Posible dequeísmo (error gramatical)"
 
-# Verbo tipo estar + AQ + de que
-[(?u)\b(ser|soy|eres|es|somos|sois|son|eras?|éramos|érais|eran|estar|estoy|estás?|estamos|estáis|están|encontr{1,4}?|encuentr\w{1,4}?|ver{0,4}?|veo|ves|ve|vemos|veis|ven|veía\w{1,4}?|entend{1,4}?|entiend{1,4}?)\s\w+?\sde\sque\b]i
-hint="Posible dequeísmo «Ser/Estar/Encontrar/Ver/Entender ... de que» (Error gramatical)"
+## Verbo tipo estar + AQ + de que
+#[(?u)\b(ser|soy|eres|es|somos|sois|son|eras?|éramos|érais|eran|estar|estoy|estás?|estamos|estáis|están|encontr{1,4}?|encuentr\w{1,4}?|ver{0,4}?|veo|ves|ve|vemos|veis|ven|veía\w{1,4}?|entend{1,4}?|entiend{1,4}?)\s\w+?\sde\sque\b]i
+#hint="Posible dequeísmo «Ser/Estar/Encontrar/Ver/Entender ... de que» (Error gramatical)"
 
 # dequeismo
 [(?u)\b(me|te|se|nos|os|los?|las?|les?)\s(alegra|entristece|agobia|importa|resbala|harta|emociona|altera|aburre|falta|preocupa)\sde\sque\b]i
