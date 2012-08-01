@@ -92,11 +92,6 @@ valid after="estar\s"
 id="clGL-all_a+infinitivo"
 hint="«a+infinitivo» -> «estase a infinitivo"
 
-#comprobar «lista»
-[\blistaxe]i
-id="clGL-all_listaxe"
-hint="«listaxe» -> «lista»?"
-
 # «enable this option» 
 {\benable\sthis\s(option|checkbox)}i
 id="expression_enable this option| checkbox"

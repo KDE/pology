@@ -92,6 +92,11 @@ valid !msgid="\blaunch"
 id="PT-2011-gl_lanzar"
 hint="lanzar -> iniciar"
 
+# preferir «lista» e non «listaxe»
+[\blistaxe]i
+id="PT-2012-gl_listaxe"
+hint="«listaxe» -> «lista»?"
+
 # usar «son» no canto de «audio»
 [\baudio]i
 id="PT-2011-gl_audio"

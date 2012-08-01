@@ -301,6 +301,18 @@ valid after="non\s" msgid="unclos(e|ed)" env="kde"
 valid before="es?\s" msgid="crash" env="kde"
 hint="«pechar» traduce a «close»"
 
+# «colo(u)r» tradúcese como «cor»
+{\bcolou?rs?}i
+id="PT-2012_colour"
+valid msgstr="\bcor(es)?\b"
+hint="«colo(u)r» tradúcese como «cor»"
+
+# «cor» traduce a «colour»
+[\bcor(es)?\b]i
+id="PT-2012-dual_colour"
+valid msgid="\bcolou?rs?"
+hint="«cor» traduce a «colour»"
+
 # «Command» tradúcese como «orde»
 {\bcommand}i
 id="PT-2010_command"
@@ -727,6 +739,18 @@ id="PT-2011-dual_highlight"
 valid msgid="\bhighlight"
 hint="«realzar» traduce a «highlight»"
 
+# «keyboard» tradúcese como «teclado»
+{\bkeyboard}i
+id="PT-2012_keyboard"
+valid msgstr="\bteclado"
+hint="«keyboard» tradúcese como «teclado»"
+
+# «teclado» traduce a «keyboard»
+[\bteclado]i
+id="PT-2011-dual_keyboard"
+valid msgid="\bkeyboard"
+hint="«teclado» traduce a «keyboard»"
+
 # «history» tradúcese como «historial»
 {\bhistory}i
 id="PT-2011_history"
@@ -914,6 +938,24 @@ id="PT-2011-dual_library"
 valid msgid="\blibrar(y|ies)"
 hint="«biblioteca» traduce a «library»"
 
+# «to list» tradúcese como «listar»
+{\blist(s|ed|ing)?}i
+id="PT-2012_list"
+valid msgstr="\blista"
+hint="«list» tradúcese como «listar»"
+
+# «listar» traduce a «list»
+[\blist]i
+id="PT-2012-dual_list"
+valid msgid="\blist"
+hint="«listar» traduce a «list»"
+
+# «listado» traduce a «listed»
+[\blistado]i
+id="PT-2012-dual_list2"
+valid msgid="\blisted"
+hint="«listado» traduce a «listed», para outros usos: lista"
+
 # «locate» tradúcese como «atopar», «buscar» ou «situar»
 {\blocate}i
 id="noPT-2010_locate"
@@ -997,6 +1039,17 @@ hint="«identificar» traduce a «login», «log/sign in», «log/sign on» (e i
 ## Fin de login
 #####
 
+# «mouse» tradúcese como «rato»
+{\bmouse}i
+id="PT-2012_mouse"
+valid msgstr="\brato"
+hint="«mouse» tradúcese como «rato»"
+
+# «rato» traduce a «mouse»
+[\brato]i
+id="PT-2012-dual_mouse"
+valid msgid="\bmouse"
+hint="«rato» traduce a «mouse»"
 
 # «passphrase» tradúcese como «frase de paso»
 {\bpassphrase}i
@@ -1021,6 +1074,31 @@ hint="«password» tradúcese como «contrasinal»"
 id="PT-2011-dual_password"
 valid msgid="\bpassword"
 hint="«contrasinal» traduce a «password»"
+
+# «scan» tradúcese como «escanear»
+{\bscan}i
+valid before="ner"
+id="PT-2012_scan"
+valid msgstr="\bescan"
+hint="«scan» tradúcese como «escanear»"
+
+# «escanear» traduce a «scan»
+[\bescane]i
+id="PT-2012-dual_scan"
+valid msgid="\bscan"
+hint="«escanear» traduce a «scan»"
+
+# «scanner» tradúcese como «escáner»
+{\bscanner}i
+id="PT-2012_scanner"
+valid msgstr="\bescáner(es)?"
+hint="«scanner» tradúcese como «escáner»"
+
+# «escáner» traduce a «scanner»
+[\bescáner]i
+id="PT-2012-dual_scanner"
+valid msgid="\bscanner"
+hint="«escáner» traduce a «scanner»"
 
 # «terminate» tradúcese como «terminar»
 {\bterminat}i
@@ -1240,19 +1318,19 @@ hint="«mostrar» traduce a «show», «display» e algúns «print»"
 
 # «support» tradúcese como «asistencia técnica», «ser compatíbel con», «admitir», «permitir utilizar», «incluír»
 {\bsupport}i
-id="noPT-2011_support"
+id="noPT-2011/2012_support"
 valid msgstr="\basistencia\stécnica"
 valid msgstr="\bservizos?\stécnico"
 valid msgstr="\b(ser|é|son)\scompatíbe(l|is)"
 valid msgstr="\bson\scompatibeis"
+valid msgstr="\bde\scompatibilidade"
+valid msgstr="\bcompatibilidade\sde"
+valid msgstr="\bcompatibilidade"
+valid before="ed" msgstr="\bcompatíbel"
 valid msgstr="\badmit"
 valid msgstr="\bpermit(e|en|an|ir)\s\w+[aei]r"
 valid msgstr="\bincl(u|ú)"
-valid msgstr="\bpermit(ir|e|a)" env="gnome"
-valid msgstr="\bde\scompatibilidade"
-valid msgstr="\bcompatibilidade\sde" env="gnome"
-valid msgstr="\bcompatibilidade"
-valid msgstr="\bpermit(e|ir)" env="kde"
+valid msgstr="\bpermit(ir|e|a)"
 valid before="\sfor" msgstr="\bimplementación(s)?\sde" env="kde"
 valid msgstr="\bimplementación" env="kde"
 valid before="ed" msgstr="\bimplementad(o|a)s?" env="kde"
