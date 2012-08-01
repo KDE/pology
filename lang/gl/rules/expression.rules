@@ -29,12 +29,6 @@
 
 include file="filter.include"
 
-# # «houbo un erro» -> «produciuse un erro»
-# [\bhoubo\sun\s(erro|fallo)\b]i
-# id="gnome-expression_houbo un erro|fallo"
-# hint="houbo un erro|fallo -> produciuse un erro|fallo ao"
-
-
 # # «enable this option» 
 # {\benable\sthis\s(option|checkbox)}i
 # id="expression_enable this option| checkbox"
@@ -147,8 +141,9 @@ hint="«failed.» -> «produciuse un erro ao + infinitivo»"
 
 # «Error doing» -> «produciuse un erro ao + infinitivo»
 {\bError\s(while\s)?\w+ing}i
-id="PT-2012-expression_error-doing"
+id="noPT-2012-expression_error-doing"
 valid msgstr="produciuse\sun\serro\sao\s(pór|\w+[aei]r)"
+valid span="while" msgstr="\bProduciuse\sun\serro\smentres\sse\s\w+(ía|aba)" env="kde"
 hint="«Error (while) verb_ing» -> «produciuse un erro ao + infinitivo»"
 
 # «An error occurred while doing» -> «produciuse un erro ao + infinitivo»
@@ -190,9 +185,9 @@ hint="non se puido -> non foi posíbel"
 [\bfallou?\sao\b]i
 id="PT-2012-expression_fallo ao"
 # valid after="\bproduciuse\sun\s"
-hint="fallo ao -> non foi posíbel"
+hint="fallo ao -> produciuse un erro ao"
 
 # «Houbo un erro ao» -> «Non foi posíbel»
 [\bhoubo\sun\serro\sao\b]i
 id="PT-2012-expression_houbo un erro ao"
-hint="houbo un erro ao -> non foi posíbel"
+hint="houbo un erro ao -> Produciuse un erro ao"

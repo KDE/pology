@@ -36,22 +36,6 @@ environment gnome
 id="gnome_translator credits"
 hint="comprobar o formato dos creditos da tradución"
 
-# «fallo ao» -> «produciuse un fallo ao»
-[\bfallo\sao\b]i
-id="gnome-expression_fallo ao"
-valid after="\bproduciuse\sun\s"
-hint="fallo ao -> produciuse un fallo ao"
-
-# «houbo un erro» -> «produciuse un erro»
-[\bhoubo\sun\s(erro|fallo)\b]i
-id="gnome-expression_houbo un erro|fallo"
-hint="houbo un erro|fallo -> produciuse un erro|fallo ao"
-
-# «Non se puido» -> «Non foi posíbel»
-[\bnon\sse\spuido\b]i
-id="gnome-expression_non se puido"
-hint="non se puido -> non foi posíbel"
-
 #descarta o uso de «achar» en favor de «encontrar»
 [\bach]i
 id="gnome-gl_achar"
