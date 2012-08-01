@@ -244,6 +244,25 @@ id="kde-dual_append"
 valid msgid="\bappend"
 hint=" amecer -> append"
 
+# «edge» -> «aresta»
+{edges?}i
+id="kde_edge(graph_theory)"
+valid msgstr="arestas?" env="graph_theory"
+valid after="self-" msgstr="lazos?" env="graph_theory"
+hint="«edge» -> «aresta» (en teoría de grafos); «self-edge» ->  «lazo»"
+
+# «aresta» -> «edge»
+[arestas?]i
+id="kde-dual_edge(graph_theory)"
+valid msgid="edges?" env="graph_theory"
+hint="«aresta» -> «edge» (en teoría de grafos)"
+
+# «lazo» -> «self-edge»
+[lazos?]i
+id="kde-dual_edge2(graph_theory)"
+valid msgid="self-edges?" env="graph_theory"
+hint="«lazo» -> «self-edge» (en teoría de grafos)"
+
 # «not enabled»
 {\bnot enabled\b}
 id="kde_not enabled"
@@ -296,6 +315,18 @@ hint="«marco» -> «frame»/«mark» (moeda)"
 id="kde_inline"
 valid msgstr="\bintercala(r|d(o|a)s?)" !env="development"
 hint="«frame» -> «marco»"
+
+# «node» -> «vértice»
+{nodes?}i
+id="kde_node(graph_theory)"
+valid msgstr="vértices?" env="graph_theory"
+hint="«node» -> «vértice» (en teoría de grafos)"
+
+# «vértice» -> «node»
+[vértices?]i
+id="kde-dual_node(graph_theory)"
+valid msgid="nodes?" env="graph_theory"
+hint="«vértice» -> «node» (en teoría de grafos)"
 
 # «ing mode» -> «médoto de»
 {ing\smode}i

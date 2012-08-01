@@ -55,3 +55,4 @@ kde
 gnome
 bittorrent
 development
+graph_theory

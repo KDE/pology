@@ -1,0 +1,198 @@
+# Internal rules intended to check for common mistakes in Galician L10n,
+# and to promote the usage of standard expressions.
+# by the Proxecto Trasno (proxecto@trasno.net)
+# License: BSD 3-clause
+# Copyright (c) 2012 Proxecto Trasno
+# All rights reserved.
+# 
+# Redistribution and use in source and binary forms, with or without
+# modification, are permitted provided that the following conditions are met:
+#     * Redistributions of source code must retain the above copyright
+#       notice, this list of conditions and the following disclaimer.
+#     * Redistributions in binary form must reproduce the above copyright
+#       notice, this list of conditions and the following disclaimer in the
+#       documentation and/or other materials provided with the distribution.
+#     * Neither the name of the Proxecto Trasno nor the
+#       names of its contributors may be used to endorse or promote products
+#       derived from this software without specific prior written permission.
+# 
+# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+# AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+# IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+# ARE DISCLAIMED. IN NO EVENT SHALL PROXECTO TRASNO BE LIABLE FOR ANY
+# DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+# (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+# LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+# ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+# (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+# SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+include file="filter.include"
+
+# # «houbo un erro» -> «produciuse un erro»
+# [\bhoubo\sun\s(erro|fallo)\b]i
+# id="gnome-expression_houbo un erro|fallo"
+# hint="houbo un erro|fallo -> produciuse un erro|fallo ao"
+
+
+# # «enable this option» 
+# {\benable\sthis\s(option|checkbox)}i
+# id="expression_enable this option| checkbox"
+# valid !after="\bif\syou"
+# valid msgstr="\bescoll(a|er)\sesta\sopción"
+# hint="enable this option = escolla/er esta opción"
+# 
+# # «when/if this option/checkbox is enabled»-> «se escolleu/sinalou esta opción»
+# {\b(when|if)\sthis\s(option|checkbox)\sis\senabled}i
+# id="expression_when|if this option|checkbox is enabled"
+# valid msgstr="\bse\sescolle\sesta\sopción"
+# hint="when|if this option|checkbox is enabled -> se escolle esta opción"
+# 
+# # «enable» 
+# {\b(when|if)\sthis\sis\senabled}i
+# id="expression_when|if this is enabled"
+# valid msgstr="\bse\sescolle\sesta\sopción"
+# hint="is this is enabled -> se escolle esta opción"
+# 
+# # «enable»
+# {\b(if|when)\senabled}i
+# id="expression_when/if enabled"
+# valid msgstr="\bse\sescolle\sesta\sopción"
+# hint="when/if enabled -> se escolle esta opción"
+# 
+# # «disable this option/checkbox»
+# {\bdisable\sthis\s(option|checkbox)}i
+# id="expression_disable this option/checkbox"
+# valid msgstr="\bdesmarque\sesta\sopción"
+# hint="disable this option/checkbox -> desmarque esta opción"
+# 
+# # «when/if this option/checkbox is disabled»
+# {\b(when|if)\sthis\s(option|checkbox)\sis\sdisabled}i
+# id="expression_when/if this option/checkbox is disabled"
+# valid msgstr="\bse\sesta\sopción\snon\sestá\s(escollid|marcad)a"
+# valid msgstr="\bse\snon\sescolle\sesta\sopción"
+# hint="when/if this option/checkbox is disabled -> se esta opción non está escollida/marcada"
+# 
+# # «when/if this is disabled»
+# {\b(when|if)\sthis\sis\sdisabled}i
+# id="expression_when this is disabled"
+# valid msgstr="\bse\sesta\sopción\snon\sestá\s(escollid|marcad)a"
+# hint="when/if this is disabled -> se esta opción non está escollida/sinalada"
+# 
+# # «if/when disabled»
+# {\b(if|when)\sdisabled}i
+# id="expression_if/when disabled"
+# valid msgstr="\bse\sdesmarca\sesta\sopción"
+# hint="if/when disabled -> se desmarca esta opción"
+# 
+# # «when selected»
+# {\bwhen\sselected}i
+# id="expression_when selected"
+# valid msgstr="\bse\so\sescolle"
+# valid msgstr="\bse\sescolle\sesta\sopción"
+# hint="when selected -> se o escolle (experimental)"
+# 
+# # «...not found.» -> «Non se atopou...»
+# {\b\w+\snot\sfound\.}i
+# id="expression_not found."
+# valid msgstr="\bNon\s(se\satopou|foi\sposíbel\satopar)\s(\w+\s)+\w+"
+# hint="...not found. -> Non se atopou/foi posíbel atopar ... ..." 
+
+# 
+# # there was an error ....
+# {\bthere\swas\san?}i
+# valid after="\bif\s"
+# id="expression_there-was-an-error"
+# valid msgstr="\b(Aconteceu|Produciuse)\sun(\b|s|ha)"
+# hint="There was an error -> Aconteceu/Produciuse un erro"
+# 
+# 
+# 
+# 
+# # «Are you sure you want to» -> «Desexa realmente+infinitivo»
+# {\bare\syou\ssure\syou\swant\sto(\s(\w+|\W+))+\?}i
+# id="expression_interrogation1"
+# valid msgstr="\bDesexa\srealmente\s\w+(a|e|i|í|po)r(\s(\w+|\W+))*"
+# valid msgstr="\bDesexa\srealmente\s\w+l(o|a)s?(\s\w+)*\?"
+# hint="«Are you sure you want to» -> «Desexa realmente+infinitivo»"
+# 
+# # «Do you really ...» -> «Desexa realmente + infinitivo»
+# {\bdo\syou\sreally(\s(\w+|\W+))+\?}i
+# id="expression_interrogation2"
+# valid msgstr="\bDesexa\srealmente\s\w+(a|e|i|í|po)r(\s(\w+|\W+))*"
+# valid msgstr="\bDesexa\srealmente\s\w+l(o|a)s?(\s\w+)*\?"
+# hint="«Are you sure you want to» -> «Desexa realmente+infinitivo»"
+# 
+# # «print preview» -> «previsualización da impresión» / «vista previa do impreso»
+# {\bprint\spreview(?!\s(window|part))}i
+# id="noPT-2010-expression_print preview"
+# valid msgstr="\bprevisualizacións?\sda\impresión"
+# valid msgstr="\bvistas?\sprevia\sdos?\simpresos?"
+# valid msgstr="\bprevisualizar\so\simpreso"
+# valid msgstr="\bimprimir\sa\svista\sprevia"
+# hint="«print preview» -> «previsualización da impresión» / «vista previa do impreso»"
+# 
+
+# «failed to» -> «produciuse un erro ao + infinitivo»
+{\bfailed\sto\s}i
+id="PT-2012-expression_failed-to"
+valid msgstr="produciuse\sun\serro\sao\s(pór|\w+[aei]r)"
+hint="«failed to» -> «produciuse un erro ao + infinitivo»"
+
+# «failed.» -> «produciuse un erro ao + infinitivo»
+{\bfailed\sto\s}i
+id="PT-2012-expression_failed."
+valid msgstr="produciuse\sun\serro\sao\s(pór|\w+[aei]r)"
+hint="«failed.» -> «produciuse un erro ao + infinitivo»"
+
+# «Error doing» -> «produciuse un erro ao + infinitivo»
+{\bError\s(while\s)?\w+ing}i
+id="PT-2012-expression_error-doing"
+valid msgstr="produciuse\sun\serro\sao\s(pór|\w+[aei]r)"
+hint="«Error (while) verb_ing» -> «produciuse un erro ao + infinitivo»"
+
+# «An error occurred while doing» -> «produciuse un erro ao + infinitivo»
+{\ban\serror\soccurred\s(while\s)?\w+ing}i
+id="PT-2012-expression_an-error-occurred-doing"
+valid msgstr="produciuse\sun\serro\sao\s(pór|\w+[aei]r)"
+hint="«An error occurred (while) verb_ing» -> «produciuse un erro ao + infinitivo»"
+
+# «There was an error while doing» -> «produciuse un erro ao + infinitivo»
+{\bthere\swas\san\serror\s(while\s)?\w+ing}i
+id="PT-2012-expression_there-was-an-error-doing"
+valid msgstr="produciuse\sun\serro\sao\s(pór|\w+[aei]r)"
+hint="«There was an error occurred (while) verb_ing» -> «produciuse un erro ao + infinitivo»"
+
+# «Can not» -> «Non é/foi posíbel infinitivo»
+{\bcan(\snot|not|n't)}i
+id="PT-2012-expression_cannot-infinitivo"
+valid msgstr="\bnon\s(é|foi)\sposíbel\s(pór|\w+[aei]r)"
+hint="«Can not» -> «Non é/foi posíbel infinitivo»"
+
+# «Could not be participio» -> «Non é/foi posíbel infinitivo»
+{\bcould(\snot|n't)}i
+id="PT-2012-expression_could-not"
+valid msgstr="\bnon\s(é|foi)\sposíbel\s(pór|\w+[aei]r)"
+hint="«Could not» -> «Non é/foi posíbel infinitivo»"
+
+# «Unable to verb» -> «Non é/foi posíbel infinitivo»
+{\bunable\sto}i
+id="PT-2012-expression_unable-to"
+valid msgstr="\bnon\s(é|foi)\sposíbel\s(pór|\w+[aei]r)"
+hint="«failed.» -> «produciuse un erro ao + infinitivo»"
+
+# «Non se puido» -> «Non foi posíbel»
+[\bnon\sse\sp(uido|ode)\b]i
+id="PT-2012-expression_non se puido"
+hint="non se puido -> non foi posíbel"
+
+# «fallo ao» -> «Non foi posíbel»
+[\bfallou?\sao\b]i
+id="PT-2012-expression_fallo ao"
+# valid after="\bproduciuse\sun\s"
+hint="fallo ao -> non foi posíbel"
+
+# «Houbo un erro ao» -> «Non foi posíbel»
+[\bhoubo\sun\serro\sao\b]i
+id="PT-2012-expression_houbo un erro ao"
+hint="houbo un erro ao -> non foi posíbel"

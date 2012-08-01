@@ -541,22 +541,24 @@ valid msgid="\bactiv"
 valid msgid="\bto\sset\s" env="kde"
 hint="«activar» traduce a «enable» (e a activate)"
 
-# «environment» tradúcese como «entorno»
+# «environment» tradúcese como «ambiente»
 {\benvironment}i
 id="noPT-2011_environment"
-valid msgstr="\bentorno"
-valid msgstr="\bmedio\sambiente"
-hint="«environment» tradúcese como «entorno»"
+valid msgstr="\bambiente"
+valid !msgstr="\bcortorn[o|a]"
+valid !msgstr="\bentorno"
+hint="«environment» tradúcese como «ambiente»"
 
-# «entorno» traduce a «environment»
-[\bentorno]i
+# «ambiente» traduce a «environment»
+[\bambiente]i
 id="PT-2011-dual_environment"
 valid msgid="\benvironment"
-hint="«entorno» traduce a «environment»"
+hint="«ambiente» traduce a «environment»"
 
 # «fail» e relacionados tradúcense como «fallo»
 {\bfa(il(s|ed|ure)?|ult)}i
 valid span="failed" before="\sto"
+valid span="failed" before="\." 
 id="PT-2011_fail"
 valid msgstr="\bfall."
 hint="«fail» e relacionados tradúcense como «fallo»"
