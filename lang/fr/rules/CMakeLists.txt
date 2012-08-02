@@ -1,6 +1,7 @@
 set(files
     common-mistakes.rules
     doc-entities.rules
+    doc-headers.rules
     koffice.rules.disabled
     team-choices.rules
     typography.rules
