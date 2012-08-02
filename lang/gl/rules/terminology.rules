@@ -356,6 +356,42 @@ id="noPT_daemon"
 valid msgstr="\bdaemon"
 hint="«daemon» tradúcese como «daemon»"
 
+# «data» tradúcese como «dato»
+{\bdata\b}i
+id="PT-2012_data"
+valid msgstr="\bdatos?\s"
+hint="«data» tradúcese como «dato»"
+
+# «dato» traduce a «data»
+[\bdatos?]i
+id="PT-2012-dual_data"
+valid msgstr="\bdata\b"
+hint="«dato» traduce a «data»"
+
+# «datadase» tradúcese como «base de datos»
+{\bdatabase}i
+id="PT-2012_database"
+valid msgstr="\bbase?\sde\sdatos"
+hint="«database» tradúcese como «base de datos»"
+
+# «base de datos» traduce a «database»
+[\bbase\sde\sdatos]i
+id="PT-2012-dual_database"
+valid msgstr="\bdatabase"
+hint="«base de datos» traduce a «database»"
+
+# «date» tradúcese como «data»
+{\bdates?}i
+id="PT-2012_date"
+valid msgstr="\bdatas?\b"
+hint="«date» tradúcese como «data»"
+
+# «data» traduce a «date»
+[\bdatas?]i
+id="PT-2012-dual_date"
+valid msgstr="\bdates?\b"
+hint="«data» traduce a «date»"
+
 # «decrypt» tradúcese como «decifrar»
 {\bdecrypt}i
 id="PT-2011_decrypt"
@@ -367,6 +403,18 @@ hint="«decript» tradúcese como «descifrar»"
 id="PT-2011-dual_decrypt"
 valid msgid="\bdecrypt"
 hint="«descifrar» traduce a «decrypt»"
+
+# «description» tradúcese como «descrición»
+{\bdescription}i
+id="PT-2012_description"
+valid msgstr="\bdescricións?"
+hint="«description» tradúcese como «descrición»"
+
+# «descrición» traduce a «description»
+[\bdescricións?]i
+id="PT-2012-dual_description"
+valid msgstr="\bdescriptions?\b"
+hint="«descrición» traduce a «description»"
 
 # «detach» tradúcese como «desconectar», «desprender»
 {\bdetach}i
@@ -412,7 +460,6 @@ id="PT-2011-dual_device"
 valid msgid="\bdevice"
 hint="«dispositivo» traduce a «device»"
 
-
 # «disable» tradúcese como «desactivar»
 {\bdisable}i
 valid before="\sthis\s(option|checkbox)"
@@ -431,6 +478,20 @@ valid msgid="\bdisable"
 valid msgid="\bnot\senabled"
 valid msgid="\bdeactivate" env="kde"
 hint="«desactivar» traduce a «disable»"
+
+# «diskette» tradúcese como «disquete»
+{\b(diskette|floppy(\sdisk)?)}i
+valid span="floppy\sdisk" before="\sdrive"
+id="PT-2012_diskette"
+valid msgstr="\bdisquetes?"
+hint="«diskette» tradúcese como «disquete»"
+
+# «disquete» traduce a «diskette»
+[\bdisquetes?]i
+id="PT-2012-dual_diskette"
+valid msgstr="\bdiskettes?"
+valid msgstr="\bfloppy(\sdisk)?(?!\sdrive)"
+hint="«disquete» traduce a «diskette»"
 
 # «dock» tradúcese como «doca»
 {\bdock}i
@@ -475,12 +536,12 @@ hint="«descargar» traduce a «download» (e unload)"
 
 # «drive» tradúcese como «unidade»
 {\bdrive\b}i
+valid after="floppy(\sdisk)?\s"
 id="PT-2011_drive"
 valid msgstr="\bunidade"
-valid after="floppy\s" msgstr="disqueteira" env="kde"
 valid after="CD\s" msgstr="lector\sde\sCD" env="kde"
 valid after="hard\s" env="kde"
-hint="«drive» tradúcese como «unidade» (en kde aceptase disqueteira ou lector de CD)"
+hint="«drive» tradúcese como «unidade» (en kde aceptase lector de CD ou disco duro)"
 
 # «unidade» traduce a «drive»
 [\bunidade]i
@@ -675,6 +736,18 @@ id="noPT-2011-dual_font"
 valid msgid="\bfont"
 valid msgid="\bletter"
 hint="«letra» traduce a «font» e a «letter»"
+
+# «floppy disk drive» tradúcese como «disqueteira»
+{\bfloppy(\sdisk)?\sdrive}i
+id="PT-2012_floppy disk drive"
+valid msgstr="\bdisqueteira"
+hint="«floppy disk drive» tradúcese como «disqueteira»"
+
+# «disqueteira» traduce a «floppy disk drive»
+[\bdisqueteira]i
+id="PT-2012-dual_floppy disk drive"
+valid msgid="\bfloppy(\sdisk)?\sdrive"
+hint="«disqueteira» traduce a «floppy disk drive»"
 
 # «framework» tradúcese como «marco de traballo» ou «infraestrutura»
 {\bframework}i
@@ -1039,6 +1112,18 @@ hint="«identificar» traduce a «login», «log/sign in», «log/sign on» (e i
 ## Fin de login
 #####
 
+# «menu» tradúcese como «menú»
+{\bmenus?}i
+id="PT-2012_menu"
+valid msgstr="\bmenús?"
+hint="«menu» tradúcese como «menú»"
+
+# «menú» traduce a «menu»
+[\bmenús?\b]i
+id="PT-2012-dual_menu"
+valid msgid="\bmenu1"
+hint="«menú» traduce a «menu»"
+
 # «mouse» tradúcese como «rato»
 {\bmouse}i
 id="PT-2012_mouse"
@@ -1177,6 +1262,18 @@ valid msgid="\bplugin"
 valid msgid="\bplug.?in"
 valid msgid="\badd.?on"
 hint="«Complemento» traduce a «Plugin» e a «add-on»"
+
+# «printer» tradúcese como «impresora»
+{\bprinters?\b}i
+id="PT-2012_printer"
+valid msgstr="\bimpresoras?"
+hint="«printer» tradúcese como «impresora»"
+
+# «impresora» traduce a «printer»
+[\bimpresoras?]i
+id="PT-2012-dual_printer"
+valid msgid="\bprinters?"
+hint="«impresora» traduce a «printer»"
 
 # «provide» tradúcese como «fornecer»
 {\bprovide}i
