@@ -403,13 +403,13 @@ hint="«computador» traduce a «computer»"
 {\blaptop}i
 id="PT-2012_computer(2)"
 valid msgstr="\bportátil"
-hint="«laptop (computer)» tradúcese como «portátil»
+hint="«laptop (computer)» tradúcese como «portátil»"
 
 # «tablet (computer)» tradúcese como «tableta»
 {\btablet}i
 id="PT-2012_computer(3)"
 valid msgstr="\btableta"
-hint="«tablet (computer)» tradúcese como «tableta»
+hint="«tablet (computer)» tradúcese como «tableta»"
 
 # «crash» tradúcese como «quebra»
 {\bcrash}i
@@ -431,25 +431,27 @@ hint="«daemon» tradúcese como «daemon»"
 # «data» tradúcese como «dato»
 {\bdata\b}i
 id="PT-2012_data"
-valid msgstr="\bdatos?\s"
+valid msgstr="\bdatos?\b"
+valid after="meta\s" msgstr="metadatos?"
 hint="«data» tradúcese como «dato»"
 
 # «dato» traduce a «data»
 [\bdatos?]i
+valid after="bases?\sde\s"
 id="PT-2012-dual_data"
-valid msgstr="\bdata\b"
+valid msgid="\bdata\b"
 hint="«dato» traduce a «data»"
 
 # «datadase» tradúcese como «base de datos»
 {\bdatabase}i
 id="PT-2012_database"
-valid msgstr="\bbase?\sde\sdatos"
+valid msgstr="\bbases?\sde\sdatos"
 hint="«database» tradúcese como «base de datos»"
 
 # «base de datos» traduce a «database»
-[\bbase\sde\sdatos]i
+[\bbases\sde\sdatos]i
 id="PT-2012-dual_database"
-valid msgstr="\bdatabase"
+valid msgid="\bdatabase"
 hint="«base de datos» traduce a «database»"
 
 # «date» tradúcese como «data»
@@ -555,11 +557,11 @@ hint="«desactivar» traduce a «disable»"
 {\b(diskette|floppy(\sdisk)?)}i
 valid span="floppy\sdisk" before="\sdrive"
 id="PT-2012_diskette"
-valid msgstr="\bdisquetes?"
+valid msgstr="\bdisquetes?\b"
 hint="«diskette» tradúcese como «disquete»"
 
 # «disquete» traduce a «diskette»
-[\bdisquetes?]i
+[\bdisquetes?\b]i
 id="PT-2012-dual_diskette"
 valid msgstr="\bdiskettes?"
 valid msgstr="\bfloppy(\sdisk)?(?!\sdrive)"
@@ -704,6 +706,7 @@ hint="«ambiente» traduce a «environment»"
 {\bfa(il(s|ed|ure)?|ult)}i
 valid span="failed" before="\sto"
 valid span="failed" before="\." 
+valid span="failed" before=":"
 id="PT-2011_fail"
 valid msgstr="\bfall."
 hint="«fail» e relacionados tradúcense como «fallo»"
