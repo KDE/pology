@@ -134,17 +134,10 @@ valid msgstr="produciuse\sun\serro\sao\s(pór|\w+[aei]r)"
 hint="«failed to» -> «produciuse un erro ao + infinitivo»"
 
 # «failed.» -> «produciuse un erro ao + infinitivo»
-{\bfailed\sto\s}i
+{\bfailed\.}i
 id="PT-2012-expression_failed."
 valid msgstr="produciuse\sun\serro\sao\s(pór|\w+[aei]r)"
 hint="«failed.» -> «produciuse un erro ao + infinitivo»"
-
-# «Error doing» -> «produciuse un erro ao + infinitivo»
-{\bError\s(while\s)?\w+ing}i
-id="noPT-2012-expression_error-doing"
-valid msgstr="produciuse\sun\serro\sao\s(pór|\w+[aei]r)"
-valid span="while" msgstr="\bProduciuse\sun\serro\smentres\sse\s\w+(ía|aba)" env="kde"
-hint="«Error (while) verb_ing» -> «produciuse un erro ao + infinitivo»"
 
 # «An error occurred while doing» -> «produciuse un erro ao + infinitivo»
 {\ban\serror\soccurred\s(while\s)?\w+ing}i
@@ -153,9 +146,10 @@ valid msgstr="produciuse\sun\serro\sao\s(pór|\w+[aei]r)"
 hint="«An error occurred (while) verb_ing» -> «produciuse un erro ao + infinitivo»"
 
 # «There was an error while doing» -> «produciuse un erro ao + infinitivo»
-{\bthere\swas\san\serror\s(while\s)?\w+ing}i
-id="PT-2012-expression_there-was-an-error-doing"
+{\b(there\swas\san\s)?error\s(while\s)?\w+ing}i
+id="PT-2012-expression_(there-was-an)-error(-while)-doing"
 valid msgstr="produciuse\sun\serro\sao\s(pór|\w+[aei]r)"
+valid span="while" msgstr="\bProduciuse\sun\serro\smentres\sse\s\w+(ía|aba)" env="kde"
 hint="«There was an error occurred (while) verb_ing» -> «produciuse un erro ao + infinitivo»"
 
 # «Can not» -> «Non é/foi posíbel infinitivo»
@@ -174,7 +168,7 @@ hint="«Could not» -> «Non é/foi posíbel infinitivo»"
 {\bunable\sto}i
 id="PT-2012-expression_unable-to"
 valid msgstr="\bnon\s(é|foi)\sposíbel\s(pór|\w+[aei]r)"
-hint="«failed.» -> «produciuse un erro ao + infinitivo»"
+hint="«unable to» -> «non é/foi posíbel + infinitivo»"
 
 # «Non se puido» -> «Non foi posíbel»
 [\bnon\sse\sp(uido|ode)\b]i

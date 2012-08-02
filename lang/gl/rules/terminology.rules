@@ -463,7 +463,7 @@ hint="«date» tradúcese como «data»"
 # «data» traduce a «date»
 [\bdatas?]i
 id="PT-2012-dual_date"
-valid msgstr="\bdates?\b"
+valid msgid="\bdates?\b"
 hint="«data» traduce a «date»"
 
 # «decrypt» tradúcese como «decifrar»
@@ -487,7 +487,7 @@ hint="«description» tradúcese como «descrición»"
 # «descrición» traduce a «description»
 [\bdescricións?]i
 id="PT-2012-dual_description"
-valid msgstr="\bdescriptions?\b"
+valid msgid="\bdescriptions?\b"
 hint="«descrición» traduce a «description»"
 
 # «detach» tradúcese como «desconectar», «desprender»
@@ -555,7 +555,7 @@ hint="«desactivar» traduce a «disable»"
 
 # «diskette» tradúcese como «disquete»
 {\b(diskette|floppy(\sdisk)?)}i
-valid span="floppy\sdisk" before="\sdrive"
+valid span="floppy(\sdisk)?" before="\sdrive"
 id="PT-2012_diskette"
 valid msgstr="\bdisquetes?\b"
 hint="«diskette» tradúcese como «disquete»"
@@ -1099,13 +1099,14 @@ valid msgid="\blibrar(y|ies)"
 hint="«biblioteca» traduce a «library»"
 
 # «to list» tradúcese como «listar»
-{\blist(s|ed|ing)?}i
+{\blist(s|ed|ing)?\b}i
 id="PT-2012_list"
 valid msgstr="\blista"
 hint="«list» tradúcese como «listar»"
 
 # «listar» traduce a «list»
 [\blist]i
+valid before="a"
 id="PT-2012-dual_list"
 valid msgid="\blist"
 hint="«listar» traduce a «list»"
@@ -1208,7 +1209,7 @@ hint="«menu» tradúcese como «menú»"
 # «menú» traduce a «menu»
 [\bmenús?\b]i
 id="PT-2012-dual_menu"
-valid msgid="\bmenu1"
+valid msgid="\bmenus?"
 hint="«menú» traduce a «menu»"
 
 # «mouse» tradúcese como «rato»
