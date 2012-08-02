@@ -156,6 +156,50 @@ id="PT-2011-dual_bookmark"
 valid msgid="\bbookmark"
 hint="«marcador» traduce a «bookmark»"
 
+# «boot/start» tradúcese como «arrancar»
+{\b(boot|start)}i
+id="PT-2012_boot start"
+valid msgstr="\barrancar"
+hint="«boot/start» tradúcese como «arrancar»"
+
+# «arrancar» traduce a «boot/start»
+[\barrancar]i
+id="PT-2012-dual_boot start"
+valid msgid="\bboot"
+valid msgid="\bstart"
+hint="«arrancar» traduce a «boot/start»"
+
+# «border» tradúcese como «fronteira» (xeografía) ou «bordo»
+{\bborder}i
+id="PT-2012_border"
+  # primeiro a recua de NON USARES
+valid !msgstr="\bbordes?\b"
+valid !msgstr="\bmarxes?\b"
+valid !msgstr="\bbeiras?\b"
+valid !msgstr="\bmolduras?\b"
+valid !msgstr="\bcontornos?\b"
+valid !msgstr="\blímites?\b"
+valid !msgstr="\bmarcos?\b"
+valid !msgstr="\blados?\b"
+valid !msgstr="\barestas?\b"
+valid !msgstr="\bcosturas?\b"
+  # agora vai o que si se pode usar
+valid msgstr="\bfronteira" env="geography"
+valid msgstr="\bbordos?\b"
+hint="«border» tradúcese como «fronteira» (xeografía) ou «bordo»"
+
+# «fronteira» (xeografía) traduce a «border»
+[\bfronteira]i
+id="PT-2012-dual_border"
+valid msgid="\bborder" env="geography"
+hint="«fronteira» (xeografía) traduce a «border»"
+
+# «bordo» traduce a «border»
+[\bbordos?\b]i
+id="PT-2012-dual_border(2)"
+valid msgid="\bborder"
+hint="«bordo» traduce a «border»"
+
 # «breadcrumbs» tradúcese como «ronsel»
 {\bbreadcrumbs}i
 id="PT-2011_breadcrumbs"
@@ -338,6 +382,34 @@ hint="«commit» tradúcese como «remitir»"
 id="PT-2011-dual_commit"
 valid msgid="\b(auto)?commit"
 hint="«remitir» traduce a «commit»"
+
+# «computer» tradúcese como «computador»
+{\bcomputer}i
+id="PT-2012_computer"
+valid after="\bdesktop" msgstr="\bcomputador(es)?\sde\sescritorio"
+valid after="\blaptop"
+valid after="\btablet"
+valid msgstr="\bcomputador(?!a)(es)?"
+hint="«computer» tradúcese como «computador»"
+
+# «computador» traduce a «computer»
+[\bcomputador]i
+id="PT-2012-dual_computador"
+valid msgid="\bcomputer"
+valid before="\sde\sescritorio" msgid="\bdesktop\scomputer"
+hint="«computador» traduce a «computer»"
+
+# «laptop (computer)» tradúcese como «portátil»
+{\blaptop}i
+id="PT-2012_computer(2)"
+valid msgstr="\bportátil"
+hint="«laptop (computer)» tradúcese como «portátil»
+
+# «tablet (computer)» tradúcese como «tableta»
+{\btablet}i
+id="PT-2012_computer(3)"
+valid msgstr="\btableta"
+hint="«tablet (computer)» tradúcese como «tableta»
 
 # «crash» tradúcese como «quebra»
 {\bcrash}i
@@ -540,8 +612,8 @@ valid after="floppy(\sdisk)?\s"
 id="PT-2011_drive"
 valid msgstr="\bunidade"
 valid after="CD\s" msgstr="lector\sde\sCD" env="kde"
-valid after="hard\s" env="kde"
-hint="«drive» tradúcese como «unidade» (en kde aceptase lector de CD ou disco duro)"
+valid after="hard\s"
+hint="«drive» tradúcese como «unidade» (en kde aceptase lector de CD)"
 
 # «unidade» traduce a «drive»
 [\bunidade]i
@@ -781,10 +853,22 @@ valid msgstr="\bgrella"
 hint="«grid» tradúcese como «grella»"
 
 # «grella» traduce a «grid»
-[\grella]i
+[\bgrella]i
 id="noPT-2010-dual_grid"
 valid msgid="\bgrid?"
 hint="«grella» traduce a «grid»"
+
+# «hard disk» ou «hard drive» tradúcese como «disco duro»
+{\bhard(\s?disk|\sdrive)}i
+id="PT-2012_hard disk"
+valid msgstr="\bdisco\sduro"
+hint="«hard disk» ou «hard drive» tradúcese como «disco duro»"
+
+# «disco duro» traduce a «hard disk» ou a «hard drive»
+[\bdiscos?\sduros?]i
+id="PT-2012-dual_hark disk"
+valid msgid="\bhard(\s?disk|\sdrive)"
+hint="«disco duro» traduce a «hard disk» ou a «hard drive»"
 
 # «hide» tradúcese como «acochar»
 {\bhide(\b|s|ed)}i
@@ -1136,6 +1220,18 @@ id="PT-2012-dual_mouse"
 valid msgid="\bmouse"
 hint="«rato» traduce a «mouse»"
 
+# «outline» tradúcese como «contorno»
+{\boutline}i
+id="PT-2012_outline"
+valid msgstr="\bcontorno"
+hint="«outline» tradúcese como «contorno»"
+
+# «contorno» traduce a «outline»
+[\bcontorno]i
+id="PT-2012-dual_outline"
+valid msgid="\boutline"
+hint="«contorno» traduce a «outline»"
+
 # «passphrase» tradúcese como «frase de paso»
 {\bpassphrase}i
 id="PT-2011_passphrase"
@@ -1160,30 +1256,6 @@ id="PT-2011-dual_password"
 valid msgid="\bpassword"
 hint="«contrasinal» traduce a «password»"
 
-# «scan» tradúcese como «escanear»
-{\bscan}i
-valid before="ner"
-id="PT-2012_scan"
-valid msgstr="\bescan"
-hint="«scan» tradúcese como «escanear»"
-
-# «escanear» traduce a «scan»
-[\bescane]i
-id="PT-2012-dual_scan"
-valid msgid="\bscan"
-hint="«escanear» traduce a «scan»"
-
-# «scanner» tradúcese como «escáner»
-{\bscanner}i
-id="PT-2012_scanner"
-valid msgstr="\bescáner(es)?"
-hint="«scanner» tradúcese como «escáner»"
-
-# «escáner» traduce a «scanner»
-[\bescáner]i
-id="PT-2012-dual_scanner"
-valid msgid="\bscanner"
-hint="«escáner» traduce a «scanner»"
 
 # «terminate» tradúcese como «terminar»
 {\bterminat}i
@@ -1275,6 +1347,20 @@ id="PT-2012-dual_printer"
 valid msgid="\bprinters?"
 hint="«impresora» traduce a «printer»"
 
+# «programming language» tradúcese como «linguaxe de prooramación»
+{\bprogramming\slanguages?\b}i
+id="PT-2012_programming language"
+valid msgstr="\blinguaxes?\sde\sprogramación"
+hint="«programming language» tradúcese como «linguaxe de programación»"
+
+# «linguaxe (de programación)» traduce a «programming language»
+[\blinguaxes?]i
+valid before="\sde\sprogramación"
+id="PT-2012-dual_programming language"
+valid msgid="\blanguages?"
+valid env="development"
+hint="«linguaxe (de programación)» traduce a «programming language»"
+
 # «provide» tradúcese como «fornecer»
 {\bprovide}i
 valid before="\ssupport"
@@ -1355,6 +1441,19 @@ valid msgid="\bsurrogat"
 valid msgid="\bsubstitut"
 hint="«substituir» traduce a «replace» (e a «surrogate», e a «substitute»)"
 
+# «restart, reboot» tradúcese como «reiniciar»
+{\bre(start|boot)}i
+id="PT-2012_restart reboot"
+valid msgstr="\breinic"
+hint="«restart/reboot» tradúcese como «reiniciar»"
+
+# «reiniciar» traduce a «restart/reboot»
+[\breinic]i
+id="PT-2012-dual_restart reboot"
+valid msgid="\bre(start|boot)"
+hint="«reiniciar» traduce a «restart/reboot»"
+
+
 # «retry» tradúcese como «reintentar» ou «tentar de novo»
 {\bretry}i
 id="PT-2011_retry"
@@ -1380,6 +1479,31 @@ id="noPT-2011-dual_rollback"
 valid msgid="\brollback"
 valid msgid="\b(test)?regress" env="kde"
 hint="«regresión» ou «regresar» traducen a «rollback» (e a «regress»)"
+
+# «scan» tradúcese como «escanear»
+{\bscan}i
+valid before="ner"
+id="PT-2012_scan"
+valid msgstr="\bescan"
+hint="«scan» tradúcese como «escanear»"
+
+# «escanear» traduce a «scan»
+[\bescane]i
+id="PT-2012-dual_scan"
+valid msgid="\bscan"
+hint="«escanear» traduce a «scan»"
+
+# «scanner» tradúcese como «escáner»
+{\bscanner}i
+id="PT-2012_scanner"
+valid msgstr="\bescáner(es)?"
+hint="«scanner» tradúcese como «escáner»"
+
+# «escáner» traduce a «scanner»
+[\bescáner]i
+id="PT-2012-dual_scanner"
+valid msgid="\bscanner"
+hint="«escáner» traduce a «scanner»"
 
 # «search» tradúcese como «buscar»/«busca»
 {\bsearch}i
@@ -1412,6 +1536,18 @@ valid msgid="\bdisplay"
 valid msgid="\bprint"
 id="noPT-2010-dual_mostrar"
 hint="«mostrar» traduce a «show», «display» e algúns «print»"
+
+# «speaker» tradúcese como «altofalante»
+{\bspeaker}i
+id="PT-2012_speaker"
+valid msgstr="\baltofalante"
+hint="«speaker» tradúcese como «altofalante»"
+
+# «altofalante» traduce a «speaker»
+[\baltofalante]i
+id="PT-2012-dual_speaker"
+valid msgid="\bspeaker"
+hint="«altofalante» traduce a «speaker»"
 
 # «support» tradúcese como «asistencia técnica», «ser compatíbel con», «admitir», «permitir utilizar», «incluír»
 {\bsupport}i

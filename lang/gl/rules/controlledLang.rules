@@ -102,6 +102,11 @@ hint="«listaxe» -> «lista»?"
 id="PT-2011-gl_audio"
 hint="audio -> son"
 
+# preferir «computador» e non «computadora»
+[\bcomputadora]i
+id="PT-2012-gl_computadora"
+hint="«computadora» -> «computador»?"
+
 
 ######
 # Fin dos acordos das trasnadas
