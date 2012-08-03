@@ -157,8 +157,8 @@ valid msgid="\bbookmark"
 hint="«marcador» traduce a «bookmark»"
 
 # «boot/start» tradúcese como «arrancar»
-{\b(boot|start)}i
-id="PT-2012_boot start"
+{\bboot}i #Non busca "start", dá moitos falsos positivos e de momento non sei como arranxalo
+id="noPT-2012_boot start"
 valid msgstr="\barrancar"
 hint="«boot/start» tradúcese como «arrancar»"
 
@@ -385,7 +385,8 @@ hint="«remitir» traduce a «commit»"
 
 # «computer» tradúcese como «computador»
 {\bcomputer}i
-id="PT-2012_computer"
+id="noPT-2012_computer"
+valid env="kde"
 valid after="\bdesktop" msgstr="\bcomputador(es)?\sde\sescritorio"
 valid after="\blaptop"
 valid after="\btablet"
@@ -1487,8 +1488,11 @@ hint="«regresión» ou «regresar» traducen a «rollback» (e a «regress»)"
 # «scan» tradúcese como «escanear»
 {\bscan}i
 valid before="ner"
-id="PT-2012_scan"
+id="noPT-2012_scan"
 valid msgstr="\bescan"
+valid before="ning" msgstr="\besta(nse?\sa\sbuscar)"
+valid before="ning" msgstr="\bbuscando"
+valid msgstr="busc"
 hint="«scan» tradúcese como «escanear»"
 
 # «escanear» traduce a «scan»

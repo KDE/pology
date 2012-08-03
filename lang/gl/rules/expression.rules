@@ -149,7 +149,7 @@ hint="«An error occurred (while) verb_ing» -> «produciuse un erro ao + infini
 {\b(there\swas\san\s)?error\s(while\s)?\w+ing}i
 id="PT-2012-expression_(there-was-an)-error(-while)-doing"
 valid msgstr="produciuse\sun\serro\sao\s(pór|\w+[aei]r)"
-valid span="while" msgstr="\bProduciuse\sun\serro\smentres\sse\s\w+(ía|aba)" env="kde"
+valid span="while" msgstr="\bProduciuse\sun\serro\smentres\sse\s\w+(ía|aba)" env="kde" #Isto apártase da Trasnada
 hint="«There was an error occurred (while) verb_ing» -> «produciuse un erro ao + infinitivo»"
 
 # «Can not» -> «Non é/foi posíbel infinitivo»
@@ -160,12 +160,16 @@ hint="«Can not» -> «Non é/foi posíbel infinitivo»"
 
 # «Could not be participio» -> «Non é/foi posíbel infinitivo»
 {\bcould(\snot|n't)}i
-id="PT-2012-expression_could-not"
+id="noPT-2012-expression_could-not"
 valid msgstr="\bnon\s(é|foi)\sposíbel\s(pór|\w+[aei]r)"
+#o que segue apártase da Trasnada
+valid msgstr="\bnon\bpoida\s(pó|(\w+[aei])r)\b" env="kde" 
+valid msgstr="\bnon\b(é|foi)\b(capaz|quen)\bde\b(pó|(\w+[aei])r)\b" env="kde"
 hint="«Could not» -> «Non é/foi posíbel infinitivo»"
 
 # «Unable to verb» -> «Non é/foi posíbel infinitivo»
 {\bunable\sto}i
+valid after="is\s"
 id="PT-2012-expression_unable-to"
 valid msgstr="\bnon\s(é|foi)\sposíbel\s(pór|\w+[aei]r)"
 hint="«unable to» -> «non é/foi posíbel + infinitivo»"
