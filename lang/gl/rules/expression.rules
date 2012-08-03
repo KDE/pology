@@ -133,11 +133,17 @@ id="PT-2012-expression_failed-to"
 valid msgstr="produciuse\sun\serro\sao\s(pór|\w+[aei]r)"
 hint="«failed to» -> «produciuse un erro ao + infinitivo»"
 
-# «failed.» -> «produciuse un erro ao + infinitivo»
-{\bfailed\.}i
-id="PT-2012-expression_failed."
+# «verbing word word failed.» -> «produciuse un erro ao + infinitivo»
+{\b\w+ing\s(\w+\s){,5}?failed\.}i
+id="noPT-2012-expression_failed."
 valid msgstr="produciuse\sun\serro\sao\s(pór|\w+[aei]r)"
-hint="«failed.» -> «produciuse un erro ao + infinitivo»"
+hint="«participlepresent word+ failed.» -> «produciuse un erro ao + infinitivo»"
+
+# # BORRAME
+# {\bfailed\.}i
+# id="PT-2012-expression_failed.test"
+# valid msgstr="produciuse\sun\serro\sao\s(pór|\w+[aei]r)"
+# hint="failed.» -> «produciuse un erro ao + infinitivo»"
 
 # «An error occurred while doing» -> «produciuse un erro ao + infinitivo»
 {\ban\serror\soccurred\s(while\s)?\w+ing}i
@@ -152,20 +158,37 @@ valid msgstr="produciuse\sun\serro\sao\s(pór|\w+[aei]r)"
 valid span="while" msgstr="\bProduciuse\sun\serro\smentres\sse\s\w+(ía|aba)" env="kde" #Isto apártase da Trasnada
 hint="«There was an error occurred (while) verb_ing» -> «produciuse un erro ao + infinitivo»"
 
-# «Can not» -> «Non é/foi posíbel infinitivo»
-{\bcan(\snot|not|n't)}i
-id="PT-2012-expression_cannot-infinitivo"
+# «Can not be ed» -> «Non é/foi posíbel infinitivo»
+{\bcan(\snot|not|n't)\sbe\s\w+ed\b}i
+id="PT-2012-expression_cannot be "
 valid msgstr="\bnon\s(é|foi)\sposíbel\s(pór|\w+[aei]r)"
+valid msgstr="\bnon\s(é|foi)\sposíbel\s\w+[aei]l(a|o)s?"
+hint="«can not be ed» -> «Non é/foi posíbel infinitivo»"
+
+# «Can not» -> «Non é/foi posíbel infinitivo»
+{\bCan(\snot|not|n't)}
+id="PT-2012-expression_cannot infinitivo"
+valid msgstr="\bNon\s(é|foi)\sposíbel\s(pór|\w+[aei]r)"
 hint="«Can not» -> «Non é/foi posíbel infinitivo»"
 
-# «Could not be participio» -> «Non é/foi posíbel infinitivo»
-{\bcould(\snot|n't)}i
-id="noPT-2012-expression_could-not"
-valid msgstr="\bnon\s(é|foi)\sposíbel\s(pór|\w+[aei]r)"
+# «Could not» -> «Non é/foi posíbel infinitivo»
+{\bCould(\snot|n't)}
+id="PT-2012-expression_could infinitivo"
+valid msgstr="\bNon\s(é|foi)\sposíbel\s(pór|\w+[aeií]r)"
 #o que segue apártase da Trasnada
 valid msgstr="\bnon\bpoida\s(pó|(\w+[aei])r)\b" env="kde" 
 valid msgstr="\bnon\b(é|foi)\b(capaz|quen)\bde\b(pó|(\w+[aei])r)\b" env="kde"
 hint="«Could not» -> «Non é/foi posíbel infinitivo»"
+
+# «Could not be participio» -> «Non é/foi posíbel infinitivo»
+{\bcould(\snot|n't)\sbe\b}i
+id="noPT-2012-expression_could not be"
+valid msgstr="\bnon\s(é|foi)\sposíbel\s(pór|\w+[aei]r)"
+valid msgstr="\bnon\s(é|foi)\sposíbel\s\w+[aei]l(a|o)s?"
+#o que segue apártase da Trasnada
+valid msgstr="\bnon\bpoida\s(pó|(\w+[aei])r)\b" env="kde" 
+valid msgstr="\bnon\b(é|foi)\b(capaz|quen)\bde\b(pó|(\w+[aei])r)\b" env="kde"
+hint="«could not be» -> «Non é/foi posíbel infinitivo»"
 
 # «Unable to verb» -> «Non é/foi posíbel infinitivo»
 {\bunable\sto}i
