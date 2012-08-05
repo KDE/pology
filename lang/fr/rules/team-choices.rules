@@ -38,8 +38,9 @@ valid after="kcm|/"
 valid before="&unbsp;» (ou|en anglais)"
 hint="Traduisez ce mot par « module d'entrée / sortie »"
 
-[^[Ii]ci]
+[^ici]i
 valid cat="kamala" before="\s/"
+valid msgstr="ici$"
 hint="Ne commencez pas une phrase par « Ici » mais utilisez plutôt une tournure de la forme : « Vous pouvez ici... » "
 
 [manettes?]i
@@ -88,6 +89,7 @@ valid msgid="Rating:"
 valid cat="knotes"
 valid cat="korganizer"
 valid cat="gwenview" after="^"
+valid cat="step_qt" after="Formule|Image"
 hint="Utilisez le mot « Remarque : » (homogénéité)"
 
 [r@eguli@ere]

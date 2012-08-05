@@ -103,6 +103,7 @@ valid ctx="Numbers and characters"
 valid ctx="Hours:minutes:seconds"
 valid ctx="CSV separator"
 valid ctx="Query"
+valid cat="skrooge" ctx="condition"
 valid cat="jointhegame" ctx="member|join|payment"
 hint="Mettre une espace insécable avant et une espace après"
 
@@ -163,6 +164,7 @@ valid after="Yahoo"
 valid cat="kcmkonqhtml" after="<tt>" before="</tt>"
 valid ctx="Numbers and characters"
 valid ctx="CSV separator"
+valid cat="skrooge" ctx="condition"
 hint="Mettre une espace insécable avant et une espace après"
 
 [\?]
@@ -273,6 +275,9 @@ valid after="="
 valid before=" \S+="
 valid before="\s*/?>|&gt|}"
 valid before=";" after="'.+" # CSS
+valid before="DejaVu Sans" # CSS
+valid after="[DejaVu|Vera] Sans" # CSS
+valid after="Sans Serif" # CSS
 valid before=" ou \""
 valid after="\d+"
 valid cat="kmplot" after="f'?" before="'|\("
@@ -435,6 +440,7 @@ valid before="Sendmail|Maj|OpenUniverse|Risk|Tiff|Thor|Verr"
 valid before="F%\d"
 valid before="K3Shell|K3b|Okular"
 valid cat="kspread,sheets" before="[A-Z][0-9]"
+valid cat="skrooge" ctx="categories"
 hint="Pas de majuscule après deux points ou un point virgule"
 
 [(<strong>«)|(<b>«)|(<em>«)|(<i>«)|(»</strong>)|(»</b>)|(»</em>)|(»</i>)]
