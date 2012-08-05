@@ -173,8 +173,10 @@ IFHP: ИФХП|-, ИФХП|>
 IFS: ИФС|-, ИФС|>
 IIR: ИИР|-, ИИР|>
 IM: ИМ|-, ИМ|>
+IMEI: ИМЕ|И-, ИМЕИ|>, _пр=international mobile equipment identity
 iMIP: иМИП|-, иМИП|>
 IMS: ИМС|-, ИМС|>
+IMSI: ИМС|И-, ИМСИ|>, _пр=international mobile subscriber identity
 IO: У/|И-, У/И|>, _пр=улаз/излаз
 IO(X), |io_x: У/|{И-}(икс), У/И(икс)|>
     @л: U/|{I-}(X), U/I(X)|>
