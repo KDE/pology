@@ -74,7 +74,10 @@ hint="bouton du milieu -> bouton central"
 [compact]i
 valid after="le mode &?"
 valid after="bar d'outils "
+valid after="affichage "
 valid before=" (Disc|PCI|GSM|Flash)"
+valid cat="juk" before="</guimenuitem>" after="<guimenuitem>"
+valid cat="juk" after="juk-viewmode-"
 hint="Choix de l'équipe : « compresser » (au lieu de « compacter »)"
 
 [[Gg]ard(é|er)]

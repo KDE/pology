@@ -350,6 +350,7 @@ valid cat="ksysv" after=":init" before=":$"
 valid ctx="Query"
 valid cat="kcmkonqhtml" after="window\."
 valid cat="kioclient" after="Mount "
+valid cat="juk" after="juk-viewmode-"
 hint="À remplacer par « défaut »" 
 
 [media]i
@@ -417,6 +418,7 @@ valid after="Cpp"
 valid after="cddb-"
 valid after="kdev\S+"
 valid before=" chiffré"
+valid before=" moral"
 valid cat="system-config-printer-kde" before=" contenant"
 hint="« support » est un faux ami, à traduire par un dérivé de « disponible », « autoriser », « accepter », « gérer » ou « prendre en charge »"
 
