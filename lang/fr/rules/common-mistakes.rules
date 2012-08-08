@@ -219,6 +219,7 @@ valid before="[a-zàôâéèêçîû\-]+[^sx]$"
 valid before="[a-zàôâéèêçîû\-]+[^sx]&unbsp;"  
 valid before="$|%" 
 valid before="[A-Z]" 
+valid cat="kioslave_audiocd"
 hint="Il y a toujours un singulier après « chaque »"
 
 [([pP]ostscript)|(postScript)]
@@ -437,6 +438,7 @@ valid after="-"
 valid cat="kspread,sheets"
 valid before=":"
 valid before="all"
+valid after="<sgmltag class=\"starttag\">" before="</sgmltag>"
 hint="Merci de mettre un « e » à la fin de « texte » ou « contexte »"
 
 [anti-[^i]]i
