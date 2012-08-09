@@ -100,6 +100,7 @@ valid msgstr="igual a ~" cat="digikam"
 valid msgstr="igual al nom" cat="digikam"
 valid msgstr="igual a" cat="libmailcommon"
 valid msgstr="igual a .+(massa|vector)" cat="kalzium,kig"
+valid msgstr="igual a 1 polzada"
 hint="«igual a» -en comparacions- s'ha de substituir per «igual que, major que, menor que» (barbarisme)"
 
 [\blink(s)\b]i
@@ -194,6 +195,7 @@ valid msgstr="uns temps de"
 valid msgstr="une?s" cat="htmlsearch"
 valid msgstr="unes (línies|llistes)" cat="digikam,kipiplugin_metadataedit"
 valid msgstr="No corris amb unes tisores"
+valid msgstr="uns altres"
 hint="«uns / unes (quantitatiu)» -com a quantitatiu- s'ha de substituir per: \
 «- alguns \
  - uns quants \
