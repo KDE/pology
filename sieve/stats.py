@@ -420,6 +420,7 @@ class Sieve (object):
                     rnum = int(round(dr2 * num + 0.5)) # round up
                 else:
                     rnum = 1
+                rnum = min(rnum, num) # in case of rounding overflow
                 nitems2["trn"][src] = num - rnum
                 nitems2["fuz"][src] = 0
                 nitems2["unt"][src] = rnum
