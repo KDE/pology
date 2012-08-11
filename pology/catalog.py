@@ -376,7 +376,7 @@ def _parse_po_file (file, MessageType=MessageMonitored,
 
     # Join fields.
     join_or_none = lambda x: "".join(x) if x else None
-    for msg in messages1:
+    for i, msg in enumerate(messages1):
         msg.msgctxt_previous = join_or_none(msg.msgctxt_previous)
         msg.msgid_previous = join_or_none(msg.msgid_previous)
         msg.msgid_plural_previous = join_or_none(msg.msgid_plural_previous)
@@ -384,6 +384,11 @@ def _parse_po_file (file, MessageType=MessageMonitored,
         msg.msgid = join_or_none(msg.msgid)
         msg.msgid_plural = join_or_none(msg.msgid_plural)
         msg.msgstr = [join_or_none(x) for x in msg.msgstr]
+        if i > 0 and msg.msgid == "" and msg.msgctxt is None:
+            raise PologyError(
+                _("@info",
+                  "Empty message at %(file)s:%(line)d.",
+                  file=filename, line=msg.refline))
 
     # Repack raw dictionaries as message objects.
     messages2 = []
