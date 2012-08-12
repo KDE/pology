@@ -110,6 +110,7 @@ valid after="автоматической "
 valid after="диалоге "
 valid after="параметрах "
 valid after="файле "
+valid after="завершения "
 hint="There's no such plural form 'настройки', use 'параметры' or something else. If you see this message but there is only 'настройки' as the genitive case of 'настройка', please, report it."
 
 [настройках]i
@@ -386,7 +387,7 @@ hint="file name -- имя файла"
 
 [^[а-я]+ть]i
 valid !ctx="@title:window"
-valid msgstr="^(скорость|печать|память)"
+valid msgstr="^(скорость|печать|память|громкость)"
 hint="Окна не должны называться глаголом в инфинитиве: Открыть документ -> Открытие документа"
 
 [под\-[^ ]]i
