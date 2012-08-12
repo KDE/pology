@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pology\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-07-08 13:33+0200\n"
+"POT-Creation-Date: 2012-08-12 10:14+0200\n"
 "PO-Revision-Date: 2011-09-12 15:03+0200\n"
 "Last-Translator: Manfred Wiese <m.j.wiese@web.de>\n"
 "Language-Team: Low Saxon <kde-i18n-nds@kde.org>\n"
@@ -253,33 +253,39 @@ msgctxt "@info"
 msgid "Internal problem (%(id)d) at %(file)s:%(line)d."
 msgstr ""
 
-#: pology/catalog.py:530
+#: pology/catalog.py:390
+#, python-format
+msgctxt "@info"
+msgid "Empty message at %(file)s:%(line)d."
+msgstr ""
+
+#: pology/catalog.py:535
 #, python-format
 msgctxt "@info"
 msgid "File '%(file)s' does not exist."
 msgstr ""
 
-#: pology/catalog.py:614
+#: pology/catalog.py:619
 msgctxt "@info"
 msgid "Trying to access catalog messages in header-only mode."
 msgstr ""
 
-#: pology/catalog.py:885
+#: pology/catalog.py:890
 msgctxt "@info"
 msgid "Trying to insert message with empty key into catalog."
 msgstr ""
 
-#: pology/catalog.py:900
+#: pology/catalog.py:905
 msgctxt "@info"
 msgid "Trying to insert message into catalog by position out of range."
 msgstr ""
 
-#: pology/catalog.py:1120
+#: pology/catalog.py:1125
 msgctxt "@info"
 msgid "Trying to sync unnamed catalog."
 msgstr ""
 
-#: pology/catalog.py:1204
+#: pology/catalog.py:1209
 #, python-format
 msgctxt "@info"
 msgid "Text encoding failure at %(file)s:%(line)d:%(col)d under assumed encoding '%(enc)s'."
@@ -2592,12 +2598,12 @@ msgctxt "@title:column translated messages"
 msgid "msg/t"
 msgstr ""
 
-#: scripts/poascribe.py:673 sieve/stats.py:647
+#: scripts/poascribe.py:673 sieve/stats.py:648
 msgctxt "@title:column fuzzy messages"
 msgid "msg/f"
 msgstr ""
 
-#: scripts/poascribe.py:674 sieve/stats.py:649
+#: scripts/poascribe.py:674 sieve/stats.py:650
 msgctxt "@title:column untranslated messages"
 msgid "msg/u"
 msgstr ""
@@ -2627,7 +2633,7 @@ msgctxt "@title:row number of unascribed messages"
 msgid "unascribed"
 msgstr ""
 
-#: scripts/poascribe.py:713 sieve/stats.py:645
+#: scripts/poascribe.py:713 sieve/stats.py:646
 msgctxt "@title:column"
 msgid "catalog"
 msgstr ""
@@ -6255,18 +6261,18 @@ msgctxt "@info"
 msgid "Expected template catalog '%(file)s' is missing."
 msgstr ""
 
-#: sieve/stats.py:546 sieve/stats.py:554
+#: sieve/stats.py:547 sieve/stats.py:555
 msgctxt "@item:intable sum of all other entries"
 msgid "(overall)"
 msgstr ""
 
-#: sieve/stats.py:564
+#: sieve/stats.py:565
 #, python-format
 msgctxt "@item:intext"
 msgid "branches (%(branchlist)s)"
 msgstr ""
 
-#: sieve/stats.py:568
+#: sieve/stats.py:569
 #, python-format
 msgctxt "@item:intext"
 msgid "at most %(num)d word"
@@ -6274,7 +6280,7 @@ msgid_plural "at most %(num)d words"
 msgstr[0] ""
 msgstr[1] ""
 
-#: sieve/stats.py:573
+#: sieve/stats.py:574
 #, python-format
 msgctxt "@item:intext"
 msgid "at least %(num)d word"
@@ -6282,7 +6288,7 @@ msgid_plural "at least %(num)d words"
 msgstr[0] ""
 msgstr[1] ""
 
-#: sieve/stats.py:578
+#: sieve/stats.py:579
 #, python-format
 msgctxt "@item:intext"
 msgid "from %(num1)d to %(num)d word"
@@ -6290,131 +6296,131 @@ msgid_plural "from %(num1)d to %(num)d words"
 msgstr[0] ""
 msgstr[1] ""
 
-#: sieve/stats.py:583
+#: sieve/stats.py:584
 #, python-format
 msgctxt "@item:intext"
 msgid "line span %(span)s"
 msgstr ""
 
-#: sieve/stats.py:587
+#: sieve/stats.py:588
 #, python-format
 msgctxt "@item:intext"
 msgid "entry span %(span)s"
 msgstr ""
 
-#: sieve/stats.py:591
+#: sieve/stats.py:592
 msgctxt "@item:intext"
 msgid "scaled fuzzy counts"
 msgstr ""
 
-#: sieve/stats.py:614
+#: sieve/stats.py:615
 #, python-format
 msgctxt "@title"
 msgid "<bold>%(title)s</bold>"
 msgstr ""
 
-#: sieve/stats.py:651
+#: sieve/stats.py:652
 msgctxt "@title:column fuzzy and untranslated messages"
 msgid "msg/f+u"
 msgstr ""
 
-#: sieve/stats.py:653
+#: sieve/stats.py:654
 msgctxt "@title:column words in fuzzy messages"
 msgid "w/f"
 msgstr ""
 
-#: sieve/stats.py:655
+#: sieve/stats.py:656
 msgctxt "@title:column words in untranslated messages"
 msgid "w/u"
 msgstr ""
 
-#: sieve/stats.py:657
+#: sieve/stats.py:658
 msgctxt "@title:column words in fuzzy and untranslated messages"
 msgid "w/f+u"
 msgstr ""
 
-#: sieve/stats.py:676
+#: sieve/stats.py:677
 #, python-format
 msgctxt "@item:intable"
 msgid "modifiers: %(modlist)s"
 msgstr ""
 
-#: sieve/stats.py:742
+#: sieve/stats.py:743
 msgctxt "@title:column messages"
 msgid "msg"
 msgstr ""
 
-#: sieve/stats.py:744
+#: sieve/stats.py:745
 msgctxt "@title:column percentage of total messages"
 msgid "msg/tot"
 msgstr ""
 
-#: sieve/stats.py:746
+#: sieve/stats.py:747
 msgctxt "@title:column words in original"
 msgid "w-or"
 msgstr ""
 
-#: sieve/stats.py:748
+#: sieve/stats.py:749
 msgctxt "@title:column percentage of words to total in original"
 msgid "w/tot-or"
 msgstr ""
 
-#: sieve/stats.py:750
+#: sieve/stats.py:751
 msgctxt "@title:column words in translation"
 msgid "w-tr"
 msgstr ""
 
-#: sieve/stats.py:752
+#: sieve/stats.py:753
 msgctxt "@title:column characters in original"
 msgid "ch-or"
 msgstr ""
 
-#: sieve/stats.py:754
+#: sieve/stats.py:755
 msgctxt "@title:column characters in translation"
 msgid "ch-tr"
 msgstr ""
 
-#: sieve/stats.py:759
+#: sieve/stats.py:760
 msgctxt "@title:column word efficiency"
 msgid "w-ef"
 msgstr ""
 
-#: sieve/stats.py:761
+#: sieve/stats.py:762
 msgctxt "@title:column character efficiency"
 msgid "ch-ef"
 msgstr ""
 
-#: sieve/stats.py:763
+#: sieve/stats.py:764
 msgctxt "@title:column words per message in original"
 msgid "w/msg-or"
 msgstr ""
 
-#: sieve/stats.py:765
+#: sieve/stats.py:766
 msgctxt "@title:column words per message in translation"
 msgid "w/msg-tr"
 msgstr ""
 
-#: sieve/stats.py:767
+#: sieve/stats.py:768
 msgctxt "@title:column characters per message in original"
 msgid "ch/w-or"
 msgstr ""
 
-#: sieve/stats.py:769
+#: sieve/stats.py:770
 msgctxt "@title:column characters per message in translation"
 msgid "ch/w-tr"
 msgstr ""
 
-#: sieve/stats.py:782
+#: sieve/stats.py:783
 msgctxt "@item:intable number of messages"
 msgid "msgs"
 msgstr ""
 
-#: sieve/stats.py:790
+#: sieve/stats.py:791
 msgctxt "@item:intable number of words in original"
 msgid "w-or"
 msgstr ""
 
-#: sieve/stats.py:878
+#: sieve/stats.py:879
 msgctxt "@info"
 msgid "Count too large, cannot display bar graph."
 msgstr ""
