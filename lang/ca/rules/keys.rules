@@ -51,7 +51,7 @@ valid msgstr="&Maj;" # <keysym>Majús.</keysym>
 valid msgstr="<key(cap|sym)>Majús.</key(cap|sym)>"
 hint="Es tradueix per «&Maj;, <key?>Majús.</key?>» (keys)"
 
-{<key(cap|sym)>Space</key(cap|sym)>}
+{<key(cap|sym)>Space(\s?-?bar)?</key(cap|sym)>}
 valid msgstr="<key(cap|sym)>Espai</key(cap|sym)>"
 hint="Es tradueix per «<key?>Espai</key?>» (keys)"
 
@@ -59,7 +59,7 @@ hint="Es tradueix per «<key?>Espai</key?>» (keys)"
 valid msgstr="<key(cap|sym)>Inici</key(cap|sym)>"
 hint="Es tradueix per «<key?>Inici</key?>» (keys)"
 
-{(&Tab;|<key(cap|sym)>Tab</key(cap|sym)>|TAB key)}
+{(&Tab;|<key(cap|sym)>Tab</key(cap|sym)>|TAB\skey)}
 valid msgstr="&Tab;" # <keycap>Tabulador</keycap>
 valid msgstr="<key(cap|sym)>Tabulador</key(cap|sym)>"
 valid msgstr="tecla &Tab;" # a la doc
@@ -67,39 +67,39 @@ valid msgstr="tecla Tab" # a l'IGU
 hint="Es tradueix per «&Tab;, tecla &Tab;, <key?>Tabulador</key?>» (keys)"
 
 # Arrow keys
-{(<key(cap|sym)>)(Page Down|PgDown)(</key(cap|sym))>}
+{(<key(cap|sym)>)(Page\sDown|PgDown)(</key(cap|sym))>}
 valid msgstr="<key(cap|sym)>Av. Pàg.</key(cap|sym)>"
 valid msgstr="AvPàg" # A l'IGU
 hint="Es tradueix per «AvPàg (a l'IGU), <key?>Av. Pàg.</key?> (a la DOC)» (keys)"
 
-{(<key(cap|sym)>)(Page Up|PgUp)(</key(cap|sym))>}
+{(<key(cap|sym)>)(Page\sUp|PgUp)(</key(cap|sym))>}
 valid msgstr="<key(cap|sym)>Re. Pàg.</key(cap|sym)>"
 valid msgstr="RePàg" # A l'IGU
 hint="Es tradueix per «RePàg (a l'IGU), <key?>Re. Pàg.</key?> (a la DOC)» (keys)"
 
 # Cursor keys
-{<key(cap|sym)>Down( Arrow)?</key(cap|sym)>}
+{<key(cap|sym)>Down(\sArrow)?</key(cap|sym)>}
 valid msgstr="<key(cap|sym)>Cursor avall</key(cap|sym)>"
 valid msgstr="<key(cap|sym)>Amunt</key(cap|sym)> i <key(cap|sym)>Avall</key(cap|sym)>"
 valid msgstr="Cursor <keysym>Avall</keysym>/<keysym>Dret</keysym>" cat="kipi-plugins_imageviewer" # docmessages
 valid msgstr="fletxa avall" # A l'IGU
 hint="Es tradueix per «fletxa avall (a l'IGU), <key?>Cursor avall</key?>|<key?>Amunt</key?> i <key?>Avall</key?> (a la DOC)» (keys)"
 
-{<key(cap|sym)>Up( Arrow)?</key(cap|sym)>}
+{<key(cap|sym)>Up(\sArrow)?</key(cap|sym)>}
 valid msgstr="<key(cap|sym)>Cursor amunt</key(cap|sym)>"
 valid msgstr="<key(cap|sym)>Amunt</key(cap|sym)> i <key(cap|sym)>Avall</key(cap|sym)>"
 valid msgstr="Cursor <keysym>Amunt</keysym>/<keysym>Esquerre</keysym>" cat="kipi-plugins_imageviewer" # docmessages
 valid msgstr="fletxa amunt" # A l'IGU
 hint="Es tradueix per «fletxa amunt (a l'IGU), <key?>Cursor amunt</key?>|<key?>Amunt</key?> i <key?>Avall</key?> (a la DOC)» (keys)"
 
-{<key(cap|sym)>Left( Arrow)?</key(cap|sym)>}
+{<key(cap|sym)>Left(\sArrow)?</key(cap|sym)>}
 valid msgstr="<key(cap|sym)>Cursor esquerre</key(cap|sym)>"
 valid msgstr="<key(cap|sym)>Esquerre</key(cap|sym)> i <key(cap|sym)>Dret</key(cap|sym)>"
 valid msgstr="Cursor <keysym>Amunt</keysym>/<keysym>Esquerre</keysym>" cat="kipi-plugins_imageviewer" # docmessages
 valid msgstr="fletxa esquerra" # A l'IGU
 hint="Es tradueix per «fletxa esquerra (a l'IGU), <key?>Cursor esquerre</key?>|<key?>Esquerre</key?> i <key?)>Dret</key?)> (a la DOC)» (keys)"
 
-{<key(cap|sym)>Right( Arrow)?</key(cap|sym)>}
+{<key(cap|sym)>Right(\sArrow)?</key(cap|sym)>}
 valid msgstr="<key(cap|sym)>Cursor dret</key(cap|sym)>"
 valid msgstr="<key(cap|sym)>Esquerre</key(cap|sym)> i <key(cap|sym)>Dret</key(cap|sym)>"
 valid msgstr="Cursor <keysym>Avall</keysym>/<keysym>Dret</keysym>" cat="kipi-plugins_imageviewer" # docmessages
