@@ -11,215 +11,215 @@ addFilterRegex match="\b(admin|cartr|cert|cond|dec|hex|Jr|inc|lab|Mr|Mrs|no|obs|
 # Remove some abreviations.
 addFilterRegex match="\b(a\.\s?m|apdo|art|atte|av|avda|C\.\s?C|C\.\s?P|cap|cent|cént|Cía|cta|dcha|dcho|depto|D|Dr|Dra|EE\.\s?UU|([Pp]\.\s?)?[Ee]j|expr|Fdo|Gral|[Ii]d|Ilmo|izdo|JJ\.\s?OO|K\.\s?O|Ltd|Ltdo|Ltda|máx|mín|[Nn]úm|n\.\s?t|p\.\s?m|pág|Pdte|Pdta|pl|plza|pos|ppal|pral|Prof|pza|Rep|Sr|Sra|S.\s?L|sinc|Srta|Sto|Sta|tel|trad|Univ|vv\.\s?aa|VV\.\s?AA)\.(\.\.)?" repl="~" on="pmsgid,pmsgstr"
 
-# Falta espacio al final del párrafo.
 {\s$}i
+id="pe-falta-espacio-fin-parrafo"
 valid msgstr="\s$"
 hint="Compruebe el uso de espacio al final del párrafo (falta en la traducción)."
 
-# Falta espacio antes del fin de línea «\n».
 {\s\\\\n}i
+id="pe-falta-espacio-fin-nueva-linea"
 valid msgstr="\s\\\\n"
 hint="Compruebe el uso de espacio antes del fin de línea «\n» (falta en la traducción)."
 
-# Falta espacio antes del fin de párrafo.
 {\s\<\/p\>}i
+id="pe-falta-espacio-fin-nuevo-parrafo"
 valid msgstr="\s\<\/p\>"
 hint="Compruebe el uso de espacio antes del fin de párrafo «</p>» (falta en la traducción)."
 
-# Punto al final del párrafo.
 {\.\s*$}i
+id="pe-falta-punto-fin-parrafo"
 valid msgstr="[\.\!\?\~]\s*$"
 valid msgstr="\.\.\.»\s*$"
 hint="Compruebe el uso de punto al final del párrafo (falta en la traducción)."
 
-# Punto en el fin de línea «\n».
 {\.\s*\\\\n}i
+id="pe-falta-punto-fin-nueva-linea"
 valid msgstr="[\.\!\?\~]\s*\\\\n"
 valid msgstr="\.\.\.»\s*\\\\n"
 hint="Compruebe el uso de punto antes del fin de línea «\n» (falta en la traducción)."
 
-# Punto en el fin de párrafo.
 {\.\s*\<\/p\>}i
+id="pe-falta-punto-fin-nuevo-parrafo"
 valid msgstr="[\.\!\?\~]\s*\<\/p\>"
 valid msgstr="\.\.\.»\s*\<\/p\>"
 hint="Compruebe el uso de punto antes del fin de párrafo «</p>» (falta en la traduccción)."
 
-# Dos puntos al final del párrafo.
 {\:\s*$}i
+id="pe-falta-dos-puntos-fin-parrafo"
 valid msgstr="\:\s*$"
 hint="Compruebe el uso de dos puntos al final del párrafo (faltan en la traducción)."
 
-# Dos puntos en el fin de línea «\n».
 {\:\s*\\\\n}i
+id="pe-falta-dos-puntos-fin-nueva-linea"
 valid msgstr="\:\s*\\\\n"
 hint="Compruebe el uso de dos puntos antes del fin de línea «\n» (faltan en la traducción)."
 
-# Dos puntos al final del párrafo.
 {\:\s*\<\/p\>}i
+id="pe-falta-dos-puntos-fin-nuevo-parrafo"
 valid msgstr="\:\s*\<\/p\>"
 hint="Compruebe el uso de dos puntos al final del párrafo «</p>» (faltan en la traducción)."
 
-# Coma al final del párrafo.
 {\,\s*$}i
+id="pe-falta-coma-fin-parrafo"
 valid msgstr="\,\s*$"
 hint="Compruebe el uso de coma al final del párrafo (falta en la traducción))."
 
-# Coma en el fin de línea «\n».
 {\,\s*\\\\n}i
+id="pe-falta-coma-fin-nueva-linea"
 valid msgstr="\,\s*\\\\n"
 hint="Compruebe el uso de coma antes del fin de línea «\n» (falta en la traducción)"
 
-# Coma al final del párrafo.
 {\,\s*\<\/p\>}i
+id="pe-falta-coma-fin-nuevo-parrafo"
 valid msgstr="\,\s*\<\/p\>"
 hint="Compruebe el uso de coma al final del párrafo «</p>» (falta en la traducción)"
 
-# Punto y coma al final del párrafo.
 {\;\s*$}i
+id="pe-falta-punto-y-coma-fin-parrafo"
 valid msgstr="\;\s*$"
 hint="Compruebe el uso de punto y coma al final del párrafo (falta en la traducción."
 
-# Punto y coma en el fin de línea «\n».
 {\;\s*\\\\n}i
+id="pe-falta-punto-y-coma-fin-nueva-linea"
 valid msgstr="\;\s*\\\\n"
 hint="Compruebe el uso de punto y coma antes del fin de línea «\n» (falta en la traducción)."
 
-# Punto y coma al final del párrafo.
 {\;\s*\<\/p\>}i
+id="pe-falta-punto-y-coma-fin-nuevo-parrafo"
 valid msgstr="\;\s*\<\/p\>"
 hint="Compruebe el uso de punto y coma al final del párrafo «</p>» (falta en la traducción)."
 
-# Paréntesis al final del párrafo.
 {\.\)\s*$}i
+id="pe-error-orden-parentesis-fin-parrafo"
 valid msgstr="\)\.\s*$"
 valid msgstr="etc\.\)\s*$"
 valid msgstr="(?u)\w\.\s*$"
 valid msgstr="\.\.\.\)\s*$"
 hint="Compruebe el orden del paréntesis y punto al final del párrafo (al revés que en inglés)."
 
-# Paréntesis en el fin de línea «\n».
 {\.\)\s*\\\\n}i
+id="pe-error-orden-parentesis-fin-linea"
 valid msgstr="\)\.\s*\\\\n"
 valid msgstr="etc\.\)\s*\\\\n"
 valid msgstr="(?u)\w\.\s*\\\\n"
 valid msgstr="\.\.\.\s*\\\\n"
 hint="Compruebe el orden del paréntesis y punto antes del fin de línea «\n» (al revés que en inglés)."
 
-# Paréntesis al final del párrafo.
 {\.\)\s*\<\/p\>}i
+id="pe-error-orden-parentesis-fin-nuevo-parrafo"
 valid msgstr="\)\.\s*\<\/p\>"
 valid msgstr="etc\.\)\s*\<\/p\>"
 valid msgstr="(?u)\w\.\s*\<\/p\>"
 valid msgstr="\.\.\.\)\s*\<\/p\>"
 hint="Compruebe el orden del paréntesis y punto al final del párrafo «</p>» (al revés que en inglés)."
 
-# Comilla al final del párrafo.
 {\.[»\'\"]\s*$}i
+id="pe-error-orden-comilla-fin-parrafo"
 valid msgstr="[»\'\"]\.\s*$"
 valid msgstr="etc\.[»\'\"]\s*$"
 valid msgstr="(?u)\w\.\s*$"
 valid msgstr="\.\.\.[»\'\"]\s*$"
 hint="Compruebe el orden del paréntesis y comillas al final del párrafo (al revés que en inglés)."
 
-# Comilla en el fin de línea «\n».
 {\.[»\'\"]\s*\\\\n}i
+id="pe-error-orden-comilla-fin-linea"
 valid msgstr="[»\'\"]\.\s*\\\\n"
 valid msgstr="etc\.[»\'\"]\s*\\\\n"
 valid msgstr="(?u)\w\.\s*\\\\n"
 valid msgstr="\.\.\.[»\'\"]\s*\\\\n"
 hint="Compruebe el orden del paréntesis y comillas antes del fin de línea «\n» (al revés que en inglés)."
 
-# Comilla española al final del párrafo.
 {\.[»\'\"]\s*\<\/p\>}i
+id="pe-error-orden-comilla-fin-nuevo-parrafo"
 valid msgstr="[»\'\"]\.\s*\<\/p\>"
 valid msgstr="etc\.[»\'\"]\s*\<\/p\>"
 valid msgstr="(?u)\w\.\s*\<\/p\>"
 valid msgstr="\.\.\.[»\'\"]\s*\<\/p\>"
 hint="Compruebe el orden del paréntesis y comillas al final del párrafo «</p>» (al revés que en inglés)."
 
-# Falta espacio al final del párrafo.
 [\s$]i
+id="pe-sobra-espacio-fin-parrafo"
 valid msgid="\s$"
 hint="Compruebe el uso de espacio al final del párrafo (sobra en la traducción)."
 
-# Falta espacio antes del fin de línea «\n».
 [\s\\\\n]i
+id="pe-sobra-espacio-fin-nueva-linea"
 valid msgid="\s\\\\n"
 hint="Compruebe el uso de espacio antes del fin de línea «\n» (sobra en la traducción)."
 
-# Falta espacio antes del fin de párrafo.
 [\s\<\/p\>]i
+id="pe-sobra-espacio-fin-nuevo-parrafo"
 valid msgid="\s\<\/p\>"
 hint="Compruebe el uso de espacio antes del fin de párrafo «</p>» (sobra en la traducción)."
 
-# Punto al final del párrafo.
 [\.\s*$]i
+id="pe-sobra-punto-fin-parrrafo"
 valid msgid="[\.\~]\s*$"
 valid msgid="\.\)\s*$"
 valid msgid="\!\s*$"
 hint="Compruebe el uso de punto al final del párrafo (sobra en la traducción)."
 
-# Punto en el fin de línea «\n».
 [\.\s*\\\\n]i
+id="pe-sobra-punto-fin-nueva-linea"
 valid msgid="[\.\~]\s*\\\\n"
 valid msgid="\.\)\s*\\\\n"
 valid msgid="\!\s*\\\\n"
 hint="Compruebe el uso de punto antes del fin de línea «\n» (sobra en la traducción)."
 
-# Punto en el fin de párrafo.
 [\.\s*\<\/p\>]i
+id="pe-sobra-punto-fin-nuevo-parrafo"
 valid msgid="[\.\~]\s*\<\/p\>"
 valid msgid="\.\)\s*\<\/p\>"
 valid msgid="\!\s*\<\/p\>"
 hint="Compruebe el uso de punto antes del fin de párrafo «</p>» (sobra en la traducción)."
 
-# Dos puntos al final del párrafo.
 [\:\s*$]i
+id="pe-sobra-dos-puntos-fin-parrafo"
 valid msgid="\:\s*$"
 hint="Compruebe el uso de dos puntos al final del párrafo (sobran en la traducción)."
 
-# Dos puntos en el fin de línea «\n».
 [\:\s*\\\\n]i
+id="pe-sobra-dos-puntos-fin-nueva-linea"
 valid msgid="\:\s*\\\\n"
 hint="Compruebe el uso de dos puntos antes del fin de línea «\n» (sobran en la traducción)."
 
-# Dos puntos al final del párrafo.
 [\:\s*\<\/p\>]i
+id="pe-sobra-dos-puntos-fin-nuevo-parrafo"
 valid msgid="\:\s*\<\/p\>"
 hint="Compruebe el uso de dos puntos al final del párrafo «</p>» (sobran en la traducción)."
 
-# Coma al final del párrafo.
 [\,\s*$]i
+id="pe-sobra-coma-fin-parrafo"
 valid msgid="\,\s*$"
 hint="Compruebe el uso de coma al final del párrafo (sobra en la traducción)."
 
-# Coma en el fin de línea «\n».
 [\,\s*\\\\n]i
+id="pe-sobra-coma-fin-nueva-linea"
 valid msgid="\,\s*\\\\n"
 hint="Compruebe el uso de coma antes del fin de línea «\n» (sobra en la traducción)"
 
-# Coma al final del párrafo.
 [\,\s*\<\/p\>]i
+id="pe-sobra-coma-fin-nuevo-parrafo"
 valid msgid="\,\s*\<\/p\>"
 hint="Compruebe el uso de coma al final del párrafo «</p>» (sobra en la traducción)"
 
-# Punto y coma al final del párrafo.
 [\;\s*$]i
+id="pe-sobra-punto-y-coma-fin-parrafo"
 valid msgid="\;\s*$"
 hint="Compruebe el uso de punto y coma al final del párrafo (sobra en la traducción)."
 
-# Punto y coma en el fin de línea «\n».
 [\;\s*\\\\n]i
+id="pe-sobra-punto-y-coma-fin-nueva-linea"
 valid msgid="\;\s*\\\\n"
 hint="Compruebe el uso de punto y coma antes del fin de línea «\n» (sobra en la traducción)."
 
-# Punto y coma al final del párrafo.
 [\;\s*\<\/p\>]i
+id="pe-sobra-punto-y-coma-fin-nuevo-parrafo"
 valid msgid="\;\s*\<\/p\>"
 hint="Compruebe el uso de punto y coma al final del párrafo «</p>» (sobra en la traducción)."
 
-# Paréntesis al final del párrafo.
 [\)\.\s*$]i
+id="pe-error-orden-parentesis-fin-parrafo-2"
 valid msgid="\.\)\s*$"
 valid msgid="\)\.\s*$"
 valid msgid="etc\.\)\s*$"
@@ -227,8 +227,8 @@ valid msgid="(?u)\w\.\s*$"
 valid msgid="\.\.\.\)\s*$"
 hint="Compruebe el orden del paréntesis y punto al final del párrafo (al revés que en inglés)."
 
-# Paréntesis en el fin de línea «\n».
 [\)\.\s*\\\\n]i
+id="pe-error-orden-parentesis-fin-nueva-linea-2"
 valid msgid="\.\)\s*\\\\n"
 valid msgid="\)\.\s*\\\\n"
 valid msgid="etc\.\)\s*\\\\n"
@@ -236,8 +236,8 @@ valid msgid="(?u)\w\.\s*\\\\n"
 valid msgid="\.\.\.\s*\\\\n"
 hint="Compruebe el orden del paréntesis y punto antes del fin de línea «\n» (al revés que en inglés)."
 
-# Paréntesis al final del párrafo.
 [\)\.\s*\<\/p\>]i
+id="pe-error-orden-parentesis-fin-nuevo-parrafo-2"
 valid msgid="\.\)\s*\<\/p\>"
 valid msgid="\)\.\s*\<\/p\>"
 valid msgid="etc\.\)\s*\<\/p\>"
@@ -245,8 +245,8 @@ valid msgid="(?u)\w\.\s*\<\/p\>"
 valid msgid="\.\.\.\)\s*\<\/p\>"
 hint="Compruebe el orden del paréntesis y punto al final del párrafo «</p>» (al revés que en inglés)."
 
-# Comilla al final del párrafo.
 [»\.\s*$]i
+id="pe-error-orden-comilla-fin-parrafo-2"
 valid msgid="[»\'\"]\.\s*$"
 valid msgid="\.[»\'\"]\s*$"
 valid msgid="etc\.[»\'\"]\s*$"
@@ -254,8 +254,8 @@ valid msgid="(?u)\w\.\s*$"
 valid msgid="\.\.\.[»\'\"]\s*$"
 hint="Compruebe el orden del paréntesis y comillas al final del párrafo (al revés que en inglés)."
 
-# Comilla en el fin de línea «\n».
 [»\.\s*\\\\n]i
+id="pe-error-orden-comilla-fin-nueva-linea-2"
 valid msgid="[»\'\"]\.\s*\\\\n"
 valid msgid="\.[»\'\"]\s*\\\\n"
 valid msgid="etc\.[»\'\"]\s*\\\\n"
@@ -263,8 +263,8 @@ valid msgid="(?u)\w\.\s*\\\\n"
 valid msgid="\.\.\.[»\'\"]\s*\\\\n"
 hint="Compruebe el orden del paréntesis y comillas antes del fin de línea «\n» (al revés que en inglés)."
 
-# Comilla al final del párrafo.
 [»\.\s*\<\/p\>]i
+id="pe-error-orden-comilla-fin-nuevo-parrafo-2"
 valid msgid="[»\'\"]\.\s*\<\/p\>"
 valid msgid="\.[»\'\"]\s*\<\/p\>"
 valid msgid="etc\.[»\'\"]\s*\<\/p\>"

@@ -1,18 +1,18 @@
- 
+
 # Translation choices of spanish team
 # Copyrigth 2010, Javier Viñal (fjvinal@gmail.com)
 # by the KDE Spanish Team (kde-l10n-es@kde.org)
 # License: GPLv3
 
-# La forma -ing del inglés se traduce de diferentes maneras según el contexto. 
-# En general, en los títulos de apartados se suele traducir como un sustantivo o, en su defecto, como un infinitivo, 
+# La forma -ing del inglés se traduce de diferentes maneras según el contexto.
+# En general, en los títulos de apartados se suele traducir como un sustantivo o, en su defecto, como un infinitivo,
 # nunca como un gerundio.
 #
-#        Using the Fast Forward Function
+#        Using the Fast Forward Functiond
 #        Uso/Utilización de la función de avance rápido
 #                ⊗ Usando/Utilizando la función de avance rápido
 #
-# Sin embargo, cuando se refiere a un proceso que se está llevando a cabo debe traducirse como gerundio. 
+# Sin embargo, cuando se refiere a un proceso que se está llevando a cabo debe traducirse como gerundio.
 # Hay que tener cuidado y asegurarse de dónde va a aparecer cada cadena para saber traducirla apropiadamente.
 #
 #        Preparing the selected files.
@@ -22,9 +22,11 @@
 include file="filter.include"
 
 [\b\w+^(cu)ando\b]i
+id="gd-revisar-gerundio-ando"
 hint="Revisión de gerundios"
 
-[\b\w+endo\b]i
+[\b\w+(iendo|yendo)\b]i
+id="gd-revisar-gerundio-iendo"
 hint="Revisión de gerundios"
 
 # End of rule file

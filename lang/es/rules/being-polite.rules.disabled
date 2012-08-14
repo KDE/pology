@@ -5,29 +5,30 @@
 
 include file="filter.include"
 
-# «You» se traduce como «Usted».
+
 {\byou\b}i
+id="bp-you-usted"
 valid msgstr="\busted\b"
 valid msgstr="\bustedes\b"
 valid msgstr="[\w\b](le|se)\b"
 hint="« You » se traduce como como « Usted », sea educado"
 
-# «Please» se traduce como «Por favor».
 {\bplease\b}i
+id="bp-please-por-favor"
 valid msgstr="por\sfavor"
 valid msgstr="haga\sel\sfavor"
 hint="« Please » se traduce como como « Por favor », sea educado"
 
-# Se debe emplear «Usted» en lugar de «tu».
 [\btu\b]i
+id="bp-no-usar-tu"
 hint="Se debe emplear « Usted » en lugar de  « Tu » según las normas de traducción"
 
-# Se debe emplear «Le» en lugar de «Te».
 [\bte\b]i
+id="bp-no-usar-te"
 hint="Se debe emplear « Le » en lugar de  « Te » según las normas de traducción"
 
-# Se debe emplear «Usted» en lugar de «vos».
 [\bvos\b]i
+id="bp-no-usar-vos"
 hint="Se debe emplear « Usted » en lugar de  « Vos » según las normas de traducción"
 
 # End of rule file
