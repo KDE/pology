@@ -286,6 +286,7 @@ valid after="[DejaVu|Vera] Sans" # CSS
 valid after="Sans Serif" # CSS
 valid before=" ou \""
 valid after="\d+"
+valid before="<"
 valid cat="kmplot" after="f'?" before="'|\("
 valid cat="kio_trash" after="url"
 valid cat="kio_trash" before="url"
