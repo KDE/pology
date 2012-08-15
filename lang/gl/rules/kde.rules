@@ -45,6 +45,15 @@ valid msgstr="\bcola" msgid="\b((de|en)queue|queue|tail|spool)"
 id="clGL-all_colar"
 hint="colar -> (a)pegar"
 
+# descarta o uso de «linguaxe» en favol de «idioma»
+[\b(linguaxe|língua)s?]i
+valid env="development"
+valid span="linguaxe" before="\sde\sprogramación"
+valid span="linguaxe" msgid="\b(programming|query)\slanguage"
+id="clGL-all_linguaxe"
+hint="«linguaxe» -> «idioma»"
+
+
 #coidado cos derivados de licenza que trocan o z
 [\blicenci(?=(oso|osa|osamente|atura|amento|ado|ada|ados|ada)s)]i
 id="clGL-all_licenza"
@@ -91,6 +100,15 @@ valid after="estex?a\s"
 valid after="estar\s"
 id="clGL-all_a+infinitivo"
 hint="«a+infinitivo» -> «estase a infinitivo"
+
+# preferir «se han examinar/ han ser examinados» no canto de «serán examinados»
+[\b\w+rán?\s\w+ad(o|a)s?]i
+id="clGL-all_serán+participio"
+hint="«serán+participio» -> «han ser participio», «examinaránse» ou «ha infinitivo»"
+
+#####
+# Expresións frecuentes
+#####
 
 # «enable this option» 
 {\benable\sthis\s(option|checkbox)}i
@@ -163,8 +181,6 @@ valid msgstr="\bProduciuse\sun(\b|s|ha)"
 hint="There was an error -> Produciuse un erro"
 
 
-
-
 # «Are you sure you want to» -> «Desexa realmente+infinitivo»
 {\bare\syou\ssure\syou\swant\sto(\s(\w+|\W+))+\?}i
 id="expression_interrogation1"
@@ -199,12 +215,12 @@ hint="«print preview» -> «previsualización da impresión» / «vista previa 
 # «about» -> «acerca de»
 {\b(?<!^)about}i
 valid before="\sto\b"
-valid after="\bknows?\s"
+valid after="\bknow(s|n)?\s"
 valid after="\bforgets?\s"
 id="kde_about"
 valid msgstr="\bacerca\sd"
 valid msgstr="\brefer"
-hint="about -> sobre"
+hint="about -> acerca de"
 
 # «accept» -> «aceptar»
 {\baccept}i
@@ -233,10 +249,10 @@ valid msgid="\bappend"
 hint=" amecer -> append"
 
 # «edge» -> «aresta»
-{edges?}i
+{\bedges?}i
 id="kde_edge(graph_theory)"
-valid msgstr="arestas?" env="graph_theory"
-valid after="self-" msgstr="lazos?" env="graph_theory"
+valid env="graph_theory" msgstr="arestas?"
+valid  env="graph_theory" after="self-" msgstr="lazos?"
 hint="«edge» -> «aresta» (en teoría de grafos); «self-edge» ->  «lazo»"
 
 # «aresta» -> «edge»
@@ -302,13 +318,19 @@ hint="«marco» -> «frame»/«mark» (moeda)"
 {\bin\s?line}i
 id="kde_inline"
 valid msgstr="\bintercala(r|d(o|a)s?)" !env="development"
+valid span="\bin\sline" msgstr="\bna\sliña" !env="development"
 hint="«frame» -> «marco»"
 
 # «node» -> «vértice»
-{nodes?}i
-id="kde_node(graph_theory)"
-valid msgstr="vértices?" env="graph_theory"
-hint="«node» -> «vértice» (en teoría de grafos)"
+{\bnodes?}i
+# valid after="free"
+# valid after="\bi"
+# valid after="\ba"
+# valid after="\bk"
+id="kde_node"
+valid env="graph_theory" msgstr="vértices?"
+valid !env="graph_theory" msgstr="\bnodos?"
+hint="«node» -> «vértice» (en teoría de grafos), ou «nodo»"
 
 # «vértice» -> «node»
 [vértices?]i
@@ -316,8 +338,17 @@ id="kde-dual_node(graph_theory)"
 valid msgid="nodes?" env="graph_theory"
 hint="«vértice» -> «node» (en teoría de grafos)"
 
+# «nodo» -> «node»
+[\bnodos?\b]i
+id="kde-dual_node(2)"
+valid msgid="\bnodes?\b" !env="graph_theory"
+hint="«nodo» -> «node»"
+
+
 # «ing mode» -> «médoto de»
 {ing\smode}i
+valid after="\bfollow"
+valid after="\bnon-\w+"
 id="kde_ing"
 valid msgstr="métodos?\sde\s\w+"
 hint="«ing mode» -> «médoto de»"
@@ -325,7 +356,7 @@ hint="«ing mode» -> «médoto de»"
 # «print» -> «imprimir», «mostra»
 {\bprint(?!(ing|er))}i
 valid before="screen"
-valid after="\spreview"
+valid before="\spreview"
 id="kde_print"
 valid msgstr="\bimprim"
 valid msgstr="\bimpreso"

@@ -160,6 +160,7 @@ hint="«marcador» traduce a «bookmark»"
 {\bboot}i #Non busca "start", dá moitos falsos positivos e de momento non sei como arranxalo
 id="noPT-2012_boot start"
 valid msgstr="\barrancar"
+valid msgstr="\barranqu"
 hint="«boot/start» tradúcese como «arrancar»"
 
 # «arrancar» traduce a «boot/start»
@@ -253,7 +254,7 @@ hint="«informe de fallos» traduce a «bug report»"
 valid before="ham"
 id="PT-2011_chat"
 valid msgstr="\bconvers"
-hint="«chat» tradúcese como «conversa»"
+hint="«chat» tradúcese como «conversa(r)»"
 
 # «conversa» traduce a «chat»
 [\bconvers]i
@@ -283,6 +284,7 @@ valid before=" spell"
 valid before=" out"
 id="noPT-2011_check"
 valid msgstr="\b(com)?prob"
+valid msgstr="\bcompróban?se"
 valid msgstr="\brevis"
 valid msgstr="\bmar(que|car|cado|cou)"
 valid msgstr="\bescoll"
@@ -329,6 +331,18 @@ id="PT-2011-dual_checksum"
 {\bchecksum}i
 hint="«suma de comprobación» traduce a «checksum»"
 
+# «clipboard» tradúcese como «portarretallos»
+{\bclipboard}i
+id="PT-2011_clipboard"
+valid msgstr="\bportarretallos"
+hint="«clipboard» tradúcese como «portarretallos»"
+
+# «portarretallos» traduce a «clipboard»
+[\bportarretallos]i
+id="PT-2011-dual_clipboard"
+valid msgid="\bclipboard"
+hint="«portarretallos» traduce a «clipboard»"
+
 # «close» tradúcese como «pechar»
 {\bclose}i
 id="PT-2011_close"
@@ -347,6 +361,7 @@ hint="«pechar» traduce a «close»"
 
 # «colo(u)r» tradúcese como «cor»
 {\bcolou?rs?}i
+valid before="ize"
 id="PT-2012_colour"
 valid msgstr="\bcor(es)?\b"
 hint="«colo(u)r» tradúcese como «cor»"
@@ -467,7 +482,7 @@ id="PT-2012-dual_date"
 valid msgid="\bdates?\b"
 hint="«data» traduce a «date»"
 
-# «decrypt» tradúcese como «decifrar»
+# «decrypt» tradúcese como «descifrar»
 {\bdecrypt}i
 id="PT-2011_decrypt"
 valid msgstr="\bdescifr"
@@ -478,6 +493,19 @@ hint="«decript» tradúcese como «descifrar»"
 id="PT-2011-dual_decrypt"
 valid msgid="\bdecrypt"
 hint="«descifrar» traduce a «decrypt»"
+
+# «delete» tradúcese como «eliminar»
+{\bdelete}i
+id="PT-2011_delete"
+valid msgstr="\belimin"
+hint="«delete» tradúcese como «eliminar»"
+
+# «eliminar» traduce a «delete»
+[\belimin]i
+id="PT-2011-dual_delete"
+valid msgid="\bdelete"
+hint="«eliminar» traduce a «delete»"
+
 
 # «description» tradúcese como «descrición»
 {\bdescription}i
@@ -549,7 +577,7 @@ hint="«disable» tradúcese como «desactivar»"
 # «desactivar» traduce a «disable»
 [\bdesact(i|í)v]i
 id="noPT-2011-dual_disable"
-valid msgid="\bdisable"
+valid msgid="\bdisabl(e|ing)"
 valid msgid="\bnot\senabled"
 valid msgid="\bdeactivate" env="kde"
 hint="«desactivar» traduce a «disable»"
@@ -600,7 +628,7 @@ hint="«reverter» ou «reversión» traducen a «downgrade»"
 {\bdownload}i
 id="PT-2011_download"
 valid msgstr="\bdescarg"
-hint="«download» tradúcese como «descargar»"
+hint="«download» tradúcese como «descarga(r)»"
 
 # «descargar» traduce a «download»
 [\bdescarg]i
@@ -719,7 +747,9 @@ hint="«fail» e relacionados tradúcense como «fallo»"
 {\bfile(\b|s\b)}i
 valid after="<" before=">"
 valid before="\sa\s"
-id="PT-2011_file"
+valid after="\btheme\sarchive\s" env="kde"
+id="noPT-2011_file"
+valid after="\barchive\s" msgstr="\barquivo" env="kde"
 valid msgstr="\bficheiro"
 hint="«file» tradúcese como «ficheiro»"
 
@@ -829,6 +859,7 @@ hint="«disqueteira» traduce a «floppy disk drive»"
 {\bframework}i
 id="PT-2011_framework"
 valid msgstr="\bmarcos?\sde\straballo"
+valid msgstr="\bmarcos?\sde\sdesenvolvemento"
 valid msgstr="\binfraestrutura"
 hint="«framework» tradúcese como «marco de traballo» ou «infraestrutura»"
 
@@ -865,7 +896,7 @@ hint="«grella» traduce a «grid»"
 # «hard disk» ou «hard drive» tradúcese como «disco duro»
 {\bhard(\s?disk|\sdrive)}i
 id="PT-2012_hard disk"
-valid msgstr="\bdisco\sduro"
+valid msgstr="\bdiscos?\sduro"
 hint="«hard disk» ou «hard drive» tradúcese como «disco duro»"
 
 # «disco duro» traduce a «hard disk» ou a «hard drive»
@@ -908,8 +939,10 @@ hint="«keyboard» tradúcese como «teclado»"
 
 # «teclado» traduce a «keyboard»
 [\bteclado]i
-id="PT-2011-dual_keyboard"
+id="noPT-2012-dual_keyboard"
 valid msgid="\bkeyboard"
+valid msgid="\bshortcut" env="kde"
+valid msgid="\bkey\sbinding" env="kde"
 hint="«teclado» traduce a «keyboard»"
 
 # «history» tradúcese como «historial»
@@ -1048,7 +1081,9 @@ hint="«elemento» traduce a «item»"
 valid !span="word"
 id="PT-2011_key"
 valid msgstr="\btecla"
-hint="«key» tradúcese como «tecla»"
+valid msgstr="\bchave" env="cypher"
+valid msgstr="\bclave" env="database"
+hint="«key» tradúcese como «tecla», «chave» (env=cypher) ou «clave» (env=database)"
 
 # «tecla» traduce a «key»
 [\btecla]i
@@ -1070,6 +1105,7 @@ valid before="ustrator"
 id="noPT-2011_kill"
 valid msgstr="\bmat(ar|ou)"
 valid before="ed" msgstr="\bmatado"
+valid msgstr="matal(a|o)"
 valid msgstr="\bkill"
 valid before="er" msgstr="\basasino"
 hint="«kill» tradúcese como «matar» (ollo, que pode ser a orde kill)"
@@ -1108,8 +1144,9 @@ hint="«list» tradúcese como «listar»"
 # «listar» traduce a «list»
 [\blist]i
 valid before="a"
-id="PT-2012-dual_list"
+id="noPT-2012-dual_list"
 valid msgid="\blist"
+valid before="o" msgid="\bready"
 hint="«listar» traduce a «list»"
 
 # «listado» traduce a «listed»
@@ -1313,7 +1350,7 @@ hint="«cadea de confianza» traduce a «trust path»"
 {\bplugin}i
 id="PT-2010_plugin"
 valid msgstr="complemento"
-valid msgstr="engadido"
+valid msgstr="engadido" !env="kde"
 hint="«Plugin» tradúcese como «Complemento» ou «engadido»"
 
 # «Plug-in» tradúcese como «Complemento», «engadido»
@@ -1362,9 +1399,8 @@ hint="«programming language» tradúcese como «linguaxe de programación»"
 [\blinguaxes?]i
 valid before="\sde\sprogramación"
 id="PT-2012-dual_programming language"
-valid msgid="\blanguages?"
-valid env="development"
-hint="«linguaxe (de programación)» traduce a «programming language»"
+valid msgid="\blanguages?" env="development"
+hint="«linguaxe (de programación)» traduce a «programming language» (senón use idioma)"
 
 # «provide» tradúcese como «fornecer»
 {\bprovide}i
@@ -1429,6 +1465,19 @@ hint="«removable» tradúcese como «extraíbel»"
 id="PT-2011-dual_removable"
 valid msgid="\bremovable"
 hint="«extraíbel» traduce a «removable»"
+
+# «remove» tradúcese como «retirar» ou «desinstalar»
+{\bremove}i
+id="PT-2011_remove"
+valid msgstr="\bretir"
+valid msgstr="\bdesinstal"
+hint="«remove» tradúcese como «retirar» ou «desinstalar»"
+
+# «retirar» traduce a «remove»
+[\bretir]i
+id="PT-2011-dual_remove"
+valid msgid="\bremove"
+hint="«retirar» traduce a «remove»"
 
 # «replace» tradúcese como «substituir»
 {\breplace}i
@@ -1731,7 +1780,7 @@ hint="«desfacer» traduce a «undo»"
 id="PT-2011_update"
 valid msgstr="\bactualiza(r|do|ción)"
 valid msgstr="\bactualice"
-valid msgstr="\bactualiza"
+valid msgstr="\bactualiz(a|á)"
 hint="«update» tradúcese como «actualizar» ou «actualización»"
 
 # «actualizar» ou «actualización» traducen a «update»
@@ -1757,7 +1806,7 @@ hint="«anovar» ou «anovación» traducen a «upgrade»"
 {\bupload}i
 id="PT-2011_upload"
 valid msgstr="\benv(i|í)."
-hint="«upload» tradúcese como «enviar»"
+hint="«upload» tradúcese como «enviar» ou «envío»"
 
 # «enviar» traduce a «upload»
 [\benv(i|í)]i

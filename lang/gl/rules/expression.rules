@@ -129,8 +129,9 @@ include file="filter.include"
 
 # «failed to» -> «produciuse un erro ao + infinitivo»
 {\bfailed\sto\s}i
-id="PT-2012-expression_failed-to"
+id="noPT-2012-expression_failed-to"
 valid msgstr="produciuse\sun\serro\sao\s(pór|\w+[aei]r)"
+valid env="kde" before="find\b"
 hint="«failed to» -> «produciuse un erro ao + infinitivo»"
 
 # «verbing word word failed.» -> «produciuse un erro ao + infinitivo»
@@ -138,12 +139,6 @@ hint="«failed to» -> «produciuse un erro ao + infinitivo»"
 id="noPT-2012-expression_failed."
 valid msgstr="produciuse\sun\serro\sao\s(pór|\w+[aei]r)"
 hint="«participlepresent word+ failed.» -> «produciuse un erro ao + infinitivo»"
-
-# # BORRAME
-# {\bfailed\.}i
-# id="PT-2012-expression_failed.test"
-# valid msgstr="produciuse\sun\serro\sao\s(pór|\w+[aei]r)"
-# hint="failed.» -> «produciuse un erro ao + infinitivo»"
 
 # «An error occurred while doing» -> «produciuse un erro ao + infinitivo»
 {\ban\serror\soccurred\s(while\s)?\w+ing}i
@@ -193,6 +188,7 @@ hint="«could not be» -> «Non é/foi posíbel infinitivo»"
 # «Unable to verb» -> «Non é/foi posíbel infinitivo»
 {\bunable\sto}i
 valid after="is\s"
+valid after="was\s"
 id="PT-2012-expression_unable-to"
 valid msgstr="\bnon\s(é|foi)\sposíbel\s(pór|\w+[aei]r)"
 hint="«unable to» -> «non é/foi posíbel + infinitivo»"
