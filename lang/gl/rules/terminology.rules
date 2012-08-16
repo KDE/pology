@@ -53,6 +53,14 @@ valid msgid="\binterrupt"
 valid msgid="\bbreak" env="kde"
 hint="«interromper» traduce a «abort» (e a «interrupt») (e a «break»)"
 
+# «app» tradúcese como «aplicativo»
+{\bapp}i
+valid before="l"
+id="PT-2011_app"
+valid msgstr="\baplicativo"
+hint="«app» tradúcese como «aplicativo»"
+valid env="kde"
+
 # «applet» tradúcese como «applet»
 {\bapplet}i
 id="PT-2011_applet"
@@ -84,7 +92,8 @@ hint="«application» tradúcese como «aplicativo»"
 [\baplicativo]i
 id="PT-2011-dual_application"
 valid msgid="\bapplication" !env="kde"
-hint="«aplicativo» traduce a «application»"
+valid msgid="\bapps?\b" !env="kde"
+hint="«aplicativo» traduce a «application» e a «app»"
 
 # «Attach» tradúcese como «anexar», «conectar»
 {\battach(ment?!)}i
@@ -210,8 +219,8 @@ hint="«breadcrumbs» tradúcese como «ronsel»"
 # «buffer» tradúcese como «búfer»
 {\bbuffer}i
 id="PT-2011_buffer"
-valid msgstr="\bbúfer"
-hint="«buffer» tradúcese como «búfer»"
+valid msgstr="\bbúfer(es)?"
+hint="«buffer» tradúcese como «búfer(es)»"
 
 # «búfer» tradúcese como «buffer»
 [\bbúfer]i
@@ -248,6 +257,18 @@ hint="«bug report» tradúcese como «informe do fallo»"
 id="PT-2011-dual_bug-report"
 valid msgid="\bbug\sreport"
 hint="«informe de fallos» traduce a «bug report»"
+
+# «change» tradúcese como «cambiar»
+{\bchang(e(d|s)?|ing)}i
+id="PT-2011_change"
+valid msgstr="\bcambi"
+hint="«change» tradúcese como «cambiar»"
+
+# «cambiar» traduce a «change»
+[\bcambi]i
+id="PT-2011-dual_change"
+valid msgid="\bchang(e(d|s)?|ing)"
+hint="«cambiar» traduce a «change»"
 
 # «chat» tradúcese como «conversa»
 {\bchat}i
@@ -541,7 +562,9 @@ hint="«desconectar» traduce a «detach» (e a «disconnect»)"
 
 # «develop» tradúcese como «desenvolver»
 {\bdevelop}i
-id="noPT-2011_develop"
+id="PT-2011_develop"
+valid before="ment" msgstr="\bdesenvolvemento"
+valid before="er" msgstr="\bdesenvolvedor"
 valid msgstr="\bdesenvolv"
 hint="«develop» tradúcese como «desenvolver»"
 
@@ -666,6 +689,20 @@ valid msgid="\bdriver"
 valid msgid="\bcontroller"
 hint="«controlador» traduce a «driver» (e a «controller»)"
 
+# «empty» tradúcese como «baleiro»
+{\bempty}i
+id="PT-2011_empty"
+valid msgstr="\bbaleir"
+hint="«empty» tradúcese como «baleiro»"
+
+# «baleiro» traduce a «empty»
+[\bbaleir]i
+id="PT-2012dual_empty"
+valid msgid="\bempty"
+hint="«baleiro» traduce a «empty»"
+
+
+
 # «encrypt» tradúcese como «cifrar»
 {\bencrypt}i
 id="PT-2011_encrypt"
@@ -719,7 +756,7 @@ hint="«activar» traduce a «enable» (e a activate)"
 
 # «environment» tradúcese como «ambiente»
 {\benvironment}i
-id="noPT-2011_environment"
+id="noPT-2012_environment"
 valid msgstr="\bambiente"
 valid !msgstr="\bcortorn[o|a]"
 valid !msgstr="\bentorno"
@@ -727,7 +764,7 @@ hint="«environment» tradúcese como «ambiente»"
 
 # «ambiente» traduce a «environment»
 [\bambiente]i
-id="PT-2011-dual_environment"
+id="PT-2012-dual_environment"
 valid msgid="\benvironment"
 hint="«ambiente» traduce a «environment»"
 
@@ -923,7 +960,7 @@ hint="«acochar» traduce a «hide»"
 {\bhighlight}i
 id="PT-2011_highlight"
 valid msgstr="\breal(zar|zado|ce)"
-hint="«highlight» tradúcese como «realzar»"
+hint="«highlight» tradúcese como «realzar» ou «realce»"
 
 # «realzar» traduce a «highlight»
 [\breal(zar|zado|ce)]i
@@ -1116,6 +1153,26 @@ id="PT-2011-dual_kill"
 valid msgid="\bkill"
 hint="«matar» traduce a «kill»"
 
+# «launch» tradúcese como «iniciar» (un executábel)
+# esta regra non ten dual, xa que actúa como tal a regra id="PT-2011-gl_lanzar"
+{\blaunch}i
+id="PT-2011_launch"
+valid msgstr="\binici"
+hint="«launch» tradúcese como «iniciar» (un executábel)"
+
+# «launcher» tradúcese como «iniciador»
+{\blauncher}i
+id="PT-2011_launcher"
+valid msgstr="\biniciador"
+hint="«launcher» tradúcese como «iniciador»"
+
+# «iniciador» traduce a «launcher»
+[\biniciador]i
+id="PT-2011-dual_launcher"
+valid msgid="\blauncher"
+hint="«iniciador» traduce a «launcher»"
+
+
 # «leave» tradúcese como «deixar» ou «saír»
 {\bleav(e|ed|es|ing)}i
 id="PT-2011_leave"
@@ -1209,9 +1266,11 @@ hint="«saír» traduce a «quit», «exit», «log/sign out» e «log/sign off�
 
 # «login», «log/sign in», «log/sign on» tradúcense como «acceder» ou «identificarse»
 {\b(log\s?|sign\s)(i|o)n}i
+valid span="\blogin" before="name"
 id="PT-2011_login"
 valid msgstr="\bacce(d|so)"
 valid msgstr="\bidentifi(c|qu)"
+valid span="login" msgstr="\bnomes?\sd(e|os?|as?)\susuario"
 valid !msgstr="\bautentic"
 valid !msgstr="\bacredit"
 valid !msgstr="\binici(ar|e|ou)\ssesión"
@@ -1234,6 +1293,26 @@ valid msgid="\bid\b" env="kde"
 valid after="non\s" msgid="\bunidentif"
 hint="«identificar» traduce a «login», «log/sign in», «log/sign on» (e identificar)"
 
+#  Falta a regra para «username», «user name», «login», «login name» que
+#  se traducen como «nome de usuario».
+# «username» tradúcese como «nome de usuario»
+{\buser\s?name}i
+id="PT2011-username"
+valid msgstr="\bnomes?\sd(e|os?|as?)\susuario"
+hint="«username» tradúcese como «nome de usuario»"
+
+{\blogin\sname}i
+id="PT2011-username"
+valid msgstr="\bnomes?\sd(e|os?|as?)\susuario"
+hint="«login name» tradúcese como «nome de usuario»"
+
+# «nome de usuario» traduce a «user name» e a «login (name)»
+[\bnomes?\sd(e|os?)\susuario]i
+id="PT-2011-dual_username"
+valid msgid="\buser\s?name"
+valid msgid="\blogin\sname"
+valid msgid="\blogin"
+hint="«nome de usuario» traduce a «user name» e a «login (name)»
 #####
 ## Fin de login
 #####
@@ -1356,9 +1435,24 @@ hint="«Plugin» tradúcese como «Complemento» ou «engadido»"
 # «Plug-in» tradúcese como «Complemento», «engadido»
 {\bplug-in}i
 id="PT-2010_plug-in"
-valid msgstr="complemento"
+valid msgstr="complemento" #
 valid msgstr="engadido"
 hint="«Plugin» tradúcese como «Complemento» ou «engadido»"
+
+# «Add-on» tradúcese como «Complemento», «engadido»
+{\badd-?on}i
+id="PT-2010_plug-in(2)"
+valid msgstr="complemento"
+valid msgstr="engadido"
+hint="«Add-on» tradúcese como «Complemento» ou «engadido»"
+
+# «Extension» tradúcese como «Complemento», «engadido»
+{\bextension}i
+id="PT-2010_plug-in(3)"
+valid msgstr="complemento"
+valid msgstr="engadido"
+valid msgstr="extensión"
+hint="«Add-on» tradúcese como «Complemento» ou «engadido» (e «extensión» (de ficheiro))"
 
 #«engadido» traduce a «Plugin» e a «added»
 [engadido]i
@@ -1522,7 +1616,7 @@ valid msgid="\bretry"
 hint="«reintentar» traduce a «retry»"
 
 # «rollback» tradúcese como «regresión» ou «regresar»
-{\brollback}i
+{\broll\s?back}i
 id="PT-2011_rollback"
 valid msgstr="\bregres(ar|ado|ión)"
 hint="«rollback» tradúcese como «regresión» ou «regresar»"
@@ -1817,6 +1911,18 @@ valid msgid="\bsen(d|t)"
 valid msgid="\bsubmit" env="kde"
 valid msgid="\bputting\sfile" env="kde"
 hint="«enviar» traduce a «upload» (e a «send» e «submit»)"
+
+# «valid» tradúcese como «correcto»
+{\bvalid}i
+id="PT-2011_valid"
+valid msgstr="\bcorrect(a|o)s?"
+hint="«valid» tradúcese como «correcto»"
+
+# «correcto» traduce a «valid»
+[\bcorrecto]i
+="PT-2011-dual_valid"
+valid msgid="\bvalid"
+hint="«correcto» traduce a «valid»"
 
 # «widget» tradúcese como «trebello»
 {\bwidget}i
