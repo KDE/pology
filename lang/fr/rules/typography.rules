@@ -70,6 +70,7 @@ valid after="PATH|ext"
 valid after="com|host|org" before="\d+"
 valid after=":q"
 valid before="q:"
+valid after="remote" before="/"
 valid cat="imgalleryplugin" after="KImGalleryPlugin:" before="slotCreateHtml" 
 valid cat="imgalleryplugin" after="KImGalleryPlugin" before=":slotCreateHtml"  
 valid after="javascript" before="go"
@@ -304,6 +305,7 @@ hint="Utiliser de vrais guillemets, au lieu d'une apostrophe (homogénéité)"
 [\"]
 validGroup inQuotes
 validGroup alone
+valid msgid="<!ENTITY"
 valid after="\s+(=|]|PS1|\")"
 valid before="\s*/?>|&gt|}"
 valid after="' ou "
@@ -349,6 +351,7 @@ valid after="%\S*"
 valid after="^" before=" d'occupation"
 valid after="width=\"\d+" before="\"" # HTML
 valid after="^" before="$"
+valid after="<prompt>" before="</prompt>"
 valid cat="ktexteditor_plugins" before="[a-zA-Z]|:"
 valid cat="guidancewer-manager" before="i"
 valid cat="kcron" after="^" before="H:%M$"
@@ -450,6 +453,7 @@ valid before="K3Shell|K3b|Okular"
 valid cat="kspread,sheets" before="[A-Z][0-9]"
 valid cat="skrooge" ctx="categories"
 valid cat="khangman"
+valid cat="knetattach" before="WebDav"
 hint="Pas de majuscule après deux points ou un point virgule"
 
 [(<strong>«)|(<b>«)|(<em>«)|(<i>«)|(»</strong>)|(»</b>)|(»</em>)|(»</i>)]

@@ -156,6 +156,7 @@ valid after="kipi-"
 valid before="-"
 valid cat="kcmkonqhtml" after="/"
 valid cat="desktop_playground-multimedia" before="$"
+valid cat="kwrite_menus" after="<link linkend=\"pref-" before="\">extension</link>"
 hint="plugin -> module externe"
 
 [\broot\b]
@@ -339,6 +340,7 @@ valid cat="kspread,sheets"
 hint="Traduisez ceci par « n/d »"
 
 [didacti.iel|tutorial]i
+valid after="http://\S+/"
 hint="Traduisez ceci par « tutoriel» (choix de l'équipe)"
 
 [coloris|colorie|coloria]i
