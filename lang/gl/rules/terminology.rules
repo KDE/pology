@@ -54,8 +54,7 @@ valid msgid="\bbreak" env="kde"
 hint="«interromper» traduce a «abort» (e a «interrupt») (e a «break»)"
 
 # «app» tradúcese como «aplicativo»
-{\bapp}i
-valid before="l"
+{\bapps?\b}i
 id="PT-2011_app"
 valid msgstr="\baplicativo"
 hint="«app» tradúcese como «aplicativo»"
@@ -280,6 +279,7 @@ hint="«chat» tradúcese como «conversa(r)»"
 # «conversa» traduce a «chat»
 [\bconvers]i
 valid before="ión"
+valid before="or"
 id="PT-2011-dual_chat"
 valid msgid="\bchat"
 valid msgid="\bconversation"
@@ -349,7 +349,7 @@ hint="«checksum» tradúcese como «suma de comprobación»"
 # «suma de comprobación» traduce a «checksum»
 [\bsumas?\sde\scomprobación]i
 id="PT-2011-dual_checksum"
-{\bchecksum}i
+valid msgid="\bchecksum"
 hint="«suma de comprobación» traduce a «checksum»"
 
 # «clipboard» tradúcese como «portarretallos»
@@ -768,6 +768,19 @@ id="PT-2012-dual_environment"
 valid msgid="\benvironment"
 hint="«ambiente» traduce a «environment»"
 
+# «erase» tradúcese como «borrar»
+{\berase}i
+id="PT-2012_erase"
+valid msgstr="\bborrar"
+hint="«erase» tradúcese como «borrar»"
+
+# «borrar» traduce a «erase»
+[\bborr\w+]i
+id="PT-2012-dual_erase"
+valid msgid="\berase"
+hint="«borrar» tradúcese como «erase»"
+
+
 # «fail» e relacionados tradúcense como «fallo»
 {\bfa(il(s|ed|ure)?|ult)}i
 valid span="failed" before="\sto"
@@ -800,7 +813,7 @@ hint="«ficheiro» traduce a «file»"
 
 # «file a» tradúcese como «enviar un»
 {\bfile\sa\s}i
-id="PT-2011_file-a"
+id="PT-2011_file a"
 valid msgstr="\benv(iar|íe)\sun"
 hint="«file a» tradúcese como «enviar un»"
 
@@ -1302,7 +1315,7 @@ valid msgstr="\bnomes?\sd(e|os?|as?)\susuario"
 hint="«username» tradúcese como «nome de usuario»"
 
 {\blogin\sname}i
-id="PT2011-username"
+id="PT2011-username(2)"
 valid msgstr="\bnomes?\sd(e|os?|as?)\susuario"
 hint="«login name» tradúcese como «nome de usuario»"
 
@@ -1312,7 +1325,7 @@ id="PT-2011-dual_username"
 valid msgid="\buser\s?name"
 valid msgid="\blogin\sname"
 valid msgid="\blogin"
-hint="«nome de usuario» traduce a «user name» e a «login (name)»
+hint="«nome de usuario» traduce a «user name» e a «login (name)»"
 #####
 ## Fin de login
 #####
@@ -1573,10 +1586,25 @@ id="PT-2011-dual_remove"
 valid msgid="\bremove"
 hint="«retirar» traduce a «remove»"
 
+# «rename» tradúcese como «renomear»
+{\brename}i
+id="PT-2011_rename"
+valid env="kde"
+valid msgstr="\brenomear"
+hint="«rename» tradúcese como «renomear»"
+
+# «renomear» traduce a «rename»
+[\brenome\w+]i
+id="PT-2011-dual_rename"
+valid env="kde"
+valid msgid="\brename"
+hint="«renomear» traduce a «rename»"
+
+
 # «replace» tradúcese como «substituir»
 {\breplace}i
 id="PT-2011_replace"
-valid msgstr="\bsubstitu"
+valid msgstr="\bsubstit(u|ú)"
 hint="«replace» tradúcese como «substituír»"
 
 # «substituir» traduce a «replace»
@@ -1904,7 +1932,7 @@ hint="«upload» tradúcese como «enviar» ou «envío»"
 
 # «enviar» traduce a «upload»
 [\benv(i|í)]i
-valid before="(ar|e)\sun"
+valid before="\w+\sun"
 id="noPT-2011-dual_upload"
 valid msgid="\bupload"
 valid msgid="\bsen(d|t)"
@@ -1914,13 +1942,14 @@ hint="«enviar» traduce a «upload» (e a «send» e «submit»)"
 
 # «valid» tradúcese como «correcto»
 {\bvalid}i
+valid before="at(e|or)"
 id="PT-2011_valid"
 valid msgstr="\bcorrect(a|o)s?"
 hint="«valid» tradúcese como «correcto»"
 
 # «correcto» traduce a «valid»
 [\bcorrecto]i
-="PT-2011-dual_valid"
+id="PT-2011-dual_valid"
 valid msgid="\bvalid"
 hint="«correcto» traduce a «valid»"
 
