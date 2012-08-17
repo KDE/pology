@@ -36,6 +36,17 @@ hint="translation file = фајл превода"
 valid msgstr="фајл\w* превода"
 
 # ====================
+# K3b (disk burner)
+environment k3b
+
+{\bmedi(a|ums?)}i
+id="t-medium"
+hint="medium = диск"
+valid span="media" before=".?player"
+valid msgstr="диск"
+valid !msgstr="\bмедиј"
+
+# ====================
 # KAlarm (alarm scheduler)
 environment kalarm
 
