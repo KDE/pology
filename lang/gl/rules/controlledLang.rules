@@ -111,3 +111,13 @@ hint="«computadora» -> «computador»?"
 ######
 # Fin dos acordos das trasnadas
 ######
+
+# avisar de «tódolos»
+[\btódol(a|o)s]i
+id="noPT-gl_tódolos"
+hint="«tódolos» -> «todos os»?"
+
+# avisar de «carpeta»
+[\bcarpeta]i
+id="noPT-gl_carpeta"
+hint="«carpeta» -> «cartafol»?"

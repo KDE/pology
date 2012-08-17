@@ -375,3 +375,15 @@ hint="printing = imprimir, impresión"
 id="kde-dual_print"
 valid msgid="\bprint(?!er)"
 hint="imprimir = print"
+
+# «rename» -> «mudar de nome»
+{\brename}i
+id="kde_rename"
+valid msgstr="\bmud(ar|ou)\sde\snome"
+hint="«rename» tradúcese como «mudar de nome»"
+
+# «mudar de nome» -> «renomear»
+[\bmud(ar|ou)\sde\snome]i
+id="kde-dual_rename"
+valid msgid="\brename"
+hint="mudar de nome = rename"
