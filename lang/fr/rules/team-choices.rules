@@ -60,6 +60,7 @@ hint="préférons « arrêt » à « stop »"
 [[Rr]@épertoire]
 valid after="services? de " before="s"
 valid before=" téléphon"
+valid cat="konqueror_filemanager" after="Notez que le terme <quote>dossier</quote> est souvent utilisé à la place de <quote>"
 hint="préférons « dossier » à « répertoire »"
 
 [taper|tapant]
@@ -78,6 +79,7 @@ valid after="affichage "
 valid before=" (Disc|PCI|GSM|Flash)"
 valid cat="juk" before="</guimenuitem>" after="<guimenuitem>"
 valid cat="juk" after="juk-viewmode-"
+valid cat="konqueror_filemanager,konqueror_commands"
 hint="Choix de l'équipe : « compresser » (au lieu de « compacter »)"
 
 [[Gg]ard(é|er)]
@@ -156,7 +158,8 @@ valid after="kipi-"
 valid before="-"
 valid cat="kcmkonqhtml" after="/"
 valid cat="desktop_playground-multimedia" before="$"
-valid cat="kwrite_menus" after="<link linkend=\"pref-" before="\">extension</link>"
+valid after="<link linkend=\"\S+" before="\S*\">"
+valid after="<ulink url=\"\S+" before="\S*\">"
 hint="plugin -> module externe"
 
 [\broot\b]
@@ -167,6 +170,7 @@ valid after="/"
 valid after="-"
 valid after="-l "
 valid before="@"
+valid after="<filename class=\"directory\">" before="</filename>"
 valid cat="cupsdconf4" after="<b>" before="</b>"
 valid cat="processui"
 hint="Dans un contexte utilisateur, utiliser la traduction « superutilisateur ». Seul l'identifiant est « root »"
@@ -194,7 +198,7 @@ valid cat="khotkeys" after="&sp;"
 valid cat="kverbos" after="-"
 valid cat="ppdtranslations4" before=" CMJ"
 valid cat="kalzium" after="&sp;" before="&sp;"
-valid cat="kwordquiz" after="&sp;" before="&sp;"
+valid cat="kwordquiz,kturtle_programming-reference" after="&sp;" before="&sp;"
 valid after="<!--.*[^-]-" # HTML Comment
 valid before="$"
 hint="Utiliser le format « Fichier / Exporter sous » (avec une barre oblique)"
@@ -210,6 +214,7 @@ hint="Utiliser « serveur mandataire » (au lieu de « serveur de proximité » 
 valid before="\)" after="\(&?"
 valid after="http_|HTTP_|FTP_|HTTPS_|SOCKS_"
 valid after="no_|no &|mon|Find"
+valid after="<ulink url=\"\S+" before="\S*\">"
 valid cat="kmail" after="mon"
 hint="Utiliser « serveur mandataire » (au lieu de « serveur de proximité » ou « proxy »)"
 
@@ -244,6 +249,7 @@ hint="« Souhaitez-vous » -> « Voulez-vous » (homogénéité)"
 
 [Va ]
 valid after="Ja"
+valid cat="konqueror_commands" before="dans votre page personnelle"
 hint="« Va » -> « Aller » (à l'infinitif)"
 
 [dans votre \$?PATH]

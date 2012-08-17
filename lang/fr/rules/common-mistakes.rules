@@ -58,6 +58,7 @@ valid cat="kommander" before="ed"
 valid after="[rad|Radical|KChar]"
 valid before="Certificate|or"
 valid after="attribut "
+valid after="<link linkend=\"\S*" before="\S*\">"
 hint="Mettre un accent aigu sur le premier « e », pas sur le deuxième"
 
 [n[eè]cess|néc[éè]ss]i
@@ -297,6 +298,7 @@ hint="Il est préférable d'utiliser le verbe « chiffrer »"
 
 [profiles]i
 valid cat="kfmclient" after="/"
+valid after="<filename class=\"directory\">\S+" before="\S*</filename>"
 hint="Pas de « e » à « profils »"
 
 [assignement]i
@@ -366,6 +368,8 @@ valid after="script-" before="player"
 valid after="/"
 valid after="wiki"
 valid after="QtMulti"
+valid after="http://\S+" before="\S+/"
+valid after="<" before="object>"
 valid before=":/"
 valid before="Device"
 valid before="Wiki"
@@ -402,6 +406,7 @@ valid after="/"
 valid before="view"
 valid before=">" after="<"
 valid before="="
+valid after="<link linkend=\"\S+" before="\S+\">"
 valid cat="kcmkonqhtml" after="window\."
 valid cat="solidshell" after="«&unbsp;" before="&unbsp;»"
 valid cat="solid-network" after="«&unbsp;" before="&unbsp;»"
@@ -425,6 +430,7 @@ valid cat="system-config-printer-kde" before=" d'impression"
 valid cat="system-config-printer-kde" after="taille du "
 valid cat="system-config-printer-kde" after="type de "
 valid cat="system-config-printer-kde" after="imprimer sur des "
+valid cat="konqueror_sidebar" after="Il affiche également tous les disques ou "
 hint="« support » est un faux ami, à traduire par un dérivé de « disponible », « autoriser », « accepter », « gérer » ou « prendre en charge »"
 
 [text(?![e|uel|\-])]i
