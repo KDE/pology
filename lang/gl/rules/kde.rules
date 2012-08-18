@@ -248,6 +248,18 @@ id="kde-dual_append"
 valid msgid="\bappend"
 hint=" amecer -> append"
 
+# «applet» tradúcese como «applet»
+{\bapplet}i
+id="kde_applet"
+valid msgstr="\bapplet"
+hint="«applet» tradúcese como «applet»"
+
+# «applet» traduce a «applet»
+[\bapplet]i
+id="kde-dual_applet"
+valid msgid="\bapplet"
+hint="«applet» traduce a «applet»"
+
 # «edge» -> «aresta»
 {\bedges?}i
 id="kde_edge(graph_theory)"

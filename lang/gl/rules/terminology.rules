@@ -60,19 +60,27 @@ valid msgstr="\baplicativo"
 hint="«app» tradúcese como «aplicativo»"
 valid env="kde"
 
-# «applet» tradúcese como «applet»
+# «applet» tradúcese como «miniaplicativo» ou «trebello»
 {\bapplet}i
 id="PT-2011_applet"
-valid msgstr="\bapplet"
-hint="«applet» tradúcese como «applet»"
-valid !env="kde"
+valid env="kde"
+valid msgstr="\bminiaplicativo"
+valid msgstr="\btrebello"
+hint="«applet» tradúcese como «miniaplicativo» ou «trebello»"
 
-# «applet» traduce a «applet»
-[\bapplet]i
+# «miniaplicativo» traduce a «applet»
+[\bminiaplicativo]i
 id="PT-2011-dual_applet"
+valid env="kde"
 valid msgid="\bapplet"
-hint="«applet» traduce a «applet»"
-valid !env="kde"
+hint="«miniaplicativo» traduce a «applet»"
+
+# «trebello» traduce a «applet»
+[\btrebello]i
+id="PT-2011-dual_applet(2)"
+valid env="kde"
+valid msgid="\bapplet"
+hint="«trebello» traduce a «applet»"
 
 # «application» tradúcese como «aplicativo»
 {\bapplication}i
@@ -138,10 +146,10 @@ valid msgid="\bconnecting" env="kde"
 hint="«conexión» traduce a «connection» e «attachment»"
 
 # «backend» tradúcece como «infraestrutura»
-{\bbackend}i
+{\bback(\s|-)?end}i
 id="PT-2011_backend"
 valid msgstr="\binfraestrutura"
-hint="«backend» tradúcece como «infraestrutura»"
+hint="«backend» tradúcese como «infraestrutura»"
 
 # «infraestrutura» traduce a «backend»
 [\binfraestrutura]i
@@ -784,8 +792,7 @@ hint="«borrar» tradúcese como «erase»"
 # «fail» e relacionados tradúcense como «fallo»
 {\bfa(il(s|ed|ure)?|ult)}i
 valid span="failed" before="\sto"
-valid span="failed" before="\." 
-valid span="failed" before=":"
+valid span="failed" before="\.|:|,|;" 
 id="PT-2011_fail"
 valid msgstr="\bfall."
 hint="«fail» e relacionados tradúcense como «fallo»"
@@ -843,7 +850,7 @@ valid before="\sout"
 id="noPT-2010_find"
 valid msgstr="\batop"
 valid msgstr="\bbusc"
-hint="«find» tradúcese como «atopar», ou «buscar»"
+hint="«find» tradúcese como «atopar»,"
 
 #  «find» tradúcese como «atopar», et al
 {\bfound}i
@@ -1142,11 +1149,12 @@ valid msgid="\bkey"
 valid !span="word"
 hint="«tecla» traduce a «key»"
 
-# «keyword» tradúcese como «palabra clave» ou «palabra chave»
-{\bkeyword}i
+# «keyword» tradúcese como «palabra clave» ou «palabra reservada»
+{\bkey\sword}i
 id="PT-2011_keyword"
-valid msgstr="\bpalabras?\sc(l|h)ave"
-valid msgstr="\bpalabras?\sreservada"
+valid msgstr="\bpalabras?\sclave"
+valid msgstr="\bpalabras?\schave"
+valid msgstr="\bpalabras?\sreservada" env="development"
 hint="«keyword» tradúcese como «palabra clave» (buscas) ou «palabra chave» (acceso), (ou palabra reservada)"
 
 # «kill» tradúcese como «matar»
@@ -1687,7 +1695,7 @@ hint="«escáner» traduce a «scanner»"
 # «search» tradúcese como «buscar»/«busca»
 {\bsearch}i
 id="PT-2010_search"
-valid msgstr="\bbus(c|qu)"
+valid msgstr="\bbus(c|qu)" !before="eda"
 valid !msgstr="\b(procura|pesquis|pescud)?"
 hint="«search» tradúcese como «busca(r)»"
 
@@ -1889,6 +1897,7 @@ valid before="cument"
 id="PT-2011_undo"
 valid msgstr="\bdesfacer"
 valid msgstr="\bdesfágaa"
+valid before="ne" msgstr="\bdesfeito"
 hint="«undo» tradúcese como «desfacer»"
 
 # «desfacer» traduce a «undo»
@@ -1942,16 +1951,18 @@ hint="«enviar» traduce a «upload» (e a «send» e «submit»)"
 
 # «valid» tradúcese como «correcto»
 {\bvalid}i
-valid before="at(e|or)"
+valid before="at(e|or|ion)"
+valid before="ity"
 id="PT-2011_valid"
 valid msgstr="\bcorrect(a|o)s?"
 hint="«valid» tradúcese como «correcto»"
 
 # «correcto» traduce a «valid»
 [\bcorrecto]i
-id="PT-2011-dual_valid"
+id="noPT-2011-dual_valid"
 valid msgid="\bvalid"
-hint="«correcto» traduce a «valid»"
+valid msgid="\bcorrect"
+hint="«correcto» traduce a «valid» (e a «correct»)"
 
 # «widget» tradúcese como «trebello»
 {\bwidget}i
