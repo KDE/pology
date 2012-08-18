@@ -113,7 +113,7 @@ hint="«attach» tradúcese como «anexar», «conectar»"
 # «anexar» ou «conectar» traduce a «Attach»
 [\banex[a-z]{2,}]i
 id="PT-2010-dual_attach"
-valid msgid="\battach(\s|ed|s|ing|ments?)"
+valid msgid="\battach(es|ed|ing|ments?)?"
 hint="«anexar» ou «conectar» traduce a «attach»"
 
 # «anexar» ou «conectar» traduce a «Attach»
@@ -1153,9 +1153,8 @@ hint="«tecla» traduce a «key»"
 {\bkey\sword}i
 id="PT-2011_keyword"
 valid msgstr="\bpalabras?\sclave"
-valid msgstr="\bpalabras?\schave"
 valid msgstr="\bpalabras?\sreservada" env="development"
-hint="«keyword» tradúcese como «palabra clave» (buscas) ou «palabra chave» (acceso), (ou palabra reservada)"
+hint="«keyword» tradúcese como «palabra clave», (ou palabra reservada, en linguaxes de programación)"
 
 # «kill» tradúcese como «matar»
 {\bkill}i
