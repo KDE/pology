@@ -33,13 +33,13 @@ from pology.sieve import SieveError, SieveCatalogError, SieveMessageError
 
 
 # Pattern used to marshall path of cached files
-_MARSHALL="+++"
+_MARSHALL = "+++"
 # Cache directory (for xml processing only)
 # FIXME: More portable location of cache.
-_CACHEDIR=expandvars("$HOME/.pology-check_rules-cache/") 
+_CACHEDIR = expandvars("$HOME/.pology-check_rules-cache/")
 
 # Flag to add to failed messages, if requested.
-_flag_mark=u"failed-rule"
+_flag_mark = u"failed-rule"
 
 
 def setup_sieve (p):
@@ -151,51 +151,51 @@ class Sieve (object):
     def __init__ (self, params):
 
         self.nmatch = 0 # Number of match for finalize
-        self.rules=[]   # List of rules objects loaded in memory
-        self.xmlFile=None # File handle to write XML output
-        self.cacheFile=None # File handle to write XML cache
-        self.cachePath=None # Path to cache file
-        self.filename=""     # File name we are processing
-        self.cached=False    # Flag to indicate if process result is already is cache
+        self.rules = []   # List of rules objects loaded in memory
+        self.xmlFile = None # File handle to write XML output
+        self.cacheFile = None # File handle to write XML cache
+        self.cachePath = None # Path to cache file
+        self.filename = ""     # File name we are processing
+        self.cached = False    # Flag to indicate if process result is already is cache
 
-        self.globalLang=params.lang
-        self.globalEnvs=params.env
-        self.envOnly=params.envonly
-        self._rulesCache={}
+        self.globalLang = params.lang
+        self.globalEnvs = params.env
+        self.envOnly = params.envonly
+        self._rulesCache = {}
 
-        self.accels=params.accel
-        self.markup=params.markup
+        self.accels = params.accel
+        self.markup = params.markup
 
-        self.ruleChoice=params.rule
-        self.ruleChoiceRx=params.rulerx
-        self.ruleChoiceInv=params.norule
-        self.ruleChoiceInvRx=params.norulerx
+        self.ruleChoice = params.rule
+        self.ruleChoiceRx = params.rulerx
+        self.ruleChoiceInv = params.norule
+        self.ruleChoiceInvRx = params.norulerx
 
-        self.stat=params.stat
-        self.showfmsg=params.showfmsg
-        self.showmsg=params.showmsg
-        self.lokalize=params.lokalize
-        self.mark=params.mark
+        self.stat = params.stat
+        self.showfmsg = params.showfmsg
+        self.showmsg = params.showmsg
+        self.lokalize = params.lokalize
+        self.mark = params.mark
 
-        self.branches=params.branch and set(params.branch) or None
+        self.branches = params.branch and set(params.branch) or None
 
         # Collect non-internal rule files.
-        self.customRuleFiles=None
+        self.customRuleFiles = None
         if params.rfile or params.rdir:
-            self.customRuleFiles=[]
+            self.customRuleFiles = []
             if params.rfile:
                 self.customRuleFiles.extend(params.rfile)
             if params.rdir:
                 for rdir in params.rdir:
-                    rfiles=collect_files_by_ext(rdir, "rules")
+                    rfiles = collect_files_by_ext(rdir, "rules")
                     self.customRuleFiles.extend(rfiles)
 
         # Also output in XML file ?
         if params.xml:
-            xmlPath=params.xml
+            xmlPath = params.xml
             if os.access(dirname(abspath(xmlPath)), os.W_OK):
                 #TODO: create nice api to manage xml file and move it to rules.py
-                self.xmlFile=open(xmlPath, "w", "utf-8")
+                self.xmlFile = open(xmlPath, "w", "utf-8")
                 self.xmlFile.write('<?xml version="1.0" encoding="UTF-8"?>\n')
                 self.xmlFile.write('<pos date="%s">\n' % strftime('%c').decode(getpreferredencoding()))
             else:
@@ -257,48 +257,52 @@ class Sieve (object):
             if not set.intersection(self.branches, msg_branches):
                 return
 
-        filename=basename(cat.filename)
-  
+        filename = basename(cat.filename)
+
         # New file handling
-        if self.xmlFile and self.filename!=filename:
-            newFile=True
-            self.cached=False # Reset flag
-            self.cachePath=join(_CACHEDIR, abspath(cat.filename).replace("/", _MARSHALL))
+        if self.xmlFile and self.filename != filename:
+            newFile = True
+            self.cached = False # Reset flag
+            self.cachePath = join(_CACHEDIR, abspath(cat.filename).replace("/", _MARSHALL))
             if self.cacheFile:
                 self.cacheFile.close()
-            if self.filename!="":
+            if self.filename != "":
                 # close previous
                 self.xmlFile.write("</po>\n")
-            self.filename=filename
+            self.filename = filename
         else:
-            newFile=False
-        
+            newFile = False
+
         # Current file loaded from cache on previous message. Close and return
         if self.cached:
             # No need to analyze message, return immediately
             if self.cacheFile:
-                self.cacheFile=None # Indicate cache has been used and flushed into xmlFile
+                self.cacheFile = None # Indicate cache has been used and flushed into xmlFile
             return
-        
+
         # Does cache exist for this file ?
         if self.xmlFile and newFile and exists(self.cachePath):
-            #FIXME: header date getting is quite ugly...
-            poDate=cat.header.field[2][1]
-            #Truncate daylight information
-            poDate=poDate.rstrip("GMT")
-            poDate=poDate[0:poDate.find("+")]
-            #Convert in sec since epoch time format
-            poDate=mktime(strptime(poDate, '%Y-%m-%d %H:%M'))
-            if os.stat(self.cachePath)[8]>poDate:
-                report(_("@info:progress", "Using cache."))
-                self.xmlFile.writelines(open(self.cachePath, "r", "utf-8").readlines())
-                self.cached=True
-        
+            poDate = None
+            for headerName, headerValue in cat.header.field:
+                if headerName == "PO-Revision-Date":
+                    poDate = headerValue
+
+            if poDate:
+                #Truncate daylight information
+                poDate = poDate.rstrip("GMT")
+                poDate = poDate[0:poDate.find("+")]
+                #Convert in sec since epoch time format
+                poDate = mktime(strptime(poDate, '%Y-%m-%d %H:%M'))
+                if os.stat(self.cachePath)[8] > poDate:
+                    report(_("@info:progress", "Using cache."))
+                    self.xmlFile.writelines(open(self.cachePath, "r", "utf-8").readlines())
+                    self.cached = True
+
         # No cache available, create it for next time
         if self.xmlFile and newFile and not self.cached:
             report(_("@info", "No cache available, processing file."))
-            self.cacheFile=open(self.cachePath, "w", "utf-8")
-        
+            self.cacheFile = open(self.cachePath, "w", "utf-8")
+
         # Handle start/end of files for XML output (not needed for text output)
         if self.xmlFile and newFile:
             # open new po
@@ -306,31 +310,31 @@ class Sieve (object):
                 # We can return now, cache is used, no need to process catalog
                 return
             else:
-                poTag='<po name="%s">\n' % filename
+                poTag = '<po name="%s">\n' % filename
                 self.xmlFile.write(poTag) # Write to result
                 self.cacheFile.write(poTag) # Write to cache
-        
+
         # Collect explicitly ignored rules by ID for this message.
-        locally_ignored=manc_parse_list(msg, "skip-rule:", ",")
+        locally_ignored = manc_parse_list(msg, "skip-rule:", ",")
 
         # Collect explicitly applied rules by ID for this message.
-        locally_applied=manc_parse_list(msg, "apply-rule:", ",")
+        locally_applied = manc_parse_list(msg, "apply-rule:", ",")
 
         # Collect ignored/applied rules by switching comment.
-        swprefix="switch-rule:"
-        swsep=">"
+        swprefix = "switch-rule:"
+        swsep = ">"
         for cmnt in msg.manual_comment:
             if cmnt.strip().startswith(swprefix):
-                p1=cmnt.find(swprefix)+len(swprefix)
-                p2=cmnt.find(swsep, p1)
-                if p2<0:
+                p1 = cmnt.find(swprefix) + len(swprefix)
+                p2 = cmnt.find(swsep, p1)
+                if p2 < 0:
                     raise SieveMessageError(
                         _("@info",
                           "Separator  character '%(sep)s' missing in "
                           "'%(prefix)s' comment.",
                           sep=swsep, prefix=swprefix))
-                els1=[x.strip() for x in cmnt[p1:p2].split(",")]
-                els2=[x.strip() for x in cmnt[p2+len(swsep):].split(",")]
+                els1 = [x.strip() for x in cmnt[p1:p2].split(",")]
+                els2 = [x.strip() for x in cmnt[p2 + len(swsep):].split(",")]
                 locally_ignored.extend(x for x in els1 if x)
                 locally_applied.extend(x for x in els2 if x)
 
@@ -339,18 +343,18 @@ class Sieve (object):
         # different rule files may be loaded for different runs.
 
         # Prepare filtered messages for checking.
-        envSet=set(self.envs)
-        msgByFilter={}
+        envSet = set(self.envs)
+        msgByFilter = {}
         for mfilter in self.ruleFilters:
             if mfilter is not None:
-                msgf=MessageUnsafe(msg)
+                msgf = MessageUnsafe(msg)
                 mfilter(msgf, cat, envSet)
             else:
-                msgf=msg
-            msgByFilter[mfilter]=msgf
+                msgf = msg
+            msgByFilter[mfilter] = msgf
 
         # Now the sieve itself. Check message with every rules
-        failedRules=[]
+        failedRules = []
         for rule in self.rules:
             if rule.disabled:
                 continue
@@ -362,14 +366,14 @@ class Sieve (object):
                 continue
             msgf = msgByFilter[rule.mfilter]
             try:
-                spans=rule.process(msgf, cat, envs=envSet, nofilter=True)
+                spans = rule.process(msgf, cat, envs=envSet, nofilter=True)
             except TimedOutException:
                 warning(_("@info:progress",
                           "Rule '%(rule)s' timed out, skipping it.",
                           rule=rule.rawPattern))
                 continue
             if spans:
-                self.nmatch+=1
+                self.nmatch += 1
                 if self.xmlFile:
                     # FIXME: rule_xml_error is actually broken,
                     # as it considers matching to always be on msgstr
@@ -378,13 +382,13 @@ class Sieve (object):
                     # Now, write to XML file if defined
                     rspans = [x[:2] for x in spans[0][2]]
                     pluid = spans[0][1]
-                    xmlError=rule_xml_error(msg, cat, rule, rspans, pluid)
+                    xmlError = rule_xml_error(msg, cat, rule, rspans, pluid)
                     self.xmlFile.writelines(xmlError)
                     if not self.cached:
                         # Write result in cache
                         self.cacheFile.writelines(xmlError)
                 if not self.showfmsg:
-                    msgf=None
+                    msgf = None
                 failedRules.append((rule, spans, msgf))
 
         if failedRules:
@@ -406,13 +410,13 @@ class Sieve (object):
 
 
     def finalize (self):
-        
+
         if self.xmlFile:
             # Close last po tag and xml file
             if self.cached and self.cacheFile:
                 self.cacheFile.write("</po>\n")
                 self.cacheFile.close()
-                self.cacheFile=None
+                self.cacheFile = None
             else:
                 self.xmlFile.write("</po>\n")
             self.xmlFile.write("</pos>\n")
@@ -429,63 +433,63 @@ class Sieve (object):
     def _loadRules (self, lang, envs):
 
         # Load rules.
-        rules=loadRules(lang, envs,
+        rules = loadRules(lang, envs,
                         self.envOnly, self.customRuleFiles, self.stat)
 
         # Perhaps retain only those rules explicitly requested
         # in the command line, by their identifiers.
-        selectedRules=set()
-        srules=set()
+        selectedRules = set()
+        srules = set()
         if self.ruleChoice:
-            requestedRules=set([x.strip() for x in self.ruleChoice])
-            foundRules=set()
+            requestedRules = set([x.strip() for x in self.ruleChoice])
+            foundRules = set()
             for rule in rules:
                 if rule.ident in requestedRules:
                     srules.add(rule)
                     foundRules.add(rule.ident)
                     rule.disabled = False
-            if foundRules!=requestedRules:
-                missingRules=list(requestedRules-foundRules)
-                fmtMissingRules=format_item_list(sorted(missingRules))
+            if foundRules != requestedRules:
+                missingRules = list(requestedRules - foundRules)
+                fmtMissingRules = format_item_list(sorted(missingRules))
                 raise SieveError(_("@info",
                                    "Some explicitly selected rules "
                                    "are missing: %(rulelist)s.",
                                    rulelist=fmtMissingRules))
             selectedRules.update(foundRules)
         if self.ruleChoiceRx:
-            identRxs=[re.compile(x, re.U) for x in self.ruleChoiceRx]
+            identRxs = [re.compile(x, re.U) for x in self.ruleChoiceRx]
             for rule in rules:
-                if (    rule.ident
+                if (rule.ident
                     and reduce(lambda s, x: s or x.search(rule.ident),
                                identRxs, False)
                 ):
                     srules.add(rule)
                     selectedRules.add(rule.ident)
         if self.ruleChoice or self.ruleChoiceRx:
-            rules=list(srules)
+            rules = list(srules)
 
-        selectedRulesInv=set()
-        srules=set(rules)
+        selectedRulesInv = set()
+        srules = set(rules)
         if self.ruleChoiceInv:
-            requestedRules=set([x.strip() for x in self.ruleChoiceInv])
-            foundRules=set()
+            requestedRules = set([x.strip() for x in self.ruleChoiceInv])
+            foundRules = set()
             for rule in rules:
                 if rule.ident in requestedRules:
                     if rule in srules:
                         srules.remove(rule)
                     foundRules.add(rule.ident)
-            if foundRules!=requestedRules:
-                missingRules=list(requestedRules-foundRules)
-                fmtMissingRules=format_item_list(sorted(missingRules))
+            if foundRules != requestedRules:
+                missingRules = list(requestedRules - foundRules)
+                fmtMissingRules = format_item_list(sorted(missingRules))
                 raise SieveError(_("@info",
                                    "Some explicitly excluded rules "
                                    "are missing: %(rulelist)s.",
                                    rulelist=fmtMissingRules))
             selectedRulesInv.update(foundRules)
         if self.ruleChoiceInvRx:
-            identRxs=[re.compile(x, re.U) for x in self.ruleChoiceInvRx]
+            identRxs = [re.compile(x, re.U) for x in self.ruleChoiceInvRx]
             for rule in rules:
-                if (    rule.ident
+                if (rule.ident
                     and reduce(lambda s, x: s or x.search(rule.ident),
                                identRxs, False)
                 ):
@@ -493,29 +497,29 @@ class Sieve (object):
                         srules.remove(rule)
                     selectedRulesInv.add(rule.ident)
         if self.ruleChoiceInv or self.ruleChoiceInvRx:
-            rules=list(srules)
+            rules = list(srules)
 
-        ntot=len(rules)
-        ndis=len([x for x in rules if x.disabled])
-        nact=ntot-ndis
-        totfmt=n_("@item:intext inserted below as %(tot)s",
+        ntot = len(rules)
+        ndis = len([x for x in rules if x.disabled])
+        nact = ntot - ndis
+        totfmt = n_("@item:intext inserted below as %(tot)s",
                   "Loaded %(num)d rule", "Loaded %(num)d rules",
                   num=ntot)
         if self.envOnly:
-            envfmt=_("@item:intext inserted below as %(env)s",
+            envfmt = _("@item:intext inserted below as %(env)s",
                      "[only: %(envlist)s]",
                      envlist=format_item_list(envs))
         else:
-            envfmt=_("@item:intext inserted below as %(env)s",
+            envfmt = _("@item:intext inserted below as %(env)s",
                      "[%(envlist)s]",
                      envlist=format_item_list(envs))
-        actfmt=n_("@item:intext inserted below as %(act)s",
+        actfmt = n_("@item:intext inserted below as %(act)s",
                   "%(num)d active", "%(num)d active",
                   num=nact)
-        disfmt=n_("@item:intext inserted below as %(dis)s",
+        disfmt = n_("@item:intext inserted below as %(dis)s",
                   "%(num)d disabled", "%(num)d disabled",
                   num=ndis)
-        subs=dict(tot=totfmt, env=envfmt, act=actfmt, dis=disfmt)
+        subs = dict(tot=totfmt, env=envfmt, act=actfmt, dis=disfmt)
         if ndis and envs:
             report(_("@info:progress insertions from above",
                      "%(tot)s %(env)s (%(act)s, %(dis)s).", **subs))
@@ -530,10 +534,10 @@ class Sieve (object):
                      "%(tot)s.", **subs))
 
         if selectedRules:
-            selectedRules=selectedRules.difference(selectedRulesInv)
-            n=len(selectedRules)
-            if n<=10:
-                rlst=list(selectedRules)
+            selectedRules = selectedRules.difference(selectedRulesInv)
+            n = len(selectedRules)
+            if n <= 10:
+                rlst = list(selectedRules)
                 report(_("@info:progress",
                          "Selected rules: %(rulelist)s.",
                          rulelist=format_item_list(sorted(rlst))))
@@ -543,9 +547,9 @@ class Sieve (object):
                           "Selected %(num)d rules.",
                           num=n))
         elif selectedRulesInv:
-            n=len(selectedRulesInv)
-            if n<=10:
-                rlst=list(selectedRulesInv)
+            n = len(selectedRulesInv)
+            if n <= 10:
+                rlst = list(selectedRulesInv)
                 report(_("@info:progress",
                          "Excluded rules: %(rulelist)s.",
                          rulelist=format_item_list(sorted(rlst))))
@@ -556,7 +560,7 @@ class Sieve (object):
                           num=n))
 
         # Collect all distinct filters from rules.
-        ruleFilters=set()
+        ruleFilters = set()
         for rule in rules:
             if not rule.disabled:
                 ruleFilters.add(rule.mfilter)
