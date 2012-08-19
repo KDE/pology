@@ -286,6 +286,7 @@ class Sieve (object):
             for headerName, headerValue in cat.header.field:
                 if headerName == "PO-Revision-Date":
                     poDate = headerValue
+                    break
 
             if poDate:
                 #Truncate daylight information
