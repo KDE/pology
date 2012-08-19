@@ -454,7 +454,7 @@ valid cat="kspread,sheets"
 valid before=":"
 valid before="all"
 valid after="<sgmltag class=\"starttag\">" before="</sgmltag>"
-valid after="&lt;" before="&gt;"
+valid after="&amp;lt;(/?)" before="&amp;gt;"
 hint="Merci de mettre un « e » à la fin de « texte » ou « contexte »"
 
 [anti-[^i]]i
@@ -462,6 +462,7 @@ hint="Pas de tiret après « anti »"
 
 [\bDBUS\b]i
 valid after="&" before=";"
+valid cat="kmix" after="freedesktop\." before="\.Properties"
 hint="Il faut un tiret : « D-Bus »"
 
 [presse papier]i

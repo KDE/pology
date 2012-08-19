@@ -50,10 +50,11 @@ validGroup inParenthesis
 validGroup inQuotes
 validGroup alone
 validGroup cdataTag
+validGroup userinputTag
 valid after="&unbsp;" before="\t"
 valid after="https?://\S+"
-valid after="file|gg|mailto|man|whatsthis|kmail|addMsg|config|help"
-valid after="about|audiocd|bookmarks|camera|ed2k|exec|ftps?|fonts|help|https?|lan|lpr|media|news|network|okular|pmp|parallel|smb|system|trash|umax|vdvd|videodvd|webdavs?|irc|protocole|info" before="/" 
+valid after="cgi|file|gg|mailto|man|whatsthis|kmail|addMsg|config|help"
+valid after="about|audiocd|bookmarks|camera|ed2k|exec|floppy|ftps?|fonts|help|https?|lan|lpr|media|news|network|okular|pmp|parallel|smb|system|trash|umax|vdvd|videodvd|webdavs?|irc|protocole|info" before="/" 
 valid after="about" before="blank"
 valid after="gg|google" before="KDE|[a-z]+"
 valid after=".+://(nom|utilisateur)" before="mot_?de_?passe"
@@ -125,6 +126,7 @@ valid cat="skrooge" ctx="condition"
 valid cat="jointhegame" ctx="member|join|payment"
 valid cat="konqueror_man-kbookmarkmerger.1" after="jean@hal9000"
 valid cat="kfilereplace" after="\[\$.*"
+valid cat="kioslave_fish" after="<command>echo FISH"
 hint="Mettre une espace insécable avant et une espace après"
 
 [;]
@@ -149,6 +151,8 @@ valid cat="kspread,sheets" before="\S+;"
 valid cat="kspread,sheets" before="\S+\)"
 valid cat="konsole" before="\\"
 valid cat="katepart4" after="plain|txt"
+valid cat="kioslave_data" after="<userinput>data:"
+valid cat="kioslave_fish" after="<command>echo FISH:"
 valid ctx="Numbers and characters"
 valid ctx="CSV separator"
 valid ctx="Query" 
@@ -190,6 +194,7 @@ valid ctx="CSV separator"
 valid cat="skrooge" ctx="condition"
 valid cat="kfilereplace" before="\[CDATA"
 valid cat="khangman" before="--Traduire"
+valid cat="kioslave_mailto" after="%20"
 hint="Mettre une espace insécable avant et une espace après"
 
 [\?]
@@ -220,6 +225,7 @@ valid cat="kioslave_audiocd" before="albumNameTemplate"
 valid cat="kfilereplace" before=">"
 valid before="xml"
 valid after="xml version=.*"
+valid after="mailto:.*"
 valid ctx="Numbers and characters"
 valid ctx="Query"
 hint="Mettre une espace insécable avant et une espace après"
@@ -246,6 +252,7 @@ valid cat="kommander" after="\([a-z]+"
 valid cat="kturtle_glossary" after="\("
 valid cat="kturtle_programming-reference" before="Y" after="mod X"
 valid cat="kturtle_programming-reference" before="Y" after="va X"
+valid cat="kioslave_data" after="<userinput>data:*"
 valid ctx="Numbers and characters"
 valid ctx="Keywords" 
 valid ctx="CSV separator"
@@ -254,6 +261,7 @@ hint="Pas d'espace avant une virgule (mais un après) !"
 
 [,(?=[a-zA-Z])]
 validGroup cdataTag
+validGroup userinputTag
 valid after="x" before="y"
 valid after="^Keywords="
 valid after="font-family:.+" # CSS
@@ -384,6 +392,7 @@ validGroup inParenthesis
 validGroup inQuotes
 validGroup optionTag
 validGroup tokenTag
+validGroup userinputTag
 valid ctx="kdedt-format"
 valid after="&unbsp;" before="[,\. \)]"
 valid after="&unbsp;" before="&unbsp;[\?!,]"
@@ -463,6 +472,7 @@ valid after="&amp;([A-Za-z\-]*\.?)+" before="([A-Za-z\-]*\.?)+;"
 valid after="&amp;([A-Za-z\-]*\.?)+" before="([A-Za-z\-]*\.?)+\.mail;"
 valid after="&amp;[A-Za-z\-]*\.[A-Za-z\-]+" before="mail"
 valid after="http://\S+"
+valid cat="kmix" msgid="qdbus org.kde.kmix /Mixers/0/Master_0 org.freedesktop.DBus.Properties.*"
 valid cat="kget" before="kgt|metalink|meta4|torrent"
 valid ctx="Numbers and characters"
 valid ctx="Query"
@@ -502,6 +512,7 @@ valid before="F%\d"
 valid before="K3Shell|K3b|Okular"
 valid after="<guimenuitem>Afficher"
 valid after="<guimenuitem>Annuler"
+valid after="Auteur"
 valid cat="kspread,sheets" before="[A-Z][0-9]"
 valid cat="skrooge" ctx="categories"
 valid cat="khangman"

@@ -166,8 +166,8 @@ valid after="kipi-"
 valid before="-"
 valid cat="kcmkonqhtml" after="/"
 valid cat="desktop_playground-multimedia" before="$"
-valid after="<link linkend=\"\S+" before="\S*\">"
-valid after="<ulink url=\"\S+" before="\S*\">"
+valid after="<linkend=\"\S*" before="\S*\">"
+valid after="<ulink url=\"\S*" before="\S*\">"
 hint="plugin -> module externe"
 
 [\broot\b]
@@ -249,6 +249,7 @@ hint="Utiliser une formule en « Impossible de trouver » (homogénéité)"
 [ne peut pas @etre]
 valid cat="kcminfo"
 valid cat="kdesu"
+valid cat="kioslave_nntp"
 valid after="et "
 hint="Utiliser une formule en « Impossible de... » (homogénéite)"
 
@@ -275,6 +276,7 @@ valid cat="klines"
 valid cat="kgoldrunner"
 valid cat="koffice"
 valid cat="planlibs"
+valid cat="kioslave_fish"
 hint="Traduisez « path » par « emplacement » dans le contexte de dossiers/fichiers"
 
 [désinitialiser]i
