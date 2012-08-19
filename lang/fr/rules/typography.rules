@@ -23,6 +23,9 @@ valid after="\(" before="\)"
 validGroup inQuotes
 valid after="«&unbsp;" before="&unbsp;»"
 
+validGroup inQuotesTag
+valid after="<quote>" before="</quote>"
+
 validGroup alone
 valid after="^" before="$"
 
@@ -32,11 +35,21 @@ valid after="<option>.*" before=".*</option>"
 validGroup tokenTag
 valid after="<token>.*" before=".*</token>"
 
+validGroup filenameTag
+valid after="<filename>.*" before=".*</filename>"
+
+validGroup cdataTag
+valid after="<\!\[CDATA\[.*" before=".*\]\]>"
+
+validGroup userinputTag
+valid after="<userinput>.*" before=".*</userinput>"
+
 [:]
 validGroup strongTypo
 validGroup inParenthesis
 validGroup inQuotes
 validGroup alone
+validGroup cdataTag
 valid after="&unbsp;" before="\t"
 valid after="https?://\S+"
 valid after="file|gg|mailto|man|whatsthis|kmail|addMsg|config|help"
@@ -111,13 +124,16 @@ valid ctx="Query"
 valid cat="skrooge" ctx="condition"
 valid cat="jointhegame" ctx="member|join|payment"
 valid cat="konqueror_man-kbookmarkmerger.1" after="jean@hal9000"
+valid cat="kfilereplace" after="\[\$.*"
 hint="Mettre une espace insécable avant et une espace après"
 
 [;]
 validGroup strongTypo
 validGroup inParenthesis
 validGroup inQuotes
+validGroup inQuotesTag
 validGroup alone
+validGroup cdataTag
 valid after="&amp;[0-9a-zA-Z\.\-]+"
 valid after="\*\.[a-zA-Z]+" before="\*\.[a-zA-Z]+" # List of extension suffix
 valid after="center|empty|normal|pt|px|pre-wrap|\d+|[a-f]{1,2}" # CSS
@@ -144,6 +160,7 @@ validGroup strongTypo
 validGroup inParenthesis
 validGroup inQuotes
 validGroup alone
+validGroup cdataTag
 valid after="&unbsp;" before="\)"
 valid after="&unbsp;" before="&unbsp;»"
 valid after="^<" before="--.*--&gt;$"
@@ -171,6 +188,8 @@ valid cat="kcmkonqhtml" after="<tt>" before="</tt>"
 valid ctx="Numbers and characters"
 valid ctx="CSV separator"
 valid cat="skrooge" ctx="condition"
+valid cat="kfilereplace" before="\[CDATA"
+valid cat="khangman" before="--Traduire"
 hint="Mettre une espace insécable avant et une espace après"
 
 [\?]
@@ -178,6 +197,7 @@ validGroup strongTypo
 validGroup inParenthesis
 validGroup inQuotes
 validGroup alone
+validGroup userinputTag
 valid ctx=".*one character"
 valid after="&unbsp;" before="\)"
 valid after="&unbsp;" before="&unbsp;»"
@@ -197,12 +217,16 @@ valid cat="kcmkonqhtml" after="<tt>.?" before=".+</tt>"
 valid cat="kioslave_audiocd" before="device"
 valid cat="kioslave_audiocd" before="fileNameTemplate"
 valid cat="kioslave_audiocd" before="albumNameTemplate"
+valid cat="kfilereplace" before=">"
+valid before="xml"
+valid after="xml version=.*"
 valid ctx="Numbers and characters"
 valid ctx="Query"
 hint="Mettre une espace insécable avant et une espace après"
 
 [,]
 validGroup inQuotes
+validGroup cdataTag
 valid after="[^&sp;(]" before="&sp;" 
 valid after="[^&sp;(]" before="\n"
 valid after="[^&sp;(]" before="</td>"
@@ -229,6 +253,7 @@ valid ctx="Query"
 hint="Pas d'espace avant une virgule (mais un après) !"
 
 [,(?=[a-zA-Z])]
+validGroup cdataTag
 valid after="x" before="y"
 valid after="^Keywords="
 valid after="font-family:.+" # CSS
@@ -267,6 +292,7 @@ valid ctx="Numbers and characters"
 hint="Mettre une espace avant et une espace insécable après"
 
 [`]
+validGroup cdataTag
 valid cat="amarok" after="prefix"
 valid cat="amarok" before="kde4?-config"
 valid cat="kdevelop" after="attendu.*"
@@ -317,6 +343,7 @@ hint="Utiliser de vrais guillemets, au lieu d'une apostrophe (homogénéité)"
 [\"]
 validGroup inQuotes
 validGroup alone
+validGroup cdataTag
 valid msgid="<!ENTITY"
 valid after="\s+(=|]|PS1|\")"
 valid before="\s*/?>|&gt|}"
@@ -338,6 +365,7 @@ valid cat="kturtle_glossary,kturtle_programming-reference" after="demande.+"
 valid cat="kturtle_programming-reference" after="message.+"
 valid cat="kturtle_programming-reference" after="auteur.+"
 valid cat="kturtle_glossary" after="\(" before="\)"
+valid after="DOCTYPE.*"
 valid ctx="Numbers and characters"
 valid ctx="characters are not allowed"
 valid ctx="unit synonyms for matching user input"
@@ -407,6 +435,7 @@ valid after="\.\."
 hint="Le point doit être après la parenthèse (et non avant)"
 
 [\.(?=[A-Z])]
+validGroup filenameTag
 valid ctx="EMAIL OF TRANSLATORS" before="."
 valid cat="kpackage" after="PACKAGES?" before="TXT"
 valid before="Xclients"
@@ -434,6 +463,7 @@ valid after="&amp;([A-Za-z\-]*\.?)+" before="([A-Za-z\-]*\.?)+;"
 valid after="&amp;([A-Za-z\-]*\.?)+" before="([A-Za-z\-]*\.?)+\.mail;"
 valid after="&amp;[A-Za-z\-]*\.[A-Za-z\-]+" before="mail"
 valid after="http://\S+"
+valid cat="kget" before="kgt|metalink|meta4|torrent"
 valid ctx="Numbers and characters"
 valid ctx="Query"
 hint="Mettre une espace après un point"
@@ -455,6 +485,7 @@ valid cat="kxsconfig" before="-"
 valid cat="kommander" after="@\S+"
 valid cat="ksystemlog" after=":"
 valid cat="kspread,sheets" after=";"
+valid cat="kget" before="kgt"
 valid cat="kturtle_programming-reference" msgid="{ ... }"
 valid ctx="characters are not allowed"
 hint="Pas d'espace avant un point"

@@ -5,6 +5,9 @@
 addFilterHook name="fr:patternAccents" on="pattern"
 addFilterHook name="fr:patternEntities" on="pattern"
 
+validGroup cdataTag
+valid after="<\!\[CDATA\[.*" before=".*\]\]>"
+
 [\bboites?\b]i
 hint="boite => boîte (avec un accent circonflexe)"
  
@@ -86,6 +89,7 @@ hint="Seulement un « d » en français"
 hint="Il manque un « s »"
 
 [v[eè]rif]i
+validGroup cdataTag
 valid after="Q"
 valid before="IED"
 valid cat="kleopatra" after="Decrypt"
@@ -417,6 +421,7 @@ hint="remplacer « status » ou « statut » par « état »"
 hint="Seuls les militaires sont basés. Préférez « fondé sur » ou un participe comme « utilisant »"
 
 [support]i
+validGroup cdataTag
 valid before="sMarkup" # D-Bus call
 valid after="http://\S+"
 valid after="in"
@@ -449,6 +454,7 @@ valid cat="kspread,sheets"
 valid before=":"
 valid before="all"
 valid after="<sgmltag class=\"starttag\">" before="</sgmltag>"
+valid after="&lt;" before="&gt;"
 hint="Merci de mettre un « e » à la fin de « texte » ou « contexte »"
 
 [anti-[^i]]i

@@ -11,6 +11,12 @@ valid after="\(" before="\)"
 validGroup inQuotes
 valid after="«&unbsp;" before="&unbsp;»"
 
+validGroup optionTag
+valid after="<option>.*" before=".*</option>"
+
+validGroup systemitemTag
+valid after=".*<systemitem class=\"username\">" before=".*</systemitem>"
+
 [(\b[Ee]ntrer\b)|(\b[Ee]ntré[^e])|(\b[Ee]ntrez\b)]
 valid before="&sp;dans&sp;"
 valid before="&sp;en&sp;"
@@ -80,6 +86,7 @@ valid before=" (Disc|PCI|GSM|Flash)"
 valid cat="juk" before="</guimenuitem>" after="<guimenuitem>"
 valid cat="juk" after="juk-viewmode-"
 valid cat="konqueror_filemanager,konqueror_commands"
+valid cat="kcontrol_kwintabbox" after="vue.+"
 hint="Choix de l'équipe : « compresser » (au lieu de « compacter »)"
 
 [[Gg]ard(é|er)]
@@ -107,6 +114,7 @@ valid after="ir"
 valid after="pauses? "
 valid cat="kverbos"
 valid cat="kgoldrunner" after="ascension&sp;"
+valid after="grille.+"
 hint="Choix de l'équipe : « expression rationnelle » (et non régulière)"
 
 [rendez vous]i
@@ -165,6 +173,8 @@ hint="plugin -> module externe"
 [\broot\b]
 #validGroup inQuotes
 validGroup inParenthesis
+validGroup optionTag
+validGroup systemitemTag
 valid after="uid |UID "
 valid after="/"
 valid after="-"
@@ -238,6 +248,7 @@ hint="Utiliser une formule en « Impossible de trouver » (homogénéité)"
 
 [ne peut pas @etre]
 valid cat="kcminfo"
+valid cat="kdesu"
 valid after="et "
 hint="Utiliser une formule en « Impossible de... » (homogénéite)"
 
