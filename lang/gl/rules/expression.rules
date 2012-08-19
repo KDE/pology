@@ -171,9 +171,11 @@ valid msgstr="\bNon\s(é|foi)\sposíbel\s(pór|\w+[aei]r)"
 hint="«Can not» -> «Non é/foi posíbel infinitivo»"
 
 # «Could not» -> «Non é/foi posíbel infinitivo»
-{\bCould(\snot|n't)}
+{\bcould(\snot|n't)}i
+valid !after="(^|\.|:|,|;|\()\s?"
 id="PT-2012-expression_could not infinitivo"
-valid msgstr="\b(N|n)on\s(é|foi)\sposíbel\s(pospor|pór|\w+[aeií]r)"
+valid msgstr="\bnon\s(é|foi)\sposíbel\s(pospor|pór|\w+[aeií]r)"
+valid msgstr="\bnon\s(é|foi)\sposíbel\s\w+(a|e|i)l(a|o)s?"
 #o que segue apártase da Trasnada
 valid msgstr="\bnon\bpoida\s(pó|(\w+[aei])r)\b" env="kde" 
 valid msgstr="\bnon\b(é|foi)\b(capaz|quen)\bde\b(pó|(\w+[aei])r)\b" env="kde"
@@ -191,11 +193,13 @@ hint="«could not be» -> «Non é/foi posíbel infinitivo»"
 
 # «Unable to verb» -> «Non é/foi posíbel infinitivo»
 {\bunable\sto}i
-valid after="is\s"
-valid after="was\s"
-id="PT-2012-expression_unable-to"
-valid msgstr="\bnon\s(é|foi)\sposíbel\s(pór|\w+[aei]r)"
-hint="«unable to» -> «non é/foi posíbel + infinitivo»"
+id="noPT-2012-expression_unable to"
+valid after="(be|is|are|was|were)\s"
+# # valid !after="(^|:|\.)\s?" # normalmente vai despois de algo disto.
+valid after="(^|\(|,|\.|\*|;)\s?" msgstr="\bnon\s(é|foi)\sposíbel\s(pór|\w+[aei]r)"
+valid after=":\s?" !env="kde" msgstr="\bnon\s(é|foi)\sposíbel\s(pór|\w+[aei]r)"
+valid after=":\s?"  msgstr="\bnon\sfoi\sposíbel\s(pór|\w+[aei]r)" env="kde" #xa que estamos
+# hint="«unable to» -> «non é/foi posíbel + infinitivo»"
 
 # «Non se puido» -> «Non foi posíbel»
 [\bnon\sse\sp(uido|ode)\b]i
