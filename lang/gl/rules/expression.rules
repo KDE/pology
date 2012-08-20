@@ -203,16 +203,16 @@ valid after=":\s?"  msgstr="\bnon\sfoi\sposíbel\s(pór|\w+[aei]r)" env="kde" #x
 
 # «Non se puido» -> «Non foi posíbel»
 [\bnon\sse\sp(uido|ode)\b]i
-id="PT-2012-expression_non se puido"
+id="PT-2012-expression-gl_non se puido"
 hint="non se puido -> non foi posíbel"
 
 # «fallo ao» -> «Non foi posíbel»
 [\bfallou?\sao\b]i
-id="PT-2012-expression_fallo ao"
+id="PT-2012-expression-gl_fallo ao"
 # valid after="\bproduciuse\sun\s"
 hint="fallo ao -> produciuse un erro ao"
 
 # «Houbo un erro ao» -> «Non foi posíbel»
 [\bhoubo\sun\serro\sao\b]i
-id="PT-2012-expression_houbo un erro ao"
+id="PT-2012-expression-gl_houbo un erro ao"
 hint="houbo un erro ao -> Produciuse un erro ao"
