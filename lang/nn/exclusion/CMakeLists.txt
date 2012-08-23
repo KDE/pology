@@ -1,6 +1,8 @@
 set(files
     e-infinitiv.dat
     klammeformer.dat
+    subst-mask-er.dat
+    subst-fem-ar.dat
     README
 )
 get_current_source_subdir(srcsubdir)

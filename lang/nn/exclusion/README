@@ -39,3 +39,42 @@ awk -F'\t' '
 grep -v '	verb i\(nf\|mp\)' fullform_nn.txt | cut -f3 -d'	' | grep e$ | sort -u > e-ord.txt
 comm -23 ea-inf.txt e-ord.txt > e-infinitiv.dat
 rm -f a-inf.txt ea-inf.txt e-ord.txt
+
+
+# The file ‘subst-mask-er.dat’ contains a list of -er/-ene inflections of
+# masculine nouns that can have both a -ar/-ane or a -er/-ene suffix.
+# For example, the noun «gjest» can be written as gjestar/gjestane
+# or gjester/gjestene, so the output file contains ‘gjester’ and ‘gjestene’.
+#
+# The file ‘subst-fem-ar.dat’ contains a list of -ar/-ane inflections of
+# feminine nouns that can have both a -ar/-ane or a -er/-ene suffix.
+# For example, the noun «sideelv» can be written as sideelver/sideelvene
+# or sideelvar/sideelvane, so the output file contains ‘sideelvar’ and 
+# ‘sideelvene’.
+#
+# The files are generated from ‘fullform_nn.txt’ using these commands:
+
+grep -F ' normert' fullform_nn.txt | grep -F '	subst' > subst-ok.dat
+sort -t"	" -k2,2 -k1,1 -k4,4 -k3,3 subst-ok.dat > subst-ok-sort.dat
+grep -F ' mask ' subst-ok-sort.dat > subst-mask.dat
+grep -F ' fem ' subst-ok-sort.dat > subst-fem.dat
+
+awk -F'\t' '
+{
+  if( $1==previd && ((substr($3,length($3)-2,length($3))=="ene" && prevw==substr($3,1,length($3)-3)"ane") ||
+                     (substr($3,length($3)-1,length($3))=="er" && prevw==substr($3,1,length($3)-2)"ar")) )
+    print $3
+  previd=$1
+  prevw=$3
+}' subst-mask.dat > subst-mask-er.dat
+
+awk -F'\t' '
+{
+  if( $1==previd && ((substr($3,length($3)-2,length($3))=="ene" && prevw==substr($3,1,length($3)-3)"ane") ||
+                     (substr($3,length($3)-1,length($3))=="er" && prevw==substr($3,1,length($3)-2)"ar")) )
+    print prevw
+    previd=$1
+    prevw=$3
+}' subst-fem.dat > subst-fem-ar.dat
+
+rm -f subst-ok* subst-mask.dat subst-fem.dat

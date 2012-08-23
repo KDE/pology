@@ -44,6 +44,20 @@ valid after="har "
 [\bbruker]i
 hint="bruker → -ar"
 
+# Test av -er/-ene-former av hankjønnsord
+# (eks. «gjester» og «gjestene»). Me
+# brukar konsekvent -ar/-ane-former.
+*hook name="nn:exclusion/exclude-forms~['subst-mask-er']" on="msgstr"
+id="subst-mask-er"
+hint="Hankjønnsord skal konsekvent ha -ar/-ane-endingar (lovleg i 2012-rettskrivinga)"
+
+# Test av -ar-/-ane-former av hokjønnsord
+# (eks. «myrar» og «myrane»). Me
+# brukar konsekvent -er/-ene-former.
+*hook name="nn:exclusion/exclude-forms~['subst-fem-ar']" on="msgstr"
+id="subst-fem-ar"
+hint="Hokjønnsord skal konsekvent ha -er/-ene-endingar (lovleg i 2012-rettskrivinga)"
+
 [(slådd|slegen|slegne)]
 hint="slådd/slegen → slått"
 
