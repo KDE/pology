@@ -164,6 +164,7 @@ id="PT-2011_bookmark"
 valid msgstr="\bmarcador"
 valid msgstr="\bmarca\b"
 valid msgstr="\bmarcar"
+valid before="ed" msgstr="\bmarcado"
 hint="«bookmark» tradúcese como «marcador» ou «marcar»"
 
 # «marcador» traduce a «bookmark»
@@ -377,8 +378,9 @@ hint="«portarretallos» traduce a «clipboard»"
 
 # «close» tradúcese como «pechar»
 {\bclose}i
+valid before="r"
 id="PT-2011_close"
-valid msgstr="\bpech"
+valid msgstr="\bp(e|é)ch"
 hint="«close» tradúcese como «pechar»"
 
 # «pechar» traduce a «close»
@@ -425,7 +427,7 @@ hint="«orde» traduce a «command»"
 # «commit» tradúcese como «remitir»
 {\bcommit}i
 id="PT-2011_commit"
-valid msgstr="\bremi(ti(r|do|do)|s(ión|sor)|tíron)"
+valid msgstr="\bremi(ti(r|do|ndo)|s(ión|sor)|tíron)"
 hint="«commit» tradúcese como «remitir»"
 
 # «remitir» traduce a «commit»
@@ -509,12 +511,15 @@ hint="«base de datos» traduce a «database»"
 
 # «date» tradúcese como «data»
 {\bdates?}i
-id="PT-2012_date"
+valid after="\bup\sto\s"
+valid after="\bup-to-"
+valid after="\bout\sof\s"
+id="noPT-2012_date"
 valid msgstr="\bdatas?\b"
 hint="«date» tradúcese como «data»"
 
 # «data» traduce a «date»
-[\bdatas?]i
+[\bdatas?\b]i
 id="PT-2012-dual_date"
 valid msgid="\bdates?\b"
 hint="«data» traduce a «date»"
@@ -523,7 +528,7 @@ hint="«data» traduce a «date»"
 {\bdecrypt}i
 id="PT-2011_decrypt"
 valid msgstr="\bdescifr"
-hint="«decript» tradúcese como «descifrar»"
+hint="«decrypt» tradúcese como «descifrar»"
 
 # «descifrar» traduce a «decrypt»
 [\bdescifr]i
@@ -532,7 +537,7 @@ valid msgid="\bdecrypt"
 hint="«descifrar» traduce a «decrypt»"
 
 # «delete» tradúcese como «eliminar»
-{\bdelete}i
+{\bdelet(es?|ed|ing)}i
 id="PT-2011_delete"
 valid msgstr="\belimin"
 hint="«delete» tradúcese como «eliminar»"
@@ -631,8 +636,8 @@ hint="«diskette» tradúcese como «disquete»"
 # «disquete» traduce a «diskette»
 [\bdisquetes?\b]i
 id="PT-2012-dual_diskette"
-valid msgstr="\bdiskettes?"
-valid msgstr="\bfloppy(\sdisk)?(?!\sdrive)"
+valid msgid="\bdiskettes?"
+valid msgid="\bfloppy(\sdisk)?(?!\sdrive)"
 hint="«disquete» traduce a «diskette»"
 
 # «dock» tradúcese como «doca»
@@ -723,7 +728,7 @@ hint="«baleiro» traduce a «empty»"
 {\bencrypt}i
 id="PT-2011_encrypt"
 valid msgstr="\bcifr"
-hint="«encript» tradúcese como «cifrar»"
+hint="«encrypt» tradúcese como «cifrar»"
 
 # «cifrar» traduce a «encrypt»
 [\bcifr]i
@@ -799,7 +804,8 @@ hint="«borrar» tradúcese como «erase»"
 
 # «fail» e relacionados tradúcense como «fallo»
 {\bfa(il(s|ed|ure)?|ult)}i
-valid span="failed" before="\sto"
+valid span="failed" before="\sto\b"
+valid span="failed" before="\swith\b"
 valid span="failed" before="\.|:|,|;" 
 id="PT-2011_fail"
 valid msgstr="\bfall."
@@ -987,7 +993,7 @@ hint="«acochar» traduce a «hide»"
 # «highlight» tradúcese como «realzar»
 {\bhighlight}i
 id="PT-2011_highlight"
-valid msgstr="\breal(zar|zado|ce)"
+valid msgstr="\breal(zar?|zad(o|a)|ce)"
 hint="«highlight» tradúcese como «realzar» ou «realce»"
 
 # «realzar» traduce a «highlight»
@@ -1035,11 +1041,11 @@ id="PT-2011-dual_icon"
 valid msgid="\bicon"
 hint="«icona» traduce a «icon»"
 
-# «ilegal» tradúcese como «inaceptábel»
-{\bilegal}i
-id="PT-2010_ilegal"
+# «illegal» tradúcese como «inaceptábel»
+{\billegal}i
+id="PT-2010_illegal"
 valid msgstr="inaceptábel"
-hint="«ilegal» tradúcese como «inaceptábel»"
+hint="«illegal» tradúcese como «inaceptábel»"
 
 # «inaceptábel» traduce a «ilegal»
 [\binaceptábe(l|is)\b]i
@@ -1203,7 +1209,7 @@ hint="«iniciador» traduce a «launcher»"
 
 # «leave» tradúcese como «deixar» ou «saír»
 {\bleav(e|ed|es|ing)}i
-id="PT-2011_leave"
+id="noPT-2011_leave"
 valid msgstr="\bsa(i|í)(r|u|che)"
 valid msgstr="\bd(e|é)ix"
 hint="«leave» tradúcese como «deixar» ou «saír»"
@@ -1282,6 +1288,7 @@ hint="«saída» traduce a «logout», «logoff» (e a «output», «saída»)"
 id="PT-2011_log/signout-log/signoff"
 valid msgstr="\bsaí(r|u|che)"
 valid msgstr="\bsae\b"
+valid msgstr="\bsaia"
 hint="«log/sign out» e «log/sign off» tradúcense como «saír»"
 
 # «saír» traduce a «quit», «exit», «log/sign out» e «log/sign off»
@@ -1359,7 +1366,7 @@ valid msgid="\bmenus?"
 hint="«menú» traduce a «menu»"
 
 # «mouse» tradúcese como «rato»
-{\bmouse}i
+{\bm(ouse|ic)e}i
 id="PT-2012_mouse"
 valid msgstr="\brato"
 hint="«mouse» tradúcese como «rato»"
@@ -1416,7 +1423,8 @@ hint="«terminate» tradúcese como «terminar»"
 
 # «terminar» traduce a «terminate»
 [\btermin]i
-valid before="al"
+valid before="al\b"
+valid before="ais\b"
 id="PT-2011-dual_terminate"
 valid msgid="\bterminat"
 valid after="non\s" msgid="unterminat" env="kde"
@@ -1429,7 +1437,7 @@ valid after="<" before=">"
 id="noPT-2011_path"
 valid msgstr="\bruta"
 valid msgstr="\bsecuencias?\sde\svértices"
-hint="«Path» tradúcese como «ruta» (ou secuencia de vértices)"
+hint="«Path» tradúcese como «ruta»"
 
 # «Trust path» tradúcese como «cadea de confianza»
 {\btrust\spath}i
@@ -1579,10 +1587,10 @@ valid msgid="\bredo"
 hint="«refacer» traduce a  «redo»"
 
 # «removable» tradúcese como «extraíbel»
-{\bremovable}i
-id="PT-2011_removable"
-valid msgstr="\bextraíbe(l|is)"
-hint="«removable» tradúcese como «extraíbel»"
+{\bremovable\sdevice}i
+id="PT-2011_removable device"
+valid msgstr="\bdispositivos?\sextraíbe(l|is)"
+hint="«removable device» tradúcese como «dispositivo extraíbel»"
 
 # «extraíbel» traduce a «removable»
 [\bextra(íbel|ibeis)]i
@@ -1601,6 +1609,7 @@ hint="«remove» tradúcese como «retirar» ou «desinstalar»"
 [\bretir]i
 id="PT-2011-dual_remove"
 valid msgid="\bremove"
+valid msgid="\bremoving"
 hint="«retirar» traduce a «remove»"
 
 # «rename» tradúcese como «renomear»
@@ -1649,7 +1658,7 @@ hint="«reiniciar» traduce a «restart/reboot»"
 
 # «retry» tradúcese como «reintentar» ou «tentar de novo»
 {\bretry}i
-id="PT-2011_retry"
+id="noPT-2011_retry"
 valid msgstr="\breintent"
 valid msgstr="\bt(entar|énteo|ente|entalo)\sde\snovo"
 hint="«retry» tradúcese como «reintentar» ou «tentar de novo»"
@@ -1751,11 +1760,11 @@ id="noPT-2011/2012_support"
 valid msgstr="\basistencia\stécnica"
 valid msgstr="\bservizos?\stécnico"
 valid msgstr="\b(ser|é|son)\scompatíbe(l|is)"
-valid msgstr="\bson\scompatibeis"
+valid msgstr="\bson\scompatíbeis"
 valid msgstr="\bde\scompatibilidade"
 valid msgstr="\bcompatibilidade\sde"
 valid msgstr="\bcompatibilidade"
-valid before="ed" msgstr="\bcompatíbel"
+valid before="ed" msgstr="\bcompatíbe(l|is)"
 valid msgstr="\badmit"
 valid msgstr="\bpermit(e|en|an|ir)\s\w+[aei]r"
 valid msgstr="\bincl(u|ú)"
@@ -1905,6 +1914,7 @@ hint="«(sistema de) seguimento de incidencias» traduce a «bug tracker»"
 valid before="cument"
 id="PT-2011_undo"
 valid msgstr="\bdesfacer"
+valid msgstr="\bdesfaga"
 valid msgstr="\bdesfágaa"
 valid before="ne" msgstr="\bdesfeito"
 hint="«undo» tradúcese como «desfacer»"
@@ -1921,6 +1931,7 @@ id="PT-2011_update"
 valid msgstr="\bactualiza(r|do|ción)"
 valid msgstr="\bactualice"
 valid msgstr="\bactualiz(a|á)"
+valid msgstr="\bactualizo"
 hint="«update» tradúcese como «actualizar» ou «actualización»"
 
 # «actualizar» ou «actualización» traducen a «update»
@@ -1930,9 +1941,10 @@ valid msgid="\bupdat(e|ing)"
 hint="«actualizar» ou «actualización» traducen a «update»"
 
 # «upgrade» tradúcese como «anovar» ou «anovación»
-{\bupgrade}i
+{\bupgrad}i
 id="PT-2011_upgrade"
-valid msgstr="\banova(r|do|ción)"
+valid before="e\b" msgstr="\banova(r|ción)"
+valid before="ed" msgstr="\banovado"
 valid msgstr="\banovou"
 hint="«upgrade» tradúcese como «anovar» ou «anovación»"
 
