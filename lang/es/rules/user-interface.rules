@@ -227,8 +227,9 @@ hint="« Quit » se traduce como como « Salir » (regla de traducción de menú
 {^Clear$}
 id="ui-menu-clear"
 valid msgstr="Borrar"
+valid msgstr="Despejar"
 valid msgstr="Despejado"
-hint="« Clear » se traduce como como « Borrar » (regla de traducción de menús de KDE)"
+hint="« Clear » se traduce como como « Borrar/Despejar » (regla de traducción de menús de KDE)"
 
 {^Cut$}
 id="ui-menu-cut"
@@ -554,7 +555,7 @@ hint="« Check button » se traduce como « Botón de verificación » (regla de
 {\bcheck\s?buttons\b}i
 id="ui-widget-check-buttons"
 valid msgstr="botones\sde\sverificación"
-valid msgstr="(ningún|cualquier)\sbotón\sde\sverificación"
+valid msgstr="(algún|ningún|cualquier)\sbotón\sde\sverificación"
 hint="« Check buttons » se traduce como « Botones de verificación » (regla de traducción de elementos gráficos)"
 
 {\bchild\swindow\b}i
@@ -599,7 +600,7 @@ hint="« Desktop » se traduce como « Escritorio » (regla de traducción de el
 {\bdesktops\b}i
 id="ui-widget-desktops"
 valid msgstr="escritorios"
-valid msgstr="(ningún|cualquier)\sescritorio"
+valid msgstr="(algún|ningún|cualquier)\sescritorio"
 hint="« Desktops » se traduce como « Escritorios » (regla de traducción de elementos gráficos)"
 
 {\bdialog\s?box\b}i
@@ -642,7 +643,7 @@ hint="« Field » se traduce como « Campo » (regla de traducción de elementos
 {\bfields\b}i
 id="ui-widget-fields"
 valid msgstr="campos"
-valid msgstr="(ningún|cualquier)\scampo"
+valid msgstr="(algún|ningún|cualquier)\scampo"
 hint="« Fields » se traduce como « Campos » (regla de traducción de elementos gráficos)"
 
 {\bframe\b}i
@@ -693,7 +694,7 @@ hint="« Icon » se traduce como « Icono » (regla de traducción de elementos 
 {\bicons\b}i
 id="ui-widget-icons"
 valid msgstr="iconos"
-valid msgstr="(ningún|cualquier)\sicono"
+valid msgstr="(algún|ningún|cualquier)\sicono"
 hint="« Icons » se traduce como « Iconos » (regla de traducción de elementos gráficos)"
 
 {\blabel\b}i

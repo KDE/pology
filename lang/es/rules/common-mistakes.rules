@@ -53,6 +53,10 @@ hint="« A excepción hecha de » se escribe como « A excepción de/Excepción 
 id="cm-a-grosso-modo"
 hint="« A grosso modo » se escribe como « Grosso modo » (error frecuente: solecismo)"
 
+[\ba\sla\salza\b]i
+id="cm-a-la-alza"
+hint="« A la alza » se escribe como « Al alza » (error frecuente: solecismo)"
+
 [\ba\sla\smayor\sbrevedad\b]i
 id="cm-a-la-mayor-brevedad"
 hint="« A la mayor brevedad » se escribe como « Con la mayor brevedad » (error frecuente: solecismo)"
@@ -136,6 +140,10 @@ hint="« Antes de ahora » se escribe como « Hasta ahora » (error frecuente: s
 [\baparte\sque\b]i
 id="cm-aparte-que"
 hint="« Aparte que » se escribe como « Aparte de » (error frecuente)"
+
+[\bapunto\sde\b]i
+id="cm-apunto-de"
+hint="« Apunto que » se escribe como « A punto de » (error frecuente)"
 
 [\b(la|una|los|unos|esta|estos|esa|esos)\sAPI\b]i
 id="cm-api-en-masculino"
@@ -333,6 +341,10 @@ hint="« Cián » se escribe como « Cian » (ver la nueva ortografía de la RAE
 id="cm-uso-de-coger"
 hint="« Coger » no se debe utilizar, tiene connotaciones sexuales en México (error frecuente)"
 
+[\bcomet(er|e|a|en|an|iendo|ido)\ssuicidio\b]i
+id="cm-cometer-suicidio"
+hint="« Cometer suicidio » se escribe « Suicidarse » (error frecuente)"
+
 [\bcon\sarreglo\sde\b]i
 id="cm-con-arreglo-de"
 hint="« Con arreglo de » se escribe como « Con arreglo a » (error frecuente: solecismo)"
@@ -385,9 +397,9 @@ hint="« Cualesquieras » se escribe como « Cualesquiera » (error frecuente)"
 id="cm-da-con-tilde"
 hint="« Dá » se escribe como « Da » (error frecuente)"
 
-[\bdarse\sde\scuenta\b]i
-id="cm-darse-cuenta-de"id="cm-rio-con-tilde"
-hint="« Darse de cuenta » se escribe como « Darse cuenta » (error frecuente:solecismo)"
+[\bdar\sa\sbasto\b]i
+id="cm-dar-a-basto"
+hint="« Dar a basto » se escribe como « Dar abasto » (error frecuente: solecismo)"
 
 [\bde\sacuerdo\sa\b]i
 id="cm-de-acuerdo-a"
@@ -462,6 +474,10 @@ hint="« Dió » se escribe como « Dio » (error frecuente)"
 [\bdiós\b]i
 id="cm-dios-con-tilde"
 hint="« Diós » se escribe como « Dios » (error frecuente)"
+
+[\bdiscrepar\scon\b]i
+id="cm-discrepar-con"
+hint="« Discrepar-con » se escribe como « Discrepar de » (error frecuente)"
 
 [\bdistinto\sa\b]i
 id="cm-distinto-a"
@@ -559,6 +575,10 @@ hint="« En relación a » se escribe como « En relación con/Con relación a �
 [\ben\stérminos\sde\b]i
 id="cm-en-terminos-de"
 hint="« En téminos de » se escribe como « Partiendo de/En función de » (error frecuente: anglicismo)"
+
+[\ben\svirtud\sa\b]i
+id="cm-en-virtud-a"
+hint="« En virtud a » se escribe como « En virtud de » (error frecuente: solecismo)"
 
 [\ben\svistas\sa\b]i
 id="cm-en-vistas-a"
@@ -944,6 +964,14 @@ hint="« Preveyó » se escribe como « Preveió » (error frecuente)"
 id="cm-previamente-a"
 hint="« Previamente a » se escribe como « Antes de » (error frecuente)"
 
+[\bprimer\svez\b]i
+id="cm-primer-vez"
+hint="« Primer vez » se escribe como « Primera vez » (error frecuente)"
+
+[\bpunto\sy\sfinal\b]i
+id="cm-punto-y-final"
+hint="« Punto y final » se escribe como « Punto final » (error frecuente)"
+
 [\bqatar\b]i
 id="cm-qata-con-q"
 hint="« Qatar » se escribe como « Catar » (ver la nueva ortografía de la RAE)"
@@ -999,6 +1027,10 @@ hint="« Se esta » se escribe como « Se está » (error frecuente)"
 [\bse\seste\b]i
 id="cm-se-este-sin-tilde"
 hint="« Se este » se escribe como « Se esté » (error frecuente)"
+
+[\bse\sfijó\sque\b]i
+id="cm-se-fijo-que"
+hint="« Se fijó que » se escribe como « Se fijó en que » (error frecuente)"
 
 [\bse\sgestión\b]i
 id="cm-se-gestion"
@@ -1076,6 +1108,10 @@ hint="« Suelen haber » se escribe como « Suele haber » (error frecuente)"
 id="cm-sydney"
 hint="« Sydney » se escribe como « Sidney » (error frecuente)"
 
+[\btal\ses\sasí\b]i
+id="cm-tal-es-asi"
+hint="« Tal es así » se escribe como « Tanto es así » (error frecuente: solecismo)"
+
 [\btan\ses\sasí\b]i
 id="cm-tan-es-asi"
 hint="« Tan es así » se escribe como « Tanto es así » (error frecuente: solecismo)"
@@ -1083,6 +1119,10 @@ hint="« Tan es así » se escribe como « Tanto es así » (error frecuente: so
 [\bte\sse\b]i
 id="cm-te-se"
 hint="« Te se » se escribe como « Se te » (error frecuente)"
+
+[\btema\ssensible\b]i
+id="cm-tema-sensible"
+hint="« Tema sensible » se escribe como « Tema delicado » (error frecuente)"
 
 [\btenia\b]i
 id="cm-tenia"
@@ -1173,6 +1213,10 @@ hint="En lugar de « Versus » se emplea « Contra/Frente a/en comparación con 
 [\bví\b]i
 id="cm-vi-con-tilde"
 hint="« Ví » se escribe como « Vi » (error frecuente)"
+
+[\bvígente\scampeón\b]i
+id="cm-vigente-campeon"
+hint="« Vígente campeón » se escribe como « Actual campeón » (error frecuente)"
 
 [\bvió\b]i
 id="cm-vio-con-tilde"

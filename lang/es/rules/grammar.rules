@@ -280,9 +280,9 @@ hint="Ponga una coma después de «en primer lugar» (error gramatical)"
 id="gr-falta-coma-despues-en-cuanto-a"
 hint="Ponga una coma después de «En cuanto a» (error gramatical)"
 
-[respecto\sde\s]i
-id="gr-falta-coma-despues-respecto-de"
-hint="Ponga una coma después de «Respecto de» (error gramatical)"
+#[respecto\sde\s]i
+#id="gr-falta-coma-despues-respecto-de"
+#hint="Ponga una coma después de «Respecto de» (error gramatical)"
 
 [con\srespecto\sa\s]i
 id="gr-falta-coma-despues-con-respecto-a"
@@ -540,7 +540,7 @@ hint="Después de pronombre personal no suele aparecer preposición (error grama
 id="gr-preposicion-al-fin-de-frase"
 valid span="(?u)\b\w+\." before="\.\."
 valid span="A\."
-valid span="de\.\S"
+valid span="de\." before="\w"
 hint="Una preposición no puede aparecer al final de frase (error gramatical)"
 
 [(?u)\b(ni|pero|mas|sino|porque|pues|que|como|si|aunque|conque|o\ssea|es\sdecir|es\smás)(\.|\?|\!|\<p\>)]i
@@ -620,6 +620,10 @@ hint="Se ha encontrado «Ha» en lugar de «A» antes de un infinitivo (error gr
 id="gr-ir-sin-a-antes-infinitivo"
 hint="«Ir» lleva una «A» antes de un infinitivo (error gramatical)"
 
+[(?u)\bcab(emos|eís|en|íamos|íais|ían)\s\w+?(ar|er|ir)\b]i
+id="gr-cabe-en-singular-antes-de-infinitivo"
+hint="«Caber» se escribe en modo singular antes de infinitivo"
+
 #
 # ERRORES DE CONCORDANCIA DE GÉNERO o NÚMERO
 #
@@ -627,6 +631,28 @@ hint="«Ir» lleva una «A» antes de un infinitivo (error gramatical)"
 [(?u)\b(la|su)\s\w+?as\b]i
 id="gr-la-o-su-antes-plural"
 hint="«la» o «su» seguido de plural se escribe como «las» o «sus» (error gramatical)"
+
+[(?u)\bhabían\smuchas\s\w+?as\b]i
+id="gr-habian-muchas"
+hint="«Habían muchas`+ plural» se escribe como «Había muchas» (error gramatical)"
+
+[(?u)\b(tener|tengo|tienes|tiene|tenía|tenías|teníamos|tenían|)\sclaro\suna\b]i
+id="gr-tener-claro-una"
+hint="«Tener claro una» se escribe como «Tener clara una» (error gramatical)"
+
+#
+# ERRORES DE ACENTUACIÓN
+#
+
+[(?u)\bsab(er|es|e|emos|éis|en|ía|ías|íamos|íais|ían)\sque\b]i
+id="gr-saber-que"
+hint="«Saber que» se escribe como « Saber qué » (error gramatical)"
+
+
+[(?u)\bs[ée]\sque\b]i
+id="gr-se-que"
+hint="«Sé que» se escribe como « Sé qué » (error gramatical)"
+
 
 #
 # ERRORES DIVERSOS

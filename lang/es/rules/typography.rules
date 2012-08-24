@@ -299,6 +299,7 @@ hint="No ponga dos signos de punto consecutivos"
 id="ty-apostrofo-suelto-o-ante-numeros"
 valid after='[a-zA-Z]'
 valid before='[a-zA-Z]'
+valid after="^" before="$"
 hint="No ponga el signo de apóstrofo suelto o antes de números"
 
 [&cr;]
