@@ -4,9 +4,6 @@
 
 include file="puretext.filters"
 
-[gong(ar|ane)\b]i
-hint="gongar/-ane → -er/-ene [unntak: musikkinstrumentet gong + verbet (men det heiter «6 gonger 7»)]"
-
 [applikasjon]i
 hint="applikasjon → program [unntak: XML-applikasjon o.l.]"
 
