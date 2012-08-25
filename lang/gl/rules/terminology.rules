@@ -103,7 +103,7 @@ valid msgid="\bapps?\b" !env="kde"
 hint="«aplicativo» traduce a «application» e a «app»"
 
 # «Attach» tradúcese como «anexar», «conectar»
-{\battach(ment?!)}i
+{\battach(es|ed|ing|ments?)?}i
 id="PT-2010_attach"
 valid msgstr="anexar"
 valid !msgstr="adxuntar"
@@ -944,7 +944,7 @@ hint="«marco de traballo» traduce a «framework»"
 {\bgradient}i
 id="PT-2011_gradient"
 valid msgstr="\bgrad(iente|ación)"
-hint="«gradient» tradúcese como «gradiente» ou «gradación»"
+hint="«gradient» tradúcese como «gradiente» ou «gradación» (cores)"
 
 # «gradiente» e «gradación» traduce a «gradient»
 [\bgrad(iente|ación)]i
@@ -1284,7 +1284,7 @@ valid msgid="\bquit" env="kde"
 hint="«saída» traduce a «logout», «logoff» (e a «output», «saída»)"
 
 # «log/sign out» e «log/sign off» tradúcense como «saír»
-{\b(log|sign)\so(ut|ff)}i
+{\b(log(s|ged|ging)?|sign(s|ed|ing)?)\so(ut|ff)}i
 id="PT-2011_log/signout-log/signoff"
 valid msgstr="\bsaí(r|u|che)"
 valid msgstr="\bsae\b"
@@ -1656,18 +1656,18 @@ valid msgid="\bre(start|boot)"
 hint="«reiniciar» traduce a «restart/reboot»"
 
 
-# «retry» tradúcese como «reintentar» ou «tentar de novo»
-{\bretry}i
-id="noPT-2011_retry"
-valid msgstr="\breintent"
-valid msgstr="\bt(entar|énteo|ente|entalo)\sde\snovo"
-hint="«retry» tradúcese como «reintentar» ou «tentar de novo»"
-
-# «reintentar» traduce a «retry»
-[\breintent]i
-id="PT-2011-dual_retry"
-valid msgid="\bretry"
-hint="«reintentar» traduce a «retry»"
+# # «retry» tradúcese como «reintentar» ou «tentar de novo»
+# {\bretry}i
+# id="noPT-2011_retry"
+# valid msgstr="\breintent"
+# valid msgstr="\bt(entar|énteo|ente|entalo)\sde\snovo"
+# hint="«retry» tradúcese como «reintentar» ou «tentar de novo»"
+# 
+# # «reintentar» traduce a «retry»
+# [\breintent]i
+# id="PT-2011-dual_retry"
+# valid msgid="\bretry"
+# hint="«reintentar» traduce a «retry»"
 
 # «rollback» tradúcese como «regresión» ou «regresar»
 {\broll\s?back}i
@@ -1840,7 +1840,7 @@ valid msgid="\bbug\stracker"
 hint="«(sistema de) seguimento de incidencias» traduce a «bug tracker»"
 
 # «track» tradúcese como «pista» ou «seguir/rastrexar»
-{\btrack\b}i
+{\btrack}i
 valid after="keeps? "
 id="PT-2011_track"
 valid msgstr="\bpista"

@@ -136,7 +136,7 @@ valid env="kde" before="find\b"
 hint="«failed to» -> «produciuse un erro ao + infinitivo»"
 
 # «verbing word word failed.» -> «produciuse un erro ao + infinitivo»
-{\b\w+ing\s(\w+\s){,5}?failed(\.|,)}i
+{\b\w+ing\s(\w+\s){,5}?failed(\.|,|$)}i
 id="noPT-2012-expression_failed."
 valid msgstr="produciuse\sun\serro\sao\s(pór|\w+[aei]r)"
 hint="«participlepresent word+ failed.» -> «produciuse un erro ao + infinitivo»"
