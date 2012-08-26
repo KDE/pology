@@ -1,9 +1,10 @@
 set(files
     filter.include
-    being-polite.rules.disabled
+    being-polite.rules
     common-mistakes.rules
     false-friends.rules
-    gerund-detector.rules.disabled
+    filter.include
+    gerund-detector.rules
     grammar.rules
     kde-l10n-es-proposed.rules
     kde-l10n-es.rules
