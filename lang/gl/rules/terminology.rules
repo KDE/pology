@@ -510,7 +510,7 @@ hint="«database» tradúcese como «base de datos»"
 # «base de datos» traduce a «database»
 [\bbases\sde\sdatos]i
 id="PT-2012-dual_database"
-valid msgid="\bdata\sbase"
+valid msgid="\bdata\s?base"
 hint="«base de datos» traduce a «database»"
 
 # «date» tradúcese como «data»
