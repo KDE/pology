@@ -131,8 +131,8 @@ include file="filter.include"
 {\bfailed\sto\s}i
 valid after="(^|\.|:|,|;|\()\s?"
 id="noPT-2012-expression_failed to"
-valid msgstr="produciuse\sun\serro\sao\s(pór|\w+[aei]r)"
-valid env="kde" before="find\b"
+# valid msgstr="produciuse\sun\serro\sao\s(pór|\w+[aei]r)"
+# valid env="kde" before="find\b"
 hint="«failed to» -> «produciuse un erro ao + infinitivo»"
 
 # «verbing word word failed.» -> «produciuse un erro ao + infinitivo»
@@ -167,7 +167,8 @@ hint="«can not be ed» -> «Non é/foi/ha ser/sexa posíbel infinitivo»"
 # «Can not» -> «Non é/foi posíbel infinitivo»
 {\bCan(\snot|not|n't)}
 id="PT-2012-expression_cannot infinitivo"
-valid msgstr="\bNon\s(é|foi)\sposíbel\s(pór|\w+[aei]r)"
+valid msgstr="\b(N|n)on\s(é|foi)\sposíbel\spór"
+valid msgstr="\b(N|n)on\s(é|foi)\sposíbel\s\w+[aei]r"
 hint="«Can not» -> «Non é/foi posíbel infinitivo»"
 
 # «Could not» -> «Non é/foi posíbel infinitivo»

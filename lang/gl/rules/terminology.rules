@@ -55,6 +55,10 @@ hint="«interromper» traduce a «abort» (e a «interrupt») (e a «break»)"
 
 # «app» tradúcese como «aplicativo»
 {\bapps?\b}i
+valid before="roximate"
+valid before="ropriate"
+valid before="end""
+valid before="ear"
 id="PT-2011_app"
 valid msgstr="\baplicativo"
 hint="«app» tradúcese como «aplicativo»"
@@ -113,7 +117,7 @@ hint="«attach» tradúcese como «anexar», «conectar»"
 # «anexar» ou «conectar» traduce a «Attach»
 [\banex[a-z]{2,}]i
 id="PT-2010-dual_attach"
-valid msgid="\battach(es|ed|ing|ments?)?"
+valid msgid="\battach(es|ed|ing|ments?|\b)"
 hint="«anexar» ou «conectar» traduce a «attach»"
 
 # «anexar» ou «conectar» traduce a «Attach»
@@ -427,7 +431,7 @@ hint="«orde» traduce a «command»"
 # «commit» tradúcese como «remitir»
 {\bcommit}i
 id="PT-2011_commit"
-valid msgstr="\bremi(ti(r|do|ndo)|s(ión|sor)|tíron)"
+valid msgstr="\bremi(ti(r|do|ndo)|s(ión|or)|tíron)"
 hint="«commit» tradúcese como «remitir»"
 
 # «remitir» traduce a «commit»
@@ -506,7 +510,7 @@ hint="«database» tradúcese como «base de datos»"
 # «base de datos» traduce a «database»
 [\bbases\sde\sdatos]i
 id="PT-2012-dual_database"
-valid msgid="\bdatabase"
+valid msgid="\bdata\sbase"
 hint="«base de datos» traduce a «database»"
 
 # «date» tradúcese como «data»
@@ -545,7 +549,7 @@ hint="«delete» tradúcese como «eliminar»"
 # «eliminar» traduce a «delete»
 [\belimin]i
 id="PT-2011-dual_delete"
-valid msgid="\bdelete"
+valid msgid="\bdelet(e|es|ed|ing)"
 hint="«eliminar» traduce a «delete»"
 
 
@@ -840,10 +844,11 @@ hint="«file a» tradúcese como «enviar un»"
 
 # «enviar un informe de erro» traduce «file a bug report»
 [\benvi(ar|ándo(lle)?)\sun\s]i
-id="PT-2011-dual_file-a"
+id="noPT-2011-dual_file a"
 valid msgid="\bfile\sa\s"
 valid msgid="\bsubmit(ting)? a "
 valid msgid="\bsend\sa\s"
+valid msgid="\bupload"
 hint="«enviar un» traduce «file (ou submit, ou send) a»"
 
 # «file package» tradúcese como «paquete de ficheiros»
@@ -1231,7 +1236,7 @@ hint="«biblioteca» traduce a «library»"
 id="PT-2012_list"
 valid msgstr="\blista"
 valid msgstr="\blístanse"
-hint="«list» tradúcese como «listar», «lista» ou «listado»"
+hint="«list» tradúcese como «listar», «lista» ou «listado» (adxectivo)"
 
 # «listar» traduce a «list»
 [\blist]i
@@ -1366,7 +1371,7 @@ valid msgid="\bmenus?"
 hint="«menú» traduce a «menu»"
 
 # «mouse» tradúcese como «rato»
-{\bm(ouse|ic)e}i
+{\bm(ous|ic)e}i
 id="PT-2012_mouse"
 valid msgstr="\brato"
 hint="«mouse» tradúcese como «rato»"
@@ -1613,7 +1618,7 @@ valid msgid="\bremoving"
 hint="«retirar» traduce a «remove»"
 
 # «rename» tradúcese como «renomear»
-{\brename}i
+{\brenam(e|es|ed|ing)}i
 id="PT-2011_rename"
 valid env="kde"
 valid msgstr="\brenomear"
@@ -1916,7 +1921,7 @@ id="PT-2011_undo"
 valid msgstr="\bdesfacer"
 valid msgstr="\bdesfaga"
 valid msgstr="\bdesfágaa"
-valid before="ne" msgstr="\bdesfeito"
+valid before="ne" msgstr="\bdesfeit(o|a)"
 hint="«undo» tradúcese como «desfacer»"
 
 # «desfacer» traduce a «undo»
