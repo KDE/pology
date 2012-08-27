@@ -350,6 +350,7 @@ valid msgstr="\bMajuscule\b"
 valid after="(Hue|First|Second|Third) "
 valid before=" (left|right|up|down)"
 valid before="-JIS"
+valid cat="kcontrol_khotkeys" after="<userinput>.*" before=".*</userinput>"
 hint="Traduisez « Shift » par « Maj » (sans point à la fin)"
 
 {spacer}
