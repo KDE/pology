@@ -25,28 +25,62 @@ valid after="\\n\s*"
 
 validGroup singularName
 valid before="(?u)\w+[^s]\b"
-valid before="tos"
-valid before="vals"
-valid before="compás"
-valid before="francés"
-valid before="gas"
+valid before="alias"
+valid before="análisis"
 valid before="antigás"
-valid before="crisis"
-valid before="forceps"
-valid before="ciempiés"
 valid before="buscapiés"
-valid before="pasapurés"
-valid before="portapapeles"
-valid before="sintaxis"
-valid before="mes"
+valid before="compás"
+valid before="canarés\b"
+valid before="ciempiés"
+valid before="cortafuegos"
+valid before="crisis"
+valid before="cumpleaños\b"
+valid before="danés"
+valid before="es"
+valid before="finlandés\b"
+valid before="forceps"
+valid before="francés"
+valid before="gas\b"
+valid before="hipópesis"
+valid before="holandés"
+valid before="interés"
+valid before="inglés"
+valid before="irlandés\b"
+valid before="jueves"
+valid before="japonés"
 valid before="lunes"
 valid before="martes"
-valid before="miércoles"
 valid before="jueves"
+valid before="menos"
+valid before="mes\b"
+valid before="miércoles"
+valid before="país"
+valid before="pasapurés"
+valid before="portapapeles"
+valid before="portugués"
+valid before="revés"
+valid before="rompecabezas\b"
+valid before="salvapantallas"
+valid before="sintaxis"
+valid before="síntesis\b"
+valid before="tetris\b"
+valid before="tos"
+valid before="vals"
 valid before="viernes"
+
 
 validGroup pluralName
 valid before="(?u)\w+s\b"
+valid before="de"
+valid before="encima\b"
+valid before="no\b"
+valid before="que\b"
+valid before="qué\b"
+valid before="sobre"
+valid before="son"
+valid before="x\b"
+
+
 
 validGroup femaleName
 valid before="(?u)\w+[^o]\b"
@@ -96,29 +130,37 @@ valid before="(?u)\w+(^(ez))\b"
 valid before="(?u)\w+(^(ed))\b"
 valid before="(?u)\w+(^(ad))\b"
 valid before="(?u)\w+(^(iz))\b"
-valid before="día\b"
 valid before="clima\b"
-valid before="mapa\b"
 valid before="análisis\b"
-valid before="enfásis\b"
-valid before="tranvía\b"
-valid before="planeta\b"
-valid before="pijama\b"
-valid before="telegrama\b"
-valid before="diagrama\b"
-valid before="problema\b"
-valid before="tema\b"
-valid before="idioma\b"
-valid before="sistema\b"
-valid before="enigma\b"
-valid before="dilema\b"
-valid before="fantasma\b"
-valid before="diploma\b"
-valid before="poema\b"
-valid before="programa\b"
-valid before="drama\b"
-valid before="teorema\b"
+valid before="día\b"
+valid before="crucigrama\b"
 valid before="diafragma\b"
+valid before="diagrama\b"
+valid before="dilema\b"
+valid before="diploma\b"
+valid before="drama\b"
+valid before="enfásis\b"
+valid before="enigma\b"
+valid before="esquema\b"
+valid before="fantasma\b"
+valid before="diafragma\b"
+valid before="fotograma\b"
+valid before="histograma\b"
+valid before="idioma\b"
+valid before="mapa\b"
+valid before="panorama\b"
+valid before="pentagrama\b"
+valid before="pijama\b"
+valid before="planeta\b"
+valid before="poema\b"
+valid before="problema\b"
+valid before="programa\b"
+valid before="sistema\b"
+valid before="subprograma\b"
+valid before="telegrama\b"
+valid before="tema\b"
+valid before="tranvía\b"
+valid before="teorema\b"
 
 
 validGroup neuterName
@@ -221,6 +263,7 @@ valid before="pez\b"
 valid before="pinche\b"
 valid before="policía\b"
 valid before="profeta\b"
+valid before="que\b"
 valid before="radio\b"
 valid before="ratón\b"
 valid before="soprano\b"
@@ -234,6 +277,13 @@ valid before="trompeta\b"
 valid before="vejestorio\b"
 valid before="verde\b"
 valid before="vodka\b"
+
+validGroup wordDelimiter
+valid before="[A-Z]+"
+valid before="\d"
+valid before="\W"
+valid before="~"
+valid before="$"
 
 #
 # REPETICIÓN DE PALABRAS
@@ -840,110 +890,69 @@ hint="«Caber» se escribe en modo singular antes de infinitivo"
 # ERRORES DE CONCORDANCIA DE GÉNERO o NÚMERO
 #
 
-[(?u)\b(el|un|la|una)\s[«'"]?]i
+[(?u)\b([Ee]l|[Aa]l|[Dd]el|[Uu]n|[Ll]a|[Uu]na)\s[«'"]?]
 id="gr-concordancia-articulo-singular-nombre"
 validGroup singularName
-valid before="[A-Z]+"
-valid before="\d"
-valid before="\W"
-valid before="~"
-valid before="$"
+validGroup wordDelimiter
 hint="Hay un artículo singular seguido de un nombre en plural"
 
-[(?u)\b(los|unos|las|unas)\s[«'"]?]i
+[(?u)\b([Ll]os|[Uu]nos|[Ll]as|[Uu]nas)\s((dos|tres|cuatro|cinco|seis|siete|ocho|nueve|diez|\d+)\s)?[«'"]?]
 id="gr-concordancia-articulo-plural-nombre"
 validGroup pluralName
-valid before="[A-Z]+"
-valid before="\d"
-valid before="\W"
-valid before="~"
-valid before="$"
+validGroup wordDelimiter
 hint="Hay un artículo plural seguido de un nombre en singular"
 
-[(?u)\b(este|ese|aquel|esta|esa|aquella|esto|eso|aquello)\s[«'"]?]i
+[(?u)\b([Ee]ste|[Ee]se|[Aa]quel|[Ee]sta|[Ee]sa|[Aa]quella|[Ee]sto|[Ee]so|[Aa]quello)\s[«'"]?]
 id="gr-concordancia-pronombre-singular-nombre"
-valid before="\ses\b"
 validGroup singularName
-valid before="[A-Z]+"
-valid before="\d"
-valid before="\W"
-valid before="~"
-valid before="$"
+validGroup wordDelimiter
 hint="Hay un pronombre singular seguido de un nombre en plural"
 
-[(?u)\b(estos|esos|aquellos|estas|esas|aquellas)\s[«'"]?]i
+[(?u)\b([Ee]stos|[E]sos|[Aa]quellos|[Ee]stas|[Ee]sas|[Aa]quellas)\s[«'"]?]
 id="gr-concordancia-pronombre-plural-nombre"
 validGroup pluralName
-valid before="[A-Z]+"
-valid before="\d"
-valid before="\W"
-valid before="~"
-valid before="$"
+validGroup wordDelimiter
 hint="Hay un pronombre singular seguido de un nombre en plural"
 
-[(?u)\b(mi|tu|su)\s[«'"]?]i
+[(?u)\b([Mi]i|[Tt]u|[Ss]u)\s[«'"]?]
 id="gr-concordancia-posesivo-singular-nombre"
 validGroup singularName
-valid before="[A-Z]+"
-valid before="\d"
-valid before="\W"
-valid before="~"
-valid before="$"
+validGroup wordDelimiter
 hint="Hay un posesivo singular seguido de un nombre en plural"
 
-[(?u)\b(mis|tus|sus)\s[«'"]?]i
+[(?u)\b([Mm]is|[Tt]us|[Ss]us)\s[«'"]?]
 id="gr-concordancia-posesivo-plural-nombre"
 validGroup pluralName
-valid before="[A-Z]+"
-valid before="\d"
-valid before="\W"
-valid before="~"
-valid before="$"
+validGroup wordDelimiter
 hint="Hay un posesivo plural seguido de un nombre en singular"
 
-[(?u)\b(el|un)\s[«'"]?]i
+[(?u)\b([Ee]l|[Aa]l|[Dd]el|[Uu]n)\s[«'"]?]
 id="gr-concordancia-articulo-masculino-nombre"
 validGroup maleName
 validGroup neuterName
-valid before="[A-Z]+"
-valid before="\d"
-valid before="\W"
-valid before="~"
-valid before="$"
-valid before="h?[aá]\w+\b"
+validGroup wordDelimiter
+valid before="[hH]?[aáAÁ]\w+\b"
 hint="Hay un artículo masculino seguido de un nombre en femenino"
 
-[(?u)\b(la|una)\s[«'"]?]i
+[(?u)\b([Ll]a|[Uu]na)\s[«'"]?]
 id="gr-concordancia-articulo-femenino-nombre"
 validGroup femaleName
 validGroup neuterName
-valid before="[A-Z]+"
-valid before="\d"
-valid before="\W"
-valid before="~"
-valid before="$"
+validGroup wordDelimiter
 hint="Hay un artículo femenino seguido de un nombre en masculino"
 
-[(?u)\b(este|ese|aquel)\s[«'"]?]i
+[(?u)\b([Ee]ste|[Ee]se|[Aa]quel)\s[«'"]?]
 id="gr-concordancia-demostrativo-masculino-nombre"
 validGroup maleName
 validGroup neuterName
-valid before="[A-Z]+"
-valid before="\d"
-valid before="\W"
-valid before="~"
-valid before="$"
+validGroup wordDelimiter
 hint="Hay un demostrativo masculino seguido de un nombre en femenino"
 
-[(?u)\b(esta|esa|aquella)\s[«'"]?]i
+[(?u)\b([Ee]sta|[Ee]sa|[Aa]quella)\s[«'"]?]
 id="gr-concordancia-demostrativo-femenino-nombre"
 validGroup femaleName
 validGroup neuterName
-valid before="[A-Z]+"
-valid before="\d"
-valid before="\W"
-valid before="~"
-valid before="$"
+validGroup wordDelimiter
 hint="Hay un demostrativo femenino seguido de un nombre en masculino"
 
 [(?u)\bhabían\smuchas\s\w+?as\b]i
