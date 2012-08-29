@@ -403,8 +403,9 @@ hint="« Built » se traduce como « Generado/Revisión/Compilado/Compilación �
 
 {\bbuilt\-?in\b}i
 id="gp-built-in"
-valid msgstr="incorporado"
-valid !msgstr="construido"
+valid msgstr="incorporad[oa]s?"
+valid msgstr="integrad[oa]s?"
+valid !msgstr="construid[oa]s?"
 hint="« Built-in » se traduce como « Incorporado » (propuesta glosario)"
 
 {\bcallback\b}i
@@ -511,7 +512,7 @@ hint="« Chats » se traduce como « Charlas/Tertulias » (propuesta glosario)"
 {\bcipher\b}i
 id="gp-cipher"
 valid msgstr="cifr(ar|a|e)"
-valid msgstr="cifrado"
+valid msgstr="cifrad[oa]"
 valid msgstr="cifrará" after="will\s(not\s)?"
 valid msgstr="cifró" after="did\s(not\s)?"
 hint="« Cipher » se traduce como « Cifrar/Cifrado » (propuesta glosario)"
@@ -1075,7 +1076,7 @@ hint="« Disposables » se traduce como « Desechables » (propuesta glosario)"
 
 {\bdithering\b}i
 id="gp-dithering"
-valid msgstr="difuminado"
+valid msgstr="difuminad[oa]"
 hint="« Dithering » se traduce como « Difuminado » (propuesta glosario)"
 
 {\bdocumentation\b}i
@@ -1590,7 +1591,7 @@ hint="« Flush » se traduce como « Vaciar » (propuesta glosario)"
 
 {\bfolding\b}i
 id="gp-folding"
-valid msgstr="plegado"
+valid msgstr="plegad[oa]"
 hint="« Folding » se traduce como « Plegado » (propuesta glosario)"
 
 {\bfollow\-up\b}i
@@ -1721,6 +1722,7 @@ hint="« Guideliness » se traduce como « Directivas » (propuesta glosario)"
 
 {\bgroupware\b}i
 id="gp-groupware"
+valid before="\-"
 valid msgstr="trabajos?\sen\sgrupo"
 valid msgstr="colaboración"
 valid after="Open(\s|\-)"
@@ -2197,17 +2199,6 @@ id="gp-keep-alive"
 valid msgstr="mantener\sactiv[oa]"
 hint="« Keep alive » se traduce como « Mantener activo » (propuesta glosario)"
 
-{\bkeyboard\b}i
-id="gp-keyboard"
-valid msgstr="teclado"
-hint="« Keyboard » se traduce como « Teclado » (propuesta glosario)"
-
-{\bkeyboards\b}i
-id="gp-keyboards"
-valid msgstr="teclados"
-valid msgstr="(algún|ningún|cualquier)\steclado"
-hint="« Keyboards » se traduce como « Teclados » (propuesta glosario)"
-
 {\bkeyring\b}i
 id="gp-keyring"
 valid msgstr="anillos?\sde\sclaves"
@@ -2376,7 +2367,7 @@ hint="« Maildir » no se traduce, es un formato de buzón de correo (propuesta 
 {\bmaintainer\b}i
 id="gp-mantainer"
 valid msgstr="responsable"
-valid msgstr="encargado"
+valid msgstr="encargad[oa]"
 hint="« Maintainer » se traduce como « Responsable/Encargado » (propuesta glosario)"
 
 {\bmaintainers\b}i
@@ -2384,7 +2375,7 @@ id="gp-mantainers"
 valid msgstr="responsables"
 valid msgstr="encargados"
 valid msgstr="(algún|ningún|cualquier)\sresponsable"
-valid msgstr="(algún|ningún|cualquier)\sencargado"
+valid msgstr="(algún|ningún|cualquier)\sencargad[oa]"
 hint="« Maintainers » se traduce como « Responsables/Encargados » (propuesta glosario)"
 
 {\bmanage\b}i
@@ -2433,7 +2424,7 @@ hint="« Masks » se traduce como « Máscaras/Enmascara » (propuesta glosario)
 {\bmaskerading\b}i
 id="gp-maskerading"
 valid msgstr="enmascaramiento"
-valid msgstr="enmascarado"
+valid msgstr="enmascarad[oa]"
 hint="« Maskerading » se traduce como « Enmascaramiento/Enmascarado » (propuesta glosario)"
 
 {\bmasking\b}i
@@ -3106,6 +3097,7 @@ valid msgstr="interpretará" after="will\s(not\s)?be\s"
 valid msgstr="jugará" after="will\s(not\s)?be\s"
 valid msgstr="reproduciendo" after="being\s"
 valid msgstr="reproduc(e|ir)" after="be\s"
+valid msgstr="reproducción" after="(first|last)\s"
 hint="« Played » se traduce como « Reproducido/Tocado » (propuesta glosario)"
 
 {\bplayer\b}i
@@ -3163,15 +3155,6 @@ valid msgstr="índices"
 valid msgstr="(algún|ningún|cualquier)\spuntero"
 valid msgstr="(algún|ningún|cualquier)\síndice"
 hint="« Pointers» se traduce como « Punteros/Índices » (propuesta glosario)"
-
-{\bpop(\s|\-)?up\b}i
-id="gp-pop-up"
-valid msgstr="emergente"
-valid msgstr="desplegable"
-valid msgstr="despl(egar|iega|iegue)"
-valid msgstr="emergerá" after="will\s(not\s)?"
-valid msgstr="desplegará" after="will\s(not\s)?"
-hint="« Pop up » se traduce como « Emergente/desplegable » (propuesta glosario)"
 
 {\bportable\b}i
 id="gp-portable"
@@ -4113,9 +4096,9 @@ hint="« Staff » se traduce como « Personal/Pentagrama » (propuesta glosario)
 
 {\bstalled\b}i
 id="gp-stalled"
-valid msgstr="atascado"
+valid msgstr="atascad[oa]"
 valid msgstr="atascarse"
-valid msgstr="estancado"
+valid msgstr="estancad[oa]]"
 valid msgstr="estancarse"
 valid msgstr="se\satas(ca|que)n?"
 valid msgstr="se\s(\w+\s){1,3}atascar"

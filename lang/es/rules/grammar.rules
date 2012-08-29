@@ -25,66 +25,66 @@ valid after="\\n\s*"
 
 validGroup singularName
 valid before="(?u)\w+[^s]\b"
-valid before="alias"
-valid before="análisis"
-valid before="antigás"
-valid before="buscapiés"
-valid before="compás"
+valid before="alias\b"
+valid before="análisis\b"
+valid before="antigás\b"
+valid before="buscapiés\b"
+valid before="compás\b"
 valid before="canarés\b"
-valid before="ciempiés"
-valid before="cortafuegos"
-valid before="crisis"
+valid before="ciempiés\b"
+valid before="cortafuegos\b"
+valid before="crisis\b"
 valid before="cumpleaños\b"
-valid before="danés"
-valid before="es"
+valid before="danés\b"
+valid before="es\b"
 valid before="finlandés\b"
-valid before="forceps"
-valid before="francés"
+valid before="forceps\b"
+valid before="francés\b"
 valid before="gas\b"
-valid before="hipópesis"
-valid before="holandés"
-valid before="interés"
-valid before="inglés"
+valid before="hipótesis\b"
+valid before="holandés\b"
+valid before="interés\b"
+valid before="inglés\b"
 valid before="irlandés\b"
-valid before="jueves"
-valid before="japonés"
-valid before="lunes"
-valid before="martes"
-valid before="jueves"
-valid before="menos"
+valid before="jueves\b"
+valid before="japonés\b"
+valid before="lunes\b"
+valid before="martes\b"
+valid before="jueves\b"
+valid before="menos\b"
 valid before="mes\b"
-valid before="miércoles"
-valid before="país"
-valid before="pasapurés"
-valid before="portapapeles"
-valid before="portugués"
-valid before="revés"
+valid before="miércoles\b"
+valid before="país\b"
+valid before="pasapurés\b"
+valid before="portapapeles\b"
+valid before="portugués\b"
+valid before="revés\b"
 valid before="rompecabezas\b"
-valid before="salvapantallas"
-valid before="sintaxis"
+valid before="salvapantallas\b"
+valid before="sintaxis\b"
 valid before="síntesis\b"
 valid before="tetris\b"
-valid before="tos"
-valid before="vals"
-valid before="viernes"
-
+valid before="tos\b"
+valid before="vals\b"
+valid before="viernes\b"
 
 validGroup pluralName
 valid before="(?u)\w+s\b"
-valid before="de"
+valid before="de\b"
+valid before="del\b"
 valid before="encima\b"
-valid before="no\b"
 valid before="que\b"
 valid before="qué\b"
-valid before="sobre"
-valid before="son"
+valid before="sobre\b"
+valid before="son\b"
+valid before="están\b"
 valid before="x\b"
-
-
 
 validGroup femaleName
 valid before="(?u)\w+[^o]\b"
 valid before="(?u)\w+[^e]\b"
+valid before="(?u)\w+[^ó]\b"
+valid before="(?u)\w+[^é]\b"
 valid before="(?u)\w+[^l]\b"
 valid before="(?u)\w+[^n]\b"
 valid before="(?u)\w+[^r]\b"
@@ -114,6 +114,7 @@ valid before="madre\b"
 
 validGroup maleName
 valid before="(?u)\w+[^a]\b"
+valid before="(?u)\w+[^á]\b"
 valid before="(?u)\w+(^(esa))\b"
 valid before="(?u)\w+(^(ina))\b"
 valid before="(?u)\w+(^(dad))\b"
@@ -148,6 +149,7 @@ valid before="fotograma\b"
 valid before="histograma\b"
 valid before="idioma\b"
 valid before="mapa\b"
+valid before="mediodia\b"
 valid before="panorama\b"
 valid before="pentagrama\b"
 valid before="pijama\b"
@@ -161,7 +163,6 @@ valid before="telegrama\b"
 valid before="tema\b"
 valid before="tranvía\b"
 valid before="teorema\b"
-
 
 validGroup neuterName
 valid before="\w+ista\b"
@@ -278,6 +279,43 @@ valid before="vejestorio\b"
 valid before="verde\b"
 valid before="vodka\b"
 
+validGroup thirdPerson
+valid before="(?u)\w+a\b"
+valid before="(?u)\w+e\b"
+valid before="(?u)\w+ó\b"
+valid before="(?u)\w+ió\b"
+valid before="(?u)\w+aba\b"
+valid before="(?u)\w+ía\b"
+valid before="(?u)\w+ará\b"
+valid before="(?u)\w+erá\b"
+valid before="(?u)\w+irá\b"
+valid before="(?u)\w+aría\b"
+valid before="(?u)\w+ería\b"
+valid before="(?u)\w+iría\b"
+valid before="(?u)\w+an\b"
+valid before="(?u)\w+en\b"
+valid before="(?u)\w+aron\b"
+valid before="(?u)\w+ieron\b"
+valid before="(?u)\w+aban\b"
+valid before="(?u)\w+ían\b"
+valid before="(?u)\w+arán\b"
+valid before="(?u)\w+erán\b"
+valid before="(?u)\w+irán\b"
+valid before="(?u)\w+arían\b"
+valid before="(?u)\w+erían\b"
+valid before="(?u)\w+irían\b"
+valid before="es\b"
+valid before="fue\b"
+valid before="será\b"
+valid before="está\b"
+valid before="estuvo\b"
+valid before="ha\b"
+valid before="hubo\b"
+valid before="habrá\b"
+valid before="va\b"
+valid before="iba\b"
+valid before="irá\b"
+
 validGroup wordDelimiter
 valid before="[A-Z]+"
 valid before="\d"
@@ -337,7 +375,7 @@ hint="No utilice expresiones del tipo «los ciudadanos y las ciudadanas » (erro
 id="gr-duplicidad-genero-4"
 hint="No utilice expresiones del tipo «las ciudadanas y los ciudadanos » (error gramatical)"
 
-[(?u)\b\w+@\w{0,2}\b]i
+[(?u)\b\w+@\w{0,2}\W]i
 id="gr-arroba-genero-neutro"
 hint="No utilice la arroba para evitar el género, p.ej. «ciudadan@s» (error gramatical)"
 
@@ -896,11 +934,18 @@ validGroup singularName
 validGroup wordDelimiter
 hint="Hay un artículo singular seguido de un nombre en plural"
 
-[(?u)\b([Ll]os|[Uu]nos|[Ll]as|[Uu]nas)\s((dos|tres|cuatro|cinco|seis|siete|ocho|nueve|diez|\d+)\s)?[«'"]?]
-id="gr-concordancia-articulo-plural-nombre"
+[(?u)\b([Ll]os|[Ll]as)\s((dos|tres|cuatro|cinco|seis|siete|ocho|nueve|diez|\d+)\s)?[«'"]?]
+id="gr-concordancia-articulo-definido-plural-nombre"
+validGroup pluralName
+validGroup thirdPerson
+validGroup wordDelimiter
+hint="Hay un artículo definido plural seguido de un nombre en singular"
+
+[(?u)\b([Uu]nos|[Uu]nas)\s((dos|tres|cuatro|cinco|seis|siete|ocho|nueve|diez|\d+)\s)?[«'"]?]
+id="gr-concordancia-articulo-indefinido-plural-nombre"
 validGroup pluralName
 validGroup wordDelimiter
-hint="Hay un artículo plural seguido de un nombre en singular"
+hint="Hay un artículo indefinido plural seguido de un nombre en singular"
 
 [(?u)\b([Ee]ste|[Ee]se|[Aa]quel|[Ee]sta|[Ee]sa|[Aa]quella|[Ee]sto|[Ee]so|[Aa]quello)\s[«'"]?]
 id="gr-concordancia-pronombre-singular-nombre"
@@ -908,19 +953,20 @@ validGroup singularName
 validGroup wordDelimiter
 hint="Hay un pronombre singular seguido de un nombre en plural"
 
-[(?u)\b([Ee]stos|[E]sos|[Aa]quellos|[Ee]stas|[Ee]sas|[Aa]quellas)\s[«'"]?]
+[(?u)\b([Ee]stos|[E]sos|[Aa]quellos|[Ee]stas|[Ee]sas|[Aa]quellas)\s((dos|tres|cuatro|cinco|seis|siete|ocho|nueve|diez|\d+)\s)?[«'"]?]
 id="gr-concordancia-pronombre-plural-nombre"
 validGroup pluralName
+validGroup thirdPerson
 validGroup wordDelimiter
-hint="Hay un pronombre singular seguido de un nombre en plural"
+hint="Hay un pronombre plural seguido de un nombre en singular"
 
-[(?u)\b([Mi]i|[Tt]u|[Ss]u)\s[«'"]?]
+[(?u)\b([Mi]i|[Tt]u|[Ss]u|[Nn]uestr[oa]|[Vv]uestr[oa])\s[«'"]?]
 id="gr-concordancia-posesivo-singular-nombre"
 validGroup singularName
 validGroup wordDelimiter
 hint="Hay un posesivo singular seguido de un nombre en plural"
 
-[(?u)\b([Mm]is|[Tt]us|[Ss]us)\s[«'"]?]
+[(?u)\b([Mm]is|[Tt]us|[Ss]us|[Nn]uestr[oa]s|[Vv]uestr[oa]s)\s((dos|tres|cuatro|cinco|seis|siete|ocho|nueve|diez|\d+)\s)?[«'"]?]
 id="gr-concordancia-posesivo-plural-nombre"
 validGroup pluralName
 validGroup wordDelimiter
@@ -955,6 +1001,20 @@ validGroup neuterName
 validGroup wordDelimiter
 hint="Hay un demostrativo femenino seguido de un nombre en masculino"
 
+[(?u)\b([Nn]uestro|[Vv]uestro)\s[«'"]?]
+id="gr-concordancia-posesivo-masculino-nombre"
+validGroup maleName
+validGroup neuterName
+validGroup wordDelimiter
+hint="Hay un posesivo masculino seguido de un nombre en femenino"
+
+[(?u)\b([Nn]uestra|[Vv]uestra)\s[«'"]?]
+id="gr-concordancia-posesivo-femenino-nombre"
+validGroup femaleName
+validGroup neuterName
+validGroup wordDelimiter
+hint="Hay un posesivo femenino seguido de un nombre en masculino"
+
 [(?u)\bhabían\smuchas\s\w+?as\b]i
 id="gr-habian-muchas"
 hint="«Habían muchas`+ plural» se escribe como «Había muchas» (error gramatical)"
@@ -966,15 +1026,6 @@ hint="«Tener claro una» se escribe como «Tener clara una» (error gramatical)
 #
 # ERRORES DE ACENTUACIÓN
 #
-
-[(?u)\bsab(er|es|e|emos|éis|en|ía|ías|íamos|íais|ían)\sque\b]i
-id="gr-saber-que"
-hint="«Saber que» se escribe como « Saber qué » (error gramatical)"
-
-
-[(?u)\bs[ée]\sque\b]i
-id="gr-se-que"
-hint="«Sé que» se escribe como « Sé qué » (error gramatical)"
 
 
 #

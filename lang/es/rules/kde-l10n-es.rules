@@ -1206,7 +1206,7 @@ hint="« Encrypted » se traduce como « Cifrado », nunca como « Encriptado »
 
 {\bencryption\b}i
 id="gk-encryption"
-valid msgstr="cifrado"
+valid msgstr="cifrad[oa]"
 valid !msgstr="encriptad[oa]"
 hint="« Encryption » se traduce como « Cifrado », nunca como « Encriptado » (ver glosario)"
 
@@ -1534,25 +1534,12 @@ valid msgstr="regresó" after="did\s(not\s)?"
 valid msgstr="recuperó" after="did\s(not\s)?"
 hint="« (to) Get back » se traduce como « Volver/Recuperar » (ver glosario)"
 
-
-
-
-
-
-
-
 {\bgets\sback\b}i
 id="gk-gets-back"
 valid msgstr="vuelv(e|a)"
 valid msgstr="regres(e|a)"
 valid msgstr="recuper(a|e)"
 hint="« (to) Get back » se traduce como « Vuelva/Recupere » (ver glosario)"
-
-
-
-
-
-
 
 {\bGNU\sGeneral\sPublic\sLicense\b}i
 id="gk-gnu-gpl"
@@ -2063,7 +2050,7 @@ hint="« Mailing lists » se traduce como « Listas de correo » (ver glosario)"
 {\bmainteiner\b}i
 id="gk-manteiner"
 valid msgstr="responsable"
-valid msgstr="encargado"
+valid msgstr="encargad[oa]"
 valid !msgstr="mantenedor"
 hint="« Maintainer » se traduce como « Responsable » o « Encargado » (ver glosario)"
 
@@ -2504,10 +2491,11 @@ hint="« Policy issues » se traduce como « Aspectos de normativa » (ver glosa
 {\bpop(\-|\s)?up\b}i
 id="gk-pop-up"
 valid msgstr="emergente"
+valid msgstr="desplegable"
 valid msgstr="despl(egar|iega|iegue)"
 valid msgstr="emergerá" after="will\s(not\s)?"
 valid msgstr="desplegará" after="will\s(not\s)?"
-hint="« Pop-up » se traduce como « Ventana emergente » (ver glosario)"
+hint="« Pop-up » se traduce como « Ventana emergente/Desplegable » (ver glosario)"
 
 {\bpop\-ups\b}i
 id="gk-pop-ups"
@@ -2762,14 +2750,18 @@ hint="« Raises » se traduce como « Provoca », « Alza », « Surge » o « A
 id="gk-range"
 valid msgstr="intervalo"
 valid msgstr="variedad"
+valid msgstr="gama"
+valid msgstr="alcance"
 hint="« Range » se traduce como « Intervalo » (ver glosario)"
 
 {\branges\b}i
 id="gk-ranges"
 valid msgstr="intervalos"
 valid msgstr="variedades"
+valid msgstr="gamas"
 valid msgstr="(cualquier|ningún)\sintervalo"
 valid msgstr="(cualquier|ninguna)\svariedad"
+valid msgstr="(cualquier|ninguna)\sgama"
 hint="« Ranges » se traduce como « Intervalos » (ver glosario)"
 
 {\braw\smode\b}i
@@ -3356,8 +3348,8 @@ hint="« Start » se traduce como « Inicio » o « Iniciar » (ver glosario)"
 
 {\bstarting(?!\s(it|them))\b}i
 id="gk-starting"
-valid msgstr="inici(o|e|ar|al|ando)"
-valid msgstr="comien(za|zan|ce|cen)"
+valid msgstr="inici(o|a|e|ar|al|ando)"
+valid msgstr="comien(zo|za|zan|ce|cen)"
 valid msgstr="empie(za|zan|ce|cen)"
 valid msgstr="comenza(r|ndo)"
 valid msgstr="empeza(r|ndo)"
