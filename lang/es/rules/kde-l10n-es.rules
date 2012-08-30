@@ -2327,6 +2327,16 @@ valid msgstr="analizará" after="will\s(not\s)?"
 valid msgstr="analizó" after="did\s(not\s)?"
 hint="« Parse » se traduce como « Analizar » (ver glosario)"
 
+{\bparsed\b}i
+id="gp-parsed"
+valid msgstr="analizad[oa]"
+valid msgstr="analizarse"
+valid msgstr="se\sanali(za|ce)n?"
+valid msgstr="analizó"
+valid msgstr="analizar" after="be\s"
+valid msgstr="se\s(\w+\s){1,3}analizar"
+hint="« Parsed » se traduce como « Analizado » (propuesta glosario)"
+
 {\bparser\b}i
 id="gk-parser"
 valid msgstr="analizador"
@@ -2376,7 +2386,6 @@ valid msgstr="parch(es|ea)?"
 valid msgstr="(cualquier|ningún)\sparche"
 valid cat="kmid" msgstr="instrumentos"
 hint="« Patchs » se traduce como « Parches » (ver glosario)"
-
 
 {\bpath\b}i
 id="gk-path"

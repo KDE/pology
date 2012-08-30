@@ -3,7 +3,6 @@ set(files
     being-polite.rules
     common-mistakes.rules
     false-friends.rules
-    filter.include
     gerund-detector.rules
     grammar.rules
     kde-l10n-es-proposed.rules
@@ -11,6 +10,7 @@ set(files
     paired-words.rules
     paragraph-begin.rules
     paragraph-end.rules
+    spelling.rules
     translators.rules
     typography.rules
     user-interface.rules

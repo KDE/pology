@@ -149,41 +149,13 @@ hint="« Apunto que » se escribe como « A punto de » (error frecuente)"
 id="cm-api-en-masculino"
 hint="« API » es de género femenino, pero empieza por 'A' (error frecuente)"
 
-[\bAquél\b]i
-id="cm-aquel-con-tilde"
-hint="« Aquél » se escribe como « Aquel » (error frecuente)"
-
-[\bAquélla\b]i
-id="cm-aquella-con-tilde"
-hint="« Aquélla » se escribe como « Aquella » (error frecuente)"
-
-[\bAquéllas\b]i
-id="cm-aquellas-con-tilde"
-hint="« Aquéllas » se escribe como « Aquellas » (error frecuente)"
-
-[\bAquéllos\b]i
-id="cm-aquellos-con-tilde"
-hint="« Áquellos » se escribe como « Aquellos » (error frecuente)"
-
 [\basí\ses\sque\b]i
 id="cm-asi-es-que"
 hint="« Así es que » se escribe como « Así que » (error frecuente)"
 
-[\basímismo\b]i
-id="cm-asimismo-con-tilde"
-hint="« Asímismo » se escribe siempre como « Asimismo » (ver la nueva ortografía de la RAE)"
-
 [\batentar\sa\b]i
 id="cm-atentar-a"
 hint="« Atentar a » se escribe como « Atentar contra » (error frecuente)"
-
-[\baún\sasí\b]i
-id="cm-aun-asi-con-tilde"
-hint="« Aún así » se escribe como « Aun así » (error frecuente)"
-
-[\baún\scuando\b]i
-id="cm-aun-cuando-con-tilde"
-hint="« Aún cuando » se escribe como « Aun cuando » (error frecuente)"
 
 [\bayer\smañana\b]i
 id="cm-ayer-manana"
@@ -285,10 +257,6 @@ hint="« Bajo que condiciones » se escribe como « Con que condiciones » (erro
 id="cm-bajo-revision"
 hint="« Bajo revisión » se escribe como « En revisión » (error frecuente: solecismo)"
 
-[\bién\b]i
-id="cm-bien-con-tilde"
-hint="« Bién » se escribe como « Bien » (error frecuente)"
-
 [\b(la|una|esta|esa|las|unas|estas|esas)\BIOS\b]i
 id="cm-bios-femenino"
 hint="« BIOS » es de género masculino (error frecuente)"
@@ -309,14 +277,6 @@ hint="« Caché » es de género femenino (error frecuente)"
 id="cm-caches-masculino"
 hint="« Cachés » es de género femenino (error frecuente)"
 
-[\bcada\scúal\b]i
-id="cada-cual-con-tilde"
-hint="« Cada cual » se escribe sin tilde (error frecuente)"
-
-[\bcada\squién\b]i
-id="cm-cada-quien-con-tilde"
-hint="« Cada quien » se escribe sin tilde (error frecuente)"
-
 [\bcada\suna\sde\slos\b]i
 id="cm-cada-una-de-los"
 hint="« Cada una de los » se escribe como « Cada uno de los/Cada una de las » (error frecuente)"
@@ -325,17 +285,9 @@ hint="« Cada una de los » se escribe como « Cada uno de los/Cada una de las �
 id="cm-cada-uno-de-las"
 hint="« Cada uno de las » se escribe como « Cada uno de los/Cada una de las » (error frecuente)"
 
-[\bcassette\b]i
-id="cm-cassette"
-hint="« Cassette » se escribe como « Casete » (error frecuente)"
-
 [\bcerca\sa\b]i
 id="cm-cerca-a"
 hint="« Cerca a » se escribe como « Cerca de » (error frecuente: solecismo)"
-
-[\bcián\b]i
-id="cm-cian-con-tilde"
-hint="« Cián » se escribe como « Cian » (ver la nueva ortografía de la RAE)"
 
 [\bcog(er|e|a|en|an|iendo|ido)\b]i
 id="cm-uso-de-coger"
@@ -361,10 +313,6 @@ hint="« Con motivo a » se escribe como « Con motivo de/A causa de » (error f
 id="cm-conjuntamente-con"
 hint="« Conjuntamente con » se escribe como « Conjuntamente/Junto con » (error frecuente: redundancia)"
 
-[\bcontínuo\b]i
-id="cm-continuo-con-tilde"
-hint="« Contínuo » se escribe siempre como « Continuo » (ver la nueva ortografía de la RAE)"
-
 [\bcontra\sgustos\b]i
 id="cm-contra-gustos"
 hint="« Contra gustos » se escribe como « Sobre gustos » (error frecuente: solecismo)"
@@ -380,22 +328,6 @@ hint="No utilice « Correo-e » solo « Correo » a secas (error frecuente)"
 [\bcorreos\-e\b]i
 id="cm-correos-e"
 hint="No utilice « Correos-e » solo « Correos » a secas (error frecuente)"
-
-[\bcríar\b]i
-id="cm-criar-con-tilde"
-hint="« Críar » se escribe como « Criar » (error frecuente)"
-
-[\bcrío\b]i
-id="cm-crio-con-tilde"
-hint="« Crío » se escribe como « Crio » (error frecuente)"
-
-[\bcualesquieras\b]i
-id="cm-cualesquieras"
-hint="« Cualesquieras » se escribe como « Cualesquiera » (error frecuente)"
-
-[\bdá\b]i
-id="cm-da-con-tilde"
-hint="« Dá » se escribe como « Da » (error frecuente)"
 
 [\bdar\sa\sbasto\b]i
 id="cm-dar-a-basto"
@@ -459,21 +391,9 @@ hint="« De sí » se escribe como « De por sí » (error frecuente: solecismo)
 id="cm-de-tal-suerte-que"
 hint="« De tal suerte que » se escribe como « De manera que/De modo que/De suerte que » (error frecuente)"
 
-[\bdí\b]i
-id="cm-di-con-tilde"
-hint="« Dí » se escribe como « Di » (error frecuente)"
-
 [\bdiferente\sa\b]i
 id="cm-diferente-a"
 hint="« Diferente a » se escribe como « Diferente de » (error frecuente)"
-
-[\bdió\b]i
-id="cm-dio-con-tilde"
-hint="« Dió » se escribe como « Dio » (error frecuente)"
-
-[\bdiós\b]i
-id="cm-dios-con-tilde"
-hint="« Diós » se escribe como « Dios » (error frecuente)"
 
 [\bdiscrepar\scon\b]i
 id="cm-discrepar-con"
@@ -482,14 +402,6 @@ hint="« Discrepar-con » se escribe como « Discrepar de » (error frecuente)"
 [\bdistinto\sa\b]i
 id="cm-distinto-a"
 hint="« Distinto a » se escribe como « Distinto de » (error frecuente)"
-
-[\bdossier\b]i
-id="cm-dossier"
-hint="« Dossier » se escribe como « Dosier » (error frecuente)"
-
-[\bdossiers\b]i
-id="cm-dossiers"
-hint="« Dossiers » se escribe como « Dosieres » (error frecuente)"
 
 [\be\-?mail\b]i
 id="cm-e-mail"
@@ -504,25 +416,9 @@ hint="No utilice « Emails » sino « Correos » (error frecuente)"
 id="cm-el-echo"
 hint="« El echo » se escribe como « El hecho » (error frecuente)"
 
-[\bel\slimite\b]i
-id="cm-el-limite-sin-tilde"
-hint="« El limite » se escribe como «El límite». (error frecuente)"
-
-[\bel\snumero\b]i
-id="el-numero-sin-tilde"
-hint="« El numero » se escribe como «El número». (error frecuente)"
-
-[\bel\sporque\b]i
-id="cm-el-porque-sin-tilde"
-hint="« El porque » se escribe como «El porqué». (error frecuente)"
-
-[\bel\stermino\b]i
-id="cm-el-termino-sin-tilde"
-hint="« El termino » se escribe como «El término». (error frecuente)"
-
-[\bel\stitulo\b]i
-id="cm-el-titulo-sin-tilde"
-hint="« El titulo » se escribe como «El título». (error frecuente)"
+[\bel\shalla\b]i
+id="cm-el-halla"
+hint="« El halla » se escribe como « El haya » (error frecuente)"
 
 [\ben\sahí\b]i
 id="cm-en-ahi"
@@ -555,10 +451,6 @@ hint="« En el momento que » se escribe como « En el momento en que » (error 
 [\ben\sevitación\sde\b]i
 id="cm-en-evitacion-a"
 hint="« En evitación de » se escribe como « Para evitar » (error frecuente: solecismo)"
-
-[\ben\sfrente\b]i
-id="cm-en-frente"
-hint="« En frente » se escribe como « Enfrente » (error frecuente)"
 
 [\ben\socasión\sde\b]i
 id="cm-en-ocasion-de"
@@ -600,73 +492,9 @@ hint="« Entre más » se escribe como « Cuanto más » (error frecuente)"
 id="cm-entre-menos"
 hint="« Entre menos » se escribe como « Cuanto menos » (error frecuente)"
 
-[\bésa\b]i
-id="cm-esa-con-tilde"
-hint="« Ésa » se escribe como « Esa », (error frecuente)"
-
-[\bésas\b]i
-id="cm-esas-con-tilde"
-hint="« Ésas » se escribe como « Esas », (error frecuente)"
-
-[\besc[aá]ners\b]i
-id="cm-escaners"
-hint="« Escáners » se escribe como « Escáneres », (error frecuente)"
-
-[\bése\b]i
-id="cm-ese-con-tilde"
-hint="« Ése » se escribe como « Ese », (error frecuente)"
-
-[\béso\b]i
-id="cm-eso-con-tilde"
-hint="« Éso » se escribe como « Eso », (error frecuente)"
-
-[\bésos\b]i
-id="cm-esos-con-tilde"
-hint="« Ésos » se escribe como « Esos », (error frecuente)"
-
-[\bespúreo\b]i
-id="cm-espureo"
-hint="« Espúreo » se escribe como « Espurio » (error frecuente)"
-
-[\bésta\b]i
-id="cm-esta-con-tilde"
-hint="« Ésta » se escribe como « Esta », (error frecuente)"
-
-[\besta\ssegur(o|a)\b]i
-id="cm-esta-seguro-sin-tilde"
-hint="« Esta seguro » se escribe como « Está seguro » (error frecuente)"
-
-[\béstas\b]i
-id="cm-estas-con-tilde"
-hint="« Éstas » se escribe como « Estas », (error frecuente)"
-
-[\bestáte\b]i
-id="cm-estate-con-tilde"
-hint="« Estáte » se escribe como « Estate », (error frecuente)"
-
-[\béste\b]i
-id="cm-este-con-tilde"
-hint="« Éste » se escribe como « Este », (error frecuente)"
-
-[\bésto\b]i
-id="cm-esto-con-tilde"
-hint="« Ésto » se escribe como « Esto », (error frecuente)"
-
-[\béstos\b]i
-id="cm-estos-con-tilde"
-hint="« Éstos » se escribe como « Estos », (error frecuente)"
-
-[\bfé\b]i
-id="cm-fe-con-tilde"
-hint="« Fé » se escribe como « Fe » (error frecuente)"
-
-[\bfiaís\b]i
-id="cm-fiais-con-tilde"
-hint="« Fiaís » se escribe como « Fiais » (error frecuente)"
-
-[\bfié\b]i
-id="cm-fie-con-tilde"
-hint="« Fé » se escribe como « Fie » (error frecuente)"
+[\besas\smiles\b]i
+id="cm-esas-miles"
+hint="« Esas miles » se escribe como « Esos miles » (error frecuente)"
 
 [\bfijarse\sque\b]i
 id="cm-fijarse-que"
@@ -676,30 +504,6 @@ hint="« Fijarse que » se escribe como « Fijarse en que » (error frecuente)"
 id="cm-fijarse-de-que"
 hint="« Fijarse de que » se escribe como « Fijarse en que » (error frecuente)"
 
-[\bfín\b]i
-id="cm-fin-con-tilde"
-hint="« Fín » se escribe siempre como « Fin » (ver la nueva ortografía de la RAE)"
-
-[\bformula\b]i
-id="cm-formula-sin-tilde"
-hint="« Formula » se escribe como « Fórmula », salvo 3ª persona del verbo formular (error frecuente)"
-
-[\bfué\b]i
-id="cm-fue-con-tilde"
-hint="« Fué » se escribe como « Fue » (error frecuente)"
-
-[\bfuí\b]i
-id="cm-fui-con-tilde"
-hint="« Fuí » se escribe como « Fui » (error frecuente)"
-
-[\bguión\b]i
-id="cm-guion-con-tilde"
-hint="« Guión » se escribe como « Guion » (ver la nueva ortografía de la RAE)"
-
-[\bguíar\b]i
-id="cm-guiar-con-tilde"
-hint="« Guíar » se escribe como « Guiar » (error frecuente)"
-
 [\bhaber\sque\b]i
 id="cm-haber-que"
 hint="'Haber que' se escribe 'A ver que'"
@@ -707,14 +511,6 @@ hint="'Haber que' se escribe 'A ver que'"
 [^haber\ssí\b]i
 id="cm-haber-si"
 hint="'Haber sí' al principio de frase se escribe 'A ver sí'"
-
-[\bhabemos\b]i
-id="cm-habemos"
-hint="« Habemos » se escribe como « Hemos », se trata de un arcaismo (error frecuente)"
-
-[\bHabían\b]
-id="cm-habian"
-hint="« Habián » se escribe como « Había » al principo de frase (error frecuente)"
 
 [\bhabían\s(algunos|algunas|muchos|muchas)\b]i
 id="cm-habian-algunos"
@@ -724,37 +520,17 @@ hint="« Habián algunos/muchos » se escribe como « Había algunos/muchos » (
 id="cm-han-habido-algunos"
 hint="« Han habido algunos/muchos » se escribe como « Ha habido algunos/muchos » (error frecuente)"
 
-[\bháy\b]i
-id="cm-hay-con-tilde"
-hint="« Háy » se escribe como « Hay » (error frecuente)"
-
 [\bhay\sla\sposibilidad\b]i
 id="cm-hay-la-posibilidad"
 hint="« Hay la posibilidad » se escribe como « Existe la posibilidad » (error frecuente)"
 
-[\bHóy\b]i
-id="cm-hoy-con-tilde"
-hint="« Hóy » se escribe como « Hoy » (error frecuente)"
-
-[\bHubieron\b]
-id="cm-hubieron"
-hint="« Hubieron » se escribe como « Hubo » al principo de frase (error frecuente)"
+[\bhech[oa][sn]?\sde\smenos\b]i
+id="cm-hecho-de-menos"
+hint="« Hecho de menos » se escribe como « Echo de menos » (error frecuente)"
 
 [\bhubieron\s(algunos|algunas|muchos|muchas)\b]i
 id="cm-hubieron-algunos"
 hint="« Hubieron algunos/muchos » se escribe como « Hubo algunos/muchos » (error frecuente)"
-
-[\bhuí\b]i
-id="cm-hui-con-tilde"
-hint="« Huí » se escribe como « Hui » (ver la nueva ortografía de la RAE)"
-
-[\bhuír\b]i
-id="cm-huir-con-tilde"
-hint="« Huír » se escribe como « Huir » (ver la nueva ortografía de la RAE)"
-
-[\binteractuación\b]i
-id="cm-interactuacion"
-hint="« Interactuación » se escribe como « Interacción » (error frecuente)"
 
 [\b(el|del|un|este|ese)\sinterfaz\b]i
 id="cm-interfaz-masculino"
@@ -768,14 +544,6 @@ hint="« Interfaces » es de género femenino (error frecuente)"
 id="cm-internet-en-minusculas"
 hint="« Internet » se escribe en mayúsculas (error frecuente)"
 
-[\bión\b]i
-id="cm-ion-con-tilde"
-hint="« Ión » se escribe como « Ion » (error frecuente)"
-
-[\biraq\b]i
-id="cm-iraq-con-q"
-hint="« Iraq » se escribe como « Irak » (ver la nueva ortografía de la RAE)"
-
 [\b(el|del|un|los|unos|estos|esos)IRQ\b]i
 id="cm-irq-masculino"
 hint="« IRQ » es femenino (error frecuente)"
@@ -788,6 +556,10 @@ hint="« Juega un papel » se escribe como « Representa/desempeña un/su papel 
 id="cm-jugar-un-papel"
 hint="« Jugar un papel » se escribe como « Representar/desempeñar un/su papel » (error frecuente)"
 
+[\blas\smiles\b]i
+id="cm-las-miles"
+hint="« Las miles » se escribe como « Los miles » (error frecuente)"
+
 [\blas\sy\slos\b]i
 id="cm-las-y-los"
 hint="« Las y los » se escribe como «Los». (error frecuente)"
@@ -795,10 +567,6 @@ hint="« Las y los » se escribe como «Los». (error frecuente)"
 [\bliteratura\s(sobre|en)\b]i
 id="cm-literatura-sobre"
 hint="« Literatura sobre/en » e escribe como «Bibliografía sobre/en». (error frecuente)"
-
-[\blo\sse\b]i
-id="cm-lo-se-sin-tilde"
-hint="« Lo se » se escribe como « Lo sé/Se lo ». (error frecuente)"
 
 [\bl[oa]s\sambos\b]i
 id="cm-los-ambos"
@@ -812,10 +580,6 @@ hint="« Los y las » se escribe como «Los». (error frecuente)"
 id="cm-los-porques-sin-tilde"
 hint="« Los porques » se escribe como «Los porqués». (error frecuente)"
 
-[\blouisiana\b]i
-id="cm-louisiana"
-hint="« Louisiana » se escribe como « Luisiana » (error frecuente)"
-
 [\b(el|del|uno|este|ese)\smacro\b]i
 id="cm-macro-en-masculino"
 hint="« Macro » es de género femenino (error frecuente)"
@@ -823,10 +587,6 @@ hint="« Macro » es de género femenino (error frecuente)"
 [\b(los|unos|estos|esos)\smacros\b]i
 id="cm-macros-en-masculino"
 hint="« Macros » es de género femenino (error frecuente)"
-
-[\bmas\b]i
-id="cm-mas-sin-tilde"
-hint="« Mas » se escribe como « Más » salvo si es preposición, caso poco habitual (error frecuente)"
 
 [\bmás\sbuen[oa]s?\b]i
 id="cm-mas-bueno"
@@ -836,41 +596,21 @@ hint="« Más bueno» se escribe como « Mejor » (error frecuente)"
 id="cm-mas-malo"
 hint="« Más malo» se escribe como « Peor » (error frecuente)"
 
-[\bm[aá]sters\b]i
-id="cm-masters"
-hint="« Masters » se escribe como « Másteres » (error frecuente)"
+[\bmás\smayor\b]i
+id="cm-mas-mayor"
+hint="« Más mayor» se escribe como « Mayor » (error frecuente)"
 
 [\bmayor\sa\b]i
 id="cm-mayor-a"
 hint="« Mayor a » se escribe como « Mayor que » (error frecuente: solecismo)"
 
-[\bmé\b]i
-id="cm-me-con-tilde"
-hint="« Mé » se escribe como « me » (error frecuente)"
-
 [\bme\sse\b]i
 id="cm-me-se"
 hint="« Me se » se escribe como « Se me » (error frecuente)"
 
-[\bmés\b]i
-id="cm-mes-con-tilde"
-hint="« Més » se escribe como « Mes » (error frecuente)"
-
-[\bmississippi\b]i
-id="cm-mississipi"
-hint="« Mississippi » se escribe como « Misisipi » (error frecuente)"
-
-[\bMúy\b]i
-id="cm-muy-con-tilde"
-hint="« Múy » se escribe como « Muy » (error frecuente)"
-
 [\bnexos?\sde\sunión\b]i
 id="cm-nexo-de-union"
 hint="« Nexo de unión » se escribe como « Nexo » (error frecuente: redundancia)"
-
-[\bni\saún\b]i
-id="cm-ni-aun-con-tilde"
-hint="« Ni aún » se escribe como « Ni aun » (error frecuente: redundancia)"
 
 [\bni\squé\sdecir\stiene\b]i
 id="cm-ni-que-decir-tiene-con-tilde"
@@ -880,21 +620,9 @@ hint="« Ni que decir tiene » se escribe como sin tilde (error frecuente)"
 id="cm-p-e"
 hint="« P. e. » se escribe como « P. ej. » (error frecuente)"
 
-[\bPacifico\b]
-id="cm-pacifico-sin-tilde"
-hint="« Pacifico » se escribe como « Pacífico », salvo 1ª persona del verbo pacificar (error frecuente)"
-
-[\bpagina\b]i
-id="cm-pagina-sin-tilde"
-hint="« Pagina » se escribe como « Página », salvo 3ª persona del verbo paginar (error frecuente)"
-
 [\bpalabras\sclaves\b]i
 id="cm-palabras-claves"
 hint="« Palabras claves » se escribe como « Palabras clave » (error frecuente)"
-
-[\bPán\b]i
-id="cm-pan-con-tilde"
-hint="« Pán » se escribe como « Pan » (error frecuente)"
 
 [\bpara\smostrase\b]i
 id="cm-para-mostrase"
@@ -903,14 +631,6 @@ hint="« Para mostrase » se escribe como « Para mostrarse » (error frecuente)
 [\bpara\stenga\b]i
 id="cm-para-tenga"
 hint="« Para tenga » se escribe como « Que tenga » (error frecuente)"
-
-[\bpáz\b]i
-id="cm-paz-con-tilde"
-hint="« Páz » se escribe como « Paz » (error frecuente)"
-
-[\bpié\b]i
-id="cm-pie-con-tilde"
-hint="« Pié » se escribe como « Pie » (ver la nueva ortografía de la RAE)"
 
 [\bpor\scontra\b]i
 id="cm-por-contra"
@@ -932,34 +652,6 @@ hint="« Por reconocimiento » se escribe como « En reconocimiento » (error fr
 id="cm-por-siempre"
 hint="« Por siempre » se escribe como « Para siempre » (error frecuente: solecismo)"
 
-[\bprevee\b]i
-id="cm-prevee"
-hint="« Prevee » se escribe como « Prevé » (error frecuente)"
-
-[\bpreveemos\b]i
-id="cm-preveemos"
-hint="« Preveemos » se escribe como « Prevemos » (error frecuente)"
-
-[\bpreveer\b]i
-id="cm-preveer"
-hint="« Preveer » se escribe como « Prever » (error frecuente)"
-
-[\bpreveerse\b]i
-id="cm-preveerse"
-hint="« Preveerse » se escribe como « Preverse » (error frecuente)"
-
-[\bpreveyendo\b]i
-id="cm-preveyendo"
-hint="« Preveyendo » se escribe como « Previendo » (error frecuente)"
-
-[\bpreveyera\b]i
-id="cm-preveyera"
-hint="« Preveyera » se escribe como « Preveiera » (error frecuente)"
-
-[\bpreveyó\b]i
-id="cm-preveyo"
-hint="« Preveyó » se escribe como « Preveió » (error frecuente)"
-
 [\bpreviamente\sa\b]i
 id="cm-previamente-a"
 hint="« Previamente a » se escribe como « Antes de » (error frecuente)"
@@ -972,42 +664,6 @@ hint="« Primer vez » se escribe como « Primera vez » (error frecuente)"
 id="cm-punto-y-final"
 hint="« Punto y final » se escribe como « Punto final » (error frecuente)"
 
-[\bqatar\b]i
-id="cm-qata-con-q"
-hint="« Qatar » se escribe como « Catar » (ver la nueva ortografía de la RAE)"
-
-[\bqu[oó]rum\b]i
-id="cm-quorum-con-q"
-hint="« Quórum » se escribe como « Cuórum » (error frecuente)"
-
-[\bqu[aá]sar\b]i
-id="cm-quasar-con-q"
-hint="« Quásar » se escribe como « Cuasar » (error frecuente)"
-
-[\brabbi\b]i
-id="cm-rabbi"
-hint="« Rabbi » se escribe como « Rabí » (error frecuente)"
-
-[\briáis\b]i
-id="cm-riais-con-tilde"
-hint="« Riáis » se escribe como « Riais » (ver la nueva ortografía de la RAE)"
-
-[\brío\b]i
-id="cm-rio-con-tilde"
-hint="« Río » se escribe como « Rio » (error frecuente)"
-
-[\bsaínz\b]i
-id="cm-sainz-con-tilde"
-hint="« Saínz » se escribe como « Sainz » (error frecuente)"
-
-[\bsaíz\b]i
-id="cm-saiz-con-tilde"
-hint="« Saíz » se escribe como « Saiz » (error frecuente)"
-
-[\bsánz\b]i
-id="cm-sanz-con-tilde"
-hint="« Sánz » se escribe como « Sanz » (error frecuente)"
-
 [\bse\scancelo\b]i
 id="cm-se-cancelo-sin-tilde"
 hint="« Se cancelo » se escribe como « Se canceló » (error frecuente)"
@@ -1019,14 +675,6 @@ hint="« Se deber » se escribe como « Se deben » (error frecuente)"
 [\bse\sesperada\b]i
 id="cm-se-esperada"
 hint="« Se esperaba » se escribe como « Se esperaba » (error frecuente)"
-
-[\bse\sesta\b]i
-id="cm-se-esta-sin-tilde"
-hint="« Se esta » se escribe como « Se está » (error frecuente)"
-
-[\bse\seste\b]i
-id="cm-se-este-sin-tilde"
-hint="« Se este » se escribe como « Se esté » (error frecuente)"
 
 [\bse\sfijó\sque\b]i
 id="cm-se-fijo-que"
@@ -1052,10 +700,6 @@ hint="« Se puedo » se escribe como « Se puede » (error frecuente)"
 id="cm-se-su"
 hint="« Se su » palabra duplicada (error frecuente)"
 
-[\bséd\b]i
-id="cm-sed-con-tilde"
-hint="« Séd » se escribe siempre como « Sed » (ver la nueva ortografía de la RAE)"
-
 [\bseguidamente\sa\b]i
 id="cm-seguidamente-a"
 hint="« Seguidamente a » se escribe como « Después de/A continuación/Tras » (error frecuente)"
@@ -1064,38 +708,6 @@ hint="« Seguidamente a » se escribe como « Después de/A continuación/Tras �
 id="cm-simultaneamente-a"
 hint="« Simultáneamente a » se escribe como « A la vez que/Al mismo tiempo que/Coincidiendo con » (error frecuente)"
 
-[\bsión\b]i
-id="cm-sion-con-tilde"
-hint="« Sión » se escribe como « Sion » (ver la nueva ortografía de la RAE)"
-
-[\bSobreescri(bir|be|ba|ben|ban|biendo|tura)\b]i
-id="cm-sobreescribir"
-hint="« Sobreescribir » se escribe como « Sobrescribir », igual para sus derivaciones (error frecuente)"
-
-[\bsobretodo\b]i
-id="cm-sobretodo"
-hint="« Sobretodo » se escribe como « Sobre todo », salvo en caso de abrigos (error frecuente)"
-
-[\bsól\b]i
-id="cm-sol-con-tilde"
-hint="« Sól » se escribe siempre como « Sol » (ver la nueva ortografía de la RAE)"
-
-[\bsóla\b]i
-id="cm-sola-con-tilde"
-hint="« Sóla » se escribe siempre como « Sola » (ver la nueva ortografía de la RAE)"
-
-[\bsólo\b]i
-id="cm-solo-con-tilde"
-hint="« Sólo » se escribe siempre como « Solo » (ver la nueva ortografía de la RAE)"
-
-[\bstock\b]i
-id="cm-stock"
-hint="« Stock » se escribe siempre como « Existencias/Reservas/Inventario » (error frecuente)"
-
-[\bsu\slimite\b]i
-id="cm-su-limite"
-hint="« Su limite » e escribe como «Su límite». (error frecuente)"
-
 [\bsu\sse\b]i
 id="cm-su-se"
 hint="« Su se » palabra duplicada (error frecuente)"
@@ -1103,10 +715,6 @@ hint="« Su se » palabra duplicada (error frecuente)"
 [\bsuelen\shaber\b]i
 id="cm-suelen-haber"
 hint="« Suelen haber » se escribe como « Suele haber » (error frecuente)"
-
-[\bsydney\b]i
-id="cm-sydney"
-hint="« Sydney » se escribe como « Sidney » (error frecuente)"
 
 [\btal\ses\sasí\b]i
 id="cm-tal-es-asi"
@@ -1124,43 +732,9 @@ hint="« Te se » se escribe como « Se te » (error frecuente)"
 id="cm-tema-sensible"
 hint="« Tema sensible » se escribe como « Tema delicado » (error frecuente)"
 
-[\btenia\b]i
-id="cm-tenia"
-hint="« Tenia » se escribe como « Tenía », salvo cuando se trate del parásito intestinal (error frecuente)"
-
 [\btenían\sque\shaber\b]i
 id="cm-tenian-que-haber"
 hint="« Tenían que haber » se escribe como « Tenía que haber » (error frecuente)"
-
-[\btenias\b]i
-id="cm-tenias"
-hint="« Tenias » se escribe como « Tenías », salvo cuando se trate de los parásitos intestinales (error frecuente)"
-
-[\bthesaurus\b]i
-id="cm-thesaurus"
-hint="« Thesaurus » se escribe como « Tesauro » (error frecuente)"
-
-[\btruhán\b]i
-id="cm-truhan-con-tilde"
-hint="« Truhán » se escribe como « Truhan » (ver la nueva ortografía de la RAE)"
-
-[\btí\b]i
-id="cm-ti-con-tilde"
-hint="« Tí » se escribe como « Ti » (error frecuente)"
-
-[\bTorah\b]i
-id="cm-torah"
-valid after="[A-Z]\w+\s"
-valid before="\s[A-Z]\w+"
-hint="« Torah » se escribe como « Torá » (error frecuente)"
-
-[\btu(\.|\?|\!|\<p\>)]i
-id="cm-tu-final-sin-tilde"
-hint="« tu » se escribe como « tú » al final de frase(error frecuente)"
-
-[\bun\sporque\b]i
-id="cm-un-porque-sin-tilde"
-hint="« Un porque » se escribe como «Un porqué». (error frecuente)"
 
 [\buna\sde\sambas\b]i
 id="cm-una-de-ambas"
@@ -1170,65 +744,25 @@ hint="« Una de ambas » se escribe como « Una de los dos ». (error frecuente)
 id="cm-una-vez-se"
 hint="« Una vez se » se escribe como «Una vez que se». (error frecuente)"
 
+[\bunas\smiles\b]i
+id="cm-unas-miles"
+hint="« Unas miles » se escribe como « Unos miles » (error frecuente)"
+
 [\buno\sde\sambos\b]i
 id="cm-uno-de-ambos"
 hint="« Uno de ambos » se escribe como « Uno de los dos ». (error frecuente)"
-
-[\bunos\sporques\b]i
-id="cm-unos-porques-sin-tilde"
-hint="« Unos porques » se escribe como «Unos porqués». (error frecuente)"
 
 [\b(el|del|un|los|unos|este|ese)\surl\b]i
 id="cm-url-en-masculino"
 hint="« URL » es de género femenino (error frecuente)"
 
-[\buso\shorario\b]i
-id="cm-uso-horario"
-hint="« Uso horario » se escribe como «Huso horario». (error frecuente)"
-
-[\busos\shorarios\b]i
-id="cm-usos-horarios"
-hint="« Usos horarios » se escribe como «Husos horarios». (error frecuente)"
-
-[\bvalido\b]i
-id="cm-valido-sin-tilde"
-hint="« Valido » se escribe como « Válido » (error frecuente)"
-
-[\bvease\b]i
-id="cm-vease-sin-tilde"
-hint="« Vease » se escribe como « Véase » (error frecuente)"
-
-[\bvia\b]i
-id="cm-via-sin-tilde"
-hint="« Via » se escribe como « Vía » (error frecuente)"
-
-[\bveís\b]i
-id="cm-veis-mal-tilde"
-hint="« Veís » se escribe como « Veis » (ver la nueva ortografía de la RAE)"
-
-[\bversus\b]i
-id="cm-versus"
-hint="En lugar de « Versus » se emplea « Contra/Frente a/en comparación con » (error frecuente)"
-
-[\bví\b]i
-id="cm-vi-con-tilde"
-hint="« Ví » se escribe como « Vi » (error frecuente)"
-
 [\bvígente\scampeón\b]i
 id="cm-vigente-campeon"
 hint="« Vígente campeón » se escribe como « Actual campeón » (error frecuente)"
 
-[\bvió\b]i
-id="cm-vio-con-tilde"
-hint="« Vió » se escribe como « Vio » (error frecuente)"
-
 [\b(el|del|un|los|unos|este|ese)\sweb\b]i
 id="cm-web-en-masculino"
 hint="« Web » es femenino (error frecuente)"
-
-[\byá\b]i
-id="cm-ya-con-tilde"
-hint="« Yá » se escribe como « Ya » (error frecuente)"
 
 [\by\/o\b]i
 id="cm-y-o"
