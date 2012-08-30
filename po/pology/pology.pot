@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-08-12 10:13+0200\n"
+"POT-Creation-Date: 2012-08-30 09:56+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -212,80 +212,80 @@ msgctxt "@info"
 msgid "Bad pattern '%(pattern)s' detected."
 msgstr ""
 
-#: pology/catalog.py:108
+#: pology/catalog.py:119
 #, python-format
 msgctxt "@info"
 msgid "Text decoding failure at %(file)s:%(line)d:%(col)d under assumed encoding '%(enc)s'."
 msgstr ""
 
-#: pology/catalog.py:129
+#: pology/catalog.py:140
 msgctxt "@item generic name for the source or destination of data being read or written"
 msgid "&lt;stream&gt;"
 msgstr ""
 
-#: pology/catalog.py:239
+#: pology/catalog.py:250
 #, python-format
 msgctxt "@info"
 msgid "Unknown comment type at %(file)s:%(line)d."
 msgstr ""
 
-#: pology/catalog.py:283 pology/catalog.py:293
+#: pology/catalog.py:294 pology/catalog.py:304
 #, python-format
 msgctxt "@info"
 msgid "Malformed '%(field)s' ordinal at %(file)s:%(line)d."
 msgstr ""
 
-#: pology/catalog.py:303
+#: pology/catalog.py:314
 #, python-format
 msgctxt "@info"
 msgid "Unknown field name at %(file)s:%(line)d."
 msgstr ""
 
-#: pology/catalog.py:328
+#: pology/catalog.py:339
 #, python-format
 msgctxt "@info"
 msgid "Expected string continuation at %(file)s:%(line)d."
 msgstr ""
 
-#: pology/catalog.py:353 pology/catalog.py:367 pology/catalog.py:372
+#: pology/catalog.py:364 pology/catalog.py:378 pology/catalog.py:383
 #, python-format
 msgctxt "@info"
 msgid "Internal problem (%(id)d) at %(file)s:%(line)d."
 msgstr ""
 
-#: pology/catalog.py:390
+#: pology/catalog.py:401
 #, python-format
 msgctxt "@info"
 msgid "Empty message at %(file)s:%(line)d."
 msgstr ""
 
-#: pology/catalog.py:535
+#: pology/catalog.py:549
 #, python-format
 msgctxt "@info"
 msgid "File '%(file)s' does not exist."
 msgstr ""
 
-#: pology/catalog.py:619
+#: pology/catalog.py:633
 msgctxt "@info"
 msgid "Trying to access catalog messages in header-only mode."
 msgstr ""
 
-#: pology/catalog.py:890
+#: pology/catalog.py:904
 msgctxt "@info"
 msgid "Trying to insert message with empty key into catalog."
 msgstr ""
 
-#: pology/catalog.py:905
+#: pology/catalog.py:919
 msgctxt "@info"
 msgid "Trying to insert message into catalog by position out of range."
 msgstr ""
 
-#: pology/catalog.py:1125
+#: pology/catalog.py:1139
 msgctxt "@info"
 msgid "Trying to sync unnamed catalog."
 msgstr ""
 
-#: pology/catalog.py:1209
+#: pology/catalog.py:1223
 #, python-format
 msgctxt "@info"
 msgid "Text encoding failure at %(file)s:%(line)d:%(col)d under assumed encoding '%(enc)s'."
@@ -3525,50 +3525,50 @@ msgctxt "@info"
 msgid "Module '%(file)s' does not define %(classname)s class."
 msgstr ""
 
-#: scripts/posieve.py:271
+#: scripts/posieve.py:268
 msgctxt "@info"
 msgid "Available internal sieves:"
 msgstr ""
 
-#: scripts/posieve.py:281
+#: scripts/posieve.py:278
 msgctxt "@info"
 msgid "Help for sieves:"
 msgstr ""
 
-#: scripts/posieve.py:320
+#: scripts/posieve.py:314
 #, python-format
 msgctxt "@info"
 msgid "Parameters not accepted by any of issued subcommands: %(paramlist)s."
 msgstr ""
 
-#: scripts/posieve.py:364
+#: scripts/posieve.py:355
 msgctxt "@info:progress"
 msgid "--> Not monitoring messages."
 msgstr ""
 
-#: scripts/posieve.py:377
+#: scripts/posieve.py:368
 msgctxt "@info:progress"
 msgid "--> Not syncing after sieving."
 msgstr ""
 
-#: scripts/posieve.py:394
+#: scripts/posieve.py:385
 msgctxt "@info:progress"
 msgid "--> Opening catalogs in header-only mode."
 msgstr ""
 
-#: scripts/posieve.py:417
+#: scripts/posieve.py:408
 #, python-format
 msgctxt "@info:progress"
 msgid "Sieving: %(file)s"
 msgstr ""
 
-#: scripts/posieve.py:423
+#: scripts/posieve.py:414
 #, python-format
 msgctxt "@info:progress"
 msgid "Sieving %(file)s..."
 msgstr ""
 
-#: scripts/posieve.py:433
+#: scripts/posieve.py:424
 #, python-format
 msgctxt "@info:progress"
 msgid ""
@@ -3576,86 +3576,86 @@ msgid ""
 "%(msg)s"
 msgstr ""
 
-#: scripts/posieve.py:437
+#: scripts/posieve.py:428
 msgctxt "@info:progress"
 msgid "Skipping catalog due to syntax check failure."
 msgstr ""
 
-#: scripts/posieve.py:444
+#: scripts/posieve.py:435
 #, python-format
 msgctxt "@info:progress"
 msgid "%(file)s: Parsing failed: %(msg)s"
 msgstr ""
 
-#: scripts/posieve.py:447
+#: scripts/posieve.py:438
 msgctxt "@info:progress"
 msgid "Skipping catalog due to parsing failure."
 msgstr ""
 
-#: scripts/posieve.py:454
+#: scripts/posieve.py:445
 #, python-format
 msgctxt "@info:progress"
 msgid "Sieving header of %(file)s..."
 msgstr ""
 
-#: scripts/posieve.py:460 scripts/posieve.py:466
+#: scripts/posieve.py:451
 #, python-format
 msgctxt "@info:progress"
 msgid "%(file)s:header: Sieving failed: %(msg)s"
 msgstr ""
 
-#: scripts/posieve.py:472
+#: scripts/posieve.py:459
 msgctxt "@info:progress"
 msgid "Skipping catalog due to header sieving failure."
 msgstr ""
 
-#: scripts/posieve.py:487
+#: scripts/posieve.py:474
 #, python-format
 msgctxt "@info:progress"
 msgid "Sieving %(file)s:%(line)d(#%(entry)d)..."
 msgstr ""
 
-#: scripts/posieve.py:495 scripts/posieve.py:500 scripts/posieve.py:506
+#: scripts/posieve.py:482 scripts/posieve.py:487
 #, python-format
 msgctxt "@info:progress"
 msgid "Sieving failed: %(msg)s"
 msgstr ""
 
-#: scripts/posieve.py:514
+#: scripts/posieve.py:497
 msgctxt "@info:progress"
 msgid "Skipping catalog due to message sieving failure."
 msgstr ""
 
-#: scripts/posieve.py:520
+#: scripts/posieve.py:503
 #, python-format
 msgctxt "@info:progress"
 msgid "Sieving header (after messages) in %(file)s..."
 msgstr ""
 
-#: scripts/posieve.py:527 scripts/posieve.py:534
+#: scripts/posieve.py:510
 #, python-format
 msgctxt "@info:progress"
 msgid "%(file)s:header: Sieving (after messages) failed: %(msg)s"
 msgstr ""
 
-#: scripts/posieve.py:541
+#: scripts/posieve.py:519
 msgctxt "@info:progress"
 msgid "Skipping catalog due to header sieving (after messages) failure."
 msgstr ""
 
-#: scripts/posieve.py:549
+#: scripts/posieve.py:527
 #, python-format
 msgctxt "@info:progress leading ! is a shorthand state indicator"
 msgid "! (MODIFIED) %(file)s"
 msgstr ""
 
-#: scripts/posieve.py:554
+#: scripts/posieve.py:532
 #, python-format
 msgctxt "@info:progress leading ! is a shorthand state indicator"
 msgid "! %(file)s"
 msgstr ""
 
-#: scripts/posieve.py:567
+#: scripts/posieve.py:545
 #, python-format
 msgctxt "@info:progress"
 msgid "Finalization failed: %(msg)s"
@@ -4626,40 +4626,40 @@ msgid ""
 "%(msg)s"
 msgstr ""
 
-#: sieve/check_rules.py:293
+#: sieve/check_rules.py:298
 msgctxt "@info:progress"
 msgid "Using cache."
 msgstr ""
 
-#: sieve/check_rules.py:299
+#: sieve/check_rules.py:304
 msgctxt "@info"
 msgid "No cache available, processing file."
 msgstr ""
 
-#: sieve/check_rules.py:329
+#: sieve/check_rules.py:334
 #, python-format
 msgctxt "@info"
 msgid "Separator  character '%(sep)s' missing in '%(prefix)s' comment."
 msgstr ""
 
-#: sieve/check_rules.py:368
+#: sieve/check_rules.py:373
 #, python-format
 msgctxt "@info:progress"
 msgid "Rule '%(rule)s' timed out, skipping it."
 msgstr ""
 
-#: sieve/check_rules.py:397
+#: sieve/check_rules.py:402
 msgctxt "@label"
 msgid "Failed rules:"
 msgstr ""
 
-#: sieve/check_rules.py:400
+#: sieve/check_rules.py:405
 #, python-format
 msgctxt "@item"
 msgid "rule %(rule)s ==> %(msg)s"
 msgstr ""
 
-#: sieve/check_rules.py:422
+#: sieve/check_rules.py:427
 #, python-format
 msgctxt "@info:progress"
 msgid "Rules detected %(num)d problem."
@@ -4667,19 +4667,19 @@ msgid_plural "Rules detected %(num)d problems."
 msgstr[0] ""
 msgstr[1] ""
 
-#: sieve/check_rules.py:451
+#: sieve/check_rules.py:456
 #, python-format
 msgctxt "@info"
 msgid "Some explicitly selected rules are missing: %(rulelist)s."
 msgstr ""
 
-#: sieve/check_rules.py:481
+#: sieve/check_rules.py:486
 #, python-format
 msgctxt "@info"
 msgid "Some explicitly excluded rules are missing: %(rulelist)s."
 msgstr ""
 
-#: sieve/check_rules.py:502
+#: sieve/check_rules.py:507
 #, python-format
 msgctxt "@item:intext inserted below as %(tot)s"
 msgid "Loaded %(num)d rule"
@@ -4687,19 +4687,19 @@ msgid_plural "Loaded %(num)d rules"
 msgstr[0] ""
 msgstr[1] ""
 
-#: sieve/check_rules.py:506
+#: sieve/check_rules.py:511
 #, python-format
 msgctxt "@item:intext inserted below as %(env)s"
 msgid "[only: %(envlist)s]"
 msgstr ""
 
-#: sieve/check_rules.py:510
+#: sieve/check_rules.py:515
 #, python-format
 msgctxt "@item:intext inserted below as %(env)s"
 msgid "[%(envlist)s]"
 msgstr ""
 
-#: sieve/check_rules.py:513
+#: sieve/check_rules.py:518
 #, python-format
 msgctxt "@item:intext inserted below as %(act)s"
 msgid "%(num)d active"
@@ -4707,7 +4707,7 @@ msgid_plural "%(num)d active"
 msgstr[0] ""
 msgstr[1] ""
 
-#: sieve/check_rules.py:516
+#: sieve/check_rules.py:521
 #, python-format
 msgctxt "@item:intext inserted below as %(dis)s"
 msgid "%(num)d disabled"
@@ -4715,37 +4715,37 @@ msgid_plural "%(num)d disabled"
 msgstr[0] ""
 msgstr[1] ""
 
-#: sieve/check_rules.py:521
+#: sieve/check_rules.py:526
 #, python-format
 msgctxt "@info:progress insertions from above"
 msgid "%(tot)s %(env)s (%(act)s, %(dis)s)."
 msgstr ""
 
-#: sieve/check_rules.py:524
+#: sieve/check_rules.py:529
 #, python-format
 msgctxt "@info:progress insertions from above"
 msgid "%(tot)s (%(act)s, %(dis)s)."
 msgstr ""
 
-#: sieve/check_rules.py:527
+#: sieve/check_rules.py:532
 #, python-format
 msgctxt "@info:progress insertions from above"
 msgid "%(tot)s %(env)s."
 msgstr ""
 
-#: sieve/check_rules.py:530
+#: sieve/check_rules.py:535
 #, python-format
 msgctxt "@info:progress insertions from above"
 msgid "%(tot)s."
 msgstr ""
 
-#: sieve/check_rules.py:538
+#: sieve/check_rules.py:543
 #, python-format
 msgctxt "@info:progress"
 msgid "Selected rules: %(rulelist)s."
 msgstr ""
 
-#: sieve/check_rules.py:542
+#: sieve/check_rules.py:547
 #, python-format
 msgctxt "@info:progress"
 msgid "Selected %(num)d rule."
@@ -4753,13 +4753,13 @@ msgid_plural "Selected %(num)d rules."
 msgstr[0] ""
 msgstr[1] ""
 
-#: sieve/check_rules.py:550
+#: sieve/check_rules.py:555
 #, python-format
 msgctxt "@info:progress"
 msgid "Excluded rules: %(rulelist)s."
 msgstr ""
 
-#: sieve/check_rules.py:554
+#: sieve/check_rules.py:559
 #, python-format
 msgctxt "@info:progress"
 msgid "Excluded %(num)d rule."
@@ -4767,7 +4767,7 @@ msgid_plural "Excluded %(num)d rules."
 msgstr[0] ""
 msgstr[1] ""
 
-#: sieve/check_rules.py:566
+#: sieve/check_rules.py:571
 #, python-format
 msgctxt "@info:progress"
 msgid "Active rules define %(num)d distinct filter set."
