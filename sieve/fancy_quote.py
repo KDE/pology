@@ -258,6 +258,13 @@ def equip_fancy_quotes (text, squote, fquotes):
             if text[i + 1:i + 1 + lensq] == squote:
                 no_mod_len = 1 + lensq
 
+        # - simple quote in between two letters, may be a contraction
+        elif (    text[i:i + 1].isalpha()
+              and text[i + 1:i + 1 + lensq] == squote
+              and text[i + 1 + lensq:i + 1 + lensq + 1].isalpha()
+        ):
+            no_mod_len = 1 + lensq + 1
+
         # Advance past the end of no-modify segment if found.
         if no_mod_len > 0:
             i += no_mod_len
