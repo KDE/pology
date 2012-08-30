@@ -27,6 +27,17 @@ from pology.resolve import expand_vars
 from pology.wrap import select_field_wrapper
 
 
+class CatalogSyntaxError (PologyError):
+    """
+    Exception for errors in catalog syntax.
+
+    This exception is normally raised when parsing a catalog,
+    e.g. on invalid syntax or non-decodable characters.
+    """
+
+    pass
+
+
 def _parse_quoted (s):
 
     sp = s[s.index("\"") + 1:s.rindex("\"")]
@@ -103,7 +114,7 @@ def _read_lines_and_encoding (file, filename):
         try:
             encline = line.decode(enc)
         except UnicodeDecodeError, e:
-            raise PologyError(
+            raise CatalogSyntaxError(
                 _("@info",
                   "Text decoding failure at %(file)s:%(line)d:%(col)d "
                   "under assumed encoding '%(enc)s'.",
@@ -234,7 +245,7 @@ def _parse_po_file (file, MessageType=MessageMonitored,
 
             else:
                 # Cannot reach, all unknown comments treated as manual above.
-                raise PologyError(
+                raise CatalogSyntaxError(
                     _("@info",
                       "Unknown comment type at %(file)s:%(line)d.",
                       file=filename, line=lno))
@@ -278,7 +289,7 @@ def _parse_po_file (file, MessageType=MessageMonitored,
                     while p < llen and line[p].isdigit():
                         p += 1
                     if p == 0:
-                        raise PologyError(
+                        raise CatalogSyntaxError(
                             _("@info",
                               "Malformed '%(field)s' ordinal "
                               "at %(file)s:%(line)d.",
@@ -288,7 +299,7 @@ def _parse_po_file (file, MessageType=MessageMonitored,
                     if line.startswith("]"):
                         line = line[1:].lstrip()
                     else:
-                        raise PologyError(
+                        raise CatalogSyntaxError(
                             _("@info",
                               "Malformed '%(field)s' ordinal "
                               "at %(file)s:%(line)d.",
@@ -298,7 +309,7 @@ def _parse_po_file (file, MessageType=MessageMonitored,
                     loc.msg.msgstr.append([])
 
             elif not line.startswith("\""):
-                raise PologyError(
+                raise CatalogSyntaxError(
                     _("@info",
                       "Unknown field name at %(file)s:%(line)d.",
                       file=filename, line=lno))
@@ -323,7 +334,7 @@ def _parse_po_file (file, MessageType=MessageMonitored,
                     elif loc.field_context == ctx_msgstr:
                         loc.msg.msgstr[msgstr_i].append(s)
             else:
-                raise PologyError(
+                raise CatalogSyntaxError(
                     _("@info",
                       "Expected string continuation at %(file)s:%(line)d.",
                       file=filename, line=lno))
@@ -385,7 +396,7 @@ def _parse_po_file (file, MessageType=MessageMonitored,
         msg.msgid_plural = join_or_none(msg.msgid_plural)
         msg.msgstr = [join_or_none(x) for x in msg.msgstr]
         if i > 0 and msg.msgid == "" and msg.msgctxt is None:
-            raise PologyError(
+            raise CatalogSyntaxError(
                 _("@info",
                   "Empty message at %(file)s:%(line)d.",
                   file=filename, line=msg.refline))
@@ -487,6 +498,9 @@ class Catalog (Monitored):
         C{readfh} parameter.
         Same as when reading from file on disk, text will be decoded
         using catalog's encoding after reading it from C{readfh}.
+
+        If a problem which prevents construction of a valid catalog is
+        detected while parsing a PO file, L{CatalogSyntaxError} is raised.
 
         @param filename: name of the PO catalog on disk, or new catalog
         @type filename: string
@@ -1204,7 +1218,7 @@ class Catalog (Monitored):
             try:
                 encline = line.encode(self._encoding)
             except UnicodeEncodeError, e:
-                raise PologyError(
+                raise CatalogSyntaxError(
                     _("@info",
                       "Text encoding failure at %(file)s:%(line)d:%(col)d "
                       "under assumed encoding '%(enc)s'.",
