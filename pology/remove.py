@@ -451,7 +451,7 @@ def remove_marlits_msg (msg, cat):
 class _Cache: pass
 _marlit_cache = _Cache()
 _marlit_cache.mtypes = None
-_marlit_cache.tags = []
+_marlit_cache.tags = set()
 _marlit_cache.rxs = []
 _marlit_cache.acmnt_tag_rx = re.compile(r"^\s*tag:\s*(\w+)\s*$", re.I)
 _marlit_cache.rxs_all = [re.compile(r".*", re.S)]
@@ -462,9 +462,10 @@ def _marlit_rxs (msg, cat):
     mtypes = cat.markup()
     if _marlit_cache.mtypes != mtypes:
         _marlit_cache.mtypes = mtypes
+        _marlit_cache.tags = set()
         _marlit_cache.rxs = []
-        for mtype in mtypes:
-            _marlit_cache.tags = _marlit_tags(mtype)
+        for mtype in mtypes or []:
+            _marlit_cache.tags.update(_marlit_tags(mtype))
             rx = _build_tagged_rx(_marlit_cache.tags)
             _marlit_cache.rxs.append(rx)
 
@@ -508,13 +509,17 @@ def _marlit_tags (mtype):
     elif mtype == "xml":
         pass
 
-    return tags.split()
+    return set(tags.split())
 
 
 def _build_tagged_rx (tags):
 
     if isinstance(tags, basestring):
         tags = tags.split()
+    # For proper regex matching, tags that begin with a substring
+    # equal to another full tag must come before that full tag.
+    # So sort tags first by length, then by alphabet.
+    tags = sorted(tags, key=lambda x: (-len(x), x))
     basetagged_rxsub = r"<\s*(%s)\b[^<]*>.*?<\s*/\s*\1\s*>"
     tagged_rx = re.compile(basetagged_rxsub % "|".join(tags), re.I|re.S)
 
