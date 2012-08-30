@@ -23,7 +23,7 @@ import re
 import sys
 
 from pology import datadir, version, _, n_, t_
-from pology.catalog import Catalog
+from pology.catalog import Catalog, CatalogSyntaxError
 from pology.colors import ColorOptionParser, set_coloring_globals
 import pology.config as pology_config
 from pology.escape import escape_sh
@@ -258,10 +258,7 @@ def main ():
     pp = ParamParser()
     snames = []
     for name, mod in sieve_modules:
-        try:
-            scview = pp.add_subcmd(name)
-        except Exception, e:
-            error(str_to_unicode(str(e)))
+        scview = pp.add_subcmd(name)
         if hasattr(mod, "setup_sieve"):
             mod.setup_sieve(scview)
         snames.append(name)
@@ -311,10 +308,7 @@ def main ():
         sys.exit(0)
 
     # Parse sieve parameters.
-    try:
-        sparams, nacc_params = pp.parse(sieve_params, snames)
-    except Exception, e:
-        error(str_to_unicode(str(e)))
+    sparams, nacc_params = pp.parse(sieve_params, snames)
     if nacc_params:
         error(_("@info",
                 "Parameters not accepted by any of issued subcommands: "
@@ -348,10 +342,7 @@ def main ():
     # Create sieves.
     sieves = []
     for name, mod in sieve_modules:
-        try:
-            sieves.append(mod.Sieve(sparams[name]))
-        except Exception, e:
-            error(str_to_unicode(str(e)))
+        sieves.append(mod.Sieve(sparams[name]))
 
     # Get the message monitoring indicator from the sieves.
     # Monitor unless all sieves have requested otherwise.
@@ -439,7 +430,7 @@ def main ():
 
         try:
             cat = Catalog(fname, monitored=use_monitored, headonly=use_headonly)
-        except Exception, e:
+        except CatalogSyntaxError, e:
             errwarn(_("@info:progress",
                       "%(file)s: Parsing failed: %(msg)s",
                       file=fname, msg=e))
@@ -461,10 +452,6 @@ def main ():
                           file=fname, msg=e))
                 skip = True
                 break
-            except Exception, e:
-                error(_("@info:progress",
-                        "%(file)s:header: Sieving failed: %(msg)s",
-                        file=fname, msg=e))
             if ret not in (None, 0):
                 break
         if skip:
@@ -501,10 +488,6 @@ def main ():
                                          msg, cat)
                         skip = True
                         break
-                    except Exception, e:
-                        error_on_msg(_("@info:progress",
-                                       "Sieving failed: %(msg)s", msg=e),
-                                     msg, cat)
                     if ret not in (None, 0):
                         break
                 if skip:
@@ -529,11 +512,6 @@ def main ():
                           file=fname, msg=e))
                 skip = True
                 break
-            except Exception, e:
-                error(_("@info:progress",
-                        "%(file)s:header: Sieving (after messages) "
-                        "failed: %(msg)s",
-                        file=fname, msg=e))
             if ret not in (None, 0):
                 break
         if skip:
@@ -562,7 +540,7 @@ def main ():
         if hasattr(sieve, "finalize"):
             try:
                 sieve.finalize()
-            except Exception, e:
+            except SieveCatalogError, e:
                 warning(_("@info:progress",
                           "Finalization failed: %(msg)s",
                           msg=e))
