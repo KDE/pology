@@ -72,6 +72,7 @@ validGroup pluralName
 valid before="(?u)\w+s\b"
 valid before="de\b"
 valid before="del\b"
+valid before="en\b"
 valid before="encima\b"
 valid before="que\b"
 valid before="qué\b"
@@ -89,15 +90,15 @@ valid before="(?u)\w+[^l]\b"
 valid before="(?u)\w+[^n]\b"
 valid before="(?u)\w+[^r]\b"
 valid before="(?u)\w+[^s]\b"
-valid before="(?u)\w+(^(aje))\b"
-valid before="(?u)\w+(^(an))\b"
-valid before="(?u)\w+(^(ma))\b"
-valid before="(?u)\w+(^(or))\b"
-valid before="(?u)\w+(^(és))\b"
-valid before="(?u)\w+(^(án))\b"
-valid before="(?u)\w+(^(ín))\b"
-valid before="(?u)\w+(^(ón))\b"
-valid before="(?u)\w+(^(ado))\b"
+valid before="(?u)\w+(?!aje\b)"
+valid before="(?u)\w+(?!an\b)"
+valid before="(?u)\w+(?!ma\b)"
+valid before="(?u)\w+(?!or\b)"
+valid before="(?u)\w+(?!és\b)"
+valid before="(?u)\w+(?!án\b)"
+valid before="(?u)\w+(?!ín\b)"
+valid before="(?u)\w+(?!ón\b)"
+valid before="(?u)\w+(?!ado\b)"
 valid before="mano\b"
 valid before="nao\b"
 valid before="dinamo\b"
@@ -112,25 +113,56 @@ valid before="moto\b"
 valid before="mano\b"
 valid before="madre\b"
 
+validGroup femaleNamePlural
+valid before="(?u)\w+(?!os\b)"
+valid before="(?u)\w+(?!es\b)"
+valid before="(?u)\w+(?!ós\b)"
+valid before="(?u)\w+(?!és\b)"
+valid before="(?u)\w+(?!les\b)"
+valid before="(?u)\w+(?!nes\b)"
+valid before="(?u)\w+(?!res\b)"
+valid before="(?u)\w+(?!ses\b)"
+valid before="(?u)\w+(?!ajes\b)"
+valid before="(?u)\w+(?!anes\b)"
+valid before="(?u)\w+(?!mas\b)"
+valid before="(?u)\w+(?!ores\b)"
+valid before="(?u)\w+(?!eses\b)"
+valid before="(?u)\w+(?!ines\b)"
+valid before="(?u)\w+(?!ones\b)"
+valid before="(?u)\w+(?!ados\b)"
+valid before="manos\b"
+valid before="naos\b"
+valid before="dinamos\b"
+valid before="flores\b"
+valid before="seos\b"
+valid before="torres\b"
+valid before="clases\b"
+valid before="calles\b"
+valid before="sopranos\b"
+valid before="fotos\b"
+valid before="motos\b"
+valid before="manos\b"
+valid before="madres\b"
+
 validGroup maleName
 valid before="(?u)\w+[^a]\b"
 valid before="(?u)\w+[^á]\b"
-valid before="(?u)\w+(^(esa))\b"
-valid before="(?u)\w+(^(ina))\b"
-valid before="(?u)\w+(^(dad))\b"
-valid before="(?u)\w+(^(tad))\b"
-valid before="(?u)\w+(^(ie))\b"
-valid before="(?u)\w+(^(ión))\b"
-valid before="(?u)\w+(^(zón))\b"
-valid before="(?u)\w+(^(tud))\b"
-valid before="(?u)\w+(^(ies))\b"
-valid before="(?u)\w+(^(icie))\b"
-valid before="(?u)\w+(^(umbre))\b"
-valid before="(?u)\w+(^(sis))\b"
-valid before="(?u)\w+(^(ez))\b"
-valid before="(?u)\w+(^(ed))\b"
-valid before="(?u)\w+(^(ad))\b"
-valid before="(?u)\w+(^(iz))\b"
+valid before="(?u)\w+(?!esa\b)"
+valid before="(?u)\w+(?!ina\b)"
+valid before="(?u)\w+(?!dad\b)"
+valid before="(?u)\w+(?!tad\b)"
+valid before="(?u)\w+(?!ie\b)"
+valid before="(?u)\w+(?!ión\b)"
+valid before="(?u)\w+(?!zón\b)"
+valid before="(?u)\w+(?!tud\b)"
+valid before="(?u)\w+(?!ies\b)"
+valid before="(?u)\w+(?!icie\b)"
+valid before="(?u)\w+(?!umbre\b)"
+valid before="(?u)\w+(?!sis\b)"
+valid before="(?u)\w+(?!ez\b)"
+valid before="(?u)\w+(?!ed\b)"
+valid before="(?u)\w+(?!ad\b)"
+valid before="(?u)\w+(?!iz\b)"
 valid before="clima\b"
 valid before="análisis\b"
 valid before="día\b"
@@ -163,6 +195,59 @@ valid before="telegrama\b"
 valid before="tema\b"
 valid before="tranvía\b"
 valid before="teorema\b"
+
+validGroup maleNamePlural
+valid before="(?u)\w+(?!as\b)"
+valid before="(?u)\w+(?!ás\b)"
+valid before="(?u)\w+(?!esas\b)"
+valid before="(?u)\w+(?!inas\b)"
+valid before="(?u)\w+(?!dades\b)"
+valid before="(?u)\w+(?!tades\b)"
+valid before="(?u)\w+(?!ís\b)"
+valid before="(?u)\w+(?!iones\b)"
+valid before="(?u)\w+(?!zones\b)"
+valid before="(?u)\w+(?!tudes\b)"
+valid before="(?u)\w+(?!ies\b)"
+valid before="(?u)\w+(?!íes\b)"
+valid before="(?u)\w+(?!icies\b)"
+valid before="(?u)\w+(?!umbres\b)"
+valid before="(?u)\w+(?!sis\b)"
+valid before="(?u)\w+(?!eces\b)"
+valid before="(?u)\w+(?!edes\b)"
+valid before="(?u)\w+(?!ades\b)"
+valid before="(?u)\w+(?!ices\b)"
+valid before="climas\b"
+valid before="análisis\b"
+valid before="días\b"
+valid before="crucigramas\b"
+valid before="diafragmas\b"
+valid before="diagramas\b"
+valid before="dilemas\b"
+valid before="diplomas\b"
+valid before="dramas\b"
+valid before="enfásis\b"
+valid before="enigmas\b"
+valid before="esquemas\b"
+valid before="fantasmas\b"
+valid before="diafragmas\b"
+valid before="fotogramas\b"
+valid before="histogramas\b"
+valid before="idiomas\b"
+valid before="mapas\b"
+valid before="mediodias\b"
+valid before="panoramas\b"
+valid before="pentagramas\b"
+valid before="pijamas\b"
+valid before="planetas\b"
+valid before="poemas\b"
+valid before="problemas\b"
+valid before="programas\b"
+valid before="sistemas\b"
+valid before="subprogramas\b"
+valid before="telegramas\b"
+valid before="temas\b"
+valid before="tranvías\b"
+valid before="teoremas\b"
 
 validGroup neuterName
 valid before="\w+ista\b"
@@ -278,6 +363,122 @@ valid before="trompeta\b"
 valid before="vejestorio\b"
 valid before="verde\b"
 valid before="vodka\b"
+
+validGroup neuterNamePlural
+valid before="\w+istas\b"
+valid before="\w+ntes\b"
+valid before="\w+ies\b"
+valid before="\w+ús\b"
+valid before="\w+ues\b"
+valid before="\w+ares\b"
+valid before="\w+eres\b"
+valid before="\w+ires\b"
+valid before="\w+ures\b"
+valid before="\w+les\b"
+valid before="\w+ces\b"
+valid before="agentes\b"
+valid before="águilas\b"
+valid before="álfereces\b"
+valid before="amables\b"
+valid before="amantes\b"
+valid before="amanuenses\b"
+valid before="armazones\b"
+valid before="astronautas\b"
+valid before="atletas\b"
+valid before="avestruces\b"
+valid before="azúcares\b"
+valid before="azules\b"
+valid before="bachilleres\b"
+valid before="baterías\b"
+valid before="belgas\b"
+valid before="brigadas\b"
+valid before="brigadieres\b"
+valid before="cabos\b"
+valid before="calientes\b"
+valid before="cámaras\b"
+valid before="cantantes\b"
+valid before="capitales\b"
+valid before="capitanes\b"
+valid before="cicerones\b"
+valid before="cineastas\b"
+valid before="claves\b"
+valid before="cobayas\b"
+valid before="cocodrilos\b"
+valid before="cóleras\b"
+valid before="comas\b"
+valid before="cometas\b"
+valid before="conferenciantes\b"
+valid before="conserjes\b"
+valid before="contrabajos\b"
+valid before="cornetas\b"
+valid before="coroneles\b"
+valid before="cortes\b"
+valid before="corteses\b"
+valid before="costarricenses\b"
+valid before="curas\b"
+valid before="dibujantes\b"
+valid before="dracmas\b"
+valid before="editoriales\b"
+valid before="espadas\b"
+valid before="espías\b"
+valid before="estudiantes\b"
+valid before="fisios\b"
+valid before="frentes\b"
+valid before="geniales\b"
+valid before="grandes\b"
+valid before="grises\b"
+valid before="guardias\b"
+valid before="guías\b"
+valid before="hienas\b"
+valid before="hormigas\b"
+valid before="inferiores\b"
+valid before="inteligentes\b"
+valid before="intérpretes\b"
+valid before="jirafas\b"
+valid before="jóvenes\b"
+valid before="jueces\b"
+valid before="lagartos\b"
+valid before="liebres\b"
+valid before="linces\b"
+valid before="logopedas\b"
+valid before="mañanas\b"
+valid before="mares\b"
+valid before="marrones\b"
+valid before="mártires\b"
+valid before="mayores\b"
+valid before="mejores\b"
+valid before="menores\b"
+valid before="modelos\b"
+valid before="órdenes\b"
+valid before="ordenanzas\b"
+valid before="orfebres\b"
+valid before="otorrinos\b"
+valid before="pacientes\b"
+valid before="partes\b"
+valid before="pediatras\b"
+valid before="pendientes\b"
+valid before="peores\b"
+valid before="perdices\b"
+valid before="personas\b"
+valid before="personajes\b"
+valid before="peces\b"
+valid before="pinches\b"
+valid before="policías\b"
+valid before="profetas\b"
+valid before="ques\b"
+valid before="radios\b"
+valid before="ratones\b"
+valid before="sopranos\b"
+valid before="superiores\b"
+valid before="terapeutas\b"
+valid before="testigos\b"
+valid before="tenientes\b"
+valid before="tiburones\b"
+valid before="topos\b"
+valid before="trompetas\b"
+valid before="vejestorios\b"
+valid before="verdes\b"
+valid before="vodkas\b"
 
 validGroup thirdPerson
 valid before="(?u)\w+a\b"
@@ -952,19 +1153,19 @@ id="gr-habemos"
 valid after="nos\slas\s"
 hint="«Habemos» se escribe como «Hemos/Somos» (error gramatical)"
 
-[(?u)\bhech[oa][sn]?\sa\s\w+(ar|er|ir)\b]i
+[(?u)\bhech[oa][sn]?\sa\s\w+?(ar|er|ir)\b]i
 id="cm-hecho-a-infinitivo"
 hint="« Hecho a + infinitivo) » se escribe como « Echo a + infinitivo » (error gramatical)"
 
-[(?u)\ba\sver\s\w+(ido)\b]i
+[(?u)\ba\sver\s\w+?(ido)\b]i
 id="cm-a-ver-participio"
 hint="« A ver + participio » se escribe como « Haber + participio » (error gramatical)"
 
-[(?u)\baya\s\w+(ido)\b]i
+[(?u)\baya\s\w+?(ido)\b]i
 id="cm-aya-participio"
 hint="« Aya + participio » se escribe como « Haya + participio » (error gramatical)"
 
-[(?u)\bhalla\s\w+(ido)\b]i
+[(?u)\bhalla\s\w+?(ido)\b]i
 id="cm-halla-participio"
 hint="« Halla + participio » se escribe como « Haya + participio » (error gramatical)"
 
@@ -976,45 +1177,45 @@ hint="« Halla + participio » se escribe como « Haya + participio » (error gr
 id="gr-concordancia-articulo-singular-nombre"
 validGroup singularName
 validGroup wordDelimiter
-hint="Hay un artículo singular seguido de un nombre en plural"
+hint="Hay un artículo singular (El/Al/Del/Un/La/Una) seguido de un nombre en plural"
 
 [(?u)\b([Ll]os|[Ll]as)\s((dos|tres|cuatro|cinco|seis|siete|ocho|nueve|diez|\d+)\s)?[«'"]?]
 id="gr-concordancia-articulo-definido-plural-nombre"
 validGroup pluralName
 validGroup thirdPerson
 validGroup wordDelimiter
-hint="Hay un artículo definido plural seguido de un nombre en singular"
+hint="Hay un artículo definido plural (Los/Las) seguido de un nombre en singular"
 
 [(?u)\b([Uu]nos|[Uu]nas)\s((dos|tres|cuatro|cinco|seis|siete|ocho|nueve|diez|\d+)\s)?[«'"]?]
 id="gr-concordancia-articulo-indefinido-plural-nombre"
 validGroup pluralName
 validGroup wordDelimiter
-hint="Hay un artículo indefinido plural seguido de un nombre en singular"
+hint="Hay un artículo indefinido plural (Uos/Unas) seguido de un nombre en singular"
 
 [(?u)\b([Ee]ste|[Ee]se|[Aa]quel|[Ee]sta|[Ee]sa|[Aa]quella|[Ee]sto|[Ee]so|[Aa]quello)\s[«'"]?]
 id="gr-concordancia-pronombre-singular-nombre"
 validGroup singularName
 validGroup wordDelimiter
-hint="Hay un pronombre singular seguido de un nombre en plural"
+hint="Hay un pronombre singular (Este/Ese/Aquel/Esta/Esa/Aquella/Esto/Eso/Aquello) seguido de un nombre en plural"
 
-[(?u)\b([Ee]stos|[E]sos|[Aa]quellos|[Ee]stas|[Ee]sas|[Aa]quellas)\s((dos|tres|cuatro|cinco|seis|siete|ocho|nueve|diez|\d+)\s)?[«'"]?]
+[(?u)\b([Ee]stos|[Ee]sos|[Aa]quellos|[Ee]stas|[Ee]sas|[Aa]quellas)\s((dos|tres|cuatro|cinco|seis|siete|ocho|nueve|diez|\d+)\s)?[«'"]?]
 id="gr-concordancia-pronombre-plural-nombre"
 validGroup pluralName
 validGroup thirdPerson
 validGroup wordDelimiter
-hint="Hay un pronombre plural seguido de un nombre en singular"
+hint="Hay un pronombre plural (Estos/Esos/Aquellos/Estas/Esas/Aquellas) seguido de un nombre en singular"
 
-[(?u)\b([Mi]i|[Tt]u|[Ss]u|[Nn]uestr[oa]|[Vv]uestr[oa])\s[«'"]?]
+[(?u)\b([Mm]i|[Tt]u|[Ss]u|[Nn]uestr[oa]|[Vv]uestr[oa])\s[«'"]?]
 id="gr-concordancia-posesivo-singular-nombre"
 validGroup singularName
 validGroup wordDelimiter
-hint="Hay un posesivo singular seguido de un nombre en plural"
+hint="Hay un posesivo singular (Mi/Tu/Su/Nuestro/Nuestra/Vuestro/Vuestra) seguido de un nombre en plural"
 
 [(?u)\b([Mm]is|[Tt]us|[Ss]us|[Nn]uestr[oa]s|[Vv]uestr[oa]s)\s((dos|tres|cuatro|cinco|seis|siete|ocho|nueve|diez|\d+)\s)?[«'"]?]
 id="gr-concordancia-posesivo-plural-nombre"
 validGroup pluralName
 validGroup wordDelimiter
-hint="Hay un posesivo plural seguido de un nombre en singular"
+hint="Hay un posesivo plural (Mis/Tus/Sus/Nuestros/Nuestras/Vuestros/Vuestras) seguido de un nombre en singular"
 
 [(?u)\b([Ee]l|[Aa]l|[Dd]el|[Uu]n)\s[«'"]?]
 id="gr-concordancia-articulo-masculino-nombre"
@@ -1022,42 +1223,86 @@ validGroup maleName
 validGroup neuterName
 validGroup wordDelimiter
 valid before="[hH]?[aáAÁ]\w+\b"
-hint="Hay un artículo masculino seguido de un nombre en femenino"
+hint="Hay un artículo masculino (El/Al/Del/Un) seguido de un nombre en femenino"
+
+[(?u)\b([Ll]os|[Uu]nos)\s((dos|tres|cuatro|cinco|seis|siete|ocho|nueve|diez|\d+)\s)?[«'"]?]
+id="gr-concordancia-articulo-masculino-plural-nombre"
+validGroup maleNamePlural
+validGroup neuterNamePlural
+validGroup thirdPerson
+validGroup wordDelimiter
+hint="Hay un artículo masculino plural (Los/Unos) seguido de un nombre en femenino"
 
 [(?u)\b([Ll]a|[Uu]na)\s[«'"]?]
 id="gr-concordancia-articulo-femenino-nombre"
 validGroup femaleName
 validGroup neuterName
 validGroup wordDelimiter
-hint="Hay un artículo femenino seguido de un nombre en masculino"
+hint="Hay un artículo femenino (La/Una) seguido de un nombre en masculino"
+
+[(?u)\b([Ll]as|[Un]nas)\s((dos|tres|cuatro|cinco|seis|siete|ocho|nueve|diez|\d+)\s)?[«'"]?]
+id="gr-concordancia-articulo-femenino-plural-nombre"
+validGroup femaleNamePlural
+validGroup neuterNamePlural
+validGroup thirdPerson
+validGroup wordDelimiter
+hint="Hay un artículo femenino plural (Las/Unas) seguido de un nombre en masculino"
 
 [(?u)\b([Ee]ste|[Ee]se|[Aa]quel)\s[«'"]?]
 id="gr-concordancia-demostrativo-masculino-nombre"
 validGroup maleName
 validGroup neuterName
 validGroup wordDelimiter
-hint="Hay un demostrativo masculino seguido de un nombre en femenino"
+hint="Hay un demostrativo masculino (Este/Ese/Aquel) seguido de un nombre en femenino"
+
+[(?u)\b([Ee]stos|[Ee]sos|[Aa]quellos)\s[«'"]?]
+id="gr-concordancia-demostrativo-masculino-plural-nombre"
+validGroup maleNamePlural
+validGroup neuterNamePlural
+validGroup wordDelimiter
+hint="Hay un demostrativo masculino plural (Estos/Esos/Aquellos) seguido de un nombre en femenino"
 
 [(?u)\b([Ee]sta|[Ee]sa|[Aa]quella)\s[«'"]?]
 id="gr-concordancia-demostrativo-femenino-nombre"
 validGroup femaleName
 validGroup neuterName
 validGroup wordDelimiter
-hint="Hay un demostrativo femenino seguido de un nombre en masculino"
+hint="Hay un demostrativo femenino (Esta/Esa/Aquella) seguido de un nombre en masculino"
+
+[(?u)\b([Ee]stas|[Ee]sas|[Aa]quellas)\s[«'"]?]
+id="gr-concordancia-demostrativo-femenino-plural-nombre"
+validGroup femaleNamePlural
+validGroup neuterNamePlural
+validGroup wordDelimiter
+hint="Hay un demostrativo femenino plural (Estas/Esas/Aquellas) seguido de un nombre en masculino"
 
 [(?u)\b([Nn]uestro|[Vv]uestro)\s[«'"]?]
 id="gr-concordancia-posesivo-masculino-nombre"
 validGroup maleName
 validGroup neuterName
 validGroup wordDelimiter
-hint="Hay un posesivo masculino seguido de un nombre en femenino"
+hint="Hay un posesivo masculino (Nuestro/Vuestro) seguido de un nombre en femenino"
+
+[(?u)\b([Nn]uestros|[Vv]uestros)\s[«'"]?]
+id="gr-concordancia-posesivo-masculino-plural-nombre"
+validGroup maleNamePlural
+validGroup neuterNamePlural
+validGroup wordDelimiter
+hint="Hay un posesivo masculino plural (Nuestros/Vuestros) seguido de un nombre en femenino"
 
 [(?u)\b([Nn]uestra|[Vv]uestra)\s[«'"]?]
 id="gr-concordancia-posesivo-femenino-nombre"
 validGroup femaleName
 validGroup neuterName
 validGroup wordDelimiter
-hint="Hay un posesivo femenino seguido de un nombre en masculino"
+hint="Hay un posesivo femenino (Nuestra/Vuestra) seguido de un nombre en masculino"
+
+[(?u)\b([Nn]uestras|[Vv]uestras)\s[«'"]?]
+id="gr-concordancia-posesivo-femenino-plural-nombre"
+validGroup femaleNamePlural
+validGroup neuterNamePlural
+validGroup wordDelimiter
+hint="Hay un posesivo femenino plural (Nuestras/Vuestras) seguido de un nombre en masculino"
 
 [(?u)\bhabían\smuchas\s\w+?as\b]i
 id="gr-habian-muchas"
@@ -1087,6 +1332,7 @@ valid before="\sde"
 valid after="número\s(\w+\s)*"
 valid before=".*?impar"
 valid msgstr="^par\s?\~?$"
+valid msgstr="\(par\)"
 hint="«Par» se escribe como «Para» en la mayor parte de los casos (error gramatical)"
 
 [\bla\s(aura|ágata|ágora|águila|álgebra|áncora|ánfora|ánima|área|árnica|acta|afta|agua|aguasal|aguaviva|ala|alba|alga|algia|alma|alza|ama|anca|ancla|ansia|ara|arca|archa|aria|arma|arpa|arria|arte|asa|ascua|asma|aspa|asta|aula|ave|aya|haba|habla|hacha|hada|hambre|hampa)\b]i

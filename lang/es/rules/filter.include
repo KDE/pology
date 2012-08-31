@@ -38,9 +38,10 @@ addFilterRegex match="\:\:\w+" repl="~" on="pmsgid,pmsgstr"
 addFilterRegex match="\-\-\w+(\-\w+)*" repl="~" on="pmsgid,pmsgstr"
 
 # Remove single characters in quotes.
-addFilterRegex match="«.»" repl="~" on="pmsgid,pmsgstr"
-addFilterRegex match="\'.\'" repl="~" on="pmsgid,pmsgstr"
-addFilterRegex match="\".\"" repl="~" on="pmsgid,pmsgstr"
+addFilterRegex match="[\'\"«].[\'\"»]" repl="~" on="pmsgid,pmsgstr"
+
+# Remove groups of non alphanumeric characters in quotes.
+addFilterRegex match="[\'\"«]\W+[\'\"»]" repl="~" on="pmsgid,pmsgstr"
 
 # Remove some abreviations.
 addFilterRegex match="\b(admin|cartr|cert|cond|dec|hex|inc|Jr|lab|Mr|Mrs|no|obs|oct|org|seq|Sh|sync|torr)\.(\.\.)?" repl="~" on="pmsgid,pmsgstr"

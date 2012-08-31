@@ -14,9 +14,10 @@ File structure and syntax:
 Rule definition: 
 - A rule is composed of three parts: 
 	o The pattern. It is used to find text matching the rule. The pattern should be a valid regular expression.
+	o The id. An unique identificator for the rule.
 	o The hint. It indicates the user what to do to correct the message.
 	o Valid expression. It indicates exceptions for which the rule should not match.
-- Pattern and hint are mandatory. Valid expression is optional.
+- Pattern and hint are mandatory. Valid expression and id are optional.
 
 Pattern syntax: 
 - [regexp] # where 'regexp' is a regular expression ; eg. [status|statut] will trigger the rule for the words 'status' and 'statut'.

@@ -97,25 +97,25 @@ hint="« Dossiers » se escribe como « Dosieres » (error frecuente)"
 id="cm-el-echo"
 hint="« El echo » se escribe como « El hecho » (error frecuente)"
 
-[\bel\slimite\b]i
+[\b(el|un)\slimite\b]i
 id="sp-el-limite-sin-tilde"
-hint="« El limite » se escribe como «El límite». (error ortográfico)"
+hint="« El/Un limite » se escribe como «El/Un límite». (error ortográfico)"
 
-[\bel\snumero\b]i
+[\b(el|un)\snumero\b]i
 id="el-numero-sin-tilde"
-hint="« El numero » se escribe como «El número». (error ortográfico)"
+hint="« El/Un numero » se escribe como «El/Un número». (error ortográfico)"
 
-[\bel\sporque\b]i
+[\b(el|un)\sporque\b]i
 id="sp-el-porque-sin-tilde"
-hint="« El porque » se escribe como «El porqué». (error ortográfico)"
+hint="« El/Un porque » se escribe como «El/Un porqué». (error ortográfico)"
 
-[\bel\stermino\b]i
+[\b(el|un)\stermino\b]i
 id="sp-el-termino-sin-tilde"
-hint="« El termino » se escribe como «El término». (error ortográfico)"
+hint="« El/Un termino » se escribe como «El/Un término». (error ortográfico)"
 
-[\bel\stitulo\b]i
+[\b(el|un)\stitulo\b]i
 id="sp-el-titulo-sin-tilde"
-hint="« El titulo » se escribe como «El título». (error ortográfico)"
+hint="« El/Un titulo » se escribe como «El/Un título». (error ortográfico)"
 
 [\ben\sfrente\b]i
 id="sp-en-frente"
@@ -153,9 +153,9 @@ hint="« Espúreo » se escribe como « Espurio » (error ortográfico)"
 id="sp-esta-con-tilde"
 hint="« Ésta » se escribe como « Esta », (error ortográfico)"
 
-[\besta\ssegur(o|a)\b]i
+[\besta\ssegur[oa]\b]i
 id="sp-esta-seguro-sin-tilde"
-hint="« Esta seguro » se escribe como « Está seguro » (error ortográfico)"
+hint="« Esta seguro/a » se escribe como « Está seguro/a » (error ortográfico)"
 
 [\béstas\b]i
 id="sp-estas-con-tilde"
@@ -224,10 +224,6 @@ hint="« Háy » se escribe como « Hay » (error ortográfico)"
 [\bhóy\b]i
 id="sp-hoy-con-tilde"
 hint="« Hóy » se escribe como « Hoy » (error ortográfico)"
-
-[\bhubieron\b]
-id="sp-hubieron"
-hint="« Hubieron » se escribe como « Hubo » al principo de frase (error ortográfico)"
 
 [\bhuí\b]i
 id="sp-hui-con-tilde"
@@ -451,10 +447,6 @@ valid after="[A-Z]\w+\s"
 valid before="\s[A-Z]\w+"
 hint="« Torah » se escribe como « Torá » (error ortográfico)"
 
-[\btu(\.|\?|\!|\<p\>)]i
-id="sp-tu-final-sin-tilde"
-hint="« tu » se escribe como « tú » al final de frase(error ortográfico)"
-
 [\bun\sporque\b]i
 id="sp-un-porque-sin-tilde"
 hint="« Un porque » se escribe como «Un porqué». (error ortográfico)"
@@ -501,10 +493,9 @@ hint="« Yá » se escribe como « Ya » (error ortográfico)"
 
 
 # Omit words witch contains at least a capital letter.
-addFilterRegex match="\b\w*?[A-Z]\w*\b" repl="~" on="pmsgstr"
+addFilterRegex match="\b\w*?[A-Z]\w*\b" casesens="yes" repl="~" on="pmsgstr"
 
-*hook name="spell/check-spell-sp~" on="msgstr"
-#*hook name="spell/check-spell" on="msgstr"
+*hook name="spell/check-spell-sp~lang='es'" on="msgstr"
 id="sp-check-spell-hook"
 hint="Error ortográfico."
 

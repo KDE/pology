@@ -18,34 +18,34 @@ id="pb-falta-espacio-inicio-nuevo-parrafo"
 valid msgstr="\<p\>\s"
 hint="Compruebe el uso de espacio posterior a «<p>» (falta en la traducción)."
 
-{^\W*[A-Z]}i
+{(?u)^\W*[A-Z]}i
 id="pb-falta-mayuscula-inicio-parrafo"
-valid msgstr="^\W*[A-ZÁÉÍÓÚ©«0-9\¿\¡\&\%\<\(\_]"
+valid msgstr="(?u)^\W*[A-ZÁÉÍÓÚ©«0-9\¿\¡\&\%\<\(\_]"
 hint="Compruebe el uso de mayúscula al principio del párrafo (falta en la traducción)."
 
-{\\\\n\W*[A-Z]}i
+{(?u)\\\\n\W*[A-Z]}i
 id="pb-falta-mayuscula-inicio-nueva-linea"
-valid msgstr="\\\\n\W*[A-ZÁÉÍÓÚ©«0-9¿¡\&\%\<\(\_]"
+valid msgstr="(?u)\\\\n\W*[A-ZÁÉÍÓÚ©«0-9¿¡\&\%\<\(\_]"
 hint="Compruebe el uso de mayúscula posterior a «\n» (falta en la traducción)."
 
-{\<p\>\W*[A-Z]}i
+{(?u)\<p\>\W*[A-Z]}i
 id="pb-falta-mayuscula-inicio-nuevo-parrafo"
-valid msgstr="\<p\>\W*[A-ZÁÉÍÓÚ©«0-9¿¡\&\%\<\(\_]"
+valid msgstr="(?u)\<p\>\W*[A-ZÁÉÍÓÚ©«0-9¿¡\&\%\<\(\_]"
 hint="Compruebe el uso de mayúscula posterior a «\n» (falta en la traducción)."
 
-{^\W*[a-z]}i
+{(?u)^\W*[a-z]}i
 id="pb-falta-minuscula-inicio-parrafo"
-valid msgstr="^\W*[a-záéíóú©«0-9¿¡\&\%\<\(\_]"
+valid msgstr="(?u)^\W*[a-záéíóú©«0-9¿¡\&\%\<\(\_]"
 hint="Compruebe el uso de minúscula al principio del párrafo (falta en la traducción)."
 
-{\\\\n\W*[a-z]}i
+{(?u)\\\\n\W*[a-z]}i
 id="pb-falta-minuscula-inicio-nueva-linea"
-valid msgstr="\\\\n\W*[a-záéíóú©«0-9¿¡\&\%\<\(\_]"
+valid msgstr="(?u)\\\\n\W*[a-záéíóú©«0-9¿¡\&\%\<\(\_]"
 hint="Compruebe el uso de minúscula posterior a «\n» (falta en la traducción)."
 
-{\<p\>\W*[a-z]}i
+{(?u)\<p\>\W*[a-z]}i
 id="pb-falta-minuscula-inicio-nuevo-parrafo"
-valid msgstr="\<p\>\W*[a-záéíóú©«0-9¿¡\&\%\<\(\_]"
+valid msgstr="(?u)\<p\>\W*[a-záéíóú©«0-9¿¡\&\%\<\(\_]"
 hint="Compruebe el uso de minúscula posterior a «<p>» (falta en la traducción)."
 
 
