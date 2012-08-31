@@ -166,7 +166,7 @@ valid after="kipi-"
 valid before="-"
 valid cat="kcmkonqhtml" after="/"
 valid cat="desktop_playground-multimedia" before="$"
-valid after="<linkend=\"\S*" before="\S*\">"
+valid after="linkend=\"\S*" before="\S*\">"
 valid after="<ulink url=\"\S*" before="\S*\">"
 hint="plugin -> module externe"
 
@@ -192,6 +192,7 @@ hint="plugin -> module externe"
 valid after="[A-Za-z]"
 valid before="ama" # Okayama city
 valid before="ular"
+valid after="<email>\S*" before="\S*</email>"
 hint="Utilisez « Ok » (homogénéité)"
 
 [tuyau]i
@@ -226,6 +227,7 @@ valid after="http_|HTTP_|FTP_|HTTPS_|SOCKS_"
 valid after="no_|no &|mon|Find"
 valid after="<ulink url=\"\S+" before="\S*\">"
 valid cat="kmail" after="mon"
+valid after="<foreignphrase>" before="</foreignphrase>"
 hint="Utiliser « serveur mandataire » (au lieu de « serveur de proximité » ou « proxy »)"
 
 [(B|b)arre d'outils? (principale|d'affichage)]

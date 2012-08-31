@@ -19,6 +19,7 @@ valid ctx="Name"
 hint="La bonne orthographe est « connexion » en français !"
 
 [formatt]i
+valid cat="kopete_pipes" msgid="Here's an example"
 hint="Un seul « t »"
  
 [cel%à]i
@@ -61,7 +62,8 @@ valid cat="kommander" before="ed"
 valid after="[rad|Radical|KChar]"
 valid before="Certificate|or"
 valid after="attribut "
-valid after="<link linkend=\"\S*" before="\S*\">"
+valid after="<link linkend=\"\S*" before="\S*\""
+valid after="fileref=\"\S*" before="\S*\""
 hint="Mettre un accent aigu sur le premier « e », pas sur le deuxième"
 
 [n[eè]cess|néc[éè]ss]i
@@ -415,6 +417,7 @@ valid cat="kcmkonqhtml" after="window\."
 valid cat="solidshell" after="«&unbsp;" before="&unbsp;»"
 valid cat="solid-network" after="«&unbsp;" before="&unbsp;»"
 valid cat="kleopatra" after="Certificate "
+valid cat="kopete_chatstyle"
 hint="remplacer « status » ou « statut » par « état »"
 
 [basé.* sur]
@@ -455,6 +458,9 @@ valid before=":"
 valid before="all"
 valid after="<sgmltag class=\"starttag\">" before="</sgmltag>"
 valid after="&amp;lt;(/?)" before="&amp;gt;"
+valid after="fileref=\"\S*" before="\S*\""
+valid cat="kopete_chatstyle"
+valid cat="kopete_pipes" msgid="Here's an example"
 hint="Merci de mettre un « e » à la fin de « texte » ou « contexte »"
 
 [anti-[^i]]i
