@@ -641,6 +641,7 @@ hint="« Corrupted » se traduce como « Dañado », nunca como « Corrupto » (
 {\bcover\b}i
 id="gk-cover"
 valid msgstr="carátula"
+valid msgstr="inform(ar|a|e)"
 valid !msgstr="portada"
 valid !msgstr="cubierta"
 hint="« Cover » se traduce como « Carátula », preferible a « Portada » (ver glosario)"
@@ -649,6 +650,7 @@ hint="« Cover » se traduce como « Carátula », preferible a « Portada » (v
 id="gk-covers"
 valid msgstr="carátulas"
 valid msgstr="(cualquier|ninguna)\scarátula"
+valid msgstr="inform(ar|a|e)"
 valid !msgstr="portadas?"
 valid !msgstr="cubiertas?"
 hint="« Covers » se traduce como « Carátulas », preferible a « Portadas » (ver glosario)"
@@ -1216,18 +1218,6 @@ valid msgstr="cifrados?"
 valid !msgstr="encriptad[oa]"
 hint="« Encryptions » se traduce como « Cifrados », nunca como « Encriptados » (ver glosario)"
 
-{\benter\b}i
-id="gk-enter"
-valid msgstr="intro"
-valid msgstr="introdu(cir|ce|zca)"
-valid msgstr="acced(er|e|a)"
-valid msgstr="introducirá" after="will\s(not\s)?"
-valid msgstr="accederá" after="will\s(not\s)?"
-valid msgstr="introdujo" after="did\s(not\s)?"
-valid msgstr="accedió" after="did\s(not\s)?"
-valid !msgstr="entr(ar|e|a)"
-hint="« Enter » se traduce como « Intro », « Introducir/Acceder », nunca como « Entrar » (ver glosario)"
-
 {\benters\b}i
 id="gk-enters"
 valid msgstr="introdu(cir|ce|zca)"
@@ -1788,12 +1778,15 @@ hint="« Italic » se traduce como « Cursiva » (ver glosario)"
 {\bjumper\b}i
 id="gk-jumper"
 valid msgstr="puente"
+valid msgstr="conector"
 hint="« Jumper » se traduce como « Puente » (ver glosario)"
 
 {\bjumpers\b}i
 id="gk-jumpers"
 valid msgstr="puentes"
+valid msgstr="conectores"
 valid msgstr="(cualquier|ningún)\spuente"
+valid msgstr="(algún|ningún|cualquier)\sconector"
 hint="« Jumpers » se traduce como « Puentes » (ver glosario)"
 
 {\bkernel\b}i
@@ -1850,9 +1843,11 @@ hint="« Languages » se traduce como « Idiomas » (ver glosario)"
 {\bleak\b}i
 id="gk-leak"
 valid msgstr="pérdida"
-valid msgstr="pierde"
-valid msgstr="pierda"
+valid msgstr="perder"
+valid msgstr="pierd(e|a)"
 valid msgstr="falta"
+valid msgstr="fuga"
+valid msgstr="escape"
 valid msgstr="perderá" after="will\s(not\s)?"
 valid msgstr="faltará" after="will\s(not\s)?"
 valid msgstr="perdió" after="did\s(not\s)?"
@@ -1862,9 +1857,14 @@ hint="« Leak » se traduce como « Pérdida » o « Falta » (ver glosario)"
 {\bleaks\b}i
 id="gk-leaks"
 valid msgstr="pérdidas"
+valid msgstr="pierd(e|a)"
 valid msgstr="faltas"
+valid msgstr="fugas"
+valid msgstr="escapes"
 valid msgstr="(cualquier|ninguna)\spérdida"
 valid msgstr="(cualquier|ninguna)\sfalta"
+valid msgstr="(ninguna|cualquier)\sfuga"
+valid msgstr="(algún|ningún|cualquier)\sescape"
 hint="« Leaks » se traduce como « Pérdidas » o « Faltas » (ver glosario)"
 
 {\blibrary\b}i

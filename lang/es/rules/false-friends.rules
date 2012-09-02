@@ -174,29 +174,6 @@ hint="« Affront » se traduce como como « Ofender », no como « Afrontar » (
 #valid !msgstr="agenda"
 #hint="« Agenda » se traduce como como « Orden del día », no como « Agenda » (falso amigo)"
 
-{\ballocated\b}i
-id="ff-allocated"
-valid msgstr="asignad[oa]"
-valid msgstr="asignarase"
-valid msgstr="se\sasign[ae]n?"
-valid msgstr="asignó"
-valid msgstr="se\s(\w+\s){1,3}asignar"
-valid !msgstr="alocad[oa]"
-hint="« Allocated » se traduce como como « Asignado » (falso amigo)"
-
-{\ballocation\b}i
-id="ff-allocation"
-valid msgstr="asignación"
-valid !msgstr="alocación"
-hint="« Allocation » se traduce como como « Asignación » (falso amigo)"
-
-{\ballocations\b}i
-id="ff-allocations"
-valid msgstr="asignaciones"
-valid msgstr="(ninguna|cualquier)\sasignación"
-valid !msgstr="alocaciones"
-hint="« Allocations » se traduce como como « Asignaciones » (falso amigo)"
-
 {\bancient\b}i
 id="ff-ancient"
 valid msgstr="antigu[oa]"
@@ -665,16 +642,6 @@ valid !msgstr="constipad[oa]"
 valid !msgstr="resfriad[oa]"
 hint="« Constipated » se traduce como como « Estreñido », no como « Constipado » (falso amigo)"
 
-{\bcorrupted\b}i
-id="ff-corrupted"
-valid msgstr="dañad[oa]"
-valid msgstr="dañarse"
-valid msgstr="se\sdañ[ae]n?"
-valid msgstr="dañó"
-valid msgstr="se\s(\w+\s){1,3}dañar"
-valid !msgstr="corrompid[oa]"
-hint="« Corrupted » se traduce como como « Dañado », no como « Corrompido » (falso amigo)"
-
 {\bconvenient\b}i
 id="ff-convenient"
 valid msgstr="oportun[oa]"
@@ -687,23 +654,6 @@ id="ff-convenients"
 valid msgstr="oportun[oa]s"
 valid !msgstr="convenientes"
 hint="« Convenients » se traduce como como « Oportunos », no como « Convenientes » (falso amigo)"
-
-{\bcover\b}i
-id="ff-cover"
-valid msgstr="inform(ar|a|e)"
-valid msgstr="portada"
-valid !msgstr="cubr(ir|e|a)"
-valid !msgstr="cubierta"
-hint="« Cover » se traduce como como « Informar/Portada », no como « Cubrir » (falso amigo)"
-
-{\bcovers\b}i
-id="ff-covers"
-valid msgstr="inform(ar|a|e)"
-valid msgstr="portadas"
-valid msgstr="(ninguna|cualquier)\sportada"
-valid !msgstr="cubr(ir|e|a)"
-valid !msgstr="cubiertas"
-hint="« Covers » se traduce como como « Informa/Portadas », no como « Cubre » (falso amigo)"
 
 {\bcrime\b}i
 id="ff-crime"
@@ -980,25 +930,34 @@ id="ff-enlarge"
 valid msgstr="agrand(ar|a|e)"
 valid msgstr="agrandará" after="will\s"
 valid msgstr="agrandó" after="did\s"
+valid msgstr="ampl(iar|ía|ie)"
+valid msgstr="ampliará" after="will\s(not\s)?"
+valid msgstr="amplió" after="did\s(not\s)?"
 valid !msgstr="alarg(ar|a|o)"
 valid !msgstr="alarg(ue|a)"
-hint="« Enlarge » se traduce como como « Agrandar », no como « Alargar » (falso amigo)"
+hint="« Enlarge » se traduce como como « Agrandar/Ampliar », no como « Alargar » (falso amigo)"
 
-{\benlarges\b}i
+{\benlarged\b}
 id="ff-enlarged"
 valid msgstr="agrandad[oa]"
 valid msgstr="agrandarse"
 valid msgstr="se\sagrand[ae]n?"
 valid msgstr="agrandó"
 valid !msgstr="alargad[oa]"
+valid msgstr="ampliad[oa]"
+valid msgstr="ampliarse"
+valid msgstr="se\samlí[ea]n?"
+valid msgstr="amplió"
+valid msgstr="se\s(\w+\s){1,3}ampliar"
 hint="« Enlarge » se traduce como como « Agrandar », no como « Alargar » (falso amigo)"
 
 {\benlarges\b}i
 id="ff-enlarges"
 valid msgstr="agrand(ar|a|e)"
+valid msgstr="ampl(iar|ie|ía)"
 valid !msgstr="alarg(ar|a|o)"
 valid !msgstr="alarg(ue|a)"
-hint="« Enlarges » se traduce como como « Agrande », no como « Alargue » (falso amigo)"
+hint="« Enlarges » se traduce como como « Agranda/Amplía », no como « Alargue » (falso amigo)"
 
 {\beventually\b}i
 id="ff-eventually"
@@ -1103,6 +1062,7 @@ hint="« Fatalities » se traduce como como « Muertos/Víctimas », no como « 
 {\bfault\b}i
 id="ff-fault"
 valid msgstr="culpa"
+valid msgstr="fallo"
 valid msgstr="defecto"
 valid msgstr="criticar"
 valid msgstr="culpar"
@@ -1115,6 +1075,8 @@ valid msgstr="culpas"
 valid msgstr="(ninguna|cualquier)\sculpa"
 valid msgstr="defectos"
 valid msgstr="(algún|ningún|cualquier)\sdefecto"
+valid msgstr="fallos"
+valid msgstr="(algún|ningún|cualquier)\sfallo"
 valid !msgstr="faltas"
 hint="« Faults » se traduce como como « Culpas », no como « Faltas » (falso amigo)"
 
@@ -1849,12 +1811,20 @@ id="ff-remove"
 valid msgstr="quit(ar|a|e|o)"
 valid msgstr="elimin(ar|a|e|o)"
 valid msgstr="quitará" after="will\s"
-valid msgstr="eliminará" after="will\s"
 valid msgstr="quitó" after="did\s"
-valid msgstr="eliminó" after="did\s"
+valid msgstr="extra(er|íga)"
+valid msgstr="eliminará" after="will\s(not\s)?"
+valid msgstr="quitará" after="will\s(not\s)?"
+valid msgstr="extraerá" after="will\s(not\s)?"
+valid msgstr="eliminó" after="did\s(not\s)?"
+valid msgstr="quitó" after="did\s(not\s)?"
+valid msgstr="extrajo" after="did\s(not\s)?"
+valid msgstr="elimino" after="I\s"
+valid msgstr="quito" after="I\s"
+valid msgstr="extraígo" after="I\s"
 valid !msgstr="remover"
 valid !msgstr="remuev(a|e|o)"
-hint="« Remove » se traduce como como « Quitar/Eliminar », no como « Remover » (falso amigo)"
+hint="« Remove » se traduce como como « Quitar/Eliminar/extraer », no como « Remover » (falso amigo)"
 
 {\bremoved\b}i
 id="ff-removed"
@@ -1868,6 +1838,13 @@ valid msgstr="quitó"
 valid msgstr="eliminó"
 valid msgstr="se\s(\w+\s){1,3}quitar"
 valid msgstr="se\s(\w+\s){1,3}eliminar"
+valid msgstr="extraíd[oa]"
+valid msgstr="extraerse"
+valid msgstr="se\sextraigan?"
+valid msgstr="a\seliminar"
+valid msgstr="extrajo"
+valid msgstr="se\s(\w+\s){1,3}extraer"
+valid msgstr="eliminar" after="be\s"
 valid !msgstr="removid[oa]"
 hint="« Removed » se traduce como como « Quitado/Eliminado », no como « Removido » (falso amigo)"
 
@@ -1876,6 +1853,7 @@ id="ff-removes"
 valid msgstr="quit(a|e)"
 valid msgstr="elimin(a|e)"
 valid !msgstr="remuev(a|e)"
+valid msgstr="extra(e|íga)"
 hint="« Removes » se traduce como como « Quita/Elimina », no como « Remueve » (falso amigo)"
 
 {\brent\b}i
@@ -2104,8 +2082,9 @@ hint="« Sympathize » se traduce como como « Compadecerse/Condolerse », no co
 id="ff-target"
 valid msgstr="blanco"
 valid msgstr="objetivo"
+valid msgstr="destino"
 valid !msgstr="tarjeta"
-hint="« Target » se traduce como como « Blanco », no como « Tarjeta » (falso amigo)"
+hint="« Target » se traduce como como « Blanco/Destino », no como « Tarjeta » (falso amigo)"
 
 {\btargets\b}i
 id="ff-targets"
@@ -2113,8 +2092,10 @@ valid msgstr="blancos"
 valid msgstr="(algún|ningún|cualquier)\sblanco"
 valid msgstr="objetivos"
 valid msgstr="(algún|ningún|cualquier)\sobjetivo"
+valid msgstr="destinos"
+valid msgstr="(algún|ningún|cualquier)\sdestino"
 valid !msgstr="tarjetas?"
-hint="« Targets » se traduce como como « Blancos », no como « Tarjetas » (falso amigo)"
+hint="« Targets » se traduce como como « Blancos/Destinos », no como « Tarjetas » (falso amigo)"
 
 {\btenant\b}i
 id="ff-tenant"
@@ -2143,19 +2124,6 @@ valid msgstr="terribles"
 valid msgstr="tremend[oa]s"
 valid !msgstr="terrorífic[oa]s"
 hint="« Terrifics » se traduce como como « Terribles/Tremendos », no como « Terrorífico » (falso amigo)"
-
-{\btopic\b}i
-id="ff-topic"
-valid msgstr="tema"
-valid !msgstr="tópico"
-hint="« Topic » se traduce como como « Tema », no como « Tópico » (falso amigo)"
-
-{\btopic\b}i
-id="ff-topics"
-valid msgstr="temas"
-valid msgstr="(algún|ningún|cualquier)\stema"
-valid !msgstr="tópicos"
-hint="« Topics » se traduce como como « Temas », no como « Tópicos » (falso amigo)"
 
 {\btramp\b}i
 id="ff-tramp"

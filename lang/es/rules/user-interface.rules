@@ -817,11 +817,14 @@ hint="« Side bars » se traduce como como « Paneles laterales » (regla de tra
 {\bsplitter\b}i
 id="ui-widget-splitter"
 valid msgstr="separador"
+valid msgstr="divisor"
 hint="« Splitter » se traduce como como « Separador » (regla de traducción de elementos gráficos)"
 
 {\bsplitters\b}i
 id="ui-widget-spliters"
 valid msgstr="separadores"
+valid msgstr="divisores"
+valid msgstr="(algún|ningún|cualquier)\sdivisor"
 valid msgstr="(cualquier|ningún)\separador"
 hint="« Splitters » se traduce como como « Separadores » (regla de traducción de elementos gráficos)"
 

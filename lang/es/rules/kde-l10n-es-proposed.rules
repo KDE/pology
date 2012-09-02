@@ -1210,27 +1210,6 @@ valid msgstr="mejoras"
 valid msgstr="(ninguna|cualquier)\smejora"
 hint="« Enhancements » se traduce como « Mejoras » (propuesta glosario)"
 
-{\benlarge\b}i
-id="gp-enlarge"
-valid msgstr="ampl(iar|ía|ie)"
-valid msgstr="ampliará" after="will\s(not\s)?"
-valid msgstr="amplió" after="did\s(not\s)?"
-hint="« Enlarge » se traduce como « Ampliar » (propuesta glosario)"
-
-{\benlarges\b}i
-id="gp-enlarges"
-valid msgstr="ampl(iar|ie|ía)"
-hint="« Enlarges » se traduce como « Amplíe » (propuesta glosario)"
-
-{\benlarged\b}i
-id="gp-enlarged"
-valid msgstr="ampliad[oa]"
-valid msgstr="ampliarse"
-valid msgstr="se\samlí[ea]n?"
-valid msgstr="amplió"
-valid msgstr="se\s(\w+\s){1,3}ampliar"
-hint="« Enlarged » se traduce como « Ampliado » (propuesta glosario)"
-
 {\bentity\b}i
 id="gp-entity"
 valid msgstr="entidad"
@@ -1378,17 +1357,6 @@ valid msgstr="(algún|ningún|cualquier)\sventilador"
 valid msgstr="(algún|ningún|cualquier)\sadmirador"
 valid msgstr="(ninguna|cualquier)\sadmiradora"
 hint="« Fans » se traduce como « Ventiladores/Admiradores » (propuesta glosario)"
-
-{\bfault\b}i
-id="gp-fault"
-valid msgstr="fallo"
-hint="« Fault » se traduce como « Fallo » (propuesta glosario)"
-
-{\bfaults\b}i
-id="gp-faults"
-valid msgstr="fallos"
-valid msgstr="(algún|ningún|cualquier)\sfallo"
-hint="« Faults » se traduce como « Fallos » (propuesta glosario)"
 
 {\bfetch\b}i
 id="gp-fetch"
@@ -1767,17 +1735,6 @@ valid msgstr="html"
 valid msgstr="HTML"
 hint="« HTML » no se traduce (propuesta glosario)"
 
-{\bhub\b}i
-id="gp-hub"
-valid msgstr="concentrador"
-hint="« Hub » se traduce como « Concentrador » (propuesta glosario)"
-
-{\bhubs\b}i
-id="gp-hubs"
-valid msgstr="concentradores"
-valid msgstr="(algún|ningún|cualquier)\sconcentrador"
-hint="« Hubs » se traduce como « Concentradores » (propuesta glosario)"
-
 {\bhyphen\b}i
 id="gp-hyphen"
 valid msgstr="guion"
@@ -2027,20 +1984,6 @@ id="gp-journaling"
 valid msgstr="transaccional"
 hint="« Journaling » se traduce como « Transaccional » (propuesta glosario)"
 
-{\bjumper\b}i
-id="gp-jumper"
-valid msgstr="puente"
-valid msgstr="conector"
-hint="« Jumper » se traduce como « Puente/Conector » (propuesta glosario)"
-
-{\bjumpers\b}i
-id="gp-jumpers"
-valid msgstr="puentes"
-valid msgstr="conectores"
-valid msgstr="(algún|ningún|cualquier)\spuente"
-valid msgstr="(algún|ningún|cualquier)\sconector"
-hint="« Jumpers » se traduce como « Puentes/Conectores » (propuesta glosario)"
-
 {\bjunk\-mail\b}i
 id="gp-junk-mail"
 valid msgstr="correos?\sbasura"
@@ -2127,28 +2070,6 @@ id="gp-layers"
 valid msgstr="capas"
 valid msgstr="(ninguna|cualquier)\scapa"
 hint="« Layers » se traduce como « Capas » (propuesta glosario)"
-
-{\bleak\b}i
-id="gp-leak"
-valid msgstr="fuga"
-valid msgstr="escape"
-valid msgstr="pérdida"
-valid msgstr="perder"
-valid msgstr="pierd(e|a)"
-valid msgstr="perderá" after="will\s(not\s)?"
-valid msgstr="perdió" after="did\s(not\s)?"
-hint="« Leak » se traduce como « Fuga/Escape/Pérdida » (propuesta glosario)"
-
-{\bleaks\b}i
-id="gp-leaks"
-valid msgstr="fugas"
-valid msgstr="escapes"
-valid msgstr="pérdidas"
-valid msgstr="pierd(e|a)"
-valid msgstr="(ninguna|cualquier)\sfuga"
-valid msgstr="(algún|ningún|cualquier)\sescape"
-valid msgstr="(ninguna|cualquier)\spérdida"
-hint="« Leaks » se traduce como « Fugas/Escapes/Pérdidas » (propuesta glosario)"
 
 {\blinker\b}i
 id="gp-linker"
@@ -3290,43 +3211,6 @@ id="gp-removable"
 valid msgstr="extraíble"
 hint="« Removable » se traduce como « Extraíble » (propuesta glosario)"
 
-{\bremove\b}i
-id="gp-remove"
-valid msgstr="elimin(ar|a|e)"
-valid msgstr="quit(ar|a|e)"
-valid msgstr="extra(er|íga)"
-valid msgstr="eliminará" after="will\s(not\s)?"
-valid msgstr="quitará" after="will\s(not\s)?"
-valid msgstr="extraerá" after="will\s(not\s)?"
-valid msgstr="eliminó" after="did\s(not\s)?"
-valid msgstr="quitó" after="did\s(not\s)?"
-valid msgstr="extrajo" after="did\s(not\s)?"
-valid msgstr="elimino" after="I\s"
-valid msgstr="quito" after="I\s"
-valid msgstr="extraígo" after="I\s"
-hint="« Remove » se traduce como « Eliminar/Quitar/Extraer » (propuesta glosario)"
-
-{\bremoved\b}i
-id="gp-removed"
-valid msgstr="eliminad[oa]"
-valid msgstr="quitad[oa]"
-valid msgstr="extraíd[oa]"
-valid msgstr="eliminarse"
-valid msgstr="quitarse"
-valid msgstr="extraerse"
-valid msgstr="se\selimin[ea]n?"
-valid msgstr="se\squit[ea]n?"
-valid msgstr="se\sextraigan?"
-valid msgstr="a\seliminar"
-valid msgstr="eliminó"
-valid msgstr="quitó"
-valid msgstr="extrajo"
-valid msgstr="se\s(\w+\s){1,3}eliminar"
-valid msgstr="se\s(\w+\s){1,3}quitar"
-valid msgstr="se\s(\w+\s){1,3}extraer"
-valid msgstr="eliminar" after="be\s"
-hint="« Removed » se traduce como « Eliminado/Quitado/Extraído » (propuesta glosario)"
-
 {\brender\b}i
 id="gp-render"
 valid msgstr="represent(ar|a|e)"
@@ -3766,20 +3650,6 @@ valid msgstr="correctores\sortográficos"
 valid msgstr="(algún|ningún|cualquier)\scorrector\sortográfico"
 hint="« Spellcheckers » se traduce como « Correctores ortográficos » (propuesta glosario)"
 
-{\bsplitter\b}i
-id="gp-splitter"
-valid msgstr="divisor"
-valid msgstr="separador"
-hint="« Splitter » se traduce como « Divisor/Separador » (propuesta glosario)"
-
-{\bsplitters\b}i
-id="gp-splitters"
-valid msgstr="divisores"
-valid msgstr="separadores"
-valid msgstr="(algún|ningún|cualquier)\sdivisor"
-valid msgstr="(algún|ningún|cualquier)\sseparador"
-hint="« Splitters » se traduce como « Divisores/Separadores » (propuesta glosario)"
-
 {\bsponsor\b}i
 id="gp-sponsor"
 valid msgstr="patrocinadora?"
@@ -3933,20 +3803,6 @@ id="gp-suystem-boards"
 valid msgstr="placas\sbase"
 valid msgstr="(ninguna|cualquier)\splaca\sbase"
 hint="« System boards » se traduce como « Placas base » (propuesta glosario)"
-
-{\btarget\b}i
-id="gp-target"
-valid msgstr="destino"
-valid msgstr="objetivo"
-hint="« Target » se traduce como « Destino/Objetivo » (propuesta glosario)"
-
-{\btargets\b}i
-id="gp-targets"
-valid msgstr="destinos"
-valid msgstr="objetivos"
-valid msgstr="(algún|ningún|cualquier)\sdestino"
-valid msgstr="(algún|ningún|cualquier)\sobjetivo"
-hint="« Targets » se traduce como « Destinos/Objetivos » (propuesta glosario)"
 
 {\btask\b}i
 id="gp-task"
