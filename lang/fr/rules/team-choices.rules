@@ -154,6 +154,7 @@ hint="Homogénéité : utiliser « URL mal formée »"
 [\bitems?\b]
 valid ctx="Query"
 valid after="</|<"
+valid cat="kile"
 hint="item(s) -> élément(s)"
 
 [modules? enfichable]i
@@ -279,6 +280,7 @@ valid cat="kgoldrunner"
 valid cat="koffice"
 valid cat="planlibs"
 valid cat="kioslave_fish"
+valid before=" de recherche"
 hint="Traduisez « path » par « emplacement » dans le contexte de dossiers/fichiers"
 
 [désinitialiser]i
@@ -300,6 +302,7 @@ valid after="C"
 hint="Mettre une majuscule à « Centre de configuration de KDE »"
 
 [visualis]
+valid cat="kile"
 hint="Utiliser « afficheur » plutôt que « visualiseur » (ou ses dérivés) ou alors « aperçu » pour traduire « preview »"
 
 [r@ecup@er]i
@@ -425,6 +428,7 @@ hint="Traduisez « groupware » par « logiciel de collaboration » lorsque c'es
 
 {\brepositor}i
 valid msgstr="dépôt"
+valid cat="kile" before="/" after="/"
 hint="Traduisez « repository » par « dépôt »"
 
 {\bwidgets?\b}i

@@ -44,6 +44,12 @@ valid after="<\!\[CDATA\[.*" before=".*\]\]>"
 validGroup userinputTag
 valid after="<userinput>.*" before=".*</userinput>"
 
+validGroup keycapTag
+valid after="<keycap>.*" before=".*</keycap>"
+
+validGroup roleTag
+valid after="role=\".*" before=".*\"/>"
+
 [:]
 validGroup strongTypo
 validGroup inParenthesis
@@ -51,6 +57,7 @@ validGroup inQuotes
 validGroup alone
 validGroup cdataTag
 validGroup userinputTag
+validGroup roleTag
 valid after="&unbsp;" before="\t"
 valid after="https?://\S+"
 valid after="cgi|file|gg|mailto|man|whatsthis|kmail|addMsg|config|help"
@@ -238,6 +245,7 @@ hint="Mettre une espace insécable avant et une espace après"
 [,]
 validGroup inQuotes
 validGroup cdataTag
+validGroup keycapTag
 valid after="[^&sp;(]" before="&sp;" 
 valid after="[^&sp;(]" before="\n"
 valid after="[^&sp;(]" before="</td>"
@@ -267,6 +275,7 @@ hint="Pas d'espace avant une virgule (mais un après) !"
 [,(?=[a-zA-Z])]
 validGroup cdataTag
 validGroup userinputTag
+validGroup keycapTag
 valid after="x" before="y"
 valid after="^Keywords="
 valid after="font-family:.+" # CSS
@@ -359,6 +368,7 @@ hint="Utiliser de vrais guillemets, au lieu d'une apostrophe (homogénéité)"
 validGroup inQuotes
 validGroup alone
 validGroup cdataTag
+validGroup keycapTag
 valid msgid="<!ENTITY"
 valid after="\s+(=|]|PS1|\")"
 valid before="\s*/?>|&gt|}"
@@ -433,6 +443,8 @@ valid cat="knode" before="NAME|EMAIL|MYEMAIL|f|L"
 valid cat="kaudiocreator" before="[of]"
 valid cat="kgpg" before="KEYID|UIDNAME"
 valid cat="kopete_chatstyle" before="chatName|destinationName|incomingIconPath|outgoingIconPath|timeOpened|userIconPath|textbackgroundcolor|senderStatusIcon|senderColor|message|time|messageDirection"
+valid cat="kile" after="}|{"
+valid cat="kile" after="^"
 valid ctx="Numbers and characters"
 hint="Mettre une espace insécable avant et une espace après"
 

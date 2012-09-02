@@ -8,6 +8,18 @@ addFilterHook name="fr:patternEntities" on="pattern"
 validGroup cdataTag
 valid after="<\!\[CDATA\[.*" before=".*\]\]>"
 
+validGroup parameterTag
+valid after="<parameter>.*" before=".*</parameter>"
+
+validGroup roleTag
+valid after="role=\".*" before=".*\"/>"
+
+validGroup urlTag
+valid after="url=\".*" before=".*\"/>"
+
+validGroup commandTag
+valid after="<command>.*" before=".*</command>"
+
 [\bboites?\b]i
 hint="boite => boîte (avec un accent circonflexe)"
  
@@ -58,6 +70,7 @@ hint="Mettre un accent circonflexe sur le « e »"
 hint="Mettre un accent circonflexe sur le « e »"
 
 [s[eè]lect|sél[éè]ct]i
+validGroup roleTag
 valid cat="kommander" before="ed"
 valid after="[rad|Radical|KChar]"
 valid before="Certificate|or"
@@ -159,6 +172,8 @@ hint="À remplacer par « comportement »"
 hint="À remplacer par « créées »" 
 
 [environnment]i
+valid cat="kile" after="\\\\begin\{|\\\\end\{"
+valid cat="kile" before="\}"
 hint="À remplacer par « environnement »" 
 
 [exeption]i
@@ -233,9 +248,14 @@ hint="Il y a toujours un singulier après « chaque »"
 hint="Écriture officielle : « PostScript » (avec 2 majuscules)"
 
 [[Ll]atex|la[tT]ex|[Ll]ate[x|X]|laTeX|LATEX]
+validGroup urlTag
+validGroup commandTag
 valid after="«&unbsp;" before="&unbsp;»"
 valid after="&" before=";"
 valid after="&pdf" before=";"
+valid cat="kile" after="/" before="/"
+valid cat="kile" after="Xe"
+valid cat="kile" before="2html"
 hint="Écriture officielle : « LaTeX » (avec 3 majuscules)"
 
 [\bhttp:/\b]i
@@ -254,6 +274,7 @@ hint="Traduire CPU par « processeur »"
 
 [\benvironment\b]i
 valid after="Desktop |Model "
+valid cat="kile" after="\\begin\{"
 hint="environment -> environnement"
 
 [installeur]i
@@ -442,6 +463,7 @@ valid cat="konqueror_sidebar" after="Il affiche également tous les disques ou "
 hint="« support » est un faux ami, à traduire par un dérivé de « disponible », « autoriser », « accepter », « gérer » ou « prendre en charge »"
 
 [text(?![e|uel|\-])]i
+validGroup parameterTag
 valid ctx="Query"
 valid before="[&sp;|&unbsp;]?\/"
 valid after="[R|r]ich\s?"
@@ -461,6 +483,8 @@ valid after="&amp;lt;(/?)" before="&amp;gt;"
 valid after="fileref=\"\S*" before="\S*\""
 valid cat="kopete_chatstyle"
 valid cat="kopete_pipes" msgid="Here's an example"
+valid cat="kile" before="Document"
+valid cat="kile" after="\\"
 hint="Merci de mettre un « e » à la fin de « texte » ou « contexte »"
 
 [anti-[^i]]i
