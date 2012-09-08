@@ -218,6 +218,13 @@ def main ():
                                              filesfrom=options.files_from,
                                              getsel=True, abort=True)
     options.partspecs, options.partbids = collect_partspecs(project, specargs)
+    if not options.files_from:
+        # If there was no from-file input and no partial processing specs
+        # were collected, indicate operation on the whole summit.
+        if not options.partspecs:
+            options.partspecs = None
+        if not options.partbids:
+            options.partbids = None
     cmdself = build_path_selector(incnames=options.include_names,
                                   incpaths=options.include_paths,
                                   excnames=options.exclude_names,
@@ -1293,7 +1300,7 @@ def select_branch_catalogs (branch_id, project, options):
 
     # Select either all catalogs in this branch,
     # or those mentioned in the command line.
-    if not options.partspecs:
+    if options.partspecs is None:
         branch_catalogs = []
         for name, spec in pbcats.items():
             for path, subdir in spec:
@@ -1407,7 +1414,7 @@ def select_summit_names (project, options):
 
     # Collect all summit catalogs selected explicitly or implicitly.
     summit_names = []
-    if not options.partspecs:
+    if options.partspecs is None:
         for name, spec in project.catalogs[SUMMIT_ID].items():
             path, subdir = spec[0] # summit catalogs are unique
             if options.selcatf(path):
