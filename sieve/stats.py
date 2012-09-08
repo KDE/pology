@@ -665,7 +665,7 @@ class Sieve (object):
 
         # Write file names of catalogs which are not fully translated
         # into a file, if requested.
-        if self.p.incompfile and self.incomplete_catalogs:
+        if self.p.incompfile:
             filenames = sorted(self.incomplete_catalogs.keys())
             cmdlenc = locale.getpreferredencoding()
             ofl = codecs.open(self.p.incompfile, "w", cmdlenc)
