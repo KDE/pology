@@ -491,9 +491,29 @@ hint="« Vió » se escribe como « Vio » (error ortográfico)"
 id="sp-ya-con-tilde"
 hint="« Yá » se escribe como « Ya » (error ortográfico)"
 
+# Omit words between quotes.
+addFilterRegex match="(?u)«\w+?»" repl="~" on="pmsgstr"
+
+# Omit words between brackets.
+addFilterRegex match="(?u)\{\w+?\}" repl="~" on="pmsgstr"
+
+# Omit words between brackets.
+addFilterRegex match="(?u)\(\w+?\)" repl="~" on="pmsgstr"
+
+# Omit words preceded by %.
+addFilterRegex match="(?u)\%\w+?\b" repl="~" on="pmsgstr"
+
+# Omit words preceded by dot.
+addFilterRegex match="(?u)\.\w+?\b" repl="~" on="pmsgstr"
+
+# Omit words preceded by slash.
+addFilterRegex match="(?u)\/\w+?\b" repl="~" on="pmsgstr"
+
+# Omit compounds words.
+addFilterRegex match="(?u)\b\w+(\-\w+)+\b" repl="~" on="pmsgstr"
 
 # Omit words witch contains at least a capital letter.
-addFilterRegex match="\b\w*?[A-Z]\w*\b" casesens="yes" repl="~" on="pmsgstr"
+addFilterRegex match="(?u)\b\w*?[A-Z]\w*\b" casesens="yes" repl="~" on="pmsgstr"
 
 *hook name="spell/check-spell-sp~lang='es'" on="msgstr"
 id="sp-check-spell-hook"

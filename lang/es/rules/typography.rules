@@ -112,12 +112,11 @@ valid ctx="Numbers and characters"
 valid ctx="CSV separator"
 hint="Ponga un espacio después del signo de cierre de admiración"
 
-[(?s)\!]
+[(?s)^[^¡]*?\!]
 id="ty-falta-apertura-admiracion"
 validGroup beforePunctuation
 valid ctx="Numbers and characters"
 valid ctx="CSV separator"
-valid after="¡.*?"
 hint="Abra la admiración (deben ir emparejadas)"
 
 [(?s)¡(?!.*?\!)]
@@ -150,12 +149,11 @@ valid before="\~"
 valid before="\\\\n"
 hint="Ponga un espacio después del signo de cierre de interrogación"
 
-[(?s)\?]
+[(?s)^[^¿]*?\?]
 id="ty-falta-apertura-interrogacion"
 validGroup beforePunctuation
 valid ctx="Numbers and characters"
 valid ctx="CSV separator"
-valid after="¿.*?"
 hint="Abra la interrogación (deben ir emparejadas)"
 
 [(?s)¿(?!.*?\?)]
@@ -196,26 +194,22 @@ valid before="\~"
 valid ctx="Numbers and characters"
 hint="Ponga un espacio después del signo de comilla española de cierre"
 
-[»\s[A-Z]]
+[«.*?»\s[A-Z]]
 id="ty-falta-punto-despues-cierre-comillas"
-valid after="[A-Z]\w*\s«\w+(\s\w+)*"
+valid after="[A-Z]\w*\s"
 hint="Ponga un punto después de la comilla de cierre antes de una nueva frase en mayúsculas"
 
-[\.»]
+[«[a-z].*?\.»]
 id="ty-orden-incorrecto-punto-comilla"
-valid after="«"
-valid after="\.\."
-valid after="\([A-ZÑÇ].+?"
+valid span="[a-z].*?\.\.\."
 hint="Ponga el punto después de la comilla de cierre y no antes"
 
-[»\?]
+[¿«.*?»\?]
 id="ty-orden-incorrecto-interrogacion-comilla"
-valid after="¿.+?«.*?"
 hint="Ponga el signo de cierre de interrogación antes de la comilla de cierre y no después"
 
-[»\!]
+[¡«.*?»\!]
 id="ty-orden-incorrecto-admiracion-comilla"
-valid after="¡.+?«.*?"
 hint="Ponga el signo de cierre de admiración antes de la comilla de cierre y no después"
 
 [(?<!\s)«]
@@ -228,16 +222,6 @@ hint="Ponga un espacio antes del signo de comilla española de apertura"
 id="ty-falta-cierre-comilla"
 valid before="(?s).*?[»({«'\"\[]"
 hint="Cierre la comilla (deben ir emparejadas)"
-
-[¿«]
-id="ty-orden-incorrecto-apertura-interrogacion-comilla"
-valid before=".*?».+?\?"
-hint="Ponga el signo de apertura de interrogación después de la comilla de apertura y no antes"
-
-[¡«]
-id="orden-incorrecto-apertura-admiracion-comilla"
-valid before=".*?».+?\!"
-hint="Ponga el signo de apertura de admiración después de la comilla de apertura y no antes"
 
 [\s\s+]
 id="ty-repeticion-espacios"
@@ -252,13 +236,11 @@ valid before="\.\."
 valid before="(desktop|calendar|directory)\b"
 hint="No ponga espacios antes de un signo de punto"
 
-[\.\)]
+[\([a-z].*?\.\)]
 id="ty-orden-incorrecto-punto-parentesis"
-valid after="\.\."
-valid after="S\.u\.S\.E"
+valid span="\([a-z].*?\.\.\.\)"
 valid cat="kspread"
 valid cat="kstars"
-valid after="\([A-ZÑÇ].+?"
 hint="El punto debe estar después del paréntesis (y no antes)"
 
 [\.(?!\s)]
@@ -305,7 +287,7 @@ hint="Àbajo MS-DOS (quite el carácter de retorno de carro)"
 
 [(?<=\S)\.\s[a-zñçáéíóú]]
 id="ty-falta-mayuscula-despues-punto"
-valid after="\.\.\."
+valid after="\.\."
 valid before="[a-z]*?[A-Z]"
 hint="Utilice mayúsculas después de punto"
 
