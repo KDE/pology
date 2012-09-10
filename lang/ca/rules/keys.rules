@@ -4,105 +4,106 @@
 # License: GPLv3
 
 # key names (nom de les tecles)
+# http://techbase.kde.org/Documentation_Primer/Manual/DocBook_Reference/GUI_elements
 
 {(&Alt;|<key(cap|sym)>Alt</key(cap|sym)>)}
-valid msgstr="&Alt;" # <keysym>Alt</keysym>
-valid msgstr="<key(cap|sym)>Alt</key(cap|sym)>"
-hint="Es tradueix per «&Alt;, <key?>Alt</key?>» (keys)"
+valid msgstr="&Alt;" # <keycap>Alt</keycap>
+valid msgstr="<keycap>Alt</keycap>"
+hint="Es tradueix per «&Alt;, <keycap>Alt</keycap>» (keys)"
 
 {(&Backspace;|<key(cap|sym)>Backspace</key(cap|sym)>)}
-valid msgstr="&Retro;" # <keysym>Retrocés</keysym>
-valid msgstr="<key(cap|sym)>Retrocés</key(cap|sym)>"
-hint="Es tradueix per «&Retro;, <key?>Retrocés</key?>» (keys)"
+valid msgstr="&Retro;" # <keycap>Retrocés</keycap>
+valid msgstr="<keycap>Retrocés</keycap>"
+hint="Es tradueix per «&Retro;, <keycap>Retrocés</keycap>» (keys)"
 
 {(&Ctrl;|<key(cap|sym)>Ctrl</key(cap|sym)>)}
-valid msgstr="&Ctrl;" # <keysym>Ctrl</keysym>
-valid msgstr="<key(cap|sym)>Ctrl</key(cap|sym)>"
-hint="Es tradueix per «&Ctrl;, <key?>Ctrl</key?>» (keys)"
+valid msgstr="&Ctrl;" # <keycap>Ctrl</keycap>
+valid msgstr="<keycap>Ctrl</keycap>"
+hint="Es tradueix per «&Ctrl;, <keycap>Ctrl</keycap>» (keys)"
 
 {<key(cap|sym)>Del(ete)?</key(cap|sym)>}
-valid msgstr="<key(cap|sym)>Supr</key(cap|sym)>"
-hint="Es tradueix per «<key?>Supr</key?>» (keys)"
+valid msgstr="<keycap>Supr</keycap>"
+hint="Es tradueix per «<keycap>Supr</keycap>» (keys)"
 
 {<key(cap|sym)>End</key(cap|sym)>}
-valid msgstr="<key(cap|sym)>Fi</key(cap|sym)>"
-hint="Es tradueix per «<key?>Fi</key?>» (keys)"
+valid msgstr="<keycap>Fi</keycap>"
+hint="Es tradueix per «<keycap>Fi</keycap>» (keys)"
 
 {(&Enter;|<key(cap|sym)>Enter</key(cap|sym)>)}
-valid msgstr="&Intro;" # <keysym>Retorn</keysym>
-valid msgstr="<key(cap|sym)>Retorn</key(cap|sym)>"
-hint="Es tradueix per «&Intro;, <key?>Retorn</key?>» (keys)"
+valid msgstr="&Intro;" # <keycap>Retorn</keycap>
+valid msgstr="<keycap>Retorn</keycap>"
+hint="Es tradueix per «&Intro;, <keycap>Retorn</keycap>» (keys)"
 
 {(&Esc;|<key(cap|sym)>Esc</key(cap|sym)>)}
-valid msgstr="&Esc;" # <keysym>Esc</keysym>
-valid msgstr="<key(cap|sym)>Esc</key(cap|sym)>"
-hint="Es tradueix per «&Esc;, <key?>Esc</key?>» (keys)"
+valid msgstr="&Esc;" # <keycap>Esc</keycap>
+valid msgstr="<keycap>Esc</keycap>"
+hint="Es tradueix per «&Esc;, <keycap>Esc</keycap>» (keys)"
 
 {<key(cap|sym)>Home</key(cap|sym)>}
-valid msgstr="<key(cap|sym)>Inici</key(cap|sym)>"
-hint="Es tradueix per «<key?>Inici</key?>» (keys)"
+valid msgstr="<keycap>Inici</keycap>"
+hint="Es tradueix per «<keycap>Inici</keycap>» (keys)"
 
 {<key(cap|sym)>Ins</key(cap|sym)>}
-valid msgstr="<key(cap|sym)>Insert</key(cap|sym)>"
-hint="Es tradueix per «<key?>Insert</key?>» (keys)"
+valid msgstr="<keycap>Insert</keycap>"
+hint="Es tradueix per «<keycap>Insert</keycap>» (keys)"
 
 {(&Shift;|<key(cap|sym)>Shift</key(cap|sym)>)}
-valid msgstr="&Maj;" # <keysym>Majús.</keysym>
-valid msgstr="<key(cap|sym)>Majús.</key(cap|sym)>"
-hint="Es tradueix per «&Maj;, <key?>Majús.</key?>» (keys)"
+valid msgstr="&Maj;" # <keycap>Majús.</keycap>
+valid msgstr="<keycap>Majús.</keycap>"
+hint="Es tradueix per «&Maj;, <keycap>Majús.</keycap>» (keys)"
 
 {<key(cap|sym)>Space(\s?-?bar)?</key(cap|sym)>}
-valid msgstr="<key(cap|sym)>Espai</key(cap|sym)>"
-hint="Es tradueix per «<key?>Espai</key?>» (keys)"
+valid msgstr="<keycap>Espai</keycap>"
+hint="Es tradueix per «<keycap>Espai</keycap>» (keys)"
 
 {<key(cap|sym)>Start</key(cap|sym)>}
-valid msgstr="<key(cap|sym)>Inici</key(cap|sym)>"
-hint="Es tradueix per «<key?>Inici</key?>» (keys)"
+valid msgstr="<keycap>Inici</keycap>"
+hint="Es tradueix per «<keycap>Inici</keycap>» (keys)"
 
 {(&Tab;|<key(cap|sym)>Tab</key(cap|sym)>|TAB\skey)}
 valid msgstr="&Tab;" # <keycap>Tabulador</keycap>
-valid msgstr="<key(cap|sym)>Tabulador</key(cap|sym)>"
+valid msgstr="<keycap>Tabulador</keycap>"
 valid msgstr="tecla &Tab;" # a la doc
 valid msgstr="tecla Tab" # a l'IGU
-hint="Es tradueix per «&Tab;, tecla &Tab;, <key?>Tabulador</key?>» (keys)"
+hint="Es tradueix per «&Tab;, tecla &Tab;, <keycap>Tabulador</keycap>» (keys)"
 
 # Arrow keys
-{(<key(cap|sym)>)(Page\sDown|PgDown)(</key(cap|sym))>}
-valid msgstr="<key(cap|sym)>Av. Pàg.</key(cap|sym)>"
+{(<key(cap|sym)>)(Page.?Down|PgDown)(</key(cap|sym))>}
+valid msgstr="<keycap>Av. Pàg.</keycap>"
 valid msgstr="AvPàg" # A l'IGU
-hint="Es tradueix per «AvPàg (a l'IGU), <key?>Av. Pàg.</key?> (a la DOC)» (keys)"
+hint="Es tradueix per «AvPàg (a l'IGU), <keycap>Av. Pàg.</keycap> (a la DOC)» (keys)"
 
-{(<key(cap|sym)>)(Page\sUp|PgUp)(</key(cap|sym))>}
-valid msgstr="<key(cap|sym)>Re. Pàg.</key(cap|sym)>"
+{(<key(cap|sym)>)(Page.?Up|PgUp)(</key(cap|sym))>}
+valid msgstr="<keycap>Re. Pàg.</keycap>"
 valid msgstr="RePàg" # A l'IGU
-hint="Es tradueix per «RePàg (a l'IGU), <key?>Re. Pàg.</key?> (a la DOC)» (keys)"
+hint="Es tradueix per «RePàg (a l'IGU), <keycap>Re. Pàg.</keycap> (a la DOC)» (keys)"
 
 # Cursor keys
 {<key(cap|sym)>Down(\sArrow)?</key(cap|sym)>}
-valid msgstr="<key(cap|sym)>Cursor avall</key(cap|sym)>"
-valid msgstr="<key(cap|sym)>Amunt</key(cap|sym)> i <key(cap|sym)>Avall</key(cap|sym)>"
+valid msgstr="<keysym>Cursor avall</keysym>"
+valid msgstr="<keysym>Amunt</keysym> i <keysym>Avall</keysym>"
 valid msgstr="Cursor <keysym>Avall</keysym>/<keysym>Dret</keysym>" cat="kipi-plugins_imageviewer" # docmessages
 valid msgstr="fletxa avall" # A l'IGU
-hint="Es tradueix per «fletxa avall (a l'IGU), <key?>Cursor avall</key?>|<key?>Amunt</key?> i <key?>Avall</key?> (a la DOC)» (keys)"
+hint="Es tradueix per «fletxa avall (a l'IGU), <keysym>Cursor avall</keysym>|<keysym>Amunt</keysym> i <keysym>Avall</keysym> (a la DOC)» (keys)"
 
 {<key(cap|sym)>Up(\sArrow)?</key(cap|sym)>}
-valid msgstr="<key(cap|sym)>Cursor amunt</key(cap|sym)>"
-valid msgstr="<key(cap|sym)>Amunt</key(cap|sym)> i <key(cap|sym)>Avall</key(cap|sym)>"
+valid msgstr="<keysym>Cursor amunt</keysym>"
+valid msgstr="<keysym>Amunt</keysym> i <keysym>Avall</keysym>"
 valid msgstr="Cursor <keysym>Amunt</keysym>/<keysym>Esquerre</keysym>" cat="kipi-plugins_imageviewer" # docmessages
 valid msgstr="fletxa amunt" # A l'IGU
-hint="Es tradueix per «fletxa amunt (a l'IGU), <key?>Cursor amunt</key?>|<key?>Amunt</key?> i <key?>Avall</key?> (a la DOC)» (keys)"
+hint="Es tradueix per «fletxa amunt (a l'IGU), <keysym>Cursor amunt</keysym>|<keysym>Amunt</keysym> i <keysym>Avall</keysym> (a la DOC)» (keys)"
 
 {<key(cap|sym)>Left(\sArrow)?</key(cap|sym)>}
-valid msgstr="<key(cap|sym)>Cursor esquerre</key(cap|sym)>"
-valid msgstr="<key(cap|sym)>Esquerre</key(cap|sym)> i <key(cap|sym)>Dret</key(cap|sym)>"
+valid msgstr="<keysym>Cursor esquerre</keysym>"
+valid msgstr="<keysym>Esquerre</keysym> i <keysym>Dret</keysym>"
 valid msgstr="Cursor <keysym>Amunt</keysym>/<keysym>Esquerre</keysym>" cat="kipi-plugins_imageviewer" # docmessages
 valid msgstr="fletxa esquerra" # A l'IGU
-hint="Es tradueix per «fletxa esquerra (a l'IGU), <key?>Cursor esquerre</key?>|<key?>Esquerre</key?> i <key?)>Dret</key?)> (a la DOC)» (keys)"
+hint="Es tradueix per «fletxa esquerra (a l'IGU), <keysym>Cursor esquerre</keysym>|<keysym>Esquerre</keysym> i <keysym>Dret</keysym> (a la DOC)» (keys)"
 
 {<key(cap|sym)>Right(\sArrow)?</key(cap|sym)>}
-valid msgstr="<key(cap|sym)>Cursor dret</key(cap|sym)>"
-valid msgstr="<key(cap|sym)>Esquerre</key(cap|sym)> i <key(cap|sym)>Dret</key(cap|sym)>"
+valid msgstr="<keysym>Cursor dret</keysym>"
+valid msgstr="<keysym>Esquerre</keysym> i <keysym>Dret</keysym>"
 valid msgstr="Cursor <keysym>Avall</keysym>/<keysym>Dret</keysym>" cat="kipi-plugins_imageviewer" # docmessages
 valid msgstr="fletxa dreta" # A l'IGU
-hint="Es tradueix per «fletxa dreta (a l'IGU), <key?>Cursor dret</key?>, <key?>Esquerre</key?> i <key?)>Dret</key?)> (a la DOC)» (keys)"
+hint="Es tradueix per «fletxa dreta (a l'IGU), <keysym>Cursor dret</keysym>, <keysym>Esquerre</keysym> i <keysym>Dret</keysym> (a la DOC)» (keys)"
  
