@@ -185,6 +185,7 @@ id="t-download"
 hint="download = преузети"
 valid msgstr="\b(не)?преуз(е|м|им|имањ)"
 valid cat="kioclient" msgid="kioclient download"
+valid env="kde" msgstr="&\w*download\S*;"
 
 {\bdownload}i
 id="t-download_i"
