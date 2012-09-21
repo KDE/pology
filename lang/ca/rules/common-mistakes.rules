@@ -106,6 +106,7 @@ hint="«esta» s'ha de substituir per «està» (error freqüent)"
 # «esteu/sou/quedeu» + +adj plural (com «esteu segurs»)
 # La persona és "vós", per tant ha de ser «esteu segur» (i similars).
 [\b(esteu|sou|quedeu)\s[a-zàèòéíóú]+s\b]i
+valid msgstr="esteu dins" cat="kommander_dcop" #docmessages
 valid msgstr="sou curiós" cat="kstars_scriptbuilder" #docmessages
 hint="«(vós) esteu segurs» s'ha de substituir per «(vós) esteu segur» (error freqüent)"
 
@@ -156,6 +157,7 @@ hint="«rés» (de resar) no s'ha de confondre amb «res» (res de res) (error f
 # «router» es tradueix per «encaminador».
 {\brouters?\b}i
 valid msgstr="encaminadors?"
+valid msgstr="serveis? d'itineraris"
 hint="«router» es tradueix per «encaminador» (error freqüent)"
 
 # «sempre i quan» és incorrecte, cal utilitzar «sempre que».
@@ -207,8 +209,10 @@ hint="«ves» (verb anar) cal que porti accent «vés» (error freqüent)"
 
 # «widget» es tradueix per «estri».
 {\bwidgets?\b}i
-valid msgstr="widget" cat="kdm_theme-ref"
+valid msgstr="widget" cat="kdm_theme-ref" #docmessages
 valid msgstr="estris?"
+valid msgstr="Widget, true" cat="kommander_dcop" #docmessages
+valid msgstr="SpinBoxInt" cat="kommander_widgets" #docmessages
 hint="«widget» es tradueix per «estri» (error freqüent)"
 
 # «world» es tradueix per «món» (amb accent).

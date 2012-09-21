@@ -246,6 +246,7 @@ hint="S'ha de posar un espai després del signe de cometa llatina de tancament (
 valid after="\«"
 valid after="\.\."
 valid before="\sMeltzer" cat="amarok"
+valid msgstr="«núm\.»" cat="kommander_specials" # docmessages
 hint="S'ha de posar el punt després del signe de cometa llatina de tancament (tipografia)"
 
 [\«]
@@ -403,7 +404,7 @@ hint="Cal escriure les sigles en singular en català (treieu la «'s» final) (t
 
 [\b([A-Za-záéíóúàèòüçÁÉÍÓÚÀÈÒÇ])+\b\.{1,2}\b(\1)\b]
 valid span="c\." cat="kleopatra"
-hint="Hi ha una paraula consecutiva repetida en el páragraf (tipografia)"
+hint="Hi ha una paraula consecutiva repetida en el paràgraf (tipografia)"
 
 [\b(del|dels|el|la|els|les|un|una|uns|unes)\s(el|la|els|les|un|una|uns|unes)\b]
 valid after="·" # punt volat de la l·l geminada
@@ -435,6 +436,7 @@ valid after="\(" before="\)" cat="kio4"
 valid after="\(«" before="~" cat="kate"
 valid after="CN\[\$" cat="kleopatra" # docmessages
 valid msgstr="ko r r e u" cat="simon" # docmessages
+valid msgstr="nomi singoli e collettivi" cat="parley" # docmessages
 valid ctx="Exponential"
 valid cat="tables,kcells,kspread,kdenlive,sheets"
 hint="«e» sola és un error (tipografia)"
