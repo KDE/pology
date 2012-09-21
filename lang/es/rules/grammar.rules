@@ -618,6 +618,17 @@ valid span="(?u)\b\w+\s[A-Z]\w+?\b"
 valid span="(?u)\b\w+\s[yoe]\b"
 hint="No utilice el espacio para separar el prefijo de la palabra principal, p.ej. «sub menú» (error gramatical)"
 
+[\bposs\w+\b]i
+id="gr-prefijo-pos-antes-de-s"
+hint="Se debe usar el prefijo « post » antes de una palabra que empieza por « S »(error ortográfico)"
+
+[\bpost\w+\b]i
+id="gr-prefijo-post-enlugar-de-pos"
+valid span="posts\w+"
+valid span="post[aeiour]\w*"
+valid msgstr="Postgresql"
+hint="Se recomienda usar el prefijo « Pos » en lugar de « Post »(error ortográfico)"
+
 #
 # ERRORES CON SIGLAS
 #
@@ -673,6 +684,16 @@ id="gr-vocal-tilde-suelta"
 valid after="~"
 valid before="~"
 hint="Las vocales con tilde no se usan sueltas (error gramatical)"
+
+#
+# ERRORES CON GRUPOS DE VOCALES
+#
+
+[\b(antee|antii|archii|autoo|bii|coo|contraa|cuasii|epii|eqii|extraa|fotoo|geoo|hemii|infraa|intraa|macroo|maxii|megaa|metaa|microo|minii|monoo|multii|neoo|perii|plurii|polii|pree|ree|retroo|semii|seudoo|supraa|trii|ultraa|unii|vicee)\w+\b]i
+id="sp-simplificar-vocales-atonas"
+valid msgstr="cooficial"
+valid msgstr="zoología"
+hint="Los grupos de dos vocales átonas se recomienda simplificarlos (error ortográfico)"
 
 #
 # ORACIONES CON INTERROGACIÓN/ADMIRACIÓN
@@ -891,6 +912,11 @@ id="gr-falta-coma-antes-conque"
 validGroup beforeComma
 hint="Ponga una coma antes de «conque» (error gramatical)"
 
+[\basí\scomo\b]
+id="gr-falta-coma-antes-asi-como"
+validGroup beforeComma
+hint="Ponga una coma antes de «así como» (error gramatical)"
+
 [\basí\sque\b]
 id="gr-falta-coma-antes-asi-que"
 validGroup beforeComma
@@ -966,6 +992,11 @@ hint="Ponga una coma antes de «además» (error gramatical)"
 #valid before="\sel"
 #hint="Ponga una coma antes de «con todo» (error gramatical)"
 
+[\ben\sconclusión\b]
+id="gr-falta-coma-antes-en-conclusión"
+validGroup beforeComma
+hint="Ponga una coma antes de «en conclusión» (error gramatical)"
+
 [\ben\stal\scaso\b]
 id="gr-falta-coma-antes-en-tal-caso"
 validGroup beforeComma
@@ -976,15 +1007,30 @@ id="gr-falta-coma-antes-sin-embargo"
 validGroup beforeComma
 hint="Ponga una coma antes de «sin embargo» (error gramatical)"
 
+[\bsino\stambién\b]
+id="gr-falta-coma-antes-sino-también"
+validGroup beforeComma
+hint="Ponga una coma antes de «sino también» (error gramatical)"
+
 [\bno\sobstante\b]
 id="gr-falta-coma-antes-no-obstante"
 validGroup beforeComma
 hint="Ponga una coma antes de «no obstante» (error gramatical)"
 
+[\bpor\sejemplo\b]
+id="gr-falta-coma-antes-por-ejemplo"
+validGroup beforeComma
+hint="Ponga una coma antes de «por ejemplo» (error gramatical)"
+
 [\bpor\sel\scontrario\b]
 id="gr-falta-coma-antes-por-el-contrario"
 validGroup beforeComma
 hint="Ponga una coma antes de «por el contrario» (error gramatical)"
+
+[\bpor\sotro\slado\b]
+id="gr-falta-coma-antes-por-otro-lado"
+validGroup beforeComma
+hint="Ponga una coma antes de «por otro lado» (error gramatical)"
 
 [\ben\scambio\b]
 id="gr-falta-coma-antes-en-cambio"
@@ -995,6 +1041,11 @@ hint="Ponga una coma antes de «en cambio» (error gramatical)"
 id="gr-falta-coma-antes-efectivamente"
 validGroup beforeComma
 hint="Ponga una coma antes de «efectivamente» (error gramatical)"
+
+[\bfinalmente\b]
+id="gr-falta-coma-antes-finalmente"
+validGroup beforeComma
+hint="Ponga una coma antes de «finalmente» (error gramatical)"
 
 [\bgeneralmente\b]
 id="gr-falta-coma-antes-generalmente"
@@ -1028,7 +1079,7 @@ hint="No ponga puntos suspensivos después de «etc./&etc;/etcétera» (error gr
 # PALABRAS QUE SE ESCRIBEN EN MINÚSCULA
 #
 
-[\b(Enero|Febrero|Marzo|Abril|Mayo|Junio|Julio|Agosto|Septiembre|Octubre|Noviembre|Diciembre)\b]
+[\b(Enero|Febrero|Marzo|Abril|Mayo|Junio|Julio|Agosto|Sep?tiembre|Octubre|Noviembre|Diciembre)\b]
 id="gr-mayusculas-en-meses"
 validGroup beforeCaps
 valid span="Julio" before="\s[A-Z]"
@@ -1360,7 +1411,7 @@ hint="«Tener claro una» se escribe como «Tener clara una» (error gramatical)
 # ERRORES DIVERSOS
 #
 
-[(?u)\ben\s(\d|\d\d|uno|dos|tres|cuatro|cinco|seis|siete|ocho|nueve|diez)\sde\s(\d|\d\d|enero|febrero|marzo|abril|mayo|junio|julio|agosto|septiembre|octubre|noviembre|diciembre)\b]i
+[(?u)\ben\s(\d|\d\d|uno|dos|tres|cuatro|cinco|seis|siete|ocho|nueve|diez)\sde\s(\d|\d\d|enero|febrero|marzo|abril|mayo|junio|julio|agosto|sep?tiembre|octubre|noviembre|diciembre)\b]i
 id="gr-en-antes-dia-mes"
 hint="«En» seguido de día del mes es incorrecto, debe usuarse «El» o «A» (error gramatical)"
 

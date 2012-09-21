@@ -92,12 +92,12 @@ hint="« Scroll Lock » se traduce como como « Bloq Desp » (regla de traducci�
 {\bShift\b}
 id="ui-tecla-shift"
 valid msgstr="Mayús"
-valid msgstr="turno"
-valid msgstr="despla(zar|za|ce)"
-valid msgstr="desplazarse"
-valid msgstr="desplazamiento"
-valid msgstr="cambi(ar|e|a|o)"
-valid msgstr="cambiarse"
+valid msgstr="[Tt]urno"
+valid msgstr="[Dd]espla(zar|za|ce)"
+valid msgstr="[Dd]esplazarse"
+valid msgstr="[Dd]esplazamiento"
+valid msgstr="[Cc]ambi(ar|e|a|o)"
+valid msgstr="[Ca]ambiarse"
 hint="« Shift » se traduce como como « Mayús » (regla de traducción de nombres de teclas)"
 
 {\bSys\s?Req\b}
@@ -113,6 +113,7 @@ hint="« Spacebar » se traduce como como « Barra espaciadora » (regla de trad
 {^Tab$}
 id="ui-tecla-tab"
 valid msgstr="Tab"
+valid msgstr="[Pp]estaña"
 hint="« Tab » se traduce como como « Tab » (regla de traducción de nombres de teclas)"
 
 # Menús de KDE
@@ -420,7 +421,8 @@ hint="« Tip of the day » se traduce como como « Consejo del día » (regla de
 id="ui-menu-hint"
 valid msgstr="Consejo"
 valid msgstr="Pista"
-hint="« Hint » se traduce como como « Consejo/Pista » (regla de traducción de menús de KDE)"
+valid msgstr="Sugerencia"
+hint="« Hint » se traduce como como « Consejo/Pista/Sugerencia » (regla de traducción de menús de KDE)"
 
 {^Credits$}
 id="ui-menu-credits"
@@ -650,6 +652,7 @@ hint="« Fields » se traduce como « Campos » (regla de traducción de element
 id="ui-widget-frame"
 valid msgstr="marco"
 valid msgstr="fotograma"
+valid msgstr="ejecución" before="\sstack"
 valid before="\sBuffer"
 hint="« Frame » se traduce como como « Marco/Fotograma » (regla de traducción de elementos gráficos)"
 

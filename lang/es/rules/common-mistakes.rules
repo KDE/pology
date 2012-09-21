@@ -81,6 +81,10 @@ hint="« A parte » se escribe como « Aparte » (error frecuente)"
 id="cm-a-pretexto-de"
 hint="« A pretexto de » se escribe como « Bajo pretexto de » (error frecuente: solecismo)"
 
+[\ba\sprisa\b]i
+id="cm-a-prisa"
+hint="« A prisa » se escribe como « Aprisa » (error frecuente)"
+
 [\ba\sresultas\sde\b]i
 id="cm-a-resultas-de"
 hint="« A resultas de » se escribe como « De resultas » (error frecuente: solecismo)"
@@ -152,6 +156,10 @@ hint="« API » es de género femenino, pero empieza por 'A' (error frecuente)"
 [\basí\ses\sque\b]i
 id="cm-asi-es-que"
 hint="« Así es que » se escribe como « Así que » (error frecuente)"
+
+[\basí\smismo\b]i
+id="cm-asi-mismo"
+hint="« Así mismo » se escribe como « Asimismo » (error frecuente)"
 
 [\batentar\sa\b]i
 id="cm-atentar-a"
@@ -321,6 +329,10 @@ hint="« Contra gustos » se escribe como « Sobre gustos » (error frecuente: s
 id="cm-contra-mas"
 hint="« Contra más » se escribe como « Cuanto más » (error frecuente: solecismo)"
 
+[\bcontra\sreloj\b]i
+id="cm-contra-reloj"
+hint="« Contra reloj » se escribe como « Contrareloj » (error frecuente: solecismo)"
+
 [\bcorreo\-e\b]i
 id="cm-correo-e"
 hint="No utilice « Correo-e » solo « Correo » a secas (error frecuente)"
@@ -452,6 +464,10 @@ hint="« En el momento que » se escribe como « En el momento en que » (error 
 id="cm-en-evitacion-a"
 hint="« En evitación de » se escribe como « Para evitar » (error frecuente: solecismo)"
 
+[\ben\sfrente\b]i
+id="cm-en-frente"
+hint="« En frente » se escribe como « Enfrente » (error frecuente: solecismo)"
+
 [\ben\socasión\sde\b]i
 id="cm-en-ocasion-de"
 hint="« En ocasión de » se escribe como « Con ocasión que » (error frecuente)"
@@ -495,6 +511,10 @@ hint="« Entre menos » se escribe como « Cuanto menos » (error frecuente)"
 [\besas\smiles\b]i
 id="cm-esas-miles"
 hint="« Esas miles » se escribe como « Esos miles » (error frecuente)"
+
+[\bentre\stanto\b]i
+id="cm-entre-tanto"
+hint="« Entre tanto » se escribe como « Entretanto » (error frecuente)"
 
 [\bfijarse\sque\b]i
 id="cm-fijarse-que"
@@ -587,6 +607,10 @@ hint="« Macro » es de género femenino (error frecuente)"
 [\b(los|unos|estos|esos)\smacros\b]i
 id="cm-macros-en-masculino"
 hint="« Macros » es de género femenino (error frecuente)"
+
+[\bmal\seducad[oa]s?\b]i
+id="cm-mal-educado"
+hint="« Mal educado» se escribe como « Maleducado » (error frecuente)"
 
 [\bmás\sbuen[oa]s?\b]i
 id="cm-mas-bueno"
