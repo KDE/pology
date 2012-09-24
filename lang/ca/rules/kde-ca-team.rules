@@ -196,6 +196,11 @@ hint="Es tradueix per «gest/os» (kde-ca-team)"
 valid msgstr="activador del gest"
 hint="Es tradueix per «activador del gest» (kde-ca-team)"
 
+{\bin progress\b}i
+valid msgstr="en curs"
+valid !msgstr="en progrès"
+hint="Es tradueix per «en curs» (kde-ca-team)"
+
 {\bmouse gesture(s?)\b}i
 valid msgstr="gest(os)? del ratolí"
 hint="Es tradueix per «gest/os del ratolí» (kde-ca-team)"
