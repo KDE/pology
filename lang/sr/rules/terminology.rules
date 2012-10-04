@@ -127,6 +127,7 @@ valid msgid="configured?( *\S+){,2} settings"
 valid msgstr="\bподе[сш]"
 valid after="(pre|re)\W?" msgstr="\b(прет|пре)?поде[сш]"
 valid env="kde" msgstr="\bзада[вјлот]"
+valid env="kde" msgstr="&\S*configure\S+;"
 valid cat="kate" msgid="configured\s*for the document type"
 
 {\bcontrast}i
