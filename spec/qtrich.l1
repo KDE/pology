@@ -4,7 +4,7 @@
 
 # Tags which are subset of HTML.
 html : dir;
-a : href title;
+a : href target title;
 b :;
 big :;
 blockquote :;
