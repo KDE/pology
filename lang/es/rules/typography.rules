@@ -78,6 +78,8 @@ valid after="horas|minutos|segundos"
 valid after="font-family|font-size|font-style|font-weight|text-align|text-decoration|margin-top|margin-bottom|-type" # CSS
 valid after="white-space" # CSS
 valid after="servidor"
+valid after="\.(com|org|net)" before="\d+"
+valid after="~" before="\d+"
 valid before="puerto"
 valid before="\w+" after="\w+\:"
 hint="Ponga un espacio después del signo de dos puntos"
@@ -107,7 +109,7 @@ hint="No ponga un espacio antes del signo de cierre de admiración"
 
 [\!(?!\s)]
 id="ty-falta-espacio-despues-cierre-admiracion"
-validGroup beforePunctuation
+validGroup afterPunctuation
 valid ctx="Numbers and characters"
 valid ctx="CSV separator"
 hint="Ponga un espacio después del signo de cierre de admiración"
@@ -140,7 +142,7 @@ hint="No ponga un espacio antes del signo de cierre de interrogación"
 
 [\?(?!\s)]
 id="ty-falta-espacio-despues-cierre-interrogacion"
-validGroup beforePunctuation
+validGroup afterPunctuation
 valid ctx=".*one character"
 valid ctx="Numbers and characters"
 valid ctx="Query"
@@ -233,6 +235,7 @@ id="ty-sobra-espacio-antes-punto"
 valid before="\w{2,4}\b" # Extensions
 valid before="\/\w+\b" # Files
 valid before="\.\."
+valid before="~"
 valid before="(desktop|calendar|directory)\b"
 hint="No ponga espacios antes de un signo de punto"
 
