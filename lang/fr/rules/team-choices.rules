@@ -80,7 +80,7 @@ hint="bouton du milieu -> bouton central"
 
 [compact]i
 valid after="le mode &?"
-valid after="bar d'outils "
+valid after="barres? d'outils "
 valid after="affichage "
 valid before=" (Disc|PCI|GSM|Flash)"
 valid cat="juk" before="</guimenuitem>" after="<guimenuitem>"
