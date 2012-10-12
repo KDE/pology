@@ -54,6 +54,7 @@ valid before="ext\:"
 valid before="\svar" cat="analitza"
 valid before="\s~" cat="kdevformatters"
 valid before="\suncrustify" cat="kdevformatters"
+valid before="email|count|fullName|password|amount|from|to|all" cat="jointhegame"
 valid after="usr\/s" cat="konsole" # docmessages
 valid after="~" cat="konsole" # docmessages
 valid after="(TEX|BIB|BST)INPUTS\s.+" cat="kile"
@@ -94,6 +95,7 @@ valid span="\:\="
 valid span="\:e"
 valid span="\:(0|1|\*)" cat="kdm_kdmrc-ref" # docmessages
 valid cat="kdevcvs"
+valid cat="jointhegame"
 valid msgstr="HH:MM\[\:SS\]" # docmessages
 hint="S'ha de posar un espai després del signe dels dos punts (tipografia)"
 
@@ -395,6 +397,7 @@ hint="S'han d'obrir i tancar les claus {}. Sempre aparellats (tipografia)"
 hint="Cal escriure les sigles en singular en català (treieu la «s» final) (tipografia)"
 
 [\b[A-Z]{2,6}\'s\b]
+valid before="\sJoin" cat="jointhegame"
 hint="Cal escriure les sigles en singular en català (treieu la «'s» final) (tipografia)"
 
 [\b\&[\w\d\-\_]+\;s\b]
