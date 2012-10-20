@@ -773,7 +773,7 @@ valid msgstr="\bпрокси"
 {\bquit(s|ted)?\b}i
 id="t-quit"
 hint="quit = напустити"
-valid msgstr="\bнапу(шт[ае]|сти)"
+valid msgstr="\bнапу(шт[ае]|ст[еи])"
 
 {\b(regular expression|regex)}i
 id="t-regularexpression"
