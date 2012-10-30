@@ -1,7 +1,9 @@
 >../base/aff.sd
 >../languages-prog.sd
+>../spec-technologies.sd
 
 # ----------------------------------------------------------------------------
 # Дисјункције и конјункције назива
 
 Metapost/Metafont: |{Metapost}/|{Metafont}
+vCard\, vCalendar\, iCalendar: |*|{vCard}\, |{vCalendar}\, |{iCalendar}
