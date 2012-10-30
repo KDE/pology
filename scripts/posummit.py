@@ -1300,7 +1300,7 @@ def select_branch_catalogs (branch_id, project, options):
 
     # Select either all catalogs in this branch,
     # or those mentioned in the command line.
-    if options.partspecs is None:
+    if not options.partspecs:
         branch_catalogs = []
         for name, spec in pbcats.items():
             for path, subdir in spec:
