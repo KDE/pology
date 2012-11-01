@@ -1609,14 +1609,14 @@ hint="«retirar» traduce a «remove»"
 {\brenam(e|es|ed|ing)}i
 id="PT-2011_rename"
 valid env="kde"
-valid msgstr="\brenomear"
+valid msgstr="\brenomea"
 hint="«rename» tradúcese como «renomear»"
 
 # «renomear» traduce a «rename»
 [\brenome\w+]i
-id="PT-2011-dual_rename"
+id="noPT-2011-dual_rename"
 valid env="kde"
-valid msgid="\brename"
+valid msgid="\brenam(e|es|ed|ing)"
 hint="«renomear» traduce a «rename»"
 
 
