@@ -120,10 +120,11 @@ id="PT-2010-dual_attach"
 valid msgid="\battach(es|ed|ing|ments?|\b)"
 hint="«anexar» ou «conectar» traduce a «attach»"
 
-# «anexar» ou «conectar» traduce a «Attach»
+# «conectar» traduce a «Attach», «connect», «online»
 [\bconect[a-z]{1,}]i
-id="noPT-2010-dual_attach2"
+id="noPT-2010-dual_attach2/online"
 valid msgid="\b(re)?attach(\s|ed|s|ing)?"
+valid msgid="\on(\b|-)?line"
 valid msgid="\bconnect"
 hint="«conectar» traduce a «attach» (e conectar)"
 
@@ -144,6 +145,7 @@ hint="«anexo»  ou «conexión» traduce a «attachment»"
 # «anexo» ou «conexión» traduce a «Attachment»
 [\bconexión]i
 id="noPT-2010-dual_attachment2"
+valid after="\bsen\s" msgid="\boff(\s|-)?line"
 valid msgid="\battach"
 valid msgid="\bconnection"
 valid msgid="\bconnecting" env="kde"
@@ -320,7 +322,7 @@ valid before="\s?box"
 valid before=" spell"
 valid before=" out"
 id="noPT-2011_check"
-valid msgstr="\b(com)?prob"
+valid msgstr="\b(com)?pr(o|ó)b"
 valid msgstr="\bcompróban?se"
 valid msgstr="\brevis"
 valid msgstr="\bmar(que|car|cado|cou)"
@@ -578,12 +580,13 @@ id="PT-2011-dual_detach"
 valid msgid="\bdetach"
 hint="«desprender» traduce a «detach»"
 
-# «desconectar» traduce a «detach» (e a «disconnect»)
-[\bdesprend.]i
-id="noPT-2011-dual_detach2"
+# «desconectar» traduce a «detach» ou a «offline» (e a «disconnect»)
+[\bdesconect.]i
+id="noPT-2011-dual_detach2/offline"
 valid msgid="\bdetach"
+valid msgid="\boff(\s|-)?line"
 valid msgid="\bdisconnect"
-hint="«desprender» traduce a «detach» (e a «disconnect»)"
+hint="«desprender» traduce a «detach» ou a «offline (e a «disconnect»)"
 
 # «develop» tradúcese como «desenvolver»
 {\bdevelop}i
@@ -1065,6 +1068,7 @@ hint="«insert» tradúcese como «inserir» ou «introducir»"
 
 # «inserir» ou «introducir» traducen a «insert»
 [\bins(e|i)r|\bintroduc(?!ión)]i
+valid span="\binser" before="víbel"
 id="noPT-2010-dual_insert"
 valid msgid="\binsert|\benter"
 hint="«inserir» ou «introducir» traducen a «insert» ou «enter»"
@@ -1370,6 +1374,32 @@ valid msgid="\bmouse"
 valid msgid="\bmice\b"
 hint="«rato» traduce a «mouse»"
 
+# «offline» tradúcese como «desconectado» ou «sen conexión»
+{\boff(\s|-)?line}i
+id="PT-2012_offline"
+valid msgstr="\bdesconectad(o|a)"
+valid msgstr="\bsen\sconexión"
+hint="«offline» tradúcese como «desconectado» ou «sen conexión»"
+
+# «sen conexión» traduce a «offline»
+[\bsen\sconexión]i
+id="PT-2012-dual_offline"
+valid msgid="\boff(\s|-)?line"
+hint="«sen conexión» traduce a «offline»"
+
+# «online» tradúcese como «conectado» ou «con conexión»
+{\bon(\s|-)?line}i
+id="PT-2012_online"
+valid msgstr="\bconectad(o|a)"
+valid msgstr="\bcon\sconexión"
+hint="«online» tradúcese como «conectado» ou «con conexión»"
+
+# «con conexión» traduce a «offline»
+[\bcon\sconexión]i
+id="PT-2012-dual_online"
+valid msgid="\bon(\s|-)?line"
+hint="«con conexión» traduce a «online»"
+
 # «outline» tradúcese como «contorno»
 {\boutline}i
 valid before="r"
@@ -1553,6 +1583,7 @@ valid before="ter"
 id="noPT-2011_quit"
 valid msgstr="\bsaí(r|u)"
 valid msgstr="\bsaída"
+valid msgstr="\bsaes?\b"
 hint="«quit», «exit» tradúcense como «saír»"
 
 # «quit», «exit» tradúcense como «saír»
@@ -1562,6 +1593,7 @@ id="noPT-2011_quit2"
 valid msgstr="\bsaí(r|u)"
 valid msgstr="\bsaída"
 valid msgstr="\bexit"
+valid before="ing" msgstr="\bsaíndo"
 hint="«exit» tradúcese como «saír» (e ás veces como exit, caso da orde da shell"
 
 # «saír» traduce a «quit», «exit»
@@ -1854,7 +1886,7 @@ hint="«seguir» traduce a «track» (e a «follow»)"
 # «seguimento» traduce a «tracking»
 [\bseguimento]i
 id="noPT-2011-dual_track3"
-valid msgid="\btracking" env="kde"
+valid msgid="\btracking"
 valid before="\sde\sincidencias"  msgid="\bbug\stracker"
 hint="«seguimento» traduce a «tracking»"
 
