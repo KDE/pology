@@ -1,4 +1,4 @@
-# Copyright 2011 Proxecto Trasno. All rights reserved.
+# Copyright 2011, 2012 Proxecto Trasno. All rights reserved.
 # Redistribution and use in source (SGML DocBook or plain text) and 'compiled' forms (SGML, HTML, PDF,
 # PostScript, RTF and so forth) with or without modification, are permitted provided that the following
 # conditions are met:
@@ -38,6 +38,9 @@ PT-xxxx-gl : son regras que afectan o modelo de lingua e que foron acordadas nas
 expression:     son regras para frases feitas e expresións que aparecen moi frecuentemente.
 [kde|gnome][-dual]: son regras que se aplican especificamente a un proxecto concreto dos afiliados ao Proxecto Trasno.
                     O sufixo -dual ten o mesmo significado que nas regras PT.
+
+aaPT: son regras referentes a acordos alleos ao Proxecto Trasno.
+
 
 Nota: nalgún caso, as regras de expresión levan un sufixo indicativo do proxecto ao que se aplican.
 

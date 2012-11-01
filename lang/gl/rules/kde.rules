@@ -1,4 +1,4 @@
-# Copyright (c) 2010, 2011 Proxecto Trasno
+# Copyright (c) 2010, 2011, 2012 Proxecto Trasno
 # All rights reserved.
 # 
 # Redistribution and use in source and binary forms, with or without
@@ -137,6 +137,7 @@ hint="when/if enabled -> se escolle esta opción"
 
 # «disable this option/checkbox»
 {\bdisable\sthis\s(option|checkbox)}i
+valid after="if\syou\s"
 id="expression_disable this option/checkbox"
 valid msgstr="\bdesmarque\sesta\sopción"
 hint="disable this option/checkbox -> desmarque esta opción"
@@ -152,7 +153,7 @@ hint="when/if this option/checkbox is disabled -> se esta opción non está esco
 {\b(when|if)\sthis\sis\sdisabled}i
 id="expression_when this is disabled"
 valid msgstr="\bse\sesta\sopción\snon\sestá\s(escollid|marcad)a"
-hint="when/if this is disabled -> se esta opción non está escollida/sinalada"
+hint="when/if this is disabled -> se esta opción non está escollida/marcada"
 
 # «if/when disabled»
 {\b(if|when)\sdisabled}i

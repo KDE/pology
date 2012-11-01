@@ -1,7 +1,7 @@
 # Translation choices of Galician team
 # by the KDE Galician Team (proxecto@trasno.net)
 # License: BSD 3-clause
-# Copyright (c) 2010, 2011 Proxecto Trasno
+# Copyright (c) 2010, 2011,2012 Proxecto Trasno
 # All rights reserved.
 # 
 # Redistribution and use in source and binary forms, with or without
@@ -583,7 +583,7 @@ hint="«desprender» traduce a «detach»"
 id="noPT-2011-dual_detach2"
 valid msgid="\bdetach"
 valid msgid="\bdisconnect"
-hint="«desconectar» traduce a «detach» (e a «disconnect»)"
+hint="«desprender» traduce a «detach» (e a «disconnect»)"
 
 # «develop» tradúcese como «desenvolver»
 {\bdevelop}i
@@ -981,20 +981,6 @@ id="PT-2012-dual_hark disk"
 valid msgid="\bhard(\s?disk|\sdrive)"
 hint="«disco duro» traduce a «hard disk» ou a «hard drive»"
 
-# «hide» tradúcese como «acochar»
-{\bhide(\b|s|ed)}i
-id="noPT-2010_hide"
-valid msgstr="\bacoch"
-valid !msgstr="(ocult|agoch)?"
-hint="«hide» tradúcese como «acochar»"
-
-# «acochar» traduce a «hide»
-[\bacoch]i
-valid msgid="\bhide(\b|s|ed)"
-valid msgid="\bhidden\b"
-id="noPT-2010-dual_hide"
-hint="«acochar» traduce a «hide»"
-
 # «highlight» tradúcese como «realzar»
 {\bhighlight}i
 id="PT-2011_highlight"
@@ -1188,6 +1174,7 @@ hint="«kill» tradúcese como «matar» (ollo, que pode ser a orde kill)"
 
 # «matar» traduce a «kill»
 [\bmat(ar|ou)]i
+valid span="matar(ó|am)"
 id="PT-2011-dual_kill"
 valid msgid="\bkill"
 hint="«matar» traduce a «kill»"
@@ -1380,6 +1367,7 @@ hint="«mouse» tradúcese como «rato»"
 [\brato]i
 id="PT-2012-dual_mouse"
 valid msgid="\bmouse"
+valid msgid="\bmice\b"
 hint="«rato» traduce a «mouse»"
 
 # «outline» tradúcese como «contorno»
@@ -1832,12 +1820,6 @@ valid msgid="\btab" before="\sborder|\sstop"
 valid msgid="\btab"
 hint="«tabulación» traduce a «tab»,«Tab order» e «tab stop»"
 
-# «bug tracker» tradúcese como «(sistema de) seguimento de incidencias»
-{\bbug\stracker}i
-id="PT-2011_tracker4"
-valid msgstr="\b(sistema(\sweb)?\sde\s)?seguimento\sde\sincidencias"
-hint="«bug tracker» tradúcese como «(sistema de) seguimento de incidencias»"
-
 # «(sistema de) seguimento de incidencias» traduce a «bug tracker»
 [\b(sistema\sde\s)?seguimento\sde\sincidencias]i
 id="PT-2011-dual_tracker4"
@@ -1905,7 +1887,7 @@ hint="«localizador» traduce a «tracker» (para: bittorrent)"
 # «bug tracker» tradúcese como «(sistema de) seguimento de incidencias»
 {\bbug\stracker}i
 id="PT-2011_tracker3"
-valid msgstr="\b(sistema\sde\s)?seguimento\sde\sincidencias"
+valid msgstr="\b(sistema(\sweb)?\sde\s)?seguimento\sde\sincidencias"
 hint="«bug tracker» tradúcese como «(sistema de) seguimento de incidencias»"
 
 # «(sistema de) seguimento de incidencias» traduce a «bug tracker»
