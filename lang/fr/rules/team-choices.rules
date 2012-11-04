@@ -192,7 +192,7 @@ hint="plugin -> module externe"
 [OK|O\.k|Okay|ok]
 valid after="[A-Za-z]"
 valid before="ama" # Okayama city
-valid before="ular"
+valid before="ular|teta"
 valid after="<email>\S*" before="\S*</email>"
 hint="Utilisez « Ok » (homogénéité)"
 
