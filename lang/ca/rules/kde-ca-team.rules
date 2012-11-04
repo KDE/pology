@@ -34,6 +34,11 @@ valid msgstr="difumina(t|s)?"
 valid !msgstr="desenfo.+"
 hint="Es tradueix per «difuminat» (kde-ca-team)"
 
+{\bbuttons?\b}i
+valid msgstr="bot(ó|ons)"
+valid msgstr="button" cat="klinkstatus"
+hint="Es tradueix per «botó/botons» (kde-ca-team)"
+
 {\bcharacter set\b}i
 valid msgstr="joc de caràcters"
 hint="Es tradueix per «joc de caràcters» (kde-ca-team)"
@@ -50,6 +55,10 @@ hint="Es tradueix per «suma de verificació» (kde-ca-team)"
 {\bciphertext\b}i
 valid msgstr="text xifrat"
 hint="Es tradueix per «text xifrat» (kde-ca-team)"
+
+{\bcolor selector\b}i
+valid msgstr="selector de color"
+hint="Es tradueix per «selector de color» (kde-ca-team)"
 
 {\bcontext menus?\b}i
 valid msgstr="menús? contextuals?"
@@ -118,11 +127,20 @@ valid msgstr="desencriptatge"
 valid msgstr="desencriptar"
 hint="Es tradueix per «desencriptatge» (kde-ca-team)"
 
+{\bdialogs?\b}i
+valid msgstr="diàlegs?" 
+hint="Es tradueix per «diàleg/s» (kde-ca-team)"
+
 # Sempre serà «diàleg».
-{\bdialogs? boxs?\b}i
+{\bdialogs? box(es)?\b}i
 valid !msgstr="caix(a|es) de diàleg"
 # valid msgstr="diàlegs?" # Sense comentar no dona positiu -falla si coincideix amb la bona-.
 hint="Es tradueix per «diàleg» (kde-ca-team)"
+
+{\bdrop down (box|boxes)\b}i
+valid msgstr="llista desplegable"
+valid msgstr="llistes desplegables"
+hint="Es tradueix per «llista/es desplegable/s» (kde-ca-team)"
 
 {\bemoticons?\b}i
 valid msgstr="emoticon(a|es)"
@@ -196,6 +214,10 @@ hint="Es tradueix per «gest/os» (kde-ca-team)"
 valid msgstr="activador del gest"
 hint="Es tradueix per «activador del gest» (kde-ca-team)"
 
+{\bicon list\b}i
+valid msgstr="llista d'icones"
+hint="Es tradueix per «llista d'icones» (kde-ca-team)"
+
 {\bin progress\b}i
 valid msgstr="en curs"
 valid !msgstr="en progrès"
@@ -220,7 +242,7 @@ valid msgstr="llist(a|es) d'icones"
 #valid msgstr="emoticon list" # fals positiu a la cerca
 hint="Es tradueix per «llista/es d'icones» (kde-ca-team)"
 
-{\bInfo Box(es)?\b}i
+{\binfo box(es)?\b}i
 valid msgstr="rètols? informatius?" # KStars
 hint="Es tradueix per «rètol/s informatiu/s» (kde-ca-team)"
 
@@ -235,13 +257,17 @@ hint="Es tradueix per «node d'element» (kde-ca-team)"
 
 {\bkey(box| box)(ing)?(es|s)?\b}i
 valid msgstr="anells? de claus"
-hint="Es tradueix per «anell de claus» (personal)"
+hint="Es tradueix per «anell/s de claus» (personal)"
 
 {\bmailbox(es)?\b}i
 valid msgstr="bústi(a|es) de correu"
 valid msgstr="bústi(a|es)"
 valid msgstr="mailbox" before="\sfiles?" cat="kmail_faq,kmail_importing"
 hint="Es tradueix per «bústia/es, bústia/es de correu» (kde-ca-team)"
+
+{\bmenu bars?\b}i
+valid msgstr="barr(a|es)+ de menú"
+hint="Es tradueix per «barra/es de menú» (kde-ca-team)"
 
 {\b(mailing list|mailing-list)s?\b}i
 valid msgstr="llist(a|es) de correu"
@@ -396,7 +422,7 @@ hint="Es tradueix per «barra/es de títol» (kde-ca-team)"
 {\b(toolbar|tool bar)s?\b}i
 valid msgstr="barr(a|es) d'eines"
 valid msgstr="barra de localització" # fals positiu (Location Toolbar)
-valid msgstr="Barra de simulació" # fals positiu (Simulation Toolbar)
+valid msgstr="barra de simulació" # fals positiu (Simulation Toolbar)
 valid msgstr="toolbar" cat="calligra"
 hint="Es tradueix per «barra/es d'eines» (kde-ca-team)"
 
@@ -404,6 +430,10 @@ hint="Es tradueix per «barra/es d'eines» (kde-ca-team)"
 valid msgstr="consells?"
 valid !msgstr="consells? d'eina"
 hint="Es tradueix per «consells» (kde-ca-team)"
+
+{\btree views?\b}i
+valid msgstr="vist(a|es) en arbre"
+hint="Es tradueix per «vista/es en arbre» (kde-ca-team)"
 
 {\bunencrypted\b}i
 valid msgstr="sense encriptar"
@@ -416,6 +446,11 @@ hint="Es tradueix per «sense encriptar, no està encriptat/da, no encriptada/es
 valid msgstr="fons de pantall(a|es)"
 valid !msgstr="papers? pintats?"
 hint="«wallpaper» es tradueix per «fons de pantalla», no per «paper pintat» (kde-ca-team)"
+
+{\bwindow title bars?\b}i
+valid msgstr="barr(a|es) de títol de finestra"
+valid msgstr="barra de títol de la finestra" cat="amarok,kcmkio"
+hint="Es tradueix per «barra/es de títol de finestra» (kde-ca-team)"
 
 {\bworksheets?\b}i
 valid msgstr="fulls? de treball"
