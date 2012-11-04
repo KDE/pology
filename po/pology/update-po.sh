@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 wdir=`pwd`
 cdir=`dirname $0`
