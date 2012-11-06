@@ -22,10 +22,10 @@ hint="Es tradueix per «dorsal» (kde-ca-team)"
 #NOTA: El Termcat tradueix «backend» per «processador dorsal»
 
 {\bbackgrounds?\b}i
+valid !msgstr="rerefons"
 valid msgstr="fons"
 valid msgstr="al darrere"
 valid msgstr="segon pla"
-valid !msgstr="rerefons"
 valid msgstr="style=\".*?background:.*?\""
 hint="Es tradueix per -segons el sentit- «fons i al darrere (pantalla), segon pla (executa)» (kde-ca-team)"
 
@@ -47,6 +47,10 @@ hint="Es tradueix per «joc de caràcters» (kde-ca-team)"
 valid msgstr="mar(ca|ques) de selecció"
 hint="Es tradueix per «marca/ques de selecció» (kde-ca-team)"
 
+{\b(checkbox|check box)(es)?\b}i
+valid msgstr="casell(a|es) de selecció"
+hint="Es tradueix per «casella/es de selecció» (kde-ca-team)"
+
 {\bchecksums?\b}i
 valid msgstr="sum(a|es) de verificació"
 valid msgstr="Checksum Definition \#1" cat="kleopatra"
@@ -59,6 +63,11 @@ hint="Es tradueix per «text xifrat» (kde-ca-team)"
 {\bcolor selector\b}i
 valid msgstr="selector de color"
 hint="Es tradueix per «selector de color» (kde-ca-team)"
+
+{\b(combobox|combo box)(es)?\b}i
+valid msgstr="quadre combinat"
+valid msgstr="quadres combinats"
+hint="Es tradueix per «quadre/s combinat/s» (kde-ca-team)"
 
 {\bcontext menus?\b}i
 valid msgstr="menús? contextuals?"
@@ -259,14 +268,18 @@ hint="Es tradueix per «node d'element» (kde-ca-team)"
 valid msgstr="anells? de claus"
 hint="Es tradueix per «anell/s de claus» (personal)"
 
+{\b(listbox|list box)(es)?\b}i
+valid msgstr="quadres? de llista"
+hint="Es tradueix per «quadre/s de llista» (kde-ca-team)"
+
 {\bmailbox(es)?\b}i
 valid msgstr="bústi(a|es) de correu"
 valid msgstr="bústi(a|es)"
 valid msgstr="mailbox" before="\sfiles?" cat="kmail_faq,kmail_importing"
 hint="Es tradueix per «bústia/es, bústia/es de correu» (kde-ca-team)"
 
-{\bmenu bars?\b}i
-valid msgstr="barr(a|es)+ de menú"
+{\b(menubar|menu bar)s?\b}i
+valid msgstr="barr(a|es) de menú"
 hint="Es tradueix per «barra/es de menú» (kde-ca-team)"
 
 {\b(mailing list|mailing-list)s?\b}i
@@ -292,6 +305,10 @@ hint="Es tradueix per «camí» o «variable d'entorn PATH» (kde-ca-team)"
 valid msgstr="barr(a|es) de progrés"
 hint="Es tradueix per «barra/es de progrés» (kde-ca-team)"
 
+{\b(radiobutton|radio button)s?\b}i
+valid msgstr="bot(ó|ons) d'opció"
+hint="Es tradueix per «botó/ons d'opció» (kde-ca-team)"
+
 # «screenshot» es tradueix per «captura de pantalla».
 {\bscreenshots?\b}i
 valid msgstr="captur(a|es) de pantalla"
@@ -316,26 +333,11 @@ valid msgstr="abreujament" cat="kmouth" # docmessages
 valid msgstr="abreviatura" cat="knode_using-subscribing" # docmessages
 hint="Es tradueix per -segons el sentit que tingui- «drecera/es|accés ràpid» (kde-ca-team)"
 
-{\b(show )(menubar|menu bar)s?\b}i
-valid msgstr="barr(a|es) de menús"
-valid msgstr="mostra la barra de menú"
-valid !msgstr="menuchoice>" # etiqueta XML
-valid !msgstr="guimenuitem>" # etiqueta XML
-hint="Es tradueix per «barra de menús, Mostra la barra de menús» (kde-ca-team)"
-
-{\b(show )?(statusbar|status bar)s?\b}i
-valid msgstr="línia d'estat" cat="kalzium,khangman,ktouch" # fals positiu
-valid !msgstr="barr(a|es) d'estat" cat="kalzium,khangman,ktouch" # fals positiu
-valid msgstr="barr(a|es) d'estat"
-valid msgstr="barres d'eines i d'estat" # fals positiu
-valid msgstr="mostra la barra d'estat"
-hint="Es tradueix per «barra d'estat, Mostra la barra d'estat» (kde-ca-team)"
-
 {\bsliders?\b}i
-valid msgstr="bot(ó|ons) lliscants?"
+valid msgstr="control lliscant"
+valid msgstr="controls lliscants"
 valid msgstr="lliscant" cat="krita"
-valid !msgstr="lliscadors?"
-hint="Es tradueix per «botó lliscant» (kde-ca-team)"
+hint="Es tradueix per «control/s lliscant/s» (kde-ca-team)"
 
 {\b(smartcard|smart card)s?\b}i
 valid msgstr="target(a|es) intel·ligents?"
@@ -355,6 +357,10 @@ valid msgstr="divisòri(a|es)"
 valid msgstr="separadors?"
 valid msgstr="separador(a|es)"
 hint="Es tradueix per «divisor, separador» (kde-ca-team)"
+
+{\b(spinbox|spin box)(es)?\b}i
+valid msgstr="bot(ó|ons) de selecció de valors"
+hint="Es tradueix per «botó/ons de selecció de valors» (kde-ca-team)"
 
 {\bspool\b}i
 valid before="\sfile" # «spool file» es comprova més endavant
@@ -377,6 +383,13 @@ hint="Es tradueix per «enviament al gestor de cues» (kde-ca-team)"
 {\b(spoolfile|spool file)s?\b}i
 valid msgstr="fitxers? del gestor de cues"
 hint="Es tradueix per «fitxer del gestor de cues» (kde-ca-team)"
+
+{\b(statusbar|status bar)s?\b}i
+valid msgstr="línia d'estat" cat="kalzium,khangman,ktouch" # fals positiu
+valid !msgstr="barr(a|es) d'estat" cat="kalzium,khangman,ktouch" # fals positiu
+valid msgstr="barr(a|es) d'estat"
+valid msgstr="barres d'eines i d'estat" # fals positiu
+hint="Es tradueix per «barra/es d'estat» (kde-ca-team)"
 
 {\bsticky notes?\b}i
 valid msgstr="not(a|es) adhesiv(a|es)"
@@ -414,6 +427,10 @@ hint="Es tradueix per «arxiu/s tar» (kde-ca-team)"
 {\b(taskbar|task bar)s?\b}i
 valid msgstr="barr(a|es) de tasques"
 hint="Es tradueix per «barra de tasques» (kde-ca-team)"
+
+{\b(textbox|text box)(es)?\b}i
+valid msgstr="quadres? de text"
+hint="Es tradueix per «quadre/s de text» (kde-ca-team)"
 
 {\b(titlebar|title bar)s?\b}i
 valid msgstr="barr(a|es) de títol"
