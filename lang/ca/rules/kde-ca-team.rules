@@ -49,6 +49,7 @@ hint="Es tradueix per «marca/ques de selecció» (kde-ca-team)"
 
 {\b(checkbox|check box)(es)?\b}i
 valid msgstr="casell(a|es) de selecció"
+valid msgstr="caselladeseleccio" cat="kexi"
 hint="Es tradueix per «casella/es de selecció» (kde-ca-team)"
 
 {\bchecksums?\b}i
@@ -67,6 +68,7 @@ hint="Es tradueix per «selector de color» (kde-ca-team)"
 {\b(combobox|combo box)(es)?\b}i
 valid msgstr="quadre combinat"
 valid msgstr="quadres combinats"
+valid msgstr="quadrecombinat" cat="kexi"
 hint="Es tradueix per «quadre/s combinat/s» (kde-ca-team)"
 
 {\bcontext menus?\b}i
@@ -270,6 +272,7 @@ hint="Es tradueix per «anell/s de claus» (personal)"
 
 {\b(listbox|list box)(es)?\b}i
 valid msgstr="quadres? de llista"
+valid msgstr="quadredellista" cat="kexi"
 hint="Es tradueix per «quadre/s de llista» (kde-ca-team)"
 
 {\bmailbox(es)?\b}i
@@ -336,7 +339,9 @@ hint="Es tradueix per -segons el sentit que tingui- «drecera/es|accés ràpid»
 {\bsliders?\b}i
 valid msgstr="control lliscant"
 valid msgstr="controls lliscants"
+valid msgstr="controllliscant" cat="kexi"
 valid msgstr="lliscant" cat="krita"
+valid msgstr="lliscament" cat="kxsconfig"
 hint="Es tradueix per «control/s lliscant/s» (kde-ca-team)"
 
 {\b(smartcard|smart card)s?\b}i
@@ -360,6 +365,7 @@ hint="Es tradueix per «divisor, separador» (kde-ca-team)"
 
 {\b(spinbox|spin box)(es)?\b}i
 valid msgstr="bot(ó|ons) de selecció de valors"
+valid msgstr="botodeselecciodevalors" cat="kexi"
 hint="Es tradueix per «botó/ons de selecció de valors» (kde-ca-team)"
 
 {\bspool\b}i
@@ -430,6 +436,7 @@ hint="Es tradueix per «barra de tasques» (kde-ca-team)"
 
 {\b(textbox|text box)(es)?\b}i
 valid msgstr="quadres? de text"
+valid msgstr="quadredetext" cat="kexi"
 hint="Es tradueix per «quadre/s de text» (kde-ca-team)"
 
 {\b(titlebar|title bar)s?\b}i
