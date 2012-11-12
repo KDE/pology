@@ -545,6 +545,7 @@ valid after="\s(1\/2|2|7\/16|7|3\/4|4)" cat="ppdtranslations4"
 valid after="AutoAdvance=1" cat="kdiff3"
 valid after="x(5|6|7|8|10|12|18|20|24|30)" cat="digikam"
 valid after="install" cat="amarok"
+valid after="label=.*" cat="kdeprint4"
 valid after="expressió regular.+" cat="kphotoalbum"
 valid after="8|12|16" cat="kstars_indi" # docmessages
 valid after="KSpeech\ssay\s.*" cat="jovie" # docmessages
