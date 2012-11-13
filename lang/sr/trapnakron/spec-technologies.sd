@@ -235,6 +235,8 @@ X.509: Икс.509|*, Икс.509|>, _род!=м
     @л: X.509|*, X.509|>
 XAuth: Икс-аут|, Икс-аут|>
     @л: XAuth|, XAuth|>
+XFA: ИксФА|-, ИксФА|>, _пр=XML Forms Architecture
+    @л: XFA|-, XFA|>
 Zero-Link: зиро-линк|, зиро-линк|ов, зиро-линк|>
     @л: Zero-Link|, Zero-Link|ov, Zero-Link|>
 
