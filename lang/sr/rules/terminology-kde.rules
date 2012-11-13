@@ -901,6 +901,7 @@ valid msgstr="\bпостав(ц|к|љ|ит)"
 valid msgstr="(->|→)подешавање"
 valid msgstr="подешавање(->|→)"
 valid msgstr="\[подешавање\]"
+valid msgstr="&\w*setting\w*-\S*;"
 valid msgid="configur|set(ting)? up" msgstr="подеси|подешавањ|постављањ|постави"
 valid span="preference\b" msgstr="пожеља?н|првенств"
 valid span="settings" before=" menu" # „мени Подешавање“
