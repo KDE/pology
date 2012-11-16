@@ -68,8 +68,9 @@ hint="Cal revisar-ho «\
 (accent_diacrític)"
 
 [\bdon(a|es)\b]i
-valid msgid="Female"
-valid msgid="Woman"
+valid msgid="Females?"
+valid msgid="Wom(a|e)ns?"
+valid msgid="wifes?"
 hint="Cal revisar-ho «\
 -- dona, dones: ésser humà de gènere femení; muller \
 -> dóna, dónes: formes del verb donar» \
@@ -141,6 +142,7 @@ hint="Cal revisar-ho «\
 (accent_diacrític)"
 
 [\bmor(a|es)\b]i
+valid msgid="Mora"
 hint="Cal revisar-ho «\
 -- mora: dona magribina; retard \
 -> móra: (plural móres): fruita \
