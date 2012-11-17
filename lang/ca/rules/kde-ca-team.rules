@@ -37,9 +37,11 @@ hint="Es tradueix per «difuminat» (kde-ca-team)"
 {\bbox(es)?\b}i
 valid msgstr="quadres?"
 valid msgstr="casell(a|es)"
-valid msgstr="caix(a|es)" cat="kxsconfig"
+valid msgstr="bústi(a|es)"
+valid msgstr="caix(a|es)" cat="kxsconfig,kpovmodeler,kmid"
 valid msgstr="capsa" cat="libkdeedu,kstars"
 valid msgstr="box(es)?"
+valid msgstr="apartats? de correus"            # post office  -> apartat de correus
 valid msgstr="diàlegs?"                        # dialog box   -> diàleg
 valid msgstr="botó(ns)? de selecció de valors" # spin box     -> botó de selecció de valors
 valid msgstr="llist(a|es) desplegables?"       # dropdown box -> llista desplegable
