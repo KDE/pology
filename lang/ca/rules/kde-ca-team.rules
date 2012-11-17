@@ -34,6 +34,19 @@ valid msgstr="difumina(t|s)?"
 valid !msgstr="desenfo.+"
 hint="Es tradueix per «difuminat» (kde-ca-team)"
 
+{\bbox(es)?\b}i
+valid msgstr="quadres?"
+valid msgstr="casell(a|es)"
+valid msgstr="caix(a|es)" cat="kxsconfig"
+valid msgstr="capsa" cat="libkdeedu,kstars"
+valid msgstr="box(es)?"
+valid msgstr="diàlegs?"                        # dialog box   -> diàleg
+valid msgstr="botó(ns)? de selecció de valors" # spin box     -> botó de selecció de valors
+valid msgstr="llist(a|es) desplegables?"       # dropdown box -> llista desplegable
+valid msgstr="rètols? informatiu"              # info box     -> rètol informatiu
+valid msgstr="claudàtors?"                     # box bracket  -> claudàtor
+hint="Es tradueix per «quadre» o «casella», generalment (kde-ca-team)"
+
 {\bbuttons?\b}i
 valid msgstr="bot(ó|ons)"
 valid msgstr="button" cat="klinkstatus"
@@ -414,7 +427,7 @@ valid msgstr="pestany(a|es)"
 valid msgstr="tabuladors?"
 valid msgstr="tabulaci(ó|ons)"
 valid msgstr="caràcter de tabulació"
-valid msgstr="tab" cat="kdelibs4,kabcclient,kdeqt,katepart4,ktouch,digikam,simonshortcutcommand" # Tecla Tab
+valid msgstr="tab" cat="kdelibs4,kcmkeyboard,kabcclient,kdeqt,katepart4,ktouch,digikam,simonshortcutcommand" # Tecla Tab
 valid msgstr="tabulatur(a|es)" cat="amarok" # Tablature -> Tabulatura (Termcat: música)
 valid msgstr="encastat" cat="kcontrol_filetypes" # docmessages
 valid msgstr="~" after="screenshot.+" cat="korganizer" # docmessages
