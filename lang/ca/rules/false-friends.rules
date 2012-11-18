@@ -487,6 +487,13 @@ valid msgstr="font" cat="kdm_theme-ref"
 valid !msgstr="fonts?"
 hint="«Font» es tradueix per «Tipus (de lletra)», no per «Font» (fals amic)"
 
+# «Gradient» es tradueix per «Degradat».
+{\bgradients?\b}i
+valid msgstr="degradats?"
+valid msgstr="gradient" cat="digikam,kmplot"
+#valid !msgstr="gradient"
+hint="«Gradient» es tradueix per «Degradat», no per «Gradient» (fals amic)"
+
 # «Gripe» es tradueix per «Mal de ventre».
 {\bgripe\b}i
 valid msgstr="mal\sde\sventre"
