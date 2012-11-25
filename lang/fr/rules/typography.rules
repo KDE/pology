@@ -191,7 +191,7 @@ valid after="!" before="<"
 valid after="<"
 valid after="&unbsp;" before="(&lt;\/[a-zA-Z0-9]&gt;)*&lt;\/qt&gt;" 
 valid after="&lt;" before="-- Ce fichier a été généré par Konqueror --&gt;"
-valid cat="kspread,sheets" after="[abcx!]|\(valeur\)"
+valid cat="kspread,sheets" after="[abcx\)!]|\(valeur\)"
 valid cat="kspread,sheets" before="[A-Z][0-9]"
 valid cat="k3b" before="a"
 valid cat="kcalc" after="^x"
@@ -413,7 +413,7 @@ validGroup tokenTag
 validGroup userinputTag
 valid ctx="kdedt-format"
 valid after="&unbsp;" before="[,\. \)]"
-valid after="&unbsp;" before="&unbsp;[\?!,]"
+valid after="&unbsp;" before="&unbsp;[\?!,;]"
 valid after="font-size:[0-9]+"# CSS
 valid before="[0-9ns]"
 valid before="[A-Za-z_]\b"
