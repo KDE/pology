@@ -98,6 +98,7 @@ valid ctx="CSV separator"
 valid after="\*\.\w+" before="\*\.\w+" # List of extension suffix
 valid after="center|empty|normal|pt|px|pre-wrap|\d+|[a-f]{1,2}" # CSS
 valid after="bold" before="'"   # CSS
+valid before="~"
 valid before="$"
 hint="Ponga un espacio después del signo de punto y coma"
 
@@ -112,6 +113,8 @@ id="ty-falta-espacio-despues-cierre-admiracion"
 validGroup afterPunctuation
 valid ctx="Numbers and characters"
 valid ctx="CSV separator"
+valid before="~"
+valid before="$"
 hint="Ponga un espacio después del signo de cierre de admiración"
 
 [(?s)^[^¡]*?\!]
@@ -187,12 +190,15 @@ valid ctx="CSV separator"
 valid msgid="CREDIT_FOR_TRANSLATORS"
 valid msgid="Your emails"
 valid after="\d+\s?" before="\s?\d+"
+valid before="~"
+valid before="$"
 hint="Ponga un espacio de separación después del signo de coma"
 
 [»(?!\s)]
 id="ty-falta-espacio-despues-cierre-comilla"
 validGroup closeQuotes
-valid before="\~"
+valid before="~"
+valid before="$"
 valid ctx="Numbers and characters"
 hint="Ponga un espacio después del signo de comilla española de cierre"
 
@@ -263,6 +269,8 @@ valid after="\.\."
 valid before="\." after="\."
 valid before="\*"
 valid after="\*"
+valid before="~"
+valid before="$"
 hint="Ponga un espacio después de un signo de punto"
 
 [\.\.\.\s?\.]

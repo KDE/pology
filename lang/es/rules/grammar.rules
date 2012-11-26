@@ -842,29 +842,6 @@ hint="Ponga una coma después de «en cambio» (error gramatical)"
 id="gr-falta-coma-despues-en-primer-lugar"
 hint="Ponga una coma después de «en primer lugar» (error gramatical)"
 
-[en\scuanto\sa\s]i
-id="gr-falta-coma-despues-en-cuanto-a"
-hint="Ponga una coma después de «En cuanto a» (error gramatical)"
-
-#[respecto\sde\s]i
-#id="gr-falta-coma-despues-respecto-de"
-#hint="Ponga una coma después de «Respecto de» (error gramatical)"
-
-[con\srespecto\sa\s]i
-id="gr-falta-coma-despues-con-respecto-a"
-hint="Ponga una coma después de «Con respecto a» (error gramatical)"
-
-#[en\srelación\scon\s]i
-#hint="Ponga una coma después de «En relación con» (error gramatical)"
-
-[con\sreferencia\sa\s]i
-id="gr-falta-coma-despues-con-referencia-a"
-hint="Ponga una coma después de «Con referencia a» (error gramatical)"
-
-[a\stenor\sde\s]i
-id="gr-falta-coma-despues-a-tenor-de"
-hint="Ponga una coma después de «A tenor de» (error gramatical)"
-
 [Generalmente\s]
 id="gr-falta-coma-depues-generalmente"
 hint="Ponga una coma después de «Generalmente» (error gramatical)"
@@ -1028,6 +1005,12 @@ hint="Ponga una coma antes de «no obstante» (error gramatical)"
 id="gr-falta-coma-antes-por-ejemplo"
 validGroup beforeComma
 hint="Ponga una coma antes de «por ejemplo» (error gramatical)"
+
+[\bp\.\sej\.]
+id="gr-falta-coma-antes-p-ej"
+validGroup beforeComma
+hint="Ponga una coma antes de «p. ej.» (error gramatical)"
+
 
 [\bpor\sel\scontrario\b]
 id="gr-falta-coma-antes-por-el-contrario"
