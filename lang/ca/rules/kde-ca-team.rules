@@ -47,7 +47,9 @@ valid msgstr="botó(ns)? de selecció de valors" # spin box     -> botó de sele
 valid msgstr="llist(a|es) desplegables?"       # dropdown box -> llista desplegable
 valid msgstr="rètols? informatiu"              # info box     -> rètol informatiu
 valid msgstr="claudàtors?"                     # box bracket  -> claudàtor
-hint="Es tradueix per «quadre» o «casella», generalment (kde-ca-team)"
+hint="Es tradueix per «quadre» o «casella»: generalment \
+els «quadres» permeten introduir text/nombres, i \
+les «caselles» s'activen o es desactiven (kde-ca-team)"
 
 {\bbuttons?\b}i
 valid msgstr="bot(ó|ons)"
