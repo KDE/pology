@@ -34,18 +34,24 @@ valid msgstr="difumina(t|s)?"
 valid !msgstr="desenfo.+"
 hint="Es tradueix per «difuminat» (kde-ca-team)"
 
-{\bbox(es)?\b}i
+{\bbox(es|s)?\b}i
+valid msgid="check.?box(es|s)?"		# -> casella/es de selecció
+valid msgid="combo.?box(es|s)?"		# -> quadre/s combinat/s
+valid msgid="dialogs?.?box(es|s)?"	# -> diàleg/s \\*
+valid msgid="drop.?down.?(selection\s)?box(es|s)?" # -> llista/es desplegable/s
+valid msgid="info(rmation)?.?box(es|s)?" # -> rètol/s informatiu/s
+valid msgid="key.?box(ing)?(es|s)?"	# -> anell/s de claus
+valid msgid="list.?box(es|s)?"		# -> quadre/s de llista
+valid msgid="mail.?box(es|s)?"		# -> bústia/es, bústia/es de correu
+valid msgid="search.?box(es|s)?"	# -> quadre/s de cerca
+valid msgid="spin.?box(es|s)?"		# -> botó/ons de selecció de valors
+valid msgid="text.?box(es|s)?"		# -> quadre/s de text
 valid msgstr="quadres?"
 valid msgstr="casell(a|es)"
-valid msgstr="bústi(a|es)"
 valid msgstr="caix(a|es)" cat="kxsconfig,kpovmodeler,kmid"
 valid msgstr="capsa" cat="libkdeedu,kstars"
 valid msgstr="box(es)?"
 valid msgstr="apartats? de correus"            # post office  -> apartat de correus
-valid msgstr="diàlegs?"                        # dialog box   -> diàleg
-valid msgstr="botó(ns)? de selecció de valors" # spin box     -> botó de selecció de valors
-valid msgstr="llist(a|es) desplegables?"       # dropdown box -> llista desplegable
-valid msgstr="rètols? informatiu"              # info box     -> rètol informatiu
 valid msgstr="claudàtors?"                     # box bracket  -> claudàtor
 hint="Es tradueix per «quadre» o «casella»: generalment \
 els «quadres» permeten introduir text/nombres, i \
@@ -60,11 +66,11 @@ hint="Es tradueix per «botó/botons» (kde-ca-team)"
 valid msgstr="joc de caràcters"
 hint="Es tradueix per «joc de caràcters» (kde-ca-team)"
 
-{\b(checkmark|check-mark|check mark)s?\b}i
+{\bcheck.?marks?\b}i
 valid msgstr="mar(ca|ques) de selecció"
 hint="Es tradueix per «marca/ques de selecció» (kde-ca-team)"
 
-{\b(checkbox|check-box|check box)(es)?\b}i
+{\bcheck.?box(es|s)?\b}i
 valid msgstr="casell(a|es) de selecció"
 valid msgstr="caselladeseleccio" cat="kexi"
 hint="Es tradueix per «casella/es de selecció» (kde-ca-team)"
@@ -82,13 +88,12 @@ hint="Es tradueix per «text xifrat» (kde-ca-team)"
 valid msgstr="selector de color"
 hint="Es tradueix per «selector de color» (kde-ca-team)"
 
-{\b(combobox|combo-box|combo box)(es)?\b}i
-valid msgstr="quadre combinat"
-valid msgstr="quadres combinats"
+{\bcombo.?box(es|s)?\b}i
+valid msgstr="quadres? combinats?"
 valid msgstr="quadrecombinat" cat="kexi"
 hint="Es tradueix per «quadre/s combinat/s» (kde-ca-team)"
 
-{\bcontext menus?\b}i
+{\bcontext.?menus?\b}i
 valid msgstr="menús? contextuals?"
 hint="Es tradueix per «menú/s contextual/s» (kde-ca-team)"
 
@@ -156,18 +161,19 @@ valid msgstr="desencriptar"
 hint="Es tradueix per «desencriptatge» (kde-ca-team)"
 
 {\bdialogs?\b}i
+valid msgid="dialogs?.?box(es|s)?"
 valid msgstr="diàlegs?" 
 hint="Es tradueix per «diàleg/s» (kde-ca-team)"
 
 # Sempre serà «diàleg».
-{\bdialogs? box(es)?\b}i
+{\bdialogs?.?box(es|s)?\b}i
 valid !msgstr="caix(a|es) de diàleg"
-# valid msgstr="diàlegs?" # Sense comentar no dona positiu -falla si coincideix amb la bona-.
+valid !msgstr="quadres? de diàleg"
+valid msgstr="diàlegs?"
 hint="Es tradueix per «diàleg» (kde-ca-team)"
 
-{\bdrop down (box|boxes)\b}i
-valid msgstr="llista desplegable"
-valid msgstr="llistes desplegables"
+{\bdrop.?down.?(selection\s)?box(es|s)?\b}i
+valid msgstr="llist(a|es)? desplegables?"
 hint="Es tradueix per «llista/es desplegable/s» (kde-ca-team)"
 
 {\bemoticons?\b}i
@@ -226,7 +232,7 @@ hint="Es tradueix per «xifratge» (kde-ca-team)"
 valid msgstr="icon(a|es) de web"
 hint="Es tradueix per «icon(a|es) de web» (kde-ca-team)"
 
-{\b(frontend|front-end|front end)s?\b}i
+{\bfront.?ends?\b}i
 valid msgstr="frontals?"
 hint="Es tradueix per «frontal» (kde-ca-team)"
 
@@ -270,39 +276,41 @@ valid msgstr="llist(a|es) d'icones"
 #valid msgstr="emoticon list" # fals positiu a la cerca
 hint="Es tradueix per «llista/es d'icones» (kde-ca-team)"
 
-{\binfo box(es)?\b}i
-valid msgstr="rètols? informatius?" # KStars
-hint="Es tradueix per «rètol/s informatiu/s» (kde-ca-team)"
+{\binfo(rmation)?.?box(es|s)?\b}i
+valid msgstr="rètols? informatius?"	# KStars
+valid msgstr="rètol info\."		# KStars
+hint="Es tradueix per «rètol/s informatiu/s, rètol info.» (kde-ca-team)"
 
 {\bitems?\b}i
+valid msgid="items?\snode"
 valid msgstr="elements?"
 valid !msgstr="guimenuitem>" # etiqueta XML
 hint="Es tradueix per «element» (kde-ca-team)"
 
-{\bitems? node\b}i
+{\bitems?\snode\b}i
 valid msgstr="nodes? d'element"
 hint="Es tradueix per «node d'element» (kde-ca-team)"
 
-{\bkey(box| box)(ing)?(es|s)?\b}i
+{\bkey.?box(ing)?(es|s)?\b}i
 valid msgstr="anells? de claus"
 hint="Es tradueix per «anell/s de claus» (personal)"
 
-{\b(listbox|list box)(es|s)?\b}i
+{\blist.?box(es|s)?\b}i
 valid msgstr="quadres? de llista"
 valid msgstr="quadredellista" cat="kexi"
 hint="Es tradueix per «quadre/s de llista» (kde-ca-team)"
 
-{\bmailbox(es)?\b}i
+{\bmail.?box(es|s)?\b}i
 valid msgstr="bústi(a|es) de correu"
 valid msgstr="bústi(a|es)"
 valid msgstr="mailbox" before="\sfiles?" cat="kmail_faq,kmail_importing"
 hint="Es tradueix per «bústia/es, bústia/es de correu» (kde-ca-team)"
 
-{\b(menubar|menu bar)s?\b}i
+{\bmenu.?bars?\b}i
 valid msgstr="barr(a|es) de menú"
 hint="Es tradueix per «barra/es de menú» (kde-ca-team)"
 
-{\b(mailing list|mailing-list)s?\b}i
+{\bmailing.?lists?\b}i
 valid msgstr="llist(a|es) de correu"
 hint="Es tradueix per «llista/es de correu» (kde-ca-team)"
 
@@ -321,11 +329,11 @@ valid msgstr="variable d'entorn PATH"
 valid !msgstr="rut(a|es)"
 hint="Es tradueix per «camí» o «variable d'entorn PATH» (kde-ca-team)"
 
-{\b(progressbar|progress bar)s?\b}i
+{\bprogress.?bars?\b}i
 valid msgstr="barr(a|es) de progrés"
 hint="Es tradueix per «barra/es de progrés» (kde-ca-team)"
 
-{\b(radiobutton|radio button)s?\b}i
+{\bradio.?buttons?\b}i
 valid msgstr="bot(ó|ons) d'opció"
 hint="Es tradueix per «botó/ons d'opció» (kde-ca-team)"
 
@@ -341,9 +349,13 @@ hint="«screenshot» es tradueix per «captura de pantalla» (kde-ca-team)"
 valid msgstr="scripts?"
 hint="Es tradueix per «script/s» (kde-ca-team)"
 
-{\b(scrollbar|scroll bar)s?\b}i
+{\bscroll.?bars?\b}i
 valid msgstr="barr(a|es) de desplaçament"
 hint="Es tradueix per «barra de desplaçament» (kde-ca-team)"
+
+{\bsearch.?box(es|s)?\b}i
+valid msgstr="quadres? de cerca"
+hint="Es tradueix per «quadre/s de cerca» (kde-ca-team)"
 
 {\bshortcuts?\b}i
 valid msgstr="drecer(a|es)"
@@ -361,7 +373,7 @@ valid msgstr="lliscant" cat="krita"
 valid msgstr="lliscament" cat="kxsconfig"
 hint="Es tradueix per «control/s lliscant/s» (kde-ca-team)"
 
-{\b(smartcard|smart card)s?\b}i
+{\bsmart.?cards?\b}i
 valid msgstr="target(a|es) intel·ligents?"
 hint="Es tradueix per «targeta/es intel·ligent/s» (kde-ca-team)"
 
@@ -380,7 +392,7 @@ valid msgstr="separadors?"
 valid msgstr="separador(a|es)"
 hint="Es tradueix per «divisor, separador» (kde-ca-team)"
 
-{\b(spinbox|spin-box|spin box)(es)?\b}i
+{\bspin.?box(es|s)?\b}i
 valid msgstr="bot(ó|ons) de selecció de valors"
 valid msgstr="botodeselecciodevalors" cat="kexi"
 hint="Es tradueix per «botó/ons de selecció de valors» (kde-ca-team)"
@@ -403,11 +415,11 @@ valid msgstr="enviament al gestor de cues"
 valid !msgstr="meta-spooling" # glossary_kdeprintingglossary
 hint="Es tradueix per «enviament al gestor de cues» (kde-ca-team)"
 
-{\b(spoolfile|spool file)s?\b}i
+{\bspool.?files?\b}i
 valid msgstr="fitxers? del gestor de cues"
 hint="Es tradueix per «fitxer del gestor de cues» (kde-ca-team)"
 
-{\b(statusbar|status bar)s?\b}i
+{\bstatus.?bars?\b}i
 valid msgstr="línia d'estat" cat="kalzium,khangman,ktouch" # fals positiu
 valid !msgstr="barr(a|es) d'estat" cat="kalzium,khangman,ktouch" # fals positiu
 valid msgstr="barr(a|es) d'estat"
@@ -418,7 +430,7 @@ hint="Es tradueix per «barra/es d'estat» (kde-ca-team)"
 valid msgstr="not(a|es) adhesiv(a|es)"
 hint="Es tradueix per «nota adhesiva» (kde-ca-team)"
 
-{\b(systemtray|system tray)s?\b}i
+{\bsystem.?trays?\b}i
 valid msgstr="safat(a|es) del sistema"
 hint="Es tradueix per «safata del sistema» (kde-ca-team)"
 
@@ -447,32 +459,32 @@ hint="Es tradueix per «finestra/es amb pestanyes» (kde-ca-team)"
 valid msgstr="arxius? tar"
 hint="Es tradueix per «arxiu/s tar» (kde-ca-team)"
 
-{\b(taskbar|task bar)s?\b}i
+{\btask.?bars?\b}i
 valid msgstr="barr(a|es) de tasques"
 hint="Es tradueix per «barra de tasques» (kde-ca-team)"
 
-{\b(textbox|text box)(es|s)?\b}i
+{\btext.?box(es|s)?\b}i
 valid msgstr="quadres? de text"
 valid msgstr="quadredetext" cat="kexi"
 hint="Es tradueix per «quadre/s de text» (kde-ca-team)"
 
-{\b(titlebar|title bar)s?\b}i
+{\btitle.?bars?\b}i
 valid msgstr="barr(a|es) de títol"
 hint="Es tradueix per «barra/es de títol» (kde-ca-team)"
 
-{\b(toolbar|tool bar)s?\b}i
+{\btool.?bars?\b}i
 valid msgstr="barr(a|es) d'eines"
 valid msgstr="barra de localització" # fals positiu (Location Toolbar)
 valid msgstr="barra de simulació" # fals positiu (Simulation Toolbar)
 valid msgstr="toolbar" cat="calligra"
 hint="Es tradueix per «barra/es d'eines» (kde-ca-team)"
 
-{\b(tooltip|tool-tip|tool tip)s?\b}i
+{\btool.?tips?\b}i
 valid msgstr="consells?"
 valid !msgstr="consells? d'eina"
 hint="Es tradueix per «consells» (kde-ca-team)"
 
-{\btree views?\b}i
+{\btree.?views?\b}i
 valid msgstr="vist(a|es) en arbre"
 hint="Es tradueix per «vista/es en arbre» (kde-ca-team)"
 
@@ -493,12 +505,12 @@ valid msgstr="barr(a|es) de títol de finestra"
 valid msgstr="barra de títol de la finestra" cat="amarok,kcmkio"
 hint="Es tradueix per «barra/es de títol de finestra» (kde-ca-team)"
 
-{\bworksheets?\b}i
+{\bwork.?sheets?\b}i
 valid msgstr="fulls? de treball"
 valid msgstr="fulls? de càlcul"
 hint="Es tradueix per «full de càlcul (KOffice), full de treball» (kde-ca-team)"
 
-{\b(workspace|work space)s?\b}i
+{\bwork.?spaces?\b}i
 valid msgstr="espais? de treball"
 valid !msgstr="àrea de treball"
 hint="Es tradueix per «espai de treball» (kde-ca-team)" 
