@@ -35,15 +35,20 @@ valid !msgstr="desenfo.+"
 hint="Es tradueix per «difuminat» (kde-ca-team)"
 
 {\bbox(es|s)?\b}i
+valid msgid="cardboard box"		# -> safata (de la impressora) glossary_kdeprintingglossary
 valid msgid="check.?box(es|s)?"		# -> casella/es de selecció
 valid msgid="combo.?box(es|s)?"		# -> quadre/s combinat/s
 valid msgid="dialogs?.?box(es|s)?"	# -> diàleg/s \\*
 valid msgid="drop.?down.?(selection\s)?box(es|s)?" # -> llista/es desplegable/s
+valid msgid="edit?.box(es|s)?"		# -> quadre/s d'edició
 valid msgid="info(rmation)?.?box(es|s)?" # -> rètol/s informatiu/s
+valid msgid="input.?box(es|s)?"		# -> quadre/s d'entrada
 valid msgid="key.?box(ing)?(es|s)?"	# -> anell/s de claus
 valid msgid="list.?box(es|s)?"		# -> quadre/s de llista
 valid msgid="mail.?box(es|s)?"		# -> bústia/es, bústia/es de correu
+valid msgid="message.?box(es|s)?"	# -> quadre/s de missatge
 valid msgid="search.?box(es|s)?"	# -> quadre/s de cerca
+valid msgid="selection.?box(es|s)?"	# -> casella/es de selecció
 valid msgid="spin.?box(es|s)?"		# -> botó/ons de selecció de valors
 valid msgid="text.?box(es|s)?"		# -> quadre/s de text
 valid msgstr="quadres?"
@@ -176,6 +181,10 @@ hint="Es tradueix per «diàleg» (kde-ca-team)"
 valid msgstr="llist(a|es)? desplegables?"
 hint="Es tradueix per «llista/es desplegable/s» (kde-ca-team)"
 
+{\bedit?.box(es|s)?\b}i
+valid msgstr="quadres? d'edició"
+hint="Es tradueix per «quadre/s d'edició» (kde-ca-team)"
+
 {\bemoticons?\b}i
 valid msgstr="emoticon(a|es)"
 valid msgstr="emoticons" after="apps\/kopete\/pics\/"
@@ -281,6 +290,10 @@ valid msgstr="rètols? informatius?"	# KStars
 valid msgstr="rètol info\."		# KStars
 hint="Es tradueix per «rètol/s informatiu/s, rètol info.» (kde-ca-team)"
 
+{\binput.?box(es|s)?\b}i
+valid msgstr="quadres? d'entrada"
+hint="Es tradueix per «quadre/s d'entrada» (kde-ca-team)"
+
 {\bitems?\b}i
 valid msgid="items?\snode"
 valid msgstr="elements?"
@@ -306,13 +319,17 @@ valid msgstr="bústi(a|es)"
 valid msgstr="mailbox" before="\sfiles?" cat="kmail_faq,kmail_importing"
 hint="Es tradueix per «bústia/es, bústia/es de correu» (kde-ca-team)"
 
+{\bmailing.?lists?\b}i
+valid msgstr="llist(a|es) de correu"
+hint="Es tradueix per «llista/es de correu» (kde-ca-team)"
+
 {\bmenu.?bars?\b}i
 valid msgstr="barr(a|es) de menú"
 hint="Es tradueix per «barra/es de menú» (kde-ca-team)"
 
-{\bmailing.?lists?\b}i
-valid msgstr="llist(a|es) de correu"
-hint="Es tradueix per «llista/es de correu» (kde-ca-team)"
+{\bmessage.?box(es|s)?\b}i
+valid msgstr="quadres? de missatge"
+hint="Es tradueix per «quadre/s de missatge» (kde-ca-team)"
 
 {\bmultimeter\b}i
 valid msgstr="multímetre"
@@ -337,6 +354,10 @@ hint="Es tradueix per «barra/es de progrés» (kde-ca-team)"
 valid msgstr="bot(ó|ons) d'opció"
 hint="Es tradueix per «botó/ons d'opció» (kde-ca-team)"
 
+{\bradio.?groups?\b}i
+valid msgstr="grups? de botons d'opció"
+hint="Es tradueix per «grup/s de botons d'opció» (kde-ca-team)"
+
 # «screenshot» es tradueix per «captura de pantalla».
 {\bscreenshots?\b}i
 valid msgstr="captur(a|es) de pantalla"
@@ -356,6 +377,10 @@ hint="Es tradueix per «barra de desplaçament» (kde-ca-team)"
 {\bsearch.?box(es|s)?\b}i
 valid msgstr="quadres? de cerca"
 hint="Es tradueix per «quadre/s de cerca» (kde-ca-team)"
+
+{\bselection.?box(es|s)?\b}i
+valid msgstr="casell(a|es) de selecció"
+hint="Es tradueix per «casella/es de selecció» (kde-ca-team)"
 
 {\bshortcuts?\b}i
 valid msgstr="drecer(a|es)"
