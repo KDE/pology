@@ -115,6 +115,7 @@ valid ctx="Numbers and characters"
 valid ctx="CSV separator"
 valid before="~"
 valid before="$"
+valid before="\)"
 hint="Ponga un espacio después del signo de cierre de admiración"
 
 [(?s)^[^¡]*?\!]
@@ -152,6 +153,7 @@ valid ctx="Query"
 valid before="$"
 valid before="\~"
 valid before="\\\\n"
+valid before="\)"
 hint="Ponga un espacio después del signo de cierre de interrogación"
 
 [(?s)^[^¿]*?\?]
@@ -199,6 +201,7 @@ id="ty-falta-espacio-despues-cierre-comilla"
 validGroup closeQuotes
 valid before="~"
 valid before="$"
+valid before="\)"
 valid ctx="Numbers and characters"
 hint="Ponga un espacio después del signo de comilla española de cierre"
 
@@ -271,6 +274,7 @@ valid before="\*"
 valid after="\*"
 valid before="~"
 valid before="$"
+valid before="\)"
 hint="Ponga un espacio después de un signo de punto"
 
 [\.\.\.\s?\.]

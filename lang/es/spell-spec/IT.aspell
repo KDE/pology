@@ -1,4 +1,4 @@
-personal_ws-1.1 es 3130 utf-8
+personal_ws-1.1 es 3198 utf-8
 aac
 AAC
 ABAP
@@ -17,6 +17,7 @@ ACIS
 ACK
 ACL
 Acl
+acodec
 ACPI
 Acpid
 ACR
@@ -155,6 +156,7 @@ Asterik
 AstroMenace
 ASUS
 Asus
+asx
 AT
 ATA
 ATAPI
@@ -188,6 +190,7 @@ Autodesk
 Autoedición
 automake
 Automatix
+automoc
 AutoSync
 Av
 Avaneya
@@ -569,6 +572,7 @@ DiscJuggler
 Diva
 divx
 DivX
+dj
 DJPlay
 djvu
 DjVu
@@ -650,6 +654,7 @@ DynDNS
 EB
 EBay
 EBCDIC
+ebuilds
 ECB
 ECC
 Echo
@@ -729,6 +734,7 @@ ExFAT
 EXIF
 Exif
 Exim
+exiv
 exr
 EXR
 Extranet
@@ -764,7 +770,9 @@ Ffdshow
 FFmpeg
 ffmpeg
 FFMpeg
+ffprove
 FFServer
+ffserver
 Fglrx
 FHT
 FictionBook
@@ -810,6 +818,7 @@ foomatic
 foovar
 Foveon
 FoxPro
+fps
 FPS
 FPU
 fpx
@@ -831,6 +840,7 @@ FreeDoom
 Freenode
 FreeNode
 FreeOrion
+freepats
 Freespire
 freetts
 FreeType
@@ -915,6 +925,7 @@ Gentoo
 GeoCities
 Geoetiquetado
 Getmail
+getopt
 gettext
 Gettext
 Geyes
@@ -975,6 +986,7 @@ GMailSite
 GmailStatus
 gmake
 GmbH
+gmp
 GMT
 GMX
 GN
@@ -1015,6 +1027,7 @@ gnuplot
 Gnus
 Gnustep
 Gnutella
+gnutls
 gocr
 GOCR
 gok
@@ -1060,11 +1073,13 @@ GPIB
 GPIO
 gpl
 GPL
+gpodder
 GPRS
 GPS
 gps
 gpsbabel
 gpsd
+gpson
 GPSSync
 GPU
 GPUs
@@ -1090,6 +1105,7 @@ growisofs
 grub
 GRUB
 GS
+gsed
 gsm
 GSM
 GSMLib
@@ -1209,6 +1225,7 @@ Icam
 ICANN
 icc
 ICC
+icecast
 Icecast
 Icedove
 IceWind
@@ -1252,9 +1269,11 @@ ImageReady
 imake
 imap
 IMAP
+imaps
 IMDb
 IMesh
 ImgBurn
+imlbase
 IMovie
 Imperivm
 importwizard
@@ -1279,6 +1298,7 @@ Intellivision
 Internet
 InterNIC
 InterOp
+intltool
 intranet
 Intranet
 Intro
@@ -1321,8 +1341,8 @@ IRIX
 IRKick
 Irkick
 IRM
-irq
 IRQ
+irq
 isbn
 ISDN
 ISight
@@ -1398,12 +1418,14 @@ JUST
 JWM
 kajongg
 kanji
+kar
 KCM
 KCMDesktopTheme
 KCMInit
 KCMLocale
 kilbots
 KLM
+kxvplayer
 Labelflash
 LAN
 LanManager
@@ -1426,9 +1448,11 @@ LED
 Lemmings
 Less
 Lexmark
+lgpl
 LGPL
 Lha
 libapalm
+libart
 libavcodec
 libbeagle
 Libburnia
@@ -1436,15 +1460,20 @@ libc
 libcdparanoia
 LibClapack
 libcrypto
+libdaemon
 libdvdcss
 libexec
 LibExiv
+libffi
 libfftw
+libgcript
 libglade
 LibGphoto
 libgpod
 libgstreamer
+libhashab
 libical
+libiobdc
 libipsec
 LibJasper
 LibJPEG
@@ -1455,16 +1484,21 @@ LibKExiv
 LibKipi
 libkleopatra
 libkleopatrarc
+liblastfm
 LibLCMS
 LibLensFun
 LibLqr
+liblzma
 libmad
 libmath
+libmng
 libogg
 libpackagekit
 libparted
 libpcsclite
 LibPGF
+libplist
+libpmt
 Libpng
 LibPNG
 libpoppler
@@ -1480,6 +1514,7 @@ libsndfile
 libsqlite
 libssh
 libssl
+libtasn
 LibTIFF
 libusb
 LibVNCClient
@@ -1518,6 +1553,7 @@ LMDS
 LMMS
 LMMSE
 LNB
+loadcrl
 loadkeys
 localhost
 Localhost
@@ -1563,6 +1599,7 @@ Lycos
 Lyx
 lzma
 LZMA
+lzo
 LZW
 MAC
 Mac
@@ -1584,6 +1621,8 @@ mahjong
 Mahjongg
 maildir
 Maildir
+mailendanalyze
+mailman
 MailScanner
 Mailx
 Majordomo
@@ -1638,6 +1677,7 @@ megami
 Megaupload
 meinproc
 MEncoder
+mencoder
 Mencoder
 MEPIS
 Mesa
@@ -1674,6 +1714,7 @@ MIPS
 mips
 MIT
 MJ
+mka
 Mkdir
 mkdosfs
 mkfifo
@@ -1703,22 +1744,25 @@ Módem
 ModRunner
 MonoBasic
 MonoDevelop
+moodbar
 Moonlight
 moonphase
 Moria
 MOS
 Motif
 Motorola
-Mozilla
 mozilla
+Mozilla
 mozplugger
 mp
 mpeg
 MPEG
 MpegTV
+mpfr
 mpg
 MPlayer
 mplayer
+mplayeropts
 MPlayerThumbs
 MPlayerThumbsConfig
 MPPE
@@ -1825,6 +1869,7 @@ Nintendo
 Nintendogs
 NIS
 NKo
+nkp
 NLG
 NLM
 Nmap
@@ -1897,6 +1942,7 @@ Olympus
 OMNeT
 ONC
 Oolite
+opc
 OPC
 OpenAL
 OpenArena
@@ -1914,6 +1960,7 @@ OpenDivX
 OpenDNS
 OpenDocument
 OpenExchange
+openexr
 OpenEXR
 Openfire
 OpenFT
@@ -1935,6 +1982,7 @@ OpenRecent
 OpenRouteService
 Opensearch
 OpenSearch
+openslp
 Opensnc
 OpenSocial
 OpenSSH
@@ -2002,6 +2050,7 @@ PCI
 PCLinuxOS
 PCM
 PCMCIA
+pcre
 PCS
 pcscd
 PCSCLite
@@ -2069,6 +2118,7 @@ Playdia
 Player
 PlayOnLinux
 PlayStation
+pls
 Plymouth
 PM
 PME
@@ -2147,6 +2197,7 @@ psp
 PSPPIRE
 pstops
 pstoraster
+pt
 PTE
 PTY
 PUBLIC
@@ -2159,11 +2210,13 @@ PVST
 PW
 Pwd
 PWM
+px
 Pyne
 PyQt
 python
 QAccessible
 qBittorrent
+qca
 QColor
 QDBus
 QDial
@@ -2171,6 +2224,7 @@ QEdje
 QEMU
 Qflash
 QGraphicsLayoutItem
+qimageblitz
 qmail
 qmake
 QML
@@ -2185,6 +2239,7 @@ qt
 QtParted
 Qtractor
 QtRuby
+qtscriptgenerator
 QtSQL
 QtWebKit
 Quake
@@ -2213,6 +2268,7 @@ RAMDAC
 RapidShare
 rar
 RAR
+rasqal
 Ratpoison
 raw
 RAW
@@ -2235,6 +2291,7 @@ RealVideo
 Reddit
 RedHat
 RedIRIS
+redland
 RedLibre
 réflex
 regexp
@@ -2293,6 +2350,7 @@ ROX
 RPC
 RPM
 rpm
+rpmbuild
 RR
 RS
 RSA
@@ -2421,7 +2479,9 @@ SMBFS
 smbstatus
 SMBus
 SMD
+smi
 SMIC
+smil
 smime
 SML
 SMPlayer
@@ -2484,6 +2544,7 @@ SSHA
 SSID
 SSL
 ssl
+st
 StarCraft
 Starfighter
 StartTls
@@ -2501,6 +2562,7 @@ Strace
 strcpy
 strftime
 strigi
+strm
 Stronghold
 STUN
 Stunnel
@@ -2572,6 +2634,7 @@ Terragen
 Tesseract
 teTeX
 TeX
+texinfo
 TEXT
 TextLabel
 Tfd
@@ -2603,6 +2666,7 @@ Tk
 TKIP
 TLS
 tls
+tmp
 TMPGEnc
 Tmsnc
 TN
@@ -2836,6 +2900,8 @@ WebDAV
 WebDAVS
 WebKit
 webkit
+weblog
+weblogs
 WebSphere
 WebSVN
 WEP
@@ -3055,6 +3121,7 @@ xslt
 XSLT
 xsltproc
 XSoldier
+xspf
 XSpiroGraph
 XSpirograph
 Xss
@@ -3101,6 +3168,7 @@ YMSG
 Yohoho
 YouTube
 youtube
+yum
 YW
 YZ
 ZBrush

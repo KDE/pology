@@ -375,6 +375,7 @@ valid msgstr="marcar?"
 valid msgstr="marque"
 valid msgstr="control"
 valid msgstr="verifica(r|ción)"
+valid msgstr="revis(ar|ión)"
 valid msgstr="comprobará" after="will\s(not\s)?"
 valid msgstr="marcará" after="will\s(not\s)?"
 valid msgstr="comprobó" after="did\s(not\s)?"
@@ -1170,6 +1171,7 @@ hint="«Enables» se traduce como «Activa/Permita» (ver glosario)"
 {\benabling(?!\s(it|them|you))\b}i
 id="gk-enabling"
 valid msgstr="activa(ción|r|ndo)"
+valid msgstr="que\sactiv[ae]"
 hint="«Enabling» se traduce como «Activación» (ver glosario)"
 
 {\benabling\s(it|you)\b}i
@@ -1282,6 +1284,8 @@ hint="«Events» se traduce como «Eventos» (ver glosario)"
 id="gk-feature"
 valid msgstr="funcionalidad"
 valid msgstr="característica"
+valid msgstr="present(ar|a|e)"
+valid msgstr="ofre(cer|ce|zca)"
 hint="«Feature» se traduce como «Funcionalidad» o «Característica» (ver glosario)"
 
 {\bfeatures\b}i
@@ -1291,7 +1295,8 @@ valid msgstr="características"
 valid msgstr="(cualquier|ninguna)\sfuncionalidad"
 valid msgstr="(cualquier|ninguna)\scaracterística"
 valid msgstr="proporciona"
-valid msgstr="ofrece"
+valid msgstr="present(a|e)"
+valid msgstr="ofre(ce|zca)"
 hint="«Features» se traduce como «Funcionalidades» o «Características» (ver glosario)"
 
 {\b(?<!(line|form)(\s|\-))feed\b}i
@@ -2015,10 +2020,17 @@ valid msgstr="(cualquier|ningún)\svalor\sa\sla\sizquierda"
 valid !msgstr="lvalues"
 hint="«Lvalues» se traduce como «Valores a la izquierda», no se debe dejar sin traducir (ver glosario)"
 
-{\bmail\b}i
-id="gk-mail"
+{\bmail\b}
+id="gk-mail1"
 valid msgstr="correo"
 valid msgstr="mensaje"
+hint="«Mail» se traduce como «Correo» (ver glosario)"
+
+{\bMail\b}
+id="gk-mail2"
+valid msgstr="[Cc]orreo"
+valid msgstr="[Mm]ensaje"
+valid after="[A-Z]\w+(\s|\-)"
 hint="«Mail» se traduce como «Correo» (ver glosario)"
 
 {\bmails\b}i
@@ -2767,16 +2779,19 @@ valid msgstr="intervalo"
 valid msgstr="variedad"
 valid msgstr="gama"
 valid msgstr="alcance"
-hint="«Range» se traduce como «Intervalo» (ver glosario)"
+valid msgstr="periodo" after="time\s"
+hint="«Range» se traduce como «Intervalo/Variedad/Gama» (ver glosario)"
 
 {\branges\b}i
 id="gk-ranges"
 valid msgstr="intervalos"
 valid msgstr="variedades"
 valid msgstr="gamas"
+valid msgstr="periodos" after="time\s"
 valid msgstr="(cualquier|ningún)\sintervalo"
 valid msgstr="(cualquier|ninguna)\svariedad"
 valid msgstr="(cualquier|ninguna)\sgama"
+valid msgstr="(cualquier|ningún)\speriodo" after="time\s"
 hint="«Ranges» se traduce como «Intervalos» (ver glosario)"
 
 {\braw\smode\b}i

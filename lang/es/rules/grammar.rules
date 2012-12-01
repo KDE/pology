@@ -633,7 +633,8 @@ hint="Se debe usar el prefijo « post » antes de una palabra que empieza por «
 id="gr-prefijo-post-enlugar-de-pos"
 valid span="posts\w+"
 valid span="post[aeiour]\w*"
-valid msgstr="Postgresql"
+valid msgstr="postgresql"
+valid msgstr="postfix"
 hint="Se recomienda usar el prefijo « Pos » en lugar de « Post »(error ortográfico)"
 
 #
