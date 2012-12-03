@@ -2230,7 +2230,10 @@ def summit_scatter_single (branch_id, branch_name, branch_subdir,
                    file=branch_path, num=asc_stopped))
 
     # If completeness less than minimal acceptable, remove all translations.
-    completeness_ratio = float(msgs_translated) / msgs_total
+    if msgs_total > 0:
+        completeness_ratio = float(msgs_translated) / msgs_total
+    else:
+        completeness_ratio = 1.0
     if (   completeness_ratio < project.scatter_acc_completeness
         and not options.force
     ):
