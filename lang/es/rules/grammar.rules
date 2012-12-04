@@ -1114,6 +1114,7 @@ hint="La expresión correcta es «detrás|delante|debajo|encima|cerca» de «mí
 
 [(?u)(?u)\b(me|te|se|nos|os|los?|las?|les?)\s(a|ante|con|contra|desde|durante|en|hacia|hasta|por|según|sin|tras)\b]i
 id="gr-preposicion-tras-pronombre"
+valid msgstr="la\sA"
 hint="Después de pronombre personal no suele aparecer preposición (error gramatical)"
 
 [(?u)\b(a|ante|con|contra|de|desde|durante|en|entre|hacia|hasta|para|por|según|sin|tras)(\.|\?|\!|\<p\>)]i
@@ -1537,6 +1538,7 @@ id="gr-dequeismo-6"
 hint="« Afirmar de que » se escribe como « Afirmar que », dequeismo (error gramatical)"
 
 [(?u)\basegur\w{1,4}?\sde\sque\b]i
+valid msgstr="asegurarse\sde\sque"
 id="gr-dequeismo-7"
 hint="« Asegurar de que » se escribe como « Asegurar que », dequeismo (error gramatical)"
 
