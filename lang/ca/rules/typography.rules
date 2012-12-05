@@ -412,6 +412,7 @@ valid span="c\." cat="kleopatra"
 hint="Hi ha una paraula consecutiva repetida en el paràgraf (tipografia)"
 
 [\b(del|dels|el|la|els|les|un|una|uns|unes)\s(el|la|els|les|un|una|uns|unes)\b]
+valid msgstr="els uns als altres"
 valid after="·" # punt volat de la l·l geminada
 valid after="-"
 valid after="&"
