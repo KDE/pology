@@ -393,6 +393,7 @@ valid msgstr="quadres? de cerca"
 hint="Es tradueix per «quadre/s de cerca» (kde-ca-team)"
 
 {\bselection.?box(es|s)?\b}i
+valid msgid="drop.?(down.?)?(selection\s)?box(es|s)?" # -> llista/es desplegable/s
 valid msgstr="casell(a|es) de selecció"
 hint="Es tradueix per «casella/es de selecció» (kde-ca-team)"
 
