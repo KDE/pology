@@ -586,14 +586,14 @@ hint="« Conductors » se traduce como como « Directores/Cobradores », no como
 {\bconference\b}i
 id="ff-conference"
 valid msgstr="congreso"
-valid !msgstr="conferencia"
+valid msgstr="(multi)?conferencia" before="\scall"
 hint="« Conference » se traduce como como « Congreso », no como « Conferencia » (falso amigo)"
 
 {\bconferences\b}i
 id="ff-conferences"
 valid msgstr="congresos"
 valid msgstr="(algún|ningún|cualquier)\scongreso"
-valid !msgstr="conferencias?"
+valid msgstr="(multi)conferencias?" before="\scall"
 hint="« Conferences » se traduce como como « Congresos », no como « Conferencias » (falso amigo)"
 
 {\bconfident\b}i
@@ -1783,13 +1783,13 @@ valid msgstr="ree?mbols(ar|a|e)"
 valid msgstr="ree?mbolsará" after="will\s"
 valid msgstr="ree?mbolsó" after="did\s"
 valid !msgstr="refund(ir|e|a)"
-hint="« Refund » se traduce como como « Reembolsar », no como « Refundir » (falso amigo)"
+hint="« Refund » se traduce como como « Rembolsar », no como « Refundir » (falso amigo)"
 
 {\brefunds\b}i
 id="ff-refunds"
-valid msgstr="reembols(a|e)"
+valid msgstr="ree?mbols(a|e)"
 valid !msgstr="refund(a|e)"
-hint="« Refunds » se traduce como como « Reembolsa », no como « Refunde » (falso amigo)"
+hint="« Refunds » se traduce como como « Rembolsa », no como « Refunde » (falso amigo)"
 
 {\brelevant\b}i
 id="ff-relevant"

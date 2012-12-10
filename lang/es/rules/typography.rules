@@ -241,8 +241,9 @@ hint="No coloque más de un espacio consecutivo"
 
 [(?<=\s)\.]
 id="ty-sobra-espacio-antes-punto"
-valid before="\w{2,4}\b" # Extensions
+valid before="\w{2,4}(\b|\.)" # Extensions
 valid before="\/\w+\b" # Files
+valid before="\w+rc\b" # Configuration files
 valid before="\.\."
 valid before="~"
 valid before="(desktop|calendar|directory)\b"
@@ -263,7 +264,8 @@ valid ctx="trans_comment"
 valid ctx="Numbers and characters"
 valid ctx="X\-KDE\-Keywords"
 valid msgid="CREDIT_FOR_TRANSLATORS"
-valid before="\w{1,4}\b" # Extensions
+valid before="\w{1,4}(\b|\.)" # Extensions
+valid before="\w+rc\b" # Configuration files
 valid before="(calendar|desktop|directory|h|html|lock|moc|xml)\b"
 valid before="\wrc\b" # Configuration files
 valid before="Fm" after="Last\s"

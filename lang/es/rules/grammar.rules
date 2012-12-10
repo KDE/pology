@@ -10,7 +10,7 @@ valid after="^"
 valid after="(\.|\?|\!|\:)\s*"
 #valid after="\<(p|para|qt)\>\s*"
 valid after="\~\s*"
-valid after="\\n\s*"
+valid after="\\\\n\s*"
 valid after="(\¿|\¡|«|\()\s*"
 valid after="etcétera\s*"
 valid after="[A-Z]\w+\s+"
@@ -21,7 +21,7 @@ valid after="(\,|\;|\:)\s*"
 valid after="\("
 #valid after="\<(p|para|qt)\>\s*"
 valid after="\~\s*"
-valid after="\\n\s*"
+valid after="\\\\n\s*"
 
 validGroup beforeConnector
 valid before="y\b"
@@ -1457,7 +1457,7 @@ hint="« Al punto que » se escribe como « Hasta el punto de que » queismo (er
 id="gr-queismo-7"
 hint="« A pesar que » se escribe como « A pesar de que », queismo (error gramatical)"
 
-[(?u)\baarrepentirse\sque\b]i
+[(?u)\barrepentirse\sque\b]i
 id="gr-queismo-8"
 hint="« Arrepentirse que » se escribe como « Arrepentirse de que », queismo (error gramatical)"
 
@@ -1471,7 +1471,7 @@ hint="« Con la condición que » se escribe como « Con la condición de que »
 
 [(?u)\bd\w{1,4}?\sla\scasualidad\sde\sque\b]i
 id="gr-queismo-11"
-hint="« Dar la casualidad que » se escribe como « ar la casualidad de que », queismo (error gramatical)"
+hint="« Dar la casualidad que » se escribe como « Dar la casualidad de que », queismo (error gramatical)"
 
 [(?u)\bdarse\scuenta\sque\b]i
 id="gr-queismo-12"
