@@ -15,8 +15,6 @@ hint="«a el» s'ha de substituir per «al» (error freqüent)"
 
 # «afectar a» ha de ser «afectar» (és transitiu).
 [\bafect[a-zàé]+\sa(ls?)\b]i
-valid msgstr="no afectarà al reconeixement" cat="simon" # docmessages
-valid msgstr="afectarà al connector"
 hint="«afectar a» s'ha de substituir per «afectar» (error freqüent)"
 
 # «al respecte» (castellanisme) ha de ser «pel que fa al cas», «referent a això», «respecte a».
