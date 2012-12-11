@@ -697,10 +697,11 @@ hint="Las vocales con tilde no se usan sueltas (error gramatical)"
 # ERRORES CON GRUPOS DE VOCALES
 #
 
-[\b(antee|antii|archii|autoo|bii|coo|contraa|cuasii|epii|eqii|extraa|fotoo|geoo|hemii|infraa|intraa|macroo|maxii|megaa|metaa|microo|minii|monoo|multii|neoo|perii|plurii|polii|pree|ree|retroo|semii|seudoo|supraa|trii|ultraa|unii|vicee)\w+\b]i
+[\b(antee|autoo|bii|contraa|cuasii|epii|eqii|extraa|fotoo|geoo|hemii|infraa|intraa|macroo|maxii|megaa|metaa|microo|minii|monoo|multii|neoo|perii|plurii|polii|pree|ree|retroo|seudoo|supraa|trii|ultraa|unii|vicee)\w+\b]i
 id="sp-simplificar-vocales-atonas"
-valid msgstr="cooficial"
-valid msgstr="zoología"
+valid msgstr="reemitir"
+valid msgstr="reestablecerse"
+valid msgstr="reenunciar"
 hint="Los grupos de dos vocales átonas se recomienda simplificarlos (error ortográfico)"
 
 #
