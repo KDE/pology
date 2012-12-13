@@ -970,6 +970,7 @@ valid msgstr="mostrará" after="will\s(not\s)?"
 valid msgstr="visualizará" after="will\s(not\s)?"
 valid msgstr="mostró" after="did\s(not\s)?"
 valid msgstr="visualizó" after="did\s(not\s)?"
+valid msgstr="gestor\sde\sventanas" before="\smanager"
 hint="«Display» se traduce como «Pantalla», «Visor» o «Mostrar» (ver glosario)"
 
 {\bdisplays\b}i
@@ -2022,8 +2023,8 @@ hint="«Lvalues» se traduce como «Valores a la izquierda», no se debe dejar s
 
 {\bmail\b}
 id="gk-mail1"
-valid msgstr="correo"
-valid msgstr="mensaje"
+valid msgstr="[Cc]orreo"
+valid msgstr="[Mm]ensaje"
 hint="«Mail» se traduce como «Correo» (ver glosario)"
 
 {\bMail\b}

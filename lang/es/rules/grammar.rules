@@ -699,9 +699,10 @@ hint="Las vocales con tilde no se usan sueltas (error gramatical)"
 
 [\b(antee|autoo|bii|contraa|cuasii|epii|eqii|extraa|fotoo|geoo|hemii|infraa|intraa|macroo|maxii|megaa|metaa|microo|minii|monoo|multii|neoo|perii|plurii|polii|pree|ree|retroo|seudoo|supraa|trii|ultraa|unii|vicee)\w+\b]i
 id="sp-simplificar-vocales-atonas"
-valid msgstr="reemitir"
-valid msgstr="reestablecerse"
-valid msgstr="reenunciar"
+valid msgstr="reemit\w+"
+valid msgstr="reestablec\w+"
+valid msgstr="reenunc\w+"
+valid msgstr="reenv\w+"
 hint="Los grupos de dos vocales átonas se recomienda simplificarlos (error ortográfico)"
 
 #

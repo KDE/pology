@@ -483,6 +483,9 @@ hint="« Vió » se escribe como « Vio » (error ortográfico)"
 id="sp-ya-con-tilde"
 hint="« Yá » se escribe como « Ya » (error ortográfico)"
 
+# Omit group of words not translates
+addFilterRegex match="(?u)(echo\snest|make\s(un)?install|(little|big)\sendian|summer\sof\scode|if\=|of\=)" repl="~" on="pmsgstr"
+
 # Omit words between quotes.
 addFilterRegex match="(?u)«\w+»" repl="~" on="pmsgstr"
 
@@ -492,14 +495,15 @@ addFilterRegex match="(?u)\{\w+\}" repl="~" on="pmsgstr"
 # Omit words between brackets.
 addFilterRegex match="(?u)\(\w+\)" repl="~" on="pmsgstr"
 
-# Omit words preceded by special characters.
-addFilterRegex match="(?u)\W\w+\W?" repl="~" on="pmsgstr"
-
 # Omit compounds words.
 addFilterRegex match="(?u)\b\w+(\-\w+)+" repl="~" on="pmsgstr"
 
+# Omit words preceded by some special characters.
+addFilterRegex match="(?u)(\/|\-|\+|\:|\.)\w+" repl="~" on="pmsgstr"
+
 # Omit words witch contains at least a capital letter.
-addFilterRegex match="(?u)\b\w*?[A-Z]\w*" casesens="yes" repl="~" on="pmsgstr"
+addFilterRegex match="(?u)\b[a-z]+[A-Z]\w*" casesens="yes" repl="~" on="pmsgstr"
+addFilterRegex match="(?u)\w+\s+[A-Z]\w*" casesens="yes" repl="~" on="pmsgstr"
 
 *hook name="spell/check-spell-sp~lang='es'" on="msgstr"
 id="sp-check-spell-hook"
