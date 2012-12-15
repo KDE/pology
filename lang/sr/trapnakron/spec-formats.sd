@@ -216,8 +216,14 @@ Joliet: џолијет|, џолијет|ов, џолијет|>
 linuxswap: |{`Linux~н}-размен|а
     @иј: |{`Linux~н}-размијен|а
 LUKS: ЛУКС|-, ЛУКС|-ов, ЛУКС|>, _пр=Linux Unified Key Setup
-LVM: ЛВМ|-, ЛВМ|-ов, ЛВМ|>
+LVM: ЛВМ|-, ЛВМ|-ов, ЛВМ|>, _пр=Logical Volume Manager
+LVM2: ЛВМ|- 2, н&а=ЛВМ-2, ЛВМ-2|>
+    @л: н&а=LVM2, LVM2|>
+LVM2 PV: |LVM2~.м ПВ|-, _пр=LVM2 physical volume
 NFS: НФС|-, НФС|>
+NILFS: НИЛФС|-, НИЛФС|-ов, НИЛФС|>, _пр=New Implementation of a Log-structured File System
+NILFS2: НИЛФС|- 2, н&а=НИЛФС-2, НИЛФС-2|>
+    @л: н&а=NILFS2, NILFS2|>
 NTFS: НТФС|-, НТФС|-ов, НТФС|>
 OCFS: ОЦФС|-, ОЦФС|-ов, ОЦФС|>, _пр=Oracle Cluster File System
 OCFS2: ОЦФС|- 2, н&а=ОЦФС2, ОЦФС2|>, _пр=Oracle Cluster File System 2
