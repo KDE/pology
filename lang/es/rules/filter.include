@@ -69,10 +69,10 @@ addFilterRegex match="\:\w+\:" repl="~" on="pmsgid,pmsgstr"
 addFilterRegex match="\$\w+" repl="~" on="pmsgid,pmsgstr"
 
 # Remove MIME types
-addFilterRegex match="(all|application|audio|fonts|image|inode|interface|message|model|multipart|text|uri|video|x\-content|x\-epoc)\/\w(\.|\-|\+|\w)*\w" repl="~" on="pmsgid,pmsgstr"
+addFilterRegex match="\b(all|application|audio|fonts|image|inode|interface|message|model|multipart|text|uri|video|x\-content|x\-epoc)\/\w(\.|\-|\+|\w)*\w" repl="~" on="pmsgid,pmsgstr"
 
 # Remove Linux files
-addFilterRegex match="\/?(bin|boot|dev|etc|home|~|lib|lib64|lost\+found|media|mnt|opt|proc|root|run|sbin|srv|sys|tmp|usr|var)(\/(\.|\-|\+|\_|\w)+)+" repl="~" on="pmsgid,pmsgstr"
+addFilterRegex match="\b(bin|boot|dev|etc|home|~|lib|lib64|lost\+found|media|mnt|opt|proc|root|run|sbin|srv|sys|tmp|usr|var)(\/(\.|\-|\+|\_|\w)+)+" repl="~" on="pmsgid,pmsgstr"
 
 # Remove some types of paragraph tags.
 addFilterHook name="es:remove_subs/remove_tags_without_translation" on="msg"

@@ -503,6 +503,7 @@ addFilterRegex match="(?u)(\/|\-|\+|\:|\.)\w+" repl="~" on="pmsgstr"
 
 # Omit words witch contains at least a capital letter.
 addFilterRegex match="(?u)\b[a-z]+[A-Z]\w*" casesens="yes" repl="~" on="pmsgstr"
+addFilterRegex match="(?u)\b[A-Z]\w*?[A-Z]\w*" casesens="yes" repl="~" on="pmsgstr"
 addFilterRegex match="(?u)\w+\s+[A-Z]\w*" casesens="yes" repl="~" on="pmsgstr"
 
 *hook name="spell/check-spell-sp~lang='es'" on="msgstr"
