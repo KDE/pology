@@ -1957,7 +1957,7 @@ valid msgstr="bloque(os|a)"
 valid msgstr="(cualquier|ningún)\sbloqueo"
 hint="«Locks» se traduce como «Bloqueos» (ver glosario)"
 
-{\blog(?!\s(back|in|off|out))\b}i
+{\blog(?!\s(back|in|on|off|out))\b}i
 id="gk-log"
 valid msgstr="registr(ar|o|a|e)"
 valid msgstr="registrará" after="will\s(not\s)?"

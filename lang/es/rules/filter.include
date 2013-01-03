@@ -57,7 +57,7 @@ addFilterRegex match="\s(\:\)|\(\-\:|\:\)|\(\:|\=\)|\)\-\:\)|\:\-\)|\:\-\(|\;\-\
 addFilterRegex match="[^\%][\dXx]+([\.\,\:\/][\dXx]+)+" repl="~" on="pmsgid,pmsgstr"
 
 # Remove email addresses with "at"
-addFilterRegex match="\(\w+\sat\s\w+(\s\w{2,3}){1,2}\)" repl="~" on="pmsgid,pmsgstr"
+addFilterRegex match="\((\w+\s)+at(\s\w+)*(\s\w{2,3}){1,2}\)" repl="~" on="pmsgid,pmsgstr"
 
 # Remove some special tags preceded with '%'
 addFilterRegex match="\%\w+" repl="~" on="pmsgid,pmsgstr"
@@ -73,6 +73,9 @@ addFilterRegex match="\b(all|application|audio|fonts|image|inode|interface|messa
 
 # Remove Linux files
 addFilterRegex match="\b(bin|boot|dev|etc|home|~|lib|lib64|lost\+found|media|mnt|opt|proc|root|run|sbin|srv|sys|tmp|usr|var)(\/(\.|\-|\+|\_|\w)+)+" repl="~" on="pmsgid,pmsgstr"
+
+# Remove Windows files
+addFilterRegex match="\b[A-Z]\:(\\\\(\.|\-|\+|\_|\w)+)+" repl="~" on="pmsgid,pmsgstr"
 
 # Remove some types of paragraph tags.
 addFilterHook name="es:remove_subs/remove_tags_without_translation" on="msg"
