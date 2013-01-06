@@ -103,7 +103,8 @@ hint="S'ha de posar un espai després del signe dels dos punts (tipografia)"
 valid ctx="Numbers and characters"
 valid ctx="CSV separator" 
 valid after="Algerian\s*" cat="calligra,koffice"
-valid after="sleep\s3" cat="konsole" # docmessages
+valid after="Algerian\s*" cat="calligra,koffice"
+valid after="abans\sde" cat="cantor"
 valid span="\s\;$" cat="kleopatra" # docmessages
 valid comment="Tag\:\sprogramlisting" cat="kipi-plugins_geolocation" # docmessages
 valid comment="Tag\:\sscreen" cat="sscd" # docmessages
@@ -564,6 +565,7 @@ valid after="charset=.+" cat="kontact-admin" # docmessages
 valid after="DIGIT.+" cat="kontact-admin" # docmessages
 valid after=" en_GB" cat="kalarm" # docmessages
 valid after="(echo |executant)" cat="ktimetracker" # docmessages
+valid after="esperava\s" cat="cantor"
 valid before="make" cat="amarok"
 valid before="AutoAdvance=1" cat="kdiff3"
 valid before="GET|POST" cat="kdeprint_cups-config" # docmessages
