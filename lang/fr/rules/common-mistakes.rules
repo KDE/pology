@@ -20,6 +20,9 @@ valid after="url=\".*" before=".*\"/>"
 validGroup commandTag
 valid after="<command>.*" before=".*</command>"
 
+validGroup foreignphraseTag
+valid after="<foreignphrase>.*" before=".*</foreignphrase>"
+
 [\bboites?\b]i
 hint="boite => boîte (avec un accent circonflexe)"
  
@@ -201,6 +204,7 @@ valid after="New,"
 hint="À remplacer par « courrier »" 
 
 [language]i
+validGroup foreignphraseTag
 valid ctx="Query" before="=" 
 valid after="HyperText&sp;Markup&sp;" 
 valid after="Interface&sp;Definition&sp;" 
@@ -461,6 +465,7 @@ valid cat="system-config-printer-kde" after="taille du "
 valid cat="system-config-printer-kde" after="type de "
 valid cat="system-config-printer-kde" after="imprimer sur des "
 valid cat="konqueror_sidebar" after="Il affiche également tous les disques ou "
+valid cat="kcontrol_nepomuk"
 hint="« support » est un faux ami, à traduire par un dérivé de « disponible », « autoriser », « accepter », « gérer » ou « prendre en charge »"
 
 [text(?![e|uel|\-])]i
