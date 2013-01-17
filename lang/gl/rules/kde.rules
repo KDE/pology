@@ -171,7 +171,7 @@ hint="when selected -> se o escolle (experimental)"
 # «...not found.» -> «Non se atopou...»
 {\b\w+\snot\sfound\.}i
 id="expression_not found."
-valid msgstr="\bNon\s(se\satopou|foi\sposíbel\satopar)\s(\w+\s)+\w+"
+valid msgstr="\bNon\s(se\satop(ou|aron)|foi\sposíbel\satopar)\s(\w+\s)+\w+"
 hint="...not found. -> Non se atopou/foi posíbel atopar ... ..."
 
 # there was an error ....
@@ -392,7 +392,7 @@ hint="imprimir = print"
 # «rename» -> «mudar de nome»
 {\brename}i
 id="kde_rename"
-valid msgstr="\bmud(ar|ou)\sde\snome"
+valid msgstr="\bmud(ar|ou|anzas?)\s(de|o)\snome"
 hint="«rename» tradúcese como «mudar de nome»"
 
 # «mudar de nome» -> «renomear»

@@ -1169,7 +1169,7 @@ hint="«keyword» tradúcese como «palabra clave», (ou palabra reservada, en l
 {\bkill}i
 valid before="ustrator"
 id="noPT-2011_kill"
-valid msgstr="\bmat(ar|ou)"
+valid msgstr="\bmat(a|ar|ou)"
 valid before="ed" msgstr="\bmatado"
 valid msgstr="matal(a|o)"
 valid msgstr="\bkill"
@@ -2002,6 +2002,7 @@ hint="«valid» tradúcese como «correcto»"
 id="noPT-2011-dual_valid"
 valid msgid="\bvalid"
 valid msgid="\bcorrect"
+valid before="r"  msgid="\bspell\schecker" env="kde"
 hint="«correcto» traduce a «valid» (e a «correct»)"
 
 # «widget» tradúcese como «trebello»

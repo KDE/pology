@@ -28,6 +28,7 @@
 
 # «hide» tradúcese como «acochar»
 {\bhide(\b|s|ed)}i
+valid after="show\sor\s"
 id="aaPT_hide"
 valid msgstr="\bacoch"
 valid !msgstr="(ocult|agoch)?"
