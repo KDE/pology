@@ -1052,7 +1052,7 @@ def summit_gather (project, options):
     summit_names = select_summit_names(project, options)
 
     # Setup progress indicator.
-    upprog = lambda x: x
+    upprog = lambda x=None: x
     if not options.verbose:
         catpaths = [project.catalogs[SUMMIT_ID][x][0][0] for x in summit_names]
         upprog = init_file_progress(catpaths,
@@ -1121,7 +1121,7 @@ def summit_scatter (project, options):
                 namelist=format_item_list(missing_in_summit)))
 
     # Setup progress indicator.
-    upprog = lambda x: x
+    upprog = lambda x=None: x
     if not options.verbose:
         catpaths = [x[3] for x in scatter_specs if x[1]]
         upprog = init_file_progress(catpaths,
@@ -1237,7 +1237,7 @@ def summit_merge (project, options):
                                 project.branches_fuzzy_merging))
 
     # Setup progress indicator.
-    upprog = lambda x: x
+    upprog = lambda x=None: x
     if not options.verbose:
         catpaths = [x[3] for x in merge_specs]
         upprog = init_file_progress(catpaths,
