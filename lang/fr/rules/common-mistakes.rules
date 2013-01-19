@@ -15,10 +15,13 @@ validGroup roleTag
 valid after="role=\".*" before=".*\"/>"
 
 validGroup urlTag
-valid after="url=\".*" before=".*\"/>"
+valid after="url=\".*" before=".*\">"
 
 validGroup commandTag
 valid after="<command>.*" before=".*</command>"
+
+validGroup computeroutputTag
+valid after="<computeroutput>.*" before=".*</computeroutput>"
 
 validGroup foreignphraseTag
 valid after="<foreignphrase>.*" before=".*</foreignphrase>"
@@ -205,6 +208,7 @@ hint="À remplacer par « courrier »"
 
 [language]i
 validGroup foreignphraseTag
+validGroup urlTag
 valid ctx="Query" before="=" 
 valid after="HyperText&sp;Markup&sp;" 
 valid after="Interface&sp;Definition&sp;" 
@@ -246,6 +250,7 @@ valid before="[a-zàôâéèêçîû\-]+[^sx]&unbsp;"
 valid before="$|%" 
 valid before="[A-Z]" 
 valid cat="kioslave_audiocd"
+valid cat="kdeprint_cups-config" before="<acronym>"
 hint="Il y a toujours un singulier après « chaque »"
 
 [([pP]ostscript)|(postScript)]
@@ -429,6 +434,7 @@ hint="Pas de tiret entre « raccourci » et « clavier »"
 hint="occurences -> occurrences. Avec deux « r » !"
 
 [status|statut]i
+validGroup computeroutputTag
 valid after="[Ss]mb"
 valid after="Task"
 valid after="klink"

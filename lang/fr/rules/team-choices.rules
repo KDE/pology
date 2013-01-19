@@ -5,6 +5,9 @@
 addFilterHook name="fr:patternAccents" on="pattern"
 addFilterHook name="fr:patternEntities" on="pattern"
 
+validGroup computeroutputTag
+valid after="<computeroutput>.*" before=".*</computeroutput>"
+
 validGroup inParenthesis
 valid after="\(" before="\)"
 
@@ -16,6 +19,7 @@ valid after="<option>.*" before=".*</option>"
 
 validGroup systemitemTag
 valid after=".*<systemitem class=\"username\">" before=".*</systemitem>"
+valid after=".*<systemitem class=\"groupname\">" before=".*</systemitem>"
 
 [(\b[Ee]ntrer\b)|(\b[Ee]ntré[^e])|(\b[Ee]ntrez\b)]
 valid before="&sp;dans&sp;"
@@ -176,6 +180,7 @@ hint="plugin -> module externe"
 validGroup inParenthesis
 validGroup optionTag
 validGroup systemitemTag
+validGroup computeroutputTag
 valid after="uid |UID "
 valid after="/"
 valid after="-"
@@ -281,6 +286,7 @@ valid cat="koffice"
 valid cat="planlibs"
 valid cat="kioslave_fish"
 valid before=" de recherche"
+valid after="petit bonhomme de "
 hint="Traduisez « path » par « emplacement » dans le contexte de dossiers/fichiers"
 
 [désinitialiser]i

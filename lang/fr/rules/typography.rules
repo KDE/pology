@@ -50,6 +50,12 @@ valid after="<keycap>.*" before=".*</keycap>"
 validGroup roleTag
 valid after="role=\".*" before=".*\"/>"
 
+validGroup computeroutputTag
+valid after="<computeroutput>.*" before=".*</computeroutput>"
+
+validGroup promptTag
+valid after="<prompt>.*" before=".*</prompt>"
+
 [:]
 validGroup strongTypo
 validGroup inParenthesis
@@ -58,6 +64,8 @@ validGroup alone
 validGroup cdataTag
 validGroup userinputTag
 validGroup roleTag
+validGroup computeroutputTag
+validGroup promptTag
 valid after="&unbsp;" before="\t"
 valid after="https?://\S+"
 valid after="cgi|file|gg|mailto|man|whatsthis|kmail|addMsg|config|help"
@@ -136,6 +144,7 @@ valid cat="kfilereplace" after="\[\$.*"
 valid cat="kioslave_fish" after="<command>echo FISH"
 valid cat="kolourpaint" msgid="All rights reserved.*"
 valid cat="kppp" after="&PPP;"
+valid cat="kdeprint_cups-config" before="/" after="/"
 hint="Mettre une espace insécable avant et une espace après"
 
 [;]
@@ -246,6 +255,7 @@ hint="Mettre une espace insécable avant et une espace après"
 validGroup inQuotes
 validGroup cdataTag
 validGroup keycapTag
+validGroup computeroutputTag
 valid after="[^&sp;(]" before="&sp;" 
 valid after="[^&sp;(]" before="\n"
 valid after="[^&sp;(]" before="</td>"
@@ -276,6 +286,7 @@ hint="Pas d'espace avant une virgule (mais un après) !"
 validGroup cdataTag
 validGroup userinputTag
 validGroup keycapTag
+validGroup computeroutputTag
 valid after="x" before="y"
 valid after="^Keywords="
 valid after="font-family:.+" # CSS
@@ -322,6 +333,7 @@ valid cat="kolourpaint" msgid="All rights reserved.*"
 hint="Utiliser de vrais guillemets, au lieu d'une apostrophe (homogénéité)"
 
 ['(?=[^\wéèàêâÉÈÀÊÂ«œ])]
+validGroup computeroutputTag
 valid before="&amp;[\wéèàêâ]" 
 valid before="&lt;b&gt;"
 valid before="&lt;a "
@@ -369,6 +381,7 @@ validGroup inQuotes
 validGroup alone
 validGroup cdataTag
 validGroup keycapTag
+validGroup computeroutputTag
 valid msgid="<!ENTITY"
 valid after="\s+(=|]|PS1|\")"
 valid before="\s*/?>|&gt|}"
@@ -402,6 +415,7 @@ hint="Utilisez le symbole apostrophe (touche 4 sur un clavier français)"
 
 [&sp;&sp;+]
 valid msgid="&sp;&sp;+"
+validGroup computeroutputTag
 hint="Ne jamais mettre plus d'une espace"
 
 [%]
@@ -525,7 +539,8 @@ hint="Pas d'espace avant un point"
 [&cr;]
 hint="À bas MS-DOS"
 
-[&unbsp;[:|;] (?=[A-Z])] 
+[&unbsp;[:|;] (?=[A-Z])]
+validGroup computeroutputTag
 valid before="[A-Z]\.?[A-Z]" # Keywords, acronyms
 valid before="David|Laura|Gerardo|Martin|Hari" # Authors
 valid before="Français|Anglais|Italien|Espagnol|Allemand"
@@ -541,6 +556,7 @@ valid cat="khangman"
 valid cat="knetattach" before="WebDav"
 valid cat="kopete_chatstyle" before="Jabber"
 valid cat="kcontrol_nepomuk" before="Nepomuk"
+valid cat="kdeprint_cups-config" before="ServerName"
 hint="Pas de majuscule après deux points ou un point virgule"
 
 [(<strong>«)|(<b>«)|(<em>«)|(<i>«)|(»</strong>)|(»</b>)|(»</em>)|(»</i>)]
@@ -553,6 +569,7 @@ hint="Ne pas cumuler le gras ou l'italique et les guillemets"
 #hint="Mettez une majuscule aux deux termes (homogénéïté)"
 
 [&sp;/&sp;|&sp;/&ubsp;]
+validGroup computeroutputTag
 valid cat="kcmlilo" before="lors du démarrage"
 hint="Mettez une espace insécable avant le / et une espace après"
 
