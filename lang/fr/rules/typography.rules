@@ -56,16 +56,23 @@ valid after="<computeroutput>.*" before=".*</computeroutput>"
 validGroup promptTag
 valid after="<prompt>.*" before=".*</prompt>"
 
+validGroup errortypeTag
+valid after="<errortype>.*" before=".*</errortype>"
+
+validGroup foreignphraseTag
+valid after="<foreignphrase>.*" before=".*</foreignphrase>"
+
 [:]
-validGroup strongTypo
-validGroup inParenthesis
-validGroup inQuotes
 validGroup alone
 validGroup cdataTag
-validGroup userinputTag
-validGroup roleTag
 validGroup computeroutputTag
+validGroup errortypeTag
+validGroup inParenthesis
+validGroup inQuotes
 validGroup promptTag
+validGroup roleTag
+validGroup strongTypo
+validGroup userinputTag
 valid after="&unbsp;" before="\t"
 valid after="https?://\S+"
 valid after="cgi|file|gg|mailto|man|whatsthis|kmail|addMsg|config|help"
@@ -178,6 +185,7 @@ valid ctx="unit synonyms for matching user input"
 valid cat="kolourpaint" msgid="All rights reserved.*"
 valid cat="kopete_chatstyle" msgid="p.message { color:inherit; border-color:inherit; }"
 valid cat="kopete_pipes" after="&amp;amp;lt"
+valid cat="kdeprint_theory" after="% first box over"
 hint="Mettre une espace insécable avant et une espace après"
 
 [!]
@@ -186,6 +194,7 @@ validGroup inParenthesis
 validGroup inQuotes
 validGroup alone
 validGroup cdataTag
+validGroup foreignphraseTag
 valid after="&unbsp;" before="\)"
 valid after="&unbsp;" before="&unbsp;»"
 valid after="^<" before="--.*--&gt;$"
@@ -216,6 +225,7 @@ valid cat="skrooge" ctx="condition"
 valid cat="kfilereplace" before="\[CDATA"
 valid cat="khangman" before="--Traduire"
 valid cat="kioslave_mailto" after="%20"
+valid cat="kdeprint_theory" before="PS"
 hint="Mettre une espace insécable avant et une espace après"
 
 [\?]
@@ -459,6 +469,7 @@ valid cat="kgpg" before="KEYID|UIDNAME"
 valid cat="kopete_chatstyle" before="chatName|destinationName|incomingIconPath|outgoingIconPath|timeOpened|userIconPath|textbackgroundcolor|senderStatusIcon|senderColor|message|time|messageDirection"
 valid cat="kile" after="}|{"
 valid cat="kile" after="^"
+valid cat="kdeprint_theory" before="!PS| first"
 valid ctx="Numbers and characters"
 hint="Mettre une espace insécable avant et une espace après"
 
@@ -541,6 +552,7 @@ hint="À bas MS-DOS"
 
 [&unbsp;[:|;] (?=[A-Z])]
 validGroup computeroutputTag
+validGroup errortypeTag
 valid before="[A-Z]\.?[A-Z]" # Keywords, acronyms
 valid before="David|Laura|Gerardo|Martin|Hari" # Authors
 valid before="Français|Anglais|Italien|Espagnol|Allemand"
@@ -557,6 +569,7 @@ valid cat="knetattach" before="WebDav"
 valid cat="kopete_chatstyle" before="Jabber"
 valid cat="kcontrol_nepomuk" before="Nepomuk"
 valid cat="kdeprint_cups-config" before="ServerName"
+valid cat="kdeprint_final-word" before="Tom"
 hint="Pas de majuscule après deux points ou un point virgule"
 
 [(<strong>«)|(<b>«)|(<em>«)|(<i>«)|(»</strong>)|(»</b>)|(»</em>)|(»</i>)]

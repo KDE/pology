@@ -280,6 +280,7 @@ hint="Utiliser la forme « en suivant votre PATH »"
 
 [chemins?]i
 valid before=" équestre| de randonnée| de bézier| critique"
+valid cat="kdeprint_final-word" after="se fraie un "
 valid cat="klines"
 valid cat="kgoldrunner"
 valid cat="koffice"
@@ -287,6 +288,7 @@ valid cat="planlibs"
 valid cat="kioslave_fish"
 valid before=" de recherche"
 valid after="petit bonhomme de "
+valid cat="kdeprint_theory" after="dessiner un "
 hint="Traduisez « path » par « emplacement » dans le contexte de dossiers/fichiers"
 
 [désinitialiser]i
@@ -338,6 +340,7 @@ hint="Utilisez l'expression « courrier électronique » ou tout simplement « c
 
 [surnom]i
 valid !msgid="nick"
+valid cat="kdeprint_final-word"
 hint="Traduire « nick » ou « nickname » par « pseudo »"
 
 {deprecated}i
