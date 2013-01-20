@@ -386,6 +386,10 @@ def derive_project_data (project, options, nwgrefpath=None):
         b.id = bd.pop("id", None)
         b.topdir = bd.pop("topdir", None)
         b.topdir_templates = bd.pop("topdir_templates", None)
+        # If operation is performed on templates and branch template directory
+        # is defined, override plain branch directory with it.
+        if p.lang == p.templates_lang and b.topdir_templates is not None:
+            b.topdir = b.topdir_templates
         b.by_lang = bd.pop("by_lang", False)
         if b.by_lang and isinstance(b.by_lang, bool):
             b.by_lang = project.lang
