@@ -41,6 +41,9 @@ valid after="<filename>.*" before=".*</filename>"
 validGroup cdataTag
 valid after="<\!\[CDATA\[.*" before=".*\]\]>"
 
+validGroup commandTag
+valid after="<command>.*" before=".*</command>"
+
 validGroup userinputTag
 valid after="<userinput>.*" before=".*</userinput>"
 
@@ -249,6 +252,7 @@ valid cat="sheets_basics" after="VALUE"
 valid cat="sheets_functions" after="x|x!|\(valeur\)"
 valid cat="sheets_functions" msgid="\(a\+b\+c\)!\s/\sa!b!c!"
 valid cat="sheets_functions" after="Feuille[0-9]"
+valid cat="kppp_callback" after="#" before="/bin"
 hint="Mettre une espace insécable avant et une espace après"
 
 [\?]
@@ -257,6 +261,7 @@ validGroup inParenthesis
 validGroup inQuotes
 validGroup alone
 validGroup userinputTag
+validGroup commandTag
 valid ctx=".*one character"
 valid after="&unbsp;" before="\)"
 valid after="&unbsp;" before="&unbsp;»"
@@ -412,6 +417,7 @@ valid ctx="Numbers and characters"
 valid ctx="list_of_words_to_replace"
 valid ctx="City name"
 valid ctx="characters are not allowed"
+valid cat="kppp_dialog-setup" msgid="Expect.*"
 hint="Utiliser de vrais guillemets, au lieu d'une apostrophe (homogénéité)"
 
 [\"]
@@ -443,6 +449,7 @@ valid cat="kturtle_programming-reference" after="auteur.+"
 valid cat="kturtle_glossary" after="\(" before="\)"
 valid cat="kopete_pipes" msgid="Here's an example"
 valid cat="sheets_functions"
+valid cat="kppp_callback" msgid="Expect.*"
 valid after="DOCTYPE.*"
 valid ctx="Numbers and characters"
 valid ctx="characters are not allowed"
@@ -501,6 +508,7 @@ valid cat="kile" after="}|{"
 valid cat="kile" after="^"
 valid cat="kdeprint_theory" before="!PS| first"
 valid cat="sheets_functions" msgid="MIRR\(.*"
+valid cat="kppp_hayes" msgid="U.S.|U.K."
 valid ctx="Numbers and characters"
 hint="Mettre une espace insécable avant et une espace après"
 
@@ -558,7 +566,7 @@ hint="Mettre une espace après un point"
 [&sp;\.]
 valid before="desktop&sp;"
 valid before="xinitrc"
-valid before="cfg|doc|dvi|h|kml|kwd|eps|js|html?|m3u|pls|png|ps|spec|txt|WRI|xml|kalcul|css|zip|tar|gz|pot"
+valid before="cfg|doc|dvi|h|kml|kwd|eps|js|html?|m3u|pls|png|ps|rst|spec|txt|WRI|xml|kalcul|css|zip|tar|gz|pot"
 valid before="NET|kde"
 valid before="/\S+"
 valid cat="konsole" before="schema"
@@ -604,6 +612,7 @@ valid cat="kcontrol_nepomuk" before="Nepomuk"
 valid cat="kdeprint_cups-config" before="ServerName"
 valid cat="kdeprint_final-word" before="Tom"
 valid cat="sheets_functions" before="P|N|J|W|T|C|E|F|K|G"
+valid cat="kppp_hayes" before="V.42bis"
 hint="Pas de majuscule après deux points ou un point virgule"
 
 [(<strong>«)|(<b>«)|(<em>«)|(<i>«)|(»</strong>)|(»</b>)|(»</em>)|(»</i>)]

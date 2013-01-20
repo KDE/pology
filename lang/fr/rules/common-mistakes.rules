@@ -36,7 +36,9 @@ hint="boite => boîte (avec un accent circonflexe)"
 hint="L'erreur classique quand on a raté la touche ^ :)"
 
 [connection]i
+validGroup computeroutputTag
 valid ctx="Name"
+valid cat="kppp_accounting" after="per_"
 hint="La bonne orthographe est « connexion » en français !"
 
 [formatt]i
@@ -117,6 +119,7 @@ validGroup cdataTag
 valid after="Q"
 valid before="IED"
 valid cat="kleopatra" after="Decrypt"
+valid cat="kppp_dialog-setup" msgid="7\sExpect.*|University of Lummerland"
 hint="Mettre un accent aigu sur le « e »"
 
 [r[éeê]gle\b]i
@@ -328,6 +331,7 @@ valid cat="kleopatra" after="EN" before="\b|$"
 valid cat="kleopatra" before="Verif|email|files"
 valid cat="kaffeine4" msgid="Free to air"
 valid cat="kuser" msgid="CRYPT"
+valid cat="kppp_chap" msgid="papcrypt"
 valid after="--de"
 valid after="x-en"
 valid after="x-de"
@@ -393,6 +397,7 @@ valid ctx="Query"
 valid cat="kcmkonqhtml" after="window\."
 valid cat="kioclient" after="Mount "
 valid cat="juk" after="juk-viewmode-"
+valid cat="kppp_accounting"
 hint="À remplacer par « défaut »" 
 
 [media]i
@@ -470,6 +475,7 @@ valid after="kdev\S+"
 valid before=" chiffré"
 valid before=" de stockage"
 valid before=" moral"
+valid before=" téléphonique"
 valid cat="system-config-printer-kde" before=" contenant"
 valid cat="system-config-printer-kde" before=" d'impression"
 valid cat="system-config-printer-kde" after="taille du "

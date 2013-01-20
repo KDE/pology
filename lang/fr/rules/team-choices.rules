@@ -18,8 +18,7 @@ validGroup optionTag
 valid after="<option>.*" before=".*</option>"
 
 validGroup systemitemTag
-valid after=".*<systemitem class=\"username\">" before=".*</systemitem>"
-valid after=".*<systemitem class=\"groupname\">" before=".*</systemitem>"
+valid after=".*<systemitem.*>" before=".*</systemitem>"
 
 [(\b[Ee]ntrer\b)|(\b[Ee]ntré[^e])|(\b[Ee]ntrez\b)]
 valid before="&sp;dans&sp;"
@@ -57,6 +56,7 @@ hint="Ne commencez pas une phrase par « Ici » mais utilisez plutôt une tournu
 hint="Le mot « joystick » ne doit pas être traduit (choix de l'équipe)"
 
 [valide([^zr]|$)]
+valid cat="kppp_kppp-faq" msgid="pppd\[1182.*"
 valid after="il&sp;"
 valid after="XML non "
 hint="Choix de l'équipe : « valable/non valable » (au lieu de « valide/non valide »)"
@@ -195,6 +195,7 @@ hint="Dans un contexte utilisateur, utiliser la traduction « superutilisateur �
 hint="plugin -> module externe"
 
 [OK|O\.k|Okay|ok]
+validGroup computeroutputTag
 valid after="[A-Za-z]"
 valid before="ama" # Okayama city
 valid before="ular|teta"
