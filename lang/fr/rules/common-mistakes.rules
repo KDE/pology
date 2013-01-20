@@ -17,6 +17,9 @@ valid after="role=\".*" before=".*\"/>"
 validGroup urlTag
 valid after="url=\".*" before=".*\">"
 
+validGroup linkTag
+valid after="linkend=\".*" before=".*\">"
+
 validGroup commandTag
 valid after="<command>.*" before=".*</command>"
 
@@ -103,7 +106,7 @@ valid after="</?"
 valid before="s="
 valid cat="kio_groupwise" after="/" before="sbook/"
 valid cat="kmail" after="^\[" before="sBook\]$"
-valid cat="kspread,sheets" msgid="ADDRESS"
+valid cat="kspread,sheets,sheets_functions" msgid="ADDRESS"
 hint="Seulement un « d » en français"
 
 [dosier]i
@@ -410,6 +413,7 @@ valid before=":/"
 valid before="Device"
 valid before="Wiki"
 valid cat="kspread,sheets" before="n"
+valid cat="sheets_functions" before="N"
 hint="media -> média"
 
 [médias]i
@@ -435,6 +439,7 @@ hint="occurences -> occurrences. Avec deux « r » !"
 
 [status|statut]i
 validGroup computeroutputTag
+validGroup linkTag
 valid after="[Ss]mb"
 valid after="Task"
 valid after="klink"
@@ -477,6 +482,7 @@ hint="« support » est un faux ami, à traduire par un dérivé de « disponibl
 
 [text(?![e|uel|\-])]i
 validGroup parameterTag
+validGroup linkTag
 valid ctx="Query"
 valid before="[&sp;|&unbsp;]?\/"
 valid after="[R|r]ich\s?"
@@ -498,6 +504,7 @@ valid cat="kopete_chatstyle"
 valid cat="kopete_pipes" msgid="Here's an example"
 valid cat="kile" before="Document"
 valid cat="kile" after="\\"
+valid cat="sheets_functions"
 hint="Merci de mettre un « e » à la fin de « texte » ou « contexte »"
 
 [anti-[^i]]i

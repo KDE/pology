@@ -47,6 +47,9 @@ valid after="<userinput>.*" before=".*</userinput>"
 validGroup keycapTag
 valid after="<keycap>.*" before=".*</keycap>"
 
+validGroup keysymTag
+valid after="<keysym>.*" before=".*</keysym>"
+
 validGroup roleTag
 valid after="role=\".*" before=".*\"/>"
 
@@ -62,6 +65,15 @@ valid after="<errortype>.*" before=".*</errortype>"
 validGroup foreignphraseTag
 valid after="<foreignphrase>.*" before=".*</foreignphrase>"
 
+validGroup calligraCell
+valid after="[A-Z]*[1-9]*" before="[A-Z]*[1-9]*"
+
+validGroup calligraFunction
+valid after="\(.*" before=".*\)"
+
+validGroup decimal
+valid after="[0-9]*" before="[0-9]*"
+
 [:]
 validGroup alone
 validGroup cdataTag
@@ -73,6 +85,7 @@ validGroup promptTag
 validGroup roleTag
 validGroup strongTypo
 validGroup userinputTag
+validGroup calligraCell
 valid after="&unbsp;" before="\t"
 valid after="https?://\S+"
 valid after="cgi|file|gg|mailto|man|whatsthis|kmail|addMsg|config|help"
@@ -161,6 +174,9 @@ validGroup inQuotes
 validGroup inQuotesTag
 validGroup alone
 validGroup cdataTag
+validGroup keysymTag
+validGroup userinputTag
+validGroup calligraFunction
 valid after="&amp;[0-9a-zA-Z\.\-]+"
 valid after="\*\.[a-zA-Z]+" before="\*\.[a-zA-Z]+" # List of extension suffix
 valid after="center|empty|normal|pt|px|pre-wrap|\d+|[a-f]{1,2}" # CSS
@@ -195,6 +211,9 @@ validGroup inQuotes
 validGroup alone
 validGroup cdataTag
 validGroup foreignphraseTag
+validGroup keysymTag
+validGroup userinputTag
+validGroup calligraFunction
 valid after="&unbsp;" before="\)"
 valid after="&unbsp;" before="&unbsp;»"
 valid after="^<" before="--.*--&gt;$"
@@ -226,6 +245,10 @@ valid cat="kfilereplace" before="\[CDATA"
 valid cat="khangman" before="--Traduire"
 valid cat="kioslave_mailto" after="%20"
 valid cat="kdeprint_theory" before="PS"
+valid cat="sheets_basics" after="VALUE"
+valid cat="sheets_functions" after="x|x!|\(valeur\)"
+valid cat="sheets_functions" msgid="\(a\+b\+c\)!\s/\sa!b!c!"
+valid cat="sheets_functions" after="Feuille[0-9]"
 hint="Mettre une espace insécable avant et une espace après"
 
 [\?]
@@ -266,6 +289,8 @@ validGroup inQuotes
 validGroup cdataTag
 validGroup keycapTag
 validGroup computeroutputTag
+validGroup calligraFunction
+validGroup decimal
 valid after="[^&sp;(]" before="&sp;" 
 valid after="[^&sp;(]" before="\n"
 valid after="[^&sp;(]" before="</td>"
@@ -297,6 +322,8 @@ validGroup cdataTag
 validGroup userinputTag
 validGroup keycapTag
 validGroup computeroutputTag
+validGroup calligraFunction
+validGroup decimal
 valid after="x" before="y"
 valid after="^Keywords="
 valid after="font-family:.+" # CSS
@@ -344,6 +371,7 @@ hint="Utiliser de vrais guillemets, au lieu d'une apostrophe (homogénéité)"
 
 ['(?=[^\wéèàêâÉÈÀÊÂ«œ])]
 validGroup computeroutputTag
+validGroup userinputTag
 valid before="&amp;[\wéèàêâ]" 
 valid before="&lt;b&gt;"
 valid before="&lt;a "
@@ -414,6 +442,7 @@ valid cat="kturtle_programming-reference" after="message.+"
 valid cat="kturtle_programming-reference" after="auteur.+"
 valid cat="kturtle_glossary" after="\(" before="\)"
 valid cat="kopete_pipes" msgid="Here's an example"
+valid cat="sheets_functions"
 valid after="DOCTYPE.*"
 valid ctx="Numbers and characters"
 valid ctx="characters are not allowed"
@@ -435,6 +464,7 @@ validGroup inQuotes
 validGroup optionTag
 validGroup tokenTag
 validGroup userinputTag
+validGroup calligraFunction
 valid ctx="kdedt-format"
 valid after="&unbsp;" before="[,\. \)]"
 valid after="&unbsp;" before="&unbsp;[\?!,;]"
@@ -470,6 +500,7 @@ valid cat="kopete_chatstyle" before="chatName|destinationName|incomingIconPath|o
 valid cat="kile" after="}|{"
 valid cat="kile" after="^"
 valid cat="kdeprint_theory" before="!PS| first"
+valid cat="sheets_functions" msgid="MIRR\(.*"
 valid ctx="Numbers and characters"
 hint="Mettre une espace insécable avant et une espace après"
 
@@ -545,6 +576,7 @@ valid cat="kget" before="kgt"
 valid cat="kturtle_programming-reference" msgid="{ ... }"
 valid ctx="characters are not allowed"
 valid cat="kopete_chatstyle" msgid="styleName\\.*"
+valid cat="sheets_functions" msgid="..."
 hint="Pas d'espace avant un point"
 
 [&cr;]
@@ -553,6 +585,7 @@ hint="À bas MS-DOS"
 [&unbsp;[:|;] (?=[A-Z])]
 validGroup computeroutputTag
 validGroup errortypeTag
+validGroup calligraFunction
 valid before="[A-Z]\.?[A-Z]" # Keywords, acronyms
 valid before="David|Laura|Gerardo|Martin|Hari" # Authors
 valid before="Français|Anglais|Italien|Espagnol|Allemand"
@@ -570,6 +603,7 @@ valid cat="kopete_chatstyle" before="Jabber"
 valid cat="kcontrol_nepomuk" before="Nepomuk"
 valid cat="kdeprint_cups-config" before="ServerName"
 valid cat="kdeprint_final-word" before="Tom"
+valid cat="sheets_functions" before="P|N|J|W|T|C|E|F|K|G"
 hint="Pas de majuscule après deux points ou un point virgule"
 
 [(<strong>«)|(<b>«)|(<em>«)|(<i>«)|(»</strong>)|(»</b>)|(»</em>)|(»</i>)]

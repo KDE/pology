@@ -349,6 +349,7 @@ hint="Traduire « deprecated » par « déconseillé »"
 
 [\bN/A\b|\bN/B\b|\bN/C\b]i
 valid cat="kspread,sheets"
+valid cat="sheets_functions"
 hint="Traduisez ceci par « n/d »"
 
 [didacti.iel|tutorial]i
