@@ -20,6 +20,9 @@ valid after="<option>.*" before=".*</option>"
 validGroup systemitemTag
 valid after=".*<systemitem.*>" before=".*</systemitem>"
 
+validGroup urlTag
+valid after="url=\".*" before=".*\">"
+
 [(\b[Ee]ntrer\b)|(\b[Ee]ntré[^e])|(\b[Ee]ntrez\b)]
 valid before="&sp;dans&sp;"
 valid before="&sp;en&sp;"
@@ -94,6 +97,7 @@ valid cat="kcontrol_kwintabbox" after="vue.+"
 hint="Choix de l'équipe : « compresser » (au lieu de « compacter »)"
 
 [[Gg]ard(é|er)]
+valid before=" un œil"
 valid after="[Ss]auve"
 valid after="[Rr]e"
 valid before=" au repos"
@@ -106,6 +110,7 @@ valid cat="knotes"
 valid cat="korganizer"
 valid cat="gwenview" after="^"
 valid cat="step_qt" after="Formule|Image"
+valid cat="kile" after="&DVI;-"
 hint="Utilisez le mot « Remarque : » (homogénéité)"
 
 [r@eguli@ere]
@@ -219,6 +224,7 @@ valid cat="kalzium" after="&sp;" before="&sp;"
 valid cat="kwordquiz,kturtle_programming-reference" after="&sp;" before="&sp;"
 valid after="<!--.*[^-]-" # HTML Comment
 valid before="$"
+valid cat="kile"
 hint="Utiliser le format « Fichier / Exporter sous » (avec une barre oblique)"
 
 [vous pouvez ici]
@@ -259,7 +265,7 @@ hint="Utiliser une formule en « Impossible de trouver » (homogénéité)"
 valid cat="kcminfo"
 valid cat="kdesu"
 valid cat="kioslave_nntp"
-valid after="et "
+valid after="et |qui "
 hint="Utiliser une formule en « Impossible de... » (homogénéite)"
 
 [Désirez-?vous]i
@@ -271,6 +277,7 @@ hint="« Souhaitez-vous » -> « Voulez-vous » (homogénéité)"
 [Va ]
 valid after="Ja"
 valid cat="konqueror_commands" before="dans votre page personnelle"
+valid cat="kile" msgid="Jump.*"
 hint="« Va » -> « Aller » (à l'infinitif)"
 
 [dans votre \$?PATH]
@@ -439,6 +446,7 @@ valid msgstr="collaboration"
 hint="Traduisez « groupware » par « logiciel de collaboration » lorsque c'est un nom ou « collaboration » dans le contexte d'un adjectif"
 
 {\brepositor}i
+validGroup urlTag
 valid msgstr="dépôt"
 valid cat="kile" before="/" after="/"
 hint="Traduisez « repository » par « dépôt »"

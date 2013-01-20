@@ -29,6 +29,9 @@ valid after="<computeroutput>.*" before=".*</computeroutput>"
 validGroup foreignphraseTag
 valid after="<foreignphrase>.*" before=".*</foreignphrase>"
 
+validGroup userinputTag
+valid after="<userinput>.*" before=".*</userinput>"
+
 [\bboites?\b]i
 hint="boite => boîte (avec un accent circonflexe)"
  
@@ -82,7 +85,9 @@ hint="Mettre un accent circonflexe sur le « e »"
 
 [s[eè]lect|sél[éè]ct]i
 validGroup roleTag
+validGroup commandTag
 valid cat="kommander" before="ed"
+valid cat="kile" msgid=".*psselect.*"
 valid after="[rad|Radical|KChar]"
 valid before="Certificate|or"
 valid after="attribut "
@@ -184,6 +189,7 @@ hint="À remplacer par « comportement »"
 hint="À remplacer par « créées »" 
 
 [environnment]i
+validGroup userinputTag
 valid cat="kile" after="\\\\begin\{|\\\\end\{"
 valid cat="kile" before="\}"
 hint="À remplacer par « environnement »" 
@@ -288,8 +294,10 @@ valid after="processeur \("
 hint="Traduire CPU par « processeur »"
 
 [\benvironment\b]i
+validGroup userinputTag
+valid cat="kile" after="\\\\begin\{|\\\\end\{"
+valid cat="kile" before="\}"
 valid after="Desktop |Model "
-valid cat="kile" after="\\begin\{"
 hint="environment -> environnement"
 
 [installeur]i
@@ -511,6 +519,7 @@ valid cat="kopete_pipes" msgid="Here's an example"
 valid cat="kile" before="Document"
 valid cat="kile" after="\\"
 valid cat="sheets_functions"
+valid cat="kile" after="math"
 hint="Merci de mettre un « e » à la fin de « texte » ou « contexte »"
 
 [anti-[^i]]i
