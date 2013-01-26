@@ -93,6 +93,7 @@ valid before="Certificate|or"
 valid after="attribut "
 valid after="<link linkend=\"\S*" before="\S*\""
 valid after="fileref=\"\S*" before="\S*\""
+valid cat="kile_scripting" after=".*view\..*"
 hint="Mettre un accent aigu sur le premier « e », pas sur le deuxième"
 
 [n[eè]cess|néc[éè]ss]i
@@ -266,6 +267,7 @@ valid cat="kdeprint_cups-config" before="<acronym>"
 hint="Il y a toujours un singulier après « chaque »"
 
 [([pP]ostscript)|(postScript)]
+valid cat="kile_scripting" after="kile\.wizard\..*"
 hint="Écriture officielle : « PostScript » (avec 2 majuscules)"
 
 [[Ll]atex|la[tT]ex|[Ll]ate[x|X]|laTeX|LATEX]
@@ -277,6 +279,9 @@ valid after="&pdf" before=";"
 valid cat="kile" after="/" before="/"
 valid cat="kile" after="Xe"
 valid cat="kile" before="2html"
+valid cat="kile_scripting" msgid="var range.*"
+valid cat="kile_scripting" before="Command"
+valid cat="kile_scripting" after="document\."
 hint="Écriture officielle : « LaTeX » (avec 3 majuscules)"
 
 [\bhttp:/\b]i
@@ -298,6 +303,8 @@ validGroup userinputTag
 valid cat="kile" after="\\\\begin\{|\\\\end\{"
 valid cat="kile" before="\}"
 valid after="Desktop |Model "
+valid cat="kile_scripting" msgid="var .*"
+valid cat="kile_scripting" after="document\."
 hint="environment -> environnement"
 
 [installeur]i
@@ -520,6 +527,7 @@ valid cat="kile" before="Document"
 valid cat="kile" after="\\"
 valid cat="sheets_functions"
 valid cat="kile" after="math"
+valid cat="kile_scripting" after="\\|view\..*|document\.replace|document\.remove"
 hint="Merci de mettre un « e » à la fin de « texte » ou « contexte »"
 
 [anti-[^i]]i

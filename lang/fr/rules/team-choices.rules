@@ -5,6 +5,9 @@
 addFilterHook name="fr:patternAccents" on="pattern"
 addFilterHook name="fr:patternEntities" on="pattern"
 
+validGroup filenameTag
+valid after="<filename>.*" before=".*</filename>"
+
 validGroup computeroutputTag
 valid after="<computeroutput>.*" before=".*</computeroutput>"
 
@@ -170,6 +173,7 @@ hint="item(s) -> élément(s)"
 hint="plugin -> module externe"
 
 [\bplugins?\b]
+validGroup filenameTag
 valid after="\(" before="\)"
 valid after="kmdr-"
 valid after="kipi-"

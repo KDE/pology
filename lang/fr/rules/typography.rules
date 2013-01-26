@@ -68,6 +68,9 @@ valid after="<errortype>.*" before=".*</errortype>"
 validGroup foreignphraseTag
 valid after="<foreignphrase>.*" before=".*</foreignphrase>"
 
+validGroup functionTag
+valid after="<function>.*" before=".*</function>"
+
 validGroup calligraCell
 valid after="[A-Z]*[1-9]*" before="[A-Z]*[1-9]*"
 
@@ -205,6 +208,8 @@ valid cat="kolourpaint" msgid="All rights reserved.*"
 valid cat="kopete_chatstyle" msgid="p.message { color:inherit; border-color:inherit; }"
 valid cat="kopete_pipes" after="&amp;amp;lt"
 valid cat="kdeprint_theory" after="% first box over"
+valid cat="kile_scripting" after="\)"
+valid cat="kile_scripting" msgid="var .*"
 hint="Mettre une espace insécable avant et une espace après"
 
 [!]
@@ -420,6 +425,7 @@ valid ctx="list_of_words_to_replace"
 valid ctx="City name"
 valid ctx="characters are not allowed"
 valid cat="kppp_dialog-setup" msgid="Expect.*"
+valid cat="kile_scripting" msgid="var .*"
 hint="Utiliser de vrais guillemets, au lieu d'une apostrophe (homogénéité)"
 
 [\"]
@@ -428,6 +434,7 @@ validGroup alone
 validGroup cdataTag
 validGroup keycapTag
 validGroup computeroutputTag
+validGroup functionTag
 valid msgid="<!ENTITY"
 valid after="\s+(=|]|PS1|\")"
 valid before="\s*/?>|&gt|}"
@@ -457,6 +464,9 @@ valid after="DOCTYPE.*"
 valid ctx="Numbers and characters"
 valid ctx="characters are not allowed"
 valid ctx="unit synonyms for matching user input"
+valid cat="kile_scripting" msgid="var range.*"
+valid cat="kile_scripting" after="\("
+valid cat="kile_scripting" before="\)"
 hint="Utiliser de vrais guillemets (alt-gr w, z ou x), au lieu de guillemets anglais (homogénéité)"
 
 [’]
@@ -465,6 +475,7 @@ hint="Utilisez le symbole apostrophe (touche 4 sur un clavier français)"
 [&sp;&sp;+]
 valid msgid="&sp;&sp;+"
 validGroup computeroutputTag
+valid cat="kile_scripting" ctx="Tag: programlisting"
 hint="Ne jamais mettre plus d'une espace"
 
 [%]
