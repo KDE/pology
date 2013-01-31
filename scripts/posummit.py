@@ -1099,7 +1099,6 @@ def summit_scatter (project, options):
         branch_ids = options.partbids
 
     # Collect catalogs to scatter through all selected branches.
-    missing_in_summit = []
     for branch_id in branch_ids:
 
         branch_catalogs = select_branch_catalogs(branch_id, project, options)
@@ -1114,7 +1113,12 @@ def summit_scatter (project, options):
             summit_paths = []
             for summit_name in summit_names:
                 if not summit_name in project.catalogs[SUMMIT_ID]:
-                    missing_in_summit.append(summit_name)
+                    # Warning pertinent to this situation will have
+                    # been issued earlier, so just skip it here.
+                    #warning(_("@info",
+                              #"Missing summit catalog "
+                              #"for branch catalog '%(file)s'.",
+                              #file=branch_path))
                     continue
                 summit_paths.append(
                     project.catalogs[SUMMIT_ID][summit_name][0][0])
@@ -1124,12 +1128,6 @@ def summit_scatter (project, options):
 
         # Dummy entry to indicate branch switch.
         scatter_specs.append((branch_id, None, None, None, None))
-
-    # Assure all catalogs to scatter have summit counterparts.
-    if missing_in_summit:
-        error(_("@info",
-                "Missing necessary summit catalogs: %(namelist)s.",
-                namelist=format_item_list(missing_in_summit)))
 
     # Setup progress indicator.
     upprog = lambda x=None: x
