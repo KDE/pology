@@ -6,35 +6,35 @@
 include file="filter.include"
 
 [\ba\sacá\b]i
-id="cm-a-aca"
+id="cm-2-a-aca"
 hint="« A acá » se escribe como « Acá » (error frecuente: redundancia)"
 
 [\ba\sadelante\b]i
-id="cm-a-adelante"
+id="cm-2-a-adelante"
 hint="« A adelante » se escribe como « Adelante » (error frecuente: redundancia)"
 
 [\ba\sadentro\b]i
-id="cm-a-adentro"
+id="cm-2-a-adentro"
 hint="« A adentro » se escribe como « Adentro » (error frecuente: redundancia)"
 
 [\ba\safuera\b]i
-id="cm-a-afuera"
+id="cm-2-a-afuera"
 hint="« A afuera » se escribe como « Afuera » (error frecuente: redundancia)"
 
 [\ba\sarriba\b]i
-id="cm-a-arriba"
+id="cm-2-a-arriba"
 hint="« A arriba » se escribe como « Arriba » (error frecuente: redundancia)"
 
 [\ba\satrás\b]i
-id="cm-a-atras"
+id="cm-2-a-atras"
 hint="« A atrás » se escribe como « Atrás » (error frecuente: redundancia)"
 
 [\ba\sbuen\sfin\b]i
-id="cm-a-buen-fin"
+id="cm-2-a-buen-fin"
 hint="« A buen fin » se escribe como « Con buen fin » (error frecuente: solecismo)"
 
 [\ba\scuenta\sde\b]i
-id="cm-a-cuenta-de"
+id="cm-2-a-cuenta-de"
 hint="« A cuenta de » se escribe como « Por cuenta de » (error frecuente: solecismo)"
 
 [\ba\sefecto\sde\b]i
@@ -42,754 +42,754 @@ id="a-efecto-de"
 hint="« A efecto de » se escribe como « A efectos de » (error frecuente)"
 
 [\b[Aa]\sel\b]
-id="cm-a-el"
+id="cm-2-a-el"
 hint="« A el » se escribe como « Al » (error frecuente)"
 
 [\ba\sexcepción\shecha\sde\b]i
-id="cm-a-excepcion-hecha-de"
+id="cm-2-a-excepcion-hecha-de"
 hint="« A excepción hecha de » se escribe como « A excepción de/Excepción hecha de » (error frecuente: solecismo)"
 
 [\ba\sgrosso\smodo\b]i
-id="cm-a-grosso-modo"
+id="cm-2-a-grosso-modo"
 hint="« A grosso modo » se escribe como « Grosso modo » (error frecuente: solecismo)"
 
 [\ba\sla\salza\b]i
-id="cm-a-la-alza"
+id="cm-2-a-la-alza"
 hint="« A la alza » se escribe como « Al alza » (error frecuente: solecismo)"
 
 [\ba\sla\smayor\sbrevedad\b]i
-id="cm-a-la-mayor-brevedad"
+id="cm-2-a-la-mayor-brevedad"
 hint="« A la mayor brevedad » se escribe como « Con la mayor brevedad » (error frecuente: solecismo)"
 
 [\ba\slo\sque\sse\sve\b]i
-id="cm-a-lo-que-se-ve"
+id="cm-2-a-lo-que-se-ve"
 hint="« A lo que se ve » se escribe como « Por lo que se ve » (error frecuente: solecismo)"
 
 [\ba\slo\sque\sveo\b]i
-id="cm-a-lo-que-veo"
+id="cm-2-a-lo-que-veo"
 hint="« A lo que veo » se escribe como « Por lo que veo » (error frecuente: solecismo)"
 
 [\ba\snivel\sde\b]i
-id="cm-a-nivel-de"
+id="cm-2-a-nivel-de"
 hint="« A nivel de » e escribe como «En el ámbito de/Con respecto a/Entre/En». (error frecuente)"
 
 [\ba\sparte\b]i
-id="cm-a-parte"
+id="cm-2-a-parte"
 hint="« A parte » se escribe como « Aparte » (error frecuente)"
 
 [\ba\spretexto\sde\b]i
-id="cm-a-pretexto-de"
+id="cm-2-a-pretexto-de"
 hint="« A pretexto de » se escribe como « Bajo pretexto de » (error frecuente: solecismo)"
 
 [\ba\sprisa\b]i
-id="cm-a-prisa"
+id="cm-2-a-prisa"
 hint="« A prisa » se escribe como « Aprisa » (error frecuente)"
 
 [\ba\sresultas\sde\b]i
-id="cm-a-resultas-de"
+id="cm-2-a-resultas-de"
 hint="« A resultas de » se escribe como « De resultas » (error frecuente: solecismo)"
 
 [\ba\stal\sextremo\sde\b]i
-id="cm-a-tal-extremo-de"
+id="cm-2-a-tal-extremo-de"
 hint="« A tal extremo de » se escribe como « Hasta tal extremo » (error frecuente: solecismo)"
 
 [\bal\sextremo\sde\b]i
-id="cm-al-extremo"
+id="cm-2-al-extremo"
 hint="« Al extremo de » se escribe como « Hasta el extremo » (error frecuente: solecismo)"
 
 [\ba\sobjeto\sde\b]i
-id="cm-al-objeto-de"
+id="cm-2-al-objeto-de"
 hint="« Al objeto de » se escribe como « Con el objeto de » (error frecuente: solecismo)"
 
 [\bal\spunto\sde\b]i
-id="cm-al-punto-de"
+id="cm-2-al-punto-de"
 hint="« Al punto de » se escribe como « Hasta tal punto/Hasta el punto de » (error frecuente: solecismo)"
 
 [\bal\srededor\b]i
-id="cm-al-rededor"
+id="cm-2-al-rededor"
 hint="« Al rededor » se escribe como « Alrededor » (error frecuente)"
 
 [\bal\srespecto\sde\b]i
-id="cm-al-respecto-de"
+id="cm-2-al-respecto-de"
 hint="« Al respecto de » se escribe como « Con respecto a/de » (error frecuente: solecismo)"
 
 [\bal\stiempo\sque\b]i
-id="cm-al-tiempo-que"
+id="cm-2-al-tiempo-que"
 hint="« Al tiempo que » se escribe como « A tiempo que » (error frecuente: solecismo)"
 
 [\balmacenaje\b]i
-id="cm-almacenaje"
+id="cm-2-almacenaje"
 hint="« Almacenaje » se escribe como « Almacenamiento » (error frecuente)"
 
 [\bamateur\b]i
-id="cm-amateur"
+id="cm-2-amateur"
 hint="« Amateur » se escribe como « Aficionado » (error frecuente)"
 
 [\bamateurs\b]i
-id="cm-amateurs"
+id="cm-2-amateurs"
 hint="« Amateurs » se escribe como « Aficionados » (error frecuente)"
 
 [\bambos\sdos\b]i
-id="cm-ambos-dos"
+id="cm-2-ambos-dos"
 hint="« Ambos dos » se escribe como « Ambos » (error frecuente)"
 
 [\banteriormente\sa\b]i
-id="cm-anteriormente-a"
+id="cm-2-anteriormente-a"
 hint="« Anteriormente a » se escribe como « Antes de/Con anterioridad a » (error frecuente)"
 
 [\bantes\sde\sahora\b]i
-id="cm-antes-de-ahora"
+id="cm-2-antes-de-ahora"
 hint="« Antes de ahora » se escribe como « Hasta ahora » (error frecuente: solecismo)"
 
 [\baparte\sque\b]i
-id="cm-aparte-que"
+id="cm-2-aparte-que"
 hint="« Aparte que » se escribe como « Aparte de » (error frecuente)"
 
 [\bapunto\sde\b]i
-id="cm-apunto-de"
+id="cm-2-apunto-de"
 hint="« Apunto que » se escribe como « A punto de » (error frecuente)"
 
 [\b(la|una|los|unos|esta|estos|esa|esos)\sAPI\b]i
-id="cm-api-en-masculino"
+id="cm-2-api-en-masculino"
 hint="« API » es de género femenino, pero empieza por 'A' tónica (error frecuente)"
 
 [\basí\ses\sque\b]i
-id="cm-asi-es-que"
+id="cm-2-asi-es-que"
 hint="« Así es que » se escribe como « Así que » (error frecuente)"
 
 [\basí\smismo\b]i
-id="cm-asi-mismo"
+id="cm-2-asi-mismo"
 hint="« Así mismo » se escribe como « Asimismo » (error frecuente)"
 
 [\batentar\sa\b]i
-id="cm-atentar-a"
+id="cm-2-atentar-a"
 hint="« Atentar a » se escribe como « Atentar contra » (error frecuente)"
 
 [\bayer\smañana\b]i
-id="cm-ayer-manana"
+id="cm-2-ayer-manana"
 hint="« Ayer mañana » se escribe como « Ayer por la mañana » (error frecuente)"
 
 [\bayer\snoche\b]i
-id="cm-ayer-noche"
+id="cm-2-ayer-noche"
 hint="« Ayer noche » se escribe como « Anoche » (error frecuente)"
 
 [\bayer\starde\b]i
-id="cm-ayer-tarde"
+id="cm-2-ayer-tarde"
 hint="« Ayer tarde » se escribe como « Ayer por la tarde » (error frecuente)"
 
 [\bbajo\sel\sángulo\b]i
-id="cm-bajo-el-angulo"
+id="cm-2-bajo-el-angulo"
 hint="« Bajo el ángulo » se escribe como « Desde el ángulo » (error frecuente: solecismo)"
 
 [\bbajo\sel\saspecto\b]i
-id="cm-bajo-el-aspecto"
+id="cm-2-bajo-el-aspecto"
 hint="« Bajo el aspecto » se escribe como « En el aspecto » (error frecuente: solecismo)"
 
 [\bbajo\sel\sconcepto\b]i
-id="cm-bajo-el-concepto"
+id="cm-2-bajo-el-concepto"
 hint="« Bajo el concepto » se escribe como « Con el concepto » (error frecuente: solecismo)"
 
 [\bbajo\sel\spretexto\b]i
-id="cm-bajo-el-pretexto"
+id="cm-2-bajo-el-pretexto"
 hint="« Bajo el pretexto » se escribe como « Con el pretexto » (error frecuente: solecismo)"
 
 [\bbajo\sel\sprisma\b]i
-id="cm-bajo-el-prisma"
+id="cm-2-bajo-el-prisma"
 hint="« Bajo el prisma » se escribe como « Desde el punto de vista » (error frecuente: solecismo)"
 
 [\bbajo\sel\spunto\sde\svista\b]i
-id="cm-bajo-el-punto-de-vista"
+id="cm-2-bajo-el-punto-de-vista"
 hint="« Bajo el punto de vista » se escribe como « Desde el punto de vista » (error frecuente: solecismo)"
 
 [\bbajo\sel\sradio\sde\sacción\b]i
-id="cm-bajo-el-radio-de-accion"
+id="cm-2-bajo-el-radio-de-accion"
 hint="« Bajo el radio de acción » se escribe como « Dentro del radio de acción » (error frecuente: solecismo)"
 
 [\bbajo\sel\ssupuesto\b]i
-id="cm-bajo-el-supuesto"
+id="cm-2-bajo-el-supuesto"
 hint="« Bajo el supuesto » se escribe como « En el supuesto » (error frecuente: solecismo)"
 
 [\bbajo\sencargo\sde\b]i
-id="cm-bajo-encargo-de"
+id="cm-2-bajo-encargo-de"
 hint="« Bajo encargo de » se escribe como « Por encargo de » (error frecuente: solecismo)"
 
 [\bbajo\sesta\spremisa\b]i
-id="cm-bajo-esta-premisa"
+id="cm-2-bajo-esta-premisa"
 hint="« Bajo esta premisa » se escribe como « Con esta premisa » (error frecuente: solecismo)"
 
 [\bbajo\sestas\scircunstancias\b]i
-id="cm-bajo-estas-circunstancias"
+id="cm-2-bajo-estas-circunstancias"
 hint="« Bajo estas circunstancias » se escribe como « Con estas circunstancias » (error frecuente: solecismo)"
 
 [\bbajo\sestas\scondiciones\b]i
-id="cm-bajo-estas-condiciones"
+id="cm-2-bajo-estas-condiciones"
 hint="« Bajo estas condiciones » se escribe como « Con estas condiciones » (error frecuente: solecismo)"
 
 [\bbajo\seste\saspecto\b]i
-id="cm-bajo-este-aspecto"
+id="cm-2-bajo-este-aspecto"
 hint="« Bajo este aspecto » se escribe como « En este aspecto » (error frecuente: solecismo)"
 
 [\bbajo\seste\ssupuesto\b]i
-id="cm-bajo-este-supuesto"
+id="cm-2-bajo-este-supuesto"
 hint="« Bajo este supuesto » se escribe como « En este supuesto » (error frecuente: solecismo)"
 
 [\bbajo\sla\sbase\b]i
-id="cm-bajo-la-base"
+id="cm-2-bajo-la-base"
 hint="« Bajo la base » se escribe como « Sobre esta base/Desde la base » (error frecuente: solecismo)"
 
 [\bbajo\sla\sbase\sde\b]i
-id="cm-bajo-la-base-de"
+id="cm-2-bajo-la-base-de"
 hint="« Bajo la base de » se escribe como « Sobre la base de » (error frecuente: solecismo)"
 
 [\bbajo\sla\scondición\b]i
-id="cm-bajo-la-condicion"
+id="cm-2-bajo-la-condicion"
 hint="« Bajo la condición » se escribe como « Con/En la condición » (error frecuente: solecismo)"
 
 [\bbajo\slas\scircunstancias\b]i
-id="cm-bajo-las-circunstancias"
+id="cm-2-bajo-las-circunstancias"
 hint="« Bajo que circunstancias » se escribe como « En las circunstancias » (error frecuente: solecismo)"
 
 [\bbajo\spreparación\b]i
-id="cm-bajo-preparacion"
+id="cm-2-bajo-preparacion"
 hint="« Bajo preparación » se escribe como « En preparación » (error frecuente: solecismo)"
 
 [\bbajo\sque\scircunstancias\b]i
-id="cm-bajo-que-circunstancias"
+id="cm-2-bajo-que-circunstancias"
 hint="« Bajo que circunstancias » se escribe como « Con que circunstancias » (error frecuente: solecismo)"
 
 [\bbajo\sque\scondiciones\b]i
-id="cm-bajo-que-condiciones"
+id="cm-2-bajo-que-condiciones"
 hint="« Bajo que condiciones » se escribe como « Con que condiciones » (error frecuente: solecismo)"
 
 [\bbajo\srevisión\b]i
-id="cm-bajo-revision"
+id="cm-2-bajo-revision"
 hint="« Bajo revisión » se escribe como « En revisión » (error frecuente: solecismo)"
 
 [\b(la|una|esta|esa|las|unas|estas|esas)\BIOS\b]i
-id="cm-bios-femenino"
+id="cm-2-bios-femenino"
 hint="« BIOS » es de género masculino (error frecuente)"
 
 [\bonus\b]i
-id="cm-bonus"
+id="cm-2-bonus"
 hint="« Bonus » se escribe como « Bonificación/Prima » (error frecuente)"
 
 [\bcaben\sdestacar\b]i
-id="cm-caben-destacar"
+id="cm-2-caben-destacar"
 hint="« Caben destacar » se escribe como « Cabe destacar » (error frecuente)"
 
 [\b(el|del|uno|este|ese)\scaché\b]i
-id="cm-cache-masculino"
+id="cm-2-cache-masculino"
 hint="« Caché » es de género femenino (error frecuente)"
 
 [\b(los|unos|estos|esos)\scachés\b]i
-id="cm-caches-masculino"
+id="cm-2-caches-masculino"
 hint="« Cachés » es de género femenino (error frecuente)"
 
 [\bcada\suna\sde\slos\b]i
-id="cm-cada-una-de-los"
+id="cm-2-cada-una-de-los"
 hint="« Cada una de los » se escribe como « Cada uno de los/Cada una de las » (error frecuente)"
 
 [\bcada\suno\sde\slas\b]i
-id="cm-cada-uno-de-las"
+id="cm-2-cada-uno-de-las"
 hint="« Cada uno de las » se escribe como « Cada uno de los/Cada una de las » (error frecuente)"
 
 [\bcerca\sa\b]i
-id="cm-cerca-a"
+id="cm-2-cerca-a"
 hint="« Cerca a » se escribe como « Cerca de » (error frecuente: solecismo)"
 
 [\bcog(er|e|a|en|an|iendo|ido)\b]i
-id="cm-uso-de-coger"
+id="cm-2-uso-de-coger"
 hint="« Coger » no se debe utilizar, tiene connotaciones sexuales en México (error frecuente)"
 
 [\bcomet(er|e|a|en|an|iendo|ido)\ssuicidio\b]i
-id="cm-cometer-suicidio"
+id="cm-2-cometer-suicidio"
 hint="« Cometer suicidio » se escribe « Suicidarse » (error frecuente)"
 
 [\bcon\sarreglo\sde\b]i
-id="cm-con-arreglo-de"
+id="cm-2-con-arreglo-de"
 hint="« Con arreglo de » se escribe como « Con arreglo a » (error frecuente: solecismo)"
 
 [\bcon\sbase\s(en|a)\b]i
-id="cm-con-base-en"
+id="cm-2-con-base-en"
 hint="« Con base en/a » se escribe como « Según/Conforme a/de acuerdo con/Basándose en » (error frecuente: solecismo)"
 
 [\bcon\smotivo\sa\b]i
-id="cm-con-motivo-a"
+id="cm-2-con-motivo-a"
 hint="« Con motivo a » se escribe como « Con motivo de/A causa de » (error frecuente:solecismo)"
 
 [\bconjuntamente\scon\b]i
-id="cm-conjuntamente-con"
+id="cm-2-conjuntamente-con"
 hint="« Conjuntamente con » se escribe como « Conjuntamente/Junto con » (error frecuente: redundancia)"
 
 [\bcontra\sgustos\b]i
-id="cm-contra-gustos"
+id="cm-2-contra-gustos"
 hint="« Contra gustos » se escribe como « Sobre gustos » (error frecuente: solecismo)"
 
 [\bcontra\smás\b]i
-id="cm-contra-mas"
+id="cm-2-contra-mas"
 hint="« Contra más » se escribe como « Cuanto más » (error frecuente: solecismo)"
 
 [\bcontra\sreloj\b]i
-id="cm-contra-reloj"
+id="cm-2-contra-reloj"
 hint="« Contra reloj » se escribe como « Contrareloj » (error frecuente: solecismo)"
 
 [\bcorreo\-e\b]i
-id="cm-correo-e"
+id="cm-2-correo-e"
 hint="No utilice « Correo-e » solo « Correo » a secas (error frecuente)"
 
 [\bcorreos\-e\b]i
-id="cm-correos-e"
+id="cm-2-correos-e"
 hint="No utilice « Correos-e » solo « Correos » a secas (error frecuente)"
 
 [\bdar\sa\sbasto\b]i
-id="cm-dar-a-basto"
+id="cm-2-dar-a-basto"
 hint="« Dar a basto » se escribe como « Dar abasto » (error frecuente: solecismo)"
 
 [\bde\sacuerdo\sa\b]i
-id="cm-de-acuerdo-a"
+id="cm-2-de-acuerdo-a"
 hint="« De acuerdo a » se escribe como « De acuerdo con » (error frecuente: solecismo)"
 
 [\bde\sarriba\sa\sabajo\b]i
-id="cm-de-arriba-a-abajo"
+id="cm-2-de-arriba-a-abajo"
 hint="« De arriba a abajo » se escribe como « De arriba abajo » (error frecuente: solecismo)"
 
 [\bde\sconformidad\sa\b]i
-id="cm-de-conformidad-a"
+id="cm-2-de-conformidad-a"
 hint="« De conformidad a » se escribe como « De conformidad con » (error frecuente: solecismo)"
 
 [\bde\scuándo\sen\scuándo\b]i
-id="cm-de-cuando-en-cuando-con-tilde-a"
+id="cm-2-de-cuando-en-cuando-con-tilde-a"
 hint="« De cuando en cuando » se escribe sin tilde (error frecuente: solecismo)"
 
 [\bde\scuándo\sen\scuando\b]i
-id="cm-de-cuando-en-cuando-con-tilde-2"
+id="cm-2-de-cuando-en-cuando-con-tilde-2"
 hint="« De cuando en cuando » se escribe sin tilde (error frecuente: solecismo)"
 
 [\bde\scuando\sen\scuándo\b]i
-id="cm-de-cuando-en-cuando-con-tilde-3"
+id="cm-2-de-cuando-en-cuando-con-tilde-3"
 hint="« De cuando en cuando » se escribe sin tilde (error frecuente: solecismo)"
 
 [\bde\sdeben\b]i
-id="cm-de-deben"
+id="cm-2-de-deben"
 hint="« De deben » se escribe como « Se deben » (error frecuente)"
 
 [\bde\secho\b]i
-id="cm-de-echo"
+id="cm-2-de-echo"
 valid before="\sNest"
 hint="« De echo » se escribe como « De hecho » (error frecuente)"
 
 [\b[Dd]e\sel\b]
-id="cm-de-el"
+id="cm-2-de-el"
 hint="« De el » se escribe como « Del » (error frecuente)"
 
 [\bde\sgratis\b]i
-id="cm-de-gratis"
+id="cm-2-de-gratis"
 hint="« De gratis » se escribe como « Gratis », sin el « de » (error frecuente: solecismo)"
 
 [\bde\sindica\b]i
-id="cm-de-indica"
+id="cm-2-de-indica"
 hint="« De indica » se escribe como « Se indica » (error frecuente: solecismo)"
 
 [\bde\ssitio\sa\ssitio\b]i
-id="cm-de-sitio-a-sitio"
+id="cm-2-de-sitio-a-sitio"
 hint="« De sitio a sitio » se escribe como « De sitio en sitio » (error frecuente: solecismo)"
 
 [\bde\ssí\b]i
-id="cm-de-si"
+id="cm-2-de-si"
 valid before="\smism[oa]s?"
 hint="« De sí » se escribe como « De por sí » (error frecuente: solecismo)"
 
 [\bde\stal\ssuerte\sque\b]i
-id="cm-de-tal-suerte-que"
+id="cm-2-de-tal-suerte-que"
 hint="« De tal suerte que » se escribe como « De manera que/De modo que/De suerte que » (error frecuente)"
 
 [\bdiferente\sa\b]i
-id="cm-diferente-a"
+id="cm-2-diferente-a"
 hint="« Diferente a » se escribe como « Diferente de » (error frecuente)"
 
 [\bdiscrepar\scon\b]i
-id="cm-discrepar-con"
+id="cm-2-discrepar-con"
 hint="« Discrepar-con » se escribe como « Discrepar de » (error frecuente)"
 
 [\bdistinto\sa\b]i
-id="cm-distinto-a"
+id="cm-2-distinto-a"
 hint="« Distinto a » se escribe como « Distinto de » (error frecuente)"
 
 [\be\-?mail\b]i
-id="cm-e-mail"
+id="cm-2-e-mail"
 valid msgstr="EMAIL"
 hint="No utilice « Email » sino « Correo » (error frecuente)"
 
 [\be\-?mails\b]i
-id="cm-e-mails"
+id="cm-2-e-mails"
 hint="No utilice « Emails » sino « Correos » (error frecuente)"
 
 [\bel\secho\b]i
-id="cm-el-echo"
+id="cm-2-el-echo"
 hint="« El echo » se escribe como « El hecho » (error frecuente)"
 
 [\bel\shalla\b]i
-id="cm-el-halla"
+id="cm-2-el-halla"
 hint="« El halla » se escribe como « El haya » (error frecuente)"
 
 [\ben\sahí\b]i
-id="cm-en-ahi"
+id="cm-2-en-ahi"
 hint="« En ahí » se escribe como « Ahí » (error frecuente: solecismo)"
 
 [\ben\sallá\b]i
-id="cm-en-alla"
+id="cm-2-en-alla"
 hint="« En allá » se escribe como « Allá » (error frecuente: solecismo)"
 
 [\ben\saquí\b]i
-id="cm-en-aqui"
+id="cm-2-en-aqui"
 hint="« En aquí » se escribe como « Aquí » (error frecuente: solecismo)"
 
 [\ben\sbase\sa\b]i
-id="cm-en-base-a"
+id="cm-2-en-base-a"
 hint="« En base a » se escribe como « Basándose en/Teniendo en cuenta/A partir de ... » (error frecuente: solecismo)"
 
 [\ben\scuanto\sque\b]i
-id="cm-en-cuanto-que"
+id="cm-2-en-cuanto-que"
 hint="« En cuanto que » se escribe como « En cuanto » (error frecuente)"
 
 [\ben\sdirección\sde\b]i
-id="cm-en-direccion-de"
+id="cm-2-en-direccion-de"
 hint="« En dirección de » se escribe como « En dirección a » (error frecuente: solecismo)"
 
 [\ben\sel\smomento\sque\b]i
-id="cm-en-el-momento-que"
+id="cm-2-en-el-momento-que"
 hint="« En el momento que » se escribe como « En el momento en que » (error frecuente: solecismo)"
 
 [\ben\sevitación\sde\b]i
-id="cm-en-evitacion-a"
+id="cm-2-en-evitacion-a"
 hint="« En evitación de » se escribe como « Para evitar » (error frecuente: solecismo)"
 
 [\ben\sfrente\b]i
-id="cm-en-frente"
+id="cm-2-en-frente"
 hint="« En frente » se escribe como « Enfrente » (error frecuente: solecismo)"
 
 [\ben\socasión\sde\b]i
-id="cm-en-ocasion-de"
+id="cm-2-en-ocasion-de"
 hint="« En ocasión de » se escribe como « Con ocasión que » (error frecuente)"
 
 [\ben\srazón\sa\b]i
-id="cm-en-razon-a"
+id="cm-2-en-razon-a"
 hint="« En razón a » se escribe como « En razón de » (error frecuente: solecismo)"
 
 [\ben\srelación\sa\b]i
-id="cm-en-relacion-a"
+id="cm-2-en-relacion-a"
 hint="« En relación a » se escribe como « En relación con/Con relación a » (error frecuente: solecismo)"
 
 [\ben\stérminos\sde\b]i
-id="cm-en-terminos-de"
+id="cm-2-en-terminos-de"
 hint="« En téminos de » se escribe como « Partiendo de/En función de » (error frecuente: anglicismo)"
 
 [\ben\svirtud\sa\b]i
-id="cm-en-virtud-a"
+id="cm-2-en-virtud-a"
 hint="« En virtud a » se escribe como « En virtud de » (error frecuente: solecismo)"
 
 [\ben\svistas\sa\b]i
-id="cm-en-vistas-a"
+id="cm-2-en-vistas-a"
 hint="« En vistas a » se escribe como « Con vistas a/En vista de » (error frecuente: solecismo)"
 
 [\bentrar\sdatos\b]i
-id="cm-entrar-datos"
+id="cm-2-entrar-datos"
 hint="« Entrar datos » se escribe como « Introducir datos » (error frecuente)"
 
 [\bentrar\sen\scontacto\b]i
-id="cm-entrar-en-contacto"
+id="cm-2-entrar-en-contacto"
 hint="« Entrar en contacto » se escribe como « Ponerse en contacto » (error frecuente: solecismo)"
 
 [\bentre\smás\b]i
-id="cm-entre-mas"
+id="cm-2-entre-mas"
 hint="« Entre más » se escribe como « Cuanto más » (error frecuente)"
 
 [\bentre\smenos\b]i
-id="cm-entre-menos"
+id="cm-2-entre-menos"
 hint="« Entre menos » se escribe como « Cuanto menos » (error frecuente)"
 
 [\besas\smiles\b]i
-id="cm-esas-miles"
+id="cm-2-esas-miles"
 hint="« Esas miles » se escribe como « Esos miles » (error frecuente)"
 
 [\bentre\stanto\b]i
-id="cm-entre-tanto"
+id="cm-2-entre-tanto"
 hint="« Entre tanto » se escribe como « Entretanto » (error frecuente)"
 
 [\bfijarse\sque\b]i
-id="cm-fijarse-que"
+id="cm-2-fijarse-que"
 hint="« Fijarse que » se escribe como « Fijarse en que » (error frecuente)"
 
 [\bfijarse\sde\sque\b]i
-id="cm-fijarse-de-que"
+id="cm-2-fijarse-de-que"
 hint="« Fijarse de que » se escribe como « Fijarse en que » (error frecuente)"
 
 [\bhaber\sque\b]i
-id="cm-haber-que"
+id="cm-2-haber-que"
 hint="'Haber que' se escribe 'A ver que'"
 
 [^haber\ssí\b]i
-id="cm-haber-si"
+id="cm-2-haber-si"
 hint="'Haber sí' al principio de frase se escribe 'A ver sí'"
 
 [\bhabían\s(algunos|algunas|muchos|muchas)\b]i
-id="cm-habian-algunos"
+id="cm-2-habian-algunos"
 hint="« Habián algunos/muchos » se escribe como « Había algunos/muchos » (error frecuente)"
 
 [\bhan\shabido\s(algunos|algunas|muchos|muchas)\b]i
-id="cm-han-habido-algunos"
+id="cm-2-han-habido-algunos"
 hint="« Han habido algunos/muchos » se escribe como « Ha habido algunos/muchos » (error frecuente)"
 
 [\bhay\sla\sposibilidad\b]i
-id="cm-hay-la-posibilidad"
+id="cm-2-hay-la-posibilidad"
 hint="« Hay la posibilidad » se escribe como « Existe la posibilidad » (error frecuente)"
 
 [\bhech[oa][sn]?\sde\smenos\b]i
-id="cm-hecho-de-menos"
+id="cm-2-hecho-de-menos"
 hint="« Hecho de menos » se escribe como « Echo de menos » (error frecuente)"
 
 [\bhubieron\s(algunos|algunas|muchos|muchas)\b]i
-id="cm-hubieron-algunos"
+id="cm-2-hubieron-algunos"
 hint="« Hubieron algunos/muchos » se escribe como « Hubo algunos/muchos » (error frecuente)"
 
 [\b(el|del|un|este|ese)\sinterfaz\b]i
-id="cm-interfaz-masculino"
+id="cm-2-interfaz-masculino"
 hint="« Interfaz » es de género femenino (error frecuente)"
 
 [\b(los|unos|estos|esos)\sinterfaces\b]i
-id="cm-interfaces-masculino"
+id="cm-2-interfaces-masculino"
 hint="« Interfaces » es de género femenino (error frecuente)"
 
 [\binternet\b]
-id="cm-internet-en-minusculas"
+id="cm-2-internet-en-minusculas"
 hint="« Internet » se escribe en mayúsculas (error frecuente)"
 
 [\b(el|del|un|los|unos|estos|esos)IRQ\b]i
-id="cm-irq-masculino"
+id="cm-2-irq-masculino"
 hint="« IRQ » es femenino (error frecuente)"
 
 [\bjuega\sun\spapel\b]i
-id="cm-juega-un-papel"
+id="cm-2-juega-un-papel"
 hint="« Juega un papel » se escribe como « Representa/desempeña un/su papel » (error frecuente)"
 
 [\bjugar\sun\spapel\b]i
-id="cm-jugar-un-papel"
+id="cm-2-jugar-un-papel"
 hint="« Jugar un papel » se escribe como « Representar/desempeñar un/su papel » (error frecuente)"
 
 [\blas\smiles\b]i
-id="cm-las-miles"
+id="cm-2-las-miles"
 hint="« Las miles » se escribe como « Los miles » (error frecuente)"
 
 [\blas\sy\slos\b]i
-id="cm-las-y-los"
+id="cm-2-las-y-los"
 hint="« Las y los » se escribe como «Los». (error frecuente)"
 
 [\bliteratura\s(sobre|en)\b]i
-id="cm-literatura-sobre"
+id="cm-2-literatura-sobre"
 hint="« Literatura sobre/en » e escribe como «Bibliografía sobre/en». (error frecuente)"
 
 [\bl[oa]s\sambos\b]i
-id="cm-los-ambos"
+id="cm-2-los-ambos"
 hint="« Los ambos » se escribe como « Ambos ». (error frecuente)"
 
 [\blos\sy\slas\b]i
-id="cm-lo-y-las"
+id="cm-2-lo-y-las"
 hint="« Los y las » se escribe como «Los». (error frecuente)"
 
 [\blos\sporques\b]i
-id="cm-los-porques-sin-tilde"
+id="cm-2-los-porques-sin-tilde"
 hint="« Los porques » se escribe como «Los porqués». (error frecuente)"
 
 [\b(el|del|uno|este|ese)\smacro\b]i
-id="cm-macro-en-masculino"
+id="cm-2-macro-en-masculino"
 hint="« Macro » es de género femenino (error frecuente)"
 
 [\b(los|unos|estos|esos)\smacros\b]i
-id="cm-macros-en-masculino"
+id="cm-2-macros-en-masculino"
 hint="« Macros » es de género femenino (error frecuente)"
 
 [\bmal\seducad[oa]s?\b]i
-id="cm-mal-educado"
+id="cm-2-mal-educado"
 hint="« Mal educado» se escribe como « Maleducado » (error frecuente)"
 
 [\bmás\sbuen[oa]s?\b]i
-id="cm-mas-bueno"
+id="cm-2-mas-bueno"
 hint="« Más bueno» se escribe como « Mejor » (error frecuente)"
 
 [\bmás\smal[oa]s?\b]i
-id="cm-mas-malo"
+id="cm-2-mas-malo"
 hint="« Más malo» se escribe como « Peor » (error frecuente)"
 
 [\bmás\smayor\b]i
-id="cm-mas-mayor"
+id="cm-2-mas-mayor"
 hint="« Más mayor» se escribe como « Mayor » (error frecuente)"
 
 [\bmayor\sa\b]i
-id="cm-mayor-a"
+id="cm-2-mayor-a"
 hint="« Mayor a » se escribe como « Mayor que » (error frecuente: solecismo)"
 
 [\bme\sse\b]i
-id="cm-me-se"
+id="cm-2-me-se"
 hint="« Me se » se escribe como « Se me » (error frecuente)"
 
 [\bnexos?\sde\sunión\b]i
-id="cm-nexo-de-union"
+id="cm-2-nexo-de-union"
 hint="« Nexo de unión » se escribe como « Nexo » (error frecuente: redundancia)"
 
 [\bni\squé\sdecir\stiene\b]i
-id="cm-ni-que-decir-tiene-con-tilde"
+id="cm-2-ni-que-decir-tiene-con-tilde"
 hint="« Ni que decir tiene » se escribe como sin tilde (error frecuente)"
 
 [\bp\.\s?e\.\b]i
-id="cm-p-e"
+id="cm-2-p-e"
 hint="« P. e. » se escribe como « P. ej. » (error frecuente)"
 
 [\bpalabras\sclaves\b]i
-id="cm-palabras-claves"
+id="cm-2-palabras-claves"
 hint="« Palabras claves » se escribe como « Palabras clave » (error frecuente)"
 
 [\bpara\smostrase\b]i
-id="cm-para-mostrase"
+id="cm-2-para-mostrase"
 hint="« Para mostrase » se escribe como « Para mostrarse » (error frecuente)"
 
 [\bpara\stenga\b]i
-id="cm-para-tenga"
+id="cm-2-para-tenga"
 hint="« Para tenga » se escribe como « Que tenga » (error frecuente)"
 
 [\bpor\scontra\b]i
-id="cm-por-contra"
+id="cm-2-por-contra"
 hint="« Por contra » se escribe como « Por el contario/En cambio » (error frecuente: solecismo)"
 
 [\bpor\slo\sconsiguiente\b]i
-id="cm-por-lo-consiguiente"
+id="cm-2-por-lo-consiguiente"
 hint="« Por lo contrario » se escribe como « Por consiguiente » (error frecuente: solecismo)"
 
 [\bpor\slo\scontrario\b]i
-id="cm-por-lo-contrario"
+id="cm-2-por-lo-contrario"
 hint="« Por lo contrario » se escribe como « Por el contrario » (error frecuente: solecismo)"
 
 [\bpor\sreconocimiento\b]i
-id="cm-por-reconocimiento"
+id="cm-2-por-reconocimiento"
 hint="« Por reconocimiento » se escribe como « En reconocimiento » (error frecuente: solecismo)"
 
 [\bpor\ssiempre\b]i
-id="cm-por-siempre"
+id="cm-2-por-siempre"
 hint="« Por siempre » se escribe como « Para siempre » (error frecuente: solecismo)"
 
 [\bpreviamente\sa\b]i
-id="cm-previamente-a"
+id="cm-2-previamente-a"
 hint="« Previamente a » se escribe como « Antes de » (error frecuente)"
 
 [\bprimer\svez\b]i
-id="cm-primer-vez"
+id="cm-2-primer-vez"
 hint="« Primer vez » se escribe como « Primera vez » (error frecuente)"
 
 [\bpunto\sy\sfinal\b]i
-id="cm-punto-y-final"
+id="cm-2-punto-y-final"
 hint="« Punto y final » se escribe como « Punto final » (error frecuente)"
 
 [\bse\scancelo\b]i
-id="cm-se-cancelo-sin-tilde"
+id="cm-2-se-cancelo-sin-tilde"
 hint="« Se cancelo » se escribe como « Se canceló » (error frecuente)"
 
 [\bse\sdeber\b]i
-id="cm-se-deber"
+id="cm-2-se-deber"
 hint="« Se deber » se escribe como « Se deben » (error frecuente)"
 
 [\bse\sesperada\b]i
-id="cm-se-esperada"
+id="cm-2-se-esperada"
 hint="« Se esperaba » se escribe como « Se esperaba » (error frecuente)"
 
 [\bse\sfijó\sque\b]i
-id="cm-se-fijo-que"
+id="cm-2-se-fijo-que"
 hint="« Se fijó que » se escribe como « Se fijó en que » (error frecuente)"
 
 [\bse\sgestión\b]i
-id="cm-se-gestion"
+id="cm-2-se-gestion"
 hint="« Se gestión » se escribe como « De gestión » (error frecuente)"
 
 [\bse\smanera\b]i
-id="cm-se-manera"
+id="cm-2-se-manera"
 hint="« Se manera » se escribe como « De manera » (error frecuente)"
 
 [\bse\spude\b]i
-id="cm-se-pude"
+id="cm-2-se-pude"
 hint="« Se pude » se escribe como « Se puede/Se pudo » (error frecuente)"
 
 [\bse\spuedo\b]i
-id="cm-se-puedo"
+id="cm-2-se-puedo"
 hint="« Se puedo » se escribe como « Se puede » (error frecuente)"
 
 [\bse\ssu\b]i
-id="cm-se-su"
+id="cm-2-se-su"
 hint="« Se su » palabra duplicada (error frecuente)"
 
 [\bseguidamente\sa\b]i
-id="cm-seguidamente-a"
+id="cm-2-seguidamente-a"
 hint="« Seguidamente a » se escribe como « Después de/A continuación/Tras » (error frecuente)"
 
 [\bsimultáneamente\s(a|con)\b]i
-id="cm-simultaneamente-a"
+id="cm-2-simultaneamente-a"
 hint="« Simultáneamente a » se escribe como « A la vez que/Al mismo tiempo que/Coincidiendo con » (error frecuente)"
 
 [\bsu\sse\b]i
-id="cm-su-se"
+id="cm-2-su-se"
 hint="« Su se » palabra duplicada (error frecuente)"
 
 [\bsuelen\shaber\b]i
-id="cm-suelen-haber"
+id="cm-2-suelen-haber"
 hint="« Suelen haber » se escribe como « Suele haber » (error frecuente)"
 
 [\btal\ses\sasí\b]i
-id="cm-tal-es-asi"
+id="cm-2-tal-es-asi"
 hint="« Tal es así » se escribe como « Tanto es así » (error frecuente: solecismo)"
 
 [\btan\ses\sasí\b]i
-id="cm-tan-es-asi"
+id="cm-2-tan-es-asi"
 hint="« Tan es así » se escribe como « Tanto es así » (error frecuente: solecismo)"
 
 [\bte\sse\b]i
-id="cm-te-se"
+id="cm-2-te-se"
 hint="« Te se » se escribe como « Se te » (error frecuente)"
 
 [\btema\ssensible\b]i
-id="cm-tema-sensible"
+id="cm-2-tema-sensible"
 hint="« Tema sensible » se escribe como « Tema delicado » (error frecuente)"
 
 [\btenían\sque\shaber\b]i
-id="cm-tenian-que-haber"
+id="cm-2-tenian-que-haber"
 hint="« Tenían que haber » se escribe como « Tenía que haber » (error frecuente)"
 
 [\buna\sde\sambas\b]i
-id="cm-una-de-ambas"
+id="cm-2-una-de-ambas"
 hint="« Una de ambas » se escribe como « Una de los dos ». (error frecuente)"
 
 [\buna\svez\sse\b]i
-id="cm-una-vez-se"
+id="cm-2-una-vez-se"
 hint="« Una vez se » se escribe como «Una vez que se». (error frecuente)"
 
 [\bunas\smiles\b]i
-id="cm-unas-miles"
+id="cm-2-unas-miles"
 hint="« Unas miles » se escribe como « Unos miles » (error frecuente)"
 
 [\buno\sde\sambos\b]i
-id="cm-uno-de-ambos"
+id="cm-2-uno-de-ambos"
 hint="« Uno de ambos » se escribe como « Uno de los dos ». (error frecuente)"
 
 [\b(el|del|un|los|unos|este|ese)\surl\b]i
-id="cm-url-en-masculino"
+id="cm-2-url-en-masculino"
 hint="« URL » es de género femenino (error frecuente)"
 
 [\bvígente\scampeón\b]i
-id="cm-vigente-campeon"
+id="cm-2-vigente-campeon"
 hint="« Vígente campeón » se escribe como « Actual campeón » (error frecuente)"
 
 [\b(el|del|un|los|unos|este|ese)\sweb\b]i
-id="cm-web-en-masculino"
+id="cm-2-web-en-masculino"
 hint="« Web » es femenino (error frecuente)"
 
 [\by\/o\b]i
-id="cm-y-o"
+id="cm-2-y-o"
 hint="« y/o » se escribe como « o » (error frecuente)"
 
 # End of rule file

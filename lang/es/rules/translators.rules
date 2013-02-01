@@ -10,32 +10,32 @@
 environment kde
 
 *msgctxt/(NAME|EMAIL) OF TRANSLATORS/
-id="tr-comas-despues-espacios"
+id="tr-1-comas-despues-espacios"
 hint="No incluya espacios despues de la coma en la lista de traductores"
 valid !msgstr="\,\s"
 
 *msgctxt/(NAME|EMAIL) OF TRANSLATORS/
-id="tr-comas-antes-espacios"
+id="tr-1-comas-antes-espacios"
 hint="No incluya espacios antes de la coma en la lista de traductores"
 valid !msgstr="\s\,"
 
 *msgctxt/NAME OF TRANSLATORS/
-id="tr-sin-nombre"
+id="tr-1-sin-nombre"
 hint="Cumplimente al menos el nombre de un traductor, no aparece el inicio de ninguno"
 valid msgstr="[A-Z]\w+"
 
 *msgctxt/EMAIL OF TRANSLATORS/
-id="tr-sin-arroba-direccion-correo"
+id="tr-1-sin-arroba-direccion-correo"
 valid msgstr="\w+\@\w+"
 hint="Compruebe el formato de las direcciones de correo, no incluyen ninguna arroba intermedia"
 
 *msgctxt/EMAIL OF TRANSLATORS/
-id="tr-sin-punto-direccion-correo"
+id="tr-1-sin-punto-direccion-correo"
 valid msgstr="\w\.\w"
 hint="Compruebe el formato de las direcciones de correo, no incluyen ningún punto intermedio"
 
 *msgctxt/EMAIL OF TRANSLATORS/
-id="tr-caracteres-invalidos-direccion-correo"
+id="tr-1-caracteres-invalidos-direccion-correo"
 valid msgstr="^[A-Za-z0-9\_\-\@\.\,\s]+$"
 hint="Compruebe el formato de las direcciones de correo, incluyen caracteres no válidos"
 

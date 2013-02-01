@@ -7,38 +7,38 @@
 include file="filter.include"
 
 {\bAlt\b}
-id="ui-tecla-alt"
+id="ui-2-tecla-alt"
 valid msgstr="Alt"
 hint="« Alt » se traduce como como « Alt » (regla de traducción de nombres de teclas)"
 
 {\bBackspace\b}
-id="ui-tecla-backspace"
+id="ui-2-tecla-backspace"
 valid msgstr="[Rr]etroceso"
 hint="« Backspace » se traduce como como « Retroceso » (regla de traducción de nombres de teclas)"
 
 {\bCaps\sLock\b}
-id="ui-tecla-caps-lock"
+id="ui-2-tecla-caps-lock"
 valid msgstr="Bloq\s?Mayús"
 hint="« Caps Lock » se traduce como como « Bloq Mayús » (regla de traducción de nombres de teclas)"
 
 {\bCtrl\b}
-id="ui-tecla-ctrl"
+id="ui-2-tecla-ctrl"
 valid msgstr="Ctrl"
 valid msgstr="Control"
 hint="« Ctrl » se traduce como como « Ctrl » (regla de traducción de nombres de teclas)"
 
 {\bDel\b}
-id="ui-tecla-del"
+id="ui-2-tecla-del"
 valid msgstr="Supr"
 hint="« Del » se traduce como como « Supr » (regla de traducción de nombres de teclas)"
 
 {^End$}
-id="ui-tecla-end"
+id="ui-2-tecla-end"
 valid msgstr="[Ff]in"
 hint="« End » se traduce como como « Fin » (regla de traducción de nombres de teclas)"
 
 {\benter\b}i
-id="ui-tecla-enter"
+id="ui-2-tecla-enter"
 valid msgstr="intro"
 valid msgstr="introdu(cir|ce|zca)"
 valid msgstr="acced(er|e|a)"
@@ -50,12 +50,12 @@ valid !msgstr="entr(ar|e|a)"
 hint="« Enter » se traduce como « Intro », « Introducir/Acceder », nunca como « Entrar » (ver glosario, regla de traducción de nombres de teclas)"
 
 {\bEsc\b}
-id="ui-tecla-esc"
+id="ui-2-tecla-esc"
 valid msgstr="Esc"
 hint="« Esc » se traduce como como « Esc » (regla de traducción de nombres de teclas)"
 
 {\bIns\b}
-id="ui-tecla-ins"
+id="ui-2-tecla-ins"
 valid msgstr="Ins"
 valid msgstr="Insert"
 hint="« Ins » se traduce como como « Ins » (regla de traducción de nombres de teclas)"
@@ -64,33 +64,33 @@ hint="« Ins » se traduce como como « Ins » (regla de traducción de nombres 
 hint="« Num Lock » se traduce como como « Bloq Num » (regla de traducción de nombres de teclas)"
 
 {\bPause\b}
-id="ui-tecla-pause"
+id="ui-2-tecla-pause"
 valid msgstr="[Pp]ausa"
 valid msgstr="Pausar"
 hint="« Pause » se traduce como como « Pausar/Pausa » (regla de traducción de nombres de teclas)"
 
 {\bPg\s?Dn\b}
-id="ui-tecla-pgdn"
+id="ui-2-tecla-pgdn"
 valid msgstr="Re\s?Pag"
 hint="« PgDn » se traduce como como « Re Pag » (regla de traducción de nombres de teclas)"
 
 {\bPg\s?Up\b}
-id="ui-tecla-pgup"
+id="ui-2-tecla-pgup"
 valid msgstr="Av\s?Pag"
 hint="« PgUp » se traduce como como « Av Pag » (regla de traducción de nombres de teclas)"
 
 {\bPrint\s?Screen\b}
-id="ui-tecla-print-screen"
+id="ui-2-tecla-print-screen"
 valid msgstr="Impr\s?Pant"
 hint="« Print Screen » se traduce como como « Impr Pant » (regla de traducción de nombres de teclas)"
 
 {\bScroll\s?Lock\b}
-id="ui-tecla-scroll-lock"
+id="ui-2-tecla-scroll-lock"
 valid msgstr="Bloq\s?Despl?"
 hint="« Scroll Lock » se traduce como como « Bloq Desp » (regla de traducción de nombres de teclas)"
 
 {\bShift\b}
-id="ui-tecla-shift"
+id="ui-2-tecla-shift"
 valid msgstr="Mayús"
 valid msgstr="[Tt]urno"
 valid msgstr="[Dd]espla(zar|za|ce)"
@@ -101,17 +101,17 @@ valid msgstr="[Ca]ambiarse"
 hint="« Shift » se traduce como como « Mayús » (regla de traducción de nombres de teclas)"
 
 {\bSys\s?Req\b}
-id="ui-tecla-sysreq"
+id="ui-2-tecla-sysreq"
 valid msgstr="Pet\s?Sis"
 hint="« SysReq » se traduce como como « Pet Sys » (regla de traducción de nombres de teclas)"
 
 {\bSpacebar\b}
-id="ui-tecla-spacebar"
+id="ui-2-tecla-spacebar"
 valid msgstr="Barra\sespaciadora"
 hint="« Spacebar » se traduce como como « Barra espaciadora » (regla de traducción de nombres de teclas)"
 
 {^Tab$}
-id="ui-tecla-tab"
+id="ui-2-tecla-tab"
 valid msgstr="Tab"
 valid msgstr="[Pp]estaña"
 hint="« Tab » se traduce como como « Tab » (regla de traducción de nombres de teclas)"
@@ -121,104 +121,104 @@ hint="« Tab » se traduce como como « Tab » (regla de traducción de nombres 
 # Menú Archivo
 
 {^New$}
-id="ui-menu-new"
+id="ui-2-menu-new"
 valid msgstr="Nuev[oa]"
 hint="« New » se traduce como como « Nuevo » (regla de traducción de menús de KDE)"
 
 {^New file$}
-id="ui-menu-new-file"
+id="ui-2-menu-new-file"
 valid msgstr="Nuevo archivo"
 hint="« New file » se traduce como como « Nuevo archivo» (regla de traducción de menús de KDE)"
 
 {^From template$}
-id="ui-menu-from-template"
+id="ui-2-menu-from-template"
 valid msgstr="Desde plantilla"
 hint="« From template » se traduce como como « Desde plantilla » (regla de traducción de menús de KDE)"
 
 {^New from template$}
-id="ui-menu-new-from-template"
+id="ui-2-menu-new-from-template"
 valid msgstr="Nuevo desde plantilla"
 hint="« From template » se traduce como como « Desde plantilla » (regla de traducción de menús de KDE)"
 
 {^Open\s?\.\.\.$}
-id="ui-menu-open"
+id="ui-2-menu-open"
 valid msgstr="Abrir\.\.\."
 hint="« Open... » se traduce como como « Abrir... » (regla de traducción de menús de KDE)"
 
 {^Open file$}
-id="ui-menu-open-file"
+id="ui-2-menu-open-file"
 valid msgstr="Abrir archivo"
 hint="« Open file » se traduce como como « Abrir archivo » (regla de traducción de menús de KDE)"
 
 {^Close$}
-id="ui-menu-close"
+id="ui-2-menu-close"
 valid msgstr="Cerrar"
 hint="« Close » se traduce como como « Cerrar » (regla de traducción de menús de KDE)"
 
 {^Close file$}
-id="ui-menu-close-file"
+id="ui-2-menu-close-file"
 valid msgstr="Cerrar archivo"
 hint="« Close file » se traduce como como « Cerrar archivo » (regla de traducción de menús de KDE)"
 
 {^Save$}
-id="ui-menu-save"
+id="ui-2-menu-save"
 valid msgstr="Guardar"
 hint="« Save » se traduce como como « Guardar » (regla de traducción de menús de KDE)"
 
 {^Save as\s?\.\.\.$}
-id="ui-menu-save-as"
+id="ui-2-menu-save-as"
 valid msgstr="Guardar como\.\.\."
 hint="« Save as...» se traduce como como « Guardar como...» (regla de traducción de menús de KDE)"
 
 {^Save all$}
-id="ui-menu-save-all"
+id="ui-2-menu-save-all"
 valid msgstr="Guardar todo"
 hint="« Save all » se traduce como como « Guardar todo » (regla de traducción de menús de KDE)"
 
 {^Recent$}
-id="ui-menu-recent"
+id="ui-2-menu-recent"
 valid msgstr="Reciente"
 hint="« Recent » se traduce como como « Reciente » (regla de traducción de menús de KDE)"
 
 {^Open recent$}
-id="ui-menu-open-recent"
+id="ui-2-menu-open-recent"
 valid msgstr="Abrir reciente"
 hint="« Open recent » se traduce como como « Abrir reciente » (regla de traducción de menús de KDE)"
 
 {^Import$}
-id="ui-menu-import"
+id="ui-2-menu-import"
 valid msgstr="Importar"
 hint="« Import » se traduce como como « Importar » (regla de traducción de menús de KDE)"
 
 {^Export$}
-id="ui-menu-export"
+id="ui-2-menu-export"
 valid msgstr="Exportar"
 hint="« Export » se traduce como como « Exportar » (regla de traducción de menús de KDE)"
 
 {^Print$}
-id="ui-menu-print"
+id="ui-2-menu-print"
 valid msgstr="Imprimir"
 valid msgstr="Impresión"
 hint="« Print » se traduce como como « Imprimir » (regla de traducción de menús de KDE)"
 
 {^Print setup\s?\.\.\.$}
-id="ui-menu-print-setup"
+id="ui-2-menu-print-setup"
 valid msgstr="Configuración de impresión\.\.\."
 hint="« Print setup... » se traduce como como « Configuración de impresión... » (regla de traducción de menús de KDE)"
 
 {^Print preview$}
-id="ui-menu-print-preview"
+id="ui-2-menu-print-preview"
 valid msgstr="Vista preliminar"
 hint="« Print preview » se traduce como como « Vista preliminar » (regla de traducción de menús de KDE)"
 
 {^Exit$}
-id="ui-menu-exit"
+id="ui-2-menu-exit"
 valid msgstr="Salir"
 valid msgstr="Salida"
 hint="« Exit » se traduce como como « Salir » (regla de traducción de menús de KDE)"
 
 {^Quit$}
-id="ui-menu-quit"
+id="ui-2-menu-quit"
 valid msgstr="Salir"
 valid msgstr="Salida"
 hint="« Quit » se traduce como como « Salir » (regla de traducción de menús de KDE)"
@@ -226,98 +226,98 @@ hint="« Quit » se traduce como como « Salir » (regla de traducción de menú
 # Menú Editar
 
 {^Clear$}
-id="ui-menu-clear"
+id="ui-2-menu-clear"
 valid msgstr="Borrar"
 valid msgstr="Despejar"
 valid msgstr="Despejado"
 hint="« Clear » se traduce como como « Borrar/Despejar » (regla de traducción de menús de KDE)"
 
 {^Cut$}
-id="ui-menu-cut"
+id="ui-2-menu-cut"
 valid msgstr="Cort(ar|a|e)"
 hint="« Cut » se traduce como como « Cortar » (regla de traducción de menús de KDE)"
 
 {^Copy$}
-id="ui-menu-copy"
+id="ui-2-menu-copy"
 valid msgstr="Copi(ar|ie|a)"
 hint="« Copy » se traduce como como « Copiar/Copia » (regla de traducción de menús de KDE)"
 
 {^Paste$}
-id="ui-menu-paste"
+id="ui-2-menu-paste"
 valid msgstr="Peg(ar|a|e)"
 hint="« Paste » se traduce como como « Pegar » (regla de traducción de menús de KDE)"
 
 {^Go to line\s?\.\.\.$}
-id="ui-menu-go-to-line"
+id="ui-2-menu-go-to-line"
 valid msgstr="Ir a la línea\.\.\."
 hint="« Go to line... » se traduce como como « Ir a la línea... » (regla de traducción de menús de KDE)"
 
 {^Indent$}
-id="ui-menu-indent"
+id="ui-2-menu-indent"
 valid msgstr="Sangrar"
 valid msgstr="Sangría"
 hint="« Indent » se traduce como como « Sangrar/Sangría » (regla de traducción de menús de KDE)"
 
 {^Insert file$}
-id="ui-menu-insert-file"
+id="ui-2-menu-insert-file"
 valid msgstr="Insertar archivo"
 hint="« Insert file » se traduce como como « Insertar archivo » (regla de traducción de menús de KDE)"
 
 {^Invert selection$}
-id="ui-menu-invert-selection"
+id="ui-2-menu-invert-selection"
 valid msgstr="Invertir selección"
 hint="« Invert selection » se traduce como como « Invertir selección » (regla de traducción de menús de KDE)"
 
 {^Replace$}
-id="ui-menu-replace"
+id="ui-2-menu-replace"
 valid msgstr="Ree?mplazar"
 valid msgstr="Ree?mplazo"
 valid msgstr="Sustituir"
 hint="« Replace » se traduce como como « Remplazar » (regla de traducción de menús de KDE)"
 
 {^Search$}
-id="ui-menu-search"
+id="ui-2-menu-search"
 valid msgstr="Buscar"
 valid msgstr="Búsqueda"
 hint="« Search » se traduce como como « Buscar/Búsqueda » (regla de traducción de menús de KDE)"
 
 {^Search again$}
-id="ui-menu-search-again"
+id="ui-2-menu-search-again"
 valid msgstr="Repetir búsqueda"
 hint="« Search again » se traduce como como « Repetir búsqueda » (regla de traducción de menús de KDE)"
 
 {^Select$}
-id="ui-menu-select"
+id="ui-2-menu-select"
 valid msgstr="Seleccionar"
 hint="« Select » se traduce como como « Seleccionar » (regla de traducción de menús de KDE)"
 
 {^Unselect$}
-id="ui-menu-unselect"
+id="ui-2-menu-unselect"
 valid msgstr="Deseleccionar"
 hint="« Unselect» se traduce como como « Deseleccionar » (regla de traducción de menús de KDE)"
 
 {^Select all$}
-id="ui-menu-select-all"
+id="ui-2-menu-select-all"
 valid msgstr="Seleccionar todo"
 hint="« Select all » se traduce como como « Seleccionar todo » (regla de traducción de menús de KDE)"
 
 {^Unselect all$}
-id="ui-menu-unselect-all"
+id="ui-2-menu-unselect-all"
 valid msgstr="Deseleccionar todo"
 hint="« Unselect all » se traduce como como « Deseleccionar todo » (regla de traducción de menús de KDE)"
 
 {^Spellchecker$}
-id="ui-menu-spellchecker"
+id="ui-2-menu-spellchecker"
 valid msgstr="Corrector ortográfico"
 hint="« Spellcheckerr » se traduce como como « Corrector ortográfico » (regla de traducción de menús de KDE)"
 
 {^Undo$}
-id="ui-menu-undo"
+id="ui-2-menu-undo"
 valid msgstr="Deshacer"
 hint="« Undo » se traduce como como « Deshacer » (regla de traducción de menús de KDE)"
 
 {^Redo$}
-id="ui-menu-redo"
+id="ui-2-menu-redo"
 valid msgstr="Rehacer"
 hint="« Redo » se traduce como como « Rehacer » (regla de traducción de menús de KDE)"
 
@@ -325,18 +325,18 @@ hint="« Redo » se traduce como como « Rehacer » (regla de traducción de men
 # Menú Ver
 
 {^Collapse tree view$}
-id="ui-menu-collapse-tree-view"
+id="ui-2-menu-collapse-tree-view"
 valid msgstr="Contraer vista de árbol"
 hint="« Collapse tree view » se traduce como como « Contraer vista de árbol » (regla de traducción de menús de KDE)"
 
 {^Show$}
-id="ui-menu-show"
+id="ui-2-menu-show"
 valid msgstr="Mostrar"
 valid msgstr="Muestra"
 hint="« Show » se traduce como como « Mostrar » (regla de traducción de menús de KDE)"
 
 {^Hide$}
-id="ui-menu-hide"
+id="ui-2-menu-hide"
 valid msgstr="Ocultar"
 hint="« Hide » se traduce como como « Ocultar » (regla de traducción de menús de KDE)"
 
@@ -344,53 +344,53 @@ hint="« Hide » se traduce como como « Ocultar » (regla de traducción de men
 # Menú Preferencias/Opciones
 
 {^Default$}
-id="ui-menu-default"
+id="ui-2-menu-default"
 valid msgstr="Predeterminad[oa]"
 valid msgstr="Por\somisión"
 hint="« Default » se traduce como como « Predeterminado/Por omisión » (regla de traducción de menús de KDE)"
 
 {^Defaults$}
-id="ui-menu-defaults"
+id="ui-2-menu-defaults"
 valid msgstr="Predeterminad[oa]s"
 hint="« Defaults » se traduce como como « Predeterminados » (regla de traducción de menús de KDE)"
 
 {^Edit options$}
-id="ui-menu-edit-options"
+id="ui-2-menu-edit-options"
 valid msgstr="Editar opciones"
 hint="« Edit options » se traduce como como « Editar opciones » (regla de traducción de menús de KDE)"
 
 {^Key bindings$}
-id="ui-menu-key-bindings"
+id="ui-2-menu-key-bindings"
 valid msgstr="Atajos de teclado"
 hint="« Key bindings » se traduce como como « Atajos de teclado » (regla de traducción de menús de KDE)"
 
 {^Preferences$}
-id="ui-menu-preferences"
+id="ui-2-menu-preferences"
 valid msgstr="Preferencias"
 hint="« Preferences » se traduce como como « Preferencias » (regla de traducción de menús de KDE)"
 
 {^Remove$}
-id="ui-menu-remove"
+id="ui-2-menu-remove"
 valid msgstr="Eliminar"
 hint="« Remove » se traduce como como « Eliminar » (regla de traducción de menús de KDE)"
 
 {^Delete$}
-id="ui-menu-delete"
+id="ui-2-menu-delete"
 valid msgstr="Borrar"
 hint="« Delete » se traduce como como « Borrar » (regla de traducción de menús de KDE)"
 
 {^Save options$}
-id="ui-menu-save-options"
+id="ui-2-menu-save-options"
 valid msgstr="Guardar opciones"
 hint="« Save options » se traduce como como « Guardar opciones » (regla de traducción de menús de KDE)"
 
 {^Settings$}
-id="ui-menu-settings"
+id="ui-2-menu-settings"
 valid msgstr="Preferencias"
 hint="« Settings » se traduce como como « Preferencias » (regla de traducción de menús de KDE)"
 
 {^Set up$}
-id="ui-menu-set-up"
+id="ui-2-menu-set-up"
 valid msgstr="Configurar"
 hint="« Set up » se traduce como como « Configurar » (regla de traducción de menús de KDE)"
 
@@ -398,140 +398,140 @@ hint="« Set up » se traduce como como « Configurar » (regla de traducción d
 # Menú Ayuda
 
 {^Contents$}
-id="ui-menu-contents"
+id="ui-2-menu-contents"
 valid msgstr="Contenido"
 hint="« Contents » se traduce como como « Contenido » (regla de traducción de menús de KDE)"
 
 {^Manual$}
-id="ui-menu-manual"
+id="ui-2-menu-manual"
 valid msgstr="Manual"
 hint="« Manual » se traduce como como « Manual » (regla de traducción de menús de KDE)"
 
 {^Handbook$}
-id="ui-menu-handbook"
+id="ui-2-menu-handbook"
 valid msgstr="Manual"
 hint="« Handbook » se traduce como como « Manual » (regla de traducción de menús de KDE)"
 
 {^Tip of the day$}
-id="ui-tip-of-the-day"
+id="ui-2-tip-of-the-day"
 valid msgstr="Consejo del día"
 hint="« Tip of the day » se traduce como como « Consejo del día » (regla de traducción de menús de KDE)"
 
 {^Hint$}
-id="ui-menu-hint"
+id="ui-2-menu-hint"
 valid msgstr="Consejo"
 valid msgstr="Pista"
 valid msgstr="Sugerencia"
 hint="« Hint » se traduce como como « Consejo/Pista/Sugerencia » (regla de traducción de menús de KDE)"
 
 {^Credits$}
-id="ui-menu-credits"
+id="ui-2-menu-credits"
 valid msgstr="Créditos"
 hint="« Crédits » se traduce como como « Créditos » (regla de traducción de menús de KDE)"
 
 # Barras de título
 
 {\bsplit\sview\sleft\b}i
-id="ui-menu-split-view-left"
+id="ui-2-menu-split-view-left"
 valid msgstr="dividir\svista\sizquierda"
 hint="« Split view left » se traduce como como « Dividir vista izquierda » (regla de traducción de elementos gráficos)"
 
 {\bsplit\sview\sright\b}i
-id="ui-menu-split-view-right"
+id="ui-2-menu-split-view-right"
 valid msgstr="dividir\svista\sderecha"
 hint="« Split view right » se traduce como como « Dividir vista derecha » (regla de traducción de elementos gráficos)"
 
 {\bsplit\sview\stop\b}i
-id="ui-menu-split-view-top"
+id="ui-2-menu-split-view-top"
 valid msgstr="dividir\svista\ssuperior"
 hint="« Split view top » se traduce como como « Dividir vista superior » (regla de traducción de elementos gráficos)"
 
 {\bsplit\sview\sbottom\b}i
-id="ui-menu-split-view-bottom"
+id="ui-2-menu-split-view-bottom"
 valid msgstr="dividir\svista\sinferior"
 hint="« Split view bottom » se traduce como como « Dividir vista inferior » (regla de traducción de elementos gráficos)"
 
 {\bclose\sactive\swindow\b}i
-id="ui-menu-close-active-window"
+id="ui-2-menu-close-active-window"
 valid msgstr="cerrar\sventana\sactiva"
 hint="« Close active window » se traduce como como « Cerrar ventana activa » (regla de traducción de elementos gráficos)"
 
 {\bnew\swindow\b}i
-id="ui-menu-new-window"
+id="ui-2-menu-new-window"
 valid msgstr="nueva\sventana"
 valid msgstr="ventana\snueva"
 valid msgstr="gestor\sde\sventanas" before="\smanager"
 hint="« New window » se traduce como como « Nueva ventana » (regla de traducción de elementos gráficos)"
 
 {\bduplicate\swindow\b}i
-id="ui-menu-duplicate-window"
+id="ui-2-menu-duplicate-window"
 valid msgstr="duplicar\sventana"
 hint="« Duplicate window » se traduce como como « Duplicar ventana » (regla de traducción de elementos gráficos)"
 
 {\bnew\stab\b}i
-id="ui-menu-new-tab"
+id="ui-2-menu-new-tab"
 valid msgstr="nueva\spestaña"
 valid msgstr="pestaña\snueva"
 hint="« New tab » se traduce como como « Nueva pestaña » (regla de traducción de elementos gráficos)"
 
 {\bduplicate\stab\b}i
-id="ui-menu-duplicate-tab"
+id="ui-2-menu-duplicate-tab"
 valid msgstr="duplicar\spestaña"
 hint="« Duplicate tab » se traduce como como « Duplicar pestaña » (regla de traducción de elementos gráficos)"
 
 {\bduplicate\scurrent\stab\b}i
-id="ui-menu-duplicate-current-tab"
+id="ui-2-menu-duplicate-current-tab"
 valid msgstr="duplicar\spestaña\sactual"
 hint="« Duplicate current tab » se traduce como como « Duplicar pestaña actual» (regla de traducción de elementos gráficos)"
 
 {\bdetach\stab\b}i
-id="ui-menu-detach-tab"
+id="ui-2-menu-detach-tab"
 valid msgstr="separar\spestaña"
 hint="« Detach tab » se traduce como como « Separar pestaña » (regla de traducción de elementos gráficos)"
 
 {\bdetach\scurrent\stab\b}i
-id="ui-menu-detach-current-tab"
+id="ui-2-menu-detach-current-tab"
 valid msgstr="separar\spestaña\sactual"
 hint="« Detach current tab » se traduce como como « Separar pestaña actual» (regla de traducción de elementos gráficos)"
 
 {\bclose\stab\b}i
-id="ui-menu-close-tab"
+id="ui-2-menu-close-tab"
 valid msgstr="cerrar\spestaña"
 hint="« Close tab » se traduce como como « Cerrar pestaña » (regla de traducción de elementos gráficos)"
 
 {\bclose\scurrent\stab\b}i
-id="ui-menu-close-current-tab"
+id="ui-2-menu-close-current-tab"
 valid msgstr="cerrar\spestaña\sactual"
 hint="« Close current tab » se traduce como como « Cerrar pestaña actual» (regla de traducción de elementos gráficos)"
 
 # Elementos gráficos
 
 {\bbutton\b}i
-id="ui-widget-button"
+id="ui-2-widget-button"
 valid msgstr="botón"
 valid msgstr="botones"
 hint="« Button » se traduce como como « Botón » (regla de traducción de elementos gráficos)"
 
 {\bbuttons\b}i
-id="ui-widget-buttons"
+id="ui-2-widget-buttons"
 valid msgstr="botones"
 valid msgstr="(cualquier|ningún)\sbotón"
 hint="« Buttons » se traduce como como « Botones » (regla de traducción de elementos gráficos)"
 
 {\bcanvas\b}i
-id="ui-widget-canvas"
+id="ui-2-widget-canvas"
 valid msgstr="lienzo"
 valid msgstr="tapiz"
 hint="« Canvas » se traduce como « Lienzo/Tapiz » (regla de traducción de elementos gráficos)"
 
 {\bcaption\b}i
-id="ui-widget-caption"
+id="ui-2-widget-caption"
 valid msgstr="título"
 valid msgstr="leyenda"
 hint="« Caption » se traduce como como « Título/Leyenda » (regla de traducción de elementos gráficos)"
 
 {\bcaptions\b}i
-id="ui-widget-captions"
+id="ui-2-widget-captions"
 valid msgstr="títulos"
 valid msgstr="leyendas"
 valid msgstr="(cualquier|ningún)\stítulo"
@@ -539,60 +539,60 @@ valid msgstr="(cualquier|ninguna)\sleyenda"
 hint="« Captions » se traduce como como « Títulos/Leyendas » (regla de traducción de elementos gráficos)"
 
 {\bcheckbox\b}i
-id="ui-widget-checkbox"
+id="ui-2-widget-checkbox"
 valid msgstr="casillas?\sde\sverificación"
 hint="« Checkbox » se traduce como como « Casilla de verificación » (regla de traducción de elementos gráficos)"
 
 {\bcheckboxes\b}i
-id="ui-widget-checkboxes"
+id="ui-2-widget-checkboxes"
 valid msgstr="casillas\sde\sverificación"
 valid msgstr="(cualquier|ninguna)\scasilla\sde\sverificación"
 hint="« Checkboxes » se traduce como como « Casillas de verificación » (regla de traducción de elementos gráficos)"
 
 {\bcheck\s?button\b}i
-id="ui-widget-check-button"
+id="ui-2-widget-check-button"
 valid msgstr="bot(ón|ones)\sde\sverificación"
 hint="« Check button » se traduce como « Botón de verificación » (regla de traducción de elementos gráficos)"
 
 {\bcheck\s?buttons\b}i
-id="ui-widget-check-buttons"
+id="ui-2-widget-check-buttons"
 valid msgstr="botones\sde\sverificación"
 valid msgstr="(algún|ningún|cualquier)\sbotón\sde\sverificación"
 hint="« Check buttons » se traduce como « Botones de verificación » (regla de traducción de elementos gráficos)"
 
 {\bchild\swindow\b}i
-id="ui-widget-child-window"
+id="ui-2-widget-child-window"
 valid msgstr="ventana\ssecundaria"
 valid msgstr="ventanas\ssecundarias"
 hint="« Child window » se traduce como como « Ventana secundaria » (regla de traducción de elementos gráficos)"
 
 {\bchild\swindows\b}i
-id="ui-widget-child-windows"
+id="ui-2-widget-child-windows"
 valid msgstr="ventanas\ssecundarias"
 valid msgstr="(cualquier|ninguna)\sventana\ssecundaria"
 hint="« Child windows » se traduce como como « Ventanas secundarias » (regla de traducción de elementos gráficos)"
 
 {\bcombo\s?box\b}i
-id="ui-widget-combo-box"
+id="ui-2-widget-combo-box"
 valid msgstr="lista\sdesplegable"
 valid msgstr="listas\sdesplegables"
 hint="« Combo box » se traduce como como « Lista desplegable » (regla de traducción de elementos gráficos)"
 
 {\bcombo\s?boxes\b}i
-id="ui-widget-combo-boxes"
+id="ui-2-widget-combo-boxes"
 valid msgstr="listas\sdesplegables"
 valid msgstr="(cualquier|ningún)\slista\sdesplegable"
 hint="« Combo boxes » se traduce como como « Listas desplegables » (regla de traducción de elementos gráficos)"
 
 {\bcut\sand\spaste\b}i
-id="ui-widget-cut-and-paste"
+id="ui-2-widget-cut-and-paste"
 valid msgstr="cortar\sy\spegar"
 valid msgstr="corte\sy\spegue"
 valid msgstr="corta\sy\spega"
 hint="« Cut and paste » se traduce como « Cortar y pegar » (regla de traducción de elementos gráficos)"
 
 {\bdesktop\b}i
-id="ui-widget-desktop"
+id="ui-2-widget-desktop"
 valid msgstr="escritorio"
 valid msgstr="Desktop" after="K\s"
 valid after="\."
@@ -600,24 +600,24 @@ valid before="\sBus"
 hint="« Desktop » se traduce como « Escritorio » (regla de traducción de elementos gráficos)"
 
 {\bdesktops\b}i
-id="ui-widget-desktops"
+id="ui-2-widget-desktops"
 valid msgstr="escritorios"
 valid msgstr="(algún|ningún|cualquier)\sescritorio"
 hint="« Desktops » se traduce como « Escritorios » (regla de traducción de elementos gráficos)"
 
 {\bdialog\s?box\b}i
-id="ui-widget-dialog-box"
+id="ui-2-widget-dialog-box"
 valid msgstr="cuadros?\sde\sdiálogo"
 hint="« Dialog box » se traduce como como « Cuadro de diálogo » (regla de traducción de elementos gráficos)"
 
 {\bdialog\s?boxes\b}i
-id="ui-widget-dialog-boxes"
+id="ui-2-widget-dialog-boxes"
 valid msgstr="cuadros\sde\sdiálogo"
 valid msgstr="(cualquier|ningún)\scuadro\sde\sdiálogo"
 hint="« Dialog boxes » se traduce como como « Cuadros de diálogo » (regla de traducción de elementos gráficos)"
 
 {\bdrag(\s|\-)and(\s|\-)drop\b}i
-id="ui-widget-drag-and-drop"
+id="ui-2-widget-drag-and-drop"
 valid msgstr="arrastrar\sy\ssoltar"
 valid msgstr="arrastr[ea]\sy\ssuelt[ea]"
 valid msgstr="arrastrarl[oa]s?\sy\ssoltarl[oa]s?"
@@ -626,30 +626,30 @@ valid msgstr="arrastrará\sy\ssoltará" after="will\s"
 hint="« Drag and drop » se traduce como « Arrastrar y soltar » (regla de traducción de elementos gráficos)"
 
 {\bdrop\sdown\smenu\b}i
-id="ui-widget-drop-down-menu"
+id="ui-2-widget-drop-down-menu"
 valid msgstr="menú\sdesplegable"
 valid msgstr="menús\sdesplegables"
 hint="« Drop down menu » se traduce como como « Menú desplegable » (regla de traducción de elementos gráficos)"
 
 {\bdrop\sdown\smenus\b}i
-id="ui-widget-drop-down-menus"
+id="ui-2-widget-drop-down-menus"
 valid msgstr="menús\sdesplegables"
 valid msgstr="(cualquier|ningún)\smenú\sdesplegable"
 hint="« Drop down menus » se traduce como como « Menús desplegables » (regla de traducción de elementos gráficos)"
 
 {\bfield\b}i
-id="ui-widget-field"
+id="ui-2-widget-field"
 valid msgstr="campo"
 hint="« Field » se traduce como « Campo » (regla de traducción de elementos gráficos)"
 
 {\bfields\b}i
-id="ui-widget-fields"
+id="ui-2-widget-fields"
 valid msgstr="campos"
 valid msgstr="(algún|ningún|cualquier)\scampo"
 hint="« Fields » se traduce como « Campos » (regla de traducción de elementos gráficos)"
 
 {\bframe\b}i
-id="ui-widget-frame"
+id="ui-2-widget-frame"
 valid msgstr="marco"
 valid msgstr="fotograma"
 valid msgstr="ejecución" before="\sstack"
@@ -657,7 +657,7 @@ valid before="\sBuffer"
 hint="« Frame » se traduce como como « Marco/Fotograma » (regla de traducción de elementos gráficos)"
 
 {\bframes\b}i
-id="ui-widget-frames"
+id="ui-2-widget-frames"
 valid msgstr="marcos"
 valid msgstr="fotogramas"
 valid msgstr="(cualquier|ningún)\smarco"
@@ -665,13 +665,13 @@ valid msgstr="(cualquier|ningún)\sfotograma"
 hint="« Frames » se traduce como como « Marcos/Fotogramas » (regla de traducción de elementos gráficos)"
 
 {\bgrid\b}i
-id="ui-widget-grid"
+id="ui-2-widget-grid"
 valid msgstr="rejilla"
 valid msgstr="cuadrícula"
 hint="« Grid » se traduce como « Rejilla/Cuadrícula » (regla de traducción de elementos gráficos)"
 
 {\bgrids\b}i
-id="ui-widget-grids"
+id="ui-2-widget-grids"
 valid msgstr="rejillas"
 valid msgstr="cuadrículas"
 valid msgstr="(ninguna|cualquier)\srejilla"
@@ -679,75 +679,75 @@ valid msgstr="(ninguna|cualquier)\scuadrícula"
 hint="« Grids » se traduce como « Rejillas/Cuadrículas » (regla de traducción de elementos gráficos)"
 
 {\bhelper\b}i
-id="ui-widget-helper"
+id="ui-2-widget-helper"
 valid msgstr="asistente"
 hint="« Helper » se traduce como como « Asistente » (regla de traducción de elementos gráficos)"
 
 {\bhelpers\b}i
-id="ui-widget-helpers"
+id="ui-2-widget-helpers"
 valid msgstr="asistentes"
 valid msgstr="(cualquier|ningún)\sasistente"
 hint="« Helpers » se traduce como como « Asistentes » (regla de traducción de elementos gráficos)"
 
 {\bicon\b}i
-id="ui-widget-icon"
+id="ui-2-widget-icon"
 valid msgstr="icono"
 hint="« Icon » se traduce como « Icono » (regla de traducción de elementos gráficos)"
 
 {\bicons\b}i
-id="ui-widget-icons"
+id="ui-2-widget-icons"
 valid msgstr="iconos"
 valid msgstr="(algún|ningún|cualquier)\sicono"
 hint="« Icons » se traduce como « Iconos » (regla de traducción de elementos gráficos)"
 
 {\blabel\b}i
-id="ui-widget-label"
+id="ui-2-widget-label"
 valid msgstr="etiquet(ar|a|e)"
 valid msgstr="discográfica" after="record\s"
 hint="« Label » se traduce como como « Etiqueta » (regla de traducción de elementos gráficos)"
 
 {\blabels\b}i
-id="ui-widget-labels"
+id="ui-2-widget-labels"
 valid msgstr="etiquet(as|a|e)"
 valid msgstr="(cualquier|ninguna)\setiqueta"
 hint="« Labels » se traduce como como « Etiquetas » (regla de traducción de elementos gráficos)"
 
 {\blist\s?box\b}i
-id="ui-widget-list-box"
+id="ui-2-widget-list-box"
 valid msgstr="cuadros?\sde\slista"
 hint="« Listbox » se traduce como como « Cuadro de lista » (regla de traducción de elementos gráficos)"
 
 {\blist\s?boxes\b}i
-id="ui-widget-list-boxes"
+id="ui-2-widget-list-boxes"
 valid msgstr="cuadros\sde\slista"
 valid msgstr="(cualquier|ningún)\scuadro\sde\slista"
 hint="« Listboxes » se traduce como como « Cuadros de lista » (regla de traducción de elementos gráficos)"
 
 {\bmaximi[sz]e\b}i
-id="ui-widget-maximize"
+id="ui-2-widget-maximize"
 valid msgstr="maximi(zar|za|ce)"
 valid msgstr="maximizará" after="will\s"
 hint="« Maximise » se traduce como como « Maximizar » (regla de traducción de elementos gráficos)"
 
 {\bmenu\sbar\b}i
-id="ui-widget-menu-bar"
+id="ui-2-widget-menu-bar"
 valid msgstr="barras?\sde\smenú"
 hint="« Menu bar » se traduce como como « Barra de menú » (regla de traducción de elementos gráficos)"
 
 {\bmenu\sbars\b}i
-id="ui-widget-menu-bars"
+id="ui-2-widget-menu-bars"
 valid msgstr="barras\sde\smenú"
 valid msgstr="(cualquier|ninguna)\sbarra\sde\smenú"
 hint="« Menu bars » se traduce como como « Barras de menú » (regla de traducción de elementos gráficos)"
 
 {\bmenu\sitem\b}i
-id="ui-widget-menu-item"
+id="ui-2-widget-menu-item"
 valid msgstr="opción.+?del?\smenú"
 valid msgstr="opción.+?del?\ssubmenú" after="sub\s"
 hint="« Menu item » se traduce como como « Opción de menú » (regla de traducción de elementos gráficos)"
 
 {\bmenu\sitems\b}i
-id="ui-widget-menu-items"
+id="ui-2-widget-menu-items"
 valid msgstr="opciones.+?del?\smenú"
 valid msgstr="opciones.+?del?\ssubmenú" after="sub\s"
 valid msgstr="(cualquier|ninguna)\sopción.+?del?\smenú"
@@ -755,76 +755,76 @@ valid msgstr="(cualquier|ninguna)\sopción.+?del?\ssubmenú" after="sub\s"
 hint="« Menu items » se traduce como como « Opciones de menú » (regla de traducción de elementos gráficos)"
 
 {\bminimi[sz]e\b}i
-id="ui-widget-minimise"
+id="ui-2-widget-minimise"
 valid msgstr="minimi(zar|za|ce)"
 valid msgstr="minimizará" after="will\s"
 hint="« Minimise » se traduce como como « Minimizar » (regla de traducción de elementos gráficos)"
 
 {\bprogress\s?bar\b}i
-id="ui-widget-progressbar"
+id="ui-2-widget-progressbar"
 valid msgstr="barras?\sde\sprogreso"
 hint="« Progressbar » se traduce como como « Barra de progreso » (regla de traducción de elementos gráficos)"
 
 {\bquick\slaunch\b}i
-id="ui-widget-quick-launch"
+id="ui-2-widget-quick-launch"
 valid msgstr="inicio\srápido"
 hint="« Quick launch » se traduce como como « Inicio rápido » (regla de traducción de elementos gráficos)"
 
 {\broot\s?window\b}i
-id="ui-widget-root-window"
+id="ui-2-widget-root-window"
 valid msgstr="ventanas?\sde\sfondo"
 hint="« Root window » se traduce como como « Ventana de fondo » (regla de traducción de elementos gráficos)"
 
 {\broot\s?windows\b}i
-id="ui-widget-root-windows"
+id="ui-2-widget-root-windows"
 valid msgstr="ventanas\sde\sfondo"
 valid msgstr="(cualquier|ninguna)\sventana\sde\sfondo"
 hint="« Root windows » se traduce como como « Ventanas de fondo » (regla de traducción de elementos gráficos)"
 
 {\bscroll\s?bar\b}i
-id="ui-widget-scroll-bar"
+id="ui-2-widget-scroll-bar"
 valid msgstr="barras?\sde\sdesplazamiento"
 hint="« Scroll bar » se traduce como como « Barra de desplazamiento » (regla de traducción de elementos gráficos)"
 
 {\bscroll\s?bars\b}i
-id="ui-widget-scroll-bars"
+id="ui-2-widget-scroll-bars"
 valid msgstr="barras\sde\sdesplazamiento"
 valid msgstr="(cualquier|ninguna)\sbarra\sde\sdesplazamiento"
 hint="« Scroll bars » se traduce como como « Barras de desplazamiento » (regla de traducción de elementos gráficos)"
 
 {\bservice\smenu\b}i
-id="ui-widget-service-menu"
+id="ui-2-widget-service-menu"
 valid msgstr="menú\scontextual"
 valid msgstr="menús\scontextuales"
 hint="« Service menu » se traduce como « Menú contextual » (regla de traducción de elementos gráficos)"
 
 {\bservice\smenus\b}i
-id="ui-widget-service-menus"
+id="ui-2-widget-service-menus"
 valid msgstr="menús\scontextuales"
 valid msgstr="cualquier\smenú\scontextual"
 valid msgstr="ningún\smenú\scontextual"
 hint="« Service menus » se traduce como « Menús contextuales » (regla de traducción de elementos gráficos)"
 
 {\bside\s?bar\b}i
-id="ui-widget-side-bar"
+id="ui-2-widget-side-bar"
 valid msgstr="panel\slateral"
 valid msgstr="paneles\slaterales"
 hint="« Side bar » se traduce como como « Panel lateral » (regla de traducción de elementos gráficos)"
 
 {\bside\s?bars\b}i
-id="ui-widget-side-bars"
+id="ui-2-widget-side-bars"
 valid msgstr="paneles\slaterales"
 valid msgstr="(cualquier|ningún)\spanel\slateral"
 hint="« Side bars » se traduce como como « Paneles laterales » (regla de traducción de elementos gráficos)"
 
 {\bsplitter\b}i
-id="ui-widget-splitter"
+id="ui-2-widget-splitter"
 valid msgstr="separador"
 valid msgstr="divisor"
 hint="« Splitter » se traduce como como « Separador » (regla de traducción de elementos gráficos)"
 
 {\bsplitters\b}i
-id="ui-widget-spliters"
+id="ui-2-widget-spliters"
 valid msgstr="separadores"
 valid msgstr="divisores"
 valid msgstr="(algún|ningún|cualquier)\sdivisor"
@@ -832,67 +832,67 @@ valid msgstr="(cualquier|ningún)\separador"
 hint="« Splitters » se traduce como como « Separadores » (regla de traducción de elementos gráficos)"
 
 {\bstatus\s?bar\b}i
-id="ui-widget-status-bar"
+id="ui-2-widget-status-bar"
 valid msgstr="barras?\sde\sestado"
 hint="« Status bar » se traduce como como « Barra de estado » (regla de traducción de elementos gráficos)"
 
 {\bstatus\s?bars\b}i
-id="ui-widget-status-bars"
+id="ui-2-widget-status-bars"
 valid msgstr="barras\sde\sestado"
 valid msgstr="(cualquier|ninguna)\sbarra\sde\sestado"
 hint="« Status bars » se traduce como como « Barras de estado » (regla de traducción de elementos gráficos)"
 
 {\btask\s?bar\b}i
-id="ui-widget-task-bar"
+id="ui-2-widget-task-bar"
 valid msgstr="barras?\sde\stareas"
 hint="« Taskbar » se traduce como « Barra de tareas » (regla de traducción de elementos gráficos)"
 
 {\btask\s?bars\b}i
-id="ui-widget-task-bars"
+id="ui-2-widget-task-bars"
 valid msgstr="barras\sde\stareas"
 valid msgstr="(cualquier|ninguna)\sbarra\sde\stareas"
 hint="« Taskbar » se traduce como « Barra de tareas » (regla de traducción de elementos gráficos)"
 
 {\btext\s?box\b}i
-id="ui-widgets-text-box"
+id="ui-2-widgets-text-box"
 valid msgstr="áreas?\sde\stexto"
 hint="« Text box » se traduce como como « Área de texto » (regla de traducción de elementos gráficos)"
 
 {\btext\s?boxes\b}i
-id="ui-widget-text-boxes"
+id="ui-2-widget-text-boxes"
 valid msgstr="áreas\sde\stexto"
 valid msgstr="(cualquier|ninguna)\sárea\sde\stexto"
 hint="« Text boxes » se traduce como como « Áreas de texto » (regla de traducción de elementos gráficos)"
 
 {\btext\s?field\b}i
-id="ui-widget-text-field"
+id="ui-2-widget-text-field"
 valid msgstr="campos?\sde\stexto"
 hint="« Text field » se traduce como como « Campo de texto » (regla de traducción de elementos gráficos)"
 
 {\btext\s?fields\b}i
-id="ui-widget-text-fields"
+id="ui-2-widget-text-fields"
 valid msgstr="campos\sde\stexto"
 valid msgstr="(cualquier|ningún)\scampo\sde\stexto"
 hint="« Text fields » se traduce como como « Campos de texto » (regla de traducción de elementos gráficos)"
 
 {\btitle\s?bar\b}i
-id="ui-widget-tittle-bar"
+id="ui-2-widget-tittle-bar"
 valid msgstr="barras?\sde\stítulo"
 hint="« Title bar » se traduce como como « Barra de título » (regla de traducción de elementos gráficos)"
 
 {\btitle\s?bars\b}i
-id="ui-widget-title-bars"
+id="ui-2-widget-title-bars"
 valid msgstr="barras\sde\stítulo"
 valid msgstr="(cualquier|ninguna)\sbarra\sde\stítulo"
 hint="« Title bars » se traduce como como « Barras de título » (regla de traducción de elementos gráficos)"
 
 {\btool\s?bar\b}i
-id="ui-widget-tool-bar"
+id="ui-2-widget-tool-bar"
 valid msgstr="barras?\sde\sherramientas"
 hint="« Tool bar » se traduce como como « Barra de herramientas » (regla de traducción de elementos gráficos)"
 
 {\btool\s?bars\b}i
-id="ui-widget-tool-bars"
+id="ui-2-widget-tool-bars"
 valid msgstr="barras\sde\sherramientas"
 valid msgstr="(cualquier|ninguna)\sbarra\sde\sherramientas"
 hint="« Tool bars » se traduce como como « Barras de herramientas » (regla de traducción de elementos gráficos)"

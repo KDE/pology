@@ -22,16 +22,18 @@
 include file="filter.include"
 
 [\b\w+ando\b]i
-id="gd-revisar-gerundio-ando"
+id="gd-3-revisar-gerundio-ando"
 disabled
 valid after="(?u)est\w+\s"
+valid before=".*?\.\.\."
 valid span="cuando"
 hint="Revisión de gerundios"
 
 [\b\w+(iendo|yendo)\b]i
-id="gd-revisar-gerundio-iendo"
+id="gd-3-revisar-gerundio-iendo"
 disabled
 valid after="(?u)est\w+\s"
+valid before=".*?\.\.\."
 hint="Revisión de gerundios"
 
 # End of rule file

@@ -4,47 +4,48 @@
 # License: GPLv3
 
 *hook name="es:compare_with_original/test_paired_strings" on="msg"
-id="pw-error-tabuladores-o-nueva-linea"
+id="pw-2-error-tabuladores-o-nueva-linea"
 hint="Error en tabuladores o saltos de línea"
 
 *hook name="es:compare_with_original/test_paired_brackets" on="msg"
-id="pw-error-parentesis-llaves-corchetes-comillas"
+id="pw-2-error-parentesis-llaves-corchetes-comillas"
 hint="Error en paréntesis, llaves, corchetes o comillas"
 
 *hook name="es:compare_with_original/test_paired_expressions" on="msg"
-id="pw-error-funciones-o-parametros"
+id="pw-2-error-funciones-o-parametros"
 hint="Error en funciones o parámetros"
 
 *hook name="es:compare_with_original/test_paired_numbers" on="msg"
-id="pw-error-valores-numericos"
+id="pw-3-error-valores-numericos"
 hint="Valores de números o fechas en la traducción distintos al original"
 
 *hook name="es:compare_with_original/test_paired_context_tags" on="msg"
-id="pw-error-etiquetas-contexto"
+id="pw-1-error-etiquetas-contexto"
 hint="Traducidos valores contenidos entre etiquetas de contexto no traducibles"
 
+addFilterRegex match="\<\/?quote\>" repl="~" on="pmsgstr"
 *hook name="es:compare_with_original/test_paired_xml_entities" on="msg"
-id="pw-error-etiquetas-xml"
+id="pw-2-error-etiquetas-xml"
 hint="Sobran o faltan etiquetas XML (texto entre < y >)"
 
 addFilterHook name="es:remove_subs/remove_paired_parameters" on="msg"
 
 [\%\d]
-id="pw-error-sobra-parametro"
+id="pw-1-error-sobra-parametro"
 hint="Existe un parámetro en la traducción que no figura en el texto original"
 
 {\%\d}
-id="pw-error-falta-parametro"
+id="pw-1-error-falta-parametro"
 hint="Existe un parámetro en el texto original que no figura en la traducción"
 
 addFilterHook name="remove/remove-paired-ents-tick~'~'" on="msg"
 
 [\&[\w\d\-_]+;]
-id="pw-error-sobra-entidad"
+id="pw-1-error-sobra-entidad"
 hint="Existe una entidad en la traducción que no figura en el texto original"
 
 {\&[\w\d\-_]+;}
-id="pw-error-falta-entidad"
+id="pw-1-error-falta-entidad"
 hint="Existe una entidad en el texto original que no figura en la traducción"
 
 
@@ -53,25 +54,25 @@ include file="filter.include"
 addFilterHook name="es:remove_subs/remove_tags_without_translation" on="msg"
 
 *hook name="es:compare_with_original/test_if_empty_translation" on="msg"
-id="pw-error-traduccion-vacia"
+id="pw-1-error-traduccion-vacia"
 hint="El texto de la traducción está vacío"
 
 *hook name="es:compare_with_original/test_if_purepunc" on="msg"
-id="pw-error-traducido-texto-sin-letras"
+id="pw-2-error-traducido-texto-sin-letras"
 hint="Se ha traducido un texto sin caracteres alfanuméricos significativos"
 
 *hook name="es:compare_with_original/test_if_very_long_translation" on="msg"
-id="pw-error-traduccion-muy-larga"
+id="pw-2-error-traduccion-muy-larga"
 valid msgid="Your names"
 valid msgid="Your emails"
 hint="El texto de la traducción parece demasiado grande"
 
 *hook name="es:compare_with_original/test_if_very_short_translation" on="msg"
-id="pw-error-traduccion-muy-corta"
+id="pw-2-error-traduccion-muy-corta"
 hint="El texto de la traducción parece demasiado pequeño"
 
 *hook name="es:compare_with_original/test_if_not_translated" on="msg"
-id="pw-error-mensaje-sin-traducir"
+id="pw-1-error-mensaje-sin-traducir"
 valid msgid="^\W+$" # Mensaje sin caracteres alfabéticos
 valid msgid="^[^a-z]+$" # Mensaje que no contiene minúsculas
 valid msgid="^[A-Z]\w*(\s[A-Z]\w*)*$" # Mensaje con todas las palabras comenzando por mayúscula
@@ -81,7 +82,7 @@ hint="No se ha traducido el mensaje original"
 addFilterHook name="es:remove_subs/remove_paired_capital_words" on="msg"
 
 [(?u)[,;\(]\s+[A-ZÑÇ][a-záéíóúüñç]+]
-id="pw-error-mayusculas-en-lugar-indebido"
+id="pw-1-error-mayusculas-en-lugar-indebido"
 valid ctx=".*?TRANSLATORS"
 valid ctx="trans_comment"
 valid msgid=".*?TRANSLATORS"

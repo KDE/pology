@@ -5,12 +5,12 @@
 # License: GPLv3
 
 [\d\.\d{3}(\D|$)]
-id="ty-puntos-entre-miles"
+id="ty-3-puntos-entre-miles"
 valid msgid="\d\.\d{3}(\D|$)"
 hint="No separe con puntos los miles de los números (excepto en direcciones IP)"
 
 [\&[áéíóúüÁÉÍÓÚÜ]]
-id="ty-tecla-aceleradora-incorrecta"
+id="ty-3-tecla-aceleradora-incorrecta"
 hint="Tecla aceleradora no válida (en vocal con tilde)"
 
 
@@ -41,21 +41,21 @@ valid before="$"
 valid after="«.+?"
 
 [\d\%]
-id="ty-falta-espacio-entre-numero-y-porcentaje"
+id="ty-3-falta-espacio-entre-numero-y-porcentaje"
 hint="Ponga un espacio de separación entre el número y el símbolo de procentaje"
 
 [\s\)]
-id="ty-sobra-espacio-antes-cierre-parentesis"
+id="ty-3-sobra-espacio-antes-cierre-parentesis"
 valid msgid="\(\s.*?\s\)"
 hint="No ponga un espacio antes del cierre de paréntesis"
 
 [\(\s]
-id="ty-sobra-espacio-despues-apertura-parentesis"
+id="ty-3-sobra-espacio-despues-apertura-parentesis"
 valid msgid="\(\s.*?\s\)"
 hint="No ponga un espacio después de la apertura de paréntesis"
 
 [(?<=\s)\:]
-id="ty-sobra-espacio-antes-dos-puntos"
+id="ty-3-sobra-espacio-antes-dos-puntos"
 valid ctx="Numbers and characters"
 valid ctx="CSV separator"
 valid before="\{"
@@ -63,7 +63,7 @@ valid after="\d+\s?" before="\s?\d+"
 hint="No ponga un espacio antes del signo de dos puntos"
 
 [\:(?!\s)]
-id="ty-falta-espacio-despues-dos-puntos"
+id="ty-3-falta-espacio-despues-dos-puntos"
 validGroup beforePunctuation
 valid ctx="List of words.*"
 valid ctx="Numbers and characters"
@@ -85,13 +85,13 @@ valid before="\w+" after="\w+\:"
 hint="Ponga un espacio después del signo de dos puntos"
 
 [(?<=\s);]
-id="ty-sobra-espacio-antes-punto-y-coma"
+id="ty-3-sobra-espacio-antes-punto-y-coma"
 valid ctx="Numbers and characters"
 valid ctx="CSV separator"
 hint="No ponga un espacio antes del signo de punto y coma"
 
 [;(?!\s)]
-id="ty-falta-espacio-despues-punto-y-coma"
+id="ty-3-falta-espacio-despues-punto-y-coma"
 validGroup beforePunctuation
 valid ctx="Numbers and characters"
 valid ctx="CSV separator"
@@ -103,13 +103,13 @@ valid before="$"
 hint="Ponga un espacio después del signo de punto y coma"
 
 [(?<=\s)\!]
-id="ty-sobra-espacio-antes-cierre-admiracion"
+id="ty-3-sobra-espacio-antes-cierre-admiracion"
 valid ctx="Numbers and characters"
 valid ctx="CSV separator"
 hint="No ponga un espacio antes del signo de cierre de admiración"
 
 [\!(?!\s)]
-id="ty-falta-espacio-despues-cierre-admiracion"
+id="ty-3-falta-espacio-despues-cierre-admiracion"
 validGroup afterPunctuation
 valid ctx="Numbers and characters"
 valid ctx="CSV separator"
@@ -119,33 +119,33 @@ valid before="\)"
 hint="Ponga un espacio después del signo de cierre de admiración"
 
 [(?s)^[^¡]*?\!]
-id="ty-falta-apertura-admiracion"
+id="ty-3-falta-apertura-admiracion"
 validGroup beforePunctuation
 valid ctx="Numbers and characters"
 valid ctx="CSV separator"
 hint="Abra la admiración (deben ir emparejadas)"
 
 [(?s)¡(?!.*?\!)]
-id="ty-falta-cierre-admiracion"
+id="ty-3-falta-cierre-admiracion"
 valid before="(?s).*?(\!|\(|\{|\«|\'|\"\[)"
 hint="Cierre la admiración (deben ir emparejadas)"
 
 [(?s)¡.*?\!\.]
-id="ty-sobra-punto-despues-cierre-admiracion"
+id="ty-3-sobra-punto-despues-cierre-admiracion"
 hint="No ponga punto después del cierre de admiración (Consulte ortografía de la RAE)"
 
 [(?s)¡.*?\!\s[a-z]]
-id="ty-falta-mayusculas-despues-cierre-admiracion"
+id="ty-3-falta-mayusculas-despues-cierre-admiracion"
 hint="Ponga en mayúsculas la palabra posterior al cierre de admiración (Consulte ortografía de la RAE)"
 
 [(?<=\s)\?]
-id="ty-sobra-espacio-antes-cierre-interrogacion"
+id="ty-3-sobra-espacio-antes-cierre-interrogacion"
 valid ctx="Numbers and characters"
 valid ctx="Query"
 hint="No ponga un espacio antes del signo de cierre de interrogación"
 
 [\?(?!\s)]
-id="ty-falta-espacio-despues-cierre-interrogacion"
+id="ty-3-falta-espacio-despues-cierre-interrogacion"
 validGroup afterPunctuation
 valid ctx=".*one character"
 valid ctx="Numbers and characters"
@@ -157,23 +157,23 @@ valid before="\)"
 hint="Ponga un espacio después del signo de cierre de interrogación"
 
 [(?s)^[^¿]*?\?]
-id="ty-falta-apertura-interrogacion"
+id="ty-3-falta-apertura-interrogacion"
 validGroup beforePunctuation
 valid ctx="Numbers and characters"
 valid ctx="CSV separator"
 hint="Abra la interrogación (deben ir emparejadas)"
 
 [(?s)¿(?!.*?\?)]
-id="ty-falta-cierre-interrogacion"
+id="ty-3-falta-cierre-interrogacion"
 valid before="(?s).*?[?({«'\"\[]"
 hint="Cierre la interrogación (deben ir emparejadas)"
 
 [(?s)¿.*?\?\.]
-id="ty-sobra-punto-despues-cierre-interrogacion"
+id="ty-3-sobra-punto-despues-cierre-interrogacion"
 hint="No ponga punto después del cierre de interrogación (Consulte ortografía de la RAE)"
 
 [(?<=\s),]
-id="ty-sobra-espacio-antes-coma"
+id="ty-3-sobra-espacio-antes-coma"
 valid ctx="Numbers and characters"
 valid ctx="Keywords"
 valid ctx="CSV separator"
@@ -181,7 +181,7 @@ valid after="\d+\s?" before="\s?\d+"
 hint="No ponga un espacio de separación antes del signo de coma"
 
 [,(?!\s)]
-id="ty-falta-espacio-despues-coma"
+id="ty-3-falta-espacio-despues-coma"
 validGroup beforePunctuation
 valid ctx="\w+ OF TRANSLATORS"
 valid ctx="trans_comment"
@@ -197,7 +197,7 @@ valid before="$"
 hint="Ponga un espacio de separación después del signo de coma"
 
 [»(?!\s)]
-id="ty-falta-espacio-despues-cierre-comilla"
+id="ty-3-falta-espacio-despues-cierre-comilla"
 validGroup closeQuotes
 valid before="~"
 valid before="$"
@@ -206,41 +206,41 @@ valid ctx="Numbers and characters"
 hint="Ponga un espacio después del signo de comilla española de cierre"
 
 [«.*?»\s[A-Z]]
-id="ty-falta-punto-despues-cierre-comillas"
+id="ty-3-falta-punto-despues-cierre-comillas"
 valid after="[A-Z]\w*\s"
 hint="Ponga un punto después de la comilla de cierre antes de una nueva frase en mayúsculas"
 
 [«[a-z].*?\.»]
-id="ty-orden-incorrecto-punto-comilla"
+id="ty-3-orden-incorrecto-punto-comilla"
 valid span="[a-z].*?\.\.\."
 hint="Ponga el punto después de la comilla de cierre y no antes"
 
 [¿«.*?»\?]
-id="ty-orden-incorrecto-interrogacion-comilla"
+id="ty-3-orden-incorrecto-interrogacion-comilla"
 hint="Ponga el signo de cierre de interrogación antes de la comilla de cierre y no después"
 
 [¡«.*?»\!]
-id="ty-orden-incorrecto-admiracion-comilla"
+id="ty-3-orden-incorrecto-admiracion-comilla"
 hint="Ponga el signo de cierre de admiración antes de la comilla de cierre y no después"
 
 [(?<!\s)«]
-id="ty-falta-espacio-antes-apertura-comilla"
+id="ty-3-falta-espacio-antes-apertura-comilla"
 validGroup openQuotes
 valid ctx="Numbers and characters"
 hint="Ponga un espacio antes del signo de comilla española de apertura"
 
 [(?s)«(?!.*?»)]
-id="ty-falta-cierre-comilla"
+id="ty-3-falta-cierre-comilla"
 valid before="(?s).*?[»({«'\"\[]"
 hint="Cierre la comilla (deben ir emparejadas)"
 
 [\s\s+]
-id="ty-repeticion-espacios"
+id="ty-3-repeticion-espacios"
 valid msgid="\s\s+"
 hint="No coloque más de un espacio consecutivo"
 
 [(?<=\s)\.]
-id="ty-sobra-espacio-antes-punto"
+id="ty-3-sobra-espacio-antes-punto"
 valid before="\w{2,4}(\b|\.)" # Extensions
 valid before="\/\w+\b" # Files
 valid before="\w+rc\b" # Configuration files
@@ -250,14 +250,14 @@ valid before="(desktop|calendar|directory)\b"
 hint="No ponga espacios antes de un signo de punto"
 
 [\([a-z].*?\.\)]
-id="ty-orden-incorrecto-punto-parentesis"
+id="ty-3-orden-incorrecto-punto-parentesis"
 valid span="\([a-z].*?\.\.\.\)"
 valid cat="kspread"
 valid cat="kstars"
 hint="El punto debe estar después del paréntesis (y no antes)"
 
 [\.(?!\s)]
-id="ty-falta-espacio-despues-punto"
+id="ty-3-falta-espacio-despues-punto"
 validGroup beforePunctuation
 valid ctx="EMAIL OF TRANSLATORS"
 valid ctx="trans_comment"
@@ -280,11 +280,11 @@ valid before="\)"
 hint="Ponga un espacio después de un signo de punto"
 
 [\.\.\.\s?\.]
-id="ty-sobra-punto-despues-suspensivos"
+id="ty-3-sobra-punto-despues-suspensivos"
 hint="No ponga un signo de punto después de puntos suspensivos"
 
 [\.\.]
-id="ty-puntos-repetidos"
+id="ty-3-puntos-repetidos"
 valid after="\d" before="\d"
 valid after="\%\d" before="\%\d"
 valid after="\."
@@ -292,34 +292,34 @@ valid before="\."
 hint="No ponga dos signos de punto consecutivos"
 
 [\']
-id="ty-apostrofo-suelto-o-ante-numeros"
+id="ty-3-apostrofo-suelto-o-ante-numeros"
 valid after='[a-zA-Z]'
 valid before='[a-zA-Z]'
 valid after="^" before="$"
 hint="No ponga el signo de apóstrofo suelto o antes de números"
 
 [&cr;]
-id="ty-sobra-retorno-carro"
+id="ty-3-sobra-retorno-carro"
 hint="Àbajo MS-DOS (quite el carácter de retorno de carro)"
 
 [(?<=\S)\.\s[a-zñçáéíóú]]
-id="ty-falta-mayuscula-despues-punto"
+id="ty-3-falta-mayuscula-despues-punto"
 valid after="\.\."
 valid before="[a-z]*?[A-Z]"
 hint="Utilice mayúsculas después de punto"
 
 [(?<=\S)\?\s[a-zñçáéíóú]]
-id="ty-falta-mayuscula-despues-cierre-interrogacion"
+id="ty-3-falta-mayuscula-despues-cierre-interrogacion"
 valid before="[a-z]*?[A-Z]"
 hint="Utilice mayúsculas después de cierre de interrogación"
 
 [(?<=\S)\!\s[a-zñçáéíóú]]
-id="ty-falta-mayuscula-despues-cierre-admiracion"
+id="ty-3-falta-mayuscula-despues-cierre-admiracion"
 valid before="[a-z]*?[A-Z]"
 hint="Utilice mayúsculas después de cierre de admiración"
 
 [(?s)\((?!.*?\))]
-id="ty-falta-cierre-parentesis"
+id="ty-3-falta-cierre-parentesis"
 valid before="(?s).*?[)({«'\"\[]"
 hint="Cierre el paréntesis (deben ir emparejados)"
 
@@ -328,12 +328,12 @@ hint="Cierre el paréntesis (deben ir emparejados)"
 #hint="Cierre el corchete (deben ir emparejados)"
 
 [(?s)\{(?!.*?\})]
-id="ty-falta-cierre-llaves"
+id="ty-3-falta-cierre-llaves"
 valid before="(?s).*?[}{(«'\"\[]"
 hint="Cierre la llave (deben ir emparejadas)"
 
 [\(c\)]
-id="ty-use-simbolo-copyright"
+id="ty-3-use-simbolo-copyright"
 valid msgstr="©"
 hint="Utilice el símbolo «©» en lugar de «(c)»"
 

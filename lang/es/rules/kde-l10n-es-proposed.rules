@@ -6,59 +6,59 @@
 include file="filter.include"
 
 {\baccount\b}i
-id="gp-account"
+id="gp-3-account"
 valid msgstr="cuenta"
 valid msgstr="contabili(zar|za|ce)"
 hint="«Account» se traduce como «Cuenta/Contabilizar» (propuesta glosario)"
 
 {\baccounts\b}i
-id="gp-accounts"
+id="gp-3-accounts"
 valid msgstr="cuentas"
 valid msgstr="contabili(za|ce)"
 valid msgstr="(ninguna|cualquier)\scuenta"
 hint="«Accounts» se traduce como «Cuentas» (propuesta glosario)"
 
 {\bacpi\b}i
-id="gp-acpi"
+id="gp-3-acpi"
 valid msgstr="acpi"
 valid msgstr="ACPI"
 hint="«ACPI» no se traduce (propuesta glosario)"
 
 {\badd\-?on\b}i
-id="gp-add-on"
+id="gp-3-add-on"
 valid msgstr="complemento"
 hint="«Add-on» se traduce como «Complemento» (propuesta glosario)"
 
 {\badd\-?ons\b}i
-id="gp-add-ons"
+id="gp-3-add-ons"
 valid msgstr="complementos"
 valid msgstr="(algún|ningún|cualquier)\scomplemento"
 hint="«Add-ons» se traduce como «Complementos» (propuesta glosario)"
 
 {\banti\-?aliasing\b}i
-id="gp-antialiasing"
+id="gp-3-antialiasing"
 valid msgstr="suavizados?\sde\sbordes"
 hint="«Anti-aliasing» se traduce como «Suavizado de bordes» (propuesta glosario)"
 
 {\bapm\b}i
-id="gp-apm"
+id="gp-3-apm"
 valid msgstr="apm"
 valid msgstr="APM"
 hint="«APM» no se traduce (propuesta glosario)"
 
 {\bappliance\b}i
-id="gp-appliance"
+id="gp-3-appliance"
 valid msgstr="dispositivo"
 hint="«Appliance» se traduce como «Dispositivo» (propuesta glosario)"
 
 {\bappliances\b}i
-id="gp-appliances"
+id="gp-3-appliances"
 valid msgstr="dispositivos"
 valid msgstr="(algún|ningún|cualquier)\sdispositivo"
 hint="«Appliances» se traduce como «Dispositivos» (propuesta glosario)"
 
 {\battach\b}i
-id="gp-attach"
+id="gp-3-attach"
 valid msgstr="adjunt(ar|a|e)"
 valid msgstr="anex(ar|a|e)"
 valid msgstr="adjuntará" after="will\s(not\s)?"
@@ -69,7 +69,7 @@ valid !msgstr="ata(car|ca|que)"
 hint="«Attach» se traduce como «Adjuntar/Anexar» (propuesta glosario)"
 
 {\battached\b}i
-id="gp-attached"
+id="gp-3-attached"
 valid msgstr="adjuntad[oa]"
 valid msgstr="anexad[oa]"
 valid msgstr="adjuntarse"
@@ -84,20 +84,20 @@ valid !msgstr="atacad[oa]"
 hint="«Attached» se traduce como «Adjuntado/Anexado» (propuesta glosario)"
 
 {\battachment\b}i
-id="gp-attachment"
+id="gp-3-attachment"
 valid msgstr="adjunto"
 valid msgstr="anexo"
 hint="«Attachment» se traduce como «Adjunto/Anexo» (propuesta glosario)"
 
 {\bauthenticate\b}i
-id="gp-authenticate"
+id="gp-3-authenticate"
 valid msgstr="autenti(car|ca|que)"
 valid msgstr="autenticará" after="will\s(not\s)?"
 valid msgstr="autenticó" after="did\s(not\s)?"
 hint="«Authenticate» se traduce como «Autenticar» (propuesta glosario)"
 
 {\bauthenticated\b}i
-id="gp-authenticated"
+id="gp-3-authenticated"
 valid msgstr="autenticad[oa]"
 valid msgstr="autenticarse"
 valid msgstr="se\sautenti(ca|que)n?"
@@ -106,24 +106,24 @@ valid msgstr="se\s(\w+\s){1,3}autenticar"
 hint="«Authenticated» se traduce como «Autenticado» (propuesta glosario)"
 
 {\bauthenticates\b}i
-id="gp-authenticates"
+id="gp-3-authenticates"
 valid msgstr="autenti(car|ca|que)"
 hint="«Authenticates» se traduce como «Autentica» (propuesta glosario)"
 
 {\bauthentication\b}i
-id="gp-authentication"
+id="gp-3-authentication"
 valid msgstr="autenticación"
 valid msgstr="autenticarse"
 hint="«Authentication» se traduce como «Autenticación» (propuesta glosario)"
 
 {\bautoprobe\b}i
-id="gp-autoprobe"
+id="gp-3-autoprobe"
 valid msgstr="autocompr(obación|obar|ueba|uebe)"
 valid !msgstr="autoprueba"
 hint="«Autoprobe» se traduce como «Autocomprobación» (propuesta glosario)"
 
 {\bautoprobed\b}i
-id="gp-autoprobed"
+id="gp-3-autoprobed"
 valid msgstr="autocomprobad[oa]"
 valid msgstr="autocomprobarse"
 valid msgstr="se\sautocomprueb[ea]n?"
@@ -133,44 +133,44 @@ valid !msgstr="autoprobarse"
 hint="«Autoprobed» se traduce como «Autocomprobado» (propuesta glosario)"
 
 {\bbandwith\b}i
-id="gp-bandwith"
+id="gp-3-bandwith"
 valid msgstr="anchos?\sde\sbanda"
 hint="«Bandwith» se traduce como «Ancho de banda» (propuesta glosario)"
 
 {\bbaud\b}i
-id="gp-baud"
+id="gp-3-baud"
 valid msgstr="baudio"
 hint="«Baud» se traduce como «Baudio» (propuesta glosario)"
 
 {\bbauds\b}i
-id="gp-bauds"
+id="gp-3-bauds"
 valid msgstr="baudios"
 hint="«Bauds» se traduce como «Baudios» (propuesta glosario)"
 
 {\bbcc\b}i
-id="gp-bcc"
+id="gp-3-bcc"
 valid msgstr="cco"
 valid msgstr="CCO"
 hint="«Bcc» (copia de carbón oculta), se traduce como «Cco» (propuesta glosario)"
 
 {\bbeats\sper\sminute\b}i
-id="gp-beats-per-minute"
+id="gp-3-beats-per-minute"
 valid msgstr="pulsaciones\spor\sminuto"
 hint="«Beats per minute» se traduce como «Pulsaciones por minuto» (propuesta glosario)"
 
 {\bbenchmark\b}i
-id="gp-benchmark"
+id="gp-3-benchmark"
 valid msgstr="bancos?\sde\spruebas"
 hint="«Benchmark» se traduce como «Banco de pruebas» (propuesta glosario)"
 
 {\bbenchmarks\b}i
-id="gp-benchmarks"
+id="gp-3-benchmarks"
 valid msgstr="bancos\sde\spruebas"
 valid msgstr="(algún|ningún|cualquier)\sbanco\sde\spruebas"
 hint="«Benchmarks» se traduce como «Bancos de pruebas» (propuesta glosario)"
 
 {\bbind\b}i
-id="gp-bind"
+id="gp-3-bind"
 valid before="\-"
 valid msgstr="enlaz(ar|a)"
 valid msgstr="enlace"
@@ -183,7 +183,7 @@ valid msgstr="ligó" after="did\s(not\s)?"
 hint="«Bind» se traduce como «Enlazar/Ligar» (propuesta glosario)"
 
 {\bbinded\b}i
-id="gp-binded"
+id="gp-3-binded"
 valid msgstr="enlazad[oa]"
 valid msgstr="ligad[oa]"
 valid msgstr="encuadernad[oa]"
@@ -198,53 +198,53 @@ valid msgstr="se\s(\w+\s){1,3}ligar"
 hint="«Binded» se traduce como «Enlazado/Ligado» (propuesta glosario)"
 
 {\bbinding\b}i
-id="gp-binding"
+id="gp-3-binding"
 valid msgstr="enlace"
 valid msgstr="ligadura"
 valid msgstr="combinación\sde\steclas" after="key\s"
 hint="«Binding» se traduce como «Enlace/Ligadura» (propuesta glosario)"
 
 {\bbit\s?mask\b}i
-id="gp-bit-mask"
+id="gp-3-bit-mask"
 valid msgstr="máscaras?\sde\sbits"
 hint="«Bit mask» se traduce como «Máscara de bits» (propuesta glosario)"
 
 {\bbit\s?masks\b}i
-id="gp-bit-masks"
+id="gp-3-bit-masks"
 valid msgstr="máscaras\sde\sbits"
 valid msgstr="(ninguna|cualquier)\smáscara\sde\sbits"
 hint="«Bit masks» se traduce como «Máscaras de bits» (propuesta glosario)"
 
 {\bbit\s?map\b}i
-id="gp-bit-map"
+id="gp-3-bit-map"
 valid msgstr="mapas?\sde\sbits"
 valid span="Bitmap" after="Windows\s"
 hint="«Bit map» se traduce como «Mapa de bits» (propuesta glosario)"
 
 {\bbit\s?maps\b}i
-id="gp-bit-maps"
+id="gp-3-bit-maps"
 valid msgstr="mapas\sde\sbits"
 valid msgstr="(algún|ningún|cualquier)\smapa\sde\sbits"
 hint="«Bit maps» se traduce como «Mapas de bits» (propuesta glosario)"
 
 {\bbit\s?rate\b}i
-id="gp-bit-rate"
+id="gp-3-bit-rate"
 valid msgstr="tasas?\sde\sbits"
 hint="«Bit rate» se traduce como «Tasa de bits» (propuesta glosario)"
 
 {\bbit\s?stream\b}i
-id="gp-bit-stream"
+id="gp-3-bit-stream"
 valid msgstr="flujos?\sde\sbits"
 hint="«Bit stream» se traduce como «Flujo de bits» (propuesta glosario)"
 
 {\bbit\s?streams\b}i
-id="gp-bit-streams"
+id="gp-3-bit-streams"
 valid msgstr="flujos\sde\sbits"
 valid msgstr="(algún|ningún|cualquier)\sflujo\sde\sbits"
 hint="«Bit streams» se traduce como «Flujos de bits» (propuesta glosario)"
 
 {\bboard\b}i
-id="gp-board"
+id="gp-3-board"
 valid msgstr="placa"
 valid msgstr="tarjeta"
 valid msgstr="tablero"
@@ -253,7 +253,7 @@ valid msgstr="mesa" before="\sgane"
 hint="«Board» se traduce como «Placa/Tarjeta» (propuesta glosario)"
 
 {\bboards\b}i
-id="gp-boards"
+id="gp-3-boards"
 valid msgstr="placas"
 valid msgstr="tarjetas"
 valid msgstr="tableros"
@@ -265,62 +265,62 @@ valid msgstr="(algún|ningún|cualquier)\stablón"
 hint="«Boards» se traduce como «Placas/Tarjetas» (propuesta glosario)"
 
 {\bboot\s?loader\b}i
-id="gp-boot-loader"
+id="gp-3-boot-loader"
 valid msgstr="gestor(es)?\sde\sarranque"
 hint="«Boot loader» se traduce como «Gestor de arranque» (propuesta glosario)"
 
 {\bboot\s?loaders\b}i
-id="gp-boot-loaders"
+id="gp-3-boot-loaders"
 valid msgstr="gestores\sde\sarranque"
 valid msgstr="(algún|ningún|cualquier)\sgestor\sde\sarranque"
 hint="«Boot loaders» se traduce como «Gestores de arranque» (propuesta glosario)"
 
 {\bboot\s?partition\b}i
-id="gp-boot-partition"
+id="gp-3-boot-partition"
 valid msgstr="partici(ón|ones)\sde\sarranque"
 hint="«Boot partition» se traduce como «Partición de arranque» (propuesta glosario)"
 
 {\bboot\s?partitions\b}i
-id="gp-boot-partitions"
+id="gp-3-boot-partitions"
 valid msgstr="particiones\sde\sarranque"
 valid msgstr="(ninguna|cualquier)\spartición\sde\sarranque"
 hint="«Boot partitions» se traduce como «Particiones de arranque» (propuesta glosario)"
 
 {\bboot\s?record\b}i
-id="gp-boot-record"
+id="gp-3-boot-record"
 valid msgstr="registros?\sde\sarranque"
 hint="«Boot record» se traduce como «Registro de arranque» (propuesta glosario)"
 
 {\bboot\s?records\b}i
-id="gp-boot-records"
+id="gp-3-boot-records"
 valid msgstr="registros\sde\sarranque"
 valid msgstr="(algún|ningún|cualquier)\sregistro\sde\sarranque"
 hint="«Boot records» se traduce como «Registros de arranque» (propuesta glosario)"
 
 {\bbot\b}i
-id="gp-bot"
+id="gp-3-bot"
 valid msgstr="robot"
 hint="«Bot» se traduce como «Robot» (propuesta glosario)"
 
 {\bbots\b}i
-id="gp-bots"
+id="gp-3-bots"
 valid msgstr="robots"
 valid msgstr="(algún|ningún|cualquier)\srobot"
 hint="«Bots» se traduce como «Robots» (propuesta glosario)"
 
 {\bbreakpoint\b}i
-id="gp-breakpoint"
+id="gp-3-breakpoint"
 valid msgstr="puntos?\sde\sruptura"
 hint="«Breakpoint» se traduce como «Punto de ruptura» (propuesta glosario)"
 
 {\bbreakpoints\b}i
-id="gp-breakpoints"
+id="gp-3-breakpoints"
 valid msgstr="puntos\sde\sruptura"
 valid msgstr="(algún|ningún|cualquier)\spunto\sde\sruptura"
 hint="«Breakpoints» se traduce como «Puntos de ruptura» (propuesta glosario)"
 
 {\bbroadcast\b}i
-id="gp-broadcast"
+id="gp-3-broadcast"
 valid msgstr="difusión"
 valid msgstr="emisión"
 valid msgstr="emit(ir|a|e)"
@@ -335,7 +335,7 @@ valid msgstr="emitió" after="did\s(not\s)?"
 hint="«Broadcast» se traduce como «Difusión/Difundir» (propuesta glosario)"
 
 {\bbrowse\b}i
-id="gp-browse"
+id="gp-3-browse"
 valid msgstr="naveg(ar|a|ue)"
 valid msgstr="examin(ar|a|e)"
 valid msgstr="navegará" after="will\s(not\s)?"
@@ -345,35 +345,35 @@ valid msgstr="emitió" after="did\s(not\s)?"
 hint="«Browse» se traduce como como «Navegar/Examinar» (propuesta glosario)"
 
 {\bbrowses\b}i
-id="gp-browses"
+id="gp-3-browses"
 valid msgstr="naveg(ar|a|ue)"
 valid msgstr="examin(ar|a|e)"
 hint="«Browses» se traduce como como «Navega/Examina» (propuesta glosario)"
 
 {\bbrowser\b}i
-id="gp-browser"
+id="gp-3-browser"
 valid msgstr="navegador"
 hint="«Browser» se traduce como «Navegador» (propuesta glosario)"
 
 {\bbrowsers\b}i
-id="gp-browsers"
+id="gp-3-browsers"
 valid msgstr="navegadores"
 valid msgstr="(algún|ningún|cualquier)\snavegador"
 hint="«Browsers» se traduce como «Navegadores» (propuesta glosario)"
 
 {\bbrowsing\b}i
-id="gp-browsing"
+id="gp-3-browsing"
 valid msgstr="navegación"
 valid msgstr="navegar"
 hint="«Browsing» se traduce como «Navegación» (propuesta glosario)"
 
 {\bbug\-?fix\b}i
-id="gp-bug-fix"
+id="gp-3-bug-fix"
 valid msgstr="correcci(ón|ones)\sde\s(error(es)?|fallos?)"
 hint="«Bug-fix» se traduce como «Corrección de error» (propuesta glosario)"
 
 {\bbuild\b}i
-id="gp-build"
+id="gp-3-build"
 valid msgstr="gener(ar|a|e)"
 valid msgstr="compil(ar|a|e)"
 valid msgstr="revisión"
@@ -389,7 +389,7 @@ valid msgstr="incorporad[oa]" before="\sin"
 hint="«Build» se traduce como «Generar/Revisión/Compilar/Compilación» (propuesta glosario)"
 
 {\bbuilds\b}i
-id="gp-builds"
+id="gp-3-builds"
 valid msgstr="gener[ea]"
 valid msgstr="compil[ea]"
 valid msgstr="revisiones"
@@ -400,7 +400,7 @@ valid msgstr="crea" before="\sup"
 hint="«Builds» se traduce como «Genera/Revisiones/Compila/Compilaciones» (propuesta glosario)"
 
 {\bbuilt(?!\-in)\b}i
-id="gp-built"
+id="gp-3-built"
 valid msgstr="generad[oa]"
 valid msgstr="compilad[oa]"
 valid msgstr="revisión"
@@ -408,20 +408,20 @@ valid msgstr="compilación"
 hint="«Built» se traduce como «Generado/Revisión/Compilado/Compilación» (propuesta glosario)"
 
 {\bbuilt\-?in\b}i
-id="gp-built-in"
+id="gp-3-built-in"
 valid msgstr="incorporad[oa]s?"
 valid msgstr="integrad[oa]s?"
 valid !msgstr="construid[oa]s?"
 hint="«Built-in» se traduce como «Incorporado» (propuesta glosario)"
 
 {\bcallback\b}i
-id="gp-callback"
+id="gp-3-callback"
 valid msgstr="retrollamada"
 valid msgstr="devolución\sde\sllamada"
 hint="«Callback» se traduce como «Retrollamada» (propuesta glosario)"
 
 {\bcallbacks\b}i
-id="gp-callbacks"
+id="gp-3-callbacks"
 valid msgstr="retrollamadas"
 valid msgstr="devolución\sde\sllamadas"
 valid msgstr="(ninguna|cualquier)\sretrollamada"
@@ -429,70 +429,70 @@ valid msgstr="(ninguna|cualquier)\sdevolución\sde\sllamada"
 hint="«Callbacks» se traduce como «Retrollamadas» (propuesta glosario)"
 
 {\bcaret\b}i
-id="gp-caret"
+id="gp-3-caret"
 valid msgstr="circunflejo"
 valid msgstr="cursor"
 hint="«Caret» se traduce como «Circunflejo» (propuesta glosario)"
 
 {\bcash\b}i
-id="gp-cash"
+id="gp-3-cash"
 valid msgstr="efectivo"
 valid msgstr="caja" cat="kmymoney,skrooge"
 hint="«Cash» se traduce como «Efectivo» (propuesta glosario)"
 
 {\bcc\b}i
-id="gp-cc"
+id="gp-3-cc"
 valid msgstr="cc"
 valid msgstr="CC"
 hint="«CC» (copia de carbón) se traduce como «CC» (propuesta glosario)"
 
 {\bcddb\b}i
-id="gp-cddb"
+id="gp-3-cddb"
 valid msgstr="cddb"
 valid msgstr="CDDB"
 hint="«CDDB» no se traduce (propuesta glosario)"
 
 {\bcertificate\sauthority\b}i
-id="gp-certificate-authority"
+id="gp-3-certificate-authority"
 valid msgstr="autoridad(es)?\scertificadoras?"
 hint="«Certificate authority» se traduce como «Autoridad certificadora» (propuesta glosario)"
 
 {\bcertificate\srevocation\slis\b}i
-id="gp-certificate-revocation-list"
+id="gp-3-certificate-revocation-list"
 valid msgstr="listas?\sde\srevocación\sde\scertificados"
 hint="«Certificate revocation list» se traduce como «Lista de revocación de certificados» (propuesta glosario)"
 
 {\bchangelog\b}i
-id="gp-changelog"
+id="gp-3-changelog"
 valid msgstr="novedades"
 valid msgstr="últimos\scambios"
 hint="«Changelog» se traduce como «Novedades/Últimos cambios» (propuesta glosario)"
 
 {\bcharacter\sset\b}i
-id="gp-character-set"
+id="gp-3-character-set"
 valid msgstr="juegos?\sde\scaracteres"
 hint="«Character set» se traduce como «Juego de caracteres» (propuesta glosario)"
 
 {\bcharacter\ssets\b}i
-id="gp-character-sets"
+id="gp-3-character-sets"
 valid msgstr="juegos\sde\scaracteres"
 valid msgstr="(algún|ningún|cualquier)\sjuego\sde\scaracteres"
 hint="«Character sets» se traduce como «Juegos de caracteres» (propuesta glosario)"
 
 {\bcharset\b}i
-id="gp-charset"
+id="gp-3-charset"
 valid msgstr="juegos?\sde\scaracteres"
 valid before="\="
 hint="«Charset» se traduce como «Juego de caracteres» (propuesta glosario)"
 
 {\bcharsets\b}i
-id="gp-charsets"
+id="gp-3-charsets"
 valid msgstr="juegos\sde\scaracteres"
 valid msgstr="(algún|ningún|cualquier)\sjuego\sde\scaracteres"
 hint="«Charsets» se traduce como «Juegos de caracteres» (propuesta glosario)"
 
 {\bchat\b}i
-id="gp-chat"
+id="gp-3-chat"
 valid msgstr="charl(ar|a|e)"
 valid msgstr="convers(ar|a|e)"
 valid msgstr="habl(ar|a|e)"
@@ -505,7 +505,7 @@ valid after="Internet\srelay\s"
 hint="«Chat» se traduce como «Charla/Tertulia/Conversación» (propuesta glosario)"
 
 {\bchats\b}i
-id="gp-chats"
+id="gp-3-chats"
 valid msgstr="charl(as|a|e)"
 valid msgstr="habl(as|a|e)"
 valid msgstr="convers(as|a|e)"
@@ -517,7 +517,7 @@ valid !msgstr="chat"
 hint="«Chats» se traduce como «Charlas/Tertulias» (propuesta glosario)"
 
 {\bcipher\b}i
-id="gp-cipher"
+id="gp-3-cipher"
 valid msgstr="cifr(ar|a|e)"
 valid msgstr="cifrad[oa]"
 valid msgstr="cifrará" after="will\s(not\s)?"
@@ -525,7 +525,7 @@ valid msgstr="cifró" after="did\s(not\s)?"
 hint="«Cipher» se traduce como «Cifrar/Cifrado» (propuesta glosario)"
 
 {\bclear\b}i
-id="gp-clear"
+id="gp-3-clear"
 valid msgstr="borr(ar|a|e)"
 valid msgstr="aclar(ar|a|e)"
 valid msgstr="despej(ar|a|e)"
@@ -541,7 +541,7 @@ valid msgstr="despejó" after="did\s(not\s)?"
 hint="«Clear» se traduce como «Borrar/Aclarar/Despejar» o «Claro/Despejado/Limpio» (propuesta glosario)"
 
 {\bclears\b}i
-id="gp-clears"
+id="gp-3-clears"
 valid msgstr="borr[ea]"
 valid msgstr="aclar(e|a)"
 valid msgstr="despej(a|e)"
@@ -551,18 +551,18 @@ valid msgstr="limpi[oa]s"
 hint="«Clears» se traduce como «Borra/Aclara/Despeja» o «Claros/Despejados/Limpios» (propuesta glosario)"
 
 {\bclipboards?\b}i
-id="gp-clipboard"
+id="gp-3-clipboard"
 valid msgstr="portapapeles"
 hint="«Clipboard» se traduce como «Portapapeles» (propuesta glosario)"
 
 {\bclosure\b}i
-id="gp-closure"
+id="gp-3-closure"
 valid msgstr="clausura"
 valid msgstr="cierre"
 hint="«Closure» se traduce como «Clausura/Cierre» (propuesta glosario)"
 
 {\bclosures\b}i
-id="gp-closures"
+id="gp-3-closures"
 valid msgstr="clausuras"
 valid msgstr="cierres"
 valid msgstr="(ninguna|cualquier)\sclausura"
@@ -570,31 +570,31 @@ valid msgstr="(algún|ningún|cualquier)\scierre"
 hint="«Closures» se traduce como «Clausuras/Cierres» (propuesta glosario)"
 
 {\bcodec\b}i
-id="gp-codec"
+id="gp-3-codec"
 valid msgstr="códec"
 valid !msgstr="codec"
 hint="«Codec» se traduce como «Códec» (propuesta glosario)"
 
 {\bcold\s?boot\b}i
-id="gp-cold-boot"
+id="gp-3-cold-boot"
 valid msgstr="arranques?\sen\sfrío"
 hint="«Cold boot» se traduce como «Arranque en frío» (propuesta glosario)"
 
 {\bcold\s?boots\b}i
-id="gp-cold-boots"
+id="gp-3-cold-boots"
 valid msgstr="arranques\sen\sfrío"
 valid msgstr="(algún|ningún|cualquier)\sarranque\sen\sfrío"
 hint="«Cold boots» se traduce como «Arranques en frío» (propuesta glosario)"
 
 {\bcolon\b}i
-id="gp-colon"
+id="gp-3-colon"
 valid msgstr="dos\spuntos"
 valid msgstr="Colón"
 valid msgstr="punto\sy\scoma" after="semi\-"
 hint="«Colon» se traduce como «Dos puntos» (propuesta glosario)"
 
 {\bcommit\b}i
-id="gp-commit"
+id="gp-3-commit"
 valid msgstr="enviar"
 valid msgstr="enví[eao]"
 valid msgstr="aplicar?"
@@ -605,14 +605,14 @@ valid msgstr="aplicó" after="did\s(not\s)?"
 hint="«Commit» se traduce como «Enviar/Aplicar» (propuesta glosario)"
 
 {\bcommits\b}i
-id="gp-commits"
+id="gp-3-commits"
 valid msgstr="enví[ea]"
 valid msgstr="envíos"
 valid msgstr="apli(ca|que)"
 hint="«Commits» se traduce como «Envía/Aplica» (propuesta glosario)"
 
 {\bcommitted\b}i
-id="gp-committed"
+id="gp-3-committed"
 valid msgstr="enviad[oa]"
 valid msgstr="aplicad[oa]"
 valid msgstr="comprometid[oa]s?"
@@ -628,20 +628,20 @@ valid msgstr="se\s(\w+\s){1,3}aplicar"
 hint="«Committed» se traduce como «Enviado/Aplicado/Comprometido» (propuesta glosario)"
 
 {\bcompliants?\b}i
-id="gp-compliant"
+id="gp-3-compliant"
 valid msgstr="conformes?\scon"
 valid msgstr="compatible"
 hint="«Compliant» se traduce como «Conforme con/Compatible» (propuesta glosario)"
 
 {\bcomposer\b}i
-id="gp-composer"
+id="gp-3-composer"
 valid msgstr="editor"
 valid cat="amarok" msgstr="compositor"
 valid cat="k3b" msgstr="compositor"
 hint="«Composer» se traduce como «Editor» (propuesta glosario)"
 
 {\bcomposers\b}i
-id="gp-composers"
+id="gp-3-composers"
 valid msgstr="editores"
 valid msgstr="(algún|ningún|cualquier)\seditor"
 valid cat="amarok" msgstr="compositores"
@@ -651,82 +651,82 @@ valid cat="k3b" msgstr="(algún|ningún|cualquier)\scompositor"
 hint="«Composers» se traduce como «Editores» (propuesta glosario)"
 
 {\bcomputable\b}i
-id="gp-computable"
+id="gp-3-computable"
 valid msgstr="calculable"
 hint="«Computable» se traduce como «Calculable» (propuesta glosario)"
 
 {\bcomputables\b}i
-id="gp-computables"
+id="gp-3-computables"
 valid msgstr="calculables"
 hint="«Computables» se traduce como «Calculables» (propuesta glosario)"
 
 {\bconstraint\b}i
-id="gp-constraint"
+id="gp-3-constraint"
 valid msgstr="restricci(ón|ones)"
 hint="«Constraint» se traduce como «Restricción» (propuesta glosario)"
 
 {\bconstraints\b}i
-id="gp-constraints"
+id="gp-3-constraints"
 valid msgstr="restricciones"
 valid msgstr="(ninguna|cualquier)\srestricción"
 hint="«Constraints» se traduce como «Restricciones» (propuesta glosario)"
 
 {\bconsulting\b}i
-id="gp-consulting"
+id="gp-3-consulting"
 valid msgstr="consultora?"
 hint="«Consulting» se traduce como «Consultor(a)» (propuesta glosario)"
 
 {\bcontroler\b}i
-id="gp-controler"
+id="gp-3-controler"
 valid msgstr="controladora"
 hint="«Controler» se traduce como «Controladora» (propuesta glosario)"
 
 {\bcontrolers\b}i
-id="gp-controlers"
+id="gp-3-controlers"
 valid msgstr="controladoras"
 valid msgstr="(ninguna|cualquier)\scontroladora"
 hint="«Controlers» se traduce como «Controladoras» (propuesta glosario)"
 
 {\bcook\sbook\b}i
-id="gp-cook-book"
+id="gp-3-cook-book"
 valid msgstr="recetario"
 hint="«Cook book» se traduce como «Recetario» (propuesta glosario)"
 
 {\bcook\sbooks\b}i
-id="gp-cook-books"
+id="gp-3-cook-books"
 valid msgstr="recetarios"
 valid msgstr="(algún|ningún|cualquier)\srecetario"
 hint="«Cook books» se traduce como «Recetarios» (propuesta glosario)"
 
 {\bcordless\b}i
-id="gp-cordless"
+id="gp-3-cordless"
 valid msgstr="inalámbrico"
 hint="«Cordless» se traduce como «Inalámbrico» (propuesta glosario)"
 
 {\bcore\sdump\b}i
-id="gp-core-dump"
+id="gp-3-core-dump"
 valid msgstr="volcados?\sde\smemoria"
 hint="«Core dump» se traduce como «Volcado de memoria» (propuesta glosario)"
 
 {\bcore\sdumps\b}i
-id="gp-core-dumps"
+id="gp-3-core-dumps"
 valid msgstr="volcados\sde\smemoria"
 valid msgstr="(algún|ningún|cualquier)\svolcado\sde\smemoria"
 hint="«Core dumps» se traduce como «Volcados de memoria» (propuesta glosario)"
 
 {\bcross\scompiler\b}i
-id="gp-cross-compiler"
+id="gp-3-cross-compiler"
 valid msgstr="compilador(es)?\scruzados?"
 hint="«Cross compiler» se traduce como «Compilador cruzado» (propuesta glosario)"
 
 {\bcross\scompilers\b}i
-id="gp-cross-compilers"
+id="gp-3-cross-compilers"
 valid msgstr="compiladores\scruzados"
 valid msgstr="(algún|ningún|cualquier)\scompilador\scruzado"
 hint="«Cross compilers» se traduce como «Compiladores cruzados» (propuesta glosario)"
 
 {\bcustomize\b}i
-id="gp-customize"
+id="gp-3-customize"
 valid msgstr="personaliz(ar|a|e)"
 valid msgstr="personalizará" after="will\s(not\s)?"
 valid msgstr="personalizó" after="did\s(not\s)?"
@@ -734,7 +734,7 @@ valid !msgstr="customiz(ar|a|e)"
 hint="«Customize» se traduce como «Personalizar» (propuesta glosario)"
 
 {\bcustomized\b}i
-id="gp-customized"
+id="gp-3-customized"
 valid msgstr="personalizad[oa]"
 valid msgstr="personalizarse"
 valid msgstr="se\spersonali(za|ce)n?"
@@ -743,51 +743,51 @@ valid !msgstr="customizad[oa]"
 hint="«Customizez» se traduce como «Personalizado» (propuesta glosario)"
 
 {\bcustomizes\b}i
-id="gp-customizes"
+id="gp-3-customizes"
 valid msgstr="personaliz[ea]"
 valid !msgstr="customiz[ea]"
 hint="«Customizes» se traduce como «Personaliza» (propuesta glosario)"
 
 {\bcross\splatform\b}i
-id="gp-cross-platform"
+id="gp-3-cross-platform"
 valid msgstr="multiplataforma"
 hint="«Cross platform» se traduce como «Multiplataforma» (propuesta glosario)"
 
 {\bdata\smining\b}i
-id="gp-data-mining"
+id="gp-3-data-mining"
 valid msgstr="mineria\sde\sdatos"
 hint="«Data mining» se traduce como «Mineria de datos» (propuesta glosario)"
 
 {\bdatabase\b}i
-id="gp-database"
+id="gp-3-database"
 valid msgstr="bases?\sde\sdatos"
 hint="«Database» se traduce como «Base de datos» (propuesta glosario)"
 
 {\bdatabases\b}i
-id="gp-databases"
+id="gp-3-databases"
 valid msgstr="bases\sde\sdatos"
 valid msgstr="(ninguna|cualquier)\sbase\sde\sdatos"
 hint="«Databases» se traduce como «Bases de datos» (propuesta glosario)"
 
 {\bdatagram\b}i
-id="gp-datagram"
+id="gp-3-datagram"
 valid msgstr="datagrama"
 hint="«Datagram» se traduce como «Datagrama» (propuesta glosario)"
 
 {\bdatagrams\b}i
-id="gp-datagrams"
+id="gp-3-datagrams"
 valid msgstr="datagramas"
 valid msgstr="(algún|ningún|cualquier)\sdatagrama"
 hint="«Datagrams» se traduce como «Datagramas» (propuesta glosario)"
 
 {\bdeadlock\b}i
-id="gp-deadlock"
+id="gp-3-deadlock"
 valid msgstr="bloqueos?\sde\sdatos"
 valid msgstr="interbloqueo"
 hint="«Deadlock» se traduce como «Bloqueo de datos/Interbloqueo» (propuesta glosario)"
 
 {\bdeadlocks\b}i
-id="gp-deadlocks"
+id="gp-3-deadlocks"
 valid msgstr="bloqueos\sde\sdatos"
 valid msgstr="interbloqueos"
 valid msgstr="(algún|ningún|cualquier)\sbloqueo\sde\sdatos"
@@ -795,7 +795,7 @@ valid msgstr="(algún|ningún|cualquier)\sinterbloqueo"
 hint="«Deadlocks» se traduce como «Bloqueos de datos/Interbloqueos» (propuesta glosario)"
 
 {\bdelay\b}i
-id="gp-delay"
+id="gp-3-delay"
 valid msgstr="retard(ar|a|e|o)"
 valid msgstr="retras(ar|a|e|o)"
 valid msgstr="retardará" after="will\s(not\s)?"
@@ -805,7 +805,7 @@ valid msgstr="retrasó" after="did\s(not\s)?"
 hint="«Delay» se traduce como «Retardo/Retardar» (propuesta glosario)"
 
 {\bdelays\b}i
-id="gp-delays"
+id="gp-3-delays"
 valid msgstr="retard(a|e|os)"
 valid msgstr="retras(a|e|os)"
 valid msgstr="(algún|ningún|cualquier)\sretardo"
@@ -813,7 +813,7 @@ valid msgstr="(algún|ningún|cualquier)\sretraso"
 hint="«Delays» se traduce como «Retardo/Retarde» (propuesta glosario)"
 
 {\bdelete\b}i
-id="gp-delete"
+id="gp-3-delete"
 valid msgstr="borr(ar|a|e)"
 valid msgstr="borrará" after="will\s(not\s)?"
 valid msgstr="borró" after="did\s(not\s)?"
@@ -821,12 +821,12 @@ valid msgstr="bórrel[oa]" before="\sit"
 hint="«Delete» se traduce como «Borrar» (propuesta glosario)"
 
 {\bdeletes\b}i
-id="gp-deletes"
+id="gp-3-deletes"
 valid msgstr="borr[ea]"
 hint="«Deletes» se traduce como «Borre/Borra» (propuesta glosario)"
 
 {\bdeleted\b}i
-id="gp-deleted"
+id="gp-3-deleted"
 valid msgstr="borrad[oa]"
 valid msgstr="borrarse"
 valid msgstr="se\sborr[ea]n?"
@@ -837,13 +837,13 @@ valid msgstr="borrando" after="being\s"
 hint="«Deleted» se traduce como «Borrado» (propuesta glosario)"
 
 {\bdelimiter\b}i
-id="gp-delimiter"
+id="gp-3-delimiter"
 valid msgstr="delimitador"
 valid msgstr="separador"
 hint="«Delimiter» se traduce como «Delimitador/Separador» (propuesta glosario)"
 
 {\bdelimiters\b}i
-id="gp-delimiters"
+id="gp-3-delimiters"
 valid msgstr="delimitadores"
 valid msgstr="separadores"
 valid msgstr="(algún|ningún|cualquier)\sdelimitador"
@@ -851,7 +851,7 @@ valid msgstr="(algún|ningún|cualquier)\sseparador"
 hint="«Delimiters» se traduce como «Delimitadores/Separadores» (propuesta glosario)"
 
 {\bdelimited\b}i
-id="gp-delimited"
+id="gp-3-delimited"
 valid msgstr="delimitad[oa]"
 valid msgstr="separad[oa]"
 valid msgstr="delimitarse"
@@ -865,30 +865,30 @@ valid msgstr="se\s(\w+\s){1,3}separar"
 hint="«Delimited» se traduce como «Delimitado/Separado» (propuesta glosario)"
 
 {\bdemo\b}i
-id="gp-demo"
+id="gp-3-demo"
 valid msgstr="demostración"
 hint="«Demo» se traduce como «Demostración» (propuesta glosario)"
 
 {\bdemos\b}i
-id="gp-demos"
+id="gp-3-demos"
 valid msgstr="demostraciones"
 valid msgstr="(ninguna|cualquier)\sdemostración"
 hint="«Demos» se traduce como «Demostraciones» (propuesta glosario)"
 
 {\bdemodulate\b}i
-id="gp-demodulate"
+id="gp-3-demodulate"
 valid msgstr="demodul(ar|a|e)"
 valid msgstr="demodulará" after="will\s(not\s)?"
 valid msgstr="demoduló" after="did\s(not\s)?"
 hint="«Demodulate» se traduce como «Demodular» (propuesta glosario)"
 
 {\bdemodulates\b}i
-id="gp-demodulates"
+id="gp-3-demodulates"
 valid msgstr="demodul[ea]"
 hint="«Demodulates» se traduce como «Demodula» (propuesta glosario)"
 
 {\bdemodulated\b}i
-id="gp-demodulated"
+id="gp-3-demodulated"
 valid msgstr="demodulad[oa]"
 valid msgstr="demodularse"
 valid msgstr="se\sdemodul[ea]n?"
@@ -897,12 +897,12 @@ valid msgstr="se\s(\w+\s){1,3}demodular"
 hint="«Demodulated» se traduce como «Demodulado» (propuesta glosario)"
 
 {\bdenial\sof\sservice\b}i
-id="gp-denial-of-service"
+id="gp-3-denial-of-service"
 valid msgstr="denegaci(ón|ones)\sde\sservicio"
 hint="«Denial of service» se traduce como «Denegación de servicio» (propuesta glosario)"
 
 {\bdeny\b}i
-id="gp-deny"
+id="gp-3-deny"
 valid msgstr="denegar"
 valid msgstr="denieg(ue|a)"
 valid msgstr="denegará" after="will\s(not\s)?"
@@ -910,12 +910,12 @@ valid msgstr="denegó" after="did\s(not\s)?"
 hint="«Deny» se traduce como «Denegar» (propuesta glosario)"
 
 {\bdenies\b}i
-id="gp-denies"
+id="gp-3-denies"
 valid msgstr="denieg(ue|a)"
 hint="«Denies» se traduce como «Deniega» (propuesta glosario)"
 
 {\bdenied\b}i
-id="gp-denied"
+id="gp-3-denied"
 valid msgstr="denegad[oa]s?"
 valid msgstr="denegarse"
 valid msgstr="se\sdenieg(a|ue)n?"
@@ -924,7 +924,7 @@ valid msgstr="se\s(\w+\s){1,3}denegar"
 hint="«Denied» se traduce como «Denegado» (propuesta glosario)"
 
 {\bdeploy\b}i
-id="gp-deploy"
+id="gp-3-deploy"
 valid msgstr="desplegar"
 valid msgstr="desplieg[ea]"
 valid msgstr="desplegará" after="will\s(not\s)?"
@@ -932,12 +932,12 @@ valid msgstr="desplegó" after="did\s(not\s)?"
 hint="«Deploy» se traduce como «Desplegar» (propuesta glosario)"
 
 {\bdeplois\b}i
-id="gp-deplois"
+id="gp-3-deplois"
 valid msgstr="desplieg[ea]"
 hint="«Deplois» se traduce como «Despliega» (propuesta glosario)"
 
 {\bdeploid\b}i
-id="gp-deploid"
+id="gp-3-deploid"
 valid msgstr="desplegad[oa]"
 valid msgstr="desplegarse"
 valid msgstr="se\sdesplieg(ue|a)n?"
@@ -945,12 +945,12 @@ valid msgstr="desplegó"
 hint="«Deploid» se traduce como «Desplegado» (propuesta glosario)"
 
 {\bdeployment\b}i
-id="gp-deployment"
+id="gp-3-deployment"
 valid msgstr="despliegue"
 hint="«Deployment» se traduce como «Despliegue» (propuesta glosario)"
 
 {\bdigest\b}i
-id="gp-digest"
+id="gp-3-digest"
 valid msgstr="resum(en|ir|e|a)"
 valid msgstr="sinteti(zar|za|ce)"
 valid msgstr="síntesis"
@@ -962,7 +962,7 @@ valid msgstr="DIGEST-MD5"
 hint="«Digest» se traduce como «Resumen/Síntesis» (propuesta glosario)"
 
 {\bdigests\b}i
-id="gp-digests"
+id="gp-3-digests"
 valid msgstr="resum[ea]"
 valid msgstr="sinteti(za|ce)"
 valid msgstr="resúmenes"
@@ -970,7 +970,7 @@ valid msgstr="síntesis"
 hint="«Digests» se traduce como «Resúmenes/Síntesis» (propuesta glosario)"
 
 {\bdiscard\b}i
-id="gp-discard"
+id="gp-3-discard"
 valid msgstr="desha(cer|ce|ga)"
 valid msgstr="descart(ar|a|e)"
 valid msgstr="deshará" after="will\s(not\s)?"
@@ -980,13 +980,13 @@ valid msgstr="descartó" after="did\s(not\s)?"
 hint="«Discard» se traduce como como «Deshacer/Descartar» (propuesta glosario)"
 
 {\bdiscards\b}i
-id="gp-discards"
+id="gp-3-discards"
 valid msgstr="desha(cer|ce|ga)"
 valid msgstr="descart(ar|a|e)"
 hint="«Discards» se traduce como como «Deshace/Descarta» (propuesta glosario)"
 
 {\bdiscarged\b}i
-id="gp-discarged"
+id="gp-3-discarged"
 valid msgstr="deshech[oa]s?"
 valid msgstr="descartarse"
 valid msgstr="se\sdescart[ea]n?"
@@ -995,55 +995,55 @@ valid msgstr="se\s(\w+\s){1,3}descartar"
 hint="«Discarged» se traduce como como «Deshecho/Descartado» (propuesta glosario)"
 
 {\bdiskette\b}i
-id="gp-diskette"
+id="gp-3-diskette"
 valid msgstr="disquete"
 hint="«Diskette» se traduce como «Disquete» (propuesta glosario)"
 
 {\bdiskettes\b}i
-id="gp-diskettes"
+id="gp-3-diskettes"
 valid msgstr="disquetes"
 valid msgstr="(algún|ningún|cualquier)\sdisquete"
 hint="«Diskettes» se traduce como «Disquetes» (propuesta glosario)"
 
 {\bdisposable\b}i
-id="gp-disposable"
+id="gp-3-disposable"
 valid msgstr="desechable"
 hint="«Disposable» se traduce como «Desechable» (propuesta glosario)"
 
 {\bdisposables\b}i
-id="gp-disposables"
+id="gp-3-disposables"
 valid msgstr="desechables"
 hint="«Disposables» se traduce como «Desechables» (propuesta glosario)"
 
 {\bdithering\b}i
-id="gp-dithering"
+id="gp-3-dithering"
 valid msgstr="difuminad[oa]"
 hint="«Dithering» se traduce como «Difuminado» (propuesta glosario)"
 
 {\bdocumentation\b}i
-id="gp-documentation"
+id="gp-3-documentation"
 valid msgstr="documentación"
 hint="«Documentation» se traduce como «Documentación» (propuesta glosario)"
 
 {\bdot\b}i
-id="gp-dot"
+id="gp-3-dot"
 valid msgstr="punto"
 valid after="K(de)?\s(Dot\s)?" before="\snews"
 hint="«Dot» se traduce como «Punto» (propuesta glosario)"
 
 {\bdots\b}i
-id="gp-dots"
+id="gp-3-dots"
 valid msgstr="puntos"
 valid msgstr="(algún|ningún|cualquier)\spunto"
 hint="«Dots» se traduce como «Puntos» (propuesta glosario)"
 
 {\bdowngrade\b}i
-id="gp-downgrade"
+id="gp-3-downgrade"
 valid msgstr="versión\santerior"
 hint="«Downgrade» se traduce como «Versión anterior» (propuesta glosario)"
 
 {\bdownloaded\b}i
-id="gp-downloaded"
+id="gp-3-downloaded"
 valid msgstr="descargad[oa]"
 valid msgstr="descargarse"
 valid msgstr="se\sdescarg(a|ue)n?"
@@ -1054,39 +1054,39 @@ valid msgstr="descargar" after="be\s"
 hint="«Downloaded» se traduce como «Descargado» (propuesta glosario)"
 
 {\bdowntime\b}i
-id="gp-downtime"
+id="gp-3-downtime"
 valid msgstr="tiempos?\sde\sinactividad"
 hint="«Downtime» se traduce como «Tiempo de inactividad» (propuesta glosario)"
 
 {\bdraft\b}i
-id="gp-draft"
+id="gp-3-draft"
 valid msgstr="borrador"
 hint="«Draft» se traduce como «Borrador» (propuesta glosario)"
 
 {\bdrafts\b}i
-id="gp-drafts"
+id="gp-3-drafts"
 valid msgstr="borradores"
 valid msgstr="(algún|ningún|cualquier)\sborrador"
 hint="«Drafts» se traduce como «Borradores» (propuesta glosario)"
 
 {[^(floppy\s|hard\s)]drive\b}i
-id="gp-drive"
+id="gp-3-drive"
 valid msgstr="unidad"
 valid msgstr="dispositivo"
 hint="«Drive» se traduce como «Unidad/Dispositivo» (propuesta glosario)"
 
 {\bdual\sboot\b}i
-id="gp-dual-boot"
+id="gp-3-dual-boot"
 valid msgstr="arranques?\sdual(es)?"
 hint="«Dual boot» se traduce como «Arranque dual» (propuesta glosario)"
 
 {\bdummy\b}i
-id="gp-dummy"
+id="gp-3-dummy"
 valid msgstr="vací[oa]"
 hint="«Dummy» se traduce como «Vacío» (propuesta glosario)"
 
 {\bdump\b}i
-id="gp-dump"
+id="gp-3-dump"
 valid msgstr="volca(r|do)"
 valid msgstr="vuel(que|ca)"
 valid msgstr="volcará" after="will\s(not\s)?"
@@ -1094,29 +1094,29 @@ valid msgstr="volcó" after="did\s(not\s)?"
 hint="«Dump» se traduce como «Volcado/Volcar» (propuesta glosario)"
 
 {\bdumps\b}i
-id="gp-dumps"
+id="gp-3-dumps"
 valid msgstr="vuel(que|ca)"
 valid msgstr="volcados"
 hint="«Dumps» se traduce como «Vuelca» (propuesta glosario)"
 
 {\bdungeon\b}i
-id="gp-dungeon"
+id="gp-3-dungeon"
 valid msgstr="mazmorra"
 hint="«Dungeon» se traduce como «Mazmorra» (propuesta glosario)"
 
 {\bdungeons\b}i
-id="gp-dungeons"
+id="gp-3-dungeons"
 valid msgstr="mazmorras"
 valid msgstr="(ninguna|cualquier)\smazmorra"
 hint="«Dungeons» se traduce como «Mazmorras» (propuesta glosario)"
 
 {\bduplex\b}i
-id="gp-duplex"
+id="gp-3-duplex"
 valid msgstr="dúplex"
 hint="«Duplex» se traduce como «Dúplex» (propuesta glosario)"
 
 {\be\-?book\b}i
-id="gp-e-book"
+id="gp-3-e-book"
 valid msgstr="libros?\selectrónicos?"
 valid !msgstr="e\-?book"
 valid !msgstr="e\-?libro"
@@ -1124,7 +1124,7 @@ valid !msgstr="libro\-?e"
 hint="«Ebook» se traduce como «Libro electrónico» (propuesta glosario)"
 
 {\be\-?books\b}i
-id="gp-e-bboks"
+id="gp-3-e-bboks"
 valid msgstr="libros\selectrónicos"
 valid msgstr="(algún|ningún|cualquier)\slibro\selectrónico"
 valid !msgstr="e\-?books?"
@@ -1133,13 +1133,13 @@ valid !msgstr="libros?\-?e"
 hint="«Ebooks» se traduce como «Libros electrónicos» (propuesta glosario)"
 
 {\begde\b}i
-id="gp-egde"
+id="gp-3-egde"
 valid msgstr="límite"
 valid msgstr="borde"
 hint="«Egde» se traduce como «Límite/Borde» (propuesta glosario)"
 
 {\begdes\b}i
-id="gp-egdes"
+id="gp-3-egdes"
 valid msgstr="límites"
 valid msgstr="bordes"
 valid msgstr="(algún|ningún|cualquier)\slímite"
@@ -1147,33 +1147,33 @@ valid msgstr="(algún|ningún|cualquier)\sborde"
 hint="«Egdes» se traduce como «Límites/Bordes» (propuesta glosario)"
 
 {\bellipse\b}i
-id="gp-ellipse"
+id="gp-3-ellipse"
 valid msgstr="elipse"
 hint="«Ellipse» se traduce como «Elipse» (propuesta glosario)"
 
 {\be\-?mail\b}i
-id="gp-email"
+id="gp-3-email"
 valid msgstr="correo"
 valid msgstr="EMAIL"
 valid !msgstr="e\-?mail"
 hint="«Email» se traduce como «Correo» (propuesta glosario)"
 
 {\be\-?mails\b}i
-id="gp-emails"
+id="gp-3-emails"
 valid msgstr="correos"
 valid msgstr="(algún|ningún|cualquier)\scorreo"
 valid !msgstr="e\-?mails?"
 hint="«Emails» se traduce como «Correos» (propuesta glosario)"
 
 {\bencode\b}i
-id="gp-encode"
+id="gp-3-encode"
 valid msgstr="codifi(car|ca|que)"
 valid msgstr="codificará" after="will\s(not\s)?"
 valid msgstr="codificó" after="did\s(not\s)?"
 hint="«Encode» se traduce como «Codificar» (propuesta glosario)"
 
 {\bencoded\b}i
-id="gp-encoded"
+id="gp-3-encoded"
 valid msgstr="codificad[oa]"
 valid msgstr="codificarse"
 valid msgstr="se\scodifi(ca|que)n?"
@@ -1182,70 +1182,70 @@ valid msgstr="se\s(\w+\s){1,3}codificar"
 hint="«Encoded» se traduce como «Codificado» (propuesta glosario)"
 
 {\bencoder\b}i
-id="gp-encoder"
+id="gp-3-encoder"
 valid msgstr="codificadora?"
 valid msgstr="codificación?"
 hint="«Encoder» se traduce como «Codificador» (propuesta glosario)"
 
 {\bencodes\b}i
-id="gp-encodes"
+id="gp-3-encodes"
 valid msgstr="codifi(ca|que)"
 hint="«Encodes» se traduce como «Codifica» (propuesta glosario)"
 
 {\bencoding\b}i
-id="gp-encoding"
+id="gp-3-encoding"
 valid msgstr="codificación"
 valid msgstr="codificando"
 valid msgstr="codificar"
 hint="«Encoding» se traduce como «Codificación» (propuesta glosario)"
 
 {\bencodings\b}i
-id="gp-encodings"
+id="gp-3-encodings"
 valid msgstr="codificaciones"
 valid msgstr="codificación"
 hint="«Encodings» se traduce como «Codificaciones» (propuesta glosario)"
 
 {\bendless\b}i
-id="gp-endless"
+id="gp-3-endless"
 valid msgstr="interminable"
 hint="«Endless» se traduce como «Interminable» (propuesta glosario)"
 
 {\benhancement\b}i
-id="gp-enhancement"
+id="gp-3-enhancement"
 valid msgstr="mejora"
 hint="«Enhancement» se traduce como «Mejora» (propuesta glosario)"
 
 {\benhancements\b}i
-id="gp-enhancements"
+id="gp-3-enhancements"
 valid msgstr="mejoras"
 valid msgstr="(ninguna|cualquier)\smejora"
 hint="«Enhancements» se traduce como «Mejoras» (propuesta glosario)"
 
 {\bentity\b}i
-id="gp-entity"
+id="gp-3-entity"
 valid msgstr="entidad"
 hint="«Entity» se traduce como «Entidad» (propuesta glosario)"
 
 {\bentities\b}i
-id="gp-entities"
+id="gp-3-entities"
 valid msgstr="entidades"
 valid msgstr="(ninguna|cualquier)\sentidad"
 hint="«Entities» se traduce como «Entidades» (propuesta glosario)"
 
 {\berase\b}i
-id="gp-erase"
+id="gp-3-erase"
 valid msgstr="borr(ar|a|e)"
 valid msgstr="borrará" after="will\s(not\s)?"
 valid msgstr="borró" after="did\s(not\s)?"
 hint="«Erase» se traduce como «Borrar» (propuesta glosario)"
 
 {\berases\b}i
-id="gp-erases"
+id="gp-3-erases"
 valid msgstr="borr(ar|a|e)"
 hint="«Erases» se traduce como «Borra» (propuesta glosario)"
 
 {\berased\b}i
-id="gp-erased"
+id="gp-3-erased"
 valid msgstr="borrad[oa]"
 valid msgstr="borrarse"
 valid msgstr="se\sborr[ea]n?"
@@ -1254,30 +1254,30 @@ valid msgstr="se\s(\w+\s){1,3}borrar"
 hint="«Erased» se traduce como «Borrado» (propuesta glosario)"
 
 {\berror\b}i
-id="gp-error"
+id="gp-3-error"
 valid msgstr="error"
 hint="«Error» se traduce como «Error» (propuesta glosario)"
 
 {\berrors\b}i
-id="gp-errors"
+id="gp-3-errors"
 valid msgstr="errores"
 valid msgstr="(ningún|cualquier|algún)\serror"
 hint="«Errors» se traduce como «Errores» (propuesta glosario)"
 
 {\bexecutable\b}i
-id="gp-executable"
+id="gp-3-executable"
 valid msgstr="ejecutable"
 valid after="x\-"
 hint="«Executable» se traduce como «Ejecutable» (propuesta glosario)"
 
 {\bexecutables\b}i
-id="gp-executables"
+id="gp-3-executables"
 valid msgstr="ejecutables"
 valid msgstr="(algún|ningún|cualquier)\sejecutable"
 hint="«Executables» se traduce como «Ejecutables» (propuesta glosario)"
 
 {\bexecute\b}i
-id="gp-execute"
+id="gp-3-execute"
 valid msgstr="ejecut(ar|a|e)"
 valid msgstr="ejecución"
 valid msgstr="ejecutará" after="will\s(not\s)?"
@@ -1285,7 +1285,7 @@ valid msgstr="ejecutó" after="did\s(not\s)?"
 hint="«Execute» se traduce como «Ejecutar» (propuesta glosario)"
 
 {\bexecuted\b}i
-id="gp-executed"
+id="gp-3-executed"
 valid msgstr="ejecutad[oa]"
 valid msgstr="ejecutar(se)?"
 valid msgstr="se\sejecut[ea]n?"
@@ -1294,30 +1294,30 @@ valid msgstr="se\s(\w+\s){1,3}ejecutar"
 hint="«Executed» se traduce como «Ejecutado» (propuesta glosario)"
 
 {\bexecutes\b}i
-id="gp-executes"
+id="gp-3-executes"
 valid msgstr="ejecut(a|e)"
 hint="«Executes» se traduce como «Ejecuta» (propuesta glosario)"
 
 {\bexecution\b}i
-id="gp-execution"
+id="gp-3-execution"
 valid msgstr="ejecución"
 hint="«Execution» se traduce como «Ejecución» (propuesta glosario)"
 
 {\bexecutions\b}i
-id="gp-executions"
+id="gp-3-executions"
 valid msgstr="ejecuciones"
 valid msgstr="(ninguna|cualquier)\sejecución"
 hint="«Executions» se traduce como «Ejecuciones» (propuesta glosario)"
 
 {\bfacility\b}i
-id="gp-facility"
+id="gp-3-facility"
 valid msgstr="instalación"
 valid msgstr="equipo"
 valid msgstr="posibilidad"
 hint="«Facility» se traduce como «Instalación/equipo» (propuesta glosario)"
 
 {\bfade\b}i
-id="gp-fade"
+id="gp-3-fade"
 valid msgstr="aten(uar|úa|úe|uación)"
 valid msgstr="desvane(cer|ce|zca|cimiento)"
 valid msgstr="atenuará" after="will\s(not\s)?"
@@ -1328,18 +1328,18 @@ valid msgstr="fundido"
 hint="«Fade» se traduce como «Atenuar/Desvanecer/Fundido» (propuesta glosario)"
 
 {\bfailure\b}i
-id="gp-failure"
+id="gp-3-failure"
 valid msgstr="fallo"
 hint="«Failure» se traduce como «Fallo» (propuesta glosario)"
 
 {\bfailures\b}i
-id="gp-failures"
+id="gp-3-failures"
 valid msgstr="fallos"
 valid msgstr="(algún|ningún|cualquier)\sfallo"
 hint="«Failures» se traduce como «Fallos» (propuesta glosario)"
 
 {\bfake\b}i
-id="gp-fake"
+id="gp-3-fake"
 valid msgstr="fals[oa]"
 valid msgstr="false(ar|a|e)"
 valid msgstr="falsifi(ar|a|e)"
@@ -1347,7 +1347,7 @@ valid msgstr="falsificación"
 hint="«Fake» se traduce como «Falso/Falsear» (propuesta glosario)"
 
 {\bfakes\b}i
-id="gp-fakes"
+id="gp-3-fakes"
 valid msgstr="fals[oa]s"
 valid msgstr="falsificaciones"
 valid msgstr="(algún|ningún|cualquier)\sfalso"
@@ -1356,13 +1356,13 @@ valid msgstr="(ninguna|cualquier)\sfalsificación"
 hint="«Fakes» se traduce como «Falsos/Falsificaciones» (propuesta glosario)"
 
 {\bfan\b}i
-id="gp-fan"
+id="gp-3-fan"
 valid msgstr="ventilador"
 valid msgstr="admiradora?"
 hint="«Fan» se traduce como «Ventilador/Admirador» (propuesta glosario)"
 
 {\bfans\b}i
-id="gp-fans"
+id="gp-3-fans"
 valid msgstr="ventiladores"
 valid msgstr="admiradores"
 valid msgstr="(algún|ningún|cualquier)\sventilador"
@@ -1371,7 +1371,7 @@ valid msgstr="(ninguna|cualquier)\sadmiradora"
 hint="«Fans» se traduce como «Ventiladores/Admiradores» (propuesta glosario)"
 
 {\bfetch\b}i
-id="gp-fetch"
+id="gp-3-fetch"
 valid msgstr="bus(car|ca|que)"
 valid msgstr="búsqueda"
 valid msgstr="extra(er|e|iga|cción)"
@@ -1391,7 +1391,7 @@ valid msgstr="obtuvo" after="did\s(not\s)?"
 hint="«Fetch» se traduce como «Buscar/Extraer/Entregar/Traer/Obtener» (propuesta glosario)"
 
 {\bfetchs\b}i
-id="gp-fetchs"
+id="gp-3-fetchs"
 valid msgstr="bus(ca|que)"
 valid msgstr="búsquedas"
 valid msgstr="extra(e|iga|cciones)"
@@ -1404,20 +1404,20 @@ valid msgstr="(ninguna|cualquier)\sentrega"
 hint="«Fetchs» se traduce como «Busca/Extraiga/Entregue/Traiga/Obtenga» (propuesta glosario)"
 
 {\bfilter\b}i
-id="gp-filter"
+id="gp-3-filter"
 valid msgstr="filtr(ar|o|a|e)"
 valid msgstr="filtrará" after="will\s(not\s)?"
 valid msgstr="filtró" after="did\s(not\s)?"
 hint="«Filter» se traduce como «Filtro/Filtrar» (propuesta glosario)"
 
 {\bfilters\b}i
-id="gp-filters"
+id="gp-3-filters"
 valid msgstr="filtr(ar|os|a|e)"
 valid msgstr="(algún|ningún|cualquier)\sfiltro"
 hint="«Filters» se traduce como «Filtros/Filtra» (propuesta glosario)"
 
 {\bfingerprint\b}i
-id="gp-fingerprint"
+id="gp-3-fingerprint"
 valid msgstr="huella\sdactilar"
 valid msgstr="huella\sdigital"
 valid msgstr="huellas\sdactilares"
@@ -1425,7 +1425,7 @@ valid msgstr="huellas\sdigitales"
 hint="«Fingerprint» se traduce como «Huella dactilar/digital» (propuesta glosario)"
 
 {\bfingerprints\b}i
-id="gp-fingerprints"
+id="gp-3-fingerprints"
 valid msgstr="huellas\sdactilares"
 valid msgstr="huellas\sdigitales"
 valid msgstr="(ninguna|cualquier)\shuella\sdactilar"
@@ -1433,39 +1433,39 @@ valid msgstr="(ninguna|cualquier)\shuella\sdigital"
 hint="«Fingerprints» se traduce como «Huellas dactilares» (propuesta glosario)"
 
 {\bfirmware\b}i
-id="gp-firmware"
+id="gp-3-firmware"
 valid msgstr="microcódigo"
 hint="«Firmware» se traduce como «Microcódigo» (propuesta glosario)"
 
 {\bfirmwares\b}i
-id="gp-firmwares"
+id="gp-3-firmwares"
 valid msgstr="microcódigos"
 valid msgstr="(algún|ningún|cualquier)\smicrocódigo"
 hint="«Firmwares» se traduce como «Microcódigos» (propuesta glosario)"
 
 {\bflashback\b}i
-id="gp-flashback"
+id="gp-3-flashback"
 valid msgstr="retrospectiva"
 hint="«Flashback» se traduce como «Retrospectiva» (propuesta glosario)"
 
 {\bfloating\b}i
-id="gp-floating"
+id="gp-3-floating"
 valid msgstr="flotante"
 hint="«Floating» se traduce como «Flotante» (propuesta glosario)"
 
 {\bflowchart\b}i
-id="gp-flowchart"
+id="gp-3-flowchart"
 valid msgstr="diagramas?\sde\sflujo"
 hint="«Flow chart» se traduce como «Diagrama de flujo» (propuesta glosario)"
 
 {\bflowcharts\b}i
-id="gp-flowcharts"
+id="gp-3-flowcharts"
 valid msgstr="diagramas\sde\sflujo"
 valid msgstr="(algún|ningún|cualquier)\sdiagrama\sde\sflujo"
 hint="«Flow charts» se traduce como «Diagramas de flujo» (propuesta glosario)"
 
 {\bflush\b}i
-id="gp-flush"
+id="gp-3-flush"
 valid msgstr="vaciar"
 valid msgstr="vací[ea]"
 valid msgstr="vaciará" after="will\s(not\s)?"
@@ -1473,28 +1473,28 @@ valid msgstr="vació" after="did\s(not\s)?"
 hint="«Flush» se traduce como «Vaciar» (propuesta glosario)"
 
 {\bfolding\b}i
-id="gp-folding"
+id="gp-3-folding"
 valid msgstr="plegad[oa]"
 hint="«Folding» se traduce como «Plegado» (propuesta glosario)"
 
 {\bfollow\-up\b}i
-id="gp-follow-up"
+id="gp-3-follow-up"
 valid msgstr="responder[\s\-]a"
 hint="«Follow-up» se traduce como «Responder a» (propuesta glosario)"
 
 {\bfoering\skey\b}i
-id="gp-foering-key"
+id="gp-3-foering-key"
 valid msgstr="clave\sajena"
 hint="«Foering key» se traduce como «Clave ajena» (propuesta glosario)"
 
 {\bfoerings\skeys\b}i
-id="gp-foerings-keys"
+id="gp-3-foerings-keys"
 valid msgstr="claves\sajenas"
 valid msgstr="(ninguna|cualquier)\sclave\sajena"
 hint="«Foerings keys» se traduce como «Claves ajenas» (propuesta glosario)"
 
 {\bfolder\b}i
-id="gp-folder"
+id="gp-3-folder"
 valid msgstr="carpeta"
 valid msgstr="papelera" after="trash\s"
 valid msgstr="bandeja\sde\ssalida" after="outbox(\s|\-)"
@@ -1504,41 +1504,41 @@ valid msgstr="papelera" after="trash\s"
 hint="«Folder» se traduce como «Carpeta» (propuesta glosario)"
 
 {\bfolders\b}i
-id="gp-folders"
+id="gp-3-folders"
 valid msgstr="carpetas"
 valid msgstr="papeleras" after="trash\s"
 valid msgstr="(ninguna|cualquier)\scarpeta"
 hint="«Folders» se traduce como «Carpetas» (propuesta glosario)"
 
 {\bforum\b}i
-id="gp-forum"
+id="gp-3-forum"
 valid msgstr="foro"
 hint="«Forum» se traduce como «Foro» (propuesta glosario)"
 
 {\bforums\b}i
-id="gp-forums"
+id="gp-3-forums"
 valid msgstr="foros"
 valid msgstr="(algún|ningún|cualquier)\sforo"
 hint="«Forums» se traduce como «Foros» (propuesta glosario)"
 
 {\bfrecuency\b}i
-id="gp-frecuency"
+id="gp-3-frecuency"
 valid msgstr="frecuencia"
 hint="«Frecuency» se traduce como «Frecuencia» (propuesta glosario)"
 
 {\bfreee\/busy\b}i
-id="gp-free-busy"
+id="gp-3-free-busy"
 valid msgstr="disponibilidad"
 hint="«Free/busy» se traduce como «Disponibilidad» (propuesta glosario)"
 
 {\bfrom\ssources?\b}i
-id="gp-from-source"
+id="gp-3-from-source"
 valid msgstr="desde\sel\scódigo\sfuente"
 valid msgstr="a\spartir\sdel\scódigo\sfuente"
 hint="«From source» se traduce como «Desde el código fuente» (propuesta glosario)"
 
 {\bfunction\b}i
-id="gp-function"
+id="gp-3-function"
 valid msgstr="función"
 valid msgstr="funcion(ar|a|e)"
 valid msgstr="funcionará" after="will\s(not\s)?"
@@ -1546,43 +1546,43 @@ valid msgstr="funcionó" after="did\s(not\s)?"
 hint="«Function» se traduce como «Función/Funcionar» (propuesta glosario)"
 
 {\bfunctions\b}i
-id="gp-functions"
+id="gp-3-functions"
 valid msgstr="funcion(es|a|e)"
 valid msgstr="(ninguna|cualquier)\sfunción"
 hint="«Functions» se traduce como «Funciones/Funciona» (propuesta glosario)"
 
 {\bgag\b}i
-id="gp-gag"
+id="gp-3-gag"
 valid msgstr="chiste"
 valid msgstr="broma"
 valid msgstr="mordaza"
 hint="«Gag» se traduce como «Chiste/Broma/Mordaza» (propuesta glosario)"
 
 {\bglyph\b}i
-id="gp-glyph"
+id="gp-3-glyph"
 valid msgstr="glifo"
 hint="«Glyph» se traduce como «Glifo» (propuesta glosario)"
 
 {\bglyphs\b}i
-id="gp-glyphs"
+id="gp-3-glyphs"
 valid msgstr="glifos"
 valid msgstr="(algún|ningún|cualquier)\sglifo"
 hint="«Glyphs» se traduce como «Glifos» (propuesta glosario)"
 
 {\bgrab\b}i
-id="gp-grab"
+id="gp-3-grab"
 valid msgstr="captur(ar|a|e)"
 valid msgstr="capturará" after="will\s(not\s)?"
 valid msgstr="capturó" after="did\s(not\s)?"
 hint="«Grab» se traduce como «Capturar» (propuesta glosario)"
 
 {\bgrabs\b}i
-id="gp-grabs"
+id="gp-3-grabs"
 valid msgstr="captur(ar|a|e)"
 hint="«Grabs» se traduce como «Captura» (propuesta glosario)"
 
 {\bgraph\b}i
-id="gp-graph"
+id="gp-3-graph"
 valid msgstr="grafo"
 valid msgstr="gráfic[oa]"
 valid msgstr="graf" after="alt\s"
@@ -1590,7 +1590,7 @@ valid msgstr="Gr" after="alt\s"
 hint="«Graph» se traduce como «Grafo/Gráfico» (propuesta glosario)"
 
 {\bgraphs\b}i
-id="gp-graphs"
+id="gp-3-graphs"
 valid msgstr="grafos"
 valid msgstr="gráfic[oa]s"
 valid msgstr="(algún|ningún|cualquier)\sgrafo"
@@ -1599,12 +1599,12 @@ valid msgstr="(ninguna|cualquier)\sgráfica"
 hint="«Graphs» se traduce como «Grafos/Gráficas» (propuesta glosario)"
 
 {\bguidelines\b}i
-id="gp-guidelines"
+id="gp-3-guidelines"
 valid msgstr="directivas?"
 hint="«Guideliness» se traduce como «Directivas» (propuesta glosario)"
 
 {\bgroupware\b}i
-id="gp-groupware"
+id="gp-3-groupware"
 valid before="\-"
 valid msgstr="trabajos?\sen\sgrupo"
 valid msgstr="colaboración"
@@ -1613,20 +1613,20 @@ valid after="Kolab(\s|\-)"
 hint="«Groupware» se traduce como «Trabajo en grupo/Colaboración» (propuesta glosario)"
 
 {\bhall\b}i
-id="gp-hall"
+id="gp-3-hall"
 valid msgstr="vestíbulo"
 valid msgstr="entrada"
 valid msgstr="sala"
 hint="«Hall» se traduce como «Sala/Vestíbulo/Entrada» (propuesta glosario)"
 
 {\bhandheld\b}i
-id="gp-handheld"
+id="gp-3-handheld"
 valid msgstr="de\smano"
 valid msgstr="agenda\selectrónica"
 hint="«Handheld» se traduce como «De mano/Agenda electrónica» (propuesta glosario)"
 
 {\bhandicap\b}i
-id="gp-handicap"
+id="gp-3-handicap"
 valid msgstr="minusvalía"
 valid msgstr="discapacidad"
 valid msgstr="inconveniente"
@@ -1634,7 +1634,7 @@ valid msgstr="penalización"
 hint="«Handicap» se traduce como «Minusvalía/Discapacidad/Inconveniente/Penalización» (propuesta glosario)"
 
 {\bhandle\b}i
-id="gp-handle"
+id="gp-3-handle"
 valid msgstr="manipul(ar|a|e)"
 valid msgstr="manej(ar|a|e)"
 valid msgstr="encargarse\sde"
@@ -1647,13 +1647,13 @@ valid msgstr="manejó" after="did\s(not\s)?"
 hint="«Handle» se traduce como «Manipular/Manejar/Encargarse de/Mango» (propuesta glosario)"
 
 {\bhandler\b}i
-id="gp-handler"
+id="gp-3-handler"
 valid msgstr="controlador"
 valid msgstr="manipulador"
 hint="«Handler» se traduce como «Controlador/Manipulador» (propuesta glosario)"
 
 {\bhandlers\b}i
-id="gp-handlers"
+id="gp-3-handlers"
 valid msgstr="manipuladores"
 valid msgstr="controladores"
 valid msgstr="(algún|ningún|cualquier)\smanipulador"
@@ -1661,7 +1661,7 @@ valid msgstr="(algún|ningún|cualquier)\scontrolador"
 hint="«Handlers» se traduce como «Controladores/Manipuladores» (propuesta glosario)"
 
 {\bhandles\b}i
-id="gp-handles"
+id="gp-3-handles"
 valid msgstr="manipul(ar|a|e)"
 valid msgstr="manej(ar|a|e)"
 valid msgstr="se\sencarga\sde"
@@ -1672,13 +1672,13 @@ valid msgstr="(algún|ningún|cualquier)\smango"
 hint="«Handles» se traduce como «Maneja/Manipula/Se encarga de/Mangos» (propuesta glosario)"
 
 {\bheader\b}i
-id="gp-header"
+id="gp-3-header"
 valid msgstr="cabecera"
 valid msgstr="encabeza(do|miento)"
 hint="«Header» se traduce como «Cabecera/Encabezado» (propuesta glosario)"
 
 {\bheaders\b}i
-id="gp-headers"
+id="gp-3-headers"
 valid msgstr="cabeceras"
 valid msgstr="encabeza(do|dos|mientos)"
 valid msgstr="(ninguna|cualquier)\scabecera"
@@ -1686,18 +1686,18 @@ valid msgstr="(algún|ningún|cualquier)\sencabeza(do|miento)"
 hint="«Headers» se traduce como «Cabeceras/Encabezados» (propuesta glosario)"
 
 {\bheuristic\b}i
-id="gp-heuristic"
+id="gp-3-heuristic"
 valid msgstr="heurístic[oa]"
 hint="«Heuristic» se traduce como «Heurístico» (propuesta glosario)"
 
 {\bhierarchy\b}i
-id="gp-hierachy"
+id="gp-3-hierachy"
 valid msgstr="jerarquía"
 valid msgstr="jerárquic[oa]"
 hint="«Hierachy» se traduce como «Jerarquía» (propuesta glosario)"
 
 {\bhint\b}i
-id="gp-hint"
+id="gp-3-hint"
 valid msgstr="consejo"
 valid msgstr="rastro"
 valid msgstr="pista"
@@ -1705,7 +1705,7 @@ valid msgstr="idea"
 hint="«Hint» se traduce como «Consejo» (propuesta glosario)"
 
 {\bhints\b}i
-id="gp-hints"
+id="gp-3-hints"
 valid msgstr="consejos"
 valid msgstr="rastros"
 valid msgstr="pistas"
@@ -1717,7 +1717,7 @@ valid msgstr="(ninguna|cualquier)\sidea"
 hint="«Hints» se traduce como «Consejos» (propuesta glosario)"
 
 {\bhit\b}i
-id="gp-hit"
+id="gp-3-hit"
 valid msgstr="acierto"
 valid msgstr="acceso"
 valid msgstr="visita"
@@ -1728,7 +1728,7 @@ valid msgstr="pulsó" after="did\s(not\s)?"
 hint="«Hit» se traduce como «Acierto/Acceso/Visita/golpe» (propuesta glosario)"
 
 {\bhits\b}i
-id="gp-hits"
+id="gp-3-hits"
 valid msgstr="aciertos"
 valid msgstr="accesos"
 valid msgstr="visitas"
@@ -1741,43 +1741,43 @@ valid msgstr="(algún|ningún|cualquier)\sgolpe"
 hint="«Hits» se traduce como «Aciertos/Visitas» (propuesta glosario)"
 
 {\bhtml\b}i
-id="gp-html"
+id="gp-3-html"
 valid msgstr="html"
 valid msgstr="HTML"
 hint="«HTML» no se traduce (propuesta glosario)"
 
 {\bhyphen\b}i
-id="gp-hyphen"
+id="gp-3-hyphen"
 valid msgstr="guion"
 hint="«Hyphen» se traduce como «Guion» (propuesta glosario)"
 
 {\bhyphens\b}i
-id="gp-hyphens"
+id="gp-3-hyphens"
 valid msgstr="guiones"
 valid msgstr="(algún|ningún|cualquier)\sguion"
 hint="«Hyphens» se traduce como «Guiones» (propuesta glosario)"
 
 {\bidle\b}i
-id="gp-idle"
+id="gp-3-idle"
 valid msgstr="inactiv[oa]"
 valid msgstr="inactividad"
 valid msgstr="IDLE"
 hint="«Idle» se traduce como «Inactivo» (propuesta glosario)"
 
 {\bidles\b}i
-id="gp-idles"
+id="gp-3-idles"
 valid msgstr="inactiv[oa]s"
 hint="«Idles» se traduce como «Inactivos» (propuesta glosario)"
 
 {\bimplement\b}i
-id="gp-implement"
+id="gp-3-implement"
 valid msgstr="implement(ar|a|e)"
 valid msgstr="implementará" after="will\s(not\s)?"
 valid msgstr="implementó" after="did\s(not\s)?"
 hint="«Implement» se traduce como «Implementar» (propuesta glosario)"
 
 {\bimplemented\b}i
-id="gp-implemented"
+id="gp-3-implemented"
 valid msgstr="implementad[oa]"
 valid msgstr="implementarse"
 valid msgstr="se\simplement[ea]n?"
@@ -1786,22 +1786,22 @@ valid msgstr="se\s(\w+\s){1,3}implementar"
 hint="«Implemented» se traduce como «Implementado» (propuesta glosario)"
 
 {\bimplementation\b}i
-id="gp-implementation"
+id="gp-3-implementation"
 valid msgstr="implementación"
 hint="«Implementation» se traduce como «Implementación» (propuesta glosario)"
 
 {\bimplements\b}i
-id="gp-implements"
+id="gp-3-implements"
 valid msgstr="implement(ar|a|e)"
 hint="«Implements» se traduce como «Implementa» (propuesta glosario)"
 
 {\bin(\s|\-)?box\b}i
-id="gp-inbox"
+id="gp-3-inbox"
 valid msgstr="bandejas?\sde\sentrada"
 hint="«Inbox» se traduce como «Bandeja de entrada» (propuesta glosario)"
 
 {\bindent\b}i
-id="gp-indent"
+id="gp-3-indent"
 valid msgstr="sangr(ar|a|e)"
 valid msgstr="sangrado"
 valid msgstr="sangrará" after="will\s(not\s)?"
@@ -1809,17 +1809,17 @@ valid msgstr="sangró" after="did\s(not\s)?"
 hint="«Indent» se traduce como «Sangrar/Sangrado» (propuesta glosario)"
 
 {\bindentation\b}i
-id="gp-indentation"
+id="gp-3-indentation"
 valid msgstr="sangrado"
 hint="«Indentation» se traduce como «Sangrado» (propuesta glosario)"
 
 {\bindents\b}i
-id="gp-indents"
+id="gp-3-indents"
 valid msgstr="sangr(ar|a|e)"
 hint="«Indents» se traduce como «Sangra» (propuesta glosario)"
 
 {\bindex\b}i
-id="gp-index"
+id="gp-3-index"
 valid msgstr="índice"
 valid msgstr="index(ar|a|e)"
 valid msgstr="indexará" after="will\s(not\s)?"
@@ -1828,7 +1828,7 @@ valid msgstr="INDEX"
 hint="«Index» se traduce como «Índice/Indexar» (propuesta glosario)"
 
 {\bindexed\b}i
-id="gp-indexed"
+id="gp-3-indexed"
 valid msgstr="indexad[oa]"
 valid msgstr="indexarse"
 valid msgstr="se\sindex[ea]n?"
@@ -1837,58 +1837,58 @@ valid msgstr="se\s(\w+\s){1,3}indexar"
 hint="«Indexed» se traduce como «Indexado» (propuesta glosario)"
 
 {\binformation\stechnology\b}i
-id="gp-information-technology"
+id="gp-3-information-technology"
 valid msgstr="informática"
 hint="«Information technology» se traduce como «Informática» (propuesta glosario)"
 
 {\binherit\b}i
-id="gp-inherit"
+id="gp-3-inherit"
 valid msgstr="hered(ar|a|e)"
 valid msgstr="heredará" after="will\s(not\s)?"
 valid msgstr="heredó" after="did\s(not\s)?"
 hint="«Inherit» se traduce como «Heredar» (propuesta glosario)"
 
 {\binheritance\b}i
-id="gp-inheritance"
+id="gp-3-inheritance"
 valid msgstr="herencia"
 hint="«Inheritance» se traduce como «Herencia» (propuesta glosario)"
 
 {\binherits\b}i
-id="gp-inherits"
+id="gp-3-inherits"
 valid msgstr="hered(ar|a|e)"
 hint="«Inherits» se traduce como «Hereda» (propuesta glosario)"
 
 {\binstaller\b}i
-id="gp-installer"
+id="gp-3-installer"
 valid msgstr="instalador"
 valid msgstr="instalación"
 hint="«Installer» se traduce como «Instalador» (propuesta glosario)"
 
 {\binstallers\b}i
-id="gp-installers"
+id="gp-3-installers"
 valid msgstr="instaladores"
 valid msgstr="(algún|ningún|cualquier)\sinstalador"
 hint="«Installers» se traduce como «Instaladores» (propuesta glosario)"
 
 {\binteractive\b}i
-id="gp-interactive"
+id="gp-3-interactive"
 valid msgstr="interactiv[oa]"
 hint="«Interactive» se traduce como «Interactivo» (propuesta glosario)"
 
 {\binteractives\b}i
-id="gp-interactives"
+id="gp-3-interactives"
 valid msgstr="interactiv[oa]s"
 hint="«Interactives» se traduce como «Interactivos» (propuesta glosario)"
 
 {\binterlace\b}i
-id="gp-interlace"
+id="gp-3-interlace"
 valid msgstr="entrela(zar|za|ce)"
 valid msgstr="entrelazará" after="will\s(not\s)?"
 valid msgstr="entrelazó" after="did\s(not\s)?"
 hint="«Interlace» se traduce como «Entrelazar» (propuesta glosario)"
 
 {\binterlaced\b}i
-id="gp-interlaced"
+id="gp-3-interlaced"
 valid msgstr="entrelazad[oa]"
 valid msgstr="entrelazarse"
 valid msgstr="se\sentrela(za|ce)n?"
@@ -1897,12 +1897,12 @@ valid msgstr="se\s(\w+\s){1,3}entrelazar"
 hint="«Interlaced» se traduce como «Entrelazado» (propuesta glosario)"
 
 {\binterlaces\b}i
-id="gp-interlaces"
+id="gp-3-interlaces"
 valid msgstr="entrela(zar|za|ce)"
 hint="«Interlaces» se traduce como «Entrelaza» (propuesta glosario)"
 
 {\binterpolated\b}i
-id="gp-interpolated"
+id="gp-3-interpolated"
 valid msgstr="interpolad[oa]"
 valid msgstr="interpolarse"
 valid msgstr="se\sinterpol[ea]n?"
@@ -1911,19 +1911,19 @@ valid msgstr="se\s(\w+\s){1,3}interpolar"
 hint="«Interpolated» se traduce como «Interpolado» (propuesta glosario)"
 
 {\binterpolation\b}i
-id="gp-interpolation"
+id="gp-3-interpolation"
 valid msgstr="interpolación"
 valid msgstr="interpolaciones"
 hint="«Interpolation» se traduce como «Interpolación» (propuesta glosario)"
 
 {\binterpolations\b}i
-id="gp-interpolations"
+id="gp-3-interpolations"
 valid msgstr="interpolaciones"
 valid msgstr="(ninguna|cualquier)\sinterpolación"
 hint="«Interpolations» se traduce como «Interpolaciones» (propuesta glosario)"
 
 {\binterrrupt\b}i
-id="gp-interrupt"
+id="gp-3-interrupt"
 valid msgstr="interrupcción"
 valid msgstr="interrump(ir|e|a)"
 valid msgstr="interrumpirá" after="will\s(not\s)?"
@@ -1931,7 +1931,7 @@ valid msgstr="interrumpió" after="did\s(not\s)?"
 hint="«Interrupt» se traduce como «Interrupción/Interrumpir» (propuesta glosario)"
 
 {\binterrrupted\b}i
-id="gp-interrupted"
+id="gp-3-interrupted"
 valid msgstr="interrumpid[oa]"
 valid msgstr="interrumpirse"
 valid msgstr="se\sinterrump[ea]n?"
@@ -1945,14 +1945,14 @@ valid msgstr="(ninguna|cualquier)\sinterrupción"
 hint="«Interrupts» se traduce como «Interrupciones/Interrumpe» (propuesta glosario)"
 
 {\bitem\b}i
-id="gp-item"
+id="gp-3-item"
 valid msgstr="elemento"
 valid msgstr="objeto"
 valid msgstr="opción"
 hint="«Item» se traduce como «Elemento/Objeto» (propuesta glosario)"
 
 {\bitems\b}i
-id="gp-items"
+id="gp-3-items"
 valid msgstr="elementos"
 valid msgstr="objetos"
 valid msgstr="opciones"
@@ -1962,29 +1962,29 @@ valid msgstr="(algún|ningún|cualquier)\sopción"
 hint="«Items» se traduce como «Elementos/Objetos» (propuesta glosario)"
 
 {\biteration\b}i
-id="gp-iteration"
+id="gp-3-iteration"
 valid msgstr="iteración"
 hint="«Iteration» se traduce como «Iteración» (propuesta glosario)"
 
 {\biterations\b}i
-id="gp-iterations"
+id="gp-3-iterations"
 valid msgstr="iteraciones"
 valid msgstr="(ninguna|cualquier)\siteración"
 hint="«Iterations» se traduce como «Iteraciones» (propuesta glosario)"
 
 {\bjigsaw\spuzzles?\b}i
-id="gp-jigsaw"
+id="gp-3-jigsaw"
 valid msgstr="rompecabezas"
 hint="«Jigsaw puzzle» se traduce como «Rompecabezas» (propuesta glosario)"
 
 {\bjob\b}i
-id="gp-job"
+id="gp-3-job"
 valid msgstr="trabajo"
 valid msgstr="tarea"
 hint="«Job» se traduce como «Trabajo/Tarea» (propuesta glosario)"
 
 {\bjobs\b}i
-id="gp-jobs"
+id="gp-3-jobs"
 valid msgstr="trabajos"
 valid msgstr="tareas"
 valid msgstr="(algún|ningún|cualquier)\strabajo"
@@ -1992,23 +1992,23 @@ valid msgstr="(ninguna|cualquier)\starea"
 hint="«Jobs» se traduce como «Trabajos/Tareas» (propuesta glosario)"
 
 {\bjournaling\b}i
-id="gp-journaling"
+id="gp-3-journaling"
 valid msgstr="transaccional"
 hint="«Journaling» se traduce como «Transaccional» (propuesta glosario)"
 
 {\bjunk\-mail\b}i
-id="gp-junk-mail"
+id="gp-3-junk-mail"
 valid msgstr="correos?\sbasura"
 hint="«Junk-mail» se traduce como «Correo basura» (propuesta glosario)"
 
 {\bjunk\-mails\b}i
-id="gp-junk-mails"
+id="gp-3-junk-mails"
 valid msgstr="correos\sbasura"
 valid msgstr="(algún|ningún|cualquier)\scorreo\sbasura"
 hint="«Junk-mails» se traduce como «Correos basura» (propuesta glosario)"
 
 {\bjustified\b}i
-id="gp-justified"
+id="gp-3-justified"
 valid msgstr="alinead[oa]"
 valid msgstr="alinearse"
 valid msgstr="se\saliné[ea]n?"
@@ -2017,52 +2017,52 @@ valid msgstr="se\s(\w+\s){1,3}alinear"
 hint="«Justified» se traduce como «Alineado» (propuesta glosario)"
 
 {\bjustifies\b}i
-id="gp-justifies"
+id="gp-3-justifies"
 valid msgstr="alin(ear|ée|éa)"
 hint="«Justifies» se traduce como «Alinéa» (propuesta glosario)"
 
 {\bjustify\b}i
-id="gp-justify"
+id="gp-3-justify"
 valid msgstr="alin(ear|ée|éa)"
 valid msgstr="alineará" after="will\s(not\s)?"
 valid msgstr="alineó" after="did\s(not\s)?"
 hint="«Justify» se traduce como «Alinear» (propuesta glosario)"
 
 {\bkde\b}i
-id="gp-kde"
+id="gp-3-kde"
 valid msgstr="kde"
 valid msgstr="KDE"
 hint="«KDE» se mantiene tal como está (propuesta glosario)"
 
 {\bkeep\salive\b}i
-id="gp-keep-alive"
+id="gp-3-keep-alive"
 valid msgstr="mantener\sactiv[oa]"
 hint="«Keep alive» se traduce como «Mantener activo» (propuesta glosario)"
 
 {\bkeyring\b}i
-id="gp-keyring"
+id="gp-3-keyring"
 valid msgstr="anillos?\sde\sclaves"
 hint="«Keyring» se traduce como «Anillo de claves» (propuesta glosario)"
 
 {\bkeyrings\b}i
-id="gp-keyrings"
+id="gp-3-keyrings"
 valid msgstr="anillos\sde\sclaves"
 valid msgstr="(algún|ningún|cualquier)\sanillo\sde\sclaves"
 hint="«Keyrings» se traduce como «Anillos de claves» (propuesta glosario)"
 
 {\blatency\b}i
-id="gp-latency"
+id="gp-3-latency"
 valid msgstr="latencia"
 hint="«Latency» se traduce como «Latencia» (propuesta glosario)"
 
 {\blattice\b}i
-id="gp-lattice"
+id="gp-3-lattice"
 valid msgstr="red"
 valid msgstr="trama"
 hint="«Lattice» se traduce como «Red/Trama» (propuesta glosario)"
 
 {\blattices\b}i
-id="gp-lattices"
+id="gp-3-lattices"
 valid msgstr="redes"
 valid msgstr="tramas"
 valid msgstr="(ninguna|cualquier)\sred"
@@ -2070,7 +2070,7 @@ valid msgstr="(ninguna|cualquier)\strama"
 hint="«Lattices» se traduce como «Redes/Tramas» (propuesta glosario)"
 
 {\blayer\b}i
-id="gp-layer"
+id="gp-3-layer"
 valid msgstr="capa"
 valid after="secure\ssocket\s"
 valid after="MPEG\s(\d?\s?Audio\s)?"
@@ -2078,35 +2078,35 @@ valid after="mpeg\s(\d?\s?Audio\s)?"
 hint="«Layer» se traduce como «Capa» (propuesta glosario)"
 
 {\blayers\b}i
-id="gp-layers"
+id="gp-3-layers"
 valid msgstr="capas"
 valid msgstr="(ninguna|cualquier)\scapa"
 hint="«Layers» se traduce como «Capas» (propuesta glosario)"
 
 {\blinker\b}i
-id="gp-linker"
+id="gp-3-linker"
 valid msgstr="enlazador"
 hint="«Linker» se traduce como «Enlazador» (propuesta glosario)"
 
 {\blinkers\b}i
-id="gp-linkers"
+id="gp-3-linkers"
 valid msgstr="enlazadores"
 valid msgstr="(algún|ningún|cualquier)\senlazador"
 hint="«Linkers» se traduce como «Enlazadores» (propuesta glosario)"
 
 {\blive\sbookmark\b}i
-id="gp-live-bookmark"
+id="gp-3-live-bookmark"
 valid msgstr="marcador\sdinámico"
 valid msgstr="marcadores\sdinámicos"
 hint="«Live bookmark» se traduce como «Marcador dinámico» (propuesta glosario)"
 
 {\blive\sbookmarks\b}i
-id="gp-live-bookmarks"
+id="gp-3-live-bookmarks"
 valid msgstr="marcadores\sdinámicos"
 hint="«Live bookmarks» se traduce como «Marcadores dinámicos» (propuesta glosario)"
 
 {\blogon\b}i
-id="gp-logon"
+id="gp-3-logon"
 valid msgstr="inicio\sde\ssesión"
 valid msgstr="inici(ar|a|e)\s(la\s)?sesión"
 valid msgstr="iniciará\ssesión" after="will\s(not\s)?"
@@ -2114,7 +2114,7 @@ valid msgstr="inición\ssesión" after="did\s(not\s)?"
 hint="«Logon» se traduce como «Inicio de sesión», no se debe dejar sin traducir (propuesta glosario)"
 
 {\blogout\b}i
-id="gp-logout"
+id="gp-3-logout"
 valid msgstr="fin\sde\ssesión"
 valid msgstr="cierre\s(de\s)?sesión"
 valid msgstr="cierra\s(la\s)?sesión"
@@ -2127,7 +2127,7 @@ valid msgstr="finalizó\ssesión" after="did\s(not\s)?"
 hint="«Logout» se traduce como «Fin/Cierre de sesión», no se debe dejar sin traducir (propuesta glosario)"
 
 {\bloop\b}i
-id="gp-loop"
+id="gp-3-loop"
 valid msgstr="ciclo"
 valid msgstr="bucle"
 valid msgstr="rep(etir|ite|ita)"
@@ -2136,7 +2136,7 @@ valid msgstr="repitió" after="did\s(not\s)?"
 hint="«Loop» se traduce como «Ciclo/Bucle/Repetir» (propuesta glosario)"
 
 {\bloops\b}i
-id="gp-loops"
+id="gp-3-loops"
 valid msgstr="ciclos"
 valid msgstr="bucles?"
 valid msgstr="repit[ea]"
@@ -2145,45 +2145,45 @@ valid msgstr="(algún|ningún|cualquier)\sbucle"
 hint="«Loops» se traduce como «Ciclos/Bucles/Repita» (propuesta glosario)"
 
 {\blossy\b}i
-id="gp-lossy"
+id="gp-3-lossy"
 valid msgstr="con\spérdida"
 hint="«Lossy» se traduce como «Con pérdida» (propuesta glosario)"
 
 {\bluminance\b}i
-id="gp-luminance"
+id="gp-3-luminance"
 valid msgstr="luminancia"
 hint="«Luminance» se traduce como «Luminancia» (propuesta glosario)"
 
 {\bmacro\b}i
-id="gp-macro"
+id="gp-3-macro"
 valid msgstr="macro"
 hint="«Macro» se traduce como «Macro», (propuesta glosario)"
 
 {\bmacros\b}i
-id="gp-macros"
+id="gp-3-macros"
 valid msgstr="macros"
 valid msgstr="(ninguna|cualquier)\smacro"
 hint="«Macros» se traduce como «Macros», (propuesta glosario)"
 
 {\bmailbox\b}i
-id="gp-mailbox"
+id="gp-3-mailbox"
 valid msgstr="buzón"
 valid msgstr="mailbox"
 hint="«Mailbox» se traduce como «Buzón» (propuesta glosario)"
 
 {\bmailboxes\b}i
-id="gp-mailboxes"
+id="gp-3-mailboxes"
 valid msgstr="buzones"
 valid msgstr="(algún|ningún|cualquier)\sbuzón"
 hint="«Mailboxes» se traduce como «Buzones» (propuesta glosario)"
 
 {\bMaildir\b}
-id="gp-maildir"
+id="gp-3-maildir"
 valid msgstr="[Mm]aildir"
 hint="«Maildir» no se traduce, es un formato de buzón de correo (propuesta glosario)"
 
 {\bmanage\b}i
-id="gp-manage"
+id="gp-3-manage"
 valid msgstr="gestion(ar|a|e)"
 valid msgstr="administr(ar|a|e)"
 valid msgstr="gestionará" after="will\s(not\s)?"
@@ -2194,36 +2194,36 @@ valid !msgstr="manej(ar|a|e)"
 hint="«Manage» se traduce como «Gestionar» (propuesta glosario)"
 
 {\bmanager\b}i
-id="gp-manager"
+id="gp-3-manager"
 valid msgstr="gestora?"
 valid msgstr="administradora?"
 valid !msgstr="manejadoa?"
 hint="«Manager» se traduce como «Gestor/Administrador» (propuesta glosario)"
 
 {\bmarketing\b}i
-id="gp-marketing"
+id="gp-3-marketing"
 valid msgstr="mercadotecnia"
 hint="«Marketing» se traduce como «Mercadotecnia» (propuesta glosario)"
 
 {\bmarkup\b}i
-id="gp-markup"
+id="gp-3-markup"
 valid msgstr="marcado"
 valid msgstr="etiquetado"
 hint="«Markup» se traduce como «Marcado» (propuesta glosario)"
 
 {\bmaskerading\b}i
-id="gp-maskerading"
+id="gp-3-maskerading"
 valid msgstr="enmascaramiento"
 valid msgstr="enmascarad[oa]"
 hint="«Maskerading» se traduce como «Enmascaramiento/Enmascarado» (propuesta glosario)"
 
 {\bmasking\b}i
-id="gp-masking"
+id="gp-3-masking"
 valid msgstr="enmascaramiento"
 hint="«Masking» se traduce como «Enmascaramiento» (propuesta glosario)"
 
 {\bmeasure\b}i
-id="gp-measure"
+id="gp-3-measure"
 valid msgstr="medida"
 valid msgstr="métrica"
 valid msgstr="medir"
@@ -2233,7 +2233,7 @@ valid msgstr="midió" after="did\s(not\s)?"
 hint="«Measure» se traduce como «Medida/Métrica» (propuesta glosario)"
 
 {\bmeasured\b}i
-id="gp-measured"
+id="gp-3-measured"
 valid msgstr="medid(a|o)"
 valid msgstr="medirse"
 valid msgstr="se\smid[ae]n?"
@@ -2242,7 +2242,7 @@ valid msgstr="se\s(\w+\s){1,3}medir"
 hint="«Measured» se traduce como «Medido» (propuesta glosario)"
 
 {\bmeasures\b}i
-id="gp-measures"
+id="gp-3-measures"
 valid msgstr="medidas"
 valid msgstr="métricas"
 valid msgstr="(ninguna|cualquier)\smedida"
@@ -2251,7 +2251,7 @@ valid msgstr="mid(e|a)"
 hint="«Measures» se traduce como «Medidas/Métricas» (propuesta glosario)"
 
 {\bmethod\b}i
-id="gp-method"
+id="gp-3-method"
 valid msgstr="método"
 valid msgstr="mecanismo"
 valid msgstr="forma"
@@ -2259,7 +2259,7 @@ valid after="X\sinput\s"
 hint="«Method» se traduce como «Método» (propuesta glosario)"
 
 {\bmethods\b}i
-id="gp-methods"
+id="gp-3-methods"
 valid msgstr="métodos"
 valid msgstr="mecanismos"
 valid msgstr="(algún|ningún|cualquier)\smétodo"
@@ -2267,13 +2267,13 @@ valid msgstr="(algún|ningún|cualquier)\smécanismo"
 hint="«Methods» se traduce como «Métodos» (propuesta glosario)"
 
 {\bmilestone\b}i
-id="gp-milestone"
+id="gp-3-milestone"
 valid msgstr="hito"
 valid msgstr="puntos?\sde\sreferencia"
 hint="«Milestone» se traduce como «Hito/Punto de referencia» (propuesta glosario)"
 
 {\bmilestones\b}i
-id="gp-milestones"
+id="gp-3-milestones"
 valid msgstr="hitos"
 valid msgstr="puntos\sde\sreferencia"
 valid msgstr="(algún|ningún|cualquier)\shito"
@@ -2281,27 +2281,27 @@ valid msgstr="(algún|ningún|cualquier)\spunto\sde\sreferencia"
 hint="«Milestones» se traduce como «Hitos/Puntos de referencia» (propuesta glosario)"
 
 {\bmismatch\b}i
-id="gp-mismatch"
+id="gp-3-mismatch"
 valid msgstr="discordancia"
 valid msgstr="no\sconcuerdan?"
 hint="«Mismatch» se traduce como «Discordancia» (propuesta glosario)"
 
 {\bmismatchs\b}i
-id="gp-mismatchs"
+id="gp-3-mismatchs"
 valid msgstr="discordancias"
 valid msgstr="(ninguna|cualquier)\sdiscordancia"
 valid msgstr="no\sconcuerdan?"
 hint="«Mismatchs» se traduce como «Discordancias» (propuesta glosario)"
 
 {\bmix\b}i
-id="gp-mix"
+id="gp-3-mix"
 valid msgstr="mezcl(ar|a|e)"
 valid msgstr="mezclará" after="will\s(not\s)?"
 valid msgstr="mezcló" after="did\s(not\s)?"
 hint="«Mix» se traduce como «Mezclar» (propuesta glosario)"
 
 {\bmixed\b}i
-id="gp-mixed"
+id="gp-3-mixed"
 valid msgstr="mezclad[oa]"
 valid msgstr="mezclarse"
 valid msgstr="mixt[oa]"
@@ -2310,36 +2310,36 @@ valid msgstr="se\s(\w+\s){1,3}mezclar"
 hint="«Mixed» se traduce como «Mezclado/Mixto» (propuesta glosario)"
 
 {\bmixer\b}i
-id="gp-mixer"
+id="gp-3-mixer"
 valid msgstr="mezclador"
 hint="«Mixer» se traduce como «Mezclador» (propuesta glosario)"
 
 {\bmixers\b}i
-id="gp-mixers"
+id="gp-3-mixers"
 valid msgstr="mezcladores"
 valid msgstr="(algún|ningún|cualquier)\smezclador"
 hint="«Mixers» se traduce como «Mezcladores» (propuesta glosario)"
 
 {\bmobile\b}i
-id="gp-mobile"
+id="gp-3-mobile"
 valid msgstr="móvil"
 valid msgstr="portátil"
 hint="«Mobile» se traduce como «Móvil/Portátil» (propuesta glosario)"
 
 {\bmodule\b}i
-id="gp-module"
+id="gp-3-module"
 valid msgstr="módulo"
 valid msgstr="asistente" after="helper\s"
 hint="«Module» se traduce como «Módulo» (propuesta glosario)"
 
 {\bmodules\b}i
-id="gp-modules"
+id="gp-3-modules"
 valid msgstr="módulos"
 valid msgstr="(algún|ningún|cualquier)\smódulo"
 hint="«Modules» se traduce como «Módulos» (propuesta glosario)"
 
 {\bmounted\b}i
-id="gp-mounted"
+id="gp-3-mounted"
 valid msgstr="montad[oa]"
 valid msgstr="montarse"
 valid msgstr="se\smont[ae]n?"
@@ -2348,7 +2348,7 @@ valid msgstr="se\s(\w+\s){1,3}montar"
 hint="«Mounted» se traduce como «Montado» (propuesta glosario)"
 
 {\bmute\b}i
-id="gp-mute"
+id="gp-3-mute"
 valid msgstr="silencio"
 valid msgstr="silenci(ar|a|e)"
 valid msgstr="silenciará" after="will\s(not\s)?"
@@ -2356,7 +2356,7 @@ valid msgstr="silenció" after="did\s(not\s)?"
 hint="«Mute» se traduce como «Silencio/Silenciar» (propuesta glosario)"
 
 {\bmuted\b}i
-id="gp-muted"
+id="gp-3-muted"
 valid msgstr="silenciad[oa]"
 valid msgstr="silenciarse"
 valid msgstr="se\ssilenci[ae]n?"
@@ -2365,25 +2365,25 @@ valid msgstr="se\s(\w+\s){1,3}silenciar"
 hint="«Muted» se traduce como «Silenciado» (propuesta glosario)"
 
 {\bmutes\b}i
-id="gp-mutes"
+id="gp-3-mutes"
 valid msgstr="silencios"
 valid msgstr="silenci[ea]"
 valid msgstr="(algún|ningún|cualquier)\ssilencio"
 hint="«Mutes» se traduce como «Silencios/Silencie» (propuesta glosario)"
 
 {\bnamespace\b}i
-id="gp-namespace"
+id="gp-3-namespace"
 valid msgstr="espacios?\sde\snombres"
 hint="«Namespace» se traduce como «Espacio de nombres» (propuesta glosario)"
 
 {\bnamespaces\b}i
-id="gp-namespaces"
+id="gp-3-namespaces"
 valid msgstr="espacios\sde\snombres"
 valid msgstr="(algún|ningún|cualquier)\sespacio\sde\snombres"
 hint="«Namespaces» se traduce como «Espacios de nombres» (propuesta glosario)"
 
 {\bnest\b}i
-id="gp-nest"
+id="gp-3-nest"
 valid msgstr="anid(ar|e|a)"
 valid msgstr="conect(ar|a|e)"
 valid msgstr="nido"
@@ -2395,7 +2395,7 @@ valid msgstr="conectó" after="did\s(not\s)?"
 hint="«Nest» se traduce como «Anidar/Conectar/Nido» (propuesta glosario)"
 
 {\bnested\b}i
-id="gp-nested"
+id="gp-3-nested"
 valid msgstr="anidad[oa]"
 valid msgstr="conectad[oa]"
 valid msgstr="anidarse"
@@ -2409,7 +2409,7 @@ valid msgstr="se\s(\w+\s){1,3}conectar"
 hint="«Nested» se traduce como «Anidado/Conectado» (propuesta glosario)"
 
 {\bnests\b}i
-id="gp-nests"
+id="gp-3-nests"
 valid msgstr="anid[ea]"
 valid msgstr="conect[ea]"
 valid msgstr="nidos"
@@ -2417,105 +2417,105 @@ valid msgstr="(algún|ningún|cualquier)\snido"
 hint="«Nests» se traduce como «Anida/Conecta/Nidos» (propuesta glosario)"
 
 {\bnetwork\b}i
-id="gp-network"
+id="gp-3-network"
 valid msgstr="red"
 valid after="portable\s" before="\sgraphics"
 valid after="virtual\s" before="\scomputer"
 hint="«Network» se traduce como «Red» (propuesta glosario)"
 
 {\bnetworks\b}i
-id="gp-networks"
+id="gp-3-networks"
 valid msgstr="redes"
 valid msgstr="(ninguna|cualquier)\sred"
 hint="«Networks» se traduce como «Redes» (propuesta glosario)"
 
 {\bnew\b}i
-id="gp-new"
+id="gp-3-new"
 valid msgstr="nuev[oa]"
 valid msgstr="novedad(es)?"
 valid before="\s[A-Z]"
 hint="«New» se traduce como «Nuevo» (propuesta glosario)"
 
 {\bnewbie\b}i
-id="gp-newbie"
+id="gp-3-newbie"
 valid msgstr="principiante"
 hint="«Newbie» se traduce como «Principiante» (propuesta glosario)"
 
 {\bnewbies\b}i
-id="gp-newbies"
+id="gp-3-newbies"
 valid msgstr="principiantes"
 valid msgstr="(algún|ningún|cualquier)\sprincipiante"
 hint="«Newbies» se traduce como «Principiantes» (propuesta glosario)"
 
 {\bnews\b}i
-id="gp-news"
+id="gp-3-news"
 valid msgstr="noticias?"
 valid after="KDE\sDot\s"
 hint="«News» se traduce como «Noticias» (propuesta glosario)"
 
 {\bnewsgroup\b}i
-id="gp-newsgroup"
+id="gp-3-newsgroup"
 valid msgstr="grupos?\sde\snoticias"
 hint="«Newsgroup» se traduce como «Grupo de noticias» (propuesta glosario)"
 
 {\bnewsgroups\b}i
-id="gp-mewsgroups"
+id="gp-3-mewsgroups"
 valid msgstr="grupos\sde\snoticias"
 valid msgstr="(algún|ningún|cualquier)\sgrupo\sde\snoticias"
 hint="«Newsgroups» se traduce como «Grupos de noticias» (propuesta glosario)"
 
 {\bnick\b}i
-id="gp-nick"
+id="gp-3-nick"
 valid msgstr="apodo"
 valid before="\s[A-Z]\w+"
 hint="«Nick» se traduce como «Apodo» (propuesta glosario)"
 
 {\bnickname\b}i
-id="gp-nickname"
+id="gp-3-nickname"
 valid msgstr="apodo"
 hint="«Nickname» se traduce como «Apodo» (propuesta glosario)"
 
 {\bnicknames\b}i
-id="gp-nicknames"
+id="gp-3-nicknames"
 valid msgstr="apodos"
 valid msgstr="(algún|ningún|cualquier)\sapodo"
 hint="«Nicknames» se traduce como «Apodos» (propuesta glosario)"
 
 {\bnicks\b}i
-id="gp-nicks"
+id="gp-3-nicks"
 valid msgstr="apodos"
 valid msgstr="(algún|ningún|cualquier)\sapodo"
 hint="«Nicks» se traduce como «Apodos» (propuesta glosario)"
 
 {\bobject\b}i
-id="gp-object"
+id="gp-3-object"
 valid msgstr="objeto"
 hint="«Object» se traduce como «Objeto» (propuesta glosario)"
 
 {\bobjects\b}i
-id="gp-objects"
+id="gp-3-objects"
 valid msgstr="objetos"
 valid msgstr="(algún|ningún|cualquier)\sobjeto"
 hint="«Objects» se traduce como «Objetos» (propuesta glosario)"
 
 {\boff[\s|\-]line\b}i
-id="gp-off-line"
+id="gp-3-off-line"
 valid msgstr="desconectad[oa]"
 valid msgstr="sin\sconexión"
 hint="«Off line» se traduce como «Desconectado» (propuesta glosario)"
 
 {\boffset\b}i
-id="gp-offset"
+id="gp-3-offset"
 valid msgstr="desplazamiento"
 hint="«Offset» se traduce como «Desplazamiento» (propuesta glosario)"
 
 {\boffsets\b}i
-id="gp-offsets"
+id="gp-3-offsets"
 valid msgstr="desplazamientos?"
 hint="«Offsets» se traduce como «Desplazamientos» (propuesta glosario)"
 
 {\bon(\s|\-)line\b}i
-id="gp-on-line"
+id="gp-3-on-line"
 valid msgstr="conectad[oa]"
 valid msgstr="con\sconexión"
 valid msgstr="en\slínea"
@@ -2523,20 +2523,20 @@ valid msgstr="(en|de)\sla\slínea"
 hint="«On line» se traduce como «Conectado/En línea» (propuesta glosario)"
 
 {\bon\sthe\sfly\b}i
-id="gp-on-the-fly"
+id="gp-3-on-the-fly"
 valid msgstr="sobre\sla\smarcha"
 valid msgstr="al\svuelo"
 hint="«On the fly» se traduce como «Sobre la marcha» (propuesta glosario)"
 
 {\boption\b}i
-id="gp-option"
+id="gp-3-option"
 valid msgstr="opción"
 valid msgstr="opciones"
 valid msgstr="posibilidad"
 hint="«Option» se traduce como «Opción» (propuesta glosario)"
 
 {\boptions\b}i
-id="gp-options"
+id="gp-3-options"
 valid msgstr="opciones"
 valid msgstr="(ninguna|cualquier)\sopción"
 valid msgstr="(ninguna|cualquier)\sposibilidad"
@@ -2544,19 +2544,19 @@ valid msgstr="OPTIONS"
 hint="«Options» se traduce como «Opciones» (propuesta glosario)"
 
 {\bout(\s|\-)?box\b}i
-id="gp-out-box"
+id="gp-3-out-box"
 valid msgstr="bandeja de salida"
 hint="«Outbox» se traduce como «Bandeja de salida» (propuesta glosario)"
 
 {\boutline\b}i
-id="gp-outline"
+id="gp-3-outline"
 valid msgstr="bosquej(ar|a|e|o)"
 valid msgstr="contorno"
 valid msgstr="esquema"
 hint="«Outline» se traduce como «Bosquejo/Contorno/Esquema» (propuesta glosario)"
 
 {\boutlines\b}i
-id="gp-outlines"
+id="gp-3-outlines"
 valid msgstr="bosquej(a|e|os)"
 valid msgstr="contornos"
 valid msgstr="esquemas"
@@ -2566,52 +2566,52 @@ valid msgstr="(algún|ningún|cualquier)\sesquema"
 hint="«Outlines» se traduce como «Bosquejos/Contornos/Esquemas» (propuesta glosario)"
 
 {\boverall\b}i
-id="gp-overall"
+id="gp-3-overall"
 valid msgstr="por\sencima"
 valid msgstr="en\sgeneral"
 valid msgstr="total"
 hint="«Overall» se traduce como «Por encima/En general/Total» (propuesta glosario)"
 
 {\boverbooking\b}i
-id="gp-overbooking"
+id="gp-3-overbooking"
 valid msgstr="sobreventa"
 hint="«Overbooking» se traduce como «Sobreventa» (propuesta glosario)"
 
 {\boverflow\b}i
-id="gp-overflow"
+id="gp-3-overflow"
 valid msgstr="desbordamiento"
 hint="«Overflow» se traduce como «Desbordamiento» (propuesta glosario)"
 
 {\boverflows\b}i
-id="gp-overflows"
+id="gp-3-overflows"
 valid msgstr="desbordamientos"
 valid msgstr="(algún|ningún|cualquier)\sdesbordamiento"
 hint="«Overflows» se traduce como «Desbordamientos» (propuesta glosario)"
 
 {\boverhead\b}i
-id="gp-overhead"
+id="gp-3-overhead"
 valid msgstr="sobrecarga"
 hint="«Overhead» se traduce como «Sobrecarga» (propuesta glosario)"
 
 {\boverheads\b}i
-id="gp-overheads"
+id="gp-3-overheads"
 valid msgstr="sobrecargas"
 valid msgstr="(ninguna|cualquier)\ssobrecarga"
 hint="«Overheads» se traduce como «Sobrecargas» (propuesta glosario)"
 
 {\boverload\b}i
-id="gp-overload"
+id="gp-3-overload"
 valid msgstr="sobrecarg(a|ar|ue)"
 hint="«Overload» se traduce como «Sobrecarga» (propuesta glosario)"
 
 {\boverloads\b}i
-id="gp-overloads"
+id="gp-3-overloads"
 valid msgstr="sobrecarg(as|a|ue)"
 valid msgstr="(ninguna|cualquier)\ssobrecarga"
 hint="«Overloads» se traduce como «Sobrecargas» (propuesta glosario)"
 
 {\boverride\b}i
-id="gp-override"
+id="gp-3-override"
 valid msgstr="redefin(ir|e|a)"
 valid msgstr="redefinición"
 valid msgstr="ree?scrib(ir|e|a)"
@@ -2625,7 +2625,7 @@ valid msgstr="ree?mplazó" after="did\s(not\s)?"
 hint="«Override» se traduce como «Redefinir/Rescribir/Remplazar» (propuesta glosario)"
 
 {\boverrides\b}i
-id="gp-overrides"
+id="gp-3-overrides"
 valid msgstr="redefin(e|a)"
 valid msgstr="ree?scrib(e|a)"
 valid msgstr="ree?mpla(za|ce)"
@@ -2633,19 +2633,19 @@ valid msgstr="redefiniciones"
 hint="«Overrides» se traduce como «Redefine/Rescribe/Remplaza» (propuesta glosario)"
 
 {\bowner\b}i
-id="gp-owner"
+id="gp-3-owner"
 valid msgstr="propietari[oa]"
 hint="«Owner» se traduce como «Propietario» (propuesta glosario)"
 
 {\bowners\b}i
-id="gp-owners"
+id="gp-3-owners"
 valid msgstr="propietari[oa]s"
 valid msgstr="(algún|ningún|cualquier)\spropietario"
 valid msgstr="(ninguna|cualquier)\spropietaria"
 hint="«Owners» se traduce como «Propietarios» (propuesta glosario)"
 
 {\bpackage\b}i
-id="gp-package"
+id="gp-3-package"
 valid msgstr="paquete"
 valid msgstr="empaquet(ar|a|e)"
 valid msgstr="empaquetará" after="will\s(not\s)?"
@@ -2653,7 +2653,7 @@ valid msgstr="empaquetó" after="did\s(not\s)?"
 hint="«Package» se traduce como «Paquete/Empaquetar» (propuesta glosario)"
 
 {\bpackaged\b}i
-id="gp-packaged"
+id="gp-3-packaged"
 valid msgstr="empaquetad[oa]"
 valid msgstr="empaquetarse"
 valid msgstr="se\sempaquet[ea]n?"
@@ -2662,66 +2662,66 @@ valid msgstr="se\s(\w+\s){1,3}empaquetar"
 hint="«Packaged» se traduce como «Empaquetado» (propuesta glosario)"
 
 {\bpackages\b}i
-id="gp-packages"
+id="gp-3-packages"
 valid msgstr="paquetes"
 valid msgstr="(algún|ningún|cualquier)\spaquete"
 valid msgstr="empaquet(ar|a|e)"
 hint="«Packages» se traduce como «Paquetes/Empaqueta» (propuesta glosario)"
 
 {\bpanorama\simage\b}i
-id="gp-panorama-image"
+id="gp-3-panorama-image"
 valid msgstr="imagen\spanorámica"
 valid msgstr="imágenes\spanorámicas"
 hint="«Panorama image» se traduce como «Imagen panorámica» (propuesta glosario)"
 
 {\bpartition\b}i
-id="gp-partition"
+id="gp-3-partition"
 valid msgstr="partición"
 valid msgstr="de\sparticiones"
 hint="«Partition» se traduce como «Partición» (propuesta glosario)"
 
 {\bpartitions\b}i
-id="gp-partitions"
+id="gp-3-partitions"
 valid msgstr="particiones"
 valid msgstr="(ninguna|cualquier)\spartición"
 hint="«Partitions» se traduce como «Particiones» (propuesta glosario)"
 
 {\bpassphrase\b}i
-id="gp-passphrase"
+id="gp-3-passphrase"
 valid msgstr="frases?\sde\scontraseña"
 valid !msgstr="passphrase"
 hint="«Passphrase» se traduce como «Frase de contraseña» (propuesta glosario)"
 
 {\bpassphrases\b}i
-id="gp-passphrases"
+id="gp-3-passphrases"
 valid msgstr="frases\sde\scontraseña"
 valid msgstr="(ninguna|cualquier)\sfrase\sde\scontraseña"
 valid !msgstr="passphrases"
 hint="«Passphrases» se traduce como «Frases de contraseña» (propuesta glosario)"
 
 {\bpattern\b}i
-id="gp-pattern"
+id="gp-3-pattern"
 valid msgstr="patrón"
 valid msgstr="patrones"
 hint="«Pattern» se traduce como «Patrón» (propuesta glosario)"
 
 {\bpatterns\b}i
-id="gp-patterns"
+id="gp-3-patterns"
 valid msgstr="patrones"
 valid msgstr="(algún|ningún|cualquier)\spatrón"
 hint="«Patterns» se traduce como «Patrones» (propuesta glosario)"
 
 {\b(el|la|del|su)\sPC\b}i
-id="gp-pc"
+id="gp-3-pc"
 hint="«PC» se traduce como «Equipo» (propuesta glosario)"
 
 {\bpeer\-to\-peer\b}i
-id="gp-peer-to.peer"
+id="gp-3-peer-to.peer"
 valid msgstr="entre\siguales"
 hint="«Peer-to-peer» se traduce como «Entre iguales» (propuesta glosario)"
 
 {\bperform\b}i
-id="gp-perform"
+id="gp-3-perform"
 valid msgstr="reali(zar|za|ce)"
 valid msgstr="ejecut(ar|a|e)"
 valid msgstr="rendir"
@@ -2735,41 +2735,41 @@ valid msgstr="rindió" after="did\s(not\s)?"
 hint="«Perform» se traduce como «Realizar/Ejecutar» (propuesta glosario)"
 
 {\bperforms\b}i
-id="gp-performs"
+id="gp-3-performs"
 valid msgstr="reali(za|ce)"
 valid msgstr="ejecut(a|e)"
 valid msgstr="rind(a|e)"
 hint="«Performs» se traduce como «Realiza/Ejecuta» (propuesta glosario)"
 
 {\bperformance\b}i
-id="gp-perfomance"
+id="gp-3-perfomance"
 valid msgstr="rendimiento"
 hint="«Performance» se traduce como «Rendimiento» (propuesta glosario)"
 
 {\bpipelining\b}i
-id="gp-pipelining"
+id="gp-3-pipelining"
 valid msgstr="redireccionamiento"
 valid msgstr="paralelismo"
 hint="«Pipelining» se traduce como «Redireccionamiento» (propuesta glosario)"
 
 {\bpixmap\b}i
-id="gp-pixmap"
+id="gp-3-pixmap"
 valid msgstr="imagen"
 hint="«Pixmap» se traduce como «Imagen» (propuesta glosario)"
 
 {\bpixmaps\b}i
-id="gp-pixmaps"
+id="gp-3-pixmaps"
 valid msgstr="imágenes"
 valid msgstr="(ninguna|cualquier)\simagen"
 hint="«Pixmaps» se traduce como «Imágenes» (propuesta glosario)"
 
 {\bplain\stext\b}i
-id="gp-plain-text"
+id="gp-3-plain-text"
 valid msgstr="textos?\s(citado\s)?sin\sformato"
 hint="«Plain text» se traduce como «Texto sin formato» (propuesta glosario)"
 
 {\bplay\b}i
-id="gp-play"
+id="gp-3-play"
 valid msgstr="reprodu(cir|ce|zca)"
 valid msgstr="to(car|ca|que)"
 valid msgstr="interpret(ar|a|e)"
@@ -2791,7 +2791,7 @@ valid after="Plug\sand\s"
 hint="«Play» se traduce como «Reproducir/Tocar/Interpretar/Jugar/Reproducción» (propuesta glosario)"
 
 {\bplayed\b}i
-id="gp-played"
+id="gp-3-played"
 valid msgstr="reproducid[oa]"
 valid msgstr="tocad[oa]"
 valid msgstr="jugad[oa]"
@@ -2823,7 +2823,7 @@ valid msgstr="reproducción" after="(first|last)\s"
 hint="«Played» se traduce como «Reproducido/Tocado» (propuesta glosario)"
 
 {\bplayer\b}i
-id="gp-player"
+id="gp-3-player"
 valid msgstr="jugadora?"
 valid msgstr="reproductora?"
 valid msgstr="reproducción?"
@@ -2833,7 +2833,7 @@ valid after="Flash\s"
 hint="«Player» se traduce como «Jugador/Reproductor/Intérprete» (propuesta glosario)"
 
 {\bplayers\b}i
-id="gp-players"
+id="gp-3-players"
 valid msgstr="jugadores"
 valid msgstr="reproductores"
 valid msgstr="intérpretes"
@@ -2844,18 +2844,18 @@ valid msgstr="(algún|ningún|cualquier)\sintérprete"
 hint="«Players» se traduce como «Jugadores/Reproductores/Intérpretes» (propuesta glosario)"
 
 {\bplay\slist\b}i
-id="gp-playlist"
+id="gp-3-playlist"
 valid msgstr="listas?\sde\sreproducción"
 hint="«Play list» se traduce como «Lista de reproducción» (propuesta glosario)"
 
 {\bplay\slists\b}i
-id="gp-playlists"
+id="gp-3-playlists"
 valid msgstr="listas\sde\sreproducción"
 valid msgstr="(ninguna|cualquier)\slista\sde\sreproducción"
 hint="«Play lists» se traduce como «Listas de reproducción» (propuesta glosario)"
 
 {\bplays\b}i
-id="gp-plays"
+id="gp-3-plays"
 valid msgstr="reprodu(ce|zca)"
 valid msgstr="to(ca|que)"
 valid msgstr="ju(gar|ega|egue)"
@@ -2866,13 +2866,13 @@ valid msgstr="(algún|ningún|cualquier)\sjuego"
 hint="«Plays» se traduce como «Reproduce/Toca/Juega/Interpreta» (propuesta glosario)"
 
 {\bpointer\b}i
-id="gp-pointer"
+id="gp-3-pointer"
 valid msgstr="puntero"
 valid msgstr="índice"
 hint="«Pointer» se traduce como «Puntero/Índice» (propuesta glosario)"
 
 {\bpointers\b}i
-id="gp-pointers"
+id="gp-3-pointers"
 valid msgstr="punteros"
 valid msgstr="índices"
 valid msgstr="(algún|ningún|cualquier)\spuntero"
@@ -2880,31 +2880,31 @@ valid msgstr="(algún|ningún|cualquier)\síndice"
 hint="«Pointers» se traduce como «Punteros/Índices» (propuesta glosario)"
 
 {\bportable\b}i
-id="gp-portable"
+id="gp-3-portable"
 valid msgstr="portátil"
 valid before="\snetwork\sgraphics"
 valid before="\sdocument\s(file|format)"
 hint="«Portable» se traduce como «Portátil» (propuesta glosario)"
 
 {\bportables\b}i
-id="gp-portables"
+id="gp-3-portables"
 valid msgstr="portátiles"
 valid msgstr="(algún|ningún|cualquier)\sportátil"
 hint="«Portables» se traduce como «Portátiles» (propuesta glosario)"
 
 {\bpostponed\b}i
-id="gp-postponed"
+id="gp-3-postponed"
 valid msgstr="pendientes?"
 valid msgstr="aplazados?"
 hint="«Postponed» se traduce como «Aplazado/Pendiente» (propuesta glosario)"
 
 {\bpowered\sby\b}i
-id="gp-powered-by"
+id="gp-3-powered-by"
 valid msgstr="basad[oa]\sen"
 hint="«Powered by» se traduce como «Basado en» (propuesta glosario)"
 
 {\bpress\b}i
-id="gp-press"
+id="gp-3-press"
 valid msgstr="oprim(ir|a|e)"
 valid msgstr="puls(ar|a|e)"
 valid msgstr="presion(ar|a|e)"
@@ -2920,7 +2920,7 @@ valid after="United\s"
 hint="«Press» se traduce como «Oprimir/Pulsar» (propuesta glosario)"
 
 {\bpressed\b}i
-id="gp-pressed"
+id="gp-3-pressed"
 valid msgstr="oprimid[oa]"
 valid msgstr="pulsad[oa]"
 valid msgstr="presionad[oa]"
@@ -2939,7 +2939,7 @@ valid msgstr="se\s(\w+\s){1,3}presionar"
 hint="«Pressed» se traduce como «Oprimido/Pulsado» (propuesta glosario)"
 
 {\bpreview\b}i
-id="gp-preview"
+id="gp-3-preview"
 valid msgstr="vista\sprevia"
 valid msgstr="previsuali(zar|za|ce)"
 valid msgstr="previsualizará" after="will\s(not\s)?"
@@ -2948,7 +2948,7 @@ valid msgstr="avance"
 hint="«Preview» se traduce como «Vista previa/Previsualizar/Avance» (propuesta glosario)"
 
 {\bpreviews\b}i
-id="gp-previews"
+id="gp-3-previews"
 valid msgstr="vistas\sprevias"
 valid msgstr="(ninguna|cualquier)\svista\sprevia"
 valid msgstr="avances"
@@ -2956,26 +2956,26 @@ valid msgstr="(algún|ningún|cualquier)\savance"
 hint="«Previews» se traduce como «Vistas previas/Avances» (propuesta glosario)"
 
 {\bprimary\skey\b}i
-id="gp-primary-key"
+id="gp-3-primary-key"
 valid msgstr="clave\sprimaria"
 valid msgstr="claves\sprimarias"
 hint="«Primary key» se traduce como «Clave primaria» (propuesta glosario)"
 
 {\bprimary\skeys\b}i
-id="gp-primary-keys"
+id="gp-3-primary-keys"
 valid msgstr="claves\sprimarias"
 valid msgstr="(ninguna|cualquier)\sclave\sprimaria"
 hint="«Primary keys» se traduce como «Claves primarias» (propuesta glosario)"
 
 {\bprivate\b}i
-id="gp-private"
+id="gp-3-private"
 valid after="\:\:"
 valid msgstr="privad[oa]"
 valid msgstr="confidencial"
 hint="«Private» se traduce como «Privado/Confidencial» (propuesta glosario)"
 
 {\bprofile\b}i
-id="gp-profile"
+id="gp-3-profile"
 valid msgstr="perfil"
 valid msgstr="perfil(ar|e|a)"
 valid msgstr="perfilará" after="will\s(not\s)?"
@@ -2985,7 +2985,7 @@ valid msgstr="anali(zar|za|ce)\srendimiento"
 hint="«Profile» se traduce como «Perfil/Perfilar/Analizar rendimiento» (propuesta glosario)"
 
 {\bprofiles\b}i
-id="gp-profiles"
+id="gp-3-profiles"
 valid msgstr="perfiles"
 valid msgstr="perfil(e|a)"
 valid msgstr="(algún|ningún|cualquier)\sperfil"
@@ -2994,19 +2994,19 @@ valid msgstr="anali(za|ce)\srendimiento"
 hint="«Profiles» se traduce como «Perfiles/Perfila/Analiza rendimiento» (propuesta glosario)"
 
 {\bprogramming\b}i
-id="gp-programming"
+id="gp-3-programming"
 valid msgstr="programación"
 valid msgstr="al\sprogramar" after="while\s"
 hint="«Programming» se traduce como «Programación» (propuesta glosario)"
 
 {\bpublic\skey\b}i
-id="gp-public-key"
+id="gp-3-public-key"
 valid msgstr="clave\spública"
 valid msgstr="claves\spúblicas"
 hint="«Public key» se traduce como «Clave pública» (propuesta glosario)"
 
 {\bpurged\b}i
-id="gp-purged"
+id="gp-3-purged"
 valid msgstr="purgad[oa]"
 valid msgstr="limpiad[oa]"
 valid msgstr="purgarse"
@@ -3020,20 +3020,20 @@ valid msgstr="se\s(\w+\s){1,3}limpiar"
 hint="«Purged» se traduce como «Purgado/Limpiado» (propuesta glosario)"
 
 {\bquery\b}i
-id="gp-query"
+id="gp-3-query"
 valid msgstr="consulta"
 valid msgstr="pregunta"
 valid msgstr="petición"
 hint="«Query» se traduce como «Consulta/Pregunta/Petición» (propuesta glosario)"
 
 {\bqueue\b}i
-id="gp-queue"
+id="gp-3-queue"
 valid msgstr="cola"
 valid msgstr="encol(ar|a|e)"
 hint="«Queue» se traduce como «Cola» (propuesta glosario)"
 
 {\bqueues\b}i
-id="gp-queues"
+id="gp-3-queues"
 valid msgstr="colas"
 valid msgstr="encol(a|e)"
 valid msgstr="pon(e|en|ga)\sen\scola"
@@ -3041,30 +3041,30 @@ valid msgstr="(ninguna|cualquier)\scola"
 hint="«Queues» se traduce como «Colas» (propuesta glosario)"
 
 {\bquota\b}i
-id="gp-quota"
+id="gp-3-quota"
 valid msgstr="cuota"
 hint="«Quota» se traduce como «Cuota» (propuesta glosario)"
 
 {\brandom\b}i
-id="gp-random"
+id="gp-3-random"
 valid msgstr="aleatori[oa]"
 valid msgstr="al\sazar"
 hint="«Random» se traduce como «Aleatorio/Al azar» (propuesta glosario)"
 
 {\brandomizer\b}i
-id="gp-randomizer"
+id="gp-3-randomizer"
 valid msgstr="aleatorizadora?"
 hint="«Randomizer» se traduce como «Aleatorizador» (propuesta glosario)"
 
 {\branking\b}i
-id="gp-ranking"
+id="gp-3-ranking"
 valid msgstr="categoría"
 valid msgstr="rango"
 valid msgstr="clasificación"
 hint="«Ranking» se traduce como «Categoría/Rango/Clasificación» (propuesta glosario)"
 
 {\brate\b}i
-id="gp-rate"
+id="gp-3-rate"
 valid msgstr="tasa"
 valid msgstr="califi(car|ca|que)"
 valid msgstr="clasifi(car|ca|que)"
@@ -3076,38 +3076,38 @@ valid !msgstr="ratio"
 hint="«Rate» se traduce como «Tasa» (propuesta glosario)"
 
 {\brating\b}i
-id="gp-rating"
+id="gp-3-rating"
 valid msgstr="calificación"
 valid msgstr="clasificación"
 valid !msgstr="ratio"
 hint="«Rating» se traduce como «Calificación/Clasificación» (propuesta glosario)"
 
 {\bre\-spawn\b}i
-id="gp-re-spawn"
+id="gp-3-re-spawn"
 valid msgstr="reinici(ar|a|e)"
 valid msgstr="reiniciará" after="will\s(not\s)?"
 valid msgstr="reinició" after="did\s(not\s)?"
 hint="«Re-spawn» se traduce como «Reiniciar» (propuesta glosario)"
 
 {\breal\stime\b}i
-id="gp-real-time"
+id="gp-3-real-time"
 valid msgstr="tiempo\sreal"
 hint="«Real time» se traduce como «Tiempo real» (propuesta glosario)"
 
 {\breboot\b}i
-id="gp-reboot"
+id="gp-3-reboot"
 valid msgstr="reinici(ar|a|e)"
 valid msgstr="reiniciará" after="will\s(not\s)?"
 valid msgstr="reinició" after="did\s(not\s)?"
 hint="«Reboot» se traduce como «Reiniciar» (propuesta glosario)"
 
 {\breboots\b}i
-id="gp-reboots"
+id="gp-3-reboots"
 valid msgstr="reinici(a|e)"
 hint="«Reboots» se traduce como «Reinicia» (propuesta glosario)"
 
 {\breceiver\b}i
-id="gp-receiver"
+id="gp-3-receiver"
 valid msgstr="receptora?"
 valid msgstr="destinatari[oa]"
 valid msgstr="beneficiari[oa]"
@@ -3115,7 +3115,7 @@ valid msgstr="de\srecepción"
 hint="«Receiver» se traduce como «Receptor/Destinatario» (propuesta glosario)"
 
 {\breceivers\b}i
-id="gp-receivers"
+id="gp-3-receivers"
 valid msgstr="receptores"
 valid msgstr="destinatari[oa]s"
 valid msgstr="beneficiari[oa]s"
@@ -3129,27 +3129,27 @@ valid msgstr="(ninguna|cualquier)\sbeneficiaria"
 hint="«Receivers» se traduce como «Receptores/Destinatarios» (propuesta glosario)"
 
 {\brecipient\b}i
-id="gp-recipient"
+id="gp-3-recipient"
 valid msgstr="destinatari[oa]"
 valid msgstr="RECIPIENT"
 hint="«Recipient» se traduce como «Destinatario» (propuesta glosario)"
 
 {\brecipients\b}i
-id="gp-recipients"
+id="gp-3-recipients"
 valid msgstr="destinatari[oa]s"
 valid msgstr="(algún|ningún|cualquier)\sdestinatario"
 valid msgstr="(ninguna|cualquier)\sdestinataria"
 hint="«Recipients» se traduce como «Destinatarios» (propuesta glosario)"
 
 {\bredirect\b}i
-id="gp-redirect"
+id="gp-3-redirect"
 valid msgstr="rediri(gir|je|ja)"
 valid msgstr="redirigirá" after="will\s(not\s)?"
 valid msgstr="redirigió" after="did\s(not\s)?"
 hint="«Redirect» se traduce como «Redirigir» (propuesta glosario)"
 
 {\brefresh\b}i
-id="gp-refresh"
+id="gp-3-refresh"
 valid msgstr="actuali(zar|za|ce)"
 valid msgstr="refres(car|ca|que)"
 valid msgstr="refrescos?"
@@ -3161,7 +3161,7 @@ valid msgstr="refrescó" after="did\s(not\s)?"
 hint="«Refresh» se traduce como «Actualizar/Refrescar» (propuesta glosario)"
 
 {\brefuse\b}i
-id="gp-refuse"
+id="gp-3-refuse"
 valid msgstr="rehus(ar|a|e)"
 valid msgstr="recha(zar|za|ce)"
 valid msgstr="rehusará" after="will\s(not\s)?"
@@ -3171,7 +3171,7 @@ valid msgstr="rechazó" after="did\s(not\s)?"
 hint="«Refuse» se traduce como «Rehusar/Rechazar» (propuesta glosario)"
 
 {\brefused\b}i
-id="gp-refused"
+id="gp-3-refused"
 valid msgstr="rehusad[oa]"
 valid msgstr="rechazad[oa]"
 valid msgstr="rehusarse"
@@ -3185,48 +3185,48 @@ valid msgstr="se\s(\w+\s){1,3}rechazar"
 hint="«Refused» se traduce como «Rehusado/Rechazado» (propuesta glosario)"
 
 {\brefuses\b}i
-id="gp-refuses"
+id="gp-3-refuses"
 valid msgstr="rehus(a|e)"
 valid msgstr="recha(za|ce)"
 hint="«Refuses» se traduce como «Rehusa/Rechaza» (propuesta glosario)"
 
 {\bregular\sexpression\b}i
-id="gp-regular-expression"
+id="gp-3-regular-expression"
 valid msgstr="expresión\sregular"
 valid msgstr="expresiones\sregulares"
 hint="«Regular expression» se traduce como «Expresión regular» (propuesta glosario)"
 
 {\bregular\sexpressions\b}i
-id="gp-regular-expressions"
+id="gp-3-regular-expressions"
 valid msgstr="expresiones\sregulares"
 valid msgstr="(ninguna|cualquier)\sexpresión\sregular"
 hint="«Regular expressions» se traduce como «Expresiones regulares» (propuesta glosario)"
 
 {\breliability\b}i
-id="gp-reliability"
+id="gp-3-reliability"
 valid msgstr="fiabilidad"
 valid msgstr="confiabilidad"
 hint="«Reliability» se traduce como «Fiabilidad/Confiabilidad» (propuesta glosario)"
 
 {\breliable\b}i
-id="gp-reliable"
+id="gp-3-reliable"
 valid msgstr="fiable"
 valid msgstr="confiable"
 hint="«Reliable» se traduce como «Fiable/Confiable» (propuesta glosario)"
 
 {\breliables\b}i
-id="gp-reliables"
+id="gp-3-reliables"
 valid msgstr="fiables"
 valid msgstr="confiables"
 hint="«Reliables» se traduce como «Fiables/Confiables» (propuesta glosario)"
 
 {\bremovable\b}i
-id="gp-removable"
+id="gp-3-removable"
 valid msgstr="extraíble"
 hint="«Removable» se traduce como «Extraíble» (propuesta glosario)"
 
 {\brender\b}i
-id="gp-render"
+id="gp-3-render"
 valid msgstr="represent(ar|a|e)"
 valid msgstr="interpret(ar|a|e)"
 valid msgstr="reprodu(cir|ce|uzca)"
@@ -3239,7 +3239,7 @@ valid msgstr="reprodujo" after="did\s(not\s)?"
 hint="«Render» se traduce como «Representar/Interpretar/Reproducir» (propuesta glosario)"
 
 {\brendering\b}i
-id="gp-rendering"
+id="gp-3-rendering"
 valid msgstr="prestación"
 valid msgstr="representación"
 valid msgstr="reproducción"
@@ -3248,23 +3248,23 @@ valid msgstr="reproducir"
 hint="«Rendering» se traduce como «Prestación/Representación/Reproducción» (propuesta glosario)"
 
 {\breply\-to\b}i
-id="gp-reply-to"
+id="gp-3-reply-to"
 valid msgstr="responder[\s\-]a"
 hint="«Reply-to» se traduce como «Responder a» (propuesta glosario)"
 
 {\brepository\b}i
-id="gp-repository"
+id="gp-3-repository"
 valid msgstr="repositorio"
 hint="«Repository» se traduce como «Repositorio» (propuesta glosario)"
 
 {\brepositories\b}i
-id="gp-repositories"
+id="gp-3-repositories"
 valid msgstr="repositorios"
 valid msgstr="(algún|ningún|cualquier)\srepositorio"
 hint="«Repositories» se traduce como «Repositorios» (propuesta glosario)"
 
 {\brequest\b}i
-id="gp-request"
+id="gp-3-request"
 valid msgstr="pedid[oa]"
 valid msgstr="petición"
 valid msgstr="peticiones"
@@ -3280,7 +3280,7 @@ valid msgstr="solicitó" after="did\s(not\s)?"
 hint="«Request» se traduce como «Pedido/Petición/Solicitud» (propuesta glosario)"
 
 {\brequire\b}i
-id="gp-require"
+id="gp-3-require"
 valid msgstr="necesit(ar|a|e)"
 valid msgstr="exi(gir|ge|ja)"
 valid msgstr="necesitará" after="will\s(not\s)?"
@@ -3290,26 +3290,26 @@ valid msgstr="exigió" after="did\s(not\s)?"
 hint="«Require» se traduce como «Necesitar/Exigir» (propuesta glosario)"
 
 {\brequires\b}i
-id="gp-requires"
+id="gp-3-requires"
 valid msgstr="necesit(a|e)"
 valid msgstr="exi(ge|ja)"
 valid msgstr="es\snecesario"
 hint="«Requires» se traduce como «Necesita/Exige/Es necesario» (propuesta glosario)"
 
 {\bresample\b}i
-id="gp-resample"
+id="gp-3-resample"
 valid msgstr="remuestre(ar|a|e|o)"
 valid msgstr="remuestreará" after="will\s(not\s)?"
 valid msgstr="remuestreó" after="did\s(not\s)?"
 hint="«Resample» se traduce como «Remuestrear» (propuesta glosario)"
 
 {\bresamples\b}i
-id="gp-resamples"
+id="gp-3-resamples"
 valid msgstr="remuestre(a|e)"
 hint="«Resamples» se traduce como «Remuestrea» (propuesta glosario)"
 
 {\bresize\b}i
-id="gp-resize"
+id="gp-3-resize"
 valid msgstr="redimension(ar|a|e)"
 valid msgstr="cambi(ar|a|e)\s(el\s|de\s)?tamaño"
 valid msgstr="cambiarl[ao]\sde\stamaño" before="\sit"
@@ -3322,95 +3322,95 @@ valid msgstr="(cambió|modificó)\s(el\s|de\s)?tamaño" after="did\s(not\s)?"
 hint="«Resize» se traduce como «Redimensionar» (propuesta glosario)"
 
 {\bresizes\b}i
-id="gp-resizes"
+id="gp-3-resizes"
 valid msgstr="redimension(a|e)"
 valid msgstr="cambi(a|e)\s(el\s|de\s)?tamaño"
 valid msgstr="modifi(ca|que)\s(el\s)?tamaño"
 hint="«Resizes» se traduce como «Redimensiona» (propuesta glosario)"
 
 {\bresolution\b}i
-id="gp-resolution"
+id="gp-3-resolution"
 valid msgstr="resolución"
 hint="«Resolution» se traduce como «Resolución» (propuesta glosario)"
 
 {\bresolutions\b}i
-id="gp-resolutions"
+id="gp-3-resolutions"
 valid msgstr="resoluciones"
 valid msgstr="(ninguna|cualquier)\sresolución"
 hint="«Resolutions» se traduce como «Resoluciones» (propuesta glosario)"
 
 {\broaming\b}i
-id="gp-roaming"
+id="gp-3-roaming"
 valid msgstr="itinerancia"
 hint="«Roaming» se traduce como «Itinerancia» (propuesta glosario)"
 
 {\brun\stime\b}i
-id="gp-run-time"
+id="gp-3-run-time"
 valid msgstr="tiempo\sde\sejecución"
 hint="«Run time» se traduce como «Tiempo de ejecución» (propuesta glosario)"
 
 {\brunlevel\b}i
-id="gp-runlevel"
+id="gp-3-runlevel"
 valid msgstr="nivel\sde\sejecución"
 hint="«Runlevel» se traduce como «Nivel de ejecución» (propuesta glosario)"
 
 {\brunner\b}i
-id="gp-runner"
+id="gp-3-runner"
 valid msgstr="lanzador"
 hint="«Runner» se traduce como «Lanzador» (propuesta glosario)"
 
 {\brunning\b}i
-id="gp-running"
+id="gp-3-running"
 valid msgstr="en\sejecución"
 valid msgstr="ejecutando(se)?"
 valid !msgstr="corriendo"
 hint="«Running» se traduce como «En ejecución» (propuesta glosario)"
 
 {\bsample\srate\b}i
-id="gp-sample-rate"
+id="gp-3-sample-rate"
 valid msgstr="frecuencias?\sde\smuestreo"
 hint="«Sample rate» se traduce como «Fecuencia de muestreo» (propuesta glosario)"
 
 {\bschema\b}i
-id="gp-schema"
+id="gp-3-schema"
 valid msgstr="esquema"
 hint="«Schema» se traduce como «Esquema» (propuesta glosario)"
 
 {\bschemas\b}i
-id="gp-schemas"
+id="gp-3-schemas"
 valid msgstr="esquemas"
 valid msgstr="(algún|ningún|cualquier)\sesquema"
 hint="«Schemas» se traduce como «Esquemas» (propuesta glosario)"
 
 {\bscreen(?!\ssaver)\b}i
-id="gp-screen"
+id="gp-3-screen"
 valid msgstr="pantalla"
 hint="«Screen» se traduce como «Pantalla» (propuesta glosario)"
 
 {\bscreen\s?saver\b}i
-id="gp-screen-saver"
+id="gp-3-screen-saver"
 valid msgstr="salvapantallas"
 hint="«Screen saver» se traduce como «Salvapantallas» (propuesta glosario)"
 
 {\bscreens\b}i
-id="gp-screens"
+id="gp-3-screens"
 valid msgstr="pantallas"
 valid msgstr="(ninguna|cualquier)\spantalla"
 hint="«Screens» se traduce como «Pantallas» (propuesta glosario)"
 
 {\bscreenshot\b}i
-id="gp-screenshot"
+id="gp-3-screenshot"
 valid msgstr="capturas?\s(de|la)\spantalla"
 hint="«Screenshot» se traduce como «Captura de pantalla» (propuesta glosario)"
 
 {\bscreenshots\b}i
-id="gp-screenshots"
+id="gp-3-screenshots"
 valid msgstr="capturas\s(de|las)\spantallas?"
 valid msgstr="(ninguna|cualquier)\scaptura\s(de|la)\spantalla"
 hint="«Screenshots» se traduce como «Capturas de pantalla» (propuesta glosario)"
 
 {\bsearch\b}i
-id="gp-search"
+id="gp-3-search"
 valid msgstr="búsqueda"
 valid msgstr="bus(car|ca|que)"
 valid msgstr="buscará" after="will\s(not\s)?"
@@ -3419,14 +3419,14 @@ valid msgstr="SEARCH"
 hint="«Search» se traduce como «Búsqueda/Buscar» (propuesta glosario)"
 
 {\bsearchs\b}i
-id="gp-searchs"
+id="gp-3-searchs"
 valid msgstr="búsquedas"
 valid msgstr="bus(ca|que)"
 valid msgstr="(ninguna|cualquier)\sbúsqueda"
 hint="«Searchs» se traduce como «Búsquedas/Busca» (propuesta glosario)"
 
 {\bseek\b}i
-id="gp-seek"
+id="gp-3-seek"
 valid msgstr="bus(car|ca|que)"
 valid msgstr="posicion(ar|a|e)"
 valid msgstr="búsquedas?"
@@ -3440,7 +3440,7 @@ valid msgstr="posicionó" after="did\s(not\s)?"
 hint="«Seek» se traduce como «Buscar/Búsqueda/Posicionar/Posicionamiento» (propuesta glosario)"
 
 {\bseeks\b}i
-id="gp-seeks"
+id="gp-3-seeks"
 valid msgstr="bus(ca|que)"
 valid msgstr="posicion(a|e)"
 valid msgstr="búsquedas"
@@ -3450,31 +3450,31 @@ valid msgstr="(algún|ningún|cualquier)\sposicionamiento"
 hint="«Seeks» se traduce como «Busca/Búsquedas/Posicione/Posicionamientos» (propuesta glosario)"
 
 {\bsemicolon\b}i
-id="gp-semicolon"
+id="gp-3-semicolon"
 valid msgstr="punto\sy\scoma"
 valid msgstr="puntos\sy\scomas"
 hint="«Semicolon» se traduce como «Punto y coma» (propuesta glosario)"
 
 {\bsender\b}i
-id="gp-sender"
+id="gp-3-sender"
 valid msgstr="remitente"
 valid msgstr="SENDER"
 hint="«Sender» se traduce como «Remitente» (propuesta glosario)"
 
 {\bsenders\b}i
-id="gp-senders"
+id="gp-3-senders"
 valid msgstr="remitentes"
 valid msgstr="(algún|ningún|cualquier)\sremitente"
 hint="«Senders» se traduce como «Remitentes» (propuesta glosario)"
 
 {\bsentence\b}i
-id="gp-sentence"
+id="gp-3-sentence"
 valid msgstr="sentencia"
 valid msgstr="frase"
 hint="«Sentence» se traduce como «Sentencia/Frase» (propuesta glosario)"
 
 {\bsentences\b}i
-id="gp-sentences"
+id="gp-3-sentences"
 valid msgstr="sentencias"
 valid msgstr="frases"
 valid msgstr="(ninguna|cualquier)\ssentencia"
@@ -3482,18 +3482,18 @@ valid msgstr="(ninguna|cualquier)\sfrase"
 hint="«Sentences» se traduce como «Sentencias/Frases» (propuesta glosario)"
 
 {\bsequence\b}i
-id="gp-sequence"
+id="gp-3-sequence"
 valid msgstr="secuencia"
 valid msgstr="sucesión"
 hint="«Sequence» se traduce como «Secuencia/Sucesión» (propuesta glosario)"
 
 {\bsequencer\b}i
-id="gp-sequencer"
+id="gp-3-sequencer"
 valid msgstr="secuenciador"
 hint="«Sequencer» se traduce como «Secuenciador» (propuesta glosario)"
 
 {\bsequences\b}i
-id="gp-sequences"
+id="gp-3-sequences"
 valid msgstr="secuencias"
 valid msgstr="sucesiones"
 valid msgstr="(ninguna|cualquier)\ssecuencia"
@@ -3501,12 +3501,12 @@ valid msgstr="(ninguna|cualquier)\ssucesión"
 hint="«Sequences» se traduce como «Secuencias/Sucesiones» (propuesta glosario)"
 
 {\bsession\smanager\b}i
-id="gp-session-manager"
+id="gp-3-session-manager"
 valid msgstr="gestor\sde\ssesiones"
 hint="«Session manager» se traduce como «Gestor de sesiones» (propuesta glosario)"
 
 {\bsettings\b}i
-id="gp-settings"
+id="gp-3-settings"
 valid msgstr="preferencias"
 valid msgstr="configuración"
 valid msgstr="(ninguna|cualquier)\spreferencia"
@@ -3514,7 +3514,7 @@ valid msgstr="(ninguna|cualquier)\sconfiguración"
 hint="«Settings» se traduce como «Preferencias» (propuesta glosario)"
 
 {\bsharpen\b}i
-id="gp-sharpen"
+id="gp-3-sharpen"
 valid msgstr="afil(ar|a|e)"
 valid msgstr="enfo(car|ca|que)"
 valid msgstr="afilará" after="will\s(not\s)?"
@@ -3524,25 +3524,25 @@ valid msgstr="enfocó" after="did\s(not\s)?"
 hint="«Sharpen» se traduce como «Afilar/Enfocar» (propuesta glosario)"
 
 {\bshrink\b}i
-id="gp-shrink"
+id="gp-3-shrink"
 valid msgstr="redu(cir|ce|zca)"
 valid msgstr="reducirá" after="will\s(not\s)?"
 valid msgstr="redujo" after="did\s(not\s)?"
 hint="«Shrink» se traduce como «Reducir» (propuesta glosario)"
 
 {\bshrinks\b}i
-id="gp-shrinks"
+id="gp-3-shrinks"
 valid msgstr="redu(ce|zca)"
 hint="«Shrinks» se traduce como «Reduce» (propuesta glosario)"
 
 {\bsignature\b}i
-id="gp-signature"
+id="gp-3-signature"
 valid msgstr="firma"
 valid msgstr="identificación"
 hint="«Signature» se traduce como «Firma/Identificación» (propuesta glosario)"
 
 {\bsignatures\b}i
-id="gp-signatures"
+id="gp-3-signatures"
 valid msgstr="firmas"
 valid msgstr="identificaciones"
 valid msgstr="(ninguna|cualquier)\sfirma"
@@ -3550,43 +3550,43 @@ valid msgstr="(ninguna|cualquier)\sidentificación"
 hint="«Signatures» se traduce como «Firmas/Identificaciones» (propuesta glosario)"
 
 {\bslide\sshow\b}i
-id="gp-slideshow"
+id="gp-3-slideshow"
 valid msgstr="presentación"
 hint="«Slideshow» se traduce como «Presentación» (propuesta glosario)"
 
 {\bsnap\b}i
-id="gp-snap"
+id="gp-3-snap"
 valid msgstr="agreg(ar|ue|a)"
 valid msgstr="agregará" after="will\s(not\s)?"
 valid msgstr="agregó" after="did\s(not\s)?"
 hint="«Snap» se traduce como «Agregar» (propuesta glosario)"
 
 {\bsnaps\b}i
-id="gp-snaps"
+id="gp-3-snaps"
 valid msgstr="agreg(ue|a)"
 hint="«Snaps» se traduce como «Agrega» (propuesta glosario)"
 
 {\bsnapshot\b}i
-id="gp-snapshot"
+id="gp-3-snapshot"
 valid msgstr="capturas?\sde\spantalla"
 valid msgstr="versión"
 valid msgstr="versiones"
 hint="«Snapshot» se traduce como «Captura de pantalla/Versión» (propuesta glosario)"
 
 {\bsnapshots\b}i
-id="gp-snapshots"
+id="gp-3-snapshots"
 valid msgstr="capturas\sde\spantalla"
 valid msgstr="(ninguna|cualquier)\scaptura\sde\spantalla"
 hint="«Snapshots» se traduce como «Capturas de pantalla» (propuesta glosario)"
 
 {\bsnippet\b}i
-id="gp-snippet"
+id="gp-3-snippet"
 valid msgstr="recorte"
 valid msgstr="fragmento"
 hint="«Snippet» se traduce como «Recorte/Fragmento» (propuesta glosario)"
 
 {\bsnippets\b}i
-id="gp-snippets"
+id="gp-3-snippets"
 valid msgstr="recortes"
 valid msgstr="fragmentos"
 valid msgstr="(algún|ningún|cualquier)\srecorte"
@@ -3594,7 +3594,7 @@ valid msgstr="(algún|ningún|cualquier)\sfragmento"
 hint="«Snippets» se traduce como «Recortes/Fragmentos» (propuesta glosario)"
 
 {\bsource\b}i
-id="gp-source"
+id="gp-3-source"
 valid msgstr="origen"
 valid msgstr="orígenes"
 valid msgstr="fuentes?"
@@ -3602,7 +3602,7 @@ valid msgstr="código\sabierto" after="(open|closed)(\s|\-)"
 hint="«Source» se traduce como «Origen/Fuente» (propuesta glosario)"
 
 {\bsources\b}i
-id="gp-sources"
+id="gp-3-sources"
 valid msgstr="orígenes"
 valid msgstr="fuentes"
 valid msgstr="código\sfuente"
@@ -3611,25 +3611,25 @@ valid msgstr="(ninguna|cualquier)\sfuente"
 hint="«Sources» se traduce como «Orígenes/Fuentes» (propuesta glosario)"
 
 {\bspam\b}i
-id="gp-spam"
+id="gp-3-spam"
 valid msgstr="correos?[\s\-]basura"
 valid msgstr="correo\sno\sdeseado"
 valid msgstr="correos\sno\sdeseados"
 hint="«Spam» se traduce como «Correo basura/no deseado» (propuesta glosario)"
 
 {\bspecification\b}i
-id="gp-specification"
+id="gp-3-specification"
 valid msgstr="especificación"
 hint="«Specification» se traduce como «Especificación» (propuesta glosario)"
 
 {\bspecifications\b}i
-id="gp-specifications"
+id="gp-3-specifications"
 valid msgstr="especificaciones"
 valid msgstr="(ninguna|cualquier)\sespecificación"
 hint="«Specifications» se traduce como «Especificaciones» (propuesta glosario)"
 
 {\bspell(?![\s\-](check|checking|checkers?))\b}i
-id="gp-spell"
+id="gp-3-spell"
 valid msgstr="deletre(ar|a|e)"
 valid msgstr="ortografía"
 valid msgstr="hechizo"
@@ -3638,41 +3638,41 @@ valid msgstr="deletreó" after="did\s(not\s)?"
 hint="«Spell» se traduce como «Deletrear/Hechizo» (propuesta glosario)"
 
 {\bspelling\b}i
-id="gp-spelling"
+id="gp-3-spelling"
 valid msgstr="ortografía"
 hint="«Spelling» se traduce como «Ortografía» (propuesta glosario)"
 
 {\bspells\b}i
-id="gp-spells"
+id="gp-3-spells"
 valid msgstr="deletre(a|e)"
 valid msgstr="hechizos"
 valid msgstr="(algún|ningún|cualquier)\shechizo"
 hint="«Spells» se traduce como «Deletrea/Hechizos» (propuesta glosario)"
 
 {\sbpell\s?checking\b}i
-id="gp-spellchecking"
+id="gp-3-spellchecking"
 valid msgstr="corrección\sortográfica"
 hint="«Spellchecking» se traduce como «Corrección ortográfica» (propuesta glosario)"
 
 {\bspell\s?checker\b}i
-id="gp-spellchecker"
+id="gp-3-spellchecker"
 valid msgstr="corrector\sortográfico"
 valid msgstr="correctores\sortográficos"
 hint="«Spellchecker» se traduce como «Corrector ortográfico» (propuesta glosario)"
 
 {\bspell\s?checkers\b}i
-id="gp-spellcheckers"
+id="gp-3-spellcheckers"
 valid msgstr="correctores\sortográficos"
 valid msgstr="(algún|ningún|cualquier)\scorrector\sortográfico"
 hint="«Spellcheckers» se traduce como «Correctores ortográficos» (propuesta glosario)"
 
 {\bsponsor\b}i
-id="gp-sponsor"
+id="gp-3-sponsor"
 valid msgstr="patrocinadora?"
 hint="«Sponsor» se traduce como «Patrocinador» (propuesta glosario)"
 
 {\bspoof\b}i
-id="gp-spoof"
+id="gp-3-spoof"
 valid msgstr="engañ(ar|a|e)"
 valid msgstr="falsifi(car|ca|que)"
 valid msgstr="engañará" after="will\s(not\s)?"
@@ -3682,55 +3682,55 @@ valid msgstr="falsificó" after="did\s(not\s)?"
 hint="«Spoof» se traduce como «Engañar/Falsificar» (propuesta glosario)"
 
 {\bspoofing\b}i
-id="gp-spoofing"
+id="gp-3-spoofing"
 valid msgstr="engaño"
 valid msgstr="falsificación"
 hint="«Spoofing» se traduce como «Engaño/Falsificación» (propuesta glosario)"
 
 {\bspreadsheet\b}i
-id="gp-spreadsheet"
+id="gp-3-spreadsheet"
 valid msgstr="hojas?\sde\scálculo"
 hint="«Spreadsheet» se traduce como «Hoja de cálculo» (propuesta glosario)"
 
 {\bspreadsheets\b}i
-id="gp-spreadsheets"
+id="gp-3-spreadsheets"
 valid msgstr="hojas\sde\scálculo"
 valid msgstr="(ninguna|cualquier)\shoja\sde\scálculo"
 hint="«Spreadsheets» se traduce como «Hojas de cálculo» (propuesta glosario)"
 
 {\bsquare\sbracket\b}i
-id="gp-square-braccket"
+id="gp-3-square-braccket"
 valid msgstr="corchete"
 hint="«Square bracket» se traduce como «Corchete» (propuesta glosario)"
 
 {\bsquare\sbrackets\b}i
-id="gp-square-brackets"
+id="gp-3-square-brackets"
 valid msgstr="corchetes"
 valid msgstr="(algún|ningún|cualquier)\scorchete"
 hint="«Square brackets» se traduce como «Corchetes» (propuesta glosario)"
 
 {\bstack\b}i
-id="gp-stack"
+id="gp-3-stack"
 valid msgstr="pila"
 valid msgstr="aplil(ar|a|e)"
 hint="«Stack» se traduce como «Pila/Apilar» (propuesta glosario)"
 
 {\bstacks\b}i
-id="gp-stacks"
+id="gp-3-stacks"
 valid msgstr="pilas"
 valid msgstr="aplil(a|e)"
 valid msgstr="(ninguna|cualquier)\spila"
 hint="«Stacks» se traduce como «Pilas/Apile» (propuesta glosario)"
 
 {\bstaff\b}i
-id="gp-staff"
+id="gp-3-staff"
 valid msgstr="personal"
 valid msgstr="empleados"
 valid msgstr="pentagrama"
 hint="«Staff» se traduce como «Personal/Pentagrama» (propuesta glosario)"
 
 {\bstalled\b}i
-id="gp-stalled"
+id="gp-3-stalled"
 valid msgstr="atascad[oa]"
 valid msgstr="atascarse"
 valid msgstr="estancad[oa]]"
@@ -3742,25 +3742,25 @@ valid msgstr="se\s(\w+\s){1,3}estancar"
 hint="«Stalled» se traduce como «Atascado» (propuesta glosario)"
 
 {\bstat\b}i
-id="gp-stat"
+id="gp-3-stat"
 valid msgstr="estadística"
 valid msgstr="STAT"
 hint="«Stat» se traduce como «Estadística» (propuesta glosario)"
 
 {\bstats\b}i
-id="gp-stats"
+id="gp-3-stats"
 valid msgstr="estadísticas"
 valid msgstr="(ninguna|cualquier)\sestadística"
 hint="«Stats» se traduce como «Estadísticas» (propuesta glosario)"
 
 {\bsticky\b}i
-id="gp-sticky"
+id="gp-3-sticky"
 valid msgstr="adhesiv[oa]"
 valid msgstr="pegajos[oa]"
 hint="«Sticky» se traduce como «Adhesivo» (propuesta glosario)"
 
 {\bsubject\b}i
-id="gp-subject"
+id="gp-3-subject"
 valid msgstr="asunto"
 valid msgstr="tema"
 valid msgstr="sujeto" after="is\s"
@@ -3769,7 +3769,7 @@ valid msgstr="sujeto\sa" before="\sto"
 hint="«Subject» se traduce como «Asunto» (propuesta glosario)"
 
 {\bsubjects\b}i
-id="gp-subjects"
+id="gp-3-subjects"
 valid msgstr="asuntos"
 valid msgstr="temas"
 valid msgstr="(algún|ningún|cualquier)\sasunto"
@@ -3777,7 +3777,7 @@ valid msgstr="(algún|ningún|cualquier)\stema"
 hint="«Subjects» se traduce como «Asuntos» (propuesta glosario)"
 
 {\bsubmit\b}i
-id="gp-submit"
+id="gp-3-submit"
 valid msgstr="remit(ir|a|e)"
 valid msgstr="env(iar|ía|íe)"
 valid msgstr="envío"
@@ -3788,7 +3788,7 @@ valid msgstr="envió" after="did\s(not\s)?"
 hint="«Submit» se traduce como «Remitir/Enviar» (propuesta glosario)"
 
 {\bswitch\b}i
-id="gp-switch"
+id="gp-3-switch"
 valid msgstr="conmut(ar|a|e|ador)"
 valid msgstr="cambi(ar|a|e|o)"
 valid msgstr="interruptor"
@@ -3800,7 +3800,7 @@ valid msgstr="activ(ar|a|e)" before=".*\son"
 hint="«Switch» se traduce como «Interruptor/Conmutador/Cambio/Conmutar/Cambiar» (propuesta glosario)"
 
 {\bswitches\b}i
-id="gp-switches"
+id="gp-3-switches"
 valid msgstr="conmut(ar|a|e|adores)"
 valid msgstr="cambi(ar|a|e|os)"
 valid msgstr="interruptores"
@@ -3810,79 +3810,79 @@ valid msgstr="(algún|ningún|cualquier)\sinterruptor"
 hint="«Switches» se traduce como «Interruptores/Conmutadores/Conmuta» (propuesta glosario)"
 
 {\bsystem\sboard\b}i
-id="gp-system-board"
+id="gp-3-system-board"
 valid msgstr="placas?\sbase"
 hint="«System board» se traduce como «Placa base» (propuesta glosario)"
 
 {\bsystem\sboards\b}i
-id="gp-suystem-boards"
+id="gp-3-suystem-boards"
 valid msgstr="placas\sbase"
 valid msgstr="(ninguna|cualquier)\splaca\sbase"
 hint="«System boards» se traduce como «Placas base» (propuesta glosario)"
 
 {\btask\b}i
-id="gp-task"
+id="gp-3-task"
 valid msgstr="tarea"
 hint="«Task» se traduce como «Tarea» (propuesta glosario)"
 
 {\btasks\b}i
-id="gp-tasks"
+id="gp-3-tasks"
 valid msgstr="tareas"
 valid msgstr="(ninguna|cualquier)\starea"
 hint="«Tasks» se traduce como «Tareas» (propuesta glosario)"
 
 {\btemplate\b}i
-id="gp-template"
+id="gp-3-template"
 valid msgstr="plantilla"
 hint="«Template» se traduce como «Plantilla» (propuesta glosario)"
 
 {\btemplates\b}i
-id="gp-templates"
+id="gp-3-templates"
 valid msgstr="plantillas"
 valid msgstr="(ninguna|cualquier)\splantilla"
 hint="«Templates» se traduce como «Plantillas» (propuesta glosario)"
 
 {\bthread\b}i
-id="gp-thread"
+id="gp-3-thread"
 valid msgstr="hilo"
 hint="«Thread» se traduce como «Hilo» (propuesta glosario)"
 
 {\bthreads\b}i
-id="gp-threads"
+id="gp-3-threads"
 valid msgstr="hilos"
 valid msgstr="(algún|ningún|cualquier)\shilo"
 hint="«Threads» se traduce como «Hilos» (propuesta glosario)"
 
 {\bthreshold\b}i
-id="gp-threshold"
+id="gp-3-threshold"
 valid msgstr="umbral"
 hint="«Threshold» se traduce como «Umbral» (propuesta glosario)"
 
 {\bthresholds\b}i
-id="gp-thresholds"
+id="gp-3-thresholds"
 valid msgstr="umbrales"
 valid msgstr="(algún|ningún|cualquier)\sumbral"
 hint="«Thresholds» se traduce como «Umbrales» (propuesta glosario)"
 
 {\bthumbail\b}i
-id="gp-thumbail"
+id="gp-3-thumbail"
 valid msgstr="miniatura"
 hint="«Thumbail» se traduce como «Miniatura» (propuesta glosario)"
 
 {\bthumbails\b}i
-id="gp-thumbails"
+id="gp-3-thumbails"
 valid msgstr="miniaturas"
 valid msgstr="(ninguna|cualquier)\sminiatura"
 hint="«Thumbails» se traduce como «Miniaturas» (propuesta glosario)"
 
 {\btip\b}i
-id="gp-tip"
+id="gp-3-tip"
 valid msgstr="consejo"
 valid msgstr="punta"
 hint="«Tip» se traduce como «Consejo o Punta» (propuesta glosario)"
 
 {\btips\b}i
-id="gp-tips"
+id="gp-3-tips"
 valid msgstr="consejos"
 valid msgstr="puntas"
 valid msgstr="(algún|ningún|cualquier)\sconsejo"
@@ -3890,43 +3890,43 @@ valid msgstr="(ninguna|cualquier)\spunta"
 hint="«Tips» se traduce como «Consejos o Puntas» (propuesta glosario)"
 
 {\btool\b}i
-id="gp-tool"
+id="gp-3-tool"
 valid msgstr="herramienta"
 valid msgstr="consejos?\semergentes?" before="\stips?"
 valid after="\-"
 hint="«Tool» se traduce como «Herramienta» (propuesta glosario)"
 
 {\btools\b}i
-id="gp-tools"
+id="gp-3-tools"
 valid msgstr="herramientas"
 valid msgstr="(ninguna|cualquier)\sherramienta"
 valid after="\-"
 hint="«Tools» se traduce como «Herramientas» (propuesta glosario)"
 
 {\btoo\-?ltip\b}i
-id="gp-tooltip"
+id="gp-3-tooltip"
 valid msgstr="consejo\semergente"
 valid msgstr="consejos\semergentes"
 hint="«Tooltip» se traduce como «Consejo emergente» (propuesta glosario)"
 
 {\btool\-?tips\b}i
-id="gp-tooltips"
+id="gp-3-tooltips"
 valid msgstr="consejos\semergentes"
 valid msgstr="(algún|ningún|cualquier)\sconsejo\semergente"
 hint="«Tooltips» se traduce como «Consejos emergentes» (propuesta glosario)"
 
 {\btoner\b}i
-id="gp-toner"
+id="gp-3-toner"
 valid msgstr="tóner"
 hint="«Toner» se traduce como «Tóner» (propuesta glosario)"
 
 {\btrash\b}i
-id="gp-trash"
+id="gp-3-trash"
 valid msgstr="papelera"
 hint="«Trash» se traduce como «Papelera» (propuesta glosario)"
 
 {\btrigger\b}i
-id="gp-trigger"
+id="gp-3-trigger"
 valid msgstr="desencaden(ar|a|e)"
 valid msgstr="provo(car|ca|que)"
 valid msgstr="activ(ar|a|e)"
@@ -3940,7 +3940,7 @@ valid msgstr="activó" after="did\s(not\s)?"
 hint="«Trigger» se traduce como «Desencadenar/Provocar/Activar/Disparador» (propuesta glosario)"
 
 {\btriggers\b}i
-id="gp-triggers"
+id="gp-3-triggers"
 valid msgstr="desencaden(a|e)"
 valid msgstr="provo(ca|que)"
 valid msgstr="activ(a|e)"
@@ -3949,18 +3949,18 @@ valid msgstr="(algún|ningún|cualquier)\sdisparador"
 hint="«Triggers» se traduce como «Desencadena/Provoca/Disparadores» (propuesta glosario)"
 
 {\btypo\b}i
-id="gp-typo"
+id="gp-3-typo"
 valid msgstr="errata"
 hint="«Typo» se traduce como «Errata» (propuesta glosario)"
 
 {\btypos\b}i
-id="gp-typos"
+id="gp-3-typos"
 valid msgstr="erratas"
 valid msgstr="(ninguna|cualquier)\serrata"
 hint="«Typos» se traduce como «Erratas» (propuesta glosario)"
 
 {\bumount\b}i
-id="gp-umount"
+id="gp-3-umount"
 valid msgstr="desmontaje"
 valid msgstr="desmont(ar|a|e)"
 valid msgstr="desmontará" after="will\s(not\s)?"
@@ -3968,7 +3968,7 @@ valid msgstr="desmontó" after="did\s(not\s)?"
 hint="«Umount» se traduce como «Desmontaje/Desmontar» (propuesta glosario)"
 
 {\bumounted\b}i
-id="gp-umounted"
+id="gp-3-umounted"
 valid msgstr="desmontad[oa]"
 valid msgstr="desmontarse"
 valid msgstr="se\sdesmont[ae]n?"
@@ -3977,14 +3977,14 @@ valid msgstr="se\s(\w+\s){1,3}desmontar"
 hint="«Umounted» se traduce como «Desmontado» (propuesta glosario)"
 
 {\bumounts\b}i
-id="gp-umounts"
+id="gp-3-umounts"
 valid msgstr="desmontajes"
 valid msgstr="(algún|ningún|cualquier)\sdesmontaje"
 valid msgstr="desmont[ea]"
 hint="«Umounts» se traduce como «Desmontajes/Desmonte» (propuesta glosario)"
 
 {\bupdate\b}i
-id="gp-update"
+id="gp-3-update"
 valid msgstr="actualización"
 valid msgstr="actuali(zar|za|ce)"
 valid msgstr="actualizará" after="will\s(not\s)?"
@@ -3992,7 +3992,7 @@ valid msgstr="actualizó" after="did\s(not\s)?"
 hint="«Update» se traduce como «Actualización/Actualizar» (propuesta glosario)"
 
 {\bupdated\b}i
-id="gp-updated"
+id="gp-3-updated"
 valid msgstr="actualizad[oa]"
 valid msgstr="actualizarse?"
 valid msgstr="actualización"
@@ -4003,52 +4003,52 @@ valid msgstr="se\s(\w+\s){1,3}actualizar"
 hint="«Updated» se traduce como «Actualizado» (propuesta glosario)"
 
 {\bupdates\b}i
-id="gp-updates"
+id="gp-3-updates"
 valid msgstr="actualizaciones"
 valid msgstr="actuali(za|ce)"
 valid msgstr="(ninguna|cualquier)\sactualización"
 hint="«Updates» se traduce como «Actualizaciones/Actualiza» (propuesta glosario)"
 
 {\busability\b}i
-id="gp-usability"
+id="gp-3-usability"
 valid msgstr="ergonomía"
 hint="«Usability» se traduce como «Ergonomía» (propuesta glosario)"
 
 {\butility\b}i
-id="gp-utility"
+id="gp-3-utility"
 valid msgstr="utilidad"
 hint="«Utility» se traduce como «Utilidad» (propuesta glosario)"
 
 {\butilities\b}i
-id="gp-utilities"
+id="gp-3-utilities"
 valid msgstr="utilidades"
 valid msgstr="(ninguna|cualquier)\sutilidad"
 hint="«Utilities» se traduce como «Utilidades» (propuesta glosario)"
 
 {\bvalidity\b}i
-id="gp-validity"
+id="gp-3-validity"
 valid msgstr="validez"
 hint="«Validity» se traduce como «Validez» (propuesta glosario)"
 
 {\bvalue\b}i
-id="gp-value"
+id="gp-3-value"
 valid msgstr="valor"
 hint="«Value» se traduce como «Valor» (propuesta glosario)"
 
 {\bvalues\b}i
-id="gp-values"
+id="gp-3-values"
 valid msgstr="valores"
 valid msgstr="(algún|ningún|cualquier)\svalor"
 hint="«Values» se traduce como «Valores» (propuesta glosario)"
 
 {\bvariation\b}i
-id="gp-variation"
+id="gp-3-variation"
 valid msgstr="variación"
 valid msgstr="variante"
 hint="«Variation» se traduce como «Variación/Variante» (propuesta glosario)"
 
 {\bvariations\b}i
-id="gp-variations"
+id="gp-3-variations"
 valid msgstr="variaciones"
 valid msgstr="variantes"
 valid msgstr="(ninguna|cualquier)\svariación"
@@ -4056,57 +4056,57 @@ valid msgstr="(ninguna|cualquier)\svariante"
 hint="«Variations» se traduce como «Variaciones/Variantes» (propuesta glosario)"
 
 {\bverbatim\b}i
-id="gp-verbatim"
+id="gp-3-verbatim"
 valid msgstr="literal"
 valid msgstr="textual"
 hint="«Verbatim» se traduce como «Literal/Textual» (propuesta glosario)"
 
 {\bverbose\b}i
-id="gp-verbose"
+id="gp-3-verbose"
 valid msgstr="prolij[oa]"
 valid msgstr="pormenorizad[oa]"
 valid msgstr="detallad[oa]"
 hint="«Verbose» se traduce como «Prolijo/Pormenorizado/Detallado» (propuesta glosario)"
 
 {\bverbosity\b}i
-id="gp-verbosity"
+id="gp-3-verbosity"
 valid msgstr="nivel\sde\sdetalle"
 hint="«Verbosity» se traduce como «Nivel de detalle» (propuesta glosario)"
 
 {\bviewer\b}i
-id="gp-viewer"
+id="gp-3-viewer"
 valid msgstr="visor"
 hint="«Viewer» se traduce como «Visor» (propuesta glosario)"
 
 {\bviewers\b}i
-id="gp-viewers"
+id="gp-3-viewers"
 valid msgstr="visores"
 valid msgstr="(algún|ningún|cualquier)\svisor"
 hint="«Viewers» se traduce como «Visores» (propuesta glosario)"
 
 {\bvirus\b}i
-id="gp-virus"
+id="gp-3-virus"
 valid msgstr="virus"
 hint="«Virus» se traduce como «Virus» (propuesta glosario)"
 
 {\bviruses\b}i
-id="gp-viruses"
+id="gp-3-viruses"
 valid msgstr="virus"
 hint="«Viruses» se traduce como «Virus» (propuesta glosario)"
 
 {\bvolatility\b}i
-id="gp-volatility"
+id="gp-3-volatility"
 valid msgstr="volatilidad"
 hint="«Volatility» se traduce como «Volatilidad» (propuesta glosario)"
 
 {\bwallpaper\b}i
-id="gp-wallpaper"
+id="gp-3-wallpaper"
 valid msgstr="fondos?\sde\spantalla"
 valid msgstr="fondos?\sde\sescritorio"
 hint="«Wallpaper» se traduce como «Fondo de pantalla» (propuesta glosario)"
 
 {\bwallpapers\b}i
-id="gp-wallpapers"
+id="gp-3-wallpapers"
 valid msgstr="fondos\sde\spantalla"
 valid msgstr="fondos\sde\sescritorio"
 valid msgstr="(algún|ningún|cualquier)\sfondo\sde\spantalla"
@@ -4114,7 +4114,7 @@ valid msgstr="(algún|ningún|cualquier)\sfondo\sde\sescritorio"
 hint="«Wallpapers» se traduce como «Fondos de pantalla» (propuesta glosario)"
 
 {\bwarning\b}i
-id="gp-warning"
+id="gp-3-warning"
 valid msgstr="aviso"
 valid msgstr="advertencia"
 valid msgstr="se\s(le\s)?avise"
@@ -4122,13 +4122,13 @@ valid msgstr="se\s(le\s)?advierta"
 hint="«Warning» se traduce como «Aviso/Advertencia» (propuesta glosario)"
 
 #{\bweblog\b}i
-#id="gp-weblog"
+#id="gp-3-weblog"
 #valid msgstr="bitácora"
 #valid msgstr="diario"
 #hint="«Weblog» se traduce como «Bitácora/Diario» (propuesta glosario)"
 
 #{\bweblogs\b}i
-#id="gp-weblogs"
+#id="gp-3-weblogs"
 #valid msgstr="bitácoras"
 #valid msgstr="diarios"
 #valid msgstr="(ninguna|cualquier)\sbitácora"
@@ -4136,57 +4136,57 @@ hint="«Warning» se traduce como «Aviso/Advertencia» (propuesta glosario)"
 #hint="«Weblogs» se traduce como «Bitácoras/Diarios» (propuesta glosario)"
 
 {\bwild\scard\b}i
-id="gp-wildcard"
+id="gp-3-wildcard"
 valid msgstr="comodín"
 valid msgstr="comodines"
 hint="«Wildcard» se traduce como «Comodín» (propuesta glosario)"
 
 {\bwild\scards\b}i
-id="gp-wild-cards"
+id="gp-3-wild-cards"
 valid msgstr="comodines"
 valid msgstr="(algún|ningún|cualquier)\scomodín"
 hint="«Wildcards» se traduce como «Comodines» (propuesta glosario)"
 
 {\bwindow\smanager\b}i
-id="gp-window-manager"
+id="gp-3-window-manager"
 valid msgstr="gestor\sde\sventanas"
 valid msgstr="gestores\sde\sventanas"
 hint="«Window manager» se traduce como «Gestor de ventanas» (propuesta glosario)"
 
 {\bwindow\smanagers\b}i
-id="gp-window-managers"
+id="gp-3-window-managers"
 valid msgstr="gestores\sde\sventanas"
 valid msgstr="(algún|ningún|cualquier)\sgestor\sde\ventanas"
 hint="«Window managers» se traduce como «Gestores de ventanas» (propuesta glosario)"
 
 {\bwireless\b}i
-id="gp-wireless"
+id="gp-3-wireless"
 valid msgstr="inalámbric[oa]"
 hint="«Wireless» se traduce como «Inalámbrico» (propuesta glosario)"
 
 {\bwishlist\b}i
-id="gp-wishlist"
+id="gp-3-wishlist"
 valid msgstr="listas?\sde\smejoras"
 hint="«Wishlist» se traduce como «Lista de mejoras» (propuesta glosario)"
 
 {\bword\swarp\b}i
-id="gp-word-warp"
+id="gp-3-word-warp"
 valid msgstr="ajustes?\sde\slíneas?"
 hint="«Word wrap» se traduce como «Ajuste de línea» (propuesta glosario)"
 
 {\bworkaraund\b}i
-id="gp-workaround"
+id="gp-3-workaround"
 valid msgstr="arreglo\stemporal"
 valid msgstr="arreglos\stemporales"
 hint="«Workaround» se traduce como «Arreglo temporal» (propuesta glosario)"
 
 {\bworkspace\b}i
-id="gp-workspace"
+id="gp-3-workspace"
 valid msgstr="áreas?\sde\strabajo"
 hint="«Workspace» se traduce como «Área de trabajo» (propuesta glosario)"
 
 {\bzoom\sin\b}i
-id="gp-zoom-in"
+id="gp-3-zoom-in"
 valid msgstr="acer(car|ca|que)"
 valid msgstr="ampl(iar|ía|íe)"
 valid msgstr="acercará" after="will\s(not\s)?"
@@ -4196,7 +4196,7 @@ valid msgstr="amplió" after="did\s(not\s)?"
 hint="«Zoom in» se traduce como «Acercar» (propuesta glosario)"
 
 {\bzoom\sout\b}i
-id="gp-zoom-out"
+id="gp-3-zoom-out"
 valid msgstr="alej(ar|a|e)"
 valid msgstr="redu(cir|ce|zca)"
 valid msgstr="alejará" after="will\s(not\s)?"
