@@ -24,7 +24,7 @@ validGroup inQuotes
 valid after="«&unbsp;" before="&unbsp;»"
 
 validGroup inQuotesTag
-valid after="<quote>" before="</quote>"
+valid after="<quote>.*" before=".*</quote>"
 
 validGroup alone
 valid after="^" before="$"
@@ -259,12 +259,14 @@ valid cat="sheets_functions" after="x|x!|\(valeur\)"
 valid cat="sheets_functions" msgid="\(a\+b\+c\)!\s/\sa!b!c!"
 valid cat="sheets_functions" after="Feuille[0-9]"
 valid cat="kppp_callback" after="#" before="/bin"
+valid cat="cantor" after="Q?alculate"
 hint="Mettre une espace insécable avant et une espace après"
 
 [\?]
 validGroup strongTypo
 validGroup inParenthesis
 validGroup inQuotes
+validGroup inQuotesTag
 validGroup alone
 validGroup userinputTag
 validGroup commandTag
@@ -482,6 +484,7 @@ hint="Ne jamais mettre plus d'une espace"
 validGroup strongTypo
 validGroup inParenthesis
 validGroup inQuotes
+validGroup inQuotesTag
 validGroup optionTag
 validGroup tokenTag
 validGroup userinputTag
