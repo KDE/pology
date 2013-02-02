@@ -97,6 +97,9 @@ valid cat="juk" before="</guimenuitem>" after="<guimenuitem>"
 valid cat="juk" after="juk-viewmode-"
 valid cat="konqueror_filemanager,konqueror_commands"
 valid cat="kcontrol_kwintabbox" after="vue.+"
+valid cat="kstars_ellipticalgalaxies" after="Blue " before=" dwarf"
+valid cat="kstars_darkmatter" after="MAssive " before=" Halo"
+valid cat="kstars_darkmatter" after="objets hypothétiques "
 hint="Choix de l'équipe : « compresser » (au lieu de « compacter »)"
 
 [[Gg]ard(é|er)]
@@ -339,7 +342,7 @@ hint="Choix de l'équipe : « paquet »"
 
 [montrer]i
 valid before=" l'afficheur"
-valid after="lui |vous |leur "
+valid after="lui |vous |leur |dé"
 hint="Traduire « show » par « afficher »"
 
 [messages? électronique]i

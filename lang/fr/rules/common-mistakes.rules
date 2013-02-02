@@ -42,6 +42,7 @@ hint="L'erreur classique quand on a raté la touche ^ :)"
 validGroup computeroutputTag
 valid ctx="Name"
 valid cat="kppp_accounting" after="per_"
+valid cat="kstars_indi" after="interrupteur standard |La propriété "
 hint="La bonne orthographe est « connexion » en français !"
 
 [formatt]i
