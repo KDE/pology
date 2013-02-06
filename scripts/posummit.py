@@ -1123,8 +1123,12 @@ def summit_scatter (project, options):
                 summit_paths.append(
                     project.catalogs[SUMMIT_ID][summit_name][0][0])
 
-            scatter_specs.append((branch_id, branch_name, branch_subdir,
-                                  branch_path, summit_paths))
+            # There may be no summit catalogs for this branch catalog.
+            # The warning about this condition has been issued earlier,
+            # just skip the branch catalog here.
+            if summit_paths:
+                scatter_specs.append((branch_id, branch_name, branch_subdir,
+                                      branch_path, summit_paths))
 
         # Dummy entry to indicate branch switch.
         scatter_specs.append((branch_id, None, None, None, None))
