@@ -8,15 +8,15 @@ id="pw-2-error-tabuladores-o-nueva-linea"
 hint="Error en tabuladores o saltos de línea"
 
 *hook name="es:compare_with_original/test_paired_brackets" on="msg"
-id="pw-2-error-parentesis-llaves-corchetes-comillas"
+id="pw-1-error-parentesis-llaves-corchetes-comillas"
 hint="Error en paréntesis, llaves, corchetes o comillas"
 
 *hook name="es:compare_with_original/test_paired_expressions" on="msg"
-id="pw-2-error-funciones-o-parametros"
+id="pw-1-error-funciones-o-parametros"
 hint="Error en funciones o parámetros"
 
 *hook name="es:compare_with_original/test_paired_numbers" on="msg"
-id="pw-3-error-valores-numericos"
+id="pw-1-error-valores-numericos"
 hint="Valores de números o fechas en la traducción distintos al original"
 
 *hook name="es:compare_with_original/test_paired_context_tags" on="msg"
@@ -25,7 +25,7 @@ hint="Traducidos valores contenidos entre etiquetas de contexto no traducibles"
 
 addFilterRegex match="\<\/?quote\>" repl="~" on="pmsgstr"
 *hook name="es:compare_with_original/test_paired_xml_entities" on="msg"
-id="pw-2-error-etiquetas-xml"
+id="pw-1-error-etiquetas-xml"
 hint="Sobran o faltan etiquetas XML (texto entre < y >)"
 
 addFilterHook name="es:remove_subs/remove_paired_parameters" on="msg"
