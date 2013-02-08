@@ -649,6 +649,17 @@ Note that trailing slash is significant here, since otherwise the argument would
 <term>A branch PO file has been moved to another subdirectory (<emphasis>moving</emphasis>).</term>
 <listitem>
 <para>In a translation project with modules represented by subdirectories, it may happen that a program or a library is moved from one module to another, with its PO files following the move. If this happened in all branches, <command>posummit</command> will report that the summit PO file should be moved as well; it can be rerun with <option>--create</option> to do the move itself, or you can make the move manually. If the move happened in only one of the branches, <command>posummit</command> will not complain at all; more precisely, if at least one branch PO file is in same relative subdirectory as the summit PO file, it is not considered a mismatch.</para>
+
+<para>Another, less obvious case of moving may arise when two same-named branch PO files appear in different subdirectories of the same branch. <command>posummit</command> will by default simply gather them into single summit PO file, without reporting anything. However, it may be that one of the two subdirectories is of higher priority for translation. Then that it would be better if the summit PO file is located in that subdirectory, and that <command>posummit</command> reports if that is not the case, or make the move itself under <option>--create</option>. Subdirectory precedence can be specified through <literal>S.subdir_precedence</literal> field, which is simply a list of subdirectories:
+<programlisting>
+S.subdir_precedence = [
+    "library",
+    "application",
+    "plugins/base",
+    ...
+]
+</programlisting>
+Earlier subdirectories in the list have higher precedence. If a subdirectory is below one of the listed subdirectories, that subdirectory will have the same precedence as its listed top directory. If a subdirectory is neither listed nor it is below any of the listed, its precedence will be lower than all the listed.</para>
 </listitem>
 </varlistentry>
 
