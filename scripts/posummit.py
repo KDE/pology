@@ -260,6 +260,7 @@ class Project (object):
             "branches" : [],
             "mappings" : [],
             "subdir_mappings" : [],
+            "subdir_precedence" : [],
 
             "over_templates" : False,
             "templates_lang" : "templates",
@@ -812,6 +813,18 @@ def derive_project_data (project, options, nwgrefpath=None):
                 summit_path = p.catalogs[SUMMIT_ID][summit_name][0][0]
                 needed_removals.append(summit_path)
 
+    # Create function to assign precedence to a subdirectory.
+    p.subdir_precedence = [os.path.normpath(sd) for sd in p.subdir_precedence]
+    def calc_subdir_precedence (subdir):
+        for i, test_subdir in enumerate(p.subdir_precedence):
+            ltsd = len(test_subdir)
+            if (    subdir.startswith(test_subdir)
+                and subdir[ltsd:ltsd + 1] in ("", os.path.sep)
+            ):
+                return i
+        return len(p.subdir_precedence)
+    p.calc_subdir_precedence = calc_subdir_precedence
+
     # Collect summit catalogs that should be moved.
     needed_moves = []
     for summit_name in p.catalogs[SUMMIT_ID]:
@@ -822,14 +835,18 @@ def derive_project_data (project, options, nwgrefpath=None):
                 for bpath, bsubdir in p.catalogs[branch_id][branch_name]:
                     dmkey = (branch_id, bsubdir)
                     branch_subdirs_1.append(p.subdir_map.get(dmkey) or bsubdir)
-                branch_subdirs_1.sort()
                 branch_subdirs.extend(branch_subdirs_1)
         if branch_subdirs:
+            branch_subdirs = list(set(branch_subdirs))
+            subdir_precs = map(p.calc_subdir_precedence, branch_subdirs)
+            precs_subdirs = sorted(zip(subdir_precs, branch_subdirs))
+            branch_subdirs_sel = [sd for pr, sd in precs_subdirs
+                                     if pr == precs_subdirs[0][0]]
             summit_subdir = p.catalogs[SUMMIT_ID][summit_name][0][1]
-            if summit_subdir not in branch_subdirs:
+            if summit_subdir not in branch_subdirs_sel:
                 summit_path = p.catalogs[SUMMIT_ID][summit_name][0][0]
                 dpaths = []
-                for bsubdir in branch_subdirs:
+                for bsubdir in branch_subdirs_sel:
                     dpath = join_ncwd(p.summit.topdir, bsubdir,
                                       summit_name + catext)
                     dpaths.append(dpath)
@@ -1702,10 +1719,17 @@ def summit_gather_single (summit_name, project, options,
             branch_subdirs_1.sort()
             branch_subdirs.extend(branch_subdirs_1)
     new_summit_path = summit_path
-    if branch_subdirs and summit_subdir not in branch_subdirs:
-        catext = summit_path[summit_path.rfind("."):]
-        new_summit_path = join_ncwd(project.summit.topdir, branch_subdirs[0],
-                                    summit_name + catext)
+    if branch_subdirs:
+        branch_subdirs = list(set(branch_subdirs))
+        subdir_precs = map(project.calc_subdir_precedence, branch_subdirs)
+        precs_subdirs = sorted(zip(subdir_precs, branch_subdirs))
+        branch_subdirs_sel = [sd for pr, sd in precs_subdirs
+                                 if pr == precs_subdirs[0][0]]
+        if summit_subdir not in branch_subdirs_sel:
+            catext = summit_path[summit_path.rfind("."):]
+            new_summit_path = join_ncwd(project.summit.topdir,
+                                        branch_subdirs_sel[0],
+                                        summit_name + catext)
 
     if replace or summit_cat.filename != new_summit_path:
         added = False
