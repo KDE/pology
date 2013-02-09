@@ -765,13 +765,14 @@ def derive_project_data (project, options, nwgrefpath=None):
                     summit_subdir = p.subdir_map.get(dmkey) or branch_subdir
                     summit_path = join_ncwd(p.summit.topdir, summit_subdir,
                                             summit_name + catext)
-                    if "gather" == p.opmodes[0] and options.create:
-                        # Add summit catalog into list of existing catalogs;
-                        # it will be created for real on gather.
-                        p.catalogs[SUMMIT_ID][summit_name] = [(summit_path,
-                                                               summit_subdir)]
-                    elif ["merge"] != p.opmodes:
-                        needed_additions.append((branch_path, summit_path))
+                    if "gather" in p.opmodes:
+                        path_subdir = (summit_path, summit_subdir)
+                        if options.create:
+                            # Add summit catalog into list of existing catalogs;
+                            # it will be created for real on gather.
+                            p.catalogs[SUMMIT_ID][summit_name] = [path_subdir]
+                        else:
+                            needed_additions.append()
 
     # Initialize inverse mappings.
     # - part inverse:
@@ -807,11 +808,10 @@ def derive_project_data (project, options, nwgrefpath=None):
             if project.full_inverse_map[summit_name][branch_id]:
                 src_branch_ids.append(branch_id)
         if not src_branch_ids:
-            if (    not ("gather" == p.opmodes[0] and options.create)
-                and ["merge"] != p.opmodes and ["deps"] != p.opmodes
-            ):
-                summit_path = p.catalogs[SUMMIT_ID][summit_name][0][0]
-                needed_removals.append(summit_path)
+            if "gather" in p.opmodes:
+                if not options.create:
+                    summit_path = p.catalogs[SUMMIT_ID][summit_name][0][0]
+                    needed_removals.append(summit_path)
 
     # Create function to assign precedence to a subdirectory.
     p.subdir_precedence = [os.path.normpath(sd) for sd in p.subdir_precedence]
@@ -850,10 +850,9 @@ def derive_project_data (project, options, nwgrefpath=None):
                     dpath = join_ncwd(p.summit.topdir, bsubdir,
                                       summit_name + catext)
                     dpaths.append(dpath)
-                if (    not ("gather" == p.opmodes[0] and options.create)
-                    and ["merge"] != p.opmodes
-                ):
-                    needed_moves.append((summit_path, dpaths))
+                if "gather" in p.opmodes:
+                    if not options.create:
+                        needed_moves.append((summit_path, dpaths))
 
     # If catalog creation is not allowed,
     # complain about needed additions, removals, and moves.
