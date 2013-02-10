@@ -38,10 +38,12 @@ hint="Es tradueix per «difuminat» (kde-ca-team)"
 valid msgid="cardboard box"		# -> safata (de la impressora) glossary_kdeprintingglossary
 valid msgid="check.?box(es|s)?"		# -> casella/es de selecció
 valid msgid="combo.?box(es|s)?"		# -> quadre/s combinat/s
+valid msgid="confirmation\sbox(es|s)?"	# -> quadre/s de confirmació
 valid msgid="dialogs?.?box(es|s)?"	# -> diàleg/s \\*
 valid msgid="drop.?(down.?)?(selection\s)?box(es|s)?" # -> llista/es desplegable/s
 valid msgid="edit(ing)?.?box(es|s)?"	# -> quadre/s d'edició
 valid msgid="entry.?box(es|s)?"		# -> quadre/s d'entrada
+valid msgid="group\sbox(es|s)?"		# -> grup de caselles
 valid msgid="info(rmation)?.?box(es|s)?" # -> rètol/s informatiu/s
 valid msgid="input.?box(es|s)?"		# -> quadre/s d'entrada
 valid msgid="key.?box(ing)?(es|s)?"	# -> anell/s de claus
@@ -49,6 +51,7 @@ valid msgid="list.?box(es|s)?"		# -> quadre/s de llista
 valid msgid="login.?(dialogs?|box(es|s)?)" # -> quadre/s / diàleg/s d'inici de sessió
 valid msgid="mail.?box(es|s)?"		# -> bústia/es, bústia/es de correu
 valid msgid="message.?box(es|s)?"	# -> quadre/s de missatge
+valid msgid="preview\sbox(es|s)?"	# -> quadre/s de vista prèvia"
 valid msgid="search.?box(es|s)?"	# -> quadre/s de cerca
 valid msgid="selection.?box(es|s)?"	# -> casella/es de selecció
 valid msgid="spin.?box(es|s)?"		# -> botó/ons de selecció de valors
@@ -101,6 +104,10 @@ hint="Es tradueix per «selector de color» (kde-ca-team)"
 valid msgstr="quadres? combinats?"
 valid msgstr="quadrecombinat" cat="kexi"
 hint="Es tradueix per «quadre/s combinat/s» (kde-ca-team)"
+
+{\bconfirmation\sbox(es|s)?\b}i
+valid msgstr="quadres? de confirmació"
+hint="Es tradueix per «quadre/s de confirmació» (kde-ca-team)"
 
 {\bcontext.?menus?\b}i
 valid msgstr="menús? contextuals?"
@@ -289,6 +296,10 @@ valid msgstr="benvingud(a|es)"
 valid msgstr="pantalla de benvinguda"
 hint="Es tradueix per «pantalla de benvinguda, benvinguda» (kde-ca-team)"
 
+{\bgroup\sbox(es|s)?\b}i
+valid msgstr="grup de caselles"
+hint="Es tradueix per «grup de caselles» (kde-ca-team)"
+
 {\bicon\slists?\b}i
 valid msgstr="llist(a|es) d'icones"
 #valid msgstr="emoticon list" # fals positiu a la cerca
@@ -359,6 +370,10 @@ valid msgstr="cam(í|ins)"
 valid msgstr="variable d'entorn PATH"
 valid !msgstr="rut(a|es)"
 hint="Es tradueix per «camí» o «variable d'entorn PATH» (kde-ca-team)"
+
+{\bpreview\sbox(es|s)?\b}i
+valid msgstr="quadres? de vista prèvia"
+hint="Es tradueix per «quadre/s de vista prèvia» (kde-ca-team)"
 
 {\bprogress.?bars?\b}i
 valid msgstr="barr(a|es) de progrés"
