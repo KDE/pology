@@ -18,6 +18,13 @@ valid msgstr="&Retro;" # <keycap>Retrocés</keycap>
 valid msgstr="<keycap>Retrocés</keycap>"
 hint="Es tradueix per «&Retro;, <keycap>Retrocés</keycap>» (keys)"
 
+# Caps Lock -> Bloq Majús.
+{(<key(cap|sym)>)?.?Caps\sLock.?(</key(cap|sym)>)?}
+valid msgstr="<keycap>Bloq Majús\.</keycap>"
+valid msgstr="Bloq Majús\." # A l'IGU
+valid msgstr="bloqueig de majúscules" # A l'IGU
+hint="Es tradueix per «Bloq Majús. i bloqueig de majúscules (a l'IGU), <keycap>Bloq Majús.</keycap> (a la DOC)» (keys)"
+
 # Ctrl
 {(&Ctrl;|<key(cap|sym)>.?Ctrl.?</key(cap|sym)>)}
 valid msgstr="&Ctrl;" # <keycap>Ctrl</keycap>
