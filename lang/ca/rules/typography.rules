@@ -216,6 +216,7 @@ valid ctx="Keywords"
 valid ctx="CSV separator"
 valid comment="Tag\:\sprogramlisting" cat="kdm" # docmessages
 valid after="\d+" before="\s?\d+"
+valid after="Delta" cat="kstars"
 valid comment="Tag\:\sliterallayout" cat="ktimetracker" # docmessages
 hint="No s'ha de posar cap espai abans del signe de coma (tipografia)"
 
@@ -550,6 +551,10 @@ valid after="x(5|6|7|8|10|12|18|20|24|30)" cat="digikam"
 valid after="install" cat="amarok"
 valid after="label=.*" cat="kdeprint4"
 valid after="expressió regular.+" cat="kphotoalbum"
+valid after="Sig.+" cat="kstars"
+valid after="guiatge.+" cat="kstars"
+valid after="Escala.+" cat="kstars"
+valid after="Delta.+" cat="kstars"
 valid after="8|12|16" cat="kstars_indi" # docmessages
 valid after="KSpeech\ssay\s.*" cat="jovie" # docmessages
 valid after="\sid\=.*" cat="kopete_chatstyle" # docmessages
