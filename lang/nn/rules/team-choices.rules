@@ -182,11 +182,20 @@ hint="unnatak → unntak"
 [velkomen]i
 hint="velkomen → velkommen"
 
-[\bbli(r|tt)?\b]i
-hint="bli → vert(a)/vorte(n)"
+[(breidde|høgde|lengde)\b]i
+hint="breidde/høgde/lengde → breidd/høgd/lengd"
 
-[fellesskapen]i
+[\bbli(r)?\b]i
+hint="bli(r) → vert(a)"
+
+[\bvort(en|ne|e)?\b]i
+hint="vorte/vorten/vortne → blitt"
+
+[fellesskapen|eit fellesskap]i
 hint="fellesskap reknar med som inkjekjønn"
+
+[medlemskapen|ein medlemskap]i
+hint="medlemskap reknar med som inkjekjønn"
 
 [(vis|tolk)ning]i
 hint="-ning → -ing"
@@ -207,8 +216,8 @@ hint="t.d. → for eksempel [ikkje bruk forkortingar]"
 [\bfora\b]i
 hint="fora → forum(a)"
 
-[\bklarar\b]i
-hint="klarar → klarer"
+[\bklarer\b]i
+hint="klarer → klarar"
 
 [\b(opn|lagr)\b]i
 hint="Bruk imperativformene «opna», «lagra», ikkje «opn» og «lagr»"
