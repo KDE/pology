@@ -1567,6 +1567,9 @@ def check_qtrich_sp (strict=False, entities={}, mkeyw=None):
     return _check_xml_w(validate_qtrich_l1, strict, entities, mkeyw, True)
 
 
+_entpath_kuit = os.path.join(datadir(), "spec", "kuit.entities")
+kuit_entities = read_entities(_entpath_kuit)
+
 _kuit_l1 = None
 
 def validate_kuit_l1 (text, ents=None):
@@ -1592,6 +1595,9 @@ def validate_kuit_l1 (text, ents=None):
     if _kuit_l1 is None:
         specpath = os.path.join(datadir(), "spec", "kuit.l1")
         _kuit_l1 = collect_xml_spec_l1(specpath)
+
+    if ents is not None:
+        ents = Multidict([ents, kuit_entities])
 
     xmlfmt = _("@item markup type", "KUIT")
     return validate_xml_l1(text, spec=_kuit_l1, xmlfmt=xmlfmt, ents=ents,
@@ -1627,7 +1633,9 @@ def validate_kde4_l1 (text, ents=None):
         _kde4_l1.update(collect_xml_spec_l1(spath1))
         spath2 = os.path.join(datadir(), "spec", "kuit.l1")
         _kde4_l1.update(collect_xml_spec_l1(spath2))
-        _kde4_ents = html_entities.copy()
+        _kde4_ents = {}
+        _kde4_ents.update(html_entities)
+        _kde4_ents.update(kuit_entities)
 
     if ents is not None:
         ents = Multidict([ents, _kde4_ents])
