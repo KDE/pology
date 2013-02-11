@@ -766,13 +766,13 @@ def derive_project_data (project, options, nwgrefpath=None):
                     summit_path = join_ncwd(p.summit.topdir, summit_subdir,
                                             summit_name + catext)
                     if "gather" in p.opmodes:
-                        path_subdir = (summit_path, summit_subdir)
                         if options.create:
                             # Add summit catalog into list of existing catalogs;
                             # it will be created for real on gather.
-                            p.catalogs[SUMMIT_ID][summit_name] = [path_subdir]
+                            p.catalogs[SUMMIT_ID][summit_name] = [
+                                (summit_path, summit_subdir)]
                         else:
-                            needed_additions.append()
+                            needed_additions.append((branch_path, summit_path))
 
     # Initialize inverse mappings.
     # - part inverse:
