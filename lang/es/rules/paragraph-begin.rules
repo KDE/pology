@@ -4,93 +4,93 @@
 # License: GPLv3
 
 {^\s}i
-id="pb-2-falta-espacio-inicio-parrafo"
+id="pb-3-falta-espacio-inicio-parrafo"
 valid msgstr="^\s"
 hint="Compruebe el uso de espacio al principio del párrafo (falta en la traducción)."
 
 {\\\\n\s}i
-id="pb-2-falta-espacio-inicio-nueva-linea"
+id="pb-3-falta-espacio-inicio-nueva-linea"
 valid msgstr="\\\\n\s"
 hint="Compruebe el uso de espacio posterior a «\n» (falta en la traducción)."
 
 {\<p\>\s}i
-id="pb-2-falta-espacio-inicio-nuevo-parrafo"
+id="pb-3-falta-espacio-inicio-nuevo-parrafo"
 valid msgstr="\<p\>\s"
 hint="Compruebe el uso de espacio posterior a «<p>» (falta en la traducción)."
 
 {(?u)^\W*[A-Z]}i
-id="pb-2-falta-mayuscula-inicio-parrafo"
+id="pb-3-falta-mayuscula-inicio-parrafo"
 valid msgstr="(?u)^\W*[A-ZÁÉÍÓÚ©«0-9\¿\¡\&\%\<\(\_]"
 hint="Compruebe el uso de mayúscula al principio del párrafo (falta en la traducción)."
 
 {(?u)\\\\n\W*[A-Z]}i
-id="pb-2-falta-mayuscula-inicio-nueva-linea"
+id="pb-3-falta-mayuscula-inicio-nueva-linea"
 valid msgstr="(?u)\\\\n\W*[A-ZÁÉÍÓÚ©«0-9¿¡\&\%\<\(\_]"
 hint="Compruebe el uso de mayúscula posterior a «\n» (falta en la traducción)."
 
 {(?u)\<p\>\W*[A-Z]}i
-id="pb-2-falta-mayuscula-inicio-nuevo-parrafo"
+id="pb-3-falta-mayuscula-inicio-nuevo-parrafo"
 valid msgstr="(?u)\<p\>\W*[A-ZÁÉÍÓÚ©«0-9¿¡\&\%\<\(\_]"
 hint="Compruebe el uso de mayúscula posterior a «\n» (falta en la traducción)."
 
 {(?u)^\W*[a-z]}i
-id="pb-2-falta-minuscula-inicio-parrafo"
+id="pb-3-falta-minuscula-inicio-parrafo"
 valid msgstr="(?u)^\W*[a-záéíóú©«0-9¿¡\&\%\<\(\_]"
 hint="Compruebe el uso de minúscula al principio del párrafo (falta en la traducción)."
 
 {(?u)\\\\n\W*[a-z]}i
-id="pb-2-falta-minuscula-inicio-nueva-linea"
+id="pb-3-falta-minuscula-inicio-nueva-linea"
 valid msgstr="(?u)\\\\n\W*[a-záéíóú©«0-9¿¡\&\%\<\(\_]"
 hint="Compruebe el uso de minúscula posterior a «\n» (falta en la traducción)."
 
 {(?u)\<p\>\W*[a-z]}i
-id="pb-2-falta-minuscula-inicio-nuevo-parrafo"
+id="pb-3-falta-minuscula-inicio-nuevo-parrafo"
 valid msgstr="(?u)\<p\>\W*[a-záéíóú©«0-9¿¡\&\%\<\(\_]"
 hint="Compruebe el uso de minúscula posterior a «<p>» (falta en la traducción)."
 
 
 [^\s]i
-id="pb-2-sobra-espacio-principio-parrafo"
+id="pb-3-sobra-espacio-principio-parrafo"
 valid msgid="^\s"
 hint="Compruebe el uso de espacio al principio del párrafo (sobra en la traducción)."
 
 [\\\\n\s]i
-id="pb-2-sobra-espacio-inicio-nueva-linea"
+id="pb-3-sobra-espacio-inicio-nueva-linea"
 valid msgid="\\\\n\s"
 hint="Compruebe el uso de espacio posterior a «\n» (sobra en la traducción)."
 
 [\<p\>\s]i
-id="pb-2-sobra-espacio-inicio-nuevo-parrafo"
+id="pb-3-sobra-espacio-inicio-nuevo-parrafo"
 valid msgid="\<p\>\s"
 hint="Compruebe el uso de espacio posterior a «<p>» (sobra en la traducción)."
 
 [(?u)^\W*[A-ZÁÉÍÓÚ]]i
-id="pb-2-sobra-mayuscula-inicio-parrafo"
+id="pb-3-sobra-mayuscula-inicio-parrafo"
 valid msgid="(?u)^\W*[A-Z©«0-9\&\%\<\(\_]"
 hint="Compruebe el uso de mayúscula al principio del párrafo (sobra en la traducción)"
 
 [(?u)\\\\n\W*[A-ZÁÉÍÓÚ]]i
-id="pb-2-sobra-mayuscula-inicio-nueva-linea"
+id="pb-3-sobra-mayuscula-inicio-nueva-linea"
 valid msgid="(?u)\\\\n\W*[A-Z©«0-9\&\%\<\(\_]"
 hint="Compruebe el uso de mayúscula posterior a «\n» (sobra en la traducción)."
 
 [(?u)\<p\>\W*[A-ZÁÉÍÓÚ]]i
-id="pb-2-sobra-mayuscula-inicio-nuevo-parrafo"
+id="pb-3-sobra-mayuscula-inicio-nuevo-parrafo"
 valid msgid="(?u)\<p\>\W*[A-Z©«0-9\&\%\<\(\_]"
 hint="Compruebe el uso de mayúscula posterior a «\n» (sobra en la traducción)."
 
 [(?u)^\W*[a-záéíóú]]i
-id="pb-2-sobra-minuscula-inicio-parrafo"
+id="pb-3-sobra-minuscula-inicio-parrafo"
 valid msgid="(?u)^\W*[a-z©«0-9\&\%\<\(\_]"
 hint="Compruebe el uso de minúscula al principio del párrafo (sobra en la traducción)."
 
 [(?u)\\\\n\W*[a-záéíóú]]i
-id="pb-2-sobra-minuscula-inicio-nueva-linea"
+id="pb-3-sobra-minuscula-inicio-nueva-linea"
 valid msgid="(?u)\\\\n\W*[a-z©«0-9\&\%\<\(\_]"
 hint="Compruebe el uso de minúscula posterior a «\n» (sobra en la traducción)."
 
 [(?u)\<p\>\W*[a-záéíóú]]i
-id="pb-2-sobra-minuscula-inicio-nuevo-parrafo"
+id="pb-3-sobra-minuscula-inicio-nuevo-parrafo"
 valid msgid="(?u)\<p\>\W*[a-z©«0-9\&\%\<\(\_]"
 hint="Compruebe el uso de minúscula posterior a «<p>» (sobra en la traducción)."
 

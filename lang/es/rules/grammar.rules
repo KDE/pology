@@ -558,31 +558,31 @@ valid before="$"
 #
 
 [(?u)\b(\w+)(?!\n)\s+\1\b]
-id="gr-2-palabra-repetida"
+id="gr-1-palabra-repetida"
 hint="Hay una palabra consecutiva repetida en el párrafo (error gramatical)"
 
 [(?u)\b(\w+(\s\w+)+)(\s|\.|\,|\;|\:)+\1\b]
-id="gr-2-frase-repetida"
+id="gr-1-frase-repetida"
 hint="Hay un grupo de dos o más palabras consecutivas repetido en el párrafo (error gramatical)"
 
 [(?u)\b(el|la|los|las)(?!\n)\s+(el|la|los|las)\b]i
-id="gr-2-articulos-det-consecutivos"
+id="gr-1-articulos-det-consecutivos"
 hint="Hay dos artículos determinados consecutivos en el párrafo (error gramatical)"
 
 [(?u)\b(un|una|unos|unas)(?!\n)\s+(un|una|unos|unas)\b]i
-id="gr-2-articulos-ind-consecutivos"
+id="gr-1-articulos-ind-consecutivos"
 hint="Hay dos artículos indeterminados consecutivos en el párrafo (error gramatical)"
 
 [(?u)\b(al|del)\s(el|la|los|las|un|una|unos|unas)\b]i
-id="gr-2-articulo-tras-contraccion"
+id="gr-1-articulo-tras-contraccion"
 hint="Hay un artículo después de uno contraído «Al/Del» (error gramatical)"
 
 [(?u)\b(este|ese|aquel|estas?|esas?|aquellas?|estos?|esos?|aquellos?)(?!\n)\s+(este|ese|aquel|estas?|esas?|aquellas?|estos?|esos?|aquellos?)\b]i
-id="gr-2-demostrativos-consecutivos"
+id="gr-1-demostrativos-consecutivos"
 hint="Hay dos demostrativos consecutivos en el párrafo (error gramatical)"
 
 [(?u)\b(yo|tú|vos|él|ellas?|ellos?|usted|ustedes|nosotr[oa]s|mí|ti|sí)(?!\n)\s+(yo|tú|vos|él|ellas?|ellos?|usted|ustedes|nosotr[oa]s|mí|ti|sí)\b]i
-id="gr-2-pronombres-consecutivos"
+id="gr-1-pronombres-consecutivos"
 hint="Hay dos pronombres consecutivos en el párrafo (error gramatical)"
 
 #
@@ -606,11 +606,11 @@ id="gr-2-duplicidad-genero-4"
 hint="No utilice expresiones del tipo «las ciudadanas y los ciudadanos » (error gramatical)"
 
 [(?u)\b\w+@\w{1,3}\b]i
-id="gr-2-arroba-genero-neutro-1"
+id="gr-1-arroba-genero-neutro-1"
 hint="No utilice la arroba para evitar el género, p.ej. «ciudadan@s» (error gramatical)"
 
 [(?u)\b\w+@\W]i
-id="gr-2-arroba-genero-neutro-2"
+id="gr-1-arroba-genero-neutro-2"
 hint="No utilice la arroba para evitar el género, p.ej. «ciudadan@» (error gramatical)"
 
 #
@@ -618,12 +618,12 @@ hint="No utilice la arroba para evitar el género, p.ej. «ciudadan@» (error gr
 #
 
 [(?u)\b(ante|anti|archi|auto|bi|bien|co|con|contra|cuasi|des|epi|eqi|ex|extra|foto|geo|hemi|h[ií]per|im|in|infra|inter|intra|macro|maxi|mega|meta|micro|mini|mono|multi|neo|peri|pluri|poli|pos|post|pre|pro|re|retro|semi|seudo|sim|sin|sobre|sub|s[uú]per|supra|tele|trans|tras|tri|ultra|uni|vice)\-\w+?\b]i
-id="gr-2-prefijo-con-guion"
+id="gr-1-prefijo-con-guion"
 valid span="(?u)\b\w+\-[A-Z]\w+?\b"
 hint="No utilice el guión para separar el prefijo de la palabra principal, p.ej. «sub-menú» (error gramatical)"
 
 [(?u)\b(archi|bi|co|cuasi|des|epi|eqi|geo|hemi|h[ií]per|im|in|infra|inter|intra|maxi|micro|mini|multi|neo|peri|pluri|poli|pos|post|pre|re|retro|semi|seudo|sim|sub|s[uú]per|supra|trans|tri|ultra|uni|vice)\s\w+?\b]i
-id="gr-2-prefijo-suelto"
+id="gr-1-prefijo-suelto"
 valid span="(?u)\b\w+\s[A-Z]\w+?\b"
 valid span="(?u)\b\w+\s[yoe]\b"
 hint="No utilice el espacio para separar el prefijo de la palabra principal, p.ej. «sub menú» (error gramatical)"
@@ -645,23 +645,23 @@ hint="Se recomienda usar el prefijo « Pos » en lugar de « Post »(error ortog
 #
 
 [(?u)\b[A-Z]{2,6}s\b]
-id="gr-2-siglas-plural-1"
+id="gr-1-siglas-plural-1"
 hint="Las siglas se escriben en singular en español, quite la «s» final (error gramatical)"
 
 [(?u)\b[A-Z]{2,6}\'s\b]
-id="gr-2-siglas-plural-2"
+id="gr-1-siglas-plural-2"
 hint="Las siglas se escriben en singular en español, quite la «'s» final (error gramatical)"
 
 [(?u)\b\&[\w\-_]+\;s\b]
-id="gr-2-siglas-plural-3"
+id="gr-1-siglas-plural-3"
 hint="Las siglas se escriben en singular en español, quite la «s» final (error gramatical)"
 
 [(?u)\b\&[\w\-_]+\;\'s\b]
-id="gr-2-siglas-plural-4"
+id="gr-1-siglas-plural-4"
 hint="Las siglas se escriben en singular en español, quite la «'s» final (error gramatical)"
 
 [(?u)([A-Z]\.\s?){3,}]
-id="gr-2-siglas-separadas-puntos"
+id="gr-1-siglas-separadas-puntos"
 valid span="(\d\.\s?){3,}"
 hint="Las siglas se escriben sin puntos intermedios, todas las letras juntas (error gramatical)"
 
@@ -670,28 +670,28 @@ hint="Las siglas se escriben sin puntos intermedios, todas las letras juntas (er
 #
 
 [(?u)\by\s[hH]?[iíIÍ]\w*\b]
-id="gr-2-y-ante-i"
+id="gr-1-y-ante-i"
 hint="Delante de palabras que empiezan por «i» se usa «e» en lugar de «y» (error gramatical)"
 
 [(?u)\bo\s[hH]?[oó8OÓ]\w*\b]
-id="gr-2-o-ante-o"
+id="gr-1-o-ante-o"
 hint="Delante de palabras que empiezan por «o» se usa «u» en lugar de «o» (error gramatical)"
 
 [(?u)\be\s(?![hH]?[iíyIÍY]\w*)\b]
-id="gr-2-e-ante-no-i"
+id="gr-1-e-ante-no-i"
 hint="La «e» no se usa suelta salvo delante de palabras que empiezen por «i» (error gramatical)"
 
 [(?u)\bu\s(?![hH]?[oó8OÓ]\w*)\b]
-id="gr-2-u-ante-no-o"
+id="gr-1-u-ante-no-o"
 hint="La «u» no se usa suelta salvo delante de palabras que empiezen por «o» (error gramatical)"
 
 [\si\s]
-id="gr-2-i-suelta"
+id="gr-1-i-suelta"
 valid after="[A-Z]\w+" before="[A-Z]\w+"
 hint="La «i» no se usa suelta (error gramatical)"
 
 [\b[áéíóúüÁÉÍÓÚÜ]\b]
-id="gr-2-vocal-tilde-suelta"
+id="gr-1-vocal-tilde-suelta"
 valid after="~"
 valid before="~"
 hint="Las vocales con tilde no se usan sueltas (error gramatical)"
@@ -701,7 +701,7 @@ hint="Las vocales con tilde no se usan sueltas (error gramatical)"
 #
 
 [\b(antee|autoo|bii|contraa|cuasii|epii|eqii|extraa|fotoo|geoo|hemii|infraa|intraa|macroo|maxii|megaa|metaa|microo|minii|monoo|multii|neoo|perii|plurii|polii|pree|ree|retroo|seudoo|supraa|trii|ultraa|unii|vicee)\w+\b]i
-id="sp-simplificar-vocales-atonas"
+id="sp-3-simplificar-vocales-atonas"
 valid msgstr="reemit\w+"
 valid msgstr="reestablec\w+"
 valid msgstr="reenunc\w+"
@@ -713,83 +713,83 @@ hint="Los grupos de dos vocales átonas se recomienda simplificarlos (error orto
 #
 
 [¿ba\sdonde\b]i
-id="gr-2-a-donde-interrogativo-1"
+id="gr-1-a-donde-interrogativo-1"
 hint="« ¿A donde... » se escribe como « ¿Adónde... », (error gramatical)"
 
 [¿a\sdónde\b]i
-id="gr-2-a-donde-interrogativo-2"
+id="gr-1-a-donde-interrogativo-2"
 hint="« ¿A donde... » se escribe como « ¿Adónde... », (error gramatical)"
 
 [¿adonde\b]i
-id="gr-2-adonde-interrogativo"
+id="gr-1-adonde-interrogativo"
 hint="« ¿Adonde... » se escribe como « ¿Adónde... », (error gramatical)"
 
 [¿como\b]i
-id="gr-2-como-interrogativo"
+id="gr-1-como-interrogativo"
 hint="« ¿Como... » se escribe como « ¿Cómo... », (error gramatical)"
 
 [¿con\sque\b]i
-id="gr-2-con-que-interrogativo"
+id="gr-1-con-que-interrogativo"
 hint="« ¿Con que... » se escribe como « ¿Con qué... », (error gramatical)"
 
 [¿cuan\b]i
-id="gr-2-cuan-interrogativo"
+id="gr-1-cuan-interrogativo"
 hint="« ¿Cuan... » se escribe como « ¿Cúan... », (error gramatical)"
 
 [¿cuantos\b]i
-id="gr-2-cuantos-interrogativo"
+id="gr-1-cuantos-interrogativo"
 hint="« ¿Cuantos... » se escribe como « ¿Cúantos... », (error gramatical)"
 
 [¿de\squien\b]i
-id="gr-2-de-quien-interrogativo"
+id="gr-1-de-quien-interrogativo"
 hint="« ¿De quien... » se escribe como « ¿De quién... », (error gramatical)"
 
 [¿hasta\scuando\b]i
-id="gr-2-hasta-cuando-interrogativo"
+id="gr-1-hasta-cuando-interrogativo"
 hint="« ¿Hasta cuando... » se escribe como « ¿Hasta cúando... », (error gramatical)"
 
 [¿por\sque\b]i
-id="gr-2-por-que-interrogativo"
+id="gr-1-por-que-interrogativo"
 hint="« ¿Por que... » se escribe como « ¿Por qué... », (error gramatical)"
 
 [¿que\b]i
-id="gr-2-que-interrogativo"
+id="gr-1-que-interrogativo"
 hint="« ¿Que... » se escribe como « ¿Qué... », (error gramatical)"
 
 [¡adonde\b]i
-id="gr-2-adonde-admirativo"
+id="gr-1-adonde-admirativo"
 hint="« ¡Adonde... » se escribe como « ¡Adónde... », (error gramatical)"
 
 [¡como\b]i
-id="gr-2-como-admirativo"
+id="gr-1-como-admirativo"
 hint="« ¡Como... » se escribe como « ¡Cómo... », (error gramatical)"
 
 [¡con\sque\b]i
-id="gr-2-con-que-admirativo"
+id="gr-1-con-que-admirativo"
 hint="« ¡Con que... » se escribe como « ¡Con qué... », (error gramatical)"
 
 [¡cuan\b]i
-id="gr-2-cuan-admirativo"
+id="gr-1-cuan-admirativo"
 hint="« ¡Cuan... » se escribe como « ¡Cúan... », (error gramatical)"
 
 [¡cuantos\b]i
-id="gr-2-cuantos-admirativo"
+id="gr-1-cuantos-admirativo"
 hint="« ¡Cuantos... » se escribe como « ¡Cúantos... », (error gramatical)"
 
 [¡de\squien\b]i
-id="gr-2-de-quien-admirativo"
+id="gr-1-de-quien-admirativo"
 hint="« ¡De quien... » se escribe como « ¡De quién... », (error gramatical)"
 
 [¡hasta\scuando\b]i
-id="gr-2-hasta-cuando-admirativo"
+id="gr-1-hasta-cuando-admirativo"
 hint="« ¡Hasta cuando... » se escribe como « ¡Hasta cúando... », (error gramatical)"
 
 [¡por\sque\b]i
-id="gr-2-por-que-admirativo"
+id="gr-1-por-que-admirativo"
 hint="« ¡Por que... » se escribe como « ¡Por qué... », (error gramatical)"
 
 [¡que\b]i
-id="gr-2-que-admirativo"
+id="gr-1-que-admirativo"
 hint="« ¡Que... » se escribe como « ¡Qué... », (error gramatical)"
 
 #
@@ -800,181 +800,181 @@ hint="« ¡Que... » se escribe como « ¡Qué... », (error gramatical)"
 #hint="Ponga una coma después de «esto es» (error gramatical)"
 
 [\bes\sdecir\s]i
-id="gr-2-falta-coma-despues-es-decir"
+id="gr-3-falta-coma-despues-es-decir"
 hint="Ponga una coma después de «es decir» (error gramatical)"
 
 [\ben\sfin\s]i
-id="gr-2-falta-coma-despues-en-fin"
+id="gr-3-falta-coma-despues-en-fin"
 hint="Ponga una coma después de «en fin» (error gramatical)"
 
 [\bpor\súltimo\s]i
-id="gr-2-falta-coma-despues-por-ultimo"
+id="gr-3-falta-coma-despues-por-ultimo"
 hint="Ponga una coma después de «por último» (error gramatical)"
 
 [\bo\ssea\s]i
-id="gr-2-falta-coma-despues-o-sea"
+id="gr-3-falta-coma-despues-o-sea"
 hint="Ponga una coma después de «o sea» (error gramatical)"
 
 [\bpor\sconsiguiente\s]i
-id="gr-2-falta-coma-despues-por-consiguiente"
+id="gr-3-falta-coma-despues-por-consiguiente"
 hint="Ponga una coma después de «por consiguiente» (error gramatical)"
 
 [\bsin\sembargo\s]i
-id="coma-despues-sin-embargo"
+id="gr-3-coma-despues-sin-embargo"
 hint="Ponga una coma después de «sin embargo» (error gramatical)"
 
 [\bno\sobstante\s]i
-id="gr-2-falta-coma-despues-no-obstante"
+id="gr-3-falta-coma-despues-no-obstante"
 hint="Ponga una coma después de «no obstante» (error gramatical)"
 
 [además\s]i
-id="gr-2-falta-coma-despues-ademas"
+id="gr-3-falta-coma-despues-ademas"
 valid msgstr="además\sdel?\s"
 hint="Ponga una coma después de «además» (error gramatical)"
 
 [\ben\stal\scaso\s]i
-id="gr-2-falta-coma-despues-en-tal-caso"
+id="gr-3-falta-coma-despues-en-tal-caso"
 hint="Ponga una coma después de «en tal caso» (error gramatical)"
 
 [\bpor\slo\stanto\s]i
-id="gr-2-falta-coma-despues-por-lo-tanto"
+id="gr-3-falta-coma-despues-por-lo-tanto"
 hint="Ponga una coma después de «por lo tanto» (error gramatical)"
 
 [\ben\scambio\s]i
-id="gr-2-falta-coma-despues-en-cambio"
+id="gr-3-falta-coma-despues-en-cambio"
 hint="Ponga una coma después de «en cambio» (error gramatical)"
 
 [\ben\sprimer\slugar\s]i
-id="gr-2-falta-coma-despues-en-primer-lugar"
+id="gr-3-falta-coma-despues-en-primer-lugar"
 hint="Ponga una coma después de «en primer lugar» (error gramatical)"
 
 [Generalmente\s]
-id="gr-2-falta-coma-depues-generalmente"
+id="gr-3-falta-coma-depues-generalmente"
 hint="Ponga una coma después de «Generalmente» (error gramatical)"
 
 [Posiblemente\s]
-id="gr-2-falta-coma-despues-posiblemente"
+id="gr-3-falta-coma-despues-posiblemente"
 hint="Ponga una coma después de «Posiblemente» (error gramatical)"
 
 [Efectivamente\s]
-id="gr-2-falta-coma-despues-efectivamente"
+id="gr-3-falta-coma-despues-efectivamente"
 hint="Ponga una coma después de «Efectivamente» (error gramatical)"
 
 [Finalmente\s]
-id="gr-2-falta-coma-despues-finalmente"
+id="gr-3-falta-coma-despues-finalmente"
 hint="Ponga una coma después de «Finalmente» (error gramatical)"
 
 [En\sdefinitiva\s]
-id="gr-2-falta-coma-despues-en-definitiva"
+id="gr-3-falta-coma-despues-en-definitiva"
 hint="Ponga una coma después de «En definitiva» (error gramatical)"
 
 [Por\sregla\sgeneral\s]
-id="gr-2-falta-coma-despues-por-regla-general"
+id="gr-3-falta-coma-despues-por-regla-general"
 hint="Ponga una coma después de «Por regla general» (error gramatical)"
 
 [Quizá\s]
-id="gr-2-falta-coma-despues-quiza"
+id="gr-3-falta-coma-despues-quiza"
 hint="Ponga una coma después de «Quizá» (error gramatical)"
 
 [\bo\sbien\b]
-id="gr-2-falta-coma-antes-o-bien"
+id="gr-3-falta-coma-antes-o-bien"
 validGroup beforeComma
 hint="Ponga una coma antes de «o bien» (error gramatical)"
 
 [\bo\ssea\b]
-id="gr-2-falta-coma-antes-o-sea"
+id="gr-3-falta-coma-antes-o-sea"
 validGroup beforeComma
 hint="Ponga una coma antes de «o sea» (error gramatical)"
 
 [\bexcepto\b]
-id="gr-2-falta-coma-antes-excepto"
+id="gr-3-falta-coma-antes-excepto"
 validGroup beforeComma
 hint="Ponga una coma antes de «excepto» (error gramatical)"
 
 [\bsalvo\b]
-id="gr-2-falta-coma-antes-salvo"
+id="gr-3-falta-coma-antes-salvo"
 validGroup beforeComma
 valid after="a\s"
 hint="Ponga una coma antes de «salvo» (error gramatical)"
 
 [\bconque\b]
-id="gr-2-falta-coma-antes-conque"
+id="gr-3-falta-coma-antes-conque"
 validGroup beforeComma
 hint="Ponga una coma antes de «conque» (error gramatical)"
 
 [\basí\scomo\b]
-id="gr-2-falta-coma-antes-asi-como"
+id="gr-3-falta-coma-antes-asi-como"
 validGroup beforeComma
 hint="Ponga una coma antes de «así como» (error gramatical)"
 
 [\basí\sque\b]
-id="gr-2-falta-coma-antes-asi-que"
+id="gr-3-falta-coma-antes-asi-que"
 validGroup beforeComma
 hint="Ponga una coma antes de «así que» (error gramatical)"
 
 [\bde\smanera\sque\b]
-id="gr-2-falta-coma-antes-de-manera-que"
+id="gr-3-falta-coma-antes-de-manera-que"
 validGroup beforeComma
 hint="Ponga una coma antes de «de manera que» (error gramatical)"
 
 [\bes\sdecir\b]
-id="gr-2-falta-coma-antes-es-decir"
+id="gr-3-falta-coma-antes-es-decir"
 validGroup beforeComma
 hint="Ponga una coma antes de «es decir» (error gramatical)"
 
 [\ba\ssaber\b]
-id="gr-2-falta-coma-antes-a-saber"
+id="gr-3-falta-coma-antes-a-saber"
 validGroup beforeComma
 hint="Ponga una coma antes de «a saber» (error gramatical)"
 
 [\bpues\sbien\b]
-id="gr-2-falta-coma-antes-pues-bien"
+id="gr-3-falta-coma-antes-pues-bien"
 validGroup beforeComma
 hint="Ponga una coma antes de «pues bien» (error gramatical)"
 
 [\bahora\sbien\b]
-id="gr-2-falta-coma-antes-ahora-bien"
+id="gr-3-falta-coma-antes-ahora-bien"
 validGroup beforeComma
 hint="Ponga una coma antes de «ahora bien» (error gramatical)"
 
 [\ben\sprimer\slugar\b]
-id="gr-2-falta-coma-antes-an-primer-lugar"
+id="gr-3-falta-coma-antes-an-primer-lugar"
 validGroup beforeComma
 hint="Ponga una coma antes de «en primer lugar» (error gramatical)"
 
 [\bpor\sotro\lado\b]
-id="gr-2-falta-cma-antes-por-otro-lado"
+id="gr-3-falta-cma-antes-por-otro-lado"
 validGroup beforeComma
 valid after="\("
 hint="Ponga una coma antes de «por otro lado» (error gramatical)"
 
 [\bpor\sun\slado\b]
-id="gr-2-falta-cma-antes-por-un-lado"
+id="gr-3-falta-cma-antes-por-un-lado"
 validGroup beforeComma
 hint="Ponga una coma antes de «por un lado» (error gramatical)"
 
 [\bpor\suna\sparte\b]
-id="gr-2-falta-coma-antes-por-una-parte"
+id="gr-3-falta-coma-antes-por-una-parte"
 validGroup beforeComma
 hint="Ponga una coma antes de «por una parte» (error gramatical)"
 
 [\bpor\sotra\sparte\s]
-id="gr-2-falta-coma-antes-por-otra-parte"
+id="gr-3-falta-coma-antes-por-otra-parte"
 validGroup beforeComma
 hint="Ponga una coma antes de «por otra parte» (error gramatical)"
 
 [\ben\sfin\b]
-id="gr-2-falta-coma-antes-en-fin"
+id="gr-3-falta-coma-antes-en-fin"
 validGroup beforeComma
 hint="Ponga una coma antes de «en fin» (error gramatical)"
 
 [\bpor\súltimo\b]
-id="gr-2-falta-coma-antes-por-ultimo"
+id="gr-3-falta-coma-antes-por-ultimo"
 validGroup beforeComma
 hint="Ponga una coma antes de «por último» (error gramatical)"
 
 [\bademás\b]
-id="gr-2-falta-coma-antes-ademas"
+id="gr-3-falta-coma-antes-ademas"
 validGroup beforeComma
 hint="Ponga una coma antes de «además» (error gramatical)"
 
@@ -983,89 +983,89 @@ hint="Ponga una coma antes de «además» (error gramatical)"
 #hint="Ponga una coma antes de «con todo» (error gramatical)"
 
 [\ben\sconclusión\b]
-id="gr-2-falta-coma-antes-en-conclusión"
+id="gr-3-falta-coma-antes-en-conclusión"
 validGroup beforeComma
 hint="Ponga una coma antes de «en conclusión» (error gramatical)"
 
 [\ben\stal\scaso\b]
-id="gr-2-falta-coma-antes-en-tal-caso"
+id="gr-3-falta-coma-antes-en-tal-caso"
 validGroup beforeComma
 hint="Ponga una coma antes de «en tal caso» (error gramatical)"
 
 [\bsin\sembargo\b]
-id="gr-2-falta-coma-antes-sin-embargo"
+id="gr-3-falta-coma-antes-sin-embargo"
 validGroup beforeComma
 hint="Ponga una coma antes de «sin embargo» (error gramatical)"
 
 [\bsino\stambién\b]
-id="gr-2-falta-coma-antes-sino-también"
+id="gr-3-falta-coma-antes-sino-también"
 validGroup beforeComma
 hint="Ponga una coma antes de «sino también» (error gramatical)"
 
 [\bno\sobstante\b]
-id="gr-2-falta-coma-antes-no-obstante"
+id="gr-3-falta-coma-antes-no-obstante"
 validGroup beforeComma
 hint="Ponga una coma antes de «no obstante» (error gramatical)"
 
 [\bpor\sejemplo\b]
-id="gr-2-falta-coma-antes-por-ejemplo"
+id="gr-3-falta-coma-antes-por-ejemplo"
 validGroup beforeComma
 hint="Ponga una coma antes de «por ejemplo» (error gramatical)"
 
 [\bp\.\sej\.]
-id="gr-2-falta-coma-antes-p-ej"
+id="gr-3-falta-coma-antes-p-ej"
 validGroup beforeComma
 hint="Ponga una coma antes de «p. ej.» (error gramatical)"
 
 
 [\bpor\sel\scontrario\b]
-id="gr-2-falta-coma-antes-por-el-contrario"
+id="gr-3-falta-coma-antes-por-el-contrario"
 validGroup beforeComma
 hint="Ponga una coma antes de «por el contrario» (error gramatical)"
 
 [\bpor\sotro\slado\b]
-id="gr-2-falta-coma-antes-por-otro-lado"
+id="gr-3-falta-coma-antes-por-otro-lado"
 validGroup beforeComma
 hint="Ponga una coma antes de «por otro lado» (error gramatical)"
 
 [\ben\scambio\b]
-id="gr-2-falta-coma-antes-en-cambio"
+id="gr-3-falta-coma-antes-en-cambio"
 validGroup beforeComma
 hint="Ponga una coma antes de «en cambio» (error gramatical)"
 
 [\befectivamente\b]
-id="gr-2-falta-coma-antes-efectivamente"
+id="gr-3-falta-coma-antes-efectivamente"
 validGroup beforeComma
 hint="Ponga una coma antes de «efectivamente» (error gramatical)"
 
 [\bfinalmente\b]
-id="gr-2-falta-coma-antes-finalmente"
+id="gr-3-falta-coma-antes-finalmente"
 validGroup beforeComma
 hint="Ponga una coma antes de «finalmente» (error gramatical)"
 
 [\bgeneralmente\b]
-id="gr-2-falta-coma-antes-generalmente"
+id="gr-3-falta-coma-antes-generalmente"
 validGroup beforeComma
 hint="Ponga una coma antes de «generalmente» (error gramatical)"
 
 [\bnaturalmente\b]
-id="gr-2-falta-coma-antes-naturalmente"
+id="gr-3-falta-coma-antes-naturalmente"
 validGroup beforeComma
 hint="Ponga una coma antes de «naturalmente» (error gramatical)"
 
 [\bpor\sregla\sgeneral\b]
-id="gr-2-falta-coma-antes-por-regla-general"
+id="gr-3-falta-coma-antes-por-regla-general"
 validGroup beforeComma
 hint="Ponga una coma antes de «por regla general» (error gramatical)"
 
 [\betcétera\b]i
-id="gr-2-falta-coma-antes-etc"
+id="gr-3-falta-coma-antes-etc"
 valid after=",\s"
 valid after=";\s"
 hint="Ponga una coma antes de «etc./&etc;/etcétera» (error gramatical)"
 
 [\betcétera\s?\.\.\.]i
-id="gr-2-puntos-suspensivos-despues-etc"
+id="gr-3-puntos-suspensivos-despues-etc"
 hint="No ponga puntos suspensivos después de «etc./&etc;/etcétera» (error gramatical)"
 
 #[\,\s(y|e|o(?!\sbien)|u|ni)\s]
@@ -1076,36 +1076,36 @@ hint="No ponga puntos suspensivos después de «etc./&etc;/etcétera» (error gr
 #
 
 [\b(Enero|Febrero|Marzo|Abril|Mayo|Junio|Julio|Agosto|Sep?tiembre|Octubre|Noviembre|Diciembre)\b]
-id="gr-2-mayusculas-en-meses"
+id="gr-3-mayusculas-en-meses"
 validGroup beforeCaps
 valid span="Julio" before="\s[A-Z]"
 hint="Los nombres de los meses se escriben en minúsculas (error gramatical)"
 
 [\b(Lunes|Martes|Miércoles|Jueves|Viernes|Sábado|Domingo)\b]
-id="gr-2-mayusculas-en-dias-semana"
+id="gr-3-mayusculas-en-dias-semana"
 validGroup beforeCaps
 #valid span="Domingo" after="Santo\s"
 hint="Los nombres de los días de la semana se escriben en minúsculas (error gramatical)"
 
 [\b(Primavera|Verano|Otoño|Invierno)\b]
-id="gr-2-mayusculas-en-estaciones"
+id="gr-3-mayusculas-en-estaciones"
 validGroup beforeCaps
 hint="Los nombres de las estaciones del año se escriben en minúsculas (error gramatical)"
 
 [\b(Norte|Sur|Este|Oeste)\b]
-id="gr-2-mayusculas-en-puntos-cardinales"
+id="gr-3-mayusculas-en-puntos-cardinales"
 validGroup beforeCaps
 valid after="del\s"
 hint="Los nombres de los puntos cardinales se escriben en minúsculas (error gramatical)"
 
 [\b(Usted|Señor|Don|Fray|San|Santo|Sor|Reverendo)\b]
-id="gr-2-mayusculas-en-tratamientos"
+id="gr-3-mayusculas-en-tratamientos"
 validGroup beforeCaps
 valid span="Santo" before="\sDomingo"
 hint="Los tratamientos « Usted, Señor, Don, ... » se escriben en minúsculas (error gramatical)"
 
 [\b(Rey|Papa|Ministro|Presidente|Embajador|Director|Obispo|Juez|Magistrado|Príncipe)\b]
-id="gr-2-mayusculas-en-cargos"
+id="gr-3-mayusculas-en-cargos"
 validGroup beforeCaps
 hint="Los cargos « Rey, Papa, Ministro, Presidente, ... » se escriben en minúsculas (error gramatical)"
 
@@ -1114,23 +1114,23 @@ hint="Los cargos « Rey, Papa, Ministro, Presidente, ... » se escriben en minú
 #
 
 [(?u)\b(detrás|delante|debajo|encima|cerca)\s(mi[oa]|tuy[oa]|suy[oa]|nuestr[oa]|vuestr[oa])\b]i
-id="gr-2-preposicion-posicion-ante-posesivo"
+id="gr-1-preposicion-posicion-ante-posesivo"
 hint="La expresión correcta es «detrás|delante|debajo|encima|cerca» de «mí/ti/él/nosotros/vosotros» (error gramatical)."
 
 [(?u)(?u)\b(me|te|se|nos|os|los?|las?|les?)\s(a|ante|con|contra|desde|durante|en|hacia|hasta|por|según|sin|tras)\b]i
-id="gr-2-preposicion-tras-pronombre"
+id="gr-1-preposicion-tras-pronombre"
 valid msgstr="la\sA"
 hint="Después de pronombre personal no suele aparecer preposición (error gramatical)"
 
 [(?u)\b(a|ante|con|contra|de|desde|durante|en|entre|hacia|hasta|para|por|según|sin|tras)(\.|\?|\!|\<p\>)]i
-id="gr-2-preposicion-al-fin-de-frase"
+id="gr-1-preposicion-al-fin-de-frase"
 valid span="(?u)\b\w+\." before="\.\."
 valid span="A\."
 valid span="de\." before="[\w|\~]"
 hint="Una preposición no puede aparecer al final de frase (error gramatical)"
 
 [(?u)\b(ni|pero|mas|sino|porque|pues|que|como|si|aunque|conque|o\ssea|es\sdecir|es\smás)(\.|\?|\!|\<p\>)]i
-id="gr-2-conjuncion-al-fin-de-frase"
+id="gr-1-conjuncion-al-fin-de-frase"
 valid span="(?u)\b\w+\." before="\.\."
 hint="Una conjunción no puede aparecer al final de frase (error gramatical)"
 
@@ -1139,23 +1139,23 @@ hint="Una conjunción no puede aparecer al final de frase (error gramatical)"
 #
 
 [(?u)\b(me|te|se|nos|os|los?|las?|les?)(\.|\?|\!|\<p\>)]i
-id="gr-2-pronombre-al-fin-de-frase"
+id="gr-1-pronombre-al-fin-de-frase"
 valid span="(?u)\b\w+\." before="\.\."
 hint="Un pronombre personal no puede aparecer al final de frase( error gramatical)"
 
 [(?u)\bel(\.|\?|\!|\<p\>)]i
-id="gr-2-el-sin-tilde-al-fin-de-frase"
+id="gr-1-el-sin-tilde-al-fin-de-frase"
 valid span="(?u)\b\w+\." before="\.\."
 hint="« El » se escribe como « Él » al final de frase (error gramatical)"
 
 [(?u)\bse(\.|\?|\!|\<p\>)]i
-id="gr-2-se-sin-tilde-al-fin-de-frase"
+id="gr-1-se-sin-tilde-al-fin-de-frase"
 valid msgstr="SE"
 valid span="(?u)\b\w+\." before="\.\."
 hint="« Se » se escribe como « Sé » al final de frase (error gramatical)"
 
 [(?u)\btu(\.|\?|\!|\<p\>)]i
-id="gr-2-tu-sin-tilde-al-fin-de-frase"
+id="gr-1-tu-sin-tilde-al-fin-de-frase"
 valid span="(?u)\b\w+\." before="\.\."
 hint="« Tu » se escribe como « Tú » al final de frase (error gramatical)"
 
@@ -1164,23 +1164,23 @@ hint="« Tu » se escribe como « Tú » al final de frase (error gramatical)"
 #
 
 [(?u)\b(haber|habiendo|habido|he|has|ha|hemos|habéis|han|habí\w+|hub\w+|habr\w+)\s\w+?(ando|iendo|yendo)\b]i
-id="gr-2-haber-antes-de-gerundio"
+id="gr-1-haber-antes-de-gerundio"
 hint="El verbo «haber» no puede aparecer seguido de gerundio (error gramatical)"
 
 [(?u)\besta\s\w+?ado\b]i
-id="gr-2-esta-sin-tilde-antes-participio"
+id="gr-1-esta-sin-tilde-antes-participio"
 hint="«Esta» se escribe como «Está» antes de participio (error gramatical)"
 
 [(?u)\besta\s\w+?(ando|iendo|yendo)\b]i
-id="gr-2-esta-sin-tilde-antes-gerundio"
+id="gr-1-esta-sin-tilde-antes-gerundio"
 hint="«Esta» se escribe como «Está» antes de gerundio (error gramatical)"
 
 [(?u)\buna\s\w+?(ado|ido)\b]i
-id="gr-2-una-antes-participio-masculino"
+id="gr-1-una-antes-participio-masculino"
 hint="Se ha encontrado «una» seguido de participio en masculino (error gramatical)"
 
 [(?u)\bun\s\w+?(ada|ida)\b]i
-id="gr-2-un-antes-participio-femenino"
+id="gr-1-un-antes-participio-femenino"
 hint="Se ha encontrado «un» seguido de participio en femenino (error gramatical)"
 
 ## «A» en lugar de «Ha» antes participio.
@@ -1190,34 +1190,34 @@ hint="Se ha encontrado «un» seguido de participio en femenino (error gramatica
 # No vale, p. ej.: cambia a dañado
 
 [(?u)\be\s\w+?(ad[oa]|id[oa])\b]i
-id="gr-2-e-sin-hache-antes-participio"
+id="gr-1-e-sin-hache-antes-participio"
 valid span="(?u)\be\s(i|hi|Y)\w+?ad[oa]\b"
 hint="Se ha encontrado «E» en lugar de «He» antes de un participio (error gramatical)"
 
 [(?u)\bah\s\w+?(ar|er|ir)\b]i
-id="gr-2-ah-con-hache-antes-infinitivo"
+id="gr-1-ah-con-hache-antes-infinitivo"
 hint="Se ha encontrado «Ah» en lugar de «A» antes de un infinitivo (error gramatical)"
 
 [(?u)\bha\s\w+?(ar|er|ir)\b]i
-id="gr-2-ha-con-hache-antes-infinitivo"
+id="gr-1-ha-con-hache-antes-infinitivo"
 hint="Se ha encontrado «Ha» en lugar de «A» antes de un infinitivo (error gramatical)"
 
 [(?u)\b(ir|voy|vas|va|vamos|ibas?|iré|irás?)\s\w+?(ar|er|ir)\b]i
-id="gr-2-ir-sin-a-antes-infinitivo"
+id="gr-1-ir-sin-a-antes-infinitivo"
 hint="«Ir» lleva una «A» antes de un infinitivo (error gramatical)"
 
 [(?u)\bcab(emos|eís|en|íamos|íais|ían)\s\w+?(ar|er|ir)\b]i
-id="gr-2-cabe-en-singular-antes-de-infinitivo"
+id="gr-1-cabe-en-singular-antes-de-infinitivo"
 hint="«Caber» se escribe en modo singular antes de infinitivo (error gramatical)"
 
 [(?u)\bhubieron\b]i
-id="gr-2-hubieron"
+id="gr-1-hubieron"
 valid before="(?u)\s\w+(ido)"
 valid before="\sde"
 hint="«Hubieron» se escribe como «Hubo» (error gramatical)"
 
 [(?u)\bhabemos\b]i
-id="gr-2-habemos"
+id="gr-1-habemos"
 valid after="nos\slas\s"
 hint="«Habemos» se escribe como «Hemos/Somos» (error gramatical)"
 
@@ -1242,14 +1242,14 @@ hint="« Halla + participio » se escribe como « Haya + participio » (error gr
 #
 
 [(?u)\b([Ee]l|[Aa]l|[Dd]el|[Uu]n|[Ll]a|[Uu]na)\s[«'"]?]
-id="gr-2-concordancia-articulo-singular-nombre"
+id="gr-1-concordancia-articulo-singular-nombre"
 validGroup singularName
 validGroup wordDelimiter
 validGroup beforeConnector
 hint="Hay un artículo singular (El/Al/Del/Un/La/Una) seguido de un nombre en plural"
 
 [(?u)\b([Ll]os|[Ll]as)\s((dos|tres|cuatro|cinco|seis|siete|ocho|nueve|diez|once|doce|\d+)\s)?[«'"]?]
-id="gr-2-concordancia-articulo-definido-plural-nombre"
+id="gr-1-concordancia-articulo-definido-plural-nombre"
 validGroup pluralName
 validGroup thirdPerson
 validGroup wordDelimiter
@@ -1257,21 +1257,21 @@ validGroup beforeConnector
 hint="Hay un artículo definido plural (Los/Las) seguido de un nombre en singular"
 
 [(?u)\b([Uu]nos|[Uu]nas)\s((dos|tres|cuatro|cinco|seis|siete|ocho|nueve|diez|once|doce|\d+)\s)?[«'"]?]
-id="gr-2-concordancia-articulo-indefinido-plural-nombre"
+id="gr-1-concordancia-articulo-indefinido-plural-nombre"
 validGroup pluralName
 validGroup wordDelimiter
 validGroup beforeConnector
 hint="Hay un artículo indefinido plural (Uos/Unas) seguido de un nombre en singular"
 
 [(?u)\b([Ee]ste|[Ee]se|[Aa]quel|[Ee]sta|[Ee]sa|[Aa]quella|[Ee]sto|[Ee]so|[Aa]quello)\s[«'"]?]
-id="gr-2-concordancia-pronombre-singular-nombre"
+id="gr-1-concordancia-pronombre-singular-nombre"
 validGroup singularName
 validGroup wordDelimiter
 validGroup beforeConnector
 hint="Hay un pronombre singular (Este/Ese/Aquel/Esta/Esa/Aquella/Esto/Eso/Aquello) seguido de un nombre en plural"
 
 [(?u)\b([Ee]stos|[Ee]sos|[Aa]quellos|[Ee]stas|[Ee]sas|[Aa]quellas)\s((dos|tres|cuatro|cinco|seis|siete|ocho|nueve|diez|once|doce|\d+)\s)?[«'"]?]
-id="gr-2-concordancia-pronombre-plural-nombre"
+id="gr-1-concordancia-pronombre-plural-nombre"
 validGroup pluralName
 validGroup thirdPerson
 validGroup wordDelimiter
@@ -1279,21 +1279,21 @@ validGroup beforeConnector
 hint="Hay un pronombre plural (Estos/Esos/Aquellos/Estas/Esas/Aquellas) seguido de un nombre en singular"
 
 [(?u)\b([Mm]i|[Tt]u|[Ss]u|[Nn]uestr[oa]|[Vv]uestr[oa])\s[«'"]?]
-id="gr-2-concordancia-posesivo-singular-nombre"
+id="gr-1-concordancia-posesivo-singular-nombre"
 validGroup singularName
 validGroup wordDelimiter
 validGroup beforeConnector
 hint="Hay un posesivo singular (Mi/Tu/Su/Nuestro/Nuestra/Vuestro/Vuestra) seguido de un nombre en plural"
 
 [(?u)\b([Mm]is|[Tt]us|[Ss]us|[Nn]uestr[oa]s|[Vv]uestr[oa]s)\s((dos|tres|cuatro|cinco|seis|siete|ocho|nueve|diez|once|doce|\d+)\s)?[«'"]?]
-id="gr-2-concordancia-posesivo-plural-nombre"
+id="gr-1-concordancia-posesivo-plural-nombre"
 validGroup pluralName
 validGroup wordDelimiter
 validGroup beforeConnector
 hint="Hay un posesivo plural (Mis/Tus/Sus/Nuestros/Nuestras/Vuestros/Vuestras) seguido de un nombre en singular"
 
 [(?u)\b([Ee]l|[Aa]l|[Dd]el|[Uu]n)\s[«'"]?]
-id="gr-2-concordancia-articulo-masculino-nombre"
+id="gr-1-concordancia-articulo-masculino-nombre"
 validGroup maleName
 validGroup neuterName
 validGroup wordDelimiter
@@ -1302,7 +1302,7 @@ validGroup beforeConnector
 hint="Hay un artículo masculino (El/Al/Del/Un) seguido de un nombre en femenino"
 
 [(?u)\b([Ll]os|[Uu]nos)\s((dos|tres|cuatro|cinco|seis|siete|ocho|nueve|diez|once|doce|\d+)\s)?[«'"]?]
-id="gr-2-concordancia-articulo-masculino-plural-nombre"
+id="gr-1-concordancia-articulo-masculino-plural-nombre"
 validGroup maleNamePlural
 validGroup neuterNamePlural
 validGroup thirdPerson
@@ -1311,7 +1311,7 @@ validGroup beforeConnector
 hint="Hay un artículo masculino plural (Los/Unos) seguido de un nombre en femenino"
 
 [(?u)\b([Ll]a|[Uu]na)\s[«'"]?]
-id="gr-2-concordancia-articulo-femenino-nombre"
+id="gr-1-concordancia-articulo-femenino-nombre"
 validGroup femaleName
 validGroup neuterName
 validGroup wordDelimiter
@@ -1319,7 +1319,7 @@ validGroup beforeConnector
 hint="Hay un artículo femenino (La/Una) seguido de un nombre en masculino"
 
 [(?u)\b([Ll]as|[Un]nas)\s((dos|tres|cuatro|cinco|seis|siete|ocho|nueve|diez|once|doce|\d+)\s)?[«'"]?]
-id="gr-2-concordancia-articulo-femenino-plural-nombre"
+id="gr-1-concordancia-articulo-femenino-plural-nombre"
 validGroup femaleNamePlural
 validGroup neuterNamePlural
 validGroup thirdPerson
@@ -1328,7 +1328,7 @@ validGroup beforeConnector
 hint="Hay un artículo femenino plural (Las/Unas) seguido de un nombre en masculino"
 
 [(?u)\b([Ee]ste|[Ee]se|[Aa]quel)\s[«'"]?]
-id="gr-2-concordancia-demostrativo-masculino-nombre"
+id="gr-1-concordancia-demostrativo-masculino-nombre"
 validGroup maleName
 validGroup neuterName
 validGroup wordDelimiter
@@ -1336,7 +1336,7 @@ validGroup beforeConnector
 hint="Hay un demostrativo masculino (Este/Ese/Aquel) seguido de un nombre en femenino"
 
 [(?u)\b([Ee]stos|[Ee]sos|[Aa]quellos)\s[«'"]?]
-id="gr-2-concordancia-demostrativo-masculino-plural-nombre"
+id="gr-1-concordancia-demostrativo-masculino-plural-nombre"
 validGroup maleNamePlural
 validGroup neuterNamePlural
 validGroup wordDelimiter
@@ -1344,7 +1344,7 @@ validGroup beforeConnector
 hint="Hay un demostrativo masculino plural (Estos/Esos/Aquellos) seguido de un nombre en femenino"
 
 [(?u)\b([Ee]sta|[Ee]sa|[Aa]quella)\s[«'"]?]
-id="gr-2-concordancia-demostrativo-femenino-nombre"
+id="gr-1-concordancia-demostrativo-femenino-nombre"
 validGroup femaleName
 validGroup neuterName
 validGroup wordDelimiter
@@ -1352,7 +1352,7 @@ validGroup beforeConnector
 hint="Hay un demostrativo femenino (Esta/Esa/Aquella) seguido de un nombre en masculino"
 
 [(?u)\b([Ee]stas|[Ee]sas|[Aa]quellas)\s[«'"]?]
-id="gr-2-concordancia-demostrativo-femenino-plural-nombre"
+id="gr-1-concordancia-demostrativo-femenino-plural-nombre"
 validGroup femaleNamePlural
 validGroup neuterNamePlural
 validGroup wordDelimiter
@@ -1360,7 +1360,7 @@ validGroup beforeConnector
 hint="Hay un demostrativo femenino plural (Estas/Esas/Aquellas) seguido de un nombre en masculino"
 
 [(?u)\b([Nn]uestro|[Vv]uestro)\s[«'"]?]
-id="gr-2-concordancia-posesivo-masculino-nombre"
+id="gr-1-concordancia-posesivo-masculino-nombre"
 validGroup maleName
 validGroup neuterName
 validGroup wordDelimiter
@@ -1368,7 +1368,7 @@ validGroup beforeConnector
 hint="Hay un posesivo masculino (Nuestro/Vuestro) seguido de un nombre en femenino"
 
 [(?u)\b([Nn]uestros|[Vv]uestros)\s[«'"]?]
-id="gr-2-concordancia-posesivo-masculino-plural-nombre"
+id="gr-1-concordancia-posesivo-masculino-plural-nombre"
 validGroup maleNamePlural
 validGroup neuterNamePlural
 validGroup wordDelimiter
@@ -1376,7 +1376,7 @@ validGroup beforeConnector
 hint="Hay un posesivo masculino plural (Nuestros/Vuestros) seguido de un nombre en femenino"
 
 [(?u)\b([Nn]uestra|[Vv]uestra)\s[«'"]?]
-id="gr-2-concordancia-posesivo-femenino-nombre"
+id="gr-1-concordancia-posesivo-femenino-nombre"
 validGroup femaleName
 validGroup neuterName
 validGroup wordDelimiter
@@ -1384,7 +1384,7 @@ validGroup beforeConnector
 hint="Hay un posesivo femenino (Nuestra/Vuestra) seguido de un nombre en masculino"
 
 [(?u)\b([Nn]uestras|[Vv]uestras)\s[«'"]?]
-id="gr-2-concordancia-posesivo-femenino-plural-nombre"
+id="gr-1-concordancia-posesivo-femenino-plural-nombre"
 validGroup femaleNamePlural
 validGroup neuterNamePlural
 validGroup wordDelimiter
@@ -1392,11 +1392,11 @@ validGroup beforeConnector
 hint="Hay un posesivo femenino plural (Nuestras/Vuestras) seguido de un nombre en masculino"
 
 [(?u)\bhabían\smuchas\s\w+?as\b]i
-id="gr-2-habian-muchas"
+id="gr-1-habian-muchas"
 hint="«Habían muchas`+ plural» se escribe como «Había muchas» (error gramatical)"
 
 [(?u)\b(tener|tengo|tienes|tiene|tenía|tenías|teníamos|tenían|)\sclaro\suna\b]i
-id="gr-2-tener-claro-una"
+id="gr-3-tener-claro-una"
 hint="«Tener claro una» se escribe como «Tener clara una» (error gramatical)"
 
 #
@@ -1423,11 +1423,11 @@ valid msgstr="\(par\)"
 hint="«Par» se escribe como «Para» en la mayor parte de los casos (error gramatical)"
 
 [\bla\s(aura|ágata|ágora|águila|álgebra|áncora|ánfora|ánima|área|árnica|acta|afta|agua|aguasal|aguaviva|ala|alba|alga|algia|alma|alza|ama|anca|ancla|ansia|ara|arca|archa|aria|arma|arpa|arria|arte|asa|ascua|asma|aspa|asta|aula|ave|aya|haba|habla|hacha|hada|hambre|hampa)\b]i
-id="gr-2-la-antes-a-tonico"
+id="gr-1-la-antes-a-tonico"
 hint="Antes de una palabra que empieza por «a» o «ha» tónicas, se emplea el determinante masculino (error de concordancia)"
 
 [\beste\s(aura|ágata|ágora|águila|álgebra|áncora|ánfora|ánima|área|árnica|acta|afta|agua|aguasal|aguaviva|ala|alba|alga|algia|alma|alza|ama|anca|ancla|ansia|ara|arca|archa|aria|arma|arpa|arria|arte|asa|ascua|asma|aspa|asta|aula|ave|aya|haba|habla|hacha|hada|hambre|hampa|haya)\b]i
-id="gr-2-este-antes-a-tonico"
+id="gr-1-este-antes-a-tonico"
 hint="Antes de una palabra que empieza por «a» o «ha» tónicas, se emplea «esta» y no «este» (error gramatical)"
 
 #
@@ -1435,35 +1435,35 @@ hint="Antes de una palabra que empieza por «a» o «ha» tónicas, se emplea «
 #
 
 [(?u)\b(alegrar|enterar|informar|dudar|convencer|hartar|quejar|protestar)(me|te|l[ea][s]?|se|nos|os)\sque\b]i
-id="gr-2-queismo-1"
+id="gr-1-queismo-1"
 hint="Los verbos de tipo «Convencer» van seguido normalmente de la preposición «de», queismo (error gramatical)"
 
 [(?u)\b(est\w{1,4}?)\s(segur[oa]|alegre|triste|entristecid[oa]|sorprendid[oa]|convencid[oa]|agobiad[oa]|preocupad[oa]|hart[oa]|cansad[oa]|aburrid[oa])s?\sque\b]i
-id="gr-2-queismo-2"
+id="gr-1-queismo-2"
 hint="En este contexto, el verbo va seguido normalmente de la preposición «de», queismo (error gramatical)"
 
 [(?u)\ba\scondición\sque\b]i
-id="gr-2-queismo-3"
+id="gr-1-queismo-3"
 hint="« A condición que » se escribe como « A condición de que », queismo (error gramatical)"
 
 [(?u)\ba\sfin\sque\b]i
-id="gr-2-queismo-4"
+id="gr-1-queismo-4"
 hint="« A fin que » se escribe como « A fin de que », queismo (error gramatical)"
 
 [(?u)\bacordarse\sque\b]i
-id="gr-2-queismo-5"
+id="gr-1-queismo-5"
 hint="« Acordarse que » se escribe como « Acordarse de que », queismo (error gramatical)"
 
 [(?u)\bal\spunto\sque\b]i
-id="gr-2-queismo-6"
+id="gr-1-queismo-6"
 hint="« Al punto que » se escribe como « Hasta el punto de que » queismo (error gramatical)"
 
 [(?u)\ba\spesar\sque\b]i
-id="gr-2-queismo-7"
+id="gr-1-queismo-7"
 hint="« A pesar que » se escribe como « A pesar de que », queismo (error gramatical)"
 
 [(?u)\barrepentirse\sque\b]i
-id="gr-2-queismo-8"
+id="gr-1-queismo-8"
 hint="« Arrepentirse que » se escribe como « Arrepentirse de que », queismo (error gramatical)"
 
 [(?u)\bca\w{1,4}?\sen\sla\scuenta\sque\b]i
@@ -1471,43 +1471,43 @@ id="gr-2-queismo-9"
 hint="« Caer en la cuenta que » se escribe como « Caer en la cuenta de que », queismo (error gramatical)"
 
 [(?u)\bcon\sla\scondición\sque\b]i
-id="gr-2-queismo-10"
+id="gr-1-queismo-10"
 hint="« Con la condición que » se escribe como « Con la condición de que », queismo (error gramatical)"
 
 [(?u)\bd\w{1,4}?\sla\scasualidad\sde\sque\b]i
-id="gr-2-queismo-11"
+id="gr-1-queismo-11"
 hint="« Dar la casualidad que » se escribe como « Dar la casualidad de que », queismo (error gramatical)"
 
 [(?u)\bdarse\scuenta\sque\b]i
-id="gr-2-queismo-12"
+id="gr-1-queismo-12"
 hint="« Darse cuenta que » se escribe como « Darse cuenta de que », queismo (error gramatical)"
 
 [(?u)\ben\scaso\sque\b]i
-id="gr-2-queismo-13"
+id="gr-1-queismo-13"
 hint="« En caso que » se escribe como « En caso de que », queismo (error gramatical)"
 
 [(?u)\bhasta\sel\spunto\sque\b]i
-id="gr-2-queismo-14"
+id="gr-1-queismo-14"
 hint="« Hasta el punto que » se escribe como « Hasta el punto de que », queismo (error gramatical)"
 
 [(?u)\binsist\w{1,4}?\sque\b]i
-id="gr-2-queismo-15"
+id="gr-1-queismo-15"
 hint="« Insistir que » se escribe como « Insistir en que », queismo (error gramatical)"
 
 [(?u)\bno\scab\w{1,4}?\sduda\sque\b]i
-id="gr-2-queismo-16"
+id="gr-1-queismo-16"
 hint="« No cabe duda que » se escribe como « No cabe duda de que », queismo (error gramatical)"
 
 [(?u)\bno\sha\w{1,4}?\sduda\sque\b]i
-id="gr-2-queismo-17"
+id="gr-1-queismo-17"
 hint="« No hay duda que » se escribe como « No hay duda de que », queismo (error gramatical)"
 
 [(?u)\bpreocuparse\sque\b]i
-id="gr-2-queismo-18"
+id="gr-1-queismo-18"
 hint="« Preocuparse que » se escribe como « Preocuparse de/por que », queismo (error gramatical)"
 
 [(?u)\btrat\w{1,4}?\sque\b]i
-id="gr-2-queismo-19"
+id="gr-1-queismo-19"
 hint="« Tratar que » se escribe como « Tratar de que », queismo (error gramatical)"
 
 #
@@ -1515,7 +1515,7 @@ hint="« Tratar que » se escribe como « Tratar de que », queismo (error grama
 #
 
 [(?u)\b(pens\w{1,4}?|piens\w{1,4}?|opin\w{1,4}?|cree\w{,4}?|creo|coment\w{1,4}?|expres\w{1,4}?|deci\w{1,4}?|dice\w{0,4}?|dijo|deduc\w{1,4}?|deduzco|infer\w{1,4}?|infiero|coleg\w{1,4}?|colijo|razon\w{1,4}?|comunic\w{1,4}?|confirm\w{1,4}?|corrobor\w{1,4}?|desment\w{1,4}?|desmient\w{1,4}?|const\w{1,4}?|result\w{1,4}?|aconsej\w{1,4}?|ver|observ\w{1,4}?)\sde\sque\b]i
-id="gr-2-dequeismo-1"
+id="gr-1-dequeismo-1"
 hint="Posible dequeísmo (error gramatical)"
 
 ## Verbo tipo estar + AQ + de que
@@ -1523,136 +1523,136 @@ hint="Posible dequeísmo (error gramatical)"
 #hint="Posible dequeísmo «Ser/Estar/Encontrar/Ver/Entender ... de que» (Error gramatical)"
 
 [(?u)\b(me|te|se|nos|os|los?|las?|les?)\s(alegra|entristece|agobia|importa|resbala|harta|emociona|altera|aburre|falta|preocupa)\sde\sque\b]i
-id="gr-2-dequeismo-2"
+id="gr-1-dequeismo-2"
 hint="Posible dequeísmo (error gramatical)"
 
 [(?u)insist\w{1,4}?\sde\sque]i
-id="gr-2-dequeismo-3"
+id="gr-1-dequeismo-3"
 hint="Posible dequeísmo (error gramatical)"
 
 [(?u)\ba\smedida\sde\sque\b]i
-id="gr-2-dequeismo-4"
+id="gr-1-dequeismo-4"
 hint="« A medida de que » e escribe como «A medida que»., dequeismo (error gramatical)"
 
 [(?u)\ba\sno\sser\sde\sque\b]i
-id="gr-2-dequeismo-5"
+id="gr-1-dequeismo-5"
 hint="« A no ser de que » e escribe como «A no ser que»., dequeismo (error gramatical)"
 
 [(?u)\bafirm\w{1,4}?\sde\sque\b]i
-id="gr-2-dequeismo-6"
+id="gr-1-dequeismo-6"
 hint="« Afirmar de que » se escribe como « Afirmar que », dequeismo (error gramatical)"
 
 [(?u)\basegur\w{1,4}?\sde\sque\b]i
 valid msgstr="asegurarse\sde\sque"
-id="gr-2-dequeismo-7"
+id="gr-1-dequeismo-7"
 hint="« Asegurar de que » se escribe como « Asegurar que », dequeismo (error gramatical)"
 
 [(?u)\bcomprob\w{1,4}?\sde\sque\b]i
-id="gr-2-dequeismo-8"
+id="gr-1-dequeismo-8"
 hint="« Comprobar de que » se escribe como « Comprobar que », dequeismo (error gramatical)"
 
 [(?u)\bconsider\w{1,4}?\sde\sque\b]i
-id="gr-2-dequeismo-9"
+id="gr-1-dequeismo-9"
 hint="« Considerar de que » se escribe como « Considerar que », dequeismo (error gramatical)"
 
 [(?u)\bcontest\w{1,4}?\sde\sque\b]i
-id="gr-2-dequeismo-10"
+id="gr-1-dequeismo-10"
 hint="« Contestar de que » se escribe como « Contestar que », dequeismo (error gramatical)"
 
 [(?u)\bcree\w{1,4}?\sde\sque\b]i
-id="gr-2-dequeismo-11"
+id="gr-1-dequeismo-11"
 hint="« Creer de que » se escribe como « Creer que », dequeismo (error gramatical)"
 
 [(?u)\ben\sla\smedida\sde\sque\b]i
-id="gr-2-dequeismo-12"
+id="gr-1-dequeismo-12"
 hint="« En la medida de que » se escribe como « En la medida que », dequeismo (error gramatical)"
 
 [(?u)\bexplic\w{1,4}?\sde\sque\b]i
-id="gr-2-dequeismo-13"
+id="gr-1-dequeismo-13"
 hint="« Explicar de que » se escribe como « Explicar que », dequeismo (error gramatical)"
 
 [(?u)\bexpon\w{1,4}?\sde\sque\b]i
-id="gr-2-dequeismo-14"
+id="gr-1-dequeismo-14"
 hint="« Exponer de que » se escribe como « Exponer que », dequeismo (error gramatical)"
 
 [(?u)\bgust\w{1,4}?\sde\sque\b]i
-id="gr-2-dequeismo-15"
+id="gr-1-dequeismo-15"
 hint="« Gustar de que » se escribe como « Gustar que », dequeismo (error gramatical)"
 
 [(?u)\bimagin\w{1,4}?\sde\sque\b]i
-id="gr-2-dequeismo-16"
+id="gr-1-dequeismo-16"
 hint="« Imaginar de que » se escribe como « Imaginar que », dequeismo (error gramatical)"
 
 [(?u)\bindic\w{1,4}?\sde\sque\b]i
-id="gr-2-dequeismo-17"
+id="gr-1-dequeismo-17"
 hint="« Indicar de que » se escribe como « Indicar que », dequeismo (error gramatical)"
 
 [(?u)\binsist\w{1,4}?\sde\sque\b]i
-id="gr-2-dequeismo-18"
+id="gr-1-dequeismo-18"
 hint="« Insistir de que » se escribe como « Insistir en que », dequeismo (error gramatical)"
 
 [(?u)\bllam\w{1,4}?\sla\satención\sde\sque\b]i
-id="gr-2-dequeismo-19"
+id="gr-1-dequeismo-19"
 hint="« Llamar la atención de que » se escribe como « Llamar la atención que », dequeismo (error gramatical)"
 
 [(?u)\bneg\w{1,4}?\sde\sque\b]i
-id="gr-2-dequeismo-20"
+id="gr-1-dequeismo-20"
 hint="« Negar de que » se escribe como « Negar que », dequeismo (error gramatical)"
 
 [(?u)\bnot\w{1,4}?\sde\sque\b]i
-id="gr-2-dequeismo-21"
+id="gr-1-dequeismo-21"
 hint="« Notar de que » se escribe como « Notar que », dequeismo (error gramatical)"
 
 [(?u)\bobserv\w{1,4}?\sde\sque\b]i
-id="gr-2-dequeismo-22"
+id="gr-1-dequeismo-22"
 hint="« Observar de que » se escribe como « Observar que », dequeismo (error gramatical)"
 
 [(?u)\b(oir|oigo|oyes?|oimos|ois|oías?|oiré|oirás?)\sde\sque\b]i
-id="gr-2-dequeismo-23"
+id="gr-1-dequeismo-23"
 hint="« Oir de que » se escribe como « Oir que », dequeismo (error gramatical)"
 
 [(?u)\bped\w{1,4}?\sde\sque\b]i
-id="gr-2-dequeismo-24"
+id="gr-1-dequeismo-24"
 hint="« Pedir de que » se escribe como « Pedir que », dequeismo (error gramatical)"
 
 [(?u)\bpretend\w{1,4}?\sde\sque\b]i
-id="gr-2-dequeismo-25"
+id="gr-1-dequeismo-25"
 hint="« Pretender de que » se escribe como « Pretender que », dequeismo (error gramatical)"
 
 [(?u)\bprohib\w{1,4}?\sde\sque\b]i
-id="gr-2-dequeismo-26"
+id="gr-1-dequeismo-26"
 hint="« Prohibir de que » se escribe como « Prohibir que », dequeismo (error gramatical)"
 
 [(?u)\brecord\w{1,4}?\sde\sque\b]i
-id="gr-2-dequeismo-27"
+id="gr-1-dequeismo-27"
 hint="« Recordar de que » se escribe como « Recordar que », dequeismo (error gramatical)"
 
 [(?u)\sab\w{1,4}?\sde\sque\b]i
-id="gr-2-dequeismo-28"
+id="gr-1-dequeismo-28"
 hint="« Saber de que » se escribe como « Saber que », dequeismo (error gramatical)"
 
 [(?u)\bsospech\w{1,4}?\sde\sque\b]i
-id="gr-2-dequeismo-29"
+id="gr-1-dequeismo-29"
 hint="« Sospechar de que » se escribe como « Sospechar que », dequeismo (error gramatical)"
 
 [(?u)\bsupon\w{1,4}?\sde\sque\b]i
-id="gr-2-dequeismo-30"
+id="gr-1-dequeismo-30"
 hint="« Suponer de que » se escribe como « Suponer que », dequeismo (error gramatical)"
 
 [(?u)\btem\w{1,4}?\sde\sque\b]i
-id="gr-2-dequeismo-31"
+id="gr-1-dequeismo-31"
 hint="« Temer de que » se escribe como « Temer que », dequeismo (error gramatical)"
 
 [(?u)\buna\svez\sde\sque\b]i
-id="gr-2-dequeismo-32"
+id="gr-1-dequeismo-32"
 hint="« Una vez de que » se escribe como «Una vez que»., dequeismo (error gramatical)"
 
 [(?u)\bval\w{1,4}?\sla\spena\sde\sque\b]i
-id="gr-2-dequeismo-33"
+id="gr-1-dequeismo-33"
 hint="« Valer la pena de que » se escribe como « Valer la pena que que », dequeismo (error gramatical)"
 
 [(?u)\bverifi\w{1,4}?\sde\sque\b]i
-id="gr-2-dequeismo-34"
+id="gr-1-dequeismo-34"
 hint="« Verificar de que » se escribe como « Verificar que », dequeismo (error gramatical)"
 
 # End of rule file
