@@ -3,6 +3,7 @@ set(files
     html.entities
     html.l1
     kuit.l1
+    kuit.entities
     pango.l1
     qtrich.l1
 )
