@@ -565,7 +565,7 @@ hint="Hay una palabra consecutiva repetida en el párrafo (error gramatical)"
 id="gr-1-frase-repetida"
 hint="Hay un grupo de dos o más palabras consecutivas repetido en el párrafo (error gramatical)"
 
-[(?u)\b(el|la|los|las)(?!\n)\s+(el|la|los|las)\b]i
+[(?u)\b(el|la|lo|los|las)(?!\n)\s+(el|la|lo|los|las)\b]i
 id="gr-1-articulos-det-consecutivos"
 hint="Hay dos artículos determinados consecutivos en el párrafo (error gramatical)"
 
@@ -573,7 +573,7 @@ hint="Hay dos artículos determinados consecutivos en el párrafo (error gramati
 id="gr-1-articulos-ind-consecutivos"
 hint="Hay dos artículos indeterminados consecutivos en el párrafo (error gramatical)"
 
-[(?u)\b(al|del)\s(el|la|los|las|un|una|unos|unas)\b]i
+[(?u)\b(al|del)\s(el|la|lo|los|las|un|una|unos|unas)\b]i
 id="gr-1-articulo-tras-contraccion"
 hint="Hay un artículo después de uno contraído «Al/Del» (error gramatical)"
 
@@ -584,6 +584,34 @@ hint="Hay dos demostrativos consecutivos en el párrafo (error gramatical)"
 [(?u)\b(yo|tú|vos|él|ellas?|ellos?|usted|ustedes|nosotr[oa]s|mí|ti|sí)(?!\n)\s+(yo|tú|vos|él|ellas?|ellos?|usted|ustedes|nosotr[oa]s|mí|ti|sí)\b]i
 id="gr-1-pronombres-consecutivos"
 hint="Hay dos pronombres consecutivos en el párrafo (error gramatical)"
+
+[(?u)\b(el|la|lo|los|las)(?!\n)\s+(este|ese|aquel|estas?|esas?|aquellas?|estos?|esos?|aquellos?|mis?|tus?|sus?)\b]i
+id="gr-1-articulo-seguido-demostrativo"
+valid msgstr="el\seste"
+hint="Hay un artículo determinado seguido de un demostrativo en el párrafo (error gramatical)"
+
+[(?u)\b(le|se)(?!\n)\s+(yo|tú|vos|él|ellas?|ellos?|usted|ustedes|nosotr[oa]s|mí|ti|sí)\b]i
+id="gr-1-reflexivo-seguido-pronombre"
+valid msgstr="el\seste"
+hint="Hay un reflexivo seguido de un pronombre en el párrafo (error gramatical)"
+
+[(?u)\b(le|se)(?!\n)\s+(el|un|unos|unas)\b]i
+id="gr-1-reflexivo-seguido-articulo"
+valid msgstr="el\seste"
+hint="Hay un reflexivo seguido de un artículo en el párrafo (error gramatical)"
+
+[(?u)\b(le|se)(?!\n)\s+(este|ese|aquel|estas?|esas?|aquellas?|estos?|esos?|aquellos?|mis?|tus?|sus?)\b]i
+id="gr-1-reflexivo-seguido-demostrativo"
+valid msgstr="el\seste"
+hint="Hay un reflexivo seguido de un demostrativo en el párrafo (error gramatical)"
+
+[(?u)\b(el|la|los|las)(?!\n)\s+(un|uno|una|unos|unas)\b]i
+id="gr-1-articulo-seguido-un"
+valid msgstr="el\suno"
+valid msgstr="la\suna"
+valid msgstr="los\sunos"
+valid msgstr="las\unas"
+hint="Hay un artículo determinado seguido de «un» (error gramatical)"
 
 #
 # EXPRESIONES INCORRECTAS
