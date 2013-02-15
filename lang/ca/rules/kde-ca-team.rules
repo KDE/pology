@@ -60,13 +60,16 @@ valid msgid="login.?(dialogs?|box(es|s)?)" # -> quadre/s / diàleg/s d'inici de 
 valid msgid="mail.?box(es|s)?"		# -> bústia/es, bústia/es de correu
 valid msgid="message.?box(es|s)?"	# -> quadre/s de missatge
 valid msgid="preview\sbox(es|s)?"	# -> quadre/s de vista prèvia
+valid msgid="radio.?box"		# -> caixa de botons d'opció
 valid msgid="search.?box(es|s)?"	# -> quadre/s de cerca
 valid msgid="selection.?box(es|s)?"	# -> casella/es de selecció
+valid msgid="shaded\sbox(es|s)?"	# -> caixa/es ombrejada/es
 valid msgid="spin.?box(es|s)?"		# -> botó/ons de selecció de valors
 valid msgid="text.?box(es|s)?"		# -> quadre/s de text
+valid msgid="out of the box"
 valid msgstr="quadres?"
 valid msgstr="casell(a|es)"
-valid msgstr="caix(a|es)" cat="kxsconfig,kpovmodeler,kmid,knode"
+valid msgstr="caix(a|es)" cat="kxsconfig,kpovmodeler,kmid,knode,ksysguard,kdm_theme-ref,konqueror_browser,konqueror_filemanager"
 valid msgstr="capsa" cat="libkdeedu,kstars"
 valid msgstr="box(es)?"
 valid msgstr="apartats? de correus"            # post office  -> apartat de correus
@@ -80,6 +83,7 @@ valid msgid="slider\sbutton"
 valid msgstr="bot(ó|ons)"
 valid msgstr="button" cat="klinkstatus"
 valid msgstr="B(D|E|M)R" # Per a docmessages &BDR;/&BER;/&BMR;
+valid comment="Tag\:\sterm" cat="kdm_theme-ref" # docmessages
 hint="Es tradueix per «botó/botons» (kde-ca-team)"
 
 {\bcharacter\sset\b}i
@@ -370,6 +374,7 @@ hint="Es tradueix per «llista/es de correu» (kde-ca-team)"
 
 {\bmenu.?bars?\b}i
 valid msgstr="barr(a|es) de menú"
+valid msgstr="menubar" cat="calligra"
 hint="Es tradueix per «barra/es de menú» (kde-ca-team)"
 
 {\bmessage.?box(es|s)?\b}i
@@ -398,6 +403,10 @@ hint="Es tradueix per «quadre/s de vista prèvia» (kde-ca-team)"
 {\bprogress.?bars?\b}i
 valid msgstr="barr(a|es) de progrés"
 hint="Es tradueix per «barra/es de progrés» (kde-ca-team)"
+
+{\bradio.?box\b}i
+valid msgstr="caixa de botons d'opció"
+hint="Es tradueix per «caixa de botons d'opció» (kde-ca-team)"
 
 {\bradio.?buttons?\b}i
 valid msgstr="bot(ó|ons) d'opció"
@@ -431,6 +440,10 @@ hint="Es tradueix per «quadre/s de cerca» (kde-ca-team)"
 valid msgid="drop.?(down.?)?(selection\s)?box(es|s)?" # -> llista/es desplegable/s
 valid msgstr="casell(a|es) de selecció"
 hint="Es tradueix per «casella/es de selecció» (kde-ca-team)"
+
+{\bshaded\sbox(es|s)?\b}i
+valid msgstr="caix(a|es) ombrejad(a|es)"
+hint="Es tradueix per «caixa/es ombrejada/es» (kde-ca-team)"
 
 {\bshortcuts?\b}i
 valid msgstr="drecer(a|es)"
@@ -526,6 +539,7 @@ valid msgstr="tab" cat="kdelibs4,kcmkeyboard,kabcclient,kdeqt,katepart4,ktouch,d
 valid msgstr="tabulatur(a|es)" cat="amarok" # Tablature -> Tabulatura (Termcat: música)
 valid msgstr="encastat" cat="kcontrol_filetypes" # docmessages
 valid msgstr="~" after="screenshot.+" cat="korganizer" # docmessages
+valid msgstr="«tab:»" # docmessages
 valid before="\swindow manager" cat="desktop_kde-workspace"
 hint="Es tradueix per «pestanya/es|tabulació/ons/dor, caràcter de tabulació» (kde-ca-team)"
 

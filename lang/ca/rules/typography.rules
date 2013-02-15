@@ -17,6 +17,7 @@ valid after="michae"
 valid after="\<email>"
 valid after="return\s" cat="katepart4"
 valid before="unak@kde"
+valid before="udwig@kde"
 hint="La l·l geminada porta un punt volat (no un punt normal) (tipografia)"
 
 include file="filter.include"
@@ -45,6 +46,7 @@ valid after="«.+"
 [\s\:]
 valid ctx="Numbers and characters"
 valid ctx="CSV separator"
+valid msgid="\s\:\s" cat="tellico_details" # docmessages
 valid before="\{"
 valid before="q\:"
 valid before="local\:"
@@ -102,12 +104,14 @@ hint="S'ha de posar un espai després del signe dels dos punts (tipografia)"
 [\s\;]
 valid ctx="Numbers and characters"
 valid ctx="CSV separator" 
+valid msgid="\s;;" # docmessages
 valid after="Algerian\s*" cat="calligra,koffice"
 valid after="Algerian\s*" cat="calligra,koffice"
 valid after="abans\sde" cat="cantor"
 valid span="\s\;$" cat="kleopatra" # docmessages
 valid comment="Tag\:\sprogramlisting" cat="kipi-plugins_geolocation" # docmessages
 valid comment="Tag\:\sscreen" cat="sscd" # docmessages
+valid comment="Tag\:\scommand" cat="konsole" # docmessages
 hint="No s'ha de posar cap espai abans del signe de punt i coma (tipografia)"
 
 [;\S]
@@ -273,6 +277,7 @@ valid after="V\sI\sS\sT\sA"
 hint="No s'ha de posar més d'un espai consecutiu (tipografia)"
 
 [\s\%]
+valid msgid="%\\" cat="kile" # docmessages
 valid before="\w"
 valid before="$"
 valid before=":m"
@@ -325,6 +330,7 @@ valid ctx="Numbers and characters"
 valid ctx="unit synonyms for matching user input"
 valid msgid="CREDIT_FOR_TRANSLATORS"
 valid msgstr="\.\*" cat="knode_using-morefeatures"
+valid msgstr="{{\.\/}" # docmessages
 valid before="D?COPserver"
 valid before="\w{1,16}\b" # Extensions
 valid after="adreces IP.+" cat="kcmkio,kcontrol_proxy"
@@ -479,8 +485,9 @@ valid after="PREFIX=|~" cat="amarok"
 valid after="esperava\s`?" cat="kdevcpp"
 valid after="invertides \(" cat="kcmgrub2"
 valid after="CONSOLEOWNER.+" cat="kcontrol_mouse" # docmessages
+valid after="{" # docmessages
 valid cat="kdecalendarsystems"
-valid comment="Tag\:\sprogramlisting" cat="kdm" # docmessages
+valid comment="Tag\:\sprogramlisting" cat="kdm,tellico_hacking" # docmessages
 valid comment="Tag\:\sscreen" cat="kmail_faq" # docmessages
 valid before="\/share\/apps\/" # docmessages
 valid before="kde4-config" # docmessages
@@ -531,6 +538,8 @@ hint="Un apòstrof final és un error, excepte a ordres de terminal (tipografia)
 # Les cometes anglosaxones «"» s'han de substituir per les cometes llatines «»
 # En un teclat català, s'obtenen amb AltGr+z i AltGr+x (ull amb les ordres!).
 [\"]
+valid msgid="K\\\"uhler" # docmessages
+valid msgid="(\")" # docmessages
 valid after="~"
 valid after="~.+" cat="amarokcollectionscanner_qt"
 valid after="00" cat="marble"
@@ -588,11 +597,11 @@ valid ctx="Numbers and characters"
 valid ctx="Qoute character option" cat="kaddressbook"
 valid ctx="angle unit symbol"
 valid ctx="unit synonyms for matching user input"
-valid comment="Tag\:\s(entry|para)" cat="quanta_extending-quanta" # docmessages
+valid comment="Tag\:\s(entry|para)" cat="krecipes,quanta_extending-quanta" # docmessages
 valid comment="Tag\:\sscreen" cat="kdm,kdeprint_cups-config,kjs_man-kjs.1,kturtle_glossary,kturtle_programming-reference,kmail_faq,konsolekalendar" # docmessages
-valid comment="Tag\:\sprogramlisting" cat="kdm,kdm_theme-ref,kleopatra,klettres,kcontrol_kremotecontrol,kipi-plugins_geolocation,kate_plugins" # docmessages
+valid comment="Tag\:\sprogramlisting" cat="kile,kdm,kdm_theme-ref,kleopatra,klettres,kcontrol_kremotecontrol,kipi-plugins_geolocation,kate_advanced,kate_plugins" # docmessages
 valid comment="Tag\:\sliterallayout" cat="kabcclient_man-kabcclient.1,ktimetracker" # docmessages
-valid comment="Tag\:\suserinput" cat="kate_advanced" # docmessages
+valid comment="Tag\:\suserinput" cat="kate_advanced,kioslave_nepomuksearch" # docmessages
 valid msgstr="PRINT \"HOLA MÓN\"" cat="kjots" # docmessages
 hint="Cal utilitzar les cometes llatines «» (AltGr+z/x) en lloc de les anglosaxones (tipografia)"
 

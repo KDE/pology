@@ -62,6 +62,7 @@ hint="«empotrar» s'ha de substituir per «encastar» (barbarisme)"
 
 [\bentorn a\b]i
 valid msgstr="\bun entorn a\b"
+valid msgstr="l'entorn a utilitzar"
 hint="«entorn a» s'ha de substituir per «entorn de» (barbarisme)"
 
 [espònsor(s)]i
@@ -80,6 +81,7 @@ valid msgstr="igual mida"
 valid msgstr="igual per a\b"
 valid msgstr="No igual"
 valid msgstr="Més petit o igual"
+valid msgstr="exactament igual"
 valid msgstr="signe .?igual.?"
 valid msgstr="igual" cat="htmlsearch,simoncalculatorcommand,digikam,amarok,krusader,analitza,sheets,kcells,ppdtranslations4"
 valid msgstr="Compartir Igual" cat="simonlib,kipiplugin_mediawiki"
