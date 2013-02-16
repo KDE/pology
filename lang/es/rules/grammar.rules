@@ -52,7 +52,7 @@ valid before="mayor\b"
 valid before="menor\b"
 valid before="con\b"
 valid before="sin\b"
-
+valid before="como\b"
 
 validGroup singularName
 valid before="(?u)\w+[^s]\b"
@@ -581,9 +581,21 @@ hint="Hay un artículo después de uno contraído «Al/Del» (error gramatical)"
 id="gr-1-demostrativos-consecutivos"
 hint="Hay dos demostrativos consecutivos en el párrafo (error gramatical)"
 
-[(?u)\b(yo|tú|vos|él|ellas?|ellos?|usted|ustedes|nosotr[oa]s|mí|ti|sí)(?!\n)\s+(yo|tú|vos|él|ellas?|ellos?|usted|ustedes|nosotr[oa]s|mí|ti|sí)\b]i
-id="gr-1-pronombres-consecutivos"
-hint="Hay dos pronombres consecutivos en el párrafo (error gramatical)"
+[(?u)\b(a|ante|bajo|con|contra|desde|durante|en|entre|hacia|hasta|mediante|para|por|según|sin|so|sobre|tras|versus|vía)(?!\n)\s+(a|ante|bajo|con|contra|de|desde|durante|en|entre|hacia|hasta|mediante|para|por|según|sin|so|sobre|tras|versus|vía)\b]i
+id="gr-1-preposiciones-consecutivas"
+valid msgstr="bajo\s(de|para)"
+valid msgstr="con\shasta"
+valid msgstr="de\s(A|bajo|entre|hacia|hasta|por|sobre)"
+valid msgstr="en\sA"
+valid msgstr="desde\spor"
+valid msgstr="en\s(contra|vía)"
+valid msgstr="entre\sen"
+valid msgstr="hasta\s(con|de|en|para|por|sin|sobre)"
+valid msgstr="para\s(A|bajo|con|de|desde|en|entre|sin|sobre)"
+valid msgstr="por\s(ante|bajo|de|entre|hasta)"
+valid msgstr="a\spor"
+valid msgstr="A\s(para|en)"
+hint="Hay dos preposiciones consecutivas en el párrafo (error gramatical)"
 
 [(?u)\b(el|la|lo|los|las)(?!\n)\s+(este|ese|aquel|estas?|esas?|aquellas?|estos?|esos?|aquellos?|mis?|tus?|sus?)\b]i
 id="gr-1-articulo-seguido-demostrativo"
@@ -1319,6 +1331,14 @@ validGroup pluralName
 validGroup wordDelimiter
 validGroup beforeConnector
 hint="Hay un posesivo plural (Mis/Tus/Sus/Nuestros/Nuestras/Vuestros/Vuestras) seguido de un nombre en singular"
+
+[(?u)\b(dos|tres|cuatro|cinco|seis|siete|ocho|nueve|diez|once|doce|trece|catorce|quince|dieci\w+|veint\w+|treint\w+|cuarent\w+|cincuent\w+|sesent\w+|setent\w+|ochent\w+|novent\w+)\s[«'"]?]
+id="gr-1-concordancia-numero-plural-nombre"
+validGroup pluralName
+validGroup wordDelimiter
+validGroup beforeConnector
+valid after="\w+?s\s"
+hint="Hay un número mayor que uno seguido de un nombre en singular"
 
 [(?u)\b([Ee]l|[Aa]l|[Dd]el|[Uu]n)\s[«'"]?]
 id="gr-1-concordancia-articulo-masculino-nombre"
