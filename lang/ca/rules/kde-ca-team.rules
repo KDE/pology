@@ -60,10 +60,10 @@ valid msgid="login.?(dialogs?|box(es|s)?)" # -> quadre/s / diàleg/s d'inici de 
 valid msgid="mail.?box(es|s)?"		# -> bústia/es, bústia/es de correu
 valid msgid="message.?box(es|s)?"	# -> quadre/s de missatge
 valid msgid="preview\sbox(es|s)?"	# -> quadre/s de vista prèvia
-valid msgid="radio.?box"		# -> caixa de botons d'opció
+valid msgid="radio.?box"		# -> quadre de botons d'opció
 valid msgid="search.?box(es|s)?"	# -> quadre/s de cerca
 valid msgid="selection.?box(es|s)?"	# -> casella/es de selecció
-valid msgid="shaded\sbox(es|s)?"	# -> caixa/es ombrejada/es
+valid msgid="shaded\sbox(es|s)?"	# -> quadre/s ombrejat/s
 valid msgid="spin.?box(es|s)?"		# -> botó/ons de selecció de valors
 valid msgid="text.?box(es|s)?"		# -> quadre/s de text
 valid msgid="out of the box"
@@ -405,8 +405,8 @@ valid msgstr="barr(a|es) de progrés"
 hint="Es tradueix per «barra/es de progrés» (kde-ca-team)"
 
 {\bradio.?box\b}i
-valid msgstr="caixa de botons d'opció"
-hint="Es tradueix per «caixa de botons d'opció» (kde-ca-team)"
+valid msgstr="quadre de botons d'opció"
+hint="Es tradueix per «quadre de botons d'opció» (kde-ca-team)"
 
 {\bradio.?buttons?\b}i
 valid msgstr="bot(ó|ons) d'opció"
@@ -442,8 +442,8 @@ valid msgstr="casell(a|es) de selecció"
 hint="Es tradueix per «casella/es de selecció» (kde-ca-team)"
 
 {\bshaded\sbox(es|s)?\b}i
-valid msgstr="caix(a|es) ombrejad(a|es)"
-hint="Es tradueix per «caixa/es ombrejada/es» (kde-ca-team)"
+valid msgstr="quadres? ombrejats?"
+hint="Es tradueix per «quadre/s ombrejat/s» (kde-ca-team)"
 
 {\bshortcuts?\b}i
 valid msgstr="drecer(a|es)"
