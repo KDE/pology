@@ -153,6 +153,7 @@ valid span="\!$"
 valid span="\!D" cat="quanta,quanta_extending-quanta"
 valid after="~"
 valid after="\s\*" cat="konversation"
+valid after="#"
 valid before="="
 valid before="~"
 hint="S'ha de posar un espai després del signe d'admiració (tipografia)"
@@ -471,6 +472,7 @@ valid after="accelerador.*" cat="tables_a11y,stage_a11y,kspread_a11y,kpresenter_
 valid msgstr="ko r r e u" cat="simon" # docmessages
 valid msgstr="només un u " cat="simon" # docmessages
 valid msgstr="from Sample s inner join User u" cat="sscd" # docmessages
+valid msgstr="(U)" # docmessages
 valid cat="kalzium,plasma_engine_kalzium,plasma_applet_Molmasscalculator,kgoldrunner,kubrick,kfile_exr"
 valid cat="libincidenceeditors,tables,kcells,kspread,kbackgammon,kdenlive,krita,sheets"
 valid ctx="Undefined"
@@ -487,6 +489,7 @@ valid after="invertides \(" cat="kcmgrub2"
 valid after="CONSOLEOWNER.+" cat="kcontrol_mouse" # docmessages
 valid after="{" # docmessages
 valid cat="kdecalendarsystems"
+valid comment="Tag\:\sliterallayout" # docmessages
 valid comment="Tag\:\sprogramlisting" cat="kdm,tellico_hacking" # docmessages
 valid comment="Tag\:\sscreen" cat="kmail_faq" # docmessages
 valid before="\/share\/apps\/" # docmessages
@@ -518,6 +521,7 @@ hint="Un apòstrof inicial és un error, excepte a ordres de terminal (tipografi
 
 # «' » un apóstrof final és un error (ull amb les ordres!).  Substituir per »
 ['\s]
+valid cat="kmplot_using" # docmessages
 valid after="Surfin" cat="amarok"
 valid after="\\a?" cat="kile"
 valid after="esperava\s``\:'" cat="kdevcpp"

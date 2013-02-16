@@ -177,7 +177,9 @@ hint="«tonto/a» s'ha de substituir per «ximple, tòtil/a, tanoca, babau/a» (
 valid msgstr="une?s quant(s|es)"
 valid msgstr="une?s po(cs|ques)"
 valid msgstr="unes(.*)(amb|contra) les altres"
-valid msgstr="une?s (0|1|2|3|4|5|6|7|8|9)(.*)\s"
+valid msgstr="\buns dos\b"
+valid msgstr="une?s \d"
+valid msgstr="Es mostren unes" cat="kstars" # docmessages (KStars)
 valid msgstr="une?s de"
 valid msgstr="uns (certs )?criteris"
 valid msgstr="uns resultats"

@@ -66,10 +66,12 @@ valid msgid="selection.?box(es|s)?"	# -> casella/es de selecció
 valid msgid="shaded\sbox(es|s)?"	# -> quadre/s ombrejat/s
 valid msgid="spin.?box(es|s)?"		# -> botó/ons de selecció de valors
 valid msgid="text.?box(es|s)?"		# -> quadre/s de text
+valid msgid="Tool.?Box(es|s)?"		# -> caixa/es d'eines
 valid msgid="out of the box"
+valid msgstr="quadrat: Nebulosa gasosa"	# docmessages (KStars)
 valid msgstr="quadres?"
 valid msgstr="casell(a|es)"
-valid msgstr="caix(a|es)" cat="kxsconfig,kpovmodeler,kmid,knode,ksysguard,kdm_theme-ref,konqueror_browser,konqueror_filemanager"
+valid msgstr="caix(a|es)" cat="kxsconfig,kpovmodeler,kmid,knode,ksysguard,kdm_theme-ref,konqueror_browser,konqueror_filemanager,kstars_blackbody"
 valid msgstr="capsa" cat="libkdeedu,kstars"
 valid msgstr="box(es)?"
 valid msgstr="apartats? de correus"            # post office  -> apartat de correus
@@ -83,6 +85,7 @@ valid msgid="slider\sbutton"
 valid msgstr="bot(ó|ons)"
 valid msgstr="button" cat="klinkstatus"
 valid msgstr="B(D|E|M)R" # Per a docmessages &BDR;/&BER;/&BMR;
+valid comment="Tag\:\sprogramlisting" cat="kcontrol_kremotecontrol" # docmessages
 valid comment="Tag\:\sterm" cat="kdm_theme-ref" # docmessages
 hint="Es tradueix per «botó/botons» (kde-ca-team)"
 
@@ -97,6 +100,7 @@ hint="Es tradueix per «marca/ques de selecció» (kde-ca-team)"
 {\bcheck.?box(es|s)?\b}i
 valid msgstr="casell(a|es) de selecció"
 valid msgstr="caselladeseleccio" cat="kexi"
+valid msgstr="CheckBox" cat="kommander_dcop,kommander_editor,kommander_widgets" # docmessages
 hint="Es tradueix per «casella/es de selecció» (kde-ca-team)"
 
 {\bchecksums?\b}i
@@ -115,6 +119,7 @@ hint="Es tradueix per «selector de color» (kde-ca-team)"
 {\bcombo.?box(es|s)?\b}i
 valid msgstr="quadres? combinats?"
 valid msgstr="quadrecombinat" cat="kexi"
+valid msgstr="ComboBox" cat="kommander_dcop,kommander_editor,kommander_widgets" # docmessages
 hint="Es tradueix per «quadre/s combinat/s» (kde-ca-team)"
 
 {\bcompletion\sbox(es|s)?\b}i
@@ -199,7 +204,9 @@ hint="Es tradueix per «desencriptatge» (kde-ca-team)"
 {\bdialogs?\b}i
 valid msgid="dialogs?.?box(es|s)?"		# -> diàleg/s
 valid msgid="login.?(dialogs?|box(es|s)?)"	# -> quadre/s / diàleg/s d'inici de sessió
-valid msgstr="diàlegs?" 
+valid msgstr="diàlegs?"
+valid msgstr="@dialog" cat="kommander_specials" # docmessages
+valid comment="Tag\:\sliterallayout" # docmessages
 hint="Es tradueix per «diàleg/s» (kde-ca-team)"
 
 # Sempre serà «diàleg».
@@ -355,6 +362,7 @@ hint="Es tradueix per «anell/s de claus» (personal)"
 {\blist.?box(es|s)?\b}i
 valid msgstr="quadres? de llista"
 valid msgstr="quadredellista" cat="kexi"
+valid msgstr="ListBox" cat="kommander_dcop,kommander_editor,kommander_widgets" # docmessages
 hint="Es tradueix per «quadre/s de llista» (kde-ca-team)"
 
 {\blogin.?(dialogs?|box(es|s)?)\b}i
@@ -410,6 +418,7 @@ hint="Es tradueix per «quadre de botons d'opció» (kde-ca-team)"
 
 {\bradio.?buttons?\b}i
 valid msgstr="bot(ó|ons) d'opció"
+valid msgstr="RadioButtons?" cat="kommander_dcop,kommander_editor,kommander_widgets" # docmessages
 hint="Es tradueix per «botó/ons d'opció» (kde-ca-team)"
 
 {\bradio.?groups?\b}i
@@ -571,6 +580,10 @@ valid msgstr="barra de localització" # fals positiu (Location Toolbar)
 valid msgstr="barra de simulació" # fals positiu (Simulation Toolbar)
 valid msgstr="toolbar" cat="calligra"
 hint="Es tradueix per «barra/es d'eines» (kde-ca-team)"
+
+{\bTool.?Box(es|s)?\b}i
+valid msgstr="caix(a|es) d'eines"
+hint="Es tradueix per «caixa/es d'eines» (kde-ca-team)"
 
 {\btool.?tips?\b}i
 valid msgstr="consells?"
