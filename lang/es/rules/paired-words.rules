@@ -23,7 +23,7 @@ hint="Valores de números o fechas en la traducción distintos al original"
 id="pw-1-error-etiquetas-contexto"
 hint="Traducidos valores contenidos entre etiquetas de contexto no traducibles"
 
-addFilterRegex match="\<\/?quote\>" repl="~" on="pmsgstr"
+addFilterRegex match="\<\/?quote\>" repl="~" on="pmsgid,pmsgstr"
 *hook name="es:compare_with_original/test_paired_xml_entities" on="msg"
 id="pw-1-error-etiquetas-xml"
 hint="Sobran o faltan etiquetas XML (texto entre < y >)"

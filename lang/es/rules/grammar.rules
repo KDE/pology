@@ -965,6 +965,7 @@ hint="Ponga una coma antes de «es decir» (error gramatical)"
 [\ba\ssaber\b]
 id="gr-3-falta-coma-antes-a-saber"
 validGroup beforeComma
+valid after="ayud\w+\s"
 hint="Ponga una coma antes de «a saber» (error gramatical)"
 
 [\bpues\sbien\b]
@@ -1175,7 +1176,7 @@ valid span="(?u)\b\w+\." before="\.\."
 hint="Una conjunción no puede aparecer al final de frase (error gramatical)"
 
 #
-# ERRORES CON PRONOMBRES
+# ERRORES CON FINALES DE FRASE
 #
 
 [(?u)\b(me|te|se|nos|os|los?|las?|les?)(\.|\?|\!|\<p\>)]i
@@ -1198,6 +1199,11 @@ hint="« Se » se escribe como « Sé » al final de frase (error gramatical)"
 id="gr-1-tu-sin-tilde-al-fin-de-frase"
 valid span="(?u)\b\w+\." before="\.\."
 hint="« Tu » se escribe como « Tú » al final de frase (error gramatical)"
+
+[(?u)\bque(\.|\?|\!|\<p\>)]i
+id="gr-1-que-sin-tilde-al-fin-de-frase"
+valid span="(?u)\b\w+\." before="\.\."
+hint="« Que » se escribe como « Qué » al final de frase (error gramatical)"
 
 #
 # ERRORES CON VERBOS

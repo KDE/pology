@@ -303,18 +303,18 @@ id="ty-3-sobra-retorno-carro"
 hint="Àbajo MS-DOS (quite el carácter de retorno de carro)"
 
 [(?<=\S)\.\s[a-zñçáéíóú]]
-id="ty-3-falta-mayuscula-despues-punto"
+id="ty-2-falta-mayuscula-despues-punto"
 valid after="\.\."
 valid before="[a-z]*?[A-Z]"
 hint="Utilice mayúsculas después de punto"
 
 [(?<=\S)\?\s[a-zñçáéíóú]]
-id="ty-3-falta-mayuscula-despues-cierre-interrogacion"
+id="ty-2-falta-mayuscula-despues-cierre-interrogacion"
 valid before="[a-z]*?[A-Z]"
 hint="Utilice mayúsculas después de cierre de interrogación"
 
 [(?<=\S)\!\s[a-zñçáéíóú]]
-id="ty-3-falta-mayuscula-despues-cierre-admiracion"
+id="ty-2-falta-mayuscula-despues-cierre-admiracion"
 valid before="[a-z]*?[A-Z]"
 hint="Utilice mayúsculas después de cierre de admiración"
 
