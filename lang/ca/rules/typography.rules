@@ -123,6 +123,7 @@ valid after="bold" before="'"   # CSS
 valid after="A-Za-z_.*" cat="lokalize"
 valid after="punt i coma \("
 valid after="RSS.*" cat="simon-touch"
+valid after="[\[|\"|\d]" cat="sheets_functions" # docmessages
 valid before="~"
 valid ctx="Numbers and characters"
 valid ctx="CSV separator" 
@@ -134,6 +135,7 @@ valid span=";$"
 valid span=";*" cat="kfilereplace"
 valid span=";~" cat="kfind" # docmessages
 valid span=";[eN]" cat="kleopatra" # docmessages
+valid msgstr="^[FIXED|YIELDDISC]" cat="sheets_functions" # docmessages
 hint="S'ha de posar un espai després del signe de punt i coma (tipografia)"
 
 [\s\!]
@@ -162,6 +164,7 @@ hint="S'ha de posar un espai després del signe d'admiració (tipografia)"
 valid span="Qalculate\!\." cat="plasma_runner_qalculate_runner"
 valid span="\(valor\)\!\." cat="tables,kcells,kspread,sheets"
 valid span="\sx\!\!\." cat="tables,kcells,kspread,sheets"
+valid msgstr="!\.$" cat="sheets_functions" # docmessages
 hint="No s'ha de posar cap punt després del signe d'admiració (tipografia)"
 
 [.*?\!\s[a-z]]
@@ -453,6 +456,8 @@ valid after="\(«" before="~" cat="kate"
 valid after="CN\[\$" cat="kleopatra" # docmessages
 valid msgstr="ko r r e u" cat="simon" # docmessages
 valid msgstr="nomi singoli e collettivi" cat="parley" # docmessages
+valid msgstr="^[SEARCH]" cat="sheets_functions" # docmessages
+valid msgstr="\se\s\([erg|dekao]" cat="sheets_functions" # docmessages
 valid ctx="Exponential"
 valid cat="tables,kcells,kspread,kdenlive,sheets"
 hint="«e» sola és un error (tipografia)"
