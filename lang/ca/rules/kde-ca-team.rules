@@ -66,7 +66,7 @@ valid msgid="selection.?box(es|s)?"	# -> casella/es de selecció
 valid msgid="shaded\sbox(es|s)?"	# -> quadre/s ombrejat/s
 valid msgid="spin.?box(es|s)?"		# -> botó/ons de selecció de valors
 valid msgid="text.?box(es|s)?"		# -> quadre/s de text
-valid msgid="Tool.?Box(es|s)?"		# -> caixa/es d'eines
+valid msgid="tool.?box(es|s)?"		# -> quadre/s d'eines 
 valid msgid="out of the box"
 valid msgstr="quadrat: Nebulosa gasosa"	# docmessages (KStars)
 valid msgstr="quadres?"
@@ -581,9 +581,9 @@ valid msgstr="barra de simulació" # fals positiu (Simulation Toolbar)
 valid msgstr="toolbar" cat="calligra"
 hint="Es tradueix per «barra/es d'eines» (kde-ca-team)"
 
-{\bTool.?Box(es|s)?\b}i
-valid msgstr="caix(a|es) d'eines"
-hint="Es tradueix per «caixa/es d'eines» (kde-ca-team)"
+{\btool.?box(es|s)?\b}i
+valid msgstr="quadres? d'eines"
+hint="Es tradueix per «quadre/s d'eines» (kde-ca-team)"
 
 {\btool.?tips?\b}i
 valid msgstr="consells?"
