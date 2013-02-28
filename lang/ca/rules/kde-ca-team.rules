@@ -437,6 +437,10 @@ hint="«screenshot» es tradueix per «captura de pantalla» (kde-ca-team)"
 valid msgstr="scripts?"
 hint="Es tradueix per «script/s» (kde-ca-team)"
 
+{\bscripting\b}i
+valid msgstr="crea(r|ció)?\s(d')?scripts"
+hint="Es tradueix per «crea/r scripts, creació d'scripts» (kde-ca-team)"
+
 {\bscroll.?bars?\b}i
 valid msgstr="barr(a|es) de desplaçament"
 hint="Es tradueix per «barra de desplaçament» (kde-ca-team)"
