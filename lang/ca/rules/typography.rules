@@ -338,7 +338,7 @@ valid msgstr="{{\.\/}" # docmessages
 valid before="D?COPserver"
 valid before="\w{1,16}\b" # Extensions
 valid after="adreces IP.+" cat="kcmkio,kcontrol_proxy"
-valid after="~" cat="cupsdconf4,katepart4,kfileshare,kppp,kexi,krusader"
+valid after="~" cat="cupsdconf4,katepart4,kfileshare,kppp,calligra,kexi,krusader"
 valid after="XXX"
 valid after="\.\." 
 valid after="\*" 
