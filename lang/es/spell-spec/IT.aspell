@@ -1,4 +1,4 @@
-personal_ws-1.1 es 3220 utf-8
+personal_ws-1.1 es 3263 utf-8
 aac
 AAC
 ABAP
@@ -121,6 +121,7 @@ APS
 apt
 Aptitude
 apturl
+aqpm
 Aqua
 Aquaria
 Arcadia
@@ -240,8 +241,8 @@ Bibtex
 BibTeX
 bibtex
 Bibtexml
-BIN
 bin
+BIN
 BIND
 BIOS
 Bioshock
@@ -265,6 +266,7 @@ Blindwrite
 Blitter
 blog
 Blogger
+Blogspot
 Bloq
 BloqDespl
 BloqMayús
@@ -332,6 +334,7 @@ Caldera
 calibre
 Calmira
 Canon
+canonical
 CantorPart
 CardBus
 CardDAV
@@ -554,6 +557,7 @@ DeSmuME
 Despl
 DESQview
 devfs
+dfa
 dfx
 dhclient
 DHCP
@@ -610,6 +614,7 @@ dosxygen
 DotProject
 DoubleClick
 Dovecot
+doxygen
 DP
 DPI
 DPIO
@@ -734,6 +739,7 @@ Exaile
 Exalead
 Excel
 Exchange
+exfat
 ExFAT
 EXIF
 Exif
@@ -762,6 +768,7 @@ FBDD
 FCAPS
 fcntl
 FDDI
+fdformat
 Fdisk
 FEC
 Fedora
@@ -918,6 +925,7 @@ GDA
 GData
 gdb
 GDB
+gdbserver
 GDDR
 GDK
 GDL
@@ -930,6 +938,7 @@ GeForce
 GEGL
 Geist
 Gekido
+geninfo
 Gentoo
 GeoCities
 Geoetiquetado
@@ -988,9 +997,9 @@ GLUI
 GLUT
 GLX
 glxinfo
+gmail
 GMail
 Gmail
-gmail
 GMailSite
 GmailStatus
 gmake
@@ -1083,6 +1092,7 @@ GPIO
 gpl
 GPL
 gpodder
+GPP
 GPRS
 GPS
 gps
@@ -1187,6 +1197,7 @@ Hotmail
 hotmail
 HotSync
 HP
+hpfs
 HPLIP
 HPSS
 HQ
@@ -1379,6 +1390,7 @@ iTunesDB
 Itzá
 IVEC
 ivman
+iwconfig
 IWeb
 IWork
 Jabber
@@ -1400,6 +1412,7 @@ JDK
 JEDEC
 JetBee
 jfsutils
+jfsutilshfsplus
 JID
 Jingle
 Jini
@@ -1449,6 +1462,7 @@ LaTeX
 latex
 LaTex
 Launchpad
+lba
 lbm
 LCD
 ldap
@@ -1463,9 +1477,11 @@ Lexmark
 lgpl
 LGPL
 Lha
+libalpm
 libapalm
 libart
 libavcodec
+libavogadro
 libbeagle
 Libburnia
 libc
@@ -1474,8 +1490,11 @@ LibClapack
 libcrypto
 libdaemon
 libdvdcss
+libepub
 libexec
 LibExiv
+libexslt
+libface
 libffi
 libfftw
 libgcript
@@ -1483,6 +1502,7 @@ libglade
 LibGphoto
 libgpod
 libgstreamer
+libgz
 libhashab
 libical
 libiobdc
@@ -1503,6 +1523,7 @@ LibLqr
 liblzma
 libmad
 libmath
+libmediawiki
 libmng
 libofa
 libogg
@@ -1515,6 +1536,7 @@ libpmt
 Libpng
 LibPNG
 libpoppler
+libqalculate
 LibQt
 LibRaw
 LibreDWG
@@ -1525,11 +1547,13 @@ libsamplerate
 libsane
 libsmbclient
 libsndfile
+libspectre
 libsqlite
 libssh
 libssl
 libtasn
 LibTIFF
+libtool
 libtranslate
 libusb
 LibVNCClient
@@ -1538,6 +1562,7 @@ libvorbis
 libxml
 libxmms
 libxslt
+libxz
 Licq
 Liferea
 LightScribe
@@ -1604,8 +1629,10 @@ LTL
 LTR
 LucasArts
 LUF
+luks
 Lumix
 LVL
+lvm
 LWAPP
 LWJGL
 LWM
@@ -1648,6 +1675,7 @@ MakeCD
 makedepend
 makedumpfile
 Makefile
+makefile
 Makefiles
 makefiles
 makekdewidgets
@@ -1697,6 +1725,7 @@ MEncoder
 mencoder
 Mencoder
 MEPIS
+mercurial
 Mesa
 Metaball
 MetaBall
@@ -1734,6 +1763,7 @@ MJ
 mka
 Mkdir
 mkdosfs
+mkfa
 mkfifo
 mkfontdir
 mkfontscale
@@ -1768,8 +1798,8 @@ Moria
 MOS
 Motif
 Motorola
-mozilla
 Mozilla
+mozilla
 mozplugger
 mp
 mpeg
@@ -1908,6 +1938,7 @@ Novell
 NovellVPN
 nslookup
 NSLU
+nspluginscan
 nspluginviewer
 NT
 NTFS
@@ -2007,6 +2038,7 @@ openssl
 OpenSSL
 OpenStreetMap
 openSUSE
+openswan
 OpenTTD
 OpenType
 openURL
@@ -2058,6 +2090,7 @@ passwd
 PATH
 Pausa
 PayPal
+Paypal
 PB
 PBC
 PBM
@@ -2193,7 +2226,9 @@ PPPoA
 pppoe
 PPPOE
 PPPoE
+pptp
 PPTP
+pptpd
 PRC
 ProAP
 procfs
@@ -2211,6 +2246,7 @@ PSD
 PSH
 Psion
 Psiphon
+psk
 psp
 PSPPIRE
 pstops
@@ -2246,6 +2282,7 @@ qimageblitz
 qmail
 qmake
 QML
+qmldir
 QMovie
 QName
 QPL
@@ -2272,6 +2309,7 @@ QWERTY
 QWERTZ
 QWS
 RACEway
+racoon
 Radeon
 Rage
 Ragnarok
@@ -2457,6 +2495,7 @@ Shotwell
 shoutcast
 showkey
 SHTTP
+shwup
 SID
 sidux
 Sierpinski
@@ -2560,6 +2599,7 @@ SSF
 SSH
 ssh
 SSHA
+sshd
 SSID
 SSL
 ssl
@@ -2609,6 +2649,7 @@ svg
 SVGA
 SVN
 svn
+svnserve
 svx
 SW
 SWF
@@ -2819,6 +2860,7 @@ UUEncode
 Uuid
 UUID
 UXGA
+valgrind
 VALID
 Vanbasco
 var
@@ -3084,6 +3126,7 @@ Xkb
 XKB
 XKE
 XKobo
+xlsdbg
 XLyap
 XMatrix
 XMIND

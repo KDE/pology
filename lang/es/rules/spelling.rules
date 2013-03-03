@@ -485,9 +485,11 @@ hint="« Yá » se escribe como « Ya » (error ortográfico)"
 
 # Omit group of words not translated
 addFilterRegex match="(?u)(echo\snest|make\s(un)?install|(little|big)\sendian|summer\sof\scode|if\=|of\=)" repl="~" on="pmsgstr"
-addFilterRegex match="(?u)(Planet\sKDE|KDE\sApps|K\sDesktop\sEnvironment|Qt\sDesigner)" repl="~" on="pmsgstr"
+addFilterRegex match="(?u)(Planet\sKDE|KDE\sApps|Qt\s(Designer|Creator))" repl="~" on="pmsgstr"
 addFilterRegex match="(?u)(Microsoft\sWindows|Internet\sExplorer|Outlook\sExpress)" repl="~" on="pmsgstr"
-addFilterRegex match="(?u)(Mozilla\sFirefox|Google\sChrome|Pegasus\sMail)" repl="~" on="pmsgstr"
+addFilterRegex match="(?u)(Mozilla\sFirefox|Google\s(Chrome|Earth|Maps)|Pegasus\sMail)" repl="~" on="pmsgstr"
+addFilterRegex match="(?u)Prety\sGood\sPrivacy" repl="~" on="pmsgstr"
+addFilterRegex match="(?u)[A-Z]\w*\s(Window\sManager|Desktop\sEnvironment)" repl="~" on="pmsgstr"
 
 # Omit words between quotes.
 addFilterRegex match="(?u)«\w+»" repl="~" on="pmsgstr"

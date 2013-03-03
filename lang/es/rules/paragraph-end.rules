@@ -28,19 +28,19 @@ hint="Compruebe el uso de espacio antes del fin de párrafo «</p>» (falta en l
 
 {\.\s*$}i
 id="pe-3-falta-punto-fin-parrafo"
-valid msgstr="[\.\!\?\~]\s*$"
+valid msgstr="(\.|\!|\?|~)\s*$"
 valid msgstr="\.\.\.»\s*$"
 hint="Compruebe el uso de punto al final del párrafo (falta en la traducción)."
 
 {\.\s*\\\\n}i
 id="pe-3-falta-punto-fin-nueva-linea"
-valid msgstr="[\.\!\?\~]\s*\\\\n"
+valid msgstr="(\.|\!|\?|~)\s*\\\\n"
 valid msgstr="\.\.\.»\s*\\\\n"
 hint="Compruebe el uso de punto antes del fin de línea «\n» (falta en la traducción)."
 
 {\.\s*\<\/p\>}i
 id="pe-3-falta-punto-fin-nuevo-parrafo"
-valid msgstr="[\.\!\?\~]\s*\<\/p\>"
+valid msgstr="(\.|\!|\?|~)\s*\<\/p\>"
 valid msgstr="\.\.\.»\s*\<\/p\>"
 hint="Compruebe el uso de punto antes del fin de párrafo «</p>» (falta en la traduccción)."
 
@@ -113,29 +113,29 @@ valid msgstr="(?u)\w\.\s*\<\/p\>"
 valid msgstr="\.\.\.\)\s*\<\/p\>"
 hint="Compruebe el orden del paréntesis y punto al final del párrafo «</p>» (al revés que en inglés)."
 
-{\.[»\'\"]\s*$}i
+{\.(»|\'|\")\s*$}i
 id="pe-3-error-orden-comilla-fin-parrafo"
-valid msgstr="[»\'\"]\.\s*$"
-valid msgstr="etc\.[»\'\"]\s*$"
+valid msgstr="(»|\'|\")\.\s*$"
+valid msgstr="etc\.(»|\'|\")\s*$"
 valid msgstr="(?u)\w\.\s*$"
-valid msgstr="\.\.\.[»\'\"]\s*$"
-hint="Compruebe el orden del paréntesis y comillas al final del párrafo (al revés que en inglés)."
+valid msgstr="\.\.\.(»|\'|\")\s*$"
+hint="Compruebe el orden de comillas y punto al final del párrafo (al revés que en inglés)."
 
-{\.[»\'\"]\s*\\\\n}i
+{\.(»|\'|\")\s*\\\\n}i
 id="pe-3-error-orden-comilla-fin-linea"
-valid msgstr="[»\'\"]\.\s*\\\\n"
-valid msgstr="etc\.[»\'\"]\s*\\\\n"
+valid msgstr="(»|\'|\")\.\s*\\\\n"
+valid msgstr="etc\.(»|\'|\")\s*\\\\n"
 valid msgstr="(?u)\w\.\s*\\\\n"
-valid msgstr="\.\.\.[»\'\"]\s*\\\\n"
-hint="Compruebe el orden del paréntesis y comillas antes del fin de línea «\n» (al revés que en inglés)."
+valid msgstr="\.\.\.(»|\'|\")\s*\\\\n"
+hint="Compruebe el orden de comillas y punto antes del fin de línea «\n» (al revés que en inglés)."
 
-{\.[»\'\"]\s*\<\/p\>}i
+{\.(»|\'|\")\s*\<\/p\>}i
 id="pe-3-error-orden-comilla-fin-nuevo-parrafo"
-valid msgstr="[»\'\"]\.\s*\<\/p\>"
-valid msgstr="etc\.[»\'\"]\s*\<\/p\>"
+valid msgstr="(»|\'|\")\.\s*\<\/p\>"
+valid msgstr="etc\.(»|\'|\")\s*\<\/p\>"
 valid msgstr="(?u)\w\.\s*\<\/p\>"
-valid msgstr="\.\.\.[»\'\"]\s*\<\/p\>"
-hint="Compruebe el orden del paréntesis y comillas al final del párrafo «</p>» (al revés que en inglés)."
+valid msgstr="\.\.\.(»|\'|\")\s*\<\/p\>"
+hint="Compruebe el orden de comillas y punto al final del párrafo «</p>» (al revés que en inglés)."
 
 [\s$]i
 id="pe-3-sobra-espacio-fin-parrafo"
@@ -154,21 +154,21 @@ hint="Compruebe el uso de espacio antes del fin de párrafo «</p>» (sobra en l
 
 [\.\s*$]i
 id="pe-3-sobra-punto-fin-parrrafo"
-valid msgid="[\.\~]\s*$"
+valid msgid="(\.|~)\s*$"
 valid msgid="\.\)\s*$"
 valid msgid="\!\s*$"
 hint="Compruebe el uso de punto al final del párrafo (sobra en la traducción)."
 
 [\.\s*\\\\n]i
 id="pe-3-sobra-punto-fin-nueva-linea"
-valid msgid="[\.\~]\s*\\\\n"
+valid msgid="(\.|~)\s*\\\\n"
 valid msgid="\.\)\s*\\\\n"
 valid msgid="\!\s*\\\\n"
 hint="Compruebe el uso de punto antes del fin de línea «\n» (sobra en la traducción)."
 
 [\.\s*\<\/p\>]i
 id="pe-3-sobra-punto-fin-nuevo-parrafo"
-valid msgid="[\.\~]\s*\<\/p\>"
+valid msgid="(\.|~)\s*\<\/p\>"
 valid msgid="\.\)\s*\<\/p\>"
 valid msgid="\!\s*\<\/p\>"
 hint="Compruebe el uso de punto antes del fin de párrafo «</p>» (sobra en la traducción)."
@@ -221,7 +221,7 @@ hint="Compruebe el uso de punto y coma al final del párrafo «</p>» (sobra en 
 [\)\.\s*$]i
 id="pe-3-error-orden-parentesis-fin-parrafo-2"
 valid msgid="\.\s*\)\s*$"
-valid msgid="\)\s*\.\s*$"
+valid msgid="\)\s*\.?\s*$"
 valid msgid="etc\.\s*\)\s*$"
 valid msgid="(?u)\w\s*\.\s*$"
 valid msgid="\.\.\.\s*\)\s*$"
@@ -230,7 +230,7 @@ hint="Compruebe el orden del paréntesis y punto al final del párrafo (al revé
 [\)\.\s*\\\\n]i
 id="pe-3-error-orden-parentesis-fin-nueva-linea-2"
 valid msgid="\.\s*\)\s*\\\\n"
-valid msgid="\)\s*\.\s*\\\\n"
+valid msgid="\)\s*\.?\s*\\\\n"
 valid msgid="etc\.\s*\)\s*\\\\n"
 valid msgid="(?u)\w\s*\.\s*\\\\n"
 valid msgid="\.\.\.\s*\\\\n"
@@ -239,7 +239,7 @@ hint="Compruebe el orden del paréntesis y punto antes del fin de línea «\n» 
 [\)\.\s*\<\/p\>]i
 id="pe-3-error-orden-parentesis-fin-nuevo-parrafo-2"
 valid msgid="\.\s*\)\s*\<\/p\>"
-valid msgid="\)\s*\.\s*\<\/p\>"
+valid msgid="\)\s*\.?\s*\<\/p\>"
 valid msgid="etc\.\s*\)\s*\<\/p\>"
 valid msgid="(?u)\w\s*\.\s*\<\/p\>"
 valid msgid="\.\.\.\s*\)\s*\<\/p\>"
@@ -247,30 +247,30 @@ hint="Compruebe el orden del paréntesis y punto al final del párrafo «</p>» 
 
 [»\.\s*$]i
 id="pe-3-error-orden-comilla-fin-parrafo-2"
-valid msgid="[»\'\"]\s*\.\s*$"
-valid msgid="\.\s*[»\'\"]\s*$"
-valid msgid="etc\.\s*[»\'\"]\s*$"
+valid msgid="(»|\'|\")\s*\.\s*$"
+valid msgid="\.\s*(»|\'|\")\s*$"
+valid msgid="etc\.\s*(»|\'|\")\s*$"
 valid msgid="(?u)\w\s*\.\s*$"
-valid msgid="\.\.\.\s*[»\'\"]\s*$"
-hint="Compruebe el orden del paréntesis y comillas al final del párrafo (al revés que en inglés)."
+valid msgid="\.\.\.\s*(»|\'|\")\s*$"
+hint="Compruebe el orden de comillas y punto al final del párrafo (al revés que en inglés)."
 
 [»\.\s*\\\\n]i
 id="pe-3-error-orden-comilla-fin-nueva-linea-2"
-valid msgid="[»\'\"]\s*\.\s*\\\\n"
-valid msgid="\.\s*[»\'\"]\s*\\\\n"
-valid msgid="etc\.\s*[»\'\"]\s*\\\\n"
+valid msgid="(»|\'|\")\s*\.\s*\\\\n"
+valid msgid="\.\s*(»|\'|\")\s*\\\\n"
+valid msgid="etc\.\s*(»|\'|\")\s*\\\\n"
 valid msgid="(?u)\w\s*\.\s*\\\\n"
-valid msgid="\.\.\.\s*[»\'\"]\s*\\\\n"
-hint="Compruebe el orden del paréntesis y comillas antes del fin de línea «\n» (al revés que en inglés)."
+valid msgid="\.\.\.\s*(»|\'|\")\s*\\\\n"
+hint="Compruebe el orden de comillas y punto antes del fin de línea «\n» (al revés que en inglés)."
 
 [»\.\s*\<\/p\>]i
 id="pe-3-error-orden-comilla-fin-nuevo-parrafo-2"
-valid msgid="[»\'\"]\s*\.\s*\<\/p\>"
-valid msgid="\.\s*[»\'\"]\s*\<\/p\>"
-valid msgid="etc\.\s*[»\'\"]\s*\<\/p\>"
+valid msgid="(»|\'|\")\s*\.\s*\<\/p\>"
+valid msgid="\.\s*(»|\'|\")\s*\<\/p\>"
+valid msgid="etc\.\s*(»|\'|\")\s*\<\/p\>"
 valid msgid="(?u)\w\s*\.\s*\<\/p\>"
-valid msgid="\.\.\.\s*[»\'\"]\s*\<\/p\>"
-hint="Compruebe el orden del paréntesis y comillas al final del párrafo «</p>» (al revés que en inglés)."
+valid msgid="\.\.\.\s*(»|\'|\")\s*\<\/p\>"
+hint="Compruebe el orden de comillas y punto al final del párrafo «</p>» (al revés que en inglés)."
 
 # Signo de admiración al final del párrafo
 

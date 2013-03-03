@@ -298,9 +298,9 @@ valid before='[a-zA-Z]'
 valid after="^" before="$"
 hint="No ponga el signo de apóstrofo suelto o antes de números"
 
-[&cr;]
-id="ty-3-sobra-retorno-carro"
-hint="Àbajo MS-DOS (quite el carácter de retorno de carro)"
+#[&cr;]
+#id="ty-3-sobra-retorno-carro"
+#hint="Abajo MS-DOS (quite el carácter de retorno de carro)"
 
 [(?<=\S)\.\s[a-zñçáéíóú]]
 id="ty-2-falta-mayuscula-despues-punto"

@@ -1184,26 +1184,11 @@ id="gr-1-pronombre-al-fin-de-frase"
 valid span="(?u)\b\w+\." before="\.\."
 hint="Un pronombre personal no puede aparecer al final de frase( error gramatical)"
 
-[(?u)\bel(\.|\?|\!|\<p\>)]i
-id="gr-1-el-sin-tilde-al-fin-de-frase"
+[(?u)\b(el|te|se|mi|de|mas|si|tu|que)(\.|\?|\!|\<p\>)]i
+id="gr-1-tilde-diacritica-al-fin-de-frase"
 valid span="(?u)\b\w+\." before="\.\."
-hint="« El » se escribe como « Él » al final de frase (error gramatical)"
-
-[(?u)\bse(\.|\?|\!|\<p\>)]i
-id="gr-1-se-sin-tilde-al-fin-de-frase"
 valid msgstr="SE"
-valid span="(?u)\b\w+\." before="\.\."
-hint="« Se » se escribe como « Sé » al final de frase (error gramatical)"
-
-[(?u)\btu(\.|\?|\!|\<p\>)]i
-id="gr-1-tu-sin-tilde-al-fin-de-frase"
-valid span="(?u)\b\w+\." before="\.\."
-hint="« Tu » se escribe como « Tú » al final de frase (error gramatical)"
-
-[(?u)\bque(\.|\?|\!|\<p\>)]i
-id="gr-1-que-sin-tilde-al-fin-de-frase"
-valid span="(?u)\b\w+\." before="\.\."
-hint="« Que » se escribe como « Qué » al final de frase (error gramatical)"
+hint="Monosílabo que lleva tilde al final de frase «de/el/mas/mi/que/se/si/te/tu» (error gramatical)"
 
 #
 # ERRORES CON VERBOS
