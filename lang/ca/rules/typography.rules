@@ -350,7 +350,7 @@ valid span="\.\." after="\."
 valid span="\.$"
 valid span="KDE\se.V."
 valid span="\.~"
-valid span="\.(h|c)" cat="desktop_kde-baseapps_kate,desktop_kdesdk,kateopenheader,kate_plugins,kdevformatters,kate"
+valid span="\.(h|c)" cat="desktop_applications_kate,desktop_kdesdk,kateopenheader,kate_plugins,kdevformatters,kate"
 valid span="\.\*" cat="kdiff3,kdeprint4,amarok"
 valid comment="Tag\:\sscreen" cat="kmail_faq" # docmessages
 hint="S'ha de posar un espai després d'un signe de punt (tipografia)"
