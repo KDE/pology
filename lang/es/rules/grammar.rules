@@ -56,9 +56,11 @@ valid before="como\b"
 
 validGroup singularName
 valid before="(?u)\w+[^s]\b"
+valid before="aguafiestas\b"
 valid before="alias\b"
 valid before="análisis\b"
 valid before="antigás\b"
+valid before="bus\b"
 valid before="buscapiés\b"
 valid before="compás\b"
 valid before="corpus\b"
@@ -93,9 +95,11 @@ valid before="portapapeles\b"
 valid before="portugués\b"
 valid before="revés\b"
 valid before="rompecabezas\b"
+valid before="rompecorazones\b"
 valid before="salvapantallas\b"
 valid before="sintaxis\b"
 valid before="síntesis\b"
+valid before="tesis\b"
 valid before="tetris\b"
 valid before="tos\b"
 valid before="vals\b"
@@ -106,6 +110,8 @@ valid before="(?u)\w+s\b"
 valid before="son\b"
 valid before="están\b"
 valid before="x\b"
+valid before="a\s"
+valid before="kB\b"
 
 validGroup femaleName
 valid before="(?u)\w+[^o]\b"
@@ -581,7 +587,7 @@ hint="Hay un artículo después de uno contraído «Al/Del» (error gramatical)"
 id="gr-1-demostrativos-consecutivos"
 hint="Hay dos demostrativos consecutivos en el párrafo (error gramatical)"
 
-[(?u)\b(a|ante|bajo|con|contra|desde|durante|en|entre|hacia|hasta|mediante|para|por|según|sin|so|sobre|tras|versus|vía)(?!\n)\s+(a|ante|bajo|con|contra|de|desde|durante|en|entre|hacia|hasta|mediante|para|por|según|sin|so|sobre|tras|versus|vía)\b]i
+[(?u)\b(a|ante|con|contra|desde|durante|en|entre|hacia|hasta|mediante|para|por|según|sin|so|sobre|tras|versus|vía)(?!\n)\s+(a|ante|con|contra|de|desde|durante|en|entre|hacia|hasta|mediante|para|por|según|sin|so|sobre|tras|versus|vía)\b]i
 id="gr-1-preposiciones-consecutivas"
 valid msgstr="bajo\s(de|para)"
 valid msgstr="con\shasta"
@@ -594,7 +600,8 @@ valid msgstr="hasta\s(con|de|en|para|por|sin|sobre)"
 valid msgstr="para\s(A|bajo|con|de|desde|en|entre|sin|sobre)"
 valid msgstr="por\s(ante|bajo|de|entre|hasta)"
 valid msgstr="a\spor"
-valid msgstr="A\s(para|en)"
+valid msgstr="A\s(para|en|a)"
+valid msgstr="a\sA"
 hint="Hay dos preposiciones consecutivas en el párrafo (error gramatical)"
 
 [(?u)\b(el|la|lo|los|las)(?!\n)\s+(este|ese|aquel|estas?|esas?|aquellas?|estos?|esos?|aquellos?|mis?|tus?|sus?)\b]i
@@ -1143,11 +1150,13 @@ hint="Los nombres de los puntos cardinales se escriben en minúsculas (error gra
 id="gr-3-mayusculas-en-tratamientos"
 validGroup beforeCaps
 valid span="Santo" before="\sDomingo"
+valid span="San" after="Ciudad\sde\s"
 hint="Los tratamientos « Usted, Señor, Don, ... » se escriben en minúsculas (error gramatical)"
 
 [\b(Rey|Papa|Ministro|Presidente|Embajador|Director|Obispo|Juez|Magistrado|Príncipe)\b]
 id="gr-3-mayusculas-en-cargos"
 validGroup beforeCaps
+valid span="Príncipe" after="Tomé\sy\s"
 hint="Los cargos « Rey, Papa, Ministro, Presidente, ... » se escriben en minúsculas (error gramatical)"
 
 #
@@ -1277,6 +1286,7 @@ id="gr-1-concordancia-articulo-singular-nombre"
 validGroup singularName
 validGroup wordDelimiter
 validGroup beforeConnector
+valid after="o\s"
 hint="Hay un artículo singular (El/Al/Del/Un/La/Una) seguido de un nombre en plural"
 
 [(?u)\b([Ll]os|[Ll]as)\s((dos|tres|cuatro|cinco|seis|siete|ocho|nueve|diez|once|doce|\d+)\s)?[«'"]?]
@@ -1329,6 +1339,8 @@ validGroup pluralName
 validGroup wordDelimiter
 validGroup beforeConnector
 valid after="\w+?s\s"
+valid after="en\s"
+valid before="por\s"
 hint="Hay un número mayor que uno seguido de un nombre en singular"
 
 [(?u)\b([Ee]l|[Aa]l|[Dd]el|[Uu]n)\s[«'"]?]
@@ -1457,6 +1469,8 @@ valid after="(el|un|que|mi|tu|su)\s"
 valid before="\sde"
 valid after="número\s(\w+\s)*"
 valid before=".*?impar"
+valid before="\smotor"
+valid before="(\.|\:|$)"
 valid msgstr="^par\s?\~?$"
 valid msgstr="\(par\)"
 hint="«Par» se escribe como «Para» en la mayor parte de los casos (error gramatical)"
