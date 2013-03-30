@@ -951,6 +951,9 @@ def validate_xml_l1 (text, spec=None, xmlfmt=None, ents=None,
     the literal ampersand as accelerator marker, it can be allowed to pass
     the check by setting C{accelamp} to C{True}.
 
+    Text can be one or more entity definitions of the form C{<!ENTITY ...>},
+    when special check is applied.
+
     The result of the check is list of erroneous spans in the text,
     each given by start and end index (in Python standard semantics),
     and the error description, packed in a tuple.
@@ -975,6 +978,9 @@ def validate_xml_l1 (text, spec=None, xmlfmt=None, ents=None,
     @returns: erroneous spans in the text
     @rtype: list of (int, int, string) tuples
     """
+
+    if text.lstrip().startswith("<!ENTITY"):
+        return _validate_xml_entdef(text, xmlfmt)
 
     # If ampersand accelerator marked allowed, replace one in non-entity
     # position with &amp;, to let the parser proceed.
@@ -1215,6 +1221,123 @@ def _make_span (text, lno, col, errmsg):
         start -= 1
 
     return (start, end, errmsg)
+
+
+_entname_rx = re.compile(r"^([\w_:][\w\d._:-]*)$")
+
+def _validate_xml_entdef (text, xmlfmt):
+
+    state = "void"
+    pos = 0
+    tlen = len(text)
+    errmsg = None
+    dhead = "!ENTITY"
+    def next_nws (pos):
+        while pos < tlen and text[pos].isspace():
+            pos += 1
+        return pos
+    def next_ws (pos, ows=()):
+        while pos < tlen and not text[pos].isspace() and text[pos] not in ows:
+            pos += 1
+        return pos
+    errend = lambda: (_("@info",
+                        "%(mtype)s markup: premature end of entity definition.",
+                        mtype=xmlfmt),
+                      tlen)
+    while True:
+        if state == "void":
+            pos = next_nws(pos)
+            if pos == tlen:
+                break
+            elif text[pos] != "<":
+                errmsg = _("@info",
+                           "%(mtype)s markup: expected opening angle bracket "
+                           "in entity definition.",
+                           mtype=xmlfmt)
+                pos1 = pos + 1
+            else:
+                pos += 1
+                state = "head"
+
+        elif state == "head":
+            pos = next_nws(pos)
+            if pos == tlen:
+                errmsg, pos1 = errend()
+            else:
+                pos1 = next_ws(pos)
+                head = text[pos:pos1]
+                if head != dhead:
+                    errmsg = _("@info",
+                               "%(mtype)s markup: expected '%(keyword)s' "
+                               "in entity definition.",
+                               mtype=xmlfmt, keyword=dhead)
+                else:
+                    pos = pos1
+                    state = "name"
+
+        elif state == "name":
+            pos = next_nws(pos)
+            pos1 = next_ws(pos, ("'", "\""))
+            name = text[pos:pos1]
+            if not _entname_rx.match(name):
+                errmsg = _("@info",
+                           "%(mtype)s markup: invalid entity name '%(name)s' "
+                           "in entity definition.",
+                           mtype=xmlfmt, name=name)
+            else:
+                pos = pos1
+                state = "value"
+
+        elif state == "value":
+            pos = next_nws(pos)
+            if pos == tlen:
+                errmsg, pos1 = errend()
+            elif text[pos] not in ("'", "\""):
+                errmsg = _("@info",
+                           "%(mtype)s markup: expected opening quote "
+                           "(ASCII single or double) in entity definition.",
+                           mtype=xmlfmt)
+                pos1 = pos + 1
+            else:
+                quote = text[pos]
+                pos1 = text.find(quote, pos + 1)
+                if pos1 < 0:
+                    errmsg = _("@info",
+                               "%(mtype)s markup: unclosed entity value "
+                               "in entity definition.",
+                               mtype=xmlfmt)
+                    pos1 = tlen
+                else:
+                    value = text[pos + 1:pos1]
+                    # FIXME: Validate value? Does not have to be valid
+                    # on its own, in principle.
+                    pos = pos1 + 1
+                    state = "tail"
+
+        elif state == "tail":
+            pos = next_nws(pos)
+            if pos == tlen:
+                errmsg, pos1 = errend()
+            elif text[pos] != ">":
+                errmsg = _("@info",
+                           "%(mtype)s markup: expected closing angle bracket "
+                           "in entity definition.",
+                           mtype=xmlfmt)
+                pos1 = pos + 1
+            else:
+                pos += 1
+                state = "void"
+
+        if errmsg:
+            break
+
+    spans = []
+    if errmsg:
+        if pos1 is None:
+            pos1 = pos
+        spans = [(pos, pos1, errmsg)]
+
+    return spans
 
 
 def check_xml (strict=False, entities={}, mkeyw=None):
