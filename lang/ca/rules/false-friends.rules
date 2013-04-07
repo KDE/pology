@@ -289,6 +289,7 @@ hint="«Crime» es tradueix per «Delicte», no per «Crim» (fals amic)"
 {\bcurrents?\b}i
 valid msgstr="actuals?"
 valid msgstr="corrent" cat="skrooge" # Compte corrent
+valid msgstr="al corrent" cat="www_www" # estar al corrent
 valid !msgstr="corrents?"
 hint="«Current» es tradueix per «Actual», no per «Corrent» (fals amic)"
 
