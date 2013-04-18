@@ -233,12 +233,10 @@ id="gk-2-batching"
 valid msgstr="proces(ar|os?)\spor\slotes"
 hint="«Batching» se traduce como «Proceso por lotes» (ver glosario)"
 
-{\bbit\b}i
+{\b(?<!(a\s))bit\b}i
 id="gk-2-bit"
 valid msgstr="bit"
 valid msgstr="un\spoco" after="a\s(little\s)?"
-valid msgstr="algo" after="a\s"
-valid msgstr="una\sparte" after="a\s"
 hint="«Bit» no se debe traducir (ver glosario)"
 
 {\bbits\b}i
@@ -362,9 +360,6 @@ id="gk-2-cd"
 valid msgstr="cd"
 valid msgstr="CD"
 hint="«CD» significa «Compact disk», no se traduce (ver glosario)"
-
-
-
 
 {\bcheck(?!\sbox(es)?)\b}i
 id="gk-2-check"
