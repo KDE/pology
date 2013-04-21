@@ -19,9 +19,6 @@ hint="-lig → -leg"
 [haldt]
 hint="haldt → halde"
 
-[stad(ar|ane)\b]i
-hint="stadar/-ane → -er/-ene"
-
 [lest]i
 id="lest"
 hint="lest → lesen/lese/lesne [og verbet leste → las]"
