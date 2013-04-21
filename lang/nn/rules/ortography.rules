@@ -29,6 +29,7 @@ valid after="e\b" before="\bCe"
 valid after="\b[Bb]ob" before="iging"
 valid after="\b[Cc]el" before="orleik"
 valid after="\b[Ss]til" before="åande"
+valid after="\b[M]i" before="olpe"
 
 [bærbar]i
 hint="bærbar → berbar"
