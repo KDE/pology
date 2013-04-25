@@ -510,7 +510,7 @@ class VcsSubversion (VcsBase):
             return True
 
         tmppath = _temp_paths_file(paths)
-        res = collect_system("svn add --parents --targets %s" % tmppath,
+        res = collect_system("svn add --force --parents --targets %s" % tmppath,
                              env=self._env)
         success = (res[2] == 0)
         os.remove(tmppath)
@@ -585,8 +585,10 @@ class VcsSubversion (VcsBase):
         # Base override.
 
         if rev is None:
-            cmdline = "svn export %s -r BASE %s" % (self._ep(path), dstpath)
-            if collect_system(cmdline)[-1] != 0:
+            cmdline = ("svn export --force %s -r BASE %s"
+                       % (self._ep(path), dstpath))
+            res = collect_system(cmdline)
+            if res[-1] != 0:
                 return False
             return True
 
@@ -606,7 +608,8 @@ class VcsSubversion (VcsBase):
         if rewrite:
             rempath = rewrite(rempath, rev)
 
-        cmdline = "svn export %s -r %s %s" % (self._ep(rempath), rev, dstpath)
+        cmdline = ("svn export --force %s -r %s %s"
+                   % (self._ep(rempath), rev, dstpath))
         if collect_system(cmdline)[-1] != 0:
             return False
 
