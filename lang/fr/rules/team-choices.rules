@@ -8,6 +8,9 @@ addFilterHook name="fr:patternEntities" on="pattern"
 validGroup filenameTag
 valid after="<filename>.*" before=".*</filename>"
 
+validGroup foreignphraseTag
+valid after="<foreignphrase>.*" before=".*</foreignphrase>"
+
 validGroup computeroutputTag
 valid after="<computeroutput>.*" before=".*</computeroutput>"
 
@@ -25,6 +28,15 @@ valid after=".*<systemitem.*>" before=".*</systemitem>"
 
 validGroup urlTag
 valid after="url=\".*" before=".*\">"
+
+validGroup userinputTag
+valid after="<userinput>.*" before=".*</userinput>"
+
+validGroup guilabelTag
+valid after="<guilabel>.*" before=".*</guilabel>"
+
+validGroup guimenuitemTag
+valid after="<guimenuitem>.*" before=".*</guimenuitem>"
 
 [(\b[Ee]ntrer\b)|(\b[Ee]ntré[^e])|(\b[Ee]ntrez\b)]
 valid before="&sp;dans&sp;"
@@ -68,9 +80,11 @@ valid after="XML non "
 hint="Choix de l'équipe : « valable/non valable » (au lieu de « valide/non valide »)"
 
 [\bstop\b]
+validGroup userinputTag
 valid cat="konsole"
 valid cat="ksysv" after="^" before="$"
 valid cat="ksysv"
+valid cat="kmail_troubleshooting" msgid="akonadictl stop"
 hint="préférons « arrêt » à « stop »"
 
 [[Rr]@épertoire]
@@ -167,6 +181,7 @@ hint="Homogénéité : utiliser « URL mal formée »"
 hint="Homogénéité : utiliser « URL mal formée »"
 
 [\bitems?\b]
+validGroup foreignphraseTag
 valid ctx="Query"
 valid after="</|<"
 valid cat="kile"
@@ -349,6 +364,8 @@ hint="Traduire « show » par « afficher »"
 hint="Le choix de l'équipe est « courrier électronique » ou « courriel » quand il n'y a pas la place"
 
 [courriers?]i
+validGroup guilabelTag
+validGroup guimenuitemTag
 valid before=" électronique"
 valid before=" indésirable"
 hint="Utilisez l'expression « courrier électronique » ou tout simplement « courriel » quand il n'y a pas la place"
@@ -368,8 +385,10 @@ valid cat="sheets_functions"
 hint="Traduisez ceci par « n/d »"
 
 [didacti.iel|tutorial]i
+validGroup urlTag
 valid after="http://\S+/"
 valid after="k"
+valid cat="kmail_faq" after="Modify_KDE_Software_Defaults\">"
 hint="Traduisez ceci par « tutoriel» (choix de l'équipe)"
 
 [coloris|colorie|coloria]i

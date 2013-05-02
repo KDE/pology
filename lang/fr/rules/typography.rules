@@ -36,7 +36,7 @@ validGroup tokenTag
 valid after="<token>.*" before=".*</token>"
 
 validGroup filenameTag
-valid after="<filename>.*" before=".*</filename>"
+valid after="<filename&sp;.*>.*" before=".*</filename>"
 
 validGroup cdataTag
 valid after="<\!\[CDATA\[.*" before=".*\]\]>"
@@ -79,6 +79,12 @@ valid after="\(.*" before=".*\)"
 
 validGroup decimal
 valid after="[0-9]*" before="[0-9]*"
+
+validGroup markupTag
+valid after="<markup>.*" before=".*</markup>"
+
+validGroup perlScript
+valid msgid=".*/usr/bin/perl.*"
 
 [:]
 validGroup alone
@@ -183,6 +189,7 @@ validGroup cdataTag
 validGroup keysymTag
 validGroup userinputTag
 validGroup calligraFunction
+validGroup perlScript
 valid after="&amp;[0-9a-zA-Z\.\-]+"
 valid after="\*\.[a-zA-Z]+" before="\*\.[a-zA-Z]+" # List of extension suffix
 valid after="center|empty|normal|pt|px|pre-wrap|\d+|[a-f]{1,2}" # CSS
@@ -222,6 +229,7 @@ validGroup foreignphraseTag
 validGroup keysymTag
 validGroup userinputTag
 validGroup calligraFunction
+validGroup perlScript
 valid after="&unbsp;" before="\)"
 valid after="&unbsp;" before="&unbsp;»"
 valid after="^<" before="--.*--&gt;$"
@@ -376,6 +384,7 @@ hint="Mettre une espace avant et une espace insécable après"
 
 [`]
 validGroup cdataTag
+validGroup perlScript
 valid cat="amarok" after="prefix"
 valid cat="amarok" before="kde4?-config"
 valid cat="kdevelop" after="attendu.*"
@@ -386,6 +395,7 @@ hint="Utiliser de vrais guillemets, au lieu d'une apostrophe (homogénéité)"
 ['(?=[^\wéèàêâÉÈÀÊÂ«œ])]
 validGroup computeroutputTag
 validGroup userinputTag
+validGroup perlScript
 valid before="&amp;[\wéèàêâ]" 
 valid before="&lt;b&gt;"
 valid before="&lt;a "
@@ -403,6 +413,7 @@ valid cat="k3b" before="{"
 valid cat="kwriteconfig"
 valid cat="plasma_applet_desktop"
 valid cat="plasma_applet_frame"
+valid cat="kmail_faq" msgid="Currently the script.*"
 valid after="="
 valid before=" \S+="
 valid before="\s*/?>|&gt|}"
@@ -437,6 +448,7 @@ validGroup cdataTag
 validGroup keycapTag
 validGroup computeroutputTag
 validGroup functionTag
+validGroup perlScript
 valid msgid="<!ENTITY"
 valid after="\s+(=|]|PS1|\")"
 valid before="\s*/?>|&gt|}"
@@ -548,6 +560,7 @@ hint="Le point doit être après la parenthèse (et non avant)"
 
 [\.(?=[A-Z])]
 validGroup filenameTag
+valid after="<filename>.*" before=".*</filename>"
 valid ctx="EMAIL OF TRANSLATORS" before="."
 valid cat="kpackage" after="PACKAGES?" before="TXT"
 valid before="Xclients"
@@ -585,6 +598,7 @@ hint="Mettre une espace après un point"
 
 [&sp;\.]
 validGroup userinputTag
+validGroup markupTag
 valid before="desktop&sp;"
 valid before="xinitrc"
 valid before="cfg|doc|dvi|h|kml|kwd|eps|js|html?|m3u|pls|png|ps|rst|spec|txt|WRI|xml|kalcul|css|zip|tar|gz|pot"

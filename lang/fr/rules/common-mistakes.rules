@@ -20,6 +20,10 @@ valid after="url=\".*" before=".*\">"
 validGroup linkTag
 valid after="linkend=\".*" before=".*\">"
 
+validGroup literalTag
+valid after="literal>.*" before="</literal>"
+
+
 validGroup commandTag
 valid after="<command>.*" before=".*</command>"
 
@@ -31,6 +35,9 @@ valid after="<foreignphrase>.*" before=".*</foreignphrase>"
 
 validGroup userinputTag
 valid after="<userinput>.*" before=".*</userinput>"
+
+validGroup filenameTag
+valid after="<filename.*" before=".*</filename>"
 
 [\bboites?\b]i
 hint="boite => boîte (avec un accent circonflexe)"
@@ -231,6 +238,8 @@ valid after="eXtensible&sp;Markup&sp;"
 valid after="Print Control "
 valid after="XML Style "
 valid after="Default"
+valid cat="kmail_faq" after="from_|to_"
+valid cat="kmail_faq" before="s_pair"
 hint="À remplacer par « langage »"
 
 [sorite]i
@@ -338,6 +347,7 @@ hint="clique -> clic"
 hint="clique -> clic"
 
 [crypt(er|ez|é?)]i
+validGroup linkTag
 valid after="lib"
 valid before="ographie"
 valid before="Command"
@@ -348,6 +358,8 @@ valid cat="kleopatra" before="Verif|email|files"
 valid cat="kaffeine4" msgid="Free to air"
 valid cat="kuser" msgid="CRYPT"
 valid cat="kppp_chap" msgid="papcrypt"
+valid cat="kmail_configure" after="security-composing-en"
+valid cat="kmail_faq" after="store-displayed-messages-unen"
 valid after="--de"
 valid after="x-en"
 valid after="x-de"
@@ -408,6 +420,7 @@ valid after="[Ee]mpreinte "
 hint="« digital » est un anglicisme. Utiliser « numérique »"
 
 [d@efault]   
+validGroup filenameTag
 valid cat="ksysv" after=":init" before=":$"  
 valid ctx="Query"
 valid cat="kcmkonqhtml" after="window\."
@@ -435,6 +448,7 @@ valid before="Device"
 valid before="Wiki"
 valid cat="kspread,sheets" before="n"
 valid cat="sheets_functions" before="N"
+valid cat="kmail_configure,kmail_credits-and-licenses,kmail_faq,kmail_getting-started,kmail_importing,kmail_menus" after="davidrugge@"
 hint="media -> média"
 
 [médias]i
@@ -461,6 +475,8 @@ hint="occurences -> occurrences. Avec deux « r » !"
 [status|statut]i
 validGroup computeroutputTag
 validGroup linkTag
+validGroup foreignphraseTag
+validGroup literalTag
 valid after="[Ss]mb"
 valid after="Task"
 valid after="klink"
@@ -532,11 +548,13 @@ valid cat="kile_scripting" after="\\|view\..*|document\.replace|document\.remove
 hint="Merci de mettre un « e » à la fin de « texte » ou « contexte »"
 
 [anti-[^i]]i
+validGroup linkTag
 hint="Pas de tiret après « anti »"
 
 [\bDBUS\b]i
 valid after="&" before=";"
 valid cat="kmix" after="freedesktop\." before="\.Properties"
+valid cat="kmail_faq" before="-launch"
 hint="Il faut un tiret : « D-Bus »"
 
 [presse papier]i
