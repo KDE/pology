@@ -724,19 +724,19 @@ hint="Hay un artículo determinado seguido de «un» (error gramatical)"
 
 [(?u)\b(\w+?)os\sy\s\1as\b]i
 id="gr-2-duplicidad-genero-1"
-hint="No utilice expresiones del tipo «ciudadanos y ciudadanas » (error gramatical)"
+hint="No utilice expresiones del tipo «ciudadanos y ciudadanas» (error gramatical)"
 
 [(?u)\b(\w+?)as\sy\s\1os\b]i
 id="gr-2-duplicidad-genero-2"
-hint="No utilice expresiones del tipo «ciudadanas y ciudadanos » (error gramatical)"
+hint="No utilice expresiones del tipo «ciudadanas y ciudadanos» (error gramatical)"
 
 [(?u)\blos\s(\w+?)os\sy\slas\s\1as\b]i
 id="gr-2-duplicidad-genero-3"
-hint="No utilice expresiones del tipo «los ciudadanos y las ciudadanas » (error gramatical)"
+hint="No utilice expresiones del tipo «los ciudadanos y las ciudadanas» (error gramatical)"
 
 [(?u)\blas\s(\w+?)as\sy\slos\s\1os\b]i
 id="gr-2-duplicidad-genero-4"
-hint="No utilice expresiones del tipo «las ciudadanas y los ciudadanos » (error gramatical)"
+hint="No utilice expresiones del tipo «las ciudadanas y los ciudadanos» (error gramatical)"
 
 [(?u)\b\w+@\w{1,3}\b]i
 id="gr-1-arroba-genero-neutro-1"
@@ -763,7 +763,7 @@ hint="No utilice el espacio para separar el prefijo de la palabra principal, p.e
 
 [\bposs\w+\b]i
 id="gr-2-prefijo-pos-antes-de-s"
-hint="Se debe usar el prefijo « post » antes de una palabra que empieza por « S »(error ortográfico)"
+hint="Se debe usar el prefijo «post» antes de una palabra que empieza por «S»(error ortográfico)"
 
 [\bpost\w+\b]i
 id="gr-2-prefijo-post-enlugar-de-pos"
@@ -771,7 +771,7 @@ valid span="posts\w+"
 valid span="post[aeiour]\w*"
 valid msgstr="postgresql"
 valid msgstr="postfix"
-hint="Se recomienda usar el prefijo « Pos » en lugar de « Post »(error ortográfico)"
+hint="Se recomienda usar el prefijo «Pos» en lugar de «Post»(error ortográfico)"
 
 #
 # ERRORES CON SIGLAS
@@ -845,77 +845,166 @@ hint="Los grupos de dos vocales átonas se recomienda simplificarlos (error orto
 # ORACIONES CON INTERROGACIÓN/ADMIRACIÓN
 #
 
-[¿ba\sdonde\b]i
-id="gr-1-a-donde-interrogativo-1"
-hint="« ¿A donde... » se escribe como « ¿Adónde... », (error gramatical)"
+[¿cuan\b]i
+id="gr-1-cuan-interrogativo"
+hint="«¿Cuan...» se escribe como «¿Cúan...», (error gramatical)"
 
-[¿a\sdónde\b]i
-id="gr-1-a-donde-interrogativo-2"
-hint="« ¿A donde... » se escribe como « ¿Adónde... », (error gramatical)"
+[¿(\w+\s)?\scuando\b]i
+id="gr-1-cuando-interrogativo"
+hint="«¿Cuando...» se escribe como «¿Cúando...», (error gramatical)"
 
 [¿adonde\b]i
 id="gr-1-adonde-interrogativo"
-hint="« ¿Adonde... » se escribe como « ¿Adónde... », (error gramatical)"
+hint="«¿Adonde...» se escribe como «¿Adónde...», (error gramatical)"
 
-[¿como\b]i
-id="gr-1-como-interrogativo"
-hint="« ¿Como... » se escribe como « ¿Cómo... », (error gramatical)"
+[¿ba\sdonde\b]i
+id="gr-1-a-donde-interrogativo-1"
+hint="«¿A donde...» se escribe como «¿Adónde...», (error gramatical)"
 
-[¿\w+\sque\b]i
-id="gr-1-con-que-interrogativo"
-hint="« ¿... que » se escribe como « ¿... qué », (error gramatical)"
+[¿a\sdónde\b]i
+id="gr-1-a-donde-interrogativo-2"
+hint="«¿A donde...» se escribe como «¿Adónde...», (error gramatical)"
 
-[¿cuan\b]i
-id="gr-1-cuan-interrogativo"
-hint="« ¿Cuan... » se escribe como « ¿Cúan... », (error gramatical)"
+[¿(\w+\s)?donde\b]i
+id="gr-1-donde-interrogativo"
+hint="«¿Donde...» se escribe como «¿Dónde...», (error gramatical)"
 
-[¿cuantos\b]i
+[¿(\w+\s)?cuantos?\b]i
 id="gr-1-cuantos-interrogativo"
-hint="« ¿Cuantos... » se escribe como « ¿Cúantos... », (error gramatical)"
+hint="«¿Cuantos...» se escribe como «¿Cúantos...», (error gramatical)"
 
-[¿\w+\squien\b]i
-id="gr-1-de-quien-interrogativo"
-hint="« ¿... quien » se escribe como « ¿... quién », (error gramatical)"
+[¿(\w+\s)?cuales\b]i
+id="gr-1-cuales-interrogativo"
+hint="«¿Cuales...» se escribe como «¿Cúales...», (error gramatical)"
 
-[¿hasta\scuando\b]i
-id="gr-1-hasta-cuando-interrogativo"
-hint="« ¿Hasta cuando... » se escribe como « ¿Hasta cúando... », (error gramatical)"
+[¿(\w+\s)?cual\b]i
+id="gr-1-cual-interrogativo"
+hint="«¿Cual...» se escribe como «¿Cúal...», (error gramatical)"
 
-[¿que\b]i
+[¿(\w+\s)?quienes\b]i
+id="gr-1-quienes-interrogativo"
+hint="«¿Quienes...» se escribe como «¿Quiénes...», (error gramatical)"
+
+[¿(\w+\s)?quien\b]i
+id="gr-1-quien-interrogativo"
+hint="«¿Quien...» se escribe como «¿Quién...», (error gramatical)"
+
+[¿(\w+\s)?como\b]i
+id="gr-1-como-interrogativo"
+hint="«¿Como...» se escribe como «¿Cómo...», (error gramatical)"
+
+[¿(\w+\s)?que\b]i
 id="gr-1-que-interrogativo"
-hint="« ¿Que... » se escribe como « ¿Qué... », (error gramatical)"
+hint="«¿... que» se escribe como «¿... qué», (error gramatical)"
 
-[¡adonde\b]i
-id="gr-1-adonde-admirativo"
-hint="« ¡Adonde... » se escribe como « ¡Adónde... », (error gramatical)"
+[¿porque\b]i
+id="gr-1-porque-interrogativo"
+hint="«¿Porque...» se escribe como «¿Por qué...», (error gramatical)"
 
-[¡como\b]i
-id="gr-1-como-admirativo"
-hint="« ¡Como... » se escribe como « ¡Cómo... », (error gramatical)"
-
-[¡\w+\sque\b]i
-id="gr-1-con-que-admirativo"
-hint="« ¡... que » se escribe como « ¡... qué », (error gramatical)"
 
 [¡cuan\b]i
 id="gr-1-cuan-admirativo"
-hint="« ¡Cuan... » se escribe como « ¡Cúan... », (error gramatical)"
+hint="«¡Cuan...» se escribe como «¡Cúan...», (error gramatical)"
 
-[¡cuantos\b]i
+[¡(\w+\s)?\scuando\b]i
+id="gr-1-cuando-admirativo"
+hint="«¡Cuando...» se escribe como «¡Cúando...», (error gramatical)"
+
+[¡adonde\b]i
+id="gr-1-adonde-admirativo"
+hint="«¡Adonde...» se escribe como «¡Adónde...», (error gramatical)"
+
+[¡ba\sdonde\b]i
+id="gr-1-a-donde-admirativo-1"
+hint="«¡A donde...» se escribe como «¡Adónde...», (error gramatical)"
+
+[¡a\sdónde\b]i
+id="gr-1-a-donde-admirativo-2"
+hint="«¡A donde...» se escribe como «¡Adónde...», (error gramatical)"
+
+[¡(\w+\s)?donde\b]i
+id="gr-1-donde-admirativo"
+hint="«¡Donde...» se escribe como «¡Dónde...», (error gramatical)"
+
+[¡(\w+\s)?cuantos?\b]i
 id="gr-1-cuantos-admirativo"
-hint="« ¡Cuantos... » se escribe como « ¡Cúantos... », (error gramatical)"
+hint="«¡Cuantos...» se escribe como «¡Cúantos...», (error gramatical)"
 
-[¡\w+\squien\b]i
-id="gr-1-de-quien-admirativo"
-hint="« ¡... quien » se escribe como « ¡... quién », (error gramatical)"
+[¡(\w+\s)?cuales\b]i
+id="gr-1-cuales-admirativo"
+hint="«¡Cuales...» se escribe como «¡Cúales...», (error gramatical)"
 
-[¡hasta\scuando\b]i
-id="gr-1-hasta-cuando-admirativo"
-hint="« ¡Hasta cuando... » se escribe como « ¡Hasta cúando... », (error gramatical)"
+[¡(\w+\s)?cual\b]i
+id="gr-1-cual-admirativo"
+hint="«¡Cual...» se escribe como «¡Cúal...», (error gramatical)"
 
-[¡que\b]i
+[¡(\w+\s)?quienes\b]i
+id="gr-1-quienes-admirativo"
+hint="«¡Quienes...» se escribe como «¡Quiénes...», (error gramatical)"
+
+[¡(\w+\s)?quien\b]i
+id="gr-1-quien-admirativo"
+hint="«¡Quien...» se escribe como «¡Quién...», (error gramatical)"
+
+[¡(\w+\s)?como\b]i
+id="gr-1-como-admirativo"
+hint="«¡Como...» se escribe como «¡Cómo...», (error gramatical)"
+
+[¡(\w+\s)?que\b]i
 id="gr-1-que-admirativo"
-hint="« ¡Que... » se escribe como « ¡Qué... », (error gramatical)"
+hint="«¡... que» se escribe como «¡... qué», (error gramatical)"
+
+[¡porque\b]i
+id="gr-1-porque-admirativo"
+hint="«¡Porque...» se escribe como «¡Por qué...», (error gramatical)"
+
+[(pero|sé|sabe\w*|pregunt\w+)(\s\w+)?\scuan\b]i
+id="gr-1-cuan-sin-tilde"
+hint="«Cuan...» se escribe como «Cuán...» en oraciones interrogativas indirectas, (error gramatical)"
+
+[(pero|sé|sabe\w*|pregunt\w+)(\s\w+)?\scuando\b]i
+id="gr-1-cuando-sin-tilde"
+hint="«Cuando...» se escribe como «Cuándo...» en oraciones interrogativas indirectas, (error gramatical)"
+
+[(pero|sé|sabe\w*|pregunt\w+)(\s\w+)?\adonde\b]i
+id="gr-1-adonde-sin-tilde"
+hint="«Adonde...» se escribe como «Adónde...» en oraciones interrogativas indirectas, (error gramatical)"
+
+[(pero|sé|sabe\w*|pregunt\w+)(\s\w+)?\sdonde\b]i
+id="gr-1-donde-sin-tilde"
+hint="«Donde...» se escribe como «Dónde...» en oraciones interrogativas indirectas, (error gramatical)"
+
+[(pero|sé|sabe\w*|pregunt\w+)(\s\w+)?\scuantos\b]i
+id="gr-1-cuantos-sin-tilde"
+hint="«Cuantos...» se escribe como «Cuántos...» en oraciones interrogativas indirectas, (error gramatical)"
+
+[(pero|sé|sabe\w*|pregunt\w+)(\s\w+)?\scuanto\b]i
+id="gr-1-cuanto-sin-tilde"
+hint="«Cuanto...» se escribe como «Cuánto...» en oraciones interrogativas indirectas, (error gramatical)"
+
+[(pero|sé|sabe\w*|pregunt\w+)(\s\w+)?\scuales\b]i
+id="gr-1-cuales-sin-tilde"
+hint="«Cuales...» se escribe como «Cuáles...» en oraciones interrogativas indirectas, (error gramatical)"
+
+[(pero|sé|sabe\w*|pregunt\w+)(\s\w+)?\scual\b]i
+id="gr-1-cual-sin-tilde"
+hint="«Cual...» se escribe como «Cuál...» en oraciones interrogativas indirectas, (error gramatical)"
+
+[(pero|sé|sabe\w*|pregunt\w+)(\s\w+)?\squienes\b]i
+id="gr-1-quienes-sin-tilde"
+hint="«Quienes...» se escribe como «Quiénes...» en oraciones interrogativas indirectas, (error gramatical)"
+
+[(pero|sé|sabe\w*|pregunt\w+)(\s\w+)?\squien\b]i
+id="gr-1-quien-sin-tilde"
+hint="«Quien...» se escribe como «Quién...» en oraciones interrogativas indirectas, (error gramatical)"
+
+[(pero|sé|sabe\w*|pregunt\w+)(\s\w+)?\scomo\b]i
+id="gr-1-como-sin-tilde"
+hint="«Como...» se escribe como «Cómo...» en oraciones interrogativas indirectas, (error gramatical)"
+
+[(pero|sé|sabe\w*|pregunt\w+)(\s\w+)?\sque\b]i
+id="gr-1-que-sin-tilde"
+hint="«Que...» se escribe como «Qué...» en oraciones interrogativas indirectas, (error gramatical)"
 
 #
 # ERRORES DE PUNTUACIÓN
@@ -1194,7 +1283,7 @@ id="gr-3-puntos-suspensivos-despues-etc"
 hint="No ponga puntos suspensivos después de «etc./&etc;/etcétera» (error gramatical)"
 
 #[\,\s(y|e|o(?!\sbien)|u|ni)\s]
-#hint="No se pone coma antes de las conjunciones « y, e, o, u, ni» salvo casos excepcionales (error gramatical)"
+#hint="No se pone coma antes de las conjunciones «y, e, o, u, ni» salvo casos excepcionales (error gramatical)"
 
 #
 # PALABRAS QUE SE ESCRIBEN EN MINÚSCULA
@@ -1228,13 +1317,13 @@ id="gr-3-mayusculas-en-tratamientos"
 validGroup beforeCaps
 valid span="Santo" before="\sDomingo"
 valid span="San" after="Ciudad\sde\s"
-hint="Los tratamientos « Usted, Señor, Don, ... » se escriben en minúsculas (error gramatical)"
+hint="Los tratamientos «Usted, Señor, Don, ...» se escriben en minúsculas (error gramatical)"
 
 [\b(Rey|Papa|Ministro|Presidente|Embajador|Director|Obispo|Juez|Magistrado|Príncipe)\b]
 id="gr-3-mayusculas-en-cargos"
 validGroup beforeCaps
 valid span="Príncipe" after="Tomé\sy\s"
-hint="Los cargos « Rey, Papa, Ministro, Presidente, ... » se escriben en minúsculas (error gramatical)"
+hint="Los cargos «Rey, Papa, Ministro, Presidente, ...» se escriben en minúsculas (error gramatical)"
 
 #
 # ERRORES CON PREPOSICIONES, CONJUNCIONES Y ARTÍCULOS
@@ -1345,19 +1434,19 @@ hint="«Habemos» se escribe como «Hemos/Somos» (error gramatical)"
 
 [(?u)\bhech[oa][sn]?\sa\s\w+?(ar|er|ir)\b]i
 id="cm-hecho-a-infinitivo"
-hint="« Hecho a + infinitivo) » se escribe como « Echo a + infinitivo » (error gramatical)"
+hint="«Hecho a + infinitivo)» se escribe como «Echo a + infinitivo» (error gramatical)"
 
 [(?u)\ba\sver\s\w+?(ido)\b]i
 id="cm-a-ver-participio"
-hint="« A ver + participio » se escribe como « Haber + participio » (error gramatical)"
+hint="«A ver + participio» se escribe como «Haber + participio» (error gramatical)"
 
 [(?u)\baya\s\w+?(ido)\b]i
 id="cm-aya-participio"
-hint="« Aya + participio » se escribe como « Haya + participio » (error gramatical)"
+hint="«Aya + participio» se escribe como «Haya + participio» (error gramatical)"
 
 [(?u)\bhalla\s\w+?(ido)\b]i
 id="cm-halla-participio"
-hint="« Halla + participio » se escribe como « Haya + participio » (error gramatical)"
+hint="«Halla + participio» se escribe como «Haya + participio» (error gramatical)"
 
 #
 # ERRORES DE CONCORDANCIA DE GÉNERO o NÚMERO
@@ -1593,71 +1682,71 @@ hint="En este contexto, el verbo va seguido normalmente de la preposición «de�
 
 [(?u)\ba\scondición\sque\b]i
 id="gr-1-queismo-3"
-hint="« A condición que » se escribe como « A condición de que », queismo (error gramatical)"
+hint="«A condición que» se escribe como «A condición de que», queismo (error gramatical)"
 
 [(?u)\ba\sfin\sque\b]i
 id="gr-1-queismo-4"
-hint="« A fin que » se escribe como « A fin de que », queismo (error gramatical)"
+hint="«A fin que» se escribe como «A fin de que», queismo (error gramatical)"
 
 [(?u)\bacordarse\sque\b]i
 id="gr-1-queismo-5"
-hint="« Acordarse que » se escribe como « Acordarse de que », queismo (error gramatical)"
+hint="«Acordarse que» se escribe como «Acordarse de que», queismo (error gramatical)"
 
 [(?u)\bal\spunto\sque\b]i
 id="gr-1-queismo-6"
-hint="« Al punto que » se escribe como « Hasta el punto de que » queismo (error gramatical)"
+hint="«Al punto que» se escribe como «Hasta el punto de que» queismo (error gramatical)"
 
 [(?u)\ba\spesar\sque\b]i
 id="gr-1-queismo-7"
-hint="« A pesar que » se escribe como « A pesar de que », queismo (error gramatical)"
+hint="«A pesar que» se escribe como «A pesar de que», queismo (error gramatical)"
 
 [(?u)\barrepentirse\sque\b]i
 id="gr-1-queismo-8"
-hint="« Arrepentirse que » se escribe como « Arrepentirse de que », queismo (error gramatical)"
+hint="«Arrepentirse que» se escribe como «Arrepentirse de que», queismo (error gramatical)"
 
 [(?u)\bca\w{1,4}?\sen\sla\scuenta\sque\b]i
 id="gr-2-queismo-9"
-hint="« Caer en la cuenta que » se escribe como « Caer en la cuenta de que », queismo (error gramatical)"
+hint="«Caer en la cuenta que» se escribe como «Caer en la cuenta de que», queismo (error gramatical)"
 
 [(?u)\bcon\sla\scondición\sque\b]i
 id="gr-1-queismo-10"
-hint="« Con la condición que » se escribe como « Con la condición de que », queismo (error gramatical)"
+hint="«Con la condición que» se escribe como «Con la condición de que», queismo (error gramatical)"
 
 [(?u)\bd\w{1,4}?\sla\scasualidad\sde\sque\b]i
 id="gr-1-queismo-11"
-hint="« Dar la casualidad que » se escribe como « Dar la casualidad de que », queismo (error gramatical)"
+hint="«Dar la casualidad que» se escribe como «Dar la casualidad de que», queismo (error gramatical)"
 
 [(?u)\bdarse\scuenta\sque\b]i
 id="gr-1-queismo-12"
-hint="« Darse cuenta que » se escribe como « Darse cuenta de que », queismo (error gramatical)"
+hint="«Darse cuenta que» se escribe como «Darse cuenta de que», queismo (error gramatical)"
 
 [(?u)\ben\scaso\sque\b]i
 id="gr-1-queismo-13"
-hint="« En caso que » se escribe como « En caso de que », queismo (error gramatical)"
+hint="«En caso que» se escribe como «En caso de que», queismo (error gramatical)"
 
 [(?u)\bhasta\sel\spunto\sque\b]i
 id="gr-1-queismo-14"
-hint="« Hasta el punto que » se escribe como « Hasta el punto de que », queismo (error gramatical)"
+hint="«Hasta el punto que» se escribe como «Hasta el punto de que», queismo (error gramatical)"
 
 [(?u)\binsist\w{1,4}?\sque\b]i
 id="gr-1-queismo-15"
-hint="« Insistir que » se escribe como « Insistir en que », queismo (error gramatical)"
+hint="«Insistir que» se escribe como «Insistir en que», queismo (error gramatical)"
 
 [(?u)\bno\scab\w{1,4}?\sduda\sque\b]i
 id="gr-1-queismo-16"
-hint="« No cabe duda que » se escribe como « No cabe duda de que », queismo (error gramatical)"
+hint="«No cabe duda que» se escribe como «No cabe duda de que», queismo (error gramatical)"
 
 [(?u)\bno\sha\w{1,4}?\sduda\sque\b]i
 id="gr-1-queismo-17"
-hint="« No hay duda que » se escribe como « No hay duda de que », queismo (error gramatical)"
+hint="«No hay duda que» se escribe como «No hay duda de que», queismo (error gramatical)"
 
 [(?u)\bpreocuparse\sque\b]i
 id="gr-1-queismo-18"
-hint="« Preocuparse que » se escribe como « Preocuparse de/por que », queismo (error gramatical)"
+hint="«Preocuparse que» se escribe como «Preocuparse de/por que», queismo (error gramatical)"
 
 [(?u)\btrat\w{1,4}?\sque\b]i
 id="gr-1-queismo-19"
-hint="« Tratar que » se escribe como « Tratar de que », queismo (error gramatical)"
+hint="«Tratar que» se escribe como «Tratar de que», queismo (error gramatical)"
 
 #
 # DEQUEISMOS
@@ -1681,127 +1770,127 @@ hint="Posible dequeísmo (error gramatical)"
 
 [(?u)\ba\smedida\sde\sque\b]i
 id="gr-1-dequeismo-4"
-hint="« A medida de que » e escribe como «A medida que»., dequeismo (error gramatical)"
+hint="«A medida de que» e escribe como «A medida que»., dequeismo (error gramatical)"
 
 [(?u)\ba\sno\sser\sde\sque\b]i
 id="gr-1-dequeismo-5"
-hint="« A no ser de que » e escribe como «A no ser que»., dequeismo (error gramatical)"
+hint="«A no ser de que» e escribe como «A no ser que»., dequeismo (error gramatical)"
 
 [(?u)\bafirm\w{1,4}?\sde\sque\b]i
 id="gr-1-dequeismo-6"
-hint="« Afirmar de que » se escribe como « Afirmar que », dequeismo (error gramatical)"
+hint="«Afirmar de que» se escribe como «Afirmar que», dequeismo (error gramatical)"
 
 [(?u)\basegur\w{1,4}?\sde\sque\b]i
 valid msgstr="asegurarse\sde\sque"
 id="gr-1-dequeismo-7"
-hint="« Asegurar de que » se escribe como « Asegurar que », dequeismo (error gramatical)"
+hint="«Asegurar de que» se escribe como «Asegurar que», dequeismo (error gramatical)"
 
 [(?u)\bcomprob\w{1,4}?\sde\sque\b]i
 id="gr-1-dequeismo-8"
-hint="« Comprobar de que » se escribe como « Comprobar que », dequeismo (error gramatical)"
+hint="«Comprobar de que» se escribe como «Comprobar que», dequeismo (error gramatical)"
 
 [(?u)\bconsider\w{1,4}?\sde\sque\b]i
 id="gr-1-dequeismo-9"
-hint="« Considerar de que » se escribe como « Considerar que », dequeismo (error gramatical)"
+hint="«Considerar de que» se escribe como «Considerar que», dequeismo (error gramatical)"
 
 [(?u)\bcontest\w{1,4}?\sde\sque\b]i
 id="gr-1-dequeismo-10"
-hint="« Contestar de que » se escribe como « Contestar que », dequeismo (error gramatical)"
+hint="«Contestar de que» se escribe como «Contestar que», dequeismo (error gramatical)"
 
 [(?u)\bcree\w{1,4}?\sde\sque\b]i
 id="gr-1-dequeismo-11"
-hint="« Creer de que » se escribe como « Creer que », dequeismo (error gramatical)"
+hint="«Creer de que» se escribe como «Creer que», dequeismo (error gramatical)"
 
 [(?u)\ben\sla\smedida\sde\sque\b]i
 id="gr-1-dequeismo-12"
-hint="« En la medida de que » se escribe como « En la medida que », dequeismo (error gramatical)"
+hint="«En la medida de que» se escribe como «En la medida que», dequeismo (error gramatical)"
 
 [(?u)\bexplic\w{1,4}?\sde\sque\b]i
 id="gr-1-dequeismo-13"
-hint="« Explicar de que » se escribe como « Explicar que », dequeismo (error gramatical)"
+hint="«Explicar de que» se escribe como «Explicar que», dequeismo (error gramatical)"
 
 [(?u)\bexpon\w{1,4}?\sde\sque\b]i
 id="gr-1-dequeismo-14"
-hint="« Exponer de que » se escribe como « Exponer que », dequeismo (error gramatical)"
+hint="«Exponer de que» se escribe como «Exponer que», dequeismo (error gramatical)"
 
 [(?u)\bgust\w{1,4}?\sde\sque\b]i
 id="gr-1-dequeismo-15"
-hint="« Gustar de que » se escribe como « Gustar que », dequeismo (error gramatical)"
+hint="«Gustar de que» se escribe como «Gustar que», dequeismo (error gramatical)"
 
 [(?u)\bimagin\w{1,4}?\sde\sque\b]i
 id="gr-1-dequeismo-16"
-hint="« Imaginar de que » se escribe como « Imaginar que », dequeismo (error gramatical)"
+hint="«Imaginar de que» se escribe como «Imaginar que», dequeismo (error gramatical)"
 
 [(?u)\bindic\w{1,4}?\sde\sque\b]i
 id="gr-1-dequeismo-17"
-hint="« Indicar de que » se escribe como « Indicar que », dequeismo (error gramatical)"
+hint="«Indicar de que» se escribe como «Indicar que», dequeismo (error gramatical)"
 
 [(?u)\binsist\w{1,4}?\sde\sque\b]i
 id="gr-1-dequeismo-18"
-hint="« Insistir de que » se escribe como « Insistir en que », dequeismo (error gramatical)"
+hint="«Insistir de que» se escribe como «Insistir en que», dequeismo (error gramatical)"
 
 [(?u)\bllam\w{1,4}?\sla\satención\sde\sque\b]i
 id="gr-1-dequeismo-19"
-hint="« Llamar la atención de que » se escribe como « Llamar la atención que », dequeismo (error gramatical)"
+hint="«Llamar la atención de que» se escribe como «Llamar la atención que», dequeismo (error gramatical)"
 
 [(?u)\bneg\w{1,4}?\sde\sque\b]i
 id="gr-1-dequeismo-20"
-hint="« Negar de que » se escribe como « Negar que », dequeismo (error gramatical)"
+hint="«Negar de que» se escribe como «Negar que», dequeismo (error gramatical)"
 
 [(?u)\bnot\w{1,4}?\sde\sque\b]i
 id="gr-1-dequeismo-21"
-hint="« Notar de que » se escribe como « Notar que », dequeismo (error gramatical)"
+hint="«Notar de que» se escribe como «Notar que», dequeismo (error gramatical)"
 
 [(?u)\bobserv\w{1,4}?\sde\sque\b]i
 id="gr-1-dequeismo-22"
-hint="« Observar de que » se escribe como « Observar que », dequeismo (error gramatical)"
+hint="«Observar de que» se escribe como «Observar que», dequeismo (error gramatical)"
 
 [(?u)\b(oir|oigo|oyes?|oimos|ois|oías?|oiré|oirás?)\sde\sque\b]i
 id="gr-1-dequeismo-23"
-hint="« Oir de que » se escribe como « Oir que », dequeismo (error gramatical)"
+hint="«Oir de que» se escribe como «Oir que», dequeismo (error gramatical)"
 
 [(?u)\bped\w{1,4}?\sde\sque\b]i
 id="gr-1-dequeismo-24"
-hint="« Pedir de que » se escribe como « Pedir que », dequeismo (error gramatical)"
+hint="«Pedir de que» se escribe como «Pedir que», dequeismo (error gramatical)"
 
 [(?u)\bpretend\w{1,4}?\sde\sque\b]i
 id="gr-1-dequeismo-25"
-hint="« Pretender de que » se escribe como « Pretender que », dequeismo (error gramatical)"
+hint="«Pretender de que» se escribe como «Pretender que», dequeismo (error gramatical)"
 
 [(?u)\bprohib\w{1,4}?\sde\sque\b]i
 id="gr-1-dequeismo-26"
-hint="« Prohibir de que » se escribe como « Prohibir que », dequeismo (error gramatical)"
+hint="«Prohibir de que» se escribe como «Prohibir que», dequeismo (error gramatical)"
 
 [(?u)\brecord\w{1,4}?\sde\sque\b]i
 id="gr-1-dequeismo-27"
-hint="« Recordar de que » se escribe como « Recordar que », dequeismo (error gramatical)"
+hint="«Recordar de que» se escribe como «Recordar que», dequeismo (error gramatical)"
 
 [(?u)\sab\w{1,4}?\sde\sque\b]i
 id="gr-1-dequeismo-28"
-hint="« Saber de que » se escribe como « Saber que », dequeismo (error gramatical)"
+hint="«Saber de que» se escribe como «Saber que», dequeismo (error gramatical)"
 
 [(?u)\bsospech\w{1,4}?\sde\sque\b]i
 id="gr-1-dequeismo-29"
-hint="« Sospechar de que » se escribe como « Sospechar que », dequeismo (error gramatical)"
+hint="«Sospechar de que» se escribe como «Sospechar que», dequeismo (error gramatical)"
 
 [(?u)\bsupon\w{1,4}?\sde\sque\b]i
 id="gr-1-dequeismo-30"
-hint="« Suponer de que » se escribe como « Suponer que », dequeismo (error gramatical)"
+hint="«Suponer de que» se escribe como «Suponer que», dequeismo (error gramatical)"
 
 [(?u)\btem\w{1,4}?\sde\sque\b]i
 id="gr-1-dequeismo-31"
-hint="« Temer de que » se escribe como « Temer que », dequeismo (error gramatical)"
+hint="«Temer de que» se escribe como «Temer que», dequeismo (error gramatical)"
 
 [(?u)\buna\svez\sde\sque\b]i
 id="gr-1-dequeismo-32"
-hint="« Una vez de que » se escribe como «Una vez que»., dequeismo (error gramatical)"
+hint="«Una vez de que» se escribe como «Una vez que»., dequeismo (error gramatical)"
 
 [(?u)\bval\w{1,4}?\sla\spena\sde\sque\b]i
 id="gr-1-dequeismo-33"
-hint="« Valer la pena de que » se escribe como « Valer la pena que que », dequeismo (error gramatical)"
+hint="«Valer la pena de que» se escribe como «Valer la pena que que», dequeismo (error gramatical)"
 
 [(?u)\bverifi\w{1,4}?\sde\sque\b]i
 id="gr-1-dequeismo-34"
-hint="« Verificar de que » se escribe como « Verificar que », dequeismo (error gramatical)"
+hint="«Verificar de que» se escribe como «Verificar que», dequeismo (error gramatical)"
 
 # End of rule file
