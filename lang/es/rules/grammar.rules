@@ -1394,10 +1394,11 @@ hint="Se ha encontrado «una» seguido de participio en masculino (error gramati
 id="gr-1-un-antes-participio-femenino"
 hint="Se ha encontrado «un» seguido de participio en femenino (error gramatical)"
 
-## «A» en lugar de «Ha» antes participio.
-#[(?u)\ba\s\w+?ad[oa]\b]i
-#valid span="(?u)\ba\s[cn]ada]\b"
-#hint="Se ha encontrado «A» en lugar de «Ha» antes de un participio (error gramatical)"
+[(?u)\ba\s\w+?ad[oa]\b]i
+id="gr-1-a-en-lugar-de-ah-participio"
+valid span="\ba\s(cada|nada|lado)\b"
+valid after="(huel\w+|hol\w+|sab\w+|gust\w+|camb\w+)\s"
+hint="Se ha encontrado «A» en lugar de «Ha» antes de un participio (error gramatical)"
 # No vale, p. ej.: cambia a dañado
 
 [(?u)\be\s\w+?(ad[oa]|id[oa])\b]i
@@ -1413,9 +1414,13 @@ hint="Se ha encontrado «Ah» en lugar de «A» antes de un infinitivo (error gr
 id="gr-1-ha-con-hache-antes-infinitivo"
 hint="Se ha encontrado «Ha» en lugar de «A» antes de un infinitivo (error gramatical)"
 
-[(?u)\b(ir|voy|vas|va|vamos|ibas?|iré|irás?)\s\w+?(ar|er|ir)\b]i
+[(?u)\b(ir|yendo|voy|vas|va|vamos|ibas?|iré|irás?)\s\w+?(ar|er|ir)\b]i
 id="gr-1-ir-sin-a-antes-infinitivo"
 hint="«Ir» lleva una «A» antes de un infinitivo (error gramatical)"
+
+[(?u)\b(ir|yendo|voy|vas|va|vamos|ibas?|iré|irás?)\sha\s\w+?(ar|er|ir)\b]i
+id="gr-1-ir-con-ha-antes-infinitivo"
+hint="«Ir ha» se escribe «Ir a» antes de un infinitivo (error gramatical)"
 
 [(?u)\bcab(emos|eís|en|íamos|íais|ían)\s\w+?(ar|er|ir)\b]i
 id="gr-1-cabe-en-singular-antes-de-infinitivo"
