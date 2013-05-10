@@ -127,4 +127,8 @@ valid span="Saudi" before="-Arabia"
 valid span="pH-verdi"
 valid span="\b[Kk]rets(en|ar|ane)?\b"
 
+*hook name="nn:exclusion/exclude-forms~['imperativfeil']" on="msgstr"
+id="imperativending"
+hint="imperativ skal aldri slutta på -ér («installer», ikkje «installér»)"
+
 # End of rules

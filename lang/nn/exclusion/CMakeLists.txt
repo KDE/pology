@@ -1,5 +1,6 @@
 set(files
     e-infinitiv.dat
+    imperativfeil.dat
     klammeformer.dat
     subst-mask-er.dat
     subst-fem-ar.dat
