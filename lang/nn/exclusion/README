@@ -20,6 +20,13 @@ comm -3 alle.dat hovudformer.dat > klammeformer.dat
 rm -f alle.* hovudformer.*
 
 
+# The file ‘imperativfeil.dat’ contains a list of imperatives
+# misspelled with an accent. For example, it contains the
+# word ‘installér’ (should be spelled ‘installer’).
+fgrep 'verb imp' fullform_nn.txt | awk -F'\t' '{ print $3 }' | \
+grep '^[^-].*er$' | sort -u | sed 's/er$/ér/' > imperativfeil.dat
+
+
 # The file ‘e-infinitiv.dat’ contains a list of all infinitives
 # ending in -e where there are no other word forms with the 
 # exact same spelling. For example, it contains the word ‘lagre’
@@ -50,7 +57,7 @@ rm -f a-inf.txt ea-inf.txt e-ord.txt
 # feminine nouns that can have both a -ar/-ane or a -er/-ene suffix.
 # For example, the noun «sideelv» can be written as sideelver/sideelvene
 # or sideelvar/sideelvane, so the output file contains ‘sideelvar’ and 
-# ‘sideelvene’.
+# ‘sideelvane’.
 #
 # The files are generated from ‘fullform_nn.txt’ using these commands:
 
