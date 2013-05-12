@@ -17,12 +17,14 @@ valid after="role=\".*" before=".*\"/>"
 validGroup urlTag
 valid after="url=\".*" before=".*\">"
 
+validGroup envarTag
+valid after="<envar>.*" before="</envar>"
+
 validGroup linkTag
 valid after="linkend=\".*" before=".*\">"
 
 validGroup literalTag
 valid after="literal>.*" before="</literal>"
-
 
 validGroup commandTag
 valid after="<command>.*" before=".*</command>"
@@ -38,6 +40,12 @@ valid after="<userinput>.*" before=".*</userinput>"
 
 validGroup filenameTag
 valid after="<filename.*" before=".*</filename>"
+
+validGroup ulinkTag
+valid after="ulink url=\".*" before=".*\">"
+
+validGroup optionTag
+valid after="<option>.*" before=".*</option>"
 
 [\bboites?\b]i
 hint="boite => boîte (avec un accent circonflexe)"
@@ -94,6 +102,8 @@ hint="Mettre un accent circonflexe sur le « e »"
 [s[eè]lect|sél[éè]ct]i
 validGroup roleTag
 validGroup commandTag
+validGroup optionTag
+validGroup literalTag
 valid cat="kommander" before="ed"
 valid cat="kile" msgid=".*psselect.*"
 valid after="[rad|Radical|KChar]"
@@ -102,6 +112,7 @@ valid after="attribut "
 valid after="<link linkend=\"\S*" before="\S*\""
 valid after="fileref=\"\S*" before="\S*\""
 valid cat="kile_scripting" after=".*view\..*"
+valid cat="kdm_kdmrc-ref" msgid="SelectedUsers|PreselectUser"
 hint="Mettre un accent aigu sur le premier « e », pas sur le deuxième"
 
 [n[eè]cess|néc[éè]ss]i
@@ -123,6 +134,7 @@ valid before="s="
 valid cat="kio_groupwise" after="/" before="sbook/"
 valid cat="kmail" after="^\[" before="sBook\]$"
 valid cat="kspread,sheets,sheets_functions" msgid="ADDRESS"
+valid cat="kdm_kdmrc-ref" msgid="SourceAddress"
 hint="Seulement un « d » en français"
 
 [dosier]i
@@ -157,8 +169,9 @@ hint="On écrit « incomplète » ou « incomplet » en français"
 hint="On écrit « incomplet » en français"
 
 [\blicense\b]i
+validGroup ulinkTag
 valid after="--" 
-valid after="Public&sp;" 
+valid after="Public&sp;"
 hint="La bonne orthographe est « licence » en français"
 
 [\bc'est à dire\b]i
@@ -171,6 +184,7 @@ hint="La bonne orthographe est « en-tête » (mettre un trait d'union)"
 hint="La bonne orthographe est « en-tête » (mettre un accent circonflexe)"
 
 [compl@etion]i
+valid cat="kdm_kdmrc-ref" msgid="UserCompletion"
 hint="« complétion » est un franglisme. Utiliser « complètement »"
 
 [apelé]i
@@ -230,6 +244,7 @@ hint="À remplacer par « courrier »"
 [language]i
 validGroup foreignphraseTag
 validGroup urlTag
+validGroup envarTag
 valid ctx="Query" before="=" 
 valid after="HyperText&sp;Markup&sp;" 
 valid after="Interface&sp;Definition&sp;" 
@@ -421,12 +436,14 @@ hint="« digital » est un anglicisme. Utiliser « numérique »"
 
 [d@efault]   
 validGroup filenameTag
+validGroup literalTag
 valid cat="ksysv" after=":init" before=":$"  
 valid ctx="Query"
 valid cat="kcmkonqhtml" after="window\."
 valid cat="kioclient" after="Mount "
 valid cat="juk" after="juk-viewmode-"
 valid cat="kppp_accounting"
+valid cat="kdm" after="init"
 hint="À remplacer par « défaut »" 
 
 [media]i
@@ -521,6 +538,7 @@ hint="« support » est un faux ami, à traduire par un dérivé de « disponibl
 [text(?![e|uel|\-])]i
 validGroup parameterTag
 validGroup linkTag
+validGroup literalTag
 valid ctx="Query"
 valid before="[&sp;|&unbsp;]?\/"
 valid after="[R|r]ich\s?"
@@ -545,6 +563,7 @@ valid cat="kile" after="\\"
 valid cat="sheets_functions"
 valid cat="kile" after="math"
 valid cat="kile_scripting" after="\\|view\..*|document\.replace|document\.remove"
+valid cat="kdm_theme-ref" msgid="&amp;lt;text xml.*"
 hint="Merci de mettre un « e » à la fin de « texte » ou « contexte »"
 
 [anti-[^i]]i

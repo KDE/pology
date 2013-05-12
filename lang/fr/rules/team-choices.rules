@@ -11,6 +11,9 @@ valid after="<filename>.*" before=".*</filename>"
 validGroup foreignphraseTag
 valid after="<foreignphrase>.*" before=".*</foreignphrase>"
 
+validGroup programlistingTag
+valid after="<programlisting>.*" before=".*</programlisting>"
+
 validGroup computeroutputTag
 valid after="<computeroutput>.*" before=".*</computeroutput>"
 
@@ -37,6 +40,9 @@ valid after="<guilabel>.*" before=".*</guilabel>"
 
 validGroup guimenuitemTag
 valid after="<guimenuitem>.*" before=".*</guimenuitem>"
+
+validGroup linkTag
+valid after="linkend=\".*" before=".*\">"
 
 [(\b[Ee]ntrer\b)|(\b[Ee]ntré[^e])|(\b[Ee]ntrez\b)]
 valid before="&sp;dans&sp;"
@@ -182,9 +188,14 @@ hint="Homogénéité : utiliser « URL mal formée »"
 
 [\bitems?\b]
 validGroup foreignphraseTag
+validGroup linkTag
+validGroup programlistingTag
 valid ctx="Query"
 valid after="</|<"
 valid cat="kile"
+valid cat="kdm_theme-ref" msgid="&amp;lt;\?xml version=\"1.0\".*"
+valid cat="kdm_theme-ref" after="/"
+valid cat="kdm_theme-ref" before=" type"
 hint="item(s) -> élément(s)"
 
 [modules? enfichable]i
@@ -227,6 +238,7 @@ valid after="[A-Za-z]"
 valid before="ama" # Okayama city
 valid before="ular|teta"
 valid after="<email>\S*" before="\S*</email>"
+valid cat="kdm" msgid="if kdmctl*"
 hint="Utilisez « Ok » (homogénéité)"
 
 [tuyau]i
@@ -319,6 +331,7 @@ valid cat="kioslave_fish"
 valid before=" de recherche"
 valid after="petit bonhomme de "
 valid cat="kdeprint_theory" after="dessiner un "
+valid cat="fundamentals_ui" after="Trouver son "
 hint="Traduisez « path » par « emplacement » dans le contexte de dossiers/fichiers"
 
 [désinitialiser]i

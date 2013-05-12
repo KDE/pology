@@ -53,6 +53,9 @@ valid after="<keycap>.*" before=".*</keycap>"
 validGroup keysymTag
 valid after="<keysym>.*" before=".*</keysym>"
 
+validGroup literalTag
+valid after="<literal>.*" before=".*</literal>"
+
 validGroup roleTag
 valid after="role=\".*" before=".*\"/>"
 
@@ -217,6 +220,7 @@ valid cat="kopete_pipes" after="&amp;amp;lt"
 valid cat="kdeprint_theory" after="% first box over"
 valid cat="kile_scripting" after="\)"
 valid cat="kile_scripting" msgid="var .*"
+valid cat="kdm" msgid="if kdmctl*"
 hint="Mettre une espace insécable avant et une espace après"
 
 [!]
@@ -259,6 +263,7 @@ valid ctx="Numbers and characters"
 valid ctx="CSV separator"
 valid cat="skrooge" ctx="condition"
 valid cat="kfilereplace" before="\[CDATA"
+valid before="DOCTYPE"
 valid cat="khangman" before="--Traduire"
 valid cat="kioslave_mailto" after="%20"
 valid cat="kdeprint_theory" before="PS"
@@ -390,6 +395,7 @@ valid cat="amarok" before="kde4?-config"
 valid cat="kdevelop" after="attendu.*"
 valid cat="kolourpaint" msgid="All rights reserved.*"
 valid cat="kile" msgid="^% pdfTeX is running.*|.*DeclareGraphicsRule.*"
+valid cat="kdm" msgid="if kdmctl*"
 hint="Utiliser de vrais guillemets, au lieu d'une apostrophe (homogénéité)"
 
 ['(?=[^\wéèàêâÉÈÀÊÂ«œ])]
@@ -439,6 +445,7 @@ valid ctx="City name"
 valid ctx="characters are not allowed"
 valid cat="kppp_dialog-setup" msgid="Expect.*"
 valid cat="kile_scripting" msgid="var .*"
+valid cat="kdm" msgid="if kdmctl*"
 hint="Utiliser de vrais guillemets, au lieu d'une apostrophe (homogénéité)"
 
 [\"]
@@ -449,6 +456,7 @@ validGroup keycapTag
 validGroup computeroutputTag
 validGroup functionTag
 validGroup perlScript
+validGroup literalTag
 valid msgid="<!ENTITY"
 valid after="\s+(=|]|PS1|\")"
 valid before="\s*/?>|&gt|}"
@@ -481,6 +489,8 @@ valid ctx="unit synonyms for matching user input"
 valid cat="kile_scripting" msgid="var range.*"
 valid cat="kile_scripting" after="\("
 valid cat="kile_scripting" before="\)"
+valid cat="kdm" msgid="ttyv8*"
+valid cat="kdm" msgid="if kdmctl*"
 hint="Utiliser de vrais guillemets (alt-gr w, z ou x), au lieu de guillemets anglais (homogénéité)"
 
 [’]
@@ -540,6 +550,7 @@ valid cat="sheets_functions" msgid="MIRR\(.*"
 valid cat="kppp_hayes" msgid="U.S.|U.K."
 valid cat="kile" msgid=".*DeclareGraphicsRule.*|.*documentclass.*"
 valid ctx="Numbers and characters"
+valid cat="kdm_theme-ref" msgid="&amp;lt;\?xml version=\"1.0\".*"
 hint="Mettre une espace insécable avant et une espace après"
 
 [\d¤\b]
@@ -547,6 +558,7 @@ hint="Mettre une espace insécable avant le symbole monétaire"
 
 [&sp;\,]
 valid after="^Keywords="
+valid cat="kdm" msgid="if kdmctl*"
 hint="Pas d'espace avant une virgule"
 
 [\.\)]
@@ -592,6 +604,7 @@ valid after="Yandex" before="Fotki"
 valid cat="kmix" msgid="qdbus org.kde.kmix /Mixers/0/Master_0 org.freedesktop.DBus.Properties.*"
 valid cat="kget" before="kgt|metalink|meta4|torrent"
 valid cat="kile" msgid=".*DeclareGraphicsRule.*"
+valid before="Xauthority"
 valid ctx="Numbers and characters"
 valid ctx="Query"
 hint="Mettre une espace après un point"
@@ -620,6 +633,7 @@ valid cat="kturtle_programming-reference" msgid="{ ... }"
 valid ctx="characters are not allowed"
 valid cat="kopete_chatstyle" msgid="styleName\\.*"
 valid cat="sheets_functions" msgid="..."
+valid cat="kdm" before="dmrc"
 hint="Pas d'espace avant un point"
 
 [&cr;]
