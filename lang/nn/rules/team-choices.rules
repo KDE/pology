@@ -283,6 +283,10 @@ hint="eigendefinert → sjølvvald, tilpassa"
 [opplysing(a|ar|ane)?]i
 hint="opplysing → opplysning"
 
+[stig(en|ar|ane)?\b]i
+id="stig"
+hint="stig(en) → sti(en) (søkjestig o.l. – men «stigar» ein klatrar i er sjølvsagt OK)"
+
 [\blata?\b]i
 id="lata"
 hint="lata → la, lat → la"
