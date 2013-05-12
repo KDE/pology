@@ -286,6 +286,7 @@ hint="opplysing → opplysning"
 [stig(en|ar|ane)?\b]i
 id="stig"
 hint="stig(en) → sti(en) (søkjestig o.l. – men «stigar» ein klatrar i er sjølvsagt OK)"
+valid after="kun"
 
 [\blata?\b]i
 id="lata"
