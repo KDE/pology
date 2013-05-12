@@ -1,0 +1,10 @@
+# Exclusion dictionaries for Norwegian Bokmål
+# ───────────────────────────────────────────
+#
+# [Note: This file is runnable using ‘sh’.]
+# 
+# The file ‘imperativfeil.dat’ contains a list of imperatives
+# misspelled with an accent. For example, it contains the
+# word ‘installér’ (should be spelled ‘installer’).
+fgrep 'verb imp' fullform_bm.txt | awk -F'\t' '{ print $3 }' | \
+grep '^[^-].*er$' | sort -u | sed 's/er$/ér/' > imperativfeil.dat

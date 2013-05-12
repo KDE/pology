@@ -1,0 +1,11 @@
+# Frequent ortography mistakes in Norwegian Nynorsk.
+# Karl Ove Hufthammer <karl@huftis.org>
+# License: GPLv3
+
+include file="puretext.filters"
+
+*hook name="nb:exclusion/exclude-forms~['imperativfeil']" on="msgstr"
+id="imperativending"
+hint="imperativ skal aldri slutte på -ér («installer», ikke «installér»)"
+
+# End of rules
