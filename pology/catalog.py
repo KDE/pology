@@ -385,6 +385,12 @@ def _parse_po_file (file, MessageType=MessageMonitored,
 
     try_finish() # the last message
 
+    if len(messages1) == 0:
+        raise CatalogSyntaxError(
+            _("@info",
+              "No header at %(file)s:%(line)d.",
+              file=filename, line=lno))
+
     # Join fields.
     join_or_none = lambda x: "".join(x) if x else None
     for i, msg in enumerate(messages1):
