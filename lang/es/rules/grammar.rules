@@ -1668,9 +1668,9 @@ hint="«Más, Muy, Bastante, Demasiado, Poco» no debe figurar antes de superlat
 id="gr-2-inferior-que"
 hint=" Después de «Inferior, Superior, Anterior, Posterior» no debe figurar «Que» (error gramatical)"
 
-[(?u)\b(mayor|menor|por|mejor)\sal?\b]i
-id="gr-2-mayor-a"
-hint=" Después de «Mayor, Menor, Por, Mejor» no debe figurar «A, Al» (error gramatical)"
+#[(?u)\b(mayor|menor|por|mejor)\sal?\b]i
+#id="gr-2-mayor-a"
+#hint=" Después de «Mayor, Menor, Por, Mejor» no debe figurar «A, Al» (error gramatical)"
 
 
 #

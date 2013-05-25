@@ -480,6 +480,10 @@ hint="«En aquí» se escribe como «Aquí» (error frecuente: solecismo)"
 id="cm-1-en-base-a"
 hint="«En base a» se escribe como «Basándose en/Teniendo en cuenta/A partir de ...» (error frecuente: solecismo)"
 
+[\ben\scuanta\sque\b]i
+id="cm-1-en-cuanta-que"
+hint="«En cuanta que» se escribe como «En cuenta que» (error frecuente)"
+
 [\ben\scuanto\sque\b]i
 id="cm-1-en-cuanto-que"
 hint="«En cuanto que» se escribe como «En cuanto» (error frecuente)"
@@ -698,6 +702,7 @@ hint="«Más nunca» se escribe como «Nunca más» (error frecuente)"
 
 [\bmayor\sa\b]i
 id="cm-1-mayor-a"
+valid before="\smenor"
 hint="«Mayor a» se escribe como «Mayor que» (error frecuente: solecismo)"
 
 [\bme\sse\b]i
@@ -871,6 +876,10 @@ hint="«Tema sensible» se escribe como «Tema delicado» (error frecuente)"
 #[\btenían\sque\shaber\b]i
 #id="cm-2-tenian-que-haber"
 #hint="«Tenían que haber» se escribe como «Tenía que haber» (error frecuente)"
+
+[\buna\scuanta\b]i
+id="cm-1-una-cuanta"
+hint="«Una cuanta» se escribe como «Una cuenta» (error frecuente)"
 
 [\buna\sde\sambas\b]i
 id="cm-2-una-de-ambas"

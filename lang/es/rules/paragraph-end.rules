@@ -95,6 +95,7 @@ valid msgstr="\)\.\s*$"
 valid msgstr="etc\.\)\s*$"
 valid msgstr="(?u)\w\.\s*$"
 valid msgstr="\.\.\.\)\s*$"
+valid msgstr="\([A-Z].*?\.\)\s*$"
 hint="Compruebe el orden del paréntesis y punto al final del párrafo (al revés que en inglés)."
 
 {\.\)\s*\\\\n}i
@@ -103,6 +104,7 @@ valid msgstr="\)\.\s*\\\\n"
 valid msgstr="etc\.\)\s*\\\\n"
 valid msgstr="(?u)\w\.\s*\\\\n"
 valid msgstr="\.\.\.\s*\\\\n"
+valid msgstr="\([A-Z].*?\.\)\s*\\\\n"
 hint="Compruebe el orden del paréntesis y punto antes del fin de línea «\n» (al revés que en inglés)."
 
 {\.\)\s*\<\/p\>}i
@@ -111,6 +113,7 @@ valid msgstr="\)\.\s*\<\/p\>"
 valid msgstr="etc\.\)\s*\<\/p\>"
 valid msgstr="(?u)\w\.\s*\<\/p\>"
 valid msgstr="\.\.\.\)\s*\<\/p\>"
+valid msgstr="\([A-Z].*?\.\)\s*\<\/p\>"
 hint="Compruebe el orden del paréntesis y punto al final del párrafo «</p>» (al revés que en inglés)."
 
 {\.(»|\'|\")\s*$}i

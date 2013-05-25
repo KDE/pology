@@ -538,6 +538,7 @@ valid msgstr="despejará" after="will\s(not\s)?"
 valid msgstr="borró" after="did\s(not\s)?"
 valid msgstr="aclaró" after="did\s(not\s)?"
 valid msgstr="despejó" after="did\s(not\s)?"
+valid msgstr="sin\scifrar" before="\stext"
 hint="«Clear» se traduce como «Borrar/Aclarar/Despejar» o «Claro/Despejado/Limpio» (propuesta glosario)"
 
 {\bclears\b}i
@@ -1768,8 +1769,8 @@ hint="«Idle» se traduce como «Inactivo» (propuesta glosario)"
 
 {\bidles\b}i
 id="gp-2-idles"
-valid msgstr="inactiv[oa]s"
-hint="«Idles» se traduce como «Inactivos» (propuesta glosario)"
+valid msgstr="inactiv[oa]s?"
+hint="«Idles» se traduce como «Inactivos/Inactiva» (propuesta glosario)"
 
 {\bimplement\b}i
 id="gp-3-implement"
@@ -3615,7 +3616,7 @@ hint="«Sources» se traduce como «Orígenes/Fuentes» (propuesta glosario)"
 
 {\bspam\b}i
 id="gp-2-spam"
-valid msgstr="correos?[\s\-]basura"
+valid msgstr="correos?[\s\-](semi)?basura"
 valid msgstr="correo\sno\sdeseado"
 valid msgstr="correos\sno\sdeseados"
 hint="«Spam» se traduce como «Correo basura/no deseado» (propuesta glosario)"
