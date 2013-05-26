@@ -425,6 +425,17 @@ hint="Es tradueix per «botó/ons d'opció» (kde-ca-team)"
 valid msgstr="grups? de botons d'opció"
 hint="Es tradueix per «grup/s de botons d'opció» (kde-ca-team)"
 
+{\branges?\b}i
+valid msgstr="abast(ar)?"
+valid msgstr="àre(a|es)"
+valid msgstr="caren(a|es)" # de muntanyes
+valid msgstr="gamma"
+valid msgstr="intervals?"
+valid msgstr="marge" # HDR (High dynamic range): Marge dinàmic elevat
+valid msgstr="contingut" cat="katepart4"
+valid msgstr="ventall" cat="www_www,kalzium"
+hint="Es tradueix per «abast, àrea, interval/s» (kde-ca-team)"
+
 # «screenshot» es tradueix per «captura de pantalla».
 {\bscreenshots?\b}i
 valid msgstr="captur(a|es) de pantalla"
@@ -628,5 +639,10 @@ hint="Es tradueix per «full de càlcul (KOffice), full de treball» (kde-ca-tea
 valid msgstr="espais? de treball"
 valid !msgstr="àrea de treball"
 hint="Es tradueix per «espai de treball» (kde-ca-team)" 
+
+{\bworkflows?\b}i
+valid msgid="imaging\sworkflow"
+valid msgstr="flux(os)? de treball"
+hint="Es tradueix per «flux/os de treball» (kde-ca-team)"
 
 # End of rule file
