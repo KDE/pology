@@ -80,6 +80,10 @@ hint="Es tradueix per «quadre» o «casella»: generalment \
 els «quadres» permeten introduir text/nombres, i \
 les «caselles» s'activen o es desactiven (kde-ca-team)"
 
+{\b(broad|wide)\sranges?\b}i
+valid msgstr="(amplia|gran) varietat"
+hint="Es tradueix per «amplia/gran varietat» (kde-ca-team)"
+
 {\bbuttons?\b}i
 valid msgid="slider\sbutton"
 valid msgstr="bot(ó|ons)"
@@ -426,6 +430,7 @@ valid msgstr="grups? de botons d'opció"
 hint="Es tradueix per «grup/s de botons d'opció» (kde-ca-team)"
 
 {\branges?\b}i
+valid msgid="(broad|wide)\sranges?"
 valid msgstr="abast(ar)?"
 valid msgstr="àre(a|es)"
 valid msgstr="caren(a|es)" # de muntanyes
@@ -434,7 +439,7 @@ valid msgstr="intervals?"
 valid msgstr="marge" # HDR (High dynamic range): Marge dinàmic elevat
 valid msgstr="contingut" cat="katepart4"
 valid msgstr="ventall" cat="www_www,kalzium"
-hint="Es tradueix per «abast, àrea, interval/s» (kde-ca-team)"
+hint="Es tradueix per «abast, àrea, interval/s, HDR: Marge dinàmic elevat» (kde-ca-team)"
 
 # «screenshot» es tradueix per «captura de pantalla».
 {\bscreenshots?\b}i
