@@ -390,6 +390,7 @@ hint="Mettre une espace avant et une espace insécable après"
 [`]
 validGroup cdataTag
 validGroup perlScript
+validGroup userinputTag
 valid cat="amarok" after="prefix"
 valid cat="amarok" before="kde4?-config"
 valid cat="kdevelop" after="attendu.*"
@@ -643,6 +644,7 @@ hint="À bas MS-DOS"
 validGroup computeroutputTag
 validGroup errortypeTag
 validGroup calligraFunction
+validGroup userinputTag
 valid before="[A-Z]\.?[A-Z]" # Keywords, acronyms
 valid before="David|Laura|Gerardo|Martin|Hari" # Authors
 valid before="Français|Anglais|Italien|Espagnol|Allemand"
@@ -662,6 +664,8 @@ valid cat="kdeprint_cups-config" before="ServerName"
 valid cat="kdeprint_final-word" before="Tom"
 valid cat="sheets_functions" before="P|N|J|W|T|C|E|F|K|G"
 valid cat="kppp_hayes" before="V.42bis"
+valid cat="lokalize" before="Shankar|Sweta"
+valid cat="tellico_importing-exporting" before="Tellico"
 hint="Pas de majuscule après deux points ou un point virgule"
 
 [(<strong>«)|(<b>«)|(<em>«)|(<i>«)|(»</strong>)|(»</b>)|(»</em>)|(»</i>)]

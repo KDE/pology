@@ -61,6 +61,7 @@ valid cat="kstars_indi" after="interrupteur standard |La propriété "
 hint="La bonne orthographe est « connexion » en français !"
 
 [formatt]i
+validGroup linkTag
 valid cat="kopete_pipes" msgid="Here's an example"
 hint="Un seul « t »"
  
@@ -104,6 +105,7 @@ validGroup roleTag
 validGroup commandTag
 validGroup optionTag
 validGroup literalTag
+validGroup userinputTag
 valid cat="kommander" before="ed"
 valid cat="kile" msgid=".*psselect.*"
 valid after="[rad|Radical|KChar]"
@@ -113,6 +115,7 @@ valid after="<link linkend=\"\S*" before="\S*\""
 valid after="fileref=\"\S*" before="\S*\""
 valid cat="kile_scripting" after=".*view\..*"
 valid cat="kdm_kdmrc-ref" msgid="SelectedUsers|PreselectUser"
+valid cat="tellico_advanced" msgid="bool importTellico*|int addEntry*"
 hint="Mettre un accent aigu sur le premier « e », pas sur le deuxième"
 
 [n[eè]cess|néc[éè]ss]i
@@ -245,6 +248,7 @@ hint="À remplacer par « courrier »"
 validGroup foreignphraseTag
 validGroup urlTag
 validGroup envarTag
+validGroup cdataTag
 valid ctx="Query" before="=" 
 valid after="HyperText&sp;Markup&sp;" 
 valid after="Interface&sp;Definition&sp;" 
@@ -437,6 +441,7 @@ hint="« digital » est un anglicisme. Utiliser « numérique »"
 [d@efault]   
 validGroup filenameTag
 validGroup literalTag
+validGroup cdataTag
 valid cat="ksysv" after=":init" before=":$"  
 valid ctx="Query"
 valid cat="kcmkonqhtml" after="window\."
@@ -444,6 +449,7 @@ valid cat="kioclient" after="Mount "
 valid cat="juk" after="juk-viewmode-"
 valid cat="kppp_accounting"
 valid cat="kdm" after="init"
+valid cat="tellico_hacking" after="_"
 hint="À remplacer par « défaut »" 
 
 [media]i
@@ -564,6 +570,7 @@ valid cat="sheets_functions"
 valid cat="kile" after="math"
 valid cat="kile_scripting" after="\\|view\..*|document\.replace|document\.remove"
 valid cat="kdm_theme-ref" msgid="&amp;lt;text xml.*"
+valid cat="tellico_advanced" after="QString "
 hint="Merci de mettre un « e » à la fin de « texte » ou « contexte »"
 
 [anti-[^i]]i
