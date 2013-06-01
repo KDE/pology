@@ -13,6 +13,9 @@ hint="No separe con puntos los miles de los números (excepto en direcciones IP)
 id="ty-3-tecla-aceleradora-incorrecta"
 hint="Tecla aceleradora no válida (en vocal con tilde)"
 
+[\b(p\.ej\.|p\.\s?e\.|p\s\ej\.|p.\sej[^\.])]
+id="ty-2-abrebiatura-por-ejemplo"
+hint="La abreviatura de «por ejemplo» es «p. ej.»"
 
 include file="filter.include"
 

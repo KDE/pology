@@ -779,6 +779,8 @@ id="gk-2-decoding"
 valid msgstr="des?codificación"
 valid msgstr="des?codificando"
 valid msgstr="des?codificar" after="while\s"
+valid msgstr="des?codificarlo" after="it\s"
+valid msgstr="des?codificarlos" after="them\s"
 hint="«Decoding» se traduce como «Descodificación» (ver glosario)"
 
 {\bdecrypt\b}i
@@ -2285,7 +2287,7 @@ hint="«Non-inclusive» se traduce como «Exclusivo» (ver glosario)"
 
 {\boff\stopic\b}i
 id="gk-2-off-topic"
-valid msgstr="fuera\sde\stemática"
+valid msgstr="fuera\sde(la\s)?\stemática"
 hint="«Off topic» se traduce como «Fuera de temática» (ver glosario)"
 
 {\bok\b}i
@@ -3132,6 +3134,7 @@ valid msgstr="enviar"
 valid msgstr="enví(o|a|e)"
 valid msgstr="enviará" after="will\s(not\s)?"
 valid msgstr="envió" after="did\s(not\s)?"
+valid msgstr="ha\senviado" after="has\sbeen\s"
 valid msgstr="dev(olver|uelve|vuelva)" before=".*\sback"
 hint="«Send» se traduce como «Enviar» o «Envío» (ver glosario)"
 

@@ -871,15 +871,15 @@ hint="«¿Donde...» se escribe como «¿Dónde...», (error gramatical)"
 
 [¿(\w+\s)?cuantos?\b]i
 id="gr-1-cuantos-interrogativo"
-hint="«¿Cuantos...» se escribe como «¿Cúantos...», (error gramatical)"
+hint="«¿Cuantos...» se escribe como «¿Cuántos...», (error gramatical)"
 
 [¿(\w+\s)?cuales\b]i
 id="gr-1-cuales-interrogativo"
-hint="«¿Cuales...» se escribe como «¿Cúales...», (error gramatical)"
+hint="«¿Cuales...» se escribe como «¿Cuáles...», (error gramatical)"
 
 [¿(\w+\s)?cual\b]i
 id="gr-1-cual-interrogativo"
-hint="«¿Cual...» se escribe como «¿Cúal...», (error gramatical)"
+hint="«¿Cual...» se escribe como «¿Cuál...», (error gramatical)"
 
 [¿(\w+\s)?quienes\b]i
 id="gr-1-quienes-interrogativo"
@@ -928,15 +928,15 @@ hint="«¡Donde...» se escribe como «¡Dónde...», (error gramatical)"
 
 [¡(\w+\s)?cuantos?\b]i
 id="gr-1-cuantos-admirativo"
-hint="«¡Cuantos...» se escribe como «¡Cúantos...», (error gramatical)"
+hint="«¡Cuantos...» se escribe como «¡Cuántos...», (error gramatical)"
 
 [¡(\w+\s)?cuales\b]i
 id="gr-1-cuales-admirativo"
-hint="«¡Cuales...» se escribe como «¡Cúales...», (error gramatical)"
+hint="«¡Cuales...» se escribe como «¡Cuáles...», (error gramatical)"
 
 [¡(\w+\s)?cual\b]i
 id="gr-1-cual-admirativo"
-hint="«¡Cual...» se escribe como «¡Cúal...», (error gramatical)"
+hint="«¡Cual...» se escribe como «¡Cuál...», (error gramatical)"
 
 [¡(\w+\s)?quienes\b]i
 id="gr-1-quienes-admirativo"
