@@ -33,7 +33,7 @@ _no_check_lat_rxs = (
         bcode command envar filename icode shortcut placeholder style code tt
         literal screen option keycap userinput systemitem prompt function
         foreignphrase varname programlisting token markup parameter keysym
-        methodname replaceable sgmltag arg classname type package
+        methodname replaceable sgmltag arg classname type package errorcode
     """.split()), re.U|re.I|re.S),
     # - some tags are requested without attributes, as otherwise
     # Latin-content is allowed inside attributes only.
@@ -76,7 +76,7 @@ _naked_latin_rx = re.compile(r"[a-z][a-z\W]*", re.U|re.I)
 # Messages to skip by tags in auto comments.
 _auto_cmnt_tag_rx = re.compile(r"^\s*Tag:\s*(%s)\s*$" % "|".join("""
     filename envar programlisting screen command option userinput cmdsynopsis
-    email
+    email errorcode
 """.split()), re.U|re.I)
 
 # The hook worker.
