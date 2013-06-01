@@ -71,6 +71,15 @@ hint="drop target = место за спуштање"
 valid msgstr="мест\w+ за спуштање"
 
 # ====================
+# KJumpingCube (game)
+environment kjumpingcube
+
+{cascade move}i
+id="t-cascademove"
+hint="cascade move = надовезани потез"
+valid msgstr="надовезан\w+ потез"
+
+# ====================
 # KPPP (modem dialer)
 environment kppp
 
