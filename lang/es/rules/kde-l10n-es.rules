@@ -44,7 +44,7 @@ hint="«Adress» se traduce como «Dirección» (ver glosario)"
 {\badresses\b}i
 id="gk-2-adresses"
 valid msgstr="direcciones"
-valid msgstr="(cualquier|ninguna)\sdirección"
+valid msgstr="(alguna|cualquier|ninguna)\sdirección"
 hint="«Adresses» se traduce como «Direcciones» (ver glosario)"
 
 {\badress\sbook\b}i
@@ -56,7 +56,7 @@ hint="«Adress book» se traduce como «Libreta de direcciones», nunca como «L
 {\badress\sbooks\b}i
 id="gk-2-adress-books"
 valid msgstr="libretas\sde\sdirecciones"
-valid msgstr="(cualquier|ninguna)\slibreta\sde\sdirecciones"
+valid msgstr="(alguna|cualquier|ninguna)\slibreta\sde\sdirecciones"
 valid !msgstr="libros?\sde\sdirecciones"
 hint="«Adress books» se traduce como «Libretas de direcciones», nunca como «Libros de direcciones» (ver glosario)"
 
@@ -99,7 +99,7 @@ hint="«Allocation» como se traduce como «Asignación» (ver glosario)"
 {\ballocations\b}i
 id="gk-2-allocations"
 valid msgstr="asignaciones"
-valid msgstr="(cualquier|ninguna)\sasignación"
+valid msgstr="(alguna|cualquier|ninguna)\sasignación"
 valid !msgstr="alocaciones"
 hint="«Allocations» como se traduce como «Asignaciones» (ver glosario)"
 
@@ -118,7 +118,7 @@ hint="«Applet» se traduce como «Miniaplicación» (ver glosario)"
 {\bapplets\b}i
 id="gk-2-applets"
 valid msgstr="miniaplicaciones"
-valid msgstr="(cualquier|ninguna)\sminiaplicación"
+valid msgstr="(alguna|cualquier|ninguna)\sminiaplicación"
 hint="«Applets» se traduce como «Miniaplicaciones» (ver glosario)"
 
 {\barchive\b}i
@@ -141,7 +141,7 @@ hint="«Archived» se traduce como «Archivado» (ver glosario)"
 {\barchives\b}i
 id="gk-2-archives"
 valid msgstr="archivos(\scomprimidos)?"
-valid msgstr="(cualquier|ningún)\sarchivo(\scomprimido)?"
+valid msgstr="(algún|cualquier|ningún)\sarchivo(\scomprimido)?"
 valid msgstr="archiv(ar|a|e)"
 hint="«Archives» se traduce como «Archivos comprimidos» (ver glosario)"
 
@@ -155,8 +155,8 @@ hint="«Array» se traduce como «Matriz» o «Vector» excepto en contexto de p
 id="gk-2-arrays"
 valid msgstr="matrices"
 valid msgstr="vectsores"
-valid msgstr="(cualquier|ninguna)\smatriz"
-valid msgstr="(cualquier|ningún)\svector"
+valid msgstr="(alguna|cualquier|ninguna)\smatriz"
+valid msgstr="(algún|cualquier|ningún)\svector"
 hint="«Arrays» se traduce como «Matrices» o «Vectores» excepto en contexto de programación (ver glosario)"
 
 {\bbackend\b}i
@@ -168,7 +168,7 @@ hint="«Backend» se traduce como «Motor» (ver glosario)"
 {\bbackends\b}i
 id="gk-2-backends"
 valid msgstr="motores"
-valid msgstr="(cualquier|ningún)\smotor"
+valid msgstr="(algún|cualquier|ningún)\smotor"
 hint="«Backends» se traduce como «Motores» (ver glosario)"
 
 {\bbackground\b}i
@@ -188,7 +188,7 @@ hint="«Backup» se traduce como «Copia de respaldo» (ver glosario)"
 id="gk-2-backups"
 valid msgstr="copias\sde\srespaldo"
 valid msgstr="respald(a|e)"
-valid msgstr="(cualquier|ninguna)\scopia\sde\s(respaldo|seguridad)"
+valid msgstr="(alguna|cualquier|ninguna)\scopia\sde\s(respaldo|seguridad)"
 valid after="\-"
 hint="«Backups» se traduce como «Copias de respaldo» (ver glosario)"
 
@@ -201,7 +201,7 @@ hint="«Backslash» se traduce como «Barra inversa», nunca como «Barra invert
 {\bbackslashes\b}i
 id="gk-2-backlslashes"
 valid msgstr="barras\sinversas"
-valid msgstr="(cualquier|ninguna)\sbarra\sinversa"
+valid msgstr="(alguna|cualquier|ninguna)\sbarra\sinversa"
 valid !msgstr="barras\sinvertidas?"
 hint="«Backslashes» se traduce como «Barras inversas», nunca como «Barras invertidas» (ver glosario)"
 
@@ -225,7 +225,7 @@ hint="«Batcher» se traduce como «Procesador por lotes» (ver glosario)"
 {\bbatchers\b}i
 id="gk-2-batchers"
 valid msgstr="procesadores\spor\slotes"
-valid msgstr="(cualquier|ningún)\sprocesador\spor\slotes"
+valid msgstr="(algún|cualquier|ningún)\sprocesador\spor\slotes"
 hint="«Batchers» se traduce como «Procesadores por lotes» (ver glosario)"
 
 {\bbatching\b}i
@@ -242,7 +242,7 @@ hint="«Bit» no se debe traducir (ver glosario)"
 {\bbits\b}i
 id="gk-2-bits"
 valid msgstr="bits"
-valid msgstr="(cualquier|ningún)\sbit"
+valid msgstr="(algún|cualquier|ningún)\sbit"
 hint="«Bits» es el plural de «Bit», no se debe traducir (ver glosario)"
 
 {\bblock\b}i
@@ -257,7 +257,7 @@ hint="«Block» se traduce como «Bloque» o «Bloquear» (ver glosario)"
 id="gk-2-blocks"
 valid before="\-"
 valid msgstr="bloque(s|a|e)"
-valid msgstr="(cualquier|ningún)\sbloque"
+valid msgstr="(algún|cualquier|ningún)\sbloque"
 hint="«Blocks» se traduce como «Bloques» o «Bloquea»(ver glosario)"
 
 {\bbold\b}i
@@ -274,7 +274,7 @@ hint="«Bookmark» se traduce como «Marcador», nunca como «Favorito» (ver gl
 {\bbookmarks\b}i
 id="gk-2-bookmarks"
 valid msgstr="marcadores"
-valid msgstr="(cualquier|ningún)\smarcador"
+valid msgstr="(algún|cualquier|ningún)\smarcador"
 valid !msgstr="favoritos?"
 hint="«Bookmarks» se traduce como «Marcadores», nunca como «Favoritos» (ver glosario)"
 
@@ -302,9 +302,9 @@ hint="«Buffer» se traduce como «Memoria temporal/intermedia» o «Búfer» (v
 id="gk-2-buffers"
 valid msgstr="memorias\stemporales"
 valid msgstr="memorias\sintermedias"
-valid msgstr="(cualquier|ninguna)\smemoria\stemporal"
-valid msgstr="(cualquier|ninguna)\smemoria\sintermedia"
-valid msgstr="(cualquier|ningún)\sbúfer"
+valid msgstr="(alguna|cualquier|ninguna)\smemoria\stemporal"
+valid msgstr="(alguna|cualquier|ninguna)\smemoria\sintermedia"
+valid msgstr="(algún|cualquier|ningún)\sbúfer"
 valid msgstr="búferes"
 hint="«Buffers» se traduce como «Memorias temporales/intermedias» o «Búferes» (ver glosario)"
 
@@ -327,9 +327,9 @@ hint="«Bug» se traduce como «Fallo» o «Error» (ver glosario)"
 id="gk-2-bugs"
 valid msgstr="fall[oa]s"
 valid msgstr="errores"
-valid msgstr="(cualquier|ningún)\sfallo"
-valid msgstr="(cualquier|ninguna)\sfalla"
-valid msgstr="(cualquier|ningún)\serror"
+valid msgstr="(algún|cualquier|ningún)\sfallo"
+valid msgstr="(alguna|cualquier|ninguna)\sfalla"
+valid msgstr="(algún|cualquier|ningún)\serror"
 valid !msgstr="bugs?"
 hint="«Bugs» se traduce como «Fallos» o «Errores» (ver glosario)"
 
@@ -341,7 +341,7 @@ hint="«Byte» no se traduce (ver glosario)"
 {\bbytes\b}i
 id="gk-2-bytes"
 valid msgstr="bytes"
-valid msgstr="(cualquier|ningún)\sbyte"
+valid msgstr="(algún|cualquier|ningún)\sbyte"
 hint="«Bytes» no se traduce (ver glosario)"
 
 {\bcache\b}i
@@ -421,15 +421,15 @@ valid msgstr="comprobar"
 valid msgstr="comprobaciones"
 valid msgstr="controles"
 valid msgstr="verificaciones"
-valid msgstr="(cualquier|ninguna)\scomprobación"
-valid msgstr="(cualquier|ninguna)\sverificación"
-valid msgstr="(cualquier|ningún)\scontrol"
+valid msgstr="(alguna|cualquier|ninguna)\scomprobación"
+valid msgstr="(alguna|cualquier|ninguna)\sverificación"
+valid msgstr="(algún|cualquier|ningún)\scontrol"
 valid msgstr="marcar?"
 valid msgstr="marque"
 valid msgstr="consult(a|e)"
 valid msgstr="verifi(ca|que)"
 valid msgstr="cheques" cat="kmymomey,skrooge"
-valid msgstr="(cualquier|ninguna)\scheque" cat="kmymomey,skrooge"
+valid msgstr="(algún|cualquier|ningún)\scheque" cat="kmymomey,skrooge"
 valid msgstr="jaques" cat="knights"
 hint="«Checks» se traduce como «Compruebe/Consulte/Marque/Controles/Marcas» (ver glosario)"
 
@@ -441,7 +441,7 @@ hint="«Checksum» se traduce como «Suma de verificación» (ver glosario)"
 {\bchecksums\b}i
 id="gk-2-checksums"
 valid msgstr="sumas\sde\sverificación"
-valid msgstr="(cualquier|ninguna)\ssuma\sde\sverificación"
+valid msgstr="(alguna|cualquier|ninguna)\ssuma\sde\sverificación"
 hint="«Checksums» se traduce como «Sumas de verificación» (ver glosario)"
 
 {\bchip\b}i
@@ -452,7 +452,7 @@ hint="«Chip» no se traduce (ver glosario)"
 {\bchips\b}i
 id="gk-2-chips"
 valid msgstr="chips"
-valid msgstr="(cualquier|ningún)\schip"
+valid msgstr="(algún|cualquier|ningún)\schip"
 hint="«Chips» no se traduce (ver glosario)"
 
 {\bclean\b}i
@@ -498,8 +498,8 @@ hint="«Click» se traduce como «Pulsar», «Pulsación» o «Clic» (ver glosa
 id="gk-2-clicks"
 valid msgstr="pulsa(aciones)?"
 valid msgstr="clics"
-valid msgstr="(cualquier|ninguna)\spulsación"
-valid msgstr="(cualquier|ningún)\sclic"
+valid msgstr="(alguna|cualquier|ninguna)\spulsación"
+valid msgstr="(algún|cualquier|ningún)\sclic"
 valid !msgstr="clicks"
 hint="«Clicks» se traduce como «Pulsaciones», «Pulsa» o «Clics» (ver glosario)"
 
@@ -517,7 +517,7 @@ hint="«Combobox» se traduce como «Lista desplegable» (ver glosario)"
 {\bcomboboxes\b}i
 id="gk-2-comboboxes"
 valid msgstr="listas\sdesplegables"
-valid msgstr="(cualquier|ninguna)\slista\sdesplegable"
+valid msgstr="(alguna|cualquier|ninguna)\slista\sdesplegable"
 hint="«Comboboxes» se traduce como «Listas desplegables» (ver glosario)"
 
 {\bcommand\b}i
@@ -532,8 +532,8 @@ hint="«Command» se traduce como «Orden» o «Instrucción», nunca como «Com
 id="gk-2-commnands"
 valid msgstr="órdenes"
 valid msgstr="instrucciones"
-valid msgstr="(cualquier|ninguna)\sorden"
-valid msgstr="(cualquier|ninguna)\sinstrucción"
+valid msgstr="(alguna|cualquier|ninguna)\sorden"
+valid msgstr="(alguna|cualquier|ninguna)\sinstrucción"
 valid msgstr="manda"
 valid msgstr="ordena"
 valid msgstr="indica"
@@ -548,7 +548,7 @@ hint="«Compact disk» se traduce como «Disco compacto» (ver glosario)"
 {\bcompact\sdisks\b}i
 id="gk-2-compact-disks"
 valid msgstr="discos\scompactos"
-valid msgstr="(cualquier|ningún)\sdisco\scompacto"
+valid msgstr="(algún|cualquier|ningún)\sdisco\scompacto"
 hint="«Compact disks» se traduce como «Discos compactos» (ver glosario)"
 
 {\bcompact(?!\sdisks?)\b}i
@@ -585,8 +585,8 @@ hint="«Computer» se traduce como «Equipo», no como «Ordenador» o «Computa
 id="gk-2-computers"
 valid msgstr="equipos"
 valid msgstr="máqinas"
-valid msgstr="(cualquier|ningún)\sequipo"
-valid msgstr="(cualquier|ninguna)\smáquina"
+valid msgstr="(algún|cualquier|ningún)\sequipo"
+valid msgstr="(alguna|cualquier|ninguna)\smáquina"
 hint="«Computers» se traduce como «Equipos», no como «Ordenadores» o «Computadoras» (ver glosario)"
 
 {\bcontainer\b}i
@@ -599,8 +599,8 @@ hint="«Container» se traduce como «Contenedor» (ver glosario)"
 id="gk-2-containers"
 valid msgstr="contenedores"
 valid msgstr="recipientes"
-valid msgstr="(cualquier|ningún)\scontenedor"
-valid msgstr="(cualquier|ningún)\srecipiente"
+valid msgstr="(algún|cualquier|ningún)\scontenedor"
+valid msgstr="(algún|cualquier|ningún)\srecipiente"
 hint="«Containers» se traduce como «Contenedores» (ver glosario)"
 
 {\bcontributor\b}i
@@ -611,7 +611,7 @@ hint="«Contributor» se traduce como «Colaborador» (ver glosario)"
 {\bcontributors\b}i
 id="gk-2-contributors"
 valid msgstr="colaboradores"
-valid msgstr="(cualquier|ningún)\scolaborador"
+valid msgstr="(algún|cualquier|ningún)\scolaborador"
 hint="«Contributors» se traduce como «Colaboradores» (ver glosario)"
 
 {\bcopyrigth\b}i
@@ -649,7 +649,7 @@ hint="«Cover» se traduce como «Carátula», preferible a «Portada» (ver glo
 {\bcovers\b}i
 id="gk-2-covers"
 valid msgstr="carátulas"
-valid msgstr="(cualquier|ninguna)\scarátula"
+valid msgstr="(alguna|cualquier|ninguna)\scarátula"
 valid msgstr="inform(ar|a|e)"
 valid !msgstr="portadas?"
 valid !msgstr="cubiertas?"
@@ -696,7 +696,7 @@ id="gk-2-cups"
 valid msgstr="cups"
 valid msgstr="CUPS"
 valid msgstr="tazas"
-valid msgstr="(cualquier|ninguna)\staza"
+valid msgstr="(alguna|cualquier|ninguna)\staza"
 hint="«CUPS» no se debe traducir, salvo si se trata de tazas (ver glosario)"
 
 {\bdaemon\b}i
@@ -707,7 +707,7 @@ hint="«Daemon» se traduce como «Demonio» (ver glosario)"
 {\bdaemons\b}i
 id="gk-2-daemons"
 valid msgstr="demonios"
-valid msgstr="(cualquier|ningún)\sdemonio"
+valid msgstr="(algún|cualquier|ningún)\sdemonio"
 hint="«Daemons» se traduce como «Demonios» (ver glosario)"
 
 {\bdashboard\b}i
@@ -719,7 +719,7 @@ hint="«Dashboard» se traduce como «Tablero de mandos», nunca como «Salpicad
 {\bdashboards\b}i
 id="gk-2-dashboards"
 valid msgstr="tableros\sde\smandos"
-valid msgstr="(cualquier|ningún)\stablero\sde\smandos"
+valid msgstr="(algún|cualquier|ningún)\stablero\sde\smandos"
 valid !msgstr="salpicaderos?"
 hint="«Dashboards» se traduce como «Tableros de mandos», nunca como «Salpicaderos» (ver glosario)"
 
@@ -738,7 +738,7 @@ hint="«Debugger» se traduce como «Depurador» (ver glosario)"
 {\bdebuggers\b}i
 id="gk-2-debuggers"
 valid msgstr="depuradores"
-valid msgstr="(cualquier|ningún)\sdepurador"
+valid msgstr="(algún|cualquier|ningún)\sdepurador"
 hint="«Debuggers» se traduce como «Depuradores» (ver glosario)"
 
 {\bdebugging\b}i
@@ -779,8 +779,8 @@ id="gk-2-decoding"
 valid msgstr="des?codificación"
 valid msgstr="des?codificando"
 valid msgstr="des?codificar" after="while\s"
-valid msgstr="des?codificarlo" after="it\s"
-valid msgstr="des?codificarlos" after="them\s"
+valid msgstr="des?codificarlo" before="\sit"
+valid msgstr="des?codificarlos" before="\sthem"
 hint="«Decoding» se traduce como «Descodificación» (ver glosario)"
 
 {\bdecrypt\b}i
@@ -819,7 +819,7 @@ id="gk-2-defaults"
 valid msgstr="predeterminad[oa]s?"
 valid msgstr="por\somisión"
 valid msgstr="defectos"
-valid msgstr="(cualquier|ningún)\sdefecto"
+valid msgstr="(algún|cualquier|ningún)\sdefecto"
 hint="«Defaults» se traduce como «Predeterminados» (ver glosario)"
 
 {\bdefragment\b}i
@@ -872,7 +872,7 @@ hint="«Developer» se traduce como «Desarrollador» (ver glosario)"
 {\bdevelopers\b}i
 id="gk-2-developers"
 valid msgstr="desarrolladores"
-valid msgstr="(cualquier|ningún)\sdesarrollador"
+valid msgstr="(algún|cualquier|ningún)\sdesarrollador"
 hint="«Developers» se traduce como «Desarrolladores» (ver glosario)"
 
 {\bdevelopment\b}i
@@ -883,7 +883,7 @@ hint="«Development» se traduce como «Desarrollo» (ver glosario)"
 {\bdevelopments\b}i
 id="gk-2-developments"
 valid msgstr="desarrollos"
-valid msgstr="(cualquier|ningún)\sdesarrollo"
+valid msgstr="(algún|cualquier|ningún)\sdesarrollo"
 hint="«Developments» se traduce como «Desarrollos» (ver glosario)"
 
 {\bdevice\b}i
@@ -912,8 +912,8 @@ hint="«Directory» se traduce como «Carpeta» o «Directorio» según el conte
 id="gk-2-directories"
 valid msgstr="carpetas"
 valid msgstr="directorios"
-valid msgstr="(cualquier|ninguna)\scarpeta"
-valid msgstr="(cualquier|ningún)\sdirectorio"
+valid msgstr="(alguna|cualquier|ninguna)\scarpeta"
+valid msgstr="(algún|cualquier|ningún)\sdirectorio"
 hint="«Directories» se traduce como «Carpetas» o «Directorios» según el contexto (ver glosario)"
 
 {\bdisable\b}i
@@ -979,8 +979,8 @@ valid msgstr="muestr(a|e)"
 valid msgstr="mostrad(os|as)"
 valid msgstr="visualizaciones"
 valid msgstr="visuali(za|ce)"
-valid msgstr="(cualquier|ninguna)\spantalla"
-valid msgstr="(cualquier|ninguna)\svisualización"
+valid msgstr="(alguna|cualquier|ninguna)\spantalla"
+valid msgstr="(alguna|cualquier|ninguna)\svisualización"
 hint="«Displays» se traduce como «Pantallas», «Visores» o «Muestra» (ver glosario)"
 
 {\bdownload\b}i
@@ -1020,7 +1020,7 @@ hint="«Driver» se traduce como «Controlador» (ver glosario)"
 {\bdrivers\b}i
 id="gk-2-drivers"
 valid msgstr="controladores"
-valid msgstr="(cualquier|ningún)\scontrolador"
+valid msgstr="(algún|cualquier|ningún)\scontrolador"
 valid !msgstr="drivers"
 hint="«Drivers» se traduce como «Controladores» (ver glosario)"
 
@@ -1062,9 +1062,9 @@ valid msgstr="descensos"
 valid msgstr="pérdidas"
 valid msgstr="gotas"
 valid msgstr="abandon(e|a)"
-valid msgstr="(cualquier|ninguna)\scaída"
-valid msgstr="(cualquier|ningún)\sdescenso"
-valid msgstr="(cualquier|ninguna)\sgota"
+valid msgstr="(alguna|cualquier|ninguna)\scaída"
+valid msgstr="(algún|cualquier|ningún)\sdescenso"
+valid msgstr="(alguna|cualquier|ninguna)\sgota"
 hint="«Drops» se traduce como «Suelta» (ver glosario)"
 
 {\bdumb\b}i
@@ -1094,7 +1094,7 @@ hint="«Electronic mail» se traduce como «Correo electrónico» (ver glosario)
 {\belectronic\smails\b}i
 id="gk-2-electronic-mails"
 valid msgstr="correos\selectrónicos"
-valid msgstr="(cualquier|ningún)\scorreo\selectrónico"
+valid msgstr="(algún|cualquier|ningún)\scorreo\selectrónico"
 hint="«Electronic mails» se traduce como «Correos electrónicos» (ver glosario)"
 
 {\bembed\b}i
@@ -1239,8 +1239,8 @@ hint="«Entry» se traduce como «Entrada» (ver glosario)"
 id="gk-2-entries"
 valid msgstr="entradas"
 valid msgstr="opciones"
-valid msgstr="(cualquier|ninguna)\sentrada"
-valid msgstr="(cualquier|ninguna)\sopción"
+valid msgstr="(alguna|cualquier|ninguna)\sentrada"
+valid msgstr="(alguna|cualquier|ninguna)\sopción"
 hint="«Entries» se traduce como «Entradas» (ver glosario)"
 
 {\benvironment\b}i
@@ -1253,7 +1253,7 @@ hint="«Environment» se traduce como «Entorno» (ver glosario)"
 {\benvironments\b}i
 id="gk-2-environments"
 valid msgstr="entornos"
-valid msgstr="(cualquier|ningún)\sentorno"
+valid msgstr="(algún|cualquier|ningún)\sentorno"
 hint="«Environments» se traduce como «Entornos» (ver glosario)"
 
 {\bescape\b}i
@@ -1276,7 +1276,7 @@ hint="«Event» se traduce como «Evento» (ver glosario)"
 {\bevents\b}i
 id="gk-2-events"
 valid msgstr="eventos"
-valid msgstr="(cualquier|ningún)\sevento"
+valid msgstr="(algún|cualquier|ningún)\sevento"
 hint="«Events» se traduce como «Eventos» (ver glosario)"
 
 {\bfeature\b}i
@@ -1291,8 +1291,8 @@ hint="«Feature» se traduce como «Funcionalidad» o «Característica» (ver g
 id="gk-2-features"
 valid msgstr="funcionalidades"
 valid msgstr="características"
-valid msgstr="(cualquier|ninguna)\sfuncionalidad"
-valid msgstr="(cualquier|ninguna)\scaracterística"
+valid msgstr="(alguna|cualquier|ninguna)\sfuncionalidad"
+valid msgstr="(alguna|cualquier|ninguna)\scaracterística"
 valid msgstr="proporciona"
 valid msgstr="present(a|e)"
 valid msgstr="ofre(ce|zca)"
@@ -1315,9 +1315,9 @@ valid msgstr="fuentes"
 valid msgstr="canales"
 valid msgstr="subministr(a|e)"
 valid msgstr="aliment(a|e)"
-valid msgstr="(cualquier|ningún)\ssuministro"
-valid msgstr="(cualquier|ninguna)\sfuente"
-valid msgstr="(cualquier|ningún)\scanal"
+valid msgstr="(algún|cualquier|ningún)\ssuministro"
+valid msgstr="(alguna|cualquier|ninguna)\sfuente"
+valid msgstr="(algún|cualquier|ningún)\scanal"
 hint="«Feeds» se traduce como «Suministros» o «Fuentes de noticias»(ver glosario)"
 
 {\bfeedbacks?\b}i
@@ -1335,7 +1335,7 @@ hint="«File» se traduce como «Archivo», nunca como «Fichero «(ver glosario
 {\bfiles\b}i
 id="gk-2-files"
 valid msgstr="archivos"
-valid msgstr="(cualquier|ningún)\sarchivo"
+valid msgstr="(algún|cualquier|ningún)\sarchivo"
 valid !msgstr="ficheros?"
 hint="«Files» se traduce como «Archivos», nunca como «Ficheros «(ver glosario)"
 
@@ -1348,7 +1348,7 @@ hint="«File system» se traduce como «Sistema de archivos» (ver glosario)"
 {\bfile\ssystems\b}i
 id="gk-2-file-systems"
 valid msgstr="sistemas\sde\sarchivos"
-valid msgstr="(cualquier|ningún)\ssistema\sde\sarchivos"
+valid msgstr="(algún|cualquier|ningún)\ssistema\sde\sarchivos"
 valid !msgstr="sistemas?\sde\sficheros"
 hint="«File systems» se traduce como «Sistemas de archivos» (ver glosario)"
 
@@ -1369,9 +1369,9 @@ hint="«Flag» se traduce como «Indicador» (ver glosario)"
 id="gk-2-flags"
 valid msgstr="indicadores"
 valid msgstr="etiquet[ae]"
-valid msgstr="(cualquier|ningún)\sindicador"
+valid msgstr="(algún|cualquier|ningún)\sindicador"
 valid msgstr="banderas" cat="kgeography,ksirkskineditor,krita,edu_www"
-valid msgstr="(cualquier|ninguna)\sbandera" cat="kgeography,ksirkskineditor,krita,edu_www"
+valid msgstr="(alguna|cualquier|ninguna)\sbandera" cat="kgeography,ksirkskineditor,krita,edu_www"
 hint="«Flags» se traduce como «Indicadores» (ver glosario)"
 
 {\bflame\b}i
@@ -1385,8 +1385,8 @@ hint="«Flame» se traduce como «Crítica destructiva/Llama» (ver glosario)"
 id="gk-2-flames"
 valid msgstr="críticas\sdestructivas"
 valid msgstr="llamas"
-valid msgstr="(cualquier|ninguna)\scrítica\sdestructiva"
-valid msgstr="(cualquier|ninguna)\sllama"
+valid msgstr="(alguna|cualquier|ninguna)\scrítica\sdestructiva"
+valid msgstr="(alguna|cualquier|ninguna)\sllama"
 hint="«Flames» se traduce como «Críticas destructivas/Llamas» (ver glosario)"
 
 {\bfloppy(?!\sdrives?)\b}i
@@ -1398,7 +1398,7 @@ hint="«Floppy» se traduce como «Disquete» (ver glosario)"
 {\bfloppies\b}i
 id="gk-2-floppies"
 valid msgstr="disquetes"
-valid msgstr="(cualquier|ningún)\sdisquete"
+valid msgstr="(algún|cualquier|ningún)\sdisquete"
 valid !msgstr="floppies"
 hint="«Floppies» se traduce como «Disquetes» (ver glosario)"
 
@@ -1417,7 +1417,7 @@ hint="«Font» se traduce como «Tipo de letra», nunca como «Fuente» o «Tipo
 {\bfonts\b}i
 id="gk-2-fonts"
 valid msgstr="tipos\sde\sletra"
-valid msgstr="(cualquier|ningún)\stipo\sde\sletra"
+valid msgstr="(algún|cualquier|ningún)\stipo\sde\sletra"
 valid !msgstr="fuentes?"
 valid !msgstr="tipografías?"
 hint="«Fonts» se traduce como «Tipos de letra», nunca como «Fuentes» o «Tipografías» (ver glosario)"
@@ -1447,7 +1447,7 @@ hint="«(to) Formated» se traduce como «Formateado» (ver glosario)"
 {\bformats\b}i
 id="gk-2-formats"
 valid msgstr="format(ee|ea|os)"
-valid msgstr="(cualquier|ningún)\sformato"
+valid msgstr="(algún|cualquier|ningún)\sformato"
 hint="«(to) Formats» se traduce como «Formatea» (ver glosario)"
 
 {\bformatting\b}i
@@ -1461,8 +1461,8 @@ hint="«Formatting» se traduce como «Formateo» (ver glosario)"
 id="gk-2-formattings"
 valid msgstr="formateos"
 valid msgstr="formatos"
-valid msgstr="(cualquier|ningún)\sformateo"
-valid msgstr="(cualquier|ningún)\sformato"
+valid msgstr="(algún|cualquier|ningún)\sformateo"
+valid msgstr="(algún|cualquier|ningún)\sformato"
 hint="«Formattings» se traduce como «Formateos» (ver glosario)"
 
 {\bforwading\b}i
@@ -1473,7 +1473,7 @@ hint="«Forwading» se traduce como «Redirección» (ver glosario)"
 {\bforwadings\b}i
 id="gk-2-forwadings"
 valid msgstr="redirecciones"
-valid msgstr="(cualquier|ninguna)\sredirección"
+valid msgstr="(alguna|cualquier|ninguna)\sredirección"
 hint="«Forwadings» se traduce como «Redirecciones» (ver glosario)"
 
 {\bframe\srelay\b}i
@@ -1489,7 +1489,7 @@ hint="«Framework» se traduce como «Infraestructura» (ver glosario)"
 {\bframeworks\b}i
 id="gk-2-frameworks"
 valid msgstr="infraestructuras"
-valid msgstr="(cualquier|ninguna)\sinfraestructura"
+valid msgstr="(alguna|cualquier|ninguna)\sinfraestructura"
 hint="«Frameworks» se traduce como «Infraestructuras» (ver glosario)"
 
 {\bfrontend\b}i
@@ -1500,7 +1500,7 @@ hint="«Frontend» se traduce como «Interfaz» (ver glosario)"
 {\bfrontends\b}i
 id="gk-2-frontends"
 valid msgstr="interfaces"
-valid msgstr="(cualquier|ninguna)\sinterfaz"
+valid msgstr="(alguna|cualquier|ninguna)\sinterfaz"
 hint="«Frontends» se traduce como «Interfaces» (ver glosario)"
 
 {\bfully\squalified\sdomain\sname\b}i
@@ -1519,7 +1519,7 @@ hint="«Gateway» se traduce como «Puerta de enlace» o «Pasarela» (ver glosa
 id="gk-2-gateways"
 valid msgstr="puertas\sde\senlace"
 valid msgstr="pasarelas"
-valid msgstr="(cualquier|ninguna)\spasarela"
+valid msgstr="(alguna|cualquier|ninguna)\spasarela"
 hint="«Gateways» se traduce como «Puertas de enlace» o «Pasarelas» (ver glosario)"
 
 {\bget\sback\b}i
@@ -1602,7 +1602,7 @@ hint="«Handsaking» se traduce como «Asentimiento» (ver glosario)"
 {\bhandsakings\b}i
 id="gk-2-handsakings"
 valid msgstr="asentimientos"
-valid msgstr="(cualquier|ningún)\sasentimiento"
+valid msgstr="(algún|cualquier|ningún)\sasentimiento"
 hint="«Handsakings» se traduce como «Asentimientos» (ver glosario)"
 
 {\bhard\s?disk\b}i
@@ -1614,7 +1614,7 @@ hint="«Hard disk» se traduce como «Disco duro» (ver glosario)"
 {\bhard\s?disks\b}i
 id="gk-2-hard-disks"
 valid msgstr="discos\sduros"
-valid msgstr="(cualquier|ningún)\sdisco\sduro"
+valid msgstr="(algún|cualquier|ningún)\sdisco\sduro"
 hint="«Hard disks» se traduce como «Discos duros» (ver glosario)"
 
 {\bhard\slink\b}i
@@ -1626,7 +1626,7 @@ hint="«Hard link» se traduce como «Enlace rígido» (ver glosario)"
 {\bhard\slinks\b}i
 id="gk-2-hard-links"
 valid msgstr="enlaces\srígidos"
-valid msgstr="(cualquier|ningún)\senlace\srígido"
+valid msgstr="(algún|cualquier|ningún)\senlace\srígido"
 hint="«Hard links» se traduce como «Enlaces rígidos» (ver glosario)"
 
 {\bhassle\b}i
@@ -1646,8 +1646,8 @@ hint="«Home folder» se traduce como «Carpeta personal» (ver glosario)"
 id="gk-2-home-folders"
 valid msgstr="carpetas\spersonales"
 valid msgstr="carpetas\siniciales"
-valid msgstr="(cualquier|ninguna)\scarpeta\spersonal"
-valid msgstr="(cualquier|ninguna)\scarpeta\sinicial"
+valid msgstr="(alguna|cualquier|ninguna)\scarpeta\spersonal"
+valid msgstr="(alguna|cualquier|ninguna)\scarpeta\sinicial"
 hint="«Home folders» se traduce como «Carpetas personales» (ver glosario)"
 
 {\bhome\sdirectory\b}i
@@ -1659,7 +1659,7 @@ hint="«Home directory» se traduce como «Directorio personal» (ver glosario)"
 {\bhome\sdirectories\b}i
 id="gk-2-home-directories"
 valid msgstr="directorios\spersonales"
-valid msgstr="(cualquier|ningún)\sdirectorio\spersonal"
+valid msgstr="(algún|cualquier|ningún)\sdirectorio\spersonal"
 hint="«Home directories» se traduce como «Directorios personales» (ver glosario)"
 
 {\bhome\s?page\b}i
@@ -1678,10 +1678,10 @@ valid msgstr="páginas\sde\sinicio"
 valid msgstr="páginas\siniciales"
 valid msgstr="páginas\spersonales"
 valid msgstr="páginas\sprincipales"
-valid msgstr="(cualquier|ninguna)\spágina\sde\sinicio"
-valid msgstr="(cualquier|ninguna)\spágina\sinicial"
-valid msgstr="(cualquier|ninguna)\spágina\spersonal"
-valid msgstr="(cualquier|ninguna)\spágina\sprincipal"
+valid msgstr="(alguna|cualquier|ninguna)\spágina\sde\sinicio"
+valid msgstr="(alguna|cualquier|ninguna)\spágina\sinicial"
+valid msgstr="(alguna|cualquier|ninguna)\spágina\spersonal"
+valid msgstr="(alguna|cualquier|ninguna)\spágina\sprincipal"
 hint="«Home pages» se traduce como «Páginas de inicio» (ver glosario)"
 
 {\bhome\saddress\b}i
@@ -1694,7 +1694,7 @@ hint="«Home address» se traduce como «Dirección particular» (ver glosario)"
 {\bhome\saddresses\b}i
 id="gk-2-home-addresses"
 valid msgstr="direcciones\sparticulares"
-valid msgstr="(cualquier|ninguna)\sdirección\sparticular"
+valid msgstr="(alguna|cualquier|ninguna)\sdirección\sparticular"
 hint="«Home addresses» se traduce como «Direcciones particulares» (ver glosario)"
 
 {\bhome(?!\s(folders?|director(y|ies)|pages?|address(es)?))\b}i
@@ -1717,8 +1717,8 @@ hint="«Host» se traduce como «Servidor» (ver glosario)"
 id="gk-2-hosts"
 valid msgstr="servidores"
 valid msgstr="máquina"
-valid msgstr="(cualquier|ningún)\sservidor"
-valid msgstr="(cualquier|ninguna)\smáquina"
+valid msgstr="(algún|cualquier|ningún)\sservidor"
+valid msgstr="(alguna|cualquier|ninguna)\smáquina"
 hint="«Hosts» se traduce como «Servidores» (ver glosario)"
 
 {\bhosting\b}i
@@ -1735,7 +1735,7 @@ hint="«Hotkey» se traduce como «Atajo de teclado» (ver glosario)"
 {\bhotkeys\b}i
 id="gk-2-hotkeys"
 valid msgstr="atajos\sde\steclado"
-valid msgstr="(cualquier|ningún)\satajo\sde\steclado"
+valid msgstr="(algún|cualquier|ningún)\satajo\sde\steclado"
 hint="«Hotkeys» se traduce como «Atajos de teclado» (ver glosario)"
 
 {\bhub\b}i
@@ -1746,7 +1746,7 @@ hint="«Hub» se traduce como «Concentrador» (ver glosario)"
 {\bhubs\b}i
 id="gk-2-hubs"
 valid msgstr="concentradores"
-valid msgstr="(cualquier|ningún)\sconcentrador"
+valid msgstr="(algún|cualquier|ningún)\sconcentrador"
 hint="«Hubs» se traduce como «Concentradores» (ver glosario)"
 
 {\bide\b}i
@@ -1768,7 +1768,7 @@ hint="«Interface» se traduce como «Interfaz» (ver glosario)"
 id="gk-2-interfaces"
 valid msgstr="interfaces"
 valid msgstr="interact(uar|úa|úe)"
-valid msgstr="(cualquier|ninguna)\sinterfaz"
+valid msgstr="(alguna|cualquier|ninguna)\sinterfaz"
 hint="«Interfaces» se traduce como «Interfaces» (ver glosario)"
 
 {\birq\b}i
@@ -1798,8 +1798,8 @@ hint="«Jumper» se traduce como «Puente» (ver glosario)"
 id="gk-2-jumpers"
 valid msgstr="puentes"
 valid msgstr="conectores"
-valid msgstr="(cualquier|ningún)\spuente"
-valid msgstr="(algún|ningún|cualquier)\sconector"
+valid msgstr="(algún|cualquier|ningún)\spuente"
+valid msgstr="(algún|ningún|alguna|cualquier|ninguna)\sconector"
 hint="«Jumpers» se traduce como «Puentes» (ver glosario)"
 
 {\bkernel\b}i
@@ -1812,7 +1812,7 @@ hint="«Kernel» se traduce como «Núcleo» o «Kernel» (ver glosario)"
 id="gk-2-kernels"
 valid msgstr="núcleos"
 valid msgstr="kernels?"
-valid msgstr="(cualquier|ningún)\snúcleo"
+valid msgstr="(algún|cualquier|ningún)\snúcleo"
 hint="«Kernels» se traduce como «Núcleos» o «Kernels» (ver glosario)"
 
 {\bkeyboard\b}i
@@ -1823,7 +1823,7 @@ hint="«Keyboard» se traduce como «Teclado» (ver glosario)"
 {\bkeyboards\b}i
 id="gk-2-keyboards"
 valid msgstr="teclados"
-valid msgstr="(cualquier|ningún)\steclado"
+valid msgstr="(algún|cualquier|ningún)\steclado"
 hint="«Keyboards» se traduce como «Teclados» (ver glosario)"
 
 {\bkeyword\b}i
@@ -1835,7 +1835,7 @@ hint="«Keyword» se traduce como «Palabra clave» o «Clave de búsqueda» (ve
 {\bkeywords\b}i
 id="gk-2-keywords"
 valid msgstr="palabras\sclave"
-valid msgstr="(cualquier|ninguna)\spalabra\sclave"
+valid msgstr="(alguna|cualquier|ninguna)\spalabra\sclave"
 valid msgstr="claves\sde\sbúsqueda"
 hint="«Keywords» se traduce como «Palabras clave» o «Claves de búsqueda» (ver glosario)"
 
@@ -1849,8 +1849,8 @@ hint="«Language» se traduce como «Idioma» (ver glosario)"
 id="gk-2-languages"
 valid msgstr="idiomas"
 valid msgstr="lenguajes"
-valid msgstr="(cualquier|ningún)\sidioma"
-valid msgstr="(cualquier|ningún)\slenguaje"
+valid msgstr="(algún|cualquier|ningún)\sidioma"
+valid msgstr="(algún|cualquier|ningún)\slenguaje"
 hint="«Languages» se traduce como «Idiomas» (ver glosario)"
 
 {\bleak\b}i
@@ -1874,10 +1874,10 @@ valid msgstr="pierd(e|a)"
 valid msgstr="faltas"
 valid msgstr="fugas"
 valid msgstr="escapes"
-valid msgstr="(cualquier|ninguna)\spérdida"
-valid msgstr="(cualquier|ninguna)\sfalta"
-valid msgstr="(ninguna|cualquier)\sfuga"
-valid msgstr="(algún|ningún|cualquier)\sescape"
+valid msgstr="(alguna|cualquier|ninguna)\spérdida"
+valid msgstr="(alguna|cualquier|ninguna)\sfalta"
+valid msgstr="(alguna|cualquier|ninguna)\sfuga"
+valid msgstr="(algún|ningún|alguna|cualquier|ninguna)\sescape"
 hint="«Leaks» se traduce como «Pérdidas» o «Faltas» (ver glosario)"
 
 {\blibrary\b}i
@@ -1889,7 +1889,7 @@ hint="«Library» se traduce como «Biblioteca», nunca como «Librería» (ver 
 {\blibraries\b}i
 id="gk-2-libraries"
 valid msgstr="bibliotecas"
-valid msgstr="(cualquier|ninguna)\sbiblioteca"
+valid msgstr="(alguna|cualquier|ninguna)\sbiblioteca"
 valid !msgstr="librerías?"
 hint="«Libraries» se traduce como «Bibliotecas», nunca como «Librerías» (ver glosario)"
 
@@ -1901,7 +1901,7 @@ hint="«Line feed» se traduce como «Salto de línea» (ver glosario)"
 {\bline\sfeeds\b}i
 id="gk-2-line-feeds"
 valid msgstr="saltos\sde\slínea"
-valid msgstr="(cualquier|ningún)\ssalto\sde\slínea"
+valid msgstr="(algún|cualquier|ningún)\ssalto\sde\slínea"
 hint="«Line feeds» se traduce como «Saltos de línea» (ver glosario)"
 
 {\blink\b}i
@@ -1927,7 +1927,7 @@ hint="«Linked» se traduce como «Enlazado», nunca como «Linkado» (ver glosa
 {\blinks\b}i
 id="gk-2-links"
 valid msgstr="enlaces"
-valid msgstr="(cualquier|ningún)\senlace"
+valid msgstr="(algún|cualquier|ningún)\senlace"
 valid !msgstr="(hiper)?vínculos"
 hint="«Links» se traduce como «Enlaces», nunca como «Vínculos» (ver glosario)"
 
@@ -1941,7 +1941,7 @@ hint="«Location» se traduce como «Ubicación», nunca como «Dirección» (ve
 {\blocations\b}i
 id="gk-2-locations"
 valid msgstr="ubicaciones"
-valid msgstr="(cualquier|ninguna)\subicación"
+valid msgstr="(alguna|cualquier|ninguna)\subicación"
 valid !msgstr="direcciones"
 valid !msgstr="localizaciónes"
 hint="«Locations» se traduce como «Ubicaciones», nunca como «Direcciones» (ver glosario)"
@@ -1958,7 +1958,7 @@ hint="«Lock» se traduce como «Bloqueo» (ver glosario)"
 {\blocks\b}i
 id="gk-2-locks"
 valid msgstr="bloque(os|a)"
-valid msgstr="(cualquier|ningún)\sbloqueo"
+valid msgstr="(algún|cualquier|ningún)\sbloqueo"
 hint="«Locks» se traduce como «Bloqueos» (ver glosario)"
 
 {\blog(?!\s(back|in|on|off|out))\b}i
@@ -1974,7 +1974,7 @@ hint="«Log» se traduce como «Registro» (ver glosario)"
 {\blogs\b}i
 id="gk-2-logs"
 valid msgstr="registr(os|a|e)"
-valid msgstr="(cualquier|ningún)\sregistro"
+valid msgstr="(algún|cualquier|ningún)\sregistro"
 valid msgstr="se\sidentifica" before="\sin"
 valid msgstr="inici[ae]\ssesión" before="\sin"
 hint="«Logs» se traduce como «Registros» (ver glosario)"
@@ -2021,7 +2021,7 @@ hint="«Lvalue» se traduce como «Valor a la izquierda», no se debe dejar sin 
 {\blvalues\b}i
 id="gk-2-lvalues"
 valid msgstr="valores\sa\sla\sizquierda"
-valid msgstr="(cualquier|ningún)\svalor\sa\sla\sizquierda"
+valid msgstr="(algún|cualquier|ningún)\svalor\sa\sla\sizquierda"
 valid !msgstr="lvalues"
 hint="«Lvalues» se traduce como «Valores a la izquierda», no se debe dejar sin traducir (ver glosario)"
 
@@ -2053,7 +2053,7 @@ hint="«Mailer» se traduce como «Gestor de correo» (ver glosario)"
 {\bmailers\b}i
 id="gk-2-mailers"
 valid msgstr="gestores\sde\scorreo"
-valid msgstr="(cualquier|ningún)\sgestor\sde\scorreo"
+valid msgstr="(algún|cualquier|ningún)\sgestor\sde\scorreo"
 hint="«Mailers» se traduce como «Gestores de correo» (ver glosario)"
 
 {\bmailing\slist\b}i
@@ -2064,7 +2064,7 @@ hint="«Mailing list» se traduce como «Lista de correo» (ver glosario)"
 {\bmailing\slists\b}i
 id="gk-2-mailing-lists"
 valid msgstr="listas\sde\scorreo"
-valid msgstr="(cualquier|ninguna)\slista\sde\scorreo"
+valid msgstr="(alguna|cualquier|ninguna)\slista\sde\scorreo"
 hint="«Mailing lists» se traduce como «Listas de correo» (ver glosario)"
 
 {\bmainteiner\b}i
@@ -2078,8 +2078,8 @@ hint="«Maintainer» se traduce como «Responsable» o «Encargado» (ver glosar
 id="gk-2-manteiners"
 valid msgstr="responsables"
 valid msgstr="encargados"
-valid msgstr="(cualquier|ningún)\sresponsable"
-valid msgstr="(cualquier|ningún)\sencargado"
+valid msgstr="(algún|cualquier|ningún)\sresponsable"
+valid msgstr="(algún|cualquier|ningún)\sencargado"
 valid !msgstr="mantenedores"
 hint="«Maintainers» se traduce como «Responsables» o «Encargados» (ver glosario)"
 
@@ -2093,7 +2093,7 @@ hint="«Manager» se traduce como «Gestor», nunca como «Administrador» (ver 
 {\bmanagers\b}i
 id="gk-2-managers"
 valid msgstr="gestores"
-valid msgstr="(cualquier|ningún)\sgestor"
+valid msgstr="(algún|cualquier|ningún)\sgestor"
 valid !msgstr="administradores"
 valid !msgstr="manejadores"
 hint="«Managers» se traduce como «Gestores», nunca como «Administradores» (ver glosario)"
@@ -2124,7 +2124,7 @@ id="gk-2-maps"
 valid msgstr="mape(ar|a|e|o)"
 valid msgstr="asign(ar|a|e|o)"
 valid msgstr="mapas"
-valid msgstr="(cualquier|ningún)\smapa"
+valid msgstr="(algún|cualquier|ningún)\smapa"
 valid msgstr="maps?" after="Google\s"
 hint="«Maps» se traduce como «Mapas» o «Mapea/Asigna» (ver glosario)"
 
@@ -2137,7 +2137,7 @@ hint="«Mask» se traduce como «Máscara» o «Enmascarar» (ver glosario)"
 {\bmasks\b}i
 id="gk-2-masks"
 valid msgstr="máscaras"
-valid msgstr="(cualquier|ninguna)\smáscara"
+valid msgstr="(alguna|cualquier|ninguna)\smáscara"
 valid msgstr="enmascar(e|a)"
 hint="«Masks» se traduce como «Máscaras» o «Enmascare» (ver glosario)"
 
@@ -2164,8 +2164,8 @@ valid msgstr="coincid(e|a)"
 valid msgstr="concuerd(e|a)"
 valid msgstr="partidas"
 valid msgstr="coincidencias"
-valid msgstr="(cualquier|ninguna)\spartida"
-valid msgstr="(cualquier|ninguna)\scoincidencia"
+valid msgstr="(alguna|cualquier|ninguna)\spartida"
+valid msgstr="(alguna|cualquier|ninguna)\scoincidencia"
 hint="«Matchs» se traduce como «Empareja», «Coincide», «Coincidencias» o «Concuerda» (ver glosario)"
 
 {\bmenu\b}i
@@ -2177,13 +2177,13 @@ hint="«Menu» se traduce como «Menú» (ver glosario)"
 {\bmenues\b}i
 id="gk-2-menues"
 valid msgstr="menús"
-valid msgstr="(cualquier|ningún)\smenú"
+valid msgstr="(algún|cualquier|ningún)\smenú"
 hint="«Menues» se traduce como «Menús» (ver glosario)"
 
 {\bmice\b}i
 id="gk-2-mice"
 valid msgstr="ratones"
-valid msgstr="(cualquier|ningún)\sratón"
+valid msgstr="(algún|cualquier|ningún)\sratón"
 hint="«Mice» se traduce como «Ratones», es el plurar de «Mouse» (ver glosario)"
 
 {\bmirror\b}i
@@ -2205,7 +2205,7 @@ valid msgstr="reflej(a|e)"
 valid msgstr="repli(ca|que)"
 valid msgstr="inviert(e|a)"
 valid msgstr="réplicas"
-valid msgstr="(cualquier|ningún)\sespejo"
+valid msgstr="(algún|cualquier|ningún)\sespejo"
 hint="«Mirrors» se traduce como «Espejos» o «Refleja» (ver glosario)"
 
 {\bmistake\b}i
@@ -2218,8 +2218,8 @@ hint="«Mistake» se traduce como «Equivocación» (ver glosario)"
 id="gk-2-mistakes"
 valid msgstr="equivocaciones"
 valid msgstr="errores"
-valid msgstr="(cualquier|ninguna)\sequivocación"
-valid msgstr="(cualquier|ningún)\serror"
+valid msgstr="(alguna|cualquier|ninguna)\sequivocación"
+valid msgstr="(algún|cualquier|ningún)\serror"
 hint="«Mistakes» se traduce como «Equivocaciones» (ver glosario)"
 
 {\bmodems?\b}i
@@ -2239,7 +2239,7 @@ hint="«Mount» se traduce como «Montar» (ver glosario)"
 id="gk-2-mounts"
 valid msgstr="mont(a|e)"
 valid msgstr="montajes"
-valid msgstr="(algún|ningún|cualquier)\smontaje"
+valid msgstr="(algún|ningún|alguna|cualquier|ninguna)\smontaje"
 hint="«Mounts» se traduce como «Monta» (ver glosario)"
 
 {\bmouse\b}i
@@ -2266,7 +2266,7 @@ hint="«Netmask» se traduce como «Máscara de red» (ver glosario)"
 {\bnetmasks\b}i
 id="gk-2-netmasks"
 valid msgstr="máscaras\sde\sred"
-valid msgstr="(cualquier|ninguna)\smáscara\sde\sred"
+valid msgstr="(alguna|cualquier|ninguna)\smáscara\sde\sred"
 hint="«Netmasks» se traduce como «Máscaras de red» (ver glosario)"
 
 {\bnews\sfeed\b}i
@@ -2277,7 +2277,7 @@ hint="«News feed» se traduce como «Fuente de noticias» (ver glosario)"
 {\bnews\sfeeds\b}i
 id="gk-2-news-feeds"
 valid msgstr="fuentes\sde\snoticias"
-valid msgstr="(cualquier|ninguna)\sfuente\sde\snoticias"
+valid msgstr="(alguna|cualquier|ninguna)\sfuente\sde\snoticias"
 hint="«News feeds» se traduce como «Fuentes de noticias» (ver glosario)"
 
 {\bnon\-inclusive\b}i
@@ -2317,8 +2317,8 @@ hint="«Overlapping» se traduce como «Superposición» o «Solapamiento» (ver
 id="gk-2-overlappings"
 valid msgstr="superposiciones"
 valid msgstr="solapamientos"
-valid msgstr="(cualquier|ninguna)\ssuperposición"
-valid msgstr="(cualquier|ningún)\ssolapamiento"
+valid msgstr="(alguna|cualquier|ninguna)\ssuperposición"
+valid msgstr="(algún|cualquier|ningún)\ssolapamiento"
 hint="«Overlappings» se traduce como «Superposiciones» o «Solapamientos» (ver glosario)"
 
 {\boverlaps\b}i
@@ -2368,7 +2368,7 @@ hint="«Parser» se traduce como «Analizador» (ver glosario)"
 {\bparsers\b}i
 id="gk-2-parsers"
 valid msgstr="analizadores"
-valid msgstr="(cualquier|ningún)\sanalizador"
+valid msgstr="(algún|cualquier|ningún)\sanalizador"
 hint="«Parsers» se traduce como «Analizadores» (ver glosario)"
 
 {\bparses\b}i
@@ -2385,7 +2385,7 @@ hint="«Password» se traduce como «Contraseña» (ver glosario)"
 {\bpasswords\b}i
 id="gk-2-passwords"
 valid msgstr="contraseñas"
-valid msgstr="(cualquier|ninguna)\scontraseña"
+valid msgstr="(alguna|cualquier|ninguna)\scontraseña"
 valid !msgstr="passwords?"
 hint="«Passwords» se traduce como «Contraseñas» (ver glosario)"
 
@@ -2406,7 +2406,7 @@ hint="«Patch» se traduce como «Parche» (ver glosario)"
 {\bpatchs\b}i
 id="gk-2-patchs"
 valid msgstr="parch(es|ea)?"
-valid msgstr="(cualquier|ningún)\sparche"
+valid msgstr="(algún|cualquier|ningún)\sparche"
 valid cat="kmid" msgstr="instrumentos"
 hint="«Patchs» se traduce como «Parches» (ver glosario)"
 
@@ -2423,9 +2423,9 @@ id="gk-2-paths"
 valid msgstr="rutas"
 valid msgstr="caminos"
 valid msgstr="trayectorias"
-valid msgstr="(cualquier|ninguna)\sruta"
-valid msgstr="(cualquier|ningún)\scamino"
-valid msgstr="(cualquier|ninguna)\strayectoria"
+valid msgstr="(alguna|cualquier|ninguna)\sruta"
+valid msgstr="(algún|cualquier|ningún)\scamino"
+valid msgstr="(alguna|cualquier|ninguna)\strayectoria"
 hint="«Paths» se traduce como «Rutas/Caminos/Trayectoria» (ver glosario)"
 
 {\bpatience\b}i
@@ -2444,8 +2444,8 @@ hint="«Pin» se traduce como «Patilla» o «Código de acceso» (ver glosario)
 id="gk-2-pins"
 valid msgstr="patillas"
 valid msgstr="códigos\sde\sacceso"
-valid msgstr="(cualquier|ninguna)\spatilla"
-valid msgstr="(cualquier|ningún)\scódigo\sde\sacceso"
+valid msgstr="(alguna|cualquier|ninguna)\spatilla"
+valid msgstr="(algún|cualquier|ningún)\scódigo\sde\sacceso"
 valid !msgstr="pins"
 hint="«Pins» se traduce como «Patillas» o «Códigos de acceso» (ver glosario)"
 
@@ -2464,12 +2464,12 @@ hint="«Pipe» se traduce como «Redirección/Redirigir/Barra vertical» (ver gl
 id="gk-2-pipes"
 valid msgstr="redireccion(es|a)"
 valid msgstr="redireccion(ar|a|e)"
-valid msgstr="(cualquier|ninguna)\sredirección"
+valid msgstr="(alguna|cualquier|ninguna)\sredirección"
 valid msgstr="redirig(ir|e|a)"
 valid msgstr="barras\sverticales"
-valid msgstr="(cualquier|ninguna)\sbarra\svertical"
+valid msgstr="(alguna|cualquier|ninguna)\sbarra\svertical"
 valid msgstr="tubos" cat="kalzium"
-valid msgstr="(cualquier|ningún)\stubo" cat="kalzium"
+valid msgstr="(algún|cualquier|ningún)\stubo" cat="kalzium"
 hint="«Pipes» se traduce como «Redirecciones/Redirige/Barras verticales» (ver glosario)"
 
 {\bpixel\b}i
@@ -2483,8 +2483,8 @@ hint="«Pixel» se traduce como «Píxel» (ver glosario)"
 id="gk-2-pixels"
 valid msgstr="píxeles"
 valid msgstr="puntos"
-valid msgstr="(cualquier|ningún)\spíxel"
-valid msgstr="(algún|ningún|cualquier)\spunto"
+valid msgstr="(algún|cualquier|ningún)\spíxel"
+valid msgstr="(algún|ningún|alguna|cualquier|ninguna)\spunto"
 valid !msgstr="pixels?"
 hint="«Pixels» se traduce como «Píxeles» (ver glosario)"
 
@@ -2498,7 +2498,7 @@ hint="«Plugin» se traduce como «Complemento» (ver glosario)"
 {\bplugins\b}i
 id="gk-2-plugins"
 valid msgstr="complementos"
-valid msgstr="(cualquier|ningún)\scomplemento"
+valid msgstr="(algún|cualquier|ningún)\scomplemento"
 valid after="kipi[\-\s]"
 valid after="KIPI[\-\s]"
 valid after="\-"
@@ -2512,7 +2512,7 @@ hint="«Policy» se traduce como «Política» (ver glosario)"
 {\bpolicies\b}i
 id="gk-2-policies"
 valid msgstr="políticas"
-valid msgstr="(cualquier|ninguna)\spolítica"
+valid msgstr="(alguna|cualquier|ninguna)\spolítica"
 hint="«Policies» se traduce como «Políticas» (ver glosario)"
 
 {\bpolicy\sissues\b}i
@@ -2533,8 +2533,8 @@ hint="«Pop-up» se traduce como «Ventana emergente/Desplegable» (ver glosario
 id="gk-2-pop-ups"
 valid msgstr="emergentes"
 valid msgstr="despliega"
-valid msgstr="(cualquier|ninguna)\semergente"
-hint="«Pop-ups» se traduce como «Ventanas emergentes» (ver glosario)"
+valid msgstr="(algún|cualquier|ningún)\desplegable"
+hint="«Pop-ups» se traduce como «Ventanas emergentes/Desplegables» (ver glosario)"
 
 {\bport\b}i
 id="gk-2-port"
@@ -2549,9 +2549,9 @@ id="gk-2-ports"
 valid msgstr="puertos"
 valid msgstr="migra(s|ciones)"
 valid msgstr="versiones"
-valid msgstr="(cualquier|ningún)\spuerto"
-valid msgstr="(cualquier|ninguna)\smigración"
-valid msgstr="(cualquier|ninguna)\sversión"
+valid msgstr="(algún|cualquier|ningún)\spuerto"
+valid msgstr="(alguna|cualquier|ninguna)\smigración"
+valid msgstr="(alguna|cualquier|ninguna)\sversión"
 hint="«Ports» se traduce como «Puertos» o «Migraciones» (ver glosario)"
 
 {\bpost\b}i
@@ -2590,7 +2590,7 @@ hint="«Postmaster» se traduce como «Administrador de correo» (ver glosario)"
 {\bpostmasters\b}i
 id="gk-2-postmasters"
 valid msgstr="administradores\sde\scorreo"
-valid msgstr="(cualquier|ningún)\sadministrador\sde\scorreo"
+valid msgstr="(algún|cualquier|ningún)\sadministrador\sde\scorreo"
 hint="«Postmasters» se traduce como «Administradores de correo» (ver glosario)"
 
 {\bprofile\b}i
@@ -2605,7 +2605,7 @@ hint="«Profile» se traduce como «Perfil/Análisis de rendimiento» (ver glosa
 {\bprofiles\b}i
 id="gk-2-profiles"
 valid msgstr="perfil(es|a|e)"
-valid msgstr="(cualquier|ningún)\sperfil"
+valid msgstr="(algún|cualquier|ningún)\sperfil"
 hint="«Profiles» se traduce como «Perfiles» (ver glosario)"
 
 {\bprofiler\b}i
@@ -2616,7 +2616,7 @@ hint="«Profiler» se traduce como «Analizador de rendimiento» (ver glosario)"
 {\bprofilers\b}i
 id="gk-2-profilers"
 valid msgstr="analizadores\sde\srendimiento"
-valid msgstr="(cualquier|ningún)\sanalizador\sde\srendimiento"
+valid msgstr="(algún|cualquier|ningún)\sanalizador\sde\srendimiento"
 hint="«Profilers» se traduce como «Analizadores de rendimiento» (ver glosario)"
 
 {\bprofiling\b}i
@@ -2634,8 +2634,8 @@ hint="«Programmer» se traduce como «Programador» (ver glosario)"
 {\bprogrammers\b}i
 id="gk-2-programmers"
 valid msgstr="programador(e|a)s"
-valid msgstr="(cualquier|ningún)\sprogramador"
-valid msgstr="(cualquier|ninguna)\sprogramadora"
+valid msgstr="(algún|cualquier|ningún)\sprogramador"
+valid msgstr="(alguna|cualquier|ninguna)\sprogramadora"
 hint="«Programmers» se traduce como «Programadores» (ver glosario)"
 
 {\bpromtp\b}i
@@ -2647,7 +2647,7 @@ hint="«Promtp» se traduce como «Cursor» (ver glosario)"
 {\bpromtp\b}i
 id="gk-2-promtps"
 valid msgstr="cursores"
-valid msgstr="(cualquier|ningún)\scursor"
+valid msgstr="(algún|cualquier|ningún)\scursor"
 valid msgstr="promtp"
 hint="«Promtps» se traduce como «Cursores» (ver glosario)"
 
@@ -2702,7 +2702,7 @@ hint="«Query» se traduce como «Consulta» o «Pregunta» (ver glosario)"
 id="gk-2-queries"
 valid msgstr="consult(as|e)"
 valid msgstr="pregunt(as|e)"
-valid msgstr="(cualquier|ninguna)\sconsulta"
+valid msgstr="(alguna|cualquier|ninguna)\sconsulta"
 valid !msgstr="queries"
 hint="«Queries» se traduce como «Consultas» o «Preguntas» (ver glosario)"
 
@@ -2741,8 +2741,8 @@ valid msgstr="comillas"
 valid msgstr="cit(e|a|as)"
 valid msgstr="entrecomill(a|e)"
 valid msgstr="cotizaciones"
-valid msgstr="(ninguna|cualquier)\scomilla"
-valid msgstr="(cualquier|ninguna)\scita"
+valid msgstr="(alguna|cualquier|ninguna)\scomilla"
+valid msgstr="(alguna|cualquier|ninguna)\scita"
 hint="«Quotes» se traduce como «Comillas/Citas» (propuesta glosario)"
 
 {\bquotelike\b}i
@@ -2794,10 +2794,10 @@ valid msgstr="intervalos"
 valid msgstr="variedades"
 valid msgstr="gamas"
 valid msgstr="periodos" after="time\s"
-valid msgstr="(cualquier|ningún)\sintervalo"
-valid msgstr="(cualquier|ninguna)\svariedad"
-valid msgstr="(cualquier|ninguna)\sgama"
-valid msgstr="(cualquier|ningún)\speriodo" after="time\s"
+valid msgstr="(algún|cualquier|ningún)\sintervalo"
+valid msgstr="(alguna|cualquier|ninguna)\svariedad"
+valid msgstr="(alguna|cualquier|ninguna)\sgama"
+valid msgstr="(algún|cualquier|ningún)\speriodo" after="time\s"
 hint="«Ranges» se traduce como «Intervalos» (ver glosario)"
 
 {\braw\smode\b}i
@@ -2810,8 +2810,8 @@ hint="«Raw mode» se traduce como «Modo sin formato» (ver glosario)"
 id="gk-2-raw-modes"
 valid msgstr="modos\ssin\sformato"
 valid msgstr="modos\sen\sbruto"
-valid msgstr="(cualquier|ningún)\smodo\ssin\sformato"
-valid msgstr="(cualquier|ningún)\smodo\sen\sbruto"
+valid msgstr="(algún|cualquier|ningún)\smodo\ssin\sformato"
+valid msgstr="(algún|cualquier|ningún)\smodo\sen\sbruto"
 hint="«Raw modes» se traduce como «Modos sin formato» (ver glosario)"
 
 {\braw\stext\b}i
@@ -2822,7 +2822,7 @@ hint="«Raw text» se traduce como «Texto sin formato» (ver glosario)"
 {\braw\stexts\b}i
 id="gk-2-raw-texts"
 valid msgstr="textos\ssin\sformato"
-valid msgstr="(cualquier|ningún)\stexto\ssin\sformato"
+valid msgstr="(algún|cualquier|ningún)\stexto\ssin\sformato"
 hint="«Raw texts» se traduce como «Textos sin formato» (ver glosario)"
 
 {\brealtime\b}i
@@ -2840,7 +2840,7 @@ hint="«Reboot» se traduce como «Reiniciar/Reinicio» (ver glosario)"
 {\breboots\b}i
 id="gk-2-reboots"
 valid msgstr="reinici(a|e|os)"
-valid msgstr="(cualquier|ningún)\sreinicio"
+valid msgstr="(algún|cualquier|ningún)\sreinicio"
 hint="«Reboots» se traduce como «Reinicia» (ver glosario)"
 
 {\brebooting\b}i
@@ -2879,7 +2879,7 @@ hint="«Requirement» se traduce como «Requisito» (ver glosario)"
 {\brequirements\b}i
 id="gk-2-requirements"
 valid msgstr="requisitos"
-valid msgstr="(cualquier|ningún)\srequisito"
+valid msgstr="(algún|cualquier|ningún)\srequisito"
 valid !msgstr="requerimientos?"
 hint="«Requirements» se traduce como «Requisitos» (ver glosario)"
 
@@ -2894,7 +2894,7 @@ hint="«Reset» se traduce como «Reiniciar/Reinicio» (ver glosario)"
 {\bresets\b}i
 id="gk-2-resets"
 valid msgstr="reinici(e|a)"
-valid msgstr="(cualquier|ningún)\sreinicio"
+valid msgstr="(algún|cualquier|ningún)\sreinicio"
 valid !msgstr="restaur(a|e)"
 hint="«Resets» se traduce como «Reinicia» (ver glosario)"
 
@@ -2906,7 +2906,7 @@ hint="«Resolver» se traduce como «Sistema de resolución» (ver glosario)"
 {\bresolvers(?!\slibrary)\b}i
 id="gk-2-resolvers"
 valid msgstr="sistemas\sde\sresolución"
-valid msgstr="(cualquier|ningún)\ssistema\sde\sresolución"
+valid msgstr="(algún|cualquier|ningún)\ssistema\sde\sresolución"
 hint="«Resolvers» se traduce como «Sistemas de resolución» (ver glosario)"
 
 {\bresolver\slibrary\b}i
@@ -2918,7 +2918,7 @@ hint="«Resolver library» se traduce como «Biblioteca de resolución» (ver gl
 {\bresolver\slibraries\b}i
 id="gk-2-resolver-libraries"
 valid msgstr="bibliotecas\sde\sresolución"
-valid msgstr="(cualquier|ninguna)\sbiblioteca\sde\sresolución"
+valid msgstr="(alguna|cualquier|ninguna)\sbiblioteca\sde\sresolución"
 valid !msgstr="librerías?\sde\sresolución"
 hint="«Resolver libraries» se traduce como «Bibliotecas de resolución» (ver glosario)"
 
@@ -2932,7 +2932,7 @@ hint="«Respawn» se traduce como «Reinicio» (ver glosario)"
 {\brespawns\b}i
 id="gk-2-respawns"
 valid msgstr="reinici(e|a|os)"
-valid msgstr="(cualquier|ningún)\sreinicio"
+valid msgstr="(algún|cualquier|ningún)\sreinicio"
 hint="«Respawns» se traduce como «Reinicia» (ver glosario)"
 
 {\brevert\b}i
@@ -2961,7 +2961,7 @@ hint="«Role» se traduce como «Papel» (ver glosario)"
 {\broles\b}i
 id="gk-2-roles"
 valid msgstr="papeles"
-valid msgstr="(cualquier|ningún)\spapel"
+valid msgstr="(algún|cualquier|ningún)\spapel"
 hint="«Roles» se traduce como «Papeles» (ver glosario)"
 
 {\brouter\b}i
@@ -2976,8 +2976,8 @@ id="gk-2-routers"
 valid msgstr="enrutadores"
 valid msgstr="encaminadores"
 valid msgstr="router"
-valid msgstr="(cualquier|ningún)\senrutador"
-valid msgstr="(cualquier|ningún)\sencaminador"
+valid msgstr="(algún|cualquier|ningún)\senrutador"
+valid msgstr="(algún|cualquier|ningún)\sencaminador"
 hint="«Routers» se traduce como «Enrutadores» o «Encaminadores» (ver glosario)"
 
 {\brouting\b}i
@@ -2998,7 +2998,7 @@ hint="«Run» se traduce como «Ejecución» (ver glosario)"
 id="gk-2-runs"
 valid msgstr="ejecut(a|e)"
 valid msgstr="ejecuciones"
-valid msgstr="(cualquier|ninguna)\sejecución"
+valid msgstr="(alguna|cualquier|ninguna)\sejecución"
 valid !msgstr="corr(a|e)"
 hint="«Runs» se traduce como «Ejecuta» (ver glosario)"
 
@@ -3043,7 +3043,7 @@ hint="«Scan» se traduce como «Escanear» o «Explorar» (ver glosario)"
 id="gk-2-scans"
 valid msgstr="escane(e|a)"
 valid msgstr="escaneos"
-valid msgstr="(cualquier|ningún)\sescaneo"
+valid msgstr="(algún|cualquier|ningún)\sescaneo"
 valid msgstr="explor(a|e)"
 hint="«Scans» se traduce como «Escanea» o «Explora» (ver glosario)"
 
@@ -3056,7 +3056,7 @@ hint="«Scanner» se traduce como «Escáner» (ver glosario)"
 {\bscanners\b}i
 id="gk-2-scanners"
 valid msgstr="escáneres"
-valid msgstr="(cualquier|ningún)\sescáner"
+valid msgstr="(algún|cualquier|ningún)\sescáner"
 valid !msgstr="scanners"
 hint="«Scanners» se traduce como «Escáneres» (ver glosario)"
 
@@ -3076,7 +3076,7 @@ hint="«Scheduler» se traduce como «Planificador» (ver glosario)"
 {\bschedulers\b}i
 id="gk-2-schedulers"
 valid msgstr="planificadores"
-valid msgstr="(cualquier|ningún)\splanificador"
+valid msgstr="(algún|cualquier|ningún)\splanificador"
 hint="«Schedulers» se traduce como «Planificadores» (ver glosario)"
 
 {\bscoring\b}i
@@ -3087,7 +3087,7 @@ hint="«Scoring» se traduce como «Puntuación» (ver glosario)"
 {\bscorings\b}i
 id="gk-2-scorings"
 valid msgstr="puntuaciones"
-valid msgstr="(cualquier|ninguna)\spuntuación"
+valid msgstr="(alguna|cualquier|ninguna)\spuntuación"
 hint="«Scorings» se traduce como «Puntuaciones» (ver glosario)"
 
 {\bscript\b}i
@@ -3102,10 +3102,10 @@ hint="«Script» se traduce como «Guion» (sin tilde) o «Script» (ver glosari
 {\bscripts\b}i
 id="gk-2-scrypts"
 valid msgstr="guiones"
-valid msgstr="(cualquier|ningún)\sguion"
+valid msgstr="(algún|cualquier|ningún)\sguion"
 valid msgstr="scripts?"
 valid msgstr="escrituras"
-valid msgstr="(cualquier|ninguna)\sescritura"
+valid msgstr="(alguna|cualquier|ninguna)\sescritura"
 hint="«Scripts» se traduce como «Guiones» o «Scripts» (ver glosario)"
 
 {\bscroll\b}i
@@ -3124,7 +3124,7 @@ hint="«Scrolling» se traduce como «Desplazamiento» (ver glosario)"
 {\bscrolls\b}i
 id="gk-2-scrolls"
 valid msgstr="desplazamientos"
-valid msgstr="(cualquier|ningún)\sdesplazamiento"
+valid msgstr="(algún|cualquier|ningún)\sdesplazamiento"
 valid msgstr="despla(zar|za|ce)"
 hint="«Scroll» se traduce como «Desplazamientos» (ver glosario)"
 
@@ -3150,7 +3150,7 @@ hint="«Sending» se traduce como «Envío» (ver glosario)"
 id="gk-2-sends"
 valid msgstr="enví(a|e)"
 valid msgstr="envios"
-valid msgstr="(cualquier|ningún)\senvío"
+valid msgstr="(algún|cualquier|ningún)\senvío"
 hint="«Sends» se traduce como «Envía» (ver glosario)"
 
 {\bserver\b}i
@@ -3163,7 +3163,7 @@ hint="«Server» se traduce como «Servidor» (ver glosario)"
 {\bservers\b}i
 id="gk-2-servers"
 valid msgstr="servidores"
-valid msgstr="(cualquier|ningún)\sservidor"
+valid msgstr="(algún|cualquier|ningún)\sservidor"
 valid msgstr="servers" after="media\s"
 hint="«Servers» se traduce como «Servidores» (ver glosario)"
 
@@ -3189,7 +3189,7 @@ hint="«Shortcut» se traduce como «Acceso rápido» (ver glosario)"
 {\bshortcuts\b}i
 id="gk-2-shortcuts"
 valid msgstr="accesos\srápidos"
-valid msgstr="(cualquier|ningún)\sacceso\srápido"
+valid msgstr="(algún|cualquier|ningún)\sacceso\srápido"
 hint="«Shortcuts» se traduce como «Accesos rápidos» (ver glosario)"
 
 {\bshorthand\b}i
@@ -3200,7 +3200,7 @@ hint="«Shorthand» se traduce como «Abreviado» (ver glosario)"
 {\bshorthands\b}i
 id="gk-2-shorthands"
 valid msgstr="abrevia(dos|das|turas)"
-valid msgstr="(cualquier|ninguna)\sabreviatura"
+valid msgstr="(alguna|cualquier|ninguna)\sabreviatura"
 hint="«Shorthands» se traduce como «Abreviados» (ver glosario)"
 
 {\bshutdown\b}i
@@ -3226,7 +3226,7 @@ hint="«Signal» se traduce como «Señal» (ver glosario)"
 {\bsignals\b}i
 id="gk-2-signals"
 valid msgstr="señales"
-valid msgstr="(cualquier|ninguna)\sseñal"
+valid msgstr="(alguna|cualquier|ninguna)\sseñal"
 hint="«Signals» se traduce como «Señales» (ver glosario)"
 
 {\bsite\b}i
@@ -3241,9 +3241,9 @@ id="gk-2-sites"
 valid msgstr="sitios"
 valid msgstr="nodos"
 valid msgstr="lugares"
-valid msgstr="(cualquier|ningún)\ssitio"
-valid msgstr="(cualquier|ningún)\snodo"
-valid msgstr="(cualquier|ningún)\slugar"
+valid msgstr="(algún|cualquier|ningún)\ssitio"
+valid msgstr="(algún|cualquier|ningún)\snodo"
+valid msgstr="(algún|cualquier|ningún)\slugar"
 hint="«Sites» se traduce como «Sitios» o «Nodos» (ver glosario)"
 
 {\bslash\b}i
@@ -3254,7 +3254,7 @@ hint="«Slash» se traduce como «Barra» (ver glosario)"
 {\bslashes\b}i
 id="gk-2-slashes"
 valid msgstr="barras"
-valid msgstr="(cualquier|ninguna)\sbarra"
+valid msgstr="(alguna|cualquier|ninguna)\sbarra"
 hint="«Slashes» se traduce como «Barras» (ver glosario)"
 
 {\bslave\b}i
@@ -3265,8 +3265,8 @@ hint="«Slave» se traduce como «Esclavo» (ver glosario)"
 {\bslaves\b}i
 id="gk-2-slaves"
 valid msgstr="esclav[oa]s"
-valid msgstr="(cualquier|ningún)\sesclavo"
-valid msgstr="(cualquier|ninguna)\sesclava"
+valid msgstr="(algún|cualquier|ningún)\sesclavo"
+valid msgstr="(alguna|cualquier|ninguna)\sesclava"
 hint="«Slaves» se traduce como «Esclavos» (ver glosario)"
 
 {\bslot\b}i
@@ -3278,7 +3278,7 @@ hint="«Slot» se traduce como «Ranura» o «Encajar» (ver glosario)"
 {\bslots\b}i
 id="gk-2-slots"
 valid msgstr="ranuras"
-valid msgstr="(cualquier|ninguna)\sranura"
+valid msgstr="(alguna|cualquier|ninguna)\sranura"
 valid msgstr="encaje"
 hint="«Slots» se traduce como «Ranuras» o «Encaja» (ver glosario)"
 
@@ -3291,7 +3291,7 @@ hint="«Soft link» se traduce como «Enlace simbólico» (ver glosario)"
 {\bsoft\slinks\b}i
 id="gk-2-soft-links"
 valid msgstr="enlaces\ssimbólicos"
-valid msgstr="(cualquier|ningún)\senlace\ssimbólico"
+valid msgstr="(algún|cualquier|ningún)\senlace\ssimbólico"
 hint="«Soft links» se traduce como «Enlaces simbólicos» (ver glosario)"
 
 {\bsort\b}i
@@ -3308,7 +3308,7 @@ id="gk-2-sorts"
 valid msgstr="orden(a|e)?"
 valid msgstr="órdenes"
 valid msgstr="clases"
-valid msgstr="(cualquier|ningún)\sorden"
+valid msgstr="(algún|cualquier|ningún)\sorden"
 hint="«Sorts» se traduce como «Ordena» (ver glosario)"
 
 {\bspawn\b}i
@@ -3332,7 +3332,7 @@ hint="«Splashscreen» se traduce como «Pantalla anunciadora» (ver glosario)"
 {\bsplashscreens\b}i
 id="gk-2-splashscreens"
 valid msgstr="pantallas\sanunciadoras"
-valid msgstr="(cualquier|ninguna)\spantalla\sanunciadora"
+valid msgstr="(alguna|cualquier|ninguna)\spantalla\sanunciadora"
 hint="«Splashscreens» se traduce como «Pantallas anunciadoras» (ver glosario)"
 
 {\bspool\b}i
@@ -3343,7 +3343,7 @@ hint="«Spool» se traduce como «Cola» (ver glosario)"
 {\bspools\b}i
 id="gk-2-spools"
 valid msgstr="colas"
-valid msgstr="(cualquier|ninguna)\scola"
+valid msgstr="(alguna|cualquier|ninguna)\scola"
 hint="«Spools» se traduce como «Colas» (ver glosario)"
 
 {\bstandard\sdisclaimer\b}i
@@ -3360,7 +3360,7 @@ hint="«Standard» se traduce como como «Estándar», (ver glosario)"
 {\bstandards\b}i
 id="gk-2-standards"
 valid msgstr="estándares"
-valid msgstr="(cualquier|ningún)\sestándar"
+valid msgstr="(algún|cualquier|ningún)\sestándar"
 valid !msgstr="standards?"
 hint="«Standards» se traduce como como «Estándares», (ver glosario)"
 
@@ -3451,8 +3451,8 @@ hint="«Subdirectory» se traduce como «Subcarpeta» o «Subdirectorio» (ver g
 id="gk-2-subdirectories"
 valid msgstr="subcarpetas"
 valid msgstr="subdirectorios"
-valid msgstr="(cualquier|ninguna)\ssubcarpeta"
-valid msgstr="(cualquier|ningún)\ssubdirectorio"
+valid msgstr="(alguna|cualquier|ninguna)\ssubcarpeta"
+valid msgstr="(algún|cualquier|ningún)\ssubdirectorio"
 hint="«Subdirectories» se traduce como «Subcarpetas» o «Subdirectorios» (ver glosario)"
 
 {\bsubnet\b}i
@@ -3463,7 +3463,7 @@ hint="«Subnet» se traduce como «Subred» (ver glosario)"
 {\bsubnets\b}i
 id="gk-2-subnets"
 valid msgstr="subredes"
-valid msgstr="(cualquier|ninguna)\ssubred"
+valid msgstr="(alguna|cualquier|ninguna)\ssubred"
 hint="«Subnets» se traduce como «Subredes» (ver glosario)"
 
 {\bsubnetting\b}i
@@ -3499,7 +3499,7 @@ valid msgstr="reconoce"
 valid msgstr="us(e|a)"
 valid msgstr="apoy(e|a)"
 valid msgstr="implementaciones"
-valid msgstr="(cualquier|ninguna)\simplementación"
+valid msgstr="(alguna|cualquier|ninguna)\simplementación"
 hint="«Supports» se traduce como  «Admite», «Implementa», «Reconoce», «Usa» o «Apoya», nunca como «Soporta» (ver glosario)"
 
 {\bswap\b}i
@@ -3513,7 +3513,7 @@ hint="«Swap» se traduce como «Intercambio» (ver glosario)"
 id="gk-2-swaps"
 valid msgstr="intercambi(e|a)"
 valid msgstr="intercambios"
-valid msgstr="(cualquier|ningún)\sintercambio"
+valid msgstr="(algún|cualquier|ningún)\sintercambio"
 hint="«Swaps» se traduce como «Intercambios/Intercambia» (ver glosario)"
 
 {\bsymbolic\slink\b}i
@@ -3524,7 +3524,7 @@ hint="«Symbolic link» se traduce como «Enlace simbólico» (ver glosario)"
 {\bsymbolic\slinks\b}i
 id="gk-2-symbolic-links"
 valid msgstr="enlaces\ssimbólicos"
-valid msgstr="(cualquier|ningún)\senlace\ssimbólico"
+valid msgstr="(algún|cualquier|ningún)\senlace\ssimbólico"
 hint="«Symbolic links» se traduce como «Enlaces simbólicos» (ver glosario)"
 
 {\bsystem\scall\b}i
@@ -3535,7 +3535,7 @@ hint="«System call» se traduce como «Llamada del sistema» (ver glosario)"
 {\bsystem\scalls\b}i
 id="gk-2-system-calls"
 valid msgstr="llamadas\sdel\ssistema"
-valid msgstr="(cualquier|ninguna)\sllamada\sdel\ssistema"
+valid msgstr="(alguna|cualquier|ninguna)\sllamada\sdel\ssistema"
 hint="«System calls» se traduce como «Llamadas del sistema» (ver glosario)"
 
 {\btab\b}i
@@ -3550,8 +3550,8 @@ hint="«Tab» se traduce como «Tabulador» o «Pestaña», nunca como «Solapa�
 id="gk-2-tabs"
 valid msgstr="pestañas"
 valid msgstr="tabuladores"
-valid msgstr="(cualquier|ninguna)\spestaña"
-valid msgstr="(cualquier|ningún)\stabulador"
+valid msgstr="(alguna|cualquier|ninguna)\spestaña"
+valid msgstr="(algún|cualquier|ningún)\stabulador"
 valid !msgstr="solapas"
 hint="«Tabs» se traduce como «Tabuladores» o «Pestañas», nunca como «Solapas» (ver glosario)"
 
@@ -3563,7 +3563,7 @@ hint="«Target partition» se traduce como «Partición de destino» (ver glosar
 {\btarget\spartitions\b}i
 id="gk-2-target-partitions"
 valid msgstr="particiones\sde\sdestino"
-valid msgstr="(cualquier|ninguna)\spartición\sde\sdestino"
+valid msgstr="(alguna|cualquier|ninguna)\spartición\sde\sdestino"
 hint="«Target partitions» se traduce como «Particiones de destino» (ver glosario)"
 
 {\btile\b}i
@@ -3578,9 +3578,9 @@ id="gk-2-tiles"
 valid msgstr="baldosas"
 valid msgstr="mosaicos"
 valid msgstr="fichas"
-valid msgstr="(cualquier|ninguna)\sbaldosa"
-valid msgstr="(cualquier|ningún)\smosaico"
-valid msgstr="(cualquier|ninguna)\sficha"
+valid msgstr="(alguna|cualquier|ninguna)\sbaldosa"
+valid msgstr="(algún|cualquier|ningún)\smosaico"
+valid msgstr="(alguna|cualquier|ninguna)\sficha"
 hint="«Tiles» se traduce como «Mosaicos» (ver glosario)"
 
 {\btimeout\b}i
@@ -3591,7 +3591,7 @@ hint="«Timeout» se traduce como «Tiempo de espera» (ver glosario)"
 {\btimeouts\b}i
 id="gk-2-timeouts"
 valid msgstr="tiempos\sde\sespera"
-valid msgstr="(cualquier|ningún)\stiempo\sde\sespera"
+valid msgstr="(algún|cualquier|ningún)\stiempo\sde\sespera"
 hint="«Timeouts» se traduce como «Tiempos de espera» (ver glosario)"
 
 {\btimer\b}i
@@ -3602,7 +3602,7 @@ hint="«Timer» se traduce como «Temporizador» (ver glosario)"
 {\btimers\b}i
 id="gk-2-timers"
 valid msgstr="temporizadores"
-valid msgstr="(cualquier|ningún)\stemporizador"
+valid msgstr="(algún|cualquier|ningún)\stemporizador"
 hint="«Timers» se traduce como «Temporizadores» (ver glosario)"
 
 {\btimestamp\b}i
@@ -3613,7 +3613,7 @@ hint="«Timestamp» se traduce como «Marca de tiempo» (ver glosario)"
 {\btimestamps\b}i
 id="gk-2-timestamps"
 valid msgstr="marcas\sde\stiempo"
-valid msgstr="(cualquier|ninguna)\smarca\sde\stiempo"
+valid msgstr="(alguna|cualquier|ninguna)\smarca\sde\stiempo"
 hint="«Timestamps» se traduce como «Marcas de tiempo» (ver glosario)"
 
 {\btoggle\b}i
@@ -3636,7 +3636,7 @@ valid msgstr="conmut(a|e)"
 valid msgstr="cambi(a|e)"
 valid msgstr="altern(a|e)"
 valid msgstr="conmutadores"
-valid msgstr="(cualquier|ningún)\sconmutador"
+valid msgstr="(algún|cualquier|ningún)\sconmutador"
 hint="«Toggles» se traduce como «Conmuta/Alterna/Cambia» (ver glosario)"
 
 {\btopic\b}i
@@ -3648,7 +3648,7 @@ hint="«Topic» se traduce como «Tema» (ver glosario)"
 {\btopics\b}i
 id="gk-2-topics"
 valid msgstr="temas"
-valid msgstr="(cualquier|ningún)\stema"
+valid msgstr="(algún|cualquier|ningún)\stema"
 valid !msgstr="tópicos"
 hint="«Topics» se traduce como «Temas» (ver glosario)"
 
@@ -3661,7 +3661,7 @@ hint="«Trailing space» se traduce como «Espacio final» (ver glosario)"
 {\btrailing\sspaces\b}i
 id="gk-2-trailing-spaces"
 valid msgstr="espacios\sfinales"
-valid msgstr="(cualquier|ningún)\sespacio\sfinal"
+valid msgstr="(algún|cualquier|ningún)\sespacio\sfinal"
 hint="«Trailing spaces» se traduce como «Espacios finales» (ver glosario)"
 
 {\btransport\b}i
@@ -3674,7 +3674,7 @@ hint="«Transport» se traduce como «Transporte» o «Transportar» (ver glosar
 {\btransports\b}i
 id="gk-2-transports"
 valid msgstr="transport(es|e|a)"
-valid msgstr="(cualquier|ningún)\stransporte"
+valid msgstr="(algún|cualquier|ningún)\stransporte"
 hint="«Transports» se traduce como «Transportes» o «Transporta» (ver glosario)"
 
 {\btroubleshooting\b}i
@@ -3704,7 +3704,7 @@ hint="«Type» se traduce como «Tipo» o «Teclear/Escribir» (ver glosario)"
 {\btypes\b}i
 id="gk-2-types"
 valid msgstr="tipos"
-valid msgstr="(cualquier|ningún)\stipo"
+valid msgstr="(algún|cualquier|ningún)\stipo"
 valid msgstr="tecle(ar|a|e)"
 hint="«Types» se traduce como «Tipos» o «Teclea» (ver glosario)"
 
@@ -3754,7 +3754,7 @@ hint="«Verbatim copy» se traduce como «Copia literal» (ver glosario)"
 {\bverbatim\scopies\b}i
 id="gk-2-verbatim-copies"
 valid msgstr="copias\sliterales"
-valid msgstr="(cualquier|ninguna)\scopia\sliteral"
+valid msgstr="(alguna|cualquier|ninguna)\scopia\sliteral"
 hint="«Verbatim copies» se traduce como «Copias literales» (ver glosario)"
 
 {\bweb\b}i
@@ -3777,9 +3777,9 @@ id="gk-2-widgets"
 valid msgstr="ventanas"
 valid msgstr="controles"
 valid msgstr="elementos\sgráficos"
-valid msgstr="(cualquier|ninguna)\sventana"
-valid msgstr="(cualquier|ningún)\scontrol"
-valid msgstr="(cualquier|ningún)\selemento\sgráfico"
+valid msgstr="(alguna|cualquier|ninguna)\sventana"
+valid msgstr="(algún|cualquier|ningún)\scontrol"
+valid msgstr="(algún|cualquier|ningún)\selemento\sgráfico"
 valid msgstr="widgets"
 hint="«Widgets» se traduce como «Ventanas», «Controles» o «Elementos gráficos» (ver glosario)"
 
@@ -3791,7 +3791,7 @@ hint="«Wizard» se traduce como «Asistente» (ver glosario)"
 {\bwizards\b}i
 id="gk-2-wizards"
 valid msgstr="asistentes"
-valid msgstr="(cualquier|ningún)\sasistente"
+valid msgstr="(algún|cualquier|ningún)\sasistente"
 hint="«Wizards» se traduce como «Asistentes» (ver glosario)"
 
 # End of rule file

@@ -536,7 +536,7 @@ id="ui-2-widget-captions"
 valid msgstr="títulos"
 valid msgstr="leyendas"
 valid msgstr="(cualquier|ningún)\stítulo"
-valid msgstr="(cualquier|ninguna)\sleyenda"
+valid msgstr="(alguna|cualquier|ninguna)\sleyenda"
 hint="« Captions » se traduce como « Títulos/Leyendas » (regla de traducción de elementos gráficos)"
 
 {\bcheckbox\b}i
@@ -547,7 +547,7 @@ hint="« Checkbox » se traduce como « Casilla de verificación » (regla de tr
 {\bcheckboxes\b}i
 id="ui-2-widget-checkboxes"
 valid msgstr="casillas\sde\sverificación"
-valid msgstr="(cualquier|ninguna)\scasilla\sde\sverificación"
+valid msgstr="(alguna|cualquier|ninguna)\scasilla\sde\sverificación"
 hint="« Checkboxes » se traduce como « Casillas de verificación » (regla de traducción de elementos gráficos)"
 
 {\bcheck\s?button\b}i
@@ -570,7 +570,7 @@ hint="« Child window » se traduce como « Ventana secundaria » (regla de trad
 {\bchild\swindows\b}i
 id="ui-2-widget-child-windows"
 valid msgstr="ventanas\ssecundarias"
-valid msgstr="(cualquier|ninguna)\sventana\ssecundaria"
+valid msgstr="(alguna|cualquier|ninguna)\sventana\ssecundaria"
 hint="« Child windows » se traduce como « Ventanas secundarias » (regla de traducción de elementos gráficos)"
 
 {\bcombo\s?box\b}i
@@ -710,7 +710,7 @@ hint="« Label » se traduce como « Etiqueta » (regla de traducción de elemen
 {\blabels\b}i
 id="ui-2-widget-labels"
 valid msgstr="etiquet(as|a|e)"
-valid msgstr="(cualquier|ninguna)\setiqueta"
+valid msgstr="(alguna|cualquier|ninguna)\setiqueta"
 hint="« Labels » se traduce como « Etiquetas » (regla de traducción de elementos gráficos)"
 
 {\blist\s?box\b}i
@@ -738,21 +738,21 @@ hint="« Menu bar » se traduce como « Barra de menú » (regla de traducción 
 {\bmenu\sbars\b}i
 id="ui-2-widget-menu-bars"
 valid msgstr="barras\sde\smenú"
-valid msgstr="(cualquier|ninguna)\sbarra\sde\smenú"
+valid msgstr="(alguna|cualquier|ninguna)\sbarra\sde\smenú"
 hint="« Menu bars » se traduce como « Barras de menú » (regla de traducción de elementos gráficos)"
 
 {\bmenu\sitem\b}i
 id="ui-2-widget-menu-item"
-valid msgstr="opción.+?del?\smenú"
-valid msgstr="opción.+?del?\ssubmenú" after="sub\s"
+valid msgstr="opción\s.+?\sdel?\smenú"
+valid msgstr="opción\s.+?\sdel?\ssubmenú" after="sub\s?"
 hint="« Menu item » se traduce como « Opción de menú » (regla de traducción de elementos gráficos)"
 
 {\bmenu\sitems\b}i
 id="ui-2-widget-menu-items"
-valid msgstr="opciones.+?del?\smenú"
-valid msgstr="opciones.+?del?\ssubmenú" after="sub\s"
-valid msgstr="(cualquier|ninguna)\sopción.+?del?\smenú"
-valid msgstr="(cualquier|ninguna)\sopción.+?del?\ssubmenú" after="sub\s"
+valid msgstr="opciones\s.+?\sdel?\smenú"
+valid msgstr="opciones\s.+?\sdel?\ssubmenú" after="sub\s"
+valid msgstr="(alguna|cualquier|ninguna)\sopción\s.+?\sdel?\smenú"
+valid msgstr="(alguna|cualquier|ninguna)\sopción\s.+?\sdel?\ssubmenú" after="sub\s"
 hint="« Menu items » se traduce como « Opciones de menú » (regla de traducción de elementos gráficos)"
 
 {\bminimi[sz]e\b}i
@@ -779,7 +779,7 @@ hint="« Root window » se traduce como « Ventana de fondo » (regla de traducc
 {\broot\s?windows\b}i
 id="ui-2-widget-root-windows"
 valid msgstr="ventanas\sde\sfondo"
-valid msgstr="(cualquier|ninguna)\sventana\sde\sfondo"
+valid msgstr="(alguna|cualquier|ninguna)\sventana\sde\sfondo"
 hint="« Root windows » se traduce como « Ventanas de fondo » (regla de traducción de elementos gráficos)"
 
 {\bscroll\s?bar\b}i
@@ -790,7 +790,7 @@ hint="« Scroll bar » se traduce como « Barra de desplazamiento » (regla de t
 {\bscroll\s?bars\b}i
 id="ui-2-widget-scroll-bars"
 valid msgstr="barras\sde\sdesplazamiento"
-valid msgstr="(cualquier|ninguna)\sbarra\sde\sdesplazamiento"
+valid msgstr="(alguna|cualquier|ninguna)\sbarra\sde\sdesplazamiento"
 hint="« Scroll bars » se traduce como « Barras de desplazamiento » (regla de traducción de elementos gráficos)"
 
 {\bservice\smenu\b}i
@@ -840,7 +840,7 @@ hint="« Status bar » se traduce como « Barra de estado » (regla de traducci�
 {\bstatus\s?bars\b}i
 id="ui-2-widget-status-bars"
 valid msgstr="barras\sde\sestado"
-valid msgstr="(cualquier|ninguna)\sbarra\sde\sestado"
+valid msgstr="(alguna|cualquier|ninguna)\sbarra\sde\sestado"
 hint="« Status bars » se traduce como « Barras de estado » (regla de traducción de elementos gráficos)"
 
 {\btask\s?bar\b}i
@@ -851,7 +851,7 @@ hint="« Taskbar » se traduce como « Barra de tareas » (regla de traducción 
 {\btask\s?bars\b}i
 id="ui-2-widget-task-bars"
 valid msgstr="barras\sde\stareas"
-valid msgstr="(cualquier|ninguna)\sbarra\sde\stareas"
+valid msgstr="(alguna|cualquier|ninguna)\sbarra\sde\stareas"
 hint="« Taskbar » se traduce como « Barra de tareas » (regla de traducción de elementos gráficos)"
 
 {\btext\s?box\b}i
@@ -862,7 +862,7 @@ hint="« Text box » se traduce como « Área de texto » (regla de traducción 
 {\btext\s?boxes\b}i
 id="ui-2-widget-text-boxes"
 valid msgstr="áreas\sde\stexto"
-valid msgstr="(cualquier|ninguna)\sárea\sde\stexto"
+valid msgstr="(alguna|cualquier|ninguna)\sárea\sde\stexto"
 hint="« Text boxes » se traduce como « Áreas de texto » (regla de traducción de elementos gráficos)"
 
 {\btext\s?field\b}i
@@ -884,7 +884,7 @@ hint="« Title bar » se traduce como « Barra de título » (regla de traducci�
 {\btitle\s?bars\b}i
 id="ui-2-widget-title-bars"
 valid msgstr="barras\sde\stítulo"
-valid msgstr="(cualquier|ninguna)\sbarra\sde\stítulo"
+valid msgstr="(alguna|cualquier|ninguna)\sbarra\sde\stítulo"
 hint="« Title bars » se traduce como « Barras de título » (regla de traducción de elementos gráficos)"
 
 {\btool\s?bar\b}i
@@ -895,7 +895,7 @@ hint="« Tool bar » se traduce como « Barra de herramientas » (regla de tradu
 {\btool\s?bars\b}i
 id="ui-2-widget-tool-bars"
 valid msgstr="barras\sde\sherramientas"
-valid msgstr="(cualquier|ninguna)\sbarra\sde\sherramientas"
+valid msgstr="(alguna|cualquier|ninguna)\sbarra\sde\sherramientas"
 hint="« Tool bars » se traduce como « Barras de herramientas » (regla de traducción de elementos gráficos)"
 
 # End of rule file

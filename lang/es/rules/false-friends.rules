@@ -208,7 +208,7 @@ hint="« Apology » se traduce como como « Disculpa », no como « Apología »
 {\bapologies\b}i
 id="ff-2-apologies"
 valid msgstr="disculpas"
-valid msgstr="(ninguna|cualquier)\sdisculpa"
+valid msgstr="(alguna|ninguna|cualquier)\sdisculpa"
 valid !msgstr="apologías"
 hint="« Apologies » se traduce como como « Disculpas », no como « Apologías » (falso amigo)"
 
@@ -221,7 +221,7 @@ hint="« Aspersion » se traduce como como « Calumnia » (falso amigo)"
 {\baspersions\b}i
 id="ff-2-aspersions"
 valid msgstr="calumnias"
-valid msgstr="(ninguna|cualquier)\scalumnia"
+valid msgstr="(alguna|ninguna|cualquier)\scalumnia"
 valid !msgstr="aspersiones"
 hint="« Aspersions » se traduce como como « Calumnias » (falso amigo)"
 
@@ -263,7 +263,7 @@ hint="« Bachelor » se traduce como como « Soltero » no como « Bachiller »(
 id="ff-2-bachelors"
 valid msgstr="solter[oa]s"
 valid msgstr="(algún|ningún|cualquier)\ssoltero"
-valid msgstr="(ninguna|cualquier)\ssoltera"
+valid msgstr="(alguna|ninguna|cualquier)\ssoltera"
 valid !msgstr="bachilleres"
 hint="« Bachelors » se traduce como como « Solteros » no como « Bachilleres »(falso amigo)"
 
@@ -365,7 +365,7 @@ hint="« Cargo » se traduce como como « Carga/Cargamento », no como « Cargo 
 {\bcargos\b}i
 id="ff-2-cargos"
 valid msgstr="cargas"
-valid msgstr="(ninguna|cualquier)\scarga"
+valid msgstr="(alguna|ninguna|cualquier)\scarga"
 valid msgstr="cargamentos"
 valid msgstr="(algún|ningún|cualquier)\scargamento"
 valid !msgstr="cargos"
@@ -380,7 +380,7 @@ hint="« Carpet » se traduce como como « Alfombra », no como « Carpeta » (f
 {\bcarpets\b}i
 id="ff-2-carpets"
 valid msgstr="alfombras"
-valid msgstr="(ninguna|cualquier)\salfombra"
+valid msgstr="(alguna|ninguna|cualquier)\salfombra"
 valid !msgstr="carpetas"
 hint="« Carpets » se traduce como como « Alfombras », no como « Carpetas » (falso amigo)"
 
@@ -402,9 +402,9 @@ hint="« Casualty » se traduce como como « Baja/Víctima », no como « Casual
 {\bcasualties\b}i
 id="ff-2-casualties"
 valid msgstr="bajas"
-valid msgstr="(ninguna|cualquier)\sbaja"
+valid msgstr="(alguna|ninguna|cualquier)\sbaja"
 valid msgstr="víctimas"
-valid msgstr="(ninguna|cualquier)\svíctima"
+valid msgstr="(alguna|ninguna|cualquier)\svíctima"
 valid !msgstr="casualidades"
 hint="« Casualties » se traduce como como « Bajas/Víctimas », no como « Casualidades » (falso amigo)"
 
@@ -455,7 +455,7 @@ hint="« College » se traduce como como « Universidad », no como « Colegio �
 {\bcolleges\b}i
 id="ff-1-colleges"
 valid msgstr="universidades"
-valid msgstr="(ninguna|cualquier)\suniversidad"
+valid msgstr="(alguna|ninguna|cualquier)\suniversidad"
 valid !msgstr="colegios"
 hint="« Colleges » se traduce como como « Universidades », no como « Colegios » (falso amigo)"
 
@@ -472,7 +472,7 @@ id="ff-1-commodities"
 valid msgstr="productos"
 valid msgstr="(algún|ningún|cualquier)\sproducto"
 valid msgstr="mercancías"
-valid msgstr="(ninguna|cualquier)\smercancía"
+valid msgstr="(alguna|ninguna|cualquier)\smercancía"
 valid msgstr="artículos"
 valid msgstr="(algún|ningún|cualquier)\sartículo"
 valid !msgstr="comodidades"
@@ -503,9 +503,9 @@ hint="« Compromise » se traduce como como « Convenio », no como « Compromis
 {\bcompromises\b}i
 id="ff-1-compromises"
 valid msgstr="concesiones"
-valid msgstr="(ninguna|cualquier)\sconcesión"
+valid msgstr="(alguna|ninguna|cualquier)\sconcesión"
 valid msgstr="componendas"
-valid msgstr="(ninguna|cualquier)\scomponenda"
+valid msgstr="(alguna|ninguna|cualquier)\scomponenda"
 valid msgstr="convenios"
 valid msgstr="(algún|ningún|cualquier)\sconvenio"
 valid msgstr="arreglos\sde\sdiferencias"
@@ -523,10 +523,10 @@ hint="« Conductor » se traduce como como « Director/Cobrador », no como « C
 id="ff-1-conductors"
 valid msgstr="director[es]s"
 valid msgstr="(algún|ningún|cualquier)\sdirector"
-valid msgstr="(ninguna|cualquier)\sdirectora"
+valid msgstr="(alguna|ninguna|cualquier)\sdirectora"
 valid msgstr="cobrador(e|a)s"
 valid msgstr="(algún|ningún|cualquier)\scobrador"
-valid msgstr="(ninguna|cualquier)\scobradora"
+valid msgstr="(alguna|ninguna|cualquier)\scobradora"
 valid !msgstr="conductor[ea]s"
 hint="« Conductors » se traduce como como « Directores/Cobradores », no como « Conductores » (falso amigo)"
 
@@ -653,9 +653,9 @@ hint="« Date » se traduce como como « Fecha », no como « Dato » (falso ami
 {\bdates\b}i
 id="ff-1-dates"
 valid msgstr="fechas"
-valid msgstr="(ninguna|cualquier)\sfecha"
+valid msgstr="(alguna|ninguna|cualquier)\sfecha"
 valid msgstr="citas"
-valid msgstr="(ninguna|cualquier)\scita"
+valid msgstr="(alguna|ninguna|cualquier)\scita"
 valid !msgstr="datos"
 hint="« Dates » se traduce como como « Fechas », no como « Datos » (falso amigo)"
 
@@ -774,7 +774,7 @@ hint="« Diversion » se traduce como como « Distracción », no como « Divers
 {\bdiversions\b}i
 id="ff-1-diversions"
 valid msgstr="distracciones"
-valid msgstr="(ninguna|cualquier)\sdistracción"
+valid msgstr="(alguna|ninguna|cualquier)\sdistracción"
 valid msgstr="desvíos"
 valid msgstr="(algún|ningún|cualquier)\sdesvío"
 valid !msgstr="diversiones"
@@ -902,7 +902,7 @@ hint="« Evidence » se traduce como como « Prueba », no como « Evidencia » 
 {\bevidences\b}i
 id="ff-1-evidences"
 valid msgstr="pruebas"
-valid msgstr="(ninguna|cualquier)\sprueba"
+valid msgstr="(alguna|ninguna|cualquier)\sprueba"
 valid !msgstr="evidencias"
 hint="« Evidences » se traduce como como « Pruebas », no como « Evidencias » (falso amigo)"
 
@@ -915,7 +915,7 @@ hint="« Exit » se traduce como como « Salida », no como « Éxito » (falso 
 {\bexits\b}i
 id="ff-1-exits"
 valid msgstr="salidas"
-valid msgstr="(ninguna|cualquier)\ssalida"
+valid msgstr="(alguna|ninguna|cualquier)\ssalida"
 valid !msgstr="éxitos"
 hint="« Exits » se traduce como como « Salidas », no como « Éxitos » (falso amigo)"
 
@@ -928,7 +928,7 @@ hint="« Expectation » se traduce como como « Expectativa », no como « Expec
 {\bexpectations\b}i
 id="ff-1-expectations"
 valid msgstr="expectativas"
-valid msgstr="(ninguna|cualquier)\sexpectativa"
+valid msgstr="(alguna|ninguna|cualquier)\sexpectativa"
 valid !msgstr="expectaciones"
 hint="« Expectations » se traduce como como « Expectativas », no como « Expectaciones » (falso amigo)"
 
@@ -948,7 +948,7 @@ hint="« Fabric » se traduce como como « Tela/Tejido », no como « Fábrica �
 {\bfabrics\b}i
 id="ff-2-fabrics"
 valid msgstr="telas"
-valid msgstr="(ninguna|cualquier)\stela"
+valid msgstr="(alguna|ninguna|cualquier)\stela"
 valid msgstr="tejidos"
 valid msgstr="(algún|ningún|cualquier)\stejido"
 valid !msgstr="fábricas"
@@ -957,7 +957,9 @@ hint="« Fabrics » se traduce como como « Telas/Tejidos », no como « Fábric
 {\bfacilities\b}i
 id="ff-1-facilities"
 valid msgstr="instalaciones"
-valid msgstr="(ninguna|cualquier)\sinstalación"
+valid msgstr="servicios"
+valid msgstr="(alguna|ninguna|cualquier)\sinstalación"
+valid msgstr="(algún|ningún|cualquier)\sservicio"
 valid !msgstr="facilidades"
 hint="« Facilities » se traduce como como « Instalaciones », no como « Facilidades » (falso amigo)"
 
@@ -982,7 +984,7 @@ id="ff-2-fatalities"
 valid msgstr="muert[oa]s"
 valid msgstr="(algún|ningún|cualquier)\smuerto"
 valid msgstr="victimas"
-valid msgstr="(ninguna|cualquier)\svíctima"
+valid msgstr="(alguna|ninguna|cualquier)\svíctima"
 valid !msgstr="fatalidades"
 hint="« Fatalities » se traduce como como « Muertos/Víctimas », no como « Fatalidades » (falso amigo)"
 
@@ -999,7 +1001,7 @@ hint="« Fault » se traduce como como « Culpa », no como « Falta » (falso a
 {\bfaults\b}i
 id="ff-2-faults"
 valid msgstr="culpas"
-valid msgstr="(ninguna|cualquier)\sculpa"
+valid msgstr="(alguna|ninguna|cualquier)\sculpa"
 valid msgstr="defectos"
 valid msgstr="(algún|ningún|cualquier)\sdefecto"
 valid msgstr="fallos"
@@ -1179,7 +1181,7 @@ hint="« Lecture » se traduce como como « Conferencia », no como « Lectura �
 {\blectures\b}i
 id="ff-1-lectures"
 valid msgstr="conferencias"
-valid msgstr="(ninguna|cualquier)\sconferencia"
+valid msgstr="(alguna|ninguna|cualquier)\sconferencia"
 valid !msgstr="lecturas"
 hint="« Lectures » se traduce como como « Conferencias », no como « Lecturas » (falso amigo)"
 
@@ -1210,13 +1212,13 @@ id="ff-2-miseries"
 valid msgstr="sufrimientos"
 valid msgstr="(algún|ningún|cualquier)\ssufrimiento"
 valid msgstr="aflicciones"
-valid msgstr="(ninguna|cualquier)\saflicción"
+valid msgstr="(alguna|ninguna|cualquier)\saflicción"
 valid msgstr="desgracias"
-valid msgstr="(ninguna|cualquier)\sdesgracia"
+valid msgstr="(alguna|ninguna|cualquier)\sdesgracia"
 valid msgstr="desdichas"
-valid msgstr="(ninguna|cualquier)\sdesdicha"
+valid msgstr="(alguna|ninguna|cualquier)\sdesdicha"
 valid msgstr="angustias"
-valid msgstr="(ninguna|cualquier)\sangustia"
+valid msgstr="(alguna|ninguna|cualquier)\sangustia"
 valid !msgstr="miserias"
 hint="« Miseries » se traduce como como « Sufrimientos/Aflicciones », no como « Miserias » (falso amigo)"
 
@@ -1265,9 +1267,9 @@ hint="« Ocurrence » se traduce como como « Aparición », no como « Ocurrenc
 {\boccurrences\b}i
 id="ff-1-occurrences"
 valid msgstr="apariciones"
-valid msgstr="(ninguna|cualquier)\saparición"
+valid msgstr="(alguna|ninguna|cualquier)\saparición"
 valid msgstr="ideas"
-valid msgstr="(ninguna|cualquier)\sidea"
+valid msgstr="(alguna|ninguna|cualquier)\sidea"
 valid !msgstr="ocurrencias"
 hint="« Ocurrences » se traduce como como « Apariciones », no como « Ocurrencias » (falso amigo)"
 
@@ -1294,7 +1296,7 @@ hint="« Office » se traduce como como « Oficina », no como « Oficio » (fal
 {\boffices\b}i
 id="ff-1-offices"
 valid msgstr="oficinas"
-valid msgstr="(ninguna|cualquier)\soficina"
+valid msgstr="(alguna|ninguna|cualquier)\soficina"
 valid msgstr="despachos"
 valid msgstr="(algún|ningún|cualquier)\sdespacho"
 valid !msgstr="oficios"
@@ -1498,13 +1500,13 @@ hint="« Quartely » se traduce como como « Trimestral », no como « Cuatrimes
 {\bquestion\b}i
 id="ff-1-question"
 valid msgstr="pregunta"
-valid !msgstr="cuestión"
+valid msgstr="cuestión" after="en\s"
 hint="« Question » se traduce como como « Pregunta », no como « Cuestión » (falso amigo)"
 
 {\bquestions\b}i
 id="ff-1-questions"
 valid msgstr="preguntas"
-valid msgstr="(ninguna|cualquier)\spregunta"
+valid msgstr="(alguna|ninguna|cualquier)\spregunta"
 valid !msgstr="cuestiones"
 hint="« Questions » se traduce como como « Preguntas », no como « Cuestiones » (falso amigo)"
 
@@ -1864,7 +1866,7 @@ hint="« Spade » se traduce como como « Pala », no como « Espada » (falso a
 {\bspades\b}i
 id="ff-2-spades"
 valid msgstr="palas"
-valid msgstr="(ninguna|cualquier)\spala"
+valid msgstr="(alguna|ninguna|cualquier)\spala"
 valid !msgstr="espadas?"
 hint="« Spades » se traduce como como « Palas », no como « Espadas » (falso amigo)"
 
@@ -1879,10 +1881,10 @@ hint="« Stranger » se traduce como como « Forastero », no como « Extranjero
 id="ff-2-strangers"
 valid msgstr="foraster[oa]s"
 valid msgstr="(algún|ningún|cualquier)\sforastero"
-valid msgstr="(ninguna|cualquier)\sforastera"
+valid msgstr="(alguna|ninguna|cualquier)\sforastera"
 valid msgstr="extrañ[oa]s"
 valid msgstr="(algún|ningún|cualquier)\sextraño"
-valid msgstr="(ninguna|cualquier)\sextraña"
+valid msgstr="(alguna|ninguna|cualquier)\sextraña"
 valid !msgstr="extranjer[oa]s?"
 hint="« Strangers » se traduce como como « Forasteros », no como « Extranjeros » (falso amigo)"
 
@@ -1902,7 +1904,7 @@ hint="« Suggestion » se traduce como como « Sugerencia », no como « Sugesti
 {\bsuggestions\b}i
 id="ff-1-suggestions"
 valid msgstr="sugerencias"
-valid msgstr="(ninguna|cualquier)\ssugerencia"
+valid msgstr="(alguna|ninguna|cualquier)\ssugerencia"
 valid !msgstr="sugestiones"
 hint="« Suggestions » se traduce como como « Sugerencias », no como « Sugestiones » (falso amigo)"
 
@@ -1962,7 +1964,7 @@ hint="« Tenant » se traduce como como « Inquilino », no como « Teniente » 
 id="ff-2-tenants"
 valid msgstr="inquilin[oa]s"
 valid msgstr="(algún|ningún|cualquier)\sinquilino"
-valid msgstr="(ninguna|cualquier)\sinquilina"
+valid msgstr="(alguna|ninguna|cualquier)\sinquilina"
 valid !msgstr="tenientes"
 hint="« Tenants » se traduce como como « Inquilinos », no como « Tenientes » (falso amigo)"
 

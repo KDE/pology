@@ -123,6 +123,7 @@ valid before="síntesis\b"
 valid before="tesis\b"
 valid before="tetris\b"
 valid before="tos\b"
+valid before="través\b"
 valid before="trotamundos\b"
 valid before="vals\b"
 valid before="viernes\b"
@@ -1062,20 +1063,28 @@ hint="Ponga una coma después de «en cambio» (error gramatical)"
 id="gr-3-falta-coma-despues-en-primer-lugar"
 hint="Ponga una coma después de «en primer lugar» (error gramatical)"
 
+[hola\s]i
+id="gr-3-falta-coma-despues-hola"
+hint="Ponga una coma después de «Hola» (error gramatical)"
+
 [Generalmente\s]
 id="gr-3-falta-coma-depues-generalmente"
+valid before="\w+ando\,"
 hint="Ponga una coma después de «Generalmente» (error gramatical)"
 
 [Posiblemente\s]
 id="gr-3-falta-coma-despues-posiblemente"
+valid before="\w+ando\,"
 hint="Ponga una coma después de «Posiblemente» (error gramatical)"
 
 [Efectivamente\s]
 id="gr-3-falta-coma-despues-efectivamente"
+valid before="\w+ando\,"
 hint="Ponga una coma después de «Efectivamente» (error gramatical)"
 
 [Finalmente\s]
 id="gr-3-falta-coma-despues-finalmente"
+valid before="\w+ando\,"
 hint="Ponga una coma después de «Finalmente» (error gramatical)"
 
 [En\sdefinitiva\s]
@@ -1271,6 +1280,11 @@ hint="Ponga una coma antes de «naturalmente» (error gramatical)"
 id="gr-3-falta-coma-antes-por-regla-general"
 validGroup beforeComma
 hint="Ponga una coma antes de «por regla general» (error gramatical)"
+
+[\bhola\b]
+id="gr-3-falta-coma-antes-hola"
+validGroup beforeComma
+hint="Ponga una coma antes de «hola» (error gramatical)"
 
 [\betcétera\b]i
 id="gr-3-falta-coma-antes-etc"
