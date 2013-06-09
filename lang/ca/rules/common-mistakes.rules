@@ -32,6 +32,17 @@ valid msgstr="so d'avís"
 valid msgstr="timbre" # Quan es refereix a maquinari
 hint="«beep» es tradueix per «so d'avís» o «timbre» (error freqüent)"
 
+# «blog» es tradueix per «blog» (veure DLC de l'IEC des del 03/2013).
+{\bblogs?\b}i
+valid msgstr="blog"
+hint="«blog» es tradueix per «blog» (error freqüent)"
+
+# «blogger» es tradueix per «bloguer» (veure DLC de l'IEC des del 03/2013).
+{\bbloggers?\b}i
+valid msgstr="bloguers?"
+valid msgstr="Blogger" cat="blogilo"
+hint="«blogger» es tradueix per «bloguer» (error freqüent)"
+
 # «califica» ha de ser «qualifica».
 [\bcalifi]i
 hint="«califica» s'ha de substituir per «qualifica» (error freqüent)"
