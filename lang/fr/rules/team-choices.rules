@@ -44,6 +44,9 @@ valid after="<guimenuitem>.*" before=".*</guimenuitem>"
 validGroup linkTag
 valid after="linkend=\".*" before=".*\">"
 
+validGroup imagedataTag
+valid after="<imagedata fileref=.*" before=".*/>"
+
 [(\b[Ee]ntrer\b)|(\b[Ee]ntré[^e])|(\b[Ee]ntrez\b)]
 valid before="&sp;dans&sp;"
 valid before="&sp;en&sp;"
@@ -173,6 +176,7 @@ hint="sauver -> enregistrer (homogénéité)"
 hint="Mettez le mot « tout » en premier, par exemple « Tout enregistrer »"
 
 [systray]i
+validGroup imagedataTag
 valid after="k"
 valid ctx="Keywords"
 valid ctx="Name"

@@ -47,6 +47,9 @@ valid after="ulink url=\".*" before=".*\">"
 validGroup optionTag
 valid after="<option>.*" before=".*</option>"
 
+validGroup imagedataTag
+valid after="<imagedata fileref=.*" before=".*/>"
+
 [\bboites?\b]i
 hint="boite => boîte (avec un accent circonflexe)"
  
@@ -129,6 +132,7 @@ valid before="&"
 hint="La bonne orthographe est « accès » (accent grave)"
 
 [addres]i
+validGroup optionTag
 valid after="&amp;k" before="sbook;"
 valid after="[kK]" before="s[bB]ook"
 valid after="Browse"
@@ -500,6 +504,7 @@ validGroup computeroutputTag
 validGroup linkTag
 validGroup foreignphraseTag
 validGroup literalTag
+validGroup imagedataTag
 valid after="[Ss]mb"
 valid after="Task"
 valid after="klink"
