@@ -1411,7 +1411,7 @@ hint="Se ha encontrado «un» seguido de participio en femenino (error gramatica
 [(?u)\ba\s\w+?ad[oa]\b]i
 id="gr-1-a-en-lugar-de-ah-participio"
 valid span="\ba\s(cada|nada|lado)\b"
-valid after="(huel\w+|hol\w+|sab\w+|gust\w+|camb\w+)\s"
+valid after="(huel\w+|hol\w+|sab\w+|gust\w+|camb\w+)\s(\w+\s){0,2}"
 hint="Se ha encontrado «A» en lugar de «Ha» antes de un participio (error gramatical)"
 # No vale, p. ej.: cambia a dañado
 
@@ -1524,7 +1524,7 @@ validGroup wordDelimiter
 validGroup beforeConnector
 hint="Hay un posesivo plural (Mis/Tus/Sus/Nuestros/Nuestras/Vuestros/Vuestras) seguido de un nombre en singular"
 
-[(?u)\b(dos|tres|cuatro|cinco|seis|siete|ocho|nueve|diez|once|doce|trece|catorce|quince|dieci\w+|veint\w+|treint\w+|cuarent\w+|cincuent\w+|sesent\w+|setent\w+|ochent\w+|novent\w+)\s[«'"]?]
+[(?u)\b(dos|tres|cuatro|cinco|seis|siete|ocho|nueve|diez|once|doce|trece|catorce|quince|dieci\w+|veint\w+|treint\w+|cuarent\w+|cincuent\w+|sesent\w+|setent\w+|ochent\w+|novent\w+)\s(mil\s)?[«'"]?]
 id="gr-1-concordancia-numero-plural-nombre"
 validGroup pluralName
 validGroup wordDelimiter

@@ -1500,13 +1500,15 @@ hint="« Quartely » se traduce como como « Trimestral », no como « Cuatrimes
 {\bquestion\b}i
 id="ff-1-question"
 valid msgstr="pregunta"
-valid msgstr="cuestión" after="en\s"
+valid msgstr="cuestión" after="in\s"
+valid msgstr="signo\sde\sinterrogación" before="\smark"
 hint="« Question » se traduce como como « Pregunta », no como « Cuestión » (falso amigo)"
 
 {\bquestions\b}i
 id="ff-1-questions"
 valid msgstr="preguntas"
 valid msgstr="(alguna|ninguna|cualquier)\spregunta"
+valid msgstr="signos\sde\sinterrogación" before="\smarks"
 valid !msgstr="cuestiones"
 hint="« Questions » se traduce como como « Preguntas », no como « Cuestiones » (falso amigo)"
 

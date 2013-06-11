@@ -200,6 +200,7 @@ hint="« Export » se traduce como « Exportar » (regla de traducción de menú
 id="ui-2-menu-print"
 valid msgstr="Imprimir"
 valid msgstr="Impresión"
+valid msgstr="Impr\sPant"
 hint="« Print » se traduce como « Imprimir » (regla de traducción de menús de KDE)"
 
 {^Print setup\s?\.\.\.$}
@@ -743,16 +744,16 @@ hint="« Menu bars » se traduce como « Barras de menú » (regla de traducció
 
 {\bmenu\sitem\b}i
 id="ui-2-widget-menu-item"
-valid msgstr="opción\s.+?\sdel?\smenú"
-valid msgstr="opción\s.+?\sdel?\ssubmenú" after="sub\s?"
+valid msgstr="opción\s.*?del?\smenú"
+valid msgstr="opción\s.*?del?\ssubmenú" after="sub\s?"
 hint="« Menu item » se traduce como « Opción de menú » (regla de traducción de elementos gráficos)"
 
 {\bmenu\sitems\b}i
 id="ui-2-widget-menu-items"
-valid msgstr="opciones\s.+?\sdel?\smenú"
-valid msgstr="opciones\s.+?\sdel?\ssubmenú" after="sub\s"
-valid msgstr="(alguna|cualquier|ninguna)\sopción\s.+?\sdel?\smenú"
-valid msgstr="(alguna|cualquier|ninguna)\sopción\s.+?\sdel?\ssubmenú" after="sub\s"
+valid msgstr="opciones\s.*?del?\smenú"
+valid msgstr="opciones\s.*?del?\ssubmenú" after="sub\s?"
+valid msgstr="(alguna|cualquier|ninguna)\sopción\s.*?del?\smenú"
+valid msgstr="(alguna|cualquier|ninguna)\sopción\s.*?del?\ssubmenú" after="sub\s?"
 hint="« Menu items » se traduce como « Opciones de menú » (regla de traducción de elementos gráficos)"
 
 {\bminimi[sz]e\b}i

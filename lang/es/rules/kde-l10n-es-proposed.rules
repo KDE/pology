@@ -3369,6 +3369,7 @@ hint="«Runlevel» se traduce como «Nivel de ejecución» (propuesta glosario)"
 {\brunner\b}i
 id="gp-3-runner"
 valid msgstr="lanzador"
+valid after="Character\s"
 hint="«Runner» se traduce como «Lanzador» (propuesta glosario)"
 
 {\brunning\b}i
@@ -3609,6 +3610,7 @@ hint="«Snippets» se traduce como «Recortes/Fragmentos» (propuesta glosario)"
 id="gp-3-source"
 valid msgstr="origen"
 valid msgstr="orígenes"
+valid msgstr="original(es)?"
 valid msgstr="fuentes?"
 valid msgstr="código\sabierto" after="(open|closed)(\s|\-)"
 hint="«Source» se traduce como «Origen/Fuente» (propuesta glosario)"

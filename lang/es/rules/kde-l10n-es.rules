@@ -1176,6 +1176,8 @@ hint="«Enabling» se traduce como «Activación» (ver glosario)"
 {\benabling\s(it|you)\b}i
 id="gk-2-enabling-it"
 valid msgstr="permitiéndo(l[eo])?"
+valid msgstr="permitirle"
+valid msgstr="le\spermite"
 valid msgstr="activándol[eo]"
 valid msgstr="activación"
 hint="«Enabling it» se traduce como «Permitiéndole» (ver glosario)"
@@ -1183,6 +1185,8 @@ hint="«Enabling it» se traduce como «Permitiéndole» (ver glosario)"
 {\benabling\sthem\b}i
 id="gk-2-enabling-them"
 valid msgstr="permitiéndol[eo]s"
+valid msgstr="permitirles"
+valid msgstr="les\spermite"
 valid msgstr="activándol[eo]"
 hint="«Enabling them» se traduce como «Permitiéndoles» (ver glosario)"
 
@@ -2310,6 +2314,7 @@ hint="«Overlap» se traduce como «Superponer» o «Solapar» (ver glosario)"
 {\boverlapping\b}i
 id="gk-2-overlapping"
 valid msgstr="superposición"
+valid msgstr="superpuest[oa]"
 valid msgstr="solapamiento"
 hint="«Overlapping» se traduce como «Superposición» o «Solapamiento» (ver glosario)"
 
@@ -3144,6 +3149,9 @@ valid msgstr="envío"
 valid msgstr="enviar(lo|la)?"
 valid msgstr="enviando"
 valid msgstr="(que|cuando)\s(\w+\s){0,2}envíe"
+valid msgstr="enviándoles" before="\sthem"
+valid msgstr="enviándole" before="\s(him|her|it)"
+valid msgstr="enviándose" before="\syou"
 hint="«Sending» se traduce como «Envío» (ver glosario)"
 
 {\bsends\b}i
