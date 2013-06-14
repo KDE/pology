@@ -13,10 +13,6 @@ hint="No separe con puntos los miles de los números (excepto en direcciones IP)
 id="ty-3-tecla-aceleradora-incorrecta"
 hint="Tecla aceleradora no válida (en vocal con tilde)"
 
-[\b(p\.ej\.|p\.\s?e\.|p\s\ej\.|p.\sej[^\.])]
-id="ty-2-abrebiatura-por-ejemplo"
-hint="La abreviatura de «por ejemplo» es «p. ej.»"
-
 include file="filter.include"
 
 validGroup beforePunctuation
@@ -346,6 +342,8 @@ valid span="[A-Z]\." before="\s[A-Z]\w+"
 valid span="\w\." before="\w+\."
 valid before="$"
 valid before="\.\."
+valid before="\d"
+valid before="\s[¿¡]"
 hint="Los elementos químicos no llevan punto"
 
 [\b(a|A|at|atm|b|bar|c|cal|cd|cm|CV|d|da|dB|dm|dyn|erg|eV|f|F|ft|g|G|gr|Gs|Gy|h|H|ha|hp|Hz|in|J|k|K|kg|km|l|L|lb|lm|lx|m|M|mbar|Mc|mg|min|mol|Mx|n|N|Oe|oz|p|P|Pa|pc|pt|Qm|R|rad|s|sr|Sv|t|T|tex|u|UA|V|Wb|yd)\.]
@@ -354,6 +352,8 @@ valid span="[A-Z]\." before="\s[A-Z]\w+"
 valid span="\w\." before="\w+\."
 valid before="$"
 valid before="\.\."
+valid before="\d"
+valid before="\s[¿¡]"
 hint="Las unidades de medida no llevan punto"
 
 [\b(N|S|E|O|W|NE|NO|NW|SE|SO|SW)\.]
@@ -361,12 +361,20 @@ id="ty-2-punto-en-punto cardinal"
 valid span="[A-Z]\." before="\s[A-Z]\w+"
 valid before="$"
 valid before="\.\."
+valid before="\d"
+valid before="\s[¿¡]"
 hint="Los puntos cardinales no llevan punto"
 
 [\b(ALL|ARS|BAM|BBD|BGN|BOB|BRL|BSD|BYR|BZD|CAD|CHF|CLP|COP|CRC|CSD|CUP|CZK|DKK|DOP|ECS|EEK|EUR|GBP|GIP|GTQ|GYD|HNL|HRK|HTG|HUF|ISK|JMD|LTL|LVL|MDL|MKD|MTL|MXP|MXN|NIO|NOK|PAB|PES|PEN|PHP|PLN|PYG|ROL|RON|RUB|SEK|SIT|SKK|SRD|SVC|TRL|TRY|TTD|UAH|USD|UYU|VEB|XAF|XCD)\.]
 id="ty-2-punto-en-unidad-monetaria"
 valid before="$"
 valid before="\.\."
+valid before="\d"
+valid before="\s[¿¡]"
 hint="Las unidades monetarias no llevan punto"
+
+[\b(p\.\s?e\.|p.\sej[^\.]|ejem\.|ej\.)]i
+id="ty-2-abreviatura-por-ejemplo"
+hint="La abreviatura de «por ejemplo» es «p. ej.»"
 
 # End of rule file

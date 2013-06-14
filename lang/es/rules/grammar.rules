@@ -1381,6 +1381,7 @@ hint="Un pronombre personal no puede aparecer al final de frase( error gramatica
 [(?u)\b(el|te|se|mi|de|mas|si|tu|que|aun)(\.|\?|\!|\<p\>)]i
 id="gr-1-tilde-diacritica-al-fin-de-frase"
 valid span="(?u)\b\w+\." before="\.\."
+valid span="de\." before="\w" # Grupos de noticias alemanes.
 valid msgstr="SE"
 hint="Monosílabo que lleva tilde al final de frase «de/el/mas/mi/que/se/si/te/tu/aun» (error gramatical)"
 

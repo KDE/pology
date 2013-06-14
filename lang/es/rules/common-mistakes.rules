@@ -173,6 +173,10 @@ hint="«Arriba de» se escribe como «Encima de» (error frecuente: solecismo)"
 id="cm-1-asi-es-que"
 hint="«Así es que» se escribe como «Así que» (error frecuente)"
 
+[\ba\ssi\smismo\b]i
+id="cm-1-a-si-mismo"
+hint="«A si mismo» se escribe como «A sí mismo/Asimismo» (error frecuente)"
+
 [\basí\smismo\b]i
 id="cm-1-asi-mismo"
 hint="«Así mismo» se escribe como «Asimismo» (error frecuente)"
@@ -180,6 +184,10 @@ hint="«Así mismo» se escribe como «Asimismo» (error frecuente)"
 [\batentar\sa\b]i
 id="cm-2-atentar-a"
 hint="«Atentar a» se escribe como «Atentar contra» (error frecuente)"
+
+[\baya\b]i
+id="cm-2-aya"
+hint="«Aya» se escribe como «Haya», salvo si se trata de niñeras (error frecuente)"
 
 [\bayer\smañana\b]i
 id="cm-2-ayer-manana"
@@ -429,7 +437,7 @@ hint="«De sí» se escribe como «De por sí» (error frecuente: solecismo)"
 
 [\bde\ssobras\b]i
 id="cm-2-de-sobras"
-hint="«De sobras» se escribe como «De sobra» (error frecuente: solecismo)"
+hint="«De sobras» se escribe como «De sobra», salvo restos de comida (error frecuente: solecismo)"
 
 [\bde\stal\ssuerte\sque\b]i
 id="cm-2-de-tal-suerte-que"
@@ -598,6 +606,7 @@ hint="«Hubieron algunos/muchos» se escribe como «Hubo algunos/muchos» (error
 
 [\bigual\sa\b]
 id="cm-2-igual-a"
+valid before="\s\d"
 hint="«Igual a» se escribe como «Igual que» (error frecuente)"
 
 [\bigual\scomo\b]
@@ -828,6 +837,10 @@ hint="«Se tardan» se escribe como «Se tarda» (error frecuente)"
 [\bseguidamente\sa\b]i
 id="cm-1-seguidamente-a"
 hint="«Seguidamente a» se escribe como «Después de/A continuación/Tras» (error frecuente)"
+
+[\bsi\sno\b]i
+id="cm-2-si-no"
+hint="«Si no» se escribe como «Sí no/Sino» (error frecuente)"
 
 [\bsi\squiera\b]i
 id="cm-2-si-quiera"

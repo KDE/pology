@@ -378,7 +378,7 @@ valid msgstr="marcó" after="did\s(not\s)?"
 valid msgstr="márquel[oa]" before="\s(it|this)"
 valid msgstr="consult(ar|a|e)"
 valid msgstr="verifi(car|ca|que)"
-valid msgstr="corrección" after="spell\s"
+valid msgstr="(corrección|revisión)" after="spell\s"
 valid msgstr="compruébelo"
 valid msgstr="cheque" cat="kmymomey,skrooge"
 valid msgstr="jaque" cat="knights"
@@ -1027,6 +1027,7 @@ hint="«Drivers» se traduce como «Controladores» (ver glosario)"
 {\bdrop[\s\-]down\b}i
 id="gk-2-drop-down"
 valid msgstr="desplega(r|ble)"
+valid msgstr="despliegue"
 hint="«Drop down» se traduce como «Desplegar» (ver glosario)"
 
 {\bdrop(?![\s\-]down)\b}i
