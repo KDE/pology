@@ -146,8 +146,21 @@ TCM: ТЦМ|-, ТЦМ|>, _пр=Trellis code modulation
 # Компресија података
 
 BTLZ: БТЛЗ|-, БТЛЗ|>, _пр=British Telecom Lempel Ziv
+DCT: ДЦТ|-, ДЦТ|>, _пр=discrete cosine transform
 deflate, |pppdeflate: дифлејт|, дифлејт|>
     @л: deflate|, deflate|>
+Lab, |labspc: Лаб|-, Лаб|>, _пр=lightness a b
+Logl: логл|, логл|>
+    @л: Logl|, Logl|>
+Logluv: логлув|, логлув|>
+    @л: Logluv|, Logluv|>
+LZW: ЛЗВ|-, ЛЗВ|>, _пр=Lempel-Ziv-Welch
+    @л: LZW|-, LZW|>
+PackBits: пакбитс|, пакбитс|>
+    @л: PackBits|, PackBits|>
+PIZ: ПИЗ|-, ПИЗ|>
+RLE: РЛЕ|-, РЛЕ|>, _пр=run length encoding
+RLE Word: |RLE~. по речима, _род!=м
 VJ, |pppvj: ВЈ|-, ВЈ|>
 
 # ----------------------------------------------------------------------------

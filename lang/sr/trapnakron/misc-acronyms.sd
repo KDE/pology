@@ -35,6 +35,7 @@ BPP: бпр|*, бпр|>, _род!=м
 BPM: опм|*, _род!=м, _пр=откуцаја по минуту, _про=beats per minute
 BRI: БР|И-, БРИ|>
 BS: БС|-, БС|>, _пр=Backspace
+BSS: БСС|-, БСС|>, _пр=block storage segment
 BSSID: БССИД|-, БССИД|>, _пр=basic service set identifier
 BSOD: БСОД|-, БСОД|>
 CA: ЦА|-, ЦА|>
@@ -145,6 +146,7 @@ GMT: ГМТ|-, ГМТ|>
 GMR: ГМР|-, ГМР|>, _пр=giant magnetoresistance
 GNKSA: ГНКС|А, ГНКСА|>
 GOP: ГОП|-, ГОП|>, _пр=group of pictures
+GOT: ГОТ|-, ГОТ|>, _нр=global offset table
 GPIB: ГПИБ|-, ГПИБ|>
 GPIO: ГП-|IO, _род!=м, _пр=general purpose input output
 GPR: ГПР|-, ГПР|>, _пр=general purpose register
@@ -346,11 +348,11 @@ RDN: РДН|-, РДН|>
 RDP: РДП|-, РДП|>
 RF: РФ|-, РФ|>
 RFC: РФЦ|-, РФЦ|>
-RGB: РГБ|-, РГБ|>
+RGB: РГБ|-, РГБ|>, _пр=reg-green-blue
+RGBA: РГБА|-, РГБА|>, _пр=reg-green-blue-alpha
 RID: РИД|-, РИД|>
 RIP: РИП|-, РИП|>
 RLM: РЛМ|-, РЛМ|>
-RLE: РЛЕ|-, РЛЕ|>
 RLO: РЛО|-, РЛО|>
 RLPR: РЛПР|-, РЛПР|>
 ROM: РОМ|-, РОМ|>
