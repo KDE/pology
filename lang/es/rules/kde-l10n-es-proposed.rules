@@ -2060,6 +2060,11 @@ valid msgstr="anillos\sde\sclaves"
 valid msgstr="(algún|ningún|cualquier)\sanillo\sde\sclaves"
 hint="«Keyrings» se traduce como «Anillos de claves» (propuesta glosario)"
 
+{\blaptop\b}i
+id="gp-3-laptop"
+valid msgstr="portátil"
+hint="«Laptop» se traduce como «Portátil» (propuesta glosario)"
+
 {\blatency\b}i
 id="gp-3-latency"
 valid msgstr="latencia"
@@ -3357,6 +3362,13 @@ id="gp-2-roaming"
 valid msgstr="itinerancia"
 hint="«Roaming» se traduce como «Itinerancia» (propuesta glosario)"
 
+{\broll\sback\b}i
+id="gp-2-roll-bacj"
+valid msgstr="deshacer?"
+valid msgstr="revertir"
+valid msgstr="reviert[ea]"
+hint="«Roll back» se traduce como «Deshacer/Revertir» (propuesta glosario)"
+
 {\brun\stime\b}i
 id="gp-2-run-time"
 valid msgstr="tiempo\sde\sejecución"
@@ -3835,6 +3847,11 @@ valid msgstr="placas\sbase"
 valid msgstr="(alguna|cualquier|ninguna)\splaca\sbase"
 hint="«System boards» se traduce como «Placas base» (propuesta glosario)"
 
+{\btablet\b}i
+id="gp-3-tablet"
+valid msgstr="tableta"
+hint="«Tablet» se traduce como «Tableta» (propuesta glosario)"
+
 {\btask\b}i
 id="gp-3-task"
 valid msgstr="tarea"
@@ -3962,6 +3979,11 @@ valid msgstr="activ(a|e)"
 valid msgstr="disparadores"
 valid msgstr="(algún|ningún|cualquier)\sdisparador"
 hint="«Triggers» se traduce como «Desencadena/Provoca/Disparadores» (propuesta glosario)"
+
+{\btrust\spath\b}i
+id="gp-3-trust-path"
+valid msgstr="ruta\sde\sconfianza"
+hint="«Thrust path» se traduce como «Ruta de confianza» (propuesta glosario)"
 
 {\btypo\b}i
 id="gp-1-typo"

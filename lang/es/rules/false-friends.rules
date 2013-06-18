@@ -15,14 +15,14 @@ id="ff-2-absolutely"
 valid msgstr="completamente"
 valid msgstr="totalmente"
 valid !msgstr="absolutamente"
-hint="« Absolutelly » se traduce como como « Completamente », no como « Absolutamente » (falso amigo)"
+hint="«Absolutelly» se traduce como como «Completamente», no como «Absolutamente» (falso amigo)"
 
 #id="ff-1-abstract"
 #{\babstract\b}i
 #valid msgstr="resumen"
 #valid msgstr="tipo\sabstract[oa]"
 #valid msgstr="abstract[oa]" cat="extragear-develop,kdev\-php,kdevplatform,kdeqt"
-#hint="« Abstract » se traduce como como « Resumen », no como « Abstracto » (falso amigo)"
+#hint="«Abstract» se traduce como como «Resumen», no como «Abstracto» (falso amigo)"
 
 {\babstracts\b}i
 id="ff-1-abstracts"
@@ -30,13 +30,13 @@ valid msgstr="resúmenes"
 valid msgstr="(algún|ningún|cualquier)\sresumen"
 valid msgstr="tipos\sabstract[oa]s"
 valid msgstr="abstract[oa]s?" cat="extragear-develop,kdev\-php,kdevplatform,kdeqt"
-hint="« Abstracts » se traduce como como « Resúmenes », no como « Abstractos » (falso amigo)"
+hint="«Abstracts» se traduce como como «Resúmenes», no como «Abstractos» (falso amigo)"
 
 {\bactual\b}i
 id="ff-1-actual"
 valid msgstr="real"
 valid !msgstr="actual"
-hint="« Actual » se traduce como como « Real », no como « Actual » (falso amigo)"
+hint="«Actual» se traduce como como «Real», no como «Actual» (falso amigo)"
 
 {\bactually\b}i
 id="ff-1-actually"
@@ -45,7 +45,7 @@ valid msgstr="realmente"
 valid msgstr="verdaderamente"
 valid msgstr="a\sdecir\sverdad"
 valid !msgstr="actualmente"
-hint="« Actually » se traduce como como « En realidad », no como « Actualmente » (falso amigo)"
+hint="«Actually» se traduce como como «En realidad», no como «Actualmente» (falso amigo)"
 
 {\bactuate\b}i
 id="ff-2-actuate"
@@ -56,19 +56,19 @@ valid msgstr="motivará" after="will\s"
 valid msgstr="animó" after="did\s"
 valid msgstr="motivó" after="did\s"
 valid !msgstr="act(uar|úa|úe)"
-hint="« Actuate » se traduce como como « Animar/Motivar », no como « Actuar » (falso amigo)"
+hint="«Actuate» se traduce como como «Animar/Motivar», no como «Actuar» (falso amigo)"
 
 {\badequate\b}i
 id="ff-2-adequate"
 valid msgstr="suficiente"
 valid !msgstr="adecuado"
-hint="« Adequate » se traduce como como « Suficiente », no como « Adecuado » (falso amigo)"
+hint="«Adequate» se traduce como como «Suficiente», no como «Adecuado» (falso amigo)"
 
 {\badequates\b}i
 id="ff-2-adecuates"
 valid msgstr="suficientes"
 valid !msgstr="adecuados"
-hint="« Adequates » se traduce como como « Suficientes », no como « Adecuados » (falso amigo)"
+hint="«Adequates» se traduce como como «Suficientes», no como «Adecuados» (falso amigo)"
 
 {\badjudicate\b}i
 id="ff-2-adjudicate"
@@ -79,14 +79,14 @@ valid msgstr="arbitrará" after="will\s"
 valid msgstr="juzgó" after="did\s"
 valid msgstr="arbitró" after="did\s"
 valid !msgstr="adjudi(car|ca|que)"
-hint="« Adjudicate » se traduce como como « Juzgar/Arbitrar », no como « Adjudicar » (falso amigo)"
+hint="«Adjudicate» se traduce como como «Juzgar/Arbitrar», no como «Adjudicar» (falso amigo)"
 
 {\badjudicates\b}i
 id="ff-2-adjudicates"
 valid msgstr="juzg(a|ue)"
 valid msgstr="arbitr(a|e)"
 valid !msgstr="adjudi(ca|que)"
-hint="« Adjudicates » se traduce como como « Juzga/Arbitra », no como « Adjudica » (falso amigo)"
+hint="«Adjudicates» se traduce como como «Juzga/Arbitra», no como «Adjudica» (falso amigo)"
 
 {\badvertise\b}i
 id="ff-2-advertise"
@@ -95,7 +95,7 @@ valid msgstr="anunciará" after="will\s"
 valid msgstr="anunció" after="did\s"
 valid !msgstr="advertir"
 valid !msgstr="adviert(a|e)"
-hint="« Advertise » se traduce como como « Anunciar », no como « Advertir » (falso amigo)"
+hint="«Advertise» se traduce como como «Anunciar», no como «Advertir» (falso amigo)"
 
 {\badvertised\b}i
 id="ff-2-advertised"
@@ -106,20 +106,20 @@ valid msgstr="anunció"
 valid msgstr="se\s(\w+\s){1,3}advertir"
 valid msgstr="se\s(\w+\s){1,3}anunciar"
 valid !msgstr="advertido[oa]"
-hint="« Advertised » se traduce como como « Anunciado », no como « Advertido » (falso amigo)"
+hint="«Advertised» se traduce como como «Anunciado», no como «Advertido» (falso amigo)"
 
 {\badvertisement\b}i
 id="ff-2-advertisement"
 valid msgstr="anuncio"
 valid !msgstr="advertencia"
-hint="« Advertisement » se traduce como como « Anuncio », no como « Advertencia » (falso amigo)"
+hint="«Advertisement» se traduce como como «Anuncio», no como «Advertencia» (falso amigo)"
 
 {\badvertisements\b}i
 id="ff-2-advertisements"
 valid msgstr="anuncios"
 valid msgstr="(algún|ningún|cualquier)\sanuncio"
 valid !msgstr="advertencias?"
-hint="« Advertisements » se traduce como como « Anuncios », no como « Advertencias » (falso amigo)"
+hint="«Advertisements» se traduce como como «Anuncios», no como «Advertencias» (falso amigo)"
 
 {\badvice\b}i
 id="ff-1-advice"
@@ -131,7 +131,7 @@ valid msgstr="aconsejó" after="did\s"
 valid msgstr="asesoró" after="did\s"
 valid !msgstr="advertir"
 valid !msgstr="adviert(a|e)"
-hint="« Advice » se traduce como como « Aconsejar/Asesorar », no como « Advertir » (falso amigo)"
+hint="«Advice» se traduce como como «Aconsejar/Asesorar», no como «Advertir» (falso amigo)"
 
 {\badviced\b}i
 id="ff-1-adviced"
@@ -146,14 +146,14 @@ valid msgstr="asesoró"
 valid msgstr="se\s(\w+\s){1,3}aconsejar"
 valid msgstr="se\s(\w+\s){1,3}asesorar"
 valid !msgstr="advertid[oa]"
-hint="« Adviced » se traduce como como « Aconsejado/Asesorado », no como « Advertir » (falso amigo)"
+hint="«Adviced» se traduce como como «Aconsejado/Asesorado», no como «Advertir» (falso amigo)"
 
 {\badvices\b}i
 id="ff-1-advices"
 valid msgstr="aconsej(a|e)"
 valid msgstr="asesor(a|e)"
 valid !msgstr="adviert(a|e)"
-hint="« Advices » se traduce como como « Aconseja/Asesora », no como « Advierte » (falso amigo)"
+hint="«Advices» se traduce como como «Aconseja/Asesora», no como «Advierte» (falso amigo)"
 
 {\baffront\b}i
 id="ff-2-affront"
@@ -161,19 +161,19 @@ valid msgstr="ofend(er|e|a)"
 valid msgstr="ofenderá" after="will\s"
 valid msgstr="ofendió" after="did\s"
 valid !msgstr="afront(ar|a|e)"
-hint="« Affront » se traduce como como « Ofender », no como « Afrontar » (falso amigo)"
+hint="«Affront» se traduce como como «Ofender», no como «Afrontar» (falso amigo)"
 
 #{\bagenda\b}i
 #id="ff-2-agenda"
 #valid msgstr="orden\sdel\sdía"
 #valid !msgstr="agenda"
-#hint="« Agenda » se traduce como como « Orden del día », no como « Agenda » (falso amigo)"
+#hint="«Agenda» se traduce como como «Orden del día», no como «Agenda» (falso amigo)"
 
 {\bancient\b}i
 id="ff-2-ancient"
 valid msgstr="antigu[oa]"
 valid !msgstr="ancian[oa]"
-hint="« Ancient » se traduce como como « Antiguo » (falso amigo)"
+hint="«Ancient» se traduce como como «Antiguo» (falso amigo)"
 
 {\bannotate\b}i
 id="ff-1-annotate"
@@ -181,7 +181,7 @@ valid msgstr="coment(ar|e|a)"
 valid msgstr="comentará" after="will\s"
 valid msgstr="comentó" after="did\s"
 valid !msgstr="anot(ar|a|e)"
-hint="« Annotate » se traduce como como « Comentar », no como « Anotar » (falso amigo)"
+hint="«Annotate» se traduce como como «Comentar», no como «Anotar» (falso amigo)"
 
 {\bannotated\b}i
 id="ff-1-annotated"
@@ -191,39 +191,39 @@ valid msgstr="se\scoment[ae]"
 valid msgstr="comentó"
 valid !msgstr="anotad[oa]"
 valid msgstr="se\s(\w+\s){1,3}anotar"
-hint="« Annotated » se traduce como como « Comentado », no como « Anotado » (falso amigo)"
+hint="«Annotated» se traduce como como «Comentado», no como «Anotado» (falso amigo)"
 
 {\bannotates\b}i
 id="ff-1-annotates"
 valid msgstr="coment(ar|e|a)"
 valid !msgstr="anot(ar|a|e)"
-hint="« Annotates » se traduce como como « Comenta », no como « Anota » (falso amigo)"
+hint="«Annotates» se traduce como como «Comenta», no como «Anota» (falso amigo)"
 
 {\bapology\b}i
 id="ff-2-apology"
 valid msgstr="disculpa"
 valid !msgstr="apología"
-hint="« Apology » se traduce como como « Disculpa », no como « Apología » (falso amigo)"
+hint="«Apology» se traduce como como «Disculpa», no como «Apología» (falso amigo)"
 
 {\bapologies\b}i
 id="ff-2-apologies"
 valid msgstr="disculpas"
 valid msgstr="(alguna|ninguna|cualquier)\sdisculpa"
 valid !msgstr="apologías"
-hint="« Apologies » se traduce como como « Disculpas », no como « Apologías » (falso amigo)"
+hint="«Apologies» se traduce como como «Disculpas», no como «Apologías» (falso amigo)"
 
 {\baspersion\b}i
 id="ff-2-aspersion"
 valid msgstr="calumnia"
 valid !msgstr="aspersión"
-hint="« Aspersion » se traduce como como « Calumnia » (falso amigo)"
+hint="«Aspersion» se traduce como como «Calumnia» (falso amigo)"
 
 {\baspersions\b}i
 id="ff-2-aspersions"
 valid msgstr="calumnias"
 valid msgstr="(alguna|ninguna|cualquier)\scalumnia"
 valid !msgstr="aspersiones"
-hint="« Aspersions » se traduce como como « Calumnias » (falso amigo)"
+hint="«Aspersions» se traduce como como «Calumnias» (falso amigo)"
 
 {\bassist\b}i
 id="ff-1-assist"
@@ -235,7 +235,7 @@ valid msgstr="atenderá" after="will\s"
 valid msgstr="ayudó" after="did\s"
 valid msgstr="atendió" after="did\s"
 valid !msgstr="asist(ir|a|e|o)"
-hint="« Assist » se traduce como como « Ayudar », no como « Asistir » (falso amigo)"
+hint="«Assist» se traduce como como «Ayudar», no como «Asistir» (falso amigo)"
 
 {\bassume\b}i
 id="ff-1-assume"
@@ -244,20 +244,20 @@ valid msgstr="supong[oa]"
 valid msgstr="supondrá" after="will\s"
 valid msgstr="supuso" after="did\s"
 valid !msgstr="asum(ir|a|e)"
-hint="« Assume » se traduce como como « Suponer », no como « Asumir » (falso amigo)"
+hint="«Assume» se traduce como como «Suponer», no como «Asumir» (falso amigo)"
 
 {\bassumes\b}i
 id="ff-1-assumes"
 valid msgstr="supon(er|e)"
 valid msgstr="suponga"
 valid !msgstr="asum(ir|a|e)"
-hint="« Assumes » se traduce como como « Supone », no como « Asumir » (falso amigo)"
+hint="«Assumes» se traduce como como «Supone», no como «Asumir» (falso amigo)"
 
 {\bbachelor\b}i
 id="ff-2-bachelor"
 valid msgstr="solter[oa]"
 valid !msgstr="bachiller"
-hint="« Bachelor » se traduce como como « Soltero » no como « Bachiller »(falso amigo)"
+hint="«Bachelor» se traduce como como «Soltero» no como «Bachiller»(falso amigo)"
 
 {\bbachelors\b}i
 id="ff-2-bachelors"
@@ -265,45 +265,45 @@ valid msgstr="solter[oa]s"
 valid msgstr="(algún|ningún|cualquier)\ssoltero"
 valid msgstr="(alguna|ninguna|cualquier)\ssoltera"
 valid !msgstr="bachilleres"
-hint="« Bachelors » se traduce como como « Solteros » no como « Bachilleres »(falso amigo)"
+hint="«Bachelors» se traduce como como «Solteros» no como «Bachilleres»(falso amigo)"
 
 {\bballoon\b}i
 id="ff-2-balloon"
 valid msgstr="globo"
 valid !msgstr="balón"
-hint="« Balloon » se traduce como como « Globo », no como « Balón » (falso amigo)"
+hint="«Balloon» se traduce como como «Globo», no como «Balón» (falso amigo)"
 
 {\bballoons\b}i
 id="ff-2-balloons"
 valid msgstr="globos"
 valid msgstr="(algún|ningún|cualquier)\sglobo"
 valid !msgstr="balones"
-hint="« Balloons » se traduce como como « Globos », no como « Balones » (falso amigo)"
+hint="«Balloons» se traduce como como «Globos», no como «Balones» (falso amigo)"
 
 {\bbiannual\b}i
 id="ff-1-biannual"
 valid msgstr="semestral"
 valid !msgstr="bianual"
-hint="« Biannual » se traduce como como « Semestral », no como « Bianual » (falso amigo)"
+hint="«Biannual» se traduce como como «Semestral», no como «Bianual» (falso amigo)"
 
 {\bbiannuals\b}i
 id="ff-1-biannuals"
 valid msgstr="semestrales"
 valid !msgstr="bianuales"
-hint="« Biannuals » se traduce como como « Semestrales », no como « Bianuales » (falso amigo)"
+hint="«Biannuals» se traduce como como «Semestrales», no como «Bianuales» (falso amigo)"
 
 {\bbigot\b}i
 id="ff-2-bigot"
 valid msgstr="intolerante"
 valid msgstr="fanátic[oa]"
-hint="« Bigot » se traduce como como « Intolerante/Fanático », no como « Bigote » (falso amigo)"
+hint="«Bigot» se traduce como como «Intolerante/Fanático», no como «Bigote» (falso amigo)"
 
 {\bbillion\b}i
 id="ff-1-billion"
 valid msgstr="millardo"
 valid msgstr="mil\smillones"
 valid !msgstr="billón"
-hint="« Billion » se traduce como como « Millardo », no como « Billón » (falso amigo)"
+hint="«Billion» se traduce como como «Millardo», no como «Billón» (falso amigo)"
 
 {\bbillions\b}i
 id="ff-1-billions"
@@ -311,14 +311,14 @@ valid msgstr="millardos"
 valid msgstr="(algún|ningún|cualquier)\smillardo"
 valid msgstr="miles\sde\smillones"
 valid !msgstr="billones"
-hint="« Billions » se traduce como como « Millardos », no como « Billones » (falso amigo)"
+hint="«Billions» se traduce como como «Millardos», no como «Billones» (falso amigo)"
 
 {\bbizarre\b}i
 id="ff-1-bizarre"
 valid msgstr="extrañ[oa]"
 valid msgstr="extravagante"
 valid !msgstr="bizarr[oa]"
-hint="« Bizarre » se traduce como como « Extraño/Extravagante », no como « Bizarro » (falso amigo)"
+hint="«Bizarre» se traduce como como «Extraño/Extravagante», no como «Bizarro» (falso amigo)"
 
 {\bbland\b}i
 id="ff-2-bland"
@@ -326,20 +326,20 @@ valid msgstr="sos[oa]"
 valid msgstr="insuls[oa]"
 valid msgstr="insípid[oa]"
 valid !msgstr="bland[oa]"
-hint="« Bland » se traduce como como « Soso/Insulso/Insípido », no como « Blando » (falso amigo)"
+hint="«Bland» se traduce como como «Soso/Insulso/Insípido», no como «Blando» (falso amigo)"
 
 {\bcamp\b}i
 id="ff-2-camp"
 valid msgstr="campamento"
 valid !msgstr="campo"
-hint="« Camp » se traduce como como « Campamento », no como « Campo » (falso amigo)"
+hint="«Camp» se traduce como como «Campamento», no como «Campo» (falso amigo)"
 
 {\bcamps\b}i
 id="ff-2-camps"
 valid msgstr="campamentos"
 valid msgstr="(algún|ningún|cualquier)\scampamento"
 valid !msgstr="campos"
-hint="« Camps » se traduce como como « Campamentos », no como « Campos » (falso amigo)"
+hint="«Camps» se traduce como como «Campamentos», no como «Campos» (falso amigo)"
 
 {\bcandid\b}i
 id="ff-2-candid"
@@ -347,20 +347,20 @@ valid msgstr="abiert[oa]"
 valid msgstr="franc[oa]"
 valid msgstr="sincer[oa]"
 valid !msgstr="cándid[oa]"
-hint="« Candid » se traduce como como « Abierto/Franco/Sincero », no como « Cándido » (falso amigo)"
+hint="«Candid» se traduce como como «Abierto/Franco/Sincero», no como «Cándido» (falso amigo)"
 
 {\bcarbon\b}i
 id="ff-2-carbon"
 valid msgstr="carbono"
 valid !msgstr="carbón"
-hint="« Carbon » se traduce como como « Carbono », no como « Carbón » (falso amigo)"
+hint="«Carbon» se traduce como como «Carbono», no como «Carbón» (falso amigo)"
 
 {\bcargo\b}i
 id="ff-2-cargo"
 valid msgstr="carga"
 valid msgstr="cargamento"
 valid !msgstr="cargo"
-hint="« Cargo » se traduce como como « Carga/Cargamento », no como « Cargo » falso amigo)"
+hint="«Cargo» se traduce como como «Carga/Cargamento», no como «Cargo» falso amigo)"
 
 {\bcargos\b}i
 id="ff-2-cargos"
@@ -369,20 +369,20 @@ valid msgstr="(alguna|ninguna|cualquier)\scarga"
 valid msgstr="cargamentos"
 valid msgstr="(algún|ningún|cualquier)\scargamento"
 valid !msgstr="cargos"
-hint="« Cargos » se traduce como como « Cargas/Cargamentos », no como « Cargos » falso amigo)"
+hint="«Cargos» se traduce como como «Cargas/Cargamentos», no como «Cargos» falso amigo)"
 
 {\bcarpet\b}i
 id="ff-2-carpet"
 valid msgstr="alfombra"
 valid !msgstr="carpeta"
-hint="« Carpet » se traduce como como « Alfombra », no como « Carpeta » (falso amigo)"
+hint="«Carpet» se traduce como como «Alfombra», no como «Carpeta» (falso amigo)"
 
 {\bcarpets\b}i
 id="ff-2-carpets"
 valid msgstr="alfombras"
 valid msgstr="(alguna|ninguna|cualquier)\salfombra"
 valid !msgstr="carpetas"
-hint="« Carpets » se traduce como como « Alfombras », no como « Carpetas » (falso amigo)"
+hint="«Carpets» se traduce como como «Alfombras», no como «Carpetas» (falso amigo)"
 
 {\bcasually\b}i
 id="ff-2-casually"
@@ -390,14 +390,14 @@ valid msgstr="informalmente"
 valid msgstr="con\stranquilidad"
 valid msgstr="con\sdescuido"
 valid !msgstr="casualmente"
-hint="« Casually » se traduce como como « Informalmente/Con descuido », no como « Casualmente » (falso amigo)"
+hint="«Casually» se traduce como como «Informalmente/Con descuido», no como «Casualmente» (falso amigo)"
 
 {\bcasualty\b}i
 id="ff-2-casualty"
 valid msgstr="baja"
 valid msgstr="víctima"
 valid !msgstr="casualidad"
-hint="« Casualty » se traduce como como « Baja/Víctima », no como « Casualidad » (falso amigo)"
+hint="«Casualty» se traduce como como «Baja/Víctima», no como «Casualidad» (falso amigo)"
 
 {\bcasualties\b}i
 id="ff-2-casualties"
@@ -406,7 +406,7 @@ valid msgstr="(alguna|ninguna|cualquier)\sbaja"
 valid msgstr="víctimas"
 valid msgstr="(alguna|ninguna|cualquier)\svíctima"
 valid !msgstr="casualidades"
-hint="« Casualties » se traduce como como « Bajas/Víctimas », no como « Casualidades » (falso amigo)"
+hint="«Casualties» se traduce como como «Bajas/Víctimas», no como «Casualidades» (falso amigo)"
 
 {\bclarify\b}i
 id="ff-1-clarify"
@@ -415,7 +415,7 @@ valid msgstr="clarific(ar|a|e)"
 valid msgstr="aclarará" after="will\s"
 valid !msgstr="clarificará" after="will\s"
 valid msgstr="aclaró" after="did\s"
-hint="« Clarify » se traduce como como « Aclarar », no como « Clarificar » (falso amigo)"
+hint="«Clarify» se traduce como como «Aclarar», no como «Clarificar» (falso amigo)"
 
 {\bclarified\b}i
 id="ff-1-clarified"
@@ -425,39 +425,39 @@ valid msgstr="se\saclar[ae]n?"
 valid msgstr="aclaró"
 valid msgstr="se\s(\w+\s){1,3}aclarar"
 valid !msgstr="clarificad[oa]"
-hint="« Clarified » se traduce como como « Aclarado », no como « Clarificado » (falso amigo)"
+hint="«Clarified» se traduce como como «Aclarado», no como «Clarificado» (falso amigo)"
 
 {\bclarifies\b}i
 id="ff-1-clarifies"
 valid msgstr="aclar(ar|a|e)"
 valid !msgstr="clarific(ar|a|e)"
-hint="« Clarifies » se traduce como como « Aclara », no como « Clarifica » (falso amigo)"
+hint="«Clarifies» se traduce como como «Aclara», no como «Clarifica» (falso amigo)"
 
 {\bcollar\b}i
 id="ff-2-collar"
 valid msgstr="cuello"
 valid !msgstr="collar"
-hint="« Collar » se traduce como como « Cuello », no como « Collar » (falso amigo)"
+hint="«Collar» se traduce como como «Cuello», no como «Collar» (falso amigo)"
 
 {\bcollars\b}i
 id="ff-2-collars"
 valid msgstr="cuellos"
 valid msgstr="(algún|ningún|cualquier)\scuello"
 valid !msgstr="collares"
-hint="« Collars » se traduce como como « Cuellos », no como « Collares » (falso amigo)"
+hint="«Collars» se traduce como como «Cuellos», no como «Collares» (falso amigo)"
 
 {\bcollege\b}i
 id="ff-1-college"
 valid msgstr="universidad"
 valid !msgstr="colegio"
-hint="« College » se traduce como como « Universidad », no como « Colegio » (falso amigo)"
+hint="«College» se traduce como como «Universidad», no como «Colegio» (falso amigo)"
 
 {\bcolleges\b}i
 id="ff-1-colleges"
 valid msgstr="universidades"
 valid msgstr="(alguna|ninguna|cualquier)\suniversidad"
 valid !msgstr="colegios"
-hint="« Colleges » se traduce como como « Universidades », no como « Colegios » (falso amigo)"
+hint="«Colleges» se traduce como como «Universidades», no como «Colegios» (falso amigo)"
 
 {\bcommodity\b}i
 id="ff-1-commodity"
@@ -465,7 +465,7 @@ valid msgstr="producto"
 valid msgstr="mercancía"
 valid msgstr="artículo"
 valid !msgstr="comodidad"
-hint="« Commodity » se traduce como como « Producto/Mercancía », no como « Comodidad » (falso amigo)"
+hint="«Commodity» se traduce como como «Producto/Mercancía», no como «Comodidad» (falso amigo)"
 
 {\bcommodities\b}i
 id="ff-1-commodities"
@@ -476,20 +476,20 @@ valid msgstr="(alguna|ninguna|cualquier)\smercancía"
 valid msgstr="artículos"
 valid msgstr="(algún|ningún|cualquier)\sartículo"
 valid !msgstr="comodidades"
-hint="« Commodities » se traduce como como « Productos/Mercancías », no como « Comodidades » (falso amigo)"
+hint="«Commodities» se traduce como como «Productos/Mercancías», no como «Comodidades» (falso amigo)"
 
 {\bcompass\b}i
 id="ff-2-compass"
 valid msgstr="brújula"
 valid !msgstr="compás"
-hint="« Compass » se traduce como como « Brújula », no como « Compás » (falso amigo)"
+hint="«Compass» se traduce como como «Brújula», no como «Compás» (falso amigo)"
 
 {\bcomprehensive\b}i
 id="ff-1-comprehensive"
 valid msgstr="extens[oa]"
 valid msgstr="exhaustiv[oa]"
 valid !msgstr="comprensiv[oa]"
-hint="« Comprehensive » se traduce como como « Extenso », no como « Comprensivo » (falso amigo)"
+hint="«Comprehensive» se traduce como como «Extenso», no como «Comprensivo» (falso amigo)"
 
 {\bcompromise\b}i
 id="ff-1-compromise"
@@ -498,7 +498,7 @@ valid msgstr="componenda"
 valid msgstr="convenio"
 valid msgstr="arreglo\sde\sdiferencias"
 valid !msgstr="compromiso"
-hint="« Compromise » se traduce como como « Convenio », no como « Compromiso » (falso amigo)"
+hint="«Compromise» se traduce como como «Convenio», no como «Compromiso» (falso amigo)"
 
 {\bcompromises\b}i
 id="ff-1-compromises"
@@ -510,14 +510,14 @@ valid msgstr="convenios"
 valid msgstr="(algún|ningún|cualquier)\sconvenio"
 valid msgstr="arreglos\sde\sdiferencias"
 valid !msgstr="compromisos"
-hint="« Compromises » se traduce como como « Convenios », no como « Compromisos » (falso amigo)"
+hint="«Compromises» se traduce como como «Convenios», no como «Compromisos» (falso amigo)"
 
 {\bconductor\b}i
 id="ff-1-conductor"
 valid msgstr="directora?"
 valid msgstr="cobradora?"
 valid !msgstr="conductora?"
-hint="« Conductor » se traduce como como « Director/Cobrador », no como « Conductor » (falso amigo)"
+hint="«Conductor» se traduce como como «Director/Cobrador», no como «Conductor» (falso amigo)"
 
 {\bconductors\b}i
 id="ff-1-conductors"
@@ -528,34 +528,34 @@ valid msgstr="cobrador(e|a)s"
 valid msgstr="(algún|ningún|cualquier)\scobrador"
 valid msgstr="(alguna|ninguna|cualquier)\scobradora"
 valid !msgstr="conductor[ea]s"
-hint="« Conductors » se traduce como como « Directores/Cobradores », no como « Conductores » (falso amigo)"
+hint="«Conductors» se traduce como como «Directores/Cobradores», no como «Conductores» (falso amigo)"
 
 {\bconference\b}i
 id="ff-2-conference"
 valid msgstr="congreso"
 valid msgstr="(multi)?conferencia" before="\scall"
-hint="« Conference » se traduce como como « Congreso », no como « Conferencia » (falso amigo)"
+hint="«Conference» se traduce como como «Congreso», no como «Conferencia» (falso amigo)"
 
 {\bconferences\b}i
 id="ff-2-conferences"
 valid msgstr="congresos"
 valid msgstr="(algún|ningún|cualquier)\scongreso"
 valid msgstr="(multi)conferencias?" before="\scall"
-hint="« Conferences » se traduce como como « Congresos », no como « Conferencias » (falso amigo)"
+hint="«Conferences» se traduce como como «Congresos», no como «Conferencias» (falso amigo)"
 
 {\bconfident\b}i
 id="ff-1-confident"
 valid msgstr="confiad[oa]"
 valid msgstr="segur[oa]\sde\ssi\smismo"
 valid !msgstr="confidente"
-hint="« Confident » se traduce como como « Confiado », no como « Confidente » (falso amigo)"
+hint="«Confident» se traduce como como «Confiado», no como «Confidente» (falso amigo)"
 
 {\bconfidents\b}i
 id="ff-2-confidents"
 valid msgstr="confiad[oa]s"
 valid msgstr="segur[oa]s\sde\ssi\smismo"
 valid !msgstr="confidentes"
-hint="« Confidents » se traduce como como « Confiados », no como « Confidentes » (falso amigo)"
+hint="«Confidents» se traduce como como «Confiados», no como «Confidentes» (falso amigo)"
 
 {\bconsistent\b}i
 id="ff-1-consistent"
@@ -563,7 +563,7 @@ valid msgstr="compatible"
 valid msgstr="constante"
 valid msgstr="coherente"
 valid !msgstr="consistente"
-hint="« Consistent » se traduce como como « Coherente/Constante/Compatible », no como « Consistente » (falso amigo)"
+hint="«Consistent» se traduce como como «Coherente/Constante/Compatible», no como «Consistente» (falso amigo)"
 
 {\bcontest\b}i
 id="ff-2-contest"
@@ -572,7 +572,7 @@ valid msgstr="competición"
 valid msgstr="contender"
 valid !msgstr="contestar"
 valid !msgstr="contestación"
-hint="« Contest » se traduce como como « Competir », no como « Contestar » (falso amigo)"
+hint="«Contest» se traduce como como «Competir», no como «Contestar» (falso amigo)"
 
 {\bconstipated\b}i
 id="ff-2-constipated"
@@ -581,46 +581,46 @@ valid msgstr="estreñirse"
 valid msgstr="se\s(\w+\s){1,3}estreñir"
 valid !msgstr="constipad[oa]"
 valid !msgstr="resfriad[oa]"
-hint="« Constipated » se traduce como como « Estreñido », no como « Constipado » (falso amigo)"
+hint="«Constipated» se traduce como como «Estreñido», no como «Constipado» (falso amigo)"
 
 {\bconvenient\b}i
 id="ff-1-convenient"
 valid msgstr="oportun[oa]"
 valid msgstr="apropiad[oa]"
 valid !msgstr="conveniente"
-hint="« Convenient » se traduce como como « Oportuno », no como « Conveniente » (falso amigo)"
+hint="«Convenient» se traduce como como «Oportuno», no como «Conveniente» (falso amigo)"
 
 {\bcrime\b}i
 id="ff-2-crime"
 valid msgstr="delito"
 valid !msgstr="crimen"
-hint="« Crime » se traduce como como « Delito », no como « Crimen » (falso amigo)"
+hint="«Crime» se traduce como como «Delito», no como «Crimen» (falso amigo)"
 
 {\bcrimes\b}i
 id="ff-2-crimes"
 valid msgstr="delitos"
 valid msgstr="(algún|ningún|cualquier)\sdelito"
 valid !msgstr="crímenes"
-hint="« Crimes » se traduce como como « Delitos », no como « Crímenes » (falso amigo)"
+hint="«Crimes» se traduce como como «Delitos», no como «Crímenes» (falso amigo)"
 
 {\bcriminal\b}i
 id="ff-2-criminal"
 valid msgstr="delincuente"
 valid !msgstr="criminal"
-hint="« Criminal » se traduce como como « Delincuente », no como « Criminal » (falso amigo)"
+hint="«Criminal» se traduce como como «Delincuente», no como «Criminal» (falso amigo)"
 
 {\bcriminals\b}i
 id="ff-2-criminals"
 valid msgstr="delincuentes"
 valid msgstr="(algún|ningún|cualquier)\sdelincuente"
 valid !msgstr="criminales"
-hint="« Criminals » se traduce como como « Delincuentes », no como « Criminales » (falso amigo)"
+hint="«Criminals» se traduce como como «Delincuentes», no como «Criminales» (falso amigo)"
 
 {\bcurrent\b}i
 id="ff-2-current"
 valid msgstr="actual"
 valid !msgstr="corriente"
-hint="« Current » se traduce como como « Actual », no como « Corriente » (falso amigo)"
+hint="«Current» se traduce como como «Actual», no como «Corriente» (falso amigo)"
 
 {\bcurrently\b}i
 id="ff-2-currently"
@@ -628,19 +628,38 @@ valid msgstr="actualmente"
 valid msgstr="en\sla\sactualidad"
 valid msgstr="hoy\sen\sdía"
 valid !msgstr="corrientemente"
-hint="« Currently » se traduce como como « Actualmente », no como « Corrientemente » (falso amigo)"
+hint="«Currently» se traduce como como «Actualmente», no como «Corrientemente» (falso amigo)"
 
 {\bcurrents\b}i
 id="ff-2-currents"
 valid msgstr="actuales"
 valid !msgstr="corrientes"
-hint="« Currents » se traduce como como « Actuales », no como « Corrientes » (falso amigo)"
+hint="«Currents» se traduce como como «Actuales», no como «Corrientes» (falso amigo)"
 
 {\bcurse\b}i
 id="ff-2-curse"
 valid msgstr="maldición"
 valid !msgstr="curso"
-hint="« Curse » se traduce como como « Maldición », no como « Curso » (falso amigo)"
+hint="«Curse» se traduce como como «Maldición», no como «Curso» (falso amigo)"
+
+{\bcustomizable\b}i
+id="ff-2-customizable"
+valid msgstr="personalizable"
+valid !msgstr="customizable"
+hint="«Customizable» se traduce como como «Personalizable», no como «Customizable» (barbarismo)"
+
+{\bcustomize\b}i
+id="ff-2-customize"
+valid msgstr="personali(zar|za|ce)"
+valid !msgstr="customizar"
+hint="«Customize» se traduce como como «Personalizar», no como «Customizar» (barbarismo)"
+
+{\bcustomized\b}i
+id="ff-2-customized"
+valid msgstr="personalizad[oa]"
+valid !msgstr="customizad[oa]"
+hint="«Customized» se traduce como como «Personalizaso», no como «Customizado» (barbarismo)"
+
 
 {\bdate\b}i
 id="ff-1-date"
@@ -648,7 +667,7 @@ valid msgstr="fecha"
 valid msgstr="cita"
 valid msgstr="actualizad[oa]" after="up[\s\-]to[\s\-]"
 valid !msgstr="dato"
-hint="« Date » se traduce como como « Fecha », no como « Dato » (falso amigo)"
+hint="«Date» se traduce como como «Fecha», no como «Dato» (falso amigo)"
 
 {\bdates\b}i
 id="ff-1-dates"
@@ -657,20 +676,20 @@ valid msgstr="(alguna|ninguna|cualquier)\sfecha"
 valid msgstr="citas"
 valid msgstr="(alguna|ninguna|cualquier)\scita"
 valid !msgstr="datos"
-hint="« Dates » se traduce como como « Fechas », no como « Datos » (falso amigo)"
+hint="«Dates» se traduce como como «Fechas», no como «Datos» (falso amigo)"
 
 {\bdeception\b}i
 id="ff-1-deception"
 valid msgstr="engaño"
 valid !msgstr="decepción"
-hint="« Deception » se traduce como como « Engaño », no como « Decepción » (falso amigo)"
+hint="«Deception» se traduce como como «Engaño», no como «Decepción» (falso amigo)"
 
 {\bdeceptions\b}i
 id="ff-1-deceptions"
 valid msgstr="engaños"
 valid msgstr="(algún|ningún|cualquier)\sengaño"
 valid !msgstr="decepciones"
-hint="« Deceptions » se traduce como como « Engaños », no como « Decepciones » (falso amigo)"
+hint="«Deceptions» se traduce como como «Engaños», no como «Decepciones» (falso amigo)"
 
 {\bdeprecate\b}i
 id="ff-2-deprecate"
@@ -678,26 +697,26 @@ valid msgstr="desaprobar"
 valid msgstr="desaprueb(a|e)"
 valid msgstr="desaprobará" after="will\s"
 valid msgstr="desaprobó" after="did\s"
-hint="« Deprecate » se traduce como como « Desaprobar » (falso amigo)"
+hint="«Deprecate» se traduce como como «Desaprobar» (falso amigo)"
 
 {\bdeprecates\b}i
 id="ff-2-deprecates"
 valid msgstr="desaprueb(a|e)"
-hint="« Deprecates » se traduce como como « Desaprueba » (falso amigo)"
+hint="«Deprecates» se traduce como como «Desaprueba» (falso amigo)"
 
 {\bderogatory\b}i
 id="ff-2-derogatory"
 valid msgstr="despectiv[oa]"
 valid msgstr="peyorativ[oa]"
 valid !msgstr="derogatori[oa]"
-hint="« Derogatory » se traduce como como « Despectivo », no como « Derogatorio » (falso amigo)"
+hint="«Derogatory» se traduce como como «Despectivo», no como «Derogatorio» (falso amigo)"
 
 {\bderogatories\b}i
 id="derogatories"
 valid msgstr="despectiv[oa]s"
 valid msgstr="peyorativ[oa]s"
 valid !msgstr="derogatori[oa]s"
-hint="« Derogatories » se traduce como como « Despectivos », no como « Derogatorios » (falso amigo)"
+hint="«Derogatories» se traduce como como «Despectivos», no como «Derogatorios» (falso amigo)"
 
 {\bdiscuss\b}i
 id="ff-1-discuss"
@@ -706,7 +725,7 @@ valid msgstr="intercambiar\sideas"
 valid msgstr="debatirá" after="will\s"
 valid msgstr="debatió" after="did\s"
 valid !msgstr="discu(tir|ta|te)"
-hint="« Discuss » se traduce como como « Debatir », no como « Discutir » (falso amigo)"
+hint="«Discuss» se traduce como como «Debatir», no como «Discutir» (falso amigo)"
 
 {\bdiscussed\b}i
 id="ff-1-discussed"
@@ -716,14 +735,14 @@ valid msgstr="se\sdebat[ae]n"
 valid msgstr="debatió"
 valid msgstr="se\s(\w+\s){1,3}debatir"
 valid !msgstr="discutid[oa]"
-hint="« Discuss » se traduce como como « Debatir », no como « Discutir » (falso amigo)"
+hint="«Discuss» se traduce como como «Debatir», no como «Discutir» (falso amigo)"
 
 {\bdiscussion\b}i
 id="ff-2-discussion"
 valid msgstr="debate"
 valid msgstr="intercambio\sde\sideas"
 valid !msgstr="discusión"
-hint="« Discussion » se traduce como como « Debate », no como « Discusión » (falso amigo)"
+hint="«Discussion» se traduce como como «Debate», no como «Discusión» (falso amigo)"
 
 {\bdiscussions\b}i
 id="ff-2-discussions"
@@ -731,7 +750,7 @@ valid msgstr="debates"
 valid msgstr="(algún|ningún|cualquier)\sdebate"
 valid msgstr="intercambios\sde\sideas"
 valid !msgstr="discusiones"
-hint="« Discussions » se traduce como como « Debates », no como « Discusiones » (falso amigo)"
+hint="«Discussions» se traduce como como «Debates», no como «Discusiones» (falso amigo)"
 
 {\bdisgust\b}i
 id="ff-2-disgust"
@@ -742,34 +761,34 @@ valid msgstr="asqueará" after="will\s"
 valid msgstr="repugnó" after="did\s"
 valid msgstr="asqueó" after="did\s"
 valid !msgstr="disgust(ar|a|e)"
-hint="« Disgust » se traduce como como « Repugnar », no como « Disgustar » (falso amigo)"
+hint="«Disgust» se traduce como como «Repugnar», no como «Disgustar» (falso amigo)"
 
 {\bdisgusting\b}i
 id="ff-2-disgusting"
 valid msgstr="repugnante"
 valid msgstr="asqueros[oa]"
 valid !msgstr="disgustante"
-hint="« Disgusting » se traduce como como « Repugnante », no como « Disgustante » (falso amigo)"
+hint="«Disgusting» se traduce como como «Repugnante», no como «Disgustante» (falso amigo)"
 
 {\bdisorder\b}i
 id="ff-1-disorder"
 valid msgstr="trastorno"
 valid !msgstr="desorden"
-hint="« Disorder » se traduce como como « Trastorno », no como « Desorden » (falso amigo)"
+hint="«Disorder» se traduce como como «Trastorno», no como «Desorden» (falso amigo)"
 
 {\bdisorders\b}i
 id="ff-1-disorders"
 valid msgstr="trastornos"
 valid msgstr="(algún|ningún|cualquier)\strastorno"
 valid !msgstr="desórdenes"
-hint="« Disorders » se traduce como como « Trastornos », no como « Desórdenes » (falso amigo)"
+hint="«Disorders» se traduce como como «Trastornos», no como «Desórdenes» (falso amigo)"
 
 {\bdiversion\b}i
 id="ff-1-diversion"
 valid msgstr="distracción"
 valid msgstr="desvío"
 valid !msgstr="diversión"
-hint="« Diversion » se traduce como como « Distracción », no como « Diversión » (falso amigo)"
+hint="«Diversion» se traduce como como «Distracción», no como «Diversión» (falso amigo)"
 
 {\bdiversions\b}i
 id="ff-1-diversions"
@@ -778,7 +797,7 @@ valid msgstr="(alguna|ninguna|cualquier)\sdistracción"
 valid msgstr="desvíos"
 valid msgstr="(algún|ningún|cualquier)\sdesvío"
 valid !msgstr="diversiones"
-hint="« Diversions » se traduce como como « Distracciones », no como « Diversiones » (falso amigo)"
+hint="«Diversions» se traduce como como «Distracciones», no como «Diversiones» (falso amigo)"
 
 {\bdivert\b}i
 id="ff-1-divert"
@@ -788,7 +807,7 @@ valid msgstr="desviará" after="will\s"
 valid msgstr="desvió" after="did\s"
 valid !msgstr="divertir"
 valid !msgstr="diviert(a|e|o)"
-hint="« Divert » se traduce como como « Desviar », no como « Divertir » (falso amigo)"
+hint="«Divert» se traduce como como «Desviar», no como «Divertir» (falso amigo)"
 
 {\bdiverted\b}i
 id="ff-1-diverted"
@@ -798,27 +817,27 @@ valid msgstr="se\sdesvi[ae]"
 valid msgstr="desvió"
 valid msgstr="se\s(\w+\s){1,3}desviar"
 valid !msgstr="divertid[oa]"
-hint="« Diverted » se traduce como como « Desviado », no como « Divertido » (falso amigo)"
+hint="«Diverted» se traduce como como «Desviado», no como «Divertido» (falso amigo)"
 
 {\bdiverts\b}i
 id="ff-1-diverts"
 valid msgstr="desví(e|a)"
 valid !msgstr="diviert(a|e)"
-hint="« Diverts » se traduce como como « Desvía », no como « Divierta » (falso amigo)"
+hint="«Diverts» se traduce como como «Desvía», no como «Divierta» (falso amigo)"
 
 {\bdomestic\b}i
 id="ff-1-domestic"
 valid msgstr="nacional"
 valid msgstr="intern[oa]"
 valid !msgstr="doméstic[oa]"
-hint="« Domestic » se traduce como como « Nacional », no como « Doméstico » (falso amigo)"
+hint="«Domestic» se traduce como como «Nacional», no como «Doméstico» (falso amigo)"
 
 {\bduress\b}i
 id="ff-2-duress"
 valid msgstr="coacción"
 valid msgstr="presión"
 valid !msgstr="dureza"
-hint="« Duress » se traduce como como « Coacción/Presión », no como « Dureza » (falso amigo)"
+hint="«Duress» se traduce como como «Coacción/Presión», no como «Dureza» (falso amigo)"
 
 {\beducated\b}i
 id="ff-2-educated"
@@ -829,7 +848,7 @@ valid msgstr="se\sinstruy[ae]n?"
 valid msgstr="instruyó"
 valid msgstr="se\s(\w+\s){1,3}instruir"
 valid !msgstr="educad[oa]"
-hint="« Educated » se traduce como como « Culto/Instruido », no como « Educado » (falso amigo)"
+hint="«Educated» se traduce como como «Culto/Instruido», no como «Educado» (falso amigo)"
 
 {\bembarrased\b}i
 id="ff-1-embarrased"
@@ -844,13 +863,13 @@ valid msgstr="avergonzó"
 valid msgstr="se\s(\w+\s){1,3}abochornar"
 valid msgstr="se\s(\w+\s){1,3}avergonzar"
 valid !msgstr="embarazd[oa]"
-hint="« Embarrassed » se traduce como como « Avergonzado/Abchornado », no como « Embarazado » (falso amigo)"
+hint="«Embarrassed» se traduce como como «Avergonzado/Abchornado», no como «Embarazado» (falso amigo)"
 
 {\bengross\b}i
 id="ff-1-engross"
 valid msgstr="absorv(er|e|a)"
 valid !msgstr="engros(ar|a|e)"
-hint="« Engross » se traduce como como « Absorver », no como « Engrosar » (falso amigo)"
+hint="«Engross» se traduce como como «Absorver», no como «Engrosar» (falso amigo)"
 
 {\benlarge\b}i
 id="ff-1-enlarge"
@@ -862,7 +881,7 @@ valid msgstr="ampliará" after="will\s(not\s)?"
 valid msgstr="amplió" after="did\s(not\s)?"
 valid !msgstr="alarg(ar|a|o)"
 valid !msgstr="alarg(ue|a)"
-hint="« Enlarge » se traduce como como « Agrandar/Ampliar », no como « Alargar » (falso amigo)"
+hint="«Enlarge» se traduce como como «Agrandar/Ampliar», no como «Alargar» (falso amigo)"
 
 {\benlarged\b}
 id="ff-1-enlarged"
@@ -876,7 +895,7 @@ valid msgstr="ampliarse"
 valid msgstr="se\samlí[ea]n?"
 valid msgstr="amplió"
 valid msgstr="se\s(\w+\s){1,3}ampliar"
-hint="« Enlarge » se traduce como como « Agrandar », no como « Alargar » (falso amigo)"
+hint="«Enlarge» se traduce como como «Agrandar», no como «Alargar» (falso amigo)"
 
 {\benlarges\b}i
 id="ff-1-enlarges"
@@ -884,66 +903,66 @@ valid msgstr="agrand(ar|a|e)"
 valid msgstr="ampl(iar|ie|ía)"
 valid !msgstr="alarg(ar|a|o)"
 valid !msgstr="alarg(ue|a)"
-hint="« Enlarges » se traduce como como « Agranda/Amplía », no como « Alargue » (falso amigo)"
+hint="«Enlarges» se traduce como como «Agranda/Amplía», no como «Alargue» (falso amigo)"
 
 {\beventually\b}i
 id="ff-1-eventually"
 valid msgstr="finalmente"
 valid msgstr="a\sla\slarga"
 valid !msgstr="eventualmente"
-hint="« Eventually » se traduce como como « Finalmente », no como « Eventualmente » (falso amigo)"
+hint="«Eventually» se traduce como como «Finalmente», no como «Eventualmente» (falso amigo)"
 
 {\bevidence\b}i
 id="ff-1-evidence"
 valid msgstr="prueba"
 valid !msgstr="evidencia"
-hint="« Evidence » se traduce como como « Prueba », no como « Evidencia » (falso amigo)"
+hint="«Evidence» se traduce como como «Prueba», no como «Evidencia» (falso amigo)"
 
 {\bevidences\b}i
 id="ff-1-evidences"
 valid msgstr="pruebas"
 valid msgstr="(alguna|ninguna|cualquier)\sprueba"
 valid !msgstr="evidencias"
-hint="« Evidences » se traduce como como « Pruebas », no como « Evidencias » (falso amigo)"
+hint="«Evidences» se traduce como como «Pruebas», no como «Evidencias» (falso amigo)"
 
 {\bexit\b}i
 id="ff-1-exit"
 valid msgstr="salida"
 valid !msgstr="éxito"
-hint="« Exit » se traduce como como « Salida », no como « Éxito » (falso amigo)"
+hint="«Exit» se traduce como como «Salida», no como «Éxito» (falso amigo)"
 
 {\bexits\b}i
 id="ff-1-exits"
 valid msgstr="salidas"
 valid msgstr="(alguna|ninguna|cualquier)\ssalida"
 valid !msgstr="éxitos"
-hint="« Exits » se traduce como como « Salidas », no como « Éxitos » (falso amigo)"
+hint="«Exits» se traduce como como «Salidas», no como «Éxitos» (falso amigo)"
 
 {\bexpectation\b}i
 id="ff-1-expectation"
 valid msgstr="expectativa"
 valid !msgstr="expectación"
-hint="« Expectation » se traduce como como « Expectativa », no como « Expectación » (falso amigo)"
+hint="«Expectation» se traduce como como «Expectativa», no como «Expectación» (falso amigo)"
 
 {\bexpectations\b}i
 id="ff-1-expectations"
 valid msgstr="expectativas"
 valid msgstr="(alguna|ninguna|cualquier)\sexpectativa"
 valid !msgstr="expectaciones"
-hint="« Expectations » se traduce como como « Expectativas », no como « Expectaciones » (falso amigo)"
+hint="«Expectations» se traduce como como «Expectativas», no como «Expectaciones» (falso amigo)"
 
 {\bextravagant\b}i
 id="ff-2-extravagant"
 valid msgstr="derrochadora?"
 valid !msgstr="extravagante"
-hint="« Extravagant » se traduce como como « Derrochador », no como « Extravagante » (falso amigo)"
+hint="«Extravagant» se traduce como como «Derrochador», no como «Extravagante» (falso amigo)"
 
 {\bfabric\b}i
 id="ff-2-fabric"
 valid msgstr="tela"
 valid msgstr="tejido"
 valid !msgstr="fábrica"
-hint="« Fabric » se traduce como como « Tela/Tejido », no como « Fábrica » (falso amigo)"
+hint="«Fabric» se traduce como como «Tela/Tejido», no como «Fábrica» (falso amigo)"
 
 {\bfabrics\b}i
 id="ff-2-fabrics"
@@ -952,7 +971,7 @@ valid msgstr="(alguna|ninguna|cualquier)\stela"
 valid msgstr="tejidos"
 valid msgstr="(algún|ningún|cualquier)\stejido"
 valid !msgstr="fábricas"
-hint="« Fabrics » se traduce como como « Telas/Tejidos », no como « Fábricas » (falso amigo)"
+hint="«Fabrics» se traduce como como «Telas/Tejidos», no como «Fábricas» (falso amigo)"
 
 {\bfacilities\b}i
 id="ff-1-facilities"
@@ -961,7 +980,7 @@ valid msgstr="servicios"
 valid msgstr="(alguna|ninguna|cualquier)\sinstalación"
 valid msgstr="(algún|ningún|cualquier)\sservicio"
 valid !msgstr="facilidades"
-hint="« Facilities » se traduce como como « Instalaciones », no como « Facilidades » (falso amigo)"
+hint="«Facilities» se traduce como como «Instalaciones», no como «Facilidades» (falso amigo)"
 
 {\bfastidious\b}i
 id="ff-1-fastidious"
@@ -970,14 +989,14 @@ valid msgstr="quisquillos[oa]"
 valid msgstr="maniátic[oa]"
 valid msgstr="meticulos[oa]"
 valid !msgstr="fastidios[oa]"
-hint="« Fastidious » se traduce como como « Muy exigente/Quisquilloso », no como « Fastidioso » (falso amigo)"
+hint="«Fastidious» se traduce como como «Muy exigente/Quisquilloso», no como «Fastidioso» (falso amigo)"
 
 {\bfatality\b}i
 id="ff-2-fatality"
 valid msgstr="muert[oa]"
 valid msgstr="victima"
 valid !msgstr="fatalidad"
-hint="« Fatality » se traduce como como « Muerto/Víctima », no como « Fatalidad » (falso amigo)"
+hint="«Fatality» se traduce como como «Muerto/Víctima», no como «Fatalidad» (falso amigo)"
 
 {\bfatalities\b}i
 id="ff-2-fatalities"
@@ -986,7 +1005,7 @@ valid msgstr="(algún|ningún|cualquier)\smuerto"
 valid msgstr="victimas"
 valid msgstr="(alguna|ninguna|cualquier)\svíctima"
 valid !msgstr="fatalidades"
-hint="« Fatalities » se traduce como como « Muertos/Víctimas », no como « Fatalidades » (falso amigo)"
+hint="«Fatalities» se traduce como como «Muertos/Víctimas», no como «Fatalidades» (falso amigo)"
 
 {\bfault\b}i
 id="ff-2-fault"
@@ -996,7 +1015,7 @@ valid msgstr="defecto"
 valid msgstr="criticar"
 valid msgstr="culpar"
 valid !msgstr="faltar?"
-hint="« Fault » se traduce como como « Culpa », no como « Falta » (falso amigo)"
+hint="«Fault» se traduce como como «Culpa», no como «Falta» (falso amigo)"
 
 {\bfaults\b}i
 id="ff-2-faults"
@@ -1007,14 +1026,14 @@ valid msgstr="(algún|ningún|cualquier)\sdefecto"
 valid msgstr="fallos"
 valid msgstr="(algún|ningún|cualquier)\sfallo"
 valid !msgstr="faltas"
-hint="« Faults » se traduce como como « Culpas », no como « Faltas » (falso amigo)"
+hint="«Faults» se traduce como como «Culpas», no como «Faltas» (falso amigo)"
 
 {\bfeast\b}i
 id="ff-2-feast"
 valid msgstr="banquete"
 valid msgstr="festín"
 valid !msgstr="fiesta"
-hint="« Feast » se traduce como como « Banquete/Festín », no como « Fiesta » (falso amigo)"
+hint="«Feast» se traduce como como «Banquete/Festín», no como «Fiesta» (falso amigo)"
 
 {\bfeasts\b}i
 id="ff-2-feasts"
@@ -1023,7 +1042,7 @@ valid msgstr="(algún|ningún|cualquier)\sbanquete"
 valid msgstr="festines"
 valid msgstr="(algún|ningún|cualquier)\sfestín"
 valid !msgstr="fiestas"
-hint="« Feasts » se traduce como como « Banquetes/Festines », no como « Fiesta » (falso amigo)"
+hint="«Feasts» se traduce como como «Banquetes/Festines», no como «Fiesta» (falso amigo)"
 
 {\bgenial\b}i
 id="ff-2-genial"
@@ -1032,7 +1051,7 @@ valid msgstr="jovial"
 valid msgstr="cordial"
 valid msgstr="amistos[oa]"
 valid !msgstr="genial"
-hint="« Genial » se traduce como como « Simpático », no como « Genial » (falso amigo)"
+hint="«Genial» se traduce como como «Simpático», no como «Genial» (falso amigo)"
 
 {\bgentle\b}i
 id="ff-1-gentle"
@@ -1040,28 +1059,28 @@ valid msgstr="suave"
 valid msgstr="mans[oa]"
 valid msgstr="moderad[oa]"
 valid !msgstr="gentil"
-hint="« Gentle » se traduce como como « Suave », no como « Gentil » (falso amigo)"
+hint="«Gentle» se traduce como como «Suave», no como «Gentil» (falso amigo)"
 
 {\bgently\b}i
 id="ff-2-gently"
 valid msgstr="con\scuidado"
 valid msgstr="con\ssuavidad"
 valid !msgstr="gentilmente"
-hint="« Gently » se traduce como como « Con cuidado/suavidad », no como « Gentilmente » (falso amigo)"
+hint="«Gently» se traduce como como «Con cuidado/suavidad», no como «Gentilmente» (falso amigo)"
 
 {\bglobe\b}i
 id="ff-2-globe"
 valid msgstr="guante"
 valid msgstr="globo" after="(virtual|desktop)\s"
 valid msgstr="globo" cat="kstarts,marble"
-hint="« Glove » se traduce como como « Guante », no como « Globo » (falso amigo)"
+hint="«Glove» se traduce como como «Guante», no como «Globo» (falso amigo)"
 
 {\bglobes\b}i
 id="ff-2-globes"
 valid msgstr="guantes"
 valid msgstr="(algún|ningún|cualquier)\sguante"
 valid msgstr="globos" after="(virtual|desktop)\s"
-hint="« Gloves » se traduce como como « Guantes », no como « Globos » (falso amigo)"
+hint="«Gloves» se traduce como como «Guantes», no como «Globos» (falso amigo)"
 
 {\bgracious\b}i
 id="ff-2-gracious"
@@ -1070,20 +1089,20 @@ valid msgstr="cortés"
 valid msgstr="elegante"
 valid msgstr="garbos[oa]"
 valid !msgstr="gracios[oa]"
-hint="« Gracious » se traduce como como « Getíl/Cortés », no como « Gracioso » (falso amigo)"
+hint="«Gracious» se traduce como como «Getíl/Cortés», no como «Gracioso» (falso amigo)"
 
 {\bhonest\b}i
 id="ff-1-honest"
 valid msgstr="honrad[oa]"
 valid !msgstr="honest[oa]"
-hint="« Honest » se traduce como como « Honrado », no como « Honesto » (falso amigo)"
+hint="«Honest» se traduce como como «Honrado», no como «Honesto» (falso amigo)"
 
 {\bidiom\b}i
 id="ff-1-idiom"
 valid msgstr="modismo"
 valid msgstr="expresión\sidiomática"
 valid !msgstr="idioma"
-hint="« Idiom » se traduce como como « Modismo », no como « Idioma » (falso amigo)"
+hint="«Idiom» se traduce como como «Modismo», no como «Idioma» (falso amigo)"
 
 {\bidioms\b}i
 id="ff-1-idioms"
@@ -1091,7 +1110,7 @@ valid msgstr="modismos"
 valid msgstr="(algún|ningún|cualquier)\smodismo"
 valid msgstr="expresiones\sidiomáticas"
 valid !msgstr="idiomas"
-hint="« Idioms » se traduce como como « Modismos », no como « Idiomas » (falso amigo)"
+hint="«Idioms» se traduce como como «Modismos», no como «Idiomas» (falso amigo)"
 
 {\binconsistent\b}i
 id="ff-1-inconsistent"
@@ -1099,19 +1118,19 @@ valid msgstr="contradictorio"
 valid msgstr="inconsecuente"
 valid msgstr="insconstante"
 valid !msgstr="inconsistente"
-hint="« Inconsistent » se traduce como como « Contradictorio/Inconsecuente », no como « Inconsistente » (falso amigo)"
+hint="«Inconsistent» se traduce como como «Contradictorio/Inconsecuente», no como «Inconsistente» (falso amigo)"
 
 {\bin\sfront\sof\b}i
 id="ff-1-in-front-of"
 valid msgstr="delante\sde"
 valid !msgstr="enfrente\sde"
-hint="« In front of » se traduce como como « Delante de », no como « Enfrente de » (falso amigo)"
+hint="«In front of» se traduce como como «Delante de», no como «Enfrente de» (falso amigo)"
 
 {\bindignant\b}i
 id="ff-2-indignant"
 valid msgstr="indignad[oa]"
 valid !msgstr="indignante"
-hint="« Indignant » se traduce como como « Indignado », no como « Indignante » (falso amigo)"
+hint="«Indignant» se traduce como como «Indignado», no como «Indignante» (falso amigo)"
 
 {\bintoxicated\b}i
 id="ff-2-intoxicated"
@@ -1119,14 +1138,14 @@ valid msgstr="borrach[oa]"
 valid msgstr="ebrio[oa]"
 valid msgstr="se\s(\w+\s){1,3}emborrachar"
 valid !msgstr="intoxicad[oa]"
-hint="« Intoxicated » se traduce como como « Borracho/Ebrio », no como « Intoxicado » (falso amigo)"
+hint="«Intoxicated» se traduce como como «Borracho/Ebrio», no como «Intoxicado» (falso amigo)"
 
 {\bintoxication\b}i
 id="ff-2-intoxication"
 valid msgstr="borrachera"
 valid msgstr="embriaguez"
 valid !msgstr="intoxicación"
-hint="« Intoxication » se traduce como como « Embriaguez/Borrachera », no como « Intoxicación » (falso amigo)"
+hint="«Intoxication» se traduce como como «Embriaguez/Borrachera», no como «Intoxicación» (falso amigo)"
 
 {\bintroduce\b}i
 id="ff-1-introduce"
@@ -1135,7 +1154,7 @@ valid msgstr="presentará" after="will\s"
 valid msgstr="presentó" after="did\s"
 valid !msgstr="introduc(ir|e)"
 valid !msgstr="introduzc(a|o)"
-hint="« Introduce » se traduce como como « Presentar », no como « Introducir » (falso amigo)"
+hint="«Introduce» se traduce como como «Presentar», no como «Introducir» (falso amigo)"
 
 {\bintroduced\b}i
 id="ff-1-introduced"
@@ -1145,57 +1164,57 @@ valid msgstr="se\spresent[ae]n?"
 valid msgstr="presentó"
 valid msgstr="se\s(\w+\s){1,3}presentar"
 valid !msgstr="introducid[oa]"
-hint="« Introduced » se traduce como como « Presentado », no como « Introducido » (falso amigo)"
+hint="«Introduced» se traduce como como «Presentado», no como «Introducido» (falso amigo)"
 
 {\bintroduces\b}i
 id="ff-1-introduces"
 valid msgstr="present(a|e)"
 valid !msgstr="introduce"
-hint="« Introduces » se traduce como como « Presenta », no como « Introduce » (falso amigo)"
+hint="«Introduces» se traduce como como «Presenta», no como «Introduce» (falso amigo)"
 
 {\bjubilation\b}i
 id="ff-2-jubilation"
 valid msgstr="júbilo"
 valid !msgstr="jubilación"
-hint="« Jubilation » se traduce como como « Júbilo », no como « Jubilación » (falso amigo)"
+hint="«Jubilation» se traduce como como «Júbilo», no como «Jubilación» (falso amigo)"
 
 {\blarge\b}i
 id="ff-1-large"
 valid msgstr="grande"
 valid !msgstr="larg[oa]"
-hint="« Large » se traduce como como « Grande », no como « Largo » (falso amigo)"
+hint="«Large» se traduce como como «Grande», no como «Largo» (falso amigo)"
 
 {\blarger\b}i
 id="ff-1-larger"
 valid msgstr="mas\sgrande"
 valid msgstr="mayor"
 valid !msgstr="mas\slarg[oa]"
-hint="« Larger » se traduce como como « Mas grande/Mayor », no como « Mas largo » (falso amigo)"
+hint="«Larger» se traduce como como «Mas grande/Mayor», no como «Mas largo» (falso amigo)"
 
 {\blecture\b}i
 id="ff-1-lecture"
 valid msgstr="conferencia"
 valid !msgstr="lectura"
-hint="« Lecture » se traduce como como « Conferencia », no como « Lectura » (falso amigo)"
+hint="«Lecture» se traduce como como «Conferencia», no como «Lectura» (falso amigo)"
 
 {\blectures\b}i
 id="ff-1-lectures"
 valid msgstr="conferencias"
 valid msgstr="(alguna|ninguna|cualquier)\sconferencia"
 valid !msgstr="lecturas"
-hint="« Lectures » se traduce como como « Conferencias », no como « Lecturas » (falso amigo)"
+hint="«Lectures» se traduce como como «Conferencias», no como «Lecturas» (falso amigo)"
 
 {\bluxury\b}i
 id="ff-2-luxury"
 valid msgstr="lujo"
 valid !msgstr="lujuria"
-hint="« Luxury » se traduce como como « Lujo », no como « Lujuria » (falso amigo)"
+hint="«Luxury» se traduce como como «Lujo», no como «Lujuria» (falso amigo)"
 
 {\blyrics\b}i
 id="ff-2-lyrics"
 valid msgstr="letras?"
 valid !msgstr="líricas?"
-hint="« Lyrics » se traduce como como « Letra », no como « Lírica » (falso amigo)"
+hint="«Lyrics» se traduce como como «Letra», no como «Lírica» (falso amigo)"
 
 {\bmisery\b}i
 id="ff-2-misery"
@@ -1205,7 +1224,7 @@ valid msgstr="desgracia"
 valid msgstr="desdicha"
 valid msgstr="angustia"
 valid !msgstr="miseria"
-hint="« Misery » se traduce como como « Sufrimiento/Aflicción », no como « Miseria » (falso amigo)"
+hint="«Misery» se traduce como como «Sufrimiento/Aflicción», no como «Miseria» (falso amigo)"
 
 {\bmiseries\b}i
 id="ff-2-miseries"
@@ -1220,14 +1239,14 @@ valid msgstr="(alguna|ninguna|cualquier)\sdesdicha"
 valid msgstr="angustias"
 valid msgstr="(alguna|ninguna|cualquier)\sangustia"
 valid !msgstr="miserias"
-hint="« Miseries » se traduce como como « Sufrimientos/Aflicciones », no como « Miserias » (falso amigo)"
+hint="«Miseries» se traduce como como «Sufrimientos/Aflicciones», no como «Miserias» (falso amigo)"
 
 {\bmotorist\b}i
 id="ff-2-motorist"
 valid msgstr="automovilista"
 valid msgstr="conductor"
 valid !msgstr="motorista"
-hint="« Motorist » se traduce como como « Automovilista/Conductor », no como « Motorista » (falso amigo)"
+hint="«Motorist» se traduce como como «Automovilista/Conductor», no como «Motorista» (falso amigo)"
 
 {\bnotice\b}i
 id="ff-1-notice"
@@ -1241,7 +1260,7 @@ valid msgstr="avisó" after="did\s"
 valid msgstr="notificó" after="did\s"
 valid msgstr="se\sdió\scuenta" after="did\s"
 valid !msgstr="noticia"
-hint="« Notice » se traduce como como « Darse cuenta », no como « Noticia » (falso amigo)"
+hint="«Notice» se traduce como como «Darse cuenta», no como «Noticia» (falso amigo)"
 
 {\boccur\b}i
 id="ff-1-occur"
@@ -1250,19 +1269,19 @@ valid msgstr="aparezca"
 valid msgstr="aparecerá" after="will\s"
 valid msgstr="apareció" after="did\s"
 valid !msgstr="ocurr(ir|e|a)"
-hint="« Occur » se traduce como como « Aparecer », no como « Ocurrir » (falso amigo)"
+hint="«Occur» se traduce como como «Aparecer», no como «Ocurrir» (falso amigo)"
 
 {\boccurs\b}i
 id="ff-1-occurs"
 valid msgstr="aparece"
 valid !msgstr="ocurre"
-hint="« Occurs » se traduce como como « Aparece », no como « Ocurre » (falso amigo)"
+hint="«Occurs» se traduce como como «Aparece», no como «Ocurre» (falso amigo)"
 
 {\boccurrence\b}i
 id="ff-1-occurrence"
 valid msgstr="aparición"
 valid !msgstr="ocurrencia"
-hint="« Ocurrence » se traduce como como « Aparición », no como « Ocurrencia » (falso amigo)"
+hint="«Ocurrence» se traduce como como «Aparición», no como «Ocurrencia» (falso amigo)"
 
 {\boccurrences\b}i
 id="ff-1-occurrences"
@@ -1271,27 +1290,27 @@ valid msgstr="(alguna|ninguna|cualquier)\saparición"
 valid msgstr="ideas"
 valid msgstr="(alguna|ninguna|cualquier)\sidea"
 valid !msgstr="ocurrencias"
-hint="« Ocurrences » se traduce como como « Apariciones », no como « Ocurrencias » (falso amigo)"
+hint="«Ocurrences» se traduce como como «Apariciones», no como «Ocurrencias» (falso amigo)"
 
 {\boffen(s|c)e\b}i
 id="ff-2-offense"
 valid msgstr="delito"
 valid !msgstr="ofensa"
-hint="« Offense/Offence » se traduce como como « Delito », no como « Ofensa » (falso amigo)"
+hint="«Offense/Offence» se traduce como como «Delito», no como «Ofensa» (falso amigo)"
 
 {\boffen(s|c)es\b}i
 id="ff-2-offenses"
 valid msgstr="delitos"
 valid msgstr="(algún|ningún|cualquier)\sdelito"
 valid !msgstr="ofensas"
-hint="« Offenses/Offences » se traduce como como « Delitos », no como « Ofensas » (falso amigo)"
+hint="«Offenses/Offences» se traduce como como «Delitos», no como «Ofensas» (falso amigo)"
 
 {\boffice\b}i
 id="ff-1-office"
 valid msgstr="oficina"
 valid msgstr="despacho"
 valid !msgstr="oficio"
-hint="« Office » se traduce como como « Oficina », no como « Oficio » (falso amigo)"
+hint="«Office» se traduce como como «Oficina», no como «Oficio» (falso amigo)"
 
 {\boffices\b}i
 id="ff-1-offices"
@@ -1300,79 +1319,79 @@ valid msgstr="(alguna|ninguna|cualquier)\soficina"
 valid msgstr="despachos"
 valid msgstr="(algún|ningún|cualquier)\sdespacho"
 valid !msgstr="oficios"
-hint="« Offices » se traduce como como « Oficinas », no como « Oficios » (falso amigo)"
+hint="«Offices» se traduce como como «Oficinas», no como «Oficios» (falso amigo)"
 
 {\bordinary\b}i
 id="ff-2-ordinary"
 valid msgstr="común"
 valid msgstr="normal"
 valid !msgstr="ordinari[oa]"
-hint="« Ordinary » se traduce como como « Común », no como « Ordinario » (falso amigo)"
+hint="«Ordinary» se traduce como como «Común», no como «Ordinario» (falso amigo)"
 
 {\bore\b}i
 id="ff-2-ore"
 valid msgstr="mineral"
 valid !msgstr="oro"
-hint="« Ore » se traduce como como « Mineral », no como « Oro » (falso amigo)"
+hint="«Ore» se traduce como como «Mineral», no como «Oro» (falso amigo)"
 
 {\bpain\b}i
 id="ff-2-pain"
 valid msgstr="dolor"
 valid !msgstr="pena"
-hint="« Pain » se traduce como como « Dolor », no como « Pena » (falso amigo)"
+hint="«Pain» se traduce como como «Dolor», no como «Pena» (falso amigo)"
 
 {\bpains\b}i
 id="ff-2-pains"
 valid msgstr="dolores"
 valid msgstr="(algún|ningún|cualquier)\sdolor"
 valid !msgstr="penas"
-hint="« Pains » se traduce como como « Dolores », no como « Penas » (falso amigo)"
+hint="«Pains» se traduce como como «Dolores», no como «Penas» (falso amigo)"
 
 {\bparent\b}i
 id="ff-1-parent"
 valid msgstr="padre"
 valid msgstr="madre"
 valid !msgstr="pariente"
-hint="« Parent » se traduce como como « Padre/Madre », no como « Pariente » (falso amigo)"
+hint="«Parent» se traduce como como «Padre/Madre», no como «Pariente» (falso amigo)"
 
 {\bparents\b}i
 id="ff-1-parents"
 valid msgstr="padres"
 valid msgstr="(algún|ningún|cualquier)\spadre"
 valid !msgstr="parientes"
-hint="« Parents » se traduce como como « Padres », no como « Parientes » (falso amigo)"
+hint="«Parents» se traduce como como «Padres», no como «Parientes» (falso amigo)"
 
 {\bpetrol\b}i
 id="ff-2-petrol"
 valid msgstr="gasolina"
 valid !msgstr="petróleo"
-hint="« Petrol » se traduce como como « Gasolina », no como « Petróleo » (falso amigo)"
+hint="«Petrol» se traduce como como «Gasolina», no como «Petróleo» (falso amigo)"
 
 {\bphysician\b}i
 id="ff-2-physician"
 valid msgstr="médico"
 valid !msgstr="físico"
-hint="« Physician » se traduce como como « Médico », no como « Físico » (falso amigo)"
+hint="«Physician» se traduce como como «Médico», no como «Físico» (falso amigo)"
 
 {\bphysicians\b}i
 id="ff-2-physicians"
 valid msgstr="médicos"
 valid msgstr="(algún|ningún|cualquier)\smédico"
 valid !msgstr="físicos?"
-hint="« Physicians » se traduce como como « Médicos », no como « Físicos » (falso amigo)"
+hint="«Physicians» se traduce como como «Médicos», no como «Físicos» (falso amigo)"
 
 {\bplain(?!\stext)\b}i
 id="ff-1-plain"
 valid msgstr="sencill[oa]"
 valid !msgstr="plan[oa]"
-hint="« Plain » se traduce como como « Sencillo », no como « Plano » (falso amigo)"
+hint="«Plain» se traduce como como «Sencillo», no como «Plano» (falso amigo)"
 
 {\bpolitic\b}i
 id="ff-2-politic"
 valid msgstr="diplomático"
 valid msgstr="prudente"
 valid !msgstr="político"
-hint="« Politic » se traduce como como « Diplomático/Prudente », no como « Político » (falso amigo)"
+hint="«Politic» se traduce como como «Diplomático/Prudente», no como «Político» (falso amigo)"
 
 {\bpresume\b}i
 id="ff-1-presume"
@@ -1383,14 +1402,14 @@ valid msgstr="se\satreverá" after="will\s"
 valid msgstr="supuso" after="did\s"
 valid msgstr="se\satrevió" after="did\s"
 valid !msgstr="presum(ir|e|a)"
-hint="« Presume » se traduce como como « Suponer/Atreverse », no como « Presumir » (falso amigo)"
+hint="«Presume» se traduce como como «Suponer/Atreverse», no como «Presumir» (falso amigo)"
 
 {\bpresumes\b}i
 id="ff-1-presumes"
 valid msgstr="supon(ga|e)"
 valid msgstr="se\satreve"
 valid !msgstr="presum(e|a)"
-hint="« Presumes » se traduce como como « Supone/Se atreve », no como « Presume » (falso amigo)"
+hint="«Presumes» se traduce como como «Supone/Se atreve», no como «Presume» (falso amigo)"
 
 {\bpretend\b}i
 id="ff-1-pretend"
@@ -1399,13 +1418,13 @@ valid msgstr="finj(a|e|o)"
 valid msgstr="fingirá" after="will\s"
 valid msgstr="fingió" after="did\s"
 valid !msgstr="pretend(er|e|a|o)"
-hint="« Pretend » se traduce como como « Fingir », no como « Pretender » (falso amigo)"
+hint="«Pretend» se traduce como como «Fingir», no como «Pretender» (falso amigo)"
 
 {\bpretends\b}i
 id="ff-1-pretends"
 valid msgstr="finj(a|e)"
 valid !msgstr="pretend(e|a)"
-hint="« Pretends » se traduce como como « Finja », no como « Pretenda » (falso amigo)"
+hint="«Pretends» se traduce como como «Finja», no como «Pretenda» (falso amigo)"
 
 {\bprevent\b}i
 id="ff-1-prevent"
@@ -1418,14 +1437,14 @@ valid msgstr="evitó" after="did\s"
 valid msgstr="impidió" after="did\s"
 valid !msgstr="prevenir"
 valid !msgstr="preven(ga|go)"
-hint="« Prevent » se traduce como como « Evitar », no como « Prevenir » (falso amigo)"
+hint="«Prevent» se traduce como como «Evitar», no como «Prevenir» (falso amigo)"
 
 {\bprevents\b}i
 id="ff-1-prevents"
 valid msgstr="evit(a|e)"
 valid msgstr="impid(a|e)"
 valid !msgstr="prevenga"
-hint="« Prevents » se traduce como como « Evite », no como « Prevenga » (falso amigo)"
+hint="«Prevents» se traduce como como «Evite», no como «Prevenga» (falso amigo)"
 
 {\bprove\b}i
 id="ff-1-probe"
@@ -1434,7 +1453,7 @@ valid msgstr="sondear"
 valid msgstr="explorar"
 valid msgstr="examinar"
 valid !msgstr="probar"
-hint="« Prove » se traduce como como « Investigar/Sondear », no como « Probar » (falso amigo)"
+hint="«Prove» se traduce como como «Investigar/Sondear», no como «Probar» (falso amigo)"
 
 {\bproves\b}i
 id="ff-1-probes"
@@ -1443,7 +1462,7 @@ valid msgstr="sonde(e|a)"
 valid msgstr="explor(e|a)"
 valid msgstr="examin(|a)e"
 valid !msgstr="prueb(e|a)"
-hint="« Proves » se traduce como como « Investigue/Sondee », no como « Pruebe » (falso amigo)"
+hint="«Proves» se traduce como como «Investigue/Sondee», no como «Pruebe» (falso amigo)"
 
 {\bproduce\b}i
 id="ff-1-produce"
@@ -1452,20 +1471,20 @@ valid msgstr="presentará" after="will\s"
 valid msgstr="presentó" after="did\s"
 valid !msgstr="produc(ir|e)"
 valid !msgstr="produzca"
-hint="« Produce » se traduce como como « Presentar », no como « Producir » (falso amigo)"
+hint="«Produce» se traduce como como «Presentar», no como «Producir» (falso amigo)"
 
 {\bproduces\b}i
 id="ff-1-produces"
 valid msgstr="present(a|e)"
 valid !msgstr="produce"
-hint="« Produces » se traduce como como « Presenta », no como « Produce » (falso amigo)"
+hint="«Produces» se traduce como como «Presenta», no como «Produce» (falso amigo)"
 
 {\bproper\b}i
 id="ff-1-proper"
 valid msgstr="correct[oa]"
 valid msgstr="apropiad[oa]"
 valid !msgstr="propi[oa]"
-hint="« Proper » se traduce como como « Correcto/Apropiado », no como « Propio » (falso amigo)"
+hint="«Proper» se traduce como como «Correcto/Apropiado», no como «Propio» (falso amigo)"
 
 {\bproperly\b}i
 id="ff-1-properly"
@@ -1473,14 +1492,14 @@ valid msgstr="correctamente"
 valid msgstr="del\stodo"
 valid msgstr="completamente"
 valid !msgstr="propiamente"
-hint="« Properly » se traduce como como « Correctamente/Del todo », no como « Propiamente » (falso amigo)"
+hint="«Properly» se traduce como como «Correctamente/Del todo», no como «Propiamente» (falso amigo)"
 
 {\bqualification\b}i
 id="ff-1-qualification"
 valid msgstr="título"
 valid msgstr="requisito"
 valid !msgstr="cualificación"
-hint="« Qualification » se traduce como como « Título/Diploma », no como « Cualificación » (falso amigo)"
+hint="«Qualification» se traduce como como «Título/Diploma», no como «Cualificación» (falso amigo)"
 
 {\bqualifications\b}i
 id="ff-1-qualifications"
@@ -1489,20 +1508,20 @@ valid msgstr="(algún|ningún|cualquier)\stítulo"
 valid msgstr="requisitos"
 valid msgstr="(algún|ningún|cualquier)\srequisito"
 valid !msgstr="cualificaciones"
-hint="« Qualifications » se traduce como como « Títulos/Diplomas », no como « Cualificaciones » (falso amigo)"
+hint="«Qualifications» se traduce como como «Títulos/Diplomas», no como «Cualificaciones» (falso amigo)"
 
 {\bquartely\b}i
 id="ff-1-quartely"
 valid msgstr="trimestral"
 valid !msgstr="cuatrimestral"
-hint="« Quartely » se traduce como como « Trimestral », no como « Cuatrimestral » (falso amigo)"
+hint="«Quartely» se traduce como como «Trimestral», no como «Cuatrimestral» (falso amigo)"
 
 {\bquestion\b}i
 id="ff-1-question"
 valid msgstr="pregunta"
 valid msgstr="cuestión" after="in\s"
 valid msgstr="signo\sde\sinterrogación" before="\smark"
-hint="« Question » se traduce como como « Pregunta », no como « Cuestión » (falso amigo)"
+hint="«Question» se traduce como como «Pregunta», no como «Cuestión» (falso amigo)"
 
 {\bquestions\b}i
 id="ff-1-questions"
@@ -1510,7 +1529,7 @@ valid msgstr="preguntas"
 valid msgstr="(alguna|ninguna|cualquier)\spregunta"
 valid msgstr="signos\sde\sinterrogación" before="\smarks"
 valid !msgstr="cuestiones"
-hint="« Questions » se traduce como como « Preguntas », no como « Cuestiones » (falso amigo)"
+hint="«Questions» se traduce como como «Preguntas», no como «Cuestiones» (falso amigo)"
 
 {\bquiet\b}i
 id="ff-2-quiet"
@@ -1519,7 +1538,7 @@ valid msgstr="callad[oa]"
 valid msgstr="en\ssilencio"
 valid msgstr="tranquil[oa]"
 valid !msgstr="quiet[oa]"
-hint="« Quiet » se traduce como como « Calmado », no como « Quieto » (falso amigo)"
+hint="«Quiet» se traduce como como «Calmado», no como «Quieto» (falso amigo)"
 
 {\bquit\b}i
 id="ff-1-quit"
@@ -1533,7 +1552,7 @@ valid msgstr="dejó" after="did\s"
 valid msgstr="abandonó" after="did\s"
 valid msgstr="dimitió" after="did\s"
 valid !msgstr="quit(ar|a|e)"
-hint="« Quit » se traduce como como « Dejar/Abandonar », no como « Quitar » (falso amigo)"
+hint="«Quit» se traduce como como «Dejar/Abandonar», no como «Quitar» (falso amigo)"
 
 {\bquits\b}i
 id="ff-1-quits"
@@ -1541,32 +1560,32 @@ valid msgstr="dej(a|e)"
 valid msgstr="abandon(a|e)"
 valid msgstr="dimit(e|a)"
 valid !msgstr="quit(a|e)"
-hint="« Quits » se traduce como como « Deja/Abandona », no como « Quita » (falso amigo)"
+hint="«Quits» se traduce como como «Deja/Abandona», no como «Quita» (falso amigo)"
 
 {\brealize\b}i
 id="ff-1-realize"
 valid msgstr="darse\scuenta"
 valid !msgstr="realizar"
-hint="« Realize » se traduce como como « Darse cuenta », no como « Realizar » (falso amigo)"
+hint="«Realize» se traduce como como «Darse cuenta», no como «Realizar» (falso amigo)"
 
 {\brealizes\b}i
 id="ff-1-realizes"
 valid msgstr="se\sda\scuenta"
 valid !msgstr="realiza"
-hint="« Realizes » se traduce como como « Se da cuenta », no como « Realiza » (falso amigo)"
+hint="«Realizes» se traduce como como «Se da cuenta», no como «Realiza» (falso amigo)"
 
 {\brecipient\b}i
 id="ff-1-recipient"
 valid msgstr="receptor"
 valid !msgstr="recipiente"
-hint="« Recipient » se traduce como como « Receptor », no como « Recipiente » (falso amigo)"
+hint="«Recipient» se traduce como como «Receptor», no como «Recipiente» (falso amigo)"
 
 {\brecipients\b}i
 id="ff-1-recipients"
 valid msgstr="receptores"
 valid msgstr="(algún|ningún|cualquier)\sreceptor"
 valid !msgstr="recipientes"
-hint="« Recipients » se traduce como como « Receptores », no como « Recipientes » (falso amigo)"
+hint="«Recipients» se traduce como como «Receptores», no como «Recipientes» (falso amigo)"
 
 {\breclaim\b}i
 id="ff-1-reclaim"
@@ -1577,14 +1596,14 @@ valid msgstr="saneará" after="will\s"
 valid msgstr="recuperó" after="did\s"
 valid msgstr="saneó" after="did\s"
 valid !msgstr="reclam(ar|a|e|o)"
-hint="« Reclaim » se traduce como como « Recuperar », no como « Reclamar » (falso amigo)"
+hint="«Reclaim» se traduce como como «Recuperar», no como «Reclamar» (falso amigo)"
 
 {\breclaims\b}i
 id="ff-1-reclaims"
 valid msgstr="recuper(a|e)"
 valid msgstr="sane(a|e)"
 valid !msgstr="reclam(a|e)"
-hint="« Reclaims » se traduce como como « Recupera », no como « Reclama » (falso amigo)"
+hint="«Reclaims» se traduce como como «Recupera», no como «Reclama» (falso amigo)"
 
 {\brecollect\b}i
 id="ff-2-recollet"
@@ -1593,26 +1612,26 @@ valid msgstr="recuerd(a|e)"
 valid msgstr="recordará" after="will\s"
 valid msgstr="recordó" after="did\s"
 valid !msgstr="recolectar"
-hint="« Recollect » se traduce como como « Recordar », no como « Recolectar » (falso amigo)"
+hint="«Recollect» se traduce como como «Recordar», no como «Recolectar» (falso amigo)"
 
 {\brecollects\b}i
 id="ff-2-recollets"
 valid msgstr="recuerd(a|e)"
 valid !msgstr="recolect(a|e)"
-hint="« Recollects » se traduce como como « Recuerda », no como « Recolecta » (falso amigo)"
+hint="«Recollects» se traduce como como «Recuerda», no como «Recolecta» (falso amigo)"
 
 {\brecollection\b}i
 id="ff-2-recollection"
 valid msgstr="recuerdo"
 valid !msgstr="recolección"
-hint="« Recollection » se traduce como como « Recuerdo », no como « Recolección » (falso amigo)"
+hint="«Recollection» se traduce como como «Recuerdo», no como «Recolección» (falso amigo)"
 
 {\brecollections\b}i
 id="ff-2-recollections"
 valid msgstr="recuerdos"
 valid msgstr="(algún|ningún|cualquier)\srecuerdo"
 valid !msgstr="recolecciones"
-hint="« Recollections » se traduce como como « Recuerdos », no como « Recolecciones » (falso amigo)"
+hint="«Recollections» se traduce como como «Recuerdos», no como «Recolecciones» (falso amigo)"
 
 {\brecord\b}i
 id="ff-1-record"
@@ -1627,7 +1646,7 @@ valid msgstr="anotó" after="did\s"
 valid msgstr="apuntó" after="did\s"
 valid msgstr="grabó" after="did\s"
 valid !msgstr="recordar"
-hint="« Record » se traduce como como « Anotar/Apuntar/Grabar », no como « Recordar » (falso amigo)"
+hint="«Record» se traduce como como «Anotar/Apuntar/Grabar», no como «Recordar» (falso amigo)"
 
 {\brecords\b}i
 id="ff-1-records"
@@ -1638,7 +1657,7 @@ valid msgstr="registr(e|a)"
 valid msgstr="registros"
 valid msgstr="(algún|ningún|cualquier)\sregistro"
 valid !msgstr="recuerd(e|a)"
-hint="« Records » se traduce como como « Anota/Apunta/Graba », no como « Recuerda » (falso amigo)"
+hint="«Records» se traduce como como «Anota/Apunta/Graba», no como «Recuerda» (falso amigo)"
 
 {\brefrain\b}i
 id="ff-1-refrain"
@@ -1647,7 +1666,7 @@ valid msgstr="abstenerse\sde"
 valid msgstr="guardarse\sde"
 valid !msgstr="refrán"
 valid !msgstr="refrenar(se)?"
-hint="« Refrain » se traduce como como « Estribillo/Abstenerse de », no como « Refrán/Refrenar » (falso amigo)"
+hint="«Refrain» se traduce como como «Estribillo/Abstenerse de», no como «Refrán/Refrenar» (falso amigo)"
 
 {\brefund\b}i
 id="ff-2-refund"
@@ -1655,13 +1674,13 @@ valid msgstr="ree?mbols(ar|a|e)"
 valid msgstr="ree?mbolsará" after="will\s"
 valid msgstr="ree?mbolsó" after="did\s"
 valid !msgstr="refund(ir|e|a)"
-hint="« Refund » se traduce como como « Rembolsar », no como « Refundir » (falso amigo)"
+hint="«Refund» se traduce como como «Rembolsar», no como «Refundir» (falso amigo)"
 
 {\brefunds\b}i
 id="ff-2-refunds"
 valid msgstr="ree?mbols(a|e)"
 valid !msgstr="refund(a|e)"
-hint="« Refunds » se traduce como como « Rembolsa », no como « Refunde » (falso amigo)"
+hint="«Refunds» se traduce como como «Rembolsa», no como «Refunde» (falso amigo)"
 
 {\brelevant\b}i
 id="ff-1-relevant"
@@ -1669,7 +1688,7 @@ valid msgstr="pertinente"
 valid msgstr="aplicable"
 valid msgstr="adecuad[oa]"
 valid !msgstr="relevante"
-hint="« Relevant » se traduce como como « Pertinente/Adecuado », no como « Relevante » (falso amigo)"
+hint="«Relevant» se traduce como como «Pertinente/Adecuado», no como «Relevante» (falso amigo)"
 
 {\bremove\b}i
 id="ff-1-remove"
@@ -1689,7 +1708,7 @@ valid msgstr="quito" after="I\s"
 valid msgstr="extraígo" after="I\s"
 valid !msgstr="remover"
 valid !msgstr="remuev(a|e|o)"
-hint="« Remove » se traduce como como « Quitar/Eliminar/extraer », no como « Remover » (falso amigo)"
+hint="«Remove» se traduce como como «Quitar/Eliminar/extraer», no como «Remover» (falso amigo)"
 
 {\bremoved\b}i
 id="ff-1-removed"
@@ -1711,7 +1730,7 @@ valid msgstr="extrajo"
 valid msgstr="se\s(\w+\s){1,3}extraer"
 valid msgstr="eliminar" after="be\s"
 valid !msgstr="removid[oa]"
-hint="« Removed » se traduce como como « Quitado/Eliminado », no como « Removido » (falso amigo)"
+hint="«Removed» se traduce como como «Quitado/Eliminado», no como «Removido» (falso amigo)"
 
 {\bremoves\b}i
 id="ff-1-removes"
@@ -1719,14 +1738,14 @@ valid msgstr="quit(a|e)"
 valid msgstr="elimin(a|e)"
 valid !msgstr="remuev(a|e)"
 valid msgstr="extra(e|íga)"
-hint="« Removes » se traduce como como « Quita/Elimina », no como « Remueve » (falso amigo)"
+hint="«Removes» se traduce como como «Quita/Elimina», no como «Remueve» (falso amigo)"
 
 {\brent\b}i
 id="ff-2-rent"
 valid msgstr="alquiler"
 valid msgstr="alquilar"
 valid !msgstr="rentar?"
-hint="« Rent » se traduce como como « Alquiler », no como « Renta » (falso amigo)"
+hint="«Rent» se traduce como como «Alquiler», no como «Renta» (falso amigo)"
 
 {\brents\b}i
 id="ff-2-rents"
@@ -1734,7 +1753,7 @@ valid msgstr="alquileres"
 valid msgstr="(algún|ningún|cualquier)\salquiler"
 valid msgstr="alquil(a|e)s"
 valid !msgstr="rentas?"
-hint="« Rents » se traduce como como « Alquileres », no como « Rentas » (falso amigo)"
+hint="«Rents» se traduce como como «Alquileres», no como «Rentas» (falso amigo)"
 
 {\breport\b}i
 id="ff-1-report"
@@ -1742,7 +1761,7 @@ valid msgstr="inform(ar|a|e)"
 valid msgstr="informará" after="will\s"
 valid msgstr="informó" after="did\s"
 valid !msgstr="report(ar|a|e)"
-hint="« Report » se traduce como como « Informar », no como « Reportar » (falso amigo)"
+hint="«Report» se traduce como como «Informar», no como «Reportar» (falso amigo)"
 
 {\breported\b}i
 id="ff-1-reported"
@@ -1752,7 +1771,7 @@ valid msgstr="se\sinform[ae]n?"
 valid msgstr="informó"
 valid msgstr="se\s(\w+\s){1,3}informar"
 valid !msgstr="reportad[oa]"
-hint="« Reported » se traduce como como « Informado », no como « Reportado » (falso amigo)"
+hint="«Reported» se traduce como como «Informado», no como «Reportado» (falso amigo)"
 
 {\breports\b}i
 id="ff-1-reports"
@@ -1760,7 +1779,7 @@ valid msgstr="inform(a|e)"
 valid msgstr="informes"
 valid msgstr="(algún|ningún|cualquier)\sinforme"
 valid !msgstr="report(a|e)s?"
-hint="« Reports » se traduce como como « Informes », no como « Reportes » (falso amigo)"
+hint="«Reports» se traduce como como «Informes», no como «Reportes» (falso amigo)"
 
 {\bresume\b}i
 id="ff-1-resume"
@@ -1771,7 +1790,7 @@ valid msgstr="retomará" after="will\s"
 valid msgstr="reanudó" after="did\s"
 valid msgstr="retomó" after="did\s"
 valid !msgstr="resumen?"
-hint="« Resume » se traduce como como « Reanudar », no como « Resumen » (falso amigo)"
+hint="«Resume» se traduce como como «Reanudar», no como «Resumen» (falso amigo)"
 
 {\bresumed\b}i
 id="ff-1-resumed"
@@ -1781,21 +1800,21 @@ valid msgstr="se\sreanud[ae]n?"
 valid msgstr="reanudó"
 valid msgstr="se\s(\w+\s){1,3}reanudar"
 valid !msgstr="resumid[oa]"
-hint="« Resumed » se traduce como como « Reanudado », no como « Resumido » (falso amigo)"
+hint="«Resumed» se traduce como como «Reanudado», no como «Resumido» (falso amigo)"
 
 {\bresumes\b}i
 id="ff-1-resumes"
 valid msgstr="reanud(a|e)"
 valid msgstr="retom(a|e)"
 valid !msgstr="resúmenes"
-hint="« Resumes » se traduce como como « Reanuda », no como « Resume » (falso amigo)"
+hint="«Resumes» se traduce como como «Reanuda», no como «Resume» (falso amigo)"
 
 {\bsane\b}i
 id="ff-2-sane"
 valid msgstr="cuerd[oa]"
 valid msgstr="sensat[oa]"
 valid !msgstr="san[oa]"
-hint="« Sane » se traduce como como « Cuerdo/Sensato », no como « Sano » (falso amigo)"
+hint="«Sane» se traduce como como «Cuerdo/Sensato», no como «Sano» (falso amigo)"
 
 {\bsanity\b}i
 id="ff-2-sanity"
@@ -1803,14 +1822,14 @@ valid msgstr="cordura"
 valid msgstr="juicio"
 valid msgstr="salud\smental"
 valid !msgstr="sanidad"
-hint="« Sanity » se traduce como como « Cordura/juicio », no como « Sanidad » (falso amigo)"
+hint="«Sanity» se traduce como como «Cordura/juicio», no como «Sanidad» (falso amigo)"
 
 {\bscholar\b}i
 id="ff-2-scholar"
 valid msgstr="erudit[oa]"
 valid msgstr="académic[oa]"
 valid !msgstr="escolar"
-hint="« Scholar » se traduce como como « Erudito », no como « Escolar » (falso amigo)"
+hint="«Scholar» se traduce como como «Erudito», no como «Escolar» (falso amigo)"
 
 {\bscholars\b}i
 id="ff-2-scholars"
@@ -1819,65 +1838,65 @@ valid msgstr="(algún|ningún|cualquier)\serudito"
 valid msgstr="académic[oa]s"
 valid msgstr="(algún|ningún|cualquier)\sacadémico"
 valid !msgstr="escolares"
-hint="« Scholars » se traduce como como « Eruditos », no como « Escolares » (falso amigo)"
+hint="«Scholars» se traduce como como «Eruditos», no como «Escolares» (falso amigo)"
 
 {\bsensible\b}i
 id="ff-1-sensible"
 valid msgstr="razonable"
 valid msgstr="sensat[oa]"
 valid !msgstr="sensible"
-hint="« Sensible » se traduce como como « Razonable/Sensato », no como « Sensible » (falso amigo)"
+hint="«Sensible» se traduce como como «Razonable/Sensato», no como «Sensible» (falso amigo)"
 
 {\bsensibles\b}i
 id="ff-1-sensibles"
 valid msgstr="razonables"
 valid msgstr="sensat[oa]s"
 valid !msgstr="sensibles"
-hint="« Sensibles » se traduce como como « Razonables/Sensatos », no como « Sensibles » (falso amigo)"
+hint="«Sensibles» se traduce como como «Razonables/Sensatos», no como «Sensibles» (falso amigo)"
 
 {\bsensitive\b}i
 id="ff-1-sensitive"
 valid msgstr="confidencial"
 valid !msgstr="sensitiv[oa]"
-hint="« Sensitive » se traduce como como « Confidencial », no como « Sensitivo » (falso amigo)"
+hint="«Sensitive» se traduce como como «Confidencial», no como «Sensitivo» (falso amigo)"
 
 {\bsensitives\b}i
 id="ff-1-sensitives"
 valid msgstr="confidenciales"
 valid !msgstr="sensitiv[oa]s"
-hint="« Sensitives » se traduce como como « Confidenciales », no como « Sensitivos » (falso amigo)"
+hint="«Sensitives» se traduce como como «Confidenciales», no como «Sensitivos» (falso amigo)"
 
 {\bsilicon\b}i
 id="ff-2-silicon"
 valid msgstr="silicio"
 valid !msgstr="silicona"
-hint="« Silicon » se traduce como como « Silicio », no como « Silicona » (falso amigo)"
+hint="«Silicon» se traduce como como «Silicio», no como «Silicona» (falso amigo)"
 
 {\bsimple\b}i
 id="ff-1-simple"
 valid msgstr="sencill[oa]"
 valid !msgstr="simple"
-hint="« Simple » se traduce como como « Sencillo », no como « Simple » (falso amigo)"
+hint="«Simple» se traduce como como «Sencillo», no como «Simple» (falso amigo)"
 
 {\bspade\b}i
 id="ff-2-spade"
 valid msgstr="pala"
 valid !msgstr="espada"
-hint="« Spade » se traduce como como « Pala », no como « Espada » (falso amigo)"
+hint="«Spade» se traduce como como «Pala», no como «Espada» (falso amigo)"
 
 {\bspades\b}i
 id="ff-2-spades"
 valid msgstr="palas"
 valid msgstr="(alguna|ninguna|cualquier)\spala"
 valid !msgstr="espadas?"
-hint="« Spades » se traduce como como « Palas », no como « Espadas » (falso amigo)"
+hint="«Spades» se traduce como como «Palas», no como «Espadas» (falso amigo)"
 
 {\bstranger\b}i
 id="ff-2-stranger"
 valid msgstr="foraster[oa]"
 valid msgstr="extrañ[oa]"
 valid !msgstr="extranjer[oa]"
-hint="« Stranger » se traduce como como « Forastero », no como « Extranjero » (falso amigo)"
+hint="«Stranger» se traduce como como «Forastero», no como «Extranjero» (falso amigo)"
 
 {\bstrangers\b}i
 id="ff-2-strangers"
@@ -1888,54 +1907,54 @@ valid msgstr="extrañ[oa]s"
 valid msgstr="(algún|ningún|cualquier)\sextraño"
 valid msgstr="(alguna|ninguna|cualquier)\sextraña"
 valid !msgstr="extranjer[oa]s?"
-hint="« Strangers » se traduce como como « Forasteros », no como « Extranjeros » (falso amigo)"
+hint="«Strangers» se traduce como como «Forasteros», no como «Extranjeros» (falso amigo)"
 
 {\bsuccess\b}i
 id="ff-1-success"
 valid msgstr="éxito"
 valid msgstr="satisfactori[oa]"
 valid !msgstr="suceso"
-hint="« Success » se traduce como como « Éxito », no como « Suceso » (falso amigo)"
+hint="«Success» se traduce como como «Éxito», no como «Suceso» (falso amigo)"
 
 {\bsuggestion\b}i
 id="ff-1-suggestion"
 valid msgstr="sugerencia"
 valid !msgstr="sugestión"
-hint="« Suggestion » se traduce como como « Sugerencia », no como « Sugestión » (falso amigo)"
+hint="«Suggestion» se traduce como como «Sugerencia», no como «Sugestión» (falso amigo)"
 
 {\bsuggestions\b}i
 id="ff-1-suggestions"
 valid msgstr="sugerencias"
 valid msgstr="(alguna|ninguna|cualquier)\ssugerencia"
 valid !msgstr="sugestiones"
-hint="« Suggestions » se traduce como como « Sugerencias », no como « Sugestiones » (falso amigo)"
+hint="«Suggestions» se traduce como como «Sugerencias», no como «Sugestiones» (falso amigo)"
 
 {\bsymphathetic\b}i
 id="ff-2-sympathetic"
 valid msgstr="compasiv[oa]"
 valid msgstr="comprensiv[oa]"
 valid !msgstr="simpátic[oa]"
-hint="« Sympathetic » se traduce como como « Compasivo », no como « Simpático » (falso amigo)"
+hint="«Sympathetic» se traduce como como «Compasivo», no como «Simpático» (falso amigo)"
 
 {\bsymphathetics\b}i
 id="ff-2-sympathetics"
 valid msgstr="compasiv[oa]s"
 valid msgstr="comprensiv[oa]s"
 valid !msgstr="simpátic[oa]s?"
-hint="« Sympathetics » se traduce como como « Compasivos », no como « Simpáticos » (falso amigo)"
+hint="«Sympathetics» se traduce como como «Compasivos», no como «Simpáticos» (falso amigo)"
 
 {\bsympathy\b}i
 id="ff-2-sympathy"
 valid msgstr="compasión"
 valid !msgstr="simpatía"
-hint="« Sympathy » se traduce como como « Compasión », no como « Simpatía » (falso amigo)"
+hint="«Sympathy» se traduce como como «Compasión», no como «Simpatía» (falso amigo)"
 
 {\bsympathize\b}i
 id="ff-2-sympathize"
 valid msgstr="compadecer(se)?"
 valid msgstr="condoler(se)?"
 valid !msgstr="simpatizar"
-hint="« Sympathize » se traduce como como « Compadecerse/Condolerse », no como « Simpatizar » (falso amigo)"
+hint="«Sympathize» se traduce como como «Compadecerse/Condolerse», no como «Simpatizar» (falso amigo)"
 
 {\btarget\b}i
 id="ff-1-target"
@@ -1943,7 +1962,7 @@ valid msgstr="blanco"
 valid msgstr="objetivo"
 valid msgstr="destino"
 valid !msgstr="tarjeta"
-hint="« Target » se traduce como como « Blanco/Destino », no como « Tarjeta » (falso amigo)"
+hint="«Target» se traduce como como «Blanco/Destino», no como «Tarjeta» (falso amigo)"
 
 {\btargets\b}i
 id="ff-1-targets"
@@ -1954,13 +1973,13 @@ valid msgstr="(algún|ningún|cualquier)\sobjetivo"
 valid msgstr="destinos"
 valid msgstr="(algún|ningún|cualquier)\sdestino"
 valid !msgstr="tarjetas?"
-hint="« Targets » se traduce como como « Blancos/Destinos », no como « Tarjetas » (falso amigo)"
+hint="«Targets» se traduce como como «Blancos/Destinos», no como «Tarjetas» (falso amigo)"
 
 {\btenant\b}i
 id="ff-2-tenant"
 valid msgstr="inquilino"
 valid !msgstr="teniente"
-hint="« Tenant » se traduce como como « Inquilino », no como « Teniente » (falso amigo)"
+hint="«Tenant» se traduce como como «Inquilino», no como «Teniente» (falso amigo)"
 
 {\btenants\b}i
 id="ff-2-tenants"
@@ -1968,7 +1987,7 @@ valid msgstr="inquilin[oa]s"
 valid msgstr="(algún|ningún|cualquier)\sinquilino"
 valid msgstr="(alguna|ninguna|cualquier)\sinquilina"
 valid !msgstr="tenientes"
-hint="« Tenants » se traduce como como « Inquilinos », no como « Tenientes » (falso amigo)"
+hint="«Tenants» se traduce como como «Inquilinos», no como «Tenientes» (falso amigo)"
 
 {\bterrific\b}i
 id="ff-1-terrific"
@@ -1976,14 +1995,14 @@ valid msgstr="terrible"
 valid msgstr="estupend[oa]"
 valid msgstr="tremend[oa]"
 valid !msgstr="terrorífic[oa]"
-hint="« Terrific » se traduce como como « Estupendo/Tremendo/Terrible », no como « Terrorífico » (falso amigo)"
+hint="«Terrific» se traduce como como «Estupendo/Tremendo/Terrible», no como «Terrorífico» (falso amigo)"
 
 {\btramp\b}i
 id="ff-2-tramp"
 valid msgstr="vagabundo"
 valid !msgstr="trampa"
 valid !msgstr="tramper[oa]"
-hint="« Tramp » se traduce como como « Vagabundo », no como « Trampa/Trampero » (falso amigo)"
+hint="«Tramp» se traduce como como «Vagabundo», no como «Trampa/Trampero» (falso amigo)"
 
 {\btrascend\b}i
 id="ff-2-trascend"
@@ -1998,7 +2017,7 @@ valid msgstr="superó" after="did\s"
 valid msgstr="rebasó" after="did\s"
 valid !msgstr="trascender"
 valid !msgstr="trasciend(e|a)"
-hint="« Trascend » se traduce como como « Sobrepasar/Rebasar », no como « Trascender » (falso amigo)"
+hint="«Trascend» se traduce como como «Sobrepasar/Rebasar», no como «Trascender» (falso amigo)"
 
 {\btrascends\b}i
 id="ff-2-trascends"
@@ -2006,39 +2025,39 @@ valid msgstr="sobrepas(a|e)"
 valid msgstr="super(a|e)"
 valid msgstr="rebas(a|e)"
 valid !msgstr="trasciend(e|a)"
-hint="« Trascends » se traduce como como « Sobrepasa/Rebasa », no como « Trasciende » (falso amigo)"
+hint="«Trascends» se traduce como como «Sobrepasa/Rebasa», no como «Trasciende» (falso amigo)"
 
 {\bulterior\b}i
 id="ff-1-ulterior"
 valid msgstr="oculto"
 valid !msgstr="ulterior"
-hint="« Ulterior » se traduce como como « Oculto », no como « Ulterior » (falso amigo)"
+hint="«Ulterior» se traduce como como «Oculto», no como «Ulterior» (falso amigo)"
 
 {\bultimate\b}i
 id="ff-1-ultimate"
 valid msgstr="lo\smás\sreciente"
 valid msgstr="definitiv[oa]"
 valid !msgstr="últim[oa]"
-hint="« Ultimate » se traduce como como « Lo más reciente/Definitivo », no como « Último » (falso amigo)"
+hint="«Ultimate» se traduce como como «Lo más reciente/Definitivo», no como «Último» (falso amigo)"
 
 {\bultimately}i
 id="ff-1-ultimately"
 valid msgstr="finalmente"
 valid !msgstr="últimamente"
-hint="« Ultimately se traduce como como « Finalmente» no como « Últimamente » (falso amigo)"
+hint="«Ultimately se traduce como como «Finalmente» no como «Últimamente» (falso amigo)"
 
 {\bvase\b}i
 id="ff-2-vase"
 valid msgstr="jarrón"
 valid !msgstr="vaso"
-hint="« Vase » se traduce como como « Jarrón », no como « Vaso » (falso amigo)"
+hint="«Vase» se traduce como como «Jarrón», no como «Vaso» (falso amigo)"
 
 {\bvases\b}i
 id="ff-2-vases"
 valid msgstr="jarrones"
 valid msgstr="(algún|ningún|cualquier)\sjarrón"
 valid !msgstr="vasos?"
-hint="« Vases » se traduce como como « Jarrones », no como « Vasos » (falso amigo)"
+hint="«Vases» se traduce como como «Jarrones», no como «Vasos» (falso amigo)"
 
 {\bvicious\b}i
 id="ff-2-vicious"
@@ -2046,39 +2065,39 @@ valid msgstr="brutal"
 valid msgstr="feroz"
 valid msgstr="malicios[oa]"
 valid !msgstr="vicios[oa]"
-hint="« Vicious » se traduce como como « Brutal/Feroz », no como « Vicioso » (falso amigo)"
+hint="«Vicious» se traduce como como «Brutal/Feroz», no como «Vicioso» (falso amigo)"
 
 {\bvirtually\b}i
 id="ff-1-virtually"
 valid msgstr="prácticamente"
 valid !msgstr="virtualmente"
-hint="« Virtually » se traduce como como « Prácticamente », no como « Virtualmente » (falso amigo)"
+hint="«Virtually» se traduce como como «Prácticamente», no como «Virtualmente» (falso amigo)"
 
 {\bvoluble\b}i
 id="ff-2-voluble"
 valid msgstr="locuaz"
 valid msgstr="habladora?"
 valid !msgstr="voluble"
-hint="« Voluble » se traduce como como « Locuaz/Hablador », no como « Voluble » (falso amigo)"
+hint="«Voluble» se traduce como como «Locuaz/Hablador», no como «Voluble» (falso amigo)"
 
 {\bvolubles\b}i
 id="ff-2-volubles"
 valid msgstr="locuaces"
 valid msgstr="habladores"
 valid !msgstr="volubles?"
-hint="« Volubles » se traduce como como « Locuaces/Habladores », no como « Volubles » (falso amigo)"
+hint="«Volubles» se traduce como como «Locuaces/Habladores», no como «Volubles» (falso amigo)"
 
 {\bvolubility\b}i
 id="ff-2-volubility"
 valid msgstr="locuacidad"
 valid !msgstr="volubilidad"
-hint="« Voluble » se traduce como como « Locuacidad », no como « Volubilidad » (falso amigo)"
+hint="«Voluble» se traduce como como «Locuacidad», no como «Volubilidad» (falso amigo)"
 
 {\byet\b}i
 id="ff-1-yet"
 valid msgstr="todavía"
 valid msgstr="aún"
 valid !msgstr="ya"
-hint="« Yet » se traduce como como « Todavía », no como « Ya » (falso amigo)"
+hint="«Yet» se traduce como como «Todavía», no como «Ya» (falso amigo)"
 
 # End of rule file

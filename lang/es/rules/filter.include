@@ -60,7 +60,7 @@ addFilterRegex match="[^\%][\dXx]+([\.\,\:\/][\dXx]+)+" repl="~" on="pmsgid,pmsg
 addFilterRegex match="\((\w+\s)+at(\s\w+)*(\s\w{2,3}){1,2}\)" repl="~" on="pmsgid,pmsgstr"
 
 # Remove Linux files
-addFilterRegex match="\b(\$HOME|~|bin|boot|dev|etc|home|lib|lib64|lost\+found|media|mnt|opt|proc|root|run|sbin|srv|sys|tmp|usr|var)(\/(\.|\-|\+|\_|\w)+)+" repl="~" on="pmsgid,pmsgstr"
+addFilterRegex match="\b(\$KDEHOME|\$HOME|~|bin|boot|dev|etc|home|lib|lib64|lost\+found|media|mnt|opt|proc|root|run|sbin|srv|sys|tmp|usr|var)(\/(\.|\-|\+|\_|\w)+)+" repl="~" on="pmsgid,pmsgstr"
 
 # Remove Windows files
 addFilterRegex match="\b[A-Z]\:(\\\\(\.|\-|\+|\_|\w)+)+" repl="~" on="pmsgid,pmsgstr"

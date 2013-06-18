@@ -701,6 +701,11 @@ id="gr-1-reflexivo-seguido-pronombre"
 valid msgstr="el\seste"
 hint="Hay un reflexivo seguido de un pronombre en el párrafo (error gramatical)"
 
+[(?u)\bsí(?!\n)\s+(yo|tú|vos|él|ellas?|ellos?|usted|ustedes|nosotr[oa]s|mí|ti|sí)\b]i
+id="gr-1-si-seguido-pronombre"
+valid msgstr="el\seste"
+hint="Hay un «si» con tilde seguido de un pronombre en el párrafo (error gramatical)"
+
 [(?u)\b(le|se)(?!\n)\s+(el|un|unos|unas)\b]i
 id="gr-1-reflexivo-seguido-articulo"
 valid msgstr="el\seste"
@@ -710,6 +715,11 @@ hint="Hay un reflexivo seguido de un artículo en el párrafo (error gramatical)
 id="gr-1-reflexivo-seguido-demostrativo"
 valid msgstr="el\seste"
 hint="Hay un reflexivo seguido de un demostrativo en el párrafo (error gramatical)"
+
+[(?u)\bsí(?!\n)\s+(este|ese|aquel|estas?|esas?|aquellas?|estos?|esos?|aquellos?|mis?|tus?|sus?)\b]i
+id="gr-1-si-seguido-demostrativo"
+valid msgstr="el\seste"
+hint="Hay un «si» con tilde seguido de un demostrativo en el párrafo (error gramatical)"
 
 [(?u)\b(el|la|los|las)(?!\n)\s+(un|uno|una|unos|unas)\b]i
 id="gr-1-articulo-seguido-un"
@@ -901,7 +911,6 @@ hint="«¿... que» se escribe como «¿... qué», (error gramatical)"
 [¿porque\b]i
 id="gr-1-porque-interrogativo"
 hint="«¿Porque...» se escribe como «¿Por qué...», (error gramatical)"
-
 
 [¡cuan\b]i
 id="gr-1-cuan-admirativo"
@@ -1369,19 +1378,23 @@ valid after="(el|del|mi|tu|su|este|ese|aquel|un|algún|ningún|cierto)\s"
 id="gr-1-porque-sin-demostrativo"
 hint="«Porqué» siempre debe venir precedido de un determinante (error gramatical)"
 
+[(?u)\b(a|ante|con|contra|de|desde|durante|en|entre|hacia|hasta|para|según|sin|tras)\ssi\b]i
+id="gr-1-preposicion-delante-de-si"
+hint="«Sí» se escribe con tilde después de una preposición (error gramatical)"
+
 #
 # ERRORES CON FINALES DE FRASE
 #
 
-[(?u)\b(me|te|se|nos|os|los?|las?|les?)(\.|\?|\!|\<p\>)]i
+[(?u)\b(me|te|se|nos|os|los?|las?|les?)(\.|,|;|\?|\!|\<p\>)]i
 id="gr-1-pronombre-al-fin-de-frase"
 valid span="(?u)\b\w+\." before="\.\."
 hint="Un pronombre personal no puede aparecer al final de frase( error gramatical)"
 
-[(?u)\b(el|te|se|mi|de|mas|si|tu|que|aun)(\.|\?|\!|\<p\>)]i
+[(?u)\b(el|te|se|mi|de|mas|si|tu|que|aun)(\.|\,|;|\?|\!|\<p\>)]i
 id="gr-1-tilde-diacritica-al-fin-de-frase"
 valid span="(?u)\b\w+\." before="\.\."
-valid span="de\." before="\w" # Grupos de noticias alemanes.
+valid span="(?u)\bde\." before="[a-z]" # Grupos de noticias alemanes.
 valid msgstr="SE"
 hint="Monosílabo que lleva tilde al final de frase «de/el/mas/mi/que/se/si/te/tu/aun» (error gramatical)"
 
