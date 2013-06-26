@@ -348,7 +348,7 @@ hint="Los elementos químicos no llevan punto"
 
 [\b(a|A|at|atm|b|bar|c|cal|cd|cm|CV|d|da|dB|dm|dyn|erg|eV|f|F|ft|g|G|gr|Gs|Gy|h|H|ha|hp|Hz|in|J|k|K|kg|km|l|L|lb|lm|lx|m|M|mbar|Mc|mg|min|mol|Mx|n|N|Oe|oz|p|P|Pa|pc|pt|Qm|R|rad|s|sr|Sv|t|T|tex|u|UA|V|Wb|yd)\.]
 id="ty-2-punto-en-unidad-medida"
-valid span="[A-Z]\." before="\s[A-Z]\w+"
+valid span="\w\." before="\s[A-Z]\w+"
 valid span="\w\." before="\w+\."
 valid before="$"
 valid before="\.\."

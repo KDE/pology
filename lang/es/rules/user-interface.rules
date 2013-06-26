@@ -30,6 +30,7 @@ hint="« Ctrl » se traduce como « Ctrl » (regla de traducción de nombres de 
 {\bDel\b}
 id="ui-2-tecla-del"
 valid msgstr="Supr"
+valid after="[A-Z]\w+\s" before="\s[A-Z]\w+"
 hint="« Del » se traduce como « Supr » (regla de traducción de nombres de teclas)"
 
 {^End$}

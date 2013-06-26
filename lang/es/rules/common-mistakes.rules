@@ -185,6 +185,15 @@ hint="«Así mismo» se escribe como «Asimismo» (error frecuente)"
 id="cm-2-atentar-a"
 hint="«Atentar a» se escribe como «Atentar contra» (error frecuente)"
 
+[\baún\sasí\b]i
+id="cm-2-aun-asi"
+hint="«Aún así» se escribe como «Aun así» (error frecuente)"
+
+
+[\baún\scuando\b]i
+id="cm-2-aun-cuando"
+hint="«Aún cuando» se escribe como «Aun cuando» (error frecuente)"
+
 [\baya\b]i
 id="cm-2-aya"
 hint="«Aya» se escribe como «Haya», salvo si se trata de niñeras (error frecuente)"
@@ -721,6 +730,11 @@ hint="«Me se» se escribe como «Se me» (error frecuente)"
 [\bnexos?\sde\sunión\b]i
 id="cm-2-nexo-de-union"
 hint="«Nexo de unión» se escribe como «Nexo» (error frecuente: redundancia)"
+
+
+[\bni\saún\b]i
+id="cm-2-ni-aun-con-tilde"
+hint="«Ni aún» se escribe «Ni aun» sin tilde (error frecuente)"
 
 [\bni\squé\sdecir\stiene\b]i
 id="cm-2-ni-que-decir-tiene-con-tilde"

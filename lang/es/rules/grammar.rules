@@ -814,6 +814,7 @@ hint="Las siglas se escriben sin puntos intermedios, todas las letras juntas (er
 #
 
 [(?u)\by\s[hH]?[iíIÍ]\w*\b]
+valid span="(?u)\by\s[hH][iI][eE]\w*\b"
 id="gr-1-y-ante-i"
 hint="Delante de palabras que empiezan por «i» se usa «e» en lugar de «y» (error gramatical)"
 
@@ -1171,7 +1172,7 @@ validGroup beforeComma
 hint="Ponga una coma antes de «ahora bien» (error gramatical)"
 
 [\ben\sprimer\slugar\b]
-id="gr-3-falta-coma-antes-an-primer-lugar"
+id="gr-3-falta-coma-antes-en-primer-lugar"
 validGroup beforeComma
 hint="Ponga una coma antes de «en primer lugar» (error gramatical)"
 
@@ -1295,6 +1296,11 @@ id="gr-3-falta-coma-antes-hola"
 validGroup beforeComma
 hint="Ponga una coma antes de «hola» (error gramatical)"
 
+[\bpero\b]
+id="gr-3-falta-coma-antes-pero"
+validGroup beforeComma
+hint="Ponga una coma antes de «pero» (error gramatical)"
+
 [\betcétera\b]i
 id="gr-3-falta-coma-antes-etc"
 valid after=",\s"
@@ -1394,7 +1400,7 @@ hint="Un pronombre personal no puede aparecer al final de frase( error gramatica
 [(?u)\b(el|te|se|mi|de|mas|si|tu|que|aun)(\.|\,|;|\?|\!|\<p\>)]i
 id="gr-1-tilde-diacritica-al-fin-de-frase"
 valid span="(?u)\b\w+\." before="\.\."
-valid span="(?u)\bde\." before="[a-z]" # Grupos de noticias alemanes.
+valid span="(?u)\bde\." before="\S" # Grupos de noticias alemanes.
 valid msgstr="SE"
 hint="Monosílabo que lleva tilde al final de frase «de/el/mas/mi/que/se/si/te/tu/aun» (error gramatical)"
 
