@@ -1068,18 +1068,15 @@ valid msgstr="con\ssuavidad"
 valid !msgstr="gentilmente"
 hint="«Gently» se traduce como como «Con cuidado/suavidad», no como «Gentilmente» (falso amigo)"
 
-{\bglobe\b}i
-id="ff-2-globe"
+{\bglove\b}i
+id="ff-2-glove"
 valid msgstr="guante"
-valid msgstr="globo" after="(virtual|desktop)\s"
-valid msgstr="globo" cat="kstarts,marble"
 hint="«Glove» se traduce como como «Guante», no como «Globo» (falso amigo)"
 
-{\bglobes\b}i
-id="ff-2-globes"
+{\bgloves\b}i
+id="ff-2-gloves"
 valid msgstr="guantes"
 valid msgstr="(algún|ningún|cualquier)\sguante"
-valid msgstr="globos" after="(virtual|desktop)\s"
 hint="«Gloves» se traduce como como «Guantes», no como «Globos» (falso amigo)"
 
 {\bgracious\b}i

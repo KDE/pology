@@ -1301,6 +1301,11 @@ id="gr-3-falta-coma-antes-pero"
 validGroup beforeComma
 hint="Ponga una coma antes de «pero» (error gramatical)"
 
+[\bpero\,]
+id="gr-3-sobra-coma-despues-pero"
+valid before="(\s\w+){1,3}\,"
+hint="No ponga coma después de «pero» (error gramatical)"
+
 [\betcétera\b]i
 id="gr-3-falta-coma-antes-etc"
 valid after=",\s"
@@ -1397,11 +1402,12 @@ id="gr-1-pronombre-al-fin-de-frase"
 valid span="(?u)\b\w+\." before="\.\."
 hint="Un pronombre personal no puede aparecer al final de frase( error gramatical)"
 
-[(?u)\b(el|te|se|mi|de|mas|si|tu|que|aun)(\.|\,|;|\?|\!|\<p\>)]i
+[(?u)\b(el|te|se|mi|de|mas|si|tu|que|aun)(\.|,|;|\?|\!|\<p\>)]i
 id="gr-1-tilde-diacritica-al-fin-de-frase"
 valid span="(?u)\b\w+\." before="\.\."
-valid span="(?u)\bde\." before="\S" # Grupos de noticias alemanes.
-valid msgstr="SE"
+valid span="(?u)\b\w+(\,|\;)" before="(\s\w+){1,3}(\,|\;)"
+valid span="(?u)\bde\." before="(\S|~)" # Grupos de noticias alemanes.
+valid msgstr="SE" # Punto cardinal
 hint="Monosílabo que lleva tilde al final de frase «de/el/mas/mi/que/se/si/te/tu/aun» (error gramatical)"
 
 #
