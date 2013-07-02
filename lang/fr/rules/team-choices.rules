@@ -507,4 +507,11 @@ valid msgstr="favoris[e|é|a]"
 valid msgid="favorite"
 hint="Utilisez « signet » et non « favori »"
 
+{\battachments?\b}i
+valid msgstr="pièces? jointe"
+valid msgstr="piece_?jointe."
+valid msgstr="fichiers? joint"
+valid msgstr="attachement"
+hint="Traduisez « attachement » par pièce jointe" 
+
 # End of rule file
