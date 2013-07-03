@@ -8,14 +8,17 @@ Remove special substrings from parts of the message.
 """
 
 import re
+#from pology import PologyError, datadir, _, n_
+#from pology.report import report, warning, format_item_list
 
 
 # Capitals words in valid contexts in the translated text according with Spanish grammar
 # (beggining of paragraph, after some punctuation characters and after a new line)
-_valid_capital_word = re.compile("(?u)(\A|\\\\n|\.|\:|\?|\!|\>|«|\")\s*[A-Z]\w*")
+_valid_capital_word_middle = re.compile("(?u)(?<=[\\\\n|\.|\:|\?|\!|\>|\«|\"]\s)\w*?[A-Z]\w*")
+_valid_capital_word_initial = re.compile("(?u)^\w*?[A-Z]\w*")
 
 # All capital words in the original English text,
-_ent_capital_word = re.compile("(?u)[A-Z]\w*")
+_ent_capital_word = re.compile("(?u)\w*?[A-Z]\w*")
 # All plural full capital words (acronyms) without the final 's'.
 _ent_capital_word_plural = re.compile("(?u)[A-Z]+(?=s)")
 
@@ -26,22 +29,25 @@ def remove_paired_capital_words (msg, cat):
 
     @return: number of errors
     """
-
+    
     # Obtains capitals words in valid contexts in the translated text.
     for i in range(len(msg.msgstr)):
         ents = set()
-        ents.update(_valid_capital_word.findall(msg.msgstr[i]))
+        ents.update(_valid_capital_word_middle.findall(msg.msgstr[i]))
+        ents.update(_valid_capital_word_initial.findall(msg.msgstr[i]))
         if i == 0:
             # Obtains all capitals words in the original English text.
             ents.update(_ent_capital_word.findall(msg.msgid))
             ents.update(_ent_capital_word_plural.findall(msg.msgid))
         else:
             if msg.msgid_plural:
-                ents.update(_ent_capital_word.findall(msg.msgid_plural))
-                ents.update(_ent_capital_word_plural.findall(msg.msgid_plural))
-        # Joins both set of words an remove it from the message.
+		ents.update(_ent_capital_word.findall(msg.msgid_plural))
+		ents.update(_ent_capital_word_plural.findall(msg.msgid_plural))
+	# Joins both set of words an remove them from the message.
         for ent in ents:
-            msg.msgstr[i] = msg.msgstr[i].replace(ent, "~")
+	    # report(_("@info", "Palabra en mayusculas: %(info)s \n", info=ent))
+            # msg.msgstr[i] = msg.msgstr[i].replace(ent, "~")
+            msg.msgstr[i] = re.sub(r'(?u)\b' + ent + r'\b', '~', msg.msgstr[i])
 
     # The remainning words could have wrong capitalization in the translated message.
 	

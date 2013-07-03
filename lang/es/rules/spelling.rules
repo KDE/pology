@@ -5,35 +5,30 @@
 
 include file="filter.include"
 
-# Omit group of words not translated
-addFilterRegex match="(?u)\b(echo\snest|make\s(un)?install|(little|big)\sendian|summer\sof\scode|Frame\sBuffer|The\sBat\!)\b" repl="~" on="pmsgstr"
-addFilterRegex match="(?u)\b(Planet\sKDE|KDE\sApps|Qt\s(Designer|Creator))\b" repl="~" on="pmsgstr"
-addFilterRegex match="(?u)\b(Microsoft\sWindows|Internet\sExplorer|Outlook\sExpress)\b" repl="~" on="pmsgstr"
-addFilterRegex match="(?u)\b(Mozilla\sFirefox|Google\s(Chrome|Earth|Maps|Translate)|Pegasus\sMail)\b" repl="~" on="pmsgstr"
-addFilterRegex match="(?u)\b(Prety\sGood\sPrivacy)\b" repl="~" on="pmsgstr"
-addFilterRegex match="(?u)\b[A-Z]\w*\s(Window\sManager|Desktop\sEnvironment)\b" repl="~" on="pmsgstr"
-addFilterRegex match="(?u)\b(lost\+found|if\=|of\=|)\b" repl="~" on="pmsgstr"
+# Omit group of words not translatables
+addFilterRegex match="(?u)\b(echo\snest|make\s(un)?install|(little|big)\sendian|summer\sof\scode)\b" repl="~" on="pmsgid,pmsgstr"
+addFilterRegex match="(?u)\b(lost\+found|if\=|of\=|)\b" repl="~" on="pmsgid,pmsgstr"
 
 # Omit words between quotes.
-addFilterRegex match="(?u)«\w+»" repl="~" on="pmsgstr"
+addFilterRegex match="(?u)«\w+?»" repl="~" on="pmsgid,pmsgstr"
+addFilterRegex match="(?u)\"\w+?\"" repl="~" on="pmsgid,pmsgstr"
+addFilterRegex match="(?u)\'\w+?\'" repl="~" on="pmsgid,pmsgstr"
 
 # Omit words between brackets.
-addFilterRegex match="(?u)\{\w+\}" repl="~" on="pmsgstr"
-addFilterRegex match="(?u)\(\w+\)" repl="~" on="pmsgstr"
+addFilterRegex match="(?u)\{\w+?\}" repl="~" on="pmsgid,pmsgstr"
+addFilterRegex match="(?u)\(\w+?\)" repl="~" on="pmsgid,pmsgstr"
 
 # Omit compounds words.
-addFilterRegex match="(?u)\b\w+(\-\w+)+" repl="~" on="pmsgstr"
+addFilterRegex match="(?u)\w+?(\-\w+?)+" repl="~" on="pmsgid,pmsgstr"
 
 # Omit words preceded by some special characters.
-addFilterRegex match="(?u)(\/|\-|\+|\:|\.)\w+" repl="~" on="pmsgstr"
-
-# Omit words witch contains at least a capital letter.
-addFilterRegex match="(?u)(?<=\w\s)[A-Z]\w*\b" casesens="yes" repl="~" on="pmsgstr"
-addFilterRegex match="(?u)\b[a-z]+[A-Z]\w*\b" casesens="yes" repl="~" on="pmsgstr"
-addFilterRegex match="(?u)\b[A-Z]\w*?[A-Z]\w*\b" casesens="yes" repl="~" on="pmsgstr"
+addFilterRegex match="(?u)\W[\/\-\+\:\.]\w+" repl="~" on="pmsgid,pmsgstr"
 
 # Omit words witch contains at least one number.
-addFilterRegex match="(?u)\b\w+?\d\w*" repl="~" on="pmsgstr"
+addFilterRegex match="(?u)\w+?\d\w*" repl="~" on="pmsgid,pmsgstr"
+
+# Omit paired capitalized words.
+addFilterHook name="es:remove_subs/remove_paired_capital_words" on="msg"
 
 *hook name="spell/check-spell-sp~lang='es'" on="msgstr"
 id="sp-0-check-spell-hook"

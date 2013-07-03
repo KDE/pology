@@ -551,7 +551,7 @@ hint="«Caché» es de género femenino (error frecuente)"
 id="cm-1-interfaz-masculino"
 hint="«Interfaz» es de género femenino (error frecuente)"
 
-[\b(el|del|un|los|unos|estos|esos)(irq|IRQ)\b]i
+[\b(el|del|un|los|unos|estos|esos)\s(irq|IRQ)\b]i
 id="cm-1-irq-masculino"
 hint="«IRQ» es femenino (error frecuente)"
 
@@ -868,7 +868,7 @@ hint="«Juega un papel» se escribe como «Representa/desempeña un/su papel» (
 id="cm-2-jugar-un-papel"
 hint="«Jugar un papel» se escribe como «Representar/desempeñar un/su papel» (error frecuente)"
 
-[\b(la|una|esta|esa|las|unas|estas|esas)(bios|BIOS)\b]i
+[\b(la|una|esta|esa|las|unas|estas|esas)\s(bios|BIOS)\b]i
 id="cm-1-bios-femenino"
 hint="«BIOS» es de género masculino (error frecuente)"
 

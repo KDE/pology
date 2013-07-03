@@ -38,10 +38,14 @@ addFilterRegex match="\:\:\w+" repl="~" on="pmsgid,pmsgstr"
 addFilterRegex match="\-\-\w+(\-\w+)*" repl="~" on="pmsgid,pmsgstr"
 
 # Remove single characters in quotes.
-addFilterRegex match="[\'\"«].[\'\"»]" repl="~" on="pmsgid,pmsgstr"
+addFilterRegex match="\'.\'" repl="~" on="pmsgid,pmsgstr"
+addFilterRegex match="\".\"" repl="~" on="pmsgid,pmsgstr"
+addFilterRegex match="«.»" repl="~" on="pmsgid,pmsgstr"
 
 # Remove groups of non alphanumeric characters in quotes.
-addFilterRegex match="[\'\"«]\W+?[\'\"»]" repl="~" on="pmsgid,pmsgstr"
+addFilterRegex match="\'\W+?\'" repl="~" on="pmsgid,pmsgstr"
+addFilterRegex match="\"\W+?\"" repl="~" on="pmsgid,pmsgstr"
+addFilterRegex match="«\W+?»" repl="~" on="pmsgid,pmsgstr"
 
 # Remove some abreviations.
 addFilterRegex match="\b(admin|cartr|cert|cond|dec|hex|inc|Jr|lab|Mr|Mrs|no|obs|oct|org|seq|Sh|sync|torr)\.(\.\.)?" repl="~" on="pmsgid,pmsgstr"
@@ -66,13 +70,13 @@ addFilterRegex match="\b(\$KDEHOME|\$HOME|~|bin|boot|dev|etc|home|lib|lib64|lost
 addFilterRegex match="\b[A-Z]\:(\\\\(\.|\-|\+|\_|\w)+)+" repl="~" on="pmsgid,pmsgstr"
 
 # Remove some special tags preceded with '%'
-addFilterRegex match="\%\w+" repl="~" on="pmsgid,pmsgstr"
+addFilterRegex match="\%\w+\%?" repl="~" on="pmsgid,pmsgstr"
 
 # Remove some special tags between ':'
-addFilterRegex match="\:\w+\:" repl="~" on="pmsgid,pmsgstr"
+addFilterRegex match="\:\w+?\:" repl="~" on="pmsgid,pmsgstr"
 
 # Remove some shell variables
-addFilterRegex match="\$\w+" repl="~" on="pmsgid,pmsgstr"
+addFilterRegex match="\$[\{\(]?\w+[\{\(]?" repl="~" on="pmsgid,pmsgstr"
 
 # Remove MIME types
 addFilterRegex match="\b(all|application|audio|fonts|image|inode|interface|message|model|multipart|text|uri|video|x\-content|x\-epoc)\/\w(\.|\-|\+|\w)*\w" repl="~" on="pmsgid,pmsgstr"
