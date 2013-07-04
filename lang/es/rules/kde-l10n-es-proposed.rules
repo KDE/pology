@@ -732,6 +732,12 @@ valid msgstr="compiladores\scruzados"
 valid msgstr="(algún|ningún|cualquier)\scompilador\scruzado"
 hint="«Cross compilers» se traduce como «Compiladores cruzados» (propuesta glosario)"
 
+{\bcustomizable\b}i
+id="ff-2-customizable"
+valid msgstr="personalizable"
+valid !msgstr="customizable"
+hint="«Customizable» se traduce como como «Personalizable», no como «Customizable» (propuesta glosario)"
+
 {\bcustomize\b}i
 id="gp-2-customize"
 valid msgstr="personaliz(ar|a|e)"

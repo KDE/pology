@@ -6,26 +6,26 @@
 include file="filter.include"
 
 # Omit group of words not translatables
-addFilterRegex match="(?u)\b(echo\snest|make\s(un)?install|(little|big)\sendian|summer\sof\scode)\b" repl="~" on="pmsgid,pmsgstr"
-addFilterRegex match="(?u)\b(lost\+found|if\=|of\=|)\b" repl="~" on="pmsgid,pmsgstr"
+addFilterRegex match="\b(echo\snest|make\s(un)?install|(little|big)\sendian|summer\sof\scode)\b" repl="~" on="pmsgid,pmsgstr"
+addFilterRegex match="\b(lost\+found|if\=|of\=|)\b" repl="~" on="pmsgid,pmsgstr"
 
 # Omit words between quotes.
-addFilterRegex match="(?u)«\w+?»" repl="~" on="pmsgid,pmsgstr"
-addFilterRegex match="(?u)\"\w+?\"" repl="~" on="pmsgid,pmsgstr"
-addFilterRegex match="(?u)\'\w+?\'" repl="~" on="pmsgid,pmsgstr"
+addFilterRegex match="«\w+»" repl="~" on="pmsgid,pmsgstr"
+addFilterRegex match="\"\w+\"" repl="~" on="pmsgid,pmsgstr"
+addFilterRegex match="\'\w+\'" repl="~" on="pmsgid,pmsgstr"
 
 # Omit words between brackets.
-addFilterRegex match="(?u)\{\w+?\}" repl="~" on="pmsgid,pmsgstr"
-addFilterRegex match="(?u)\(\w+?\)" repl="~" on="pmsgid,pmsgstr"
+addFilterRegex match="\{\w+\}" repl="~" on="pmsgid,pmsgstr"
+addFilterRegex match="\(\w+\)" repl="~" on="pmsgid,pmsgstr"
 
 # Omit compounds words.
-addFilterRegex match="(?u)\w+?(\-\w+?)+" repl="~" on="pmsgid,pmsgstr"
+addFilterRegex match="\w+(\-\w+)+" repl="~" on="pmsgid,pmsgstr"
 
 # Omit words preceded by some special characters.
-addFilterRegex match="(?u)\W[\/\-\+\:\.]\w+" repl="~" on="pmsgid,pmsgstr"
+addFilterRegex match="\W[\/\-\+\:\.]\w+" repl="~" on="pmsgid,pmsgstr"
 
 # Omit words witch contains at least one number.
-addFilterRegex match="(?u)\w+?\d\w*" repl="~" on="pmsgid,pmsgstr"
+addFilterRegex match="[a-zA-Z]+\d\w*" repl="~" on="pmsgid,pmsgstr"
 
 # Omit paired capitalized words.
 addFilterHook name="es:remove_subs/remove_paired_capital_words" on="msg"

@@ -642,25 +642,6 @@ valid msgstr="maldición"
 valid !msgstr="curso"
 hint="«Curse» se traduce como como «Maldición», no como «Curso» (falso amigo)"
 
-{\bcustomizable\b}i
-id="ff-2-customizable"
-valid msgstr="personalizable"
-valid !msgstr="customizable"
-hint="«Customizable» se traduce como como «Personalizable», no como «Customizable» (barbarismo)"
-
-{\bcustomize\b}i
-id="ff-2-customize"
-valid msgstr="personali(zar|za|ce)"
-valid !msgstr="customizar"
-hint="«Customize» se traduce como como «Personalizar», no como «Customizar» (barbarismo)"
-
-{\bcustomized\b}i
-id="ff-2-customized"
-valid msgstr="personalizad[oa]"
-valid !msgstr="customizad[oa]"
-hint="«Customized» se traduce como como «Personalizaso», no como «Customizado» (barbarismo)"
-
-
 {\bdate\b}i
 id="ff-1-date"
 valid msgstr="fecha"

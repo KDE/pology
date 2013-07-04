@@ -9,7 +9,7 @@ id="ty-3-puntos-entre-miles"
 valid msgid="\d\.\d{3}(\D|$)"
 hint="No separe con puntos los miles de los números (excepto en direcciones IP)"
 
-[\&[áéíóúüÁÉÍÓÚÜ]]
+[\&[áéíóúäëïöüàèìòùâêîôûÁÉÍÓÚÄËÏÖÜÀÈÌÒÙÂÊÎÔÛ]]
 id="ty-3-tecla-aceleradora-incorrecta"
 hint="Tecla aceleradora no válida (en vocal con tilde)"
 
@@ -79,6 +79,7 @@ valid after="white-space" # CSS
 valid after="servidor"
 valid after="\.(com|org|net)" before="\d+"
 valid after="~" before="\d+"
+valid after="\S"
 valid before="puerto"
 valid before="\w+" after="\w+\:"
 hint="Ponga un espacio después del signo de dos puntos"
@@ -99,6 +100,7 @@ valid after="center|empty|normal|pt|px|pre-wrap|\d+|[a-f]{1,2}" # CSS
 valid after="bold" before="'"   # CSS
 valid before="~"
 valid before="$"
+valid ctx="Keywords"
 hint="Ponga un espacio después del signo de punto y coma"
 
 [(?<=\s)\!]
@@ -376,5 +378,28 @@ hint="Las unidades monetarias no llevan punto"
 [\b(p\.\s?e\.|p.\sej[^\.]|ejem\.|ej\.)]i
 id="ty-2-abreviatura-por-ejemplo"
 hint="La abreviatura de «por ejemplo» es «p. ej.»"
+
+addFilterHook name="es:remove_subs/remove_paired_capital_words" on="msg"
+
+[(?u)[,;]\s+[A-ZÑÇ][a-záéíóúüñç]+]
+id="ty-2-error-mayusculas-en-lugar-indebido"
+valid ctx=".*?TRANSLATORS"
+valid ctx="trans_comment"
+valid msgid=".*?TRANSLATORS"
+valid msgid="^$"
+valid after="\&[\w\d\-_]+;"
+hint="Utilice minúsculas después de coma o punto y coma"
+
+[(?u)\([A-ZÑÇ][a-záéíóúüñç]+]
+id="ty-3-error-mayusculas-despues-parentesis"
+valid ctx=".*?TRANSLATORS"
+valid ctx="trans_comment"
+valid msgid=".*?TRANSLATORS"
+valid msgid="^$"
+valid before=".*?[\.\:]\)"
+valid after="^\s*"
+valid after="[\.\:]\s*"
+valid after="\S"
+hint="Utilice minúsculas después de apertura de paréntesis"
 
 # End of rule file
