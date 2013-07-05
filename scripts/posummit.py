@@ -773,6 +773,8 @@ def derive_project_data (project, options, nwgrefpath=None):
                                 (summit_path, summit_subdir)]
                         else:
                             needed_additions.append((branch_path, summit_path))
+                    elif "scatter" in p.opmodes:
+                        needed_additions.append((branch_path, summit_path))
 
     # Initialize inverse mappings.
     # - part inverse:
