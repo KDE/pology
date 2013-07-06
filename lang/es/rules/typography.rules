@@ -126,6 +126,13 @@ valid ctx="Numbers and characters"
 valid ctx="CSV separator"
 hint="Abra la admiración (deben ir emparejadas)"
 
+[(?s)\![^¡]*?\!]
+id="ty-3-falta-apertura-admiracion-varias"
+validGroup beforePunctuation
+valid ctx="Numbers and characters"
+valid ctx="CSV separator"
+hint="Abra la admiración (deben ir emparejadas)"
+
 [(?s)¡(?!.*?\!)]
 id="ty-3-falta-cierre-admiracion"
 valid before="(?s).*?(\!|\(|\{|\«|\'|\"\[)"
@@ -159,6 +166,13 @@ hint="Ponga un espacio después del signo de cierre de interrogación"
 
 [(?s)^[^¿]*?\?]
 id="ty-3-falta-apertura-interrogacion"
+validGroup beforePunctuation
+valid ctx="Numbers and characters"
+valid ctx="CSV separator"
+hint="Abra la interrogación (deben ir emparejadas)"
+
+[(?s)\?[^¿]*?\?]
+id="ty-3-falta-apertura-interrogacion-varias"
 validGroup beforePunctuation
 valid ctx="Numbers and characters"
 valid ctx="CSV separator"
@@ -234,6 +248,20 @@ hint="Ponga un espacio antes del signo de comilla española de apertura"
 id="ty-3-falta-cierre-comilla"
 valid before="(?s).*?[»({«'\"\[]"
 hint="Cierre la comilla (deben ir emparejadas)"
+
+[(?s)^[^«]*?»]
+id="ty-3-falta-apertura-comilla"
+validGroup beforePunctuation
+valid ctx="Numbers and characters"
+valid ctx="CSV separator"
+hint="Abra la comilla (deben ir emparejadas)"
+
+[(?s)»[^«]*?»]
+id="ty-3-falta-apertura-comilla-varias"
+validGroup beforePunctuation
+valid ctx="Numbers and characters"
+valid ctx="CSV separator"
+hint="Abra la comilla (deben ir emparejadas)"
 
 [\s\s+]
 id="ty-3-repeticion-espacios"

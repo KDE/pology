@@ -1231,10 +1231,11 @@ id="gr-3-falta-coma-antes-sin-embargo"
 validGroup beforeComma
 hint="Ponga una coma antes de «sin embargo» (error gramatical)"
 
-[\bsino\stambién\b]
-id="gr-3-falta-coma-antes-sino-también"
+[\bsino\b]
+id="gr-3-falta-coma-antes-sino"
 validGroup beforeComma
-hint="Ponga una coma antes de «sino también» (error gramatical)"
+valid before="\sa"
+hint="Ponga una coma antes de «sino» (error gramatical)"
 
 [\bno\sobstante\b]
 id="gr-3-falta-coma-antes-no-obstante"

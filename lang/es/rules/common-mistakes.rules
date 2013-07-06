@@ -793,19 +793,16 @@ hint="'Haber si' al principio de frase se escribe 'A ver si'"
 
 [\bhabían\b]
 id="cm-1-habian"
+valid before="\s\w+?(ido|ado)"
 hint="«Habián» se escribe como «Había» al principo de frase ((error frecuente))"
-
-[\bhabían\s(algunos|algunas|muchos|muchas)\b]i
-id="cm-1-habian-algunos"
-hint="«Habián algunos/muchos» se escribe como «Había algunos/muchos» (error frecuente)"
 
 [\bhacia\sadonde\b]
 id="cm-2-hacia-adonde"
 hint="«Hacia adonde» se escribe como «Hacia donde» (error frecuente)"
 
-[\bhan\shabido\s(algunos|algunas|muchos|muchas)\b]i
-id="cm-1-han-habido-algunos"
-hint="«Han habido algunos/muchos» se escribe como «Ha habido algunos/muchos» (error frecuente)"
+[\bhan\shabido\b]i
+id="cm-1-han-habido"
+hint="«Han habido» se escribe como «Ha habido/Hay» (error frecuente)"
 
 [\bháy\b]i
 id="cm-1-hay-con-tilde"
@@ -823,9 +820,10 @@ hint="«Hecho de menos» se escribe como «Echo de menos» (error frecuente)"
 id="cm-1-hoy-con-tilde"
 hint="«Hóy» se escribe como «Hoy» ((error frecuente))"
 
-[\bhubieron\s(algunos|algunas|muchos|muchas)\b]i
-id="cm-1-hubieron-algunos"
-hint="«Hubieron algunos/muchos» se escribe como «Hubo algunos/muchos» (error frecuente)"
+[\bhubieron\b]i
+id="cm-1-hubieron"
+valid before="\s\w+?(ido|ado)"
+hint="«Hubieron» se escribe como «Hubo» (error frecuente)"
 
 [\bhuí\b]i
 id="cm-1-hui-con-tilde"
