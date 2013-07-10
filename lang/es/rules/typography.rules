@@ -19,13 +19,13 @@ validGroup beforePunctuation
 valid after="(?u)(\w|\>|»|\)|\]|\}|»|\%|\-|\&|\<|\\\\|^)"
 valid before="$"
 valid before="\~"
-valid before="\\\\n"
+valid after="\\n\s*"
 
 validGroup afterPunctuation
 valid before="(?u)($|\w|\>|»|\(|\[|\{|«|\%|\-|\&|\<|\\\\|$)"
 valid after="^"
 valid after="\~"
-valid after="\\\\n"
+valid after="\\n\s*"
 
 validGroup openQuotes
 valid after="(\<|\>|\(|\{|\=|\.|\,|\;|\:|\\\\|\-|\[|\s)"
@@ -160,7 +160,7 @@ valid ctx="Numbers and characters"
 valid ctx="Query"
 valid before="$"
 valid before="\~"
-valid before="\\\\n"
+valid after="\\n"
 valid before="\)"
 hint="Ponga un espacio después del signo de cierre de interrogación"
 

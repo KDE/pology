@@ -5,30 +5,31 @@
 
 include file="filter.include"
 
-# Omit group of words not translatables
-addFilterRegex match="\b(echo\snest|make\s(un)?install|(little|big)\sendian|summer\sof\scode)\b" repl="~" on="pmsgid,pmsgstr"
-addFilterRegex match="\b(lost\+found|if\=|of\=|)\b" repl="~" on="pmsgid,pmsgstr"
-
-# Omit words between quotes.
-addFilterRegex match="«\w+»" repl="~" on="pmsgid,pmsgstr"
-addFilterRegex match="\"\w+\"" repl="~" on="pmsgid,pmsgstr"
-addFilterRegex match="\'\w+\'" repl="~" on="pmsgid,pmsgstr"
-
-# Omit words between brackets.
-addFilterRegex match="\{\w+\}" repl="~" on="pmsgid,pmsgstr"
-addFilterRegex match="\(\w+\)" repl="~" on="pmsgid,pmsgstr"
-
-# Omit compounds words.
-addFilterRegex match="\w+(\-\w+)+" repl="~" on="pmsgid,pmsgstr"
-
-# Omit words preceded by some special characters.
-addFilterRegex match="\W[\/\-\+\:\.]\w+" repl="~" on="pmsgid,pmsgstr"
-
-# Omit words witch contains at least one number.
-addFilterRegex match="[a-zA-Z]+\d\w*" repl="~" on="pmsgid,pmsgstr"
-
 # Omit paired capitalized words.
 addFilterHook name="es:remove_subs/remove_paired_capital_words" on="msg"
+
+# Omit group of words not translatables
+addFilterRegex match="\b(echo\snest|make\s(un)?install|(little|big)\sendian|[Ss]ummer\sof\s[Cc]ode)" repl="" on="pmsgid,pmsgstr"
+addFilterRegex match="\b(lost\+found|if\=|of\=)" repl="" on="pmsgid,pmsgstr"
+
+# Omit words between quotes.
+addFilterRegex match="«\w+»" repl="" on="pmsgid,pmsgstr"
+addFilterRegex match="\"\w+\"" repl="" on="pmsgid,pmsgstr"
+addFilterRegex match="\'\w+\'" repl="" on="pmsgid,pmsgstr"
+
+# Omit words between brackets.
+addFilterRegex match="\{\w+\}" repl="" on="pmsgid,pmsgstr"
+addFilterRegex match="\(\w+\)" repl="" on="pmsgid,pmsgstr"
+
+# Omit compounds words.
+addFilterRegex match="\b\w+(\-\w+)+\b" repl="" on="pmsgid,pmsgstr"
+
+# Omit words preceded by some special characters.
+addFilterRegex match="[\s\w][/+:.-]{1,2}\w+\b" repl="" on="pmsgid,pmsgstr"
+addFilterRegex match="^[/+:.-]\w+\b" repl="" on="pmsgid,pmsgstr"
+
+# Omit words witch contains at least one number.
+addFilterRegex match="\b[a-zA-Z]+\d\w*\b" repl="" casesens="yes" on="pmsgid,pmsgstr"
 
 *hook name="spell/check-spell-sp~lang='es'" on="msgstr"
 id="sp-0-check-spell-hook"

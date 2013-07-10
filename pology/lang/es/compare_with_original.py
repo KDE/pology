@@ -8,6 +8,7 @@ Make some comparations between the translation and the original text.
 """
 
 import re
+import string
 import pology.external.pyaspell as A
 from pology import _, n_, split
 
@@ -31,7 +32,7 @@ def test_if_empty_translation (msg, cat):
     return []
 
 
-_purepunc = re.compile("^\W+$")
+_purepunc = re.compile("^\W+$", re.U)
 
 def test_if_purepunc (msg, cat):
     """
@@ -41,6 +42,12 @@ def test_if_purepunc (msg, cat):
     [type V4A hook].
     @return: parts
     """
+    if msg.msgctxt in ("EMAIL OF TRANSLATORS", "NAME OF TRANSLATORS", "ROLES OF TRANSLATORS"):
+	return []
+
+    if msg.msgid in ("Your emails", "Your names", "CREDIT_FOR_TRANSLATORS", "ROLES_OF_TRANSLATORS"):
+	return []
+
     for i in range(len(msg.msgstr)):
         msgstr = msg.msgstr[i]
 	if i > 0:
@@ -62,6 +69,32 @@ def test_if_purepunc (msg, cat):
 
     return []
 
+def test_if_non_printable_characters (msg, cat):
+    """
+    Compare the translation with the original text, testing if the translation
+    is different when the original text has not alphanumeric text.
+
+    [type V4A hook].
+    @return: parts
+    """
+    if msg.msgctxt in ("EMAIL OF TRANSLATORS", "NAME OF TRANSLATORS", "ROLES OF TRANSLATORS"):
+	return []
+
+    if msg.msgid in ("Your emails", "Your names", "CREDIT_FOR_TRANSLATORS", "ROLES_OF_TRANSLATORS"):
+	return []
+
+    for i in range(len(msg.msgstr)):
+	msgstr = msg.msgstr[i]
+	if i > 0:
+	    msgid = msg.msgid_plural
+	else:
+	    msgid = msg.msgid
+	for c in msgstr:
+	    if (c not in string.printable) and (c not in msgid) and (c not in u"áéíóúüñçÁÉÍÓÚÜÑÇ¿¡|«»©ºª"):
+		return [("msgstr", 0, [(0, 0, u'La traducción contiene caracteres no imprimibles')])]
+	    elif (c in string.punctuation) and (c not in msgid) and (c not in u"«»©.,;:_-(|)ºª"):
+		return [("msgstr", 0, [(0, 0, u'La traducción contiene signos de puntuación no incluidos en el original')])]
+    return []
 
 def test_if_very_long_translation (msg, cat):
     """
@@ -73,6 +106,9 @@ def test_if_very_long_translation (msg, cat):
     """
     if msg.msgctxt in ("EMAIL OF TRANSLATORS", "NAME OF TRANSLATORS", "ROLES OF TRANSLATORS"):
         return []
+
+    if msg.msgid in ("Your emails", "Your names", "CREDIT_FOR_TRANSLATORS", "ROLES_OF_TRANSLATORS"):
+	return []
 
     for i in range(len(msg.msgstr)):
         if i > 0:
@@ -97,6 +133,9 @@ def test_if_very_short_translation (msg, cat):
     if msg.msgctxt in ("EMAIL OF TRANSLATORS", "NAME OF TRANSLATORS", "ROLES OF TRANSLATORS"):
         return []
 
+    if msg.msgid in ("Your emails", "Your names", "CREDIT_FOR_TRANSLATORS", "ROLES_OF_TRANSLATORS"):
+	return []
+
     for i in range(len(msg.msgstr)):
         if len(msg.msgstr[i]) > 0:
             if i > 0:
@@ -109,8 +148,8 @@ def test_if_very_short_translation (msg, cat):
     return []
 
 
-_valid_word = re.compile("(?u)^\w+$")
-_capital_word = re.compile("(?u)^[A-ZÑÇ]+$")
+_valid_word = re.compile("^\w+$", re.U)
+_capital_word = re.compile("^[A-ZÑÇÁÉÍÓÚÜ]+$", re.U)
 
 def test_if_not_translated (msg, cat):
     """
@@ -120,6 +159,11 @@ def test_if_not_translated (msg, cat):
     [type V4A hook].
     @return: parts
     """
+    if msg.msgctxt in ("EMAIL OF TRANSLATORS", "NAME OF TRANSLATORS", "ROLES OF TRANSLATORS"):
+        return []
+
+    if msg.msgid in ("Your emails", "Your names", "CREDIT_FOR_TRANSLATORS", "ROLES_OF_TRANSLATORS"):
+	return []
 
     for i in range(len(msg.msgstr)):
         if i > 0:
@@ -129,7 +173,7 @@ def test_if_not_translated (msg, cat):
 
         if len(msgid) > 0 and msgid == msg.msgstr[i] and not _purepunc.match(msgid):
             dict_en = A.Aspell((("lang", "en"),("encoding", "utf-8")))
-            dict_local = A.Aspell(("encoding", "utf-8"))
+            dict_local = A.Aspell((("lang", "es"),("encoding", "utf-8")))
             for word in split.proper_words(msgid, markup=True, accels=['&']):
                 if _valid_word.match(word) and not _capital_word.match(word):
                     word = word.encode("utf-8")
@@ -149,6 +193,12 @@ def test_paired_strings (msg, cat):
     [type V4A hook].
     @return: parts
     """
+
+    if msg.msgctxt in ("EMAIL OF TRANSLATORS", "NAME OF TRANSLATORS", "ROLES OF TRANSLATORS"):
+        return []
+
+    if msg.msgid in ("Your emails", "Your names", "CREDIT_FOR_TRANSLATORS", "ROLES_OF_TRANSLATORS"):
+	return []
 
     for i in range(len(msg.msgstr)):
         if i > 0:
@@ -177,6 +227,12 @@ def test_paired_brackets (msg, cat):
     @return: parts
     """
 
+    if msg.msgctxt in ("EMAIL OF TRANSLATORS", "NAME OF TRANSLATORS", "ROLES OF TRANSLATORS"):
+        return []
+
+    if msg.msgid in ("Your emails", "Your names", "CREDIT_FOR_TRANSLATORS", "ROLES_OF_TRANSLATORS"):
+	return []
+
     for i in range(len(msg.msgstr)):
         if i > 0:
             msgid = msg.msgid_plural
@@ -201,8 +257,8 @@ def test_paired_brackets (msg, cat):
                 return [("msgstr", 0, [(0, 0, u"Faltan " + s[2] + u" en la traducción")])]
     return []
 
-_ent_function = re.compile("(?:\w+\:\:)*\w+\(\)")
-_ent_parameter = re.compile("(?=\W|^)\-\-\w+(?:\-\w+)*")
+_ent_function = re.compile("(?:\w+\:\:)*\w+\(\)", re.U)
+_ent_parameter = re.compile("(?=\W|^)\-\-\w+(?:\-\w+)*", re.U)
 
 def test_paired_expressions (msg, cat):
     """
@@ -212,6 +268,12 @@ def test_paired_expressions (msg, cat):
     [type V4A hook].
     @return: parts
     """
+    if msg.msgctxt in ("EMAIL OF TRANSLATORS", "NAME OF TRANSLATORS", "ROLES OF TRANSLATORS"):
+        return []
+
+    if msg.msgid in ("Your emails", "Your names", "CREDIT_FOR_TRANSLATORS", "ROLES_OF_TRANSLATORS"):
+	return []
+
     for i in range(len(msg.msgstr)):
         if i > 0:
             msgid = msg.msgid_plural
@@ -230,8 +292,8 @@ def test_paired_expressions (msg, cat):
     return []
 
 
-_ent_number = re.compile("\d+(?:[-.,:/]\d+)*")
-_not_digit = re.compile("\D")
+_ent_number = re.compile("\d+(?:[-.,:/]\d+)*", re.U)
+_not_digit = re.compile("\D", re.U)
 
 def test_paired_numbers (msg, cat):
     """
@@ -241,9 +303,12 @@ def test_paired_numbers (msg, cat):
     [type V4A hook].
     @return: parts
     """
-    if msg.msgid == "Your emails":
+    if msg.msgctxt in ("EMAIL OF TRANSLATORS", "NAME OF TRANSLATORS", "ROLES OF TRANSLATORS"):
         return []
-    
+ 
+    if msg.msgid in ("Your emails", "Your names", "CREDIT_FOR_TRANSLATORS", "ROLES_OF_TRANSLATORS"):
+	return []
+   
     for i in range(len(msg.msgstr)):
         if i > 0:
             msgid = msg.msgid_plural
@@ -265,7 +330,7 @@ def test_paired_numbers (msg, cat):
 
     return []
 
-_ent_context_tags = re.compile("\<(application|bcode|command|email|envar|filename|icode|link)\>(.+?)\<\/\1\>")
+_ent_context_tags = re.compile("\<(application|bcode|command|email|envar|filename|icode|link)\>(.+?)\<\/\1\>", re.U)
 
 def test_paired_context_tags (msg, cat):
     """
@@ -275,6 +340,12 @@ def test_paired_context_tags (msg, cat):
     [type V4A hook].
     @return: parts
     """
+    if msg.msgctxt in ("EMAIL OF TRANSLATORS", "NAME OF TRANSLATORS", "ROLES OF TRANSLATORS"):
+        return []
+
+    if msg.msgid in ("Your emails", "Your names", "CREDIT_FOR_TRANSLATORS", "ROLES_OF_TRANSLATORS"):
+	return []
+
     for i in range(len(msg.msgstr)):
         if i > 0:
             msgid = msg.msgid_plural
@@ -287,7 +358,7 @@ def test_paired_context_tags (msg, cat):
 
     return []
 
-_ent_xml_entities = re.compile("\<\/?\w+?\>")
+_ent_xml_entities = re.compile("\<\/?\w+?\>", re.U)
 
 def test_paired_xml_entities (msg, cat):
     """
@@ -297,8 +368,11 @@ def test_paired_xml_entities (msg, cat):
     [type V4A hook].
     @return: parts
     """
-    if msg.msgid in ("ROLES_OF_TRANSLATORS", "CREDIT_FOR_TRANSLATORS",):
+    if msg.msgctxt in ("EMAIL OF TRANSLATORS", "NAME OF TRANSLATORS", "ROLES OF TRANSLATORS"):
         return []
+
+    if msg.msgid in ("Your emails", "Your names", "CREDIT_FOR_TRANSLATORS", "ROLES_OF_TRANSLATORS"):
+	return []
 
     for i in range(len(msg.msgstr)):
         if i > 0:

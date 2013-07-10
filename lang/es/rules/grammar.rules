@@ -10,7 +10,7 @@ valid after="^"
 valid after="(\.|\?|\!|\:)\s*"
 #valid after="\<(p|para|qt)\>\s*"
 valid after="\~\s*"
-valid after="\\\\n\s*"
+valid after="\\n\s*"
 valid after="(\¿|\¡|«|\()\s*"
 valid after="etcétera\s*"
 valid after="[A-Z]\w+\s+"
@@ -21,7 +21,7 @@ valid after="(\,|\;|\:)\s*"
 valid after="\("
 #valid after="\<(p|para|qt)\>\s*"
 valid after="\~\s*"
-valid after="\\\\n\s*"
+valid after="\\n\s*"
 
 validGroup beforeConnector
 valid before="y\b"
@@ -846,7 +846,7 @@ hint="Las vocales con tilde no se usan sueltas (error gramatical)"
 #
 
 [\b(antee|autoo|bii|contraa|cuasii|epii|eqii|extraa|fotoo|geoo|hemii|infraa|intraa|macroo|maxii|megaa|metaa|microo|minii|monoo|multii|neoo|perii|plurii|polii|pree|ree|retroo|seudoo|supraa|trii|ultraa|unii|vicee)\w+\b]i
-id="sp-3-simplificar-vocales-atonas"
+id="gr-3-simplificar-vocales-atonas"
 valid msgstr="reemit\w+"
 valid msgstr="reestablec\w+"
 valid msgstr="reenunc\w+"

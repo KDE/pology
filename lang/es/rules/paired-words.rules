@@ -3,6 +3,10 @@
 # by the KDE Spanish Team (kde-l10n-es@kde.org)
 # License: GPLv3
 
+*hook name="es:compare_with_original/test_if_non_printable_characters" on="msg"
+id="pw-2-error-traduccion-con-caracteres-no-imprimibles"
+hint="Hay textos no imprimibles en la traducción o signos de puntación que no aparecen en el original"
+
 *hook name="es:compare_with_original/test_paired_strings" on="msg"
 id="pw-2-error-tabuladores-o-nueva-linea"
 hint="Error en tabuladores o saltos de línea"
@@ -48,7 +52,6 @@ hint="Existe una entidad en la traducción que no figura en el texto original"
 id="pw-1-error-falta-entidad"
 hint="Existe una entidad en el texto original que no figura en la traducción"
 
-
 include file="filter.include"
 
 addFilterHook name="es:remove_subs/remove_tags_without_translation" on="msg"
@@ -63,8 +66,8 @@ hint="Se ha traducido un texto sin caracteres alfanuméricos significativos"
 
 *hook name="es:compare_with_original/test_if_very_long_translation" on="msg"
 id="pw-2-error-traduccion-muy-larga"
-valid msgid="Your names"
-valid msgid="Your emails"
+#valid msgid="Your names"
+#valid msgid="Your emails"
 hint="El texto de la traducción parece demasiado grande"
 
 *hook name="es:compare_with_original/test_if_very_short_translation" on="msg"
@@ -74,7 +77,7 @@ hint="El texto de la traducción parece demasiado pequeño"
 *hook name="es:compare_with_original/test_if_not_translated" on="msg"
 id="pw-1-error-mensaje-sin-traducir"
 valid msgid="^\W+$" # Mensaje sin caracteres alfabéticos
-valid msgid="^[^a-z]+$" # Mensaje que no contiene minúsculas
+valid msgid="^[^a-záéíóúüñç]+$" # Mensaje que no contiene minúsculas
 valid msgid="^[A-Z]\w*(\s[A-Z]\w*)*$" # Mensaje con todas las palabras comenzando por mayúscula
 valid msgid="^\w+(\-\w+)+$" # Palabra compuesta unida por guiones
 hint="No se ha traducido el mensaje original"
