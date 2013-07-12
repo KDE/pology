@@ -7,6 +7,10 @@
 id="pw-2-error-traduccion-con-caracteres-no-imprimibles"
 hint="Hay textos no imprimibles en la traducción o signos de puntación que no aparecen en el original"
 
+*hook name="es:compare_with_original/test_paired_accelerators" on="msg"
+id="pw-2-error-aceleradores"
+hint="Error en aceleradores «&» (no coincide su número)"
+
 *hook name="es:compare_with_original/test_paired_strings" on="msg"
 id="pw-2-error-tabuladores-o-nueva-linea"
 hint="Error en tabuladores o saltos de línea"

@@ -149,7 +149,8 @@ def test_if_very_short_translation (msg, cat):
 
 
 _valid_word = re.compile("^\w+$", re.U)
-_capital_word = re.compile("^[A-ZÑÇÁÉÍÓÚÜ]+$", re.U)
+_capital_word = re.compile("^[A-ZÑÇÁÉÍÓÚÁÉÍÓÚÂÊÎÔÛÄËÏÖÜ]+$", re.U)
+_proper_name = re.compile("^\W*?[A-ZÑÇÁÉÍÓÚÁÉÍÓÚÂÊÎÔÛÄËÏÖÜ]\w+(\W+?[A-ZÑÇÁÉÍÓÚÁÉÍÓÚÂÊÎÔÛÄËÏÖÜ]\w+)+\W*$", re.U)
 
 def test_if_not_translated (msg, cat):
     """
@@ -170,8 +171,11 @@ def test_if_not_translated (msg, cat):
             msgid = msg.msgid_plural
         else:
             msgid = msg.msgid
+            
+        if _proper_name.match(msg.msgstr[i]) or _purepunc.match(msgid):
+	    continue
 
-        if len(msgid) > 0 and msgid == msg.msgstr[i] and not _purepunc.match(msgid):
+        if len(msgid) > 0 and msgid == msg.msgstr[i]:
             dict_en = A.Aspell((("lang", "en"),("encoding", "utf-8")))
             dict_local = A.Aspell((("lang", "es"),("encoding", "utf-8")))
             for word in split.proper_words(msgid, markup=True, accels=['&']):
@@ -185,6 +189,38 @@ def test_if_not_translated (msg, cat):
             dict_local.close()
 
     return []
+
+_ent_accel = re.compile("\&[A-Za-zÑÇñç](?!\w+?\;)", re.U)
+
+def test_paired_accelerators (msg, cat):
+    """
+    Compare number of accelerators (&) between original and translated text.
+
+    [type V4A hook].
+    @return: parts
+    """
+
+    if msg.msgctxt in ("EMAIL OF TRANSLATORS", "NAME OF TRANSLATORS", "ROLES OF TRANSLATORS"):
+        return []
+
+    if msg.msgid in ("Your emails", "Your names", "CREDIT_FOR_TRANSLATORS", "ROLES_OF_TRANSLATORS"):
+	return []
+
+    for i in range(len(msg.msgstr)):
+        if i > 0:
+            msgid = msg.msgid_plural
+        else:
+            msgid = msg.msgid
+
+        cont_orig = len(_ent_accel.findall(msgid))
+        cont_tran = len(_ent_accel.findall(msg.msgstr[i]))
+
+        if cont_orig < cont_tran:
+            return [("msgstr", 0, [(0, 0, u"Sobran aceleradores «&» en la traducción")])]
+        elif cont_orig > cont_tran:
+            return [("msgstr", 0, [(0, 0, u"Faltan aceleradores «&» en la traducción")])]
+    return []
+
 
 def test_paired_strings (msg, cat):
     """
@@ -292,7 +328,7 @@ def test_paired_expressions (msg, cat):
     return []
 
 
-_ent_number = re.compile("\d+(?:[-.,:/]\d+)*", re.U)
+_ent_number = re.compile("\d+(?:[\s.,:/-]\d+)*", re.U)
 _not_digit = re.compile("\D", re.U)
 
 def test_paired_numbers (msg, cat):
