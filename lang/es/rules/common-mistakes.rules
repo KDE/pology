@@ -1,5 +1,5 @@
 # Translation choices of spanish team
-# Copyrigth 2010-2012, Javier Viñal (fjvinal@gmail.com)
+# Copyrigth 2010-2013, Javier Viñal (fjvinal@gmail.com)
 # by the KDE Spanish Team (kde-l10n-es@kde.org)
 # License: GPLv3
 
@@ -881,7 +881,6 @@ hint="«Las y los» se escribe como «Los». (error frecuente)"
 [\bliteratura\s(sobre|en)\b]i
 id="cm-1-literatura-sobre"
 hint="«Literatura sobre/en» e escribe como «Bibliografía sobre/en». (error frecuente)"
-hint="«Luego de que» se escribe como «Luego que». (error frecuente)"
 
 [\blo\sse\b]i
 id="cm-1-lo-se-sin-tilde"
@@ -917,6 +916,7 @@ hint="«Louisiana» se escribe como «Luisiana» (error frecuente)"
 
 [\bluego\sde\sque\b]i
 id="cm-2-luego-de-que"
+hint="«Luego de que» se escribe como «Luego que». (error frecuente)"
 
 [\bmal\seducad[oa]s?\b]i
 id="cm-1-mal-educado"
@@ -974,7 +974,6 @@ hint="«Mé» se escribe como «me» ((error frecuente))"
 [\bme\sse\b]i
 id="cm-1-me-se"
 hint="«Me se» se escribe como «Se me» (error frecuente)"
-hint="«Para tenga» se escribe como «Que tenga» (error frecuente)"
 
 [\bmés\b]i
 id="cm-1-mes-con-tilde"
@@ -1026,6 +1025,7 @@ hint="«Para mostrase» se escribe como «Para mostrarse» (error frecuente)"
 
 [\bpara\stenga\b]i
 id="cm-2-para-tenga"
+hint="«Para tenga» se escribe como «Que tenga» (error frecuente)"
 
 [\bpáz\b]i
 id="cm-2-paz-con-tilde"
@@ -1062,7 +1062,6 @@ hint="«Por reconocimiento» se escribe como «En reconocimiento» (error frecue
 [\bpor\ssiempre\b]i
 id="cm-1-por-siempre"
 hint="«Por siempre» se escribe como «Para siempre» (error frecuente: solecismo)"
-hint="«Punto y final» se escribe como «Punto final» (error frecuente)"
 
 [\bprevee\b]i
 id="cm-1-prevee"
@@ -1102,6 +1101,7 @@ hint="«Primer vez» se escribe como «Primera vez» (error frecuente)"
 
 [\bpunto\sy\sfinal\b]i
 id="cm-1-punto-y-final"
+hint="«Punto y final» se escribe como «Punto final» (error frecuente)"
 
 [\bQatar\b]
 id="cm-2-qatar-con-q"
@@ -1130,7 +1130,6 @@ hint="«Rabbi» se escribe como «Rabí» ((error frecuente))"
 [\brelacionad[oa]s?\sal?\b]i
 id="cm-2-relacionado-a"
 hint="«Relacionado a» se escribe como «Relacionado con» (error frecuente)"
-hint="«Suelen haber» se escribe como «Suele haber» (error frecuente)"
 
 [\briáis\b]i
 id="cm-1-riais-con-tilde"
@@ -1262,6 +1261,7 @@ hint="«Su se» determinante duplicado (error frecuente)"
 
 [\bsuelen\shaber\b]i
 id="cm-1-suelen-haber"
+hint="«Suelen haber» se escribe como «Suele haber» (error frecuente)"
 
 [\bSydney\b]
 id="cm-2-sydney"

@@ -5,11 +5,8 @@
 
 include file="filter.include"
 
-# Omit paired capitalized words.
-addFilterHook name="es:remove_subs/remove_paired_capital_words" on="msg"
-
 # Omit group of words not translatables
-addFilterRegex match="\b(echo\snest|make\s(un)?install|(little|big)\sendian|[Ss]ummer\sof\s[Cc]ode|[Pp]lug\sand\s[Pp]lay)\b" repl="" on="pmsgid,pmsgstr"
+addFilterRegex match="\b(echo\snest|make\s(un)?install|(little|big)\sendian|summer\sof\scode|plug\sand\splay)\b" repl="" on="pmsgid,pmsgstr"
 addFilterRegex match="\b(lost\+found|if\=|of\=)" repl="" on="pmsgid,pmsgstr"
 
 # Omit words between quotes.
@@ -22,7 +19,7 @@ addFilterRegex match="\{\w+\}" repl="" on="pmsgid,pmsgstr"
 addFilterRegex match="\(\w+\)" repl="" on="pmsgid,pmsgstr"
 
 # Omit compounds words.
-addFilterRegex match="\b\w+(\-\w+)+" repl="" on="pmsgid,pmsgstr"
+addFilterRegex match="\b\w+([_-]\w+)+\b" repl="" on="pmsgid,pmsgstr"
 
 # Omit words preceded by some special characters.
 addFilterRegex match="(?<=\W)[/+:.-]{1,2}\w+\b" repl="" on="pmsgid,pmsgstr"
@@ -32,7 +29,10 @@ addFilterRegex match="^[/+:.-]{1,2}\w+\b" repl="" on="pmsgid,pmsgstr"
 addFilterRegex match="\b[a-zA-Z]+\d\w*\b" repl="" casesens="yes" on="pmsgid,pmsgstr"
 
 # Omit particles between propernames.
-addFilterRegex match="(?<=\w\s)von\s(?=[A-Z])" repl="" casesens="yes" on="pmsgid,pmsgstr"
+addFilterRegex match="(?<=\w\s)(von|aka)\s(?=[A-Z])" repl="" casesens="yes" on="pmsgid,pmsgstr"
+
+# Omit paired capitalized words.
+addFilterHook name="es:remove_subs/remove_paired_capital_words" on="msg"
 
 *hook name="spell/check-spell-sp~lang='es'" on="msgstr"
 id="sp-0-check-spell-hook"
