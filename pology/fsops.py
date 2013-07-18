@@ -135,7 +135,7 @@ def collect_files_by_ext (paths, extension,
             hasext = ext[1:] in extensions
         elif ext == ".":
             hasext = extensions == ""
-        else: # ext == ""
+        else:  # ext == ""
             hasext = not extensions
         if selectf and hasext:
             return selectf(fpath)
@@ -520,7 +520,7 @@ def get_env_langs ():
     for lenv in ["LC_ALL", "LANG"]:
         lval = os.getenv(lenv, "")
         lsplit = []
-        for sep in ("@", ".", "_"): # order is important
+        for sep in ("@", ".", "_"):  # order is important
             p = lval.rfind(sep)
             if p >= 0:
                 el, lval = lval[p + len(sep):], lval[:p]
@@ -647,13 +647,13 @@ def build_path_selector (incnames=None, incpaths=None,
             p = name.rfind(".")
             if p > 0:
                 name = name[:p]
-        incargs = (  zip(incnames_tf, [name] * len(incnames_tf))
+        incargs = (zip(incnames_tf, [name] * len(incnames_tf))
                    + zip(incpaths_tf, [path] * len(incpaths_tf)))
         incress = [x(y) for x, y in incargs]
-        excargs = (  zip(excnames_tf, [name] * len(excnames_tf))
+        excargs = (zip(excnames_tf, [name] * len(excnames_tf))
                    + zip(excpaths_tf, [path] * len(excpaths_tf)))
         excress = [x(y) for x, y in excargs]
-        return (    (not incress or sumf(incress))
+        return ((not incress or sumf(incress))
                 and (not excress or not sumf(excress)))
 
     return selector
@@ -975,7 +975,7 @@ def exit_on_exception (func, cleanup=None):
     and keyboard interrupt will exist silently.
 
     The backtrace can be shown instead (on non-keyboard interrupt exceptions)
-    by setting C{[general]/show-backtrace} user configuration field to true.
+    by setting C{[global]/show-backtrace} user configuration field to true.
 
     @param func: a zero-argument function
     @type func: () -> any
