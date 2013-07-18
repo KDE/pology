@@ -2,8 +2,7 @@
 # by the KDE French Team (kde-francophone@kde.org)
 # License: GPLv3
 
-addFilterHook name="fr:patternAccents" on="pattern"
-addFilterHook name="fr:patternEntities" on="pattern"
+include file="filter.include"
 
 [&Shift;]
 hint="Ceci est à remplacer par « &Maj; »"

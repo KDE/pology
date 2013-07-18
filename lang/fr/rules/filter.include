@@ -1,0 +1,7 @@
+# Translation choices of french team
+# by the KDE French Team (kde-francophone@kde.org)
+# License: GPLv3
+
+addFilterHook name="fr:patternAccents" on="pattern"
+addFilterHook name="fr:patternEntities" on="pattern"
+addFilterHook name="remove/remove-accel-msg" on="msg"
