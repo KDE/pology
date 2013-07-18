@@ -2523,7 +2523,7 @@ Note that percent characters in the <literal>plural-forms</literal> field are es
 <sect2 id="sv-fr:setUbsp">
 <title><command>fr:setUbsp</command></title>
 
-<para>In French language, some punctuation characters are separated with a certain amount of whitespace from the preceding word. This is unlike in English, so unwary French translators sometimes miss to add the required space before such punctuation when translating from English. <command>fr:setUbsp</command> will heuristically detect such places and insert the space.</para>
+<para>In French language, some punctuation characters are separated with an unbreakable space from the preceding word. This is unlike in English, so unwary French translators sometimes miss to add the required unbreable space after or before such punctuation when translating from English. <command>fr:setUbsp</command> will heuristically detect such places and insert an unbreakable space.</para>
 
 <para>There are no parameters.</para>
 
