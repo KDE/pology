@@ -357,7 +357,7 @@ hint="On peut sûrement supprimer le « en train de » pour alléger..."
 valid after="C"
 hint="Mettre une majuscule à « Centre de configuration de KDE »"
 
-[visualis]
+[visualis|visionneu]
 valid cat="kile"
 hint="Utiliser « afficheur » plutôt que « visualiseur » (ou ses dérivés) ou alors « aperçu » pour traduire « preview »"
 
@@ -486,9 +486,9 @@ hint="Traduisez cela tout simplement par « Ne plus poser la question »"
 hint="Utilisez plutôt « Mettre en valeur » (homogénéité)"
 
 {\bgroupware\b}i
-valid msgstr="collaboration"
+valid msgstr="logiciel de groupe"
 valid after="Open "
-hint="Traduisez « groupware » par « logiciel de collaboration » lorsque c'est un nom ou « collaboration » dans le contexte d'un adjectif"
+hint="Traduisez « groupware » par « logiciel de groupe de travail » ou « logiciel de groupe » (version courte) lorsque c'est un nom ou « collaboration » dans le contexte d'un adjectif"
 
 {\brepositor}i
 validGroup urlTag
@@ -512,6 +512,33 @@ valid msgstr="pièces? jointe"
 valid msgstr="piece_?jointe."
 valid msgstr="fichiers? joint"
 valid msgstr="attachement"
-hint="Traduisez « attachement » par pièce jointe" 
+hint="Traduisez « attachement » par pièce jointe"
+
+[\burl\b]
+valid after="--|\?|&"
+valid after="<link "
+hint="Utilisez « URL » en majuscule"
+
+[\b(un|cet) url\b]i
+hint="L'usage est d'utiliser un féminin : « une url »"
+
+{\b(typeface|font)\b}i
+valid msgstr="police"
+valid after="</?"
+valid before="-" # CSS
+valid msgid="bold (typeface|font)" msgstr="en gras"
+hint="Utilisez « police » pour traduire « typeface » ou « font » (bien qu'il s'agisse d'un abus de langage)."
+
+{\bthumb}i
+valid msgstr="vignette"
+hint="Traduisez « thumb » ou « thumbnail » par « vignette »"
+
+{backend}i
+valid msgstr="moteur"
+hint="Traduisez « backend » par « moteur »"
+
+{frontend}i
+valid msgstr="interface"
+hint="Traduisez « frontend » par « interface »"
 
 # End of rule file
