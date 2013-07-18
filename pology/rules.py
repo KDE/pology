@@ -391,7 +391,7 @@ def loadRulesFromFile(filePath, stat, envs=set(), seenMsgFilters={}):
                         totFunc, totSig = _msgFilterSetOnParts(msgParts, func, sig)
                         currentMsgFilters.append([handles, fenvs, totFunc, totSig])
                     ruleParts = set(parts).difference(_filterKnownMsgParts)
-                    if ruleParts and (not envs or envs.intersection(fenvs)):
+                    if ruleParts and (not envs or (fenvs and envs.intersection(fenvs))):
                         totFunc, totSig = _ruleFilterSetOnParts(ruleParts, func, sig)
                         currentRuleFilters.append([handles, fenvs, totFunc, totSig])
 
