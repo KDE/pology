@@ -486,6 +486,7 @@ hint="Utilisez plutôt « Mettre en valeur » (homogénéité)"
 
 {\bgroupware\b}i
 valid msgstr="logiciel de groupe"
+valid msgstr="groupe de travail"
 valid after="Open "
 hint="Traduisez « groupware » par « logiciel de groupe de travail » ou « logiciel de groupe » (version courte) lorsque c'est un nom ou « collaboration » dans le contexte d'un adjectif"
 
@@ -510,6 +511,7 @@ hint="Utilisez « signet » et non « favori »"
 valid msgstr="pièces? jointe"
 valid msgstr="piece_?jointe."
 valid msgstr="fichiers? joint"
+valid msgstr="joindre"
 valid msgstr="attachement"
 hint="Traduisez « attachement » par pièce jointe"
 
