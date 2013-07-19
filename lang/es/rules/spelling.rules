@@ -29,7 +29,7 @@ addFilterRegex match="^[/+:.-]{1,2}\w+\b" repl="" on="pmsgid,pmsgstr"
 addFilterRegex match="\b[a-zA-Z]+\d\w*\b" repl="" casesens="yes" on="pmsgid,pmsgstr"
 
 # Omit particles between propernames.
-addFilterRegex match="(?<=\w\s)(von|aka)\s(?=[A-Z])" repl="" casesens="yes" on="pmsgid,pmsgstr"
+addFilterRegex match="(?<=\w\s)(de|del|la|do|da|von|aka)\s(?=[A-Z])" repl="" casesens="yes" on="pmsgid,pmsgstr"
 
 # Omit paired capitalized words.
 addFilterHook name="es:remove_subs/remove_paired_capital_words" on="msg"

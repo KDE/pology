@@ -190,7 +190,7 @@ def test_if_not_translated (msg, cat):
 
     return []
 
-_ent_accel = re.compile("\&[A-Za-zÑÇñç](?!\w+?\;)", re.U)
+_ent_accel = re.compile("\&[A-Za-zÑÇñç](?!\w+\;)", re.U)
 
 def test_paired_accelerators (msg, cat):
     """

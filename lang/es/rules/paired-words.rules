@@ -82,7 +82,7 @@ hint="El texto de la traducción parece demasiado pequeño"
 id="pw-1-error-mensaje-sin-traducir"
 valid msgid="^\W+$" # Mensaje sin caracteres alfabéticos
 valid msgid="^[^a-záéíóúüñç]+$" # Mensaje que no contiene minúsculas
-valid msgid="^[A-Z]\w*(\s[A-Z]\w*)*$" # Mensaje con todas las palabras comenzando por mayúscula
+valid msgid="^[A-Z]\w*(\s([A-Z]\w*\.?|de|del|la|do|du|da|van|von|aka))*$" # Mensaje con todas las palabras comenzando por mayúscula
 valid msgid="^\w+(\-\w+)+$" # Palabra compuesta unida por guiones
 hint="No se ha traducido el mensaje original"
 

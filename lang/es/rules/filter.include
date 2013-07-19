@@ -28,7 +28,6 @@ addFilterRegex match="\<\s*(bcode|command|envar|filename|icode|shortcut|placehol
 addFilterRegex match="\<\s*(email|link)\s*>\b.*?\/\1\>" repl="~" on="pmsgid,pmsgstr"
 addFilterRegex match="\<.*?\>" repl="~" on="pmsgid,pmsgstr"
 
-
 # Remove single characters between quotes.
 addFilterRegex match="\'.\'" repl="~" on="pmsgid,pmsgstr"
 addFilterRegex match="\".\"" repl="~" on="pmsgid,pmsgstr"
@@ -42,9 +41,6 @@ addFilterRegex match="«\W+?»" repl="~" on="pmsgid,pmsgstr"
 # Remove some abreviations.
 addFilterRegex match="\b(admin|cartr|cert|cond|dec|hex|inc|Jr|lab|Mr|Mrs|no|obs|oct|org|seq|Sh|sync|torr)\.(\.\.)?" repl="~" on="pmsgid,pmsgstr"
 addFilterRegex match="\b(a\.\s?m|apdo|art|atte|av|avda|C\.\s?C|C\.\s?P|cap|cent|cént|Cía|cta|dcha|dcho|depto|D|Dr|Dra|EE\.\s?UU|[Pp]\.\sej|expr|Fdo|Gral|[Ii]d|Ilmo|izdo|JJ\.\s?OO|K\.\s?O|Ltd|Ltdo|Ltda|máx|mín|[Nn]úm|n\.\s?t|p\.\s?m|pág|Pdte|Pdta|pl|plza|pos|ppal|pral|Prof|pza|Rep|Sr|Sra|S.\s?L|sinc|Srta|Sto|Sta|tel|trad|Univ|vv\.\s?aa|VV\.\s?AA)\.(\.\.)?" repl="~" on="pmsgid,pmsgstr"
-
-# Remove special puntuactions.
-addFilterRegex match="(\?{2,3}|\%{2,3}|\:{2,3}|\_{2,3})" repl="~" on="pmsgid,pmsgstr"
 
 # Remove some usual smileis.
 addFilterRegex match="\s(\:\)|\(\-\:|\:\)|\(\:|\=\)|\)\-\:\)|\:\-\)|\:\-\(|\;\-\)|\;\)|\:\-\{|\:\-\()" repl="\s~" on="pmsgid,pmsgstr"
@@ -84,6 +80,9 @@ addFilterRegex match="\-\-\w+(\-\w+)*" repl="~" on="pmsgid,pmsgstr"
 
 # Remove MIME types
 addFilterRegex match="\b(all|application|audio|fonts|image|inode|interface|message|model|multipart|text|uri|video|x\-content|x\-epoc)\/\w(\.|\-|\+|\w)*\w" repl="~" on="pmsgid,pmsgstr"
+
+# Remove special puntuactions.
+addFilterRegex match="(\?{2,3}|\%{2,3}|\:{2,3}|\_{2,3})" repl="~" on="pmsgid,pmsgstr"
 
 # Remove some types of paragraph tags.
 addFilterHook name="es:remove_subs/remove_tags_without_translation" on="msg"
