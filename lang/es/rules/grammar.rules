@@ -907,6 +907,7 @@ hint="«¿Como...» se escribe como «¿Cómo...», (error gramatical)"
 
 [¿(\w+\s)?que\b]i
 id="gr-1-que-interrogativo"
+valid span="¿Seguro\sque"
 hint="«¿... que» se escribe como «¿... qué», (error gramatical)"
 
 [¿porque\b]i

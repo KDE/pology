@@ -270,7 +270,7 @@ hint="No coloque más de un espacio consecutivo"
 
 [(?<=\s)\.]
 id="ty-3-sobra-espacio-antes-punto"
-valid before="\w{2,4}(\b|\.)" # Extensions
+valid before="\w{1,4}(\b|\.)" # Extensions
 valid before="\/\w+\b" # Files
 valid before="\w+rc\b" # Configuration files
 valid before="\.\."

@@ -36,9 +36,10 @@ valid msgstr="interrump(ir|e|a)"
 valid !msgstr="abort(ar|a|e)"
 hint="«Aborts» se traduce como como «Interrumpe», nunca como «Abortar» (ver glosario)"
 
-{\badress(?!\sbooks?)\b}i
+{\badress\b}i
 id="gk-2-adress"
 valid msgstr="dirección"
+valid before="\sbooks?"
 hint="«Adress» se traduce como «Dirección» (ver glosario)"
 
 {\badresses\b}i
@@ -233,10 +234,11 @@ id="gk-2-batching"
 valid msgstr="proces(ar|os?)\spor\slotes"
 hint="«Batching» se traduce como «Proceso por lotes» (ver glosario)"
 
-{\b(?<!(a\s))bit\b}i
+{\bbit\b}i
 id="gk-2-bit"
 valid msgstr="bit"
 valid msgstr="un\spoco" after="a\s(little\s)?"
+valid after="a\s"
 hint="«Bit» no se debe traducir (ver glosario)"
 
 {\bbits\b}i
@@ -361,7 +363,7 @@ valid msgstr="cd"
 valid msgstr="CD"
 hint="«CD» significa «Compact disk», no se traduce (ver glosario)"
 
-{\bcheck(?!\sbox(es)?)\b}i
+{\bcheck\b}i
 id="gk-2-check"
 valid msgstr="comprob(ar|ación)"
 valid msgstr="prueba"
@@ -385,6 +387,7 @@ valid msgstr="jaque" cat="knights"
 valid msgstr="cheque"
 valid msgstr="puntos?\sde\scontrol" before="\spoint"
 valid after="\-"
+valid before="\sbox(es)?"
 hint="«Check» se traduce como «Comprobar/Consultar/Marcar/Control/Marca»(ver glosario)"
 
 {\bchecked\b}i
@@ -551,10 +554,11 @@ valid msgstr="discos\scompactos"
 valid msgstr="(algún|cualquier|ningún)\sdisco\scompacto"
 hint="«Compact disks» se traduce como «Discos compactos» (ver glosario)"
 
-{\bcompact(?!\sdisks?)\b}i
+{\bcompact\b}i
 id="gk-2-compact"
 valid msgstr="comprim(e|a|ir|ido|ida)"
 valid msgstr="compact[oa]"
+valid before="\sdisks?"
 hint="«Compact» se traduce como «Comprimir» (ver glosario)"
 
 {\bcompacted\b}i
@@ -812,6 +816,7 @@ id="gk-2-default"
 valid msgstr="predeterminad[oa]"
 valid msgstr="por\somisión"
 valid msgstr="defecto"
+valid after="^" before="$" # Rule in user-interface.rules
 hint="«Default» se traduce como «Predeterminado» (ver glosario)"
 
 {\bdefaults\b}i
@@ -820,6 +825,7 @@ valid msgstr="predeterminad[oa]s?"
 valid msgstr="por\somisión"
 valid msgstr="defectos"
 valid msgstr="(algún|cualquier|ningún)\sdefecto"
+valid after="^" before="$" # Rule in user-interface.rules
 hint="«Defaults» se traduce como «Predeterminados» (ver glosario)"
 
 {\bdefragment\b}i
@@ -1024,13 +1030,13 @@ valid msgstr="(algún|cualquier|ningún)\scontrolador"
 valid !msgstr="drivers"
 hint="«Drivers» se traduce como «Controladores» (ver glosario)"
 
-{\bdrop[\s\-]down\b}i
+{\bdrop[\s-]down\b}i
 id="gk-2-drop-down"
 valid msgstr="desplega(r|ble)"
 valid msgstr="despliegu(e|a)"
 hint="«Drop down» se traduce como «Desplegar» (ver glosario)"
 
-{\bdrop(?![\s\-]down)\b}i
+{\bdrop\b}i
 id="gk-2-drop"
 valid msgstr="soltar"
 valid msgstr="suelt(e|a)"
@@ -1053,6 +1059,8 @@ valid msgstr="caerá" after="will\s(not\s)?"
 valid msgstr="cayó" after="did\s(not\s)?"
 valid msgstr="abandonará" after="will\s(not\s)?"
 valid msgstr="abandonó" after="did\s(not\s)?"
+valid after="drag[\s-]and[\s-]"
+valid before="[\s-]down"
 hint="«Drop» se traduce como «Soltar/Caer/Dejar/Bajar/Abandonar/Caída/Descenso/Pérdida/Gota» (ver glosario)"
 
 {\bdrops\b}i
@@ -1172,10 +1180,11 @@ valid msgstr="activ(e|a)"
 valid msgstr="permit(a|e)"
 hint="«Enables» se traduce como «Activa/Permita» (ver glosario)"
 
-{\benabling(?!\s(it|them|you))\b}i
+{\benabling\b}i
 id="gk-2-enabling"
 valid msgstr="activa(ción|r|ndo)"
 valid msgstr="que\sactiv[ae]"
+valid before="\s(it|them|you)"
 hint="«Enabling» se traduce como «Activación» (ver glosario)"
 
 {\benabling\s(it|you)\b}i
@@ -1230,6 +1239,19 @@ id="gk-2-encryptions"
 valid msgstr="cifrados?"
 valid !msgstr="encriptad[oa]"
 hint="«Encryptions» se traduce como «Cifrados», nunca como «Encriptados» (ver glosario)"
+
+{\benter\b}i
+id="gk-enter"
+valid msgstr="intro"
+valid msgstr="introdu(cir|ce|zca)"
+valid msgstr="acced(er|e|a)"
+valid msgstr="introducirá" after="will\s"
+valid msgstr="accederá" after="will\s"
+valid msgstr="introdujo" after="did\s"
+valid msgstr="accedió" after="did\s"
+valid after="^" before="$" # Rule in user-interface.rules
+valid !msgstr="entr(ar|e|a)"
+hint="«Enter» se traduce como «Intro», «Introducir/Acceder», nunca como «Entrar» (ver glosario)"
 
 {\benters\b}i
 id="gk-2-enters"
@@ -1307,7 +1329,7 @@ valid msgstr="present(a|e)"
 valid msgstr="ofre(ce|zca)"
 hint="«Features» se traduce como «Funcionalidades» o «Características» (ver glosario)"
 
-{\b(?<!(line|form)(\s|\-))feed\b}i
+{\bfeed\b}i
 id="gk-2-feed"
 valid msgstr="suministro"
 valid msgstr="fuente"
@@ -1315,9 +1337,10 @@ valid msgstr="canal"
 valid msgstr="subministr(ar|a|e)"
 valid msgstr="aliment(ar|a|e)"
 valid msgstr="subministrará" after="will\s(not\s)?"
+valid after="(line|form)[\s-]"
 hint="«Feed» se traduce como «Suministro» o «Fuente de noticias»(ver glosario)"
 
-{\b(?<!(line|form)(\s|\-))feeds\b}i
+{\bfeeds\b}i
 id="gk-2-feeds"
 valid msgstr="suministros"
 valid msgstr="fuentes"
@@ -1327,6 +1350,7 @@ valid msgstr="aliment(a|e)"
 valid msgstr="(algún|cualquier|ningún)\ssuministro"
 valid msgstr="(alguna|cualquier|ninguna)\sfuente"
 valid msgstr="(algún|cualquier|ningún)\scanal"
+valid after="(line|form)[\s-]"
 hint="«Feeds» se traduce como «Suministros» o «Fuentes de noticias»(ver glosario)"
 
 {\bfeedbacks?\b}i
@@ -1335,10 +1359,11 @@ valid msgstr="comentarios\sy\ssugerencias"
 valid msgstr="sugerencias"
 hint="«Feedback» se traduce como «Comentarios y sugerencias» (ver glosario)"
 
-{\bfile(?!\ssystems?)\b}i
+{\bfile\b}i
 id="gk-2-file"
 valid msgstr="archivo"
 valid !msgstr="fichero"
+valid before="\ssystems?"
 hint="«File» se traduce como «Archivo», nunca como «Fichero «(ver glosario)"
 
 {\bfiles\b}i
@@ -1398,10 +1423,11 @@ valid msgstr="(alguna|cualquier|ninguna)\scrítica\sdestructiva"
 valid msgstr="(alguna|cualquier|ninguna)\sllama"
 hint="«Flames» se traduce como «Críticas destructivas/Llamas» (ver glosario)"
 
-{\bfloppy(?!\sdrives?)\b}i
+{\bfloppy\b}i
 id="gk-2-floppy"
 valid msgstr="disquete"
 valid !msgstr="floppy"
+valid before="\sdrives?"
 hint="«Floppy» se traduce como «Disquete» (ver glosario)"
 
 {\bfloppies\b}i
@@ -1706,13 +1732,15 @@ valid msgstr="direcciones\sparticulares"
 valid msgstr="(alguna|cualquier|ninguna)\sdirección\sparticular"
 hint="«Home addresses» se traduce como «Direcciones particulares» (ver glosario)"
 
-{\bhome(?!\s(folders?|director(y|ies)|pages?|address(es)?))\b}i
+{\bhome\b}i
 id="gk-2-home"
 valid msgstr="inici(o|al)"
 valid msgstr="particular"
 valid msgstr="domicilio"
 valid msgstr="doméstic[oa]"
+valid msgstr="personal"
 valid msgstr="HOME"
+valid before="\s(folders?|director(y|ies)|pages?|address(es)?)"
 hint="«Home» se traduce como «Inicio/Domicilio» (ver glosario)"
 
 {\bhost\b}i
@@ -1970,7 +1998,7 @@ valid msgstr="bloque(os|a)"
 valid msgstr="(algún|cualquier|ningún)\sbloqueo"
 hint="«Locks» se traduce como «Bloqueos» (ver glosario)"
 
-{\blog(?!\s(back|in|on|off|out))\b}i
+{\blog\b}i
 id="gk-2-log"
 valid msgstr="registr(ar|o|a|e)"
 valid msgstr="registrará" after="will\s(not\s)?"
@@ -1978,6 +2006,7 @@ valid msgstr="registró" after="did\s(not\s)?"
 valid cat="kcalc"
 valid msgstr="logaritmo" cat="kcalc"
 valid msgstr="LOG"
+valid before="\s(back|in|on|off|out)"
 hint="«Log» se traduce como «Registro» (ver glosario)"
 
 {\blogs\b}i
@@ -1988,7 +2017,7 @@ valid msgstr="se\sidentifica" before="\sin"
 valid msgstr="inici[ae]\ssesión" before="\sin"
 hint="«Logs» se traduce como «Registros» (ver glosario)"
 
-{\blog\s?in(?!\sbanner)\b}i
+{\blog\s?in\b}i
 id="gk-2-login"
 valid msgstr="inicio\sde\ssesión"
 valid msgstr="iniciar\ssesión"
@@ -1996,6 +2025,7 @@ valid msgstr="iniciará\ssesión" after="will\s(not\s)?"
 valid msgstr="inició\ssesión" after="did\s(not\s)?"
 valid msgstr="LOGIN"
 valid !msgstr="login"
+valid before="\sbanner"
 hint="«Login» se traduce como «Inicio de sesión», no se debe dejar sin traducir (ver glosario)"
 
 {\blogin\sbanner\b}i
@@ -2908,16 +2938,11 @@ valid msgstr="(algún|cualquier|ningún)\sreinicio"
 valid !msgstr="restaur(a|e)"
 hint="«Resets» se traduce como «Reinicia» (ver glosario)"
 
-{\bresolver(^(\slibrary))\b}i
+{\bresolver\b}i
 id="gk-2-resolver"
 valid msgstr="sistemas?\sde\sresolución"
+valid before="\slibrary"
 hint="«Resolver» se traduce como «Sistema de resolución» (ver glosario)"
-
-{\bresolvers(?!\slibrary)\b}i
-id="gk-2-resolvers"
-valid msgstr="sistemas\sde\sresolución"
-valid msgstr="(algún|cualquier|ningún)\ssistema\sde\sresolución"
-hint="«Resolvers» se traduce como «Sistemas de resolución» (ver glosario)"
 
 {\bresolver\slibrary\b}i
 id="gk-2-resolver-library"
@@ -2931,6 +2956,13 @@ valid msgstr="bibliotecas\sde\sresolución"
 valid msgstr="(alguna|cualquier|ninguna)\sbiblioteca\sde\sresolución"
 valid !msgstr="librerías?\sde\sresolución"
 hint="«Resolver libraries» se traduce como «Bibliotecas de resolución» (ver glosario)"
+
+{\bresolvers\b}i
+id="gk-2-resolvers"
+valid msgstr="sistemas\sde\sresolución"
+valid msgstr="(algún|cualquier|ningún)\ssistema\sde\sresolución"
+valid before="\slibrary"
+hint="«Resolvers» se traduce como «Sistemas de resolución» (ver glosario)"
 
 {\brespawn\b}i
 id="gk-2-respawn"
@@ -2995,13 +3027,14 @@ id="gk-2-routing"
 valid msgstr="encamina(miento|r|ndo)"
 hint="«Routing» se traduce como «Encaminamiento» (ver glosario)"
 
-{\brun(?!\-time)\b}i
+{\brun\b}i
 id="gk-2-run"
 valid msgstr="ejecución"
 valid msgstr="ejecut(ar|a|e)"
 valid msgstr="ejecutará" after="will\s(not\s)?"
 valid msgstr="ejecutó" after="did\s(not\s)?"
 valid !msgstr="corr(er|a|e|o)"
+valid before="\stime"
 hint="«Run» se traduce como «Ejecución» (ver glosario)"
 
 {\bruns\b}i
@@ -3398,7 +3431,7 @@ valid msgstr="comencemos" after="let\sus\s"
 valid msgstr="empecemos" after="let\sus\s"
 hint="«Start» se traduce como «Inicio/Comienzo/Principio» o «Iniciar/Comenzar/Empezar» (ver glosario)"
 
-{\bstarting(?!\s(it|them))\b}i
+{\bstarting\b}i
 id="gk-2-starting"
 valid msgstr="inici(o|a|e|ar|al|ando)"
 valid msgstr="comien(zo|za|zan|ce|cen)"
@@ -3407,6 +3440,7 @@ valid msgstr="comenza(r|ndo)"
 valid msgstr="empeza(r|ndo)"
 valid msgstr="punto\sde\spartida"
 valid msgstr="a\spartir\sde"
+valid before="\s(it|them)"
 hint="«Starting» se traduce como «Inicio» (ver glosario)"
 
 {\bstarting\sit\b}i
@@ -3556,6 +3590,7 @@ id="gk-2-tab"
 valid msgstr="pestaña"
 valid msgstr="tabula(dor|ción)"
 valid msgstr="tab"
+valid after="^" before="$" # Rule in user-interface.rules
 valid !msgstr="solapa"
 hint="«Tab» se traduce como «Tabulador» o «Pestaña», nunca como «Solapa» (ver glosario)"
 
@@ -3744,12 +3779,13 @@ valid msgstr="sub(e|a)"
 valid msgstr="env(iar|ío|ía|íe|íen)"
 hint="«Uploads» se traduce como «Carga» o «Envío» (ver glosario)"
 
-{\b(?<!follow\-)ups\b}i
+{\bups\b}i
 id="gk-2-ups"
 valid msgstr="sai"
 valid msgstr="SAI"
 valid msgstr="ups"
 valid msgstr="UPS"
+valid after="follow[\s-]"
 hint="«UPS» se traduce como «SAI» o «UPS»  (ver glosario)"
 
 {\burl\b}i

@@ -1358,10 +1358,11 @@ valid msgstr="(algún|ningún|cualquier)\smédico"
 valid !msgstr="físicos?"
 hint="«Physicians» se traduce como como «Médicos», no como «Físicos» (falso amigo)"
 
-{\bplain(?!\stext)\b}i
+{\bplain\b}i
 id="ff-1-plain"
 valid msgstr="sencill[oa]"
 valid !msgstr="plan[oa]"
+valid before="\stext"
 hint="«Plain» se traduce como como «Sencillo», no como «Plano» (falso amigo)"
 
 {\bpolitic\b}i

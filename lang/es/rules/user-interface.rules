@@ -38,17 +38,13 @@ id="ui-2-tecla-end"
 valid msgstr="[Ff]in"
 hint="«End» se traduce como «Fin» (regla de traducción de nombres de teclas)"
 
-{\benter\b}i
+{^Enter$}i
 id="ui-2-tecla-enter"
-valid msgstr="intro"
-valid msgstr="introdu(cir|ce|zca)"
-valid msgstr="acced(er|e|a)"
-valid msgstr="introducirá" after="will\s"
-valid msgstr="accederá" after="will\s"
-valid msgstr="introdujo" after="did\s"
-valid msgstr="accedió" after="did\s"
-valid !msgstr="entr(ar|e|a)"
-hint="«Enter» se traduce como «Intro», «Introducir/Acceder», nunca como «Entrar» (ver glosario, regla de traducción de nombres de teclas)"
+valid msgstr="Intro"
+valid msgstr="Introdu(cir|ce|zca)"
+valid msgstr="Acced(er|e|a)"
+valid !msgstr="[Ee]ntr(ar|e|a)"
+hint="«Enter» se traduce como «Intro», «Introducir/Acceder», nunca como «Entrar» (regla de traducción de nombres de teclas)"
 
 {\bEsc\b}
 id="ui-2-tecla-esc"

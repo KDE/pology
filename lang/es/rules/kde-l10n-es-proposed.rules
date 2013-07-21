@@ -399,7 +399,7 @@ valid msgstr="(alguna|cualquier|ninguna)\scompilación"
 valid msgstr="crea" before="\sup"
 hint="«Builds» se traduce como «Genera/Revisiones/Compila/Compilaciones» (propuesta glosario)"
 
-{\bbuilt(?!\-in)\b}i
+{\bbuilt\b}i
 id="gp-1-built"
 valid msgstr="generad[oa]"
 valid msgstr="compilad[oa]"
@@ -411,6 +411,7 @@ valid msgstr="compilará" after="will\sbe\s"
 valid msgstr="generará" after="will\sbe\s"
 valid msgstr="compilan" after="are\s"
 valid msgstr="generan" after="are\s"
+valid before="\-in"
 hint="«Built» se traduce como «Generado/Revisión/Compilado/Compilación» (propuesta glosario)"
 
 {\bbuilt\-?in\b}i
@@ -831,6 +832,7 @@ valid msgstr="borr(ar|a|e)"
 valid msgstr="borrará" after="will\s(not\s)?"
 valid msgstr="borró" after="did\s(not\s)?"
 valid msgstr="bórrel[oa]" before="\sit"
+valid after="^" before="$" # Included in "user-interface.rules"
 hint="«Delete» se traduce como «Borrar» (propuesta glosario)"
 
 {\bdeleted\b}i
@@ -3414,9 +3416,10 @@ valid msgstr="esquemas"
 valid msgstr="(algún|ningún|cualquier)\sesquema"
 hint="«Schemas» se traduce como «Esquemas» (propuesta glosario)"
 
-{\bscreen(?!\ssaver)\b}i
+{\bscreen\b}i
 id="gp-3-screen"
 valid msgstr="pantalla"
+valid before="\ssaver"
 hint="«Screen» se traduce como «Pantalla» (propuesta glosario)"
 
 {\bscreen\s?saver\b}i
@@ -3661,13 +3664,14 @@ valid msgstr="especificaciones"
 valid msgstr="(alguna|cualquier|ninguna)\sespecificación"
 hint="«Specifications» se traduce como «Especificaciones» (propuesta glosario)"
 
-{\bspell(?![\s\-](check|checking|checkers?))\b}i
+{\bspell\b}i
 id="gp-3-spell"
 valid msgstr="deletre(ar|a|e)"
 valid msgstr="ortografía"
 valid msgstr="hechizo"
 valid msgstr="deletreará" after="will\s(not\s)?"
 valid msgstr="deletreó" after="did\s(not\s)?"
+valid before="[\s-](check|checking|checkers?)"
 hint="«Spell» se traduce como «Deletrear/Hechizo» (propuesta glosario)"
 
 {\bspelling\b}i
