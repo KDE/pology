@@ -617,7 +617,7 @@ validGroup userinputTag
 validGroup markupTag
 valid before="desktop&sp;"
 valid before="xinitrc"
-valid before="cfg|doc|dvi|h|kml|kwd|eps|js|html?|m3u|pls|png|ps|rst|spec|txt|WRI|xml|kalcul|css|zip|tar|gz|pot"
+valid before="cfg|doc|dvi|h|kml|kwd|eps|js|html?|kgm|m3u|pls|png|ps|rst|spec|txt|WRI|xml|kalcul|css|zip|tar|gz|pot"
 valid before="NET|kde"
 valid before="/\S+"
 valid cat="konsole" before="schema"
