@@ -390,6 +390,7 @@ valid after="KCM"
 hint="Il est préférable d'utiliser le verbe « chiffrer »"
 
 [profiles]i
+valid cat="konsole" after="--list-"
 valid cat="kfmclient" after="/"
 valid after="<filename class=\"directory\">\S+" before="\S*</filename>"
 hint="Pas de « e » à « profils »"

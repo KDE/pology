@@ -390,6 +390,7 @@ hint="Mettre une espace avant et une espace insécable après"
 validGroup cdataTag
 validGroup perlScript
 validGroup userinputTag
+validGroup optionTag
 valid cat="amarok" after="prefix"
 valid cat="amarok" before="kde4?-config"
 valid cat="kdevelop" after="attendu.*"
@@ -457,6 +458,7 @@ validGroup computeroutputTag
 validGroup functionTag
 validGroup perlScript
 validGroup literalTag
+validGroup commandTag
 valid msgid="<!ENTITY"
 valid after="\s+(=|]|PS1|\")"
 valid before="\s*/?>|&gt|}"
@@ -540,6 +542,7 @@ valid cat="kate" after="caractères " before="s "
 valid cat="kmail" before="D=\""
 valid cat="kmail" before="S=\""
 valid cat="knode" before="NAME|EMAIL|MYEMAIL|f|L"
+valid cat="konsole" before="\#"
 valid cat="kaudiocreator" before="[of]"
 valid cat="kgpg" before="KEYID|UIDNAME"
 valid cat="kopete_chatstyle" before="chatName|destinationName|incomingIconPath|outgoingIconPath|timeOpened|userIconPath|textbackgroundcolor|senderStatusIcon|senderColor|message|time|messageDirection"

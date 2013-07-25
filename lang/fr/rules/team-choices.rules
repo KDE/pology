@@ -28,6 +28,9 @@ valid after="<option>.*" before=".*</option>"
 validGroup systemitemTag
 valid after=".*<systemitem.*>" before=".*</systemitem>"
 
+validGroup ulinkTag
+valid after="ulink "
+
 validGroup urlTag
 valid after="url=\".*" before=".*\">"
 
@@ -516,6 +519,7 @@ valid msgstr="attachement"
 hint="Traduisez « attachement » par pièce jointe"
 
 [\burl\b]
+validGroup ulinkTag
 valid after="--|\?|&"
 valid after="<link "
 hint="Utilisez « URL » en majuscule"
