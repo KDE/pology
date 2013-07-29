@@ -992,6 +992,8 @@ valid msgstr="deshará" after="will\s(not\s)?"
 valid msgstr="descartará" after="will\s(not\s)?"
 valid msgstr="deshizo" after="did\s(not\s)?"
 valid msgstr="descartó" after="did\s(not\s)?"
+valid msgstr="descártel[oa]" before="\sit"
+valid msgstr="descártel[oa]s" before="\sthem"
 hint="«Discard» se traduce como como «Deshacer/Descartar» (propuesta glosario)"
 
 {\bdiscards\b}i
@@ -1375,7 +1377,8 @@ hint="«Fakes» se traduce como «Falsos/Falsificaciones» (propuesta glosario)"
 id="gp-3-fan"
 valid msgstr="ventilador"
 valid msgstr="admiradora?"
-hint="«Fan» se traduce como «Ventilador/Admirador» (propuesta glosario)"
+valid msgstr="seguidora?"
+hint="«Fan» se traduce como «Ventilador/Admirador/Seguidor» (propuesta glosario)"
 
 {\bfans\b}i
 id="gp-3-fans"
@@ -3487,7 +3490,7 @@ hint="«Seeks» se traduce como «Busca/Búsquedas/Posicione/Posicionamientos» 
 {\bsemicolon\b}i
 id="gp-2-semicolon"
 valid msgstr="punto\sy\scoma"
-valid msgstr="puntos\sy\scomas"
+valid msgstr="puntos\sy\scomas?"
 hint="«Semicolon» se traduce como «Punto y coma» (propuesta glosario)"
 
 {\bsender\b}i

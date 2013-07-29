@@ -706,7 +706,8 @@ hint="«CUPS» no se debe traducir, salvo si se trata de tazas (ver glosario)"
 {\bdaemon\b}i
 id="gk-2-daemon"
 valid msgstr="demonio"
-hint="«Daemon» se traduce como «Demonio» (ver glosario)"
+valid msgstr="servicio"
+hint="«Daemon» se traduce como «Demonio/Servicio» (ver glosario)"
 
 {\bdaemons\b}i
 id="gk-2-daemons"
@@ -3736,6 +3737,7 @@ hint="«Troubleshooting» se traduce como «Resolución de problemas» (ver glos
 id="gk-2-type"
 valid before="[\=\-\:]"
 valid after="content\-"
+valid after="as[\s-]you[\s-]"
 valid msgstr="tipo"
 valid msgstr="tecle(ar|a|e)"
 valid msgstr="escrib(ir|a|e)"

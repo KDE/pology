@@ -1402,6 +1402,7 @@ hint="«Sí» se escribe con tilde después de una preposición (error gramatica
 [(?u)\b(me|te|se|nos|os|los?|las?|les?)(\.|,|;|\?|\!|\<p\>)]i
 id="gr-1-pronombre-al-fin-de-frase"
 valid span="(?u)\b\w+\." before="\.\."
+valid msgstr="SE" # Punto cardinal
 hint="Un pronombre personal no puede aparecer al final de frase( error gramatical)"
 
 [(?u)\b(el|te|se|mi|de|mas|si|tu|que|aun)(\.|,|;|\?|\!|\<p\>)]i
