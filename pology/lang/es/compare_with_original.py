@@ -149,8 +149,8 @@ def test_if_very_short_translation (msg, cat):
 
 
 _valid_word = re.compile("^\w+$", re.U)
-_capital_word = re.compile("^[A-ZÑÇÁÉÍÓÚÁÉÍÓÚÂÊÎÔÛÄËÏÖÜ]+$", re.U)
-_proper_name = re.compile("^\W*?[A-ZÑÇÁÉÍÓÚÁÉÍÓÚÂÊÎÔÛÄËÏÖÜ]\w+(\W+?[A-ZÑÇÁÉÍÓÚÁÉÍÓÚÂÊÎÔÛÄËÏÖÜ]\w+)+\W*$", re.U)
+_capital_word = re.compile("^[A-ZÑÇÁÉÍÓÚÁÉÍÓÚÂÊÎÔÛÄËÏÖÜĀ]+$", re.U)
+_proper_name = re.compile("^\W*?[A-ZÑÇÁÉÍÓÚÁÉÍÓÚÂÊÎÔÛÄËÏÖÜĀ]\w+(\W+?[A-ZÑÇÁÉÍÓÚÁÉÍÓÚÂÊÎÔÛÄËÏÖÜĀ]\w+)+\W*$", re.U)
 
 def test_if_not_translated (msg, cat):
     """

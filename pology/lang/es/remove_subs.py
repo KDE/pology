@@ -14,13 +14,13 @@ import re
 
 # Capitals words in valid contexts in the translated text according with Spanish grammar
 # (beggining of paragraph, after some punctuation characters and after a new line)
-_valid_capital_word_middle = re.compile("(?<=[.:?!>»\"]\s)[^\W]*?[A-ZÁÉÍÓÚÀÈÌÒÙÂÊÎÔÛÄËÏÖÜ][^\W]*", re.U)
-_valid_capital_word_initial = re.compile("^[^\W]*?[A-ZÁÉÍÓÚÀÈÌÒÙÂÊÎÔÄËÏÖÜÛ][^\W]*", re.U)
+_valid_capital_word_middle = re.compile("(?<=[.:?!>»\"]\s)[^\W]*?[A-ZÁÉÍÓÚÀÈÌÒÙÂÊÎÔÛÄËÏÖÜĀ][^\W]*", re.U)
+_valid_capital_word_initial = re.compile("^[^\W]*?[A-ZÁÉÍÓÚÀÈÌÒÙÂÊÎÔÄËÏÖÜÛĀ][^\W]*", re.U)
 
 # All capital words in the original English text,
-_ent_capital_word = re.compile("[^\W]*?[A-ZÁÉÍÓÚÀÈÌÒÙÂÊÎÔÛÄËÏÖÜ][^\W]*", re.U)
+_ent_capital_word = re.compile("[^\W]*?[A-ZÁÉÍÓÚÀÈÌÒÙÂÊÎÔÛÄËÏÖÜĀ][^\W]*", re.U)
 # All plural full capital words (acronyms) without the final 's'.
-_ent_capital_word_plural = re.compile("[A-ZÁÉÍÓÚÀÈÌÒÙÂÊÎÔÛÄËÏÖÜ]+(?=s)", re.U)
+_ent_capital_word_plural = re.compile("[A-ZÁÉÍÓÚÀÈÌÒÙÂÊÎÔÛÄËÏÖÜĀ]+(?=s)", re.U)
 
 def remove_paired_capital_words (msg, cat):
     """
@@ -32,18 +32,21 @@ def remove_paired_capital_words (msg, cat):
     
     # Obtains capitals words in valid contexts in the translated text.
     for i in range(len(msg.msgstr)):
-        msg.msgstr[i] = re.sub(r"'", "", msg.msgstr[i])
+        msg.msgstr[i] = re.sub("\'", "", msg.msgstr[i])
+        msg.msgstr[i] = re.sub("`", "", msg.msgstr[i])
         ents = set()
         ents.update(_valid_capital_word_middle.findall(msg.msgstr[i]))
         ents.update(_valid_capital_word_initial.findall(msg.msgstr[i]))
         if i == 0:
             # Obtains all capitals words in the original English text.
-            msg.msgid = re.sub(r"'", "", msg.msgid)
+            msg.msgid = re.sub("\'s?", "", msg.msgid)
+            msg.msgid = re.sub("`", "", msg.msgid)
             ents.update(_ent_capital_word.findall(msg.msgid))
             ents.update(_ent_capital_word_plural.findall(msg.msgid))
         else:
             if msg.msgid_plural:
-		msg.msgid_plural = re.sub(r"'", "", msg.msgid_plural)
+		msg.msgid_plural = re.sub("\'s?", "", msg.msgid_plural)
+		msg.msgid_plural = re.sub("`", "", msg.msgid_plural)
 		ents.update(_ent_capital_word.findall(msg.msgid_plural))
 		ents.update(_ent_capital_word_plural.findall(msg.msgid_plural))
 	# Joins both set of words an remove them from the message.
