@@ -378,6 +378,7 @@ hint="Choix de l'équipe : « paquet »"
 [montrer]i
 valid before=" l'afficheur"
 valid after="lui |vous |leur |dé"
+valid cat="gwenview" before=" vos photos"
 hint="Traduire « show » par « afficher »"
 
 [messages? électronique]i
