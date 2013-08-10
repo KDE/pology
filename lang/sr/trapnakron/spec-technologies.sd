@@ -1,6 +1,7 @@
 >base/aff.sd
 >org-comitees.sd
 >org-companies.sd
+>places-internet.sd
 
 # ----------------------------------------------------------------------------
 # Хардверске
@@ -216,6 +217,8 @@ RemoteFX: римотФИкс|, римотФИкс|ов, римотФИкс|>
 sendmail: сендмејл|, сендмејл|>
     @л: sendmail|, sendmail|>
 S/MIME: С/МИМЕ|-, С/МИМЕ|>
+Steam Guard: |Steam~.мп гард|
+    @л: |Steam~.мп Guard|
 SVR4: СВР4|*, СВР4|>, _род!=м, _пр=System V Release 4
 Truetype: трутајп|, трутајп|>
     @л: Truetype|, truetype|>
