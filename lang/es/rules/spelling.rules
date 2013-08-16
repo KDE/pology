@@ -7,7 +7,7 @@ include file="filter.include"
 
 # Omit group of words not translatables
 addFilterRegex match="\b(echo\snest|make\s(un)?install|(little|big)\sendian|summer\sof\scode|plug\sand\splay)\b" repl="" on="pmsgid,pmsgstr"
-addFilterRegex match="\b(lost\+found|if\=|of\=)" repl="" on="pmsgid,pmsgstr"
+addFilterRegex match="\b(lost\+found|if\=|of\=|\w+rc\b|\w+config\b)" repl="" on="pmsgid,pmsgstr"
 
 # Omit words between quotes.
 addFilterRegex match="«\w+»" repl="" on="pmsgid,pmsgstr"
@@ -29,7 +29,7 @@ addFilterRegex match="^[/+:.-]{1,2}\w+\b" repl="" on="pmsgid,pmsgstr"
 addFilterRegex match="\b[a-zA-Z]+\d\w*\b" repl="" casesens="yes" on="pmsgid,pmsgstr"
 
 # Omit particles between propernames.
-addFilterRegex match="(?<=\w\s)(de|del|la|do|da|von|aka)\s(?=[A-Z])" repl="" casesens="yes" on="pmsgid,pmsgstr"
+addFilterRegex match="(?<=\w\s)(aka|da|de|del|der|do|la|vom|von)\s(?=[A-Z])" repl="" casesens="yes" on="pmsgid,pmsgstr"
 
 # Omit paired capitalized words.
 addFilterHook name="es:remove_subs/remove_paired_capital_words" on="msg"

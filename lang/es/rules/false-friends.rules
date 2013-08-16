@@ -1499,7 +1499,8 @@ hint="«Quartely» se traduce como como «Trimestral», no como «Cuatrimestral�
 id="ff-1-question"
 valid msgstr="pregunta"
 valid msgstr="cuestión" after="in\s"
-valid msgstr="signo\sde\sinterrogación" before="\smark"
+valid msgstr="interrogación" before="\smark"
+valid msgstr="interrogaciones" before="\smarks"
 hint="«Question» se traduce como como «Pregunta», no como «Cuestión» (falso amigo)"
 
 {\bquestions\b}i

@@ -310,13 +310,13 @@ hint="«Bots» se traduce como «Robots» (propuesta glosario)"
 
 {\bbreakpoint\b}i
 id="gp-2-breakpoint"
-valid msgstr="puntos?\sde\sruptura"
+valid msgstr="puntos?\sde\s(ruptura|interrupción)"
 hint="«Breakpoint» se traduce como «Punto de ruptura» (propuesta glosario)"
 
 {\bbreakpoints\b}i
 id="gp-2-breakpoints"
-valid msgstr="puntos\sde\sruptura"
-valid msgstr="(algún|ningún|cualquier)\spunto\sde\sruptura"
+valid msgstr="puntos\sde\s(ruptura|interrupción)"
+valid msgstr="(algún|ningún|cualquier)\spunto\sde\s(ruptura|interrupción)"
 hint="«Breakpoints» se traduce como «Puntos de ruptura» (propuesta glosario)"
 
 {\bbroadcast\b}i
@@ -606,34 +606,45 @@ id="gp-2-commit"
 valid msgstr="enviar"
 valid msgstr="enví[eao]"
 valid msgstr="aplicar?"
+valid msgstr="entregar?"
+valid msgstr="entregue"
 valid msgstr="enviará" after="will\s(not\s)?"
 valid msgstr="aplicará" after="will\s(not\s)?"
+valid msgstr="entregará" after="will\s(not\s)?"
 valid msgstr="envió" after="did\s(not\s)?"
 valid msgstr="aplicó" after="did\s(not\s)?"
-hint="«Commit» se traduce como «Enviar/Aplicar» (propuesta glosario)"
+valid msgstr="entregó" after="did\s(not\s)?"
+hint="«Commit» se traduce como «Enviar/Aplicar/Entregar» (propuesta glosario)"
 
 {\bcommits\b}i
 id="gp-2-commits"
 valid msgstr="enví[ea]"
 valid msgstr="envíos"
 valid msgstr="apli(ca|que)"
-hint="«Commits» se traduce como «Envía/Aplica» (propuesta glosario)"
+valid msgstr="entregas?"
+valid msgstr="entregue"
+hint="«Commits» se traduce como «Envía/Aplica/Entrega» (propuesta glosario)"
 
 {\bcommitted\b}i
 id="gp-2-committed"
 valid msgstr="enviad[oa]"
 valid msgstr="aplicad[oa]"
+valid msgstr="entregad[oa]"
 valid msgstr="comprometid[oa]s?"
 valid msgstr="enviarse"
 valid msgstr="aplicarse"
+valid msgstr="entregarse"
 valid msgstr="se\senvi[ea]n?"
 valid msgstr="se\sapli(ca|que)n?"
 valid msgstr="se\scompromet[ea]n?"
+valid msgstr="se\sentreg(ue|a)n?"
 valid msgstr="envió"
 valid msgstr="aplicó"
+valid msgstr="entregó"
 valid msgstr="se\s(\w+\s){1,3}enviar"
 valid msgstr="se\s(\w+\s){1,3}aplicar"
-hint="«Committed» se traduce como «Enviado/Aplicado/Comprometido» (propuesta glosario)"
+valid msgstr="se\s(\w+\s){1,3}entregar"
+hint="«Committed» se traduce como «Enviado/Aplicado/Entregado/Comprometido» (propuesta glosario)"
 
 {\bcompliants?\b}i
 id="gp-2-compliant"
@@ -1553,7 +1564,7 @@ hint="«Free/busy» se traduce como «Disponibilidad» (propuesta glosario)"
 {\bfrom\ssources?\b}i
 id="gp-2-from-source"
 valid msgstr="desde\sel\scódigo\sfuente"
-valid msgstr="a\spartir\sdel\scódigo\sfuente"
+valid msgstr="del\scódigo\sfuente"
 hint="«From source» se traduce como «Desde el código fuente» (propuesta glosario)"
 
 {\bfunction\b}i
@@ -3923,16 +3934,19 @@ hint="«Thumbails» se traduce como «Miniaturas» (propuesta glosario)"
 {\btip\b}i
 id="gp-3-tip"
 valid msgstr="consejo"
+valid msgstr="sugerencia"
 valid msgstr="punta"
-hint="«Tip» se traduce como «Consejo o Punta» (propuesta glosario)"
+hint="«Tip» se traduce como «Consejo/Sugerencia o Punta» (propuesta glosario)"
 
 {\btips\b}i
 id="gp-3-tips"
 valid msgstr="consejos"
+valid msgstr="sugerencias"
 valid msgstr="puntas"
 valid msgstr="(algún|ningún|cualquier)\sconsejo"
 valid msgstr="(alguna|cualquier|ninguna)\spunta"
-hint="«Tips» se traduce como «Consejos o Puntas» (propuesta glosario)"
+valid msgstr="(alguna|cualquier|ninguna)\ssugerencia"
+hint="«Tips» se traduce como «Consejos/Sugerencias o Puntas» (propuesta glosario)"
 
 {\btool\b}i
 id="gp-3-tool"
@@ -4201,6 +4215,7 @@ hint="«Wildcards» se traduce como «Comodines» (propuesta glosario)"
 id="gp-3-window-manager"
 valid msgstr="gestor\sde\sventanas"
 valid msgstr="gestores\sde\sventanas"
+valid after="[A-Z]\w+\s"
 hint="«Window manager» se traduce como «Gestor de ventanas» (propuesta glosario)"
 
 {\bwindow\smanagers\b}i

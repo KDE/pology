@@ -1177,16 +1177,16 @@ id="gr-3-falta-coma-antes-en-primer-lugar"
 validGroup beforeComma
 hint="Ponga una coma antes de «en primer lugar» (error gramatical)"
 
-[\bpor\sotro\lado\b]
-id="gr-3-falta-cma-antes-por-otro-lado"
-validGroup beforeComma
-valid after="\("
-hint="Ponga una coma antes de «por otro lado» (error gramatical)"
+#[\bpor\sotro\lado\b]
+#id="gr-3-falta-cma-antes-por-otro-lado"
+#validGroup beforeComma
+#valid after="\("
+#hint="Ponga una coma antes de «por otro lado» (error gramatical)"
 
-[\bpor\sun\slado\b]
-id="gr-3-falta-cma-antes-por-un-lado"
-validGroup beforeComma
-hint="Ponga una coma antes de «por un lado» (error gramatical)"
+#[\bpor\sun\slado\b]
+#id="gr-3-falta-cma-antes-por-un-lado"
+#validGroup beforeComma
+#hint="Ponga una coma antes de «por un lado» (error gramatical)"
 
 [\bpor\suna\sparte\b]
 id="gr-3-falta-coma-antes-por-una-parte"
