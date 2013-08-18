@@ -61,11 +61,14 @@ INDI: ИНД|И-, ИНДИ|>
 InfiniBand: инфинибанд|, инфинибанд|ов, инфинибанд|>
     @л: InfiniBand|, InfiniBand|ov, InfiniBand|>
 ISA: ИС|А, ИСА|>
+IVC2: ИВЦ|- 2, н&а=ИВЦ2, ИВЦ2|>
 iVec: и-век|, и-век|ов, и-век|>
     @л: iVec|, iVec|ov, iVec|>
 JustLink: џастлинк|, џастлинк|>, _син=|BurnFree~н
     @л: JustLink|, JustLink|>
 LBA: ЛБА|-, ЛБА|>, _пр=logical block addressing
+MDMX: МДМИкс|, МДМИкс|>, _пр=MIPS Digital Media Extension
+    @л: MDMX|-, MDMX|>
 MicroChannel: микрочанел|, микрочанел|ов, микрочанел|>
     @л: MicroChannel|, MicroChannel|ov, MicroChannel|>
 mini-ITX: мини-ИТИкс|, мини-ИТИкс|>
@@ -109,6 +112,7 @@ SCORE 7D: СКОР|- 7Д, СКОР 7Д|>
     @л: SCORE|- 7D, SCORE 7D|>
 SCSI: сказ|и, скази|>
     @л: SCS|I-, SCSI|>
+SDRAM: СДРАМ|-, СДРАМ|>, _пр=synchronous dynamic random access memory
 SERCOS: СЕРКОС|-, СЕРКОС|>
     @л: SERCOS|-, SERCOS|>
 SH-1: СХ-1|*, СХ-1|>, _род!=м
@@ -132,6 +136,8 @@ SHmedia: СХ-медиј|а, СХ-медија|>
 SHmedia32: СХ-медиј|а 32, СХ-медиј|а 32|>
     @л: SHmed|ia 32, SHmedia|> 32
 SMART: СМАРТ|-, СМАРТ|>, _пр=Self-Monitoring, Analysis and Reporting Technology
+SmartMIPS: смартМИПС|-, смартМИПС|>
+    @л: SmartMIPS|-, SmartMIPS|>
 SMBus: СМбус|, СМбус|>
     @л: SMBus|, SMBus|>
 SSE: ССЕ|-, ССЕ|-ов, ССЕ|>, _пр=Streaming SIMD Extensions

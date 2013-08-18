@@ -18,6 +18,7 @@ IPA, |ipacomp: ¤ИПА|-, ИПА|>, _пр=inter-procedural analysis
 LP64: ЛП64|*, ЛП64|>, _род!=м, _пр=long/pointer 64 bit
 PLT: ПЛТ|-, ПЛТ|>, _пр=procedure linkage table
 PRE: ПРЕ|-, ПРЕ|>, _пр=partial redundancy elimination
+SLP: СЛП|-, СЛП|>, _пр=superword level parallelism
 SRA: СРА|-, СРА|>, _пр=scalar replacement of aggregates
 SSA: ССА|-, ССА|>, _пр=static single assignment
 
