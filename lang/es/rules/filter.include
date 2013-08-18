@@ -59,7 +59,7 @@ addFilterRegex match="(\$KDEHOME|\$HOME|~)(\/(\.|\-|\+|\_|\w)+)+" repl="~" on="p
 addFilterRegex match="\b[A-Z]\:(\\{1,2}[\w.+_-]+)+\b" repl="~" casesens="yes" on="pmsgid,pmsgstr"
 
 # Remove some special tags preceded with '%'
-addFilterRegex match="\%\w+\%?" repl="~" on="pmsgid,pmsgstr"
+addFilterRegex match="\%\w+(\%\w*)?" repl="~" on="pmsgid,pmsgstr"
 
 # Remove some special tags between ':'
 addFilterRegex match="\:\w+\:" repl="~" on="pmsgid,pmsgstr"
@@ -71,6 +71,7 @@ addFilterRegex match="\$\(\w+\)" repl="~" on="pmsgid,pmsgstr"
 
 # Remove functions calls
 addFilterRegex match="(\w+\:\:)*\w+\(.*?\)" repl="~" on="pmsgid,pmsgstr"
+addFilterRegex match="\\\\\w+(\{\w*\})?" repl="~" on="pmsgid,pmsgstr"
 
 # Remove C++ methods
 addFilterRegex match="\:\:\w+" repl="~" on="pmsgid,pmsgstr"
