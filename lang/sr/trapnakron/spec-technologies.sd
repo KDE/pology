@@ -18,6 +18,8 @@ APIC: АПИЦ|-, АПИЦ|>
 APM: АПМ|-, АПМ|>
 ATA: АТ|А, АТА|>
 ATAPI: АТАП|И, АТАПИ|>
+AVX: АВИкс|-, АВИкс|>, _пр=Advanced Vector Extensions
+    @л: AVX|-, AVX|>
 Bluetooth: блутут|, блутут|>
     @л: Bluetooth|, bluetooth|>
 BurnFree: бернфр|и, бернфри|>
@@ -64,6 +66,8 @@ ISA: ИС|А, ИСА|>
 IVC2: ИВЦ|- 2, н&а=ИВЦ2, ИВЦ2|>
 iVec: и-век|, и-век|ов, и-век|>
     @л: iVec|, iVec|ov, iVec|>
+iWMMXt: иВММИкст|-, ивММИкст|-ов, ивММИкст|>, _пр=Intel Wireless MMX Technology
+    @л: iWMMXt|-, iWMMXt|-ov, iWMMXt|>
 JustLink: џастлинк|, џастлинк|>, _син=|BurnFree~н
     @л: JustLink|, JustLink|>
 LBA: ЛБА|-, ЛБА|>, _пр=logical block addressing
@@ -180,7 +184,7 @@ ZeroConf: зироконф|, зироконф|>
 # ----------------------------------------------------------------------------
 # Софтверске
 
-AAPCS: ААПЦС|-, ААПЦС|>, _пр=Procedure Call Standard for the ARM Architecture
+AAPCS: ААПЦС|-, ААПЦС|>, _пр=ARM Architecture Procedure Call Standard
 AccessX: аксес-икс|, аксес-икс|>
     @л: AccessX|-, accessX|>
 ActiveX: актив-икс|, актив-икс|>
