@@ -53,6 +53,8 @@ case $1 in
 	exit 1;;
 esac
 
+rm -rf $SALIDA/$1
+
 for TIPO in 'messages' 'docmessages'; do
     ORIGEN=$RAIZ/$RAMA/l10n-kde4/$IDIOMA/$TIPO
     DESTINO=$SALIDA/$1/$TIPO

@@ -7,7 +7,7 @@ include file="filter.include"
 
 # Omit group of words not translatables
 addFilterRegex match="\b(echo\snest|make\s(un)?install|(little|big)\sendian|summer\sof\scode|plug\sand\splay)\b" repl="" on="pmsgid,pmsgstr"
-addFilterRegex match="\b(lost\+found|if\=|of\=|\w+rc\b|\w+config\b)" repl="" on="pmsgid,pmsgstr"
+addFilterRegex match="\b(lost\+found|if\=|of\=|\w+rc\b|\w+config\b|\wconf\b)" repl="" on="pmsgid,pmsgstr"
 
 # Omit words between quotes.
 addFilterRegex match="«\w+»" repl="" on="pmsgid,pmsgstr"

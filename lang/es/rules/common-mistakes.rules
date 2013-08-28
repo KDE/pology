@@ -37,7 +37,7 @@ hint="«A buen fin» se escribe como «Con buen fin» (error frecuente: solecism
 id="cm-2-a-cuenta-de"
 hint="«A cuenta de» se escribe como «Por cuenta de» (error frecuente: solecismo)"
 
-[\ba\donde\sestá\b]i
+[\ba\sdonde\sestá\b]i
 id="cm-2-a-donde-está"
 hint="«A donde está» se escribe como «Donde está» (error frecuente)"
 
@@ -105,7 +105,7 @@ hint="«A tal extremo de» se escribe como «Hasta tal extremo» (error frecuent
 id="cm-2-abajo-de"
 hint="«Abajo de» se escribe como «Debajo de» (error frecuente: solecismo)"
 
-[\badelante\sde\él\b]i
+[\badelante\sde\sél\b]i
 id="cm-2-adelante-de-el"
 hint="«Adelante de él» se escribe como «Delante de él» (error frecuente: solecismo)"
 
@@ -113,9 +113,9 @@ hint="«Adelante de él» se escribe como «Delante de él» (error frecuente: s
 id="cm-2-al-extremo"
 hint="«Al extremo de» se escribe como «Hasta el extremo» (error frecuente: solecismo)"
 
-[\bal\spunto\sde\b]i
-id="cm-2-al-punto-de"
-hint="«Al punto de» se escribe como «Hasta tal punto/Hasta el punto de» (error frecuente: solecismo)"
+#[\bal\spunto\sde\b]i
+#id="cm-2-al-punto-de"
+#hint="«Al punto de» se escribe como «Hasta tal punto/Hasta el punto de» (error frecuente: solecismo)"
 
 [\bal\srededor\b]i
 id="cm-1-al-rededor"
@@ -193,21 +193,13 @@ hint="«A si mismo» se escribe como «A sí mismo/Asimismo» (error frecuente)"
 id="cm-1-asi-mismo"
 hint="«Así mismo» se escribe como «Asimismo» (error frecuente)"
 
-[\batentar\sa\b]i
-id="cm-2-atentar-a"
-hint="«Atentar a» se escribe como «Atentar contra» (error frecuente)"
-
-[\baún\sasí\b]i
-id="cm-2-aun-asi"
-hint="«Aún así» se escribe como «Aun así» (error frecuente)"
-
-[\baún\scuando\b]i
-id="cm-2-aun-cuando"
-hint="«Aún cuando» se escribe como «Aun cuando» (error frecuente)"
-
 [\basímismo\b]i
 id="cm-1-asimismo-con-tilde"
 hint="«Asímismo» se escribe siempre como «Asimismo» ((error frecuente))"
+
+[\batentar\sa\b]i
+id="cm-2-atentar-a"
+hint="«Atentar a» se escribe como «Atentar contra» (error frecuente)"
 
 [\baún\sasí\b]i
 id="cm-1-aun-asi-con-tilde"
@@ -436,6 +428,7 @@ hint="«Cualesquieras» se escribe como «Cualesquiera» ((error frecuente))"
 [\bdá\b]i
 id="cm-1-da-con-tilde"
 hint="«Dá» se escribe como «Da» ((error frecuente))"
+
 [\bdar\sa\sbasto\b]i
 id="cm-1-dar-a-basto"
 hint="«Dar a basto» se escribe como «Dar abasto» (error frecuente: solecismo)"
@@ -751,13 +744,13 @@ hint="«Fé» se escribe como «Fe» ((error frecuente))"
 id="cm-1-fiais-con-tilde"
 hint="«Fiaís» se escribe como «Fiais» ((error frecuente))"
 
-[\bfijarse\sque\b]i
-id="cm-2-fijarse-que"
-hint="«Fijarse que» se escribe como «Fijarse en que» (error frecuente)"
-
 [\bfijarse\sde\sque\b]i
 id="cm-2-fijarse-de-que"
 hint="«Fijarse de que» se escribe como «Fijarse en que» (error frecuente)"
+
+[\bfijarse\sque\b]i
+id="cm-2-fijarse-que"
+hint="«Fijarse que» se escribe como «Fijarse en que» (error frecuente)"
 
 [\bfín\b]i
 id="cm-1-fin-con-tilde"
@@ -791,7 +784,7 @@ hint="'Haber que' se escribe 'A ver que'"
 id="cm-2-haber-si"
 hint="'Haber si' al principio de frase se escribe 'A ver si'"
 
-[\bhabían\b]
+[^habían\b]i
 id="cm-1-habian"
 valid before="\s\w+?(ido|ado)"
 hint="«Habián» se escribe como «Había» al principo de frase ((error frecuente))"
@@ -835,7 +828,11 @@ hint="«Huír» se escribe como «Huir» ((error frecuente))"
 
 [\bigual\sa\b]
 id="cm-2-igual-a"
-valid before="\s\d"
+valid before="\s\-?\d"
+valid before="\sla"
+valid before="\s\-?~"
+valid before="\s\w\b"
+valid before="\s(cero|uno|dos|tres|cuatro|cinco|seis|siete|ocho|nueve|diez|once|doce)"
 hint="«Igual a» se escribe como «Igual que» (error frecuente)"
 
 [\bigual\scomo\b]
@@ -1383,7 +1380,7 @@ hint="«Va hacer» se escribe como «Va a hacer» (error frecuente)"
 
 [\bvalido\b]i
 id="cm-1-valido-sin-tilde"
-hint="«Valido» se escribe como «Válido» ((error frecuente))"
+hint="«Valido» se escribe como «Válido», salvo favorito del rey ((error frecuente))"
 
 [\bvease\b]i
 id="cm-1-vease-sin-tilde"
