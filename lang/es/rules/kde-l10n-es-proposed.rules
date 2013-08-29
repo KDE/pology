@@ -1556,7 +1556,7 @@ id="gp-3-frecuency"
 valid msgstr="frecuencia"
 hint="«Frecuency» se traduce como «Frecuencia» (propuesta glosario)"
 
-{\bfreee\/busy\b}i
+{\bfreee[\/-]busy\b}i
 id="gp-2-free-busy"
 valid msgstr="disponibilidad"
 hint="«Free/busy» se traduce como «Disponibilidad» (propuesta glosario)"
@@ -2373,7 +2373,7 @@ hint="«Module» se traduce como «Módulo» (propuesta glosario)"
 id="gp-3-modules"
 valid msgstr="módulos"
 valid msgstr="(algún|ningún|cualquier)\smódulo"
-valid msgstr="(algún|ningún|cualquier)\asistente" after="helper\s"
+valid msgstr="(algún|ningún|cualquier)\sasistente" after="helper\s"
 hint="«Modules» se traduce como «Módulos» (propuesta glosario)"
 
 {\bmounted\b}i
@@ -2985,6 +2985,7 @@ valid msgstr="previsuali(zar|za|ce)"
 valid msgstr="previsualizará" after="will\s(not\s)?"
 valid msgstr="previsualizó" after="did\s(not\s)?"
 valid msgstr="avance"
+valid msgstr="vista\spreliminar" after="print\s"
 hint="«Preview» se traduce como «Vista previa/Previsualizar/Avance» (propuesta glosario)"
 
 {\bpreviews\b}i
@@ -4221,7 +4222,7 @@ hint="«Window manager» se traduce como «Gestor de ventanas» (propuesta glosa
 {\bwindow\smanagers\b}i
 id="gp-3-window-managers"
 valid msgstr="gestores\sde\sventanas"
-valid msgstr="(algún|ningún|cualquier)\sgestor\sde\ventanas"
+valid msgstr="(algún|ningún|cualquier)\sgestor\sde\sventanas"
 hint="«Window managers» se traduce como «Gestores de ventanas» (propuesta glosario)"
 
 {\bwireless\b}i

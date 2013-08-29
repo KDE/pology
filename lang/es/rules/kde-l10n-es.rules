@@ -2574,7 +2574,7 @@ hint="«Pop-up» se traduce como «Ventana emergente/Desplegable» (ver glosario
 id="gk-2-pop-ups"
 valid msgstr="emergentes"
 valid msgstr="despliega"
-valid msgstr="(algún|cualquier|ningún)\desplegable"
+valid msgstr="(algún|cualquier|ningún)\sdesplegable"
 hint="«Pop-ups» se traduce como «Ventanas emergentes/Desplegables» (ver glosario)"
 
 {\bport\b}i
@@ -3735,7 +3735,7 @@ hint="«Troubleshooting» se traduce como «Resolución de problemas» (ver glos
 
 {\btype\b}i
 id="gk-2-type"
-valid before="[\=\-\:]"
+valid before="[=\-\:]"
 valid after="content\-"
 valid after="as[\s-]you[\s-]"
 valid msgstr="tipo"

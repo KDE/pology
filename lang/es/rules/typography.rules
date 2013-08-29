@@ -16,25 +16,27 @@ hint="Tecla aceleradora no válida (en vocal con tilde)"
 include file="filter.include"
 
 validGroup beforePunctuation
-valid after="(?u)(\w|\>|»|\)|\]|\}|»|\%|\-|\&|\<|\\\\|^)"
+valid after="(?u)[\w>»\)\]\}»%&<\\-]"
+valid after="^"
 valid before="$"
 valid before="\~"
 valid after="\\n\s*"
 
 validGroup afterPunctuation
-valid before="(?u)($|\w|\>|»|\(|\[|\{|«|\%|\-|\&|\<|\\\\|$)"
+valid before="(?u)[\w>»\(\[\{«%&<\\-]"
 valid after="^"
+valid before="$"
 valid after="\~"
 valid after="\\n\s*"
 
 validGroup openQuotes
-valid after="(\<|\>|\(|\{|\=|\.|\,|\;|\:|\\\\|\-|\[|\s)"
+valid after="[<>\(\{\[\\=.,;:\s-]"
 valid after="\~"
 valid after="^"
 valid before=".+?»"
 
 validGroup closeQuotes
-valid before="(\<|\>|\)|\}|\=|\.|\,|\;|\:|\-|\]|\s)"
+valid before="[<>\)\}\]\\=.,;:\s-]"
 valid after="\~"
 valid before="$"
 valid after="«.+?"
@@ -135,7 +137,7 @@ hint="Abra la admiración (deben ir emparejadas)"
 
 [(?s)¡(?!.*?\!)]
 id="ty-3-falta-cierre-admiracion"
-valid before="(?s).*?(\!|\(|\{|\«|\'|\"\[)"
+valid before="(?s).*?[!\(\{\[«'\"]"
 hint="Cierre la admiración (deben ir emparejadas)"
 
 [(?s)¡.*?\!\.]

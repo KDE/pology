@@ -7,17 +7,17 @@ include file="filter.include"
 
 validGroup beforeCaps
 valid after="^"
-valid after="(\.|\?|\!|\:)\s*"
+valid after="[.?!\:]\s*"
 #valid after="\<(p|para|qt)\>\s*"
 valid after="\~\s*"
 valid after="\\n\s*"
-valid after="(\¿|\¡|«|\()\s*"
+valid after="[¿¡«\(]\s*"
 valid after="etcétera\s*"
 valid after="[A-Z]\w+\s+"
 
 validGroup beforeComma
 valid after="^"
-valid after="(\,|\;|\:)\s*"
+valid after="[,;\:]\s*"
 valid after="\("
 #valid after="\<(p|para|qt)\>\s*"
 valid after="\~\s*"
@@ -654,7 +654,7 @@ valid before="$"
 id="gr-1-palabra-repetida"
 hint="Hay una palabra consecutiva repetida en el párrafo (error gramatical)"
 
-[(?u)\b(\w+(\s\w+)+)(\s|\.|\,|\;|\:)+\1\b]
+[(?u)\b(\w+(\s\w+)+)[\s.,;\:]+\1\b]
 id="gr-1-frase-repetida"
 hint="Hay un grupo de dos o más palabras consecutivas repetido en el párrafo (error gramatical)"
 
@@ -726,7 +726,7 @@ id="gr-1-articulo-seguido-un"
 valid msgstr="el\suno"
 valid msgstr="la\suna"
 valid msgstr="los\sunos"
-valid msgstr="las\unas"
+valid msgstr="las\sunas"
 hint="Hay un artículo determinado seguido de «un» (error gramatical)"
 
 #
@@ -978,7 +978,7 @@ hint="«Cuan...» se escribe como «Cuán...» en oraciones interrogativas indir
 id="gr-1-cuando-sin-tilde"
 hint="«Cuando...» se escribe como «Cuándo...» en oraciones interrogativas indirectas, (error gramatical)"
 
-[(pero|sé|sabe\w*|pregunt\w+)(\s\w+)?\adonde\b]i
+[(pero|sé|sabe\w*|pregunt\w+)(\s\w+)?\sadonde\b]i
 id="gr-1-adonde-sin-tilde"
 hint="«Adonde...» se escribe como «Adónde...» en oraciones interrogativas indirectas, (error gramatical)"
 
@@ -1177,7 +1177,7 @@ id="gr-3-falta-coma-antes-en-primer-lugar"
 validGroup beforeComma
 hint="Ponga una coma antes de «en primer lugar» (error gramatical)"
 
-#[\bpor\sotro\lado\b]
+#[\bpor\sotro\slado\b]
 #id="gr-3-falta-cma-antes-por-otro-lado"
 #validGroup beforeComma
 #valid after="\("
@@ -1378,7 +1378,7 @@ hint="Después de pronombre personal no suele aparecer preposición (error grama
 id="gr-1-preposicion-al-fin-de-frase"
 valid span="(?u)\b\w+\." before="\.\."
 valid span="A\."
-valid span="de\." before="[\w|\~]"
+valid span="de\." before="[\w~]"
 hint="Una preposición no puede aparecer al final de frase (error gramatical)"
 
 [(?u)\b(ni|pero|mas|sino|porque|pues|que|como|si|aunque|conque|o\ssea|es\sdecir|es\smás)(\.|\?|\!|\<p\>)]i
@@ -1408,7 +1408,7 @@ hint="Un pronombre personal no puede aparecer al final de frase( error gramatica
 [(?u)\b(el|te|se|mi|de|mas|si|tu|que|aun)(\.|,|;|\?|\!|\<p\>)]i
 id="gr-1-tilde-diacritica-al-fin-de-frase"
 valid span="(?u)\b\w+\." before="\.\."
-valid span="(?u)\b\w+(\,|\;)" before="(\s\w+){1,3}(\,|\;)"
+valid span="(?u)\b\w+[,;]" before="(\s\w+){1,3}[,;]"
 valid span="(?u)\bde\." before="(\S|~)" # Grupos de noticias alemanes.
 valid msgstr="SE" # Punto cardinal
 hint="Monosílabo que lleva tilde al final de frase «de/el/mas/mi/que/se/si/te/tu/aun» (error gramatical)"
