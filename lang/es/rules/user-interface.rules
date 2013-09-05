@@ -71,12 +71,12 @@ hint="«Pause» se traduce como «Pausar/Pausa» (regla de traducción de nombre
 {\bPg\s?Dn\b}
 id="ui-2-tecla-pgdn"
 valid msgstr="Re\s?Pág"
-hint="«PgDn» se traduce como «Re Pag» (regla de traducción de nombres de teclas)"
+hint="«PgDn» se traduce como «Re Pág» (regla de traducción de nombres de teclas)"
 
 {\bPg\s?Up\b}
 id="ui-2-tecla-pgup"
 valid msgstr="Av\s?Pág"
-hint="«PgUp» se traduce como «Av Pag» (regla de traducción de nombres de teclas)"
+hint="«PgUp» se traduce como «Av Pág» (regla de traducción de nombres de teclas)"
 
 {\bPrint\s?Screen\b}
 id="ui-2-tecla-print-screen"
@@ -86,7 +86,7 @@ hint="«Print Screen» se traduce como «Impr Pant» (regla de traducción de no
 {\bScroll\s?Lock\b}
 id="ui-2-tecla-scroll-lock"
 valid msgstr="Bloq\s?Despl?"
-hint="«Scroll Lock» se traduce como «Bloq Desp» (regla de traducción de nombres de teclas)"
+hint="«Scroll Lock» se traduce como «Bloq Despl» (regla de traducción de nombres de teclas)"
 
 {\bShift\b}
 id="ui-2-tecla-shift"
@@ -137,7 +137,7 @@ hint="«From template» se traduce como «Desde plantilla» (regla de traducció
 {^New from template$}
 id="ui-2-menu-new-from-template"
 valid msgstr="Nuevo desde plantilla"
-hint="«From template» se traduce como «Desde plantilla» (regla de traducción de menús de KDE)"
+hint="«New from template» se traduce como «Nuevo desde plantilla» (regla de traducción de menús de KDE)"
 
 {^Open\s?\.\.\.$}
 id="ui-2-menu-open"
@@ -851,7 +851,7 @@ hint="«Taskbar» se traduce como «Barra de tareas» (regla de traducción de e
 id="ui-2-widget-task-bars"
 valid msgstr="barras\sde\stareas"
 valid msgstr="(alguna|cualquier|ninguna)\sbarra\sde\stareas"
-hint="«Taskbar» se traduce como «Barra de tareas» (regla de traducción de elementos gráficos)"
+hint="«Taskbars» se traduce como «Barras de tareas» (regla de traducción de elementos gráficos)"
 
 {\btext\s?box\b}i
 id="ui-2-widgets-text-box"

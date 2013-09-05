@@ -17,6 +17,7 @@ addFilterRegex match="\'\w+\'" repl="" on="pmsgid,pmsgstr"
 # Omit words between brackets.
 addFilterRegex match="\{\w+\}" repl="" on="pmsgid,pmsgstr"
 addFilterRegex match="\(\w+\)" repl="" on="pmsgid,pmsgstr"
+addFilterRegex match="[\[]\w+[\]]" repl="" on="pmsgid,pmsgstr"
 
 # Omit compounds words.
 addFilterRegex match="\b\w+([_-]\w+)+\b" repl="" on="pmsgid,pmsgstr"
