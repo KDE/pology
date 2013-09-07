@@ -46,7 +46,7 @@ valid after="«.+"
 [\s\:]
 valid ctx="Numbers and characters"
 valid ctx="CSV separator"
-valid msgid="\s\:\s" cat="tellico_details" # docmessages
+valid msgid="\s\:\s" cat="kstars,tellico_details"
 valid before="\{"
 valid before="q\:"
 valid before="local\:"

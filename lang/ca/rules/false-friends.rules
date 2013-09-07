@@ -22,7 +22,7 @@ hint="«Absolutelly» es tradueix per «Completament», no per «Absolutament» 
 # «Abstract» es tradueix per «Resum».
 {\babstracts?\b}i
 valid msgstr="resums?"
-valid msgstr="abstract(e|a)" cat="kdevphp,kdevplatform,kdeqt,desktop_kdegames_kmahjongg,desktop_kdegames_ksudoku,krita,umbrello,kdevfiletemplates"
+valid msgstr="abstract(e|a)" cat="kdevphp,kdevplatform,kdeqt,desktop_kdegames_kmahjongg,desktop_kdegames_ksudoku,krita,umbrello,kdevfiletemplates,rocscore"
 valid msgstr="abstract(e|a|es)" cat="umbrello_uml_basics" #docmessage
 valid !msgstr="abstract(e|a|es)"
 hint="«Abstract» es tradueix per «Resum», no per «Abstracte» (fals amic)"

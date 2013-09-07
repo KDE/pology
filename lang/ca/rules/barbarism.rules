@@ -44,15 +44,15 @@ Exemple: # Com a màxim serem vuit. \
 [customitza(r|ble)]i
 hint="«customitzar» s'ha de substituir per «personalitzar, adaptar al(s) client(s)» (barbarisme)"
 
-[\bdest(í|ins)\b]i
-valid msgstr="evolució i destí" cat="kstars_darkmatter" # docmessages
-hint="«destí» s'ha de substituir per «destinació/ons» \
-Explicació: \
-No s'ha de confondre destí ('potència sobrehumana que fixa per endavant el curs dels esdeveniments i la sort reservada a cadascú', 'sort reservada a cadascú') amb destinació ('acció de destinar', 'fi a què algú o alguna cosa són destinats', 'lloc on és tramesa alguna cosa o es dirigeix algú'). \
-Exemple: \
-# Molta gent voldria saber quin destí l'espera. \
-# Investiguen la destinació que els detinguts volien donar a la marihuana. \
-(barbarisme)"
+#[\bdest(í|ins)\b]i
+#valid msgstr="evolució i destí" cat="kstars_darkmatter" # docmessages
+#hint="«destí» s'ha de substituir per «destinació/ons» \
+#Explicació: \
+#No s'ha de confondre destí ('potència sobrehumana que fixa per endavant el curs dels #esdeveniments i la sort reservada a cadascú', 'sort reservada a cadascú') amb destinació #('acció de destinar', 'fi a què algú o alguna cosa són destinats', 'lloc on és tramesa alguna #cosa o es dirigeix algú'). \
+#Exemple: \
+## Molta gent voldria saber quin destí l'espera. \
+## Investiguen la destinació que els detinguts volien donar a la marihuana. \
+#(barbarisme)"
 
 [desvela(r)]i
 hint="«desvelar» s'ha de substituir per «revelar, descobrir» (barbarisme)"
