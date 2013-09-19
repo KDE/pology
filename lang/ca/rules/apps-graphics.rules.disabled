@@ -1,0 +1,1299 @@
+# Personal rules for Catalan translations
+# by KDE Catalan Team (kde-i18n-ca@kde.org)
+# License: GPLv3
+
+# -gràfics
+
+# Remove XML entities.
+include file="../filter.include"
+
+# Remove accelerator and  hyphen inside words.
+addFilterRegex match="(\&|\-)" on="pmsgid,pmsgstr"
+
+{\babsolute\scolorimetric\b}i
+valid msgstr="colorimetria absoluta"
+hint="Es tradueix per «colorimetria absoluta» (kde-ca-team)"
+
+{\bartifacts?\b}i
+valid msgstr="defectes?"
+hint="Es tradueix per «defecte/s» (kde-ca-team)"
+
+{\baspect\sratio\b}i
+valid msgstr="relació d'aspecte"
+hint="Es tradueix per «relació d'aspecte» (kde-ca-team)"
+
+{\bAuto.?Correction\b}i # Eina
+valid msgstr="Correcció automàtica"
+hint="Es tradueix per «Eina: Correcció automàtica» (kde-ca-team)"
+
+{\bAuto.?Levels\b}i # Eina
+valid msgstr="Nivells automàtics"
+hint="Es tradueix per «Eina: Nivells automàtics» (kde-ca-team)"
+
+{\bAuto.?Normalize\b}i # Eina
+valid msgstr="Normalització automàtica"
+hint="Es tradueix per «Eina: Normalització automàtica» (kde-ca-team)"
+
+{\bbackground\snoise\b}i
+valid msgstr="soroll de fons"
+hint="Es tradueix per «soroll de fons» (kde-ca-team)"
+
+{\bbackward\scompatibility\b}i
+valid msgstr="compatibilitat enrere"
+hint="Es tradueix per «compatibilitat enrere» (kde-ca-team)"
+
+{\bbad\spixels?\b}i
+valid msgstr="píxels? defectu(ós|osos)"
+hint="Es tradueix per «píxel/s defectuós/osos» (kde-ca-team)"
+
+{\bbalance\b}i
+valid msgid="White.?balance"
+valid msgid="Color\sBalance"
+valid msgstr="balanç"
+hint="Es tradueix per «balanç» (kde-ca-team)"
+
+# TODO: les bandes
+{\bbanding\b}i
+valid msgstr="efecte de cartell"
+hint="Es tradueix per «efecte de cartell» (kde-ca-team)"
+
+{\bbitrates?\b}i
+valid msgstr="tax(a|es) de bits"
+hint="Es tradueix per «taxa/es de bits» (kde-ca-team)"
+
+{\bBlack\sand\sWhite\b}i # Eina
+valid msgstr="Blancs? i negres?"
+hint="Es tradueix per «Eina: Blanc i negre, Altre: blancs i negres» (kde-ca-team)"
+
+{\bblack.?level\b}i
+valid msgstr="nivell negre"
+hint="Es tradueix per «nivell negre» (kde-ca-team)"
+
+{\bblack.?point\b}i
+valid msgstr="punt negre"
+hint="Es tradueix per «punt negre» (kde-ca-team)"
+
+{\bbleached\b}i
+valid msgstr="descolorida"
+hint="Es tradueix per «descolorida» (kde-ca-team)"
+
+{\bblotchy\b}i
+valid msgstr="tacad(a|es)"
+hint="Es tradueix per «tacada/es» (kde-ca-team)"
+
+# TODO: Explosió
+{\bblow.?up\b}i # Eina -acció-
+valid msgstr="engrand(eix|ir)"
+hint="Es tradueix per «(Eina -acció-: Canvia la mida, engrandeix, engrandir» (kde-ca-team)"
+
+{\bbright\b}i
+valid msgstr="brillant"
+hint="Es tradueix per «brillant» (kde-ca-team)"
+
+{\bbrightness\b}i
+valid msgid="Brightness/Contrast/Gamma"
+valid msgstr="brillantor"
+hint="Es tradueix per «brillantor» (kde-ca-team)"
+
+{\bBrightness/Contrast/Gamma\b}i # Eina
+valid msgstr="Brillantor/Contrast/Gamma"
+hint="Es tradueix per «Eina: Brillantor/Contrast/Gamma» (kde-ca-team)"
+
+{\bcalibrated?\b}i
+valid msgstr="calibra(r|t)?"
+hint="Es tradueix per «calibra/r/t» (kde-ca-team)"
+
+{\bcalibrati(on|ng)\b}i
+valid msgstr="calibra(r|tge)"
+hint="Es tradueix per «calibrar, calibratge» (kde-ca-team)"
+
+{\bcameras?\b}i
+valid msgid="point.?and.?shoots?\scameras?"
+valid msgstr="càmer(a|es)"
+hint="Es tradueix per «càmera/es» (kde-ca-team)"
+
+{\bcamera\sprofiles?\b}i
+valid msgstr="perfil del monitor, de la càmera, de l'espai de treball i de la impressora"
+valid msgstr="perfil del monitor i el de la càmera"
+valid msgstr="perfils? de la càmera"
+hint="Es tradueix per «perfil/s de la càmera» (kde-ca-team)"
+
+{\bChannel\sMixer\b}i # Eina
+valid msgstr="Mesclador de canals"
+hint="Es tradueix per «Eina: Mesclador de canals» (kde-ca-team)"
+
+{\bcharacterization\b}i
+valid msgstr="caracterització"
+hint="Es tradueix per «caracterització» (kde-ca-team)"
+
+{\bCharcoal\sDrawing\b}i # Efecte
+valid msgstr="dibuix al carbonet"
+hint="Es tradueix per «Efecte: dibuix al carbonet» (kde-ca-team)"
+
+{\bColor\sBalance\b}i # Eina
+valid msgid="White\sColor\sBalance"
+valid msgstr="Equilibri de color"
+hint="Es tradueix per «Eina: Equilibri de color» (kde-ca-team)"
+
+{\bColor\sEffects\b}i # Eina
+valid msgstr="Efectes de color"
+hint="Es tradueix per «Eina: Efectes de color» (kde-ca-team)"
+
+{\bcolor\spatches?\b}i
+valid msgstr="mostr(a|es) de color"
+hint="Es tradueix per «mostra/es de color» (kde-ca-team)"
+
+{\bcolor\sprofiles?\b}i
+valid msgid="working\sspace\scolor\sprofiles?"
+valid msgstr="perfils? de color"
+hint="Es tradueix per «perfil/s de color» (kde-ca-team)"
+
+{\bcolor\srendering\b}i
+valid msgstr="reproducció del color"
+hint="Es tradueix per «reproducció del color» (kde-ca-team)"
+
+{\bcolor\srendition\b}i
+valid msgstr="rendició del color"
+hint="Es tradueix per «rendició del color» (kde-ca-team)"
+
+{\bcolor\sreproduction\b}i
+valid msgstr="reproducció del color"
+hint="Es tradueix per «reproducció del color» (kde-ca-team)"
+
+{\bcolor\ssaturation\b}i
+valid msgid="color\ssaturation\scorrection"
+valid msgstr="saturació de color"
+hint="Es tradueix per «saturació de color» (kde-ca-team)"
+
+TODO: an/ matisos de color
+{\bcolor\scasts\b}i
+valid msgstr="color indesitjat"
+hint="Es tradueix per «color indesitjat» (kde-ca-team)"
+
+{\bcolor\sdefinition\b}i
+valid msgstr="definició del color"
+hint="Es tradueix per «definició del color» (kde-ca-team)"
+
+{\bcolor.?gamut\b}i
+valid msgstr="gamma de colors"
+hint="Es tradueix per «gamma de colors» (kde-ca-team)"
+
+{\bColor\sManagement\b}i # Eina
+valid msgstr="Gestió del color"
+valid comment="Tag\:\stitle" # docmessages
+hint="Es tradueix per «Eina: Gestió del color» (kde-ca-team)"
+
+{\bcolor\sprofiles?\b}i
+valid msgid="working\sspace\scolor\sprofiles?"
+valid msgstr="perfils? de color"
+hint="Es tradueix per «perfil/s de color» (kde-ca-team)"
+
+{\bcolor\ssaturation\scorrection\b}i
+valid msgstr="correcció de la saturació del color"
+hint="Es tradueix per «correcció de la saturació del color» (kde-ca-team)"
+
+{\bcolor\sspaces?\b}i
+valid msgid="larger\scolor\sspaces?"
+valid msgid="working color spaces?"
+valid msgstr="espais? de color"
+hint="Es tradueix per «espai/s de color» (kde-ca-team)"
+
+{\bcolor\stemperature\b}i
+valid msgstr="temperatura del color"
+hint="Es tradueix per «temperatura del color» (kde-ca-team)"
+
+{\bcolorimetric\b}i
+valid msgid="absolute\scolorimetric"
+valid msgid="relative\scolorimetric"
+valid msgid="colorimetric\sintents?"
+valid msgstr="colorimetria"
+valid msgstr="RGB colorimètric"
+hint="Es tradueix per «colorimetria, RGB colorimètric» (kde-ca-team)"
+
+{\bcolorimetric\sintents?\b}i
+valid msgstr="propòsits? de colorimetria"
+hint="Es tradueix per «Propòsit/s de colorimetria» (kde-ca-team)"
+
+{\bcontain\scolors\b}i
+valid msgstr="cont(enir|indrà) colors"
+hint="Es tradueix per «contenir/contindrà colors» (kde-ca-team)"
+
+{\bcomposition\b}i # Guia
+valid msgid="Composition\sGuides?"
+valid msgstr="composició"
+hint="Es tradueix per «Guia: composició (Nota: Fa referència a la composició artística d'edificis, fotografies, etc.)» (kde-ca-team)"
+
+{\bComposition\sGuides?\b}i # Guia
+valid msgstr="Gui(a|es) de composició"
+hint="Es tradueix per «Guia: Guia/es de composició (Nota: Fa referència a la composició artística d'edificis, fotografies, etc.)» (kde-ca-team)"
+
+{\bcompression\b}i
+valid msgid="gamma compression"
+valid msgid="over.?compression"
+valid msgstr="compressió"
+hint="Es tradueix per «compressió» (kde-ca-team)"
+
+{\bcorrelator\b}i # Eina
+valid msgstr="correlacionador"
+hint="Es tradueix per «Eina: correlacionador» (kde-ca-team)"
+
+{\bcorrelat(e|ion)\b}i
+valid msgstr="correlaciona(r|rà)?"
+valid msgstr="correlació"
+hint="Es tradueix per «correlació, correlaciona/r/rà» (kde-ca-team)"
+
+{\bCurves\sAdjust\b}i # Eina
+valid msgstr="Ajust de corbes"
+hint="Es tradueix per «Eina: Ajust de corbes» (kde-ca-team)"
+
+{\bdead\spixels?\b}i
+valid msgstr="píxels? morts?"
+hint="Es tradueix per «píxel/s mort/s» (kde-ca-team)"
+
+{\bdeconvolution\b}i # Filtre
+valid msgstr="deconvolució"
+hint="Es tradueix per «Filtre: deconvolució» (kde-ca-team)"
+
+{\bDemosaicing\b}i
+valid msgstr="Reconstrucció"
+hint="Es tradueix per «Reconstrucció» (kde-ca-team)"
+
+{\bdigital\sasset\smanagement\b}i
+valid msgstr="gestió d'actius digitals"
+hint="Es tradueix per «gestió d'actius digitals» (kde-ca-team)"
+
+{\bdigital\sstill\simages?\b}i
+valid msgstr="imatges fotogràfi(ca|ques) digitals?"
+hint="Es tradueix per «imatges fotogràfica/ques digital/s» (kde-ca-team)"
+
+{\bDynamic\srange\sexpansion\b}i
+valid msgstr="Marge dinàmic expandit"
+hint="Es tradueix per «Marge dinàmic expandit» (kde-ca-team)"
+
+{\bdSLRs?\b}i
+valid msgstr="rèflex digitals?"
+hint="Es tradueix per «rèflex digital/s» (kde-ca-team)"
+
+# TODO: en altre cas és «vora/es» però no hi ha manera d'ajustar la regla 
+# fins que es revisin les traduccions
+{\bEdge\b}i # Eina -efecte-
+valid msgstr="Límits"
+hint="Es tradueix per «Eina -efecte-: Límits» (kde-ca-team)"
+
+{\bembedd(ed|ing)\b}i
+valid msgstr="incrusta(da|des|nt|r|ts?)"
+hint="Es tradueix per «incrustada/es, incrustat/s, incrustar/nt» (kde-ca-team)"
+
+{\bEmboss(ing)?\b}i # Efecte
+valid msgstr="Relleu"
+hint="Es tradueix per «Efecte: relleu» (kde-ca-team)"
+
+{\bEqualize\b}i # Eina
+valid msgstr="Equalitza"
+valid msgstr="equalització" # valida el context
+hint="Es tradueix per «Eina: Equalitza» (kde-ca-team)"
+
+{\bexpanded.?gamut\b}i
+valid msgstr="gamma expandida"
+hint="Es tradueix per «gamma expandida» (kde-ca-team)"
+
+{\bExposure\b}i # Eina
+valid msgstr="Exposició"
+valid msgstr="dades exposades" # doc digikam
+hint="Es tradueix per «Eina: Exposició» (kde-ca-team)"
+
+{\bface\srectangles?\b}i
+valid msgstr="rectangles? de la cara"
+hint="Es tradueix per «rectangle/s de la cara» (kde-ca-team)"
+
+{\bFilm.?Grain\b}i # Efecte
+valid msgstr="gra de pel·lícula"
+hint="Es tradueix per «Efecte: gra de pel·lícula» (kde-ca-team)"
+
+{\bFish.?Eyes\b}i # Efecte
+valid msgstr="Ull de peix"
+hint="Es tradueix per «Efecte: Ull de peix» (kde-ca-team)"
+
+{\bfocus\b}i
+valid msgstr="enfoca(da|ment)"
+hint="Es tradueix per «enfocada, enfocament, AVÍS: no confondre amb el focus» (kde-ca-team)"
+
+{\bframe.?rate\b}i
+valid msgstr="velocitat dels fotogrames"
+hint="Es tradueix per «velocitat dels fotogrames» (kde-ca-team)"
+
+{\bFree\sRotation\b}i # Eina
+valid msgstr="Gir lliure"
+hint="Es tradueix per «Eina: Gir lliure» (kde-ca-team)"
+
+{\bgain\b}i
+valid msgstr="guany"
+hint="Es tradueix per «guany» (kde-ca-team)"
+
+# TODO: revisar gamut
+{\bgamma\b}i
+valid msgid="gamma\scompression"
+valid msgid="gamma\sencoding"
+valid msgid="gamma\sramp"
+valid msgid="gamma\stransfer\scurve"
+valid msgid="gamma\stransform"
+valid msgstr="gamma"
+hint="Es tradueix per «gamma» (kde-ca-team)"
+
+{\bgamma\scompression\b}i
+valid msgstr="compressió de gamma"
+hint="Es tradueix per «compressió de gamma» (kde-ca-team)"
+
+{\bGamma\scorrection\b}i
+valid msgstr="Correcció de la gamma"
+hint="Es tradueix per «Correcció de la gamma» (kde-ca-team)"
+
+{\bgamma\sencoding\b}i
+valid msgstr="codificació de gamma"
+hint="Es tradueix per «codificació de gamma» (kde-ca-team)"
+
+{\bgamma\sramp\b}i
+valid msgstr="desnivell de gamma"
+hint="Es tradueix per «desnivell de gamma» (kde-ca-team)"
+
+{\bgamma\stransfer\scurve\b}i
+valid msgstr="corba de transferència de la gamma"
+hint="Es tradueix per «corba de transferència de la gamma» (kde-ca-team)"
+
+{\bgamma\stransform\b}i
+valid msgstr="transformació de gamma"
+hint="Es tradueix per «transformació de gamma» (kde-ca-team)"
+
+{\bgamut\b}i
+valid msgid="large.?gamut"
+valid msgid="bmedium.?gamut"
+valid msgid="gamut.?clipping"
+valid msgid="small.?gamut"
+valid msgstr="gamma"
+hint="Es tradueix per «gamma» (kde-ca-team)"
+
+{\bgamut.?clipping\b}i
+valid msgstr="retallat de la gamma"
+hint="Es tradueix per «retallat de la gamma» (kde-ca-team)"
+
+{\bGeo.?location\b}i
+valid msgstr="geolocalitza(r|ció)"
+hint="Es tradueix per «geolocalitzar, geolocalització» (kde-ca-team)"
+
+{\bgeo.?localize\b}i
+valid msgstr="geolocalitzicionar"
+hint="Es tradueix per «geolocalitzacionar» (kde-ca-team)"
+
+{\bGolden\sMean\b}i # Guia
+valid msgstr="Secció àuria"
+hint="Es tradueix per «Guia: Secció àuria» (kde-ca-team)"
+
+{\bGolden\sRectangles\b}i # Guia
+valid msgstr="rectangles auris"
+hint="Es tradueix per «Guia: rectangles auris» (kde-ca-team)"
+
+{\bGolden\sSpiral\b}i # Guia
+valid msgid="Golden\sSpiral\sSections"
+valid msgstr="Espiral àuria"
+hint="Es tradueix per «Guia: Espiral àuria» (kde-ca-team)"
+
+{\bGolden\sSpiral\sSections\b}i # Guia
+valid msgstr="Seccions de l'espiral àuria"
+hint="Es tradueix per «Guia: Seccions de l'espiral àuria» (kde-ca-team)"
+
+{\bGolden\sTriangles?\b}i # Guia
+valid msgstr="Triangles? auris?"
+hint="Es tradueix per «Guia: Triangles? auris?» (kde-ca-team)"
+
+{\bgraphs?\b}i
+valid msgstr="grafs?"
+hint="Es tradueix per «graf/s» (kde-ca-team)"
+
+# TODO: revisar
+{\bgun\b}i
+valid msgstr="arma"
+hint="Es tradueix per «arma» (kde-ca-team)"
+
+{\bhard.?proof(ing)?\b}i
+valid msgstr="provatura restringida"
+hint="Es tradueix per «provatura restringida» (kde-ca-team)"
+
+{\bhard/soft.?proof(ing)?\b}i
+valid msgstr="provatur(a|es) suaus?/restringid(a|es)"
+hint="Es tradueix per «provatura suau/restringida, ... suaus/restringides» (kde-ca-team)"
+
+{\bhardware\svendors?\b}i
+valid msgid="software\sand\shardware\svendors?"
+valid msgstr="distribuïdors? de maquinari"
+hint="Es tradueix per «distribuïdor/s de maquinari» (kde-ca-team)"
+
+{\bHarmonious\sTriangles\b}i # Guia
+valid msgstr="Triangles harmoniosos"
+hint="Es tradueix per «Guia: Triangles harmoniosos» (kde-ca-team)"
+
+{\bheadshots?\b}i
+valid msgstr="retrats?"
+hint="Es tradueix per «retrat/s» (kde-ca-team)"
+
+{\bhigh.?key\b}i
+valid msgstr="perfil alt"
+hint="Es tradueix per «perfil alt» (kde-ca-team)"
+
+{\bhot.?pixels?\b}i # Eina
+valid msgid="Hot.?Pixel\sCorrection"
+valid msgstr="píxels? cremats?"
+hint="Es tradueix per «Eina: píxel/s cremat/s» (kde-ca-team)"
+
+{\bHot.?Pixel\sCorrection\b}i # Eina
+valid msgstr="Correcció dels píxels cremats"
+hint="Es tradueix per «Eina: Correcció dels píxels cremats» (kde-ca-team)"
+
+{\bHue/Saturation/Lightness\b}i # Eina
+valid msgstr="To/Saturació/Lluminositat"
+hint="Es tradueix per «Eina: To/Saturació/Lluminositat» (kde-ca-team)"
+
+{\bImage\sColor\b}i # Eina
+valid msgstr="Color de la imatge"
+hint="Es tradueix per «Eina: Color de la imatge» (kde-ca-team)"
+
+{\bimage.?editing\b}i
+valid msgstr="edició d'imatges"
+hint="Es tradueix per «edició d'imatges» (kde-ca-team)"
+
+{\bimage\sfiles?\b}i
+valid msgstr="Tagged Image File Format"
+valid msgstr="fitxers? d'imatge"
+hint="Es tradueix per «fitxer/s d'imatge» (kde-ca-team)"
+
+{\bimage.?processing\b}i
+valid msgstr="processament químic de la imatge" # chemical image processing
+valid msgstr="processament digital de la imatge" # digital image processing
+valid msgstr="processament d(e les |')imatges"
+valid msgstr="processament de la imatge"
+hint="Es tradueix per «processament de la imatge, de les imatges/d'imatges» (kde-ca-team)"
+
+{\bimage\stonality\b}i
+valid msgstr="tonalitat de la imatge"
+valid msgstr="tonalitat de la vostra imatge"
+hint="Es tradueix per «tonalitat de la imatge, tonalitat de la vostra imatge» (kde-ca-team)"
+
+{\bimaging\sworkflow\b}i
+valid msgstr="flux de treball amb les imatges"
+hint="Es tradueix per «flux de treball amb les imatges» (kde-ca-team)"
+
+{\bIn.?Painting\b}i # Eina
+valid comment="Tag\:\stitle" # docmessages
+valid msgstr="repintat"
+hint="Es tradueix per «Eina: repintat» (kde-ca-team)"
+
+{\bInfrared\sFilm\b}i # Efecte
+valid msgstr="pel·lícula infraroja"
+hint="Es tradueix per «Efecte: pel·lícula infraroja» (kde-ca-team)"
+
+{\bInput\sLevels?\b}i # Eina
+valid msgstr="nivells? d'entrada"
+hint="Es tradueix per «Eina: nivell/s d'entrada» (kde-ca-team)"
+
+{\bintents?\b}i
+valid msgid="colorimetric\sintents?"
+valid msgid="perceptual\sintents?"
+valid msgid="Rendering\sintents?"
+valid msgstr="Propòsits?"
+hint="Es tradueix per «Propòsit/s» (kde-ca-team)"
+
+{\blarge\sgamut\b}i
+valid msgstr="gamma gran"
+hint="Es tradueix per «gamma gran» (kde-ca-team)"
+
+{\blarger\scolor\sspaces?\b}i
+valid msgstr="espais? de color més grans?"
+hint="Es tradueix per «espai/s de color més gran/s» (kde-ca-team)"
+
+{\blayers?\b}i
+valid msgstr="MPEG 2 Audio Layer"
+valid msgstr="cap(a|es)"
+hint="Es tradueix per «capa/es» (kde-ca-team)"
+
+{\bLens?\b}i
+valid msgid="Lens\sDistortion"
+valid msgstr="lent"
+hint="Es tradueix per «lent» (kde-ca-team)"
+
+{\bLenses\b}i
+valid msgstr="lents"
+hint="Es tradueix per «lents» (kde-ca-team)"
+
+{\bLens\sDistortion\b}i # Eina
+valid msgstr="Distorsió de la lent"
+hint="Es tradueix per «Eina: Distorsió de la lent» (kde-ca-team)"
+
+{\bless\scontrast\b}i
+valid msgstr="menys contrast"
+hint="Es tradueix per «menys contrast» (kde-ca-team)"
+
+{\bless\ssaturation\b}i
+valid msgstr="menys saturació"
+hint="Es tradueix per «menys saturació» (kde-ca-team)"
+
+{\bLevels\sAdjust\b}i # Eina
+valid msgstr="Ajust de nivells"
+hint="Es tradueix per «Eina: Ajust de nivells» (kde-ca-team)"
+
+{\blinear\b}i
+valid msgid="linear\shistogram"
+valid msgid="linear luminance"
+valid msgid="linear\sor\slogarithmic\shistogram"
+valid msgid="logarithmic\shistogram"
+valid msgid="no(n|t).?linear"
+valid msgstr="lineals?"
+hint="Es tradueix per «lineal/s» (kde-ca-team)"
+
+{\blinear\shistogram\b}i
+valid msgid="linear\sor\slogarithmic\shistogram"
+valid msgstr="histograma en escala lineal"
+hint="Es tradueix per «histograma en escala lineal» (kde-ca-team)"
+
+{logarithmic\shistogram\b}i
+valid msgstr="histograma en escala logarítmica"
+hint="Es tradueix per «histograma en escala logarítmica» (kde-ca-team)"
+
+{\blinear\sor\slogarithmic\shistogram\b}i
+valid msgstr="histograma en escala lineal o logarítmica"
+hint="Es tradueix per «histograma en escala lineal o logarítmica» (kde-ca-team)"
+
+{\blinearly\b}i
+valid msgid="no(n|t).?linearily"
+valid msgstr="de forma lineal"
+hint="Es tradueix per «de forma lineal» (kde-ca-team)"
+
+{\blinear\sluminance\b}i
+valid msgstr="luminància lineal"
+hint="Es tradueix per «luminància lineal» (kde-ca-team)"
+
+{\blocations?\b}i
+valid msgstr="ubicaci(ó|ons)"
+hint="Es tradueix per «ubicació/ons» (kde-ca-team)"
+
+{\blow.?key\b}i
+valid msgstr="perfil baix"
+hint="Es tradueix per «perfil baix» (kde-ca-team)"
+
+{\bluminance\b}i
+valid msgid="linear luminance"
+valid msgstr="luminància"
+hint="Es tradueix per «luminància» (kde-ca-team)"
+
+{\bluminosity\b}i
+valid msgstr="lluminositat"
+hint="Es tradueix per «lluminositat» (kde-ca-team)"
+
+{\bmanufacturers?\b}i
+valid msgstr="fabricants?"
+hint="Es tradueix per «fabricant/s» (kde-ca-team)"
+
+{\bmapping\b}i
+valid msgstr="tone.?mapping"
+valid msgstr="assigna"
+valid msgstr="mapatge"
+hint="Es tradueix per «assigna, mapatge» (kde-ca-team)"
+
+{\bmedia.?players?\b}i
+valid msgstr="reproductors? de suports"
+hint="Es tradueix per «reproductor/s de suports» (kde-ca-team)"
+
+{\bmedium.?gamut\b}i
+valid msgstr="gamma mitja"
+hint="Es tradueix per «gamma mitja» (kde-ca-team)"
+
+{\bmid(dle)?.?range\b}i
+valid msgstr="gamma mitjana"
+hint="Es tradueix per «gamma mitjana» (kde-ca-team)"
+
+{\bmid(dle)?.?tones?\b}i
+valid msgid="shadow,\s(middle|midtone).?\sand\shighlights?(\stones)?"
+valid msgstr="To(ns)? mitj(à|os)"
+hint="Es tradueix per «to mitjà, tons mitjos» (kde-ca-team)"
+
+{\bminimum\stransmission\b}i
+valid msgstr="transmissió mínima"
+hint="Es tradueix per «transmissió mínima» (kde-ca-team)"
+
+{\bmonitor\scolor\sspace\sprofiles?\b}i
+valid msgstr="perfils? d'espai de color del monitor"
+hint="Es tradueix per «perfil/s d'espai de color del monitor» (kde-ca-team)"
+
+{\bmonitor\sprofiles?\b}i
+valid msgstr="perfils? del monitor"
+hint="Es tradueix per «perfil/s del monitor» (kde-ca-team)"
+
+{\bNeon\b}i # Eina -efecte-
+valid msgstr="Neó"
+hint="Es tradueix per «Eina -efecte-: Neó» (kde-ca-team)"
+
+{\bno\snoise\sreduction\b}i
+valid msgstr="sense reducció de soroll"
+hint="Es tradueix per «sense reducció de soroll» (kde-ca-team)"
+
+{\bnoise\b}i
+valid msgid="background\snoise"
+valid msgid="noise\sreduction"
+valid msgstr="soroll"
+hint="Es tradueix per «soroll» (kde-ca-team)"
+
+{\bNoise.?Reduction\b}i # Eina
+valid comment="Tag\:\stitle" # docmessages
+valid msgstr="reducció de soroll"
+hint="Es tradueix per «Eina: Reducció de soroll» (kde-ca-team)"
+
+{\bno(n|t).?linear\b}i
+valid msgstr="no lineals?"
+hint="Es tradueix per «no lineal/s» (kde-ca-team)"
+
+{\bno(n|t).?linearily\b}i
+valid msgstr="de forma no lineal"
+hint="Es tradueix per «de forma no lineal» (kde-ca-team)"
+
+{\bNormalized?\b}i # Eina
+valid msgstr="Normalitzat?"
+hint="Es tradueix per «Eina: Normalitza, normalitzat» (kde-ca-team)"
+
+{\bOil.?Painting\b}i # Efecte
+valid msgstr="pintura a l'oli"
+hint="Es tradueix per «Efecte: pintura a l'oli» (kde-ca-team)"
+
+{\boperating\ssystem\svendors?\b}i
+valid msgstr="distribuïdors? de sistemes operatius"
+hint="Es tradueix per «distribuïdor/s de sistemes operatius» (kde-ca-team)"
+
+{\bOutput\sLevels?\b}i # Eina
+valid msgid="a 'y' output level" # doc digikam_editor-color
+valid msgstr="nivells de sortida"
+hint="Es tradueix per «Eina: nivells de sortida» (kde-ca-team)"
+
+{\bover.?compression\b}i
+valid msgstr="excés de compressió"
+hint="Es tradueix per «excés de compressió» (kde-ca-team)"
+
+{\bover.?exposure\b}i
+valid msgstr="sobreexposició"
+hint="Es tradueix per «sobreexposició» (kde-ca-team)"
+
+{\bpatches?\b}i
+valid msgid="color\spatches?"
+valid msgstr="mostr(a|es)"
+valid msgstr="pedaç(os)?"
+hint="Es tradueix per «mostra/es, pedaç/os» (kde-ca-team)"
+
+{\bPhotograph\sRestoration\b}i # Eina
+valid msgstr="restauració fotogràfica"
+hint="Es tradueix per «Eina: restauració fotogràfica» (kde-ca-team)"
+
+{\bphotographed\b}i
+valid msgstr="fotografia(da|r|t)"
+hint="Es tradueix per «fotografiar/t/da» (kde-ca-team)"
+
+{\bphotographers?\b}i
+valid msgstr="fotògrafs?"
+hint="Es tradueix per «fotògraf/s» (kde-ca-team)"
+
+{\bpictures?\b}i
+valid msgid="Picture\sTransfer\sProtocol"
+valid msgstr="fotografi(a|es)"
+hint="Es tradueix per «fotografia/es» (kde-ca-team)"
+
+{\bPicture\sTransfer\sProtocol\b}i
+valid msgstr="protocol per a la transferència de fotografies"
+hint="Es tradueix per «protocol per a la transferència de fotografies» (kde-ca-team)"
+
+{\bpoint.?and.?shoots?\scameras?\b}i
+valid msgstr="càmer(a|es) instantàni(a|es)"
+hint="Es tradueix per «càmera/es instantània/es» (kde-ca-team)"
+
+{\bperceptual\sintents?\b}i
+valid msgstr="Propòsits? perceptius?"
+hint="Es tradueix per «Propòsit/s perceptius?» (kde-ca-team)"
+
+{\bPerspective\sAdjustment\b}i # Eina
+valid msgstr="Arranjament de la perspectiva"
+hint="Es tradueix per «Eina: Arranjament de la perspectiva» (kde-ca-team)"
+
+{\bphotos?\b}i
+valid msgid="sensitive.?photo"
+valid msgstr="fotografi(a|es)"
+hint="Es tradueix per «fotografia/es» (kde-ca-team)"
+
+{\bprinter\sprofiles?\b}i
+valid msgstr="perfil del monitor, de la càmera, de l'espai de treball i de la impressora"
+valid msgstr="perfils? de la impressora"
+hint="Es tradueix per «perfil/s de la impressora» (kde-ca-team)"
+
+{\bprinter\sprofiling\b}i
+valid msgstr="perfils per a impressora"
+hint="Es tradueix per «perfils per a impressora» (kde-ca-team)"
+
+{\bprinting\ssystems?\b}i
+valid msgstr="sistem(a|es) d'impressió"
+hint="Es tradueix per «sistema/es d'impressió» (kde-ca-team)"
+
+{\bproof(ing)?\b}i
+valid msgid="hard.?proof(ing)?"
+valid msgid="soft.?proof(ing)?"
+valid msgstr="provatur(a|es)"
+hint="Es tradueix per «provatura/es» (kde-ca-team)"
+
+{\bprofiles?\b}i
+valid msgid="color\sprofiles?"
+valid msgid="monitor\sprofiles?"
+valid msgid="printer\sprofiles?"
+valid msgid="Profile\sColor\sSpace"
+valid msgid="scanner\sprofiles?"
+valid msgid="profile\sspaces?"
+valid msgid="working\sspace\sprofiles?"
+valid msgstr="perfils?"
+hint="Es tradueix per «perfil/s» (kde-ca-team)"
+
+{\bprofil(ed|ing)\b}i
+valid msgid="printer profiling"
+valid msgstr="perfil(en|ar|at)"
+hint="Es tradueix per «perfilar/t, perfilen» (kde-ca-team)"
+
+{\bProfile\sColor\sSpace\b}i
+valid msgstr="Perfil de l'espai de color"
+hint="Es tradueix per «Perfil de l'espai de color» (kde-ca-team)"
+
+{\bProfile\sConnection\sSpaces?\b}i
+valid msgstr="espais? de connexió del perfil"
+hint="Es tradueix per «espai/s de connexió del perfil» (kde-ca-team)"
+
+{\bprofile\sspaces?\b}i
+valid msgstr="espais? del perfil"
+hint="Es tradueix per «espai/s del perfil» (kde-ca-team)"
+
+{\bRain.?drops?\b}i # Efecte
+valid msgstr="Got(a|es) de pluja"
+hint="Es tradueix per «Efecte: Gotes de pluja» (kde-ca-team)"
+
+{\brange\scorrected\b}i
+valid msgstr="correcció d'abast"
+hint="Es tradueix per «correcció d'abast» (kde-ca-team)"
+
+{\brating\b}i
+valid msgstr="valora(r|ció)"
+hint="Es tradueix per «valorar/ció» (kde-ca-team)"
+
+{\braw\sconverters?\b}i
+valid msgstr="convertidors? RAW"
+hint="Es tradueix per «convertidor/s RAW» (kde-ca-team)"
+
+{\braw\sdevelopers?\b}i
+valid msgstr="desenvolupadors? RAW"
+hint="Es tradueix per «desenvolupador/s RAW» (kde-ca-team)"
+
+{\braw\sfiles?\b}i
+valid msgstr="fitxers JPEG i RAW"
+valid msgstr="fitxers? RAW"
+hint="Es tradueix per «fitxer/s RAW» (kde-ca-team)"
+
+{\braw\simages?\b}i
+valid msgstr="imatges? RAW"
+hint="Es tradueix per «imatge/s RAW» (kde-ca-team)"
+
+{\braw\sprocessing\b}i
+valid msgstr="processament RAW"
+hint="Es tradueix per «processament RAW» (kde-ca-team)"
+
+{\braw\sprocessors?\b}i
+valid msgstr="processadors? RAW"
+hint="Es tradueix per «processador/s RAW» (kde-ca-team)"
+
+{\breal\sworld\b}i
+valid msgstr="món real"
+hint="Es tradueix per «món real» (kde-ca-team)"
+
+{\bRed\sEye\sRemoval\b}i # Eina
+valid msgstr="Eliminació d'ulls vermells"
+hint="Es tradueix per «Eina: Eliminació d'ulls vermells» (kde-ca-team)"
+
+{\breduce\b}i # Eina -acció-
+valid msgstr="redu(ir|eix|cció)"
+hint="Es tradueix per «(Eina -acció-: Canvia la mida, redueix, reducció, reduir» (kde-ca-team)"
+
+{\bRefocus\b}i # Eina
+valid comment="Tag\:\stitle" # docmessages
+valid msgstr="reenfoc"
+hint="Es tradueix per «Eina: Reenfoc» (kde-ca-team)"
+
+{\brelative\scolorimetric\b}i
+valid msgstr="colorimetria relativa"
+valid msgstr="colorimetria perceptual i relativa"
+hint="Es tradueix per «colorimetria relativa» (kde-ca-team)"
+
+{\bRendering\sintents?\b}i
+valid msgstr="Propòsits? de representació"
+hint="Es tradueix per «Propòsit/s de representació» (kde-ca-team)"
+
+{\bRules?\sof\sThird\b}i # Guia
+valid msgstr="regla dels terços"
+hint="Es tradueix per «Guia: regla dels terços» (kde-ca-team)"
+
+{\bS.?curves?\b}i
+valid msgstr="corb(a|es) S"
+hint="Es tradueix per «corba/es S» (kde-ca-team)"
+
+{\bSaturation\b}i # Eina
+valid msgid="Hue/Saturation/Lightness"
+valid msgstr="Saturació"
+hint="Es tradueix per «Eina: Saturació» (kde-ca-team)"
+
+{\bscanner\sprofiles?\b}i
+valid msgstr="perfils? de l'escàner"
+hint="Es tradueix per «perfil/s de l'escàner» (kde-ca-team)"
+
+{\bscanned\b}i
+valid msgstr="escaneja(da|ran|t)?"
+valid msgstr="explorat"
+hint="Es tradueix per «escaneja/t/da, escanejaran, explorat» (kde-ca-team)"
+
+{\bscanners?\b}i
+valid msgid="scanner\shardware"
+valid msgid="scanners?\sdevice"
+valid msgid="scanner\sglass"
+valid msgstr="escàners?"
+hint="Es tradueix per «escàner/s» (kde-ca-team)"
+
+{\bscanners?\sdevice\b}i
+valid msgstr="dispositius? d'escaneig"
+valid msgstr="dispositiu d'escàner"
+hint="Es tradueix per «dispositiu/s d'escaneig/escàner» (kde-ca-team)"
+
+{\bscanner\sglass\b}i
+valid msgstr="safata d'escaneig"
+hint="Es tradueix per «safata d'escaneig» (kde-ca-team)"
+
+{\bscanner\shardware\b}i
+valid msgstr="maquinari d'escaneig"
+hint="Es tradueix per «maquinari d'escaneig» (kde-ca-team)"
+
+{\bscene.?referred\b}i
+valid msgstr="en referència a l'escena"
+hint="Es tradueix per «en referència a l'escena» (kde-ca-team)"
+
+{\bscenic\b}i
+valid msgstr="escèniques" # scenic images
+valid msgstr="paisatges"
+hint="Es tradueix per «paisatges, imatges escèniques» (kde-ca-team)"
+
+{\bset\sof\scolors\b}i
+valid msgstr="conjunt de colors"
+hint="Es tradueix per «conjunt de colors» (kde-ca-team)"
+
+{\bshot\b}i
+valid msgid="Screen\sShot"
+valid msgstr="pre(ndre|s)"
+hint="Es tradueix per «prendre, pres» (kde-ca-team)"
+
+{\bshoted\b}i
+valid msgstr="presa"
+hint="Es tradueix per «presa» (kde-ca-team)"
+
+{\bshots\b}i
+valid msgstr="fotografies"
+hint="Es tradueix per «fotografies» (kde-ca-team)"
+
+{\bshooting\b}i
+valid msgid="Shooting\s(date|time)" cat="gwenview"
+valid msgstr="pre(ndre|neu|sa)"
+valid msgstr="dispara(r)?"
+valid msgstr="captura"
+hint="Es tradueix per «preneu, presa, disparar, captura» (kde-ca-team)"
+
+{\bshoots\b}i
+valid msgstr="dispara"
+valid msgstr="\bpren\b"
+hint="Es tradueix per «pren, dispara» (kde-ca-team)"
+
+{\bsmall.?gamut\b}i
+valid msgstr="gamma petita"
+hint="Es tradueix per «gamma petita» (kde-ca-team)"
+
+{\bsensitive.?photo\b}i
+valid msgstr="fotosensibles?"
+hint="Es tradueix per «fotosensible/s» (kde-ca-team)"
+
+{\bSmooth(ness)?\b}i
+valid msgid="very\ssmooth"
+valid msgstr="suavitzat"
+valid msgstr="\bsuau\b"
+hint="Es tradueix per «Eina: suau, suavitzat» (kde-ca-team)"
+
+{\bSmoothing\b}i
+valid msgstr="suavitzat"
+hint="Es tradueix per «suavitzat» (kde-ca-team)"
+
+{\bSoftening\b}i
+valid msgstr="suavitzar"
+hint="Es tradueix per «suavitzar» (kde-ca-team)"
+
+{\bsoft.?proof(ing)?\b}i
+valid msgid="hard/soft.?proof(ing)?"
+valid msgstr="provatura suau"
+hint="Es tradueix per «provatura suau» (kde-ca-team)"
+
+{\bsoftware\sand\shardware\svendors?\b}i
+valid msgstr="distribuïdors? de programari i maquinari"
+hint="Es tradueix per «distribuïdor/s de programari i maquinari» (kde-ca-team)"
+
+{\bsoftware\svendors?\b}i
+valid msgstr="distribuïdors? de programari"
+hint="Es tradueix per «distribuïdor/s de programari» (kde-ca-team)"
+
+{\bSolarize\b}i # Eina -efecte-
+valid msgstr="Solaritza"
+hint="Es tradueix per «Eina -efecte-: Solaritza» (kde-ca-team)"
+
+{\bspectrophotometers?\b}i
+valid msgstr="espectrofotòmetres?"
+hint="Es tradueix per «espectrofotòmetre/s» (kde-ca-team)"
+
+{\bspike\snoise\b}i
+valid msgstr="pic de soroll"
+hint="Es tradueix per «pic de soroll» (kde-ca-team)"
+
+{\bstill\b}i
+valid msgid="digital\sstill\simages?"
+valid msgid="still lifes" # natura morta
+valid msgstr="fotogràfi(ca|ques)"
+valid msgstr="fixa" # fotografia/imatge fixa
+valid msgstr="encara"
+valid msgstr="seguirà sent"
+hint="Es tradueix per «fotogràfica/ques, fotografia/imatge fixa, encara, seguirà sent» (kde-ca-team)"
+
+{\bstill/slifes\b}i
+valid msgstr="natura morta"
+hint="Es tradueix per «natura morta» (kde-ca-team)"
+
+{\bStretch\sContrast\b}i # Eina
+valid msgstr="Augmenta el contrast"
+hint="Es tradueix per «Eina: Augmenta el contrast» (kde-ca-team)"
+
+{\bstuck\spixels?\b}i
+valid msgid="Hot and Stuck Pixels"
+valid msgstr="píxels? blocats?"
+hint="Es tradueix per «píxel/s blocat/s» (kde-ca-team)"
+
+{\bsystem\soverhead\b}i
+valid msgstr="sobrecàrrega del sistema"
+hint="Es tradueix per «sobrecàrrega del sistema» (kde-ca-team)"
+
+{\btonal\sranges?\b}i
+valid msgstr="abast tonal"
+hint="Es tradueix per «abast tonal» (kde-ca-team)"
+
+{\btone.?mapping\b}i
+valid msgstr="mapatge dels tons"
+hint="Es tradueix per «mapatge dels tons» (kde-ca-team)"
+
+{\bthickness\b}i
+valid msgstr="densitat"
+valid msgstr="gruix"
+hint="Es tradueix per «densitat, gruix» (kde-ca-team)"
+
+{\bthresholds?\b}i
+valid msgstr="llindars?"
+hint="Es tradueix per «llindar/s» (kde-ca-team)"
+
+{\btime.?stamps?\b}i
+valid msgstr="mar(ca|ques) de temps"
+hint="Es tradueix per «marca/ques de temps» (kde-ca-team)"
+
+{\btone.?mapping\b}i
+valid msgstr="mapatge dels tons"
+hint="Es tradueix per «mapatge dels tons» (kde-ca-team)"
+
+{\btrack(ing)?\b}i
+valid msgid="track\sfiles?"
+valid msgstr="seguiment"
+valid msgstr="camí" cat="digikam" # docmessages
+hint="Es tradueix per «seguiment» (kde-ca-team)"
+
+{\btrack.?files?\b}i
+valid msgstr="fitxers? de trajecte"
+hint="Es tradueix per «fitxer/s de trajecte» (kde-ca-team)"
+
+{\btracker\b}i
+valid msgstr="localitzador"
+hint="Es tradueix per «localitzador» (kde-ca-team)"
+
+{\bTwirl\b}i # Efecte
+valid msgstr="Molinet"
+hint="Es tradueix per «Efecte: Molinet» (kde-ca-team)"
+
+{\buncalibrated\b}i
+valid msgstr="sense calibrar"
+hint="Es tradueix per «sense calibrar» (kde-ca-team)"
+
+{\bunder.?exposure\b}i
+valid msgstr="subexposició"
+hint="Es tradueix per «subexposició» (kde-ca-team)"
+
+{\bun.?focus\b}i
+valid msgstr="manca de definició"
+hint="Es tradueix per «manca de definició» (kde-ca-team)"
+
+{\bvery\ssmooth\b}i
+valid msgstr="molt suaus?"
+hint="Es tradueix per «molt suau/s» (kde-ca-team)"
+
+{\bVignetting\sCorrection\b}i # Eina
+valid comment="Tag\:\stitle" # docmessages
+valid msgid="anti.?vignetting correction"
+valid msgstr="Correcció del vinyetatge"
+hint="Es tradueix per «Eina: Correcció del vinyetatge» (kde-ca-team)"
+
+{\bVivid\b}i # Eina -efecte-
+valid msgstr="Llampant"
+hint="Es tradueix per «Eina -efecte-: Llampant» (kde-ca-team)"
+
+{\bwashed\sout\b}i
+valid msgstr="esva(eix|ïdes)"
+hint="Es tradueix per «esvaeix, esvaïdes» (kde-ca-team)"
+
+{\bWhite\sand\sBlack\b}i # Eina
+valid msgstr="Blancs? i negres?"
+hint="Es tradueix per «Eina: Blanc i negre, Altre: blancs i negres» (kde-ca-team)"
+
+{\bWhite.?balance\b}i # Eina
+valid msgstr="Balanç de blancs"
+hint="Es tradueix per «Eina: Balanç de blancs» (kde-ca-team)"
+
+{\bWhite\sColor\sBalance\b}i
+valid msgstr="balanç del color blanc"
+hint="Es tradueix per «balanç del color blanc» (kde-ca-team)"
+
+{\bwhite.?point\b}i
+valid msgstr="punt blanc"
+hint="Es tradueix per «punt blanc» (kde-ca-team)"
+
+{\bwide\srange\b}i
+valid msgstr="gran varietat"
+hint="Es tradueix per «gran varietat» (kde-ca-team)"
+
+{\bworking\scolor\sspaces?\b}i
+valid msgstr="espais? de color de treball"
+hint="Es tradueix per «espai/s de color de treball» (kde-ca-team)"
+
+{\bworking\sspace\sprofiles?\b}i
+valid msgstr="perfil del monitor, de la càmera, de l'espai de treball i de la impressora"
+valid msgstr="perfils? de(ls | l')espais? de treball"
+hint="Es tradueix per «perfil de l'espai de treball, perfils dels espais de treball» (kde-ca-team)"
+
+{\bworking\sspace\scolor\sprofiles?\b}i
+valid msgstr="perfils? de color de(ls | l')espais? de treball"
+hint="Es tradueix per «perfil de color de l'espai de treball, perfils de color dels espais de treball» (kde-ca-team)"
+
+{\bworkroom\b}i
+valid msgstr="cambra de treball"
+hint="Es tradueix per «cambra de treball» (kde-ca-team)"
+
+{\bworkstation\b}i
+valid msgstr="estació de treball"
+hint="Es tradueix per «estació de treball» (kde-ca-team)"
+
+######## TODO: Cal aclarir les més problemàtiques.
+################
+######## Blur
+
+# TODO: desenfocament
+{\bblurs?\b}i # Eina
+valid msgstr="difumina(s|t|ts)?"
+hint="Es tradueix per «Eina: Difumina/t/s» (kde-ca-team)"
+
+{\bblurreding\b}i
+valid msgstr="borrosa"
+hint="Es tradueix per «borrosa» (kde-ca-team)"
+
+{\bblurring\b}i # Eina
+valid msgstr="difumin(a|ats?|en)"
+hint="Es tradueix per «Eina: Difuminat/s, difuminen» (kde-ca-team)"
+
+{\bunblurring\b}i
+valid msgstr="Treure la manca de definició"
+hint="Es tradueix per «Treure la manca de definició» (kde-ca-team)"
+
+######## Crop
+
+{\bAspect\sRatio\sCrop\b}i # Eina
+valid msgstr="Retalla amb la relació d'aspecte"
+hint="Es tradueix per «Eina: Retalla amb la relació d'aspecte» (kde-ca-team)"
+
+{\bAuto.?Crop\b}i # Eina
+valid msgstr="Auto-retall"
+hint="Es tradueix per «Eina: Auto-retall» (kde-ca-team)"
+
+{\bcrops?\b}i # Eina
+valid msgid="Aspect\sRatio\sCrop"
+valid msgid="Crop\sshape"
+valid msgstr="Retall(ar?|ats?)"
+hint="Es tradueix per «Eina: Retalla, retallar, retallat/s» (kde-ca-team)"
+
+{\bCrop\sshape\b}i
+valid msgstr="forma de tall"
+hint="Es tradueix per «forma de tall» (kde-ca-team)"
+
+{\bcropp(ed|ing)\b}i
+valid msgstr="retalla(da|r|ran|t)"
+hint="Es tradueix per «retallat, retallar, retallada, retallaran» (kde-ca-team)"
+
+######## Dark
+
+{\bdark\b}i
+valid msgid="dark,\smid.?\sand\slight\stones"
+valid msgstr="fos(c|cos|ques)"
+hint="Es tradueix per «fosc/cos, fosques» (kde-ca-team)"
+
+{\bdark,\smid.?\sand\slight\stones\b}i
+valid msgstr="tons foscos, mitjos i clars"
+hint="Es tradueix per «tons foscos, mitjos i clars» (kde-ca-team)"
+
+{\bdark.?room\b}i
+valid msgstr="cambra fosca"
+hint="Es tradueix per «cambra fosca» (kde-ca-team)"
+
+{\bdark.?tones?\b}i
+valid msgstr="to(ns)? fosc(os)?"
+hint="Es tradueix per «to fosc, tons foscos» (kde-ca-team)"
+
+######## Light
+
+{\bLightness\b}i # Eina
+valid msgstr="Lluminositat"
+hint="Es tradueix per «Eina: Lluminositat» (kde-ca-team)"
+
+{\blighting\b}i
+valid msgstr="enllumenat"
+valid msgstr="il·luminació"
+valid msgstr="lluminós"
+hint="Es tradueix per «il·luminació, lluminós, enllumenat» (kde-ca-team)"
+
+{\blight.?tones?\b}i
+valid msgid="dark,\smid.?\sand\slight\stones"
+valid msgstr="to(ns)? clars?"
+hint="Es tradueix per «to clar, tons clars» (kde-ca-team)"
+
+# TODO: és problemàtica i irresolta fora d'un ús personal 
+# (tornar a assignar per aclarir la traducció)
+{\bhigh.?lights?\b}i
+valid msgid="shadows\sand\shighlights"
+valid msgid="shadow,\s(middle|midtone).?\sand\shighlights?(\stones)?"
+valid msgstr="llums blaves intenses" cat="libkdcraw"
+valid msgstr="clars?"
+valid msgstr="lluminos(a|es)"
+valid msgstr="lluminós"
+valid msgstr="llums intenses"
+valid msgstr="reflexos"
+hint="Es tradueix per «lluminós, lluminosa/es, llums intenses, clar/s, reflexos, (compte: ressaltat)» (kde-ca-team)"
+
+######## Shadow
+
+{\bshadow,\s(middle|midtone).?\sand\shighlights?(\stones)?\b}i
+valid msgstr="ombres, tons mitjos i llums intenses"
+hint="Es tradueix per «ombres, tons mitjos i llums intenses» (kde-ca-team)"
+
+{\bshadows?\b}i
+valid msgid="shadows\sand\shighlights"
+valid msgid="shadow\sdenoising"
+valid msgid="shadow,\s(middle|midtone).?\sand\shighlights?(\stones)?"
+valid msgstr="ombrejad(a|es)"
+valid msgstr="ombr(a|es)"
+valid msgstr="fos(c|ca|cos|ques)"
+hint="Es tradueix per «ombrejada/es, ombra/es, fosc/a/os, fosques» (kde-ca-team)"
+
+{\bshadows\sand\shighlights\b}i
+valid msgstr="les ombres i les llums"
+hint="Es tradueix per «les ombres i les llums» (kde-ca-team)"
+
+{\bshadow\sdenoising\b}i
+valid msgstr="reducció de les ombres"
+hint="Es tradueix per «reducció de les ombres» (kde-ca-team)"
+
+######## Sharp
+
+{\bCircular\sSharpness\b}i
+valid msgstr="Nitidesa circular"
+hint="Es tradueix per «Nitidesa circular» (kde-ca-team)"
+
+{\bGaussian\sSharpness\b}i
+valid msgstr="Nitidesa gaussiana"
+hint="Es tradueix per «Nitidesa gaussiana» (kde-ca-team)"
+
+# TODO: canviar la resolució, agudització (sharping)
+{\bno\ssharpening\b}i
+valid msgstr="no es requereixi suavitzar" # doc digikam_editor-transform.po
+valid msgstr="sense nitidesa" # doc digikam_color-management.po
+hint="Es tradueix per «no es requereixi suavitzar» (kde-ca-team)"
+
+{\bselective\ssharpening\b}i
+valid msgstr="nitidesa selectiva"
+hint="Es tradueix per «nitidesa selectiva» (kde-ca-team)"
+
+{\bsharper\b}i
+valid msgstr="nítid(a|s)?"
+hint="Es tradueix per «nítid/a/s» (kde-ca-team)"
+
+# TODO: revisar
+# Sharpen: Ressalta
+# Sharpness: Definició
+{\bSharp(en)?(ing|ess|ness)?\b}i # Eina
+valid msgid="no\ssharpening"
+valid msgid="selective\ssharpening"
+valid msgstr="aguditza(ció)?"
+valid msgstr="nitidesa"
+valid msgstr="defin(eix|ir) més"
+hint="Es tradueix per «Eina: Nitidesa, (definir/eix més, augmenta/r la nitidesa) Eina: Aguditza/ció» (kde-ca-team)"
+
+{\bUnsharp\b}i
+valid msgid="Unsharp\sMask"
+valid msgstr="suavitzat"
+hint="Es tradueix per «suavitzat» (kde-ca-team)"
+
+# TODO: Màscara d'enfocament (fr: Masque flou)
+{\bUnsharp\sMask\b}i # Eina
+valid msgstr="Màscara de suavitzat"
+hint="Es tradueix per «Eina: Màscara de suavitzat» (kde-ca-team)"
+
+######## Shear
+
+{\bShear(tool)?\b}i # Eina
+valid msgstr="Inclina"
+hint="Es tradueix per «Eina: Inclina» (kde-ca-team)"
+
+{\bShear(ed|ing)\b}i # Eina
+valid msgstr="inclina(ció|da|nant/r)"
+hint="Es tradueix per «inclinar/ció/da/nant» (kde-ca-team)"
+
+########
+################
+######## Canvis a l'IGU: esborrar després.
+
+{\bLoad\sGPX\sFile\b}i
+valid msgstr="Carrega un fitxer GPX"
+hint="Es tradueix per «Carrega un fitxer GPX» (kde-ca-team)"
+
+{\bAdd\sBorder\b}i
+valid msgstr="Afegeix una vora"
+valid comment="Tag\:\slink" # docmessages
+valid comment="Tag\:\stitle" # docmessages
+hint="Es tradueix per «Afegeix una vora» (kde-ca-team)"
+
+{\bApply\sTexture\b}i # Eina
+valid msgstr="Aplicar? una textura"
+hint="Es tradueix per «Eina: Aplica/r una textura» (kde-ca-team)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» (kde-ca-team)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» (kde-ca-team)"
+
