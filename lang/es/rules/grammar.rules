@@ -881,6 +881,10 @@ hint="«¿A donde...» se escribe como «¿Adónde...», (error gramatical)"
 id="gr-1-donde-interrogativo"
 hint="«¿Donde...» se escribe como «¿Dónde...», (error gramatical)"
 
+[¿(\w+\s)?cuantas?\b]i
+id="gr-1-cuantas-interrogativo"
+hint="«¿Cuantas...» se escribe como «¿Cuántas...», (error gramatical)"
+
 [¿(\w+\s)?cuantos?\b]i
 id="gr-1-cuantos-interrogativo"
 hint="«¿Cuantos...» se escribe como «¿Cuántos...», (error gramatical)"
@@ -937,6 +941,10 @@ hint="«¡A donde...» se escribe como «¡Adónde...», (error gramatical)"
 [¡(\w+\s)?donde\b]i
 id="gr-1-donde-admirativo"
 hint="«¡Donde...» se escribe como «¡Dónde...», (error gramatical)"
+
+[¡(\w+\s)?cuantas?\b]i
+id="gr-1-cuantas-admirativo"
+hint="«¡Cuantas...» se escribe como «¡Cuántas...», (error gramatical)"
 
 [¡(\w+\s)?cuantos?\b]i
 id="gr-1-cuantos-admirativo"
@@ -1442,7 +1450,6 @@ id="gr-1-a-en-lugar-de-ah-participio"
 valid span="\ba\s(cada|nada|lado)\b"
 valid after="(huel\w+|hol\w+|sab\w+|gust\w+|camb\w+)\s(\w+\s){0,2}"
 hint="Se ha encontrado «A» en lugar de «Ha» antes de un participio (error gramatical)"
-# No vale, p. ej.: cambia a dañado
 
 [(?u)\be\s\w+?(ad[oa]|id[oa])\b]i
 id="gr-1-e-sin-hache-antes-participio"
@@ -1480,27 +1487,35 @@ id="gr-1-habemos"
 valid after="nos\slas\s"
 hint="«Habemos» se escribe como «Hemos/Somos» (error gramatical)"
 
+[(?u)\b(habían|habrán|han|hayan|hubieran)\shabido\b]i
+id="gr-1-haber-habido"
+hint="«Habían/Habrán/Han/Hayan/Hubieran habido» se escribe como «Había/Habrá/Ha/Haya/Hubiera habido» (error gramatical)"
+
+[(?u)\b(haber|he|has|ha|hemos|habéis|han)\secho\b]i
+id="gr-1-haber-echo"
+hint="«Haber echo» se escribe como «Haber hecho» (error gramatical)"
+
 [(?u)\bhech[oa][sn]?\sa\s\w+?(ar|er|ir)\b]i
-id="cm-hecho-a-infinitivo"
+id="gr-1-hecho-a-infinitivo"
 hint="«Hecho a + infinitivo)» se escribe como «Echo a + infinitivo» (error gramatical)"
 
 [(?u)\ba\sver\s\w+?(ido)\b]i
-id="cm-a-ver-participio"
+id="gr-1-a-ver-participio"
 hint="«A ver + participio» se escribe como «Haber + participio» (error gramatical)"
 
 [(?u)\baya\s\w+?(ido)\b]i
-id="cm-aya-participio"
+id="gr-1-aya-participio"
 hint="«Aya + participio» se escribe como «Haya + participio» (error gramatical)"
 
 [(?u)\bhalla\s\w+?(ido)\b]i
-id="cm-halla-participio"
+id="gr-1-halla-participio"
 hint="«Halla + participio» se escribe como «Haya + participio» (error gramatical)"
 
 #
 # ERRORES DE CONCORDANCIA DE GÉNERO o NÚMERO
 #
 
-[(?u)\b([Ee]l|[Aa]l|[Dd]el|[Uu]n|[Ll]a|[Uu]na)\s[«'"]?]
+[(?u)\b([Ee]l|[Aa]l|[Dd]el|[Uu]n|[Ll]a|[Uu]na)\s[«\'\"]?]
 id="gr-1-concordancia-articulo-singular-nombre"
 validGroup singularName
 validGroup wordDelimiter
@@ -1509,7 +1524,7 @@ valid after="o\s"
 valid span="[Aa]l" before="\s\w+(los|las|nos|nas)"
 hint="Hay un artículo singular (El/Al/Del/Un/La/Una) seguido de un nombre en plural"
 
-[(?u)\b([Ll]os|[Ll]as)\s((dos|tres|cuatro|cinco|seis|siete|ocho|nueve|diez|once|doce|\d+)\s)?[«'"]?]
+[(?u)\b([Ll]os|[Ll]as)\s((dos|tres|cuatro|cinco|seis|siete|ocho|nueve|diez|once|doce|\d+)\s)?[«\'\"]?]
 id="gr-1-concordancia-articulo-definido-plural-nombre"
 validGroup pluralName
 validGroup thirdPerson
@@ -1517,21 +1532,21 @@ validGroup wordDelimiter
 validGroup beforeConnector
 hint="Hay un artículo definido plural (Los/Las) seguido de un nombre en singular"
 
-[(?u)\b([Uu]nos|[Uu]nas)\s((dos|tres|cuatro|cinco|seis|siete|ocho|nueve|diez|once|doce|\d+)\s)?[«'"]?]
+[(?u)\b([Uu]nos|[Uu]nas)\s((dos|tres|cuatro|cinco|seis|siete|ocho|nueve|diez|once|doce|\d+)\s)?[«\'\"]?]
 id="gr-1-concordancia-articulo-indefinido-plural-nombre"
 validGroup pluralName
 validGroup wordDelimiter
 validGroup beforeConnector
 hint="Hay un artículo indefinido plural (Uos/Unas) seguido de un nombre en singular"
 
-[(?u)\b([Ee]ste|[Ee]se|[Aa]quel|[Ee]sta|[Ee]sa|[Aa]quella|[Ee]sto|[Ee]so|[Aa]quello)\s[«'"]?]
+[(?u)\b([Ee]ste|[Ee]se|[Aa]quel|[Ee]sta|[Ee]sa|[Aa]quella|[Ee]sto|[Ee]so|[Aa]quello)\s[«\'\"]?]
 id="gr-1-concordancia-pronombre-singular-nombre"
 validGroup singularName
 validGroup wordDelimiter
 validGroup beforeConnector
 hint="Hay un pronombre singular (Este/Ese/Aquel/Esta/Esa/Aquella/Esto/Eso/Aquello) seguido de un nombre en plural"
 
-[(?u)\b([Ee]stos|[Ee]sos|[Aa]quellos|[Ee]stas|[Ee]sas|[Aa]quellas)\s((dos|tres|cuatro|cinco|seis|siete|ocho|nueve|diez|once|doce|\d+)\s)?[«'"]?]
+[(?u)\b([Ee]stos|[Ee]sos|[Aa]quellos|[Ee]stas|[Ee]sas|[Aa]quellas)\s((dos|tres|cuatro|cinco|seis|siete|ocho|nueve|diez|once|doce|\d+)\s)?[«\'\"]?]
 id="gr-1-concordancia-pronombre-plural-nombre"
 validGroup pluralName
 validGroup thirdPerson
@@ -1539,21 +1554,21 @@ validGroup wordDelimiter
 validGroup beforeConnector
 hint="Hay un pronombre plural (Estos/Esos/Aquellos/Estas/Esas/Aquellas) seguido de un nombre en singular"
 
-[(?u)\b([Mm]i|[Tt]u|[Ss]u|[Nn]uestr[oa]|[Vv]uestr[oa])\s[«'"]?]
+[(?u)\b([Mm]i|[Tt]u|[Ss]u|[Nn]uestr[oa]|[Vv]uestr[oa])\s[«\'\"]?]
 id="gr-1-concordancia-posesivo-singular-nombre"
 validGroup singularName
 validGroup wordDelimiter
 validGroup beforeConnector
 hint="Hay un posesivo singular (Mi/Tu/Su/Nuestro/Nuestra/Vuestro/Vuestra) seguido de un nombre en plural"
 
-[(?u)\b([Mm]is|[Tt]us|[Ss]us|[Nn]uestr[oa]s|[Vv]uestr[oa]s)\s((dos|tres|cuatro|cinco|seis|siete|ocho|nueve|diez|once|doce|\d+)\s)?[«'"]?]
+[(?u)\b([Mm]is|[Tt]us|[Ss]us|[Nn]uestr[oa]s|[Vv]uestr[oa]s)\s((dos|tres|cuatro|cinco|seis|siete|ocho|nueve|diez|once|doce|\d+)\s)?[«\'\"]?]
 id="gr-1-concordancia-posesivo-plural-nombre"
 validGroup pluralName
 validGroup wordDelimiter
 validGroup beforeConnector
 hint="Hay un posesivo plural (Mis/Tus/Sus/Nuestros/Nuestras/Vuestros/Vuestras) seguido de un nombre en singular"
 
-[(?u)\b(dos|tres|cuatro|cinco|seis|siete|ocho|nueve|diez|once|doce|trece|catorce|quince|dieci\w+|veint\w+|treint\w+|cuarent\w+|cincuent\w+|sesent\w+|setent\w+|ochent\w+|novent\w+)\s(mil\s)?[«'"]?]
+[(?u)\b(dos|tres|cuatro|cinco|seis|siete|ocho|nueve|diez|once|doce|trece|catorce|quince|dieci\w+|veint\w+|treint\w+|cuarent\w+|cincuent\w+|sesent\w+|setent\w+|ochent\w+|novent\w+)\s(mil\s)?[«\'\"]?]
 id="gr-1-concordancia-numero-plural-nombre"
 validGroup pluralName
 validGroup wordDelimiter
@@ -1563,7 +1578,7 @@ valid after="en\s"
 valid before="por\s"
 hint="Hay un número mayor que uno seguido de un nombre en singular"
 
-[(?u)\b([Ee]l|[Aa]l|[Dd]el|[Uu]n)\s[«'"]?]
+[(?u)\b([Ee]l|[Aa]l|[Dd]el|[Uu]n)\s[«\'\"]?]
 id="gr-1-concordancia-articulo-masculino-nombre"
 validGroup maleName
 validGroup neuterName
@@ -1572,7 +1587,7 @@ valid before="[hH]?[aáAÁ]\w+\b"
 validGroup beforeConnector
 hint="Hay un artículo masculino (El/Al/Del/Un) seguido de un nombre en femenino"
 
-[(?u)\b([Ll]os|[Uu]nos)\s((dos|tres|cuatro|cinco|seis|siete|ocho|nueve|diez|once|doce|\d+)\s)?[«'"]?]
+[(?u)\b([Ll]os|[Uu]nos)\s((dos|tres|cuatro|cinco|seis|siete|ocho|nueve|diez|once|doce|\d+)\s)?[«\'\"]?]
 id="gr-1-concordancia-articulo-masculino-plural-nombre"
 validGroup maleNamePlural
 validGroup neuterNamePlural
@@ -1581,7 +1596,7 @@ validGroup wordDelimiter
 validGroup beforeConnector
 hint="Hay un artículo masculino plural (Los/Unos) seguido de un nombre en femenino"
 
-[(?u)\b([Ll]a|[Uu]na)\s[«'"]?]
+[(?u)\b([Ll]a|[Uu]na)\s[«\'\"]?]
 id="gr-1-concordancia-articulo-femenino-nombre"
 validGroup femaleName
 validGroup neuterName
@@ -1589,7 +1604,7 @@ validGroup wordDelimiter
 validGroup beforeConnector
 hint="Hay un artículo femenino (La/Una) seguido de un nombre en masculino"
 
-[(?u)\b([Ll]as|[Un]nas)\s((dos|tres|cuatro|cinco|seis|siete|ocho|nueve|diez|once|doce|\d+)\s)?[«'"]?]
+[(?u)\b([Ll]as|[Un]nas)\s((dos|tres|cuatro|cinco|seis|siete|ocho|nueve|diez|once|doce|\d+)\s)?[«\'\"]?]
 id="gr-1-concordancia-articulo-femenino-plural-nombre"
 validGroup femaleNamePlural
 validGroup neuterNamePlural
@@ -1598,7 +1613,7 @@ validGroup wordDelimiter
 validGroup beforeConnector
 hint="Hay un artículo femenino plural (Las/Unas) seguido de un nombre en masculino"
 
-[(?u)\b([Ee]ste|[Ee]se|[Aa]quel)\s[«'"]?]
+[(?u)\b([Ee]ste|[Ee]se|[Aa]quel)\s[«\'\"]?]
 id="gr-1-concordancia-demostrativo-masculino-nombre"
 validGroup maleName
 validGroup neuterName
@@ -1606,7 +1621,7 @@ validGroup wordDelimiter
 validGroup beforeConnector
 hint="Hay un demostrativo masculino (Este/Ese/Aquel) seguido de un nombre en femenino"
 
-[(?u)\b([Ee]stos|[Ee]sos|[Aa]quellos)\s[«'"]?]
+[(?u)\b([Ee]stos|[Ee]sos|[Aa]quellos)\s[«\'\"]?]
 id="gr-1-concordancia-demostrativo-masculino-plural-nombre"
 validGroup maleNamePlural
 validGroup neuterNamePlural
@@ -1614,7 +1629,7 @@ validGroup wordDelimiter
 validGroup beforeConnector
 hint="Hay un demostrativo masculino plural (Estos/Esos/Aquellos) seguido de un nombre en femenino"
 
-[(?u)\b([Ee]sta|[Ee]sa|[Aa]quella)\s[«'"]?]
+[(?u)\b([Ee]sta|[Ee]sa|[Aa]quella)\s[«\'\"]?]
 id="gr-1-concordancia-demostrativo-femenino-nombre"
 validGroup femaleName
 validGroup neuterName
@@ -1622,7 +1637,7 @@ validGroup wordDelimiter
 validGroup beforeConnector
 hint="Hay un demostrativo femenino (Esta/Esa/Aquella) seguido de un nombre en masculino"
 
-[(?u)\b([Ee]stas|[Ee]sas|[Aa]quellas)\s[«'"]?]
+[(?u)\b([Ee]stas|[Ee]sas|[Aa]quellas)\s[«\'\"]?]
 id="gr-1-concordancia-demostrativo-femenino-plural-nombre"
 validGroup femaleNamePlural
 validGroup neuterNamePlural
@@ -1630,7 +1645,7 @@ validGroup wordDelimiter
 validGroup beforeConnector
 hint="Hay un demostrativo femenino plural (Estas/Esas/Aquellas) seguido de un nombre en masculino"
 
-[(?u)\b([Nn]uestro|[Vv]uestro)\s[«'"]?]
+[(?u)\b([Nn]uestro|[Vv]uestro)\s[«\'\"]?]
 id="gr-1-concordancia-posesivo-masculino-nombre"
 validGroup maleName
 validGroup neuterName
@@ -1638,7 +1653,7 @@ validGroup wordDelimiter
 validGroup beforeConnector
 hint="Hay un posesivo masculino (Nuestro/Vuestro) seguido de un nombre en femenino"
 
-[(?u)\b([Nn]uestros|[Vv]uestros)\s[«'"]?]
+[(?u)\b([Nn]uestros|[Vv]uestros)\s[«\'\"]?]
 id="gr-1-concordancia-posesivo-masculino-plural-nombre"
 validGroup maleNamePlural
 validGroup neuterNamePlural
@@ -1646,7 +1661,7 @@ validGroup wordDelimiter
 validGroup beforeConnector
 hint="Hay un posesivo masculino plural (Nuestros/Vuestros) seguido de un nombre en femenino"
 
-[(?u)\b([Nn]uestra|[Vv]uestra)\s[«'"]?]
+[(?u)\b([Nn]uestra|[Vv]uestra)\s[«\'\"]?]
 id="gr-1-concordancia-posesivo-femenino-nombre"
 validGroup femaleName
 validGroup neuterName
@@ -1654,7 +1669,7 @@ validGroup wordDelimiter
 validGroup beforeConnector
 hint="Hay un posesivo femenino (Nuestra/Vuestra) seguido de un nombre en masculino"
 
-[(?u)\b([Nn]uestras|[Vv]uestras)\s[«'"]?]
+[(?u)\b([Nn]uestras|[Vv]uestras)\s[«\'\"]?]
 id="gr-1-concordancia-posesivo-femenino-plural-nombre"
 validGroup femaleNamePlural
 validGroup neuterNamePlural
