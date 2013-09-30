@@ -588,6 +588,10 @@ hint="«URL» es de género femenino (error frecuente)"
 id="cm-1-web-en-masculino"
 hint="«Web» es femenino (error frecuente)"
 
+[\bel\sdialogo\b]i
+id="cm-1-el-dialogo-sin-tilde"
+hint="«El dialogo» se escribe como «El diálogo». (error frecuente)"
+
 [\bel\secho\b]i
 id="cm-1-el-echo"
 hint="«El echo» se escribe como «El hecho» (error frecuente)"
@@ -595,6 +599,10 @@ hint="«El echo» se escribe como «El hecho» (error frecuente)"
 [\bel\shalla\b]i
 id="cm-2-el-halla"
 hint="«El halla» se escribe como «El haya» (error frecuente)"
+
+[\bel\sinterprete\b]i
+id="cm-1-el-interprete-sin-tilde"
+hint="«El interprete» se escribe como «El intérprete». (error frecuente)"
 
 [\bel\slimite\b]i
 id="cm-1-el-limite-sin-tilde"
@@ -614,7 +622,11 @@ hint="«El termino» se escribe como «El término». (error frecuente)"
 
 [\bel\stitulo\b]i
 id="cm-1-el-titulo-sin-tilde"
-hint="«El titulo» se escribe como «El título». (error frecuente)"
+hint="«El titulo» se escribe como «El título». (error frecuente)"interpre
+
+[\bel\svinculo\b]i
+id="cm-1-el-vinculo-sin-tilde"
+hint="«El vinculo» se escribe como «El vínculo». (error frecuente)"interpre
 
 [\ben\sahí\b]i
 id="cm-2-en-ahi"
@@ -1200,6 +1212,10 @@ hint="«Se cancelo» se escribe como «Se canceló» (error frecuente)"
 id="cm-1-se-deber"
 hint="«Se deber» se escribe como «Se deben» (error frecuente)"
 
+[\bse\sdialogo\b]i
+id="cm-1-se-dialogo-sin-tilde"
+hint="«Se dialogo» se escribe como «El dialogó». (error frecuente)"
+
 [\bse\sesperada\b]i
 id="cm-2-se-esperada"
 hint="«Se esperada» se escribe como «Se esperaba» (error frecuente)"
@@ -1224,6 +1240,10 @@ hint="«Se gestión» se escribe como «De gestión» (error frecuente)"
 id="cm-1-se-manera"
 hint="«Se manera» se escribe como «De manera» (error frecuente)"
 
+[\bse\snumero\b]i
+id="cm-1-se-numero-sin-tilde"
+hint="«Se numero» se escribe como «Se numeró». (error frecuente)"
+
 [\bse\spude\b]i
 id="cm-1-se-pude"
 hint="«Se pude» se escribe como «Se puede/Se pudo» (error frecuente)"
@@ -1239,6 +1259,10 @@ hint="«Se su» determinante duplicado (error frecuente)"
 [\bse\stardan\b]i
 id="cm-2-se-tardan"
 hint="«Se tardan» se escribe como «Se tarda» (error frecuente)"
+
+[\bse\svinculo\b]i
+id="cm-1-se-vinculo-sin-tilde"
+hint="«Se vinculo» se escribe como «Se vinculó». (error frecuente)"interpre
 
 [\bséd\b]i
 id="cm-1-sed-con-tilde"
@@ -1370,6 +1394,14 @@ valid after="[A-Z]\w+\s"
 valid before="\s[A-Z]\w+"
 hint="«Torah» se escribe como «Torá» (error frecuente)"
 
+[\bun\sdialogo\b]i
+id="cm-1-un-dialogo-sin-tilde"
+hint="«Un dialogo» se escribe como «Un diálogo». (error frecuente)"
+
+[\bun\sinterprete\b]i
+id="cm-1-un-interprete-sin-tilde"
+hint="«Un interprete» se escribe como «Un intérprete». (error frecuente)"
+
 [\bun\slimite\b]i
 id="cm-1-un-limite-sin-tilde"
 hint="«Un limite» se escribe como «Un límite». (error frecuente)"
@@ -1393,6 +1425,10 @@ hint="«Un termino» se escribe como «Un término». (error frecuente)"
 [\bun\stitulo\b]i
 id="cm-1-un-titulo-sin-tilde"
 hint="«Un titulo» se escribe como «Un título». (error frecuente)"
+
+[\bun\svinculo\b]i
+id="cm-1-un-vinculo-sin-tilde"
+hint="«Un vinculo» se escribe como «Un vínculo». (error frecuente)"interpre
 
 [\buna\scuanta\b]i
 id="cm-1-una-cuanta"

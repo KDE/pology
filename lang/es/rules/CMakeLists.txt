@@ -2,6 +2,7 @@ set(files
     filter.include
     being-polite.rules
     common-mistakes.rules
+    discordances.rules
     false-friends.rules
     gerund-detector.rules
     grammar.rules

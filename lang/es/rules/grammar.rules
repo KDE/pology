@@ -729,6 +729,10 @@ valid msgstr="los\sunos"
 valid msgstr="las\sunas"
 hint="Hay un artículo determinado seguido de «un» (error gramatical)"
 
+[(?u)\b(soy|eres|es|somos|sois|son|estoy|estás|estás|estamos|estáis|estan)(?!\n)\s+(soy|eres|es|somos|sois|son|estoy|estás|estás|estamos|estáis|estan)\b]i
+id="gr-1-ser-estar-repetido"
+hint="Verbo ser/estar repetido (error gramatical)"
+
 #
 # EXPRESIONES INCORRECTAS
 #
@@ -1510,6 +1514,44 @@ hint="«Aya + participio» se escribe como «Haya + participio» (error gramatic
 [(?u)\bhalla\s\w+?(ido)\b]i
 id="gr-1-halla-participio"
 hint="«Halla + participio» se escribe como «Haya + participio» (error gramatical)"
+
+[(?u)\bde\s\w+?(ará|erá|irá)\b]i
+id="gr-1-de-seguido-futuro"
+valid span="de\s[A-Z]\w+"
+hint="«De + futuro» se escribe como «Se + futuro» (error gramatical)"
+
+[(?u)\besta\s\w+?(ado|edo|ido)\b]i
+id="gr-1-esta-seguido-participio"
+hint="«Esta + participio» se escribe como «Está + participio» (error gramatical)"
+
+[(?u)\beste\s\w+?(ido)\b]i
+id="gr-1-este-seguido-participio"
+hint="«Este + participio» se escribe como «Está + participio» (error gramatical)"
+
+[(?u)\besta\s\w+?(ando|iendo|yendo)\b]i
+id="gr-1-esta-seguido-gerundio"
+hint="«Esta + gerundio» se escribe como «Está + gerundio» (error gramatical)"
+
+[(?u)\bhaya\s\w+?(ando|iendo|yendo)\b]i
+id="gr-1-haya-seguido-gerundio"
+hint="«Haya + gerundio» se escribe como «Haya + participio» (error gramatical)"
+
+[(?u)\b(me|te|se|nos|os|los?|las?|les?)\s\w+?(ar|er|ir)\b]i
+id="gr-1-me-te-se-seguido-infinitivo"
+hint="«Me/Te/Se/Nos/Os/Lo/Los/La/Las/Le/Les + infinitivo» se escribe como «Me/Te/Se/Nos/Os/Lo/Los/La/Las/Le/Les + presente» (error gramatical)"
+
+[(?u)\b(mi|tu|su)\s\w+?(ar|er|ir)\b]i
+id="gr-1-mi-tu-su-seguido-infinitivo"
+hint="«Mi/Tu/Su + infinitivo» se escribe como «Mi/Tu/Su + presente» (error gramatical)"
+
+[(?u)\bse\s\w+?(s)\b]i
+id="gr-1-se-seguido-plural"
+valid span="se\s(les|los|las|nos|os|es)\b"
+hint="«Se + plural» se escribe como «Se + tercera persona» o «Te + plural» (error gramatical)"
+
+[(?u)\bse\s\w+?(ar|er|ir)\b]i
+id="gr-1-se-seguido-infinitivo"
+hint="«Se + infinitivo» se escribe como «Se + tercera persona» (error gramatical)"
 
 #
 # ERRORES DE CONCORDANCIA DE GÉNERO o NÚMERO

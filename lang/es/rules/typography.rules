@@ -411,6 +411,14 @@ valid before="\d"
 valid before="\s[¿¡]"
 hint="Las unidades monetarias no llevan punto"
 
+[\d+(a|A|at|atm|b|bar|c|cal|cd|cm|CV|d|da|dB|dm|dyn|erg|eV|f|F|ft|g|G|gr|Gs|Gy|h|H|ha|hp|Hz|in|J|k|K|kg|km|l|L|lb|lm|lx|m|M|mbar|Mc|mg|min|mol|Mx|n|N|Oe|oz|p|P|Pa|pc|pt|Qm|R|rad|s|sr|Sv|t|T|tex|u|UA|V|Wb|yd)\b]
+id="ty-2-espacio-de-separacion-en-unidad-medida"
+valid span="[23]G"
+valid span="[23]d"
+valid after="[A-Za-z-]"
+valid span="\d[a-z]" before="\)"
+hint="Es necesario un espacio de separación entre el número y la unidad de medida"
+
 [\b(p\.\s?e\.|p.\sej[^\.]|ejem\.|ej\.)]i
 id="ty-2-abreviatura-por-ejemplo"
 hint="La abreviatura de «por ejemplo» es «p. ej.»"

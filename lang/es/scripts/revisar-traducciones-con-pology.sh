@@ -13,7 +13,7 @@ case $1 in
 	    if [[ $i =~ ^[0-3]+$ ]];
 	    then
 		NIVEL=$NIVEL$i
-	    elif [[ $i =~ ^(bp|cm|ff|gd|gr|gp|gk|pw|pb|pe|sp|tr|ty|ui)$ ]];
+	    elif [[ $i =~ ^(bp|cm|dc|ff|gd|gr|gp|gk|pw|pb|pe|sp|tr|ty|ui)$ ]];
 	    then
 		if [[ $REGLA == "" ]];
 		then
@@ -34,6 +34,9 @@ case $1 in
 	echo "Niveles seleccionados:" $NIVEL "Reglas seleccionadas:" $REGLA
 	OPCION=check-rules
 	PARAMETROS='-s lang:'$IDIOMA' -s accel:& -s env:kde -s rulerx:^('$REGLA')\-['$NIVEL']\-';;
+    "regla")
+	OPCION=check-rules
+	PARAMETROS='-s lang:'$IDIOMA' -s accel:& -s env:kde -s rule:'$2;;
     "ortografía")
 	OPCION=check-spell
 	PARAMETROS='-s lang:'$IDIOMA' -s accel:& -s case -s skip:[A-Z]+';;
