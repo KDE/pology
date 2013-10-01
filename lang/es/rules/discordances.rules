@@ -1,0 +1,135 @@
+# Translation choices of spanish team
+# Copyrigth 2010-2012, Javier Viñal (fjvinal@gmail.com)
+# by the KDE Spanish Team (kde-l10n-es@kde.org)
+# License: GPLv3
+
+include file="filter.include"
+
+{\byes\b}i
+id="dc-2-yes"
+valid msgstr="sí"
+valid msgstr="YES"
+hint="«Yes» se traduce como «Sí», con tilde (error de concordancia)"
+
+{\bno\b}i
+id="dc-2-no"
+valid msgstr="no"
+valid msgstr="NO"
+valid msgstr="sin"
+valid msgstr="ningún"
+valid msgstr="ningun[ao]s?"
+valid msgstr="des\w+"
+valid msgstr="in\w+"
+valid msgstr="im[bp]\w+"
+hint="«No» se traduce como «No» (error de concordancia)"
+
+{\bnot\b}i
+id="dc-2-not"
+valid msgstr="no"
+valid msgstr="ni"
+valid msgstr="sin"
+valid msgstr="fuera"
+valid msgstr="des\w+"
+valid msgstr="in\w+"
+valid msgstr="im[bp]\w+"
+valid msgstr="NOT"
+hint="«Not» se traduce como «No u otra negación» (error de concordancia)"
+
+{\bif\b}i
+id="dc-2-if"
+valid msgstr="si"
+valid msgstr="aunque"
+valid msgstr="cuando"
+valid msgstr="mientras"
+valid msgstr="IF"
+hint="«If» se traduce como «Si» (sin tilde) u otro condicional (error de concordancia)"
+
+{\bwhether\b}i
+id="dc-2-whether"
+valid msgstr="si"
+valid msgstr="aunque"
+valid msgstr="cuando"
+valid msgstr="mientras"
+hint="«Whether» se traduce como «Si» (sin tilde) u otro condicional, sin tilde (error de concordancia)"
+
+{\bleft\b}i
+id="dc-2-left"
+valid msgstr="izquierd[ao]s?"
+valid msgstr="LEFT"
+valid msgstr="qued\w+"
+valid msgstr="dej\w+"
+valid msgstr="aband\w+"
+valid msgstr="pendientes?"
+valid msgstr="restantes?"
+valid msgstr="libres?"
+valid msgstr="faltan?"
+hint="«Left» se traduce como «Izquierda» o similar (error de concordancia)"
+
+{\bright\b}i
+id="dc-2-right"
+valid msgstr="derech[ao]s?"
+valid msgstr="direct[ao]s?"
+valid msgstr="rect[ao]s?"
+valid msgstr="correct[ao]s?"
+valid msgstr="adecuad[ao]s?"
+valid msgstr="diestr[ao]s?"
+valid msgstr="just[ao]s?"
+valid msgstr="RIGHT"
+valid before="\s(after|back|now)"
+hint="«Right» se traduce como «Derecha» o similar (error de concordancia)"
+
+{\binside\b}i
+id="dc-2-inside"
+valid msgstr="dentro"
+valid msgstr="en"
+valid msgstr="interior"
+valid msgstr="intern[ao]s?"
+#valid msgstr="INSIDE"
+hint="«Inside» se traduce como «Dentro» o similar (error de concordancia)"
+
+{\boutside\b}i
+id="dc-2-outside"
+valid msgstr="fuera"
+valid msgstr="exterior"
+valid msgstr="extern[ao]s?"
+#valid msgstr="en"
+#valid msgstr="OUTSIDE"
+hint="«Outside» se traduce como «Fuera» o similar (error de concordancia)"
+
+#{\bup\b}i
+#id="dc-2-up"
+#valid msgstr="arriba"
+#valid msgstr="encima"
+#valid msgstr="UP"
+#hint="«Up» se traduce como «Arriba» (error de concordancia)"
+
+#{\bdown\b}i
+#id="dc-2-down"
+#valid msgstr="abajo"
+#valid msgstr="debajo"
+#valid msgstr="DOWN"
+#hint="«Down» se traduce como «Abajo» (error de concordancia)"
+
+#{\bon\b}i
+#id="dc-2-on"
+#valid msgstr="encendid[ao]s?"
+#valid msgstr="activad[ao]s?"
+#valid msgstr="conectad[ao]s?"
+#valid msgstr="ON"
+#hint="«On» se traduce como «Encendido/Activado» o similar (error de concordancia)"
+
+#{\boff\b}i
+#id="dc-2-off"
+#valid msgstr="apagad[ao]s?"
+#valid msgstr="desactivad[ao]s?"
+#valid msgstr="desconectad[ao]s?"
+#valid msgstr="OFF"
+#hint="«Off» se traduce como «Apagado/Desactivado» (error de concordancia)"
+
+#{\bin\b}i
+#id="dc-2-in"
+
+#{\bout\b}i
+#id="dc-2-out"
+
+# End of rule file
