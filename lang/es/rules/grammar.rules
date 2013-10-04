@@ -1542,6 +1542,7 @@ hint="«Me/Te/Se/Nos/Os/Lo/Los/La/Las/Le/Les + infinitivo» se escribe como «Me
 
 [(?u)\b(mi|tu|su)\s\w+?(ar|er|ir)\b]i
 id="gr-1-mi-tu-su-seguido-infinitivo"
+valid span="\w+\slugar"
 hint="«Mi/Tu/Su + infinitivo» se escribe como «Mi/Tu/Su + presente» (error gramatical)"
 
 [(?u)\bse\s\w+?(s)\b]i
@@ -1552,6 +1553,14 @@ hint="«Se + plural» se escribe como «Se + tercera persona» o «Te + plural»
 [(?u)\bse\s\w+?(ar|er|ir)\b]i
 id="gr-1-se-seguido-infinitivo"
 hint="«Se + infinitivo» se escribe como «Se + tercera persona» (error gramatical)"
+
+[(?u)\bhasta\sque\b]i
+id="gr-1-hasta-que-no-seguido-de-subjuntivo"
+valid before="\s(haya|hubi)\w+"
+valid before="\s\w+(as?|es?)"
+valid before="\s(el|la|lo|los|las|un|una|uno|unas|unos)"
+valid before="\s[A-Z]\w+"
+hint="«Hasta que» debe ir seguido de subjuntivo (error gramatical)"
 
 #
 # ERRORES DE CONCORDANCIA DE GÉNERO o NÚMERO

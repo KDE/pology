@@ -11,6 +11,7 @@ set(files
     paired-words.rules
     paragraph-begin.rules
     paragraph-end.rules
+    proper-names.rules
     spelling.rules
     translators.rules
     typography.rules

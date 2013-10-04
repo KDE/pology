@@ -89,6 +89,14 @@ valid msgstr="adjunto"
 valid msgstr="anexo"
 hint="«Attachment» se traduce como «Adjunto/Anexo» (propuesta glosario)"
 
+{\battachments\b}i
+id="gp-3-attachments"
+valid msgstr="adjuntos"
+valid msgstr="anexos"
+valid msgstr="(algún|ningún|cualquier)\sadjunto"
+valid msgstr="(algún|ningún|cualquier)\sanexo"
+hint="«Attachments» se traduce como «Adjuntos/Anexos» (propuesta glosario)"
+
 {\bauthenticate\b}i
 id="gp-3-authenticate"
 valid msgstr="autenti(car|ca|que)"
@@ -732,6 +740,11 @@ id="gp-2-core-dumps"
 valid msgstr="volcados\sde\smemoria"
 valid msgstr="(algún|ningún|cualquier)\svolcado\sde\smemoria"
 hint="«Core dumps» se traduce como «Volcados de memoria» (propuesta glosario)"
+
+{\bCRL\b}
+id="gp-2-crl"
+valid msgstr="CRL"
+hint="«CRL» se traduce como «CRL» (propuesta glosario)"
 
 {\bcross\scompiler\b}i
 id="gp-2-cross-compiler"
@@ -2802,6 +2815,17 @@ valid msgstr="imágenes"
 valid msgstr="(alguna|cualquier|ninguna)\simagen"
 hint="«Pixmaps» se traduce como «Imágenes» (propuesta glosario)"
 
+{\bplaceholder\b}i
+id="gp-2-placeholder"
+valid msgstr="marcador\sde\sposición"
+hint="«Placeholder» se traduce como «Marcador de posición» (propuesta glosario)"
+
+{\bplaceholders\b}i
+id="gp-2-placeholders"
+valid msgstr="marcadores\sde\sposición"
+valid msgstr="(algún|cualquier|ningún)\smarcador\sde\sposición"
+hint="«Placeholders» se traduce como «Marcadores de posición» (propuesta glosario)"
+
 {\bplain\stext\b}i
 id="gp-1-plain-text"
 valid msgstr="textos?\s(citado\s)?sin\sformato"
@@ -3081,6 +3105,11 @@ valid msgstr="pon(e|en|ga)\sen\scola"
 valid msgstr="(alguna|cualquier|ninguna)\scola"
 hint="«Queues» se traduce como «Colas» (propuesta glosario)"
 
+{\bquick\slaunch\b}i
+id="gp-3-quick-launch"
+valid msgstr="inicio\rápido"
+hint="«Quick launch» se traduce como «Inicio rápido» (propuesta glosario)"
+
 {\bquota\b}i
 id="gp-3-quota"
 valid msgstr="cuota"
@@ -3288,7 +3317,7 @@ valid msgstr="representar"
 valid msgstr="reproducir"
 hint="«Rendering» se traduce como «Prestación/Representación/Reproducción» (propuesta glosario)"
 
-{\breply\-to\b}i
+{\breply\-[Tt]o\b}i
 id="gp-3-reply-to"
 valid msgstr="responder[\s\-]a"
 hint="«Reply-to» se traduce como «Responder a» (propuesta glosario)"
@@ -3391,6 +3420,11 @@ valid msgstr="deshacer?"
 valid msgstr="revertir"
 valid msgstr="reviert[ea]"
 hint="«Roll back» se traduce como «Deshacer/Revertir» (propuesta glosario)"
+
+{\bRSS\b}i
+id="gp-2-rss"
+valid msgstr="RSS"
+hint="«RSS» se traduce como «RSS» (propuesta glosario)"
 
 {\brun\stime\b}i
 id="gp-2-run-time"
@@ -4250,6 +4284,11 @@ hint="«Workaround» se traduce como «Arreglo temporal» (propuesta glosario)"
 id="gp-2-workspace"
 valid msgstr="áreas?\sde\strabajo"
 hint="«Workspace» se traduce como «Área de trabajo» (propuesta glosario)"
+
+{\bX\-Window\b}i
+id="gp-2-x-window"
+valid msgstr="X\-Window"
+hint="«X-Window» se traduce como «X-Window» (propuesta glosario)"
 
 {\bzoom\sin\b}i
 id="gp-2-zoom-in"

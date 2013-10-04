@@ -19,28 +19,83 @@
 #        Preparando los archivos seleccionados.
 #                ⊗ Preparación de los archivos seleccionados.
 
+validGroup ingAdjetives
+valid msgid="alarming"
+valid msgid="aggravating"
+valid msgid="annoying"
+valid msgid="astonishing"
+valid msgid="astounding"
+valid msgid="boring"
+valid msgid="captivating"
+valid msgid="challenging"
+valid msgid="charming"
+valid msgid="comforting"
+valid msgid="confusing"
+valid msgid="convincing"
+valid msgid="depressing"
+valid msgid="disappointing"
+valid msgid="discouraging"
+valid msgid="disgusting"
+valid msgid="distressing"
+valid msgid="disturbing"
+valid msgid="embarrassing"
+valid msgid="encouraging"
+valid msgid="entertaining"
+valid msgid="exciting"
+valid msgid="exhausting"
+valid msgid="fascinating"
+valid msgid="frightening"
+valid msgid="frustrating"
+valid msgid="fulfilling"
+valid msgid="gratifying"
+valid msgid="inspiring"
+valid msgid="insulting"
+valid msgid="interesting"
+valid msgid="moving"
+valid msgid="verwhelming"
+valid msgid="perplexing"
+valid msgid="pleasing"
+valid msgid="relaxing"
+valid msgid="relieving"
+valid msgid="satisfying"
+valid msgid="shocking"
+valid msgid="sickening"
+valid msgid="soothing"
+valid msgid="surprising"
+valid msgid="tempting"
+valid msgid="terrifying"
+valid msgid="threatening"
+valid msgid="thrilling"
+valid msgid="tiring"
+valid msgid="touching"
+valid msgid="unsettling"
+valid msgid="worrying"
+
 include file="filter.include"
 
-[\b\w+(ando|iendo|yendo|ándole|éndole|ándose|éndose)\b]i
+[\b\w+(ando|iendo|yendo|ándol[ae]s?|éndol[ae]s?|ándose|éndose)\b]i
 id="gd-3-revisar-gerundio"
 disabled
+validGroup ingAdjetives
 valid after="(?u)est\w+\s"
-valid before="\s.*?\.\.\."
+valid before=".*?\.\.\."
 valid span="cuando"
 hint="Revisión de gerundios"
 
-{^\w+ing\s.*?\.\.\.}i
+{^\w+ing\b.*?\.\.\.}i
 id="gd-3-ing-seguido-puntos-suspensivos"
 valid msgstr="\w+(ando|iendo|yendo|ándol[ae]s?|éndol[ae]s?|ándose|éndose)"
-valid msgid="(being|mailing|recurring|string|conflicting|interesting|messaging|something|nothing|existing|missing|pending|everything|in\sprogress|AqBanking)"
+valid msgid="(being|mailing|recurring|string|conflicting|messaging|something|nothing|existing|missing|pending|everything|in\sprogress|AqBanking)"
 hint="La forma «ing» se debe traducir como gerundio cuando va seguida de puntos suspensivos (revisión de gerundios)"
 
 {\b(am|are|is|was|were)\s\w+ing\b}i
 id="gd-3-ing-precedido-verbo-to-be"
+disabled
 valid msgstr="\w+(ando|iendo|yendo|ándol[ae]s?|éndol[ae]s?|ándose|éndose)"
-valid msgid="(being|mailing|recurring|string|conflicting|interesting|messaging|something|nothing|existing|missing|pending|everything|in\sprogress|AqBanking)"
+valid msgid="(being|mailing|recurring|string|conflicting|messaging|something|nothing|existing|missing|pending|everything|in\sprogress|AqBanking)"
 valid msgid="(checking|spelling)"
 valid before="\sto\s"
+valid before="\s\w+ed"
 hint="La forma «ing» se suele traducir como gerundio cuando va precedida del verbo «to be» (revisión de gerundios)"
 
 # End of rule file

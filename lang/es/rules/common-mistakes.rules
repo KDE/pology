@@ -903,10 +903,6 @@ hint="«Internet» se escribe en mayúsculas (error frecuente)"
 id="cm-1-ion-con-tilde"
 hint="«Ión» se escribe como «Ion» (error frecuente)"
 
-[\bIraq\b]
-id="cm-1-iraq-con-q"
-hint="«Iraq» se escribe como «Irak» (error frecuente)"
-
 [\bjuega\sun\spapel\b]i
 id="cm-2-juega-un-papel"
 hint="«Juega un papel» se escribe como «Representa/desempeña un/su papel» (error frecuente)"
@@ -958,10 +954,6 @@ hint="«Los porques» se escribe como «Los porqués». (error frecuente)"
 [\blos\sy\slas\b]i
 id="cm-1-lo-y-las"
 hint="«Los y las» se escribe como «Los». (error frecuente)"
-
-[\bLouisiana\b]
-id="cm-louisiana"
-hint="«Louisiana» se escribe como «Luisiana» (error frecuente)"
 
 [\bluego\sde\sque\b]i
 id="cm-2-luego-de-que"
@@ -1028,10 +1020,6 @@ hint="«Me se» se escribe como «Se me» (error frecuente)"
 id="cm-1-mes-con-tilde"
 hint="«Més» se escribe como «Mes» (error frecuente)"
 
-[\bMississippi\b]
-id="cm-2-mississipi"
-hint="«Mississippi» se escribe como «Misisipi» (error frecuente)"
-
 [\bmucha\scalor\b]i
 id="cm-2-mucha-calor"
 hint="«Mucha calor» se escribe como «Mucho calor» (error frecuente)"
@@ -1055,10 +1043,6 @@ hint="«Ni que decir tiene» se escribe sin tilde (error frecuente)"
 [\bno\sle\sbastan\b]i
 id="cm-2-no-le-bastan"
 hint="«No le bastan» se escribe como «No le basta» (error frecuente)"
-
-[\bPacifico\b]
-id="cm-2-pacifico-sin-tilde"
-hint="«Pacifico» se escribe como «Pacífico», salvo 1ª persona del verbo pacificar (error frecuente)"
 
 [\bpagina\b]i
 id="cm-2-pagina-sin-tilde"
@@ -1160,10 +1144,6 @@ hint="«Punto y final» se escribe como «Punto final» (error frecuente)"
 id="cm-2-puntos-claves"
 hint="«Puntos claves» se escribe como «Puntos clave» (error frecuente)"
 
-[\bQatar\b]
-id="cm-2-qatar-con-q"
-hint="«Qatar» se escribe como «Catar» (error frecuente)"
-
 [\bqu[aá]sar\b]i
 id="cm-2-quasar-con-q"
 hint="«Quásar» se escribe como «Cuasar» (error frecuente)"
@@ -1191,18 +1171,6 @@ hint="«Relacionado a» se escribe como «Relacionado con» (error frecuente)"
 [\briáis\b]i
 id="cm-1-riais-con-tilde"
 hint="«Riáis» se escribe como «Riais» (error frecuente)"
-
-[\bSaínz\b]
-id="cm-2-sainz-con-tilde"
-hint="«Saínz» se escribe como «Sainz» (error frecuente)"
-
-[\bSaíz\b]
-id="cm-2-saiz-con-tilde"
-hint="«Saíz» se escribe como «Saiz» (error frecuente)"
-
-[\bSánz\b]
-id="cm-2-sanz-con-tilde"
-hint="«Sánz» se escribe como «Sanz» (error frecuente)"
 
 [\bse\scancelo\b]i
 id="cm-1-se-cancelo-sin-tilde"
@@ -1292,10 +1260,6 @@ hint="«Simultáneamente a» se escribe como «A la vez que/Al mismo tiempo que/
 id="cm-2-sin-en-cambio"
 hint="«Sin en cambio» se escribe como «En cambio/Sin embargo» (error frecuente)"
 
-[\bSión\b]
-id="cm-2-sion-con-tilde"
-hint="«Sión» se escribe como «Sion» (error frecuente)"
-
 [\bsobreescri\w{2,6}\b]i
 id="cm-2-sobreescribir"
 hint="«Sobreescribir» se escribe como «Sobrescribir», igual para sus derivaciones (error frecuente)"
@@ -1335,10 +1299,6 @@ hint="«Sueldos bases» se escribe como «Sueldos base» (error frecuente)"
 [\bsuelen\shaber\b]i
 id="cm-1-suelen-haber"
 hint="«Suelen haber» se escribe como «Suele haber» (error frecuente)"
-
-[\bSydney\b]
-id="cm-2-sydney"
-hint="«Sydney» se escribe como «Sidney» (error frecuente)"
 
 [\btal\scual\scomo\b]i
 id="cm-2-tal-cual-como"
@@ -1387,12 +1347,6 @@ hint="«Truhán» se escribe como «Truhan» (error frecuente)"
 [\btí\b]i
 id="cm-1-ti-con-tilde"
 hint="«Tí» se escribe como «Ti» (error frecuente)"
-
-[\bTorah\b]
-id="cm-2-torah"
-valid after="[A-Z]\w+\s"
-valid before="\s[A-Z]\w+"
-hint="«Torah» se escribe como «Torá» (error frecuente)"
 
 [\bun\sdialogo\b]i
 id="cm-1-un-dialogo-sin-tilde"
