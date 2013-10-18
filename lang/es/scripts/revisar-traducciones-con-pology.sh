@@ -13,7 +13,7 @@ case $1 in
 	    if [[ $i =~ ^[0-3]+$ ]];
 	    then
 		NIVEL=$NIVEL$i
-	    elif [[ $i =~ ^(bp|cm|dc|ff|gd|gr|gp|gk|pw|pb|pe|sp|tr|ty|ui)$ ]];
+	    elif [[ $i =~ ^(bp|cm|dc|ff|gd|gr|gp|gk|pw|pb|pe|pn|sp|tr|ty|ui)$ ]];
 	    then
 		if [[ $REGLA == "" ]];
 		then
@@ -64,7 +64,8 @@ for TIPO in 'messages' 'docmessages'; do
     mkdir -p $DESTINO
     for PAQUETE in $ORIGEN/*; do
 	if [ -d $PAQUETE ]; then
-	    $PROGRAMA '-bR' $OPCION $PARAMETROS $PAQUETE > $DESTINO/$(basename $PAQUETE)
+	    $PROGRAMA '-bR' $OPCION $PARAMETROS $PAQUETE > $DESTINO/$(basename $PAQUETE)'.vt'
+	    $PROGRAMA '-b' $OPCION $PARAMETROS $PAQUETE > $DESTINO/$(basename $PAQUETE)'.txt'
 	fi
     done
 done

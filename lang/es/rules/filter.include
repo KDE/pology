@@ -53,6 +53,9 @@ addFilterRegex match="\s(\:\)|\(\-\:|\:\)|\(\:|\=\)|\)\-\:\)|\:\-\)|\:\-\(|\;\-\
 # Remove numbers and dates
 addFilterRegex match="(?<!\%)[+-]?[\dXx]+([.,\:\/][\dXx]+)+" repl="~" on="pmsgid,pmsgstr"
 
+# Remove hexadecimal numbers.
+addFilterRegex match="0x[\dabcdef]*" repl="~" on="pmsgid,pmsgstr"
+
 # Remove email addresses with "at"
 addFilterRegex match="\(([\w-]+\s)+at(\s[\w-]+)+\)" repl="~" on="pmsgid,pmsgstr"
 
