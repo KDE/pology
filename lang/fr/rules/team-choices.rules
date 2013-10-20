@@ -551,4 +551,13 @@ hint="Traduisez « frontend » par « interface »"
 valid msgstr="pointeur"
 hint="Traduisez « mouse cursor » et « mouse pointer » par « pointeur de la souris »"
 
+{\battachments?\b}i
+valid msgid="attachment method"
+valid msgstr="pièces? jointes?"
+hint="Traduisez « attachment » par « pièce jointe »"
+
+{\battachment method}i
+valid msgstr="méthode .* pour joindre"
+hint="Traduisez « attachment method » par « méthode pour joindre »."
+
 # End of rule file
