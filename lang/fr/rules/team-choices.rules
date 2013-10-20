@@ -547,4 +547,8 @@ hint="Traduisez « backend » par « moteur »"
 valid msgstr="interface"
 hint="Traduisez « frontend » par « interface »"
 
+{mouse (cursor|pointer)}i
+valid msgstr="pointeur"
+hint="Traduisez « mouse cursor » et « mouse pointer » par « pointeur de la souris »"
+
 # End of rule file
