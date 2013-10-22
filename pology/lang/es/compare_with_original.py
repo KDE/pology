@@ -160,6 +160,7 @@ def test_if_not_translated (msg, cat):
     [type V4A hook].
     @return: parts
     """
+    
     if msg.msgctxt in ("EMAIL OF TRANSLATORS", "NAME OF TRANSLATORS", "ROLES OF TRANSLATORS"):
         return []
 
@@ -176,17 +177,17 @@ def test_if_not_translated (msg, cat):
 	    continue
 
         if len(msgid) > 0 and msgid == msg.msgstr[i]:
-            dict_en = A.Aspell((("lang", "en"),("encoding", "utf-8")))
-            dict_local = A.Aspell((("lang", "es"),("encoding", "utf-8")))
-            for word in split.proper_words(msgid, markup=True, accels=['&']):
+             for word in split.proper_words(msgid, markup=True, accels=['&']):
                 if _valid_word.match(word) and not _capital_word.match(word):
                     word = word.encode("utf-8")
-                    if dict_en.check(word) and not dict_local.check(word):
-                        dict_en.close()
-                        dict_local.close()
+                    e = A.Aspell(("lang", "en")) #, ("encoding", "utf-8"))
+		    l = A.Aspell(("lang", "es")) #, ("encoding", "utf-8"))
+                    if e.check(word) and not l.check(word):
+                        e.close()
+                        l.close()
                         return [("msgstr", 0, [(0, 0, u'El párrafo parece no estar traducido')])]
-            dict_en.close()
-            dict_local.close()
+		    e.close()
+		    l.close()
 
     return []
 
