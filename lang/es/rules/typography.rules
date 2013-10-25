@@ -445,6 +445,7 @@ valid after="^\s*"
 valid after="[.:]\s*"
 valid after="\n\s*"
 valid after="\S"
+valid span="(?u)\((Mayús|Preferencias|Menú)"
 hint="Utilice minúsculas después de apertura de paréntesis"
 
 # End of rule file

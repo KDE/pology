@@ -55,6 +55,7 @@ hint="«Esc» se traduce como «Esc» (regla de traducción de nombres de teclas
 id="ui-2-tecla-ins"
 valid msgstr="Ins"
 valid msgstr="Insert"
+valid after="Plug\-"
 hint="«Ins» se traduce como «Ins» (regla de traducción de nombres de teclas)"
 
 {\bNum\sLock\b}

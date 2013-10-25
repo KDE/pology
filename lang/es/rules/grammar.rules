@@ -133,8 +133,8 @@ valid before="(?u)\w+s\b"
 valid before="son\b"
 valid before="están\b"
 valid before="x\b"
-valid before="a\s"
 valid before="kB\b"
+valid before="(a|A|at|atm|b|bar|c|cal|cd|cm|CV|d|da|dB|dm|dyn|erg|eV|f|F|ft|g|G|gr|Gs|Gy|h|H|ha|hp|Hz|in|J|k|K|kg|km|l|L|lb|lm|lx|m|M|mbar|Mc|mg|min|mol|Mx|n|N|Oe|oz|p|P|Pa|pc|pt|Qm|R|rad|s|sr|Sv|t|T|tex|u|UA|V|Wb|yd)\b"
 
 validGroup femaleName
 valid before="(?u)\w+[^o]\b"
@@ -922,6 +922,10 @@ hint="«¿... que» se escribe como «¿... qué», (error gramatical)"
 id="gr-1-porque-interrogativo"
 hint="«¿Porque...» se escribe como «¿Por qué...», (error gramatical)"
 
+[¿haber\b]i
+id="gr-1-haber-interrogativo"
+hint="«¿Haber...» se escribe generalmente como «¿A ver...», (error gramatical)"
+
 [¡cuan\b]i
 id="gr-1-cuan-admirativo"
 hint="«¡Cuan...» se escribe como «¡Cúan...», (error gramatical)"
@@ -981,6 +985,10 @@ hint="«¡... que» se escribe como «¡... qué», (error gramatical)"
 [¡porque\b]i
 id="gr-1-porque-admirativo"
 hint="«¡Porque...» se escribe como «¡Por qué...», (error gramatical)"
+
+[¡haber\b]i
+id="gr-1-haber-admirativo"
+hint="«¡Haber...» se escribe generalmente como «¿A ver...», (error gramatical)"
 
 [(pero|sé|sabe\w*|pregunt\w+)(\s\w+)?\scuan\b]i
 id="gr-1-cuan-sin-tilde"
@@ -1407,6 +1415,10 @@ hint="«Porqué» siempre debe venir precedido de un determinante (error gramati
 id="gr-1-preposicion-delante-de-si"
 hint="«Sí» se escribe con tilde después de una preposición (error gramatical)"
 
+[(?u)\has\s(el|la|lo|los|las|un|una|unos|unas)\b]i
+id="gr-1-has-seguido-articulo"
+hint="«Has + artículo» se escribe como «Haz + artículo» (error gramatical)"
+
 #
 # ERRORES CON FINALES DE FRASE
 #
@@ -1451,7 +1463,7 @@ hint="Se ha encontrado «un» seguido de participio en femenino (error gramatica
 
 [(?u)\ba\s\w+?ad[oa]\b]i
 id="gr-1-a-en-lugar-de-ah-participio"
-valid span="\ba\s(cada|nada|lado)\b"
+valid span="\ba\s(cada|nada|lado|demasiad[ao])\b"
 valid after="(huel\w+|hol\w+|sab\w+|gust\w+|camb\w+)\s(\w+\s){0,2}"
 hint="Se ha encontrado «A» en lugar de «Ha» antes de un participio (error gramatical)"
 
@@ -1526,6 +1538,7 @@ hint="«Esta + participio» se escribe como «Está + participio» (error gramat
 
 [(?u)\beste\s\w+?(ido)\b]i
 id="gr-1-este-seguido-participio"
+valid span="este\scontenido"
 hint="«Este + participio» se escribe como «Está + participio» (error gramatical)"
 
 [(?u)\besta\s\w+?(ando|iendo|yendo)\b]i
@@ -1542,7 +1555,7 @@ hint="«Me/Te/Se/Nos/Os/Lo/Los/La/Las/Le/Les + infinitivo» se escribe como «Me
 
 [(?u)\b(mi|tu|su)\s\w+?(ar|er|ir)\b]i
 id="gr-1-mi-tu-su-seguido-infinitivo"
-valid span="\w+\slugar"
+valid span="\w+\s(lugar|primer|par)"
 hint="«Mi/Tu/Su + infinitivo» se escribe como «Mi/Tu/Su + presente» (error gramatical)"
 
 [(?u)\bse\s\w+?(s)\b]i
@@ -1557,10 +1570,19 @@ hint="«Se + infinitivo» se escribe como «Se + tercera persona» (error gramat
 [(?u)\bhasta\sque\b]i
 id="gr-1-hasta-que-no-seguido-de-subjuntivo"
 valid before="\s(haya|hubi)\w+"
-valid before="\s\w+(as?|es?)"
+valid before="\s(\w+\s)?\w+(as?|es?)"
 valid before="\s(el|la|lo|los|las|un|una|uno|unas|unos)"
 valid before="\s[A-Z]\w+"
+valid before="\s~"
 hint="«Hasta que» debe ir seguido de subjuntivo (error gramatical)"
+
+[(?u)\haz\s\w+?(ido)\b]i
+id="gr-1-haz-seguido-participio"
+hint="«Haz + participio» se escribe como «Has + participio» (error gramatical)"
+
+[(?u)\baún\s\w+?(ando|iendo|yendo)\b]i
+id="gr-1-aun-sin-tilde-antes-gerundio"
+hint="«Aún» se escribe como «Aun» antes de gerundio (error gramatical)"
 
 #
 # ERRORES DE CONCORDANCIA DE GÉNERO o NÚMERO
@@ -1626,7 +1648,8 @@ validGroup wordDelimiter
 validGroup beforeConnector
 valid after="\w+?s\s"
 valid after="en\s"
-valid before="por\s"
+valid before="por"
+valid before="\w+ando"
 hint="Hay un número mayor que uno seguido de un nombre en singular"
 
 [(?u)\b([Ee]l|[Aa]l|[Dd]el|[Uu]n)\s[«\'\"]?]

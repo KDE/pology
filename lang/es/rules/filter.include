@@ -45,7 +45,7 @@ addFilterRegex match="«\W+?»" repl="~" on="pmsgid,pmsgstr"
 
 # Remove some abreviations.
 addFilterRegex match="\b(admin|cartr|cert|cond|dec|hex|inc|Jr|lab|Mr|Mrs|No|obs|oct|org|seq|Sh|sync|torr)\.(\.\.)?" repl="~" on="pmsgid,pmsgstr"
-addFilterRegex match="\b(a\.\s?m|apdo|art|atte|av|avda|C\.\s?C|C\.\s?P|cap|cent|cént|Cía|cta|dcha|dcho|depto|D|Dr|Dra|EE\.\s?UU|[Pp]\.\sej|expr|Fdo|Gral|[Ii]d|Ilmo|izdo|JJ\.\s?OO|K\.\s?O|Ltd|Ltdo|Ltda|máx|mín|[Nn]úm|n\.\s?t|p\.\s?m|pág|Pdte|Pdta|pl|plza|pos|ppal|pral|Prof|pza|Rep|Sr|Sra|S.\s?L|sinc|Srta|Sto|Sta|tel|trad|Univ|vv\.\s?aa|VV\.\s?AA)\.(\.\.)?" repl="~" on="pmsgid,pmsgstr"
+addFilterRegex match="\b(a\.\s?m|apdos?|art|atte|av(das)?|C\.\s?C|C\.\s?P|caps?|cents?|cénts?|Cías?|ctas?|dchas?|dchos?|deptos?|D|Dr(es)?|Dras?|EE\.\s?UU|[Pp]\.\sej|exprs?|Fdo|Gral(es)?|[Ii]ds?|Ilmos?|izdas?|izdos?|JJ\.\s?OO|K\.\s?O|Ltd(os)?|Ltdas?|máx|mín|[Nn]úm|n\.\s?t|p\.\s?m|págs?|Pdtes?|Pdtas?|pl|plzas?|pos|ppal(es)?|pral(es)?|Prof|pzas?|Rep|Sr(es)?|Sras?|S.\s?L|sinc|Srtas?|Stos?|Stas?|tels?|trads?|Univ|vv\.\s?aa|VV\.\s?AA)\.(\.\.)?" repl="~" on="pmsgid,pmsgstr"
 
 # Remove some usual smileis.
 addFilterRegex match="\s(\:\)|\(\-\:|\:\)|\(\:|\=\)|\)\-\:\)|\:\-\)|\:\-\(|\;\-\)|\;\)|\:\-\{|\:\-\()" repl="\s~" on="pmsgid,pmsgstr"

@@ -66,6 +66,7 @@ hint="El texto de la traducción está vacío"
 
 *hook name="es:compare_with_original/test_if_purepunc" on="msg"
 id="pw-2-error-traducido-texto-sin-letras"
+valid msgid="~"
 hint="Se ha traducido un texto sin caracteres alfanuméricos significativos"
 
 *hook name="es:compare_with_original/test_if_very_long_translation" on="msg"

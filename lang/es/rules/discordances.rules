@@ -63,6 +63,7 @@ valid msgstr="pendientes?"
 valid msgstr="restantes?"
 valid msgstr="libres?"
 valid msgstr="faltan?"
+valid before="\s(out|over)"
 hint="«Left» se traduce como «Izquierda» o similar (error de concordancia)"
 
 {\bright\b}i

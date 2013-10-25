@@ -221,6 +221,18 @@ hint="«Aún así» se escribe como «Aun así» (error frecuente)"
 id="cm-1-aun-cuando-con-tilde"
 hint="«Aún cuando» se escribe como «Aun cuando» (error frecuente)"
 
+[\baun\smás\b]i
+id="cm-1-aun-mas-sin-tilde"
+hint="«Aun más» se escribe como «Aún mas» (error frecuente)"
+
+[\baun\smejor\b]i
+id="cm-1-aun-mejor-sin-tilde"
+hint="«Aun mejor» se escribe como «Aún mejor» (error frecuente)"
+
+[\baun\speor\b]i
+id="cm-1-aun-peor-sin-tilde"
+hint="«Aun peor» se escribe como «Aún peor» (error frecuente)"
+
 [\baya\b]i
 id="cm-2-aya"
 hint="«Aya» se escribe como «Haya», salvo si se trata de niñeras (error frecuente)"
@@ -819,6 +831,14 @@ hint="«Guión» se escribe como «Guion» (error frecuente)"
 [\bguíar\b]i
 id="cm-1-guiar-con-tilde"
 hint="«Guíar» se escribe como «Guiar» (error frecuente)"
+
+[\bhaber,]i
+id="cm-1-haber-seguido-coma"
+hint="'Haber,' se escribe 'A ver,'"
+
+[\bhaber\scomo\b]i
+id="cm-1-haber-como"
+hint="'Haber como' se escribe 'A ver como'"
 
 [\bhaber\sque\b]i
 id="cm-1-haber-que"
