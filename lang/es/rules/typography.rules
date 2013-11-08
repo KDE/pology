@@ -380,7 +380,7 @@ valid before="\d"
 valid before="\s[¿¡]"
 hint="Los elementos químicos no llevan punto"
 
-[\b(a|A|at|atm|b|bar|c|cal|cd|cm|CV|d|da|dB|dm|dyn|erg|eV|f|F|ft|g|G|gr|Gs|Gy|h|H|ha|hp|Hz|in|J|k|K|kg|km|l|L|lb|lm|lx|m|M|mbar|Mc|mg|min|mol|Mx|n|N|Oe|oz|p|P|Pa|pc|pt|Qm|R|rad|s|sr|Sv|t|T|tex|u|UA|V|Wb|yd)\.]
+[\b(a|A|at|atm|b|bar|c|cal|cd|cm|CV|d|da|dB|dm|dyn|erg|eV|f|F|ft|g|G|Gb|GiB|gr|Gs|Gy|h|H|ha|hp|Hz|in|J|k|K|Kb|kg|KiB|km|l|L|lb|lm|lx|m|M|Mb|MiB|mbar|Mc|mg|min|mol|Mx|n|N|Oe|oz|p|P|Pa|pc|pt|Qm|R|rad|s|sr|Sv|t|T|tex|u|UA|V|Wb|yd)\.]
 id="ty-2-punto-en-unidad-medida"
 valid span="\w+\." before="\s[A-Z]\w+"
 valid span="\w+\." before="\w+\."
@@ -411,7 +411,7 @@ valid before="\d"
 valid before="\s[¿¡]"
 hint="Las unidades monetarias no llevan punto"
 
-[\d+(a|A|at|atm|b|bar|c|cal|cd|cm|CV|d|da|dB|dm|dyn|erg|eV|f|F|ft|g|G|gr|Gs|Gy|h|H|ha|hp|Hz|in|J|k|K|kg|km|l|L|lb|lm|lx|m|M|mbar|Mc|mg|min|mol|Mx|n|N|Oe|oz|p|P|Pa|pc|pt|Qm|R|rad|s|sr|Sv|t|T|tex|u|UA|V|Wb|yd)\b]
+[\d+(a|A|at|atm|b|bar|c|cal|cd|cm|CV|d|da|dB|dm|dyn|erg|eV|f|F|ft|g|G|Gb|GiB|gr|Gs|Gy|h|H|ha|hp|Hz|in|J|k|K|kb|kIb|kg|km|l|L|lb|lm|lx|m|M|mB|mIb|mbar|Mc|mg|min|mol|Mx|n|N|Oe|oz|p|P|Pa|pc|pt|Qm|R|rad|s|sr|Sv|t|T|tex|u|UA|V|Wb|yd)\b]
 id="ty-2-espacio-de-separacion-en-unidad-medida"
 valid span="[23]G"
 valid span="[23]d"

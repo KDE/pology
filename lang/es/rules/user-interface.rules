@@ -595,7 +595,7 @@ hint="«Cut and paste» se traduce como «Cortar y pegar» (regla de traducción
 {\bdesktop\b}i
 id="ui-2-widget-desktop"
 valid msgstr="escritorio"
-valid msgstr="Desktop" after="K\s"
+valid msgstr="Desktop" after="[A-Z]\w*\s"
 valid after="\."
 valid before="\sBus"
 hint="«Desktop» se traduce como «Escritorio» (regla de traducción de elementos gráficos)"
@@ -724,6 +724,11 @@ valid msgstr="cuadros\sde\slista"
 valid msgstr="(cualquier|ningún)\scuadro\sde\slista"
 hint="«Listboxes» se traduce como «Cuadros de lista» (regla de traducción de elementos gráficos)"
 
+{\blook\s(\'n|and)\sfeel\b}i
+id="ui-2-look-and-feel"
+valid msgstr="apariencia"
+hint="«Look and feel» se traduce como «Apariencia» (regla de traducción de elementos gráficos)"
+
 {\bmaximi[sz]e\b}i
 id="ui-2-widget-maximize"
 valid msgstr="maximi(zar|za|ce)"
@@ -760,6 +765,11 @@ id="ui-2-widget-minimise"
 valid msgstr="minimi(zar|za|ce)"
 valid msgstr="minimizará" after="will\s"
 hint="«Minimise» se traduce como «Minimizar» (regla de traducción de elementos gráficos)"
+
+{\bonscreen\sfundamentals\b}i
+id="ui-2-onscreen-fundamentals"
+valid msgstr="uso\sde\s\la\sinterfaz"
+hint="«Onscreen fundamentals» se traduce como «Uso de la interfaz» (regla de traducción de elementos gráficos)"
 
 {\bprogress\s?bar\b}i
 id="ui-2-widget-progressbar"

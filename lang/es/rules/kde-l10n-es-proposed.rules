@@ -24,6 +24,11 @@ valid msgstr="acpi"
 valid msgstr="ACPI"
 hint="«ACPI» no se traduce (propuesta glosario)"
 
+{\bACPI\b}
+id="gp-3-acpi-mayusculas"
+valid msgstr="ACPI"
+hint="«ACPI» no se traduce (propuesta glosario)"
+
 {\badd\-?on\b}i
 id="gp-3-add-on"
 valid msgstr="complemento"
@@ -43,6 +48,11 @@ hint="«Anti-aliasing» se traduce como «Suavizado de bordes» (propuesta glosa
 {\bapm\b}i
 id="gp-3-apm"
 valid msgstr="apm"
+valid msgstr="APM"
+hint="«APM» no se traduce (propuesta glosario)"
+
+{\bAPM\b}
+id="gp-3-apm-mayusculas"
 valid msgstr="APM"
 hint="«APM» no se traduce (propuesta glosario)"
 
@@ -160,6 +170,11 @@ id="gp-3-bcc"
 valid msgstr="cco"
 valid msgstr="CCO"
 hint="«Bcc» (copia de carbón oculta), se traduce como «Cco» (propuesta glosario)"
+
+{\bBCC\b}
+id="gp-3-bcc-mayusculas"
+valid msgstr="CCO"
+hint="«BCC» (copia de carbón oculta), se traduce como «CCO» (propuesta glosario)"
 
 {\bbeats\sper\sminute\b}i
 id="gp-3-beats-per-minute"
@@ -461,9 +476,19 @@ valid msgstr="cc"
 valid msgstr="CC"
 hint="«CC» (copia de carbón) se traduce como «CC» (propuesta glosario)"
 
+{\bCC\b}
+id="gp-3-cc-mayusculas"
+valid msgstr="CC"
+hint="«CC» (copia de carbón) se traduce como «CC» (propuesta glosario)"
+
 {\bcddb\b}i
 id="gp-3-cddb"
 valid msgstr="cddb"
+valid msgstr="CDDB"
+hint="«CDDB» no se traduce (propuesta glosario)"
+
+{\bCDDB\b}
+id="gp-3-cddb-mayusculas"
 valid msgstr="CDDB"
 hint="«CDDB» no se traduce (propuesta glosario)"
 
@@ -1422,6 +1447,7 @@ valid msgstr="extra(er|e|iga|cción)"
 valid msgstr="entreg(ar|a|ue)"
 valid msgstr="tra(er|e|iga)"
 valid msgstr="obten(er|ga|ción)"
+valid msgstr="recuper(ar|e|a|ación)"
 valid msgstr="buscará" after="will\s(not\s)?"
 valid msgstr="buscó" after="did\s(not\s)?"
 valid msgstr="extraerá" after="will\s(not\s)?"
@@ -1429,10 +1455,12 @@ valid msgstr="extrajo" after="did\s(not\s)?"
 valid msgstr="traerá" after="will\s(not\s)?"
 valid msgstr="trajo" after="did\s(not\s)?"
 valid msgstr="entregará" after="will\s(not\s)?"
+valid msgstr="recuperará" after="will\s(not\s)?"
 valid msgstr="entregó" after="did\s(not\s)?"
 valid msgstr="obtendrá" after="will\s(not\s)?"
 valid msgstr="obtuvo" after="did\s(not\s)?"
-hint="«Fetch» se traduce como «Buscar/Extraer/Entregar/Traer/Obtener» (propuesta glosario)"
+valid msgstr="recuperó" after="did\s(not\s)?"
+hint="«Fetch» se traduce como «Recuperar/Buscar/Extraer/Entregar/Traer/Obtener» (propuesta glosario)"
 
 {\bfetchs\b}i
 id="gp-2-fetchs"
@@ -1565,12 +1593,23 @@ valid msgstr="foros"
 valid msgstr="(algún|ningún|cualquier)\sforo"
 hint="«Forums» se traduce como «Foros» (propuesta glosario)"
 
+{\bfooter\b}i
+id="gp-3-footer"
+valid msgstr="pie\sde\spágina"
+hint="«Footer» se traduce como «Pie de página» (propuesta glosario)"
+
+{\bfooters\b}i
+id="gp-3-footers"
+valid msgstr="pies\sde\spágina"
+valid msgstr="(algún|ningún|cualquier)\spie\sde\spágina"
+hint="«Footers» se traduce como «Pies de página» (propuesta glosario)"
+
 {\bfrecuency\b}i
 id="gp-3-frecuency"
 valid msgstr="frecuencia"
 hint="«Frecuency» se traduce como «Frecuencia» (propuesta glosario)"
 
-{\bfreee[\/-]busy\b}i
+{\bfree[\/-]?[Bb]usy\b}i
 id="gp-2-free-busy"
 valid msgstr="disponibilidad"
 hint="«Free/busy» se traduce como «Disponibilidad» (propuesta glosario)"
@@ -1792,6 +1831,11 @@ hint="«Hits» se traduce como «Aciertos/Acceso/Visitas/Golpe» (propuesta glos
 {\bhtml\b}i
 id="gp-3-html"
 valid msgstr="html"
+valid msgstr="HTML"
+hint="«HTML» no se traduce (propuesta glosario)"
+
+{\bHTML\b}
+id="gp-3-html-mayusculas"
 valid msgstr="HTML"
 hint="«HTML» no se traduce (propuesta glosario)"
 
@@ -2078,8 +2122,13 @@ valid msgstr="alineó" after="did\s(not\s)?"
 hint="«Justify» se traduce como «Alinear» (propuesta glosario)"
 
 {\bkde\b}i
-id="gp-1-kde"
+id="gp-2-kde"
 valid msgstr="kde"
+valid msgstr="KDE"
+hint="«KDE» se mantiene tal como está (propuesta glosario)"
+
+{\bKDE\b}
+id="gp-2-kde-mayusculas"
 valid msgstr="KDE"
 hint="«KDE» se mantiene tal como está (propuesta glosario)"
 
@@ -3942,13 +3991,19 @@ hint="«Templates» se traduce como «Plantillas» (propuesta glosario)"
 {\bthread\b}i
 id="gp-3-thread"
 valid msgstr="hilo"
-hint="«Thread» se traduce como «Hilo» (propuesta glosario)"
+valid msgstr="hebra"
+valid msgstr="subproceso"
+hint="«Thread» se traduce como «Hilo/Hebra/Subproceso» (propuesta glosario)"
 
 {\bthreads\b}i
 id="gp-3-threads"
 valid msgstr="hilos"
+valid msgstr="hebras"
+valid msgstr="subprocesos"
 valid msgstr="(algún|ningún|cualquier)\shilo"
-hint="«Threads» se traduce como «Hilos» (propuesta glosario)"
+valid msgstr="(algún|ningún|cualquier)\shebra"
+valid msgstr="(algún|ningún|cualquier)\ssubproceso"
+hint="«Threads» se traduce como «Hilos/Hebras/Subprocesos» (propuesta glosario)"
 
 {\bthreshold\b}i
 id="gp-3-threshold"
@@ -4003,7 +4058,7 @@ valid msgstr="(alguna|cualquier|ninguna)\sherramienta"
 valid after="\-"
 hint="«Tools» se traduce como «Herramientas» (propuesta glosario)"
 
-{\btoo\-?ltip\b}i
+{\btool\-?tip\b}i
 id="gp-2-tooltip"
 valid msgstr="consejo\semergente"
 valid msgstr="consejos\semergentes"

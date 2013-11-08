@@ -3,6 +3,9 @@
 # by the KDE Spanish Team (kde-l10n-es@kde.org)
 # License: GPLv3
 
+addFilterRegex match="E\/S" repl="ES" on="pmsgid,pmsgstr"
+addFilterRegex match="mayúsculas?\/minúsculas?" repl="mayúsculas minúsculas" on="pmsgid,pmsgstr"
+
 *hook name="es:compare_with_original/test_if_non_printable_characters" on="msg"
 id="pw-2-error-traduccion-con-caracteres-no-imprimibles"
 hint="Hay textos no imprimibles en la traducción o signos de puntación que no aparecen en el original"

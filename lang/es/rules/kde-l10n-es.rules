@@ -363,6 +363,11 @@ valid msgstr="cd"
 valid msgstr="CD"
 hint="«CD» significa «Compact disk», no se traduce (ver glosario)"
 
+{\bCD\b}
+id="gk-2-cd-mayusculas"
+valid msgstr="CD"
+hint="«CD» significa «Compact disk», no se traduce (ver glosario)"
+
 {\bcheck\b}i
 id="gk-2-check"
 valid msgstr="comprob(ar|ación)"
@@ -699,8 +704,8 @@ hint="«CTAN» no se debe traducir (ver glosario)"
 id="gk-2-cups"
 valid msgstr="cups"
 valid msgstr="CUPS"
-valid msgstr="tazas"
-valid msgstr="(alguna|cualquier|ninguna)\staza"
+valid msgstr="[Tt]azas"
+valid msgstr="([Aa]lguna|[Cc]ualquier|[Nn]inguna)\staza"
 hint="«CUPS» no se debe traducir, salvo si se trata de tazas (ver glosario)"
 
 {\bdaemon\b}i
@@ -1604,7 +1609,7 @@ hint="«Greedies» se traduce como «Voraces» (ver glosario)"
 {\bGUI\b}i
 id="gk-2-gui"
 valid msgstr="interfaz\sgráfica(\sde\susuario)?"
-valid msgstr="interfaces\sgráficaa(\sde\susuario)?"
+valid msgstr="interfaces\sgráficas(\sde\susuario)?"
 hint="«GUI» se traduce como «Interfaz gráfica de usuario» (ver glosario)"
 
 {\bGUID\b}i
@@ -1799,6 +1804,12 @@ valid msgstr="entornos?\sde\sdesarrollo\sintegrado"
 valid before="\-scsi"
 hint="«IDE» se traduce como «Entorno de desarrollo integrado» (ver glosario)"
 
+{\bIDE\b}
+id="gk-2-ide-mayusculas"
+valid msgstr="[Ee]ntornos?\sde\sdesarrollo\sintegrado"
+valid before="\-scsi"
+hint="«IDE» se traduce como «Entorno de desarrollo integrado» (ver glosario)"
+
 {\binterface\b}i
 id="gk-2-interface"
 valid msgstr="interfaz"
@@ -1821,10 +1832,20 @@ valid msgstr="irq"
 valid msgstr="IRQ"
 hint="«IRQ» no se traduce (ver glosario)"
 
+{\bIRQ\b}
+id="gk-2-irq-mayusculas"
+valid msgstr="IRQ"
+hint="«IRQ» no se traduce (ver glosario)"
+
 {\bi\/o\b}i
 id="gk-2-i-o"
-valid msgstr="e\/s"
+valid msgstr="[Ee]\/s"
 hint="«I/O» se traduce como «E/S» entrada/salida (ver glosario)"
+
+{\bI\/O\b}
+id="gp-3-i-o"
+valid msgstr="E\/S"
+hint="«I/O» se traduce como «E/S» (propuesta glosario)"
 
 {\bitalics\b}i
 id="gk-2-italics"
@@ -2342,6 +2363,13 @@ valid msgstr="aceptar"
 valid msgstr="correct[oa]"
 valid msgstr="de\sacuerdo"
 hint="«Ok» se traduce como «Aceptar» en botones o «Correcto» en otros casos (ver glosario)"
+
+{\bOK\b}
+id="gk-2-ok-mayusculas"
+valid msgstr="[Aa]ceptar"
+valid msgstr="[Cc]orrect[oa]"
+valid msgstr="[Dd]e\sacuerdo"
+hint="«OK» se traduce como «Aceptar» en botones o «Correcto» en otros casos (ver glosario)"
 
 {\boverlap\b}i
 id="gk-2-overlap"
