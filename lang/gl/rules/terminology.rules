@@ -551,7 +551,7 @@ hint="«delete» tradúcese como «eliminar»"
 # «eliminar» traduce a «delete»
 [\belimin]i
 id="PT-2011-dual_delete"
-valid msgid="\bdelet(e|es|ed|ing)"
+valid msgid="\bdelet(e|es|ed|ing|ion)"
 hint="«eliminar» traduce a «delete»"
 
 
@@ -800,10 +800,12 @@ hint="«ambiente» traduce a «environment»"
 {\berase}i
 id="PT-2012_erase"
 valid msgstr="\bborrar"
+
 hint="«erase» tradúcese como «borrar»"
 
 # «borrar» traduce a «erase»
 [\bborr\w+]i
+valid span="borrador"
 id="PT-2012-dual_erase"
 valid msgid="\berase"
 hint="«borrar» tradúcese como «erase»"
@@ -1995,6 +1997,7 @@ valid before="at(e|or|ion)"
 valid before="ity"
 id="PT-2011_valid"
 valid msgstr="\bcorrect(a|o)s?"
+valid before="from" msgstr="válid(o|a)"
 hint="«valid» tradúcese como «correcto»"
 
 # «correcto» traduce a «valid»

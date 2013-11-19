@@ -358,13 +358,13 @@ valid msgid="\bnodes?\b" !env="graph_theory"
 hint="«nodo» -> «node»"
 
 
-# «ing mode» -> «médoto de»
+# «ing mode» -> «método de»
 {ing\smode}i
 valid after="\bfollow"
 valid after="\bnon-\w+"
 id="kde_ing"
 valid msgstr="métodos?\sde\s\w+"
-hint="«ing mode» -> «médoto de»"
+hint="«ing mode» -> «método de» (non é que "modo de" sexa incorrecto, é que ás veces non é máis axeitado)"
 
 # «print» -> «imprimir», «mostra»
 {\bprint(?!(ing|er))}i
