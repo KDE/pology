@@ -59,11 +59,6 @@ id="pn-3-amman"
 valid msgstr="Amán"
 hint="«Amán» se traduce como como «Amán» (nombre propio)"
 
-{\bAnctarctica\b}
-id="pn-3-antarctica"
-valid msgstr="Antártida"
-hint="«Anctartica» se traduce como como «Antártida» (nombre propio)"
-
 {\bAndalutia\b}
 id="pn-3-andalutia"
 valid msgstr="Andalucía"
@@ -81,9 +76,14 @@ id="pn-3-antartic"
 valid msgstr="[Aa]ntártic[ao]s?"
 hint="«Antartic» se traduce como como «Ántártico» (nombre propio)"
 
+{\bAnctarctica\b}
+id="pn-3-antarctica"
+valid msgstr="Antártida"
+hint="«Anctartica» se traduce como como «Antártida» (nombre propio)"
+
 {\bAquitaine\b}
 id="pn-3-aquitaine"
-valid msgstr="Áquitania"
+valid msgstr="Aquitania"
 hint="«Aquitaine» se traduce como como «Aquitania» (nombre propio)"
 
 {\bArab\b}
@@ -683,7 +683,7 @@ hint="«Kurdistan» se traduce como como «Kurdistán/kurdistaní» (nombre prop
 
 {\bKyrgyztans\b}
 id="pn-3-kyrgyztans"
-valid msgstr="Kirguistan"
+valid msgstr="Kirguistán"
 valid msgstr="[Kk]irguis[ao]s?"
 valid msgstr="[Kk]irguís"
 hint="«Kyrgyzants» se traduce como como «Kirguistán/kirguiso» (nombre propio)"
@@ -801,7 +801,7 @@ hint="«Mauritius» se traduce como como «Mauricio/Mauriciano» (nombre propio)
 
 {\bMediterranean\b}
 id="pn-3-mediterranean"
-valid msgstr="[mm]editerráne[ao]s?"
+valid msgstr="[Mm]editerráne[ao]s?"
 hint="«Mediterranean» se traduce como como «Mediterráneao» (nombre propio)"
 
 {\bMerida\b}
@@ -1145,7 +1145,7 @@ hint="«Sánz» se escribe como «Sanz» (nombre propio)"
 id="pn-3-sao"
 valid msgstr="Sant[ao]"
 valid msgstr="San"
-hint="«Sao» se traduce como «Santo/san» (nombres-propios)"
+hint="«Sao» se traduce como «Santo/San» (nombres-propios)"
 
 {\bSardinia\b}
 id="pn-3-sardinia"
@@ -1504,11 +1504,11 @@ valid msgstr="[Zs]elandés"
 valid msgstr="[Zs]elandes(a|es|as)"
 hint="«Zaeland» se traduce como como «Zelanda/zelandés» (nombre propio)"
 
-{\bZymbbwe\b}
-id="pn-3-zymbbwe"
+{\bZymbabwe\b}
+id="pn-3-zymbabwe"
 valid msgstr="Zimbabue"
 valid msgstr="[Zz]imbabuenses?"
-hint="«Zymbbwe» se traduce como como «Zimbabue/zimbabuense» (nombre propio)"
+hint="«Zymbabwe» se traduce como como «Zimbabue/zimbabuense» (nombre propio)"
 
 # End of rule file
 

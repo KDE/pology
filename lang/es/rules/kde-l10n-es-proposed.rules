@@ -2946,6 +2946,7 @@ valid msgstr="reproducción?"
 valid msgstr="intérprete"
 valid after="Dragon\s"
 valid after="Flash\s"
+valid before="\spiano"
 hint="«Player» se traduce como «Jugador/Reproductor/Intérprete» (propuesta glosario)"
 
 {\bplayers\b}i
@@ -3135,6 +3136,8 @@ valid msgstr="purgó"
 valid msgstr="limpió"
 valid msgstr="se\s(\w+\s){1,3}purgar"
 valid msgstr="se\s(\w+\s){1,3}limpiar"
+valid msgstr="purgaron" after="were\s"
+valid msgstr="purgó" after="was\s"
 hint="«Purged» se traduce como «Purgado/Limpiado» (propuesta glosario)"
 
 {\bquery\b}i

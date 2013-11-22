@@ -7,30 +7,34 @@ include file="filter.include"
 
 # Omit group of words not translatables
 addFilterRegex match="\b(echo\snest|make\s(un)?install|(little|big)\sendian|summer\sof\scode|plug\sand\splay)\b" repl="" on="pmsgid,pmsgstr"
-addFilterRegex match="\b(lost\+found|if\=|of\=|\w+rc\b|\w+config\b|\wconf\b)" repl="" on="pmsgid,pmsgstr"
+addFilterRegex match="\b(lost\+found|(if|of)\=[\w.-]+|\.?\w+(rc|config|conf)\b)" repl="" on="pmsgid,pmsgstr"
 
 # Omit words between quotes.
-addFilterRegex match="«\w+»" repl="" on="pmsgid,pmsgstr"
-addFilterRegex match="\"\w+\"" repl="" on="pmsgid,pmsgstr"
-addFilterRegex match="\'\w+\'" repl="" on="pmsgid,pmsgstr"
+addFilterRegex match="«[\w-]+»" repl="" on="pmsgid,pmsgstr"
+addFilterRegex match="\"[\w-]+\"" repl="" on="pmsgid,pmsgstr"
+addFilterRegex match="\'[\w-]+\'" repl="" on="pmsgid,pmsgstr"
+addFilterRegex match="\\\"[\w-]+\\\"" repl="" on="pmsgid,pmsgstr"
 
 # Omit words between brackets.
-addFilterRegex match="\{\w+\}" repl="" on="pmsgid,pmsgstr"
-addFilterRegex match="\(\w+\)" repl="" on="pmsgid,pmsgstr"
-addFilterRegex match="[\[]\w+[\]]" repl="" on="pmsgid,pmsgstr"
+addFilterRegex match="\{[\w-]+\}" repl="" on="pmsgid,pmsgstr"
+addFilterRegex match="\([\w-]+\)" repl="" on="pmsgid,pmsgstr"
+addFilterRegex match="[\[][\w-]+[\]]" repl="" on="pmsgid,pmsgstr"
 
 # Omit compounds words.
-addFilterRegex match="\b\w+([_-]\w+)+\b" repl="" on="pmsgid,pmsgstr"
+addFilterRegex match="\b[\w-]+\b" repl="" on="pmsgid,pmsgstr"
 
 # Omit words preceded by some special characters.
-addFilterRegex match="(?<=\W)[/+:.-]{1,2}\w+\b" repl="" on="pmsgid,pmsgstr"
+addFilterRegex match="(?<!\w)[/+:.-]{1,2}\w+\b" repl="" on="pmsgid,pmsgstr"
 addFilterRegex match="^[/+:.-]{1,2}\w+\b" repl="" on="pmsgid,pmsgstr"
 
 # Omit words witch contains at least one number.
 addFilterRegex match="\b[a-zA-Z]+\d\w*\b" repl="" casesens="yes" on="pmsgid,pmsgstr"
 
 # Omit particles between propernames.
-addFilterRegex match="(?<=\w\s)(aka|da|de|del|der|do|la|vom|von)\s(?=[A-Z])" repl="" casesens="yes" on="pmsgid,pmsgstr"
+addFilterRegex match="(?<=\w)\s(aka|da|de|de\sla|del|der|do|du|la|van|vom|von)\s(?=[A-Z])" repl=" " casesens="yes" on="pmsgid,pmsgstr"
+
+# Omit single quotes into names.
+addFilterRegex match="(?<=\w)\'(?=\w)" repl="" on="pmsgid,pmsgstr"
 
 # Omit paired capitalized words.
 addFilterHook name="es:remove_subs/remove_paired_capital_words" on="msg"

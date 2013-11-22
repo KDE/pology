@@ -30,18 +30,21 @@ hint="Compruebe el uso de espacio antes del fin de párrafo «</p>» (falta en l
 id="pe-3-falta-punto-fin-parrafo"
 valid msgstr="[.!?~]\s*$"
 valid msgstr="\.\.\.»\s*$"
+valid msgstr="\.\.\.\\\"\s*$"
 hint="Compruebe el uso de punto al final del párrafo (falta en la traducción)."
 
 {\.\s*?\n}i
 id="pe-3-falta-punto-fin-nueva-linea"
 valid msgstr="[.!?~]\s*?\n"
 valid msgstr="\.\.\.»\s*?\n"
+valid msgstr="\.\.\.\\\"\s*?\n"
 hint="Compruebe el uso de punto antes del fin de línea «\n» (falta en la traducción)."
 
 {\.\s*\<\/p\>}i
 id="pe-3-falta-punto-fin-nuevo-parrafo"
 valid msgstr="[.!?~]\s*\<\/p\>"
 valid msgstr="\.\.\.»\s*\<\/p\>"
+valid msgstr="\.\.\.\\\"\s*\<\/p\>"
 hint="Compruebe el uso de punto antes del fin de párrafo «</p>» (falta en la traduccción)."
 
 {\:\s*$}i
@@ -120,24 +123,30 @@ hint="Compruebe el orden del paréntesis y punto al final del párrafo «</p>» 
 id="pe-3-error-orden-comilla-fin-parrafo"
 valid msgstr="[»\'\"]\.\s*$"
 valid msgstr="etc\.[»\'\"]\s*$"
+valid msgstr="etc\.\\\"\s*$"
 valid msgstr="(?u)\w\.\s*$"
 valid msgstr="\.\.\.[»\'\"]\s*$"
+valid msgstr="\.\.\.\\\"\s*$"
 hint="Compruebe el orden de comillas y punto al final del párrafo (al revés que en inglés)."
 
 {\.[»\'\"]\n}i
 id="pe-3-error-orden-comilla-fin-linea"
 valid msgstr="[»\'\"]\.\n"
 valid msgstr="etc\.[»\'\"]\n"
+valid msgstr="etc\.\\\"\n"
 valid msgstr="(?u)\w\.\n"
 valid msgstr="\.\.\.[»\'\"]\n"
+valid msgstr="\.\.\.\\\"\n"
 hint="Compruebe el orden de comillas y punto antes del fin de línea «\n» (al revés que en inglés)."
 
 {\.[»\'\"]\s*\<\/p\>}i
 id="pe-3-error-orden-comilla-fin-nuevo-parrafo"
 valid msgstr="[»\'\"]\.\s*\<\/p\>"
 valid msgstr="etc\.[»\'\"]\s*\<\/p\>"
+valid msgstr="etc\.\\\"\s*\<\/p\>"
 valid msgstr="(?u)\w\.\s*\<\/p\>"
 valid msgstr="\.\.\.[»\'\"]\s*\<\/p\>"
+valid msgstr="\.\.\.\\\"\s*\<\/p\>"
 hint="Compruebe el orden de comillas y punto al final del párrafo «</p>» (al revés que en inglés)."
 
 [\s$]i
@@ -250,27 +259,36 @@ hint="Compruebe el orden del paréntesis y punto al final del párrafo «</p>» 
 id="pe-3-error-orden-comilla-fin-parrafo-2"
 valid msgid="[»\'\"]\s*\.\s*$"
 valid msgid="\.\s*[»\'\"]\s*$"
+valid msgid="\.\s*\\\"\s*$"
 valid msgid="etc\.\s*[»\'\"]\s*$"
+valid msgid="etc\.\s*\\\"\s*$"
 valid msgid="(?u)\w\s*\.\s*$"
 valid msgid="\.\.\.\s*[»\'\"]\s*$"
+valid msgid="\.\.\.\s*\\\"\s*$"
 hint="Compruebe el orden de comillas y punto al final del párrafo (al revés que en inglés)."
 
 [»\.\s*?\n]i
 id="pe-3-error-orden-comilla-fin-nueva-linea-2"
 valid msgid="[»'\"]\s*\.\s*?\n"
 valid msgid="\.\s*[»'\"]\s*?\n"
+valid msgid="\.\s*\\\"\s*?\n"
 valid msgid="etc\.\s*[»'\"]\s*?\n"
+valid msgid="etc\.\s*\\\"\s*?\n"
 valid msgid="(?u)\w\s*\.\s*?\n"
 valid msgid="\.\.\.\s*[»'\"]\s*?\n"
+valid msgid="\.\.\.\s*\\\"\s*?\n"
 hint="Compruebe el orden de comillas y punto antes del fin de línea «\n» (al revés que en inglés)."
 
 [»\.\s*\<\/p\>]i
 id="pe-3-error-orden-comilla-fin-nuevo-parrafo-2"
 valid msgid="[»\'\"]\s*\.\s*\<\/p\>"
 valid msgid="\.\s*[»\'\"]\s*\<\/p\>"
+valid msgid="\.\s*\\\"\s*\<\/p\>"
 valid msgid="etc\.\s*[»\'\"]\s*\<\/p\>"
+valid msgid="etc\.\s*\\\"\s*\<\/p\>"
 valid msgid="(?u)\w\s*\.\s*\<\/p\>"
 valid msgid="\.\.\.\s*[»\'\"]\s*\<\/p\>"
+valid msgid="\.\.\.\s*\\\"\s*\<\/p\>"
 hint="Compruebe el orden de comillas y punto al final del párrafo «</p>» (al revés que en inglés)."
 
 # Signo de admiración al final del párrafo

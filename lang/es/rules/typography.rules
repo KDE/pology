@@ -322,12 +322,13 @@ valid after="\."
 valid before="\."
 hint="No ponga dos signos de punto consecutivos"
 
-[\']
-id="ty-3-apostrofo-suelto-o-ante-numeros"
-valid after='[a-zA-Z]'
-valid before='[a-zA-Z]'
-valid after="^" before="$"
-hint="No ponga el signo de apóstrofo suelto o antes de números"
+[\s\'\s]
+id="ty-3-apostrofo-suelto"
+hint="No ponga el signo de apóstrofo suelto"
+
+[\'\d]
+id="ty-3-apostrofo-ante-numeros"
+hint="No ponga el signo de apóstrofo antes de números"
 
 #[&cr;]
 #id="ty-3-sobra-retorno-carro"

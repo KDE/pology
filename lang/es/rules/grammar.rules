@@ -1415,9 +1415,13 @@ hint="«Porqué» siempre debe venir precedido de un determinante (error gramati
 id="gr-1-preposicion-delante-de-si"
 hint="«Sí» se escribe con tilde después de una preposición (error gramatical)"
 
-[(?u)\has\s(el|la|lo|los|las|un|una|unos|unas)\b]i
+[(?u)\bhas\s(el|la|lo|los|las|un|una|unos|unas)\b]i
 id="gr-1-has-seguido-articulo"
 hint="«Has + artículo» se escribe como «Haz + artículo» (error gramatical)"
+
+[(?u)\b(el|lo|los|al|del)\s(19|20)\d\d\b]i
+id="gr-3-articulo-seguido-de-fecha"
+hint="No se recomienda poner un artículo antes de una fecha (error gramatical)"
 
 #
 # ERRORES CON FINALES DE FRASE

@@ -8,13 +8,16 @@
 addFilterRegex match="\&nbsp\;" repl=" " on="pmsgid,pmsgstr"
 
 # Especial treatment for «etc.», there may be a comma before it.
-addFilterRegex match="(etc\.(\.\.)?|\&etc\;)" repl="etcétera" on="pmsgid,pmsgstr"
+addFilterRegex match="(etc\.|\&etc\;)" repl="etcétera" on="pmsgid,pmsgstr"
+
+# Especial treatment for <quote>, replace with double quote.
+addFilterRegex match="\<\/?quote\>" repl="\"" on="pmsgid,pmsgstr"
 
 # Especial treatment for « & » and « && ».
 addFilterRegex match="(\s\&{1,2}\s)" repl=" y " on="pmsgid,pmsgstr"
 
 # Remove some special tags preceded with '%'
-addFilterRegex match="\%\w+(\%\w*)?" repl="~" on="pmsgid,pmsgstr"
+addFilterRegex match="\%\w+(\%\w*)*" repl="~" on="pmsgid,pmsgstr"
 
 # Remove some special tags between ':'
 addFilterRegex match="\:\w+\:" repl="~" on="pmsgid,pmsgstr"
@@ -37,11 +40,13 @@ addFilterRegex match="\<.*?\>" repl="~" on="pmsgid,pmsgstr"
 addFilterRegex match="\'.\'" repl="~" on="pmsgid,pmsgstr"
 addFilterRegex match="\".\"" repl="~" on="pmsgid,pmsgstr"
 addFilterRegex match="«.»" repl="~" on="pmsgid,pmsgstr"
+addFilterRegex match="\\\".\\\"" repl="~" on="pmsgid,pmsgstr"
 
 # Remove groups of non alphanumeric characters between quotes.
 addFilterRegex match="\'\W+?\'" repl="~" on="pmsgid,pmsgstr"
 addFilterRegex match="\"\W+?\"" repl="~" on="pmsgid,pmsgstr"
 addFilterRegex match="«\W+?»" repl="~" on="pmsgid,pmsgstr"
+addFilterRegex match="\\\"\W+?\\\"" repl="~" on="pmsgid,pmsgstr"
 
 # Remove some abreviations.
 addFilterRegex match="\b(admin|cartr|cert|cond|dec|hex|inc|Jr|lab|Mr|Mrs|No|obs|oct|org|seq|Sh|sync|torr)\.(\.\.)?" repl="~" on="pmsgid,pmsgstr"
@@ -61,10 +66,13 @@ addFilterRegex match="\(([\w-]+\s)+at(\s[\w-]+)+\)" repl="~" on="pmsgid,pmsgstr"
 
 # Remove Linux files
 addFilterRegex match="\b(bin|boot|dev|etc|home|lib|lib64|lost\+found|media|mnt|opt|proc|root|run|sbin|srv|sys|tmp|usr|var)(\/[\w_.#+-]+)+" repl="~" on="pmsgid,pmsgstr"
-addFilterRegex match="(\$\w+|\$\{\w\}|~)(\/[\w_#+.-]+)+" repl="~" on="pmsgid,pmsgstr"
+addFilterRegex match="(\$\w+|\$\{\w+\}|(KDE|QT|JAVA)\w*|~)(\/[\w_#+.-]+)+" repl="~" on="pmsgid,pmsgstr"
 
 # Remove Windows files
 addFilterRegex match="\b[A-Z]\:(\\{1,2}[\w.#+_-]+)+\b" repl="~" casesens="yes" on="pmsgid,pmsgstr"
+
+# Remove files with common extensions
+addFilterRegex match="\b[\w.#+_-]+\.(txt|exe|lib|bin|so|doc|docx|odt|pdf|jpg|png|ico)\b" repl="~" on="pmsgid,pmsgstr"
 
 # Remove some shell variables
 addFilterRegex match="\$\w+" repl="~" on="pmsgid,pmsgstr"
@@ -78,8 +86,11 @@ addFilterRegex match="\\\\\w+(\{\w*\})?" repl="~" on="pmsgid,pmsgstr"
 # Remove C++ methods
 addFilterRegex match="\:\:\w+" repl="~" on="pmsgid,pmsgstr"
 
-# Remove program parameters
-addFilterRegex match="\-\-\w+(\-\w+)*" repl="~" on="pmsgid,pmsgstr"
+# Remove program parameters (including 'help' option)
+addFilterRegex match="(?<!\w)\-\-[\w-]+\shelp" repl="~" on="pmsgid,pmsgstr"
+addFilterRegex match="^\-\-[\w-]+\shelp" repl="~" on="pmsgid,pmsgstr"
+addFilterRegex match="(?<!\w)\-\-[\w-]+" repl="~" on="pmsgid,pmsgstr"
+addFilterRegex match="^\-\-[\w-]+" repl="~" on="pmsgid,pmsgstr"
 
 # Remove MIME types
 addFilterRegex match="\b(all|application|audio|fonts|image|inode|interface|message|model|multipart|text|uri|video|x\-content|x\-epoc)\/\w[\w_#+.-]*\w" repl="~" on="pmsgid,pmsgstr"

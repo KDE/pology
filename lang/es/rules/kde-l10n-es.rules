@@ -253,6 +253,7 @@ valid before="\-"
 valid msgstr="bloque(ar|o|e|a)?"
 valid msgstr="bloqueará" after="will\s(not\s)?"
 valid msgstr="bloqueó" after="did\s(not\s)?"
+valid after="ad[\s-]"
 hint="«Block» se traduce como «Bloque» o «Bloquear» (ver glosario)"
 
 {\bblocks\b}i
@@ -2811,6 +2812,7 @@ valid msgstr="citó"
 valid msgstr="entrecomilló"
 valid msgstr="se\s(\w+\s){1,3}citar"
 valid msgstr="se\s(\w+\s){1,3}entrecomillar"
+valid before="\-printable"
 hint="«Quoted» se traduce como «Entrecomillado/Citado» (propuesta glosario)"
 
 {\bquotes\b}i
