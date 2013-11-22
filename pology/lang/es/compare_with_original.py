@@ -90,9 +90,9 @@ def test_if_non_printable_characters (msg, cat):
 	else:
 	    msgid = msg.msgid
 	for c in msgstr:
-	    if (c not in string.printable) and (c not in msgid) and (c not in u"áéíóúüñçÁÉÍÓÚÜÑÇ¿¡|«»©ºª"):
+	    if (c not in string.printable) and (c not in msgid) and (c not in u"áéíóúüñçÁÉÍÓÚÜÑÇ¿¡|«»©ºª/"):
 		return [("msgstr", 0, [(0, 0, u'La traducción contiene caracteres no imprimibles')])]
-	    elif (c in string.punctuation) and (c not in msgid) and (c not in u"«»©.,;:_-(|)ºª"):
+	    elif (c in string.punctuation) and (c not in msgid) and (c not in u"«»©.,;:_-(|)ºª/"):
 		return [("msgstr", 0, [(0, 0, u'La traducción contiene signos de puntuación no incluidos en el original')])]
     return []
 
@@ -295,7 +295,7 @@ def test_paired_brackets (msg, cat):
     return []
 
 _ent_function = re.compile("(?:\w+\:\:)*\w+\(\)", re.U)
-_ent_parameter = re.compile("(?=\W|^)\-\-\w+(?:\-\w+)*", re.U)
+_ent_parameter = re.compile("(?<=\W)\-\-\w+(?:\-\w+)*", re.U)
 
 def test_paired_expressions (msg, cat):
     """
