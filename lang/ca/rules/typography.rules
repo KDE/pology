@@ -54,14 +54,16 @@ valid before="pserver"
 valid before="="
 valid before="ext\:"
 valid before="\svar" cat="analitza"
-valid before="\s~" cat="kdevformatters"
 valid before="\suncrustify" cat="kdevformatters"
+valid before="\smyformatter" cat="kdevformatters"
+valid before=".+expansió" cat="libksieve"
 valid before="email|count|fullName|password|amount|from|to|all" cat="jointhegame"
 valid after="usr\/s" cat="konsole" # docmessages
 valid after="~" cat="konsole" # docmessages
 valid after="(TEX|BIB|BST)INPUTS\s.+" cat="kile"
 valid after="\d+" before="\s?\d+"
 valid after="^" cat="kalgebra"
+valid after="pty.+" cat="kdevgdb"
 valid cat="amarokcollectionscanner_qt"
 hint="No s'ha de posar cap espai abans del signe dels dos punts (tipografia)"
 
@@ -83,7 +85,9 @@ valid after="(TEX|BIB|BST)INPUTS\s.+" cat="kile"
 valid after="fontdir\/" cat="kdeprint_cups-config"
 valid after="A-Za-z_.*" cat="lokalize,kate_highlighting"
 valid after="ordinador\["
+valid after="pty.+" cat="kdevgdb"
 valid before="~"
+valid before=".+expansió" cat="libksieve"
 valid ctx=".*regular expression.*" cat="plasma_applet_publictransport,plasma_runner_publictransport"
 valid ctx="List of words.*"
 valid ctx="Numbers and characters"
@@ -108,6 +112,7 @@ valid msgid="\s;;" # docmessages
 valid after="Algerian\s*" cat="calligra,koffice"
 valid after="Algerian\s*" cat="calligra,koffice"
 valid after="abans\sde" cat="cantor"
+valid after="pty.+" cat="kdevgdb"
 valid span="\s\;$" cat="kleopatra" # docmessages
 valid comment="Tag\:\sprogramlisting" cat="kipi-plugins_geolocation" # docmessages
 valid comment="Tag\:\sscreen" cat="sscd" # docmessages
@@ -123,6 +128,7 @@ valid after="bold" before="'"   # CSS
 valid after="A-Za-z_.*" cat="lokalize"
 valid after="punt i coma \("
 valid after="RSS.*" cat="simon-touch"
+valid after="pty.+" cat="kdevgdb"
 valid after="[\[|\"|\d]" cat="sheets_functions" # docmessages
 valid before="~"
 valid ctx="Numbers and characters"
@@ -185,6 +191,7 @@ valid after="i" cat="lokalize"
 valid after="TipusAssociació" cat="umbrello"
 valid after="seleccioneu.*" cat="koffice,calligra"
 valid after="Nivell" cat="blinken"
+valid before=".+expansió" cat="libksieve"
 valid before=">\n" cat="kfilereplace" # docmessages
 valid msgstr="^El nivell ?\s" cat="blinken" # docmessages
 hint="No s'ha de posar cap espai abans del signe d'interrogació (tipografia)"
@@ -208,6 +215,7 @@ valid after="~"
 valid after="i\s" cat="lokalize"
 valid after="\*" cat="adblock"
 valid after="seleccioneu\s.*" cat="koffice,calligra"
+valid before=".+expansió" cat="libksieve"
 valid msgstr=">\n" cat="kfilereplace" # docmessages
 hint="S'ha de posar un espai després del signe d'interrogació (tipografia)"
 
