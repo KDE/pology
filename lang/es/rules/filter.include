@@ -72,7 +72,7 @@ addFilterRegex match="(\$\w+|\$\{\w+\}|(KDE|QT|JAVA)\w*|~)(\/[\w_#+.-]+)+" repl=
 addFilterRegex match="\b[A-Z]\:(\\{1,2}[\w.#+_-]+)+\b" repl="~" casesens="yes" on="pmsgid,pmsgstr"
 
 # Remove files with common extensions
-addFilterRegex match="\b[\w.#+_-]+\.(txt|exe|lib|bin|so|doc|docx|odt|pdf|jpg|png|ico)\b" repl="~" on="pmsgid,pmsgstr"
+addFilterRegex match="\b[\w.#+_-]+\.(txt|xml|exe|lib|bin|so|doc|docx|odt|pdf|jpg|png|ico|h|c|cpp|py|pyc|java|tar|tgz|gz)\b" repl="~" on="pmsgid,pmsgstr"
 
 # Remove some shell variables
 addFilterRegex match="\$\w+" repl="~" on="pmsgid,pmsgstr"
