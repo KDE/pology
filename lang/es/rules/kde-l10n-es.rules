@@ -1803,12 +1803,14 @@ hint="«Hubs» se traduce como «Concentradores» (ver glosario)"
 id="gk-2-ide"
 valid msgstr="entornos?\sde\sdesarrollo\sintegrado"
 valid before="\-scsi"
+valid before="\sdrivers?"
 hint="«IDE» se traduce como «Entorno de desarrollo integrado» (ver glosario)"
 
 {\bIDE\b}
 id="gk-2-ide-mayusculas"
 valid msgstr="[Ee]ntornos?\sde\sdesarrollo\sintegrado"
 valid before="\-scsi"
+valid before="\sdrivers?"
 hint="«IDE» se traduce como «Entorno de desarrollo integrado» (ver glosario)"
 
 {\binterface\b}i
@@ -2103,7 +2105,7 @@ hint="«Mail» se traduce como «Correo» (ver glosario)"
 id="gk-2-mail2"
 valid msgstr="[Cc]orreo"
 valid msgstr="[Mm]ensaje"
-valid after="[A-Z]\w+(\s|\-)"
+valid after="[A-Z]\w*(\s|\-)"
 hint="«Mail» se traduce como «Correo» (ver glosario)"
 
 {\bmails\b}i

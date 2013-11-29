@@ -78,11 +78,11 @@ id="gd-3-revisar-gerundio"
 disabled
 validGroup ingAdjetives
 valid after="(?u)est\w+\s"
-valid before=".*?\.\.\."
+valid before="[^.,;]*?\.\.\."
 valid span="cuando"
 hint="Revisión de gerundios"
 
-{^\w+ing\b.*?\.\.\.}i
+{^\w+ing\b[^.,;]*?\.\.\.}i
 id="gd-3-ing-seguido-puntos-suspensivos"
 valid msgstr="\w+(ando|iendo|yendo|ándol[ae]s?|éndol[ae]s?|ándose|éndose)"
 valid msgid="(being|mailing|recurring|string|conflicting|messaging|something|nothing|existing|missing|pending|everything|in\sprogress|AqBanking)"

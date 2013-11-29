@@ -56,6 +56,7 @@ valid before="como\b"
 
 validGroup singularName
 valid before="(?u)\w+[^s]\b"
+valid before="(?u)\w+[lm]os"
 valid before="aguafiestas\b"
 valid before="alias\b"
 valid before="análisis\b"
@@ -99,7 +100,7 @@ valid before="lunes\b"
 valid before="manazas\b"
 valid before="mandamás\b"
 valid before="martes\b"
-valid before="mp3\b"
+valid before="mp3?\b"
 valid before="menos\b"
 valid before="mes\b"
 valid before="miércoles\b"
@@ -134,7 +135,7 @@ valid before="son\b"
 valid before="están\b"
 valid before="x\b"
 valid before="kB\b"
-valid before="(a|A|at|atm|b|bar|c|cal|cd|cm|CV|d|da|dB|dm|dyn|erg|eV|f|F|ft|g|G|gr|Gs|Gy|h|H|ha|hp|Hz|in|J|k|K|kg|km|l|L|lb|lm|lx|m|M|mbar|Mc|mg|min|mol|Mx|n|N|Oe|oz|p|P|Pa|pc|pt|Qm|R|rad|s|sr|Sv|t|T|tex|u|UA|V|Wb|yd)\b"
+valid before="(a|A|at|atm|b|bar|c|cal|cd|cm|CV|d|da|dB|dm|dyn|erg|eV|f|F|ft|g|G|gr|Gs|Gy|h|H|ha|hp|Hz|in|J|k|K|kg|kHz|km|l|L|lb|lm|lx|m|M|mbar|Mc|mg|min|mol|Mx|n|N|Oe|oz|p|P|Pa|pc|pt|Qm|R|rad|s|sr|Sv|t|T|tex|u|UA|V|Wb|yd)\b"
 
 validGroup femaleName
 valid before="(?u)\w+[^o]\b"
@@ -1398,7 +1399,7 @@ hint="Después de pronombre personal no suele aparecer preposición (error grama
 id="gr-1-preposicion-al-fin-de-frase"
 valid span="(?u)\b\w+\." before="\.\."
 valid span="A\."
-valid span="de\." before="[\w~]"
+valid span="de\." before="[\w~*]"
 hint="Una preposición no puede aparecer al final de frase (error gramatical)"
 
 [(?u)\b(ni|pero|mas|sino|porque|pues|que|como|si|aunque|conque|o\ssea|es\sdecir|es\smás)(\.|\?|\!|\<p\>)]i

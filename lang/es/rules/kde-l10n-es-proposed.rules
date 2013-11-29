@@ -3651,6 +3651,7 @@ valid msgstr="preferencias"
 valid msgstr="configuración"
 valid msgstr="(alguna|cualquier|ninguna)\spreferencia"
 valid msgstr="(alguna|cualquier|ninguna)\sconfiguración"
+valid after="[\[].*" before="[\*]"
 hint="«Settings» se traduce como «Preferencias» (propuesta glosario)"
 
 {\bsharpen\b}i
