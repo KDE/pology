@@ -229,6 +229,10 @@ hint="Es tradueix per «llista/es desplegable/s» (kde-ca-team)"
 valid msgstr="quadres? d'edició"
 hint="Es tradueix per «quadre/s d'edició» (kde-ca-team)"
 
+{\bembed(dable|ded|ding)?\b}i
+valid msgstr="incrust(a|ar|at|able|ats|en)"
+hint="Es tradueix per «incrustar» (kde-ca-team)"
+
 {\bemoticons?\b}i
 valid msgstr="emoticon(a|es)"
 valid msgstr="emoticons" after="apps\/kopete\/pics\/"
