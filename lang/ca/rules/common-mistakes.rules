@@ -210,10 +210,6 @@ hint="«tutorial» es tradueix per «guia d'aprenentatge» (error freqüent)"
 [\b(la|les|una|unes)\sURL\b]i
 hint="«URL» és masculí (Localitzador Uniforme de Recursos) (error freqüent)"
 
-# «venen» del verb venir cal que porti accent «vénen».
-[\bvenen\b]i
-hint="«venen» (verb venir) cal que porti accent «vénen» (error freqüent)"
-
 # «ves» del verb anar cal que porti accent «vés».
 [\bves\b]i
 hint="«ves» (verb anar) cal que porti accent «vés» (error freqüent)"
