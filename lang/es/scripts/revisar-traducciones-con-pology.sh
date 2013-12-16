@@ -59,11 +59,13 @@ esac
 rm -rf $SALIDA/$1
 
 for TIPO in 'messages' 'docmessages'; do
+    echo "Iniciando...:" $TIPO
     ORIGEN=$RAIZ/$RAMA/l10n-kde4/$IDIOMA/$TIPO
     DESTINO=$SALIDA/$1/$TIPO
     mkdir -p $DESTINO
     for PAQUETE in $ORIGEN/*; do
 	if [ -d $PAQUETE ]; then
+	    echo "Procesando...:" $PAQUETE
 	    $PROGRAMA '-bR' $OPCION $PARAMETROS $PAQUETE > $DESTINO/$(basename $PAQUETE)'.vt'
 	    $PROGRAMA '-b' $OPCION $PARAMETROS $PAQUETE > $DESTINO/$(basename $PAQUETE)'.txt'
 	fi

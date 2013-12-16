@@ -153,9 +153,13 @@ hint="«Amateur» se escribe como «Aficionado» (error frecuente)"
 id="cm-1-amateurs"
 hint="«Amateurs» se escribe como «Aficionados» (error frecuente)"
 
+[\bambas\sdos\b]i
+id="cm-1-ambas-dos"
+hint="«Ambas dos» se escribe como «Las dos/Ambas» (error frecuente)"
+
 [\bambos\sdos\b]i
 id="cm-1-ambos-dos"
-hint="«Ambos dos» se escribe como «Ambos» (error frecuente)"
+hint="«Ambos dos» se escribe como «Los dos/Ambos» (error frecuente)"
 
 [\banteriormente\sa\b]i
 id="cm-2-anteriormente-a"
@@ -935,6 +939,10 @@ hint="«Jugar un papel» se escribe como «Representar/desempeñar un/su papel»
 id="cm-1-bios-femenino"
 hint="«BIOS» es de género masculino (error frecuente)"
 
+[\blas\sambas\b]i
+id="cm-2-las-ambas"
+hint="«Las ambas» se escribe como «Las dos/Ambas» (error frecuente)"
+
 [\blas\smiles\b]i
 id="cm-1-las-miles"
 hint="«Las miles» se escribe como «Los miles» (error frecuente)"
@@ -963,9 +971,9 @@ hint="«Interfaces» es de género femenino (error frecuente)"
 id="cm-1-macros-en-masculino"
 hint="«Macros» es de género femenino (error frecuente)"
 
-[\bl[oa]s\sambos\b]i
+[\blos\sambos\b]i
 id="cm-2-los-ambos"
-hint="«Los ambos» se escribe como «Ambos». (error frecuente)"
+hint="«Los ambos» se escribe como «Los dos/Ambos» (error frecuente)"
 
 [\blos\sporques\b]i
 id="cm-1-los-porques-sin-tilde"

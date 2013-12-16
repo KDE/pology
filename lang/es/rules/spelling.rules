@@ -14,8 +14,8 @@ include file="filter.include"
 
 # Omit group of words not translatables
 addFilterRegex match="\b(echo\snest|make\s(un)?install|(little|big)\sendian|summer\sof\scode|plug\sand\splay)\b" repl="" on="pmsgid,pmsgstr"
-addFilterRegex match="\b(lost\+found|\b(if|of)\=[\w.-]+|\.?\w+(rc|config|conf)\b|\babout\:\w+|\bkioclient\s(exec|remove)\b)" repl="" on="pmsgid,pmsgstr"
-addFilterRegex match="\b(Microsoft|Outlook|Google|Adobe)(\s[A-Z]\w+)+\b" repl="" on="pmsgid,pmsgstr"
+addFilterRegex match="\b(lost\+found|\b(if|of)\=[\w.-]+|\.?\w+(rc|config|conf)\b|\babout\:\w+|\bkioclient\s\w+\b)" repl="" on="pmsgid,pmsgstr"
+addFilterRegex match="\b(Microsoft|Outlook|Internet|Google|Adobe)(\s[A-Z]\w+)+\b" repl="" on="pmsgid,pmsgstr"
 
 # Omit words between quotes.
 addFilterRegex match="«[\w-]+»" repl="" on="pmsgid,pmsgstr"

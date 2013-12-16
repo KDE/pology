@@ -135,6 +135,8 @@ valid before="son\b"
 valid before="están\b"
 valid before="x\b"
 valid before="kB\b"
+valid before="mp3?"
+valid before="estándar"
 valid before="(a|A|at|atm|b|bar|c|cal|cd|cm|CV|d|da|dB|dm|dyn|erg|eV|f|F|ft|g|G|gr|Gs|Gy|h|H|ha|hp|Hz|in|J|k|K|kg|kHz|km|l|L|lb|lm|lx|m|M|mbar|Mc|mg|min|mol|Mx|n|N|Oe|oz|p|P|Pa|pc|pt|Qm|R|rad|s|sr|Sv|t|T|tex|u|UA|V|Wb|yd)\b"
 
 validGroup femaleName
@@ -1046,6 +1048,16 @@ hint="«Que...» se escribe como «Qué...» en oraciones interrogativas indirec
 #[\besto\ses\s]
 #hint="Ponga una coma después de «esto es» (error gramatical)"
 
+[\bSi\b]
+id="gr-3-falta-coma-posterior-a-si"
+valid before="[^.]+,"
+valid msgid="Whether"
+hint="Ponga como dentro de una frase que comienza por «Si» (error gramatical)"
+
+[\bSí\s]
+id="gr-3-falta-coma-despues-de-si"
+hint="Ponga una coma después de «Sí» (error gramatical)"
+
 [\bes\sdecir\s]i
 id="gr-3-falta-coma-despues-es-decir"
 hint="Ponga una coma después de «es decir» (error gramatical)"
@@ -1095,7 +1107,7 @@ hint="Ponga una coma después de «en cambio» (error gramatical)"
 id="gr-3-falta-coma-despues-en-primer-lugar"
 hint="Ponga una coma después de «en primer lugar» (error gramatical)"
 
-[hola\s]i
+[Hola\s]
 id="gr-3-falta-coma-despues-hola"
 hint="Ponga una coma después de «Hola» (error gramatical)"
 
@@ -1468,7 +1480,7 @@ hint="Se ha encontrado «un» seguido de participio en femenino (error gramatica
 
 [(?u)\ba\s\w+?ad[oa]\b]i
 id="gr-1-a-en-lugar-de-ah-participio"
-valid span="\ba\s(cada|nada|lado|demasiad[ao])\b"
+valid span="\ba\s(cada|nada|lado|demasiad[ao]|predeterminad[ao])\b"
 valid after="(huel\w+|hol\w+|sab\w+|gust\w+|camb\w+)\s(\w+\s){0,2}"
 hint="Se ha encontrado «A» en lugar de «Ha» antes de un participio (error gramatical)"
 
