@@ -31,13 +31,25 @@ include file="filter.include"
 
 # «about» tradúcese como «sobre»
 {\b(?<!^)about}i
-valid before="\sto\b"
+valid before="\sto\b" # ver "PT-2013_about to"
 valid after="\bknow(s|\"\")\s"
 valid after="\bforgets?\s"
 id="PT-2011_about"
 valid env="kde"
 valid msgstr="\bsobre\b"
 hint="«about» tradúcese como «sobre»"
+
+# «about to» tradúcese como «a piques de»
+{\b(?<!^)about\sto\b}i
+id="PT-2013_about to"
+valid msgstr="\ba\spiques\sde\b"
+hint="«about to» tradúcese como «a piques de»"
+
+# «a piques de» traduce a «about to»
+[\ba\spiques\sde\bs]i
+id="PT-2013-dual_about to"
+valid msgid="\b(?<!^)about\sto\b"
+hint="«a piques de» traduce a «about to»"
 
 # «abort» tradúcese como «interromper»
 {\babort}i
@@ -52,6 +64,99 @@ valid msgid="\babort"
 valid msgid="\binterrupt"
 valid msgid="\bbreak" env="kde"
 hint="«interromper» traduce a «abort» (e a «interrupt») (e a «break»)"
+
+# «account» tradúcese como «conta»
+{\baccounts?\b}i
+id="PT-2013_account"
+valid msgstr="\bcontas?\b"
+hint="«account» tradúcese como «conta»"
+
+# «conta» traduce a «account»
+[\bcontas?\b]i
+id="PT-2013-dual_account"
+valid msgid="\baccounts?\b"
+hint="«conta» traduce a «account»"
+
+# «add» tradúcese como «engadir»
+{\badd(s|ed|ing)?}i
+valid before="ress"
+valid before="ition"
+valid before="-ons?"
+id="PT-2013_add"
+valid msgstr="\bengad(i|í|e)"
+hint="«add» tradúcese como «engadir»"
+
+# «engadir» traduce a «add»
+[\bengad(ir|a|e|i|í)]i
+id="PT-2013-dual_add"
+valid msgid="\badd(s|ed|ing)?\b"
+hint="«engadir» traduce a «add»"
+
+# «address» tradúcese como «enderezo»
+{\baddress}i
+id="PT-2013_address"
+valid msgstr="\benderezos?"
+hint="«address» tradúcese como «enderezo»"
+
+# «enderezo» traduce a «address»
+[\benderezo]i
+id="PT-2013-dual_address"
+valid msgid="\baddress"
+hint="«enderezo» traduce a «address»"
+
+# «align» tradúcese como «aliñar»
+{\balign(s|ed|ing)?}i
+valid before="ment"
+valid before="\scenter"
+id="PT-2013_align"
+valid msgstr="\baliñ(a|o)"
+hint="«align» tradúcese como «aliñar»"
+
+# «aliñar» traduce a «align»
+[\baliñ(ar|a|o)]i
+id="PT-2013-dual_align"
+valid msgid="\balign"
+hint="«aliñar» traduce a «align»"
+
+# «align center» tradúcese como «centrar»
+{\balign(s|ed)\scenter}i
+id="PT-2013_align center"
+valid msgstr="\bcentrar"
+hint="«align center» tradúcese como «centrar»"
+
+
+#  «centrar» traduce a «align center»
+# ver regra
+# "PT-2013-dual_center centre"
+#
+# [\b]i
+# id="PT-2013-dual_"
+# valid msgid="\b"
+# hint=""
+
+# «alignment» tradúcese como «aliñamento»
+{\balignment}i
+id="PT-2013_alignment"
+valid msgstr="\baliñamento"
+hint="«alignment» tradúcese como «aliñamento»"
+
+# «aliñamento» traduce a «alignment»
+[\baliñamento]i
+id="PT-2013-dual_alignment"
+valid msgid="\balignment"
+hint="«aliñamento» traduce a «alignment»"
+
+# «appearance» tradúcese como «aparencia»
+{\bappearance}i
+id="PT-2013_appearance"
+valid msgstr="\baparencia"
+hint="«appearance» tradúcese como «aparencia»"
+
+# «aparencia» traduce a «appearance»
+[\baparencia]i
+id="PT-2013-dual_appearance"
+valid msgid="\bappearance"
+hint="«aparencia» traduce a «appearance»"
 
 # «app» tradúcese como «aplicativo»
 {\bapps?\b}i
@@ -106,6 +211,43 @@ valid msgid="\bapplication" !env="kde"
 valid msgid="\bapps?\b" !env="kde"
 hint="«aplicativo» traduce a «application» e a «app»"
 
+# «arrow» tradúcese como «frecha»
+{\barrow}i
+id="PT-2013_arrow"
+valid msgstr="\bfrecha"
+hint="«arrow» tradúcese como «frecha»"
+
+# «frecha» traduce a «arrow»
+[\bfrecha]i
+id="PT-2013-dual_arrow"
+valid msgid="\barrow"
+hint="«frecha» traduce a «arrow»"
+
+# «assign» tradúcese como «asignar»
+{\bassign}i
+valid before="ment"
+id="PT-2013_assign"
+valid msgstr="\basign(a|o)"
+hint="«assign» tradúcese como «asignar»"
+
+# «asignar» traduce a «assign»
+[\basign(ar|a|o)]i
+id="PT-2013-dual_assign"
+valid msgid="\bassign"
+hint="«asignar» traduce a «assign»"
+
+# «assignment» tradúcese como «asignación»
+{\bassignment}i
+id="PT-2013_assignment"
+valid msgstr="\basignación"
+hint="«assignment» tradúcese como «asignación»"
+
+# «asignación» traduce a «assignment»
+[\basignación]i
+id="PT-2013-dual_assignment"
+valid msgid="\bassignment"
+hint="«asignación» traduce a «assignment»"
+
 # «Attach» tradúcese como «anexar», «conectar»
 {\battach(es|ed|ing|ments?)?}i
 id="PT-2010_attach"
@@ -151,6 +293,30 @@ valid msgid="\bconnection"
 valid msgid="\bconnecting" env="kde"
 hint="«conexión» traduce a «connection» e «attachment»"
 
+# «attribute» tradúcese como «atributo»
+{\battributes?\b}i
+id="PT-2013_attribute"
+valid msgstr="\batributos?"
+hint="«attribute» tradúcese como «atributo»"
+
+# «atributo» traduce a «attribute»
+[\batributos?]i
+id="PT-2013-dual_attribute"
+valid msgid="\battributes?\b"
+hint="«atributo» traduce a «attribute»"
+
+# «background» tradúcese como «fondo»
+{\bbackground}i
+id="PT-2013_background"
+valid msgstr="\bfondo"
+hint="«background» tradúcese como «fondo»"
+
+# «fondo» traduce a «background»
+[\bfondo]i
+id="PT-2013-dual_background"
+valid msgid="\bbackground"
+hint="«fondo» traduce a «background»"
+
 # «backend» tradúcece como «infraestrutura»
 {\bback(\s|-)?end}i
 id="PT-2011_backend"
@@ -163,6 +329,18 @@ id="PT-2011-dual_backend"
 valid msgid="\bbackend"
 valid msgid="\bframework"
 hint="«infraestrutura» traduce a «backend» e «framework»"
+
+# «bitmap» tradúcese como «mapa de bits»
+{\bbitmaps?\b}i
+id="PT-2013_bitmap"
+valid msgstr="\bmapa\sde\sbits"
+hint="«bitmap» tradúcese como «mapa de bits»"
+
+# «mapa de bits» traduce a «bitmap»
+[\bmapa\sde\sbits]i
+id="PT-2013-dual_bitmap"
+valid msgid="\bbitmap"
+hint="«mapa de bits» traduce a «bitmap»"
 
 # «bookmark» tradúcese como «marcador» ou «marcar»
 {\bbookmark}i
@@ -233,6 +411,43 @@ id="PT-2011_breadcrumbs"
 valid msgstr="\bronsel"
 hint="«breadcrumbs» tradúcese como «ronsel»"
 
+# «broadband» tradúcese como «banda larga»
+{\bbroad\s?band}i
+id="PT-2013_broadband"
+valid msgstr="\bbanda\slarga"
+hint="«broadband» tradúcese como «banda larga»"
+
+# «banda larga» traduce a «broadband»
+[\bbanda\slarga]i
+id="PT-2013-dual_broadband"
+valid msgid="\bbroad\s?band"
+hint="«banda larga» traduce a «broadband»"
+
+# «browse» tradúcese como «navegar»
+{\bbrowse}i
+valid before="r"
+id="PT-2013_browse"
+valid msgstr="\bnaveg(a|ue)"
+hint="«browse» tradúcese como «navegar»"
+
+# «navegar» traduce a «browse»
+[\bnaveg(a|ue)]i
+id="PT-2013-dual_browse"
+valid msgid="\bbrows(e|ing)"
+hint="«navegar» traduce a «browse»"
+
+# «browser» tradúcese como «navegador»
+{\bbrowser}i
+id="PT-2013_browser"
+valid msgstr="\bnavegador"
+hint="«browser» tradúcese como «navegador»"
+
+# «navegador» traduce a «browser»
+[\bnavegador]i
+id="PT-2013-dual_browser"
+valid msgid="\bbrowser"
+hint="«navegador» traduce a «browser»"
+
 # «buffer» tradúcese como «búfer»
 {\bbuffer}i
 id="PT-2011_buffer"
@@ -275,6 +490,68 @@ id="PT-2011-dual_bug-report"
 valid msgid="\bbug\sreport"
 hint="«informe de fallos» traduce a «bug report»"
 
+# «button» tradúcese como «botón»
+{\bbutton}i
+id="PT-2013_button"
+valid msgstr="\bbotón"
+hint="«button» tradúcese como «botón»"
+
+# «botón» traduce a «button»
+[\bbotón]i
+id="PT-2013-dual_button"
+valid msgid="\bbutton"
+hint="«botón» traduce a «button»"
+
+# «cache» tradúcese como «caché»
+{\bcache}i
+valid before="grind" # «cachegrind» é un nome dun software
+id="PT-2013_cache"
+valid msgstr="\bcaché"
+hint="«cache» tradúcese como «caché» (verbo)"
+
+# «caché» traduce a «cache»
+[\bcaché]i
+id="PT-2013-dual_cache"
+valid msgid="\bcache"
+hint="«caché» traduce a «cache»"
+
+# «canvas» tradúcese como «lenzo»
+{\bcanvas}i
+id="PT-2013_canvas"
+valid msgstr="\blenzo"
+hint="«canvas» tradúcese como «lenzo»"
+
+# «lenzo» traduce a «canvas»
+[\blenzo]i
+id="PT-2013-dual_canvas"
+valid msgid="\bcanvas"
+hint="«lenzo» traduce a «canvas»"
+
+# «cell» tradúcese como «cela»
+{\bcell}i
+id="PT-2013_cell"
+valid msgstr="\”celas?\b"
+hint="«cell» tradúcese como «cela»" 
+
+# «cela» traduce a «cell»
+[\bcelas?\b]i
+id="PT-2013-dual_cell"
+valid msgid="\bcell"
+hint="«cela» traduce a «cell»"
+
+# «center/centre» tradúcese como «centrar/centro»
+{\bcent(er|re)}i
+id="PT-2013_center centre"
+valid msgstr="\bcentr(o|ar?|e)"
+hint="«center/centre» tradúcese como «centrar/centro»"
+
+# «centrar» traduce a «center/centre»
+[\bcentr(o|ar|a|e)\b]i
+id="PT-2013-dual_center centre"
+valid span="centra(r|do|da)" msgid="\balign(ed)\scenter"
+valid msgid="\bcent(er|re)"
+hint="«centrar» traduce a «center/centre» (e a «align center)»"
+
 # «change» tradúcese como «cambiar»
 {\bchang(e(d|s)?|ing)}i
 id="PT-2011_change"
@@ -286,6 +563,18 @@ hint="«change» tradúcese como «cambiar»"
 id="PT-2011-dual_change"
 valid msgid="\bchang(e(d|s)?|ing)"
 hint="«cambiar» traduce a «change»"
+
+# «channel» tradúcese como «canle»
+{\bchannel}i
+id="PT-2013_channel"
+valid msgstr="\bcanle"
+hint="«channel» tradúcese como «canle»"
+
+# «canle» traduce a «channel»
+[\bcanle]i
+id="PT-2013-dual_channel"
+valid msgid="\bchannel"
+hint="«canle» traduce a «channel»"
 
 # «chat» tradúcese como «conversa»
 {\bchat}i
@@ -370,6 +659,45 @@ id="PT-2011-dual_checksum"
 valid msgid="\bchecksum"
 hint="«suma de comprobación» traduce a «checksum»"
 
+# «click» tradúcese como «premer»
+{\bclick}i
+id="PT-2013_click"
+valid before="ing" msgstr="\bpremendo"
+valid before="\s(for|to)" msgstr="\bprem(er|e|a)\spara\s\w+r" # «premer para infinitivo»
+valid msgstr="\bprem(er|a)\s(en|n(o|a)s?|nun(ha)?s?|nest(e|a)s?)\s"
+valid msgstr="\bprem(er|e|a)\s(aquí|aí|e)\b"
+hint="«click» tradúcese como «premer»(verbo) (usar sen \"en\" só cando non se indique o que"
+
+# «premer en» traduce a «click»
+[\bprem(er|a)\s(en|n(o|a)s?|nun(ha)?s?|nest(e|a)s?)\s]i
+id="PT-2013-dual_click (1)"
+valid msgid="\bclick"
+hint="«premer en» traduce a «click»"
+
+# «premer para» traduce a «click for/to»
+[\bprem(er|e|a)\spara\s\w+r]i
+id="PT-2013-dual_click (2)"
+valid msgid="\bclick\s(for|to)"
+hint="«premer para» traduce a «click for/to»"
+
+# «premer aquí/aí/e» traduce a «click»
+[\b\bprem(er|e|a)\s(aquí|aí|e)\b]i
+id="PT-2013-dual_click (3)"
+valid msgid="\bclick"
+hint="«premer aquí/aí/e» traduce a «click»"
+
+# «client» tradúcese como «cliente»
+{\bclient}i
+id="PT-2013_client"
+valid msgstr="\bcliente"
+hint="«client» tradúcese como «cliente»"
+
+# «cliente» traduce a «client»
+[\bcliente]i
+id="PT-2013-dual_client"
+valid msgid="\bclient"
+hint="«cliente» traduce a «client»"
+
 # «clipboard» tradúcese como «portarretallos»
 {\bclipboard}i
 id="PT-2011_clipboard"
@@ -381,6 +709,19 @@ hint="«clipboard» tradúcese como «portarretallos»"
 id="PT-2011-dual_clipboard"
 valid msgid="\bclipboard"
 hint="«portarretallos» traduce a «clipboard»"
+
+# «clock» tradúcese como «reloxo»
+{\bclock}i
+valid before="wise" # «clockwise»
+id="PT-2013_clock"
+valid msgstr="\breloxo"
+hint="«clock» tradúcese como «reloxo»"
+
+# «reloxo» traduce a «clock»
+[\breloxo]i
+id="PT-2013-dual_clock"
+valid msgid="\bclock"
+hint="«reloxo» traduce a «clock»"
 
 # «close» tradúcese como «pechar»
 {\bclose}i
@@ -482,6 +823,18 @@ valid msgstr="\bpechouse\sinesperad" env="kde"
 valid msgstr="\bfallo" env="kde"
 valid before="ed" msgstr="\bfall(ou|ase)" env="kde"
 hint="«crash» tradúcese como «quebra»"
+
+# «cursor» tradúcese como «cursor»
+{\bcursor}i
+id="PT-2013_cursor"
+valid msgstr="\bcursor"
+hint="«cursor» tradúcese como «cursor»"
+
+# «cursor» traduce a «cursor»
+[\bcursor]i
+id="PT-2013-dual_cursor"
+valid msgid="\bcursor"
+hint="«cursor» traduce a «cursor»"
 
 # «daemon» tradúcese como «daemon»
 {\bdaemon}i
@@ -633,6 +986,20 @@ valid msgid="\bnot\senabled"
 valid msgid="\bdeactivate" env="kde"
 hint="«desactivar» traduce a «disable»"
 
+# «disc/disk» tradúcese como «disco»
+{\bdis(c|k)}i
+valid span="disc" before="ard" # «discard»
+id="PT-2013_disc"
+valid msgstr="\bdisco"
+hint="«disc/disk» tradúcese como «disco»"
+
+# «disco» traduce a «disc/k»
+[\bdisco]i
+id="PT-2013-dual_disc"
+valid msgid="\bdis(c|k)"
+valid msgid="\bhard\sdrive" # a/p PT-2012-dual_hard disk
+hint="«disco» traduce a «disc/k»"
+
 # «diskette» tradúcese como «disquete»
 {\b(diskette|floppy(\sdisk)?)}i
 valid span="floppy(\sdisk)?" before="\sdrive"
@@ -688,6 +1055,52 @@ valid msgid="\bdownload"
 valid msgid="\bunload" env="kde"
 hint="«descargar» traduce a «download» (e unload)"
 
+# «draft» tradúcese como «borrador»
+{\bdraft}i
+id="PT-2013_draft"
+valid msgstr="\bborrador"
+hint="«draft» tradúcese como «borrador»"
+
+# «borrador» traduce a «draft»
+[\bborrador]i
+id="PT-2013-dual_draft"
+valid msgid="\bdraft"
+hint="«borrador» traduce a «draft»"
+
+# «drag» tradúcese como «arrastrar»
+{\bdrag}i
+id="PT-2013_drag"
+valid msgstr="\barrastr."
+hint="«drag» tradúcese como «arrastrar»"
+
+# «arrastrar» traduce a «drag»
+[\barrastr.]i
+id="PT-2013-dual_drag"
+valid msgid="\bdrag"
+hint="«arrastrar» traduce a «drag»"
+
+# dado que existe regra para «drag» e para «drop» por separado, esta sobra.
+# # «drag and drop» tradúcese como «arrastrar e soltar»
+# {\bdrag\s(and|[&])\sdrop}i
+# id="PT-2013_drag and drop"
+# valid msgstr="\barrastr(ar|e)\se\ssolt(ar|e)"
+# hint="«drag and drop» tradúcese como «arrastrar e soltar»"
+
+# «draw» tradúcese como «debuxar»
+# «drawing» tradúcese como «debuxo»
+{\bdraw(s|ed|ing)?}i
+id="PT-2013_draw drawing"
+valid msgstr="\debux(ar?|e|ou)"
+valid span="drawing" msgstr="\bdebuxo"
+hint="«(to) draw» tradúcese como «debuxar», «(a) drawing» como «debuxo»"
+
+# «debuxar/o» traduce a «draw/ing»
+[\bdebux(o|ar|e|ou)]i
+id="PT-2013-dual_drawdrawing"
+valid msgid="\bdrawing" span="\bdebux(o|ando)"
+valid msgid="\bdraw(s|ed)?" !span="\bdebux(o|ando)"
+hint="«debuxar/o» traduce a «draw/ing»"
+
 # «drive» tradúcese como «unidade»
 {\bdrive\b}i
 valid after="floppy(\sdisk)?\s"
@@ -717,33 +1130,18 @@ valid msgid="\bdriver"
 valid msgid="\bcontroller"
 hint="«controlador» traduce a «driver» (e a «controller»)"
 
-# «empty» tradúcese como «baleiro»
-{\bempty}i
-id="PT-2011_empty"
-valid msgstr="\bbaleir"
-hint="«empty» tradúcese como «baleiro»"
+# «drop» tradúcese como «soltar»
+{\bdrop}i
+valid before="\s?down" # «(a) drop down» é un tipo de widget
+id="PT-2013_drop"
+valid msgstr="\bsolt(ar|e)"
+hint="«drop» tradúcese como «soltar»"
 
-# «baleiro» traduce a «empty»
-[\bbaleir]i
-id="PT-2012dual_empty"
-valid msgid="\bempty"
-hint="«baleiro» traduce a «empty»"
-
-
-
-# «encrypt» tradúcese como «cifrar»
-{\bencrypt}i
-id="PT-2011_encrypt"
-valid msgstr="\bcifr"
-hint="«encrypt» tradúcese como «cifrar»"
-
-# «cifrar» traduce a «encrypt»
-[\bcifr]i
-valid before="as?\sdecima(l|is)"
-id="noPT-2011-dual_encrypt"
-valid msgid="\b(un)?encrypt"
-valid msgid="\bcryptograph"
-hint="«cifrar» traduce a «encrypt»"
+# «soltar» traduce a «drop»
+[\bsolt(ar|e)]i
+id="PT-2013-dual_drop"
+valid msgid="\bdrop"
+hint="«soltar» traduce a «drop»"
 
 # «edit» tradúcese como «editar»
 {\bedit}i
@@ -758,6 +1156,42 @@ hint="«edit» tradúcese como «editar»"
 id="PT-2011-dual_edit"
 valid msgid="\bedit"
 hint="«editar» traduce a «edit»"
+
+# «editor» tradúcese como «editor»
+{\beditor}i
+id="PT-2013_editor"
+valid msgstr="\beditor"
+hint="«editor» tradúcese como «editor»"
+
+# «editor» traduce a «editor»
+[\beditor]i
+id="PT-2013-dual_editor"
+valid msgid="\beditor"
+hint="«editor» traduce a «editor»"
+
+# «emoticon» tradúcese como «emoticona»
+{\bemoticon}i
+id="PT-2013_emoticon"
+valid msgstr="\bemoticona"
+hint="«emoticon» tradúcese como «emoticona»"
+
+# «emoticona» traduce a «emoticon»
+[\bemoticona]i
+id="PT-2013-dual_emoticon"
+valid msgid="\bemoticon"
+hint="«emoticona» traduce a «emoticon»"
+
+# «empty» tradúcese como «baleiro»
+{\bempty}i
+id="PT-2011_empty"
+valid msgstr="\bbaleir"
+hint="«empty» tradúcese como «baleiro»"
+
+# «baleiro» traduce a «empty»
+[\bbaleir]i
+id="PT-2012dual_empty"
+valid msgid="\bempty"
+hint="«baleiro» traduce a «empty»"
 
 # «enable» tradúcese como «activar» 
 {\benable}i
@@ -782,6 +1216,20 @@ valid msgid="\bactiv"
 valid msgid="\bto\sset\s" env="kde"
 hint="«activar» traduce a «enable» (e a activate)"
 
+# «encrypt» tradúcese como «cifrar»
+{\bencrypt}i
+id="PT-2011_encrypt"
+valid msgstr="\bcifr"
+hint="«encrypt» tradúcese como «cifrar»"
+
+# «cifrar» traduce a «encrypt»
+[\bcifr]i
+valid before="as?\sdecima(l|is)"
+id="noPT-2011-dual_encrypt"
+valid msgid="\b(un)?encrypt"
+valid msgid="\bcryptograph"
+hint="«cifrar» traduce a «encrypt»"
+
 # «environment» tradúcese como «ambiente»
 {\benvironment}i
 id="noPT-2012_environment"
@@ -800,7 +1248,6 @@ hint="«ambiente» traduce a «environment»"
 {\berase}i
 id="PT-2012_erase"
 valid msgstr="\bborrar"
-
 hint="«erase» tradúcese como «borrar»"
 
 # «borrar» traduce a «erase»
@@ -810,6 +1257,35 @@ id="PT-2012-dual_erase"
 valid msgid="\berase"
 hint="«borrar» tradúcese como «erase»"
 
+# «execute/run» tradúcese como «executar»
+{\bexecut(e|ed|es|ing)?}i
+id="PT-2013_execute run(1)"
+valid before="ion" msgstr="\bexecución"
+valid before="able" msgstr="\bexecutábe(l|is)" 
+valid msgstr="\bexecut(ar|a|e|ou|ando)"
+hint="«execute/run» tradúcese como «executar»"
+
+# «executar» traduce a «execute»
+[\bexecu(ción|tábel|tábeis|ar|a|e|ando|ados?|adas?|ou)]i
+id="PT-2013-dual_execute run"
+valid msgid="\bexecut(able|ion|e|ed|es|ing)"
+valid !span="\bexecut(ábe|ion)" msgid="\brun(s|ed|ning)?"
+hint="«executar» traduce a «execute/run»"
+
+# «execute/run» tradúcese como «executar»
+# «run» tradúcese como «execución»
+{\brun}i
+valid !before="(s|ed|ning)?\b"
+id="PT-2013_execute run(2)"
+valid before="s?\b" msgstr="\bexecucións?"
+valid before="(s|ed|ning)?\b" msgstr="\bexecut(ar|a|e|ou|ando)"
+hint="«(to) execute/run» tradúcese como «executar», «(a) run» como «execución»"
+
+# «executar/execución» traduce a «run»
+# [\bexecu(ción|t(ar|a|e|ou|ando|ados?|adas?))]i
+# id="PT-2013-dual_execute run(2)"
+# valid msgid="\brun(s|ed|ning)?"
+# hint="«executar/execución» traduce a «run»"
 
 # «fail» e relacionados tradúcense como «fallo»
 {\bfa(il(s|ed|ure)?|ult)}i
@@ -822,6 +1298,18 @@ hint="«fail» e relacionados tradúcense como «fallo»"
 
 #«fallo» traduce a «fail»
 #ver regra inversa de «bug»
+
+# «field» tradúcese como «campo»
+{\bfield}i
+id="PT-2013_field"
+valid msgstr="\bcampo"
+hint="«field» tradúcese como «campo»"
+
+# «campo» traduce a «field»
+[\bcampo]i
+id="PT-2013-dual_field"
+valid msgid="\bfield"
+hint="«campo» traduce a «field»"
 
 # «file» tradúcese como «ficheiro»
 {\bfile(\b|s\b)}i
@@ -867,6 +1355,18 @@ hint="«file package» tradúcese como «paquete de ficheiros»"
 id="PT-2011-dual_file-package"
 valid msgid="\bfile\spackage"
 hint="«paquete de ficheiros» traduce a «file package»"
+
+# «filesystem/file system» tradúcese como «sistema de ficheiros»
+{\bfile\s?system}i
+id="PT-2013_file system"
+valid msgstr="\bsistemas?\sde\sficheiros"
+hint="«filesystem/file system» tradúcese como «sistema de ficheiros»"
+
+# «sistema de ficheiros» traduce a «filesystem»
+[\bsistemas?\sde\sficheiros]i
+id="PT-2013-dual_file system"
+valid msgid="\bfile\s?system"
+hint="«sistema de ficheiros» traduce a «filesystem»"
 
 # «find» tradúcese como «atopar»
 {\bfind}i
@@ -924,6 +1424,18 @@ valid msgid="\bfont"
 valid msgid="\bletter"
 hint="«letra» traduce a «font» e a «letter»"
 
+# «forum» tradúcese como «foro»
+{\bforum}i
+id="PT-2013_forum"
+valid msgstr="\bforos?\b"
+hint="«forum» tradúcese como «foro»"
+
+# «foro» traduce a «forum»
+[\bforos?\b]i
+id="PT-2013-dual_forum"
+valid msgid="\bforum"
+hint="«foro» traduce a «forum»"
+
 # «floppy disk drive» tradúcese como «disqueteira»
 {\bfloppy(\sdisk)?\sdrive}i
 id="PT-2012_floppy disk drive"
@@ -949,6 +1461,18 @@ hint="«framework» tradúcese como «marco de traballo» ou «infraestrutura»"
 id="PT-2011-dual_framework"
 valid msgid="\bframework"
 hint="«marco de traballo» traduce a «framework»"
+
+# «gateway» tradúcese como «pasarela»
+{\bgateway}i
+id="PT-2013_gateway"
+valid msgstr="\bpasarela"
+hint="«gateway» tradúcese como «pasarela»"
+
+# «pasarela» traduce a «gateway»
+[\bpasarela]i
+id="PT-2013-dual_gateway"
+valid msgid="\bgateway"
+hint="«pasarela» traduce a «gateway»"
 
 # «gradient» tradúcese como «gradiente» ou «gradación»
 {\bgradient}i
@@ -985,6 +1509,20 @@ hint="«hard disk» ou «hard drive» tradúcese como «disco duro»"
 id="PT-2012-dual_hark disk"
 valid msgid="\bhard(\s?disk|\sdrive)"
 hint="«disco duro» traduce a «hard disk» ou a «hard drive»"
+
+# «help» tradúcese como «axuda»
+{\bhelp(s|ed|ing)?}i
+valid before="er"
+id="PT-2013_help"
+valid msgstr="\baxuda"
+valid msgstr="\baxud(ar|e|ou)?"
+hint="«help» tradúcese como «axuda»"
+
+# «axuda(r)» traduce a «help»
+[\baxud(a|ar|e|ou)]i
+id="PT-2013-dual_help"
+valid msgid="\bhelp(s|es|ing)?"
+hint="«axuda(r)» traduce a «help»"
 
 # «highlight» tradúcese como «realzar»
 {\bhighlight}i
@@ -1752,6 +2290,18 @@ valid msgid="\blocate"
 valid msgid="\bseek"
 id="noPT-2010-dual_search"
 hint="«busca(r)» traduce a «search», «find», «locate» e «seek»"
+
+# «server» tradúcese como «servidor»
+{\bserver}i
+id="PT-2013_server"
+valid msgstr="\bservidor"
+hint="«server» tradúcese como «servidor»"
+
+# «servidor» traduce a «server»
+[\bservidor]i
+id="PT-2013-dual_server"
+valid msgid="\bserver"
+hint="«servidor» traduce a «server»"
 
 # «show» tradúcese como «mostrar»
 {\bshow}i
