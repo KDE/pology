@@ -147,7 +147,7 @@ hint="Es tradueix per «menú/s contextual/s» (kde-ca-team)"
 valid msgstr="corpus"
 hint="Es tradueix per «corpus» (kde-ca-team)"
 
-{\bcrypto\b}i
+{\bcrypto(graphy)?\b}i
 valid msgstr="criptografia"
 valid msgstr="criptogràfi(cs?|ca|ques)"
 hint="Es tradueix per «criptografia/criptogràfic» (kde-ca-team)"
@@ -636,9 +636,8 @@ valid !msgstr="papers? pintats?"
 hint="«wallpaper» es tradueix per «fons de pantalla», no per «paper pintat» (kde-ca-team)"
 
 {\bwindow\stitle\sbars?\b}i
-valid msgstr="barr(a|es) de títol de finestra"
-valid msgstr="barra de títol de la finestra" cat="amarok,kcmkio"
-hint="Es tradueix per «barra/es de títol de finestra» (kde-ca-team)"
+valid msgstr="barr(a|es) de títol de la finestra"
+hint="Es tradueix per «barra/es de títol de la finestra» (kde-ca-team)"
 
 {\bwork.?sheets?\b}i
 valid msgstr="fulls? de treball"

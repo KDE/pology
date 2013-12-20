@@ -165,7 +165,7 @@ valid msgid="color\ssaturation\scorrection"
 valid msgstr="saturació de color"
 hint="Es tradueix per «saturació de color» (kde-ca-team)"
 
-TODO: an/ matisos de color
+# TODO: an/ matisos de color
 {\bcolor\scasts\b}i
 valid msgstr="color indesitjat"
 hint="Es tradueix per «color indesitjat» (kde-ca-team)"
@@ -237,6 +237,10 @@ hint="Es tradueix per «compressió» (kde-ca-team)"
 valid msgstr="correlacionador"
 hint="Es tradueix per «Eina: correlacionador» (kde-ca-team)"
 
+{\bExposure\scorrection\b}i # Eina
+valid msgstr="Correcció de l'exposició"
+hint="Es tradueix per «Correcció de l'exposició» (kde-ca-team)"
+
 {\bcorrelat(e|ion)\b}i
 valid msgstr="correlaciona(r|rà)?"
 valid msgstr="correlació"
@@ -277,8 +281,8 @@ hint="Es tradueix per «rèflex digital/s» (kde-ca-team)"
 # TODO: en altre cas és «vora/es» però no hi ha manera d'ajustar la regla 
 # fins que es revisin les traduccions
 {\bEdge\b}i # Eina -efecte-
-valid msgstr="Límits"
-hint="Es tradueix per «Eina -efecte-: Límits» (kde-ca-team)"
+valid msgstr="Límits?"
+hint="Es tradueix per «Eina -efecte-: Límits, límit» (kde-ca-team)"
 
 {\bembedd(ed|ing)\b}i
 valid msgstr="incrusta(da|des|nt|r|ts?)"
@@ -315,6 +319,8 @@ valid msgstr="Ull de peix"
 hint="Es tradueix per «Efecte: Ull de peix» (kde-ca-team)"
 
 {\bfocus\b}i
+valid msgid="with focus on efficiency" # KDE UserBase
+valid msgid="Keyboard focus will always stay" # KDE UserBase
 valid msgstr="enfoca(da|ment)"
 hint="Es tradueix per «enfocada, enfocament, AVÍS: no confondre amb el focus» (kde-ca-team)"
 
@@ -501,6 +507,11 @@ valid msgid="Rendering\sintents?"
 valid msgstr="Propòsits?"
 hint="Es tradueix per «Propòsit/s» (kde-ca-team)"
 
+{\bkeep(ing)?\stabs\b}i
+valid msgstr="ordenar les" # KDE UserBase
+valid msgstr="molt més fàcil ordenar" # KDE UserBase
+hint="Es tradueix per «ordenar les vostres fotografies, ordenar-les» (kde-ca-team)"
+
 {\blarge\sgamut\b}i
 valid msgstr="gamma gran"
 hint="Es tradueix per «gamma gran» (kde-ca-team)"
@@ -526,6 +537,10 @@ hint="Es tradueix per «lents» (kde-ca-team)"
 {\bLens\sDistortion\b}i # Eina
 valid msgstr="Distorsió de la lent"
 hint="Es tradueix per «Eina: Distorsió de la lent» (kde-ca-team)"
+
+{\bLens\sFilters?\b}i
+valid msgstr="Filtres? de la lent"
+hint="Es tradueix per «Filtre/s de la lent» (kde-ca-team)"
 
 {\bless\scontrast\b}i
 valid msgstr="menys contrast"
@@ -571,6 +586,7 @@ valid msgstr="luminància lineal"
 hint="Es tradueix per «luminància lineal» (kde-ca-team)"
 
 {\blocations?\b}i
+valid msgstr="barra de localització"
 valid msgstr="ubicaci(ó|ons)"
 hint="Es tradueix per «ubicació/ons» (kde-ca-team)"
 
@@ -643,6 +659,7 @@ hint="Es tradueix per «soroll» (kde-ca-team)"
 {\bNoise.?Reduction\b}i # Eina
 valid comment="Tag\:\stitle" # docmessages
 valid msgstr="reducció de soroll"
+valid msgstr="Reduir el soroll"
 hint="Es tradueix per «Eina: Reducció de soroll» (kde-ca-team)"
 
 {\bno(n|t).?linear\b}i
@@ -684,6 +701,14 @@ valid msgstr="mostr(a|es)"
 valid msgstr="pedaç(os)?"
 hint="Es tradueix per «mostra/es, pedaç/os» (kde-ca-team)"
 
+{\bperceptual\sintents?\b}i
+valid msgstr="Propòsits? perceptius?"
+hint="Es tradueix per «Propòsit/s perceptius?» (kde-ca-team)"
+
+{\bPerspective\sAdjustment\b}i # Eina
+valid msgstr="Arranjament de la perspectiva"
+hint="Es tradueix per «Eina: Arranjament de la perspectiva» (kde-ca-team)"
+
 {\bPhotograph\sRestoration\b}i # Eina
 valid msgstr="restauració fotogràfica"
 hint="Es tradueix per «Eina: restauració fotogràfica» (kde-ca-team)"
@@ -695,6 +720,17 @@ hint="Es tradueix per «fotografiar/t/da» (kde-ca-team)"
 {\bphotographers?\b}i
 valid msgstr="fotògrafs?"
 hint="Es tradueix per «fotògraf/s» (kde-ca-team)"
+
+{\bphotos?\b}i
+valid msgid="/photos/"
+valid msgid="sensitive.?photo"
+valid msgid="photo management"
+valid msgstr="fotografi(a|es)"
+hint="Es tradueix per «fotografia/es» (kde-ca-team)"
+
+{\bphoto\smanagement\b}i
+valid msgstr="gestió fotogràfica"
+hint="Es tradueix per «gestió fotogràfica» (kde-ca-team)"
 
 {\bpictures?\b}i
 valid msgid="Picture\sTransfer\sProtocol"
@@ -708,19 +744,6 @@ hint="Es tradueix per «protocol per a la transferència de fotografies» (kde-c
 {\bpoint.?and.?shoots?\scameras?\b}i
 valid msgstr="càmer(a|es) instantàni(a|es)"
 hint="Es tradueix per «càmera/es instantània/es» (kde-ca-team)"
-
-{\bperceptual\sintents?\b}i
-valid msgstr="Propòsits? perceptius?"
-hint="Es tradueix per «Propòsit/s perceptius?» (kde-ca-team)"
-
-{\bPerspective\sAdjustment\b}i # Eina
-valid msgstr="Arranjament de la perspectiva"
-hint="Es tradueix per «Eina: Arranjament de la perspectiva» (kde-ca-team)"
-
-{\bphotos?\b}i
-valid msgid="sensitive.?photo"
-valid msgstr="fotografi(a|es)"
-hint="Es tradueix per «fotografia/es» (kde-ca-team)"
 
 {\bprinter\sprofiles?\b}i
 valid msgstr="perfil del monitor, de la càmera, de l'espai de treball i de la impressora"
@@ -820,6 +843,7 @@ hint="Es tradueix per «(Eina -acció-: Canvia la mida, redueix, reducció, redu
 
 {\bRefocus\b}i # Eina
 valid comment="Tag\:\stitle" # docmessages
+valid msgid="refocus.sourceforge.net" # KDE UserBase
 valid msgstr="reenfoc"
 hint="Es tradueix per «Eina: Reenfoc» (kde-ca-team)"
 
@@ -851,8 +875,8 @@ hint="Es tradueix per «perfil/s de l'escàner» (kde-ca-team)"
 
 {\bscanned\b}i
 valid msgstr="escaneja(da|ran|t)?"
-valid msgstr="explorat"
-hint="Es tradueix per «escaneja/t/da, escanejaran, explorat» (kde-ca-team)"
+valid msgstr="explora(r|t)?"
+hint="Es tradueix per «escaneja/t/da, escanejaran, explora/r/t» (kde-ca-team)"
 
 {\bscanners?\b}i
 valid msgid="scanner\shardware"
@@ -902,10 +926,10 @@ hint="Es tradueix per «fotografies» (kde-ca-team)"
 
 {\bshooting\b}i
 valid msgid="Shooting\s(date|time)" cat="gwenview"
-valid msgstr="pre(ndre|neu|sa)"
+valid msgstr="pre(ndre|nent|neu|sa)"
 valid msgstr="dispara(r)?"
 valid msgstr="captura"
-hint="Es tradueix per «preneu, presa, disparar, captura» (kde-ca-team)"
+hint="Es tradueix per «preneu/nt, presa, disparar, captura» (kde-ca-team)"
 
 {\bshoots\b}i
 valid msgstr="dispara"
@@ -965,8 +989,8 @@ valid msgid="still lifes" # natura morta
 valid msgstr="fotogràfi(ca|ques)"
 valid msgstr="fixa" # fotografia/imatge fixa
 valid msgstr="encara"
-valid msgstr="seguirà sent"
-hint="Es tradueix per «fotogràfica/ques, fotografia/imatge fixa, encara, seguirà sent» (kde-ca-team)"
+valid msgstr="segu(eix|irà) sent"
+hint="Es tradueix per «fotogràfica/ques, fotografia/imatge fixa, encara, segueix/irà sent» (kde-ca-team)"
 
 {\bstill/slifes\b}i
 valid msgstr="natura morta"
@@ -985,14 +1009,6 @@ hint="Es tradueix per «píxel/s blocat/s» (kde-ca-team)"
 valid msgstr="sobrecàrrega del sistema"
 hint="Es tradueix per «sobrecàrrega del sistema» (kde-ca-team)"
 
-{\btonal\sranges?\b}i
-valid msgstr="abast tonal"
-hint="Es tradueix per «abast tonal» (kde-ca-team)"
-
-{\btone.?mapping\b}i
-valid msgstr="mapatge dels tons"
-hint="Es tradueix per «mapatge dels tons» (kde-ca-team)"
-
 {\bthickness\b}i
 valid msgstr="densitat"
 valid msgstr="gruix"
@@ -1005,6 +1021,10 @@ hint="Es tradueix per «llindar/s» (kde-ca-team)"
 {\btime.?stamps?\b}i
 valid msgstr="mar(ca|ques) de temps"
 hint="Es tradueix per «marca/ques de temps» (kde-ca-team)"
+
+{\btonal\sranges?\b}i
+valid msgstr="abast tonal"
+hint="Es tradueix per «abast tonal» (kde-ca-team)"
 
 {\btone.?mapping\b}i
 valid msgstr="mapatge dels tons"
@@ -1021,6 +1041,7 @@ valid msgstr="fitxers? de trajecte"
 hint="Es tradueix per «fitxer/s de trajecte» (kde-ca-team)"
 
 {\btracker\b}i
+valid msgid="Open GPS Tracker"
 valid msgstr="localitzador"
 hint="Es tradueix per «localitzador» (kde-ca-team)"
 
@@ -1055,14 +1076,15 @@ valid msgstr="Llampant"
 hint="Es tradueix per «Eina -efecte-: Llampant» (kde-ca-team)"
 
 {\bwashed\sout\b}i
-valid msgstr="esva(eix|ïdes)"
-hint="Es tradueix per «esvaeix, esvaïdes» (kde-ca-team)"
+valid msgstr="esva(eix|ïda|ïdes)"
+hint="Es tradueix per «esvaeix, esvaïda/es» (kde-ca-team)"
 
 {\bWhite\sand\sBlack\b}i # Eina
 valid msgstr="Blancs? i negres?"
 hint="Es tradueix per «Eina: Blanc i negre, Altre: blancs i negres» (kde-ca-team)"
 
 {\bWhite.?balance\b}i # Eina
+valid msgid="WhiteBalance\.jpg"
 valid msgstr="Balanç de blancs"
 hint="Es tradueix per «Eina: Balanç de blancs» (kde-ca-team)"
 
@@ -1133,16 +1155,16 @@ hint="Es tradueix per «Eina: Auto-retall» (kde-ca-team)"
 {\bcrops?\b}i # Eina
 valid msgid="Aspect\sRatio\sCrop"
 valid msgid="Crop\sshape"
-valid msgstr="Retall(ar?|ats?)"
-hint="Es tradueix per «Eina: Retalla, retallar, retallat/s» (kde-ca-team)"
+valid msgstr="Retall(ar?|ats?|eu)"
+hint="Es tradueix per «Eina: Retalla, retallar, retallat/s, retalleu» (kde-ca-team)"
 
 {\bCrop\sshape\b}i
 valid msgstr="forma de tall"
 hint="Es tradueix per «forma de tall» (kde-ca-team)"
 
 {\bcropp(ed|ing)\b}i
-valid msgstr="retalla(da|r|ran|t)"
-hint="Es tradueix per «retallat, retallar, retallada, retallaran» (kde-ca-team)"
+valid msgstr="retalla(nt|da|r|ran|t)"
+hint="Es tradueix per «retallar/t/nt, retallada, retallaran» (kde-ca-team)"
 
 ######## Dark
 
@@ -1191,7 +1213,8 @@ valid msgstr="lluminos(a|es)"
 valid msgstr="lluminós"
 valid msgstr="llums intenses"
 valid msgstr="reflexos"
-hint="Es tradueix per «lluminós, lluminosa/es, llums intenses, clar/s, reflexos, (compte: ressaltat)» (kde-ca-team)"
+valid msgstr="il·luminar"
+hint="Es tradueix per «lluminós, lluminosa/es, llums intenses, clar/s, il·luminar, reflexos, (compte: ressaltat)» (kde-ca-team)"
 
 ######## Shadow
 
@@ -1223,6 +1246,7 @@ valid msgstr="Nitidesa circular"
 hint="Es tradueix per «Nitidesa circular» (kde-ca-team)"
 
 {\bGaussian\sSharpness\b}i
+valid msgid="Circular sharpness or Gaussian sharpness" # KDE UserBase
 valid msgstr="Nitidesa gaussiana"
 hint="Es tradueix per «Nitidesa gaussiana» (kde-ca-team)"
 
@@ -1244,12 +1268,14 @@ hint="Es tradueix per «nítid/a/s» (kde-ca-team)"
 # Sharpen: Ressalta
 # Sharpness: Definició
 {\bSharp(en)?(ing|ess|ness)?\b}i # Eina
+valid msgid="Circular\sSharpness"
+valid msgid="Gaussian\sSharpness"
 valid msgid="no\ssharpening"
 valid msgid="selective\ssharpening"
 valid msgstr="aguditza(ció)?"
 valid msgstr="nitidesa"
-valid msgstr="defin(eix|ir) més"
-hint="Es tradueix per «Eina: Nitidesa, (definir/eix més, augmenta/r la nitidesa) Eina: Aguditza/ció» (kde-ca-team)"
+valid msgstr="defin(eix|int|ir|iu) més"
+hint="Es tradueix per «Eina: Nitidesa, (definir/eix/nt/r/u més, augmenta/r la nitidesa) Eina: Aguditza/ció» (kde-ca-team)"
 
 {\bUnsharp\b}i
 valid msgid="Unsharp\sMask"
@@ -1288,12 +1314,4 @@ hint="Es tradueix per «Afegeix una vora» (kde-ca-team)"
 {\bApply\sTexture\b}i # Eina
 valid msgstr="Aplicar? una textura"
 hint="Es tradueix per «Eina: Aplica/r una textura» (kde-ca-team)"
-
-{\b\b}i
-valid msgstr=""
-hint="Es tradueix per «» (kde-ca-team)"
-
-{\b\b}i
-valid msgstr=""
-hint="Es tradueix per «» (kde-ca-team)"
 

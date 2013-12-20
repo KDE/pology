@@ -204,6 +204,7 @@ valid msgstr="program(a|es) d'aprenentatge"
 valid msgstr="(camp|partida) d'aprenentatge"
 valid before="~" comment="Tag\:\spara" cat="konsole,glossary" # docmessages
 valid msgid="Tutorial" cat="ksnapshot" # docmessages (dóna error sense motiu aparent)
+valid msgid="\/Tutorials\/" # KDE UserBase
 hint="«tutorial» es tradueix per «guia d'aprenentatge» (error freqüent)"
 
 # «URL» és masculí (Localitzador Uniforme de Recursos)

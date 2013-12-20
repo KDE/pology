@@ -533,6 +533,8 @@ valid comment="Tag\:\sprogramlisting" cat="kdm,kipi-plugins_geolocation" # docme
 valid comment="Tag\:\suserinput" cat="kioslave_nepomuksearch,kate_advanced" # docmessages
 valid ctx="identifier separator" cat="kalgebra"
 valid ctx="hour in the messages below"
+# valid msgid="'''" # KDE User_Base
+# valid msgid="''"  # KDE User_Base
 hint="Un apòstrof inicial és un error, excepte a ordres de terminal (tipografia)"
 
 # «' » un apóstrof final és un error (ull amb les ordres!).  Substituir per »
@@ -553,6 +555,8 @@ valid before="mm|ss"
 valid comment="Tag\:\sscreen" cat="kdeprint_cups-config,kmail-faq" # docmessages
 valid comment="Tag\:\sprogramlisting" cat="kdm,kipi-plugins_geolocation" # docmessages
 valid ctx="hour in the messages below"
+# valid msgid="'''" # KDE User_Base
+# valid msgid="''"  # KDE User_Base
 hint="Un apòstrof final és un error, excepte a ordres de terminal (tipografia)"
 
 # Les cometes anglosaxones «"» s'han de substituir per les cometes llatines «»
