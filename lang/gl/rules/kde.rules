@@ -307,6 +307,7 @@ id="kde_event"
 valid msgstr="\bevento" env="development"
 valid msgstr="\bacontecemento" !msgstr="\bevento"
 valid msgstr="\bsuceso" !msgstr="\bevento"
+valid msgstr="\bactividade"
 hint="event-> acontecemento ou suceso (not development environment)"
 
 #«acontecemento» -> «event»
