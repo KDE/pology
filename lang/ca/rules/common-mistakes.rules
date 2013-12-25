@@ -8,6 +8,11 @@ include file="filter.include"
 # it works with"X-Accelerator-Marker" header in PO files
 addFilterHook name="remove/remove-accel-msg" on="msg"
 
+# «adició» ha de ser «addició» (quan es refereix a sumar).
+# «adició» (amb una «d») és l'acceptació d'una herència
+[\badici[ó|ons|onar|onals?]\b]i
+hint="«adició» s'ha de substituir per «addició» (error freqüent)"
+
 # «a el» ha de ser «al».
 [\ba\sel\b]i
 valid before="\·" 
