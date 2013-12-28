@@ -1,7 +1,7 @@
 # Translation choices of Galician team
 # by the KDE Galician Team (proxecto@trasno.net)
 # License: BSD 3-clause
-# Copyright (c) 2010, 2011,2012 Proxecto Trasno
+# Copyright (c) 2010, 2011,2012, 2013 Proxecto Trasno
 # All rights reserved.
 # 
 # Redistribution and use in source and binary forms, with or without
@@ -41,13 +41,13 @@ hint="«about» tradúcese como «sobre»"
 
 # «about to» tradúcese como «a piques de»
 {\b(?<!^)about\sto\b}i
-id="PT-2013_about to"
+id="PT-2013_about-to"
 valid msgstr="\ba\spiques\sde\b"
 hint="«about to» tradúcese como «a piques de»"
 
 # «a piques de» traduce a «about to»
 [\ba\spiques\sde\bs]i
-id="PT-2013-dual_about to"
+id="PT-2013-dual_about-to"
 valid msgid="\b(?<!^)about\sto\b"
 hint="«a piques de» traduce a «about to»"
 
@@ -120,7 +120,7 @@ hint="«aliñar» traduce a «align»"
 
 # «align center» tradúcese como «centrar»
 {\balign(s|ed)\scenter}i
-id="PT-2013_align center"
+id="PT-2013_align-center"
 valid msgstr="\bcentrar"
 hint="«align center» tradúcese como «centrar»"
 
@@ -362,14 +362,14 @@ hint="«marcador» traduce a «bookmark»"
 valid before="h"
 valid before="loader"
 valid before="able"
-id="noPT-2012_boot start"
+id="noPT-2012_boot-start"
 valid msgstr="\barrancar"
 valid msgstr="\barranqu"
 hint="«boot/start» tradúcese como «arrancar»"
 
 # «arrancar» traduce a «boot/start»
 [\barrancar]i
-id="PT-2012-dual_boot start"
+id="PT-2012-dual_boot-start"
 valid msgid="\bboot"
 valid msgid="\bstart"
 hint="«arrancar» traduce a «boot/start»"
@@ -541,13 +541,13 @@ hint="«cela» traduce a «cell»"
 
 # «center/centre» tradúcese como «centrar/centro»
 {\bcent(er|re)}i
-id="PT-2013_center centre"
+id="PT-2013_center-centre"
 valid msgstr="\bcentr(o|ar?|e)"
 hint="«center/centre» tradúcese como «centrar/centro»"
 
 # «centrar» traduce a «center/centre»
 [\bcentr(o|ar|a|e)\b]i
-id="PT-2013-dual_center centre"
+id="PT-2013-dual_center-centre"
 valid span="centra(r|do|da)" msgid="\balign(ed)\scenter"
 valid msgid="\bcent(er|re)"
 hint="«centrar» traduce a «center/centre» (e a «align center)»"
@@ -670,19 +670,19 @@ hint="«click» tradúcese como «premer»(verbo) (usar sen \"en\" só cando non
 
 # «premer en» traduce a «click»
 [\bprem(er|a)\s(en|n(o|a)s?|nun(ha)?s?|nest(e|a)s?)\s]i
-id="PT-2013-dual_click (1)"
+id="PT-2013-dual_click(1)"
 valid msgid="\bclick"
 hint="«premer en» traduce a «click»"
 
 # «premer para» traduce a «click for/to»
 [\bprem(er|e|a)\spara\s\w+r]i
-id="PT-2013-dual_click (2)"
+id="PT-2013-dual_click(2)"
 valid msgid="\bclick\s(for|to)"
 hint="«premer para» traduce a «click for/to»"
 
 # «premer aquí/aí/e» traduce a «click»
 [\b\bprem(er|e|a)\s(aquí|aí|e)\b]i
-id="PT-2013-dual_click (3)"
+id="PT-2013-dual_click(3)"
 valid msgid="\bclick"
 hint="«premer aquí/aí/e» traduce a «click»"
 
@@ -1089,14 +1089,14 @@ hint="«arrastrar» traduce a «drag»"
 # «draw» tradúcese como «debuxar»
 # «drawing» tradúcese como «debuxo»
 {\bdraw(s|ed|ing)?}i
-id="PT-2013_draw drawing"
+id="PT-2013_draw/drawing"
 valid msgstr="\debux(ar?|e|ou)"
 valid span="drawing" msgstr="\bdebuxo"
 hint="«(to) draw» tradúcese como «debuxar», «(a) drawing» como «debuxo»"
 
 # «debuxar/o» traduce a «draw/ing»
 [\bdebux(o|ar|e|ou)]i
-id="PT-2013-dual_drawdrawing"
+id="PT-2013-dual_draw/drawing"
 valid msgid="\bdrawing" span="\bdebux(o|ando)"
 valid msgid="\bdraw(s|ed)?" !span="\bdebux(o|ando)"
 hint="«debuxar/o» traduce a «draw/ing»"
@@ -1259,7 +1259,7 @@ hint="«borrar» tradúcese como «erase»"
 
 # «execute/run» tradúcese como «executar»
 {\bexecut(e|ed|es|ing)?}i
-id="PT-2013_execute run(1)"
+id="PT-2013_execute/run(1)"
 valid before="ion" msgstr="\bexecución"
 valid before="able" msgstr="\bexecutábe(l|is)" 
 valid msgstr="\bexecut(ar|a|e|ou|ando)"
@@ -1267,7 +1267,7 @@ hint="«execute/run» tradúcese como «executar»"
 
 # «executar» traduce a «execute»
 [\bexecu(ción|tábel|tábeis|ar|a|e|ando|ados?|adas?|ou)]i
-id="PT-2013-dual_execute run"
+id="PT-2013-dual_execute/run"
 valid msgid="\bexecut(able|ion|e|ed|es|ing)"
 valid !span="\bexecut(ábe|ion)" msgid="\brun(s|ed|ning)?"
 hint="«executar» traduce a «execute/run»"
@@ -1276,7 +1276,7 @@ hint="«executar» traduce a «execute/run»"
 # «run» tradúcese como «execución»
 {\brun}i
 valid !before="(s|ed|ning)?\b"
-id="PT-2013_execute run(2)"
+id="PT-2013_execute/run(2)"
 valid before="s?\b" msgstr="\bexecucións?"
 valid before="(s|ed|ning)?\b" msgstr="\bexecut(ar|a|e|ou|ando)"
 hint="«(to) execute/run» tradúcese como «executar», «(a) run» como «execución»"
@@ -1331,13 +1331,13 @@ hint="«ficheiro» traduce a «file»"
 
 # «file a» tradúcese como «enviar un»
 {\bfile\sa\s}i
-id="PT-2011_file a"
+id="PT-2011_file-a"
 valid msgstr="\benv(iar|íe)\sun"
 hint="«file a» tradúcese como «enviar un»"
 
 # «enviar un informe de erro» traduce «file a bug report»
 [\benvi(ar|ándo(lle)?)\sun\s]i
-id="noPT-2011-dual_file a"
+id="noPT-2011-dual_file-a"
 valid msgid="\bfile\sa\s"
 valid msgid="\bsubmit(ting)? a "
 valid msgid="\bsend\sa\s"
@@ -1358,13 +1358,13 @@ hint="«paquete de ficheiros» traduce a «file package»"
 
 # «filesystem/file system» tradúcese como «sistema de ficheiros»
 {\bfile\s?system}i
-id="PT-2013_file system"
+id="PT-2013_file-system"
 valid msgstr="\bsistemas?\sde\sficheiros"
 hint="«filesystem/file system» tradúcese como «sistema de ficheiros»"
 
 # «sistema de ficheiros» traduce a «filesystem»
 [\bsistemas?\sde\sficheiros]i
-id="PT-2013-dual_file system"
+id="PT-2013-dual_file-system"
 valid msgid="\bfile\s?system"
 hint="«sistema de ficheiros» traduce a «filesystem»"
 
@@ -1438,13 +1438,13 @@ hint="«foro» traduce a «forum»"
 
 # «floppy disk drive» tradúcese como «disqueteira»
 {\bfloppy(\sdisk)?\sdrive}i
-id="PT-2012_floppy disk drive"
+id="PT-2012_floppy-disk-drive"
 valid msgstr="\bdisqueteira"
 hint="«floppy disk drive» tradúcese como «disqueteira»"
 
 # «disqueteira» traduce a «floppy disk drive»
 [\bdisqueteira]i
-id="PT-2012-dual_floppy disk drive"
+id="PT-2012-dual_floppy-disk-drive"
 valid msgid="\bfloppy(\sdisk)?\sdrive"
 hint="«disqueteira» traduce a «floppy disk drive»"
 
@@ -1500,13 +1500,13 @@ hint="«grella» traduce a «grid»"
 
 # «hard disk» ou «hard drive» tradúcese como «disco duro»
 {\bhard(\s?disk|\sdrive)}i
-id="PT-2012_hard disk"
+id="PT-2012_hard-disk"
 valid msgstr="\bdiscos?\sduro"
 hint="«hard disk» ou «hard drive» tradúcese como «disco duro»"
 
 # «disco duro» traduce a «hard disk» ou a «hard drive»
 [\bdiscos?\sduros?]i
-id="PT-2012-dual_hark disk"
+id="PT-2012-dual_hark-disk"
 valid msgid="\bhard(\s?disk|\sdrive)"
 hint="«disco duro» traduce a «hard disk» ou a «hard drive»"
 
@@ -1981,7 +1981,7 @@ hint="«contrasinal» traduce a «password»"
 
 # «terminate» tradúcese como «terminar»
 {\bterminat}i
-id="PT-2011_terminat"
+id="PT-2011_terminate"
 valid msgstr="\btermin"
 hint="«terminate» tradúcese como «terminar»"
 
@@ -2087,14 +2087,14 @@ hint="«impresora» traduce a «printer»"
 
 # «programming language» tradúcese como «linguaxe de prooramación»
 {\bprogramming\slanguages?\b}i
-id="PT-2012_programming language"
+id="PT-2012_programming-language"
 valid msgstr="\blinguaxes?\sde\sprogramación"
 hint="«programming language» tradúcese como «linguaxe de programación»"
 
 # «linguaxe (de programación)» traduce a «programming language»
 [\blinguaxes?]i
 valid before="\sde\sprogramación"
-id="PT-2012-dual_programming language"
+id="PT-2012-dual_programming-language"
 valid msgid="\blanguages?" env="development"
 hint="«linguaxe (de programación)» traduce a «programming language» (senón use idioma)"
 
@@ -2154,7 +2154,7 @@ hint="«refacer» traduce a  «redo»"
 
 # «removable» tradúcese como «extraíbel»
 {\bremovable\sdevice}i
-id="PT-2011_removable device"
+id="PT-2011_removable-device"
 valid msgstr="\bdispositivos?\sextraíbe(l|is)"
 hint="«removable device» tradúcese como «dispositivo extraíbel»"
 
@@ -2211,13 +2211,13 @@ hint="«substituir» traduce a «replace» (e a «surrogate», e a «substitute�
 
 # «restart, reboot» tradúcese como «reiniciar»
 {\bre(start|boot)}i
-id="PT-2012_restart reboot"
+id="PT-2012_restart-reboot"
 valid msgstr="\brein(i|í)c"
 hint="«restart/reboot» tradúcese como «reiniciar»"
 
 # «reiniciar» traduce a «restart/reboot»
 [\breinic]i
-id="PT-2012-dual_restart reboot"
+id="PT-2012-dual_restart-reboot"
 valid msgid="\bre(start|boot)"
 hint="«reiniciar» traduce a «restart/reboot»"
 

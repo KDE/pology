@@ -26,17 +26,17 @@
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 # SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-# «hide» tradúcese como «acochar»
-{\bhide(\b|s|ed)}i
+# «hide» tradúcese como «agochar»
+{\bhid(e\b|es|ed|ing)}i
 valid after="show\sor\s"
 id="aaPT_hide"
-valid msgstr="\bacoch"
-valid !msgstr="(ocult|agoch)?"
-hint="«hide» tradúcese como «acochar»"
+valid msgstr="\bagoch"
+valid !msgstr="(ocult|acoch)?"
+hint="«hide» tradúcese como «agochar»"
 
-# «acochar» traduce a «hide»
-[\bacoch]i
-valid msgid="\bhide(\b|s|ed)"
+# «agochar» traduce a «hide»
+[\bagoch]i
+valid msgid="\bhid(e\b|es|ed|ing)"
 valid msgid="\bhidden\b"
 id="aaPT-dual_hide"
-hint="«acochar» traduce a «hide»"
+hint="«agochar» traduce a «hide»"
