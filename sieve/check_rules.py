@@ -142,6 +142,10 @@ def setup_sieve (p):
     "Add '%(flag)s' flag to each message failed by a rule.",
     flag=_flag_mark
     ))
+    p.add_param("byrule", bool, defval=False,
+                desc=_("@info sieve parameter discription",
+    "Output failed messages ordered by sorted rule identifiers."
+    ))
     add_param_poeditors(p)
 
 
@@ -176,6 +180,7 @@ class Sieve (object):
         self.showmsg = params.showmsg
         self.lokalize = params.lokalize
         self.mark = params.mark
+        self.byrule = params.byrule
 
         self.branches = params.branch and set(params.branch) or None
 
@@ -214,6 +219,9 @@ class Sieve (object):
                                    dir=_CACHEDIR, msg=e))
 
         report("-"*40)
+
+        if self.byrule:
+            self.postFailedMessages = {}
 
         # Unless marking requested, no need to monitor/sync.
         if not self.mark:
@@ -393,7 +401,14 @@ class Sieve (object):
                 failedRules.append((rule, spans, msgf))
 
         if failedRules:
-            multi_rule_error(msg, cat, failedRules, self.showmsg)
+            if not self.byrule:
+                multi_rule_error(msg, cat, failedRules, self.showmsg)
+            else:
+                for rule, spans, msgf in failedRules:
+                    if rule.ident not in self.postFailedMessages:
+                        self.postFailedMessages[rule.ident] = []
+                    self.postFailedMessages[rule.ident].append(
+                        (msg, cat, ((rule, spans, msgf))))
 
             if self.mark:
                 msg.flag.add(_flag_mark)
@@ -411,6 +426,12 @@ class Sieve (object):
 
 
     def finalize (self):
+
+        if self.byrule:
+            ruleIdents = sorted(self.postFailedMessages.keys())
+            for ruleIdent in ruleIdents:
+                for msg, cat, failedRule in self.postFailedMessages[ruleIdent]:
+                    multi_rule_error(msg, cat, [failedRule], self.showmsg)
 
         if self.xmlFile:
             # Close last po tag and xml file

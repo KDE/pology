@@ -673,6 +673,13 @@ Strings after the dot can be anything, but a sequence of numbers or letters in a
 </listitem>
 </varlistentry>
 
+<varlistentry>
+<term><option>byrule</option></term>
+<listitem>
+<para>As usual for sieving, by default each failed message is output as soon as it is processed. This parameter makes the failed messages output ordered by rules instead, where rules are sorted alphabetically by their identifiers. Note that this will cause there to be no output until all messages have been sieved.</para>
+</listitem>
+</varlistentry>
+
 </variablelist>
 </para>
 
