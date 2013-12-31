@@ -1097,8 +1097,8 @@ hint="«(to) draw» tradúcese como «debuxar», «(a) drawing» como «debuxo»
 # «debuxar/o» traduce a «draw/ing»
 [\bdebux(o|ar|e|ou)]i
 id="PT-2013-dual_draw/drawing"
-valid msgid="\bdrawing" span="\bdebux(o|ando)"
-valid msgid="\bdraw(s|ed)?" !span="\bdebux(o|ando)"
+valid span="\bdebux(o|ando)" msgid="\bdrawing"
+valid !span="\bdebux(o|ando)" msgid="\bdraw(s|ed)?"
 hint="«debuxar/o» traduce a «draw/ing»"
 
 # «drive» tradúcese como «unidade»

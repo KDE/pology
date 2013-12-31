@@ -74,8 +74,14 @@ hint="evitar usar sinais iniciais de interrogación ou exclamación"
 
 # Prefírese a terminación en bel
 [\b[\w\-_]+bles?(\s|\b)]i
+# excepcións
 valid span="(fe|ca|dou|tre|ipta)bles?"
 valid span="[\-_]+"
+valid span="robles" after="eduardo\s" # nome dun programador
+valid span="\bmarble\b" # nome dun programa
+valid span="\bGrenoble\b" # cidade
+valid span="\bHubble\b" # o satélite telescopio
+valid span="\bGabble\b" # un servizo
 id="PT-2011-gl_bel"
 hint="terminación en -bel"
 
