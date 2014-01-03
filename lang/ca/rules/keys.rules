@@ -59,7 +59,7 @@ valid msgstr="<keycap>Inici</keycap>"
 hint="Es tradueix per «<keycap>Inici</keycap>» (keys)"
 
 # Ins -> Insert
-{<key(cap|sym)>.?Ins.?</key(cap|sym)>}
+{<key(cap|sym)>.?Ins(ert)?.?</key(cap|sym)>}
 valid msgstr="<keycap>Insert</keycap>"
 hint="Es tradueix per «<keycap>Insert</keycap>» (keys)"
 
@@ -132,4 +132,29 @@ valid msgstr="<keysym>Esquerre</keysym> i <keysym>Dret</keysym>"
 valid msgstr="Cursor <keysym>Avall</keysym>/<keysym>Dret</keysym>" cat="kipi-plugins_imageviewer" # docmessages
 valid msgstr="fletxa dreta" # A l'IGU
 hint="Es tradueix per «fletxa dreta (a l'IGU), <keysym>Cursor dret</keysym>, <keysym>Esquerre</keysym> i <keysym>Dret</keysym> (a la DOC)» (keys)"
- 
+
+# Meta keys
+# Unix
+{(&Meta;|<key(cap|sym)>.?Meta.?</key(cap|sym)>)}
+valid msgstr="&Meta;"
+valid msgstr="<keysym>Meta</keysym>"
+hint="Es tradueix per «&Meta;, <keysym>Meta</keysym>» (keys)"
+# logotip -diamant-
+{<key(cap|sym)>.?◆.?</key(cap|sym)>}
+valid msgstr="<keycap>◆</keycap>"
+hint="Es tradueix per «<keycap>◆</keycap>» (keys)"
+
+# Windows
+{<key(cap|sym)>.?Windows.?</key(cap|sym)>}
+valid msgstr="<keysym>Windows</keysym>"
+hint="Es tradueix per «<keysym>Windows</keysym>» (keys)"
+
+# Mac
+{<key(cap|sym)>.?Command.?</key(cap|sym)>}
+valid msgstr="<keysym>Command</keysym>"
+hint="Es tradueix per «<keysym>Command</keysym>» (keys)"
+# logotip -símbol-
+{<key(cap|sym)>.?⌘.?</key(cap|sym)>}
+valid msgstr="<keycap>⌘</keycap>"
+hint="Es tradueix per «<keycap>⌘</keycap>» (keys)"
+
