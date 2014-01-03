@@ -534,6 +534,7 @@ hint="«Conductors» se traduce como como «Directores/Cobradores», no como «C
 id="ff-2-conference"
 valid msgstr="congreso"
 valid msgstr="(multi)?conferencia" before="\scall"
+valid msgstr="salón\sde\sactos" before="\sroom"
 hint="«Conference» se traduce como como «Congreso», no como «Conferencia» (falso amigo)"
 
 {\bconferences\b}i

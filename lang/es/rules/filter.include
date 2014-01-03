@@ -25,6 +25,36 @@ addFilterRegex match="\:\w+\:" repl="~" on="pmsgid,pmsgstr"
 # Remove email addresses with "at"
 addFilterRegex match="\(([\w.-]+\s)+?at(\s[\w.-]+)+\)" repl="~" on="pmsgid,pmsgstr"
 
+# Remove program parameters (including 'help' option)
+addFilterRegex match="(?<!\w)\-\-[\w-]+\s(help)?" repl="~" on="pmsgid,pmsgstr"
+addFilterRegex match="^\-\-[\w-]+\s(help)?" repl="~" on="pmsgid,pmsgstr"
+
+# Remove Linux files
+addFilterRegex match="\b(bin|boot|dev|etc|home|lib|lib64|lost\+found|media|mnt|opt|proc|root|run|sbin|srv|sys|tmp|usr|var)(\/[\w_.#+-]+)+" repl="~" casesens="yes" on="pmsgid,pmsgstr"
+addFilterRegex match="(\$\w+|\$\{\w+\}|(KDE|QT|JAVA)\w*|\.kde\d?|~)(\/[\w_#+.-]+)+" repl="~" casesens="yes" on="pmsgid,pmsgstr"
+
+# Remove Windows files
+addFilterRegex match="\b[A-Z]\:(\\{1,2}[\w.#+_-]+)+\b" repl="~" casesens="yes" on="pmsgid,pmsgstr"
+
+# Remove files with common extensions
+addFilterRegex match="\b[\w.#+_-]+?\.(txt|xml|exe|lib|bin|so|doc|docx|odt|pdf|jpg|png|ico|h|c|cpp|py|pyc|java|tar|tgz|gz)\b" repl="~" casesens="yes" on="pmsgid,pmsgstr"
+addFilterRegex match="\*(\.\w+)+\b" repl="~" on="pmsgid,pmsgstr"
+
+# Remove some shell variables
+addFilterRegex match="\$\w+" repl="~" on="pmsgid,pmsgstr"
+addFilterRegex match="\$\{\w+\}" repl="~" on="pmsgid,pmsgstr"
+addFilterRegex match="\$\(\w+\)" repl="~" on="pmsgid,pmsgstr"
+
+# Remove functions calls
+addFilterRegex match="(\w+\:\:)*\w+\(.*?\)" repl="~" on="pmsgid,pmsgstr"
+addFilterRegex match="\\\\\w+(\{\w*\})?" repl="~" on="pmsgid,pmsgstr"
+
+# Remove C++ methods
+addFilterRegex match="\:\:\w+" repl="~" on="pmsgid,pmsgstr"
+
+# Remove MIME types
+addFilterRegex match="\b(all|application|audio|fonts|image|inode|interface|message|model|multipart|text|uri|video|x\-content|x\-epoc)\/\w[\w_#+.-]*\w" repl="~" on="pmsgid,pmsgstr"
+
 # Remove some types of paragraph tags.
 addFilterHook name="remove/remove-marlits-msg" on="msg"
 addFilterHook name="remove/remove-markup-msg" on="msg"
@@ -63,38 +93,6 @@ addFilterRegex match="(?<!\%)[+-]?[\dXx]+([.,\:\/][\dXx]+)+" repl="~" on="pmsgid
 
 # Remove hexadecimal numbers.
 addFilterRegex match="0x[\dabcdef]*" repl="~" on="pmsgid,pmsgstr"
-
-# Remove Linux files
-addFilterRegex match="\b(bin|boot|dev|etc|home|lib|lib64|lost\+found|media|mnt|opt|proc|root|run|sbin|srv|sys|tmp|usr|var)(\/[\w_.#+-]+)+" repl="~" casesens="yes" on="pmsgid,pmsgstr"
-addFilterRegex match="(\$\w+|\$\{\w+\}|(KDE|QT|JAVA)\w*|\.kde\d?|~)(\/[\w_#+.-]+)+" repl="~" casesens="yes" on="pmsgid,pmsgstr"
-
-# Remove Windows files
-addFilterRegex match="\b[A-Z]\:(\\{1,2}[\w.#+_-]+)+\b" repl="~" casesens="yes" on="pmsgid,pmsgstr"
-
-# Remove files with common extensions
-addFilterRegex match="\b[\w.#+_-]+?\.(txt|xml|exe|lib|bin|so|doc|docx|odt|pdf|jpg|png|ico|h|c|cpp|py|pyc|java|tar|tgz|gz)\b" repl="~" casesens="yes" on="pmsgid,pmsgstr"
-addFilterRegex match="\*(\.\w+)+\b" repl="~" on="pmsgid,pmsgstr"
-
-# Remove some shell variables
-addFilterRegex match="\$\w+" repl="~" on="pmsgid,pmsgstr"
-addFilterRegex match="\$\{\w+\}" repl="~" on="pmsgid,pmsgstr"
-addFilterRegex match="\$\(\w+\)" repl="~" on="pmsgid,pmsgstr"
-
-# Remove functions calls
-addFilterRegex match="(\w+\:\:)*\w+\(.*?\)" repl="~" on="pmsgid,pmsgstr"
-addFilterRegex match="\\\\\w+(\{\w*\})?" repl="~" on="pmsgid,pmsgstr"
-
-# Remove C++ methods
-addFilterRegex match="\:\:\w+" repl="~" on="pmsgid,pmsgstr"
-
-# Remove program parameters (including 'help' option)
-addFilterRegex match="(?<!\w)\-\-[\w-]+\shelp" repl="~" on="pmsgid,pmsgstr"
-addFilterRegex match="^\-\-[\w-]+\shelp" repl="~" on="pmsgid,pmsgstr"
-addFilterRegex match="(?<!\w)\-\-[\w-]+" repl="~" on="pmsgid,pmsgstr"
-addFilterRegex match="^\-\-[\w-]+" repl="~" on="pmsgid,pmsgstr"
-
-# Remove MIME types
-addFilterRegex match="\b(all|application|audio|fonts|image|inode|interface|message|model|multipart|text|uri|video|x\-content|x\-epoc)\/\w[\w_#+.-]*\w" repl="~" on="pmsgid,pmsgstr"
 
 # Remove special puntuactions.
 addFilterRegex match="(\?{2,3}|\%{2,3}|\:{2,3}|\_{2,3})" repl="~" on="pmsgid,pmsgstr"

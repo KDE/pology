@@ -1354,6 +1354,12 @@ hint="No ponga puntos suspensivos después de «etc./&etc;/etcétera» (error gr
 #[\,\s(y|e|o(?!\sbien)|u|ni)\s]
 #hint="No se pone coma antes de las conjunciones «y, e, o, u, ni» salvo casos excepcionales (error gramatical)"
 
+[\,\sni\s]
+id="gr-3-sobra-coma-antes-ni"
+valid after="\b[Nn]i[\w\s]+"
+valid after="[A-Z]\w+"
+hint="No se pone coma antes de «ni» salvo casos excepcionales (error gramatical)"
+
 #
 # PALABRAS QUE SE ESCRIBEN EN MINÚSCULA
 #

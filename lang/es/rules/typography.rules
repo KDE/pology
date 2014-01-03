@@ -128,11 +128,12 @@ valid ctx="Numbers and characters"
 valid ctx="CSV separator"
 hint="Abra la admiración (deben ir emparejadas)"
 
-[(?s)\![^¡]*?\!]
+[(?s)\![^¡]+?\!]
 id="ty-3-falta-apertura-admiracion-varias"
-validGroup beforePunctuation
+#validGroup beforePunctuation
 valid ctx="Numbers and characters"
 valid ctx="CSV separator"
+valid msgstr="The\sBat\!"
 hint="Abra la admiración (deben ir emparejadas)"
 
 [(?s)¡(?!.*?\!)]
@@ -173,9 +174,9 @@ valid ctx="Numbers and characters"
 valid ctx="CSV separator"
 hint="Abra la interrogación (deben ir emparejadas)"
 
-[(?s)\?[^¿]*?\?]
+[(?s)\?[^¿]+?\?]
 id="ty-3-falta-apertura-interrogacion-varias"
-validGroup beforePunctuation
+#validGroup beforePunctuation
 valid ctx="Numbers and characters"
 valid ctx="CSV separator"
 hint="Abra la interrogación (deben ir emparejadas)"
@@ -294,7 +295,7 @@ valid ctx="EMAIL OF TRANSLATORS"
 valid ctx="trans_comment"
 valid ctx="Numbers and characters"
 valid ctx="X\-KDE\-Keywords"
-valid msgid="CREDIT_FOR_TRANSLATORS"
+valid msgid="ty-3-falta-apertura-admiracion-variasCREDIT_FOR_TRANSLATORS"
 valid before="\w{1,4}(\b|\.)" # Extensions
 valid before="\w+(rc|config)\b" # Configuration files
 valid before="(calendar|desktop|directory|h|html|lock|moc|xml)\b"
@@ -312,7 +313,7 @@ hint="Ponga un espacio después de un signo de punto"
 
 [\.\.\.\s?\.]
 id="ty-3-sobra-punto-despues-suspensivos"
-hint="No ponga un signo de punto después de puntos suspensivos"
+hint="No pongty-3-falta-apertura-admiracion-variasa un signo de punto después de puntos suspensivos"
 
 [\.\.]
 id="ty-3-puntos-repetidos"
