@@ -71,6 +71,38 @@ hint="drop target = место за спуштање"
 valid msgstr="мест\w+ за спуштање"
 
 # ====================
+# KGoldrunner (game)
+environment kgoldrunner
+
+{\baction}i
+id="t-action"
+hint="action = акција [дешавање у игри]"
+valid msgstr="\bакциј|\bакцион"
+
+{\baction}i
+id="t-action-ui"
+hint="action = радња [потез играча]"
+valid msgstr="\bрадњ"
+manual
+
+{\bbars?\b}i
+id="t-bar"
+hint="bar = греда"
+valid msgstr="\bгред"
+valid after="scroll.?"
+valid after="gold "
+
+{\bnugget}i
+id="t-nugget"
+hint="nugget = грумен [мн. грумени]"
+valid msgstr="\bгрумен" !msgstr="\bгрумењ" !msgstr="\bгруменов"
+
+{\brunner}i
+id="t-runner"
+hint="runner = тркач"
+valid msgstr="\bтркач"
+
+# ====================
 # KJumpingCube (game)
 environment kjumpingcube
 
