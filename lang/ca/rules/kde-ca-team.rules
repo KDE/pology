@@ -42,6 +42,7 @@ hint="Es tradueix per «contenidor/s» (kde-ca-team)"
 valid msgid="bounding\sbox(es|s)?"	# -> contenidor/s
 valid msgid="cardboard box"		# -> safata (de la impressora) glossary_kdeprintingglossary
 valid msgid="check.?box(es|s)?"		# -> casella/es de selecció
+valid msgid="column\sview\sbox(es|s)?"	# -> quadre/s de vista de la columna
 valid msgid="combo.?box(es|s)?"		# -> quadre/s combinat/s
 valid msgid="completion\sbox(es|s)?"	# -> quadre/s de compleció
 valid msgid="configuration\sbox(es|s)?"	# -> quadre/s de configuració
@@ -66,7 +67,8 @@ valid msgid="selection.?box(es|s)?"	# -> casella/es de selecció
 valid msgid="shaded\sbox(es|s)?"	# -> quadre/s ombrejat/s
 valid msgid="spin.?box(es|s)?"		# -> botó/ons de selecció de valors
 valid msgid="text.?box(es|s)?"		# -> quadre/s de text
-valid msgid="tool.?box(es|s)?"		# -> quadre/s d'eines 
+valid msgid="tool.?box(es|s)?"		# -> quadre/s d'eines
+valid msgid="view\sbox(es|s)?"		# -> quadre/s de vista
 valid msgid="out of the box"
 valid msgstr="quadrat: Nebulosa gasosa"	# docmessages (KStars)
 valid msgstr="quadres?"
@@ -120,6 +122,14 @@ hint="Es tradueix per «text xifrat» (kde-ca-team)"
 {\bcolor\sselector\b}i
 valid msgstr="selector de color"
 hint="Es tradueix per «selector de color» (kde-ca-team)"
+
+{\bcolumn\sview\sbox(es|s)?\b}i
+valid msgstr="quadres? de vista de la columna"
+hint="Es tradueix per «quadre/s de vista de la columna» (kde-ca-team)"
+
+{\bcolumn\sbar\b}i
+valid msgstr="barra de la columna"
+hint="Es tradueix per «barra de la columna» (kde-ca-team)"
 
 {\bcombo.?box(es|s)?\b}i
 valid msgstr="quadres? combinats?"
@@ -629,6 +639,11 @@ valid msgstr="sense encriptar"
 valid msgstr="no està encripta(t|da)"
 valid msgstr="no encriptad(a|es)"
 hint="Es tradueix per «sense encriptar, no està encriptat/da, no encriptada/es» (kde-ca-team)"
+
+{\bview\sbox(es|s)?\b}i
+valid msgid="column\sview\sbox(es|s)?"
+valid msgstr="quadres? de vista"
+hint="Es tradueix per «quadre/s de vista» (kde-ca-team)"
 
 # «wallpaper» es tradueix per «fons de pantalla».
 {\bwallpapers?\b}i

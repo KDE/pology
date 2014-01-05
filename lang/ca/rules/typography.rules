@@ -142,6 +142,7 @@ valid span=";*" cat="kfilereplace"
 valid span=";~" cat="kfind" # docmessages
 valid span=";[eN]" cat="kleopatra" # docmessages
 valid msgstr="^[FIXED|YIELDDISC]" cat="sheets_functions" # docmessages
+valid !msgstr=";\<" cat="kmail_configure" # docmessages
 hint="S'ha de posar un espai després del signe de punt i coma (tipografia)"
 
 [\s\!]
