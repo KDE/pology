@@ -1901,6 +1901,7 @@ hint="«Inbox» se traduce como «Bandeja de entrada» (propuesta glosario)"
 {\bin(\s|\-)progress\b}i
 id="gp-3-in-progress"
 valid msgstr="en\scurso"
+valid msgstr="progreso" before="\sslider"
 hint="«In progress» se traduce como «En curso» (propuesta glosario)"
 
 {\bindent\b}i

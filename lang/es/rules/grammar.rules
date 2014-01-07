@@ -1050,7 +1050,7 @@ hint="«Que...» se escribe como «Qué...» en oraciones interrogativas indirec
 
 [\bSi\b]
 id="gr-3-falta-coma-posterior-a-si"
-valid before="[^.]+,"
+valid before="[^.]+[,:]"
 valid msgid="Whether"
 hint="Ponga como dentro de una frase que comienza por «Si» (error gramatical)"
 
