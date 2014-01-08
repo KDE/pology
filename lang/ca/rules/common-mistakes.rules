@@ -209,13 +209,11 @@ hint="«té» (verb tenir) cal que porti accent (error freqüent)"
 
 # «tutorial» es tradueix per «guia d'aprenentatge».
 {\btutorials?\b}i
+valid msgid="\/Tutorials\/" # KDE UserBase
 valid msgstr="gui(a|es) d'aprenentatge"
 valid msgstr="program(a|es) d'aprenentatge"
 valid msgstr="(camp|partida) d'aprenentatge"
-valid before="~" comment="Tag\:\spara" cat="konsole,glossary" # docmessages
-valid msgid="Tutorial" cat="ksnapshot" # docmessages (dóna error sense motiu aparent)
-valid msgid="\/Tutorials\/" # KDE UserBase
-hint="«tutorial» es tradueix per «guia d'aprenentatge» (error freqüent)"
+hint="«tutorial» es tradueix per «guia d'aprenentatge, també: programa/es d'aprenentatge, camp | partida d'aprenentatge» (error freqüent)"
 
 # «URL» és masculí (Localitzador Uniforme de Recursos)
 [\b(la|les|una|unes)\sURL\b]i

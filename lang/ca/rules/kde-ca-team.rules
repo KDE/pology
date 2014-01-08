@@ -73,7 +73,9 @@ valid msgid="out of the box"
 valid msgstr="quadrat: Nebulosa gasosa"	# docmessages (KStars)
 valid msgstr="quadres?"
 valid msgstr="casell(a|es)"
-valid msgstr="caix(a|es)" cat="kxsconfig,kpovmodeler,kmid,knode,ksysguard,kdm_theme-ref,konqueror_browser,konqueror_filemanager,kstars_blackbody"
+valid msgstr="caix(a|es)" cat="kxsconfig,kpovmodeler,kmid,knode,ksysguard,kdm_theme-ref,konqueror_browser,konqueror_filemanager,kstars_blackbody,step_tutorials"
+valid msgstr="vuit discs i una caixa" cat="step_examples" # docmessages
+valid msgstr="dins d'una caixa" cat="step_examples" # docmessages
 valid msgstr="capsa" cat="libkdeedu,kstars"
 valid msgstr="box(es)?"
 valid msgstr="apartats? de correus"            # post office  -> apartat de correus
@@ -82,10 +84,11 @@ hint="Es tradueix per «quadre» o «casella»: generalment \
 els «quadres» permeten introduir text/nombres, i \
 les «caselles» s'activen o es desactiven (kde-ca-team)"
 
-{\b(broad|wide)\sranges?\b}i
+{\b(broad|wider?)\sranges?\b}i
 valid msgstr="(àmplia|gran) varietat"
 valid msgstr="ampli ventall"
-hint="Es tradueix per «àmplia/gran varietat» (kde-ca-team)"
+valid msgstr="ventall més ampli" # docmessages
+hint="Es tradueix per «àmplia/gran varietat, ampli ventall, ventall més ampli» (kde-ca-team)"
 
 {\bbuttons?\b}i
 valid msgid="slider\sbutton"
@@ -242,7 +245,8 @@ hint="Es tradueix per «quadre/s d'edició» (kde-ca-team)"
 
 {\bembed(dable|ded|ding)?\b}i
 valid msgstr="incrust(a|ar|at|able|ats|en)"
-hint="Es tradueix per «incrustar» (kde-ca-team)"
+valid msgstr="incl(òs|osa|osos|oure)" # docmessages
+hint="Es tradueix per «incrustar, també: inclòs/osa/osos, incloure» (kde-ca-team)"
 
 {\bemoticons?\b}i
 valid msgstr="emoticon(a|es)"
@@ -270,14 +274,14 @@ valid msgstr="encoding="
 hint="Es tradueix per «codificació, codificacions, codificant» (kde-ca-team)"
 
 {\bencrypt(ing)?\b}i
-valid msgstr="encript(ar?|is?|o)"
+valid msgstr="encript(ar?|eu|is?|o)"
 valid msgstr="encrypt" cat="kleopatra,okular_poppler"
 hint="Es tradueix per «encriptar» (kde-ca-team)"
 
 {\bencrypted\b}i
 valid msgstr="encripta(t|ts|da|des|r)"
 valid msgstr="encripti"
-hint="Es tradueix per «encripti, encriptat, encriptada» (kde-ca-team)"
+hint="Es tradueix per «encripti/eu, encriptat, encriptada» (kde-ca-team)"
 
 {\bencryption\b}i
 valid msgstr="encriptatge"
@@ -446,7 +450,8 @@ valid msgstr="grups? de botons d'opció"
 hint="Es tradueix per «grup/s de botons d'opció» (kde-ca-team)"
 
 {\branges?\b}i
-valid msgid="(broad|wide)\sranges?"
+valid msgid="(broad|wider?)\sranges?"
+valid msgid="The Range Prototype" # docmessages
 valid msgstr="abast(ar)?"
 valid msgstr="àre(a|es)"
 valid msgstr="caren(a|es)" # de muntanyes
@@ -455,6 +460,16 @@ valid msgstr="intervals?"
 valid msgstr="marge" # HDR (High dynamic range): Marge dinàmic elevat
 valid msgstr="contingut" cat="katepart4"
 valid msgstr="ventall" cat="www_www,kalzium"
+valid msgstr="ampli ventall" cat="konqueror" # docmessages
+valid msgstr="«Range»" # docmessages
+valid msgstr="contingut" cat="kate_configuring-part" # docmessages
+valid msgstr="i van des d'estris" cat="glossary" # docmessages
+valid msgstr="Aquestes van des d'aplicacions i tecnologies específiques" cat="khelpcenter" # docmessages
+valid msgstr="oscil·la entre" cat="ksysguard" # docmessages
+valid msgstr="sèrie" cat="gwenview" # docmessages
+valid msgstr="pot variar" cat="kstars_stars" # docmessages
+valid msgstr="avanci més enllà" cat="kstars_solarsys" # docmessages
+valid comment="Tag\:\ssynopsis" # docmessages
 hint="Es tradueix per «abast, àrea, interval/s, HDR: Marge dinàmic elevat» (kde-ca-team)"
 
 # «screenshot» es tradueix per «captura de pantalla».
@@ -471,10 +486,12 @@ hint="Es tradueix per «script/s» (kde-ca-team)"
 
 {\bscripting\b}i
 valid msgstr="crea(r|ció)?\s(d')?scripts"
+valid msgstr="scripts creats?" # docmessages
 valid msgstr="scripts" cat="desktop_calligra,desktop_koffice,kexi,krossmoduleplan,krossmodulewords,krossmodulekword,plasma-desktop,desktop_kdelibs,kdelibs4,superkaramba,desktop_kdewebdev"
 valid msgstr="script" cat="kommander"
 valid msgstr="llenguatges\sd'script" cat="kcmkonqhtml"
-hint="Es tradueix per «crea/r scripts, creació d'scripts» (kde-ca-team)"
+valid msgstr="scripts utilitzats" cat="kommander_dcop" # docmessages
+hint="Es tradueix per «crea/r scripts, creació d'scripts, scripts creat/s» (kde-ca-team)"
 
 {\bscroll.?bars?\b}i
 valid msgstr="barr(a|es) de desplaçament"

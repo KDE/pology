@@ -44,6 +44,7 @@ valid before="$"
 valid after="«.+"
 
 [\s\:]
+valid cat="rocs_apiDatastructure,rocs_apiGraphstructure,rocs_apiLinkedListstructure" # docmessages
 valid ctx="Numbers and characters"
 valid ctx="CSV separator"
 valid msgid="\s\:\s" cat="kstars,tellico_details"
@@ -65,6 +66,10 @@ valid after="\d+" before="\s?\d+"
 valid after="^" cat="kalgebra"
 valid after="pty.+" cat="kdevgdb"
 valid cat="amarokcollectionscanner_qt"
+valid msgstr="src \: bash" cat="konsole" # docmessages
+valid msgstr="H \: màquina remota" cat="konsole" # docmessages
+valid msgstr="\s\:\s" cat="kalgebra" # docmessages
+valid msgstr="par1 \: var" cat="kalgebra_commands" # docmessages
 hint="No s'ha de posar cap espai abans del signe dels dos punts (tipografia)"
 
 [\:\S]
@@ -195,6 +200,8 @@ valid after="Nivell" cat="blinken"
 valid before=".+expansió" cat="libksieve"
 valid before=">\n" cat="kfilereplace" # docmessages
 valid msgstr="^El nivell ?\s" cat="blinken" # docmessages
+valid msgstr="\s\?\s1,\s\?\s0\s" cat="kalgebra_commands" # docmessages
+valid msgstr="\s\?\s" cat="kalgebra" # docmessages
 hint="No s'ha de posar cap espai abans del signe d'interrogació (tipografia)"
 
 [\?\S]
@@ -336,6 +343,7 @@ valid ctx="function prototype"
 valid comment="Tag\:\suserinput" cat="kioslave_nepomuksearch" # docmessages
 valid comment="Tag\:\sprogramlisting" cat="kate_advanced,kleopatra,klettres" # docmessages
 valid comment="Tag\:\sscreen" cat="kturtle_programming-reference" # docmessages
+valid msgstr="\s\.\.\.\)$" cat="kalgebra_commands" # docmessages
 hint="No s'ha de posar cap espai abans del signe de punt (tipografia)"
 
 [\.\S]
@@ -472,6 +480,7 @@ valid msgstr="^[SEARCH]" cat="sheets_functions" # docmessages
 valid msgstr="\se\s\([erg|dekao]" cat="sheets_functions" # docmessages
 valid ctx="Exponential"
 valid cat="tables,kcells,kspread,kdenlive,sheets"
+valid comment="Tag\:\sprogramlisting" cat="rocs" # docmessages
 hint="«e» sola és un error (tipografia)"
 
 # «u» sola és un error.
@@ -509,6 +518,7 @@ valid cat="kdecalendarsystems"
 valid comment="Tag\:\sliterallayout" # docmessages
 valid comment="Tag\:\sprogramlisting" cat="kdm,tellico_hacking" # docmessages
 valid comment="Tag\:\sscreen" cat="kmail_faq" # docmessages
+valid comment="Tag\:\suserinput" # docmessages
 valid before="\/share\/apps\/" # docmessages
 valid before="kde4-config" # docmessages
 valid before="\/ssc\/texts\/" # docmessages
@@ -530,7 +540,7 @@ valid before="1d" cat="sscd" # docmessages
 valid before="$" cat="kdeqt"
 valid before="audio|video" cat="konversation"
 valid comment="Tag\:\sscreen" cat="kdeprint_cups-config,kmail_faq,knode_faq" # docmessages
-valid comment="Tag\:\sprogramlisting" cat="kdm,kipi-plugins_geolocation" # docmessages
+valid comment="Tag\:\sprogramlisting" cat="kdm,kipi-plugins_geolocation,kate_plugins" # docmessages
 valid comment="Tag\:\suserinput" cat="kioslave_nepomuksearch,kate_advanced" # docmessages
 valid ctx="identifier separator" cat="kalgebra"
 valid ctx="hour in the messages below"
