@@ -203,6 +203,7 @@ valid before="dragonplayer" # IRC channel
 valid before="amarok" # IRC channels
 valid before="kde-bugs" # IRC channel
 valid before="kde-imaging" # IRC channel
+valid before="konversation" # IRC channel
 valid before="if" # C/C++ preprocessor
 valid before="endif" # C/C++ preprocessor
 valid before="else" # C/C++ preprocessor
@@ -318,6 +319,7 @@ valid after="мм рт" span="с" before="т\." # мм рт.ст.
 valid after="дюймов рт" span="с" before="т\." # дюймов рт.ст.
 valid after="дюймы рт" span="с" before="т\." # дюймы рт.ст.
 valid after="\.\." span="\.ч" before="то"
+valid after="@\*" # маска пользователя в Konversation
 hint="Поставьте пробел после точки в конце предложения"
 
 [директори]i
@@ -375,7 +377,7 @@ hint="URL -- аббревиатура, все буквы -- заглавные"
 valid msgstr="О&тмена" # акселератор на "т"
 hint="В кнопке 'Отмена' акселератор ставьте на 'т'"
 
-[ \.\.\.]
+[ \.\.\.$]
 hint="В командах меню перед многоточием не ставьте пробел."
 
 [«спам]i
@@ -423,22 +425,25 @@ hint="неправильное использование падежей"
 ##valid span="^[iNn]-ы$" before="й\b" # TODO: test this before uncommenting
 #hint="Избавляемся от 'Linux-дистрибутивов' и т.д."
 
-[на брауз]
+[на брауз]i
 hint="на браузерах -> в браузерах"
 
-[Вам\b]
-valid after="\. "
+[(Вам|Вы|Ваш|Вашей)\b]
+valid after="\.\s+"
+valid after="^"
+valid after="<[a-z]+>"
 hint="Пишем 'вы' со строчной буквы."
 
-[Вы\b]
-valid after="\. "
-hint="Пишем 'вы' со строчной буквы."
+[отображ]i
+hint="Избегаем использования слова 'отображать' и однокоренных в смысле показа чего-либо на экране, вместо этого пишем 'показывать'"
 
-[Ваш\b]
-valid after="\. "
-hint="Пишем 'вы' со строчной буквы."
+[иметь эффект]i
+hint="takes effect -> вступает в силу"
 
-[Вашей\b]
-valid after="\. "
-hint="Пишем 'вы' со строчной буквы."
+[[^\.]\. [а-я]]
+valid after="э" span="л. п" before="очты" # частое сокращение "эл. почты"
+hint="Предложения пишутся с заглавной буквы"
+
+[на строке]
+hint="-> в строке"
 
