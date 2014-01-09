@@ -254,7 +254,7 @@ valid msgstr="emoticons" after="apps\/kopete\/pics\/"
 hint="Es tradueix per «emoticona/es» (kde-ca-team)"
 
 {\bencode\b}i
-valid msgstr="codificar?"
+valid msgstr="codifi(car?|quen)"
 hint="Es tradueix per «codificar» (kde-ca-team)"
 
 {\bencoded\b}i
@@ -463,11 +463,11 @@ valid msgstr="ventall" cat="www_www,kalzium"
 valid msgstr="ampli ventall" cat="konqueror" # docmessages
 valid msgstr="«Range»" # docmessages
 valid msgstr="contingut" cat="kate_configuring-part" # docmessages
-valid msgstr="i van des d'estris" cat="glossary" # docmessages
+valid msgstr="van des d'(estris|una)" cat="glossary,kpovmodeler" # docmessages
 valid msgstr="Aquestes van des d'aplicacions i tecnologies específiques" cat="khelpcenter" # docmessages
 valid msgstr="oscil·la entre" cat="ksysguard" # docmessages
 valid msgstr="sèrie" cat="gwenview" # docmessages
-valid msgstr="pot variar" cat="kstars_stars" # docmessages
+valid msgstr="po(den|t) variar" cat="kstars_stars,simon" # docmessages
 valid msgstr="avanci més enllà" cat="kstars_solarsys" # docmessages
 valid comment="Tag\:\ssynopsis" # docmessages
 hint="Es tradueix per «abast, àrea, interval/s, HDR: Marge dinàmic elevat» (kde-ca-team)"
@@ -649,6 +649,7 @@ hint="Es tradueix per «consells» (kde-ca-team)"
 {\btree.?views?\b}i
 valid msgstr="vist(a|es) en arbre"
 valid msgstr="vista plana o en arbre"
+valid msgstr="vista gràfica i en arbre" # docmessages
 hint="Es tradueix per «vista/es en arbre» (kde-ca-team)"
 
 {\bunencrypted\b}i

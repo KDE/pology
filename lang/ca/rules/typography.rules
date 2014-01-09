@@ -202,6 +202,7 @@ valid before=">\n" cat="kfilereplace" # docmessages
 valid msgstr="^El nivell ?\s" cat="blinken" # docmessages
 valid msgstr="\s\?\s1,\s\?\s0\s" cat="kalgebra_commands" # docmessages
 valid msgstr="\s\?\s" cat="kalgebra" # docmessages
+valid msgstr="\s\.\s\*\s\?\s\/" cat="digikam" # docmessages
 hint="No s'ha de posar cap espai abans del signe d'interrogació (tipografia)"
 
 [\?\S]
@@ -344,6 +345,7 @@ valid comment="Tag\:\suserinput" cat="kioslave_nepomuksearch" # docmessages
 valid comment="Tag\:\sprogramlisting" cat="kate_advanced,kleopatra,klettres" # docmessages
 valid comment="Tag\:\sscreen" cat="kturtle_programming-reference" # docmessages
 valid msgstr="\s\.\.\.\)$" cat="kalgebra_commands" # docmessages
+valid msgstr="\s\.\s\*\s\?\s\/" cat="digikam" # docmessages
 hint="No s'ha de posar cap espai abans del signe de punt (tipografia)"
 
 [\.\S]
@@ -409,7 +411,7 @@ valid after="~" cat="analitza"
 valid ctx="unction name in function prototype"
 valid ctx="inlist all matches should be found"
 valid ctx="calculator button"
-valid span="\(" cat="kteatime,simoncalculatorcommand"
+valid span="\(" cat="kteatime,simoncalculatorcommand,digikam_color-management"
 hint="S'han d'obrir i tancar els parèntesis (). Sempre aparellats (tipografia)"
 
 #[\[]
@@ -445,7 +447,7 @@ valid span="c\." cat="kleopatra"
 hint="Hi ha una paraula consecutiva repetida en el paràgraf (tipografia)"
 
 [\b(del|dels|el|la|els|les|un|una|uns|unes)\s(el|la|els|les|un|una|uns|unes)\b]
-valid msgstr="els uns als altres"
+valid msgstr="(els|les) une?s (de )?(als|les) altres"
 valid after="·" # punt volat de la l·l geminada
 valid after="-"
 valid after="&"

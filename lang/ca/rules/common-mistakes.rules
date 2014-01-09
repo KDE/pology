@@ -93,7 +93,7 @@ hint="«devant» (i derivats) s'ha de substituir per «davant» (error freqüent
 # «diferent a» ha de ser «diferent de».
 [\bdiferents?\sa\b]i
 valid msgstr="diferents a un dispositiu" cat="phonon-xine"
-valid msgstr="diferent a través" cat="kstars_indi" #docmessages
+valid msgstr="diferent a través" cat="kstars_indi" # docmessages
 hint="«diferent a» s'ha de substituir per «diferent de» (error freqüent)"
 
 # «doncs» ha de ser «perquè/ja que».
@@ -126,8 +126,9 @@ hint="«esta» s'ha de substituir per «està» (error freqüent)"
 # «esteu/sou/quedeu» + +adj plural (com «esteu segurs»)
 # La persona és "vós", per tant ha de ser «esteu segur» (i similars).
 [\b(esteu|sou|quedeu)\s[a-zàèòéíóú]+s\b]i
-valid msgstr="esteu dins" cat="kommander_dcop" #docmessages
-valid msgstr="sou curiós" cat="kstars_scriptbuilder" #docmessages
+valid msgstr="esteu dins" cat="kommander_dcop" # docmessages
+valid msgstr="sou curiós" cat="kstars_scriptbuilder" # docmessages
+valid msgstr="sou propens" cat="digikam_editor-color" # docmessages
 hint="«(vós) esteu segurs» s'ha de substituir per «(vós) esteu segur» (error freqüent)"
 
 # «fixe» ha de ser «fix» (i prefix, sufix).
@@ -135,8 +136,8 @@ hint="«(vós) esteu segurs» s'ha de substituir per «(vós) esteu segur» (err
 valid msgid="fixes"
 valid msgstr="xfixes"
 valid msgstr="fixes" cat="k3b" after="imatges\s"
-valid msgstr="fixes" cat="kstars_calc-apcoords" after="en\sel\scel\sno\ssón\s" #docmessages
-valid msgstr="fixes" cat="kstars_sidereal" after="estrelles\s«" #docmessages
+valid msgstr="fixes" cat="kstars_calc-apcoords" after="en\sel\scel\sno\ssón\s" # docmessages
+valid msgstr="fixes" cat="kstars_sidereal" after="estrelles\s«" # docmessages
 valid msgstr="fixes" cat="keurocalc" after="cotitzacions\s"
 hint="«fixe (sufixe/prefixe)» s'ha de substituir per «fix (sufix/prefix)» (error freqüent)"
 
@@ -225,14 +226,15 @@ hint="«ves» (verb anar) cal que porti accent «vés» (error freqüent)"
 
 # «widget» es tradueix per «estri».
 {\bwidgets?\b}i
-valid msgstr="widget" cat="kdm_theme-ref" #docmessages
+valid msgstr="widget" cat="kdm_theme-ref" # docmessages
 valid msgstr="estris?"
-valid msgstr="Widget, true" cat="kommander_dcop" #docmessages
-valid msgstr="SpinBoxInt" cat="kommander_widgets" #docmessages
+valid msgstr="Widget, true" cat="kommander_dcop" # docmessages
+valid msgstr="SpinBoxInt" cat="kommander_widgets" # docmessages
 hint="«widget» es tradueix per «estri» (error freqüent)"
 
 # «world» es tradueix per «món» (amb accent).
 {\bworld\b}i
+valid msgstr="Federació Internacional d'Escacs" cat="knights" # docmessages
 valid msgstr="mapamundi"
 valid msgstr="món"
 valid msgstr="mundial"
@@ -240,9 +242,9 @@ valid msgstr="web"
 valid msgstr="world"
 valid msgstr="altres|tothom" cat="kfileshare,kdm_kdmrc-ref,knode_using-firststart"
 valid msgstr="WWW" before="\swide\sweb"
-valid msgstr="tots" cat="kdeprint_theory" #docmessages
-valid msgstr="famoses" cat="kturtle_programming-reference" #docmessages
-valid msgstr="exemples reals\." cat="simon" #docmessages
+valid msgstr="tots" cat="kdeprint_theory" # docmessages
+valid msgstr="famoses" cat="kturtle_programming-reference" # docmessages
+valid msgstr="exemples reals\." cat="simon" # docmessages
 hint="«world» es tradueix per «món» (amb accent) (error freqüent)"
 
 # End of common mistakes rules file

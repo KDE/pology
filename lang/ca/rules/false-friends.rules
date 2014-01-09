@@ -23,7 +23,7 @@ hint="«Absolutelly» es tradueix per «Completament», no per «Absolutament» 
 {\babstracts?\b}i
 valid msgstr="resums?"
 valid msgstr="abstract(e|a)" cat="kdevphp,kdevplatform,kdeqt,desktop_kdegames_kmahjongg,desktop_kdegames_ksudoku,krita,umbrello,kdevfiletemplates,rocscore"
-valid msgstr="abstract(e|a|es)" cat="umbrello_uml_basics" #docmessage
+valid msgstr="abstract(e|a|es)" cat="umbrello_uml_basics,digikam_editor-filters" # docmessages
 valid !msgstr="abstract(e|a|es)"
 hint="«Abstract» es tradueix per «Resum», no per «Abstracte» (fals amic)"
 
@@ -151,6 +151,7 @@ hint="«Carbon» es tradueix per «Carboni», no per «Carbó» (fals amic)"
 valid msgstr="target(a|es)"
 valid msgstr="cart(a|es)" cat="desktop_kdegames_kmahjongg,desktop_kdegames_kpat,desktop_kdegames_lskat,desktop_kdegames_libkdegames,kpoker,lskat,kpat"
 valid msgstr="cartes" cat="desktop_kde-runtime,desktop_extragear-base_kappfinder,libmuon,muon-installer" before="\sgames?"
+valid msgstr="baralla de cartes" cat="digikam_editor-transform" # docmessages
 valid !msgstr="cart(a|es)"
 hint="«Card» es tradueix per «Targeta», no per «Carta» (fals amic)"
 
@@ -304,7 +305,7 @@ hint="«Curse» es tradueix per «Malefici», no per «Curs» (fals amic)"
 {\bdates?\b}i
 valid msgstr="dat(a|es)"
 valid msgstr="cit(a|es)"
-valid msgstr="dates" before="\sor time" cat="tables_basics,kspread_basics" #docmessage
+valid msgstr="dates" before="\sor time" cat="tables_basics,kspread_basics" # docmessages
 valid !msgstr="dada"
 valid !msgstr="dades"
 hint="«Date» es tradueix per «Data», no per «Dada» (fals amic)"
@@ -629,6 +630,7 @@ hint="«Pair» es tradueix per «Parell/Dos», no per «Parella» (fals amic)"
 
 # «Pan» es tradueix per «Panorama/Cassola».
 {\bpan\b}i
+valid msgid="Agfa Pan" # docmessages
 valid msgstr="cassola"
 valid msgstr="paella"
 valid msgstr="panorama"
