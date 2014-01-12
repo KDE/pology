@@ -1,6 +1,7 @@
 set(sdfiles
     avworks-fonts.sd
     avworks-movies.sd
+    avworks-music.sd
     avworks-shows.sd
     avworks-themes.sd
     civil-high.sd
@@ -19,6 +20,7 @@ set(sdfiles
     misc-acronyms.sd
     misc-products.sd
     org-activist.sd
+    org-artistic.sd
     org-comitees.sd
     org-companies.sd
     org-education.sd
@@ -61,6 +63,7 @@ set(sdfiles
     spec-keyboard.sd
     spec-protocols.sd
     spec-technologies.sd
+    writings-books.sd
     writings-fiction.sd
     writings-licences.sd
     writings-manuals.sd
