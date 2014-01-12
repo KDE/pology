@@ -1585,6 +1585,7 @@ hint="«illegal» tradúcese como «inaceptábel»"
 [\binaceptábe(l|is)\b]i
 id="PT-2010-dual_inaceptábel"
 valid msgid="\bilegal"
+valid msgid="\billegal"
 hint="«inaceptábel» traduce a «ilegal»"
 
 # «initialize» tradúcese como «inicializar»
@@ -2181,14 +2182,12 @@ hint="«retirar» traduce a «remove»"
 # «rename» tradúcese como «renomear»
 {\brenam(e|es|ed|ing)}i
 id="PT-2011_rename"
-valid env="kde"
 valid msgstr="\brenomea"
 hint="«rename» tradúcese como «renomear»"
 
 # «renomear» traduce a «rename»
 [\brenome\w+]i
 id="noPT-2011-dual_rename"
-valid env="kde"
 valid msgid="\brenam(e|es|ed|ing)"
 hint="«renomear» traduce a «rename»"
 

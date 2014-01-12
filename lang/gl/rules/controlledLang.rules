@@ -59,6 +59,9 @@ hint="usar «cá» (que + a) cando sexa imprescindíbel"
 
 # Coma min/ti/el/ela/nos/nosoutros/vos/vosoutros/eles/elas.
 [\bcoma\s(?!(min|ti|el|si|min|ela|nos|vos|nosoutr(o|a)s|vosoutr(o|a)s|el(e|a)s))]i
+valid after="\bpuntos?\se\s" # «puntos e comas»
+valid after="\bda\s"         # «algo da coma» → refírese ao «,»-
+valid after="\bunha\s"       # «unha coma»
 id="clGL-modling_coma"
 hint="usar «coma» cando sexa imprescindíbel"
 
@@ -82,6 +85,8 @@ valid span="\bmarble\b" # nome dun programa
 valid span="\bGrenoble\b" # cidade
 valid span="\bHubble\b" # o satélite telescopio
 valid span="\bGabble\b" # un servizo
+valid span="\bPebbles?\b" # un produto
+valid span="tables?\b" # moitos falsos positivos, grazas a Latex
 id="PT-2011-gl_bel"
 hint="terminación en -bel"
 
@@ -98,6 +103,7 @@ hint="vacío -> baleiro"
 #evitar usar «lanzar» en favor de «iniciar» (un executábel)
 [\blanz]i
 valid !msgid="\blaunch"
+valid ctx="X-KDE-Keywords"
 id="PT-2011-gl_lanzar"
 hint="lanzar -> iniciar"
 
@@ -108,6 +114,9 @@ hint="«listaxe» -> «lista»?"
 
 # usar «son» no canto de «audio»
 [\baudio]i
+valid ctx="X-KDE-Keywords"
+valid before="visual"
+valid before="\s?cd" env="kde" # «audiocd» é un kioslave
 id="PT-2011-gl_audio"
 hint="audio -> son"
 

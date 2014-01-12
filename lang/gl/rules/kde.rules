@@ -33,27 +33,29 @@ environment kde
 # Regras específicas de KDE para modelo de lingua
 #####
 
+## pronome mal colocado ?
+#[\ba\s\S+á\b]i
+#valid after="\bnon\s"
+#id="clGL_pronome mal posto"
+#hint="posíbel orde inversa dun pronome"
+
+# «lineal» → «linear»
+[\blinea(l|is)]i
+id="clGL_lineal"
+hint="«lineal» → «linear»"
 
 #descarta o uso de «amosar» en favor de «mostrar»
 [\bamos(a|o|e)]i
 id="clGL-all_amosar"
 hint="amosar -> mostrar"
 
-#descarta o uso de «colar» en favor de «(a)pegar»
-[\bcol(a|e|o)(?!(c|m|re|ri|ra|ps|b|q|x|nia|fón))]i
-valid msgstr="\bcolor"
-valid msgstr="\bcola" msgid="\b((de|en)queue|queue|tail|spool)"
-id="clGL-all_colar"
-hint="colar -> (a)pegar"
-
-# descarta o uso de «linguaxe» en favol de «idioma»
-[\b(linguaxe|língua)s?]i
-valid env="development"
-valid span="linguaxe" before="\sde\sprogramación"
-valid span="linguaxe" msgid="\b(programming|query)\slanguage"
-id="clGL-all_linguaxe"
-hint="«linguaxe» -> «idioma»"
-
+# regra comentada porque non dá achadegas
+##descarta o uso de «colar» en favor de «(a)pegar»
+#[\bcol(a|e|o)(?!(c|m|re|ri|ra|ps|b|q|x|nia|fón))]i
+#valid msgstr="\bcolor"
+#valid msgstr="\bcola" msgid="\b((de|en)queue|queue|tail|spool)"
+#id="clGL-all_colar"
+#hint="colar -> (a)pegar"
 
 #coidado cos derivados de licenza que trocan o z
 [\blicenci(?=(oso|osa|osamente|atura|amento|ado|ada|ados|ada)s)]i
@@ -71,8 +73,18 @@ id="clGL-all_ocorreu"
 hint="ocorreu -> produciuse"
 
 #comprobar «TAB» e «separador», preferir «lapela»
-[\b(tab(?!(let|ula)|separador))]i
-valid !msgid="\btabs?\b"
+#[\b(tab(?!(let|ula)|separador))]i
+[\b(tab|separador)]i
+valid span="\btab" before="loide"
+valid span="\btab" before="le"
+valid span="\btab" before="ula"
+valid span="\btab" before="oleiro"
+valid span="\btab" after="\btecla\s"
+valid span="\btab" after="\balt\+"
+valid span="\btab(s|ulador|uladores)?\b" msgid="\btabs?\b"
+valid span="\bseparador" msgid="\bsplitter"
+valid span="\bseparador" msgid="\bseparator"
+valid span="\bseparador" msgid="\bdelimiter"
 id="clGL-all_tab/separador"
 hint="tab ou separador -> lapela"
 
@@ -92,18 +104,21 @@ id="clGL-all_zoom"
 hint="zoom -> ampliación ?"
 
 # preferir «estase a + infinitivo» no cando de «a + infinitivo»
-[^a\s\w+[aei]r\s]i
+[^a\s\w+[aeií]r\b]i
 valid after="Están\s"
 valid after="Estanse\s"
 valid after="Está\s"
 valid after="Estase\s"
 valid after="estex?a\s"
 valid after="estar\s"
+valid span="a partir"
 id="clGL-all_a+infinitivo"
 hint="«a+infinitivo» -> «estase a infinitivo"
 
 # preferir «se han examinar/ han ser examinados» no canto de «serán examinados»
-[\b\w+rán?\s\w+ad(o|a)s?]i
+[\b\w+rán?\s[A-Za-z]+ad(o|a)s?]i
+valid !span="\b(ser|estar)án"
+#valid span="\bverán"      # admitir «verán+v(participio)
 id="clGL-all_serán+participio"
 hint="«serán+participio» -> «han ser participio», «examinaránse» ou «ha infinitivo»"
 
@@ -172,30 +187,16 @@ hint="when selected -> se o escolle (experimental)"
 # «...not found.» -> «Non se atopou...»
 {\b\w+\snot\sfound\.}i
 id="expression_not found."
-valid msgstr="\bNon\s(se\satop(ou|aron)|foi\sposíbel\satopar)\s(\w+\s)+\w+"
+valid msgstr="\bNon\s((se\satop(ou|aron))|(foi\sposíbel\satopar))\s(\w+\s)+\w+"
 hint="...not found. -> Non se atopou/foi posíbel atopar ... ..."
 
 # there was an error ....
 {\bthere\swas\san?}i
 valid after="\bif\s"
+valid before="\sproblem"    # por mor da cacofonía: produciuse un problema
 id="expression_there-was-an-error"
 valid msgstr="\bProduciuse\sun(\b|s|ha)"
 hint="There was an error -> Produciuse un erro"
-
-
-# «Are you sure you want to» -> «Desexa realmente+infinitivo»
-{\bare\syou\ssure\syou\swant\sto(\s(\w+|\W+))+\?}i
-id="expression_interrogation1"
-valid msgstr="\bDesexa\srealmente\s\w+(a|e|i|í|po)r(\s(\w+|\W+))*"
-valid msgstr="\bDesexa\srealmente\s\w+l(o|a)s?(\s\w+)*\?"
-hint="«Are you sure you want to» -> «Desexa realmente+infinitivo»"
-
-# «Do you really ...» -> «Desexa realmente + infinitivo»
-{\bdo\syou\sreally(\s(\w+|\W+))+\?}i
-id="expression_interrogation2"
-valid msgstr="\bDesexa\srealmente\s\w+(a|e|i|í|po)r(\s(\w+|\W+))*"
-valid msgstr="\bDesexa\srealmente\s\w+l(o|a)s?(\s\w+)*\?"
-hint="«Are you sure you want to» -> «Desexa realmente+infinitivo»"
 
 # «print preview» -> «previsualización da impresión» / «vista previa do impreso»
 {\bprint\spreview(?!\s(window|part))}i
@@ -219,6 +220,8 @@ hint="«print preview» -> «previsualización da impresión» / «vista previa 
 valid before="\sto\b"
 valid after="\bknow(s|n)?\s"
 valid after="\bforgets?\s"
+valid after="\bcare\s"
+valid after="\b(be|is|are)\s\S\s"
 id="kde_about"
 valid msgstr="\bacerca\sd"
 valid msgstr="\brefer"
@@ -228,6 +231,7 @@ hint="about -> acerca de"
 {\baccept}i
 id="kde_accept"
 valid msgstr="\bacept"
+valid msgstr="\bacéptase"
 hint="accept = aceptar"
 
 # «aceptar» -> «accept»
@@ -238,11 +242,12 @@ valid msgid="\bOK\b"
 valid msgid="\bagree"
 hint="aceptar = accept"
 
-# «append» -> «amecer»
-{\bappend}i
-id="kde_append"
-valid msgstr="\bamecer"
-hint=" append -> amecer"
+## «append» -> «amecer»
+#{\bappend}i
+#valid before="ix"
+#id="kde_append"
+#valid msgstr="\bamecer"
+#hint=" append -> amecer"
 
 # «amecer» -> «append»
 [\bamec]i
@@ -262,24 +267,7 @@ id="kde-dual_applet"
 valid msgid="\bapplet"
 hint="«applet» traduce a «applet»"
 
-# «edge» -> «aresta»
-{\bedges?}i
-id="kde_edge(graph_theory)"
-valid env="graph_theory" msgstr="arestas?"
-valid  env="graph_theory" after="self-" msgstr="lazos?"
-hint="«edge» -> «aresta» (en teoría de grafos); «self-edge» ->  «lazo»"
 
-# «aresta» -> «edge»
-[arestas?]i
-id="kde-dual_edge(graph_theory)"
-valid msgid="edges?" env="graph_theory"
-hint="«aresta» -> «edge» (en teoría de grafos)"
-
-# «lazo» -> «self-edge»
-[lazos?]i
-id="kde-dual_edge2(graph_theory)"
-valid msgid="self-edges?" env="graph_theory"
-hint="«lazo» -> «self-edge» (en teoría de grafos)"
 
 # «not enabled»
 {\bnot enabled\b}
@@ -288,11 +276,12 @@ valid msgstr="\bdesactivad(o|a)"
 valid msgstr="\bnon\sestá\sactivad(o|a)"
 hint="not enabled -> desactivado"
 
-# «enable/disable» -> «conmutar»
-{\benable/disable}i
-id="kde_enabledisable"
-valid msgstr="\bconmuta"
-hint="enable/disable = conmutar"
+# Agora Non me parece tan boa idea esta regra
+## «enable/disable» -> «conmutar»
+#{\benable/disable}i
+#id="kde_enabledisable"
+#valid msgstr="\bconmuta"
+#hint="enable/disable = conmutar"
 
 # «encounter» -> «atopar» and not «achar»
 {\bencounter}i
@@ -300,15 +289,6 @@ id="kde_encounter"
 valid msgstr="\batop"
 valid !msgstr="\bach"
 hint="encounter -> atopar"
-
-#«event» -> «acontecemento» ou «suceso»
-{\bevent}i
-id="kde_event"
-valid msgstr="\bevento" env="development"
-valid msgstr="\bacontecemento" !msgstr="\bevento"
-valid msgstr="\bsuceso" !msgstr="\bevento"
-valid msgstr="\bactividade"
-hint="event-> acontecemento ou suceso (not development environment)"
 
 #«acontecemento» -> «event»
 [\bacontecemento]i
@@ -318,12 +298,18 @@ hint="acontecemento-> event"
 
 # «frame» -> «marco»
 {\bframe}i
+valid before="works?\b"
 id="kde_frame"
 valid msgstr="\bmarco"
 hint="«frame» -> «marco»"
 
 # «marco» -> «frame»
-[\bmarco]i
+[\bmarcos?]i
+valid before="\skrüger" # person name: marco krüger
+valid before="\smartin" # person: marco martin
+valid before="\scalignano" # person: marco calignano
+valid after="\bdoval\s" # person: irene doval marcos
+valid before="u\b"      # marcou
 id="kde-dual_frame"
 valid msgid="\bframe"
 valid msgid="\bmarks?"
@@ -334,7 +320,7 @@ hint="«marco» -> «frame»/«mark» (moeda)"
 id="kde_inline"
 valid msgstr="\bintercala(r|d(o|a)s?)" !env="development"
 valid span="\bin\sline" msgstr="\bna\sliña" !env="development"
-hint="«frame» -> «marco»"
+hint="«inline» -> «intercalar»"
 
 # «node» -> «vértice»
 {\bnodes?}i
@@ -347,15 +333,11 @@ valid env="graph_theory" msgstr="vértices?"
 valid !env="graph_theory" msgstr="\bnodos?"
 hint="«node» -> «vértice» (en teoría de grafos), ou «nodo»"
 
-# «vértice» -> «node»
-[vértices?]i
-id="kde-dual_node(graph_theory)"
-valid msgid="nodes?" env="graph_theory"
-hint="«vértice» -> «node» (en teoría de grafos)"
-
 # «nodo» -> «node»
 [\bnodos?\b]i
 id="kde-dual_node(2)"
+valid msgid="nodekit"
+valid msgid="nodename"
 valid msgid="\bnodes?\b" !env="graph_theory"
 hint="«nodo» -> «node»"
 
@@ -388,16 +370,5 @@ hint="printing = imprimir, impresión"
 [\bimprim]i
 id="kde-dual_print"
 valid msgid="\bprint(?!er)"
+valid after="\bversións?\spara\s" msgid="\bprinters?\sfriendly\b"
 hint="imprimir = print"
-
-# «rename» -> «mudar de nome»
-{\brename}i
-id="kde_rename"
-valid msgstr="\bmud(ar|ou|anzas?)\s(de|o)\snome"
-hint="«rename» tradúcese como «mudar de nome»"
-
-# «mudar de nome» -> «renomear»
-[\bmud(ar|ou)\sde\snome]i
-id="kde-dual_rename"
-valid msgid="\brename"
-hint="mudar de nome = rename"

@@ -30,8 +30,8 @@
 {\bhid(e\b|es|ed|ing)}i
 valid after="show\sor\s"
 id="aaPT_hide"
-valid msgstr="\bagoch"
-valid !msgstr="(ocult|acoch)?"
+valid msgstr="\bag(o|ó)ch"
+valid !msgstr="ac(ó|o)ch?"
 hint="«hide» tradúcese como «agochar»"
 
 # «agochar» traduce a «hide»
@@ -40,3 +40,88 @@ valid msgid="\bhid(e\b|es|ed|ing)"
 valid msgid="\bhidden\b"
 id="aaPT-dual_hide"
 hint="«agochar» traduce a «hide»"
+
+# «conceal» → «esconder»
+{\bconceal(s|ed|ing)?}i
+id="aaPT_conceal"
+valid msgstr="\bescond"
+hint="«conceal» → «esconder»"
+
+# «esconder» → «conceal»
+[\bescond]i
+id="aaPT_esconder"
+valid msgid="\bconceal"
+hint="«esconder» → «conceal»"
+
+# «edge» -> «aresta»
+{\bedges?}i
+valid !env="graph_theory"
+id="kde_edge(graph_theory)"
+valid msgstr="arestas?"
+valid after="self-" msgstr="lazos?"
+hint="«edge» -> «aresta» (en teoría de grafos); «self-edge» ->  «lazo»"
+
+#####
+##### Regras procedentes de KDE
+##### Están aquí porque conteñen referencia a outra ambiente
+#####
+
+# «aresta» -> «edge»
+[arestas?]i
+valid !env="graph_theory"
+id="kde-dual_edge(graph_theory)"
+valid msgid="edges?"
+hint="«aresta» -> «edge» (en teoría de grafos)"
+
+# «lazo» -> «self-edge»
+[lazos?]i
+valid !env="graph_theory"
+id="kde-dual_edge2(graph_theory)"
+valid msgid="self-edges?"
+hint="«lazo» -> «self-edge» (en teoría de grafos)"
+
+# «vértice» -> «node»
+[vértices?]i
+valid !env="graph_theory"
+id="kde-dual_node(graph_theory)"
+valid msgid="nodes?"
+hint="«vértice» -> «node» (en teoría de grafos)"
+
+# descarta o uso de «linguaxe» en favol de «idioma»
+[\b(linguaxe|língua)s?]i
+valid span="linguaxe" env="development" 
+valid ctx="X-KDE-Keywords"
+valid msgstr="\bvarnish"
+valid span="linguaxe" before="\sde\sprogramación"
+valid span="linguaxe" msgid="\b(programming|query)\slanguage"
+valid span="linguaxe" before="\s(ruby|python|C|PHP|de\sscript)"
+id="clGL-all_linguaxe"
+hint="«linguaxe» -> «idioma»"
+
+# «Are you sure you want to» -> «Desexa realmente+infinitivo»
+{\bare\syou\ssure\syou\swant\sto(\s(\w+|\W+))+\?}i
+id="expression_interrogation1"
+valid msgstr="\bDesexa\srealmente\s\w+(a|e|i|í|po)r(\s(\w+|\W+))*" !env="informal"
+valid msgstr="\bDesexa\srealmente\s\w+l(o|a)s?(\s\w+)*\?" !env="informal"
+valid msgstr="\b(Desexas|Queres)\s\w+(a|e|i|í|po)r(\s(\w+|\W+))*" env="informal"
+valid msgstr="\b(Desexas|Queres)\s\w+l(o|a)s?(\s\w+)*\?" env="informal"
+hint="«Are you sure you want to» -> «Desexa(s) realmente+infinitivo»"
+
+# «Do you really ...» -> «Desexa realmente + infinitivo»
+{\bdo\syou\sreally(\s(\w+|\W+))+\?}i
+id="expression_interrogation2"
+valid msgstr="\bDesexa\srealmente\s\w+(a|e|i|í|po)r(\s(\w+|\W+))*" !env="informal"
+valid msgstr="\bDesexa\srealmente\s\w+l(o|a)s?(\s\w+)*\?" !env="informal"
+valid msgstr="\b(Desexas|Queres)\s\w+(a|e|i|í|po)r(\s(\w+|\W+))*" env="informal"
+valid msgstr="\b(Desexas|Queres)\s\w+l(o|a)s?(\s\w+)*\?" env="informal"
+hint="«Do you really ...» -> «Desexa realmente+infinitivo»"
+
+#«event» -> «acontecemento» ou «suceso»
+{\bevent}i
+valid before="ually"
+id="kde_event"
+valid msgstr="\bevento" env="development"
+valid msgstr="\bacontecemento" !msgstr="\bevento"
+valid msgstr="\bsuceso" !msgstr="\bevento"
+valid msgstr="\bactividade"
+hint="event-> acontecemento ou suceso (not development environment)"
