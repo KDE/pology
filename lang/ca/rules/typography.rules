@@ -543,7 +543,7 @@ valid before="1d" cat="sscd" # docmessages
 valid before="$" cat="kdeqt"
 valid before="audio|video" cat="konversation"
 valid comment="Tag\:\sscreen" cat="kdeprint_cups-config,kmail_faq,knode_faq" # docmessages
-valid comment="Tag\:\sprogramlisting" cat="kdm,kipi-plugins_geolocation,kate_plugins" # docmessages
+valid comment="Tag\:\sprogramlisting" cat="kdm,kipi-plugins_geolocation,kate_plugins,kile_scripting" # docmessages
 valid comment="Tag\:\suserinput" cat="kioslave_nepomuksearch,kate_advanced" # docmessages
 valid ctx="identifier separator" cat="kalgebra"
 valid ctx="hour in the messages below"
@@ -567,7 +567,7 @@ valid after="CDV\s.*" cat="kstars"
 valid after="useu\s.*" cat="kexi"
 valid before="mm|ss"
 valid comment="Tag\:\sscreen" cat="kdeprint_cups-config,kmail-faq" # docmessages
-valid comment="Tag\:\sprogramlisting" cat="kdm,kipi-plugins_geolocation" # docmessages
+valid comment="Tag\:\sprogramlisting" cat="kdm,kipi-plugins_geolocation,kile_scripting" # docmessages
 valid ctx="hour in the messages below"
 # valid msgid="'''" # KDE User_Base
 # valid msgid="''"  # KDE User_Base
