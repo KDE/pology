@@ -11,7 +11,7 @@ valid msgstr="interrump(ir|e|a)"
 valid msgstr="interrumpirá" after="will\s(not\s)?"
 valid msgstr="interrumpió" after="did\s(not\s)?"
 valid !msgstr="abort(ar|a|e)"
-hint="«Abort» se traduce como como «Interrumpir», nunca como «Abortar» (ver glosario)"
+hint="«Abort» se traduce como «Interrumpir», nunca como «Abortar» (ver glosario)"
 
 {\baborted\b}i
 id="gk-2-aborted"
@@ -21,20 +21,20 @@ valid msgstr="se\sinterrump[ea]n?"
 valid msgstr="interrumpió"
 valid msgstr="se\s(\w+\s){1,3}interrumpir"
 valid !msgstr="abortad[oa]"
-hint="«Aborted» se traduce como como «Interrumpido», nunca como «Abortado» (ver glosario)"
+hint="«Aborted» se traduce como «Interrumpido», nunca como «Abortado» (ver glosario)"
 
 {\baborting\b}i
 id="gk-2-aborting"
 valid msgstr="interrumpiendo"
 valid msgstr="interrupción"
 valid !msgstr="abortando"
-hint="«Aborting» se traduce como como «Interrumpiendo/Interrupción», nunca como «Abortando» (ver glosario)"
+hint="«Aborting» se traduce como «Interrumpiendo/Interrupción», nunca como «Abortando» (ver glosario)"
 
 {\baborts\b}i
 id="gk-2-aborts"
 valid msgstr="interrump(ir|e|a)"
 valid !msgstr="abort(ar|a|e)"
-hint="«Aborts» se traduce como como «Interrumpe», nunca como «Abortar» (ver glosario)"
+hint="«Aborts» se traduce como «Interrumpe», nunca como «Abortar» (ver glosario)"
 
 {\badress\b}i
 id="gk-2-adress"
@@ -103,12 +103,6 @@ valid msgstr="asignaciones"
 valid msgstr="(alguna|cualquier|ninguna)\sasignación"
 valid !msgstr="alocaciones"
 hint="«Allocations» como se traduce como «Asignaciones» (ver glosario)"
-
-{\bAPI\b}i
-id="gk-2-api"
-valid msgstr="api"
-valid msgstr="API"
-hint="«API» no se traduce (ver glosario)"
 
 {\bapplet\b}i
 id="gk-2-applet"
@@ -336,17 +330,6 @@ valid msgstr="(algún|cualquier|ningún)\serror"
 valid !msgstr="bugs?"
 hint="«Bugs» se traduce como «Fallos» o «Errores» (ver glosario)"
 
-{\bbyte\b}i
-id="gk-2-byte"
-valid msgstr="byte"
-hint="«Byte» no se traduce (ver glosario)"
-
-{\bbytes\b}i
-id="gk-2-bytes"
-valid msgstr="bytes"
-valid msgstr="(algún|cualquier|ningún)\sbyte"
-hint="«Bytes» no se traduce (ver glosario)"
-
 {\bcache\b}i
 id="gk-2-cache"
 valid msgstr="caché"
@@ -357,17 +340,6 @@ hint="«Cache» se traduce como «Caché/cachear» (ver glosario)"
 id="gk-2-cath-all-entry"
 valid msgstr="entradas?\spara\sla\sruta\spor\somisión"
 hint="«Catch-all-entry» se traduce como «Entrada para la ruta por omisión» (ver glosario)"
-
-{\bcd\b}i
-id="gk-2-cd"
-valid msgstr="cd"
-valid msgstr="CD"
-hint="«CD» significa «Compact disk», no se traduce (ver glosario)"
-
-{\bCD\b}
-id="gk-2-cd-mayusculas"
-valid msgstr="CD"
-hint="«CD» significa «Compact disk», no se traduce (ver glosario)"
 
 {\bcheck\b}i
 id="gk-2-check"
@@ -452,17 +424,6 @@ id="gk-2-checksums"
 valid msgstr="sumas\sde\sverificación"
 valid msgstr="(alguna|cualquier|ninguna)\ssuma\sde\sverificación"
 hint="«Checksums» se traduce como «Sumas de verificación» (ver glosario)"
-
-{\bchip\b}i
-id="gk-2-chip"
-valid msgstr="chip"
-hint="«Chip» no se traduce (ver glosario)"
-
-{\bchips\b}i
-id="gk-2-chips"
-valid msgstr="chips"
-valid msgstr="(algún|cualquier|ningún)\schip"
-hint="«Chips» no se traduce (ver glosario)"
 
 {\bclean\b}i
 id="gk-2-clean"
@@ -665,12 +626,6 @@ valid !msgstr="portadas?"
 valid !msgstr="cubiertas?"
 hint="«Covers» se traduce como «Carátulas», preferible a «Portadas» (ver glosario)"
 
-{\bcpan\b}i
-id="gk-2-cpan"
-valid msgstr="cpan"
-valid msgstr="CPAN"
-hint="«CPAN» no se debe traducir (ver glosario)"
-
 {\bcrypt\b}i
 id="gk-2-crypt"
 valid msgstr="cifr(ar|a|e)"
@@ -694,20 +649,6 @@ id="gk-2-crypts"
 valid msgstr="cifr(ar|a|e)"
 valid !msgstr="encript(ar|a|e)"
 hint="«Crypts» se traduce como «Cifra», nunca como «Encripta» (ver glosario)"
-
-{\bCTAN\b}
-id="gk-2-ctan"
-valid msgstr="ctan"
-valid msgstr="CTAN"
-hint="«CTAN» no se debe traducir (ver glosario)"
-
-{\bcups\b}
-id="gk-2-cups"
-valid msgstr="cups"
-valid msgstr="CUPS"
-valid msgstr="[Tt]azas"
-valid msgstr="([Aa]lguna|[Cc]ualquier|[Nn]inguna)\staza"
-hint="«CUPS» no se debe traducir, salvo si se trata de tazas (ver glosario)"
 
 {\bdaemon\b}i
 id="gk-2-daemon"
@@ -1104,12 +1045,6 @@ id="gk-2-dumbs"
 valid msgstr="mudos?"
 valid msgstr="tontos?"
 hint="«Dumbs» se traduce como «Mudos» o «Tontos» (ver glosario)"
-
-{\bdvd\b}i
-id="gk-2-dvd"
-valid msgstr="dvd"
-valid msgstr="DVD"
-hint="«DVD» no se traduce (ver glosario)"
 
 {\belectronic\smail\b}i
 id="gk-2-electronic-mail"
@@ -1524,11 +1459,6 @@ valid msgstr="redirecciones"
 valid msgstr="(alguna|cualquier|ninguna)\sredirección"
 hint="«Forwadings» se traduce como «Redirecciones» (ver glosario)"
 
-{\bframe\srelay\b}i
-id="gk-2-frame-relay"
-valid msgstr="frame\srelay"
-hint="«Frame relay» no se traduce (ver glosario)"
-
 {\bframework\b}i
 id="gk-2-framework"
 valid msgstr="infraestructura"
@@ -1612,12 +1542,6 @@ id="gk-2-gui"
 valid msgstr="interfaz\sgráfica(\sde\susuario)?"
 valid msgstr="interfaces\sgráficas(\sde\susuario)?"
 hint="«GUI» se traduce como «Interfaz gráfica de usuario» (ver glosario)"
-
-{\bGUID\b}i
-id="gk-2-guid"
-valid msgstr="guid"
-valid msgstr="GUID"
-hint="«GUID» no se traduce (ver glosario)"
 
 {\bgzipped\b}i
 id="gk-2-gzipped"
@@ -1829,17 +1753,6 @@ valid msgstr="interact(uar|úa|úe)"
 valid msgstr="(alguna|cualquier|ninguna)\sinterfaz"
 hint="«Interfaces» se traduce como «Interfaces» (ver glosario)"
 
-{\birq\b}i
-id="gk-2-irq"
-valid msgstr="irq"
-valid msgstr="IRQ"
-hint="«IRQ» no se traduce (ver glosario)"
-
-{\bIRQ\b}
-id="gk-2-irq-mayusculas"
-valid msgstr="IRQ"
-hint="«IRQ» no se traduce (ver glosario)"
-
 {\bi\/o\b}i
 id="gk-2-i-o"
 valid msgstr="[Ee]\/s"
@@ -1848,7 +1761,7 @@ hint="«I/O» se traduce como «E/S» entrada/salida (ver glosario)"
 {\bI\/O\b}
 id="gp-3-i-o"
 valid msgstr="E\/S"
-hint="«I/O» se traduce como «E/S» (propuesta glosario)"
+hint="«I/O» se traduce como «E/S» (ver glosario)"
 
 {\bitalics\b}i
 id="gk-2-italics"
@@ -2436,7 +2349,7 @@ valid msgstr="se\sanali(za|ce)n?"
 valid msgstr="analizó"
 valid msgstr="analizar" after="be\s"
 valid msgstr="se\s(\w+\s){1,3}analizar"
-hint="«Parsed» se traduce como «Analizado» (propuesta glosario)"
+hint="«Parsed» se traduce como «Analizado» (ver glosario)"
 
 {\bparser\b}i
 id="gk-2-parser"
@@ -2815,7 +2728,7 @@ valid msgstr="entrecomilló"
 valid msgstr="se\s(\w+\s){1,3}citar"
 valid msgstr="se\s(\w+\s){1,3}entrecomillar"
 valid before="\-printable"
-hint="«Quoted» se traduce como «Entrecomillado/Citado» (propuesta glosario)"
+hint="«Quoted» se traduce como «Entrecomillado/Citado» (ver glosario)"
 
 {\bquotes\b}i
 id="gk-2-quotes"
@@ -2825,7 +2738,7 @@ valid msgstr="entrecomill(a|e)"
 valid msgstr="cotizaciones"
 valid msgstr="(alguna|cualquier|ninguna)\scomilla"
 valid msgstr="(alguna|cualquier|ninguna)\scita"
-hint="«Quotes» se traduce como «Comillas/Citas» (propuesta glosario)"
+hint="«Quotes» se traduce como «Comillas/Citas» (ver glosario)"
 
 {\bquotelike\b}i
 id="gk-2-quotelike"
@@ -3443,14 +3356,14 @@ hint="«Standar disclaimer» se traduce como «Renuncia estándar de responsabil
 id="gk-2-standard"
 valid msgstr="estándar"
 valid !msgstr="standard"
-hint="«Standard» se traduce como como «Estándar», (ver glosario)"
+hint="«Standard» se traduce como «Estándar», (ver glosario)"
 
 {\bstandards\b}i
 id="gk-2-standards"
 valid msgstr="estándares"
 valid msgstr="(algún|cualquier|ningún)\sestándar"
 valid !msgstr="standards?"
-hint="«Standards» se traduce como como «Estándares», (ver glosario)"
+hint="«Standards» se traduce como «Estándares», (ver glosario)"
 
 {\bstart\b}i
 id="gk-2-start"
@@ -3831,12 +3744,6 @@ valid msgstr="UPS"
 valid after="follow[\s-]"
 hint="«UPS» se traduce como «SAI» o «UPS»  (ver glosario)"
 
-{\burl\b}i
-id="gk-2-url"
-valid msgstr="url"
-valid msgstr="URL"
-hint="«URL» no se traduce y es de género femenino (ver glosario)"
-
 {\bverbatim\scopy\b}i
 id="gk-2-verbatim-copy"
 valid msgstr="copia\sliteral"
@@ -3848,12 +3755,6 @@ id="gk-2-verbatim-copies"
 valid msgstr="copias\sliterales"
 valid msgstr="(alguna|cualquier|ninguna)\scopia\sliteral"
 hint="«Verbatim copies» se traduce como «Copias literales» (ver glosario)"
-
-{\bweb\b}i
-id="gk-2-web"
-valid msgstr="web"
-valid msgstr="red" before="\sof\strust"
-hint="«Web» no se traduce (ver glosario)"
 
 {\bwidget\b}i
 id="gk-2-widget"

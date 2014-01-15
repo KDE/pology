@@ -1530,7 +1530,7 @@ hint="«Habemos» se escribe como «Hemos/Somos» (error gramatical)"
 id="gr-1-haber-habido"
 hint="«Habían/Habrán/Han/Hayan/Hubieran habido» se escribe como «Había/Habrá/Ha/Haya/Hubiera habido» (error gramatical)"
 
-[(?u)\b(haber|he|has|ha|hemos|habéis|han)\secho\b]i
+[(?u)\b(haber|he|has|ha|hemos|habéis|han|haya)\secho\b]i
 id="gr-1-haber-echo"
 hint="«Haber echo» se escribe como «Haber hecho» (error gramatical)"
 
@@ -2052,5 +2052,13 @@ hint="«Valer la pena de que» se escribe como «Valer la pena que que», dequei
 [(?u)\bverifi\w{1,4}?\sde\sque\b]i
 id="gr-1-dequeismo-34"
 hint="«Verificar de que» se escribe como «Verificar que», dequeismo (error gramatical)"
+
+#
+# LEISMOS, LAISMOS Y LOISMOS
+#
+
+[(?u)\bla\s\dij\w+\b]i
+id="gr-1-laismo-la-dije"
+hint="«La dije» se escribe como «Le dije», laismo (error gramatical)"
 
 # End of rule file

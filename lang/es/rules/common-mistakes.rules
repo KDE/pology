@@ -175,7 +175,7 @@ hint="«Aparte que» se escribe como «Aparte de» (error frecuente)"
 
 [\bapunto\sde\b]i
 id="cm-2-apunto-de"
-hint="«Apunto que» se escribe como «A punto de» (error frecuente)"
+hint="«Apunto de» se escribe como «A punto de» (error frecuente)"
 
 [\baquél\b]i
 id="cm-2-aquel-con-tilde"
@@ -538,6 +538,22 @@ hint="«De sobras» se escribe como «De sobra», salvo restos de comida (error 
 [\bde\stal\ssuerte\sque\b]i
 id="cm-2-de-tal-suerte-que"
 hint="«De tal suerte que» se escribe como «De manera que/De modo que/De suerte que» (error frecuente)"
+
+[\bdiez\sy\seis\b]i
+id="cm-1-diez-y-seis"
+hint="«Diez y seis» se escribe como «Dieciséis» (error frecuente)"
+
+[\bdiez\sy\ssiete\b]i
+id="cm-1-diez-y-siete"
+hint="«Diez y siete» se escribe como «Diecisiete» (error frecuente)"
+
+[\bdiez\sy\socho\b]i
+id="cm-1-diez-y-ocho"
+hint="«Diez y ocho» se escribe como «Dieciocho» (error frecuente)"
+
+[\bdiez\sy\snueve\b]i
+id="cm-1-diez-y-nueve"
+hint="«Diez y nueve» se escribe como «Diecinueve» (error frecuente)"
 
 [\bdiferente\sa\b]i
 id="cm-1-diferente-a"
@@ -1483,6 +1499,10 @@ hint="«Vió» se escribe como «Vio» (error frecuente)"
 [\bvigente\scampeón\b]i
 id="cm-2-vigente-campeon"
 hint="«Vigente campeón» se escribe como «Actual campeón» (error frecuente)"
+
+[\bX\sWindows\b]
+id="cm-3-x-windows"
+hint="«X Windows» se escribe como «X Window» (error frecuente)"
 
 [\by\/o\b]i
 id="cm-1-y-o"

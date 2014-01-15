@@ -18,22 +18,6 @@ valid msgstr="contabili(za|ce)"
 valid msgstr="(alguna|cualquier|ninguna)\scuenta"
 hint="«Accounts» se traduce como «Cuentas» (propuesta glosario)"
 
-{\bacpi\b}i
-id="gp-3-acpi"
-valid msgstr="acpi"
-valid msgstr="ACPI"
-hint="«ACPI» no se traduce (propuesta glosario)"
-
-{\bACPI\b}
-id="gp-3-acpi-mayusculas"
-valid msgstr="ACPI"
-hint="«ACPI» no se traduce (propuesta glosario)"
-
-{\b[Aa]d[\s-][Bb]lock\b}
-id="gp-3-ad-block"
-valid msgstr="[Aa]d[\s-][Bb]lock"
-hint="«Ad Block» no se traduce (propuesta glosario)"
-
 {\badd\-?on\b}i
 id="gp-3-add-on"
 valid msgstr="complemento"
@@ -49,17 +33,6 @@ hint="«Add-ons» se traduce como «Complementos» (propuesta glosario)"
 id="gp-3-antialiasing"
 valid msgstr="suavizados?\sde\sbordes"
 hint="«Anti-aliasing» se traduce como «Suavizado de bordes» (propuesta glosario)"
-
-{\bapm\b}i
-id="gp-3-apm"
-valid msgstr="apm"
-valid msgstr="APM"
-hint="«APM» no se traduce (propuesta glosario)"
-
-{\bAPM\b}
-id="gp-3-apm-mayusculas"
-valid msgstr="APM"
-hint="«APM» no se traduce (propuesta glosario)"
 
 {\bappliance\b}i
 id="gp-3-appliance"
@@ -485,17 +458,6 @@ hint="«CC» (copia de carbón) se traduce como «CC» (propuesta glosario)"
 id="gp-3-cc-mayusculas"
 valid msgstr="CC"
 hint="«CC» (copia de carbón) se traduce como «CC» (propuesta glosario)"
-
-{\bcddb\b}i
-id="gp-3-cddb"
-valid msgstr="cddb"
-valid msgstr="CDDB"
-hint="«CDDB» no se traduce (propuesta glosario)"
-
-{\bCDDB\b}
-id="gp-3-cddb-mayusculas"
-valid msgstr="CDDB"
-hint="«CDDB» no se traduce (propuesta glosario)"
 
 {\bcertificate\sauthority\b}i
 id="gp-3-certificate-authority"
@@ -1833,17 +1795,6 @@ valid msgstr="(algún|ningún|cualquier)\sgolpe"
 valid msgstr="(algún|ningún|cualquier)\séxito"
 hint="«Hits» se traduce como «Aciertos/Acceso/Visitas/Golpe» (propuesta glosario)"
 
-{\bhtml\b}i
-id="gp-3-html"
-valid msgstr="html"
-valid msgstr="HTML"
-hint="«HTML» no se traduce (propuesta glosario)"
-
-{\bHTML\b}
-id="gp-3-html-mayusculas"
-valid msgstr="HTML"
-hint="«HTML» no se traduce (propuesta glosario)"
-
 {\bhyphen\b}i
 id="gp-3-hyphen"
 valid msgstr="guion"
@@ -1861,11 +1812,6 @@ valid msgstr="inactiv[oa]"
 valid msgstr="inactividad"
 valid msgstr="IDLE"
 hint="«Idle» se traduce como «Inactivo» (propuesta glosario)"
-
-{\bidles\b}i
-id="gp-2-idles"
-valid msgstr="inactiv[oa]s?"
-hint="«Idles» se traduce como «Inactivos/Inactiva» (propuesta glosario)"
 
 {\bimplement\b}i
 id="gp-3-implement"
@@ -2290,11 +2236,6 @@ id="gp-3-mailboxes"
 valid msgstr="buzones"
 valid msgstr="(algún|ningún|cualquier)\sbuzón"
 hint="«Mailboxes» se traduce como «Buzones» (propuesta glosario)"
-
-{\bMaildir\b}
-id="gp-2-maildir"
-valid msgstr="[Mm]aildir"
-hint="«Maildir» no se traduce, es un formato de buzón de correo (propuesta glosario)"
 
 {\bmanage\b}i
 id="gp-3-manage"

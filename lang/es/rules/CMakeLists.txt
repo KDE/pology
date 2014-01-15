@@ -13,6 +13,7 @@ set(files
     paragraph-end.rules
     proper-names.rules
     spelling.rules
+    terminology.rules
     translators.rules
     typography.rules
     user-interface.rules

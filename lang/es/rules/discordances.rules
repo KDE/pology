@@ -64,6 +64,7 @@ valid msgstr="pendientes?"
 valid msgstr="restantes?"
 valid msgstr="libres?"
 valid msgstr="faltan?"
+valid msgstr="zurd[ao]s?" before="\shanded"
 valid before="\s(out|over)"
 hint="«Left» se traduce como «Izquierda» o similar (error de concordancia)"
 
@@ -77,7 +78,9 @@ valid msgstr="adecuad[ao]s?"
 valid msgstr="diestr[ao]s?"
 valid msgstr="just[ao]s?"
 valid msgstr="RIGHT"
+valid msgstr="(inmediatamente|en\sseguida|directamente)" before="\saway"
 valid before="\s(after|back|now)"
+valid before="\?"
 hint="«Right» se traduce como «Derecha» o similar (error de concordancia)"
 
 {\binside\b}i
