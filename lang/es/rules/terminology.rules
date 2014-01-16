@@ -1,0 +1,186 @@
+# Translation choices of spanish team
+# Copyrigth 2010-2012, Javier Viñal (fjvinal@gmail.com)
+# by the KDE Spanish Team (kde-l10n-es@kde.org)
+# License: GPLv3
+
+include file="filter.include"
+
+{\bacpi\b}i
+id="tr-3-acpi"
+valid msgstr="acpi"
+hint="«acpi» no se debe traducir (terminología)"
+
+{\bACPI\b}
+id="tr-3-acpi-mayusculas"
+valid msgstr="ACPI"
+hint="«ACPI» no se debe traducir (terminología)"
+
+#{\b[Aa]d[\s-][Bb]lock\b}
+#id="tr-3-ad-block"
+#valid msgstr="[Aa]d[\s-][Bb]lock" # Bloqueo de publicidad
+#hint="«Ad Block» no se debe traducir (terminología)"
+
+{\bapm\b}i
+id="tr-3-apm"
+valid msgstr="apm"
+hint="«APM» no se debe traducir (terminología)"
+
+{\bAPM\b}
+id="tr-3-apm-mayusculas"
+valid msgstr="APM"
+hint="«APM» no se debe traducir (terminología)"
+
+{\bapi\b}i
+id="tr-2-api"
+valid msgstr="api"
+hint="«api» no se debe traducir (terminología)"
+
+{\bAPI\b}
+id="tr-2-api-mayusculas"
+valid msgstr="API"
+hint="«API» no se debe traducir (terminología)"
+
+{\bbyte\b}i
+id="tr-2-byte"
+valid msgstr="byte"
+hint="«Byte» no se debe traducir (terminología)"
+
+{\bbytes\b}i
+id="tr-2-bytes"
+valid msgstr="bytes"
+valid msgstr="(algún|cualquier|ningún)\sbyte"
+hint="«Bytes» no se debe traducir (terminología)"
+
+{\bcd\b}i
+id="tr-2-cd"
+valid msgstr="cd"
+hint="«cd» significa «Compact disk», no se debe traducir (terminología)"
+
+{\bCD\b}
+id="tr-2-cd-mayusculas"
+valid msgstr="CD"
+hint="«CD» significa «Compact disk», no se debe traducir (terminología)"
+
+{\bcddb\b}i
+id="tr-3-cddb"
+valid msgstr="cddb"
+hint="«cddb» no se debe traducir (terminología)"
+
+{\bCDDB\b}
+id="tr-3-cddb-mayusculas"
+valid msgstr="CDDB"
+hint="«CDDB» no se debe traducir (terminología)"
+
+{\bchip\b}i
+id="tr-2-chip"
+valid msgstr="chip"
+valid msgstr="fichas?"
+hint="«Chip» no se debe traducir (terminología)"
+
+{\bchips\b}i
+id="tr-2-chips"
+valid msgstr="chips"
+valid msgstr="fichas?"
+valid msgstr="(algún|cualquier|ningún)\schip"
+hint="«Chips» no se debe traducir (terminología)"
+
+{\bcpan\b}i
+id="tr-2-cpan"
+valid msgstr="cpan"
+hint="«cpan» no se debe traducir (terminología)"
+
+{\bCPAN\b}
+id="tr-2-cpan-mayusculas"
+valid msgstr="CPAN"
+hint="«CPAN» no se debe traducir (terminología)"
+
+{\bctan\b}i
+id="tr-2-ctan"
+valid msgstr="ctan"
+hint="«ctan» no se debe traducir (terminología)"
+
+{\bCTAN\b}
+id="tr-2-ctan-mayusculas"
+valid msgstr="CTAN"
+hint="«CTAN» no se debe traducir (terminología)"
+
+{\bcups\b}i
+id="tr-2-cups"
+valid msgstr="cups"
+valid msgstr="[Tt]azas"
+valid msgstr="([Aa]lguna|[Cc]ualquier|[Nn]inguna)\staza"
+hint="«cups» no se debe traducir, salvo si se trata de tazas (terminología)"
+
+{\bCUPS\b}
+id="tr-2-cups-mayusculas"
+valid msgstr="CUPS"
+hint="«CUPS» no se debe traducir (terminología)"
+
+{\bdvd\b}i
+id="tr-2-dvd"
+valid msgstr="dvd"
+hint="«dvd» no se debe traducir (terminología)"
+
+{\bDVD\b}
+id="tr-2-dvd-mayusculas"
+valid msgstr="DVD"
+hint="«DVD» no se debe traducir (terminología)"
+
+{\bframe\srelay\b}i
+id="tr-2-frame-relay"
+valid msgstr="frame\srelay"
+hint="«Frame relay» no se debe traducir (terminología)"
+
+{\bguid\b}i
+id="tr-2-guid"
+valid msgstr="guid"
+hint="«guid» no se debe traducir (terminología)"
+
+{\bGUID\b}
+id="tr-2-guid-mayusculas"
+valid msgstr="GUID"
+hint="«GUID» no se debe traducir (terminología)"
+
+{\bhtml\b}i
+id="tr-3-html"
+valid msgstr="html"
+hint="«html» no se debe traducir (terminología)"
+
+{\bHTML\b}
+id="tr-3-html-mayusculas"
+valid msgstr="HTML"
+hint="«HTML» no se debe traducir (terminología)"
+
+{\birq\b}i
+id="tr-2-irq"
+valid msgstr="irq"
+hint="«irq» no se debe traducir (terminología)"
+
+{\bIRQ\b}
+id="tr-2-irq-mayusculas"
+valid msgstr="IRQ"
+hint="«IRQ» no se debe traducir (terminología)"
+
+{\bMaildir\b}
+id="tr-2-maildir"
+valid msgstr="[Mm]aildir"
+hint="«Maildir» no se debe traducir, es un formato de buzón de correo (terminología)"
+
+{\burl\b}i
+id="tr-2-url"
+valid msgstr="url"
+hint="«url» no se debe traducir y es de género femenino (terminología)"
+
+{\bURL\b}
+id="tr-2-url-mayusculas"
+valid msgstr="URL"
+hint="«URL» no se debe traducir y es de género femenino (terminología)"
+
+{\bweb\b}i
+id="tr-2-web"
+valid msgstr="web"
+valid msgstr="red" before="\sof\strust"
+valid msgstr="navegador" before="\sbrowser"
+hint="«Web» no se debe traducir (terminología)"
+
+# End of rule file
