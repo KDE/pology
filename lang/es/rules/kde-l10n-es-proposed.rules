@@ -1,5 +1,5 @@
 # Translation choices of spanish team
-# Copyrigth 2010-2012, Javier Viñal (fjvinal@gmail.com)
+# Copyrigth 2010-2014, Javier Viñal (fjvinal@gmail.com)
 # by the KDE Spanish Team (kde-l10n-es@kde.org)
 # License: GPLv3
 
@@ -343,13 +343,13 @@ valid msgstr="navegará" after="will\s(not\s)?"
 valid msgstr="examinará" after="will\s(not\s)?"
 valid msgstr="navegó" after="did\s(not\s)?"
 valid msgstr="emitió" after="did\s(not\s)?"
-hint="«Browse» se traduce como como «Navegar/Examinar» (propuesta glosario)"
+hint="«Browse» se traduce como «Navegar/Examinar» (propuesta glosario)"
 
 {\bbrowses\b}i
 id="gp-2-browses"
 valid msgstr="naveg(ar|a|ue)"
 valid msgstr="examin(ar|a|e)"
-hint="«Browses» se traduce como como «Navega/Examina» (propuesta glosario)"
+hint="«Browses» se traduce como «Navega/Examina» (propuesta glosario)"
 
 {\bbrowser\b}i
 id="gp-2-browser"
@@ -754,7 +754,7 @@ hint="«Cross compilers» se traduce como «Compiladores cruzados» (propuesta g
 id="ff-2-customizable"
 valid msgstr="personalizable"
 valid !msgstr="customizable"
-hint="«Customizable» se traduce como como «Personalizable», no como «Customizable» (propuesta glosario)"
+hint="«Customizable» se traduce como «Personalizable», no como «Customizable» (propuesta glosario)"
 
 {\bcustomize\b}i
 id="gp-2-customize"
@@ -1011,13 +1011,13 @@ valid msgstr="deshizo" after="did\s(not\s)?"
 valid msgstr="descartó" after="did\s(not\s)?"
 valid msgstr="descártel[oa]" before="\sit"
 valid msgstr="descártel[oa]s" before="\sthem"
-hint="«Discard» se traduce como como «Deshacer/Descartar» (propuesta glosario)"
+hint="«Discard» se traduce como «Deshacer/Descartar» (propuesta glosario)"
 
 {\bdiscards\b}i
 id="gp-2-discards"
 valid msgstr="desha(cer|ce|ga)"
 valid msgstr="descart(ar|a|e)"
-hint="«Discards» se traduce como como «Deshace/Descarta» (propuesta glosario)"
+hint="«Discards» se traduce como «Deshace/Descarta» (propuesta glosario)"
 
 {\bdiscarged\b}i
 id="gp-1-discarged"
@@ -1026,7 +1026,7 @@ valid msgstr="descartarse"
 valid msgstr="se\sdescart[ea]n?"
 valid msgstr="descartó"
 valid msgstr="se\s(\w+\s){1,3}descartar"
-hint="«Discarged» se traduce como como «Deshecho/Descartado» (propuesta glosario)"
+hint="«Discarged» se traduce como «Deshecho/Descartado» (propuesta glosario)"
 
 {\bdiskette\b}i
 id="gp-2-diskette"
@@ -1999,6 +1999,7 @@ id="gp-2-item"
 valid msgstr="elemento"
 valid msgstr="objeto"
 valid msgstr="opción"
+valid msgstr="multielemento" after="multi[\s-]"
 hint="«Item» se traduce como «Elemento/Objeto» (propuesta glosario)"
 
 {\bitems\b}i

@@ -1,5 +1,5 @@
 # Translation choices of spanish team
-# Copyrigth 2010, Javier Viñal (fjvinal@gmail.com)
+# Copyrigth 2010-2014, Javier Viñal (fjvinal@gmail.com)
 # by the KDE Spanish Team (kde-l10n-es@kde.org)
 # some ideas taken from the hook "sr/checks.py" by Chusslove Illich
 # License: GPLv3
@@ -35,6 +35,9 @@ addFilterRegex match="(\$\w+|\$\{\w+\}|(KDE|QT|JAVA)\w*|\.kde\d?|~)(\/[\w_#+.-]+
 
 # Remove Windows files
 addFilterRegex match="\b[A-Z]\:(\\{1,2}[\w.#+_-]+)+\b" repl="~" casesens="yes" on="pmsgid,pmsgstr"
+
+# Remove dd parameters
+addFilterRegex match="\b(if|of)\=(\/[\w_.#+-]+)+" repl="~" casesens="yes" on="pmsgid,pmsgstr"
 
 # Remove files with common extensions
 addFilterRegex match="\b[\w.#+_-]+?\.(txt|xml|exe|lib|bin|so|doc|docx|odt|pdf|jpg|png|ico|h|c|cpp|py|pyc|java|tar|tgz|gz)\b" repl="~" casesens="yes" on="pmsgid,pmsgstr"

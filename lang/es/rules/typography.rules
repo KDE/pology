@@ -1,5 +1,5 @@
 # Spanish typographic rules
-# Copyrigth 2010-2012, Javier Viñal (fjvinal@gmail.com)
+# Copyrigth 2010-2014, Javier Viñal (fjvinal@gmail.com)
 # by the KDE Spanish Team (kde-l10n-es@kde.org)
 # based in the work of the KDE French Team
 # License: GPLv3
@@ -109,6 +109,7 @@ hint="Ponga un espacio después del signo de punto y coma"
 id="ty-3-sobra-espacio-antes-cierre-admiracion"
 valid ctx="Numbers and characters"
 valid ctx="CSV separator"
+valid before="\w"
 hint="No ponga un espacio antes del signo de cierre de admiración"
 
 [\!(?!\s)]
