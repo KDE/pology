@@ -1015,6 +1015,7 @@ hint="«Cuantos...» se escribe como «Cuántos...» en oraciones interrogativas
 
 [(pero|sé|sabe\w*|pregunt\w+)(\s\w+)?\scuanto\b]i
 id="gr-1-cuanto-sin-tilde"
+valid span="\w+\sen\scuanto"
 hint="«Cuanto...» se escribe como «Cuánto...» en oraciones interrogativas indirectas, (error gramatical)"
 
 [(pero|sé|sabe\w*|pregunt\w+)(\s\w+)?\scuales\b]i
@@ -1053,7 +1054,7 @@ id="gr-3-falta-coma-posterior-a-si"
 valid before="[^.]+[,:]"
 valid before="[^.]+\.\.\."
 valid msgid="Whether"
-hint="Ponga como dentro de una frase que comienza por «Si» (error gramatical)"
+hint="Ponga coma dentro de una frase que comienza por «Si» (error gramatical)"
 
 [\bSí\s]
 id="gr-3-falta-coma-despues-de-si"
@@ -1618,7 +1619,7 @@ validGroup singularName
 validGroup wordDelimiter
 validGroup beforeConnector
 valid after="o\s"
-valid span="[Aa]l" before="\s\w+(los|las|nos|nas)"
+valid span="[Aa]l\s" before="\w+(los|las|nos|nas)"
 hint="Hay un artículo singular (El/Al/Del/Un/La/Una) seguido de un nombre en plural"
 
 [(?u)\b([Ll]os|[Ll]as)\s((dos|tres|cuatro|cinco|seis|siete|ocho|nueve|diez|once|doce|\d+)\s)?[«\'\"]?]

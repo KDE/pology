@@ -353,9 +353,9 @@ hint="«Bonus» se escribe como «Bonificación/Prima» (error frecuente)"
 id="cm-1-caben-destacar"
 hint="«Caben destacar» se escribe como «Cabe destacar» (error frecuente)"
 
-[\bcada\scúal\b]i
+[\bcada\scuál\b]i
 id="cm-1-cada-cual-con-tilde"
-hint="«Cada cual» se escribe sin tilde (error frecuente)"
+hint="«Cada cuál» se escribe sin tilde (error frecuente)"
 
 [\bcada\squién\b]i
 id="cm-2-cada-quien-con-tilde"
@@ -599,6 +599,10 @@ hint="No utilice «Emails» sino «Correos» (error frecuente)"
 [\b(el|del|uno|este|ese)\scaché\b]i
 id="cm-1-cache-masculino"
 hint="«Caché» es de género femenino (error frecuente)"
+
+[\b(el|la|lo)\scuál\b]i
+id="cm-1-el-la-lo-cual-con-tilde"
+hint="«El/La/Lo cuál» se escribe sin tilde (error frecuente)"
 
 [\b(el|del|un|este|ese)\sinterfaz\b]i
 id="cm-1-interfaz-masculino"
@@ -979,6 +983,10 @@ hint="«Lo se» se escribe como «Lo sé/Se lo». (error frecuente)"
 id="cm-1-caches-masculino"
 hint="«Cachés» es de género femenino (error frecuente)"
 
+[\b(los|las)\scuáles\b]i
+id="cm-1-los-las-cuales-con-tilde"
+hint="«Los/Las cuáles» se escribe sin tilde (error frecuente)"
+
 [\b(los|unos|estos|esos)\sinterfaces\b]i
 id="cm-1-interfaces-masculino"
 hint="«Interfaces» es de género femenino (error frecuente)"
@@ -1099,6 +1107,10 @@ hint="«Pán» se escribe como «Pan» (error frecuente)"
 [\bpalabras\sclaves\b]i
 id="cm-1-palabras-claves"
 hint="«Palabras claves» se escribe como «Palabras clave» (error frecuente)"
+
+[\bpara\scuál\b]i
+id="cm-1-para-cual-con-tilde"
+hint="«Para cuál» se escribe sin tilde (error frecuente)"
 
 [\bpara\smostrase\b]i
 id="cm-1-para-mostrase"
@@ -1344,7 +1356,11 @@ hint="«Sueldos bases» se escribe como «Sueldos base» (error frecuente)"
 id="cm-1-suelen-haber"
 hint="«Suelen haber» se escribe como «Suele haber» (error frecuente)"
 
-[\btal\scual\scomo\b]i
+[\btal\scuál\b]i
+id="cm-1-tal-cual-con-tilde"
+hint="«Tal cuál» se escribe sin tilde (error frecuente)"
+
+[\btal\scu[aá]l\scomo\b]i
 id="cm-2-tal-cual-como"
 hint="«Tal cual como» se escribe como «Tal como» (error frecuente: solecismo)"
 
