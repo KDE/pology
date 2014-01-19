@@ -91,7 +91,7 @@ valid msgstr="ventall més ampli" # docmessages
 hint="Es tradueix per «àmplia/gran varietat, ampli ventall, ventall més ampli» (kde-ca-team)"
 
 {\bbuttons?\b}i
-valid msgid="slider\sbutton"
+valid msgid="slid(er|ing)\sbutton"
 valid msgstr="bot(ó|ons)"
 valid msgstr="button" cat="klinkstatus"
 valid msgstr="B(D|E|M)R" # Per a docmessages &BDR;/&BER;/&BMR;
@@ -520,14 +520,14 @@ valid msgstr="abreviatura" cat="knode_using-subscribing" # docmessages
 hint="Es tradueix per -segons el sentit que tingui- «drecera/es|accés ràpid» (kde-ca-team)"
 
 {\bsliders?\b}i
-valid msgid="slider\sbutton"	# -> botó de control lliscant
+valid msgid="slid(er|ing)\sbutton"	# -> botó de control lliscant
 valid msgstr="controls? lliscants?"
 valid msgstr="controllliscant" cat="kexi"
 valid msgstr="lliscant" cat="krita"
 valid msgstr="lliscament" cat="kxsconfig"
 hint="Es tradueix per «control/s lliscant/s» (kde-ca-team)"
 
-{\bslider\sbutton\b}i
+{\bslid(er|ing)\sbutton\b}i
 valid msgstr="botó de control lliscant"
 hint="Es tradueix per «botó de control lliscant» (kde-ca-team)"
 
