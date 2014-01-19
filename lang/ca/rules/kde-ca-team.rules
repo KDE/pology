@@ -670,6 +670,11 @@ valid msgstr="fons de pantall(a|es)"
 valid !msgstr="papers? pintats?"
 hint="«wallpaper» es tradueix per «fons de pantalla», no per «paper pintat» (kde-ca-team)"
 
+# http://ca.wikipedia.org/wiki/Wi-Fi
+{\bwi.?fi\b}i
+valid msgstr="Wi-Fi"
+hint="Es tradueix per «Wi-Fi» (kde-ca-team)"
+
 {\bwindow\stitle\sbars?\b}i
 valid msgstr="barr(a|es) de títol de la finestra"
 hint="Es tradueix per «barra/es de títol de la finestra» (kde-ca-team)"
