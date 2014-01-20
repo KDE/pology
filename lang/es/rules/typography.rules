@@ -434,7 +434,9 @@ valid ctx=".*?TRANSLATORS"
 valid ctx="trans_comment"
 valid msgid=".*?TRANSLATORS"
 valid msgid="^$"
+valid before="(\sde)?\s[A-Z]\w+"
 valid after="\&[\w\d_-]+;"
+valid after="[A-ZÑÇ]\w+"
 hint="Utilice minúsculas después de coma o punto y coma"
 
 [(?u)\([A-ZÑÇ][a-záéíóúüñç]+]

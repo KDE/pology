@@ -146,7 +146,6 @@ hint="«Bauds» se traduce como «Baudios» (propuesta glosario)"
 {\bbcc\b}i
 id="gp-3-bcc"
 valid msgstr="cco"
-valid msgstr="CCO"
 hint="«Bcc» (copia de carbón oculta), se traduce como «Cco» (propuesta glosario)"
 
 {\bBCC\b}
@@ -451,7 +450,6 @@ hint="«Cash» se traduce como «Efectivo» (propuesta glosario)"
 {\bcc\b}i
 id="gp-3-cc"
 valid msgstr="cc"
-valid msgstr="CC"
 hint="«CC» (copia de carbón) se traduce como «CC» (propuesta glosario)"
 
 {\bCC\b}
@@ -771,7 +769,7 @@ valid msgstr="personalizarse"
 valid msgstr="se\spersonali(za|ce)n?"
 valid msgstr="personalizó"
 valid !msgstr="customizad[oa]"
-hint="«Customizez» se traduce como «Personalizado» (propuesta glosario)"
+hint="«Customized» se traduce como «Personalizado» (propuesta glosario)"
 
 {\bcustomizes\b}i
 id="gp-2-customizes"
@@ -1103,7 +1101,7 @@ valid msgstr="borradores"
 valid msgstr="(algún|ningún|cualquier)\sborrador"
 hint="«Drafts» se traduce como «Borradores» (propuesta glosario)"
 
-{[^(floppy\s|hard\s)]drive\b}i
+{[^(floppy\s|hard\s)]\bdrive\b}i
 id="gp-2-drive"
 valid msgstr="unidad"
 valid msgstr="dispositivo"
