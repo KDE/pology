@@ -102,6 +102,11 @@ id="t-runner"
 hint="runner = тркач"
 valid msgstr="\bтркач"
 
+{\bsquare}i
+id="t-square"
+hint="square = поље"
+valid msgstr="\bпољ[еау]"
+
 # ====================
 # KJumpingCube (game)
 environment kjumpingcube
