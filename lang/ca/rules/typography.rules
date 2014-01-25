@@ -245,6 +245,7 @@ valid ctx="CSV separator"
 valid comment="Tag\:\sprogramlisting" cat="kdm" # docmessages
 valid after="\d+" before="\s?\d+"
 valid after="Delta" cat="kstars"
+valid cat="kst_common"
 valid comment="Tag\:\sliterallayout" cat="ktimetracker" # docmessages
 hint="No s'ha de posar cap espai abans del signe de coma (tipografia)"
 
@@ -482,7 +483,7 @@ valid msgstr="nomi singoli e collettivi" cat="parley" # docmessages
 valid msgstr="^[SEARCH]" cat="sheets_functions" # docmessages
 valid msgstr="\se\s\([erg|dekao]" cat="sheets_functions" # docmessages
 valid ctx="Exponential"
-valid cat="tables,kcells,kspread,kdenlive,sheets"
+valid cat="tables,kcells,kspread,kdenlive,sheets,kst_common"
 valid comment="Tag\:\sprogramlisting" cat="rocs" # docmessages
 hint="«e» sola és un error (tipografia)"
 
