@@ -29,6 +29,11 @@ valid msgstr="segon pla"
 valid msgstr="style=\".*?background:.*?\""
 hint="Es tradueix per -segons el sentit- «fons i al darrere (pantalla), segon pla (executa)» (kde-ca-team)"
 
+{\bbandwidths?\b}i
+valid !msgstr="ample de banda"
+valid msgstr="amplad(a|es) de banda"
+hint="Es tradueix per «amplada de banda» (kde-ca-team)"
+
 {\bblurs?\b}i
 valid msgstr="difumina(t|s)?"
 valid !msgstr="desenfo.+"
