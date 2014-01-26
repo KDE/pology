@@ -1684,7 +1684,7 @@ def editprob (oldtext, newtext):
     return ep
 
 
-def descprob (descpath, ancpath, cutoff=None):
+def descprob (descpath, ancpath, cutoff=None, getcsz=False):
     """
     Compute the probability that one PO file is a descendant of another.
 
@@ -1707,9 +1707,15 @@ def descprob (descpath, ancpath, cutoff=None):
     @type descpath: string
     @param ancpath: path to possible ancestor PO file
     @type ancpath: string
+    @param cutoff: the cuttoff for fuzzy matching
+    @type cutoff: float
+    @param getcsz: also report the referent character sizes
+        of the first and second file
+    @type getcsz: bool
 
-    @returns: the probability of ancestry [0, 1]
-    @rtype: float or C{None}
+    @returns: the probability of ancestry [0, 1],
+        the referent character sizes if requested
+    @rtype: C{None} or float or (float, int, int)
     """
 
     # Read representative texts of messages.
@@ -1718,9 +1724,15 @@ def descprob (descpath, ancpath, cutoff=None):
     atexts = set(_read_msg_texts(ancpath))
 
     # Make the computation commutative, by always taking
-    # the file with less messages as possible descendant.
-    if len(dtexts) > len(atexts):
+    # the file with less text as possible descendant.
+    dtotchar = sum(len(t) for t in dtexts)
+    atotchar = sum(len(t) for t in atexts)
+    if getcsz:
+        dtotchar_orig = dtotchar
+        atotchar_orig = atotchar
+    if dtotchar > atotchar:
         dtexts, atexts = atexts, dtexts
+        dtotchar, atotchar = atotchar, dtotchar
 
     # Count how many texts from descendant are in ancestor too.
     # This gives basic probability.
@@ -1749,16 +1761,15 @@ def descprob (descpath, ancpath, cutoff=None):
         prob += sumsim / len(dtexts)
 
     # Correct probability for small files.
-    limtotchar1 = 60 # e.g. 3 messages with 2 words (12 characters) each
-    limtotchar2 = 240 # e.g. 10 messages with 4 words (24 characters) each
-    dtotchar = sum(len(t) for t in dtexts)
-    atotchar = sum(len(t) for t in atexts)
-    if dtotchar < limtotchar1:
-        prob *= float(dtotchar) / atotchar
-    elif dtotchar < limtotchar2:
-        prob = prob**4
+    # This is necessary due to enforced commutativity above.
+    limtotchar = 100 # e.g. 10 messages with 2 words (10 characters) each
+    if dtotchar < limtotchar:
+        prob *= (float(dtotchar) / atotchar)**0.5
 
-    return prob
+    if getcsz:
+        return prob, dtotchar_orig, atotchar_orig
+    else:
+        return prob
 
 
 def _read_msg_texts (path):
