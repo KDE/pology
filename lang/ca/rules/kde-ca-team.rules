@@ -458,7 +458,7 @@ valid msgstr="caren(a|es)" # de muntanyes
 valid msgstr="gamma"
 valid msgstr="intervals?"
 valid msgstr="marge" # HDR (High dynamic range): Marge dinàmic elevat
-valid msgstr="contingut" cat="katepart4"
+valid msgstr="contingut" cat="katepart4,ktexteditor5"
 valid msgstr="ventall" cat="www_www,kalzium"
 valid msgstr="ampli ventall" cat="konqueror" # docmessages
 valid msgstr="«Range»" # docmessages
@@ -601,7 +601,7 @@ valid msgstr="pestany(a|es)"
 valid msgstr="tabuladors?"
 valid msgstr="tabulaci(ó|ons)"
 valid msgstr="caràcter de tabulació"
-valid msgstr="tab" cat="kdelibs4,kcmkeyboard,kabcclient,kdeqt,katepart4,ktouch,digikam,simonshortcutcommand" # Tecla Tab
+valid msgstr="tab" cat="kdelibs4,kcmkeyboard,kabcclient,kdeqt,katepart4,ktexteditor5,ktouch,digikam,simonshortcutcommand" # Tecla Tab
 valid msgstr="tabulatur(a|es)" cat="amarok" # Tablature -> Tabulatura (Termcat: música)
 valid msgstr="encastat" cat="kcontrol_filetypes" # docmessages
 valid msgstr="~" after="screenshot.+" cat="korganizer" # docmessages
