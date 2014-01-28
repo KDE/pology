@@ -1,186 +1,2127 @@
 # Translation choices of spanish team
-# Copyrigth 2010-2012, Javier Viñal (fjvinal@gmail.com)
+# Copyrigth 2010-2014, Javier Viñal (fjvinal@gmail.com)
 # by the KDE Spanish Team (kde-l10n-es@kde.org)
 # License: GPLv3
 
 include file="filter.include"
 
+{\baba[Kk]us\b}i
+id="te-3-abakus"
+valid msgstr="aba[Kk]us"
+hint="«Abakus» no se debe traducir (terminología)"
+
 {\bacpi\b}i
-id="tr-3-acpi"
+id="te-3-acpi"
 valid msgstr="acpi"
-hint="«acpi» no se debe traducir (terminología)"
+hint="«Acpi» no se debe traducir (terminología)"
 
 {\bACPI\b}
-id="tr-3-acpi-mayusculas"
+id="te-3-acpi-mayusculas"
 valid msgstr="ACPI"
 hint="«ACPI» no se debe traducir (terminología)"
 
-#{\b[Aa]d[\s-][Bb]lock\b}
-#id="tr-3-ad-block"
-#valid msgstr="[Aa]d[\s-][Bb]lock" # Bloqueo de publicidad
-#hint="«Ad Block» no se debe traducir (terminología)"
+{\badobe\b}i
+id="te-3-adobe"
+valid msgstr="adobe"
+hint="«Adobe» no se debe traducir (terminología)"
+
+{\bakonadi\b}i
+id="te-3-akonadi"
+valid msgstr="akonadi"
+hint="«Akonadi» no se debe traducir (terminología)"
+
+{\balsa\b}i
+id="te-3-alsa"
+valid msgstr="alsa"
+hint="«Alsa» no se debe traducir (terminología)"
+
+{\bALSA\b}
+id="te-3-alsa-mayusculas"
+valid msgstr="ALSA"
+hint="«ALSA» no se debe traducir (terminología)"
+
+{\bamarok\b}i
+id="te-3-amarok"
+valid msgstr="amarok"
+hint="«Amarok» no se debe traducir (terminología)"
+
+{\bapache\b}i
+id="te-3-apache"
+valid msgstr="apache"
+hint="«Apache» no se debe traducir (terminología)"
 
 {\bapm\b}i
-id="tr-3-apm"
+id="te-3-apm"
 valid msgstr="apm"
-hint="«APM» no se debe traducir (terminología)"
+hint="«Apm» no se debe traducir (terminología)"
 
 {\bAPM\b}
-id="tr-3-apm-mayusculas"
+id="te-3-apm-mayusculas"
 valid msgstr="APM"
 hint="«APM» no se debe traducir (terminología)"
 
 {\bapi\b}i
-id="tr-2-api"
+id="te-3-api"
 valid msgstr="api"
-hint="«api» no se debe traducir (terminología)"
+hint="«Api» no se debe traducir (terminología)"
 
 {\bAPI\b}
-id="tr-2-api-mayusculas"
+id="te-3-api-mayusculas"
 valid msgstr="API"
 hint="«API» no se debe traducir (terminología)"
 
+{\basciiquarium\b}i
+id="te-3-asciiquarium"
+valid msgstr="asciiquarium"
+hint="«Asciiquarium» no se debe traducir (terminología)"
+
+{\bbluetooth\b}i
+id="te-3-bluetooth"
+valid msgstr="bluetooth"
+hint="«Bluetooth» no se debe traducir (terminología)"
+
+{\bbmp\b}i
+id="te-3-bmp"
+valid msgstr="bmp"
+hint="«Bmp» no se debe traducir (terminología)"
+
+{\bBMP\b}
+id="te-3-bmp-mayusculas"
+valid msgstr="BMP"
+hint="«BMP» no se debe traducir (terminología)"
+
+{\bbpm\b}i
+id="te-3-bpm"
+valid msgstr="bpm"
+hint="«Bpm» no se debe traducir (terminología)"
+
+{\bBPM\b}
+id="te-3-bpm-mayusculas"
+valid msgstr="BPM"
+hint="«BPM» no se debe traducir (terminología)"
+
+{\bbsd\b}i
+id="te-3-bsd"
+valid msgstr="bsd"
+hint="«Bsd» no se debe traducir (terminología)"
+
+{\bBSD\b}
+id="te-3-bsd-mayusculas"
+valid msgstr="BSD"
+hint="«BSD» no se debe traducir (terminología)"
+
 {\bbyte\b}i
-id="tr-2-byte"
+id="te-3-byte"
 valid msgstr="byte"
 hint="«Byte» no se debe traducir (terminología)"
 
 {\bbytes\b}i
-id="tr-2-bytes"
+id="te-3-bytes"
 valid msgstr="bytes"
 valid msgstr="(algún|cualquier|ningún)\sbyte"
 hint="«Bytes» no se debe traducir (terminología)"
 
+{\bc\+\+\b}i
+id="te-3-cpp"
+valid msgstr="c\+\+"
+hint="«C++» no se debe traducir (terminología)"
+
+{\bcal(dav|DAV)\b}i
+id="te-3-caldav"
+valid msgstr="cal(dav|DAV)"
+hint="«Caldav» no se debe traducir (terminología)"
+
+{\bcalligra\b}i
+id="te-3-calligra"
+valid msgstr="calligra"
+hint="«Calligra» no se debe traducir (terminología)"
+
 {\bcd\b}i
-id="tr-2-cd"
+id="te-3-cd"
 valid msgstr="cd"
-hint="«cd» significa «Compact disk», no se debe traducir (terminología)"
+hint="«Cd» significa «Compact disk», no se debe traducir (terminología)"
 
 {\bCD\b}
-id="tr-2-cd-mayusculas"
+id="te-3-cd-mayusculas"
 valid msgstr="CD"
 hint="«CD» significa «Compact disk», no se debe traducir (terminología)"
 
+{\bcdda\b}i
+id="te-3-cdda"
+valid msgstr="cdda"
+hint="«Cdda» no se debe traducir (terminología)"
+
+{\bCDDA\b}
+id="te-3-cdda-mayusculas"
+valid msgstr="CDDA"
+hint="«CDDA» no se debe traducir (terminología)"
+
 {\bcddb\b}i
-id="tr-3-cddb"
+id="te-3-cddb"
 valid msgstr="cddb"
-hint="«cddb» no se debe traducir (terminología)"
+hint="«Cddb» no se debe traducir (terminología)"
 
 {\bCDDB\b}
-id="tr-3-cddb-mayusculas"
+id="te-3-cddb-mayusculas"
 valid msgstr="CDDB"
 hint="«CDDB» no se debe traducir (terminología)"
 
 {\bchip\b}i
-id="tr-2-chip"
+id="te-3-chip"
 valid msgstr="chip"
 valid msgstr="fichas?"
 hint="«Chip» no se debe traducir (terminología)"
 
 {\bchips\b}i
-id="tr-2-chips"
+id="te-3-chips"
 valid msgstr="chips"
 valid msgstr="fichas?"
 valid msgstr="(algún|cualquier|ningún)\schip"
 hint="«Chips» no se debe traducir (terminología)"
 
+{\bcid\b}i
+id="te-3-cid"
+valid msgstr="cid"
+hint="«Cid» no se debe traducir (terminología)"
+
+{\bcir[Kk]uit\b}i
+id="te-3-cirkuit"
+valid msgstr="cir[Kk]uit"
+hint="«Cirkuit» no se debe traducir (terminología)"
+
+{\bcisco\b}i
+id="te-3-cisco"
+valid msgstr="cisco"
+hint="«Cisco» no se debe traducir (terminología)"
+
+{\bcmake\b}i
+id="te-3-cmake"
+valid msgstr="cmake"
+hint="«Cmake» no se debe traducir (terminología)"
+
 {\bcpan\b}i
-id="tr-2-cpan"
+id="te-3-cpan"
 valid msgstr="cpan"
-hint="«cpan» no se debe traducir (terminología)"
+hint="«Cpan» no se debe traducir (terminología)"
 
 {\bCPAN\b}
-id="tr-2-cpan-mayusculas"
+id="te-3-cpan-mayusculas"
 valid msgstr="CPAN"
 hint="«CPAN» no se debe traducir (terminología)"
 
+{\bcpu\b}i
+id="te-3-cpu"
+valid msgstr="cpu"
+hint="«Cpu» no se debe traducir (terminología)"
+
+{\bCPU\b}
+id="te-3-cpu-mayusculas"
+valid msgstr="CPU"
+hint="«CPU» no se debe traducir (terminología)"
+
+{\bcrl\b}i
+id="te-3-crl"
+valid msgstr="crl"
+hint="«Crl» no se debe traducir (terminología)"
+
+{\bCRL\b}
+id="te-3-crl-mayusculas"
+valid msgstr="CRL"
+hint="«CRL» no se debe traducir (terminología)"
+
+{\bcrontab\b}i
+id="te-3-crontab"
+valid msgstr="crontab"
+hint="«Crontab» no se debe traducir (terminología)"
+
+{\bcss\b}i
+id="te-3-css"
+valid msgstr="css"
+hint="«Css» no se debe traducir (terminología)"
+
+{\bCSS\b}
+id="te-3-css-mayusculas"
+valid msgstr="CSS"
+hint="«CSS» no se debe traducir (terminología)"
+
+{\bcsv\b}i
+id="te-3-csv"
+valid msgstr="csv"
+hint="«Csv» no se debe traducir (terminología)"
+
+{\bCSV\b}
+id="te-3-csv-mayusculas"
+valid msgstr="CSV"
+hint="«CSV» no se debe traducir (terminología)"
+
 {\bctan\b}i
-id="tr-2-ctan"
+id="te-3-ctan"
 valid msgstr="ctan"
-hint="«ctan» no se debe traducir (terminología)"
+hint="«Ctan» no se debe traducir (terminología)"
 
 {\bCTAN\b}
-id="tr-2-ctan-mayusculas"
+id="te-3-ctan-mayusculas"
 valid msgstr="CTAN"
 hint="«CTAN» no se debe traducir (terminología)"
 
 {\bcups\b}i
-id="tr-2-cups"
+id="te-3-cups"
 valid msgstr="cups"
-valid msgstr="[Tt]azas"
-valid msgstr="([Aa]lguna|[Cc]ualquier|[Nn]inguna)\staza"
-hint="«cups» no se debe traducir, salvo si se trata de tazas (terminología)"
+valid msgstr="tazas"
+valid msgstr="(alguna|cualquier|ninguna)\staza"
+hint="«Cups» no se debe traducir, salvo si se trata de tazas (terminología)"
 
 {\bCUPS\b}
-id="tr-2-cups-mayusculas"
+id="te-3-cups-mayusculas"
 valid msgstr="CUPS"
 hint="«CUPS» no se debe traducir (terminología)"
 
+{\bcvs\b}i
+id="te-3-cvs"
+valid msgstr="cvs"
+hint="«Cvs» no se debe traducir (terminología)"
+
+{\bCVS\b}
+id="te-3-cvs-mayusculas"
+valid msgstr="CVS"
+hint="«CVS» no se debe traducir (terminología)"
+
+{\bd\-[Bb]us\b}i
+id="te-3-d-bus"
+valid msgstr="d\-[Bb]us"
+hint="«D-Bus» no se debe traducir (terminología)"
+
+{\bd[Bb]us\b}i
+id="te-3-dbus"
+valid msgstr="d[Bb]us"
+hint="«DBus» no se debe traducir (terminología)"
+
+{\bdebian\b}i
+id="te-3-debian"
+valid msgstr="debian"
+hint="«Debian» no se debe traducir (terminología)"
+
+{\bdhcp\b}i
+id="te-3-dhcp"
+valid msgstr="dhcp"
+hint="«Dhcp» no se debe traducir (terminología)"
+
+{\bDHCP\b}
+id="te-3-dhcp-mayusculas"
+valid msgstr="DHCP"
+hint="«DHCP» no se debe traducir (terminología)"
+
+#{\bdiff\b}i
+#id="te-3-diff"
+#valid msgstr="diff"
+#hint="«diff» no se debe traducir (terminología)"
+# Se traduce como «diferencia»
+
+{\bdigi[Kk]am\b}i
+id="te-3-digikam"
+valid msgstr="digi[Kk]am"
+hint="«Digikam» no se debe traducir (terminología)"
+
+{\bdjvu\b}i
+id="te-3-djvu"
+valid msgstr="djvu"
+hint="«Djvu» no se debe traducir (terminología)"
+
+{\bdns\b}i
+id="te-3-dns"
+valid msgstr="dns"
+hint="«Dns» no se debe traducir (terminología)"
+
+{\bDNS\b}
+id="te-3-dns-mayusculas"
+valid msgstr="DNS"
+hint="«DNS» no se debe traducir (terminología)"
+
+{\bdoctype\b}i
+id="te-3-doctype"
+valid msgstr="doctype"
+hint="«Doctype» no se debe traducir (terminología)"
+
 {\bdvd\b}i
-id="tr-2-dvd"
+id="te-3-dvd"
 valid msgstr="dvd"
-hint="«dvd» no se debe traducir (terminología)"
+hint="«Dvd» no se debe traducir (terminología)"
 
 {\bDVD\b}
-id="tr-2-dvd-mayusculas"
+id="te-3-dvd-mayusculas"
 valid msgstr="DVD"
 hint="«DVD» no se debe traducir (terminología)"
 
+{\bdvi\b}i
+id="te-3-dvi"
+valid msgstr="dvi"
+hint="«Dvi» no se debe traducir (terminología)"
+
+{\bDVI\b}
+id="te-3-dvi-mayusculas"
+valid msgstr="DVI"
+hint="«DVI» no se debe traducir (terminología)"
+
+{\bexif\b}i
+id="te-3-exif"
+valid msgstr="exif"
+hint="«Exif» no se debe traducir (terminología)"
+
+{\bEXIF\b}
+id="te-3-exif-mayusculas"
+valid msgstr="EXIF"
+hint="«EXIF» no se debe traducir (terminología)"
+
+{\bface[Bb]ook\b}i
+id="te-3-facebook"
+valid msgstr="face[Bb]ook"
+hint="«Facebook» no se debe traducir (terminología)"
+
+{\bfestival\b}i
+id="te-3-festival"
+valid msgstr="festival"
+hint="«Festival» no se debe traducir (terminología)"
+
+{\bffmpeg\b}i
+id="te-3-ffmpeg"
+valid msgstr="ffmpeg"
+hint="«Ffmpeg» no se debe traducir (terminología)"
+
 {\bframe\srelay\b}i
-id="tr-2-frame-relay"
+id="te-3-frame-relay"
 valid msgstr="frame\srelay"
 hint="«Frame relay» no se debe traducir (terminología)"
 
+{\bfree(db|DB)\b}i
+id="te-3-freedb"
+valid msgstr="free(db|DB)"
+hint="«Freedb» no se debe traducir (terminología)"
+
+{\bgdb\b}i
+id="te-3-gdb"
+valid msgstr="gdb"
+hint="«Gdb» no se debe traducir (terminología)"
+
+{\bGDB\b}
+id="te-3-gdb-mayusculas"
+valid msgstr="GDB"
+hint="«GDB» no se debe traducir (terminología)"
+
+{\bgid\b}i
+id="te-3-gid"
+valid msgstr="gid"
+hint="«Gid» no se debe traducir (terminología)"
+
+{\bGID\b}
+id="te-3-gid-mayusculas"
+valid msgstr="GID"
+hint="«GID» no se debe traducir (terminología)"
+
 {\bguid\b}i
-id="tr-2-guid"
+id="te-3-guid"
 valid msgstr="guid"
-hint="«guid» no se debe traducir (terminología)"
+hint="«Guid» no se debe traducir (terminología)"
 
 {\bGUID\b}
-id="tr-2-guid-mayusculas"
+id="te-3-guid-mayusculas"
 valid msgstr="GUID"
 hint="«GUID» no se debe traducir (terminología)"
 
+{\bg[Ww]en[Vv]iew\b}i
+id="te-3-gwnview"
+valid msgstr="g[Ww]en[Vv]iew"
+hint="«Gwenview» no se debe traducir (terminología)"
+
+{\bgit\b}i
+id="te-3-git"
+valid msgstr="git"
+hint="«Git» no se debe traducir (terminología)"
+
+{\bg[Ll][Mm]atrix\b}i
+id="te-3-glmatrix"
+valid msgstr="g[Ll][Mm]atrix"
+hint="«Glmatrix» no se debe traducir (terminología)"
+
+{\bgnome\b}i
+id="te-3-gnome"
+valid msgstr="gnome"
+hint="«Gnome» no se debe traducir (terminología)"
+
+{\bGNOME\b}
+id="te-3-gnome-mayusculas"
+valid msgstr="GNOME"
+hint="«GNOME» no se debe traducir (terminología)"
+
+{\bgnu(pg|PG)\b}i
+id="te-3-gnupg"
+valid msgstr="gnu(pg|PG)"
+hint="«Gnupg» no se debe traducir (terminología)"
+
+{\bgnu[Pp]lot\b}i
+id="te-3-gnuplot"
+valid msgstr="gnu[Pp]lot"
+hint="«Gnuplot» no se debe traducir (terminología)"
+
+{\bgoogle\b}i
+id="te-3-gogle"
+valid msgstr="google"
+hint="«Google» no se debe traducir (terminología)"
+
+{\bgpl\b}i
+id="te-3-gpl"
+valid msgstr="gpl"
+hint="«Gpl» no se debe traducir (terminología)"
+
+{\bGPL\b}
+id="te-3-gpl-mayusculas"
+valid msgstr="GPL"
+hint="«GPL» no se debe traducir (terminología)"
+
+{\bgrub2\b}i
+id="te-3-grub2"
+valid msgstr="grub2"
+hint="«Grub2» no se debe traducir (terminología)"
+
+{\bGRUB2\b}
+id="te-3-grub2-mayusculas"
+valid msgstr="GRUB2"
+hint="«GRUB2» no se debe traducir (terminología)"
+
+{\bgsm\b}i
+id="te-3-gsm"
+valid msgstr="gsm"
+hint="«Gsm» no se debe traducir (terminología)"
+
+{\bGSM\b}
+id="te-3-gsm-mayusculas"
+valid msgstr="GSM"
+hint="«GSM» no se debe traducir (terminología)"
+
+{\bg[Ss]treamer\b}i
+id="te-3-gstreamer"
+valid msgstr="g[Ss]treamer"
+hint="«Gstreamer» no se debe traducir (terminología)"
+
+{\bgtfs\b}i
+id="te-3-gtfs"
+valid msgstr="gtfs"
+hint="«Gtfs» no se debe traducir (terminología)"
+
+{\bgtk\b}i
+id="te-3-gtk"
+valid msgstr="gtk"
+hint="«Gtk» no se debe traducir (terminología)"
+
+{\bGTK\b}
+id="te-3-gtk-mayusculas"
+valid msgstr="GTK"
+hint="«GTK» no se debe traducir (terminología)"
+
+{\bhadifix\b}i
+id="te-3-hadifix"
+valid msgstr="hadifix"
+hint="«Hadifix» no se debe traducir (terminología)"
+
+{\bHADIFIX\b}
+id="te-3-hadifix-mayusculas"
+valid msgstr="HADIFIX"
+hint="«HADIFIX» no se debe traducir (terminología)"
+
+{\bhtk\b}i
+id="te-3-htk"
+valid msgstr="htk"
+hint="«Htk» no se debe traducir (terminología)"
+
+{\bHTK\b}
+id="te-3-htk-mayusculas"
+valid msgstr="HTK"
+hint="«HTK» no se debe traducir (terminología)"
+
 {\bhtml\b}i
-id="tr-3-html"
+id="te-3-html"
 valid msgstr="html"
 hint="«html» no se debe traducir (terminología)"
 
 {\bHTML\b}
-id="tr-3-html-mayusculas"
+id="te-3-html-mayusculas"
 valid msgstr="HTML"
 hint="«HTML» no se debe traducir (terminología)"
 
+{\bhttp\b}i
+id="te-3-http"
+valid msgstr="http"
+hint="«Http» no se debe traducir (terminología)"
+
+{\bHTTP\b}
+id="te-3-http-mayusculas"
+valid msgstr="HTTP"
+hint="«HTTP» no se debe traducir (terminología)"
+
+{\bi18n\b}i
+id="te-3-i18n"
+valid msgstr="i18n"
+hint="«I18n» no se debe traducir (terminología)"
+
+{\bi[Cc]al\b}i
+id="te-3-ical"
+valid msgstr="i[Cc]al"
+hint="«Ical» no se debe traducir (terminología)"
+
+{\bi[Cc]alendar\b}i
+id="te-3-icalendar"
+valid msgstr="i[Cc]alendar"
+hint="«Icalendar» no se debe traducir (terminología)"
+
+{\bicc\b}i
+id="te-3-icc"
+valid msgstr="icc"
+hint="«Icc» no se debe traducir (terminología)"
+
+{\bICC\b}
+id="te-3-icc-mayusculas"
+valid msgstr="ICC"
+hint="«ICC» no se debe traducir (terminología)"
+
+{\bicq\b}i
+id="te-3-icq"
+valid msgstr="icq"
+hint="«Icq» no se debe traducir (terminología)"
+
+{\bICQ\b}
+id="te-3-icq-mayusculas"
+valid msgstr="ICQ"
+hint="«ICQ» no se debe traducir (terminología)"
+
+{\bid3\b}i
+id="te-3-id3"
+valid msgstr="id3"
+hint="«Id3» no se debe traducir (terminología)"
+
+{\bID3\b}
+id="te-3-id3-mayusculas"
+valid msgstr="ID3"
+hint="«ID3» no se debe traducir (terminología)"
+
+{\bimap\b}i
+id="te-3-imap"
+valid msgstr="imap"
+hint="«Imap» no se debe traducir (terminología)"
+
+{\binternet\b}i
+id="te-3-internet"
+valid msgstr="Internet"
+hint="«Internet» no se debe traducir (terminología)"
+
+{\bi[Pp]sec\b}i
+id="te-3-ipsec"
+valid msgstr="i[Pp]sec"
+hint="«Ipsec» no se debe traducir (terminología)"
+
+{\bi[Pp]v4\b}i
+id="te-3-ipv4"
+valid msgstr="i[Pp]v4"
+hint="«Ipv4» no se debe traducir (terminología)"
+
+{\bi[Pp]v6\b}i
+id="te-3-ipv6"
+valid msgstr="i[Pp]v6"
+hint="«Ipv6» no se debe traducir (terminología)"
+
+{\birc\b}i
+id="te-3-irc"
+valid msgstr="irc"
+hint="«Irc» no se debe traducir (terminología)"
+
+{\bIRC\b}
+id="te-3-irc-mayusculas"
+valid msgstr="IRC"
+hint="«IRC» no se debe traducir (terminología)"
+
 {\birq\b}i
-id="tr-2-irq"
+id="te-3-irq"
 valid msgstr="irq"
-hint="«irq» no se debe traducir (terminología)"
+hint="«Irq» no se debe traducir (terminología)"
 
 {\bIRQ\b}
-id="tr-2-irq-mayusculas"
+id="te-3-irq-mayusculas"
 valid msgstr="IRQ"
 hint="«IRQ» no se debe traducir (terminología)"
 
+{\biso\b}i
+id="te-3-iso"
+valid msgstr="iso"
+hint="«Iso» no se debe traducir (terminología)"
+
+{\bISO\b}
+id="te-3-iso-mayusculas"
+valid msgstr="ISO"
+hint="«ISO» no se debe traducir (terminología)"
+
+{\biso9660\b}i
+id="te-3-iso9660"
+valid msgstr="iso9660"
+hint="«Iso9660» no se debe traducir (terminología)"
+
+{\bISO9660\b}
+id="te-3-iso9660-mayusculas"
+valid msgstr="ISO9660"
+hint="«ISO9660» no se debe traducir (terminología)"
+
+{\bjava\b}i
+id="te-3-java"
+valid msgstr="java"
+hint="«Java» no se debe traducir (terminología)"
+
+{\bjava[Ss]cript\b}i
+id="te-3-javascript"
+valid msgstr="java[Ss]cript"
+hint="«Javascript» no se debe traducir (terminología)"
+
+{\bjovie\b}i
+id="te-3-jovie"
+valid msgstr="jovie"
+hint="«Jovie» no se debe traducir (terminología)"
+
+{\bjpeg\b}i
+id="te-3-jpeg"
+valid msgstr="jpeg"
+hint="«Jpeg» no se debe traducir (terminología)"
+
+{\bJPEG\b}
+id="te-3-jpeg-mayusculas"
+valid msgstr="JPEG"
+hint="«JPEG» no se debe traducir (terminología)"
+
+{\bjpg\b}i
+id="te-3-jpg"
+valid msgstr="jpg"
+hint="«Jpg» no se debe traducir (terminología)"
+
+{\bJPG\b}
+id="te-3-jpg-mayusculas"
+valid msgstr="JPG"
+hint="«JPG» no se debe traducir (terminología)"
+
+{\bjson\b}i
+id="te-3-json"
+valid msgstr="json"
+hint="«Json» no se debe traducir (terminología)"
+
+{\bkaddressbook\b}i
+id="te-3-kaddressbook"
+valid msgstr="kaddressbook"
+hint="«Kaddressbook» no se debe traducir (terminología)"
+
+{\bkadmos\b}i
+id="te-3-kadmos"
+valid msgstr="kadmos"
+hint="«Kadmos» no se debe traducir (terminología)"
+
+{\bkalcul\b}i
+id="te-3-kalcul"
+valid msgstr="kalcul"
+hint="«Kalcul» no se debe traducir (terminología)"
+
+{\bkalzium\b}i
+id="te-3-kalzium"
+valid msgstr="kalzium"
+hint="«Kalzium» no se debe traducir (terminología)"
+
+{\bkana\b}i
+id="te-3-kana"
+valid msgstr="kana"
+hint="«Kana» no se debe traducir (terminología)"
+
+{\bkannasaver\b}i
+id="te-3-kannasaver"
+valid msgstr="kannasaver"
+hint="«Kannasaver» no se debe traducir (terminología)"
+
+{\bkapman\b}i
+id="te-3-kapman"
+valid msgstr="kapman"
+hint="«Kapman» no se debe traducir (terminología)"
+
+{\bkard\b}i
+id="te-3-kard"
+valid msgstr="kard"
+hint="«Kard» no se debe traducir (terminología)"
+
+{\bkate\b}i
+id="te-3-kate"
+valid msgstr="kate"
+hint="«Kate» no se debe traducir (terminología)"
+
+{\bkcachegrind\b}i
+id="te-3-kcachegrind"
+valid msgstr="kcachegrind"
+hint="«Kcachegrind» no se debe traducir (terminología)"
+
+{\bkcalc\b}i
+id="te-3-kcalc"
+valid msgstr="kcalc"
+hint="«Kcalc» no se debe traducir (terminología)"
+
+{\bkdat\b}i
+id="te-3-kdat"
+valid msgstr="kdat"
+hint="«Kdat» no se debe traducir (terminología)"
+
+{\bkde\b}i
+id="te-3-kde"
+valid msgstr="kde"
+hint="«Kde» no se debe traducir (terminología)"
+
+{\bKDE\b}
+id="te-3-kde-mayusculas"
+valid msgstr="KDE"
+hint="«KDE» no se debe traducir (terminología)"
+
+{\bkde4\b}i
+id="te-3-kde4"
+valid msgstr="kde4"
+hint="«Kde4» no se debe traducir (terminología)"
+
+{\bKDE4\b}
+id="te-3-kde4-mayusculas"
+valid msgstr="KDE4"
+hint="«KDE4» no se debe traducir (terminología)"
+
+{\bkdeprint\b}i
+id="te-3-kdeprint"
+valid msgstr="kdeprint"
+hint="«Kdeprint» no se debe traducir (terminología)"
+
+{\bkdesvn\b}i
+id="te-3-kdesvn"
+valid msgstr="kdesvn"
+hint="«Kdesvn» no se debe traducir (terminología)"
+
+{\bkdevelop\b}i
+id="te-3-kdevelop"
+valid msgstr="kdevelop"
+hint="«Kdevelop» no se debe traducir (terminología)"
+
+{\bkdewebdev\b}i
+id="te-3-kdewebdev"
+valid msgstr="kdewebdev"
+hint="«Kdewebdev» no se debe traducir (terminología)"
+
+{\bkdiff3\b}i
+id="te-3-kdiff3"
+valid msgstr="kdiff3"
+hint="«Kdiff3» no se debe traducir (terminología)"
+
+{\bkdm\b}i
+id="te-3-kdm"
+valid msgstr="kdm"
+hint="«Kdm» no se debe traducir (terminología)"
+
+{\bkeduca\b}i
+id="te-3-keduca"
+valid msgstr="keduca"
+hint="«Keduca» no se debe traducir (terminología)"
+
+{\bkexi\b}i
+id="te-3-kexi"
+valid msgstr="kexi"
+hint="«Kexi» no se debe traducir (terminología)"
+
+{\bkfilereplace\b}i
+id="te-3-kfilereplace"
+valid msgstr="kfilereplace"
+hint="«Kfilereplace» no se debe traducir (terminología)"
+
+{\bkfloppy\b}i
+id="te-3-kfloppy"
+valid msgstr="kfloppy"
+hint="«Kfloppy» no se debe traducir (terminología)"
+
+{\bkfprintee\b}i
+id="te-3-kfprintee"
+valid msgstr="kfprintee"
+hint="«Kfprintee» no se debe traducir (terminología)"
+
+{\bkget\b}i
+id="te-3-kget"
+valid msgstr="kget"
+hint="«Kget» no se debe traducir (terminología)"
+
+{\bkgoldrunner\b}i
+id="te-3-kgoldrunner"
+valid msgstr="kgoldrunner"
+hint="«Kgoldrunner» no se debe traducir (terminología)"
+
+{\bkpgp\b}i
+id="te-3-kpgp"
+valid msgstr="kpgp"
+hint="«Kpgp» no se debe traducir (terminología)"
+
+{\bkhipu\b}i
+id="te-3-khipu"
+valid msgstr="khipu"
+hint="«Khipu» no se debe traducir (terminología)"
+
+{\bkhtml\b}i
+id="te-3-khtml"
+valid msgstr="khtml"
+hint="«Khtml» no se debe traducir (terminología)"
+
+{\bkig\b}i
+id="te-3-kig"
+valid msgstr="kig"
+hint="«Kig» no se debe traducir (terminología)"
+
+{\bkile\b}i
+id="te-3-kile"
+valid msgstr="kile"
+hint="«Kile» no se debe traducir (terminología)"
+
+{\bkimagemapeditor\b}i
+id="te-3-kimagemapeditor"
+valid msgstr="kimagemapeditor"
+hint="«Kimagemapeditor» no se debe traducir (terminología)"
+
+{\bkio\b}i
+id="te-3-kio"
+valid msgstr="kio"
+hint="«Kio» no se debe traducir (terminología)"
+
+{\bkioclient\b}i
+id="te-3-kioclient"
+valid msgstr="kioclient"
+hint="«Kioclient» no se debe traducir (terminología)"
+
+{\bkipi\b}i
+id="te-3-kipi"
+valid msgstr="kipi"
+hint="«Kipi» no se debe traducir (terminología)"
+
+{\bkitty\b}i
+id="te-3-kitty"
+valid msgstr="kitty"
+hint="«Kitty» no se debe traducir (terminología)"
+
+{\bklein\b}i
+id="te-3-klein"
+valid msgstr="klein"
+hint="«Klein» no se debe traducir (terminología)"
+
+{\bklinkstatus\b}i
+id="te-3-klinkstatus"
+valid msgstr="klinkstatus"
+hint="«Klinkstatus» no se debe traducir (terminología)"
+
+{\bkmahjongg\b}i
+id="te-3-kmahjongg"
+valid msgstr="kmahjongg"
+hint="«Kmahjongg» no se debe traducir (terminología)"
+
+{\bkmail\b}i
+id="te-3-kmail"
+valid msgstr="kmail"
+hint="«Kmail» no se debe traducir (terminología)"
+
+{\bkmix\b}i
+id="te-3-kmix"
+valid msgstr="kmix"
+hint="«Kmix» no se debe traducir (terminología)"
+
+{\bkml\b}i
+id="te-3-kml"
+valid msgstr="kml"
+hint="«Kml» no se debe traducir (terminología)"
+
+{\bkmousetool\b}i
+id="te-3-kmousetrool"
+valid msgstr="kmousetool"
+hint="«Kmousetool» no se debe traducir (terminología)"
+
+{\bkmuddy\b}i
+id="te-3-kmuddy"
+valid msgstr="kmuddy"
+hint="«Kmuddy» no se debe traducir (terminología)"
+
+{\bkmymoney\b}i
+id="te-3-kmymoney"
+valid msgstr="kmymoney"
+hint="«Kmymoney» no se debe traducir (terminología)"
+
+{\bknemo\b}i
+id="te-3-knemo"
+valid msgstr="knemo"
+hint="«Knemo» no se debe traducir (terminología)"
+
+{\bknetworkconf\b}i
+id="te-3-knetworkconf"
+valid msgstr="knetworkconf"
+hint="«Knetworkconf» no se debe traducir (terminología)"
+
+{\bknipptasch\b}i
+id="te-3-knipptasch"
+valid msgstr="knipptasch"
+hint="«Knipptasch» no se debe traducir (terminología)"
+
+{\bkoffice\b}i
+id="te-3-koffice"
+valid msgstr="koffice"
+hint="«Koffice» no se debe traducir (terminología)"
+
+{\bkolab\b}i
+id="te-3-kolab"
+valid msgstr="kolab"
+hint="«Kolab» no se debe traducir (terminología)"
+
+{\bkolourpaint\b}i
+id="te-3-kolourpaint"
+valid msgstr="kolourpaint"
+hint="«Kolourpaint» no se debe traducir (terminología)"
+
+{\bkommander\b}i
+id="te-3-kommander"
+valid msgstr="kommander"
+hint="«Kommander» no se debe traducir (terminología)"
+
+{\bkompare\b}i
+id="te-3-kompare"
+valid msgstr="kompare"
+hint="«Kompare» no se debe traducir (terminología)"
+
+{\bkong\b}i
+id="te-3-kong"
+valid msgstr="kong"
+hint="«Kong» no se debe traducir (terminología)"
+
+{\bkonqueror\b}i
+id="te-3-konqueror"
+valid msgstr="konqueror"
+hint="«Konqueror» no se debe traducir (terminología)"
+
+{\bkonsole\b}i
+id="te-3-konsole"
+valid msgstr="konsole"
+hint="«Konsole» no se debe traducir (terminología)"
+
+{\bkontact\b}i
+id="te-3-kontact"
+valid msgstr="kontact"
+hint="«Kontact» no se debe traducir (terminología)"
+
+{\bkonversation\b}i
+id="te-3-konversation"
+valid msgstr="konversation"
+hint="«Konversation» no se debe traducir (terminología)"
+
+{\bkooka\b}i
+id="te-3-kooka"
+valid msgstr="kooka"
+hint="«Kooka» no se debe traducir (terminología)"
+
+{\bkopete\b}i
+id="te-3-kopete"
+valid msgstr="kopete"
+hint="«Kopete» no se debe traducir (terminología)"
+
+{\bkopier\b}i
+id="te-3-kopier"
+valid msgstr="kopier"
+hint="«Kopier» no se debe traducir (terminología)"
+
+{\bkorganizer\b}i
+id="te-3-korganizer"
+valid msgstr="korganizer"
+hint="«Korganizer» no se debe traducir (terminología)"
+
+{\bkpackage\b}i
+id="te-3-kpackage"
+valid msgstr="kpackage"
+hint="«Kpackage» no se debe traducir (terminología)"
+
+{\bkpackagekit\b}i
+id="te-3-kpackagekit"
+valid msgstr="kpackagekit"
+hint="«Kpackagekit» no se debe traducir (terminología)"
+
+{\bkpart\b}i
+id="te-3-kpart"
+valid msgstr="kpart"
+hint="«Kpart» no se debe traducir (terminología)"
+
+{\bkpilot\b}i
+id="te-3-kpilot"
+valid msgstr="kpilot"
+hint="«Kpilot» no se debe traducir (terminología)"
+
+{\bkplayer\b}i
+id="te-3-kplayer"
+valid msgstr="kplayer"
+hint="«Kplayer» no se debe traducir (terminología)"
+
+{\bkppp\b}i
+id="te-3-kppp"
+valid msgstr="kppp"
+hint="«Kppp» no se debe traducir (terminología)"
+
+{\bkraft\b}i
+id="te-3-kraft"
+valid msgstr="kraft"
+hint="«Kraft» no se debe traducir (terminología)"
+
+{\bkrazy\b}i
+id="te-3-krazy"
+valid msgstr="krazy"
+hint="«Krazy» no se debe traducir (terminología)"
+
+{\bkrdc\b}i
+id="te-3-krdc"
+valid msgstr="krdc"
+hint="«Krdc» no se debe traducir (terminología)"
+
+{\bkregexpeditor\b}i
+id="te-3-kregexpeditor"
+valid msgstr="kregexpeditor"
+hint="«Kregexpeditor» no se debe traducir (terminología)"
+
+{\bkremotecontrol\b}i
+id="te-3-kremotecontrol"
+valid msgstr="kremotecontrol"
+hint="«Kremotecontrol» no se debe traducir (terminología)"
+
+{\bkresource\b}i
+id="te-3-kresource"
+valid msgstr="kresource"
+hint="«Kresource» no se debe traducir (terminología)"
+
+{\bkrita\b}i
+id="te-3-krita"
+valid msgstr="krita"
+hint="«Krita» no se debe traducir (terminología)"
+
+{\bkrusader\b}i
+id="te-3-krusader"
+valid msgstr="krusader"
+hint="«Krusader» no se debe traducir (terminología)"
+
+{\bksana\b}i
+id="te-3-ksana"
+valid msgstr="ksana"
+hint="«Ksana» no se debe traducir (terminología)"
+
+{\bksayit\b}i
+id="te-3-ksayit"
+valid msgstr="ksayit"
+hint="«Ksayit» no se debe traducir (terminología)"
+
+{\bkscreen\b}i
+id="te-3-kscreen"
+valid msgstr="kscreen"
+hint="«Kscreen» no se debe traducir (terminología)"
+
+{\bksecretsservice\b}i
+id="te-3-ksecretsservice"
+valid msgstr="ksecretsservice"
+hint="«Ksecretsservice» no se debe traducir (terminología)"
+
+{\bksig\b}i
+id="te-3-ksig"
+valid msgstr="ksig"
+hint="«Ksig» no se debe traducir (terminología)"
+
+{\bksimond\b}i
+id="te-3-ksimond"
+valid msgstr="ksimond"
+hint="«Ksimond» no se debe traducir (terminología)"
+
+{\bksirk\b}i
+id="te-3-ksirk"
+valid msgstr="ksirk"
+hint="«Kscreen» no se debe traducir (terminología)"
+
+{\bkstarts\b}i
+id="te-3-kstarts"
+valid msgstr="kstarts"
+hint="«Kstarts» no se debe traducir (terminología)"
+
+{\bksystemlog\b}i
+id="te-3-ksystemlog"
+valid msgstr="ksystemlog"
+hint="«Ksystemlog» no se debe traducir (terminología)"
+
+{\bksysv\b}i
+id="te-3-ksysv"
+valid msgstr="ksysv"
+hint="«Ksysv» no se debe traducir (terminología)"
+
+{\bkteatime\b}i
+id="te-3-kteatime"
+valid msgstr="kteatime"
+hint="«Kteatime» no se debe traducir (terminología)"
+
+{\bktexeditor\b}i
+id="te-3-ktexeditor"
+valid msgstr="ktexeditor"
+hint="«Ktexeditor» no se debe traducir (terminología)"
+
+{\bktorrent\b}i
+id="te-3-ktorrent"
+valid msgstr="ktorrent"
+hint="«Ktorrent» no se debe traducir (terminología)"
+
+{\bkttsjobmgrpart\b}i
+id="te-3-kttsjobmgrpart"
+valid msgstr="kttsjobmgrpart"
+hint="«Kttsjobmgrpart» no se debe traducir (terminología)"
+
+{\bkttsd\b}i
+id="te-3-kttsd"
+valid msgstr="kttsd"
+hint="«Kttsd» no se debe traducir (terminología)"
+
+{\bkttsmgr\b}i
+id="te-3-kttsmgr"
+valid msgstr="kttsmgr"
+hint="«Kttsmgr» no se debe traducir (terminología)"
+
+{\bktutorial\b}i
+id="te-3-ktutorial"
+valid msgstr="ktutorial"
+hint="«Ktutorial» no se debe traducir (terminología)"
+
+{\bktux\b}i
+id="te-3-ktux"
+valid msgstr="ktux"
+hint="«Ktux» no se debe traducir (terminología)"
+
+{\bkubuntu\b}i
+id="te-3-kubuntu"
+valid msgstr="kubuntu"
+hint="«Kubuntu» no se debe traducir (terminología)"
+
+{\bkuser\b}i
+id="te-3-kuser"
+valid msgstr="kuser"
+hint="«Kuser» no se debe traducir (terminología)"
+
+{\bkverbos\b}i
+id="te-3-kverbos"
+valid msgstr="kverbos"
+hint="«Kverbos» no se debe traducir (terminología)"
+
+{\bkvkbd\b}i
+id="te-3-kvkbd"
+valid msgstr="kvkbd"
+hint="«Kvkbd» no se debe traducir (terminología)"
+
+{\bkvpnc\b}i
+id="te-3-kvpnc"
+valid msgstr="kvpnc"
+hint="«Kvpnc» no se debe traducir (terminología)"
+
+{\bkwallet\b}i
+id="te-3-kwallet"
+valid msgstr="kwallet"
+hint="«Kwallet» no se debe traducir (terminología)"
+
+{\bkweatherservice\b}i
+id="te-3-kweatherservice"
+valid msgstr="kweatherservice"
+hint="«Kweatherservice» no se debe traducir (terminología)"
+
+{\bkwin\b}i
+id="te-3-kwin"
+valid msgstr="kwin"
+hint="«Kwin» no se debe traducir (terminología)"
+
+{\bkworldclock\b}i
+id="te-3-kworldclock"
+valid msgstr="kworldclock"
+hint="«Kworldclock» no se debe traducir (terminología)"
+
+{\bkxsldbg\b}i
+id="te-3-kxsldbg"
+valid msgstr="kxsldbg"
+hint="«Kxsldbg» no se debe traducir (terminología)"
+
+{\blancelot\b}i
+id="te-3-lancelot"
+valid msgstr="lancelot"
+hint="«Lancelot» no se debe traducir (terminología)"
+
+{\blast\.[Ff]m\b}i
+id="te-3-last-fm"
+valid msgstr="last\.[Ff]m"
+hint="«Last.Fm» no se debe traducir (terminología)"
+
+{\bldap\b}i
+id="te-3-ldap"
+valid msgstr="ldap"
+hint="«Ldap» no se debe traducir (terminología)"
+
+{\bLDAP\b}
+id="te-3-ldap-mayúsculas"
+valid msgstr="LDAP"
+hint="«LDAP» no se debe traducir (terminología)"
+
+{\blinux\b}i
+id="te-3-linux"
+valid msgstr="linux"
+hint="«Linux» no se debe traducir (terminología)"
+
+{\blorenz\b}i
+id="te-3-lorenz"
+valid msgstr="lorenz"
+hint="«Lorenz» no se debe traducir (terminología)"
+
 {\bMaildir\b}
-id="tr-2-maildir"
+id="te-3-maildir"
 valid msgstr="[Mm]aildir"
 hint="«Maildir» no se debe traducir, es un formato de buzón de correo (terminología)"
 
+{\bmbox\b}i
+id="te-3-mbox"
+valid msgstr="mbox"
+hint="«Mbox» no se debe traducir (terminología)"
+
+{\bMBOX\b}
+id="te-3-mbox-mayúsculas"
+valid msgstr="MBOX"
+hint="«MBOX» no se debe traducir (terminología)"
+
+{\bmd5\b}i
+id="te-3-md5"
+valid msgstr="md5"
+hint="«Md5» no se debe traducir (terminología)"
+
+{\bMD5\b}
+id="te-3-md5-mayúsculas"
+valid msgstr="MD5"
+hint="«MD5» no se debe traducir (terminología)"
+
+{\bmicrosoft\b}i
+id="te-3-microsoft"
+valid msgstr="microsoft"
+hint="«Microsoft» no se debe traducir (terminología)"
+
+{\bmime\b}i
+id="te-3-mime"
+valid msgstr="mime"
+hint="«Mime» no se debe traducir (terminología)"
+
+{\bMIME\b}
+id="te-3-mime-mayúsculas"
+valid msgstr="MIME"
+hint="«MIME» no se debe traducir (terminología)"
+
+{\bmp3\b}i
+id="te-3-mp3"
+valid msgstr="mp3"
+hint="«Mp3» no se debe traducir (terminología)"
+
+{\bMP3\b}
+id="te-3-mp3-mayúsculas"
+valid msgstr="MP3"
+hint="«MP3» no se debe traducir (terminología)"
+
+{\bmpeg\b}i
+id="te-3-mpeg"
+valid msgstr="mpeg"
+hint="«Mpeg» no se debe traducir (terminología)"
+
+{\bMPEG\b}
+id="te-3-mpeg-mayúsculas"
+valid msgstr="MPEG"
+hint="«MPEG» no se debe traducir (terminología)"
+
+{\bm[Pp]layer\b}i
+id="te-3-mplayer"
+valid msgstr="m[Pp]layer"
+hint="«Mplayer» no se debe traducir (terminología)"
+
+{\bmy(SQL|sql)\b}i
+id="te-3-mysql"
+valid msgstr="my(SQL|sql)"
+hint="«Mysql» no se debe traducir (terminología)"
+
+{\bneko\b}i
+id="te-3-neko"
+valid msgstr="neko"
+hint="«Neko» no se debe traducir (terminología)"
+
+{\bnepomuk\b}i
+id="te-3-nepomuk"
+valid msgstr="nepomuk"
+hint="«Nepomuk» no se debe traducir (terminología)"
+
+{\bnet(BIOS|bios)\b}i
+id="te-3-netbios"
+valid msgstr="net(BIOS|bios)"
+hint="«Netbios» no se debe traducir (terminología)"
+
+{\bnetscape\b}i
+id="te-3-netscape"
+valid msgstr="netscape"
+hint="«Netscape» no se debe traducir (terminología)"
+
+{\bnetwork[Mm]anager\b}i
+id="te-3-networkmanager"
+valid msgstr="network[Mm]anager"
+hint="«Networkmanager» no se debe traducir (terminología)"
+
+{\bnovell\b}i
+id="te-3-novell"
+valid msgstr="novell"
+hint="«Novell» no se debe traducir (terminología)"
+
+{\bntsc\b}i
+id="te-3-ntsc"
+valid msgstr="ntsc"
+hint="«Ntsc» no se debe traducir (terminología)"
+
+{\bNTSC\b}
+id="te-3-ntsc-mayúsculas"
+valid msgstr="NTSC"
+hint="«NTSC» no se debe traducir (terminología)"
+
+{\bofx\b}i
+id="te-3-ofx"
+valid msgstr="ofx"
+hint="«Ofx» no se debe traducir (terminología)"
+
+{\bokteta\b}i
+id="te-3-okteta"
+valid msgstr="okteta"
+hint="«Okteta» no se debe traducir (terminología)"
+
+{\bokular\b}i
+id="te-3-okular"
+valid msgstr="okular"
+hint="«Okular» no se debe traducir (terminología)"
+
+{\boneko\b}i
+id="te-3-oneko"
+valid msgstr="oneko"
+hint="«Oneko» no se debe traducir (terminología)"
+
+{\bopen[Gg]l\b}i
+id="te-3-opengl"
+valid msgstr="open[Gg]l"
+hint="«Opengl» no se debe traducir (terminología)"
+
+{\bopen[Dd]ocument\b}i
+id="te-3-opendocument"
+valid msgstr="open[Dd]ocument"
+hint="«Opendocument» no se debe traducir (terminología)"
+
+{\bopen(PGP|pgp)\b}i
+id="te-3-openpgp"
+valid msgstr="open(PGP|pgp)"
+hint="«Openpgp» no se debe traducir (terminología)"
+
+{\bopenssl\b}i
+id="te-3-openssl"
+valid msgstr="openssl"
+hint="«Openssl» no se debe traducir (terminología)"
+
+{\bopen[Ss]treet[Mm]ap\b}i
+id="te-3-openstreetmap"
+valid msgstr="open[Ss]treet[Mm]ap"
+hint="«Openstreetmap» no se debe traducir (terminología)"
+
+{\bopen(VPN|vpn)\b}i
+id="te-3-openvpn"
+valid msgstr="open(VPN|vpn)"
+hint="«Openvpn» no se debe traducir (terminología)"
+
+{\boutlook\b}i
+id="te-3-outlook"
+valid msgstr="outlook"
+hint="«Outlook» no se debe traducir (terminología)"
+
+{\bpal\b}i
+id="te-3-pal"
+valid msgstr="pal"
+hint="«Pal» no se debe traducir (terminología)"
+
+{\bPAL\b}
+id="te-3-pal-mayúsculas"
+valid msgstr="PAL"
+hint="«PAL» no se debe traducir (terminología)"
+
+{\bpdf\b}i
+id="te-3-pdf"
+valid msgstr="pdf"
+hint="«Pdf» no se debe traducir (terminología)"
+
+{\bPDF\b}
+id="te-3-pdf-mayúsculas"
+valid msgstr="PDF"
+hint="«PDF» no se debe traducir (terminología)"
+
+{\bpenrose\b}i
+id="te-3-penrose"
+valid msgstr="penrose"
+hint="«Penrose» no se debe traducir (terminología)"
+
+{\bperl\b}i
+id="te-3-perl"
+valid msgstr="perl"
+hint="«Perl» no se debe traducir (terminología)"
+
+{\bPERL\b}
+id="te-3-perl-mayúsculas"
+valid msgstr="PERL"
+hint="«PERL» no se debe traducir (terminología)"
+
+{\bphonon\b}i
+id="te-3-phonon"
+valid msgstr="phonon"
+hint="«Phonon» no se debe traducir (terminología)"
+
+{\bphp\b}i
+id="te-3-php"
+valid msgstr="php"
+hint="«Php» no se debe traducir (terminología)"
+
+{\bPHP\b}
+id="te-3-php-mayúsculas"
+valid msgstr="PHP"
+hint="«PHP» no se debe traducir (terminología)"
+
+{\bplasma\b}i
+id="te-3-plasma"
+valid msgstr="plasma"
+hint="«Plasma» no se debe traducir (terminología)"
+
+{\bpng\b}i
+id="te-3-png"
+valid msgstr="png"
+hint="«Png» no se debe traducir (terminología)"
+
+{\bPNG\b}
+id="te-3-png-mayúsculas"
+valid msgstr="PNG"
+hint="«PNG» no se debe traducir (terminología)"
+
+{\bpolicy[Kk]it\b}i
+id="te-3-policykit"
+valid msgstr="policy[Kk]it"
+hint="«Policykit» no se debe traducir (terminología)"
+
+{\bpop3\b}i
+id="te-3-pop3"
+valid msgstr="pop3"
+hint="«Pop3» no se debe traducir (terminología)"
+
+{\bPOP3\b}
+id="te-3-pop3-mayúsculas"
+valid msgstr="POP3"
+hint="«POP3» no se debe traducir (terminología)"
+
+{\bpostfix\b}i
+id="te-3-postfix"
+valid msgstr="postfix"
+valid msgstr="post?fijos?"
+valid msgstr="sufijos?"
+hint="«Postfix» no se debe traducir, excepto por «sufijo» (terminología)"
+
+{\bpost[Ss]cript\b}i
+id="te-3-postscript"
+valid msgstr="post[Ss]cript"
+hint="«Postscript» no se debe traducir (terminología)"
+
+{\bpptp\b}i
+id="te-3-pptp"
+valid msgstr="pptp"
+hint="«Pptp» no se debe traducir (terminología)"
+
+{\bpulse[Aa]udio\b}i
+id="te-3-pulseaudio"
+valid msgstr="pulse[Aa]udio"
+hint="«Pulseaudio» no se debe traducir (terminología)"
+
+{\bphyton\b}i
+id="te-3-python"
+valid msgstr="python"
+valid msgstr="pitón"
+hint="«Python» no se debe traducir (terminología)"
+
+{\bqif\b}i
+id="te-3-qif"
+valid msgstr="qif"
+hint="«Qif» no se debe traducir (terminología)"
+
+{\bqmake\b}i
+id="te-3-qmake"
+valid msgstr="qmake"
+hint="«Qmake» no se debe traducir (terminología)"
+
+{\bqml\b}i
+id="te-3-qml"
+valid msgstr="qml"
+hint="«Qml» no se debe traducir (terminología)"
+
+{\bQML\b}
+id="te-3-qml-mayúsculas"
+valid msgstr="QML"
+hint="«QML» no se debe traducir (terminología)"
+
+{\brar\b}i
+id="te-3-rar"
+valid msgstr="rar"
+hint="«Rar» no se debe traducir (terminología)"
+
+{\bRAR\b}
+id="te-3-rar-mayúsculas"
+valid msgstr="RAR"
+hint="«RAR» no se debe traducir (terminología)"
+
+{\brdn\b}i
+id="te-3-rdn"
+valid msgstr="rdn"
+hint="«Rdn» no se debe traducir (terminología)"
+
+{\brgb\b}i
+id="te-3-rgb"
+valid msgstr="rgb"
+hint="«Rgb» no se debe traducir (terminología)"
+
+{\bRGB\b}
+id="te-3-rgb-mayúsculas"
+valid msgstr="RGB"
+hint="«RGB» no se debe traducir (terminología)"
+
+{\brpm\b}i
+id="te-3-rpm"
+valid msgstr="rpm"
+hint="«Rpm» no se debe traducir (terminología)"
+
+{\bRPM\b}
+id="te-3-rpm-mayúsculas"
+valid msgstr="RPM"
+hint="«RPM» no se debe traducir (terminología)"
+
+{\brss\b}i
+id="te-3-rss"
+valid msgstr="rss"
+hint="«Rss» no se debe traducir (terminología)"
+
+{\bRSS\b}
+id="te-3-rss-mayúsculas"
+valid msgstr="RSS"
+hint="«RSS» no se debe traducir (terminología)"
+
+{\brubik\b}i
+id="te-3-rubik"
+valid msgstr="rubik"
+hint="«Rubik» no se debe traducir (terminología)"
+
+{\bsam\b}i
+id="te-3-sam"
+valid msgstr="sam"
+hint="«Sam» no se debe traducir (terminología)"
+
+{\bsamba\b}i
+id="te-3-samba"
+valid msgstr="samba"
+hint="«Samba» no se debe traducir (terminología)"
+
+{\bscsi\b}i
+id="te-3-scsi"
+valid msgstr="scsi"
+hint="«Scsi» no se debe traducir (terminología)"
+
+{\bSCSI\b}
+id="te-3-scsi-mayusculas"
+valid msgstr="SCSI"
+hint="«SCSI» no se debe traducir (terminología)"
+
+{\bsendmail\b}i
+id="te-3-sendmail"
+valid msgstr="sendmail"
+hint="«Sendmail» no se debe traducir (terminología)"
+
+{\bsgi\b}i
+id="te-3-sgi"
+valid msgstr="sgi"
+hint="«Sgi» no se debe traducir (terminología)"
+
+{\bSGI\b}
+id="te-3-sgi-mayusculas"
+valid msgstr="SGI"
+hint="«SGI» no se debe traducir (terminología)"
+
+{\bsid\b}i
+id="te-3-sid"
+valid msgstr="sid"
+hint="«Sid» no se debe traducir (terminología)"
+
+{\bSID\b}
+id="te-3-sid-mayusculas"
+valid msgstr="SID"
+hint="«SID» no se debe traducir (terminología)"
+
+{\bsierpinski\b}i
+id="te-3-sierpinski"
+valid msgstr="sierpinski"
+hint="«Sierpinski» no se debe traducir (terminología)"
+
+{\bsimon\b}i
+id="te-3-simon"
+valid msgstr="simon"
+hint="«Simon» no se debe traducir (terminología)"
+
+{\bsimond\b}i
+id="te-3-simond"
+valid msgstr="simond"
+hint="«Simond» no se debe traducir (terminología)"
+
+{\bskanlite\b}i
+id="te-3-skanlite"
+valid msgstr="skanlite"
+hint="«Skanlite» no se debe traducir (terminología)"
+
+{\bskrooge\b}i
+id="te-3-skrooge"
+valid msgstr="skrooge"
+hint="«Skrooge» no se debe traducir (terminología)"
+
+{\bskype\b}i
+id="te-3-skype"
+valid msgstr="skype"
+hint="«Skype» no se debe traducir (terminología)"
+
+{\bsms\b}i
+id="te-3-sms"
+valid msgstr="sms"
+hint="«Sms» no se debe traducir (terminología)"
+
+{\bSMS\b}
+id="te-3-sms-mayusculas"
+valid msgstr="SMS"
+hint="«SMS» no se debe traducir (terminología)"
+
+{\bsmtp\b}i
+id="te-3-smtp"
+valid msgstr="smtp"
+hint="«Smtp» no se debe traducir (terminología)"
+
+{\bSMTP\b}
+id="te-3-smtp-mayusculas"
+valid msgstr="SMTP"
+hint="«SMTP» no se debe traducir (terminología)"
+
+{\bsolidkreator\b}i
+id="te-3-solidkreator"
+valid msgstr="solidkreator"
+hint="«Solidkreator» no se debe traducir (terminología)"
+
+{\bsql\b}i
+id="te-3-sql"
+valid msgstr="sql"
+hint="«Sql» no se debe traducir (terminología)"
+
+{\bSQL\b}
+id="te-3-sql-mayusculas"
+valid msgstr="SQL"
+hint="«SQL» no se debe traducir (terminología)"
+
+{\b(SQL|sql)ite\b}i
+id="te-3-sqlite"
+valid msgstr="(SQL|sql)ite"
+hint="«Sqlite» no se debe traducir (terminología)"
+
+{\bssc\b}i
+id="te-3-ssc"
+valid msgstr="ssc"
+hint="«Ssc» no se debe traducir (terminología)"
+
+{\bsscd\b}i
+id="te-3-sscd"
+valid msgstr="sscd"
+hint="«Sscd» no se debe traducir (terminología)"
+
+{\bssh\b}i
+id="te-3-ssh"
+valid msgstr="ssh"
+hint="«Ssh» no se debe traducir (terminología)"
+
+{\bSSH\b}
+id="te-3-ssh-mayusculas"
+valid msgstr="SSH"
+hint="«SSH» no se debe traducir (terminología)"
+
+{\bssid\b}i
+id="te-3-ssid"
+valid msgstr="ssid"
+hint="«Ssid» no se debe traducir (terminología)"
+
+{\bssl\b}i
+id="te-3-ssl"
+valid msgstr="ssl"
+hint="«Ssl» no se debe traducir (terminología)"
+
+{\bSSL\b}
+id="te-3-ssl-mayusculas"
+valid msgstr="SSL"
+hint="«SSL» no se debe traducir (terminología)"
+
+{\bsubversion\b}i
+id="te-3-subversion"
+valid msgstr="subversion"
+hint="«Subversion» no se debe traducir (terminología)"
+
+{\bsuper[Kk]aramba\b}i
+id="te-3-superkaramba"
+valid msgstr="super[Kk]aramba"
+hint="«Superkaramba» no se debe traducir (terminología)"
+
+{\bsvg\b}i
+id="te-3-svg"
+valid msgstr="svg"
+hint="«Svg» no se debe traducir (terminología)"
+
+{\bSVG\b}
+id="te-3-svg-mayusculas"
+valid msgstr="SVG"
+hint="«SVG» no se debe traducir (terminología)"
+
+{\bsvn\b}i
+id="te-3-svn"
+valid msgstr="svn"
+hint="«Svn» no se debe traducir (terminología)"
+
+{\bSVN\b}
+id="te-3-svn-mayusculas"
+valid msgstr="SVN"
+hint="«SVN» no se debe traducir (terminología)"
+
+{\bsysv\b}i
+id="te-3-sysv"
+valid msgstr="sysv"
+hint="«Sysv» no se debe traducir (terminología)"
+
+{\bSYSV\b}
+id="te-3-sysv-mayusculas"
+valid msgstr="SYSV"
+hint="«SYSV» no se debe traducir (terminología)"
+
+{\btcp\b}i
+id="te-3-tcp"
+valid msgstr="tcp"
+hint="«Tcp» no se debe traducir (terminología)"
+
+{\bTCP\b}
+id="te-3-tcp-mayusculas"
+valid msgstr="TCP"
+hint="«TCP» no se debe traducir (terminología)"
+
+{\btellico\b}i
+id="te-3-tellico"
+valid msgstr="tellico"
+hint="«Tellico» no se debe traducir (terminología)"
+
+{\btiff\b}i
+id="te-3-tiff"
+valid msgstr="tiff"
+hint="«Tiff» no se debe traducir (terminología)"
+
+{\bTIFF\b}
+id="te-3-tiff-mayusculas"
+valid msgstr="TIFF"
+hint="«TIFF» no se debe traducir (terminología)"
+
+{\btls\b}i
+id="te-3-tls"
+valid msgstr="tls"
+hint="«Tls» no se debe traducir (terminología)"
+
+{\bTLS\b}
+id="te-3-tls-mayusculas"
+valid msgstr="TLS"
+hint="«TLS» no se debe traducir (terminología)"
+
+{\btorrent\b}i
+id="te-3-torrent"
+valid msgstr="torrent"
+hint="«Torrent» no se debe traducir (terminología)"
+
+{\btts\b}i
+id="te-3-tts"
+valid msgstr="tts"
+hint="«Tts» no se debe traducir (terminología)"
+
+{\bTTS\b}
+id="te-3-tts-mayusculas"
+valid msgstr="TTS"
+hint="«TTS» no se debe traducir (terminología)"
+
+{\btxt\b}i
+id="te-3-txt"
+valid msgstr="txt"
+hint="«Txt» no se debe traducir (terminología)"
+
+{\bTXT\b}
+id="te-3-txt-mayusculas"
+valid msgstr="TXT"
+hint="«TXT» no se debe traducir (terminología)"
+
+{\bubuntu\b}i
+id="te-3-ubuntu"
+valid msgstr="ubuntu"
+hint="«Ubuntu» no se debe traducir (terminología)"
+
+{\budp\b}i
+id="te-3-udp"
+valid msgstr="udp"
+hint="«Udp» no se debe traducir (terminología)"
+
+{\bUDP\b}
+id="te-3-udp-mayusculas"
+valid msgstr="UDP"
+hint="«UDP» no se debe traducir (terminología)"
+
+{\buid\b}i
+id="te-3-uid"
+valid msgstr="uid"
+hint="«Uid» no se debe traducir (terminología)"
+
+{\bUID\b}
+id="te-3-uid-mayusculas"
+valid msgstr="UID"
+hint="«UID» no se debe traducir (terminología)"
+
+{\bumbrello\b}i
+id="te-3-umbrello"
+valid msgstr="umbrello"
+hint="«Umbrello» no se debe traducir (terminología)"
+
+{\buml\b}i
+id="te-3-uml"
+valid msgstr="uml"
+hint="«Uml» no se debe traducir (terminología)"
+
+{\bUML\b}
+id="te-3-uml-mayusculas"
+valid msgstr="UML"
+hint="«UML» no se debe traducir (terminología)"
+
+{\bunix\b}i
+id="te-3-unix"
+valid msgstr="unix"
+hint="«Unix» no se debe traducir (terminología)"
+
+{\bUNIX\b}
+id="te-3-unix-mayusculas"
+valid msgstr="UNIX"
+hint="«UNIX» no se debe traducir (terminología)"
+
+{\buri\b}i
+id="te-3-uri"
+valid msgstr="uri"
+hint="«Uri» no se debe traducir (terminología)"
+
+{\bURI\b}
+id="te-3-uri-mayusculas"
+valid msgstr="URI"
+hint="«URI» no se debe traducir (terminología)"
+
 {\burl\b}i
-id="tr-2-url"
+id="te-3-url"
 valid msgstr="url"
-hint="«url» no se debe traducir y es de género femenino (terminología)"
+hint="«Url» no se debe traducir y es de género femenino (terminología)"
 
 {\bURL\b}
-id="tr-2-url-mayusculas"
+id="te-3-url-mayusculas"
 valid msgstr="URL"
 hint="«URL» no se debe traducir y es de género femenino (terminología)"
 
+{\busb\b}i
+id="te-3-usb"
+valid msgstr="usb"
+hint="«Usb» no se debe traducir (terminología)"
+
+{\bUSB\b}
+id="te-3-usb-mayusculas"
+valid msgstr="USB"
+hint="«USB» no se debe traducir (terminología)"
+
+{\butf\-8\b}i
+id="te-3-utf-8"
+valid msgstr="utf\-8"
+hint="«Utf-8» no se debe traducir (terminología)"
+
+{\bUTF\-8\b}
+id="te-3-utf-8-mayusculas"
+valid msgstr="UTF\-8"
+hint="«UTF-8» no se debe traducir (terminología)"
+
+{\bv[Cc]ard\b}i
+id="te-3-vcard"
+valid msgstr="v[Cc]ard"
+hint="«Vcard» no se debe traducir (terminología)"
+
+{\bvcs\b}i
+id="te-3-vcs"
+valid msgstr="vcs"
+hint="«Vcs» no se debe traducir (terminología)"
+
+{\bVCS\b}
+id="te-3-vcs-mayusculas"
+valid msgstr="VCS"
+hint="«VCS» no se debe traducir (terminología)"
+
+{\bvlc\b}i
+id="te-3-vlc"
+valid msgstr="vlc"
+hint="«Vlc» no se debe traducir (terminología)"
+
+{\bVLC\b}
+id="te-3-vlc-mayusculas"
+valid msgstr="VLC"
+hint="«VLC» no se debe traducir (terminología)"
+
+{\bvnc\b}i
+id="te-3-vnc"
+valid msgstr="vnc"
+hint="«Vnc» no se debe traducir (terminología)"
+
+{\bVNC\b}
+id="te-3-vnc-mayusculas"
+valid msgstr="VNC"
+hint="«VNC» no se debe traducir (terminología)"
+
+{\bvorbis\b}i
+id="te-3-vorbis"
+valid msgstr="vorbis"
+hint="«Vorbis» no se debe traducir (terminología)"
+
+{\bvpn\b}i
+id="te-3-vpn"
+valid msgstr="vpn"
+hint="«Vpn» no se debe traducir (terminología)"
+
+{\bVPN\b}
+id="te-3-vpn-mayusculas"
+valid msgstr="VPN"
+hint="«VPN» no se debe traducir (terminología)"
+
+{\bvpnc\b}i
+id="te-3-vpnc"
+valid msgstr="vpnc"
+hint="«Vpnc» no se debe traducir (terminología)"
+
+{\bw3c\b}i
+id="te-3-w3c"
+valid msgstr="w3c"
+hint="«W3c» no se debe traducir (terminología)"
+
+{\bW3C\b}
+id="te-3-w3c-mayusculas"
+valid msgstr="W3C"
+hint="«W3C» no se debe traducir (terminología)"
+
 {\bweb\b}i
-id="tr-2-web"
+id="te-3-web"
 valid msgstr="web"
 valid msgstr="red" before="\sof\strust"
 valid msgstr="navegador" before="\sbrowser"
 hint="«Web» no se debe traducir (terminología)"
+
+{\bwiki\b}i
+id="te-3-wiki"
+valid msgstr="wiki"
+hint="«Wiki» no se debe traducir (terminología)"
+
+{\bwikipedia\b}i
+id="te-3-wikipedia"
+valid msgstr="wikipedia"
+hint="«Wikipedia» no se debe traducir (terminología)"
+
+{\bx[Bb]oard\b}i
+id="te-3-xboard"
+valid msgstr="x[Bb]oard"
+hint="«Xboard» no se debe traducir (terminología)"
+
+{\bx[Ff]lame\b}i
+id="te-3-xflame"
+valid msgstr="x[Ff]lame"
+hint="«Xflame» no se debe traducir (terminología)"
+
+{\bxml\b}i
+id="te-3-xml"
+valid msgstr="xml"
+hint="«Xml» no se debe traducir (terminología)"
+
+{\bXML\b}
+id="te-3-xml-mayusculas"
+valid msgstr="XML"
+hint="«XML» no se debe traducir (terminología)"
+
+{\bxmp\b}i
+id="te-3-xmp"
+valid msgstr="xmp"
+hint="«Xmp» no se debe traducir (terminología)"
+
+{\bXMP\b}
+id="te-3-xmp-mayusculas"
+valid msgstr="XMP"
+hint="«XMP» no se debe traducir (terminología)"
+
+{\bxps\b}i
+id="te-3-xps"
+valid msgstr="xps"
+hint="«Xps» no se debe traducir (terminología)"
+
+{\bXPS\b}
+id="te-3-xps-mayusculas"
+valid msgstr="XPS"
+hint="«XPS» no se debe traducir (terminología)"
+
+{\bx[Ss]creen[Ss]aver\b}i
+id="te-3-xscreensaver"
+valid msgstr="x[Ss]creen[Ss]aver"
+hint="«Xscreensaver» no se debe traducir (terminología)"
+
+{\bxsldbg\b}i
+id="te-3-xsldbg"
+valid msgstr="xsldbg"
+hint="«Xsldbg» no se debe traducir (terminología)"
+
+{\bxslt\b}i
+id="te-3-xslt"
+valid msgstr="xslt"
+hint="«Xslt» no se debe traducir (terminología)"
+
+{\bXSLT\b}
+id="te-3-xslt-mayusculas"
+valid msgstr="XSLT"
+hint="«XSLT» no se debe traducir (terminología)"
+
+{\byahoo\b}i
+id="te-3-yahoo"
+valid msgstr="yahoo"
+hint="«Yahoo» no se debe traducir (terminología)"
+
+{\byakuake\b}i
+id="te-3-yakuake"
+valid msgstr="yakuake"
+hint="«Yakuake» no se debe traducir (terminología)"
+
+{\byou[Tt]ube\b}i
+id="te-3-youtube"
+valid msgstr="you[Tt]ube"
+hint="«Youtube» no se debe traducir (terminología)"
+
+{\bzip\b}i
+id="te-3-zip"
+valid msgstr="zip"
+valid msgstr="postal"
+hint="«Zip» no se debe traducir (terminología)"
+
+{\bZIP\b}
+id="te-3-zip-mayusculas"
+valid msgstr="ZIP"
+valid msgstr="(CP|POSTAL|[Pp]ostal)"
+hint="«ZIP» no se debe traducir (terminología)"
 
 # End of rule file

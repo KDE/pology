@@ -18,6 +18,12 @@ valid msgstr="contabili(za|ce)"
 valid msgstr="(alguna|cualquier|ninguna)\scuenta"
 hint="«Accounts» se traduce como «Cuentas» (propuesta glosario)"
 
+{\bad[\s-][Bb]lock\b}i
+id="gp-3-ad-block"
+valid msgstr="ad[\s-][Bb]lock"
+valid msgstr="bloqueo\sde\s(publicidad|anuncios)"
+hint="«Ad Block» se traduce como «Bloqueo de publicidad» (propuesta glosario)"
+
 {\badd\-?on\b}i
 id="gp-3-add-on"
 valid msgstr="complemento"
@@ -731,11 +737,6 @@ id="gp-2-core-dumps"
 valid msgstr="volcados\sde\smemoria"
 valid msgstr="(algún|ningún|cualquier)\svolcado\sde\smemoria"
 hint="«Core dumps» se traduce como «Volcados de memoria» (propuesta glosario)"
-
-{\bCRL\b}
-id="gp-2-crl"
-valid msgstr="CRL"
-hint="«CRL» se traduce como «CRL» (propuesta glosario)"
 
 {\bcross\scompiler\b}i
 id="gp-2-cross-compiler"
@@ -2077,17 +2078,6 @@ valid msgstr="alineará" after="will\s(not\s)?"
 valid msgstr="alineó" after="did\s(not\s)?"
 hint="«Justify» se traduce como «Alinear» (propuesta glosario)"
 
-{\bkde\b}i
-id="gp-2-kde"
-valid msgstr="kde"
-valid msgstr="KDE"
-hint="«KDE» se mantiene tal como está (propuesta glosario)"
-
-{\bKDE\b}
-id="gp-2-kde-mayusculas"
-valid msgstr="KDE"
-hint="«KDE» se mantiene tal como está (propuesta glosario)"
-
 {\bkeep\salive\b}i
 id="gp-1-keep-alive"
 valid msgstr="mantener\sactiv[oa]"
@@ -3427,11 +3417,6 @@ valid msgstr="deshacer?"
 valid msgstr="revertir"
 valid msgstr="reviert[ea]"
 hint="«Roll back» se traduce como «Deshacer/Revertir» (propuesta glosario)"
-
-{\bRSS\b}i
-id="gp-2-rss"
-valid msgstr="RSS"
-hint="«RSS» se traduce como «RSS» (propuesta glosario)"
 
 {\brun\stime\b}i
 id="gp-2-run-time"
