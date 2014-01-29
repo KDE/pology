@@ -512,9 +512,11 @@ valid msgid="favorite"
 hint="Utilisez « signet » et non « favori »"
 
 {\battachments?\b}i
+valid msgid="attachment method"
 valid msgstr="pièces? jointe"
 valid msgstr="piece_?jointe."
 valid msgstr="fichiers? joint"
+valid cat="kmail_configure" after="image "
 valid msgstr="joindre"
 valid msgstr="attachement"
 hint="Traduisez « attachement » par pièce jointe"
@@ -551,10 +553,7 @@ hint="Traduisez « frontend » par « interface »"
 valid msgstr="pointeur"
 hint="Traduisez « mouse cursor » et « mouse pointer » par « pointeur de la souris »"
 
-{\battachments?\b}i
-valid msgid="attachment method"
-valid msgstr="pièces? jointes?"
-hint="Traduisez « attachment » par « pièce jointe »"
+
 
 {\battachment method}i
 valid msgstr="méthode .* pour joindre"
