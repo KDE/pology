@@ -151,9 +151,12 @@ hint="«An error occurred (while) verb_ing» -> «produciuse un erro ao + infini
 {\b(there\swas\san\s)?error\s(while\s)?\w+ing}i
 valid !span="there\swas\san\s" after="\w+ed\san\s"  #Isto apártase da trasnada
 valid !span="there\swas\san\s" after="(^|\.\s)"     # Como funcione isto é que non sei nada de regexes
+valid span="error\sduring\b"
+valid span="error\scausing\b"
 id="noPT-2012-expression_(there was an) error (while) doing"
 valid msgstr="produciuse\sun\serro\sao\s(pór|\w+[aei]r)"
 valid span="while" msgstr="\bProduciuse\sun\serro\smentres\sse\s\w+(ía|aba)" env="kde" #Isto apártase da Trasnada
+valid span="while" env="kde" msgstr="\bProduciuse\sun\serro\s(de\s\w+)[,2]\sao\s(pór|\w+[aei]r)­" # Isto apartase da Trasnada
 valid env="gnome" msgstr="\bproduciuse\sun\serro\s\w+[,6]\sao\s(pór|\w+[aei]r)" #Isto tampouco é moi axustado á Trasnada
 hint="«(There was an) error (while) verb_ing» -> «produciuse un erro ao + infinitivo»"
 
@@ -174,12 +177,13 @@ hint="«Can not» -> «Non é/foi posíbel infinitivo»"
 # «Could not» -> «Non é/foi posíbel infinitivo»
 {\bcould(\snot|n't)}i
 valid !after="(^|\.|:|,|;|\()\s?"
-id="PT-2012-expression_could not infinitivo"
+id="noPT-2012-expression_could not infinitivo"
 valid msgstr="\bnon\s(é|foi)\sposíbel\s(pospor|pór|\w+[aeií]r)"
 valid msgstr="\bnon\s(é|foi)\sposíbel\s\w+(a|e|i)l(a|o)s?"
 #o que segue apártase da Trasnada
-valid msgstr="\bnon\bpoida\s(pó|(\w+[aei])r)\b" env="kde" 
-valid msgstr="\bnon\b(é|foi)\b(capaz|quen)\bde\b(pó|(\w+[aei])r)\b" env="kde"
+valid msgstr="\bnon\spoida\s(pó|(\w+[aei])r)\b" env="kde" 
+valid msgstr="\bnon\s(é|foi)\b(capaz|quen)\bde\b(pó|(\w+[aei])r)\b" env="kde"
+valid msgstr="\bnon\sse\b\w+(ou|aron)\b" env="kde"
 hint="«Could not» -> «Non é/foi posíbel infinitivo»"
 
 # «Could not be participio» -> «Non é/foi posíbel infinitivo»
@@ -200,20 +204,32 @@ valid after="(be|is|are|was|were)\s"
 valid after="(^|\(|,|\.|\*|;)\s?" msgstr="\bnon\s(é|foi)\sposíbel\s(pór|\w+[aei]r)"
 valid after=":\s?" !env="kde" msgstr="\bnon\s(é|foi)\sposíbel\s(pór|\w+[aei]r)"
 valid after=":\s?"  msgstr="\bnon\sfoi\sposíbel\s(pór|\w+[aei]r)" env="kde" #xa que estamos
-# hint="«unable to» -> «non é/foi posíbel + infinitivo»"
+hint="«unable to» -> «non é/foi posíbel + infinitivo»"
 
 # «Non se puido» -> «Non foi posíbel»
+# Pero só en determinadas frases habituais.
 [\bnon\sse\sp(uido|ode)\b]i
+valid after="^"
 id="PT-2012-expression-gl_non se puido"
-hint="non se puido -> non foi posíbel"
+#valid msgid="^Can\'t\b"
+#valid msgid="^Can\snot\b"
+#valid msgid="^Cannot\b"
+#valid msgid="^Couldn\'t\b"
+#valid msgid="^Could\snot\b"
+#valid msgid="\bfailed\sto\s"
+valid msgid="\bcan\'t\sbe\s\S+ed\b"
+valid msgid="\bcan\s?not\sbe\s\S+ed\b"
+valid msgid="\bcouldn\'t\sbe\s\S+ed\b"
+valid msgid="\bcould\snot\sbe\s\S+ed\b"
+hint="non se puido -> non é/foi posíbel"
 
-# «fallo ao» -> «Non foi posíbel»
+# «fallo ao» -> «produciuse un erro ao»
 [\bfallou?\sao\b]i
 id="PT-2012-expression-gl_fallo ao"
 # valid after="\bproduciuse\sun\s"
 hint="fallo ao -> produciuse un erro ao"
 
-# «Houbo un erro ao» -> «Non foi posíbel»
+# «Houbo un erro ao» -> «Produciuse un erro ao»
 [\bhoubo\sun\serro\sao\b]i
 id="PT-2012-expression-gl_houbo un erro ao"
 hint="houbo un erro ao -> Produciuse un erro ao"

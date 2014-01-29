@@ -357,14 +357,18 @@ valid msgstr="métodos?\sde\s\w+"
 hint="«ing mode» -> «método de» (non é que \"modo de\" sexa incorrecto, é que ás veces non é máis axeitado)"
 
 # «print» -> «imprimir», «mostra»
-{\bprint(?!(ing|er))}i
+{\bprint}i
+valid !before="ing"
+valid !before="er"
 valid before="screen"
 valid before="\spreview"
 id="kde_print"
 valid msgstr="\bimprim"
-valid msgstr="\bimpreso"
+valid msgstr="\bimpresión"
+valid msgstr="\bimpres(o|a)"
 valid msgstr="\bmostr"
-hint="print = imprimir, impreso ou mostrar"
+valid before="\ssystem" msgstr="\bsistema\sde\simpresión"
+hint="print = imprimir, impresión, impreso ou mostrar"
 
 # «printing» -> «imprimir», «impresión»
 {\bprinting}i
