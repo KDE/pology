@@ -1060,6 +1060,24 @@ hint="Ponga coma dentro de una frase que comienza por «Si» (error gramatical)"
 id="gr-3-falta-coma-despues-de-si"
 hint="Ponga una coma después de «Sí» (error gramatical)"
 
+[\bbien[^,]+\sbien]i
+id="gr-3-falta-coma-antes-de-segundo-bien"
+hint="Ponga comas en la expresión «,bien... ,bien» (error gramatical)"
+
+[\bbien.+?,\sbien]i
+id="gr-3-falta-coma-antes-de-primer-bien"
+validGroup beforeComma
+hint="Ponga comas en la expresión «,bien... ,bien» (error gramatical)"
+
+[\bo\sbien[^,]+\so\sbien\s]i
+id="gr-3-falta-coma-antes-de-segundo-o-bien"
+hint="Ponga comas en la expresión «,o bien... ,o bien» (error gramatical)"
+
+[\bo\sbien.+?,\so\sbien]i
+id="gr-3-falta-coma-antes-de-primer-o-bien"
+validGroup beforeComma
+hint="Ponga comas en la expresión «,bien... ,bien» (error gramatical)"
+
 [\bes\sdecir\s]i
 id="gr-3-falta-coma-despues-es-decir"
 hint="Ponga una coma después de «es decir» (error gramatical)"

@@ -389,6 +389,10 @@ hint="«Cerca a» se escribe como «Cerca de» (error frecuente: solecismo)"
 id="cm-2-cian-con-tilde"
 hint="«Cián» se escribe como «Cian» (error frecuente)"
 
+[\bciento\spor\scien\b]i
+id="cm-2-ciento-por-cien"
+hint="«Ciento por cien» se escribe como «Cien por cien» (error frecuente)"
+
 [\bcog(er|e|a|en|an|iendo|ido)\b]i
 id="cm-1-uso-de-coger"
 hint="«Coger» no se debe utilizar, tiene connotaciones sexuales en México (error frecuente)"
@@ -999,9 +1003,29 @@ hint="«Macros» es de género femenino (error frecuente)"
 id="cm-2-los-ambos"
 hint="«Los ambos» se escribe como «Los dos/Ambos» (error frecuente)"
 
+[\blos\sdialogos\b]i
+id="cm-1-los-dialogos-sin-tilde"
+hint="«Los dialogos» se escribe como «Los diálogos». (error frecuente)"
+
+[\blos\snumeros\b]i
+id="cm-1-los-numeros-sin-tilde"
+hint="«Los numeros» se escribe como «Los números». (error frecuente)"
+
 [\blos\sporques\b]i
 id="cm-1-los-porques-sin-tilde"
 hint="«Los porques» se escribe como «Los porqués». (error frecuente)"
+
+[\blos\sterminos\b]i
+id="cm-1-los-terminos-sin-tilde"
+hint="«Los terminos» se escribe como «Los términos». (error frecuente)"
+
+[\blos\stitulos\b]i
+id="cm-1-los-titulos-sin-tilde"
+hint="«Los titulos» se escribe como «Los títulos». (error frecuente)"interpre
+
+[\blos\svinculos\b]i
+id="cm-1-los-vinculos-sin-tilde"
+hint="«Los vinculos» se escribe como «Los vínculos». (error frecuente)"interpre
 
 [\blos\sy\slas\b]i
 id="cm-1-lo-y-las"
@@ -1123,6 +1147,10 @@ hint="«Para tenga» se escribe como «Que tenga» (error frecuente)"
 [\bpáz\b]i
 id="cm-2-paz-con-tilde"
 hint="«Páz» se escribe como «Paz» (error frecuente)"
+
+[\bpese\squ[eé]\b]i
+id="cm-2-pese-que"
+hint="«Pese que» se escribe como «Pese a que» (error frecuente)"
 
 [\bpié\b]i
 id="cm-2-pie-con-tilde"
@@ -1296,6 +1324,10 @@ hint="«Séd» se escribe siempre como «Sed» (error frecuente)"
 id="cm-1-seguidamente-a"
 hint="«Seguidamente a» se escribe como «Después de/A continuación/Tras» (error frecuente)"
 
+[\bsesgar\svidas\b]i
+id="cm-1-sesgar-vidas"
+hint="«Sesgar vidas» se escribe como «Segar vidas» (error frecuente)"
+
 [\bsí\sse\b]i
 id="cm-2-si-se"
 hint="«Sí se» se escribe como «Si se» (error frecuente)"
@@ -1468,9 +1500,37 @@ hint="«Unas miles» se escribe como «Unos miles» (error frecuente)"
 id="cm-2-uno-de-ambos"
 hint="«Uno de ambos» se escribe como «Uno de los dos». (error frecuente)"
 
+[\bunos\sdialogos\b]i
+id="cm-1-unos-dialogos-sin-tilde"
+hint="«Unos dialogos» se escribe como «Unos diálogos». (error frecuente)"
+
+[\bunos\sinterpretes\b]i
+id="cm-1-unos-interpretes-sin-tilde"
+hint="«Unos interpretes» se escribe como «Unos intérpretes». (error frecuente)"
+
+[\bunos\slimites\b]i
+id="cm-1-unos-limites-sin-tilde"
+hint="«Unos limites» se escribe como «Unos límites». (error frecuente)"
+
+[\bunos\snumeros\b]i
+id="cm-1-unos-numeros-sin-tilde"
+hint="«Unos numeros» se escribe como «Unos números». (error frecuente)"
+
 [\bunos\sporques\b]i
 id="cm-1-unos-porques-sin-tilde"
 hint="«Unos porques» se escribe como «Unos porqués». (error frecuente)"
+
+[\bunos\sterminos\b]i
+id="cm-1-unos-terminos-sin-tilde"
+hint="«Unos terminos» se escribe como «Unos términos». (error frecuente)"
+
+[\bunos\stitulos\b]i
+id="cm-1-unos-titulos-sin-tilde"
+hint="«Unos titulos» se escribe como «Unos títulos». (error frecuente)"
+
+[\bunos\svinculos\b]i
+id="cm-1-unos-vinculos-sin-tilde"
+hint="«Unos vinculos» se escribe como «Unos vínculos». (error frecuente)"interpre
 
 [\buso\shorario\b]i
 id="cm-1-uso-horario"

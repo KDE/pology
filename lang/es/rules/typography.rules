@@ -289,6 +289,14 @@ valid cat="kspread"
 valid cat="kstars"
 hint="El punto debe estar después del paréntesis (y no antes)"
 
+[,\s\(]
+id="ty-3-orden-incorrecto-coma-parentesis"
+hint="La coma debe estar después del paréntesis de cierre (y no antes del de apertura)"
+
+[;\s\(]
+id="ty-3-orden-incorrecto-punto-y-coma-parentesis"
+hint="El punto y coma debe estar después del paréntesis de cierre (y no antes del de apertura)"
+
 [\.(?!\s)]
 id="ty-3-falta-espacio-despues-punto"
 validGroup beforePunctuation
@@ -367,10 +375,15 @@ id="ty-3-falta-cierre-llaves"
 valid before="(?s).*?[}{(«'\"\[]"
 hint="Cierre la llave (deben ir emparejadas)"
 
-[\([cC]\)]
+#[\(c\)]
+#id="ty-3-use-simbolo-copyright-cminuscula"
+#valid msgstr="©"
+#hint="Utilice el símbolo «©» en lugar de «(c)»"
+
+[\(c\)\s\d{4}]i
 id="ty-3-use-simbolo-copyright"
-valid msgstr="©"
-hint="Utilice el símbolo «©» en lugar de «(c)»"
+valid msgstr="©\s\d{4}"
+hint="Utilice el símbolo «©» en lugar de «(C)» antes de un número de año"
 
 [\b(Ac|Ag|Al|Am|Ar|As|At|Au|B|Be|Bh|Bi|Bk|Br|C|Ca|Cd|Ce|Cf|Cl|Cm|Co|Cr|Cs|Cu|Dy|Er|Es|Eu|F|Fe|Fm|Fr|Ga|Gd|Ge|He|Hf|Hg|Ho|In|Ir|Kr|Kv|La|Li|Lr|Lu|Md|Mg|Mn|Mo|Mt|N|Na|Nb|Nd|Ne|Ni|No|Np|Os|P|Pa|Pb|Pd|Pm|Po|Pr|Pt|Pu|Ra|Rb|Re|Rf|Rh|Rn|Ru|S|Sb|Sc|Se|Sg|Si|Sm|Sn|Sr|Ta|Tb|Tc|Te|Th|Ti|Tl|Tm|U|V|Xe|Y|Yb|Zn|Zr)\.]
 id="ty-2-punto-en-elemento-quimico"

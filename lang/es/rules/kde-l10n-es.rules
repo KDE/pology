@@ -1642,6 +1642,7 @@ valid msgstr="página\sprincipal"
 valid msgstr="página\spersonal"
 valid msgstr="páginas\siniciales"
 valid msgstr="páginas\spersonales"
+valid msgstr="portada"
 hint="«Home page» se traduce como «Página de inicio» (ver glosario)"
 
 {\bhome\s?pages\b}i
@@ -1685,12 +1686,14 @@ id="gk-2-host"
 valid msgstr="servidor"
 valid msgstr="máquina"
 valid msgstr="equipo" before="\slocal"
+valid msgstr="hosped(ar|a|e)"
 hint="«Host» se traduce como «Servidor» (ver glosario)"
 
 {\bhosts\b}i
 id="gk-2-hosts"
 valid msgstr="servidores"
 valid msgstr="máquina"
+valid msgstr="hosped(a|e)"
 valid msgstr="(algún|cualquier|ningún)\sservidor"
 valid msgstr="(alguna|cualquier|ninguna)\smáquina"
 hint="«Hosts» se traduce como «Servidores» (ver glosario)"
@@ -1698,7 +1701,7 @@ hint="«Hosts» se traduce como «Servidores» (ver glosario)"
 {\bhosting\b}i
 id="gk-2-hosting"
 valid msgstr="hosped(ar|a|e|aje)"
-valid msgstr="aloja"
+valid msgstr="alojamiento"
 hint="«Hosting» se traduce como «Hospedaje» (ver glosario)"
 
 {\bhotkey\b}i
@@ -2041,13 +2044,13 @@ hint="«Mailers» se traduce como «Gestores de correo» (ver glosario)"
 
 {\bmailing\slist\b}i
 id="gk-2-mailing-list"
-valid msgstr="listas?\sde\scorreo"
+valid msgstr="listas?\sde\s(correo|distribución)"
 hint="«Mailing list» se traduce como «Lista de correo» (ver glosario)"
 
 {\bmailing\slists\b}i
 id="gk-2-mailing-lists"
 valid msgstr="listas\sde\scorreo"
-valid msgstr="(alguna|cualquier|ninguna)\slista\sde\scorreo"
+valid msgstr="(alguna|cualquier|ninguna)\slista\sde\s(correo|distribución)"
 hint="«Mailing lists» se traduce como «Listas de correo» (ver glosario)"
 
 {\bmainteiner\b}i

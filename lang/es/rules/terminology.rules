@@ -11,12 +11,12 @@ valid msgstr="aba[Kk]us"
 hint="«Abakus» no se debe traducir (terminología)"
 
 {\bacpi\b}i
-id="te-3-acpi"
+id="te-2-acpi"
 valid msgstr="acpi"
 hint="«Acpi» no se debe traducir (terminología)"
 
 {\bACPI\b}
-id="te-3-acpi-mayusculas"
+id="te-2-acpi-mayusculas"
 valid msgstr="ACPI"
 hint="«ACPI» no se debe traducir (terminología)"
 
@@ -50,25 +50,25 @@ id="te-3-apache"
 valid msgstr="apache"
 hint="«Apache» no se debe traducir (terminología)"
 
-{\bapm\b}i
-id="te-3-apm"
-valid msgstr="apm"
-hint="«Apm» no se debe traducir (terminología)"
-
-{\bAPM\b}
-id="te-3-apm-mayusculas"
-valid msgstr="APM"
-hint="«APM» no se debe traducir (terminología)"
-
 {\bapi\b}i
-id="te-3-api"
+id="te-2-api"
 valid msgstr="api"
 hint="«Api» no se debe traducir (terminología)"
 
 {\bAPI\b}
-id="te-3-api-mayusculas"
+id="te-2-api-mayusculas"
 valid msgstr="API"
 hint="«API» no se debe traducir (terminología)"
+
+{\bapm\b}i
+id="te-2-apm"
+valid msgstr="apm"
+hint="«Apm» no se debe traducir (terminología)"
+
+{\bAPM\b}
+id="te-2-apm-mayusculas"
+valid msgstr="APM"
+hint="«APM» no se debe traducir (terminología)"
 
 {\basciiquarium\b}i
 id="te-3-asciiquarium"
@@ -111,12 +111,12 @@ valid msgstr="BSD"
 hint="«BSD» no se debe traducir (terminología)"
 
 {\bbyte\b}i
-id="te-3-byte"
+id="te-2-byte"
 valid msgstr="byte"
 hint="«Byte» no se debe traducir (terminología)"
 
 {\bbytes\b}i
-id="te-3-bytes"
+id="te-2-bytes"
 valid msgstr="bytes"
 valid msgstr="(algún|cualquier|ningún)\sbyte"
 hint="«Bytes» no se debe traducir (terminología)"
@@ -137,12 +137,12 @@ valid msgstr="calligra"
 hint="«Calligra» no se debe traducir (terminología)"
 
 {\bcd\b}i
-id="te-3-cd"
+id="te-2-cd"
 valid msgstr="cd"
 hint="«Cd» significa «Compact disk», no se debe traducir (terminología)"
 
 {\bCD\b}
-id="te-3-cd-mayusculas"
+id="te-2-cd-mayusculas"
 valid msgstr="CD"
 hint="«CD» significa «Compact disk», no se debe traducir (terminología)"
 
@@ -157,23 +157,23 @@ valid msgstr="CDDA"
 hint="«CDDA» no se debe traducir (terminología)"
 
 {\bcddb\b}i
-id="te-3-cddb"
+id="te-2-cddb"
 valid msgstr="cddb"
 hint="«Cddb» no se debe traducir (terminología)"
 
 {\bCDDB\b}
-id="te-3-cddb-mayusculas"
+id="te-2-cddb-mayusculas"
 valid msgstr="CDDB"
 hint="«CDDB» no se debe traducir (terminología)"
 
 {\bchip\b}i
-id="te-3-chip"
+id="te-2-chip"
 valid msgstr="chip"
 valid msgstr="fichas?"
 hint="«Chip» no se debe traducir (terminología)"
 
 {\bchips\b}i
-id="te-3-chips"
+id="te-2-chips"
 valid msgstr="chips"
 valid msgstr="fichas?"
 valid msgstr="(algún|cualquier|ningún)\schip"
@@ -200,12 +200,12 @@ valid msgstr="cmake"
 hint="«Cmake» no se debe traducir (terminología)"
 
 {\bcpan\b}i
-id="te-3-cpan"
+id="te-2-cpan"
 valid msgstr="cpan"
 hint="«Cpan» no se debe traducir (terminología)"
 
 {\bCPAN\b}
-id="te-3-cpan-mayusculas"
+id="te-2-cpan-mayusculas"
 valid msgstr="CPAN"
 hint="«CPAN» no se debe traducir (terminología)"
 
@@ -255,24 +255,24 @@ valid msgstr="CSV"
 hint="«CSV» no se debe traducir (terminología)"
 
 {\bctan\b}i
-id="te-3-ctan"
+id="te-2-ctan"
 valid msgstr="ctan"
 hint="«Ctan» no se debe traducir (terminología)"
 
 {\bCTAN\b}
-id="te-3-ctan-mayusculas"
+id="te-2-ctan-mayusculas"
 valid msgstr="CTAN"
 hint="«CTAN» no se debe traducir (terminología)"
 
 {\bcups\b}i
-id="te-3-cups"
+id="te-2-cups"
 valid msgstr="cups"
 valid msgstr="tazas"
 valid msgstr="(alguna|cualquier|ninguna)\staza"
 hint="«Cups» no se debe traducir, salvo si se trata de tazas (terminología)"
 
 {\bCUPS\b}
-id="te-3-cups-mayusculas"
+id="te-2-cups-mayusculas"
 valid msgstr="CUPS"
 hint="«CUPS» no se debe traducir (terminología)"
 
@@ -343,12 +343,12 @@ valid msgstr="doctype"
 hint="«Doctype» no se debe traducir (terminología)"
 
 {\bdvd\b}i
-id="te-3-dvd"
+id="te-2-dvd"
 valid msgstr="dvd"
 hint="«Dvd» no se debe traducir (terminología)"
 
 {\bDVD\b}
-id="te-3-dvd-mayusculas"
+id="te-2-dvd-mayusculas"
 valid msgstr="DVD"
 hint="«DVD» no se debe traducir (terminología)"
 
@@ -417,13 +417,23 @@ id="te-3-gid-mayusculas"
 valid msgstr="GID"
 hint="«GID» no se debe traducir (terminología)"
 
+{\bgnu\b}i
+id="te-2-gnu"
+valid msgstr="gnu"
+hint="«Gnu» no se debe traducir (terminología)"
+
+{\bGNU\b}
+id="te-2-gnu-mayusculas"
+valid msgstr="GNU"
+hint="«GNU» no se debe traducir (terminología)"
+
 {\bguid\b}i
-id="te-3-guid"
+id="te-2-guid"
 valid msgstr="guid"
 hint="«Guid» no se debe traducir (terminología)"
 
 {\bGUID\b}
-id="te-3-guid-mayusculas"
+id="te-2-guid-mayusculas"
 valid msgstr="GUID"
 hint="«GUID» no se debe traducir (terminología)"
 
@@ -538,12 +548,12 @@ valid msgstr="HTK"
 hint="«HTK» no se debe traducir (terminología)"
 
 {\bhtml\b}i
-id="te-3-html"
+id="te-2-html"
 valid msgstr="html"
 hint="«html» no se debe traducir (terminología)"
 
 {\bHTML\b}
-id="te-3-html-mayusculas"
+id="te-2-html-mayusculas"
 valid msgstr="HTML"
 hint="«HTML» no se debe traducir (terminología)"
 
@@ -638,12 +648,12 @@ valid msgstr="IRC"
 hint="«IRC» no se debe traducir (terminología)"
 
 {\birq\b}i
-id="te-3-irq"
+id="te-2-irq"
 valid msgstr="irq"
 hint="«Irq» no se debe traducir (terminología)"
 
 {\bIRQ\b}
-id="te-3-irq-mayusculas"
+id="te-2-irq-mayusculas"
 valid msgstr="IRQ"
 hint="«IRQ» no se debe traducir (terminología)"
 
@@ -752,6 +762,11 @@ id="te-3-kate"
 valid msgstr="kate"
 hint="«Kate» no se debe traducir (terminología)"
 
+{\bkb\b}i
+id="te-3-kb"
+valid msgstr="kb"
+hint="«kb» no se debe traducir (terminología)"
+
 {\bkcachegrind\b}i
 id="te-3-kcachegrind"
 valid msgstr="kcachegrind"
@@ -768,22 +783,22 @@ valid msgstr="kdat"
 hint="«Kdat» no se debe traducir (terminología)"
 
 {\bkde\b}i
-id="te-3-kde"
+id="te-2-kde"
 valid msgstr="kde"
 hint="«Kde» no se debe traducir (terminología)"
 
 {\bKDE\b}
-id="te-3-kde-mayusculas"
+id="te-2-kde-mayusculas"
 valid msgstr="KDE"
 hint="«KDE» no se debe traducir (terminología)"
 
 {\bkde4\b}i
-id="te-3-kde4"
+id="te-2-kde4"
 valid msgstr="kde4"
 hint="«Kde4» no se debe traducir (terminología)"
 
 {\bKDE4\b}
-id="te-3-kde4-mayusculas"
+id="te-2-kde4-mayusculas"
 valid msgstr="KDE4"
 hint="«KDE4» no se debe traducir (terminología)"
 
@@ -866,6 +881,11 @@ hint="«Khipu» no se debe traducir (terminología)"
 id="te-3-khtml"
 valid msgstr="khtml"
 hint="«Khtml» no se debe traducir (terminología)"
+
+{\bkiB\b}i
+id="te-3-kib"
+valid msgstr="kiB"
+hint="«kiB» no se debe traducir (terminología)"
 
 {\bkig\b}i
 id="te-3-kig"
@@ -1277,6 +1297,11 @@ id="te-3-maildir"
 valid msgstr="[Mm]aildir"
 hint="«Maildir» no se debe traducir, es un formato de buzón de correo (terminología)"
 
+{\bMb\b}
+id="te-3-mb"
+valid msgstr="Mb"
+hint="«Mb» no se debe traducir (terminología)"
+
 {\bmbox\b}i
 id="te-3-mbox"
 valid msgstr="mbox"
@@ -1296,6 +1321,11 @@ hint="«Md5» no se debe traducir (terminología)"
 id="te-3-md5-mayúsculas"
 valid msgstr="MD5"
 hint="«MD5» no se debe traducir (terminología)"
+
+{\bMiB\b}
+id="te-3-mib"
+valid msgstr="MiB"
+hint="«MiB» no se debe traducir (terminología)"
 
 {\bmicrosoft\b}i
 id="te-3-microsoft"
@@ -1926,12 +1956,12 @@ valid msgstr="URI"
 hint="«URI» no se debe traducir (terminología)"
 
 {\burl\b}i
-id="te-3-url"
+id="te-2-url"
 valid msgstr="url"
 hint="«Url» no se debe traducir y es de género femenino (terminología)"
 
 {\bURL\b}
-id="te-3-url-mayusculas"
+id="te-2-url-mayusculas"
 valid msgstr="URL"
 hint="«URL» no se debe traducir y es de género femenino (terminología)"
 
@@ -2021,7 +2051,7 @@ valid msgstr="W3C"
 hint="«W3C» no se debe traducir (terminología)"
 
 {\bweb\b}i
-id="te-3-web"
+id="te-2-web"
 valid msgstr="web"
 valid msgstr="red" before="\sof\strust"
 valid msgstr="navegador" before="\sbrowser"

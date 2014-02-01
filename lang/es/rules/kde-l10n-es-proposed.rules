@@ -249,6 +249,39 @@ valid msgstr="flujos\sde\sbits"
 valid msgstr="(algún|ningún|cualquier)\sflujo\sde\sbits"
 hint="«Bit streams» se traduce como «Flujos de bits» (propuesta glosario)"
 
+{\bblog\b}i
+id="gp-2-blog"
+valid msgstr="blog"
+hint="«Blog» se traduce como «Blog» (propuesta glosario)"
+
+{\bblogger\b}i
+id="gp-2-blogger"
+valid msgstr="bloguer[ao]"
+valid msgstr="Blogger"
+hint="«Blogger» se traduce como «Bloguero/a» (propuesta glosario)"
+
+{\bbloggers\b}i
+id="gp-2-bloggers"
+valid msgstr="bloguer[ao]s"
+valid msgstr="(algún|ningún|cualquier)\sbloguer[ao]"
+hint="«Bloggers» se traduce como «Blogueros/as» (propuesta glosario)"
+
+{\bblogging\b}i
+id="gp-2-blogging"
+valid msgstr="bloguear"
+hint="«Blogging» se traduce como «Bloguear» (propuesta glosario)"
+
+{\bblogs\b}i
+id="gp-2-blogs"
+valid msgstr="blog"
+valid msgstr="(algún|ningún|cualquier)\sblog"
+hint="«Blogs» se traduce como «Blogs» (propuesta glosario)"
+
+{\bblogsphere\b}i
+id="gp-2-blogsphere"
+valid msgstr="blogsfera"
+hint="«Blogsphere» se traduce como «Blogsfera» (propuesta glosario)"
+
 {\bboard\b}i
 id="gp-2-board"
 valid msgstr="placa"
@@ -2310,6 +2343,22 @@ valid msgstr="(algún|ningún|cualquier)\smétodo"
 valid msgstr="(algún|ningún|cualquier)\smécanismo"
 hint="«Methods» se traduce como «Métodos» (propuesta glosario)"
 
+{\bmicroblog\b}i
+id="gp-2-microblog"
+valid msgstr="microblog"
+hint="«Microlog» se traduce como «Microblog» (propuesta glosario)"
+
+{\bmicroblogging\b}i
+id="gp-2-microblogging"
+valid msgstr="microbloguear"
+hint="«Micrologging» se traduce como «Microbloguear» (propuesta glosario)"
+
+{\bmicroblogs\b}i
+id="gp-2-microblogs"
+valid msgstr="microblogs"
+valid msgstr="(algún|ningún|cualquier)\smicroblog"
+hint="«Microblogs» se traduce como «Microblogs» (propuesta glosario)"
+
 {\bmilestone\b}i
 id="gp-3-milestone"
 valid msgstr="hito"
@@ -2532,6 +2581,17 @@ id="gp-2-nicks"
 valid msgstr="apodos"
 valid msgstr="(algún|ningún|cualquier)\sapodo"
 hint="«Nicks» se traduce como «Apodos» (propuesta glosario)"
+
+{\bnewsletter\b}i
+id="gp-3-newsletter"
+valid msgstr="boletín\sde\snoticias"
+hint="«Newsletter» se traduce como «Boletín de noticias» (propuesta glosario)"
+
+{\bnewsletters\b}i
+id="gp-e-newsletters"
+valid msgstr="boletines\sde\snoticias"
+valid msgstr="(algún|ningún|cualquier)\sboletín\sde\snoticias"
+hint="«Newsletters» se traduce como «Boletines de noticias» (propuesta glosario)"
 
 {\bobject\b}i
 id="gp-3-object"
@@ -3906,6 +3966,12 @@ id="gp-3-tablet"
 valid msgstr="tableta"
 hint="«Tablet» se traduce como «Tableta» (propuesta glosario)"
 
+{\btablets\b}i
+id="gp-3-tablets"
+valid msgstr="tabletas"
+valid msgstr="(alguna|cualquier|ninguna)\stableta"
+hint="«Tablets» se traduce como «Tabletas» (propuesta glosario)"
+
 {\btask\b}i
 id="gp-3-task"
 valid msgstr="tarea"
@@ -3967,6 +4033,17 @@ valid msgstr="miniaturas"
 valid msgstr="(alguna|cualquier|ninguna)\sminiatura"
 hint="«Thumbails» se traduce como «Miniaturas» (propuesta glosario)"
 
+{\btimeline\b}i
+id="gp-3-timeline"
+valid msgstr="cronología"
+hint="«Timeline» se traduce como «Cronología» (propuesta glosario)"
+
+{\btimelines\b}i
+id="gp-2-timelines"
+valid msgstr="cronología"
+valid msgstr="(alguna|cualquier|ninguna)\scronología"
+hint="«Timelines» se traduce como «Cronologías» (propuesta glosario)"
+
 {\btip\b}i
 id="gp-3-tip"
 valid msgstr="consejo"
@@ -4015,6 +4092,17 @@ id="gp-2-toner"
 valid msgstr="tóner"
 hint="«Toner» se traduce como «Tóner» (propuesta glosario)"
 
+{\btrackback\b}i
+id="gp-2-trackback"
+valid msgstr="enlace\sinverso"
+valid msgstr="(algún|ningún|cualquier)\senlace\sinverso"
+hint="«Trackback» se traduce como «Enlace inverso» (propuesta glosario)"
+
+{\btrackbacks\b}i
+id="gp-2-trackbacks"
+valid msgstr="enlaces\sinversos"
+hint="«Trackbacks» se traduce como «Enlaces inversos» (propuesta glosario)"
+
 {\btrash\b}i
 id="gp-2-trash"
 valid msgstr="papelera"
@@ -4047,6 +4135,22 @@ hint="«Triggers» se traduce como «Desencadena/Provoca/Disparadores» (propues
 id="gp-3-trust-path"
 valid msgstr="ruta\sde\sconfianza"
 hint="«Thrust path» se traduce como «Ruta de confianza» (propuesta glosario)"
+
+{\btweet\b}i
+id="gp-3-tweet"
+valid msgstr="tuit"
+hint="«Tweet» se traduce como «Tuit» (propuesta glosario)"
+
+{\btweets\b}i
+id="gp-3-tweets"
+valid msgstr="tuits"
+valid msgstr="(algún|cualquier|ningún)\stuit"
+hint="«Tweets» se traduce como «Tuits» (propuesta glosario)"
+
+{\btweetup\b}i
+id="gp-3-tweetup"
+valid msgstr="tuiter[ao]"
+hint="«Tweetup» se traduce como «Tuitero/a» (propuesta glosario)"
 
 {\btypo\b}i
 id="gp-1-typo"
