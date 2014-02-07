@@ -49,7 +49,7 @@ hint="«A buen fin» se escribe como «Con buen fin» (error frecuente: solecism
 id="cm-2-a-cuenta-de"
 hint="«A cuenta de» se escribe como «Por cuenta de» (error frecuente: solecismo)"
 
-[\ba\sdonde\sestá\b]i
+[\ba\sd[oó]nde\sestá\b]i
 id="cm-2-a-donde-está"
 hint="«A donde está» se escribe como «Donde está» (error frecuente)"
 
@@ -197,7 +197,7 @@ hint="«Áquellos» se escribe como «Aquellos» (error frecuente)"
 id="cm-2-arriba-de"
 hint="«Arriba de» se escribe como «Encima de» (error frecuente: solecismo)"
 
-[\basí\ses\sque\b]i
+[\basí\ses\squ[eé]\b]i
 id="cm-1-asi-es-que"
 hint="«Así es que» se escribe como «Así que» (error frecuente)"
 
@@ -221,7 +221,7 @@ hint="«Atentar a» se escribe como «Atentar contra» (error frecuente)"
 id="cm-1-aun-asi-con-tilde"
 hint="«Aún así» se escribe como «Aun así» (error frecuente)"
 
-[\baún\scuando\b]i
+[\baún\scu[aá]ndo\b]i
 id="cm-1-aun-cuando-con-tilde"
 hint="«Aún cuando» se escribe como «Aun cuando» (error frecuente)"
 
@@ -232,6 +232,10 @@ hint="«Aun más» se escribe como «Aún mas» (error frecuente)"
 [\baun\smejor\b]i
 id="cm-1-aun-mejor-sin-tilde"
 hint="«Aun mejor» se escribe como «Aún mejor» (error frecuente)"
+
+[\baun\smenos\b]i
+id="cm-1-aun-menos-sin-tilde"
+hint="«Aun menos» se escribe como «Aún menos» (error frecuente)"
 
 [\baun\speor\b]i
 id="cm-1-aun-peor-sin-tilde"
@@ -485,9 +489,9 @@ hint="«De acuerdo a» se escribe como «De acuerdo con» (error frecuente: sole
 id="cm-1-de-arriba-a-abajo"
 hint="«De arriba a abajo» se escribe como «De arriba abajo» (error frecuente: solecismo)"
 
-[\bde\scomo\b]i
-id="cm-2-de-como"
-hint="«De como» se escribe como «De cómo» (error frecuente: solecismo)"
+#[\bde\scomo\b]i
+#id="cm-2-de-como"
+#hint="«De como» se escribe como «De cómo» (error frecuente: solecismo)"
 
 [\bde\sconformidad\sa\b]i
 id="cm-2-de-conformidad-a"
@@ -632,6 +636,22 @@ hint="«Web» es femenino (error frecuente)"
 id="cm-1-el-dialogo-sin-tilde"
 hint="«El dialogo» se escribe como «El diálogo». (error frecuente)"
 
+[\bel\scomo\b]i
+id="cm-2-el-como"
+hint="«El como» se escribe como «El cómo» (error frecuente: solecismo)"
+
+[\bel\scuando\b]i
+id="cm-2-el-cuando"
+hint="«El cuando» se escribe como «El cuándo» (error frecuente: solecismo)"
+
+[\bel\scuanto\b]i
+id="cm-2-el-cuanto"
+hint="«El cuanto» se escribe como «El cuánto» (error frecuente: solecismo)"
+
+[\bel\sdonde\b]i
+id="cm-2-el-donde"
+hint="«El donde» se escribe como «El dónde» (error frecuente: solecismo)"
+
 [\bel\secho\b]i
 id="cm-1-el-echo"
 hint="«El echo» se escribe como «El hecho» (error frecuente)"
@@ -655,6 +675,10 @@ hint="«El numero» se escribe como «El número». (error frecuente)"
 [\bel\sporque\b]i
 id="cm-1-el-porque-sin-tilde"
 hint="«El porque» se escribe como «El porqué». (error frecuente)"
+
+[\bel\sque,\b]i
+id="cm-2-el-que"
+hint="«El que,» se escribe como «El qué,» (error frecuente: solecismo)"
 
 [\bel\stermino\b]i
 id="cm-1-el-termino-sin-tilde"
@@ -864,7 +888,7 @@ hint="«Guíar» se escribe como «Guiar» (error frecuente)"
 id="cm-1-haber-seguido-coma"
 hint="'Haber,' se escribe 'A ver,'"
 
-[\bhaber\scomo\b]i
+[\bhaber\sc[oó]mo\b]i
 id="cm-1-haber-como"
 hint="'Haber como' se escribe 'A ver como'"
 
@@ -881,7 +905,7 @@ id="cm-1-habian"
 valid before="\s\w+?(ido|ado)"
 hint="«Habián» se escribe como «Había» al principo de frase (error frecuente)"
 
-[\bhacia\sadonde\b]
+[\bhacia\sad[oó]nde\b]
 id="cm-2-hacia-adonde"
 hint="«Hacia adonde» se escribe como «Hacia donde» (error frecuente)"
 
@@ -935,7 +959,7 @@ valid before="\s\w\b"
 valid before="\s(cero|uno|dos|tres|cuatro|cinco|seis|siete|ocho|nueve|diez|once|doce)"
 hint="«Igual a» se escribe como «Igual que» (error frecuente)"
 
-[\bigual\scomo\b]
+[\bigual\sc[oó]mo\b]
 id="cm-2-igual-como"
 hint="«Igual como» se escribe como «Igual que» (error frecuente)"
 
@@ -1063,6 +1087,10 @@ hint="«Más malo» se escribe como «Peor» (error frecuente)"
 id="cm-1-mas-mayor"
 hint="«Más mayor» se escribe como «Mayor» (error frecuente)"
 
+[\bmás\smejor\b]i
+id="cm-1-mas-mejor"
+hint="«Más mejor» se escribe como «Mejor/Óptimo» (error frecuente)"
+
 [\bmás\snada\b]i
 id="cm-2-mas-nada"
 hint="«Más nada» se escribe como «Nada más» (error frecuente)"
@@ -1074,6 +1102,14 @@ hint="«Más nadie» se escribe como «Nadie más» (error frecuente)"
 [\bmás\snunca\b]i
 id="cm-2-mas-nunca"
 hint="«Más nunca» se escribe como «Nunca más» (error frecuente)"
+
+[\bmás\sóptim[ao]\b]i
+id="cm-1-mas-optimo"
+hint="«Más óptimo» se escribe como «Óptimo» (error frecuente)"
+
+[\bmás\speor\b]i
+id="cm-1-mas-peor"
+hint="«Más peor» se escribe como «Peor/Pésimo» (error frecuente)"
 
 [\bm[aá]sters\b]i
 id="cm-2-masters"
@@ -1120,6 +1156,14 @@ hint="«Ni que decir tiene» se escribe sin tilde (error frecuente)"
 id="cm-2-no-le-bastan"
 hint="«No le bastan» se escribe como «No le basta» (error frecuente)"
 
+[\bosea\b]i
+id="cm-2-osea-junto"
+hint="«Osea» se escribe «O sea», separado (error frecuente)"
+
+#[\bo\ssean\b]i
+#id="cm-2-osean"
+#hint="«O sean» se escribe «O sea», en singular (error frecuente)"
+
 [\bpagina\b]i
 id="cm-2-pagina-sin-tilde"
 hint="«Pagina» se escribe como «Página», salvo 3ª persona del verbo paginar (error frecuente)"
@@ -1164,7 +1208,7 @@ hint="«Por + artículo + qué» se escribe como «Por + artículo + que» (erro
 id="cm-2-por-contra"
 hint="«Por contra» se escribe como «Por el contario/En cambio» (error frecuente: solecismo)"
 
-[\bpor\scuanto\sque\b]i
+[\bpor\scuanto\squ[eé]\b]i
 id="cm-2-por-cuanto-que"
 hint="«Por cuanto que» se escribe como «Por cuanto» (error frecuente: solecismo)"
 

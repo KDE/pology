@@ -2077,8 +2077,12 @@ hint="«Verificar de que» se escribe como «Verificar que», dequeismo (error g
 # LEISMOS, LAISMOS Y LOISMOS
 #
 
-[(?u)\bla\s\dij\w+\b]i
+[(?u)\bla\s(digo|dices?|dij\w+)\b]i
 id="gr-1-laismo-la-dije"
 hint="«La dije» se escribe como «Le dije», laismo (error gramatical)"
+
+[(?u)\blos\s(digo|dices?|decimos|dicen|dij\w+)\b]i
+id="gr-1-loismo-los-dije"
+hint="«Los dije» se escribe como «Les dije», loismo (error gramatical)"
 
 # End of rule file

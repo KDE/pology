@@ -424,7 +424,7 @@ valid msgstr="compiló" after="did\s(not\s)?"
 valid msgstr="crear" before="\sup"
 valid msgstr="creará" after="will\s(not\s)?" before="\sup"
 valid msgstr="creó" after="did\s(not\s)?" before="\sup"
-valid msgstr="incorporad[oa]" before="\sin"
+valid msgstr="(incorporad[oa]|integrad[ao])" before="\sin"
 hint="«Build» se traduce como «Generar/Revisión/Compilar/Compilación» (propuesta glosario)"
 
 {\bbuilds\b}i
