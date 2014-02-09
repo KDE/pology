@@ -450,7 +450,7 @@ valid msgstr="compilará" after="will\sbe\s"
 valid msgstr="generará" after="will\sbe\s"
 valid msgstr="compilan" after="are\s"
 valid msgstr="generan" after="are\s"
-valid before="\-in"
+valid before="[\s-]in"
 hint="«Built» se traduce como «Generado/Revisión/Compilado/Compilación» (propuesta glosario)"
 
 {\bbuilt\-?in\b}i
@@ -1567,6 +1567,7 @@ hint="«Foreings keys» se traduce como «Claves ajenas» (propuesta glosario)"
 {\bfolder\b}i
 id="gp-3-folder"
 valid msgstr="carpeta"
+valid msgstr="subcarpeta" after="sub[\s-]?"
 valid msgstr="papelera" after="trash\s"
 valid msgstr="bandeja\sde\ssalida" after="outbox(\s|\-)"
 valid msgstr="bandeja\sde\sentrada" after="inbox(\s|\-)"
@@ -1577,8 +1578,10 @@ hint="«Folder» se traduce como «Carpeta» (propuesta glosario)"
 {\bfolders\b}i
 id="gp-3-folders"
 valid msgstr="carpetas"
+valid msgstr="subcarpetas" after="sub[\s-]?"
 valid msgstr="papeleras" after="trash\s"
 valid msgstr="(alguna|cualquier|ninguna)\scarpeta"
+valid msgstr="(alguna|cualquier|ninguna)\ssubcarpeta" after="sub[\s-]?" 
 hint="«Folders» se traduce como «Carpetas» (propuesta glosario)"
 
 {\bforum\b}i
