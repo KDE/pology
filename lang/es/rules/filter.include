@@ -68,8 +68,8 @@ addFilterHook name="remove/remove-fmtdirs-msg-tick~u'~'" on="msg"
 addFilterHook name="remove/remove_literals_msg_tick~u'~'" on="msg"
 
 #Remove XML-like tags.
-addFilterRegex match="\<\s*(bcode|command|envar|filename|icode|shortcut|placeholder|style|code|tt|literal|screen|option|keycap|userinput|systemitem|prompt|function|foreignphrase|varname|programlisting|token|markup|parameter|keysym|methodname|sgmltag|arg|classname|type)\b.*?\<\/\1\>" repl="~" on="pmsgid,pmsgstr"
-addFilterRegex match="\<\s*(email|link)\s*>\b.*?\/\1\>" repl="~" on="pmsgid,pmsgstr"
+addFilterRegex match="\<\s*(bcode|command|envar|filename|icode|shortcut|placeholder|style|code|tt|literal|screen|option|keycap|userinput|systemitem|prompt|function|foreignphrase|varname|programlisting|token|markup|parameter|keysym|methodname|sgmltag|arg|classname|type)\s*\>.*?\<\/\s*\1\s*\>" repl="~" on="pmsgid,pmsgstr"
+addFilterRegex match="\<\s*(email|link)\s*?\>.*?\<\/\s*\1\s*\>" repl="~" on="pmsgid,pmsgstr"
 addFilterRegex match="\<.*?\>" repl="~" on="pmsgid,pmsgstr"
 
 # Remove single characters between quotes.

@@ -2081,8 +2081,182 @@ hint="«Verificar de que» se escribe como «Verificar que», dequeismo (error g
 id="gr-1-laismo-la-dije"
 hint="«La dije» se escribe como «Le dije», laismo (error gramatical)"
 
-[(?u)\blos\s(digo|dices?|decimos|dicen|dij\w+)\b]i
+[(?u)\blos\s(digo|dices?|decimos|decís|dicen|dij\w+)\b]i
 id="gr-1-loismo-los-dije"
 hint="«Los dije» se escribe como «Les dije», loismo (error gramatical)"
+
+[(?u)\bles?\s(veo|ves?|vemos|véis|ven|vi|viste|vio|vimos|vistéis|vieron|veré|verás?|veremos|veréis|verán)\b]i
+id="gr-1-leismo-ver"
+valid before="\s(el|l[ao]s?|un|un[ao]s?|algún|algun[ao]s)"
+hint="«Le veo» se escribe como «La/Lo veo», leismo (error gramatical)"
+
+[(?u)\blas?\s(veo|ves?|vemos|véis|ven|vi|viste|vio|vimos|vistéis|vieron|veré|verás?|veremos|veréis|verán)\b\s(el|l[ao]s?|un|un[ao]s?|algún|algun[ao]s)]i
+id="gr-1-laismo-ver"
+valid before="\s(uno|dos|tres|cuatro|cinco|seis|siete|ocho|nueve|diez|once|doce|trece|catorce|quince|dieci\w+|veint\w+\treint\w+|día|mes|año|hora|minuto|segundo|próximo|pasado|siguiente|anterior)"
+hint="«La veo» se escribe como «Le veo», laismo (error gramatical)"
+
+[(?u)\bles?\s(toco|tocas?|tocamos|tocáis|tocan|toqué|tocaste|tocó|tocamos|tocásteis|tocaron|tocaré|tocarás?|tocaremos|tocaréis|tocarán)\b]i
+id="gr-1-leismo-tocar"
+valid before="\s(el|l[ao]s?|un|un[ao]s?|algún|algun[ao]s)"
+hint="«Le toco» se escribe como «La/Lo toco», leismo (error gramatical)"
+
+[(?u)\blas?\s(toco|tocas?|tocamos|tocáis|tocan|toqué|tocaste|tocó|tocamos|tocásteis|tocaron|tocaré|tocarás?|tocaremos|tocaréis|tocarán)\s(el|l[ao]s?|un|un[ao]s?|algún|algun[ao]s)\b]i
+id="gr-1-laismo-tocar"
+valid before="\s(uno|dos|tres|cuatro|cinco|seis|siete|ocho|nueve|diez|once|doce|trece|catorce|quince|dieci\w+|veint\w+\treint\w+|día|mes|año|hora|minuto|segundo|próximo|pasado|siguiente|anterior)"
+hint="«La toco» se escribe como «Le toco», laismo (error gramatical)"
+
+[(?u)\bles?\slimpi\w+\b]i
+id="gr-1-leismo-limpiar"
+valid before="\s(el|l[ao]s?|un|un[ao]s?|algún|algun[ao]s)"
+hint="«Le limpio» se escribe como «La/Lo limpio», leismo (error gramatical)"
+
+[(?u)\blas?\slimpi\w+\s(el|l[ao]s?|un|un[ao]s?|algún|algun[ao]s)\b]i
+id="gr-1-laismo-limpiar"
+valid before="\s(uno|dos|tres|cuatro|cinco|seis|siete|ocho|nueve|diez|once|doce|trece|catorce|quince|dieci\w+|veint\w+\treint\w+|día|mes|año|hora|minuto|segundo|próximo|pasado|siguiente|anterior)"
+hint="«La limpio» se escribe como «Le limpio», laismo (error gramatical)"
+
+[(?u)\bles?\s(cojo|cojes?|coje|cojemos|cojéis|cojen|cogí|cogiste|cogió|cogimos|cogistéis|cogieron|cojeré|cojerás?|cojeremos|cojeréis|cojerán)\b]i
+id="gr-1-leismo-coger"
+valid before="\s(el|l[ao]s?|un|un[ao]s?|algún|algun[ao]s)"
+hint="«Le cojo» se escribe como «La/Lo cojo», leismo (error gramatical)"
+
+[(?u)\blas?\s(cojo|cojes?|coje|cojemos|cojéis|cojen|cogí|cogiste|cogió|cogimos|cogistéis|cogieron|cojeré|cojerás?|cojeremos|cojeréis|cojerán)\s(el|l[ao]s?|un|un[ao]s?|algún|algun[ao]s)\b]i
+id="gr-1-laismo-coger"
+valid before="\s(uno|dos|tres|cuatro|cinco|seis|siete|ocho|nueve|diez|once|doce|trece|catorce|quince|dieci\w+|veint\w+\treint\w+|día|mes|año|hora|minuto|segundo|próximo|pasado|siguiente|anterior)"
+hint="«La cojo» se escribe como «Le cojo», laismo (error gramatical)"
+
+[(?u)\bles?\sagarr\w+\b]i
+id="gr-1-leismo-agarrar"
+valid before="\s(el|l[ao]s?|un|un[ao]s?|algún|algun[ao]s)"
+hint="«Le agarro» se escribe como «La/Lo agarro», leismo (error gramatical)"
+
+[(?u)\blas?\sagarr\w+\s(el|l[ao]s?|un|un[ao]s?|algún|algun[ao]s)\b]i
+id="gr-1-laismo-agarrar"
+valid before="\s(uno|dos|tres|cuatro|cinco|seis|siete|ocho|nueve|diez|once|doce|trece|catorce|quince|dieci\w+|veint\w+\treint\w+|día|mes|año|hora|minuto|segundo|próximo|pasado|siguiente|anterior)"
+hint="«La agarro» se escribe como «Le agarro», laismo (error gramatical)"
+
+[(?u)\bles?\sfotografi\w+\b]i
+id="gr-1-leismo-fotografiar"
+valid before="\s(el|l[ao]s?|un|un[ao]s?|algún|algun[ao]s)"
+hint="«Le fotografio» se escribe como «La/Lo fotografio», leismo (error gramatical)"
+
+[(?u)\blas?\sfotografi\w+\s(el|l[ao]s?|un|un[ao]s?|algún|algun[ao]s)\b]i
+id="gr-1-laismo-fotografiar"
+valid before="\s(uno|dos|tres|cuatro|cinco|seis|siete|ocho|nueve|diez|once|doce|trece|catorce|quince|dieci\w+|veint\w+\treint\w+|día|mes|año|hora|minuto|segundo|próximo|pasado|siguiente|anterior)"
+hint="«La fotografio» se escribe como «Le fotografio», laismo (error gramatical)"
+
+#[(?u)\bles?\s(doy|das?|damos|dais|dan|di|diste|dio|dimos|distéis|dieron|daré|daraste|dará|daremos|daréis|darán)\b]i
+#id="gr-1-leismo-dar"
+#valid before="\s(el|l[ao]s?|un|un[ao]s?|algún|algun[ao]s)"
+#valid before="\s(\w+\s){0,2}(a|de|más|para)" # acceso/permiso a
+#valid before="\s(este|ese|aquel|estas?|esas?|aquellas?|estos?|esos?|aquellos?)"
+#valid after="se\s"
+#hint="«Le doy» se escribe como «La/Lo doy», leismo (error gramatical)"
+# No vale cuando equivale a «proporcionar»
+
+[(?u)\blas?\s(doy|das?|damos|dais|dan|di|diste|dio|dimos|distéis|dieron|daré|daraste|dará|daremos|daréis|darán)\s(el|l[ao]s?|un|un[ao]s?|algún|algun[ao]s)\b]i
+id="gr-1-laismo-dar"
+valid before="\s(uno|dos|tres|cuatro|cinco|seis|siete|ocho|nueve|diez|once|doce|trece|catorce|quince|dieci\w+|veint\w+\treint\w+|día|mes|año|hora|minuto|segundo|próximo|pasado|siguiente|anterior)"
+hint="«La doy» se escribe como «Le doy», laismo (error gramatical)"
+
+[(?u)\bles?\s(muerd|mord)\w+\b]i
+id="gr-1-leismo-morder"
+valid before="\s(el|l[ao]s?|un|un[ao]s?|algún|algun[ao]s)"
+hint="«Le muerdo» se escribe como «La/Lo muerdo», leismo (error gramatical)"
+
+[(?u)\blas?\s(muerd|mord)\w+\s(el|l[ao]s?|un|un[ao]s?|algún|algun[ao]s)\b]i
+id="gr-1-laismo-morder"
+valid before="\s(uno|dos|tres|cuatro|cinco|seis|siete|ocho|nueve|diez|once|doce|trece|catorce|quince|dieci\w+|veint\w+\treint\w+|día|mes|año|hora|minuto|segundo|próximo|pasado|siguiente|anterior)"
+hint="«La muerdo» se escribe como «Le muerdo», laismo (error gramatical)"
+
+[(?u)\bles?\s(amo|amas?|amamos|amáis|aman|amé|amaste|amó|amamos|amastéis|amaron|amaré|amarás?|amaremos|amaréis|amarán)\b]i
+id="gr-2-leismo-amar"
+hint="«Le amo» se escribe como «La/Lo amo», leismo (error gramatical)"
+
+[(?u)\bles?\sador\w+\b]i
+id="gr-2-leismo-adorar"
+hint="«Le adoro» se escribe como «La/Lo adoro», leismo (error gramatical)"
+
+[(?u)\bles?\saprec\w+\b]i
+id="gr-2-leismo-apreciar"
+valid msgstr="(apreci[aeo]|apreciar[áé]|apreci[éó])" # con «a usted»
+hint="«Le aprecio» se escribe como «La/Lo aprecio», leismo (error gramatical)"
+
+[(?u)\bles?\savis\w+\b]i
+id="gr-2-leismo-avisar"
+valid msgstr="(avis[aeo]|avisar[áé]|avis[éó])" # con «a usted»
+hint="«Le aviso» se escribe como «La/Lo aviso», leismo (error gramatical)"
+
+[(?u)\bles?\sayud\w+\b]i
+id="gr-2-leismo-ayudar"
+valid msgstr="(ayud[aeo]|ayudar[áé]|ayud[éó])" # con «a usted»
+hint="«Le ayudo» se escribe como «La/Lo ayudo», leismo (error gramatical)"
+
+[(?u)\bles?\sinvit\w+\b]i
+id="gr-2-leismo-invitar"
+valid msgstr="(invit[aeo]|invitar[óé]|invit[éó])" # con «a usted»
+hint="«Le invito» se escribe como «La/Lo invito», leismo (error gramatical)"
+
+[(?u)\bles?\sodi\w+\b]i
+id="gr-2-leismo-odiar"
+hint="«Le odio» se escribe como «La/Lo odio», leismo (error gramatical)"
+
+[(?u)\bles?\sobedez\w+\b]i
+id="gr-2-leismo-obedecer"
+hint="«Le obedezco» se escribe como «La/Lo obedezco», leismo (error gramatical)"
+
+[(?u)\bles?\soblig\w+\b]i
+id="gr-2-leismo-obligar"
+valid msgstr="(oblig(a|o|ue)|oblig(ó|ué)|obligar[áé])" # con «a usted»
+hint="«Le obligo» se escribe como «La/Lo obligo», leismo (error gramatical)"
+
+[(?u)\bles?\stelefone\w+\b]i
+id="gr-2-leismo-telefonear"
+valid msgstr="(telefone[aeo]|telefone[éó]|telefonear[áé])" # con «a usted»
+hint="«Le telefoneo» se escribe como «La/Lo telefoneo», leismo (error gramatical)"
+
+[(?u)\bles?\svisit\w+\b]i
+id="gr-2-leismo-visitar"
+valid msgstr="(visit[aeo]|visitar[áé]|visit[éó])" # con «a usted»
+hint="«Le visito» se escribe como «La/Lo visito», leismo (error gramatical)"
+
+[(?u)\b(los?|las?)\s(caigo|caes?|caemos|caéis|caen|caí|caiste|cayó|caimos|caistéis|cayeron|caeré|caerás?|caeremos|cairéis|cairán)\b]i
+id="gr-2-laismo-loismo-caer"
+hint="«La/Lo caigo» se escribe como «Le caigo», laismo/loismo (error gramatical)"
+
+[(?u)\b(los?|las?)\sgrit\w+\b]i
+id="gr-2-laismo-loismo-gritar"
+valid msgstr="griton[ae]s"
+hint="«La/Lo grito» se escribe como «Le grito», laismo/loismo (error gramatical)"
+
+[(?u)\b(los?|las?)\shabl\w+\b]i
+id="gr-2-laismo-loismo-hablar"
+valid msgstr="hablantes"
+hint="«La/Lo hablo» se escribe como «Le hablo», laismo/loismo (error gramatical)"
+
+[(?u)\b(los?|las?)\sinsist\w+\b]i
+id="gr-2-laismo-loismo-insistir"
+hint="«La/Lo insisto» se escribe como «Le insisto», laismo/loismo (error gramatical)"
+
+[(?u)\b(los?|las?)\s(mient|ment)\w+\b]i
+id="gr-2-laismo-loismo-mentir"
+valid msgstr="mentiros[ao]s"
+hint="«La/Lo miento» se escribe como «Le miento», laismo/loismo (error gramatical)"
+
+[(?u)\b(los?|las?)\s(rio|ries?|reimos|reis|rien|rei|reiste|rió|reimos|reistéis|rieron|reiré|reirás?|reiremos|reiréis|reirán)\b]i
+id="gr-2-laismo-loismo-reir"
+hint="«La/Lo rio» se escribe como «Le rio», laismo/loismo (error gramatical)"
+
+[(?u)\b(los?|las?)\ssonr\w+\b]i
+id="gr-2-laismo-loismo-sonreir"
+hint="«La/Lo sonrío» se escribe como «Le sonrío», laismo/loismo (error gramatical)"
+
+[(?u)\b(los?|las?)\ssuspir\w+\b]i
+id="gr-2-laismo-loismo-suspiro"
+hint="«La/Lo suspiro» se escribe como «Le suspiro», laismo/loismo (error gramatical)"
+
+[(?u)\b(los?|las?)\stos\w+\b]i
+id="gr-2-laismo-loismo-toser"
+hint="«La/Lo toso» se escribe como «Le toso», laismo/loismo (error gramatical)"
 
 # End of rule file
