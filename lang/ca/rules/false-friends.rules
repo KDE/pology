@@ -492,7 +492,7 @@ hint="«Font» es tradueix per «Tipus (de lletra)», no per «Font» (fals amic
 # «Gradient» es tradueix per «Degradat».
 {\bgradients?\b}i
 valid msgstr="degradats?"
-valid msgstr="gradient" cat="digikam,kmplot,desktop_extragear-graphics_kst-plot"
+valid msgstr="gradient" cat="digikam,kmplot,desktop_extragear-graphics_kst-plot,kst_common"
 #valid !msgstr="gradient"
 hint="«Gradient» es tradueix per «Degradat», no per «Gradient» (fals amic)"
 

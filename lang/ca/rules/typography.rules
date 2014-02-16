@@ -85,7 +85,7 @@ valid after="font-family|font-size|font-style|font-weight|text-align|text-decora
 valid after="white-space" # CSS
 valid after="~"
 valid after="mètode\s" cat="cervisia"
-valid after="\[" cat="cervisia,kstars_indi"
+valid after="\[" cat="cervisia,kstars_indi,kcmtelepathyaccounts_plugin_haze"
 valid after="(TEX|BIB|BST)INPUTS\s.+" cat="kile"
 valid after="fontdir\/" cat="kdeprint_cups-config"
 valid after="A-Za-z_.*" cat="lokalize,kate_highlighting"
