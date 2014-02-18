@@ -1,10 +1,16 @@
 #!/bin/bash
+# 
+# Corrección automática de errores en las traducciones.
+# Lanza cuatro procesos en paralelo (dos ramas x dos tipos).
+# Deja un registro del resultado en el subdirectorio «./Correcciones»
+#
 PROGRAMA=~/svnroot/pology/scripts/posieve.py
 RAIZ=~/svnroot-cop
 IDIOMA=es
-OPCION=find-messages,stats
+OPCION=find-messages
 PARAMETROS="-s accel:& -s case"
 
+# Quita tildes innecesarias.
 P[0]="\bGuión\b"	R[0]="Guion"
 P[1]="\bguión\b"	R[1]="guion"
 P[2]="\bSólo\b"		R[2]="Solo"
@@ -118,18 +124,74 @@ P[109]="\bvió\b"	R[109]="vio"
 P[110]="\bYá\b"		R[110]="Ya"
 P[111]="\byá\b"		R[111]="ya"
 
-for RAMA in 'branches\/stable' 'trunk'; do
-    for TIPO in 'messages' 'docmessages'; do
-	echo "Iniciando...:" $RAMA $TIPO
-	ORIGEN=$RAIZ/$RAMA/l10n-kde4/$IDIOMA/$TIPO
-	for PAQUETE in $ORIGEN/*; do
-	    if [ -d $PAQUETE ]; then
-		echo "Procesando...:" $PAQUETE
-		for ((I=0; I<${#P[@]}; I++)); do
-		    echo "Analizando...:" "${P[$I]}"
-		    $PROGRAMA '-bR' $OPCION $PARAMETROS -s msgstr:"${P[$I]}" -s replace:"${R[$I]}" $PAQUETE 
-		done
-	    fi
-	done
+P[112]="\bVieráis\b"		R[112]="Vierais"
+P[113]="\bvieráis\b"		R[113]="vierais"
+P[114]="\bVieséis\b"		R[114]="Vieseis"
+P[115]="\bvieséis\b"		R[115]="vieseis"
+P[116]="\bPusiéras\b"		R[116]="Pusieras"
+P[117]="\bpusiéras\b"		R[117]="pusieras"
+P[118]="\bPusiéses\b"		R[118]="Pusieses"
+P[119]="\bpusiéses\b"		R[119]="pusiéses"
+P[120]="\bJóven\b"		R[120]="Joven"
+P[121]="\bjóven\b"		R[121]="joven"
+P[122]="\bVolúmen\b"		R[122]="Volumen"
+P[123]="\bvolúmen\b"		R[123]="volumen"
+P[124]="\bResúmen\b"		R[124]="Resumen"
+P[125]="\bresúmen\b"		R[125]="resumen"
+P[126]="\bOrígen\b"		R[126]="Origen"
+P[127]="\borígen\b"		R[127]="origen"
+P[128]="\bExámen\b"		R[128]="Examen"
+P[129]="\bexámen\b"		R[129]="examen"
+P[130]="\bEstáte\b"		R[130]="Estate"
+P[131]="\bestáte\b"		R[131]="estate"
+P[132]="\bSupónlo\b"		R[132]="Suponlo"
+P[133]="\bsupónlo\b"		R[133]="suponlo"
+P[134]="\bDéles\b"		R[134]="Deles"
+P[135]="\bdéles\b"		R[135]="deles"
+P[136]="\bVé\b"		R[136]="Ve"
+P[137]="\bvé\b"		R[137]="ve"
+P[138]="\bDáis\b"		R[138]="Dais"
+P[139]="\bdáis\b"		R[139]="dais"
+P[140]="\bSóis\b"		R[140]="Sois"
+P[141]="\bsois\b"		R[141]="sois"
+P[142]="\bJesuíta\b"		R[142]="Jesuita"
+P[143]="\bjesuíta\b"		R[143]="jesuita"
+P[144]="\bGratuíto\b"		R[144]="Gratuito"
+P[145]="\bgratuíto\b"		R[145]="gratuito"
+P[146]="\bFortuíto\b"		R[146]="Fortuito"
+P[147]="\bfortuíto\b"		R[147]="fortuito"
+P[148]="\bFéliz\b"		R[148]="Feliz"
+P[149]="\bféliz\b"		R[149]="feliz"
+P[150]="\bCáriz\b"		R[150]="Cariz"
+P[151]="\bcáriz\b"		R[151]="cariz"
+P[152]="\bDéme\b"		R[152]="Deme"
+P[153]="\bdéme\b"		R[153]="deme"
+P[154]="\bDéle\b"		R[154]="Dele"
+P[155]="\bdéle\b"		R[155]="dele"
+P[156]="\bDése\b"		R[156]="Dese"
+P[157]="\bdése\b"		R[157]="dese"
+P[158]="\bDénos\b"		R[158]="Denos"
+P[159]="\bdénos\b"		R[159]="denos"
+P[160]="\bDéles\b"		R[160]="Deles"
+P[161]="\bdéles\b"		R[161]="deles"
+
+corregir() {
+    echo "Iniciando...:" $1 $2
+    ORIGEN=$RAIZ/$1/l10n-kde4/$IDIOMA/$2
+    for PAQUETE in $ORIGEN/*; do
+	if [ -d $PAQUETE ]; then
+	    echo "Procesando...:" $PAQUETE
+	    for ((I=0; I<${#P[@]}; I++)); do
+		echo "Analizando...:" "${P[$I]}"
+		$PROGRAMA '-bR' $OPCION $PARAMETROS -s msgstr:"${P[$I]}" -s replace:"${R[$I]}" $PAQUETE 
+	    done
+	fi
+    done
+}
+
+for RAMA in "branches\/stable" "trunk"; do
+    for TIPO in "messages" "docmessages"; do
+	mkdir -p "./Correcciones/$RAMA"
+	corregir $RAMA $TIPO > "./Correcciones/$RAMA/$TIPO.log" &
     done
 done

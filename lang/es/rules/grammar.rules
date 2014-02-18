@@ -765,7 +765,7 @@ id="gr-1-arroba-genero-neutro-2"
 hint="No utilice la arroba para evitar el género, p.ej. «ciudadan@» (error gramatical)"
 
 #
-# ERRORES CON PREFIJOS
+# ERRORES CON PREFIJOS Y SUFIJOS
 #
 
 [(?u)\b(ante|anti|archi|auto|bi|bien|co|con|contra|cuasi|des|epi|eqi|ex|extra|foto|geo|hemi|h[ií]per|im|in|infra|inter|intra|macro|maxi|mega|meta|micro|mini|mono|multi|neo|peri|pluri|poli|pos|post|pre|pro|re|retro|semi|seudo|sim|sin|sobre|sub|s[uú]per|supra|tele|trans|tras|tri|ultra|uni|vice)\-\w+?\b]i
@@ -790,6 +790,10 @@ valid span="post[aeiour]\w*"
 valid msgstr="postgresql"
 valid msgstr="postfix"
 hint="Se recomienda usar el prefijo «Pos» en lugar de «Post»(error ortográfico)"
+
+[(?u)\b\w+\-mente\b]i
+id="gr-2-guion-antes-mente"
+hint="No se debe usar el guion para separar el sufijo «mente» (error ortográfico)"
 
 #
 # ERRORES CON SIGLAS
@@ -2135,15 +2139,15 @@ id="gr-1-laismo-agarrar"
 valid before="\s(uno|dos|tres|cuatro|cinco|seis|siete|ocho|nueve|diez|once|doce|trece|catorce|quince|dieci\w+|veint\w+\treint\w+|día|mes|año|hora|minuto|segundo|próximo|pasado|siguiente|anterior)"
 hint="«La agarro» se escribe como «Le agarro», laismo (error gramatical)"
 
-[(?u)\bles?\sfotografi\w+\b]i
+[(?u)\bles?\sfotograf[ií]\w+\b]i
 id="gr-1-leismo-fotografiar"
 valid before="\s(el|l[ao]s?|un|un[ao]s?|algún|algun[ao]s)"
-hint="«Le fotografio» se escribe como «La/Lo fotografio», leismo (error gramatical)"
+hint="«Le fotografío» se escribe como «La/Lo fotografío», leismo (error gramatical)"
 
-[(?u)\blas?\sfotografi\w+\s(el|l[ao]s?|un|un[ao]s?|algún|algun[ao]s)\b]i
+[(?u)\blas?\sfotograf[ií]\w+\s(el|l[ao]s?|un|un[ao]s?|algún|algun[ao]s)\b]i
 id="gr-1-laismo-fotografiar"
 valid before="\s(uno|dos|tres|cuatro|cinco|seis|siete|ocho|nueve|diez|once|doce|trece|catorce|quince|dieci\w+|veint\w+\treint\w+|día|mes|año|hora|minuto|segundo|próximo|pasado|siguiente|anterior)"
-hint="«La fotografio» se escribe como «Le fotografio», laismo (error gramatical)"
+hint="«La fotografío» se escribe como «Le fotografío», laismo (error gramatical)"
 
 #[(?u)\bles?\s(doy|das?|damos|dais|dan|di|diste|dio|dimos|distéis|dieron|daré|daraste|dará|daremos|daréis|darán)\b]i
 #id="gr-1-leismo-dar"

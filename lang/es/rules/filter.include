@@ -25,6 +25,9 @@ addFilterRegex match="\:\w+\:" repl="~" on="pmsgid,pmsgstr"
 # Remove email addresses with "at"
 addFilterRegex match="\(([\w.-]+\s)+?at(\s[\w.-]+)+\)" repl="~" on="pmsgid,pmsgstr"
 
+# Remove ulinks
+addFilterRegex match="\<ulink.*?\>" repl="~" on="pmsgid,pmsgstr"
+
 # Remove program parameters (including 'help' option)
 addFilterRegex match="(?<!\w)\-\-[\w-]+\s(help)?" repl="~" on="pmsgid,pmsgstr"
 addFilterRegex match="^\-\-[\w-]+\s(help)?" repl="~" on="pmsgid,pmsgstr"
