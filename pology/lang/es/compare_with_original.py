@@ -329,7 +329,7 @@ def test_paired_expressions (msg, cat):
     return []
 
 
-_ent_number = re.compile("\d+(?:[\s.,:/-]\d+)*", re.U)
+_ent_number = re.compile("\b\d+(?:[\s.,:/-]\d+)*\b", re.U)
 _not_digit = re.compile("\D", re.U)
 
 def test_paired_numbers (msg, cat):
