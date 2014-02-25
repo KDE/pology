@@ -276,7 +276,7 @@ hint="No coloque más de un espacio consecutivo"
 id="ty-3-sobra-espacio-antes-punto"
 valid before="\w{1,4}(\b|\.)" # Extensions
 valid before="\/\w+\b" # Files
-valid before="\w+(rc|config)\b" # Configuration files
+valid before="\w+?(rc|config)\b" # Configuration files
 valid before="\.\."
 valid before="~"
 valid before="(desktop|calendar|directory)\b"
@@ -304,11 +304,10 @@ valid ctx="EMAIL OF TRANSLATORS"
 valid ctx="trans_comment"
 valid ctx="Numbers and characters"
 valid ctx="X\-KDE\-Keywords"
-valid msgid="ty-3-falta-apertura-admiracion-variasCREDIT_FOR_TRANSLATORS"
+valid msgid="CREDIT_FOR_TRANSLATORS"
 valid before="\w{1,4}(\b|\.)" # Extensions
-valid before="\w+(rc|config)\b" # Configuration files
+valid before="\w+?(rc|config)\b" # Configuration files
 valid before="(calendar|desktop|directory|h|html|lock|moc|xml)\b"
-valid before="\wrc\b" # Configuration files
 valid before="Fm" after="Last\s"
 valid before="\.\."
 valid after="\.\."
@@ -344,10 +343,11 @@ hint="No ponga el signo de apóstrofo antes de números"
 #id="ty-3-sobra-retorno-carro"
 #hint="Abajo MS-DOS (quite el carácter de retorno de carro)"
 
-[(?<=\S)\.\s[a-zñçáéíóú]]
+[(?<=\S)\.\s[a-zñçáéíóú]\w+]
 id="ty-2-falta-mayuscula-despues-punto"
 valid after="\.\."
-valid before="[a-z]*?[A-Z]"
+valid span="\.\s[a-z]*?[A-Z]"
+valid span="\.\shttps?"
 hint="Utilice mayúsculas después de punto"
 
 [(?<=\S)\?\s[a-zñçáéíóú]]
@@ -362,6 +362,7 @@ hint="Utilice mayúsculas después de cierre de admiración"
 
 [(?s)\((?!.*?\))]
 id="ty-3-falta-cierre-parentesis"
+valid msgid="\(" msgstr="\("
 valid before="(?s).*?[\)\(\{«'\"\[]"
 hint="Cierre el paréntesis (deben ir emparejados)"
 
@@ -430,7 +431,7 @@ hint="Las unidades monetarias no llevan punto"
 [\d+(a|A|at|atm|b|bar|c|cal|cd|cm|CV|d|da|dB|dm|dyn|erg|eV|f|F|ft|g|G|Gb|GiB|gr|Gs|Gy|h|H|ha|hp|Hz|in|J|k|K|kb|kIb|kg|km|l|L|lb|lm|lx|m|M|mB|mIb|mbar|Mc|mg|min|mol|Mx|n|N|Oe|oz|p|P|Pa|pc|pt|Qm|R|rad|s|sr|Sv|t|T|tex|u|UA|V|Wb|yd)\b]
 id="ty-2-espacio-de-separacion-en-unidad-medida"
 valid span="[23]G"
-valid span="[23]d"
+valid span="[23]D"
 valid after="[A-Za-z-]"
 valid span="\d[a-z]" before="\)"
 hint="Es necesario un espacio de separación entre el número y la unidad de medida"
@@ -448,7 +449,7 @@ valid ctx="trans_comment"
 valid msgid=".*?TRANSLATORS"
 valid msgid="^$"
 valid before="(\sde)?\s[A-Z]\w+"
-valid after="\&[\w\d_-]+;"
+valid after="\&[\w-]+;"
 valid after="[A-ZÑÇ]\w+"
 hint="Utilice minúsculas después de coma o punto y coma"
 

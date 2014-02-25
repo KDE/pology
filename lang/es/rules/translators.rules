@@ -26,7 +26,7 @@ valid msgstr="[A-Z]\w+"
 
 *msgctxt/EMAIL OF TRANSLATORS/
 id="tr-1-sin-arroba-direccion-correo"
-valid msgstr="\w+\@\w+"
+valid msgstr="\w@\w"
 hint="Compruebe el formato de las direcciones de correo, no incluyen ninguna arroba intermedia"
 
 *msgctxt/EMAIL OF TRANSLATORS/
@@ -36,7 +36,7 @@ hint="Compruebe el formato de las direcciones de correo, no incluyen ningún pun
 
 *msgctxt/EMAIL OF TRANSLATORS/
 id="tr-1-caracteres-invalidos-direccion-correo"
-valid msgstr="^[\sA-Za-z0-9_@.,-]+$"
+valid msgstr="^[\s\w@.,-]+$"
 hint="Compruebe el formato de las direcciones de correo, incluyen caracteres no válidos"
 
 # End of rules

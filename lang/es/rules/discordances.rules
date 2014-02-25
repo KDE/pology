@@ -133,8 +133,13 @@ hint="«Outside» se traduce como «Fuera» o similar (error de concordancia)"
 
 #{\bin\b}i
 #id="dc-2-in"
+#valid msgstr="en"
+#valid msgstr="dentro"
+#valid msgstr="IN"
 
 #{\bout\b}i
 #id="dc-2-out"
+#valid msgstr="fuera"
+#valid msgstr="OUT"
 
 # End of rule file

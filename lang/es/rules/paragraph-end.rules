@@ -92,6 +92,36 @@ id="pe-3-falta-punto-y-coma-fin-nuevo-parrafo"
 valid msgstr="\;\s*\<\/p\>"
 hint="Compruebe el uso de punto y coma al final del párrafo «</p>» (falta en la traducción)."
 
+{\?\s*$}i
+id="pe-3-falta-interrogacion-fin-parrafo"
+valid msgstr="\?\s*$"
+hint="Compruebe el uso de interrogación al final del párrafo (falta en la traducción."
+
+{\?\s*?\n}i
+id="pe-3-falta-interrogacion-fin-nueva-linea"
+valid msgstr="\?\s*?\n"
+hint="Compruebe el uso de interrogacion antes del fin de línea «\n» (falta en la traducción)."
+
+{\?\s*\<\/p\>}i
+id="pe-3-falta-interrogacion-fin-nuevo-parrafo"
+valid msgstr="\;\s*\<\/p\>"
+hint="Compruebe el uso de interrogación al final del párrafo «</p>» (falta en la traducción)."
+
+{\!\s*$}i
+id="pe-3-falta-admiracion-fin-parrafo"
+valid msgstr="\!\s*$"
+hint="Compruebe el uso de admiración al final del párrafo (falta en la traducción."
+
+{\!\s*?\n}i
+id="pe-3-falta-admiración-fin-nueva-linea"
+valid msgstr="\!\s*?\n"
+hint="Compruebe el uso de admiración antes del fin de línea «\n» (falta en la traducción)."
+
+{\!\s*\<\/p\>}i
+id="pe-3-falta-admiración-fin-nuevo-parrafo"
+valid msgstr="\!\s*\<\/p\>"
+hint="Compruebe el uso de admiración al final del párrafo «</p>» (falta en la traducción)."
+
 {\.\)\s*$}i
 id="pe-3-error-orden-parentesis-fin-parrafo"
 valid msgstr="\)\.\s*$"
@@ -305,6 +335,38 @@ hint="Compruebe el orden de comillas y punto al final del párrafo «</p>» (al 
 
 # Signo de admiración al final del párrafo
 
+[\!\s*$]i
+id="pe-3-sobra-admiracion-fin-parrafo"
+valid msgid="\!\s*$"
+valid msgid="The\sBat\!"
+hint="Compruebe el uso de admiración al final del párrafo (sobra en la traducción)."
+
+[\!\s*?\n]i
+id="pe-3-sobra-admiracion-fin-nueva-linea"
+valid msgid="\!\s*?\n"
+valid msgid="The\sBat\!"
+hint="Compruebe el uso de admiración antes del fin de línea «\n» (sobra en la traducción)"
+
+[\!\s*\<\/p\>]i
+id="pe-3-sobra-admiracion-fin-nuevo-parrafo"
+valid msgid="\!\s*\<\/p\>"
+valid msgid="The\sBat\!"
+hint="Compruebe el uso de admiración al final del párrafo «</p>» (sobra en la traducción)"
+
 # Signo de interrogación al final del párrafo
+[\?$]i
+id="pe-3-sobra-interrogacion-fin-parrafo"
+valid msgid="\?$"
+hint="Compruebe el uso de interrogación al final del párrafo (sobra en la traducción)."
+
+[\?\n]i
+id="pe-3-sobra-interrogacion-fin-nueva-linea"
+valid msgid="\?\n"
+hint="Compruebe el uso de interrogación antes del fin de línea «\n» (sobra en la traducción)"
+
+[\?\<\/p\>]i
+id="pe-3-sobra-interrogacion-fin-nuevo-parrafo"
+valid msgid="\?\<\/p\>"
+hint="Compruebe el uso de interrogación al final del párrafo «</p>» (sobra en la traducción)"
 
 # End of rule file

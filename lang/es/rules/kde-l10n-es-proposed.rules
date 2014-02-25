@@ -268,7 +268,7 @@ hint="«Bloggers» se traduce como «Blogueros/as» (propuesta glosario)"
 
 {\bblogging\b}i
 id="gp-2-blogging"
-valid msgstr="bloguear"
+valid msgstr="blogue(ar|o)"
 hint="«Blogging» se traduce como «Bloguear» (propuesta glosario)"
 
 {\bblogs\b}i
@@ -1661,13 +1661,15 @@ hint="«Glyphs» se traduce como «Glifos» (propuesta glosario)"
 {\bgrab\b}i
 id="gp-2-grab"
 valid msgstr="captur(ar|a|e)"
+valid msgstr="agarr(ar|a|e)"
 valid msgstr="capturará" after="will\s(\w+\s)?"
 valid msgstr="capturó" after="did\s(\w+\s)?"
 hint="«Grab» se traduce como «Capturar» (propuesta glosario)"
 
 {\bgrabs\b}i
 id="gp-2-grabs"
-valid msgstr="captur(ar|a|e)"
+valid msgstr="captur[ae]"
+valid msgstr="agarr[ae]"
 hint="«Grabs» se traduce como «Captura» (propuesta glosario)"
 
 {\bgraph\b}i
@@ -1815,8 +1817,11 @@ valid msgstr="visita"
 valid msgstr="golpe"
 valid msgstr="éxito"
 valid msgstr="puls(ar|a|e)"
+valid msgstr="golpe(ar|a|e)"
 valid msgstr="pulsará" after="will\s(\w+\s)?"
+valid msgstr="golpeará" after="will\s(\w+\s)?"
 valid msgstr="pulsó" after="did\s(\w+\s)?"
+valid msgstr="golpeó" after="did\s(\w+\s)?"
 hint="«Hit» se traduce como «Acierto/Acceso/Visita/Golpe» (propuesta glosario)"
 
 {\bhits\b}i
@@ -1826,7 +1831,8 @@ valid msgstr="accesos"
 valid msgstr="visitas"
 valid msgstr="golpes"
 valid msgstr="éxitos"
-valid msgstr="puls(a|e)"
+valid msgstr="puls[ae]"
+valid msgstr="golpe[ae]"
 valid msgstr="(algún|ningún|cualquier)\sacierto"
 valid msgstr="(algún|ningún|cualquier)\sacceso"
 valid msgstr="(alguna|cualquier|ninguna)\svisita"
@@ -2357,7 +2363,7 @@ hint="«Microlog» se traduce como «Microblog» (propuesta glosario)"
 
 {\bmicroblogging\b}i
 id="gp-2-microblogging"
-valid msgstr="microbloguear"
+valid msgstr="microblogue(ar|o)"
 hint="«Micrologging» se traduce como «Microbloguear» (propuesta glosario)"
 
 {\bmicroblogs\b}i
@@ -4146,11 +4152,13 @@ hint="«Thrust path» se traduce como «Ruta de confianza» (propuesta glosario)
 {\btweet\b}i
 id="gp-3-tweet"
 valid msgstr="tuit"
-hint="«Tweet» se traduce como «Tuit» (propuesta glosario)"
+valid msgstr="pi(ar|a|e)"
+hint="«Tweet» se traduce como «Tuit/Piar» (propuesta glosario)"
 
 {\btweets\b}i
 id="gp-3-tweets"
 valid msgstr="tuits"
+valid msgstr="pi[ae]"
 valid msgstr="(algún|cualquier|ningún)\stuit"
 hint="«Tweets» se traduce como «Tuits» (propuesta glosario)"
 

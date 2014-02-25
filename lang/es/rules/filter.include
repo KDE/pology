@@ -25,26 +25,28 @@ addFilterRegex match="\:\w+\:" repl="~" on="pmsgid,pmsgstr"
 # Remove email addresses with "at"
 addFilterRegex match="\(([\w.-]+\s)+?at(\s[\w.-]+)+\)" repl="~" on="pmsgid,pmsgstr"
 
-# Remove ulinks
-addFilterRegex match="\<ulink.*?\>" repl="~" on="pmsgid,pmsgstr"
-
 # Remove program parameters (including 'help' option)
 addFilterRegex match="(?<!\w)\-\-[\w-]+\s(help)?" repl="~" on="pmsgid,pmsgstr"
 addFilterRegex match="^\-\-[\w-]+\s(help)?" repl="~" on="pmsgid,pmsgstr"
 
+# Remove some types of paragraph tags.
+addFilterHook name="remove/remove-marlits-msg" on="msg"
+addFilterHook name="remove/remove-markup-msg" on="msg"
+addFilterHook name="remove/remove-accel-msg" on="msg"
+addFilterHook name="remove/remove-ignored-entities-msg" on="msg"
+addFilterHook name="remove/remove-paired-ents-tick~u'~'" on="msg"
+addFilterHook name="remove/remove-fmtdirs-msg-tick~u'~'" on="msg"
+addFilterHook name="remove/remove_literals_msg_tick~u'~'" on="msg"
+
 # Remove dd parameters
-addFilterRegex match="\b(if|of)\=(\/[\w_.#+-]+)+" repl="~" casesens="yes" on="pmsgid,pmsgstr"
+addFilterRegex match="\b(if|of)\=(\/[\w.#+-]+)+" repl="~" casesens="yes" on="pmsgid,pmsgstr"
 
 # Remove Linux files
-addFilterRegex match="\b(bin|boot|dev|etc|home|lib|lib64|lost\+found|media|mnt|opt|proc|root|run|sbin|srv|sys|tmp|usr|var)(\/[\w_.#+-]+)+" repl="~" casesens="yes" on="pmsgid,pmsgstr"
+addFilterRegex match="\b(bin|boot|dev|etc|home|lib|lib64|lost\+found|media|mnt|opt|proc|root|run|sbin|srv|sys|tmp|usr|var)(\/[\w.#+-]+)+" repl="~" casesens="yes" on="pmsgid,pmsgstr"
 addFilterRegex match="(\$\w+|\$\{\w+\}|(KDE|QT|JAVA)\w*|\.kde\d?|~)(\/[\w_#+.-]+)+" repl="~" casesens="yes" on="pmsgid,pmsgstr"
 
 # Remove Windows files
-addFilterRegex match="\b[A-Z]\:(\\{1,2}[\w.#+_-]+)+\b" repl="~" casesens="yes" on="pmsgid,pmsgstr"
-
-# Remove files with common extensions
-addFilterRegex match="\b[\w.#+_-]+?\.(txt|xml|exe|lib|bin|so|doc|docx|odt|pdf|jpg|png|ico|h|c|cpp|py|pyc|java|tar|tgz|gz)\b" repl="~" casesens="yes" on="pmsgid,pmsgstr"
-addFilterRegex match="\*(\.\w+)+\b" repl="~" on="pmsgid,pmsgstr"
+addFilterRegex match="\b[A-Z]\:(\\{1,2}[\w.#+-]+)+\b" repl="~" casesens="yes" on="pmsgid,pmsgstr"
 
 # Remove some shell variables
 addFilterRegex match="\$\w+" repl="~" on="pmsgid,pmsgstr"
@@ -59,16 +61,17 @@ addFilterRegex match="\\\\\w+(\{\w*\})?" repl="~" on="pmsgid,pmsgstr"
 addFilterRegex match="\:\:\w+" repl="~" on="pmsgid,pmsgstr"
 
 # Remove MIME types
-addFilterRegex match="\b(all|application|audio|fonts|image|inode|interface|message|model|multipart|text|uri|video|x\-content|x\-epoc)\/\w[\w_#+.-]*\w" repl="~" on="pmsgid,pmsgstr"
+addFilterRegex match="\b(all|application|audio|fonts|image|inode|interface|message|model|multipart|text|uri|video|x\-content|x\-epoc)\/\w[\w#+.-]*\w" repl="~" on="pmsgid,pmsgstr"
 
-# Remove some types of paragraph tags.
-addFilterHook name="remove/remove-marlits-msg" on="msg"
-addFilterHook name="remove/remove-markup-msg" on="msg"
-addFilterHook name="remove/remove-accel-msg" on="msg"
-addFilterHook name="remove/remove-ignored-entities-msg" on="msg"
-addFilterHook name="remove/remove-paired-ents-tick~u'~'" on="msg"
-addFilterHook name="remove/remove-fmtdirs-msg-tick~u'~'" on="msg"
-addFilterHook name="remove/remove_literals_msg_tick~u'~'" on="msg"
+# Remove files with common extensions
+addFilterRegex match="\b[\w.#+-]+?\.(txt|xml|exe|lib|bin|so|doc|docx|odt|pdf|jpg|png|ico|h|c|cpp|py|pyc|java|tar|tgz|gz)\b" repl="~" casesens="yes" on="pmsgid,pmsgstr"
+addFilterRegex match="\*(\.\w+)+\b" repl="~" on="pmsgid,pmsgstr"
+
+# Remove url's
+addFilterRegex match="\b[\w.#+-]+?\.(com|net|org)\b" repl="~" casesens="yes" on="pmsgid,pmsgstr"
+
+# Remove ulinks
+addFilterRegex match="\<ulink.*?\>" repl="~" on="pmsgid,pmsgstr"
 
 #Remove XML-like tags.
 addFilterRegex match="\<\s*(bcode|command|envar|filename|icode|shortcut|placeholder|style|code|tt|literal|screen|option|keycap|userinput|systemitem|prompt|function|foreignphrase|varname|programlisting|token|markup|parameter|keysym|methodname|sgmltag|arg|classname|type)\s*\>.*?\<\/\s*\1\s*\>" repl="~" on="pmsgid,pmsgstr"

@@ -21,18 +21,24 @@ hint="Compruebe el uso de espacio posterior a «<p>» (falta en la traducción).
 {^[\s\(\"\'\:.*«¡¿_-]*[A-Z]}
 id="pb-2-falta-mayuscula-inicio-parrafo"
 valid msgid="Your [Ee]mails"
+valid msgid="^[\s\(\"\'\:.*«¡¿_-]*[a-z0-9]+[A-Z.]"
+valid msgid="^[\s\(\"\'\:.*«¡¿_-]*[a-z0-9]+?(d|rc)\b"
 valid msgstr="(?u)^[\s\(\"\':.*«¡¿_-]*?[a-z0-9]+[A-Z]"
 valid msgstr="(?u)^[\s\(\"\':.*«¡¿_-]*?[A-ZÁÉÍÓÚÄËÏÖÜÂÊÎÔÛÀÈÌÒÙĀ©«0-9¿¡&%<_\(]"
 hint="Compruebe el uso de mayúscula al principio del párrafo (falta en la traducción)."
 
 {\n[\s\(\"\'\:.*«¡¿_-]*[A-Z]}
 id="pb-2-falta-mayuscula-inicio-nueva-linea"
+valid msgid="\n[\s\(\"\'\:.*«¡¿_-]*[a-z0-9]+[A-Z.]"
+valid msgid="\n[\s\(\"\'\:.*«¡¿_-]*[a-z0-9]+?(d|rc)\b"
 valid msgstr="(?u)\n[\s\(\"\'\:.*«¡¿_-]*?[a-z0-9]+[A-Z]"
 valid msgstr="(?u)\n[\s\(\"\'\:.*«¡¿_-]*?[A-ZÁÉÍÓÚÄËÏÖÜÂÊÎÔÛÀÈÌÒÙĀ©«0-9¿¡&%<_\(]"
 hint="Compruebe el uso de mayúscula posterior a «\n» (falta en la traducción)."
 
 {\<p\>[\s\(\"\'\:.*«¡¿_-]*[A-Z]}
 id="pb-2-falta-mayuscula-inicio-nuevo-parrafo"
+valid msgid="\<p\>[\s\(\"\'\:.*«¡¿_-]*[a-z0-9]+[A-Z.]"
+valid msgid="\<p\>[\s\(\"\'\:.*«¡¿_-]*[a-z0-9]+?(d|rc)\b"
 valid msgstr="(?u)\<p\>[\s\(\"\'\:.*«¡¿_-]*?[a-z0-9]+[A-Z]"
 valid msgstr="(?u)\<p\>[\s\(\"\'\:.*«¡¿_-]*?[A-ZÁÉÍÓÚÄËÏÖÜÂÊÎÔÛÀÈÌÒÙĀ©«0-9¿¡&%<_\(]"
 hint="Compruebe el uso de mayúscula posterior a «<\p>» (falta en la traducción)."
@@ -99,18 +105,21 @@ id="pb-2-sobra-minuscula-inicio-parrafo"
 valid msgid="Your [Ee]mails"
 valid msgid="^[\s\(\"\'\:.*«¡¿_-]*?[a-z0-9]+[A-Z.]"
 valid msgid="^[\s\(\"\'\:.*«¡¿_-]*?[a-z©«0-9&%<_\(]"
+valid msgstr="(?u)^[\s\(\"\':.*«¡¿_-]*?[a-z0-9]+[A-Z]"
 hint="Compruebe el uso de minúscula al principio del párrafo (sobra en la traducción)."
 
 [(?u)\n[\s\(\"\'\:.*«¡¿_-]*[a-záéíóú]]
 id="pb-2-sobra-minuscula-inicio-nueva-linea"
 valid msgid="\n[\s\(\"\'\:.*«¡¿_-]*?[a-z0-9]+[A-Z.]"
 valid msgid="\n[\s\(\"\'\:.*«¡¿_-]*?[a-z©«0-9&%<_\(]"
+valid msgstr="(?u)\n[\s\(\"\':.*«¡¿_-]*?[a-z0-9]+[A-Z]"
 hint="Compruebe el uso de minúscula posterior a «\n» (sobra en la traducción)."
 
 [(?u)\<p\>[\s\(\"\'\:.*«¡¿_-]*[a-záéíóú]]
 id="pb-2-sobra-minuscula-inicio-nuevo-parrafo"
 valid msgid="\<p\>[\s\(\"\'\:.*«¡¿_-]*?[a-z0-9]+[A-Z.]"
 valid msgid="\<p\>[\s\(\"\'\:.*«¡¿_-]*?[a-z©«0-9&%<_\(]"
+valid msgstr="(?u)\<p\>[\s\(\"\':.*«¡¿_-]*?[a-z0-9]+[A-Z]"
 hint="Compruebe el uso de minúscula posterior a «<p>» (sobra en la traducción)."
 
 # End of rule file

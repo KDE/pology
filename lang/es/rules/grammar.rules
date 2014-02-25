@@ -1082,6 +1082,14 @@ id="gr-3-falta-coma-antes-de-primer-o-bien"
 validGroup beforeComma
 hint="Ponga comas en la expresión «,bien... ,bien» (error gramatical)"
 
+[,\stanto[^.]+\scomo]i
+id="gr-3-sobra-coma-antes-de-tanto"
+hint="No ponga coma antes de «tanto» en la expresión «tanto... como» (error gramatical)"
+
+[\btanto[^.]+,\scomo]i
+id="gr-3-sobra-coma-antes-de-como"
+hint="No ponga coma antes de «como» en la expresión «tanto... como» (error gramatical)"
+
 [\bes\sdecir\s]i
 id="gr-3-falta-coma-despues-es-decir"
 hint="Ponga una coma después de «es decir» (error gramatical)"
