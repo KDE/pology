@@ -387,6 +387,7 @@ valid ctx="Numbers and characters"
 hint="Mettre une espace avant et une espace insécable après"
 
 [`]
+validGroup keycapTag
 validGroup cdataTag
 validGroup perlScript
 validGroup userinputTag
