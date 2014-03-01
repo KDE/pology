@@ -65,10 +65,8 @@ $xsltproc --xinclude $cmddir/docbook-html-chapters-tmp.xsl $topdbk \
 # - add highlighting
 # This relies on custom XSLT of <programlisting> in local.xsl,
 # which adds <!-- language: ... --> comment.
-for htmlfile in `find $htmldir -name \*.html`; do
-    $cmddir/add-html-highlight.py $htmlfile $htmlfile
-    sed -i 's:</head>:<link rel="stylesheet" href="highlight.css" type="text/css"></head>:' $htmlfile
-done
+# Highlighting CSS definitions are also in docbook-html-style.css.
+$cmddir/add-html-highlight.py $htmldir/*
 
 # - clean up
 rm $cmddir/*-tmp.xsl
@@ -85,7 +83,6 @@ sed -i -r 's/(<div[^>]* class="(abstract|article|book|chapter|sect)[^>]*) title=
 # Copy HTML data.
 dbkdir=`dirname $topdbk`
 cp $cmddir/docbook-html-style.css $htmldir/style.css
-cp $cmddir/docbook-html-highlight.css $htmldir/highlight.css
 find $dbkdir -maxdepth 1 \
     -iname '*.png' -o \
     -iname '*.jpg' -o \

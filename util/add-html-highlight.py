@@ -18,11 +18,11 @@ _cmd = os.path.basename(sys.argv[0])
 
 def main ():
 
-    infile = sys.argv[1]
-    if len(sys.argv) > 2:
-        outfile = sys.argv[2]
-    else:
-        outfile = None
+    for infile in sys.argv[1:]:
+        add_html_highlight(infile)
+
+
+def add_html_highlight (infile):
 
     ifh = open(infile)
     htmlstr = ifh.read().decode("utf8")
@@ -60,7 +60,7 @@ def main ():
         p = p2
     htmlstr_mod = "".join(segs)
 
-    ofh = open(outfile, "w") if outfile else sys.stdout
+    ofh = open(infile, "w")
     ofh.write(htmlstr_mod.encode("utf8"))
     ofh.close()
 
