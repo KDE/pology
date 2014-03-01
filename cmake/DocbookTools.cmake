@@ -17,6 +17,11 @@ endif()
 set(sedrepl_notitle
     "'s/(<div[^>]* class=\"(abstract|article|book|chapter|sect)[^>]*) title=\"[^\"]*\"/\\1/g'")
 
+# Sed search and replace expression to
+# remove highlighting comments, when highlighting not requested.
+set(sedrepl_nohlang "'s/<!-- *language: *[^ ]+ *-->//g'")
+
+set(highlight_command ${CMAKE_SOURCE_DIR}/util/add-html-highlight.py)
 
 function(GET_ABSOLUTE_PATHS abspathsvar absroot)
     set(paths ${ARGN})
@@ -36,7 +41,7 @@ endfunction()
 
 macro(DOCBOOK_BOOK_TO_HTML_CHUNKED)
 
-    set(optargs)
+    set(optargs HIGHLIGHT)
     set(svalargs TARGET CSSFILE XSLFILE OUTDIR DESTINATION RENAME RENAMECSS)
     set(mvalargs DOCS EXTRAS)
     cmake_parse_arguments(DBT_BHC
@@ -61,6 +66,9 @@ macro(DOCBOOK_BOOK_TO_HTML_CHUNKED)
     if(NOT DBT_BHC_RENAME)
         set(DBT_BHC_RENAME ${DBT_BHC_OUTDIR})
     endif()
+    if(NOT DBT_BHC_RENAMECSS)
+        get_filename_component(DBT_BHC_RENAMECSS ${DBT_BHC_CSSFILE} NAME)
+    endif()
 
     get_absolute_paths(docfiles ${CMAKE_CURRENT_SOURCE_DIR} ${DBT_BHC_DOCS})
     get_absolute_paths(extrafiles ${CMAKE_CURRENT_SOURCE_DIR} ${DBT_BHC_EXTRAS})
@@ -78,6 +86,11 @@ macro(DOCBOOK_BOOK_TO_HTML_CHUNKED)
     else()
         set(target ${DBT_BHC_TARGET})
     endif()
+    if(DBT_BHC_HIGHLIGHT)
+        set(apply_highlight ${highlight_command} ${rnmdir}/*.html)
+    else()
+        set(apply_highlight sed -i -r ${sedrepl_nohlang} ${rnmdir}/*.html)
+    endif()
 
     list(GET docfiles 0 mdocfile)
     set(targfilebase ${target}-buildstamp)
@@ -92,6 +105,7 @@ macro(DOCBOOK_BOOK_TO_HTML_CHUNKED)
         COMMAND mv ${outdir} ${outdir}-tmp
         COMMAND mv ${outdir}-tmp ${rnmdir}
         COMMAND sed -i -r ${sedrepl_notitle} ${rnmdir}/*.html
+        COMMAND ${apply_highlight}
         COMMAND touch ${targfile}
         DEPENDS ${docfiles} ${xslfile}
     )
@@ -109,7 +123,7 @@ endmacro()
 
 macro(DOCBOOK_BOOK_TO_HTML_SINGLE)
 
-    set(optargs PIPEOUT)
+    set(optargs PIPEOUT HIGHLIGHT)
     set(svalargs TARGET CSSFILE XSLFILE OUTFILE DESTINATION RENAME RENAMECSS)
     set(mvalargs DOCS EXTRAS)
     cmake_parse_arguments(DBT_BHC
@@ -134,6 +148,9 @@ macro(DOCBOOK_BOOK_TO_HTML_SINGLE)
     if(NOT DBT_BHC_RENAME)
         set(DBT_BHC_RENAME ${DBT_BHC_OUTFILE})
     endif()
+    if(NOT DBT_BHC_RENAMECSS)
+        get_filename_component(DBT_BHC_RENAMECSS ${DBT_BHC_CSSFILE} NAME)
+    endif()
 
     get_absolute_paths(docfiles ${CMAKE_CURRENT_SOURCE_DIR} ${DBT_BHC_DOCS})
     get_absolute_paths(extrafiles ${CMAKE_CURRENT_SOURCE_DIR} ${DBT_BHC_EXTRAS})
@@ -153,6 +170,11 @@ macro(DOCBOOK_BOOK_TO_HTML_SINGLE)
     if(DBT_BHC_PIPEOUT)
         set(pipeopt "-o" ${outfile})
     endif()
+    if(DBT_BHC_HIGHLIGHT)
+        set(apply_highlight ${highlight_command} ${outfile})
+    else()
+        set(apply_highlight sed -i -r ${sedrepl_nohlang} ${outfile})
+    endif()
 
     list(GET docfiles 0 mdocfile)
     add_custom_command(
@@ -163,6 +185,7 @@ macro(DOCBOOK_BOOK_TO_HTML_SINGLE)
         COMMAND ${XSLTPROC_EXECUTABLE} --xinclude ${pipeopt}
                 ${xslfile} ${mdocfile}
         COMMAND sed -i -r ${sedrepl_notitle} ${outfile}
+        COMMAND ${apply_highlight}
         DEPENDS ${docfiles} ${xslfile}
     )
     add_custom_target(${target} ALL DEPENDS ${outfile})

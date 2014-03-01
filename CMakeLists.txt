@@ -29,6 +29,7 @@ find_package(Python2 2.5 REQUIRED)
 find_package(DocbookXSL 1.75.2)
 find_package(LibXml2)
 find_package(Xsltproc)
+find_package(Pygments 1.6)
 find_package(Epydoc 3.0)
 find_package(Msgfmt 0.17)
 find_package(Msgmerge 0.17)
@@ -44,6 +45,12 @@ if(DOCBOOKXSL_FOUND AND LIBXML2_FOUND AND XSLTPROC_FOUND)
     endforeach()
 else()
     set(CAN_BUILD_DOCBOOK no)
+endif()
+
+if(PYGMENTS_FOUND)
+    set(CAN_HIGHLIGHT yes)
+else()
+    set(CAN_HIGHLIGHT no)
 endif()
 
 if(EPYDOC_FOUND)
@@ -110,6 +117,17 @@ if(NOT CAN_BUILD_DOCBOOK)
     - xsltproc, XSLT processor
         home page: http://xmlsoft.org
         possible package names: xsltproc")
+    endif()
+    message(STATUS "${msg}")
+else()
+    if(NOT CAN_HIGHLIGHT)
+        set(msg "WARNING:
+    Docbook documentation (e.g. the Pology user manual) will lack some features
+    because the following dependencies are missing or too old:")
+        set(msg "${msg}
+    - Pygments, Python syntax highlighter
+        home page: http://pygments.org
+        possible package names: python-pygments, pygments")
     endif()
     message(STATUS "${msg}")
 endif()

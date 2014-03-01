@@ -2,6 +2,10 @@ if(NOT CAN_BUILD_DOCBOOK)
     return()
 endif()
 
+if(CAN_HIGHLIGHT)
+    set(highlight HIGHLIGHT)
+endif()
+
 set(docs
     top.docbook # master must be first
     about.docbook
@@ -34,6 +38,7 @@ docbook_book_to_html_chunked(
     DESTINATION ${DOC_INSTALL_DIR}/${doctype}
     RENAME ${lang}
     RENAMECSS style.css
+    ${highlight}
 )
 
 docbook_book_to_html_single(
@@ -44,4 +49,5 @@ docbook_book_to_html_single(
     DESTINATION ${DOC_INSTALL_DIR}/${doctype}/${lang}
     RENAME index-mono.html
     RENAMECSS style.css
+    ${highlight}
 )
