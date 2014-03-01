@@ -128,6 +128,7 @@ GettextXLexer.tokens = {
     'root': [
         (r'^#,\s.*?$', Name.Decorator),
         (r'^#:\s.*?$', Name.Label),
+        (r'^#\|\s*(msgid_plural|msgid)\s*"', Comment.Single, 'prevstring'),
         (r'^(#|#\.\s|#\|\s|#~\s|#\s).*$', Comment.Single),
         (r'^(msgstr\[)(\d)(\])',
             bygroups(Name.Variable, Number.Integer, Name.Variable)),
@@ -151,6 +152,12 @@ GettextXLexer.tokens = {
         (r'\$\[', String.Symbol, 'script'),
         (r'"', String, '#pop'),
         (r'.', String),
+    ],
+    'prevstring': [
+        (r'\{-.*?-\}', Generic.Deleted),
+        (r'\{\+.*?\+\}', Generic.Inserted),
+        (r'"', Comment.Single, '#pop'),
+        (r'.', Comment.Single),
     ],
     'tag': [
         (r'>', String.Other, '#pop'),
