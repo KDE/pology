@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# -*- coding: UTF-8 -*-
 
 import os
 import re
@@ -51,8 +52,10 @@ def main ():
             warning("Unknown language '%s'." % language)
             lexer = None
         if lexer:
+            snippet, tags = hide_tags(snippet)
             snippet = unescape_xml(snippet)
             seg = highlight(snippet, lexer, HtmlFormatter(nowrap=True))
+            seg = unhide_tags(seg, tags)
         segs.extend((otag, seg, ctag))
         p = p2
     htmlstr_mod = "".join(segs)
@@ -74,6 +77,37 @@ def unescape_xml (s):
     s = s.replace("&apos;", "'")
     s = s.replace("&quot;", '"')
     s = s.replace("&amp;", "&")
+    return s
+
+
+_hide_tags_rx = re.compile(r"<.*?>", re.S|re.U)
+_hide_tags_rseq = u"⌒"
+
+def hide_tags (s):
+
+    tags = _hide_tags_rx.findall(s)
+    s = _hide_tags_rx.sub(_hide_tags_rseq, s)
+    return s, tags
+
+
+def unhide_tags (s, tags):
+
+    segs = []
+    i = 0
+    p1 = 0
+    while True:
+        p2 = s.find(_hide_tags_rseq, p1)
+        if p2 < 0:
+            p2 = len(s)
+        segs.append(s[p1:p2])
+        if p2 == len(s):
+            break
+        assert i < len(tags)
+        segs.append(tags[i])
+        i += 1
+        p1 = p2 + len(_hide_tags_rseq)
+    assert i == len(tags)
+    s = "".join(segs)
     return s
 
 
