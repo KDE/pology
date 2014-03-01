@@ -12,6 +12,21 @@
 <!-- Let there be only the top TOC. -->
 <xsl:param name="generate.toc" select="'book toc'"/>
 
+<!-- Override <programlisting> to include language info comment. -->
+<xsl:template match="programlisting">
+    <xsl:variable name="id">
+        <xsl:call-template name="object.id"/>
+    </xsl:variable>
+    <xsl:call-template name="anchor"/>
+    <pre>
+        <xsl:apply-templates select="." mode="common.html.attributes"/>
+        <xsl:if test="@language != ''">
+            <xsl:comment>language: <xsl:value-of select="@language"/></xsl:comment>
+        </xsl:if>
+        <xsl:apply-templates/>
+    </pre>
+</xsl:template>
+
 <xsl:output method="html" encoding="UTF-8" indent="no"/>
 
 </xsl:stylesheet>
