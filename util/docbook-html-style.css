@@ -37,7 +37,7 @@ div.sect1 {
     margin-top: 2em;
 }
 
-code {
+p code, .variablelist code {
     color: darkgreen;
 }
 
