@@ -16,18 +16,18 @@
 <para>Instead, for translators the most convenient would be to work on a single, "supercollection" of PO files, from which new and modified translations would be automatically periodically sent to appropriate PO files in branches. Such a supercollection can be created and maintained by Pology's <command>posummit</command> script. In terms of this script, the supercollection is called the <emphasis>summit</emphasis>, the operation of creating and updating it is called <emphasis>gathering</emphasis>, and the operation of filling out branch PO files is called <emphasis>scattering</emphasis>.</para>
 
 <para>How do summit PO files look like? When all branches contain the same PO file, then the counterpart summit PO file is simply the union of all messages from branch PO files. A message in the summit PO file differs from branch messages only by having the special <literal>#. +> ...</literal> comment, which lists the branches that contain this message. If there would be two branches, named with <literal>devel</literal> and <literal>stable</literal> keywords, an excerpt from a summit PO file could be:
-<programlisting>
+<programlisting language="po">
 #. +> devel
 #: kdeui/jobs/kwidgetjobtracker.cpp:469
 msgctxt "the destination URL of a job"
 msgid "Destination:"
 msgstr ""
-
+⁠
 #. +> stable
 #: kdeui/jobs/kwidgetjobtracker.cpp:469
 msgid "Destination:"
 msgstr ""
-
+⁠
 #. +> devel stable
 #: kdeui/jobs/kwidgetjobtracker.cpp:517
 msgid "Keep this window open after transfer is complete"
@@ -190,7 +190,7 @@ summit-aa/
     summit-config
 </screen>
 <literal>aa</literal> is the language code, which can be added for clarity, but is not necessary. It could also be a subdirectory, as in <filename>branches/devel/aa</filename> and <filename>summit/aa</filename>. At start you have the <filename>branches/</filename> directory ready; now you create the <filename>summit-aa/</filename> directory, and within it the summit configuration file <filename>summit-config</filename> with the following content:
-<programlisting>
+<programlisting language="python">
 S.lang = "aa"
 
 S.summit = dict(
@@ -240,7 +240,7 @@ summit-aa/
     summit-config
 </screen>
 The only difference in the summit configuration is the addition of <literal>by_lang=</literal> keys into the branch dictionaries:
-<screen>
+<programlisting language="python">
 S.branches = [
     dict(id="devel",
          topdir=S.relpath("../branches/devel"),
@@ -249,11 +249,11 @@ S.branches = [
          topdir=S.relpath("../branches/stable"),
          by_lang=S.lang),
 ]
-</screen>
+</programlisting>
 Presence of the <literal>by_lang=</literal> key signals that the branch is organized by-domain (i.e. PO files named by language), and the value is the language code within the branch. Normaly it is set to previously defined <literal>S.lang</literal>, but it can also be something else in case different codes are used between the branches or the branches and the summit.</para>
 
 <para>When the configuration file has been written, the summit can be gathered for the first time (i.e. summit PO files created):
-<programlisting>
+<programlisting language="bash">
 $ cd .../summit-aa/
 $ posummit gather --create
 </programlisting>
@@ -294,7 +294,7 @@ summit-aa/
     summit-config
 </screen>
 Here the language PO files and templates are put in subdirectories within the branch directory only for convenience, but this is not mandatory. For example, language files could reside in <filename>branches/devel-aa</filename> and templates in <filename>branches/devel-templates</filename>, no path connection is required between the two. This is because the template path per branch is explicitly given in <filename>summit-config</filename>, which would look like this:
-<programlisting>
+<programlisting language="python">
 S.lang = "aa"
 S.over_templates = True
 
@@ -350,7 +350,7 @@ summit-aa/
     summit-config
 </screen>
 Summit configuration is modified in the same way as it was for the direct summit, by adding the <literal>by_lang=</literal> key to branch specifications:
-<programlisting>
+<programlisting language="python">
 S.branches = [
     dict(id="devel",
          topdir=S.relpath("../branches/devel/aa"),
@@ -365,7 +365,7 @@ S.branches = [
 </para>
 
 <para>Initial gathering of the summit is done slightly differently compared to the direct summit:
-<programlisting>
+<programlisting language="bash">
 $ cd .../summit-aa/
 $ posummit gather --create --force
 </programlisting>
@@ -398,7 +398,7 @@ summit/
 First of all, there is now the <filename>summit/</filename> directory which contains subdirectories by language (the language summits) and one subdirectory for summit templates (the template summit). Then, there is no more the <filename>summit-config</filename> file, but <filename>summit-config-shared</filename>; the name can actually be anything, so long as it is not exactly <filename>summit-config</filename>. This is in order to prevent <command>posummit</command> from automatically picking it up, as now the configuration is not tied to a single language summit. Instead, the path to the configuration file and the language code are explicitly given as arguments to <command>posummit</command>.</para>
 
 <para>The configuration file for by-language branches looks like this:
-<programlisting>
+<programlisting language="python">
 S.over_templates = True
 
 S.summit = dict(
@@ -421,7 +421,7 @@ S.mappings = [
 Compared to summit over dynamic templates, here <literal>S.lang</literal> is no longer hardcoded in the configuration file, but set at each run of <command>posummit</command> through the command line. This means that paths of language directories too have to be dynamically adapted based on <literal>S.lang</literal>, hence the string interpolations <literal>"...%s..." % S.lang</literal>.</para>
 
 <para>For by-domain branches, again simply <literal>by_lang=</literal> keys are added to branches:
-<programlisting>
+<programlisting language="python">
 S.branches = [
     dict(id="devel",
          topdir=S.relpath("../branches/devel/%s" % S.lang),
@@ -436,14 +436,14 @@ S.branches = [
 </para>
 
 <para>In summit over static templates mode, initital gathering is first done for summit templates, like this:
-<programlisting>
+<programlisting language="bash">
 $ cd .../summit/
 $ posummit summit-config-shared templates gather --create
 </programlisting>
 The first two arguments are now the path to the configuration file and the language code, where <literal>templates</literal> is the dummy language code for templates<footnote>
 <para>It can be changed by assigning another string to <literal>S.templates_lang</literal>.</para>
 </footnote>. After this is finished, language summits can be gathered:
-<programlisting>
+<programlisting language="bash">
 $ posummit summit-config-shared aa gather --create --force
 $ posummit summit-config-shared bb gather --create --force
 $ ...
@@ -497,7 +497,7 @@ summit-aa/
 To achieve this, you must first write two Python functions (remember that the summit configuration file is a normal Python source file), one to split branch paths and another to join them, and add them to branch specifications in <literal>S.branches</literal>.</para>
 
 <para>The function to split branch paths takes a single argument, the branch PO file path relative to the branch top directory, and returns the summit PO domain name and the summit subdirectory. For the example above, the splitting function would look like this:
-<programlisting>
+<programlisting language="python">
 def split_branch_path (subpath):
     import os
     filename = os.path.basename(subpath)      # get PO file name
@@ -510,7 +510,7 @@ def split_branch_path (subpath):
 Note that the branch subdirectory was used only to construct the summit domain name, while the summit subdirectory is an empty string because summit flat file tree should be flat.</para>
 
 <para>The function to join branch paths takes three arguments. The first two are the summit PO domain name and the summit subdirectory. The third argument is the the value of <link linkend="p-bydomorg"><literal>by_lang=</literal> key</link> for the given branch. The return value is the branch PO file path relative to the branch top directory. It would look like this:
-<programlisting>
+<programlisting language="python">
 def join_branch_path (domain, subdir, bylang):
     import os
     subdir0, domain0 = domain.split("-", 1)    # get branch domain name
@@ -523,7 +523,7 @@ def join_branch_path (domain, subdir, bylang):
 Here the <varname>subdir</varname> argument (summit subdirectory) is not used is not used because it is always empty due to flat summit file tree, and <varname>bylang</varname> is not used because it is <literal>None</literal> due to by-language branch organization.</para>
 
 <para>The definitions of splitting and joining functions are written into the <filename>summit-config</filename> file somewhere before the <literal>S.branches</literal> branch specification, and added to each branch through <literal>transform_path=</literal> key:
-<programlisting>
+<programlisting language="python">
 S.branches = [
     dict(id="devel",
          topdir=S.relpath("../branches/devel-aa"),
@@ -551,17 +551,17 @@ This means that it is possible, if necessary, to define different splitting and 
 <para>The usual maintenance procedure would be for one designated person (e.g. the team coordinator) to update all summit PO files and to scatter new translations to branch PO files, at certain periods of time agreed upon in the translation team.</para>
 
 <para>If there are no mismatches between the branch and summit PO files, the summit update procedure is fully automatic. How the summit is updated depends on the summit mode. In direct summit, the update is performed by gathering:
-<programlisting>
+<programlisting language="bash">
 $ cd $SUMMITDIR
 $ posummit gather
 </programlisting>
 In summit over dynamic templates, merging is performed instead:
-<programlisting>
+<programlisting language="bash">
 $ cd $SUMMITDIR
 $ posummit merge
 </programlisting>
 Finally, in summit over static templates, first the template summit is gathered, and then language summits are merged:
-<programlisting>
+<programlisting language="bash">
 $ posummit $SOMEWHERE/summit-config-shared templates gather
 $ posummit $SOMEWHERE/summit-config-shared aa merge
 $ posummit $SOMEWHERE/summit-config-shared bb merge
@@ -570,12 +570,12 @@ $ posummit $SOMEWHERE/summit-config-shared bb merge
 Note that unlike when setting up the summit, no <option>--create</option> or <option>--force</option> options are used. Without them, <command>posummit</command> will warn about any new mismatches between branches and the summit and abort the operation, leaving the user to examine the situation and take corrective measures. <xref linkend="sec-sumntmism"/> discusses this in detail.</para>
 
 <para>Scattering to branches is always fully automatic. For direct summit and summit over dynamic templates it is performed with:
-<programlisting>
+<programlisting language="bash">
 $ cd $SUMMITDIR
 $ posummit scatter
 </programlisting>
 For summit over static templates, scattering is done for each language summit:
-<programlisting>
+<programlisting language="bash">
 $ posummit $SOMEWHERE/summit-config-shared aa scatter
 $ posummit $SOMEWHERE/summit-config-shared bb scatter
 ...
@@ -594,39 +594,39 @@ $ posummit $SOMEWHERE/summit-config-shared bb scatter
 <para>In this maintenance mode, each team member performs summit operations on exactly the PO files that he wants to work on. This has the advantage over centralized maintenance in that translators do not interfere in each others work, as summit PO files get updated only at the request of the translator working on it. Additionally, it may provide faster gather(-merge)-scatter turnaround time. Unfortunately, the disadvantage is that now all team members have to know how the summit is maintained, so this method is likely applicable only to strongly technical teams.</para>
 
 <para>Distributed maintenance is in general the same as centralized, except that now all <command>posummit</command> command lines take extra arguments, namely the selection of PO files to operate on -- so called <emphasis>operation targets</emphasis>. Operation targets can be given in two ways. One is directly by file or directory paths. For example, in summit over dynamic templates mode, when working on the <filename>foobaz.po</filename> file, the translator would use the following summit commands to merge it and scatter to the branches:
-<programlisting>
+<programlisting language="bash">
 $ cd $SUMMITDIR
 $ posummit merge foosuite/foobaz.po
 $ # ...update the translation...
 $ posummit scatter foosuite/foobaz.po
 </programlisting>
 To update all files in <filename>foosuite/</filename> subdirectory at once, the translator can execute instead:
-<programlisting>
+<programlisting language="bash">
 $ cd $SUMMITDIR
 $ posummit merge foosuite/
 $ posummit scatter foosuite/
 </programlisting>
 It is also possible to single out a particular branch for scattering, by giving the path to the PO file in that branch instead of the summit. To scatter <filename>foobaz.po</filename> only to <literal>devel</literal> branch, in by-language branch organization the translator would use:
-<programlisting>
+<programlisting language="bash">
 $ posummit scatter $SOMEWHERE/devel/aa/foosuite/foobaz.po
 </programlisting>
 and in by-domain branch organization:
-<programlisting>
+<programlisting language="bash">
 $ posummit scatter $SOMEWHERE/devel/foosuite/foobaz/po/foobaz/aa.po
 </programlisting>
 Note that the current working directory still has to be within the summit directory, so that <command>posummit</command> can find the summit configuration file. (This requirement is not present for summit over static templates, as there the path to configuration file is given in command line.)</para>
 
 <para>The other kind of operation targets are PO domain names and subdirectory names alone. In this formulation, the first example above could be replaced with:
-<programlisting>
+<programlisting language="bash">
 $ posummit merge foobaz
 $ posummit scatter foobaz
 </programlisting>
 Since all summit PO file names are unique, this is sufficient information for <command>posummit</command> to know what it should operate on. To limit operation to a certain branch, the branch name is added in front of the domain names, separated by a colon. To scatter <filename>foobaz.po</filename> to <literal>devel</literal> branch:
-<programlisting>
+<programlisting language="bash">
 $ posummit scatter devel:foobaz
 </programlisting>
 and to scatter the complete <filename>foosuite/</filename> subdirectory to the same branch:
-<programlisting>
+<programlisting language="bash">
 $ posummit scatter devel:foosuite/
 </programlisting>
 Note that trailing slash is significant here, since otherwise the argument would be interpreted as single PO file (<command>posummit</command> would exit with an error, reporting that such a file does not exist). Summit also has a "branch name" assigned for use in operation targets of this kind, and that is <literal>+</literal>.</para>
@@ -651,7 +651,7 @@ Note that trailing slash is significant here, since otherwise the argument would
 <para>In a translation project with modules represented by subdirectories, it may happen that a program or a library is moved from one module to another, with its PO files following the move. If this happened in all branches, <command>posummit</command> will report that the summit PO file should be moved as well; it can be rerun with <option>--create</option> to do the move itself, or you can make the move manually. If the move happened in only one of the branches, <command>posummit</command> will not complain at all; more precisely, if at least one branch PO file is in same relative subdirectory as the summit PO file, it is not considered a mismatch.</para>
 
 <para>Another, less obvious case of moving may arise when two same-named branch PO files appear in different subdirectories of the same branch. <command>posummit</command> will by default simply gather them into single summit PO file, without reporting anything. However, it may be that one of the two subdirectories is of higher priority for translation. Then that it would be better if the summit PO file is located in that subdirectory, and that <command>posummit</command> reports if that is not the case, or make the move itself under <option>--create</option>. Subdirectory precedence can be specified through <literal>S.subdir_precedence</literal> field, which is simply a list of subdirectories:
-<programlisting>
+<programlisting language="python">
 S.subdir_precedence = [
     "library",
     "application",
@@ -683,7 +683,7 @@ Earlier subdirectories in the list have higher precedence. If a subdirectory is 
 <para>When, for example, a program changes its name, normally its PO file will be renamed as well. What will happen in this case is that <command>posummit</command> will report two problems: a branch PO file without corresponding summit PO file (new name), and a summit PO file without any corresponding branch PO files (old name). When you realize that the cause of these paired reports is indeed renaming (they could also be an unrelated addition and removal), you must rename the summit PO file manually. Note that if you had not done this and issued <option>--create</option> option instead, the existing summit PO file would have been removed, and an empty one with the new name created -- definitely not what was desired.</para>
 
 <para>A more complicated case of renaming is when the name is changed in only one branch. <command>posummit</command> then reports only the branch PO file with the new name as having no summit PO file, since the existing summit PO file matches non-renamed branch PO files. In this case, the usual correction is to rename the summit PO file to new name and map old names from other branches to the new name. If <filename>foobaz.po</filename> was renamed to <filename>fooqwyx.po</filename> in <literal>devel</literal> branch, but kept its name in <literal>stable</literal>, then the mapping in the summit configuration file would be:
-<programlisting>
+<programlisting language="python">
 S.mappings = [
     ...
     ("stable", "foobaz", "fooqwyx"),
@@ -700,7 +700,7 @@ Each mapping entry is a sequence of strings in parenthesis. The first string is 
 <term>A branch PO file has been split into several files (<emphasis>splitting</emphasis>).</term>
 <listitem>
 <para>If a single PO file becomes very big, it may be split into several smaller files by categories of messages (e.g. UI and help texts). A program may also be modularized, when the factored modules may take over part of the messages from the main PO file into their own PO files. Either way, <command>posummit</command> will again simply report that some new branch PO files have appeared and possibly some disappeared, and you recognize that the cause of this is a splitting. Splitting typically happens in the newest branch, but not in older branches. You should then make the same split in summit PO files and map the monolithic PO file from older branches to the newly split summit files. For example, if <filename>foobaz.po</filename> in <literal>devel</literal> branch got split into <filename>foobaz.po</filename> (of reduced size), <filename>libfoobaz.po</filename>, and <filename>foobaz_help.po</filename>, the mapping for the old monolithic PO file in the <literal>stable</literal> branch would be:
-<programlisting id="l-splmap">
+<programlisting language="python" id="l-splmap">
 S.mappings = [
     ...
     ("stable", "foobaz", "foobaz", "libfoobaz", "foobaz_help"),
@@ -719,7 +719,7 @@ The first string in the mapping is the branch name, the second string is the PO 
 <term>Several branch PO files have been merged into one (<emphasis>merging</emphasis>).</term>
 <listitem>
 <para>Sometimes formerly independent pieces of software are joined into a single package, for more effective maintenance and release. This can happen, for example, when selected plugins are taken into the host program distribution as "core plugins". Their separate PO files may then be merged into a single new PO file, or into an existing PO file. Like in the opposite case of splitting, <command>posummit</command> will simply report that some summit PO files no longer have branch counterparts, and possibly that a new branch PO file has appeared. This usually happens in the newest branch first, while older branches retain the separation. Then the same merging should be done in summit too, and mappings added for each of the old separate PO files in other branches. If <filename>foobaz_info.po</filename>, <filename>foobaz_backup.po</filename>, and <filename>foobaz_filters.po</filename> have been merged into existing <filename>foobaz.po</filename> in <literal>devel</literal> branch, the following mappings for the <literal>stable</literal> branch should be added:
-<programlisting id="l-mrgmap">
+<programlisting language="python" id="l-mrgmap">
 S.mappings = [
     ...
     ("stable", "foobaz_info", "foobaz"),
@@ -737,12 +737,12 @@ S.mappings = [
 <term>A language branch PO file has appeared in summit over templates (<emphasis>injection</emphasis>).</term>
 <listitem>
 <para>In summit over templates modes (dynamic or static), the normal way for a language summit PO file to appear is by starting from a clean template, and the corresponding branch PO file is then created on scatter. However, when a program previously developed elsewhere is imported into the project, its PO files are imported too. This will lead to the situation where there are translated branch PO files with no corresponding language summit PO files. This is corrected by forced gathering of the "injected" branch PO file. If the injected file is <filename>alien.po</filename>, in summit over dynamic templates you would execute:
-<programlisting>
+<programlisting language="bash">
 $ cd $SUMMITDIR
 $ posummit gather --create --force alien
 </programlisting>
 and in summit over static templates:
-<programlisting>
+<programlisting language="bash">
 $ posummit $SOMEWHERE/summit-config-shared aa gather --create --force alien
 $ posummit $SOMEWHERE/summit-config-shared bb gather --create --force alien
 $ ...
@@ -758,7 +758,7 @@ The <option>--force</option> option is necessary because, in summit over templat
 <!-- FIXME: Mention podescprob once documented. -->
 
 <para>There is also the possibility to map a whole branch subdirectory to another directory in the summit. Since summit PO files are unique by domain name, the only effect of subdirectory mapping is to prevent <command>posummit</command> from reporting that files should be moved to another subdirectory, and to have it report proper expected summit paths when new branch catalogs are discovered. For example, if the PO files from subdirectory <filename>foosuite/</filename> in <literal>devel</literal> branch and from subdirectory <filename>foopack/</filename> in <literal>stable</literal> branch should both be collected in summit subdirectory <filename>foo/</filename>, the subdirectory mapping would be:
-<programlisting>
+<programlisting language="python">
 S.subdir_mappings = [
     ...
     ("devel", "foosuite", "foo"),
@@ -778,13 +778,13 @@ Subdirectory mappings should be needed rarely compared to file mappings. A tenta
 <para>As the number of mappings grows, or if <link linkend="sec-sustpptransf">branch path transformation</link> is employed, it may not be readily clear which summit PO files are related to which branch PO files. Translator may need this information to know exactly which summit PO files to work on in order to have some set of branch files fully translated. For this reason, <command>posummit</command> provides the operation mode <literal>deps</literal>, in which any number of operation targets are given in command line, and the dependency chains are reported for those targets.</para>
 
 <para>If you recall the <link linkend="l-mrgmap">example mapping due to merging</link>, you can check the dependency chain for the file <filename>foobaz_info.po</filename> in <literal>stable</literal> branch by executing one of:
-<programlisting>
+<programlisting language="bash">
 $ cd $SUMMITDIR
 $ posummit deps $STABLEDIR/foobaz_info.po
 $ posummit deps stable:foobaz_info
 </programlisting>
 in direct summit or summit over dynamic templates, or
-<programlisting>
+<programlisting language="bash">
 $ posummit $SOMEWHERE/summit-config-shared aa deps $STABLEDIR/foobaz_info.po
 $ posummit $SOMEWHERE/summit-config-shared aa deps stable:foobaz_info
 </programlisting>
@@ -821,7 +821,7 @@ You can see that the complete dependency chain to which <filename>foobaz_info.po
 </footnote></para>
 
 <para>Filtering is implemented by being able to insert Pology hooks (see <xref linkend="sec-cmhooks"/>) into various stages of summit operations; a particular stage will admit only certain types of hooks. To <link linkend="sec-lguirefs">fetch and insert translated UI references</link> on scatter, the <literal>resolve-ui</literal> hook can be added like this:
-<programlisting>
+<programlisting language="python">
 from pology.uiref import resolve_ui
 S.hook_on_scatter_msgstr = [
     (resolve_ui(uicpathenv="UI_PO_DIR"),),
@@ -832,7 +832,7 @@ S.hook_on_scatter_msgstr = [
 </footnote>. <literal>resolve_ui</literal> is an F3C hook, which is the type of hooks expected in <literal>S.hook_on_scatter_msgstr</literal> list.</para>
 
 <para>The second and third element in the hook tuple are, respectively, selectors by branch and file. These are used when the hook is not meant to be applied on all branches and all PO files. The selector can be either a regular expression string, which is matched against the branch name or PO domain name (positive match means to apply the hook), or a function (return value evaluating as true means to apply the hook). If it is a function, the branch selector gets the branch name as input argument, and the file selector gets the summit PO domain name and summit subdirectory. For example, to add the specialized <literal>resolve_ui_docbook4</literal> hook only to <literal>foobaz-manual.po</literal> file, and plain <literal>resolve_ui</literal> to all other files, the hook list would be:
-<programlisting>
+<programlisting language="python">
 from pology.uiref import resolve_ui, resolve_ui_docbook4
 
 S.hook_on_scatter_msgstr = [
@@ -843,7 +843,7 @@ S.hook_on_scatter_msgstr = [
 The branch selector here is empty string, which means that both hooks apply to all branches (since empty regular expression matches any string). The <literal>resolve_ui_docbook4</literal> hook has <literal>"-manual$"</literal> regular expression as the file selector, which means that is should be applied to all PO domain names ending in <literal>-manual</literal>. The <literal>resolve_ui</literal> hook has been given the opposite regular expression, <literal>"(?&lt;!-manual)$"</literal>, which matches any PO domain name <emphasis>not</emphasis> ending in <literal>-manual</literal>.<footnote>
 <para>This pattern makes use of a <emphasis>negative lookbehind</emphasis> token, a fairly advanced bit of regular expression syntax.</para>
 </footnote> Regular expressions can quickly become unreadable, so here is how the same selection could be achieved with selector functions:
-<programlisting>
+<programlisting language="python">
 from pology.uiref import resolve_ui, resolve_ui_docbook4
 
 def is_manual (domain, subdir):
@@ -970,18 +970,18 @@ When is more than one hook in the list, they are applied in the order if which t
 You may notice that some logically possible hook insertion lists are missing (e.g. <literal>S.hook_on_merge_msgstr</literal>). This is because they are implemented on demand, as the need is observed in practice, and not before the fact.</para>
 
 <para>Here is another example of hook interplay. Branch PO files may still rely on <link linkend="p-embctxt">embedding the context</link> into the <varname>msgid</varname> field:
-<programlisting>
+<programlisting language="po">
 msgid "create new document|New"
 msgstr ""
 </programlisting>
 but you would nevertheless like to have proper <varname>msgctxt</varname> contexts in the summit:
-<programlisting>
+<programlisting language="po">
 msgctxt "create new document"
 msgid "New"
 msgstr ""
 </programlisting>
 You can achieve this by writing two small F4A hooks, and inserting them at proper points:
-<programlisting>
+<programlisting language="python">
 def context_from_embedded (msg, cat):
     if "|" in msg.msgid:
         msg.msgctxt, msg.msgid = msg.msgid.split("|", 1)
@@ -1009,12 +1009,12 @@ In this way, branch messages will be converted to proper context just before the
 <para>Most likely, branch and summit directories will be kept under some sort of <link linkend="sec-cmsuppvcs">version control</link>. This means that when <command>posummit</command> has finished running, any files that it had added, moved or removed, would have to be manually "reported" to the version control system (VCS). To avoid this, you can set in the summit configuration which VCS is used, among those supported by Pology, and <command>posummit</command> will issue proper VCS commands when changing the file tree. Then, after the <command>posummit</command> run, you can simply issue the VCS commit command on appropriate paths.</para>
 
 <para>Since different VCS may be used for the summit and the branches, it is possible to set them separately. For example, if branches are in a Subversion repository and the summit in a Git repository, the summit configuration would contain:
-<programlisting>
+<programlisting language="python">
 S.summit_version_control = "git"
 S.branches_version_control = "svn"
 </programlisting>
 If the same VCS is used for branches and the summit (whether or not they are in the same repository), only one configuration field can be set:
-<programlisting>
+<programlisting language="python">
 S.version_control = "git"
 </programlisting>
 If you would like <command>posummit</command> to execute VCS commands only in the summit and not in branches, then you would set only the <literal>S.summit_version_control</literal> field.</para>
@@ -1027,7 +1027,7 @@ If you would like <command>posummit</command> to execute VCS commands only in th
 <para>While wrapping of text fields in PO files (<varname>msgid</varname>, <varname>msgstr</varname>, etc) makes no technical difference, it may be <link linkend="sec-cmwrap">convenient for editing</link> for them to be wrapped in a particular way. Since <command>posummit</command> is anyway modifying PO files both in the summit and branches, it might as well be told what kind of wrapping to use.</para>
 
 <para>For example, a reasonable wrapping setup could be:
-<programlisting>
+<programlisting language="python">
 S.summit_wrap = False
 S.summit_fine_wrap = True
 S.branches_wrap = True
@@ -1045,7 +1045,7 @@ S.branches_fine_wrap = False
 <para>In direct summit, summit PO files spring into existence by gathering branch PO files. However, in summit over static templates, by default translators have to start a new PO file by copying over the summit template and initializing it. While dedicated PO editors can do this automatically, all translators in the team have to configure their PO editor correctly (language code, plural forms...), and they have to have templates at hand. Furthermore, any statistic processing on the translation project as whole has to specifically consider templates as empty PO files.</para>
 
 <para>Instead of this, it is possible to tell <command>posummit</command> to automatically initialize summit PO files from summit templates -- to "vivify" them -- when the language summit is merged. There is a summit configuration switch to enable vivification, as well as several fields to specify the information needed to initialize a PO file. Here is an example:
-<programlisting>
+<programlisting language="python">
 S.vivify_on_merge = True
 S.vivify_w_translator = "Simulacrum"
 S.vivify_w_langteam = "Nevernissian &lt;l10n@neverwhere.org&gt;"
@@ -1064,7 +1064,7 @@ Setting <literal>S.vivify_on_merge</literal> to <literal>True</literal> engages 
 <para>By default it is assumed that branch PO files are merged with branch templates using a separate mechanism, which was already in place when the summit was introduced into the workflow. In summit over templates modes, if branch merging is performed asynchronously to summit merging, on scatter it may happen that some messages recently added to branch PO file are not yet present in corresponding summit PO file. In that case, <command>posummit</command> will issue warnings about missing messages in the summit. This is normally not a problem, because merging asynchronicity will stop causing such differences as the pre-release message freeze in the source sets in.</para>
 
 <para>However, on the one hand side, warnings of about messages missing in the summit may be somewhat disconcerting, or aesthetically offending in the otherwise clean scatter output. On the other hand side, perhaps the existing mechanism of merging in branches is not too clean, and it would be nice to replace it with something more thorough. Therefore, in summit over templates modes, it is possible to configure the summit such that on merge, <command>posummit</command> merges not only the summit PO files, but also all branch PO files. This is achieved simply by adding the <literal>merge=</literal> key to each branch that should be merged:
-<programlisting>
+<programlisting language="python">
 S.branches = [
     dict(id="devel", ..., merge=True),
     dict(id="stable", ..., merge=True),
@@ -1073,7 +1073,7 @@ S.branches = [
 </para>
 
 <para>When merging in branches is activated, it is still possible to merge only the summit, or any single branch. This is done by using giving an operation target on merge, either the path to the branch top directory or the branch name. For example, in summit over dynamic templates:
-<programlisting>
+<programlisting language="bash">
 $ cd $SUMMITDIR
 $ posummit merge $DEVELDIR/  # merge only the devel branch
 $ posummit merge devel:      # same
@@ -1110,7 +1110,7 @@ $ posummit merge +:          # same
 
 <listitem>
 <para><literal>S.header_propagate_fields</literal> field can be set to a list of non-standard header field names which should be propagated in gather and merge operations, from branch into summit PO files. For example, to propagate fields named <literal>X-Accelerator-Marker:</literal> and <literal>X-Sources-Root-URL:</literal>, the following can be added to summit configuration:
-<programlisting>
+<programlisting language="python">
 S.header_propagate_fields = [
     "X-Accelerator-Marker",
     "X-Sources-Root-URL",
@@ -1121,7 +1121,7 @@ Only the primary branch PO file is considered for determining the presence and g
 
 <listitem>
 <para>Instead of simply overwriting on scatter most of the branch PO header fields with summit PO header fields, some additional branch fields may be preserved by setting <literal>S.header_skip_fields_on_scatter</literal> to the list of header field names to preserve. For example, to preserve <literal>X-Scheduled-Release-Date:</literal> field in branch PO files:</para>
-<programlisting>
+<programlisting language="python">
 S.header_skip_fields_on_scatter = [
     "X-Scheduled-Release-Date",
 ]
@@ -1141,7 +1141,7 @@ S.header_skip_fields_on_scatter = [
 <para>In this context, only the summit tree should be kept under ascription. Filtering for release is then, naturally, performed on scatter: to each summit PO message a sequence of one or more ascription selectors is applied, and if the message is selected by the selector sequence, it is passed into the branch PO file. Several selector sequences may be defined, for use in various release situations, through <literal>S.ascription_filters</literal> configuration field.</para>
 
 <para>For example, to have a single filtering sequence which simply lets through all messages not modifed after last review, the following should be added to summit configuration:
-<programlisting>
+<programlisting language="python">
 S.ascription_filters = [
     ("regular", ["nmodar"]),
 ]
@@ -1149,14 +1149,14 @@ S.ascription_filters = [
 Each filtering sequence is represented by a two-element tuple. The first element is the name of the filtering sequence, here <literal>regular</literal>. You can set the name to anything you like; when there is only one filtering sequence, the name is actually nowhere used later. The second element of the tuple is a list of ascription selectors, which are given just as the values to <option>-s</option> options in <command>poascribe</command> command line. Here only one selector is issued, <literal>nmodar</literal>, which is the negation of modified-after-review selector. This yields the desired filter to pass all messages "not modifed after last review".</para>
 
 <para>A more involving example would be that of having one filter for regular scatter, and another "emergency" filter, which relaxes the strictness a bit in case there was no time to properly review all new translations. This emergency filter may let through unreviewed messages if modified by a select few persons, which are known to produce sufficient quality translators in first attempt. If these persons are, for example, <literal>alice</literal> and <literal>bob</literal> (by their ascription user names), then the two-filter setup could look like this:
-<programlisting>
+<programlisting language="python">
 S.ascription_filters = [
     ("regular", ["nmodar"]),
     ("emergency", ["nmodar:~alice,bob"]),
 ]
 </programlisting>
 The <literal>regular</literal> filter looks like in the previous example. The <literal>emergency</literal> filter also uses just one <literal>nmodar</literal> selector, but with additional argument to consider all users except for <literal>alice</literal> and <literal>bob</literal>. Due to the fact that it is listed first, the <literal>regular</literal> filter is applied on scatter by default. Application of the <literal>emergency</literal> filter is requested by issuing the <option>-a</option>/<option>--asc-filter</option> option with filter name as value:
-<programlisting>
+<programlisting language="bash">
 $ cd $SUMMITDIR
 $ posummit scatter -a emergency
 </programlisting>
@@ -1194,7 +1194,7 @@ $ posummit scatter -a emergency
 <title>Other Scatter Options</title>
 
 <para>Sometimes a summit PO file may be "pristine", meaning that all messages in it are clear, neither translated nor fuzzy. Pristine summit PO files may appear, for example, when <link linkend="sec-sucfgviv">vivification</link> is active. A pristine summit PO file will by default cause a likewise empty branch PO file to appear on scatter. This may or may not be a problem in a given project. If it is a problem, it is possible to set the minimal translation completeness of a summit PO file at which the branch PO file will be created on scatter. For example:
-<programlisting>
+<programlisting language="python">
 S.scatter_min_completeness = 0.8
 </programlisting>
 sets the minimum completeness to scatter at 80%. Completeness is taken to be the ratio of the number of translated to all messages in the file (excluding obsolete).</para>
@@ -1216,11 +1216,11 @@ sets the minimum completeness to scatter at 80%. Completeness is taken to be the
 <para>A summit PO file will necessarily have more messages than either of the branch files. For example, in two successive development-stable branch cyclings within the KDE translation project (at the time about 1100 PO files with 750.000 words), summit PO files were on average 5% bigger (by number of words) than their branch counterparts. This percentage can be taken as the top limit of possibly wasted translation effort due to messages in development branch coming and going, given that as the next branch cycling approaches more and more messages become fixed and make into the next stable branch.</para>
 
 <para>A more pressing issue with increased size of summit PO files is the following scenario: next stable release is around the corner, and the translation team has no time to update summit PO files fully, but could update only stable messages in them. For example, there are 1000 untranslated and fuzzy messages in the summit, out of which only 50 are coming from the stable branch. A clever dedicated PO editor could allow jumping only through untranslated and fuzzy messages which additionaly satisfy a general search criteria, in this case that a comment matches <literal>\+>.*stable</literal> regular expression (assuming the stable branch is named <literal>stable</literal> in summit configuration). Lacking such a feature, with some external help it is enough if the editor can merely search through comments. First, Pology's <link linkend="ch-sieve"><command>posieve</command> command</link> can be used to equip all untranslated and fuzzy stable messages in summit PO files with an <literal>untranslated</literal> flag (producing <literal>#, ..., untranslated</literal> comment):
-<programlisting>
+<programlisting language="bash">
 $ posieve tag-untranslated -sbranch:stable -swfuzzy <replaceable>paths...</replaceable>
 </programlisting>
 Then, in the PO editor you can jump through incomplete stable messages by simply searching for this flag. While doing that, you are not obligated to manually remove the flag: it will either automatically disappear on the next merge, or you can remove all flags afterwards by running:
-<programlisting>
+<programlisting language="bash">
 $ posieve tag-untranslated -sstrip <replaceable>paths...</replaceable>
 </programlisting>
 </para>

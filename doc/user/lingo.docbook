@@ -150,11 +150,11 @@ Actually the only significant element of the header is the encoding. Language co
 <para>Sometimes a message or a few words in it should not be spell-checked. This can be, for example, when the message is dense computer input (like a command line synopsis), or when a word is part of a literal phrase (such as an email address). It may be possible to filter the text to remove some of the non-checkable words prior to spell-checking (especially when spell-checking is done as a <link linkend="sec-lgrules">validation rule</link>), but not all such words can be automatically detect. For example, especially problematic are onomatopoeic constructs ("Aaargh! Who released the beast?!").</para>
 
 <para>For this reason it is possible to manually skip spell-checking on a message, or on certain words within a message, by adding a <link linkend="sec-cmskipcheck">special translator comment</link>. The whole message is skipped by adding the <literal>no-check-spell</literal> translator flag to it:
-<programlisting>
+<programlisting language="po">
 # |, no-check-spell
 </programlisting>
 Words within the message are skipped by listing them in <literal>well-spelled:</literal> translator comment, comma- or space-separated:
-<programlisting>
+<programlisting language="po">
 # well-spelled: Aaarg, gaaah, khh
 </programlisting>
 Which of these two levels of skipping to use depends on the nature of the text. For example, if most of the text is composed of proper words, and there are only a few which should not be checked, it is probably better to list those words explicitly instead of skipping the whole message.</para>
@@ -176,11 +176,11 @@ Which of these two levels of skipping to use depends on the nature of the text. 
 <title>Automatic Insertion of UI Labels</title>
 
 <para>In program documentation, but also in help texts in running programs, frequently labels from user interface are mentioned. Here are two such messages, one a UI tooltip, the other a Docbook paragraph:
-<programlisting>
+<programlisting language="po">
 #: comic.cpp:466
 msgid "Press the \"Get New Comics...\" button to install comics."
 msgstr ""
-
+⁠
 #: index.docbook:157
 msgid ""
 "&lt;guimenuitem>Selected files only&lt;/guimenuitem> extracts only "
@@ -199,7 +199,7 @@ In the usual translation process, an embedded UI label is manually translated ju
 <title>Wrapping UI References</title>
 
 <para>If UI references are inserted into the text informally (even if relying on certain ortographic or typographic conventions), then they must be manually wrapped in the translation using an explicit UI reference directive. For example:
-<programlisting>
+<programlisting language="po">
 #: comic.cpp:466
 msgid "Press the \"Get New Comics...\" button to install comics."
 msgstr "Pritisnite dugme „~%/Get New Comics/“ da instalirate stripove."
@@ -208,7 +208,7 @@ Explicit UI reference directives are of the format <replaceable>head</replaceabl
 
 <para>The other the type are implicit UI references, which do not require
 special directive, made possible when UI text is indicated in the text through formal markup. This is the case, for example, in PO files coming from Docbook documenation:
-<programlisting>
+<programlisting language="po">
 #: index.docbook:157
 msgid ""
 "&lt;guimenuitem>Selected files only&lt;/guimenuitem> extracts only "
@@ -220,7 +220,7 @@ msgstr ""
 Here the translation contains nothing special, save for the fact that the UI reference is not translated. UI resolving hooks can be given a list of tags to be considered as UI references, and for some common formats (such as Docbook) there are predefined specialized hooks which already list all UI tags.</para>
 
 <para>If the message of the UI text is unique by its <varname>msgid</varname> string in the originating PO file, then it can be wrapped simply as in previous examples. This means that even if it has the <varname>msgctxt</varname> string, the reference will still be resolved. But, if there are several UI messages with same <varname>msgid</varname> (implying different <varname>msgctxt</varname>), then the <varname>msgctxt</varname> string has to be manually added to the reference. This is done by puting the context into the prefix of the reference, separated by the pipe <literal>|</literal> character. For example, if the PO file has these two messages:
-<programlisting>
+<programlisting language="po">
 msgctxt "@title:menu"
 msgid "Columns"
 msgid "Kolone"
@@ -230,8 +230,8 @@ msgid "Columns"
 msgstr "kolone"
 </programlisting>
 then the correct one can be selected in an implicit UI reference like this:
-<programlisting>
-msgid ""...&lt;guibutton>Columns&lt;/guibutton>..."
+<programlisting language="po">
+msgid "...&lt;guibutton>Columns&lt;/guibutton>..."
 msgstr "...&lt;guibutton>@title:menu|Columns&lt;/guibutton>..."
 </programlisting>
 In the very unlikely case of <literal>|</literal> character being part of the context string itself, the <literal>¦</literal> character ("broken bar") can be used as the context separator instead.</para>
@@ -243,19 +243,19 @@ In the very unlikely case of <literal>|</literal> character being part of the co
 <para>If of UI two messages with equal <varname>msgid</varname> one has <varname>msgctxt</varname> and the other does not, the message without context can be selected by adding the context separator in front of the text with nothing before it (i.e. as if the context is "empty").</para>
 
 <para>Sometimes, though rarely, it happens that the referenced UI text is not statically complete, that is, that it contains a format directive which is resolved at runtime. In such cases, the reference must be transformed to exactly an existing <varname>msgid</varname>, and the arguments are substituted with special syntax. If the UI message is:
-<programlisting>
+<programlisting language="po">
 msgid "Configure %1..."
 msgstr "Podesi %1..."
 </programlisting>
 then it can be used in an implicit UI reference like this:
-<programlisting>
+<programlisting language="po">
 msgid "...&lt;guimenuitem>Configure Foobar...&lt;/guimenuitem>..."
 msgstr "...&lt;guimenuitem>Configure %1...^%1:Foobar&lt;/guimenuitem>..."
 </programlisting>
 Substitution arguments follow after the text, separated with the <literal>^</literal> character. Each argument specifies the format directive it replaces and the argument text, separated by <literal>:</literal>. In the unlikely case that <literal>^</literal> is part of the <varname>msgid</varname> itself, the <literal>ª</literal> ("feminine ordinal indicator") can be used instead as the argument separator.</para>
 
 <para>If there are several format directives in the UI reference, they are by default considered "named". This means that all same format directives will be replaced by the same argument. This is the right thing to do for some formats, e.g. <literal>python-format</literal> or <literal>kde-format</literal> messages, but not for all formats. In <literal>c-format</literal>, if there are two <literal>%s</literal> in the text, to replace just one of them with the current argument, the format directive attached to the argument must be preceded with <literal>!</literal>:
-<programlisting>
+<programlisting language="po">
 #, c-format
 msgid "...&lt;guilabel>This Foo or that Bar&lt;/guilabel>..."
 msgstr "...&lt;guilabel>This %s or that %s.^!%s:foo^!%s:bar&lt;/guilabel>..."
@@ -265,7 +265,7 @@ msgstr "...&lt;guilabel>This %s or that %s.^!%s:foo^!%s:bar&lt;/guilabel>..."
 <para>In general, but especially with implicit references, the text wrapped as reference may actually contain several references in form of UI path (<literal>"...go to Foo->Bar->Baz, and click on..."</literal>). To handle such cases, if it is not possible or it is not convenient to wrap each element of the UI path separately, UI reference resolving hooks can be given one or more UI path separators (e.g. <literal>-></literal>) to split and resolve the element references on their own.</para>
 
 <para>Sometimes the UI reference in the original text is not valid, i.e. such message no longer exists in the program. This can happen due to slight interpunction mismatch, small style changes, etc., such that you can easily locate the correct UI message and use its <varname>msgid</varname> as the reference. However, if the UI reference is not valid due to documentation being outdated, there is no correct UI message to use in translation. This should most certainly be reported to the authors, but up until they fix it, it presents a problem for immediate resolution of UI references. For this reason, a UI reference can be temporarily translated in place, by preceding it with twin context separators:
-<programlisting>
+<programlisting language="po">
 msgid "...<guilabel>An Outdated Label</guilabel>..."
 msgstr "...<guilabel>||Zastarela etiketa</guilabel>..."
 </programlisting>
@@ -282,12 +282,12 @@ This will resolve into the verbatim text of the reference (i.e. context separato
 <para>One typical thing to handle in normalization is the accelerator marker. UI reference resolving hooks eliminate accelerator markers automatically, by for that they need to known what the accelerator marker character is. To find this out, hooks will read <link linkend="hdr-x-accelerator-marker">the <literal>X-Accelerator-Marker</literal> header field</link>.</para>
 
 <para>Another problem is when UI messages contain subsections which would invalidate the target format which is being translated in the referencing PO file, e.g. malformed XML in Docbook catalogs. For example, literal <literal>&amp;</literal> must be represented as <literal>&amp;amp;</literal> in Docbook markup, thus this UI message:
-<programlisting>
+<programlisting language="po">
 msgid "Scaled &amp; Cropped"
 msgstr ""
 </programlisting>
 would be referenced as:
-<programlisting>
+<programlisting language="po">
 msgid "...&lt;guimenuitem>Scaled &amp;amp; Cropped&lt;/guimenuitem>..."
 msgstr "...&lt;guimenuitem>Scaled &amp;amp; Cropped&lt;/guimenuitem>..."
 </programlisting>
@@ -305,7 +305,7 @@ Resolving hooks have parameters for specifying the type of escaping needed by th
 <para>The list of UI PO files can be given to resolving hooks explicitly, as list of PO file paths (or directory paths to search for PO files). This can, however, be inconvenient, as it implies either that the resolution script must be invoked in a specific directory (if paths are relative), or that UI PO files must reside in a fixed directory on the system where the resolution script is run (if paths are absolute). Therefore there is another way of specifying paths to UI PO files, through an environment variable which contains a colon-separated list of directory paths. Both the explict list of paths and the environment variable which contains the paths can be given as parameters to hooks.</para>
 
 <para>By default, for a given PO file, UI references are looked for only in the PO file of the same name, assuming that it is found among UI PO files. This may be sufficient, for example, for UI references in tooltips, but it is frequently not sufficient for documentation PO files, which may have a different names from corresponding UI PO file names. Therefore a PO file can be manually linked to UI PO files from which it draws UI references, through a special header field <literal>X-Associated-UI-Catalogs</literal>. This field specifies only the PO domain names, as space- or comma-separated list:
-<programlisting>
+<programlisting language="po">
 msgid ""
 msgstr ""
 "Project-Id-Version: foobar\n"
@@ -370,7 +370,7 @@ A rule file should begin with a comment telling something about the rules define
 <para>The second rule starts with a regular expression pattern on the original (rather than the translation), for which the <literal>{...}</literal> syntax is reserved. Then the <literal>id</literal> and <literal>hint</literal> subdirectives follow, as in the first rule. But unlike the first rule, up to this point the second rule would be somewhat strange: report a problem whenever the word "elevator" is found in the original text? That is where the final <literal>valid</literal> subdirective comes in, by specifying a condition on translation (<literal>msgstr=</literal>) which cancels the trigger pattern. So this rule efectively states "report every message which has the word 'elevator' in the original, but not the word 'lift' in the translation", making it a terminology assertion rule.</para>
 
 <para>If the given example rule file is saved as <filename>personal.rules</filename>, it can be applied to a collection of PO files by the <command>check-rules</command> sieve in the following way:
-<programlisting>
+<programlisting language="bash">
 $ posieve check-rules -s rfile:<replaceable>pathto</replaceable>/personal.rules <replaceable>PATHS...</replaceable>
 </programlisting>
 The path to the rule file to apply is given by the <option>rfile:</option> sieve parameter. All messages which are "failed" by rules will be output to the terminal, with spans of the text that triggered the rule highlighted and the note attached to the rule displayed after the message. Additionally, one of the parameters for automatically opening messages in the PO editor can be issued, to make correcting problems (or canceling false positives) that more comfortable.</para>
@@ -378,11 +378,11 @@ The path to the rule file to apply is given by the <option>rfile:</option> sieve
 <para>The <option>rfile:</option> sieve parameter can be repeated to add several rule files. If all rule files put into one directory (and its subdirectories), a single <option>rdir:</option> parameter can be used to specify the path to that directory, and all files with <filename>.rules</filename> extension will be recursively collected from it and applied. Finally, if rule files are put into Pology's rule directory for the given language, at <filename>lang/<replaceable>lang</replaceable>/rules/</filename>, then <command>check-rules</command> will automatically pick them up when neither <option>rfile:</option> nor <option>rdir:</option> parameters are issued. This is a simple way to test the rules if the intention is to include them into Pology distribution.</para>
 
 <para>Instead of applying all defined rules, parameters <option>rule:</option>, <option>rulerx:</option>, <option>norule:</option>, <option>norulerx:</option> of <command>check-rules</command> can be used to select specific rules to apply or to not apply, by their identifiers. To apply only the no-contractions rule:
-<programlisting>
+<programlisting language="bash">
 $ posieve check-rules -s rfile:<replaceable>pathto</replaceable>/personal.rules -s rule:gram-contr <replaceable>PATHS...</replaceable>
 </programlisting>
 and to apply all but terminology rules, assuming that their identifiers start with <literal>term-</literal>:
-<programlisting>
+<programlisting language="bash">
 $ posieve check-rules -s rfile:<replaceable>pathto</replaceable>/personal.rules -s norulerx:term-.* <replaceable>PATHS...</replaceable>
 </programlisting>
 </para>
@@ -462,7 +462,7 @@ environment formal
 ...
 </programlisting>
 The first rule now has the <literal>environment</literal> subdirective, which sets this rule's environment to <literal>formal</literal>. If <command>check-rules</command> is now run as before, only the second rule will be applied, as it is environment-agnostic. To apply the first rule as well, the <literal>formal</literal> environment must be requested through the <option>env:</option> sieve parameter:
-<programlisting>
+<programlisting language="bash">
 $ posieve check-rules -s rfile:<replaceable>pathto</replaceable>/personal.rules -s env:formal <replaceable>PATHS...</replaceable>
 </programlisting>
 Another way to request the environment is to specify it inside the PO file itself, through the <link linkend="hdr-x-environment">the <literal>X-Environment:</literal> header field</link>. This is generally preferable, because it both reduces the amount of command line arguments (which may be accidentaly omitted sometimes), other parts of Pology too can make use of the environment information in the PO header, and, most importantly, it makes possible that not all PO files processed in a single run belong to the same environment.</para>
@@ -1099,7 +1099,7 @@ valid cat="foo" msgid="the amount of froobaz-HX which led to"
 However, rules are supposed to be at least somewhat general, and singling out a particular message in the rule is as excessive non-generality as it gets. It is also a maintenance problem: the message may dissapear in the future, leaving cruft in the rule file, or it may change slightly, but enough for the <literal>msgid=</literal> test not to match it any more.</para>
 
 <para>A much better way of skipping a rule on a particular message is by adding a special translator comment to that message, in the PO file:
-<programlisting>
+<programlisting language="po">
 # skip-rule: term-froobaz
 msgid "...the amount of froobaz-HX which led to..."
 msgstr "..."
@@ -1107,13 +1107,13 @@ msgstr "..."
 The comment starts with <literal>skip-rule:</literal>, and is followed by a comma-separated list of rules to skip, by their identifiers (defined by <literal>id=</literal> in the rule).</para>
 
 <para id="p-rulemanappcmnt">The other way around, a rule can be set for manual application only, by adding the <literal>manual</literal> subdirective to it. Then the <literal>apply-rule:</literal> translator comment must be added to apply that rule to a particular message:
-<programlisting>
+<programlisting language="po">
 # apply-rule: term-froobaz
 msgid "...the amount of froobaz-HX which led to..."
 msgstr "..."
 </programlisting>
 There is a pattern where an automatic rule and a manual rule are somehow closely related, so that on a particular message the automatic one should be skipped and the manual one applied. To make this pattern obvious and avoid adding two translator comments (both <literal>skip-rule:</literal> and <literal>apply-rule:</literal>), a single <literal>switch-rule:</literal> comment can be added instead:
-<programlisting>
+<programlisting language="po">
 # switch-rule: term-froobaz > term-froobaz-chem
 msgid "...the amount of froobaz-HX which led to..."
 msgstr "..."
@@ -1130,7 +1130,7 @@ The rule before <literal>&gt;</literal> is skipped, and the rule after <literal>
 <title>Rewriting Original Text of a Message</title>
 
 <para>Sometimes it is possible to do better than plainly skipping a rule on a message. Consider the following message:
-<programlisting>
+<programlisting language="po">
 #: dialogs/ScriptManager.cpp:498
 msgid "Please refer to the console debug output for more information."
 msgstr "Pogledajte ispravljački izlaz u školjci za više podataka."
@@ -1138,7 +1138,7 @@ msgstr "Pogledajte ispravljački izlaz u školjci za više podataka."
 An observant translator could conclude that "console" is not the best choice of term in the original text, that "shell" (or "terminal") would be more accurate, and translate the message as if the more accurate term was used in the original. However, this could cause the terminology rule for "console" (in its accurate meaning) to complain about the proper term missing in translation. Adding <literal>skip-rule: term-console</literal> comment would indeed cancel this false positive, but what about the terminology rule on "shell"? There is nothing in the original text to trigger it and check for the proper term in translation.</para>
 
 <para>This example is an instance of the general case where the translator would formulate the original text somewhat differently, and make the translation based on that reformulation. Or, when the mere style of the original causes a rule to be falsely triggered, while diferently worded original would be just fine. In such cases, instead of adding a comment to crudely skip a rule, translator can add a comment to <emphasis>rewrite</emphasis> the original text before applying rules to it:
-<programlisting>
+<programlisting language="po">
 # rewrite-msgid: /console/shell/
 #: dialogs/ScriptManager.cpp:498
 msgid "Please refer to the console debug output for more information."
@@ -1153,7 +1153,7 @@ addFilterHook name="remove/rewrite-msgid" on="msg"
 </para>
 
 <para>Sometimes it is not quite clear whether to skip a rule or rewrite the original, that is, whether to use <literal>skip-rule:</literal> or <literal>rewrite-msgid:</literal> comment. A guideline could be as follows. If the concept covered by the falsely triggered rule is present but somewhat camouflaged in the original, or one concept is switched for another (such as "console" with "shell" in the example above), then <literal>rewrite-msgid:</literal> should be used to "normalize" the original text. If the original text has nothing to do with the concept covered by the triggered rule, then <literal>skip-rule:</literal> should be used. An example of the latter would be such a message from a game:
-<programlisting>
+<programlisting language="po">
 # skip-rule: term-shell
 # src/tanks_options.cpp:249
 msgid "Fire shells upward"
@@ -1171,14 +1171,14 @@ Here the word "shell" denotes a cannon shell, which has nothing to do with <lite
 <title>Syntagma Derivation</title>
 
 <para>Consider a message extracted from a .desktop file, representing the name of a GUI utility:
-<programlisting>
+<programlisting language="po">
 #. field: Name
 #: data/froobaz.desktop:5
 msgid "Froobaz Image Examiner"
 msgstr ""
 </programlisting>
 Program names from .desktop files can be read and presented to the user by any other program. For example, when an image is right-clicked in a file browser, it could offer to open the file with the utility named with this message. In the PO file of that file browser, the message for the menu item could be:
-<programlisting>
+<programlisting language="po">
 #. TRANSLATORS: %s is a program name, to open a file with.
 #: src/contextmenu.c:5
 msgid "Open with %s"
@@ -1197,7 +1197,7 @@ In languages featuring noun inflection, it is likely that the program name in th
 <para>Syntagma derivations can be written and maintained in a standalone plain text file, although currently Pology provides no end-user functionality to convert such files (i.e. derive all forms defined by them) to formats which a target translation system could consume. Instead, one can make use of the <classname>Synder</classname> class from the <package>pology.synder</package> module to construct a custom converters. Of course, in the future, such converters may become part of Pology. There are already syntax highlighting definitions for the synder file format, for some text editors, in the <filename>syntax/</filename> directory of Pology distribution.</para>
 
 <para>What is provided right now in terms of end-user functionality is <link linkend="sv-collect-pmap">the <command>collect-pmap</command> sieve</link>. It enables translators to write syntagma derivations in translator comments in PO messages, and then extract them (deriving all forms) into a file in the appropriate format for the target translation system. The example message above from the .desktop file could be equipped with a synder entry like this:
-<programlisting>
+<programlisting language="po">
 # synder: Frubaz|ov ispitiv|ač slika
 #. field: Name
 #: data/froobaz.desktop:5

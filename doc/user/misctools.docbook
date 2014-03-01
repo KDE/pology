@@ -12,7 +12,7 @@
 <title>Rewrapping PO Files with <command>porewrap</command></title>
 
 <para>The <command>porewrap</command> script does one simple thing: it rewraps message strings (<varname>msgid</varname>, <varname>msgstr</varname>, etc.) in PO files. Gettext's tools, e.g. <command>msgcat</command>, can be used for rewrapping as well, so what is the reason of existence of <command>porewrap</command>? The lesser reason is convenience. Arbitrary number of PO file paths can be given to it as arguments, as well as directory paths which will be recursively search for PO files. The more important reason is that Pology can also perform "fine" wrapping, as described in <xref linkend="sec-cmwrap"/>. Thus, running:
-<programlisting>
+<programlisting language="bash">
 $ porewrap --no-wrap --fine-wrap somedir/
 </programlisting>
 will rewrap all PO files found in <filename>somedir/</filename> and below, such that basic wrapping (on column) is disabled (<literal>--no-wrap</literal>), while fine wrapping (on logical breaks) is enabled (<literal>--fine-wrap</literal>).</para>
@@ -82,7 +82,7 @@ Options common with other Pology tools:
 </para>
 
 <para>Arguments to <command>poselfmerge</command> are any number of PO file paths or directories to search for PO files, which will be modified in place:
-<programlisting>
+<programlisting language="bash">
 $ poselfmerge foo.po bar.po somedir/
 </programlisting>
 However, this run will do almost nothing (except possibly rewrap files), just as <command>msgmerge</command> would do nothing if the same template were used twice. Instead, all special processing must be requested by command line options, or activated through the <link linkend="sec-cmconfig">user configuration</link> to avoid issuing some options with same values all the time.</para>
@@ -209,7 +209,7 @@ Of course, command line options can be issued to override the user configuration
 <para>As far as Pology is concerned, the question of machine translation reduces to this: would it increase the efficiency of translation if PO files were first machine-translated, and then manually corrected by a human translator? There is no general answer to this question, as it depends stronly on all elements in the chain: the quality of machine translation software, the source language, the target language, and the human translator. Be that as it may, Pology provides the <command>pomtrans</command> script, which can fill in untranslated messages in PO files by passing original text through various machine translation services.</para>
 
 <para><command>pomtrans</command> has two principal modes of operation. The more straightforward is the direct mode, where original texts are simply <varname>msgid</varname> strings in the given PO file. In this mode, PO files can be machine-translated with:
-<programlisting>
+<programlisting language="bash">
 $ pomtrans <replaceable>transerv</replaceable> -t <replaceable>lang</replaceable> <replaceable>paths...</replaceable>
 </programlisting>
 The first argument is the translation service keyword, chosen from one known to <command>pomtrans</command>. The <option>-t</option> option specifies the target language; it may not be necessary if processed PO files have the <literal>Language:</literal> header field properly set. The source language is assumed to be English, but there is an option to specify another source language. Afterwards an arbitrary number of paths follow, which may be either single PO files or directories which will be recursively searched for PO files.</para>
@@ -217,7 +217,7 @@ The first argument is the translation service keyword, chosen from one known to 
 <para><command>pomtrans</command> will try to translate only untranslated messages, and not fuzzy messages. When it translates a message, by default it will make it fuzzy as well, meaning that a human should go through all machine-translated messages. These defaults are based on the perceived current quality of most machine translation services. There are several command line options to change this behavior.</para>
 
 <para>The other mode of operation is the parallel mode. Here <command>pomtrans</command> takes the original text to be the translation into another language, i.e. <varname>msgstr</varname> strings from a PO file translated into another language. For example, if a PO file should be translated into Spanish (i.e. from English to Spanish), and that same PO file is available fully translated into French (i.e. from English to French), then <command>pomtrans</command> could be used to translate from French to Spanish. This is done in the following way:
-<programlisting>
+<programlisting language="bash">
 $ pomtrans <replaceable>transerv</replaceable> -s <replaceable>lang1</replaceable> -t <replaceable>lang2</replaceable> -p <replaceable>search</replaceable>:<replaceable>replace</replaceable> <replaceable>paths...</replaceable>
 </programlisting>
 As in direct mode, the first argument is the translation service. Then both the source (<option>-s</option>) and the target language (<option>-t</option>) are specified; again, if PO files have their <literal>Language:</literal> header fields set, these options are not necessary. The perculiar here is the <option>-p</option> option, which specifies two strings, separated by colon. These are used to construct paths to source language PO files, by replacing the first string in paths of target language PO files with the second string. For example, if the file tree is:
@@ -234,7 +234,7 @@ foo/
             es.po
 </programlisting>
 then the invocation could be:
-<programlisting>
+<programlisting language="bash">
 $ cd .../foo/
 $ pomtrans <replaceable>transerv</replaceable> -s fr -t es -p es.:fr. po/*/es.po
 </programlisting>

@@ -31,7 +31,7 @@
 <para>Because the PO abstraction is intended to be robust against programming errors when quickly writting custom scripts, and frugal on file modifications, by default some of the abstracted objects are "monitored". This means that they are checked for expected data types and have modification counters. Main monitored objects are PO files, PO headers, and PO messages, but also their attributes which are not plain data types (strings or numbers). For the moment, these secondary monitored types include <ulink url="&ap;monitored.Monlist&acc;"><classname>Monlist</classname></ulink> (the monitored counterpart to built-in <type>list</type>), <ulink url="&ap;monitored.Monset&acc;"><classname>Monset</classname></ulink> (counterpart to <type>set</type>), and <ulink url="&ap;monitored.Monpair&acc;"><classname>Monpair</classname></ulink> (like two-element <type>tuple</type>). Monitored types do not in general provide the full scope of functionality of their built-in counterparts, so sometimes it may be easier (and faster) to work with built-in types and convert them to monitored at the moment of adding to PO objects.</para>
 
 <para>To take a <classname>Monlist</classname> instance as an example, here is how it behaves on its own:
-<programlisting>
+<programlisting language="python">
 >>> from pology.monitored import Monlist
 >>> l = Monlist([u"a", u"b", u"c"])
 >>> l.modcount
@@ -44,7 +44,7 @@ Monlist([u"a", u"b", u"c", 10])
 >>>
 </programlisting>
 Appending an element has caused the modification counter to increase, but, as expected, it was possible to add an integer in spite of previous elements being strings. However, if the monitored list comes from a PO message:
-<programlisting>
+<programlisting language="python">
 >>> from pology.message import Message
 >>> msg = Message()
 >>> msg.msgstr
@@ -64,7 +64,7 @@ The <classname>Message</classname> class has type constraints added to its attri
 </footnote>, to automatically prevent carelessness with encodings. Once a proper string was added to <varname>.msgstr</varname> list, its modification counter increased, but also the modification counter of the parent object.</para>
 
 <para>A few more notes on modification counters. Consider this example:
-<programlisting>
+<programlisting language="python">
 >>> msg = Message()
 >>> msg.msgstr = Monlist(u"foo")
 >>> msg.msgstr.modcount
@@ -85,7 +85,7 @@ The <classname>Message</classname> class has type constraints added to its attri
 <literal>Monlist(u"foo")</literal> itself is a fresh list with modification counter at 0, so after it was assigned to <varname>msg.msgstr</varname>, its modification counter is still 0. However, every attribute of a parent monitored object also has the associated <emphasis>attribute</emphasis> modification counter, denoted with trailing <literal>_modcount</literal>; therefore <varname>msg.msgstr_modcount</varname> did increase on assignment, and so did the parent <varname>msg.modcount</varname>. Modification tracking actually checks for equality of values, so when same-valued objects are repeadetly assigned (starting from <literal>msg.msgstr[0] = u"foo"</literal> above), modification counters do not increase.</para>
 
 <para>Compound monitored objects may also have the attributes themselves constrained, to prevent typos and other brain glitches from causing mysterious wrong behavior when processing PO files. For example:
-<programlisting>
+<programlisting language="python">
 >>> msg = Message()
 >>> msg.msgtsr = Monlist(u"foo")
 Traceback (most recent call last):
@@ -103,7 +103,7 @@ pology.PologyError: Attribute 'msgtsr' is not among specified.
 <title>Message</title>
 
 <para>PO messages are by default represented with the <ulink url="&ap;message.Message&acc;"><classname>Message</classname></ulink> class. It is monitored for modifications, and constrained on attributes and attribute types. It provides direct attribute access to parts of a PO message:
-<programlisting>
+<programlisting language="python">
 >>> from pology.monitored import Monpair
 >>> from pology.message import Message
 >>> msg = Message()
@@ -127,7 +127,7 @@ Attribute access provides the least hassle, while being guarded by monitoring, a
 <para>There are also several derived, read-only attributes for special purposes. For example, if in some context the messages are to be tracked in a dictionary by their keys, there is the <varname>.key</varname> attribute available, which is an undefined but unique combination of <varname>.msgctxt</varname> and <varname>.msgid</varname> attributes. Or, there is the <varname>.active</varname> attribute which is <literal>True</literal> if the message is neither fuzzy nor obsolete, i.e. its translation (if there is one) would be used by the consumer of the PO file that the message is part of.</para>
 
 <para><classname>Message</classname> has a number of methods for frequent operations that need to read or modify more than one attribute. For example, to thoroughly unfuzzy a message, it is not sufficient to just remove its fuzzy flag (by setting <varname>.fuzzy</varname> to <literal>False</literal> or removing <literal>u"fuzzy"</literal> from <varname>.flag</varname> set), but previous field comments (<literal>#| ...</literal>) should be removed as well, and this is what <function>.unfuzzy()</function> method does:
-<programlisting>
+<programlisting language="python">
 >>> print msg.to_string(),
 #| msgid "Foubar"
 #, fuzzy
@@ -145,7 +145,7 @@ Other methods include those to copy over a subset of parts from another message,
 <para>There exists a non-monitored counterpart to <classname>Message</classname>, the <ulink url="&ap;message.MessageUnsafe&acc;"><classname>MessageUnsafe</classname></ulink>class. Its attributes are of built-in types, e.g. <varname>.msgstr</varname> is plain <classname>list</classname>, and there is no type nor attribute checking. By using <classname>MessageUnsafe</classname>, a speedup of 50% to 100% has been observed in practical applications, so it makes for a good trade-off when you know what you are doing (e.g. you are certain that no modifications will be made). A PO file is opened with non-monitored messages by issuing the <literal>monitored=False</literal> argument to <classname>Catalog</classname> constructor.</para>
 
 <para>Read-only code could should work with <classname>Message</classname> and <classname>MessageUnsafe</classname> objects without any type-based specialization. Code that writes may need some care to achieve the same, for example:
-<programlisting>
+<programlisting language="python">
 def translate_moo_as_mu (msg):
 
     if msg.msgid == u"Moo!":  # works for both
@@ -154,7 +154,7 @@ def translate_moo_as_mu (msg):
         msg.msgstr[0] = u"Mu!"  # works for both (when not empty)
 </programlisting>
 If you need to create an empty message of the same type as another message, or make a same-type copy of the message, you can use <function>type</function> built-in:
-<programlisting>
+<programlisting language="python">
 newmsg1 = type(msg)()  # create empty
 newmsg2 = type(msg)(msg)  # copy
 </programlisting>
@@ -177,7 +177,7 @@ newmsg2 = type(msg)(msg)  # copy
 <title>Catalog</title>
 
 <para>PO files are read and written through <ulink url="&ap;catalog.Catalog&acc;"><classname>Catalog</classname></ulink> objects. A small script to open a PO file on disk (given as the first argument), find all messages that contain a certain substring in the original text (given as the second argument), and write those messages to standard output, would look like this:
-<programlisting>
+<programlisting language="python">
 import sys
 from pology.catalog import Catalog
 from pology.msgreport import report_msg_content
@@ -193,7 +193,7 @@ for msg in cat:
 Note the minimalistic code, both by raw length and access interface. Instead of using something like <literal>print msg.to_string()</literal> to output the message, already in this example we introduce the <ulink url="&ap;msgreport&amm;"><literal>msgreport</literal></ulink> module, which contains various functions for reporting on PO messages;<footnote>
 <para>There is also the <ulink url="&ap;report&amm;"><literal>report</literal></ulink> module for reporting general strings. In fact, all code in Pology distribution is expected to use function from these modules for writing to output streams, and there should not be a <function>print</function> in sight.</para>
 </footnote> <function>report_msg_content()</function> will first output the PO file name and location of the message (line and entry number) within the file, and then the message content itself, with some highlighting (for field keywords, fuzzy state, etc.) if the output destination permits it. Since no modifications are done to messages, this example would be just as safe but run significantly faster if the PO file were opened in non-monitored mode. This is done by adding the <literal>monitored=False</literal> argument to <classname>Catalog</classname> constructor:
-<programlisting>
+<programlisting language="python">
 cat = Catalog(popath, monitored=False)
 </programlisting>
 and no other modification is required.</para>
@@ -203,7 +203,7 @@ and no other modification is required.</para>
 </footnote> In a scenario where a bunch of PO files are processed, this allows you to report only those which were actually modified. Take as an example a simplistic<footnote>
 <para>As opposed to <link linkend="sv-find-messages">the <command>find-messages</command> sieve</link>.</para>
 </footnote> script to search and replace in translation:
-<programlisting>
+<programlisting language="python">
 import sys
 from pology.catalog import Catalog
 from pology.fsops import collect_catalogs
@@ -229,14 +229,14 @@ This script takes the search and replace strings as the first two arguments, fol
 <para>As can be seen, at its base the <classname>Catalog</classname> class is an iterable container of messages. However, the precise nature of this container is less obvious. To the consumer (a program or converter) the PO file is a dictionary of messages by keys (<varname>msgctxt</varname> and <varname>msgid</varname> fields); there can be no two messages with the same key, and the order of messages is of no importance. For the human translator, however, the order of messages in the PO file is of great importance, because it is one of <link linkend="sec-pocontext">context indicators</link>. Message keys are parts of the messages themselves, which means that a message is both its own dictionary key and the value. Taking these constraints together, in Pology the PO file is treated as an <emphasis>ordered set</emphasis>, and the <classname>Catalog</classname> class interface is made to reflect this.</para>
 
 <para>The ordered set nature of catalogs comes into play when the composition of messages, rather than just the messages themselves, is modified. For example, to remove all obsolete messages from the catalog, the <function>.remove()</function> method <emphasis>could</emphasis> be used:
-<programlisting>
+<programlisting language="python">
 for msg in list(cat):
     if msg.obsolete:
         cat.remove(msg)
 cat.sync()
 </programlisting>
 Note that the message sequence was first copied into a list, since the removal would otherwise clobber the iteration. Unfortunatelly, this code will be very slow (linear time wrt. catalog size), since when a message is removed, internal indexing has to be updated to maintain both the order and quick lookups. Instead, the better way to remove messges is the <function>.remove_on_sync()</function> method, which marks the message for removal on syncing. This runs fast (constant time wrt. catalog size) and requires no copying into a list prior to iteration:
-<programlisting>
+<programlisting language="python">
 for msg in cat:
     if msg.obsolete:
         cat.remove_on_sync(msg)
@@ -251,7 +251,7 @@ cat.sync()
 <para>The basic way to check if a message with the same key exists in the catalog is to use the <literal>in</literal> operator. Since the catalog is ordered, if the position of the message is wanted, <function>.find()</function> method can be used instead. Both these methods are fast, running in constant time. There is a series of <function>.select_*()</function> methods for looking up messages by other than the key, which run in linear time, and return lists of messages since the result may not be unique any more.</para>
 
 <para>Since it is ordered, the catalog can be indexed, and that either by a position or by a message (whose key is used for lookup). To replace a message in the catalog with a message which has the same key but is otherwise different, you can either first fetch its position and then use it as the index, or use the message itself as the index:
-<programlisting>
+<programlisting language="python">
 # Idexing by position.
 pos = cat.find(msg)
 cat[pos] = msg
@@ -278,7 +278,7 @@ This leads to the following question: what happens if you modify the key of a me
 <para>This section describes the style and conventions that the code which is intended to be included in Pology distribution should adhere to. The general coding style is expected to follow the Python style guide described in <ulink url="http://www.python.org/dev/peps/pep-0008/">PEP 8</ulink>.</para>
 
 <para>Lines should be up to 80 characters long. Class names should be written in camel case, and all other names in lower case with underscores:
-<programlisting>
+<programlisting language="python">
 class SomeThingy (object):
     ...
 
@@ -292,12 +292,12 @@ def some_function (...):
     ...
 </programlisting>
 Long expressions with operators should be wrapped in parentheses and before the binary operator, with the first line indented to the level of the other operand:
-<programlisting>
+<programlisting language="python">
 some_quantity = (  a_number_of_thingies * quantity_of_that_per_unit
                   + the_base_offset)
 </programlisting>
 In particular, long conditions in <literal>if</literal> and <literal>while</literal> statements should be written like this:
-<programlisting>
+<programlisting language="python">
 if (    something and something_else and yet_something
     and somewhere_in_between and who_knows_what_else
 ):
@@ -313,7 +313,7 @@ if (    something and something_else and yet_something
 <title>User-Visible Text and Internationalization</title>
 
 <para>All user-visible text, be it reports, warnings, errors (including exception messages) should be wrapped for internationalization through Gettext. The top <ulink url="&ap;pology&amm;"><literal>pology</literal></ulink> module provides several wrappers for Gettext functions, which have the following special traits: context is mandatory on every wrapped text, all format directives must be named, and arguments are specified as keyword-value pairs just after the text argument (unless deferred translation is used). Some examples:
-<programlisting>
+<programlisting language="python">
 # Simple message with context marker.
 _("@info",
   "Trying to sync unnamed catalog.")
@@ -346,7 +346,7 @@ msg = tmsg.with_args(file=some_path).to_string()
 Every context starts with the "context marker" in form of <literal>@<replaceable>keyword</replaceable></literal>, drawn from a predefined set (see the <ulink url="http://techbase.kde.org/Development/Tutorials/Localization/i18n_Semantics#Context_Markers">article on i18n semantics</ulink> at KDE Techbase); it is most often <literal>@info</literal> in Pology code. The context marker may be, and should be, followed by a free-form extend context whenever it can help the translator to understand how and where the message is used. It is usual to have the context, text and arguments in different lines, though not necessary if they are short enough to fit one line.</para>
 
 <para>Pology defines lightweight XML markup for coloring text in the <ulink url="&ap;colors&amm;"><literal>colors</literal></ulink> module. In fact, Gettext wrappers do not return ordinary strings, but <ulink url="&ap;colors.ColorString&acc;"><classname>ColorString</classname></ulink> objects, and functions from <literal>report</literal> and <literal>msgreport</literal> modules know how to convert it to raw strings for given output destination (file, terminal, web page...). Therefore you can use colors in any wrapped string:
-<programlisting>
+<programlisting language="python">
 _("@info:progress",
   "&lt;green&gt;History follows:&lt;/green&gt;")
 
@@ -357,7 +357,7 @@ _("@info",
 Coloring should be used sparingly, only when it will help to cue user's eyes to significant elements of the output.</para>
 
 <para>There are two consequences of having text markup available throughout. The first is that every message must be well-formed XML, which means that it must contain no unballanced tags, and that literal <literal>&lt;</literal> characters must be escaped (and then also <literal>&gt;</literal> for good style):
-<programlisting>
+<programlisting language="python">
 _("@item automatic name for anonymous input stream",
   "&amp;lt;stream-%(num)s&amp;gt;",
   num=strno)
@@ -384,7 +384,7 @@ The other consequence is that <classname>ColorString</classname> instances must 
 <para>The sieve file must define the <classname>Sieve</classname> class, with some mandatory and some optional interface methods and instance variables. There are no restrictions at what you can put into the sieve file beside this class, only keep in mind that <command>posieve</command> will load the sieve file as a Python module, exactly once during a single run.</para>
 
 <para>Here is a simple sieve (also the complete sieve file) which just counts the number of translated messages:
-<programlisting>
+<programlisting language="python">
 class Sieve (object):
 
     def __init__ (self, params):
@@ -403,14 +403,14 @@ class Sieve (object):
 The constructor takes as argument an object specifying any sieve parameters (more on that soon). The <methodname>process</methodname> method gets called for each message in each PO file processed by the client, and must take as parameters the message (instance of <ulink url="&ap;message.Message_base&acc;"><classname>Message_base</classname></ulink>) and the catalog which contains it (<ulink url="&ap;catalog.Catalog&acc;"><classname>Catalog</classname></ulink>). The client calls the <methodname>finalize</methodname> method after no more messages will be fed to the sieve, but this method does need to be defined (client should check if it exists before placing the call).</para>
 
 <para>Another optional method is <methodname>process_header</methodname>, which the client calls on the PO header:
-<programlisting>
+<programlisting language="python">
 def process_header (self, hdr, cat):
     # ...
 </programlisting>
 <literal>hdr</literal> is an instance of <ulink url="&ap;header.Header&acc;"><classname>Header</classname></ulink>, and <literal>cat</literal> is the containing catalog. The client will check for the presence of this method, and if it is defined, it will call it prior to any <methodname>process</methodname> call on the messages from the given catalog. In other words, the client is not allowed to switch catalogs between two calls to <methodname>process</methodname> without calling <methodname>process_header</methodname> in between.</para>
 
 <para>There is also the optional <methodname>process_header_last</methodname> method, for which everything holds just like for <methodname>process_header</methodname>, except that, when present, the client must call it <emphasis>after</emphasis> all consecutive <methodname>process</methodname> calls on messages from the same catalog:
-<programlisting>
+<programlisting language="python">
 def process_header_last (self, hdr, cat):
     # ...
 </programlisting>
@@ -427,7 +427,7 @@ def process_header_last (self, hdr, cat):
 
 <para>The <literal>params</literal> parameter of the sieve constructor is an object with data attributes as <link linkend="p-svparam">parameters which may influence</link> the sieve operation. The sieve file can define the <function>setup_sieve</function> function, which the client will call with
 a <ulink url="&ap;subcmd.SubcmdView&acc;"><classname>SubcmdView</classname></ulink> object as the single argument, to fill in the sieve description and define all mandatory and optional parameters. For example, if the sieve takes an optional parameter named <literal>checklevel</literal>, which controles the level (an integer) at which to perform some checks, here is how <function>setup_sieve</function> could look like:
-<programlisting>
+<programlisting language="python">
 def setup_sieve (p):
 
     p.set_desc("An example sieve.")
@@ -459,7 +459,7 @@ See the <ulink url="&ap;subcmd.SubcmdView&ac;add_param"><methodname>add_param</m
 <para>There are two boolean instance variables that the sieve may define, and
 which the client may check for to decide on the regime in which the
 catalogs are opened and closed:
-<programlisting>
+<programlisting language="python">
 class Sieve (object):
 
     def __init__ (self, params):
@@ -494,7 +494,7 @@ The variables are:
 <title>Further Notes on Sieves</title>
 
 <para>Since monitored catalogs have modification counters, the sieve may use them within its <methodname>process*</methodname> methods to find out if any modification really took place. The proper way to do this is to record the counter at start, and check for increase at end:
-<programlisting>
+<programlisting language="python">
 def process (self, msg, cat):
 
     startcount = msg.modcount
@@ -530,7 +530,7 @@ The <classname>Sieve</classname> class itself should not be documented in genera
 
 <listitem>
 <para id="p-annspans">Annotated spans are reported when the object of validation is a piece of text. Each span is a tuple of start and end index of the problematic segment in the text, and a note which explains the problem. The return value of a text-validation hook will thus be a list:
-<programlisting>
+<programlisting language="python">
 [(start1, end1, "note1"), (start2, end2, "note1"), ...]
 </programlisting>
 The note can also be <literal>None</literal>, if there is nothing to say about the problem.</para>
@@ -539,7 +539,7 @@ The note can also be <literal>None</literal>, if there is nothing to say about t
 <listitem>
 <para id="p-annparts">Annotated parts are reported for an object which has more than one distinct piece of text, such as a PO message. Each annotated part is a tuple stating the name of the problematic part of the object (e.g. <literal>"msgid"</literal>, <literal>"msgstr"</literal>), the item index for array-like parts (e.g. for <literal>msgstr</literal>), and the list of problems in appropriate form (for a PO message this is a list of annotated spans).
 The return value of a PO message-validation hook will look like this:
-<programlisting>
+<programlisting language="python">
 [("part1", item1, [(start11, end11, "note11"), ...]),
  ("part2", item2, [(start21, end21, "note21"), ...]),
  ...]
@@ -611,22 +611,22 @@ type keyword, so that they can be conveniently referred to elsewhere in Pology d
 <para>Hooks on PO entries in a catalog:
 <itemizedlist>
 <listitem>
-<para><literal>F4A</literal> (<literal>(msg, cat) -> numerr</literal>): filters a message, modifying it</para>
+<para>F4A (<literal>(msg, cat) -> numerr</literal>): filters a message, modifying it</para>
 </listitem>
 <listitem>
-<para><literal>V4A</literal> (<literal>(msg, cat) -> parts</literal>): validates a message</para>
+<para>V4A (<literal>(msg, cat) -> parts</literal>): validates a message</para>
 </listitem>
 <listitem>
-<para><literal>S4A</literal> (<literal>(msg, cat) -> numerr</literal>): side-effects on a message (no modification)</para>
+<para>S4A (<literal>(msg, cat) -> numerr</literal>): side-effects on a message (no modification)</para>
 </listitem>
 <listitem>
-<para><literal>F4B</literal> (<literal>(hdr, cat) -> numerr</literal>): filters a header, modifying it</para>
+<para>F4B (<literal>(hdr, cat) -> numerr</literal>): filters a header, modifying it</para>
 </listitem>
 <listitem>
-<para><literal>V4B</literal> (<literal>(hdr, cat) -> parts</literal>): validates a header</para>
+<para>V4B (<literal>(hdr, cat) -> parts</literal>): validates a header</para>
 </listitem>
 <listitem>
-<para><literal>S4B</literal> (<literal>(hdr, cat) -> numerr</literal>): side-effects on a header (no modification)</para>
+<para>S4B (<literal>(hdr, cat) -> numerr</literal>): side-effects on a header (no modification)</para>
 </listitem>
 </itemizedlist>
 </para>
@@ -634,10 +634,10 @@ type keyword, so that they can be conveniently referred to elsewhere in Pology d
 <para>Hooks on PO catalogs:
 <itemizedlist>
 <listitem>
-<para><literal>F5A</literal> (<literal>(cat) -> numerr</literal>): filters a catalog, modifying it in any way</para>
+<para>F5A (<literal>(cat) -> numerr</literal>): filters a catalog, modifying it in any way</para>
 </listitem>
 <listitem>
-<para><literal>S5A</literal> (<literal>(cat) -> numerr</literal>): side-effects on a catalog (no modification)</para>
+<para>S5A (<literal>(cat) -> numerr</literal>): side-effects on a catalog (no modification)</para>
 </listitem>
 </itemizedlist>
 </para>
@@ -645,10 +645,10 @@ type keyword, so that they can be conveniently referred to elsewhere in Pology d
 <para>Hooks on file paths:
 <itemizedlist>
 <listitem>
-<para><literal>F6A</literal> (<literal>(filepath) -> numerr</literal>): filters a file, modifying it in any way</para>
+<para>F6A (<literal>(filepath) -> numerr</literal>): filters a file, modifying it in any way</para>
 </listitem>
 <listitem>
-<para><literal>S6A</literal> (<literal>(filepath) -> numerr</literal>): side-effects on a file, no modification</para>
+<para>S6A (<literal>(filepath) -> numerr</literal>): side-effects on a file, no modification</para>
 </listitem>
 </itemizedlist>
 </para>
@@ -665,7 +665,7 @@ a given hook behavior is to produce its function by another function.
 The hook-producing function is called a I{hook factory}. It works by
 preparing anything needed for the hook, and then defining the hook proper
 and returning it, thereby creating a lexical closure around it:
-<programlisting>
+<programlisting language="python">
 def hook_factory (param1, param2, ...):
 
     # Use param1, param2, ... to prepare for hook definition.
@@ -708,7 +708,7 @@ the hook signature as the <literal>@rtype:</literal> Epydoc field.</para>
 <para>Ascription selectors are functions used by <command>poascribe</command> in the translation review workflow as described in <xref linkend="ch-ascript"/>. This section describes how you can write your own ascription selector, which you can then put to use by following the instructions in <xref linkend="sec-asccustsels"/>.</para>
 
 <para>In terms of code, an ascription selector is a function factory, which construct the actual selector function based on supplied selector arguments. It has the following form:
-<programlisting>
+<programlisting language="python">
 # Selector factory.
 def selector_foo (args):
 

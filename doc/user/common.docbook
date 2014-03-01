@@ -19,11 +19,11 @@
 <para>Shell completion means that, similarly as for command names, it is possible to contextually complete command parameters by pressing the <keycap>Tab</keycap> key. This allows you to efficiently type in the command line, as well as to quickly remind yourself of options and option parameters without resorting to documentation or browsing the file system.</para>
 
 <para>For example, pressing <keycap>Tab</keycap> just after <link linkend="ch-sieve">the <command>posieve</command> command</link> will complete sieve names, and <keycap>Tab</keycap> after the <option>-s</option> option will complete sieve parameters based on sieves that precede it in the command line. This:
-<programlisting>
+<programlisting language="bash">
 $ posieve s&lt;TAB&gt;
 </programlisting>
 will show all sieves beginning with <literal>s</literal>, and complete the sieve name once sufficient number of characters have been entered to uniquely determine it, while this:
-<programlisting>
+<programlisting language="bash">
 $ posieve stats -s m&lt;TAB&gt;
 </programlisting>
 will show all parameters to <command>stats</command> beginning with <literal>m</literal>, and complete one of them after few more characters are typed in.</para>
@@ -37,7 +37,7 @@ will show all parameters to <command>stats</command> beginning with <literal>m</
 <para>Various parts of Pology can be configured through the configuration file <filename>.pologyrc</filename> in the root of user's home directory (<filename>~/.pologyrc</filename> for short). The configuration file does not have to exist, so you have to create it when you want to configure something for the first time. It must be UTF-8 encoded.</para>
 
 <para>The configuration file is in the <ulink url="http://en.wikipedia.org/wiki/INI_file">INI</ulink> format, which is composed of sections beginning with a <literal>[<replaceable>section</replaceable>]</literal> line, and fields of the form <literal><replaceable>field</replaceable> = <replaceable>value</replaceable></literal> within a section. Comments can be written after <literal>#</literal> character at the beginning of the line. Here is an example of a <filename>~/.pologyrc</filename> file:
-<programlisting>
+<programlisting language="ini">
 [global]
 
 [user]
@@ -64,7 +64,7 @@ plural-forms = nplurals=4; plural=n==1 ? ...
 This configuration contains five sections: <literal>[global]</literal>, <literal>[user]</literal>, <literal>[enchant]</literal>, <literal>[posieve]</literal>, and <literal>[project-kde]</literal>. The <literal>[global]</literal> section set options that have an effect throught Pology, and here it is empty. The <literal>[user]</literal> section provides some information on the person who uses Pology. The <literal>[enchant]</literal> section configures the Enchant spell checker wrapper, used by Pology for spell checking. The <literal>[posieve]</literal> section configures the behavior of the <link linkend="ch-sieve"><command>posieve</command></link> script. The <literal>[project-kde]</literal> section provides information on a project that the user contributes translation to.</para>
 
 <para>Some details about the configuration file syntax are as follows. Leading and trailing whitespace in section and field names and values is not significant,  e.g. <literal>foo=bar</literal> is same as <literal>foo = bar</literal>. Percent (%) character is used to expand the value of another field, for example:
-<programlisting>
+<programlisting language="ini">
 rootdir = /path/to/somewhere
 datadir = %(rootdir)s/data
 </programlisting>
@@ -497,7 +497,7 @@ Ordering and position of include-exclude directives is not significant, as they 
 <term><option>-R</option>, <option>--raw-colors</option></term>
 <listitem>
 <para>Disables output destination sensitivity, such that the text is always colored. This is useful when the output is piped to another command which can understand terminal escape sequences by which colors are produce, such as <command>less(1)</command>. A typical example would be piping search results from <link linkend="sv-find-messages">the <command>find-messages</command> sieve</link> to be able to scroll them back and forth:
-<programlisting>
+<programlisting language="bash">
 $ posieve find-messages ... -R | less -R
 </programlisting>
 The <option>-R</option> of <command>less</command> tells it to interpret escape sequences as colors, rather than showing them as literal text.</para>
@@ -592,7 +592,7 @@ The <option>-R</option> of <command>less</command> tells it to interpret escape 
 <para>While <link linkend="sec-powrap">line wrapping of message strings</link> irrelevant to programs that fetch translations from them, it may be significant to the translator, especially when editing the PO file with a plain text editor. Well-wrapped strings make it easier for the translator to follow the text structure, especially in longer messages.</para>
 
 <para>Most Gettext tools (<command>msgmerge</command>, <command>msgcat</command>, <command>msgfilter</command>, etc.) provide options to wrap or not to wrap strings, where wrapping is done on the given column and escaped newlines (<literal>\n</literal>). Pology can produce this type of wrapping ("basic" wrapping) as well, but it can also wrap on expected visual line breaks in known text markup, e.g. <literal>&lt;p&gt;</literal> and <literal>&lt;br&gt;</literal> in HTML ("fine" wrapping). Compare this message in basic wrapping alone:
-<programlisting>
+<programlisting language="po">
 msgid ""
 "&lt;p>These settings control the storage of the corrected images. "
 "There are four modes to choose from:&lt;/p>&lt;p>&lt;ul>&lt;li>&lt;b>Subfolder:&lt;/"
@@ -606,7 +606,7 @@ msgid ""
 msgstr ""
 </programlisting>
 and in basic and fine wrapping together:
-<programlisting>
+<programlisting language="po">
 msgid ""
 "&lt;p>These settings control the storage of the corrected images. "
 "There are four modes to choose from:&lt;/p>"
@@ -790,19 +790,19 @@ Wrapping on escaped newline <literal>\n</literal> is always performed, regardles
 <para>Pology enables the user to insert special processing elements, called <emphasis>hooks</emphasis>, at many places in the processing chain. Hooks are Python functions with certain prescribed input, output, and behavior. Depending on the exact combination of these three ingredients, there are various <emphasis>hook types</emphasis>. Finally, some hooks can be adapted to a given context through their <emphasis>hook factories</emphasis>. Pology defines many hooks internally, and users can add their own external hooks.</para>
 
 <para>Usage of hooks is best illustrated through examples. Suppose that you want to use the <link linkend="sv-find-messages">the <command>find-messages</command> sieve</link> to look for a certain word, but the text contains XML-like tags of the form <literal>&lt;<replaceable>tagname</replaceable>&gt;...&lt;<replaceable>/tagname</replaceable>&gt;</literal> which happen to be throwing off your search. Suppose that there exists a hook called <literal>remove-xml-tags</literal>, in the Pology library module <literal>remove</literal>, which takes a piece of text as input and returns that piece of text cleared of any XML-like tags. Then you could insert this hook into the search to clear the tags before matching the text, by using the <option>filter:</option> parameter to <command>find-messages</command>:
-<programlisting>
+<programlisting language="bash">
 $ posieve find-messages -s filter:'remove/remove-xml-tags' ...
 </programlisting>
 Here <literal>remove/remove-xml-tags</literal> is the hook specification, and this is its usual simplest form: the module name, followed by slash, followed by the hook name. (Sometimes it can be only the module name, when the hook function within that module has the same name as the module, but this is rare.) The hook specification was enclosed in single quotes, for the shell to see it as single string; this was not necessary here, but it is a good habit to keep up when adding hooks through command line, because hook specification can get quite involved.</para>
 
 <para>Suppose now that there is a single hook that can remove any kind of markup from the text (not only XML-like tags) called <literal>remove-markup</literal>, but that it has to be told which markup to remove, by giving it one of the markup type keywords known to Pology. Continuing the previous example, this could be done like this:
-<programlisting>
+<programlisting language="bash">
 $ posieve find-messages -s filter:'remove/remove-markup~"docbook4"' ...
 </programlisting>
 Now the hook specification is <literal>remove/remove-markup~"docbook4"</literal>. Note that outer single quotes in the command line are necessary, as otherwise the shell would strip internal double quotes, which are here integral part of hook specification. <literal>remove-markup</literal> is actually a <emphasis>hook factory</emphasis>, which produces a hook based on the parameters given after the tilde (<literal>~</literal>) character. Here <literal>"docbook4"</literal> is that parameter; why must it be quoted? Because the part after the tilde is passed as argument list to a Python function, and <literal>"docbook4"</literal> must be of string type, which is in Python denoted by quotes. For a hook factory <literal>foo/bar</literal> which would take a string and a number, the hook specification would be <literal>foo/bar~"qwyx",5</literal>. Sometimes a hook factory has default values for some or all of its arguments; in the latter case, if the defaults are sufficient, the part after the tilde in the hook specification can be left empty (e.g. <literal>foo/bar~</literal>).</para>
 
 <para>Hooks can be language- and project-dependent. Suppose that in your language the letters are sometimes accented, but the accents should be ignored on spell-checking. Then Pology may contain a hook which strips accents from text in your language. If your language code is <literal>ll</literal>, and the hook is <literal>remove-accents</literal> in (language-specific) module <literal>remove</literal>, you could check spelling while ignoring accents using the <link linkend="sv-find-messages">the <command>check-spell-ec</command> sieve</link>:
-<programlisting>
+<programlisting language="bash">
 $ posieve check-spell-ec -s filter:'ll:remove/remove-accents' ...
 </programlisting>
 The hook specification now also contains the language code separated by colon, as <literal>ll:...</literal>. If the hook is project-specific instead, it is prefixed with <literal>pp%...</literal>, where <literal>pp</literal> is the project identifier and percent sign the separator. If the hook is both language- and project-specific, then the specification is <literal>ll:pp%...</literal> or <literal>pp%ll:...</literal>.</para>
@@ -1351,7 +1351,7 @@ in one or all strings in the message, or replaces them with a fixed placeholder.
 
 <listitem>
 <para>On the single message level, the only place where it is possible to add a manual processing instruction is a <link linkend="sec-pomancmnt">translator comment</link>. This is because if it would put anywhere else (e.g. as extracted comment or a flag), it would be removed on subsequent merging with template. These instructions are usualy kept simple, like this:
-<programlisting>
+<programlisting language="po">
 # <replaceable>some-instruction</replaceable>: <replaceable>arguments</replaceable>
 #: ...
 msgid "..."
@@ -1364,7 +1364,7 @@ Instructions are always composed of two or more words, separated by hyphens, end
 
 <listitem>
 <para id="p-trflag">A special type of translator comment with processing instructions is a comment of the following form:
-<programlisting>
+<programlisting language="po">
 # |, <replaceable>flag1</replaceable>, <replaceable>flag2</replaceable>, ...
 </programlisting>
 This is a "translator flag" comment, which is used to set processing instructions too simple to occupy one whole comment line (e.g. those of the switch type, never needing arguments). It starts with <literal>|,</literal>, and continues with comma-separated list of flag-like keywords.</para>

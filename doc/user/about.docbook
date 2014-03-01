@@ -30,19 +30,19 @@
 <para>You can either download a release tarball from <emphasis>[[insert link here]]</emphasis>, or fetch the latest development version from the version control repository. To do the latter, execute<footnote>
     <para><command>svn</command> is the primary command of <ulink url="http://subversion.tigris.org/">Subversion</ulink> version control system. Subversion is almost certainly ready for installation from your operating system's package repositories.</para>
 </footnote>:
-<programlisting>
+<programlisting language="bash">
 $ cd <replaceable>PARENTDIR</replaceable>
 $ svn checkout svn://anonsvn.kde.org/home/kde/trunk/l10n-support/pology
 </programlisting>
 This will create the <filename>pology</filename> subdirectory inside the <replaceable>PARENTDIR</replaceable>, and download full Pology source into it. When you want to update to the latest version later on, you do not have to download everything again; instead you can execute <userinput>svn update</userinput> in the directory Pology's root directory:
-<programlisting>
+<programlisting language="bash">
 $ cd <replaceable>POLOGYDIR</replaceable>
 $ svn update
 </programlisting>
 This will fetch only the modifications since the checkout (or the previous update) and apply them to the existing source tree.</para>
 
 <para>To prepare Pology for use, you can either properly install it or use it directly from the source directory. To install it, you first run CMake in a separate build directory to configure the build, and then <command>make</command> and <command>make install</command> to build and install:
-<programlisting>
+<programlisting language="bash">
 $ cd <replaceable>POLOGYDIR</replaceable>
 $ mkdir build &amp;&amp; cd build
 $ cmake ..
@@ -51,28 +51,28 @@ $ make &amp;&amp; make install
 CMake will warn you of missing requirements, and give some hints on how to customize the build (e.g. installation prefix, etc). If <command>cmake</command> is run like this without any arguments, Pology will be installed into a standard system location, and should be ready to use. If you install it into a custom location (e.g. inside your home directory), then you may need to set some environment variables (see below).</para>
 
 <para>If you want to run Pology from its source directory, it is sufficient to set two environment variables:
-<programlisting>
+<programlisting language="bash">
 $ export PATH=<replaceable>POLOGYDIR</replaceable>/bin:$PATH
 $ export PYTHONPATH=<replaceable>POLOGYDIR</replaceable>:$PYTHONPATH
 </programlisting>
 You can put these commands in the shell startup script (<filename>~/.bashrc</filename> for Bash shell), so that paths are already set whenever you start a shell. Setting <envar>PATH</envar> will ready Pology's scripts for execution, and <envar>PYTHONPATH</envar> its Python library for use in custom Python scripts. You should also build some documentation:
-<programlisting>
+<programlisting language="bash">
 $ <replaceable>POLOGYDIR</replaceable>/user/local.sh build  # user manual
 $ <replaceable>POLOGYDIR</replaceable>/api/local.sh build  # API documenation
 $ <replaceable>POLOGYDIR</replaceable>/lang/<replaceable>LANG</replaceable>/doc/local.sh build  # language-specific, if any
 </programlisting>
 This will make HTML pages appear in <filename><replaceable>POLOGYDIR</replaceable>/doc-html/</filename>. To have Pology scripts output translated messages, if there exists translation into your language, you can execute:
-<programlisting>
+<programlisting language="bash">
 $ <replaceable>POLOGYDIR</replaceable>/po/pology/local.sh build [<replaceable>LANG</replaceable>]
 </programlisting>
 This will put compiled PO files into <filename><replaceable>POLOGYDIR</replaceable>/mo/</filename>, from where they will be automatically picked up by scripts running from the source directory.</para>
 
 <para>Pology provides <link linkend="sec-cmshellcomp"><emphasis>shell completion</emphasis></link> for some of the included scripts, which you can activate by sourcing the corresponding completion definition file. If you have installed Pology:
-<programlisting>
+<programlisting language="bash">
 $ . <replaceable>INSTALLDIR</replaceable>/share/pology/completion/bash/pology
 </programlisting>
 and if running Pology from the source directory
-<programlisting>
+<programlisting language="bash">
 $ . <replaceable>POLOGYDIR</replaceable>/completion/bash/pology
 </programlisting>
 </para>
@@ -114,6 +114,9 @@ $ . <replaceable>POLOGYDIR</replaceable>/completion/bash/pology
 <listitem>
 <para><ulink url="http://www.rfk.id.au/software/pyenchant/"><package>python-enchant</package></ulink> >= 1.5.2. Frontend to various spell-checkers, used by most of Pology's spell checking functionality.</para>
 </listitem>
+<listitem>
+<para><ulink url="http://pygments.org"><package>python-pygments</package></ulink> >= 1.6. Syntax highlighting for PO and other code snippets in Pology documentation.</para>
+</listitem>
 </itemizedlist>
 </para>
 
@@ -123,7 +126,7 @@ $ . <replaceable>POLOGYDIR</replaceable>/completion/bash/pology
 <para><ulink url="http://www.apertium.org/">Apertium</ulink> >= 0.2. A free/open-source machine translation platform, used by <link linkend="sec-mimtrans">the <command>pomtrans</command> script</link>.</para>
 </listitem>
 <listitem>
-<para><ulink url="http://wiki.docbook.org/DocBookXslStylesheets">Docbook XSL</ulink> >= 1.75.2. XSL transformations for converting Docbook into various end-user formats, used for building Pology documentation..</para>
+<para><ulink url="http://wiki.docbook.org/DocBookXslStylesheets">Docbook XSL</ulink> >= 1.75.2. XSL transformations for converting Docbook into various end-user formats, used for building Pology documentation.</para>
 </listitem>
 <listitem>
 <para><ulink url="http://epydoc.sourceforge.net">Epydoc</ulink> >= 3.0. Python doctring to HTML doc generator. Needed to build the API documentation of Pology Python library.</para>

@@ -17,7 +17,7 @@
 <para>The <command>posieve</command> script itself is actually a simple shell for applying various processing modules, called <emphasis>sieves</emphasis>, to every message in one or more PO files. Some sieves can also request to operate on the header of the PO file, which <command>posieve</command> will then feed to them. A sieve can both examine and modify messages; if any message is modified, by default the modified PO file will be written out in place. Naturally, <command>posieve</command> has a number of options, but more interestingly, each sieve can define some parameters which determine its behavior. Pology comes with many internal sieves, which do things from general to obscure (possibly language or project specific), and users can define their own sieves.</para>
 
 <para>Here is how you would run the <link linkend="sv-stats"><command>stats</command></link> sieve to collect statistics on all PO files in <filename>frobaz/</filename> directory:
-<programlisting>
+<programlisting language="bash">
 $ posieve stats frobaz/
 </programlisting>
 While PO files in <filename>frobaz/</filename> are being processed, you will see a progress bar with the current file and the number of files to process, and after some time the <command>stats</command> sive will present its findings in a table.</para>
@@ -27,7 +27,7 @@ While PO files in <filename>frobaz/</filename> are being processed, you will see
 
 <para>If the sieve modifies a message and the new PO file is written out in place of the old, the user will be informed by an exclamation mark followed by the file path. An example of a sieve which modifies messages is the <link linkend="sv-tag-untranslated"><command>tag-untranslated</command></link> sieve; it adds
 the <literal>untranslated</literal> flag to every untranslated message, so that you can look them up in a plain text editor (as opposed to <link linkend="sec-poedlist">dedicated PO editor</link>):
-<programlisting>
+<programlisting language="bash">
 $ posieve tag-untranslated frobaz/
 ! frobaz/alfa.po
 ! frobaz/bravo.po
@@ -37,15 +37,15 @@ Tagged 42 untranslated messages.
 <command>posieve</command> itself tracks message modifications and informs about modified PO files, whereas the final line in this example has been output by the <command>tag-untranslated</command> sieve. Sieves will frequently issue such final reports of their actions.</para>
 
 <para id="p-svparam">If a sieve defines some parameters to control its behavior, these can be issued using the <option>-s</option>. This option takes the parameter specification as the argument, which is of the form <literal><replaceable>name</replaceable>:<replaceable>value</replaceable></literal> or just <literal><replaceable>name</replaceable></literal> for switch-type parameters. More than one parameter can be issued by repeating the <option>-s</option>. For example, the <command>stats</command> sieve can be instructed to take into account only messages with at most 5 words:
-<programlisting>
+<programlisting language="bash">
 $ posieve stats -s maxwords:5 frobaz/
 </programlisting>
 to show statistics in greater detail:
-<programlisting>
+<programlisting language="bash">
 $ posieve stats -s detail frobaz/
 </programlisting>
 or to ignore a certain accelerator marker and show bar-type statistics instead of tabular:
-<programlisting>
+<programlisting language="bash">
 $ posieve stats -s accel:_ -s msgbar frobaz/
 </programlisting>
 </para>
@@ -65,7 +65,7 @@ $ posieve stats -s accel:_ -s msgbar frobaz/
 <para>It is possible to issue several sieves at once, by passing a comma-separated list of sieve names to <command>posieve</command> in place of single sieve name. This is called a <emphasis>sieve chain</emphasis>.</para>
 
 <para>At minimum, chaining sieves is a performance improving measure, since each PO file is opened (and possibly written out) only once, instead of on each sieve run. For example, you can in one run compute the statistics to see how many messages need to be update and tag all untranslated messages:
-<programlisting>
+<programlisting language="bash">
 $ posieve stats,tag-untranslated frobaz/
 ! frobaz/alfa.po
 ! frobaz/bravo.po
@@ -76,7 +76,7 @@ Tagged 42 untranslated messages.
 A message in the PO file is passed through each sieve in turn, in the order in which they are issued, before proceding to the next message. If a sieve modifies the message, the next sieve in the chain will operate on that modified version of the message. This means that the ordering of sieves in the command line is significant in general, and that it is interchangable only if the sieves in the chain are independent of each other (as in this example). Chain order also determines the order in which sieve reports are shown; if in this example the order had been <literal>tag-untranslated,stats</literal>, then first the tagged messages line would be written out, followed by the statistics table.</para>
 
 <para>Other than for performance, sieve chains are useful when messages should be modified in a particular way before a sieve gets to operate on it. A good example is when statistics is to be computed on PO files which contain old <link linkend="p-embctxt">embedded contexts</link>, where if nothing would be done, contexts would add to the word count of the original text. To avoid this, a <link linkend="sv-normctxt-sep">context normalization</link> sieve (which converts embedded contexts to <varname>msgctxt</varname>) can be chained with statistics sieve, and the <command>posieve</command> instructed not to write modifications to the PO file. If the embedded context is of the single-separator type, with separator character <literal>|</literal>, the sieve chain is:
-<programlisting>
+<programlisting language="bash">
 $ posieve --no-sync normctxt-sep,stats -s sep:'|' frobaz/
 Converted 21 separator-embedded contexts.
 ... (table with statistics) ...
@@ -84,7 +84,7 @@ Converted 21 separator-embedded contexts.
 The <option>--no-sync</option> option prevents writing modified messages in the PO file on disk. Note that <literal>|</literal> as parameter value is quoted, because it would be interpreted as a shell pipe otherwise.</para>
 
 <para>Finally, some sieves can stop messages from being pushed further through the sieve chain, so they can be used as a prefilter to other sieves. The     archetypal example of this the <link linkend="sv-find-messages"><command>find-messages</command></link>, which stops non-matched messages from further sieving. For example, to include into statistics only the messages containing the word "quasar", this would be executed:
-<programlisting>
+<programlisting language="bash">
 $ posieve find-messages,stats -s msgid:quasar -s nomsg
 Found 12 messages satisfying the conditions.
 ... (table with statistics) ...
@@ -92,7 +92,7 @@ Found 12 messages satisfying the conditions.
 The <option>msgid:</option> parameter specifies the word (actually, a regular expression) to be looked up in the original text, while <option>nomsg</option> parameter tells <command>find-messages</command> not to write out matched messages to standard output, which it would by default do. Note that no path was specified, meaning that all PO files in current working directory and below will be sieved.</para>
 
 <para>Examples of sieve chaining so far should have raised the following question: when several sieves are issued, to which of them are the parameters specified by <option>-s</option> options passed? The answer is that a parameter is sent to all sieves which accept parameter of that name. Continuing the previous example, if message texts can contain accelerator marker <literal>&amp;</literal>, this would be specified like this:
-<programlisting>
+<programlisting language="bash">
 $ posieve find-messages,stats -s msgid:quasar -s nomsg -s accel:'&amp;'
 </programlisting>
 <command>find-messages</command> will accept <option>accel</option> in order to also match messages like <literal>"Charybdis Q&amp;uasar"</literal>, while <command>stats</command> will use it to properly split text into words for counting them.</para>
@@ -146,7 +146,7 @@ Options specific to <command>posieve</command>:
 <term><option>-H</option>, <option>--help-sieves</option></term>
 <listitem>
 <para><option>-h</option>/<option>--help</option> shows only description of <command>posieve</command> and its options, while this option shows the descriptions and available parameters of issued sieves. For example:
-<programlisting>
+<programlisting language="bash">
 $ posieve find-messages,stats -H
 </programlisting>
 would output help for <command>find-messages</command> and <command>stats</command> sieves.</para>
@@ -283,7 +283,7 @@ Options common with other Pology tools:
 For configuration fields that have counterpart command line options, the command line option always takes precedence if issued.</para>
 
 <para id="p-confsvpar">Configuration can also be used to issue sieve parameters, by specifying <literal>[posieve]/param-<replaceable>name</replaceable></literal> fields. For example, parameters <option>transl</option> (a switch) and <option>accel</option> (with value <literal>&amp;</literal>) are issued to all sieves that accept them by writing:
-<programlisting>
+<programlisting language="ini">
 [posieve]
 param-transl = yes
 param-accel = &amp;
@@ -292,7 +292,7 @@ param-accel = &amp;
 
 <para>To issue parameters only to certain sieves, parameter name can be followed
 by a sieve list of the form <literal>/<replaceable>sieve1</replaceable>,<replaceable>sieve2</replaceable>,...</literal>; to <emphasis>prevent</emphasis> the parameter from being issued only to certain sieves, prepend <literal>~</literal> to the sieve list. For example:
-<programlisting>
+<programlisting language="ini">
 [posieve]
 param-transl/find-messages = yes  # only for find-messages
 param-accel/~stats = &amp;            # not for stats
@@ -300,7 +300,7 @@ param-accel/~stats = &amp;            # not for stats
 </para>
 
 <para>Same parameters can sometimes be repeated in the command line, when it is logically meaningfull to provide several values of that type to a sieve. However, same-name fields cannot be used in configuration to supply several values, because they override each other. Instead, a dot and a unique string (within the sequence) can be appended to the parameter name to make it a unique configuration field:
-<programlisting>
+<programlisting language="ini">
 [posieve]
 param-accel.0 = &amp;
 param-accel.1 = _
@@ -684,7 +684,7 @@ Strings after the dot can be anything, but a sequence of numbers or letters in a
 </para>
 
 <para>One or more rules can be disabled on a particular message in the PO file itself, by adding a special translator comment that starts with <literal>skip-rule:</literal> and continues with comma-separated list of rule identifiers:
-<programlisting>
+<programlisting language="po">
 # skip-rule: <replaceable>ruleid1</replaceable>, <replaceable>ruleid2</replaceable>, ...
 </programlisting>
 </para>
@@ -965,7 +965,7 @@ Strings after the dot can be anything, but a sequence of numbers or letters in a
 
 <listitem>
 <para>Congruence of WML interpolations (<literal>interp</literal>). WML interpolations look like <literal>"...side $side_number is..."</literal> and normally must match between the original and translation, or else the player would loose information. Only in very rare cases (e.g. some plurals and Markov chain generators) some interpolations may be missing in translation, and then they can be listed space-separated in a translator comment to silence the check:
-<programlisting>
+<programlisting language="po">
 # ignore-interpolations: <replaceable>interp1</replaceable> <replaceable>interp2</replaceable> ...
 </programlisting>
 (the <literal>$</literal> character is not necessary in the list).
@@ -1011,7 +1011,7 @@ The first two characters define, in order, the key-value separator (here <litera
 <para><command>collect-pmap</command> will parse pmap entries from manual comments in messages, collect them, and write out a property map file. It is not necessary to explicitly specify entry keys, since the contents of <varname>msgid</varname> and <varname>msgstr</varname> are automatically added as keys. Since each manual comment is one line, it is also allowed to drop
 the final double separator which would normally terminate the entry.
 The above example would thus look like this in a PO message:
-<programlisting>
+<programlisting language="po">
 # pmap: =/nom=Atina/gen=Atine/dat=Atini/acc=Atinu/
 msgctxt "Greece/city"
 msgid "Athens"
@@ -1019,7 +1019,7 @@ msgstr "Atina"
 </programlisting>
 The manual comment starts with <literal>pmap:</literal> keyword, which is followed by a normal pmap entry, except for missing keys (but additional keys can be specified when <varname>msgid</varname> and <varname>msgstr</varname> are not sufficient). It is also possible to split the entry into several comments,
 with only condition that all share the same set of separators:
-<programlisting>
+<programlisting language="po">
 # pmap: =/nom=Atina/gen=Atine/
 # pmap: =/dat=Atini/acc=Atinu/
 </programlisting>
@@ -1079,12 +1079,12 @@ After collecting pmap entries from all processed PO files, if two or more entrie
 <title>Derivating Entries</title>
 
 <para>There is another, more succint way to define pmap entries in comments. Instead of writting out all key-value combinations, it is possible instead to generate them by using <emphasis>syntagma derivators</emphasis> (or <emphasis>synders</emphasis>) for short. From the earlier example:
-<programlisting>
+<programlisting language="po">
 # pmap: =/nom=Atina/gen=Atine/dat=Atini/acc=Atinu/
 </programlisting>
 it can be observed that each form has the same root, <literal>Atin</literal>, followed by the appropriate ending for that form type. This makes it convenient
 to reformulate it as a syntagma derivation:
-<programlisting>
+<programlisting language="po">
 # synder: Atin|a
 </programlisting>
 Here <literal>|a</literal> is a <emphasis>derivator</emphasis>; all derivators are defined in a separate synder file (with <filename>.sd</filename> extension by convention) and made known to the sieve through the <option>derivs</option> parameter. The derivator in this example would be defined like this:
@@ -1096,7 +1096,7 @@ First comes the derivator name, starting with <literal>|</literal> and ending wi
 <para>It is possible to mix pmap (<literal># pmap: ...</literal>) and synder (<literal># synder: ...</literal>) entries in translator comments. For example, synder entries may be used to cover majority of cases, which follow the general language rules, while pmap entries can be used for exceptions.</para>
 
 <para>On the other hand, every pmap entry can be reformulated as a synder entry which does not refer to an external derivator:
-<programlisting>
+<programlisting language="po">
 # synder: nom=Atina, gen=Atine, dat=Atini, acc=Atinu
 </programlisting>
 This begs the question of what is the need for pmap entries at all, if synder entries can be used in the same capacity and beyond? Pmap entries are still useful because synders have a lot of special syntax and rules to keep in mind (e.g. what if the phrase itself contains a comma?), while raw pmaps have none past what was described above.</para>
@@ -1156,7 +1156,7 @@ while a file explicitly listing all allowed property keys, and constraining valu
 <title><command>diff-previous</command></title>
 
 <para>When PO files are merged with <option>--previous</option> option to <command>msgmerge</command>, fuzzy messages will retain the previous version of original text (<varname>msgctxt</varname>, <varname>msgid</varname> and <varname>msgid_plural</varname>) under <literal>#|</literal> comments. Then <command>diff-previous</command> can be used to embedded differences from previous to current original into previous original strings. For example, the message:
-<programlisting>
+<programlisting language="po">
 #: main.c:110
 #, fuzzy
 #| msgid "The Record of The Witch River"
@@ -1164,7 +1164,7 @@ msgid "Records of The Witch River"
 msgstr "Beleška o Veštičjoj reci"
 </programlisting>
 will become after sieving:
-<programlisting>
+<programlisting language="po">
 #: main.c:110
 #, fuzzy
 #| msgid "{-The Record-}{+Records+} of The Witch River"
@@ -1290,21 +1290,21 @@ Text editors may even provide highlighting for the wrapped difference segments
 <title>Matching Parameters</title>
 
 <para>Matching parameters specify patterns for matching by parts of the message, or represent binary conditions (whether the message is translated, etc.). For example:
-<programlisting>
+<programlisting language="bash">
 $ posieve find-messages -s msgid:'foo bar'
 </programlisting>
 will report all messages which contain the phrase "foo bar" in their <varname>msgid</varname> (or <varname>msgid_plural</varname>) string. When several matching parameters are given, by default the message is matched if all patterns match; that is, boolean linking of conditions is AND. This:
-<programlisting>
+<programlisting language="bash">
 $ posieve find-messages -s msgid:'foo bar' -s transl
 </programlisting>
 will report all messages that contain "foo bar" in original <emphasis>and</emphasis> are translated. Boolean linking can be switched to OR by issuing the <option>or</option> parameter. To find all messages that contain the word "tooltip" in <emphasis>either</emphasis> context or comments:
-<programlisting>
+<programlisting language="bash">
 $ posieve find-messages -s msgctxt:tooltip -s comment:tooltip -s or
 </programlisting>
 (Actually, the effect of <option>or</option> is somewhat more specific, see its description below.) String matching is by default case insensitive, which can be changed globally by issuing the <option>case</option> parameter.</para>
 
 <para>Every matching parameter has a negative counterpart, named by prepending <literal>n</literal> to the original parameter, which matches when the original parameter does not. Running:
-<programlisting>
+<programlisting language="bash">
 $ posieve find-messages -s msgid:'hello' -s nmsgstr:'zdravo'
 </programlisting>
 would find all messages that contain "hello" in the original and do <emphasis>not</emphasis> contain "zdravo" in the translation (a typical usage pattern in quick terminology checks).</para>
@@ -1312,7 +1312,7 @@ would find all messages that contain "hello" in the original and do <emphasis>no
 <para>To find all messages not matching a set of conditions, in principle it would be possible to negate the whole condition set by switching between positive/negative parameters and AND/OR-linking, but this can be cumbersome. Instead, the <option>invert</option> parameter can be issued to report messages that are not matched by the condition set.</para>
 
 <para>Sometimes neither simple AND nor simple OR boolean linking is sufficient to form the search. Therefore the <option>fexpr</option> parameter is provided, which can be used to specify a search expression with explicit boolean operators and parentheses for controlling the evaluation order. With <option>fexpr</option>, the previous example could be reformulated as:
-<programlisting>
+<programlisting language="bash">
 $ posieve find-messages -s fexpr:'msgid/hello/ and not msgstr/zdravo/'
 </programlisting>
 For details, see the description of <option>fexpr</option> below.</para>
@@ -1448,16 +1448,16 @@ will be satisfied if the original text contains "quuk" in any casing, and transl
 <title>Replacement Parameters</title>
 
 <para>Replacement is done in pair with matching the appropriate string in the message. For example, to replace each appearance of "foobar" with "fumbar" in translation, this would be run:
-<programlisting>
+<programlisting language="bash">
 $ posieve find-messages -s msgstr:foobar -s replace:fumbar
 </programlisting>
 The <option>replace</option> parameter works in pair with <option>msgstr</option>, i.e. <option>replace</option> cannot be issued without issuing <option>msgstr</option> as well. There are two possible problems with replacement as straightforward as this. The first is that if "foobar" was a whole word (or start of a word), and this word in the text started with upper-case letter, the replacement would make it lower-case. This can be avoided by executing replacement twice with case sensitivity:
-<programlisting>
+<programlisting language="bash">
 $ posieve find-messages -s msgstr:foobar -s replace:fumbar -scase
 $ posieve find-messages -s msgstr:Foobar -s replace:Fumbar -scase
 </programlisting>
 The other problem is if the word is split by an accelerator marker, for example:
-<programlisting>
+<programlisting language="po">
 msgstr "... f_oobar ..."
 </programlisting>
 The search may still find the word (see the <option>accel</option> parameter below), but direct replacement would cause the loss of accelerator marker, and therefore it is not done.<footnote>
@@ -1465,7 +1465,7 @@ The search may still find the word (see the <option>accel</option> parameter bel
 </footnote> To see such cases, you should monitor the output of <command>find-messages</command> (always a good idea when doing batch replacement), where matched and replaced parts of the text will be highlighted.</para>
 
 <para>As usual for replacement based on regular expression, the replacement string may contain <literal>\<replaceable>number</replaceable></literal> references to groups defined in the matching pattern. For example, the previous example of case-aware replacement could be more efficiently and more elegantly performed with:
-<programlisting>
+<programlisting language="bash">
 $ posieve find-messages -s msgstr:'(f)oobar' -s replace:'\1umbar'
 </programlisting>
 (Though this is possible only if the original and the replacement start with the same letter.)</para>
@@ -1495,7 +1495,7 @@ $ posieve find-messages -s msgstr:'(f)oobar' -s replace:'\1umbar'
 <term><option>or</option></term>
 <listitem>
 <para>Boolean OR instead of AND linking of conditions, but only for string matchers: <option>msgctxt</option>, <option>msgid</option>, <option>msgstr</option>, <option>comment</option>. This restriction may seem odd, but it is what is mostly needed in practice. For example, the set of conditions:
-<programlisting>
+<programlisting language="bash">
 -s msgctxt:tooltip -s comment:tooltip -s transl -s or
 </programlisting>
 would match all translated messages which have "tooltip" in context or in comments, and not messages which are either translated or have "tooltip" in context or in comments. For full control over the expression, use the <option>fexpr</option> parameter.</para>
@@ -1647,7 +1647,7 @@ If the PO message contains plural forms, they will be represented with <literal>
 <title><command>normctxt-delim</command></title>
 
 <para>In older PO files, disambiguating contexts may be embedded into <varname>msgid</varname> strings, as the initial part of the string delimited from the actual text with predefined substrings, here called the "head" and the "tail". For example, in:
-<programlisting>
+<programlisting language="po">
 msgid ""
 "_:this-is-context\n"
 "This is original text"
@@ -1681,7 +1681,7 @@ the head is the underscore-colon sequence (<literal>_:</literal>), and the tail 
 <title><command>normctxt-sep</command></title>
 
 <para>In older PO files, disambiguating contexts may be embedded into <varname>msgid</varname> strings, as the initial part of the string separated from the actual text by a predefined substring. For example, in:
-<programlisting>
+<programlisting language="po">
 msgid "this-is-context|This is original text"
 msgstr "This is translated text"
 </programlisting>
@@ -1785,7 +1785,7 @@ the separator string is the pipe character (<literal>|</literal>). <command>norm
 <title><command>resolve-aggregates</command></title>
 
 <para>In its default mode of operation, <command>msgcat(1)</command> produces an aggregate message when in different catalogs it encounters a message with the same key but different translation or translator or extracted comments. A general aggregate message looks like this:
-<programlisting>
+<programlisting language="po">
 # #-#-#-#-#  po-file-name-1 (project-version-id-1)  #-#-#-#-#
 # manual-comments-1
 # #-#-#-#-#  po-file-name-2 (project-version-id-2)  #-#-#-#-#
@@ -1854,7 +1854,7 @@ if and which of the original messages were fuzzy. Therefore, by default, the res
 <para><command>resolve-alternatives</command> resolves <emphasis>alternatives directives</emphasis> found in the translation into one of the alternatives.</para>
 
 <para>An alternative directive is a substring of the form <literal>~@/.../.../...</literal>, for example:
-<programlisting>
+<programlisting language="po">
 msgstr "I see a ~@/pink/white/ elephant."
 </programlisting>
 <literal>~@</literal> is the directive head, which is followed by a character that defines the delimiter of alternatives (can be arbitrary), and then by alternatives themselves. The number of alternatives per directive is not defined by the directive itself, but it is provided as the sieve parameter (i.e. all alternative directives must have some number of alternatives).</para>
@@ -2114,7 +2114,7 @@ If literal % character is needed (e.g. when setting the <literal>Plural-Forms</l
 <term><option>templates:<replaceable>search</replaceable>:<replaceable>replace</replaceable></option></term>
 <listitem>
 <para>If there exists both a directory with translated PO files and with POT (template) files, and not every POT file has the corresponding PO file, this parameter can be used to count POT files without PO counterpart as fully untranslated in statistics. Value to the parameter are two strings separated by colon: the first string will be searched for in directory paths of processed PO files, and replaced with the second string to construct corresponding directory paths of POT files. For example:
-<programlisting>
+<programlisting language="bash">
 $ cd $MYTRANSLATIONS
 $ ls
 my_lang  templates
@@ -2224,7 +2224,7 @@ $ posieve stats -s templates:my_lang:templates my_lang/
 <para>Some older PO files will have disambiguating contexts embedded into the <varname>msgid</varname> string, instead of using the newer standard <varname>msgctxt</varname> string. There are several customary ways in which this is done, but in general it depends on the translation environment where such PO files are used.</para>
 
 <para>Embedded contexts will skew the statistics. Pology contains several sieves for converting embedded contexts into <varname>msgctxt</varname> contexts, named <command>normctxt-*</command>. When statistics on such PO files is computed, a sieve chain should be used in which the <command>stats</command> sieve is preceeded by the context conversion sieve. For example, if the embedded context starts the <varname>msgid</varname> and ends with <literal>|</literal>, statistics should be computed with:
-<programlisting>
+<programlisting language="bash">
 $ posieve --no-sync normctxt-sep,stats -s sep:'|' ...
 </programlisting>
 Note that <command>normctxt-*</command> sieves, since they modify messages, would by default cause PO files to be modified on disk. Option <option>--no-sync</option> is therefore issued to prevent modifications to sieved files.</para>
@@ -2235,7 +2235,7 @@ Note that <command>normctxt-*</command> sieves, since they modify messages, woul
 <title>Output Legend</title>
 
 <para>The default output from <command>stats</command> is a table where rows present statistics for a category of messages, and columns the particular categories of data:
-<programlisting>
+<programlisting language="bash">
 $ posieve stats frobaz/
 -              msg  msg/tot  w-or  w/tot-or  w-tr  ch-or  ch-tr
 translated     ...    ...    ...     ...     ...    ...    ...
@@ -2294,7 +2294,7 @@ The <literal>total</literal> row is the sum of <literal>translated</literal>, <l
 </para>
 
 <para>If any of the sieve parameters that restrict or modify counting (such as <option>ondiff</option>, <option>lspan</option>, etc.) have been issued, this is indicated in the output by a <literal>modifiers: ...</literal> line:
-<programlisting>
+<programlisting language="bash">
 $ posieve stats -s maxwords:5 -s ondiff frobaz/
 (...the statistics table...)
 modifiers: at most 5 words and scaled fuzzy counts
@@ -2302,7 +2302,7 @@ modifiers: at most 5 words and scaled fuzzy counts
 </para>
 
 <para>When the <option>incomplete</option> parameter is given, the statistics table is followed by a table of non-fully translated PO files, with counts of fuzzy and untranslated messages and words:
-<programlisting>
+<programlisting language="bash">
 $ posieve stats -s incomplete frobaz/
 (...the overall statistics table...)
 catalog              msg/f   msg/u   msg/f+u   w/f   w/u   w/f+u
@@ -2313,12 +2313,12 @@ frobaz/sierra.po        22       0        22   231     0     231
 In the column names, <literal>msg/*</literal> and <literal>w/*</literal> stand for messages and words; <literal>*/f</literal>, <literal>*/u</literal>, and <literal>*/f+u</literal> stand for fuzzy, untranslated, and the two summed.</para>
 
 <para>When parameters <option>msgbar</option> or <option>wbar</option> are in effect, statistics is presented in the form of a text-art bar, giving visual relation between numbers of translated, fuzzy, and untranslated messages or words:
-<programlisting>
+<programlisting language="bash">
 $ posieve stats -s wbar frobaz/
 4572/1829/2533 w-or |¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤×××××××××············|
 </programlisting>
 A typical condensed overview of translation state is obtained by:
-<programlisting>
+<programlisting language="bash">
 $ posieve stats -s byfile -s msgbar frobaz/
 frobaz/foxtrot.po   34/ -/11 msgs |¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤·····|
 frobaz/november.po  58/19/14 msgs |¤¤¤¤¤¤¤¤¤¤¤×××××····|
@@ -2440,11 +2440,11 @@ with <literal>unreviewed-context</literal> string, so that you may find and revi
 <para><command>unfuzzy-ctxmark-only</command> has a similar but less wide effect compared to the <command>unfuzzy-context-only</command> sieve. It unfuzzies a message only if the only change that caused fuzzyness is in a specific part of <varname>msgctxt</varname> string, the <emphasis>UI context marker</emphasis>.</para>
 
 <para>UI context markers are en element of <ulink url="http://techbase.kde.org/Development/Tutorials/Localization/i18n_Semantics">KUIT markup</ulink> (KDE user interface text), which state more formally the user interface context in which the text given by the PO message is used. This may be important for translation, since style guidelines will typically somewhat depend on where in the UI the text is seen. For example, there may be two messages in the code which have exactly the same text in English, but one is used as a menu item, and the other as a dialog title; with KUIT, they would be marked as:
-<programlisting>
+<programlisting language="po">
 msgctxt "@action:inmenu File"
 msgid "Export as HTML"
 msgstr ""
-
+⁠
 msgctxt "@title:window"
 msgid "Export as HTML"
 msgstr ""
@@ -2508,7 +2508,7 @@ The UI context marker here is the leading part of <varname>msgctxt</varname>, st
 </para>
 
 <para>An example of a user configuration appropriate for this sieve would be:
-<programlisting>
+<programlisting language="ini">
 [user]
 name = Chusslove Illich
 original-name = Часлав Илић

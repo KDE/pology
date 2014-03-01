@@ -90,7 +90,7 @@ l10n-nn/
             ...
 </programlisting>
 and set in it a few global configuration fields, and data for each known translator:
-<programlisting>
+<programlisting language="ini">
 # ---------------------------
 # Global ascription settings.
 
@@ -216,13 +216,13 @@ The configuration fields used in this example, and other possible configuration 
 <title>Initial Ascription</title>
 
 <para>The most common situation at the start of ascription workflow is that there already exists a considerable amount of translations, contributed by many different people over time. These existing translations should be ascribed as initial modifications -- but ascribed to whom? If it is not precisely known who translated what, the solution is to introduce a generic user in the configuration file, appropriately named "Unknown Hero" (or "Lost Translator", you can be inventive):
-<programlisting>
+<programlisting language="ini">
 [user-uhero]
 name = Unknown Hero
 original-name = Незнани јунак
 </programlisting>
 You should then ascribe all existing translations as modified and reviewed by this dummy translator:
-<programlisting>
+<programlisting language="bash">
 $ cd $LANGDIR
 $ poascribe commit -u uhero --all-reviewed -C  po/
 </programlisting>
@@ -246,7 +246,7 @@ obsolete/f        26        26
 The number in parenthesis indicates how many messages have been ascribed in the given PO file (modified/reviewed), and at the end the totals are given.</para>
 
 <para>If, on the contrary, it is known who translated and reviewed what up to that point, ascription can be performed piece-wise with user names of real translators:
-<programlisting>
+<programlisting language="bash">
 $ cd $LANGDIR
 $ poascribe commit -u alice --all-reviewed -C  po/ui/
 $ poascribe commit -u bob --all-reviewed -C  po/doc/
@@ -275,7 +275,7 @@ Ascription PO files are used by <command>poascribe</command> to store the ascrip
 <para><command>poascribe</command> may also modify original PO files during this run, by removing any previous field comments (<literal>#| ...</literal>) on translated messages. These comments are sometimes erroneously left in when the PO file is translated with an older or less capable PO editor, and leaving them would result in unnecessary additions to ascription PO files.</para>
 
 <para>The newly created ascription tree, any modifications to the original tree, and the ascription configuration file, can now be committed as usual. With Subversion as the VCS:
-<programlisting>
+<programlisting language="bash">
 $ cd $LANGDIR
 $ svn add ascription-config po-ascript
 $ svn commit ascription-config po po-ascript -m "Initial ascription."
@@ -295,12 +295,12 @@ $ svn commit ascription-config po po-ascript -m "Initial ascription."
 </footnote></para>
 
 <para>In order not to have to report their user name to <command>poascribe</command> all the time (by the <option>-u</option> option), translators can set it in <link linkend="sec-cmconfig">Pology user configuration</link>, the <literal>[poascribe]</literal> section:
-<programlisting>
+<programlisting language="ini">
 [poascribe]
 user = alice
 </programlisting>
 With this in place, translators can submit updated PO files simply by substituting VCS commit command with <literal>poascribe commit</literal> (or shortened: <literal>co</literal> or <literal>ci</literal>). With Subversion, this would look like:
-<programlisting>
+<programlisting language="bash">
 $ cd $LANGDIR
 $ poascribe co po/ui/*alpha*.po
 po/ui/alpha.po  (44)
@@ -315,7 +315,7 @@ Sending      summit-ascript/messages/kdefoo/fooapp.po
 Sending      LANG/summit-ascript/messages/kdefoo/libfooapp.po
 Transmitting file data ....
 Committed revision 1267069.
-$
+$ 
 </programlisting>
 The lines after <literal>>>>>> VCS...</literal> are produce by the underlying VCS, which is Subversion in this example.<footnote>
 <para>If the underlying VCS would a distributed one, such Git, and the push to a designated central repository is expected afterward, it must be performed manually.</para>
@@ -329,7 +329,7 @@ The lines after <literal>>>>>> VCS...</literal> are produce by the underlying VC
 <para>With the ascription system in place, every regular translator should have the commit access to the repository. But, there may be some period of time before new translators are given commit access, or revision control may be too technical for some, and even those who have access may not be able to commit temporarily for some reason.</para>
 
 <para>These translators may send in their work by email or any other informal channel, to <emphasis>any</emphasis> member of the team how does have commit access. This team member can then commit received files without any review, as review can be conducted at any later time. If Bob sends some files to Alice, she can commit them immediately by stating Bob's user name:
-<programlisting>
+<programlisting language="bash">
 $ poascribe co -u bob <replaceable>files...</replaceable>
 </programlisting>
 For this to work, the translator who sent in the files has to be defined in the ascription configuration. There are no hidden costs or security issues to this (as opposed to giving VCS commit access), so every new translator should be defined there before any work of that person is committed.</para>
@@ -348,16 +348,16 @@ For this to work, the translator who sent in the files has to be defined in the 
 <title>Basic Reviewing</title>
 
 <para>At the very basic level (which is the only level in <link linkend="sec-ascrevcomp">review by stages</link>), messages can be classified as simply unreviewed or reviewed. Alice now wants to review all unreviewed messages in a subset of PO files, say the <filename>ui/</filename> subdirectory. She issues the following command (<literal>di</literal> is short for <literal>diff</literal>):
-<programlisting>
+<programlisting language="bash">
 $ poascribe di po/ui/
 po/ui/alpha.po  (2)
 po/ui/foxtrot.po  (7)
 po/ui/november.po  (12)
 ===== Diffed for review: 21
-$
+$ 
 </programlisting>
 With this, all unreviewed messages in listed PO files have been marked, and <emphasis>diffed</emphasis>. If these PO files had already been reviewed before, some of the messages modified since then (those now marked for review) may have changed very little. For example, a few changed words in a paragraph-length message, or even just some punctuation. Therefore, for each message marked for review, Alice also wants to see the difference since the last review to current version. Here are two messages with typical review elements added by <literal>poascribe di</literal>:
-<programlisting>
+<programlisting language="po">
 #. ~ascto: charlie:m
 #: gui/mainwindow.cc:372
 #, ediff
@@ -379,7 +379,7 @@ msgstr "Kliknite ponovo na dugme pauze da nastavite igru."
 <para>Alice can now go through marked messages in listed PO files, review translations, and possibly make modifications. When making changes in a message with embedded differences, she can freely edit the text outside of difference segments and within <literal>{+...+}</literal> segments (as these are the ones which belong to current version of the text). While reviewing, Alice does <emphasis>not</emphasis> remove any of the added message elements (except for an occasional difference segment, if she modifies a translation), as these elements are needed for a subsequent invocation of <command>poascribe</command>. If a message is particularly hard to translate and Alice wants to defer reviewing it for some later time, she can add to it the <literal>unreviewed</literal> flag (or <literal>nrev</literal> for short).</para>
 
 <para>Once the review is complete, Alice simply commits the reviewed files:
-<programlisting>
+<programlisting language="bash">
 $ poascribe co po/ui/
 po/ui/alpha.po  (0/2)
 po/ui/foxtrot.po  (0/7)
@@ -394,12 +394,12 @@ Sending      po-ascript/ui/foxtrot.po
 Sending      po-ascript/ui/november.po
 Transmitting file data ....
 Committed revision 1284220.
-$
+$ 
 </programlisting>
 Three things have happened here. First, all review states (flags, embedded differences, etc.) have been removed, restoring diffed PO files to original state. Then, any modifications that Alice has made during review are ascribed to her (here 3 out of 21 messages). Finally, all marked messages are ascribed as reviewed by Alice (any with <literal>unreviewed</literal> or <literal>nrev</literal> flags would have been omitted here). When committing, the only original PO file that got committed is the one with modifications made during review, and all the ascription PO files were committed because of the reviews recorded in them.</para>
 
 <para>When many PO files with few changes per file should be reviewed, it becomes burdensome to manually open each and every diffed file for review, and then to make sure that all are committed with <command>poascribe co</command>. To make this easier, <literal>-w toreview.out</literal> option can be added to the <literal>poascribe di</literal> command line, which requests that paths of all diffed PO files be written into <filename>toreview.out</filename> file. This file can then be used to batch-open diffed PO files in an editor, as well as to commit them later by adding <literal>-f toreview.out</literal> to <literal>poascribe co</literal>. There is also <option>-o</option> option, which tells <command>poascribe</command> to directly open PO files in one of the supported PO editors (see <xref linkend="sec-cmsupped"/>). Putting it together, to efficiently review a whole bunch of small changes throughout many PO files, with Lokalize as the PO editor, you can execute:
-<programlisting>
+<programlisting language="bash">
 $ poascribe di <replaceable>paths...</replaceable> -w toreview.out -o lokalize
 $ # ...only marked messages opened in Lokalize, review them...
 $ poascribe co -f toreview.out
@@ -407,7 +407,7 @@ $ poascribe co -f toreview.out
 </para>
 
 <para>If for whatever reason you want to simply remove the review elements from messages without committing the PO files (effectively discarding the review), you can use the <literal>purge</literal> mode (short <literal>pu</literal>) of <command>poascribe</command>:
-<programlisting>
+<programlisting language="bash">
 $ poascribe pu <replaceable>paths...</replaceable>
 </programlisting>
 If <option>-k</option>/<option>--keep-flags</option> option is added to this command line, the flags which mark the messages as reviewed get preserved; more precisely, every <literal>ediff*</literal> flag is replaced with <literal>reviewed</literal> flag, and every <literal>unreviewed</literal> flag is left in, so that subsequent invocation of <literal>poascribe co</literal> can record reviews. You will want this limited purging if you have some automatic validation tools to run before committing, and these tools would be thrown off by review elements (most likely by embedded differences).</para>
@@ -418,23 +418,23 @@ If <option>-k</option>/<option>--keep-flags</option> option is added to this com
 <title>Selecting Messages for Review</title>
 
 <para>Invocations of <command>poascribe di</command> without any options, as in the previous section, are equivalent to this:
-<programlisting>
+<programlisting language="bash">
 $ poascribe di -s modar <replaceable>paths...</replaceable>
 </programlisting>
 The <option>-s</option> option serves to issue a message <emphasis>selector</emphasis>. <literal>modar</literal> is the default selector for the <literal>diff</literal> operation mode, and stands for "MODified-After-Review": it selects the earliest historical modification of the message after the last (or no) review of that message, if there is any such. By selecting a historical modification of the message, the difference from it to current version can be computed and embedded into the PO file, as seen in earlier examples.</para>
 
 <para id="p-seltypes">There are various specialized selectors, and they fall into two groups: <emphasis>shallow selectors</emphasis> and <emphasis>history selectors</emphasis>. Shallow selectors look only into the current version of the message, and cannot select historical versions, which means that they cannot provide embedded differences. History selectors (<literal>modar</literal> is of this type) can select messages from history and provide differences. Several selectors can be issued on the command line, and the message is selected only if all selectors select it (boolean AND-linking). Shallow selectors are thus normally used as a pre-filters for history selectors. For example, to select messages modified after the last review, but only those <link linkend="ch-summit">found in the stable branch</link>, <literal>branch</literal> and <literal>modar</literal> selectors are chained like this:
-<programlisting>
+<programlisting language="bash">
 $ poascribe di -s branch:stable -s modar <replaceable>paths...</replaceable>
 </programlisting>
 It is important that the history selector is given last, because the last selector determines which historical message is selected for diffing. If the ordering had been reversed in this example, same messages would get selected, but they would not have embedded differences, because <literal>branch</literal> is a shallow selector.</para>
 
 <para>Selectors can take parameters themselves, like <literal>branch:stable</literal> in the previous example. Parameters are separated from the selector name by any non-alphanumeric character; this is colon by convention, but if a parameter contains a colon, something else, like slash, tilde, etc. can be used. Number of parameters can vary, and <literal>modar</literal> in particular can take from none to three. If Alice wants to review only those messages modified <emphasis>by Charlie</emphasis> since the last review, she states this by first argument to <literal>modar</literal>:
-<programlisting>
+<programlisting language="bash">
 $ poascribe di -s modar:charlie <replaceable>paths...</replaceable>
 </programlisting>
 If Alice does not give much credit to other reviewers, she can request selection of messages modified after <emphasis>her own</emphasis> last review with second parameter to <literal>modar</literal>:
-<programlisting>
+<programlisting language="bash">
 $ poascribe di -s modar::alice <replaceable>paths...</replaceable>
 </programlisting>
 Here the first parameter ("modified by..."), which is not needed, must be explicitly skipped, before proceeding to the second parameter ("reviewed by..."). (The third optional parameter to <literal>modar</literal> will be demonstrated later on.)</para>
@@ -442,13 +442,13 @@ Here the first parameter ("modified by..."), which is not needed, must be explic
 <para>When a selector parameter is a user name, normally it can also be a comma-separated list of user names (<literal>modar:bob,charlie</literal>) or prefixed with tilde to negate, i.e. to select all users other than those listed (<literal>modar:~alice</literal>).</para>
 
 <para>Any selector can be negated by prepending <literal>n</literal> to its name. For example, the history selector <literal>modafter:<replaceable>date</replaceable></literal> selects first modification after the given date; to select messages modified after the last review, but only if modified during June 2010:
-<programlisting>
+<programlisting language="bash">
 $ poascribe di -s modafter:2010-06 -s nmodafter:2010-07 -s modar <replaceable>paths...</replaceable>
 </programlisting>
 Negating a history selector produces a shallow selector: while <literal>modafter</literal> is a history selector, <literal>nmodafter</literal> is shallow. But the mutual ordering of the two in this example is not important, since the last selector in the chain is the usual <literal>modar</literal>.</para>
 
 <para>Selectors can be issued in other modes too. If the PO file is big, and Alice has reviewed messages up to and including the message with entry number 246 when she has to pause until another day, she can commit reviews only up to this entry by issuing the <literal>espan</literal> selector:
-<programlisting>
+<programlisting language="bash">
 $ poascribe co -s espan::246 <replaceable>paths...</replaceable>
 </programlisting>
 The first parameter to <literal>espan</literal>, here omitted, would be the entry number of the first message to select, in case messages should not be selected starting from the first in the file. There is also the counterpart <literal>lspan</literal> selector, which works with referent line numbers (those of <varname>msgid</varname> keywords) instead of entry numbers.</para>
@@ -467,25 +467,25 @@ The first parameter to <literal>espan</literal>, here omitted, would be the entr
 <para>Alice is computer-savvy and knows the translation project inside and out, which means that she can review well for context, terminology, and technical style. But, her language style leaves something to be desired, which shows in longer sentences and passages. Dan, on the other hand, is a very literary person, but not that much into the technical aspects. Dan's style reviews would thus be a perfect complement to Alice's general reviews.</para>
 
 <para><command>poascribe</command> can support this scenario in the following way. A <emphasis>review type</emphasis> tag <literal>lstyle</literal> for language style is defined in the ascription configuration, using the <literal>review-tags</literal> field:
-<programlisting>
+<programlisting language="ini">
 [global]
-...
+# ...
 review-tags = lstyle
 </programlisting>
 With this addition to configuration, Alice can continue to review as she did before, without any changes in her workflow.</para>
 
 <para>Dan selects messages for review similarly to Alice, but additionally giving the <literal>lstyle</literal> tag as the <emphasis>third</emphasis> parameter of <literal>modar</literal>, and indicating that reviews should be tagged as <literal>lstyle</literal> using the <option>-t</option> option:
-<programlisting>
+<programlisting language="bash">
 $ poascribe di -s modar:::lstyle -t lstyle <replaceable>paths...</replaceable>
 </programlisting>
 After finishing the review, Dan commits as usual:
-<programlisting>
+<programlisting language="bash">
 $ poascribe co PATHS...
 </programlisting>
 </para>
 
 <para>If Dan is always going to review the language style, in order not to have to issue the selector and the tag in command line all the time, he can make them default for the <literal>diff</literal> mode in Pology user configuration:
-<programlisting>
+<programlisting language="ini">
 [poascribe]
 user = dan
 selectors/diff = modar:::lstyle
@@ -494,7 +494,7 @@ tags/diff = lstyle
 With this, Dan can use plain <literal>poascribe di</literal> just like Alice does.</para>
 
 <para>The important point of review tags is that they make reviews by types independent. For example, Dan may come around to review the language style of the given message after several modifications and general reviews have been ascribed to it -- <literal>modar:::lstyle</literal> will simply ignore all reviews other than <literal>lstyle</literal> reviews. This is going to be reflected in the <literal>~ascto:</literal> comment of diffed messages:
-<programlisting>
+<programlisting language="po">
 #...
 #. ~ascto: charlie:m alice:r bob:m
 #...
@@ -502,7 +502,7 @@ msgid "..."
 msgstr "..."
 </programlisting>
 Here Alice has made one review between Charlie's and Bob's modifications, and that review, being general instead of <literal>lstyle</literal>, did not cause <literal>modar</literal> to stop at it. After Dan reviews this message for language style, Alice runs selection for review and gets this:
-<programlisting>
+<programlisting language="po">
 #...
 #. ascto: bob:m dan:r(lstyle)
 #...
@@ -527,11 +527,11 @@ Again, since <literal>lstyle</literal> reviews do not mix with general reviews<f
 <title>Ascribing Merges</title>
 
 <para>If PO files are periodically merged with templates in a centralized manner, by one designated person or repository automation, these modifications must also be ascribed. This is done as any other ascription, by substituting the VCS commit command with <literal>poascribe co</literal>. For example:
-<programlisting>
+<programlisting language="bash">
 $ svn commit $LANGDIR -m "Everything merged."
 </programlisting>
 may be substituted with:
-<programlisting>
+<programlisting language="bash">
 $ poascribe commit $LANGDIR -m "Everything merged."
 </programlisting>
 Since the user is not explicitly given by the <option>-u</option> option, this will ascribe modifications due to merging to the person set in Pology user configuration on the system where the command is executed. This is just fine. It is also possible to define a dummy user to which modifications due to merging are ascribed, though there is no known advantage to that at present.</para>
@@ -1049,7 +1049,7 @@ After the shuffling is performed in both file trees, <literal>poascribe co</lite
 <title>Custom Review Selectors</title>
 
 <para>Custom selectors can be written in a standalone Python source file, which is then fed to <command>poascribe</command> using the <option>-x</option>/<option>--externals</option> option. A file with several custom selectors should have this layout:
-<programlisting>
+<programlisting language="python">
 def selector_foo (args):
     ...
 

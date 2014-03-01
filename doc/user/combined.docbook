@@ -34,7 +34,7 @@
 <title>Maintaining a Centralized PO Compendium</title>
 
 <para>As a first attempt, the PO compendium can be created simply by concatenting all PO files in the project into one called <filename>compendium.po</filename>, using <command>msgcat</command>. If PO files are organized by language (all PO files of a given language kept in directory of that language), then the concatenation command would be:
-<programlisting>
+<programlisting language="bash">
 $ cd $LANGDIR
 $ find -iname \*.po | xargs msgcat -o compendium.po
 </programlisting>
@@ -55,15 +55,15 @@ Unfortunatelly, a compendium created in this way has a number of drawbacks:
 
 <listitem>
 <para>When two or more PO files contain the same message by key (<varname>msgid</varname> and <varname>msgctxt</varname>) but with different translations (due to context), such as:
-<programlisting>
+<programlisting language="po">
 msgid "Open File"
 msgstr "Otvori datoteku"
-
+⁠
 msgid "Open File"
 msgstr "Otvaranje datoteke"
 </programlisting>
 <command>msgcat</command> will <emphasis>aggregate</emphasis> translations (and translator comments if any) in the compendium message, and make it fuzzy:
-<programlisting>
+<programlisting language="po">
 #, fuzzy
 msgid "Open File"
 msgstr ""
@@ -103,7 +103,7 @@ foo-nn/
 <filename>update-compendium-foo-nn.sh</filename> will be the script to create or update the compendium, <filename>compendium-foo-nn.po</filename> the compendium itself. It helps clarity to add the project name and language into names of these two files, because both are tailored to that project and that language. Taking into account the aforementioned drawbacks of a simple compendium made by <command>msgcat</command> and the suggested resolutions, <filename>update-compendium-foo-nn.sh</filename> could look like this<footnote>
 <para>At one point, the script creates a temporary PO file for each original PO file, and then calls <command>msgcat</command> on these temporary files to create the first, raw compendium. These temporary files have fuzzy and untranslated messages removed, and some other adjustments, before concatenation. One could think that all these adjustments could instead be done on the raw compendium. The problem is that then there would be no unambiguous way to tell which fuzzy messages in the raw compendium were fuzzy to begin with, and which were made fuzzy by <command>msgcat</command> due to agreggation of translations. With fuzzy messages removed prior to concatenation, in de-aggregation by frequency that follows it is known that messages with fuzzy flags are those aggregated.</para>
 </footnote>:
-<programlisting>
+<programlisting language="bash">
 #!/bin/sh
 #
 # Create the PO compendium of Foo in Nevernissian language.
@@ -232,7 +232,7 @@ This script should be periodically called to update the compendium, and the upda
 <para>Dedicated PO editors may also offer <emphasis>batch</emphasis> application of the TM. This means that when the PO file is opened, the translator executes a command which fills in all untranslated messages with matches from the TM, making some translated (on exact matches) and some fuzzy (partial matches). However, simpleminded <emphasis>batch application of the TM should be considered dangerous</emphasis>. For one, exact matches in the source language may not be exact matches in the original; especially short messages frequently need different translations. But the translator will simply jump over each batch-translated message and fail to see this. The other problem comes up if the material in the compendium is not sufficiently reviewed, in which case every match from the TM, even on long messages, should be at least casually reviewed by the translator. Thus, if there is no way to configure batch application to be less indiscriminate, it is best to avoid it alltogether, or else the quality of translation may suffer.</para>
 
 <para>Translators who use a general text editor to work on PO files can still make use of the compendium. One option could be merging the PO file with its template in presence of the compendium, just before starting to work on it:
-<programlisting>
+<programlisting language="bash">
 $ msgmerge alpha.po alpha.pot -C compendium.po --update --previous
 </programlisting>
 The <option>-C</option> option to <command>msgmerge</command> specifies the compendium from which to draw exact and partial matches, when there is no match in the PO file itself. This option can be repeated to add several compendia. The <option>--update</option> option is to modify the PO file in place, rather than writing the merged PO file to standard output. The <option>--previous</option> option is to get previous fields (<literal>#| ...</literal> comments) on fuzzy messages. Unfortunatelly, this method is a command line version of the batch application of the TM in a dedicated PO editor, and suffers from the same problem of indiscriminate exact matches that the translator will later fail to check. Therefore it should not be used (at least not for general translation).</para> 
@@ -295,22 +295,22 @@ l10n-templates/
         ...
 </programlisting>
 If the current working directory is <filename>l10n-nn/</filename>, to compute statistics on a single PO file, <command>posieve</command> can be executed like this:
-<programlisting>
+<programlisting language="bash">
 $ posieve stats ui/alpha.po
 </programlisting>
 This will display a table with message counts, word counts and characters counts, as well as ratios to total, per category of messages (translated, fuzzy, untranslated, obsolete). To have the same output for all PO files in the <filename>ui/</filename> directory taken together, or in the whole project, respectively:
-<programlisting>
+<programlisting language="bash">
 $ posieve stats ui/
 $ posieve stats
 </programlisting>
 Note that word count is a much better base for estimating the translation effort than message count.</para>
 
 <para>When statistics is computed for several PO files (or a directory, or several directories full of PO files), frequently it is necessary to get statistics per file (or per directory). This is done by adding the <option>byfile</option> or <option>bydir</option> sieve parameter:
-<programlisting>
+<programlisting language="bash">
 $ posieve stats -s byfile ui/
 </programlisting>
 However, this will output one full table for each file, which may be a bit too much data to grasp. Instead, you can request bar display, where each file is represented by a single-line bar. The bar shows either the number of messages or the number words per category, depending on whether <option>msgbar</option> or <option>wbar</option> was issued. To get word bars per file in <filename>ui/</filename> directory, you can execute:
-<programlisting>
+<programlisting language="bash">
 $ posieve stats -s byfile -s wbar ui/
 </programlisting>
 </para>
@@ -318,7 +318,7 @@ $ posieve stats -s byfile -s wbar ui/
 <para>Fuzzy messages introduce some uncertainty in effort estimation. If the statistics shows 50 fuzzy messages with 700 words, you cannot conclude from that if changes in those messages are small (e.g. cleaned style, punctuation) and translation can be quickly updated, or substantial (entirely new messages with passing similarity to earlier message) and require heavy editing. For this reason the <command>stats</command> sieve provides the <option>ondiff</option> parameter: for each fuzzy message the difference from previous message is computed, and based on that a part of the word count is assigned to translated category and the rest to untranslated (thus leaving nominal zero words in the fuzzy category). The result is that, for example, a PO file with a lot of messages fuzzy due to punctuation changes will show in statistics as almost completely translated by number of words.</para>
 
 <para>If the translation project is organized such that new empty PO files are not automatically derived from new PO templates, then when running statistics just over language PO files it will happen that templates which do not have a counterpart PO file are not counted as fully empty PO files. To have such templates counted, the two-argument <option>templates</option> parameter can be issued; the first parameter is a path segment of the language directory, and the second parameter what to replace it with to get the corresponding template directory path. In the translation project setup as above, this is how you would compute the statistics on <filename>ui/</filename> directory while taking templates into account:
-<programlisting>
+<programlisting language="bash">
 $ posieve stats -s templates:l10n-nn:l10n-templates ui/
 </programlisting>
 The path replacement is always done on absolute paths, so in this example it is not a problem that the relative paths (<filename>ui/alpha.po</filename>...) do not contain original and replacement segments.</para>
@@ -339,11 +339,11 @@ project/
     ...
 </programlisting>
 In this setup the <command>stats</command> sieve can still be run on directory paths as arguments, in order to get statistics on all PO files of a given language, by using the <option>-I</option>/<option>--include-path</option> option of <command>posieve</command> to single out the desired language. For example, to get statistics on all PO files of the <literal>nn</literal> language in a single table:
-<programlisting>
+<programlisting language="bash">
 $ posieve stats project/ -I 'nn.po'
 </programlisting>
 or by file in form of message bars:
-<programlisting>
+<programlisting language="bash">
 $ posieve stats -s byfile -s msgbar project/ -I 'nn.po'
 </programlisting>
 The value of the <option>-I</option> option is in fact a <link linkend="sec-cmregex">regular expression</link>, and the option can be repeated, which allows to finely tune the file selection when necessary.</para>
@@ -358,19 +358,19 @@ The value of the <option>-I</option> option is in fact a <link linkend="sec-cmre
 <para>When a single PO file is to be translated from scratch, then it is easy to just open it in the text editor and start translating messages one by one. However, usually more frequent than this is translation maintenance, in which you need to go through a bunch of freshly merged PO files and update new untranslated and fuzzy messages. The problem then is twofold: how to efficiently check which files need updating, and how to efficiently go through messages that need to be updated within a file.</para>
 
 <para>To see which PO files need to be updated, you can simply run the <command>stats</command> sieve with <option>byfile</option> and <option>msgbar</option>/<option>wbar</option> parameters (and possibly <option>ondiff</option>), as explained in the previous section. After that you would have to manually observe incomplete files and open them in the editor one by one, which is tedious and prone to oversight. Instead, you can also add the <option>incompfile</option> parameter to <command>stats</command>, which will write paths of all incomplete PO files into a file. If PO files are organized as in <link linkend="p-trpsetup1">the previous example</link>, and you want to update translations in <filename>ui/</filename> subdirectory, you would run:
-<programlisting>
+<programlisting language="bash">
 $ posieve stats -s byfile -s wbar -s incompfile:toupdate.out ui/
 </programlisting>
 Now <filename>toupdate.out</filename> will contain the paths of incomplete files. If the editor can be started from the command line with a number of file path arguments, you can directly feed it <filename>toupdate.out</filename>, e.g. by adding <filename>`cat toupdate.out`</filename> to the editor command.</para>
 
 <para>If the translation project is organized such that each new template results in new empty PO file, you may wish to update only those PO files which where worked on before, i.e. those not entirely empty. For this you can add the <option>mincomp</option> parameter, which sets the minimal completeness (the ratio of translated to total messages) at which to take a PO file into consideration, with a very small value:
-<programlisting>
+<programlisting language="bash">
 $ posieve stats -s mincomp:1e-6 -s incompfile:toupdate.out ui/
 </programlisting>
 <literal>1e-6</literal> is short for <literal>0.000001</literal>, which means to take into consideration only those PO files which have more than one in a million translated files. Since there is no PO file with a million messages, this effectively means to include every PO file which has at least one translated message in it.</para>
 
 <para>Once the incomplete PO files are open in the editor, to be able to jump through incomplete messages, you need to somehow use editor's search function. For fuzzy messages it is easy, you can just search for the <literal>, fuzzy</literal> string. Untranslated messages, on the other hand, are more problematic. You may think of searching for <literal>msgstr ""</literal>, but this would also find long wrapped messages:
-<programlisting>
+<programlisting language="po">
 msgid ""
 "Blah blah blah [...]"
 "blah blah."
@@ -379,25 +379,25 @@ msgstr ""
 "bla bla."
 </programlisting>
 To make untranslated messages stand out unambiguously, there is <link linkend="sv-tag-untranslated">the <command>tag-untranslated</command> sieve</link>. It simply adds <literal>untranslated</literal> flag to all untranslated messages (but not to fuzzy unless explicitly requested), so that you can search for <literal>, untranslated</literal> in the editor. The most convenient is to run <command>tag-untranslated</command> on the <filename>toupdate.out</filename> file produced by <command>stats</command> using the <option>-f</option>/<option>--from-files</option>:
-<programlisting>
+<programlisting language="bash">
 $ posieve tag-untranslated -f toupdate.out
 </programlisting>
 </para>
 
 <para>Fuzzy messages may be such only due to small changes in the original text, for example a single word changed in a paragraph-length message. This is not so easy to see by manually comparing the original and the translation. However, since fuzzy messages should have the previous original text in comments (if merged with <option>--previous</option> option of <command>msgmerge</command>), it is possible to automatically embed differences into those comments with <link linkend="sv-diff-previous">the <command>sv-diff-previous</command> sieve</link>; see its documentation for an example. You should run this sieve on <filename>toupdate.out</filename> as well:
-<programlisting>
+<programlisting language="bash">
 $ posieve diff-previous -f toupdate.out
 </programlisting>
 Your editor may even highlight the difference segments added to the previous original text, making them stand out quite clearly.</para>
 
 <para>Since normally you want both to mark untranslated messages and to add differences to fuzzy messages before going through PO files, you can run the two sieves at once:
-<programlisting>
+<programlisting language="bash">
 $ posieve tag-untranslated,diff-previous -f toupdate.out
 </programlisting>
 </para>
 
 <para>As you go through incomplete messages and update the translation, you should remove any <literal>fuzzy</literal> or <literal>untranslated</literal> flags, and previous fields in <literal>#| ...</literal> comments, so that in the end you can commit (upload, send) clean updated PO files. But sometimes it will happen that you realize that you do not have enough time to update everything, and you want to commit what you have completed by that moment. The problem is that there will still be some <literal>untranslated</literal> flags and embedded differences remaining throughout the files, and leftover embedded differences would e.g. interfere with subsequent merging. To automatically remove these remaining elements, you simply run the two sieves with the <option>strip</option> parameter:
-<programlisting>
+<programlisting language="bash">
 $ posieve tag-untranslated,diff-previous -s strip -f toupdate.out
 </programlisting>
 </para>
@@ -405,7 +405,7 @@ $ posieve tag-untranslated,diff-previous -s strip -f toupdate.out
 <para>When you update a PO file, for the sake of clarity and copyright you should also update its header with your personal data (the author comment, the <literal>Last-Translator:</literal> field, etc.) You could do this manually, but it is much simpler to set your data once in the <link linkend="sec-cmconfig">Pology user configuration</link> and run <link linkend="sv-update-header">the <command>update-header</command> sieve</link> over all updated files<footnote>
 <para>If you use <link linkend="ch-ascript">ascription</link>, you should instead tell <command>poascribe</command> to update headers for you when committing. This is done by adding <literal>update-headers = yes</literal> to <literal>[poascribe]</literal> section in user configuration.</para>
 </footnote>:
-<programlisting>
+<programlisting language="bash">
 $ posieve update-header -f toupdate.out
 </programlisting>
 </para>
