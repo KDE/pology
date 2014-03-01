@@ -388,6 +388,10 @@ hint="Es tradueix per «node d'element» (kde-ca-team)"
 valid msgstr="anells? de claus"
 hint="Es tradueix per «anell/s de claus» (personal)"
 
+{\librarys?b\b}i
+valid msgstr="bibliote(ca|ques)"
+hint="Es tradueix per «biblioteca/ques» (kde-ca-team)"
+
 {\blist.?box(es|s)?\b}i
 valid msgstr="quadres? de llista"
 valid msgstr="quadredellista" cat="kexi"
@@ -677,7 +681,7 @@ hint="«wallpaper» es tradueix per «fons de pantalla», no per «paper pintat�
 
 # http://ca.wikipedia.org/wiki/Wi-Fi
 {\bwi.?fi\b}i
-valid msgstr="Wi-Fi"
+valid msgstr="Wi.?Fi"
 hint="Es tradueix per «Wi-Fi» (kde-ca-team)"
 
 {\bwindow\stitle\sbars?\b}i
