@@ -981,7 +981,7 @@ msgstr "{-Niska-}{+Visoka+} frekvencija aktivnog sonara"
 #: tools/power.c:361
 #, ediff
 msgid "Active sonar {-low-}{+high+} frequency:"
-msgstr "{-Niska-}{+Visoka+} frekvencija aktivnog sonara"
+msgstr "{-Niska-}{+Visoka+} frekvencija aktivnog sonara:"
 </programlisting>
 Since the file of rejects is also an ediff PO, after edits such as this to make some patches applicable, it can be <emphasis>reapplied</emphasis> as patch. When that is done, <command>poepatch</command> will silently ignore all ediff messages having <literal>ediff-no-match</literal> or <literal>ediff-to-new</literal> flags, as these have already been determined inapplicable. That is why in this example the reviewer has replaced the <literal>ediff-to-new</literal> flag with the plain <literal>ediff</literal> in the folded ediff message.</para>
 
