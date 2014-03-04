@@ -7,6 +7,7 @@ Matchers and matcher helpers for various objects.
 @license: GPLv3
 """
 
+import locale
 import re
 
 from pology import _, n_
