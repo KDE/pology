@@ -1046,6 +1046,10 @@ hint="«Como...» se escribe como «Cómo...» en oraciones interrogativas indir
 id="gr-1-que-sin-tilde"
 hint="«Que...» se escribe como «Qué...» en oraciones interrogativas indirectas, (error gramatical)"
 
+[\bque\shora\b]i
+id="gr-1-que-hora"
+hint="«Que hora» se escribe como «Qué hora» en oraciones interrogativas (error gramatical)"
+
 #
 # ERRORES DE PUNTUACIÓN
 #
@@ -1853,12 +1857,15 @@ hint="«Más, Muy, Bastante, Demasiado, Poco» no debe figurar antes de superlat
 
 [(?u)\b(inferior|superior|anterior|posterior)\squ[eé]\b]i
 id="gr-2-inferior-que"
-hint=" Después de «Inferior, Superior, Anterior, Posterior» no debe figurar «Que» (error gramatical)"
+hint="Después de «Inferior, Superior, Anterior, Posterior» no debe figurar «Que» (error gramatical)"
 
 #[(?u)\b(mayor|menor|por|mejor)\sal?\b]i
 #id="gr-2-mayor-a"
-#hint=" Después de «Mayor, Menor, Por, Mejor» no debe figurar «A, Al» (error gramatical)"
+#hint="Después de «Mayor, Menor, Por, Mejor» no debe figurar «A, Al» (error gramatical)"
 
+[(?u)\bte\s(de|verde|rojo|negro|perla|[A-Z]\w+)\b]i
+id="gr-2-te-infusion"
+hint="La planta/infusión «té» lleva tilde (error gramatical)"
 
 #
 # QUEISMOS

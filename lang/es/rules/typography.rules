@@ -234,6 +234,10 @@ id="ty-3-orden-incorrecto-punto-comilla"
 valid span="[a-z].*?\.\.\."
 hint="Ponga el punto después de la comilla de cierre y no antes"
 
+[\,\s*»]
+id="ty-3-orden-incorrecto-coma-comilla"
+hint="Ponga la coma después de la comilla de cierre y no antes"
+
 [¿«.*?»\?]
 id="ty-3-orden-incorrecto-interrogacion-comilla"
 hint="Ponga el signo de cierre de interrogación antes de la comilla de cierre y no después"

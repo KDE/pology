@@ -604,7 +604,7 @@ hint="No utilice «Email» sino «Correo» (error frecuente)"
 id="cm-1-e-mails"
 hint="No utilice «Emails» sino «Correos» (error frecuente)"
 
-[\b(el|del|uno|este|ese)\scaché\b]i
+[\b(el|del|un|este|ese)\scaché\b]i
 id="cm-1-cache-masculino"
 hint="«Caché» es de género femenino (error frecuente)"
 
@@ -620,7 +620,7 @@ hint="«Interfaz» es de género femenino (error frecuente)"
 id="cm-1-irq-masculino"
 hint="«IRQ» es femenino (error frecuente)"
 
-[\b(el|del|uno|este|ese)\smacro\b]i
+[\b(el|del|un|este|ese)\smacro\b]i
 id="cm-1-macro-en-masculino"
 hint="«Macro» es de género femenino (error frecuente)"
 
