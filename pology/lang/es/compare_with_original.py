@@ -64,6 +64,7 @@ def test_if_purepunc (msg, cat):
             msgstr = msgstr.replace(u"«", "")
             msgstr = msgstr.replace(u"»", "")
 	    msgstr = msgstr.replace(" ", "")
+	    msgstr = msgstr.replace("\"", "")
             if msgid != msgstr:    
                 return [("msgstr", 0, [(0, 0, u'Se ha traducido un texto no alfanumérico')])]
 
@@ -191,7 +192,7 @@ def test_if_not_translated (msg, cat):
 
     return []
 
-_ent_accel = re.compile("\&[A-Za-zÑÇñç](?!\w+\;)", re.U)
+_ent_accel = re.compile("&[A-Za-zÑÇñç](?!\w+\;)", re.U)
 
 def test_paired_accelerators (msg, cat):
     """
@@ -243,8 +244,9 @@ def test_paired_strings (msg, cat):
         else:
             msgid = msg.msgid
 
-        for s in ([r"\t", u"tabuladores"],
-                  [r"\n", u"saltos de línea"]
+        for s in (["\t", u"tabuladores"],
+		  ["\r", u"retornos de carro"],
+                  ["\n", u"saltos de línea"]
                   ):
             cont_orig = msgid.count(s[0])
             cont_tran = msg.msgstr[i].count(s[0])
