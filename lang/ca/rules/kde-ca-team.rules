@@ -663,10 +663,15 @@ valid msgstr="vista gràfica i en arbre" # docmessages
 hint="Es tradueix per «vista/es en arbre» (kde-ca-team)"
 
 {\bunencrypted\b}i
+valid msgid="to\sconnect\sunencrypted"
 valid msgstr="sense encriptar"
 valid msgstr="no està encripta(t|da)"
 valid msgstr="no encriptad(a|es)"
 hint="Es tradueix per «sense encriptar, no està encriptat/da, no encriptada/es» (kde-ca-team)"
+
+{\bto\sconnect\sunencrypted\b}i
+valid msgstr="per a connectar sense encriptatge"
+hint="Es tradueix per «per a connectar sense encriptatge» (kde-ca-team)"
 
 {\bview\sbox(es|s)?\b}i
 valid msgid="column\sview\sbox(es|s)?"
