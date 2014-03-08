@@ -49,6 +49,13 @@ valid after="<option>.*" before=".*</option>"
 validGroup imagedataTag
 valid after="<imagedata fileref=.*" before=".*/>"
 
+validGroup glossseealsoTag
+valid after="<glossseealso.*" before=".*</glossseealso>"
+
+validGroup linkstart
+valid after="&amp;linkstart;.*" before=".*\"&amp;linkmid;"
+valid after="&amp;linkmid;.*" before=".*&amp;linkend;"
+
 [\bboites?\b]i
 hint="boite => boîte (avec un accent circonflexe)"
  
@@ -248,6 +255,7 @@ valid after="New,"
 hint="À remplacer par « courrier »" 
 
 [language]i
+validGroup linkstart
 validGroup foreignphraseTag
 validGroup urlTag
 validGroup envarTag
@@ -584,6 +592,9 @@ validGroup linkTag
 hint="Pas de tiret après « anti »"
 
 [\bDBUS\b]i
+validGroup glossseealsoTag
+valid after="&amp;linkstart;.*" before=".*\"&amp;linkmid;"
+valid after="&amp;linkmid;.*" before=".*&amp;linkend;"
 valid after="&" before=";"
 valid cat="kmix" after="freedesktop\." before="\.Properties"
 valid cat="kmail_faq" before="-launch"

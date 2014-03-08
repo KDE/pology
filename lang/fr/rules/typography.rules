@@ -88,6 +88,10 @@ valid after="<markup>.*" before=".*</markup>"
 validGroup perlScript
 valid msgid=".*/usr/bin/perl.*"
 
+validGroup linkstart
+valid after="&amp;linkstart;.*" before=".*\"&amp;linkmid;"
+valid after="&amp;linkmid;.*" before=".*&amp;linkend;"
+
 [:]
 validGroup alone
 validGroup cdataTag
@@ -494,6 +498,8 @@ valid cat="kile_scripting" after="\("
 valid cat="kile_scripting" before="\)"
 valid cat="kdm" msgid="ttyv8*"
 valid cat="kdm" msgid="if kdmctl*"
+valid after="&amp;linkstart;"
+valid before="&amp;linkmid;"
 hint="Utiliser de vrais guillemets (alt-gr w, z ou x), au lieu de guillemets anglais (homogénéité)"
 
 [’]
@@ -648,6 +654,7 @@ validGroup computeroutputTag
 validGroup errortypeTag
 validGroup calligraFunction
 validGroup userinputTag
+validGroup linkstart
 valid before="[A-Z]\.?[A-Z]" # Keywords, acronyms
 valid before="David|Laura|Gerardo|Martin|Hari" # Authors
 valid before="Français|Anglais|Italien|Espagnol|Allemand"

@@ -49,6 +49,16 @@ valid after="linkend=\".*" before=".*\">"
 validGroup imagedataTag
 valid after="<imagedata fileref=.*" before=".*/>"
 
+validGroup glossseealsoTag
+valid after="<glossseealso.*" before=".*</glossseealso>"
+
+validGroup linkstart
+valid after="&amp;linkstart;.*" before=".*\"&amp;linkmid;"
+valid after="&amp;linkmid;.*" before=".*&amp;linkend;"
+
+validGroup quoteTag
+valid after="<quote>.*" before=".*</quote>"
+
 [(\b[Ee]ntrer\b)|(\b[Ee]ntré[^e])|(\b[Ee]ntrez\b)]
 valid before="&sp;dans&sp;"
 valid before="&sp;en&sp;"
@@ -72,6 +82,7 @@ valid after="d'"
 hint="Utilisez cette expression au pluriel « entrées / sorties »"
 
 [k?ioslave]
+validGroup glossseealsoTag
 valid after="kcm|/"
 valid before="&unbsp;» (ou|en anglais)"
 hint="Traduisez ce mot par « module d'entrée / sortie »"
@@ -99,6 +110,7 @@ valid cat="kmail_troubleshooting" msgid="akonadictl stop"
 hint="préférons « arrêt » à « stop »"
 
 [[Rr]@épertoire]
+validGroup linkstart
 valid after="services? de " before="s"
 valid before=" téléphon"
 valid cat="konqueror_filemanager" after="Notez que le terme <quote>dossier</quote> est souvent utilisé à la place de <quote>"
@@ -128,6 +140,7 @@ valid cat="kstars_darkmatter" after="objets hypothétiques "
 hint="Choix de l'équipe : « compresser » (au lieu de « compacter »)"
 
 [[Gg]ard(é|er)]
+valid before=" à l'œil"
 valid before=" un œil"
 valid after="[Ss]auve"
 valid after="[Rr]e"
@@ -501,6 +514,9 @@ valid cat="kile" before="/" after="/"
 hint="Traduisez « repository » par « dépôt »"
 
 {\bwidgets?\b}i
+validGroup glossseealsoTag
+validGroup foreignphraseTag
+valid cat="glossary" msgid="The &amp;GUI; of &amp;kde; is built on top.*"
 valid msgstr="composants? graphique?"
 valid msgstr="bouton"
 hint="Traduisez « widget » par « composant graphique »"
