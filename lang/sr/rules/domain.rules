@@ -92,6 +92,11 @@ valid msgstr="\bгред"
 valid after="scroll.?"
 valid after="gold "
 
+{\bcolumn}i
+id="t-column"
+hint="column = стуб [платформска игра]"
+valid msgstr="\bстуб"
+
 {\bnugget}i
 id="t-nugget"
 hint="nugget = грумен [мн. грумени]"
