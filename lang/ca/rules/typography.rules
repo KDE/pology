@@ -362,7 +362,7 @@ valid msgstr="{{\.\/}" # docmessages
 valid before="D?COPserver"
 valid before="\w{1,16}\b" # Extensions
 valid after="adreces IP.+" cat="kcmkio,kcontrol_proxy"
-valid after="adreces.+" cat="smb4k"
+valid after="(adreça|adreces).+" cat="smb4k,smb4k-core"
 valid after="~" cat="cupsdconf4,katepart4,ktexteditor5,kfileshare,kppp,calligra,kexi,krusader"
 valid after="XXX"
 valid after="\.\." 
@@ -567,6 +567,7 @@ valid after="\ssed\s.+" cat="kopete,sscd" # docmessages
 valid after="audio|video" cat="konversation"
 valid after="CDV\s.*" cat="kstars"
 valid after="useu\s.*" cat="kexi"
+valid after="rsync\-filter" cat="smb4k,smb4k-core"
 valid before="mm|ss"
 valid comment="Tag\:\sscreen" cat="kdeprint_cups-config,kmail-faq" # docmessages
 valid comment="Tag\:\sprogramlisting" cat="kdm,kipi-plugins_geolocation,kile_scripting" # docmessages
