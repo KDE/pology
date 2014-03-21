@@ -278,7 +278,7 @@ valid ctx="Numbers and characters"
 hint="S'ha de posar un espai després del signe de cometa llatina de tancament (tipografia)"
 
 [\.\»] 
-valid after="\«"
+valid after="\«(\.)"
 valid after="\.\."
 valid before="\sMeltzer" cat="amarok"
 valid msgstr="«núm\.»" cat="kommander_specials" # docmessages
@@ -477,7 +477,7 @@ valid after="\[(sub|i)\]" cat="kalzium"
 valid after="(Malësi|Vielha|Montes)\s" cat="kgeography"
 valid after="seqüència.+" cat="digikam"
 valid after="\(" before="\)" cat="kio4,kio5"
-valid after="\(«" before="~" cat="kate"
+valid after="\(«" before="~" cat="kate,ktexteditor5"
 valid after="CN\[\$" cat="kleopatra" # docmessages
 valid msgstr="ko r r e u" cat="simon" # docmessages
 valid msgstr="nomi singoli e collettivi" cat="parley" # docmessages

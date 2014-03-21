@@ -241,7 +241,7 @@ hint="Es tradueix per «diàleg» (kde-ca-team)"
 
 {\bdrop.?(down.?)?(selection\s)?box(es|s)?\b}i
 valid msgstr="llist(a|es)? desplegables?"
-valid msgstr="Dropbox" cat="desktop_extragear-graphics_kipi-plugins,kipiplugin_dropbox,desktop_kdesdk_dolphin-plugins"
+valid msgstr="Dropbox" cat="desktop_extragear-graphics_kipi-plugins,kipiplugin_dropbox,desktop_kdesdk_dolphin-plugins,libpimcommon"
 hint="Es tradueix per «llista/es desplegable/s» (kde-ca-team)"
 
 {\bedit(ing)?.?box(es|s)?\b}i
