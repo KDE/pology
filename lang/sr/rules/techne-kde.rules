@@ -160,7 +160,7 @@ id="x-entvar-lv"
 hint="ентитет мора бити лакше варијанте обележавања (_lv-)"
 valid !msgid="< *(firstname|surname|othername)"
 valid msgid="< *personname"
-valid msgid="< *contrib" # на x-entvar-ot
+valid after="< *(contrib)[^>]*>[^<]*" # на x-entvar-ot
 valid span="_lv-"
 
 # ----------------------------------------
