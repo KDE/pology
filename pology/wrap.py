@@ -158,6 +158,7 @@ def wrap_text (text, wcol=79, lead="", trail="", flead=None, femp=False,
     p = 0 # position into original text by atoms
     vtext = "".join(x[0] for x in atoms)
     vposs = tuple(x[2] for x in atoms)
+    rvposs = tuple(x[6] for x in atoms)
     while p < lenatoms:
         # Determine effective wrapping column for this line.
         ewcol = wcol - 1 - vlentrail # -1 for newline character
@@ -183,9 +184,9 @@ def wrap_text (text, wcol=79, lead="", trail="", flead=None, femp=False,
                 pvseg, pvlen = atoms[p + pl - 1][:2]
             cvseg, cvlen = atoms[p + pl][:2]
             if postbr or tagbr or tagbr2: # condition for optimization
-                backvtext = vtext[vposs[p]:vposs[p + pl]]
+                backvtext = vtext[rvposs[p]:rvposs[p + pl]]
             if prebr or tagbr: # condition for optimization
-                forevtext = vtext[vposs[p + pl]:]
+                forevtext = vtext[rvposs[p + pl]:]
 
             # Immediate breaks allowed only after
             # at least one visually non-empty atom.
@@ -295,7 +296,8 @@ def _atomize (text):
     Split text into atomic segments and compute their visual and raw widths.
 
     Returns list of tuples
-    (visual segment, visual length, visual position, raw length, raw position).
+    (visual segment, visual length, visual position, raw length, raw position,
+    raw visual length, raw visual position).
     The list always ends with zero-visual length segment,
     so that it is not empty even if the text is empty,
     and that last atom's positions are visual and raw lengths of the string.
@@ -306,6 +308,7 @@ def _atomize (text):
     vsegf = getattr(text, "visual_segment", None)
     rpos = 0
     vpos = 0
+    rvpos = 0
     rlentext = len(text)
     while rpos < rlentext:
         rlen = 0
@@ -314,14 +317,16 @@ def _atomize (text):
         if rlen == 0:
             vseg, rlen = text[rpos], 1
         vlen = len(vseg)
+        rvlen = vlen
         if isuc and vlen:
             for c in vseg:
                 if unicodedata.east_asian_width(c) in ("W", "F"):
                     vlen += 1 # 1 = 2 minus (1 already counted)
-        atoms.append((vseg, vlen, vpos, rlen, rpos))
+        atoms.append((vseg, vlen, vpos, rlen, rpos, rvlen, rvpos))
         vpos += vlen
         rpos += rlen
-    atoms.append((type(text)(""), 0, vpos, 0, rpos))
+        rvpos += rvlen
+    atoms.append((type(text)(""), 0, vpos, 0, rpos, 0, rvpos))
 
     return atoms
 
