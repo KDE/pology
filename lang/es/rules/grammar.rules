@@ -1643,6 +1643,12 @@ hint="«Haz + participio» se escribe como «Has + participio» (error gramatica
 id="gr-1-aun-sin-tilde-antes-gerundio"
 hint="«Aún» se escribe como «Aun» antes de gerundio (error gramatical)"
 
+[(?u)\bsi\s\w+?rí(a|as|amos|ais|an)\b]i
+valid span="si\sdeberí\w+"
+valid span="si\spodrí\w+"
+id="gr-1-si-seguido-verbo-en-condicional"
+hint="«Si» va seguido de subjuntivo, no de condicional (error gramatical)"
+
 #
 # ERRORES DE CONCORDANCIA DE GÉNERO o NÚMERO
 #
@@ -2260,22 +2266,54 @@ hint="«La/Lo insisto» se escribe como «Le insisto», laismo/loismo (error gra
 [(?u)\b(los?|las?)\s(mient|ment)\w+\b]i
 id="gr-2-laismo-loismo-mentir"
 valid msgstr="mentiros[ao]s"
-hint="«La/Lo miento» se escribe como «Le miento», laismo/loismo (error gramatical)"
+hint="«La/Lo miente» se escribe como «Le miente», laismo/loismo (error gramatical)"
 
 [(?u)\b(los?|las?)\s(rio|ries?|reimos|reis|rien|rei|reiste|rió|reimos|reistéis|rieron|reiré|reirás?|reiremos|reiréis|reirán)\b]i
 id="gr-2-laismo-loismo-reir"
-hint="«La/Lo rio» se escribe como «Le rio», laismo/loismo (error gramatical)"
+hint="«La/Lo rie» se escribe como «Le rie», laismo/loismo (error gramatical)"
 
 [(?u)\b(los?|las?)\ssonr\w+\b]i
 id="gr-2-laismo-loismo-sonreir"
-hint="«La/Lo sonrío» se escribe como «Le sonrío», laismo/loismo (error gramatical)"
+hint="«La/Lo sonríe» se escribe como «Le sonríe», laismo/loismo (error gramatical)"
 
 [(?u)\b(los?|las?)\ssuspir\w+\b]i
 id="gr-2-laismo-loismo-suspiro"
-hint="«La/Lo suspiro» se escribe como «Le suspiro», laismo/loismo (error gramatical)"
+hint="«La/Lo suspira» se escribe como «Le suspira», laismo/loismo (error gramatical)"
 
 [(?u)\b(los?|las?)\stos\w+\b]i
 id="gr-2-laismo-loismo-toser"
-hint="«La/Lo toso» se escribe como «Le toso», laismo/loismo (error gramatical)"
+hint="«La/Lo tose» se escribe como «Le tose», laismo/loismo (error gramatical)"
+
+[(?u)\b(los?|las?)\sboste\w+\b]i
+id="gr-2-laismo-loismo-bostezar"
+hint="«La/Lo bosteza» se escribe como «Le bosteza», laismo/loismo (error gramatical)"
+
+[(?u)\b(los?|las?)\sllor\w+\b]i
+id="gr-2-laismo-loismo-llorar"
+hint="«La/Lo lloro» se escribe como «Le lloro», laismo/loismo (error gramatical)"
+
+[(?u)\b(los?|las?)\sgust\w+\b]i
+id="gr-2-laismo-loismo-gustar"
+hint="«La/Lo gusto» se escribe como «Le gusto», laismo/loismo (error gramatical)"
+
+[(?u)\b(los?|las?)\smolest\w+\b]i
+id="gr-2-laismo-loismo-molestar"
+hint="«La/Lo molesto» se escribe como «Le molesto», laismo/loismo (error gramatical)"
+
+[(?u)\b(los?|las?)\sdisgust\w+\b]i
+id="gr-2-laismo-loismo-disgustar"
+hint="«La/Lo disgusto» se escribe como «Le disgusto», laismo/loismo (error gramatical)"
+
+[(?u)\b(los?|las?)\simpresion\w+\b]i
+id="gr-2-laismo-loismo-impresionar"
+hint="«La/Lo impresiono» se escribe como «Le impresiono», laismo/loismo (error gramatical)"
+
+[(?u)\b(los?|las?)\sestorn\w+\b]i
+id="gr-2-laismo-loismo-estornudar"
+hint="«La/Lo estornudo» se escribe como «Le estornudo», laismo/loismo (error gramatical)"
+
+[(?u)\b(los?|las?)\squed\w+\b]i
+id="gr-2-laismo-loismo-quedar"
+hint="«La/Lo queda» se escribe como «Le queda», laismo/loismo (error gramatical)"
 
 # End of rule file

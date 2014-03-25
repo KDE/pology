@@ -1264,7 +1264,7 @@ valid msgstr="funcionalidad"
 valid msgstr="característica"
 valid msgstr="present(ar|a|e)"
 valid msgstr="ofre(cer|ce|zca)"
-hint="«Feature» se traduce como «Funcionalidad» o «Característica» (ver glosario)"
+hint="«Feature» se traduce como «Funcionalidad/Característica» o «Presentar/Ofrecer»(ver glosario)"
 
 {\bfeatures\b}i
 id="gk-2-features"
@@ -1272,10 +1272,10 @@ valid msgstr="funcionalidades"
 valid msgstr="características"
 valid msgstr="(alguna|cualquier|ninguna)\sfuncionalidad"
 valid msgstr="(alguna|cualquier|ninguna)\scaracterística"
-valid msgstr="proporciona"
-valid msgstr="present(a|e)"
+valid msgstr="proporcion[ae]"
+valid msgstr="present[ae]"
 valid msgstr="ofre(ce|zca)"
-hint="«Features» se traduce como «Funcionalidades» o «Características» (ver glosario)"
+hint="«Features» se traduce como «Funcionalidades/Características» o «Presenta/Ofrece»(ver glosario)"
 
 {\bfeed\b}i
 id="gk-2-feed"

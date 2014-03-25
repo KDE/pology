@@ -13,6 +13,13 @@ hint="No separe con puntos los miles de los números (excepto en direcciones IP)
 id="ty-3-tecla-aceleradora-incorrecta"
 hint="Tecla aceleradora no válida (en vocal con tilde)"
 
+[\&etc;\.]
+id="ty-3-entidad-etc-seguida-punto"
+valid before="$"
+valid before="\s[A-Z]"
+valid before="\s*\<\/p\>"
+hint="La entidad «&etc;» se sustituye automáticamente por «etc.», no hace falta punto adicional"
+
 include file="filter.include"
 
 validGroup beforePunctuation
@@ -145,10 +152,6 @@ hint="Cierre la admiración (deben ir emparejadas)"
 [(?s)¡.*?\!\.]
 id="ty-3-sobra-punto-despues-cierre-admiracion"
 hint="No ponga punto después del cierre de admiración (Consulte ortografía de la RAE)"
-
-[(?s)¡.*?\!\s[a-z]]
-id="ty-3-falta-mayusculas-despues-cierre-admiracion"
-hint="Ponga en mayúsculas la palabra posterior al cierre de admiración (Consulte ortografía de la RAE)"
 
 [(?<=\s)\?]
 id="ty-3-sobra-espacio-antes-cierre-interrogacion"

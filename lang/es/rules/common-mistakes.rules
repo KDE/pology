@@ -604,7 +604,7 @@ hint="No utilice «Email» sino «Correo» (error frecuente)"
 id="cm-1-e-mails"
 hint="No utilice «Emails» sino «Correos» (error frecuente)"
 
-[\b(el|del|un|este|ese)\scaché\b]i
+[\b(el|del|un|este|ese|ningún|algún)\scaché\b]i
 id="cm-1-cache-masculino"
 hint="«Caché» es de género femenino (error frecuente)"
 
@@ -612,23 +612,19 @@ hint="«Caché» es de género femenino (error frecuente)"
 id="cm-1-el-la-lo-cual-con-tilde"
 hint="«El/La/Lo cuál» se escribe sin tilde (error frecuente)"
 
-[\b(el|del|un|este|ese)\sinterfaz\b]i
+[\b(el|del|un|este|ese|ningún|algún)\sinterfaz\b]i
 id="cm-1-interfaz-masculino"
 hint="«Interfaz» es de género femenino (error frecuente)"
 
-[\b(el|del|un|los|unos|estos|esos)\s(irq|IRQ)\b]i
+[\b(el|del|un|los|unos|estos|esos|ningún|algún)\s(irq|IRQ|IRQs)\b]i
 id="cm-1-irq-masculino"
 hint="«IRQ» es femenino (error frecuente)"
 
-[\b(el|del|un|este|ese)\smacro\b]i
+[\b(el|del|un|este|ese|ningún|algún)\smacro\b]i
 id="cm-1-macro-en-masculino"
 hint="«Macro» es de género femenino (error frecuente)"
 
-[\b(el|del|un|los|unos|este|ese)\s(url|URL)\b]i
-id="cm-1-url-en-masculino"
-hint="«URL» es de género femenino (error frecuente)"
-
-[\b(el|del|un|los|unos|este|ese)\sweb\b]i
+[\b(el|del|un|los|unos|este|ese|ningún|algún)\sweb\b]i
 id="cm-1-web-en-masculino"
 hint="«Web» es femenino (error frecuente)"
 
@@ -983,9 +979,13 @@ hint="«Juega un papel» se escribe como «Representa/desempeña un/su papel» (
 id="cm-2-jugar-un-papel"
 hint="«Jugar un papel» se escribe como «Representar/desempeñar un/su papel» (error frecuente)"
 
-[\b(la|una|esta|esa|las|unas|estas|esas)\s(bios|BIOS)\b]i
+[\b(la|una|esta|esa|las|unas|estas|esas|ningunas?|algunas?)\s(bios|BIOS)\b]i
 id="cm-1-bios-femenino"
 hint="«BIOS» es de género masculino (error frecuente)"
+
+[\b(la|una|esta|esa|las|unas|estas|esas|ningunas?|algunas?)\s(url|URL|URLs)\b]i
+id="cm-1-url-femenino"
+hint="«URL» es de género masculino (error frecuente)"
 
 [\blas\sambas\b]i
 id="cm-2-las-ambas"
@@ -1007,7 +1007,7 @@ hint="«Literatura sobre/en» e escribe como «Bibliografía sobre/en». (error 
 id="cm-1-lo-se-sin-tilde"
 hint="«Lo se» se escribe como «Lo sé/Se lo». (error frecuente)"
 
-[\b(los|unos|estos|esos)\scachés\b]i
+[\b(los|unos|estos|esos|ningunos|algunos)\scachés\b]i
 id="cm-1-caches-masculino"
 hint="«Cachés» es de género femenino (error frecuente)"
 
@@ -1015,11 +1015,11 @@ hint="«Cachés» es de género femenino (error frecuente)"
 id="cm-1-los-las-cuales-con-tilde"
 hint="«Los/Las cuáles» se escribe sin tilde (error frecuente)"
 
-[\b(los|unos|estos|esos)\sinterfaces\b]i
+[\b(los|unos|estos|esos|ningunos|algunos)\sinterfaces\b]i
 id="cm-1-interfaces-masculino"
 hint="«Interfaces» es de género femenino (error frecuente)"
 
-[\b(los|unos|estos|esos)\smacros\b]i
+[\b(los|unos|estos|esos|ningunos|algunos)\smacros\b]i
 id="cm-1-macros-en-masculino"
 hint="«Macros» es de género femenino (error frecuente)"
 
@@ -1123,6 +1123,10 @@ hint="«Mayor a» se escribe como «Mayor que» (error frecuente: solecismo)"
 [\bmé\b]i
 id="cm-1-me-con-tilde"
 hint="«Mé» se escribe como «me» (error frecuente)"
+
+[\bme\sles\b]i
+id="cm-1-me-les"
+hint="«Me les» se escribe como «Me los/las» (error frecuente)"
 
 [\bme\sse\b]i
 id="cm-1-me-se"
