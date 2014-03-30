@@ -1,4 +1,4 @@
- # Personal rules for Catalan translations
+# Personal rules for Catalan translations
 # by KDE Catalan Team (kde-i18n-ca@kde.org)
 # License: GPLv3
 
@@ -13,6 +13,10 @@ addFilterRegex match="(\&|\-)" on="pmsgid,pmsgstr"
 {\bAccess\sControl\sList\b}i
 valid msgstr="llista de control d'accés"
 hint="Cal substituir-ho per «llista de control d'accés» (personal)"
+
+{\bAccount\sWizard\b}i
+valid msgstr="Assistent de comptes"
+hint="Cal substituir-ho per «Assistent de comptes» (personal)"
 
 {\bAddress\sBook\sFolders?\b}i
 valid msgstr="carpet(a|es) de la llibreta d'adreces"
@@ -38,10 +42,19 @@ hint="Cal substituir-ho per «Tipus d'alarma» (personal)"
 valid msgstr="tot en una pàgina"
 hint="Cal substituir-ho per «tot en una pàgina» (personal)"
 
+{\bAnti.?Spam.?Wizard\b}i
+valid msgstr="assistent contra el correu brossa"
+hint="Cal substituir-ho per «assistent contra el correu brossa» (personal)"
+
 # http://ca.wikipedia.org/wiki/Antivirus
 {\banti.?virus\b}i
+valid msgid="Anti.?Virus.?Wizard"
 valid msgstr="contra els virus"
 hint="Cal substituir-ho per «contra els virus» (personal)"
+
+{\bAnti.?Virus.?Wizard\b}i
+valid msgstr="assistent contra els virus"
+hint="Cal substituir-ho per «assistent contra els virus» (personal)"
 
 {\bAppointment\sLocation\b}i
 valid msgstr="Lloc de la cita"
@@ -94,6 +107,10 @@ hint="Cal substituir-ho per «Calendaris costat a costat» (personal)"
 {\bCertificate\sIn\sThe\sChain\b}i
 valid msgstr="certificat de la cadena"
 hint="Cal substituir-ho per «certificat de la cadena» (personal)"
+
+{\bCheck\smail\sinterval\b}i
+valid msgstr="Interval de comprovació del correu"
+hint="Cal substituir-ho per «Interval de comprovació del correu» (personal)"
 
 {\bcollection\sinstances?\b}i
 valid msgstr="Instànci(a|es) de la col·lecció"
@@ -263,6 +280,10 @@ hint="Cal substituir-ho per «ubicació/ons d'element» (personal)"
 {\bitem\ssummaries?\b}i
 valid msgstr="resums? d'element"
 hint="Cal substituir-ho per «resum/s d'element» (personal)"
+
+{\bKey\sID\b}i
+valid msgstr="ID de la clau"
+hint="Cal substituir-ho per «ID de la clau» (personal)"
 
 {\bLDAP\sRequests?\b}i
 valid msgstr="Sol·licituds? LDAP"
@@ -434,6 +455,10 @@ valid !msgstr="receptors?"
 valid msgstr="destinataris?"
 hint="Cal substituir-ho per «destinatari/s» (personal)"
 
+{\bRemember\schoice\b}i
+valid msgstr="Recorda la tria"
+hint="Cal substituir-ho per «Recorda la tria» (personal)"
+
 {\bReminder\sunits\b}i
 valid msgstr="Unitats pel recordatori"
 hint="Cal substituir-ho per «Unitats pel recordatori» (personal)"
@@ -482,13 +507,17 @@ hint="Cal substituir-ho per «grups per intervals de dates intel·ligents» (per
 valid msgstr="car(a|es)"
 hint="Cal substituir-ho per «cara/es» (personal)"
 
+{\bShow\sChol\sHaMoed\b}i
+valid msgstr="Mostra el Chol HaMoed"
+hint="Cal substituir-ho per «Mostra el Chol HaMoed» (personal)"
+
 {\bShow\sday\sof\sOmer\b}i
 valid msgstr="Mostra el dia d'Omer"
 hint="Cal substituir-ho per «Mostra el dia d'Omer» (personal)"
 
-{\bShow\sChol\sHaMoed\b}i
-valid msgstr="Mostra el Chol HaMoed"
-hint="Cal substituir-ho per «Mostra el Chol HaMoed» (personal)"
+{\bShow\ssigned.encrypted\stext\safter\scomposing\b}i
+valid msgstr="Mostra el text signat.encriptat després de l'edició"
+hint="Cal substituir-ho per «Mostra el text signat/encriptat després de l'edició» (personal)"
 
 {\bSort\sdirection\b}i
 valid msgid="Group Sort direction"
@@ -569,6 +598,14 @@ hint="Cal substituir-ho per «pendent/s sense finalitzar» (personal)"
 {\bUse\sglobal\scredentials\b}i
 valid msgstr="Usa les credencials globals"
 hint="Cal substituir-ho per «Usa les credencials globals» (personal)"
+
+{\bUser\sID\b}i
+valid msgstr="ID de l'usuari"
+hint="Cal substituir-ho per «ID de l'usuari» (personal)"
+
+{\bUser\sidentifier\b}i
+valid msgstr="Identificador de l'usuari"
+hint="Cal substituir-ho per «Identificador de l'usuari» (personal)"
 
 {\bWikipedia\b}i
 valid msgstr="Viquipèdia"
