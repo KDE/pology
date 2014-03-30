@@ -2364,8 +2364,11 @@ def summit_scatter_single (branch_id, branch_name, branch_subdir,
         for msg in branch_cat:
             if msg.translated:
                 ntrans += 1
-        skip_write = (  float(ntrans) / len(branch_cat) + 1e-6
-                      < project.scatter_min_completeness)
+        if len(branch_cat) > 0:
+            skip_write = (  float(ntrans) / len(branch_cat) + 1e-6
+                          < project.scatter_min_completeness)
+        else:
+            skip_write = False
 
     if new_from_template and not skip_write:
         # Create any needed subdirectories and set destination branch path.
