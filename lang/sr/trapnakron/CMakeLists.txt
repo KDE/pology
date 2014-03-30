@@ -29,6 +29,7 @@ set(sdfiles
     org-members.sd
     org-projects.sd
     org-services.sd
+    org-sport.sd
     people-artists.sd
     people-authors.sd
     people-engineers.sd
