@@ -497,7 +497,7 @@ hint="Es tradueix per «script/s» (kde-ca-team)"
 {\bscripting\b}i
 valid msgstr="crea(r|ció)?\s(d')?scripts"
 valid msgstr="scripts creats?" # docmessages
-valid msgstr="scripts" cat="desktop_calligra,desktop_koffice,kexi,krossmoduleplan,krossmodulewords,krossmodulekword,plasma-desktop,desktop_kdelibs,kdelibs4,superkaramba,desktop_kdewebdev"
+valid msgstr="scripts" cat="desktop_calligra,desktop_koffice,kexi,krossmoduleplan,krossmodulewords,krossmodulekword,plasma-desktop,desktop_kdelibs,kdelibs4,khtml5,superkaramba,desktop_kdewebdev"
 valid msgstr="script" cat="kommander"
 valid msgstr="llenguatges\sd'script" cat="kcmkonqhtml"
 valid msgstr="scripts utilitzats" cat="kommander_dcop" # docmessages
@@ -610,7 +610,7 @@ valid msgstr="pestany(a|es)"
 valid msgstr="tabuladors?"
 valid msgstr="tabulaci(ó|ons)"
 valid msgstr="caràcter de tabulació"
-valid msgstr="tab" cat="kdelibs4,kcmkeyboard,kabcclient,kdeqt,katepart4,ktexteditor5,ktouch,digikam,simonshortcutcommand" # Tecla Tab
+valid msgstr="tab" cat="kdelibs4,kcmkeyboard,kabcclient,kdeqt,katepart4,ktexteditor5,ktextwidgets5,ktouch,digikam,simonshortcutcommand" # Tecla Tab
 valid msgstr="tabulatur(a|es)" cat="amarok" # Tablature -> Tabulatura (Termcat: música)
 valid msgstr="encastat" cat="kcontrol_filetypes" # docmessages
 valid msgstr="~" after="screenshot.+" cat="korganizer" # docmessages
