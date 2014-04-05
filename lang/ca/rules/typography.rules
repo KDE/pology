@@ -519,7 +519,7 @@ valid after="esperava\s`?" cat="kdevcpp"
 valid after="invertides \(" cat="kcmgrub2"
 valid after="CONSOLEOWNER.+" cat="kcontrol_mouse" # docmessages
 valid after="{" # docmessages
-valid cat="kdecalendarsystems"
+valid cat="kdecalendarsystems,kdecalendarsystems5"
 valid comment="Tag\:\sliterallayout" # docmessages
 valid comment="Tag\:\sprogramlisting" cat="kdm,tellico_hacking" # docmessages
 valid comment="Tag\:\sscreen" cat="kmail_faq" # docmessages
