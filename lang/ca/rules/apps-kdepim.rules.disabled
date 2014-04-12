@@ -5,7 +5,7 @@
 # kdepim, kdepim-runtime, kdepimlibs
 
 # Remove XML entities.
-include file="../filter.include"
+# include file="../filter.include"
 
 # Remove accelerator and  hyphen inside words.
 addFilterRegex match="(\&|\-)" on="pmsgid,pmsgstr"
@@ -19,6 +19,8 @@ valid msgstr="Assistent de comptes"
 hint="Cal substituir-ho per «Assistent de comptes» (personal)"
 
 {\bAddress\sBook\sFolders?\b}i
+valid msgid="New\sAddress\sBook\sFolders?"
+valid msgid="selected\sAddress\sBook\sFolders?"
 valid msgstr="carpet(a|es) de la llibreta d'adreces"
 hint="Cal substituir-ho per «carpeta/es de la llibreta d'adreces» (personal)"
 
@@ -32,15 +34,16 @@ hint="Cal substituir-ho per «Ús del color per a la vista d'agenda» (personal)
 
 {\bAgent\sInstances?\b}i
 valid msgstr="instànci(a|es) de l'agent"
-hint="Cal substituir-ho per «instància de l'agent» (personal)"
+valid msgstr="instància seleccionada de l'agent"
+hint="Cal substituir-ho per «instància de l'agent, instància seleccionada de l'agent» (personal)"
 
 {\bAlarm\stypes\b}i
 valid msgstr="Tipus d'alarma"
 hint="Cal substituir-ho per «Tipus d'alarma» (personal)"
 
 {\ball\son\sone\spage\b}i
-valid msgstr="tot en una pàgina"
-hint="Cal substituir-ho per «tot en una pàgina» (personal)"
+valid msgstr="tot a una pàgina"
+hint="Cal substituir-ho per «tot a una pàgina» (personal)"
 
 {\bAnti.?Spam.?Wizard\b}i
 valid msgstr="assistent contra el correu brossa"
@@ -61,8 +64,13 @@ valid msgstr="Lloc de la cita"
 hint="Cal substituir-ho per «Lloc de la cita» (personal)"
 
 {\bArchived\sAlarms?\b}i
+valid msgid="disabled and archived alarms?"
 valid msgstr="Alarm(a|es) arxivad(a|es)"
 hint="Cal substituir-ho per «Alarma/es arxivada/es» (personal)"
+
+{\bdisabled\sand\sarchived\salarms?\b}i
+valid msgstr="alarm(a|es) deshabilitad(a|es) i arxivad(a|es)"
+hint="Cal substituir-ho per «alarma/es deshabilitada/es i arxivada/es» (personal)"
 
 {\battendees\slist\b}i
 valid msgstr="llista d'assistents"
@@ -85,7 +93,7 @@ valid msgstr="certificat de la CA"
 hint="Cal substituir-ho per «certificat de la CA» (personal)"
 
 {\bCalendars?\b}i
-valid !msgstr="\.calendar"
+valid msgid="\.calendar"
 valid msgid="calendar file"
 valid msgid="calendar Folder"
 valid msgid="calendars Side by Side"
@@ -93,8 +101,14 @@ valid msgstr="calendaris?"
 hint="Cal substituir-ho per «calendari/s» (personal)"
 
 {\bcalendar\sfile\b}i
+valid msgid="\.calendar file"
+valid msgid="calendar file or folder"
 valid msgstr="fitxer de calendari"
 hint="Cal substituir-ho per «fitxer de calendari» (personal)"
+
+{\bcalendar\sfile\sor\sfolder\b}i
+valid msgstr="fitxer o una carpeta de calendari"
+hint="Cal substituir-ho per «fitxer o una carpeta de calendari» (personal)"
 
 {\bCalendar\sFolder\b}i
 valid msgstr="Carpeta de calendari"
@@ -129,8 +143,8 @@ valid msgstr="grup de contactes"
 hint="Cal substituir-ho per «grup de contactes» (personal)"
 
 {\bcurrent.time\sline\b}i
-valid msgstr="línia de l'hora actual"
-hint="Cal substituir-ho per «línia de l'hora actual» (personal)"
+valid msgstr="línia de temps actual"
+hint="Cal substituir-ho per «línia de temps actual» (personal)"
 
 {\bDaily\sending\shour\b}i
 valid msgstr="Hora de plegar"
@@ -155,12 +169,30 @@ valid msgstr="diferid(a|es)"
 hint="Cal substituir-ho per «ajornament, ajornada/es, diferida/es» (personal)"
 
 {\bDo\snot\sperform\sany\s(HTTP|LDAP)\srequests\b}i
-valid msgstr="No facis cap sol·licitud (HTTP|LDAP)"
+valid msgstr="No fer cap sol·licitud (HTTP|LDAP)"
 hint="Cal substituir-ho per «No facis cap sol·licitud LDAP/HTTP» (personal)"
 
+{\bdue\b}i
+valid msgstr="a causa"
+valid msgstr="convenient"
+valid msgstr="Degut"
+valid msgstr="deu(re)?"
+valid msgstr="venciment"
+valid msgstr="venci"
+valid msgstr="venc(e|i)n"
+valid msgstr="venç"
+valid msgstr="vèncer"
+valid msgstr="vençu(da|des|t)"
+hint="Cal substituir-ho per «venciment, vencen/in, venci, venç, vèncer, vençuda/es, vençut, a causa, convenient, Degut, deu/re» (personal)"
+
 {\bdue\sdate\b}i
+valid msgid="due\sdate\sand\sTime"
 valid msgstr="data de venciment"
 hint="Cal substituir-ho per «data de venciment» (personal)"
+
+{\bdue\sdate\sand\sTime\b}i
+valid msgstr="data i hora de venciment"
+hint="Cal substituir-ho per «data i hora de venciment» (personal)"
 
 {\bdue\stime\b}i
 valid msgstr="hora de venciment"
@@ -211,14 +243,18 @@ valid msgstr="per a la línia de l'hora actual"
 hint="Cal substituir-ho per «per a la línia de l'hora actual» (personal)"
 
 {\bfrom\syour\saddress\sbook\b}i
-valid msgstr="de la vostra llibreta d'adreces"
-hint="Cal substituir-ho per «de la vostra llibreta d'adreces» (personal)"
+valid msgstr="(a|de) la vostra llibreta d'adreces"
+hint="Cal substituir-ho per «a/de la vostra llibreta d'adreces» (personal)"
 
 {\bfull\s(KOrganizer\s)?window\b}i
 valid msgid="To.?do list view uses full window"
 valid msgid="to.?do list in a full KOrganizer window"
 valid msgstr="tota la finestra"
 hint="Cal substituir-ho per «tota la finestra» (personal)"
+
+{\bGnuPG\sLog.?Viewer\b}i
+valid msgstr="Visor del registre de GnuPG"
+hint="Cal substituir-ho per «Visor del registre de GnuPG» (personal)"
 
 {\bGroup\sSort\sdirection\b}i
 valid msgstr="Direcció d'ordenació dels grups"
@@ -242,8 +278,13 @@ valid msgstr="iCal"
 hint="Cal substituir-ho per «iCal» (personal)"
 
 {\bIdentifier\b}i
+valid msgid="Unique.string\sidentifier"
 valid msgstr="identificador"
 hint="Cal substituir-ho per «identificador» (personal)"
+
+{\bUnique-string\sidentifier\b}i
+valid msgstr="cadena de l'IDentificador únic"
+hint="Cal substituir-ho per «cadena de l'IDentificador únic» (personal)"
 
 {\bImage\sLocation\b}i
 valid msgstr="Ubicació de la imatge"
@@ -266,8 +307,9 @@ valid msgstr="emissor del certificat"
 hint="Cal substituir-ho per «emissor del certificat» (personal)"
 
 {\bitem\scategories?\b}i
-valid msgstr="categori(a|es) d'element"
-hint="Cal substituir-ho per «categoria/es d'element» (personal)"
+valid msgstr="categoria de l'element"
+valid msgstr="categories dels elements"
+hint="Cal substituir-ho per «categoria de l'element, categories dels elements» (personal)"
 
 {\bitem\sdescriptions\b}i
 valid msgstr="descripcions de l'element"
@@ -290,8 +332,9 @@ valid msgstr="Sol·licituds? LDAP"
 hint="Cal substituir-ho per «Sol·licitud/s LDAP» (personal)"
 
 {\bLog.?Viewer\b}i
-valid msgstr="Visor de registre"
-hint="Cal substituir-ho per «Visor de registre» (personal)"
+valid msgid="GnuPG\sLog.?Viewer"
+valid msgstr="Visor del registre"
+hint="Cal substituir-ho per «Visor del registre» (personal)"
 
 {\bLogin\sCredentials\b}i
 valid msgstr="Credencials per iniciar la sessió"
@@ -302,12 +345,22 @@ valid msgstr="Cerca de la configuració"
 hint="Cal substituir-ho per «Cerca de la configuració» (personal)"
 
 {\bmaildirs?\b}i
+valid msgid="\$\{MAILDIR\}"
+valid msgid="<emphasis>maildir<\/emphasis>"
 valid msgid="maildirs? folders?"
+valid msgid="maildir format"
+valid msgid="mbox to maildir"
 valid msgid="Path to maildir"
 valid msgstr="directoris? de correu"
-hint="Cal substituir-ho per «directori/s de correu» (personal)"
+valid msgstr="directori_de_correu"
+hint="Cal substituir-ho per «directori/s de correu, directori_de_correu» (personal)"
+
+{\bmaildir\sformat\b}i
+valid msgstr="format maildir \(directori de correu\)"
+hint="Cal substituir-ho per «format maildir (directori de correu)» (personal)"
 
 {\bmaildirs?\sfolders?\b}i
+valid msgid="valid\smaildirs?\sfolders?"
 valid msgstr="carpet(a pel|es pels) directoris? de correu"
 hint="Cal substituir-ho per «carpeta/es pel/s directori/s de correu» (personal)"
 
@@ -323,10 +376,14 @@ hint="Cal substituir-ho per «Controla els canvis al directori» (personal)"
 valid msgstr="Controla els canvis al fitxer"
 hint="Cal substituir-ho per «Controla els canvis al fitxer» (personal)"
 
-{\bNew\sArticle\b}i
-valid msgstr="Article nou"
-valid msgstr=" nou article"
-hint="Cal substituir-ho per «Article nou» (personal)"
+{\bNew\sAddress\sBook\sFolders?\b}i
+valid msgstr="Carpeta nova de la llibreta d'adreces"
+hint="Cal substituir-ho per «Carpeta nova de la llibreta d'adreces» (personal)"
+
+{\bNew\sArticles?\b}i
+valid msgstr="Articles? nous?"
+valid msgstr=" nous? articles?"
+hint="Cal substituir-ho per «Article/s nou/s» (personal)"
 
 {\bNew\sEvent\b}i
 valid msgstr=" nou esdeveniment"
@@ -335,13 +392,18 @@ valid msgstr="Esdeveniment nou"
 hint="Cal substituir-ho per «Esdeveniment nou» (personal)"
 
 {\bNew\sFeed\b}i
+valid msgid="check for new feed entries"
 valid msgstr="Font nova"
 valid msgstr=" nova font"
 hint="Cal substituir-ho per «Font nova» (personal)"
 
 {\bNew\sMessages?\b}i
+valid msgstr="cada nou missatge"
+valid msgstr="composar nous missatges"
+valid msgstr="(el|un)s? nous? missatges?"
 valid msgstr="en editar nous missatges"
-valid msgstr=" nova llista de missatges"
+valid msgstr="hi ha nous missatge"
+valid msgstr="nova llista de missatges"
 valid msgstr="Missatges? nous?"
 hint="Cal substituir-ho per «Missatge/s nou/s» (personal)"
 
@@ -368,6 +430,11 @@ hint="Cal substituir-ho per «Encara no s'ha configurat cap servidor» (personal
 valid msgstr="Accions de la nota"
 hint="Cal substituir-ho per «Accions de la nota» (personal)"
 
+{\bNotebooks?\b}i
+valid msgstr="llibres? de notes"
+hint="Cal substituir-ho per «llibre/s de notes» (personal)"
+
+
 {\bnote\slines\b}i
 valid msgstr="línies de la nota"
 hint="Cal substituir-ho per «línies de la nota» (personal)"
@@ -378,13 +445,16 @@ valid msgstr="a una pàgina"
 hint="Cal substituir-ho per «a una pàgina» (personal)"
 
 {\bOutput\sfilename\b}i
+valid msgid="typical output filename"
 valid msgstr="Nom pel fitxer de sortida"
 hint="Cal substituir-ho per «Nom pel fitxer de sortida» (personal)"
 
 # TODO: No sembla una traducció correcta
 {\boverdue\b}i
-valid msgstr="vençud(a|es)"
-hint="Cal substituir-ho per «vençuda/es» (personal)"
+valid msgstr="endarrerits?"
+valid msgstr="endarreriment"
+valid msgstr="endarrerid(a|es)"
+hint="Cal substituir-ho per «endarrerit/s, endarrerida/es, endarreriment» (personal)"
 
 {\bown\svCard\b}i
 valid msgstr="vCard pròpia"
@@ -414,13 +484,13 @@ hint="Cal substituir-ho per «Percentatge finalitzat» (personal)"
 valid msgid="Personal information management"
 valid msgid="personal information manager"
 valid msgstr="\b(la |d')informació personal"
-hint="Cal substituir-ho per «la /d'informació personal» (personal)"
+valid msgstr="la vostra informació personal"
+hint="Cal substituir-ho per «la /d'informació personal, la vostra informació personal» (personal)"
 
 {\bPersonal\sinformation\smanagement\b}i
-valid msgid="Personal Information Management service"
-valid msgid="Personal Information Management Suite"
-valid msgstr="gestió de la informació personal"
-hint="Cal substituir-ho per «gestió de la informació personal» (personal)"
+valid msgid="Personal Information Management (service|Suite)"
+valid msgstr="gestió de la( vostra)? informació personal"
+hint="Cal substituir-ho per «gestió de la informació personal, gestió de la vostra informació personal» (personal)"
 
 {\bpersonal\sinformation\smanager\b}i
 valid msgstr="Gestor de la informació personal"
@@ -447,8 +517,9 @@ valid msgstr="Purga l(a|es) pendents?"
 hint="Cal substituir-ho per «Purga la/es pendent/s» (personal)"
 
 {\brange(\sof\s|.)?dates\b}i
+valid msgstr="interval consecutiu de dates"
 valid msgstr="Interval de dates"
-hint="Cal substituir-ho per «Interval de dates» (personal)"
+hint="Cal substituir-ho per «Interval de dates, interval consecutiu de dates» (personal)"
 
 {\brecipients?\b}i
 valid !msgstr="receptors?"
@@ -464,8 +535,13 @@ valid msgstr="Unitats pel recordatori"
 hint="Cal substituir-ho per «Unitats pel recordatori» (personal)"
 
 {\bRemove\sthe\srecipient\scurrently\sselected\b}i
+valid msgid="Remove\sthe\srecipient\scurrently\sselected\sfrom\sthe\slist"
 valid msgstr="Elimina el destinatari seleccionat"
 hint="Cal substituir-ho per «Elimina el destinatari seleccionat» (personal)"
+
+{\bRemove\sthe\srecipient\scurrently\sselected\sfrom\sthe\slist\b}i
+valid msgstr="eliminar de la llista el destinatari seleccionat"
+hint="Cal substituir-ho per «eliminar de la llista el destinatari seleccionat» (personal)"
 
 {\bReset\sto\sDefaults\b}i
 valid msgstr="Reinicialitza als valors per omissió"
@@ -480,11 +556,15 @@ valid msgstr="certificat arrel"
 hint="Cal substituir-ho per «certificat arrel» (personal)"
 
 {\bSearch\sResults\b}i
-valid msgstr="Resultat de la cerca"
-hint="Cal substituir-ho per «Resultat de la cerca» (personal)"
+valid msgstr="Resultats? de la cerca"
+hint="Cal substituir-ho per «Resultat/s de la cerca» (personal)"
+
+{\bselected\sAddress\sBook\sFolders?\b}i
+valid msgstr="carpet(a|es) seleccionad(a|es) de la llibreta d'adreces"
+hint="Cal substituir-ho per «carpeta/es seleccionada/es de la llibreta d'adreces» (personal)"
 
 {\bSemi.?spam\b}i
-valid msgstr="correu semi.brossa"
+valid msgstr="correu semi-brossa"
 hint="Cal substituir-ho per «correu semi-brossa» (personal)"
 
 {\bServer.Side\b}i
@@ -492,6 +572,7 @@ valid msgstr="de la banda del servidor"
 hint="Cal substituir-ho per «de la banda del servidor» (personal)"
 
 {\bSession\stime\b}i
+valid msgid="Total\sSession\stime"
 valid msgstr="Temps de la sessió"
 hint="Cal substituir-ho per «Temps de la sessió» (personal)"
 
@@ -534,8 +615,7 @@ valid msgstr="\bsubtas(ca|ques)\b"
 hint="Cal substituir-ho per «subtasca/ques» (personal)"
 
 {\bSub.?to.?dos?\b}i
-valid msgstr="Subpendents" comment=".title.column sub-to-dos of the parent to-do"
-valid msgstr="Subpendent de" comment=".title.column sub-to-dos of the parent to-do"
+valid msgstr="Subpendents?" msgctxt=".title.column"
 valid msgstr="subtas(ca|ques) pendents?"
 hint="Cal substituir-ho per «subtasca/ques pendent/s» (personal)"
 
@@ -558,6 +638,7 @@ valid msgstr="Retard des d'una plantilla"
 hint="Cal substituir-ho per «Retard des d'una plantilla» (personal)"
 
 {\bTime.?line\b}i
+valid msgid="current.time\sline"
 valid msgstr="Línia de temps"
 hint="Cal substituir-ho per «Línia de temps» (personal)"
 
@@ -591,6 +672,14 @@ hint="Cal substituir-ho per «La vista de la llista de pendents usa tota la fine
 valid msgstr="\bvista de pendents\b"
 hint="Cal substituir-ho per «vista de pendents» (personal)"
 
+{\bTotal\sSession\stime\b}i
+valid msgstr="Temps total de la sessió"
+hint="Cal substituir-ho per «Temps total de la sessió» (personal)"
+
+{\btypical\soutput\sfilename\b}i
+valid msgstr="sortida típica pel nom de fitxer"
+hint="Cal substituir-ho per «sortida típica pel nom de fitxer» (personal)"
+
 {\bunfinished\sto.?dos?\b}i
 valid msgstr="pendents? sense finalitzar"
 hint="Cal substituir-ho per «pendent/s sense finalitzar» (personal)"
@@ -607,7 +696,12 @@ hint="Cal substituir-ho per «ID de l'usuari» (personal)"
 valid msgstr="Identificador de l'usuari"
 hint="Cal substituir-ho per «Identificador de l'usuari» (personal)"
 
+{\bvalid\smaildirs?\sfolders?\b}i
+valid msgstr="carpet(a|es) vàlid(a|es) pels? directoris? de correu"
+hint="Cal substituir-ho per «carpeta/es vàlida/es pel/s directori/s de correu» (personal)"
+
 {\bWikipedia\b}i
+valid msgid="wikipedia\.org"
 valid msgstr="Viquipèdia"
 hint="Cal substituir-ho per «Viquipèdia» (personal)"
 
@@ -622,6 +716,9 @@ hint="Cal substituir-ho per «Se us pregunta perquè» (personal)"
 ## msgstr
 
 [(de|en)\sla\svista\sd'agenda]i
+valid msgid="agenda\sview\sbackground\scolor"
+valid msgstr="des de la vista d'agenda"
+valid msgstr="variacions de la vista d'agenda"
 hint="«» s'ha de substituir per «a la vista d'agenda» (personal)"
 
 [(un|el)s?\sllist(a|es)]i
@@ -635,6 +732,7 @@ hint="«» s'ha de substituir per «una/es | la/les MDN» (personal)"
 hint="«» s'ha de substituir per «una/es | la/les ACL» (personal)"
 
 [\bindex\b]i
+valid msgid="\/index"
 hint="«» s'ha de substituir per «índex» (personal)"
 
 [(un|el)s?\sfonts?]i
