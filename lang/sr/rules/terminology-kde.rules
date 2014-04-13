@@ -419,6 +419,7 @@ valid !msgstr="\bдатоте"
 id="t-filemanager"
 hint="file manager = менаџер фајлова"
 valid msgstr="\bменаџер\w* фајлова"
+valid msgstr="&\w*filemanager\S+;"
 valid cat="filetypes,desktop_kdebase" msgid="Konqueror\S* file manager" !msgstr="менаџер|управ(љач|ник)"
 valid cat="dolphin" msgid="default file manager.*virtual" msgstr="подразумева и за отварање.*вирт"
 
