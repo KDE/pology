@@ -1370,6 +1370,7 @@ hint="Ponga una coma antes de «hola» (error gramatical)"
 [\bpero\b]
 id="gr-3-falta-coma-antes-pero"
 validGroup beforeComma
+valid after=",\s[¿¡]"
 hint="Ponga una coma antes de «pero» (error gramatical)"
 
 [\bpero\,]

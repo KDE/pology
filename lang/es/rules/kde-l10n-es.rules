@@ -1361,17 +1361,15 @@ id="gk-2-flame"
 valid msgstr="crítica\sdestructiva"
 valid msgstr="críticas\sdestructivas"
 valid msgstr="llamas?"
-valid msgstr="fuego"
+valid msgstr="fuegos?"
 hint="«Flame» se traduce como «Crítica destructiva/Llama» (ver glosario)"
 
 {\bflames\b}i
 id="gk-2-flames"
 valid msgstr="críticas\sdestructivas"
-valid msgstr="llamas"
-valid msgstr="fuegos"
+valid msgstr="llamas?"
+valid msgstr="fuegos?"
 valid msgstr="(alguna|cualquier|ninguna)\scrítica\sdestructiva"
-valid msgstr="(alguna|cualquier|ninguna)\sllama"
-valid msgstr="(algún|cualquier|ningún)\sfuego"
 hint="«Flames» se traduce como «Críticas destructivas/Llamas» (ver glosario)"
 
 {\bfloppy\b}i
@@ -3328,7 +3326,8 @@ hint="«Sorts» se traduce como «Ordena» (ver glosario)"
 
 {\bspawn\b}i
 id="gk-2-spawn"
-valid msgstr="iniciar"
+valid msgstr="inici(ar|a|e)"
+valid msgstr="nacer?"
 valid msgstr="iniciará" after="will\s(\w+\s)?"
 valid msgstr="inició" after="did\s(\w+\s)?"
 hint="«Spawn» se traduce como «Iniciar» (ver glosario)"
@@ -3336,6 +3335,7 @@ hint="«Spawn» se traduce como «Iniciar» (ver glosario)"
 {\bspawns\b}i
 id="gk-2-spawns"
 valid msgstr="inici(a|e)"
+valid msgstr="nace"
 hint="«Spawns» se traduce como «Inicia» (ver glosario)"
 
 {\bsplashscreen\b}i

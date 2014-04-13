@@ -3,9 +3,6 @@
 # by the KDE Spanish Team (kde-l10n-es@kde.org)
 # License: GPLv3
 
-# Omit bold indicators
-addFilterRegex match="\<\/?b\>" repl="" on="pmsgid,pmsgstr"
-
 # Omit some abbreviations
 addFilterRegex match="\b\w{1,2}[ºª²³]" repl="" on="pmsgid,pmsgstr"
 addFilterRegex match="µ\w{1,2}\b" repl="" on="pmsgid,pmsgstr"
@@ -17,6 +14,7 @@ addFilterRegex match="\b(echo\snest|make\s(un)?install|(little|big)\sendian|summ
 addFilterRegex match="\b(lost\+found|\b(if|of)\=[\w.-]+|\.?\w+(rc|config|conf)\b|\babout\:\w+|\bkioclient\s\w+\b|qt\.\w+\b)" repl="" on="pmsgid,pmsgstr"
 addFilterRegex match="\b(Microsoft|Outlook|Internet|Google|Adobe)(\s[A-Z]\w+)+\b" repl="" on="pmsgid,pmsgstr"
 addFilterRegex match="\b(Remember\sthe\sMilk|MySQL\sserver)\b" repl="" on="pmsgid,pmsgstr"
+
 # Omit words between quotes.
 addFilterRegex match="«[\w-]+»" repl="" on="pmsgid,pmsgstr"
 addFilterRegex match="\"[\w-]+\"" repl="" on="pmsgid,pmsgstr"

@@ -16,6 +16,9 @@ addFilterRegex match="\<\/?quote\>" repl="\"" on="pmsgid,pmsgstr"
 # Especial treatment for « & » and « && ».
 addFilterRegex match="(\s\&{1,2}\s)" repl=" y " on="pmsgid,pmsgstr"
 
+# Remove bold tags
+addFilterRegex match="\<\/?b\>" repl="" on="pmsgid,pmsgstr"
+
 # Remove some special tags preceded with '%'
 addFilterRegex match="\%\w+(\%\w*)*" repl="~" on="pmsgid,pmsgstr"
 
@@ -24,10 +27,6 @@ addFilterRegex match="\:\w+\:" repl="~" on="pmsgid,pmsgstr"
 
 # Remove email addresses with "at"
 addFilterRegex match="\(([\w.-]+\s)+?at(\s[\w.-]+)+\)" repl="~" on="pmsgid,pmsgstr"
-
-# Remove program parameters (including 'help' option)
-addFilterRegex match="(?<!\w)\-\-[\w-]+\s(help)?" repl="~" on="pmsgid,pmsgstr"
-addFilterRegex match="^\-\-[\w-]+\s(help)?" repl="~" on="pmsgid,pmsgstr"
 
 # Remove some types of paragraph tags.
 addFilterHook name="remove/remove-marlits-msg" on="msg"
@@ -38,12 +37,17 @@ addFilterHook name="remove/remove-paired-ents-tick~u'~'" on="msg"
 addFilterHook name="remove/remove-fmtdirs-msg-tick~u'~'" on="msg"
 addFilterHook name="remove/remove_literals_msg_tick~u'~'" on="msg"
 
-# Remove dd parameters
-addFilterRegex match="\b(if|of)\=(\/[\w.#+-]+)+" repl="~" casesens="yes" on="pmsgid,pmsgstr"
+# Omit html tags
+addFilterRegex match="\<\s*(bcode|command|envar|filename|icode|shortcut|placeholder|style|code|tt|literal|screen|option|keycap|userinput|systemitem|prompt|function|foreignphrase|varname|programlisting|token|markup|parameter|keysym|methodname|sgmltag|arg|classname|type)\s*\>.*?\<\/\s*\1\s*\>" repl="~" on="pmsgid,pmsgstr"
+addFilterRegex match="\<\s*(email|link)\s*?\>.*?\<\/\s*\1\s*\>" repl="~" on="pmsgid,pmsgstr"
+addFilterRegex match="\<.*?\>" repl="~" on="pmsgid,pmsgstr"
+
+# Remove dd statements
+addFilterRegex match="\b(dd\s)?(if|of)\=(\/[\w.#+-]+)+" repl="~" casesens="yes" on="pmsgid,pmsgstr"
 
 # Remove Linux files
 addFilterRegex match="\b(bin|boot|dev|etc|home|lib|lib64|lost\+found|media|mnt|opt|proc|root|run|sbin|srv|sys|tmp|usr|var)(\/[\w.#+-]+)+" repl="~" casesens="yes" on="pmsgid,pmsgstr"
-addFilterRegex match="(\$\w+|\$\{\w+\}|(KDE|QT|JAVA)\w*|\.kde\d?|~)(\/[\w_#+.-]+)+" repl="~" casesens="yes" on="pmsgid,pmsgstr"
+addFilterRegex match="(\$\w+|\$\{\w+\}|(KDE|QT|JAVA)\w*|\.kde\d?|~)(\/[\w.#+-]+)+" repl="~" casesens="yes" on="pmsgid,pmsgstr"
 
 # Remove Windows files
 addFilterRegex match="\b[A-Z]\:(\\{1,2}[\w.#+-]+)+\b" repl="~" casesens="yes" on="pmsgid,pmsgstr"
@@ -61,22 +65,7 @@ addFilterRegex match="\\\\\w+(\{\w*\})?" repl="~" on="pmsgid,pmsgstr"
 addFilterRegex match="\:\:\w+" repl="~" on="pmsgid,pmsgstr"
 
 # Remove MIME types
-addFilterRegex match="\b(all|application|audio|fonts|image|inode|interface|message|model|multipart|text|uri|video|x\-content|x\-epoc)\/\w[\w#+.-]*\w" repl="~" on="pmsgid,pmsgstr"
-
-# Remove files with common extensions
-addFilterRegex match="\b[\w.#+-]+?\.(txt|xml|exe|lib|bin|so|doc|docx|odt|pdf|jpg|png|ico|h|c|cpp|py|pyc|java|tar|tgz|gz)\b" repl="~" casesens="yes" on="pmsgid,pmsgstr"
-addFilterRegex match="\*(\.\w+)+\b" repl="~" on="pmsgid,pmsgstr"
-
-# Remove url's
-addFilterRegex match="\b[\w.#+-]+?\.(com|net|org)\b" repl="~" casesens="yes" on="pmsgid,pmsgstr"
-
-# Remove ulinks
-addFilterRegex match="\<ulink.*?\>" repl="~" on="pmsgid,pmsgstr"
-
-#Remove XML-like tags.
-addFilterRegex match="\<\s*(bcode|command|envar|filename|icode|shortcut|placeholder|style|code|tt|literal|screen|option|keycap|userinput|systemitem|prompt|function|foreignphrase|varname|programlisting|token|markup|parameter|keysym|methodname|sgmltag|arg|classname|type)\s*\>.*?\<\/\s*\1\s*\>" repl="~" on="pmsgid,pmsgstr"
-addFilterRegex match="\<\s*(email|link)\s*?\>.*?\<\/\s*\1\s*\>" repl="~" on="pmsgid,pmsgstr"
-addFilterRegex match="\<.*?\>" repl="~" on="pmsgid,pmsgstr"
+addFilterRegex match="\b(all|application|audio|fonts|image|inode|interface|message|model|multipart|text|uri|video|x\-content|x\-epoc)\/\w[\w.#+-]*\w" repl="~" on="pmsgid,pmsgstr"
 
 # Remove single characters between quotes.
 addFilterRegex match="\'.\'" repl="~" on="pmsgid,pmsgstr"
@@ -91,21 +80,20 @@ addFilterRegex match="«\W+?»" repl="~" on="pmsgid,pmsgstr"
 addFilterRegex match="\\\"\W+?\\\"" repl="~" on="pmsgid,pmsgstr"
 
 # Remove some abreviations.
-addFilterRegex match="\b(admin|cartr|cert|cond|dec|hex|inc|Jr|lab|Mr|Mrs|No|obs|oct|org|seq|Sh|sync|torr)\.(\.\.)?" repl="~" casesens="yes" on="pmsgid,pmsgstr"
+addFilterRegex match="\b(admin|cartr|cert|cond|dec|hex|[Ii]nc|Jr|lab|Mr|Mrs|No|obs|oct|org|seq|Sh|sync|torr)\.(\.\.)?" repl="~" casesens="yes" on="pmsgid,pmsgstr"
 addFilterRegex match="\b(a\.\s?m|admon|apdos?|art|atte|Av?|Avdas?|Aytos?|C\.\s?C|C\.\s?P|caps?|CC\.\aAA|cents?|cénts?|Cías?|ctas?|ctes?|ctras?|dchas?|dchos?|deptos?|dptos?|D|Dr(es)?|Dras?|EE\.\s?UU|[Pp]\.\sej|Excm[ao]s?|exprs?|Fdo|Gob|Gral(es)?|hnos|(ID|Id|id)s?|Ilm[ao]s?|izdas?|izdos?|izq|JJ\.\s?OO|K\.\s?O|Ld[ao]s?|Lic|Ltd(os)?|Ltdas?|máx|mín|[Nn]úm|n\.\s?t|op|p\.\s?m|págs?|Pdtes?|Pdtas?|pl|plzas?|pos|ppal(es)?|pral(es)?|Prof|ptas?|pts|pzas?|reg|Rep|S.\sA|sdad|Sr(es)?|Sras?|S.\sL|sinc|Srtas?|St[ao]s?|tels?|tfnos?|trads?|Uds?|Univ|V\.O(\.S)?|vol|vv\.\s?aa|VV\.\s?AA)\.(\.\.)?" repl="~" casesens="yes" on="pmsgid,pmsgstr"
 
 # Remove some usual smileis.
 addFilterRegex match="\s(\:\)|\(\-\:|\:\)|\(\:|\=\)|\)\-\:\)|\:\-\)|\:\-\(|\;\-\)|\;\)|\:\-\{|\:\-\()" repl="\s~" on="pmsgid,pmsgstr"
 
 # Remove numbers and dates
-addFilterRegex match="(?<!\%)[+-]?[\dXx]+([.,\:\/][\dXx]+)+" repl="~" on="pmsgid,pmsgstr"
+addFilterRegex match="(?<!\%)[+-]?[0-9Xx]+([.,\:\/][0-9Xx]+)+" repl="~" on="pmsgid,pmsgstr"
 
 # Remove hexadecimal numbers.
-addFilterRegex match="0x[\dabcdef]*" repl="~" on="pmsgid,pmsgstr"
+addFilterRegex match="0x[0-9abcdef]*" repl="~" on="pmsgid,pmsgstr"
 
 # Remove special puntuactions.
 addFilterRegex match="(\?{2,3}|\%{2,3}|\:{2,3}|\_{2,3})" repl="~" on="pmsgid,pmsgstr"
 
 # Remove some types of paragraph tags.
 addFilterHook name="es:remove_subs/remove_tags_without_translation" on="msg"
-

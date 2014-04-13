@@ -449,18 +449,18 @@ hint="La abreviatura de «por ejemplo» es «p. ej.»"
 
 addFilterHook name="es:remove_subs/remove_paired_capital_words" on="msg"
 
-[(?u)[,;]\s+[A-ZÑÇ][a-záéíóúüñç]+]
+[(?u)[,;]\s+[A-Z]\w+]
 id="ty-2-error-mayusculas-en-lugar-indebido"
 valid ctx=".*?TRANSLATORS"
 valid ctx="trans_comment"
 valid msgid=".*?TRANSLATORS"
 valid msgid="^$"
-valid before="(\sde)?\s[A-Z]\w+"
+valid before="\s(de\s)?[A-Z]"
 valid after="\&[\w-]+;"
 valid after="[A-ZÑÇ]\w+"
 hint="Utilice minúsculas después de coma o punto y coma"
 
-[(?u)\([A-ZÑÇ][a-záéíóúüñç]+]
+[(?u)\([A-Z]\w+]
 id="ty-3-error-mayusculas-despues-parentesis"
 valid ctx=".*?TRANSLATORS"
 valid ctx="trans_comment"
