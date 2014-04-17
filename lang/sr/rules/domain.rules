@@ -47,6 +47,36 @@ valid msgstr="диск"
 valid !msgstr="\bмедиј"
 
 # ====================
+# Kajongg (game)
+environment kajongg
+
+{\bchow}i
+id="t-chow"
+hint="chow = чоу"
+valid msgstr="\bчоу"
+
+{\bclaim}i
+id="t-claim"
+hint="claim = тврдити"
+valid msgstr="\bтвр[ђд]"
+
+{\bkong}i
+id="t-kong"
+hint="kong = конг"
+valid msgstr="\bконг"
+
+{\bpung}i
+id="t-pung"
+hint="pung = панг"
+valid msgstr="\bпанг"
+
+{\btable}i
+id="t-table"
+hint="table = табла"
+valid msgstr="\bтабл" !after="score "
+valid after="score " msgstr="\bтабел\w+ резултата"
+
+# ====================
 # KAlarm (alarm scheduler)
 environment kalarm
 
