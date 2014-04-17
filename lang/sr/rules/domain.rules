@@ -60,10 +60,30 @@ id="t-claim"
 hint="claim = тврдити"
 valid msgstr="\bтвр[ђд]"
 
+{\bconceal}i
+id="t-conceal"
+hint="conceal = сакрити"
+valid msgstr="\bсакри([тјол]|ва)|\bскривен"
+
+{\bdeclar}i
+id="t-declare"
+hint="declare = прогласити"
+valid msgstr="\bпрогла"
+
+{\bexpose}i
+id="t-expose"
+hint="expose = открити"
+valid msgstr="\bоткри[твјол]"
+
 {\bkong}i
 id="t-kong"
 hint="kong = конг"
 valid msgstr="\bконг"
+
+{\bmeld}i
+id="t-meld"
+hint="meld = слог"
+valid msgstr="\bслог|\bслагањ"
 
 {\bpung}i
 id="t-pung"
