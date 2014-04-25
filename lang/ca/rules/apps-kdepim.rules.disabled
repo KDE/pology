@@ -33,9 +33,14 @@ valid msgstr="Ús del color per a la vista d'agenda"
 hint="Cal substituir-ho per «Ús del color per a la vista d'agenda» (personal)"
 
 {\bAgent\sInstances?\b}i
+valid msgid="New\sAgent\sInstance"
 valid msgstr="instànci(a|es) de l'agent"
 valid msgstr="instància seleccionada de l'agent"
 hint="Cal substituir-ho per «instància de l'agent, instància seleccionada de l'agent» (personal)"
+
+{\bNew\sAgent\sInstance\b}i
+valid msgstr="Instància nova de l'agent"
+hint="Cal substituir-ho per «Instància nova de l'agent» (personal)"
 
 {\bAlarm\stypes\b}i
 valid msgstr="Tipus d'alarma"
@@ -111,8 +116,13 @@ valid msgstr="fitxer o una carpeta de calendari"
 hint="Cal substituir-ho per «fitxer o una carpeta de calendari» (personal)"
 
 {\bCalendar\sFolder\b}i
+valid msgid="new\sCalendar\sFolder"
 valid msgstr="Carpeta de calendari"
 hint="Cal substituir-ho per «Carpeta de calendari» (personal)"
+
+{\bnew\sCalendar\sFolder\b}i
+valid msgstr="Carpeta nova de calendari"
+hint="Cal substituir-ho per «Carpeta nova de calendari» (personal)"
 
 {\bCalendars\sSide\sby\sSide\b}i
 valid msgstr="Calendaris costat a costat"
@@ -235,8 +245,8 @@ valid msgstr="per a nous esdeveniments"
 hint="Cal substituir-ho per «per a nous esdeveniments» (personal)"
 
 {\bfor\snew\sto.?dos\b}i
-valid msgstr="per a noves pendents"
-hint="Cal substituir-ho per «per a noves pendents» (personal)"
+valid msgstr="per a pendents noves"
+hint="Cal substituir-ho per «per a pendents noves» (personal)"
 
 {\bfor\sthe\scurrent.time\b}i
 valid msgstr="per a la línia de l'hora actual"
@@ -251,6 +261,10 @@ valid msgid="To.?do list view uses full window"
 valid msgid="to.?do list in a full KOrganizer window"
 valid msgstr="tota la finestra"
 hint="Cal substituir-ho per «tota la finestra» (personal)"
+
+{\bGet Hot New Stuff\b}i
+valid msgstr="Obtén les novetats"
+hint="Cal substituir-ho per «Obtén les novetats» (personal)"
 
 {\bGnuPG\sLog.?Viewer\b}i
 valid msgstr="Visor del registre de GnuPG"
@@ -377,8 +391,8 @@ valid msgstr="Controla els canvis al fitxer"
 hint="Cal substituir-ho per «Controla els canvis al fitxer» (personal)"
 
 {\bNew\sAddress\sBook\sFolders?\b}i
-valid msgstr="Carpeta nova de la llibreta d'adreces"
-hint="Cal substituir-ho per «Carpeta nova de la llibreta d'adreces» (personal)"
+valid msgstr="Carpeta nova per a la llibreta d'adreces"
+hint="Cal substituir-ho per «Carpeta nova per a la llibreta d'adreces» (personal)"
 
 {\bNew\sArticles?\b}i
 valid msgstr="Articles? nous?"
@@ -513,8 +527,8 @@ valid msgstr="Disposició de la impressió"
 hint="Cal substituir-ho per «Disposició de la impressió» (personal)"
 
 {\bPurge\sTo.?dos?\b}i
-valid msgstr="Purga l(a|es) pendents?"
-hint="Cal substituir-ho per «Purga la/es pendent/s» (personal)"
+valid msgstr="Purgar? l(a|es) pendents?"
+hint="Cal substituir-ho per «Purga/r la/es pendent/s» (personal)"
 
 {\brange(\sof\s|.)?dates\b}i
 valid msgstr="interval consecutiu de dates"
@@ -564,7 +578,7 @@ valid msgstr="carpet(a|es) seleccionad(a|es) de la llibreta d'adreces"
 hint="Cal substituir-ho per «carpeta/es seleccionada/es de la llibreta d'adreces» (personal)"
 
 {\bSemi.?spam\b}i
-valid msgstr="correu semi-brossa"
+valid msgstr="correu semi.?brossa"
 hint="Cal substituir-ho per «correu semi-brossa» (personal)"
 
 {\bServer.Side\b}i
@@ -738,7 +752,7 @@ hint="«» s'ha de substituir per «índex» (personal)"
 [(un|el)s?\sfonts?]i
 hint="«» s'ha de substituir per «una/unes | la/les fonts» (personal)"
 
-[iCals]i
+[\biCals\b]i
 hint="«» s'ha de substituir per «iCal» (personal)"
 
 [marca\snúmero\sde\stelèfon]i
