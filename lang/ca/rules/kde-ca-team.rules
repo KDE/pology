@@ -239,6 +239,10 @@ valid !msgstr="quadres? de diàleg"
 valid msgstr="diàlegs?"
 hint="Es tradueix per «diàleg» (kde-ca-team)"
 
+{\bdockers?\b}i
+valid msgstr="acobladors?"
+hint="Es tradueix per «acoblador/s» (kde-ca-team)"
+
 {\bdrop.?(down.?)?(selection\s)?box(es|s)?\b}i
 valid msgstr="llist(a|es)? desplegables?"
 valid msgstr="Dropbox" cat="desktop_extragear-graphics_kipi-plugins,kipiplugin_dropbox,desktop_kdesdk_dolphin-plugins,libpimcommon,www_www"
@@ -549,7 +553,7 @@ hint="Es tradueix per «targeta/es intel·ligent/s» (kde-ca-team)"
 {\bsnapshots?\b}i
 valid msgstr="captur(a|es) de pantalla"
 valid msgstr="captur(a|es)" cat="digikam,massif-visualizer,kate,pate"
-valid msgstr="instantàni(a|es)" cat="glossary,kstars"
+valid msgstr="instantàni(a|es)" cat="glossary,kstars,rekonq"
 valid msgstr="punts? de sincronisme"
 hint="«snapshot» es tradueix *generalment* per «captura de pantalla» (kde-ca-team)"
 
