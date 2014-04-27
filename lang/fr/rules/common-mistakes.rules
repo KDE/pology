@@ -336,6 +336,7 @@ valid ctx=".*heading"
 valid after="K"
 valid before="freq"
 valid after="processeur \("
+valid cat="konversation" after="Core 2 Quad"
 hint="Traduire CPU par « processeur »"
 
 [\benvironment\b]i
@@ -534,6 +535,7 @@ hint="Seuls les militaires sont basés. Préférez « fondé sur » ou un partic
 
 [support]i
 validGroup cdataTag
+validGroup computeroutputTag
 valid before="sMarkup" # D-Bus call
 valid after="http://\S+"
 valid after="in"

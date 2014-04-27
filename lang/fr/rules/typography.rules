@@ -396,6 +396,7 @@ validGroup cdataTag
 validGroup perlScript
 validGroup userinputTag
 validGroup optionTag
+validGroup literalTag
 valid cat="amarok" after="prefix"
 valid cat="amarok" before="kde4?-config"
 valid cat="kdevelop" after="attendu.*"

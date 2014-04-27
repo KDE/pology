@@ -382,6 +382,7 @@ valid after="ir"
 valid before="er le contrôle"
 valid cat="kgoldrunner"
 valid cat="kalzium"
+valid cat="konversation"
 valid cat="konqueror" before="ation" msgid="retrieval"
 hint="Connotation familière. Choix de l'équipe : « réception/recevoir » (au lieu de « récupération/récupérer ») ou « accéder à »"
 
@@ -541,6 +542,7 @@ hint="Traduisez « attachement » par pièce jointe"
 validGroup ulinkTag
 valid after="--|\?|&"
 valid after="<link "
+valid cat="kopete" after="type=\".*\" "
 hint="Utilisez « URL » en majuscule"
 
 [\b(un|cet) url\b]i
