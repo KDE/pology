@@ -113,7 +113,7 @@ hint="«enrera» s'ha de substituir per «enrere» (error freqüent)"
 
 [\bes\s(s|ce|ci)]
 valid msgstr="\/es senar"
-valid msgstr="La\/es s"
+valid msgstr="(L|l)a\/es (s|c)"
 hint="Davant de paraules començades per «s» o «ce|ci», el pronom «es» es canvia per la forma «se» (se substitueix/se senten/se suprimeix...) (error freqüent)"
 
 # «esperar a» ha de ser «esperar».
@@ -130,6 +130,7 @@ hint="«esta» s'ha de substituir per «està» (error freqüent)"
 valid msgstr="esteu dins" cat="kommander_dcop" # docmessages
 valid msgstr="sou curiós" cat="kstars_scriptbuilder" # docmessages
 valid msgstr="sou propens" cat="digikam_editor-color" # docmessages
+valid msgstr="esteu subscrits" cat="choqok" # docmessages
 hint="«(vós) esteu segurs» s'ha de substituir per «(vós) esteu segur» (error freqüent)"
 
 # «fixe» ha de ser «fix» (i prefix, sufix).
@@ -215,7 +216,7 @@ valid msgid="\/Tutorials\/" # KDE UserBase
 valid msgstr="gui(a|es) d'aprenentatge"
 valid msgstr="program(a|es) d'aprenentatge"
 valid msgstr="(camp|partida) d'aprenentatge"
-hint="«tutorial» es tradueix per «guia d'aprenentatge, també: programa/es d'aprenentatge, camp | partida d'aprenentatge» (error freqüent)"
+hint="«tutorial» es tradueix per «guia/es d'aprenentatge, també: programa/es d'aprenentatge, camp | partida d'aprenentatge» (error freqüent)"
 
 # «URL» és masculí (Localitzador Uniforme de Recursos)
 [\b(la|les|una|unes)\sURL\b]i

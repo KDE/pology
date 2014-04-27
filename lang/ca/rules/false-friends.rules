@@ -579,7 +579,7 @@ hint="«Lyrics» es tradueix per «Lletra», no per «Lírica» (fals amic)"
 valid msgstr="xarxa"
 valid msgstr=".net" cat="desktop_extragear-sdk_kdevelop,desktop_extragear-sdk_kdevelop-plugins,desktop_extragear-sdk_php-docs,kdevphpdocs"
 valid msgstr="net" cat="smb4k,smb4k-core"
-valid msgstr="net" cat="kmymoney" # Valor net
+valid msgstr="net" cat="kmymoney,sheets_functions" # Valor net
 valid msgstr="net" cat="ksirk" after="@kdetalk\."
 valid msgstr="net" cat="tables,kcells,kspread,sheets" before="\spresent value"# Valor actual net
 valid msgstr="net" cat="kuser" before="\sgetlocalsid"

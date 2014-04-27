@@ -58,6 +58,7 @@ valid msgid="edit(ing)?.?box(es|s)?"	# -> quadre/s d'edició
 valid msgid="entry.?box(es|s)?"		# -> quadre/s d'entrada
 valid msgid="filter\sbox(es|s)?"	# -> quadre/s de filtre
 valid msgid="group\sbox(es|s)?"		# -> grup de caselles
+valid msgid="image box(es|s)?"		# -> quadre/s d'imatge
 valid msgid="info(rmation)?.?box(es|s)?" # -> rètol/s informatiu/s
 valid msgid="input.?box(es|s)?"		# -> quadre/s d'entrada
 valid msgid="key.?box(ing)?(es|s)?"	# -> anell/s de claus
@@ -93,7 +94,8 @@ les «caselles» s'activen o es desactiven (kde-ca-team)"
 valid msgstr="(àmplia|gran) varietat"
 valid msgstr="ampli ventall"
 valid msgstr="ventall més ampli" # docmessages
-hint="Es tradueix per «àmplia/gran varietat, ampli ventall, ventall més ampli» (kde-ca-team)"
+valid msgstr="ample abast" # docmessages
+hint="Es tradueix per «àmplia/gran varietat, ampli ventall, ventall més ampli, ample abast» (kde-ca-team)"
 
 {\bbuttons?\b}i
 valid msgid="slid(er|ing)\sbutton"
@@ -119,6 +121,8 @@ valid msgstr="CheckBox" cat="kommander_dcop,kommander_editor,kommander_widgets" 
 hint="Es tradueix per «casella/es de selecció» (kde-ca-team)"
 
 {\bchecksums?\b}i
+valid msgstr="^CHECKSUM$" comment="Tag\:\spara" cat="kexi" # docmessages
+valid comment="Tag\:\sprogramlisting" # docmessages
 valid msgstr="sum(a|es) de verificació"
 valid msgstr="Checksum Definition \#1" cat="kleopatra"
 hint="Es tradueix per «suma de verificació» (kde-ca-team)"
@@ -276,6 +280,7 @@ hint="Es tradueix per «codificador» (kde-ca-team)"
 
 {\bencodings?\b}i
 valid msgid="Content-Transfer-Encoding"
+valid msgstr="^ENCODING$" comment="Tag\:\spara" cat="kexi" # docmessages
 valid msgstr="codificaci(ó|ons)"
 valid msgstr="codificant"
 valid msgstr="codificar"
@@ -288,6 +293,7 @@ valid msgstr="encrypt" cat="kleopatra,okular_poppler"
 hint="Es tradueix per «encriptar» (kde-ca-team)"
 
 {\bencrypted\b}i
+valid msgstr="^ENCRYPTED$" comment="Tag\:\spara" cat="kexi" # docmessages
 valid msgstr="encripta(t|ts|da|des|r)"
 valid msgstr="encripti"
 hint="Es tradueix per «encripti/eu, encriptat, encriptada» (kde-ca-team)"
@@ -340,6 +346,10 @@ hint="Es tradueix per «activador del gest» (kde-ca-team)"
 {\bicon\slist\b}i
 valid msgstr="llista d'icones"
 hint="Es tradueix per «llista d'icones» (kde-ca-team)"
+
+{\bimage\sbox(es|s)?\b}i
+valid msgstr="quadres? d'imatge"
+hint="Es tradueix per «quadre/s d'imatge» (kde-ca-team)"
 
 {\bin\sprogress\b}i
 valid msgstr="en curs"
@@ -482,6 +492,7 @@ valid msgstr="oscil·la entre" cat="ksysguard" # docmessages
 valid msgstr="sèrie" cat="gwenview" # docmessages
 valid msgstr="po(den|t) variar" cat="kstars_stars,simon" # docmessages
 valid msgstr="avanci més enllà" cat="kstars_solarsys" # docmessages
+valid msgstr="\(range\)" cat="kdesvn_man-kdesvn.1" # docmessages
 valid comment="Tag\:\sprogramlisting" # docmessages
 valid comment="Tag\:\ssynopsis" # docmessages
 hint="Es tradueix per «abast, àrea, interval/s, HDR: Marge dinàmic elevat» (kde-ca-team)"
@@ -551,6 +562,7 @@ hint="Es tradueix per «targeta/es intel·ligent/s» (kde-ca-team)"
 
 # «snapshot» es tradueix generalment per «captura de pantalla».
 {\bsnapshots?\b}i
+valid msgstr="^SNAPSHOT$" comment="Tag\:\spara" cat="kexi" # docmessages
 valid msgstr="captur(a|es) de pantalla"
 valid msgstr="captur(a|es)" cat="digikam,massif-visualizer,kate,pate"
 valid msgstr="instantàni(a|es)" cat="glossary,kstars,rekonq"
@@ -621,6 +633,7 @@ valid msgstr="encastat" cat="kcontrol_filetypes" # docmessages
 valid msgstr="~" after="screenshot.+" cat="korganizer" # docmessages
 valid msgstr="«tab:»" # docmessages
 valid before="\swindow manager" cat="desktop_kde-workspace"
+valid comment="Tag\:\sprogramlisting" # docmessages
 hint="Es tradueix per «pestanya/es|tabulació/ons/dor, caràcter de tabulació» (kde-ca-team)"
 
 {\btabbed\swindows?\b}i
@@ -669,6 +682,7 @@ hint="Es tradueix per «vista/es en arbre» (kde-ca-team)"
 
 {\bunencrypted\b}i
 valid msgid="to\sconnect\sunencrypted"
+valid msgstr="^UNENCRYPTED$" comment="Tag\:\spara" cat="kexi" # docmessages
 valid msgstr="sense encriptar"
 valid msgstr="no està encripta(t|da)"
 valid msgstr="no encriptad(a|es)"
@@ -706,9 +720,14 @@ hint="Es tradueix per «full de càlcul (KOffice), full de treball» (kde-ca-tea
 {\bwork.?spaces?\b}i
 valid msgstr="espais? de treball"
 valid !msgstr="àrea de treball"
-hint="Es tradueix per «espai de treball» (kde-ca-team)" 
+hint="Es tradueix per «espai de treball» (kde-ca-team)"
+
+{\bseamless\sworkflows?\b}i
+valid msgstr="fer la feina sense constrenyiments"
+hint="Es tradueix per «fer la feina sense constrenyiments» (kde-ca-team)"
 
 {\bworkflows?\b}i
+valid msgid="seamless workflows?"
 valid msgid="imaging\sworkflow"
 valid msgstr="flux(os)? de treball"
 hint="Es tradueix per «flux/os de treball» (kde-ca-team)"
