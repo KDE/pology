@@ -243,6 +243,37 @@ valid !msgstr="quadres? de diàleg"
 valid msgstr="diàlegs?"
 hint="Es tradueix per «diàleg» (kde-ca-team)"
 
+{\bDocks?\b}i
+valid msgid="Dock\smode"
+valid msgid="(left|right)\sdock"
+valid msgstr="acobla(da|des)?\b"
+hint="Es tradueix per «acolbla/da/des» (kde-ca-team)"
+
+{\bDock\smode\b}i
+valid msgstr="mode acoblat\b"
+hint="Es tradueix per «mode acoblat» (kde-ca-team)"
+
+{\bleft\sdock\b}i
+valid msgstr="acoblable de l'esquerra"
+hint="Es tradueix per «acoblable de l'esquerra» (kde-ca-team)"
+
+{\bright\sdock\b}i
+valid msgstr="acoblable de la dreta"
+hint="Es tradueix per «acoblable de la dreta» (kde-ca-team)"
+
+{\bDockables?\b}i
+valid msgstr="acoblables?"
+hint="Es tradueix per «acoblable/s» (kde-ca-team)"
+
+{\bDocking\b}i
+valid msgstr="acoblat?\b"
+valid msgstr="acoblament"
+hint="Es tradueix per «acobla/t, acoblament» (kde-ca-team)"
+
+{\bdocked\b}i
+valid msgstr="acobla(da|des|ts?)"
+hint="Es tradueix per «acoblat/s, acoblada/es » (kde-ca-team)"
+
 {\bdockers?\b}i
 valid msgstr="acobladors?"
 hint="Es tradueix per «acoblador/s» (kde-ca-team)"
