@@ -51,6 +51,7 @@ valid msgstr="tot a una pàgina"
 hint="Cal substituir-ho per «tot a una pàgina» (personal)"
 
 {\bAnti.?Spam.?Wizard\b}i
+valid msgstr="Benvingut a l'assistent del KMail contra el correu brossa"
 valid msgstr="assistent contra el correu brossa"
 hint="Cal substituir-ho per «assistent contra el correu brossa» (personal)"
 
@@ -119,6 +120,10 @@ hint="Cal substituir-ho per «fitxer o una carpeta de calendari» (personal)"
 valid msgid="new\sCalendar\sFolder"
 valid msgstr="Carpeta de calendari"
 hint="Cal substituir-ho per «Carpeta de calendari» (personal)"
+
+{\bCalendar\sManager\b}i
+valid msgstr="Gestor de calendaris"
+hint="Cal substituir-ho per «Gestor de calendaris» (personal)"
 
 {\bnew\sCalendar\sFolder\b}i
 valid msgstr="Carpeta nova de calendari"
@@ -296,9 +301,26 @@ valid msgid="Unique.string\sidentifier"
 valid msgstr="identificador"
 hint="Cal substituir-ho per «identificador» (personal)"
 
-{\bUnique-string\sidentifier\b}i
-valid msgstr="cadena de l'IDentificador únic"
-hint="Cal substituir-ho per «cadena de l'IDentificador únic» (personal)"
+{\bIf\schecked\b}i
+valid msgstr="Si està marcat, el missatge no s'esborrarà del servidor de correu"
+valid msgstr="Si està marcada"
+hint="Cal substituir-ho per «Si està marcada» (personal)"
+
+{\bIf\sthis\sbox\sis\schecked\b}i
+valid msgstr="Si es marca aquesta casella"
+hint="Cal substituir-ho per «Si es marca aquesta casella» (personal)"
+
+{\bIf\sthis\soption\sis\schecked\b}i
+valid msgstr="Si es marca aquesta opció"
+hint="Cal substituir-ho per «Si es marca aquesta opció» (personal)"
+
+{\bIf\sthis\soption\sis\sselected\b}i
+valid msgstr="Si se selecciona aquesta opció"
+hint="Cal substituir-ho per «Si se selecciona aquesta opció» (personal)"
+
+{\bIf\sunchecked\b}i
+valid msgstr="Si no està marcada"
+hint="Cal substituir-ho per «Si no està marcada» (personal)"
 
 {\bImage\sLocation\b}i
 valid msgstr="Ubicació de la imatge"
@@ -418,6 +440,7 @@ valid msgstr="(el|un)s? nous? missatges?"
 valid msgstr="en editar nous missatges"
 valid msgstr="hi ha nous missatge"
 valid msgstr="nova llista de missatges"
+valid msgstr="Una llista de missatges i arbre de carpetes nous"
 valid msgstr="Missatges? nous?"
 hint="Cal substituir-ho per «Missatge/s nou/s» (personal)"
 
@@ -448,7 +471,6 @@ hint="Cal substituir-ho per «Accions de la nota» (personal)"
 valid msgstr="llibres? de notes"
 hint="Cal substituir-ho per «llibre/s de notes» (personal)"
 
-
 {\bnote\slines\b}i
 valid msgstr="línies de la nota"
 hint="Cal substituir-ho per «línies de la nota» (personal)"
@@ -457,6 +479,10 @@ hint="Cal substituir-ho per «línies de la nota» (personal)"
 valid msgid="all on one page"
 valid msgstr="a una pàgina"
 hint="Cal substituir-ho per «a una pàgina» (personal)"
+
+{\bOptionally\b}i
+valid msgstr="De manera opcional"
+hint="Cal substituir-ho per «De manera opcional» (personal)"
 
 {\bOutput\sfilename\b}i
 valid msgid="typical output filename"
@@ -497,6 +523,7 @@ hint="Cal substituir-ho per «Percentatge finalitzat» (personal)"
 {\bpersonal\sinformation\b}i
 valid msgid="Personal information management"
 valid msgid="personal information manager"
+valid msgstr="^Informació personal$"
 valid msgstr="\b(la |d')informació personal"
 valid msgstr="la vostra informació personal"
 hint="Cal substituir-ho per «la /d'informació personal, la vostra informació personal» (personal)"
@@ -629,7 +656,7 @@ valid msgstr="\bsubtas(ca|ques)\b"
 hint="Cal substituir-ho per «subtasca/ques» (personal)"
 
 {\bSub.?to.?dos?\b}i
-valid msgstr="Subpendents?" msgctxt=".title.column"
+valid msgstr="Subpendents?" msgctxt="\@title\:column"
 valid msgstr="subtas(ca|ques) pendents?"
 hint="Cal substituir-ho per «subtasca/ques pendent/s» (personal)"
 
@@ -698,6 +725,10 @@ hint="Cal substituir-ho per «sortida típica pel nom de fitxer» (personal)"
 valid msgstr="pendents? sense finalitzar"
 hint="Cal substituir-ho per «pendent/s sense finalitzar» (personal)"
 
+{\bUnique-string\sidentifier\b}i
+valid msgstr="cadena de l'IDentificador únic"
+hint="Cal substituir-ho per «cadena de l'IDentificador únic» (personal)"
+
 {\bUse\sglobal\scredentials\b}i
 valid msgstr="Usa les credencials globals"
 hint="Cal substituir-ho per «Usa les credencials globals» (personal)"
@@ -713,6 +744,10 @@ hint="Cal substituir-ho per «Identificador de l'usuari» (personal)"
 {\bvalid\smaildirs?\sfolders?\b}i
 valid msgstr="carpet(a|es) vàlid(a|es) pels? directoris? de correu"
 hint="Cal substituir-ho per «carpeta/es vàlida/es pel/s directori/s de correu» (personal)"
+
+{\bWhen\sthis\sbox\sis\schecked\b}i
+valid msgstr="Quan està marcada aquesta casella"
+hint="Cal substituir-ho per «Quan està marcada aquesta casella» (personal)"
 
 {\bWikipedia\b}i
 valid msgid="wikipedia\.org"
@@ -733,6 +768,7 @@ hint="Cal substituir-ho per «Se us pregunta perquè» (personal)"
 valid msgid="agenda\sview\sbackground\scolor"
 valid msgstr="des de la vista d'agenda"
 valid msgstr="variacions de la vista d'agenda"
+valid msgstr="capdamunt de la vista d'agenda"
 hint="«» s'ha de substituir per «a la vista d'agenda» (personal)"
 
 [(un|el)s?\sllist(a|es)]i
