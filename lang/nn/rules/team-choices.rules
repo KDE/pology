@@ -226,14 +226,17 @@ hint="Bruk imperativformene «opna», «lagra», ikkje «opn» og «lagr»"
 id="tastar1"
 hint="Sjå avsnittet «Tastar» i retningslinjene"
 valid msgstr="^<Control>\w$"
+valid cat="TeXworks_nn"
 
 [\b(enter|Alt gr|[Ii]ns|DEL|ESC|Esc|f[1-9])\b]
 id="tastar2"
 hint="Sjå avsnittet «Tastar» i retningslinjene"
+valid cat="TeXworks_nn"
 
 [\b(Ctrl|Alt|Alt Gr|Shift)\+\b]
 id="tastar3"
 hint="Sjå avsnittet «Tastar» i retningslinjene"
+valid cat="TeXworks_nn"
 
 […»]
 id="ellipse"

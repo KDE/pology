@@ -17,4 +17,12 @@ id="omsetjar-epost"
 hint="Skriv inn e-adressa til omsetjarane, ikkje set om originalteksten."
 valid !msgstr="[Aa]dd?ress"
 
+# Tastatursnarvegar som ikkje skal ometjast dukkar opp
+# i .po-filer generert frå Qt sine .ts-filer (eks. i TeXworks)
+[.]
+valid !comment="shortcut key name, do not translate"
+id="tastatursnarveg"
+hint="Desse tastatursnarvegane skal ikkje omsetjast (jf. kommentar i kjeldekoden)"
+
+
 # End of rules
