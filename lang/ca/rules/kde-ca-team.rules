@@ -245,13 +245,21 @@ hint="Es tradueix per «diàleg» (kde-ca-team)"
 
 {\bDocks?\b}i
 valid msgid="Dock\smode"
-valid msgid="(left|right)\sdock"
+valid msgid="(bottom|left|right)\sdock"
 valid msgstr="acobla(da|des)?\b"
-hint="Es tradueix per «acolbla/da/des» (kde-ca-team)"
+valid msgstr="acobladors?\b"
+valid msgstr="acoblables?\b" before="\swindows?"
+valid msgstr="acoblables?\b" before="\sat\sthe\s(bottom|left|right)"
+valid msgstr="acoblables?\b" cat="khotkeys,plasma_applet_icontasks"
+hint="Es tradueix per «acobla/da/des» (kde-ca-team)"
 
 {\bDock\smode\b}i
 valid msgstr="mode acoblat\b"
 hint="Es tradueix per «mode acoblat» (kde-ca-team)"
+
+{\bbottom\sdock\b}i
+valid msgstr="acoblable inferior"
+hint="Es tradueix per «acoblable inferior» (kde-ca-team)"
 
 {\bleft\sdock\b}i
 valid msgstr="acoblable de l'esquerra"
