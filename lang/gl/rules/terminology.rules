@@ -1214,6 +1214,7 @@ id="noPT-2011-dual_enable"
 valid msgid="\benable"
 valid msgid="\bactiv"
 valid msgid="\bto\sset\s" env="kde"
+valid after="\w:\s" msgid="\w:\son" env="kde"
 hint="«activar» traduce a «enable» (e a activate)"
 
 # «encrypt» tradúcese como «cifrar»
@@ -1342,6 +1343,7 @@ valid msgid="\bfile\sa\s"
 valid msgid="\bsubmit(ting)? a "
 valid msgid="\bsend\sa\s"
 valid msgid="\bupload"
+valid msgid="\bsend\sfile" #caso de "Send &file" -> "Enviar un ficheiro"
 hint="«enviar un» traduce «file (ou submit, ou send) a»"
 
 # «file package» tradúcese como «paquete de ficheiros»
@@ -2555,7 +2557,7 @@ hint="«valid» tradúcese como «correcto»"
 id="noPT-2011-dual_valid"
 valid msgid="\bvalid"
 valid msgid="\bcorrect"
-valid before="r"  msgid="\bspell\schecker" env="kde"
+valid before="r"  msgid="\bspell\s?checker" env="kde"
 hint="«correcto» traduce a «valid» (e a «correct»)"
 
 # «widget» tradúcese como «trebello»
