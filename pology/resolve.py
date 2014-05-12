@@ -803,7 +803,7 @@ def _remove_literals_url (text, subs=""):
     return _remove_by_rx(text, _literal_url_rx, subs)
 
 
-_literal_web_rx = re.compile(r"\w{3,}(\.[\w-]{2,})+", re.U)
+_literal_web_rx = re.compile(r"\w[\w-]{2,}(\.[\w-]{2,})+", re.U)
 
 def _remove_literals_web (text, subs=""):
 
