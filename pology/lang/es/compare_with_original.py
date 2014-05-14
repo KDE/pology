@@ -91,9 +91,9 @@ def test_if_non_printable_characters (msg, cat):
 	else:
 	    msgid = msg.msgid
 	for c in msgstr:
-	    if (c not in string.printable) and (c not in msgid) and (c not in u"áéíóúüñçÁÉÍÓÚÜÑÇ¿¡|«»©ºª/"):
+	    if (c not in string.printable) and (c not in msgid) and (c not in u"áéíóúüñçÁÉÍÓÚÜÑÇ¿¡|«»©ºª€/"):
 		return [("msgstr", 0, [(0, 0, u'La traducción contiene caracteres no imprimibles')])]
-	    elif (c in string.punctuation) and (c not in msgid) and (c not in u"«»©.,;:_-(|)ºª/"):
+	    elif (c in string.punctuation) and (c not in msgid) and (c not in u"¿¡|«»©ºª€/.,;:()_-"):
 		return [("msgstr", 0, [(0, 0, u'La traducción contiene signos de puntuación no incluidos en el original')])]
     return []
 
@@ -331,7 +331,7 @@ def test_paired_expressions (msg, cat):
     return []
 
 
-_ent_number = re.compile("\b\d+(?:[\s.,:/-]\d+)*\b", re.U)
+_ent_number = re.compile("\b\d+([\s.,:/-]\d+)*\b", re.U)
 _not_digit = re.compile("\D", re.U)
 
 def test_paired_numbers (msg, cat):
@@ -397,7 +397,7 @@ def test_paired_context_tags (msg, cat):
 
     return []
 
-_ent_xml_entities = re.compile("\<\/?\w+?\>", re.U)
+_ent_xml_entities = re.compile("\<\/(application|bcode|command|email|emphasis|envar|filename|icode|interface|link|message|nl|numid|placeholder|resource|shortcut|note|warning|para|title|subtitle|list|item|)\>", re.U)
 
 def test_paired_xml_entities (msg, cat):
     """
