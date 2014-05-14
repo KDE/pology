@@ -652,6 +652,7 @@ valid msgstr="entregará" after="will\s(\w+\s)?"
 valid msgstr="envió" after="did\s(\w+\s)?"
 valid msgstr="aplicó" after="did\s(\w+\s)?"
 valid msgstr="entregó" after="did\s(\w+\s)?"
+valid before="\-Digests?"
 hint="«Commit» se traduce como «Enviar/Aplicar/Entregar» (propuesta glosario)"
 
 {\bcommits\b}i
@@ -1027,6 +1028,8 @@ valid msgstr="resumió" after="did\s(\w+\s)?"
 valid msgstr="sintetizó" after="did\s(\w+\s)?"
 valid msgstr="asimiló" after="did\s(\w+\s)?"
 valid msgstr="DIGEST-MD5"
+valid after="Commit\-"
+valid after="KDE\-CVS\s"
 hint="«Digest» se traduce como «Resumen/Síntesis» (propuesta glosario)"
 
 {\bdigests\b}i
@@ -1036,6 +1039,8 @@ valid msgstr="sinteti(za|ce)"
 valid msgstr="asimil[ea]"
 valid msgstr="resúmenes"
 valid msgstr="síntesis"
+valid after="Commit\-"
+valid after="KDE\-CVS\s"
 hint="«Digests» se traduce como «Resúmenes/Síntesis» (propuesta glosario)"
 
 {\bdiscard\b}i

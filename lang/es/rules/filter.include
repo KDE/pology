@@ -47,15 +47,15 @@ addFilterRegex match="\b(dd\s)?(if|of)\=(\/[\w.#+-]+)+" repl="~" casesens="yes" 
 
 # Remove Linux files
 addFilterRegex match="\b(bin|boot|dev|etc|home|lib|lib64|lost\+found|media|mnt|opt|proc|root|run|sbin|srv|sys|tmp|usr|var)(\/[\w.#+-]+)+" repl="~" casesens="yes" on="pmsgid,pmsgstr"
-addFilterRegex match="(\$\w+|\$\{\w+\}|(KDE|QT|JAVA)\w*|\.kde\d?|~)(\/[\w.#+-]+)+" repl="~" casesens="yes" on="pmsgid,pmsgstr"
+addFilterRegex match="(\$\w+|\$\(.*?\)|\$\{.*?\}|(KDE|QT|JAVA)\w*|\.kde\d?|~)(\/[\w.#+-]+)+" repl="~" casesens="yes" on="pmsgid,pmsgstr"
 
 # Remove Windows files
 addFilterRegex match="\b[A-Z]\:(\\{1,2}[\w.#+-]+)+\b" repl="~" casesens="yes" on="pmsgid,pmsgstr"
 
 # Remove some shell variables
 addFilterRegex match="\$\w+" repl="~" on="pmsgid,pmsgstr"
-addFilterRegex match="\$\{\w+\}" repl="~" on="pmsgid,pmsgstr"
-addFilterRegex match="\$\(\w+\)" repl="~" on="pmsgid,pmsgstr"
+addFilterRegex match="\$\{.*?\}" repl="~" on="pmsgid,pmsgstr"
+addFilterRegex match="\$\(.*?\)" repl="~" on="pmsgid,pmsgstr"
 
 # Remove functions calls
 addFilterRegex match="(\w+\:\:)*\w+\(.*?\)" repl="~" on="pmsgid,pmsgstr"

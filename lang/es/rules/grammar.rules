@@ -807,11 +807,11 @@ hint="Las siglas se escriben en singular en español, quite la «s» final (erro
 id="gr-1-siglas-plural-2"
 hint="Las siglas se escriben en singular en español, quite la «'s» final (error gramatical)"
 
-[(?u)\b\&[\w\-_]+\;s\b]
+[(?u)\b\&[\w-]+\;s\b]
 id="gr-1-siglas-plural-3"
 hint="Las siglas se escriben en singular en español, quite la «s» final (error gramatical)"
 
-[(?u)\b\&[\w\-_]+\;\'s\b]
+[(?u)\b\&[\w-]+\;\'s\b]
 id="gr-1-siglas-plural-4"
 hint="Las siglas se escriben en singular en español, quite la «'s» final (error gramatical)"
 

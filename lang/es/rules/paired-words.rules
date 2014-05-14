@@ -34,10 +34,10 @@ hint="Valores de números o fechas en la traducción distintos al original"
 id="pw-1-error-etiquetas-contexto"
 hint="Traducidos valores contenidos entre etiquetas de contexto no traducibles"
 
-addFilterRegex match="\<\/?quote\>" repl="~" on="pmsgid,pmsgstr"
+# addFilterRegex match="\<\/?quote\>" repl="~" on="pmsgid,pmsgstr"
 *hook name="es:compare_with_original/test_paired_xml_entities" on="msg"
 id="pw-1-error-etiquetas-xml"
-hint="Sobran o faltan etiquetas XML (texto entre < y >)"
+hint="Sobran o faltan etiquetas semánticas XML (texto entre < y >)"
 
 addFilterHook name="es:remove_subs/remove_paired_parameters" on="msg"
 
@@ -88,14 +88,14 @@ addFilterRegex match="(?<=\w)\s(aka|da|de|de\sla|del|der|do|du|la|van|vom|von)\s
 # Omit single quotes and dashes into names.
 addFilterRegex match="(?<=\w)[\'-](?=\w)" repl="" on="pmsgid,pmsgstr"
 
-# Omit dots after names and treatments.
+# Omit dots after names and treatements.
 addFilterRegex match="(?<=\w)\.(?=\s[A-Z])" casesens="yes" repl="" on="pmsgid,pmsgstr"
 
 *hook name="es:compare_with_original/test_if_not_translated" on="msg"
 id="pw-1-error-mensaje-sin-traducir"
 valid msgid="^\W+$" # Mensaje sin caracteres alfabéticos
 valid msgid="^[^a-záéíóúüñç]+$" # Mensaje que no contiene minúsculas
-valid msgid="^[A-Z]\w*(\s[A-Z]\w*)*$" # Mensaje con todas las palabras comenzando por mayúscula
+valid msgid="^[A-Z].*?(\s[A-Z].*?)*$" # Mensaje con todas las palabras comenzando por mayúscula
 hint="No se ha traducido el mensaje original"
 
 # End of rule file

@@ -440,6 +440,7 @@ id="ty-2-espacio-de-separacion-en-unidad-medida"
 valid span="[23]G"
 valid span="[23]D"
 valid after="[A-Za-z-]"
+valid after="\%\."
 valid span="\d[a-z]" before="\)"
 hint="Es necesario un espacio de separación entre el número y la unidad de medida"
 
