@@ -838,3 +838,46 @@ def _remove_literals_file (text, subs=""):
     text = _remove_by_rx(text, _literal_fileext_rx, subs)
     return text
 
+
+def convert_plurals (mapping, plhead):
+    """
+    Convert plural forms in the catalog [hook factory].
+    
+    @param mapping: The source to destination mapping of form indices.
+        This is a list of tuples of source (before modification)
+        to destination (after modification) indices.
+        There must be no gaps in the destination indices,
+        i.e. all indices from 0 up to maximum given destination index
+        must exist in the mapping.
+    @type mapping: [(int, int)*]
+
+    @param plhead: The plural header value.
+    @type plhead: string
+
+    @return: type F5A hook
+    @rtype: C{(cat) -> numerr}
+    """
+
+    dst_inds = map(set, zip(*mapping))[1]
+    num_plurals = max(dst_inds) + 1
+    if sorted(dst_inds) != range(num_plurals):
+        raise PologyError(
+            _("@info",
+              "Gaps in destination indices for conversion of plural forms "
+              "(expected (%(list1)s), got (%(list2)s)).",
+              list1=format_item_list(range(num_plurals)),
+              list2=format_item_list(sorted(dst_inds))))
+
+    ord_src_inds = zip(*sorted(mapping, key=lambda x: x[1]))[0]
+    def hook (cat):
+        cat.header.set_field(u"Plural-Forms", unicode(plhead),
+                             after="Content-Transfer-Encoding")
+        for msg in cat:
+            if msg.msgid_plural is not None:
+                msg.msgstr[:] = [msg.msgstr[i] for i in ord_src_inds]
+
+        return 0
+
+    return hook
+
+
