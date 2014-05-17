@@ -536,7 +536,7 @@ hint="Un accent tancat sol «’» és un error, excepte a ordres de terminal (t
 
 # « '» un apóstrof inicial és un error (ull amb les ordres!). Substituir per «
 [\s']
-valid after="servir" cat="kwriteconfig"
+valid after="servir" cat="kwriteconfig,kconfig5_qt"
 valid after="hh|mm|ss"
 valid after="\'\," cat="analitza"
 valid after="useu" cat="kexi"
@@ -560,7 +560,7 @@ valid cat="kmplot_using" # docmessages
 valid after="Surfin" cat="amarok"
 valid after="\\a?" cat="kile"
 valid after="esperava\s``\:'" cat="kdevcpp"
-valid after="servir\s'" cat="kwriteconfig"
+valid after="servir\s'" cat="kwriteconfig,kconfig5_qt"
 valid after="\s00"
 valid after="Luciash\sd" cat="kopete"
 valid after="presa" cat="digikam"
