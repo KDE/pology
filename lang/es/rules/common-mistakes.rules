@@ -1144,6 +1144,10 @@ hint="«Mucha calor» se escribe como «Mucho calor» (error frecuente)"
 id="cm-1-muy-con-tilde"
 hint="«Múy» se escribe como «Muy» (error frecuente)"
 
+[\bnadie\sde\s(nosotros|vosotros)\b]i
+id="cm-2-nadie-de-nosotros"
+hint="«Nadie de nosotros/vosotros» se escribe como «Ninguno de nosotros/vosotros» (error frecuente)"
+
 [\bnexos?\sde\sunión\b]i
 id="cm-2-nexo-de-union"
 hint="«Nexo de unión» se escribe como «Nexo» (error frecuente: redundancia)"
@@ -1271,6 +1275,10 @@ hint="«Primer vez» se escribe como «Primera vez» (error frecuente)"
 [\bpunto\sy\sfinal\b]i
 id="cm-1-punto-y-final"
 hint="«Punto y final» se escribe como «Punto final» (error frecuente)"
+
+[\b(pueden|podían|podrán)\shaber\b]i
+id="cm-2-pueden-haber"
+hint="«Pueden haber» se escribe como «Puede haber» (error frecuente)"
 
 [\bpuntos\sclaves\b]i
 id="cm-2-puntos-claves"
@@ -1623,6 +1631,10 @@ hint="«Vió» se escribe como «Vio» (error frecuente)"
 [\bvigente\scampeón\b]i
 id="cm-2-vigente-campeon"
 hint="«Vigente campeón» se escribe como «Actual campeón» (error frecuente)"
+
+[\bvolv\w+\sa\sinsistir\b]i
+id="cm-2-volver-a-insistir"
+hint="«Volver a insistir» se escribe como «Insistir» (error frecuente: redundancia)"
 
 [\bX\sWindows\b]
 id="cm-3-x-windows"

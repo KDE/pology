@@ -181,7 +181,7 @@ corregir() {
     for PAQUETE in $ORIGEN/*; do
 	if [ -d $PAQUETE ]; then
 	    echo "Procesando...:" $PAQUETE
-	    for ((I=0; I<${#P[@]}; I++)); do
+	    for ((I=112; I<${#P[@]}; I++)); do
 		echo "Analizando...:" "${P[$I]}"
 		$PROGRAMA '-bR' $OPCION $PARAMETROS -s msgstr:"${P[$I]}" -s replace:"${R[$I]}" $PAQUETE 
 	    done

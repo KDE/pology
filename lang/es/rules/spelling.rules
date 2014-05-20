@@ -40,6 +40,9 @@ addFilterRegex match="\b[a-zA-Z]+\d\w*\b" repl="" casesens="yes" on="pmsgid,pmsg
 # Omit particles between propernames.
 addFilterRegex match="(?<=\w)\s(aka|da|de|de\sla|del|der|do|du|la|van|vom|von)\s(?=[A-Z])" repl=" " casesens="yes" on="pmsgid,pmsgstr"
 
+# Omit saxon genitive.
+addFilterRegex match="(?<=\w)\'s\b" repl="" on="pmsgid,pmsgstr"
+
 # Omit single quotes into names.
 addFilterRegex match="(?<=\w)\'(?=\w)" repl="" on="pmsgid,pmsgstr"
 

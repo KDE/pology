@@ -13,7 +13,7 @@ case $1 in
 	    if [[ $i =~ ^[0-3]+$ ]];
 	    then
 		NIVEL=$NIVEL$i
-	    elif [[ $i =~ ^(bp|cm|dc|ff|gd|gr|gp|gk|pw|pb|pe|pn|sp|tr|ty|ui)$ ]];
+	    elif [[ $i =~ ^(bp|cm|dc|ff|gd|gr|gp|gk|pw|pb|pe|pn|sp|te|tr|ty|ui)$ ]];
 	    then
 		if [[ $REGLA == "" ]];
 		then

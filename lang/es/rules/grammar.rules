@@ -53,6 +53,7 @@ valid before="menor\b"
 valid before="con\b"
 valid before="sin\b"
 valid before="como\b"
+valid before="alrededor\b"
 
 validGroup singularName
 valid before="(?u)\w+[^s]\b"
@@ -1567,6 +1568,10 @@ hint="«Habemos» se escribe como «Hemos/Somos» (error gramatical)"
 id="gr-1-haber-habido"
 hint="«Habían/Habrán/Han/Hayan/Hubieran habido» se escribe como «Había/Habrá/Ha/Haya/Hubiera habido» (error gramatical)"
 
+[(?u)\b(habían|habrán|han|hayan|hubieran)\s\w{2,}(as|es|is|ían|ais|eís)\b]i
+id="gr-1-habian-verbo-plural"
+hint="«Habían/Habrán/Han/Hayan/Hubieran» va seguido de verbo en singular (error gramatical)"
+
 [(?u)\b(haber|he|has|ha|hemos|habéis|han|haya)\secho\b]i
 id="gr-1-haber-echo"
 hint="«Haber echo» se escribe como «Haber hecho» (error gramatical)"
@@ -1873,6 +1878,14 @@ hint="Después de «Inferior, Superior, Anterior, Posterior» no debe figurar «
 [(?u)\bte\s(de|verde|rojo|negro|perla|[A-Z]\w+)\b]i
 id="gr-2-te-infusion"
 hint="La planta/infusión «té» lleva tilde (error gramatical)"
+
+[(?u)\bnadie\s\w{2,}(as|es|is|ían|ais|eís)\b]i
+id="gr-2-nadie-verbo-plural"
+hint="Nadie va seguido de verbo en singular (error gramatical)"
+
+[(?u)\bningun[oa]\s\w{2,}(as|es|is|ían|ais|eís)\b]i
+id="gr-2-ninguno-verbo-plural"
+hint="Ninguno/a va seguido de verbo en singular (error gramatical)"
 
 #
 # QUEISMOS

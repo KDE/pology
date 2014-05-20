@@ -354,7 +354,8 @@ hint="No ponga el signo de apóstrofo antes de números"
 id="ty-2-falta-mayuscula-despues-punto"
 valid after="\.\."
 valid span="\.\s[a-z]*?[A-Z]"
-valid span="\.\shttps?"
+valid span="\.\shttp"
+valid span="\.\s(van|von)" before="\s[A-Z]"
 hint="Utilice mayúsculas después de punto"
 
 [(?<=\S)\?\s[a-zñçáéíóú]]
@@ -376,6 +377,7 @@ hint="Cierre el paréntesis (deben ir emparejados)"
 [(?s)[\[](?!.*?[\]])]
 id="ty-3-falta-cierre-corchete"
 valid before="(?s).*?[\)\(\{«\'\"\[]"
+valid after="Apple\s[\]]"
 hint="Cierre el corchete (deben ir emparejados)"
 
 [(?s)\{(?!.*?\})]
@@ -459,6 +461,7 @@ valid msgid="^$"
 valid before="\s(de\s)?[A-Z]"
 valid after="\&[\w-]+;"
 valid after="[A-ZÑÇ]\w+"
+valid span=",\s(Inc|Universidad|Instituto)"
 hint="Utilice minúsculas después de coma o punto y coma"
 
 [(?u)\([A-Z]\w+]
