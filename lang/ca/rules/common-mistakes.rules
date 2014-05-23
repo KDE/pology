@@ -228,6 +228,7 @@ hint="«ves» (verb anar) cal que porti accent «vés» (error freqüent)"
 
 # «widget» es tradueix per «estri».
 {\bwidgets?\b}i
+valid msgstr="widgets" cat="www_www" 
 valid msgstr="widget" cat="kdm_theme-ref" # docmessages
 valid msgstr="estris?"
 valid msgstr="Widget, true" cat="kommander_dcop" # docmessages
