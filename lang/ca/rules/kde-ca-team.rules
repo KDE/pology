@@ -228,6 +228,10 @@ valid msgstr="desencriptatge"
 valid msgstr="desencriptar"
 hint="Es tradueix per «desencriptatge» (kde-ca-team)"
 
+{\bdetached\b}i
+valid msgstr="acobla(da|des|r|ts?)"
+hint="Es tradueix per «desacoblar» (kde-ca-team)"
+
 {\bdialogs?\b}i
 valid msgid="dialogs?.?box(es|s)?"		# -> diàleg/s
 valid msgid="login.?(dialogs?|box(es|s)?)"	# -> quadre/s / diàleg/s d'inici de sessió
@@ -279,8 +283,8 @@ valid msgstr="acoblament"
 hint="Es tradueix per «acobla/t, acoblament» (kde-ca-team)"
 
 {\bdocked\b}i
-valid msgstr="acobla(da|des|ts?)"
-hint="Es tradueix per «acoblat/s, acoblada/es » (kde-ca-team)"
+valid msgstr="acobla(da|des|r|ts?)"
+hint="Es tradueix per «acoblar, acoblat/s, acoblada/es» (kde-ca-team)"
 
 {\bdockers?\b}i
 valid msgstr="acobladors?"
