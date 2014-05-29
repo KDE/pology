@@ -66,6 +66,7 @@ valid after="\d+" before="\s?\d+"
 valid after="^" cat="kalgebra"
 valid after="pty.+" cat="kdevgdb"
 valid cat="amarokcollectionscanner_qt"
+valid cat="baloo_queryparser"
 valid msgstr="src \: bash" cat="konsole" # docmessages
 valid msgstr="H \: màquina remota" cat="konsole" # docmessages
 valid msgstr="\s\:\s" cat="kalgebra" # docmessages
@@ -107,6 +108,7 @@ valid span="\:e"
 valid span="\:(0|1|\*)" cat="kdm_kdmrc-ref" # docmessages
 valid cat="kdevcvs"
 valid cat="jointhegame"
+valid cat="baloo_queryparser"
 valid msgstr="HH:MM\[\:SS\]" # docmessages
 hint="S'ha de posar un espai després del signe dels dos punts (tipografia)"
 
@@ -142,6 +144,7 @@ valid ctx="unit synonyms for matching user input"
 valid ctx="Query"
 valid cat="tables,kcells,kspread,sheets,krossmodulesheets"
 valid cat="desktop_kdeplasma-addons" ctx="Keywords"
+valid cat="baloo_queryparser"
 valid span=";$"
 valid span=";*" cat="kfilereplace"
 valid span=";~" cat="kfind" # docmessages
@@ -174,6 +177,7 @@ valid after="\[" cat="kmymoney"
 valid before="="
 valid before="~"
 valid span="\!="
+valid cat="baloo_queryparser"
 hint="S'ha de posar un espai després del signe d'admiració (tipografia)"
 
 [.*?\!\.]
@@ -227,6 +231,7 @@ valid after="i\s" cat="lokalize"
 valid after="\*" cat="adblock"
 valid after="seleccioneu\s.*" cat="koffice,calligra"
 valid before=".+expansió" cat="libksieve"
+valid cat="baloo_queryparser"
 valid msgstr=">\n" cat="kfilereplace" # docmessages
 hint="S'ha de posar un espai després del signe d'interrogació (tipografia)"
 
@@ -247,6 +252,7 @@ valid comment="Tag\:\sprogramlisting" cat="kdm" # docmessages
 valid after="\d+" before="\s?\d+"
 valid after="Delta" cat="kstars"
 valid cat="kst_common"
+valid cat="baloo_queryparser"
 valid comment="Tag\:\sliterallayout" cat="ktimetracker" # docmessages
 hint="No s'ha de posar cap espai abans del signe de coma (tipografia)"
 
@@ -379,6 +385,7 @@ valid span="\.~"
 valid span="\.(h|c)" cat="desktop_applications_kate,desktop_kdesdk,kateopenheader,kate_plugins,kdevformatters,kate,pate"
 valid span="\.\*" cat="kdiff3,kdeprint4,amarok"
 valid comment="Tag\:\sscreen" cat="kmail_faq" # docmessages
+valid cat="baloo_queryparser"
 hint="S'ha de posar un espai després d'un signe de punt (tipografia)"
 
 [\.\)]
@@ -456,6 +463,7 @@ valid after="·" # punt volat de la l·l geminada
 valid after="-"
 valid after="&"
 valid before="·"
+valid cat="baloo_queryparser"
 hint="Hi ha dos articles repetits o consecutius (tipografia)"
 
 [\b(del|dels)\s(del|dels)\b]
