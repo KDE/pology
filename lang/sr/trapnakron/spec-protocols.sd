@@ -49,6 +49,8 @@ IMAP4rev1: ИМАП4рев1|*, ИМАП4рев1|>, _род!=м
 IP: ИП|-, ИП|>
 IPv4: ИПв4|*, ИПв4|>, _род!=м
 IPv6: ИПв6|*, ИПв6|>, _род!=м
+IPsec: ИПсек|, ИПсек|>
+    @л: IPsec|, IPsec|>
 iTIP: иТИП|-, иТИП|-ов, иТИП|>
 Kademlia: кадемлиј|а, кадемлиј|ин, кадемлиј|ски
     @л: Kademl|ia, Kademlij|in
@@ -58,6 +60,8 @@ Kerberos4: |{Kerberos}-4
     @л: |{Kerberos}4
 Kerberos5: |{Kerberos}-5
     @л: |{Kerberos}5
+L2TP: Л2ТП|-, Л2ТП|>, _пр=Layer 2 Tunneling Protocol
+    @л: L2TP|-, L2TP|>
 LCP: ЛЦП|-, ЛЦП|>, _пр=Link Control Protocol
 LDAP: ЛДАП|-, ЛДАП|>
 LEAP: ЛЕАП|-, ЛЕАП|>, _пр=Lightweight Extensible Authentication Protocol

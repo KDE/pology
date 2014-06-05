@@ -269,6 +269,7 @@ NaN: НаН|-, НаН|>, _пр=not a number
 NAP, |nappnt: НАП|-, НАП|>, _пр=network access point
 NIS: НИС|-, НИС|>
 NRL: НРЛ|-, НРЛ|>
+NSP: НСП|-, НСП|>, _пр=network service provider
 NTA: НТА|-, НТА|>
 NTBS: НТБС|-, НТБС|>, _пр=null-terminated byte string
 NTLM: НТЛМ|-, НТЛМ|>
@@ -303,10 +304,12 @@ PDQ: ПДКу|-, ПДКу|>
 PEM: ПЕМ|-, ПЕМ|>
 PEP: ПЕП|-, ПЕП|>, _пр=Python enhancement proposal
 PF, |pfgrp: ПФ|-, ПФ|>, _пр=perfect forward
+PH-FSIM: ПХ-ФСИМ|-, ПХ-ФСИМ|>, _пр=phone to first SIM
 PIC: ПИЦ|-, ПИЦ|>
 PID: ПИД|-, ПИД|>
 PIM: ПИМ|-, ПИМ|>
 PIN: ПИН|-, ПИН|>, _пр=personal identification number
+PIN2: ПИН|- 2, н&а=ПИН2, ПИН2|>
 PME: ПМЕ|-, ПМЕ|>
 PM: ПМ|-, ПМ|>
 PMC: ПМЦ|-, ПМЦ|>
@@ -326,6 +329,7 @@ PTY: ПТ|И-, ПТИ|>
     @л: PT|Y-, PTY|>
 PUF: ПУФ|-, ПУФ|>
 PUK: ПУК|-, ПУК|>, _пр=PIN unblocking key
+PUK2: ПУК|- 2, н&а=ПУК2, ПУК2|>
 PW: ПВ|-, ПВ|>
     @л: PW|-, PW|>
 Q.921: Ку.921|*, Ку.921|>, _род!=м
@@ -427,6 +431,7 @@ UUID: УУИД|-, УУИД|>
 VBR: ВБР|-, ВБР|>, _пр=variable bit rate
 VCS: СУВ|-, СУВ|>, СУВ|-ов, _пр=систем за управљање верзијама, _про=version control system
 VGA: ВГА|-, ВГА|>
+VLAN: ВЛАН|-, ВЛАН|>, _пр=virtual LAN
 VoIP: ВоИП|-, ВоИП|>, _пр=voice over IP
 VPN: ВПН|-, ВПН|>, _пр=virtual private network
 VT100: ВТ100|*, ВТ100|>, _род!=м
