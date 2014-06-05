@@ -1100,6 +1100,7 @@ id="t-website"
 hint="website = веб сајт"
 # Ако извор не скраћује може и не мора скраћено у преводу,
 # ако извор скраћује мора скраћено у преводу.
+valid before="-local" # на t-sitelocal
 valid span="^web" msgstr="\bсајт"
 valid span="^site" msgstr="(?<!веб )\bсајт"
 
