@@ -84,7 +84,7 @@ def _naked_latin_w (msgstr, msg, cat, origui=False, sideeffect=False):
 
     # Avoid meta-messages.
     if (   msg.msgctxt in ("EMAIL OF TRANSLATORS",)
-        or (    cat.name.startswith("desktop_")
+        or (    cat.name.endswith(".desktop")
             and msg.msgctxt in ("Keywords", "Query"))
     ):
         if sideeffect:

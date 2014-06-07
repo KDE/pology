@@ -51,7 +51,11 @@ def is_txt_cat (catname, subdir):
     up1dir = os.path.basename(subdir)
     if up1dir == "others":
         return False
-    return catname.startswith("desktop_") or catname.startswith("xml_")
+    return (False
+        or catname.startswith("desktop_")
+        or (catname.endswith(".desktop") and not catname.endswith("org.kde.desktop"))
+        or catname.startswith("xml_")
+    )
 
 
 # - pure Qt

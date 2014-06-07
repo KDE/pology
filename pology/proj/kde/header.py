@@ -76,10 +76,6 @@ def equip_header (hdr, cat):
         accmark = "&"
         mtypes = ["kde4"]
 
-    # Special handling for particular catalogs.
-    if cname == "desktop_kdebase":
-        accmark = "&"
-
     fvs = []
     fvs.append(("Language", lang, "Language-Team", False))
     fvs.append(("X-Environment", u"kde", None, True))
