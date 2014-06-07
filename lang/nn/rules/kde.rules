@@ -14,6 +14,7 @@ include file="puretext.filters"
 id="skildring-punktum"
 hint="Skildringar av tema, brett o.l. må avsluttast med punktum."
 valid !catrx="^desktop_.*"
+valid !catrx=".*\.desktop$"
 valid !ctx="^Description$"
 valid !srcref="\.desktop"
 

@@ -487,7 +487,6 @@ valid after="Windows\(R" before="\)" msgid="Windows\(R\)\)" cat="kfileshare"
 valid after="\((π/2|π)" before="\)" cat="kmplot"
 valid after="\.(xmi|mdl|kml|gpx)" before=";;"
 valid after="\(プロプライエタリ" before="\)" cat="kvpnc"
-valid before="\\\s" cat="desktop_kdebase"
 valid cat="kspread"
 
 [[A-Za-z]+]

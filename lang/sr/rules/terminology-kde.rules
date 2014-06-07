@@ -239,7 +239,6 @@ valid msgstr="&\w*config\S*;"
 valid msgstr="\bпоставк"
 valid msgid="config(uration)? module" msgstr="контролн\w+ модул"
 valid cat="katepart4" msgid="config(uration)? page" msgstr="одеља?к"
-valid cat="desktop_kdebase" msgid="configuration tool.*programs start up" msgstr="одређивање"
 valid cat="klock" msgid="potential energy" msgstr="устројств"
 
 {\bconfiguration dialog}i
@@ -420,7 +419,7 @@ id="t-filemanager"
 hint="file manager = менаџер фајлова"
 valid msgstr="\bменаџер\w* фајлова"
 valid msgstr="&\w*filemanager\S+;"
-valid cat="filetypes,desktop_kdebase" msgid="Konqueror\S* file manager" !msgstr="менаџер|управ(љач|ник)"
+valid cat="filetypes" msgid="Konqueror\S* file manager" !msgstr="менаџер|управ(љач|ник)"
 valid cat="dolphin" msgid="default file manager.*virtual" msgstr="подразумева и за отварање.*вирт"
 
 {\bfile ?names?\b}i
@@ -606,7 +605,7 @@ valid cat="kdelibs4" msgid="header line"
 valid cat="kio4" msgid="^Subject line$" msgstr="^Наслов$"
 valid cat="kcmusb" msgid="direct line" msgstr="директн\w+ вез"
 valid cat="PO_Odyssey" msgid="constellation" msgstr="\bлиниј"
-valid cat="kmix,kxsconfig,desktop_kdeartwork,okular,ksquares" msgstr="\bлиниј"
+valid cat="kmix,kxsconfig,desktop_kdeartwork,kdeartwork.desktop,okular,ksquares" msgstr="\bлиниј"
 valid cat="okular" after="leader " msgstr="изводниц"
 valid catrx="kppp" # скоро увек телефонска линија
 valid catrx="konversation" # скоро увек линија подсећања или улазна линија
@@ -729,13 +728,11 @@ id="t-paste"
 hint="paste = налепити"
 valid msgstr="\bналеп"
 valid msgstr="&(paste)\S*;"
-valid cat="desktop_kdebase" msgid="paste history utility"
 
 {\bpattern}i
 id="t-pattern"
 hint="pattern = образац"
 valid msgstr="\b(против)?обра(зац|сц)"
-valid cat="desktop_kdebase" msgid="pattern="
 
 {\bPlasma}i
 id="t-plasma"
@@ -755,7 +752,6 @@ hint="plugin = прикључак"
 valid msgstr="\bприкључ[акц]"
 valid cat="phonon_gstreamer,kdeqt" msgid="-plugin" msgstr="-plugin"
 valid cat="ktraderclient" msgid="KMyApp/Plugin"
-valid cat="desktop_kdesdk" msgid="Kate Python Browser Plugin"
 valid cat="katefiletemplates" !msgid="^Template Plugin$"
 
 {\b(cursor|pointer)}i
@@ -890,7 +886,6 @@ valid cat="kppp" before=" provider" # често се помиње скраће�
 valid cat="kurifilter" msgid="automatic lookup services"
 valid cat="kcmsamba" msgid="provide.*sharing service"
 valid cat="kcmkio" msgid="provides services"
-valid cat="desktop_kdebase" msgid="National Weather Service" msgstr="\bслужб"
 
 # о-рук
 {\b(preference|setting)s?}i
@@ -1052,7 +1047,6 @@ id="t-viewer"
 hint="viewer = приказивач"
 valid msgstr="\bприказива[чњ]" !msgstr="приказивачом"
 valid msgstr="&\w*viewer\S*;"
-valid cat="desktop_kdebase" msgid="text editor.*text viewer and editor"
 valid cat="dolphin" msgid="universal viewer" msgstr="универзалн\w+ прегледач"
 
 {\bvirtual desktop}i
@@ -1114,7 +1108,6 @@ id="t-widget"
 hint="widget = виџет"
 valid msgstr="\bвиџет"
 valid msgstr="&\w*widget\S*;"
-valid cat="desktop_kdebase" msgid="dashboard widget" msgstr="инструмент-табл"
 valid cat="kcmkwm" msgid="popup widget" msgstr="искачућ\w+ спис"
 
 {\bwizard}i
