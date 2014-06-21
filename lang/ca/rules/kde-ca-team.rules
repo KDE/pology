@@ -165,6 +165,11 @@ hint="Es tradueix per «quadre/s de confirmació» (kde-ca-team)"
 valid msgstr="menús? contextuals?"
 hint="Es tradueix per «menú/s contextual/s» (kde-ca-team)"
 
+{\bcontrol\sflows?\b}i
+valid msgstr="flux(os)? de control"
+valid !msgstr="control del? flux"
+hint="Es tradueix per «flux/os de control» (kde-ca-team)"
+
 {\bcorpus(es)?\b}i
 valid msgstr="corpus"
 hint="Es tradueix per «corpus» (kde-ca-team)"
@@ -385,6 +390,20 @@ hint="Es tradueix per «gest/os» (kde-ca-team)"
 {\bgesture\strigger\b}i
 valid msgstr="activador del gest"
 hint="Es tradueix per «activador del gest» (kde-ca-team)"
+
+{\bgraphs?\b}i
+valid msgid="Graph Theory" # www/www_www.po
+valid msgstr="gràfi(c|cs|ca|ques)"
+valid msgstr="grafs?" cat="desktop_kdeedu_rocs,rocs,rocscore,rocsvisualeditor,rocs_apiConsole,rocs_apiDatastructure,rocs_apiGraphstructure,rocs_apiLinkedListstructure,rocs_apiRootedTreestructure,rocs_chapterImportExport"
+hint="Es tradueix per «gràfic/s, gràfica/ques» (kde-ca-team)"
+
+[\bels? gràfi(ca|ques)\b]i
+valid msgstr="l(a|es) gràfi(ca|ques)"
+hint="Es tradueix per «la/les gràfica/ques» (kde-ca-team)"
+
+[\bl(a|es) gràfics?\b]i
+valid msgstr="els? gràfics?"
+hint="Es tradueix per «el/s gràfic/s» (kde-ca-team)"
 
 {\bicon\slist\b}i
 valid msgstr="llista d'icones"
@@ -768,6 +787,10 @@ hint="Es tradueix per «espai de treball» (kde-ca-team)"
 {\bseamless\sworkflows?\b}i
 valid msgstr="fer la feina sense constrenyiments"
 hint="Es tradueix per «fer la feina sense constrenyiments» (kde-ca-team)"
+
+{\bwith\sreturn\scode\b}i
+valid msgstr="retornant el codi"
+hint="Es tradueix per «retornant el codi» (kde-ca-team)"
 
 {\bworkflows?\b}i
 valid msgid="seamless workflows?"
