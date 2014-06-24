@@ -247,6 +247,7 @@ valid before="\-"
 valid msgstr="bloque(ar|o|e|a)?"
 valid msgstr="bloqueará" after="will\s(\w+\s)?"
 valid msgstr="bloqueó" after="did\s(\w+\s)?"
+valid msgstr="candado"
 valid after="ad[\s-]"
 hint="«Block» se traduce como «Bloque» o «Bloquear» (ver glosario)"
 
@@ -255,6 +256,7 @@ id="gk-2-blocks"
 valid before="\-"
 valid msgstr="bloque(s|a|e)"
 valid msgstr="(algún|cualquier|ningún)\sbloque"
+valid msgstr="(algún|cualquier|ningún)\scandado"
 hint="«Blocks» se traduce como «Bloques» o «Bloquea»(ver glosario)"
 
 {\bbold\b}i

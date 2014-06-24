@@ -66,6 +66,7 @@ valid msgstr="libres?"
 valid msgstr="faltan?"
 valid msgstr="zurd[ao]s?" before="\shanded"
 valid before="\s(out|over)"
+valid after="(be|being|is|are)\s"
 hint="«Left» se traduce como «Izquierda» o similar (error de concordancia)"
 
 {\bright\b}i

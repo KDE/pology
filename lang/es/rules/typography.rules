@@ -79,13 +79,13 @@ valid ctx="Hours:minutes:seconds"
 valid ctx="CSV separator"
 valid ctx="Query"
 valid after="^"
-valid after="file|gg|mailto|man|whatsthis|kmail|addMsg|config"
-valid after="about|audiocd|bookmarks|camera|ed2k|exec|ftps?|fonts|help|https?|lan|lpr|media|news|network|okular|pmp|parallel|smb|system|trash|umax|vdvd|videodvd|webdavs?"
+valid after="\b(file|gg|mailto|man|whatsthis|kmail|addMsg|config)"
+valid after="\b(about|audiocd|bookmarks|camera|ed2k|exec|ftps?|fonts|help|https?|lan|lpr|media|news|network|okular|pmp|parallel|smb|system|trash|umax|vdvd|videodvd|webdavs?)"
 valid after="\d+\s?" before="\s?\d+"
-valid after="horas|minutos|segundos"
-valid after="font-family|font-size|font-style|font-weight|text-align|text-decoration|margin-top|margin-bottom|-type" # CSS
-valid after="white-space" # CSS
-valid after="servidor"
+valid after="\b(horas|minutos|segundos)"
+valid after="\b(font-family|font-size|font-style|font-weight|text-align|text-decoration|margin-top|margin-bottom|-type)" # CSS
+valid after="\bwhite-space" # CSS
+valid after="\bservidor"
 valid after="\.(com|org|net)" before="\d+"
 valid after="~" before="\d+"
 valid after="\S"
@@ -105,8 +105,8 @@ validGroup beforePunctuation
 valid ctx="Numbers and characters"
 valid ctx="CSV separator"
 valid after="\*\.\w+" before="\*\.\w+" # List of extension suffix
-valid after="center|empty|normal|pt|px|pre-wrap|\d+|[a-f]{1,2}" # CSS
-valid after="bold" before="'"   # CSS
+valid after="\b(center|empty|normal|pt|px|pre-wrap|\d+|[a-f]{1,2})" # CSS
+valid after="\bbold" before="'"   # CSS
 valid before="~"
 valid before="$"
 valid ctx="Keywords"
@@ -281,12 +281,13 @@ hint="No coloque más de un espacio consecutivo"
 
 [(?<=\s)\.]
 id="ty-3-sobra-espacio-antes-punto"
-valid before="\w{1,4}(\b|\.)" # Extensions
+valid before="[a-z0-9]{1,4}\b" # Extensions
+valid before="[A-Z0-9]{1,4}\b" # Extensions
 valid before="\/\w+\b" # Files
 valid before="\w+?(rc|config)\b" # Configuration files
 valid before="\.\."
 valid before="~"
-valid before="(desktop|calendar|directory)\b"
+valid before="\b(desktop|calendar|directory)\b"
 hint="No ponga espacios antes de un signo de punto"
 
 [\([a-z].*?\.\)]
@@ -312,7 +313,8 @@ valid ctx="trans_comment"
 valid ctx="Numbers and characters"
 valid ctx="X\-KDE\-Keywords"
 valid msgid="CREDIT_FOR_TRANSLATORS"
-valid before="\w{1,4}(\b|\.)" # Extensions
+valid before="[a-z0-9]{1,4}\b" # Extensions
+valid before="[A-Z0-9]{1,4}\b" # Extensions
 valid before="\w+?(rc|config)\b" # Configuration files
 valid before="(calendar|desktop|directory|h|html|lock|moc|xml)\b"
 valid before="Fm" after="Last\s"
@@ -338,11 +340,11 @@ valid after="\."
 valid before="\."
 hint="No ponga dos signos de punto consecutivos"
 
-[\s\'\s]
+[\s'\s]
 id="ty-3-apostrofo-suelto"
 hint="No ponga el signo de apóstrofo suelto"
 
-[\'\d]
+['\d]
 id="ty-3-apostrofo-ante-numeros"
 hint="No ponga el signo de apóstrofo antes de números"
 
@@ -353,8 +355,8 @@ hint="No ponga el signo de apóstrofo antes de números"
 [(?<=\S)\.\s[a-zñçáéíóú]\w+]
 id="ty-2-falta-mayuscula-despues-punto"
 valid after="\.\."
-valid span="\.\s[a-z]*?[A-Z]"
-valid span="\.\shttp"
+valid span="\.\s[a-z]*?[A-Z]\w+"
+valid span="\.\shttp\w+"
 valid span="\.\s(van|von)" before="\s[A-Z]"
 hint="Utilice mayúsculas después de punto"
 
@@ -376,7 +378,7 @@ hint="Cierre el paréntesis (deben ir emparejados)"
 
 [(?s)[\[](?!.*?[\]])]
 id="ty-3-falta-cierre-corchete"
-valid before="(?s).*?[\)\(\{«\'\"\[]"
+valid before="(?s).*?[\)\(\{«'\"\[]"
 valid after="Apple\s[\]]"
 hint="Cierre el corchete (deben ir emparejados)"
 
@@ -404,6 +406,7 @@ valid before="\.\."
 valid before="\n"
 valid before="\d"
 valid before="\s[¿¡]"
+valid after="[.:_-]"
 hint="Los elementos químicos no llevan punto"
 
 [\b(a|A|at|atm|b|bar|c|cal|cd|cm|CV|d|da|dB|dm|dyn|erg|eV|f|F|ft|g|G|Gb|GiB|gr|Gs|Gy|h|H|ha|hp|Hz|in|J|k|K|Kb|kg|KiB|km|l|L|lb|lm|lx|m|M|Mb|MiB|mbar|Mc|mg|min|mol|Mx|n|N|Oe|oz|p|P|Pa|pc|pt|Qm|R|rad|s|sr|Sv|t|T|tex|u|UA|V|Wb|yd)\.]
@@ -415,6 +418,7 @@ valid before="\.\."
 valid before="\n"
 valid before="\d"
 valid before="\s[¿¡]"
+valid after="[.:_-]"
 hint="Las unidades de medida no llevan punto"
 
 [\b(N|S|E|O|W|NE|NO|NW|SE|SO|SW)\.]
@@ -425,6 +429,7 @@ valid before="\.\."
 valid before="\n"
 valid before="\d"
 valid before="\s[¿¡]"
+valid after="[.:_-]"
 hint="Los puntos cardinales no llevan punto"
 
 [\b(ALL|ARS|BAM|BBD|BGN|BOB|BRL|BSD|BYR|BZD|CAD|CHF|CLP|COP|CRC|CSD|CUP|CZK|DKK|DOP|ECS|EEK|EUR|GBP|GIP|GTQ|GYD|HNL|HRK|HTG|HUF|ISK|JMD|LTL|LVL|MDL|MKD|MTL|MXP|MXN|NIO|NOK|PAB|PES|PEN|PHP|PLN|PYG|ROL|RON|RUB|SEK|SIT|SKK|SRD|SVC|TRL|TRY|TTD|UAH|USD|UYU|VEB|XAF|XCD)\.]
@@ -446,7 +451,8 @@ valid after="\%\."
 valid span="\d[a-z]" before="\)"
 hint="Es necesario un espacio de separación entre el número y la unidad de medida"
 
-[\b(p\.\s?e\.|p.\sej[^\.]|ejem\.|ej\.)]i
+[\b(p\.\s?e|e\.\s?g|ej|ejem)\b\.?]i
+valid span="ej\." after="p\.\s"
 id="ty-2-abreviatura-por-ejemplo"
 hint="La abreviatura de «por ejemplo» es «p. ej.»"
 

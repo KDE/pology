@@ -881,7 +881,7 @@ hint="«¿Cuando...» se escribe como «¿Cúando...», (error gramatical)"
 id="gr-1-adonde-interrogativo"
 hint="«¿Adonde...» se escribe como «¿Adónde...», (error gramatical)"
 
-[¿ba\sdonde\b]i
+[¿a\sdonde\b]i
 id="gr-1-a-donde-interrogativo-1"
 hint="«¿A donde...» se escribe como «¿Adónde...», (error gramatical)"
 
@@ -1149,7 +1149,7 @@ id="gr-3-falta-coma-despues-hola"
 hint="Ponga una coma después de «Hola» (error gramatical)"
 
 [Generalmente\s]
-id="gr-3-falta-coma-depues-generalmente"
+id="gr-3-falta-coma-despues-generalmente"
 valid before="\w+ando\,"
 hint="Ponga una coma después de «Generalmente» (error gramatical)"
 
