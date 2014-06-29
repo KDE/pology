@@ -1507,6 +1507,13 @@ def select_summit_names (project, options):
     summit_names = list(set(summit_names))
     summit_names.sort(key=lambda x: project.catalogs[SUMMIT_ID].get(x, [[""]])[0][0])
 
+    # Additionaly sort by subdirectory precedence.
+    # This is necessary so that catalogs can be properly moved when gathering,
+    # in case a higher precedence subdirectory was not created before.
+    # Default "~" means that catalogs with no paths will be sorted at end.
+    summit_names.sort(key=lambda x: project.calc_subdir_precedence(
+            project.catalogs[SUMMIT_ID].get(x, [["", "~"]])[0][1]))
+
     return summit_names
 
 
