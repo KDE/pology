@@ -35,6 +35,7 @@ BPP: бпр|*, бпр|>, _род!=м
 BPM: опм|*, _род!=м, _пр=откуцаја по минуту, _про=beats per minute
 BRI: БР|И-, БРИ|>
 BS: БС|-, БС|>, _пр=Backspace
+BSID: БСИД|-, БСИД|>, _пр=base station identifier
 BSS: БСС|-, БСС|>, _пр=block storage segment
 BSSID: БССИД|-, БССИД|>, _пр=basic service set identifier
 BSOD: БСОД|-, БСОД|>
@@ -283,6 +284,8 @@ OEM: ОЕМ|-, ОЕМ|>
 OS: ОС|-, ОС|-ов
 OSD: ОСД|-, ОСД|>
 p2p: п2п|-, п2п|>
+PAC: ПАК|-, ПАК|>, _пр=protected access credential
+    @л: PAC|-, PAC|>
 PAM: ПАМ|-, ПАМ|>
 PAN, |pannet: ¤ПАН|-, ПАН|>, _пр=personal area network
 PANU: ПАНУ|-, ПАНУ|>, _пр=personal area network user
