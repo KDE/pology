@@ -399,8 +399,8 @@ hint="Utilice el símbolo «©» en lugar de «(C)» antes de un número de año
 
 [\b(Ac|Ag|Al|Am|Ar|As|At|Au|B|Be|Bh|Bi|Bk|Br|C|Ca|Cd|Ce|Cf|Cl|Cm|Co|Cr|Cs|Cu|Dy|Er|Es|Eu|F|Fe|Fm|Fr|Ga|Gd|Ge|He|Hf|Hg|Ho|In|Ir|Kr|Kv|La|Li|Lr|Lu|Md|Mg|Mn|Mo|Mt|N|Na|Nb|Nd|Ne|Ni|No|Np|Os|P|Pa|Pb|Pd|Pm|Po|Pr|Pt|Pu|Ra|Rb|Re|Rf|Rh|Rn|Ru|S|Sb|Sc|Se|Sg|Si|Sm|Sn|Sr|Ta|Tb|Tc|Te|Th|Ti|Tl|Tm|U|V|Xe|Y|Yb|Zn|Zr)\.]
 id="ty-2-punto-en-elemento-quimico"
-valid span="\w+\." before="\s[A-Z]\w+"
-valid span="\w+\." before="\w+\."
+valid before="\s[A-Z]"
+valid before="\w+\."
 valid before="$"
 valid before="\.\."
 valid before="\n"
@@ -411,8 +411,8 @@ hint="Los elementos químicos no llevan punto"
 
 [\b(a|A|at|atm|b|bar|c|cal|cd|cm|CV|d|da|dB|dm|dyn|erg|eV|f|F|ft|g|G|Gb|GiB|gr|Gs|Gy|h|H|ha|hp|Hz|in|J|k|K|Kb|kg|KiB|km|l|L|lb|lm|lx|m|M|Mb|MiB|mbar|Mc|mg|min|mol|Mx|n|N|Oe|oz|p|P|Pa|pc|pt|Qm|R|rad|s|sr|Sv|t|T|tex|u|UA|V|Wb|yd)\.]
 id="ty-2-punto-en-unidad-medida"
-valid span="\w+\." before="\s[A-Z]\w+"
-valid span="\w+\." before="\w+\."
+valid before="\s[A-Z]"
+valid before="\w+\."
 valid before="$"
 valid before="\.\."
 valid before="\n"
@@ -423,7 +423,8 @@ hint="Las unidades de medida no llevan punto"
 
 [\b(N|S|E|O|W|NE|NO|NW|SE|SO|SW)\.]
 id="ty-2-punto-en-punto cardinal"
-valid span="\w+\." before="\s[A-Z]\w+"
+valid before="\s[A-Z]"
+valid before="\w+\."
 valid before="$"
 valid before="\.\."
 valid before="\n"
@@ -434,19 +435,21 @@ hint="Los puntos cardinales no llevan punto"
 
 [\b(ALL|ARS|BAM|BBD|BGN|BOB|BRL|BSD|BYR|BZD|CAD|CHF|CLP|COP|CRC|CSD|CUP|CZK|DKK|DOP|ECS|EEK|EUR|GBP|GIP|GTQ|GYD|HNL|HRK|HTG|HUF|ISK|JMD|LTL|LVL|MDL|MKD|MTL|MXP|MXN|NIO|NOK|PAB|PES|PEN|PHP|PLN|PYG|ROL|RON|RUB|SEK|SIT|SKK|SRD|SVC|TRL|TRY|TTD|UAH|USD|UYU|VEB|XAF|XCD)\.]
 id="ty-2-punto-en-unidad-monetaria"
-valid span="\w+\." before="\s[A-Z]\w+"
+valid before="\s[A-Z]"
+valid before="\w+\."
 valid before="$"
 valid before="\.\."
 valid before="\n"
 valid before="\d"
 valid before="\s[¿¡]"
+valid after="[.:_-]"
 hint="Las unidades monetarias no llevan punto"
 
 [\d+(a|A|at|atm|b|bar|c|cal|cd|cm|CV|d|da|dB|dm|dyn|erg|eV|f|F|ft|g|G|Gb|GiB|gr|Gs|Gy|h|H|ha|hp|Hz|in|J|k|K|kb|kIb|kg|km|l|L|lb|lm|lx|m|M|mB|mIb|mbar|Mc|mg|min|mol|Mx|n|N|Oe|oz|p|P|Pa|pc|pt|Qm|R|rad|s|sr|Sv|t|T|tex|u|UA|V|Wb|yd)\b]
 id="ty-2-espacio-de-separacion-en-unidad-medida"
 valid span="[23]G"
 valid span="[23]D"
-valid after="[A-Za-z-]"
+valid after="[A-Za-z_-]"
 valid after="\%\."
 valid span="\d[a-z]" before="\)"
 hint="Es necesario un espacio de separación entre el número y la unidad de medida"
@@ -458,7 +461,7 @@ hint="La abreviatura de «por ejemplo» es «p. ej.»"
 
 addFilterHook name="es:remove_subs/remove_paired_capital_words" on="msg"
 
-[(?u)[,;]\s+[A-Z]\w+]
+[(?u)[,;]\s+[A-Z][a-záéíóúüñç]+]
 id="ty-2-error-mayusculas-en-lugar-indebido"
 valid ctx=".*?TRANSLATORS"
 valid ctx="trans_comment"
@@ -470,7 +473,7 @@ valid after="[A-ZÑÇ]\w+"
 valid span=",\s(Inc|Universidad|Instituto)"
 hint="Utilice minúsculas después de coma o punto y coma"
 
-[(?u)\([A-Z]\w+]
+[(?u)\([A-Z][a-záéíóúüñç]+]
 id="ty-3-error-mayusculas-despues-parentesis"
 valid ctx=".*?TRANSLATORS"
 valid ctx="trans_comment"
