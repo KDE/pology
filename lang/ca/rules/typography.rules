@@ -579,6 +579,7 @@ valid after="audio|video" cat="konversation"
 valid after="CDV\s.*" cat="kstars"
 valid after="useu\s.*" cat="kexi"
 valid after="rsync\-filter" cat="smb4k,smb4k-core"
+valid after="HCY" cat="krita"
 valid before="mm|ss"
 valid comment="Tag\:\sscreen" cat="kdeprint_cups-config,kmail-faq" # docmessages
 valid comment="Tag\:\sprogramlisting" cat="kdm,kipi-plugins_geolocation,kile_scripting" # docmessages
