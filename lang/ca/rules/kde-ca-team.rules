@@ -66,6 +66,7 @@ valid msgid="list.?box(es|s)?"		# -> quadre/s de llista
 valid msgid="login.?(dialogs?|box(es|s)?)" # -> quadre/s / diàleg/s d'inici de sessió
 valid msgid="mail.?box(es|s)?"		# -> bústia/es, bústia/es de correu
 valid msgid="message.?box(es|s)?"	# -> quadre/s de missatge
+valid msgid="text\smessage.?box(es|s)?"	# -> quadre/s del missatge de text
 valid msgid="preview\sbox(es|s)?"	# -> quadre/s de vista prèvia
 valid msgid="radio.?box"		# -> quadre de botons d'opció
 valid msgid="search.?box(es|s)?"	# -> quadre/s de cerca
@@ -496,8 +497,13 @@ valid msgstr="menubar" cat="calligra"
 hint="Es tradueix per «barra/es de menú» (kde-ca-team)"
 
 {\bmessage.?box(es|s)?\b}i
+valid msgid="text\smessage.?box(es|s)?"
 valid msgstr="quadres? de missatge"
 hint="Es tradueix per «quadre/s de missatge» (kde-ca-team)"
+
+{\btext\smessage.?box(es|s)?\b}i
+valid msgstr="quadres? del missatge de text"
+hint="Es tradueix per «quadre/s del missatge de text» (kde-ca-team)"
 
 {\bmultimeter\b}i
 valid msgstr="multímetre"
