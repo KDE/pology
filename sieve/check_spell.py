@@ -91,17 +91,17 @@ class Sieve (object):
         if not self.variety:
             self.variety = cfgs.string("variety")
 
-        loc_encoding = locale.getlocale()[1]
+        self.loc_encoding = locale.getlocale()[1]
         if not self.encoding:
-            self.encoding = loc_encoding
+            self.encoding = self.loc_encoding
         if not self.encoding:
             self.encoding = "UTF-8"
 
-        self.encoding = self._encoding_for_aspell(self.encoding)
-        self.aspellOptions["lang"] = str(self.lang)
-        self.aspellOptions["encoding"] = str(self.encoding)
+        self.encoding = self._encoding_for_aspell(self.loc_encoding)
+        self.aspellOptions["lang"] = self.lang.encode(self.loc_encoding) if self.lang else None
+        self.aspellOptions["encoding"] = self.encoding.encode(self.loc_encoding)
         if self.variety:
-            self.aspellOptions["variety"] = str(self.variety)
+            self.aspellOptions["variety"] = self.variety.encode(self.loc_encoding) if self.variety else None
 
         self.unknownWords = None
         if params.list:
@@ -178,13 +178,13 @@ class Sieve (object):
         ckey = (clang, tuple(cenvs))
         if ckey not in self.aspells:
             # New language.
-            self.aspellOptions["lang"] = str(clang)
+            self.aspellOptions["lang"] = clang.encode(self.loc_encoding)
 
             # Get Pology's internal personal dictonary for this langenv.
             if ckey not in self.personalDicts: # may be in but None
                 self.personalDicts[ckey] = self._get_personal_dict(clang, cenvs)
             if self.personalDicts[ckey]:
-                self.aspellOptions["personal-path"] = str(self.personalDicts[ckey])
+                self.aspellOptions["personal-path"] = self.personalDicts[ckey].encode(self.loc_encoding)
             else:
                 self.aspellOptions.pop("personal-path", None) # remove previous
 
