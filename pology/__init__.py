@@ -50,7 +50,8 @@ def datadir ():
     lenc = locale.getpreferredencoding()
     datadir = "@CONFIG_DATADIR@".decode(lenc) # configured if installed
     if not os.path.isdir(datadir): # if running from source dir
-        datadir = os.path.dirname(__path__[0]).decode(lenc)
+        srcdir = os.path.dirname(os.path.dirname(__file__))
+        datadir = srcdir.decode(lenc)
     return datadir
 
 
@@ -65,7 +66,8 @@ def localedir ():
     lenc = locale.getpreferredencoding()
     localedir = "@CONFIG_LOCALEDIR@".decode(lenc) # configured if installed
     if not os.path.isdir(localedir): # if running from source dir
-        localedir = os.path.join(os.path.dirname(__path__[0]), "mo").decode(lenc)
+        srcdir = os.path.dirname(os.path.dirname(__file__))
+        localedir = os.path.join(srcdir, "mo").decode(lenc)
     return localedir
 
 
