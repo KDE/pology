@@ -2475,6 +2475,28 @@ The UI context marker here is the leading part of <varname>msgctxt</varname>, st
 
 </sect2>
 
+<sect2 id="sv-unfuzzy-qtclass-only">
+<title><command>unfuzzy-qtclass-only</command></title>
+
+<para>PO messages obtained by conversion from Qt Linguist translation files can contain in the <varname>msgctxt</varname> an automatically extracted C++ class name, referring to the class where the message is located in the code. In the following two example messages, the C++ class name is the text before the <literal>|</literal> character:
+<programlisting language="po">
+#: ui/configdialog.cpp:50
+msgctxt "Sonnet::ConfigDialog|"
+msgid "Spell Checking Configuration"
+msgstr ""
+
+#: core/loader.cpp:206
+#, qt-format
+msgctxt "Sonnet::Loader|%1 = language name, %2 = country name"
+msgid "%1 (%2)"
+msgstr ""
+</programlisting>
+If the programmer later changes a class name in the code, all messages inside that class will become fuzzy. The <command>unfuzzy-qtclass-only</command> sieve can be used to unfuzzy such messages, by verifying that the only difference between the old and the new message is in the part of <varname>msgctxt</varname> before the <literal>|</literal> character. For this to work, the PO file must have been merged with <option>--previous</option> option to <command>msgmerge</command>.</para>
+
+<para>There are no parameters.</para>
+
+</sect2>
+
 <sect2 id="sv-update-header">
 <title><command>update-header</command></title>
 

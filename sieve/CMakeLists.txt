@@ -33,6 +33,7 @@ set(sieves
     unfuzzy_context_only.py
     unfuzzy_ctxmark_only.py
     unfuzzy_inplace_only.py
+    unfuzzy_qtclass_only.py
     update_header.py
 )
 get_current_source_subdir(srcsubdir)
