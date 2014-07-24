@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pology\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-08-30 09:56+0200\n"
+"POT-Creation-Date: 2014-07-24 14:09+0200\n"
 "PO-Revision-Date: 2011-09-12 15:03+0200\n"
 "Last-Translator: Manfred Wiese <m.j.wiese@web.de>\n"
 "Language-Team: Low Saxon <kde-i18n-nds@kde.org>\n"
@@ -253,39 +253,45 @@ msgctxt "@info"
 msgid "Internal problem (%(id)d) at %(file)s:%(line)d."
 msgstr ""
 
-#: pology/catalog.py:401
+#: pology/catalog.py:391
+#, python-format
+msgctxt "@info"
+msgid "No header at %(file)s:%(line)d."
+msgstr ""
+
+#: pology/catalog.py:407
 #, python-format
 msgctxt "@info"
 msgid "Empty message at %(file)s:%(line)d."
 msgstr ""
 
-#: pology/catalog.py:549
+#: pology/catalog.py:555
 #, python-format
 msgctxt "@info"
 msgid "File '%(file)s' does not exist."
 msgstr ""
 
-#: pology/catalog.py:633
+#: pology/catalog.py:639
 msgctxt "@info"
 msgid "Trying to access catalog messages in header-only mode."
 msgstr ""
 
-#: pology/catalog.py:904
+#: pology/catalog.py:910
 msgctxt "@info"
 msgid "Trying to insert message with empty key into catalog."
 msgstr ""
 
-#: pology/catalog.py:919
+#: pology/catalog.py:925
 msgctxt "@info"
 msgid "Trying to insert message into catalog by position out of range."
 msgstr ""
 
-#: pology/catalog.py:1139
+#: pology/catalog.py:1145
 msgctxt "@info"
 msgid "Trying to sync unnamed catalog."
 msgstr ""
 
-#: pology/catalog.py:1223
+#: pology/catalog.py:1229
 #, python-format
 msgctxt "@info"
 msgid "Text encoding failure at %(file)s:%(line)d:%(col)d under assumed encoding '%(enc)s'."
@@ -355,7 +361,7 @@ msgctxt "@info"
 msgid "Unhandled message part '%(part)s' encountered while resolving difference."
 msgstr ""
 
-#: pology/diff.py:1779
+#: pology/diff.py:1790
 #, python-format
 msgctxt "@info"
 msgid "Cannot read file '%(file)s'."
@@ -526,7 +532,7 @@ msgctxt "@info"
 msgid "Cannot parse datetime string '%(str)s'."
 msgstr ""
 
-#: pology/__init__.py:276
+#: pology/__init__.py:278
 #, python-format
 msgctxt "@info"
 msgid "No '%(arg)s' keyword argument to plural translation request."
@@ -600,228 +606,270 @@ msgctxt "@info"
 msgid "Entry not terminated after the subtag list."
 msgstr ""
 
-#: pology/markup.py:1014
+#: pology/markup.py:1020
 #, python-format
 msgctxt "@info a problem in the given type of markup (e.g. HTML, Docbook)"
 msgid "%(mtype)s markup: %(snippet)s."
 msgstr ""
 
-#: pology/markup.py:1105
+#: pology/markup.py:1111
 #, python-format
 msgctxt "@info"
 msgid "%(mtype)s markup: unrecognized tag '%(tag)s'."
 msgstr ""
 
-#: pology/markup.py:1123
+#: pology/markup.py:1129
 #, python-format
 msgctxt "@info"
 msgid "%(mtype)s markup: invalid attribute '%(attr)s' to tag '%(tag)s'."
 msgstr ""
 
-#: pology/markup.py:1130
+#: pology/markup.py:1136
 #, python-format
 msgctxt "@info"
 msgid "%(mtype)s markup: invalid value '%(val)s' to attribute '%(attr)s'."
 msgstr ""
 
-#: pology/markup.py:1142
+#: pology/markup.py:1148
 #, python-format
 msgctxt "@info"
 msgid "%(mtype)s markup: tag '%(tag1)s' cannot be a subtag of '%(tag2)s'."
 msgstr ""
 
-#: pology/markup.py:1165
+#: pology/markup.py:1171
 #, python-format
 msgctxt "@info"
 msgid "%(mtype)s markup: invalid numeric entity '%(ent)s'."
 msgstr ""
 
-#: pology/markup.py:1176
+#: pology/markup.py:1182
 #, python-format
 msgctxt "@info"
 msgid "%(mtype)s markup: unknown entity '%(ent)s' (suggestions: %(entlist)s)."
 msgstr ""
 
-#: pology/markup.py:1181
+#: pology/markup.py:1187
 #, python-format
 msgctxt "@info"
 msgid "%(mtype)s markup: unknown entity '%(ent)s'."
 msgstr ""
 
-#: pology/markup.py:1371
+#: pology/markup.py:1244
+#, python-format
+msgctxt "@info"
+msgid "%(mtype)s markup: premature end of entity definition."
+msgstr ""
+
+#: pology/markup.py:1254
+#, python-format
+msgctxt "@info"
+msgid "%(mtype)s markup: expected opening angle bracket in entity definition."
+msgstr ""
+
+#: pology/markup.py:1271
+#, python-format
+msgctxt "@info"
+msgid "%(mtype)s markup: expected '%(keyword)s' in entity definition."
+msgstr ""
+
+#: pology/markup.py:1284
+#, python-format
+msgctxt "@info"
+msgid "%(mtype)s markup: invalid entity name '%(name)s' in entity definition."
+msgstr ""
+
+#: pology/markup.py:1297
+#, python-format
+msgctxt "@info"
+msgid "%(mtype)s markup: expected opening quote (ASCII single or double) in entity definition."
+msgstr ""
+
+#: pology/markup.py:1306
+#, python-format
+msgctxt "@info"
+msgid "%(mtype)s markup: unclosed entity value in entity definition."
+msgstr ""
+
+#: pology/markup.py:1323
+#, python-format
+msgctxt "@info"
+msgid "%(mtype)s markup: expected closing angle bracket in entity definition."
+msgstr ""
+
+#: pology/markup.py:1494
 msgctxt "@item markup type"
 msgid "Docbook4"
 msgstr "Docbook4"
 
-#: pology/markup.py:1477
+#: pology/markup.py:1600
 msgctxt "@item markup type"
 msgid "HTML"
 msgstr "HTML"
 
-#: pology/markup.py:1539
+#: pology/markup.py:1662
 msgctxt "@item markup type"
 msgid "Qt-rich"
 msgstr ""
 
-#: pology/markup.py:1596
+#: pology/markup.py:1725
 msgctxt "@item markup type"
 msgid "KUIT"
 msgstr "KUIT"
 
-#: pology/markup.py:1635
+#: pology/markup.py:1766
 msgctxt "@item markup type"
 msgid "KDE4"
 msgstr "KDE4"
 
-#: pology/markup.py:1692
+#: pology/markup.py:1823
 msgctxt "@item markup type"
 msgid "Pango"
 msgstr "Pango"
 
-#: pology/markup.py:1806
+#: pology/markup.py:1937
 #, python-format
 msgctxt "@info"
 msgid "Invalid numeric entity '%(ent)s'."
 msgstr ""
 
-#: pology/markup.py:1816
+#: pology/markup.py:1947
 #, python-format
 msgctxt "@info"
 msgid "Unknown entity '%(ent)s' (suggestions: %(entlist)s)."
 msgstr ""
 
-#: pology/markup.py:1821
+#: pology/markup.py:1952
 #, python-format
 msgctxt "@info"
 msgid "Unknown entity '%(ent)s'."
 msgstr ""
 
-#: pology/markup.py:1902
+#: pology/markup.py:2033
 #, python-format
 msgctxt "@info"
 msgid "Missing placeholder tags in translation: %(taglist)s."
 msgstr ""
 
-#: pology/markup.py:1908
+#: pology/markup.py:2039
 #, python-format
 msgctxt "@info"
 msgid "Superfluous placeholder tags in translation: %(taglist)s."
 msgstr ""
 
-#: pology/match.py:71
+#: pology/match.py:72
 #, python-format
 msgctxt "@info"
 msgid "Invalid expression at %(col)d [%(snippet)s]: %(reason)s."
 msgstr ""
 
-#: pology/match.py:76
+#: pology/match.py:77
 #, python-format
 msgctxt "@info"
 msgid "Invalid expression: %(reason)s."
 msgstr ""
 
-#: pology/match.py:80
+#: pology/match.py:81
 #, python-format
 msgctxt "@info"
 msgid "Invalid expression at %(col)d [%(snippet)s]."
 msgstr ""
 
-#: pology/match.py:83
+#: pology/match.py:84
 msgctxt "@info"
 msgid "Invalid expression."
 msgstr "Leeg Utdruck"
 
-#: pology/match.py:166 pology/match.py:330
+#: pology/match.py:167 pology/match.py:331
 msgctxt "@item:intext"
 msgid "premature end of expression"
 msgstr ""
 
-#: pology/match.py:244
+#: pology/match.py:245
 msgctxt "@item:intext"
 msgid "expected operator"
 msgstr "verwacht Operator"
 
-#: pology/match.py:248
+#: pology/match.py:249
 msgctxt "@item:intext"
 msgid "no closing parenthesis"
 msgstr "keen sluten Klemm"
 
-#: pology/match.py:262
+#: pology/match.py:263
 msgctxt "@item:intext"
 msgid "unexpected unary operator"
 msgstr ""
 
-#: pology/match.py:266
+#: pology/match.py:267
 msgctxt "@item:intext"
 msgid "unexpected binary operator"
 msgstr ""
 
-#: pology/match.py:274
+#: pology/match.py:275
 msgctxt "@item:intext"
 msgid "expected an operator"
 msgstr ""
 
-#: pology/match.py:283
+#: pology/match.py:284
 msgctxt "@item:intext"
 msgid "expected token starting with a letter"
 msgstr ""
 
-#: pology/match.py:301
+#: pology/match.py:302
 #, python-format
 msgctxt "@item:intext"
 msgid "unknown unary operator '%(op)s'"
 msgstr ""
 
-#: pology/match.py:322
+#: pology/match.py:323
 #, python-format
 msgctxt "@item:intext"
 msgid "unknown binary operator '%(op)s'"
 msgstr ""
 
-#: pology/match.py:333
+#: pology/match.py:334
 msgctxt "@item:intext"
 msgid "expected subexpression"
 msgstr "verwacht Ünnerutdruck"
 
-#: pology/match.py:355
+#: pology/match.py:356
 #, python-format
 msgctxt "@item:intext"
 msgid "unknown matcher '%(match)s'"
 msgstr ""
 
-#: pology/match.py:366
+#: pology/match.py:367
 msgctxt "@item:intext"
 msgid "expected parameter delimiter"
 msgstr ""
 
-#: pology/match.py:372
+#: pology/match.py:373
 msgctxt "@item:intext"
 msgid "expected closing delimiter"
 msgstr ""
 
-#: pology/match.py:405
+#: pology/match.py:406
 #, python-format
 msgctxt "@item:intext"
 msgid "unknown modifiers %(modlist)s to matcher '%(match)s'"
 msgstr ""
 
-#: pology/match.py:417 sieve/collect_pmap.py:368
+#: pology/match.py:418 sieve/collect_pmap.py:368
 #, python-format
 msgctxt "@item:intext"
 msgid "invalid regular expression '%(regex)s'"
 msgstr ""
 
-#: pology/match.py:497
+#: pology/match.py:498
 msgctxt "@item:intext"
 msgid "invalid line span"
 msgstr ""
 
-#: pology/match.py:510
+#: pology/match.py:511
 msgctxt "@item:intext"
 msgid "invalid entry span"
 msgstr ""
 
-#: pology/match.py:530
+#: pology/match.py:531
 msgctxt "@item:intext"
 msgid "unknown matcher"
 msgstr ""
@@ -964,51 +1012,51 @@ msgctxt "@info"
 msgid "Field %(field)s states malformed regex '%(re)s'."
 msgstr ""
 
-#: pology/remove.py:592
+#: pology/remove.py:597
 msgctxt "@info"
 msgid "No patterns in rewrite directive."
 msgstr ""
 
-#: pology/remove.py:598
+#: pology/remove.py:603
 #, python-format
 msgctxt "@info"
 msgid "Wrongly separated patterns in rewrite directive '%(dir)s'."
 msgstr ""
 
-#: pology/remove.py:608
+#: pology/remove.py:613
 #, python-format
 msgctxt "@info"
 msgid "Invalid search pattern in rewrite directive '%(dir)s'."
 msgstr ""
 
-#: pology/remove.py:622
+#: pology/remove.py:627
 #, python-format
 msgctxt "@info"
 msgid "Error in application of rewrite directive '%(dir)s'."
 msgstr ""
 
-#: pology/remove.py:672
+#: pology/remove.py:677
 msgctxt "@info"
 msgid "More than one inverse rewrite directive encountered."
 msgstr ""
 
-#: pology/remove.py:682
+#: pology/remove.py:687
 #, python-format
 msgctxt "@info"
 msgid "Invalid search pattern '%(pattern)s' in inverse rewrite directive."
 msgstr ""
 
-#: pology/remove.py:691
+#: pology/remove.py:696
 msgctxt "@info"
 msgid "There are no other messages with same translation, needed by inverse rewrite directive."
 msgstr ""
 
-#: pology/remove.py:701
+#: pology/remove.py:706
 msgctxt "@info"
 msgid "Inverse rewrite directive matches none of the other messages with same translation."
 msgstr ""
 
-#: pology/remove.py:707
+#: pology/remove.py:712
 msgctxt "@info"
 msgid "Inverse rewrite directive matches more than one other message with same translation."
 msgstr ""
@@ -1091,6 +1139,12 @@ msgstr ""
 #, python-format
 msgctxt "@info"
 msgid "Unknown variable '%(var)s' in variable expansion directive at column %(col)d in string '%(str)s'."
+msgstr ""
+
+#: pology/resolve.py:866
+#, python-format
+msgctxt "@info"
+msgid "Gaps in destination indices for conversion of plural forms (expected (%(list1)s), got (%(list2)s))."
 msgstr ""
 
 #: pology/rules.py:53
@@ -1482,7 +1536,7 @@ msgctxt "@info sieve parameter discription"
 msgid "Output only a simple sorted list of unknown words."
 msgstr ""
 
-#: pology/spell.py:152 sieve/check_grammar.py:94 sieve/check_rules.py:239
+#: pology/spell.py:152 sieve/check_grammar.py:94 sieve/check_rules.py:247
 #: sieve/check_spell_ec.py:109 sieve/check_spell.py:175
 #, python-format
 msgctxt "@info"
@@ -2091,12 +2145,12 @@ msgctxt "@info"
 msgid "Selected version control system does not define reverting a versioned path."
 msgstr ""
 
-#: pology/vcs.py:714
+#: pology/vcs.py:717
 msgctxt "@info \"Subversion\" is a version control system"
 msgid "Subversion cannot diff from working copy to a named revision."
 msgstr ""
 
-#: pology/vcs.py:722
+#: pology/vcs.py:725
 #, python-format
 msgctxt "@info"
 msgid ""
@@ -2104,7 +2158,7 @@ msgid ""
 "%(msg)s"
 msgstr ""
 
-#: pology/vcs.py:757
+#: pology/vcs.py:760
 #, python-format
 msgctxt "@info"
 msgid ""
@@ -2112,50 +2166,50 @@ msgid ""
 "%(msg)s"
 msgstr ""
 
-#: pology/vcs.py:813
+#: pology/vcs.py:816
 #, python-format
 msgctxt "@info \"Git\" is a version control system"
 msgid "Cannot find Git repository for '%(path)s'."
 msgstr ""
 
-#: pology/vcs.py:854
+#: pology/vcs.py:857
 #, python-format
 msgctxt "@info"
 msgid "Git cannot remove directories (tried on '%(path)s')."
 msgstr ""
 
-#: pology/vcs.py:873
+#: pology/vcs.py:876
 msgctxt "@info"
 msgid "Trying to move paths between different repositories."
 msgstr ""
 
-#: pology/vcs.py:988
+#: pology/vcs.py:991
 #, python-format
 msgid "@infoGit cannot commit non-versioned path '%(path)s'."
 msgstr ""
 
-#: pology/vcs.py:993
+#: pology/vcs.py:996
 #, python-format
 msgid "@infoGit cannot add path '%(path)s' to index."
 msgstr ""
 
-#: pology/vcs.py:1003
+#: pology/vcs.py:1006
 msgctxt "@info"
 msgid "Git is resetting paths in index which are not to be committed."
 msgstr ""
 
-#: pology/vcs.py:1116
+#: pology/vcs.py:1119
 msgid "@infoGit cannot diff from non-staged paths to a commit."
 msgstr ""
 
-#: pology/vcs.py:1124
+#: pology/vcs.py:1127
 #, python-format
 msgid ""
 "@infoGit reports it cannot diff path '%(path)s':\n"
 "%(msg)s"
 msgstr ""
 
-#: pology/vcs.py:1161
+#: pology/vcs.py:1164
 #, python-format
 msgid ""
 "@infoGit reports it cannot revert path '%(path)s':\n"
@@ -2173,7 +2227,7 @@ msgctxt "@info TP stands for Translation Project"
 msgid "Cannot determine KDE TP subdirectory of '%(file)s', skipping header updates."
 msgstr ""
 
-#: pology/lang/nn/exclusion.py:68
+#: pology/lang/nb/exclusion.py:68 pology/lang/nn/exclusion.py:68
 #, python-format
 msgctxt "@info"
 msgid "Excluded form '%(word)s'."
@@ -3731,83 +3785,83 @@ msgctxt "@info"
 msgid "Language code not set in configuration file."
 msgstr "Spraakkode in de Instellendatei nich fastleggt."
 
-#: scripts/posummit.py:231
+#: scripts/posummit.py:238
 #, python-format
 msgctxt "@info:progress"
 msgid "-----> Processing mode: %(mode)s"
 msgstr ""
 
-#: scripts/posummit.py:320
+#: scripts/posummit.py:328
 #, python-format
 msgctxt "@info"
 msgid "Unknown summit configuration field '%(field)s'."
 msgstr ""
 
-#: scripts/posummit.py:345
+#: scripts/posummit.py:353
 #, python-format
 msgctxt "@info"
 msgid "Circular inclusion of '%(file)s' attempted in summit configuration."
 msgstr ""
 
-#: scripts/posummit.py:370
+#: scripts/posummit.py:378
 #, python-format
 msgctxt "@info"
 msgid "Unknown keys in summit configuration: %(keylist)s."
 msgstr ""
 
-#: scripts/posummit.py:375
+#: scripts/posummit.py:383
 msgctxt "@info"
 msgid "Top directory not set in summit configuration."
 msgstr ""
 
-#: scripts/posummit.py:410
+#: scripts/posummit.py:422
 #, python-format
 msgctxt "@info"
 msgid "Invalid regular expression '%(regex)s' in include-exclude specification of branch '%(branch)s'."
 msgstr ""
 
-#: scripts/posummit.py:425
+#: scripts/posummit.py:437
 #, python-format
 msgctxt "@info"
 msgid "Invalid test type '%(type)s' in include-exclude specification of branch '%(branch)s'."
 msgstr ""
 
-#: scripts/posummit.py:447
+#: scripts/posummit.py:459
 #, python-format
 msgctxt "@info"
 msgid "Unknown keys in specification of branch '%(branch)s': %(keylist)s."
 msgstr ""
 
-#: scripts/posummit.py:457
+#: scripts/posummit.py:469
 msgctxt "@info"
 msgid "Branch with undefined ID."
 msgstr ""
 
-#: scripts/posummit.py:460
+#: scripts/posummit.py:472
 #, python-format
 msgctxt "@info"
 msgid "Non-unique branch ID '%(branch)s'."
 msgstr ""
 
-#: scripts/posummit.py:465
+#: scripts/posummit.py:477
 #, python-format
 msgctxt "@info"
 msgid "Top directory not set for branch '%(branch)s'."
 msgstr ""
 
-#: scripts/posummit.py:536
+#: scripts/posummit.py:548
 #, python-format
 msgctxt "@info"
 msgid "Unknown type of definition for ascription filter '%(filt)s'."
 msgstr ""
 
-#: scripts/posummit.py:543
+#: scripts/posummit.py:555
 #, python-format
 msgctxt "@info"
 msgid "Summit configuration does not define ascription filter '%(filt)s'."
 msgstr ""
 
-#: scripts/posummit.py:560
+#: scripts/posummit.py:572
 #, python-format
 msgctxt "@info"
 msgid ""
@@ -3815,13 +3869,13 @@ msgid ""
 "%(filelist)s"
 msgstr ""
 
-#: scripts/posummit.py:722
+#: scripts/posummit.py:734
 #, python-format
 msgctxt "@info"
 msgid "No branch catalog corresponding to mapping %(mapping)s set by the summit configuration."
 msgstr ""
 
-#: scripts/posummit.py:837
+#: scripts/posummit.py:866
 #, python-format
 msgctxt "@info"
 msgid ""
@@ -3829,7 +3883,7 @@ msgid ""
 "%(filelist)s"
 msgstr ""
 
-#: scripts/posummit.py:845
+#: scripts/posummit.py:874
 #, python-format
 msgctxt "@info"
 msgid ""
@@ -3837,7 +3891,7 @@ msgid ""
 "%(filelist)s"
 msgstr ""
 
-#: scripts/posummit.py:853
+#: scripts/posummit.py:882
 #, python-format
 msgctxt "@info"
 msgid ""
@@ -3845,216 +3899,210 @@ msgid ""
 "%(filelist)s"
 msgstr ""
 
-#: scripts/posummit.py:859
+#: scripts/posummit.py:888
 #, python-format
 msgctxt "@info"
 msgid "Halting because catalog creation is not allowed (consider issuing %(opt)s option)."
 msgstr ""
 
-#: scripts/posummit.py:875
+#: scripts/posummit.py:904
 #, python-format
 msgctxt "@info"
 msgid "Non-PO file '%(file)s' given as catalog."
 msgstr ""
 
-#: scripts/posummit.py:924
+#: scripts/posummit.py:953
 #, python-format
 msgctxt "@info"
 msgid "Path '%(path)s' is not covered by the summit configuration."
 msgstr ""
 
-#: scripts/posummit.py:960
+#: scripts/posummit.py:989
 #, python-format
 msgctxt "@info"
 msgid "Branch '%(branch)s' is not defined in the summit configuration."
 msgstr ""
 
-#: scripts/posummit.py:1036
+#: scripts/posummit.py:1065
 #, python-format
 msgctxt "@info"
 msgid "Gathering catalogs is normally not allowed in summit-over-static-templates mode. If this is the initial creation of summit catalogs, or externally injected branch catalogs need to be gathered, run with options %(opts)s."
 msgstr ""
 
-#: scripts/posummit.py:1045
+#: scripts/posummit.py:1074
 #, python-format
 msgctxt "@info"
 msgid "Gathering templates is superfluous in summit-over-templates mode. If this is done to check whether gathering works, to supress this message run with option %(opt)s."
 msgstr ""
 
-#: scripts/posummit.py:1060
+#: scripts/posummit.py:1089
 #, python-format
 msgctxt "@info:progress"
 msgid "Gathering: %(file)s"
 msgstr ""
 
-#: scripts/posummit.py:1067
+#: scripts/posummit.py:1096
 #, python-format
 msgctxt "@info:progress"
 msgid "Gathering %(file)s..."
 msgstr ""
 
-#: scripts/posummit.py:1078
+#: scripts/posummit.py:1107
 #, python-format
 msgctxt "@info"
 msgid "Scattering not possible on '%(lang)s' in summit-over-templates mode."
 msgstr ""
 
-#: scripts/posummit.py:1120
-#, python-format
-msgctxt "@info"
-msgid "Missing necessary summit catalogs: %(namelist)s."
-msgstr ""
-
-#: scripts/posummit.py:1129
+#: scripts/posummit.py:1160
 #, python-format
 msgctxt "@info:progress"
 msgid "Scattering: %(file)s"
 msgstr ""
 
-#: scripts/posummit.py:1137
+#: scripts/posummit.py:1168
 #, python-format
 msgctxt "@info:progress"
 msgid "Scattering %(file)s..."
 msgstr ""
 
-#: scripts/posummit.py:1145
+#: scripts/posummit.py:1176
 #, python-format
 msgctxt "@info:progress"
 msgid "Applying post-hook to branch %(branch)s..."
 msgstr ""
 
-#: scripts/posummit.py:1155
+#: scripts/posummit.py:1186
 #, python-format
 msgctxt "@info"
 msgid "Merging not possible on '%(lang)s' in summit-over-templates mode."
 msgstr ""
 
-#: scripts/posummit.py:1187
+#: scripts/posummit.py:1218
 #, python-format
 msgctxt "@info"
 msgid "No template for summit catalog '%(file)s'."
 msgstr ""
 
-#: scripts/posummit.py:1221
+#: scripts/posummit.py:1252
 #, python-format
 msgctxt "@info"
 msgid "No template for branch catalog '%(file)s'."
 msgstr ""
 
-#: scripts/posummit.py:1231
+#: scripts/posummit.py:1262
 #, python-format
 msgctxt "@info"
 msgid "No exact template for branch catalog '%(file)s'."
 msgstr ""
 
-#: scripts/posummit.py:1245
+#: scripts/posummit.py:1276
 #, python-format
 msgctxt "@info:progress"
 msgid "Merging: %(file)s"
 msgstr ""
 
-#: scripts/posummit.py:1252
+#: scripts/posummit.py:1283
 #, python-format
 msgctxt "@info:progress"
 msgid "Merging %(file)s..."
 msgstr ""
 
-#: scripts/posummit.py:1283
+#: scripts/posummit.py:1314
 msgctxt "@item:intext action performed on a catalog"
 msgid "depends"
 msgstr "hangt af vun"
 
-#: scripts/posummit.py:1324
+#: scripts/posummit.py:1355
 #, python-format
 msgctxt "@info"
 msgid "No catalogs in subdirectory '%(dir)s' of branch '%(branch)s'."
 msgstr ""
 
-#: scripts/posummit.py:1341 scripts/posummit.py:1466
+#: scripts/posummit.py:1372 scripts/posummit.py:1497
 #, python-format
 msgctxt "@info"
 msgid "No catalog named '%(name)s' in branch '%(branch)s'."
 msgstr ""
 
-#: scripts/posummit.py:1385 scripts/posummit.py:1438
+#: scripts/posummit.py:1416 scripts/posummit.py:1469
 #, python-format
 msgctxt "@info"
 msgid "No summit catalog named '%(name)s'."
 msgstr ""
 
-#: scripts/posummit.py:1431
+#: scripts/posummit.py:1462
 #, python-format
 msgctxt "@info"
 msgid "No summit directory named '%(name)s'."
 msgstr ""
 
-#: scripts/posummit.py:1458
+#: scripts/posummit.py:1489
 #, python-format
 msgctxt "@info"
 msgid "No directory named '%(name)s' in branch '%(branch)s'."
 msgstr ""
 
-#: scripts/posummit.py:1513
+#: scripts/posummit.py:1551
 msgctxt "@info"
 msgid "Phony gather on summit catalog which is to be removed."
 msgstr ""
 
-#: scripts/posummit.py:1519
+#: scripts/posummit.py:1557
 #, python-format
 msgctxt "@info"
 msgid "Cannot remove '%(path)s' from version control."
 msgstr ""
 
-#: scripts/posummit.py:1526
+#: scripts/posummit.py:1564
 #, python-format
 msgctxt "@info"
 msgid "Cannot remove '%(path)s' from disk."
 msgstr ""
 
-#: scripts/posummit.py:1532
+#: scripts/posummit.py:1570
 msgctxt "@item:intext action performed on a catalog"
 msgid "gathered-removed"
 msgstr ""
 
-#: scripts/posummit.py:1723 scripts/posummit.py:2347 scripts/posummit.py:2782
+#: scripts/posummit.py:1768 scripts/posummit.py:2398 scripts/posummit.py:2833
 #, python-format
 msgctxt "@info"
 msgid "Cannot add '%(file)s' to version control."
 msgstr ""
 
-#: scripts/posummit.py:1733
+#: scripts/posummit.py:1778
 #, python-format
 msgctxt "@info"
 msgid "Cannot move '%(srcfile)s' to '%(dstfile)s'."
 msgstr ""
 
-#: scripts/posummit.py:1748
+#: scripts/posummit.py:1793
 msgctxt "@item:intext action performed on a catalog"
 msgid "gathered-added"
 msgstr ""
 
-#: scripts/posummit.py:1753
+#: scripts/posummit.py:1798
 msgctxt "@item:intext action performed on a catalog"
 msgid "gathered-moved"
 msgstr ""
 
-#: scripts/posummit.py:1758
+#: scripts/posummit.py:1803
 #, fuzzy
 msgctxt "@item:intext action performed on a catalog"
 msgid "gathered"
 msgstr "tohoopstellt"
 
-#: scripts/posummit.py:2026
+#: scripts/posummit.py:2071
 msgctxt "@info"
 msgid "Cannot gather messages with different keys."
 msgstr ""
 
-#: scripts/posummit.py:2029
+#: scripts/posummit.py:2074
 msgctxt "@info"
 msgid "Cannot gather messages with different plurality."
 msgstr ""
 
-#: scripts/posummit.py:2121
+#: scripts/posummit.py:2166
 #, python-format
 msgctxt "@info"
 msgid ""
@@ -4062,7 +4110,7 @@ msgid ""
 "%(msg)s"
 msgstr ""
 
-#: scripts/posummit.py:2134
+#: scripts/posummit.py:2179
 #, python-format
 msgctxt "@info"
 msgid ""
@@ -4070,12 +4118,12 @@ msgid ""
 "%(msg)s"
 msgstr ""
 
-#: scripts/posummit.py:2193
+#: scripts/posummit.py:2238
 msgctxt "@info:progress"
 msgid "Message not in the summit."
 msgstr "Naricht nich in de Tohoopstellen"
 
-#: scripts/posummit.py:2221
+#: scripts/posummit.py:2266
 #, python-format
 msgctxt "@info:progress"
 msgid "%(file)s: %(num)d message stopped by ascription filter."
@@ -4083,33 +4131,33 @@ msgid_plural "%(file)s: %(num)d messages stopped by ascription filter."
 msgstr[0] ""
 msgstr[1] ""
 
-#: scripts/posummit.py:2252
+#: scripts/posummit.py:2300
 msgctxt "@info"
 msgid "Cannot scatter messages with different plurality."
 msgstr ""
 
-#: scripts/posummit.py:2354
+#: scripts/posummit.py:2405
 msgctxt "@item:intext action performed on a catalog"
 msgid "scattered-added"
 msgstr ""
 
-#: scripts/posummit.py:2359
+#: scripts/posummit.py:2410
 msgctxt "@item:intext action performed on a catalog"
 msgid "scattered"
 msgstr ""
 
-#: scripts/posummit.py:2659
+#: scripts/posummit.py:2710
 #, python-format
 msgctxt "@info"
 msgid "Catalog '%(file1)s' not merged with template '%(file2)s' due to errors on merging."
 msgstr ""
 
-#: scripts/posummit.py:2788
+#: scripts/posummit.py:2839
 msgctxt "@item:intext action performed on a catalog"
 msgid "merged-added"
 msgstr ""
 
-#: scripts/posummit.py:2792
+#: scripts/posummit.py:2843
 msgctxt "@item:intext action performed on a catalog"
 msgid "merged"
 msgstr ""
@@ -4614,13 +4662,18 @@ msgctxt "@info sieve parameter discription"
 msgid "Add '%(flag)s' flag to each message failed by a rule."
 msgstr ""
 
-#: sieve/check_rules.py:203 sieve/check_spell.py:119 sieve/generate_xml.py:60
+#: sieve/check_rules.py:147
+msgctxt "@info sieve parameter discription"
+msgid "Output failed messages ordered by sorted rule identifiers."
+msgstr ""
+
+#: sieve/check_rules.py:208 sieve/check_spell.py:119 sieve/generate_xml.py:60
 #, python-format
 msgctxt "@info"
 msgid "Cannot open file '%(file)s'. XML output disabled."
 msgstr ""
 
-#: sieve/check_rules.py:212
+#: sieve/check_rules.py:217
 #, python-format
 msgctxt "@info"
 msgid ""
@@ -4628,40 +4681,40 @@ msgid ""
 "%(msg)s"
 msgstr ""
 
-#: sieve/check_rules.py:298
+#: sieve/check_rules.py:306
 msgctxt "@info:progress"
 msgid "Using cache."
 msgstr "Twischenspieker warrt bruukt"
 
-#: sieve/check_rules.py:304
+#: sieve/check_rules.py:312
 msgctxt "@info"
 msgid "No cache available, processing file."
 msgstr ""
 
-#: sieve/check_rules.py:334
+#: sieve/check_rules.py:342
 #, python-format
 msgctxt "@info"
 msgid "Separator  character '%(sep)s' missing in '%(prefix)s' comment."
 msgstr ""
 
-#: sieve/check_rules.py:373
+#: sieve/check_rules.py:381
 #, python-format
 msgctxt "@info:progress"
 msgid "Rule '%(rule)s' timed out, skipping it."
 msgstr ""
 
-#: sieve/check_rules.py:402
+#: sieve/check_rules.py:417
 msgctxt "@label"
 msgid "Failed rules:"
 msgstr "Fehlslaan Regeln:"
 
-#: sieve/check_rules.py:405
+#: sieve/check_rules.py:420
 #, python-format
 msgctxt "@item"
 msgid "rule %(rule)s ==> %(msg)s"
 msgstr ""
 
-#: sieve/check_rules.py:427
+#: sieve/check_rules.py:448
 #, python-format
 msgctxt "@info:progress"
 msgid "Rules detected %(num)d problem."
@@ -4669,19 +4722,19 @@ msgid_plural "Rules detected %(num)d problems."
 msgstr[0] ""
 msgstr[1] ""
 
-#: sieve/check_rules.py:456
+#: sieve/check_rules.py:477
 #, python-format
 msgctxt "@info"
 msgid "Some explicitly selected rules are missing: %(rulelist)s."
 msgstr ""
 
-#: sieve/check_rules.py:486
+#: sieve/check_rules.py:507
 #, python-format
 msgctxt "@info"
 msgid "Some explicitly excluded rules are missing: %(rulelist)s."
 msgstr ""
 
-#: sieve/check_rules.py:507
+#: sieve/check_rules.py:528
 #, python-format
 msgctxt "@item:intext inserted below as %(tot)s"
 msgid "Loaded %(num)d rule"
@@ -4689,19 +4742,19 @@ msgid_plural "Loaded %(num)d rules"
 msgstr[0] ""
 msgstr[1] ""
 
-#: sieve/check_rules.py:511
+#: sieve/check_rules.py:532
 #, python-format
 msgctxt "@item:intext inserted below as %(env)s"
 msgid "[only: %(envlist)s]"
 msgstr ""
 
-#: sieve/check_rules.py:515
+#: sieve/check_rules.py:536
 #, python-format
 msgctxt "@item:intext inserted below as %(env)s"
 msgid "[%(envlist)s]"
 msgstr ""
 
-#: sieve/check_rules.py:518
+#: sieve/check_rules.py:539
 #, python-format
 msgctxt "@item:intext inserted below as %(act)s"
 msgid "%(num)d active"
@@ -4709,7 +4762,7 @@ msgid_plural "%(num)d active"
 msgstr[0] ""
 msgstr[1] ""
 
-#: sieve/check_rules.py:521
+#: sieve/check_rules.py:542
 #, python-format
 msgctxt "@item:intext inserted below as %(dis)s"
 msgid "%(num)d disabled"
@@ -4717,37 +4770,37 @@ msgid_plural "%(num)d disabled"
 msgstr[0] ""
 msgstr[1] ""
 
-#: sieve/check_rules.py:526
+#: sieve/check_rules.py:547
 #, python-format
 msgctxt "@info:progress insertions from above"
 msgid "%(tot)s %(env)s (%(act)s, %(dis)s)."
 msgstr ""
 
-#: sieve/check_rules.py:529
+#: sieve/check_rules.py:550
 #, python-format
 msgctxt "@info:progress insertions from above"
 msgid "%(tot)s (%(act)s, %(dis)s)."
 msgstr ""
 
-#: sieve/check_rules.py:532
+#: sieve/check_rules.py:553
 #, python-format
 msgctxt "@info:progress insertions from above"
 msgid "%(tot)s %(env)s."
 msgstr ""
 
-#: sieve/check_rules.py:535
+#: sieve/check_rules.py:556
 #, python-format
 msgctxt "@info:progress insertions from above"
 msgid "%(tot)s."
 msgstr ""
 
-#: sieve/check_rules.py:543
+#: sieve/check_rules.py:564
 #, python-format
 msgctxt "@info:progress"
 msgid "Selected rules: %(rulelist)s."
 msgstr ""
 
-#: sieve/check_rules.py:547
+#: sieve/check_rules.py:568
 #, python-format
 msgctxt "@info:progress"
 msgid "Selected %(num)d rule."
@@ -4755,13 +4808,13 @@ msgid_plural "Selected %(num)d rules."
 msgstr[0] ""
 msgstr[1] ""
 
-#: sieve/check_rules.py:555
+#: sieve/check_rules.py:576
 #, python-format
 msgctxt "@info:progress"
 msgid "Excluded rules: %(rulelist)s."
 msgstr ""
 
-#: sieve/check_rules.py:559
+#: sieve/check_rules.py:580
 #, python-format
 msgctxt "@info:progress"
 msgid "Excluded %(num)d rule."
@@ -4769,7 +4822,7 @@ msgid_plural "Excluded %(num)d rules."
 msgstr[0] ""
 msgstr[1] ""
 
-#: sieve/check_rules.py:571
+#: sieve/check_rules.py:592
 #, python-format
 msgctxt "@info:progress"
 msgid "Active rules define %(num)d distinct filter set."
@@ -6540,6 +6593,22 @@ msgstr[1] ""
 msgctxt "@info:progress"
 msgid "Modified %(num)d translations by closing tags in-place."
 msgid_plural "Modified %(num)d translations by closing tags in-place."
+msgstr[0] ""
+msgstr[1] ""
+
+#: sieve/unfuzzy_qtclass_only.py:21
+msgctxt "@info sieve discription"
+msgid ""
+"Unfuzzy messages which got fuzzy only due to changed Qt class name.\n"
+"\n"
+"Possible only if catalogs were merged with --previous option."
+msgstr ""
+
+#: sieve/unfuzzy_qtclass_only.py:59
+#, python-format
+msgctxt "@info:progress"
+msgid "Unfuzzied %(num)d message fuzzy due to difference in Qt class context only."
+msgid_plural "Unfuzzied %(num)d messages fuzzy due to difference in Qt class context only."
 msgstr[0] ""
 msgstr[1] ""
 
