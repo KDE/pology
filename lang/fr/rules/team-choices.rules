@@ -554,6 +554,7 @@ valid after="</?"
 valid before="-" # CSS
 valid msgid="bold (typeface|font)" msgstr="en gras"
 valid msgstr="caractères" cat="khangman"
+valid msgid="var fontCommands.*" cat="kile_scripting"
 hint="Utilisez « police » pour traduire « typeface » ou « font » (bien qu'il s'agisse d'un abus de langage)."
 
 {\bthumb}i

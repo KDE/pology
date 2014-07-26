@@ -20,7 +20,7 @@ validGroup envarTag
 valid after="<envar>.*" before="</envar>"
 
 validGroup linkTag
-valid after="linkend=\".*" before=".*\">"
+valid after="linkend=\".*" before=".*\""
 
 validGroup literalTag
 valid after="literal>.*" before="</literal>"
@@ -309,6 +309,7 @@ hint="Il y a toujours un singulier après « chaque »"
 [([pP]ostscript)|(postScript)]
 valid cat="kile_scripting" after="kile\.wizard\..*"
 hint="Écriture officielle : « PostScript » (avec 2 majuscules)"
+validGroup linkTag
 
 [[Ll]atex|la[tT]ex|[Ll]ate[x|X]|laTeX|LATEX]
 validGroup urlTag
