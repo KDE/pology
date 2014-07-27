@@ -393,6 +393,7 @@ hint="Choix de l'équipe : « paquet »"
 valid before=" l'afficheur"
 valid after="lui |vous |leur |dé"
 valid cat="gwenview" before=" vos photos"
+valid cat="kile" before="ont comment"
 hint="Traduire « show » par « afficher »"
 
 [messages? électronique]i
@@ -412,6 +413,7 @@ hint="Traduire « nick » ou « nickname » par « pseudo »"
 
 {deprecated}i
 valid msgstr="déconseillé"
+valid msgid="PNG (or the deprecated &GIF;)*" cat="kile"
 hint="Traduire « deprecated » par « déconseillé »"
 
 [\bN/A\b|\bN/B\b|\bN/C\b]i
@@ -555,6 +557,7 @@ valid before="-" # CSS
 valid msgid="bold (typeface|font)" msgstr="en gras"
 valid msgstr="caractères" cat="khangman"
 valid msgid="var fontCommands.*" cat="kile_scripting"
+valid msgid="<guilabel>Typeface Size</guilabel>*" cat="kile"
 hint="Utilisez « police » pour traduire « typeface » ou « font » (bien qu'il s'agisse d'un abus de langage)."
 
 {\bthumb}i
