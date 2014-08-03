@@ -409,6 +409,7 @@ def derive_project_data (project, options, nwgrefpath=None):
         if b.merge is None:
             b.merge = bd.pop("merge_locally", False)
         b.split_path, b.join_path = bd.pop("transform_path", (None, None))
+        b.insert_nosim = bd.pop("insert_nosim", False)
 
         # Assemble include-exclude functions.
         includes = bd.pop("includes", [])
@@ -1584,6 +1585,16 @@ def summit_gather_single (summit_name, project, options,
     # uniquely and deterministically in case of split-mappings.
     bcat_pscats = {}
     for branch_id in src_branch_ids:
+
+        branch = project.bdict[branch_id]
+        if isinstance(branch.insert_nosim, (list, tuple)):
+            apply_insert_nosim = lambda sn, sd: (
+                any(re.search(rs, sn) for rs in branch.insert_nosim))
+        elif callable(branch.insert_nosim):
+            apply_insert_nosim = lambda sn, sd: branch.insert_nosim(sn, sd)
+        else:
+            apply_insert_nosim = lambda sn, sd: bool(branch.insert_nosim)
+
         bcat_pscats[branch_id] = []
         for branch_name in project.full_inverse_map[summit_name][branch_id]:
 
@@ -1648,7 +1659,10 @@ def summit_gather_single (summit_name, project, options,
                                       project.hook_on_gather_msg_branch)
                     branch_cat.sync_map()
 
-                bcat_pscats[branch_id].append((branch_cat, dep_summit_cats))
+                insert_nosim = apply_insert_nosim(branch_name, subdir)
+
+                bcat_pscats[branch_id].append((branch_cat, dep_summit_cats,
+                                               insert_nosim))
 
     # On phony gather, in case of split mappings,
     # it may happen that there are no corresponding branch catalogs.
@@ -1660,10 +1674,11 @@ def summit_gather_single (summit_name, project, options,
 
     # Gather messages through branch catalogs.
     for branch_id in src_branch_ids:
-        for branch_cat, dep_summit_cats in bcat_pscats[branch_id]:
+        for branch_cat, dep_summit_cats, insert_nosim in bcat_pscats[branch_id]:
             is_primary = branch_cat is prim_branch_cat
             summit_gather_single_bcat(branch_id, branch_cat, is_primary,
                                       summit_cat, monitored, dep_summit_cats,
+                                      insert_nosim,
                                       project, options, update_progress)
 
     # Gather the summit header according to primary branch.
@@ -1748,7 +1763,9 @@ def summit_gather_single (summit_name, project, options,
             # to the current date.
             # Do not try to trust branch template creation dates,
             # e.g. by copying the latest one.
-            summit_cat.header.set_field(u"POT-Creation-Date", format_datetime())
+            summit_cat.header.set_field(u"POT-Creation-Date", format_datetime(),
+                                        before=u"PO-Revision-Date",
+                                        reorder=True)
 
             # Sync to disk.
             summit_cat.sync()
@@ -1851,6 +1868,7 @@ def extkey_msg (msg):
 
 def summit_gather_single_bcat (branch_id, branch_cat, is_primary,
                                summit_cat, monitored, dep_summit_cats,
+                               insert_nosim,
                                project, options, update_progress):
 
     MessageType = (Message if monitored else MessageUnsafe)
@@ -1961,17 +1979,19 @@ def summit_gather_single_bcat (branch_id, branch_cat, is_primary,
             # Otherwise, just append them at the end.
             if summit_msgs:
 
-                # Assemble groups of messages by same msgid and same msgctxt.
-                smsgs_by_msgid = {}
-                smsgs_by_msgctxt = {}
-                for smsg in summit_msgs:
-                    if smsg.msgid not in smsgs_by_msgid:
-                        smsgs_by_msgid[smsg.msgid] = []
-                    smsgs_by_msgid[smsg.msgid].append(smsg)
-                    if smsg.msgctxt is not None:
-                        if smsg.msgctxt not in smsgs_by_msgctxt:
-                            smsgs_by_msgctxt[smsg.msgctxt] = []
-                        smsgs_by_msgctxt[smsg.msgctxt].append(smsg)
+                # Assemble groups of messages by same msgid and same msgctxt,
+                # for insertion by similarity.
+                if not insert_nosim:
+                    smsgs_by_msgid = {}
+                    smsgs_by_msgctxt = {}
+                    for smsg in summit_msgs:
+                        if smsg.msgid not in smsgs_by_msgid:
+                            smsgs_by_msgid[smsg.msgid] = []
+                        smsgs_by_msgid[smsg.msgid].append(smsg)
+                        if smsg.msgctxt is not None:
+                            if smsg.msgctxt not in smsgs_by_msgctxt:
+                                smsgs_by_msgctxt[smsg.msgctxt] = []
+                            smsgs_by_msgctxt[smsg.msgctxt].append(smsg)
 
                 insertions = []
                 for msg in msgs:
@@ -1989,49 +2009,50 @@ def summit_gather_single_bcat (branch_id, branch_cat, is_primary,
                     # Similarity is checked by groups,
                     # such that for each group there is a message part
                     # which is compared for similarity.
-                    for summit_msgs_group, matt, forceins in (
-                        (smsgs_by_msgid.get(msg.msgid), "msgctxt", True),
-                        (smsgs_by_msgctxt.get(msg.msgctxt), "msgid", True),
-                        (summit_msgs, "key", False),
-                    ):
-                        if not summit_msgs_group:
-                            continue
-
-                        # Shortcut: if only one summit message in the group
-                        # and insertion forced, insert after it.
-                        if len(summit_msgs_group) == 1 and forceins:
-                            summit_msg_ref = summit_msgs_group[-1]
-                            break
-
-                        # Does the message have the part to be matched?
-                        mval = msg.get(matt)
-                        if mval is None:
-                            continue
-
-                        # Find existing message with the most similar
-                        # matching attribute.
-                        seqm = SequenceMatcher(None, mval, "")
-                        maxr = 0.0
-                        for summit_msg in summit_msgs_group:
-                            smval = summit_msg.get(matt)
-                            if smval is None:
+                    if not insert_nosim:
+                        for summit_msgs_group, matt, forceins in (
+                            (smsgs_by_msgid.get(msg.msgid), "msgctxt", True),
+                            (smsgs_by_msgctxt.get(msg.msgctxt), "msgid", True),
+                            (summit_msgs, "key", False),
+                        ):
+                            if not summit_msgs_group:
                                 continue
-                            seqm.set_seq2(smval)
-                            r = seqm.ratio()
-                            if maxr <= r:
-                                maxr = r
-                                maxr_summit_msg = summit_msg
 
-                        # If similar enough message has been found,
-                        # set insertion position after it.
-                        # Otherwise, insert after last summit message
-                        # in the group if insertion forced.
-                        if maxr > 0.6:
-                            summit_msg_ref = maxr_summit_msg
-                            break
-                        elif forceins:
-                            summit_msg_ref = summit_msgs_group[-1]
-                            break
+                            # Shortcut: if only one summit message in the group
+                            # and insertion forced, insert after it.
+                            if len(summit_msgs_group) == 1 and forceins:
+                                summit_msg_ref = summit_msgs_group[-1]
+                                break
+
+                            # Does the message have the part to be matched?
+                            mval = msg.get(matt)
+                            if mval is None:
+                                continue
+
+                            # Find existing message with the most similar
+                            # matching attribute.
+                            seqm = SequenceMatcher(None, mval, "")
+                            maxr = 0.0
+                            for summit_msg in summit_msgs_group:
+                                smval = summit_msg.get(matt)
+                                if smval is None:
+                                    continue
+                                seqm.set_seq2(smval)
+                                r = seqm.ratio()
+                                if maxr <= r:
+                                    maxr = r
+                                    maxr_summit_msg = summit_msg
+
+                            # If similar enough message has been found,
+                            # set insertion position after it.
+                            # Otherwise, insert after last summit message
+                            # in the group if insertion forced.
+                            if maxr > 0.6:
+                                summit_msg_ref = maxr_summit_msg
+                                break
+                            elif forceins:
+                                summit_msg_ref = summit_msgs_group[-1]
+                                break
 
                     # If no similar existing message, set position before
                     # the summit message with first greater source reference

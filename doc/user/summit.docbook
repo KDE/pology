@@ -403,7 +403,7 @@ S.over_templates = True
 
 S.summit = dict(
     topdir=S.relpath("%s" % S.lang),
-    topdir_templates=S.relpath("templates")),
+    topdir_templates=S.relpath("templates"),
 )
 
 S.branches = [
@@ -757,7 +757,7 @@ The <option>--force</option> option is necessary because, in summit over templat
 <para>Important thing to note about mismatches is that reports produced by <command>posummit</command> may be misleading, especially in more complicated situations (splitting, merging). This means that you must carefully examine what has actually happened, not based only on the branch file trees themselves, but also by keeping an eye on channels (e.g. mailing lists) where information for translators is most likely to appear.</para>
 <!-- FIXME: Mention podescprob once documented. -->
 
-<para>There is also the possibility to map a whole branch subdirectory to another directory in the summit. Since summit PO files are unique by domain name, the only effect of subdirectory mapping is to prevent <command>posummit</command> from reporting that files should be moved to another subdirectory, and to have it report proper expected summit paths when new branch catalogs are discovered. For example, if the PO files from subdirectory <filename>foosuite/</filename> in <literal>devel</literal> branch and from subdirectory <filename>foopack/</filename> in <literal>stable</literal> branch should both be collected in summit subdirectory <filename>foo/</filename>, the subdirectory mapping would be:
+<para>There is also the possibility to map a whole branch subdirectory to another directory in the summit. Since summit PO files are unique by domain name, the only effect of subdirectory mapping is to prevent <command>posummit</command> from reporting that files should be moved to another subdirectory, and to have it report proper expected summit paths when new branch PO files are discovered. For example, if the PO files from subdirectory <filename>foosuite/</filename> in <literal>devel</literal> branch and from subdirectory <filename>foopack/</filename> in <literal>stable</literal> branch should both be collected in summit subdirectory <filename>foo/</filename>, the subdirectory mapping would be:
 <programlisting language="python">
 S.subdir_mappings = [
     ...
@@ -1174,6 +1174,8 @@ $ posummit scatter -a emergency
 <para>It is possible to exclude some branch PO files from summit operations, or to include only certain branch PO files into summit operations. This is done by setting <literal>excludes=</literal> and <literal>includes=</literal> keys. The value is a list of tests on branch PO file absolute path: if any test matches, the file is matched on the whole (logical OR). Each test can be either a regular expression string, or a function taking the file path as argument and returning a truth value. If only <literal>excludes=</literal> is set, then all files not matched are operated on, and if <literal>includes=</literal> is set, only matched files are operated on. If both keys are set, then only files matched by <literal>includes=</literal> and not matched by <literal>excludes=</literal> are operated on.</para>
 
 <para>If branches are under version control and <command>posummit</command> is told to <link linkend="sec-sucfgvcs">issue version control commands</link> as appropriate (i.e. <literal>S.branches_version_control</literal> configuration field is set), it is possible to exclude a specific branch from this, by setting its <literal>skip_version_control=</literal> key to <literal>True</literal>.</para>
+
+<para>When a message from a non-primary branch PO file does not exist in the primary branch PO file, on gathering it is inserted into the summit PO file by evaluating its similarity to other messages (among other criteria). When the branch PO file has many and long messages, these similarity checks can cause excessive gathering times (in hours), to the point of making the summit operation infeasible. As a compromise, the <literal>insert_nosim=</literal> key can be set to <literal>True</literal> to skip insertion by similarity on that branch. If only some PO files are exhibiting this problem, <literal>insert_nosim=</literal> can be instead set to a list of regular expression strings to match those particular files, by their branch domain name. Finally, the value can also be a function which takes the branch domain and subdirectory path as arguments (e.g. <literal>test_insert_nosim(domain, subdir)</literal>) and returns <literal>True</literal> to skip similarity check.</para>
 
 </sect2>
 
