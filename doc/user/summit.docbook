@@ -403,7 +403,7 @@ S.over_templates = True
 
 S.summit = dict(
     topdir=S.relpath("%s" % S.lang),
-    topdir_templates=S.relpath("templates")),
+    topdir_templates=S.relpath("templates"),
 )
 
 S.branches = [
@@ -757,7 +757,7 @@ The <option>--force</option> option is necessary because, in summit over templat
 <para>Important thing to note about mismatches is that reports produced by <command>posummit</command> may be misleading, especially in more complicated situations (splitting, merging). This means that you must carefully examine what has actually happened, not based only on the branch file trees themselves, but also by keeping an eye on channels (e.g. mailing lists) where information for translators is most likely to appear.</para>
 <!-- FIXME: Mention podescprob once documented. -->
 
-<para>There is also the possibility to map a whole branch subdirectory to another directory in the summit. Since summit PO files are unique by domain name, the only effect of subdirectory mapping is to prevent <command>posummit</command> from reporting that files should be moved to another subdirectory, and to have it report proper expected summit paths when new branch catalogs are discovered. For example, if the PO files from subdirectory <filename>foosuite/</filename> in <literal>devel</literal> branch and from subdirectory <filename>foopack/</filename> in <literal>stable</literal> branch should both be collected in summit subdirectory <filename>foo/</filename>, the subdirectory mapping would be:
+<para>There is also the possibility to map a whole branch subdirectory to another directory in the summit. Since summit PO files are unique by domain name, the only effect of subdirectory mapping is to prevent <command>posummit</command> from reporting that files should be moved to another subdirectory, and to have it report proper expected summit paths when new branch PO files are discovered. For example, if the PO files from subdirectory <filename>foosuite/</filename> in <literal>devel</literal> branch and from subdirectory <filename>foopack/</filename> in <literal>stable</literal> branch should both be collected in summit subdirectory <filename>foo/</filename>, the subdirectory mapping would be:
 <programlisting language="python">
 S.subdir_mappings = [
     ...
