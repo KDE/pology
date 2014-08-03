@@ -1801,7 +1801,7 @@ def summit_gather_single (summit_name, project, options,
 
         branch_paths = []
         for branch_id in src_branch_ids:
-            for branch_cat, dep_summit_cats in bcat_pscats[branch_id]:
+            for branch_cat, dep_summit_cats, insert_nosim in bcat_pscats[branch_id]:
                 branch_paths.append(branch_cat.filename)
         paths_str = " ".join(branch_paths)
         if options.verbose:
