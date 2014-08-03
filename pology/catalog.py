@@ -218,6 +218,7 @@ def _parse_po_file (file, MessageType=MessageMonitored,
                             file = lst[0]
                             try:
                                 line = int(lst[1])
+                                assert line > 0
                             except:
                                 file = srcref
                                 line = -1
