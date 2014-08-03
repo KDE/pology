@@ -150,7 +150,7 @@ hint="«Carbon» es tradueix per «Carboni», no per «Carbó» (fals amic)"
 # «Card» es tradueix per «Targeta».
 {\bcards?\b}i
 valid msgstr="target(a|es)"
-valid msgstr="cart(a|es)" cat="desktop_kdegames_kmahjongg,desktop_kdegames_kpat,desktop_kdegames_lskat,desktop_kdegames_libkdegames,kpoker,lskat,kpat"
+valid msgstr="cart(a|es)" cat="desktop_kdegames_kmahjongg,desktop_kdegames_kpat,desktop_kdegames_lskat,desktop_kdegames_libkdegames,kpoker,lskat,kpat,pairs.appdata"
 valid msgstr="cartes" cat="desktop_kde-runtime,desktop_workspace_plasma-workspace,desktop_extragear-base_kappfinder,libmuon,muon-installer" before="\sgames?"
 valid msgstr="baralla de cartes" cat="digikam_editor-transform" # docmessages
 valid !msgstr="cart(a|es)"
