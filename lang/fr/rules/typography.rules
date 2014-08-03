@@ -276,6 +276,7 @@ valid cat="sheets_functions" msgid="\(a\+b\+c\)!\s/\sa!b!c!"
 valid cat="sheets_functions" after="Feuille[0-9]"
 valid cat="kppp_callback" after="#" before="/bin"
 valid cat="cantor" after="Q?alculate"
+valid cat="kmail_using-kmail" msgid="The Bat!"
 hint="Mettre une espace insécable avant et une espace après"
 
 [\?]
@@ -673,6 +674,7 @@ valid cat="sheets_functions" before="P|N|J|W|T|C|E|F|K|G"
 valid cat="kppp_hayes" before="V.42bis"
 valid cat="lokalize" before="Shankar|Sweta"
 valid cat="tellico_importing-exporting" before="Tellico"
+valid cat="kmail_using-kmail" msgid="Your traditional.*"
 hint="Pas de majuscule après deux points ou un point virgule"
 
 [(<strong>«)|(<b>«)|(<em>«)|(<i>«)|(»</strong>)|(»</b>)|(»</em>)|(»</i>)]

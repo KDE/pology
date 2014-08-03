@@ -565,7 +565,9 @@ valid msgstr="vignette"
 hint="Traduisez « thumb » ou « thumbnail » par « vignette »"
 
 {backend}i
+validGroup foreignphraseTag
 valid msgstr="moteur"
+valid cat="kmail_troubleshooting" msgstr="Vous obtenez le message <foreignphrase>Unable to fetch item from backend.*"
 hint="Traduisez « backend » par « moteur »"
 
 {frontend}i
