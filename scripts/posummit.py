@@ -2726,7 +2726,7 @@ def summit_merge_single (branch_id, catalog_name, catalog_subdir,
                            getcat=getcat, monitored=monitored,
                            ignpotdate=ignpotdate,
                            quiet=True, abort=False)
-        if not cat:
+        if cat is None:
             warning(_("@info",
                       "Catalog '%(file1)s' not merged with "
                       "template '%(file2)s' due to errors on merging.",
