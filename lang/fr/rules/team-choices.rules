@@ -113,7 +113,7 @@ hint="préférons « arrêt » à « stop »"
 validGroup linkstart
 valid after="services? de " before="s"
 valid before=" téléphon"
-valid cat="konqueror_filemanager" after="Notez que le terme <quote>dossier</quote> est souvent utilisé à la place de <quote>"
+valid cat="konqueror,konqueror_filemanager" after="Notez que le terme <quote>dossier</quote> est souvent utilisé à la place de <quote>"
 hint="préférons « dossier » à « répertoire »"
 
 [taper|tapant]
@@ -132,7 +132,7 @@ valid after="affichage "
 valid before=" (Disc|PCI|GSM|Flash)"
 valid cat="juk" before="</guimenuitem>" after="<guimenuitem>"
 valid cat="juk" after="juk-viewmode-"
-valid cat="konqueror_filemanager,konqueror_commands"
+valid cat="konqueror,konqueror_filemanager,konqueror_commands"
 valid cat="kcontrol_kwintabbox" after="vue.+"
 valid cat="kstars_ellipticalgalaxies" after="Blue " before=" dwarf"
 valid cat="kstars_darkmatter" after="MAssive " before=" Halo"
@@ -331,6 +331,7 @@ hint="« Souhaitez-vous » -> « Voulez-vous » (homogénéité)"
 [Va ]
 valid after="Ja"
 valid cat="konqueror_commands" before="dans votre page personnelle"
+valid cat="konqueror" msgid="Go to your home page.*"
 valid cat="kile" msgid="Jump.*"
 hint="« Va » -> « Aller » (à l'infinitif)"
 
@@ -558,6 +559,7 @@ valid msgid="bold (typeface|font)" msgstr="en gras"
 valid msgstr="caractères" cat="khangman"
 valid msgid="var fontCommands.*" cat="kile_scripting"
 valid msgid="<guilabel>Typeface Size</guilabel>*" cat="kile"
+valid msgstr=".*Zoom.*"
 hint="Utilisez « police » pour traduire « typeface » ou « font » (bien qu'il s'agisse d'un abus de langage)."
 
 {\bthumb}i
