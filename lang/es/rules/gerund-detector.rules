@@ -75,25 +75,34 @@ include file="filter.include"
 
 [\b\w+(ando|iendo|yendo|ándol[ae]s?|éndol[ae]s?|ándose|éndose)\b]i
 id="gd-3-revisar-gerundio"
-disabled
+#disabled
 validGroup ingAdjetives
 valid after="(?u)est\w+\s"
-valid before="[^.,;]*?\.\.\."
+valid after="\W\s?"
+valid before="[^.,;:]*?\.\.\."
+valid before="\s[A-Z]"
+valid before="\s?\W"
+valid before="\s(el|la|los|las|un|una|unos|unas)"
+valid before="\s(a|ante|bajo|con|contra|de|desde|en|entre|hacia|hasta|para|por|según|si|sobre|tras)"
+valid before="\s(mi|tu|su|mis|tus|sus|que)"
 valid span="cuando"
+valid span="mando"
+valid msgid="^\w+?ing"
 hint="Revisión de gerundios"
 
-{^\w+ing\b[^.,;]*?\.\.\.}i
+{^\w+ing\b[^.,;:]*?\.\.\.}i
 id="gd-3-ing-seguido-puntos-suspensivos"
-valid msgstr="\w+(ando|iendo|yendo|ándol[ae]s?|éndol[ae]s?|ándose|éndose)"
+valid msgstr="(?u)\w+(ando|iendo|yendo|ándol[aeo]s?|éndol[aeo]s?|ándose|éndose)"
 valid msgid="(being|mailing|recurring|string|conflicting|messaging|something|nothing|existing|missing|pending|everything|in\sprogress|AqBanking)"
 hint="La forma «ing» se debe traducir como gerundio cuando va seguida de puntos suspensivos (revisión de gerundios)"
 
 {\b(am|are|is|was|were)\s\w+ing\b}i
 id="gd-3-ing-precedido-verbo-to-be"
-disabled
-valid msgstr="\w+(ando|iendo|yendo|ándol[ae]s?|éndol[ae]s?|ándose|éndose)"
+#disabled
+validGroup ingAdjetives
+valid msgstr="(?u)\w+(ando|iendo|yendo|ándol[aeo]s?|éndol[aeo]s?|ándose|éndose)"
 valid msgid="(being|mailing|recurring|string|conflicting|messaging|something|nothing|existing|missing|pending|everything|in\sprogress|AqBanking)"
-valid msgid="(checking|spelling)"
+valid msgid="(checking|spelling|running|working\sdays?)"
 valid before="\sto\s"
 valid before="\s\w+ed"
 hint="La forma «ing» se suele traducir como gerundio cuando va precedida del verbo «to be» (revisión de gerundios)"
