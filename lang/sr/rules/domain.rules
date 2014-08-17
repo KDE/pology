@@ -163,6 +163,31 @@ hint="square = поље"
 valid msgstr="\bпољ[еау]"
 
 # ====================
+# Kile (document creator)
+environment kile
+
+{bad.?box}i
+id="t-badbox"
+hint="bad box = лош распон"
+valid msgstr="лош\w* распон"
+
+{\bbox}i
+id="t-box"
+hint="box = распон"
+valid after="(combo|list|bounding) "
+valid msgstr="распон"
+
+{forward search}i
+id="t-forwardsearch"
+hint="forward search = претрага унапред"
+valid msgstr="претра\w+ унапред"
+
+{inverse search}i
+id="t-inversesearch"
+hint="inverse search = обратна претрага"
+valid msgstr="обратн\w+ претра\w+"
+
+# ====================
 # KJumpingCube (game)
 environment kjumpingcube
 

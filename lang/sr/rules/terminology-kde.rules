@@ -221,9 +221,9 @@ hint="command = наредба"
 valid before="[ -]?line| shell| prompt| byte"
 valid after="^(Use this |This )" !msgstr="\bкоманд"
 valid after="</?"
-valid msgstr="\bнаредб"
+valid msgstr="\bнареда?б"
 valid msgstr="&\w*command\S*;"
-valid after="pre-?" msgstr="\bпреднаредб" # боље да буде нова одредница
+valid after="pre-?" msgstr="\bпреднареда?б" # боље да буде нова одредница
 valid cat="katetextfilter" msgid="textfilter COMMAND"
 valid cat="konqueror" msgid="to the \S*Paste\S* command" msgstr="за \S*налепљивање\S*"
 
@@ -303,6 +303,7 @@ id="t-desktop"
 hint="desktop = површ [елемент графичког сучеља]"
 valid msgstr="\bповрш(?!ин)" !msgstr="радн\w+ површ"
 valid before=" publishing"
+valid before=" computer"
 valid after="K " before=" Environment" # KDE (K Desktop Environment)
 valid after="\." msgstr="&dotdesktop"
 valid !after="\." msgstr="&\w*desktop\S*;"
@@ -1128,7 +1129,7 @@ valid msgstr="&yahoo\S*;" !msgstr="\bјаху"
 {\bzoom}i
 id="t-zoom"
 hint="zoom = увеличати"
-valid before="[ -]out"
+valid before="(ed)?[ -]out"
 valid msgstr="\bувелича"
 valid msgstr="&\w*zoom\S*;"
 valid before=" to fit" msgstr="\bукл[ао]п\w+ величин"
