@@ -252,6 +252,7 @@ hint="À remplacer par « utiliser »"
 valid before=" bold"
 valid after="font-family:'?"
 valid after="New,"
+valid cat="kwrite_configuring" after="<userinput>" before="</userinput>"
 hint="À remplacer par « courrier »" 
 
 [language]i
@@ -456,6 +457,7 @@ hint="« digital » est un anglicisme. Utiliser « numérique »"
 validGroup filenameTag
 validGroup literalTag
 validGroup cdataTag
+validGroup commandTag
 valid cat="ksysv" after=":init" before=":$"  
 valid ctx="Query"
 valid cat="kcmkonqhtml" after="window\."

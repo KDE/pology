@@ -44,7 +44,7 @@ validGroup guimenuitemTag
 valid after="<guimenuitem>.*" before=".*</guimenuitem>"
 
 validGroup linkTag
-valid after="linkend=\".*" before=".*\">"
+valid after="linkend=\".*" before=".*\".*>"
 
 validGroup imagedataTag
 valid after="<imagedata fileref=.*" before=".*/>"
@@ -58,6 +58,9 @@ valid after="&amp;linkmid;.*" before=".*&amp;linkend;"
 
 validGroup quoteTag
 valid after="<quote>.*" before=".*</quote>"
+
+validGroup commandTag
+valid after="<command>.*" before=".*</command>"
 
 [(\b[Ee]ntrer\b)|(\b[Ee]ntré[^e])|(\b[Ee]ntrez\b)]
 valid before="&sp;dans&sp;"
@@ -222,6 +225,7 @@ hint="plugin -> module externe"
 
 [\bplugins?\b]
 validGroup filenameTag
+validGroup linkTag
 valid after="\(" before="\)"
 valid after="kmdr-"
 valid after="kipi-"
@@ -552,6 +556,7 @@ hint="Utilisez « URL » en majuscule"
 hint="L'usage est d'utiliser un féminin : « une url »"
 
 {\b(typeface|font)\b}i
+validGroup commandTag
 valid msgstr="police"
 valid after="</?"
 valid before="-" # CSS
