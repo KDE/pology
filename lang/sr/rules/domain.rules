@@ -187,6 +187,11 @@ id="t-inversesearch"
 hint="inverse search = обратна претрага"
 valid msgstr="обратн\w+ претра\w+"
 
+{project file}i
+id="t-projectfile"
+hint="project file = пројектни фајл"
+valid msgstr="пројектн\w+ фајл\w*"
+
 # ====================
 # KJumpingCube (game)
 environment kjumpingcube
