@@ -1670,7 +1670,12 @@ def summit_gather_single (summit_name, project, options,
         return None
 
     # Select primary branch catalog.
-    prim_branch_cat = bcat_pscats[src_branch_ids[0]][0][0]
+    prim_branch_cat = None
+    for branch_id in src_branch_ids:
+        if bcat_pscats[branch_id]:
+            prim_branch_cat = bcat_pscats[branch_id][0][0]
+            break
+    assert prim_branch_cat is not None
 
     # Gather messages through branch catalogs.
     for branch_id in src_branch_ids:
