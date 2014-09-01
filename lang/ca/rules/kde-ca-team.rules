@@ -9,6 +9,11 @@ include file="filter.include"
 # Remove accelerator and  hyphen inside words.
 addFilterRegex match="(\&|\-)" on="pmsgid,pmsgstr"
 
+{\balignments?\b}i
+valid msgid="alineaci(ó|ons)"
+valid !msgstr="alineaments?"
+hint="Es tradueix per «alineació/ons» (kde-ca-team)"
+
 {\bapplets?\b}i
 valid msgid="nm-applet"
 valid msgstr="miniaplicaci(ó|ons)"
@@ -635,7 +640,7 @@ hint="Es tradueix per «targeta/es intel·ligent/s» (kde-ca-team)"
 valid msgstr="^SNAPSHOT$" comment="Tag\:\spara" cat="kexi" # docmessages
 valid msgstr="captur(a|es) de pantalla"
 valid msgstr="captur(a|es)" cat="digikam,massif-visualizer,kate,pate"
-valid msgstr="instantàni(a|es)" cat="glossary,kstars,rekonq"
+valid msgstr="instantàni(a|es)" cat="glossary,kstars,rekonq,kdevvalgrind"
 valid msgstr="punts? de sincronisme"
 hint="«snapshot» es tradueix *generalment* per «captura de pantalla» (kde-ca-team)"
 
