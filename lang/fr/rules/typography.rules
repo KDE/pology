@@ -92,6 +92,9 @@ validGroup linkstart
 valid after="&amp;linkstart;.*" before=".*\"&amp;linkmid;"
 valid after="&amp;linkmid;.*" before=".*&amp;linkend;"
 
+validGroup replaceableTag
+valid after="<replaceable>.*" before=".*</replaceable>"
+
 [:]
 validGroup alone
 validGroup cdataTag
@@ -226,7 +229,7 @@ valid cat="kdeprint_theory" after="% first box over"
 valid cat="kile_scripting" after="\)"
 valid cat="kile_scripting" msgid="var .*"
 valid cat="kdm" msgid="if kdmctl*"
-valid cat="kwrite_configuring" msgid="// kate.*"
+valid cat="kwrite_configuring,kate_configuring" msgid="// kate.*"
 hint="Mettre une espace insécable avant et une espace après"
 
 [!]
@@ -401,6 +404,7 @@ validGroup perlScript
 validGroup userinputTag
 validGroup optionTag
 validGroup literalTag
+validGroup replaceableTag
 valid cat="amarok" after="prefix"
 valid cat="amarok" before="kde4?-config"
 valid cat="kdevelop" after="attendu.*"
@@ -413,6 +417,7 @@ hint="Utiliser de vrais guillemets, au lieu d'une apostrophe (homogénéité)"
 validGroup computeroutputTag
 validGroup userinputTag
 validGroup perlScript
+validGroup replaceableTag
 valid before="&amp;[\wéèàêâ]" 
 valid before="&lt;b&gt;"
 valid before="&lt;a "
@@ -469,6 +474,7 @@ validGroup functionTag
 validGroup perlScript
 validGroup literalTag
 validGroup commandTag
+validGroup replaceableTag
 valid msgid="<!ENTITY"
 valid after="\s+(=|]|PS1|\")"
 valid before="\s*/?>|&gt|}"

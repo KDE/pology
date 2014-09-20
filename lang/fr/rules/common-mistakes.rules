@@ -252,7 +252,7 @@ hint="À remplacer par « utiliser »"
 valid before=" bold"
 valid after="font-family:'?"
 valid after="New,"
-valid cat="kwrite_configuring" after="<userinput>" before="</userinput>"
+valid cat="kwrite_configuring,kate_configuring" after="<userinput>" before="</userinput>"
 hint="À remplacer par « courrier »" 
 
 [language]i
@@ -466,6 +466,7 @@ valid cat="juk" after="juk-viewmode-"
 valid cat="kppp_accounting"
 valid cat="kdm" after="init"
 valid cat="tellico_hacking" after="_"
+valid cat="kommander_widgets"
 hint="À remplacer par « défaut »" 
 
 [media]i
@@ -591,6 +592,7 @@ valid cat="kile" after="math"
 valid cat="kile_scripting" after="\\|view\..*|document\.replace|document\.remove"
 valid cat="kdm_theme-ref" msgid="&amp;lt;text xml.*"
 valid cat="tellico_advanced" after="QString "
+valid cat="kommander_widgets"
 hint="Merci de mettre un « e » à la fin de « texte » ou « contexte »"
 
 [anti-[^i]]i
