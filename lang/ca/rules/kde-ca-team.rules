@@ -532,7 +532,7 @@ hint="Es tradueix per «quadre/s de vista prèvia» (kde-ca-team)"
 
 {\bprogress.?bars?\b}i
 valid msgstr="barr(a|es) de progrés"
-valid msgstr="barraDeProgrés" cat="kexi"
+valid msgstr="barraDeProgrés" cat="kexi,krossmodulewords"
 hint="Es tradueix per «barra/es de progrés» (kde-ca-team)"
 
 {\bradio.?box\b}i
@@ -703,7 +703,7 @@ valid msgstr="pestany(a|es)"
 valid msgstr="tabuladors?"
 valid msgstr="tabulaci(ó|ons)"
 valid msgstr="caràcter de tabulació"
-valid msgstr="tab" cat="kdelibs4,kcmkeyboard,kabcclient,kdeqt,katepart4,ktexteditor5,ktextwidgets5,ktouch,digikam,simonshortcutcommand,trojita_common" # Tecla Tab
+valid msgstr="tab" cat="kdelibs4,kcmkeyboard,kabcclient,kdeqt,katepart4,ktexteditor5,ktextwidgets5,ktouch,digikam,simonshortcutcommand,trojita_common,ki18n5" # Tecla Tab
 valid msgstr="tabulatur(a|es)" cat="amarok" # Tablature -> Tabulatura (Termcat: música)
 valid msgstr="encastat" cat="kcontrol_filetypes" # docmessages
 valid msgstr="~" after="screenshot.+" cat="korganizer" # docmessages
@@ -736,6 +736,7 @@ hint="Es tradueix per «barra/es de títol» (kde-ca-team)"
 
 {\btool.?bars?\b}i
 valid msgstr="barr(a|es) d'eines"
+valid msgstr="barra\/es d'eines"
 valid msgstr="barra de localització" # fals positiu (Location Toolbar)
 valid msgstr="barra de simulació" # fals positiu (Simulation Toolbar)
 valid msgstr="toolbar" cat="calligra"
