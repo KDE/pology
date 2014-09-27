@@ -171,6 +171,11 @@ id="t-badbox"
 hint="bad box = лош распон"
 valid msgstr="лош\w* распон"
 
+{bibliograph}i
+id="t-bibliography"
+hint="bibliography = литература"
+valid msgstr="литератур\w+"
+
 {\bbox}i
 id="t-box"
 hint="box = распон"
@@ -186,6 +191,11 @@ valid msgstr="претра\w+ унапред"
 id="t-inversesearch"
 hint="inverse search = обратна претрага"
 valid msgstr="обратн\w+ претра\w+"
+
+{\blists?\b}i
+id="t-list_tg"
+hint="list = списак [типографски елемент]"
+valid msgstr="\bспис(ак|к)"
 
 {project file}i
 id="t-projectfile"
