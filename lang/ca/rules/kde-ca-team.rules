@@ -113,6 +113,11 @@ valid comment="Tag\:\sprogramlisting" cat="kcontrol_kremotecontrol" # docmessage
 valid comment="Tag\:\sterm" cat="kdm_theme-ref" # docmessages
 hint="Es tradueix per «botó/botons» (kde-ca-team)"
 
+{\bcarets?\b}i
+valid msgstr="cursors?" # browsing caret: navegació basada en cursor...
+valid msgstr="accent circumflex" # simbol ^
+hint="Es tradueix per «cursor» o «accent circumflex» segons el context (kde-ca-team)"
+
 {\bcharacter\sset\b}i
 valid msgstr="joc de caràcters"
 hint="Es tradueix per «joc de caràcters» (kde-ca-team)"
