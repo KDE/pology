@@ -184,5 +184,6 @@ valid cat="kdecalendarsystems" !srcref="gregorian"
 valid cat="desktop_kdelibs,kdelibs.desktop" srcref="all_languages.desktop"
 valid cat="kdeqt" ctx="QFontDatabase"
 valid cat="kfontinst" srcref="Unicode(Blocks|Scripts)\.h"
+valid cat="plasma_applet_org.kde.plasma.digitalclock" ctx="is a city|is a country"
 # Елементи транскрипта.
 valid span="^([Аа]ку)$" after="\$\[[^\]]*"
