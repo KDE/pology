@@ -281,7 +281,7 @@ msgstr "obično"
 <para>Programmers of free software are frequently aware of this latent necessity, and readily reachable, so you should be able to make the request with little communication overhead.</para>
 </footnote></para>
 
-<para id="p-embctxt">At the moment of this writing, the <varname>msgctxt</varname> string is one of the younger additions to the PO format. But the need for disambiguating contexts was observed much earlier, and different translation environments have historically used different custom solutions to provide them. Such older PO files can still be encountered, so it is useful to present a few examples of custom disambiguating contexts. Before the <varname>msgctxt</varname> was introduced, messages indeed had to be unique by <varname>msgid</varname> alone, so disambiguating context had to be a part of the <varname>msgid</varname>, embedded with some special syntax. Here is how the first message from the previous example would look like in a PO file comming from a KDE program of circa 2006:
+<para id="p-embctxt">At the moment of this writing, the <varname>msgctxt</varname> string is one of the younger additions to the PO format. But the need for disambiguating contexts was observed much earlier, and different translation environments have historically used different custom solutions to provide them. Such older PO files can still be encountered, so it is useful to present a few examples of custom disambiguating contexts. Before the <varname>msgctxt</varname> was introduced, messages indeed had to be unique by <varname>msgid</varname> alone, so disambiguating context had to be a part of the <varname>msgid</varname>, embedded with some special syntax. Here is how the first message from the previous example would look like in a PO file coming from a KDE program of circa 2006:
 <programlisting language="po">
 #: utils/katestyletreewidget.cpp:132
 msgid ""
@@ -334,7 +334,7 @@ In reality, a translator comment such as the one above would probably be written
 
 <para>When a file manager shows a message like "Really delete file tmp10.txt?" or "Open with Froobaz", the "tmp10.txt" and "Froobaz" parts had to be added to the rest of the text at runtime. In such cases, the original text as seen by the translator will contain <emphasis>format directives</emphasis>, substrings which the program will replace with dynamically determined arguments to complete the message to be shown to the user.</para>
 
-<para>For example, in the PO file comming from a KDE program, there will be messages like this one:
+<para>For example, in the PO file coming from a KDE program, there will be messages like this one:
 <programlisting language="po">
 #: skycomponents/constellationlines.cpp:106
 #, kde-format
