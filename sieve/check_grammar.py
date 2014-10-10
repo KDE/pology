@@ -16,15 +16,17 @@ from urllib import urlencode
 from xml.dom.minidom import parseString
 
 from pology import _, n_
-from pology.msgreport import warning_on_msg
+from pology.colors import cjoin
+from pology.msgreport import report_msg_to_lokalize, warning_on_msg
 from pology.report import report, warning
 from pology.sieve import SieveError, SieveCatalogError
 from pology.sieve import add_param_lang, add_param_accel, add_param_markup
 from pology.sieve import add_param_filter
 from pology.getfunc import get_hook_ireq
+from pology.sieve import add_param_poeditors
 
 
-_REQUEST="/?language=%s&%s"
+_REQUEST="/?language=%s&disabled=HUNSPELL_RULE&%s"
 
 def setup_sieve (p):
 
@@ -56,6 +58,8 @@ def setup_sieve (p):
                 desc=_("@info sieve parameter discription",
     "TCP port on the host which server uses to listen for queries."
     ))
+                
+    add_param_poeditors(p)
 
 
 class Sieve (object):
@@ -68,6 +72,7 @@ class Sieve (object):
         self.setLang=params.lang
         self.setAccel=params.accel
         self.setMarkup=params.markup
+        self.lokalize = params.lokalize
 
         # LanguageTool server parameters.
         host=params.host
@@ -146,6 +151,22 @@ class Sieve (object):
                                      rule=error.getAttribute("ruleId"),
                                      note=error.getAttribute("msg")))
                             report("")
+                            if self.lokalize:
+                                repls = [_("@label", "Grammar errors:")]
+                                repls.append(_(
+                                    "@info",
+                                    "<bold>%(file)s:%(line)d(#%(entry)d)</bold>",
+                                    file=cat.filename,
+                                    line=msg.refline,
+                                    entry=msg.refentry
+                                ))
+                                repls.append(_(
+                                    "@info",
+                                    "(%(rule)s) <bold><red>==></red></bold> %(note)s",
+                                    rule=error.getAttribute("ruleId"),
+                                    note=error.getAttribute("msg")
+                                ))
+                                report_msg_to_lokalize(msg, cat, cjoin(repls, "\n"))
         except socket.error:
             raise SieveError(_("@info",
                                "Cannot connect to LanguageTool server. "
