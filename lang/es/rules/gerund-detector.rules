@@ -105,6 +105,7 @@ valid msgid="(being|mailing|recurring|string|conflicting|messaging|something|not
 valid msgid="(checking|spelling|running|working\sdays?)"
 valid before="\sto\s"
 valid before="\s\w+ed"
+valid before="\s[A-Z]"
 hint="La forma «ing» se suele traducir como gerundio cuando va precedida del verbo «to be» (revisión de gerundios)"
 
 # End of rule file

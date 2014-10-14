@@ -38,7 +38,8 @@ addFilterRegex match="^[/+.:-]{1,2}\w+\b" repl="" on="pmsgid,pmsgstr"
 addFilterRegex match="\b[a-zA-Z]+\d\w*\b" repl="" casesens="yes" on="pmsgid,pmsgstr"
 
 # Omit particles between propernames.
-addFilterRegex match="(?<=\w)\s(aka|da|de|de\sla|del|der|do|du|la|van|vom|von)\s(?=[A-Z])" repl=" " casesens="yes" on="pmsgid,pmsgstr"
+addFilterRegex match="(?<=\w)\s(aka|da|de|de\sla|del|der|do|du|la|van|vom|von|y)\s(?=[A-Z])" repl=" " casesens="yes" on="pmsgid,pmsgstr"
+addFilterRegex match="(?<=\w)\s(and|of|the)\s(?=[A-Z])" repl=" " casesens="yes" on="pmsgid,pmsgstr"
 
 # Omit saxon genitive.
 addFilterRegex match="(?<=\w)\'s\b" repl="" on="pmsgid,pmsgstr"

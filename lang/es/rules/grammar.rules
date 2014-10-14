@@ -1620,7 +1620,7 @@ hint="«Me/Te/Se/Nos/Os/Lo/Los/La/Las/Le/Les + infinitivo» se escribe como «Me
 
 [(?u)\b(mi|tu|su)\s\w+?(ar|er|ir)\b]i
 id="gr-1-mi-tu-su-seguido-infinitivo"
-valid span="\w+\s(lugar|primer|par)"
+valid span="\w+\s(avatar|lugar|primer|par)"
 hint="«Mi/Tu/Su + infinitivo» se escribe como «Mi/Tu/Su + presente» (error gramatical)"
 
 [(?u)\bse\s\w+?(s)\b]i

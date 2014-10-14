@@ -1266,6 +1266,7 @@ valid msgstr="funcionalidad"
 valid msgstr="característica"
 valid msgstr="present(ar|a|e)"
 valid msgstr="ofre(cer|ce|zca)"
+valid msgstr="principal(es)?"
 hint="«Feature» se traduce como «Funcionalidad/Característica» o «Presentar/Ofrecer»(ver glosario)"
 
 {\bfeatures\b}i
@@ -1277,6 +1278,7 @@ valid msgstr="(alguna|cualquier|ninguna)\scaracterística"
 valid msgstr="proporcion[ae]"
 valid msgstr="present[ae]"
 valid msgstr="ofre(ce|zca)"
+valid msgstr="principales"
 hint="«Features» se traduce como «Funcionalidades/Características» o «Presenta/Ofrece»(ver glosario)"
 
 {\bfeed\b}i
@@ -1942,13 +1944,16 @@ valid msgstr="bloque(ar|o|e|a)"
 valid msgstr="bloqueará" after="will\s(\w+\s)?"
 valid msgstr="bloqueó" after="did\s(\w+\s)?"
 valid msgstr="bloq" after="(num|caps|scroll)\s"
+valid msgstr="candado"
 valid after="\."
 hint="«Lock» se traduce como «Bloqueo» (ver glosario)"
 
 {\blocks\b}i
 id="gk-2-locks"
 valid msgstr="bloque(os|a)"
+valid msgstr="candados"
 valid msgstr="(algún|cualquier|ningún)\sbloqueo"
+valid msgstr="(algún|cualquier|ningún)\scandado"
 hint="«Locks» se traduce como «Bloqueos» (ver glosario)"
 
 {\blog\b}i

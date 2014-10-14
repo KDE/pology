@@ -400,6 +400,7 @@ hint="Utilice el símbolo «©» en lugar de «(C)» antes de un número de año
 [\b(Ac|Ag|Al|Am|Ar|As|At|Au|B|Be|Bh|Bi|Bk|Br|C|Ca|Cd|Ce|Cf|Cl|Cm|Co|Cr|Cs|Cu|Dy|Er|Es|Eu|F|Fe|Fm|Fr|Ga|Gd|Ge|He|Hf|Hg|Ho|In|Ir|Kr|Kv|La|Li|Lr|Lu|Md|Mg|Mn|Mo|Mt|N|Na|Nb|Nd|Ne|Ni|No|Np|Os|P|Pa|Pb|Pd|Pm|Po|Pr|Pt|Pu|Ra|Rb|Re|Rf|Rh|Rn|Ru|S|Sb|Sc|Se|Sg|Si|Sm|Sn|Sr|Ta|Tb|Tc|Te|Th|Ti|Tl|Tm|U|V|Xe|Y|Yb|Zn|Zr)\.]
 id="ty-2-punto-en-elemento-quimico"
 valid before="\s[A-Z]"
+valid before="\s(aka|da|de|de\sla|del|der|do|du|la|van|vom|von|y)\s"
 valid before="\w+\."
 valid before="$"
 valid before="\.\."
@@ -412,6 +413,7 @@ hint="Los elementos químicos no llevan punto"
 [\b(a|A|at|atm|b|bar|c|cal|cd|cm|CV|d|da|dB|dm|dyn|erg|eV|f|F|ft|g|G|Gb|GiB|gr|Gs|Gy|h|H|ha|hp|Hz|in|J|k|K|Kb|kg|KiB|km|l|L|lb|lm|lx|m|M|Mb|MiB|mbar|Mc|mg|min|mol|Mx|n|N|Oe|oz|p|P|Pa|pc|pt|Qm|R|rad|s|sr|Sv|t|T|tex|u|UA|V|Wb|yd)\.]
 id="ty-2-punto-en-unidad-medida"
 valid before="\s[A-Z]"
+valid before="\s(aka|da|de|de\sla|del|der|do|du|la|van|vom|von|y)\s"
 valid before="\w+\."
 valid before="$"
 valid before="\.\."
