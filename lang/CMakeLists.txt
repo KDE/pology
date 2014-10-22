@@ -1,4 +1,5 @@
 add_subdirectory(ca)
+add_subdirectory(cs)
 add_subdirectory(es)
 add_subdirectory(fr)
 add_subdirectory(gl)
