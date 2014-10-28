@@ -295,7 +295,7 @@ class Header (Monitored):
         return self._message
 
 
-    def to_lines (self, wrapf=wrap_field, force=False):
+    def to_lines (self, wrapf=wrap_field, force=False, colorize=0):
         """
         The line-representation of the header.
 
@@ -304,10 +304,10 @@ class Header (Monitored):
         @see: L{Message_base}
         """
 
-        return self.to_msg(force).to_lines(wrapf, force)
+        return self.to_msg(force).to_lines(wrapf, force, colorize)
 
 
-    def to_string (self, wrapf=wrap_field, force=False):
+    def to_string (self, wrapf=wrap_field, force=False, colorize=0):
         """
         The string-representation of the header.
 
@@ -316,7 +316,7 @@ class Header (Monitored):
         @see: L{Message_base}
         """
 
-        return self.to_msg(force).to_string(wrapf, force)
+        return self.to_msg(force).to_string(wrapf, force, colorize)
 
 
     def select_fields (self, name):
