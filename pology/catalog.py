@@ -1111,7 +1111,7 @@ class Catalog (Monitored):
         self.__dict__["#"]["*"] += 1 # indicate sequence change (pending)
 
 
-    def sync (self, force=False, noobsend=False, writefh=None):
+    def sync (self, force=False, noobsend=False, writefh=None, fitplural=False):
         """
         Write catalog file to disk if any message has been modified.
 
@@ -1127,12 +1127,22 @@ class Catalog (Monitored):
         Same as when writing to file on disk, text will be encoded
         using catalog's encoding before writing it to C{writefh}.
 
+        If in a plural message the number of C{msgstr} entries is not equal
+        to the number specified in the plural header, the C{fitplural}
+        parameter can be set to C{True} to correct this on syncing.
+        However, this fitting will be performed only on clean plural messages,
+        i.e. those in which all existing C{msgstr} entries are empty,
+        as otherwise it is unclear how to adapt them to plural header.
+
         @param force: whether to reformat unmodified messages
         @type force: bool
         @param noobsend: do not reorder messages to group all obsolete at end
         @type noobsend: bool
         @param writefh: file to write the catalog to
         @type writefh: file-like object
+        @param fitplural: whether to fit the number of msgstr entries in
+            clean plural messages to plural header specification
+        @type fitplural: bool
 
         @returns: C{True} if the file was modified, C{False} otherwise
         @rtype: bool
@@ -1144,6 +1154,17 @@ class Catalog (Monitored):
             raise PologyError(
                 _("@info",
                   "Trying to sync unnamed catalog."))
+
+        # Fit the number of msgstr entries in plural messages if requested.
+        # Must be done before the modification test below.
+        if fitplural:
+            n = self.nplurals()
+            for msg in self._messages:
+                if (    msg.msgid_plural is not None
+                    and len(msg.msgstr) != n
+                    and all(len(s) == 0 for s in msg.msgstr)
+                ):
+                    msg.msgstr[:] = [u""] * n
 
         # If catalog is not monitored, force syncing.
         if not self._monitored:
