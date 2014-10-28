@@ -1127,11 +1127,11 @@ class Catalog (Monitored):
         Same as when writing to file on disk, text will be encoded
         using catalog's encoding before writing it to C{writefh}.
 
-        If in a plural message the number of C{msgstr} entries is not equal
+        If in a plural message the number of C{msgstr} fields is not equal
         to the number specified in the plural header, the C{fitplural}
         parameter can be set to C{True} to correct this on syncing.
         However, this fitting will be performed only on clean plural messages,
-        i.e. those in which all existing C{msgstr} entries are empty,
+        i.e. those in which all existing C{msgstr} fields are empty,
         as otherwise it is unclear how to adapt them to plural header.
 
         @param force: whether to reformat unmodified messages
@@ -1140,7 +1140,7 @@ class Catalog (Monitored):
         @type noobsend: bool
         @param writefh: file to write the catalog to
         @type writefh: file-like object
-        @param fitplural: whether to fit the number of msgstr entries in
+        @param fitplural: whether to fit the number of msgstr fields in
             clean plural messages to plural header specification
         @type fitplural: bool
 
