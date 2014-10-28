@@ -294,7 +294,7 @@ class Message_base (object):
         """
 
         self.__dict__["^getsetattr"] = getsetattr
-        self._colorize_prev = None
+        self._colorize_prev = 0
 
 
     def __getattr__ (self, att):
