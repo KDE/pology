@@ -1087,6 +1087,15 @@ id="gr-3-falta-coma-antes-de-primer-o-bien"
 validGroup beforeComma
 hint="Ponga comas en la expresión «,bien... ,bien» (error gramatical)"
 
+[\bya[^,]+\sya]i
+id="gr-3-falta-coma-antes-de-segundo-ya"
+hint="Ponga comas en la expresión «,ya... ,ya» (error gramatical)"
+
+[\bya.+?,\sya]i
+id="gr-3-falta-coma-antes-de-primer-ya"
+validGroup beforeComma
+hint="Ponga comas en la expresión «,ya... ,ya» (error gramatical)"
+
 [,\stanto[^.]+\scomo]i
 id="gr-3-sobra-coma-antes-de-tanto"
 hint="No ponga coma antes de «tanto» en la expresión «tanto... como» (error gramatical)"

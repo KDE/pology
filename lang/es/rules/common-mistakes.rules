@@ -45,6 +45,10 @@ hint="«A bajo de» se escribe como «Debajo de» (error frecuente: solecismo)"
 id="cm-2-a-buen-fin"
 hint="«A buen fin» se escribe como «Con buen fin» (error frecuente: solecismo)"
 
+[\ba\scaso\b]i
+id="cm-1-a-caso"
+hint="«A caso» se escribe como «Acaso» (error frecuente: redundancia)"
+
 [\ba\scuenta\sde\b]i
 id="cm-2-a-cuenta-de"
 hint="«A cuenta de» se escribe como «Por cuenta de» (error frecuente: solecismo)"
@@ -52,6 +56,10 @@ hint="«A cuenta de» se escribe como «Por cuenta de» (error frecuente: soleci
 [\ba\sd[oó]nde\sestá\b]i
 id="cm-2-a-donde-está"
 hint="«A donde está» se escribe como «Donde está» (error frecuente)"
+
+[\ba\sdrede\b]i
+id="cm-1-a-drede"
+hint="«A drede» se escribe como «Adrede» (error frecuente: redundancia)"
 
 [\ba\sefecto\sde\b]i
 id="cm-2-a-efecto-de"
@@ -92,6 +100,10 @@ hint="«A nivel de» e escribe como «En el ámbito de/Con respecto a/Entre/En»
 [\ba\sparte\b]i
 id="cm-1-a-parte"
 hint="«A parte» se escribe como «Aparte» (error frecuente)"
+
+[\ba\sposta\b]i
+id="cm-1-a-posta"
+hint="«A posta» se escribe como «Aposta» (error frecuente: redundancia)"
 
 [\ba\sprisa\b]i
 id="cm-1-a-prisa"
@@ -688,6 +700,10 @@ hint="«El titulo» se escribe como «El título». (error frecuente)"interpre
 id="cm-1-el-vinculo-sin-tilde"
 hint="«El vinculo» se escribe como «El vínculo». (error frecuente)"interpre
 
+[\ben\scima\b]i
+id="cm-1-en-cima"
+hint="«En cima» se escribe como «Encima» (error frecuente: redundancia)"
+
 [\ben\sahí\b]i
 id="cm-2-en-ahi"
 hint="«En ahí» se escribe como «Ahí» (error frecuente: solecismo)"
@@ -921,9 +937,9 @@ hint="«Háy» se escribe como «Hay» (error frecuente)"
 id="cm-1-hay-la-posibilidad"
 hint="«Hay la posibilidad» se escribe como «Existe la posibilidad» (error frecuente)"
 
-[\bhech[oa][sn]?\sde\smenos\b]i
-id="cm-1-hecho-de-menos"
-hint="«Hecho de menos» se escribe como «Echo de menos» (error frecuente)"
+[\bhech\w+\sde\smenos\b]i
+id="cm-1-hechar-de-menos"
+hint="«Hechar de menos» se escribe como «Echar de menos» (error frecuente)"
 
 [\bhoras\spuntas\b]i
 id="cm-2-horas-puntas"
