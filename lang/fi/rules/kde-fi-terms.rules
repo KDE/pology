@@ -1,0 +1,88 @@
+# Checks for general term decisions made in Finnish KDE translation team.
+# Finnish KDE translation team
+# License: GPLv3
+
+# Remove accelerators / access keys from messages.
+addFilterHook name="remove/remove-accel-msg" on="msg"
+
+#### Rules for "click"
+
+[klik]i
+hint="Suomenna click joko napsauttamiseksi, painamiseksi tai valitsemiseksi."
+valid ctx="X-KDE-Keywords"
+
+[tuplaklik]i
+hint="Älä suomenna double clickiä tuplaklikkaamiseksi."
+valid ctx="X-KDE-Keywords"
+
+
+#### Rules for "debug(ger)"
+
+[debugg]i
+hint="Älä suomenna debug tai debugger debuggaamiseksi tai debuggeriksi."
+valid msgid="Python Debugger"
+valid ctx="GenericName"
+
+[debuga]i
+hint="Älä suomenna debug tai debugger debuggaamiseksi tai debuggeriksi."
+
+
+#### Rules for "document"
+
+[\bdokumentt?i]i
+hint="Termistö: Suomenna document joko tiedostoksi tai asiakirjaksi."
+valid msgid="documentary"
+valid ctx="List of words representing a document" cat="baloo_queryparser"
+
+
+#### Rules for "font"
+
+[kirjasin]i
+hint="Termistö: Suomenna font fontiksi."
+valid ctx="X-KDE-Keywords"
+valid msgid="typeface"
+valid msgid="fontsize" cat="kturtle"
+
+[kirjasim]i
+hint="Termistö: Suomenna font fontiksi."
+valid ctx="X-KDE-Keywords"
+
+[kirjaisi]i
+hint="Termistö: Suomenna font fontiksi."
+
+[kirjaintyyp]i
+hint="Termistö: Suomenna font fontiksi."
+
+[kirjainlaj]i
+hint="Termistö: Suomenna font fontiksi."
+
+
+#### Rules for "full screen"
+
+[\bkoko ?ruu[td]]i
+hint="Suomenna full screen koko näytöksi."
+
+
+#### Rules for "icon"
+
+[\bikon(i|e[ij])]i
+hint="Suomenna icon kuvakkeeksi."
+
+{\bicon}i
+valid !msgstr="\bikon"
+hint="Suomenna icon kuvakkeeksi."
+
+#### Rules for "wizard"
+
+[velho]i
+# Exceptions for messages known to mean a person who is a wizard.
+valid msgid="Highlight wizard" cat="kate"
+valid msgid="Highlight wizard" cat="kwrite"
+valid msgid="Doxygen wizard" cat="kdevelop"
+valid msgid="Porto[_ ]Velho" # A place name
+
+[ohjattu]i
+valid !msgid="wizard"
+
+[ohjatu]i
+valid !msgid="wizard"

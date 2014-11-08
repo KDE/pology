@@ -1,0 +1,68 @@
+# Check for general false friends between English and Finnish.
+# Finnish KDE translation team
+# License: GPLv3
+
+
+# Remove accelerators / access keys from messages.
+addFilterHook name="remove/remove-accel-msg" on="msg"
+
+{\bale\b}i
+valid !msgstr="ale"
+
+{\bangina}i
+valid !msgstr="angiin" # angiina
+
+{\bbassoon}i
+valid !msgstr="pasuun" # pasuuna
+
+{\bbillion}i
+valid !msgstr="biljoon" # biljoona
+
+{\brisky\b}i
+valid !msgstr="risk" # riski
+
+{\bcanine}i
+valid !msgstr="kaniin" # kaniini
+
+{\bfagg?ot}i
+valid !msgstr="fagot" # fagotti
+
+{\bgrape}i
+valid !msgstr="greip" # greippi
+
+{\bharmonica}i
+valid !msgstr="harmonik" # harmonikka
+
+{\bliquor}i
+valid !msgstr="liköör" # likööri
+
+{\bmotorist}i
+valid !msgstr="motorist" # motoristi
+
+{\bnovel\b}i
+valid !msgstr="novel" # novelli
+
+{\bpathetic\b}i
+valid !msgstr="pateetti" # pateettinen
+
+{\bpetron}i
+valid !msgstr="petroli" # petroli
+
+{\bpickles}i
+valid !msgstr="pikkels" # pikkelssi
+
+{\bsilicon}i
+valid !msgstr="silikon" # silikoni
+
+{\btape}i
+valid !msgstr="teip" # teippi
+
+{\btile}i
+valid !msgstr="tiil" # tiili
+valid cat="libkmahjongg.desktop"
+valid cat="libkmahjongg"
+valid cat="kmahjongg"
+valid cat="kajongg"
+
+{\bundulat}i
+valid !msgstr="undulaat" # undulaatti

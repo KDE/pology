@@ -1,0 +1,72 @@
+# General orthography rules, mostly about proper punctuation.
+# Finnish KDE translation team
+# License: GPLv3
+
+# Remove accelerators / access keys from messages.
+addFilterHook name="remove/remove-accel-msg" on="msg"
+
+# Note to self: ca has great sophisticated rules for these things.
+
+[\.\.\.]
+hint="Käytä Unicoden kolmen pisteen merkkiä."
+
+{…}
+valid msgstr="…"
+hint="Käytä Unicoden kolmen pisteen merkkiä."
+
+# TODO Spacing rules
+# for horizontal ellipsis
+# for percentage sign
+# check for spacing before exclamation marks and question marks
+#[\s?]
+#[\s!]
+
+# TODO Can this be enabled all the time or does this need to be disabled by default?
+#[’]
+#hint="Suomessa heittomerkkiä ei käytetä lainausmerkkinä."
+#valid after="\w" before="\w"
+#valid msgstr="^’$"
+#valid before="\(" after="\)"
+
+[“]
+hint="Suomessa ei käytetä ylösalaisin käännettyä lainausmerkkiä."
+
+[\s\.\s]
+hint="Piste kuuluu kiinni edeltävään sanaan."
+valid before="\W"
+valid before="[a-zåäö]" # This can be extended to cover other lowercase letters.
+
+[\s–\d]
+hint="Käytä miinusmerkkiä (U+2212) negatiivisena etumerkkinä lyhyen ajatusviivan sijaan."
+
+[\s—\d]
+hint="Käytä miinusmerkkiä (U+2212) negatiivisena etumerkkinä pitkän ajatusviivan sijaan."
+
+[\d+\-\d+]
+hint="Lukuvälit erotetaan lyhyellä ajatusviivalla."
+valid after="[-\w]"
+valid before="[-\w]"
+valid after="/" before="/"
+valid after="ANSI_X3." msgstr="ANSI_X3.4-1968"
+valid after="ISO " msgstr="ISO 8859-\d"
+valid before=", USA" # It is part of an address and thus not a number range.
+valid after="Florianópolis, SC " # It is part of an address and thus not a number range.
+
+[\d+\—\d+]
+hint="Lukuvälit erotetaan lyhyellä ajatusviivalla pitkän ajatusviivan sijaan."
+
+[\d+\s+-\s+\d+]
+valid after="- "
+valid before=" -"
+hint="Lukuvälit erotetaan lyhyellä ajatusviivalla ilman välejä."
+
+[\s–\w]
+hint="Tarkista, kuuluuko tähän ajatusviivan sijaan yhdysmerkki."
+
+{(Copyright)?\s*(\(c\)|©) \d+\s*([\-/]\s*\d+)?(,\s*\d+\s*([\-/]\s*\d+)?)*,?\s*\w}i
+hint="Tarkista tekijänoikeusmerkinnän muoto. Esimerkki: © 2001–2012, 2014 Matti Meikäläinen"
+valid msgstr="© \d+(–\d+)?(, \d+(–\d+)?)*( \w)?"
+
+{Copyright\s+(\(c\)|©)? \d+\s*([\-/]\s*\d+)?(,\s*\d+\s*([\-/]\s*\d+)?)*,?\s*\w}i
+hint="Tarkista tekijänoikeusmerkinnän muoto. Esimerkki: © 2001–2012, 2014 Matti Meikäläinen"
+valid msgstr="(Copyright|Tekijänoikeudet|Tekijänoikeus) ©? \d+([\-/]\d+)?(, \d+([\-/]\d+)?)*( \w)?"

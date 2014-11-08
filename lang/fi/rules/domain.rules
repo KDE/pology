@@ -1,0 +1,52 @@
+# Domain-specific check for translation into Finnish.
+# Finnish KDE translation team
+# License: GPLv3
+
+# Remove accelerators / access keys from messages.
+addFilterHook name="remove/remove-accel-msg" on="msg"
+
+
+#### KsirK rules
+
+{cannon}i
+hint="Termistö: KsirKissa cannon on tykki."
+valid msgstr="tykki" cat="ksirk,ksirkskineditor"
+valid msgstr="tyki" cat="ksirk,ksirkskineditor"
+valid !cat="ksirk,ksirkskineditor,ksirk.desktop"
+
+[kansallisuu]i
+hint="Termistö: Nationalitya ei tule suomentaa kansallisuudeksi KsirKissä. Tarkista termin käyttö."
+valid !cat="ksirk,ksirkskineditor,ksirk.desktop"
+
+{skin definition}i
+hint="Tarkista, skin definition -termin suomennos on yhtenäinen."
+valid !cat="ksirkskineditor"
+valid msgstr="Teeman asetukset"
+valid msgstr="teeman asetusten pääelement"
+valid msgstr="teeman asetusten pääpaneel"
+valid msgstr="teemamääritystiedost"
+
+{infantry}i
+valid msgstr="jalkaväk"
+valid msgstr="jalkaväe"
+valid !cat="ksirk,ksirkskineditor,ksirk.desktop"
+
+[maajouk]i
+valid !cat="ksirk,ksirkskineditor,ksirk.desktop"
+
+{cavalry}i
+valid msgstr="ratsuväk"
+valid msgstr="ratsuväe"
+valid !cat="ksirk,ksirkskineditor,ksirk.desktop"
+
+[ratsujouk]i
+valid !cat="ksirk,ksirkskineditor,ksirk.desktop"
+
+
+#### Calligra rules
+
+# TODO use environment instead of specifying catalog directly.
+#{shape}i
+#valid msgstr="muoto"
+#valid msgstr="muodo"
+#hint="Termistö: Shape on Calligrassa suomeksi ”muoto”."
