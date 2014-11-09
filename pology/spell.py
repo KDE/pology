@@ -12,10 +12,10 @@ import codecs
 import re
 import tempfile
 
-from pology import datadir, _, n_
+from pology import PologyError, datadir, _, n_
 from pology.comments import manc_parse_flag_list, manc_parse_list
 from pology.msgreport import report_on_msg
-from pology.report import warning, error, format_item_list
+from pology.report import warning, format_item_list
 
 
 # Pipe flag to manually prevent spellcheck for a particular message.
@@ -148,9 +148,10 @@ def _check_spell_w (lang, encoding, variety, extopts,
         # Check if new spell checker should be constructed.
         clang = lang or cat.language()
         if not clang:
-            error(_("@info",
-                    "Cannot determine language for catalog '%(file)s'.",
-                    file=cat.filename))
+            raise PologyError(
+                _("@info",
+                  "Cannot determine language for catalog '%(file)s'.",
+                  file=cat.filename))
         if envs is not None:
             cenvs = envs
         elif cat.environment() is not None:
@@ -237,19 +238,22 @@ def _construct_aspell (lang, envs, encoding, variety, extopts, suponly):
         try:
             checker = A.Aspell(aopts.items())
         except A.AspellConfigError, e:
-            error(_("@info",
-                    "Aspell configuration error:\n%(msg)s",
-                    msg=e))
+            raise PologyError(
+                _("@info",
+                  "Aspell configuration error:\n%(msg)s",
+                  msg=e))
         except A.AspellError, e:
-            error(_("@info",
-                    "Cannot initialize Aspell:\n%(msg)s",
-                    msg=e))
+            raise PologyError(
+                _("@info",
+                  "Cannot initialize Aspell:\n%(msg)s",
+                  msg=e))
     else:
         # Create simple internal checker that only checks against
         # internal supplemental dictionaries.
         if not dictpath:
-            error(_("@info",
-                    "No supplemental dictionaries found."))
+            raise PologyError(
+                _("@info",
+                  "No supplemental dictionaries found."))
         checker = _QuasiSpell(dictpath, encoding)
 
     # Composited dictionary read by now, remove if temporary file.
@@ -303,10 +307,11 @@ def _compose_personal_dict (lang, envs):
         tmpf.writelines([x + "\n" for x in words])
         tmpf.close()
     except Exception, e:
-        error(_("@info",
-                "Cannot create composited spelling dictionary "
-                "in current working directory:\n%(msg)s",
-                msg=e.args[0]))
+        raise PologyError(
+            _("@info",
+              "Cannot create composited spelling dictionary "
+              "in current working directory:\n%(msg)s",
+              msg=e.args[0]))
 
     return tmpf.name, True
 
@@ -320,9 +325,10 @@ def _read_dict_file (filepath):
     header = file.readline()
     m = re.search(r"^(\S+)\s+(\S+)\s+(\d+)\s+(\S+)\s*", header)
     if not m:
-        error(_("@info",
-                "Malformed header in dictionary file '%(file)s'.",
-                file=filepath))
+        raise PologyError(
+            _("@info",
+              "Malformed header in dictionary file '%(file)s'.",
+              file=filepath))
     enc = m.group(4)
     # Reopen in correct encoding if not the default.
     if enc.lower() != enc_def.lower():
