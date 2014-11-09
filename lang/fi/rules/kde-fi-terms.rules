@@ -2,37 +2,51 @@
 # Finnish KDE translation team
 # License: GPLv3
 
+# Rule identifiers in this file should start with kde-term-.
+
 # Remove accelerators / access keys from messages.
 addFilterHook name="remove/remove-accel-msg" on="msg"
 
 #### Rules for "click"
 
 [klik]i
+id="kde-term-klikata"
 hint="Suomenna click joko napsauttamiseksi, painamiseksi tai valitsemiseksi."
 valid ctx="X-KDE-Keywords"
 
 [tuplaklik]i
+id="kde-term-tuplaklikata"
 hint="Älä suomenna double clickiä tuplaklikkaamiseksi."
 valid ctx="X-KDE-Keywords"
 
 
 #### Rules for "debug(ger)"
 
-[debugg]i
+[debug[ga]]i
+id="kde-term-debug-anglism"
 hint="Älä suomenna debug tai debugger debuggaamiseksi tai debuggeriksi."
 valid msgid="Python Debugger"
 valid ctx="GenericName"
 
-[debuga]i
-hint="Älä suomenna debug tai debugger debuggaamiseksi tai debuggeriksi."
+[vikajäljitt?i]i
+id="kde-term-vikajäljitin"
+hint="Vikajäljitin on paremmin vianjäljitin."
+
+[vikajäljitt?[eä]]i
+id="kde-term-vikajäljitää"
+hint="Vikajäljittää on kehno verbi."
+
+[vikajäljitysohjelm]i
+id="kde-term-vikajäljitysohjelma"
+hint="Vikajäljitysohjelma on paremmin vianjäljitysohjelma."
 
 
 #### Rules for "document"
 
 [\bdokumentt?i]i
+id="kde-term-dokumentti"
 hint="Termistö: Suomenna document joko tiedostoksi tai asiakirjaksi."
-valid msgid="documentary"
-valid ctx="List of words representing a document" cat="baloo_queryparser"
+valid msgid="documentar[yi]"
 
 
 #### Rules for "font"
@@ -60,29 +74,32 @@ hint="Termistö: Suomenna font fontiksi."
 #### Rules for "full screen"
 
 [\bkoko ?ruu[td]]i
+id="kde-term-full-screen"
 hint="Suomenna full screen koko näytöksi."
+valid before="ukk?o"
 
 
 #### Rules for "icon"
 
 [\bikon(i|e[ij])]i
+id="kde-term-ikoni"
 hint="Suomenna icon kuvakkeeksi."
 
 {\bicon}i
+id="kde-term-icon"
 valid !msgstr="\bikon"
 hint="Suomenna icon kuvakkeeksi."
 
 #### Rules for "wizard"
 
 [velho]i
+id="kde-term-velho"
 # Exceptions for messages known to mean a person who is a wizard.
 valid msgid="Highlight wizard" cat="kate"
 valid msgid="Highlight wizard" cat="kwrite"
 valid msgid="Doxygen wizard" cat="kdevelop"
 valid msgid="Porto[_ ]Velho" # A place name
 
-[ohjattu]i
-valid !msgid="wizard"
-
-[ohjatu]i
+[ohjatt?u]i
+id="kde-term-ohjattu-toiminto"
 valid !msgid="wizard"

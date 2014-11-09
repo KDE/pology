@@ -2,6 +2,8 @@
 # Finnish KDE translation team
 # License: GPLv3
 
+# Rule identifiers in this file should start with ds-.
+
 # Remove accelerators / access keys from messages.
 addFilterHook name="remove/remove-accel-msg" on="msg"
 
@@ -41,6 +43,14 @@ valid !cat="ksirk,ksirkskineditor,ksirk.desktop"
 
 [ratsujouk]i
 valid !cat="ksirk,ksirkskineditor,ksirk.desktop"
+
+
+#### Simon rules
+
+{lexicon}i
+id="ds-simon-term-lexicon"
+valid msgstr="sanasto" !msgid="leksikk?o" env="simon"
+valid !env="simon"
 
 
 #### Calligra rules

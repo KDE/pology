@@ -2,67 +2,107 @@
 # Finnish KDE translation team
 # License: GPLv3
 
+# Rule identifiers in this file should start with false-friend-.
 
 # Remove accelerators / access keys from messages.
 addFilterHook name="remove/remove-accel-msg" on="msg"
 
 {\bale\b}i
+id="false-friend-ale"
+hint="Väärä ystävä -sanapari: ale → ale"
 valid !msgstr="ale"
 
 {\bangina}i
-valid !msgstr="angiin" # angiina
+id="false-friend-angina"
+hint="Väärä ystävä -sanapari: angina → angiina"
+valid !msgstr="angiin"
 
 {\bbassoon}i
-valid !msgstr="pasuun" # pasuuna
+id="false-friend-bassoon"
+hint="Väärä ystävä -sanapari: bassoon → pasuuna"
+valid !msgstr="pasuun"
 
 {\bbillion}i
-valid !msgstr="biljoon" # biljoona
+id="false-friend-billion"
+hint="Väärä ystävä -sanapari: billion → biljoona"
+valid !msgstr="biljoon"
 
 {\brisky\b}i
-valid !msgstr="risk" # riski
+id="false-friend-risky"
+hint="Väärä ystävä -sanapari: risky → riski"
+valid !msgstr="risk"
 
 {\bcanine}i
-valid !msgstr="kaniin" # kaniini
+id="false-friend-canine"
+hint="Väärä ystävä -sanapari: canine → kaniini"
+valid !msgstr="kaniin"
 
 {\bfagg?ot}i
-valid !msgstr="fagot" # fagotti
+id="false-friend-faggot"
+hint="Väärä ystävä -sanapari: faggot → fagotti"
+valid !msgstr="fagot"
 
 {\bgrape}i
-valid !msgstr="greip" # greippi
+id="false-friend-grape"
+hint="Väärä ystävä -sanapari: grape → greippi"
+valid !msgstr="greip"
 
 {\bharmonica}i
-valid !msgstr="harmonik" # harmonikka
+id="false-friend-harmonica"
+hint="Väärä ystävä -sanapari: harmonica → harmonikka"
+valid !msgstr="harmonik"
 
 {\bliquor}i
-valid !msgstr="liköör" # likööri
+id="false-friend-liquor"
+hint="Väärä ystävä -sanapari: liquor → likööri"
+valid !msgstr="liköör"
 
 {\bmotorist}i
-valid !msgstr="motorist" # motoristi
+id="false-friend-motorist"
+hint="Väärä ystävä -sanapari: motorist → motoristi"
+valid !msgstr="motorist"
 
 {\bnovel\b}i
-valid !msgstr="novel" # novelli
+id="false-friend-novel"
+hint="Väärä ystävä -sanapari: novel → novelli"
+valid !msgstr="novel"
 
 {\bpathetic\b}i
-valid !msgstr="pateetti" # pateettinen
+id="false-friend-pathetic"
+hint="Väärä ystävä -sanapari: pathetic → pateettinen"
+valid !msgstr="pateetti"
 
-{\bpetron}i
-valid !msgstr="petroli" # petroli
+{\bpetrol}i
+id="false-friend-petrol"
+hint="Väärä ystävä -sanapari: petrol → petroli"
+valid !msgstr="petroli"
 
 {\bpickles}i
-valid !msgstr="pikkels" # pikkelssi
+id="false-friend-pickles"
+hint="Väärä ystävä -sanapari: pickles → pikkelssi"
+valid !msgstr="pikkels"
 
 {\bsilicon}i
-valid !msgstr="silikon" # silikoni
+id="false-friend-silicon"
+hint="Väärä ystävä -sanapari: silicon → silikoni"
+valid !msgstr="silikon"
 
 {\btape}i
-valid !msgstr="teip" # teippi
+id="false-friend-tape"
+hint="Väärä ystävä -sanapari: tape → teippi"
+valid !msgstr="teip"
 
 {\btile}i
-valid !msgstr="tiil" # tiili
+id="false-friend-tile"
+hint="Väärä ystävä -sanapari: tile → tiili"
+disabled # TODO Try to find a way to make this enabled again.
+valid !msgstr="tiil"
 valid cat="libkmahjongg.desktop"
 valid cat="libkmahjongg"
 valid cat="kmahjongg"
 valid cat="kajongg"
 
 {\bundulat}i
-valid !msgstr="undulaat" # undulaatti
+id="false-friend-undulat"
+hint="Väärä ystävä -sanapari: undulat → undulaatti"
+valid !msgstr="undulaat"
