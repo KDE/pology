@@ -185,7 +185,7 @@ hint="binary = 実行ファイル"
 valid before=" (file|data|format|xml|package|viewer|filter|equal|comparison|image|clock|lineart)"
 valid ctx="encoding|coding"
 valid comment="encoding"
-valid before=" encoding|, octal"
+valid before=" encoding|, octal| number"
 valid after="switch base to "
 valid cat="cervisia"
 valid msgstr="実行ファイル"
@@ -1468,6 +1468,7 @@ valid msgstr="セキュリティ|安全|安全性" !msgstr="セキュリティ�
 valid cat="kalzium" msgid="Risks/Security Phrases" msgstr="R/S フレーズ"
 valid cat="kfileshare" msgstr="Paranoid server security|Force directory security mode:|Force security mode:|Directory security mask:|Security mask:"
 valid cat="kspread" msgstr="証券"
+valid cat="sheets" msgstr="証券"
 
 {^Select All$}
 id="select_all"

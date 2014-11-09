@@ -460,6 +460,7 @@ valid after="。:" cat="kopete"
 valid after="\left" cat="kile"
 valid after="%1" before="%2, %3\)" cat="kalgebra"
 valid cat="kspread"
+valid cat="sheets"
 
 [\)]
 id="style-space2"
@@ -488,6 +489,7 @@ valid after="\((π/2|π)" before="\)" cat="kmplot"
 valid after="\.(xmi|mdl|kml|gpx)" before=";;"
 valid after="\(プロプライエタリ" before="\)" cat="kvpnc"
 valid cat="kspread"
+valid cat="sheets"
 
 [[A-Za-z]+]
 id="style-space3"
