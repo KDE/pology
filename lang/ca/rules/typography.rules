@@ -67,6 +67,7 @@ valid after="^" cat="kalgebra"
 valid after="pty.+" cat="kdevgdb"
 valid cat="amarokcollectionscanner_qt"
 valid cat="baloo_queryparser,baloo_naturalqueryparser"
+valid cat="www_www"
 valid msgstr="src \: bash" cat="konsole" # docmessages
 valid msgstr="H \: màquina remota" cat="konsole" # docmessages
 valid msgstr="\s\:\s" cat="kalgebra" # docmessages
@@ -92,6 +93,7 @@ valid after="fontdir\/" cat="kdeprint_cups-config"
 valid after="A-Za-z_.*" cat="lokalize,kate_highlighting"
 valid after="ordinador\["
 valid after="pty.+" cat="kdevgdb"
+valid after="KIO.+" cat="www_www"
 valid before="~"
 valid before=".+expansió" cat="libksieve"
 valid ctx=".*regular expression.*" cat="plasma_applet_publictransport,plasma_runner_publictransport"

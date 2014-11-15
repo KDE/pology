@@ -538,6 +538,7 @@ hint="Es tradueix per «quadre/s de vista prèvia» (kde-ca-team)"
 {\bprogress.?bars?\b}i
 valid msgstr="barr(a|es) de progrés"
 valid msgstr="barraDeProgrés" cat="kexi,krossmodulewords"
+valid msgstr="ProgressBar" cat="www_www"
 hint="Es tradueix per «barra/es de progrés» (kde-ca-team)"
 
 {\bradio.?box\b}i
@@ -631,6 +632,7 @@ valid msgstr="controls? lliscants?"
 valid msgstr="controllliscant" cat="kexi"
 valid msgstr="lliscant" cat="krita"
 valid msgstr="lliscament" cat="kxsconfig"
+valid msgstr="Slider" cat="www_www"
 hint="Es tradueix per «control/s lliscant/s» (kde-ca-team)"
 
 {\bslid(er|ing)\sbutton\b}i
