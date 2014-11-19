@@ -21,7 +21,7 @@ hint="Termistö: Nationalitya ei tule suomentaa kansallisuudeksi KsirKissä. Tar
 valid !cat="ksirk,ksirkskineditor,ksirk.desktop"
 
 {skin definition}i
-hint="Tarkista, skin definition -termin suomennos on yhtenäinen."
+hint="Tarkista, että skin definition -termin suomennos on yhtenäinen."
 valid !cat="ksirkskineditor"
 valid msgstr="Teeman asetukset"
 valid msgstr="teeman asetusten pääelement"
@@ -43,6 +43,28 @@ valid !cat="ksirk,ksirkskineditor,ksirk.desktop"
 
 [ratsujouk]i
 valid !cat="ksirk,ksirkskineditor,ksirk.desktop"
+
+
+#### Rocs rules
+
+[\bkaar]i
+hint="Suomenna edge väliksi."
+valid !env="rocs"
+
+{\bedge}i
+hint="Suomenna edge väliksi."
+valid msgstr="\bväl[ie]"
+valid !env="rocs"
+
+{\bnode}i
+hint="Suomenna node solmuksi."
+valid msgstr="\bsolmu"
+valid !env="rocs"
+
+{\bgraph}i
+hint="Suomenna graph graafiksi."
+valid msgstr="graaf[ie]"
+valid !env="rocs"
 
 
 #### Simon rules
