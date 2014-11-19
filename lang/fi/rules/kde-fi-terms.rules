@@ -90,6 +90,15 @@ id="kde-term-icon"
 valid !msgstr="\bikon"
 hint="Suomenna icon kuvakkeeksi."
 
+
+# Rules for "sticky keys"
+
+{\bsticky keys?\b}i
+id="kde-term-sticky-keys"
+valid !msgstr="\btahme"
+valid ctx="X-KDE-Keywords"
+hint="Suomenna sticky keys alas jääviksi näppäimiksi."
+
 #### Rules for "wizard"
 
 [velho]i
