@@ -143,6 +143,18 @@ hint="Es tradueix per «suma de verificació» (kde-ca-team)"
 valid msgstr="text xifrat"
 hint="Es tradueix per «text xifrat» (kde-ca-team)"
 
+{\bclear(ed|ing)?\b}i
+valid msgstr="bui(da|dant|dar|deu|di|t)"
+valid msgstr="nete(geu|gi|jant|jar)?"
+valid msgstr="esborr(a|ant|arà|eu)"
+valid msgstr="supr(essió|essions|imeix|imint|imiu|imir|imits?|imida|imides)"
+valid msgstr="clar(a|iana|ianes)?" # "clear sky"- > «cel clar»
+valid msgstr="ser(è|ena)"
+valid msgstr="clear" cat="konversation,kstars"
+valid msgstr="liquid(ats?|ada|ades|i)" cat="kmymoney"
+valid msgstr="text" cat="libkdepim,trojita_common,zanshin"
+hint="Es tradueix per «buidar», «netejar», «esborrar», «suprimir» (kde-ca-team)"
+
 {\bcolor\sselector\b}i
 valid msgstr="selector de color"
 hint="Es tradueix per «selector de color» (kde-ca-team)"
@@ -244,6 +256,12 @@ hint="Es tradueix per «desencripti, desencriptat, desencriptada» (kde-ca-team)
 valid msgstr="desencriptatge"
 valid msgstr="desencriptar"
 hint="Es tradueix per «desencriptatge» (kde-ca-team)"
+
+{\bdelet(es?|ed|ing)\b}i
+valid msgstr="supr(essió|essions|imeix|imint|imiu|imir|imits?|imida|imides)"
+valid msgstr="elimin(a|ar|ació|ant|ats?|o)"
+valid msgstr="delete" cat="katesql,kdevvalgrind"
+hint="Es tradueix per «suprimir», «eliminar» (kde-ca-team)"
 
 #{\bdetached\b}i
 #valid msgstr="desacoblar"
@@ -378,6 +396,11 @@ hint="Es tradueix per «xifratge» (kde-ca-team)"
 {\bentry.?box(es|s)?\b}i
 valid msgstr="quadres? d'entrada"
 hint="Es tradueix per «quadre/s d'entrada» (kde-ca-team)"
+
+{\beras(es?|ed|ing)\b}i
+valid msgstr="esborr(a|ant|arà|eu)"
+valid msgstr="supr(essió|imeix|imint|imir)"
+hint="Es tradueix per «esborrar», «suprimir» (kde-ca-team)"
 
 {\bfavicons?\b}i
 valid msgstr="icon(a|es) de web"
@@ -579,6 +602,16 @@ valid comment="Tag\:\sprogramlisting" # docmessages
 valid comment="Tag\:\ssynopsis" # docmessages
 hint="Es tradueix per «abast, àrea, interval/s, HDR: Marge dinàmic elevat» (kde-ca-team)"
 
+{\bremov(al|es?|ed|ing)\b}i
+valid msgstr="elimin(a|ar|ació|ant|ats?|eu|en|i|in|is|o)"
+valid msgstr="supr(essió|essions|imeix|imint|imiu|imir|imits?|imida|imides)"
+valid msgstr="tre(ure|t|u)"
+valid msgstr="extre(t|u)"
+valid msgstr="desmuntant" cat="plasma_applet_notifier,plasma_applet_org.kde.plasma.devicenotifier"
+valid msgstr="allunyeu" cat="kalzium"
+valid msgstr="remove" cat="amarok,amarokpkg,cervisia,kdeqt,libkpackage5,libplasma5,plasmapkg"
+hint="Es tradueix per «eliminar», «suprimir», «treure» (kde-ca-team)"
+
 # «screenshot» es tradueix per «captura de pantalla».
 {\bscreenshots?\b}i
 valid msgstr="captur(a|es) de pantalla"
@@ -710,7 +743,7 @@ valid msgstr="pestany(a|es)"
 valid msgstr="tabuladors?"
 valid msgstr="tabulaci(ó|ons)"
 valid msgstr="caràcter de tabulació"
-valid msgstr="tab" cat="kdelibs4,kcmkeyboard,kabcclient,kdeqt,katepart4,ktexteditor5,ktextwidgets5,ktouch,digikam,simonshortcutcommand,trojita_common,ki18n5" # Tecla Tab
+valid msgstr="tab" cat="kdelibs4,kcmkeyboard,kabcclient,katepart4,kbibtex,kdeqt,ki18n5,ktexteditor5,ktextwidgets5,ktouch,digikam,simonshortcutcommand,trojita_common" # Tecla Tab
 valid msgstr="tabulatur(a|es)" cat="amarok" # Tablature -> Tabulatura (Termcat: música)
 valid msgstr="encastat" cat="kcontrol_filetypes" # docmessages
 valid msgstr="~" after="screenshot.+" cat="korganizer" # docmessages
@@ -795,6 +828,12 @@ hint="Es tradueix per «Wi-Fi» (kde-ca-team)"
 {\bwindow\stitle\sbars?\b}i
 valid msgstr="barr(a|es) de títol de la finestra"
 hint="Es tradueix per «barra/es de títol de la finestra» (kde-ca-team)"
+
+{\bwip(es?|ed|ing)\b}i
+valid msgstr="esborr(a|nt|rà)"
+valid msgstr="cortinet(a|es)" cat="kdenlive"
+valid msgstr="netejar" cat="kxsconfig"
+hint="Es tradueix per «esborrar» (kde-ca-team)"
 
 {\bwork.?sheets?\b}i
 valid msgstr="fulls? de treball"
