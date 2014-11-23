@@ -5,7 +5,7 @@
 # Rule identifiers in this file should start with ds-.
 
 # Remove accelerators / access keys from messages.
-addFilterHook name="remove/remove-accel-msg" on="msg"
+addFilterHook name="remove/remove-accel-msg-greedy" on="msg"
 
 
 #### KsirK rules
@@ -53,17 +53,20 @@ valid !env="rocs"
 
 {\bedge}i
 hint="Suomenna edge väliksi."
-valid msgstr="\bväl[ie]"
+valid msgstr="väl[ie]"
+valid after="self-" msgstr="silmukk?a"
 valid !env="rocs"
 
 {\bnode}i
 hint="Suomenna node solmuksi."
-valid msgstr="\bsolmu"
+valid msgstr="solmu"
 valid !env="rocs"
 
 {\bgraph}i
+id="ds-rocs-term-graph"
 hint="Suomenna graph graafiksi."
 valid msgstr="graaf[ie]"
+valid before="viz"
 valid !env="rocs"
 
 

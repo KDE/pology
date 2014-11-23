@@ -5,7 +5,7 @@
 # Rule identifiers in this file should start with orthography-.
 
 # Remove accelerators / access keys from messages.
-addFilterHook name="remove/remove-accel-msg" on="msg"
+addFilterHook name="remove/remove-accel-msg-greedy" on="msg"
 
 # Note to self: ca has great sophisticated rules for these things.
 
