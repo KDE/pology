@@ -119,6 +119,10 @@ def setup_sieve (p):
                 desc=_("@info sieve parameter discription",
     "Show statistics in form of message bars."
     ))
+    p.add_param("msgfmt", bool, defval=False,
+                desc=_("@info sieve parameter discription",
+    "Show a minimal summary of the statistics (like msgfmt)."
+    ))
     p.add_param("absolute", bool, defval=False,
                 desc=_("@info sieve parameter discription",
     "Scale lengths of word and message bars to numbers they represent, "
@@ -170,7 +174,7 @@ class Sieve (object):
 
         # Turn off table display if a bar view has been selected.
         self.p.table = True
-        if self.p.msgbar or self.p.wbar:
+        if self.p.msgbar or self.p.wbar or self.p.msgfmt:
             self.p.table = False
 
         # Filenames of catalogs which are not fully translated.
@@ -594,7 +598,7 @@ class Sieve (object):
         # Should titles be output in-line or on separate lines.
         self.inline = False
         maxtitlecw = 0
-        if (not self.p.wbar or not self.p.msgbar) and (not self.p.table):
+        if (not self.p.wbar or not self.p.msgbar or not self.p.msgfmt) and (not self.p.table):
             for title, count, summed in counts:
                 if title is not None:
                     self.inline = True
@@ -625,6 +629,8 @@ class Sieve (object):
                 self._msg_bar_stats(counts, title, count, summed)
             if self.p.wbar:
                 self._w_bar_stats(counts, title, count, summed)
+            if self.p.msgfmt:
+                self._msg_simple_stats(title, count, summed)
 
         # Output the table of catalogs which are not fully translated,
         # if requested.
@@ -665,7 +671,7 @@ class Sieve (object):
 
         # Write file names of catalogs which are not fully translated
         # into a file, if requested.
-        if self.p.incompfile:
+        if self.p.incompfile and self.incomplete_catalogs:
             filenames = sorted(self.incomplete_catalogs.keys())
             cmdlenc = locale.getpreferredencoding()
             ofl = codecs.open(self.p.incompfile, "w", cmdlenc)
@@ -933,4 +939,14 @@ class Sieve (object):
             report(cinterp("%s %s |%s|", fmt_counts, dlabel, fmt_bar))
         else:
             report(cinterp("%s %s", fmt_counts, dlabel))
+
+
+    def _msg_simple_stats (self, title, count, summed):
+        #print "AA: %s, %s, %s, %s" % (title, count, summed)
+        report(cinterp("%s translated messages, %s fuzzy translations, %s untranslated message", count["trn"][0], count["fuz"][0], count["unt"][0]))
+        #modstrs.append(n_("@item:intext",
+        #                  "from %(num1)d to %(num)d word",
+        #                      "from %(num1)d to %(num)d words",
+        #                      num1=self.p.minwords, num=self.p.maxwords))
+        #    report(cinterp("%s %s", fmt_counts, dlabel))
 
