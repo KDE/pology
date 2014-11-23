@@ -942,11 +942,8 @@ class Sieve (object):
 
 
     def _msg_simple_stats (self, title, count, summed):
-        #print "AA: %s, %s, %s, %s" % (title, count, summed)
-        report(cinterp("%s translated messages, %s fuzzy translations, %s untranslated message", count["trn"][0], count["fuz"][0], count["unt"][0]))
-        #modstrs.append(n_("@item:intext",
-        #                  "from %(num1)d to %(num)d word",
-        #                      "from %(num1)d to %(num)d words",
-        #                      num1=self.p.minwords, num=self.p.maxwords))
-        #    report(cinterp("%s %s", fmt_counts, dlabel))
+        """ msgfmt-style report """
+        report(cinterp("%s translated messages, %s fuzzy translations, "
+                       "%s untranslated message", count["trn"][0],
+                       count["fuz"][0], count["unt"][0]))
 

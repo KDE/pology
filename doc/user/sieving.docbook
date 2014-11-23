@@ -2188,6 +2188,13 @@ $ posieve stats -s templates:my_lang:templates my_lang/
 </varlistentry>
 
 <varlistentry>
+<term><option>msgfmt</option></term>
+<listitem>
+<para>Like <option>msgbar</option>, but a msgfmt-style plain-text summary is printed.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
 <term><option>absolute</option></term>
 <listitem>
 <para>Bar displays (on <option>msgbar</option> and <option>wbar</option>) are normaly relative, meaning that when <option>byfile</option> or <option>bydir</option> is in effect, each bar is of same length. This parameter makes bars scaled to sizes of PO files or directories. For example, if <option>msgbar</option> and <option>byfile</option> are issued, then the bar of a PO file with twice as many messages as another PO file will be twice as long.</para>
