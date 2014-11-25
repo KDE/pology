@@ -902,11 +902,19 @@ hint="'Haber,' se escribe 'A ver,'"
 
 [\bhaber\sc[oó]mo\b]i
 id="cm-1-haber-como"
-hint="'Haber como' se escribe 'A ver como'"
+hint="'Haber cómo' se escribe 'A ver cómo'"
 
-[\bhaber\sque\b]i
+[\bhaber\scu[aá]ndo\b]i
+id="cm-1-haber-cuando"
+hint="'Haber cuándo' se escribe 'A ver cuándo'"
+
+[\bhaber\sd[oó]nde\b]i
+id="cm-1-haber-donde"
+hint="'Haber dónde' se escribe 'A ver dónde'"
+
+[\bhaber(\spor)?\squ[eé]\b]i
 id="cm-1-haber-que"
-hint="'Haber que' se escribe 'A ver que'"
+hint="'Haber qué' se escribe 'A ver qué'"
 
 [^haber\ss[ií]\b]i
 id="cm-2-haber-si"
@@ -933,6 +941,10 @@ hint="«Han habido» se escribe como «Ha habido/Hay» (error frecuente)"
 id="cm-1-hay-con-tilde"
 hint="«Háy» se escribe como «Hay» (error frecuente)"
 
+[\bhas\slo\squ[eé]\b]i
+id="cm-1-has-lo-que"
+hint="«Has lo que» se escribe como «Haz lo que» (error frecuente)"
+
 [\bhay\sla\sposibilidad\b]i
 id="cm-1-hay-la-posibilidad"
 hint="«Hay la posibilidad» se escribe como «Existe la posibilidad» (error frecuente)"
@@ -940,6 +952,10 @@ hint="«Hay la posibilidad» se escribe como «Existe la posibilidad» (error fr
 [\bhech\w+\sde\smenos\b]i
 id="cm-1-hechar-de-menos"
 hint="«Hechar de menos» se escribe como «Echar de menos» (error frecuente)"
+
+[\bhech\w+\sen\sfalta\b]i
+id="cm-1-hechar-en-falta"
+hint="«Hechar en falta» se escribe como «Echar en falta» (error frecuente)"
 
 [\bhoras\spuntas\b]i
 id="cm-2-horas-puntas"

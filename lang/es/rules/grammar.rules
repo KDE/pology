@@ -1455,7 +1455,7 @@ hint="Los cargos «Rey, Papa, Ministro, Presidente, ...» se escriben en minúsc
 id="gr-1-preposicion-posicion-ante-posesivo"
 hint="La expresión correcta es «detrás|delante|debajo|encima|cerca» de «mí/ti/él/nosotros/vosotros» (error gramatical)."
 
-[(?u)(?u)\b(me|te|se|nos|os|los?|las?|les?)\s(a|ante|con|contra|desde|durante|en|hacia|hasta|por|según|sin|tras)\b]i
+[(?u)\b(me|te|se|nos|os|los?|las?|les?)\s(a|ante|con|contra|desde|durante|en|hacia|hasta|por|según|sin|tras)\b]i
 id="gr-1-preposicion-tras-pronombre"
 valid msgstr="la\sA"
 hint="Después de pronombre personal no suele aparecer preposición (error gramatical)"
@@ -1650,9 +1650,13 @@ valid before="\s[A-Z]\w+"
 valid before="\s~"
 hint="«Hasta que» debe ir seguido de subjuntivo (error gramatical)"
 
-[(?u)\haz\s\w+?(ido)\b]i
+[(?u)\bhaz\s\w+?(ido)\b]i
 id="gr-1-haz-seguido-participio"
 hint="«Haz + participio» se escribe como «Has + participio» (error gramatical)"
+
+[(?u)\bhaz\sde\s\w+?(ar|er|ir)\b]i
+id="gr-1-haz-de-seguido-infinitivo"
+hint="«Haz de + infinitivo» se escribe como «Has de + infinitivo» (error gramatical)"
 
 [(?u)\baún\s\w+?(ando|iendo|yendo)\b]i
 id="gr-1-aun-sin-tilde-antes-gerundio"
@@ -2093,7 +2097,7 @@ hint="«Prohibir de que» se escribe como «Prohibir que», dequeismo (error gra
 id="gr-1-dequeismo-27"
 hint="«Recordar de que» se escribe como «Recordar que», dequeismo (error gramatical)"
 
-[(?u)\sab\w{1,4}?\sde\sque\b]i
+[(?u)\bsab\w{1,4}?\sde\sque\b]i
 id="gr-1-dequeismo-28"
 hint="«Saber de que» se escribe como «Saber que», dequeismo (error gramatical)"
 
