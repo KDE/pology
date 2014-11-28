@@ -1336,6 +1336,14 @@ hint="«Quórum» se escribe como «Cuórum» (error frecuente)"
 id="cm-2-rabbi"
 hint="«Rabbi» se escribe como «Rabí» (error frecuente)"
 
+[\brecarg\w+\b]i
+id="cm-2-recargar"
+hint="«Recargar» es ambiguo, se debe escribir como «Volver a cargar/Revertir» (error frecuente)"
+
+[\brenombr\w+\b]i
+id="cm-2-renombrar"
+hint="«Renombrar» significa lo mismo que nombrar y está en desuso, se debe escribir como «Cambiar el/de nombre» (error frecuente)"
+
 [\brelacionad[oa]s?\sal?\b]i
 id="cm-2-relacionado-a"
 hint="«Relacionado a» se escribe como «Relacionado con» (error frecuente)"
