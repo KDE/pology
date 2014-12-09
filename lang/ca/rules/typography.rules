@@ -353,6 +353,7 @@ valid after="gdbserver"
 valid after="paràmetres," cat="analitza,analitza_qt"
 valid after="pogut\scopiar" cat="kmail_faq" # docmessages
 valid after="usant" cat="kile"
+valid after="\-" cat="calligra_textediting_thesaurus"
 valid span="\s\.$" cat="ktouch,kile,kexi"
 valid ctx="function prototype"
 valid comment="Tag\:\suserinput" cat="kioslave_nepomuksearch" # docmessages
