@@ -5,12 +5,15 @@
 include file="puretext.filters"
 
 [\w(дп)\w]
+id="o-dp"
 hint="гласовне промене: дп -> тп"
 
 [\w(дф)\w]
+id="o-df"
 hint="гласовне промене: дф -> тф"
 
 [\bби\s+(сте|смо)\b]i
+id="o-bis"
 hint="спојено: бисте, бисмо"
 
 # End of rules
