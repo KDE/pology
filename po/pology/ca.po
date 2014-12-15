@@ -1,15 +1,15 @@
 # Translation of pology.po to Catalan
-# Copyright (C) 2011-2012
+# Copyright (C) 2011-2014
 # This file is distributed under the same license as the pology package.
 #
-# Antoni Bella Pérez <antonibella5@orange.es>, 2011, 2012.
+# Antoni Bella Pérez <antonibella5@yahoo.com>, 2011, 2012, 2014.
 msgid ""
 msgstr ""
 "Project-Id-Version: pology\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-07-24 14:09+0200\n"
-"PO-Revision-Date: 2012-11-25 22:39+0100\n"
-"Last-Translator: Antoni Bella Pérez <antonibella5@orange.es>\n"
+"PO-Revision-Date: 2014-12-15 01:17+0100\n"
+"Last-Translator: Antoni Bella Pérez <antonibella5@yahoo.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca\n"
 "MIME-Version: 1.0\n"
@@ -261,12 +261,12 @@ msgid "Internal problem (%(id)d) at %(file)s:%(line)d."
 msgstr "Problema intern (%(id)d) a %(file)s:%(line)d."
 
 #: pology/catalog.py:391
-#, fuzzy, python-format
+#, python-format
 #| msgctxt "@info"
 #| msgid "Empty message at %(file)s:%(line)d."
 msgctxt "@info"
 msgid "No header at %(file)s:%(line)d."
-msgstr "Missatge buit a %(file)s:%(line)d."
+msgstr "Sense capçalera a %(file)s:%(line)d."
 
 #: pology/catalog.py:407
 #, python-format
@@ -7338,3 +7338,4 @@ msgstr[1] ""
 msgctxt "@info sieve discription"
 msgid "Reformat documentation update date for Russian KDE Team."
 msgstr ""
+
