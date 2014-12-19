@@ -626,7 +626,7 @@ hint="Es tradueix per «script/s» (kde-ca-team)"
 
 {\bscripting\b}i
 valid msgstr="crea(r|ció)?\s(d')?scripts"
-valid msgstr="scripts creats?" # docmessages
+valid msgstr="scripts? creats?"
 valid msgstr="scripts" cat="desktop_calligra,desktop_koffice,kexi,krossmoduleplan,krossmodulewords,krossmodulekword,plasma-desktop,desktop_kdelibs,kdelibs4,khtml5,superkaramba,desktop_kdewebdev"
 valid msgstr="script" cat="kommander"
 valid msgstr="llenguatges\sd'script" cat="kcmkonqhtml"
