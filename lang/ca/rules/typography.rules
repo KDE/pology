@@ -375,7 +375,7 @@ valid msgstr="\.\*" cat="knode_using-morefeatures"
 valid msgstr="{{\.\/}" # docmessages
 valid before="D?COPserver"
 valid before="\w{1,16}\b" # Extensions
-valid after="adreces IP.+" cat="kcmkio,kcontrol_proxy"
+valid after="adreces IP.+" cat="kio5,kcmkio,kcontrol_proxy"
 valid after="(adreça|adreces).+" cat="smb4k,smb4k-core"
 valid after="Exemple.+" cat="sflphone-client-kde"
 valid after="~" cat="cupsdconf4,katepart4,ktexteditor5,kfileshare,kppp,calligra,kexi,krusader,kcm_ufw"
