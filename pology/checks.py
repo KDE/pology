@@ -73,7 +73,7 @@ def _check_keyword_list_text (text, msg, cat):
             spans.append((len(text), len(text),
                           _("@info",
                             "Keyword list with context '%(ident)s' "
-                            "must end in semi-colon.",
+                            "must end with semicolon.",
                             ident="Keywords")))
 
     elif ctxt == "X-KDE-Keywords" or ctxt.startswith("X-KDE-Keywords|"):
@@ -82,7 +82,7 @@ def _check_keyword_list_text (text, msg, cat):
             spans.append((pos, pos + 1,
                           _("@info",
                             "Keyword list with context '%(ident)s' "
-                            "must not contain semi-colons.",
+                            "must not contain semicolons.",
                             ident="X-KDE-Keywords")))
 
     return spans
