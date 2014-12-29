@@ -9,6 +9,7 @@ set(modules
     ascript.py
     bpatterns.py
     catalog.py
+    checks.py
     colors.py
     comments.py
     config.py

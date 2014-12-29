@@ -105,7 +105,7 @@ class Sieve (object):
                 self.current_checks.append(_known_checks[name])
 
         if is_txt_cat(cname, csubdir):
-            add_checks(["nots"])
+            add_checks(["nots", "keywlist"])
         elif is_qt_cat(cname, csubdir):
             add_checks(["qtmarkup", "qtdt", "nots"])
         elif is_docbook_cat(cname, csubdir):
@@ -159,6 +159,27 @@ class Sieve (object):
                          "KDE TP translations (strict mode).",
                          num=self.nproblems)
             report("===== " + msg)
+
+
+# --------------------------------------
+# Helpers for checks.
+
+# Memoizer for hook factories.
+class _FuncallMemoizer (object):
+
+    def __init__ (self):
+
+        self._cache = {}
+
+    def __call__ (self, func, *args, **kwargs):
+
+        ckey = args + tuple(sorted(kwargs.items()))
+        if ckey in self._cache:
+            value = self._cache[ckey]
+        else:
+            value = func(*args, **kwargs)
+            self._cache[ckey] = value
+        return value
 
 
 # Map of checks by name,
@@ -484,6 +505,31 @@ def _check_plrunq (msg, cat, pcache, hl):
     return nerrors
 
 _known_checks["plrunq"] = _check_plrunq
+
+# --------------------------------------
+# Check for proper format of keyword lists in .dekstop files.
+
+from pology.checks import check_keyword_list
+
+_check_keywlist_hook = _FuncallMemoizer()
+
+def _check_keywlist (msg, cat, pcache, hl):
+
+    if not msg.active:
+        return 0
+
+    strict = pcache.get("strict", False)
+    checkf = _check_keywlist_hook(check_keyword_list, strict)
+    spans = checkf(msg.msgstr[0], msg, cat)
+    if spans:
+        nerrors = 1
+        hl.append(("msgstr", 0, spans))
+    else:
+        nerrors = 0
+
+    return nerrors
+
+_known_checks["keywlist"] = _check_keywlist
 
 # --------------------------------------
 # Helpers for catalog-specific checks.
