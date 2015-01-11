@@ -269,6 +269,14 @@ valid !msgstr="contestar"
 valid !msgstr="contestació"
 hint="«Contest» es tradueix per «Competir», no per «Contestar» (fals amic)"
 
+# «Convenience» es tradueix per «Comoditat»/«Avantatge» o «Utilitat».
+{\bconveniences?\b}i
+valid msgstr="comoditat"
+valid msgstr="utilitat"
+valid msgstr="avantatge"
+valid !msgstr="conveniència"
+hint="«Convenience» es tradueix per «Comoditat»/«Avantatge» o «Utilitat» (fals amic)"
+
 # «Coroner» es tradueix per «Jutge».
 {\bcoroner\b}i
 valid msgstr="jutge"
