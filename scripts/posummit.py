@@ -2671,13 +2671,14 @@ def summit_merge_single (branch_id, catalog_name, catalog_subdir,
     # Whether to create pristine catalog from template.
     vivified = catalog_path in project.add_on_merge
 
-    # Skip calling msgmerge if template creation dates are equal.
+    # Skip calling msgmerge if template creation dates exist and are equal.
     do_msgmerge = True
     if not vivified and not project.templates_dynamic and not options.force:
         hdr = Catalog(catalog_path, monitored=False, headonly=True).header
         thdr = Catalog(template_path, monitored=False, headonly=True).header
-        fname = "POT-Creation-Date"
-        do_msgmerge = hdr.get_field_value(fname) != thdr.get_field_value(fname)
+        pcd = hdr.get_field_value("POT-Creation-Date")
+        tpcd = thdr.get_field_value("POT-Creation-Date")
+        do_msgmerge = (not pcd or not tpcd or pcd != tpcd)
 
     header_prop_fields = project.header_propagate_fields
 
