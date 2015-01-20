@@ -388,7 +388,7 @@ class Translator_apertium (object):
         else:
             mode = "%s-%s" % (slang, tlang)
 
-        self.cmdline = "%s %s -u -f html" % (cmdpath, mode)
+        self.cmdline = "%s -u -f html-noent %s" % (cmdpath, mode)
 
         entpath = os.path.join(datadir(), "spec", "html.entities")
         self.htmlents = read_entities(entpath)
