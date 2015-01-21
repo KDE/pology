@@ -123,7 +123,7 @@ $ . <replaceable>POLOGYDIR</replaceable>/completion/bash/pology
 <para>Optional general software:
 <itemizedlist>
 <listitem>
-<para><ulink url="http://www.apertium.org/">Apertium</ulink> >= 0.2. A free/open-source machine translation platform, used by <link linkend="sec-mimtrans">the <command>pomtrans</command> script</link>.</para>
+<para><ulink url="http://www.apertium.org/">Apertium</ulink> >= 3.3. A free/open-source machine translation platform, used by <link linkend="sec-mimtrans">the <command>pomtrans</command> script</link>.</para>
 </listitem>
 <listitem>
 <para><ulink url="http://wiki.docbook.org/DocBookXslStylesheets">Docbook XSL</ulink> >= 1.75.2. XSL transformations for converting Docbook into various end-user formats, used for building Pology documentation.</para>
