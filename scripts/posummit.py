@@ -1519,8 +1519,13 @@ def select_summit_names (project, options):
 
 
 def summit_gather_single (summit_name, project, options,
-                          phony=False, pre_summit_names=[],
+                          phony=False, pre_summit_names=(), memo_store=None,
                           update_progress=(lambda: None)):
+
+    if memo_store is not None:
+        memo_key = (summit_name, tuple(sorted(pre_summit_names)))
+        if memo_key in memo_store: # value can be None
+            return memo_store.get(memo_key)
 
     update_progress()
 
@@ -1574,6 +1579,8 @@ def summit_gather_single (summit_name, project, options,
                 report("-    %s" % summit_path)
 
         # Skip the rest, nothing to gather.
+        if memo_store is not None:
+            memo_store[memo_key] = summit_cat
         return summit_cat
 
     # Open all corresponding branch catalogs.
@@ -1584,6 +1591,10 @@ def summit_gather_single (summit_name, project, options,
     # this is needed in order that any new messages get inserted
     # uniquely and deterministically in case of split-mappings.
     bcat_pscats = {}
+    if phony or memo_store is not None:
+        sub_memo_store = memo_store
+    else:
+        sub_memo_store = {}
     for branch_id in src_branch_ids:
 
         branch = project.bdict[branch_id]
@@ -1610,15 +1621,16 @@ def summit_gather_single (summit_name, project, options,
 
             # Gather and open dependent summit catalogs.
             dep_summit_cats = []
-            pre_summit_names_m = pre_summit_names[:]
+            sub_pre_summit_names = list(pre_summit_names)
             for dep_summit_name in project.direct_map[branch_id][branch_name]:
                 if dep_summit_name == summit_name:
-                    pre_summit_names_m.append(summit_name)
+                    sub_pre_summit_names.append(summit_name)
                     continue
-                # FIXME: Can we get into circles here?
                 dep_summit_cat = summit_gather_single(dep_summit_name,
                                                       project, options,
-                                                      True, pre_summit_names_m,
+                                                      True,
+                                                      sub_pre_summit_names,
+                                                      sub_memo_store,
                                                       update_progress)
                 if dep_summit_cat is not None:
                     dep_summit_cats.append(dep_summit_cat)
@@ -1667,6 +1679,8 @@ def summit_gather_single (summit_name, project, options,
     # On phony gather, in case of split mappings,
     # it may happen that there are no corresponding branch catalogs.
     if phony and not any(bcat_pscats.values()):
+        if memo_store is not None:
+            memo_store[memo_key] = None
         return None
 
     # Select primary branch catalog.
@@ -1701,6 +1715,8 @@ def summit_gather_single (summit_name, project, options,
 
     # If phony-gather, stop here and return summit catalog for reference.
     if phony:
+        if memo_store is not None:
+            memo_store[memo_key] = summit_cat
         return summit_cat
 
     # If the old summit catalog exists, compare with the new.
@@ -1833,6 +1849,8 @@ def summit_gather_single (summit_name, project, options,
             else:
                 report(">    %s  %s" % (summit_cat.filename, paths_str))
 
+    if memo_store is not None:
+        memo_store[memo_key] = summit_cat
     return summit_cat
 
 
