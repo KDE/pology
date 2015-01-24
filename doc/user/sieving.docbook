@@ -680,6 +680,13 @@ Strings after the dot can be anything, but a sequence of numbers or letters in a
 </listitem>
 </varlistentry>
 
+<varlistentry>
+<term><option>ruleinfo</option></term>
+<listitem>
+<para>Shows information on loading of rules during sieving, including switching of environments and listing manually selected rules.</para>
+</listitem>
+</varlistentry>
+
 </variablelist>
 </para>
 

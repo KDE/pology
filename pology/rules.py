@@ -65,13 +65,15 @@ def printStat(rules):
                  num=totTimeMsg*1000))
 
 
-def loadRules(lang, envs=[], envOnly=False, ruleFiles=None, stat=False):
+def loadRules(lang, envs=[], envOnly=False, ruleFiles=None, stat=False,
+              printInfo=False):
     """Load rules for a given language
     @param lang: lang as a string in two caracter (i.e. fr). If none or empty, try to autodetect language
     @param envs: also load rules applicable in these environments
     @param envOnly: load only rules applicable in given environments
     @param ruleFiles: a list of rule files to load instead of internal
     @param stat: stat is a boolean to indicate if rule should gather count and time execution
+    @param printInfo: whether to output information about loading of rules
     @return: list of rules objects or None if rules cannot be found (with complaints on stdout)
     """
     ruleDir=""             # Rules directory
@@ -80,7 +82,8 @@ def loadRules(lang, envs=[], envOnly=False, ruleFiles=None, stat=False):
 
     # Collect rule files.
     if ruleFiles is not None:
-        report(_("@info:progress", "Using external rules."))
+        if printInfo:
+            report(_("@info:progress", "Using external rules."))
     else:
         ruleDir=join(langDir, lang, "rules")
         if not isdir(ruleDir):
@@ -88,9 +91,10 @@ def loadRules(lang, envs=[], envOnly=False, ruleFiles=None, stat=False):
                 _("@info",
                   "There are no internal rules for language '%(langcode)s'.",
                   langcode=lang))
-        report(_("@info:progress",
-                 "Using internal rules for language '%(langcode)s'.",
-                 langcode=lang))
+        if printInfo:
+            report(_("@info:progress",
+                     "Using internal rules for language '%(langcode)s'.",
+                     langcode=lang))
         ruleFiles=[join(ruleDir, f) for f in listdir(ruleDir) if f.endswith(".rules")]
 
     # Parse rules.

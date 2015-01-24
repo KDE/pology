@@ -492,7 +492,8 @@ def report_msg_content (msg, cat,
     report(rtext, subsrc=subsrc, file=file)
 
 
-def rule_error(msg, cat, rule, highlight=None, fmsg=None, showmsg=True):
+def rule_error(msg, cat, rule, highlight=None, fmsg=None, showmsg=True,
+               predelim=False):
     """
     Print formated rule error message on screen.
 
@@ -502,6 +503,7 @@ def rule_error(msg, cat, rule, highlight=None, fmsg=None, showmsg=True):
     @param highlight: highlight specification (see L{report_msg_content})
     @param fmsg: filtered message which the rule really matched
     @param showmsg: whether to show contents of message (either filtered or original)
+    @param predelim: whether to also print delimiter before the rule error
     """
 
     # Some info on the rule.
@@ -511,16 +513,19 @@ def rule_error(msg, cat, rule, highlight=None, fmsg=None, showmsg=True):
               rule=rule.displayName, msg=rule.hint)
 
     if showmsg:
+        delim = "-" * 40
+        if predelim:
+            report(delim)
         report_msg_content(msg, cat,
                            highlight=highlight,
                            fmsg=fmsg, showfmsg=(fmsg is not None),
-                           note=rinfo, delim=("-" * 40))
+                           note=rinfo, delim=delim)
     else:
         report_on_msg(rinfo, msg, cat)
         report_on_msg_hl(highlight, msg, cat, fmsg)
 
 
-def multi_rule_error (msg, cat, rspec, showmsg=True):
+def multi_rule_error (msg, cat, rspec, showmsg=True, predelim=False):
     """
     Print formated rule error messages on screen.
 
@@ -547,6 +552,8 @@ def multi_rule_error (msg, cat, rspec, showmsg=True):
     @param showmsg: whether to show contents of message
         (both original and filtered if given)
     @type showmsg: bool
+    @param predelim: whether to also print delimiter before the first error
+    @type predelim: bool
     """
 
     # Expand elements in rule specification to full lengths.
@@ -592,10 +599,13 @@ def multi_rule_error (msg, cat, rspec, showmsg=True):
         elif rinfos:
             note = rinfos[0]
         if showmsg:
+            delim = "-" * 40
+            if predelim:
+                report(delim)
             report_msg_content(msg, cat,
                                highlight=highlight,
                                fmsg=fmsg, showfmsg=(fmsg is not None),
-                               note=note, delim=("-" * 40))
+                               note=note, delim=delim)
         else:
             report_on_msg(note, msg, cat)
             report_on_msg_hl(highlight, msg, cat, fmsg)

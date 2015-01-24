@@ -146,6 +146,10 @@ def setup_sieve (p):
                 desc=_("@info sieve parameter discription",
     "Output failed messages ordered by sorted rule identifiers."
     ))
+    p.add_param("ruleinfo", bool, defval=False,
+                desc=_("@info sieve parameter discription",
+    "Show information on loading of rules during sieving."
+    ))
     add_param_poeditors(p)
 
 
@@ -181,6 +185,7 @@ class Sieve (object):
         self.lokalize = params.lokalize
         self.mark = params.mark
         self.byrule = params.byrule
+        self.ruleinfo = params.ruleinfo
 
         self.branches = params.branch and set(params.branch) or None
 
@@ -218,10 +223,10 @@ class Sieve (object):
                                    "%(msg)s",
                                    dir=_CACHEDIR, msg=e))
 
-        report("-"*40)
-
         if self.byrule:
             self.postFailedMessages = {}
+
+        self._first_error = True
 
         # Unless marking requested, no need to monitor/sync.
         if not self.mark:
@@ -303,13 +308,15 @@ class Sieve (object):
                 #Convert in sec since epoch time format
                 poDate = mktime(strptime(poDate, '%Y-%m-%d %H:%M'))
                 if os.stat(self.cachePath)[8] > poDate:
-                    report(_("@info:progress", "Using cache."))
+                    if self.ruleinfo:
+                        report(_("@info:progress", "Using cache."))
                     self.xmlFile.writelines(open(self.cachePath, "r", "utf-8").readlines())
                     self.cached = True
 
         # No cache available, create it for next time
         if self.xmlFile and newFile and not self.cached:
-            report(_("@info", "No cache available, processing file."))
+            if self.ruleinfo:
+                report(_("@info", "No cache available, processing file."))
             self.cacheFile = open(self.cachePath, "w", "utf-8")
 
         # Handle start/end of files for XML output (not needed for text output)
@@ -402,7 +409,9 @@ class Sieve (object):
 
         if failedRules:
             if not self.byrule:
-                multi_rule_error(msg, cat, failedRules, self.showmsg)
+                multi_rule_error(msg, cat, failedRules, self.showmsg,
+                                 predelim=self._first_error)
+                self._first_error = False
             else:
                 for rule, spans, msgf in failedRules:
                     if rule.ident not in self.postFailedMessages:
@@ -431,7 +440,9 @@ class Sieve (object):
             ruleIdents = sorted(self.postFailedMessages.keys())
             for ruleIdent in ruleIdents:
                 for msg, cat, failedRule in self.postFailedMessages[ruleIdent]:
-                    multi_rule_error(msg, cat, [failedRule], self.showmsg)
+                    multi_rule_error(msg, cat, [failedRule], self.showmsg,
+                                     predelim=self._first_error)
+                    self._first_error = False
 
         if self.xmlFile:
             # Close last po tag and xml file
@@ -456,7 +467,8 @@ class Sieve (object):
 
         # Load rules.
         rules = loadRules(lang, envs,
-                        self.envOnly, self.customRuleFiles, self.stat)
+                          self.envOnly, self.customRuleFiles, self.stat,
+                          self.ruleinfo)
 
         # Perhaps retain only those rules explicitly requested
         # in the command line, by their identifiers.
@@ -521,77 +533,79 @@ class Sieve (object):
         if self.ruleChoiceInv or self.ruleChoiceInvRx:
             rules = list(srules)
 
-        ntot = len(rules)
-        ndis = len([x for x in rules if x.disabled])
-        nact = ntot - ndis
-        totfmt = n_("@item:intext inserted below as %(tot)s",
-                  "Loaded %(num)d rule", "Loaded %(num)d rules",
-                  num=ntot)
-        if self.envOnly:
-            envfmt = _("@item:intext inserted below as %(env)s",
-                     "[only: %(envlist)s]",
-                     envlist=format_item_list(envs))
-        else:
-            envfmt = _("@item:intext inserted below as %(env)s",
-                     "[%(envlist)s]",
-                     envlist=format_item_list(envs))
-        actfmt = n_("@item:intext inserted below as %(act)s",
-                  "%(num)d active", "%(num)d active",
-                  num=nact)
-        disfmt = n_("@item:intext inserted below as %(dis)s",
-                  "%(num)d disabled", "%(num)d disabled",
-                  num=ndis)
-        subs = dict(tot=totfmt, env=envfmt, act=actfmt, dis=disfmt)
-        if ndis and envs:
-            report(_("@info:progress insertions from above",
-                     "%(tot)s %(env)s (%(act)s, %(dis)s).", **subs))
-        elif ndis:
-            report(_("@info:progress insertions from above",
-                     "%(tot)s (%(act)s, %(dis)s).", **subs))
-        elif envs:
-            report(_("@info:progress insertions from above",
-                     "%(tot)s %(env)s.", **subs))
-        else:
-            report(_("@info:progress insertions from above",
-                     "%(tot)s.", **subs))
+        if self.ruleinfo:
+            ntot = len(rules)
+            ndis = len([x for x in rules if x.disabled])
+            nact = ntot - ndis
+            totfmt = n_("@item:intext inserted below as %(tot)s",
+                        "Loaded %(num)d rule", "Loaded %(num)d rules",
+                        num=ntot)
+            if self.envOnly:
+                envfmt = _("@item:intext inserted below as %(env)s",
+                           "[only: %(envlist)s]",
+                           envlist=format_item_list(envs))
+            else:
+                envfmt = _("@item:intext inserted below as %(env)s",
+                           "[%(envlist)s]",
+                           envlist=format_item_list(envs))
+            actfmt = n_("@item:intext inserted below as %(act)s",
+                        "%(num)d active", "%(num)d active",
+                        num=nact)
+            disfmt = n_("@item:intext inserted below as %(dis)s",
+                        "%(num)d disabled", "%(num)d disabled",
+                        num=ndis)
+            subs = dict(tot=totfmt, env=envfmt, act=actfmt, dis=disfmt)
+            if ndis and envs:
+                report(_("@info:progress insertions from above",
+                         "%(tot)s %(env)s (%(act)s, %(dis)s).", **subs))
+            elif ndis:
+                report(_("@info:progress insertions from above",
+                         "%(tot)s (%(act)s, %(dis)s).", **subs))
+            elif envs:
+                report(_("@info:progress insertions from above",
+                         "%(tot)s %(env)s.", **subs))
+            else:
+                report(_("@info:progress insertions from above",
+                         "%(tot)s.", **subs))
 
-        if selectedRules:
-            selectedRules = selectedRules.difference(selectedRulesInv)
-            n = len(selectedRules)
-            if n <= 10:
-                rlst = list(selectedRules)
-                report(_("@info:progress",
-                         "Selected rules: %(rulelist)s.",
-                         rulelist=format_item_list(sorted(rlst))))
-            else:
-                report(n_("@info:progress",
-                          "Selected %(num)d rule.",
-                          "Selected %(num)d rules.",
-                          num=n))
-        elif selectedRulesInv:
-            n = len(selectedRulesInv)
-            if n <= 10:
-                rlst = list(selectedRulesInv)
-                report(_("@info:progress",
-                         "Excluded rules: %(rulelist)s.",
-                         rulelist=format_item_list(sorted(rlst))))
-            else:
-                report(n_("@info:progress",
-                          "Excluded %(num)d rule.",
-                          "Excluded %(num)d rules.",
-                          num=n))
+            if selectedRules:
+                selectedRules = selectedRules.difference(selectedRulesInv)
+                n = len(selectedRules)
+                if n <= 10:
+                    rlst = list(selectedRules)
+                    report(_("@info:progress",
+                             "Selected rules: %(rulelist)s.",
+                             rulelist=format_item_list(sorted(rlst))))
+                else:
+                    report(n_("@info:progress",
+                              "Selected %(num)d rule.",
+                              "Selected %(num)d rules.",
+                              num=n))
+            elif selectedRulesInv:
+                n = len(selectedRulesInv)
+                if n <= 10:
+                    rlst = list(selectedRulesInv)
+                    report(_("@info:progress",
+                             "Excluded rules: %(rulelist)s.",
+                             rulelist=format_item_list(sorted(rlst))))
+                else:
+                    report(n_("@info:progress",
+                              "Excluded %(num)d rule.",
+                              "Excluded %(num)d rules.",
+                              num=n))
 
         # Collect all distinct filters from rules.
         ruleFilters = set()
         for rule in rules:
             if not rule.disabled:
                 ruleFilters.add(rule.mfilter)
-        nflt = len([x for x in ruleFilters if x is not None])
-        if nflt:
-            report(n_("@info:progress",
-                      "Active rules define %(num)d distinct filter set.",
-                      "Active rules define %(num)d distinct filter sets.",
-                      num=nflt))
+        if self.ruleinfo:
+            nflt = len([x for x in ruleFilters if x is not None])
+            if nflt:
+                report(n_("@info:progress",
+                          "Active rules define %(num)d distinct filter set.",
+                          "Active rules define %(num)d distinct filter sets.",
+                          num=nflt))
 
         return rules, ruleFilters
 
