@@ -884,9 +884,6 @@ valid msgstr="&\w*service\w*-\S*;"
 valid before=" provider" msgstr="\bуслуг"
 valid after="internet " before=" provider" # проследи на internetprovider
 valid cat="kppp" before=" provider" # често се помиње скраћено
-valid cat="kurifilter" msgid="automatic lookup services"
-valid cat="kcmsamba" msgid="provide.*sharing service"
-valid cat="kcmkio" msgid="provides services"
 
 # о-рук
 {\b(preference|setting)s?}i
@@ -903,14 +900,6 @@ valid msgid="configur|set(ting)? up" msgstr="подеси|подешавањ|п�
 valid span="preference\b" msgstr="пожеља?н|првенств"
 valid span="settings" before=" menu" # „мени Подешавање“
 valid span="settings" after="system " msgstr="&\w*systemsettings\S*;"
-valid cat="kio_smtp,kio_pop3" msgid="crypto settings module" msgstr="модул\w* за шифровање"
-valid cat="kdelibs4" msgid="original color setting"
-valid cat="kdelibs4" msgid="setting if you want this entry" msgstr="опциј"
-valid cat="krandr" msgid="^Apply settings on KDE startup$" msgstr="^Примени при покретању"
-valid cat="katepart4" msgid="setting for the default editing" msgstr="задату подразумевану уређивачку"
-valid cat="konqueror" msgid="Full-Screen Mode.*in the Settings menu" msgstr="у менију.*Прозор"
-valid cat="kcmkonqhtml,kcmkio" msgid="default policy setting" msgstr="подразумеван\w+ смерниц"
-valid cat="kdeqt" msgid="^preferences?$" msgstr="личн\w+ избор"
 
 {\bshell}i
 id="t-shell"

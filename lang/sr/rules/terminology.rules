@@ -163,18 +163,6 @@ hint="default = подразумеван"
 valid msgstr="\b(не)?подразумева"
 valid msgstr="\bподраз\." # скр.
 valid env="kde" msgstr="&\w*default\S*;"
-valid cat="kioclient" msgid="Mounts the CDROM"
-valid cat="konsole" msgid="DEFAULTENCODING"
-valid cat="kcmicons" msgid="^Default$" msgstr="основна"
-valid cat="kcmicons" msgid="default icon" msgstr="основн\w+ икон"
-valid cat="kcmkio" msgid="KDE's default policy"
-valid cat="kcmkonqhtml" msgid="\.default\w"
-valid cat="kcmlocale" msgid="this country or region" msgstr="локал\w+ станд"
-valid cat="kcmsmserver" msgid="after session exit by default"
-valid cat="kcmsmserver" msgid="happen by default when"
-valid cat="katepart4" msgid="wrap" msgid="View Defaults" msgstr="изглед"
-valid cat="khelpcenter_contact,khelpcenter_help" msgid="default welcome page" msgstr="почетн\w+ стран\w+ добродошлиц"
-valid cat="dolphin" msgid="By default Dolphin sets bookmarks for;"
 
 {\bfolder|director(y|ies)}i
 id="t-directory"
@@ -467,8 +455,6 @@ id="t-rename"
 hint="rename = преименовати"
 valid msgstr="\bпреиме[нњ]"
 valid msgstr="\bмењам? име|промен\w+ имена" # изузеци где је раздвојени облик понекад згоднији
-valid cat="kcmkio" msgid="\.part"
-valid cat="dolphin" msgid="(e.g.|eg).*Undo\W*rename"
 
 {\bright\W?click}i
 id="t-rightclick_i"
@@ -622,10 +608,6 @@ id="t-url"
 hint="URL = УРЛ"
 valid !env="kde" msgstr="\bУРЛ"
 valid env="kde" msgstr="&\w*url\S*;"
-valid cat="kio_trash" msgid="'url'"
-valid cat="kioclient" msgid="'url'"
-valid cat="kcmkonqhtml" msgid="URLs of hyperlinks" msgstr="одредиш.{,}хипер"
-valid cat="khelpcenter_contact" msgid="url;"
 
 {^View$}
 id="t-view_menu"
