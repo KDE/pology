@@ -50,16 +50,19 @@ hint="Compruebe el uso de punto antes del fin de párrafo «</p>» (falta en la 
 {\:\s*$}i
 id="pe-3-falta-dos-puntos-fin-parrafo"
 valid msgstr="\:\s*$"
+valid after="(?u)\b(a|ante|bajo|con|contra|de|desde|durante|en|entre|hacia|hasta|para|por|según|si|sin|sobre|tras)"
 hint="Compruebe el uso de dos puntos al final del párrafo (faltan en la traducción)."
 
 {\:\s*?\n}i
 id="pe-3-falta-dos-puntos-fin-nueva-linea"
 valid msgstr="\:\s*?\n"
+valid after="(?u)\b(a|ante|bajo|con|contra|de|desde|durante|en|entre|hacia|hasta|para|por|según|si|sin|sobre|tras)"
 hint="Compruebe el uso de dos puntos antes del fin de línea «\n» (faltan en la traducción)."
 
 {\:\s*\<\/p\>}i
 id="pe-3-falta-dos-puntos-fin-nuevo-parrafo"
 valid msgstr="\:\s*\<\/p\>"
+valid after="(?u)\b(a|ante|bajo|con|contra|de|desde|durante|en|entre|hacia|hasta|para|por|según|si|sin|sobre|tras)"
 hint="Compruebe el uso de dos puntos al final del párrafo «</p>» (faltan en la traducción)."
 
 {\,\s*$}i

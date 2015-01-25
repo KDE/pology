@@ -1481,6 +1481,14 @@ hint="«Porqué» siempre debe venir precedido de un determinante (error gramati
 id="gr-1-preposicion-delante-de-si"
 hint="«Sí» se escribe con tilde después de una preposición (error gramatical)"
 
+[(?u)\bmi[.,;]\b]i
+id="gr-1-mi-antes-de-coma"
+hint="«Mi» se escribe con tilde antes de punto o coma (error gramatical)"
+
+[(?u)\bsi[.,;]\b]i
+id="gr-1-si-antes-de-coma"
+hint="«Si» se escribe con tilde antes de punto o coma (error gramatical)"
+
 [(?u)\bhas\s(el|la|lo|los|las|un|una|unos|unas)\b]i
 id="gr-1-has-seguido-articulo"
 hint="«Has + artículo» se escribe como «Haz + artículo» (error gramatical)"

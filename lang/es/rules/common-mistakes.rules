@@ -49,6 +49,10 @@ hint="«A buen fin» se escribe como «Con buen fin» (error frecuente: solecism
 id="cm-1-a-caso"
 hint="«A caso» se escribe como «Acaso» (error frecuente: redundancia)"
 
+[\ba\sconsta\sde\b]i
+id="cm-2-a-consta-de"
+hint="«A consta de» se escribe como «A costa de» (error frecuente: solecismo)"
+
 [\ba\scuenta\sde\b]i
 id="cm-2-a-cuenta-de"
 hint="«A cuenta de» se escribe como «Por cuenta de» (error frecuente: solecismo)"
@@ -101,6 +105,10 @@ hint="«A nivel de» e escribe como «En el ámbito de/Con respecto a/Entre/En»
 id="cm-1-a-parte"
 hint="«A parte» se escribe como «Aparte» (error frecuente)"
 
+[\ba\spenas\b]i
+id="cm-1-a-penas"
+hint="«A penas» se escribe como «Apenas» (error frecuente)"
+
 [\ba\sposta\b]i
 id="cm-1-a-posta"
 hint="«A posta» se escribe como «Aposta» (error frecuente: redundancia)"
@@ -152,6 +160,10 @@ hint="«Al respecto de» se escribe como «Con respecto a/de» (error frecuente:
 [\bal\stiempo\sque\b]i
 id="cm-1-al-tiempo-que"
 hint="«Al tiempo que» se escribe como «A tiempo que» (error frecuente: solecismo)"
+
+[\b(algo|mucho|poco)\sde\sdecir\b]i
+id="cm-1-algo-de-decir"
+hint="«Algo/Mucho/Poco de decir» se escribe como «Algo/Mucho/poco que decir» (error frecuente)"
 
 [\balmacenaje\b]i
 id="cm-1-almacenaje"
@@ -489,9 +501,17 @@ hint="«Cualesquieras» se escribe como «Cualesquiera» (error frecuente)"
 id="cm-1-da-con-tilde"
 hint="«Dá» se escribe como «Da» (error frecuente)"
 
-[\bdar\sa\sbasto\b]i
+[\bd\w+\sa\sbasto\b]i
 id="cm-1-dar-a-basto"
 hint="«Dar a basto» se escribe como «Dar abasto» (error frecuente: solecismo)"
+
+[\bd\w+\sde\smi\b]i
+id="cm-2-dar-de-mi"
+hint="«Dar de mi» se escribe como «Dar de mí» (error frecuente)"
+
+[\bd\w+\sde\ssi\b]i
+id="cm-2-dar-de-si"
+hint="«Dar de si» se escribe como «Dar de sí» (error frecuente)"
 
 [\bde\sacuerdo\sa\b]i
 id="cm-2-de-acuerdo-a"
@@ -880,6 +900,14 @@ hint="«Fín» se escribe siempre como «Fin» (error frecuente)"
 id="cm-1-formula-sin-tilde"
 hint="«Formula» se escribe como «Fórmula», salvo 3ª persona del verbo formular (error frecuente)"
 
+[\bd\w+\sde\ssi\b]i
+id="cm-1-dar-de-si"
+hint="«Dar de si» se escribe como «Dar de sí» (error frecuente)"
+
+[\bfuera\sde\ssi\b]i
+id="cm-2-fuera-de-si"
+hint="«Fuera de si» se escribe como «Fuera de sí» (error frecuente)"
+
 [\bfué\b]i
 id="cm-1-fue-con-tilde"
 hint="«Fué» se escribe como «Fue» (error frecuente)"
@@ -1195,6 +1223,10 @@ hint="«Ni que decir tiene» se escribe sin tilde (error frecuente)"
 [\bno\sle\sbastan\b]i
 id="cm-2-no-le-bastan"
 hint="«No le bastan» se escribe como «No le basta» (error frecuente)"
+
+[\bno\sse\squé\b]i
+id="cm-2-no-se-que"
+hint="«No se qué» se escribe como «No sé qué» (error frecuente)"
 
 [\bosea\b]i
 id="cm-2-osea-junto"
@@ -1672,9 +1704,13 @@ hint="«Vió» se escribe como «Vio» (error frecuente)"
 id="cm-2-vigente-campeon"
 hint="«Vigente campeón» se escribe como «Actual campeón» (error frecuente)"
 
-[\bvolv\w+\sa\sinsistir\b]i
+[\bv\w+\sa\sinsistir\b]i
 id="cm-2-volver-a-insistir"
 hint="«Volver a insistir» se escribe como «Insistir» (error frecuente: redundancia)"
+
+[\bv\w+\sen\ssi\b]i
+id="cm-2-volver-en-si"
+hint="«Volver en si» se escribe como «Volver en sí» (error frecuente)"
 
 [\bX\sWindows\b]
 id="cm-3-x-windows"

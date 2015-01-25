@@ -93,6 +93,10 @@ valid before="puerto"
 valid before="\w+" after="\w+\:"
 hint="Ponga un espacio después del signo de dos puntos"
 
+[(?u)\b(a|ante|con|contra|de|desde|durante|en|entre|hacia|hasta|para|por|según|sin|tras)\:]i
+id="ty-3-preposicion-antes-dos-puntos"
+hint="No ponga el signo de dos puntos después de una preposición"
+
 [(?<=\s);]
 id="ty-3-sobra-espacio-antes-punto-y-coma"
 valid ctx="Numbers and characters"

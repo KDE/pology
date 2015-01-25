@@ -1592,7 +1592,7 @@ valid msgstr="carpetas"
 valid msgstr="subcarpetas" after="sub[\s-]?"
 valid msgstr="papeleras" after="trash\s"
 valid msgstr="(alguna|cualquier|ninguna)\scarpeta"
-valid msgstr="(alguna|cualquier|ninguna)\ssubcarpeta" after="sub[\s-]?" 
+valid msgstr="(alguna|cualquier|ninguna)\ssubcarpeta" after="sub[\s-]?"
 hint="«Folders» se traduce como «Carpetas» (propuesta glosario)"
 
 {\bforum\b}i
@@ -1770,6 +1770,12 @@ valid msgstr="mangos"
 valid msgstr="(alguna|cualquier|ninguna)\sasa"
 valid msgstr="(algún|ningún|cualquier)\smango"
 hint="«Handles» se traduce como «Maneja/Manipula/Se encarga de/Mangos» (propuesta glosario)"
+
+{\bhardcopy\b}i
+id="gp-3-hardcopy"
+valid msgstr="en\spapel"
+valid msgstr="impres[oa]s?"
+hint="«Hardcopy» se traduce como «Copia impresa/en papel» (propuesta glosario)"
 
 {\bheader\b}i
 id="gp-3-header"
