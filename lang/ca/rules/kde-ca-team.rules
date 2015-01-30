@@ -603,14 +603,16 @@ valid comment="Tag\:\ssynopsis" # docmessages
 hint="Es tradueix per «abast, àrea, interval/s, HDR: Marge dinàmic elevat» (kde-ca-team)"
 
 {\bremov(al|es?|ed|ing)\b}i
+valid msgstr="desfeu"
 valid msgstr="elimin(a|ar|ació|ant|ats?|eu|en|i|in|is|o)"
 valid msgstr="supr(essió|essions|imeix|imint|imiu|imir|imits?|imida|imides)"
+valid msgstr="traieu"
 valid msgstr="tre(ure|t|u)"
 valid msgstr="extre(t|u)"
 valid msgstr="desmuntant" cat="plasma_applet_notifier,plasma_applet_org.kde.plasma.devicenotifier"
 valid msgstr="allunyeu" cat="kalzium"
 valid msgstr="remove" cat="amarok,amarokpkg,cervisia,kdeqt,libkpackage5,libplasma5,plasmapkg"
-hint="Es tradueix per «eliminar», «suprimir», «treure» (kde-ca-team)"
+hint="Es tradueix per «eliminar», «suprimir», «treure» o «desfeu-vos» (kde-ca-team)"
 
 # «screenshot» es tradueix per «captura de pantalla».
 {\bscreenshots?\b}i
