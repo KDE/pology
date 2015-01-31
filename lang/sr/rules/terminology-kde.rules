@@ -601,13 +601,7 @@ valid before=" (edit|input)"
 valid before=" up\b" msgstr="\b(по)?равна"
 valid msgstr="\b(више|једно|дво|тро|про)?ред(а|у|ом|ов(а|и|е|има)|н([аеиоу]|ом|има))?\b"
 valid msgstr="&(lines|klines)-\S*;"
-valid cat="katepart4" msgid="load the settings line" msgstr="учитао поставке"
-valid cat="kdelibs4" msgid="header line"
-valid cat="kio4" msgid="^Subject line$" msgstr="^Наслов$"
-valid cat="kcmusb" msgid="direct line" msgstr="директн\w+ вез"
-valid cat="PO_Odyssey" msgid="constellation" msgstr="\bлиниј"
 valid cat="kmix,kxsconfig,desktop_kdeartwork,kdeartwork.desktop,okular,ksquares" msgstr="\bлиниј"
-valid cat="okular" after="leader " msgstr="изводниц"
 valid catrx="kppp" # скоро увек телефонска линија
 valid catrx="konversation" # скоро увек линија подсећања или улазна линија
 
