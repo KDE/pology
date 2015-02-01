@@ -791,7 +791,7 @@ def derive_project_data (project, options, nwgrefpath=None):
 
     # Add existing inverse mappings.
     for branch_id in p.branch_ids:
-        for branch_name in p.catalogs[branch_id]:
+        for branch_name in sorted(p.catalogs[branch_id]):
             for summit_name in p.direct_map[branch_id][branch_name]:
                 if summit_name in p.full_inverse_map:
                     # - part inverse:
