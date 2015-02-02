@@ -55,6 +55,7 @@ def is_txt_cat (catname, subdir):
         or catname.startswith("desktop_")
         or (catname.endswith(".desktop") and not catname.endswith("org.kde.desktop"))
         or catname.startswith("xml_")
+        or catname.startswith("json_") or catname.endswith(".json")
     )
 
 
