@@ -341,7 +341,7 @@ In case a PO file in target language does not have a counterpart in source langu
 <varlistentry>
 <term>Google Translate (<literal>google</literal>)</term>
 <listitem>
-<para><ulink url="http://translate.google.com/">Google Translate</ulink> is Google's proprietary web machine-translation service, which can be used free of charge. At the moment, <command>pomtrans</command> makes one query to it per message, which can take quite some time on long PO files.</para>
+<para><ulink url="http://translate.google.com/">Google Translate</ulink> is Google's proprietary web machine-translation service. The user must obtain an API key from Google, and set it in <link linkend="sec-cmconfig">Pology configuration</link> under <literal>[pomtrans]/google-api-key</literal>. At the moment, <command>pomtrans</command> makes one query to the service per message, which can take quite some time on long PO files.</para>
 </listitem>
 </varlistentry>
 

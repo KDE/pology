@@ -454,15 +454,21 @@ class Translator_apertium (object):
 # Communication code derived from py-gtranslate library
 # http://code.google.com/p/py-gtranslate/
 
+# Updated for v2.0 API by Víctor R. Rodríguez Domínguez
+# http://vrdominguez.es
+
 
 class Translator_google (object):
 
     def __init__ (self, slang, tlang, options):
 
         if options.tmode is not None:
-            self.langpair = options.tmode
+            ( self.lang_in, self.lang_out ) = options.tmode.split('|')
         else:
-            self.langpair = "%s|%s" % (slang, tlang)
+            self.lang_in = slang
+            self.lang_out = tlang
+        
+        self.apikey = pology_config.section("pomtrans").string("google-api-key")
 
 
     def translate (self, texts):
@@ -476,8 +482,9 @@ class Translator_google (object):
                     "Try installing the '%(pkg)s' package.",
                     mod="simplejson", pkg="python-simplejson"))
 
-        baseurl = "http://ajax.googleapis.com/ajax/services/language/translate"
-        baseparams = (("v", "1.0"), ("langpair", self.langpair), ("ie", "utf8"))
+        baseurl = "https://www.googleapis.com/language/translate/v2"
+        baseparams = (("key", self.apikey), ("source", self.lang_in),
+                      ("target", self.lang_out), ("target","json"))
 
         texts_tr = []
         for text in texts:
@@ -487,7 +494,7 @@ class Translator_google (object):
             execurl = "%s?%s" % (baseurl, parfmt)
             try:
                 res = simplejson.load(urllib.FancyURLopener().open(execurl))
-                text_tr = unicode(res["responseData"]["translatedText"])
+                text_tr = unicode(res["data"]["translations"][0]["translatedText"])
             except:
                 text_tr = u""
             texts_tr.append(text_tr)
