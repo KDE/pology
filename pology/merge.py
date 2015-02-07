@@ -15,6 +15,7 @@ from pology import PologyError, _, n_
 from pology.catalog import Catalog
 from pology.diff import editprob
 from pology.fsops import unicode_to_str
+from pology.message import Message
 from pology.split import proper_words
 
 
@@ -129,21 +130,28 @@ def merge_pofile (catpath, tplpath,
                     nontrkeys.add(msg.key)
 
         # If requested, remove all untranslated messages,
-        # and every fuzzy for which previous fields define a message
-        # still existing in the catalog.
+        # and replace every fuzzy message which has previous fields
+        # with a dummy previous translated message
+        # (unless such message already exists in the catalog).
         # This way, untranslated messages will get fuzzy matched again,
         # and fuzzy messages may get updated translation.
         if rebase_existing_fuzzies:
+            rebase_dummy_messages = []
             for msg in cat:
                 if msg.untranslated:
                     cat.remove_on_sync(msg)
                 elif msg.fuzzy and msg.msgid_previous:
+                    cat.remove_on_sync(msg)
                     omsgs = cat.select_by_key(msg.msgctxt_previous,
                                               msg.msgid_previous)
-                    if omsgs:
-                        omsg = omsgs[0]
-                        if omsg.translated and omsg.msgstr != msg.msgstr:
-                            cat.remove_on_sync(msg)
+                    if not omsgs:
+                        dmsg = Message()
+                        dmsg.msgctxt = msg.msgctxt_previous
+                        dmsg.msgid = msg.msgid_previous
+                        dmsg.msgid_plural = msg.msgid_plural_previous
+                        dmsg.msgstr = msg.msgstr
+                        cat.add_last(dmsg)
+                        rebase_dummy_messages.append(dmsg)
 
         if may_modify:
             cat.sync()
@@ -198,7 +206,7 @@ def merge_pofile (catpath, tplpath,
 
     # Post-process merged catalog if necessary.
     if (   getcat or otherwrap or correct_exact_matches
-        or correct_fuzzy_matches or ignpotdate
+        or correct_fuzzy_matches or ignpotdate or rebase_existing_fuzzies
     ):
         # If fine wrapping requested and catalog should not be returned,
         # everything has to be reformatted, so no need to monitor the catalog.
@@ -232,6 +240,13 @@ def merge_pofile (catpath, tplpath,
             cat.header.replace_field_value(fname, orig_potdate)
             if cat != orig_cat:
                 cat.header.replace_field_value(fname, new_potdate)
+
+        # Remove dummy messages added for rebasing of fuzzy messages
+        # that were obsoleted instead of promoted to fuzzy.
+        if rebase_existing_fuzzies:
+            for dmsg in rebase_dummy_messages:
+                if dmsg in cat and cat[dmsg].obsolete:
+                    cat.remove_on_sync(dmsg)
 
         if not getcat:
             cat.sync(force=otherwrap)
