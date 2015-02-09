@@ -507,6 +507,7 @@ hint="«Dar a basto» se escribe como «Dar abasto» (error frecuente: solecismo
 
 [\bd\w+\sde\smi\b]i
 id="cm-2-dar-de-mi"
+valid msgstr="d\w+\sde\sMI"
 hint="«Dar de mi» se escribe como «Dar de mí» (error frecuente)"
 
 [\bd\w+\sde\ssi\b]i
@@ -908,19 +909,19 @@ hint="«Dar de si» se escribe como «Dar de sí» (error frecuente)"
 id="cm-2-fuera-de-si"
 hint="«Fuera de si» se escribe como «Fuera de sí» (error frecuente)"
 
-[\bfué\b]i
+[(?u)\bfué\b]i
 id="cm-1-fue-con-tilde"
 hint="«Fué» se escribe como «Fue» (error frecuente)"
 
-[\bfuí\b]i
+[(?u)\bfuí\b]i
 id="cm-1-fui-con-tilde"
 hint="«Fuí» se escribe como «Fui» (error frecuente)"
 
-[\bguión\b]i
+[(?u)\bguión\b]i
 id="cm-2-guion-con-tilde"
 hint="«Guión» se escribe como «Guion» (error frecuente)"
 
-[\bguíar\b]i
+[(?u)\bguíar\b]i
 id="cm-1-guiar-con-tilde"
 hint="«Guíar» se escribe como «Guiar» (error frecuente)"
 
@@ -928,32 +929,32 @@ hint="«Guíar» se escribe como «Guiar» (error frecuente)"
 id="cm-1-haber-seguido-coma"
 hint="'Haber,' se escribe 'A ver,'"
 
-[\bhaber\sc[oó]mo\b]i
+[(?u)\bhaber\sc[oó]mo\b]i
 id="cm-1-haber-como"
 hint="'Haber cómo' se escribe 'A ver cómo'"
 
-[\bhaber\scu[aá]ndo\b]i
+[(?u)\bhaber\scu[aá]ndo\b]i
 id="cm-1-haber-cuando"
 hint="'Haber cuándo' se escribe 'A ver cuándo'"
 
-[\bhaber\sd[oó]nde\b]i
+[(?u)\bhaber\sd[oó]nde\b]i
 id="cm-1-haber-donde"
 hint="'Haber dónde' se escribe 'A ver dónde'"
 
-[\bhaber(\spor)?\squ[eé]\b]i
+[(?u)\bhaber(\spor)?\squ[eé]\b]i
 id="cm-1-haber-que"
 hint="'Haber qué' se escribe 'A ver qué'"
 
-[^haber\ss[ií]\b]i
+[(?u)^haber\ss[ií]\b]i
 id="cm-2-haber-si"
 hint="'Haber si' al principio de frase se escribe 'A ver si'"
 
-[^habían\b]i
+[(?u)^habían\b]i
 id="cm-1-habian"
 valid before="\s\w+?(ido|ado)"
 hint="«Habián» se escribe como «Había» al principo de frase (error frecuente)"
 
-[\bhacia\sad[oó]nde\b]
+[(?u)\bhacia\sad[oó]nde\b]
 id="cm-2-hacia-adonde"
 hint="«Hacia adonde» se escribe como «Hacia donde» (error frecuente)"
 
@@ -1356,6 +1357,10 @@ hint="«Quásar» se escribe como «Cuasar» (error frecuente)"
 #id="cm-2-que-su"
 #hint="«Que su» se escribe como «Cuyo/a» (error frecuente)"
 
+[(?u)\bqu[eé]\sse\syo\b]i
+id="cm-2-que-se-yo"
+hint="«Qué se yo» se escribe como «Qué sé yo» (error frecuente)"
+
 [\bque\svan\sa\shaber\b]i
 id="cm-2-que-van-a-haber"
 hint="«Que van a haber» se escribe como «Que va a haber» (error frecuente)"
@@ -1415,6 +1420,10 @@ hint="«Se fijó que» se escribe como «Se fijó en que» (error frecuente)"
 [\bse\sgestión\b]i
 id="cm-2-se-gestion"
 hint="«Se gestión» se escribe como «De gestión» (error frecuente)"
+
+[\bse\shacia\b]i
+id="cm-2-se-hacia"
+hint="«Se hacia» se escribe como «Se hacía» (error frecuente)"
 
 [\bse\smanera\b]i
 id="cm-1-se-manera"
@@ -1515,6 +1524,10 @@ hint="«Sueldos bases» se escribe como «Sueldos base» (error frecuente)"
 [\bsuelen\shaber\b]i
 id="cm-1-suelen-haber"
 hint="«Suelen haber» se escribe como «Suele haber» (error frecuente)"
+
+[\bsurg\w+\sefecto\b]i
+id="cm-1-surgir-efecto"
+hint="«Surgir efecto» se escribe como «Surtir efecto» (error frecuente)"
 
 [\btal\scuál\b]i
 id="cm-1-tal-cual-con-tilde"

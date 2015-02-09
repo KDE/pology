@@ -101,6 +101,7 @@ valid before="lunes\b"
 valid before="manazas\b"
 valid before="mandamás\b"
 valid before="martes\b"
+valid before="m[aá]s\b"
 valid before="mp3?\b"
 valid before="menos\b"
 valid before="mes\b"
@@ -1472,6 +1473,14 @@ id="gr-1-conjuncion-al-fin-de-frase"
 valid span="(?u)\b\w+\." before="\.\."
 hint="Una conjunción no puede aparecer al final de frase (error gramatical)"
 
+[(?u)\bel\s(y|ni|pero|mas|sino|porque|pues|como|si|aunque|conque|o\ssea|es\sdecir|es\smás)\b]i
+id="gr-2-el-seguido-conjuncion"
+hint="«El» se escribe con tilde antes de una conjunción (error gramatical)"
+
+[(?u)\btu\s(y|ni|pero|mas|sino|porque|pues|que|como|si|aunque|conque|o\ssea|es\sdecir|es\smás)\b]i
+id="gr-2-tu-seguido-conjuncion"
+hint="«Tu» se escribe con tilde antes de una conjunción (error gramatical)"
+
 [(?u)porqué]i
 valid after="(el|del|mi|tu|su|este|ese|aquel|un|algún|ningún|cierto)\s"
 id="gr-1-porque-sin-demostrativo"
@@ -1533,14 +1542,14 @@ hint="«Esta» se escribe como «Está» antes de gerundio (error gramatical)"
 
 [(?u)\buna\s\w+?(ado|ido)\b]i
 id="gr-1-una-antes-participio-masculino"
-hint="Se ha encontrado «una» seguido de participio en masculino (error gramatical)"
+hint="Se ha encontrado «Una» seguido de participio en masculino (error gramatical)"
 
 [(?u)\bun\s\w+?(ada|ida)\b]i
 id="gr-1-un-antes-participio-femenino"
-hint="Se ha encontrado «un» seguido de participio en femenino (error gramatical)"
+hint="Se ha encontrado «Un» seguido de participio en femenino (error gramatical)"
 
 [(?u)\ba\s\w+?ad[oa]\b]i
-id="gr-1-a-en-lugar-de-ah-participio"
+id="gr-1-a-en-lugar-de-ha-participio"
 valid span="\ba\s(cada|nada|lado|demasiad[ao]|predeterminad[ao])\b"
 valid after="(huel\w+|hol\w+|sab\w+|gust\w+|camb\w+)\s(\w+\s){0,2}"
 hint="Se ha encontrado «A» en lugar de «Ha» antes de un participio (error gramatical)"
@@ -1557,6 +1566,10 @@ hint="Se ha encontrado «Ah» en lugar de «A» antes de un infinitivo (error gr
 [(?u)\bha\s\w+?(ar|er|ir)\b]i
 id="gr-1-ha-con-hache-antes-infinitivo"
 hint="Se ha encontrado «Ha» en lugar de «A» antes de un infinitivo (error gramatical)"
+
+[(?u)\b\w+?(ar|er|ir)\bha]i
+id="gr-1-ha-despues-de-infinitivo"
+hint="Se ha encontrado «Ha» en lugar de «A» después de un infinitivo (error gramatical)"
 
 [(?u)\b(ir|yendo|voy|vas|va|vamos|ibas?|iré|irás?)\s\w+?(ar|er|ir)\b]i
 id="gr-1-ir-sin-a-antes-infinitivo"
@@ -1635,15 +1648,28 @@ hint="«Haya + gerundio» se escribe como «Haya + participio» (error gramatica
 id="gr-1-me-te-se-seguido-infinitivo"
 hint="«Me/Te/Se/Nos/Os/Lo/Los/La/Las/Le/Les + infinitivo» se escribe como «Me/Te/Se/Nos/Os/Lo/Los/La/Las/Le/Les + presente» (error gramatical)"
 
-[(?u)\b(mi|tu|su)\s\w+?(ar|er|ir)\b]i
+[(?u)\b(mi|t[uú]|su)\s\w+?(ar|er|ir)\b]i
 id="gr-1-mi-tu-su-seguido-infinitivo"
 valid span="\w+\s(avatar|lugar|primer|par)"
 hint="«Mi/Tu/Su + infinitivo» se escribe como «Mi/Tu/Su + presente» (error gramatical)"
 
-[(?u)\bse\s\w+?(s)\b]i
+[(?u)\b[eé]l\s\w+?s\b]i
+id="gr-1-el-seguido-plural"
+validGroup singularName
+valid span="se\s(les|los|las|nos|os|es)\b"
+hint="«Él + plural» se escribe como «Él + tercera persona» o «El + singular» (error gramatical)"
+
+[(?u)\bse\s\w+?s\b]i
 id="gr-1-se-seguido-plural"
+validGroup singularName
 valid span="se\s(les|los|las|nos|os|es)\b"
 hint="«Se + plural» se escribe como «Se + tercera persona» o «Te + plural» (error gramatical)"
+
+[(?u)\byo\s\w+?s\b]i
+id="gr-1-yo-seguido-plural"
+validGroup singularName
+valid span="se\s(les|los|las|nos|os|es)\b"
+hint="«Yo + plural» se escribe como «Yo + tercera persona» o «Me + plural» (error gramatical)"
 
 [(?u)\bse\s\w+?(ar|er|ir)\b]i
 id="gr-1-se-seguido-infinitivo"
@@ -1898,6 +1924,10 @@ hint="Después de «Inferior, Superior, Anterior, Posterior» no debe figurar «
 
 [(?u)\bte\s(de|verde|rojo|negro|perla|[A-Z]\w+)\b]i
 id="gr-2-te-infusion"
+hint="La planta/infusión «té» lleva tilde (error gramatical)"
+
+[(?u)\bbeb\w+\ste\b]i
+id="gr-2-beber-te"
 hint="La planta/infusión «té» lleva tilde (error gramatical)"
 
 [(?u)\bnadie\s\w{2,}(as|es|is|ían|ais|eís)\b]i
