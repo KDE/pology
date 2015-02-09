@@ -544,6 +544,14 @@ valid msgstr="multímetre"
 hint="Es tradueix per «multímetre» (kde-ca-team)"
 # NOTA: el Termcat tradueix «multimeter» per «multímetre», i «polimeter» per «polímetre» 
 
+{\bname.?space\b}i
+valid msgstr="\bespai de nom\b"
+hint="Es tradueix per «espai de nom» (kde-ca-team)"
+
+{\bname.?spaces\b}i
+valid msgstr="\bespais de nom\b"
+hint="Es tradueix per «espais de nom» (kde-ca-team)"
+
 {\bnetbooks?\b}i
 valid msgstr="ultraportàtils?"
 hint="Es tradueix per «ultra-portàtil» (kde-ca-team)"
@@ -792,6 +800,14 @@ hint="Es tradueix per «quadre/s d'eines» (kde-ca-team)"
 valid msgstr="consells?"
 valid !msgstr="consells? d'eina"
 hint="Es tradueix per «consells» (kde-ca-team)"
+
+{\btool.?view\b}i
+valid msgstr="\bvista d'eina\b"
+hint="Es tradueix per «vista d'eina» (kde-ca-team)"
+
+{\btool.?views\b}i
+valid msgstr="\bvistes d'eina\b"
+hint="Es tradueix per «vistes d'eina» (kde-ca-team)"
 
 {\btree.?views?\b}i
 valid msgstr="vist(a|es) en arbre"
