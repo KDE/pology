@@ -238,8 +238,6 @@ valid msgstr="&\w*config\S*;"
 # дозвољено увек у контексту употребити ‘поставке’
 valid msgstr="\bпоставк"
 valid msgid="config(uration)? module" msgstr="контролн\w+ модул"
-valid cat="katepart4" msgid="config(uration)? page" msgstr="одеља?к"
-valid cat="klock" msgid="potential energy" msgstr="устројств"
 
 {\bconfiguration dialog}i
 id="t-configurationdialog"
@@ -664,10 +662,6 @@ valid after="view(s|ing)? " msgstr="начин\w* приказ"
 valid msgstr="режим"
 # због изостављања:
 valid !msgstr="\bначин" !msgstr="\bмод(а|у|ом|ов(и|е|има))\b"
-valid cat="kdmconfig" msgid="dialog based mode" msgstr="завнова\w+ на дијалогу"
-valid cat="katepart4" after="syntax highlight "
-valid cat="dolphin" after="three viewing " msgstr="на разне начине"
-valid cat="PO_Odyssey" before=" of.*communication" msgstr="начин.*комуник"
 
 {\bMozilla Foundation}i
 id="t-mozilla"
