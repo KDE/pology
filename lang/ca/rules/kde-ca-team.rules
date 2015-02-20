@@ -261,7 +261,7 @@ hint="Es tradueix per «desencriptatge» (kde-ca-team)"
 {\bdelet(es?|ed|ing)\b}i
 valid msgstr="supr(essió|essions|imeix|imint|imiu|imir|imits?|imida|imides)"
 valid msgstr="elimin(a|ar|ació|ant|ats?|o)"
-valid msgstr="delete" cat="katesql,kdevvalgrind"
+valid msgstr="delete" cat="katesql,kdevvalgrind,www_www"
 hint="Es tradueix per «suprimir», «eliminar» (kde-ca-team)"
 
 #{\bdetached\b}i

@@ -335,7 +335,7 @@ valid comment="Tag\:\sprogramlisting" cat="kipi-plugins_geolocation" # docmessag
 hint="No s'ha de posar cap espai abans del signe de percentatge (tipografia)"
 
 [\s\.]
-valid before="\w{2,7}\b" # Extensions
+valid before="\w{2,8}\b" # Extensions
 valid before="\/\w+" # Files
 valid before="h\b" # .h files
 valid before="~"
