@@ -547,6 +547,7 @@ hint="Es tradueix per «multímetre» (kde-ca-team)"
 
 {\bname.?space\b}i
 valid msgstr="\bespai de noms?\b"
+valid msgstr="\bEspaiDeNom\b" cat="libkimap,libkimap5"
 hint="Es tradueix per «espai de nom/s» (kde-ca-team)"
 # NOTA: El Termcat tradueix "namespace" per «espi de nom» i per «espai de noms», indistintament. Normalment, és refereix a més d'un nom (funció, variable, etc. dins el mateix espai)
 
