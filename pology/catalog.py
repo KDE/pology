@@ -1270,7 +1270,7 @@ class Catalog (Monitored):
         ofl.writelines(enclines)
         if not writefh:
             ofl.close()
-            if os.name == "nt":
+            if os.name == "nt" and os.path.exists(self._filename):
                 # NT does not allow to overwrite on rename.
                 tmpfname2 = self._filename + "~tmpo"
                 os.rename(self._filename, tmpfname2)
