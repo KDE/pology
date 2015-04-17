@@ -46,8 +46,13 @@ def remove_paired_capital_words (msg, cat):
 	# Joins both set of words an remove them from the message.
         for ent in ents:
 	    # report(_("@info", "Palabra en mayusculas: %(info)s \n", info=ent))
-            # msg.msgstr[i] = msg.msgstr[i].replace(ent, "~")
+            # msg.msgstr[i] = msg.msgstr[i].replace(ent, "~"
             msg.msgstr[i] = re.sub(r'\b' + ent + r'\b', '~', msg.msgstr[i], re.U)
+            if i == 0:
+                msg.msgid = re.sub(r'\b' + ent + r'\b', '~', msg.msgid, re.U)
+            else:
+                msg.msgid_plural = re.sub(r'\b' + ent + r'\b', '~', msg.msgid_plural, re.U)
+            
 
     # The remainning words could have wrong capitalization in the translated message.
 	
