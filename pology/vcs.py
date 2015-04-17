@@ -537,7 +537,8 @@ class VcsSubversion (VcsBase):
     def move (self, spath, dpath):
         # Base override.
 
-        if collect_system("svn move %s %s" % (self._ep(spath), dpath))[2] != 0:
+        if collect_system("svn move --parents %s %s"
+                          % (self._ep(spath), dpath))[2] != 0:
             return False
         return True
 
