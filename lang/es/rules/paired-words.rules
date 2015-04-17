@@ -80,6 +80,7 @@ hint="El texto de la traducción parece demasiado grande"
 
 *hook name="es:compare_with_original/test_if_very_short_translation" on="msg"
 id="pw-2-error-traduccion-muy-corta"
+valid msgstr="DONE"
 hint="El texto de la traducción parece demasiado pequeño"
 
 # Omit particles between propernames.

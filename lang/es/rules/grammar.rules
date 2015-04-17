@@ -76,6 +76,7 @@ valid before="corpus\b"
 valid before="canarés\b"
 valid before="caries\b"
 valid before="ciempiés\b"
+valid before="corpus\b"
 valid before="cortafuegos\b"
 valid before="crisis\b"
 valid before="cumpleaños\b"
@@ -1653,22 +1654,29 @@ id="gr-1-mi-tu-su-seguido-infinitivo"
 valid span="\w+\s(avatar|lugar|primer|par)"
 hint="«Mi/Tu/Su + infinitivo» se escribe como «Mi/Tu/Su + presente» (error gramatical)"
 
-[(?u)\b[eé]l\s\w+?s\b]i
+[(?u)\b[eé]l\b]i
 id="gr-1-el-seguido-plural"
 validGroup singularName
-valid span="se\s(les|los|las|nos|os|es)\b"
+validGroup wordDelimiter
+validGroup beforeConnector
+valid before="\s\w+?[^s]\b"
 hint="«Él + plural» se escribe como «Él + tercera persona» o «El + singular» (error gramatical)"
 
-[(?u)\bse\s\w+?s\b]i
+[(?u)\bse\b]i
 id="gr-1-se-seguido-plural"
 validGroup singularName
+validGroup wordDelimiter
+validGroup beforeConnector
+valid before="\s\w+?[^s]\b"
 valid span="se\s(les|los|las|nos|os|es)\b"
 hint="«Se + plural» se escribe como «Se + tercera persona» o «Te + plural» (error gramatical)"
 
-[(?u)\byo\s\w+?s\b]i
+[(?u)\byo\b]i
 id="gr-1-yo-seguido-plural"
 validGroup singularName
-valid span="se\s(les|los|las|nos|os|es)\b"
+validGroup wordDelimiter
+validGroup beforeConnector
+valid before="\s\w+?[^s]\b"
 hint="«Yo + plural» se escribe como «Yo + tercera persona» o «Me + plural» (error gramatical)"
 
 [(?u)\bse\s\w+?(ar|er|ir)\b]i
@@ -1711,6 +1719,7 @@ id="gr-1-concordancia-articulo-singular-nombre"
 validGroup singularName
 validGroup wordDelimiter
 validGroup beforeConnector
+valid before="\s\w+?[^s]\b"
 valid after="o\s"
 valid span="[Aa]l\s" before="\w+(los|las|nos|nas)"
 hint="Hay un artículo singular (El/Al/Del/Un/La/Una) seguido de un nombre en plural"
@@ -1721,6 +1730,7 @@ validGroup pluralName
 validGroup thirdPerson
 validGroup wordDelimiter
 validGroup beforeConnector
+valid before="\s\w+?s\b"
 hint="Hay un artículo definido plural (Los/Las) seguido de un nombre en singular"
 
 [(?u)\b([Uu]nos|[Uu]nas)\s((dos|tres|cuatro|cinco|seis|siete|ocho|nueve|diez|once|doce|\d+)\s)?[«\'\"]?]
@@ -1728,6 +1738,7 @@ id="gr-1-concordancia-articulo-indefinido-plural-nombre"
 validGroup pluralName
 validGroup wordDelimiter
 validGroup beforeConnector
+valid before="\s\w+?s\b"
 hint="Hay un artículo indefinido plural (Uos/Unas) seguido de un nombre en singular"
 
 [(?u)\b([Ee]ste|[Ee]se|[Aa]quel|[Ee]sta|[Ee]sa|[Aa]quella|[Ee]sto|[Ee]so|[Aa]quello)\s[«\'\"]?]
@@ -1735,6 +1746,7 @@ id="gr-1-concordancia-pronombre-singular-nombre"
 validGroup singularName
 validGroup wordDelimiter
 validGroup beforeConnector
+valid before="\s\w+?[^s]\b"
 hint="Hay un pronombre singular (Este/Ese/Aquel/Esta/Esa/Aquella/Esto/Eso/Aquello) seguido de un nombre en plural"
 
 [(?u)\b([Ee]stos|[Ee]sos|[Aa]quellos|[Ee]stas|[Ee]sas|[Aa]quellas)\s((dos|tres|cuatro|cinco|seis|siete|ocho|nueve|diez|once|doce|\d+)\s)?[«\'\"]?]
@@ -1743,6 +1755,7 @@ validGroup pluralName
 validGroup thirdPerson
 validGroup wordDelimiter
 validGroup beforeConnector
+valid before="\s\w+?s\b"
 hint="Hay un pronombre plural (Estos/Esos/Aquellos/Estas/Esas/Aquellas) seguido de un nombre en singular"
 
 [(?u)\b([Mm]i|[Tt]u|[Ss]u|[Nn]uestr[oa]|[Vv]uestr[oa])\s[«\'\"]?]
@@ -1750,6 +1763,7 @@ id="gr-1-concordancia-posesivo-singular-nombre"
 validGroup singularName
 validGroup wordDelimiter
 validGroup beforeConnector
+valid before="\s\w+?[^s]\b"
 hint="Hay un posesivo singular (Mi/Tu/Su/Nuestro/Nuestra/Vuestro/Vuestra) seguido de un nombre en plural"
 
 [(?u)\b([Mm]is|[Tt]us|[Ss]us|[Nn]uestr[oa]s|[Vv]uestr[oa]s)\s((dos|tres|cuatro|cinco|seis|siete|ocho|nueve|diez|once|doce|\d+)\s)?[«\'\"]?]
@@ -1757,6 +1771,7 @@ id="gr-1-concordancia-posesivo-plural-nombre"
 validGroup pluralName
 validGroup wordDelimiter
 validGroup beforeConnector
+valid before="\s\w+?s\b"
 hint="Hay un posesivo plural (Mis/Tus/Sus/Nuestros/Nuestras/Vuestros/Vuestras) seguido de un nombre en singular"
 
 [(?u)\b(dos|tres|cuatro|cinco|seis|siete|ocho|nueve|diez|once|doce|trece|catorce|quince|dieci\w+|veint\w+|treint\w+|cuarent\w+|cincuent\w+|sesent\w+|setent\w+|ochent\w+|novent\w+)\s(mil\s)?[«\'\"]?]
@@ -1764,6 +1779,7 @@ id="gr-1-concordancia-numero-plural-nombre"
 validGroup pluralName
 validGroup wordDelimiter
 validGroup beforeConnector
+valid before="\s\w+?s\b"
 valid after="\w+?s\s"
 valid after="en\s"
 valid before="por"
