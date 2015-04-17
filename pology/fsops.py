@@ -16,6 +16,7 @@ import sys
 
 from pology import PologyError, _, n_
 import pology.config
+from pology.escape import escape_sh
 from pology.report import report, error, warning
 
 
@@ -257,7 +258,11 @@ def assert_system (cmdline, echo=False, wdir=None):
     """
 
     if echo:
-        report(cmdline)
+        if isinstance(cmdline, basestring):
+            cmdstr = cmdline
+        else:
+            cmdstr = " ".join(map(escape_sh, cmdline))
+        report(cmdstr)
     if wdir is not None:
         cwd = getucwd()
         os.chdir(wdir)
@@ -307,7 +312,11 @@ def collect_system (cmdline, echo=False, wdir=None, env=None, instr=None):
     """
 
     if echo:
-        report(cmdline)
+        if isinstance(cmdline, basestring):
+            cmdstr = cmdline
+        else:
+            cmdstr = " ".join(map(escape_sh, cmdline))
+        report(cmdstr)
     if wdir is not None:
         cwd = getucwd()
         os.chdir(wdir)
