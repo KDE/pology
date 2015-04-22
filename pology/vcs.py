@@ -17,6 +17,7 @@ import shutil
 import tempfile
 
 from pology import PologyError, _, n_
+from pology.escape import escape_sh
 from pology.fsops import collect_system, system_wd, unicode_to_str, join_ncwd
 from pology.report import report, warning
 
@@ -510,7 +511,8 @@ class VcsSubversion (VcsBase):
             return True
 
         tmppath = _temp_paths_file(paths)
-        res = collect_system("svn add --force --parents --targets %s" % tmppath,
+        res = collect_system(["svn", "add", "--force", "--parents",
+                              "--targets", tmppath],
                              env=self._env)
         success = (res[2] == 0)
         os.remove(tmppath)
@@ -528,7 +530,7 @@ class VcsSubversion (VcsBase):
     def remove (self, path):
         # Base override.
 
-        if collect_system("svn remove %s" % path)[2] != 0:
+        if collect_system(["svn", "remove", path])[2] != 0:
             return False
 
         return True
@@ -537,8 +539,8 @@ class VcsSubversion (VcsBase):
     def move (self, spath, dpath):
         # Base override.
 
-        if collect_system("svn move --parents %s %s"
-                          % (self._ep(spath), dpath))[2] != 0:
+        if collect_system(["svn", "move", "--parents",
+                           self._ep(spath), dpath])[2] != 0:
             return False
         return True
 
@@ -546,7 +548,7 @@ class VcsSubversion (VcsBase):
     def revision (self, path):
         # Base override.
 
-        res = collect_system("svn info %s" % self._ep(path), env=self._env)
+        res = collect_system(["svn", "info", self._ep(path)], env=self._env)
         rx = re.compile(r"^Last Changed Rev: *([0-9]+)", re.I)
         revid = ""
         for line in res[0].split("\n"):
@@ -561,7 +563,7 @@ class VcsSubversion (VcsBase):
     def is_clear (self, path):
         # Base override.
 
-        res = collect_system("svn status %s" % path, env=self._env)
+        res = collect_system(["svn", "status", path], env=self._env)
         clear = not re.search(r"^\S", res[0])
 
         return clear
@@ -570,7 +572,7 @@ class VcsSubversion (VcsBase):
     def is_versioned (self, path):
         # Base override.
 
-        res = collect_system("svn info %s" % self._ep(path), env=self._env)
+        res = collect_system(["svn", "info", self._ep(path)], env=self._env)
         if res[-1] != 0:
             return False
 
@@ -586,14 +588,13 @@ class VcsSubversion (VcsBase):
         # Base override.
 
         if rev is None:
-            cmdline = ("svn export --force %s -r BASE %s"
-                       % (self._ep(path), dstpath))
-            res = collect_system(cmdline)
+            res = collect_system(["svn", "export", "--force", self._ep(path),
+                                  "-r", "BASE", dstpath])
             if res[-1] != 0:
                 return False
             return True
 
-        res = collect_system("svn info %s" % self._ep(path), env=self._env)
+        res = collect_system(["svn", "info", self._ep(path)], env=self._env)
         if res[-1] != 0:
             return False
         rx = re.compile(r"^URL:\s*(\S+)", re.I)
@@ -609,9 +610,8 @@ class VcsSubversion (VcsBase):
         if rewrite:
             rempath = rewrite(rempath, rev)
 
-        cmdline = ("svn export --force %s -r %s %s"
-                   % (self._ep(rempath), rev, dstpath))
-        if collect_system(cmdline)[-1] != 0:
+        if collect_system(["svn", "export", "--force", self._ep(rempath),
+                           "-r", rev, dstpath])[-1] != 0:
             return False
 
         return True
@@ -643,17 +643,16 @@ class VcsSubversion (VcsBase):
                 paths_mod.append(path_mod)
             paths = paths_mod
 
-        cmdline = "svn commit "
+        cmdline = ["svn", "commit"]
         if message is not None:
-            cmdline += "-m \"%s\" " % message.replace("\"", "\\\"")
+            cmdline += ["-m", message]
         elif msgfile is not None:
-            cmdline += "-F \"%s\" " % msgfile.replace("\"", "\\\"")
+            cmdline += ["-F", msgfile]
         tmppath = _temp_paths_file(paths)
-        cmdline += "--targets %s " % tmppath
-
+        cmdline += ["--targets", tmppath]
         # Do not use collect_system(), user may need to input stuff.
-        #report(cmdline)
-        success = (os.system(unicode_to_str(cmdline)) == 0)
+        cmdstr = " ".join(map(escape_sh, cmdline))
+        success = (os.system(unicode_to_str(cmdstr)) == 0)
         os.remove(tmppath)
 
         return success
@@ -662,7 +661,7 @@ class VcsSubversion (VcsBase):
     def log (self, path, rev1=None, rev2=None):
         # Base override.
 
-        res = collect_system("svn log %s" % self._ep(path), env=self._env)
+        res = collect_system(["svn", "log", self._ep(path)], env=self._env)
         if res[-1] != 0:
             return []
         rev = ""
@@ -692,7 +691,7 @@ class VcsSubversion (VcsBase):
     def to_commit (self, path):
         # Base override.
 
-        res = collect_system("svn status %s" % path, env=self._env)
+        res = collect_system(["svn", "status", path], env=self._env)
         if res[-1] != 0:
             return []
 
@@ -720,7 +719,7 @@ class VcsSubversion (VcsBase):
         else:
             rspec = ""
 
-        res = collect_system("svn diff %s %s" % (path, rspec), env=self._env)
+        res = collect_system(["svn", "diff", path, rspec], env=self._env)
         if res[-1] != 0:
             warning(_("@info",
                       "Subversion reports it cannot diff path '%(path)s':\n"
@@ -755,7 +754,7 @@ class VcsSubversion (VcsBase):
     def revert (self, path):
         # Base override.
 
-        res = collect_system("svn revert -R %s" % path, env=self._env)
+        res = collect_system(["svn", "revert", "-R", path], env=self._env)
         if res[-1] != 0:
             warning(_("@info",
                       "Subversion reports it cannot revert path '%(path)s':\n"
@@ -842,7 +841,7 @@ class VcsGit (VcsBase):
         success = True
         apaths = []
         for path in paths:
-            if collect_system("git add %s" % path, wdir=root)[2] != 0:
+            if collect_system(["git", "add", path], wdir=root)[2] != 0:
                 success = False
                 break
             apaths.append(path)
@@ -861,7 +860,7 @@ class VcsGit (VcsBase):
 
         root, path = self._gitroot(path)
 
-        if collect_system("git rm %s" % path, wdir=root)[2] != 0:
+        if collect_system(["git", "rm", path], wdir=root)[2] != 0:
             return False
 
         return True
@@ -877,7 +876,7 @@ class VcsGit (VcsBase):
                       "Trying to move paths between different repositories."))
             return False
 
-        if collect_system("git mv %s %s" % (spath, dpath), wdir=root1)[2] != 0:
+        if collect_system(["git", "mv", spath, dpath], wdir=root1)[2] != 0:
             return False
 
         return True
@@ -888,7 +887,7 @@ class VcsGit (VcsBase):
 
         root, path = self._gitroot(path)
 
-        res = collect_system("git log %s" % path, wdir=root, env=self._env)
+        res = collect_system(["git", "log", path], wdir=root, env=self._env)
         rx = re.compile(r"^commit\s*([0-9abcdef]+)", re.I)
         revid = ""
         for line in res[0].split("\n"):
@@ -905,7 +904,7 @@ class VcsGit (VcsBase):
 
         root, path = self._gitroot(path)
 
-        res = collect_system("git status %s" % path, wdir=root, env=self._env)
+        res = collect_system(["git", "status", path], wdir=root, env=self._env)
         rx = re.compile(r"\bmodified:\s*(\S.*)", re.I)
         for line in res[0].split("\n"):
             m = rx.search(line)
@@ -928,7 +927,7 @@ class VcsGit (VcsBase):
         if not path:
             return True
 
-        res = collect_system("git status", wdir=root, env=self._env)
+        res = collect_system(["git", "status"], wdir=root, env=self._env)
         rx = re.compile(r"untracked.*?:", re.I)
         m = rx.search(res[0])
         if m:
@@ -953,6 +952,7 @@ class VcsGit (VcsBase):
             path = rewrite(path, rev)
 
         # FIXME: Better temporary location."
+        # FIXME: Use list command lines (so must replace piping too).
         tarpdir = "/tmp"
         tarbdir = "git-archive-tree%d" % os.getpid()
         res = collect_system("  git archive --prefix=%s/ %s %s "
@@ -1011,15 +1011,14 @@ class VcsGit (VcsBase):
             # ...seems to return != 0 even if it did what it was told to.
 
         # Commit the index.
-        cmdline = "git commit "
+        cmdline = ["git", "commit"]
         if message is not None:
-            cmdline += "-m \"%s\" " % message.replace("\"", "\\\"")
+            cmdline += ["-m", message]
         elif msgfile is not None:
-            cmdline += "-F \"%s\" " % msgfile.replace("\"", "\\\"")
-
+            cmdline += ["-F", msgfile]
         # Do not use collect_system(), user may need to input stuff.
-        #report(cmdline)
-        if system_wd(unicode_to_str(cmdline), root) != 0:
+        cmdstr = " ".join(map(escape_sh, cmdline))
+        if system_wd(unicode_to_str(cmdstr), root) != 0:
             return False
 
         return True
@@ -1030,7 +1029,7 @@ class VcsGit (VcsBase):
 
         root, path = self._gitroot(path)
 
-        res = collect_system("git log %s" % path, wdir=root, env=self._env)
+        res = collect_system(["git", "log", path], wdir=root, env=self._env)
         if res[-1] != 0:
             return []
         rev = ""
@@ -1077,9 +1076,9 @@ class VcsGit (VcsBase):
     def _paths_to_commit (self, root, path=None):
 
         if path:
-            cmdline = "git status %s" % path
+            cmdline = ["git", "status", path]
         else:
-            cmdline = "git status"
+            cmdline = ["git", "status"]
         res = collect_system(cmdline, wdir=root, env=self._env)
 
         sect_rx = re.compile(r"^# (\S.*):$", re.I)
@@ -1122,7 +1121,7 @@ class VcsGit (VcsBase):
         else:
             rspec = ""
 
-        res = collect_system("git diff %s %s" % (rspec, path),
+        res = collect_system(["git", "diff", rspec, path],
                              wdir=root, env=self._env)
         if res[-1] != 0:
             warning(_("@info"
@@ -1159,7 +1158,7 @@ class VcsGit (VcsBase):
     def revert (self, path):
         # Base override.
 
-        res = collect_system("git checkout %s" % path,
+        res = collect_system(["git", "checkout", path],
                              wdir=root, env=self._env)
         if res[-1] != 0:
             warning(_("@info"
