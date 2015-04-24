@@ -57,9 +57,18 @@ Cervisia: Цервисиј|а, Цервисиј|ин
 ClearCase: Клиркејс|, Клиркејс|ов
     @л: ClearCase|, ClearCase|ov
 CVS: ЦВС|-, ЦВС|-ов, ЦВС|>
-Git: Гит|, Гит|ов, гит|>
+git: Гит|, Гит|ов, гит|>
+    @л: git|, git|ov, git|>
+git cola: Гит-кол|а, Гит-кол|ин
+    @л: git col|a, git col|in
+gitg: ГитГ|-, ГитГ|-ов
+    @л: gitg|-, gitg|-ov
+gitk: ГитК|-, ГитК|-ов
+    @л: gitk|-, gitk|-ov
 Mercurial: Меркјуријал|, Меркјуријал|ов
     @л: Mercurial|, Mercurial|ov
+QGit: Ку-гит|, Ку-гит|ов
+    @л: QGit|, QGit|ov
 RCS: РЦС|-, РЦС|ов, РЦС|>
 SVN: СВН|-, СВН|-ов, СВН|>, _син=|Subversion~н
 Subversion: Субверзиј|а, Субверзиј|ин, субверзиј|ски
