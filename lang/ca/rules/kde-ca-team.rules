@@ -638,13 +638,13 @@ valid msgstr="scripts?"
 hint="Es tradueix per «script/s» (kde-ca-team)"
 
 {\bscripting\b}i
-valid msgstr="crea(r|ció)?\s(d')?scripts"
+valid msgstr="crea(r|ció)?\s(de\s)?scripts"
 valid msgstr="scripts? creats?"
 valid msgstr="scripts" cat="desktop_calligra,desktop_koffice,kexi,krossmoduleplan,krossmodulewords,krossmodulekword,plasma-desktop,desktop_kdelibs,kdelibs4,khtml5,superkaramba,desktop_kdewebdev"
 valid msgstr="script" cat="kommander"
-valid msgstr="llenguatges\sd'script" cat="kcmkonqhtml"
+valid msgstr="llenguatges\sde script" cat="kcmkonqhtml"
 valid msgstr="scripts utilitzats" cat="kommander_dcop" # docmessages
-hint="Es tradueix per «crea/r scripts, creació d'scripts, scripts creat/s» (kde-ca-team)"
+hint="Es tradueix per «crea/r scripts, creació de scripts, scripts creat/s» (kde-ca-team)"
 
 {\bscroll.?bars?\b}i
 valid msgstr="barr(a|es) de desplaçament"
