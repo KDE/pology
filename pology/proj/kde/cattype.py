@@ -64,7 +64,7 @@ _qt_catdirs = (
     "qt",
 )
 _qt_catnames = (
-    "kdgantt1", "kdgantt",
+    "kdgantt2", "kdgantt1", "kdgantt",
 )
 _qt_catname_ends = (
     "_qt",
