@@ -282,6 +282,7 @@ valid after="my own " msgstr="сопствен"
 id="t-daemon"
 hint="daemon|service = демон"
 valid msgstr="\bдемон"
+valid msgstr="&\w+daemon-\S*;"
 
 {\bdata\W?engine}i
 id="t-dataengine"
