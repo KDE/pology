@@ -220,6 +220,7 @@ hint="«té» (verb tenir) cal que porti accent (error freqüent)"
 # «tutorial» es tradueix per «guia d'aprenentatge».
 {\btutorials?\b}i
 valid msgid="\/Tutorials\/" # KDE UserBase
+valid msgid="\stutorial" # docmessages
 valid msgstr="gui(a|es) d'aprenentatge"
 valid msgstr="program(a|es) d'aprenentatge"
 valid msgstr="(camp|partida) d'aprenentatge"

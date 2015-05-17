@@ -151,9 +151,10 @@ valid msgstr="esborr(a|ant|arà|eu)"
 valid msgstr="supr(essió|essions|imeix|imint|imiu|imir|imits?|imida|imides)"
 valid msgstr="clar(a|iana|ianes)?" # "clear sky"- > «cel clar»
 valid msgstr="ser(è|ena)"
-valid msgstr="clear" cat="konversation,kstars"
+valid msgstr="clear" cat="konversation,kstars,kmtrace_man-demangle.1,kturtle_glossary,kturtle_programming-reference"
 valid msgstr="liquid(ats?|ada|ades|i)" cat="kmymoney"
 valid msgstr="text" cat="libkdepim,trojita_common,zanshin"
+valid msgstr="completar" cat="bomber"
 hint="Es tradueix per «buidar», «netejar», «esborrar», «suprimir» (kde-ca-team)"
 
 {\bcolor\sselector\b}i
@@ -261,7 +262,7 @@ hint="Es tradueix per «desencriptatge» (kde-ca-team)"
 {\bdelet(es?|ed|ing)\b}i
 valid msgstr="supr(essió|essions|imeix|imint|imiu|imir|imits?|imida|imides)"
 valid msgstr="elimin(a|ar|ació|ant|ats?|o)"
-valid msgstr="delete" cat="katesql,kdevvalgrind,www_www"
+valid msgstr="delete" cat="katesql,kdevvalgrind,www_www,kexi,kate_plugins"
 hint="Es tradueix per «suprimir», «eliminar» (kde-ca-team)"
 
 #{\bdetached\b}i
@@ -286,7 +287,7 @@ hint="Es tradueix per «diàleg» (kde-ca-team)"
 {\bDocks?\b}i
 valid msgid="Dock\smode"
 valid msgid="(bottom|left|right)\sdock"
-valid msgstr="acobla(da|des)?\b"
+valid msgstr="acobla(da|des|r|ts)?\b"
 valid msgstr="acobladors?\b"
 valid msgstr="acoblables?\b" before="\swindows?"
 valid msgstr="acoblables?\b" before="\sat\sthe\s(bottom|left|right)"
@@ -314,12 +315,13 @@ valid msgstr="acoblables?"
 hint="Es tradueix per «acoblable/s» (kde-ca-team)"
 
 {\bDocking\b}i
-valid msgstr="acoblat?\b"
+valid msgstr="acoblat?"
 valid msgstr="acoblament"
 hint="Es tradueix per «acobla/t, acoblament» (kde-ca-team)"
 
 {\bdocked\b}i
 valid msgstr="acobla(da|des|r|ts?)"
+valid msgstr="acoblen" 
 hint="Es tradueix per «acoblar, acoblat/s, acoblada/es» (kde-ca-team)"
 
 {\bdockers?\b}i
@@ -343,6 +345,7 @@ hint="Es tradueix per «incrustar, també: inclòs/osa/osos, incloure» (kde-ca-
 {\bemoticons?\b}i
 valid msgstr="emoticon(a|es)"
 valid msgstr="emoticons" after="apps\/kopete\/pics\/"
+valid msgstr="emoticon" cat="kopete_emoticonspec"
 hint="Es tradueix per «emoticona/es» (kde-ca-team)"
 
 {\bencode\b}i
@@ -510,6 +513,12 @@ valid msgstr="quadres? de llista"
 valid msgstr="quadredellista" cat="kexi"
 valid msgstr="ListBox" cat="kommander_dcop,kommander_editor,kommander_widgets" # docmessages
 hint="Es tradueix per «quadre/s de llista» (kde-ca-team)"
+
+{\blocales?\b}i
+valid msgstr="configuració regional"
+valid msgstr="configuracions regionals"
+valid msgstr="locale" comment="Tag\:\spara" cat="kabcclient_man-kabcclient.1" # docmessages
+hint="Es tradueix per «configuració/ons regional/s» (kde-ca-team)"
 
 {\blogin.?(dialogs?|box(es|s)?)\b}i
 valid msgstr="diàlegs? d'inici de sessió"

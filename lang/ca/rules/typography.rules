@@ -112,6 +112,7 @@ valid cat="kdevcvs"
 valid cat="jointhegame,www_www"
 valid cat="baloo_queryparser,baloo_naturalqueryparser,baloowidgets"
 valid msgstr="HH:MM\[\:SS\]" # docmessages
+valid comment="Tag\:\sprogramlisting" cat="katepart_development" # docmessages
 hint="S'ha de posar un espai després del signe dels dos punts (tipografia)"
 
 [\s\;]
@@ -148,6 +149,7 @@ valid ctx="Keywords"
 valid cat="tables,kcells,kspread,sheets,krossmodulesheets"
 valid cat="desktop_kdeplasma-addons" ctx="Keywords"
 valid cat="baloo_queryparser,baloo_naturalqueryparser,baloowidgets"
+valid comment="Tag\:\sprogramlisting" cat="kopete_emoticonspec" # docmessages
 valid span=";$"
 valid span=";*" cat="kfilereplace"
 valid span=";~" cat="kfind" # docmessages
@@ -221,7 +223,7 @@ valid ctx="Numbers and characters"
 valid ctx="Query"
 valid ctx=".*regular expression.*" cat="plasma_applet_publictransport,plasma_runner_publictransport"
 valid comment="Tag\:\suserinput" cat="kioslave_nepomuksearch" # docmessages
-valid comment="Tag\:\sprogramlisting" cat="kdm_theme-ref,kcontrol_kremotecontrol" # docmessages
+valid comment="Tag\:\sprogramlisting" cat="kdm_theme-ref,kcontrol_kremotecontrol,katepart_development" # docmessages
 valid span="\?$"
 valid span="\?\»"
 valid span="\?d" cat="kio_audiocd,kioslave_audiocd"
@@ -364,6 +366,7 @@ valid comment="Tag\:\suserinput" cat="kioslave_nepomuksearch" # docmessages
 valid comment="Tag\:\sprogramlisting" cat="kate_advanced,kleopatra,klettres" # docmessages
 valid comment="Tag\:\sscreen" cat="kturtle_programming-reference" # docmessages
 valid msgstr="\s\.\.\.\)$" cat="kalgebra_commands" # docmessages
+valid msgstr="\s\.\.\." cat="katepart_development" # docmessages
 valid msgstr="\s\.\s\*\s\?\s\/" cat="digikam" # docmessages
 hint="No s'ha de posar cap espai abans del signe de punt (tipografia)"
 
@@ -571,7 +574,7 @@ valid before="$" cat="kdeqt"
 valid before="audio|video" cat="konversation"
 valid comment="Tag\:\sscreen" cat="kdeprint_cups-config,kmail_faq,knode_faq" # docmessages
 valid comment="Tag\:\sprogramlisting" cat="kdm,kipi-plugins_geolocation,kate_plugins,kile_scripting" # docmessages
-valid comment="Tag\:\suserinput" cat="kioslave_nepomuksearch,kate_advanced" # docmessages
+valid comment="Tag\:\suserinput" cat="kioslave_nepomuksearch,kate_advanced,katepart_advanced" # docmessages
 valid ctx="identifier separator" cat="kalgebra"
 valid ctx="hour in the messages below"
 # valid msgid="'''" # KDE User_Base
