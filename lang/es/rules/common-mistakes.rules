@@ -1048,6 +1048,10 @@ hint="«BIOS» es de género masculino (error frecuente)"
 id="cm-1-url-femenino"
 hint="«URL» es de género masculino (error frecuente)"
 
+[\bla\vaya\b]i
+id="cm-2-la-vaya"
+hint="«La vaya» se escribe como «La valla/baya» (error frecuente)"
+
 [\blas\sambas\b]i
 id="cm-2-las-ambas"
 hint="«Las ambas» se escribe como «Las dos/Ambas» (error frecuente)"
@@ -1055,6 +1059,10 @@ hint="«Las ambas» se escribe como «Las dos/Ambas» (error frecuente)"
 [\blas\smiles\b]i
 id="cm-1-las-miles"
 hint="«Las miles» se escribe como «Los miles» (error frecuente)"
+
+[\blas\vayas\b]i
+id="cm-2-las-vayas"
+hint="«Las vayas» se escribe como «Las vallas/bayas» (error frecuente)"
 
 [\blas\sy\slos\b]i
 id="cm-1-las-y-los"
@@ -1692,6 +1700,18 @@ hint="«Va hacer» se escribe como «Va a hacer» (error frecuente)"
 [\bvalido\b]i
 id="cm-1-valido-sin-tilde"
 hint="«Valido» se escribe como «Válido», salvo favorito del rey (error frecuente)"
+
+[^valla\b]i
+id="cm-2-valla-principio "
+hint="«Valla» se escribe como «Vaya» al principio de frase (error frecuente)"
+
+[¡valla\b]i
+id="cm-2-valla-admiracion "
+hint="«Valla» se escribe como «Vaya» después de admiración (error frecuente)"
+
+[\.\svalla\b]i
+id="cm-2-valla-punto "
+hint="«Valla» se escribe como «Vaya» después de punto (error frecuente)"
 
 [\bvease\b]i
 id="cm-1-vease-sin-tilde"

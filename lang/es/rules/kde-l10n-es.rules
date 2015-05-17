@@ -1709,6 +1709,7 @@ hint="«Hosts» se traduce como «Servidores» (ver glosario)"
 {\bhosting\b}i
 id="gk-2-hosting"
 valid msgstr="hosped(ar|a|e|aje)"
+valid msgstr="aloj(ar|a|e)"
 valid msgstr="alojamiento"
 hint="«Hosting» se traduce como «Hospedaje» (ver glosario)"
 
@@ -3132,6 +3133,8 @@ valid msgstr="desplazamiento"
 valid msgstr="despla(zar|za|ce)"
 valid msgstr="despláce(lo|se)"
 valid msgstr="despl" before="\slock"
+valid msgstr="retroceder" before="\sbackward"
+valid msgstr="avanzar" before="\sforward"
 hint="«Scroll» se traduce como «Desplazar/Desplazamiento» (ver glosario)"
 
 {\bscrolling\b}i

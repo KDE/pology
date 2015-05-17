@@ -33,6 +33,7 @@ addFilterRegex match="\b[A-Za-z]*(\_[A-Za-z]+)+\b" repl="" on="pmsgid,pmsgstr"
 # Omit words preceded by some special characters.
 addFilterRegex match="(?<=\W)[/+.:-]{1,2}\w+\b" repl="" on="pmsgid,pmsgstr"
 addFilterRegex match="^[/+.:-]{1,2}\w+\b" repl="" on="pmsgid,pmsgstr"
+addFilterRegex match="(?<=[>=])(true|false)" repl="" on="pmsgid,pmsgstr"
 
 # Omit words witch contains at least one number.
 addFilterRegex match="\b[a-zA-Z]+\d\w*\b" repl="" casesens="yes" on="pmsgid,pmsgstr"
