@@ -93,6 +93,7 @@ valid msgstr="capsa" cat="libkdeedu,kstars,libkeduvocdocument"
 valid msgstr="box(es)?"
 valid msgstr="apartats? de correus"            # post office  -> apartat de correus
 valid msgstr="claudàtors?"                     # box bracket  -> claudàtor
+valid msgstr="equips?" cat="kdeprint_add-printer-wiz,kdeprint_cupsoptions,kdeprint_getting-started,kdeprint_tech-overview,kdeprint_theory,kioslave_print" # docmessages
 hint="Es tradueix per «quadre» o «casella»: generalment \
 els «quadres» permeten introduir text/nombres, i \
 les «caselles» s'activen o es desactiven (kde-ca-team)"
@@ -146,7 +147,7 @@ hint="Es tradueix per «text xifrat» (kde-ca-team)"
 {\bclear(ed|ing)?\b}i
 valid msgstr="bui(da|dant|dar|deu|di|t)"
 valid msgstr="nete(geu|gi|jant|jar)?"
-valid msgstr="net"
+valid msgstr="neta?"
 valid msgstr="esborr(a|ant|arà|eu)"
 valid msgstr="supr(essió|essions|imeix|imint|imiu|imir|imits?|imida|imides)"
 valid msgstr="clar(a|iana|ianes)?" # "clear sky"- > «cel clar»
@@ -291,7 +292,7 @@ valid msgstr="acobla(da|des|r|ts)?\b"
 valid msgstr="acobladors?\b"
 valid msgstr="acoblables?\b" before="\swindows?"
 valid msgstr="acoblables?\b" before="\sat\sthe\s(bottom|left|right)"
-valid msgstr="acoblables?\b" cat="khotkeys,plasma_applet_icontasks"
+valid msgstr="acoblables?\b" cat="khotkeys,plasma_applet_icontasks,partitionmanager_usermanual"
 hint="Es tradueix per «acobla/da/des» (kde-ca-team)"
 
 {\bDock\smode\b}i

@@ -18,6 +18,7 @@ valid after="\<email>"
 valid after="return\s" cat="katepart4,ktexteditor5"
 valid before="unak@kde"
 valid before="udwig@kde"
+valid before="epage@savoirfairelinux"
 hint="La l·l geminada porta un punt volat (no un punt normal) (tipografia)"
 
 include file="filter.include"
@@ -363,7 +364,7 @@ valid span="\s\.$" cat="ktouch,kile,kexi"
 valid after="A-Z.+" cat="kmymoney"
 valid ctx="function prototype"
 valid comment="Tag\:\suserinput" cat="kioslave_nepomuksearch" # docmessages
-valid comment="Tag\:\sprogramlisting" cat="kate_advanced,kleopatra,klettres" # docmessages
+valid comment="Tag\:\sprogramlisting" cat="kate_advanced,kdevelop,kleopatra,klettres" # docmessages
 valid comment="Tag\:\sscreen" cat="kturtle_programming-reference" # docmessages
 valid msgstr="\s\.\.\.\)$" cat="kalgebra_commands" # docmessages
 valid msgstr="\s\.\.\." cat="katepart_development" # docmessages
@@ -451,6 +452,7 @@ valid before=".*?[\}\{\(\[\«\"\']"
 valid before="\s(esquerre|dret)" cat="kile"
 valid before="~" after="~" cat="quanta"
 valid after="esperava\s" cat="umbrello"
+valid comment="Tag\:\sprogramlisting" cat="kdevelop" # docmessages
 hint="S'han d'obrir i tancar les claus {}. Sempre aparellats (tipografia)"
 
 #[\(c\)]
