@@ -118,9 +118,10 @@ hint="«enlloc de» s'ha de substituir per «en lloc de» (error freqüent)"
 [enrera]i
 hint="«enrera» s'ha de substituir per «enrere» (error freqüent)"
 
-[\bes\s(s|ce|ci)]
+[\bes\s(s|ce|ci)]i
 valid msgstr="\/es senar"
 valid msgstr="(L|l)a\/es (s|c)"
+valid msgstr="Salaam" after="Dar\s" # Dar es Salaam
 hint="Davant de paraules començades per «s» o «ce|ci», el pronom «es» es canvia per la forma «se» (se substitueix/se senten/se suprimeix...) (error freqüent)"
 
 # «esperar a» ha de ser «esperar».
@@ -140,6 +141,13 @@ valid msgstr="sou propens" cat="digikam_editor-color" # docmessages
 valid msgstr="esteu subscrits" cat="choqok" # docmessages
 hint="«(vós) esteu segurs» s'ha de substituir per «(vós) esteu segur» (error freqüent)"
 
+# «firewall» es tradueix per «tallafoc», en singular.
+# https://ca.wikipedia.org/wiki/Tallafoc_%28inform%C3%A0tica%29
+# «firewalls» es tradueix per «tallafocs» (en plural)
+{\bfirewall\b}i
+valid msgstr="tallafoc"
+hint="«firewall» es tradueix per «tallafoc», en singular (error freqüent)"
+
 # «fixe» ha de ser «fix» (i prefix, sufix).
 [\bfixes?\b]i
 valid msgid="fixes"
@@ -150,8 +158,13 @@ valid msgstr="fixes" cat="kstars_sidereal" after="estrelles\s«" # docmessages
 valid msgstr="fixes" cat="keurocalc" after="cotitzacions\s"
 hint="«fixe (sufixe/prefixe)» s'ha de substituir per «fix (sufix/prefix)» (error freqüent)"
 
+# «gama» ha de ser «gamma»
+[\bgam(a|es)\b]i
+valid msgstr="Gama" cat="kgeography" after="Vasco\sda\s"
+hint="«gama» s'ha de substituir per «gamma, gammes» (error freqüent)"
+
 # «gaseós» ha de ser «gasós»
-[gase(os|ós)(a|es)]
+[\bgase(os|ós)(a|es)\b]i
 hint="«gaseosa» s'ha de substituir per «gasós, gasosa, gasoses» (error freqüent)"
 
 # «mapejar» ha de ser «mapar».
