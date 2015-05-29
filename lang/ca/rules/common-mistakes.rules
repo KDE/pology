@@ -31,6 +31,12 @@ hint="«al respecte» s'ha de substituir per «referent a això» (error freqüe
 [\ba\sno\sser\sque\b]i
 hint="«a no ser que» s'ha de substituir per «llevat que», «fora que» etc. (error freqüent)"
 
+# «atlas» es tradueix per «atles» (excepte l'estrella Atlas).
+{\batlas\b}i
+valid msgstr="atles" # mapes 
+valid msgstr="atlas" cat="kstars" ctx="star name" # Quan es refereix a l'estrella
+hint="«atlas» es tradueix per «atles», si no és una estrella  (error freqüent)"
+
 # «beep» es tradueix per «so d'avís» o «timbre» (maquinari).
 {\bbeeps?\b}i
 valid msgstr="so d'avís"
@@ -92,6 +98,10 @@ hint="«decodificar» s'ha de substituir per «descodificar» (error freqüent)"
 # «desaturar» ha de ser «dessaturar».
 [\bdesatura]i
 hint="«desaturar» s'ha de substituir per «dessaturar» (error freqüent)"
+
+# «deprès» normalment ha de ser l'adverbi «després».
+[\bdesprès\b]i
+hint="«desprès» quan és adverbi s'ha de substituir per «després» (error freqüent)"
 
 # «devant» (i derivats) ha de ser «davant».
 [devant]i
