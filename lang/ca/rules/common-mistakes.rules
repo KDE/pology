@@ -37,6 +37,10 @@ valid msgstr="atles" # mapes
 valid msgstr="atlas" cat="kstars" ctx="star name" # Quan es refereix a l'estrella
 hint="«atlas» es tradueix per «atles», si no és una estrella  (error freqüent)"
 
+# «abaix»  s'ha de substituir per «avall», «a baix», «part inferior», etc.
+[\babaix\b]i
+hint="«abaix» s'ha de substituir per «avall», «a baix», «part inferior», etc. (error freqüent)"
+
 # «beep» es tradueix per «so d'avís» o «timbre» (maquinari).
 {\bbeeps?\b}i
 valid msgstr="so d'avís"
@@ -99,7 +103,9 @@ hint="«decodificar» s'ha de substituir per «descodificar» (error freqüent)"
 [\bdesatura]i
 hint="«desaturar» s'ha de substituir per «dessaturar» (error freqüent)"
 
-# «deprès» normalment ha de ser l'adverbi «després».
+# «deprès» normalment és l'adverbi «després» (accent tancat).
+# «deprès» és un adjectiu amb significat «Que amb facilitat es desprèn del que té»
+# «deprès» també és el participi del verb «desprendre»
 [\bdesprès\b]i
 hint="«desprès» quan és adverbi s'ha de substituir per «després» (error freqüent)"
 
