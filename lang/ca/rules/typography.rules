@@ -489,9 +489,10 @@ hint="Hi ha dos articles repetits o consecutius (tipografia)"
 valid before="\sKDE" cat="kcm_platform"
 hint="Hi ha dos articles (del/dels) repetits o consecutius (tipografia)"
 
+# Revisar: Fins ara no funcionava
 # manca apóstrof: el/al/de/del/pel/es/se + vocal (també amb H)
-[{\b(el|al|de|del|pel|es|se)\s(a|e|i|o|u|A|E|I|O|U|h)]
-hint="Cal apostrofar «el/al/de/del/pel/es/se» davant de vocal (o h) (tipografia)"
+#[\b(el|al|de|del|pel|es|se)\s(a|e|i|o|u|A|E|I|O|U|h)]
+#hint="Cal apostrofar «el/al/de/del/pel/es/se» davant de vocal (o h) (tipografia)"
 
 # manca apóstrof: la + vocal (també amb H -excepte i,u,hi,hu àtones-)
 [\sla\s(a|e|o|A|E|O|ha|he|ho)[a-zéíóúàèòüç]+\b]

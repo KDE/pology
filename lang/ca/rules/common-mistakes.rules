@@ -88,7 +88,7 @@ hint="«de que» s'ha de substituir per «que» (error freqüent)"
 # «d'script» ha de ser «de script».
 # https://ca.wikipedia.org/wiki/Regles_d'apostrofació_del_català
 # la preposició «de» no s'apostrofa davant una «s» líquida (l'article «el» sí s'apostrofa)
-[\bd'scripts?\b]i
+[\bd'script]i
 hint="«d'script» no s'apostrofa, s'ha de substituir per «de script» (error freqüent)"
 
 # «des de que» ha de ser «des que».
