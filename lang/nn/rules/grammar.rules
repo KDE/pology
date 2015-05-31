@@ -37,15 +37,19 @@ hint="John Doe → Kari Nordmann, brukarnamn: knordmann, e-post: kari.nordmann@e
 valid msgstr="[Nn]ordmann"
 
 [\bKB\b]
+id="einingkb"
 hint="KB → kB eller KiB [avhengig av tydinga – sjekk kjeldekoden]"
 
-[\bm[bB]\b]
+[\b[Mm][bB]\b]
+id="einingmb"
 hint="mb → MiB, Mib, MB eller Mb [avhengig av tydinga – sjekk kjeldekoden]"
 
 [\bgb\b]
+id="eininggb"
 hint="gb → GiB, Gib, GB eller Gb [avhengig av tydinga – sjekk kjeldekoden]"
 
 [\bkbps\b]
+id="einingkbps"
 hint="kbps → kb/s eller kB/s eller KiB/s [avhengig av tydinga – sjekk kjeldekoden]"
 
 [° C]
