@@ -489,14 +489,31 @@ hint="Hi ha dos articles repetits o consecutius (tipografia)"
 valid before="\sKDE" cat="kcm_platform"
 hint="Hi ha dos articles (del/dels) repetits o consecutius (tipografia)"
 
-# Revisar: Fins ara no funcionava
-# manca apóstrof: el/al/de/del/pel/es/se + vocal (també amb H)
-#[\b(el|al|de|del|pel|es|se)\s(a|e|i|o|u|A|E|I|O|U|h)]
-#hint="Cal apostrofar «el/al/de/del/pel/es/se» davant de vocal (o h) (tipografia)"
+# manca apòstrof: el/al/del/pel + vocal (també amb H muda i S líquida)
+# http://ca.wikipedia.org/wiki/Regles_d'apostrofació_del_català
+[\b(el|al|del|pel)\s(a|e|i|o|u|A|E|I|O|U|h)[a-zA-Z0-9]+]
+valid msgstr="el\s(Icedove|iode|ioga|uombat|iogurt|Iugosl|Utah)" # paraules comencen per i/u consonàntiques
+valid msgstr="el\s(head)" # paraules comencen per h aspirada (no muda) consonàntiques
+valid cat="kgeography" # Noms de localitats
+hint="Cal apostrofar «el/al/del/pel» davant de vocal (o h) (tipografia)"
 
-# manca apóstrof: la + vocal (també amb H -excepte i,u,hi,hu àtones-)
+# manca apòstrof: la + vocal (també amb H -excepte i,u,hi,hu àtones-)
+# http://ca.wikipedia.org/wiki/Regles_d'apostrofació_del_català
 [\sla\s(a|e|o|A|E|O|ha|he|ho)[a-zéíóúàèòüç]+\b]
+valid msgstr="la\s(una|ira|host|Haia)"
+valid msgstr="la\s(i|hac|essa)" # noms de lletra
+valid msgstr="la\s(Scala)" # s líquida
 hint="Cal apostrofar «la» davant de vocal (o h), excepte i,u,hi,hu àtones (tipografia)"
+
+# manca apòstrof: de + vocal (també amb H)
+# http://ca.wikipedia.org/wiki/Regles_d'apostrofació_del_català
+[\bde\s(a|e|i|o|u|A|E|I|O|U|h)[a-zA-Z0-9]+]
+valid msgstr="de\s(Icedove|iode|ioga|uombat|iogurt|Iugosl|Utah)" # paraules comencen per i/u consonàntiques
+valid msgstr="de\s(a|hac)" # noms de lletra
+valid msgstr="de\s(Stalin|Scala|Stuttgart|striptease)" # s líquida
+valid msgstr="de\s(Oliveira)" # Excepcions
+valid cat="kgeography" # Noms de localitats
+hint="Cal apostrofar «de» davant de vocal (o h) (tipografia)"
 
 # «e» sola és un error.
 [\be\b]
