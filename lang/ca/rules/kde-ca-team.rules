@@ -575,6 +575,12 @@ valid msgstr="variable d'entorn PATH"
 valid !msgstr="rut(a|es)"
 hint="Es tradueix per «camí» o «variable d'entorn PATH» (kde-ca-team)"
 
+# «Plasma Active» es tradueix per «Plasma Active»
+{\bPlasma\sActive\b}i
+valid msgstr="Plasma Active"
+valid !msgstr="actiu"
+hint="«Plasma Active» es tradueix per «Plasma Active» (kde-ca-team)"
+
 {\bpreview\sbox(es|s)?\b}i
 valid msgstr="quadres? de vista prèvia"
 hint="Es tradueix per «quadre/s de vista prèvia» (kde-ca-team)"
