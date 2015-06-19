@@ -42,12 +42,12 @@ valid msgstr="difumina(t|s)?"
 valid !msgstr="desenfo.+"
 hint="Es tradueix per «difuminat» (kde-ca-team)"
 
-{\bbounding\sbox(es|s)?\b}i
+{\bbounding(\s|-)box(es|s)?\b}i
 valid msgstr="contenidors?"
 hint="Es tradueix per «contenidor/s» (kde-ca-team)"
 
 {\bbox(es|s)?\b}i
-valid msgid="bounding\sbox(es|s)?"	# -> contenidor/s
+valid msgid="bounding(\s|-)box(es|s)?"	# -> contenidor/s
 valid msgid="cardboard box"		# -> safata (de la impressora) glossary_kdeprintingglossary
 valid msgid="check.?box(es|s)?"		# -> casella/es de selecció
 valid msgid="column\sview\sbox(es|s)?"	# -> quadre/s de vista de la columna
@@ -515,7 +515,7 @@ hint="Es tradueix per «quadre/s de llista» (kde-ca-team)"
 {\blocales?\b}i
 valid msgstr="configuració regional"
 valid msgstr="configuracions regionals"
-valid msgstr="locale" comment="Tag\:\spara" cat="kabcclient_man-kabcclient.1" # docmessages
+valid msgstr="locale" comment="Tag\:\spara" cat="gcompris,kabcclient_man-kabcclient.1" # docmessages
 hint="Es tradueix per «configuració/ons regional/s» (kde-ca-team)"
 
 {\blogin.?(dialogs?|box(es|s)?)\b}i
@@ -564,7 +564,7 @@ hint="Es tradueix per «espais de nom/s» (kde-ca-team)"
 
 {\bnetbooks?\b}i
 valid msgstr="ultraportàtils?"
-hint="Es tradueix per «ultra-portàtil» (kde-ca-team)"
+hint="Es tradueix per «ultraportàtil» (kde-ca-team)"
 
 {\bpaths?\b}i
 valid msgstr="cam(í|ins)"
@@ -836,6 +836,7 @@ hint="Es tradueix per «vista/es en arbre» (kde-ca-team)"
 {\bunencrypted\b}i
 valid msgid="to\sconnect\sunencrypted"
 valid msgstr="^UNENCRYPTED$" comment="Tag\:\spara" cat="kexi" # docmessages
+valid msgstr="unencrypted" after="store-displayed-messages-" # docmessages
 valid msgstr="sense encriptar"
 valid msgstr="no està encripta(t|da)"
 valid msgstr="no encriptad(a|es)"

@@ -587,6 +587,7 @@ valid after="\'\," cat="analitza,analitza_qt"
 valid after="useu" cat="kexi"
 valid after="Urquhart" cat="krita"
 valid after="A-Z.+" cat="kmymoney"
+valid after="~" cat="gcompris" #docmessages
 valid after="\ssed\s.+" cat="kopete,sscd" # docmessages
 valid after="_language\s.+" # docmessages
 valid before="1d" cat="sscd" # docmessages
@@ -671,6 +672,7 @@ valid after="DIGIT.+" cat="kontact-admin" # docmessages
 valid after=" en_GB" cat="kalarm" # docmessages
 valid after="(echo |executant)" cat="ktimetracker" # docmessages
 valid after="esperava\s" cat="cantor"
+valid after="key=.+" cat="gcompris"
 valid before="make" cat="amarok"
 valid before="AutoAdvance=1" cat="kdiff3"
 valid before="GET|POST" cat="kdeprint_cups-config" # docmessages
