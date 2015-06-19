@@ -6,11 +6,11 @@
 # http://ca.wikipedia.org/wiki/Llista_de_falsos_amics_del_catal%C3%A0_amb_l%27angl%C3%A8s
 # Guia d'estil (any 2010) de Softcatalà
 
+# Remove accelerators.
+addFilterRegex match="(\&|~|_)" on="pmsgid,pmsgstr"
+
 # Remove XML entities.
 include file="filter.include"
-
-# Remove accelerator and  hyphen inside words.
-addFilterRegex match="(\&|\-)" on="pmsgid,pmsgstr"
 
 # «Absolutelly» es tradueix per «Completament».
 {\babsolutelly\b}i
@@ -495,6 +495,7 @@ valid msgstr="<font\s"
 valid msgstr="\bfont\b" cat="kleopatra"
 valid msgstr="font" cat="quanta" after="replace\s"
 valid msgstr="font" cat="kdm_theme-ref"
+valid msgstr="font" before="-(style|weight)"
 valid !msgstr="fonts?"
 hint="«Font» es tradueix per «Tipus (de lletra)», no per «Font» (fals amic)"
 

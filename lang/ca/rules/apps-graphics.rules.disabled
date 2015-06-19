@@ -7,9 +7,6 @@
 # Remove XML entities.
 include file="../filter.include"
 
-# Remove accelerator and  hyphen inside words.
-addFilterRegex match="(\&|\-)" on="pmsgid,pmsgstr"
-
 {\babsolute\scolorimetric\b}i
 valid msgstr="colorimetria absoluta"
 hint="Es tradueix per «colorimetria absoluta» (kde-ca-team)"

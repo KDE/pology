@@ -6,9 +6,6 @@
 # Remove XML entities.
 include file="filter.include"
 
-# Remove accelerator and  hyphen inside words.
-addFilterRegex match="(\&|\-)" on="pmsgid,pmsgstr"
-
 {\balignments?\b}i
 valid msgid="alineaci(ó|ons)"
 valid !msgstr="alineaments?"
@@ -247,7 +244,7 @@ hint="Es tradueix per «descodificació, descodificacions, descodificant» (kde-
 {\bdecrypt(ing)?\b}i
 valid msgstr="desencriptar?"
 valid msgstr="desencript(eu|is)"
-valid msgstr="decrypt" cat="kleopatra"
+valid msgstr="decrypt" cat="kleopatra,libknetworkmanager,libmessageviewer,plasmanetworkmanagement_vpncui"
 hint="Es tradueix per «desencriptar» (kde-ca-team)"
 
 {\bdecrypted\b}i
@@ -639,6 +636,7 @@ valid msgstr="extre(t|u)"
 valid msgstr="desmuntant" cat="plasma_applet_notifier,plasma_applet_org.kde.plasma.devicenotifier"
 valid msgstr="allunyeu" cat="kalzium"
 valid msgstr="remove" cat="amarok,amarokpkg,cervisia,kdeqt,libkpackage5,libplasma5,plasmapkg"
+valid msgstr="remove" before="-trailing-space"
 hint="Es tradueix per «eliminar», «suprimir», «treure» o «desfeu-vos» (kde-ca-team)"
 
 # «screenshot» es tradueix per «captura de pantalla».
@@ -766,7 +764,8 @@ hint="Es tradueix per «safata del sistema» (kde-ca-team)"
 {\btabs?(\scharacter)?\b}i
 valid msgid="Alt\+Tab" # fals positiu
 valid msgstr="&Tab;" # fals positiu
-valid msgstr="Tab" after="alt+"
+valid msgstr="tab" after="alt+"
+valid msgstr="tab" after="alt-"
 valid msgstr="<(option|command)>(.*)tab(.*)</(option|command)>" # fals positiu
 valid msgstr="pestany(a|es)"
 valid msgstr="tabuladors?"

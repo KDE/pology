@@ -4,10 +4,6 @@
 
 include file="filter.include"
 
-# Hook to eliminate accel mark,
-# it works with"X-Accelerator-Marker" header in PO files
-addFilterHook name="remove/remove-accel-msg" on="msg"
-
 # Estrangerismes
 #<http://www.uoc.edu/serveilinguistic/criteris/lexic/castellanismes.html>
 #<http://boncatala.com/articles.htm>
