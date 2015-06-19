@@ -60,18 +60,10 @@ addFilterRegex match="((http|https|ftp|sftp)\:\/\/)?([\w\_\-]+\.)+((gov|edu|com|
 addFilterRegex match="(file\:|\#\!)?\/(bin|etc|lib|media|proc|srv|var|boot|home|lib32|mnt|root|sys|cdrom|lib64|sbin|tmp|dev|lost\+found|opt|selinux|usr)(\/(\w|\.|\-|\_)+)*\/?" repl="~" on="pmsgid,pmsgstr"
 
 # Remove more important (as I guess) hidden files.
-addFilterRegex match="\.\/?(kateconfig|bash|directory|fonts|ICEauthority|mailcap|kderc|profile|Xauthority|Xclients|Xmodmap|Xsession|Xdefaults|Xresources)" repl="~" on="pmsgid,pmsgstr"
+addFilterRegex match="\.\/?(bash|directory|fonts|ICEauthority|kateconfig|kderc|mailcap|profile|Xauthority|Xclients|Xdefaults|Xmodmap|Xresources|Xsession)" repl="~" on="pmsgid,pmsgstr"
 
 # Remove single characters in quotes.
 addFilterRegex match="«.»" repl="~" on="pmsgid,pmsgstr"
-
-# Remove some abreviations.
-#addFilterRegex match="\s?(etc\.|Ex\.|ex\.|P\.\sex\.|p\.\sex\.|EUA|a\.m\.|p\.m\.|n\.t\.\expr\.)" repl="~" on="pmsgid,pmsgstr"
-#addFilterRegex match="\s?(Sr\.|Sra\.|Dr\.|Dra\.)" repl="~" on="pmsgid,pmsgstr"
-#addFilterRegex match="\s?(apt\.|art\.|avda\.|av\.|cent\.|dept\.)" repl="~" on="pmsgid,pmsgstr"
-#addFilterRegex match="\s?(màx.|mín\.|pàg\.)" repl="~" on="pmsgid,pmsgstr"
-#addFilterRegex match="\s?(pl\.|pral\.|Prof\.|P\.\s\S\.|Rep\.|R\.\sI\.\P\.)" repl="~" on="pmsgid,pmsgstr"
-#addFilterRegex match="\s?(tel\.|trad\.|Univ\.)" repl="~" on="pmsgid,pmsgstr"
 
 # Remove special puntuactions.
 addFilterRegex match="\s*(\?{2,3}|\%{2,3}|\:{2,3}|\_{2,3})" repl="~" on="pmsgid,pmsgstr"

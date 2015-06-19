@@ -20,25 +20,32 @@ hint="La l·l geminada porta un punt volat (no un punt normal) (tipografia)"
 include file="filter.include"
 
 validGroup beforePunctuation
-valid after="[a-zA-Z0-9çÇáéíóúàèòÁÉÍÓÚÀÈÒüÜ\>\»\)\]\}\«\%\-\&\<\^\\]"
+valid after="(?u)[\w>»\)\]\}»%&<\\-]"
+valid after="^"
 valid before="$"
-valid after="\&[\w\-\_]*?\;"
+valid before="~"
+valid after="\n\s*"
 
 validGroup afterPunctuation
-valid before="[$a-zA-Z0-9çÇáéíóúàèòÁÉÍÓÚÀÈÒüÜ\>\»\(\[\{\«\%\-\&\<\^\\]"
+valid before="(?u)[\w>»\(\[\{«%&<\\-]"
 valid after="^"
+valid before="$"
+valid after="~"
+valid after="\n\s*"
 
 validGroup openQuotes
-valid after="[\<\>\(\[\{\-\=\.\,\;\:\s]"
-valid after="\&\w+?\;"
+valid after="[<>\(\{\[\\=.,;:\s-]"
+valid after="~"
 valid after="^"
-valid before=".+»"
+valid before=".+?»"
 
 validGroup closeQuotes
-valid before="[\<\>\)\]\}\-\=\.\,\;\:\s]"
-valid after="\&[\w\-\_]*?\;"
+valid before="[<>\)\}\]\\=.,;:\s-]"
+valid after="~"
 valid before="$"
-valid after="«.+"
+valid before="/"
+valid after="«.+?"
+valid after="Comparteix" cat="commit-digest"
 
 [\s\:]
 valid cat="rocs_apiDatastructure,rocs_apiGraphstructure,rocs_apiLinkedListstructure" # docmessages
@@ -80,7 +87,7 @@ valid after="\d+\s?" span="\:\d+"
 valid after="hores"
 valid after="minuts"
 valid after="segons"
-valid after="font-family|font-size|font-style|font-weight|text-align|text-decoration|margin-top|margin-bottom|-type"# CSS
+valid after="font-family|font-size|font-style|font-weight|text-align|text-decoration|margin-top|margin-bottom|-type" # CSS
 valid after="white-space" # CSS
 valid after="~"
 valid after="mètode\s" cat="cervisia"
@@ -91,6 +98,7 @@ valid after="A-Za-z_.*" cat="lokalize,kate_highlighting"
 valid after="ordinador\["
 valid after="pty.+" cat="kdevgdb"
 valid after="A-Z.+" cat="kmymoney"
+valid after="«" cat="akonadi_imap_resource,kleopatra,libksieve"
 valid before="~"
 valid before=".+expansió" cat="libksieve"
 valid ctx=".*regular expression.*" cat="plasma_applet_publictransport,plasma_runner_publictransport"
@@ -104,6 +112,7 @@ valid span="\:q"
 valid span="\:\'"
 valid span="\:\="
 valid span="\:e"
+valid span="\:-" cat="jovie"
 valid span="\:(0|1|\*)" cat="kdm_kdmrc-ref" # docmessages
 valid cat="kdevcvs"
 valid cat="jointhegame,www_www"
@@ -283,7 +292,12 @@ valid span="\,\}" cat="kdevgrepview,kile"
 hint="S'ha de posar un espai després del signe de coma (tipografia)"
 
 [\»]
-validGroup closeQuotes 
+validGroup closeQuotes
+valid before="~"
+valid before="\)"
+valid before="\?"
+valid before="!"
+valid before="|"
 valid ctx="Numbers and characters"
 hint="S'ha de posar un espai després del signe de cometa llatina de tancament (tipografia)"
 
@@ -375,7 +389,7 @@ valid ctx="trans_comment"
 valid ctx="Numbers and characters"
 valid ctx="unit synonyms for matching user input"
 valid msgid="CREDIT_FOR_TRANSLATORS"
-valid msgstr="\.\*" cat="knode_using-morefeatures"
+valid msgstr="\.\*" cat="kile,knode_using-morefeatures"
 valid msgstr="{{\.\/}" # docmessages
 valid before="D?COPserver"
 valid before="\w{1,16}\b" # Extensions
