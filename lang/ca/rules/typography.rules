@@ -64,7 +64,7 @@ valid before="\smyformatter" cat="kdevformatters"
 valid before=".+expansió" cat="libksieve"
 valid before="email|count|fullName|password|amount|from|to|all" cat="jointhegame"
 valid after="usr\/s" cat="konsole" # docmessages
-valid after="~" cat="konsole" # docmessages
+valid after="~" cat="gcompris,konsole" # docmessages
 valid after="(TEX|BIB|BST)INPUTS\s.+" cat="kile"
 valid after="\d+" before="\s?\d+"
 valid after="^" cat="kalgebra"
