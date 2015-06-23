@@ -604,9 +604,10 @@ valid after="A-Z.+" cat="kmymoney"
 valid after="~" cat="gcompris" #docmessages
 valid after="\ssed\s.+" cat="kopete,sscd" # docmessages
 valid after="_language\s.+" # docmessages
-valid before="1d" cat="sscd" # docmessages
+valid after="com:" cat="skrooge"
 valid before="$" cat="kdeqt"
 valid before="audio|video" cat="konversation"
+valid before="1d" cat="sscd" # docmessages
 valid comment="Tag\:\sscreen" cat="kdeprint_cups-config,kmail_faq,knode_faq" # docmessages
 valid comment="Tag\:\sprogramlisting" cat="kdm,kipi-plugins_geolocation,kate_plugins,kile_scripting" # docmessages
 valid comment="Tag\:\suserinput" cat="kioslave_nepomuksearch,kate_advanced,katepart_advanced" # docmessages
@@ -633,6 +634,7 @@ valid after="useu\s.*" cat="kexi"
 valid after="rsync\-filter" cat="smb4k,smb4k-core"
 valid after="Y" cat="krita"
 valid after="Sympodius" cat="krita"
+valid after="def" cat="skrooge"
 valid before="mm|ss"
 valid comment="Tag\:\sscreen" cat="kdeprint_cups-config,kmail-faq" # docmessages
 valid comment="Tag\:\sprogramlisting" cat="kdm,kipi-plugins_geolocation,kile_scripting" # docmessages
