@@ -215,18 +215,6 @@ hint="«print preview» -> «previsualización da impresión» / «vista previa 
 # Regras específicas de KDE para terminoloxía
 #####
 
-# «about» -> «acerca de»
-{\b(?<!^)about}i
-valid before="\sto\b"
-valid after="\bknow(s|n)?\s"
-valid after="\bforgets?\s"
-valid after="\bcare\s"
-valid after="\b(be|is|are)\s\S\s"
-id="kde_about"
-valid msgstr="\bacerca\sd"
-valid msgstr="\brefer"
-hint="about -> acerca de"
-
 # «accept» -> «aceptar»
 {\baccept}i
 id="kde_accept"

@@ -99,9 +99,10 @@ valid msgstr="\benderezos?"
 hint="«address» tradúcese como «enderezo»"
 
 # «enderezo» traduce a «address»
-[\benderezo]i
+[\benderezos?]i
 id="PT-2013-dual_address"
 valid msgid="\baddress"
+valid before="\s+URL" msgid="\bURLs?\b"
 hint="«enderezo» traduce a «address»"
 
 # «align» tradúcese como «aliñar»
@@ -433,8 +434,8 @@ hint="«browse» tradúcese como «navegar»"
 # «navegar» traduce a «browse»
 [\bnaveg(a|ue)]i
 id="PT-2013-dual_browse"
-valid msgid="\bbrows(e|ing)"
-hint="«navegar» traduce a «browse»"
+valid msgid="(?i)\b(brows(e|ing)|navigat\w+)"
+hint="«navegar» traduce a «browse» (e a «navigate»)"
 
 # «browser» tradúcese como «navegador»
 {\bbrowser}i
@@ -1014,14 +1015,14 @@ valid msgid="\bfloppy(\sdisk)?(?!\sdrive)"
 hint="«disquete» traduce a «diskette»"
 
 # «dock» tradúcese como «doca»
-{\bdock}i
+{\bdocks?\b(?!-able)}i
 id="noPT-2011_dock"
 valid msgstr="\bacopl." env="kde"
 valid msgstr="\bdoca" !env="kde"
 hint="«dock» tradúcese como «doca» (e «acoplar»)"
 
 # «doca» traduce a «dock»
-[\bdoca]i
+[\bdocas?\b]i
 id="PT-2011-dual_dock"
 valid !env="kde"
 valid msgid="\bdock"
@@ -1252,7 +1253,7 @@ hint="«erase» tradúcese como «borrar»"
 
 # «borrar» traduce a «erase»
 [\bborr\w+]i
-valid span="borrador"
+valid span="borrador(es)?"
 id="PT-2012-dual_erase"
 valid msgid="\berase"
 hint="«borrar» tradúcese como «erase»"
@@ -2087,18 +2088,11 @@ id="PT-2012-dual_printer"
 valid msgid="\bprinters?"
 hint="«impresora» traduce a «printer»"
 
-# «programming language» tradúcese como «linguaxe de prooramación»
+# «programming language» tradúcese como «linguaxe de programación»
 {\bprogramming\slanguages?\b}i
 id="PT-2012_programming-language"
 valid msgstr="\blinguaxes?\sde\sprogramación"
 hint="«programming language» tradúcese como «linguaxe de programación»"
-
-# «linguaxe (de programación)» traduce a «programming language»
-[\blinguaxes?]i
-valid before="\sde\sprogramación"
-id="PT-2012-dual_programming-language"
-valid msgid="\blanguages?" env="development"
-hint="«linguaxe (de programación)» traduce a «programming language» (senón use idioma)"
 
 # «provide» tradúcese como «fornecer»
 {\bprovide}i
@@ -2289,8 +2283,9 @@ valid msgid="\bsearch"
 valid msgid="\bfind|\bfound"
 valid msgid="\blocate"
 valid msgid="\bseek"
+valid msgid="\blook\s+up"
 id="noPT-2010-dual_search"
-hint="«busca(r)» traduce a «search», «find», «locate» e «seek»"
+hint="«busca(r)» traduce a «search», «find», «locate», «seek», e «look up»"
 
 # «server» tradúcese como «servidor»
 {\bserver}i
@@ -2301,8 +2296,8 @@ hint="«server» tradúcese como «servidor»"
 # «servidor» traduce a «server»
 [\bservidor]i
 id="PT-2013-dual_server"
-valid msgid="\bserver"
-hint="«servidor» traduce a «server»"
+valid msgid="\b(server|host)"
+hint="«servidor» traduce a «server» (e a «host»)"
 
 # «show» tradúcese como «mostrar»
 {\bshow}i
@@ -2533,13 +2528,14 @@ valid msgstr="\benv(i|í)."
 hint="«upload» tradúcese como «enviar» ou «envío»"
 
 # «enviar» traduce a «upload»
-[\benv(i|í)]i
+[\benv(i|í)\w+]i
 valid before="\w+\sun"
 id="noPT-2011-dual_upload"
 valid msgid="\bupload"
 valid msgid="\bsen(d|t)"
 valid msgid="\bsubmit" env="kde"
 valid msgid="\bputting\sfile" env="kde"
+valid before="\s+por\s+correo"
 hint="«enviar» traduce a «upload» (e a «send» e «submit»)"
 
 # «valid» tradúcese como «correcto»

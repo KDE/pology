@@ -53,6 +53,18 @@ id="aaPT_esconder"
 valid msgid="\bconceal"
 hint="«esconder» → «conceal»"
 
+# «monitor» tradúcese como «supervisar» (verbo) ou «monitor» (substantivo
+{\bmonitor\w*\b}i
+id="aaPT_monitor"
+valid msgstr="\bsupervis\w+\b"
+valid msgstr="\bmonitor(es)?\b"
+hint="«monitor» tradúcese como «supervisar» (verbo) ou «monitor» (substantivo)"
+
+#####
+##### Regras procedentes de KDE
+##### Están aquí porque conteñen referencia a outra ambiente
+#####
+
 # «edge» -> «aresta»
 {\bedges?}i
 valid !env="graph_theory"
@@ -60,11 +72,6 @@ id="kde_edge(graph_theory)"
 valid msgstr="arestas?"
 valid after="self-" msgstr="lazos?"
 hint="«edge» -> «aresta» (en teoría de grafos); «self-edge» ->  «lazo»"
-
-#####
-##### Regras procedentes de KDE
-##### Están aquí porque conteñen referencia a outra ambiente
-#####
 
 # «aresta» -> «edge»
 [arestas?]i
@@ -86,17 +93,6 @@ valid !env="graph_theory"
 id="kde-dual_node(graph_theory)"
 valid msgid="nodes?"
 hint="«vértice» -> «node» (en teoría de grafos)"
-
-# descarta o uso de «linguaxe» en favol de «idioma»
-[\b(linguaxe|língua)s?]i
-valid span="linguaxe" env="development" 
-valid ctx="X-KDE-Keywords"
-valid msgstr="\bvarnish"
-valid span="linguaxe" before="\sde\sprogramación"
-valid span="linguaxe" msgid="\b(programming|query)\slanguage"
-valid span="linguaxe" before="\s(ruby|python|C|PHP|de\sscript)"
-id="clGL-all_linguaxe"
-hint="«linguaxe» -> «idioma»"
 
 # «Are you sure you want to» -> «Desexa realmente+infinitivo»
 {\bare\syou\ssure\syou\swant\sto(\s(\w+|\W+))+\?}i

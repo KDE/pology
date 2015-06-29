@@ -33,10 +33,10 @@ include file="filter.include"
 #Regras que afectan ao modelo de lingua
 #########
 
-# Evitar o uso da segunda forma do artígo
+# Evitar o uso da segunda forma do artigo
 [\b[A-Za-z]+-l(o|a)s?(\b|\s)]i
 id="clGL-modling_alomorfoartigo"
-hint="evitar o uso da segunda forma do artígo"
+hint="evitar o uso da segunda forma do artigo"
 
 # Prefírese a terminación en -aría(s), agás palabras obrigadas como batería, galería...
 [\b[A-Za-z]+erías?(\s|\b)]i
