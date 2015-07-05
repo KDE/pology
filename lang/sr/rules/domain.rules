@@ -212,6 +212,15 @@ hint="cascade move = надовезани потез"
 valid msgstr="надовезан\w+ потез"
 
 # ====================
+# Kollision (game)
+environment kollision
+
+{\btable}i
+id="t-table"
+hint="table = табла"
+valid msgstr="\bтабл\w+"
+
+# ====================
 # KPPP (modem dialer)
 environment kppp
 
