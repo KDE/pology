@@ -29,10 +29,10 @@ validGroup systemitemTag
 valid after=".*<systemitem.*>" before=".*</systemitem>"
 
 validGroup ulinkTag
-valid after="ulink "
+valid after="ulink .*" before=".*\">"
 
 validGroup urlTag
-valid after="url=\".*" before=".*\">"
+valid after="url=\".*" before=".*</ulink>"
 
 validGroup userinputTag
 valid after="<userinput>.*" before=".*</userinput>"
@@ -389,6 +389,7 @@ valid cat="kgoldrunner"
 valid cat="kalzium"
 valid cat="konversation"
 valid cat="konqueror" before="ation" msgid="retrieval"
+valid cat="kdenlive"
 hint="Connotation familière. Choix de l'équipe : « réception/recevoir » (au lieu de « récupération/récupérer ») ou « accéder à »"
 
 [paquetage]
@@ -428,6 +429,7 @@ hint="Traduisez ceci par « n/d »"
 
 [didacti.iel|tutorial]i
 validGroup urlTag
+validGroup ulinkTag
 valid after="http://\S+/"
 valid after="k"
 valid cat="kmail_faq" after="Modify_KDE_Software_Defaults\">"
