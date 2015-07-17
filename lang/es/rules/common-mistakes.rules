@@ -978,6 +978,10 @@ hint="«Has lo que» se escribe como «Haz lo que» (error frecuente)"
 id="cm-1-hay-la-posibilidad"
 hint="«Hay la posibilidad» se escribe como «Existe la posibilidad» (error frecuente)"
 
+[\bhech\w+\sa\sperder\b]i
+id="cm-1-hechar-a-perder"
+hint="«Hechar a perder» se escribe como «Echar a perder» (error frecuente)"
+
 [\bhech\w+\sde\smenos\b]i
 id="cm-1-hechar-de-menos"
 hint="«Hechar de menos» se escribe como «Echar de menos» (error frecuente)"
@@ -985,6 +989,10 @@ hint="«Hechar de menos» se escribe como «Echar de menos» (error frecuente)"
 [\bhech\w+\sen\sfalta\b]i
 id="cm-1-hechar-en-falta"
 hint="«Hechar en falta» se escribe como «Echar en falta» (error frecuente)"
+
+[\bhech\w+\suna?\b]i
+id="cm-1-hechar-un-una"
+hint="«Hechar un/una» se escribe como «Echar un/una» (error frecuente)"
 
 [\bhoras\spuntas\b]i
 id="cm-2-horas-puntas"
@@ -1011,10 +1019,15 @@ hint="«Huír» se escribe como «Huir» (error frecuente)"
 id="cm-2-igual-a"
 valid before="\s\-?\d"
 valid before="\sla"
-valid before="\s\-?~"
+valid before="\s\-?[~<«\'\"]"
 valid before="\s\w\b"
-valid before="\s(cero|uno|dos|tres|cuatro|cinco|seis|siete|ocho|nueve|diez|once|doce)"
-hint="«Igual a» se escribe como «Igual que» (error frecuente)"
+valid before="\s[A-Z]"
+valid before="\sigual"
+valid before="\s?$"
+valid before="\s(cero|uno|dos\w*|tres\w*|cuatro\w*|cinco\w*|seis\w*|siete\w*|ocho\w*|nueve\w*|diez\w*|once\w*|doce\w*|cien\w*|quinien\w*|setecien\w*|novecien\w*|infinitos?)"
+valid after="\bes\s"
+valid msgstr="^igual\sa$"
+hint="«Igual a» se escribe como «Igual que», excepto en comparaciones matemáticas (error frecuente)"
 
 [\bigual\sc[oó]mo\b]
 id="cm-2-igual-como"

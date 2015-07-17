@@ -4369,6 +4369,10 @@ hint="«Warning» se traduce como «Aviso/Advertencia» (propuesta glosario)"
 #valid msgstr="(algún|ningún|cualquier)\sdiario"
 #hint="«Weblogs» se traduce como «Bitácoras/Diarios» (propuesta glosario)"
 
+{\bwebcam\b}i
+id="gp-2-webcam"
+hint="«Webcam» se traduce como «Cámara web» (propuesta glosario)"
+
 {\bwild\scard\b}i
 id="gp-2-wildcard"
 valid msgstr="comodín"

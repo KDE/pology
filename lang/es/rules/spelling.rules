@@ -54,8 +54,9 @@ addFilterRegex match="(?<=\w)\.(?=\s[A-Z])" repl="" casesens="yes" on="pmsgid,pm
 # Omit paired capitalized words.
 addFilterHook name="es:remove_subs/remove_paired_capital_words" on="msg"
 
-*hook name="spell/check-spell-sp~lang='es'" on="msgstr"
-id="sp-0-check-spell-hook"
-hint="Error ortográfico."
+#*hook name="spell/check-spell-sp~lang='es'" on="msgstr"
+#*hook name="spell/check-spell-sp~encoding='UTF-8'" on="msgstr"
+#id="sp-0-check-spell-hook"
+#hint="Error ortográfico."
 
 # End of rule file

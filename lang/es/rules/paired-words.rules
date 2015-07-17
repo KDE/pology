@@ -83,7 +83,7 @@ id="pw-2-error-traduccion-muy-corta"
 valid msgstr="DONE"
 hint="El texto de la traducción parece demasiado pequeño"
 
-# Omit particles between propernames.
+#Omit particles between propernames.
 addFilterRegex match="(?<=\w)\s(aka|da|de|de\sla|del|der|do|du|la|van|vom|von)\s(?=[A-Z])" repl=" " casesens="yes" on="pmsgid,pmsgstr"
 
 # Omit single quotes and dashes into names.
@@ -92,11 +92,11 @@ addFilterRegex match="(?<=\w)[\'-](?=\w)" repl="" on="pmsgid,pmsgstr"
 # Omit dots after names and treatements.
 addFilterRegex match="(?<=\w)\.(?=\s[A-Z])" casesens="yes" repl="" on="pmsgid,pmsgstr"
 
-*hook name="es:compare_with_original/test_if_not_translated" on="msg"
-id="pw-1-error-mensaje-sin-traducir"
-valid msgid="^\W+$" # Mensaje sin caracteres alfabéticos
-valid msgid="^[^a-záéíóúüñç]+$" # Mensaje que no contiene minúsculas
-valid msgid="^[A-Z].*?(\s[A-Z].*?)*$" # Mensaje con todas las palabras comenzando por mayúscula
-hint="No se ha traducido el mensaje original"
+#*hook name="es:compare_with_original/test_if_not_translated" on="msg"
+#id="pw-1-error-mensaje-sin-traducir"
+#valid msgid="^\W+$" # Mensaje sin caracteres alfabéticos
+#valid msgid="^[^a-záéíóúüñç]+$" # Mensaje que no contiene minúsculas
+#valid msgid="^[A-Z].*?(\s[A-Z].*?)*$" # Mensaje con todas las palabras comenzando por mayúscula
+#hint="No se ha traducido el mensaje original"
 
 # End of rule file

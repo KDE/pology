@@ -1098,13 +1098,13 @@ id="gr-3-falta-coma-antes-de-primer-ya"
 validGroup beforeComma
 hint="Ponga comas en la expresión «,ya... ,ya» (error gramatical)"
 
-[,\stanto[^.]+\scomo]i
+[,\stan(to|ta)?[^.]+\scomo]i
 id="gr-3-sobra-coma-antes-de-tanto"
-hint="No ponga coma antes de «tanto» en la expresión «tanto... como» (error gramatical)"
+hint="No ponga coma antes de «tanto» en la expresión «tan/tanto/tanta... como» (error gramatical)"
 
-[\btanto[^.]+,\scomo]i
+[\btan(to|ta)?[^.]+,\scomo]i
 id="gr-3-sobra-coma-antes-de-como"
-hint="No ponga coma antes de «como» en la expresión «tanto... como» (error gramatical)"
+hint="No ponga coma antes de «como» en la expresión «tan/tanto/tanta... como» (error gramatical)"
 
 [\bes\sdecir\s]i
 id="gr-3-falta-coma-despues-es-decir"
@@ -1155,9 +1155,21 @@ hint="Ponga una coma después de «en cambio» (error gramatical)"
 id="gr-3-falta-coma-despues-en-primer-lugar"
 hint="Ponga una coma después de «en primer lugar» (error gramatical)"
 
+[Buenos\sdías\s]
+id="gr-3-falta-coma-despues-buenos-dias"
+hint="Ponga una coma después de «Buenos días» (error gramatical)"
+
+[Buenas\s(tardes|noches)\s]
+id="gr-3-falta-coma-despues-buenas-tardes"
+hint="Ponga una coma después de «Buenas tardes/noches» (error gramatical)"
+
 [Hola\s]
 id="gr-3-falta-coma-despues-hola"
 hint="Ponga una coma después de «Hola» (error gramatical)"
+
+[Por\sfavor\s]
+id="gr-3-falta-coma-despues-por-favor"
+hint="Ponga una coma después de «Por favor» (error gramatical)"
 
 [Generalmente\s]
 id="gr-3-falta-coma-despues-generalmente"

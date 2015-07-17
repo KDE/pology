@@ -97,6 +97,10 @@ hint="Ponga un espacio después del signo de dos puntos"
 id="ty-3-preposicion-antes-dos-puntos"
 hint="No ponga el signo de dos puntos después de una preposición"
 
+[(?u)[^xyzXYZ\d]\:[^~<>«»;.\"\'\n\\]+[^xyzXYZ\d]\:]i
+id="ty-3-mas-de-un-signo-de-dos-puntos"
+hint="No ponga más de un signo de dos puntos en la misma frase"
+
 [(?<=\s);]
 id="ty-3-sobra-espacio-antes-punto-y-coma"
 valid ctx="Numbers and characters"
@@ -334,7 +338,7 @@ hint="Ponga un espacio después de un signo de punto"
 
 [\.\.\.\s?\.]
 id="ty-3-sobra-punto-despues-suspensivos"
-hint="No pongty-3-falta-apertura-admiracion-variasa un signo de punto después de puntos suspensivos"
+hint="No ponga un signo de punto después de puntos suspensivos"
 
 [\.\.]
 id="ty-3-puntos-repetidos"
