@@ -8,6 +8,7 @@
 # Aquesta regla la poso abans del filter.include perquè en cas contrari hi ha 
 # una regla que l'anul·la («Remove web pages» a filter.include)
 [l\.l]
+id="t-l_gem"
 valid after="raphae"
 valid after="michae"
 valid after="\<email>"
@@ -48,6 +49,7 @@ valid after="«.+?"
 valid after="Comparteix" cat="commit-digest"
 
 [\s\:]
+id="t-sp_2p"
 valid cat="rocs_apiDatastructure,rocs_apiGraphstructure,rocs_apiLinkedListstructure" # docmessages
 valid ctx="Numbers and characters"
 valid ctx="CSV separator"
@@ -62,7 +64,7 @@ valid before="\svar" cat="analitza,analitza_qt"
 valid before="\suncrustify" cat="kdevformatters"
 valid before="\smyformatter" cat="kdevformatters"
 valid before=".+expansió" cat="libksieve"
-valid before="email|count|fullName|password|amount|from|to|all" cat="jointhegame"
+valid before="all|amount|count|email|from|fullName|password|to" cat="jointhegame"
 valid after="usr\/s" cat="konsole" # docmessages
 valid after="~" cat="gcompris,konsole" # docmessages
 valid after="(TEX|BIB|BST)INPUTS\s.+" cat="kile"
@@ -79,9 +81,10 @@ valid msgstr="par1 \: var" cat="kalgebra_commands" # docmessages
 hint="No s'ha de posar cap espai abans del signe dels dos punts (tipografia)"
 
 [\:\S]
+id="t-2p_sp"
 validGroup beforePunctuation
 valid after="^"
-valid after="file|gg|mailto|man|whatsthis|kmail|addMsg|config"
+valid after="addMsg|config|file|gg|kmail|mailto|man|whatsthis"
 valid after="about|audiocd|bookmarks|camera|ed2k|exec|ftps?|fonts|help|https?|lan|lpr|media|news|network|okular|pmp|parallel|smb|system|trash|umax|vdvd|videodvd|webdavs?"
 valid after="\d+\s?" span="\:\d+"
 valid after="hores"
@@ -122,6 +125,7 @@ valid comment="Tag\:\sprogramlisting" cat="katepart_development" # docmessages
 hint="S'ha de posar un espai després del signe dels dos punts (tipografia)"
 
 [\s\;]
+id="t-sp_pc"
 valid ctx="Numbers and characters"
 valid ctx="CSV separator" 
 valid msgid="\s;;" # docmessages
@@ -136,6 +140,7 @@ valid comment="Tag\:\scommand" cat="konsole" # docmessages
 hint="No s'ha de posar cap espai abans del signe de punt i coma (tipografia)"
 
 [;\S]
+id="t-pc_sp"
 validGroup beforePunctuation
 valid after="&amp;[0-9a-zA-Z\.\-]+"
 valid after="\*\.[a-zA-Z]+" before="\*\.[a-zA-Z]+" # List of extension suffix
@@ -152,7 +157,7 @@ valid ctx="CSV separator"
 valid ctx="unit synonyms for matching user input"
 valid ctx="Query"
 valid ctx="Keywords"
-valid cat="tables,kcells,kspread,sheets,krossmodulesheets"
+valid cat="kcells,krossmodulesheets,kspread,sheets,tables"
 valid cat="desktop_kdeplasma-addons" ctx="Keywords"
 valid cat="baloo_queryparser,baloo_naturalqueryparser,baloowidgets"
 valid comment="Tag\:\sprogramlisting" cat="kopete_emoticonspec" # docmessages
@@ -166,6 +171,7 @@ valid !msgstr=";\<" cat="www_www" # messages
 hint="S'ha de posar un espai després del signe de punt i coma (tipografia)"
 
 [\s\!]
+id="t-sp_ad"
 valid ctx="Numbers and characters"
 valid ctx="CSV separator"
 valid after="-"
@@ -175,6 +181,7 @@ valid before="DOCTYPE" cat="quanta,quanta_extending-quanta"
 hint="No s'ha de posar cap espai abans del signe d'admiració (tipografia)"
 
 [\!\S]
+id="t-ad_sp"
 validGroup beforePunctuation
 valid ctx="Numbers and characters"
 valid ctx="CSV separator"
@@ -193,8 +200,8 @@ hint="S'ha de posar un espai després del signe d'admiració (tipografia)"
 
 [.*?\!\.]
 valid span="Qalculate\!\." cat="plasma_runner_qalculate_runner"
-valid span="\(valor\)\!\." cat="tables,kcells,kspread,sheets"
-valid span="\sx\!\!\." cat="tables,kcells,kspread,sheets"
+valid span="\(valor\)\!\." cat="kcells,kspread,sheets,tables"
+valid span="\sx\!\!\." cat="kcells,kspread,sheets,tables"
 valid msgstr="!\.$" cat="sheets_functions" # docmessages
 hint="No s'ha de posar cap punt després del signe d'admiració (tipografia)"
 
@@ -223,6 +230,7 @@ valid msgstr="\s\.\s\*\s\?\s\/" cat="digikam" # docmessages
 hint="No s'ha de posar cap espai abans del signe d'interrogació (tipografia)"
 
 [\?\S]
+id="t-sp_in"
 validGroup beforePunctuation
 valid ctx=".*one character"
 valid ctx="Numbers and characters"
@@ -248,15 +256,19 @@ valid msgstr=">\n" cat="kfilereplace" # docmessages
 hint="S'ha de posar un espai després del signe d'interrogació (tipografia)"
 
 [\¿.*?\?\.]
+id="t-in_pu"
 hint="No s'ha de posar cap punt després del signe d'interrogació (tipografia)"
 
 [\¿.*?\?\s[a-z]]
+id="t-in_maj"
 hint="S'ha de posar en majúscula la paraula posterior al signe d'interrogació (tipografia)"
 
 [¿]
+id="t-on_in"
 hint="En català no s'utilitza el signe d'obertura d'interrogació «¿» (tipografia)"
 
 [\s\,]
+id="t-sp_co"
 valid ctx="Numbers and characters"
 valid ctx="Keywords" 
 valid ctx="CSV separator"
@@ -269,6 +281,7 @@ valid comment="Tag\:\sliterallayout" cat="ktimetracker" # docmessages
 hint="No s'ha de posar cap espai abans del signe de coma (tipografia)"
 
 [\,\S]
+id="t-co_sp"
 validGroup beforePunctuation
 valid msgid="CREDIT_FOR_TRANSLATORS"
 valid ctx="\w+ OF TRANSLATORS"
@@ -292,6 +305,7 @@ valid span="\,\}" cat="kdevgrepview,kile"
 hint="S'ha de posar un espai després del signe de coma (tipografia)"
 
 [\»]
+id="t-com_tan"
 validGroup closeQuotes
 valid before="~"
 valid before="\)"
@@ -301,7 +315,8 @@ valid before="|"
 valid ctx="Numbers and characters"
 hint="S'ha de posar un espai després del signe de cometa llatina de tancament (tipografia)"
 
-[\.\»] 
+[\.\»]
+id="t-com_pu" 
 valid after="\«(\.)"
 valid after="\.\."
 valid after="error\s\(.*" cat="rkward"
@@ -311,11 +326,13 @@ valid msgstr="«núm\.»" cat="kommander_specials" # docmessages
 hint="S'ha de posar el punt després del signe de cometa llatina de tancament (tipografia)"
 
 [\«]
+id="t-sp_com"
 validGroup openQuotes
 valid ctx="Numbers and characters"
 hint="S'ha de posar un espai abans del signe de cometa llatina d'obertura (tipografia)"
 
 [\«]
+id="t-com_obe_tan"
 valid before=".*?[\»\(\{\[\«\"\']"
 valid before=".+Unicode" cat="amarok"
 valid after="contenir\s.+" cat="kile"
@@ -323,11 +340,13 @@ valid cat="kformula"
 hint="Cal obrir i tancar les cometes llatines (tipografia)"
 
 [\s\s+]
+id="t-sp_x2"
 valid msgid="\s\s+"
 valid after="V\sI\sS\sT\sA"
 hint="No s'ha de posar més d'un espai consecutiu (tipografia)"
 
 [\s\%]
+id="t-sp_tpc"
 valid msgid="%\\" cat="kile" # docmessages
 valid before="\w"
 valid before="$"
@@ -350,6 +369,7 @@ valid comment="Tag\:\sprogramlisting" cat="kipi-plugins_geolocation" # docmessag
 hint="No s'ha de posar cap espai abans del signe de percentatge (tipografia)"
 
 [\s\.]
+id="t-sp_pu"
 valid before="\w{2,8}\b" # Extensions
 valid before="\/\w+" # Files
 valid before="h\b" # .h files
@@ -383,6 +403,7 @@ valid msgstr="\s\.\s\*\s\?\s\/" cat="digikam" # docmessages
 hint="No s'ha de posar cap espai abans del signe de punt (tipografia)"
 
 [\.\S]
+id="t-pu_sp"
 validGroup beforePunctuation
 valid ctx="EMAIL OF TRANSLATORS"
 valid ctx="trans_comment"
@@ -433,17 +454,21 @@ valid msgstr="\sdim\.\)" cat="kipi-plugins_resizeimages"
 hint="S'ha de posar el punt després del parèntesi i no abans (tipografia)"
 
 [\.\.\.\s\.]
+id="t-pu_susp"
 hint="No s'ha de posar cap signe de punt després de punts suspensius (tipografia)"
 
 [&cr;]
+id="t-cr"
 hint="S'ha detectat un caràcter incorrecte de «retorn de carro» (tipografia)"
 
 #[\S\.\s[a-zç]]
+#id="t-pu_maj"
 #valid after="\." span="\.\.\s[a-zç]"
 #valid ctx="unit synonyms for matching user input"
 #hint="S'ha d'utilitzar una majúscula després d'un punt (tipografia)"
 
 [\(]
+id="t-par_obe_tan"
 valid before=".*?[\)\(\{\[\«\"\'~]"
 valid before="\s(esquerre|dret)" cat="kile"
 valid after="~" cat="kalgebra"
@@ -454,14 +479,16 @@ valid after="~" cat="analitza,analitza_qt"
 valid ctx="unction name in function prototype"
 valid ctx="inlist all matches should be found"
 valid ctx="calculator button"
-valid span="\(" cat="kteatime,simoncalculatorcommand,digikam_color-management"
+valid span="\(" cat="digikam_color-management,kteatime,simoncalculatorcommand"
 hint="S'han d'obrir i tancar els parèntesis (). Sempre aparellats (tipografia)"
 
 #[\[]
+#id="t-claud_obe_tan"
 #valid before=".*?[\]\»\""\']"
 #hint="S'han d'obrir i tancar els claudàtors []. Sempre aparellats (tipografia)"
 
 [\{]
+id="t-claus_obe_tan"
 valid before=".*?[\}\{\(\[\«\"\']"
 valid before="\s(esquerre|dret)" cat="kile"
 valid before="~" after="~" cat="quanta"
@@ -470,27 +497,34 @@ valid comment="Tag\:\sprogramlisting" cat="kdevelop" # docmessages
 hint="S'han d'obrir i tancar les claus {}. Sempre aparellats (tipografia)"
 
 #[\(c\)]
+#id="t-copyr"
 #valid msgstr="©"
 #hint="Cal utilitzar el símbol «©» en lloc de «(c)» (tipografia)"
 
 [\b[A-Z]{2,6}s\b]
+id="t-sigl_sing1"
 hint="Cal escriure les sigles en singular en català (treieu la «s» final) (tipografia)"
 
 [\b[A-Z]{2,6}\'s\b]
+id="t-sigl_sing2"
 valid before="\sJoin" cat="jointhegame"
 hint="Cal escriure les sigles en singular en català (treieu la «'s» final) (tipografia)"
 
 [\b\&[\w\d\-\_]+\;s\b]
+id="t-sigl_sing3"
 hint="Cal escriure les sigles en singular en català (treieu la «s» final) (tipografia)"
 
 [\b\&[\w\d\-\_]+\;\'s\b]
+id="t-sigl_sing4"
 hint="Cal escriure les sigles en singular en català (treieu la «'s» final) (tipografia)"
 
 [\b([A-Za-záéíóúàèòüçÁÉÍÓÚÀÈÒÇ])+\b\.{1,2}\b(\1)\b]
+id="t-mot_rep"
 valid span="c\." cat="kleopatra"
 hint="Hi ha una paraula consecutiva repetida en el paràgraf (tipografia)"
 
 [\b(del|dels|el|la|els|les|un|una|uns|unes)\s(el|la|els|les|un|una|uns|unes)\b]
+id="t-art_rep1"
 valid msgstr="(els|les) une?s (de )?(als|les) altres"
 valid after="·" # punt volat de la l·l geminada
 valid after="-"
@@ -500,12 +534,14 @@ valid cat="baloo_queryparser,baloo_naturalqueryparser,baloowidgets"
 hint="Hi ha dos articles repetits o consecutius (tipografia)"
 
 [\b(del|dels)\s(del|dels)\b]
+id="t-art_rep2"
 valid before="\sKDE" cat="kcm_platform"
 hint="Hi ha dos articles (del/dels) repetits o consecutius (tipografia)"
 
 # manca apòstrof: el/al/del/pel + vocal (també amb H muda i S líquida)
 # http://ca.wikipedia.org/wiki/Regles_d'apostrofació_del_català
 [\b(el|al|del|pel)\s(a|e|i|o|u|A|E|I|O|U|h)[a-zA-Z0-9]+]
+id="t-apo1"
 valid msgstr="el\s(Icedove|iode|ioga|uombat|iogurt|Iugosl|Utah)" # paraules comencen per i/u consonàntiques
 valid msgstr="el\s(head)" # paraules comencen per h aspirada (no muda) consonàntiques
 valid cat="kgeography" # Noms de localitats
@@ -514,6 +550,7 @@ hint="Cal apostrofar «el/al/del/pel» davant de vocal (o h) (tipografia)"
 # manca apòstrof: la + vocal (també amb H -excepte i,u,hi,hu àtones-)
 # http://ca.wikipedia.org/wiki/Regles_d'apostrofació_del_català
 [\sla\s(a|e|o|A|E|O|ha|he|ho)[a-zéíóúàèòüç]+\b]
+id="t-apo2"
 valid msgstr="la\s(una|ira|host|Haia)"
 valid msgstr="la\s(i|hac|essa)" # noms de lletra
 valid msgstr="la\s(Scala)" # s líquida
@@ -522,6 +559,7 @@ hint="Cal apostrofar «la» davant de vocal (o h), excepte i,u,hi,hu àtones (ti
 # manca apòstrof: de + vocal (també amb H)
 # http://ca.wikipedia.org/wiki/Regles_d'apostrofació_del_català
 [\bde\s(a|e|i|o|u|A|E|I|O|U|h)[a-zA-Z0-9]+]
+id="t-apo3"
 valid msgstr="de\s(Icedove|iode|ioga|uombat|iogurt|Iugosl|Utah)" # paraules comencen per i/u consonàntiques
 valid msgstr="de\s(a|hac)" # noms de lletra
 valid msgstr="de\s(Stalin|Scala|Stuttgart|striptease)" # s líquida
@@ -531,10 +569,11 @@ hint="Cal apostrofar «de» davant de vocal (o h) (tipografia)"
 
 # «e» sola és un error.
 [\be\b]
+id="t-e_sola"
 valid before="\:|\-|/|\.|\^"
 valid after="\-|\~|\{|\%|base\s"
 valid after="\[(sub|i)\]" cat="kalzium"
-valid after="(Malësi|Vielha|Montes)\s" cat="kgeography"
+valid after="(Malësi|Montes|Vielha)\s" cat="kgeography"
 valid after="seqüència.+" cat="digikam"
 valid after="\(" before="\)" cat="kio4,kio5"
 valid after="\(«" before="~" cat="kate,ktexteditor5"
@@ -544,12 +583,13 @@ valid msgstr="nomi singoli e collettivi" cat="parley" # docmessages
 valid msgstr="^[SEARCH]" cat="sheets_functions" # docmessages
 valid msgstr="\se\s\([erg|dekao]" cat="sheets_functions" # docmessages
 valid ctx="Exponential"
-valid cat="tables,kcells,kspread,kdenlive,sheets,kst_common"
+valid cat="kcells,kdenlive,kspread,kst_common,sheets,tables"
 valid comment="Tag\:\sprogramlisting" cat="rocs" # docmessages
 hint="«e» sola és un error (tipografia)"
 
 # «u» sola és un error.
 [\bu\b]i
+id="t-u_sola"
 valid before="\:|\-|\s\(massa\)|\sper\scent|\s\(USA\)|\."
 valid after="\-|\~|\{|\%|\+|virtual\s|[Pp]àgina\s|Complement\sa\s"
 valid after="\%\d\s" cat="plasma_engine_kalzium"
@@ -565,13 +605,14 @@ valid msgstr="només un u " cat="simon" # docmessages
 valid msgstr="from Sample s inner join User u" cat="sscd" # docmessages
 valid msgstr="(U)" # docmessages
 valid cat="kalzium,plasma_engine_kalzium,plasma_applet_Molmasscalculator,kgoldrunner,kubrick,kfile_exr"
-valid cat="libincidenceeditors,tables,kcells,kspread,kbackgammon,kdenlive,krita,sheets"
+valid cat="kbackgammon,kcells,kdenlive,krita,kspread,libincidenceeditors,sheets,tables"
 valid ctx="Undefined"
 valid ctx="number 1"
 hint="«u» sola és un error (tipografia)"
 
 # «`» un accent obert sol és un error (ull amb les ordres!).
 [`]
+id="t-acc_obe"
 valid after="Teo" cat="amarok"
 valid after="(Cometes|tabulació)\s.+" cat="kile"
 valid after="PREFIX=|~" cat="amarok"
@@ -591,10 +632,12 @@ hint="Un accent obert sol «`» és un error, excepte a ordres de terminal (tipo
 
 # «’» un accent tancat sol és un error (ull amb les ordres!).
 [’]
+id="t-acc_tan"
 hint="Un accent tancat sol «’» és un error, excepte a ordres de terminal (tipografia)"
 
 # « '» un apóstrof inicial és un error (ull amb les ordres!). Substituir per «
 [\s']
+id="t-apo_ini"
 valid after="servir" cat="kwriteconfig,kconfig5_qt"
 valid after="hh|mm|ss"
 valid after="\'\," cat="analitza,analitza_qt"
@@ -609,8 +652,8 @@ valid before="$" cat="kdeqt"
 valid before="audio|video" cat="konversation"
 valid before="1d" cat="sscd" # docmessages
 valid comment="Tag\:\sscreen" cat="kdeprint_cups-config,kmail_faq,knode_faq" # docmessages
-valid comment="Tag\:\sprogramlisting" cat="kdm,kipi-plugins_geolocation,kate_plugins,kile_scripting" # docmessages
-valid comment="Tag\:\suserinput" cat="kioslave_nepomuksearch,kate_advanced,katepart_advanced" # docmessages
+valid comment="Tag\:\sprogramlisting" cat="kdm,kate_plugins,kile_scripting,kipi-plugins_geolocation" # docmessages
+valid comment="Tag\:\suserinput" cat="kate_advanced,katepart_advanced,kioslave_nepomuksearch" # docmessages
 valid ctx="identifier separator" cat="kalgebra"
 valid ctx="hour in the messages below"
 # valid msgid="'''" # KDE User_Base
@@ -619,6 +662,7 @@ hint="Un apòstrof inicial és un error, excepte a ordres de terminal (tipografi
 
 # «' » un apóstrof final és un error (ull amb les ordres!).  Substituir per »
 ['\s]
+id="t-apo_fin"
 valid cat="kmplot_using" # docmessages
 valid after="Surfin" cat="amarok"
 valid after="\\a?" cat="kile"
@@ -637,7 +681,7 @@ valid after="Sympodius" cat="krita"
 valid after="def" cat="skrooge"
 valid before="mm|ss"
 valid comment="Tag\:\sscreen" cat="kdeprint_cups-config,kmail-faq" # docmessages
-valid comment="Tag\:\sprogramlisting" cat="kdm,kipi-plugins_geolocation,kile_scripting" # docmessages
+valid comment="Tag\:\sprogramlisting" cat="kdm,kile_scripting,kipi-plugins_geolocation" # docmessages
 valid ctx="hour in the messages below"
 # valid msgid="'''" # KDE User_Base
 # valid msgid="''"  # KDE User_Base
@@ -646,6 +690,7 @@ hint="Un apòstrof final és un error, excepte a ordres de terminal (tipografia)
 # Les cometes anglosaxones «"» s'han de substituir per les cometes llatines «»
 # En un teclat català, s'obtenen amb AltGr+z i AltGr+x (ull amb les ordres!).
 [\"]
+id="t-com_anglo"
 valid msgid="K\\\"uhler" # docmessages
 valid msgid="(\")" # docmessages
 valid after="~"
@@ -653,7 +698,7 @@ valid after="~.+" cat="amarokcollectionscanner_qt"
 valid after="00" cat="marble"
 valid after="3\.5|5\.25|\s00\.0|\s00"
 valid after="«.+" before=".+»"
-valid after="^" before="$" cat="konsolekalendar,ktimetracker,calligra,calligrafilters,krossmoduletables,krossmodulesheets,koffice,kofficefilters,krossmodulekspread"
+valid after="^" before="$" cat="calligra,calligrafilters,koffice,kofficefilters,konsolekalendar,krossmoduletables,krossmodulesheets,krossmodulekspread,ktimetracker"
 valid after="(BOOL2STRING|find|CHARTOASCII|DECSEX|ARABIC|DSUM|DAVERAGE|DCOUNTA?|DGET|DMAX|DMIN|DPRODUCT|DSTDEVP?|DVARP?|GETPIVOTDATA|WEEKDAY|DAYS360|TIMEVALUE|DATEVALUE|EDATE|EOMONTH|YEARS?|MONTHS?|DAYS?|HOURS?|MINUTES?|SECONDS?|WEEKS|DATEDIF|DATE2UNIX|CONVERT|OCT2BIN|OCT2DEC|OCT2HEX|BIN2DEC|BIN2OCT|BIN2HEX|HEX2DEC|HEX2OCT|HEX2BIN|IMAGINARY|IMREAL|IMCOSH?|IMSINH?|IMTANH?|IMCSCH?|IMSECH?|IMEXP|IMLN|IMLOG2|IMLOG10|IMSQRT|IMPOWER|IMSUM|IMDIV|IMSUB|IMPRODUCT|IMCONJUGATE|IMARGUMENT|IMABS|ACCRINT|AMORDEGRC|AMORLINC|COUPNUM|DISC|DURATION_ADD|EURO|EUROCONVERT|INTRATE|MDURATION|ACCRINTM|RECEIVED|TBILLEQ|TBILLPRICE|TBILLYIELD|N|ISTIME|ISDATE|ISREF|ISTEXT|ISNONTEXT|ISNOTTEXT|COUNT(A|IF)?|SUMIF|ADDRESS|CHOOSE|INDIRECT|AVERAGEA|SUBSTITUTE|SEARCH|T|TEXT|PROPER|COMPARE|EXACT|REPLACE|FIND|MID|LEN|TRIM|CONCATENATE|RIGHT|LEFT|REPT|ROT13|TOGGLE|SLEEK|UPPER|LOWER|CODE|VALUE|REGEXP|REGEXPRE|UNICODE)\(.*" cat="tables,kcells,kspread,sheets"
 valid after="CELL\(.*" cat="sheets"
 valid after="caràcters\s.?" cat="kexi"
