@@ -95,6 +95,7 @@ hint="Ponga un espacio después del signo de dos puntos"
 
 [(?u)\b(a|ante|con|contra|de|desde|durante|en|entre|hacia|hasta|para|por|según|sin|tras)\:]i
 id="ty-3-preposicion-antes-dos-puntos"
+valid after="$"
 hint="No ponga el signo de dos puntos después de una preposición"
 
 [(?u)[^xyzXYZ\d]\:[^~<>«»;.\"\'\n\\]+[^xyzXYZ\d]\:]i

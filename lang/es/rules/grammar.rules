@@ -1487,6 +1487,7 @@ valid span="(?u)\b\w+\." before="\.\."
 hint="Una conjunción no puede aparecer al final de frase (error gramatical)"
 
 [(?u)\bel\s(y|ni|pero|mas|sino|porque|pues|como|si|aunque|conque|o\ssea|es\sdecir|es\smás)\b]i
+valid after="\w+\'"
 id="gr-2-el-seguido-conjuncion"
 hint="«El» se escribe con tilde antes de una conjunción (error gramatical)"
 
@@ -1691,6 +1692,14 @@ validGroup beforeConnector
 valid before="\s\w+?[^s]\b"
 hint="«Yo + plural» se escribe como «Yo + tercera persona» o «Me + plural» (error gramatical)"
 
+[(?u)\bun[oa]\b]i
+id="gr-1-una-seguido-plural"
+validGroup singularName
+validGroup wordDelimiter
+validGroup beforeConnector
+valid before="\s\w+?[^s]\b"
+hint="«Uno/Una + plural» se escribe como «Uno/Una + singular» (error gramatical)"
+
 [(?u)\bse\s\w+?(ar|er|ir)\b]i
 id="gr-1-se-seguido-infinitivo"
 hint="«Se + infinitivo» se escribe como «Se + tercera persona» (error gramatical)"
@@ -1797,6 +1806,18 @@ valid after="en\s"
 valid before="por"
 valid before="\w+ando"
 hint="Hay un número mayor que uno seguido de un nombre en singular"
+
+[(?u)\bcero\s[«\'\"]?]
+id="gr-1-concordancia-cero-plural-nombre"
+validGroup pluralName
+validGroup wordDelimiter
+validGroup beforeConnector
+valid before="\s\w+?s\b"
+valid after="\w+?s\s"
+valid after="en\s"
+valid before="por"
+valid before="\w+ando"
+hint="Cero debe ir seguido de plural, no de singular"
 
 [(?u)\b([Ee]l|[Aa]l|[Dd]el|[Uu]n)\s[«\'\"]?]
 id="gr-1-concordancia-articulo-masculino-nombre"

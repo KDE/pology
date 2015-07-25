@@ -16,15 +16,15 @@ addFilterRegex match="\b(Microsoft|Outlook|Internet|Google|Adobe)(\s[A-Z]\w+)+\b
 addFilterRegex match="\b(Remember\sthe\sMilk|MySQL\sserver)\b" repl="" on="pmsgid,pmsgstr"
 
 # Omit words between quotes.
-addFilterRegex match="«[\w.:-]+»" repl="" on="pmsgid,pmsgstr"
-addFilterRegex match="\"[\w.:-]+\"" repl="" on="pmsgid,pmsgstr"
-addFilterRegex match="\'[\w.:-]+\'" repl="" on="pmsgid,pmsgstr"
-addFilterRegex match="\\\"[\w.:-]+\\\"" repl="" on="pmsgid,pmsgstr"
+addFilterRegex match="«\S+?»" repl="" on="pmsgid,pmsgstr"
+addFilterRegex match="\"\S+?\"" repl="" on="pmsgid,pmsgstr"
+addFilterRegex match="\'\S+?\'" repl="" on="pmsgid,pmsgstr"
+addFilterRegex match="\\\"\S+?\\\"" repl="" on="pmsgid,pmsgstr"
 
 # Omit words between brackets.
-addFilterRegex match="\{[\w.:-]+\}" repl="" on="pmsgid,pmsgstr"
-addFilterRegex match="\([\w.:-]+\)" repl="" on="pmsgid,pmsgstr"
-addFilterRegex match="[\[][\w.:-]+[\]]" repl="" on="pmsgid,pmsgstr"
+addFilterRegex match="\{\S+?\}" repl="" on="pmsgid,pmsgstr"
+addFilterRegex match="\(\S+?\)" repl="" on="pmsgid,pmsgstr"
+addFilterRegex match="[\[]\S+?[\]]" repl="" on="pmsgid,pmsgstr"
 
 # Omit compounds words.
 addFilterRegex match="\b\w+(\-\w+)+\b" repl="" on="pmsgid,pmsgstr"

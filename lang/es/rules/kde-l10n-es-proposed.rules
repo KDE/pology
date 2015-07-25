@@ -2556,6 +2556,7 @@ hint="«Networks» se traduce como «Redes» (propuesta glosario)"
 id="gp-3-new"
 valid msgstr="nuev[oa]"
 valid msgstr="novedad(es)?"
+valid msgstr="reciente"
 valid before="\s[A-Z]"
 hint="«New» se traduce como «Nuevo» (propuesta glosario)"
 
@@ -4370,7 +4371,8 @@ hint="«Warning» se traduce como «Aviso/Advertencia» (propuesta glosario)"
 #hint="«Weblogs» se traduce como «Bitácoras/Diarios» (propuesta glosario)"
 
 {\bwebcam\b}i
-id="gp-2-webcam"
+id="gp-3-webcam"
+valid msgstr="cámara web"
 hint="«Webcam» se traduce como «Cámara web» (propuesta glosario)"
 
 {\bwild\scard\b}i
