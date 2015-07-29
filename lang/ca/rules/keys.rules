@@ -16,7 +16,7 @@ addFilterRegex match="(_|~|&)" on="pmsgid,pmsgstr"
 # Alt
 {\bAlt\b}
 id="k-Alt-1"
-valid msgid="\bAlt;|<key(cap|sym)?>.?Alt.?</key(cap|sym)?>)" # k-Alt-2
+valid msgid="(\bAlt;|<key(cap|sym)?>.?Alt.?</key(cap|sym)?>)" # k-Alt-2
 valid msgstr="Alt"
 valid msgstr="(T|t)ecla d'alternativa"
 valid msgstr="alt." # Fals positiu
@@ -30,7 +30,7 @@ hint="Es tradueix per «&Alt;», «<key>Alt</key>(Gnome)/<keycap>Alt</keycap>(KD
 
 # Alt Gr
 {\bAlt\s?Gr\b}
-id="k-Alt_Gr"
+id="k-Alt_Gr" 
 valid msgstr="Alt Gr"
 valid msgstr="(T|t)ecla d'alternativa gràfica"
 hint="La tecla «Alt Gr» es tradueix per «Alt Gr»/«tecla d'alternativa gràfica» (keys)"
@@ -38,7 +38,7 @@ hint="La tecla «Alt Gr» es tradueix per «Alt Gr»/«tecla d'alternativa gràf
 # Backspace -> Retrocés
 {\bBackspace\b}
 id="k-Backspace-1"
-valid msgid=(\bBackspace;|<key(cap|sym)?>.?Backspace.?</key(cap|sym)?>)" # k-Backspace-2
+valid msgid="(\bBackspace;|<key(cap|sym)?>.?Backspace.?</key(cap|sym)?>)" # k-Backspace-2
 valid msgstr="Retrocés"
 valid msgstr="(T|t)ecla de retrocés"
 valid msgstr="\bRetro;" # <keycap>Retrocés</keycap>
@@ -70,12 +70,12 @@ hint="La tecla «Break» es tradueix per «Interr»/«tecla d'interrupció» (ke
 
 {(<key(cap|sym)>)?.?Caps\s?Lock.?(</key(cap|sym)>)?}
 id="k-Caps_Lock"
-valid msgstr="<key(cap)?>Bloq Maj</key(cap)?>"
 valid msgstr="Bloq Maj" # A l'IGU
 valid msgstr="(B|b)loqueig de majúscules" # A l'IGU
 valid msgstr="(F|f)ixació de majúscules"  # A l'IGU
 valid msgstr="(T|t)ecla de bloqueig de majúscules"
 valid msgstr="(T|t)ecla de fixació de majúscules"
+valid msgstr="<key(cap)?>Bloq Maj</key(cap)?>"
 hint="Es tradueix per «Bloq Maj» o «tecla de bloqueig|fixació de majúscules» (keys)"
 
 # Ctrl
@@ -161,7 +161,7 @@ hint="Es tradueix per «&Intro;», «<key>Retorn</key>(Gnome)/<keycap>Retorn</ke
 # Esc
 {\bEsc\b}
 id="k-Esc-1"
-valid msgid=(\bEsc;|<key(cap|sym)?>.?Esc.?</key(cap|sym)?>)" # k-Esc-2
+valid msgid="(\bEsc;|<key(cap|sym)?>.?Esc.?</key(cap|sym)?>)" # k-Esc-2
 valid msgstr="Esc"
 valid msgstr="(T|t)ecla d'escapada"
 hint="La tecla «Esc» es tradueix per «Esc»/«tecla d'escapada» (keys)"
@@ -313,9 +313,9 @@ hint="La tecla «Tab» es tradueix per «Tab»/«tecla de tabulació» (keys)"
 {(\bTab;|<key(cap|sym)?>.?Tab.?</key(cap|sym)?>)}
 id="k-Tab-2"
 valid msgstr="\bTab;" # <keycap>Tab</keycap>
-valid msgstr="<key(cap)?>Tab</key(cap)?>"
 valid msgstr="(T|t)ecla Tab;" # a la doc
 valid msgstr="(T|t)ecla Tab" # a l'IGU
+valid msgstr="<key(cap)?>Tab</key(cap)?>"
 hint="Es tradueix per «&Tab;», «tecla &Tab;», «<key>Tab</key>(Gnome/<keycap>Tab</keycap>(KDE)» (keys)"
 
 # Other keys: -----------------------------------------------------------------
@@ -388,8 +388,8 @@ hint="Es tradueix per «&Meta;», «<key>Meta</key>(Gnome)/<keysym>Meta</keysym>
 # logotip -diamant-
 {<key(cap|sym)?>.?◆.?</key(cap|sym)?>}
 id="k-logoMeta"
-valid msgstr="<key(sym)?>◆</key(sym)?>"
-hint="Es tradueix per «<key>◆</key>(Gnome)/<keysym>◆</keysym>(KDE)» (keys)"
+valid msgstr="<key(cap)?>◆</key(cap)?>"
+hint="Es tradueix per «<key>◆</key>(Gnome)/<keycap>◆</keycap>(KDE)» (keys)"
 
 # Windows
 {<key(cap|sym)?>.?Windows.?</key(cap|sym)?>}
@@ -406,5 +406,5 @@ hint="Es tradueix per «<key>Ordre</key>(Gnome)/<keysym>Ordre</keysym>(KDE)» (k
 # logotip -símbol-
 {<key(cap|sym)>.?⌘.?</key(cap|sym)>}
 id="k-logoMac"
-valid msgstr="<key(sym)?>⌘</key(sym)?>"
-hint="Es tradueix per «<key>⌘</key>(Gnome)/<keysym>⌘</keysym>(KDE)» (keys)"
+valid msgstr="<key(cap)?>⌘</key(cap)?>"
+hint="Es tradueix per «<key>⌘</key>(Gnome)/<keycap>⌘</keycap>(KDE)» (keys)"
