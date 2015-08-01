@@ -1,0 +1,40 @@
+#
+# Acronyms related information technology for Catalan translations
+# License: GPLv3
+#
+# Author: Jordi Mas <jmas@softcatala.org>, 2015
+#
+# 
+# These rules focus on checking the acronyms that are localized in Catalan.
+# The ones that remain the same than in English are not checked.
+#
+
+
+# Remove XML entities.
+include file="filter.include"
+
+# Remove accelerator inside words.
+addFilterRegex match="(_|~|&)" on="pmsgid,pmsgstr"
+
+
+{\bFAQ\b}
+id="acronyms-faq"
+valid msgstr="\bPMF\b"
+valid msgstr="[pP]reguntes més freqüents"
+hint="En català l'acrònim «FAQ» es tradueix per «PMF»."
+
+{\bISDN\b}
+id="acronyms-isdn"
+valid msgstr="\bXDSI\b"
+hint="En català l'acrònim «ISDN» es tradueix per «XDSI»."
+
+{\bdpi\b}
+id="acronyms-dpi"
+valid msgstr="ppp"
+valid msgstr="[pP]unts per polzada"
+hint="En català l'acrònim «dpi» es tradueix per «ppp»."
+
+{\bpoi\b}
+id="acronyms-poi"
+valid msgstr="pdi"
+hint="En català l'acrònim «poi» (point of interest) es tradueix per «pdi»."
