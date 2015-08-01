@@ -53,8 +53,10 @@ CGI: ЦГ|И-, ЦГИ|>
 CIDR: ЦИДР|-, ЦИДР|>
 CIFS: ЦИФС|-, ЦИФС|>
 CJK: ЦЈК|-, ЦЈК|>
-CLI: ЦЛИ|-, ЦЛИ|>
-CMYK: ЦМИК|-, ЦМИК|>
+CLI: ЦЛ|И-, ЦЛИ|>
+CMY: ЦМ|И-, ЦМИ|>, _пр=cyan-magenta-yellow
+    @л: CMY|-, CMY|>
+CMYK: ЦМИК|-, ЦМИК|>, _пр=cyan-magenta-yellow-key
     @л: CMYK|-, CMYK|>
 Comm10E: ком10Е|-, ком10Е|>
     @л: Comm10E|-, Comm10E|>
@@ -245,7 +247,7 @@ MAC, |macaddr: МАЦ|-, МАЦ|>
 MCU: МЦУ|-, МЦУ|>, _пр=microcontroller
 MDB: МДБ|-, МДБ|>
 MDC: МДЦ|-, МДЦ|>
-MDI: МДИ|-, МДИ|>, _пр=multiple document interface
+MDI: МД|И-, МДИ|>, _пр=multiple document interface
 MDN: МДН|-, МДН|>, _пр=message disposition notification
 mDNS: мДНС|-, мДНС|>
 METAR: МЕТАР|-, МЕТАР|>
