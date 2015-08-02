@@ -1,14 +1,15 @@
 # Translation of pology.po to Catalan
-# Copyright (C) 2011-2014
-# This file is distributed under the same license as the pology package.
+# Copyright (C) 2011-2015 This_file_is_part_of_KDE
+# This file is distributed under the license LGPL version 2.1 or
+# version 3 or later versions approved by the membership of KDE e.V.
 #
-# Antoni Bella Pérez <antonibella5@yahoo.com>, 2011, 2012, 2014.
+# Antoni Bella Pérez <antonibella5@yahoo.com>, 2011, 2012, 2014, 2015.
 msgid ""
 msgstr ""
 "Project-Id-Version: pology\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-07-24 14:09+0200\n"
-"PO-Revision-Date: 2014-12-15 01:17+0100\n"
+"PO-Revision-Date: 2015-08-02 02:10+0100\n"
 "Last-Translator: Antoni Bella Pérez <antonibella5@yahoo.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca\n"
@@ -16,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 1.5\n"
+"X-Generator: Lokalize 2.0\n"
 
 #: pology/ascript.py:103
 #, python-format
@@ -420,7 +421,7 @@ msgstr ""
 #, python-format
 msgctxt "@info"
 msgid "Path '%(path)s' does not exist."
-msgstr "La ruta «%(path)s» seleccionada no existeix."
+msgstr "El camí «%(path)s» no existeix."
 
 #: pology/fsops.py:83
 #, python-format
@@ -768,7 +769,7 @@ msgstr "Pango"
 #, python-format
 msgctxt "@info"
 msgid "Invalid numeric entity '%(ent)s'."
-msgstr "Entitat numèrica no vàlida  «%(ent)s»."
+msgstr "Entitat numèrica «%(ent)s» no vàlida."
 
 #: pology/markup.py:1947
 #, python-format
@@ -923,7 +924,7 @@ msgstr "Compendium no existeix a «%(path)s»."
 msgctxt "@info"
 msgid "Cannot merge PO file '%(file1)s' with template '%(file2)s'."
 msgstr ""
-"No s'ha pogut fusionar el fitxer PO  «%(file1)s» amb la plantilla "
+"No s'ha pogut fusionar el fitxer PO «%(file1)s» amb la plantilla "
 "«%(file2)s»."
 
 #: pology/monitored.py:64 pology/monitored.py:179
@@ -1818,6 +1819,7 @@ msgstr ""
 "omeses."
 
 #: pology/stdcmdopt.py:112
+# skip-rule: t-sp_2p,t-2p_sp
 msgctxt "@info command line option description (partial: incexc)"
 msgid ""
 "Lines starting with ':' are treated as directives to include or exclude "
@@ -2636,6 +2638,7 @@ msgstr ""
 "Copyright © 2008, 2009, 2010 Chusslove Illich (Часлав Илић) &lt;%(email)s&gt;"
 
 #: scripts/poascribe.py:118 scripts/poascribe.py:209
+# skip-rule: t-2p_sp
 msgctxt "@info command line value placeholder"
 msgid "SELECTOR[:ARGS]"
 msgstr "SELECTOR[:ARGS]"
@@ -3174,7 +3177,7 @@ msgstr ""
 #: scripts/poediff.py:62
 msgctxt "@info command description"
 msgid "Create embedded diffs of PO files."
-msgstr "Crea diff encastats dels fitxers PO."
+msgstr "Crea diff incrustats dels fitxers PO."
 
 #: scripts/poediff.py:64 scripts/poepatch.py:71 scripts/pomtrans.py:54
 #: scripts/poselfmerge.py:56 lang/sr/scripts/pohybdl.py:40
@@ -3249,6 +3252,7 @@ msgid "Equivalent to %(opt)s."
 msgstr "Equivalent a %(opt)s."
 
 #: scripts/poediff.py:126
+# skip-rule: t-2p_sp
 msgctxt "@info command line value placeholder"
 msgid "REV1[:REV2]"
 msgstr "REV1[:REV2]"
@@ -3704,7 +3708,7 @@ msgid ""
 "Executing Apertium failed:\n"
 "%(output)s"
 msgstr ""
-"L'execució de Apertium ha fallat:\n"
+"L'execució d'Apertium ha fallat:\n"
 "%(output)s"
 
 #: scripts/pomtrans.py:440
@@ -3918,6 +3922,7 @@ msgid ""
 msgstr "No mostra cap informació de progrés (no influeix en el filtratge)."
 
 #: scripts/posieve.py:150 scripts/posieve.py:156
+# skip-rule: t-2p_sp
 msgctxt "@info command line value placeholder"
 msgid "NAME[:VALUE]"
 msgstr "NOM[:VALOR]"
@@ -3933,7 +3938,7 @@ msgid ""
 "Remove a parameter to sieves (e.g. if it was issued through user "
 "configuration)."
 msgstr ""
-"Elimina un paràmetre al filtratge (p.ex., si s'ha emès a través de la "
+"Elimina un paràmetre al filtratge (p. ex., si s'ha emès a través de la "
 "configuració de l'usuari)."
 
 #: scripts/posieve.py:165
@@ -4703,7 +4708,7 @@ msgctxt ""
 "@info statistics; side note stating that not all entries have been taken "
 "into account, but only some selected"
 msgid "(Selection active.)"
-msgstr "(Selecció activa.)"
+msgstr "(Selecció activa)."
 
 #: lang/sr/scripts/traplint.py:428
 #, python-format
@@ -6291,6 +6296,7 @@ msgid ""
 msgstr ""
 
 #: sieve/merge_corr_tree.py:33
+# skip-rule: t-2p_sp
 msgctxt "@info sieve parameter value placeholder"
 msgid "FIND[:REPLACE]"
 msgstr "CERCA[:SUBSTITUEIX]"
@@ -6437,8 +6443,8 @@ msgstr ""
 msgctxt "@info:progress"
 msgid "Removed %(num)d obsolete message."
 msgid_plural "Removed %(num)d obsolete messages."
-msgstr[0] "S'ha esborrat %(num)d missatge obsolet."
-msgstr[1] "S'han esborrat %(num)d missatges obsolets."
+msgstr[0] "S'ha suprimit %(num)d missatge obsolet."
+msgstr[1] "S'han suprimit %(num)d missatges obsolets."
 
 #: sieve/remove_previous.py:19
 msgctxt "@info sieve discription"
@@ -7338,3 +7344,4 @@ msgstr[1] ""
 msgctxt "@info sieve discription"
 msgid "Reformat documentation update date for Russian KDE Team."
 msgstr ""
+
