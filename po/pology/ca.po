@@ -924,8 +924,7 @@ msgstr "Compendium no existeix a «%(path)s»."
 msgctxt "@info"
 msgid "Cannot merge PO file '%(file1)s' with template '%(file2)s'."
 msgstr ""
-"No s'ha pogut fusionar el fitxer PO «%(file1)s» amb la plantilla "
-"«%(file2)s»."
+"No s'ha pogut fusionar el fitxer PO «%(file1)s» amb la plantilla «%(file2)s»."
 
 #: pology/monitored.py:64 pology/monitored.py:179
 #, python-format
@@ -1818,8 +1817,8 @@ msgstr ""
 "Les línies que comencin amb «#» seran tractades com a comentaris i seran "
 "omeses."
 
-#: pology/stdcmdopt.py:112
 # skip-rule: t-sp_2p,t-2p_sp
+#: pology/stdcmdopt.py:112
 msgctxt "@info command line option description (partial: incexc)"
 msgid ""
 "Lines starting with ':' are treated as directives to include or exclude "
@@ -2637,8 +2636,8 @@ msgstr ""
 "%(cmd)s (Pology) %(version)s\n"
 "Copyright © 2008, 2009, 2010 Chusslove Illich (Часлав Илић) &lt;%(email)s&gt;"
 
-#: scripts/poascribe.py:118 scripts/poascribe.py:209
 # skip-rule: t-2p_sp
+#: scripts/poascribe.py:118 scripts/poascribe.py:209
 msgctxt "@info command line value placeholder"
 msgid "SELECTOR[:ARGS]"
 msgstr "SELECTOR[:ARGS]"
@@ -3251,8 +3250,8 @@ msgctxt "@info command line option description"
 msgid "Equivalent to %(opt)s."
 msgstr "Equivalent a %(opt)s."
 
-#: scripts/poediff.py:126
 # skip-rule: t-2p_sp
+#: scripts/poediff.py:126
 msgctxt "@info command line value placeholder"
 msgid "REV1[:REV2]"
 msgstr "REV1[:REV2]"
@@ -3921,8 +3920,8 @@ msgid ""
 "Do not display any progress info (does not influence sieves themselves)."
 msgstr "No mostra cap informació de progrés (no influeix en el filtratge)."
 
-#: scripts/posieve.py:150 scripts/posieve.py:156
 # skip-rule: t-2p_sp
+#: scripts/posieve.py:150 scripts/posieve.py:156
 msgctxt "@info command line value placeholder"
 msgid "NAME[:VALUE]"
 msgstr "NOM[:VALOR]"
@@ -6295,8 +6294,8 @@ msgid ""
 "the partial correction tree is available."
 msgstr ""
 
-#: sieve/merge_corr_tree.py:33
 # skip-rule: t-2p_sp
+#: sieve/merge_corr_tree.py:33
 msgctxt "@info sieve parameter value placeholder"
 msgid "FIND[:REPLACE]"
 msgstr "CERCA[:SUBSTITUEIX]"
@@ -7344,4 +7343,3 @@ msgstr[1] ""
 msgctxt "@info sieve discription"
 msgid "Reformat documentation update date for Russian KDE Team."
 msgstr ""
-
