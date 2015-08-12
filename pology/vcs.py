@@ -1081,8 +1081,8 @@ class VcsGit (VcsBase):
             cmdline = ["git", "status"]
         res = collect_system(cmdline, wdir=root, env=self._env)
 
-        sect_rx = re.compile(r"^# (\S.*):$", re.I)
-        file_rx = re.compile(r"^#\s+.*\w:\s*(.+?)\s*$", re.I)
+        sect_rx = re.compile(r"^(?:# )?(\S.*):$", re.I)
+        file_rx = re.compile(r"^#?\s+.*\w:\s*(.+?)\s*$", re.I)
         inlist = False
         ipaths = []
         for line in res[0].split("\n"):
