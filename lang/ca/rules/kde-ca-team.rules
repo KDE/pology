@@ -237,7 +237,7 @@ hint="Es tradueix per «descodificador» (kde-ca-team)"
 {\bdecoding(s?)\b}i
 valid msgstr="descodificaci(ó|ons)"
 valid msgstr="descodifica(nt|va|ven)"
-valid msgstr="descodificar" cat="libkdcraw"
+valid msgstr="descodificar" cat="kwave,libkdcraw"
 hint="Es tradueix per «descodificació, descodificacions, descodificant» (kde-ca-team)"
 
 # (to)
@@ -771,7 +771,7 @@ valid msgstr="pestany(a|es)"
 valid msgstr="tabuladors?"
 valid msgstr="tabulaci(ó|ons)"
 valid msgstr="caràcter de tabulació"
-valid msgstr="tab" cat="kdelibs4,kcmkeyboard,kabcclient,katepart4,kbibtex,kdeqt,ki18n5,ktexteditor5,ktextwidgets5,ktouch,digikam,simonshortcutcommand,trojita_common" # Tecla Tab
+valid msgstr="tab" cat="kdelibs4,kcmkeyboard,kabcclient,katepart4,kbibtex,kdeqt,ki18n5,ktexteditor5,ktextwidgets5,ktouch,kwave,digikam,simonshortcutcommand,trojita_common" # Tecla Tab
 valid msgstr="tabulatur(a|es)" cat="amarok" # Tablature -> Tabulatura (Termcat: música)
 valid msgstr="encastat" cat="kcontrol_filetypes" # docmessages
 valid msgstr="~" after="screenshot.+" cat="korganizer" # docmessages
