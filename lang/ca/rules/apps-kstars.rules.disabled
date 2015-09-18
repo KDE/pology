@@ -4,8 +4,16 @@
 
 # - KStars
 
+# Remove accelerator.
+addFilterRegex match="\&" on="pmsgid,pmsgstr"
+
 # Constellation names
 # Sky Culture (12: Western, Chinese, Egyptian, Inuit, Korean, Lakota, Maori, Navaro, Norse, Polynesian, Tupi-Guarani and Tongan)
+
+# valid ctx="^Constellation\sname\s.optional.$"
+# valid ctx="^City\sin\s"
+# valid ctx="^object\sname\s.optional."
+# valid ctx="^Satellite\sgroup\sname"
 
 {\bC\sWestern\b}i
 valid msgstr="C Occidental"
@@ -28,6 +36,7 @@ valid msgstr="AQUARI"
 hint="Es tradueix per «AQUARI» (app-kstars)"
 
 {\bAQUILA\b}i
+valid ctx="^City\sin\s"
 valid msgstr="ÀGUILA"
 hint="Es tradueix per «ÀGUILA» (app-kstars)"
 
@@ -136,6 +145,7 @@ valid msgstr="DOFÍ"
 hint="Es tradueix per «DOFÍ» (app-kstars)"
 
 {\bDORADO\b}i
+valid ctx="^City\sin\s"
 valid msgstr="ORADA"
 hint="Es tradueix per «ORADA» (app-kstars)"
 
@@ -184,6 +194,7 @@ valid msgstr="LLANGARDAIX"
 hint="Es tradueix per «LLANGARDAIX» (app-kstars)"
 
 {\bLEO\b}i
+valid ctx="^Satellite\sgroup\sname"
 valid msgstr="LLEÓ"
 hint="Es tradueix per «LLEÓ» (app-kstars)"
 
@@ -256,6 +267,7 @@ valid msgstr="PERSEU"
 hint="Es tradueix per «PERSEU» (app-kstars)"
 
 {\bPHOENIX\b}i
+valid ctx="^City\sin\s"
 valid msgstr="FÈNIX"
 hint="Es tradueix per «FÈNIX» (app-kstars)"
 
@@ -461,6 +473,7 @@ valid msgstr="TANCA EXTERIOR"
 hint="Es tradueix per «TANCA EXTERIOR» (app-kstars)"
 
 {\bFORD\b}i
+valid ctx="^City\sin\s"
 valid msgstr="GUAL"
 hint="Es tradueix per «GUAL» (app-kstars)"
 
@@ -481,6 +494,7 @@ valid msgstr="LLENGUA ENROTLLADA"
 hint="Es tradueix per «LLENGUA ENROTLLADA» (app-kstars)"
 
 {\bNET\b}i
+valid msgstr="\.net"
 valid msgstr="XARXA"
 hint="Es tradueix per «XARXA» (app-kstars)"
 
@@ -488,9 +502,9 @@ hint="Es tradueix per «XARXA» (app-kstars)"
 valid msgstr="LAVABO"
 hint="Es tradueix per «LAVABO» (app-kstars)"
 
-{\bSCREEN\b}i
-valid msgstr="PARAVENT"
-hint="Es tradueix per «PARAVENT» (app-kstars)"
+# {\bSCREEN\b}i
+# valid msgstr="PARAVENT"
+# hint="Es tradueix per «PARAVENT» (app-kstars)"
 
 {\bSOLDIERS'\sMARKET\b}i
 valid msgstr="MERCAT DE SOLDATS"
@@ -508,9 +522,9 @@ hint="Es tradueix per «TRES ESTRELLES» (app-kstars)"
 valid msgstr="QUATRE CANALS"
 hint="Es tradueix per «QUATRE CANALS» (app-kstars)"
 
-{\bWELL\b}i
-valid msgstr="POU"
-hint="Es tradueix per «POU» (app-kstars)"
+# {\bWELL\b}i
+# valid msgstr="POU"
+# hint="Es tradueix per «POU» (app-kstars)"
 
 {\bSOUTH\sRIVER\b}i
 valid msgstr="RIU DEL SUD"
@@ -529,6 +543,7 @@ valid msgstr="HORT"
 hint="Es tradueix per «HORT» (app-kstars)"
 
 {\bMEADOWS\b}i
+valid ctx="^City\sin\s"
 valid msgstr="PRATS"
 hint="Es tradueix per «PRATS» (app-kstars)"
 
@@ -564,9 +579,9 @@ hint="Es tradueix per «POU DE JADE» (app-kstars)"
 valid msgstr="LLANÇA"
 hint="Es tradueix per «LLANÇA» (app-kstars)"
 
-{\bBOAT\b}i
-valid msgstr="BARCA"
-hint="Es tradueix per «BARCA» (app-kstars)"
+# {\bBOAT\b}i
+# valid msgstr="BARCA"
+# hint="Es tradueix per «BARCA» (app-kstars)"
 
 {\bMAUSOLEUM\b}i
 valid msgstr="MAUSOLEU"
@@ -1012,22 +1027,49 @@ hint="Es tradueix per «» (app-kstars)"
 valid msgstr=""
 hint="Es tradueix per «» (app-kstars)"
 
+{\bAdaptive\sOptics\sunit\b}i
+valid msgstr="unitat d'òptica adaptativa"
+hint="Es tradueix per «unitat d'òptica adaptativa» (app-kstars)"
+
 {\bAlignment\b}i
 valid msgstr="alineació"
 hint="Es tradueix per «alineació» (app-kstars)"
 
+# https://ca.wikipedia.org/wiki/Minut_d'arc
+{\b(arcmin(utes?)?|minutes?(\sof)?\sarc)\b}i
+valid msgstr="minuts? d'arc"
+valid msgstr="min\. d'arc"
+hint="Es tradueix per «minut/s d'arc, min. d'arc (Abreujament en anglès: arcmin, amin, am, MOA)» (app-kstars)"
+
+# https://ca.wikipedia.org/wiki/Minut_d'arc
+{\b(arcsec(onds?)?seconds?(\sof)?\sarc)\b}i
+valid msgstr="segons? d'arc"
+hint="Es tradueix per «segon/s d'arc (Abreujament en anglès: arcsec, asec, as)» (app-kstars)"
+
 # https://ca.wikipedia.org/wiki/Astrometria
 {\bAstrometry\b}i
+valid msgstr="astrometry\.net"
 valid msgstr="Astrometria"
 hint="Es tradueix per «Astrometria» (app-kstars)"
 
+# https://en.wikipedia.org/wiki/Dither
+# https://ca.wikipedia.org/wiki/Tramat_(informàtica)
+{\bAuto\sDithering\b}i
+valid msgstr="tramat automàtic"
+hint="Es tradueix per «tramat automàtic» (app-kstars)"
+
 {\bAutofocus\b}i
 valid msgstr="enfocament automàtic"
-hint="Es tradueix per «enfocament automàtic» (app-kstars)"
+valid msgstr="enfocant automàticament"
+hint="Es tradueix per «enfocament automàtic, enfocant automàticament» (app-kstars)"
 
 {\bAutoguiding\b}i
 valid msgstr="guiatge automàtic"
 hint="Es tradueix per «guiatge automàtic» (app-kstars)"
+
+{\bbad\sweather\b}i
+valid msgstr="mal temps"
+hint="Es tradueix per «mal temps» (app-kstars)"
 
 {\bBinoculars\b}i
 valid msgstr="Prismàtics"
@@ -1037,14 +1079,25 @@ hint="Es tradueix per «Prismàtics» (app-kstars)"
 valid msgstr="calibratge"
 hint="Es tradueix per «calibratge» (app-kstars)"
 
+{\bcardinal\scompass\b}i
+valid msgstr="punts? cardinals?"
+hint="Es tradueix per «punt/s cardinal/s» (app-kstars)"
+
 {\bcolor\sscheme\b}i
 valid msgstr="esquema de colors"
 hint="Es tradueix per «esquema de colors» (app-kstars)"
 
 # https://ca.wikipedia.org/wiki/Brúixola
 {\bCompass\b}i
+valid msgid="\bcardinal\scompass\b"
+valid msgid="\bCompass\spoints?\b"
 valid msgstr="brúixola"
-hint="Es tradueix per «brúixola» (app-kstars)"
+valid msgstr="rosa dels vents"
+hint="Es tradueix per «brúixola, rosa dels vents» (app-kstars)"
+
+{\bCompass\spoints?\b}i
+valid msgstr="punts? cardinals?"
+hint="Es tradueix per «punt/s cardinal/s» (app-kstars)"
 
 # https://ca.wikipedia.org/wiki/Constel·lació
 {\bConstell\b}i
@@ -1056,9 +1109,20 @@ hint="Es tradueix per «constel·lació» (app-kstars)"
 valid msgstr="\bDEC\b"
 hint="Es tradueix per «DEC -declinació-» (app-kstars)"
 
-{\bDeep\sSky\b}i
+{\bDeep.?Sky\b}i
+valid msgid="\bDeep\sSky\sobjects?\b"
 valid msgstr="cel profund"
 hint="Es tradueix per «cel profund» (app-kstars)"
+
+{\bDeep.?Sky\sobjects?\b}i
+valid msgstr="objectes? del cel profund"
+hint="Es tradueix per «objecte/s del cel profund» (app-kstars)"
+
+# https://ca.wikipedia.org/wiki/Minut_d'arc
+# https://ca.wikipedia.org/wiki/Grau_sexagesimal
+{\bdegrees?\b}i
+valid msgstr="graus?"
+hint="Es tradueix per «grau/s (Abreujament en anglès: deg)» (app-kstars)"
 
 {\bDesktop\sPlanetarium\b}i
 valid msgstr="Planetari per a l'escriptori"
@@ -1066,8 +1130,8 @@ hint="Es tradueix per «Planetari per a l'escriptori» (app-kstars)"
 
 # https://ca.wikipedia.org/wiki/Eclíptica
 {\bEcliptic\b}i
-valid msgstr="Eclíptica"
-hint="Es tradueix per «Eclíptica» (app-kstars)"
+valid msgstr="Eclípti(ca|ques)"
+hint="Es tradueix per «Eclíptica/ques» (app-kstars)"
 
 # https://ca.wikipedia.org/wiki/Línia_equatorial
 {\bEquator\b}i
@@ -1075,11 +1139,12 @@ valid msgstr="Equador"
 hint="Es tradueix per «Equador» (app-kstars)"
 
 {\bEquatorial\sCoordinate\b}i
-valid msgstr="coordenades equatorials"
-hint="Es tradueix per «coordenades equatorials» (app-kstars)"
+valid msgstr="coordenades equatorials?"
+hint="Es tradueix per «coordenades equatorial/s» (app-kstars)"
 
 # https://ca.wikipedia.org/wiki/Camp_de_visió
 {\bFOV\b}i
+valid msgstr="\bfov.dat\b"
 valid msgstr="\bCDV\b"
 hint="Es tradueix per «CDV -camp de visió-» (app-kstars)"
 
@@ -1087,32 +1152,54 @@ hint="Es tradueix per «CDV -camp de visió-» (app-kstars)"
 valid msgstr="guiatge"
 hint="Es tradueix per «guiatge» (app-kstars)"
 
+# Half-Flux-Radius (HFR)
+# {\b\b}i
+# valid msgstr=""
+# hint="Es tradueix per «» (app-kstars)"
+
 # https://ca.wikipedia.org/wiki/Horitzó
 {\bHorizon\b}i
 valid msgstr="Horitzó"
 hint="Es tradueix per «Horitzó» (app-kstars)"
 
 {\bHorizontal\sCoordinate\b}i
-valid msgstr="coordenades horitzontals"
-hint="Es tradueix per «coordenades horitzontals» (app-kstars)"
+valid msgstr="coordenades equatorial com en l'horitzontal"
+valid msgstr="coordenades equatorial i horitzontal"
+valid msgstr="coordenades horitzontal"
+hint="Es tradueix per «coordenades horitzontal» (app-kstars)"
 
 # https://en.wikipedia.org/wiki/Index_Catalogue
-{\bIC\sObject\b}i
-valid msgstr="Objecte de l'IC"
-hint="Es tradueix per «Objecte de l'IC» (app-kstars)"
+{\bIC\sObjects?\b}i
+valid msgid="NGC/IC objects"
+valid msgstr="Objectes? de l'IC"
+hint="Es tradueix per «Objecte/s de l'IC» (app-kstars)"
 
 {\bInfo\sBox\b}i
 valid msgstr="rètol informatiu"
 hint="Es tradueix per «rètol informatiu» (app-kstars)"
 
 {\bInvalid\b}i
-valid msgstr="no (és )?vàlida?"
-hint="Es tradueix per «no és vàlid/a, no vàlid/a» (app-kstars)"
+valid msgstr="no (és |ser(à|an) |són )?vàlid(a|es|s)?"
+hint="Es tradueix per «no és vàlid/a, no vàlid/a, no serà/an vàlida/es, no són vàlids/es» (app-kstars)"
+
+{\bmarker\sfile\b}i
+valid msgstr="fitxer de marcadors"
+hint="Es tradueix per «fitxer de marcadors» (app-kstars)"
 
 # https://ca.wikipedia.org/wiki/Catàleg_Messier
 {\bMessier\sObject\b}i
-valid msgstr="Objecte Messier"
-hint="Es tradueix per «Objecte Messier» (app-kstars)"
+valid msgstr="Objectes? Messier"
+hint="Es tradueix per «Objecte/s Messier» (app-kstars)"
+
+# https://ca.wikipedia.org/wiki/Minut_d'arc
+{\bmicroarcseconds?\b}i
+valid msgstr="microsegons? d'arc"
+hint="Es tradueix per «microsegon/s d'arc (Abreujament en anglès: μas)» (app-kstars)"
+
+# https://ca.wikipedia.org/wiki/Minut_d'arc
+{\bmilliarcseconds?\b}i
+valid msgstr="mil·lisegons? d'arc"
+hint="Es tradueix per «mil·lisegon/s d'arc (Abreujament en anglès: mas)» (app-kstars)"
 
 # https://ca.wikipedia.org/wiki/Via_Làctia
 {\bMilky\sWay\b}i
@@ -1120,9 +1207,9 @@ valid msgstr="Via làctia"
 hint="Es tradueix per «Via làctia» (app-kstars)"
 
 # https://ca.wikipedia.org/wiki/New_General_Catalogue
-{\bNGC\sObject\b}i
-valid msgstr="Objecte del NGC"
-hint="Es tradueix per «Objecte del NGC» (app-kstars)"
+{\bNGC\sObjects?\b}i
+valid msgstr="Objectes? del NGC"
+hint="Es tradueix per «Objecte/s del NGC» (app-kstars)"
 
 {\bobservation\sjob\b}i
 valid msgstr="tasca d'observació"
@@ -1133,11 +1220,13 @@ valid msgstr="llista d'observació"
 hint="Es tradueix per «llista d'observació» (app-kstars)"
 
 {\bObservatory\b}i
+valid ctx="^City\sin\s"
 valid msgstr="Observatori"
 hint="Es tradueix per «Observatori» (app-kstars)"
 
 # https://ca.wikipedia.org/wiki/Ascensió_recta
 {\bRA\b}i
+valid ctx="^City\sin\s"
 valid msgstr="\bAR\b"
 hint="Es tradueix per «AR -ascensió recta-» (app-kstars)"
 
@@ -1149,22 +1238,50 @@ hint="Es tradueix per «Ruta» (app-kstars)"
 valid msgstr="Satèl·lits?"
 hint="Es tradueix per «Satèl·lit/s» (app-kstars)"
 
+{\bSetup\sWizard\b}i
+valid msgstr="Assistent d'engegada"
+hint="Es tradueix per «Assistent d'engegada» (app-kstars)"
+
 {\bSolver\b}i
 valid msgstr="Solucionador"
 hint="Es tradueix per «Solucionador» (app-kstars)"
 
 {\bSky\b}i
+valid msgid="\bDeep\sSky\b"
+valid msgid="\bSky\sChart\b"
+valid msgid="\bsky\sdisplay\b"
+valid msgid="\bsky\smap\b"
+valid msgid="\bsky.?objects?\b"
+valid msgstr="Sloan\sDigital\sSky\sSurvey"
+valid msgstr="Digitized\sSky\sSurvey\s.DSS."
 valid msgstr="\bCel\b"
 hint="Es tradueix per «Cel» (app-kstars)"
+
+{\bsky\sChart\b}i
+valid msgstr="carta estel·lar"
+hint="Es tradueix per «carta estel·lar» (app-kstars)"
+
+{\bsky\sdisplay\b}i
+valid msgstr="vista del cel"
+hint="Es tradueix per «vista del cel» (app-kstars)"
+
+{\bsky\smap\b}i
+valid msgstr="mapa celeste"
+hint="Es tradueix per «mapa celeste» (app-kstars)"
+
+{\bsky.?objects?\b}i
+valid msgid="\bDeep.?Sky\sobjects?\b"
+valid msgstr="objectes? celestes?"
+hint="Es tradueix per «objecte/s celeste/s» (app-kstars)"
+
+{\bslew\b}i
+valid msgstr="orienta(ció|r)?"
+hint="Es tradueix per «orienta/ció/r» (app-kstars)"
 
 # https://en.wikipedia.org/wiki/Star_hopping
 {\bStar.?Hop\b}i
 valid msgstr="estrelles encadenades"
 hint="Es tradueix per «estrelles encadenades» (app-kstars)"
-
-{\bSetup\sWizard\b}i
-valid msgstr="Assistent de configuració"
-hint="Es tradueix per «Assistent de configuració» (app-kstars)"
 
 {\bTarget\b}i
 valid msgstr="objectiu"
@@ -1181,16 +1298,10 @@ valid msgstr="Tra(ça|ces)"
 hint="Es tradueix per «Traça/ces» (app-kstars)"
 
 {\bWeather\b}i
-valid msgstr="meteorològica?"
-hint="Es tradueix per «meteorològic/a» (app-kstars)"
-
-{\b\b}i
-valid msgstr=""
-hint="Es tradueix per «» (app-kstars)"
-
-{\b\b}i
-valid msgstr=""
-hint="Es tradueix per «» (app-kstars)"
+valid msgid="\bbad\sweather\b"
+valid msgstr="Meteorologia"
+valid msgstr="meteorològi(ca?|ques)"
+hint="Es tradueix per «Meteorologia, meteorològic/a/ques» (app-kstars)"
 
 {\b\b}i
 valid msgstr=""
@@ -1204,14 +1315,17 @@ hint="Es tradueix per «» (app-kstars)"
 ## correccions
 #
 
-[\b\b]i
-hint="Es tradueix per «» (app-kstars)"
+# [\b\b]i
+# hint="Es tradueix per «» (app-kstars)"
 
-[\bEdita\simatge...\b]i
-hint="Es tradueix per «Edita la imatge...» (app-kstars)"
+[\bde\sCDV\b]i
+hint="Es tradueix per «del CDV» (app-kstars)"
 
 [\bde\sKStars\b]i
 hint="Es tradueix per «del KStars» (app-kstars)"
+
+[\bEdita\simatge...\b]i
+hint="Es tradueix per «Edita la imatge...» (app-kstars)"
 
 [\bS.estan\scarregant\simatges...\b]i
 hint="Es tradueix per «S'estan carregant les imatges...» (app-kstars)"
