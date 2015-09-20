@@ -1023,10 +1023,6 @@ hint="Es tradueix per «» (app-kstars)"
 ## GUI
 #
 
-{\b\b}i
-valid msgstr=""
-hint="Es tradueix per «» (app-kstars)"
-
 {\bAdaptive\sOptics\sunit\b}i
 valid msgstr="unitat d'òptica adaptativa"
 hint="Es tradueix per «unitat d'òptica adaptativa» (app-kstars)"
@@ -1034,6 +1030,15 @@ hint="Es tradueix per «unitat d'òptica adaptativa» (app-kstars)"
 {\bAlignment\b}i
 valid msgstr="alineació"
 hint="Es tradueix per «alineació» (app-kstars)"
+
+# https://ca.wikipedia.org/wiki/Altitud
+{\baltitude\b}i
+valid msgstr="altitud"
+hint="Es tradueix per «altitud» (app-kstars)"
+
+{\bAngle\svalue\b}i
+valid msgstr="Valor angular"
+hint="Es tradueix per «Valor angular» (app-kstars)"
 
 # https://ca.wikipedia.org/wiki/Minut_d'arc
 {\b(arcmin(utes?)?|minutes?(\sof)?\sarc)\b}i
@@ -1048,9 +1053,17 @@ hint="Es tradueix per «segon/s d'arc (Abreujament en anglès: arcsec, asec, as)
 
 # https://ca.wikipedia.org/wiki/Astrometria
 {\bAstrometry\b}i
+valid msgstr="fitxer de configuració de l'Astrometry"
 valid msgstr="astrometry\.net"
 valid msgstr="Astrometria"
 hint="Es tradueix per «Astrometria» (app-kstars)"
+
+# https://ca.wikipedia.org/wiki/Unitat_astron%C3%B2mica
+{\b(Astronomical\sUnits|AU)\b}i
+valid ctx="^City\sin\s"
+valid msgstr="unitats? astronòmi(ca|ques)"
+valid msgstr="\bUA\b"
+hint="Es tradueix per «unitat/s astronòmica/ques -UA-» (app-kstars)"
 
 # https://en.wikipedia.org/wiki/Dither
 # https://ca.wikipedia.org/wiki/Tramat_(informàtica)
@@ -1067,6 +1080,11 @@ hint="Es tradueix per «enfocament automàtic, enfocant automàticament» (app-k
 valid msgstr="guiatge automàtic"
 hint="Es tradueix per «guiatge automàtic» (app-kstars)"
 
+# https://ca.wikipedia.org/wiki/Azimut
+{\bazimuth\b}i
+valid msgstr="azimut"
+hint="Es tradueix per «azimut» (app-kstars)"
+
 {\bbad\sweather\b}i
 valid msgstr="mal temps"
 hint="Es tradueix per «mal temps» (app-kstars)"
@@ -1082,6 +1100,11 @@ hint="Es tradueix per «calibratge» (app-kstars)"
 {\bcardinal\scompass\b}i
 valid msgstr="punts? cardinals?"
 hint="Es tradueix per «punt/s cardinal/s» (app-kstars)"
+
+{\bClusters?\b}i
+valid msgstr="\bStar\sClusters?\b"
+valid msgstr="Clústers?"
+hint="Es tradueix per «Clúster/s» (app-kstars)"
 
 {\bcolor\sscheme\b}i
 valid msgstr="esquema de colors"
@@ -1104,10 +1127,15 @@ hint="Es tradueix per «punt/s cardinal/s» (app-kstars)"
 valid msgstr="constel·lació"
 hint="Es tradueix per «constel·lació» (app-kstars)"
 
+{\bdawn\b}i
+valid msgstr="\balba\b"
+valid msgstr="sortida del Sol"
+hint="Es tradueix per «alba, sortida del Sol» (app-kstars)"
+
 # https://ca.wikipedia.org/wiki/Declinació_(astronomia)
-{\bDEC\b}i
-valid msgstr="\bDEC\b"
-hint="Es tradueix per «DEC -declinació-» (app-kstars)"
+{\bDec\b}
+valid msgstr="\bDec\b"
+hint="Es tradueix per «Dec -declinació-» (app-kstars)"
 
 {\bDeep.?Sky\b}i
 valid msgid="\bDeep\sSky\sobjects?\b"
@@ -1128,6 +1156,16 @@ hint="Es tradueix per «grau/s (Abreujament en anglès: deg)» (app-kstars)"
 valid msgstr="Planetari per a l'escriptori"
 hint="Es tradueix per «Planetari per a l'escriptori» (app-kstars)"
 
+# https://ca.wikipedia.org/wiki/Cúpula
+{\bDome\b}i
+valid ctx="^City\sin\s"
+valid msgstr="Cúpula"
+hint="Es tradueix per «Cúpula» (app-kstars)"
+
+{\bdrive\b}i
+valid msgstr="controlador"
+hint="Es tradueix per «controlador» (app-kstars)"
+
 # https://ca.wikipedia.org/wiki/Eclíptica
 {\bEcliptic\b}i
 valid msgstr="Eclípti(ca|ques)"
@@ -1147,6 +1185,10 @@ hint="Es tradueix per «coordenades equatorial/s» (app-kstars)"
 valid msgstr="\bfov.dat\b"
 valid msgstr="\bCDV\b"
 hint="Es tradueix per «CDV -camp de visió-» (app-kstars)"
+
+{\bGuider\b}i
+valid msgstr="Sistema de guiat"
+hint="Es tradueix per «Sistema de guiat» (app-kstars)"
 
 {\bGuiding\b}i
 valid msgstr="guiatge"
@@ -1182,6 +1224,22 @@ hint="Es tradueix per «rètol informatiu» (app-kstars)"
 valid msgstr="no (és |ser(à|an) |són )?vàlid(a|es|s)?"
 hint="Es tradueix per «no és vàlid/a, no vàlid/a, no serà/an vàlida/es, no són vàlids/es» (app-kstars)"
 
+{\bjobs?\b}i
+valid msgstr="\btas(ca|ques)\b"
+hint="Es tradueix per «tasca/ques» (app-kstars)"
+
+{\b(Julian\sDay|JD)\b}i
+valid msgstr="\b(dia julià|DJ)\b"
+hint="Es tradueix per «dia julià, DJ» (app-kstars)"
+
+{\bLead\sTime\b}i
+valid msgstr="Termini de lliurament"
+hint="Es tradueix per «Termini de lliurament» (app-kstars)"
+
+{\b(Local\sTime|LT)\b}i
+valid msgstr="\b(temps local|TL)\b"
+hint="Es tradueix per «temps local, TL» (app-kstars)"
+
 {\bmarker\sfile\b}i
 valid msgstr="fitxer de marcadors"
 hint="Es tradueix per «fitxer de marcadors» (app-kstars)"
@@ -1206,12 +1264,22 @@ hint="Es tradueix per «mil·lisegon/s d'arc (Abreujament en anglès: mas)» (ap
 valid msgstr="Via làctia"
 hint="Es tradueix per «Via làctia» (app-kstars)"
 
+{\bmount\b}i
+valid ctx="^City\sin\s"
+valid msgstr="\bmuntura\b"
+hint="Es tradueix per «muntura» (app-kstars)"
+
+{\bNebulaes?\b}i
+valid msgstr="Nebuloses"
+hint="Es tradueix per «Nebuloses» (app-kstars)"
+
 # https://ca.wikipedia.org/wiki/New_General_Catalogue
 {\bNGC\sObjects?\b}i
 valid msgstr="Objectes? del NGC"
 hint="Es tradueix per «Objecte/s del NGC» (app-kstars)"
 
 {\bobservation\sjob\b}i
+valid msgstr="una tasca (a|de) la llista d'observació"
 valid msgstr="tasca d'observació"
 hint="Es tradueix per «tasca d'observació» (app-kstars)"
 
@@ -1219,16 +1287,46 @@ hint="Es tradueix per «tasca d'observació» (app-kstars)"
 valid msgstr="llista d'observació"
 hint="Es tradueix per «llista d'observació» (app-kstars)"
 
+{\bobservation\stime\b}i
+valid msgstr="hora d'observació"
+hint="Es tradueix per «hora d'observació» (app-kstars)"
+
 {\bObservatory\b}i
 valid ctx="^City\sin\s"
 valid msgstr="Observatori"
 hint="Es tradueix per «Observatori» (app-kstars)"
+
+{\bParallax\b}i
+valid msgstr="paral·laxi"
+hint="Es tradueix per «paral·laxi» (app-kstars)"
+
+{\bpark\b}i
+valid ctx="^City\sin\s"
+valid msgstr="aparcar?"
+hint="Es tradueix per «aparca/r» (app-kstars)"
+
+{\bParking\b}i
+valid msgstr="S'aparcarà"
+valid msgstr="aparcant"
+hint="Es tradueix per «aparcant, S'aparcarà» (app-kstars)"
 
 # https://ca.wikipedia.org/wiki/Ascensió_recta
 {\bRA\b}i
 valid ctx="^City\sin\s"
 valid msgstr="\bAR\b"
 hint="Es tradueix per «AR -ascensió recta-» (app-kstars)"
+
+{\brises?\b}i
+valid msgid="\brises\sat\b"
+valid msgstr="per sota l'horitzó"
+valid msgstr="\bsortida\b"
+valid msgstr="a la qual surt"
+hint="Es tradueix per «sortida, a la qual surt» (app-kstars)"
+
+{\brises\sat\b}i
+valid msgstr="\bsurt a les\b"
+valid msgstr="\bSortida a les\b"
+hint="Es tradueix per «Sortida a les, surt a les» (app-kstars)"
 
 {\bRoute\b}i
 valid msgstr="Ruta"
@@ -1238,13 +1336,43 @@ hint="Es tradueix per «Ruta» (app-kstars)"
 valid msgstr="Satèl·lits?"
 hint="Es tradueix per «Satèl·lit/s» (app-kstars)"
 
+{\bscheduled\b}i
+valid msgstr="planificació"
+valid msgstr="planifica(t|da)"
+hint="Es tradueix per «planificació, planificat/da» (app-kstars)"
+
+{\bscheduler\b}i
+valid msgid="scheduler\sjobs?"
+valid msgstr="planificador"
+hint="Es tradueix per «planificador» (app-kstars)"
+
+{\bscheduler\sjobs?\b}i
+valid msgstr="tas(ca|ques) planificad(a|es)"
+hint="Es tradueix per «tasca/ques planificada/es» (app-kstars)"
+
+{\bsets\sat\b}i
+valid msgstr="\bes pon a les\b"
+valid msgstr="\bposta a les\b"
+hint="Es tradueix per «es pon a les, posta a les» (app-kstars)"
+
 {\bSetup\sWizard\b}i
 valid msgstr="Assistent d'engegada"
 hint="Es tradueix per «Assistent d'engegada» (app-kstars)"
 
-{\bSolver\b}i
-valid msgstr="Solucionador"
-hint="Es tradueix per «Solucionador» (app-kstars)"
+{\bshutdown\b}i
+valid msgstr="Tancament"
+hint="Es tradueix per «Tancament» (app-kstars)"
+
+{\bshutter\b}i
+valid msgstr="obturador"
+hint="Es tradueix per «obturador» (app-kstars)"
+
+{\b(Sidereal\sTime|ST)\b}i
+valid ctx="^City\sin\s"
+valid ctx="^Country\sname"
+valid ctx="^Region.state\sin\s"
+valid msgstr="\b(temps sideral|TS)\b"
+hint="Es tradueix per «temps sideral, TS» (app-kstars)"
 
 {\bSky\b}i
 valid msgid="\bDeep\sSky\b"
@@ -1274,18 +1402,107 @@ valid msgid="\bDeep.?Sky\sobjects?\b"
 valid msgstr="objectes? celestes?"
 hint="Es tradueix per «objecte/s celeste/s» (app-kstars)"
 
+{\bsleep\smode\b}i
+valid msgstr="mode de repòs"
+hint="Es tradueix per «mode de repòs» (app-kstars)"
+
 {\bslew\b}i
-valid msgstr="orienta(ció|r)?"
-hint="Es tradueix per «orienta/ció/r» (app-kstars)"
+valid msgstr="\bgir(a)?\b"
+hint="Es tradueix per «gir/a» (app-kstars)"
+
+{\bSlewing\b}i
+valid msgstr="Està girant"
+valid msgstr="\bgir\b"
+hint="Es tradueix per «Està girant» (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» (app-kstars)"
+
+{\bSolver\b}i
+valid msgstr="Solucionador"
+hint="Es tradueix per «Solucionador» (app-kstars)"
+
+{\bStar\sClusters?\b}i
+valid msgstr="Clústers? d'estrelles"
+hint="Es tradueix per «Clúster/s d'estrelles» (app-kstars)"
 
 # https://en.wikipedia.org/wiki/Star_hopping
 {\bStar.?Hop\b}i
 valid msgstr="estrelles encadenades"
 hint="Es tradueix per «estrelles encadenades» (app-kstars)"
 
-{\bTarget\b}i
-valid msgstr="objectiu"
-hint="Es tradueix per «objectiu» (app-kstars)"
+{\bTargets?\b}i
+valid msgstr="objectius?"
+hint="Es tradueix per «objectiu/s» (app-kstars)"
 
 # Telrad: redirigit a
 # https://en.wikipedia.org/wiki/Reflector_sight
@@ -1297,19 +1514,25 @@ hint="Es tradueix per «visor del punt vermell» (app-kstars)"
 valid msgstr="Tra(ça|ces)"
 hint="Es tradueix per «Traça/ces» (app-kstars)"
 
+{\bTransits?\b}i
+valid msgstr="transita"
+valid msgstr="trànsit"
+hint="Es tradueix per «trànsit, transita» (app-kstars)"
+
+{\b(Universal\sTime|UT)\b}i
+valid msgstr="\b(temps universal|TU)\b"
+hint="Es tradueix per «temps universal, TU» (app-kstars)"
+
+{\bunpark\b}i
+valid msgstr="desaparcar?"
+hint="Es tradueix per «desaparca/r» (app-kstars)"
+
 {\bWeather\b}i
 valid msgid="\bbad\sweather\b"
 valid msgstr="Meteorologia"
 valid msgstr="meteorològi(ca?|ques)"
-hint="Es tradueix per «Meteorologia, meteorològic/a/ques» (app-kstars)"
-
-{\b\b}i
-valid msgstr=""
-hint="Es tradueix per «» (app-kstars)"
-
-{\b\b}i
-valid msgstr=""
-hint="Es tradueix per «» (app-kstars)"
+valid msgstr="Temps atmosfèric"
+hint="Es tradueix per «Meteorologia, meteorològic/a/ques, Temps atmosfèric» (app-kstars)"
 
 #
 ## correccions
