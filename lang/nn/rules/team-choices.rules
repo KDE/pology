@@ -302,9 +302,13 @@ valid after="for "
 id="skru"
 hint="skru på/av → slå på/av"
 
-{touchpad}i
+{(touch|track)pad}i
 id="styreplate"
 valid msgstr="styreplat"
+hint="touchpad → styreplate (ikkje styrepute, peikeplate e.l.)"
+
+[styreput|peikeplat]i
+id="styreplate2"
 hint="touchpad → styreplate (ikkje styrepute, peikeplate e.l.)"
 
 # End of rules
