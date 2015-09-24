@@ -85,6 +85,7 @@ valid msgstr="CAPRICORN"
 hint="Es tradueix per «CAPRICORN» (app-kstars)"
 
 {\bCARINA\b}i
+valid msgid="Eta Carina, Keyhole Nebula"
 valid msgstr="QUILLA"
 hint="Es tradueix per «QUILLA» (app-kstars)"
 
@@ -564,6 +565,7 @@ valid msgstr="ARSENAL"
 hint="Es tradueix per «ARSENAL» (app-kstars)"
 
 {\bHOOK\b}i
+valid msgid="HOOK FOR DRESS"
 valid msgstr="GANXO"
 hint="Es tradueix per «GANXO» (app-kstars)"
 
@@ -1023,6 +1025,10 @@ hint="Es tradueix per «» (app-kstars)"
 ## GUI
 #
 
+{\bAborting\.\.\.\b}i
+valid msgstr="S'està interrompent\.\.\."
+hint="Es tradueix per «S'està interrompent...» (app-kstars)"
+
 {\bAdaptive\sOptics\sunit\b}i
 valid msgstr="unitat d'òptica adaptativa"
 hint="Es tradueix per «unitat d'òptica adaptativa» (app-kstars)"
@@ -1050,6 +1056,10 @@ hint="Es tradueix per «minut/s d'arc, min. d'arc (Abreujament en anglès: arcmi
 {\b(arcsec(onds?)?seconds?(\sof)?\sarc)\b}i
 valid msgstr="segons? d'arc"
 hint="Es tradueix per «segon/s d'arc (Abreujament en anglès: arcsec, asec, as)» (app-kstars)"
+
+{\bAre\syou\ssure\syou\swant\b}
+valid msgstr="Segur que voleu"
+hint="Es tradueix per «Segur que voleu» (app-kstars)"
 
 # https://ca.wikipedia.org/wiki/Astrometria
 {\bAstrometry\b}i
@@ -1237,6 +1247,7 @@ valid msgstr="Termini de lliurament"
 hint="Es tradueix per «Termini de lliurament» (app-kstars)"
 
 {\b(Local\sTime|LT)\b}i
+valid msgstr="&lt;"
 valid msgstr="\b(temps local|TL)\b"
 hint="Es tradueix per «temps local, TL» (app-kstars)"
 
@@ -1307,8 +1318,8 @@ hint="Es tradueix per «aparca/r» (app-kstars)"
 
 {\bParking\b}i
 valid msgstr="S'aparcarà"
-valid msgstr="aparcant"
-hint="Es tradueix per «aparcant, S'aparcarà» (app-kstars)"
+valid msgstr="aparca(nt|r)"
+hint="Es tradueix per «aparcant, S'aparcarà, aparcar» (app-kstars)"
 
 # https://ca.wikipedia.org/wiki/Ascensió_recta
 {\bRA\b}i
@@ -1320,8 +1331,8 @@ hint="Es tradueix per «AR -ascensió recta-» (app-kstars)"
 valid msgid="\brises\sat\b"
 valid msgstr="per sota l'horitzó"
 valid msgstr="\bsortida\b"
-valid msgstr="a la qual surt"
-hint="Es tradueix per «sortida, a la qual surt» (app-kstars)"
+valid msgstr="\bsurt\b"
+hint="Es tradueix per «sortida, surt» (app-kstars)"
 
 {\brises\sat\b}i
 valid msgstr="\bsurt a les\b"
@@ -1376,6 +1387,9 @@ hint="Es tradueix per «temps sideral, TS» (app-kstars)"
 
 {\bSky\b}i
 valid msgid="\bDeep\sSky\b"
+valid msgid="FOWL OF SKY"
+valid msgid="JAVELIN OF SKY"
+valid msgid="SHRINE OF SKY"
 valid msgid="\bSky\sChart\b"
 valid msgid="\bsky\sdisplay\b"
 valid msgid="\bsky\smap\b"
@@ -1411,13 +1425,15 @@ valid msgstr="\bgir(a)?\b"
 hint="Es tradueix per «gir/a» (app-kstars)"
 
 {\bSlewing\b}i
+valid msgid="wh(en|ile) slewing"
+valid msgid="slewing mode"
 valid msgstr="Està girant"
 valid msgstr="\bgir\b"
 hint="Es tradueix per «Està girant» (app-kstars)"
 
-{\b\b}i
-valid msgstr=""
-hint="Es tradueix per «» (app-kstars)"
+{\bslewing\smode\b}i
+valid msgstr="mode de transició"
+hint="Es tradueix per «mode de transició» (app-kstars)"
 
 {\b\b}i
 valid msgstr=""
@@ -1529,10 +1545,59 @@ hint="Es tradueix per «desaparca/r» (app-kstars)"
 
 {\bWeather\b}i
 valid msgid="\bbad\sweather\b"
+valid msgid="EMPEROR'S GOD OF WEATHER"
 valid msgstr="Meteorologia"
 valid msgstr="meteorològi(ca?|ques)"
 valid msgstr="Temps atmosfèric"
 hint="Es tradueix per «Meteorologia, meteorològic/a/ques, Temps atmosfèric» (app-kstars)"
+
+{\bwhen\sslewing\b}i
+valid msgstr="durant la transició"
+hint="Es tradueix per «durant la transició» (app-kstars)"
+
+{\bwhile\sslewing\b}i
+valid msgstr="durant la transició"
+hint="Es tradueix per «durant la transició» (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» (app-kstars)"
 
 #
 ## correccions
