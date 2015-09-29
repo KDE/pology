@@ -100,12 +100,15 @@ hint="No ponga el signo de dos puntos después de una preposición"
 
 [(?u)[^xyzXYZ\d]\:[^~<>«»;.\"\'\n\\]+[^xyzXYZ\d]\:]i
 id="ty-3-mas-de-un-signo-de-dos-puntos"
+valid msgstr="\:puerto"
+valid msgstr="\:(min|seg)\w*"
 hint="No ponga más de un signo de dos puntos en la misma frase"
 
 [(?<=\s);]
 id="ty-3-sobra-espacio-antes-punto-y-coma"
 valid ctx="Numbers and characters"
 valid ctx="CSV separator"
+valid msgid=";;" msgstr=";;"
 hint="No ponga un espacio antes del signo de punto y coma"
 
 [;(?!\s)]
@@ -119,6 +122,7 @@ valid after="\bbold" before="'"   # CSS
 valid before="~"
 valid before="$"
 valid ctx="Keywords"
+valid msgid=";;" msgstr=";;"
 hint="Ponga un espacio después del signo de punto y coma"
 
 [(?<=\s)\!]
@@ -126,6 +130,7 @@ id="ty-3-sobra-espacio-antes-cierre-admiracion"
 valid ctx="Numbers and characters"
 valid ctx="CSV separator"
 valid before="\w"
+valid msgid="\!\!" msgstr="\!\!"
 hint="No ponga un espacio antes del signo de cierre de admiración"
 
 [\!(?!\s)]
@@ -136,6 +141,9 @@ valid ctx="CSV separator"
 valid before="~"
 valid before="$"
 valid before="\)"
+valid msgid="\!\!" msgstr="\!\!"
+valid msgid="\*\!\*" msgstr="\*\!\*"
+valid msgid="#\!\/" msgstr="#\!\/"
 hint="Ponga un espacio después del signo de cierre de admiración"
 
 [(?s)^[^¡]*?\!]
@@ -143,6 +151,7 @@ id="ty-3-falta-apertura-admiracion"
 validGroup beforePunctuation
 valid ctx="Numbers and characters"
 valid ctx="CSV separator"
+valid msgid="\!\¡" msgstr="\!\!"
 hint="Abra la admiración (deben ir emparejadas)"
 
 [(?s)\![^¡]+?\!]
@@ -151,6 +160,7 @@ id="ty-3-falta-apertura-admiracion-varias"
 valid ctx="Numbers and characters"
 valid ctx="CSV separator"
 valid msgstr="The\sBat\!"
+valid msgid="\!\¡" msgstr="\!\!"
 hint="Abra la admiración (deben ir emparejadas)"
 
 [(?s)¡(?!.*?\!)]

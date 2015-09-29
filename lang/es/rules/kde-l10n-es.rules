@@ -1694,6 +1694,7 @@ valid msgstr="máquina"
 valid msgstr="equipo" before="\slocal"
 valid msgstr="hosped(ar|a|e)"
 valid msgstr="aloj(ar|a|e)"
+valid msgstr="HOST"
 hint="«Host» se traduce como «Servidor» (ver glosario)"
 
 {\bhosts\b}i
@@ -3157,6 +3158,7 @@ valid msgstr="enviará" after="will\s(\w+\s)?"
 valid msgstr="envió" after="did\s(\w+\s)?"
 valid msgstr="ha\senviado" after="has\sbeen\s"
 valid msgstr="dev(olver|uelve|vuelva)" before=".*\sback"
+valid msgstr="SEND"
 hint="«Send» se traduce como «Enviar» o «Envío» (ver glosario)"
 
 {\bsending\b}i
