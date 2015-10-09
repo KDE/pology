@@ -235,6 +235,7 @@ valid msgid="Your emails"
 valid after="\d+\s?" before="\s?\d+"
 valid before="~"
 valid before="$"
+valid after="\(" span=",\)"
 hint="Ponga un espacio de separación después del signo de coma"
 
 [»(?!\s)]

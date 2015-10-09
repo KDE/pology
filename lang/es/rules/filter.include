@@ -26,7 +26,10 @@ addFilterRegex match="\%[\w.-]+(\%[\w.-]*)*" repl="~" on="pmsgid,pmsgstr"
 addFilterRegex match="\:[\w.-]+\:" repl="~" on="pmsgid,pmsgstr"
 
 # Remove email addresses with "at"
-addFilterRegex match="\(([\w.-]+\s)+?at(\s[\w.-]+)+\)" repl="~" on="pmsgid,pmsgstr"
+addFilterRegex match="\(([\w.*-]+\s)+?at(\s[\w.*-]+)+\)" repl="~" on="pmsgid,pmsgstr"
+
+# Remove email addresses with "@"
+addFilterRegex match="[\w.*-]+@[\w.*-]+" repl="~" on="pmsgid,pmsgstr"
 
 # Remove functions calls
 addFilterRegex match="([\w.-]+\:\:)*[\w.-]+\(.*?\)" repl="~" on="pmsgid,pmsgstr"

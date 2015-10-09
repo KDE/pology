@@ -759,7 +759,7 @@ hint="No utilice expresiones del tipo «los ciudadanos y las ciudadanas» (error
 id="gr-2-duplicidad-genero-4"
 hint="No utilice expresiones del tipo «las ciudadanas y los ciudadanos» (error gramatical)"
 
-[(?u)\b\w+@\w{1,3}\b]i
+[(?u)\b\w+@[\w]{1,3}\b]i
 id="gr-1-arroba-genero-neutro-1"
 hint="No utilice la arroba para evitar el género, p.ej. «ciudadan@s» (error gramatical)"
 
@@ -1546,27 +1546,27 @@ hint="Monosílabo que lleva tilde al final de frase «de/el/mas/mi/que/se/si/te/
 id="gr-1-haber-antes-de-gerundio"
 hint="El verbo «haber» no puede aparecer seguido de gerundio (error gramatical)"
 
-[(?u)\besta\s\w+?ado\b]i
+[(?u)\besta\s\w+?(ado|edo|ido)\b]i
 id="gr-1-esta-sin-tilde-antes-participio"
-hint="«Esta» se escribe como «Está» antes de participio (error gramatical)"
+hint="«Esta» se escribe como «Está» antes de participio en masculino(error gramatical)"
 
 [(?u)\besta\s\w+?(ando|iendo|yendo)\b]i
 id="gr-1-esta-sin-tilde-antes-gerundio"
 hint="«Esta» se escribe como «Está» antes de gerundio (error gramatical)"
 
-[(?u)\buna\s\w+?(ado|ido)\b]i
+[(?u)\buna\s\w+?(ado|edo|ido)\b]i
 id="gr-1-una-antes-participio-masculino"
 hint="Se ha encontrado «Una» seguido de participio en masculino (error gramatical)"
 
-[(?u)\bun\s\w+?(ada|ida)\b]i
+[(?u)\bun\s\w+?(ada|eda|ida)\b]i
 id="gr-1-un-antes-participio-femenino"
 hint="Se ha encontrado «Un» seguido de participio en femenino (error gramatical)"
 
-[(?u)\ba\s\w+?ad[oa]\b]i
+[(?u)\ba\s\w+?(ado|edo|ido)\b]i
 id="gr-1-a-en-lugar-de-ha-participio"
 valid span="\ba\s(cada|nada|lado|demasiad[ao]|predeterminad[ao])\b"
 valid after="(huel\w+|hol\w+|sab\w+|gust\w+|camb\w+)\s(\w+\s){0,2}"
-hint="Se ha encontrado «A» en lugar de «Ha» antes de un participio (error gramatical)"
+hint="Se ha encontrado «A» en lugar de «Ha» antes de un participio en masculino (error gramatical)"
 
 [(?u)\be\s\w+?(ad[oa]|id[oa])\b]i
 id="gr-1-e-sin-hache-antes-participio"
@@ -1624,15 +1624,15 @@ hint="«Haber echo» se escribe como «Haber hecho» (error gramatical)"
 id="gr-1-hecho-a-infinitivo"
 hint="«Hecho a + infinitivo)» se escribe como «Echo a + infinitivo» (error gramatical)"
 
-[(?u)\ba\sver\s\w+?(ido)\b]i
+[(?u)\ba\sver\s\w+?(ad[oa]|id[oa])\b]i
 id="gr-1-a-ver-participio"
 hint="«A ver + participio» se escribe como «Haber + participio» (error gramatical)"
 
-[(?u)\baya\s\w+?(ido)\b]i
+[(?u)\baya\s\w+?(ad[oa]|id[oa])\b]i
 id="gr-1-aya-participio"
 hint="«Aya + participio» se escribe como «Haya + participio» (error gramatical)"
 
-[(?u)\bhalla\s\w+?(ido)\b]i
+[(?u)\bhalla\s\w+?(ad[oa]|id[oa])\b]i
 id="gr-1-halla-participio"
 hint="«Halla + participio» se escribe como «Haya + participio» (error gramatical)"
 
@@ -1645,7 +1645,7 @@ hint="«De + futuro» se escribe como «Se + futuro» (error gramatical)"
 id="gr-1-esta-seguido-participio"
 hint="«Esta + participio» se escribe como «Está + participio» (error gramatical)"
 
-[(?u)\beste\s\w+?(ido)\b]i
+[(?u)\beste\s\w+?(ada|eda|ida)\b]i
 id="gr-1-este-seguido-participio"
 valid span="este\scontenido"
 hint="«Este + participio» se escribe como «Está + participio» (error gramatical)"
@@ -1713,8 +1713,9 @@ valid before="\s[A-Z]\w+"
 valid before="\s~"
 hint="«Hasta que» debe ir seguido de subjuntivo (error gramatical)"
 
-[(?u)\bhaz\s\w+?(ido)\b]i
+[(?u)\bhaz\s\w+?(ad[oa]|id[oa])\b]i
 id="gr-1-haz-seguido-participio"
+valid span="haz\s(dividido|partido)"
 hint="«Haz + participio» se escribe como «Has + participio» (error gramatical)"
 
 [(?u)\bhaz\sde\s\w+?(ar|er|ir)\b]i
@@ -1941,7 +1942,7 @@ hint="«En» seguido de día del mes es incorrecto, debe usuarse «El» o «A» 
 
 [(?u)\bpar\b]i
 id="gr-2-par-en-vez-de-para"
-valid after="(el|un|que|mi|tu|su)\s"
+valid after="(el|un|qu[eé]|mi|tu|su|vaya)\s"
 valid before="\sde"
 valid after="número\s(\w+\s)*"
 valid before=".*?impar"

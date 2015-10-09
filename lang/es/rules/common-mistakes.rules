@@ -709,6 +709,10 @@ hint="«El porque» se escribe como «El porqué». (error frecuente)"
 id="cm-2-el-que"
 hint="«El que,» se escribe como «El qué,» (error frecuente: solecismo)"
 
+[\bel\ssi,\b]i
+id="cm-2-el-si"
+hint="«El si,» se escribe como «El sí,» (error frecuente: solecismo)"
+
 [\bel\stermino\b]i
 id="cm-1-el-termino-sin-tilde"
 hint="«El termino» se escribe como «El término». (error frecuente)"
@@ -1061,6 +1065,10 @@ hint="«BIOS» es de género masculino (error frecuente)"
 id="cm-1-url-femenino"
 hint="«URL» es de género masculino (error frecuente)"
 
+[\bla\shacia\b]i
+id="cm-2-la-hacia"
+hint="«La hacia» se escribe como «La hacía» (error frecuente)"
+
 [\bla\vaya\b]i
 id="cm-2-la-vaya"
 hint="«La vaya» se escribe como «La valla/baya» (error frecuente)"
@@ -1080,6 +1088,10 @@ hint="«Las vayas» se escribe como «Las vallas/bayas» (error frecuente)"
 [\blas\sy\slos\b]i
 id="cm-1-las-y-los"
 hint="«Las y los» se escribe como «Los». (error frecuente)"
+
+[\ble\shacia\b]i
+id="cm-2-le-hacia"
+hint="«Le hacia» se escribe como «Le hacía» (error frecuente)"
 
 [\bliteratura\s(sobre|en)\b]i
 id="cm-1-literatura-sobre"
@@ -1278,6 +1290,10 @@ hint="«Para cuál» se escribe sin tilde (error frecuente)"
 id="cm-1-para-mostrase"
 hint="«Para mostrase» se escribe como «Para mostrarse» (error frecuente)"
 
+[\bpara\ssi\b]i
+id="cm-2-para-si"
+hint="«Para si» se escribe como «Para sí» (error frecuente)"
+
 [\bpara\stenga\b]i
 id="cm-2-para-tenga"
 hint="«Para tenga» se escribe como «Que tenga» (error frecuente)"
@@ -1364,6 +1380,7 @@ hint="«Punto y final» se escribe como «Punto final» (error frecuente)"
 
 [\b(pueden|podían|podrán)\shaber\b]i
 id="cm-2-pueden-haber"
+valid before="\s\w+(ad[oa]|id[oa])"
 hint="«Pueden haber» se escribe como «Puede haber» (error frecuente)"
 
 [\bpuntos\sclaves\b]i

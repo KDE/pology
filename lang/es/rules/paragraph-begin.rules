@@ -47,6 +47,8 @@ hint="Compruebe el uso de mayúscula posterior a «<\p>» (falta en la traducci�
 id="pb-2-falta-minuscula-inicio-parrafo"
 valid msgid="^[\s\(\"\'\:.*«¡¿_-]*[a-z0-9]+[A-Z.]"
 valid msgid="^[\s\(\"\'\:.*«¡¿_-]*[a-z0-9]+?(d|rc)\b"
+valid msgid="^[\s\(\"\'\:.*«¡¿_-]*[^aeiou]{2,}"
+valid msgid="^[\s\(\"\'\:.*«¡¿_-]*lib\w+"
 valid msgstr="(?u)^[\s\(\"\'\:.*«¡¿_-]*?[a-záéíóúäëïöüâêîôûàèìòù©«0-9¿¡&%<_\(]"
 hint="Compruebe el uso de minúscula al principio del párrafo (falta en la traducción)."
 
@@ -54,6 +56,8 @@ hint="Compruebe el uso de minúscula al principio del párrafo (falta en la trad
 id="pb-2-falta-minuscula-inicio-nueva-linea"
 valid msgid="\n[\s\(\"\'\:.*«¡¿_-]*[a-z0-9]+[A-Z.]"
 valid msgid="\n[\s\(\"\'\:.*«¡¿_-]*[a-z0-9]+?(d|rc)\b"
+valid msgid="\n[\s\(\"\'\:.*«¡¿_-]*[^aeiou]{2,}"
+valid msgid="\n[\s\(\"\'\:.*«¡¿_-]*lib\w+"
 valid msgstr="(?u)\n[\s\(\"\'\:.*«¡¿_-]*?[a-záéíóúäëïöüâêîôûàèìòù©«0-9¿¡&%<_\(]"
 hint="Compruebe el uso de minúscula posterior a «\n» (falta en la traducción)."
 
@@ -61,6 +65,8 @@ hint="Compruebe el uso de minúscula posterior a «\n» (falta en la traducción
 id="pb-2-falta-minuscula-inicio-nuevo-parrafo"
 valid msgid="\<p\>[\s\(\"\'\:.*«¡¿_-]*[a-z0-9]+[A-Z.]"
 valid msgid="\<p\>[\s\(\"\'\:.*«¡¿_-]*[a-z0-9]+?(d|rc)\b"
+valid msgid="\<p\>[\s\(\"\'\:.*«¡¿_-]*[^aeiou]{2,}"
+valid msgid="\<p\>[\s\(\"\'\:.*«¡¿_-]*lib\w+"
 valid msgstr="(?u)\<p\>[\s\(\"\'\:.*«¡¿_-]*?[a-záéíóúäëïöüâêîôûàèìòù©«0-9¿¡&%<_\(]"
 hint="Compruebe el uso de minúscula posterior a «<p>» (falta en la traducción)."
 
@@ -84,6 +90,8 @@ id="pb-2-sobra-mayuscula-inicio-parrafo"
 valid msgid="^[\s\(\"\'\:.*«¡¿_-]*?[a-z0-9]+[A-Z.]"
 valid msgid="^[\s\(\"\'\:.*«¡¿_-]*?[a-z0-9]+?(d|rc)"
 valid msgid="^[\s\(\"\'\:.*«¡¿_-]*?[A-ZÁÉÍÓÚÄËÏÖÜÂÊÎÔÛÀÈÌÒÙĀ©«0-9&%<_\(]"
+valid msgid="^[\s\(\"\'\:.*«¡¿_-]*?[^aeiou]{2,}"
+valid msgid="^[\s\(\"\'\:.*«¡¿_-]*?lib\w+"
 hint="Compruebe el uso de mayúscula al principio del párrafo (sobra en la traducción)"
 
 [(?u)\n[\s\(\"\'\:.*«¡¿_-]*[A-ZÁÉÍÓÚÄËÏÖÜÂÊÎÔÛÀÈÌÒÙĀ]]
@@ -91,6 +99,8 @@ id="pb-2-sobra-mayuscula-inicio-nueva-linea"
 valid msgid="\n[\s\(\"\'\:.*«¡¿_-]*?[a-z0-9]+[A-Z.]"
 valid msgid="\n[\s\(\"\'\:.*«¡¿_-]*?[a-z0-9]+?(d|rc)"
 valid msgid="\n[\s\(\"\'\:.*«¡¿_-]*?[A-ZÁÉÍÓÚÄËÏÖÜÂÊÎÔÛÀÈÌÒÙĀ©«0-9&%<_\(]"
+valid msgid="\n[\s\(\"\'\:.*«¡¿_-]*?[^aeiou]{2,}"
+valid msgid="\n[\s\(\"\'\:.*«¡¿_-]*?lib\w+"
 hint="Compruebe el uso de mayúscula posterior a «\n» (sobra en la traducción)."
 
 [(?u)\<p\>[\s\(\"\'\:.*«¡¿_-]*[A-ZÁÉÍÓÚÄËÏÖÜÂÊÎÔÛÚÀÈÌÒÙĀ]]
@@ -98,6 +108,8 @@ id="pb-2-sobra-mayuscula-inicio-nuevo-parrafo"
 valid msgid="\<p\>[\s\(\"\'\:.*«¡¿_-]*?[a-z0-9]+[A-Z.]"
 valid msgid="\<p\>[\s\(\"\'\:.*«¡¿_-]*?[a-z0-9]+?(d|rc)"
 valid msgid="\<p\>[\s\(\"\'\:.*«¡¿_-]*?[A-ZÁÉÍÓÚÄËÏÖÜÂÊÎÔÛÀÈÌÒÙĀ©«0-9&%<_\(]"
+valid msgid="\<p\>[\s\(\"\'\:.*«¡¿_-]*?[^aeiou]{2,}"
+valid msgid="\<p\>[\s\(\"\'\:.*«¡¿_-]*?lib\w+"
 hint="Compruebe el uso de mayúscula posterior a «<p>» (sobra en la traducción)."
 
 [(?u)^[\s\(\"\'\:.*«¡¿_-]*[a-záéíóú]]

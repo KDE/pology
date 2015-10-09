@@ -597,6 +597,7 @@ id="ui-2-widget-desktop"
 valid msgstr="escritorio"
 valid msgstr="Desktop" after="[A-Z]\w*\s"
 valid after="\."
+valid after="\w+\-"
 valid before="\sBus"
 hint="«Desktop» se traduce como «Escritorio» (regla de traducción de elementos gráficos)"
 
