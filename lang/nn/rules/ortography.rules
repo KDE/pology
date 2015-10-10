@@ -126,6 +126,7 @@ valid span="Sitter" after="Harald "
 valid span="Saudi" before="-Arabia"
 valid span="pH-verdi"
 valid span="\b[Kk]rets(en|ar|ane)?\b"
+valid msgstr="^©"
 
 *hook name="nn:exclusion/exclude-forms~['imperativfeil']" on="msgstr"
 id="imperativending"
