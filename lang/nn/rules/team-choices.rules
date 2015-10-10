@@ -195,10 +195,10 @@ hint="fellesskap reknar me som inkjekjønn"
 [medlemskapen|ein medlemskap]i
 hint="medlemskap reknar me som inkjekjønn"
 
-[pakk(a|er|ene)\b|ei pakke]i
+[pakk(a|er|ene)\b|\bei pakke\b]i
 hint="pakke reknar me som hankjønn"
 
-[tekst(a|er|ene)\b|ei tekst]i
+[tekst(a|er|ene)\b|\bei tekst\b]i
 hint="tekst reknar me som hankjønn"
 
 [(vis|tolk)ning]i
