@@ -99,6 +99,9 @@ hint="virituell → virtuell"
 [ved sidan av]i
 hint="ved sidan av → ved sida av"
 
+[førde?\b]
+hint="utførd, overførd etc. → utført, overført etc."
+
 *hook name="nn:exclusion/exclude-forms~['klammeformer']" on="msgstr"
 id="klammeform"
 hint="Bruk av eit ord som er klammeform eller unormert."
