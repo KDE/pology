@@ -9,7 +9,7 @@ Make some comparations between the translation and the original text.
 
 import re
 import string
-import pology.external.pyaspell as A
+import enchant
 from pology import _, n_, split
 
 
@@ -181,14 +181,12 @@ def test_if_not_translated (msg, cat):
              for word in split.proper_words(msgid, markup=True, accels=['&']):
                 if _valid_word.match(word) and not _capital_word.match(word):
                     word = word.encode("utf-8")
-                    e = A.Aspell(("lang", "en")) #, ("encoding", "utf-8"))
-		    l = A.Aspell(("lang", "es")) #, ("encoding", "utf-8"))
-                    if e.check(word) and not l.check(word):
-                        e.close()
-                        l.close()
+                    if not e in locals():
+                        e = enchant.Dict("en")
+                    if not l in locals():
+                        l = enchant.DictWithPWL("es","~/svnroot/pology/lang/es/spell/dict.aspell")
+		    if e.check(word) and not l.check(word):
                         return [("msgstr", 0, [(0, 0, u'El párrafo parece no estar traducido')])]
-		    e.close()
-		    l.close()
 
     return []
 
