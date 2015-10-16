@@ -14,6 +14,7 @@ AGC: АГЦ|-, АГЦ|>, _пр=automatic gain control
 AGP: АГП|-, АГП|>
 AI: ВИ|*, ВИ|>, _род!=ж, _пр=вештачка интелигенција
     @иј: _пр=вјештачка интелигенција
+AMR: АМР|-, АМР|>
 AP: АП|-, АП|-ов, АП|>, _пр=access point
 APG: АГЛ|-, АГЛ|-ов, АГЛ|>, _пр=аутоматски генератор листи нумера, _про=automatic playlist generator
 API: АП|И-, АПИ|>
@@ -282,6 +283,8 @@ NTBS: НТБС|-, НТБС|>, _пр=null-terminated byte string
 NTLM: НТЛМ|-, НТЛМ|>
 NTLMv2: НЛТМв2|*, НЛТМв2|>, _род!=м
 NVRAM: НВРАМ|-, НВРАМ|>, _пр=non-volatile random access memory
+NWID: НВИД|-, НВИД|>, _пр=normalized weighted increased delay
+    @л: NWID|-, NWID|>
 NX: НИкс|-, НИкс|>
     @л: NX|-, NX|>
 OCR: ОЦР|-, ОЦР|>
@@ -384,6 +387,8 @@ RTP: РТП|-, РТП|>, _пр=real-time process
 RTTI: РТТ|И-, РТТИ|>, _пр=run-time type identification
 RTSPT: РТСПТ|-, РТСПТ|>
 RTSPU: РТСПУ|-, РТСПУ|>
+rx: р-икс|-, р-икс|>, _пр=receive
+    @л: rx|-, rx|>
 SAO: САО|-, САО|>, _пр=session-at-once
 SBD: СБД|-, СБД|>
 SD: СД|-, СД|>
