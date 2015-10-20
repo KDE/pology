@@ -746,6 +746,8 @@ Strings after the dot can be anything, but a sequence of numbers or letters in a
 
 <para>Aspell can be configured for use in Pology through user configuration, so that it is not necessary to issue some parameters on every run. See <xref linkend="sec-cmcfgaspell"/>.</para>
 
+<caution><para>This sieve is deprecated. Use <link linkend="sv-check-spell-ec"><command>check-spell-ec</command></link> instead, which can apply various spell-checking backends through Enchant.</para></caution>
+
 </sect2>
 
 <sect2 id="sv-check-spell-ec">
