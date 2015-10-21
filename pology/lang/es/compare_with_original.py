@@ -50,7 +50,7 @@ def test_if_purepunc (msg, cat):
 
 	for i in range(len(msg.msgstr)):
 		msgstr = msg.msgstr[i]
-	if i > 0:
+                if i > 0:
 			msgid = msg.msgid_plural
 		else:
 			msgid = msg.msgid
