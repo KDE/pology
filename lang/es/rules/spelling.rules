@@ -25,6 +25,7 @@ addFilterRegex match="\\\"\S+?\\\"" repl="" on="pmsgid,pmsgstr"
 addFilterRegex match="\{\S+?\}" repl="" on="pmsgid,pmsgstr"
 addFilterRegex match="\(\S+?\)" repl="" on="pmsgid,pmsgstr"
 addFilterRegex match="[\[]\S+?[\]]" repl="" on="pmsgid,pmsgstr"
+addFilterRegex match="\<\S+?\>" repl="" on="pmsgid,pmsgstr"
 
 # Omit compounds words.
 addFilterRegex match="\b\w+(\-\w+)+\b" repl="" on="pmsgid,pmsgstr"
@@ -34,6 +35,7 @@ addFilterRegex match="\b[A-Za-z]*(\_[A-Za-z]+)+\b" repl="" on="pmsgid,pmsgstr"
 addFilterRegex match="(?<=\W)[/+.:-]{1,2}\w+\b" repl="" on="pmsgid,pmsgstr"
 addFilterRegex match="^[/+.:-]{1,2}\w+\b" repl="" on="pmsgid,pmsgstr"
 addFilterRegex match="(?<=[>=])(true|false)" repl="" on="pmsgid,pmsgstr"
+addFilterRegex match="\\\\\w\b" repl="" on="pmsgid,pmsgstr"
 
 # Omit words witch contains at least one number.
 addFilterRegex match="\b[a-zA-Z]+\d\w*\b" repl="" casesens="yes" on="pmsgid,pmsgstr"
@@ -51,12 +53,16 @@ addFilterRegex match="(?<=\w)\'(?=\w)" repl="" on="pmsgid,pmsgstr"
 # Omit dots after names.
 addFilterRegex match="(?<=\w)\.(?=\s[A-Z])" repl="" casesens="yes" on="pmsgid,pmsgstr"
 
+# Omit some Spanish sufixes and prefixes
+#addFilterRegex match="(?u)(?<=\w)(mente|lo|la|le|los|las|les)\b" repl="" on="pmsgid,pmsgstr"
+#addFilterRegex match="(?u)(?<=\w)(ando|ación|ble|bles)\b" repl="r" on="pmsgid,pmsgstr"
+#addFilterRegex match="(?u)\b(anti|archi|auto|contra|cuasi|des|epi|eqi|ex|extra|foto|geo|h[ií]per|infra|inter|intra|macro|maxi|mega|meta|micro|mini|mono|multi|peri|pluri|poli|pos|post|pre|pro|retro|semi|seudo|sobre|sub|s[uú]per|supra|tele|trans|ultra|vice)(?=\w+\b)" repl="" on="pmsgid,pmsgstr"
+
 # Omit paired capitalized words.
 addFilterHook name="es:remove_subs/remove_paired_capital_words" on="msg"
 
-#*hook name="spell/check-spell-sp~lang='es'" on="msgstr"
-#*hook name="spell/check-spell-sp~encoding='UTF-8'" on="msgstr"
-#id="sp-0-check-spell-hook"
-#hint="Error ortográfico."
+*hook name="spell/check_spell_sp~lang='es'" on="msgstr"
+id="sp-0-check-spell-hook"
+hint="Error ortográfico."
 
 # End of rule file

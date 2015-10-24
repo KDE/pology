@@ -45,9 +45,14 @@ hint="«A bajo de» se escribe como «Debajo de» (error frecuente: solecismo)"
 id="cm-2-a-buen-fin"
 hint="«A buen fin» se escribe como «Con buen fin» (error frecuente: solecismo)"
 
+[\ba\scabo\b]i
+id="cm-1-a-cabo"
+valid after="llev\w+\s"
+hint="«A cabo» se escribe como «Acabo», excepto «Llevar a cabo» (error frecuente)"
+
 [\ba\scaso\b]i
 id="cm-1-a-caso"
-hint="«A caso» se escribe como «Acaso» (error frecuente: redundancia)"
+hint="«A caso» se escribe como «Acaso» (error frecuente)"
 
 [\ba\sconsta\sde\b]i
 id="cm-2-a-consta-de"
@@ -73,6 +78,10 @@ hint="«A efecto de» se escribe como «A efectos de» (error frecuente)"
 id="cm-1-a-el"
 hint="«A el» se escribe como «Al» (error frecuente)"
 
+[\ba\sespera\b]i
+id="cm-2-a-espera"
+hint="«A espera» se escribe como «En espera/A la espera» (error frecuente: solecismo)"
+
 [\ba\sexcepción\shecha\sde\b]i
 id="cm-2-a-excepcion-hecha-de"
 hint="«A excepción hecha de» se escribe como «A excepción de/Excepción hecha de» (error frecuente: solecismo)"
@@ -89,11 +98,11 @@ hint="«A la alza» se escribe como «Al alza» (error frecuente: solecismo)"
 id="cm-1-a-la-mayor-brevedad"
 hint="«A la mayor brevedad» se escribe como «Con la mayor brevedad» (error frecuente: solecismo)"
 
-[\ba\slo\sque\sse\sve\b]i
+[\ba\slo\squ[eé]\sse\sve\b]i
 id="cm-2-a-lo-que-se-ve"
 hint="«A lo que se ve» se escribe como «Por lo que se ve» (error frecuente: solecismo)"
 
-[\ba\slo\sque\sveo\b]i
+[\ba\slo\squ[eé]\sveo\b]i
 id="cm-2-a-lo-que-veo"
 hint="«A lo que veo» se escribe como «Por lo que veo» (error frecuente: solecismo)"
 
@@ -157,13 +166,13 @@ hint="«Al rededor» se escribe como «Alrededor» (error frecuente)"
 id="cm-1-al-respecto-de"
 hint="«Al respecto de» se escribe como «Con respecto a/de» (error frecuente: solecismo)"
 
-[\bal\stiempo\sque\b]i
+[\bal\stiempo\squ[eé]\b]i
 id="cm-1-al-tiempo-que"
 hint="«Al tiempo que» se escribe como «A tiempo que» (error frecuente: solecismo)"
 
 [\b(algo|mucho|poco)\sde\sdecir\b]i
 id="cm-1-algo-de-decir"
-hint="«Algo/Mucho/Poco de decir» se escribe como «Algo/Mucho/poco que decir» (error frecuente)"
+hint="«Algo/Mucho/Poco de decir» se escribe como «Algo/Mucho/Poco que decir» (error frecuente)"
 
 [\balmacenaje\b]i
 id="cm-1-almacenaje"
@@ -193,7 +202,7 @@ hint="«Anteriormente a» se escribe como «Antes de/Con anterioridad a» (error
 id="cm-1-antes-de-ahora"
 hint="«Antes de ahora» se escribe como «Hasta ahora» (error frecuente: solecismo)"
 
-[\baparte\sque\b]i
+[\baparte\squ[eé]\b]i
 id="cm-1-aparte-que"
 hint="«Aparte que» se escribe como «Aparte de» (error frecuente)"
 
@@ -301,6 +310,10 @@ hint="«Bajo el pretexto» se escribe como «Con el pretexto» (error frecuente:
 id="cm-2-bajo-el-prisma"
 hint="«Bajo el prisma» se escribe como «Desde el punto de vista» (error frecuente: solecismo)"
 
+[\bbajo\sel\spunto\sde\smira\b]i
+id="cm-2-bajo-el-punto-de-mira"
+hint="«Bajo el punto de mira» se escribe como «En el punto de mira» (error frecuente: solecismo)"
+
 [\bbajo\sel\spunto\sde\svista\b]i
 id="cm-2-bajo-el-punto-de-vista"
 hint="«Bajo el punto de vista» se escribe como «Desde el punto de vista» (error frecuente: solecismo)"
@@ -313,9 +326,9 @@ hint="«Bajo el radio de acción» se escribe como «Dentro del radio de acción
 id="cm-2-bajo-el-supuesto"
 hint="«Bajo el supuesto» se escribe como «En el supuesto» (error frecuente: solecismo)"
 
-[\bbajo\sencargo\sde\b]i
-id="cm-2-bajo-encargo-de"
-hint="«Bajo encargo de» se escribe como «Por encargo de» (error frecuente: solecismo)"
+[\bbajo\sencargo\b]i
+id="cm-2-bajo-encargo"
+hint="«Bajo encargo» se escribe como «Por encargo» (error frecuente: solecismo)"
 
 [\bbajo\sesta\spremisa\b]i
 id="cm-2-bajo-esta-premisa"
@@ -351,17 +364,17 @@ hint="«Bajo la condición» se escribe como «Con/En la condición» (error fre
 
 [\bbajo\slas\scircunstancias\b]i
 id="cm-2-bajo-las-circunstancias"
-hint="«Bajo que circunstancias» se escribe como «En las circunstancias» (error frecuente: solecismo)"
+hint="«Bajo las circunstancias» se escribe como «En las circunstancias» (error frecuente: solecismo)"
 
 [\bbajo\spreparación\b]i
 id="cm-2-bajo-preparacion"
 hint="«Bajo preparación» se escribe como «En preparación» (error frecuente: solecismo)"
 
-[\bbajo\sque\scircunstancias\b]i
+[\bbajo\squ[eé]\scircunstancias\b]i
 id="cm-2-bajo-que-circunstancias"
 hint="«Bajo que circunstancias» se escribe como «Con que circunstancias» (error frecuente: solecismo)"
 
-[\bbajo\sque\scondiciones\b]i
+[\bbajo\squ[eé]\scondiciones\b]i
 id="cm-2-bajo-que-condiciones"
 hint="«Bajo que condiciones» se escribe como «Con que condiciones» (error frecuente: solecismo)"
 
@@ -377,9 +390,9 @@ hint="«Bién» se escribe como «Bien» (error frecuente)"
 id="cm-1-bonus"
 hint="«Bonus» se escribe como «Bonificación/Prima» (error frecuente)"
 
-[\bcaben\sdestacar\b]i
+[\bcaben\s\w+(ar|er|ir)\b]i
 id="cm-1-caben-destacar"
-hint="«Caben destacar» se escribe como «Cabe destacar» (error frecuente)"
+hint="«Caben» se escribe como «Cabe» antes de infinitivo(error frecuente)"
 
 [\bcada\scuál\b]i
 id="cm-1-cada-cual-con-tilde"
@@ -429,6 +442,10 @@ hint="«Coger» no se debe utilizar, tiene connotaciones sexuales en México (er
 id="cm-2-cometer-suicidio"
 hint="«Cometer suicidio» se escribe «Suicidarse» (error frecuente)"
 
+[\bcompetir\sa\b]i
+id="cm-2-competir-a"
+hint="«Competir a» se escribe como «Competir con» (error frecuente: solecismo)"
+
 [\bcon\sarreglo\sde\b]i
 id="cm-2-con-arreglo-de"
 hint="«Con arreglo de» se escribe como «Con arreglo a» (error frecuente: solecismo)"
@@ -453,7 +470,7 @@ hint="«Con yo» se escribe como «Conmigo» (error frecuente:solecismo)"
 id="cm-1-conjuntamente-con"
 hint="«Conjuntamente con» se escribe como «Conjuntamente/Junto con» (error frecuente: redundancia)"
 
-[\bconlleva\sa\b]i
+[\bconllevar?\sa\b]i
 id="cm-2-conlleva-a"
 hint="«Conlleva a» se escribe como «Conlleva» (error frecuente: redundancia)"
 
@@ -576,7 +593,7 @@ hint="«De sí» se escribe como «De por sí» (error frecuente: solecismo)"
 id="cm-2-de-sobras"
 hint="«De sobras» se escribe como «De sobra», salvo restos de comida (error frecuente: solecismo)"
 
-[\bde\stal\ssuerte\sque\b]i
+[\bde\stal\ssuerte\squ[eé]\b]i
 id="cm-2-de-tal-suerte-que"
 hint="«De tal suerte que» se escribe como «De manera que/De modo que/De suerte que» (error frecuente)"
 
@@ -660,6 +677,10 @@ hint="«Macro» es de género femenino (error frecuente)"
 [\b(el|del|un|los|unos|este|ese|ningún|algún)\sweb\b]i
 id="cm-1-web-en-masculino"
 hint="«Web» es femenino (error frecuente)"
+
+[\bel\salma\smater\b]i
+id="cm-1-el-alama-mater"
+hint="«El alma mater» se escribe como «La alma mater». (error frecuente)"
 
 [\bel\sdialogo\b]i
 id="cm-1-el-dialogo-sin-tilde"
@@ -745,11 +766,23 @@ hint="«En aquí» se escribe como «Aquí» (error frecuente: solecismo)"
 id="cm-1-en-base-a"
 hint="«En base a» se escribe como «Basándose en/Teniendo en cuenta/A partir de ...» (error frecuente: solecismo)"
 
-[\ben\scuanta\sque\b]i
+[\ben\scaso\squ[eé]\b]i
+id="cm-1-en-caso-que"
+hint="«En caso que» se escribe como «En caso de/Caso de que» (error frecuente: solecismo)"
+
+[\ben\scomparación\s(a|de)\b]i
+id="cm-1-en-comparacion-a"
+hint="«En comparación a/de» se escribe como «En comparación con» (error frecuente: solecismo)"
+
+[\ben\scontra\s(tuyo|suyo)\b]i
+id="cm-2-en-contra-tuyo"
+hint="«En contra tuyo/suyo» se escribe como «En contra tuya/suya» (error frecuente)"
+
+[\ben\scuanta\squ[eé]\b]i
 id="cm-1-en-cuanta-que"
 hint="«En cuanta que» se escribe como «En cuenta que» (error frecuente)"
 
-[\ben\scuanto\sque\b]i
+[\ben\scuanto\squ[eé]\b]i
 id="cm-1-en-cuanto-que"
 hint="«En cuanto que» se escribe como «En cuanto» (error frecuente)"
 
@@ -757,7 +790,7 @@ hint="«En cuanto que» se escribe como «En cuanto» (error frecuente)"
 id="cm-2-en-direccion-de"
 hint="«En dirección de» se escribe como «En dirección a» (error frecuente: solecismo)"
 
-[\ben\sel\smomento\sque\b]i
+[\ben\sel\smomento\squ[eé]\b]i
 id="cm-2-en-el-momento-que"
 hint="«En el momento que» se escribe como «En el momento en que» (error frecuente: solecismo)"
 
@@ -777,6 +810,10 @@ hint="«En evitación de» se escribe como «Para evitar» (error frecuente: sol
 id="cm-1-en-frente"
 hint="«En frente» se escribe como «Enfrente» (error frecuente: solecismo)"
 
+[\ben\sfunción\sa\b]i
+id="cm-2-en-funcion-a"
+hint="«En función a» se escribe como «En función de» (error frecuente)"
+
 [\ben\socasión\sde\b]i
 id="cm-2-en-ocasion-de"
 hint="«En ocasión de» se escribe como «Con ocasión que» (error frecuente)"
@@ -789,6 +826,10 @@ hint="«En razón a» se escribe como «En razón de» (error frecuente: solecis
 id="cm-1-en-relacion-a"
 hint="«En relación a» se escribe como «En relación con/Con relación a» (error frecuente: solecismo)"
 
+[\ben\si\b]i
+id="cm-2-en-si"
+hint="«En si» se escribe como «En sí» (error frecuente)"
+
 [\ben\stérminos\sde\b]i
 id="cm-2-en-terminos-de"
 hint="«En téminos de» se escribe como «Partiendo de/En función de» (error frecuente: anglicismo)"
@@ -797,9 +838,17 @@ hint="«En téminos de» se escribe como «Partiendo de/En función de» (error 
 id="cm-2-en-virtud-a"
 hint="«En virtud a» se escribe como «En virtud de» (error frecuente: solecismo)"
 
+[\ben\svíspera\b]i
+id="cm-2-en-vispera"
+hint="«En víspera» se escribe como «En vísperas» (error frecuente: solecismo)"
+
 [\ben\svistas\sa\b]i
 id="cm-2-en-vistas-a"
 hint="«En vistas a» se escribe como «Con vistas a/En vista de» (error frecuente: solecismo)"
+
+[\benfrentarse\sante\b]i
+id="cm-2-enfrentarse-ante"
+hint="«Enfrentarse ante» se escribe como «Enfrentarse a/con» (error frecuente)"
 
 [\bentrar\sdatos\b]i
 id="cm-2-entrar-datos"
@@ -820,6 +869,10 @@ hint="«Entre menos» se escribe como «Cuanto menos» (error frecuente)"
 [\bentre\stanto\b]i
 id="cm-2-entre-tanto"
 hint="«Entre tanto» se escribe como «Entretanto» (error frecuente)"
+
+[\bentre\sun\sy\otro\b]i
+id="cm-2-entre-un-y-otro"
+hint="«Entre un y otro» se escribe como «Entre uno y otro» (error frecuente)"
 
 [\besas\smiles\b]i
 id="cm-2-esas-miles"
@@ -889,11 +942,11 @@ hint="«Fé» se escribe como «Fe» (error frecuente)"
 id="cm-1-fiais-con-tilde"
 hint="«Fiaís» se escribe como «Fiais» (error frecuente)"
 
-[\bfijarse\sde\sque\b]i
+[\bfijarse\sde\squ[eé]\b]i
 id="cm-2-fijarse-de-que"
 hint="«Fijarse de que» se escribe como «Fijarse en que» (error frecuente)"
 
-[\bfijarse\sque\b]i
+[\bfijarse\squ[eé]\b]i
 id="cm-2-fijarse-que"
 hint="«Fijarse que» se escribe como «Fijarse en que» (error frecuente)"
 
@@ -957,6 +1010,10 @@ hint="'Haber si' al principio de frase se escribe 'A ver si'"
 id="cm-1-habian"
 valid before="\s\w+?(ido|ado)"
 hint="«Habián» se escribe como «Había» al principo de frase (error frecuente)"
+
+[\bhac\w+\sparte\b]i
+id="cm-2-hacer-parte"
+hint="«Hacer parte» se escribe como «Formar parte» (error frecuente)"
 
 [(?u)\bhacia\sad[oó]nde\b]
 id="cm-2-hacia-adonde"
@@ -1149,7 +1206,7 @@ hint="«Los vinculos» se escribe como «Los vínculos». (error frecuente)"inte
 id="cm-1-lo-y-las"
 hint="«Los y las» se escribe como «Los». (error frecuente)"
 
-[\bluego\sde\sque\b]i
+[\bluego\sde\squ[eé]\b]i
 id="cm-2-luego-de-que"
 hint="«Luego de que» se escribe como «Luego que». (error frecuente)"
 
@@ -1260,7 +1317,7 @@ hint="«No le bastan» se escribe como «No le basta» (error frecuente)"
 
 [\bno\sse\squé\b]i
 id="cm-2-no-se-que"
-hint="«No se qué» se escribe como «No sé qué» (error frecuente)"
+hint="«No se qué» se escribe como «No sé que» (error frecuente)"
 
 [\bosea\b]i
 id="cm-2-osea-junto"
@@ -1273,6 +1330,10 @@ hint="«Osea» se escribe «O sea», separado (error frecuente)"
 [\bpagina\b]i
 id="cm-2-pagina-sin-tilde"
 hint="«Pagina» se escribe como «Página», salvo 3ª persona del verbo paginar (error frecuente)"
+
+[\bpago\sen\sespecias?\b]i
+id="cm-2-pago-en-especia"
+hint="«Pago en especia» se escribe como «Pago en especie» (error frecuente)"
 
 [\bpán\b]i
 id="cm-2-pan-con-tilde"
@@ -1309,6 +1370,10 @@ hint="«Pese que» se escribe como «Pese a que» (error frecuente)"
 [\bpié\b]i
 id="cm-2-pie-con-tilde"
 hint="«Pié» se escribe como «Pie» (error frecuente)"
+
+[\bponer\sen\srelieve\b]i
+id="cm-2-poner-en-relieve"
+hint="«Poner en relieve» se escribe como «Poner de relieve» (error frecuente: solecismo)"
 
 [\bpor\s(el|la|los|las)\squé\b]i
 id="cm-por-articulo-que"
@@ -1399,7 +1464,7 @@ hint="«Quásar» se escribe como «Cuasar» (error frecuente)"
 id="cm-2-que-se-yo"
 hint="«Qué se yo» se escribe como «Qué sé yo» (error frecuente)"
 
-[\bque\svan\sa\shaber\b]i
+[\bqu[eé]\svan\sa\shaber\b]i
 id="cm-2-que-van-a-haber"
 hint="«Que van a haber» se escribe como «Que va a haber» (error frecuente)"
 
@@ -1451,7 +1516,7 @@ hint="«Se esta» se escribe como «Se está» (error frecuente)"
 id="cm-1-se-este-sin-tilde"
 hint="«Se este» se escribe como «Se esté» (error frecuente)"
 
-[\bse\sfijó\sque\b]i
+[\bse\sfijó\squ[eé]\b]i
 id="cm-2-se-fijo-que"
 hint="«Se fijó que» se escribe como «Se fijó en que» (error frecuente)"
 
@@ -1522,6 +1587,10 @@ hint="«Simultáneamente a» se escribe como «A la vez que/Al mismo tiempo que/
 [\bsin\sen\scambio\b]i
 id="cm-2-sin-en-cambio"
 hint="«Sin en cambio» se escribe como «En cambio/Sin embargo» (error frecuente)"
+
+[\bsobre\smanera\b]i
+id="cm-1-sobre-manera"
+hint="«Sobre manera» se escribe como «Sobremanera» (error frecuente)"
 
 [\bsobreescri\w{2,6}\b]i
 id="cm-2-sobreescribir"
@@ -1594,6 +1663,11 @@ hint="«Te se» se escribe como «Se te» (error frecuente)"
 [\btema\ssensible\b]i
 id="cm-2-tema-sensible"
 hint="«Tema sensible» se escribe como «Tema delicado» (error frecuente)"
+
+[\bten\w+\sen\scuanta\b]i
+id="cm-1-tener-en-cuanta"
+valid before="\squ[eé]" # Ya figura en otra regla
+hint="«Tener en cuanta» se escribe como «Tener en cuenta» (error frecuente)"
 
 [\btenia\b]i
 id="cm-1-tenia"
