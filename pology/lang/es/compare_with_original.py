@@ -150,8 +150,8 @@ def test_if_very_short_translation (msg, cat):
 
 
 _valid_word = re.compile("^\w+$", re.U)
-_capital_word = re.compile("^[A-ZÑÇÁÉÍÓÚÁÉÍÓÚÂÊÎÔÛÄËÏÖÜĀ]+$", re.U)
-_proper_name = re.compile("^\W*?[A-ZÑÇÁÉÍÓÚÁÉÍÓÚÂÊÎÔÛÄËÏÖÜĀ]\w+(\W+?[A-ZÑÇÁÉÍÓÚÁÉÍÓÚÂÊÎÔÛÄËÏÖÜĀ]\w+)+\W*$", re.U)
+_capital_word = re.compile(u"^[A-Z0-9ÑÇÁÉÍÓÚÁÉÍÓÚÂÊÎÔÛÄËÏÖÜĀ]+$", re.U)
+_proper_name = re.compile(u"^\W*?[A-Z0-9ÑÇÁÉÍÓÚÁÉÍÓÚÂÊÎÔÛÄËÏÖÜĀ]\w+(\W+?[A-Z0-9ÑÇÁÉÍÓÚÁÉÍÓÚÂÊÎÔÛÄËÏÖÜĀ]\w+)+\W*$", re.U)
 
 def test_if_not_translated (msg, cat):
 	"""
@@ -177,20 +177,22 @@ def test_if_not_translated (msg, cat):
 		if _proper_name.match(msg.msgstr[i]) or _purepunc.match(msgid):
 			continue
 
+                e = None
+                l = None
 		if len(msgid) > 0 and msgid == msg.msgstr[i]:
 			 for word in split.proper_words(msgid, markup=True, accels=['&']):
 				if _valid_word.match(word) and not _capital_word.match(word):
 					word = word.encode("utf-8")
-					if not e in locals():
+					if e is None:
 						e = enchant.Dict("en")
-					if not l in locals():
-						l = enchant.DictWithPWL("es","~/svnroot/pology/lang/es/spell/dict.aspell")
+					if l is None:
+						l = enchant.Dict("es")
 					if e.check(word) and not l.check(word):
 						return [("msgstr", 0, [(0, 0, u'El párrafo parece no estar traducido')])]
 
 	return []
 
-_ent_accel = re.compile("&[A-Za-zÑÇñç](?!\w+\;)", re.U)
+_ent_accel = re.compile(u"&[A-Za-z0-9ÑñÇç](?!\w+;)", re.U)
 
 def test_paired_accelerators (msg, cat):
 	"""
@@ -367,7 +369,7 @@ def test_paired_numbers (msg, cat):
 
 	return []
 
-_ent_context_tags = re.compile("\<(application|bcode|command|email|envar|filename|icode|link)\>(.+?)\<\/\1\>", re.U)
+_ent_context_tags = re.compile("\<(application|bcode|command|email|envar|filename|icode|link|returnvalue)\>(.+?)\<\/\1\>", re.U)
 
 def test_paired_context_tags (msg, cat):
 	"""

@@ -14,13 +14,13 @@ import re
 
 # Capitals words in valid contexts in the translated text according with Spanish grammar
 # (beggining of paragraph, after some punctuation characters and after a new line)
-_valid_capital_word_middle = re.compile("(?<=[.:?!>»\"]\s)[^\W]*?[A-ZÁÉÍÓÚÀÈÌÒÙÂÊÎÔÛÄËÏÖÜĀ][^\W]*", re.U)
-_valid_capital_word_initial = re.compile("^[^\W]*?[A-ZÁÉÍÓÚÀÈÌÒÙÂÊÎÔÛÄËÏÖÜĀ][^\W]*", re.U)
+_valid_capital_word_middle = re.compile(u"(?<=[.:?!>»\"]\s)\w*?[A-ZÁÉÍÓÚÜÑÇ]\w*", re.U)
+_valid_capital_word_initial = re.compile(u"^\w*?[A-ZÁÉÍÓÚÜÑÇ]\w*", re.U)
 
 # All capital words in the original English text,
-_ent_capital_word = re.compile("[^\W]*?[A-ZÁÉÍÓÚÀÈÌÒÙÂÊÎÔÛÄËÏÖÜĀ][^\W]*", re.U)
+_ent_capital_word = re.compile(u"\w*?[A-Z]\w*", re.U)
 # All plural full capital words (acronyms) without the final 's'.
-_ent_capital_word_plural = re.compile("[A-Z0-9ÁÉÍÓÚÀÈÌÒÙÂÊÎÔÛÄËÏÖÜĀ]+(?=\'?s\b)", re.U)
+_ent_capital_word_plural = re.compile(u"[A-Z0-9]+(?=\'?s\b)", re.U)
 
 def remove_paired_capital_words (msg, cat):
 	"""
@@ -43,18 +43,42 @@ def remove_paired_capital_words (msg, cat):
 			if msg.msgid_plural:
 				ents.update(_ent_capital_word.findall(msg.msgid_plural))
 				ents.update(_ent_capital_word_plural.findall(msg.msgid_plural))
-	# Joins both set of words an remove them from the message.
+                # Joins both set of words an remove them from the message.
 		for ent in ents:
-	    # report(_("@info", "Palabra en mayusculas: %(info)s \n", info=ent))
-			# msg.msgstr[i] = msg.msgstr[i].replace(ent, "~"
-			msg.msgstr[i] = re.sub(r'\b' + ent + r'\b', '~', msg.msgstr[i], re.U)
+                        # report(_("@info", "Palabra en mayusculas: %(info)s \n", info=ent))
+			msg.msgstr[i] = re.sub(r'\b' + ent + r'\b', '~', msg.msgstr[i], 0, re.U)
 			if i == 0:
-				msg.msgid = re.sub(r'\b' + ent + r'\b', '~', msg.msgid, re.U)
+				msg.msgid = re.sub(r'\b' + ent + r'\b', '~', msg.msgid, 0, re.U)
 			else:
-				msg.msgid_plural = re.sub(r'\b' + ent + r'\b', '~', msg.msgid_plural, re.U)
+				msg.msgid_plural = re.sub(r'\b' + ent + r'\b', '~', msg.msgid_plural, 0, re.U)
 			
 	# The remainning words could have wrong capitalization in the translated message.
 	# TODO: Look the remaining words in a Spanish dictionary.
+	
+	return 0
+
+def remove_original_capital_words (msg, cat):
+	"""
+	Remove all capital words of the original text and from translated text.
+	[type F4A hook].
+
+	@return: number of errors
+	"""
+	
+	# Obtains capitals words in valid contexts in the translated text.
+	for i in range(len(msg.msgstr)):
+		ents = set()
+		if i == 0:
+			# Obtains all capitals words in the original English text.
+			ents.update(_ent_capital_word.findall(msg.msgid))
+			ents.update(_ent_capital_word_plural.findall(msg.msgid))
+		else:
+			if msg.msgid_plural:
+				ents.update(_ent_capital_word.findall(msg.msgid_plural))
+				ents.update(_ent_capital_word_plural.findall(msg.msgid_plural))
+                # Remove English capital words from translated text.
+		for ent in ents:
+			msg.msgstr[i] = re.sub(r'\b' + ent + r'\b', '~', msg.msgstr[i], 0, re.U)
 	
 	return 0
 	
