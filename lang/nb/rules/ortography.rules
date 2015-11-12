@@ -8,4 +8,7 @@ include file="puretext.filters"
 id="imperativending"
 hint="imperativ skal aldri slutte på -ér («installer», ikke «installér»)"
 
+[(attributtene?)|(\ben attributt)]i
+hint="attributt er et hankjønnsord («en attributt» → «et attributt», «attributten» → «attributtet»)"
+
 # End of rules
