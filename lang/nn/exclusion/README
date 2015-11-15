@@ -52,6 +52,8 @@ rm -f a-inf.txt ea-inf.txt e-ord.txt
 # masculine nouns that can have both a -ar/-ane or a -er/-ene suffix.
 # For example, the noun «gjest» can be written as gjestar/gjestane
 # or gjester/gjestene, so the output file contains ‘gjester’ and ‘gjestene’.
+# Note that the (masculine) noun ‘elv’ is removed, as it’s a rare word
+# and conflicts with the feminine ‘elv’.
 #
 # The file ‘subst-fem-ar.dat’ contains a list of -ar/-ane inflections of
 # feminine nouns that can have both a -ar/-ane or a -er/-ene suffix.
@@ -63,7 +65,7 @@ rm -f a-inf.txt ea-inf.txt e-ord.txt
 
 grep -F ' normert' fullform_nn.txt | grep -F '	subst' > subst-ok.dat
 sort -t"	" -k2,2 -k1,1 -k4,4 -k3,3 subst-ok.dat > subst-ok-sort.dat
-grep -F ' mask ' subst-ok-sort.dat > subst-mask.dat
+grep -F ' mask ' subst-ok-sort.dat | grep -v '	elv	.*mask' > subst-mask.dat
 grep -F ' fem ' subst-ok-sort.dat > subst-fem.dat
 
 awk -F'\t' '
