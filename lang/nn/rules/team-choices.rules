@@ -181,6 +181,7 @@ hint="unnatak → unntak"
 hint="velkomen → velkommen"
 
 [(breidde|høgde|lengde)\b]i
+id="breidd"
 hint="breidde/høgde/lengde → breidd/høgd/lengd"
 
 [\bbli(r)?\b]i
