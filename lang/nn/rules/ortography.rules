@@ -34,6 +34,9 @@ valid after="\b[M]i" before="olpe"
 [bærbar]i
 hint="bærbar → berbar"
 
+[skygge]i
+hint="skygge → skugge (finst eit substantiv ord «skygge», men det er inkjekjønn og tyder noko anna)"
+
 [setting]i
 hint="setting → setjing"
 valid after="@System" before="s\b"
