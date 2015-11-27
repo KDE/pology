@@ -70,9 +70,9 @@ hint="«A donde está» se escribe como «Donde está» (error frecuente)"
 id="cm-1-a-drede"
 hint="«A drede» se escribe como «Adrede» (error frecuente: redundancia)"
 
-[\ba\sefecto\sde\b]i
+[\bal?\sefecto\sde\b]i
 id="cm-2-a-efecto-de"
-hint="«A efecto de» se escribe como «A efectos de» (error frecuente)"
+hint="«A/Al efecto de» se escribe como «A efectos de» (error frecuente)"
 
 [\b[Aa]\sel\b]
 id="cm-1-a-el"
@@ -141,6 +141,10 @@ hint="«A resultas de» se escribe como «De resultas» (error frecuente: soleci
 [\ba\stal\sextremo\sde\b]i
 id="cm-2-a-tal-extremo-de"
 hint="«A tal extremo de» se escribe como «Hasta tal extremo» (error frecuente: solecismo)"
+
+[\bbaj\w+\spor\sdebajo\b]i
+id="cm-2-bajar-por-debajo"
+hint="«Bajar por debajo de» se escribe como «Bajar de» (error frecuente: redundancia)"
 
 [\babajo\sde\b]i
 id="cm-2-abajo-de"
@@ -414,7 +418,7 @@ hint="«Cada uno de las» se escribe como «Cada uno de los/Cada una de las» (e
 id="cm-2-casos-limite"
 hint="«Casos limite» se escribe como «Casos límite» (error frecuente)"
 
-[\bcasos\slímites\b]i
+[\bcasos\sl[ií]mites\b]i
 id="cm-2-casos-limites"
 hint="«Casos límites» se escribe como «Casos límite» (error frecuente)"
 
@@ -579,6 +583,10 @@ hint="«De gratis» se escribe como «Gratis», sin el «de» (error frecuente: 
 [\bde\sindica\b]i
 id="cm-1-de-indica"
 hint="«De indica» se escribe como «Se indica» (error frecuente: solecismo)"
+
+[\bde\smotu\spropr?io\b]i
+id="cm-2-de-motu-propio"
+hint="«De motu propio» se escribe como «Motu proprio» (error frecuente)"
 
 [\bde\ssitio\sa\ssitio\b]i
 id="cm-2-de-sitio-a-sitio"
@@ -833,6 +841,10 @@ hint="«En si» se escribe como «En sí» (error frecuente)"
 [\ben\stérminos\sde\b]i
 id="cm-2-en-terminos-de"
 hint="«En téminos de» se escribe como «Partiendo de/En función de» (error frecuente: anglicismo)"
+
+[\ben\svía\sde\b]i
+id="cm-2-en-via-de"
+hint="«En vía de» se escribe como «En vías de» (error frecuente: solecismo)"
 
 [\ben\svirtud\sa\b]i
 id="cm-2-en-virtud-a"
@@ -1154,6 +1166,10 @@ hint="«Le hacia» se escribe como «Le hacía» (error frecuente)"
 id="cm-1-literatura-sobre"
 hint="«Literatura sobre/en» e escribe como «Bibliografía sobre/en». (error frecuente)"
 
+[\bllev\w+\sacabo\b]i
+id="cm-1-llevar-acabo"
+hint="«Llevar acabo» se escribe como «Llevar a cabo». (error frecuente)"
+
 [\blo\sse\b]i
 id="cm-1-lo-se-sin-tilde"
 hint="«Lo se» se escribe como «Lo sé/Se lo». (error frecuente)"
@@ -1448,6 +1464,14 @@ id="cm-2-pueden-haber"
 valid before="\s\w+(ad[oa]|id[oa])"
 hint="«Pueden haber» se escribe como «Puede haber» (error frecuente)"
 
+[\bpon\w+\sapunto\b]i
+id="cm-2-poner-apunto"
+hint="«Poner apunto» se escribe como «Poner a punto» (error frecuente)"
+
+[\bpuesta\sapunto\b]i
+id="cm-2-puesta-apunto"
+hint="«Puesta apunto» se escribe como «Puesta a punto» (error frecuente)"
+
 [\bpuntos\sclaves\b]i
 id="cm-2-puntos-claves"
 hint="«Puntos claves» se escribe como «Puntos clave» (error frecuente)"
@@ -1487,6 +1511,11 @@ hint="«Renombrar» significa lo mismo que nombrar y está en desuso, se debe es
 [\brelacionad[oa]s?\sal?\b]i
 id="cm-2-relacionado-a"
 hint="«Relacionado a» se escribe como «Relacionado con» (error frecuente)"
+
+[\bresult\w+\sen\b]i
+id="cm-2-resultar-en"
+valid msgstr="resultado\sen"
+hint="«Resultar en» se debe escribir como «Dar como resultado» (error frecuente)"
 
 [\briáis\b]i
 id="cm-1-riais-con-tilde"
@@ -1611,6 +1640,10 @@ hint="«Sóla» se escribe siempre como «Sola» (error frecuente)"
 [\bsólo\b]i
 id="cm-2-solo-con-tilde"
 hint="«Sólo» se escribe siempre como «Solo» (error frecuente)"
+
+[\bstatus\squo\b]i
+id="cm-2-status-quo"
+hint="«Status quo» se escribe siempre como «Statu quo» (error frecuente)"
 
 [\bstock\b]i
 id="cm-2-stock"

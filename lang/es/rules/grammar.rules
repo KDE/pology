@@ -131,6 +131,7 @@ valid before="través\b"
 valid before="trotamundos\b"
 valid before="vals\b"
 valid before="viernes\b"
+valid before="virus\b"
 
 validGroup pluralName
 valid before="(?u)\w+s\b"
@@ -774,6 +775,7 @@ hint="No utilice la arroba para evitar el género, p.ej. «ciudadan@» (error gr
 [(?u)\b(ante|anti|archi|auto|bi|bien|co|con|contra|cuasi|des|epi|eqi|ex|extra|foto|geo|hemi|h[ií]per|im|in|infra|inter|intra|macro|maxi|mega|meta|micro|mini|mono|multi|neo|peri|pluri|poli|pos|post|pre|pro|re|retro|semi|seudo|sim|sin|sobre|sub|s[uú]per|supra|tele|trans|tras|tri|ultra|uni|vice)\-\w+?\b]i
 id="gr-1-prefijo-con-guion"
 valid span="(?u)\b\w+\-[A-Z]\w+?\b"
+valid span="ex\sprimera?"
 hint="No utilice el guión para separar el prefijo de la palabra principal, p.ej. «sub-menú» (error gramatical)"
 
 [(?u)\b(archi|bi|co|cuasi|des|epi|eqi|geo|hemi|h[ií]per|im|in|infra|inter|intra|maxi|micro|mini|multi|neo|peri|pluri|poli|pos|post|pre|re|retro|semi|seudo|sim|sub|s[uú]per|supra|trans|tri|ultra|uni|vice)\s\w+?\b]i
@@ -1397,6 +1399,24 @@ validGroup beforeComma
 valid after=",\s[¿¡]"
 hint="Ponga una coma antes de «pero» (error gramatical)"
 
+[\bpues\b]
+id="gr-3-falta-coma-antes-pues"
+validGroup beforeComma
+valid after=",\s[¿¡]"
+hint="Ponga una coma antes de «pues» (error gramatical)"
+
+[\bpuesto\sque\b]
+id="gr-3-falta-coma-antes-puesto-que"
+validGroup beforeComma
+valid after=",\s[¿¡]"
+hint="Ponga una coma antes de «puesto que» (error gramatical)"
+
+[\bya\sque\b]
+id="gr-3-falta-coma-antes-ya-que"
+validGroup beforeComma
+valid after=",\s[¿¡]"
+hint="Ponga una coma antes de «ya que» (error gramatical)"
+
 [\bpero\,]
 id="gr-3-sobra-coma-despues-pero"
 valid before="(\s\w+){1,3}\,"
@@ -1406,6 +1426,7 @@ hint="No ponga coma después de «pero» (error gramatical)"
 id="gr-3-falta-coma-antes-etc"
 valid after=",\s"
 valid after=";\s"
+valid after="\/"
 hint="Ponga una coma antes de «etc./&etc;/etcétera» (error gramatical)"
 
 [\betcétera\s?\.\.\.]i
@@ -1448,14 +1469,14 @@ validGroup beforeCaps
 valid after="del\s"
 hint="Los nombres de los puntos cardinales se escriben en minúsculas (error gramatical)"
 
-[\b(Usted|Señor|Don|Fray|San|Santo|Sor|Reverendo)\b]
+[\b(Usted|Señora?|Don|Doña|Fray|San|Sant[oa]|Sor|Reverend[oa])\b]
 id="gr-3-mayusculas-en-tratamientos"
 validGroup beforeCaps
 valid span="Santo" before="\sDomingo"
 valid span="San" after="Ciudad\sde\s"
 hint="Los tratamientos «Usted, Señor, Don, ...» se escriben en minúsculas (error gramatical)"
 
-[\b(Rey|Papa|Ministro|Presidente|Embajador|Director|Obispo|Juez|Magistrado|Príncipe)\b]
+[\b(Rey|Reina|Papa|Papisa|Ministr[oa]|President[ea]|Embajadora?|Directora?|Obisp[oa]|Jueza?|Magistrad[oa]|Príncipe|Princesa)\b]
 id="gr-3-mayusculas-en-cargos"
 validGroup beforeCaps
 valid span="Príncipe" after="Tomé\sy\s"

@@ -630,6 +630,11 @@ valid msgstr="(alguna|cualquier|ninguna)\sclausura"
 valid msgstr="(algún|ningún|cualquier)\scierre"
 hint="«Closures» se traduce como «Clausuras/Cierres» (propuesta glosario)"
 
+{\bcluster\b}i
+id="gp-3-cluster"
+valid msgstr="clúster"
+hint="«Cluster» se traduce como «Clúster» (propuesta glosario)"
+
 {\bcodec\b}i
 id="gp-3-codec"
 valid msgstr="códec"
@@ -2611,6 +2616,7 @@ hint="«Network» se traduce como «Red» (propuesta glosario)"
 id="gp-3-networks"
 valid msgstr="redes"
 valid msgstr="(alguna|cualquier|ninguna)\sred"
+valid after="[A-Z]\w+\s"
 hint="«Networks» se traduce como «Redes» (propuesta glosario)"
 
 {\bnew\b}i

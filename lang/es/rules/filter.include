@@ -7,6 +7,9 @@
 # Replace &nbsp; by space.
 addFilterRegex match="\&nbsp\;" repl=" " on="pmsgid,pmsgstr"
 
+# Replace newlines.
+addFilterRegex match="(\\\\n|\\\n|\\n)" repl=" " on="pmsgid,pmsgstr"
+
 # Especial treatment for «etc.», there may be a comma before it.
 addFilterRegex match="(etc\.|\&etc;)" repl="etcétera" on="pmsgid,pmsgstr"
 
