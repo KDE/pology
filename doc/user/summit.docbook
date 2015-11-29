@@ -349,16 +349,14 @@ summit-aa/
     ...
     summit-config
 </screen>
-Summit configuration is modified in the same way as it was for the direct summit, by adding the <literal>by_lang=</literal> key to branch specifications:
+Here only the branch specifications need to differ compared to the by-language configuration, by having the <literal>by_lang=</literal> key and omitting the path to templates:
 <programlisting language="python">
 S.branches = [
     dict(id="devel",
-         topdir=S.relpath("../branches/devel/aa"),
-         topdir_templates=S.relpath("../branches/devel/templates"),
+         topdir=S.relpath("../branches/devel"),
          by_lang=S.lang),
     dict(id="stable",
-         topdir=S.relpath("../branches/stable/aa"),
-         topdir_templates=S.relpath("../branches/stable/templates"),
+         topdir=S.relpath("../branches/stable"),
          by_lang=S.lang),
 ]
 </programlisting>
@@ -420,16 +418,14 @@ S.mappings = [
 </programlisting>
 Compared to summit over dynamic templates, here <literal>S.lang</literal> is no longer hardcoded in the configuration file, but set at each run of <command>posummit</command> through the command line. This means that paths of language directories too have to be dynamically adapted based on <literal>S.lang</literal>, hence the string interpolations <literal>"...%s..." % S.lang</literal>.</para>
 
-<para>For by-domain branches, again simply <literal>by_lang=</literal> keys are added to branches:
+<para>For by-domain branches, branch specifications differ by having the <literal>by_lang=</literal> key, and not having the path to templates:
 <programlisting language="python">
 S.branches = [
     dict(id="devel",
-         topdir=S.relpath("../branches/devel/%s" % S.lang),
-         topdir_templates=S.relpath("../branches/devel/templates"),
+         topdir=S.relpath("../branches/devel"),
          by_lang=S.lang),
     dict(id="stable",
-         topdir=S.relpath("../branches/stable/%s" % S.lang),
-         topdir_templates=S.relpath("../branches/stable/templates"),
+         topdir=S.relpath("../branches/stable"),
          by_lang=S.lang),
 ]
 </programlisting>
