@@ -231,6 +231,11 @@ valid msgstr="criptografia"
 valid msgstr="criptogràfi(cs?|ca|ques)"
 hint="Es tradueix per «criptografia/criptogràfic» (kde-ca-team)"
 
+{\bcuts?\b}i
+id="kct-cut"
+valid msgstr="retall(a|ar|at)?"
+hint="Es tradueix per «retalla/retallar» (kde-ca-team)"
+
 {\bdashboards?\b}i
 id="kct-dashboard"
 valid msgstr="taulers?"
