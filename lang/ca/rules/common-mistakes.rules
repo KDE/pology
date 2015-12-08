@@ -229,7 +229,7 @@ hint="«síntesis» s'utilitza normalment en singular «síntesi» (error freqü
 hint="«tal i com» s'ha de substituir per «tal com» (error freqüent)"
 
 # «tea» es tradueix per «te» (sense accent) (error freqüent).
-[\btea\b]i
+{\btea\b}i
 valid msgstr="te"
 hint="«tea» es tradueix per «te» (sense accent) (error freqüent)"
 
@@ -238,7 +238,6 @@ hint="«tea» es tradueix per «te» (sense accent) (error freqüent)"
 valid msgid="tea"
 valid msgid="te"
 valid msgid="Anonymous" cat="kteatime"
-valid msgstr="enemics\ste\sl" cat="kgoldrunner"
 valid after="-"
 hint="«té» (verb tenir) cal que porti accent (error freqüent)"
 
