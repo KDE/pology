@@ -470,6 +470,10 @@ hint="«Con sigo» se escribe como «Consigo» (error frecuente:solecismo)"
 id="cm-2-con-yo"
 hint="«Con yo» se escribe como «Conmigo» (error frecuente:solecismo)"
 
+[\bconfiar?\squ[eé]\b]i
+id="cm-2-confiar-que"
+hint="«Confiar que» se escribe como «Confiar en que» (error frecuente)"
+
 [\bconjuntamente\scon\b]i
 id="cm-1-conjuntamente-con"
 hint="«Conjuntamente con» se escribe como «Conjuntamente/Junto con» (error frecuente: redundancia)"
@@ -625,7 +629,7 @@ hint="«Diez y nueve» se escribe como «Diecinueve» (error frecuente)"
 id="cm-1-diferente-a"
 hint="«Diferente a» se escribe como «Diferente de» (error frecuente)"
 
-[\bdiscrepar\scon\b]i
+[\bdiscrep\w+\scon\b]i
 id="cm-1-discrepar-con"
 hint="«Discrepar-con» se escribe como «Discrepar de» (error frecuente)"
 
@@ -1246,13 +1250,17 @@ hint="«Más bueno» se escribe como «Mejor» (error frecuente)"
 id="cm-1-mas-despues"
 hint="«Más después» se escribe como «Después» (error frecuente)"
 
+[\bmás\sinferior\b]i
+id="cm-1-mas-inferior"
+hint="«Más inferior» se escribe como «Inferior/más bajo» (error frecuente)"
+
 [\bmás\smal[oa]s?\b]i
 id="cm-1-mas-malo"
 hint="«Más malo» se escribe como «Peor» (error frecuente)"
 
 [\bmás\smayor\b]i
 id="cm-1-mas-mayor"
-hint="«Más mayor» se escribe como «Mayor» (error frecuente)"
+hint="«Más mayor» se escribe como «Mayor», excepto en edades (error frecuente)"
 
 [\bmás\smejor\b]i
 id="cm-1-mas-mejor"
@@ -1277,6 +1285,10 @@ hint="«Más óptimo» se escribe como «Óptimo» (error frecuente)"
 [\bmás\speor\b]i
 id="cm-1-mas-peor"
 hint="«Más peor» se escribe como «Peor/Pésimo» (error frecuente)"
+
+[\bmás\ssuperior\b]i
+id="cm-1-mas-superior"
+hint="«Más superior» se escribe como «Superior/Más alto» (error frecuente)"
 
 [\bm[aá]sters\b]i
 id="cm-2-masters"
@@ -1378,6 +1390,10 @@ hint="«Para tenga» se escribe como «Que tenga» (error frecuente)"
 [\bpáz\b]i
 id="cm-2-paz-con-tilde"
 hint="«Páz» se escribe como «Paz» (error frecuente)"
+
+[\bpendiente\sa\b]i
+id="cm-2-pendiente-a"
+hint="«Pendiente a» se escribe como «Pendiente de» (error frecuente)"
 
 [\bpese\squ[eé]\b]i
 id="cm-2-pese-que"

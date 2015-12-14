@@ -909,4 +909,41 @@ valid msgstr="barras\sde\sherramientas"
 valid msgstr="(alguna|cualquier|ninguna)\sbarra\sde\sherramientas"
 hint="«Tool bars» se traduce como «Barras de herramientas» (regla de traducción de elementos gráficos)"
 
+# Varios
+
+{\bcopy\sto\b}i
+id="ui-3-copy-to"
+valid msgstr="copi(ar|a|e)\s(\w+\s){,2}en"
+valid msgstr="(una|la)\scopia"
+valid before="\-do"
+hint="«Copy to» se traduce como «Copiar en» (regla de traducción de la interfaz gráfica)"
+
+{\bmove\sto\b}i
+id="ui-3-move-to"
+valid msgstr="m(over|uev[ea])\s(\w+\s){,2}a"
+valid before="\-do"
+hint="«Move to» se traduce como «Mover a» (regla de traducción de la interfaz gráfica)"
+
+{^Failed\b}
+id="ui-3-failed"
+valid msgstr="[Hh]a\sfallado"
+hint="«Failed» se traduce como «Ha fallado» (regla de traducción de la interfaz gráfica)"
+
+{^Unable\b}
+id="ui-3-unable"
+valid msgstr="[Nn]o\s(es|fue)\sposible"
+valid msgstr="[Nn]o\sse\s(puede|pudo)"
+hint="«Unable» se traduce como «No es posible/No se puede» (regla de traducción de la interfaz gráfica)"
+
+{\binvalid\b}i
+id="ui-3-invalid"
+valid msgstr="no\s(\w+\s)?válid[oa]s?"
+hint="«Invalid» se traduce como «No válido» (regla de traducción de la interfaz gráfica)"
+
+{\bthere\was\san\serror\b}i
+id="ui-3-there-was-an-error"
+valid msgstr="se\sprodujo\sun\serror"
+valid msgstr="ha\socurrido\sun\serror"
+hint="«There was an error» se traduce como «Se produjo un error/Ha ocurrido un error» (regla de traducción de la interfaz gráfica)"
+
 # End of rule file

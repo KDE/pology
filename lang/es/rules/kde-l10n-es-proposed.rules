@@ -369,6 +369,11 @@ id="gp-2-broker"
 valid msgstr="bróker"
 hint="«Broker» se traduce como «Bróker» (propuesta glosario)"
 
+{\bbroadband\b}i
+id="gp-2-broadband"
+valid msgstr="banda\sancha"
+hint="«Broadband» se traduce como «Banda ancha» (propuesta glosario)"
+
 {\bbroadcast\b}i
 id="gp-2-broadcast"
 valid msgstr="difusión"
@@ -489,6 +494,11 @@ valid msgstr="devolución\sde\sllamadas"
 valid msgstr="(alguna|cualquier|ninguna)\sretrollamada"
 valid msgstr="(alguna|cualquier|ninguna)\sdevolución\sde\sllamada"
 hint="«Callbacks» se traduce como «Retrollamadas» (propuesta glosario)"
+
+{\bcanvas\b}i
+id="gp-2-canvas"
+valid msgstr="lienzo"
+hint="«Canvas» se traduce como «Lienzo» (propuesta glosario)"
 
 {\bcaret\b}i
 id="gp-2-caret"
@@ -814,7 +824,7 @@ hint="«Cross compilers» se traduce como «Compiladores cruzados» (propuesta g
 id="ff-2-customizable"
 valid msgstr="personalizable"
 valid !msgstr="customizable"
-hint="«Customizable» se traduce como «Personalizable», no como «Customizable» (propuesta glosario)"
+hint="«Customizable» se traduce como «Personalizable/Adaptable», no como «Customizable» (propuesta glosario)"
 
 {\bcustomize\b}i
 id="gp-2-customize"
@@ -1449,6 +1459,7 @@ hint="«Fade» se traduce como «Atenuar/Desvanecer/Fundido» (propuesta glosari
 {\bfailure\b}i
 id="gp-3-failure"
 valid msgstr="fallo"
+valid msgstr="«[Ff]ailure\:?»"
 hint="«Failure» se traduce como «Fallo» (propuesta glosario)"
 
 {\bfailures\b}i
@@ -1530,6 +1541,16 @@ valid msgstr="(alguna|cualquier|ninguna)\sbúsqueda"
 valid msgstr="(alguna|cualquier|ninguna)\sextracción"
 valid msgstr="(alguna|cualquier|ninguna)\sentrega"
 hint="«Fetchs» se traduce como «Busca/Extraiga/Entregue/Traiga/Obtenga» (propuesta glosario)"
+
+{\bfilesystem\b}i
+id="gp-2-filesystem"
+valid msgstr="sistema\sde\sarchivos"
+hint="«Filesystem» se traduce como «Sistema de archivos» (propuesta glosario)"
+
+{\bfilesystems\b}i
+id="gp-2-filesystems"
+valid msgstr="sistemas?\sde\sarchivos"
+hint="«Filesystems» se traduce como «Sistemas de archivos» (propuesta glosario)"
 
 {\bfilter\b}i
 id="gp-3-filter"
@@ -2027,6 +2048,14 @@ hint="«Inheritance» se traduce como «Herencia» (propuesta glosario)"
 id="gp-3-inherits"
 valid msgstr="hered(ar|a|e)"
 hint="«Inherits» se traduce como «Hereda» (propuesta glosario)"
+
+{\binline\b}i
+id="gp-3-inline"
+valid msgstr="intercal(ar|a|e)"
+valid msgstr="intercalad[oa]"
+valid msgstr="intercalará" after="will\s(\w+\s)?"
+valid msgstr="intercaló" after="did\s(\w+\s)?"
+hint="«Inline» se traduce como «Intercalar/Intercalado» (propuesta glosario)"
 
 {\binstaller\b}i
 id="gp-3-installer"
@@ -3089,6 +3118,21 @@ valid msgstr="(alguna|cualquier|ninguna)\sreproducción"
 valid msgstr="(algún|ningún|cualquier)\sjuego"
 hint="«Plays» se traduce como «Reproduce/Toca/Juega/Interpreta» (propuesta glosario)"
 
+{\bplot\b}i
+id="gp-2-plot"
+valid msgstr="tra(zar?|ce)"
+valid msgstr="gráfico"
+valid msgstr="diagrama"
+valid msgstr="trazará" after="will\s"
+valid msgstr="trazó" after="did\s"
+valid msgstr="trazando" after="being\s"
+hint="«Plot» se traduce como «Trazar/Gráfico/Diagrama» (propuesta glosario)"
+
+{\bplotter\b}i
+id="gp-2-plotter"
+valid msgstr="trazadora?"
+hint="«Plotter» se traduce como «Trazador» (propuesta glosario)"
+
 {\bpointer\b}i
 id="gp-2-pointer"
 valid msgstr="puntero"
@@ -3520,6 +3564,7 @@ valid msgstr="necesitará" after="will\s(\w+\s)?"
 valid msgstr="exigirá" after="will\s(\w+\s)?"
 valid msgstr="necesitó" after="did\s(\w+\s)?"
 valid msgstr="exigió" after="did\s(\w+\s)?"
+valid msgstr="«require»"
 hint="«Require» se traduce como «Necesitar/Exigir» (propuesta glosario)"
 
 {\brequires\b}i
@@ -4225,6 +4270,13 @@ id="gp-2-trackbacks"
 valid msgstr="enlaces\sinversos"
 hint="«Trackbacks» se traduce como «Enlaces inversos» (propuesta glosario)"
 
+{\btracker\b}i
+id="gp-2-tracker"
+valid msgstr="rastreador"
+valid msgstr="localizador"
+valid after="bug[\s-]"
+hint="«Tracker» se traduce como «Rastreador/Localizador» (propuesta glosario)"
+
 {\btrash\b}i
 id="gp-2-trash"
 valid msgstr="papelera"
@@ -4257,6 +4309,12 @@ hint="«Triggers» se traduce como «Desencadena/Provoca/Disparadores» (propues
 id="gp-3-trust-path"
 valid msgstr="ruta\sde\sconfianza"
 hint="«Thrust path» se traduce como «Ruta de confianza» (propuesta glosario)"
+
+{\btutorial\b}i
+id="gp-3-tutorial"
+valid msgstr="tutorial"
+valid msgstr="manual"
+hint="«Tutorial» se traduce como «Tutorial/Manual» (propuesta glosario)"
 
 {\btweet\b}i
 id="gp-3-tweet"

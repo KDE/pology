@@ -95,8 +95,10 @@ addFilterRegex match="(?<=\w)\.(?=\s[A-Z])" casesens="yes" repl="" on="pmsgid,pm
 #*hook name="es:compare_with_original/test_if_not_translated" on="msg"
 #id="pw-1-error-mensaje-sin-traducir"
 #valid msgid="^\W+$" # Mensaje sin caracteres alfabéticos
-#valid msgid="^[^a-záéíóúüñç]+$" # Mensaje que no contiene minúsculas
+#valid msgid="^[^aeiouáéíóúü]+$" # Mensaje que no contiene vocales minúsculas
 #valid msgid="^[A-Z].*?(\s[A-Z].*?)*$" # Mensaje con todas las palabras comenzando por mayúscula
+#valid msgid="^%.{1,8}$" # Mensaje corto que comienza por porcentaje
+#valid msgid="\(?.{1,8}?\/s\)?$" # Mensaje corto que termina en unidades por segundo
 #hint="No se ha traducido el mensaje original"
 
 # End of rule file

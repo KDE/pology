@@ -342,6 +342,11 @@ id="te-3-doctype"
 valid msgstr="doctype"
 hint="«Doctype» no se debe traducir (terminología)"
 
+{\bdpi\b}i
+id="te-2-dpi"
+valid msgstr="ppp"
+hint="«Dpi» se traduce como «ppp» - puntos por pulgada (terminología)"
+
 {\bdvd\b}i
 id="te-2-dvd"
 valid msgstr="dvd"
@@ -376,6 +381,12 @@ hint="«EXIF» no se debe traducir (terminología)"
 id="te-3-facebook"
 valid msgstr="face[Bb]ook"
 hint="«Facebook» no se debe traducir (terminología)"
+
+{\bFAQ\b}
+id="te-3-faq"
+valid msgstr="PMF"
+valid msgstr="[Pp]reguntas\smás\sfrecuentes"
+hint="«FAQ» se traduce como «PMF» - preguntas más frecuentes (terminología)"
 
 {\bfestival\b}i
 id="te-3-festival"
@@ -656,6 +667,11 @@ hint="«Irq» no se debe traducir (terminología)"
 id="te-2-irq-mayusculas"
 valid msgstr="IRQ"
 hint="«IRQ» no se debe traducir (terminología)"
+
+{\bISDN\b}
+id="te-2-isdn-mayusculas"
+valid msgstr="RDSI"
+hint="«ISDN» se traduce como «RDSI» (terminología)"
 
 {\biso\b}i
 id="te-3-iso"
