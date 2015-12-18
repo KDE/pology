@@ -140,7 +140,8 @@ valid before="están\b"
 valid before="x\b"
 valid before="kB\b"
 valid before="mp3?"
-valid before="estándar"
+valid before="estándar\b"
+valid before="test\b"
 valid before="(a|A|at|atm|b|bar|c|cal|cd|cm|CV|d|da|dB|dm|dyn|erg|eV|f|F|ft|g|G|gr|Gs|Gy|h|H|ha|hp|Hz|in|J|k|K|kg|kHz|km|l|L|lb|lm|lx|m|M|mbar|Mc|mg|min|mol|Mx|n|N|Oe|oz|p|P|Pa|pc|pt|Qm|R|rad|s|sr|Sv|t|T|tex|u|UA|V|Wb|yd)\b"
 
 validGroup femaleName
@@ -348,6 +349,7 @@ valid before="atleta\b"
 valid before="autómata\b"
 valid before="azumbre\b"
 valid before="batería\b"
+valid before="bebé\b"
 valid before="belga\b"
 valid before="bestia\b"
 valid before="bocazas\b"
@@ -517,6 +519,7 @@ valid before="azúcares\b"
 valid before="azules\b"
 valid before="bachilleres\b"
 valid before="baterías\b"
+valid before="bebés\b"
 valid before="belgas\b"
 valid before="brigadas\b"
 valid before="brigadieres\b"
@@ -867,6 +870,8 @@ valid msgstr="reemit\w+"
 valid msgstr="reestablec\w+"
 valid msgstr="reenunc\w+"
 valid msgstr="reenv\w+"
+valid msgstr="reescr\w+"
+valid msgstr="reempl\w+"
 hint="Los grupos de dos vocales átonas se recomienda simplificarlos (error ortográfico)"
 
 #
@@ -1002,52 +1007,52 @@ hint="«¡Porque...» se escribe como «¡Por qué...», (error gramatical)"
 id="gr-1-haber-admirativo"
 hint="«¡Haber...» se escribe generalmente como «¿A ver...», (error gramatical)"
 
-[(pero|sé|sabe\w*|pregunt\w+)(\s\w+)?\scuan\b]i
+[\b(pero|sé|sabe\w*|pregunt\w+)(\s\w+)?\scuan\b]i
 id="gr-1-cuan-sin-tilde"
 hint="«Cuan...» se escribe como «Cuán...» en oraciones interrogativas indirectas, (error gramatical)"
 
-[(pero|sé|sabe\w*|pregunt\w+)(\s\w+)?\scuando\b]i
+[\b(pero|sé|sabe\w*|pregunt\w+)(\s\w+)?\scuando\b]i
 id="gr-1-cuando-sin-tilde"
 hint="«Cuando...» se escribe como «Cuándo...» en oraciones interrogativas indirectas, (error gramatical)"
 
-[(pero|sé|sabe\w*|pregunt\w+)(\s\w+)?\sadonde\b]i
+[\b(pero|sé|sabe\w*|pregunt\w+)(\s\w+)?\sadonde\b]i
 id="gr-1-adonde-sin-tilde"
 hint="«Adonde...» se escribe como «Adónde...» en oraciones interrogativas indirectas, (error gramatical)"
 
-[(pero|sé|sabe\w*|pregunt\w+)(\s\w+)?\sdonde\b]i
+[\b(pero|sé|sabe\w*|pregunt\w+)(\s\w+)?\sdonde\b]i
 id="gr-1-donde-sin-tilde"
 hint="«Donde...» se escribe como «Dónde...» en oraciones interrogativas indirectas, (error gramatical)"
 
-[(pero|sé|sabe\w*|pregunt\w+)(\s\w+)?\scuantos\b]i
+[\b(pero|sé|sabe\w*|pregunt\w+)(\s\w+)?\scuantos\b]i
 id="gr-1-cuantos-sin-tilde"
 hint="«Cuantos...» se escribe como «Cuántos...» en oraciones interrogativas indirectas, (error gramatical)"
 
-[(pero|sé|sabe\w*|pregunt\w+)(\s\w+)?\scuanto\b]i
+[\b(pero|sé|sabe\w*|pregunt\w+)(\s\w+)?\scuanto\b]i
 id="gr-1-cuanto-sin-tilde"
 valid span="\w+\sen\scuanto"
 hint="«Cuanto...» se escribe como «Cuánto...» en oraciones interrogativas indirectas, (error gramatical)"
 
-[(pero|sé|sabe\w*|pregunt\w+)(\s\w+)?\scuales\b]i
+[\b(pero|sé|sabe\w*|pregunt\w+)(\s\w+)?\scuales\b]i
 id="gr-1-cuales-sin-tilde"
 hint="«Cuales...» se escribe como «Cuáles...» en oraciones interrogativas indirectas, (error gramatical)"
 
-[(pero|sé|sabe\w*|pregunt\w+)(\s\w+)?\scual\b]i
+[\b(pero|sé|sabe\w*|pregunt\w+)(\s\w+)?\scual\b]i
 id="gr-1-cual-sin-tilde"
 hint="«Cual...» se escribe como «Cuál...» en oraciones interrogativas indirectas, (error gramatical)"
 
-[(pero|sé|sabe\w*|pregunt\w+)(\s\w+)?\squienes\b]i
+[\b(pero|sé|sabe\w*|pregunt\w+)(\s\w+)?\squienes\b]i
 id="gr-1-quienes-sin-tilde"
 hint="«Quienes...» se escribe como «Quiénes...» en oraciones interrogativas indirectas, (error gramatical)"
 
-[(pero|sé|sabe\w*|pregunt\w+)(\s\w+)?\squien\b]i
+[\b(pero|sé|sabe\w*|pregunt\w+)(\s\w+)?\squien\b]i
 id="gr-1-quien-sin-tilde"
 hint="«Quien...» se escribe como «Quién...» en oraciones interrogativas indirectas, (error gramatical)"
 
-[(pero|sé|sabe\w*|pregunt\w+)(\s\w+)?\scomo\b]i
+[\b(pero|sé|sabe\w*|pregunt\w+)(\s\w+)?\scomo\b]i
 id="gr-1-como-sin-tilde"
 hint="«Como...» se escribe como «Cómo...» en oraciones interrogativas indirectas, (error gramatical)"
 
-[(pero|sé|sabe\w*|pregunt\w+)(\s\w+)?\sque\b]i
+[\b(pero|sé|sabe\w*|pregunt\w+)(\s\w+)?\sque\b]i
 id="gr-1-que-sin-tilde"
 hint="«Que...» se escribe como «Qué...» en oraciones interrogativas indirectas, (error gramatical)"
 
@@ -1136,7 +1141,7 @@ hint="Ponga una coma después de «sin embargo» (error gramatical)"
 id="gr-3-falta-coma-despues-no-obstante"
 hint="Ponga una coma después de «no obstante» (error gramatical)"
 
-[además\s]i
+[\bademás\s]i
 id="gr-3-falta-coma-despues-ademas"
 valid msgstr="además\sdel?\s"
 hint="Ponga una coma después de «además» (error gramatical)"
@@ -1469,7 +1474,7 @@ validGroup beforeCaps
 valid after="del\s"
 hint="Los nombres de los puntos cardinales se escriben en minúsculas (error gramatical)"
 
-[\b(Usted|Señora?|Don|Doña|Fray|San|Sant[oa]|Sor|Reverend[oa])\b]
+[\b(Usted|Señora?|Don|Doña|Fray|San|Sant[oa]|Sir|Sor|Reverend[oa])\b]
 id="gr-3-mayusculas-en-tratamientos"
 validGroup beforeCaps
 valid span="Santo" before="\sDomingo"
@@ -1516,12 +1521,12 @@ hint="«El» se escribe con tilde antes de una conjunción (error gramatical)"
 id="gr-2-tu-seguido-conjuncion"
 hint="«Tu» se escribe con tilde antes de una conjunción (error gramatical)"
 
-[(?u)porqué]i
+[(?u)\bporqué\b]i
 valid after="(el|del|mi|tu|su|este|ese|aquel|un|algún|ningún|cierto)\s"
 id="gr-1-porque-sin-demostrativo"
 hint="«Porqué» siempre debe venir precedido de un determinante (error gramatical)"
 
-[(?u)\b(a|ante|con|contra|de|desde|durante|en|entre|hacia|hasta|para|según|sin|tras)\ssi\b]i
+[(?u)\b(a|ante|con|contra|desde|durante|en|entre|hacia|hasta|para|según|sin|tras)\ssi\b]i
 id="gr-1-preposicion-delante-de-si"
 hint="«Sí» se escribe con tilde después de una preposición (error gramatical)"
 
@@ -1948,6 +1953,10 @@ hint="«Habían muchas`+ plural» se escribe como «Había muchas» (error grama
 id="gr-3-tener-claro-una"
 hint="«Tener claro una» se escribe como «Tener clara una» (error gramatical)"
 
+[(?u)[uú]n\spor\sciento\b]i
+id="gr-2-un-por-ciento"
+hint="«-un por ciento» se escribe como «-uno por ciento» (error gramatical)"
+
 #
 # ERRORES DE ACENTUACIÓN
 #
@@ -2123,6 +2132,7 @@ hint="«Afirmar de que» se escribe como «Afirmar que», dequeismo (error grama
 
 [(?u)\basegur\w{1,4}?\sde\sque\b]i
 valid msgstr="asegurarse\sde\sque"
+valid msgstr="se\sasegur[ea]\sde\sque"
 id="gr-1-dequeismo-7"
 hint="«Asegurar de que» se escribe como «Asegurar que», dequeismo (error gramatical)"
 

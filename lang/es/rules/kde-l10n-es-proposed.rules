@@ -304,6 +304,11 @@ valid msgstr="(algún|ningún|cualquier)\stablero"
 valid msgstr="(algún|ningún|cualquier)\stablón"
 hint="«Boards» se traduce como «Placas/Tarjetas» (propuesta glosario)"
 
+{\bboom\b}i
+id="gp-2-boom"
+valid msgstr="bum"
+hint="«Boom» se traduce como «Bum» (propuesta glosario)"
+
 {\bboot\s?loader\b}i
 id="gp-2-boot-loader"
 valid msgstr="gestor(es)?\sde\sarranque"
@@ -2684,6 +2689,11 @@ valid msgstr="grupos\sde\snoticias"
 valid msgstr="(algún|ningún|cualquier)\sgrupo\sde\snoticias"
 hint="«Newsgroups» se traduce como «Grupos de noticias» (propuesta glosario)"
 
+{\bnewsletter\b}i
+id="gp-2-newsletter"
+valid msgstr="boletín"
+hint="«Newsletter» se traduce como «Boletín» (propuesta glosario)"
+
 {\bnick\b}i
 id="gp-2-nick"
 valid msgstr="apodo"
@@ -4525,6 +4535,11 @@ hint="«Warning» se traduce como «Aviso/Advertencia» (propuesta glosario)"
 id="gp-3-webcam"
 valid msgstr="cámara web"
 hint="«Webcam» se traduce como «Cámara web» (propuesta glosario)"
+
+{\bwebsite\b}i
+id="gp-3-website"
+valid msgstr="sitio web"
+hint="«Website» se traduce como «Sitio web» (propuesta glosario)"
 
 {\bwild\scard\b}i
 id="gp-2-wildcard"

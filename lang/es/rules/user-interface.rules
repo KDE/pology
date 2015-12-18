@@ -913,20 +913,21 @@ hint="«Tool bars» se traduce como «Barras de herramientas» (regla de traducc
 
 {\bcopy\sto\b}i
 id="ui-3-copy-to"
-valid msgstr="copi(ar|a|e)\s(\w+\s){,2}en"
+valid msgstr="copi(ar|a|e)\s(\w+\s){,2}(en|para)"
 valid msgstr="(una|la)\scopia"
 valid before="\-do"
 hint="«Copy to» se traduce como «Copiar en» (regla de traducción de la interfaz gráfica)"
 
 {\bmove\sto\b}i
 id="ui-3-move-to"
-valid msgstr="m(over|uev[ea])\s(\w+\s){,2}a"
+valid msgstr="m(over|overse|uev[ea])\s(\w+\s){,2}al?"
 valid before="\-do"
 hint="«Move to» se traduce como «Mover a» (regla de traducción de la interfaz gráfica)"
 
 {^Failed\b}
 id="ui-3-failed"
 valid msgstr="[Hh]a\sfallado"
+valid msgstr="[Ff]allid[oa]"
 hint="«Failed» se traduce como «Ha fallado» (regla de traducción de la interfaz gráfica)"
 
 {^Unable\b}
