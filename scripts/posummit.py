@@ -401,6 +401,10 @@ def derive_project_data (project, options, nwgrefpath=None):
         b.by_lang = bd.pop("by_lang", False)
         if b.by_lang and isinstance(b.by_lang, bool):
             b.by_lang = project.lang
+        # If separate templates directory is not defined in by-language mode,
+        # set it to same as catalogs directory.
+        if b.by_lang and b.topdir_templates is None:
+            b.topdir_templates = b.topdir
         b.scatter_create_filter = bd.pop("scatter_create_filter", None)
         b.skip_version_control = bd.pop("skip_version_control", False)
         # FIXME: merge_locally retained for backward compatibility,
