@@ -9,9 +9,9 @@ Additions to resolving UI references.
 
 import re
 
-entity_tail_rxstr = r"([\w_:][\w\d._:-]*);"
-_entity_tail_rx = re.compile(r"%s" % entity_tail_rxstr)
-_entity_rx = re.compile(r"&%s" % entity_tail_rxstr)
+entity_tail_rxstr = r"([\w:][\w\d.:-]*);"
+_entity_tail_rx = re.compile(r"%s" % entity_tail_rxstr, re.U)
+_entity_rx = re.compile(r"&%s" % entity_tail_rxstr, re.U)
 
 def mod_entities (unescape=False, basesuff=""):
     """

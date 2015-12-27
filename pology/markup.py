@@ -291,7 +291,7 @@ def _parse_tag (text, p):
     return tag_literal, tag, atype, opening, closing, p
 
 
-_entity_rx = re.compile(r"&([\w_:][\w\d._:-]*);")
+_entity_rx = re.compile(r"&([\w:][\w\d.:-]*);", re.U)
 
 def _resolve_ents (text, ents={}, ignents={}):
     """
@@ -915,7 +915,7 @@ class _L1Element:
 
 
 # Simplified matching of XML entity name (sans ampersand and semicolon).
-_simple_ent_rx = re.compile(r"^([a-zA-Z0-9_.:-]+|#[0-9]+)$");
+_simple_ent_rx = re.compile(r"^([\w.:-]+|#[0-9]+)$", re.U);
 
 # Get line/column segment in error report.
 _lin_col_rx = re.compile(r":\s*line\s*\d+,\s*column\s*\d+", re.I)
@@ -1223,7 +1223,7 @@ def _make_span (text, lno, col, errmsg):
     return (start, end, errmsg)
 
 
-_entname_rx = re.compile(r"^([\w_:][\w\d._:-]*)$")
+_entname_rx = re.compile(r"^([\w:][\w\d.:-]*)$", re.U)
 
 def _validate_xml_entdef (text, xmlfmt):
 

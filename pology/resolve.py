@@ -19,7 +19,7 @@ from pology.report import warning, format_item_list
 DEFAULT_ALTHEAD = "~@"
 
 
-_entity_ref_rx = re.compile(r"&([\w_:][\w\d._:-]*);")
+_entity_ref_rx = re.compile(r"&([\w:][\w\d.:-]*);", re.U)
 
 def resolve_entities (text, entities, ignored=set(), srcname=None,
                       vfilter=None, undefrepl=None):

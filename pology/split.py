@@ -119,7 +119,7 @@ _r_email_rx = (re.compile(r"\b[\w.-]+@[\w.-]+", re.U), "")
 _r_shvar_rx = (re.compile(r"\$(\w+|\{.*?\})", re.U), "")
 _r_shopt_rx = (re.compile(r"(^|[^\w])(--|-|/)[\w-]+", re.U), "")
 _r_tags_rx = (re.compile(r"<.*?>"), " ")
-_r_ents_rx = (re.compile(r"&[\w.:-]+;"), " ")
+_r_ents_rx = (re.compile(r"&[\w.:-]+;", re.U), " ")
 _r_numents_rx = (re.compile(r"&#x?\d+;"), " ")
 _r_digits_rx = (re.compile(r"\d+"), " ")
 

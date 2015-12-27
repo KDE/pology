@@ -727,7 +727,7 @@ def rewrite_inverse (msg, cat):
     return nerrors
 
 
-_ent_rx = re.compile(r"&[a-zA-Z0-9_.:-]+;")
+_ent_rx = re.compile(r"&[\w.:-]+;", re.U)
 
 def remove_paired_ents (msg, cat):
     """
