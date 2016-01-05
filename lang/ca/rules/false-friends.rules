@@ -681,7 +681,6 @@ valid msgstr="net" cat="tables,kcells,kspread,sheets" before="\spresent value"# 
 valid msgstr="net" cat="kuser" before="\sgetlocalsid"
 valid msgstr="net" cat="marble" after="rotate\.aprs\."
 valid msgstr="net" cat="plasma_applet_pastebin" after="hosting\."
-valid msgstr="net" cat="skrooge" after=">\s" # Categoria
 valid msgstr="net" after="@(att|cberger|comcast|earthlink|example|frogmouth|gmx|ibm|kdab|kdemail|mediaone|meyerhome|nerim|netscape|openprojects|pacbell|planete|telecorp|tuxerver|usa|users\.sf|verticaladdiction)\."
 valid msgstr="net" after="(darkorb|eigentlich|gmx|@gmx\sDOT|kdemail|linux\sru|mis|shani|tantalo)\s"
 valid msgstr="net" after="irc\.freenode\."
