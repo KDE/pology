@@ -1,0 +1,15 @@
+# Words and phrases that are only valid Norwegian Bokmål, not in Norwegian Nynorsk.
+# Karl Ove Hufthammer <karl@huftis.org>
+# License: GPLv3
+
+# Note that (because of many false positives), this rule is placed in the
+# ‘mformsjekk’ environment, and thus not run by default.
+# To use it, type ‘posieve check-rules -senv:mformsjekk -srule:bokmålsord’
+
+
+include file="puretext.filters"
+
+*hook name="nn:exclusion/exclude-forms~['bokmal-words']" on="msgstr"
+environment mformsjekk
+id="bokmålsord"
+hint="Bruk av eit ord som berre er gyldig på bokmål."

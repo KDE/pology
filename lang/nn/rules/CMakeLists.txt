@@ -1,6 +1,7 @@
 set(files
     english.rules
     grammar.rules
+    bokmal-words.rules
     kde.rules
     ortography.rules
     puretext.filters

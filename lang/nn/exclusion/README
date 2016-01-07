@@ -20,6 +20,28 @@ comm -3 alle.dat hovudformer.dat > klammeformer.dat
 rm -f alle.* hovudformer.*
 
 
+
+# The file ‘bokmal-words.dat’ contains a list of all words that
+# are valid in Norwegian Bokmål, but not in Norwegian Nynorsk.
+# Words containing only non-letter characters or containing
+# uppercase letters are excluded, to avoid too many false
+# positives. Still, there will be *many* false positives, so
+# this file should not be used in any ‘default’ rule sets.
+# It is generated from ‘fullform_nn.txt’ and ‘fullform_bm.txt’
+# using these commands:
+
+grep -v '^*' fullform_nn.txt > alle-nn.txt
+grep -v '^*' fullform_bm.txt > alle-nb.txt
+
+cut -f3 -d'	' alle-nn.txt | sed 's/ /\n/g' | grep -v '^[^A-Za-zÆØÅæøå]\+$' | grep -v '[A-ZÆØÅ]' | sort | uniq > ord-nn.txt
+cut -f3 -d'	' alle-nb.txt | sed 's/ /\n/g' | grep -v '^[^A-Za-zÆØÅæøå]\+$' | grep -v '[A-ZÆØÅ]' | sort | uniq > ord-nb.txt
+
+comm -23 ord-nb.txt ord-nn.txt > bokmal-words.dat
+
+rm -f alle-*.txt ord-*.txt
+
+
+
 # The file ‘imperativfeil.dat’ contains a list of imperatives
 # misspelled with an accent. For example, it contains the
 # word ‘installér’ (should be spelled ‘installer’).
