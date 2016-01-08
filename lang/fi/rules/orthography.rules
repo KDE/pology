@@ -90,9 +90,9 @@ hint="Tarkista, kuuluuko tähän ajatusviivan sijaan yhdysmerkki."
 {(Copyright)?\s*(\(c\)|©) \d+\s*([\-/]\s*\d+)?(,\s*\d+\s*([\-/]\s*\d+)?)*,?\s*\w}i
 id="orthography-copyright-1"
 hint="Tarkista tekijänoikeusmerkinnän muoto. Esimerkki: © 2001–2012, 2014 Matti Meikäläinen"
-valid msgstr="© \d+(–\d+)?(, \d+(–\d+)?)*( \w)?"
+valid msgstr="©( | )\d+(–\d+)?(, \d+(–\d+)?)*( \w)?"
 
 {Copyright\s+(\(c\)|©)? \d+\s*([\-/]\s*\d+)?(,\s*\d+\s*([\-/]\s*\d+)?)*,?\s*\w}i
 id="orthography-copyright-2"
 hint="Tarkista tekijänoikeusmerkinnän muoto. Esimerkki: © 2001–2012, 2014 Matti Meikäläinen"
-valid msgstr="(Copyright|Tekijänoikeudet|Tekijänoikeus) ©? \d+([\-/]\d+)?(, \d+([\-/]\d+)?)*( \w)?"
+valid msgstr="(Copyright|Tekijänoikeudet|Tekijänoikeus) ©?( | )\d+([\-/]\d+)?(, \d+([\-/]\d+)?)*( \w)?"
