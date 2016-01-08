@@ -666,6 +666,7 @@ hint="Hay una palabra consecutiva repetida en el párrafo (error gramatical)"
 
 [(?u)\b(\w+(\s\w+)+)[\s.,;\:]+\1\b]
 id="gr-1-frase-repetida"
+valid ctx="X-KDE-Keywords"
 hint="Hay un grupo de dos o más palabras consecutivas repetido en el párrafo (error gramatical)"
 
 [(?u)\b(el|la|lo|los|las)(?!\n)\s+(el|la|lo|los|las)\b]i
@@ -1590,7 +1591,7 @@ hint="Se ha encontrado «Un» seguido de participio en femenino (error gramatica
 
 [(?u)\ba\s\w+?(ado|edo|ido)\b]i
 id="gr-1-a-en-lugar-de-ha-participio"
-valid span="\ba\s(cada|nada|lado|demasiad[ao]|predeterminad[ao])\b"
+valid span="\ba\s(cada|nada|lado|apaisad[oa]|contenid[oa]|demasiad[ao]|predeterminad[ao])\b"
 valid after="(huel\w+|hol\w+|sab\w+|gust\w+|camb\w+)\s(\w+\s){0,2}"
 hint="Se ha encontrado «A» en lugar de «Ha» antes de un participio en masculino (error gramatical)"
 
@@ -1827,6 +1828,7 @@ id="gr-1-concordancia-numero-plural-nombre"
 validGroup pluralName
 validGroup wordDelimiter
 validGroup beforeConnector
+valid ctx="space-separated list of words meaning \d+"
 valid before="\s\w+?s\b"
 valid after="\w+?s\s"
 valid after="en\s"
@@ -2344,49 +2346,49 @@ hint="«La muerdo» se escribe como «Le muerdo», laismo (error gramatical)"
 id="gr-2-leismo-amar"
 hint="«Le amo» se escribe como «La/Lo amo», leismo (error gramatical)"
 
-[(?u)\bles?\sador\w+\b]i
+[(?u)\bles?\sador[oa][ns]?\b]i
 id="gr-2-leismo-adorar"
 hint="«Le adoro» se escribe como «La/Lo adoro», leismo (error gramatical)"
 
-[(?u)\bles?\saprec\w+\b]i
+[(?u)\bles?\sapreci[oa][ns]?\b]i
 id="gr-2-leismo-apreciar"
 valid msgstr="(apreci[aeo]|apreciar[áé]|apreci[éó])" # con «a usted»
 hint="«Le aprecio» se escribe como «La/Lo aprecio», leismo (error gramatical)"
 
-[(?u)\bles?\savis\w+\b]i
+[(?u)\bles?\savis[oa][ns]?\b]i
 id="gr-2-leismo-avisar"
 valid msgstr="(avis[aeo]|avisar[áé]|avis[éó])" # con «a usted»
 hint="«Le aviso» se escribe como «La/Lo aviso», leismo (error gramatical)"
 
-[(?u)\bles?\sayud\w+\b]i
+[(?u)\bles?\sayud[oa][ns]?\b]i
 id="gr-2-leismo-ayudar"
 valid msgstr="(ayud[aeo]|ayudar[áé]|ayud[éó])" # con «a usted»
 hint="«Le ayudo» se escribe como «La/Lo ayudo», leismo (error gramatical)"
 
-[(?u)\bles?\sinvit\w+\b]i
+[(?u)\bles?\sinvit[oa][ns]?\b]i
 id="gr-2-leismo-invitar"
 valid msgstr="(invit[aeo]|invitar[óé]|invit[éó])" # con «a usted»
 hint="«Le invito» se escribe como «La/Lo invito», leismo (error gramatical)"
 
-[(?u)\bles?\sodi\w+\b]i
+[(?u)\bles?\sodi[oa][ns]?\b]i
 id="gr-2-leismo-odiar"
 hint="«Le odio» se escribe como «La/Lo odio», leismo (error gramatical)"
 
-[(?u)\bles?\sobedez\w+\b]i
+[(?u)\bles?\sobedez[oa][ns]?\b]i
 id="gr-2-leismo-obedecer"
 hint="«Le obedezco» se escribe como «La/Lo obedezco», leismo (error gramatical)"
 
-[(?u)\bles?\soblig\w+\b]i
+[(?u)\bles?\soblig[oa][ns]?\b]i
 id="gr-2-leismo-obligar"
 valid msgstr="(oblig(a|o|ue)|oblig(ó|ué)|obligar[áé])" # con «a usted»
 hint="«Le obligo» se escribe como «La/Lo obligo», leismo (error gramatical)"
 
-[(?u)\bles?\stelefone\w+\b]i
+[(?u)\bles?\stelefone[oa][ns]?\b]i
 id="gr-2-leismo-telefonear"
 valid msgstr="(telefone[aeo]|telefone[éó]|telefonear[áé])" # con «a usted»
 hint="«Le telefoneo» se escribe como «La/Lo telefoneo», leismo (error gramatical)"
 
-[(?u)\bles?\svisit\w+\b]i
+[(?u)\bles?\svisit[oa][ns]?\b]i
 id="gr-2-leismo-visitar"
 valid msgstr="(visit[aeo]|visitar[áé]|visit[éó])" # con «a usted»
 hint="«Le visito» se escribe como «La/Lo visito», leismo (error gramatical)"
@@ -2395,70 +2397,70 @@ hint="«Le visito» se escribe como «La/Lo visito», leismo (error gramatical)"
 id="gr-2-laismo-loismo-caer"
 hint="«La/Lo caigo» se escribe como «Le caigo», laismo/loismo (error gramatical)"
 
-[(?u)\b(los?|las?)\sgrit\w+\b]i
+[(?u)\b(los?|las?)\sgrit[oa][ns]?\b]i
 id="gr-2-laismo-loismo-gritar"
 valid msgstr="griton[ae]s"
 hint="«La/Lo grito» se escribe como «Le grito», laismo/loismo (error gramatical)"
 
-[(?u)\b(los?|las?)\shabl\w+\b]i
+[(?u)\b(los?|las?)\shabl[oa][ns]?\b]i
 id="gr-2-laismo-loismo-hablar"
 valid msgstr="hablantes"
 hint="«La/Lo hablo» se escribe como «Le hablo», laismo/loismo (error gramatical)"
 
-[(?u)\b(los?|las?)\sinsist\w+\b]i
+[(?u)\b(los?|las?)\sinsist[oa][ns]?\b]i
 id="gr-2-laismo-loismo-insistir"
 hint="«La/Lo insisto» se escribe como «Le insisto», laismo/loismo (error gramatical)"
 
 [(?u)\b(los?|las?)\s(mient|ment)\w+\b]i
 id="gr-2-laismo-loismo-mentir"
-valid msgstr="mentiros[ao]s"
+valid msgstr="mentiros[oa][ns]?"
 hint="«La/Lo miente» se escribe como «Le miente», laismo/loismo (error gramatical)"
 
 [(?u)\b(los?|las?)\s(rio|ries?|reimos|reis|rien|rei|reiste|rió|reimos|reistéis|rieron|reiré|reirás?|reiremos|reiréis|reirán)\b]i
 id="gr-2-laismo-loismo-reir"
 hint="«La/Lo rie» se escribe como «Le rie», laismo/loismo (error gramatical)"
 
-[(?u)\b(los?|las?)\ssonr\w+\b]i
+[(?u)\b(los?|las?)\ssonr[oa][ns]?\b]i
 id="gr-2-laismo-loismo-sonreir"
 hint="«La/Lo sonríe» se escribe como «Le sonríe», laismo/loismo (error gramatical)"
 
-[(?u)\b(los?|las?)\ssuspir\w+\b]i
+[(?u)\b(los?|las?)\ssuspir[oa][ns]?\b]i
 id="gr-2-laismo-loismo-suspiro"
 hint="«La/Lo suspira» se escribe como «Le suspira», laismo/loismo (error gramatical)"
 
-[(?u)\b(los?|las?)\stos\w+\b]i
+[(?u)\b(los?|las?)\stos[oa][ns]?\b]i
 id="gr-2-laismo-loismo-toser"
 hint="«La/Lo tose» se escribe como «Le tose», laismo/loismo (error gramatical)"
 
-[(?u)\b(los?|las?)\sboste\w+\b]i
+[(?u)\b(los?|las?)\sboste[oa][ns]?\b]i
 id="gr-2-laismo-loismo-bostezar"
 hint="«La/Lo bosteza» se escribe como «Le bosteza», laismo/loismo (error gramatical)"
 
-[(?u)\b(los?|las?)\sllor\w+\b]i
+[(?u)\b(los?|las?)\sllor[oa][ns]?\b]i
 id="gr-2-laismo-loismo-llorar"
 hint="«La/Lo lloro» se escribe como «Le lloro», laismo/loismo (error gramatical)"
 
-[(?u)\b(los?|las?)\sgust\w+\b]i
+[(?u)\b(los?|las?)\sgust[oa][ns]?\b]i
 id="gr-2-laismo-loismo-gustar"
 hint="«La/Lo gusto» se escribe como «Le gusto», laismo/loismo (error gramatical)"
 
-[(?u)\b(los?|las?)\smolest\w+\b]i
+[(?u)\b(los?|las?)\smolest[oa][ns]?\b]i
 id="gr-2-laismo-loismo-molestar"
 hint="«La/Lo molesto» se escribe como «Le molesto», laismo/loismo (error gramatical)"
 
-[(?u)\b(los?|las?)\sdisgust\w+\b]i
+[(?u)\b(los?|las?)\sdisgust[oa][ns]?\b]i
 id="gr-2-laismo-loismo-disgustar"
 hint="«La/Lo disgusto» se escribe como «Le disgusto», laismo/loismo (error gramatical)"
 
-[(?u)\b(los?|las?)\simpresion\w+\b]i
+[(?u)\b(los?|las?)\simpresion[oa][ns]?\b]i
 id="gr-2-laismo-loismo-impresionar"
 hint="«La/Lo impresiono» se escribe como «Le impresiono», laismo/loismo (error gramatical)"
 
-[(?u)\b(los?|las?)\sestorn\w+\b]i
+[(?u)\b(los?|las?)\sestorn[oa][ns]?\b]i
 id="gr-2-laismo-loismo-estornudar"
 hint="«La/Lo estornudo» se escribe como «Le estornudo», laismo/loismo (error gramatical)"
 
-[(?u)\b(los?|las?)\squed\w+\b]i
+[(?u)\b(los?|las?)\squed[oa][ns]?\b]i
 id="gr-2-laismo-loismo-quedar"
 hint="«La/Lo queda» se escribe como «Le queda», laismo/loismo (error gramatical)"
 

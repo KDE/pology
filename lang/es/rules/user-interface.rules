@@ -921,20 +921,46 @@ hint="«Copy to» se traduce como «Copiar en» (regla de traducción de la inte
 {\bmove\sto\b}i
 id="ui-3-move-to"
 valid msgstr="m(over|overse|uev[ea])\s(\w+\s){,2}al?"
+valid msgstr="migr(ar|arse|a|e)\sa"
 valid before="\-do"
 hint="«Move to» se traduce como «Mover a» (regla de traducción de la interfaz gráfica)"
 
-{^Failed\b}
-id="ui-3-failed"
+{\bFailed\b}
+id="ui-3-failed-begin"
 valid msgstr="[Hh]a\sfallado"
 valid msgstr="[Ff]allid[oa]"
 hint="«Failed» se traduce como «Ha fallado» (regla de traducción de la interfaz gráfica)"
 
-{^Unable\b}
+{\bfailed$}
+id="ui-3-failed-end"
+valid msgstr="[Hh]a\sfallado"
+valid msgstr="[Hh]aya\sfallado"
+valid msgstr="[Ff]allid[oa]"
+hint="«Failed» se traduce como «Ha fallado» (regla de traducción de la interfaz gráfica)"
+
+{\bfailed\.}
+id="ui-3-failed-dot"
+valid msgstr="[Hh]a\sfallado"
+valid msgstr="[Ff]allid[oa]"
+hint="«Failed» se traduce como «Ha fallado» (regla de traducción de la interfaz gráfica)"
+
+{\bUnable\b}
 id="ui-3-unable"
 valid msgstr="[Nn]o\s(es|fue)\sposible"
 valid msgstr="[Nn]o\sse\s(puede|pudo)"
 hint="«Unable» se traduce como «No es posible/No se puede» (regla de traducción de la interfaz gráfica)"
+
+{\bCould\snot\b}
+id="ui-3-could-not"
+valid msgstr="[Nn]o\sse\shan?\spodido"
+valid msgstr="[Nn]o\sha\ssido\sposible"
+hint="«Could not» se traduce como «No se ha podido/No ha sido posible» (regla de traducción de la interfaz gráfica)"
+
+{\bCan\s?not\b}
+id="ui-3-cannot"
+valid msgstr="[Nn]o\sse\spueden?"
+valid msgstr="[Nn]o\ses\sposible"
+hint="«Cannot» se traduce como «No se puede/No es posible» (regla de traducción de la interfaz gráfica)"
 
 {\binvalid\b}i
 id="ui-3-invalid"
