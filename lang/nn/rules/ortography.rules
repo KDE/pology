@@ -30,6 +30,7 @@ valid after="\b[Bb]ob" before="iging"
 valid after="\b[Cc]el" before="orleik"
 valid after="\b[Ss]til" before="åande"
 valid after="\b[M]i" before="olpe"
+valid after="\b[Rr]ul" before="ol"
 
 [bærbar]i
 hint="bærbar → berbar"
@@ -77,6 +78,7 @@ hint="utskiftning → utskifting"
 
 [skall]i
 hint="skall → skal"
+valid after="hovud"
 
 [adressar]i
 hint="adressar → adresser"
