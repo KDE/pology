@@ -927,20 +927,22 @@ hint="«Move to» se traduce como «Mover a» (regla de traducción de la interf
 
 {\bFailed\b}
 id="ui-3-failed-begin"
-valid msgstr="[Hh]a\sfallado"
+valid msgstr="[Hh]an?\sfallado"
+valid msgstr="[Hh]ayan?\sfallado"
 valid msgstr="[Ff]allid[oa]"
 hint="«Failed» se traduce como «Ha fallado» (regla de traducción de la interfaz gráfica)"
 
 {\bfailed$}
 id="ui-3-failed-end"
-valid msgstr="[Hh]a\sfallado"
-valid msgstr="[Hh]aya\sfallado"
+valid msgstr="[Hh]an?\sfallado"
+valid msgstr="[Hh]ayan?\sfallado"
 valid msgstr="[Ff]allid[oa]"
 hint="«Failed» se traduce como «Ha fallado» (regla de traducción de la interfaz gráfica)"
 
 {\bfailed\.}
 id="ui-3-failed-dot"
-valid msgstr="[Hh]a\sfallado"
+valid msgstr="[Hh]an?\sfallado"
+valid msgstr="[Hh]ayan?\sfallado"
 valid msgstr="[Ff]allid[oa]"
 hint="«Failed» se traduce como «Ha fallado» (regla de traducción de la interfaz gráfica)"
 

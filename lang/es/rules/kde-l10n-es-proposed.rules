@@ -2997,6 +2997,20 @@ id="gp-2-perfomance"
 valid msgstr="rendimiento"
 hint="«Performance» se traduce como «Rendimiento» (propuesta glosario)"
 
+{\bpicker\b}i
+id="gp-2-picker"
+valid msgstr="recolector"
+valid msgstr="recogedor"
+hint="«Picker» se traduce como «Recolector/Recogedor» (propuesta glosario)"
+
+{\bpickers\b}i
+id="gp-2-pickers"
+valid msgstr="recolectores"
+valid msgstr="recogedores"
+valid msgstr="(algún|cualquier|ningún)\srecolector"
+valid msgstr="(algún|cualquier|ningún)\srecogedor"
+hint="«Pickers» se traduce como «Recolectores/Recogedores» (propuesta glosario)"
+
 {\bpipelining\b}i
 id="gp-2-pipelining"
 valid msgstr="redireccionamiento"
@@ -3278,6 +3292,18 @@ id="gp-3-programming"
 valid msgstr="programación"
 valid msgstr="al\sprogramar" after="while\s"
 hint="«Programming» se traduce como «Programación» (propuesta glosario)"
+
+#{\bproxies\b}i
+#id="gp-3-proxies"
+#valid msgstr="proxies"
+#valid msgstr="apoderados"
+#hint="«Proxies» se traduce como «Proxies» (propuesta glosario)"
+
+{\bproxy\b}i
+id="gp-3-proxy"
+valid msgstr="proxy"
+valid msgstr="apoderado"
+hint="«Proxy» se traduce como «Proxy» (propuesta glosario)"
 
 {\bpublic\skey\b}i
 id="gp-2-public-key"
@@ -3890,6 +3916,20 @@ valid msgstr="fragmentos"
 valid msgstr="(algún|ningún|cualquier)\srecorte"
 valid msgstr="(algún|ningún|cualquier)\sfragmento"
 hint="«Snippets» se traduce como «Recortes/Fragmentos» (propuesta glosario)"
+
+{\bsocket\b}i
+id="gp-3-socket"
+valid msgstr="conector"
+valid msgstr="enchufe"
+hint="«Socket» se traduce como «Conector/Enchufe» (propuesta glosario)"
+
+{\bsockets\b}i
+id="gp-3-sockets"
+valid msgstr="conectores"
+valid msgstr="enchufes"
+valid msgstr="(algún|ningún|cualquier)\sconector"
+valid msgstr="(algún|ningún|cualquier)\senchufe"
+hint="«Sockets» se traduce como «Conectores/Enchufes» (propuesta glosario)"
 
 {\bsource\b}i
 id="gp-3-source"

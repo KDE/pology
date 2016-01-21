@@ -1532,7 +1532,7 @@ hint="«Renombrar» significa lo mismo que nombrar y está en desuso, se debe es
 id="cm-2-relacionado-a"
 hint="«Relacionado a» se escribe como «Relacionado con» (error frecuente)"
 
-[\bresult\w+\sen\b]i
+[\bresult(ar|a|e)+\sen\b]i
 id="cm-2-resultar-en"
 valid msgstr="resultado\sen"
 hint="«Resultar en» se debe escribir como «Dar como resultado» (error frecuente)"

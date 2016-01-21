@@ -2300,7 +2300,7 @@ hint="«Off topic» se traduce como «Fuera de temática» (ver glosario)"
 {\bok\b}i
 id="gk-2-ok"
 valid msgstr="aceptar"
-valid msgstr="correct[oa]"
+valid msgstr="correct[oa]s?"
 valid msgstr="de\sacuerdo"
 valid after="«" before="»"
 hint="«Ok» se traduce como «Aceptar» en botones o «Correcto» en otros casos (ver glosario)"
@@ -2308,7 +2308,7 @@ hint="«Ok» se traduce como «Aceptar» en botones o «Correcto» en otros caso
 {\bOK\b}
 id="gk-2-ok-mayusculas"
 valid msgstr="[Aa]ceptar"
-valid msgstr="[Cc]orrect[oa]"
+valid msgstr="[Cc]orrect[oa]s?"
 valid msgstr="[Dd]e\sacuerdo"
 valid after="«" before="»"
 hint="«OK» se traduce como «Aceptar» en botones o «Correcto» en otros casos (ver glosario)"
