@@ -158,3 +158,7 @@ if(NOT CAN_BUILD_PO)
     message(STATUS "${msg}")
 endif()
 
+SET(CPACK_GENERATOR "DEB")
+SET(CPACK_DEBIAN_PACKAGE_MAINTAINER "Shinjo Park")
+
+INCLUDE(CPack)
