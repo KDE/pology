@@ -197,6 +197,7 @@ hint="fellesskap reknar me som inkjekjønn"
 hint="medlemskap reknar me som inkjekjønn"
 
 [pakk(a|er|ene)\b|\bei pakke\b]i
+id="pakke-kjonn"
 hint="pakke reknar me som hankjønn"
 
 [tekst(a|er|ene)\b|\bei tekst\b]i
