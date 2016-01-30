@@ -247,7 +247,7 @@ class Sieve (object):
 
     def process (self, msg, cat):
 
-        if msg.obsolete:
+        if not msg.translated:
             return
 
         id=0 # Count msgstr plural forms
