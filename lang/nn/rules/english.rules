@@ -13,5 +13,14 @@ valid after="system-config-"
 id="server"
 hint="server → tenar"
 
+{socket}i
+id="socket"
+hint="socket → socket (ikkje «sokkel» e.l.)"
+valid msgstr="socket"
+
+[(socket\w)|(\wsocket)]i
+id="socketord"
+hint="«socket» skal ha bindestrek ved bøying og samansettingar («socket-en», ikkje «socketen», og «socket-feil», ikkje «socketfeil»)"
+
 [\bURL-]i
 hint="URL → (nett)adresse (med nokre unntak)"
