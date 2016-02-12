@@ -296,6 +296,16 @@ id="te-3-dbus"
 valid msgstr="d[Bb]us"
 hint="«DBus» no se debe traducir (terminología)"
 
+{\bdcc\b}i
+id="te-3-dcc"
+valid msgstr="dcc"
+hint="«dcc» no se debe traducir (terminología)"
+
+{\bDCC\b}
+id="te-3-dcc-mayusculas"
+valid msgstr="DCC"
+hint="«DCC» no se debe traducir (terminología)"
+
 {\bdebian\b}i
 id="te-3-debian"
 valid msgstr="debian"
@@ -367,6 +377,11 @@ id="te-3-dvi-mayusculas"
 valid msgstr="DVI"
 hint="«DVI» no se debe traducir (terminología)"
 
+{\bepub\b}i
+id="te-3-epub"
+valid msgstr="epub"
+hint="«Epub» no se debe traducir (terminología)"
+
 {\bexif\b}i
 id="te-3-exif"
 valid msgstr="exif"
@@ -398,6 +413,11 @@ id="te-3-ffmpeg"
 valid msgstr="ffmpeg"
 hint="«Ffmpeg» no se debe traducir (terminología)"
 
+{\bflac\b}i
+id="te-3-flac"
+valid msgstr="flac"
+hint="«Flac» no se debe traducir (terminología)"
+
 {\bframe\srelay\b}i
 id="te-3-frame-relay"
 valid msgstr="frame\srelay"
@@ -407,6 +427,11 @@ hint="«Frame relay» no se debe traducir (terminología)"
 id="te-3-freedb"
 valid msgstr="free(db|DB)"
 hint="«Freedb» no se debe traducir (terminología)"
+
+{\bftp\b}i
+id="te-3-ftp"
+valid msgstr="ftp"
+hint="«Ftp» no se debe traducir (terminología)"
 
 {\bgdb\b}i
 id="te-3-gdb"
@@ -428,31 +453,6 @@ id="te-3-gid-mayusculas"
 valid msgstr="GID"
 hint="«GID» no se debe traducir (terminología)"
 
-{\bgnu\b}i
-id="te-2-gnu"
-valid msgstr="gnu"
-hint="«Gnu» no se debe traducir (terminología)"
-
-{\bGNU\b}
-id="te-2-gnu-mayusculas"
-valid msgstr="GNU"
-hint="«GNU» no se debe traducir (terminología)"
-
-{\bguid\b}i
-id="te-2-guid"
-valid msgstr="guid"
-hint="«Guid» no se debe traducir (terminología)"
-
-{\bGUID\b}
-id="te-2-guid-mayusculas"
-valid msgstr="GUID"
-hint="«GUID» no se debe traducir (terminología)"
-
-{\bg[Ww]en[Vv]iew\b}i
-id="te-3-gwnview"
-valid msgstr="g[Ww]en[Vv]iew"
-hint="«Gwenview» no se debe traducir (terminología)"
-
 {\bgit\b}i
 id="te-3-git"
 valid msgstr="git"
@@ -472,6 +472,16 @@ hint="«Gnome» no se debe traducir (terminología)"
 id="te-3-gnome-mayusculas"
 valid msgstr="GNOME"
 hint="«GNOME» no se debe traducir (terminología)"
+
+{\bgnu\b}i
+id="te-2-gnu"
+valid msgstr="gnu"
+hint="«Gnu» no se debe traducir (terminología)"
+
+{\bGNU\b}
+id="te-2-gnu-mayusculas"
+valid msgstr="GNU"
+hint="«GNU» no se debe traducir (terminología)"
 
 {\bgnu(pg|PG)\b}i
 id="te-3-gnupg"
@@ -497,6 +507,26 @@ hint="«Gpl» no se debe traducir (terminología)"
 id="te-3-gpl-mayusculas"
 valid msgstr="GPL"
 hint="«GPL» no se debe traducir (terminología)"
+
+{\bguid\b}i
+id="te-2-guid"
+valid msgstr="guid"
+hint="«Guid» no se debe traducir (terminología)"
+
+{\bGUID\b}
+id="te-2-guid-mayusculas"
+valid msgstr="GUID"
+hint="«GUID» no se debe traducir (terminología)"
+
+{\bgrub\b}i
+id="te-3-grub"
+valid msgstr="grub2"
+hint="«Grub» no se debe traducir (terminología)"
+
+{\bGRUB\b}
+id="te-3-grub-mayusculas"
+valid msgstr="GRUB"
+hint="«GRUB» no se debe traducir (terminología)"
 
 {\bgrub2\b}i
 id="te-3-grub2"
@@ -537,6 +567,11 @@ hint="«Gtk» no se debe traducir (terminología)"
 id="te-3-gtk-mayusculas"
 valid msgstr="GTK"
 hint="«GTK» no se debe traducir (terminología)"
+
+{\bg[Ww]en[Vv]iew\b}i
+id="te-3-gwnview"
+valid msgstr="g[Ww]en[Vv]iew"
+hint="«Gwenview» no se debe traducir (terminología)"
 
 {\bhadifix\b}i
 id="te-3-hadifix"
@@ -1278,6 +1313,11 @@ id="te-3-kxsldbg"
 valid msgstr="kxsldbg"
 hint="«Kxsldbg» no se debe traducir (terminología)"
 
+{\bl10n\b}i
+id="te-3-l10n"
+valid msgstr="l10n"
+hint="«L10n» no se debe traducir (terminología)"
+
 {\blancelot\b}i
 id="te-3-lancelot"
 valid msgstr="lancelot"
@@ -1287,6 +1327,11 @@ hint="«Lancelot» no se debe traducir (terminología)"
 id="te-3-last-fm"
 valid msgstr="last\.[Ff]m"
 hint="«Last.Fm» no se debe traducir (terminología)"
+
+{\blatex\b}i
+id="te-3-latex"
+valid msgstr="latex"
+hint="«Latex» no se debe traducir (terminología)"
 
 {\bldap\b}i
 id="te-3-ldap"
@@ -1431,6 +1476,11 @@ hint="«NTSC» no se debe traducir (terminología)"
 {\bofx\b}i
 id="te-3-ofx"
 valid msgstr="ofx"
+hint="«Ofx» no se debe traducir (terminología)"
+
+{\bogg\b}i
+id="te-3-ogg"
+valid msgstr="ogg"
 hint="«Ofx» no se debe traducir (terminología)"
 
 {\bokteta\b}i
@@ -1610,6 +1660,16 @@ hint="«Qml» no se debe traducir (terminología)"
 id="te-3-qml-mayúsculas"
 valid msgstr="QML"
 hint="«QML» no se debe traducir (terminología)"
+
+{\bqtb}i
+id="te-3-qt"
+valid msgstr="qt"
+hint="«Qt» no se debe traducir (terminología)"
+
+{\bQT\b}
+id="te-3-qt-mayúsculas"
+valid msgstr="QT"
+hint="«QT» no se debe traducir (terminología)"
 
 {\brar\b}i
 id="te-3-rar"
@@ -1851,6 +1911,11 @@ id="te-3-sysv-mayusculas"
 valid msgstr="SYSV"
 hint="«SYSV» no se debe traducir (terminología)"
 
+{\bsystemd\b}i
+id="te-3-systemd"
+valid msgstr="systemd"
+hint="«Systemd» no se debe traducir (terminología)"
+
 {\btcp\b}i
 id="te-3-tcp"
 valid msgstr="tcp"
@@ -1865,6 +1930,11 @@ hint="«TCP» no se debe traducir (terminología)"
 id="te-3-tellico"
 valid msgstr="tellico"
 hint="«Tellico» no se debe traducir (terminología)"
+
+{\btex\b}i
+id="te-3-tex"
+valid msgstr="tex"
+hint="«Tex» no se debe traducir (terminología)"
 
 {\btiff\b}i
 id="te-3-tiff"

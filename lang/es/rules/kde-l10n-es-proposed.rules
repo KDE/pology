@@ -3873,6 +3873,14 @@ valid msgstr="(alguna|cualquier|ninguna)\sfirma"
 valid msgstr="(alguna|cualquier|ninguna)\sidentificación"
 hint="«Signatures» se traduce como «Firmas/Identificaciones» (propuesta glosario)"
 
+{\bslanted\b}i
+id="gp-2-slanted"
+valid msgstr="inclinad[oa]s?"
+valid msgstr="inclinación"
+valid msgstr="sesgad[oa]s?"
+valid msgstr="sesgo"
+hint="«Slanted» se traduce como «Inclinada», no como «Cursiva» (propuesta glosario)"
+
 {\bslide\sshow\b}i
 id="gp-2-slideshow"
 valid msgstr="presentación"
