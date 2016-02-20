@@ -200,6 +200,10 @@ hint="fellesskap reknar me som inkjekjønn"
 [medlemskapen|ein medlemskap]i
 hint="medlemskap reknar me som inkjekjønn"
 
+[(ei klasse|klassa|klasser|klassene)\b]i
+id="klasse"
+hint="klasse reknar me som hankjønn"
+
 [pakk(a|er|ene)\b|\bei pakke\b]i
 id="pakke-kjonn"
 hint="pakke reknar me som hankjønn"
