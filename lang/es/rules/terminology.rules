@@ -70,10 +70,26 @@ id="te-2-apm-mayusculas"
 valid msgstr="APM"
 hint="«APM» no se debe traducir (terminología)"
 
+{\bascii\b}i
+id="te-3-ascii"
+valid msgstr="ascii"
+hint="«Ascii» no se debe traducir (terminología)"
+
+{\bASCII\b}
+id="te-2-ascii-mayusculas"
+valid msgstr="ASCII"
+hint="«ASCII» no se debe traducir (terminología)"
+
 {\basciiquarium\b}i
 id="te-3-asciiquarium"
 valid msgstr="asciiquarium"
 hint="«Asciiquarium» no se debe traducir (terminología)"
+
+#{\bbit\b}i
+# a bit --> un poco
+#id="te-2-bit"
+#valid msgstr="bit"
+#hint="«Bit» no se debe traducir (terminología)"
 
 {\bbluetooth\b}i
 id="te-3-bluetooth"
@@ -198,6 +214,16 @@ hint="«Cisco» no se debe traducir (terminología)"
 id="te-3-cmake"
 valid msgstr="cmake"
 hint="«Cmake» no se debe traducir (terminología)"
+
+{\bcorba\b}i
+id="te-2-corba"
+valid msgstr="corba"
+hint="«Corba» no se debe traducir (terminología)"
+
+{\bCORBA\b}
+id="te-2-corba-mayusculas"
+valid msgstr="CORBA"
+hint="«CORBA» no se debe traducir (terminología)"
 
 {\bcpan\b}i
 id="te-2-cpan"
@@ -337,6 +363,16 @@ id="te-3-djvu"
 valid msgstr="djvu"
 hint="«Djvu» no se debe traducir (terminología)"
 
+{\bma\b}i
+id="te-3-dma"
+valid msgstr="dma"
+hint="«Dma» no se debe traducir (terminología)"
+
+{\bDMA\b}
+id="te-3-dma-mayusculas"
+valid msgstr="DMA"
+hint="«DMA» no se debe traducir (terminología)"
+
 {\bdns\b}i
 id="te-3-dns"
 valid msgstr="dns"
@@ -433,6 +469,11 @@ id="te-3-ftp"
 valid msgstr="ftp"
 hint="«Ftp» no se debe traducir (terminología)"
 
+{\bFTP\b}
+id="te-3-ftp-mayusculas"
+valid msgstr="FTP"
+hint="«FTP» no se debe traducir (terminología)"
+
 {\bgdb\b}i
 id="te-3-gdb"
 valid msgstr="gdb"
@@ -508,16 +549,6 @@ id="te-3-gpl-mayusculas"
 valid msgstr="GPL"
 hint="«GPL» no se debe traducir (terminología)"
 
-{\bguid\b}i
-id="te-2-guid"
-valid msgstr="guid"
-hint="«Guid» no se debe traducir (terminología)"
-
-{\bGUID\b}
-id="te-2-guid-mayusculas"
-valid msgstr="GUID"
-hint="«GUID» no se debe traducir (terminología)"
-
 {\bgrub\b}i
 id="te-3-grub"
 valid msgstr="grub2"
@@ -567,6 +598,16 @@ hint="«Gtk» no se debe traducir (terminología)"
 id="te-3-gtk-mayusculas"
 valid msgstr="GTK"
 hint="«GTK» no se debe traducir (terminología)"
+
+{\bguid\b}i
+id="te-2-guid"
+valid msgstr="guid"
+hint="«Guid» no se debe traducir (terminología)"
+
+{\bGUID\b}
+id="te-2-guid-mayusculas"
+valid msgstr="GUID"
+hint="«GUID» no se debe traducir (terminología)"
 
 {\bg[Ww]en[Vv]iew\b}i
 id="te-3-gwnview"
@@ -1333,6 +1374,11 @@ id="te-3-latex"
 valid msgstr="latex"
 hint="«Latex» no se debe traducir (terminología)"
 
+{\bLaTeX\b}
+id="te-3-latex-mayus"
+valid msgstr="LaTeX"
+hint="«LaTeX» no se debe traducir (terminología)"
+
 {\bldap\b}i
 id="te-3-ldap"
 valid msgstr="ldap"
@@ -1423,10 +1469,40 @@ id="te-3-mpeg-mayúsculas"
 valid msgstr="MPEG"
 hint="«MPEG» no se debe traducir (terminología)"
 
+{\bminix\b}i
+id="te-3-minix"
+valid msgstr="minix"
+hint="«Minix» no se debe traducir (terminología)"
+
+{\bMINIX\b}
+id="te-3-minix-mayúsculas"
+valid msgstr="MINIX"
+hint="«MINIX» no se debe traducir (terminología)"
+
+{\bms[\s-]?dos\b}i
+id="te-3-msdos"
+valid msgstr="ms[\s-]?dos"
+hint="«Ms-dos» no se debe traducir (terminología)"
+
+{\bMS[\s-]?DOS\b}
+id="te-3-msdos-mayúsculas"
+valid msgstr="MS[\s-]?DOS"
+hint="«MS-DOS» no se debe traducir (terminología)"
+
 {\bm[Pp]layer\b}i
 id="te-3-mplayer"
 valid msgstr="m[Pp]layer"
 hint="«Mplayer» no se debe traducir (terminología)"
+
+{\bmtu\b}i
+id="te-3-mtu"
+valid msgstr="mtu"
+hint="«Mtu» no se debe traducir (terminología)"
+
+{\bMTU\b}
+id="te-3-mtu-mayúsculas"
+valid msgstr="MTU"
+hint="«MTU» no se debe traducir (terminología)"
 
 {\bmy(SQL|sql)\b}i
 id="te-3-mysql"
@@ -1583,6 +1659,16 @@ id="te-3-php-mayúsculas"
 valid msgstr="PHP"
 hint="«PHP» no se debe traducir (terminología)"
 
+{\bpid\b}i
+id="te-3-pid"
+valid msgstr="pid"
+hint="«Pid» no se debe traducir (terminología)"
+
+{\bPID\b}
+id="te-3-pid-mayúsculas"
+valid msgstr="PID"
+hint="«PID» no se debe traducir (terminología)"
+
 {\bplasma\b}i
 id="te-3-plasma"
 valid msgstr="plasma"
@@ -1624,6 +1710,16 @@ hint="«Postfix» no se debe traducir, excepto por «sufijo» (terminología)"
 id="te-3-postscript"
 valid msgstr="post[Ss]cript"
 hint="«Postscript» no se debe traducir (terminología)"
+
+{\bppp\b}i
+id="te-3-ppp"
+valid msgstr="ppp"
+hint="«Ppp» no se debe traducir (terminología)"
+
+{\bPPP\b}
+id="te-3-ppp-mayúsculas"
+valid msgstr="PPP"
+hint="«PPP» no se debe traducir (terminología)"
 
 {\bpptp\b}i
 id="te-3-pptp"
@@ -2020,6 +2116,16 @@ hint="«Uml» no se debe traducir (terminología)"
 id="te-3-uml-mayusculas"
 valid msgstr="UML"
 hint="«UML» no se debe traducir (terminología)"
+
+{\bunicode\b}i
+id="te-3-unicode"
+valid msgstr="unicode"
+hint="«Unicode» no se debe traducir (terminología)"
+
+{\bUNICODE\b}
+id="te-3-unicode-mayúsculas"
+valid msgstr="UNICODE"
+hint="«UNICODE» no se debe traducir (terminología)"
 
 {\bunix\b}i
 id="te-3-unix"

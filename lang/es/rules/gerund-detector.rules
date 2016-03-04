@@ -96,6 +96,12 @@ valid msgstr="(?u)\w+(ando|iendo|yendo|ándol[aeo]s?|éndol[aeo]s?|ándose|éndo
 valid msgid="(being|mailing|recurring|string|conflicting|messaging|something|nothing|existing|missing|pending|everything|in\sprogress|AqBanking)"
 hint="La forma «ing» se debe traducir como gerundio cuando va seguida de puntos suspensivos (revisión de gerundios)"
 
+#{^\.\.\.\s?\w+ing\b}i
+#id="gd-3-ing-precedido-puntos-suspensivos"
+#valid msgstr="(?u)\w+(ando|iendo|yendo|ándol[aeo]s?|éndol[aeo]s?|ándose|éndose)"
+#valid msgid="(being|mailing|recurring|string|conflicting|messaging|something|nothing|existing|missing|pending|everything|in\sprogress|AqBanking)"
+#hint="La forma «ing» se debe traducir como gerundio cuando va precedida de puntos suspensivos (revisión de gerundios)"
+
 {\b(am|are|is|was|were)\s\w+ing\b}i
 id="gd-3-ing-precedido-verbo-to-be"
 #disabled

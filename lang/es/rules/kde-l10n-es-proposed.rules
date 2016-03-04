@@ -35,6 +35,12 @@ valid msgstr="complementos"
 valid msgstr="(algún|ningún|cualquier)\scomplemento"
 hint="«Add-ons» se traduce como «Complementos» (propuesta glosario)"
 
+{\banchor\b}i
+id="gp-3-anchor"
+valid msgstr="anclaje"
+valid msgstr="ancl(ar|o|a)"
+hint="«Anchor» se traduce como «Anclaje/Anclar» (propuesta glosario)"
+
 {\banti\-?aliasing\b}i
 id="gp-3-antialiasing"
 valid msgstr="suavizados?\sde\sbordes"
@@ -481,6 +487,13 @@ valid msgstr="integrad[oa]s?"
 valid !msgstr="construid[oa]s?"
 hint="«Built-in» se traduce como «Incorporado/Integrado» (propuesta glosario)"
 
+{\bcanvas\b}i
+id="gp-3-canvas"
+valid msgstr="lienzo"
+valid msgstr="lona"
+valid msgstr="borde"
+hint="«Canvas» se traduce como «Lienzo/Lona/Borde» (propuesta glosario)"
+
 {\bcash\s?flow\b}i
 id="gp-3-cashflow"
 valid msgstr="flujo\sde\scaja"
@@ -602,19 +615,22 @@ hint="«Cipher» se traduce como «Cifrar/Cifrado» (propuesta glosario)"
 {\bclear\b}i
 id="gp-3-clear"
 valid msgstr="borr(ar|a|e)"
+valid msgstr="vací(ar|o|a)"
 valid msgstr="aclar(ar|a|e)"
 valid msgstr="despej(ar|a|e)"
 valid msgstr="clar[oa]"
 valid msgstr="despejad[oa]"
 valid msgstr="limpi[oa]"
 valid msgstr="borrará" after="will\s(\w+\s)?"
+valid msgstr="vaciará" after="will\s(\w+\s)?"
 valid msgstr="aclarará" after="will\s(\w+\s)?"
 valid msgstr="despejará" after="will\s(\w+\s)?"
 valid msgstr="borró" after="did\s(\w+\s)?"
+valid msgstr="vació" after="did\s(\w+\s)?"
 valid msgstr="aclaró" after="did\s(\w+\s)?"
 valid msgstr="despejó" after="did\s(\w+\s)?"
 valid msgstr="sin\scifrar" before="\stext"
-hint="«Clear» se traduce como «Borrar/Aclarar/Despejar» o «Claro/Despejado/Limpio» (propuesta glosario)"
+hint="«Clear» se traduce como «Borrar/Vacíar/Aclarar/Despejar» o «Claro/Despejado/Limpio» (propuesta glosario)"
 
 {\bclears\b}i
 id="gp-3-clears"
@@ -813,6 +829,18 @@ id="gp-2-core-dumps"
 valid msgstr="volcados\sde\smemoria"
 valid msgstr="(algún|ningún|cualquier)\svolcado\sde\smemoria"
 hint="«Core dumps» se traduce como «Volcados de memoria» (propuesta glosario)"
+
+{\bcrop\b}i
+id="gp-2-crop"
+valid msgstr="(re)?cort(ar|a|e)"
+valid msgstr="(re)?cortará" after="will\s(\w+\s)?"
+valid msgstr="(re)?cortó" after="did\s(\w+\s)?"
+valid msgstr="cosecha(ar|a|e)"
+valid msgstr="cosechará" after="will\s(\w+\s)?"
+valid msgstr="cosechó" after="did\s(\w+\s)?"
+valid msgstr="cultivo"
+valid msgstr="cosecha"
+hint="«Crop» se traduce como «Recortar/Cortar/Cosechar» (propuesta glosario)"
 
 {\bcross\scompiler\b}i
 id="gp-2-cross-compiler"
@@ -1941,6 +1969,12 @@ valid msgstr="bulo"
 valid msgstr="visita"
 hint="«Hoax» se traduce como «Engaño/Bulo» (propuesta glosario)"
 
+{\bhue\b}i
+id="gp-2-hue"
+valid msgstr="tono"
+valid msgstr="matiz"
+hint="«Hue» se traduce como «Tono/Matiz» (propuesta glosario)"
+
 {\bhyphen\b}i
 id="gp-3-hyphen"
 valid msgstr="guion"
@@ -2913,6 +2947,11 @@ valid msgstr="(algún|ningún|cualquier)\spaquete"
 valid msgstr="empaquet(ar|a|e)"
 hint="«Packages» se traduce como «Paquetes/Empaqueta» (propuesta glosario)"
 
+{\bpadding\b}i
+id="gp-3-padding"
+valid msgstr="relleno"
+hint="«Padding» se traduce como «Relleno» (propuesta glosario)"
+
 {\bpanorama\simage\b}i
 id="gp-2-panorama-image"
 valid msgstr="imagen\spanorámica"
@@ -3001,15 +3040,18 @@ hint="«Performance» se traduce como «Rendimiento» (propuesta glosario)"
 id="gp-2-picker"
 valid msgstr="recolector"
 valid msgstr="recogedor"
-hint="«Picker» se traduce como «Recolector/Recogedor» (propuesta glosario)"
+valid msgstr="selector"
+hint="«Picker» se traduce como «Recolector/Recogedor/selector» (propuesta glosario)"
 
 {\bpickers\b}i
 id="gp-2-pickers"
 valid msgstr="recolectores"
 valid msgstr="recogedores"
+valid msgstr="selectores"
 valid msgstr="(algún|cualquier|ningún)\srecolector"
 valid msgstr="(algún|cualquier|ningún)\srecogedor"
-hint="«Pickers» se traduce como «Recolectores/Recogedores» (propuesta glosario)"
+valid msgstr="(algún|cualquier|ningún)\sselectores"
+hint="«Pickers» se traduce como «Recolectores/Selectores» (propuesta glosario)"
 
 {\bpipelining\b}i
 id="gp-2-pipelining"
@@ -3886,6 +3928,11 @@ id="gp-2-slideshow"
 valid msgstr="presentación"
 hint="«Slideshow» se traduce como «Presentación» (propuesta glosario)"
 
+{\bsmartphone\b}i
+id="gp-2-smartphone"
+valid msgstr="teléfono\sinteligente"
+hint="«Smartphone» se traduce como «Teléfono inteligente» (propuesta glosario)"
+
 {\bsnap\b}i
 id="gp-2-snap"
 valid msgstr="agreg(ar|ue|a)"
@@ -4453,6 +4500,11 @@ valid msgstr="actuali(za|ce)"
 valid msgstr="(alguna|cualquier|ninguna)\sactualización"
 hint="«Updates» se traduce como «Actualizaciones/Actualiza» (propuesta glosario)"
 
+{\buptime\b}i
+id="gp-3-uptime"
+valid msgstr="tiempo\sde\sactividad"
+hint="«Uptime» se traduce como «Tiempo de actividad» (propuesta glosario)"
+
 {\busability\b}i
 id="gp-2-usability"
 valid msgstr="ergonomía"
@@ -4557,6 +4609,11 @@ valid msgstr="(algún|ningún|cualquier)\sfondo\sde\spantalla"
 valid msgstr="(algún|ningún|cualquier)\sfondo\sde\sescritorio"
 hint="«Wallpapers» se traduce como «Fondos de pantalla» (propuesta glosario)"
 
+{\bwareable\b}i
+id="gp-2-wareable"
+valid msgstr="ponible"
+hint="«Wareable» se traduce como «Ponible» (propuesta glosario)"
+
 {\bwarning\b}i
 id="gp-2-warning"
 valid msgstr="aviso"
@@ -4640,9 +4697,15 @@ id="gp-2-workspace"
 valid msgstr="áreas?\sde\strabajo"
 hint="«Workspace» se traduce como «Área de trabajo» (propuesta glosario)"
 
+{\bX[\s-]Server\b}i
+id="gp-2-x-server"
+valid msgstr="Servidor[\s-]X"
+hint="«X-Server» se traduce como «Servidor X» (propuesta glosario)"
+
 {\bX\-Window\b}i
 id="gp-2-x-window"
 valid msgstr="X\-Window"
+valid msgstr="sistema\sde\sventana\sX"
 hint="«X-Window» se traduce como «X-Window» (propuesta glosario)"
 
 {\bzoom\sin\b}i
