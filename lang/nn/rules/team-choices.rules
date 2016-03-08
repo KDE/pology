@@ -37,6 +37,7 @@ valid after="(den|det|dei) "
 id="halde"
 hint="Bruk konsekvent a-infinitiv."
 valid after="(har|er|vert) \w+ "
+valid after="(har|er|vert) "
 valid after="har "
 
 [\bbruker]i
@@ -213,6 +214,7 @@ hint="tekst reknar me som hankjønn"
 
 [(vis|tolk)ning]i
 hint="-ning → -ing"
+valid after="under"
 
 [skjemspar]i
 hint="skjermsparar → pauseskjerm"
