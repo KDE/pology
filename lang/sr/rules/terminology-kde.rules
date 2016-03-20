@@ -518,8 +518,8 @@ valid cat="kcminput" msgid="icons on first click"
 
 {\bicon\W?theme}i
 id="t-icontheme"
-hint="icon theme = тема икона"
-valid msgstr="\bтем\w+ икона\b"
+hint="icon theme = тема иконица"
+valid msgstr="\bтем\w+ иконица\b"
 
 {\binfo[ -]?page}i
 id="t-infopage"
