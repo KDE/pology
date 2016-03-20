@@ -510,8 +510,8 @@ valid cat="kfileshare" msgstr="\bједнодомаћинск"
 
 {\bicon}i
 id="t-icon"
-hint="icon = икона"
-valid msgstr="\bикон" !msgstr="\bикони[цч]"
+hint="icon = иконица"
+valid msgstr="\bикони(ц|чк|з|фик)"
 valid msgstr="&\w*icon\S*;"
 valid cat="kcmicons" msgid="icon theme"
 valid cat="kcminput" msgid="icons on first click"
