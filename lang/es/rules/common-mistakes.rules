@@ -522,9 +522,17 @@ hint="«Críar» se escribe como «Criar» (error frecuente)"
 id="cm-1-crio-con-tilde"
 hint="«Crío» se escribe como «Crio» (error frecuente)"
 
+[\bcualquiera\sque\s\w+n\b]i
+id="cm-1-cualquiera-que-sean"
+hint="«Cualquiera que sean» se escribe como «Cualesquiera que sean» (error frecuente)"
+
 [\bcualesquieras\b]i
 id="cm-1-cualesquieras"
 hint="«Cualesquieras» se escribe como «Cualesquiera» (error frecuente)"
+
+[\bcuando\santes\b]i
+id="cm-2-cuando-antes"
+hint="«Cuando antes» se escribe como «Cuanto antes» (error frecuente)"
 
 [\bdá\b]i
 id="cm-1-da-con-tilde"
@@ -1318,6 +1326,10 @@ hint="«Me se» se escribe como «Se me» (error frecuente)"
 [\bmés\b]i
 id="cm-1-mes-con-tilde"
 hint="«Més» se escribe como «Mes» (error frecuente)"
+
+[\bmodus\soperandis\b]i
+id="cm-3-modus-operandis"
+hint="«Modus operandis» se escribe como «Modus operandi» (error frecuente)"
 
 [\bmucha\scalor\b]i
 id="cm-2-mucha-calor"
