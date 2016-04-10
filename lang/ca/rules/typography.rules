@@ -439,6 +439,7 @@ valid cat="baloo_queryparser,baloo_naturalqueryparser,baloowidgets"
 hint="S'ha de posar un espai després d'un signe de punt (tipografia)"
 
 [\.\)]
+id="t-pu_desp"
 valid after="\.\."
 valid after="S\.u\.S\.E"
 valid after="dim" cat="kipiplugin_batchprocessimages"
