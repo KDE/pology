@@ -15,6 +15,7 @@ clearFilters
 id="x-latin"
 hint="латиница ван дозвољеног контекста"
 valid cat="libkunitconversion"
+valid cat="kunitconversion5"
 
 # ----------------------------------------
 # Detect markup errors.
@@ -184,5 +185,6 @@ valid cat="kdelibs4support,kwidgetsaddons5_qt" ctx="unicode block name"
 valid cat="kdeqt" ctx="QFontDatabase"
 valid cat="kfontinst" srcref="Unicode(Blocks|Scripts)\.h"
 valid cat="plasma_applet_org.kde.plasma.digitalclock" ctx="is a city|is a country"
+valid cat="korganizer_plugins" srcref="hebrew/"
 # Елементи транскрипта.
 valid span="^([Аа]ку)$" after="\$\[[^\]]*"
