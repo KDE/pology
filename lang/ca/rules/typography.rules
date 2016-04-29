@@ -686,7 +686,14 @@ valid comment="Tag\:\sprogramlisting" cat="kdm,kile_scripting,kipi-plugins_geolo
 valid ctx="hour in the messages below"
 # valid msgid="'''" # KDE User_Base
 # valid msgid="''"  # KDE User_Base
-hint="Un apòstrof final és un error, excepte a ordres de terminal (tipografia)"
+hint="Un apòstrof al final de missatge és un error, excepte a ordres de terminal (tipografia)"
+
+# «'$» un apóstrof al final de missatge és un error (ull amb les ordres!).  Substituir per »
+['$]
+id="t-apo_fim"
+valid cat="katepart_advanced" # docmessages
+valid cat="kgeography,kstars" # messages
+hint="Un apòstrof al final de missatge és un error, excepte a ordres de terminal (tipografia)"
 
 # Les cometes anglosaxones «"» s'han de substituir per les cometes llatines «»
 # En un teclat català, s'obtenen amb AltGr+z i AltGr+x (ull amb les ordres!).
