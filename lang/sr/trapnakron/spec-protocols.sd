@@ -100,6 +100,7 @@ POP: ПОП|-, ПОП|>
 POP3: ПОП3|*, ПОП3|>, _род!=м
 POP3S: ПОП3С|*, ПОП3С|>, _род!=м
 PPP: ППП|-, ППП|-ов, ППП|>, _пр=Point to Point Protocol
+PPPoE: ПППоЕ|-, ПППоЕ|-ов, ПППоЕ|>, _пр=Point to Point Protocol over Ethernet
 PPTP: ППТП|-, ППТП|>, _пр=Point-to-Point Tunneling Protocol
 RFB: РФБ|-, РФБ|>
 rlogin: рлогин|, рлогин|ов, рлогин|>
