@@ -1549,6 +1549,12 @@ hint="«Has + artículo» se escribe como «Haz + artículo» (error gramatical)
 id="gr-3-articulo-seguido-de-fecha"
 hint="No se recomienda poner un artículo antes de una fecha (error gramatical)"
 
+[(?u)\bso\b]i
+id="gr-2-so-en-desuso"
+valid after=",\s"
+valid before="\s(pena|pretexto|capa|color)"
+hint="«So» esta en desuso como preposicion (error gramatical)"
+
 #
 # ERRORES CON FINALES DE FRASE
 #
@@ -1848,6 +1854,7 @@ valid after="\w+?s\s"
 valid after="en\s"
 valid before="por"
 valid before="\w+ando"
+valid before="(positivo|negativo)"
 hint="Cero debe ir seguido de plural, no de singular"
 
 [(?u)\b([Ee]l|[Aa]l|[Dd]el|[Uu]n)\s[«\'\"]?]

@@ -2416,6 +2416,11 @@ valid msgstr="buzones"
 valid msgstr="(algún|ningún|cualquier)\sbuzón"
 hint="«Mailboxes» se traduce como «Buzones» (propuesta glosario)"
 
+{\bmailing\b}i
+id="gp-2-mailing"
+valid msgstr="buzoneo"
+hint="«Mailing» se traduce como «Buzoneo» (propuesta glosario)"
+
 {\bmalware\b}i
 id="gp-3-malware"
 valid msgstr="programa\s(maligno|malicioso)"

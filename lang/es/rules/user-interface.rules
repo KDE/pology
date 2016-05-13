@@ -947,6 +947,18 @@ valid msgstr="[Hh]ayan?\sfallado"
 valid msgstr="[Ff]allid[oa]"
 hint="«Failed» se traduce como «Ha fallado» (regla de traducción de la interfaz gráfica)"
 
+{\bocurred$}
+id="ui-3-ocurred-end"
+valid msgstr="[Hh]an?\socurrido"
+valid msgstr="[Hh]ayan?\socurrido"
+hint="«Ocurred» se traduce como «Ha ocurrido» (regla de traducción de la interfaz gráfica)"
+
+{\bocurred\.}
+id="ui-3-ocurred-dot"
+valid msgstr="[Hh]an?\socurrido"
+valid msgstr="[Hh]ayan?\socurrido"
+hint="«Ocurred» se traduce como «Ha ocurrido» (regla de traducción de la interfaz gráfica)"
+
 {\bUnable\b}
 id="ui-3-unable"
 valid msgstr="[Nn]o\s(es|fue)\sposible"

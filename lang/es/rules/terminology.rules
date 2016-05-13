@@ -25,6 +25,11 @@ id="te-3-adobe"
 valid msgstr="adobe"
 hint="«Adobe» no se debe traducir (terminología)"
 
+{\bAI\b}
+id="te-2-ai-mayusculas"
+valid msgstr="IA"
+hint="«AI» se traduce como «IA» (terminología)"
+
 {\bakonadi\b}i
 id="te-3-akonadi"
 valid msgstr="akonadi"
@@ -1966,6 +1971,11 @@ hint="«Ssl» no se debe traducir (terminología)"
 id="te-3-ssl-mayusculas"
 valid msgstr="SSL"
 hint="«SSL» no se debe traducir (terminología)"
+
+{\bSTEM\b}
+id="te-2-stem-mayusculas"
+valid msgstr="CTIM"
+hint="«STEM» se traduce como «CTIM» (terminología)"
 
 {\bsubversion\b}i
 id="te-3-subversion"

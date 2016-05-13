@@ -62,7 +62,7 @@ hint="«A consta de» se escribe como «A costa de» (error frecuente: solecismo
 id="cm-2-a-cuenta-de"
 hint="«A cuenta de» se escribe como «Por cuenta de» (error frecuente: solecismo)"
 
-[\ba\sd[oó]nde\sestá\b]i
+[\ba\sd[oó]nde\sestán?\b]i
 id="cm-2-a-donde-está"
 hint="«A donde está» se escribe como «Donde está» (error frecuente)"
 
@@ -334,11 +334,11 @@ hint="«Bajo el radio de acción» se escribe como «Dentro del radio de acción
 id="cm-2-bajo-el-supuesto"
 hint="«Bajo el supuesto» se escribe como «En el supuesto» (error frecuente: solecismo)"
 
-[\bbajo\sencargo\b]i
+[\bbajo\sencargos?\b]i
 id="cm-2-bajo-encargo"
 hint="«Bajo encargo» se escribe como «Por encargo» (error frecuente: solecismo)"
 
-[\bbajo\sesta\spremisa\b]i
+[\bbajo\sestas?\spremisas?\b]i
 id="cm-2-bajo-esta-premisa"
 hint="«Bajo esta premisa» se escribe como «Con esta premisa» (error frecuente: solecismo)"
 
@@ -378,7 +378,7 @@ hint="«Bajo las circunstancias» se escribe como «En las circunstancias» (err
 id="cm-2-bajo-preparacion"
 hint="«Bajo preparación» se escribe como «En preparación» (error frecuente: solecismo)"
 
-[\bbajo\squ[eé]\scircunstancias\b]i
+[\bbajo\squ[eé]\scircunstancias?\b]i
 id="cm-2-bajo-que-circunstancias"
 hint="«Bajo que circunstancias» se escribe como «Con que circunstancias» (error frecuente: solecismo)"
 
@@ -418,7 +418,7 @@ hint="«Cada una de los» se escribe como «Cada uno de los/Cada una de las» (e
 id="cm-1-cada-uno-de-las"
 hint="«Cada uno de las» se escribe como «Cada uno de los/Cada una de las» (error frecuente)"
 
-[\bcasos\slimite\b]i
+[\bcasos\slimites\b]i
 id="cm-2-casos-limite"
 hint="«Casos limite» se escribe como «Casos límite» (error frecuente)"
 
@@ -620,6 +620,10 @@ hint="«De sobras» se escribe como «De sobra», salvo restos de comida (error 
 [\bde\stal\ssuerte\squ[eé]\b]i
 id="cm-2-de-tal-suerte-que"
 hint="«De tal suerte que» se escribe como «De manera que/De modo que/De suerte que» (error frecuente)"
+
+[\bde\suna\satacada\b]i
+id="cm-2-de-una-atacada"
+hint="«De una atacada» se escribe como «De una tacada» (error frecuente)"
 
 [\bdiez\sy\seis\b]i
 id="cm-1-diez-y-seis"
@@ -982,7 +986,7 @@ hint="«Fijarse que» se escribe como «Fijarse en que» (error frecuente)"
 id="cm-1-fin-con-tilde"
 hint="«Fín» se escribe siempre como «Fin» (error frecuente)"
 
-[\bformula\b]i
+[\bformulas?\b]i
 id="cm-1-formula-sin-tilde"
 hint="«Formula» se escribe como «Fórmula», salvo 3ª persona del verbo formular (error frecuente)"
 
@@ -1118,9 +1122,13 @@ valid after="\bes\s"
 valid msgstr="^igual\sa$"
 hint="«Igual a» se escribe como «Igual que», excepto en comparaciones matemáticas (error frecuente)"
 
-[\bigual\sc[oó]mo\b]
+[\bigual(es)?\sc[oó]mo\b]
 id="cm-2-igual-como"
 hint="«Igual como» se escribe como «Igual que» (error frecuente)"
+
+[\binferior(es)\qu[ee]\b]
+id="cm-2-inferior-que"
+hint="«Inferior que» se escribe como «Inferior a» (error frecuente)"
 
 [\binteractuación\b]i
 id="cm-1-interactuacion"
@@ -1134,7 +1142,7 @@ hint="«Internet» se escribe en mayúsculas (error frecuente)"
 id="cm-1-ion-con-tilde"
 hint="«Ión» se escribe como «Ion» (error frecuente)"
 
-[\bjuega\sun\spapel\b]i
+[\bjuegan?\sun\spapel\b]i
 id="cm-2-juega-un-papel"
 hint="«Juega un papel» se escribe como «Representa/desempeña un/su papel» (error frecuente)"
 
@@ -1154,7 +1162,7 @@ hint="«URL» es de género masculino (error frecuente)"
 id="cm-2-la-hacia"
 hint="«La hacia» se escribe como «La hacía» (error frecuente)"
 
-[\bla\vaya\b]i
+[\bla\svaya\b]i
 id="cm-2-la-vaya"
 hint="«La vaya» se escribe como «La valla/baya» (error frecuente)"
 
@@ -1262,7 +1270,7 @@ hint="«Más bueno» se escribe como «Mejor» (error frecuente)"
 id="cm-1-mas-despues"
 hint="«Más después» se escribe como «Después» (error frecuente)"
 
-[\bmás\sinferior\b]i
+[\bmás\sinferior(es)?\b]i
 id="cm-1-mas-inferior"
 hint="«Más inferior» se escribe como «Inferior/más bajo» (error frecuente)"
 
@@ -1270,11 +1278,11 @@ hint="«Más inferior» se escribe como «Inferior/más bajo» (error frecuente)
 id="cm-1-mas-malo"
 hint="«Más malo» se escribe como «Peor» (error frecuente)"
 
-[\bmás\smayor\b]i
+[\bmás\smayor(es)?\b]i
 id="cm-1-mas-mayor"
 hint="«Más mayor» se escribe como «Mayor», excepto en edades (error frecuente)"
 
-[\bmás\smejor\b]i
+[\bmás\smejor(es)?\b]i
 id="cm-1-mas-mejor"
 hint="«Más mejor» se escribe como «Mejor/Óptimo» (error frecuente)"
 
@@ -1290,15 +1298,15 @@ hint="«Más nadie» se escribe como «Nadie más» (error frecuente)"
 id="cm-2-mas-nunca"
 hint="«Más nunca» se escribe como «Nunca más» (error frecuente)"
 
-[\bmás\sóptim[ao]\b]i
+[\bmás\sóptim[ao]s?\b]i
 id="cm-1-mas-optimo"
 hint="«Más óptimo» se escribe como «Óptimo» (error frecuente)"
 
-[\bmás\speor\b]i
+[\bmás\speor(es)?\b]i
 id="cm-1-mas-peor"
 hint="«Más peor» se escribe como «Peor/Pésimo» (error frecuente)"
 
-[\bmás\ssuperior\b]i
+[\bmás\ssuperior(es)?\b]i
 id="cm-1-mas-superior"
 hint="«Más superior» se escribe como «Superior/Más alto» (error frecuente)"
 
@@ -1306,7 +1314,7 @@ hint="«Más superior» se escribe como «Superior/Más alto» (error frecuente)
 id="cm-2-masters"
 hint="«Masters» se escribe como «Másteres» (error frecuente)"
 
-[\bmayor\sa\b]i
+[\bmayor(es)?\sa\b]i
 id="cm-1-mayor-a"
 valid before="\smenor"
 hint="«Mayor a» se escribe como «Mayor que» (error frecuente: solecismo)"
@@ -1371,7 +1379,7 @@ hint="«Osea» se escribe «O sea», separado (error frecuente)"
 #id="cm-2-osean"
 #hint="«O sean» se escribe «O sea», en singular (error frecuente)"
 
-[\bpagina\b]i
+[\bpaginas?\b]i
 id="cm-2-pagina-sin-tilde"
 hint="«Pagina» se escribe como «Página», salvo 3ª persona del verbo paginar (error frecuente)"
 
@@ -1866,7 +1874,7 @@ hint="«Va haber» se escribe como «Va a haber» (error frecuente)"
 id="cm-2-va-hacer"
 hint="«Va hacer» se escribe como «Va a hacer» (error frecuente)"
 
-[\bvalid[oa]\b]i
+[\bvalid[oa]s?\b]i
 id="cm-1-valido-sin-tilde"
 hint="«Valido» se escribe como «Válido», salvo favorito del rey (error frecuente)"
 
