@@ -152,6 +152,12 @@ valid msgstr="sum(a|es) de verificació"
 valid msgstr="Checksum Definition \#1" cat="kleopatra"
 hint="Es tradueix per «suma de verificació» (kde-ca-team)"
 
+{\bciphers?\b}i
+id="kct-cipher"
+valid msgstr="xifr(a|es)"
+valid msgstr="xifratges?"
+hint="Es tradueix per «xifra» o «xifratge» (kde-ca-team)"
+
 {\bciphertext\b}i
 id="kct-ciphertext"
 valid msgstr="text xifrat"
@@ -329,6 +335,14 @@ valid !msgstr="caix(a|es) de diàleg"
 valid !msgstr="quadres? de diàleg"
 valid msgstr="diàlegs?"
 hint="Es tradueix per «diàleg» (kde-ca-team)"
+
+# "Disable" mai serà «deshabilita». Pot ser «inhabilita» o «inactiva»
+{\bdisable}i
+id="kct-disable"
+valid !msgstr="deshabilit.+"
+valid msgstr="inactiv.+"
+valid msgstr="desactiv.+"
+hint="Es tradueix per «inhabilita» o «desactiva» (kde-ca-team)"
 
 {\bDocks?\b}i
 id="kct-dock"
