@@ -1394,6 +1394,12 @@ id="te-3-ldap-mayúsculas"
 valid msgstr="LDAP"
 hint="«LDAP» no se debe traducir (terminología)"
 
+
+{\bli\-?[Ff]i\b}
+id="te-3-lifi"
+valid msgstr="lifi"
+hint="«Li-Fi» se traduce como «lifi» (terminología)"
+
 {\blinux\b}i
 id="te-3-linux"
 valid msgstr="linux"
@@ -2259,6 +2265,11 @@ valid msgstr="red" before="\sof\strust"
 valid msgstr="navegador" before="\sbrowser"
 hint="«Web» no se debe traducir (terminología)"
 
+{\bWi\-?[Ff]i\b}
+id="te-3-wifi"
+valid msgstr="wifi"
+hint="«Wi-Fi» se traduce como «wifi» (terminología)"
+
 {\bwiki\b}i
 id="te-3-wiki"
 valid msgstr="wiki"
@@ -2328,6 +2339,10 @@ hint="«Xslt» no se debe traducir (terminología)"
 id="te-3-xslt-mayusculas"
 valid msgstr="XSLT"
 hint="«XSLT» no se debe traducir (terminología)"
+
+[\bX[\s-]Windows\b]
+id="cm-3-x-windows"
+hint="«X Windows» se escribe como «X Window» (terminología)"
 
 {\byahoo\b}i
 id="te-3-yahoo"

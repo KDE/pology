@@ -1411,6 +1411,7 @@ hint="Ponga una coma antes de «pero» (error gramatical)"
 id="gr-3-falta-coma-antes-pues"
 validGroup beforeComma
 valid after=",\s[¿¡]"
+valid after="[Aa]sí\s"
 hint="Ponga una coma antes de «pues» (error gramatical)"
 
 [\bpuesto\sque\b]

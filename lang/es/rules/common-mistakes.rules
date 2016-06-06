@@ -942,6 +942,10 @@ hint="«Espúreo» se escribe como «Espurio» (error frecuente)"
 id="cm-2-esta-con-tilde"
 hint="«Ésta» se escribe como «Esta», (error frecuente)"
 
+[\best\w+\sdemás\b]i
+id="cm-2-esta-demas"
+hint="«Está demás» se escribe como «Está de más», (error frecuente)"
+
 [\besta\ssegur[oa]\b]i
 id="cm-1-esta-seguro-sin-tilde"
 hint="«Esta seguro/a» se escribe como «Está seguro/a» (error frecuente)"
@@ -1043,6 +1047,10 @@ id="cm-1-habian"
 valid before="\s\w+?(ido|ado)"
 hint="«Habián» se escribe como «Había» al principo de frase (error frecuente)"
 
+[\bhac\w+\slatente\b]i
+id="cm-2-hacer-latente"
+hint="«Hacer latente» se escribe como «Hacer patente» (error frecuente)"
+
 [\bhac\w+\sparte\b]i
 id="cm-2-hacer-parte"
 hint="«Hacer parte» se escribe como «Formar parte» (error frecuente)"
@@ -1134,6 +1142,10 @@ hint="«Inferior que» se escribe como «Inferior a» (error frecuente)"
 id="cm-1-interactuacion"
 hint="«Interactuación» se escribe como «Interacción» (error frecuente)"
 
+[\binteractuaciones\b]i
+id="cm-1-interactuaciones"
+hint="«Interactuaciones» se escribe como «Interacciones» (error frecuente)"
+
 [\binternet\b]
 id="cm-1-internet-en-minusculas"
 hint="«Internet» se escribe en mayúsculas (error frecuente)"
@@ -1213,6 +1225,10 @@ hint="«Interfaces» es de género femenino (error frecuente)"
 [\b(los|unos|estos|esos|ningunos|algunos)\smacros\b]i
 id="cm-1-macros-en-masculino"
 hint="«Macros» es de género femenino (error frecuente)"
+
+[\b(los|unos|estos|esos|ningunos|algunos)\swebs\b]i
+id="cm-1-webs-en-masculino"
+hint="«Webs» es de género femenino (error frecuente)"
 
 [\blos\sambos\b]i
 id="cm-2-los-ambos"
@@ -1417,6 +1433,7 @@ hint="«Páz» se escribe como «Paz» (error frecuente)"
 
 [\bpendiente\sa\b]i
 id="cm-2-pendiente-a"
+valid before="\s(mi|tú|su)"
 hint="«Pendiente a» se escribe como «Pendiente de» (error frecuente)"
 
 [\bpese\squ[eé]\b]i
@@ -1531,6 +1548,10 @@ hint="«Qué se yo» se escribe como «Qué sé yo» (error frecuente)"
 [\bqu[eé]\svan\sa\shaber\b]i
 id="cm-2-que-van-a-haber"
 hint="«Que van a haber» se escribe como «Que va a haber» (error frecuente)"
+
+[\bqe\w+\slatente\b]i
+id="cm-2-quedar-latente"
+hint="«Quedar latente» se escribe como «Quedar patente» (error frecuente)"
 
 [\bqu[oó]rum\b]i
 id="cm-2-quorum-con-q"
@@ -1685,10 +1706,6 @@ hint="«Sólo» se escribe siempre como «Solo» (error frecuente)"
 id="cm-2-status-quo"
 hint="«Status quo» se escribe siempre como «Statu quo» (error frecuente)"
 
-[\bstock\b]i
-id="cm-2-stock"
-hint="«Stock» se escribe siempre como «Existencias/Reservas/Inventario» (error frecuente)"
-
 [\bsu\slimite\b]i
 id="cm-1-su-limite"
 hint="«Su limite» e escribe como «Su límite». (error frecuente)"
@@ -1736,6 +1753,10 @@ hint="«Te se» se escribe como «Se te» (error frecuente)"
 [\btema\ssensible\b]i
 id="cm-2-tema-sensible"
 hint="«Tema sensible» se escribe como «Tema delicado» (error frecuente)"
+
+[\btemas\ssensibles\b]i
+id="cm-2-temas-sensibles"
+hint="«Temas sensibles» se escribe como «Temas delicados» (error frecuente)"
 
 [\bten\w+\sen\scuanta\b]i
 id="cm-1-tener-en-cuanta"
@@ -1921,10 +1942,6 @@ hint="«Volver a insistir» se escribe como «Insistir» (error frecuente: redun
 [\bv\w+\sen\ssi\b]i
 id="cm-2-volver-en-si"
 hint="«Volver en si» se escribe como «Volver en sí» (error frecuente)"
-
-[\bX\sWindows\b]
-id="cm-3-x-windows"
-hint="«X Windows» se escribe como «X Window» (error frecuente)"
 
 [\by\/o\b]i
 id="cm-1-y-o"
