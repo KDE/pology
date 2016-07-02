@@ -915,8 +915,9 @@ hint="Es tradueix per «safata del sistema» (kde-ca-team)"
 id="kct-tab"
 valid msgid="Alt\+Tab" # fals positiu
 valid msgstr="&Tab;" # fals positiu
-valid msgstr="tab" after="alt+"
-valid msgstr="tab" after="alt-"
+valid msgstr="tab" after="alt\+"
+valid msgstr="tab" after="alt\-"
+valid msgstr="tab" after="ctrl\+"
 valid msgstr="<(option|command)>(.*)tab(.*)</(option|command)>" # fals positiu
 valid msgstr="pestany(a|es)"
 valid msgstr="tabuladors?"
