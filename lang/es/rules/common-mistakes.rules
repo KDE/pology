@@ -390,6 +390,10 @@ hint="«Bajo que condiciones» se escribe como «Con que condiciones» (error fr
 id="cm-2-bajo-revision"
 hint="«Bajo revisión» se escribe como «En revisión» (error frecuente: solecismo)"
 
+[\balla\b]i
+id="cm-3-balla"
+hint="«Balla» es un arcaismo (3ª persona de «Ballar») (error frecuente)"
+
 [\bién\b]i
 id="cm-1-bien-con-tilde"
 hint="«Bién» se escribe como «Bien» (error frecuente)"
@@ -1677,6 +1681,12 @@ hint="«Simultáneamente a» se escribe como «A la vez que/Al mismo tiempo que/
 [\bsin\sen\scambio\b]i
 id="cm-2-sin-en-cambio"
 hint="«Sin en cambio» se escribe como «En cambio/Sin embargo» (error frecuente)"
+
+[\bso\b]i
+id="cm-3-so"
+valid msgstr="so\s(pena|pretexto|capa|color)"
+valid after="¡"
+hint="«So» es un arcaismo (error frecuente)"
 
 [\bsobre\smanera\b]i
 id="cm-1-sobre-manera"

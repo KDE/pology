@@ -213,8 +213,20 @@ hint="«Binded» se traduce como «Enlazado/Ligado» (propuesta glosario)"
 id="gp-3-binding"
 valid msgstr="enlace"
 valid msgstr="ligadura"
+valid msgstr="unión"
 valid msgstr="combinación\sde\steclas" after="key\s"
 hint="«Binding» se traduce como «Enlace/Ligadura» (propuesta glosario)"
+
+{\bbindings\b}i
+id="gp-3-bindings"
+valid msgstr="enlaces"
+valid msgstr="ligaduras"
+valid msgstr="uniones"
+valid msgstr="combinaci(ones|ón)\sde\steclas" after="key\s"
+valid msgstr="(alguna|cualquier|ninguna)\sligadura"
+valid msgstr="(algún|ningún|cualquier)\senlace"
+valid msgstr="(algún|ningún|cualquier)\sunión"
+hint="«Bindings» se traduce como «Enlaces/Ligaduras» (propuesta glosario)"
 
 {\bbit\s?mask\b}i
 id="gp-2-bit-mask"
@@ -4330,7 +4342,7 @@ hint="«Timelines» se traduce como «Cronologías» (propuesta glosario)"
 {\btiming\b}i
 id="gp-3-timing"
 valid msgstr="calendario"
-valid msgstr="rpogramación"
+valid msgstr="programación"
 hint="«Timing» se traduce como «Calendario/Programación» (propuesta glosario)"
 
 {\btip\b}i
@@ -4429,6 +4441,12 @@ valid msgstr="activ(a|e)"
 valid msgstr="disparadores"
 valid msgstr="(algún|ningún|cualquier)\sdisparador"
 hint="«Triggers» se traduce como «Desencadena/Provoca/Disparadores» (propuesta glosario)"
+
+{\btroll\b}i
+id="gp-3-troll"
+valid msgstr="trol"
+valid msgstr="alborotadora?"
+hint="«Troll» se traduce como «Trol/Alborotador» (propuesta glosario)"
 
 {\btrust\spath\b}i
 id="gp-3-trust-path"
