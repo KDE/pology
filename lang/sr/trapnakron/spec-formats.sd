@@ -16,6 +16,8 @@ AC3: АЦ-3|*, АЦ-3|>, _род!=м
 ACE: АЦЕ|-, АЦЕ|>
 AIFF: АИФФ|-, АИФФ|>
 ALAC: АЛАЦ|-, АЛАЦ|>
+AppImage: ап-имејџ|, ап-имејџ|ов, ап-имејџ|>
+    @л: AppImage|, AppImage|ov, AppImage|>
 ARJ: АРЈ|-, АРЈ|>
 AU: АУ|-, АУ|>
 AVI: АВ|И-, АВИ|>
@@ -79,7 +81,9 @@ KNUT: КНУТ|-, КНУТ|>
 LDIF: ЛДИФ|-, ЛДИФ|-ов, ЛДИФ|>
 LHA: ЛХА|-, ЛХА|>
 LPCM: ЛПЦМ|-, ЛПЦМ|>, _пр=Linear Pulse Code Modulated Audio
+LZ4: ЛЗ4|*, ЛЗ4|>, _род!=м
 LZO: ЛЗО|-, ЛЗО|>, _пр=Lempel-Ziv-Oberhumer
+LZIP: ЛЗИП|-, ЛЗИП|>
 LZMA: ЛЗМА|-, ЛЗМА|>, _пр=Lempel-Ziv-Markov
 Mach-O: мах-О|-, мах-О|>
     @л: Mach-O|-, Mach-O|>
@@ -172,6 +176,8 @@ WMA: ВМА|-, ВМА|>, _пр=Windows Media Audio
     @л: WMA|-, WMA|>
 WMF: ВМФ|-, ВМФ|>, _пр=Windows Metafile
     @л: WMF|-, WMF|>
+XAR: КСАР|-, КСАР|>, _пр=Extensible Archive Format
+    @л: XAR|-, XAR|>
 XCF: ИксЦФ|-, ИксЦФ|>
     @л: XCF|-, XCF|>
 XCOFF: ИксКОФФ|-, ИксКОФФ|>
