@@ -1202,9 +1202,13 @@ hint="«Las y los» se escribe como «Los». (error frecuente)"
 id="cm-2-le-hacia"
 hint="«Le hacia» se escribe como «Le hacía» (error frecuente)"
 
+[\blinea\b]i
+id="cm-1-linea"
+hint="«Linea» se escribe como «Línea». (error frecuente)"
+
 [\bliteratura\s(sobre|en)\b]i
 id="cm-1-literatura-sobre"
-hint="«Literatura sobre/en» e escribe como «Bibliografía sobre/en». (error frecuente)"
+hint="«Literatura sobre/en» se escribe como «Bibliografía sobre/en». (error frecuente)"
 
 [\bllev\w+\sacabo\b]i
 id="cm-1-llevar-acabo"
@@ -1390,6 +1394,16 @@ hint="«No le bastan» se escribe como «No le basta» (error frecuente)"
 [\bno\sse\squé\b]i
 id="cm-2-no-se-que"
 hint="«No se qué» se escribe como «No sé que» (error frecuente)"
+
+[\bnumero\b]i
+id="cm-1-numero"
+valid after="yo\s"
+hint="«Numero» se escribe como «Número», salvo primera persona de numerar (error frecuente)"
+
+[\boptimo\b]i
+id="cm-1-optimo"
+valid after="yo\s"
+hint="«Optimo» se escribe como «Óptimo» (error frecuente)"
 
 [\bosea\b]i
 id="cm-2-osea-junto"

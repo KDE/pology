@@ -50,7 +50,7 @@ addFilterRegex match="\$\{.*?\}" repl="~" on="pmsgid,pmsgstr"
 addFilterRegex match="\$\(.*?\)" repl="~" on="pmsgid,pmsgstr"
 
 # Omit html tags
-addFilterRegex match="\<\s*(bcode|command|envar|filename|icode|shortcut|placeholder|style|code|tt|literal|screen|option|keycap|userinput|systemitem|prompt|function|foreignphrase|varname|programlisting|token|markup|parameter|keysym|methodname|sgmltag|arg|classname|type|returnvalue)\s*\>.*?\<\/\s*\1\s*\>" repl="~" on="pmsgid,pmsgstr"
+addFilterRegex match="\<\s*(bcode|command|envar|filename|head|icode|shortcut|placeholder|style|code|tt|literal|screen|option|keycap|userinput|systemitem|prompt|function|foreignphrase|varname|programlisting|token|markup|parameter|keysym|methodname|sgmltag|arg|classname|type|returnvalue)\s*\>.*?\<\/\s*\1\s*\>" repl="~" on="pmsgid,pmsgstr"
 addFilterRegex match="\<\s*(email|link)\s*?\>.*?\<\/\s*\1\s*\>" repl="~" on="pmsgid,pmsgstr"
 addFilterRegex match="\<\!.*?\>" repl="~" on="pmsgid,pmsgstr"
 addFilterRegex match="\<[\w-]+(\s([\w-]+\=((\\?[\"\']).*?\4|\S+?)))+\>" repl="~" on="pmsgid,pmsgstr"
