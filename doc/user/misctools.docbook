@@ -320,6 +320,13 @@ In case a PO file in target language does not have a counterpart in source langu
 </listitem>
 </varlistentry>
 
+<varlistentry>
+<term><option>-d <replaceable>DIRECTORY</replaceable></option>, <option>--data-directory=<replaceable>DIRECTORY</replaceable></option></term>
+<listitem>
+<para>If the selected translation service can use a local directory of translation data, this option can be used to specify the path to that directory. It is equivalent to Apertium’s <option>-d</option> parameter.</para>
+</listitem>
+</varlistentry>
+
 </variablelist>
 </para>
 

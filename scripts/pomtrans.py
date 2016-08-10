@@ -119,6 +119,11 @@ def main ():
         help=_("@info command line option description",
                "Custom path to translation service executable "
                "(where applicable)."))
+    opars.add_option(
+        "-d", "--data-directory", dest="data_directory",
+        metavar=_("@info command line value placeholder", "FOLDER"),
+        help=_("@info command line option description",
+               "Custom path to a translation data directory (where applicable)."))
 
     (op, free_args) = opars.parse_args(str_to_unicode(sys.argv[1:]))
 
@@ -388,7 +393,12 @@ class Translator_apertium (object):
         else:
             mode = "%s-%s" % (slang, tlang)
 
-        self.cmdline = "%s -u -f html-noent %s" % (cmdpath, mode)
+        optional_parameters = u""
+        if options.data_directory:
+            optional_parameters = u"-d %s" % options.data_directory
+
+        self.cmdline = u"%s -u -f html-noent %s %s" % (
+            cmdpath, optional_parameters, mode)
 
         entpath = os.path.join(datadir(), "spec", "html.entities")
         self.htmlents = read_entities(entpath)
