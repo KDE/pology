@@ -214,6 +214,7 @@ hint="S'ha de posar en majúscula la paraula posterior al signe d'admiració (ti
 hint="En català no s'utilitza el signe d'obertura d'admiració «¡» (tipografia)"
 
 [\s\?]
+id="t-int_sp"
 valid ctx="Numbers and characters"
 valid ctx="Query"
 valid comment="Tag\:\suserinput" cat="kioslave_nepomuksearch" # docmessages
