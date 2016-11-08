@@ -10,8 +10,9 @@ id="bp-3-you-usted"
 disabled
 valid msgstr="\busted\b"
 valid msgstr="\bustedes\b"
-valid msgstr="[\w\b](le|se)\b"
-hint="«You» se traduce como «Usted», sea educado"
+valid msgstr="\b(le|se)\b"
+valid msgstr="\bnosotr[oa]s\b"
+hint="«You» se traduce como «Usted/Nosotros/Le/Se», sea educado"
 
 {\bplease\b}i
 id="bp-3-please-por-favor"
@@ -20,7 +21,7 @@ valid msgstr="por\sfavor"
 valid msgstr="haga\sel\sfavor"
 hint="«Please» se traduce como «Por favor», sea educado"
 
-[\btu\b]i
+[\bt[uú]\b]i
 id="bp-3-no-usar-tu"
 disabled
 hint="Se debe emplear «Usted» en lugar de  «Tú» según las normas de traducción"

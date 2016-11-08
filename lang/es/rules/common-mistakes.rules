@@ -538,6 +538,10 @@ hint="«Cualesquieras» se escribe como «Cualesquiera» (error frecuente)"
 id="cm-2-cuando-antes"
 hint="«Cuando antes» se escribe como «Cuanto antes» (error frecuente)"
 
+[\bdatar?\desde\b]i
+id="cm-2-datar-desde"
+hint="«Datar desde» se escribe como «Datar de» (error frecuente)"
+
 [\bdá\b]i
 id="cm-1-da-con-tilde"
 hint="«Dá» se escribe como «Da» (error frecuente)"
@@ -587,11 +591,6 @@ hint="«De cuando en cuando» se escribe sin tilde (error frecuente: solecismo)"
 id="cm-1-de-deben"
 hint="«De deben» se escribe como «Se deben» (error frecuente)"
 
-[\bde\secho\b]i
-id="cm-1-de-echo"
-valid before="\sNest"
-hint="«De echo» se escribe como «De hecho» (error frecuente)"
-
 [\b[Dd]e\sel\b]
 id="cm-1-de-el"
 hint="«De el» se escribe como «Del» (error frecuente)"
@@ -628,6 +627,14 @@ hint="«De tal suerte que» se escribe como «De manera que/De modo que/De suert
 [\bde\suna\satacada\b]i
 id="cm-2-de-una-atacada"
 hint="«De una atacada» se escribe como «De una tacada» (error frecuente)"
+
+[\b(el|un|es|mi|tú|su|este|ese|aquel|ningún|algún|cualquier)\sdialogo\b]i
+id="cm-1-dialogo-sin-tilde"
+hint="«Dialogo» se escribe como «Diálogo». (error frecuente)"
+
+[\b(los|unos|son|mis|tus|sus|estos|esos|aquellos|ningunos|algunos|cualesquiera)\sdialogos\b]i
+id="cm-1-dialogos-sin-tilde"
+hint="«Dialogos» se escribe como «Diálogos». (error frecuente)"
 
 [\bdiez\sy\seis\b]i
 id="cm-1-diez-y-seis"
@@ -686,7 +693,12 @@ hint="No utilice «Email» sino «Correo» (error frecuente)"
 id="cm-1-e-mails"
 hint="No utilice «Emails» sino «Correos» (error frecuente)"
 
-[\b(el|del|un|este|ese|ningún|algún)\scaché\b]i
+[\b(el|del|un|otro|este|ese|aquel|ningún|algún|de)\secho\b]i
+id="cm-1-el-echo"
+valid before="\sNest"
+hint="«El echo» se escribe como «El hecho» (error frecuente)"
+
+[\b(el|del|un|otro|este|ese|aquel|ningún|algún)\scaché\b]i
 id="cm-1-cache-masculino"
 hint="«Caché» es de género femenino (error frecuente)"
 
@@ -694,29 +706,25 @@ hint="«Caché» es de género femenino (error frecuente)"
 id="cm-1-el-la-lo-cual-con-tilde"
 hint="«El/La/Lo cuál» se escribe sin tilde (error frecuente)"
 
-[\b(el|del|un|este|ese|ningún|algún)\sinterfaz\b]i
+[\b(el|del|un|otro|este|ese|aquel|ningún|algún)\sinterfaz\b]i
 id="cm-1-interfaz-masculino"
 hint="«Interfaz» es de género femenino (error frecuente)"
 
-[\b(el|del|un|los|unos|estos|esos|ningún|algún)\s(irq|IRQ|IRQs)\b]i
+[\b(el|del|un|otro|los|unos|otros|este|ese|aquel|estos|esos|aquellos|ningún|algún|ningunos|algunos)\s(irq|IRQ|IRQs)\b]i
 id="cm-1-irq-masculino"
 hint="«IRQ» es femenino (error frecuente)"
 
-[\b(el|del|un|este|ese|ningún|algún)\smacro\b]i
+[\b(el|del|un|otro|este|ese|aquel|ningún|algún)\smacro\b]i
 id="cm-1-macro-en-masculino"
 hint="«Macro» es de género femenino (error frecuente)"
 
-[\b(el|del|un|los|unos|este|ese|ningún|algún)\sweb\b]i
+[\b(el|del|un|otro|los|unos|este|ese|aquel|ningún|algún)\sweb\b]i
 id="cm-1-web-en-masculino"
 hint="«Web» es femenino (error frecuente)"
 
 [\bel\salma\smater\b]i
 id="cm-1-el-alama-mater"
 hint="«El alma mater» se escribe como «La alma mater». (error frecuente)"
-
-[\bel\sdialogo\b]i
-id="cm-1-el-dialogo-sin-tilde"
-hint="«El dialogo» se escribe como «El diálogo». (error frecuente)"
 
 [\bel\scomo\b]i
 id="cm-2-el-como"
@@ -734,29 +742,9 @@ hint="«El cuanto» se escribe como «El cuánto» (error frecuente: solecismo)"
 id="cm-2-el-donde"
 hint="«El donde» se escribe como «El dónde» (error frecuente: solecismo)"
 
-[\bel\secho\b]i
-id="cm-1-el-echo"
-hint="«El echo» se escribe como «El hecho» (error frecuente)"
-
 [\bel\shalla\b]i
 id="cm-2-el-halla"
 hint="«El halla» se escribe como «El haya» (error frecuente)"
-
-[\bel\sinterprete\b]i
-id="cm-1-el-interprete-sin-tilde"
-hint="«El interprete» se escribe como «El intérprete». (error frecuente)"
-
-[\bel\slimite\b]i
-id="cm-1-el-limite-sin-tilde"
-hint="«El limite» se escribe como «El límite». (error frecuente)"
-
-[\bel\snumero\b]i
-id="cm-1-el-numero-sin-tilde"
-hint="«El numero» se escribe como «El número». (error frecuente)"
-
-[\bel\sporque\b]i
-id="cm-1-el-porque-sin-tilde"
-hint="«El porque» se escribe como «El porqué». (error frecuente)"
 
 [\bel\sque,\b]i
 id="cm-2-el-que"
@@ -765,18 +753,6 @@ hint="«El que,» se escribe como «El qué,» (error frecuente: solecismo)"
 [\bel\ssi,\b]i
 id="cm-2-el-si"
 hint="«El si,» se escribe como «El sí,» (error frecuente: solecismo)"
-
-[\bel\stermino\b]i
-id="cm-1-el-termino-sin-tilde"
-hint="«El termino» se escribe como «El término». (error frecuente)"
-
-[\bel\stitulo\b]i
-id="cm-1-el-titulo-sin-tilde"
-hint="«El titulo» se escribe como «El título». (error frecuente)"interpre
-
-[\bel\svinculo\b]i
-id="cm-1-el-vinculo-sin-tilde"
-hint="«El vinculo» se escribe como «El vínculo». (error frecuente)"interpre
 
 [\ben\scima\b]i
 id="cm-1-en-cima"
@@ -1079,21 +1055,26 @@ hint="«Háy» se escribe como «Hay» (error frecuente)"
 id="cm-1-has-lo-que"
 hint="«Has lo que» se escribe como «Haz lo que» (error frecuente)"
 
+[\bhasta\sal\sdía\b]i
+id="cm-2-hasta-al-dia"
+hint="«Hasta al día» se escribe como «Hasta el día» (error frecuente)"
+
 [\bhay\sla\sposibilidad\b]i
 id="cm-1-hay-la-posibilidad"
 hint="«Hay la posibilidad» se escribe como «Existe la posibilidad» (error frecuente)"
 
-[\bhech\w+\sa\sperder\b]i
-id="cm-1-hechar-a-perder"
-hint="«Hechar a perder» se escribe como «Echar a perder» (error frecuente)"
+[\bhech\w+\sab]i
+id="cm-1-hechar-a"
+hint="«Hechar a ...» se escribe como «Echar a ...» (error frecuente)"
 
-[\bhech\w+\sde\smenos\b]i
-id="cm-1-hechar-de-menos"
-hint="«Hechar de menos» se escribe como «Echar de menos» (error frecuente)"
+[\bhech\w+\sde\b]i
+id="cm-1-hechar-de"
+valid msgstr="el\shecho\sde"
+hint="«Hechar de ...» se escribe como «Echar de ...» (error frecuente)"
 
-[\bhech\w+\sen\sfalta\b]i
-id="cm-1-hechar-en-falta"
-hint="«Hechar en falta» se escribe como «Echar en falta» (error frecuente)"
+[\bhech\w+\sen\b]i
+id="cm-1-hechar-en"
+hint="«Hechar en ...» se escribe como «Echar en ...» (error frecuente)"
 
 [\bhech\w+\suna?\b]i
 id="cm-1-hechar-un-una"
@@ -1150,9 +1131,13 @@ hint="«Interactuación» se escribe como «Interacción» (error frecuente)"
 id="cm-1-interactuaciones"
 hint="«Interactuaciones» se escribe como «Interacciones» (error frecuente)"
 
-[\binternet\b]
-id="cm-1-internet-en-minusculas"
-hint="«Internet» se escribe en mayúsculas (error frecuente)"
+[\b(el|un|es|mi|tú|su|este|ese|aquel|ningún|algún|cualquier)\sinterprete\b]i
+id="cm-1-interprete-sin-tilde"
+hint="«Interprete» se escribe como «Intérprete». (error frecuente)"
+
+[\b(los|unos|son|mis|tus|sus|estos|esos|aquellos|ningunos|algunos|cualesquiera)\sinterpretes\b]i
+id="cm-1-interpretes-sin-tilde"
+hint="«Interpretes» se escribe como «Intérpretes». (error frecuente)"
 
 [\bión\b]i
 id="cm-1-ion-con-tilde"
@@ -1202,6 +1187,14 @@ hint="«Las y los» se escribe como «Los». (error frecuente)"
 id="cm-2-le-hacia"
 hint="«Le hacia» se escribe como «Le hacía» (error frecuente)"
 
+[\b(el|un|es|mi|tú|su|este|ese|aquel|ningún|algún|cualquier)\slimite\b]i
+id="cm-1-limite-sin-tilde"
+hint="«Limite» se escribe como «Límite». (error frecuente)"
+
+[\b(los|unos|son|mis|tus|sus|estos|esos|aquellos|ningunos|algunos|cualesquiera)\slimites\b]i
+id="cm-1-limites-sin-tilde"
+hint="«Limites» se escribe como «Límites». (error frecuente)"
+
 [\blinea\b]i
 id="cm-1-linea"
 hint="«Linea» se escribe como «Línea». (error frecuente)"
@@ -1241,30 +1234,6 @@ hint="«Webs» es de género femenino (error frecuente)"
 [\blos\sambos\b]i
 id="cm-2-los-ambos"
 hint="«Los ambos» se escribe como «Los dos/Ambos» (error frecuente)"
-
-[\blos\sdialogos\b]i
-id="cm-1-los-dialogos-sin-tilde"
-hint="«Los dialogos» se escribe como «Los diálogos». (error frecuente)"
-
-[\blos\snumeros\b]i
-id="cm-1-los-numeros-sin-tilde"
-hint="«Los numeros» se escribe como «Los números». (error frecuente)"
-
-[\blos\sporques\b]i
-id="cm-1-los-porques-sin-tilde"
-hint="«Los porques» se escribe como «Los porqués». (error frecuente)"
-
-[\blos\sterminos\b]i
-id="cm-1-los-terminos-sin-tilde"
-hint="«Los terminos» se escribe como «Los términos». (error frecuente)"
-
-[\blos\stitulos\b]i
-id="cm-1-los-titulos-sin-tilde"
-hint="«Los titulos» se escribe como «Los títulos». (error frecuente)"interpre
-
-[\blos\svinculos\b]i
-id="cm-1-los-vinculos-sin-tilde"
-hint="«Los vinculos» se escribe como «Los vínculos». (error frecuente)"interpre
 
 [\blos\sy\slas\b]i
 id="cm-1-lo-y-las"
@@ -1395,10 +1364,9 @@ hint="«No le bastan» se escribe como «No le basta» (error frecuente)"
 id="cm-2-no-se-que"
 hint="«No se qué» se escribe como «No sé que» (error frecuente)"
 
-[\bnumero\b]i
-id="cm-1-numero"
-valid after="yo\s"
-hint="«Numero» se escribe como «Número», salvo primera persona de numerar (error frecuente)"
+[\b(el|un|es|mi|tú|su|este|ese|aquel|ningún|algún|cualquier)\snumero\b]i
+id="cm-1-numero-sin-tilde"
+hint="«Numero» se escribe como «Número». (error frecuente)"
 
 [\boptimo\b]i
 id="cm-1-optimo"
@@ -1493,6 +1461,10 @@ hint="«Por reconocimiento» se escribe como «En reconocimiento» (error frecue
 [\bpor\ssiempre\b]i
 id="cm-1-por-siempre"
 hint="«Por siempre» se escribe como «Para siempre» (error frecuente: solecismo)"
+
+[\b(el|un|es|mi|tú|su|este|ese|aquel|ningún|algún|cualquier)\sporque\b]i
+id="cm-1-porque-sin-tilde"
+hint="«Porque» se escribe como «Porqué». (error frecuente)"
 
 [\bprevee\b]i
 id="cm-1-prevee"
@@ -1609,8 +1581,8 @@ id="cm-1-se-deber"
 hint="«Se deber» se escribe como «Se deben» (error frecuente)"
 
 [\bse\sdialogo\b]i
-id="cm-1-se-dialogo-sin-tilde"
-hint="«Se dialogo» se escribe como «El dialogó». (error frecuente)"
+id="cm-1-se-dialogo"
+hint="«Se dialogo» se escribe como «Se dialogó/Se dialoga» (error frecuente)"
 
 [\bse\sesperada\b]i
 id="cm-2-se-esperada"
@@ -1632,9 +1604,21 @@ hint="«Se fijó que» se escribe como «Se fijó en que» (error frecuente)"
 id="cm-2-se-gestion"
 hint="«Se gestión» se escribe como «De gestión» (error frecuente)"
 
+[\bse\sformulo\b]i
+id="cm-2-se-formulo"
+hint="«Se formulo» se escribe como «Se formuló/Se formula» (error frecuente)"
+
 [\bse\shacia\b]i
 id="cm-2-se-hacia"
 hint="«Se hacia» se escribe como «Se hacía» (error frecuente)"
+
+[\bse\sinterpreto\b]i
+id="cm-1-se-interpreto-sin-tilde"
+hint="«Se interpreto» se escribe como «Se interpretó/Se interpreta». (error frecuente)"
+
+[\bse\slimito\b]i
+id="cm-1-se-limito-sin-tilde"
+hint="«Se limito» se escribe como «Se limitó/Se limita». (error frecuente)"
 
 [\bse\smanera\b]i
 id="cm-1-se-manera"
@@ -1642,7 +1626,11 @@ hint="«Se manera» se escribe como «De manera» (error frecuente)"
 
 [\bse\snumero\b]i
 id="cm-1-se-numero-sin-tilde"
-hint="«Se numero» se escribe como «Se numeró». (error frecuente)"
+hint="«Se numero» se escribe como «Se numeró/Se numera». (error frecuente)"
+
+[\bse\spagino\b]i
+id="cm-2-se-pagino"
+hint="«Se pagino» se escribe como «Se paginó/Se pagina» (error frecuente)"
 
 [\bse\spude\b]i
 id="cm-1-se-pude"
@@ -1660,9 +1648,17 @@ hint="«Se su» determinante duplicado (error frecuente)"
 id="cm-2-se-tardan"
 hint="«Se tardan» se escribe como «Se tarda» (error frecuente)"
 
+[\bse\stermino\b]i
+id="cm-2-se-termino"
+hint="«Se termino» se escribe como «Se terminó/Se termina» (error frecuente)"
+
+[\bse\stitulo\b]i
+id="cm-2-se-titulo"
+hint="«Se titulo» se escribe como «Se tituló/Se titula» (error frecuente)"
+
 [\bse\svinculo\b]i
 id="cm-1-se-vinculo-sin-tilde"
-hint="«Se vinculo» se escribe como «Se vinculó». (error frecuente)"interpre
+hint="«Se vinculo» se escribe como «Se vinculó/Se vincula». (error frecuente)"interpre
 
 [\bséd\b]i
 id="cm-1-sed-con-tilde"
@@ -1730,10 +1726,6 @@ hint="«Sólo» se escribe siempre como «Solo» (error frecuente)"
 id="cm-2-status-quo"
 hint="«Status quo» se escribe siempre como «Statu quo» (error frecuente)"
 
-[\bsu\slimite\b]i
-id="cm-1-su-limite"
-hint="«Su limite» e escribe como «Su límite». (error frecuente)"
-
 [\bsu\sse\b]i
 id="cm-1-su-se"
 hint="«Su se» determinante duplicado (error frecuente)"
@@ -1799,9 +1791,17 @@ hint="«Tenia» se escribe como «Tenía», salvo cuando se trate del parásito 
 id="cm-1-tenias"
 hint="«Tenias» se escribe como «Tenías», salvo cuando se trate de los parásitos intestinales (error frecuente)"
 
+[\b(el|un|es|mi|tú|su|este|ese|aquel|ningún|algún|cualquier)\stermino\b]i
+id="cm-1-termino-sin-tilde"
+hint="«Termino» se escribe como «Término». (error frecuente)"
+
 [\bthesaurus\b]i
 id="cm-1-thesaurus"
 hint="«Thesaurus» se escribe como «Tesauro» (error frecuente)"
+
+[\b(el|un|es|mi|tú|su|este|ese|aquel|ningún|algún|cualquier)\stitulo\b]i
+id="cm-1-titulo-sin-tilde"
+hint="«Titulo» se escribe como «Título». (error frecuente)"
 
 [\btruhán\b]i
 id="cm-2-truhan-con-tilde"
@@ -1811,41 +1811,9 @@ hint="«Truhán» se escribe como «Truhan» (error frecuente)"
 id="cm-1-ti-con-tilde"
 hint="«Tí» se escribe como «Ti» (error frecuente)"
 
-[\bun\sdialogo\b]i
-id="cm-1-un-dialogo-sin-tilde"
-hint="«Un dialogo» se escribe como «Un diálogo». (error frecuente)"
-
-[\bun\sinterprete\b]i
-id="cm-1-un-interprete-sin-tilde"
-hint="«Un interprete» se escribe como «Un intérprete». (error frecuente)"
-
-[\bun\slimite\b]i
-id="cm-1-un-limite-sin-tilde"
-hint="«Un limite» se escribe como «Un límite». (error frecuente)"
-
-[\bun\snumero\b]i
-id="cm-1-un-numero-sin-tilde"
-hint="«Un numero» se escribe como «Un número». (error frecuente)"
-
 [\bun\sotro\b]i
 id="cm-1-un-otro"
 hint="«Un otro» se escribe como «Otro». (error frecuente)"
-
-[\bun\sporque\b]i
-id="cm-1-un-porque-sin-tilde"
-hint="«Un porque» se escribe como «Un porqué». (error frecuente)"
-
-[\bun\stermino\b]i
-id="cm-1-un-termino-sin-tilde"
-hint="«Un termino» se escribe como «Un término». (error frecuente)"
-
-[\bun\stitulo\b]i
-id="cm-1-un-titulo-sin-tilde"
-hint="«Un titulo» se escribe como «Un título». (error frecuente)"
-
-[\bun\svinculo\b]i
-id="cm-1-un-vinculo-sin-tilde"
-hint="«Un vinculo» se escribe como «Un vínculo». (error frecuente)"interpre
 
 [\buna\scuanta\b]i
 id="cm-1-una-cuanta"
@@ -1870,38 +1838,6 @@ hint="«Unas miles» se escribe como «Unos miles» (error frecuente)"
 [\buno\sde\sambos\b]i
 id="cm-2-uno-de-ambos"
 hint="«Uno de ambos» se escribe como «Uno de los dos». (error frecuente)"
-
-[\bunos\sdialogos\b]i
-id="cm-1-unos-dialogos-sin-tilde"
-hint="«Unos dialogos» se escribe como «Unos diálogos». (error frecuente)"
-
-[\bunos\sinterpretes\b]i
-id="cm-1-unos-interpretes-sin-tilde"
-hint="«Unos interpretes» se escribe como «Unos intérpretes». (error frecuente)"
-
-[\bunos\slimites\b]i
-id="cm-1-unos-limites-sin-tilde"
-hint="«Unos limites» se escribe como «Unos límites». (error frecuente)"
-
-[\bunos\snumeros\b]i
-id="cm-1-unos-numeros-sin-tilde"
-hint="«Unos numeros» se escribe como «Unos números». (error frecuente)"
-
-[\bunos\sporques\b]i
-id="cm-1-unos-porques-sin-tilde"
-hint="«Unos porques» se escribe como «Unos porqués». (error frecuente)"
-
-[\bunos\sterminos\b]i
-id="cm-1-unos-terminos-sin-tilde"
-hint="«Unos terminos» se escribe como «Unos términos». (error frecuente)"
-
-[\bunos\stitulos\b]i
-id="cm-1-unos-titulos-sin-tilde"
-hint="«Unos titulos» se escribe como «Unos títulos». (error frecuente)"
-
-[\bunos\svinculos\b]i
-id="cm-1-unos-vinculos-sin-tilde"
-hint="«Unos vinculos» se escribe como «Unos vínculos». (error frecuente)"interpre
 
 [\buso\shorario\b]i
 id="cm-1-uso-horario"
@@ -1950,6 +1886,10 @@ hint="«Ví» se escribe como «Vi» (error frecuente)"
 [\bvia\b]i
 id="cm-1-via-sin-tilde"
 hint="«Via» se escribe como «Vía» (error frecuente)"
+
+[\b(el|un|es|mi|tú|su|este|ese|aquel|ningún|algún|cualquier)\vinculo\b]i
+id="cm-1-vinculo-sin-tilde"
+hint="«Vinculo» se escribe como «Vínculo». (error frecuente)"
 
 [\bvió\b]i
 id="cm-1-vio-con-tilde"

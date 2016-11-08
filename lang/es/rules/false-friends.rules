@@ -2167,6 +2167,11 @@ valid msgstr="(alguna|ninguna|cualquier)\spala"
 valid !msgstr="espadas?"
 hint="«Spades» se traduce como «Palas», no como «Espadas» (falso amigo)"
 
+{\bstate\sof\sthe\sart\b}i
+id="ff-2-state-of-the-art"
+valid msgstr="estado\sde\sla\s(técnica|tecnología)"
+hint="«State of the art» se traduce como «Estado de la técnica», no como «Estado del arte» (falso amigo)"
+
 {\bstranger\b}i
 id="ff-2-stranger"
 valid msgstr="foraster[oa]"

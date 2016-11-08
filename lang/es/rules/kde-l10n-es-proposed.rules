@@ -2438,7 +2438,7 @@ hint="«Mailboxes» se traduce como «Buzones» (propuesta glosario)"
 id="gp-2-mailing"
 valid msgstr="buzoneo"
 valid msgstr="buzone(ar|a|e)"
-valid before="\s(lists?|standards?)"
+valid before="\s([Ll]ists?|[Ss]tandards?)"
 hint="«Mailing» se traduce como «Buzoneo» (propuesta glosario)"
 
 {\bmalware\b}i
@@ -4186,6 +4186,11 @@ valid msgstr="reservas"
 valid msgstr="inventarios?"
 hint="«Stock» se traduce como «Existencias/Reservas/Inventario» (propuesta glosario)"
 
+[\bstreaming\b]i
+id="cm-2-streaming"
+valid msgstr="emisión"
+hint="«Streaming» se traduce como «Emisión en directo» (propuesta glosario)"
+
 {\bsubject\b}i
 id="gp-3-subject"
 valid msgstr="asunto"
@@ -4684,6 +4689,11 @@ id="gp-3-website"
 valid msgstr="sitio web"
 hint="«Website» se traduce como «Sitio web» (propuesta glosario)"
 
+{\bwebsites\b}i
+id="gp-3-websites"
+valid msgstr="sitios webs?"
+hint="«Websites» se traduce como «Sitios web» (propuesta glosario)"
+
 {\bwild\scard\b}i
 id="gp-2-wildcard"
 valid msgstr="comodín"
@@ -4745,6 +4755,16 @@ id="gp-2-x-window"
 valid msgstr="X\-Window"
 valid msgstr="sistema\sde\sventana\sX"
 hint="«X-Window» se traduce como «X-Window» (propuesta glosario)"
+
+{\bzombie\b}i
+id="gp-2-zombie"
+valid msgstr="zombi"
+hint="«Zombie» se traduce como «Zombi» (propuesta glosario)"
+
+{\bzombies\b}i
+id="gp-2-zombies"
+valid msgstr="zombis"
+hint="«Zombies» se traduce como «Zombis» (propuesta glosario)"
 
 {\bzoom\sin\b}i
 id="gp-2-zoom-in"

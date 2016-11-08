@@ -711,7 +711,7 @@ hint="«Imap» no se debe traducir (terminología)"
 
 {\binternet\b}i
 id="te-3-internet"
-valid msgstr="Internet"
+valid msgstr="internet"
 hint="«Internet» no se debe traducir (terminología)"
 
 {\bi[Pp]sec\b}i
@@ -1927,6 +1927,11 @@ hint="«SMTP» no se debe traducir (terminología)"
 id="te-3-solidkreator"
 valid msgstr="solidkreator"
 hint="«Solidkreator» no se debe traducir (terminología)"
+
+{\bSOPA\b}
+id="te-3-sopa-mayusculas"
+valid msgstr="SOPA"
+hint="«SOPA» no se debe traducir (terminología)"
 
 {\bsql\b}i
 id="te-3-sql"
