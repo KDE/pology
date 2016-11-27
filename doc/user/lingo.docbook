@@ -256,11 +256,18 @@ Substitution arguments follow after the text, separated with the <literal>^</lit
 
 <para>If there are several format directives in the UI reference, they are by default considered "named". This means that all same format directives will be replaced by the same argument. This is the right thing to do for some formats, e.g. <literal>python-format</literal> or <literal>kde-format</literal> messages, but not for all formats. In <literal>c-format</literal>, if there are two <literal>%s</literal> in the text, to replace just one of them with the current argument, the format directive attached to the argument must be preceded with <literal>!</literal>:
 <programlisting language="po">
-#, c-format
 msgid "...&lt;guilabel>This Foo or that Bar&lt;/guilabel>..."
 msgstr "...&lt;guilabel>This %s or that %s.^!%s:foo^!%s:bar&lt;/guilabel>..."
 </programlisting>
 </para>
+
+<para>If the referenced UI text contains a format directive and the reference is found in the message of the same format (e.g. UI reference in the text of a tooltip), then using the special syntax to substitute an argument will normally make <command>msgfmt</command> command with <option>-c</option> signal an invalid message. For example:
+<programlisting language="po">
+#, kde-format
+msgid "You can change this behavior under \"Configure Foobar...\"."
+msgstr "Ovo ponašanje možete promeniti pod \"~%/Configure %1...^%1:Foobar/\"."
+</programlisting>
+is not valid because the <varname>msgstr</varname> now contains the <literal>kde-format</literal>-specific <literal>%1</literal> directive, but the <varname>msgid</varname> does not.</para>
 
 <para>In general, but especially with implicit references, the text wrapped as reference may actually contain several references in form of UI path (<literal>"...go to Foo->Bar->Baz, and click on..."</literal>). To handle such cases, if it is not possible or it is not convenient to wrap each element of the UI path separately, UI reference resolving hooks can be given one or more UI path separators (e.g. <literal>-></literal>) to split and resolve the element references on their own.</para>
 

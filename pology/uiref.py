@@ -41,7 +41,7 @@ default_headrefs = ["~%"]
 
 def resolve_ui (headrefs=default_headrefs, tagrefs=[], uipathseps=[],
                 uicpaths=None, uicpathenv=None, xmlescape=False, pfhook=None,
-                mkeyw=None, invmkeyw=False, quiet=False):
+                mkeyw=None, invmkeyw=False, quiet=False, fdirsplit=None):
     """
     Resolve general UI references in translations [hook factory].
 
@@ -61,6 +61,14 @@ def resolve_ui (headrefs=default_headrefs, tagrefs=[], uipathseps=[],
     The list of UI path separators given by the C{uipathseps} parameter
     is ordered by priority, such that the first one found in the composite
     reference text is used to split it into componental UI references.
+
+    If the UI reference contains a formatting directive/argument placeholder,
+    and the UI reference is found in a message of the same format
+    (e.g. a tooltip referencing another part of UI), then using the argument
+    substitution syntax may make the message invalid for the C{msgfmt -c}
+    check. In that case, a splitter string specified by C{fdirsplit} parameter
+    can be inserted somewhere between the first and the last character of
+    the formatting directive, thus masking it from C{msgfmt -c}.
 
     @param headrefs: heads for explicit UI references
     @type headrefs: list of strings
@@ -84,19 +92,21 @@ def resolve_ui (headrefs=default_headrefs, tagrefs=[], uipathseps=[],
     @type invmkeyw: bool
     @param quiet: whether to output warnings of failed resolutions
     @type quiet: bool
+    @param fdirsplit: splitter string for masking formatting directives
+    @type fdirsplit: string
 
     @return: type F3C hook
     @rtype: C{(msgstr, msg, cat) -> msgstr}
     """
 
     return _resolve_ui_w(headrefs, tagrefs, uipathseps, uicpaths, uicpathenv,
-                         xmlescape, pfhook, mkeyw, invmkeyw, quiet,
+                         xmlescape, pfhook, mkeyw, invmkeyw, quiet, fdirsplit,
                          modtext=True, spanrep=False)
 
 
 def check_ui (headrefs=default_headrefs, tagrefs=[], uipathseps=[],
               uicpaths=None, uicpathenv=None, xmlescape=False,
-              mkeyw=None, invmkeyw=False):
+              mkeyw=None, invmkeyw=False, fdirsplit=None):
     """
     Check general UI references in translations [hook factory].
 
@@ -109,7 +119,7 @@ def check_ui (headrefs=default_headrefs, tagrefs=[], uipathseps=[],
     pfhook = None
     quiet = True
     return _resolve_ui_w(headrefs, tagrefs, uipathseps, uicpaths, uicpathenv,
-                         xmlescape, pfhook, mkeyw, invmkeyw, quiet,
+                         xmlescape, pfhook, mkeyw, invmkeyw, quiet, fdirsplit,
                          modtext=False, spanrep=True)
 
 
@@ -135,8 +145,9 @@ def resolve_ui_docbook4 (headrefs=default_headrefs,
     uipathseps = []
     xmlescape = True
     invmkeyw = False
+    fdirsplit = None
     return _resolve_ui_w(headrefs, tagrefs, uipathseps, uicpaths, uicpathenv,
-                         xmlescape, pfhook, mkeyw, invmkeyw, quiet,
+                         xmlescape, pfhook, mkeyw, invmkeyw, quiet, fdirsplit,
                          modtext=True, spanrep=False)
 
 
@@ -158,8 +169,9 @@ def check_ui_docbook4 (headrefs=default_headrefs,
     invmkeyw = False
     pfhook = None
     quiet = True
+    fdirsplit = None
     return _resolve_ui_w(headrefs, tagrefs, uipathseps, uicpaths, uicpathenv,
-                         xmlescape, pfhook, mkeyw, invmkeyw, quiet,
+                         xmlescape, pfhook, mkeyw, invmkeyw, quiet, fdirsplit,
                          modtext=False, spanrep=True)
 
 
@@ -179,6 +191,8 @@ def resolve_ui_kde4 (headrefs=default_headrefs, uipathseps=None,
     If C{uipathseps} is C{None}, separators known to KUIT C{<interface>} tag
     will be used automatically.
 
+    C{fdirsplit} is set to C{"~"}.
+
     @return: type F3C hook
     @rtype: C{(msgstr, msg, cat) -> msgstr}
     """
@@ -188,8 +202,9 @@ def resolve_ui_kde4 (headrefs=default_headrefs, uipathseps=None,
         uipathseps = ["->"]
     xmlescape = True
     invmkeyw = False
+    fdirsplit = "~"
     return _resolve_ui_w(headrefs, tagrefs, uipathseps, uicpaths, uicpathenv,
-                         xmlescape, pfhook, mkeyw, invmkeyw, quiet,
+                         xmlescape, pfhook, mkeyw, invmkeyw, quiet, fdirsplit,
                          modtext=True, spanrep=False)
 
 
@@ -204,6 +219,8 @@ def check_ui_kde4 (headrefs=default_headrefs, uipathseps=None,
     If C{uipathseps} is C{None}, separators known to KUIT C{<interface>} tag
     will be used automatically.
 
+    C{fdirsplit} is set to C{"~"}.
+
     @return: type V3C hook
     @rtype: C{(msgstr, msg, cat) -> spans}
     """
@@ -215,13 +232,14 @@ def check_ui_kde4 (headrefs=default_headrefs, uipathseps=None,
     invmkeyw = False
     pfhook = None
     quiet = True
+    fdirsplit = "~"
     return _resolve_ui_w(headrefs, tagrefs, uipathseps, uicpaths, uicpathenv,
-                         xmlescape, pfhook, mkeyw, invmkeyw, quiet,
+                         xmlescape, pfhook, mkeyw, invmkeyw, quiet, fdirsplit,
                          modtext=False, spanrep=True)
 
 
 def _resolve_ui_w (headrefs, tagrefs, uipathseps, uicpaths, uicpathenv,
-                   xmlescape, pfhook, mkeyw, invmkeyw, quiet,
+                   xmlescape, pfhook, mkeyw, invmkeyw, quiet, fdirsplit,
                    modtext, spanrep):
     """
     Worker for resolver factories.
@@ -357,7 +375,8 @@ def _resolve_ui_w (headrefs, tagrefs, uipathseps, uicpaths, uicpathenv,
         hookcl_f3c = lambda uiref: resolver_helper(uiref, msg, cat, True, False)
         hookcl_v3c = lambda uiref: resolver_helper(uiref, msg, cat, False, True)
         uiref_res, errmsgs = _resolve_single_uiref(uiref, normcats,
-                                                   hookcl_f3c, hookcl_v3c)
+                                                   hookcl_f3c, hookcl_v3c,
+                                                   fdirsplit)
         uiref_res = pfhook(uiref_res)
 
         return uiref_res, errmsgs
@@ -578,7 +597,7 @@ def _escape_to_xml (text):
 
 _ts_fence = "|/|"
 
-def _resolve_single_uiref (uitext, uicats, hookcl_f3c, hookcl_v3c):
+def _resolve_single_uiref (uitext, uicats, hookcl_f3c, hookcl_v3c, fdirsplit):
 
     errmsgs = []
 
@@ -630,6 +649,13 @@ def _resolve_single_uiref (uitext, uicats, hookcl_f3c, hookcl_v3c):
                 if alst[0].startswith(_uiref_argsrepl):
                     alst[0] = alst[0][1:]
                     single = True
+                if fdirsplit and fdirsplit in alst[0]:
+                    plhold = alst[0].replace(fdirsplit, "", 1)
+                    if single:
+                        msgid = msgid.replace(alst[0], plhold, 1)
+                    else:
+                        msgid = msgid.replace(alst[0], plhold)
+                    alst[0] = plhold
                 # Argument itself may contain UI references.
                 local_errspans = hookcl_v3c(alst[1])
                 if local_errspans:
