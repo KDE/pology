@@ -45,6 +45,9 @@ DH1080: ДХ1080|*, ДХ1080|>, _род!=м
 DIGEST-MD5: ДАЈЏЕСТ-МД5|*, ДАЈЏЕСТ-МД5|>, _род!=м
     @л: DIGEST-MD5|*, DIGEST-MD5|>
 ECB, |ecbalg: ¤ЕЦБ|-, ЕЦБ|>, _пр=electronic codebook
+ECDSA: ЕЦДСА|-, ЕЦДСА|>, _пр=Elliptic Curve Digital Signature Algorithm
+ECDH: ЕЦДХ|-, ЕЦДХ|>, _пр=Elliptic curve Diffie–Hellman
+EdDSA: ЕдДСА|-, ЕдДСА|>, _пр=Edwards-curve Digital Signature Algorithm
 ElGamal: елгамал|, Елгамал|ов
     @л: ElGamal|, ElGamal|ov
 HMAC: ХМАЦ|-, ХМАЦ|>, _пр=Hash-based Message Authentication Code
@@ -67,6 +70,8 @@ SMD5: СМД5|*, СМД5|>, _род!=м
 SSHA: ССХА|-, ССХА|>
 Whirlpool: вирлпул|, вирлпул|ов
     @л: Whirlpool|, Whirlpool|ov
+ZipCrypto: зипкрипт|о, зипкрипт|ов, _род!=м
+    @л: ZipCrypt|o, ZipCrypt|ov
 
 # ----------------------------------------------------------------------------
 # Нумерика
