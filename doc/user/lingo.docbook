@@ -265,9 +265,15 @@ msgstr "...&lt;guilabel>This %s or that %s.^!%s:foo^!%s:bar&lt;/guilabel>..."
 <programlisting language="po">
 #, kde-format
 msgid "You can change this behavior under \"Configure Foobar...\"."
-msgstr "Ovo ponašanje možete promeniti pod \"~%/Configure %1...^%1:Foobar/\"."
+msgstr "Ovo ponašanje možete promeniti pod „~%/Configure %1...^%1:Foobar/“."
 </programlisting>
-is not valid because the <varname>msgstr</varname> now contains the <literal>kde-format</literal>-specific <literal>%1</literal> directive, but the <varname>msgid</varname> does not.</para>
+is not valid because the <varname>msgstr</varname> now contains the <literal>kde-format</literal>-specific <literal>%1</literal> directive, but the <varname>msgid</varname> does not. To fix this, UI reference resolving hooks can be given an alternative directive start string such as to mask it from <command>msgfmt</command>. In this example:
+<programlisting language="po">
+#, kde-format
+msgid "You can change this behavior under \"Configure Foobar...\"."
+msgstr "Ovo ponašanje možete promeniti pod „~%/Configure %~1...^%~1:Foobar/“."
+</programlisting>
+the alternative directive start is <literal>%~</literal>, which makes it no longer appear as a <literal>kde-format</literal>-specific directive. Of course, before the reference is looked up in an UI catalog, internally the normal form of the directive will be recovered.</para>
 
 <para>In general, but especially with implicit references, the text wrapped as reference may actually contain several references in form of UI path (<literal>"...go to Foo->Bar->Baz, and click on..."</literal>). To handle such cases, if it is not possible or it is not convenient to wrap each element of the UI path separately, UI reference resolving hooks can be given one or more UI path separators (e.g. <literal>-></literal>) to split and resolve the element references on their own.</para>
 
