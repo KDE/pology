@@ -919,6 +919,11 @@ valid msgstr="[Ss]eptentrional"
 valid msgstr="[Nn]or\w+"
 hint="«North» se traduce como «Norte» (nombre propio)"
 
+{\bNorth\sCorea\b}
+id="pn-3-north-corea"
+valid msgstr="Corea\sdel\sNorte"
+hint="«North Corea» se traduce como «Corea del Norte» (nombre propio)"
+
 {\bNorthern\b}
 id="pn-3-northern"
 valid msgstr="[Nn]orte"
@@ -1024,6 +1029,11 @@ hint="«Philippines» se traduce como «Filipinas/filipino» (nombre propio)"
 id="pn-3-phoenix"
 valid msgstr="Fénix"
 hint="«Phoenix» se traduce como «Fénix» (nombre propio)"
+
+{\bPyongyang\b}
+id="pn-3-pyongyang"
+valid msgstr="Pionyang"
+hint="«Pyongyang» se traduce como «Pionyang» (nombre propio)"
 
 {\bPyrénées\b}
 id="pn-3-pyrenees"
@@ -1234,6 +1244,11 @@ valid msgstr="[Ss]ur"
 valid msgstr="[Mm]eridional"
 valid msgstr="[Ss]u[dr]\w+"
 hint="«South» se traduce como «Sur» (nombre propio)"
+
+{\bSouth\sCorea\b}
+id="pn-3-south-corea"
+valid msgstr="Corea\sdel\sSur"
+hint="«South Corea» se traduce como «Corea del Sur» (nombre propio)"
 
 {\bSouthern\b}
 id="pn-3-southern"

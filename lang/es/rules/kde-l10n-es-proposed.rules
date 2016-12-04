@@ -140,6 +140,11 @@ valid !msgstr="autoprobad[oa]"
 valid !msgstr="autoprobarse"
 hint="«Autoprobed» se traduce como «Autocomprobado» (propuesta glosario)"
 
+{\bban\b}i
+id="gp-2-ban"
+valid msgstr="bloque(ar|a|o)"
+hint="«Ban» se traduce como «Bloquear» (propuesta glosario)"
+
 {\bbandwith\b}i
 id="gp-2-bandwith"
 valid msgstr="anchos?\sde\sbanda"
@@ -2362,7 +2367,7 @@ id="gp-2-live-bookmarks"
 valid msgstr="marcadores\sdinámicos"
 hint="«Live bookmarks» se traduce como «Marcadores dinámicos» (propuesta glosario)"
 
-{\blogon\b}i
+{\blog\-?on\b}i
 id="gp-2-logon"
 valid msgstr="inicio\sde\ssesión"
 valid msgstr="inici(ar|a|e)\s(la\s)?sesión"
@@ -2370,7 +2375,7 @@ valid msgstr="iniciará\ssesión" after="will\s(\w+\s)?"
 valid msgstr="inición\ssesión" after="did\s(\w+\s)?"
 hint="«Logon» se traduce como «Inicio de sesión», no se debe dejar sin traducir (propuesta glosario)"
 
-{\blogout\b}i
+{\blog\-?out\b}i
 id="gp-2-logout"
 valid msgstr="fin\sde\ssesión"
 valid msgstr="cierre\s(de\s)?sesión"
@@ -2438,7 +2443,8 @@ hint="«Mailboxes» se traduce como «Buzones» (propuesta glosario)"
 id="gp-2-mailing"
 valid msgstr="buzoneo"
 valid msgstr="buzone(ar|a|e)"
-valid before="\s([Ll]ists?|[Ss]tandards?)"
+valid before="\s[Ll]ists?"
+valid before="\s[Ss]tandards?"
 hint="«Mailing» se traduce como «Buzoneo» (propuesta glosario)"
 
 {\bmalware\b}i
@@ -3109,7 +3115,8 @@ hint="«Placeholders» se traduce como «Marcadores de posición» (propuesta gl
 {\bplain\stext\b}i
 id="gp-1-plain-text"
 valid msgstr="textos?\s(citado\s)?sin\sformato"
-hint="«Plain text» se traduce como «Texto sin formato» (propuesta glosario)"
+valid msgstr="texto sencillo"
+hint="«Plain text» se traduce como «Texto sencillo/sin formato» (propuesta glosario)"
 
 {\bplay\b}i
 id="gp-3-play"
@@ -3925,6 +3932,14 @@ hint="«Shrink» se traduce como «Reducir» (propuesta glosario)"
 id="gp-2-shrinks"
 valid msgstr="redu(ce|zca)"
 hint="«Shrinks» se traduce como «Reduce» (propuesta glosario)"
+
+{\bsign[\s-]?in\b}i
+id="gp-2-sign-in"
+valid msgstr="inicio\sde\ssesión"
+valid msgstr="inici(ar|a|e)\s(la\s)?sesión"
+valid msgstr="iniciará\ssesión" after="will\s(\w+\s)?"
+valid msgstr="inición\ssesión" after="did\s(\w+\s)?"
+hint="«Sign in» se traduce como «Inicio de sesión», no se debe dejar sin traducir (propuesta glosario)"
 
 {\bsignature\b}i
 id="gp-3-signature"

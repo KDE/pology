@@ -111,6 +111,13 @@ valid msgstr="extern[ao]s?"
 #valid msgstr="OUTSIDE"
 hint="«Outside» se traduce como «Fuera» o similar (error de concordancia)"
 
+{\bunvalid\b}i
+id="dc-2-unvalid"
+valid msgstr="inválido"
+valid msgstr="no\sválido"
+#valid msgstr="UNVALID"
+hint="«Unvalid» se traduce como «No valido/Inválido» o similar (error de concordancia)"
+
 #{\bup\b}i
 #id="dc-2-up"
 #valid msgstr="arriba"

@@ -538,6 +538,10 @@ hint="«Cualesquieras» se escribe como «Cualesquiera» (error frecuente)"
 id="cm-2-cuando-antes"
 hint="«Cuando antes» se escribe como «Cuanto antes» (error frecuente)"
 
+[\b(la|una)\scuanta\b]i
+id="cm-1-una-cuanta"
+hint="«La/Una cuanta» se escribe como «La/Una cuenta» (error frecuente)"
+
 [\bdatar?\desde\b]i
 id="cm-2-datar-desde"
 hint="«Datar desde» se escribe como «Datar de» (error frecuente)"
@@ -1069,7 +1073,7 @@ hint="«Hechar a ...» se escribe como «Echar a ...» (error frecuente)"
 
 [\bhech\w+\sde\b]i
 id="cm-1-hechar-de"
-valid msgstr="el\shecho\sde"
+valid msgstr="(el|ha|un)\shecho\sde"
 hint="«Hechar de ...» se escribe como «Echar de ...» (error frecuente)"
 
 [\bhech\w+\sen\b]i
@@ -1814,10 +1818,6 @@ hint="«Tí» se escribe como «Ti» (error frecuente)"
 [\bun\sotro\b]i
 id="cm-1-un-otro"
 hint="«Un otro» se escribe como «Otro». (error frecuente)"
-
-[\buna\scuanta\b]i
-id="cm-1-una-cuanta"
-hint="«Una cuanta» se escribe como «Una cuenta» (error frecuente)"
 
 [\buna\sde\sambas\b]i
 id="cm-2-una-de-ambas"
