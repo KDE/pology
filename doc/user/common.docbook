@@ -1174,7 +1174,15 @@ in one or all strings in the message, or replaces them with a fixed placeholder.
 <term><ulink url="&ap;spell&am;check_spell"><literal>spell/check-spell</literal></ulink> (S3A)</term>
 <term><ulink url="&ap;spell&am;check_spell_sp"><literal>spell/check-spell-sp</literal></ulink> (V3A)</term>
 <listitem>
-<para>Spell-checking hooks, as one element of <link linkend="sec-lgspell">Pology's spell-checking functionality</link>.</para>
+<para>Spell-checking hooks for Aspell, as one element of <link linkend="sec-lgspell">Pology's spell-checking functionality</link>.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="hk-spell-ec">
+<term><ulink url="&ap;spell&am;check_spell_ec"><literal>spell/check-spell-ec</literal></ulink> (S3A)</term>
+<term><ulink url="&ap;spell&am;check_spell_ec_sp"><literal>spell/check-spell-ec-sp</literal></ulink> (V3A)</term>
+<listitem>
+<para>Spell-checking hooks for various spell checkers through the Enchant wrapper, as one element of <link linkend="sec-lgspell">Pology's spell-checking functionality</link>.</para>
 </listitem>
 </varlistentry>
 

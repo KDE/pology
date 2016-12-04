@@ -433,11 +433,11 @@ valid msgstr="groobaz" cat="gfoo"
 
 <para>When a regular expression is not sufficient as the rule trigger, a validation hook can be used instead (one of V* hook types). See <xref linkend="sec-cmhooks"/> for general discussion on hooks in Pology. For example, since there are spell-checking hooks already available, the complete rule for spell-checking could be:
 <programlisting>
-*hook name="spell/check-spell-sp" on="msgstr"
+*hook name="spell/check-spell-ec-sp" on="msgstr"
 id="spelling"
 hint="Misspelled words detected."
 </programlisting>
-The <literal>name=</literal> field specifies the hook, and the <literal>on=</literal> field what parts of the message it should operate on. The parts given by <literal>on=</literal> field must be appropriate for the hook type; since <literal>spell/check-spell-sp</literal> is a V3A hook, it can operate on any string in the message, including the translation as requested here. Validation hooks can provide some notes of their own (here list of replacement suggestions for a faulty word), which will be shown next to the note given by rule's <literal>hint=</literal> subdirective.</para>
+The <literal>name=</literal> field specifies the hook, and the <literal>on=</literal> field what parts of the message it should operate on. The parts given by <literal>on=</literal> field must be appropriate for the hook type; since <literal>spell/check-spell-ec-sp</literal> is a V3A hook, it can operate on any string in the message, including the translation as requested here. Validation hooks can provide some notes of their own (here list of replacement suggestions for a faulty word), which will be shown next to the note given by rule's <literal>hint=</literal> subdirective.</para>
 
 <para>Examples so far all suffer from one basic problem: the trigger pattern will fail to match a word which has an accelerator marker inside it.<footnote>
 <para>Why not remove accelerator markers automatically before applying rules? Because some rules might be exactly about accelerator markers, e.g. if it should not be put next to certain letters.</para>

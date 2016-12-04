@@ -4,6 +4,7 @@
 Check spelling in text using different spell checkers.
 
 @author: Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>
+author: Javier Vinal (Javier Viñal) <fjvinal@gmail.com>
 @license: GPLv3
 """
 
@@ -14,6 +15,7 @@ import tempfile
 
 from pology import PologyError, datadir, _, n_
 from pology.comments import manc_parse_flag_list, manc_parse_list
+import pology.config
 from pology.msgreport import report_on_msg
 from pology.report import warning, format_item_list
 
@@ -104,7 +106,8 @@ def check_spell (lang=None, encoding="UTF-8", variety=None, extopts={},
     @rtype: C{(text, msg, cat) -> numerr}
     """
 
-    return _check_spell_w(lang, encoding, variety, extopts,
+    provider = "aspell-raw"
+    return _check_spell_w(provider, lang, encoding, variety, extopts,
                           envs, suponly, maxsugg, False)
 
 
@@ -118,11 +121,12 @@ def check_spell_sp (lang=None, encoding="UTF-8", variety=None, extopts={},
     @rtype: C{(text, msg, cat) -> spans}
     """
 
-    return _check_spell_w(lang, encoding, variety, extopts,
+    provider = "aspell-raw"
+    return _check_spell_w(provider, lang, encoding, variety, extopts,
                           envs, suponly, maxsugg, True)
 
 
-def _check_spell_w (lang, encoding, variety, extopts,
+def _check_spell_w (provider, lang, encoding, variety, extopts,
                     envs, suponly, maxsugg, spanrep):
     """
     Worker for C{check_spell*} hook factories.
@@ -139,6 +143,14 @@ def _check_spell_w (lang, encoding, variety, extopts,
         # ...could have been a single comprehension, but may need expansion.
         return word_spans
 
+    # Resolve provider.
+    if provider != "aspell-raw":
+        enchant_cfg = pology.config.section("enchant")
+        if not provider:
+            provider = enchant_cfg.string("provider")
+            if not provider:
+                raise PologyError(_("@info", "Enchant provider not set."))
+
     # Cache for constructed checkers.
     checkers = {}
 
@@ -146,7 +158,14 @@ def _check_spell_w (lang, encoding, variety, extopts,
     def spcheck (text, msg, cat):
 
         # Check if new spell checker should be constructed.
-        clang = lang or cat.language()
+        if lang is not None:
+            clang = lang
+        elif cat.language() is not None:
+            clang = cat.language()
+        elif provider != "aspell-raw":
+            clang = enchant_cfg.string("language")
+        else:
+            clang = None
         if not clang:
             raise PologyError(
                 _("@info",
@@ -156,12 +175,20 @@ def _check_spell_w (lang, encoding, variety, extopts,
             cenvs = envs
         elif cat.environment() is not None:
             cenvs = cat.environment()
+        elif provider != "aspell-raw":
+            envs_str = enchant_cfg.string("environment")
+            cenvs = envs_str.split(",") if envs_str else []
         else:
             cenvs = []
         ckey = (clang, tuple(cenvs))
         if ckey not in checkers:
-            checkers[ckey] = _construct_aspell(clang, cenvs, encoding, variety,
-                                               extopts, suponly)
+            if provider != "aspell-raw":
+                checkers[ckey] = _construct_enchant(provider, clang, cenvs,
+                                                    encoding, variety, suponly)
+            else:
+                checkers[ckey] = _construct_aspell(clang, cenvs, encoding,
+                                                   variety, extopts, suponly)
+
         checker = checkers[ckey]
 
         # Prepare shortcut reports.
@@ -363,4 +390,187 @@ class _QuasiSpell (object):
     def suggest (self, encword):
 
         return []
+
+
+def check_spell_ec (provider=None, lang=None, encoding="UTF-8", variety=None,
+                    envs=None, suponly=False, maxsugg=5):
+    """
+    Check spelling using Enchant [hook factory].
+
+    Enchant provider and language are selected by the C{lang} parameter,
+    which should be a language code of one of the installed spelling
+    dictionaries. Text encoding used by the dictionary is provided by the
+    C{encoding} parameter. If the dictionary comes in several varieties,
+    a non-default one is selected using the C{variety} parameter.
+    If C{provider} is not given, it will be attempted to fetch it from
+    C{[enchant]/provider} user configuration field.
+
+    Pology may contain internal supplemental dictionaries for selected
+    language in C{lang/<lang>/spell/} directory, and these are automatically
+    picked up. Any subdirectories in C{lang/<lang>/spell/} are considered
+    as to contain supplemental dictionaries in special "environments"
+    (e.g. jargon, certain projects, etc.), and are not included by default.
+    Such environments can be included by the C{envs} parameter, which
+    is a list of relative paths added to C{lang/<lang>/spell/} directory.
+    All supplemental dictionaries from such paths are included, as well as
+    from all their parent directories up to C{lang/<lang>/spell/}
+    (this makes supplemental dictionaries hierarchical, e.g.
+    environment C{foo/bar} is a child of C{foo}, and thus when C{foo/bar}
+    is requested, both its and supplements of C{foo} are used).
+
+    If C{lang} is C{None}, then automatic detection of the language based
+    on the catalog of the message is attempted
+    (see catalog L{language()<catalog.Catalog.language>} method).
+    Similar is attempted for environments if C{env} is C{None}
+    (see catalog L{environment()<catalog.Catalog.environment>} method).
+    If automatic detection of language does not succeed, finally
+    C{[enchant]/language} user configuration field is consulted;
+    for environments, C{[enchant]/environment} field is consulted.
+
+    Provider's system dictionary can be completely excluded from the check
+    by the C{suponly} parameter, when the check will use only internal
+    supplemental dictionaries.
+
+    Misspelled words are reported to stdout, with suggestions if available.
+    Maximum number of suggestions to display is selected by the C{maxsugg}
+    parameter; if negative, all suggestions are shown.
+
+    Spell checking is performed by internally splitting text into words, and
+    querying provider word by word. Spliting is performed in a simple fashion;
+    it is assumed that text has been appropriately filtered down to plain text,
+    e.g. that any XML-like markup and other literals have been removed
+    (see L{pology.remove} for filtering possibilities).
+
+    Spell checking can be skipped entirely on a message by issuing
+    the C{no-check-spell} L{sieve flag<sieve.parse_sieve_flags>}.
+    Alternatively, only certain words may be declared well spelled
+    by adding a manual comment starting with C{well-spelled:}
+    and followed by comma-separated list of words. Example::
+
+        # |, no-check-spell
+        msgid "Aaaargh, gahhh, khh..."
+        msgstr ""
+
+        # well-spelled: Aaaargh, kh
+        msgid "Aaaargh, kh, kh... I have been defeated...!"
+        msgstr ""
+
+    @param provider: the spell-checking provider to use
+    @type provider: string
+    @param lang: language of spelling dictionary
+    @type lang: string
+    @param encoding: encoding used by the dictionary
+    @type encoding: string
+    @param variety: variety of dictionary
+    @type variety: string
+    @param envs: environments for supplemental dictionaries
+    @type envs: list of strings
+    @param suponly: whether to use only supplemental dictionaries
+    @type suponly: bool
+    @param maxsugg: maximum number of suggestions to show for misspelled word
+    @type maxsugg: int
+
+    @return: type S3A hook
+    @rtype: C{(text, msg, cat) -> numerr}
+    """
+
+    extopts = {}
+    return _check_spell_w(provider, lang, encoding, variety, extopts,
+                          envs, suponly, maxsugg, False)
+
+
+def check_spell_ec_sp (provider=None, lang=None, encoding="UTF-8", variety=None,
+                       envs=None, suponly=False, maxsugg=5):
+    """
+    Like L{check_spell_ec}, except that erroneous spans are returned
+    instead of reporting problems to stdout [hook factory].
+
+    @return: type V3A hook
+    @rtype: C{(text, msg, cat) -> spans}
+    """
+
+    extopts = {}
+    return _check_spell_w(provider, lang, encoding, variety, extopts,
+                          envs, suponly, maxsugg, True)
+
+
+# Construct Enchant checker for given langenv.
+def _construct_enchant (provider, lang, envs, encoding, variety, suponly):
+
+    # Get Pology's internal personal dictonary for this language.
+    dictpath, temporary = _compose_personal_dict(lang, envs)
+
+    if not suponly:
+        try:
+            import enchant
+        except ImportError:
+            pkgs = ["python-enchant"]
+            raise PologyError(_("@info",
+                                "Python wrapper for Enchant not found, "
+                                "please install it (possible package names: "
+                                "%(pkglist)s).",
+                                pkglist=format_item_list(pkgs)))
+
+        # Create Enchant broker.
+        try:
+            broker = enchant.Broker()
+        except Exception, e:
+            raise PologyError(
+                _("@info",
+                  "Cannot initialize Enchant:\n%(msg)s",
+                  msg=e))
+
+        # Find Enchant language.
+        e_langs = filter(broker.dict_exists, [variety, lang])
+        if e_langs:
+            e_lang = e_langs[0]
+        else:
+            if variety is not None:
+                raise PologyError(
+                    _("@info",
+                      "Language '%(lang)s' and variety '%(var)s' "
+                      "not known to Enchant.",
+                      lang=lang, var=variety))
+            else:
+                raise PologyError(
+                    _("@info",
+                      "Language '%(lang)s' not known to Enchant.",
+                      lang=lang))
+
+        # Choose the provider for the selected language.
+        try:
+            broker.set_ordering((e_lang or "*"), provider)
+        except Exception, e:
+            raise PologyError(
+                _("@info",
+                  "Cannot configure Enchant for provider '%(pvd)s':\n%(msg)s",
+                  pvd=provider, msg=e))
+
+        # Create checker and test functionality.
+        try:
+            if dictpath is None:
+                checker = enchant.Dict(e_lang, broker)
+            else:
+                checker = enchant.DictWithPWL(e_lang, dictpath, None, broker)
+            checker.check(".")
+        except:
+            raise PologyError(
+                _("@info",
+                  "Enchant test check for language '%(lang)s' failed.",
+                  lang=e_lang))
+    else:
+        # Create simple internal checker that only checks against
+        # internal supplemental dictionaries.
+        if not dictpath:
+            raise PologyError(
+                _("@info",
+                  "No supplemental dictionaries found."))
+        checker = _QuasiSpell(dictpath, encoding)
+
+    # Composited dictionary read by now, remove if temporary file.
+    if temporary:
+        os.unlink(dictpath)
+
+    return checker
+
 
