@@ -1656,9 +1656,25 @@ hint="«Habían/Habrán/Han/Hayan/Hubieran» va seguido de verbo en singular (er
 id="gr-1-haber-echo"
 hint="«Haber echo» se escribe como «Haber hecho» (error gramatical)"
 
-[(?u)\bhech[oa][sn]?\sa\s\w+?(ar|er|ir)\b]i
-id="gr-1-hecho-a-infinitivo"
-hint="«Hecho a + infinitivo)» se escribe como «Echo a + infinitivo» (error gramatical)"
+[(?u)\bhech\w+\s(a|ante|bajo|con|contra|de|desde|en|entre|hacia|hasta|para|por|según|si|sobre|trás)\s\w+(ar|er|ir)\b]i
+id="gr-1-hecho-preposición"
+hint="«Hecho a/de/para + infinitivo)» se escribe como «Echo a/de/para + infinitivo» (error gramatical)"
+
+#[(?u)\bhech[oa]\w+\sen\b]i
+#id="cm-1-hechar-en"
+#hint="«Hechar en ...» se escribe como «Echar en ...» (error gramatical)"
+
+[(?u)\bhech[oa]\w+\s(el|la|lo|los|las|un|una|unos|unas)\b]i
+id="cm-1-hechar-articulo"
+hint="«Hechar + artículo» se escribe como «Echar + artículo» (error gramatical)"
+
+[(?u)\bhech[oa]\w+\s(este|ese|aquel|estos|esos|aquellos|esta|esa|aquella|estas|esas|aquellas)\b]i
+id="cm-1-hechar-demostrativo"
+hint="«Hechar + demostrativo» se escribe como «Echar + demostrativo» (error frecuente)"
+
+[(?u)\bsi\shech[oa]\w*\b]i
+id="cm-1-si-hechar"
+hint="«Si hecho ...» se escribe como «Si echo ...» (error frecuente)"
 
 [(?u)\ba\sver\s\w+?(ad[oa]|id[oa])\b]i
 id="gr-1-a-ver-participio"

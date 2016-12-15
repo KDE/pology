@@ -182,7 +182,7 @@ hint="«Backup» se traduce como «Copia de respaldo» (ver glosario)"
 {\bbackups\b}i
 id="gk-2-backups"
 valid msgstr="copias\sde\srespaldo"
-valid msgstr="respald(a|e)"
+valid msgstr="respald[ea]"
 valid msgstr="(alguna|cualquier|ninguna)\scopia\sde\s(respaldo|seguridad)"
 valid after="\-"
 hint="«Backups» se traduce como «Copias de respaldo» (ver glosario)"
@@ -347,7 +347,7 @@ hint="«Catch-all-entry» se traduce como «Entrada para la ruta por omisión» 
 id="gk-2-check"
 valid msgstr="comprob(ar|ación)"
 valid msgstr="prueba"
-valid msgstr="comprueb(e|a)"
+valid msgstr="comprueb[ea]"
 valid msgstr="marcar?"
 valid msgstr="tic"
 valid msgstr="marque"
@@ -400,7 +400,7 @@ hint="«Checked» se traduce como «Comprobado/Consultado/marcado» (ver glosari
 
 {\bchecks\b}i
 id="gk-2-checks"
-valid msgstr="comprueb(e|a)"
+valid msgstr="comprueb[ea]"
 valid msgstr="comprobar"
 valid msgstr="comprobaciones"
 valid msgstr="controles"
@@ -410,7 +410,7 @@ valid msgstr="(alguna|cualquier|ninguna)\sverificación"
 valid msgstr="(algún|cualquier|ningún)\scontrol"
 valid msgstr="marcar?"
 valid msgstr="marque"
-valid msgstr="consult(a|e)"
+valid msgstr="consult[ea]"
 valid msgstr="verifi(ca|que)"
 valid msgstr="cheques" cat="kmymomey,skrooge"
 valid msgstr="(algún|cualquier|ningún)\scheque" cat="kmymomey,skrooge"
@@ -453,7 +453,7 @@ hint="«Cleaner» se traduce como «Limpiador» (ver glosario)"
 
 {\bcleans\b}i
 id="gk-2-cleans"
-valid msgstr="limpi(a|e)"
+valid msgstr="limpi[ea]"
 valid msgstr="limpios"
 hint="«Cleans» se traduce como «Limpia» (ver glosario)"
 
@@ -823,14 +823,14 @@ hint="«Develop» se traduce como «Desarrollar» (ver glosario)"
 id="gk-2-developed"
 valid msgstr="desarrollad[oa]"
 valid msgstr="desarrollarse"
-valid msgstr="se\sdesarroll(a|e)n?"
+valid msgstr="se\sdesarroll[ea]n?"
 valid msgstr="desarrolló"
 valid msgstr="se\s(\w+\s){1,3}desarrollar"
 hint="«Developed» se traduce como «Desarrollado» (ver glosario)"
 
 {\bdevelops\b}i
 id="gk-2-develops"
-valid msgstr="desarroll(a|e)"
+valid msgstr="desarroll[ea]"
 hint="«Develops» se traduce como «Desarrolla» (ver glosario)"
 
 {\bdeveloper\b}i
@@ -915,8 +915,8 @@ hint="«Disabled» se traduce como «Desactivado» o «Inutilizado» según el c
 
 {\bdisables\b}i
 id="gk-2-disables"
-valid msgstr="desactiv(a|e)"
-valid msgstr="inutiliz(e|a)"
+valid msgstr="desactiv[ea]"
+valid msgstr="inutiliz[ea]"
 hint="«Disables» se traduce como «Desactiva» o «Inutiliza» según el contexto (ver glosario)"
 
 {\bdisabling\b}i
@@ -929,7 +929,7 @@ id="gk-2-display"
 valid msgstr="pantalla"
 valid msgstr="visor"
 valid msgstr="mostrar"
-valid msgstr="muestr(a|e)"
+valid msgstr="muestr[ea]"
 valid msgstr="mostrad[oa]"
 valid msgstr="visualización"
 valid msgstr="visuali(zar|za|ce)"
@@ -945,8 +945,8 @@ hint="«Display» se traduce como «Pantalla», «Visor» o «Mostrar» (ver glo
 id="gk-2-displays"
 valid msgstr="pantallas"
 valid msgstr="visores"
-valid msgstr="muestr(a|e)"
-valid msgstr="mostrad(os|as)"
+valid msgstr="muestr[ea]"
+valid msgstr="mostrad[oa]s"
 valid msgstr="visualizaciones"
 valid msgstr="visuali(za|ce)"
 valid msgstr="(alguna|cualquier|ninguna)\spantalla"
@@ -978,7 +978,7 @@ hint="«Drag» se traduce como «Arrastrar» (ver glosario)"
 
 {\bdrags\b}i
 id="gk-2-drags"
-valid msgstr="arrastr(e|a)"
+valid msgstr="arrastr[ea]"
 hint="«Drags» se traduce como «Arrastra» (ver glosario)"
 
 {\bdriver\b}i
@@ -997,13 +997,13 @@ hint="«Drivers» se traduce como «Controladores» (ver glosario)"
 {\bdrop[\s-]down\b}i
 id="gk-2-drop-down"
 valid msgstr="desplega(r|ble)"
-valid msgstr="despliegu(e|a)"
+valid msgstr="despliegu[ea]"
 hint="«Drop down» se traduce como «Desplegar» (ver glosario)"
 
 {\bdrop\b}i
 id="gk-2-drop"
 valid msgstr="soltar"
-valid msgstr="suelt(e|a)n?"
+valid msgstr="suelt[ea]n?"
 valid msgstr="cae[nr]?"
 valid msgstr="caiga"
 valid msgstr="caída"
@@ -1011,7 +1011,7 @@ valid msgstr="dej(ar|a|e)n?"
 valid msgstr="baj(ar|a|e)n?"
 valid msgstr="descenso"
 valid msgstr="perder"
-valid msgstr="pierd(a|e)n?"
+valid msgstr="pierd[ea]n?"
 valid msgstr="pérdida"
 valid msgstr="gota"
 valid msgstr="proyección"
@@ -1030,17 +1030,17 @@ hint="«Drop» se traduce como «Soltar/Caer/Dejar/Bajar/Abandonar/Caída/Descen
 
 {\bdrops\b}i
 id="gk-2-drops"
-valid msgstr="suelt(e|a)"
+valid msgstr="suelt[ea]"
 valid msgstr="caiga"
-valid msgstr="pierd(a|e)"
-valid msgstr="dej(e|a)"
-valid msgstr="baj(e|a)"
+valid msgstr="pierd[ea]"
+valid msgstr="dej[ea]"
+valid msgstr="baj[ea]"
 valid msgstr="caídas"
 valid msgstr="descensos"
 valid msgstr="pérdidas"
 valid msgstr="gotas"
 valid msgstr="proyección"
-valid msgstr="abandon(e|a)"
+valid msgstr="abandon[ea]"
 valid msgstr="(alguna|cualquier|ninguna)\scaída"
 valid msgstr="(algún|cualquier|ningún)\sdescenso"
 valid msgstr="(alguna|cualquier|ninguna)\sgota"
@@ -1102,8 +1102,8 @@ hint="«Embebded» se traduce como «Empotrado», «Incrustado» o «Integrado»
 
 {\bembebs\b}i
 id="gk-2-embebs"
-valid msgstr="empotr(a|e)"
-valid msgstr="incrust(a|e)"
+valid msgstr="empotr[ea]"
+valid msgstr="incrust[ea]"
 hint="«Embebs» se traduce como «Empotra» o «Incrusta» (ver glosario)"
 
 {\benable\b}i
@@ -1122,7 +1122,7 @@ hint="«Enable» se traduce como «Activar/Permitir» (ver glosario)"
 id="gk-2-enabled"
 valid msgstr="activad[oa]s?"
 valid msgstr="activarse"
-valid msgstr="se\sactiv(a|e)n?"
+valid msgstr="se\sactiv[ea]n?"
 valid msgstr="permitid[oa]s?"
 valid msgstr="permitirse"
 valid msgstr="se\spermit[ea]n?"
@@ -1137,8 +1137,8 @@ hint="«Enabled» se traduce como «Activado» (ver glosario)"
 
 {\benables\b}i
 id="gk-2-enables"
-valid msgstr="activ(e|a)"
-valid msgstr="permit(a|e)"
+valid msgstr="activ[ea]"
+valid msgstr="permit[ea]"
 hint="«Enables» se traduce como «Activa/Permita» (ver glosario)"
 
 {\benabling\b}i
@@ -1175,7 +1175,7 @@ hint="«Encrypt» se traduce como «Cifrar», nunca como «Encriptar» (ver glos
 
 {\bencrypts\b}i
 id="gk-2-encrypts"
-valid msgstr="cifr(a|e)"
+valid msgstr="cifr[ea]"
 valid !msgstr="encript(ar|a|e)"
 hint="«Encrypts» se traduce como «Cifra», nunca como «Encripta» (ver glosario)"
 
@@ -1308,8 +1308,8 @@ id="gk-2-feeds"
 valid msgstr="suministros"
 valid msgstr="fuentes"
 valid msgstr="canales"
-valid msgstr="subministr(a|e)"
-valid msgstr="aliment(a|e)"
+valid msgstr="subministr[ea]"
+valid msgstr="aliment[ea]"
 valid msgstr="(algún|cualquier|ningún)\ssuministro"
 valid msgstr="(alguna|cualquier|ninguna)\sfuente"
 valid msgstr="(algún|cualquier|ningún)\scanal"
@@ -1521,9 +1521,9 @@ hint="«Gateways» se traduce como «Puertas de enlace» o «Pasarelas» (ver gl
 {\bget\sback\b}i
 id="gk-2-get-back"
 valid msgstr="volver"
-valid msgstr="vuelv(e|a)"
+valid msgstr="vuelv[ea]"
 valid msgstr="regresar"
-valid msgstr="regres(e|a)"
+valid msgstr="regres[ea]"
 valid msgstr="recuper(ar|a|e)"
 valid msgstr="volverá" after="will\s(\w+\s)?"
 valid msgstr="regresará" after="will\s(\w+\s)?"
@@ -1535,9 +1535,9 @@ hint="«(to) Get back» se traduce como «Volver/Recuperar» (ver glosario)"
 
 {\bgets\sback\b}i
 id="gk-2-gets-back"
-valid msgstr="vuelv(e|a)"
-valid msgstr="regres(e|a)"
-valid msgstr="recuper(a|e)"
+valid msgstr="vuelv[ea]"
+valid msgstr="regres[ea]"
+valid msgstr="recuper[ea]"
 hint="«(to) Get back» se traduce como «Vuelva/Recupere» (ver glosario)"
 
 {\bGNU\sGeneral\sPublic\sLicense\b}i
@@ -1568,7 +1568,7 @@ hint="«Gzipped» se traduce como «Comprimido con gzip» (ver glosario)"
 
 {\bhang\b}i
 id="gk-2-hang"
-valid msgstr="cuelgu(e|a)"
+valid msgstr="cuelgu[ea]"
 valid msgstr="colgar"
 valid msgstr="bloque(ar|a|o)"
 valid msgstr="colgará" after="will\s(\w+\s)?"
@@ -1579,7 +1579,7 @@ hint="«Hang» se traduce como «Cuelgue» (ver glosario)"
 
 {\bhangs\b}i
 id="gk-2-hangs"
-valid msgstr="cuelgu(e|a)"
+valid msgstr="cuelgu[ea]"
 valid msgstr="colgar"
 valid msgstr="bloque(ar|a|o)"
 hint="«Hangs» se traduce como «Bloquea/Cuelgua» (ver glosario)"
@@ -1714,7 +1714,7 @@ hint="«Host» se traduce como «Servidor» (ver glosario)"
 id="gk-2-hosts"
 valid msgstr="servidores"
 valid msgstr="máquina"
-valid msgstr="hosped(a|e)"
+valid msgstr="hosped[ea]"
 valid msgstr="alojamiento"
 valid msgstr="(algún|cualquier|ningún)\sservidor"
 valid msgstr="(alguna|cualquier|ninguna)\smáquina"
@@ -1864,7 +1864,7 @@ hint="«Languages» se traduce como «Idiomas» (ver glosario)"
 id="gk-2-leak"
 valid msgstr="pérdida"
 valid msgstr="perder"
-valid msgstr="pierd(e|a)"
+valid msgstr="pierd[ea]"
 valid msgstr="falta"
 valid msgstr="fuga"
 valid msgstr="escape"
@@ -1877,7 +1877,7 @@ hint="«Leak» se traduce como «Pérdida» o «Falta» (ver glosario)"
 {\bleaks\b}i
 id="gk-2-leaks"
 valid msgstr="pérdidas"
-valid msgstr="pierd(e|a)"
+valid msgstr="pierd[ea]"
 valid msgstr="faltas"
 valid msgstr="fugas"
 valid msgstr="escapes"
@@ -2079,34 +2079,34 @@ valid msgstr="listas\sde\scorreo"
 valid msgstr="(alguna|cualquier|ninguna)\slista\sde\s(correo|distribución)"
 hint="«Mailing lists» se traduce como «Listas de correo» (ver glosario)"
 
-{\bmainteiner\b}i
-id="gk-2-manteiner"
+{\bmaintainer\b}i
+id="gk-2-mantainer"
 valid msgstr="responsable"
 valid msgstr="encargad[oa]"
 valid !msgstr="mantenedor"
 hint="«Maintainer» se traduce como «Responsable» o «Encargado» (ver glosario)"
 
-{\bmainteiners\b}i
-id="gk-2-manteiners"
+{\bmaintainers\b}i
+id="gk-2-mantainers"
 valid msgstr="responsables"
-valid msgstr="encargados"
+valid msgstr="encargad[oa]s"
 valid msgstr="(algún|cualquier|ningún)\sresponsable"
-valid msgstr="(algún|cualquier|ningún)\sencargado"
+valid msgstr="(algún|cualquier|ningún)\sencargad[oa]"
 valid !msgstr="mantenedores"
 hint="«Maintainers» se traduce como «Responsables» o «Encargados» (ver glosario)"
 
 {\bmanager\b}i
 id="gk-2-manager"
-valid msgstr="gestor"
-valid !msgstr="administrador"
+valid msgstr="gestora?"
+valid !msgstr="administradora?"
 valid !msgstr="manejador"
 hint="«Manager» se traduce como «Gestor», nunca como «Administrador» (ver glosario)"
 
 {\bmanagers\b}i
 id="gk-2-managers"
-valid msgstr="gestores"
-valid msgstr="(algún|cualquier|ningún)\sgestor"
-valid !msgstr="administradores"
+valid msgstr="gestor[ea]s"
+valid msgstr="(algún|cualquier|ningún)\sgestora?"
+valid !msgstr="administrad[oa]res"
 valid !msgstr="manejadores"
 hint="«Managers» se traduce como «Gestores», nunca como «Administradores» (ver glosario)"
 
@@ -2151,7 +2151,7 @@ hint="«Mask» se traduce como «Máscara» o «Enmascarar» (ver glosario)"
 id="gk-2-masks"
 valid msgstr="máscaras"
 valid msgstr="(alguna|cualquier|ninguna)\smáscara"
-valid msgstr="enmascar(e|a)"
+valid msgstr="enmascar[ea]"
 hint="«Masks» se traduce como «Máscaras» o «Enmascare» (ver glosario)"
 
 {\bmatch\b}i
@@ -2159,7 +2159,7 @@ id="gk-2-match"
 valid msgstr="emparej(ar?|e|o)"
 valid msgstr="coincid(ir|an|e|a)"
 valid msgstr="concordar"
-valid msgstr="concuerd(a|e)"
+valid msgstr="concuerd[ea]"
 valid msgstr="partida"
 valid msgstr="coincidencia"
 valid msgstr="emparejará" after="will\s(\w+\s)?"
@@ -2172,9 +2172,9 @@ hint="«Match» se traduce como «Emparejar», «Coincidir», «Coincidencia» o
 
 {\bmatchs\b}i
 id="gk-2-matchs"
-valid msgstr="emparej(a|e)"
-valid msgstr="coincid(e|a)"
-valid msgstr="concuerd(e|a)"
+valid msgstr="emparej[ea]"
+valid msgstr="coincid[ea]"
+valid msgstr="concuerd[ea]"
 valid msgstr="partidas"
 valid msgstr="coincidencias"
 valid msgstr="(alguna|cualquier|ninguna)\spartida"
@@ -2214,9 +2214,9 @@ hint="«Mirror» se traduce como «Espejo» o «Reflejar» (ver glosario)"
 {\bmirrors\b}i
 id="gk-2-mirrors"
 valid msgstr="espejos"
-valid msgstr="reflej(a|e)"
+valid msgstr="reflej[ea]"
 valid msgstr="repli(ca|que)"
-valid msgstr="inviert(e|a)"
+valid msgstr="inviert[ea]"
 valid msgstr="réplicas"
 valid msgstr="(algún|cualquier|ningún)\sespejo"
 hint="«Mirrors» se traduce como «Espejos» o «Refleja» (ver glosario)"
@@ -2250,7 +2250,7 @@ hint="«Mount» se traduce como «Montar» (ver glosario)"
 
 {\bmounts\b}i
 id="gk-2-mounts"
-valid msgstr="mont(a|e)"
+valid msgstr="mont[ea]"
 valid msgstr="montajes"
 valid msgstr="(algún|ningún|alguna|cualquier|ninguna)\smontaje"
 hint="«Mounts» se traduce como «Monta» (ver glosario)"
@@ -2347,7 +2347,7 @@ hint="«Overlappings» se traduce como «Superposiciones» o «Solapamientos» (
 {\boverlaps\b}i
 id="gk-2-overlaps"
 valid msgstr="superpon(e|ga)"
-valid msgstr="solap(a|e)"
+valid msgstr="solap[ea]"
 hint="«Overlaps» se traduce como «Superpone» o «Solapa» (ver glosario)"
 
 {\boverwrite\b}i
@@ -2361,8 +2361,8 @@ hint="«Overwrite» se traduce como «Sobrescribir», nunca como «Sobreescribir
 
 {\boverwrites\b}i
 id="gk-2-overwrites"
-valid msgstr="sobrescrib(e|a)"
-valid !msgstr="sobreescrib(e|a)"
+valid msgstr="sobrescrib[ea]"
+valid !msgstr="sobreescrib[ea]"
 hint="«Overwrites» se traduce como «Sobrescribe», nunca como «Sobreescribe» (ver glosario)"
 
 {\bparse\b}i
@@ -2396,7 +2396,7 @@ hint="«Parsers» se traduce como «Analizadores» (ver glosario)"
 
 {\bparses\b}i
 id="gk-2-parses"
-valid msgstr="analiz(e|a)"
+valid msgstr="analiz[ea]"
 hint="«Parses» se traduce como «Analiza» (ver glosario)"
 
 {\bpassword\b}i
@@ -2614,12 +2614,12 @@ hint="«Posts» se traduce como «Remita/Envíe» o «Envios» (ver glosario)"
 
 {\bpostmaster\b}i
 id="gk-2-postmaster"
-valid msgstr="administrador(es)?\sde\scorreo"
+valid msgstr="administrador(a|as|es)?\sde\scorreo"
 hint="«Postmaster» se traduce como «Administrador de correo» (ver glosario)"
 
 {\bpostmasters\b}i
 id="gk-2-postmasters"
-valid msgstr="administradores\sde\scorreo"
+valid msgstr="administrador[ea]s\sde\scorreo"
 valid msgstr="(algún|cualquier|ningún)\sadministrador\sde\scorreo"
 hint="«Postmasters» se traduce como «Administradores de correo» (ver glosario)"
 
@@ -2663,7 +2663,7 @@ hint="«Programmer» se traduce como «Programador» (ver glosario)"
 
 {\bprogrammers\b}i
 id="gk-2-programmers"
-valid msgstr="programador(e|a)s"
+valid msgstr="programador[ea]s"
 valid msgstr="(algún|cualquier|ningún)\sprogramador"
 valid msgstr="(alguna|cualquier|ninguna)\sprogramadora"
 hint="«Programmers» se traduce como «Programadores» (ver glosario)"
@@ -2696,9 +2696,9 @@ hint="«Provide» se traduce como «Proporcionar» o «Proveer» (ver glosario)"
 
 {\bprovides\b}i
 id="gk-2-provides"
-valid msgstr="proporcion(a|e)"
-valid msgstr="prove(e|a)"
-valid msgstr="estipul(a|e)"
+valid msgstr="proporcion[ea]"
+valid msgstr="prove[ea]"
+valid msgstr="estipul[ea]"
 hint="«Provides» se traduce como «Proporciona» o «Provee» (ver glosario)"
 
 {\bpurge\b}i
@@ -2714,7 +2714,7 @@ hint="«Purge» se traduce como «Purgar» (ver glosario)"
 {\bpurges\b}i
 id="gk-2-purges"
 valid msgstr="purg(ue|a)"
-valid msgstr="limpi(e|a)"
+valid msgstr="limpi[ea]"
 hint="«Purges» se traduce como «Purga» (ver glosario)"
 
 {\bquery\b}i
@@ -2757,8 +2757,8 @@ valid msgstr="entrecomillad(o|a|as|os)"
 valid msgstr="citad(o|a|os|as)"
 valid msgstr="entrecomillarse"
 valid msgstr="citarse"
-valid msgstr="se\sentrecomill(a|e)n?"
-valid msgstr="se\scit(a|e)n?"
+valid msgstr="se\sentrecomill[ea]n?"
+valid msgstr="se\scit[ea]n?"
 valid msgstr="citó"
 valid msgstr="entrecomilló"
 valid msgstr="se\s(\w+\s){1,3}citar"
@@ -2770,7 +2770,7 @@ hint="«Quoted» se traduce como «Entrecomillado/Citado» (ver glosario)"
 id="gk-2-quotes"
 valid msgstr="comillas"
 valid msgstr="cit(e|a|as)"
-valid msgstr="entrecomill(a|e)"
+valid msgstr="entrecomill[ea]"
 valid msgstr="cotizaciones"
 valid msgstr="(alguna|cualquier|ninguna)\scomilla"
 valid msgstr="(alguna|cualquier|ninguna)\scita"
@@ -2803,10 +2803,10 @@ hint="«Raise» se traduce como «Provocar», «Alzar», «Surgir» o «Aumentar
 id="gk-2-raises"
 valid msgstr="provoca"
 valid msgstr="provoque"
-valid msgstr="alz(e|a)"
+valid msgstr="alz[ea]"
 valid msgstr="surge"
 valid msgstr="surja"
-valid msgstr="aument(a|e)"
+valid msgstr="aument[ea]"
 hint="«Raises» se traduce como «Provoca», «Alza», «Surge» o «Aumenta» (ver glosario)"
 
 {\brange\b}i
@@ -2924,9 +2924,9 @@ hint="«Reset» se traduce como «Reiniciar/Reinicio» (ver glosario)"
 
 {\bresets\b}i
 id="gk-2-resets"
-valid msgstr="reinici(e|a)"
+valid msgstr="reinici[ea]"
 valid msgstr="(algún|cualquier|ningún)\sreinicio"
-valid !msgstr="restaur(a|e)"
+valid !msgstr="restaur[ea]"
 hint="«Resets» se traduce como «Reinicia» (ver glosario)"
 
 {\bresolver\b}i
@@ -2971,7 +2971,7 @@ hint="«Respawns» se traduce como «Reinicia» (ver glosario)"
 {\brevert\b}i
 id="gk-2-revert"
 valid msgstr="revertir"
-valid msgstr="reviert(e|a)"
+valid msgstr="reviert[ea]"
 valid msgstr="revertirá" after="will\s(\w+\s)?"
 valid msgstr="revertió" after="did\s(\w+\s)?"
 valid msgstr="deshacer?"
@@ -2982,7 +2982,7 @@ hint="«Revert» se traduce como «Revertir/Deshacer» (ver glosario)"
 
 {\breverts\b}i
 id="gk-2-reverts"
-valid msgstr="reviert(e|a)"
+valid msgstr="reviert[ea]"
 valid msgstr="deshaga"
 hint="«Reverts» se traduce como «Revierte/Deshace» (ver glosario)"
 
@@ -3031,10 +3031,10 @@ hint="«Run» se traduce como «Ejecución» (ver glosario)"
 
 {\bruns\b}i
 id="gk-2-runs"
-valid msgstr="ejecut(a|e)"
+valid msgstr="ejecut[ea]"
 valid msgstr="ejecuciones"
 valid msgstr="(alguna|cualquier|ninguna)\sejecución"
-valid !msgstr="corr(a|e)"
+valid !msgstr="corr[ea]"
 hint="«Runs» se traduce como «Ejecuta» (ver glosario)"
 
 {\brun\-time\b}i
@@ -3060,8 +3060,8 @@ hint="«Saved» se traduce como «Guardado», nunca como «Salvado» (ver glosar
 
 {\bsaves\b}i
 id="gk-2-saves"
-valid msgstr="guard(a|e)"
-valid !msgstr="salv(a|e)"
+valid msgstr="guard[ea]"
+valid !msgstr="salv[ea]"
 hint="«Saves» se traduce como «Guarda», nunca como «Salva» (ver glosario)"
 
 {\bscan\b}i
@@ -3076,10 +3076,10 @@ hint="«Scan» se traduce como «Escanear» o «Explorar» (ver glosario)"
 
 {\bscans\b}i
 id="gk-2-scans"
-valid msgstr="escane(e|a)"
+valid msgstr="escan[ea]"
 valid msgstr="escaneos"
 valid msgstr="(algún|cualquier|ningún)\sescaneo"
-valid msgstr="explor(a|e)"
+valid msgstr="explor[ea]"
 hint="«Scans» se traduce como «Escanea» o «Explora» (ver glosario)"
 
 {\bscanner\b}i
@@ -3105,12 +3105,12 @@ hint="«Schedule» se traduce como «Programa», «Horario», «Calendario» o �
 
 {\bscheduler\b}i
 id="gk-2-scheduler"
-valid msgstr="planificador"
+valid msgstr="planificadora?"
 hint="«Scheduler» se traduce como «Planificador» (ver glosario)"
 
 {\bschedulers\b}i
 id="gk-2-schedulers"
-valid msgstr="planificadores"
+valid msgstr="planificador[ea]s"
 valid msgstr="(algún|cualquier|ningún)\splanificador"
 hint="«Schedulers» se traduce como «Planificadores» (ver glosario)"
 
@@ -3190,7 +3190,7 @@ hint="«Sending» se traduce como «Envío» (ver glosario)"
 
 {\bsends\b}i
 id="gk-2-sends"
-valid msgstr="enví(a|e)"
+valid msgstr="enví[ea]"
 valid msgstr="envios"
 valid msgstr="(algún|cualquier|ningún)\senvío"
 hint="«Sends» se traduce como «Envía» (ver glosario)"
@@ -3348,7 +3348,7 @@ hint="«Sort» se traduce como «Ordenar» (ver glosario)"
 
 {\bsorts\b}i
 id="gk-2-sorts"
-valid msgstr="orden(a|e)?"
+valid msgstr="orden[ea]?"
 valid msgstr="órdenes"
 valid msgstr="clases"
 valid msgstr="(algún|cualquier|ningún)\sorden"
@@ -3364,7 +3364,7 @@ hint="«Spawn» se traduce como «Iniciar» (ver glosario)"
 
 {\bspawns\b}i
 id="gk-2-spawns"
-valid msgstr="inici(a|e)"
+valid msgstr="inici[ea]"
 valid msgstr="nace"
 hint="«Spawns» se traduce como «Inicia» (ver glosario)"
 
@@ -3539,11 +3539,11 @@ hint="«Support» se traduce como  «Admitir», «Implementar», «Reconocer», 
 
 {\bsupports\b}i
 id="gk-2-supports"
-valid msgstr="admit(e|a)"
-valid msgstr="implement(a|e)"
+valid msgstr="admit[ea]"
+valid msgstr="implement[ea]"
 valid msgstr="reconoce"
-valid msgstr="us(e|a)"
-valid msgstr="apoy(e|a)"
+valid msgstr="us[ea]"
+valid msgstr="apoy[ea]"
 valid msgstr="implementaciones"
 valid msgstr="(alguna|cualquier|ninguna)\simplementación"
 hint="«Supports» se traduce como  «Admite», «Implementa», «Reconoce», «Usa» o «Apoya», nunca como «Soporta» (ver glosario)"
@@ -3557,7 +3557,7 @@ hint="«Swap» se traduce como «Intercambio» (ver glosario)"
 
 {\bswaps\b}i
 id="gk-2-swaps"
-valid msgstr="intercambi(e|a)"
+valid msgstr="intercambi[ea]"
 valid msgstr="intercambios"
 valid msgstr="(algún|cualquier|ningún)\sintercambio"
 hint="«Swaps» se traduce como «Intercambios/Intercambia» (ver glosario)"
@@ -3679,9 +3679,9 @@ hint="«Toggle» se traduce como «Conmutador/Conmutar/Alternar/Cambiar» (ver g
 
 {\btoggles\b}i
 id="gk-2-toggles"
-valid msgstr="conmut(a|e)"
-valid msgstr="cambi(a|e)"
-valid msgstr="altern(a|e)"
+valid msgstr="conmut[ea]"
+valid msgstr="cambi[ea]"
+valid msgstr="altern[ea]"
 valid msgstr="conmutadores"
 valid msgstr="(algún|cualquier|ningún)\sconmutador"
 hint="«Toggles» se traduce como «Conmuta/Alterna/Cambia» (ver glosario)"
@@ -3775,7 +3775,7 @@ valid msgstr="cargar?"
 valid msgstr="carguen?"
 valid msgstr="envíos"
 valid msgstr="subidas"
-valid msgstr="sub(e|a)"
+valid msgstr="sub[ea]"
 valid msgstr="env(iar|ío|ía|íe|íen)"
 hint="«Uploads» se traduce como «Carga» o «Envío» (ver glosario)"
 

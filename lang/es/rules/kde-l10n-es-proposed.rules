@@ -368,13 +368,15 @@ hint="«Boot records» se traduce como «Registros de arranque» (propuesta glos
 {\bbot\b}i
 id="gp-2-bot"
 valid msgstr="robot"
-hint="«Bot» se traduce como «Robot» (propuesta glosario)"
+valid msgstr="bot"
+hint="«Bot» se traduce como «Robot/Bot» (propuesta glosario)"
 
 {\bbots\b}i
 id="gp-2-bots"
 valid msgstr="robots"
-valid msgstr="(algún|ningún|cualquier)\srobot"
-hint="«Bots» se traduce como «Robots» (propuesta glosario)"
+valid msgstr="bots"
+valid msgstr="(algún|ningún|cualquier)\s(robot|bot)"
+hint="«Bots» se traduce como «Robots/Bots» (propuesta glosario)"
 
 {\bbox\soffice\b}i
 id="gp-2-box-office"
@@ -652,8 +654,8 @@ hint="«Clear» se traduce como «Borrar/Vacíar/Aclarar/Despejar» o «Claro/De
 {\bclears\b}i
 id="gp-3-clears"
 valid msgstr="borr[ea]"
-valid msgstr="aclar(e|a)"
-valid msgstr="despej(a|e)"
+valid msgstr="aclar[ea]"
+valid msgstr="despej[ea]"
 valid msgstr="clar[oa]s"
 valid msgstr="despejad[oa]s"
 valid msgstr="limpi[oa]s"
@@ -998,14 +1000,14 @@ hint="«Deletes» se traduce como «Borre/Borra» (propuesta glosario)"
 
 {\bdelimiter\b}i
 id="gp-3-delimiter"
-valid msgstr="delimitador"
-valid msgstr="separador"
+valid msgstr="delimitadora?"
+valid msgstr="separadora?"
 hint="«Delimiter» se traduce como «Delimitador/Separador» (propuesta glosario)"
 
 {\bdelimiters\b}i
 id="gp-3-delimiters"
-valid msgstr="delimitadores"
-valid msgstr="separadores"
+valid msgstr="delimitador[ea]s"
+valid msgstr="separador[ea]s"
 valid msgstr="(algún|ningún|cualquier)\sdelimitador"
 valid msgstr="(algún|ningún|cualquier)\sseparador"
 hint="«Delimiters» se traduce como «Delimitadores/Separadores» (propuesta glosario)"
@@ -1165,6 +1167,8 @@ hint="«Discards» se traduce como «Deshace/Descarta» (propuesta glosario)"
 {\bdiscarged\b}i
 id="gp-1-discarged"
 valid msgstr="deshech[oa]s?"
+valid msgstr="descartad[oa]s?"
+valid msgstr="deshacerse"
 valid msgstr="descartarse"
 valid msgstr="se\sdescart[ea]n?"
 valid msgstr="descartó"
@@ -1479,7 +1483,7 @@ hint="«Executed» se traduce como «Ejecutado» (propuesta glosario)"
 
 {\bexecutes\b}i
 id="gp-3-executes"
-valid msgstr="ejecut(a|e)"
+valid msgstr="ejecut[ea]"
 hint="«Executes» se traduce como «Ejecuta» (propuesta glosario)"
 
 {\bexecution\b}i
@@ -1492,6 +1496,12 @@ id="gp-3-executions"
 valid msgstr="ejecuciones"
 valid msgstr="(alguna|cualquier|ninguna)\sejecución"
 hint="«Executions» se traduce como «Ejecuciones» (propuesta glosario)"
+
+{\bexploit\b}i
+id="gp-3-exploit"
+valid msgstr="agujero"
+valid msgstr="aprovech(ar|a|e)"
+hint="«Exploit» se traduce como «Agujero/Aprovechar» (propuesta glosario)"
 
 {\bfacility\b}i
 id="gp-2-facility"
@@ -1871,15 +1881,15 @@ hint="«Handle» se traduce como «Manipular/Manejar/Encargarse de/Mango» (prop
 
 {\bhandler\b}i
 id="gp-3-handler"
-valid msgstr="controlador"
-valid msgstr="manipulador"
+valid msgstr="controladora?"
+valid msgstr="manipuladora?"
 valid after="\w+\-"
 hint="«Handler» se traduce como «Controlador/Manipulador» (propuesta glosario)"
 
 {\bhandlers\b}i
 id="gp-3-handlers"
-valid msgstr="manipuladores"
-valid msgstr="controladores"
+valid msgstr="manipulador[ea]s"
+valid msgstr="controlador[ea]s"
 valid msgstr="(algún|ningún|cualquier)\smanipulador"
 valid msgstr="(algún|ningún|cualquier)\scontrolador"
 hint="«Handlers» se traduce como «Controladores/Manipuladores» (propuesta glosario)"
@@ -2121,13 +2131,13 @@ hint="«Inline» se traduce como «Intercalar/Intercalado» (propuesta glosario)
 
 {\binstaller\b}i
 id="gp-3-installer"
-valid msgstr="instalador"
+valid msgstr="instaladora?"
 valid msgstr="instalación"
 hint="«Installer» se traduce como «Instalador» (propuesta glosario)"
 
 {\binstallers\b}i
 id="gp-3-installers"
-valid msgstr="instaladores"
+valid msgstr="instalador[ea]s"
 valid msgstr="(algún|ningún|cualquier)\sinstalador"
 hint="«Installers» se traduce como «Instaladores» (propuesta glosario)"
 
@@ -2347,12 +2357,12 @@ hint="«Layers» se traduce como «Capas» (propuesta glosario)"
 
 {\blinker\b}i
 id="gp-2-linker"
-valid msgstr="enlazador"
+valid msgstr="enlazadora?"
 hint="«Linker» se traduce como «Enlazador» (propuesta glosario)"
 
 {\blinkers\b}i
 id="gp-2-linkers"
-valid msgstr="enlazadores"
+valid msgstr="enlazador[ea]s"
 valid msgstr="(algún|ningún|cualquier)\senlazador"
 hint="«Linkers» se traduce como «Enlazadores» (propuesta glosario)"
 
@@ -2449,8 +2459,8 @@ hint="«Mailing» se traduce como «Buzoneo» (propuesta glosario)"
 
 {\bmalware\b}i
 id="gp-3-malware"
-valid msgstr="programa\s(maligno|malicioso)"
-hint="«Malware» se traduce como «Programa maligno» (propuesta glosario)"
+valid msgstr="programas?\s(malignos?|maliciosos?)"
+hint="«Malware» se traduce como «Programa maligno/malicioso» (propuesta glosario)"
 
 {\bmanage\b}i
 id="gp-3-manage"
@@ -2504,7 +2514,7 @@ hint="«Measure» se traduce como «Medida/Métrica» (propuesta glosario)"
 
 {\bmeasured\b}i
 id="gp-3-measured"
-valid msgstr="medid(a|o)"
+valid msgstr="medid[oa]"
 valid msgstr="medirse"
 valid msgstr="se\smid[ae]n?"
 valid msgstr="midió"
@@ -2517,7 +2527,7 @@ valid msgstr="medidas"
 valid msgstr="métricas"
 valid msgstr="(alguna|cualquier|ninguna)\smedida"
 valid msgstr="(alguna|cualquier|ninguna)\smétrica"
-valid msgstr="mid(e|a)"
+valid msgstr="mid[ea]"
 hint="«Measures» se traduce como «Medidas/Métricas» (propuesta glosario)"
 
 {\bmethod\b}i
@@ -2597,12 +2607,12 @@ hint="«Mixed» se traduce como «Mezclado/Mixto» (propuesta glosario)"
 
 {\bmixer\b}i
 id="gp-2-mixer"
-valid msgstr="mezclador"
+valid msgstr="mezcladora?"
 hint="«Mixer» se traduce como «Mezclador» (propuesta glosario)"
 
 {\bmixers\b}i
 id="gp-2-mixers"
-valid msgstr="mezcladores"
+valid msgstr="mezclador[ea]s"
 valid msgstr="(algún|ningún|cualquier)\smezclador"
 hint="«Mixers» se traduce como «Mezcladores» (propuesta glosario)"
 
@@ -2936,8 +2946,8 @@ hint="«Override» se traduce como «Redefinir/Rescribir/Remplazar» (propuesta 
 
 {\boverrides\b}i
 id="gp-2-overrides"
-valid msgstr="redefin(e|a)"
-valid msgstr="ree?scrib(e|a)"
+valid msgstr="redefin[ea]"
+valid msgstr="ree?scrib[ea]"
 valid msgstr="ree?mpla(za|ce)"
 valid msgstr="redefiniciones"
 hint="«Overrides» se traduce como «Redefine/Rescribe/Remplaza» (propuesta glosario)"
@@ -3046,7 +3056,7 @@ id="gp-3-perform"
 valid msgstr="reali(zar|za|ce)"
 valid msgstr="ejecut(ar|a|e)"
 valid msgstr="rendir"
-valid msgstr="rind(a|e)"
+valid msgstr="rind[ea]"
 valid msgstr="realizará" after="will\s(\w+\s)?"
 valid msgstr="ejecutará" after="will\s(\w+\s)?"
 valid msgstr="rendirá" after="will\s(\w+\s)?"
@@ -3058,8 +3068,8 @@ hint="«Perform» se traduce como «Realizar/Ejecutar» (propuesta glosario)"
 {\bperforms\b}i
 id="gp-3-performs"
 valid msgstr="reali(za|ce)"
-valid msgstr="ejecut(a|e)"
-valid msgstr="rind(a|e)"
+valid msgstr="ejecut[ea]"
+valid msgstr="rind[ea]"
 hint="«Performs» se traduce como «Realiza/Ejecuta» (propuesta glosario)"
 
 {\bperformance\b}i
@@ -3152,7 +3162,7 @@ valid msgstr="interpretarse"
 valid msgstr="jugarse"
 valid msgstr="se\sreprodu(ce|zca)n?"
 valid msgstr="se\sto(ca|que)n?"
-valid msgstr="se\sinterpret(a|e)n?"
+valid msgstr="se\sinterpret[ea]n?"
 valid msgstr="se\sju(gar|ega|egue)n?"
 valid msgstr="reprodujo"
 valid msgstr="tocó"
@@ -3185,8 +3195,8 @@ hint="«Player» se traduce como «Jugador/Reproductor/Intérprete» (propuesta 
 
 {\bplayers\b}i
 id="gp-3-players"
-valid msgstr="jugadores"
-valid msgstr="reproductores"
+valid msgstr="jugador[ea]s"
+valid msgstr="reproductor[ea]s"
 valid msgstr="intérpretes"
 valid msgstr="(algún|ningún|cualquier)\sjugador"
 valid msgstr="(alguna|cualquier|ninguna)\sjugadora"
@@ -3210,7 +3220,7 @@ id="gp-3-plays"
 valid msgstr="reprodu(ce|zca)"
 valid msgstr="to(ca|que)"
 valid msgstr="ju(gar|ega|egue)"
-valid msgstr="interpret(e|a)"
+valid msgstr="interpret[ea]"
 valid msgstr="reproducciones"
 valid msgstr="(alguna|cualquier|ninguna)\sreproducción"
 valid msgstr="(algún|ningún|cualquier)\sjuego"
@@ -3258,16 +3268,23 @@ valid msgstr="portátiles"
 valid msgstr="(algún|ningún|cualquier)\sportátil"
 hint="«Portables» se traduce como «Portátiles» (propuesta glosario)"
 
+{\bpost\b}i
+id="gp-2-post"
+valid msgstr="artículo"
+valid msgstr="entrada"
+valid msgstr="publi(car|ca|que)"
+hint="«Post» se traduce como «Artículo/Entrada/Publicar» (propuesta glosario)"
+
 {\bpostponed\b}i
 id="gp-2-postponed"
 valid msgstr="pendientes?"
-valid msgstr="aplazados?"
+valid msgstr="aplazad[oa]s?"
 valid msgstr="se\sapla(ce|za)" after="(is|are)\s"
 hint="«Postponed» se traduce como «Aplazado/Pendiente» (propuesta glosario)"
 
 {\bpowered\sby\b}i
 id="gp-3-powered-by"
-valid msgstr="basad[oa]\sen"
+valid msgstr="basad[oa]s?\sen"
 hint="«Powered by» se traduce como «Basado en» (propuesta glosario)"
 
 {\bpress\b}i
@@ -3355,7 +3372,7 @@ hint="«Profile» se traduce como «Perfil/Perfilar/Analizar rendimiento» (prop
 {\bprofiles\b}i
 id="gp-3-profiles"
 valid msgstr="perfiles"
-valid msgstr="perfil(e|a)"
+valid msgstr="perfil[ea]"
 valid msgstr="(algún|ningún|cualquier)\sperfil"
 valid msgstr="análisis\sde\srendimiento"
 valid msgstr="anali(za|ce)\srendimiento"
@@ -3392,7 +3409,7 @@ valid msgstr="limpiad[oa]"
 valid msgstr="purgarse"
 valid msgstr="limpiarse"
 valid msgstr="se\spurg(a|ue)n"
-valid msgstr="se\slimpi(a|e)n"
+valid msgstr="se\slimpi[ea]n"
 valid msgstr="purgó"
 valid msgstr="limpió"
 valid msgstr="se\s(\w+\s){1,3}purgar"
@@ -3417,7 +3434,7 @@ hint="«Queue» se traduce como «Cola» (propuesta glosario)"
 {\bqueues\b}i
 id="gp-3-queues"
 valid msgstr="colas"
-valid msgstr="encol(a|e)"
+valid msgstr="encol[ea]"
 valid msgstr="pon(e|en|ga)\sen\scola"
 valid msgstr="(alguna|cualquier|ninguna)\scola"
 hint="«Queues» se traduce como «Colas» (propuesta glosario)"
@@ -3490,7 +3507,7 @@ hint="«Reboot» se traduce como «Reiniciar» (propuesta glosario)"
 
 {\breboots\b}i
 id="gp-1-reboots"
-valid msgstr="reinici(a|e)"
+valid msgstr="reinici[ea]"
 hint="«Reboots» se traduce como «Reinicia» (propuesta glosario)"
 
 {\breceiver\b}i
@@ -3573,7 +3590,7 @@ hint="«Refused» se traduce como «Rehusado/Rechazado» (propuesta glosario)"
 
 {\brefuses\b}i
 id="gp-3-refuses"
-valid msgstr="rehus(a|e)"
+valid msgstr="rehus[ea]"
 valid msgstr="recha(za|ce)"
 hint="«Refuses» se traduce como «Rehusa/Rechaza» (propuesta glosario)"
 
@@ -3588,6 +3605,16 @@ id="gp-3-regular-expressions"
 valid msgstr="expresiones\sregulares"
 valid msgstr="(alguna|cualquier|ninguna)\sexpresión\sregular"
 hint="«Regular expressions» se traduce como «Expresiones regulares» (propuesta glosario)"
+
+{\brelease\b}i
+id="gp-3-release"
+valid msgstr="versión"
+valid msgstr="publi(car|ca|que)"
+valid msgstr="lan(zar|za|ce)"
+valid msgstr="liber(ar|ca|e)"
+valid msgstr="soltar"
+valid msgstr="suelt[ea]"
+hint="«Release» se traduce como «Versión/Publicar/Lanzar» (propuesta glosario)"
 
 {\breliability\b}i
 id="gp-3-reliability"
@@ -3656,7 +3683,7 @@ valid msgstr="pedid[oa]"
 valid msgstr="petición"
 valid msgstr="peticiones"
 valid msgstr="pedir"
-valid msgstr="pid(e|a)"
+valid msgstr="pid[ea]"
 valid msgstr="solicitud"
 valid msgstr="acuse"
 valid msgstr="solicit(ar|e|a)"
@@ -3679,7 +3706,7 @@ hint="«Require» se traduce como «Necesitar/Exigir» (propuesta glosario)"
 
 {\brequires\b}i
 id="gp-1-requires"
-valid msgstr="necesit(a|e)"
+valid msgstr="necesit[ea]"
 valid msgstr="exi(ge|ja)"
 valid msgstr="es\snecesario"
 hint="«Requires» se traduce como «Necesita/Exige/Es necesario» (propuesta glosario)"
@@ -3693,7 +3720,7 @@ hint="«Resample» se traduce como «Remuestrear» (propuesta glosario)"
 
 {\bresamples\b}i
 id="gp-2-resamples"
-valid msgstr="remuestre(a|e)"
+valid msgstr="remuestre[ea]"
 hint="«Resamples» se traduce como «Remuestrea» (propuesta glosario)"
 
 {\bresize\b}i
@@ -3711,8 +3738,8 @@ hint="«Resize» se traduce como «Redimensionar» (propuesta glosario)"
 
 {\bresizes\b}i
 id="gp-3-resizes"
-valid msgstr="redimension(a|e)"
-valid msgstr="cambi(a|e)\s(el\s|de\s)?tamaño"
+valid msgstr="redimension[ea]"
+valid msgstr="cambi[ea]\s(el\s|de\s)?tamaño"
 valid msgstr="modifi(ca|que)\s(el\s)?tamaño"
 hint="«Resizes» se traduce como «Redimensiona» (propuesta glosario)"
 
@@ -3751,7 +3778,7 @@ hint="«Runlevel» se traduce como «Nivel de ejecución» (propuesta glosario)"
 
 {\brunner\b}i
 id="gp-3-runner"
-valid msgstr="lanzador"
+valid msgstr="lanzadora?"
 valid after="Character\s"
 hint="«Runner» se traduce como «Lanzador» (propuesta glosario)"
 
@@ -3839,7 +3866,7 @@ hint="«Seek» se traduce como «Buscar/Búsqueda/Posicionar/Posicionamiento» (
 {\bseeks\b}i
 id="gp-3-seeks"
 valid msgstr="bus(ca|que)"
-valid msgstr="posicion(a|e)"
+valid msgstr="posicion[ea]"
 valid msgstr="búsquedas"
 valid msgstr="posicionamientos"
 valid msgstr="(alguna|cualquier|ninguna)\sbúsqueda"
@@ -3886,7 +3913,7 @@ hint="«Sequence» se traduce como «Secuencia/Sucesión» (propuesta glosario)"
 
 {\bsequencer\b}i
 id="gp-3-sequencer"
-valid msgstr="secuenciador"
+valid msgstr="secuenciadora?"
 hint="«Sequencer» se traduce como «Secuenciador» (propuesta glosario)"
 
 {\bsequences\b}i
@@ -4079,7 +4106,7 @@ hint="«Spelling» se traduce como «Ortografía» (propuesta glosario)"
 
 {\bspells\b}i
 id="gp-3-spells"
-valid msgstr="deletre(a|e)"
+valid msgstr="deletre[ea]"
 valid msgstr="hechizos"
 valid msgstr="(algún|ningún|cualquier)\shechizo"
 hint="«Spells» se traduce como «Deletrea/Hechizos» (propuesta glosario)"
@@ -4153,14 +4180,14 @@ hint="«Stack» se traduce como «Pila/Apilar» (propuesta glosario)"
 {\bstacks\b}i
 id="gp-3-stacks"
 valid msgstr="pilas"
-valid msgstr="aplil(a|e)"
+valid msgstr="aplil[ea]"
 valid msgstr="(alguna|cualquier|ninguna)\spila"
 hint="«Stacks» se traduce como «Pilas/Apile» (propuesta glosario)"
 
 {\bstaff\b}i
 id="gp-3-staff"
 valid msgstr="personal"
-valid msgstr="empleados"
+valid msgstr="emplead[oa]s"
 valid msgstr="pentagrama"
 hint="«Staff» se traduce como «Personal/Pentagrama» (propuesta glosario)"
 
@@ -4236,7 +4263,7 @@ hint="«Submit» se traduce como «Remitir/Enviar» (propuesta glosario)"
 
 {\bswitch\b}i
 id="gp-3-switch"
-valid msgstr="conmut(ar|a|e|ador)"
+valid msgstr="conmut(ar|a|e|adora?)"
 valid msgstr="cambi(ar|a|e|o)"
 valid msgstr="interruptor"
 valid msgstr="apag(ar|a|ue)" before="\soff"
@@ -4429,8 +4456,8 @@ hint="«Trackbacks» se traduce como «Enlaces inversos» (propuesta glosario)"
 
 {\btracker\b}i
 id="gp-2-tracker"
-valid msgstr="rastreador"
-valid msgstr="localizador"
+valid msgstr="rastreadora?"
+valid msgstr="localizadora?"
 valid after="bug[\s-]"
 hint="«Tracker» se traduce como «Rastreador/Localizador» (propuesta glosario)"
 
@@ -4444,7 +4471,7 @@ id="gp-2-trigger"
 valid msgstr="desencaden(ar|a|e)"
 valid msgstr="provo(car|ca|que)"
 valid msgstr="activ(ar|a|e)"
-valid msgstr="disparador"
+valid msgstr="disparadora?"
 valid msgstr="desencadenará" after="will\s(\w+\s)?"
 valid msgstr="provocará" after="will\s(\w+\s)?"
 valid msgstr="activará" after="will\s(\w+\s)?"
@@ -4455,10 +4482,10 @@ hint="«Trigger» se traduce como «Desencadenar/Provocar/Activar/Disparador» (
 
 {\btriggers\b}i
 id="gp-2-triggers"
-valid msgstr="desencaden(a|e)"
+valid msgstr="desencaden[ea]"
 valid msgstr="provo(ca|que)"
-valid msgstr="activ(a|e)"
-valid msgstr="disparadores"
+valid msgstr="activ[ea]"
+valid msgstr="disparador[ea]s"
 valid msgstr="(algún|ningún|cualquier)\sdisparador"
 hint="«Triggers» se traduce como «Desencadena/Provoca/Disparadores» (propuesta glosario)"
 
@@ -4571,13 +4598,18 @@ hint="«Usability» se traduce como «Ergonomía» (propuesta glosario)"
 {\butility\b}i
 id="gp-3-utility"
 valid msgstr="utilidad"
-hint="«Utility» se traduce como «Utilidad» (propuesta glosario)"
+valid msgstr="utilitario"
+valid msgstr="herramienta"
+hint="«Utility» se traduce como «Utilidad/Herramienta/Utilitario» (propuesta glosario)"
 
 {\butilities\b}i
 id="gp-3-utilities"
 valid msgstr="utilidades"
+valid msgstr="utilitarios"
+valid msgstr="herramientas"
 valid msgstr="(alguna|cualquier|ninguna)\sutilidad"
-hint="«Utilities» se traduce como «Utilidades» (propuesta glosario)"
+valid msgstr="(alguna|cualquier|ninguna)\sherramienta"
+hint="«Utilities» se traduce como «Utilidades/Herramientas/Utilitarios» (propuesta glosario)"
 
 {\bvalidity\b}i
 id="gp-3-validity"
@@ -4676,8 +4708,8 @@ hint="«Wareable» se traduce como «Ponible» (propuesta glosario)"
 id="gp-2-warning"
 valid msgstr="aviso"
 valid msgstr="advertencia"
-valid msgstr="se\s(le\s)?avise"
-valid msgstr="se\s(le\s)?advierta"
+valid msgstr="se\s(le\s)?avis[ea]"
+valid msgstr="se\s(le\s)?adviert[ea]"
 hint="«Warning» se traduce como «Aviso/Advertencia» (propuesta glosario)"
 
 #{\bweblog\b}i
@@ -4696,17 +4728,17 @@ hint="«Warning» se traduce como «Aviso/Advertencia» (propuesta glosario)"
 
 {\bwebcam\b}i
 id="gp-3-webcam"
-valid msgstr="cámara web"
+valid msgstr="cámara\sweb"
 hint="«Webcam» se traduce como «Cámara web» (propuesta glosario)"
 
 {\bwebsite\b}i
 id="gp-3-website"
-valid msgstr="sitio web"
+valid msgstr="sitio\sweb"
 hint="«Website» se traduce como «Sitio web» (propuesta glosario)"
 
 {\bwebsites\b}i
 id="gp-3-websites"
-valid msgstr="sitios webs?"
+valid msgstr="sitios\swebs?"
 hint="«Websites» se traduce como «Sitios web» (propuesta glosario)"
 
 {\bwild\scard\b}i

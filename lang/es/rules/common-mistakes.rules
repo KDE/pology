@@ -1067,23 +1067,6 @@ hint="«Hasta al día» se escribe como «Hasta el día» (error frecuente)"
 id="cm-1-hay-la-posibilidad"
 hint="«Hay la posibilidad» se escribe como «Existe la posibilidad» (error frecuente)"
 
-[\bhech\w+\sab]i
-id="cm-1-hechar-a"
-hint="«Hechar a ...» se escribe como «Echar a ...» (error frecuente)"
-
-[\bhech\w+\sde\b]i
-id="cm-1-hechar-de"
-valid msgstr="(el|ha|un)\shecho\sde"
-hint="«Hechar de ...» se escribe como «Echar de ...» (error frecuente)"
-
-[\bhech\w+\sen\b]i
-id="cm-1-hechar-en"
-hint="«Hechar en ...» se escribe como «Echar en ...» (error frecuente)"
-
-[\bhech\w+\suna?\b]i
-id="cm-1-hechar-un-una"
-hint="«Hechar un/una» se escribe como «Echar un/una» (error frecuente)"
-
 [\bhoras\spuntas\b]i
 id="cm-2-horas-puntas"
 hint="«Horas puntas» se escribe como «Horas punta» (error frecuente)"
@@ -1316,6 +1299,10 @@ id="cm-1-mayor-a"
 valid before="\smenor"
 hint="«Mayor a» se escribe como «Mayor que» (error frecuente: solecismo)"
 
+[\bmedio\sambiente\b]i
+id="cm-3-medio-ambiente"
+hint="«Medio ambiente» se escribe como «Medioambiente» (error frecuente)"
+
 [\bmé\b]i
 id="cm-1-me-con-tilde"
 hint="«Mé» se escribe como «me» (error frecuente)"
@@ -1466,7 +1453,7 @@ hint="«Por reconocimiento» se escribe como «En reconocimiento» (error frecue
 id="cm-1-por-siempre"
 hint="«Por siempre» se escribe como «Para siempre» (error frecuente: solecismo)"
 
-[\b(el|un|es|mi|tú|su|este|ese|aquel|ningún|algún|cualquier)\sporque\b]i
+[\b(el|un|mi|tú|su|este|ese|aquel|ningún|algún|cualquier)\sporque\b]i
 id="cm-1-porque-sin-tilde"
 hint="«Porque» se escribe como «Porqué». (error frecuente)"
 

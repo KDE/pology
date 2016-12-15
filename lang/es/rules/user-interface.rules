@@ -981,7 +981,8 @@ hint="«Cannot» se traduce como «No se puede/No es posible» (regla de traducc
 {\binvalid\b}i
 id="ui-3-invalid"
 valid msgstr="no\s(\w+\s)?válid[oa]s?"
-hint="«Invalid» se traduce como «No válido» (regla de traducción de la interfaz gráfica)"
+valid msgstr="inválid[oa]s?"
+hint="«Invalid» se traduce como «No válido/Inválido» (regla de traducción de la interfaz gráfica)"
 
 {\bthere\was\san\serror\b}i
 id="ui-3-there-was-an-error"
