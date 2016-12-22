@@ -2453,8 +2453,8 @@ hint="«Mailboxes» se traduce como «Buzones» (propuesta glosario)"
 id="gp-2-mailing"
 valid msgstr="buzoneo"
 valid msgstr="buzone(ar|a|e)"
-valid before="\s[Ll]ists?"
-valid before="\s[Ss]tandards?"
+valid before="[\s-][Ll]ists?"
+valid before="[\s-][Ss]tandards?"
 hint="«Mailing» se traduce como «Buzoneo» (propuesta glosario)"
 
 {\bmalware\b}i
@@ -3273,6 +3273,8 @@ id="gp-2-post"
 valid msgstr="artículo"
 valid msgstr="entrada"
 valid msgstr="publi(car|ca|que)"
+valid before="\s[Oo]ffice"
+valid before="\-"
 hint="«Post» se traduce como «Artículo/Entrada/Publicar» (propuesta glosario)"
 
 {\bpostponed\b}i
@@ -3609,6 +3611,7 @@ hint="«Regular expressions» se traduce como «Expresiones regulares» (propues
 {\brelease\b}i
 id="gp-3-release"
 valid msgstr="versión"
+valid msgstr="versiones"
 valid msgstr="publi(car|ca|que)"
 valid msgstr="lan(zar|za|ce)"
 valid msgstr="liber(ar|ca|e)"
@@ -4592,8 +4595,9 @@ hint="«Uptime» se traduce como «Tiempo de actividad» (propuesta glosario)"
 
 {\busability\b}i
 id="gp-2-usability"
+valid msgstr="usabilidad"
 valid msgstr="ergonomía"
-hint="«Usability» se traduce como «Ergonomía» (propuesta glosario)"
+hint="«Usability» se traduce como «Usabilidad/Ergonomía» (propuesta glosario)"
 
 {\butility\b}i
 id="gp-3-utility"

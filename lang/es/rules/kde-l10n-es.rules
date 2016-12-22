@@ -312,6 +312,7 @@ id="gk-2-buffering"
 valid msgstr="almacenamiento\stemporal"
 valid msgstr="almacenamientos\stemporales"
 valid msgstr="almacenar\stemporalmente"
+valid after="(double|triple)[\s-]"
 hint="«Buffering» se traduce como «Almacenamiento temporal» (ver glosario)"
 
 {\bbug\b}i
