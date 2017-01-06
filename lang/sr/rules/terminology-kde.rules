@@ -598,7 +598,7 @@ valid after="on-|off-"
 valid after="input "
 valid before=" (edit|input)"
 valid before=" up\b" msgstr="\b(по)?равна"
-valid msgstr="\b(више|једно|дво|тро|про)?ред(а|у|ом|ов(а|и|е|има)|н([аеиоу]|ом|има))?\b"
+valid msgstr="\b(више|једно|дво|тро|про)?ред(а|у|ом|ов(а|и|е|има)|н([аеиоу]|ом|има)|ан)?\b"
 valid msgstr="&(lines|klines)-\S*;"
 valid cat="kmix,kxsconfig,desktop_kdeartwork,kdeartwork.desktop,okular,ksquares" msgstr="\bлиниј"
 valid catrx="kppp" # скоро увек телефонска линија
