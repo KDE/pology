@@ -90,11 +90,11 @@ id="te-3-asciiquarium"
 valid msgstr="asciiquarium"
 hint="«Asciiquarium» no se debe traducir (terminología)"
 
-#{\bbit\b}i
-# a bit --> un poco
-#id="te-2-bit"
-#valid msgstr="bit"
-#hint="«Bit» no se debe traducir (terminología)"
+{\bbit\b}i
+id="te-2-bit"
+valid msgstr="bit"
+valid after="\ba\s"
+hint="«Bit» no se debe traducir (terminología)"
 
 {\bbluetooth\b}i
 id="te-3-bluetooth"
@@ -422,6 +422,11 @@ hint="«DVI» no se debe traducir (terminología)"
 id="te-3-epub"
 valid msgstr="epub"
 hint="«Epub» no se debe traducir (terminología)"
+
+{\bethernet\b}i
+id="te-3-ethernet"
+valid msgstr="ethernet"
+hint="«Ethernet» no se debe traducir (terminología)"
 
 {\bexif\b}i
 id="te-3-exif"
@@ -1520,6 +1525,11 @@ id="te-3-mysql"
 valid msgstr="my(SQL|sql)"
 hint="«Mysql» no se debe traducir (terminología)"
 
+{\bnautilus\b}i
+id="te-3-nautilus"
+valid msgstr="nautilus"
+hint="«Nautilus» no se debe traducir (terminología)"
+
 {\bneko\b}i
 id="te-3-neko"
 valid msgstr="neko"
@@ -1928,6 +1938,16 @@ id="te-3-solidkreator"
 valid msgstr="solidkreator"
 hint="«Solidkreator» no se debe traducir (terminología)"
 
+{\bsocks\b}i
+id="te-3-socks"
+valid msgstr="socks"
+hint="«Socks» no se debe traducir (terminología)"
+
+{\bSOCKS\b}
+id="te-3-socks-mayusculas"
+valid msgstr="SOCKS"
+hint="«SOCKS» no se debe traducir (terminología)"
+
 {\bSOPA\b}
 id="te-3-sopa-mayusculas"
 valid msgstr="SOPA"
@@ -2048,6 +2068,11 @@ id="te-3-tellico"
 valid msgstr="tellico"
 hint="«Tellico» no se debe traducir (terminología)"
 
+{\btelnet\b}i
+id="te-3-telnet"
+valid msgstr="telnet"
+hint="«Telnet» no se debe traducir (terminología)"
+
 {\btex\b}i
 id="te-3-tex"
 valid msgstr="tex"
@@ -2097,6 +2122,11 @@ hint="«Txt» no se debe traducir (terminología)"
 id="te-3-txt-mayusculas"
 valid msgstr="TXT"
 hint="«TXT» no se debe traducir (terminología)"
+
+{\btwitter\b}i
+id="te-3-twitter"
+valid msgstr="twitter"
+hint="«twitter» no se debe traducir (terminología)"
 
 {\bubuntu\b}i
 id="te-3-ubuntu"
@@ -2212,6 +2242,16 @@ hint="«Vcs» no se debe traducir (terminología)"
 id="te-3-vcs-mayusculas"
 valid msgstr="VCS"
 hint="«VCS» no se debe traducir (terminología)"
+
+{\bvfs\b}i
+id="te-3-vfs"
+valid msgstr="vfs"
+hint="«Vfs» no se debe traducir (terminología)"
+
+{\bVFS\b}
+id="te-3-vfs-mayusculas"
+valid msgstr="VFS"
+hint="«VFS» no se debe traducir (terminología)"
 
 {\bvlc\b}i
 id="te-3-vlc"
@@ -2345,9 +2385,15 @@ id="te-3-xslt-mayusculas"
 valid msgstr="XSLT"
 hint="«XSLT» no se debe traducir (terminología)"
 
-[\bX[\s-]Windows\b]
+[\bX[\s-]Server\b]
+id="cm-3-x-server"
+valid msgstr="Servidor\sX"
+hint="«X Server» se escribe como «Servidor X» (terminología)"
+
+[\bX[\s-]Windows?\b]
 id="cm-3-x-windows"
-hint="«X Windows» se escribe como «X Window» (terminología)"
+valid msgstr="X\sWindow"
+hint="«X Window» no se debe traducir (terminología)"
 
 {\byahoo\b}i
 id="te-3-yahoo"

@@ -532,6 +532,11 @@ valid msgstr="(alguna|cualquier|ninguna)\sretrollamada"
 valid msgstr="(alguna|cualquier|ninguna)\sdevolución\sde\sllamada"
 hint="«Callbacks» se traduce como «Retrollamadas» (propuesta glosario)"
 
+{\bcaption\b}i
+id="gp-2-caption"
+valid msgstr="descripción"
+hint="«Caption» se traduce como «Descripción» (propuesta glosario)"
+
 {\bcanvas\b}i
 id="gp-2-canvas"
 valid msgstr="lienzo"
@@ -701,6 +706,16 @@ id="gp-2-cold-boots"
 valid msgstr="arranques\sen\sfrío"
 valid msgstr="(algún|ningún|cualquier)\sarranque\sen\sfrío"
 hint="«Cold boots» se traduce como «Arranques en frío» (propuesta glosario)"
+
+{\bcollate\b}i
+id="gp-3-collate"
+valid msgstr="intercal(ar|a|e)"
+hint="«Collate» se traduce como «Intercalar» (propuesta glosario)"
+
+{\bcollision\b}i
+id="gp-3-collision"
+valid msgstr="conflicto"
+hint="«Collision» se traduce como «Conflicto» (propuesta glosario)"
 
 {\bcolon\b}i
 id="gp-2-colon"

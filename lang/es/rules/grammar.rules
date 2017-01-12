@@ -1702,6 +1702,14 @@ id="gr-1-este-seguido-participio"
 valid span="este\scontenido"
 hint="«Este + participio» se escribe como «Está + participio» (error gramatical)"
 
+[(?u)\babría\s\w+?(ada|eda|ida)\b]i
+id="gr-1-abría-seguido-participio"
+hint="«Abría + participio» se escribe como «Habría + participio» (error gramatical)"
+
+[(?u)\babría\s(de|qu[eé])\b]i
+id="gr-1-abría-que"
+hint="«Abría + de/que» se escribe como «Habría + de/que» (error gramatical)"
+
 [(?u)\baún\s\w+?(ando|iendo|yendo)\b]i
 id="gr-1-aun-seguido-gerundio"
 hint="«Aún» seguido de gerundio se escribe como «Aun» (error gramatical)"

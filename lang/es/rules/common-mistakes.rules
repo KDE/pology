@@ -106,6 +106,11 @@ hint="«A lo que se ve» se escribe como «Por lo que se ve» (error frecuente: 
 id="cm-2-a-lo-que-veo"
 hint="«A lo que veo» se escribe como «Por lo que veo» (error frecuente: solecismo)"
 
+#[\ba\sl[oa]\squ[eé]\s\w+s\b]i
+#id="cm-2-a-lo-que-plural"
+#valid span="a\s\la\s\que\sl[oa]s\b"
+#hint="«A lo/la que» se escribe como «Cuando» (error frecuente: solecismo)"
+
 [\ba\snivel\sde\b]i
 id="cm-2-a-nivel-de"
 hint="«A nivel de» e escribe como «En el ámbito de/Con respecto a/Entre/En». (error frecuente)"
@@ -142,9 +147,9 @@ hint="«A resultas de» se escribe como «De resultas» (error frecuente: soleci
 id="cm-2-a-tal-extremo-de"
 hint="«A tal extremo de» se escribe como «Hasta tal extremo» (error frecuente: solecismo)"
 
-[\bbaj\w+\spor\sdebajo\b]i
-id="cm-2-bajar-por-debajo"
-hint="«Bajar por debajo de» se escribe como «Bajar de» (error frecuente: redundancia)"
+[\ba\syo\b]i
+id="cm-1-a-yo"
+hint="«A yo» se escribe como «A mí» (error frecuente: redundancia)"
 
 [\babajo\sde\b]i
 id="cm-2-abajo-de"
@@ -266,21 +271,13 @@ hint="«Aún así» se escribe como «Aun así» (error frecuente)"
 id="cm-1-aun-cuando-con-tilde"
 hint="«Aún cuando» se escribe como «Aun cuando» (error frecuente)"
 
-[\baun\smás\b]i
+[\baun\s(más|menos|mejor|peor)\b]i
 id="cm-1-aun-mas-sin-tilde"
-hint="«Aun más» se escribe como «Aún mas» (error frecuente)"
+hint="«Aun más/menos/mejor/peor» se escribe como «Aún más/menos/mejor/peor» (error frecuente)"
 
-[\baun\smejor\b]i
-id="cm-1-aun-mejor-sin-tilde"
-hint="«Aun mejor» se escribe como «Aún mejor» (error frecuente)"
-
-[\baun\smenos\b]i
-id="cm-1-aun-menos-sin-tilde"
-hint="«Aun menos» se escribe como «Aún menos» (error frecuente)"
-
-[\baun\speor\b]i
-id="cm-1-aun-peor-sin-tilde"
-hint="«Aun peor» se escribe como «Aún peor» (error frecuente)"
+[\b(más|menos|mejor|peor)(\s\w+)?\saun\b]i
+id="cm-1-mas-aun-sin-tilde"
+hint="«Más/Menos/Mejor/Peor aun» se escribe como «Más/Menos/Mejor/Peor aún» (error frecuente)"
 
 [\baya\b]i
 id="cm-2-aya"
@@ -297,6 +294,10 @@ hint="«Ayer noche» se escribe como «Anoche» (error frecuente)"
 [\bayer\starde\b]i
 id="cm-2-ayer-tarde"
 hint="«Ayer tarde» se escribe como «Ayer por la tarde» (error frecuente)"
+
+[\bbaj\w+\spor\sdebajo\b]i
+id="cm-2-bajar-por-debajo"
+hint="«Bajar por debajo de» se escribe como «Bajar de» (error frecuente: redundancia)"
 
 [\bbajo\sel\sángulo\b]i
 id="cm-2-bajo-el-angulo"
@@ -818,6 +819,10 @@ hint="«En favor» se escribe como «A favor» (error frecuente: solecismo)"
 id="cm-2-en-lo-adelante"
 hint="«En lo adelante» se escribe como «En adelante» (error frecuente: solecismo)"
 
+[\ben\slo\squ[eé]\s\w+s\b]i
+id="cm-2-en-lo-que-plural"
+hint="«En lo que» se escribe como «Mientras» (error frecuente: solecismo)"
+
 [\ben\sevitación\sde\b]i
 id="cm-2-en-evitacion-a"
 hint="«En evitación de» se escribe como «Para evitar» (error frecuente: solecismo)"
@@ -885,6 +890,10 @@ hint="«Entre más» se escribe como «Cuanto más» (error frecuente)"
 [\bentre\smenos\b]i
 id="cm-1-entre-menos"
 hint="«Entre menos» se escribe como «Cuanto menos» (error frecuente)"
+
+[\bentre\squ[eé]\s\w+s\b]i
+id="cm-2-entre-que-plural"
+hint="«Entre que» se escribe como «Mientras» (error frecuente: solecismo)"
 
 [\bentre\stanto\b]i
 id="cm-2-entre-tanto"
@@ -1510,6 +1519,10 @@ hint="«Pueden haber» se escribe como «Puede haber» (error frecuente)"
 id="cm-2-poner-apunto"
 hint="«Poner apunto» se escribe como «Poner a punto» (error frecuente)"
 
+[\bpuede\sa\sver\b]i
+id="cm-1-puede-a-ver"
+hint="«Puede a ver» se escribe como «Puede haber» (error frecuente)"
+
 [\bpuesta\sapunto\b]i
 id="cm-2-puesta-apunto"
 hint="«Puesta apunto» se escribe como «Puesta a punto» (error frecuente)"
@@ -1521,6 +1534,10 @@ hint="«Puntos claves» se escribe como «Puntos clave» (error frecuente)"
 [\bqu[aá]sar\b]i
 id="cm-2-quasar-con-q"
 hint="«Quásar» se escribe como «Cuasar» (error frecuente)"
+
+[\bqu[eé]\sa\sver\b]i
+id="cm-1-que-a-ver"
+hint="«Que a ver» se escribe como «Que haber» (error frecuente)"
 
 #[\bque\ssu\b]i
 #id="cm-2-que-su"

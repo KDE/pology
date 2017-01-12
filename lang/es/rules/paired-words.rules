@@ -99,7 +99,7 @@ valid msgid="^[^aeiouáéíóúü]+$" # Mensaje que no contiene vocales minúscu
 valid msgid="^[A-Z].*?(\s[A-Z].*?)*$" # Mensaje con todas las palabras comenzando por mayúscula
 valid msgid="^%.{1,8}$" # Mensaje corto que comienza por porcentaje
 valid msgid="\(?.{1,8}?\/s\)?$" # Mensaje corto que termina en unidades por segundo
-valid msgid="^[.,:;+*_-]\w+$" # Mensaje corto que comienza por un símbolo de puntuación
+valid msgid="^[\s.,:;+*_-]\w+$" # Mensaje corto que comienza por un símbolo de puntuación
 hint="No se ha traducido el mensaje original"
 
 # End of rule file

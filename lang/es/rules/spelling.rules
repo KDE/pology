@@ -43,7 +43,8 @@ addFilterRegex match="(?u)\\\\\w\b" repl="" on="pmsgid,pmsgstr"
 addFilterRegex match="(?u)\b[a-zA-Z]+\d\w*\b" repl="" casesens="yes" on="pmsgid,pmsgstr"
 
 # Omit some mathematical expressions
-addFilterRegex match="(?u)(\b(entero|índice|intervalo|orden|cada|tras|los|las|datos|eje|error|inicio)\s(\w+\s)?[ijknxyz]\b|\bexp\(.*?\)|\/s(eg)?\b|\bn\!|\b[xyz]\^\w|\b[ijknxyz]\s(mínimo|máximo)\b)" repl="" on="pmsgid,pmsgstr"
+addFilterRegex match="(?u)\b(entero|índice|intervalo|orden|cada|tras|los|las|datos|eje|error|inicio)\s(\w+\s)?[ijknxyz]\b" repl="" on="pmsgid,pmsgstr"
+addFilterRegex match="(?u)(\/s(eg)?\b|\bn\!|\b[xyz]\^\w\b|\b[ijknxyz]\s(mínimo|máximo)\b|\bexp\(.*?\))" repl="" on="pmsgid,pmsgstr"
 
 # Omit particles between propernames.
 addFilterRegex match="(?u)(?<=\w)\s(aka|da|de|de\sla|del|der|do|du|la|van|vom|von|y)\s(?=[A-Z])" repl=" " casesens="yes" on="pmsgid,pmsgstr"
