@@ -575,12 +575,13 @@ KCMOpenGL: КЦМ-|OpenGL
 KCMPCI: КЦМ-|PCI
 KCMPIMActivity: КЦМ-|{PIM~н}-активн|ост
 KCMSamba: КЦМ-Самб|а
-    @л: КЦМ-Samb|a
+    @л: KCM-Samb|a
 KCMScreensaver: КЦМ-чувар|{}-екрана
 KCMSmartcard: КЦМ-смарткартиц|а
 KCMSOCKS: КЦМ-СОКС|-
     @л: KCM-SOCKS|-
 KCMStyle: КЦМ-стил|
+KCMsystemd: КЦМ-|{systemd}
 KCMTaskbar: КЦМ-тра|{ка}-задатака
 KCMTranslations: КЦМ-превод|и-
 KCMUSB: КЦМ-УСБ|-
@@ -825,6 +826,8 @@ strongSwan: Стронгсвон|, Стронгсвон|ов
 SuperKaramba: Суперкарамб|а, Суперкарамб|ин, суперкарамба|>
     @л: SuperKaramb|a, SuperKaramb|in
 Sweeper: Чист|ач, Чистач|ев
+systemd: Системд|-, Системд|-ов, системд|>
+    @л: systemd|-, systemd|-ov, systemd|>
 System Settings: Системск|е-> поставк|е-и
 TightVNC: ТајтВНЦ|-, ТајтВНЦ|-ов
     @л: TightVNC|-, TightVNC|-ov
