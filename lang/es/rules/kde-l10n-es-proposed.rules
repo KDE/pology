@@ -272,6 +272,11 @@ valid msgstr="flujos\sde\sbits"
 valid msgstr="(algún|ningún|cualquier)\sflujo\sde\sbits"
 hint="«Bit streams» se traduce como «Flujos de bits» (propuesta glosario)"
 
+{\bblockchain\b}i
+id="gp-2-blocjchain"
+valid msgstr="cadena\sde\sbloques"
+hint="«Blockchain» se traduce como «Cadena de bloques» (propuesta glosario)"
+
 {\bblog\b}i
 id="gp-2-blog"
 valid msgstr="blog"
@@ -695,6 +700,13 @@ id="gp-3-codec"
 valid msgstr="códec"
 valid !msgstr="codec"
 hint="«Codec» se traduce como «Códec» (propuesta glosario)"
+
+{\bcodecs\b}i
+id="gp-3-codecs"
+valid msgstr="códecs"
+valid msgstr="(algún|ningún|cualquier)\scódec"
+valid !msgstr="codecs"
+hint="«Codecs» se traduce como «Códecs» (propuesta glosario)"
 
 {\bcold\s?boot\b}i
 id="gp-2-cold-boot"
@@ -3115,6 +3127,12 @@ valid msgstr="redireccionamiento"
 valid msgstr="paralelismo"
 hint="«Pipelining» se traduce como «Redireccionamiento» (propuesta glosario)"
 
+{\bpixel\b}i
+id="gp-3-pixel"
+valid msgstr="p[ií]xel"
+valid msgstr="punto"
+hint="«Pixel» se traduce como «Pixel/Punto» (propuesta glosario)"
+
 {\bpixmap\b}i
 id="gp-2-pixmap"
 valid msgstr="imagen"
@@ -3772,6 +3790,19 @@ valid msgstr="resoluciones"
 valid msgstr="(alguna|cualquier|ninguna)\sresolución"
 hint="«Resolutions» se traduce como «Resoluciones» (propuesta glosario)"
 
+{\breview\b}i
+id="gp-3-review"
+valid msgstr="análisis"
+valid msgstr="reseña"
+hint="«Review» se traduce como «Análisis/Reseña» (propuesta glosario)"
+
+{\breviews\b}i
+id="gp-s-reviews"
+valid msgstr="análisis"
+valid msgstr="reseñas"
+valid msgstr="(alguna|cualquier|ninguna)\sreseña"
+hint="«Reviews» se traduce como «Análisis/Reseñas» (propuesta glosario)"
+
 {\broaming\b}i
 id="gp-2-roaming"
 valid msgstr="itinerancia"
@@ -4220,6 +4251,12 @@ valid msgstr="se\s(\w+\s){1,3}atascar"
 valid msgstr="se\sestan(ca|que)n?"
 valid msgstr="se\s(\w+\s){1,3}estancar"
 hint="«Stalled» se traduce como «Atascado» (propuesta glosario)"
+
+{\bstand\-by\b}i
+id="gp-3-stand-by"
+valid msgstr="en\sespera"
+valid msgstr="en\sreposo"
+hint="«Stand-by» se traduce como «En espera/En reposo» (propuesta glosario)"
 
 {\bstat\b}i
 id="gp-2-stat"
@@ -4718,10 +4755,10 @@ valid msgstr="(algún|ningún|cualquier)\sfondo\sde\spantalla"
 valid msgstr="(algún|ningún|cualquier)\sfondo\sde\sescritorio"
 hint="«Wallpapers» se traduce como «Fondos de pantalla» (propuesta glosario)"
 
-{\bwareable\b}i
-id="gp-2-wareable"
+{\bwearable\b}i
+id="gp-2-wearable"
 valid msgstr="ponible"
-hint="«Wareable» se traduce como «Ponible» (propuesta glosario)"
+hint="«Wearable» se traduce como «Ponible» (propuesta glosario)"
 
 {\bwarning\b}i
 id="gp-2-warning"

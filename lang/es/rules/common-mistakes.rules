@@ -967,6 +967,10 @@ hint="«Ésto» se escribe como «Esto», (error frecuente)"
 id="cm-2-estos-con-tilde"
 hint="«Éstos» se escribe como «Estos», (error frecuente)"
 
+[\bfacilit\w+\sa\squ[eé]\b]i
+id="cm-2-facilitar-a-que"
+hint="«Facilitar a que» se escribe como «Facilitar que» (error frecuente)"
+
 [\bfé\b]i
 id="cm-2-fe-con-tilde"
 hint="«Fé» se escribe como «Fe» (error frecuente)"
@@ -1733,6 +1737,10 @@ hint="«Sóla» se escribe siempre como «Sola» (error frecuente)"
 [\bsólo\b]i
 id="cm-2-solo-con-tilde"
 hint="«Sólo» se escribe siempre como «Solo» (error frecuente)"
+
+[\bsoy\sde\slos\sque\s(pienso|creo|opino)\b]i
+id="cm-3-soy-de-los-que-pienso"
+hint="«Soy de los que pienso/creo/opino» se escribe siempre como «Soy de los que piensan/creen/opinan» (error frecuente)"
 
 [\bstatus\squo\b]i
 id="cm-2-status-quo"
