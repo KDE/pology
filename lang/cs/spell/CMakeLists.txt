@@ -1,5 +1,4 @@
 set(files
-    dict.aspell
     geography.aspell
     kstars.aspell
     misc.aspell
