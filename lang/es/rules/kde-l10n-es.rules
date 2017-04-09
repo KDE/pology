@@ -1981,6 +1981,7 @@ valid cat="kcalc"
 valid msgstr="logaritmo" cat="kcalc"
 valid msgstr="LOG" msgid="LOG"
 valid before="\s(back|in|on|off|out)"
+valid before="\-(back|in|on|off|out)"
 hint="«Log» se traduce como «Registro» (ver glosario)"
 
 {\blogs\b}i

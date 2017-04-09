@@ -656,7 +656,7 @@ valid before="\d"
 valid before="\W"
 valid before="~"
 valid before="$"
-
+valid before="\."
 #
 # REPETICIÓN DE PALABRAS
 #

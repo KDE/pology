@@ -899,8 +899,13 @@ valid msgstr="compiladores\scruzados"
 valid msgstr="(algún|ningún|cualquier)\scompilador\scruzado"
 hint="«Cross compilers» se traduce como «Compiladores cruzados» (propuesta glosario)"
 
+{\bcrowfunding\b}i
+id="gp-2-crowfunding"
+valid msgstr="(micro)?financiación"
+hint="«Crowfunding» se traduce como «Financiación colectiva» (propuesta glosario)"
+
 {\bcustomizable\b}i
-id="ff-2-customizable"
+id="gp-2-customizable"
 valid msgstr="personalizable"
 valid !msgstr="customizable"
 hint="«Customizable» se traduce como «Personalizable/Adaptable», no como «Customizable» (propuesta glosario)"
@@ -1593,6 +1598,11 @@ valid msgstr="(algún|ningún|cualquier)\sventilador"
 valid msgstr="(algún|ningún|cualquier)\sadmirador"
 valid msgstr="(alguna|cualquier|ninguna)\sadmiradora"
 hint="«Fans» se traduce como «Ventiladores/Admiradores» (propuesta glosario)"
+
+{\bfeature\sphone\b}i
+id="gp-3-feature-phone"
+valid msgstr="teléfono\sbásico"
+hint="«Feature phone» se traduce como «Teléfono básico» (propuesta glosario)"
 
 {\bfeaturing\b}i
 id="gp-3-featuring"
@@ -2829,6 +2839,11 @@ id="gp-e-newsletters"
 valid msgstr="boletines\sde\snoticias"
 valid msgstr="(algún|ningún|cualquier)\sboletín\sde\snoticias"
 hint="«Newsletters» se traduce como «Boletines de noticias» (propuesta glosario)"
+
+{\bnotebook\b}i
+id="gp-3-notebook"
+valid msgstr="portátil"
+hint="«Notebook» se traduce como «Portátil» (propuesta glosario)"
 
 {\bobject\b}i
 id="gp-3-object"

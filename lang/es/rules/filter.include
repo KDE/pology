@@ -88,7 +88,7 @@ addFilterRegex match="(?u)«\W+?»" repl="~" on="pmsgid,pmsgstr"
 addFilterRegex match="(?u)\\\"\W+?\\\"" repl="~" on="pmsgid,pmsgstr"
 
 # Remove some abreviations.
-addFilterRegex match="\b(admin|cartr|cert|cond|dec|hex|[Ii]nc|Jr|lab|Mr|Mrs|No|obs|oct|org|seq|Sh|sync|torr)\.(\.\.)?" repl="~" casesens="yes" on="pmsgid,pmsgstr"
+addFilterRegex match="\b(admin|cartr|cert|cond|dec|hex|[Ii]d|[Ii]nc|Jr|lab|Mr|Mrs|No|obs|oct|org|seq|Sh|sync|torr)\.(\.\.)?" repl="~" casesens="yes" on="pmsgid,pmsgstr"
 addFilterRegex match="(?u)\b(a\.\s?m|admon|apdos?|art|atte|Av.|Avdas?|Aytos?|C\.\s?C|C\.\s?P|caps?|CC\.\aAA|cents?|cénts?|Cías?|ctas?|ctes?|ctras?|dchas?|dchos?|deptos?|dptos?|D|Dr(es)?|Dras?|EE\.\s?UU|[Pp]\.\sej|Excm[ao]s?|exprs?|Fdo|Gob|Gral(es)?|hnos|(ID|Id|id)s?|Ilm[ao]s?|izdas?|izdos?|izq|JJ\.\s?OO|K\.\s?O|Ld[ao]s?|Lic|Ltd(os)?|Ltdas?|máx|mín|[Nn]úm|n\.\s?t|op|p\.\s?m|págs?|Pdtes?|Pdtas?|pl|plzas?|pos|ppal(es)?|pral(es)?|Prof|ptas?|pts|pzas?|reg|Rep|S.\sA|sdad|Sr(es)?|Sras?|S.\sL|sinc|Srtas?|St[ao]s?|tels?|tfnos?|trads?|Uds?|Univ|V\.O(\.S)?|vol|vv\.\s?aa|VV\.\s?AA)\.(\.\.)?" repl="~" casesens="yes" on="pmsgid,pmsgstr"
 
 # Remove some usual smileis.
