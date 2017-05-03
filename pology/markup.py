@@ -454,7 +454,7 @@ _html_ignels = set([
     ("style", "text/css"),
 ])
 
-def html_plain (text):
+def html_to_plain (text):
     """
     Convert HTML markup to plain text.
 
@@ -467,6 +467,13 @@ def html_plain (text):
 
     return xml_to_plain(text, _html_tags, _html_subs, _html_ents,
                               _html_keepws, _html_ignels)
+
+
+def html_plain (*args, **kwargs):
+    """
+    Deprecated name for L{html_to_plain}.
+    """
+    return html_to_plain(*args, **kwargs)
 
 
 _qtrich_tags = set("""
