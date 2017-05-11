@@ -326,7 +326,7 @@ valid cat="kile_scripting" before="Command"
 valid cat="kile_scripting" after="document\."
 hint="Écriture officielle : « LaTeX » (avec 3 majuscules)"
 
-[\bhttp:/\b]i
+[\b(f|ht)tp:/\b]i
 valid before="/"
 hint="Deux barres obliques/slashs après le nom du protocole"
 
