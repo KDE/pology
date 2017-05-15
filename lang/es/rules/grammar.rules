@@ -777,13 +777,13 @@ hint="No utilice la arroba para evitar el género, p.ej. «ciudadan@» (error gr
 # ERRORES CON PREFIJOS Y SUFIJOS
 #
 
-[(?u)\b(ante|anti|archi|auto|bi|bio|bien|ciber|co|con|contra|cuasi|des|epi|eqi|ex|extra|foto|geo|hemi|h[ií]per|im|in|infra|inter|intra|macro|maxi|mega|meta|micro|mini|mono|multi|neo|peri|pluri|poli|pos|post|pre|pro|re|retro|semi|seudo|sim|sin|sobre|sub|s[uú]per|supra|tele|trans|tras|tri|ultra|uni|vice)\-\w+?\b]i
+[(?u)\b(ante|anti|archi|auto|bi|bio|bien|ciber|co|con|contra|cripto|cuasi|des|epi|eqi|ex|extra|foto|geo|hemi|h[ií]per|im|in|infra|inter|intra|macro|maxi|mega|meta|micro|mini|mono|multi|neo|peri|pluri|poli|pos|post|pre|pro|re|retro|semi|seudo|sim|sin|sobre|sub|s[uú]per|supra|tele|trans|tras|tri|ultra|uni|vice)\-\w+?\b]i
 id="gr-1-prefijo-con-guion"
 valid span="(?u)\b\w+\-[A-Z]\w+?\b"
-valid span="ex\sprimera?"
+valid span="ex\s(primera?|número)"
 hint="No utilice el guión para separar el prefijo de la palabra principal, p.ej. «sub-menú» (error gramatical)"
 
-[(?u)\b(archi|bi|bio|ciber|co|cuasi|des|epi|eqi|geo|hemi|h[ií]per|im|in|infra|inter|intra|maxi|micro|mini|multi|neo|peri|pluri|poli|pos|post|pre|re|retro|semi|seudo|sim|sub|s[uú]per|supra|trans|tri|ultra|uni|vice)\s\w+?\b]i
+[(?u)\b(archi|bi|bio|ciber|co|cripto|cuasi|des|epi|eqi|geo|hemi|h[ií]per|im|in|infra|inter|intra|maxi|micro|mini|multi|neo|peri|pluri|poli|pos|post|pre|re|retro|semi|seudo|sim|sub|s[uú]per|supra|trans|tri|ultra|uni|vice)\s\w+?\b]i
 id="gr-1-prefijo-suelto"
 valid span="(?u)\b\w+\s[A-Z]\w+?\b"
 valid span="(?u)\b\w+\s[yoe]\b"

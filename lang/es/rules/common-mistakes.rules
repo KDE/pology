@@ -1043,6 +1043,11 @@ hint="'Haber qué' se escribe 'A ver qué'"
 id="cm-2-haber-si"
 hint="'Haber si' al principio de frase se escribe 'A ver si'"
 
+[(?u)habida\scuenta\b]i
+id="cm-1-habida-cuenta"
+valid before="\s\de\b"
+hint="«Habida cuenta» siempre va seguido de «de» (error frecuente)"
+
 [(?u)^habían\b]i
 id="cm-1-habian"
 valid before="\s\w+?(ido|ado)"
