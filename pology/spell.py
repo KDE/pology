@@ -338,7 +338,7 @@ def _compose_personal_dict (lang, envs):
             _("@info",
               "Cannot create composited spelling dictionary "
               "in current working directory:\n%(msg)s",
-              msg=e.args[0]))
+              msg=e))
 
     return tmpf.name, True
 

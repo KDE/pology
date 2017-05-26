@@ -226,7 +226,7 @@ def get_hook (modpath, lang=None, proj=None, func=None, args=None, abort=False):
                               "Cannot create hook by applying function "
                               "'%(func)s' to argument list %(args)s; "
                               "reported error:\n%(msg)s",
-                              func=fspec, args=repr(args), msg=e.args[0]),
+                              func=fspec, args=repr(args), msg=e),
                             abort)
 
     return call
@@ -329,7 +329,7 @@ def get_result (modpath, lang=None, proj=None, func=None, args="", abort=False):
                           "Evaluating function '%(func)s' "
                           "with argument list %(args)s failed; "
                           "reported error:\n%(msg)s",
-                          func=fspec, args=repr(args), msg=e.args[0]),
+                          func=fspec, args=repr(args), msg=e),
                           abort)
 
     return res
