@@ -27,7 +27,8 @@ _no_check_lat_rxs = (
     # - explicitly wrapped to ignore
     re.compile(_lat_wrap_dir + r"(.)(.*?)\1", re.U|re.I|re.S),
     # - format directives
-    re.compile(r"%(\(\w+\))?(\d+| ?[\d.]*[a-z]+)", re.U|re.I),
+    re.compile(r"%(\(\w+\))? ?\d?\$?[\d.]*[a-z]+", re.U|re.I), # C-like
+    re.compile(r"%\d+", re.U|re.I), # Qt-like, must come after C-like
     # - text within these tags
     re.compile(r"<\s*(%s)\b.*?\b\1\s*>" % "|".join("""
         bcode command envar filename icode shortcut placeholder style code tt
