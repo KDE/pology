@@ -232,6 +232,7 @@ validGroup linkTag
 valid after="\(" before="\)"
 valid after="kmdr-"
 valid after="kipi-"
+valid after="frei0r-"
 valid before="-"
 valid cat="kcmkonqhtml" after="/"
 valid cat="desktop_playground-multimedia,playground-multimedia.desktop" before="$"
