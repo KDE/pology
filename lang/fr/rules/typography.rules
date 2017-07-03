@@ -221,6 +221,7 @@ valid cat="kioslave_fish" after="<command>echo FISH:"
 valid ctx="Numbers and characters"
 valid ctx="CSV separator"
 valid ctx="Query" 
+valid ctx="Keywords" 
 valid ctx="unit synonyms for matching user input"
 valid cat="kolourpaint" msgid="All rights reserved.*"
 valid cat="kopete_chatstyle" msgid="p.message { color:inherit; border-color:inherit; }"
@@ -405,6 +406,7 @@ validGroup userinputTag
 validGroup optionTag
 validGroup literalTag
 validGroup replaceableTag
+valid after="kioclient.*"
 valid cat="amarok" after="prefix"
 valid cat="amarok" before="kde4?-config"
 valid cat="kdevelop" after="attendu.*"
@@ -451,6 +453,8 @@ valid cat="kio_trash" after="url"
 valid cat="kio_trash" before="url"
 valid cat="kioclient" after="url|dest|src|type Mime"
 valid cat="kioclient" before="url|dest|src|type Mime"
+valid cat="kioclient5" after="url|dest|src|type Mime"
+valid cat="kioclient5" before="url|dest|src|type Mime"
 valid cat="konqueror" after="\d"
 valid cat="konqueror" before="\d"
 valid cat="kdevelop" after="attendu.*"
@@ -624,6 +628,7 @@ valid cat="kile" msgid=".*DeclareGraphicsRule.*"
 valid before="Xauthority"
 valid ctx="Numbers and characters"
 valid ctx="Query"
+valid ctx="unit synonyms for matching user input"
 hint="Mettre une espace après un point"
 
 [&sp;\.]
@@ -651,6 +656,7 @@ valid ctx="characters are not allowed"
 valid cat="kopete_chatstyle" msgid="styleName\\.*"
 valid cat="sheets_functions" msgid="..."
 valid cat="kdm" before="dmrc"
+valid after="kioclient.*"
 hint="Pas d'espace avant un point"
 
 [&cr;]

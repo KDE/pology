@@ -123,6 +123,7 @@ hint="préférons « dossier » à « répertoire »"
 valid before="&sp;$"
 valid cat="ktouch" after="apprendre&sp;à&sp;"
 valid cat="ktouch" after="apprenez&sp;à&sp;"
+valid cat="kcm_touchpad"
 hint="Mieux vaut « saisir » que « taper »"
 
 [bouton\s*\w*\s*milieu]
@@ -132,6 +133,7 @@ hint="bouton du milieu -> bouton central"
 valid after="le mode &?"
 valid after="barres? d'outils "
 valid after="affichage "
+valid after="RelaxNG-"
 valid before=" (Disc|PCI|GSM|Flash)"
 valid cat="juk" before="</guimenuitem>" after="<guimenuitem>"
 valid cat="juk" after="juk-viewmode-"
@@ -148,6 +150,7 @@ valid before=" un œil"
 valid after="[Ss]auve"
 valid after="[Rr]e"
 valid before=" au repos"
+valid before=" à l'esprit"
 hint="Choix de l'équipe : utilisation du verbe conserver"
 
 [Notes?&unbsp;:|P\.?S\.?&unbsp;:]
@@ -234,6 +237,7 @@ valid cat="kcmkonqhtml" after="/"
 valid cat="desktop_playground-multimedia,playground-multimedia.desktop" before="$"
 valid after="linkend=\"\S*" before="\S*\">"
 valid after="<ulink url=\"\S*" before="\S*\">"
+valid after="shell-"
 hint="plugin -> module externe"
 
 [\broot\b]
@@ -295,9 +299,11 @@ hint="Utiliser « serveur mandataire » (au lieu de « serveur de proximité » 
 valid before="\)" after="\(&?"
 valid after="http_|HTTP_|FTP_|HTTPS_|SOCKS_"
 valid after="no_|no &|mon|Find"
+valid after="XembedSni"
 valid after="<ulink url=\"\S+" before="\S*\">"
 valid cat="kmail" after="mon"
 valid after="<foreignphrase>" before="</foreignphrase>"
+valid ctx="Query"
 hint="Utiliser « serveur mandataire » (au lieu de « serveur de proximité » ou « proxy »)"
 
 [(B|b)arre d'outils? (principale|d'affichage)]
@@ -355,6 +361,7 @@ valid cat="planlibs"
 valid cat="kioslave_fish"
 valid before=" de recherche"
 valid after="petit bonhomme de "
+valid after="a"
 valid cat="kdeprint_theory" after="dessiner un "
 valid cat="fundamentals_ui" after="Trouver son "
 hint="Traduisez « path » par « emplacement » dans le contexte de dossiers/fichiers et par « chemin » dans un contexte graphique."
@@ -379,6 +386,7 @@ hint="Mettre une majuscule à « Centre de configuration de KDE »"
 
 [visualis|visionneu]
 valid cat="kile"
+valid ctx="Name"
 hint="Utiliser « afficheur » plutôt que « visualiseur » (ou ses dérivés) ou alors « aperçu » pour traduire « preview »"
 
 [r@ecup@er]i
