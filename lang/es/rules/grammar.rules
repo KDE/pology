@@ -1634,6 +1634,14 @@ hint="«Ir ha» se escribe «Ir a» antes de un infinitivo (error gramatical)"
 id="gr-1-cabe-en-singular-antes-de-infinitivo"
 hint="«Caber» se escribe en modo singular antes de infinitivo (error gramatical)"
 
+[(?u)\bdebido\sa\s\w+?(ar|er|ir)\b]i
+id="gr-1-debido-a-seguido-infinitivo"
+hint="«Debido a + infinitivo» se escribe «Debido a que + presente» (error gramatical)"
+
+[(?u)\baspir\w+\s\w+?(ar|er|ir)\b]i
+id="gr-1-aspira-seguido-infinitivo"
+hint="«Aspira + infinitivo» se escribe «Aspira a + infinitivo» (error gramatical)"
+
 [(?u)\bhubieron\b]i
 id="gr-1-hubieron"
 valid before="(?u)\s\w+(ido)"
@@ -2161,11 +2169,11 @@ hint="Posible dequeísmo (error gramatical)"
 
 [(?u)\ba\smedida\sde\sque\b]i
 id="gr-1-dequeismo-4"
-hint="«A medida de que» e escribe como «A medida que»., dequeismo (error gramatical)"
+hint="«A medida de que» e escribe como «A medida que», dequeismo (error gramatical)"
 
 [(?u)\ba\sno\sser\sde\sque\b]i
 id="gr-1-dequeismo-5"
-hint="«A no ser de que» e escribe como «A no ser que»., dequeismo (error gramatical)"
+hint="«A no ser de que» e escribe como «A no ser que», dequeismo (error gramatical)"
 
 [(?u)\bafirm\w{1,4}?\sde\sque\b]i
 id="gr-1-dequeismo-6"
@@ -2275,7 +2283,7 @@ hint="«Temer de que» se escribe como «Temer que», dequeismo (error gramatica
 
 [(?u)\buna\svez\sde\sque\b]i
 id="gr-1-dequeismo-32"
-hint="«Una vez de que» se escribe como «Una vez que»., dequeismo (error gramatical)"
+hint="«Una vez de que» se escribe como «Una vez que», dequeismo (error gramatical)"
 
 [(?u)\bval\w{1,4}?\sla\spena\sde\sque\b]i
 id="gr-1-dequeismo-33"
@@ -2284,6 +2292,10 @@ hint="«Valer la pena de que» se escribe como «Valer la pena que que», dequei
 [(?u)\bverifi\w{1,4}?\sde\sque\b]i
 id="gr-1-dequeismo-34"
 hint="«Verificar de que» se escribe como «Verificar que», dequeismo (error gramatical)"
+
+[(?u)\ba\smenos\sde\sque\b]i
+id="gr-1-dequeismo-35"
+hint="«A menos de que» e escribe como «A menos que», dequeismo (error gramatical)"
 
 #
 # LEISMOS, LAISMOS Y LOISMOS
