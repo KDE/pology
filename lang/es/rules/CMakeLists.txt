@@ -8,6 +8,7 @@ set(files
     grammar.rules
     kde-l10n-es-proposed.rules
     kde-l10n-es.rules
+    metric-units.rules
     paired-words.rules
     paragraph-begin.rules
     paragraph-end.rules

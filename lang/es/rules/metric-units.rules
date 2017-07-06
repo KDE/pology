@@ -1,0 +1,102 @@
+# Translation choices of spanish team
+# Copyrigth 2010-2014, Javier Viñal (fjvinal@gmail.com)
+# by the KDE Spanish Team (kde-l10n-es@kde.org)
+# License: GPLv3
+
+include file="filter.include"
+
+#
+# METRIC UNITS
+#
+
+[(?u)\d(da|d|h|c|k|m|M|µ|G|n|T|p|P|f|E|p|Z|z|Y|y)?(m|rad|W|s|sr|V|kg|F|Pa|mol|C|Ω|cd|J|°C|K|N|Bq|A|Hz|Wb|H|T|S|min|h|d|l|L|t|ha)\b]
+id="mu-2-falta-espacio-antes-unidad-medida"
+hint="Falta un espacio entre el número y la unidad de medida (error unidades de medida)"
+
+[(?u)\b(da|d|h|c|k|m|M|µ|G|n|T|p|P|f|E|p|Z|z|Y|y)?(m|rad|W|s|sr|V|kg|F|Pa|mol|C|Ω|cd|J|°C|K|N|Bq|A|Hz|Wb|H|T|S|min|h|d|l|L|t|ha)\.]
+id="mu-2-sobra-punto-después-unidad-medida"
+valid before="$"
+valid before="\s[A-ZÑÇÄÉÍÓÚ]"
+hint="las unidades de medida no llevan punto (error unidades de medida)"
+
+[(?u)\b(da|d|h|c|k|m|M|µ|G|n|T|p|P|f|E|p|Z|z|Y|y)?(|rad|W|s|sr|V|kg|F|Pa|mol|C|Ω|cd|J|°C|K|N|Bq|A|Hz|Wb|H|T|S|min|h|d|l|L|t|ha)s\b]
+id="mu-2-sobra-plural-en-unidad-medida"
+valid span="has" before="\s\w+(ado|edo|ido|to)\b"
+hint="Las unidades de medida no tienen plural (error unidades de medida)"
+
+[(?u)\b(m|rad|W|s|sr|V|kg|F|Pa|mol|C|Ω|cd|J|°C|K|N|Bq|A|Hz|Wb|H|T|S|min|h|d|l|L|t|ha)\b]
+id="mu-2-sin-cifra-antes-unidad-medida"
+valid span="ha" before="\s\w+(ado|edo|ido|to)\b"
+valid after="\d.*\s"
+valid after="~\s?"
+valid after="^"
+valid after="\("
+valid after="en\s"
+hint="La unidades de medida deben ir precedidas de una cifra (error unidades de medida)"
+
+[\dºC\b]
+id="mu-2-grado-celsius-sin-espacio"
+hint="Es n ºC y no nºC - debe haber un espacio (error unidades de medida)"
+
+[\dº\sC\b]
+id="mu-2-grado-celsius-mal-espacio"
+hint="Es n ºC y no nº C - espacio mal puesto (error unidades de medida)"
+
+[\bkW\/h\b]
+id="mu-2-kilovatio-hora-mal-escrito"
+hint="Es kWh y no kW/h (error unidades de medida)"
+
+[\bkW\-h\b]
+id="mu-2-kilovatio-hora-mal-escrito-2"
+hint="Es kWh y no kW-h (error unidades de medida)"
+
+[\bkw\b]
+id="mu-2-kilovatio-escrito-con-minusculas"
+hint="El kilovatio es kW y no kw (error unidades de medida)"
+
+[\bmb\b]
+id="mu-2-milibar-mal-escrito"
+hint="El milibar es mbar y no mb (error unidades de medida)"
+
+[\d\sHas?\b]
+id="mu-2-hectarea-escrita-con-mayusculas"
+valid span="Has" before="\s\w+(ado|edo|ido|to)\b"
+hint="La hectárea es ha y no Ha (error unidades de medida)"
+
+[(?u)\bK(m|rad|W|s|sr|V|kg|F|Pa|mol|C|Ω|cd|J|°C|K|N|Bq|A|Hz|Wb|H|T|S|min|h|d|l|L|t|ha)\b]
+id="mu-2-kilo-escrito-con-mayusculas"
+hint="El prefijo kilo- es k y no K (error unidades de medida)"
+
+[(?u)\bD(m|rad|W|s|sr|V|kg|F|Pa|mol|C|Ω|cd|J|°C|K|N|Bq|A|Hz|Wb|H|T|S|min|h|d|l|L|t|ha)\b]
+id="mu-2-deca-escrito-con-mayusculas"
+hint="El prefijo deca- es da y no D (error unidades de medida)"
+
+[(?u)\bH(m|rad|W|s|sr|V|kg|F|Pa|mol|C|Ω|cd|J|°C|K|N|Bq|A|Hz|Wb|H|T|S|min|h|d|l|L|t|ha)\b]
+id="mu-2-hecto-escrito-con-mayusculas"
+hint="El prefijo hecto- es h y no H (error unidades de medida)"
+
+[(?u)\d(Ki|Mi|Gi|Ti|Pi|Ei|Zi|Yi|K|M|G|T|P|E|Z|Y)?(b|B)\b]
+id="mu-2-falta-espacio-antes-unidad-infomacion"
+hint="Falta un espacio entre el número y la unidad de medida (error unidades de información)"
+
+[(?u)\b(Ki|Mi|Gi|Ti|Pi|Ei|Zi|Yi|K|M|G|T|P|E|Z|Y)?(b|B)\.]
+id="mu-2-sobra-punto-después-unidad-informacion"
+valid before="$"
+valid before="\s[A-ZÑÇÄÉÍÓÚ]"
+hint="las unidades de información no llevan punto (error unidades de información)"
+
+[(?u)\b(Ki|Mi|Gi|Ti|Pi|Ei|Zi|Yi|K|M|G|T|P|E|Z|Y)?(b|B)s\b]
+id="mu-2-sobra-plural-en-unidad-informacion"
+hint="Las unidades de información no tienen plural (error unidades de información)"
+
+[(?u)\b(Ki|Mi|Gi|Ti|Pi|Ei|Zi|Yi|K|M|G|T|P|E|Z|Y)?(b|B)\b]
+id="mu-2-sin-cifra-antes-unidad-informacion"
+valid after="\d.*\s"
+valid after="~\s?"
+valid after="^"
+valid after="\("
+valid after="en\s"
+hint="La unidades de información deben ir precedidas de una cifra (error unidades de información)"
+
+# End of rule file
+ 
