@@ -101,6 +101,7 @@ hint="Es tradueix per «&Ctrl;», «<key>Ctrl</key>(Gnome)/<keycap>Ctrl</keycap>
 # Del -> Supr
 {\bDel\b}
 id="k-Del-1"
+valid msgstr="\bDel;" # <keycap>Supr</keycap>
 valid msgid="<key(cap|sym)?>.?Del(ete)?.?</key(cap|sym)?>" # k-Del-2
 valid msgstr="Supr"
 valid msgstr="(T|t)ecla de supressió"

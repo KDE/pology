@@ -735,7 +735,7 @@ valid msgstr="intervals?"
 valid msgstr="marge" # HDR (High dynamic range): Marge dinàmic elevat
 valid msgstr="contingut" cat="katepart4,ktexteditor5"
 valid msgstr="ventall" cat="www_www,kalzium"
-valid msgstr="ampli ventall" cat="konqueror" # docmessages
+valid msgstr="ampli ventall" cat="keditbookmarks,konqueror" # docmessages
 valid msgstr="«Range»" # docmessages
 valid msgstr="contingut" cat="kate_configuring-part" # docmessages
 valid msgstr="van des d'(estris|una)" cat="glossary,kpovmodeler" # docmessages
@@ -791,6 +791,11 @@ hint="Es tradueix per «crea/r scripts, creació de scripts, scripts creat/s» (
 id="kct-scrollbar"
 valid msgstr="barr(a|es) de desplaçament"
 hint="Es tradueix per «barra de desplaçament» (kde-ca-team)"
+
+{\bscroll.?views?\b}i
+id="kct-scrollview"
+valid msgstr="vist(a|es) desplaçables?"
+hint="Es tradueix per «vista/es desplaçable/s» (kde-ca-team)"
 
 {\bseamless\sworkflows?\b}i
 id="kct-seamlessworkflow"
