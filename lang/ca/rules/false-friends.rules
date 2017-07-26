@@ -24,7 +24,7 @@ hint="«Absolutelly» es tradueix per «Completament», no per «Absolutament» 
 {\babstracts?\b}i
 id="ff-abstract"
 valid msgstr="resums?"
-valid msgstr="abstract(e|a)" cat="kdevphp,kdevplatform,kdeqt,desktop_kdegames_kmahjongg,desktop_kdegames_ksudoku,krita,umbrello,kdevfiletemplates,rocscore"
+valid msgstr="abstract(e|a)" cat="kdevphp,kdevplatform,kdeqt,desktop_kdegames_kmahjongg,desktop_kdegames_ksudoku,krita,umbrello,umbrello_kdevphp,kdevfiletemplates,rocscore"
 valid msgstr="abstract(e|a|es)" cat="umbrello_uml_basics,digikam_editor-filters" # docmessages
 valid !msgstr="abstract(e|a|es)"
 hint="«Abstract» es tradueix per «Resum», no per «Abstracte» (fals amic)"
