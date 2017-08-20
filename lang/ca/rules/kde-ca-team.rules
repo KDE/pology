@@ -751,7 +751,7 @@ hint="Es tradueix per «abast, àrea, interval/s, HDR: Marge dinàmic elevat» (
 
 {\bremov(al|es?|ed|ing)\b}i
 id="kct-remove"
-valid msgstr="desfeu"
+valid msgstr="desfe(r|u)"
 valid msgstr="elimin(a|ar|ació|ant|ats?|eu|en|i|in|is|o)"
 valid msgstr="supr(essió|essions|imeix|imint|imiu|imir|imits?|imida|imides)"
 valid msgstr="traieu"
@@ -761,7 +761,7 @@ valid msgstr="desmuntant" cat="plasma_applet_notifier,plasma_applet_org.kde.plas
 valid msgstr="allunyeu" cat="kalzium"
 valid msgstr="remove" cat="amarok,amarokpkg,cervisia,kdeqt,libkpackage5,libplasma5,plasmapkg"
 valid msgstr="remove" before="-trailing-space"
-hint="Es tradueix per «eliminar», «suprimir», «treure» o «desfeu-vos» (kde-ca-team)"
+hint="Es tradueix per «eliminar», «suprimir», «treure» o «desfer» (kde-ca-team)"
 
 # «screenshot» es tradueix per «captura de pantalla».
 {\bscreenshots?\b}i
