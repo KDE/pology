@@ -6,6 +6,9 @@
 # Remove XML entities.
 include file="filter.include"
 
+# Remove accelerators inside words.
+addFilterRegex match="&" on="pmsgid,pmsgstr"
+
 {\balignments?\b}i
 id="kct-alignment"
 valid msgid="alineaci(ó|ons)"
@@ -643,9 +646,8 @@ hint="Es tradueix per «llista/es de correu» (kde-ca-team)"
 
 {\bmenu.?bars?\b}i
 id="kct-menubar"
-valid msgstr="barr(a|es) de menú"
-valid msgstr="menubar" cat="calligra"
-hint="Es tradueix per «barra/es de menú» (kde-ca-team)"
+valid msgstr="barr(a|es) de menús"
+hint="Es tradueix per «barra/es de menús» (kde-ca-team)"
 
 {\bmessage.?box(es|s)?\b}i
 id="kct-messagebox"
