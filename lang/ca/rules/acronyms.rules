@@ -2,7 +2,7 @@
 # Acronyms related information technology for Catalan translations
 # License: GPLv3
 #
-# Author: Jordi Mas <jmas@softcatala.org>, 2015
+# Author: Jordi Mas <jmas@softcatala.org>, 2015-2017
 #
 # 
 # These rules focus on checking the acronyms that are localized in Catalan.
@@ -21,20 +21,30 @@ addFilterRegex match="(_|~|&)" on="pmsgid,pmsgstr"
 id="acronyms-faq"
 valid msgstr="\bPMF\b"
 valid msgstr="[pP]reguntes més freqüents"
-hint="En català l'acrònim «FAQ» es tradueix per «PMF»."
+hint="En català l'acrònim «FAQ» (frequently asked questions) es tradueix per «PMF» (preguntes més freqüents)."
 
 {\bISDN\b}
 id="acronyms-isdn"
 valid msgstr="\bXDSI\b"
-hint="En català l'acrònim «ISDN» es tradueix per «XDSI»."
+hint="En català l'acrònim «ISDN» (integrated services digital network) es tradueix per «XDSI» (xarxa digital de serveis integrats)."
 
 {\bdpi\b}
 id="acronyms-dpi"
 valid msgstr="ppp"
 valid msgstr="[pP]unts per polzada"
-hint="En català l'acrònim «dpi» es tradueix per «ppp»."
+hint="En català l'acrònim «DPI» (dots per inch) es tradueix per «PPP» (punts per polzada)."
 
 {\bpoi\b}
 id="acronyms-poi"
 valid msgstr="pdi"
-hint="En català l'acrònim «poi» (point of interest) es tradueix per «pdi»."
+hint="En català l'acrònim «POI» (point of interest) es tradueix per «PDI» (punt d'interès)."
+
+{URI}i
+id="acronyms-uri"
+valid !msgstr="(\bles URI|\bla URI|\buna URI|\bunes URI)"
+hint="L'acrònim «URI» (identificador uniforme de recursos) és masculí."
+
+{URI}i
+id="acronyms-bios"
+valid !msgstr="(\bles BIOS|\bla BIOS|\buna BIOS|\bunes BIOS)"
+hint="L'acrònim «BIOS» (sistema bàsic d’entrada/sortida) és masculí."
