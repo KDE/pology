@@ -913,6 +913,11 @@ id="kct-stickynote"
 valid msgstr="not(a|es) adhesiv(a|es)"
 hint="Es tradueix per «nota adhesiva» (kde-ca-team)"
 
+{\bsupplicants?\b}i
+id="kct-supplicant"
+valid !msgstr="demandants?"
+hint="No es tradueix per «demandant», que és un terme jurídic (kde-ca-team)"
+
 {\bsystem.?trays?\b}i
 id="kct-systemtray"
 valid msgstr="safat(a|es) del sistema"
