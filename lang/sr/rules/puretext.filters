@@ -27,6 +27,7 @@ addFilterHook name="remove/rewrite-msgid" on="msg"
 # as there are rules to specifically check for their validity.
 # ...in KDE4 UI POs.
 addFilterHook name="uiref/resolve-ui-kde4~\
+                    uipathseps=['->', u'→'], \
                     uicpathenv='UICATS_KDE4_SR', \
                     mkeyw='kde4', quiet=True" \
               on="msgstr" \
@@ -41,6 +42,7 @@ addFilterHook name="uiref/resolve-ui-docbook4~\
 # Note that no XML-escaping is done; if it is needed, make another filter
 # for particular environment, with 'xmlescape=True' factory parameter.
 addFilterHook name="uiref/resolve-ui~\
+                    uipathseps=['->', u'→'], \
                     uicpathenv='UICATS_KDE4_SR', \
                     mkeyw=['docbook4', 'kde4'], invmkeyw=True, quiet=True" \
               on="msgstr" \
