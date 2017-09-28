@@ -100,7 +100,8 @@ clearFilters
 
 # ...in KDE4 UI POs.
 *hook name="uiref/check-ui-kde4~\
-            uicpathenv='UICATS_KDE4_SR', mkeyw='kde4'" \
+            uipathseps=['->', u'→'], uicpathenv='UICATS_KDE4_SR', \
+            mkeyw='kde4'" \
       on="msgstr"
 id="x-uiref-k"
 hint="неуспело разрешавање ниске сучеља"
@@ -114,7 +115,7 @@ hint="неуспело разрешавање ниске сучеља"
 
 # ...in other catalogs (e.g. pure Qt UI, desktop files).
 *hook name="uiref/check-ui~\
-            uicpathenv='UICATS_KDE4_SR', \
+            uipathseps=['->', u'→'], uicpathenv='UICATS_KDE4_SR', \
             mkeyw=['docbook4', 'kde4'], invmkeyw=True" \
       on="msgstr"
 id="x-uiref-o"
