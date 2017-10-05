@@ -390,6 +390,19 @@ valid msgstr="\bRight;" # <keysym>Fletxa dreta</keysym>
 valid msgstr="<key(sym)?>Fletxa dreta</key(sym)?>"
 hint="Es tradueix per «&Right;», «<key>Fletxa dreta</key>(Gnome)/<keysym>Fletxa dreta</keysym>(KDE)» (keys)"
 
+# Mouse buttons
+# left -> clic esquerra
+{(\b<mousebutton>.?left.?</mousebutton>)}
+id="k-LeftBMouse"
+valid msgstr="<mousebutton>clic esquerra</mousebutton>"
+hint="Es tradueix per «<mousebutton>clic esquerra</mousebutton> (KDE)» (keys)"
+
+# right -> clic dret
+{(\b<mousebutton>.?right.?</mousebutton>)}
+id="k-RightBMouse"
+valid msgstr="<mousebutton>clic dret</mousebutton>"
+hint="Es tradueix per «<mousebutton>clic dret</mousebutton> (KDE)» (keys)"
+
 # Meta keys
 # Unix
 {(\bMeta;|<key(cap|sym)?>.?Meta.?</key(cap|sym)?>)}

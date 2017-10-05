@@ -830,6 +830,11 @@ valid msgstr="abreujament" cat="kmouth" # docmessages
 valid msgstr="abreviatura" cat="knode_using-subscribing" # docmessages
 hint="Es tradueix per -segons el sentit que tingui- «drecera/es|accés ràpid» (kde-ca-team)"
 
+{\bside.?bars?\b}i
+id="kct-sidebar"
+valid msgstr="barr(a|es) laterals?"
+hint="Es tradueix per «barra/es lateral/s» (kde-ca-team)"
+
 {\bsliders?\b}i
 id="kct-slider"
 valid msgid="slid(er|ing)\sbutton"	# -> botó de control lliscant
