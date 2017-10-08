@@ -8,6 +8,7 @@ include file="filter.include"
 # <http://ca.wikipedia.org/wiki/Accent_diacrític>
 
 [\bbe(ns)?\b]i
+id="da-be"
 valid msgstr="(ogoffart|andygoossens) at (tiscalinet|telenet) be"
 valid msgid="Be'er Sheva"
 valid msgid="(fr|nl)-be"
