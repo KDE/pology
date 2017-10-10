@@ -25,6 +25,10 @@ hint="«A adentro» se escribe como «Adentro» (error frecuente: redundancia)"
 id="cm-1-a-afuera"
 hint="«A afuera» se escribe como «Afuera» (error frecuente: redundancia)"
 
+[\bante\sayer\b]i
+id="cm-1-ante-ayer"
+hint="«Ante ayer» se escribe como «Anteayer» (error frecuente)"
+
 [\ba\sarriba\b]i
 id="cm-1-a-arriba"
 hint="«A arriba» se escribe como «Arriba» (error frecuente: redundancia)"
@@ -1720,6 +1724,16 @@ hint="«Simultáneamente a» se escribe como «A la vez que/Al mismo tiempo que/
 [\bsin\sen\scambio\b]i
 id="cm-2-sin-en-cambio"
 hint="«Sin en cambio» se escribe como «En cambio/Sin embargo» (error frecuente)"
+
+[\bsinf[ií]n\b]i
+id="cm-2-sinfin"
+valid after="(el|un)\s"
+hint="«Sinfín» se escribe como «Sin fin», salvo en «Un sinfin» (error frecuente)"
+
+[\bsinrazón\b]i
+id="cm-2-sinrzazón"
+valid after="(la|una)\s"
+hint="«Sinrazón» se escribe como «Sin razón», salvo en «La sinrazón» (error frecuente)"
 
 [\bso\b]i
 id="cm-3-so"

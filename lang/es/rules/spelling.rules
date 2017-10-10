@@ -47,7 +47,7 @@ addFilterRegex match="(?u)\b[a-zA-Z]+\d\w*\b" repl="" casesens="yes" on="pmsgid,
 
 # Omit some mathematical expressions
 addFilterRegex match="(?u)\b(entero|índice|intervalo|orden|cada|tras|los|las|datos|eje|error|inicio|usuario)\s(\w+\s)?[ijklmnxyz]\b" repl="" on="pmsgid,pmsgstr"
-addFilterRegex match="(?u)(\/s(eg)?\b|\bn\!|\b[xyz]\^\w\b|\b[ijklmnxyz]\s(mínim[oa]|medi[oa]|máxim[oa])\b|\b(exp|log)\(.*?\))" repl="" on="pmsgid,pmsgstr"
+addFilterRegex match="(?u)(\/s(eg)?\b|\bn\!|\b[xyz]\^\w\b|\b[ijklmnxyz]\s(mínim[oa]|medi[oa]|máxim[oa])\b|\b(exp|log)\()" repl="" on="pmsgid,pmsgstr"
 addFilterRegex match="(?u)[xyz]\s(días|semanas|meses|años)" repl="" on="pmsgid,pmsgstr"
 
 # Omit particles between propernames.

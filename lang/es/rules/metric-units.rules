@@ -9,11 +9,12 @@ include file="filter.include"
 # METRIC UNITS
 #
 
-[(?u)\d(da|d|h|c|k|m|M|µ|G|n|T|p|P|f|E|p|Z|z|Y|y)?(m|rad|W|s|sr|V|kg|F|Pa|mol|C|Ω|cd|J|°C|K|N|Bq|A|Hz|Wb|H|T|S|min|h|d|l|L|t|ha)\b]
+[(?u)\d+(da|d|h|c|k|m|M|µ|G|n|T|p|P|f|E|p|Z|z|Y|y)?(m|rad|W|s|sr|V|kg|F|Pa|mol|C|Ω|cd|J|°C|K|N|Bq|A|Hz|Wb|H|T|S|min|h|d|l|L|t|ha)\b]
 id="mu-2-falta-espacio-antes-unidad-medida"
+valid after="\w"
 hint="Falta un espacio entre el número y la unidad de medida (error unidades de medida)"
 
-[(?u)\b(da|d|h|c|k|m|M|µ|G|n|T|p|P|f|E|p|Z|z|Y|y)?(m|rad|W|s|sr|V|kg|F|Pa|mol|C|Ω|cd|J|°C|K|N|Bq|A|Hz|Wb|H|T|S|min|h|d|l|L|t|ha)\.]
+[(?u)\b(da|d|h|c|k|m|M|µ|G|n|T|p|P|f|E|p|Z|z|Y|y)?(m|rad|W|s|sr|V|kg|F|Pa|mol|C|Ω|cd|J|°C|K|N|Bq|A|Hz|Wb|H|T|S|min|h|d|l|L|t|ha)\.\W]
 id="mu-2-sobra-punto-después-unidad-medida"
 valid before="$"
 valid before="\s[A-ZÑÇÄÉÍÓÚ]"
@@ -21,17 +22,20 @@ hint="las unidades de medida no llevan punto (error unidades de medida)"
 
 [(?u)\b(da|d|h|c|k|m|M|µ|G|n|T|p|P|f|E|p|Z|z|Y|y)?(|rad|W|s|sr|V|kg|F|Pa|mol|C|Ω|cd|J|°C|K|N|Bq|A|Hz|Wb|H|T|S|min|h|d|l|L|t|ha)s\b]
 id="mu-2-sobra-plural-en-unidad-medida"
-valid span="has" before="\s\w+(ado|edo|ido|to)\b"
+valid span="ms"
+valid span="has" before="\s\w+(ado|edo|ido|to|cho)\b"
 hint="Las unidades de medida no tienen plural (error unidades de medida)"
 
 [(?u)\b(m|rad|W|s|sr|V|kg|F|Pa|mol|C|Ω|cd|J|°C|K|N|Bq|A|Hz|Wb|H|T|S|min|h|d|l|L|t|ha)\b]
 id="mu-2-sin-cifra-antes-unidad-medida"
-valid span="ha" before="\s\w+(ado|edo|ido|to)\b"
+valid span="ha" before="\s\w+(ado|edo|ido|to|cho)\b"
 valid after="\d.*\s"
 valid after="~\s?"
 valid after="^"
-valid after="\("
+valid after="\W"
 valid after="en\s"
+valid after="funci(ón|ones)\s(\w+\s)*"
+valid after="distribuci(ón|ones)\s(\w+\s)*"
 hint="La unidades de medida deben ir precedidas de una cifra (error unidades de medida)"
 
 [\dºC\b]
@@ -77,6 +81,7 @@ hint="El prefijo hecto- es h y no H (error unidades de medida)"
 
 [(?u)\d(Ki|Mi|Gi|Ti|Pi|Ei|Zi|Yi|K|M|G|T|P|E|Z|Y)?(b|B)\b]
 id="mu-2-falta-espacio-antes-unidad-infomacion"
+valid after="\w"
 hint="Falta un espacio entre el número y la unidad de medida (error unidades de información)"
 
 [(?u)\b(Ki|Mi|Gi|Ti|Pi|Ei|Zi|Yi|K|M|G|T|P|E|Z|Y)?(b|B)\.]
@@ -96,6 +101,8 @@ valid after="~\s?"
 valid after="^"
 valid after="\("
 valid after="en\s"
+valid after="funci(ón|ones)\s(\w+\s)*"
+valid after="distribuci(ón|ones)\s(\w+\s)*"
 hint="La unidades de información deben ir precedidas de una cifra (error unidades de información)"
 
 # End of rule file

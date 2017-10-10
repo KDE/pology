@@ -2495,8 +2495,8 @@ hint="«Mailboxes» se traduce como «Buzones» (propuesta glosario)"
 id="gp-2-mailing"
 valid msgstr="buzoneo"
 valid msgstr="buzone(ar|a|e)"
-valid before="[\s-][Ll]ists?"
-valid before="[\s-][Ss]tandards?"
+valid before="[\s-]\&?[Ll]ists?"
+valid before="[\s-]\&?[Ss]tandards?"
 hint="«Mailing» se traduce como «Buzoneo» (propuesta glosario)"
 
 {\bmalware\b}i
