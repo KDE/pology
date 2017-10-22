@@ -1424,7 +1424,7 @@ def _check_xml_w (check, strict, entities, mkeyw, spanrep,
 
         if (   msg.msgctxt in ignctxt
             or msg.msgid in ignid
-            or (msg.msgctxt is not None and msg.msgctxt.startswith(ignctxt))
+            or (msg.msgctxt is not None and msg.msgctxt.startswith(ignctxtsw))
             or msg.msgid.startswith(ignidsw)
         ):
             return [] if spanrep else 0
