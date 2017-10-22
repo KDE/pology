@@ -381,6 +381,8 @@ Strings after the dot can be anything, but a sequence of numbers or letters in a
 <sect2 id="sv-bad-patterns">
 <title><command>bad-patterns</command></title>
 
+<caution><para>This sieve is deprecated. Use <link linkend="sv-check-rules"><command>check-rules</command></link> instead, which applies Pology's <link linkend="sec-lgrules">validation rules</link>.</para></caution>
+
 <para>Sometimes it is possible to use simple pattern matching to discover things that should never appear in the text, such as common grammar or orthographical errors. <command>bad-patterns</command> can apply such patterns to translation, either as plain substring matching or <link linkend="sec-cmregex">regular expressions</link>. Patterns can be given as parameters, or more conveniently, read from files.</para>
 
 <para>Parameters:
@@ -416,8 +418,6 @@ Strings after the dot can be anything, but a sequence of numbers or letters in a
 
 </variablelist>
 </para>
-
-<caution><para>This sieve is deprecated. Use <link linkend="sv-check-rules"><command>check-rules</command></link> instead, which applies Pology's <link linkend="sec-lgrules">validation rules</link>.</para></caution>
 
 </sect2>
 
