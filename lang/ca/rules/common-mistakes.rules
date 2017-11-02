@@ -76,6 +76,11 @@ hint="«califica» s'ha de substituir per «qualifica» (error freqüent)"
 id="common-cero"
 hint="«cero» s'ha de substituir per «zero» (error freqüent)"
 
+# «clic esquerra» ha de ser «clic esquerre» (en masculí).
+[\bclic esquerra]i
+id="common-clic"
+hint="«clic esquerra» s'ha de substituir per «clic esquerre» (en masculí) (error freqüent)"
+
 ## «darrera» (i derivats) ha de ser «darrere» (excepte femení de darrer).
 #[darrera]i
 #hint="«darrera» s'ha de substituir per «darrere», excepte femení de darrer (error freqüent)"
@@ -197,7 +202,7 @@ valid msgid="fixes"
 valid msgstr="xfixes"
 valid msgstr="fixes" cat="k3b" after="imatges\s"
 valid msgstr="fixes" cat="kstars_calc-apcoords" after="en\sel\scel\sno\ssón\s" # docmessages
-valid msgstr="fixes" cat="kstars_sidereal" after="estrelles\s«" # docmessages
+valid msgstr="fixes" cat="kstars_sidereal" after="estrelles\s~" # docmessages
 valid msgstr="fixes" cat="keurocalc" after="cotitzacions\s"
 hint="«fixe (sufixe/prefixe)» s'ha de substituir per «fix (sufix/prefix)» (error freqüent)"
 
