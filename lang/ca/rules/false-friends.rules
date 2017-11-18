@@ -1021,6 +1021,13 @@ valid msgstr="sensats?"
 valid !msgstr="sensibles?"
 hint="«Sensible» es tradueix per «Sensat», no per «Sensible» (fals amic)"
 
+# «Sensitivity» es tradueix per «Sensibilitat».
+{\bsensitivit(y|ies)\b}i
+id="ff-sensitivity"
+valid msgstr="sensibilitats?"
+valid !msgstr="sensitivitats?"
+hint="«Sensitivity» es tradueix per «Sensibilitat», no per «Sensitivitat» (fals amic)"
+
 # «Signature» es tradueix per «Signatura».
 {\bsignatures?\b}i
 id="ff-signature"
