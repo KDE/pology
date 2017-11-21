@@ -349,6 +349,7 @@ valid before="ж"
 hint="hide -- скрыть"
 
 [диспле]i
+valid ctx="^X-KDE-Keywords$"
 hint="display -- экран, монитор"
 
 [помощник]i
@@ -456,10 +457,15 @@ hint="Предложения пишутся с заглавной буквы"
 [на строке]
 hint="-> в строке"
 
-# Some people "invented" separating keywords by semicolons, find them
+# Some people "invented" separating keywords in "X-KDE-Keywords" by semicolons, find them
 [[^а-яёa-z0-9\ ,«»\-\/\+]]i
 valid !ctx="^X-KDE-Keywords$"
 hint="X-KDE-Keywords should contain words separated by commas"
+
+# Some people "invented" separating keywords in "Keywords" by commas, find them
+[[^а-яёa-z0-9\ ;«»\-\/\+]]i
+valid !ctx="^Keywords$"
+hint="Keywords should contain words separated by semicolons"
 
 [\!\s]
 hint="Восклицания допустимы только в играх и программах для детей"
@@ -468,6 +474,11 @@ hint="Восклицания допустимы только в играх и п
 
 [конверти]i
 hint="to convert — преобразовать"
+# конвертируемое песо
+valid before="руемое песо"
+# конвертируемая марка
+valid before="руемая марка"
+
 [конвертац]i
 hint="to convert — преобразовать"
 
@@ -488,6 +499,7 @@ hint="Invalid format for CREDIT_OF_TRANSLATORS"
 #   градуса, минуты и секунды от цифр не отбивают. Знак °С отбивают, как и
 #   другие обозначения единиц физ. величин, на 2 п.
 # 2. http://habrahabr.ru/post/23250/
+# 3. http://korrektor-ru.livejournal.com/858137.html
 [%.%]
 hint="Знак процента отделяют от числа коротким пробелом (каким именно -- читайте на l10n.lrn.ru)"
 [[0-9]%]
@@ -506,6 +518,20 @@ hint="No '(qtundo-format)' in context string, hence magic split is not available
 # https://ru.wikipedia.org/wiki/%D0%9C%D0%B0%D0%BB%D0%B0%D1%8F%D0%BB%D0%B0%D0%BC_(%D0%BF%D0%B8%D1%81%D1%8C%D0%BC%D0%BE)
 [Малайялам]
 hint="-> Малаялам"
+
+[кбайт]i
+hint="Change кбайт to КБ"
+
+[ЦС]
+hint="Change translation of CA: ЦС (центр сертификации) -> УЦ (удостоверяющий центр). 'Certification' may mean many other things."
+
+# posieve find-messages -smsgctxt:'latin1' -smsgstr:'[^a-z]' kexi.po
+[[^a-z]]i
+valid !ctx="latin1"
+hint="В строке контекста говорится, что в строке должны быть символы только из latin1"
+
+[десктоп]
+hint="Don't use the word 'десктоп'"
 
 # File dialog filters should have capitalized labels
 # posieve find-messages -smsgstr:'\*[\.a-z]*\|[а-я]' kdeedu*/*.po -scase
