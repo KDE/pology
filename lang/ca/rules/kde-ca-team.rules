@@ -166,6 +166,11 @@ id="kct-ciphertext"
 valid msgstr="text xifrat"
 hint="Es tradueix per «text xifrat» (kde-ca-team)"
 
+{\bciphertexts\b}i
+id="kct-ciphertexts"
+valid msgstr="textos xifrats"
+hint="Es tradueix per «textos xifrats» (kde-ca-team)"
+
 {\bclear(ed|ing)?\b}i
 id="kct-cleared"
 valid msgstr="bui(da|dant|dar|deu|di|t)"
@@ -682,6 +687,11 @@ hint="Es tradueix per «espais de nom/s» (kde-ca-team)"
 id="kct-netbook"
 valid msgstr="ultraportàtils?"
 hint="Es tradueix per «ultraportàtil» (kde-ca-team)"
+
+{\bpassphrase\b}i
+id="kct-passphrase"
+valid msgstr="frase de pas"
+hint="Es tradueix per «frase de pas» (kde-ca-team)"
 
 {\bpaths?\b}i
 id="kct-path"
