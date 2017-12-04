@@ -354,15 +354,15 @@ valid msgid="with focus on" # Doc
 valid msgstr="enfoca(da|ment)"
 hint="Es tradueix per «enfocada, enfocament, AVÍS: no confondre amb el focus» (multimèdia)"
 
-{\bframes?\b}i
-valid msgid="b.?frames?"
-valid msgid="Black.?Frames?"
-valid msgstr="marcs?"
-hint="Es tradueix per «marc/s» «compte: al vídeo és fotograma/es, a l'àudio és trama/es, en imatges és marc» (multimèdia)"
+# {\bframes?\b}i
+# valid msgid="b.?frames?"
+# valid msgid="Black.?Frames?"
+# valid msgstr="marcs?"
+# hint="Es tradueix per «marc/s» «compte: al vídeo és fotograma/es, a l'àudio és trama/es, en imatges és marc» (multimèdia)"
 
     {\bb.?frames?\b}i
-    valid msgstr="fotogram(a|es) bidireccionals?"
-    hint="Es tradueix per «fotograma/es bidireccional/s» (multimèdia)"
+    valid msgstr="fotogram(a|es) B"
+    hint="Es tradueix per «fotograma/es B (és a dir, fotogrames bidireccionals)» (multimèdia)"
 
     {\bBlack.?Frames?\b}i
     valid msgstr="marcs? negres?"
@@ -594,7 +594,7 @@ hint="Es tradueix per «ordenar les vostres fotografies, ordenar-les» (multimè
 
 # Al Gnome «layer» és «canal» 
 {\blayers?\b}i
-valid msgid="MPEG Layer, I, II o III\b"
+valid msgid="MPEG Layer, I, II or III\b"
 valid msgid="MPEG\sLayer\s(I|II|III)\b"
 valid msgid="MPEG1\sLayer\sIII\b"
 valid msgid="MPEG.?(1|2|3) Audio Layer"
@@ -940,9 +940,10 @@ hint="Es tradueix per «píxels» (multimèdia)"
 
 {\bpreset\b}i
 valid msgstr="preconfigura(ció)?"
+valid msgstr="predefini(t|da)"
 valid msgstr="valors? predefinits?"
-valid msgstr="predefini(t|da)?"
-hint="Es tradueix per «preconfigura/ció, valor/s predefinit/s, predefinit/da» (multimèdia)"
+valid msgstr="valors predeterminats?"
+hint="Es tradueix per «preconfigura/ció, valors predeterminats, valor/s predefinit/s, predefinit/da» (multimèdia)"
 
 {\bprinter\b}i
 valid msgid="printer\sprofiles?"
@@ -1298,6 +1299,7 @@ hint="Es tradueix per «pista/es, peça/ces, seguiment, trajecte» (multimèdia)
     valid msgstr="fitxers? de trajecte"
     hint="Es tradueix per «fitxer/s de trajecte» (multimèdia)"
 
+    # Seguidor - kdenlive
     {\btracker\b}i
     valid msgid="Open GPS Tracker"
     valid msgstr="localitzador"
@@ -1309,8 +1311,8 @@ hint="Es tradueix per «pista/es, peça/ces, seguiment, trajecte» (multimèdia)
 
 # «cut» i «clipping» és «retalla»
 {\btrim\b}i
-valid msgstr="retalla"
-hint="Es tradueix per «retalla» (multimèdia)"
+valid msgstr="retalla?"
+hint="Es tradueix per «retall/a» (multimèdia)"
 
     {\bripple\strim\b}i
     valid msgstr="retallat en roda"
@@ -1377,8 +1379,10 @@ hint="Es tradueix per «estació de treball» (multimèdia)"
     # Al Gnome «edge» és «contorn», «vora», «cantó» i «arestes»
     {\bEdges?\b}i
     valid msgid="Hard\sEdges?"
-    valid msgstr="Límits?"
-    hint="Es tradueix per «(Eina -efecte-:) Límits, límit» (multimèdia)"
+    valid msgstr="vor(a|es)"
+#     valid msgstr="Límits?"
+    hint="Es tradueix per «Vora/es» (multimèdia)"
+#     hint="Es tradueix per «(Eina -efecte-:) Límits, límit» (multimèdia)"
 
         {\bHard\sEdges?\b}i
         valid msgstr="vor(a|es) dur(a|es)"
@@ -1462,6 +1466,7 @@ hint="Es tradueix per «estació de treball» (multimèdia)"
     valid msgstr="Saturació"
     hint="Es tradueix per «(Eina:) Saturació» (multimèdia)"
 
+    # afila, anima
     {\bShear(tool)?\b}i
     valid msgstr="Inclinar?"
     hint="Es tradueix per «(Eina:) Inclina, inclinar» (multimèdia)"
@@ -1492,6 +1497,7 @@ hint="Es tradueix per «estació de treball» (multimèdia)"
     valid msgstr="Solaritza"
     hint="Es tradueix per «(Eina -efecte-:) Solaritza» (multimèdia)"
 
+    # Estira - kdenlive
     # Al Gnome «Stretch Contrast» és «Estendre el contrast» i «Amplia el contrast»
     {\bStretch\sContrast\b}i
     valid msgstr="Augmenta el contrast"
@@ -1618,17 +1624,17 @@ hint="Es tradueix per «fosc/cos, fosques» (multimèdia)"
     # TODO: és problemàtica i irresolta fora d'un ús personal 
     # (tornar a assignar per aclarir la traducció)
     # Al Gnome «highlight» és «lluentor», «reflex», «reflex de llum», «realça», «realçat» i «Ressaltats»
-    {\bhigh.?lights?\b}i
-    valid msgid="shadows\sand\shighlights"
-    valid msgid="shadow,\s(middle|midtone).?\sand\shighlights?(\stones)?"
-    valid msgstr="llums blaves intenses" cat="libkdcraw"
-    valid msgstr="clars?"
-    valid msgstr="lluminos(a|es)"
-    valid msgstr="lluminós"
-    valid msgstr="llums? intenses"
-    valid msgstr="reflexos"
-    valid msgstr="il·luminar"
-    hint="Es tradueix per «lluminós, lluminosa/es, llum/s intenses, clar/s, il·luminar, reflexos, (compte: ressaltat)» (multimèdia)"
+#     {\bhigh.?lights?\b}i
+#     valid msgid="shadows\sand\shighlights"
+#     valid msgid="shadow,\s(middle|midtone).?\sand\shighlights?(\stones)?"
+#     valid msgstr="llums blaves intenses" cat="libkdcraw"
+#     valid msgstr="clars?"
+#     valid msgstr="lluminos(a|es)"
+#     valid msgstr="lluminós"
+#     valid msgstr="llums? intenses"
+#     valid msgstr="reflexos"
+#     valid msgstr="il·luminar"
+#     hint="Es tradueix per «lluminós, lluminosa/es, llum/s intenses, clar/s, il·luminar, reflexos, (compte: ressaltat)» (multimèdia)"
 
 ######## Shadow
 
