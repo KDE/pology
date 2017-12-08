@@ -401,6 +401,7 @@ valid comment="Tag\:\sscreen" cat="kturtle_programming-reference" # docmessages
 valid msgstr="\s\.\.\.\)$" cat="kalgebra_commands" # docmessages
 valid msgstr="\s\.\.\." cat="katepart_development" # docmessages
 valid msgstr="\s\.\s\*\s\?\s\/" cat="digikam" # docmessages
+valid msgstr=",\s\.\.\."
 hint="No s'ha de posar cap espai abans del signe de punt (tipografia)"
 
 [\.\S]
