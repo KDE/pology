@@ -11,7 +11,8 @@ addFilterRegex match="\\" repl="/" on="pmsgid"
 addFilterRegex match="&.*;" repl="" on="pmsgid"
 addFilterRegex match=">\s<" repl="" on="pmsgid"
 addFilterRegex match=">\s\s<" repl="" on="pmsgid"
-addFilterRegex match="<.*>" repl="" on="pmsgid"
+addFilterRegex match="<.*>" repl=" " on="pmsgid"
+addFilterRegex match="-" repl=" " on="pmsgid,pmsgstr" # KDE
 addFilterRegex match="_" repl="" on="pmsgid,pmsgstr" # Gnome
 addFilterRegex match="@@image: 'images/.*'" repl="" casesens="yes" on="pmsgid" # Gnome
 addFilterRegex match="-.*-" repl="-" on="pmsgid" # Gnome
@@ -25,7 +26,7 @@ valid msgstr="defectes?"
 hint="Es tradueix per «defecte/s» (multimèdia)"
 
 # Al Gnome «aspect.?ratio» és «#proporció d'aspecte» 
-{\baspect.?ratio\b}i
+{\baspect(.|.?)ratio\b}i
 valid msgstr="relació d'aspecte"
 hint="Es tradueix per «relació d'aspecte» (multimèdia)"
 
@@ -39,12 +40,12 @@ valid msgid="Color.?Balance"
 valid msgstr="equilibr(ar?|i)"
 hint="Es tradueix per «equilibra/r, equilibri» (multimèdia)"
 
-    {\bColor.?Balance\b}i
+    {\bColor(.|.?)Balance\b}i
     valid msgid="White\sColor\sBalance"
     valid msgstr="Equilibri de color"
     hint="Es tradueix per «(Eina:) Equilibri de color» (multimèdia)"
 
-    {\bWhite.?balance\b}i
+    {\bWhite(.|.?)balance\b}i
     valid msgid="WhiteBalance\.jpg"
     valid msgstr="Balanç de blancs"
     hint="Es tradueix per «(Eina:) Balanç de blancs» (multimèdia)"
@@ -80,20 +81,20 @@ hint="Es tradueix per «taxa/es de bits» (multimèdia)"
     valid msgstr="Blancs? i negres?"
     hint="Es tradueix per «(Eina:) Blanc i negre, Altre: blancs i negres» (multimèdia)"
 
-    {\bblack.?level\b}i
+    {\bblack(.|.?)level\b}i
     valid msgstr="nivell de negre"
     hint="Es tradueix per «nivell de negre» (multimèdia)"
 
-    {\bblack.?point\b}i
+    {\bblack(.|.?)point\b}i
     valid msgstr="punt negre"
     hint="Es tradueix per «punt negre» (multimèdia)"
 
 # White
-    {\bwhite.?level\b}i
+    {\bwhite(.|.?)level\b}i
     valid msgstr="nivell de blanc"
     hint="Es tradueix per «nivell de blanc» (multimèdia)"
 
-    {\bwhite.?point\b}i
+    {\bwhite(.|.?)point\b}i
     valid msgstr="punt blanc"
     hint="Es tradueix per «punt blanc» (multimèdia)"
 
@@ -106,6 +107,7 @@ valid msgid="color\sblending"
 valid msgid="blend\sareas?"
 valid msgid="blend\smasks?"
 valid msgid="blending\sexposure"
+valid msgid="Expoblending"
 valid msgid="exposure\sblending"
 valid msgid="blending\sprocess"
 valid msgid="pyramid\sblending"
@@ -130,6 +132,10 @@ hint="Es tradueix per «(Efecte:) Barreja, barreja/r/t» (multimèdia)"
     {\bblending\sexposure\b}i
     valid msgstr="barreja de l'exposició"
     hint="Es tradueix per «barreja de l'exposició» (multimèdia)"
+
+    {\bExpoblending(\sTool)?\b}i
+    valid msgstr="Barreja de l'exposició"
+    hint="Es tradueix per «(Eina:) Barreja de l'exposició» (multimèdia)"
 
     {\bexposure\sblending\b}i
     valid msgstr="barreja de l'exposició"
@@ -156,7 +162,7 @@ valid msgstr="tacad(a|es)"
 hint="Es tradueix per «tacada/es» (multimèdia)"
 
 # TODO: Explosió?
-{\bblow.?up\b}i
+{\bblow(.|.?)up\b}i
 valid msgstr="engrand(eix|ir)"
 hint="Es tradueix per «(Eina -acció-:) Canvia la mida, engrandeix, engrandir» (multimèdia)"
 
@@ -166,21 +172,46 @@ hint="Es tradueix per «(Eina -acció-:) Canvia la mida, engrandeix, engrandir»
 # Al Gnome «blurred» és «desenfocada»
 # Al Gnome «blur» és «ombra» i «difumina»
 {\bblurs?\b}i
+valid msgid="Gaussian\sblur"
+valid msgid="slight\sblur"
+valid msgid="unwanted\sblur"
 valid msgstr="difumina(s|t|ts)?"
 hint="Es tradueix per «(Eina:) Difumina/t/s» (multimèdia)"
 
-    {\bblurreding\b}i
-    valid msgstr="borrosa"
-    hint="Es tradueix per «borrosa» (multimèdia)"
+    {\bGaussian\sblur\b}i
+    valid msgstr="difuminat gaussià"
+    hint="Es tradueix per «difuminat gaussià» (multimèdia)"
+
+    {\bblurred(ing)?\b}i
+    valid msgid="blurred\scolors?"
+    valid msgid="blurred\sphotographs?"
+    valid msgstr="borros(a|es)"
+    hint="Es tradueix per «borrosa/es» (multimèdia)"
+
+        {\bblurred\scolors?\b}i
+        valid msgstr="colors? borr(ós|osos)"
+        hint="Es tradueix per «color/s borrós/osos» (multimèdia)"
+
+        {\bblurred\sphotographs?\b}i
+        valid msgstr="fotografi(a|es) borros(a|es)"
+        hint="Es tradueix per «fotografia/es borrosa/es» (multimèdia)"
 
     {\bblurring\b}i
     valid msgstr="difumin(a|ats?|en)"
     hint="Es tradueix per «(Eina:) Difuminat/s, difuminen» (multimèdia)"
 
+    {\bslight\sblur\b}i
+    valid msgstr="lleu difuminat"
+    hint="Es tradueix per «lleu difuminat» (multimèdia)"
+
     # Al Gnome «unblurring» és «Enfoca»
     {\bunblurring\b}i
     valid msgstr="Treure la manca de definició"
     hint="Es tradueix per «Treure la manca de definició» (multimèdia)"
+
+    {\bunwanted\sblur\b}i
+    valid msgstr="difuminat no esperat"
+    hint="Es tradueix per «difuminat no esperat» (multimèdia)"
 
 # Al Gnome «bright» és «clara» i «lluentor»
 {\bbright\b}i
@@ -215,7 +246,7 @@ valid msgid="point.?and.?shoots?\scameras?"
 valid msgstr="càmer(a|es)"
 hint="Es tradueix per «càmera/es» (multimèdia)"
 
-    {\bpoint.?and.?shoots?\scameras?\b}i
+    {\bpoint(.|.?)and(.|.?)shoots?\scameras?\b}i
     valid msgstr="càmer(a|es) instantàni(a|es)"
     hint="Es tradueix per «càmera/es instantània/es» (multimèdia)"
 
@@ -232,6 +263,11 @@ valid msgstr="clips?"
 hint="Es tradueix per «clip/s» (multimèdia)"
 
 # Color
+
+    {\bColor\sAuto(.|.?)Correction\b}i
+    valid msgstr="Correcció automàtica del color"
+    hint="Es tradueix per «(Eina:) Correcció automàtica del color» (multimèdia)"
+
     {\bColor\sEffects\b}i
     valid msgstr="Efectes de color"
     hint="Es tradueix per «(Eina:) Efectes de color» (multimèdia)"
@@ -295,7 +331,7 @@ hint="Es tradueix per «clip/s» (multimèdia)"
     valid msgstr="cont(enir|indrà) colors"
     hint="Es tradueix per «contenir/contindrà colors» (multimèdia)"
 
-    {\bImage.?Colors?\b}i
+    {\bImage(.|.?)Colors?\b}i
     valid msgid="images?\scolor.?labels?"
     valid msgstr="Colors? de la imatge"
     valid msgstr="colors? d'una imatge"
@@ -317,6 +353,7 @@ hint="Es tradueix per «clip/s» (multimèdia)"
 {\bcolorimetric\b}i
 valid msgid="absolute\scolorimetric"
 valid msgid="colorimetric\sintents?"
+valid msgid="perceptual\scolorimetric"
 valid msgid="relative\scolorimetric"
 valid msgstr="colorimetria"
 hint="Es tradueix per «colorimetria» (multimèdia)"
@@ -330,6 +367,10 @@ hint="Es tradueix per «colorimetria» (multimèdia)"
     valid msgstr="propòsits? de colorimetria"
     hint="Es tradueix per «Propòsit/s de colorimetria» (multimèdia)"
 
+    {\bperceptual\scolorimetric\b}i
+    valid msgstr="colorimetria perceptual"
+    hint="Es tradueix per «colorimetria perceptual» (multimèdia)"
+
     # Al Gnome «Relative colorimetric» és «colorimètrica relativa» i «Mètrica de color relativa»
     {\brelative\scolorimetric\b}i
     valid msgstr="colorimetria relativa"
@@ -340,14 +381,23 @@ hint="Es tradueix per «colorimetria» (multimèdia)"
     valid msgstr="precisió colorimètrica"
     hint="Es tradueix per «precisió colorimètrica» (multimèdia)"
 
-{\bcomposition\b}i
+{\bcompos(ed|ing|ition)\b}i
 valid msgid="Composition\sGuides?"
-valid msgstr="Composició"
-hint="Es tradueix per «(Guia:) Composició (Nota: Fa referència a la composició artística d'edificis, fotografies, etc.)» (multimèdia)"
+valid msgstr="compo(n|ndre|sició|st)"
+hint="Es tradueix per «(Guia:) compon/dre, composició, compost (Nota: Fa referència a la composició artística d'edificis, fotografies, etc.)» (multimèdia)"
 
-{\bComposition\sGuides?\b}i
-valid msgstr="Gui(a|es) de composició"
-hint="Es tradueix per «(Guia:) Guia/es de composició (Nota: Fa referència a la composició artística d'edificis, fotografies, etc.)» (multimèdia)"
+    {\bComposition\sGuides?\b}i
+    valid msgstr="Gui(a|es) de la composició"
+    hint="Es tradueix per «(Eina:) Guia/es de la composició (Nota: Fa referència a la composició artística d'edificis, fotografies, etc.)» (multimèdia)"
+
+    {\bcompose\s(an|your)\simage\b}i
+    valid msgid="better\scompose\s(an|your)\simages?"
+    valid msgstr="compondre (les vostres|una) imatges?"
+    hint="Es tradueix per «compondre una imatge, compondre les vostres imatges (Nota: Fa referència a la composició artística d'edificis, fotografies, etc.)» (multimèdia)"
+
+    {\bbetter\scompose\s(an|your)\simages?\b}i
+    valid msgstr="compondre millor l(a|es) vostr(a|es) imatges?"
+    hint="Es tradueix per «compondre millor una imatge, compondre millor la/es vostra/es imatge/s (Nota: Fa referència a la composició artística d'edificis, fotografies, etc.)» (multimèdia)"
 
 {\bcompression\b}i
 valid msgid="gamma compression"
@@ -370,8 +420,8 @@ hint="Es tradueix per «correlació, correlaciona/r/rà» (multimèdia)"
 valid msgid="Aspect\sRatio\sCrop"
 valid msgid="Auto.?Crop(ping)?"
 valid msgid="Crop\sshape"
-valid msgstr="Escap(çar?|çats?|ceu|cis)"
-hint="Es tradueix per «(Eina:) Escapça/r, escapçat/s, escapceu, escapcis» (multimèdia)"
+valid msgstr="Escap(çant|çar?|çats?|ceu|cis)"
+hint="Es tradueix per «(Eina:) Escapça/r, escapçat/s, escapçant, escapceu, escapcis» (multimèdia)"
 
     {\bAspect\sRatio\sCrop\b}i
     valid msgid="exact\saspect\sratio\scrop"
@@ -382,7 +432,7 @@ hint="Es tradueix per «(Eina:) Escapça/r, escapçat/s, escapceu, escapcis» (m
         valid msgstr="escapçat exacte de la relació d'aspecte"
         hint="Es tradueix per «escapçat exacte de la relació d'aspecte» (multimèdia)"
 
-    {\bAuto.?Crop(ping)?\b}i
+    {\bAuto(.|.?)Crop(ping)?\b}i
     valid msgstr="Escapçament automàtic"
     valid msgstr="Escapçar? automàticament"
     hint="Es tradueix per «(Eina:) Escapçament automàtic, escapça/r automàticament» (multimèdia)"
@@ -396,22 +446,23 @@ hint="Es tradueix per «(Eina:) Escapça/r, escapçat/s, escapceu, escapcis» (m
     valid msgstr="escapça(nt|da|r|ran|t)"
     hint="Es tradueix per «escapça, escapçat/da, escapçant/ran» (multimèdia)"
 
-        {\bauto.?cropping\b}i
+        {\bauto(.|.?)cropping\b}i
         valid msgstr="escapçament automàtic"
         hint="Es tradueix per «escapçament automàtic» (multimèdia)"
 
 {\bcurves?\b}i
 valid msgstr="Curves.?Adjust"
 valid msgid="gamma\stransfer\scurve"
+valid msgid="gamma\scurve"
 valid msgstr="S.?curves?"
 valid msgstr="corb(a|es)"
 hint="Es tradueix per «corba/es» (multimèdia)"
 
-    {\bCurves.?Adjust\b}i
+    {\bCurves(.|.?)Adjust\b}i
     valid msgstr="Ajust de les corbes"
     hint="Es tradueix per «(Eina:) Ajust de les corbes» (multimèdia)"
 
-    {\bS.?curves?\b}i
+    {\bS(.|.?)curves?\b}i
     valid msgstr="corb(a|es) S"
     hint="Es tradueix per «corba/es S» (multimèdia)"
 
@@ -421,15 +472,15 @@ valid msgid="dark,\smid.?\sand\slight\stones"
 valid msgstr="fos(c|cos|ques)"
 hint="Es tradueix per «fosc/cos, fosques» (multimèdia)"
 
-    {\bdark,\smid.?\sand\slight\stones\b}i
+    {\bdark,\smid(.|.?)\sand\slight\stones\b}i
     valid msgstr="tons foscos, mitjos i clars"
     hint="Es tradueix per «tons foscos, mitjos i clars» (multimèdia)"
 
-    {\bdark.?room\b}i
+    {\bdark(.|.?)room\b}i
     valid msgstr="cambra fosca"
     hint="Es tradueix per «cambra fosca» (multimèdia)"
 
-    {\bdark.?tones?\b}i
+    {\bdark(.|.?)tones?\b}i
     valid msgstr="to(ns)? fosc(os)?"
     hint="Es tradueix per «to fosc, tons foscos» (multimèdia)"
 
@@ -445,13 +496,27 @@ hint="Es tradueix per «Reconstrucció» (multimèdia)"
 valid msgstr="gestió d'actius digitals"
 hint="Es tradueix per «gestió d'actius digitals» (multimèdia)"
 
+{\bdrives?\b}i
+valid msgid="hard\sdrives?"
+valid msgstr="unitats?"
+hint="Es tradueix per «unitat/s, (compte: conduir, si escau)» (multimèdia)"
+
+    {\bhard\sdrives?\b}i
+    valid msgstr="discs? durs?"
+    hint="Es tradueix per «disc/s dur/s» (multimèdia)"
+
 {\bdSLRs?\b}i
-valid msgstr="rèflex digitals"
-hint="Es tradueix per «rèflex digitals» (multimèdia)"
+valid msgstr="rèflex digitals?"
+hint="Es tradueix per «rèflex digital/s» (multimèdia)"
+
+    {\bSLRs?\b}i
+    valid msgstr="rèflex"
+    valid !msgstr="rèflex digitals?"
+    hint="Es tradueix per «rèflex» (multimèdia)"
 
 {\bembedd(ed|ing)\b}i
-valid msgstr="incrusta(da|des|nt|r|ts?)"
-hint="Es tradueix per «incrustada/es, incrustat/s, incrustar/nt» (multimèdia)"
+valid msgstr="incrusta(ció|da|des|nt|r|ts?)"
+hint="Es tradueix per «incrustada/es, incrustat/s, incrustar/nt, incrustació» (multimèdia)"
 
 {\benhances\sthe\scontrast\b}i
 valid msgstr="realça el contrast"
@@ -486,20 +551,20 @@ hint="Es tradueix per «enfocada, enfocament, centrat en la usabilitat AVÍS: no
 # valid msgstr="marcs?"
 # hint="Es tradueix per «marc/s» «compte: al vídeo és fotograma/es, a l'àudio és trama/es, en imatges és marc» (multimèdia)"
 
-    {\bb.?frames?\b}i
+    {\bb(.|.?)frames?\b}i
     valid msgstr="fotogram(a|es) B"
     hint="Es tradueix per «fotograma/es B (és a dir, fotogrames bidireccionals)» (multimèdia)"
 
-    {\bBlack.?Frames?\b}i
+    {\bBlack(.|.?)Frames?\b}i
     valid msgstr="marcs? negres?"
     hint="Es tradueix per «marc/s negre/s» (multimèdia)"
 
-        {\bBlack.?borders?\b}i
+        {\bBlack(.|.?)borders?\b}i
         valid msgstr="vor(a|es) negr(a|es)"
         hint="Es tradueix per «vora/es negra/es» (multimèdia)"
 
     # Al Gnome «framerate» és «velocitat de fotograma»
-    {\bframe.?rate\b}i
+    {\bframe(.|.?)rate\b}i
     valid msgstr="velocitat dels fotogrames"
     hint="Es tradueix per «velocitat dels fotogrames» (multimèdia)"
 
@@ -516,10 +581,13 @@ hint="Es tradueix per «guany» (multimèdia)"
 valid msgid="Brightness/Contrast/Gamma"
 valid msgid="gamma\scompression"
 valid msgid="Gamma\scorrection"
+valid msgid="gamma\scurve"
 valid msgid="gamma\sencoding"
 valid msgid="gamma\sramp"
 valid msgid="gamma\stransfer\scurve"
 valid msgid="gamma\stransform"
+valid msgid="linear\sgamma"
+valid msgid="usual\sgamma"
 valid msgstr="gamma"
 hint="Es tradueix per «gamma» (multimèdia)"
 
@@ -534,6 +602,10 @@ hint="Es tradueix per «gamma» (multimèdia)"
     {\bGamma\scorrection\b}i
     valid msgstr="Correcció de la gamma"
     hint="Es tradueix per «Correcció de la gamma» (multimèdia)"
+
+    {\bgamma\scurve\b}i
+    valid msgstr="corba amb interval"
+    hint="Es tradueix per «corba amb interval» (multimèdia)"
 
     {\bgamma\sencoding\b}i
     valid msgstr="codificació de gamma"
@@ -551,6 +623,19 @@ hint="Es tradueix per «gamma» (multimèdia)"
     valid msgstr="transformació de gamma"
     hint="Es tradueix per «transformació de gamma» (multimèdia)"
 
+    {\blinear\sgamma\b}i
+    valid msgid="linear\sgamma\scurve"
+    valid msgstr="interval lineal"
+    hint="Es tradueix per «interval lineal» (multimèdia)"
+
+        {\blinear\sgamma\scurve\b}i
+        valid msgstr="corba amb interval lineal"
+        hint="Es tradueix per «corba amb interval lineal» (multimèdia)"
+
+    {\busual\sgamma\b}i
+    valid msgstr="interval de costum"
+    hint="Es tradueix per «interval de costum» (multimèdia)"
+
 # TODO: revisar «gamut»
 # Al Gnome «gamut» és «gamut» 
 {\bgamut\b}i
@@ -564,15 +649,15 @@ valid msgid="wide.?gamut"
 valid msgstr="gamma"
 hint="Es tradueix per «gamma» (multimèdia)"
 
-    {\bcolor.?gamut\b}i
+    {\bcolor(.|.?)gamut\b}i
     valid msgstr="gamma de colors"
     hint="Es tradueix per «gamma de colors» (multimèdia)"
 
-    {\bexpanded.?gamut\b}i
+    {\bexpanded(.|.?)gamut\b}i
     valid msgstr="gamma expandida"
     hint="Es tradueix per «gamma expandida» (multimèdia)"
 
-    {\bgamut.?clipping\b}i
+    {\bgamut(.|.?)clipping\b}i
     valid msgstr="retallat de la gamma"
     hint="Es tradueix per «retallat de la gamma» (multimèdia)"
 
@@ -580,24 +665,30 @@ hint="Es tradueix per «gamma» (multimèdia)"
     valid msgstr="gamma gran"
     hint="Es tradueix per «gamma gran» (multimèdia)"
 
-    {\bmedium.?gamut\b}i
+    {\bmedium(.|.?)gamut\b}i
     valid msgstr="gamma mitja"
     hint="Es tradueix per «gamma mitja» (multimèdia)"
 
-    {\bsmall.?gamut\b}i
+    {\bsmall(.|.?)gamut\b}i
+    valid msgstr="gamma gran o petita"
     valid msgstr="gamma petita"
     hint="Es tradueix per «gamma petita» (multimèdia)"
 
     # TODO: Escala àmplia
-    {\bwide.?gamut\b}i
+    {\bwide(.|.?)gamut\b}i
+    valid msgid="super.?wide.?gamut"
     valid msgstr="gamma àmplia"
     hint="Es tradueix per «gamma àmplia» (multimèdia)"
 
-{\bGeo.?location\b}i
+        {\bsuper(.|.?)wide(.|.?)gamut\b}i
+        valid msgstr="gamma súper àmplia"
+        hint="Es tradueix per «gamma súper àmplia» (multimèdia)"
+
+{\bGeo(.|.?)location\b}i
 valid msgstr="geolocalitza(r|ció)"
 hint="Es tradueix per «geolocalitzar, geolocalització» (multimèdia)"
 
-{\bgeo.?localize\b}i
+{\bgeo(.|.?)localize\b}i
 valid msgstr="geolocalitzicionar"
 hint="Es tradueix per «geolocalitzacionar» (multimèdia)"
 
@@ -644,11 +735,11 @@ hint="Es tradueix per «arma» (multimèdia)"
 valid msgstr="Triangles harmoniosos"
 hint="Es tradueix per «(Guia:) Triangles harmoniosos» (multimèdia)"
 
-{\bhead.?lines?\b}i
+{\bhead(.|.?)lines?\b}i
 valid msgstr="titular"
 hint="Es tradueix per «titular» (multimèdia)"
 
-{\bhigh.?key\b}i
+{\bhigh(.|.?)key\b}i
 valid msgstr="perfil alt"
 hint="Es tradueix per «perfil alt» (multimèdia)"
 
@@ -669,37 +760,53 @@ valid msgid="image\stonality"
 valid msgid="imaging\sworkflow"
 valid msgid="raw\simages?"
 valid msgid="scenic\simages?"
+valid msgstr="Image.?Pac"
 valid msgstr="imatges?"
-hint="Es tradueix per «imatge/s» (multimèdia)"
+hint="Es tradueix per «imatge/s, (compte: fotografia/es, si escau)» (multimèdia)"
 
     {\bdigital\sstill\simages?\b}i
-    valid msgstr="imatges? fixa(es)? digitals?"
-    hint="Es tradueix per «imatge/s fixa/es digital/s» (multimèdia)"
+    valid msgstr="imatges? fotogràfi(ca|ques)? digitals?"
+    hint="Es tradueix per «imatge/s fotogràfica/ques digital/s» (multimèdia)"
 
-    {\bimage.?editing\b}i
+    {\bimage(.|.?)editing\b}i
     valid msgstr="edició d'imatges"
     hint="Es tradueix per «edició d'imatges» (multimèdia)"
 
     {\bimage\sfiles?\b}i
+    valid msgid="image\sfile.?names?"
     valid msgid="ISO\simage\sfile"
     valid msgstr="Tagged Image File Format"
     valid msgstr="fitxers? d'imatge"
     hint="Es tradueix per «fitxer/s d'imatge» (multimèdia)"
 
-    {\bimage.?processing\b}i
+        {\bimage\sfile(.|.?)names?\b}i
+        valid msgid="New\simage\sfile(.|.?)names?"
+        valid msgid="specific\simage\sfile.?names?"
+        valid msgstr="noms? dels? fitxers? d'imatge"
+        hint="Es tradueix per «nom/s del/s fitxer/s d'imatge» (multimèdia)"
+
+            {\bNew\simage\sfile(.|.?)names?\b}i
+            valid msgstr="Noms? nous? dels? fitxers? d'imatge"
+            hint="Es tradueix per «Nom/s nou/s del/s fitxer/s d'imatge» (multimèdia)"
+
+            {\bspecific\simage\sfile(.|.?)names?\b}i
+            valid msgstr="noms? específics? dels? fitxers? d'imatge"
+            hint="Es tradueix per «nom/s específics? del/s fitxer/s d'imatge» (multimèdia)"
+
+    {\bimage(.|.?)processing\b}i
     valid msgid="chemical\simage\sprocessing"
     valid msgid="digital\simage\sprocessing"
-    valid msgstr="processament de les imatges"
-    valid msgstr="processament de la imatge"
-    hint="Es tradueix per «processament de la imatge, de les imatges» (multimèdia)"
+    valid msgstr="processament (a|de) les imatges"
+    valid msgstr="processament (a|de) la imatge"
+    hint="Es tradueix per «processament a/de la imatge, a/de les imatges» (multimèdia)"
 
         {\bchemical\simage\sprocessing\b}i
-        valid msgstr="processament químic de la imatge"
-        hint="Es tradueix per «processament químic de la imatge» (multimèdia)"
+        valid msgstr="processament químic (a|de) la imatge"
+        hint="Es tradueix per «processament químic a/de la imatge» (multimèdia)"
 
         {\bdigital\simage\sprocessing\b}i
-        valid msgstr="processament digital de la imatge"
-        hint="Es tradueix per «processament digital de la imatge» (multimèdia)"
+        valid msgstr="processament digital (a|de) la imatge"
+        hint="Es tradueix per «processament digital a/de la imatge» (multimèdia)"
 
     {\bimage\stonality\b}i
     valid msgstr="tonalitat de la imatge"
@@ -765,12 +872,12 @@ hint="Es tradueix per «capa/es» (multimèdia)"
     valid msgstr="MPEG1 de capa III\b"
     hint="Es tradueix per «MPEG1 de capa III (p. ex., àudio en MPEG...)» (multimèdia)"
 
-    {\bMPEG.?(1|2|3)\sAudio\sLayer\b}i
+    {\bMPEG(.|.?)(1|2|3)\sAudio\sLayer\b}i
     valid msgid="MPEG.?(1|2|3)\sAudio\sLayer\s(2|3)"
     valid msgstr="Àudio en MPEG de capa (1|2|3)"
     hint="Es tradueix per «Àudio en MPEG de capa 1/2/3» (multimèdia)"
 
-    {\bMPEG.?(1|2|3)\sAudio\sLayer\s(2|3)\b}i
+    {\bMPEG(.|.?)(1|2|3)\sAudio\sLayer\s(2|3)\b}i
     valid msgstr="Àudio en MPEG (2|3) de capa (1|2|3)"
     hint="Es tradueix per «Àudio en MPEG 2/3 de capa 1/2/3» (multimèdia)"
 
@@ -790,7 +897,7 @@ hint="Es tradueix per «lent» (multimèdia)"
     valid msgstr="\blents\b"
     hint="Es tradueix per «lents» (multimèdia)"
 
-    {\bLens\sAuto.?Correction\b}i
+    {\bLens\sAuto(.|.?)Correction\b}i
     valid msgstr="Correcció automàtica de la lent"
     hint="Es tradueix per «(Eina:) Correcció automàtica de la lent» (multimèdia)"
 
@@ -842,7 +949,7 @@ hint="Es tradueix per «menys saturació» (multimèdia)"
     valid msgstr="lluminós"
     hint="Es tradueix per «il·luminació, lluminós, enllumenat» (multimèdia)"
 
-    {\blight.?tones?\b}i
+    {\blight(.|.?)tones?\b}i
     valid msgid="dark,\smid.?\sand\slight\stones"
     valid msgstr="to(ns)? clars?"
     hint="Es tradueix per «to clar, tons clars» (multimèdia)"
@@ -850,14 +957,14 @@ hint="Es tradueix per «menys saturació» (multimèdia)"
     # TODO: és problemàtica i irresolta fora d'un ús personal 
     # (tornar a assignar per aclarir la traducció)
     # Al Gnome «highlight» és «lluentor», «reflex», «reflex de llum», «realça», «realçat» i «Ressaltats»
-    {\bhigh.?lights?\b}i
+    {\bhigh(.|.?)lights?\b}i
     valid msgid="shadows\sand\shighlights"
     valid msgid="shadow,\s(middle|midtone).?\sand\shighlights?(\stones)?"
     valid msgstr="llums blaves intenses" cat="libkdcraw"
     valid msgstr="clars?"
     valid msgstr="lluminos(a|es)"
     valid msgstr="lluminós"
-    valid msgstr="llums? intenses"
+    valid msgstr="llums? intens(a|es)"
     valid msgstr="reflexos"
     valid msgstr="il·luminar"
     hint="Es tradueix per «lluminós, lluminosa/es, llum/s intenses, clar/s, il·luminar, reflexos, (compte: ressaltat)» (multimèdia)"
@@ -892,11 +999,11 @@ hint="Es tradueix per «lineal/s» (multimèdia)"
     valid msgstr="de forma lineal"
     hint="Es tradueix per «de forma lineal» (multimèdia)"
 
-    {\bno(n|t).?linear\b}i
+    {\bno(n|t)(.|.?)linear\b}i
     valid msgstr="no lineals?"
     hint="Es tradueix per «no lineal/s» (multimèdia)"
 
-    {\bno(n|t).?linearly\b}i
+    {\bno(n|t)(.|.?)linearly\b}i
     valid msgstr="de forma no lineal"
     hint="Es tradueix per «de forma no lineal» (multimèdia)"
 
@@ -916,7 +1023,7 @@ hint="Es tradueix per «ubicació/ons, lloc/s» «compte: posicions i barra de l
     valid msgstr="barra de localització"
     hint="Es tradueix per «barra de localització» (multimèdia)"
 
-{\blow.?key\b}i
+{\blow(.|.?)key\b}i
 valid msgstr="perfil baix"
 hint="Es tradueix per «perfil baix» (multimèdia)"
 
@@ -937,13 +1044,18 @@ hint="Es tradueix per «fabricant/s» (multimèdia)"
 # Al Gnome és «mapping» és «proporcionen», «posant» i «mapat»
 {\bmapping\b}i
 valid msgid="tone.?mapping"
+valid msgid="mapping\sservices?"
 valid msgstr="assigna"
 valid msgstr="mapatge"
 hint="Es tradueix per «assigna, mapatge» (multimèdia)"
 
-    {\btone.?mapping\b}i
+    {\btone(.|.?)mapping\b}i
     valid msgstr="mapatge dels tons"
     hint="Es tradueix per «mapatge dels tons» (multimèdia)"
+
+    {\bmapping\sservices?\b}i
+    valid msgstr="serveis? de mapes"
+    hint="Es tradueix per «servei/s de mapes» (multimèdia)"
 
 {\bMargins?\b}i
 valid msgstr="marges?"
@@ -964,11 +1076,11 @@ hint="Es tradueix per «suport/s» (multimèdia)"
     valid msgstr="suports? basats?"
     hint="Es tradueix per «suport/s basat/s» (multimèdia)"
 
-    {\bmedia.?players?\b}i
+    {\bmedia(.|.?)players?\b}i
     valid msgstr="reproductors? de suports"
     hint="Es tradueix per «reproductor/s de suports» (multimèdia)"
 
-    {\bmedia.?Servers?\b}i
+    {\bmedia(.|.?)Servers?\b}i
     valid msgstr="servidors? de suports"
     hint="Es tradueix per «servidor/s de suports» (multimèdia)"
 
@@ -980,7 +1092,7 @@ hint="Es tradueix per «suport/s» (multimèdia)"
     valid msgstr="Contingut enriquit"
     hint="Es tradueix per «Contingut enriquit» (multimèdia)"
 
-{\bmid(dle)?.?tones?\b}i
+{\bmid(dle)?(.|.?)tones?\b}i
 valid msgid="shadow,\s(middle|midtone).?\sand\shighlights?(\stones)?"
 valid msgstr="To(ns)? mitj(à|ans)"
 hint="Es tradueix per «to mitjà, tons mitjans» (multimèdia)"
@@ -1009,7 +1121,7 @@ hint="Es tradueix per «soroll» (multimèdia)"
     valid msgstr="sense reducció del soroll"
     hint="Es tradueix per «sense reducció del soroll» (multimèdia)"
 
-    {\bNoise.?Reduction\b}i
+    {\bNoise(.|.?)Reduction\b}i
     valid comment="Tag\:\stitle" # docmessages
     valid msgid="Auto.?Noise.?Reduction"
     valid msgid="no\snoise\sreduction"
@@ -1017,7 +1129,7 @@ hint="Es tradueix per «soroll» (multimèdia)"
     valid msgstr="reduir el soroll"
     hint="Es tradueix per «(Eina:) Reducció del soroll, reduir el soroll» (multimèdia)"
 
-        {\bAuto.?Noise.?Reduction\b}i
+        {\bAuto(.|.?)Noise(.|.?)Reduction\b}i
         valid msgstr="Reducció automàtica del soroll"
         hint="Es tradueix per «(Eina:) Reducció automàtica del soroll» (multimèdia)"
 
@@ -1026,11 +1138,11 @@ hint="Es tradueix per «soroll» (multimèdia)"
     hint="Es tradueix per «pic de soroll» (multimèdia)"
 
 # Over / Overhead
-    {\bover.?compression\b}i
+    {\bover(.|.?)compression\b}i
     valid msgstr="excés de compressió"
     hint="Es tradueix per «excés de compressió» (multimèdia)"
 
-    {\bover.?exposure\b}i
+    {\bover(.|.?)exposure\b}i
     valid msgstr="sobreexposició"
     hint="Es tradueix per «sobreexposició» (multimèdia)"
 
@@ -1049,21 +1161,22 @@ hint="Es tradueix per «mostra/es, pedaç/os» (multimèdia)"
 valid msgid="/photos/"
 valid msgid="Google\sPhoto"
 valid msgid="Microsoft\sPhoto"
-valid msgid="Pro-Photo"
+valid msgid="Pro.?Photo"
 valid msgid="sensitive.?photo"
+valid msgid="photo\semulsion"
 valid msgid="photo\smanagement"
 valid msgid="photo\sstudio"
 valid msgstr="fotografi(a|es)"
-valid msgstr="Photo-CD"
+valid msgstr="Photo.?CD"
 hint="Es tradueix per «fotografia/es» (multimèdia)"
 
     {\bMicrosoft\sPhoto\b}i
     valid msgstr="Microsoft\sPhoto?"
     hint="Es tradueix per «Microsoft Photo» (multimèdia)"
 
-    {\bsensitive.?photo\b}i
-    valid msgstr="fotosensibles?"
-    hint="Es tradueix per «fotosensible/s» (multimèdia)"
+    {\bphoto\semulsion\b}i
+    valid msgstr="emulsió fotogràfica"
+    hint="Es tradueix per «emulsió fotogràfica» (multimèdia)"
 
     {\bphoto\smanagement\b}i
     valid msgstr="gestió fotogràfica"
@@ -1086,12 +1199,16 @@ hint="Es tradueix per «fotografia/es» (multimèdia)"
     valid msgstr="fotògrafs?"
     hint="Es tradueix per «fotògraf/s» (multimèdia)"
 
+    {\bsensitive(.|.?)photo\b}i
+    valid msgstr="fotosensibles?"
+    hint="Es tradueix per «fotosensible/s» (multimèdia)"
+
 # Pictures
 {\bpictures?\b}i
 valid msgid="/Pictures/"
 valid msgid="Picture\sTransfer\sProtocol"
 valid msgstr="imatges?"
-hint="Es tradueix per «imatges?» (multimèdia)"
+hint="Es tradueix per «imatges?, (compte: fotografia/es, si escau)» (multimèdia)"
 
     {\bPicture\sTransfer\sProtocol\b}i
     valid msgstr="protocol per a la transferència d'imatges"
@@ -1124,11 +1241,11 @@ hint="Es tradueix per «píxels» (multimèdia)"
     valid msgstr="píxels? morts?"
     hint="Es tradueix per «píxel/s mort/s» (multimèdia)"
 
-    {\bHot.?Pixels?\sCorrection\b}i
+    {\bHot(.|.?)Pixels?\sCorrection\b}i
     valid msgstr="Correcció dels píxels cremats"
     hint="Es tradueix per «(Eina:) Correcció dels píxels cremats» (multimèdia)"
 
-    {\bhot.?pixels?\b}i
+    {\bhot(.|.?)pixels?\b}i
     valid msgid="Hot.?Pixel\sCorrection"
     valid msgstr="píxels? cremats?"
     hint="Es tradueix per «píxel/s cremat/s» (multimèdia)"
@@ -1164,17 +1281,22 @@ hint="Es tradueix per «sistema/es d'impressió» (multimèdia)"
 
 # Proof
 {\bproof(ing)?\b}i
+valid msgid="disaster\sproof"
 valid msgid="hard.?proof(ing)?"
 valid msgid="soft.?proof(ing)?"
 valid msgid="proofing\sprofiles?"
 valid msgstr="provatur(a|es)"
 hint="Es tradueix per «provatura/es» (multimèdia)"
 
-    {\bhard.?proof(ing)?\b}i
+    {\bdisaster\sproof\b}i
+    valid msgstr="a prova de desastres"
+    hint="Es tradueix per «a prova de desastres» (multimèdia)"
+
+    {\bhard(.|.?)proof(ing)?\b}i
     valid msgstr="provatur(a|es) restringid(a|es)"
     hint="Es tradueix per «provatura/es restringida/es» (multimèdia)"
 
-    {\bhard/soft.?proof(ing)?\b}i
+    {\bhard/soft(.|.?)proof(ing)?\b}i
     valid msgstr="provatur(a|es) suaus?/restringid(a|es)"
     hint="Es tradueix per «provatura suau/restringida, provatures suaus/restringides» (multimèdia)"
 
@@ -1183,7 +1305,7 @@ hint="Es tradueix per «provatura/es» (multimèdia)"
     hint="Es tradueix per «perfil/s de provatura» (multimèdia)"
 
     # Al Gnome és «proves de programari» i «prova en pantalla»
-    {\bsoft.?proof(ing)?\b}i
+    {\bsoft(.|.?)proof(ing)?\b}i
     valid msgid="hard/soft.?proof(ing)?"
     valid msgstr="provatur(a|es) suaus?"
     hint="Es tradueix per «provatura/es suau/s» (multimèdia)"
@@ -1279,7 +1401,7 @@ hint="Es tradueix per «perfil/s, perfilar/t, perfilen» (multimèdia)"
     valid msgstr="Marge dinàmic expandit"
     hint="Es tradueix per «Marge dinàmic expandit» (multimèdia)"
 
-    {\bmid(dle)?.?range\b}i
+    {\bmid(dle)?(.|.?)range\b}i
     valid msgstr="gamma mitjana"
     hint="Es tradueix per «gamma mitjana» (multimèdia)"
 
@@ -1291,9 +1413,10 @@ hint="Es tradueix per «perfil/s, perfilar/t, perfilen» (multimèdia)"
     valid msgstr="abast tonal"
     hint="Es tradueix per «abast tonal» (multimèdia)"
 
-    {\bwide.?range\b}i
+    {\bwide(.|.?)range\b}i
+    valid msgstr="ampli ventall"
     valid msgstr="gran varietat"
-    hint="Es tradueix per «gran varietat» (multimèdia)"
+    hint="Es tradueix per «ampli ventall, gran varietat» (multimèdia)"
 
 # Format RAW
 # Al Gnome «RAW» és «en brut», «sense format», «en cru» i «dades crues»
@@ -1323,6 +1446,7 @@ hint="Es tradueix per «RAW o &RAW; -si s'admet-» (multimèdia)"
     hint="Es tradueix per «desenvolupador/s RAW» (multimèdia)"
 
     {\braw\sfiles?\b}i
+    valid msgstr="fitxers JPEG, TIFF, PNG, JPEG2000, PGF i RAW"
     valid msgstr="fitxers JPEG i RAW"
     valid msgstr="fitxers? RAW"
     hint="Es tradueix per «fitxer/s RAW» (multimèdia)"
@@ -1382,7 +1506,7 @@ hint="Es tradueix per «escàner/s» (multimèdia)"
     valid msgstr="maquinari d'escaneig"
     hint="Es tradueix per «maquinari d'escaneig» (multimèdia)"
 
-{\bscene.?referred\b}i
+{\bscene(.|.?)referred\b}i
 valid msgstr="en referència a l'escena"
 hint="Es tradueix per «en referència a l'escena» (multimèdia)"
 
@@ -1398,7 +1522,7 @@ hint="Es tradueix per «paisatges, imatges» (multimèdia)"
 
 # Headshots / Shot / Shoted | Shooting | Shoots
 
-    {\bScreen.?Shoo?ts?\b}i
+    {\bScreen(.|.?)Shoo?ts?\b}i
     valid msgstr="captur(a|es) de pantalla"
     hint="Es tradueix per «captura/es de pantalla» (multimèdia)"
 
@@ -1406,19 +1530,21 @@ hint="Es tradueix per «paisatges, imatges» (multimèdia)"
     valid msgstr="retrats?"
     hint="Es tradueix per «retrat/s» (multimèdia)"
 
-    {\bshot\b}i
-    valid msgid="Screen.?Shots?"
-    valid msgstr="pre(ndre|s)"
-    hint="Es tradueix per «prendre, pres» (multimèdia)"
-
     {\bshoted\b}i
     valid msgstr="presa"
     hint="Es tradueix per «presa» (multimèdia)"
 
-    {\bshots\b}i
+    {\bshots?\b}i
     valid msgid="Screen.?Shots?"
-    valid msgstr="fotografies"
-    hint="Es tradueix per «fotografies» (multimèdia)"
+    valid msgid="series?\sshots?"
+    valid msgstr="captures"
+    valid msgstr="fotografi(a|es)"
+    valid msgstr="pre(ndre|s)"
+    hint="Es tradueix per «captures, fotografia/es, prendre, pres» (multimèdia)"
+
+        {\bseries?\sshots?\b}i
+        valid msgstr="pres(a|es) en sèries?"
+        hint="Es tradueix per «presa/es en sèrie/s» (multimèdia)"
 
     {\bshooting\b}i
     valid msgid="Shooting\s(date|time)" cat="gwenview"
@@ -1442,7 +1568,7 @@ valid msgstr="ombr(a|es)"
 valid msgstr="fos(c|ca|cos|ques)"
 hint="Es tradueix per «ombrejada/es, ombra/es, fosc/a/os, fosques» (multimèdia)"
 
-    {\bshadow,\s(middle|midtone).?\sand\shighlights?(\stones)?\b}i
+    {\bshadow,\s(middle|midtone)(.|.?)\sand\shighlights?(\stones)?\b}i
     valid msgstr="ombres, tons mitjos i llums intenses"
     hint="Es tradueix per «ombres, tons mitjos i llums intenses» (multimèdia)"
 
@@ -1462,9 +1588,11 @@ hint="Es tradueix per «ombrejada/es, ombra/es, fosc/a/os, fosques» (multimèdi
 # Al Gnome = «vores dures» el contrari és «vores difuminades»
 {\bSharp(en)?(ing|ess|ness)?\b}i
 valid msgid="Circular\sSharpness"
+valid msgid="details?\ssharp"
 valid msgid="Gaussian\sSharpness"
 valid msgid="no\ssharpening"
 valid msgid="selective\ssharpening"
+valid msgid="sharp\sedges?"
 valid msgid="sharpening\slevels?"
 valid msgid="sharpen\smatrixs?"
 valid msgid="Sharpness:" # digiKam
@@ -1474,7 +1602,8 @@ valid msgid="simple\ssharp"
 valid msgstr="agudesa"
 valid msgstr="aguditza(r|ció)?"
 valid msgstr="defin(eix|int|ir|iu) més"
-hint="Es tradueix per «(Eina:) Aguditza, aguditzar/ció, agudesa, definir/eix/int/iu més, més definit/s» (multimèdia)"
+valid msgstr="definir.la més"
+hint="Es tradueix per «(Eina:) Aguditza, aguditzar/ció, agudesa, definir/eix/int/iu més, més definit/s (compte: en alguns casos pot ésser Nitidesa» (multimèdia)"
 
     {\bdetails?\ssharp\b}i
     valid msgstr="detalls? més definits?"
@@ -1509,6 +1638,10 @@ hint="Es tradueix per «(Eina:) Aguditza, aguditzar/ció, agudesa, definir/eix/i
     {\bselective\ssharpening\b}i
     valid msgstr="agudesa selectiva"
     hint="Es tradueix per «agudesa selectiva» (multimèdia)"
+
+    {\bsharp\sedges?\b}i
+    valid msgstr=" vor(a|es) afilad(a|es)"
+    hint="Es tradueix per «vora/es afilada/es» (multimèdia)"
 
     {\bsharpen\smatrixs?\b}i
     valid msgstr="matrius? d'agudització"
@@ -1616,13 +1749,14 @@ hint="Es tradueix per «densitat, gruix» (multimèdia)"
 valid msgstr="llindars?"
 hint="Es tradueix per «llindar/s» (multimèdia)"
 
-{\btime.?stamps?\b}i
+{\btime(.|.?)stamps?\b}i
 valid msgstr="mar(ca|ques) de temps"
 hint="Es tradueix per «marca/ques de temps» (multimèdia)"
 
 # Track
 {\btrack(ing|s)?\b}i
 valid msgid="audio\stracks?"
+valid msgid="fast\stracks?"
 valid msgid="Track\sAt\sOnce\smode"
 valid msgid="track\sfiles?"
 valid msgid="video\stracks?"
@@ -1637,11 +1771,15 @@ hint="Es tradueix per «pista/es, peça/ces, seguiment, trajecte» (multimèdia)
     valid msgstr="pist(a|es) d'àudio"
     hint="Es tradueix per «pista/es d'àudio» (multimèdia)"
 
+    {\bfast\stracks?\b}i
+    valid msgstr="cam(í|ins) ràpids?"
+    hint="Es tradueix per «camí/ins ràpid/s» (multimèdia)"
+
     {\bTrack\sAt\sOnce\smode\b}i
     valid msgstr="mode TAO"
     hint="Es tradueix per «mode TAO» (multimèdia)"
 
-    {\btrack.?files?\b}i
+    {\btrack(.|.?)files?\b}i
     valid msgstr="fitxers? de trajecte"
     hint="Es tradueix per «fitxer/s de trajecte» (multimèdia)"
 
@@ -1668,7 +1806,7 @@ hint="Es tradueix per «retall/a» (multimèdia)"
 valid msgstr="sense calibrar"
 hint="Es tradueix per «sense calibrar» (multimèdia)"
 
-{\bun.?focus\b}i
+{\bun(.|.?)focus\b}i
 valid msgstr="manca de definició"
 hint="Es tradueix per «manca de definició» (multimèdia)"
 
@@ -1692,12 +1830,13 @@ hint="Es tradueix per «estació de treball» (multimèdia)"
 ## Variables d'entorn ##
 ########################
 
-    {\bCOLOR.?LABELs?\b}i
+    {\bCOLOR(.|.?)LABELs?\b}i
     valid msgid="images?\scolor.?labels?"
+    valid msgstr="rètols Valoració, Selecció i Color"
     valid msgstr="rètols? de color"
     hint="Es tradueix per «rètol/s de color» (multimèdia)"
 
-        {\bimages?\scolor.?labels?\b}i
+        {\bimages?\scolor(.|.?)labels?\b}i
         valid msgstr="rètols? de color (a|de) l(a|es) imatges?"
         hint="Es tradueix per «rètol/s de color a la/es imatge/s, rètol/s de color a la/es imatge/s» (multimèdia)"
 
@@ -1705,12 +1844,12 @@ hint="Es tradueix per «estació de treball» (multimèdia)"
     valid msgstr="comentar(i|is)?"
     hint="Es tradueix per «comentar, comentari/s» (multimèdia)"
 
-    {\bPICK.?LABELs?\b}i
+    {\bPICK(.|.?)LABELs?\b}i
     valid msgid="images?\spick.?labels?"
     valid msgstr="rètols? de selecció"
     hint="Es tradueix per «rètol/s de selecció» (multimèdia)"
 
-        {\bimages?\spick.?labels?\b}i
+        {\bimages?\spick(.|.?)labels?\b}i
         valid msgstr="rètols? de selecció (a|de) l(a|es) imatges?"
         hint="Es tradueix per «rètol/s de selecció a la/es imatge/s, rètol/s de selecció de la/es imatge/s» (multimèdia)"
 
@@ -1742,16 +1881,16 @@ hint="Es tradueix per «estació de treball» (multimèdia)"
     valid msgstr="Aplicar? una textura"
     hint="Es tradueix per «(Eina:) Aplica/r una textura» (multimèdia)"
 
-    {\bAuto.?Correction\b}i
+    {\bAuto(.|.?)Correction\b}i
     valid msgid="Lens\sAuto.?Correction"
     valid msgstr="Correcció automàtica"
     hint="Es tradueix per «(Eina:) Correcció automàtica» (multimèdia)"
 
-    {\bAuto.?Levels\b}i
+    {\bAuto(.|.?)Levels\b}i
     valid msgstr="Nivells automàtics"
     hint="Es tradueix per «(Eina:) Nivells automàtics» (multimèdia)"
 
-    {\bAuto.?Normalize\b}i
+    {\bAuto(.|.?)Normalize\b}i
     valid msgstr="Normalització automàtica"
     hint="Es tradueix per «(Eina:) Normalització automàtica» (multimèdia)"
 
@@ -1765,9 +1904,15 @@ hint="Es tradueix per «estació de treball» (multimèdia)"
 
     # Al Gnome «edge» és «contorn», «vora», «cantó» i «arestes»
     {\bEdges?\b}i
+    valid msgid="cutting\sedge"
+    valid msgid="Find\sEdges?"
     valid msgid="Hard\sEdges?"
     valid msgstr="vor(a|es)"
     hint="Es tradueix per «Vora/es» (multimèdia)"
+
+        {\bcutting\sedge\b}i
+        valid msgstr="avantguarda"
+        hint="Es tradueix per «avantguarda» (multimèdia)"
 
         {\bFind\sEdges?\b}i
         valid msgstr="troba l(a|es) vor(a|es)"
@@ -1792,11 +1937,12 @@ hint="Es tradueix per «estació de treball» (multimèdia)"
     hint="Es tradueix per «(Eina:) Exposició» (multimèdia)"
 
         {\bExposure\scorrection\b}i
+        valid msgstr="Corregeix automàticament el color/l'exposició"
         valid msgstr="Correcció de l'exposició"
         valid msgstr="corregeix l'exposició"
         hint="Es tradueix per «(Eina:) Correcció de l'exposició, corregeix l'exposició» (multimèdia)"
 
-        {\bunder.?exposure\b}i
+        {\bunder(.|.?)exposure\b}i
         valid msgstr="subexposició"
         hint="Es tradueix per «subexposició» (multimèdia)"
 
@@ -1808,7 +1954,7 @@ hint="Es tradueix per «estació de treball» (multimèdia)"
     valid msgstr="To/Saturació/Lluminositat"
     hint="Es tradueix per «(Eina:) To/Saturació/Lluminositat» (multimèdia)"
 
-    {\bIn.?Painting\b}i
+    {\bIn(.|.?)Painting\b}i
     valid comment="Tag\:\stitle" # docmessages
     valid msgstr="Repintat"
     hint="Es tradueix per «(Eina:) Repintat» (multimèdia)"
@@ -1818,7 +1964,7 @@ hint="Es tradueix per «estació de treball» (multimèdia)"
     valid msgstr="Nivells? de l'entrada"
     hint="Es tradueix per «(Eina:) Nivell/s de l'entrada» (multimèdia)"
 
-        {\bAuto.?Input.?Levels?\b}i
+        {\bAuto(.|.?)Input(.|.?)Levels?\b}i
         valid msgstr="Nivells? automàtics? de l'entrada"
         hint="Es tradueix per «(Eina:) Nivell/s automàtic/s de l'entrada» (multimèdia)"
 
@@ -1841,11 +1987,11 @@ hint="Es tradueix per «estació de treball» (multimèdia)"
 
     {\bPerspective\sAdjustment\b}i
     valid msgstr="Arranjament de la perspectiva"
-    hint="Es tradueix per «(Eina:) Arranjament de la perspectiva» (multimèdia)"
+    hint="Es tradueix per «(Eina:) Arranjament de la perspectiva, (compte: ajust de la perspectiva)» (multimèdia)"
 
     {\bRed\sEye\sRemoval\b}i
     valid msgstr="Elimina(ció)? d?els ulls vermells"
-    hint="Es tradueix per «(Eina:) Eliminació dels ulls vermells, Elimina els ulls vermells» (multimèdia)"
+    hint="Es tradueix per «(Eina:) Elimina els ulls vermells, eliminació dels ulls vermells» (multimèdia)"
 
     # Al Gnome «reduce» és «Reduïu»
     {\breduce\b}i
@@ -1869,8 +2015,8 @@ hint="Es tradueix per «estació de treball» (multimèdia)"
     hint="Es tradueix per «(Eina:) Inclina, inclinar» (multimèdia)"
 
         {\bShear(ed|ing)\b}i
-        valid msgstr="inclina(ció|da|nt|r)"
-        hint="Es tradueix per «inclina/r/ció/da/nt» (multimèdia)"
+        valid msgstr="inclina(ció|da|nt|t|r)"
+        hint="Es tradueix per «inclina/r/t/ció/da/nt» (multimèdia)"
 
     # Smooth
     # Al Gnome «smooth gradients» és «degradats suaus»
@@ -1897,8 +2043,9 @@ hint="Es tradueix per «estació de treball» (multimèdia)"
     {\bstretch(ing)?\b}i
     valid msgid="Stretch\sContrast"
     valid msgid="stretches"
+    valid msgstr="estendre"
     valid msgstr="estir(a|ament|ant|is)"
-    hint="Es tradueix per «estira/nt, estirament, estiris» (multimèdia)"
+    hint="Es tradueix per «estira/nt, estirament, estiris, (compte: estendre)» (multimèdia)"
 
         {\bstretches\b}i
         valid msgstr="fa augmentar"
@@ -1932,11 +2079,11 @@ hint="Es tradueix per «estació de treball» (multimèdia)"
     valid msgstr="Relleu"
     hint="Es tradueix per «(Efecte:) Relleu» (multimèdia)"
 
-    {\bFilm.?Grain\b}i
+    {\bFilm(.|.?)Grain\b}i
     valid msgstr="Gra de pel·lícula"
     hint="Es tradueix per «(Efecte:) Gra de pel·lícula» (multimèdia)"
 
-    {\bFish.?Eyes\b}i
+    {\bFish(.|.?)Eyes\b}i
     valid msgstr="Ull de peix"
     hint="Es tradueix per «(Efecte:) Ull de peix» (multimèdia)"
 
@@ -1944,22 +2091,15 @@ hint="Es tradueix per «estació de treball» (multimèdia)"
     valid msgstr="Pel·lícula infraroja"
     hint="Es tradueix per «(Efecte:) Pel·lícula infraroja» (multimèdia)"
 
-    {\bOil.?Painting\b}i
+    {\bOil(.|.?)Painting\b}i
     valid msgstr="Pintura a l'oli"
     hint="Es tradueix per «(Efecte:) Pintura a l'oli» (multimèdia)"
 
-    {\bRain.?drops?\b}i
+    {\bRain(.|.?)drops?\b}i
     valid msgstr="Got(a|es) de pluja"
     hint="Es tradueix per «(Efecte:) Gotes de pluja» (multimèdia)"
 
+    # Al Gnome «Twirl» és «Desparasita» 
     {\bTwirl\b}i
     valid msgstr="Molinet"
-    hint="Es tradueix per «(Efecte:) Molinet» (multimèdia)"
-
-## Filtres ##
-#############
-# # Molinet
-    # Des del Gimp
-    {\bTwirl\b}i
-    valid msgstr="Desparasita"
-    hint="Es tradueix per «(Filtre:) Desparasita» (multimèdia)"
+    hint="Es tradueix per «(Efecte/Filtre:) Molinet» (multimèdia)"
