@@ -423,24 +423,26 @@ hint="Es tradueix per «colorimetria» (multimèdia)"
         valid msgstr="propòsits? de colorimetria absoluta"
         hint="Es tradueix per «propòsit/s de colorimetria absoluta» (multimèdia)"
 
+        # Softcatalà.org: «Perceptual», és un aglicisme cal usar «perceptiva».
         {\bperceptual\scolorimetric\sintents?\b}i
-        valid msgstr="propòsits? de colorimetria perceptual"
-        hint="Es tradueix per «propòsit/s de colorimetria perceptual» (multimèdia)"
+        valid msgstr="propòsits? de colorimetria perceptiva"
+        hint="Es tradueix per «propòsit/s de colorimetria perceptiva» (multimèdia)"
 
         {\brelative\scolorimetric\sintents?\b}i
         valid msgstr="propòsits? de colorimetria relativa"
         hint="Es tradueix per «propòsit/s de colorimetria relativa» (multimèdia)"
 
+    # Softcatalà.org: «Perceptual», és un aglicisme cal usar «perceptiva».
     {\bperceptual\scolorimetric\b}i
     valid msgid="perceptual\scolorimetric\sintents?"
-    valid msgstr="colorimetria perceptual"
-    hint="Es tradueix per «colorimetria perceptual» (multimèdia)"
+    valid msgstr="colorimetria perceptiva"
+    hint="Es tradueix per «colorimetria perceptiva» (multimèdia)"
 
     # Al Gnome «Relative colorimetric» és «colorimètrica relativa» i «Mètrica de color relativa»
     {\brelative\scolorimetric\b}i
     valid msgid="relative\scolorimetric\sintents?"
     valid msgstr="colorimetria relativa"
-    valid msgstr="colorimetria perceptual i relativa"
+    valid msgstr="colorimetria perceptiva i relativa"
     hint="Es tradueix per «colorimetria relativa» (multimèdia)"
 
     {\bcolorimetric\saccuracy\b}i
@@ -814,9 +816,18 @@ hint="Es tradueix per «gràfic/a/ques» (multimèdia)"
 valid msgstr="arma"
 hint="Es tradueix per «arma» (multimèdia)"
 
+{\bHarmonious\sdivisions\b}i
+valid msgstr="divisions harmonioses"
+hint="Es tradueix per «(Guia:) divisions harmonioses» (multimèdia)"
+
 {\bHarmonious\sTriangles\b}i
+valid msgid="equiangular\sHarmonious\sTriangles"
 valid msgstr="Triangles harmoniosos"
 hint="Es tradueix per «(Guia:) Triangles harmoniosos» (multimèdia)"
+
+    {\bequiangular\sHarmonious\sTriangles\b}i
+    valid msgstr="Triangles harmoniosos equiangulars"
+    hint="Es tradueix per «(Guia:) Triangles harmoniosos equiangulars» (multimèdia)"
 
 {\bhead(.|.?)lines?\b}i
 valid msgstr="titular"
@@ -954,6 +965,10 @@ hint="Es tradueix per «Propòsit/s» (multimèdia)"
 valid msgstr="ordenar les" # KDE UserBase
 valid msgstr="molt més fàcil ordenar" # KDE UserBase
 hint="Es tradueix per «ordenar les vostres fotografies, ordenar-les» (multimèdia)"
+
+{\bKeystone\sdistortion\b}i
+valid msgstr="distorsió trapezoidal"
+hint="Es tradueix per «distorsió trapezoidal» (multimèdia)"
 
 # Al Gnome «layer» és «canal» 
 {\blayers?\b}i
@@ -1251,13 +1266,13 @@ hint="Es tradueix per «soroll» (multimèdia)"
 
     {\bNoise(.|.?)Reduction\b}i
     valid comment="Tag\:\stitle" # docmessages
-    valid msgid="Auto.?Noise.?Reduction"
+    valid msgid="Auto(matic)?.?Noise.?Reduction"
     valid msgid="no\snoise\sreduction"
     valid msgstr="Reducció del soroll"
     valid msgstr="reduir el soroll"
     hint="Es tradueix per «(Eina:) Reducció del soroll, reduir el soroll» (multimèdia)"
 
-        {\bAuto(.|.?)Noise(.|.?)Reduction\b}i
+        {\bAuto(matic)?(.|.?)Noise(.|.?)Reduction\b}i
         valid msgstr="Reducció automàtica del soroll"
         hint="Es tradueix per «(Eina:) Reducció automàtica del soroll» (multimèdia)"
 
@@ -1413,6 +1428,20 @@ hint="Es tradueix per «píxels» (multimèdia)"
     valid msgid="Hot and Stuck Pixels"
     valid msgstr="píxels? blocats?"
     hint="Es tradueix per «píxel/s blocat/s» (multimèdia)"
+
+# post-*
+    {\bpost(.|.?)conversion\b}i
+    valid msgstr="postconversió"
+    hint="Es tradueix per «postconversió» (multimèdia)"
+
+    {\bpost(.|.?)process\b}i
+    valid msgstr="processat posterior"
+    hint="Es tradueix per «processat posterior» (multimèdia)"
+
+    {\bpost(.|.?)processing\b}i
+    valid msgstr="postprocessa(men)?t"
+    valid msgstr="postprocés"
+    hint="Es tradueix per «postprocessament, postprocessat, postprocés» (multimèdia)"
 
 {\bpreset\b}i
 valid msgstr="preconfigura(ció)?"
@@ -1912,6 +1941,39 @@ hint="Es tradueix per «fotogràfica/ques, fotografia/imatge estàtica, encara, 
     valid msgstr="natura morta"
     hint="Es tradueix per «natura morta» (multimèdia)"
 
+# sub-*
+    {\bsub(.|.?)albums?\b}i
+    valid msgstr="subàlbums?"
+    hint="Es tradueix per «subàlbum/s» (multimèdia)"
+
+    {\bsub(.|.?)categories?\b}i
+    valid msgstr="subcategori(a|es)"
+    hint="Es tradueix per «subcategoria/es» (multimèdia)"
+
+    {\bsub(.|.?)folders?\b}i
+    valid msgstr="subcarpet(a|es)"
+    hint="Es tradueix per «subcarpeta/es» (multimèdia)"
+
+    {\bsub(.|.?)menus?\b}i
+    valid msgstr="submenús?"
+    hint="Es tradueix per «submenú/s» (multimèdia)"
+
+    {\bsub(.|.?)nodes?\b}i
+    valid msgstr="subnodes?"
+    hint="Es tradueix per «subnode/s» (multimèdia)"
+
+    {\bsub(.|.?)pixels?\b}i
+    valid msgstr="subpíxels?"
+    hint="Es tradueix per «subpíxel/s» (multimèdia)"
+
+    {\bsub(.|.?)tags?\b}i
+    valid msgstr="subetiquet(a|es)"
+    hint="Es tradueix per «subetiqueta/es» (multimèdia)"
+
+    {\bsub(.|.?)trees?\b}i
+    valid msgstr="subbran(ca|ques)"
+    hint="Es tradueix per «subbranca/ques» (multimèdia)"
+
 {\bthickness\b}i
 valid msgstr="densitat"
 valid msgstr="gruix"
@@ -2114,6 +2176,7 @@ hint="Es tradueix per «estació de treball» (multimèdia)"
     {\bExposure\b}i
     valid msgid="blending\sexposure"
     valid msgid="different\sexposure"
+    valid msgid="exposure\sblending"
     valid msgid="exposure\sbracketed\simages?"
     valid msgid="Exposure\scorrection"
     valid msgid="over.?exposure"
