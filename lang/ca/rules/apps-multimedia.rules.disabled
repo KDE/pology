@@ -80,11 +80,11 @@ hint="Es tradueix per «taxa/es de bits» (multimèdia)"
 # Black
     {\bWhite\s(&|and)\sBlack\b}i
     valid msgstr="Blancs? i negres?"
-    hint="Es tradueix per «(Eina:) Blanc i negre, Altre: blancs i negres» (multimèdia)"
+    hint="Es tradueix per «(Eina:) Blanc i negre, (Altre:) blancs i negres» (multimèdia)"
 
     {\bBlack\s(&|and)\sWhite\b}i
     valid msgstr="Blancs? i negres?"
-    hint="Es tradueix per «(Eina:) Blanc i negre, Altre: blancs i negres» (multimèdia)"
+    hint="Es tradueix per «(Eina:) Blanc i negre, (Altre:) blancs i negres» (multimèdia)"
 
     {\bblack(.|.?)level\b}i
     valid msgstr="nivell de negre"
@@ -136,7 +136,7 @@ hint="Es tradueix per «(Efecte:) Barreja, barreja/r/t» (multimèdia)"
 
     {\bblending\sexposure\b}i
     valid msgstr="barreja de l'exposició"
-    hint="Es tradueix per «barreja de l'exposició» (multimèdia)"
+    hint="Es tradueix per «(Eina:) barreja de l'exposició» (multimèdia)"
 
     {\bExpoblending(\sTool)?\b}i
     valid msgstr="Barreja de l'exposició"
@@ -144,7 +144,7 @@ hint="Es tradueix per «(Efecte:) Barreja, barreja/r/t» (multimèdia)"
 
     {\bexposure\sblending\b}i
     valid msgstr="barreja de l'exposició"
-    hint="Es tradueix per «barreja de l'exposició» (multimèdia)"
+    hint="Es tradueix per «(Eina:) barreja de l'exposició» (multimèdia)"
 
     {\bblending\sprocess\b}i
     valid msgstr="procés de barrejat"
@@ -311,6 +311,10 @@ hint="Es tradueix per «clip/s» (multimèdia)"
     valid msgstr="Correcció automàtica del color"
     hint="Es tradueix per «(Eina:) Correcció automàtica del color» (multimèdia)"
 
+    {\bcolor\scontrast\b}i
+    valid msgstr="contrast del color"
+    hint="Es tradueix per «contrast del color» (multimèdia)"
+
     {\bColor\sEffects\b}i
     valid msgstr="Efectes de color"
     hint="Es tradueix per «(Eina:) Efectes de color» (multimèdia)"
@@ -346,9 +350,10 @@ hint="Es tradueix per «clip/s» (multimèdia)"
     hint="Es tradueix per «definició del color» (multimèdia)"
 
     {\bColor\sManagement\b}i
-    valid msgstr="Gestió del color"
     valid comment="Tag\:\stitle" # docmessages
-    hint="Es tradueix per «(Eina:) Gestió del color» (multimèdia)"
+    valid msgstr="Gestió del color"
+    valid msgstr="Gestionar el color"
+    hint="Es tradueix per «(Eina:) Gestió del color, gestionar el color» (multimèdia)"
 
     {\bcolor\ssaturation\scorrection\b}i
     valid msgstr="correcció de la saturació del color"
@@ -523,10 +528,12 @@ hint="Es tradueix per «(Eina:) Escapça/r, escapçat/s, escapçant, escapceu, e
         hint="Es tradueix per «escapçament automàtic» (multimèdia)"
 
 {\bcurves?\b}i
-valid msgstr="Curves.?Adjust"
+valid msgid="Curves.?Adjust"
+valid msgid="Curve\sfree"
+valid msgid="Curve\ssmooth"
 valid msgid="gamma\stransfer\scurve"
 valid msgid="gamma\scurve"
-valid msgstr="S.?curves?"
+valid msgid="S.?curves?"
 valid msgstr="corb(a|es)"
 hint="Es tradueix per «corba/es» (multimèdia)"
 
@@ -537,6 +544,14 @@ hint="Es tradueix per «corba/es» (multimèdia)"
     {\bS(.|.?)curves?\b}i
     valid msgstr="corb(a|es) S"
     hint="Es tradueix per «corba/es S» (multimèdia)"
+
+    {\bCurve\sfree\b}i
+    valid msgstr="corba a pols"
+    hint="Es tradueix per «corba a pols» (multimèdia)"
+
+    {\bCurve\ssmooth\b}i
+    valid msgstr="corba suau"
+    hint="Es tradueix per «corba suau» (multimèdia)"
 
 # Dark
 {\bdark\b}i
@@ -603,6 +618,25 @@ hint="Es tradueix per «realça el contrast» (multimèdia)"
 {\bface\srectangles?\b}i
 valid msgstr="rectangles? de la cara"
 hint="Es tradueix per «rectangle/s de la cara» (multimèdia)"
+
+{\bfilms?\b}i
+valid msgid="Film.?Grain"
+valid msgid="Infrared\sFilm"
+valid msgid="vintage\sfilms?"
+valid msgstr="pel·lícul(a|es)"
+hint="Es tradueix per «pel·lícula/es» (multimèdia)"
+
+    {\bFilm(.|.?)Grain\b}i
+    valid msgstr="Gra de pel·lícula"
+    hint="Es tradueix per «(Efecte:) Gra de pel·lícula» (multimèdia)"
+
+    {\bInfrared\sFilm\b}i
+    valid msgstr="Pel·lícula infraroja"
+    hint="Es tradueix per «(Efecte:) Pel·lícula infraroja» (multimèdia)"
+
+    {\bvintage\sfilms?\b}i
+    valid msgstr="pel·lícul(a|es) d'època"
+    hint="Es tradueix per «(Efecte:) pel·lícula/es d'època» (multimèdia)"
 
 {\bflare\b}i
 valid msgstr="centelleig"
@@ -961,6 +995,10 @@ hint="Es tradueix per «Propòsit/s» (multimèdia)"
     valid msgstr="Propòsits? de saturació"
     hint="Es tradueix per «Propòsit/s de saturació» (multimèdia)"
 
+{\binterpolations?\b}i
+valid msgstr="interpolaci(ó|ons)"
+hint="Es tradueix per «interpolació/ons» (multimèdia)"
+
 {\bkeep(ing)?\stabs\b}i
 valid msgstr="ordenar les" # KDE UserBase
 valid msgstr="molt més fàcil ordenar" # KDE UserBase
@@ -1247,8 +1285,11 @@ hint="Es tradueix per «transmissió mínima» (multimèdia)"
 # Noise
 {\bnoise\b}i
 valid msgid="background\snoise"
-valid msgid="noise\sscale"
+valid msgid="noise\sfilter\b"
+valid msgid="noise\sfiltering"
 valid msgid="noise\sreduction"
+valid msgid="noise\sscale"
+valid msgid="spike\snoise"
 valid msgstr="soroll"
 hint="Es tradueix per «soroll» (multimèdia)"
 
@@ -1256,13 +1297,13 @@ hint="Es tradueix per «soroll» (multimèdia)"
     valid msgstr="soroll de fons"
     hint="Es tradueix per «soroll de fons» (multimèdia)"
 
-    {\bnoise\sscale\b}i
-    valid msgstr="escala del soroll"
-    hint="Es tradueix per «escala del soroll» (multimèdia)"
-  
-    {\bno\snoise\sreduction\b}i
-    valid msgstr="sense reducció del soroll"
-    hint="Es tradueix per «sense reducció del soroll» (multimèdia)"
+    {\bnoise\sfilter\b}i
+    valid msgstr="filtre del soroll"
+    hint="Es tradueix per «filtre del soroll» (multimèdia)"
+
+    {\bnoise\sfiltering\b}i
+    valid msgstr="filtratge del soroll"
+    hint="Es tradueix per «filtratge del soroll» (multimèdia)"
 
     {\bNoise(.|.?)Reduction\b}i
     valid comment="Tag\:\stitle" # docmessages
@@ -1275,6 +1316,14 @@ hint="Es tradueix per «soroll» (multimèdia)"
         {\bAuto(matic)?(.|.?)Noise(.|.?)Reduction\b}i
         valid msgstr="Reducció automàtica del soroll"
         hint="Es tradueix per «(Eina:) Reducció automàtica del soroll» (multimèdia)"
+
+        {\bno\snoise\sreduction\b}i
+        valid msgstr="sense reducció del soroll"
+        hint="Es tradueix per «sense reducció del soroll» (multimèdia)"
+
+    {\bnoise\sscale\b}i
+    valid msgstr="escala del soroll"
+    hint="Es tradueix per «escala del soroll» (multimèdia)"
 
     {\bspike\snoise\b}i
     valid msgstr="pic de soroll"
@@ -1411,14 +1460,14 @@ hint="Es tradueix per «píxels» (multimèdia)"
     valid msgstr="píxels? morts?"
     hint="Es tradueix per «píxel/s mort/s» (multimèdia)"
 
-    {\bHot(.|.?)Pixels?\sCorrection\b}i
-    valid msgstr="Correcció dels píxels cremats"
-    hint="Es tradueix per «(Eina:) Correcció dels píxels cremats» (multimèdia)"
-
     {\bhot(.|.?)pixels?\b}i
-    valid msgid="Hot.?Pixel\sCorrection"
+    valid msgid="Hot.?Pixels?\sCorrection"
     valid msgstr="píxels? cremats?"
     hint="Es tradueix per «píxel/s cremat/s» (multimèdia)"
+
+        {\bHot(.|.?)Pixels?\sCorrection\b}i
+        valid msgstr="Correcció dels píxels cremats"
+        hint="Es tradueix per «(Eina:) Correcció dels píxels cremats» (multimèdia)"
 
     {\bItem\sPixel\sSize\b}i
     valid msgstr="Mida del píxel de l'element"
@@ -1519,7 +1568,7 @@ hint="Es tradueix per «perfil/s» (multimèdia)"
 
     {\bcolor\sprofiles?\b}i
     valid msgid="working\sspace\scolor\sprofiles?"
-    valid msgstr="\bperfils? de color\b"
+    valid msgstr="perfils? de color\b"
     hint="Es tradueix per «perfil/s de color» (multimèdia)"
 
     {\bmonitor\scolor\sspace\sprofiles?\b}i
@@ -1574,8 +1623,13 @@ hint="Es tradueix per «perfil/s» (multimèdia)"
 {\bprofil(es?|ed|ing)\b}i
 valid msgid="proofing\sprofiles?"
 valid msgid="printer profiling"
+valid msgid="roll\sprofiles?"
 valid msgstr="perfil(en|ar|at|s)?"
 hint="Es tradueix per «perfil/s, perfilar/t, perfilen» (multimèdia)"
+
+    {\broll\sprofiles?\b}i
+    valid msgstr="perfils? de rotllo\b"
+    hint="Es tradueix per «perfil/s de rotllo» (multimèdia)"
 
 # Range
     {\bfullest\srange\b}i
@@ -1663,6 +1717,10 @@ hint="Es tradueix per «món real» (multimèdia)"
 {\bRules?\sof\sThird\b}i
 valid msgstr="Regla dels terços"
 hint="Es tradueix per «(Guia:) Regla dels terços» (multimèdia)"
+
+{\bsaturated\b}i
+valid msgstr="saturats?"
+hint="Es tradueix per «saturat/s» (multimèdia)"
 
 # Scanners | Scanned
 {\bscanners?\b}i
@@ -2036,6 +2094,10 @@ hint="Es tradueix per «retall/a» (multimèdia)"
     valid msgstr="retallat en roda"
     hint="Es tradueix per «retallat en roda» (multimèdia)"
 
+{\btruncation\seffects?\b}i
+valid msgstr="efectes? de truncament"
+hint="Es tradueix per «efecte/s de truncament» (multimèdia)"
+
 {\buncalibrated\b}i
 valid msgstr="sense calibrar"
 hint="Es tradueix per «sense calibrar» (multimèdia)"
@@ -2043,6 +2105,7 @@ hint="Es tradueix per «sense calibrar» (multimèdia)"
 {\bun(.|.?)focus\b}i
 valid msgstr="manca de definició"
 hint="Es tradueix per «manca de definició» (multimèdia)"
+Vibrance
 
 {\bwarp(ing)?\b}i
 valid msgstr="deforma(nt|r)?"
@@ -2128,6 +2191,7 @@ hint="Es tradueix per «estació de treball» (multimèdia)"
     hint="Es tradueix per «(Eina:) Aplica/r una textura» (multimèdia)"
 
     {\bAuto(.|.?)Correction\b}i
+    valid msgid="Color\sAuto.?Correction"
     valid msgid="Lens\sAuto.?Correction"
     valid msgstr="Correcció automàtica"
     hint="Es tradueix per «(Eina:) Correcció automàtica» (multimèdia)"
@@ -2167,6 +2231,10 @@ hint="Es tradueix per «estació de treball» (multimèdia)"
         {\bHard\sEdges?\b}i
         valid msgstr="vor(a|es) dur(a|es)"
         hint="Es tradueix per «vora/es dura/es» (multimèdia)"
+
+    {\bEncoding\sDepth\b}i
+    valid msgstr="Profunditat de codificació"
+    hint="Es tradueix per «(Eina:) Profunditat de codificació» (multimèdia)"
 
     {\bEqualize\b}i
     valid msgstr="Equalitza"
@@ -2285,6 +2353,7 @@ hint="Es tradueix per «estació de treball» (multimèdia)"
     # Al Gnome «smooth gradients» és «degradats suaus»
     # Al Gnome «smooth» és «suavitzar»
     {\bSmooth(ness)?\b}i
+    valid msgid="Curve\ssmooth"
     valid msgid="very\ssmooth"
     valid msgstr="suavitzat?"
     valid msgstr="\bsuau\b"
@@ -2357,10 +2426,6 @@ hint="Es tradueix per «estació de treball» (multimèdia)"
     valid msgstr="Relleu"
     hint="Es tradueix per «(Efecte:) Relleu» (multimèdia)"
 
-    {\bFilm(.|.?)Grain\b}i
-    valid msgstr="Gra de pel·lícula"
-    hint="Es tradueix per «(Efecte:) Gra de pel·lícula» (multimèdia)"
-
     {\bFish(.|.?)Eyes\b}i
     valid msgstr="Ull de peix"
     hint="Es tradueix per «(Efecte:) Ull de peix» (multimèdia)"
@@ -2368,10 +2433,6 @@ hint="Es tradueix per «estació de treball» (multimèdia)"
     {\bFrost\sGlass\b}i
     valid msgstr="Vidre glaçat"
     hint="Es tradueix per «(Efecte:) Vidre glaçat» (multimèdia)"
-
-    {\bInfrared\sFilm\b}i
-    valid msgstr="Pel·lícula infraroja"
-    hint="Es tradueix per «(Efecte:) Pel·lícula infraroja» (multimèdia)"
 
     {\bOil(.|.?)Painting\b}i
     valid msgstr="Pintura a l'oli"
@@ -2385,3 +2446,7 @@ hint="Es tradueix per «estació de treball» (multimèdia)"
     {\bTwirl\b}i
     valid msgstr="Molinet"
     hint="Es tradueix per «(Efecte/Filtre:) Molinet» (multimèdia)"
+
+    {\bVibrance\b}i
+    valid msgstr="vivesa"
+    hint="Es tradueix per «(Efecte:) vivesa» (multimèdia)"
