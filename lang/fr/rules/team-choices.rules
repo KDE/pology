@@ -109,6 +109,7 @@ validGroup userinputTag
 valid cat="konsole"
 valid cat="ksysv" after="^" before="$"
 valid cat="ksysv"
+valid cat="libksieve" msgid="\"stop\""
 valid cat="kmail_troubleshooting" msgid="akonadictl stop"
 hint="préférons « arrêt » à « stop »"
 
@@ -158,6 +159,8 @@ valid after="CU|X|Moteur "
 valid msgid="Rating:"
 valid cat="knotes"
 valid cat="korganizer"
+valid cat="messageviewerplugins"
+valid cat="libnoteshared"
 valid cat="gwenview" after="^"
 valid cat="step_qt" after="Formule|Image"
 valid cat="kile" after="&DVI;-"
@@ -523,6 +526,7 @@ hint="Utilisez plutôt « Mettre en valeur » (homogénéité)"
 {\bgroupware\b}i
 valid msgstr="logiciel de groupe"
 valid msgstr="groupe de travail"
+valid msgstr="collaboration"
 valid after="Open "
 hint="Traduisez « groupware » par « logiciel de groupe de travail » ou « logiciel de groupe » (version courte) lorsque c'est un nom ou « collaboration » dans le contexte d'un adjectif"
 
@@ -599,7 +603,7 @@ hint="Traduisez « mouse cursor » et « mouse pointer » par « pointeur de la 
 
 
 {\battachment method}i
-valid msgstr="méthode .* pour joindre"
+valid msgstr="[Mm]éthode.* pour joindre"
 hint="Traduisez « attachment method » par « méthode pour joindre »."
 
 # End of rule file

@@ -125,6 +125,7 @@ valid after="fileref=\"\S*" before="\S*\""
 valid cat="kile_scripting" after=".*view\..*"
 valid cat="kdm_kdmrc-ref" msgid="SelectedUsers|PreselectUser"
 valid cat="tellico_advanced" msgid="bool importTellico*|int addEntry*"
+valid cat="libksieve" before="ConvertParameterWidget"
 hint="Mettre un accent aigu sur le premier « e », pas sur le deuxième"
 
 [n[eè]cess|néc[éè]ss]i
@@ -148,6 +149,8 @@ valid cat="kio_groupwise" after="/" before="sbook/"
 valid cat="kmail" after="^\[" before="sBook\]$"
 valid cat="kspread,sheets,sheets_functions" msgid="ADDRESS"
 valid cat="kdm_kdmrc-ref" msgid="SourceAddress"
+valid cat="libtemplateparser" after="%O"
+valid cat="libksieve" msgid="\"address\""
 hint="Seulement un « d » en français"
 
 [dosier]i
@@ -350,6 +353,7 @@ valid cat="kile" before="\}"
 valid after="Desktop |Model "
 valid cat="kile_scripting" msgid="var .*"
 valid cat="kile_scripting" after="document\."
+valid cat="libksieve" msgid="environment test"
 hint="environment -> environnement"
 
 [installeur]i
@@ -470,6 +474,7 @@ valid cat="kppp_accounting"
 valid cat="kdm" after="init"
 valid cat="tellico_hacking" after="_"
 valid cat="kommander_widgets"
+valid after="\." before="/"
 hint="À remplacer par « défaut »" 
 
 [media]i
@@ -489,6 +494,7 @@ valid after="<" before="object>"
 valid before=":/"
 valid before="Device"
 valid before="Wiki"
+valid before=".*-type"
 valid cat="kspread,sheets" before="n"
 valid cat="sheets_functions" before="N"
 valid cat="kmail_configure,kmail_credits-and-licenses,kmail_faq,kmail_getting-started,kmail_importing,kmail_menus" after="davidrugge@"
@@ -599,6 +605,7 @@ valid cat="kdm_theme-ref" msgid="&amp;lt;text xml.*"
 valid cat="tellico_advanced" after="QString "
 valid cat="kommander_widgets"
 valid cat="syntaxhighlighting5_qt"
+valid cat="libksieve" after="extract"
 hint="Merci de mettre un « e » à la fin de « texte » ou « contexte »"
 
 [anti-[^i]]i

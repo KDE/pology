@@ -300,6 +300,7 @@ valid after="&unbsp;" before="&unbsp;»"
 valid after="<quote>" before="</quote>"
 valid after="https?://\S+"
 valid after="\?" 
+valid after="\*" 
 valid after="<filename>\S*" before="\S*</filename>"
 valid after="<keycap>\S*" before="\S*</keycap>"
 valid cat="kfindpart" after="l" before="t"
@@ -319,6 +320,7 @@ valid after="xml version=.*"
 valid after="mailto:.*"
 valid ctx="Numbers and characters"
 valid ctx="Query"
+valid msgid="regex"
 hint="Mettre une espace insécable avant et une espace après"
 
 [,]
@@ -572,6 +574,7 @@ valid cat="kppp_hayes" msgid="U.S.|U.K."
 valid cat="kile" msgid=".*DeclareGraphicsRule.*|.*documentclass.*"
 valid ctx="Numbers and characters"
 valid cat="kdm_theme-ref" msgid="&amp;lt;\?xml version=\"1.0\".*"
+valid cat="libtemplateparser" before="[A-Z]+"
 hint="Mettre une espace insécable avant et une espace après"
 
 [\d¤\b]
