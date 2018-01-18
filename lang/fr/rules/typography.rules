@@ -575,6 +575,7 @@ valid cat="kile" msgid=".*DeclareGraphicsRule.*|.*documentclass.*"
 valid ctx="Numbers and characters"
 valid cat="kdm_theme-ref" msgid="&amp;lt;\?xml version=\"1.0\".*"
 valid cat="libtemplateparser" before="[A-Z]+"
+valid cat="kwave" after="\["
 hint="Mettre une espace insécable avant et une espace après"
 
 [\d¤\b]
