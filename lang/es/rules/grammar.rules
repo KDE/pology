@@ -1001,6 +1001,7 @@ hint="«¡Como...» se escribe como «¡Cómo...», (error gramatical)"
 
 [¡(\w+\s)?que\b]i
 id="gr-1-que-admirativo"
+valid msgstr="(hay|seguro|\w+s)\sque"
 hint="«¡... que» se escribe como «¡... qué», (error gramatical)"
 
 [¡porque\b]i
@@ -2051,7 +2052,7 @@ hint="Después de «Inferior, Superior, Anterior, Posterior» no debe figurar «
 #id="gr-2-mayor-a"
 #hint="Después de «Mayor, Menor, Por, Mejor» no debe figurar «A, Al» (error gramatical)"
 
-[(?u)\bte\s(de|verde|rojo|negro|perla|[A-Z]\w+)\b]i
+[(?u)\bte\s(de|verde|rojo|negro|perla|[A-Z]\w+)\b]
 id="gr-2-te-infusion"
 hint="La planta/infusión «té» lleva tilde (error gramatical)"
 

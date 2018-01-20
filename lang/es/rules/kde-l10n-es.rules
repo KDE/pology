@@ -2249,13 +2249,16 @@ id="gk-2-mount"
 valid msgstr="mont(ar|aje|a|e)"
 valid msgstr="montará" after="will\s(\w+\s)?"
 valid msgstr="montó" after="did\s(\w+\s)?"
+valid msgstr="montura"
 hint="«Mount» se traduce como «Montar» (ver glosario)"
 
 {\bmounts\b}i
 id="gk-2-mounts"
 valid msgstr="mont[ea]"
 valid msgstr="montajes"
-valid msgstr="(algún|ningún|alguna|cualquier|ninguna)\smontaje"
+valid msgstr="(algún|ningún|cualquier)\smontaje"
+valid msgstr="monturas"
+valid msgstr="(alguna|cualquier|ninguna)\smontura"
 hint="«Mounts» se traduce como «Monta» (ver glosario)"
 
 {\bmouse\b}i
