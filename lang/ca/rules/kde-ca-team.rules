@@ -941,7 +941,7 @@ hint="Es tradueix per «safata del sistema» (kde-ca-team)"
 {\btabs?(\scharacter)?\b}i
 id="kct-tab"
 valid msgid="Alt\+Tab" # fals positiu
-valid msgstr="&Tab;" # fals positiu
+valid msgstr="Tab;" # fals positiu etiqueta &Tab;
 valid msgstr="tab" after="alt\+"
 valid msgstr="tab" after="alt\-"
 valid msgstr="tab" after="ctrl\+"
