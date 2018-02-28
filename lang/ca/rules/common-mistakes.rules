@@ -312,14 +312,16 @@ id="common-ves"
 hint="«ves» (verb anar) cal que porti accent «vés» (error freqüent)"
 
 # «widget» es tradueix per «estri».
+# El Termcat recomana traduir «widget» per «giny»
 {\bwidgets?\b}i
 id="common-widget"
 valid msgstr="widgets" cat="www_www" 
 valid msgstr="widget" cat="kdm_theme-ref" # docmessages
 valid msgstr="estris?"
+valid msgstr="ginys?"
 valid msgstr="Widget, true" cat="kommander_dcop" # docmessages
 valid msgstr="SpinBoxInt" cat="kommander_widgets" # docmessages
-hint="«widget» es tradueix per «estri» (error freqüent)"
+hint="«widget» es tradueix per «giny»/«estri» (error freqüent)"
 
 # «world» es tradueix per «món» (amb accent).
 {\bworld\b}i

@@ -688,7 +688,7 @@ valid comment="Tag\:\sprogramlisting" cat="kdm,kile_scripting,kipi-plugins_geolo
 valid ctx="hour in the messages below"
 # valid msgid="'''" # KDE User_Base
 # valid msgid="''"  # KDE User_Base
-hint="Un apòstrof al final de missatge és un error, excepte a ordres de terminal (tipografia)"
+hint="Un apòstrof final és un error, excepte a ordres de terminal (tipografia)"
 
 # «'$» un apóstrof al final de missatge és un error (ull amb les ordres!).  Substituir per »
 ['$]

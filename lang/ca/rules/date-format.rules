@@ -2,7 +2,7 @@
 # Date rules for Catalan translations
 # License: GPLv3
 #
-# Author: Jordi Mas <jmas@softcatala.org>, 2015
+# Author: Jordi Mas <jmas@softcatala.org>, 2015, 2018
 #
 # Detects date/time string formatters that have not been properly localized
 # having as result the date/time not been shown correctly.
@@ -18,8 +18,10 @@
 # Comentaris sobre el català
 #
 # - L'ús d'article davant mes i any és opcional (http://esadir.cat/gramatica/sintaxi/remartmesany) 
-# - El sistema de formatadors no permet expressar quan l'article s'apostrofa (d'agost, de setembre) 
-#   i està generalment acceptada l'ús de la forma no apostrofada (de). Excepte Mozilla que ho permet.   
+# - A partir de glib 2.28+ els formatadors %b i %B inclouen la preposició adequada (d'agost, de desembre)
+#
+# Podeu fer proves ràpides usant l'ordre date, per exemple: «date -d "2018/04/01" +"%B del %Y"»
+#
 
 
 #
@@ -53,6 +55,12 @@ valid msgstr="%d/%m/%y"
 valid msgstr="%d-%m-%y"
 hint="Especificadors de format de data possiblement incorrectes. En anglès «1/31/2016», en català «31/1/2016»"
 
+{(%B|%b) %Y}
+id="date-format-my"
+valid msgstr="(%B|%b)( de | del )%Y"
+hint="Especificadors de format de data possiblement incorrectes. En català cal dir «abril de 2018» en comptes de «abril 2018»"
+
+
 #
 # PHP
 #
@@ -69,3 +77,15 @@ hint="Especificadors de format de data possiblement incorrectes. En anglès «20
 id="date-format-MMMMd"
 valid msgstr="^d MMMM$"
 hint="Especificadors de format de data possiblement incorrectes. En anglès «January 31 2016», en català «31 de gener 2016»"
+
+
+# glib 2.28+ specific rules
+{%B}
+id="libc-de-b"
+valid !msgstr="( de | d'){1}%B"
+hint="La biblioteca glibc versió 2.28 o superior inclou les proposicions al representar el formatador %B. Afegint la preposició manualment, quelcom necessari en versions anteriors, fa que la preposició «de» aparegui repetida p. ex. «1 de de gener». Cal eliminar la preposició «de» abans de «%B»."
+
+{%b}
+id="libc-dia-de-b"
+valid !msgstr="(%d|%-d|%e|%-e){1}( de | d'){1}%b"
+hint="La biblioteca glibc versió 2.28 o superior inclou les proposicions al representar el formatador %b. Afegint la preposició manualment, quelcom necessari en versions anteriors, fa que la preposició «de» aparegui repetida p. ex. «1 de de gen». Cal eliminar la preposició «de» abans de «%b»."
