@@ -1,0 +1,164 @@
+#
+# Aquest fitxer recull errades comunes en terminologia informàtica aplicant
+# els criteris del TERMCAT i els que usem a Softcatalà i què són acceptats
+# ampliament
+# 
+# License: GPLv3
+#
+# Keep this file alphabetically sorted by source regular expression
+# 
+
+# Remove XML entities.
+include file="filter.include"
+
+# Remove accelerator and  hyphen inside words.
+addFilterRegex match="(_|~|&)" on="pmsgid,pmsgstr"
+
+# Mantenir en order alfabètic 
+
+{\bbackslash\b}i
+id="t-sc-backslash"
+valid msgstr="barra inversa"
+hint="«Backslash» es tradueix per «barra inversa»."
+
+{\bblog\b}i
+id="t-sc-blog"
+valid msgstr="blog"
+hint="«Blog» es tradueix per «blog»."
+
+{^cancel$}i
+id="t-sc-cancel"
+valid msgstr="Cancel·la"
+hint="«Cancel» es tradueix per «cancel·la» quan és una acció, habitualment a menús i botons."
+
+{\bcheckbox\b}i
+id="t-sc-checkbox"
+valid msgstr="casella de selecció"
+hint="«Checkbox» es tradueix per «casella de selecció»."
+
+{^close$}i
+id="t-sc-close"
+valid msgstr="Tanca"
+hint="«Close» es tradueix per «tanca» quan és una acció, habitualment a menús i botons."
+
+{\bcommand line\b}i
+id="t-sc-command-line"
+valid msgstr="línia d'ordres"
+hint="«Command line» es tradueix per «línia d'ordres»."
+
+{^cut$}i
+id="t-sc-cut"
+valid msgstr="Retalla"
+hint="«Cut» es tradueix per «retalla» quan és una acció, habitualment a menús i botons."
+
+{^disable$}i
+id="t-sc-disable"
+valid !msgstr="deshabili*"
+hint="«disable» es tradueix per «inhabilita»."
+
+{^edit$}i
+id="t-sc-edit"
+valid msgstr="Edita"
+hint="«Edit» es tradueix per «edita» quan és una acció, habitualment a menús i botons."
+
+{^exit$}i
+id="t-sc-exit"
+valid msgstr="Surt"
+valid msgstr="Sortida"
+hint="«Exit» es tradueix per «surt» quan és una acció, habitualment a menús i botons."
+
+{^firewall$}i
+id="t-sc-firewall"
+valid !msgstr="tallafocs"
+hint="«firewall» es tradueix per «tallafoc» en singular."
+
+{^help$}i
+id="t-sc-help"
+valid msgstr="Ajuda"
+hint="«Help» es tradueix per «ajuda» quan és una acció, habitualment a menús i botons."
+
+{\bline spacing\b}i
+id="t-sc-linespacing"
+valid msgstr="interlineat"
+hint="«interlineat», és la forma acceptada pel TERMCAT."
+
+{monitor}i
+id="t-sc-monitor"
+valid !msgstr="monitoritzar"
+hint="«Monitoritzar» no existeix com a verb."
+
+{^ok$}i
+id="t-sc-ok"
+valid msgstr="D'acord"
+valid msgstr="Acceptable"
+hint="«Ok» es tradueix per «d'acord» quan és una acció, habitualment a menús i botons."
+
+{^paste$}i
+id="t-sc-paste"
+valid msgstr="Enganxa"
+hint="«Paste» es tradueix per «enganxa» quan és una acció, habitualment a menús i botons."
+
+{\bpath\b}i
+id="t-sc-path"
+valid !msgstr="ruta"
+hint="«Path» es tradueix per «camí» no pas per «ruta»."
+
+{pause}i
+id="t-sc-pause"
+valid !msgstr="pausar"
+hint="«Pausar» no existeix com a verb."
+
+{\bperceptual\b}i
+id="t-sc-perceptual"
+valid !msgstr="Perceptual"
+hint="«Perceptual», és un aglicisme cal usar «perceptiu»."
+
+# Too many false positives
+#{plot}i
+#id="t-sc-plot"
+#valid !msgstr="dibuix"
+#hint="«Plot» es molts contextos es tradueix per «traçar» però no per «dibuixar»."
+
+{\bredirect\b}i
+id="t-sc-redirect"
+valid msgstr="redirigeix"
+valid msgstr="redirigir"
+valid msgstr="redireccions"
+valid msgstr="redirecció"
+hint="«Redirect» es tradueix per «redirecció» si és nom o bé «redirigir» com a verb. L'ús de «redireccionar» és incorrecte."
+
+{^redo$}i
+id="t-sc-redo"
+valid msgstr="refés"
+hint="«Redo» es tradueix per «refés» quan és una acció, habitualment a menús i botons."
+
+{^rotate$}i
+id="t-sc-rotate"
+valid !msgstr="rota"
+hint="Es tradueix per «gira», «rota» és incorrecte."
+
+{^save$}i
+id="t-sc-save"
+valid msgstr="desa"
+hint="«Save» es tradueix per «desa» quan és una acció, habitualment a menús i botons."
+
+{^save as$}i
+id="t-sc-save-as"
+valid msgstr="anomena i desa"
+hint="«Save as» es tradueix per «anomena i desa» quan és una acció, habitualment a menús i botons."
+
+{^undo$}i
+id="t-sc-undo"
+valid msgstr="Desfés"
+hint="«Undo» es tradueix per «desfés» quan és una acció, habitualment a menús i botons."
+
+{\wallpaper$}i
+id="t-sc-wallpaper"
+valid msgstr="fons de pantalla"
+hint="Es tradueix per «fons de pantalla»."
+
+{\bwireless\snetwork\b}i
+id="t-sc-wireless"
+valid !msgstr="xarxa sense fils"
+hint="Es tradueix per «xarxa sense fil», «xarxa sense fils» és incorrecte."
+

@@ -1,0 +1,101 @@
+#
+# Acronyms related information technology for Catalan translations
+# License: GPLv3
+#
+# Author: Jordi Mas <jmas@softcatala.org>, 2018
+#
+#
+# These rules focus on checking the abbreviations in Catalan.
+#
+
+
+# Remove XML entities.
+include file="filter.include"
+
+# Remove accelerator inside words.
+addFilterRegex match="(_|~|&)" on="pmsgid,pmsgstr"
+
+# Mesos
+{^jan$}i
+id="abbreviations-jan"
+valid msgstr="gen."
+hint="L'abreviatura del mes de gener és «gen.»."
+
+{^feb$}i
+id="abbreviations-feb"
+valid msgstr="febr."
+hint="L'abreviatura del mes de febrer és «febr.»."
+
+{^apr$}i
+id="abbreviations-apr"
+valid msgstr="abr."
+hint="L'abreviatura del mes d'abril és «abr.»."
+
+{^jul$}i
+id="abbreviations-jul"
+valid msgstr="jul."
+hint="L'abreviatura del mes de juliol és «jul.»."
+
+{^aug$}i
+id="abbreviations-aug"
+valid msgstr="ag."
+hint="L'abreviatura del mes d'agost és «ag.»."
+
+{^sep$}i
+id="abbreviations-sep"
+valid msgstr="set."
+hint="L'abreviatura del mes de setembre és «set.»."
+
+{^oct$}i
+id="abbreviations-oct"
+valid msgstr="oct."
+hint="L'abreviatura del mes d'octubre és «oct.». En compte que ens alguns casos pot ser abreviatura d'octal."
+
+{^nov$}i
+id="abbreviations-nov"
+valid msgstr="nov."
+hint="L'abreviatura del mes de novembre és «nov.»."
+
+{^dec$}i
+id="abbreviations-dec"
+valid msgstr="des."
+hint="L'abreviatura del mes de desembre és «des.»."
+
+# Dies de la setmana
+
+{^mon$}i
+id="abbreviations-mon"
+valid msgstr="dl."
+valid msgstr="mes"
+hint="L'abreviatura de dilluns és «dl.»."
+
+{^tue$}i
+id="abbreviations-tue"
+valid msgstr="dt."
+hint="L'abreviatura de dimarts és «dt.»."
+
+{^Wed$}i
+id="abbreviations-wed"
+valid msgstr="dc."
+hint="L'abreviatura del dimecres és «dc.»."
+
+{^Thu$}i
+id="abbreviations-thu"
+valid msgstr="dj."
+hint="L'abreviatura del dijous és «dj.»."
+
+{^Fri$}i
+id="abbreviations-fri"
+valid msgstr="dv."
+hint="L'abreviatura del divendres és «dv.»."
+
+{^Sat$}i
+id="abbreviations-sat"
+valid msgstr="ds."
+hint="L'abreviatura del dissabte és «ds.»."
+
+{e\.g\.}i
+id="abbreviations-eg"
+valid msgstr="p. ex."
+valid msgstr="per exemple"
+hint="L'abreviatura de per exemple és «p. ex.» (amb espai inclòs)."
