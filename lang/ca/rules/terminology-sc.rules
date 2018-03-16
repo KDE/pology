@@ -145,6 +145,7 @@ hint="«Save» es tradueix per «desa» quan és una acció, habitualment a men�
 {^save as$}i
 id="t-sc-save-as"
 valid msgstr="anomena i desa"
+valid msgstr="desa com a" # Acceptat pel Termcat
 hint="«Save as» es tradueix per «anomena i desa» quan és una acció, habitualment a menús i botons."
 
 {^undo$}i

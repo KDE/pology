@@ -143,7 +143,6 @@ hint="Es tradueix per «marca/ques de selecció» (kde-ca-team)"
 {\bcheck.?box(es|s)?\b}i
 id="kct-checkbox"
 valid msgstr="casell(a|es) de selecció"
-valid msgstr="casellaDeSelecció" cat="kexi"
 valid msgstr="CheckBox" cat="kommander_dcop,kommander_editor,kommander_widgets" # docmessages
 hint="Es tradueix per «casella/es de selecció» (kde-ca-team)"
 
