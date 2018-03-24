@@ -6,15 +6,13 @@
 # License: GPLv3
 #
 # Keep this file alphabetically sorted by source regular expression
-# 
+
 
 # Remove XML entities.
 include file="filter.include"
 
 # Remove accelerator and  hyphen inside words.
 addFilterRegex match="(_|~|&)" on="pmsgid,pmsgstr"
-
-# Mantenir en order alfabètic 
 
 {\bbackslash\b}i
 id="t-sc-backslash"
@@ -53,7 +51,7 @@ hint="«Cut» es tradueix per «retalla» quan és una acció, habitualment a me
 
 {^disable$}i
 id="t-sc-disable"
-valid !msgstr="deshabili*"
+valid !msgstr="deshabili.*"
 hint="«disable» es tradueix per «inhabilita»."
 
 {^edit$}i
@@ -67,7 +65,7 @@ valid msgstr="Surt"
 valid msgstr="Sortida"
 hint="«Exit» es tradueix per «surt» quan és una acció, habitualment a menús i botons."
 
-{^firewall$}i
+{\bfirewall\b}i
 id="t-sc-firewall"
 valid !msgstr="tallafocs"
 hint="«firewall» es tradueix per «tallafoc» en singular."
@@ -82,7 +80,7 @@ id="t-sc-linespacing"
 valid msgstr="interlineat"
 hint="«interlineat», és la forma acceptada pel TERMCAT."
 
-{monitor}i
+{\bmonitor.*\b}i
 id="t-sc-monitor"
 valid !msgstr="monitoritzar"
 hint="«Monitoritzar» no existeix com a verb."
@@ -103,7 +101,7 @@ id="t-sc-path"
 valid !msgstr="ruta"
 hint="«Path» es tradueix per «camí» no pas per «ruta»."
 
-{pause}i
+{\bpause.*\b}i
 id="t-sc-pause"
 valid !msgstr="pausar"
 hint="«Pausar» no existeix com a verb."
@@ -113,8 +111,8 @@ id="t-sc-perceptual"
 valid !msgstr="Perceptual"
 hint="«Perceptual», és un aglicisme cal usar «perceptiu»."
 
-# Too many false positives
-#{plot}i
+# Disabled: Too many false positives
+#{\bplot.*\b}i
 #id="t-sc-plot"
 #valid !msgstr="dibuix"
 #hint="«Plot» es molts contextos es tradueix per «traçar» però no per «dibuixar»."
@@ -132,9 +130,9 @@ id="t-sc-redo"
 valid msgstr="refés"
 hint="«Redo» es tradueix per «refés» quan és una acció, habitualment a menús i botons."
 
-{^rotate$}i
+{\brotate\b}i
 id="t-sc-rotate"
-valid !msgstr="rota"
+valid !msgstr="\brota\b"
 hint="Es tradueix per «gira», «rota» és incorrecte."
 
 {^save$}i
@@ -153,13 +151,12 @@ id="t-sc-undo"
 valid msgstr="Desfés"
 hint="«Undo» es tradueix per «desfés» quan és una acció, habitualment a menús i botons."
 
-{\wallpaper$}i
+{\bwallpaper\b}i
 id="t-sc-wallpaper"
-valid msgstr="fons de pantalla"
+valid !msgstr="fons d'escriptori"
 hint="Es tradueix per «fons de pantalla»."
 
 {\bwireless\snetwork\b}i
 id="t-sc-wireless"
 valid !msgstr="xarxa sense fils"
 hint="Es tradueix per «xarxa sense fil», «xarxa sense fils» és incorrecte."
-
