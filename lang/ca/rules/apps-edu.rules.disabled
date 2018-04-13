@@ -1,0 +1,683 @@
+# Personal rules for Catalan translations
+# by KDE Catalan Team (kde-i18n-ca@kde.org)
+# License: GPLv3
+
+# *edu
+# LabPlot, RKWard
+#
+# http://aprenestadistica.idescat.cat/primaria/activitats/common/glossari.jsp?id=4#anchor
+
+# Remove XML entities.
+# include file="../filter.include"
+
+# Remove accelerator and  hyphen inside words.
+addFilterRegex match="(\&)" on="pmsgid,pmsgstr"
+
+{\b\b}i
+valid msgstr=""
+hint="Cal substituir-ho per «» (personal)"
+
+{\bAssociated\sLegendre\spolynomial\b}i
+valid msgstr="Polinomis associats de Legendre"
+hint="Cal substituir-ho per «Polinomis associats de Legendre» (personal)"
+
+# https://ca.wikipedia.org/wiki/Gravetat_superficial
+{\bBase\s10\slogarithm\b}i
+valid msgstr="Logaritme en base 10\b"
+hint="Cal substituir-ho per «Logaritme en base 10» (personal)"
+
+{\bbiserial\b}i
+valid msgstr="biserials"
+hint="Cal substituir-ho per «biserials» (personal)"
+
+{\bbivariate\b}i
+valid msgid="bivariate\snormality"
+valid msgstr="bivariada"
+hint="Cal substituir-ho per «bivariada» (personal)"
+
+    {\bbivariate\snormality\b}i
+    valid msgstr="normalitat bivariada"
+    hint="Cal substituir-ho per «normalitat bivariada» (personal)"
+
+{\bCarlson\sform\b}i
+valid msgstr="Forma de Carlson\b"
+hint="Cal substituir-ho per «Forma de Carlson» (personal)"
+
+{\bChi.squared\b}i
+valid msgid="Chi.squared\sDistribution"
+valid msgstr="khi quadrat"
+hint="Cal substituir-ho per «khi quadrat» (personal)"
+
+{\bcorrelation\b}i
+valid msgstr="correlació"
+hint="Cal substituir-ho per «correlació» (personal)"
+
+    {\bcorrelations\b}i
+    valid msgstr="correlacions"
+    hint="Cal substituir-ho per «correlacions» (personal)"
+
+    {\bcorrelation\smatrix\b}i
+    valid msgid="correlation\smatrix\sPlot"
+    valid msgstr="matriu de correlació"
+    hint="Cal substituir-ho per «matriu de correlació» (personal)"
+
+    {\bcorrelation\smatrix\sPlot\b}i
+    valid msgstr="Trama de la matriu de correlació"
+    hint="Cal substituir-ho per «Trama de la matriu de correlació» (personal)"
+
+# https://ca.wikipedia.org/wiki/Arrel_c%C3%BAbica
+{\bCube\sroot\b}i
+valid msgstr="Arrel cúbica"
+hint="Cal substituir-ho per «Arrel cúbica» (personal)"
+
+{\bDescriptive\sStatistics\b}i
+valid msgstr="Estadístiques descriptives"
+hint="Cal substituir-ho per «Estadístiques descriptives» (personal)"
+
+# Nota: o funció de Spence
+{\bDilogarithm\b}i
+valid msgstr="Dilogaritme"
+hint="Cal substituir-ho per «Dilogaritme» (personal)"
+
+# Distribució
+    # https://ca.wikipedia.org/wiki/Distribuci%C3%B3_de_Bernoulli
+    {\bBernoulli\sDistribution\b}i
+    valid msgstr="Distribució de Bernoulli\b"
+    hint="Cal substituir-ho per «Distribució de Bernoulli» (personal)"
+
+    {\bBeta\sDistribution\b}i
+    valid msgstr="Distribució beta\b"
+    hint="Cal substituir-ho per «Distribució beta» (personal)"
+
+    # https://ca.wikipedia.org/wiki/Distribuci%C3%B3_binomial
+    {\bBinomial\sDistribution\b}i
+    valid msgstr="Distribució binomial"
+    hint="Cal substituir-ho per «Distribució binomial» (personal)"
+
+    # https://ca.wikipedia.org/wiki/Distribuci%C3%B3_de_Cauchy
+    {\bCauchy\sDistribution\b}i
+    valid msgstr="Distribució de Cauchy\b"
+    hint="Cal substituir-ho per «Distribució de Cauchy» (personal)"
+
+    # https://ca.wikipedia.org/wiki/Distribuci%C3%B3_khi_quadrat
+    {\bChi.squared\sDistribution\b}i
+    valid msgstr="Distribució khi quadrat"
+    hint="Cal substituir-ho per «Distribució khi quadrat» (personal)"
+
+    {\bExponential\sDistribution\b}i
+    valid msgstr="Distribució exponencial"
+    hint="Cal substituir-ho per «Distribució exponencial» (personal)"
+
+    {\bExponential\sPower\sDistribution\b}i
+    valid msgstr="Distribució de potència exponencial"
+    hint="Cal substituir-ho per «Distribució de potència exponencial» (personal)"
+
+    # https://ca.wikipedia.org/wiki/Distribuci%C3%B3_F
+    {\bF-distribution\b}i
+    valid msgstr="Distribució F\b"
+    hint="Cal substituir-ho per «Distribució F» (personal)"
+
+    # https://ca.wikipedia.org/wiki/Distribuci%C3%B3_uniforme
+    {\bFlat\s.Uniform.\sDistribution\b}i
+    valid msgstr="Distribució plana .uniforme."
+    hint="Cal substituir-ho per «Distribució plana (uniforme)» (personal)"
+
+    # https://ca.wikipedia.org/wiki/Distribuci%C3%B3_gamma
+    {\bGamma\sDistribution\b}i
+    valid msgstr="Distribució gamma\b"
+    hint="Cal substituir-ho per «Distribució gamma» (personal)"
+
+    {\bGaussian\sDistribution\b}i
+    valid msgstr="Distribució gaussiana"
+    hint="Cal substituir-ho per «Distribució gaussiana» (personal)"
+
+    {\bGeometric\sDistribution\b}i
+    valid msgstr="Distribució geomètrica"
+    hint="Cal substituir-ho per «Distribució geomètrica» (personal)"
+
+    {\bGumbel\sDistribution\b}i
+    valid msgstr="Distribució de Gumbel\b"
+    hint="Cal substituir-ho per «Distribució de Gumbel» (personal)"
+
+    # https://ca.wikipedia.org/wiki/Distribuci%C3%B3_hipergeom%C3%A8trica
+    {\bHypergeometric\sDistribution\b}i
+    valid msgstr="Distribució hipergeomètrica"
+    hint="Cal substituir-ho per «Distribució hipergeomètrica» (personal)"
+
+    {\bLandau\sDistribution\b}i
+    valid msgstr="Distribució de Landau\b"
+    hint="Cal substituir-ho per «Distribució de Landau» (personal)"
+
+    {\bLaplace\sDistribution\b}i
+    valid msgstr="Distribució de Laplace\b"
+    hint="Cal substituir-ho per «Distribució de Laplace» (personal)"
+
+    {\bLogarithmic\sDistribution\b}i
+    valid msgstr="Distribució logarítmica"
+    hint="Cal substituir-ho per «Distribució logarítmica» (personal)"
+
+    {\bLogistic\sDistribution\b}i
+    valid msgstr="Distribució logística"
+    hint="Cal substituir-ho per «Distribució logística» (personal)"
+
+    # https://ca.wikipedia.org/wiki/Logaritme
+    {\bLognormal\sDistribution\b}i
+    valid msgstr="Distribució log-normal"
+    hint="Cal substituir-ho per «Distribució log-normal» (personal)"
+
+    {\bPareto\sDistribution\b}i
+    valid msgstr="Distribució de Pareto\b"
+    hint="Cal substituir-ho per «Distribució de Pareto» (personal)"
+
+    {\bPascal\sDistribution\b}i
+    valid msgstr="Distribució de Pascal\b"
+    hint="Cal substituir-ho per «Distribució de Pascal» (personal)"
+
+    # https://ca.wikipedia.org/wiki/Distribuci%C3%B3_de_Poisson
+    {\bPoisson\sDistribution\b}i
+    valid msgstr="Distribució de Poisson\b"
+    hint="Cal substituir-ho per «Distribució de Poisson» (personal)"
+
+    {\bRayleigh\sDistribution\b}i
+    valid msgstr="Distribució de Rayleigh\b"
+    hint="Cal substituir-ho per «Distribució de Rayleigh» (personal)"
+
+    # https://ca.wikipedia.org/wiki/Distribuci%C3%B3_t_de_Student
+    {\bt-distribution\b}i
+    valid msgstr="Distribució t\b"
+    hint="Cal substituir-ho per «Distribució t» (personal)"
+
+    # https://ca.wikipedia.org/wiki/Distribuci%C3%B3_de_Weibull
+    {\bWeibull\sDistribution\b}i
+    valid msgstr="Distribució de Weibull\b"
+    hint="Cal substituir-ho per «Distribució de Weibull» (personal)"
+
+# https://ca.wikipedia.org/wiki/Factorial
+{\bDouble\sfactorial\b}i
+valid msgstr="Doble factorial"
+hint="Cal substituir-ho per «Doble factorial» (personal)"
+
+{\bElliptic\sIntegrals?\b}i
+valid msgstr="Integrals? el·lípti(ca|ques)"
+hint="Cal substituir-ho per «Integral/s el·líptica/ques» (personal)"
+
+# Funció
+    # https://ca.wikipedia.org/wiki/Funci%C3%B3_d'Airy
+    {\bAiry\sFunctions?\b}i
+    valid msgid="Airy Functions and Derivatives"
+    valid msgstr="Funci(ó|ons) d'Airy\b"
+    hint="Cal substituir-ho per «Funció/ons d'Airy» (personal)"
+
+    {\bAiry\sFunctions\sand\sDerivatives\b}i
+    valid msgstr="Funcions i derivats d'Airy\b"
+    hint="Cal substituir-ho per «Funcions i derivats d'Airy» (personal)"
+
+    # https://ca.wikipedia.org/wiki/Funci%C3%B3_de_Bessel
+    {\bBessel\sFunctions?\b}i
+    valid msgstr="Funci(ó|ons) de Bessel\b"
+    hint="Cal substituir-ho per «Funció/ons de Bessel» (personal)"
+
+    {\bClausen\sFunctions?\b}i
+    valid msgstr="Funci(ó|ons) de Clausen\b"
+    hint="Cal substituir-ho per «Funció/ons de Clausen» (personal)"
+
+    {\bCoulomb\sFunctions?\b}i
+    valid msgstr="Funci(ó|ons) de Coulomb\b"
+    hint="Cal substituir-ho per «Funció/ons de Coulomb» (personal)"
+
+    {\bDawson\s(Functions?|integral)\b}i
+    valid msgstr="Funció de Dawson\b"
+    valid msgstr="Integral de Dawson\b"
+    hint="Cal substituir-ho per «Funció de Dawson, Integral de Dawson» (personal)"
+
+    {\bDebye\sFunctions?\b}i
+    valid msgstr="Funci(ó|ons) de Debye\b"
+    hint="Cal substituir-ho per «Funci(ó|ons) de Debye» (personal)"
+
+    {\bError\sFunctions?\b}i
+    valid msgstr="Funci(ó|ons) d'error\b"
+    hint="Cal substituir-ho per «Funció/ons d'error» (personal)"
+
+    # https://ca.wikipedia.org/wiki/Funci%C3%B3_exponencial
+    {\bExponential\sFunctions?\b}i
+    valid msgstr="Funci(ó|ons) exponencials?"
+    hint="Cal substituir-ho per «Funció/ons exponencial/s» (personal)"
+
+        {\bExponential\sIntegrals?\b}i
+        valid msgstr="Integrals? exponencials?"
+        hint="Cal substituir-ho per «Integral/s exponencial/s» (personal)"
+
+    {\bFermi-Dirac\sFunctions?\b}i
+    valid msgstr="Funció de Fermi-Dirac\b"
+    hint="Cal substituir-ho per «Funció de Fermi-Dirac» (personal)"
+
+        {\bFermi-Dirac\sintegral\b}i
+        valid msgstr="Integral de Fermi-Dirac\b"
+        hint="Cal substituir-ho per «Integral de Fermi-Dirac» (personal)"
+
+    # https://ca.wikipedia.org/wiki/Funci%C3%B3_gamma
+    {\bGamma\sfunction\b}i
+    valid msgstr="Funció gamma\b"
+    hint="Cal substituir-ho per «Funció gamma» (personal)"
+
+        # https://ca.wikipedia.org/wiki/Funci%C3%B3_Gamma
+        {\bGamma\sand\sBeta\sFunctions\b}i
+        valid msgstr="Funcions Gamma i Beta"
+        hint="Cal substituir-ho per «Funcions Gamma i Beta» (personal)"
+
+    {\bGegenbauer\sFunctions?\b}i
+    valid msgstr="Funci(ó|ons) de Gegenbauer\b"
+    hint="Cal substituir-ho per «Funció/ons de Gegenbauer» (personal)"
+
+        {\bGegenbauer\spolynomial\b}i
+        valid msgstr="Polinomi de Gegenbauer\b"
+        hint="Cal substituir-ho per «Polinomi de Gegenbauer» (personal)"
+
+    # https://es.wikipedia.org/wiki/Funci%C3%B3n_de_riesgo
+    {\b(Hazard\sfunctions?)\b}i
+    valid msgstr="Funci(ó|ons) de risc"
+    hint="Cal substituir-ho per «Funció/ons de risc» (personal)"
+
+    {\bLaguerre\sFunctions?\b}i
+    valid msgstr="Funci(ó|ons) de Laguerre\b"
+    hint="Cal substituir-ho per «Funció/ons de Laguerre» (personal)"
+
+    # https://ca.wikipedia.org/wiki/Funci%C3%B3_W_de_Lambert
+    {\bLambert\sW\sFunctions?\b}i
+    valid msgstr="Funci(ó|ons) W de Lambert\b"
+    hint="Cal substituir-ho per «Funció/ons W de Lambert» (personal)"
+
+    {\bLegendre\sFunctions?\b}i
+    valid msgstr="Funci(ó|ons) de Legendre\b"
+    hint="Cal substituir-ho per «Funció/ons de Legendre» (personal)"
+
+        {\bLegendre\sform\b}i
+        valid msgstr="Forma de Legendre\b"
+        hint="Cal substituir-ho per «Forma de Legendre» (personal)"
+
+    {\bPower\sFunctions?\b}i
+    valid msgstr="Funció potencial\b"
+    hint="Cal substituir-ho per «Funció potencial» (personal)"
+
+    # https://ca.wikipedia.org/wiki/Funci%C3%B3_de_densitat_de_probabilitat
+    {\bprobability\sdensity\sfunction\b}i
+    valid msgstr="Funció de densitat de probabilitat"
+    hint="Cal substituir-ho per «Funció de densitat de probabilitat» (personal)"
+
+    {\bPsi\s.?Digamma.?\sFunction\b}i
+    valid msgstr="Funció Psi .digamma."
+    hint="Cal substituir-ho per «Funció Psi (digamma)» (personal)"
+
+    {\bSynchrotron\sFunctions?\b}i
+    valid msgstr="Funci(ó|ons) sincrotró\b"
+    hint="Cal substituir-ho per «Funció/ons sincrotró» (personal)"
+
+    {\bTransport\sFunctions?\b}i
+    valid msgstr="Funci(ó|ons) de transport"
+    hint="Cal substituir-ho per «Funció/ons de transport» (personal)"
+
+    # https://ca.wikipedia.org/wiki/Funci%C3%B3_trigonom%C3%A8trica
+    {\bTrigonometric\sFunctions?\b}i
+    valid msgstr="Funci(ó|ons) trigonomètri(ca|ques)"
+    hint="Cal substituir-ho per «Funció/ons trigonomètrica/ques» (personal)"
+
+    {\bZeta\sFunctions?\b}i
+    valid msgstr="Funci(ó|ons) zeta\b"
+    hint="Cal substituir-ho per «Funció/ons zeta» (personal)"
+
+{\bhydrogenic\b}i
+valid msgstr="hidrogènic"
+hint="Cal substituir-ho per «hidrogènic» (personal)"
+
+# https://ca.wikipedia.org/wiki/S%C3%A8rie_hipergeom%C3%A8trica
+{\bHypergeometric\b}i
+valid msgstr="hipergeomètri(ca|ques)"
+hint="Cal substituir-ho per «hipergeomètrica/ques» (personal)"
+
+{\bHyperbolic\sintegral\b}i
+valid msgstr="Integral hiperbòlic"
+hint="Cal substituir-ho per «Integral hiperbòlic» (personal)"
+
+{\bnormally\sdistributed\sdata\b}i
+valid msgstr="dades distribuïdes segons el normal"
+hint="Cal substituir-ho per «dades distribuïdes segons el normal» (personal)"
+
+{\bnumeric\svectors?\b}i
+valid msgstr="vectors? numèrics?"
+hint="Cal substituir-ho per «vector/s numèric/s» (personal)"
+
+# Paràmetres
+    {\beffect\ssize\b}i
+    valid msgstr="grandària de l'efecte"
+    hint="Cal substituir-ho per «grandària de l'efecte» (personal)"
+
+    {\bpower\sof\stest\b}i
+    valid msgstr="poder de la prova"
+    hint="Cal substituir-ho per «poder de la prova» (personal)"
+
+    {\bsample\ssize\b}i
+    valid msgstr="mida de la mostra"
+    hint="Cal substituir-ho per «mida de la mostra» (personal)"
+
+    {\bscale\sparameters\b}i
+    valid msgstr="paràmetres de l'escala"
+    hint="Cal substituir-ho per «paràmetres de l'escala» (personal)"
+
+    {\bsignificance\slevel\b}i
+    valid msgstr="nivell de significació"
+    hint="Cal substituir-ho per «nivell de significació» (personal)"
+
+{\bPochhammer\ssymbol\b}i
+valid msgstr="Símbol de Pochhammer"
+hint="Cal substituir-ho per «Símbol de Pochhammer» (personal)"
+
+{\bpolyserial\b}i
+valid msgstr="poliserials"
+hint="Cal substituir-ho per «poliserials» (personal)"
+
+{\bpolychoric\b}i
+valid msgstr="policòriques"
+hint="Cal substituir-ho per «policòriques» (personal)"
+
+# Proves
+    {\bAnsari.?Bradley\sTwo.?Sample\sTest\b}i
+    valid msgstr="Prova d'Ansari-Bradley per a dues mostres"
+    hint="Cal substituir-ho per «Prova d'Ansari-Bradley per a dues mostres» (personal)"
+
+    {\bAnsari.?Bradley\sTwo.?Sample\sExact\sTest\b}i
+    valid msgstr="Prova exacta d'Ansari-Bradley per a dues mostres"
+    hint="Cal substituir-ho per «Prova exacta d'Ansari-Bradley per a dues mostres» (personal)"
+
+    {\bAnscombe.?Glynn\sTest\sof\sKurtosis\b}i
+    valid msgstr="Prova d'Anscombe-Glynn per a la curtosi"
+    hint="Cal substituir-ho per «Prova d'Anscombe-Glynn per a la curtosi» (personal)"
+
+    {\bBartlett\sTest\b}i
+    valid msgstr="Prova de Bartlett"
+    hint="Cal substituir-ho per «Prova de Bartlett» (personal)"
+
+    {\bBonett.?Seier\sTest\sof\sGeary's\sKurtosis\b}i
+    valid msgstr="Prova de Bonett-Seier per a la curtosi d'en Geary"
+    hint="Cal substituir-ho per «Prova de Bonett-Seier per a la curtosi d'en Geary» (personal)"
+
+        {\bBonett.?Seier\sTest\sof\sGeary's\smeasure\sof\sKurtosis\b}i
+        valid msgstr="Prova de Bonett-Seier per a mesurar la curtosi d'en Geary"
+        hint="Cal substituir-ho per «Prova de Bonett-Seier per a mesurar la curtosi d'en Geary» (personal)"
+
+    {\bBox.?Pierce\sor\sLjung.?Box\sTests\b}i
+    valid msgstr="Prova de Box-Pierce o Ljung-Box"
+    hint="Cal substituir-ho per «Prova de Box-Pierce o Ljung-Box» (personal)"
+
+    {\bChi.?squared\sTest\sfor\sOutlier\b}i
+    valid msgstr="Prova de Khi quadrat per a una observació atípica"
+    hint="Cal substituir-ho per «Prova de Khi quadrat per a una observació atípica» (personal)"
+
+    {\b\b}i
+    valid msgstr=""
+    hint="Cal substituir-ho per «» (personal)"
+
+    {\bD'Agostino\sTest\sof\sSkewness\b}i
+    valid msgstr="Prova de D'Agostino per a l'asimetria"
+    hint="Cal substituir-ho per «Prova de D'Agostino per a l'asimetria» (personal)"
+
+    {\bDixon\sTest\b}i
+    valid msgid="Dixon\sTest\sfor\soutlier"
+    valid msgstr="Prova de Dixon"
+    hint="Cal substituir-ho per «Prova de Dixon» (personal)"
+
+        {\bDixon\sTest\sfor\soutlier\b}i
+        valid msgstr="Prova de Dixon per a una observació atípica"
+        hint="Cal substituir-ho per «Prova de Dixon per a una observació atípica» (personal)"
+
+        {\bDixon\sTests\sfor\soutlier\b}i
+        valid msgstr="Proves de Dixon per a una observació atípica"
+        hint="Cal substituir-ho per «Proves de Dixon per a una observació atípica» (personal)"
+
+    {\bF.?Test\b}i
+    valid msgstr="Prova F"
+    hint="Cal substituir-ho per «Prova F» (personal)"
+
+    {\bFligner.?Killeen\sTest\b}i
+    valid msgstr="Prova de Fligner-Killeen"
+    hint="Cal substituir-ho per «Prova de Fligner-Killeen» (personal)"
+
+    {\bGrubbs\sTest\b}i
+    valid msgstr="Prova de Grubbs"
+    hint="Cal substituir-ho per «Prova de Grubbs» (personal)"
+
+    {\bKPSS\sTest\sfor\sStationarity\b}i
+    valid msgstr="Prova de KPSS per a l'estacionarietat"
+    hint="Cal substituir-ho per «Prova de KPSS per a l'estacionarietat» (personal)"
+
+    {\bKPSS\sTest\sfor\sLevel\sStationarity\b}i
+    valid msgstr="Prova de KPSS per a l'estacionarietat del nivell"
+    hint="Cal substituir-ho per «Prova de KPSS per a l'estacionarietat del nivell» (personal)"
+
+    {\bLevene's\sTest\b}i
+    valid msgstr="Prova de Levene"
+    hint="Cal substituir-ho per «Prova de Levene» (personal)"
+
+    {\bMood\sTwo.?Sample\sTest\b}i
+    valid msgstr="Prova de Mood per a dues mostres"
+    hint="Cal substituir-ho per «Prova de Mood per a dues mostres» (personal)"
+
+    {\bOutlier\sTests?\b}i
+    valid msgstr="Prov(a|es) per a una observació atípica"
+    hint="Cal substituir-ho per «Prova/es per a una observació atípica» (personal)"
+
+    {\bp.?values?\b}i
+    valid msgstr="valors? p"
+    hint="Cal substituir-ho per «valor/s p» (personal)"
+
+    {\bParametric\stests\b}i
+    valid msgstr="Proves paramètriques"
+    hint="Cal substituir-ho per «Proves paramètriques» (personal)"
+
+        {\bNonparametric\stests\b}i
+        valid msgstr="Proves no paramètriques"
+        hint="Cal substituir-ho per «Proves no paramètriques» (personal)"
+
+    {\bPearson's\sChi\sSquare\sTest\sfor\sCrosstabs\b}i
+    valid msgstr="Prova de khi quadrat de Pearson per a taules de contingència"
+    hint="Cal substituir-ho per «Prova de khi quadrat de Pearson per a taules de contingència» (personal)"
+
+    {\bMonte.?Carlo\stest\b}i
+    valid msgstr="prova de Monte-Carlo"
+    hint="Cal substituir-ho per «prova de Monte-Carlo» (personal)"
+
+    {\bPhillips.?Perron\sTest\b}i
+    valid msgstr="Prova de Phillips-Perron"
+    hint="Cal substituir-ho per «Prova de Phillips-Perron» (personal)"
+
+    {\bt.?Test\b}i
+    valid msgstr="Prova t"
+    hint="Cal substituir-ho per «Prova t» (personal)"
+
+        {\bt.?Tests\b}i
+        valid msgstr="Proves t"
+        hint="Cal substituir-ho per «Proves t» (personal)"
+
+    {\btest\shypothesis\b}i
+    valid msgstr="hipòtesi de prova"
+    hint="Cal substituir-ho per «hipòtesi de prova» (personal)"
+
+    {\bVariant\sof\stest\b}i
+    valid msgstr="Variant de la prova"
+    hint="Cal substituir-ho per «Variant de la prova» (personal)"
+
+    {\bWilcoxon/Mann.?Whitney\sTests\b}i
+    valid msgstr="Proves de Wilcoxon/Mann-Whitney"
+    hint="Cal substituir-ho per «Proves de Wilcoxon/Mann-Whitney» (personal)"
+
+    {\bWilcoxon\sTests\b}i
+    valid msgstr="Proves de Wilcoxon"
+    hint="Cal substituir-ho per «Proves de Wilcoxon» (personal)"
+
+# https://ca.wikipedia.org/wiki/Generador_de_nombres_pseudoaleatoris
+{\bpseudo-random\sintegers?\b}i
+valid msgstr="Enters? pseudoaleatoris?"
+hint="Cal substituir-ho per «Enter/s pseudoaleatori/s» (personal)"
+
+{\brank\b}i
+valid msgstr="rang"
+hint="Cal substituir-ho per «rang» (personal)"
+
+    {\branks\b}i
+    valid msgstr="rangs"
+    hint="Cal substituir-ho per «rangs» (personal)"
+
+    {\bnumeric\sranks\b}i
+    valid msgstr="rangs?numèrics?"
+    hint="Cal substituir-ho per «rang/s numèric/s» (personal)"
+
+{\bRound\b}i
+valid msgstr="Arrodoneix"
+hint="Cal substituir-ho per «Arrodoneix» (personal)"
+
+{\bsample\smoment\b}i
+valid msgstr="moment de la mostra"
+hint="Cal substituir-ho per «moment de la mostra» (personal)"
+
+{\bsample\ssize\b}i
+valid msgstr="mida de la mostra"
+hint="Cal substituir-ho per «mida de la mostra» (personal)"
+
+    {\bsize\sof\sthe\ssample\b}i
+    valid msgstr="mida de la mostra"
+    hint="Cal substituir-ho per «mida de la mostra» (personal)"
+
+{\bSpherical\sHarmonics\b}i
+valid msgstr="harmònics esfèrics"
+hint="Cal substituir-ho per «harmònics esfèrics» (personal)"
+
+{\bsquare\sroot\b}i
+valid msgstr="Arrel quadrada"
+hint="Cal substituir-ho per «Arrel quadrada» (personal)"
+
+# https://ca.wikipedia.org/wiki/S%C3%A8rie_de_Taylor
+{\bTaylor\scoefficient\b}i
+valid msgstr="Coeficient de Taylor"
+hint="Cal substituir-ho per «Coeficient de Taylor» (personal)"
+
+{\btie\b}i
+valid msgstr="relació"
+hint="Cal substituir-ho per «relació» (personal)"
+
+    {\bties\b}i
+    valid msgstr="relacions"
+    hint="Cal substituir-ho per «relacions» (personal)"
+
+{\btetrachoric\b}i
+valid msgstr="tetracòriques"
+hint="Cal substituir-ho per «tetracòriques» (personal)"
+
+{\btwo.?sided\b}i
+valid msgstr="dos costats"
+hint="Cal substituir-ho per «dos costats» (personal)"
+
+{\btwo.?Sample\b}i
+valid msgstr="dues mostres"
+hint="Cal substituir-ho per «dues mostres» (personal)"
+
+{\bunivariate\b}i
+valid msgstr="univariants"
+hint="Cal substituir-ho per «univariants» (personal)"
+
+    {\bmultivariate\b}i
+    valid msgstr="multivariants"
+    hint="Cal substituir-ho per «multivariants» (personal)"
+
+#
+    {\bcosecant\b}i
+    valid msgid="\barc\scosecant\b"
+    valid msgstr="cosecant"
+    hint="Cal substituir-ho per «cosecant» (personal)"
+
+        {\barc\scosecant\b}i
+        valid msgstr="arc cosecant"
+        hint="Cal substituir-ho per «arc cosecant» (personal)"
+
+    {\bcosine\b}i
+    valid msgid="\barc\scosine\b"
+    valid msgid="\bcosine\sintegral\b"
+    valid msgid="\bHyperbolic\scosine\b"
+#     valid msgid="Inverse\shyperbolic\scosine"
+    valid msgstr="cosinus"
+    hint="Cal substituir-ho per «cosinus» (personal)"
+
+        {\barc\scosine\b}i
+        valid msgstr="arc cosinus"
+        hint="Cal substituir-ho per «arc cosinus» (personal)"
+
+        {\bcosine\sintegral\b}i
+        valid msgstr="Integral del cosinus"
+        hint="Cal substituir-ho per «Integral del cosinus» (personal)"
+
+        {\bhyperbolic\scosine\b}i
+        valid msgstr="Cosinus hiperbòlic"
+        hint="Cal substituir-ho per «Cosinus hiperbòlic» (personal)"
+
+    {\bcotangent\b}i
+    valid msgid="\barc\scotangent\b"
+    valid msgstr="cotangent"
+    hint="Cal substituir-ho per «cotangent» (personal)"
+
+        {\barc\scotangent\b}i
+        valid msgstr="arc cotangent"
+        hint="Cal substituir-ho per «arc cotangent» (personal)"
+
+    {\bsecant\b}i
+    valid msgid="\barc\ssecant\b"
+    valid msgstr="secant"
+    hint="Cal substituir-ho per «secant» (personal)"
+
+        {\barc\ssecant\b}i
+        valid msgstr="arc secant"
+        hint="Cal substituir-ho per «arc secant» (personal)"
+
+    {\bsine\b}i
+    valid msgid="\barc\ssine\b"
+    valid msgid="Hyperbolic\ssine"
+    valid msgid="\bsine\sintegral\b"
+    valid msgstr="sinus"
+    hint="Cal substituir-ho per «sinus» (personal)"
+
+        {\barc\ssine\b}i
+        valid msgstr="arc sinus"
+        hint="Cal substituir-ho per «arc sinus» (personal)"
+
+        {\bHyperbolic\ssine\b}i
+        valid msgstr="Sinus hiperbòlic"
+        hint="Cal substituir-ho per «Sinus hiperbòlic» (personal)"
+
+        {\bsine\sintegral\b}i
+        valid msgstr="Integral del sinus"
+        hint="Cal substituir-ho per «Integral del sinus» (personal)"
+
+    {\btangent\b}i
+    valid msgid="\barc\stangent\b"
+    valid msgid="\bhyperbolic\stangent\b"
+    valid msgstr="tangent"
+    hint="Cal substituir-ho per «tangent» (personal)"
+
+        {\barc\stangent\b}i
+        valid msgstr="arc tangent"
+        hint="Cal substituir-ho per «arc tangent» (personal)"
+
+        {\bhyperbolic\stangent\b}i
+        valid msgstr="Tangent hiperbòlica"
+        hint="Cal substituir-ho per «Tangent hiperbòlica» (personal)"
+####
+
+# frases
+{\bPlease\sconsider\sthat\sthis\stest\sis\sno\slonger\srecommended\b\.}i
+valid msgstr="Tingueu en compte que aquesta prova ja no és recomanable\."
+hint="Cal substituir-ho per «Tingueu en compte que aquesta prova ja no és recomanable.» (personal)"
+
+{\bYou\scan\schoose\smultiple\sdata\b\.}i
+valid msgstr="Podeu triar múltiples dades\."
+hint="Cal substituir-ho per «Podeu triar múltiples dades.» (personal)"
+
+{\b\b}i
+valid msgstr=""
+hint="Cal substituir-ho per «» (personal)"
