@@ -70,6 +70,14 @@ hint="Cal substituir-ho per «correlació» (personal)"
 valid msgstr="Arrel cúbica"
 hint="Cal substituir-ho per «Arrel cúbica» (personal)"
 
+{\bdecile\b}i
+valid msgstr="decil"
+hint="Cal substituir-ho per «decil» (personal)"
+
+    {\bdeciles\b}i
+    valid msgstr="decils"
+    hint="Cal substituir-ho per «decils» (personal)"
+
 {\bDescriptive\sStatistics\b}i
 valid msgstr="Estadístiques descriptives"
 hint="Cal substituir-ho per «Estadístiques descriptives» (personal)"
@@ -396,6 +404,10 @@ hint="Cal substituir-ho per «policòriques» (personal)"
     valid msgstr="Prova de Bartlett"
     hint="Cal substituir-ho per «Prova de Bartlett» (personal)"
 
+        {\bBartlett's\sK.?squared\b}i
+        valid msgstr="El quadrat K de Bartlett"
+        hint="Cal substituir-ho per «El quadrat K de Bartlett» (personal)"
+
     {\bBonett.?Seier\sTest\sof\sGeary's\sKurtosis\b}i
     valid msgstr="Prova de Bonett-Seier per a la curtosi d'en Geary"
     hint="Cal substituir-ho per «Prova de Bonett-Seier per a la curtosi d'en Geary» (personal)"
@@ -518,6 +530,34 @@ hint="Cal substituir-ho per «policòriques» (personal)"
 valid msgstr="Enters? pseudoaleatoris?"
 hint="Cal substituir-ho per «Enter/s pseudoaleatori/s» (personal)"
 
+# https://ca.wikipedia.org/wiki/Quantil
+{\bQuantile\b}i
+valid msgstr="Quantil"
+hint="Cal substituir-ho per «Quantil» (personal)"
+
+    {\bQuantiles\b}i
+    valid msgstr="Quantils"
+    hint="Cal substituir-ho per «Quantils» (personal)"
+
+# https://ca.wikipedia.org/wiki/Quartil
+{\bQuartile\b}i
+valid msgstr="Quartil"
+hint="Cal substituir-ho per «Quartil» (personal)"
+
+    {\bQuartiles\b}i
+    valid msgstr="Quartils"
+    hint="Cal substituir-ho per «Quartils» (personal)"
+
+    {\binter.?quartile\b}i
+    valid msgid="\bInter.?Quartile\sRange\b"
+    valid msgstr="interquartil"
+    hint="Cal substituir-ho per «interquartil» (personal)"
+
+        # https://ca.wikipedia.org/wiki/Amplitud_interquart%C3%ADlica
+        {\bInter.?Quartile\sRange\b}i
+        valid msgstr="Amplitud interquartílica"
+        hint="Cal substituir-ho per «Amplitud interquartílica» (personal)"
+
 {\brank\b}i
 valid msgstr="rang"
 hint="Cal substituir-ho per «rang» (personal)"
@@ -559,6 +599,10 @@ hint="Cal substituir-ho per «Arrel quadrada» (personal)"
 valid msgstr="Coeficient de Taylor"
 hint="Cal substituir-ho per «Coeficient de Taylor» (personal)"
 
+{\btetrachoric\b}i
+valid msgstr="tetracòriques"
+hint="Cal substituir-ho per «tetracòriques» (personal)"
+
 {\btie\b}i
 valid msgstr="relació"
 hint="Cal substituir-ho per «relació» (personal)"
@@ -567,9 +611,9 @@ hint="Cal substituir-ho per «relació» (personal)"
     valid msgstr="relacions"
     hint="Cal substituir-ho per «relacions» (personal)"
 
-{\btetrachoric\b}i
-valid msgstr="tetracòriques"
-hint="Cal substituir-ho per «tetracòriques» (personal)"
+{\btime\sseries\b}i
+valid msgstr="sèrie de temps"
+hint="Cal substituir-ho per «sèrie de temps» (personal)"
 
 {\btwo.?sided\b}i
 valid msgstr="dos costats"
@@ -586,6 +630,10 @@ hint="Cal substituir-ho per «univariants» (personal)"
     {\bmultivariate\b}i
     valid msgstr="multivariants"
     hint="Cal substituir-ho per «multivariants» (personal)"
+
+{\bX.?squared\b}i
+valid msgstr="X-squared"
+hint="Cal substituir-ho per «Quadrat X» (personal)"
 
 #
     {\bcosecant\b}i
@@ -670,9 +718,26 @@ hint="Cal substituir-ho per «univariants» (personal)"
 ####
 
 # frases
+
+{\bFor\sthis\stest\sthe\ssamples\sneed\sto\sbe\snumeric\svectors\b}i
+valid msgstr="Per a aquesta prova, les mostres hauran de ser vectors numèrics"
+hint="Cal substituir-ho per «Per a aquesta prova, les mostres hauran de ser vectors numèrics» (personal)"
+
 {\bPlease\sconsider\sthat\sthis\stest\sis\sno\slonger\srecommended\b\.}i
 valid msgstr="Tingueu en compte que aquesta prova ja no és recomanable\."
 hint="Cal substituir-ho per «Tingueu en compte que aquesta prova ja no és recomanable.» (personal)"
+
+{\bsee\sbelow\sfor\sdetails\b}i
+valid msgstr="vegeu més avall pels detalls"
+hint="Cal substituir-ho per «vegeu més avall pels detalls» (personal)"
+
+{\bSelect\sthe\sdata\sto\sbe\scomputed\b\.}i
+valid msgstr="Seleccioneu les dades que cal calcular\."
+hint="Cal substituir-ho per «Seleccioneu les dades que cal calcular.» (personal)"
+
+{\bThe\svectors\sneed\sto\sbe\snumeric\b\.}i
+valid msgstr="Els vectors hauran de ser numèrics\."
+hint="Cal substituir-ho per «Els vectors hauran de ser numèrics.» (personal)"
 
 {\bYou\scan\schoose\smultiple\sdata\b\.}i
 valid msgstr="Podeu triar múltiples dades\."
