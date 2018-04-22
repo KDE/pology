@@ -179,6 +179,29 @@ hint="Cal substituir-ho per «Mesura de dispersió» (estadística -glossari-)"
     valid msgstr="Mesures de dispersió"
     hint="Cal substituir-ho per «Mesures de dispersió» (estadística -glossari-)"
 
+    # o dispersió
+    {\bvariance\b}i
+    valid msgid="equal\svariance\b"
+    valid msgstr="variància"
+    hint="Cal substituir-ho per «variància» (estadística)"
+
+        {\bvariances\b}i
+        valid msgid="equal\svariances\b"
+        valid msgstr="variàncies"
+        hint="Cal substituir-ho per «variàncies» (estadística)"
+
+            {\bequal\svariance\b}i
+            valid msgstr="variància igual"
+            hint="Cal substituir-ho per «variància igual» (estadística)"
+
+                {\bequal\svariances\b}i
+                valid msgstr="variàncies iguals"
+                hint="Cal substituir-ho per «variàncies iguals» (estadística)"
+
+        {\bcovariance\b}i
+        valid msgstr="covariància"
+        hint="Cal substituir-ho per «covariància» (estadística)"
+
 # TODO
 # {\b\b}i
 # valid msgstr="moda"
@@ -379,12 +402,16 @@ hint="Cal substituir-ho per «Anàlisi de la variància» (estadística)"
 valid msgstr="Polinomis associats de Legendre"
 hint="Cal substituir-ho per «Polinomis associats de Legendre» (estadística)"
 
+{\baxis\slabel\b}i
+valid msgstr="etiqueta de l'eix"
+hint="Cal substituir-ho per «etiqueta de l'eix» (estadística)"
+
 # https://ca.wikipedia.org/wiki/Gravetat_superficial
 {\bBase\s10\slogarithm\b}i
 valid msgstr="Logaritme en base 10\b"
 hint="Cal substituir-ho per «Logaritme en base 10» (estadística)"
 
-{\bbind\b}i
+{\bbind(ing)?\b}i
 valid msgstr="enllaçar?"
 hint="Cal substituir-ho per «enllaça/r» (estadística)"
 
@@ -410,6 +437,10 @@ valid msgid="Chi.squared\sDistribution"
 valid msgstr="khi quadrat"
 hint="Cal substituir-ho per «khi quadrat» (estadística)"
 
+{\bcontinuity\scorrection\b}i
+valid msgstr="correcció de continuïtat"
+hint="Cal substituir-ho per «correcció de continuïtat» (estadística)"
+
 {\bcorrelation\b}i
 valid msgstr="correlació"
 hint="Cal substituir-ho per «correlació» (estadística)"
@@ -424,8 +455,8 @@ hint="Cal substituir-ho per «correlació» (estadística)"
     hint="Cal substituir-ho per «matriu de correlació» (estadística)"
 
     {\bcorrelation\smatrix\sPlot\b}i
-    valid msgstr="Trama de la matriu de correlació"
-    hint="Cal substituir-ho per «Trama de la matriu de correlació» (estadística)"
+    valid msgstr="Diagrama de la matriu de correlació"
+    hint="Cal substituir-ho per «Diagrama de la matriu de correlació» (estadística)"
 
 # https://ca.wikipedia.org/wiki/Arrel_c%C3%BAbica
 {\bCube\sroot\b}i
@@ -632,11 +663,20 @@ hint="Cal substituir-ho per «Doble factorial» (estadística)"
 valid msgstr="Integrals? el·lípti(ca|ques)"
 hint="Cal substituir-ho per «Integral/s el·líptica/ques» (estadística)"
 
+{\bfactor\sdefining\sgroups\b}i
+valid msgstr="grups que defineixen el factor"
+hint="Cal substituir-ho per «grups que defineixen el factor» (estadística)"
+
 {\bfitted\b}i
+valid msgid="fitted\sline"
 valid msgid="fitted\smodel"
 valid msgid="fitted\svalues?"
 valid msgstr="ajustats?"
 hint="Cal substituir-ho per «ajustat/s» (estadística)"
+
+    {\bfitted\sline\b}i
+    valid msgstr="línia ajustada"
+    hint="Cal substituir-ho per «línia ajustada» (estadística)"
 
     {\bfitted\smodel\b}i
     valid msgstr="model ajustat"
@@ -790,6 +830,7 @@ hint="Cal substituir-ho per «inferencial» (estadística)"
 # TODO
 # NA
 # NaN
+# sd
 
 {\bnormally\sdistributed\sdata\b}i
 valid msgstr="dades distribuïdes segons el normal"
@@ -806,6 +847,10 @@ hint="Cal substituir-ho per «valor oposat» (estadística)"
     {\bopposite\svalues\b}i
     valid msgstr="valors oposats"
     hint="Cal substituir-ho per «valors oposats» (estadística)"
+
+{\b\b}i
+valid msgstr=""
+hint="Cal substituir-ho per «» (estadística)"
 
 {\boutlier\b}i
 valid msgid="/outlier"
@@ -1006,6 +1051,10 @@ hint="Cal substituir-ho per «predictors» (estadística)"
         valid msgstr="Prova de Mood d'escala per a dues mostres"
         hint="Cal substituir-ho per «Prova de Mood d'escala per a dues mostres» (estadística)"
 
+    {\bnull\shypothesis\b}i
+    valid msgstr="hipòtesi nul·la"
+    hint="Cal substituir-ho per «hipòtesi nul·la» (estadística)"
+
     {\bOutlier\sTests?\b}i
     valid msgstr="Prov(a|es) per a una observació atípica"
     hint="Cal substituir-ho per «Prova/es per a una observació atípica» (estadística)"
@@ -1072,13 +1121,31 @@ hint="Cal substituir-ho per «predictors» (estadística)"
     valid msgstr="Variant de la prova"
     hint="Cal substituir-ho per «Variant de la prova» (estadística)"
 
+    {\bWilcoxon\sRank\sSum\b}i
+    valid msgstr="suma de rangs de Wilcoxon"
+    hint="Cal substituir-ho per «suma de rangs de Wilcoxon» (estadística)"
+
+    {\bWilcoxon\sSigned\sRank\b}i
+    valid msgid="Signed\sRank"
+    valid msgstr="rang signat de Wilcoxon"
+    hint="Cal substituir-ho per «rang signat de Wilcoxon» (estadística)"
+
+        {\bSigned\sRank\b}i
+        valid msgstr="rang signat"
+        hint="Cal substituir-ho per «rang signat» (estadística)"
+
     {\bWilcoxon/Mann.?Whitney\sTests\b}i
     valid msgstr="Proves de Wilcoxon/Mann-Whitney"
     hint="Cal substituir-ho per «Proves de Wilcoxon/Mann-Whitney» (estadística)"
 
-    {\bWilcoxon\sTests\b}i
-    valid msgstr="Proves de Wilcoxon"
-    hint="Cal substituir-ho per «Proves de Wilcoxon» (estadística)"
+        {\bMann.?Whitney\sTests\b}i
+        valid msgid="Wilcoxon/Mann.?Whitney\sTests"
+        valid msgstr="Prov(a|es) de Mann-Whitney"
+        hint="Cal substituir-ho per «Prova/es de Mann-Whitney» (estadística)"
+
+        {\bWilcoxon\sTests?\b}i
+        valid msgstr="Prov(a|es) de Wilcoxon"
+        hint="Cal substituir-ho per «Prova/es de Wilcoxon» (estadística)"
 
 # https://ca.wikipedia.org/wiki/Generador_de_nombres_pseudoaleatoris
 {\bpseudo.?random\sintegers?\b}i
@@ -1140,6 +1207,25 @@ hint="Cal substituir-ho per «mida de la mostra» (estadística)"
     valid msgstr="mida de la segona mostra"
     hint="Cal substituir-ho per «mida de la segona mostra» (estadística)"
 
+{\bserie\b}i
+valid msgid="original\sserie\b"
+valid msgstr="sèrie"
+hint="Cal substituir-ho per «sèrie» (estadística)"
+
+    {\bseries\b}i
+    valid msgid="original\sseries\b"
+    valid msgstr="sèries"
+    hint="Cal substituir-ho per «sèries» (estadística)"
+
+    {\boriginal\sseries?\b}i
+    valid msgid="original\sseries\splus\b"
+    valid msgstr="sèries? originals?"
+    hint="Cal substituir-ho per «sèrie/s original/s» (estadística)"
+
+        {\boriginal\sseries?\splus\b}i
+        valid msgstr="sèries? originals? amb addició"
+        hint="Cal substituir-ho per «sèrie/s original/s amb addició» (estadística)"
+
 {\bSpherical\sHarmonics\b}i
 valid msgstr="harmònics esfèrics"
 hint="Cal substituir-ho per «harmònics esfèrics» (estadística)"
@@ -1181,6 +1267,10 @@ hint="Cal substituir-ho per «tendència» (estadística)"
     {\btrend\sgraph\b}i
     valid msgstr="gràfic de tendències"
     hint="Cal substituir-ho per «gràfic de tendències» (estadística)"
+
+        {\btrend\splots\b}i
+        valid msgstr="gràfics de tendències"
+        hint="Cal substituir-ho per «gràfics de tendències» (estadística)"
 
 {\btetrachoric\b}i
 valid msgstr="tetracòriques"
@@ -1229,6 +1319,12 @@ hint="Cal substituir-ho per «univariants» (estadística)"
     {\bmultivariate\b}i
     valid msgstr="multivariants"
     hint="Cal substituir-ho per «multivariants» (estadística)"
+
+# https://en.wikipedia.org/wiki/Winsorizing
+# https://en.wikipedia.org/wiki/Winsorized_mean
+{\bwinsorized\b}i
+valid msgstr="winsorització"
+hint="Cal substituir-ho per «winsorització» (estadística)"
 
 {\bX.?squared\b}i
 valid msgstr="Quadrat X"
@@ -1339,8 +1435,8 @@ valid msgstr="purament informatiu, no afectarà a la prova"
 hint="Cal substituir-ho per «purament informatiu, no afectarà a la prova» (estadística -frase per unificar-)"
 
 {\b(see\sbelow\sfor\sdetails|For\sdetails.\ssee\sbelow)\b}i
-valid msgstr="vegeu més avall pels detalls"
-hint="Cal substituir-ho per «vegeu més avall pels detalls» (estadística -frase per unificar-)"
+valid msgstr="vegeu a sota pels detalls"
+hint="Cal substituir-ho per «vegeu a sota pels detalls» (estadística -frase per unificar-)"
 
 {\bSelect\sthe\sdata\sto\sbe\scomputed\b\.}i
 valid msgstr="Seleccioneu les dades que cal calcular\."
