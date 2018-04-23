@@ -377,12 +377,21 @@ hint="Cal substituir-ho per «probabilitat» (estadística -glossari-)"
 {\brandom\b}i
 valid msgid="pseudo.?random\sintegers?"
 valid msgid="random\sdata"
+valid msgid="random\svariable"
 valid msgstr="atzar"
 hint="Cal substituir-ho per «atzar» (estadística -glossari-)"
 
     {\brandom\sdata\b}i
     valid msgstr="dades aleatòries"
     hint="Cal substituir-ho per «dades aleatòries» (estadística -glossari-)"
+
+    {\brandom\svariable\b}i
+    valid msgstr="variable aleatòria"
+    hint="Cal substituir-ho per «variable aleatòria» (estadística -glossari-)"
+
+        {\brandom\svariables\b}i
+        valid msgstr="variables aleatòries"
+        hint="Cal substituir-ho per «variables aleatòries» (estadística -glossari-)"
 
 ## ##
 
@@ -432,10 +441,19 @@ hint="Cal substituir-ho per «bivariada» (estadística)"
 valid msgstr="Forma de Carlson\b"
 hint="Cal substituir-ho per «Forma de Carlson» (estadística)"
 
-{\bChi.squared\b}i
-valid msgid="Chi.squared\sDistribution"
+{\bChi.?squared\b}i
+valid msgid="Chi.?squared\sDistribution"
 valid msgstr="khi quadrat"
 hint="Cal substituir-ho per «khi quadrat» (estadística)"
+
+# https://ca.wikipedia.org/wiki/Teorema_del_l%C3%ADmit_central
+{\bCentral\sLimit\sTheorem\b}i
+valid msgstr="Teorema del límit central"
+hint="Cal substituir-ho per «Teorema del límit central, (TLC)» (estadística)"
+
+    {\bCLT\b}i
+    valid msgstr="TLC"
+    hint="Cal substituir-ho per «TLC» (estadística)"
 
 {\bcontinuity\scorrection\b}i
 valid msgstr="correcció de continuïtat"
@@ -553,8 +571,14 @@ hint="Cal substituir-ho per «Dilogaritme» (estadística)"
 
     # https://ca.wikipedia.org/wiki/Distribuci%C3%B3_binomial
     {\bBinomial\sDistribution\b}i
+    valid msgid="Negative\sBinomial\sDistribution"
     valid msgstr="Distribució binomial"
     hint="Cal substituir-ho per «Distribució binomial» (estadística)"
+
+        # https://en.wikipedia.org/wiki/Negative_binomial_distribution
+        {\bNegative\sBinomial\sDistribution\b}i
+        valid msgstr="Distribució binomial negativa"
+        hint="Cal substituir-ho per «Distribució binomial negativa» (estadística)"
 
     # https://ca.wikipedia.org/wiki/Distribuci%C3%B3_de_Cauchy
     {\bCauchy\sDistribution\b}i
@@ -562,7 +586,7 @@ hint="Cal substituir-ho per «Dilogaritme» (estadística)"
     hint="Cal substituir-ho per «Distribució de Cauchy» (estadística)"
 
     # https://ca.wikipedia.org/wiki/Distribuci%C3%B3_khi_quadrat
-    {\bChi.squared\sDistribution\b}i
+    {\bChi.?squared\sDistribution\b}i
     valid msgstr="Distribució khi quadrat"
     hint="Cal substituir-ho per «Distribució khi quadrat» (estadística)"
 
@@ -580,9 +604,13 @@ hint="Cal substituir-ho per «Dilogaritme» (estadística)"
     hint="Cal substituir-ho per «Distribució F» (estadística)"
 
     # https://ca.wikipedia.org/wiki/Distribuci%C3%B3_uniforme
-    {\bFlat\s.Uniform.\sDistribution\b}i
-    valid msgstr="Distribució plana .uniforme."
-    hint="Cal substituir-ho per «Distribució plana (uniforme)» (estadística)"
+    {\bUniform\sDistribution\b}i
+    valid msgstr="Distribució uniforme"
+    hint="Cal substituir-ho per «Distribució uniforme» (estadística)"
+
+        {\bFlat\s.Uniform.\sDistribution\b}i
+        valid msgstr="Distribució plana .uniforme."
+        hint="Cal substituir-ho per «Distribució plana (uniforme)» (estadística)"
 
     # https://ca.wikipedia.org/wiki/Distribuci%C3%B3_gamma
     {\bGamma\sDistribution\b}i
@@ -623,7 +651,7 @@ hint="Cal substituir-ho per «Dilogaritme» (estadística)"
     hint="Cal substituir-ho per «Distribució logística» (estadística)"
 
     # https://ca.wikipedia.org/wiki/Logaritme
-    {\bLognormal\sDistribution\b}i
+    {\bLog.?normal\sDistribution\b}i
     valid msgstr="Distribució log-normal"
     hint="Cal substituir-ho per «Distribució log-normal» (estadística)"
 
@@ -644,10 +672,27 @@ hint="Cal substituir-ho per «Dilogaritme» (estadística)"
     valid msgstr="Distribució de Rayleigh\b"
     hint="Cal substituir-ho per «Distribució de Rayleigh» (estadística)"
 
+    # https://en.wikipedia.org/wiki/Studentized_range_distribution
+    # https://ca.wikipedia.org/wiki/John_Tukey
+    # prova de rangs de Tukey, la distribució lambda de Tukey, la prova d'additivitat de Tukey i el lema de Tukey
+    {\bStudentized\sRange\s(\(Tukey\))?\sdistribution\b}i
+    valid msgstr="distribució de rangs estudiantils( .de Tukey.)?"
+    hint="Cal substituir-ho per «distribució de rangs estudiantils/ (de Tukey)» (estadística)"
+
     # https://ca.wikipedia.org/wiki/Distribuci%C3%B3_t_de_Student
-    {\bt-distribution\b}i
+    {\bt.?distribution\b}i
     valid msgstr="Distribució t\b"
     hint="Cal substituir-ho per «Distribució t» (estadística)"
+
+    # https://en.wikipedia.org/wiki/Univariate_distribution
+    {\bUnivariate\scontinuous\sdistributions\b}i
+    valid msgstr="distribucions contínues univariants"
+    hint="Cal substituir-ho per «distribucions contínues univariants» (estadística)"
+
+    # https://en.wikipedia.org/wiki/Univariate_distribution
+    {\bUnivariate\sdiscrete\sdistributions\b}i
+    valid msgstr="distribucions discretes univariants"
+    hint="Cal substituir-ho per «distribucions discretes univariants» (estadística)"
 
     # https://ca.wikipedia.org/wiki/Distribuci%C3%B3_de_Weibull
     {\bWeibull\sDistribution\b}i
@@ -793,6 +838,11 @@ hint="Cal substituir-ho per «ajustat/s» (estadística)"
     valid msgstr="Funció Psi .digamma."
     hint="Cal substituir-ho per «Funció Psi (digamma)» (estadística)"
 
+    # https://ca.wikipedia.org/wiki/Funci%C3%B3_esglaonada
+    {\bstep.?function\b}i
+    valid msgstr="funció esglaonada"
+    hint="Cal substituir-ho per «funció esglaonada» (estadística)"
+
     {\bSynchrotron\sFunctions?\b}i
     valid msgstr="Funci(ó|ons) sincrotró\b"
     hint="Cal substituir-ho per «Funció/ons sincrotró» (estadística)"
@@ -912,6 +962,22 @@ hint="Cal substituir-ho per «aparellat/da, aparellats/des» (estadística)"
         valid msgstr="grandària proporcionada de l'efecte"
         hint="Cal substituir-ho per «grandària proporcionada de l'efecte» (estadística)"
 
+    {\bLocation\sparameter\b}i
+    valid msgstr="paràmetre d'ubicació"
+    hint="Cal substituir-ho per «paràmetre d'ubicació» (estadística)"
+
+    {\blog.?scale\b}i
+    valid msgstr="escala logarítmica"
+    hint="Cal substituir-ho per «escala logarítmica» (estadística)"
+
+    {\bNon.?centrality\b}i
+    valid msgstr="no centralitat"
+    hint="Cal substituir-ho per «no centralitat» (estadística)"
+
+        {\bncp\b}i
+        valid msgstr="pnc"
+        hint="Cal substituir-ho per «pnc -paràmetre de no centralitat-» (estadística)"
+
     {\bpower\sof\stest\b}i
     valid msgid="Targeted\spower\sof\stest"
     valid msgstr="poder de la prova"
@@ -924,6 +990,10 @@ hint="Cal substituir-ho per «aparellat/da, aparellats/des» (estadística)"
     {\bscale\sparameters\b}i
     valid msgstr="paràmetres de l'escala"
     hint="Cal substituir-ho per «paràmetres de l'escala» (estadística)"
+
+    {\bShape\sparameter\b}i
+    valid msgstr="paràmetre de forma"
+    hint="Cal substituir-ho per «paràmetre de forma» (estadística)"
 
     {\bsignificance\slevel\b}i
     valid msgstr="nivell de significació"
@@ -965,99 +1035,140 @@ hint="Cal substituir-ho per «predictors» (estadística)"
     hint="Cal substituir-ho per «predictors continus» (estadística)"
 
 # Proves
+
+    {\b\b}i
+    valid msgstr=""
+    hint="Cal substituir-ho per «» (estadística)"
+
+    {\b\b}i
+    valid msgstr=""
+    hint="Cal substituir-ho per «» (estadística)"
+
+    # https://ca.wikipedia.org/wiki/Prova_d%27Anderson-Darling
+    {\bAnderson.?Darling\sTest\b}i
+    valid msgstr="prova d'Anderson-Darling"
+    hint="Cal substituir-ho per «prova d'Anderson-Darling» (estadística)"
+
+        {\bAnderson.?Darling\sNormality\sTest\b}i
+        valid msgstr="prova de normalitat d'Anderson-Darling"
+        hint="Cal substituir-ho per «prova de normalitat d'Anderson-Darling» (estadística)"
+
     {\bAnsari.?Bradley\sTwo.?Sample\sTest\b}i
-    valid msgstr="Prova d'Ansari-Bradley per a dues mostres"
-    hint="Cal substituir-ho per «Prova d'Ansari-Bradley per a dues mostres» (estadística)"
+    valid msgstr="prova d'Ansari-Bradley per a dues mostres"
+    hint="Cal substituir-ho per «prova d'Ansari-Bradley per a dues mostres» (estadística)"
 
     {\bAnsari.?Bradley\sTwo.?Sample\sExact\sTest\b}i
-    valid msgstr="Prova exacta d'Ansari-Bradley per a dues mostres"
-    hint="Cal substituir-ho per «Prova exacta d'Ansari-Bradley per a dues mostres» (estadística)"
+    valid msgstr="prova exacta d'Ansari-Bradley per a dues mostres"
+    hint="Cal substituir-ho per «prova exacta d'Ansari-Bradley per a dues mostres» (estadística)"
 
     {\bAnscombe.?Glynn\sTest\sof\sKurtosis\b}i
-    valid msgstr="Prova d'Anscombe-Glynn per a la curtosi"
-    hint="Cal substituir-ho per «Prova d'Anscombe-Glynn per a la curtosi» (estadística)"
+    valid msgstr="prova d'Anscombe-Glynn per a la curtosi"
+    hint="Cal substituir-ho per «prova d'Anscombe-Glynn per a la curtosi» (estadística)"
 
     {\bBartlett\sTest\b}i
-    valid msgstr="Prova de Bartlett"
-    hint="Cal substituir-ho per «Prova de Bartlett» (estadística)"
+    valid msgstr="prova de Bartlett"
+    hint="Cal substituir-ho per «prova de Bartlett» (estadística)"
 
         {\bBartlett's\sK.?squared\b}i
-        valid msgstr="El quadrat K de Bartlett"
-        hint="Cal substituir-ho per «El quadrat K de Bartlett» (estadística)"
+        valid msgstr="el quadrat K de Bartlett"
+        hint="Cal substituir-ho per «el quadrat K de Bartlett» (estadística)"
 
     {\bBonett.?Seier\sTest\sof\sGeary's\sKurtosis\b}i
-    valid msgstr="Prova de Bonett-Seier per a la curtosi d'en Geary"
-    hint="Cal substituir-ho per «Prova de Bonett-Seier per a la curtosi d'en Geary» (estadística)"
+    valid msgstr="prova de Bonett-Seier per a la curtosi d'en Geary"
+    hint="Cal substituir-ho per «prova de Bonett-Seier per a la curtosi d'en Geary» (estadística)"
 
         {\bBonett.?Seier\sTest\sof\sGeary's\smeasure\sof\sKurtosis\b}i
-        valid msgstr="Prova de Bonett-Seier per a mesurar la curtosi d'en Geary"
-        hint="Cal substituir-ho per «Prova de Bonett-Seier per a mesurar la curtosi d'en Geary» (estadística)"
+        valid msgstr="prova de Bonett-Seier per a mesurar la curtosi d'en Geary"
+        hint="Cal substituir-ho per «prova de Bonett-Seier per a mesurar la curtosi d'en Geary» (estadística)"
 
     {\bBox.?Pierce\sor\sLjung.?Box\sTests\b}i
-    valid msgstr="Prova de Box-Pierce o Ljung-Box"
-    hint="Cal substituir-ho per «Prova de Box-Pierce o Ljung-Box» (estadística)"
+    valid msgstr="prova de Box-Pierce o Ljung-Box"
+    hint="Cal substituir-ho per «prova de Box-Pierce o Ljung-Box» (estadística)"
 
     {\bChi.?squared\sTest\sfor\sOutlier\b}i
-    valid msgstr="Prova de khi quadrat per a una observació atípica"
-    hint="Cal substituir-ho per «Prova de Khi quadrat per a una observació atípica» (estadística)"
+    valid msgstr="prova de khi quadrat per a una observació atípica"
+    hint="Cal substituir-ho per «prova de Khi quadrat per a una observació atípica» (estadística)"
+
+    # https://en.wikipedia.org/wiki/Cram%C3%A9r%E2%80%93von_Mises_criterion
+    {\bCramer.?von\sMises\sNormality\sTest\b}i
+    valid msgstr="prova de normalitat de Cramér-von Mises"
+    hint="Cal substituir-ho per «prova de normalitat de Cramér-von Mises» (estadística)"
 
     {\bD'Agostino\sTest\sof\sSkewness\b}i
-    valid msgstr="Prova de D'Agostino per a l'asimetria"
-    hint="Cal substituir-ho per «Prova de D'Agostino per a l'asimetria» (estadística)"
+    valid msgstr="prova de D'Agostino per a l'asimetria"
+    hint="Cal substituir-ho per «prova de D'Agostino per a l'asimetria» (estadística)"
 
     {\bDixon\sTest\b}i
     valid msgid="Dixon\sTest\sfor\soutlier"
-    valid msgstr="Prova de Dixon"
-    hint="Cal substituir-ho per «Prova de Dixon» (estadística)"
+    valid msgstr="prova de Dixon"
+    hint="Cal substituir-ho per «prova de Dixon» (estadística)"
 
         {\bDixon\sTest\sfor\soutlier\b}i
-        valid msgstr="Prova de Dixon per a una observació atípica"
-        hint="Cal substituir-ho per «Prova de Dixon per a una observació atípica» (estadística)"
+        valid msgstr="prova de Dixon per a una observació atípica"
+        hint="Cal substituir-ho per «prova de Dixon per a una observació atípica» (estadística)"
 
         {\bDixon\sTests\sfor\soutlier\b}i
-        valid msgstr="Proves de Dixon per a una observació atípica"
-        hint="Cal substituir-ho per «Proves de Dixon per a una observació atípica» (estadística)"
+        valid msgstr="proves de Dixon per a una observació atípica"
+        hint="Cal substituir-ho per «proves de Dixon per a una observació atípica» (estadística)"
 
     {\bF.?Test\b}i
-    valid msgstr="Prova F"
-    hint="Cal substituir-ho per «Prova F» (estadística)"
+    valid msgstr="prova F"
+    hint="Cal substituir-ho per «prova F» (estadística)"
 
     {\bFligner.?Killeen\sTest\b}i
-    valid msgstr="Prova de Fligner-Killeen"
-    hint="Cal substituir-ho per «Prova de Fligner-Killeen» (estadística)"
+    valid msgstr="prova de Fligner-Killeen"
+    hint="Cal substituir-ho per «prova de Fligner-Killeen» (estadística)"
 
     {\bGrubbs\sTest\b}i
-    valid msgstr="Prova de Grubbs"
-    hint="Cal substituir-ho per «Prova de Grubbs» (estadística)"
+    valid msgstr="prova de Grubbs"
+    hint="Cal substituir-ho per «prova de Grubbs» (estadística)"
+
+    # https://en.wikipedia.org/wiki/Jarque%E2%80%93Bera_test
+    {\bJarque.?Bera\sTest\b}i
+    valid msgstr="Prova de Jarque-Bera"
+    hint="Cal substituir-ho per «Prova de Jarque-Bera» (estadística)"
+
+        {\bJarque.?Bera\sNormality\sTest\b}i
+        valid msgstr="prova de normalitat de Jarque-Bera"
+        hint="Cal substituir-ho per «prova de normalitat de Jarque-Bera» (estadística)"
 
     {\bKPSS\sTest\sfor\sStationarity\b}i
-    valid msgstr="Prova de KPSS per a l'estacionarietat"
-    hint="Cal substituir-ho per «Prova de KPSS per a l'estacionarietat» (estadística)"
+    valid msgstr="prova de KPSS per a l'estacionarietat"
+    hint="Cal substituir-ho per «prova de KPSS per a l'estacionarietat» (estadística)"
 
     {\bKPSS\sTest\sfor\sLevel\sStationarity\b}i
-    valid msgstr="Prova de KPSS per a l'estacionarietat del nivell"
-    hint="Cal substituir-ho per «Prova de KPSS per a l'estacionarietat del nivell» (estadística)"
+    valid msgstr="prova de KPSS per a l'estacionarietat del nivell"
+    hint="Cal substituir-ho per «prova de KPSS per a l'estacionarietat del nivell» (estadística)"
 
     {\bLevene's\sTest\b}i
-    valid msgstr="Prova de Levene"
-    hint="Cal substituir-ho per «Prova de Levene» (estadística)"
+    valid msgstr="prova de Levene"
+    hint="Cal substituir-ho per «prova de Levene» (estadística)"
+
+    # https://en.wikipedia.org/wiki/Lilliefors_test
+    {\bLilliefors\sTest\b}i
+    valid msgstr="prova de Lilliefors"
+    hint="Cal substituir-ho per «prova de Lilliefors» (estadística)"
+
+        {\bLilliefors\s\(Kolmogorov.?Smirnov\)\sNormality\sTest\b}i
+        valid msgstr="prova de normalitat .Kolmogorov-Smirnov. de Lilliefors"
+        hint="Cal substituir-ho per «prova de normalitat (Kolmogorov-Smirnov) de Lilliefors» (estadística)"
 
     {\bMood\sTwo.?Sample\sTest\b}i
     valid msgid="Mood\sTwo.?Sample\sTest\sof\sScale"
-    valid msgstr="Prova de Mood per a dues mostres"
-    hint="Cal substituir-ho per «Prova de Mood per a dues mostres» (estadística)"
+    valid msgstr="prova de Mood per a dues mostres"
+    hint="Cal substituir-ho per «prova de Mood per a dues mostres» (estadística)"
 
         {\bMood\sTwo.?Sample\sTest\sof\sScale\b}i
-        valid msgstr="Prova de Mood d'escala per a dues mostres"
-        hint="Cal substituir-ho per «Prova de Mood d'escala per a dues mostres» (estadística)"
+        valid msgstr="prova de Mood d'escala per a dues mostres"
+        hint="Cal substituir-ho per «prova de Mood d'escala per a dues mostres» (estadística)"
 
     {\bnull\shypothesis\b}i
     valid msgstr="hipòtesi nul·la"
     hint="Cal substituir-ho per «hipòtesi nul·la» (estadística)"
 
     {\bOutlier\sTests?\b}i
-    valid msgstr="Prov(a|es) per a una observació atípica"
-    hint="Cal substituir-ho per «Prova/es per a una observació atípica» (estadística)"
+    valid msgstr="prov(a|es) per a una observació atípica"
+    hint="Cal substituir-ho per «prova/es per a una observació atípica» (estadística)"
 
     {\bp.?values?\b}i
     valid msgid="p.?value\b\(s\)"
@@ -1069,32 +1180,55 @@ hint="Cal substituir-ho per «predictors» (estadística)"
         hint="Cal substituir-ho per «valor/s p» (estadística)"
 
     {\bParametric\stests\b}i
-    valid msgstr="Proves paramètriques"
-    hint="Cal substituir-ho per «Proves paramètriques» (estadística)"
+    valid msgstr="proves paramètriques"
+    hint="Cal substituir-ho per «proves paramètriques» (estadística)"
 
         {\bNonparametric\stests\b}i
-        valid msgstr="Proves no paramètriques"
-        hint="Cal substituir-ho per «Proves no paramètriques» (estadística)"
+        valid msgstr="proves no paramètriques"
+        hint="Cal substituir-ho per «proves no paramètriques» (estadística)"
 
-    {\bPearson's\sChi\sSquare\sTest\sfor\sCrosstabs\b}i
-    valid msgstr="Prova de khi quadrat de Pearson per a taules de contingència"
-    hint="Cal substituir-ho per «Prova de khi quadrat de Pearson per a taules de contingència» (estadística)"
+    # https://ca.wikipedia.org/wiki/Prova_de_khi-quadrat_de_Pearson
+    {\bPearson's\sChi.?Square\sTest\b}i
+    valid msgstr="prova de khi quadrat de Pearson"
+    hint="Cal substituir-ho per «prova de khi quadrat de Pearson» (estadística)"
+
+        {\bPearson's\sChi.?Square\sTest\sfor\sCrosstabs\b}i
+        valid msgstr="prova de khi quadrat de Pearson per a taules de contingència"
+        hint="Cal substituir-ho per «prova de khi quadrat de Pearson per a taules de contingència» (estadística)"
+
+        {\bPearson\schi.?square\sNormality\sTest\b}i
+        valid msgstr="prova de normalitat de khi quadrat de Pearson"
+        hint="Cal substituir-ho per «prova de normalitat de khi quadrat de Pearson» (estadística)"
 
     {\bMonte.?Carlo\stest\b}i
     valid msgstr="prova de Monte-Carlo"
     hint="Cal substituir-ho per «prova de Monte-Carlo» (estadística)"
 
     {\bPhillips.?Perron\sTest\b}i
-    valid msgstr="Prova de Phillips-Perron"
-    hint="Cal substituir-ho per «Prova de Phillips-Perron» (estadística)"
+    valid msgstr="prova de Phillips-Perron"
+    hint="Cal substituir-ho per «prova de Phillips-Perron» (estadística)"
+
+    # https://en.wikipedia.org/wiki/Shapiro%E2%80%93Francia_test
+    {\bShapiro.?Francia\sTest\b}i
+    valid msgstr="Prova de Shapiro-Francia"
+    hint="Cal substituir-ho per «Prova de Shapiro-Francia» (estadística)"
+
+        {\bShapiro.?Francia\sNormality\sTest\b}i
+        valid msgstr="Prova de normalitat de Shapiro-Francia"
+        hint="Cal substituir-ho per «Prova de normalitat de Shapiro-Francia» (estadística)"
+
+        # https://en.wikipedia.org/wiki/Shapiro%E2%80%93Wilk_test
+        {\bShapiro.?Wilk\sNormality\sTest\b}i
+        valid msgstr="prova de normalitat de Shapiro-Wilk"
+        hint="Cal substituir-ho per «prova de normalitat de Shapiro-Wilk» (estadística)"
 
     {\bt.?Test\b}i
-    valid msgstr="Prova t"
-    hint="Cal substituir-ho per «Prova t» (estadística)"
+    valid msgstr="prova t"
+    hint="Cal substituir-ho per «prova t» (estadística)"
 
         {\bt.?Tests\b}i
-        valid msgstr="Proves t"
-        hint="Cal substituir-ho per «Proves t» (estadística)"
+        valid msgstr="proves t"
+        hint="Cal substituir-ho per «proves t» (estadística)"
 
     {\btest\sgoodness\sof\sFit\b}i
     valid msgid="goodness\sof\sFit"
@@ -1102,8 +1236,8 @@ hint="Cal substituir-ho per «predictors» (estadística)"
     hint="Cal substituir-ho per «prova de bondat de l'ajust» (estadística)"
 
         {\bgoodness\sof\sFit\b}i
-        valid msgstr="Bondat de l'ajust"
-        hint="Cal substituir-ho per «Bondat de l'ajust» (estadística)"
+        valid msgstr="bondat de l'ajust"
+        hint="Cal substituir-ho per «bondat de l'ajust» (estadística)"
 
     {\btest\shypothesis\b}i
     valid msgstr="hipòtesi de prova"
@@ -1118,8 +1252,8 @@ hint="Cal substituir-ho per «predictors» (estadística)"
         hint="Cal substituir-ho per «hipòtesi nul·la d'independència» (estadística)"
 
     {\bVariant\sof\stest\b}i
-    valid msgstr="Variant de la prova"
-    hint="Cal substituir-ho per «Variant de la prova» (estadística)"
+    valid msgstr="variant de la prova"
+    hint="Cal substituir-ho per «variant de la prova» (estadística)"
 
     {\bWilcoxon\sRank\sSum\b}i
     valid msgstr="suma de rangs de Wilcoxon"
@@ -1135,17 +1269,17 @@ hint="Cal substituir-ho per «predictors» (estadística)"
         hint="Cal substituir-ho per «rang signat» (estadística)"
 
     {\bWilcoxon/Mann.?Whitney\sTests\b}i
-    valid msgstr="Proves de Wilcoxon/Mann-Whitney"
-    hint="Cal substituir-ho per «Proves de Wilcoxon/Mann-Whitney» (estadística)"
+    valid msgstr="proves de Wilcoxon/Mann-Whitney"
+    hint="Cal substituir-ho per «proves de Wilcoxon/Mann-Whitney» (estadística)"
 
         {\bMann.?Whitney\sTests\b}i
         valid msgid="Wilcoxon/Mann.?Whitney\sTests"
-        valid msgstr="Prov(a|es) de Mann-Whitney"
-        hint="Cal substituir-ho per «Prova/es de Mann-Whitney» (estadística)"
+        valid msgstr="prov(a|es) de Mann-Whitney"
+        hint="Cal substituir-ho per «prova/es de Mann-Whitney» (estadística)"
 
         {\bWilcoxon\sTests?\b}i
-        valid msgstr="Prov(a|es) de Wilcoxon"
-        hint="Cal substituir-ho per «Prova/es de Wilcoxon» (estadística)"
+        valid msgstr="prov(a|es) de Wilcoxon"
+        hint="Cal substituir-ho per «prova/es de Wilcoxon» (estadística)"
 
 # https://ca.wikipedia.org/wiki/Generador_de_nombres_pseudoaleatoris
 {\bpseudo.?random\sintegers?\b}i
@@ -1255,23 +1389,6 @@ hint="Cal substituir-ho per «Mesura objectiu» (estadística)"
 valid msgstr="Coeficient de Taylor"
 hint="Cal substituir-ho per «Coeficient de Taylor» (estadística)"
 
-{\btrend\b}i
-valid msgid="trend\sgraph"
-valid msgstr="tendència"
-hint="Cal substituir-ho per «tendència» (estadística)"
-
-    {\btrends\b}i
-    valid msgstr="tendències"
-    hint="Cal substituir-ho per «tendències» (estadística)"
-
-    {\btrend\sgraph\b}i
-    valid msgstr="gràfic de tendències"
-    hint="Cal substituir-ho per «gràfic de tendències» (estadística)"
-
-        {\btrend\splots\b}i
-        valid msgstr="gràfics de tendències"
-        hint="Cal substituir-ho per «gràfics de tendències» (estadística)"
-
 {\btetrachoric\b}i
 valid msgstr="tetracòriques"
 hint="Cal substituir-ho per «tetracòriques» (estadística)"
@@ -1295,6 +1412,31 @@ hint="Cal substituir-ho per «sèrie de temps» (estadística)"
 {\bthree.?dimensional\b}i
 valid msgstr="tridimensionals?"
 hint="Cal substituir-ho per «tridimensional/s» (estadística)"
+
+{\btrend\b}i
+valid msgid="trend\sgraph"
+valid msgstr="tendència"
+hint="Cal substituir-ho per «tendència» (estadística)"
+
+    {\btrends\b}i
+    valid msgstr="tendències"
+    hint="Cal substituir-ho per «tendències» (estadística)"
+
+    {\btrend\sgraph\b}i
+    valid msgstr="gràfic de tendències"
+    hint="Cal substituir-ho per «gràfic de tendències» (estadística)"
+
+        {\btrend\splots\b}i
+        valid msgstr="gràfics de tendències"
+        hint="Cal substituir-ho per «gràfics de tendències» (estadística)"
+
+{\btrial\b}i
+valid msgstr="assaig\b"
+hint="Cal substituir-ho per «assaig» (estadística)"
+
+    {\btrials\b}i
+    valid msgstr="assaigs\b"
+    hint="Cal substituir-ho per «assaigs» (estadística)"
 
 {\bTruncation\slag\sparameter\b}i
 valid msgstr="Paràmetre de retard del truncament"
@@ -1397,6 +1539,15 @@ hint="Cal substituir-ho per «Quadrat X» (estadística)"
         valid msgstr="Integral del sinus"
         hint="Cal substituir-ho per «Integral del sinus» (estadística)"
 
+    {\bstandard\sdeviation\b}i
+    valid msgid="(standard\sdeviation\sestimate|estimate\sof\sstandard\sdeviation)"
+    valid msgstr="desviació estàndard"
+    hint="Cal substituir-ho per «desviació estàndard» (estadística)"
+
+        {\b(standard\sdeviation\sestimate|estimate\sof\sstandard\sdeviation)\b}i
+        valid msgstr="estimació de la desviació estàndard"
+        hint="Cal substituir-ho per «estimació de la desviació estàndard» (estadística)"
+
     {\btangent\b}i
     valid msgid="\barc\stangent\b"
     valid msgid="\bhyperbolic\stangent\b"
@@ -1449,6 +1600,10 @@ hint="Cal substituir-ho per «Els vectors hauran de ser numèrics.» (estadísti
 {\bYou\scan\schoose\smultiple\sdata\b\.}i
 valid msgstr="Podeu triar múltiples dades\."
 hint="Cal substituir-ho per «Podeu triar múltiples dades.» (estadística -frase per unificar-)"
+
+{\bSee\sRKWard\shelp\son\b}i
+valid msgstr="Vegeu l'ajuda del RKWard sobre el"
+hint="Cal substituir-ho per «Vegeu l'ajuda del RKWard sobre el» (estadística -frase per unificar-)"
 
 {\b\b}i
 valid msgstr=""
