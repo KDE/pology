@@ -62,6 +62,7 @@ hint="Cal substituir-ho per «variable» (estadística -glossari-)"
     {\bvariables\b}i
     valid msgid="Qualitative\svariables"
     valid msgid="Quantitative\svariables"
+    valid msgid="\bone\svariables\b"
     valid msgstr="variables"
     hint="Cal substituir-ho per «variables» (estadística -glossari-)"
 
@@ -94,23 +95,29 @@ hint="Cal substituir-ho per «Freqüència» (estadística -glossari-)"
     hint="Cal substituir-ho per «Freqüència relativa» (estadística -glossari-)"
 
 # https://ca.wikipedia.org/wiki/Mitjana
-{\bmean\b}i
+{\b(average|mean)\b}i
 valid msgid="Arithmetic\smean"
 valid msgid="Geometric\smean"
 valid msgid="harmonic\smean"
 valid msgid="interquantile\smean"
 valid msgid="interquartile\smean"
+valid msgid="\bmeanlog\b"
 valid msgid="Median\sAbsolute\sDeviation"
 valid msgid="robust\smean"
 valid msgid="th(at|is)\scan\smean"
+valid msgstr="mitjana"
+hint="Cal substituir-ho per «mitjana» (estadística -glossari-)"
+
+{\bmedian\b}i
+valid msgid="Median\sAbsolute\sDeviation"
 valid msgstr="mediana"
 hint="Cal substituir-ho per «mediana» (estadística -glossari-)"
 
     {\bmeans\b}i
     valid msgid="means\sthat"
     valid msgid="th(at|is) means"
-    valid msgstr="medianes"
-    hint="Cal substituir-ho per «medianes» (estadística -glossari-)"
+    valid msgstr="mitjanes"
+    hint="Cal substituir-ho per «mitjanes» (estadística -glossari-)"
 
     # https://ca.wikipedia.org/wiki/Mitjana_aritm%C3%A8tica
     {\bArithmetic\smean\b}i
@@ -129,13 +136,17 @@ hint="Cal substituir-ho per «mediana» (estadística -glossari-)"
 
     # https://en.wikipedia.org/wiki/Interquartile_mean
     {\binterquantile\smean\b}i
-    valid msgstr="mediana interquantil"
-    hint="Cal substituir-ho per «mediana interquantil» (estadística)"
+    valid msgstr="mitjana interquantil"
+    hint="Cal substituir-ho per «mitjana interquantil» (estadística)"
 
     # https://en.wikipedia.org/wiki/Interquartile_mean
     {\binterquartile\smean\b}i
-    valid msgstr="mediana interquartil"
-    hint="Cal substituir-ho per «mediana interquartil» (estadística)"
+    valid msgstr="mitjana interquartil"
+    hint="Cal substituir-ho per «mitjana interquartil» (estadística)"
+
+    {\bmeanlog\b}i
+    valid msgstr="mitjana logarítmica"
+    hint="Cal substituir-ho per «mitjana logarítmica» (estadística)"
 
     # https://en.wikipedia.org/wiki/Median_absolute_deviation
     {\bMedian\sAbsolute\sDeviation\b}i
@@ -147,8 +158,8 @@ hint="Cal substituir-ho per «mediana» (estadística -glossari-)"
         hint="Cal substituir-ho per «MAD -Median Absolute Deviation (Mediana de la desviació absoluta)-» (estadística)"
 
     {\brobust\smean\b}i
-    valid msgstr="mediana sòlida"
-    hint="Cal substituir-ho per «mediana sòlida» (estadística)"
+    valid msgstr="mitjana sòlida"
+    hint="Cal substituir-ho per «mitjana sòlida» (estadística)"
 
     {\btrimmed\b}i
     valid msgid="trimmed\smean"
@@ -162,8 +173,8 @@ hint="Cal substituir-ho per «mediana» (estadística -glossari-)"
 
         # https://es.wikipedia.org/wiki/Media_truncada
         {\btrimmed\smean\b}i
-        valid msgstr="mediana truncada"
-        hint="Cal substituir-ho per «mediana truncada» (estadística)"
+        valid msgstr="mitjana truncada"
+        hint="Cal substituir-ho per «mitjana truncada» (estadística)"
 
         {\btrimmed\svalues\b}i
         valid msgstr="valors truncats"
@@ -286,6 +297,7 @@ hint="Cal substituir-ho per «diagrama de sectors (diagrama circular o diagrama 
 
 # https://ca.wikipedia.org/wiki/Histograma
 {\bhistogram\b}i
+valid msgid="plot\.histogram"
 valid msgstr="histograma"
 hint="Cal substituir-ho per «histograma» (estadística -glossari-)"
 
@@ -377,6 +389,7 @@ hint="Cal substituir-ho per «probabilitat» (estadística -glossari-)"
 {\brandom\b}i
 valid msgid="pseudo.?random\sintegers?"
 valid msgid="random\sdata"
+valid msgid="random\ssamples"
 valid msgid="random\svariable"
 valid msgstr="atzar"
 hint="Cal substituir-ho per «atzar» (estadística -glossari-)"
@@ -384,6 +397,10 @@ hint="Cal substituir-ho per «atzar» (estadística -glossari-)"
     {\brandom\sdata\b}i
     valid msgstr="dades aleatòries"
     hint="Cal substituir-ho per «dades aleatòries» (estadística -glossari-)"
+
+    {\brandom\ssamples\b}i
+    valid msgstr="mostres aleatòries"
+    hint="Cal substituir-ho per «mostres aleatòries» (estadística)"
 
     {\brandom\svariable\b}i
     valid msgstr="variable aleatòria"
@@ -590,6 +607,10 @@ hint="Cal substituir-ho per «Dilogaritme» (estadística)"
     valid msgstr="Distribució khi quadrat"
     hint="Cal substituir-ho per «Distribució khi quadrat» (estadística)"
 
+    {\bcontending\sDistribution\b}i
+    valid msgstr="Distribució estudiada"
+    hint="Cal substituir-ho per «Distribució estudiada» (estadística)"
+
     {\bExponential\sDistribution\b}i
     valid msgstr="Distribució exponencial"
     hint="Cal substituir-ho per «Distribució exponencial» (estadística)"
@@ -675,9 +696,13 @@ hint="Cal substituir-ho per «Dilogaritme» (estadística)"
     # https://en.wikipedia.org/wiki/Studentized_range_distribution
     # https://ca.wikipedia.org/wiki/John_Tukey
     # prova de rangs de Tukey, la distribució lambda de Tukey, la prova d'additivitat de Tukey i el lema de Tukey
-    {\bStudentized\sRange\s(\(Tukey\))?\sdistribution\b}i
+    {\bStudentized\sRange(\s.Tukey.)?\sdistribution\b}i
     valid msgstr="distribució de rangs estudiantils( .de Tukey.)?"
     hint="Cal substituir-ho per «distribució de rangs estudiantils/ (de Tukey)» (estadística)"
+
+        {\bStandardized\sRange(\s.Tukey.)?\sdistribution\b}i
+        valid msgstr="distribució de rangs estandaritzats( .de Tukey.)?"
+        hint="Cal substituir-ho per «distribució de rangs estandaritzats/ (de Tukey)» (estadística)"
 
     # https://ca.wikipedia.org/wiki/Distribuci%C3%B3_t_de_Student
     {\bt.?distribution\b}i
@@ -689,10 +714,14 @@ hint="Cal substituir-ho per «Dilogaritme» (estadística)"
     valid msgstr="distribucions contínues univariants"
     hint="Cal substituir-ho per «distribucions contínues univariants» (estadística)"
 
-    # https://en.wikipedia.org/wiki/Univariate_distribution
-    {\bUnivariate\sdiscrete\sdistributions\b}i
-    valid msgstr="distribucions discretes univariants"
-    hint="Cal substituir-ho per «distribucions discretes univariants» (estadística)"
+    {\bdiscrete\sdistribution\b}i
+    valid msgstr="distribució discreta"
+    hint="Cal substituir-ho per «distribució discreta» (estadística)"
+
+        # https://en.wikipedia.org/wiki/Univariate_distribution
+        {\bUnivariate\sdiscrete\sdistributions\b}i
+        valid msgstr="distribucions discretes univariants"
+        hint="Cal substituir-ho per «distribucions discretes univariants» (estadística)"
 
     # https://ca.wikipedia.org/wiki/Distribuci%C3%B3_de_Weibull
     {\bWeibull\sDistribution\b}i
@@ -707,6 +736,10 @@ hint="Cal substituir-ho per «Doble factorial» (estadística)"
 {\bElliptic\sIntegrals?\b}i
 valid msgstr="Integrals? el·lípti(ca|ques)"
 hint="Cal substituir-ho per «Integral/s el·líptica/ques» (estadística)"
+
+{\be(qual|ven)ly\sspaced\b}i
+valid msgstr="equidistants?"
+hint="Cal substituir-ho per «equidistant/s» (estadística)"
 
 {\bfactor\sdefining\sgroups\b}i
 valid msgstr="grups que defineixen el factor"
@@ -730,6 +763,17 @@ hint="Cal substituir-ho per «ajustat/s» (estadística)"
     {\bfitted\svalues?\b}i
     valid msgstr="valors? ajustats?"
     hint="Cal substituir-ho per «valor/s ajustat/s» (estadística)"
+
+# https://en.wikipedia.org/wiki/Freedman%E2%80%93Diaconis_rule
+{\bFriedman.?Diaconis\b}i
+valid msgstr="Friedman-Diaconis"
+hint="Cal substituir-ho per «Friedman-Diaconis» (estadística)"
+
+# https://ca.wikipedia.org/wiki/John_Sturges
+# https://en.wikipedia.org/wiki/Histogram#Number_of_bins_and_width
+{\bSturges\b}i
+valid msgstr="Sturges"
+hint="Cal substituir-ho per «Sturges» (estadística)"
 
 # Funció
     # https://ca.wikipedia.org/wiki/Funci%C3%B3_d'Airy
@@ -878,9 +922,17 @@ valid msgstr="inferencial"
 hint="Cal substituir-ho per «inferencial» (estadística)"
 
 # TODO
-# NA
+# mu
 # NaN
-# sd
+
+# https://ca.wikipedia.org/wiki/Lambda
+{\blambda\b}i
+valid msgstr="lambda"
+hint="Cal substituir-ho per «lambda -Λ en majúscula, i λ en minúscula-» (estadística)"
+
+{\bNA\b}i
+valid msgstr="\bSD\b"
+hint="Cal substituir-ho per «SD -sense determinar-» (estadística)"
 
 {\bnormally\sdistributed\sdata\b}i
 valid msgstr="dades distribuïdes segons el normal"
@@ -897,10 +949,6 @@ hint="Cal substituir-ho per «valor oposat» (estadística)"
     {\bopposite\svalues\b}i
     valid msgstr="valors oposats"
     hint="Cal substituir-ho per «valors oposats» (estadística)"
-
-{\b\b}i
-valid msgstr=""
-hint="Cal substituir-ho per «» (estadística)"
 
 {\boutlier\b}i
 valid msgid="/outlier"
@@ -1035,15 +1083,6 @@ hint="Cal substituir-ho per «predictors» (estadística)"
     hint="Cal substituir-ho per «predictors continus» (estadística)"
 
 # Proves
-
-    {\b\b}i
-    valid msgstr=""
-    hint="Cal substituir-ho per «» (estadística)"
-
-    {\b\b}i
-    valid msgstr=""
-    hint="Cal substituir-ho per «» (estadística)"
-
     # https://ca.wikipedia.org/wiki/Prova_d%27Anderson-Darling
     {\bAnderson.?Darling\sTest\b}i
     valid msgstr="prova d'Anderson-Darling"
@@ -1132,6 +1171,10 @@ hint="Cal substituir-ho per «predictors» (estadística)"
         valid msgstr="prova de normalitat de Jarque-Bera"
         hint="Cal substituir-ho per «prova de normalitat de Jarque-Bera» (estadística)"
 
+    {\b(Jarque.?Bera|JB)\schi.?squared\sstatistic\b}i
+    valid msgstr="estadística de khi quadrat de Jarque-Bera"
+    hint="Cal substituir-ho per «estadística de khi quadrat de Jarque-Bera» (estadística)"
+
     {\bKPSS\sTest\sfor\sStationarity\b}i
     valid msgstr="prova de KPSS per a l'estacionarietat"
     hint="Cal substituir-ho per «prova de KPSS per a l'estacionarietat» (estadística)"
@@ -1163,8 +1206,13 @@ hint="Cal substituir-ho per «predictors» (estadística)"
         hint="Cal substituir-ho per «prova de Mood d'escala per a dues mostres» (estadística)"
 
     {\bnull\shypothesis\b}i
+    valid msgid="null\shypothesis\sof\snormality"
     valid msgstr="hipòtesi nul·la"
     hint="Cal substituir-ho per «hipòtesi nul·la» (estadística)"
+
+        {\bnull\shypothesis\sof\snormality\b}i
+        valid msgstr="hipòtesi nul·la de normalitat"
+        hint="Cal substituir-ho per «hipòtesi nul·la de normalitat» (estadística)"
 
     {\bOutlier\sTests?\b}i
     valid msgstr="prov(a|es) per a una observació atípica"
@@ -1288,12 +1336,21 @@ hint="Cal substituir-ho per «Enter/s pseudoaleatori/s» (estadística)"
 
 # https://ca.wikipedia.org/wiki/Quantil
 {\bQuantile\b}i
+valid msgid="(Upp|Low)er\sQuantile"
 valid msgstr="Quantil"
 hint="Cal substituir-ho per «Quantil» (estadística)"
 
     {\bQuantiles\b}i
     valid msgstr="Quantils"
     hint="Cal substituir-ho per «Quantils» (estadística)"
+
+    {\bLower\sQuantile\b}i
+    valid msgstr="Quantil inferior"
+    hint="Cal substituir-ho per «Quantil inferior» (estadística)"
+
+    {\bUpper\sQuantile\b}i
+    valid msgstr="Quantil superior"
+    hint="Cal substituir-ho per «Quantil superior» (estadística)"
 
 # https://ca.wikipedia.org/wiki/Quartil
 {\bQuartile\b}i
@@ -1341,6 +1398,10 @@ hint="Cal substituir-ho per «mida de la mostra» (estadística)"
     valid msgstr="mida de la segona mostra"
     hint="Cal substituir-ho per «mida de la segona mostra» (estadística)"
 
+{\bsd\b}i
+valid msgstr="\bds\b"
+hint="Cal substituir-ho per «ds (desviació estàndard) -sd (standard deviation)-» (estadística)"
+
 {\bserie\b}i
 valid msgid="original\sserie\b"
 valid msgstr="sèrie"
@@ -1348,6 +1409,7 @@ hint="Cal substituir-ho per «sèrie» (estadística)"
 
     {\bseries\b}i
     valid msgid="original\sseries\b"
+    valid msgid="\ba\sseries\b"
     valid msgstr="sèries"
     hint="Cal substituir-ho per «sèries» (estadística)"
 
@@ -1360,6 +1422,10 @@ hint="Cal substituir-ho per «sèrie» (estadística)"
         valid msgstr="sèries? originals? amb addició"
         hint="Cal substituir-ho per «sèrie/s original/s amb addició» (estadística)"
 
+{\bsets?.?of.?samples\b}i
+valid msgstr="conjunts? de mostres"
+hint="Cal substituir-ho per «conjunt/s de mostres» (estadística)"
+
 {\bSpherical\sHarmonics\b}i
 valid msgstr="harmònics esfèrics"
 hint="Cal substituir-ho per «harmònics esfèrics» (estadística)"
@@ -1367,6 +1433,11 @@ hint="Cal substituir-ho per «harmònics esfèrics» (estadística)"
 {\bsquare\sroot\b}i
 valid msgstr="Arrel quadrada"
 hint="Cal substituir-ho per «Arrel quadrada» (estadística)"
+
+# https://ca.wikipedia.org/wiki/Sigma
+{\bsigma\b}i
+valid msgstr="\bsigma\b"
+hint="Cal substituir-ho per «sigma -Σ o σ, s'usa com símbol per a: Desviació estàndard-» (estadística)"
 
 {\bskewness\b}i
 valid msgstr="asimetria"
@@ -1576,6 +1647,14 @@ hint="Cal substituir-ho per «Per a aquesta prova, les mostres hauran de ser vec
 {\bMissing\svalues\swill\sbe\signored\b\.}i
 valid msgstr="S'ignoraran els valors que manquen\."
 hint="Cal substituir-ho per «S'ignoraran els valors que manquen.» (estadística -frase per unificar-)"
+
+{\bNot\sfor\sdirect\suse\b}i
+valid msgstr="No per a ús directe"
+hint="Cal substituir-ho per «No per a ús directe» (estadística -frase per unificar-)"
+
+{\bPart\sof\sthe\sofficial\sRKWard\sdistribution\b}i
+valid msgstr="Part de la distribució oficial del RKWard"
+hint="Cal substituir-ho per «Part de la distribució oficial del RKWard» (estadística -frase per unificar-)"
 
 {\bPlease\sconsider\sthat\sthis\stest\sis\sno\slonger\srecommended\b\.}i
 valid msgstr="Tingueu en compte que aquesta prova ja no és recomanable\."
