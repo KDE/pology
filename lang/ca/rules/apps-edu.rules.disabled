@@ -102,6 +102,7 @@ valid msgid="harmonic\smean"
 valid msgid="interquantile\smean"
 valid msgid="interquartile\smean"
 valid msgid="\bmeanlog\b"
+valid msgid="\bmean\(x\)"
 valid msgid="Median\sAbsolute\sDeviation"
 valid msgid="robust\smean"
 valid msgid="th(at|is)\scan\smean"
@@ -276,6 +277,30 @@ hint="Cal substituir-ho per «taula» (estadística -glossari-)"
     hint="Cal substituir-ho per «Taula de freqüències» (estadística -glossari-)"
 
 # Gràfics
+{\bplot\b}i
+valid msgid="bar.?plot"
+valid msgid="correlation\smatrix\sPlot"
+valid msgid="linear?\s(chart|graph|plot)"
+valid msgid="plot\.default"
+valid msgid="plot\.histogram"
+valid msgid="plot\.stepfun"
+valid msgid="scatter(.?plot|graph|chart|grame|diagram)"
+valid msgid="trend\s(graph|plot)"
+valid msgstr="diagrama"
+hint="Cal substituir-ho per «diagrama» (estadística)"
+
+    {\bplots\b}i
+    valid msgid="bar.?plots"
+    valid msgid="linear?\s(chart|graph|plot)s"
+    valid msgid="scatter(.?plot|graph|chart|grame|diagram)s"
+    valid msgid="trend\s(graph|plot)s"
+    valid msgstr="diagrames"
+    hint="Cal substituir-ho per «diagrames» (estadística)"
+
+    {\bplott(ed|ing)\b}i
+    valid msgstr="dibuix(a(ant|r|t))?"
+    hint="Cal substituir-ho per «dibuix, dibuixa/r/t, dibuixant» (estadística)"
+
 # https://ca.wikipedia.org/wiki/Diagrama_de_barres
 {\bbar.?plot\b}i
 valid msgstr="diagrama de barres"
@@ -311,7 +336,7 @@ valid msgstr="gràfic de línies"
 valid msgstr="diagrama de punts i línies"
 hint="Cal substituir-ho per «gràfic de línies, diagrama de punts i línies» (estadística -glossari-)"
 
-    {\blinear?\s(chart|graph|plot)s?\b}i
+    {\blinear?\s(chart|graph|plot)s\b}i
     valid msgstr="gràfics de línies"
     valid msgstr="diagrames de punts i línies"
     hint="Cal substituir-ho per «gràfics de línies, diagrames de punts i línies» (estadística -glossari-)"
@@ -454,6 +479,14 @@ hint="Cal substituir-ho per «bivariada» (estadística)"
     valid msgstr="normalitat bivariada"
     hint="Cal substituir-ho per «normalitat bivariada» (estadística)"
 
+{\bBreak.?point\b}i
+valid msgstr="Punt de ruptura"
+hint="Cal substituir-ho per «Punt de ruptura» (estadística)"
+
+    {\bBreak.?points\b}i
+    valid msgstr="Punts de ruptura"
+    hint="Cal substituir-ho per «Punts de ruptura» (estadística)"
+
 {\bCarlson\sform\b}i
 valid msgstr="Forma de Carlson\b"
 hint="Cal substituir-ho per «Forma de Carlson» (estadística)"
@@ -471,6 +504,46 @@ hint="Cal substituir-ho per «Teorema del límit central, (TLC)» (estadística)
     {\bCLT\b}i
     valid msgstr="TLC"
     hint="Cal substituir-ho per «TLC» (estadística)"
+
+# Connectors
+    {\bembedd(ed|ing)\splugin\b}i
+    valid msgstr="connector incrustat"
+    hint="Cal substituir-ho per «connector incrustat» (estadística)"
+
+        {\bembedd(ed|ing)\splugins\b}i
+        valid msgstr="connectors incrustats"
+        hint="Cal substituir-ho per «connectors incrustats» (estadística)"
+
+    {\bplugin.?map\b}i
+    valid msgstr="mapa de connectors"
+    hint="Cal substituir-ho per «mapa de connectors» (estadística)"
+
+        {\bplugin.?maps\b}i
+        valid msgstr="mapes de connectors"
+        hint="Cal substituir-ho per «mapes de connectors» (estadística)"
+
+        {\bplugin.?map\sfile\b}i
+        valid msgid="\.\bpluginmap\sfile\b"
+        valid msgstr="fitxer del mapa de connectors"
+        hint="Cal substituir-ho per «fitxer del mapa de connectors» (estadística)"
+
+            {\bplugin.?map\sfiles\b}i
+            valid msgid="\.\bpluginmap\sfiles\b"
+            valid msgstr="fitxers del mapa de connectors"
+            hint="Cal substituir-ho per «fitxers del mapa de connectors» (estadística)"
+
+            {\.\bpluginmap\sfiles?\b}i
+            valid msgstr="fitxers? \.pluginmap"
+            hint="Cal substituir-ho per «fitxer/s .pluginmap» (estadística)"
+            
+    {\btabulation\splugin\b}i
+    valid msgid="Generic\stabulation\splugin"
+    valid msgstr="connector de tabulació"
+    hint="Cal substituir-ho per «connector de tabulació» (estadística)"
+
+        {\bGeneric\stabulation\splugin\b}i
+        valid msgstr="connector genèric de tabulació"
+        hint="Cal substituir-ho per «connector genèric de tabulació» (estadística)"
 
 {\bcontinuity\scorrection\b}i
 valid msgstr="correcció de continuïtat"
@@ -556,12 +629,12 @@ hint="Cal substituir-ho per «Graus de llibertat» (estadística)"
 
     {\bnumerator\sdegrees\sof\sfreedom\b}i
     valid msgid="Targeted\snumerator\sdegrees\sof\sfreedom"
-    valid msgstr="graus del numerador de llibertat"
-    hint="Cal substituir-ho per «graus del numerador de llibertat» (estadística)"
+    valid msgstr="Numerador pels graus de llibertat"
+    hint="Cal substituir-ho per «Numerador pels graus de llibertat» (estadística)"
 
         {\bTargeted\snumerator\sdegrees\sof\sfreedom\b}i
-        valid msgstr="graus del numerador objectiu de llibertat"
-        hint="Cal substituir-ho per «graus del numerador objectiu de llibertat» (estadística)"
+        valid msgstr="Numerador objectiu pels graus de llibertat"
+        hint="Cal substituir-ho per «Numerador objectiu pels graus de llibertat» (estadística)"
 
     {\bTargeted\sdegrees\sof\sfreedom\b}i
     valid msgstr="graus objectiu de llibertat"
@@ -768,6 +841,10 @@ hint="Cal substituir-ho per «ajustat/s» (estadística)"
 {\bFriedman.?Diaconis\b}i
 valid msgstr="Friedman-Diaconis"
 hint="Cal substituir-ho per «Friedman-Diaconis» (estadística)"
+
+{\bgrouping\svariables\b}i
+valid msgstr="variables d'agrupament"
+hint="Cal substituir-ho per «variables d'agrupament» (estadística)"
 
 # https://ca.wikipedia.org/wiki/John_Sturges
 # https://en.wikipedia.org/wiki/Histogram#Number_of_bins_and_width
@@ -1399,8 +1476,13 @@ hint="Cal substituir-ho per «mida de la mostra» (estadística)"
     hint="Cal substituir-ho per «mida de la segona mostra» (estadística)"
 
 {\bsd\b}i
+valid msgid="\bsd\(x\)"
 valid msgstr="\bds\b"
 hint="Cal substituir-ho per «ds (desviació estàndard) -sd (standard deviation)-» (estadística)"
+
+    {\bsdlog\b}i
+    valid msgstr="\bds logarítmica\b"
+    hint="Cal substituir-ho per «ds logarítmica -desviació estàndard-» (estadística)"
 
 {\bserie\b}i
 valid msgid="original\sserie\b"
@@ -1425,6 +1507,10 @@ hint="Cal substituir-ho per «sèrie» (estadística)"
 {\bsets?.?of.?samples\b}i
 valid msgstr="conjunts? de mostres"
 hint="Cal substituir-ho per «conjunt/s de mostres» (estadística)"
+
+{\bshading\slines?\b}i
+valid msgstr="líni(a|es) amb ombrejat"
+hint="Cal substituir-ho per «línia/es amb ombrejat» (estadística)"
 
 {\bSpherical\sHarmonics\b}i
 valid msgstr="harmònics esfèrics"
@@ -1464,6 +1550,14 @@ hint="Cal substituir-ho per «Coeficient de Taylor» (estadística)"
 valid msgstr="tetracòriques"
 hint="Cal substituir-ho per «tetracòriques» (estadística)"
 
+{\bTick\slabel\b}i
+valid msgstr="etiqueta amb marca"
+hint="Cal substituir-ho per «etiqueta amb marca» (estadística)"
+
+    {\bTicks\b}i
+    valid msgstr="marques"
+    hint="Cal substituir-ho per «marques» (estadística)"
+
 {\btie\b}i
 valid msgstr="relació"
 hint="Cal substituir-ho per «relació» (estadística)"
@@ -1484,6 +1578,10 @@ hint="Cal substituir-ho per «sèrie de temps» (estadística)"
 valid msgstr="tridimensionals?"
 hint="Cal substituir-ho per «tridimensional/s» (estadística)"
 
+{\btrellis\b}i
+valid msgstr="\bde tipus Trellis\b"
+hint="Cal substituir-ho per «de tipus Trellis» (estadística)"
+
 {\btrend\b}i
 valid msgid="trend\sgraph"
 valid msgstr="tendència"
@@ -1493,11 +1591,11 @@ hint="Cal substituir-ho per «tendència» (estadística)"
     valid msgstr="tendències"
     hint="Cal substituir-ho per «tendències» (estadística)"
 
-    {\btrend\sgraph\b}i
+    {\btrend\s(graph|plot)\b}i
     valid msgstr="gràfic de tendències"
     hint="Cal substituir-ho per «gràfic de tendències» (estadística)"
 
-        {\btrend\splots\b}i
+        {\btrend\s(graph|plot)s\b}i
         valid msgstr="gràfics de tendències"
         hint="Cal substituir-ho per «gràfics de tendències» (estadística)"
 
@@ -1644,6 +1742,10 @@ hint="Cal substituir-ho per «sinó l'oposat» (estadística -frase per unificar
 valid msgstr="Per a aquesta prova, les mostres hauran de ser vectors numèrics"
 hint="Cal substituir-ho per «Per a aquesta prova, les mostres hauran de ser vectors numèrics» (estadística -frase per unificar-)"
 
+{\bInteger\snumbers\b}i
+valid msgstr="Nombres enters"
+hint="Cal substituir-ho per «Nombres enters» (estadística -frase per unificar-)"
+
 {\bMissing\svalues\swill\sbe\signored\b\.}i
 valid msgstr="S'ignoraran els valors que manquen\."
 hint="Cal substituir-ho per «S'ignoraran els valors que manquen.» (estadística -frase per unificar-)"
@@ -1683,6 +1785,14 @@ hint="Cal substituir-ho per «Podeu triar múltiples dades.» (estadística -fra
 {\bSee\sRKWard\shelp\son\b}i
 valid msgstr="Vegeu l'ajuda del RKWard sobre el"
 hint="Cal substituir-ho per «Vegeu l'ajuda del RKWard sobre el» (estadística -frase per unificar-)"
+
+{\bThis\sis\srequired\b\.}i
+valid msgstr="Aquest és un camp obligatori\."
+hint="Cal substituir-ho per «Aquest és un camp obligatori.» (estadística -frase per unificar-)"
+
+{\bVector\sof\sbreak\spoints\b}i
+valid msgstr="Vector dels punts de ruptura"
+hint="Cal substituir-ho per «Vector dels punts de ruptura» (estadística -frase per unificar-)"
 
 {\b\b}i
 valid msgstr=""
