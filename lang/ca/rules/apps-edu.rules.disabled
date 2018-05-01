@@ -1037,9 +1037,9 @@ hint="Cal substituir-ho per «inferencial» (estadística)"
 valid msgstr="lambda"
 hint="Cal substituir-ho per «lambda -Λ en majúscula, i λ en minúscula-» (estadística)"
 
-{\bNA\b}i
+{\bNAs?\b}i
 valid msgstr="\bSD\b"
-hint="Cal substituir-ho per «SD -sense determinar-» (estadística)"
+hint="Cal substituir-ho per «SD -sense determinar-, els SD» (estadística)"
 
 {\bnormally\sdistributed\sdata\b}i
 valid msgstr="dades distribuïdes segons el normal"
