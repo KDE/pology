@@ -17,22 +17,27 @@ addFilterRegex match="(\&)" on="pmsgid,pmsgstr"
 
 # Recollida d'informació
 {\bcensus\b}i
+id="apps-edu_census"
 valid msgstr="cens"
 hint="Cal substituir-ho per «cens» (estadística -glossari-)"
 
     {\bcensuses\b}i
+    id="apps-edu_censuses"
     valid msgstr="censos"
     hint="Cal substituir-ho per «censos» (estadística -glossari-)"
 
 {\bpopulation\b}i
+id="apps-edu_population"
 valid msgstr="població"
 hint="Cal substituir-ho per «població» (estadística -glossari-)"
 
     {\bpopulations\b}i
+    id="apps-edu_populations"
     valid msgstr="poblacions"
     hint="Cal substituir-ho per «poblacions» (estadística -glossari-)"
 
 {\bsample\b}i
+id="apps-edu_sample"
 valid msgid="sample\ssize"
 valid msgid="sample\smoment"
 valid msgid="sample\ssize"
@@ -42,24 +47,29 @@ valid msgstr="mostra"
 hint="Cal substituir-ho per «mostra» (estadística -glossari-)"
 
     {\bsamples\b}i
+    id="apps-edu_samples"
     valid msgstr="mostres"
     hint="Cal substituir-ho per «mostres» (estadística -glossari-)"
 
 {\bsurvey\b}i
+id="apps-edu_survey"
 valid msgstr="enquesta"
 hint="Cal substituir-ho per «enquesta» (estadística -glossari-)"
 
     {\bsurveys\b}i
+    id="apps-edu_surveys"
     valid msgstr="enquestes"
     hint="Cal substituir-ho per «enquestes» (estadística -glossari-)"
 
 {\bvariable\b}i
+id="apps-edu_variable"
 valid msgid="Qualitative\svariable"
 valid msgid="Quantitative\svariable"
 valid msgstr="variable"
 hint="Cal substituir-ho per «variable» (estadística -glossari-)"
 
     {\bvariables\b}i
+    id="apps-edu_variables"
     valid msgid="Qualitative\svariables"
     valid msgid="Quantitative\svariables"
     valid msgid="\bone\svariables\b"
@@ -67,15 +77,18 @@ hint="Cal substituir-ho per «variable» (estadística -glossari-)"
     hint="Cal substituir-ho per «variables» (estadística -glossari-)"
 
     {\bQualitative\svariables?\b}i
+    id="apps-edu_quali_variable"
     valid msgstr="Variables? qualitativ(a|es)"
     hint="Cal substituir-ho per «Variable/s qualitativa/es» (estadística -glossari-)"
 
     {\bQuantitative\svariables?\b}i
+    id="apps-edu_quanti_variable"
     valid msgstr="Variables? quantitativ(a|es)"
     hint="Cal substituir-ho per «Variable/s quantitativa/es» (estadística -glossari-)"
 
 # Tractament de les dades
 {\bFrequency\b}i
+id="apps-edu_frequency"
 valid msgid="Absolute\sfrequency"
 valid msgid="Accumulated\sfrequency"
 valid msgid="Relative\sfrequency"
@@ -83,19 +96,23 @@ valid msgstr="Freqüència"
 hint="Cal substituir-ho per «Freqüència» (estadística -glossari-)"
 
     {\bAbsolute\sfrequency\b}i
+    id="apps-edu_absolute_frequency"
     valid msgstr="Freqüència absoluta"
     hint="Cal substituir-ho per «Freqüència absoluta» (estadística -glossari-)"
 
     {\bAccumulated\sfrequency\b}i
+    id="apps-edu_accumulated_frequency"
     valid msgstr="Freqüència acumulada"
     hint="Cal substituir-ho per «Freqüència acumulada» (estadística -glossari-)"
 
     {\bRelative\sfrequency\b}i
+    id="apps-edu_relative_frequency"
     valid msgstr="Freqüència relativa"
     hint="Cal substituir-ho per «Freqüència relativa» (estadística -glossari-)"
 
 # https://ca.wikipedia.org/wiki/Mitjana
 {\b(average|mean)\b}i
+id="apps-edu_average"
 valid msgid="Arithmetic\smean"
 valid msgid="Geometric\smean"
 valid msgid="harmonic\smean"
@@ -110,51 +127,62 @@ valid msgstr="mitjana"
 hint="Cal substituir-ho per «mitjana» (estadística -glossari-)"
 
 {\bmedian\b}i
+id="apps-edu_median"
 valid msgid="Median\sAbsolute\sDeviation"
 valid msgstr="mediana"
 hint="Cal substituir-ho per «mediana» (estadística -glossari-)"
 
     {\bmeans\b}i
+    id="apps-edu_means"
     valid msgid="means\sthat"
     valid msgid="th(at|is) means"
     valid msgstr="mitjanes"
+    valid msgstr="significa"
     hint="Cal substituir-ho per «mitjanes» (estadística -glossari-)"
 
     # https://ca.wikipedia.org/wiki/Mitjana_aritm%C3%A8tica
     {\bArithmetic\smean\b}i
+    id="apps-edu_arithmetic_mean"
     valid msgstr="Mitjana aritmètica"
     hint="Cal substituir-ho per «Mitjana aritmètica» (estadística -glossari-)"
 
     # https://ca.wikipedia.org/wiki/Mitjana_geom%C3%A8trica
     {\bGeometric\smean\b}i
+    id="apps-edu_geometric_mean"
     valid msgstr="Mitjana geomètrica"
     hint="Cal substituir-ho per «Mitjana geomètrica» (estadística)"
 
     # https://ca.wikipedia.org/wiki/Mitjana_harm%C3%B2nica
     {\bharmonic\smean\b}i
+    id="apps-edu_harmonic_mean"
     valid msgstr="mitjana harmònica"
     hint="Cal substituir-ho per «mitjana harmònica» (estadística)"
 
     # https://en.wikipedia.org/wiki/Interquartile_mean
     {\binterquantile\smean\b}i
+    id="apps-edu_interquantile_mean"
     valid msgstr="mitjana interquantil"
     hint="Cal substituir-ho per «mitjana interquantil» (estadística)"
 
     # https://en.wikipedia.org/wiki/Interquartile_mean
     {\binterquartile\smean\b}i
+    id="apps-edu_interquartile_mean"
     valid msgstr="mitjana interquartil"
     hint="Cal substituir-ho per «mitjana interquartil» (estadística)"
 
     {\bmeanlog\b}i
+    id="apps-edu_meanlog"
     valid msgstr="mitjana logarítmica"
     hint="Cal substituir-ho per «mitjana logarítmica» (estadística)"
 
     # https://en.wikipedia.org/wiki/Median_absolute_deviation
     {\bMedian\sAbsolute\sDeviation\b}i
+    id="apps-edu_median_abs_dev"
     valid msgstr="Mediana de la desviació absoluta"
     hint="Cal substituir-ho per «Mediana de la desviació absoluta -també abreujat com a MAD-» (estadística)"
 
         {\bMAD\b}i
+        id="apps-edu_MAD"
         valid msgstr="\bMAD\b"
         hint="Cal substituir-ho per «MAD -Median Absolute Deviation (Mediana de la desviació absoluta)-» (estadística)"
 
@@ -165,7 +193,7 @@ hint="Cal substituir-ho per «mediana» (estadística -glossari-)"
     {\btrimmed\b}i
     valid msgid="trimmed\smean"
     valid msgid="trimmed\svalues"
-    valid msgstr="trunca(da|des|ts?)"
+    valid msgstr="trunca(da|des|ran|ts?)"
     hint="Cal substituir-ho per «truncat/s, truncada/des» (estadística)"
 
         {\btrim\b}i
@@ -278,6 +306,7 @@ hint="Cal substituir-ho per «taula» (estadística -glossari-)"
 
 # Gràfics
 {\bplot\b}i
+id="apps-edu_plot"
 valid msgid="bar.?plot"
 valid msgid="correlation\smatrix\sPlot"
 valid msgid="linear?\s(chart|graph|plot)"
@@ -352,6 +381,7 @@ hint="Cal substituir-ho per «pictograma» (estadística -glossari-)"
 
 # https://ca.wikipedia.org/wiki/Diagrama_de_dispersi%C3%B3
 {\bscatter(.?plot|graph|chart|gram|diagram)\b}i
+id="apps-edu_scatter" 
 valid msgstr="diagrama de dispersió"
 hint="Cal substituir-ho per «diagrama de dispersió» (estadística -glossari-)"
 
