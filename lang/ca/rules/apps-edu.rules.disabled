@@ -276,17 +276,17 @@ hint="Cal substituir-ho per «Proporció» (estadística -glossari-)"
 
 {\brank\b}i
 valid msgid="numeric\srank"
-valid msgstr="rang"
-hint="Cal substituir-ho per «rang -glossari-» (estadística)"
+valid msgstr="amplitud"
+hint="Cal substituir-ho per «amplitud -glossari-» (estadística)"
 
     {\branks\b}i
     valid msgid="numeric\sranks"
-    valid msgstr="rangs"
-    hint="Cal substituir-ho per «rangs -glossari-» (estadística)"
+    valid msgstr="amplituds"
+    hint="Cal substituir-ho per «amplituds -glossari-» (estadística)"
 
     {\bnumeric\sranks?\b}i
     valid msgstr="rangs? numèrics?"
-    hint="Cal substituir-ho per «rang/s numèric/s» (estadística)"
+    hint="Cal substituir-ho per «amplitud/s numèrica/ques» (estadística)"
 
 # Obtenció de resultats
 {\btable\b}i
@@ -416,7 +416,11 @@ hint="Cal substituir-ho per «esdeveniment, succés» (estadística -glossari-)"
     {\bpossible\sevent\b}i
     valid msgstr="esdeveniment possible"
     hint="Cal substituir-ho per «esdeveniment possible» (estadística -glossari-)"
-
+    
+    {\bplain\sprobability\b}i
+    valid msgstr="probabilitat simple"
+    hint="Cal substituir-ho per «probabilitat simple» (estadística -glossari-)"
+    
     {\bsure\sevent\b}i
     valid msgstr="esdeveniment segur"
     hint="Cal substituir-ho per «esdeveniment segur» (estadística -glossari-)"
@@ -619,6 +623,10 @@ hint="Cal substituir-ho per «taula de contingència» (estadística)"
     valid msgstr="creua(da|ran|t) a la taula"
     hint="Cal substituir-ho per «creuat/da|creuaran a la taula» (estadística)"
 
+{\bcut\soff\b}i
+valid msgstr="retallat"
+hint="Cal substituir-ho per «retallat» (estadística)"
+
 {\bcyclical\scomponent\b}i
 valid msgstr="component cíclic"
 hint="Cal substituir-ho per «component cíclic» (estadística)"
@@ -798,14 +806,14 @@ hint="Cal substituir-ho per «Dilogaritme» (estadística)"
 
     # https://en.wikipedia.org/wiki/Studentized_range_distribution
     # https://ca.wikipedia.org/wiki/John_Tukey
-    # prova de rangs de Tukey, la distribució lambda de Tukey, la prova d'additivitat de Tukey i el lema de Tukey
+    # prova d'amplituds de Tukey, la distribució lambda de Tukey, la prova d'additivitat de Tukey i el lema de Tukey
     {\bStudentized\sRange(\s.Tukey.)?\sdistribution\b}i
-    valid msgstr="distribució de rangs estudiantils( .de Tukey.)?"
-    hint="Cal substituir-ho per «distribució de rangs estudiantils/ (de Tukey)» (estadística)"
+    valid msgstr="distribució d'amplituds Studentized( .de Tukey.)?"
+    hint="Cal substituir-ho per «distribució d'amplituds Studentized/ (de Tukey)» (estadística)"
 
         {\bStandardized\sRange(\s.Tukey.)?\sdistribution\b}i
-        valid msgstr="distribució de rangs estandaritzats( .de Tukey.)?"
-        hint="Cal substituir-ho per «distribució de rangs estandaritzats/ (de Tukey)» (estadística)"
+        valid msgstr="distribució d'amplituds estandaritzades( .de Tukey.)?"
+        hint="Cal substituir-ho per «distribució de rangs estandaritzades/ (de Tukey)» (estadística)"
 
     # https://ca.wikipedia.org/wiki/Distribuci%C3%B3_t_de_Student
     {\bt.?distribution\b}i
@@ -1411,17 +1419,17 @@ hint="Cal substituir-ho per «predictors» (estadística)"
     hint="Cal substituir-ho per «variant de la prova» (estadística)"
 
     {\bWilcoxon\sRank\sSum\b}i
-    valid msgstr="suma de rangs de Wilcoxon"
-    hint="Cal substituir-ho per «suma de rangs de Wilcoxon» (estadística)"
+    valid msgstr="suma d'amplituds de Wilcoxon"
+    hint="Cal substituir-ho per «suma d'amplituds de Wilcoxon» (estadística)"
 
     {\bWilcoxon\sSigned\sRank\b}i
     valid msgid="Signed\sRank"
-    valid msgstr="rang signat de Wilcoxon"
-    hint="Cal substituir-ho per «rang signat de Wilcoxon» (estadística)"
+    valid msgstr="amplitud signada de Wilcoxon"
+    hint="Cal substituir-ho per «amplitud signada de Wilcoxon» (estadística)"
 
         {\bSigned\sRank\b}i
-        valid msgstr="rang signat"
-        hint="Cal substituir-ho per «rang signat» (estadística)"
+        valid msgstr="amplitud signada"
+        hint="Cal substituir-ho per «amplitud signada» (estadística)"
 
     {\bWilcoxon/Mann.?Whitney\sTests\b}i
     valid msgstr="proves de Wilcoxon/Mann-Whitney"
