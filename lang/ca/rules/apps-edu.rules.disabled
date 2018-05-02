@@ -319,6 +319,7 @@ valid msgstr="diagrama"
 hint="Cal substituir-ho per «diagrama» (estadística)"
 
     {\bplots\b}i
+    id="apps-edu_plots"
     valid msgid="bar.?plots"
     valid msgid="linear?\s(chart|graph|plot)s"
     valid msgid="scatter(.?plot|graph|chart|grame|diagram)s"
@@ -541,32 +542,39 @@ hint="Cal substituir-ho per «Teorema del límit central, (TLC)» (estadística)
 
 # Connectors
     {\bembedd(ed|ing)\splugin\b}i
+    id="apps-edu_embedded_plugin"
     valid msgstr="connector incrustat"
     hint="Cal substituir-ho per «connector incrustat» (estadística)"
 
         {\bembedd(ed|ing)\splugins\b}i
+        id="apps-edu_embedded_plugins"
         valid msgstr="connectors incrustats"
         hint="Cal substituir-ho per «connectors incrustats» (estadística)"
 
     {\bplugin.?map\b}i
+    id="apps-edu_plugin_map"
     valid msgstr="mapa de connectors"
     hint="Cal substituir-ho per «mapa de connectors» (estadística)"
 
         {\bplugin.?maps\b}i
+        id="apps-edu_plugin_maps"
         valid msgstr="mapes de connectors"
         hint="Cal substituir-ho per «mapes de connectors» (estadística)"
 
         {\bplugin.?map\sfile\b}i
+        id="apps-edu_plugin_map_file"
         valid msgid="\.\bpluginmap\sfile\b"
         valid msgstr="fitxer del mapa de connectors"
         hint="Cal substituir-ho per «fitxer del mapa de connectors» (estadística)"
 
             {\bplugin.?map\sfiles\b}i
+            id="apps-edu_plugin_map_files"
             valid msgid="\.\bpluginmap\sfiles\b"
             valid msgstr="fitxers del mapa de connectors"
             hint="Cal substituir-ho per «fitxers del mapa de connectors» (estadística)"
 
             {\.\bpluginmap\sfiles?\b}i
+            id="apps-edu_pluginmap_file"
             valid msgstr="fitxers? \.pluginmap"
             hint="Cal substituir-ho per «fitxer/s .pluginmap» (estadística)"
             
@@ -812,8 +820,8 @@ hint="Cal substituir-ho per «Dilogaritme» (estadística)"
     hint="Cal substituir-ho per «distribució d'amplituds Studentized/ (de Tukey)» (estadística)"
 
         {\bStandardized\sRange(\s.Tukey.)?\sdistribution\b}i
-        valid msgstr="distribució d'amplituds estandaritzades( .de Tukey.)?"
-        hint="Cal substituir-ho per «distribució de rangs estandaritzades/ (de Tukey)» (estadística)"
+        valid msgstr="distribució d'amplituds estandarditzades( .de Tukey.)?"
+        hint="Cal substituir-ho per «distribució d'amplituds estandarditzades/ (de Tukey)» (estadística)"
 
     # https://ca.wikipedia.org/wiki/Distribuci%C3%B3_t_de_Student
     {\bt.?distribution\b}i
