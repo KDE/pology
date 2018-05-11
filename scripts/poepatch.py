@@ -809,7 +809,7 @@ def unembed_ediff (path, all=False, old=False):
                                      line=msg_p.refline, entry=msg_p.refentry),
                                    msg, cat)
                     return
-                msg.set(msg2)
+                msg.set(Message(msg2))
                 unembedded[tmsg.key] = msg
             else:
                 cat.remove_on_sync(msg)
