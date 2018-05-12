@@ -328,6 +328,7 @@ hint="Cal substituir-ho per «diagrama» (estadística)"
     hint="Cal substituir-ho per «diagrames» (estadística)"
 
     {\bplott(ed|ing)\b}i
+    id="apps-edu_plott"
     valid msgstr="dibuix(a(ant|r|t))?"
     hint="Cal substituir-ho per «dibuix, dibuixa/r/t, dibuixant» (estadística)"
 
@@ -498,6 +499,7 @@ valid msgstr="Logaritme en base 10\b"
 hint="Cal substituir-ho per «Logaritme en base 10» (estadística)"
 
 {\bbind(ing)?\b}i
+id="apps-edu_bind"
 valid msgstr="enllaçar?"
 hint="Cal substituir-ho per «enllaça/r» (estadística)"
 
@@ -1625,6 +1627,7 @@ valid msgstr="tridimensionals?"
 hint="Cal substituir-ho per «tridimensional/s» (estadística)"
 
 {\btrellis\b}i
+id="apps-edu_trellis"
 valid msgstr="\bde tipus Trellis\b"
 hint="Cal substituir-ho per «de tipus Trellis» (estadística)"
 
