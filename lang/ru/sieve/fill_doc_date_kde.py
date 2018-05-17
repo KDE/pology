@@ -40,6 +40,7 @@ class Sieve (object):
             u'April 7, 2003': u'7 апреля 2003 г.',
             u'May 2017': u'май 2017 г.',
             u'2016-16-10': u'10 ноября 2016 г.',
+            u'January 2018': u'январь 2018 г.',
         }	
     
         # Other dates should have the following format: (yyyy-mm-dd)
