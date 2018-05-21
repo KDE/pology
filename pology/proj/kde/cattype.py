@@ -52,10 +52,9 @@ def is_txt_cat (catname, subdir):
     if up1dir == "others":
         return False
     return (False
-        or catname.startswith("desktop_")
-        or (catname.endswith(".desktop") and not catname.endswith("org.kde.desktop"))
-        or catname.startswith("xml_")
-        or catname.startswith("json_") or catname.endswith(".json")
+        or catname.startswith("desktop_") or catname.endswith("._desktop_") or (catname.endswith(".desktop") and not catname.endswith("org.kde.plasma.desktop"))
+        or catname.startswith("json_") or catname.endswith("._json_") or catname.endswith(".json")
+        or catname.startswith("xml_") or catname.endswith("._xml_")
     )
 
 
