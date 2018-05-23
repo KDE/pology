@@ -261,9 +261,13 @@ hint="Kutt ut ellipseteiknet ved referering til kommandoar"
 [(klarer|klarte) ikkje å]i
 hint="klarte ikkje å → klarte ikkje"
 
-[aktiver\w]i
+[aktiver\w*]i
 id="aktiver"
-hint="aktiver → slå på, gjer verksam, bruk, vis, …"
+hint="aktiver (deaktiver) → slå på (av), gjer (u)verksam, (ikkje) bruk, (ikkje) vis, …"
+
+[aktiv(e|t)?\b]i
+id="aktiv"
+hint="aktiv (deaktiv) → på (av), (u)verksam, (ikkje) i bruk, (ikkje / u-) tilgjengeleg, …"
 
 [eksister\w]i
 id="eksistera"
