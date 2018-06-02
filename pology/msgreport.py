@@ -267,14 +267,15 @@ def report_msg_to_lokalize (msg, cat, report=None):
         if cat.filename not in globals()['visitedcats']:
             globals()['visitedcats'][cat.filename]=1
 
-            gotoEntry=editorobj.get_dbus_method('gotoEntry','org.kde.Lokalize.Editor')
-            gotoEntry(msg.refentry-1)
-
-            setEntriesFilteredOut=editorobj.get_dbus_method('setEntriesFilteredOut','org.kde.Lokalize.Editor')    
+            setEntriesFilteredOut=editorobj.get_dbus_method('setEntriesFilteredOut','org.kde.Lokalize.Editor')
             setEntriesFilteredOut(True)
 
-        setEntryFilteredOut=editorobj.get_dbus_method('setEntryFilteredOut','org.kde.Lokalize.Editor')    
+        setEntryFilteredOut=editorobj.get_dbus_method('setEntryFilteredOut','org.kde.Lokalize.Editor')
         setEntryFilteredOut(msg.refentry-1,False)
+
+        gotoEntry=editorobj.get_dbus_method('gotoEntry','org.kde.Lokalize.Editor')
+        gotoEntry(msg.refentry-1)
+
         if report:
             addTemporaryEntryNote=editorobj.get_dbus_method('addTemporaryEntryNote','org.kde.Lokalize.Editor')
             addTemporaryEntryNote(msg.refentry-1,report.resolve(ctype="none"))
