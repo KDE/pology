@@ -212,6 +212,9 @@ hint="pakke reknar me som hankjønn"
 [tekst(a|er|ene)\b|\bei tekst\b]i
 hint="tekst reknar me som hankjønn"
 
+[bygning(a|er|ene)\b|\bei bygning\b|ei \w+ bygning]i
+hint="bygning reknar me som hankjønn"
+
 [(vis|tolk)ning]i
 hint="-ning → -ing"
 valid after="under"
