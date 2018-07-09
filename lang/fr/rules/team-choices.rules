@@ -434,6 +434,10 @@ valid msgstr="déconseillé"
 valid msgid="PNG (or the deprecated &GIF;)*" cat="kile"
 hint="Traduire « deprecated » par « déconseillé »"
 
+{credentials}i
+valid msgstr="identifiants"
+hint="Traduire « credentials » par « identifiants »"
+
 [\bN/A\b|\bN/B\b|\bN/C\b]i
 valid cat="kspread,sheets"
 valid cat="sheets_functions"
