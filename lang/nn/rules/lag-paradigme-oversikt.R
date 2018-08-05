@@ -103,4 +103,8 @@ d_utdata$kommentar = NA # Kommentar til valet/paradigmekomboen
 #   Skild med: Komma (ingenting anna)
 #   Formater sitatfelt som tekst: ja (kryssa av)
 #
+# Må etter import merkja heile «val»-kolonnen og endra «Talformat» til
+# «Tekst», for å hindra at talkodar som begynner med 0 mistar 0-talet.
+# (Det er *ikkje* nok eller nødvendig å gjera dette ved sjølve importen.)
+#
 write.csv(d_utdata, "paradigme-komboar.csv", row.names = FALSE, na = "")
