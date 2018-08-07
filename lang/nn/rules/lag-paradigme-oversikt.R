@@ -11,6 +11,9 @@
 # for å få betre ordeksempel (funkar ikkje perfekt,
 # men er nyttig).
 
+
+# Innstillingar og filinnlesing -------------------------------------------
+
 # Ymse pakkar for datahandsaming
 library(tidyverse)
 
@@ -34,6 +37,10 @@ d_lemmaparadigme = les_fil("lemma_paradigme_nn.txt")
 d_paradigme = les_fil("paradigme_boying_nn.txt")
 d_frek = read_table(paste0(mappe_frek, "/", "frekvens-nn.dat"),
                     col_names=c("frek","OPPSLAG"), col_type="nc")
+
+
+
+# Lag paradigmeoversikt ---------------------------------------------------
 
 # Legg til bruksfrekvensinfo for kvar fullform,
 # og oppsummer til slutt på lemmanivå
@@ -76,12 +83,11 @@ d_psam_pop = d_psam %>%
   distinct(par_tekst, .keep_all = TRUE) %>%  # Berre første/mest populære lemma
   arrange(desc(frek)) # Sorter paradigmekomboar etter frekvens
 
-# # Nokre eksempel
-# d_fullform %>% filter(LEMMA_ID==d_psam_pop$LEMMA_ID[1])
-# d_fullform %>% filter(LEMMA_ID==d_psam_pop$LEMMA_ID[2])
-# d_fullform %>% filter(LEMMA_ID==d_psam_pop$LEMMA_ID[3])
 
-# Lagra fil for manuell redigering
+
+# Oppdatering og lagring av fil -------------------------------------------
+
+# Gjer klar fil for manuell redigering
 # Treng berre laga oversikt for ord
 # som faktisk er brukte i omsettingane
 d_utdata = d_psam_pop %>% 
@@ -107,7 +113,7 @@ d_nye = d_utdata %>%
 d_oppdatert = bind_rows(d_gammal, d_nye)
 
 
-# Lagra fila for manuell redigering
+# Lagra oversiktsfil i CSV-format for manuell redigering
 #
 # Gjer det nøyaktig slik (og brukar for eksempel ikkje write_csv())
 # for at fila skal kunna redigerast med LibreOffice Calc utan at
