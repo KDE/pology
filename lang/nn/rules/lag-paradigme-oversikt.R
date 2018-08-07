@@ -93,6 +93,20 @@ d_utdata = d_psam_pop %>%
 d_utdata$val = NA       # Paradigmet me vel for denne typen ord
 d_utdata$kommentar = NA # Kommentar til valet/paradigmekomboen
 
+
+# Les inn gammal fil (for oppdatering)
+d_gammal = read_csv("paradigme-komboar.csv",
+										col_types = cols(par_tekst = col_character(),
+																		 LEMMA_ID = col_integer(),
+																		 GRUNNFORM = col_character(),
+																		 val = col_character(),
+																		 kommentar = col_character()
+))
+d_nye = d_utdata %>% 
+	anti_join(d_gammal, by = "par_tekst")
+d_oppdatert = bind_rows(d_gammal, d_nye)
+
+
 # Lagra fila for manuell redigering
 #
 # Gjer det nøyaktig slik (og brukar for eksempel ikkje write_csv())
@@ -107,4 +121,4 @@ d_utdata$kommentar = NA # Kommentar til valet/paradigmekomboen
 # «Tekst», for å hindra at talkodar som begynner med 0 mistar 0-talet.
 # (Det er *ikkje* nok eller nødvendig å gjera dette ved sjølve importen.)
 #
-write.csv(d_utdata, "paradigme-komboar.csv", row.names = FALSE, na = "")
+write.csv(d_oppdatert, "paradigme-komboar.csv", row.names = FALSE, na = "")
