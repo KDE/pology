@@ -123,10 +123,19 @@ def merge_pofile (catpath, tplpath,
         # In case compendium is being used,
         # collect keys of all non-translated messages,
         # to later check which exact matches need to be fuzzied.
+        # New non-translated messages can come from the template,
+        # make sure these too are taken into account.
         if correct_exact_matches:
             nontrkeys = set()
+            trkeys = set()
             for msg in cat:
                 if not msg.translated:
+                    nontrkeys.add(msg.key)
+                else:
+                    trkeys.add(msg.key)
+            tcat = Catalog(tplpath, monitored=False)
+            for msg in tcat:
+                if msg.key not in trkeys:
                     nontrkeys.add(msg.key)
 
         # If requested, remove all untranslated messages,
