@@ -98,6 +98,7 @@ d_utdata = d_psam_pop %>%
 # (Brukar NA i staden for "" på grunn av seinare eksport)
 d_utdata$val = NA       # Paradigmet me vel for denne typen ord
 d_utdata$kommentar = NA # Kommentar til valet/paradigmekomboen
+d_utdata$unntak = NA    # Ev. unntak, på forma LEMMA_ID1=700,LEMMA_ID2=49G,…
 
 
 # Les inn gammal fil (for oppdatering)
@@ -128,3 +129,101 @@ d_oppdatert = bind_rows(d_gammal, d_nye)
 # (Det er *ikkje* nok eller nødvendig å gjera dette ved sjølve importen.)
 #
 write.csv(d_oppdatert, "paradigme-komboar.csv", row.names = FALSE, na = "")
+
+
+
+
+# Lag ordekskluderingsfil -------------------------------------------------
+
+# Skal så laga ei oversikt over alle orda som skal ekskluderast
+d = d_oppdatert
+
+# Bør først sjekka at paradigmekoden me har valt faktisk er
+# ein av dei gyldige paradigmekodane for lemmaet
+d = d %>% mutate(ok_val = is.na(val) | 
+								 	str_detect(par_tekst, str_c("\\b", d$val, "\\b")))
+if(!all(d$ok_val)) {
+	stop(paste0("Minst éin paradigmekombo har ugyldig paradigmekode valt:\n",
+							paste0(format(filter(d, !ok_val)), collapse="\n")))
+}
+
+# Unntak er litt komlisert å handtera,
+# men det går bra … :)
+
+# Hent ut unntaka frå ein tekststreng
+# og lag ein tibble med tilhøyrande info
+hent_unntak = function(x) {
+  str_split_fixed(x, "=", 2) %>% 
+	as_tibble %>% 
+	set_names(c("LEMMA_ID", "val"))
+}
+
+# Unntaksmønstera, med éi rad for
+# kvart lemma som har eit unntak
+d_unntaksmønster = d %>% 
+	filter(!is.na(unntak)) %>% 
+	select(par_tekst, unntak) %>%
+	mutate(
+		unntak_liste =
+		  str_split(unntak, ",") %>%
+		  map(hent_unntak)) %>% 
+	unnest(unntak_liste) %>% 
+	mutate(LEMMA_ID = as.integer(LEMMA_ID))
+
+# Sjekk at me ikkje har fleire unntak for same lemma
+stopifnot(!any(duplicated(d_unntaksmønster)))
+
+# Sjekk at alle unntaka viser til LEMMA_ID-ar som
+# finst og at tilhøyrande PARADIGME_ID-ar òg finst
+# for den aktuelle LEMMA_ID-en
+unntak_feil = d_unntaksmønster %>% 
+	anti_join(d_fullform, by=c("LEMMA_ID", "val"="PARADIGME_ID"))
+if(nrow(unntak_feil) > 0) {
+	stop(paste0("Minst eitt unntak viser til ugyldig lemma-ID eller paradigme-ID:\n",
+							paste0(format(unntak_feil), collapse="\n")))
+}
+
+
+# Alle fullformene + info om føretrekt paradigme
+# for lemmaa som følgjer hovudregelen
+d_alle_hovudregel = d_oppdatert %>% 
+	select(par_tekst, val) %>% 
+	left_join(d_psam, by="par_tekst") %>% 
+	right_join(d_fullform, by="LEMMA_ID")
+
+# Alle fullformene for unntaka + info om føretrekt paradigme
+d_unntak = d_unntaksmønster %>% 
+	left_join(d_fullform, by="LEMMA_ID")
+
+# Alle fullformene, med unntak der det trengst +
+# info om føretrekt paradigme
+d_alle = d_alle_hovudregel %>% 
+	anti_join(d_unntak, by="LEMMA_ID") %>% 
+	bind_rows(d_unntak)
+
+# Info om ei fullform er gyldig
+d_alle = d_alle %>% 
+	mutate(gyldig_form = (is.na(val) | PARADIGME_ID == val))
+	
+# Fullformene som er gyldige eller ugyldige
+d_gyldige = d_alle %>% filter(gyldig_form)
+d_ugyldige = d_alle %>% filter(!gyldig_form)
+
+# Men at ei form er ugyldig er ikkje god nok
+# grunn til å ekskludera ho. Det kan vera det
+# same «ordet» òg er med blant dei gyldige
+# formene, anten i det utvaldet paradigmet til
+# lemmaet, eller for eit anna lemma (homografar).
+# Eksluderer derfor berre dei orda som ikkje
+# finst i samlinga av gyldige ord.
+ord_ekskluder = sort(setdiff(d_ugyldige$OPPSLAG, d_gyldige$OPPSLAG))
+
+# Lagra ekskluderingsordlista
+write_lines(ord_ekskluder, "feil-paradigme.dat")
+
+# Vis orda me *har* brukt i omsettingane men
+# som no vert ekskluderte …
+cat("Ord brukte i omsetjingane som no vert forbodne:")
+d_frek %>% 
+	filter(OPPSLAG %in% ord_ekskluder) %>% 
+	print(n=Inf)
