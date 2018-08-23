@@ -209,6 +209,7 @@ valid after="bold" before="'"   # CSS
 valid before=" font" # CSS
 valid before="-\)" # Smiley
 valid after=";" 
+valid before="'"
 valid before=";"
 valid cat="kspread,sheets" after="^\S+\(\S+"
 valid cat="kspread,sheets" after=";\S+"
@@ -295,6 +296,7 @@ validGroup alone
 validGroup userinputTag
 validGroup commandTag
 valid ctx=".*one character"
+valid after="&unbsp;" before="<"
 valid after="&unbsp;" before="\)"
 valid after="&unbsp;" before="&unbsp;»"
 valid after="<quote>" before="</quote>"
