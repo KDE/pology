@@ -114,6 +114,12 @@ hint="trå/trø i kraft → tre i kraft"
 [førde?\b]
 hint="utførd, overførd etc. → utført, overført etc."
 
+# Fangar òg opp adjektivformene («oppgjeven»/«oppgjevne»)
+# og samansette ord («førehandsoppgitte»).
+[oppgje|oppgi]
+id="oppgje"
+hint="å «oppgje»/«oppgi» tyder på nynorsk berre å resignera (eks. «oppgje kampen») – bruk heller «skriv (inn)», «vel», «meld», «opplys», «ta med», «gje (opp)», «spesifiser», …"
+
 *hook name="nn:exclusion/exclude-forms~['klammeformer']" on="msgstr"
 id="klammeform"
 hint="Bruk av eit ord som er klammeform eller unormert."
