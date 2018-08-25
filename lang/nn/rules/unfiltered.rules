@@ -3,7 +3,7 @@
 # Karl Ove Hufthammer <karl@huftis.org>
 # License: GPLv3
 
-[%. ?%]i
+[%[0-9a-z] ?%]i
 id="prosentmellomrom"
 hint="skal ha (hardt) mellomrom før prosentteikn (eks. «13 %» eller «%1 %»)"
 
