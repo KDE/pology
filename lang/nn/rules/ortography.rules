@@ -120,6 +120,14 @@ hint="utførd, overførd etc. → utført, overført etc."
 id="oppgje"
 hint="å «oppgje»/«oppgi» tyder på nynorsk berre å resignera (eks. «oppgje kampen») – bruk heller «skriv (inn)», «vel», «meld», «opplys», «ta med», «gje (opp)», «spesifiser», …"
 
+[\b…]
+id="ellipse-mellomrom"
+hint="Bruk hardt mellomrom («AltGr + mellomrom» i Lokalize) før ellipseteiknet, med mindre det er snakk om eit avbrote/trunkert ord"
+
+[\b …]
+id="hardt-ellipse-mellomrom"
+hint="Bruk hardt (ikkje vanleg) mellomrom før ellipseteiknet («AltGr + mellomrom» i Lokalize)"
+
 *hook name="nn:exclusion/exclude-forms~['klammeformer']" on="msgstr"
 id="klammeform"
 hint="Bruk av eit ord som er klammeform eller unormert."
