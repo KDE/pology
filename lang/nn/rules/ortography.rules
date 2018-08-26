@@ -114,11 +114,14 @@ hint="trå/trø i kraft → tre i kraft"
 [førde?\b]
 hint="utførd, overførd etc. → utført, overført etc."
 
-# Fangar òg opp adjektivformene («oppgjeven»/«oppgjevne»)
-# og samansette ord («førehandsoppgitte»).
-[oppgje|oppgi]
-id="oppgje"
-hint="å «oppgje»/«oppgi» tyder på nynorsk berre å resignera (eks. «oppgje kampen») – bruk heller «skriv (inn)», «vel», «meld», «opplys», «ta med», «gje (opp)», «spesifiser», …"
+## «Oppgje» kan visst tyda det same på nynorsk som på bokmål,
+## likevel, så kommenterer ut denne regelen …
+##
+## Fangar òg opp adjektivformene («oppgjeven»/«oppgjevne»)
+## og samansette ord («førehandsoppgitte»).
+#[oppgje|oppgi]
+#id="oppgje"
+#hint="å «oppgje»/«oppgi» tyder på nynorsk berre å resignera (eks. «oppgje kampen») – bruk heller «skriv (inn)», «vel», «meld», «opplys», «ta med», «gje (opp)», «spesifiser», …"
 
 [\b…]
 id="ellipse-mellomrom"
