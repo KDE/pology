@@ -88,6 +88,12 @@ def main ():
                "Check catalogs by %(cmd)s and skip those which do not pass.",
                cmd="msgfmt -c"))
     opars.add_option(
+        "-u", "--single-entry",
+        metavar=_("@info command line value placeholder", "ENTRY_NUMBER"),
+        action="store", dest="single_entry", default=0,
+        help=_("@info command line option description",
+               "Only perform the check on this ENTRY_NUMBER."))
+    opars.add_option(
         "--force-sync",
         action="store_true", dest="force_sync", default=False,
         help=_("@info command line option description",
@@ -178,6 +184,9 @@ def main ():
 
     op.raw_sieves = []
     op.raw_paths = []
+    if len(free_args) > 2 and op.single_entry != 0:
+        error(_("@info", "With single entry mode, you can only give one input file."))
+
     if len(free_args) >= 1:
         op.raw_sieves = free_args[0]
         op.raw_paths = free_args[1:]
@@ -429,7 +438,7 @@ def main ():
                 continue
 
         try:
-            cat = Catalog(fname, monitored=use_monitored, headonly=use_headonly)
+            cat = Catalog(fname, monitored=use_monitored, headonly=use_headonly, single_entry=int(op.single_entry))
         except CatalogSyntaxError, e:
             errwarn(_("@info:progress",
                       "%(file)s: Parsing failed: %(msg)s",
