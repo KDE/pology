@@ -548,6 +548,8 @@ valid before="[A-Za-z_]\b"
 valid before="{"
 valid before="appname|progname|execname"
 valid before="%"
+valid before="<"
+valid before="."
 valid after="%\S*"
 valid after="^" before=" d'occupation"
 valid after="width=\"\d+" before="\"" # HTML
