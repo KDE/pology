@@ -297,6 +297,7 @@ hint="A remplacer par « vous pouvez (faire...) ici »"
 
 [proximité]
 valid after="à "
+valid after="une "
 hint="Utiliser « serveur mandataire » (au lieu de « serveur de proximité » ou « proxy »)"
 
 [proxy]i

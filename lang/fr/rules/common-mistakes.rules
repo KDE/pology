@@ -294,6 +294,7 @@ hint="Un seul « l » en français, merci !"
 [et\s*bien]i
 valid before="&sp;sûr" 
 valid before="&sp;documenté" 
+valid before="&sp;que" 
 valid after="[a-zéè]+,?&sp;" 
 hint="Remplacer « et bien » par « eh bien »"
 
