@@ -207,8 +207,9 @@ valid msgstr="complement" after="Add-"     # Fals positiu
 valid msgstr="(C|c)onnector" after="Plug-" # Fals positiu
 hint="La tecla «Ins» es tradueix per «Inser»/«tecla d'inserció» (keys)"
 
-{<key(cap|sym)?>.?Ins(ert)?.?</key(cap|sym)?>}
+{(\bIns;|<key(cap|sym)?>.?Ins(ert)?.?</key(cap|sym)?>)}
 id="k-Ins-2"
+valid msgstr="\bIns;" # <keycap>Insert</keycap>
 valid msgstr="<key(cap)?>Inser</key(cap)?>"
 hint="Es tradueix per «&Ins;», «<key>Inser</key>(Gnome)/<keycap>Inser</keycap>(KDE)» (keys)"
 

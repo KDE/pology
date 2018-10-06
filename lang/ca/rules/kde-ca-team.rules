@@ -63,6 +63,7 @@ valid msgid="cardboard box"		# -> safata (de la impressora) glossary_kdeprinting
 valid msgid="check.?box(es|s)?"		# -> casella/es de selecció
 valid msgid="column\sview\sbox(es|s)?"	# -> quadre/s de vista de la columna
 valid msgid="combo.?box(es|s)?"		# -> quadre/s combinat/s
+valid msgid="combo.?list(es|s)?"    # -> llista/es combinada/es
 valid msgid="completion\sbox(es|s)?"	# -> quadre/s de compleció
 valid msgid="configuration\sbox(es|s)?"	# -> quadre/s de configuració
 valid msgid="confirmation\sbox(es|s)?"	# -> quadre/s de confirmació
@@ -206,6 +207,11 @@ valid msgstr="quadres? combinats?"
 valid msgstr="quadrecombinat" cat="kexi"
 valid msgstr="ComboBox" cat="kommander_dcop,kommander_editor,kommander_widgets" # docmessages
 hint="Es tradueix per «quadre/s combinat/s» (kde-ca-team)"
+
+{\bcombo.?list(es|s)?\b}i
+id="kct-combolist"
+valid msgstr="llist(a|es) combinad(a|es)"
+hint="Es tradueix per «llista/es combinada/es» (kde-ca-team)"
 
 {\bcompletion\sbox(es|s)?\b}i
 id="kct-completionbox"
