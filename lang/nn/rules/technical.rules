@@ -17,6 +17,12 @@ id="omsetjar-epost"
 hint="Skriv inn e-adressa til omsetjarane, ikkje set om originalteksten."
 valid !msgstr="[Aa]dd?ress"
 
+# Hindra doble mellomrom (med mindre dei òg finst i originalteksten)
+[  +]
+id="doble-mellomrom"
+valid msgid="  +"
+hint="Omsetjinga inneheld doble mellomrom (men originalteksten ikkje)"
+
 # Tastatursnarvegar som ikkje skal ometjast dukkar opp
 # i .po-filer generert frå Qt sine .ts-filer (eks. i TeXworks)
 [.]
