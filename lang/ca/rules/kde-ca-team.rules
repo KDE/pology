@@ -63,7 +63,6 @@ valid msgid="cardboard box"		# -> safata (de la impressora) glossary_kdeprinting
 valid msgid="check.?box(es|s)?"		# -> casella/es de selecció
 valid msgid="column\sview\sbox(es|s)?"	# -> quadre/s de vista de la columna
 valid msgid="combo.?box(es|s)?"		# -> quadre/s combinat/s
-valid msgid="combo.?list(es|s)?"    # -> llista/es combinada/es
 valid msgid="completion\sbox(es|s)?"	# -> quadre/s de compleció
 valid msgid="configuration\sbox(es|s)?"	# -> quadre/s de configuració
 valid msgid="confirmation\sbox(es|s)?"	# -> quadre/s de confirmació
@@ -88,6 +87,7 @@ valid msgid="search.?box(es|s)?"	# -> quadre/s de cerca
 valid msgid="selection.?box(es|s)?"	# -> casella/es de selecció
 valid msgid="shaded\sbox(es|s)?"	# -> quadre/s ombrejat/s
 valid msgid="spin.?box(es|s)?"		# -> botó/ons de selecció de valors
+valid msgid="tab\sbox(es|s)?"       # -> quadre amb pestanyes
 valid msgid="text.?box(es|s)?"		# -> quadre/s de text
 valid msgid="tool.?box(es|s)?"		# -> quadre/s d'eines
 valid msgid="view\sbox(es|s)?"		# -> quadre/s de vista
@@ -964,6 +964,10 @@ valid msgstr="«tab:»" # docmessages
 valid before="\swindow manager" cat="desktop_kde-workspace"
 valid comment="Tag\:\sprogramlisting" # docmessages
 hint="Es tradueix per «pestanya/es|tabulació/ons/dor, caràcter de tabulació» (kde-ca-team)"
+
+{\btab\sbox(es|s)?\b}i
+valid msgstr="quadre amb pestanyes"
+hint="Es tradueix per «quadre amb pestanyes» (kde-ca-team)"
 
 {\btabbed\swindows?\b}i
 id="kct-tabbedwindow"
