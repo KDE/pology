@@ -321,6 +321,17 @@ valid msgstr="avantatge"
 valid !msgstr="conveniència"
 hint="«Convenience» es tradueix per «Comoditat»/«Avantatge» o «Utilitat» (fals amic)"
 
+# «Convenient» es tradueix per «Adaptat/Còmode/Oportú/Pràctic/Útil», no per «convenient».
+{\bconvenients?\b}i
+id="ff-convenient"
+valid msgstr="adaptats?"
+valid msgstr="còmodes?"
+valid msgstr="oport(ú|uns)"
+valid msgstr="pràctics?"
+valid msgstr="útils?"
+valid !msgstr="convenients?"
+hint="«Convenient» es tradueix per «Adaptat/Còmode/Oportú/Pràctic/Útil» (fals amic)"
+
 # «Coroner» es tradueix per «Jutge».
 {\bcoroner\b}i
 id="ff-coroner"
