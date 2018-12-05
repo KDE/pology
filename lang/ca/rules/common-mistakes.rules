@@ -36,7 +36,6 @@ hint="«a no ser que» s'ha de substituir per «llevat que», «fora que» etc. 
 {\batlas\b}i
 id="common-atlas"
 valid msgstr="atles" # mapes 
-valid msgstr="atlas" cat="kstars" ctx="star name" # Quan es refereix a l'estrella
 hint="«atlas» es tradueix per «atles», si no és una estrella  (error freqüent)"
 
 # «abaix»  s'ha de substituir per «avall», «a baix», «part inferior», etc.
@@ -61,9 +60,6 @@ hint="«blog» es tradueix per «blog» (error freqüent)"
 {\bbloggers?\b}i
 id="common-blogger"
 valid msgstr="bloguers?"
-valid msgstr="Blogger 1.0 API" cat="blogilo"
-valid msgstr="Blogger i Drupal" cat="korganizer"
-valid msgstr="Blogger" cat="kblogger"
 hint="«blogger» es tradueix per «bloguer» (error freqüent)"
 
 # «califica» ha de ser «qualifica».
@@ -138,8 +134,6 @@ hint="«devant» (i derivats) s'ha de substituir per «davant» (error freqüent
 # «diferent a» ha de ser «diferent de».
 [\bdiferents?\sa\b]i
 id="common-diferent_a"
-valid msgstr="diferents a un dispositiu" cat="phonon-xine"
-valid msgstr="diferent a través" cat="kstars_indi" # docmessages
 hint="«diferent a» s'ha de substituir per «diferent de» (error freqüent)"
 
 # «doncs» ha de ser «perquè/ja que».
@@ -181,10 +175,6 @@ hint="«esta» s'ha de substituir per «està» (error freqüent)"
 # La persona és "vós", per tant ha de ser «esteu segur» (i similars).
 [\b(esteu|sou|quedeu)\s[a-zàèòéíóú]+s\b]i
 id="common-esteu"
-valid msgstr="esteu dins" cat="kommander_dcop" # docmessages
-valid msgstr="sou curiós" cat="kstars_scriptbuilder" # docmessages
-valid msgstr="sou propens" cat="digikam_editor-color" # docmessages
-valid msgstr="esteu subscrits" cat="choqok" # docmessages
 hint="«(vós) esteu segurs» s'ha de substituir per «(vós) esteu segur» (error freqüent)"
 
 # «firewall» es tradueix per «tallafoc», en singular.
@@ -200,16 +190,12 @@ hint="«firewall» es tradueix per «tallafoc», en singular (error freqüent)"
 id="common-fixe"
 valid msgid="fixes"
 valid msgstr="xfixes"
-valid msgstr="fixes" cat="k3b" after="imatges\s"
-valid msgstr="fixes" cat="kstars_calc-apcoords" after="en\sel\scel\sno\ssón\s" # docmessages
-valid msgstr="fixes" cat="kstars_sidereal" after="estrelles\s~" # docmessages
-valid msgstr="fixes" cat="keurocalc" after="cotitzacions\s"
 hint="«fixe (sufixe/prefixe)» s'ha de substituir per «fix (sufix/prefix)» (error freqüent)"
 
 # «gama» ha de ser «gamma»
 [\bgam(a|es)\b]i
 id="common-gama"
-valid msgstr="Gama" cat="kgeography" after="Vasco\sda\s"
+valid msgstr="Gama" after="Vasco\sda\s"
 hint="«gama» s'ha de substituir per «gamma, gammes» (error freqüent)"
 
 # «gaseós» ha de ser «gasós»
