@@ -274,7 +274,6 @@ hint="«tea» es tradueix per «te» (sense accent) (error freqüent)"
 id="common-te"
 valid msgid="tea"
 valid msgid="te"
-valid msgid="Anonymous" cat="kteatime"
 valid after="-"
 hint="«té» (verb tenir) cal que porti accent (error freqüent)"
 
@@ -284,7 +283,6 @@ id="common-tutorial"
 valid msgstr="gui(a|es) d'aprenentatge"
 valid msgstr="program(a|es) d'aprenentatge"
 valid msgstr="(camp|partida) d'aprenentatge"
-valid comment="Tag\:\spara" cat="ksnapshot,katepart_development,konsole" # docmessages
 hint="«tutorial» es tradueix per «guia/es d'aprenentatge, també: programa/es d'aprenentatge, camp | partida d'aprenentatge» (error freqüent)"
 
 # «URL» és masculí (Localitzador Uniforme de Recursos)
@@ -301,29 +299,20 @@ hint="«ves» (verb anar) cal que porti accent «vés» (error freqüent)"
 # El Termcat recomana traduir «widget» per «giny»
 {\bwidgets?\b}i
 id="common-widget"
-valid msgstr="widgets" cat="www_www" 
-valid msgstr="widget" cat="kdm_theme-ref" # docmessages
 valid msgstr="estris?"
 valid msgstr="ginys?"
-valid msgstr="Widget, true" cat="kommander_dcop" # docmessages
-valid msgstr="SpinBoxInt" cat="kommander_widgets" # docmessages
 hint="«widget» es tradueix per «giny»/«estri» (error freqüent)"
 
 # «world» es tradueix per «món» (amb accent).
 {\bworld\b}i
 id="common-world"
-valid msgstr="Federació Internacional d'Escacs" cat="knights" # docmessages
 valid msgstr="humanitat"
 valid msgstr="mapamundi"
 valid msgstr="món"
 valid msgstr="mundial"
 valid msgstr="web"
 valid msgstr="world"
-valid msgstr="altres|tothom" cat="www_www,kfileshare,kdm_kdmrc-ref,knode_using-firststart"
 valid msgstr="WWW" before="\swide\sweb"
-valid msgstr="tots" cat="kdeprint_theory" # docmessages
-valid msgstr="famoses" cat="kturtle_programming-reference" # docmessages
-valid msgstr="exemples reals\." cat="simon" # docmessages
 hint="«world» es tradueix per «món» (amb accent) (error freqüent)"
 
 # End of common mistakes rules file
