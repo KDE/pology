@@ -182,7 +182,7 @@ valid msgstr="clar(a|iana|ianes)?" # "clear sky"- > «cel clar»
 valid msgstr="ser(è|ena)"
 valid msgstr="clear" cat="konversation,kstars,kmtrace_man-demangle.1,kturtle_glossary,kturtle_programming-reference"
 valid msgstr="liquid(ats?|ada|ades|i)" cat="kmymoney"
-valid msgstr="text" cat="libkdepim,trojita_common,zanshin"
+valid msgstr="text" before="\stext"
 valid msgstr="completar" cat="bomber"
 hint="Es tradueix per «buidar», «netejar», «esborrar», «suprimir» (kde-ca-team)"
 
