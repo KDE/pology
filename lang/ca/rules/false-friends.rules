@@ -25,8 +25,6 @@ hint="«Absolutelly» es tradueix per «Completament», no per «Absolutament» 
 #{\babstracts?\b}i
 #id="ff-abstract"
 #valid msgstr="resums?"
-#valid msgstr="abstract(e|a)" #cat="kdevphp,kdevplatform,kdeqt,desktop_kdegames_kmahjongg,desktop_kdegames_ksudoku,krita,umbrello,umbrello_kdevphp,kdevfiletemplates,rocscore"
-#valid msgstr="abstract(e|a|es)" cat="umbrello_uml_basics,digikam_editor-filters" # docmessages
 #valid !msgstr="abstract(e|a|es)"
 #hint="«Abstract» es tradueix per «Resum», no per «Abstracte» (fals amic)"
 
@@ -75,12 +73,6 @@ hint="«Advice» es tradueix per «Consell», no per «Avís» (fals amic)"
 #{\bagenda\b}i
 #id="ff-agenda"
 #valid msgstr="ordre\sdel\sdia"
-#valid msgstr="agenda" cat="desktop_kdepim,desktop_playground-base_kdepim-addons" before="\sview"
-#valid msgstr="agenda" cat="korganizer,korganizer-mobile,korganizer_plugins-chapter"
-#valid msgstr="agenda" cat="plasma_applet_org.kde.plasma.calendar"
-#valid msgstr="agenda" cat="libeventviews"
-#valid msgstr="agenda" cat="calendarsupport"
-#valid msgstr="agenda" cat="plasma_applet_akonadi_calendars"
 #valid !msgstr="agenda"
 #hint="«Agenda» es tradueix per «Ordre del dia», no per «Agenda» (fals amic)"
 
@@ -258,8 +250,7 @@ hint="«Conductor» es tradueix per «Revisor o director d'orquestra», no per �
 #{\bconference\b}i
 #id="ff-conference"
 #valid msgstr="congrés"
-#valid msgstr="conferència" cat="kopete"
-#valid msgstr="conferència" cat="ksirk"
+
 #valid !msgstr="conferència"
 #hint="«Conference» es tradueix per «Congrés», no per «Conferència» (fals amic)"
 
@@ -357,8 +348,6 @@ hint="«Crime» es tradueix per «Delicte», no per «Crim» (fals amic)"
 {\bcurrents?\b}i
 id="ff-current"
 valid msgstr="actuals?"
-valid msgstr="corrent" cat="skrooge" # Compte corrent
-valid msgstr="al corrent" cat="www_www" # estar al corrent
 valid !msgstr="corrents?"
 hint="«Current» es tradueix per «Actual», no per «Corrent» (fals amic)"
 
@@ -375,7 +364,6 @@ hint="«Curse» es tradueix per «Malefici», no per «Curs» (fals amic)"
 id="ff-date"
 valid msgstr="dat(a|es)"
 valid msgstr="cit(a|es)"
-valid msgstr="dates" before="\sor time" cat="tables_basics,kspread_basics" # docmessages
 valid !msgstr="dada"
 valid !msgstr="dades"
 hint="«Date» es tradueix per «Data», no per «Dada» (fals amic)"
@@ -407,7 +395,6 @@ hint="«Devil» es tradueix per «Dimoni», no per «Dèbil» (fals amic)"
 {\bdiary\b}i
 id="ff-diary"
 valid msgstr="agenda"
-valid msgstr="diari" cat="desktop_kdepim"
 valid !msgstr="diari"
 hint="«Diary» es tradueix per «Agenda», no per «Diari» (fals amic)"
 
@@ -547,7 +534,6 @@ hint="«Fabric» es tradueix per «Teixit o tela», no per «Fàbrica» (fals am
 {\bfacilities\b}i
 id="ff-facilities"
 valid msgstr="instal·lacions"
-valid msgstr="facilitats" cat="desktop_kdelibs,desktop_applications_kate"
 valid !msgstr="facilitats"
 hint="«Facilities» es tradueix per «Instal·lacions», no per «Facilitats» (fals amic)"
 
@@ -579,9 +565,6 @@ id="ff-font"
 valid msgstr="tipus"
 valid msgstr="origens?"
 valid msgstr="<font\s"
-valid msgstr="\bfont\b" cat="kleopatra"
-valid msgstr="font" cat="quanta" after="replace\s"
-valid msgstr="font" cat="kdm_theme-ref"
 valid msgstr="font" before="-(style|weight)"
 valid !msgstr="fonts?"
 hint="«Font» es tradueix per «Tipus (de lletra)», no per «Font» (fals amic)"

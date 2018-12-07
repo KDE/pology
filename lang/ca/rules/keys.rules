@@ -205,6 +205,7 @@ valid msgstr="Inser"
 valid msgstr="(T|t)ecla d'inserció"
 valid msgstr="complement" after="Add-"     # Fals positiu
 valid msgstr="(C|c)onnector" after="Plug-" # Fals positiu
+valid msgstr="Ins;" # documentation
 hint="La tecla «Ins» es tradueix per «Inser»/«tecla d'inserció» (keys)"
 
 {(\bIns;|<key(cap|sym)?>.?Ins(ert)?.?</key(cap|sym)?>)}
@@ -237,6 +238,8 @@ valid msgstr="Av Pàg"
 valid msgstr="(T|t)ecla d'avançar pàgina"
 valid msgstr="(A|a)vançar pàgina"
 valid msgstr="fi de la pàgina"         # Fals positiu
+valid msgstr="pàgina avall"            # Fals positiu
+valid msgstr="PgDn;" # documentation
 hint="La tecla «Page Down/Pg Dn» es tradueix per «Av Pàg»/«tecla d'avançar pàgina» (keys)"
 
 # Page Down -> Av Pàg
@@ -254,6 +257,8 @@ valid msgstr="Re Pàg"
 valid msgstr="(T|t)ecla de retrocedir pàgina"
 valid msgstr="(R|r)etrocedir pàgina"
 valid msgstr="principi de la pàgina"         # Fals positiu
+valid msgstr="pàgina amunt"                  # Fals positiu
+valid msgstr="PgUp;" # documentation
 hint="La tecla «Page Up/Pg Up» es tradueix per «Re Pàg»/«tecla de retrocedir pàgina» (keys)"
 
 # Page Up -> Re Pàg
