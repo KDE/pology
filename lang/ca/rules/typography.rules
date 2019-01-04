@@ -158,7 +158,6 @@ valid ctx="unit synonyms for matching user input"
 valid ctx="Query"
 valid ctx="Keywords"
 valid cat="calligrasheets,kcells,krossmodulesheets,kspread,sheets,tables"
-valid cat="desktop_kdeplasma-addons" ctx="Keywords"
 valid cat="baloo_queryparser,baloo_naturalqueryparser,baloowidgets5"
 valid comment="Tag\:\sprogramlisting" cat="kopete_emoticonspec" # docmessages
 valid span=";$"
@@ -434,7 +433,7 @@ valid span="\.\." after="\."
 valid span="\.$"
 valid span="KDE\se.V."
 valid span="\.~"
-valid span="\.(h|c)" cat="desktop_applications_kate,desktop_kdesdk,kateopenheader,kate_plugins,kdevformatters,kate,pate"
+valid span="\.(h|c)" cat="kateopenheader,kate_plugins,kdevformatters,kate,pate"
 valid span="\.\*" cat="kdiff3,kdeprint4,amarok"
 valid comment="Tag\:\sscreen" cat="kmail_faq" # docmessages
 valid cat="baloo_queryparser,baloo_naturalqueryparser,baloowidgets5"
@@ -755,8 +754,6 @@ valid cat="cocoon"
 valid cat="kcontrol_mouse" # docmessages
 valid cat="kopete_pipes" # docmessages
 valid cat="kfilereplace" # docmessages
-valid ctx="Name" cat="desktop_extragear-graphics_kipi-plugins"
-valid ctx="Query" cat="desktop_kdebase_kde-runtime"
 valid ctx="Numbers and characters"
 valid ctx="Qoute character option" cat="kaddressbook"
 valid ctx="angle unit symbol"

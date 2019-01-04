@@ -413,7 +413,7 @@ hint="Es tradueix per «acoblador/s» (kde-ca-team)"
 {\bdrop.?(down.?)?(selection\s)?box(es|s)?\b}i
 id="kct-dropdown"
 valid msgstr="llist(a|es)? desplegables?"
-valid msgstr="Dropbox" cat="desktop_extragear-graphics_kipi-plugins,kipiplugin_dropbox,desktop_kdesdk_dolphin-plugins,libpimcommon,www_www"
+valid msgstr="Dropbox" cat="kipiplugin_dropbox,libpimcommon,www_www"
 hint="Es tradueix per «llista/es desplegable/s» (kde-ca-team)"
 
 {\bedit(ing)?.?box(es|s)?\b}i
@@ -548,7 +548,7 @@ id="kct-graph"
 valid msgid="Graph Theory" # www/www_www.po
 valid msgid="Alt Graph"
 valid msgstr="gràfi(c|cs|ca|ques)"
-valid msgstr="grafs?" cat="kalgebra,kmplot,kmplot_commands,kmplot_configuration,kmplot_credits,kmplot_dcop,kmplot_developer,kmplot_firststeps,kmplot_install,kmplot_introduction,kmplot_man-kmplot,kmplot_reference,kmplot_using,desktop_kdeedu_rocs,json_kdeedu_rocs,rocs,rocscore,rocsvisualeditor,rocs_apiConsole,rocs_apiDatastructure,rocs_apiGraphstructure,rocs_apiLinkedListstructure,rocs_apiRootedTreestructure,rocs_chapterImportExport,step,step_examples,step_tutorials,desktop_playground-devtools_kdev-control-flow-graph,kdesvn,kdevcontrolflowgraph,libgraphtheory"
+valid msgstr="grafs?" cat="kalgebra,kmplot,kmplot_commands,kmplot_configuration,kmplot_credits,kmplot_dcop,kmplot_developer,kmplot_firststeps,kmplot_install,kmplot_introduction,kmplot_man-kmplot,kmplot_reference,kmplot_using,json_kdeedu_rocs,rocs,rocscore,rocsvisualeditor,rocs_apiConsole,rocs_apiDatastructure,rocs_apiGraphstructure,rocs_apiLinkedListstructure,rocs_apiRootedTreestructure,rocs_chapterImportExport,step,step_examples,step_tutorials,kdesvn,kdevcontrolflowgraph,libgraphtheory"
 hint="Es tradueix per «gràfic/s, gràfica/ques» (kde-ca-team)"
 
 [\bels? gràfi(ca|ques)\b]i
@@ -786,7 +786,7 @@ hint="Es tradueix per «eliminar», «suprimir», «treure» o «desfer» (kde-c
 id="kct-screenshoot"
 valid msgstr="captur(a|es) de pantalla"
 valid msgstr="captur(a|es)" cat="marble_qt"
-valid msgstr="screenshots" cat="desktop_extragear-graphics_kipi-plugins,kipiplugin_debianscreenshots"
+valid msgstr="screenshots" cat="kipiplugin_debianscreenshots"
 valid msgstr="screenshot" cat="kdm_theme-ref" # docmessages
 hint="«screenshot» es tradueix per «captura de pantalla» (kde-ca-team)"
 
@@ -799,7 +799,7 @@ hint="Es tradueix per «script/s» (kde-ca-team)"
 id="kct-scripting"
 valid msgstr="crea(r|ció)?\s(de\s)?scripts"
 valid msgstr="scripts? creats?"
-valid msgstr="scripts" cat="desktop_calligra,desktop_koffice,kexi,krossmoduleplan,krossmodulewords,krossmodulekword,plasma-desktop,desktop_kdelibs,kdelibs4,khtml5,superkaramba,desktop_kdewebdev"
+valid msgstr="scripts" cat="kexi,krossmoduleplan,krossmodulewords,krossmodulekword,plasma-desktop,kdelibs4,khtml5,superkaramba"
 valid msgstr="script" cat="kommander"
 valid msgstr="llenguatges\sde script" cat="kcmkonqhtml"
 valid msgstr="scripts utilitzats" cat="kommander_dcop" # docmessages
@@ -961,7 +961,6 @@ valid msgstr="tabulatur(a|es)" cat="amarok" # Tablature -> Tabulatura (Termcat: 
 valid msgstr="encastat" cat="kcontrol_filetypes" # docmessages
 valid msgstr="~" after="screenshot.+" cat="korganizer" # docmessages
 valid msgstr="«tab:»" # docmessages
-valid before="\swindow manager" cat="desktop_kde-workspace"
 valid comment="Tag\:\sprogramlisting" # docmessages
 hint="Es tradueix per «pestanya/es|tabulació/ons/dor, caràcter de tabulació» (kde-ca-team)"
 
@@ -1075,7 +1074,7 @@ hint="Es tradueix per «barra/es de títol de la finestra» (kde-ca-team)"
 {\bwip(es?|ed|ing)\b}i
 id="kct-wip"
 valid msgstr="esborr(a|nt|rà)"
-valid msgstr="cortinet(a|es)" cat="kdenlive,desktop_kdemultimedia_kdenlive"
+valid msgstr="cortinet(a|es)" cat="kdenlive"
 valid msgstr="netejar" cat="kxsconfig"
 hint="Es tradueix per «esborrar» (kde-ca-team)"
 
