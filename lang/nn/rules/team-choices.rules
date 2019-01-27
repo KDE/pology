@@ -270,6 +270,7 @@ hint="aktiver (deaktiver) → slå på (av), gjer (u)verksam, (ikkje) bruk, (ikk
 
 [aktiv(e|t)?\b]i
 id="aktiv"
+valid after="inter"
 hint="aktiv (deaktiv) → på (av), (u)verksam, (ikkje) i bruk, (ikkje / u-) tilgjengeleg, …"
 
 [eksister\w]i
