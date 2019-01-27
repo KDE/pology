@@ -22,6 +22,7 @@ hint="haldt → halde"
 [lest]i
 id="lest"
 hint="lest → lesen/lese/lesne [og verbet leste → las]"
+valid after="[Tt]ryl" before="av"
 valid after="\b[Ff]"
 valid after="[pP]a" before="in(sk|a)e?\b"
 valid after="Cho" before="erol\b"
