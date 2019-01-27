@@ -15,1012 +15,6 @@ addFilterRegex match="\&" on="pmsgid,pmsgstr"
 # valid ctx="^object\sname\s.optional."
 # valid ctx="^Satellite\sgroup\sname"
 
-{\bC\sWestern\b}i
-valid msgstr="C Occidental"
-hint="Es tradueix per «C Occidental» (app-kstars)"
-
-{\bANDROMEDA\b}i
-valid msgstr="ANDRÒMEDA"
-hint="Es tradueix per «ANDRÒMEDA» (app-kstars)"
-
-{\bANTLIA\b}i
-valid msgstr="MÀQUINA PNEUMÀTICA"
-hint="Es tradueix per «MÀQUINA PNEUMÀTICA» (app-kstars)"
-
-{\bAPUS\b}i
-valid msgstr="AU DEL PARADÍS"
-hint="Es tradueix per «AU DEL PARADÍS» (app-kstars)"
-
-{\bAQUARIUS\b}i
-valid msgstr="AQUARI"
-hint="Es tradueix per «AQUARI» (app-kstars)"
-
-{\bAQUILA\b}i
-valid ctx="^City\sin\s"
-valid msgstr="ÀGUILA"
-hint="Es tradueix per «ÀGUILA» (app-kstars)"
-
-{\bARA\b}i
-valid msgstr="ALTAR"
-hint="Es tradueix per «ALTAR» (app-kstars)"
-
-{\bARIES\b}i
-valid msgstr="ÀRIES"
-hint="Es tradueix per «ÀRIES» (app-kstars)"
-
-{\bAURIGA\b}i
-valid msgstr="COTXER"
-hint="Es tradueix per «COTXER» (app-kstars)"
-
-{\bBOOTES\b}i
-valid msgstr="BOVER"
-hint="Es tradueix per «BOVER» (app-kstars)"
-
-{\bCAELUM\b}i
-valid msgstr="BURÍ"
-hint="Es tradueix per «BURÍ» (app-kstars)"
-
-{\bCAMELOPARDALIS\b}i
-valid msgstr="GIRAFA"
-hint="Es tradueix per «GIRAFA» (app-kstars)"
-
-{\bCANCER\b}i
-valid msgstr="CRANC"
-hint="Es tradueix per «CRANC» (app-kstars)"
-
-{\bCANES\sVENATICI\b}i
-valid msgstr="LLEBRERS"
-hint="Es tradueix per «LLEBRERS» (app-kstars)"
-
-{\bCANIS\sMAJOR\b}i
-valid msgstr="CA MAJOR"
-hint="Es tradueix per «CA MAJOR» (app-kstars)"
-
-{\bCANIS\sMINOR\b}i
-valid msgstr="CA MENOR"
-hint="Es tradueix per «CA MENOR» (app-kstars)"
-
-{\bCAPRICORNUS\b}i
-valid msgstr="CAPRICORN"
-hint="Es tradueix per «CAPRICORN» (app-kstars)"
-
-{\bCARINA\b}i
-valid msgid="Eta Carina, Keyhole Nebula"
-valid msgstr="QUILLA"
-hint="Es tradueix per «QUILLA» (app-kstars)"
-
-{\bCASSIOPEIA\b}i
-valid msgstr="CASSIOPEA"
-hint="Es tradueix per «CASSIOPEA» (app-kstars)"
-
-{\bCENTAURUS\b}i
-valid msgstr="CENTAURE"
-hint="Es tradueix per «CENTAURE» (app-kstars)"
-
-{\bCEPHEUS\b}i
-valid msgstr="CEFEU"
-hint="Es tradueix per «CEFEU» (app-kstars)"
-
-{\bCETUS\b}i
-valid msgstr="BALENA"
-hint="Es tradueix per «BALENA» (app-kstars)"
-
-{\bCHAMAELEON\b}i
-valid msgstr="CAMALEÓ"
-hint="Es tradueix per «CAMALEÓ» (app-kstars)"
-
-{\bCIRCINUS\b}i
-valid msgstr="COMPÀS"
-hint="Es tradueix per «COMPÀS» (app-kstars)"
-
-{\bCOLUMBA\b}i
-valid msgstr="COLOMA"
-hint="Es tradueix per «COLOMA» (app-kstars)"
-
-{\bCORONA\sAUSTRALIS\b}i
-valid msgstr="CORONA AUSTRAL"
-hint="Es tradueix per «CORONA AUSTRAL» (app-kstars)"
-
-{\bCORONA\sBOREALIS\b}i
-valid msgstr="CORONA BOREAL"
-hint="Es tradueix per «CORONA BOREAL» (app-kstars)"
-
-{\bCORVUS\b}i
-valid msgstr="CORB"
-hint="Es tradueix per «CORB» (app-kstars)"
-
-{\bCRATER\b}i
-valid msgstr="COPA"
-hint="Es tradueix per «COPA» (app-kstars)"
-
-{\bCRUX\b}i
-valid msgstr="CREU DEL SUD"
-hint="Es tradueix per «CREU DEL SUD» (app-kstars)"
-
-{\bCYGNUS\b}i
-valid msgstr="CIGNE"
-hint="Es tradueix per «CIGNE» (app-kstars)"
-
-{\bDELPHINUS\b}i
-valid msgstr="DOFÍ"
-hint="Es tradueix per «DOFÍ» (app-kstars)"
-
-{\bDORADO\b}i
-valid ctx="^City\sin\s"
-valid msgstr="ORADA"
-hint="Es tradueix per «ORADA» (app-kstars)"
-
-{\bDRACO\b}i
-valid msgstr="DRAGÓ"
-hint="Es tradueix per «DRAGÓ» (app-kstars)"
-
-{\bEQUULEUS\b}i
-valid msgstr="CAVALLET"
-hint="Es tradueix per «CAVALLET» (app-kstars)"
-
-{\bERIDANUS\b}i
-valid msgstr="ERIDÀ"
-hint="Es tradueix per «ERIDÀ» (app-kstars)"
-
-{\bFORNAX\b}i
-valid msgstr="FORN"
-hint="Es tradueix per «FORN» (app-kstars)"
-
-{\bGEMINI\b}i
-valid msgstr="BESSONS"
-hint="Es tradueix per «BESSONS» (app-kstars)"
-
-{\bGRUS\b}i
-valid msgstr="GRUA"
-hint="Es tradueix per «GRUA» (app-kstars)"
-
-{\bHERCULES\b}i
-valid msgstr="HÈRCULES"
-hint="Es tradueix per «HÈRCULES» (app-kstars)"
-
-{\bHOROLOGIUM\b}i
-valid msgstr="RELLOTGE"
-hint="Es tradueix per «RELLOTGE» (app-kstars)"
-
-{\bHYDRA\b}i
-valid msgstr="HIDRA FEMELLA"
-hint="Es tradueix per «HIDRA FEMELLA» (app-kstars)"
-
-{\bINDUS\b}i
-valid msgstr="INDI"
-hint="Es tradueix per «INDI» (app-kstars)"
-
-{\bLACERTA\b}i
-valid msgstr="LLANGARDAIX"
-hint="Es tradueix per «LLANGARDAIX» (app-kstars)"
-
-{\bLEO\b}i
-valid ctx="^Satellite\sgroup\sname"
-valid msgstr="LLEÓ"
-hint="Es tradueix per «LLEÓ» (app-kstars)"
-
-{\bLEO\sMINOR\b}i
-valid msgstr="LLEÓ MENOR"
-hint="Es tradueix per «LLEÓ MENOR» (app-kstars)"
-
-{\bLEPUS\b}i
-valid msgstr="LLEBRE"
-hint="Es tradueix per «LLEBRE» (app-kstars)"
-
-{\bLIBRA\b}i
-valid msgstr="BALANÇA"
-hint="Es tradueix per «BALANÇA» (app-kstars)"
-
-{\bLUPUS\b}i
-valid msgstr="LLOP"
-hint="Es tradueix per «LLOP» (app-kstars)"
-
-{\bLYNX\b}i
-valid msgstr="LINX"
-hint="Es tradueix per «LINX» (app-kstars)"
-
-{\bLYRA\b}i
-valid msgstr="LIRA"
-hint="Es tradueix per «LIRA» (app-kstars)"
-
-{\bMENSA\b}i
-valid msgstr="TAULA"
-hint="Es tradueix per «TAULA» (app-kstars)"
-
-{\bMICROSCOPIUM\b}i
-valid msgstr="MICROSCOPI"
-hint="Es tradueix per «MICROSCOPI» (app-kstars)"
-
-{\bMONOCEROS\b}i
-valid msgstr="UNICORN"
-hint="Es tradueix per «UNICORN» (app-kstars)"
-
-{\bMUSCA\b}i
-valid msgstr="MOSCA"
-hint="Es tradueix per «MOSCA» (app-kstars)"
-
-{\bNORMA\b}i
-valid msgstr="ESCAIRE"
-hint="Es tradueix per «ESCAIRE» (app-kstars)"
-
-{\bOCTANS\b}i
-valid msgstr="OCTANT"
-hint="Es tradueix per «OCTANT» (app-kstars)"
-
-{\bOPHIUCHUS\b}i
-valid msgstr="SERPENTARI"
-hint="Es tradueix per «SERPENTARI» (app-kstars)"
-
-{\bORION\b}i
-valid msgstr="ORIÓ"
-hint="Es tradueix per «ORIÓ» (app-kstars)"
-
-{\bPAVO\b}i
-valid msgstr="GALL DINDI"
-hint="Es tradueix per «GALL DINDI» (app-kstars)"
-
-{\bPEGASUS\b}i
-valid msgstr="PEGÀS"
-hint="Es tradueix per «PEGÀS» (app-kstars)"
-
-{\bPERSEUS\b}i
-valid msgstr="PERSEU"
-hint="Es tradueix per «PERSEU» (app-kstars)"
-
-{\bPHOENIX\b}i
-valid ctx="^City\sin\s"
-valid msgstr="FÈNIX"
-hint="Es tradueix per «FÈNIX» (app-kstars)"
-
-{\bPICTOR\b}i
-valid msgstr="CAVALLET DEL PINTOR"
-hint="Es tradueix per «CAVALLET DEL PINTOR» (app-kstars)"
-
-{\bPISCES\b}i
-valid msgstr="PEIXOS"
-hint="Es tradueix per «PEIXOS» (app-kstars)"
-
-{\bPISCIS\sAUSTRINUS\b}i
-valid msgstr="PEIXOS AUSTRAL"
-hint="Es tradueix per «PEIXOS AUSTRAL» (app-kstars)"
-
-{\bPUPPIS\b}i
-valid msgstr="POPA"
-hint="Es tradueix per «POPA» (app-kstars)"
-
-{\bPYXIS\b}i
-valid msgstr="BRÚIXOLA"
-hint="Es tradueix per «BRÚIXOLA» (app-kstars)"
-
-{\bRETICULUM\b}i
-valid msgstr="RETICLE"
-hint="Es tradueix per «RETICLE» (app-kstars)"
-
-{\bSAGITTA\b}i
-valid msgstr="SAGETA"
-hint="Es tradueix per «SAGETA» (app-kstars)"
-
-{\bSAGITTARIUS\b}i
-valid msgstr="SAGITARI"
-hint="Es tradueix per «SAGITARI» (app-kstars)"
-
-{\bSCORPIUS\b}i
-valid msgstr="ESCORPÍ"
-hint="Es tradueix per «ESCORPÍ» (app-kstars)"
-
-{\bSCULPTOR\b}i
-valid msgstr="ESCULTOR"
-hint="Es tradueix per «ESCULTOR» (app-kstars)"
-
-{\bSCUTUM\b}i
-valid msgstr="ESCUT"
-hint="Es tradueix per «ESCUT» (app-kstars)"
-
-{\bSERPENS\sCAPUT\b}i
-valid msgstr="CAP DEL SERPENT"
-hint="Es tradueix per «CAP DEL SERPENT» (app-kstars)"
-
-{\bSERPENS\sCAUDA\b}i
-valid msgstr="CUA DEL SERPENT"
-hint="Es tradueix per «CUA DEL SERPENT» (app-kstars)"
-
-{\bSEXTANS\b}i
-valid msgstr="SEXTANT"
-hint="Es tradueix per «SEXTANT» (app-kstars)"
-
-{\bTAURUS\b}i
-valid msgstr="TAURE"
-hint="Es tradueix per «TAURE» (app-kstars)"
-
-{\bTELESCOPIUM\b}i
-valid msgstr="TELESCOPI"
-hint="Es tradueix per «TELESCOPI» (app-kstars)"
-
-{\bTRIANGULUM\b}i
-valid msgstr="TRIANGLE"
-hint="Es tradueix per «TRIANGLE» (app-kstars)"
-
-{\bTRIANGULUM\sAUSTRALE\b}i
-valid msgstr="TRIANGLE AUSTRAL"
-hint="Es tradueix per «TRIANGLE AUSTRAL» (app-kstars)"
-
-{\bTUCANA\b}i
-valid msgstr="TUCÀ"
-hint="Es tradueix per «TUCÀ» (app-kstars)"
-
-{\bURSA\sMAJOR\b}i
-valid msgstr="ÓSSA MAJOR"
-hint="Es tradueix per «ÓSSA MAJOR» (app-kstars)"
-
-{\bURSA\sMINOR\b}i
-valid msgstr="ÓSSA MENOR"
-hint="Es tradueix per «ÓSSA MENOR» (app-kstars)"
-
-{\bVELA\b}i
-valid msgstr="VELA"
-hint="Es tradueix per «VELA» (app-kstars)"
-
-{\bVIRGO\b}i
-valid msgstr="VERGE"
-hint="Es tradueix per «VERGE» (app-kstars)"
-
-{\bVOLANS\b}i
-valid msgstr="PEIX VOLADOR"
-hint="Es tradueix per «PEIX VOLADOR» (app-kstars)"
-
-{\bVULPECULA\b}i
-valid msgstr="GUINEUETA"
-hint="Es tradueix per «GUINEUETA» (app-kstars)"
-
-###
-{\bC\sChinese\b}i
-valid msgstr="C Xinesa"
-hint="Es tradueix per «C Xinesa» (app-kstars)"
-
-{\bNORTHERN\sDIPPER\b}i
-valid msgstr="CULLEROT DEL NORD"
-hint="Es tradueix per «CULLEROT DEL NORD» (app-kstars)"
-
-{\bCURVED\sARRAY\b}i
-valid msgstr="FORMACIÓ CORBADA"
-hint="Es tradueix per «FORMACIÓ CORBADA» (app-kstars)"
-
-{\bCOILED\sTHONG\b}i
-valid msgstr="CORRETJA ENROTLLADA"
-hint="Es tradueix per «CORRETJA ENROTLLADA» (app-kstars)"
-
-{\bWINGS\b}i
-valid msgstr="ALES"
-hint="Es tradueix per «ALES» (app-kstars)"
-
-{\bCHARIOT\b}i
-valid msgstr="CARRO"
-hint="Es tradueix per «CARRO» (app-kstars)"
-
-{\bTAIL\b}i
-valid msgstr="CUA"
-hint="Es tradueix per «CUA» (app-kstars)"
-
-{\bWINNOWING\sBASKET\b}i
-valid msgstr="SEDÀS"
-hint="Es tradueix per «SEDÀS» (app-kstars)"
-
-{\bDIPPER\b}i
-valid msgstr="CULLEROT"
-hint="Es tradueix per «CULLEROT» (app-kstars)"
-
-{\bDRUM\b}i
-valid msgstr="TAMBOR"
-hint="Es tradueix per «TAMBOR» (app-kstars)"
-
-{\bTHREE\sSTEPS\b}i
-valid msgstr="TRES PASSOS"
-hint="Es tradueix per «TRES PASSOS» (app-kstars)"
-
-{\bIMPERIAL\sGUARDS\b}i
-valid msgstr="GUÀRDIES IMPERIALS"
-hint="Es tradueix per «GUÀRDIES IMPERIALS» (app-kstars)"
-
-{\bHORN\b}i
-valid msgstr="CORN"
-hint="Es tradueix per «CORN» (app-kstars)"
-
-{\bWILLOW\b}i
-valid msgstr="SALZE"
-hint="Es tradueix per «SALZE» (app-kstars)"
-
-{\bIMPERIAL\sPASSAGEWAY\b}i
-valid msgstr="PASSADÍS IMPERIAL"
-hint="Es tradueix per «PASSADÍS IMPERIAL» (app-kstars)"
-
-{\bKITCHEN\b}i
-valid msgstr="CUINA"
-hint="Es tradueix per «CUINA» (app-kstars)"
-
-{\bRIVER\sTURTLE\b}i
-valid msgstr="TORTUGA DE RIU"
-hint="Es tradueix per «TORTUGA DE RIU» (app-kstars)"
-
-{\bSTOMACH\b}i
-valid msgstr="ESTÓMAC"
-hint="Es tradueix per «ESTÓMAC» (app-kstars)"
-
-{\bGREAT\sGENERAL\b}i
-valid msgstr="GRAN GENERAL"
-hint="Es tradueix per «GRAN GENERAL» (app-kstars)"
-
-{\bWALL\b}i
-valid msgstr="MUR"
-hint="Es tradueix per «MUR» (app-kstars)"
-
-{\bLEGS\b}i
-valid msgstr="POTES"
-hint="Es tradueix per «POTES» (app-kstars)"
-
-{\bROOT\b}i
-valid msgstr="ARREL"
-hint="Es tradueix per «ARREL» (app-kstars)"
-
-{\bRAMPARTS\b}i
-valid msgstr="MURALLES"
-hint="Es tradueix per «MURALLES» (app-kstars)"
-
-{\bFLYING\sCORRIDOR\b}i
-valid msgstr="CORREDOR VOLADOR"
-hint="Es tradueix per «CORREDOR VOLADOR» (app-kstars)"
-
-{\bOUTER\sFENCE\b}i
-valid msgstr="TANCA EXTERIOR"
-hint="Es tradueix per «TANCA EXTERIOR» (app-kstars)"
-
-{\bFORD\b}i
-valid ctx="^City\sin\s"
-valid msgstr="GUAL"
-hint="Es tradueix per «GUAL» (app-kstars)"
-
-{\bSEVEN\sEXCELLENCIES\b}i
-valid msgstr="SET EXCEL·LÈNCIES"
-hint="Es tradueix per «SET EXCEL·LÈNCIES» (app-kstars)"
-
-{\bMARKET\b}i
-valid msgstr="MERCAT"
-hint="Es tradueix per «MERCAT» (app-kstars)"
-
-{\bFIVE\sCHARIOTS\b}i
-valid msgstr="CINC CARROS"
-hint="Es tradueix per «CINC CARROS» (app-kstars)"
-
-{\bROLLED\sTONGUE\b}i
-valid msgstr="LLENGUA ENROTLLADA"
-hint="Es tradueix per «LLENGUA ENROTLLADA» (app-kstars)"
-
-{\bNET\b}i
-valid msgstr="\.net"
-valid msgstr="XARXA"
-hint="Es tradueix per «XARXA» (app-kstars)"
-
-{\bTOILET\b}i
-valid msgstr="LAVABO"
-hint="Es tradueix per «LAVABO» (app-kstars)"
-
-# {\bSCREEN\b}i
-# valid msgstr="PARAVENT"
-# hint="Es tradueix per «PARAVENT» (app-kstars)"
-
-{\bSOLDIERS'\sMARKET\b}i
-valid msgstr="MERCAT DE SOLDATS"
-hint="Es tradueix per «MERCAT DE SOLDATS» (app-kstars)"
-
-{\bSQUARE\sGRANARY\b}i
-valid msgstr="GRANER QUADRAT"
-hint="Es tradueix per «GRANER QUADRAT» (app-kstars)"
-
-{\bTHREE\sSTARS\b}i
-valid msgstr="TRES ESTRELLES"
-hint="Es tradueix per «TRES ESTRELLES» (app-kstars)"
-
-{\bFOUR\sCHANNELS\b}i
-valid msgstr="QUATRE CANALS"
-hint="Es tradueix per «QUATRE CANALS» (app-kstars)"
-
-# {\bWELL\b}i
-# valid msgstr="POU"
-# hint="Es tradueix per «POU» (app-kstars)"
-
-{\bSOUTH\sRIVER\b}i
-valid msgstr="RIU DEL SUD"
-hint="Es tradueix per «RIU DEL SUD» (app-kstars)"
-
-{\bNORTH\sRIVER\b}i
-valid msgstr="RIU DEL NORD"
-hint="Es tradueix per «RIU DEL NORD» (app-kstars)"
-
-{\bFIVE\sFEUDAL\sKINGS\b}i
-valid msgstr="CINC REIS FEUDALS"
-hint="Es tradueix per «CINC REIS FEUDALS» (app-kstars)"
-
-{\bORCHARD\b}i
-valid msgstr="HORT"
-hint="Es tradueix per «HORT» (app-kstars)"
-
-{\bMEADOWS\b}i
-valid ctx="^City\sin\s"
-valid msgstr="PRATS"
-hint="Es tradueix per «PRATS» (app-kstars)"
-
-{\bCIRCULAR\sGRANARY\b}i
-valid msgstr="GRANER CIRCULAR"
-hint="Es tradueix per «GRANER CIRCULAR» (app-kstars)"
-
-{\bPURPLE\sPALACE\b}i
-valid msgstr="PALAU PORPRA"
-hint="Es tradueix per «PALAU PORPRA» (app-kstars)"
-
-{\bEXTENDED\sNET\b}i
-valid msgstr="XARXA EXPANDIDA"
-hint="Es tradueix per «XARXA EXPANDIDA» (app-kstars)"
-
-{\bARSENAL\b}i
-valid msgstr="ARSENAL"
-hint="Es tradueix per «ARSENAL» (app-kstars)"
-
-{\bHOOK\b}i
-valid msgid="HOOK FOR DRESS"
-valid msgstr="GANXO"
-hint="Es tradueix per «GANXO» (app-kstars)"
-
-{\bSUPREME\sPALACE\b}i
-valid msgstr="PALAU SUPREM"
-hint="Es tradueix per «PALAU SUPREM» (app-kstars)"
-
-{\bJADE\sWELL\b}i
-valid msgstr="POU DE JADE"
-hint="Es tradueix per «POU DE JADE» (app-kstars)"
-
-{\bLANCE\b}i
-valid msgstr="LLANÇA"
-hint="Es tradueix per «LLANÇA» (app-kstars)"
-
-# {\bBOAT\b}i
-# valid msgstr="BARCA"
-# hint="Es tradueix per «BARCA» (app-kstars)"
-
-{\bMAUSOLEUM\b}i
-valid msgstr="MAUSOLEU"
-hint="Es tradueix per «MAUSOLEU» (app-kstars)"
-
-{\bDOG\b}i
-valid msgstr="GOS"
-hint="Es tradueix per «GOS» (app-kstars)"
-
-{\bEARTH\sGOD'S\sTEMPLE\b}i
-valid msgstr="TEMPLE DELS DÉUS DE LA TERRA"
-hint="Es tradueix per «TEMPLE DELS DÉUS DE LA TERRA» (app-kstars)"
-
-{\bBOW\sAND\sARROW\b}i
-valid msgstr="ARC I FLETXA"
-hint="Es tradueix per «ARC I FLETXA» (app-kstars)"
-
-{\bPESTLE\b}i
-valid msgstr="MÀ DE MORTER"
-hint="Es tradueix per «MÀ DE MORTER» (app-kstars)"
-
-{\bMORTAR\b}i
-valid msgstr="MORTER"
-hint="Es tradueix per «MORTER» (app-kstars)"
-
-{\bROOFTOP\b}i
-valid msgstr="TEULADA"
-hint="Es tradueix per «TEULADA» (app-kstars)"
-
-{\bTHUNDERBOLT\b}i
-valid msgstr="LLAMPEC"
-hint="Es tradueix per «LLAMPEC» (app-kstars)"
-
-{\b\b}i
-valid msgstr=""
-hint="Es tradueix per «» (app-kstars)"
-
-{\b\b}i
-valid msgstr=""
-hint="Es tradueix per «» (app-kstars)"
-
-{\b\b}i
-valid msgstr=""
-hint="Es tradueix per «» (app-kstars)"
-
-{\b\b}i
-valid msgstr=""
-hint="Es tradueix per «» (app-kstars)"
-
-{\b\b}i
-valid msgstr=""
-hint="Es tradueix per «» (app-kstars)"
-
-{\b\b}i
-valid msgstr=""
-hint="Es tradueix per «» (app-kstars)"
-
-{\b\b}i
-valid msgstr=""
-hint="Es tradueix per «» (app-kstars)"
-
-{\b\b}i
-valid msgstr=""
-hint="Es tradueix per «» (app-kstars)"
-
-{\b\b}i
-valid msgstr=""
-hint="Es tradueix per «» (app-kstars)"
-
-{\b\b}i
-valid msgstr=""
-hint="Es tradueix per «» (app-kstars)"
-
-{\b\b}i
-valid msgstr=""
-hint="Es tradueix per «» (app-kstars)"
-
-{\b\b}i
-valid msgstr=""
-hint="Es tradueix per «» (app-kstars)"
-
-{\b\b}i
-valid msgstr=""
-hint="Es tradueix per «» (app-kstars)"
-
-{\b\b}i
-valid msgstr=""
-hint="Es tradueix per «» (app-kstars)"
-
-{\b\b}i
-valid msgstr=""
-hint="Es tradueix per «» (app-kstars)"
-
-{\b\b}i
-valid msgstr=""
-hint="Es tradueix per «» (app-kstars)"
-
-{\b\b}i
-valid msgstr=""
-hint="Es tradueix per «» (app-kstars)"
-
-{\b\b}i
-valid msgstr=""
-hint="Es tradueix per «» (app-kstars)"
-
-{\b\b}i
-valid msgstr=""
-hint="Es tradueix per «» (app-kstars)"
-
-{\b\b}i
-valid msgstr=""
-hint="Es tradueix per «» (app-kstars)"
-
-{\b\b}i
-valid msgstr=""
-hint="Es tradueix per «» (app-kstars)"
-
-{\b\b}i
-valid msgstr=""
-hint="Es tradueix per «» (app-kstars)"
-
-{\b\b}i
-valid msgstr=""
-hint="Es tradueix per «» (app-kstars)"
-
-{\b\b}i
-valid msgstr=""
-hint="Es tradueix per «» (app-kstars)"
-
-{\b\b}i
-valid msgstr=""
-hint="Es tradueix per «» (app-kstars)"
-
-{\b\b}i
-valid msgstr=""
-hint="Es tradueix per «» (app-kstars)"
-
-{\b\b}i
-valid msgstr=""
-hint="Es tradueix per «» (app-kstars)"
-
-{\b\b}i
-valid msgstr=""
-hint="Es tradueix per «» (app-kstars)"
-
-{\b\b}i
-valid msgstr=""
-hint="Es tradueix per «» (app-kstars)"
-
-{\b\b}i
-valid msgstr=""
-hint="Es tradueix per «» (app-kstars)"
-
-{\b\b}i
-valid msgstr=""
-hint="Es tradueix per «» (app-kstars)"
-
-{\b\b}i
-valid msgstr=""
-hint="Es tradueix per «» (app-kstars)"
-
-{\b\b}i
-valid msgstr=""
-hint="Es tradueix per «» (app-kstars)"
-
-{\b\b}i
-valid msgstr=""
-hint="Es tradueix per «» (app-kstars)"
-
-{\b\b}i
-valid msgstr=""
-hint="Es tradueix per «» (app-kstars)"
-
-{\b\b}i
-valid msgstr=""
-hint="Es tradueix per «» (app-kstars)"
-
-{\b\b}i
-valid msgstr=""
-hint="Es tradueix per «» (app-kstars)"
-
-{\b\b}i
-valid msgstr=""
-hint="Es tradueix per «» (app-kstars)"
-
-{\b\b}i
-valid msgstr=""
-hint="Es tradueix per «» (app-kstars)"
-
-{\b\b}i
-valid msgstr=""
-hint="Es tradueix per «» (app-kstars)"
-
-{\b\b}i
-valid msgstr=""
-hint="Es tradueix per «» (app-kstars)"
-
-{\b\b}i
-valid msgstr=""
-hint="Es tradueix per «» (app-kstars)"
-
-{\b\b}i
-valid msgstr=""
-hint="Es tradueix per «» (app-kstars)"
-
-{\b\b}i
-valid msgstr=""
-hint="Es tradueix per «» (app-kstars)"
-
-{\b\b}i
-valid msgstr=""
-hint="Es tradueix per «» (app-kstars)"
-
-{\b\b}i
-valid msgstr=""
-hint="Es tradueix per «» (app-kstars)"
-
-{\b\b}i
-valid msgstr=""
-hint="Es tradueix per «» (app-kstars)"
-
-{\b\b}i
-valid msgstr=""
-hint="Es tradueix per «» (app-kstars)"
-
-{\b\b}i
-valid msgstr=""
-hint="Es tradueix per «» (app-kstars)"
-
-{\b\b}i
-valid msgstr=""
-hint="Es tradueix per «» (app-kstars)"
-
-{\b\b}i
-valid msgstr=""
-hint="Es tradueix per «» (app-kstars)"
-
-{\b\b}i
-valid msgstr=""
-hint="Es tradueix per «» (app-kstars)"
-
-{\b\b}i
-valid msgstr=""
-hint="Es tradueix per «» (app-kstars)"
-
-{\b\b}i
-valid msgstr=""
-hint="Es tradueix per «» (app-kstars)"
-
-{\b\b}i
-valid msgstr=""
-hint="Es tradueix per «» (app-kstars)"
-
-{\b\b}i
-valid msgstr=""
-hint="Es tradueix per «» (app-kstars)"
-
-{\b\b}i
-valid msgstr=""
-hint="Es tradueix per «» (app-kstars)"
-
-{\b\b}i
-valid msgstr=""
-hint="Es tradueix per «» (app-kstars)"
-
-{\b\b}i
-valid msgstr=""
-hint="Es tradueix per «» (app-kstars)"
-
-{\b\b}i
-valid msgstr=""
-hint="Es tradueix per «» (app-kstars)"
-
-{\b\b}i
-valid msgstr=""
-hint="Es tradueix per «» (app-kstars)"
-
-{\b\b}i
-valid msgstr=""
-hint="Es tradueix per «» (app-kstars)"
-
-{\b\b}i
-valid msgstr=""
-hint="Es tradueix per «» (app-kstars)"
-
-{\b\b}i
-valid msgstr=""
-hint="Es tradueix per «» (app-kstars)"
-
-{\b\b}i
-valid msgstr=""
-hint="Es tradueix per «» (app-kstars)"
-
-{\b\b}i
-valid msgstr=""
-hint="Es tradueix per «» (app-kstars)"
-
-{\b\b}i
-valid msgstr=""
-hint="Es tradueix per «» (app-kstars)"
-
-{\b\b}i
-valid msgstr=""
-hint="Es tradueix per «» (app-kstars)"
-
-{\b\b}i
-valid msgstr=""
-hint="Es tradueix per «» (app-kstars)"
-
-{\b\b}i
-valid msgstr=""
-hint="Es tradueix per «» (app-kstars)"
-
-{\b\b}i
-valid msgstr=""
-hint="Es tradueix per «» (app-kstars)"
-
-{\b\b}i
-valid msgstr=""
-hint="Es tradueix per «» (app-kstars)"
-
-{\b\b}i
-valid msgstr=""
-hint="Es tradueix per «» (app-kstars)"
-
-{\b\b}i
-valid msgstr=""
-hint="Es tradueix per «» (app-kstars)"
-
-{\b\b}i
-valid msgstr=""
-hint="Es tradueix per «» (app-kstars)"
-
-{\b\b}i
-valid msgstr=""
-hint="Es tradueix per «» (app-kstars)"
-
-{\b\b}i
-valid msgstr=""
-hint="Es tradueix per «» (app-kstars)"
-
-{\b\b}i
-valid msgstr=""
-hint="Es tradueix per «» (app-kstars)"
-
-{\b\b}i
-valid msgstr=""
-hint="Es tradueix per «» (app-kstars)"
-
-{\b\b}i
-valid msgstr=""
-hint="Es tradueix per «» (app-kstars)"
-
-{\b\b}i
-valid msgstr=""
-hint="Es tradueix per «» (app-kstars)"
-
-{\b\b}i
-valid msgstr=""
-hint="Es tradueix per «» (app-kstars)"
-
-{\b\b}i
-valid msgstr=""
-hint="Es tradueix per «» (app-kstars)"
-
-{\b\b}i
-valid msgstr=""
-hint="Es tradueix per «» (app-kstars)"
-
-{\b\b}i
-valid msgstr=""
-hint="Es tradueix per «» (app-kstars)"
-
-{\b\b}i
-valid msgstr=""
-hint="Es tradueix per «» (app-kstars)"
-
-{\b\b}i
-valid msgstr=""
-hint="Es tradueix per «» (app-kstars)"
-
-{\b\b}i
-valid msgstr=""
-hint="Es tradueix per «» (app-kstars)"
-
-{\b\b}i
-valid msgstr=""
-hint="Es tradueix per «» (app-kstars)"
-
-{\b\b}i
-valid msgstr=""
-hint="Es tradueix per «» (app-kstars)"
-
-{\b\b}i
-valid msgstr=""
-hint="Es tradueix per «» (app-kstars)"
-
-{\b\b}i
-valid msgstr=""
-hint="Es tradueix per «» (app-kstars)"
-
-{\b\b}i
-valid msgstr=""
-hint="Es tradueix per «» (app-kstars)"
-
-{\b\b}i
-valid msgstr=""
-hint="Es tradueix per «» (app-kstars)"
-
-{\b\b}i
-valid msgstr=""
-hint="Es tradueix per «» (app-kstars)"
-
-{\b\b}i
-valid msgstr=""
-hint="Es tradueix per «» (app-kstars)"
-
-{\b\b}i
-valid msgstr=""
-hint="Es tradueix per «» (app-kstars)"
-
-{\b\b}i
-valid msgstr=""
-hint="Es tradueix per «» (app-kstars)"
-
-{\b\b}i
-valid msgstr=""
-hint="Es tradueix per «» (app-kstars)"
-
-{\b\b}i
-valid msgstr=""
-hint="Es tradueix per «» (app-kstars)"
-
-{\b\b}i
-valid msgstr=""
-hint="Es tradueix per «» (app-kstars)"
-
 #
 ## GUI
 #
@@ -1063,10 +57,14 @@ hint="Es tradueix per «Segur que voleu» (app-kstars)"
 
 # https://ca.wikipedia.org/wiki/Astrometria
 {\bAstrometry\b}i
-valid msgstr="fitxer de configuració de l'Astrometry"
+valid msgstr="fitxer de configuració de l'astrometria"
 valid msgstr="astrometry\.net"
-valid msgstr="Astrometria"
-hint="Es tradueix per «Astrometria» (app-kstars)"
+valid msgstr="astrometria"
+hint="Es tradueix per «astrometria» (app-kstars)"
+
+    {\bastrometry\.net\b}i
+    valid msgstr="«astrometry\.net»"
+    hint="Es tradueix per « «astrometry\.net» (amb les cometes angleses)» (app-kstars)"
 
 # https://ca.wikipedia.org/wiki/Unitat_astron%C3%B2mica
 {\b(Astronomical\sUnits|AU)\b}i
@@ -1143,7 +141,7 @@ valid msgstr="sortida del Sol"
 hint="Es tradueix per «alba, sortida del Sol» (app-kstars)"
 
 # https://ca.wikipedia.org/wiki/Declinació_(astronomia)
-{\bDec\b}
+{\bDec\b}i
 valid msgstr="\bDec\b"
 hint="Es tradueix per «Dec -declinació-» (app-kstars)"
 
@@ -1289,18 +287,25 @@ hint="Es tradueix per «Nebuloses» (app-kstars)"
 valid msgstr="Objectes? del NGC"
 hint="Es tradueix per «Objecte/s del NGC» (app-kstars)"
 
-{\bobservation\sjob\b}i
-valid msgstr="una tasca (a|de) la llista d'observació"
-valid msgstr="tasca d'observació"
-hint="Es tradueix per «tasca d'observació» (app-kstars)"
+{\bobservation\b}i
+valid msgid="observation\sjob"
+valid msgid="observation\sList"
+valid msgid="observation\stime"
+valid msgstr="observació"
+hint="Es tradueix per «observació» (app-kstars)"
 
-{\bobservation\sList\b}i
-valid msgstr="llista d'observació"
-hint="Es tradueix per «llista d'observació» (app-kstars)"
+    {\bobservation\sjob\b}i
+    valid msgstr="una tasca (a|de) la llista d'observació"
+    valid msgstr="tasca d'observació"
+    hint="Es tradueix per «tasca d'observació» (app-kstars)"
 
-{\bobservation\stime\b}i
-valid msgstr="hora d'observació"
-hint="Es tradueix per «hora d'observació» (app-kstars)"
+    {\bobservation\sList\b}i
+    valid msgstr="llista d'observació"
+    hint="Es tradueix per «llista d'observació» (app-kstars)"
+
+    {\bobservation\stime\b}i
+    valid msgstr="hora d'observació"
+    hint="Es tradueix per «hora d'observació» (app-kstars)"
 
 {\bObservatory\b}i
 valid ctx="^City\sin\s"
@@ -1316,10 +321,10 @@ valid ctx="^City\sin\s"
 valid msgstr="aparcar?"
 hint="Es tradueix per «aparca/r» (app-kstars)"
 
-{\bParking\b}i
-valid msgstr="S'aparcarà"
-valid msgstr="aparca(nt|r)"
-hint="Es tradueix per «aparcant, S'aparcarà, aparcar» (app-kstars)"
+    {\bParking\b}i
+    valid msgstr="S'aparcarà"
+    valid msgstr="aparca(nt|r)"
+    hint="Es tradueix per «aparcant, S'aparcarà, aparcar» (app-kstars)"
 
 # https://ca.wikipedia.org/wiki/Ascensió_recta
 {\bRA\b}i
@@ -1334,10 +339,10 @@ valid msgstr="\bsortida\b"
 valid msgstr="\bsurt\b"
 hint="Es tradueix per «sortida, surt» (app-kstars)"
 
-{\brises\sat\b}i
-valid msgstr="\bsurt a les\b"
-valid msgstr="\bSortida a les\b"
-hint="Es tradueix per «Sortida a les, surt a les» (app-kstars)"
+    {\brises\sat\b}i
+    valid msgstr="\bsurt a les\b"
+    valid msgstr="\bSortida a les\b"
+    hint="Es tradueix per «Sortida a les, surt a les» (app-kstars)"
 
 {\bRoute\b}i
 valid msgstr="Ruta"
@@ -1347,19 +352,23 @@ hint="Es tradueix per «Ruta» (app-kstars)"
 valid msgstr="Satèl·lits?"
 hint="Es tradueix per «Satèl·lit/s» (app-kstars)"
 
-{\bscheduled\b}i
-valid msgstr="planificació"
-valid msgstr="planifica(t|da)"
-hint="Es tradueix per «planificació, planificat/da» (app-kstars)"
+{\bschedule\b}i
+valid msgstr="planifica"
+hint="Es tradueix per «planifica» (app-kstars)"
 
-{\bscheduler\b}i
-valid msgid="scheduler\sjobs?"
-valid msgstr="planificador"
-hint="Es tradueix per «planificador» (app-kstars)"
+    {\bscheduled\b}i
+    valid msgstr="planificació"
+    valid msgstr="planifica(t|da)"
+    hint="Es tradueix per «planificació, planificat/da» (app-kstars)"
 
-{\bscheduler\sjobs?\b}i
-valid msgstr="tas(ca|ques) planificad(a|es)"
-hint="Es tradueix per «tasca/ques planificada/es» (app-kstars)"
+    {\bscheduler\b}i
+    valid msgid="scheduler\sjobs?"
+    valid msgstr="planificador"
+    hint="Es tradueix per «planificador» (app-kstars)"
+
+    {\bscheduler\sjobs?\b}i
+    valid msgstr="tas(ca|ques) planificad(a|es)"
+    hint="Es tradueix per «tasca/ques planificada/es» (app-kstars)"
 
 {\bsets\sat\b}i
 valid msgstr="\bes pon a les\b"
@@ -1399,22 +408,22 @@ valid msgstr="Digitized\sSky\sSurvey\s.DSS."
 valid msgstr="\bCel\b"
 hint="Es tradueix per «Cel» (app-kstars)"
 
-{\bsky\sChart\b}i
-valid msgstr="carta estel·lar"
-hint="Es tradueix per «carta estel·lar» (app-kstars)"
+    {\bsky\sChart\b}i
+    valid msgstr="carta estel·lar"
+    hint="Es tradueix per «carta estel·lar» (app-kstars)"
 
-{\bsky\sdisplay\b}i
-valid msgstr="vista del cel"
-hint="Es tradueix per «vista del cel» (app-kstars)"
+    {\bsky\sdisplay\b}i
+    valid msgstr="vista del cel"
+    hint="Es tradueix per «vista del cel» (app-kstars)"
 
-{\bsky\smap\b}i
-valid msgstr="mapa celeste"
-hint="Es tradueix per «mapa celeste» (app-kstars)"
+    {\bsky\smap\b}i
+    valid msgstr="mapa celeste"
+    hint="Es tradueix per «mapa celeste» (app-kstars)"
 
-{\bsky.?objects?\b}i
-valid msgid="\bDeep.?Sky\sobjects?\b"
-valid msgstr="objectes? celestes?"
-hint="Es tradueix per «objecte/s celeste/s» (app-kstars)"
+    {\bsky.?objects?\b}i
+    valid msgid="\bDeep.?Sky\sobjects?\b"
+    valid msgstr="objectes? celestes?"
+    hint="Es tradueix per «objecte/s celeste/s» (app-kstars)"
 
 {\bsleep\smode\b}i
 valid msgstr="mode de repòs"
@@ -1424,16 +433,16 @@ hint="Es tradueix per «mode de repòs» (app-kstars)"
 valid msgstr="\bgir(a)?\b"
 hint="Es tradueix per «gir/a» (app-kstars)"
 
-{\bSlewing\b}i
-valid msgid="wh(en|ile) slewing"
-valid msgid="slewing mode"
-valid msgstr="Està girant"
-valid msgstr="\bgir\b"
-hint="Es tradueix per «Està girant» (app-kstars)"
+    {\bSlewing\b}i
+    valid msgid="wh(en|ile) slewing"
+    valid msgid="slewing mode"
+    valid msgstr="Està girant"
+    valid msgstr="\bgir\b"
+    hint="Es tradueix per «Està girant» (app-kstars)"
 
-{\bslewing\smode\b}i
-valid msgstr="mode de transició"
-hint="Es tradueix per «mode de transició» (app-kstars)"
+    {\bslewing\smode\b}i
+    valid msgstr="mode de transició"
+    hint="Es tradueix per «mode de transició» (app-kstars)"
 
 {\b\b}i
 valid msgstr=""
@@ -1598,6 +607,1803 @@ hint="Es tradueix per «» (app-kstars)"
 {\b\b}i
 valid msgstr=""
 hint="Es tradueix per «» (app-kstars)"
+
+#
+## constel·lacions
+#
+
+{\bC\sWestern\b}i
+valid msgstr="C Occidental"
+hint="Es tradueix per «C Occidental» -constel·lacions- (app-kstars)"
+
+    {\bANDROMEDA\b}i
+    valid msgstr="ANDRÒMEDA"
+    hint="Es tradueix per «ANDRÒMEDA» -constel·lació occidental- (app-kstars)"
+
+    {\bANTLIA\b}i
+    valid msgstr="MÀQUINA PNEUMÀTICA"
+    hint="Es tradueix per «MÀQUINA PNEUMÀTICA» -constel·lació occidental- (app-kstars)"
+
+    {\bAPUS\b}i
+    valid msgstr="AU DEL PARADÍS"
+    hint="Es tradueix per «AU DEL PARADÍS» -constel·lació occidental- (app-kstars)"
+
+    {\bAQUARIUS\b}i
+    valid msgstr="AQUARI"
+    hint="Es tradueix per «AQUARI» -constel·lació occidental- (app-kstars)"
+
+    {\bAQUILA\b}i
+    valid ctx="^City\sin\s"
+    valid msgstr="ÀGUILA"
+    hint="Es tradueix per «ÀGUILA» -constel·lació occidental- (app-kstars)"
+
+    {\bARA\b}i
+    valid msgstr="ALTAR"
+    hint="Es tradueix per «ALTAR» -constel·lació occidental- (app-kstars)"
+
+    {\bARIES\b}i
+    valid msgstr="ÀRIES"
+    hint="Es tradueix per «ÀRIES» -constel·lació occidental- (app-kstars)"
+
+    {\bAURIGA\b}i
+    valid msgstr="COTXER"
+    hint="Es tradueix per «COTXER» -constel·lació occidental- (app-kstars)"
+
+    {\bBOOTES\b}i
+    valid msgstr="BOVER"
+    hint="Es tradueix per «BOVER» -constel·lació occidental- (app-kstars)"
+
+    {\bCAELUM\b}i
+    valid msgstr="BURÍ"
+    hint="Es tradueix per «BURÍ» -constel·lació occidental- (app-kstars)"
+
+    {\bCAMELOPARDALIS\b}i
+    valid msgstr="GIRAFA"
+    hint="Es tradueix per «GIRAFA» -constel·lació occidental- (app-kstars)"
+
+    {\bCANCER\b}i
+    valid msgstr="CRANC"
+    hint="Es tradueix per «CRANC» -constel·lació occidental- (app-kstars)"
+
+    {\bCANES\sVENATICI\b}i
+    valid msgstr="LLEBRERS"
+    hint="Es tradueix per «LLEBRERS» -constel·lació occidental- (app-kstars)"
+
+    {\bCANIS\sMAJOR\b}i
+    valid msgstr="CA MAJOR"
+    hint="Es tradueix per «CA MAJOR» -constel·lació occidental- (app-kstars)"
+
+    {\bCANIS\sMINOR\b}i
+    valid msgstr="CA MENOR"
+    hint="Es tradueix per «CA MENOR» -constel·lació occidental- (app-kstars)"
+
+    {\bCAPRICORNUS\b}i
+    valid msgstr="CAPRICORN"
+    hint="Es tradueix per «CAPRICORN» -constel·lació occidental- (app-kstars)"
+
+    {\bCARINA\b}i
+    valid msgid="Eta Carina, Keyhole Nebula"
+    valid msgstr="QUILLA"
+    hint="Es tradueix per «QUILLA» -constel·lació occidental- (app-kstars)"
+
+    {\bCASSIOPEIA\b}i
+    valid msgstr="CASSIOPEA"
+    hint="Es tradueix per «CASSIOPEA» -constel·lació occidental- (app-kstars)"
+
+    {\bCENTAURUS\b}i
+    valid msgstr="CENTAURE"
+    hint="Es tradueix per «CENTAURE» -constel·lació occidental- (app-kstars)"
+
+    {\bCEPHEUS\b}i
+    valid msgstr="CEFEU"
+    hint="Es tradueix per «CEFEU» -constel·lació occidental- (app-kstars)"
+
+    {\bCETUS\b}i
+    valid msgstr="BALENA"
+    hint="Es tradueix per «BALENA» -constel·lació occidental- (app-kstars)"
+
+    {\bCHAMAELEON\b}i
+    valid msgstr="CAMALEÓ"
+    hint="Es tradueix per «CAMALEÓ» -constel·lació occidental- (app-kstars)"
+
+    {\bCIRCINUS\b}i
+    valid msgstr="COMPÀS"
+    hint="Es tradueix per «COMPÀS» -constel·lació occidental- (app-kstars)"
+
+    {\bCOLUMBA\b}i
+    valid msgstr="COLOMA"
+    hint="Es tradueix per «COLOMA» -constel·lació occidental- (app-kstars)"
+
+    {\bCORONA\sAUSTRALIS\b}i
+    valid msgstr="CORONA AUSTRAL"
+    hint="Es tradueix per «CORONA AUSTRAL» -constel·lació occidental- (app-kstars)"
+
+    {\bCORONA\sBOREALIS\b}i
+    valid msgstr="CORONA BOREAL"
+    hint="Es tradueix per «CORONA BOREAL» -constel·lació occidental- (app-kstars)"
+
+    {\bCORVUS\b}i
+    valid msgstr="CORB"
+    hint="Es tradueix per «CORB» -constel·lació occidental- (app-kstars)"
+
+    {\bCRATER\b}i
+    valid msgstr="COPA"
+    hint="Es tradueix per «COPA» -constel·lació occidental- (app-kstars)"
+
+    {\bCRUX\b}i
+    valid msgstr="CREU DEL SUD"
+    hint="Es tradueix per «CREU DEL SUD» -constel·lació occidental- (app-kstars)"
+
+    {\bCYGNUS\b}i
+    valid msgstr="CIGNE"
+    hint="Es tradueix per «CIGNE» -constel·lació occidental- (app-kstars)"
+
+    {\bDELPHINUS\b}i
+    valid msgstr="DOFÍ"
+    hint="Es tradueix per «DOFÍ» -constel·lació occidental- (app-kstars)"
+
+    {\bDORADO\b}i
+    valid ctx="^City\sin\s"
+    valid msgstr="ORADA"
+    hint="Es tradueix per «ORADA» -constel·lació occidental- (app-kstars)"
+
+    {\bDRACO\b}i
+    valid msgstr="DRAGÓ"
+    hint="Es tradueix per «DRAGÓ» -constel·lació occidental- (app-kstars)"
+
+    {\bEQUULEUS\b}i
+    valid msgstr="CAVALLET"
+    hint="Es tradueix per «CAVALLET» -constel·lació occidental- (app-kstars)"
+
+    {\bERIDANUS\b}i
+    valid msgstr="ERIDÀ"
+    hint="Es tradueix per «ERIDÀ» -constel·lació occidental- (app-kstars)"
+
+    {\bFORNAX\b}i
+    valid msgstr="FORN"
+    hint="Es tradueix per «FORN» -constel·lació occidental- (app-kstars)"
+
+    {\bGEMINI\b}i
+    valid msgstr="BESSONS"
+    hint="Es tradueix per «BESSONS» -constel·lació occidental- (app-kstars)"
+
+    {\bGRUS\b}i
+    valid msgstr="GRUA"
+    hint="Es tradueix per «GRUA» -constel·lació occidental- (app-kstars)"
+
+    {\bHERCULES\b}i
+    valid msgstr="HÈRCULES"
+    hint="Es tradueix per «HÈRCULES» -constel·lació occidental- (app-kstars)"
+
+    {\bHOROLOGIUM\b}i
+    valid msgstr="RELLOTGE"
+    hint="Es tradueix per «RELLOTGE» -constel·lació occidental- (app-kstars)"
+
+    {\bHYDRA\b}i
+    valid msgstr="HIDRA FEMELLA"
+    hint="Es tradueix per «HIDRA FEMELLA» -constel·lació occidental- (app-kstars)"
+
+    {\bINDUS\b}i
+    valid msgstr="INDI"
+    hint="Es tradueix per «INDI» -constel·lació occidental- (app-kstars)"
+
+    {\bLACERTA\b}i
+    valid msgstr="LLANGARDAIX"
+    hint="Es tradueix per «LLANGARDAIX» -constel·lació occidental- (app-kstars)"
+
+    {\bLEO\b}i
+    valid ctx="^Satellite\sgroup\sname"
+    valid msgstr="LLEÓ"
+    hint="Es tradueix per «LLEÓ» -constel·lació occidental- (app-kstars)"
+
+    {\bLEO\sMINOR\b}i
+    valid msgstr="LLEÓ MENOR"
+    hint="Es tradueix per «LLEÓ MENOR» -constel·lació occidental- (app-kstars)"
+
+    {\bLEPUS\b}i
+    valid msgstr="LLEBRE"
+    hint="Es tradueix per «LLEBRE» -constel·lació occidental- (app-kstars)"
+
+    {\bLIBRA\b}i
+    valid msgstr="BALANÇA"
+    hint="Es tradueix per «BALANÇA» -constel·lació occidental- (app-kstars)"
+
+    {\bLUPUS\b}i
+    valid msgstr="LLOP"
+    hint="Es tradueix per «LLOP» -constel·lació occidental- (app-kstars)"
+
+    {\bLYNX\b}i
+    valid msgstr="LINX"
+    hint="Es tradueix per «LINX» -constel·lació occidental- (app-kstars)"
+
+    {\bLYRA\b}i
+    valid msgstr="LIRA"
+    hint="Es tradueix per «LIRA» -constel·lació occidental- (app-kstars)"
+
+    {\bMENSA\b}i
+    valid msgstr="TAULA"
+    hint="Es tradueix per «TAULA» -constel·lació occidental- (app-kstars)"
+
+    {\bMICROSCOPIUM\b}i
+    valid msgstr="MICROSCOPI"
+    hint="Es tradueix per «MICROSCOPI» -constel·lació occidental- (app-kstars)"
+
+    {\bMONOCEROS\b}i
+    valid msgstr="UNICORN"
+    hint="Es tradueix per «UNICORN» -constel·lació occidental- (app-kstars)"
+
+    {\bMUSCA\b}i
+    valid msgstr="MOSCA"
+    hint="Es tradueix per «MOSCA» -constel·lació occidental- (app-kstars)"
+
+    {\bNORMA\b}i
+    valid msgstr="ESCAIRE"
+    hint="Es tradueix per «ESCAIRE» -constel·lació occidental- (app-kstars)"
+
+    {\bOCTANS\b}i
+    valid msgstr="OCTANT"
+    hint="Es tradueix per «OCTANT» -constel·lació occidental- (app-kstars)"
+
+    {\bOPHIUCHUS\b}i
+    valid msgstr="SERPENTARI"
+    hint="Es tradueix per «SERPENTARI» -constel·lació occidental- (app-kstars)"
+
+    {\bORION\b}i
+    valid msgstr="ORIÓ"
+    hint="Es tradueix per «ORIÓ» -constel·lació occidental- (app-kstars)"
+
+    {\bPAVO\b}i
+    valid msgstr="GALL DINDI"
+    hint="Es tradueix per «GALL DINDI» -constel·lació occidental- (app-kstars)"
+
+    {\bPEGASUS\b}i
+    valid msgstr="PEGÀS"
+    hint="Es tradueix per «PEGÀS» -constel·lació occidental- (app-kstars)"
+
+    {\bPERSEUS\b}i
+    valid msgstr="PERSEU"
+    hint="Es tradueix per «PERSEU» -constel·lació occidental- (app-kstars)"
+
+    {\bPHOENIX\b}i
+    valid ctx="^City\sin\s"
+    valid msgstr="FÈNIX"
+    hint="Es tradueix per «FÈNIX» -constel·lació occidental- (app-kstars)"
+
+    {\bPICTOR\b}i
+    valid msgstr="CAVALLET DEL PINTOR"
+    hint="Es tradueix per «CAVALLET DEL PINTOR» -constel·lació occidental- (app-kstars)"
+
+    {\bPISCES\b}i
+    valid msgstr="PEIXOS"
+    hint="Es tradueix per «PEIXOS» -constel·lació occidental- (app-kstars)"
+
+    {\bPISCIS\sAUSTRINUS\b}i
+    valid msgstr="PEIXOS AUSTRAL"
+    hint="Es tradueix per «PEIXOS AUSTRAL» -constel·lació occidental- (app-kstars)"
+
+    {\bPUPPIS\b}i
+    valid msgstr="POPA"
+    hint="Es tradueix per «POPA» -constel·lació occidental- (app-kstars)"
+
+    {\bPYXIS\b}i
+    valid msgstr="BRÚIXOLA"
+    hint="Es tradueix per «BRÚIXOLA» -constel·lació occidental- (app-kstars)"
+
+    {\bRETICULUM\b}i
+    valid msgstr="RETICLE"
+    hint="Es tradueix per «RETICLE» -constel·lació occidental- (app-kstars)"
+
+    {\bSAGITTA\b}i
+    valid msgstr="SAGETA"
+    hint="Es tradueix per «SAGETA» -constel·lació occidental- (app-kstars)"
+
+    {\bSAGITTARIUS\b}i
+    valid msgstr="SAGITARI"
+    hint="Es tradueix per «SAGITARI» -constel·lació occidental- (app-kstars)"
+
+    {\bSCORPIUS\b}i
+    valid msgstr="ESCORPÍ"
+    hint="Es tradueix per «ESCORPÍ» -constel·lació occidental- (app-kstars)"
+
+    {\bSCULPTOR\b}i
+    valid msgstr="ESCULTOR"
+    hint="Es tradueix per «ESCULTOR» -constel·lació occidental- (app-kstars)"
+
+    {\bSCUTUM\b}i
+    valid msgstr="ESCUT"
+    hint="Es tradueix per «ESCUT» -constel·lació occidental- (app-kstars)"
+
+    {\bSERPENS\sCAPUT\b}i
+    valid msgstr="CAP DEL SERPENT"
+    hint="Es tradueix per «CAP DEL SERPENT» -constel·lació occidental- (app-kstars)"
+
+    {\bSERPENS\sCAUDA\b}i
+    valid msgstr="CUA DEL SERPENT"
+    hint="Es tradueix per «CUA DEL SERPENT» -constel·lació occidental- (app-kstars)"
+
+    {\bSEXTANS\b}i
+    valid msgstr="SEXTANT"
+    hint="Es tradueix per «SEXTANT» -constel·lació occidental- (app-kstars)"
+
+    {\bTAURUS\b}i
+    valid msgstr="TAURE"
+    hint="Es tradueix per «TAURE» -constel·lació occidental- (app-kstars)"
+
+    {\bTELESCOPIUM\b}i
+    valid msgstr="TELESCOPI"
+    hint="Es tradueix per «TELESCOPI» -constel·lació occidental- (app-kstars)"
+
+    {\bTRIANGULUM\b}i
+    valid msgstr="TRIANGLE"
+    hint="Es tradueix per «TRIANGLE» -constel·lació occidental- (app-kstars)"
+
+    {\bTRIANGULUM\sAUSTRALE\b}i
+    valid msgstr="TRIANGLE AUSTRAL"
+    hint="Es tradueix per «TRIANGLE AUSTRAL» -constel·lació occidental- (app-kstars)"
+
+    {\bTUCANA\b}i
+    valid msgstr="TUCÀ"
+    hint="Es tradueix per «TUCÀ» -constel·lació occidental- (app-kstars)"
+
+    {\bURSA\sMAJOR\b}i
+    valid msgstr="ÓSSA MAJOR"
+    hint="Es tradueix per «ÓSSA MAJOR» -constel·lació occidental- (app-kstars)"
+
+    {\bURSA\sMINOR\b}i
+    valid msgstr="ÓSSA MENOR"
+    hint="Es tradueix per «ÓSSA MENOR» -constel·lació occidental- (app-kstars)"
+
+    {\bVELA\b}i
+    valid msgstr="VELA"
+    hint="Es tradueix per «VELA» -constel·lació occidental- (app-kstars)"
+
+    {\bVIRGO\b}i
+    valid msgstr="VERGE"
+    hint="Es tradueix per «VERGE» -constel·lació occidental- (app-kstars)"
+
+    {\bVOLANS\b}i
+    valid msgstr="PEIX VOLADOR"
+    hint="Es tradueix per «PEIX VOLADOR» -constel·lació occidental- (app-kstars)"
+
+    {\bVULPECULA\b}i
+    valid msgstr="GUINEUETA"
+    hint="Es tradueix per «GUINEUETA» -constel·lació occidental- (app-kstars)"
+
+{\bC\sChinese\b}i
+valid msgstr="C Xinesa"
+hint="Es tradueix per «C Xinesa» -constel·lacions- (app-kstars)"
+
+    {\bNORTHERN\sDIPPER\b}i
+    valid msgstr="CULLEROT DEL NORD"
+    hint="Es tradueix per «CULLEROT DEL NORD» -constel·lació xinesa- (app-kstars)"
+
+    {\bCURVED\sARRAY\b}i
+    valid msgstr="FORMACIÓ CORBADA"
+    hint="Es tradueix per «FORMACIÓ CORBADA» -constel·lació xinesa- (app-kstars)"
+
+    {\bCOILED\sTHONG\b}i
+    valid msgstr="CORRETJA ENROTLLADA"
+    hint="Es tradueix per «CORRETJA ENROTLLADA» -constel·lació xinesa- (app-kstars)"
+
+    {\bWINGS\b}i
+    valid msgstr="ALES"
+    hint="Es tradueix per «ALES» -constel·lació xinesa- (app-kstars)"
+
+    {\bCHARIOT\b}i
+    valid msgstr="CARRO"
+    hint="Es tradueix per «CARRO» -constel·lació xinesa- (app-kstars)"
+
+    {\bTAIL\b}i
+    valid msgstr="CUA"
+    hint="Es tradueix per «CUA» -constel·lació xinesa- (app-kstars)"
+
+    {\bWINNOWING\sBASKET\b}i
+    valid msgstr="SEDÀS"
+    hint="Es tradueix per «SEDÀS» -constel·lació xinesa- (app-kstars)"
+
+    {\bDIPPER\b}i
+    valid msgstr="CULLEROT"
+    hint="Es tradueix per «CULLEROT» -constel·lació xinesa- (app-kstars)"
+
+    {\bDRUM\b}i
+    valid msgstr="TAMBOR"
+    hint="Es tradueix per «TAMBOR» -constel·lació xinesa- (app-kstars)"
+
+    {\bTHREE\sSTEPS\b}i
+    valid msgstr="TRES PASSOS"
+    hint="Es tradueix per «TRES PASSOS» -constel·lació xinesa- (app-kstars)"
+
+    {\bIMPERIAL\sGUARDS\b}i
+    valid msgstr="GUÀRDIES IMPERIALS"
+    hint="Es tradueix per «GUÀRDIES IMPERIALS» -constel·lació xinesa- (app-kstars)"
+
+    {\bHORN\b}i
+    valid msgstr="CORN"
+    hint="Es tradueix per «CORN» -constel·lació xinesa- (app-kstars)"
+
+    {\bWILLOW\b}i
+    valid msgstr="SALZE"
+    hint="Es tradueix per «SALZE» -constel·lació xinesa- (app-kstars)"
+
+    {\bIMPERIAL\sPASSAGEWAY\b}i
+    valid msgstr="PASSADÍS IMPERIAL"
+    hint="Es tradueix per «PASSADÍS IMPERIAL» -constel·lació xinesa- (app-kstars)"
+
+    {\bKITCHEN\b}i
+    valid msgstr="CUINA"
+    hint="Es tradueix per «CUINA» -constel·lació xinesa- (app-kstars)"
+
+    {\bRIVER\sTURTLE\b}i
+    valid msgstr="TORTUGA DE RIU"
+    hint="Es tradueix per «TORTUGA DE RIU» -constel·lació xinesa- (app-kstars)"
+
+    {\bSTOMACH\b}i
+    valid msgstr="ESTÓMAC"
+    hint="Es tradueix per «ESTÓMAC» -constel·lació xinesa- (app-kstars)"
+
+    {\bGREAT\sGENERAL\b}i
+    valid msgstr="GRAN GENERAL"
+    hint="Es tradueix per «GRAN GENERAL» -constel·lació xinesa- (app-kstars)"
+
+    {\bWALL\b}i
+    valid msgstr="MUR"
+    hint="Es tradueix per «MUR» -constel·lació xinesa- (app-kstars)"
+
+    {\bLEGS\b}i
+    valid msgstr="POTES"
+    hint="Es tradueix per «POTES» -constel·lació xinesa- (app-kstars)"
+
+    {\bROOT\b}i
+    valid msgstr="ARREL"
+    hint="Es tradueix per «ARREL» -constel·lació xinesa- (app-kstars)"
+
+    {\bRAMPARTS\b}i
+    valid msgstr="MURALLES"
+    hint="Es tradueix per «MURALLES» -constel·lació xinesa- (app-kstars)"
+
+    {\bFLYING\sCORRIDOR\b}i
+    valid msgstr="CORREDOR VOLADOR"
+    hint="Es tradueix per «CORREDOR VOLADOR» -constel·lació xinesa- (app-kstars)"
+
+    {\bOUTER\sFENCE\b}i
+    valid msgstr="TANCA EXTERIOR"
+    hint="Es tradueix per «TANCA EXTERIOR» -constel·lació xinesa- (app-kstars)"
+
+    {\bFORD\b}i
+    valid ctx="^City\sin\s"
+    valid msgstr="GUAL"
+    hint="Es tradueix per «GUAL» -constel·lació xinesa- (app-kstars)"
+
+    {\bSEVEN\sEXCELLENCIES\b}i
+    valid msgstr="SET EXCEL·LÈNCIES"
+    hint="Es tradueix per «SET EXCEL·LÈNCIES» -constel·lació xinesa- (app-kstars)"
+
+    {\bMARKET\b}i
+    valid msgstr="MERCAT"
+    hint="Es tradueix per «MERCAT» -constel·lació xinesa- (app-kstars)"
+
+    {\bFIVE\sCHARIOTS\b}i
+    valid msgstr="CINC CARROS"
+    hint="Es tradueix per «CINC CARROS» -constel·lació xinesa- (app-kstars)"
+
+    {\bROLLED\sTONGUE\b}i
+    valid msgstr="LLENGUA ENROTLLADA"
+    hint="Es tradueix per «LLENGUA ENROTLLADA» -constel·lació xinesa- (app-kstars)"
+
+    {\bNET\b}i
+    valid msgstr="\.net"
+    valid msgstr="XARXA"
+    hint="Es tradueix per «XARXA» -constel·lació xinesa- (app-kstars)"
+
+    {\bTOILET\b}i
+    valid msgstr="LAVABO"
+    hint="Es tradueix per «LAVABO» -constel·lació xinesa- (app-kstars)"
+
+    {\bSCREEN\b}i
+    valid msgstr="PARAVENT"
+    hint="Es tradueix per «PARAVENT» -constel·lació xinesa- (app-kstars)"
+
+    {\bSOLDIERS'\sMARKET\b}i
+    valid msgstr="MERCAT DE SOLDATS"
+    hint="Es tradueix per «MERCAT DE SOLDATS» -constel·lació xinesa- (app-kstars)"
+
+    {\bSQUARE\sGRANARY\b}i
+    valid msgstr="GRANER QUADRAT"
+    hint="Es tradueix per «GRANER QUADRAT» -constel·lació xinesa- (app-kstars)"
+
+    {\bTHREE\sSTARS\b}i
+    valid msgstr="TRES ESTRELLES"
+    hint="Es tradueix per «TRES ESTRELLES» -constel·lació xinesa- (app-kstars)"
+
+    {\bFOUR\sCHANNELS\b}i
+    valid msgstr="QUATRE CANALS"
+    hint="Es tradueix per «QUATRE CANALS» -constel·lació xinesa- (app-kstars)"
+
+    {\bWELL\b}i
+    valid msgstr="POU"
+    hint="Es tradueix per «POU» -constel·lació xinesa- (app-kstars)"
+
+    {\bSOUTH\sRIVER\b}i
+    valid msgstr="RIU DEL SUD"
+    hint="Es tradueix per «RIU DEL SUD» -constel·lació xinesa- (app-kstars)"
+
+    {\bNORTH\sRIVER\b}i
+    valid msgstr="RIU DEL NORD"
+    hint="Es tradueix per «RIU DEL NORD» -constel·lació xinesa- (app-kstars)"
+
+    {\bFIVE\sFEUDAL\sKINGS\b}i
+    valid msgstr="CINC REIS FEUDALS"
+    hint="Es tradueix per «CINC REIS FEUDALS» -constel·lació xinesa- (app-kstars)"
+
+    {\bORCHARD\b}i
+    valid msgstr="HORT"
+    hint="Es tradueix per «HORT» -constel·lació xinesa- (app-kstars)"
+
+    {\bMEADOWS\b}i
+    valid ctx="^City\sin\s"
+    valid msgstr="PRATS"
+    hint="Es tradueix per «PRATS» -constel·lació xinesa- (app-kstars)"
+
+    {\bCIRCULAR\sGRANARY\b}i
+    valid msgstr="GRANER CIRCULAR"
+    hint="Es tradueix per «GRANER CIRCULAR» -constel·lació xinesa- (app-kstars)"
+
+    {\bPURPLE\sPALACE\b}i
+    valid msgstr="PALAU PORPRA"
+    hint="Es tradueix per «PALAU PORPRA» -constel·lació xinesa- (app-kstars)"
+
+    {\bEXTENDED\sNET\b}i
+    valid msgstr="XARXA EXPANDIDA"
+    hint="Es tradueix per «XARXA EXPANDIDA» -constel·lació xinesa- (app-kstars)"
+
+    {\bARSENAL\b}i
+    valid msgstr="ARSENAL"
+    hint="Es tradueix per «ARSENAL» -constel·lació xinesa- (app-kstars)"
+
+    {\bHOOK\b}i
+    valid msgid="HOOK FOR DRESS"
+    valid msgstr="GANXO"
+    hint="Es tradueix per «GANXO» -constel·lació xinesa- (app-kstars)"
+
+    {\bSUPREME\sPALACE\b}i
+    valid msgstr="PALAU SUPREM"
+    hint="Es tradueix per «PALAU SUPREM» -constel·lació xinesa- (app-kstars)"
+
+    {\bJADE\sWELL\b}i
+    valid msgstr="POU DE JADE"
+    hint="Es tradueix per «POU DE JADE» -constel·lació xinesa- (app-kstars)"
+
+    {\bLANCE\b}i
+    valid msgstr="LLANÇA"
+    hint="Es tradueix per «LLANÇA» -constel·lació xinesa- (app-kstars)"
+
+    {\bBOAT\b}i
+    valid msgstr="BARCA"
+    hint="Es tradueix per «BARCA» -constel·lació xinesa- (app-kstars)"
+
+    {\bMAUSOLEUM\b}i
+    valid msgstr="MAUSOLEU"
+    hint="Es tradueix per «MAUSOLEU» -constel·lació xinesa- (app-kstars)"
+
+    {\bDOG\b}i
+    valid msgstr="GOS"
+    hint="Es tradueix per «GOS» -constel·lació xinesa- (app-kstars)"
+
+    {\bEARTH\sGOD.?S\sTEMPLE\b}i
+    valid msgstr="TEMPLE DELS DÉUS DE LA TERRA"
+    hint="Es tradueix per «TEMPLE DELS DÉUS DE LA TERRA» -constel·lació xinesa- (app-kstars)"
+
+    {\bBOW\sAND\sARROW\b}i
+    valid msgstr="ARC I FLETXA"
+    hint="Es tradueix per «ARC I FLETXA» -constel·lació xinesa- (app-kstars)"
+
+    {\bPESTLE\b}i
+    valid msgstr="MÀ DE MORTER"
+    hint="Es tradueix per «MÀ DE MORTER» -constel·lació xinesa- (app-kstars)"
+
+    {\bMORTAR\b}i
+    valid msgstr="MORTER"
+    hint="Es tradueix per «MORTER» -constel·lació xinesa- (app-kstars)"
+
+    {\bROOFTOP\b}i
+    valid msgstr="TEULADA"
+    hint="Es tradueix per «TEULADA» -constel·lació xinesa- (app-kstars)"
+
+    {\bTHUNDERBOLT\b}i
+    valid msgstr="LLAMPEC"
+    hint="Es tradueix per «LLAMPEC» -constel·lació xinesa- (app-kstars)"
+
+    {\bCHARIOT\sYARD\b}i
+    valid msgstr="PATI DE CARROS"
+    hint="Es tradueix per «PATI DE CARROS» -constel·lació xinesa- (app-kstars)"
+
+    {\bGOOD\sGOURD\b}i
+    valid msgstr="CARABASSA SANA"
+    hint="Es tradueix per «CARABASSA SANA» -constel·lació xinesa- (app-kstars)"
+
+    {\bROTTEN\sGOURD\b}i
+    valid msgstr="CARABASSA PODRIDA"
+    hint="Es tradueix per «CARABASSA PODRIDA» -constel·lació xinesa- (app-kstars)"
+
+    {\bENCAMPMENT\b}i
+    valid msgstr="CAMPAMENT"
+    hint="Es tradueix per «CAMPAMENT» -constel·lació xinesa- (app-kstars)"
+
+    {\bTHUNDER\sAND\sLIGHTNING\b}i
+    valid msgstr="LLAMP I TRO"
+    hint="Es tradueix per «LLAMP I TRO» -constel·lació xinesa- (app-kstars)"
+
+    {\bPALACE\sGATE\b}i
+    valid msgstr="PORTA DE PALAU"
+    hint="Es tradueix per «PORTA DE PALAU» -constel·lació xinesa- (app-kstars)"
+
+    {\bEMPTINESS\b}i
+    valid msgstr="BUIT"
+    hint="Es tradueix per «BUIT» -constel·lació xinesa- (app-kstars)"
+
+    {\bWEAVING\sGIRL\b}i
+    valid msgstr="NENA TEIXIDORA"
+    hint="Es tradueix per «NENA TEIXIDORA» -constel·lació xinesa- (app-kstars)"
+
+    {\bGIRL\b}i
+    valid msgstr="NENA"
+    hint="Es tradueix per «NENA» -constel·lació xinesa- (app-kstars)"
+
+    {\bOX\b}i
+    valid msgstr="BOU"
+    hint="Es tradueix per «BOU» -constel·lació xinesa- (app-kstars)"
+
+    {\bHEART\b}i
+    valid msgstr="COR"
+    hint="Es tradueix per «COR» -constel·lació xinesa- (app-kstars)"
+
+    {\bROOM\b}i
+    valid msgstr="CAMBRA"
+    hint="Es tradueix per «CAMBRA» -constel·lació xinesa- (app-kstars)"
+
+    {\bSPRING\b}i
+    valid msgstr="DÈU"
+    hint="Es tradueix per «DÈU» -constel·lació xinesa- (app-kstars)"
+
+    {\bESTABLISHMENT\b}i
+    valid msgstr="ESTABLIMENT"
+    hint="Es tradueix per «ESTABLIMENT» -constel·lació xinesa- (app-kstars)"
+
+    {\bFLAIL\b}i
+    valid msgstr="BATOLLA"
+    hint="Es tradueix per «BATOLLA» -constel·lació xinesa- (app-kstars)"
+
+    {\bSPEAR\b}i
+    valid msgstr=""
+    hint="Es tradueix per «ARPÓ» -constel·lació xinesa- (app-kstars)"
+
+    {\bRIGHT\sFLAG\b}i
+    valid msgstr="BANDERA DRETA"
+    hint="Es tradueix per «BANDERA DRETA» -constel·lació xinesa- (app-kstars)"
+
+    {\bLEFT\sFLAG\b}i
+    valid msgstr="BANDERA ESQUERRA"
+    hint="Es tradueix per «BANDERA ESQUERRA» -constel·lació xinesa- (app-kstars)"
+
+    {\bDRUMSTICK\b}i
+    valid msgstr="BAQUETA"
+    hint="Es tradueix per «BAQUETA» -constel·lació xinesa- (app-kstars)"
+
+    {\bBOND\b}i
+    valid msgstr="LLIGAM"
+    hint="Es tradueix per «LLIGAM» -constel·lació xinesa- (app-kstars)"
+
+    {\bWOMAN.?S\sBED\b}i
+    valid msgstr="LLIT DE DONA"
+    hint="Es tradueix per «LLIT DE DONA» -constel·lació xinesa- (app-kstars)"
+
+    {\bWESTERN\sDOOR\b}i
+    valid msgstr="PORTA OCCIDENTAL"
+    hint="Es tradueix per «PORTA OCCIDENTAL» -constel·lació xinesa- (app-kstars)"
+
+    {\bEASTERN\sDOOR\b}i
+    valid msgstr="PORTA ORIENTAL"
+    hint="Es tradueix per «PORTA ORIENTAL» -constel·lació xinesa- (app-kstars)"
+
+    {\bFARMLAND\b}i
+    valid msgstr="TERRA DE CONREU"
+    hint="Es tradueix per «TERRA DE CONREU» -constel·lació xinesa- (app-kstars)"
+
+    {\bSTAR\b}i
+    valid msgstr="ESTRELLA"
+    hint="Es tradueix per «ESTRELLA» -constel·lació xinesa- (app-kstars)"
+
+    {\bGHOSTS\b}i
+    valid msgstr="FANTASMES"
+    hint="Es tradueix per «FANTASMES» -constel·lació xinesa- (app-kstars)"
+
+    {\bXUANYUAN\b}i
+    valid msgstr="XUANYUAN"
+    hint="Es tradueix per «XUANYUAN» -constel·lació xinesa- (app-kstars)"
+
+    {\bTRIPOD\b}i
+    valid msgstr="TRÍPODE"
+    hint="Es tradueix per «TRÍPODE» -constel·lació xinesa- (app-kstars)"
+
+    {\bNECK\b}i
+    valid msgstr="COLL"
+    hint="Es tradueix per «COLL» -constel·lació xinesa- (app-kstars)"
+
+    {\bZAOFU\b}i
+    valid msgstr="ZAOFU"
+    hint="Es tradueix per «ZAOFU» -constel·lació xinesa- (app-kstars)"
+
+    {\bMARKET\sOFFICER\b}i
+    valid msgstr="POLICÍA DEL MERCAT"
+    hint="Es tradueix per «POLICÍA DEL MERCAT» -constel·lació xinesa- (app-kstars)"
+
+{\bC\sEgyptian\b}i
+valid msgstr="C Egípcia"
+hint="Es tradueix per «C Egípcia» -constel·lacions- (app-kstars)"
+
+    {\bBULL.?S\sFORELEG\b}i
+    valid msgstr="POTA DAVANTERA DEL TORO"
+    hint="Es tradueix per «POTA DAVANTERA DEL TORO» -constel·lació egípcia- (app-kstars)"
+
+    {\bTWO\sPOLES\b}i
+    valid msgstr="DOS PALS"
+    hint="Es tradueix per «DOS PALS» -constel·lació egípcia- (app-kstars)"
+
+    {\bLION\b}i
+    valid msgstr="LLEÓ"
+    hint="Es tradueix per «LLEÓ» -constel·lació egípcia- (app-kstars)"
+
+    {\bTWO\sJAWS\b}i
+    valid msgstr="DUES MANDÍBULES"
+    hint="Es tradueix per «DUES MANDÍBULES» -constel·lació egípcia- (app-kstars)"
+
+    {\bSAH\b}i
+    valid msgstr="SAH"
+    hint="Es tradueix per «SAH» -constel·lació egípcia- (app-kstars)"
+
+    {\bBIRD\b}i
+    valid msgstr="OCELL"
+    hint="Es tradueix per «OCELL» -constel·lació egípcia- (app-kstars)"
+
+    {\bSEK\b}i
+    valid msgstr="SEK"
+    hint="Es tradueix per «SEK» -constel·lació egípcia- (app-kstars)"
+
+    {\bTRIANGLE\b}i
+    valid msgstr="TRIANGLE"
+    hint="Es tradueix per «TRIANGLE» -constel·lació egípcia- (app-kstars)"
+
+    {\bFERRY\sBOAT\b}i
+    valid msgstr="BARCA"
+    hint="Es tradueix per «BARCA» -constel·lació egípcia- (app-kstars)"
+
+    {\bCROCODILE\b}i
+    valid msgstr="COCODRIL"
+    hint="Es tradueix per «COCODRIL» -constel·lació egípcia- (app-kstars)"
+
+    {\bSELKIS\b}i
+    valid msgstr="SELKIS"
+    hint="Es tradueix per «SELKIS» -constel·lació egípcia- (app-kstars)"
+
+    {\bPROW\b}i
+    valid msgstr="PROA"
+    hint="Es tradueix per «PROA» -constel·lació egípcia- (app-kstars)"
+
+    {\bHORUS\b}i
+    valid msgstr="HORUS"
+    hint="Es tradueix per «HORUS» -constel·lació egípcia- (app-kstars)"
+
+    {\bSHEEPFOLD\b}i
+    valid msgstr="CLEDA"
+    hint="Es tradueix per «CLEDA» -constel·lació egípcia- (app-kstars)"
+
+    {\bGIANT\b}i
+    valid msgstr="GEGANT"
+    hint="Es tradueix per «GEGANT» -constel·lació egípcia- (app-kstars)"
+
+    {\bHIPPOPOTAMUS\b}i
+    valid msgstr="HIPOPÒTAM"
+    hint="Es tradueix per «HIPOPÒTAM» -constel·lació egípcia- (app-kstars)"
+
+    {\bFLOCK\b}i
+    valid msgstr="RAMAT"
+    hint="Es tradueix per «RAMAT» -constel·lació egípcia- (app-kstars)"
+
+    {\bPAIR\sOF\sSTARS\b}i
+    valid msgstr="PARELL D'ESTRELLES"
+    hint="Es tradueix per «PARELL D'ESTRELLES» -constel·lació egípcia- (app-kstars)"
+
+    {\bKHANUWY\sFISH\b}i
+    valid msgstr="PEIX KHANUWY"
+    hint="Es tradueix per «PEIX KHANUWY» -constel·lació egípcia- (app-kstars)"
+
+    {\bJAW\b}i
+    valid msgstr="MANDÍBULA"
+    hint="Es tradueix per «MANDÍBULA» -constel·lació egípcia- (app-kstars)"
+
+    {\bMOORING\sPOST\b}i
+    valid msgstr="AMARRADOR"
+    hint="Es tradueix per «AMARRADOR» -constel·lació egípcia- (app-kstars)"
+
+    {\bKENEMET\b}i
+    valid msgstr="KENEMET"
+    hint="Es tradueix per «KENEMET» -constel·lació egípcia- (app-kstars)"
+
+    {\bCHEMATY\b}i
+    valid msgstr="CHEMATY"
+    hint="Es tradueix per «CHEMATY» -constel·lació egípcia- (app-kstars)"
+
+    {\bWATY\sBEKETY\b}i
+    valid msgstr="WATY BEKETY"
+    hint="Es tradueix per «WATY BEKETY» -constel·lació egípcia- (app-kstars)"
+
+    {\bSHEEP\b}i
+    valid msgstr="OVELLA"
+    hint="Es tradueix per «OVELLA» -constel·lació egípcia- (app-kstars)"
+
+    {\bSTARS\sOF\sWATER\b}i
+    valid msgstr="ESTRELLES D'AIGUA"
+    hint="Es tradueix per «ESTRELLES D'AIGUA» -constel·lació egípcia- (app-kstars)"
+
+{\bC\sInuit\b}i
+valid msgstr="C Inuit"
+hint="Es tradueix per «C Inuit» -constel·lacions- (app-kstars)"
+
+    {\bTWO\sSUNBEAMS\b}i
+    valid msgstr="DOS RAJOS DE SOL"
+    hint="Es tradueix per «DOS RAJOS DE SOL» -constel·lació inuit- (app-kstars)"
+
+    {\bTWO\sPLACED\sFAR\sAPART\b}i
+    valid msgstr="DOS SITUATS MOLT LLUNY"
+    hint="Es tradueix per «DOS SITUATS MOLT LLUNY» -constel·lació inuit- (app-kstars)"
+
+    {\bDOGS\b}i
+    valid msgstr="GOSSOS"
+    hint="Es tradueix per «GOSSOS» -constel·lació inuit- (app-kstars)"
+
+    {\bCOLLARBONES\b}i
+    valid msgstr="CLAVÍCULES"
+    hint="Es tradueix per «CLAVÍCULES» -constel·lació inuit- (app-kstars)"
+
+    {\bLAMP\sSTAND\b}i
+    valid msgstr="PEDESTAL DE LÀMPADA"
+    hint="Es tradueix per «PEDESTAL DE LÀMPADA» -constel·lació inuit- (app-kstars)"
+
+    {\bCARIBOU\b}i
+    valid msgstr="CARIBÚ"
+    hint="Es tradueix per «CARIBÚ» -constel·lació inuit- (app-kstars)"
+
+    {\bTWO\sIN\sFRONT\b}i
+    valid msgstr="DOS ENFRONT"
+    hint="Es tradueix per «DOS ENFRONT» -constel·lació inuit- (app-kstars)"
+
+    {\bBREASTBONE\b}i
+    valid msgstr="ESTÈRNUM"
+    hint="Es tradueix per «ESTÈRNUM» -constel·lació inuit- (app-kstars)"
+
+    {\bRUNNERS\b}i
+    valid msgstr="CORREDORS"
+    hint="Es tradueix per «CORREDORS» -constel·lació inuit- (app-kstars)"
+
+    {\bBLUBBER\sCONTAINER\b}i
+    valid msgstr="BOL DE GREIX"
+    hint="Es tradueix per «BOL DE GREIX» -constel·lació inuit- (app-kstars)"
+
+    {\bTHE\sONE\sBEHIND\b}i
+    valid msgstr="EL QUE ÉS DARRERE"
+    hint="Es tradueix per «EL QUE ÉS DARRERE» -constel·lació inuit- (app-kstars)"
+
+{\bC\sKorean\b}i
+valid msgstr="C Coreana"
+hint="Es tradueix per «C Coreana» -constel·lacions- (app-kstars)"
+
+    {\bHOLY\sKETTLE\b}i
+    valid msgstr="TETERA SAGRADA"
+    hint="Es tradueix per «TETERA SAGRADA» -constel·lació coreana- (app-kstars)"
+
+    {\bFARM\sOF\sCAPITAL\sCITY\b}i
+    valid msgstr="GRANJA DE LA CAPITAL"
+    hint="Es tradueix per «GRANJA DE LA CAPITAL» -constel·lació coreana- (app-kstars)"
+
+    {\bDIGNITY\sOF\sKING\b}i
+    valid msgstr="DIGNITAT DE REI"
+    hint="Es tradueix per «DIGNITAT DE REI» -constel·lació coreana- (app-kstars)"
+
+    {\bNOMINATION\b}i
+    valid msgstr="NOMINACIÓ"
+    hint="Es tradueix per «NOMINACIÓ» -constel·lació coreana- (app-kstars)"
+
+    {\bGATE\sOF\sSKY\b}i
+    valid msgstr="PORTA DEL CEL"
+    hint="Es tradueix per «PORTA DEL CEL» -constel·lació coreana- (app-kstars)"
+
+    {\bEQUALITY\b}i
+    valid msgstr="IGUALTAT"
+    hint="Es tradueix per «IGUALTAT» -constel·lació coreana- (app-kstars)"
+
+    {\bHELPER\b}i
+    valid msgstr="AJUDANT"
+    hint="Es tradueix per «AJUDANT» -constel·lació coreana- (app-kstars)"
+
+    {\bPOSITION\sOF\sHOLY\sKING\b}i
+    valid msgstr="POSICIÓ DEL REI SAGRAT"
+    hint="Es tradueix per «POSICIÓ DEL REI SAGRAT» -constel·lació coreana- (app-kstars)"
+
+    {\bNECK\sOF\sDRAGON\b}i
+    valid msgstr="COLL DE DRAC"
+    hint="Es tradueix per «COLL DE DRAC» -constel·lació coreana- (app-kstars)"
+
+    {\bBEHEADING\b}i
+    valid msgstr="DECAPITACIÓ"
+    hint="Es tradueix per «DECAPITACIÓ» -constel·lació coreana- (app-kstars)"
+
+    {\bJUDGE\b}i
+    valid msgstr="JUTGE"
+    hint="Es tradueix per «JUTGE» -constel·lació coreana- (app-kstars)"
+
+    {\bFLUTTERING\sFLAG\b}i
+    valid msgstr="BANDERA ONEJANT"
+    hint="Es tradueix per «BANDERA ONEJANT» -constel·lació coreana- (app-kstars)"
+
+    {\bJAVELIN\sOF\sSKY\b}i
+    valid msgstr="JAVELINA CELESTE"
+    hint="Es tradueix per «JAVELINA CELESTE» -constel·lació coreana- (app-kstars)"
+
+    {\bSEAT\sFOR\sLONGEVITY\b}i
+    valid msgstr="SEIENT PER LA LLARGA VIDA"
+    hint="Es tradueix per «SEIENT PER LA LLARGA VIDA» -constel·lació coreana- (app-kstars)"
+
+    {\bOAR\sFOR\sVISITOR\b}i
+    valid msgstr="REM PER AL VISITANT"
+    hint="Es tradueix per «REM PER AL VISITANT» -constel·lació coreana- (app-kstars)"
+
+    {\bMILK\sOF\sSKY\b}i
+    valid msgstr="LLET DEL CEL"
+    hint="Es tradueix per «LLET DEL CEL» -constel·lació coreana- (app-kstars)"
+
+    {\bHOUSE\sOF\sQUEEN\b}i
+    valid msgstr="CASA DE REINA"
+    hint="Es tradueix per «CASA DE REINA» -constel·lació coreana- (app-kstars)"
+
+    {\bANCIENT\sCHARIOT\b}i
+    valid msgstr="CARRO ANTIC"
+    hint="Es tradueix per «CARRO ANTIC» -constel·lació coreana- (app-kstars)"
+
+    {\bCARRIAGE\sFOR\sKING\b}i
+    valid msgstr="CARRO PER A REI"
+    hint="Es tradueix per «CARRO PER A REI» -constel·lació coreana- (app-kstars)"
+
+    {\bGENERAL\sOF\sCAVALRY\b}i
+    valid msgstr="GENERAL DE CAVALLERIA"
+    hint="Es tradueix per «GENERAL DE CAVALLERIA» -constel·lació coreana- (app-kstars)"
+
+    {\bCAVALRY\sOF\sEMPEROR\b}i
+    valid msgstr="CAVALLERIA D'EMPERADOR"
+    hint="Es tradueix per «CAVALLERIA D'EMPERADOR» -constel·lació coreana- (app-kstars)"
+
+    {\bGENERAL\sOF\sMOBILE\sTROOPS\b}i
+    valid msgstr="GENERAL DE TROPES MÒBILS"
+    hint="Es tradueix per «GENERAL DE TROPES MÒBILS» -constel·lació coreana- (app-kstars)"
+
+    {\bEAST\sROAD\b}i
+    valid msgstr="CAMÍ DE L'EST"
+    hint="Es tradueix per «CAMÍ DE L'EST» -constel·lació coreana- (app-kstars)"
+
+    {\bGATE\sBOLT\b}i
+    valid msgstr="BALDA"
+    hint="Es tradueix per «BALDA» -constel·lació coreana- (app-kstars)"
+
+    {\bDOOR\sLOCK\sAND\sKEY\b}i
+    valid msgstr="PANY I CLAU"
+    hint="Es tradueix per «PANY I CLAU» -constel·lació coreana- (app-kstars)"
+
+    {\bPENALTY\b}i
+    valid msgstr="MULTA"
+    hint="Es tradueix per «MULTA» -constel·lació coreana- (app-kstars)"
+
+    {\bROYAL\sHALL\b}i
+    valid msgstr="SALÓ REIAL"
+    hint="Es tradueix per «SALÓ REIAL» -constel·lació coreana- (app-kstars)"
+
+    {\bCHAMBERLAIN\b}i
+    valid msgstr="CAMARLENC"
+    hint="Es tradueix per «CAMARLENC» -constel·lació coreana- (app-kstars)"
+
+    {\bSUN\b}i
+    valid msgstr="SOL"
+    hint="Es tradueix per «SOL» -constel·lació coreana- (app-kstars)"
+
+    {\bWEST\sROAD\b}i
+    valid msgstr="CAMÍ DE L'OEST"
+    hint="Es tradueix per «CAMÍ DE L'OEST» -constel·lació coreana- (app-kstars)"
+
+    {\bSEAT\sOF\sEMPEROR\b}i
+    valid msgstr="SEIENT D'EMPERADOR"
+    hint="Es tradueix per «SEIENT D'EMPERADOR» -constel·lació coreana- (app-kstars)"
+
+    {\bFIVE\sTROOPS\b}i
+    valid msgstr="CINC TROPES"
+    hint="Es tradueix per «CINC TROPES» -constel·lació coreana- (app-kstars)"
+
+    {\bRIVER\sOF\sSKY\b}i
+    valid msgstr="RIU DEL CEL"
+    hint="Es tradueix per «RIU DEL CEL» -constel·lació coreana- (app-kstars)"
+
+    {\bPRAYER\sFOR\sPROGENY\b}i
+    valid msgstr="PREGÀRIA PER A LA NISSAGA"
+    hint="Es tradueix per «PREGÀRIA PER A LA NISSAGA» -constel·lació coreana- (app-kstars)"
+
+    {\bFISH\b}i
+    valid msgstr="PEIX"
+    hint="Es tradueix per «PEIX» -constel·lació coreana- (app-kstars)"
+
+    {\bFORECAST\b}i
+    valid msgstr="PREDICCIÓ"
+    hint="Es tradueix per «PREDICCIÓ» -constel·lació coreana- (app-kstars)"
+
+    {\bYARD\sFOR\sEMPRESSES\b}i
+    valid msgstr="PATI PER EMPERADRIUS"
+    hint="Es tradueix per «PATI PER EMPERADRIUS» -constel·lació coreana- (app-kstars)"
+
+    {\bHOLY\sPALACE\b}i
+    valid msgstr="PALAU SAGRAT"
+    hint="Es tradueix per «PALAU SAGRAT» -constel·lació coreana- (app-kstars)"
+
+    {\bWINNOW\b}i
+    valid msgstr="ESVENTAR"
+    hint="Es tradueix per «ESVENTAR» -constel·lació coreana- (app-kstars)"
+
+    {\bOUTER\sPESTLE\b}i
+    valid msgstr="MÀ DE MORTER EXTERIOR"
+    hint="Es tradueix per «MÀ DE MORTER EXTERIOR» -constel·lació coreana- (app-kstars)"
+
+    {\bCHAFF\b}i
+    valid msgstr="PALLA"
+    hint="Es tradueix per «PALLA» -constel·lació coreana- (app-kstars)"
+
+    {\bHEAD\sOF\sTOWN\b}i
+    valid msgstr="CAP DE CIUTAT"
+    hint="Es tradueix per «CAP DE CIUTAT» -constel·lació coreana- (app-kstars)"
+
+    {\bBUILD\b}i
+    valid msgstr="CONSTRUCCIÓ"
+    hint="Es tradueix per «CONSTRUCCIÓ» -constel·lació coreana- (app-kstars)"
+
+    {\bFOWL\sOF\sSKY\b}i
+    valid msgstr="GALL CELESTE"
+    hint="Es tradueix per «GALL CELESTE» -constel·lació coreana- (app-kstars)"
+
+    {\bSHRINE\sOF\sSKY\b}i
+    valid msgstr="SANTUARI CELESTE"
+    hint="Es tradueix per «SANTUARI CELESTE» -constel·lació coreana- (app-kstars)"
+
+    {\bNORTHEASTERN\sNATIONS\b}i
+    valid msgstr="NACIONS DEL NORDEST"
+    hint="Es tradueix per «NACIONS DEL NORDEST» -constel·lació coreana- (app-kstars)"
+
+    {\bOLD\sFARMER\b}i
+    valid msgstr="VELL GRANGER"
+    hint="Es tradueix per «VELL GRANGER» -constel·lació coreana- (app-kstars)"
+
+    {\bSNAPPING\sTURTLE\b}i
+    valid msgstr="TORTUGA MOSSEGADORA"
+    hint="Es tradueix per «TORTUGA MOSSEGADORA» -constel·lació coreana- (app-kstars)"
+
+    {\bROAD\sFOR\sEMPEROR\b}i
+    valid msgstr="CAMÍ PER EMPERADOR"
+    hint="Es tradueix per «CAMÍ PER EMPERADOR» -constel·lació coreana- (app-kstars)"
+
+    {\bTHE\sWEAVER\b}i
+    valid msgstr="EL TEIXIDOR"
+    hint="Es tradueix per «EL TEIXIDOR» -constel·lació coreana- (app-kstars)"
+
+    {\bRIVER\sADJOINING\sTOWER\b}i
+    valid msgstr="RIU PROP DE LA TORRE"
+    hint="Es tradueix per «RIU PROP DE LA TORRE» -constel·lació coreana- (app-kstars)"
+
+    {\bDRUM\sOF\sRIVER\b}i
+    valid msgstr="TAMBOR DEL RIU"
+    hint="Es tradueix per «TAMBOR DEL RIU» -constel·lació coreana- (app-kstars)"
+
+    {\bDRUMSTICK\sOF\sSKY\b}i
+    valid msgstr="BAQUETA DEL CEL"
+    hint="Es tradueix per «BAQUETA DEL CEL» -constel·lació coreana- (app-kstars)"
+
+    {\bCOW\sLEADING\sMAN\b}i
+    valid msgstr="VAQUER"
+    hint="Es tradueix per «VAQUER» -constel·lació coreana- (app-kstars)"
+
+    {\bBANK\sSPREAD\b}i
+    valid msgstr="EXTENSIÓ DEL MARGE"
+    hint="Es tradueix per «EXTENSIÓ DEL MARGE» -constel·lació coreana- (app-kstars)"
+
+    {\bBASKET\sFOR\sSILKWORM\b}i
+    valid msgstr="CISTELLA PER A CUCS DE SEDA"
+    hint="Es tradueix per «CISTELLA PER A CUCS DE SEDA» -constel·lació coreana- (app-kstars)"
+
+    {\bOFFICER\sFOR\sCART\b}i
+    valid msgstr="OFICIAL PER A CARRETES"
+    hint="Es tradueix per «OFICIAL PER A CARRETES» -constel·lació coreana- (app-kstars)"
+
+    {\bFERRY\sOF\sSKY\b}i
+    valid msgstr="FERRI DEL CEL"
+    hint="Es tradueix per «FERRI DEL CEL» -constel·lació coreana- (app-kstars)"
+
+    {\bFRUIT\b}i
+    valid msgstr="FRUITA"
+    hint="Es tradueix per «FRUITA» -constel·lació coreana- (app-kstars)"
+
+    {\bSEED\b}i
+    valid msgstr="LLAVOR"
+    hint="Es tradueix per «LLAVOR» -constel·lació coreana- (app-kstars)"
+
+    {\bSTORAGE\sFOR\sLADY\b}i
+    valid msgstr="MAGATZEM PER A LA SENYORA"
+    hint="Es tradueix per «MAGATZEM PER A LA SENYORA» -constel·lació coreana- (app-kstars)"
+
+    {\bCOURT\sLADY\b}i
+    valid msgstr="CORTESANA"
+    hint="Es tradueix per «CORTESANA» -constel·lació coreana- (app-kstars)"
+
+    {\bJUDGE\sFAULT\b}i
+    valid msgstr="JUTJAR UNA FALTA"
+    hint="Es tradueix per «JUTJAR UNA FALTA» -constel·lació coreana- (app-kstars)"
+
+    {\bAMEND\sFAULT\b}i
+    valid msgstr="ESMENAR UNA FALTA"
+    hint="Es tradueix per «ESMENAR UNA FALTA» -constel·lació coreana- (app-kstars)"
+
+    {\bGRANT\sLIFE\b}i
+    valid msgstr="CONCEDIR LA VIDA"
+    hint="Es tradueix per «CONCEDIR LA VIDA» -constel·lació coreana- (app-kstars)"
+
+    {\bPUNISH\b}i
+    valid msgstr="CASTIGAR"
+    hint="Es tradueix per «CASTIGAR» -constel·lació coreana- (app-kstars)"
+
+    {\bEMPTY\sHOUSE\b}i
+    valid msgstr="CASA BUIDA"
+    hint="Es tradueix per «CASA BUIDA» -constel·lació coreana- (app-kstars)"
+
+    {\bWEEP\b}i
+    valid msgstr="PLORAR"
+    hint="Es tradueix per «PLORAR» -constel·lació coreana- (app-kstars)"
+
+    {\bSOB\b}i
+    valid msgstr="SOMICAR"
+    hint="Es tradueix per «SOMICAR» -constel·lació coreana- (app-kstars)"
+
+    {\bCASTLE\sWITH\sRAMPART\b}i
+    valid msgstr="CASTELL AMB MURALLA"
+    hint="Es tradueix per «CASTELL AMB MURALLA» -constel·lació coreana- (app-kstars)"
+
+    {\bHOOK\sFOR\sDRESS\b}i
+    valid msgstr="PENJA-ROBES"
+    hint="Es tradueix per «PENJA-ROBES» -constel·lació coreana- (app-kstars)"
+
+    {\bGROOM\b}i
+    valid msgstr="GRUM"
+    hint="Es tradueix per «GRUM» -constel·lació coreana- (app-kstars)"
+
+    {\bCHARIOTEER\b}i
+    valid msgstr="CONDUCTOR DE CARRO"
+    hint="Es tradueix per «CONDUCTOR DE CARRO» -constel·lació coreana- (app-kstars)"
+
+    {\bHUMAN\b}i
+    valid msgstr="HUMÀ"
+    hint="Es tradueix per «HUMÀ» -constel·lació coreana- (app-kstars)"
+
+    {\bINNER\sPESTLE\b}i
+    valid msgstr="MÀ DE MORTER INTERIOR"
+    hint="Es tradueix per «MÀ DE MORTER INTERIOR» -constel·lació coreana- (app-kstars)"
+
+    {\bWAREHOUSE\sOF\sSKY\b}i
+    valid msgstr="MAGATZEM DEL CEL"
+    hint="Es tradueix per «MAGATZEM DEL CEL» -constel·lació coreana- (app-kstars)"
+
+    {\bTOMB\b}i
+    valid msgstr="TOMBA"
+    hint="Es tradueix per «TOMBA» -constel·lació coreana- (app-kstars)"
+
+    {\bCOVER\sOF\sHOUSE\b}i
+    valid msgstr="COBERTA DE CASA"
+    hint="Es tradueix per «COBERTA DE CASA» -constel·lació coreana- (app-kstars)"
+
+    {\bBROKEN\sMORTAR\b}i
+    valid msgstr="MORTER TRENCAT"
+    hint="Es tradueix per «MORTER TRENCAT» -constel·lació coreana- (app-kstars)"
+
+    {\bCLIMBING\sSERPENT\b}i
+    valid msgstr="SERP TREPADORA"
+    hint="Es tradueix per «SERP TREPADORA» -constel·lació coreana- (app-kstars)"
+
+    {\bPALACE\sOF\sEMPEROR\b}i
+    valid msgstr="PALAU D'EMPERADOR"
+    hint="Es tradueix per «PALAU D'EMPERADOR» -constel·lació coreana- (app-kstars)"
+
+    {\bDETACHED\sPALACE\b}i
+    valid msgstr="PALAU SEPARAT"
+    hint="Es tradueix per «PALAU SEPARAT» -constel·lació coreana- (app-kstars)"
+
+    {\bOFFICIAL\sFOR\sMATERIALS\sSUPPLY\b}i
+    valid msgstr="OFICIAL DE SUBMINISTRAMENT DE MATERIAL"
+    hint="Es tradueix per «OFICIAL DE SUBMINISTRAMENT DE MATERIAL» -constel·lació coreana- (app-kstars)"
+
+    {\bLIGHTNING\b}i
+    valid msgstr="LLAMPEC"
+    hint="Es tradueix per «LLAMPEC» -constel·lació coreana- (app-kstars)"
+
+    {\bRAMPART\b}i
+    valid msgstr="MURALLA"
+    hint="Es tradueix per «MURALLA» -constel·lació coreana- (app-kstars)"
+
+    {\bTROOPS\sOF\sSKY\b}i
+    valid msgstr="TROPES DEL CEL"
+    hint="Es tradueix per «TROPES DEL CEL» -constel·lació coreana- (app-kstars)"
+
+    {\bVILLAGE\sFOR\sPATROL\b}i
+    valid msgstr="POBLE PER A PATRULLES"
+    hint="Es tradueix per «POBLE PER A PATRULLES» -constel·lació coreana- (app-kstars)"
+
+    {\bNET\sOF\sSKY\b}i
+    valid msgstr="XARXA DEL CEL"
+    hint="Es tradueix per «XARXA DEL CEL» -constel·lació coreana- (app-kstars)"
+
+    {\bSTABLE\sOF\sSKY\b}i
+    valid msgstr="ESTABLE DEL CEL"
+    hint="Es tradueix per «ESTABLE DEL CEL» -constel·lació coreana- (app-kstars)"
+
+    {\bEASTERN\sWALL\b}i
+    valid msgstr="MURALLA ORIENTAL"
+    hint="Es tradueix per «MURALLA ORIENTAL» -constel·lació coreana- (app-kstars)"
+
+    {\bCIVIL\sENGINEER\b}i
+    valid msgstr="ENGINYER CIVIL"
+    hint="Es tradueix per «ENGINYER CIVIL» -constel·lació coreana- (app-kstars)"
+
+    {\bTHUNDERBOLTS\b}i
+    valid msgstr="LLAMPS"
+    hint="Es tradueix per «LLAMPS» -constel·lació coreana- (app-kstars)"
+
+    {\bCLOUDS\sAND\sRAIN\b}i
+    valid msgstr="NÚVOLS I PLUJA"
+    hint="Es tradueix per «NÚVOLS I PLUJA» -constel·lació coreana- (app-kstars)"
+
+    {\bHIGHWAY\b}i
+    valid msgstr="CARRETERA"
+    hint="Es tradueix per «CARRETERA» -constel·lació coreana- (app-kstars)"
+
+    {\bWHIP\b}i
+    valid msgstr="FUET"
+    hint="Es tradueix per «FUET» -constel·lació coreana- (app-kstars)"
+
+    {\bOFFICER\sFOR\sCHARIOT\b}i
+    valid msgstr="OFICIAL PER A CARROS"
+    hint="Es tradueix per «OFICIAL PER A CARROS» -constel·lació coreana- (app-kstars)"
+
+    {\bSIDE\sROAD\b}i
+    valid msgstr="CAMÍ LATERAL"
+    hint="Es tradueix per «CAMÍ LATERAL» -constel·lació coreana- (app-kstars)"
+
+    {\bARMORY\b}i
+    valid msgstr="ARSENAL"
+    hint="Es tradueix per «ARSENAL» -constel·lació coreana- (app-kstars)"
+
+    {\bSOUTHERN\sGATE\sOF\sEMPERATOR\b}i
+    valid msgstr="PORTA MERIDIONAL DE L'EMPERADOR"
+    hint="Es tradueix per «PORTA MERIDIONAL DE L'EMPERADOR» -constel·lació coreana- (app-kstars)"
+
+    {\bOUTER\sFOLDING\sSCREEN\b}i
+    valid msgstr="PARAVENT PLEGAT EXTERIOR"
+    hint="Es tradueix per «PARAVENT PLEGAT EXTERIOR» -constel·lació coreana- (app-kstars)"
+
+    {\bTOILET\sOF\sSKY\b}i
+    valid msgstr="LAVABO DEL CEL"
+    hint="Es tradueix per «LAVABO DEL CEL» -constel·lació coreana- (app-kstars)"
+
+    {\bARCHITECT\b}i
+    valid msgstr="ARQUITECTE"
+    hint="Es tradueix per «ARQUITECTE» -constel·lació coreana- (app-kstars)"
+
+    {\bEMPERATOR\b}i
+    valid msgstr="EMPERADOR"
+    hint="Es tradueix per «EMPERADOR» -constel·lació coreana- (app-kstars)"
+
+    {\bWATCHTOWER\b}i
+    valid msgstr="TALAIA"
+    hint="Es tradueix per «TALAIA» -constel·lació coreana- (app-kstars)"
+
+    {\bLEFT\sELM\b}i
+    valid msgstr="OM DE L'ESQUERRA"
+    hint="Es tradueix per «OM DE L'ESQUERRA» -constel·lació coreana- (app-kstars)"
+
+    {\bRIGHT\sELM\b}i
+    valid msgstr="OM DE LA DRETA"
+    hint="Es tradueix per «OM DE LA DRETA» -constel·lació coreana- (app-kstars)"
+
+    {\bSTOREHOUSE\sOF\sSKY\b}i
+    valid msgstr="MAGATZEM DEL CEL"
+    hint="Es tradueix per «MAGATZEM DEL CEL» -constel·lació coreana- (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» -constel·lació coreana- (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» -constel·lació coreana- (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» -constel·lació coreana- (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» -constel·lació coreana- (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» -constel·lació coreana- (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» -constel·lació coreana- (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» -constel·lació coreana- (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» -constel·lació coreana- (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» -constel·lació coreana- (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» -constel·lació coreana- (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» -constel·lació coreana- (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» -constel·lació coreana- (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» -constel·lació coreana- (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» -constel·lació coreana- (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» -constel·lació coreana- (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» -constel·lació coreana- (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» -constel·lació coreana- (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» -constel·lació coreana- (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» -constel·lació coreana- (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» -constel·lació- (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» -constel·lació- (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» -constel·lació- (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» -constel·lació- (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» -constel·lació- (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» -constel·lació- (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» -constel·lació- (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» -constel·lació- (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» -constel·lació- (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» -constel·lació- (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» -constel·lació- (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» -constel·lació- (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» -constel·lació- (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» -constel·lació- (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» -constel·lació- (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» -constel·lació- (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» -constel·lació- (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» -constel·lació- (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» -constel·lació- (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» -constel·lació- (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» -constel·lació- (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» -constel·lació- (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» -constel·lació- (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» -constel·lació- (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» -constel·lació- (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» -constel·lació- (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» -constel·lació- (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» -constel·lació- (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» -constel·lació- (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» -constel·lació- (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» -constel·lació- (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» -constel·lació- (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» -constel·lació- (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» -constel·lació- (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» -constel·lació- (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» -constel·lació- (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» -constel·lació- (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» -constel·lació- (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» -constel·lació- (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» -constel·lació- (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» -constel·lació- (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» -constel·lació- (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» -constel·lació- (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» -constel·lació- (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» -constel·lació- (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» -constel·lació- (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» -constel·lació- (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» -constel·lació- (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» -constel·lació- (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» -constel·lació- (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» -constel·lació- (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» -constel·lació- (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» -constel·lació- (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» -constel·lació- (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» -constel·lació- (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» -constel·lació- (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» -constel·lació- (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» -constel·lació- (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» -constel·lació- (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» -constel·lació- (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» -constel·lació- (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» -constel·lació- (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» -constel·lació- (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» -constel·lació- (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» -constel·lació- (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» -constel·lació- (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» -constel·lació- (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» -constel·lació- (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» -constel·lació- (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» -constel·lació- (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» -constel·lació- (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» -constel·lació- (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» -constel·lació- (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» -constel·lació- (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» -constel·lació- (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» -constel·lació- (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» -constel·lació- (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» -constel·lació- (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» -constel·lació- (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» -constel·lació- (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» -constel·lació- (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» -constel·lació- (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» -constel·lació- (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» -constel·lació- (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» -constel·lació- (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» -constel·lació- (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» -constel·lació- (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» -constel·lació- (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» -constel·lació- (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» -constel·lació- (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» -constel·lació- (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» -constel·lació- (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» -constel·lació- (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» -constel·lació- (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» -constel·lació- (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» -constel·lació- (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» -constel·lació- (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» -constel·lació- (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» -constel·lació- (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» -constel·lació- (app-kstars)"
+
+{\b\b}i
+valid msgstr=""
+hint="Es tradueix per «» -constel·lació- (app-kstars)"
 
 #
 ## correccions
