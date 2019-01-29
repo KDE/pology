@@ -57,6 +57,12 @@ hint="Hankjønnsord skal konsekvent ha -ar/-ane-endingar (vart lovleg i 2012-ret
 id="subst-fem-ar"
 hint="Hokjønnsord skal konsekvent ha -er/-ene-endingar (vart lovleg i 2012-rettskrivinga)"
 
+# Ord som har fleire moglege bøyingsparadigme,
+# men der me har fastsett eitt av dei.
+*hook name="nn:exclusion/exclude-forms~['feil-paradigme']" on="msgstr"
+id="feil-paradigme"
+hint="Ordet har feil bøying (sjå exclusion/paradigme-komboar.csv for oversikt)"
+
 [øy(ar|ane)]
 hint="Ordet øy skal ha vanleg hokjønnsbøying (-er, -ene, ikkje -ar, -ane)"
 
