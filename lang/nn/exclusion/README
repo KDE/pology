@@ -30,9 +30,13 @@ grep -Fv " klammeform" alle.txt > hovudformer.txt
 
 cut -f3 -d'	' alle.txt | sort | uniq > alle.dat
 cut -f3 -d'	' hovudformer.txt | sort | uniq > hovudformer.dat
-comm -3 alle.dat hovudformer.dat > klammeformer.dat
+comm -3 alle.dat hovudformer.dat > klammeformer.txt
 
 rm -f alle.* hovudformer.*
+
+# And ‘klammeformer.txt’ is further modified into
+# ‘klammeformer.dat’ later in the script, to remove
+# some spellings of nouns which are now allowed.
 
 
 
@@ -47,7 +51,7 @@ rm -f alle.* hovudformer.*
 cut -f2 -d'	' fullform_nn.dat | sort | uniq > alle.dat
 grep -v '^*' fullform_nn-r183.txt | cut -f3 -d'	' | sort | uniq > gamle.txt
 comm -13 alle.dat gamle.txt > unormert.txt
-comm -23 unormert.txt klammeformer.dat > unormert.dat
+comm -23 unormert.txt klammeformer.txt > unormert.dat
 rm -f alle.dat gamle.txt unormert.txt
 
 
@@ -138,3 +142,15 @@ awk -F'\t' '
 }' subst-fem.dat > subst-fem-ar.dat
 
 rm -f subst-ok* subst-mask.dat subst-fem.dat
+
+
+
+# Remove some common (correct) spellings from the ‘klammeformer’
+# word list (-ar/-ane suffix on masculine nouns and -er/-ene
+# suffix on feminine nouns).
+sed 's/a\(r\|ne\)$/e\1/' subst-fem-ar.dat > words-ok.txt
+sed 's/e\(r\|ne\)$/a\1/' subst-mask-er.dat >> words-ok.txt
+sort words-ok.txt | uniq > words-ok.dat
+comm -23 klammeformer.txt words-ok.dat > klammeformer.dat
+
+rm -f words-ok.txt words-ok.dat klammeformer.txt
