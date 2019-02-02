@@ -166,6 +166,7 @@ valid msgstr="^©"
 
 *hook name="nn:exclusion/exclude-forms~['unormert']" on="msgstr"
 id="unormert"
+valid span="MIT"
 hint="Bruk av eit ord som er unormert (alltid vore det eller gått ut av ordboka nyleg)."
 
 *hook name="nn:exclusion/exclude-forms~['imperativfeil']" on="msgstr"
