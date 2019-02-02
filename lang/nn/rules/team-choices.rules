@@ -61,6 +61,7 @@ hint="Hokjønnsord skal konsekvent ha -er/-ene-endingar (vart lovleg i 2012-rett
 # men der me har fastsett eitt av dei.
 *hook name="nn:exclusion/exclude-forms~['feil-paradigme']" on="msgstr"
 id="feil-paradigme"
+valid msgstr="\bblitt\b"
 hint="Ordet har feil bøying (sjå exclusion/paradigme-komboar.csv for oversikt)"
 
 [øy(ar|ane)]
