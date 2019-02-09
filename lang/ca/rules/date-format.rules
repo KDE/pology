@@ -2,7 +2,7 @@
 # Date rules for Catalan translations
 # License: GPLv3
 #
-# Author: Jordi Mas <jmas@softcatala.org>, 2015, 2018
+# Author: Jordi Mas <jmas@softcatala.org>, 2015 - 2019
 #
 # Detects date/time string formatters that have not been properly localized
 # having as result the date/time not been shown correctly.
@@ -29,19 +29,6 @@
 # See: http://www.cplusplus.com/reference/ctime/strftime/
 #
 
-# %Eb is a Mozilla specific token which stands for the month name in the genitive case (d'abril / de gener)
-{^%B %e$}
-id="date-format-Be"
-valid msgstr="^%e( de| del)? %B$"
-valid msgstr="^%e %Eb$"
-hint="Especificadors de format de data possiblement incorrectes. En anglès «January 31», en català «31 de gener»"
-
-{^%b %e$}
-id="date-format-be"
-valid msgstr="^%e( de)? %b$"
-valid msgstr="^%e %Eb$"
-hint="Especificadors de format de data possiblement incorrectes. En anglès «Jan 31», en català «31 de gen»"
-
 {%B %e, %Y}
 id="date-format-BeY"
 valid msgstr="%e( de)? %B( de| del) %Y"
@@ -57,8 +44,8 @@ hint="Especificadors de format de data possiblement incorrectes. En anglès «1/
 
 {(%B|%b) %Y}
 id="date-format-my"
-valid msgstr="(%B|%b)( de | del )%Y"
-hint="Especificadors de format de data possiblement incorrectes. En català cal dir «abril de 2018» en comptes de «abril 2018»"
+valid msgstr="(%B|%b|%OB|%Ob)( de | del )%Y"
+hint="Especificadors de format de data possiblement incorrectes falta la preposició «de» abans de l'any. En català cal dir «abril de 2018» en comptes de «abril 2018»"
 
 
 #
@@ -89,3 +76,20 @@ hint="La biblioteca glibc versió 2.28 o superior inclou les proposicions al rep
 id="libc-dia-de-b"
 valid !msgstr="(%d|%-d|%e|%-e){1}( de | d'){1}%b"
 hint="La biblioteca glibc versió 2.28 o superior inclou les proposicions al representar el formatador %b. Afegint la preposició manualment, quelcom necessari en versions anteriors, fa que la preposició «de» aparegui repetida p. ex. «1 de de gen». Cal eliminar la preposició «de» abans de «%b»."
+
+# Generic glib rules
+{%B %d}
+id="libc-day"
+valid msgstr="%-d %B"
+hint="«%d» mostra el dia del mes amb un 0 endavant pels dies amb només un dígit, per exemple, «01 de febrer». Cal usar «%-d» perquè es mostri «1 de febrer»"
+
+{%b %d}
+id="libc-day-min"
+valid msgstr="%-d %b"
+hint="«%d» mostra el dia del mes amb un 0 endavant pels dies amb només un dígit, per exemple, «01 de febr.». Cal usar «%-d» perquè es mostri «1 de febr.»"
+
+{%H[:∶]%M}
+id="libc-hour-nozero"
+valid msgstr="%-H[:∶]%M"
+valid msgstr="%-k[:∶]%M"
+hint="«%H:%M» mostra l'hora com 01:44. En català usem 1:44, sense zero devant. Cal usar «%-H:%M» per mostrar l'hora correctament."

@@ -68,7 +68,7 @@ hint="«Exit» es tradueix per «surt» quan és una acció, habitualment a men�
 {\bfirewall\b}i
 id="t-sc-firewall"
 valid !msgstr="tallafocs"
-hint="«firewall» es tradueix per «tallafoc» en singular."
+hint="«firewall» es tradueix per «tallafoc», en singular."
 
 {^help$}i
 id="t-sc-help"
@@ -78,7 +78,7 @@ hint="«Help» es tradueix per «ajuda» quan és una acció, habitualment a men
 {\bline spacing\b}i
 id="t-sc-linespacing"
 valid msgstr="interlineat"
-hint="«interlineat», és la forma acceptada pel TERMCAT."
+hint="«interlineat» és la forma acceptada pel TERMCAT."
 
 {\bmonitor.*\b}i
 id="t-sc-monitor"
@@ -99,7 +99,7 @@ hint="«Paste» es tradueix per «enganxa» quan és una acció, habitualment a 
 {\bpath\b}i
 id="t-sc-path"
 valid !msgstr="ruta"
-hint="«Path» es tradueix per «camí» no pas per «ruta»."
+hint="«Path» es tradueix per «camí», no pas per «ruta»."
 
 {\bpause.*\b}i
 id="t-sc-pause"
@@ -109,13 +109,12 @@ hint="«Pausar» no existeix com a verb."
 {\bperceptual\b}i
 id="t-sc-perceptual"
 valid !msgstr="Perceptual"
-hint="«Perceptual», és un aglicisme cal usar «perceptiu»."
+hint="«Perceptual» és un aglicisme, cal usar «perceptiu»."
 
-# Disabled: Too many false positives
-#{\bplot.*\b}i
-#id="t-sc-plot"
-#valid !msgstr="dibuix"
-#hint="«Plot» es molts contextos es tradueix per «traçar» però no per «dibuixar»."
+{\bplot.*\b}i
+id="t-sc-plot"
+valid !msgstr="dibuix"
+hint="«Plot» en molts contextos es tradueix per «traçar», però no per «dibuixar»."
 
 {\bredirect\b}i
 id="t-sc-redirect"
@@ -140,6 +139,11 @@ id="t-sc-save"
 valid msgstr="desa"
 hint="«Save» es tradueix per «desa» quan és una acció, habitualment a menús i botons."
 
+{\bsandbox\b}i
+id="t-sc-sandbox"
+valid msgstr="entorn de proves"
+hint="«Sandbox» ho traduïm com a «entorn de proves»."
+
 {^save as$}i
 id="t-sc-save-as"
 valid msgstr="anomena i desa"
@@ -160,3 +164,9 @@ hint="Es tradueix per «fons de pantalla»."
 id="t-sc-wireless"
 valid !msgstr="xarxa sense fils"
 hint="Es tradueix per «xarxa sense fil», «xarxa sense fils» és incorrecte."
+
+{\byes\b}i
+id="t-sc-yes"
+valid msgstr="Sí"
+valid msgstr="Yes" # Alguns cops no es tradueix
+hint="«Sí» quan és afirmatiu cal que porti accent"
