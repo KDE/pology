@@ -90,6 +90,6 @@ hint="«%d» mostra el dia del mes amb un 0 endavant pels dies amb només un dí
 
 {%H[:∶]%M}
 id="libc-hour-nozero"
-valid msgstr="%-H[:∶]%M"
-valid msgstr="%-k[:∶]%M"
+valid msgstr="%-H[:∶.]%M"
+valid msgstr="%-k[:∶.]%M"
 hint="«%H:%M» mostra l'hora com 01:44. En català usem 1:44, sense zero devant. Cal usar «%-H:%M» per mostrar l'hora correctament."
