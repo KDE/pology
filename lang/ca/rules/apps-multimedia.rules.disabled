@@ -6,12 +6,12 @@
 # - multimèdia -
 
 # Remove XML entities.
-# include file="../filter.include"
+include file="filter.include"
 # addFilterRegex match="\\" repl="/" on="pmsgid"
 # addFilterRegex match="&.*;" repl="" on="pmsgid"
 # addFilterRegex match=">\s<" repl="" on="pmsgid"
 # addFilterRegex match=">\s\s<" repl="" on="pmsgid"
-# addFilterRegex match="<.*>" repl=" " on="pmsgid"
+# addFilterRegex match="<.*>" repl="" on="pmsgid"
 # addFilterRegex match="-" repl=" " on="pmsgid,pmsgstr" # KDE
 # addFilterRegex match="_" repl="" on="pmsgid,pmsgstr" # Gnome
 # addFilterRegex match="@@image: 'images/.*'" repl="" casesens="yes" on="pmsgid" # Gnome
@@ -273,9 +273,153 @@ hint="Es tradueix per «brillant» (multimèdia)"
     valid msgstr="llindar de la brillantor"
     hint="Es tradueix per «llindar de la brillantor» (multimèdia)"
 
-{\b(paint\s)?brush(es)?\b}i
-valid msgstr="pinzells?"
-hint="Es tradueix per «pinzell/s» (multimèdia)"
+{\b(paint\s)?brush\b}i
+valid msgid="brush.?circle"
+valid msgid="brush\scolor"
+valid msgid="brush\scount"
+valid msgid="brush\sOutline"
+valid msgid="Brush\sPipe"
+valid msgid="Brush\sPresets"
+valid msgid="brush\sradius"
+valid msgid="Brush\sSelection"
+valid msgid="Brush\sshape"
+valid msgid="Brush\ssize"
+valid msgid="Brush\sSmoothing"
+valid msgid="brush\sstroke"
+valid msgid="brush\stip"
+valid msgid="Clone\sBrush"
+valid msgid="current\sBrush"
+valid msgid="cut.?Off\sBrush"
+valid msgid="deformation\sBrush"
+valid msgid="Dynamic\sBrush"
+valid msgid="Freehand\sBrush"
+valid msgid="Lazy\sBrush"
+valid msgid="multi.?brush(es)?"
+valid msgid="Particle\sBrush"
+valid msgid="Quick\sBrush"
+valid msgid="Select\sby\sBrush"
+valid msgid="Sketch\sBrush"
+valid msgstr="\bpinzell\b"
+hint="Es tradueix per «pinzell» (multimèdia)"
+
+{\b(paint\s)?brushes\b}i
+valid msgid="multi.?brush(es)?"
+valid msgstr="\bpinzells\b"
+hint="Es tradueix per «pinzells» (multimèdia)"
+
+    {\bbrushdabs?\b}i
+    valid msgstr="selecci(ó|ons) del pinzell"
+    hint="Es tradueix per «selecció/ons del pinzell» (multimèdia)"
+
+    {\bbrush(.|.?)circle\b}i
+    valid msgstr="pinzell circular"
+    hint="Es tradueix per «pinzell circular» (multimèdia)"
+
+    {\bbrush\scolor\b}i
+    valid msgstr="color del pinzell"
+    hint="Es tradueix per «color del pinzell» (multimèdia)"
+
+    {\bbrush\scount\b}i
+    valid msgstr="recompte de pinzells"
+    hint="Es tradueix per «recompte de pinzells» (multimèdia)"
+
+    {\bbrush\sOutline\b}i
+    valid msgstr="Contorn del pinzell"
+    hint="Es tradueix per «Contorn del pinzell» (multimèdia)"
+
+    {\bBrush\sPipe\b}i
+    valid msgstr="Canonada del pinzell"
+    hint="Es tradueix per «Canonada del pinzell» (multimèdia)"
+
+    {\bBrush\sPresets\b}i
+    valid msgstr="Valors predeterminats del pinzell"
+    hint="Es tradueix per «Valors predeterminats del pinzell» (multimèdia)"
+
+    {\bbrush\sradius\b}i
+    valid msgid="basic\sbrush\sradius"
+    valid msgstr="radi del pinzell"
+    hint="Es tradueix per «radi del pinzell» (multimèdia)"
+
+        {\bbasic\sbrush\sradius\b}i
+        valid msgstr="radi bàsic del pinzell"
+        hint="Es tradueix per «radi bàsic del pinzell» (multimèdia)"
+
+    {\bBrush\sSelection\b}i
+    valid msgstr="Selecció del pinzell"
+    hint="Es tradueix per «Selecció del pinzell» (multimèdia)"
+
+    {\bBrush\sshape\b}i
+    valid msgstr="Forma del pinzell"
+    hint="Es tradueix per «Forma del pinzell» (multimèdia)"
+
+    {\bBrush\ssize\b}i
+    valid msgstr="mida del pinzell"
+    hint="Es tradueix per «mida del pinzell» (multimèdia)"
+
+    {\bBrush\sSmoothing\b}i
+    valid msgstr="Suavitzat del pinzell"
+    hint="Es tradueix per «Suavitzat del pinzell» (multimèdia)"
+
+    {\bbrush\sstroke\b}i
+    valid msgid="final\sbrush\sstroke"
+    valid msgstr="traç del pinzell"
+    hint="Es tradueix per «traç del pinzell» (multimèdia)"
+
+        {\bfinal\sbrush\sstroke\b}i
+        valid msgstr="traç final del pinzell"
+        hint="Es tradueix per «traç final del pinzell» (multimèdia)"
+
+    {\bbrush\stip\b}i
+    valid msgstr="Punta del pinzell"
+    hint="Es tradueix per «Punta del pinzell» (multimèdia)"
+
+    {\bClone\sBrush\b}i
+    valid msgstr="Clona el pinzell\b"
+    hint="Es tradueix per «Clona el pinzell» (multimèdia)"
+
+    {\bcurrent\sBrush\b}i
+    valid msgstr="pinzell actual"
+    hint="Es tradueix per «pinzell actual» (multimèdia)"
+
+    {\bCut(.|.?)Off\sBrush\b}i
+    valid msgstr="pinzell de retall"
+    hint="Es tradueix per «pinzell de retall» (multimèdia)"
+
+    {\bdeformation\sBrush\b}i
+    valid msgstr="deformació del pinzell"
+    hint="Es tradueix per «deformació del pinzell» (multimèdia)"
+
+    {\bDynamic\sBrush\b}i
+    valid msgstr="pinzell dinàmic"
+    hint="Es tradueix per «pinzell dinàmic» (multimèdia)"
+
+    {\bFreehand\sBrush\b}i
+    valid msgstr="pinzell a mà alçada"
+    hint="Es tradueix per «pinzell a mà alçada» (multimèdia)"
+
+    {\bLazy\sBrush\b}i
+    valid msgstr="pinzell menys estricte"
+    hint="Es tradueix per «pinzell menys estricte» (multimèdia)"
+
+    {\bmulti(.|.?)brush(es)?\b}i
+    valid msgstr="múltiples pinzells"
+    hint="Es tradueix per «múltiples pinzells» (multimèdia)"
+
+    {\bParticle\sBrush\b}i
+    valid msgstr="pinzell de partícules"
+    hint="Es tradueix per «pinzell de partícules» (multimèdia)"
+
+    {\bQuick\sBrush\b}i
+    valid msgstr="pinzell ràpid"
+    hint="Es tradueix per «pinzell ràpid» (multimèdia)"
+
+    {\bSelect\sby\sBrush\b}i
+    valid msgstr="Selecciona per pinzell"
+    hint="Es tradueix per «Selecciona per pinzell» (multimèdia)"
+
+    {\bSketch\sBrush\b}i
+    valid msgstr="pinzell d'esbós"
+    hint="Es tradueix per «pinzell d'esbós» (multimèdia)"
 
 {\bcalibrated?\b}i
 valid msgstr="calibra(r|t)?"
@@ -304,7 +448,7 @@ hint="Es tradueix per «aberració cromàtica» (multimèdia)"
 
 {\bclips?\b}i
 valid msgstr="clips?"
-hint="Es tradueix per «clip/s» (multimèdia)"
+hint="Es tradueix per «clip/s, (compte: tros, escurça)» (multimèdia)"
 
 # Color
     {\bColor\sAuto(.|.?)Correction\b}i
@@ -318,6 +462,10 @@ hint="Es tradueix per «clip/s» (multimèdia)"
     {\bColor\sEffects\b}i
     valid msgstr="Efectes de color"
     hint="Es tradueix per «(Eina:) Efectes de color» (multimèdia)"
+
+    {\bcolor\sguide\b}i
+    valid msgstr="guia del color"
+    hint="Es tradueix per «guia del color» (multimèdia)"
 
     {\bcolor\spatches?\b}i
     valid msgstr="mostr(a|es) de color"
@@ -539,7 +687,8 @@ hint="Es tradueix per «corba/es» (multimèdia)"
 
     {\bCurves(.|.?)Adjust\b}i
     valid msgstr="Ajust de les corbes"
-    hint="Es tradueix per «(Eina:) Ajust de les corbes» (multimèdia)"
+    valid msgstr="Ajustar les corbes"
+    hint="Es tradueix per «(Eina:) Ajust de les corbes, Ajustar les corbes» (multimèdia)"
 
     {\bS(.|.?)curves?\b}i
     valid msgstr="corb(a|es) S"
@@ -653,7 +802,7 @@ valid msgid="with the current one being in focus" # Doc
 valid msgid="with focus on" # Doc
 valid msgstr="centrat en la usabilitat" # GUI
 valid msgstr="enfoca(da|ment)"
-hint="Es tradueix per «enfocada, enfocament, centrat en la usabilitat AVÍS: no confondre amb el focus» (multimèdia)"
+hint="Es tradueix per «enfocada, enfocament, centrat en la usabilitat (AVÍS: no confondre amb el focus)» (multimèdia)"
 
     {\bfocus\sstacks?\b}i
     valid msgstr="pil(a|es) de l'enfocament"
@@ -804,6 +953,7 @@ hint="Es tradueix per «gamma» (multimèdia)"
         hint="Es tradueix per «gamma súper àmplia» (multimèdia)"
 
 {\bGeo(.|.?)location\b}i
+valid msgid="geolocation-correlator"
 valid msgstr="geolocalitza(r|ció)"
 hint="Es tradueix per «geolocalitzar, geolocalització» (multimèdia)"
 
@@ -880,11 +1030,12 @@ hint="Es tradueix per «HSV» (multimèdia)"
 # Al Gnome «Export Image as PNG» és «Exporta com a PNG»
 {\bimages?\b}i
 valid msgid="digital\sstill\simages?"
-valid msgid="Images?\sColor"
+valid msgid="'image'"
 valid msgid="image.?editing"
 valid msgid="image\sfiles?"
 valid msgid="image.?processing"
 valid msgid="image\stonality"
+valid msgid="Images?\sColor"
 valid msgid="imaging\sworkflow"
 valid msgid="location\sof\simages?"
 valid msgid="raw\simages?"
@@ -1046,6 +1197,17 @@ hint="Es tradueix per «capa/es» (multimèdia)"
     valid msgstr="Àudio en MPEG (2|3) de capa (1|2|3)"
     hint="Es tradueix per «Àudio en MPEG 2/3 de capa 1/2/3» (multimèdia)"
 
+{\bLazy\b}i
+valid msgid="Lazy\sBrush"
+valid msgid="Lazy\ssynchronization"
+valid msgid="The Quick Brown Fox Jumps Over The Lazy Dog"
+valid msgstr="posterior"
+hint="Es tradueix per «posterior» (multimèdia)"
+
+    {\bLazy\ssynchronization\b}i
+    valid msgstr="sincronització posterior"
+    hint="Es tradueix per «sincronització posterior» (multimèdia)"
+
 # Lens
 {\bLens?\b}i
 valid msgid="Lens\sAuto.?Correction"
@@ -1205,6 +1367,7 @@ hint="Es tradueix per «perfil baix» (multimèdia)"
 
 {\bluminance\b}i
 valid msgid="linear\sluminance"
+valid msgid="Luminance\sNoise"
 valid msgstr="luminància"
 hint="Es tradueix per «luminància» (multimèdia)"
 
@@ -1234,6 +1397,7 @@ hint="Es tradueix per «assigna, mapatge» (multimèdia)"
     hint="Es tradueix per «servei/s de mapes» (multimèdia)"
 
 {\bMargins?\b}i
+valid msgid="margin-"
 valid msgstr="marges?"
 hint="Es tradueix per «marge/s» (multimèdia)"
 
@@ -1285,6 +1449,9 @@ hint="Es tradueix per «transmissió mínima» (multimèdia)"
 # Noise
 {\bnoise\b}i
 valid msgid="background\snoise"
+valid msgid="Chrominance\sBlue\sNoise"
+valid msgid="Gaussian\snoise"
+valid msgid="Luminance\sNoise"
 valid msgid="noise\sfilter\b"
 valid msgid="noise\sfiltering"
 valid msgid="noise\sreduction"
@@ -1297,6 +1464,18 @@ hint="Es tradueix per «soroll» (multimèdia)"
     valid msgstr="soroll de fons"
     hint="Es tradueix per «soroll de fons» (multimèdia)"
 
+    {\bChrominance\sBlue\sNoise\b}i
+    valid msgstr="Soroll blau de crominància"
+    hint="Es tradueix per «Soroll blau de crominància» (multimèdia)"
+
+    {\bChrominance\sRed\sNoise\b}i
+    valid msgstr="Soroll vermell de crominància"
+    hint="Es tradueix per «Soroll vermell de crominància» (multimèdia)"
+
+    {\bGaussian\snoise\b}i
+    valid msgstr="soroll gaussià"
+    hint="Es tradueix per «soroll gaussià» (multimèdia)"
+
     {\bnoise\sfilter\b}i
     valid msgstr="filtre del soroll"
     hint="Es tradueix per «filtre del soroll» (multimèdia)"
@@ -1304,6 +1483,10 @@ hint="Es tradueix per «soroll» (multimèdia)"
     {\bnoise\sfiltering\b}i
     valid msgstr="filtratge del soroll"
     hint="Es tradueix per «filtratge del soroll» (multimèdia)"
+
+    {\bLuminance\sNoise\b}i
+    valid msgstr="Soroll de luminància"
+    hint="Es tradueix per «Soroll de luminància» (multimèdia)"
 
     {\bNoise(.|.?)Reduction\b}i
     valid comment="Tag\:\stitle" # docmessages
@@ -1719,8 +1902,8 @@ valid msgstr="Regla dels terços"
 hint="Es tradueix per «(Guia:) Regla dels terços» (multimèdia)"
 
 {\bsaturated\b}i
-valid msgstr="saturats?"
-hint="Es tradueix per «saturat/s» (multimèdia)"
+valid msgstr="satura(ts?|da|des)"
+hint="Es tradueix per «saturat/s, saturada/es» (multimèdia)"
 
 # Scanners | Scanned
 {\bscanners?\b}i
@@ -1860,10 +2043,6 @@ valid msgstr="defin(eix|int|ir|iu) més"
 valid msgstr="definir.la més"
 hint="Es tradueix per «(Eina:) Aguditza, aguditzar/ció, agudesa, definir/eix/int/iu més, més definit/s (compte: en alguns casos pot ésser Nitidesa, afilada/es» (multimèdia)"
 
-    {\bdetails?\ssharp\b}i
-    valid msgstr="detalls? més definits?"
-    hint="Es tradueix per «detalls? més definits?» (multimèdia)"
-
     {\bCircular\sSharpness\b}i
     valid msgstr="agudesa circular"
     hint="Es tradueix per «agudesa circular» (multimèdia)"
@@ -1886,9 +2065,9 @@ hint="Es tradueix per «(Eina:) Aguditza, aguditzar/ció, agudesa, definir/eix/i
         hint="Es tradueix per «tipus gaussià» (multimèdia)"
 
     {\bno\ssharpening\b}i
-#     valid msgstr="no es requereixi suavitzar" # doc digikam_editor-transform.po
+    valid msgstr="no es requereixi aguditzar" # doc digikam_editor-transform.po
     valid msgstr="sense aguditzar" # doc digikam_color-management.po
-    hint="Es tradueix per «sense aguditzar» (multimèdia)"
+    hint="Es tradueix per «sense aguditzar, no es requereixi aguditzar» (multimèdia)"
 
     {\bselective\ssharpening\b}i
     valid msgstr="agudesa selectiva"
@@ -1920,8 +2099,13 @@ hint="Es tradueix per «(Eina:) Aguditza, aguditzar/ció, agudesa, definir/eix/i
 
     # Al Gnome «sharper» és «realça les vores»
     {\bsharper\b}i
+    valid msgid="details?\ssharper"
     valid msgstr="aguditza\b"
     hint="Es tradueix per «aguditza» (multimèdia)"
+
+        {\bdetails?\ssharp(er)?\b}i
+        valid msgstr="detalls? més definits?"
+        hint="Es tradueix per «detalls? més definits?» (multimèdia)"
 
     {\bsimple\ssharp\b}i
     valid msgstr="agudesa senzilla"
@@ -2105,7 +2289,6 @@ hint="Es tradueix per «sense calibrar» (multimèdia)"
 {\bun(.|.?)focus\b}i
 valid msgstr="manca de definició"
 hint="Es tradueix per «manca de definició» (multimèdia)"
-Vibrance
 
 {\bwarp(ing)?\b}i
 valid msgstr="deforma(nt|r)?"
@@ -2300,7 +2483,8 @@ hint="Es tradueix per «estació de treball» (multimèdia)"
 
     {\bLevels\sAdjust\b}i
     valid msgstr="Ajust dels nivells"
-    hint="Es tradueix per «(Eina:) Ajust dels nivells» (multimèdia)"
+    valid msgstr="Ajustar els nivells"
+    hint="Es tradueix per «(Eina:) Ajust dels nivells, Ajustar els nivells» (multimèdia)"
 
     {\bNeon\b}i
     valid msgstr="Neó"
@@ -2330,6 +2514,7 @@ hint="Es tradueix per «estació de treball» (multimèdia)"
 
     {\bRefocus\b}i
     valid comment="Tag\:\stitle" # docmessages
+    valid msgid="comparison-refocus"
     valid msgid="refocus.sourceforge.net" # KDE UserBase
     valid msgstr="reenfoc"
     hint="Es tradueix per «(Eina:) Reenfoc» (multimèdia)"
@@ -2361,6 +2546,7 @@ hint="Es tradueix per «estació de treball» (multimèdia)"
 
         # Al Gnome «smoothing» és «suavitzant», «suavitzador» i «suavitzat»
         {\bSmoothing\b}i
+        valid msgid="Brush\sSmoothing"
         valid msgstr="suavitzat"
         hint="Es tradueix per «suavitzat» (multimèdia)"
 
