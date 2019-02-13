@@ -26,6 +26,8 @@
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 # SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
+include file="filter.include"
+
 # «hide» tradúcese como «agochar»
 {\bhid(e\b|es|ed|ing)}i
 valid after="show\sor\s"
@@ -36,8 +38,8 @@ hint="«hide» tradúcese como «agochar»"
 
 # «agochar» traduce a «hide»
 [\bagoch]i
-valid msgid="\bhid(e\b|es|ed|ing)"
-valid msgid="\bhidden\b"
+valid msgid="\bhidd?(e[dns]?|ing)\b"
+valid msgid="\b(BCC|blind\s+(carbon\s+)?cop(y(ing)?|ie[ds]))\b"
 id="aaPT-dual_hide"
 hint="«agochar» traduce a «hide»"
 
@@ -51,6 +53,7 @@ hint="«conceal» → «esconder»"
 [\bescond]i
 id="aaPT_esconder"
 valid msgid="\bconceal"
+valid msgid="\bescond"
 hint="«esconder» → «conceal»"
 
 # «monitor» tradúcese como «supervisar» (verbo) ou «monitor» (substantivo
