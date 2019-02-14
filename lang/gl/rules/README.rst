@@ -2,8 +2,23 @@
 Pology Rules for Galician
 =========================
 
-Rule Naming
-===========
+Files
+=====
+
+Rules are distributed accross the following files:
+
+-   ``n11n.rules``
+
+    Rules to normalize translations that are not supported by
+    `Proxecto Trasno`_.
+
+-   ``trasno.rules``
+
+    Rules that are the result of agreements by `Proxecto Trasno`_.
+
+
+Rule Names
+==========
 
 Rule IDs follow this pattern::
 
@@ -87,8 +102,9 @@ Rules support the following environments::
 Credits and License
 ===================
 
-Copyright 2011, 2012 Proxecto Trasno. All rights reserved.
-
+© 2011-2012 Proxecto Trasno.
+© 2019 Adrián Chaves (Gallaecio) <adrian@chaves.io>.
+All rights reserved.
 
 Redistribution and use in source (SGML DocBook or plain text) and 'compiled'
 forms (SGML, HTML, PDF, PostScript, RTF and so forth) with or without

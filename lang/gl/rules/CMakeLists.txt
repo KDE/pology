@@ -1,7 +1,6 @@
 set(files
     filter.include
     n11n.rules
-    terminology.rules
     trasno.rules
 )
 get_current_source_subdir(srcsubdir)
