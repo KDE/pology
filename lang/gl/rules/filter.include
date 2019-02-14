@@ -9,7 +9,7 @@ addFilterHook name="remove/remove-markup-msg" on="msg"
 # Remove entities present both in source and target text
 addFilterHook name="remove/remove-paired-ents" on="msg"
 # Remove accelerator mark
-addFilterHook name="remove/remove-accel-msg" on="msg"
+addFilterHook name="remove/remove-accel-msg-greedy" on="msg"
 # Replace format directives by a tilde
 addFilterHook name="remove/remove-fmtdirs-msg-tick~'$'" on="msg"
 # Replace unvariant parts of the message

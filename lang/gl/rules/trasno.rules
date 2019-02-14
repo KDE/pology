@@ -63,15 +63,49 @@ valid msgstr="\bmonitor[ií](c[eé]|z[aáoó])\w*\b"
 valid msgstr="\bmonitor(es)?\b"
 hint="«monitor» tradúcese como «monitorizar» (verbo) ou «monitor» (substantivo)"
 
-# «about» tradúcese como «sobre»
-{\b(?<!^)about}i
-valid before="\sto\b" # ver "PT-2013_about to"
-valid after="\bknow(s|\"\")\s"
-valid after="\bforgets?\s"
+{\b(?<!^)about\b}i
 id="PT-2011_about"
+hint="«about» tradúcese como «sobre»"
+valid before="\s+%?\d+\b"  # about 20 → acerca de 20
+valid before="\s+dialogs?\b"
+# be better about finding → ser mellor para atopar
+# be mainly about improving → tratarse principalmente de mellorar
+valid before="\s+\wing\b"
+valid before="\sto\b" # ver "PT-2013_about to"
+# ask me about my name → pregúntame o meu nome
+valid after="\bask(ed|ing|s)?\b[\s\w]*\s+"
+# loving is not about desire → amar non vai de desexo
+# we are sorry about that → sentímolo
+valid after="\b(be(ing)?|is|are|was|were)\b[\s\w]*\s+"
+valid after="\bcar(e[ds]?|ing)\s+"
+valid after="\bdescriptions?\s+"
+valid after="\b(find(ing|s)?|found)\s+out\s+"
+valid after="\bforg(et(s|ting)?|otten)\s+"
+valid after="\bhear([ds]|ing)?\s+"
+# get some idea about that → facerse unha idea diso
+valid after="\bideas?\s+"
+valid after="\bkn(ew|ow(ing|s)?)\s"
+valid after="\blearn(ing|s)?\s+"
+# move about → moverse
+valid after="\bmov(e[ds]?|ing)\s+"
+valid after="\bnotif(ie[ds]|y(ing)?)\b[\s\w]*\s+"
+# overview about everything → resumo de todo
+valid after="\boverviews?\s+"
+valid after="\bsorry\s+"
+# are you sure about that? → está seguro diso?
+valid after="\b(un)?sure\s+"
+valid after="\btalk(ed|ing|s)?\s+"
+# tell us about it → cóntenolo
+valid after="\bt(ell(ing|s)?|old)\b[\s\w]*\s+"
+# think about → pensar en
+valid after="\bth(ink(ing|s)?|ought)\s+"
+valid after="\bwarn(ed|ing|s)?\b[\s\w]*\s+"
+# what about this? → que pasa con isto?
+valid after="\bwhat\s+"
+# worrying about something → preocupándose de algo
+valid after="\bworr(ie[ds]|y(ing)?)\s+"
 valid env="kde"
 valid msgstr="\bsobre\b"
-hint="«about» tradúcese como «sobre»"
 
 # «about to» tradúcese como «a piques de»
 {\b(?<!^)about\sto\b}i
@@ -86,9 +120,9 @@ valid msgid="\b(?<!^)about\sto\b"
 hint="«a piques de» traduce a «about to»"
 
 # «abort» tradúcese como «interromper»
-{\babort}i
+{\babort(ed|ing|s)?\b}i
 id="PT-2011_abort"
-valid msgstr="interr(o|ó)mp"
+valid msgstr="interr([oó]mp[aáeéoó]\w*|ompid[ao]s?|upcións?)\b"
 hint="«abort» tradúcese como «interromper»"
 
 # «interromper» traduce a «abort»
@@ -102,6 +136,7 @@ hint="«interromper» traduce a «abort» (e a «interrupt») (e a «break»)"
 # «account» tradúcese como «conta»
 {\baccounts?\b}i
 id="PT-2013_account"
+valid before="\s+for\b"  # account for → explicar
 valid msgstr="\bcontas?\b"
 hint="«account» tradúcese como «conta»"
 
@@ -109,15 +144,32 @@ hint="«account» tradúcese como «conta»"
 [\bcontas?\b]i
 id="PT-2013-dual_account"
 valid msgid="\baccounts?\b"
+valid msgid="\bafter\s+all\b"  # a fin de contas
+valid msgid="\bbe\s+(advised|aware|warned)\b"  # ter en conta
+valid msgid="\bbeware\b"  # common typo for ‘be aware’
+valid msgid="\bconsider(ed|ing|s)?\b"  # ter en conta
+valid msgid="\bcount(ed|ing|s)?\b"  # contar
+valid msgid="\bcountdowns?\b"  # conta atrás
+valid msgid="\bdirect\s+debits?\b"  # cargo en conta
+valid msgid="\bdirect\s+deposits?\b"  # imposición en conta
+valid msgid="\bin\s+mind\b"  # [ter] en conta
+valid msgid="\bmind\s+that\b"  # ter en conta
+valid msgid="\bNB\b"  # ter en conta
+valid msgid="\bnot(e[ds]?|ing)\b"  # ter en conta
+valid msgid="\bnotic(e[ds]?|ing)\b"  # ter en conta
+valid msgid="\bon\s+(my|your|its|her|his|our|their)\s+own\b"  # pola conta de [pronome]
+valid msgid="\btoo\s+soon\b"  # antes da conta
+valid msgid="\bstatements?\b"  # extracto de conta
 hint="«conta» traduce a «account»"
 
 # «add» tradúcese como «engadir»
-{\badd(s|ed|ing)?}i
+{\badd(s|ed|ing)?\b}i
 valid before="ress"
 valid before="ition"
 valid before="-ons?"
 id="PT-2013_add"
-valid msgstr="\bengad(i|í|e)"
+valid msgstr="\beng[aá]d[aáeéiíoó]\w*\b"
+valid msgstr="\bs[uú]m[aáeéoó]\w*\b"  # sumar
 hint="«add» tradúcese como «engadir»"
 
 # «engadir» traduce a «add»
