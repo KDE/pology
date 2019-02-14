@@ -56,9 +56,9 @@ valid msgid="\bconceal"
 valid msgid="\bescond"
 hint="«esconder» → «conceal»"
 
-# «monitor» tradúcese como «supervisar» (verbo) ou «monitor» (substantivo
+# «monitor» tradúcese como «monitorizar» (verbo) ou «monitor» (substantivo
 {\bmonitor\w*\b}i
 id="aaPT_monitor"
-valid msgstr="\bsupervis\w+\b"
+valid msgstr="\bmonitor[ií](c[eé]|z[aáoó])\w*\b"
 valid msgstr="\bmonitor(es)?\b"
-hint="«monitor» tradúcese como «supervisar» (verbo) ou «monitor» (substantivo)"
+hint="«monitor» tradúcese como «monitorizar» (verbo) ou «monitor» (substantivo)"
