@@ -1,8 +1,5 @@
 set(files
-    expression.rules
     filter.include
-    gnome.rules
-    kde.rules
     n11n.rules
     terminology.rules
     trasno.rules

@@ -80,10 +80,8 @@ Rules support the following environments::
     database
     development
     geography
-    gnome
     graph_theory
     informal
-    kde
 
 
 Credits and License

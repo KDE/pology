@@ -259,3 +259,433 @@ hint="fallo ao -> produciuse un erro ao"
 [\bhoubo\sun\serro\sao\b]i
 id="PT-2012-expression-gl_houbo un erro ao"
 hint="houbo un erro ao -> Produciuse un erro ao"
+
+#####
+# Regras específicas de GNOME
+#####
+
+# translator credits
+{^translator-credits$}i
+id="gnome_translator credits"
+hint="comprobar o formato dos creditos da tradución"
+
+#descarta o uso de «achar» en favor de «encontrar»
+[\bach]i
+id="gnome-gl_achar"
+hint="achar -> encontrar"
+
+#descarta o uso de «aplicación» en favor de «aplicativo»
+[\baplicación]i
+id="gnome-gl_aplicación"
+hint="aplicación -> aplicativo"
+
+#descarta o uso de «apropiado» en favor de «axeitado»
+[\bapropriad]i
+id="gnome-gl_apropiado"
+hint="achar -> axeitado"
+
+#comprobar caixa de «GNOME»
+[\b(G|g)nome\s]
+# valid msgid="\bgnome"
+id="gnome-gl_GNOME"
+hint="gnome->GNOME"
+
+#descarta o uso de «mudar» en favor de «trocar»
+[\bmud(a|o|e)]i
+id="gnome-gl_mudar"
+hint="mudar -> trocar"
+
+#descarta o uso de «predefinido» en favor de «predeterminado»
+[\bpredefinid]i
+id="gnome-gl_predefinido"
+hint="predefinido -> predeterminado"
+
+#substituir tres puntos seguidos por unhas reticencias U2026
+[\.{3}]i
+id="gnome-gl_reticencias"
+hint="... -> …"
+
+#descarta o uso de «válido» en favor de «correcto»
+[\bválid(o|a)]i
+id="gnome-gl_valido"
+hint="valido -> correcto"
+
+#####
+# Regras específicas de GNOME para terminoloxía
+#####
+
+# «shell» -> «shell» ou «intérprete de ordes»
+{\bshell}i
+id="gnome_shell"
+valid msgstr="\bshell"
+valid msgstr="\bint(e|é)rpretes?\sde\sordes?"
+hint="shell -> shell ou interprete de ordes"
+
+# «validation,validity» -> «validación»
+{\bvalid(ation|idit(y|ies))}i
+id="gnome_validation"
+valid msgstr="\bvalidación"
+hint="validation -> validación"
+
+# «validate» -> «validar»
+{\bvalidat(e|es|ed|ing)}i
+id="gnome_validate"
+valid msgstr="\bvalida" !before="dor"
+hint="validate -> validar"
+
+# «validator» -> «validador»
+{\bvalidator}i
+id="gnome_validator"
+valid msgstr="\bvalidador"
+hint="validator -> validador"
+
+# «validación» -> «validation»
+[\bvalidación]i
+id="gnome-dual_validation"
+valid msgstr="\bvalidation"
+hint="validación -> validation"
+
+
+
+#####
+# Regras específicas de KDE para modelo de lingua
+#####
+
+## pronome mal colocado ?
+#[\ba\s\S+á\b]i
+#valid after="\bnon\s"
+#id="clGL_pronome mal posto"
+#hint="posíbel orde inversa dun pronome"
+
+# «lineal» → «linear»
+[\blinea(l|is)]i
+id="clGL_lineal"
+hint="«lineal» → «linear»"
+
+#descarta o uso de «amosar» en favor de «mostrar»
+[\bamos(a|o|e)]i
+id="clGL-all_amosar"
+hint="amosar -> mostrar"
+
+# regra comentada porque non dá achadegas
+##descarta o uso de «colar» en favor de «(a)pegar»
+#[\bcol(a|e|o)(?!(c|m|re|ri|ra|ps|b|q|x|nia|fón))]i
+#valid msgstr="\bcolor"
+#valid msgstr="\bcola" msgid="\b((de|en)queue|queue|tail|spool)"
+#id="clGL-all_colar"
+#hint="colar -> (a)pegar"
+
+#coidado cos derivados de licenza que trocan o z
+[\blicenci(?=(oso|osa|osamente|atura|amento|ado|ada|ados|ada)s)]i
+id="clGL-all_licenza"
+hint="algúns derivados de licenza trocan o «z» por «cia»"
+
+#descarta o uso de «ocorrencia» en favor de «aparición»
+[\boc(o|u)rrencia]i
+id="clGL-all_ocorrencia"
+hint="ocorrencia -> aparición"
+
+#descarta o uso de «ocorreu» en favor de «produciuse»
+[\bocorreu]i
+id="clGL-all_ocorreu"
+hint="ocorreu -> produciuse"
+
+#comprobar «TAB» e «separador», preferir «lapela»
+#[\b(tab(?!(let|ula)|separador))]i
+[\b(tab|separador)]i
+valid span="\btab" before="loide"
+valid span="\btab" before="le"
+valid span="\btab" before="ula"
+valid span="\btab" before="oleiro"
+valid span="\btab" after="\btecla\s"
+valid span="\btab" after="\balt\+"
+valid span="\btab(s|ulador|uladores)?\b" msgid="\btabs?\b"
+valid span="\bseparador" msgid="\bsplitter"
+valid span="\bseparador" msgid="\bseparator"
+valid span="\bseparador" msgid="\bdelimiter"
+id="clGL-all_tab/separador"
+hint="tab ou separador -> lapela"
+
+#descarta o uso de «ubicación, ubicar» en favor de «localización, localizar»
+[\bubica]i
+id="clGL-all_ubicación"
+hint="«ubicación, ubicar» -> «localización, localizar»"
+
+#descarta o uso de «xerir» en favor de «xestionar»
+[\bxeri(?!(nga|có))]i
+id="clGL-all_xerir"
+hint="xerir -> xestionar"
+
+#comprobar «zoom», preferir «ampliación»
+[\bzoom]i
+id="clGL-all_zoom"
+hint="zoom -> ampliación ?"
+
+# preferir «estase a + infinitivo» no cando de «a + infinitivo»
+[^a\s\w+[aeií]r\b]i
+valid after="Están\s"
+valid after="Estanse\s"
+valid after="Está\s"
+valid after="Estase\s"
+valid after="estex?a\s"
+valid after="estar\s"
+valid span="a partir"
+id="clGL-all_a+infinitivo"
+hint="«a+infinitivo» -> «estase a infinitivo"
+
+# preferir «se han examinar/ han ser examinados» no canto de «serán examinados»
+[\b\w+rán?\s[A-Za-z]+ad(o|a)s?]i
+valid !span="\b(ser|estar)án"
+#valid span="\bverán"      # admitir «verán+v(participio)
+id="clGL-all_serán+participio"
+hint="«serán+participio» -> «han ser participio», «examinaránse» ou «ha infinitivo»"
+
+#####
+# Expresións frecuentes
+#####
+
+# «enable this option»
+{\benable\sthis\s(option|checkbox)}i
+id="expression_enable this option| checkbox"
+valid !after="\bif\syou"
+valid msgstr="\bescoll(a|er)\sesta\sopción"
+hint="enable this option = escolla/er esta opción"
+
+# «when/if this option/checkbox is enabled»-> «se escolleu/sinalou esta opción»
+{\b(when|if)\sthis\s(option|checkbox)\sis\senabled}i
+id="expression_when|if this option|checkbox is enabled"
+valid msgstr="\bse\sescolle\sesta\sopción"
+hint="when|if this option|checkbox is enabled -> se escolle esta opción"
+
+# «enable»
+{\b(when|if)\sthis\sis\senabled}i
+id="expression_when|if this is enabled"
+valid msgstr="\bse\sescolle\sesta\sopción"
+hint="is this is enabled -> se escolle esta opción"
+
+# «enable»
+{\b(if|when)\senabled}i
+id="expression_when/if enabled"
+valid msgstr="\bse\sescolle\sesta\sopción"
+hint="when/if enabled -> se escolle esta opción"
+
+# «disable this option/checkbox»
+{\bdisable\sthis\s(option|checkbox)}i
+valid after="if\syou\s"
+id="expression_disable this option/checkbox"
+valid msgstr="\bdesmarque\sesta\sopción"
+hint="disable this option/checkbox -> desmarque esta opción"
+
+# «when/if this option/checkbox is disabled»
+{\b(when|if)\sthis\s(option|checkbox)\sis\sdisabled}i
+id="expression_when/if this option/checkbox is disabled"
+valid msgstr="\bse\sesta\sopción\snon\sestá\s(escollid|marcad)a"
+valid msgstr="\bse\snon\sescolle\sesta\sopción"
+hint="when/if this option/checkbox is disabled -> se esta opción non está escollida/marcada"
+
+# «when/if this is disabled»
+{\b(when|if)\sthis\sis\sdisabled}i
+id="expression_when this is disabled"
+valid msgstr="\bse\sesta\sopción\snon\sestá\s(escollid|marcad)a"
+hint="when/if this is disabled -> se esta opción non está escollida/marcada"
+
+# «if/when disabled»
+{\b(if|when)\sdisabled}i
+id="expression_if/when disabled"
+valid msgstr="\bse\sdesmarca\sesta\sopción"
+hint="if/when disabled -> se desmarca esta opción"
+
+# «when selected»
+{\bwhen\sselected}i
+id="expression_when selected"
+valid msgstr="\bse\so\sescolle"
+valid msgstr="\bse\sescolle\sesta\sopción"
+hint="when selected -> se o escolle (experimental)"
+
+# «...not found.» -> «Non se atopou...»
+{\b\w+\snot\sfound\.}i
+id="expression_not found."
+valid msgstr="\bNon\s((se\satop(ou|aron))|(foi\sposíbel\satopar))\s(\w+\s)+\w+"
+hint="...not found. -> Non se atopou/foi posíbel atopar ... ..."
+
+# there was an error ....
+{\bthere\swas\san?}i
+valid after="\bif\s"
+valid before="\sproblem"    # por mor da cacofonía: produciuse un problema
+id="expression_there-was-an-error"
+valid msgstr="\bProduciuse\sun(\b|s|ha)"
+hint="There was an error -> Produciuse un erro"
+
+# «print preview» -> «previsualización da impresión» / «vista previa do impreso»
+{\bprint\spreview(?!\s(window|part))}i
+id="noPT-2010-expression_print preview"
+valid msgstr="\bprevisualizacións?\sda\impresión"
+valid msgstr="\bvistas?\sprevia\sdos?\simpresos?"
+valid msgstr="\bprevisualizar\so\simpreso"
+valid msgstr="\bimprimir\sa\svista\sprevia"
+hint="«print preview» -> «previsualización da impresión» / «vista previa do impreso»"
+
+#####
+# Fin das regras específicas de KDE
+#####
+
+#####
+# Regras específicas de KDE para terminoloxía
+#####
+
+# «accept» -> «aceptar»
+{\baccept}i
+id="kde_accept"
+valid msgstr="\bacept"
+valid msgstr="\bacéptase"
+hint="accept = aceptar"
+
+# «aceptar» -> «accept»
+[\bacept]i
+id="kde-dual_accept"
+valid msgid="\baccept"
+valid msgid="\bOK\b"
+valid msgid="\bagree"
+hint="aceptar = accept"
+
+## «append» -> «amecer»
+#{\bappend}i
+#valid before="ix"
+#id="kde_append"
+#valid msgstr="\bamecer"
+#hint=" append -> amecer"
+
+# «amecer» -> «append»
+[\bamec]i
+id="kde-dual_append"
+valid msgid="\bappend"
+hint=" amecer -> append"
+
+# «applet» tradúcese como «applet»
+{\bapplet}i
+id="kde_applet"
+valid msgstr="\bapplet"
+hint="«applet» tradúcese como «applet»"
+
+# «applet» traduce a «applet»
+[\bapplet]i
+id="kde-dual_applet"
+valid msgid="\bapplet"
+hint="«applet» traduce a «applet»"
+
+
+
+# «not enabled»
+{\bnot enabled\b}
+valid after="\bif\s"
+id="kde_not enabled"
+valid msgstr="\bdesactivad(o|a)"
+valid msgstr="\bnon\sestá\sactivad(o|a)"
+hint="not enabled -> desactivado"
+
+# Agora Non me parece tan boa idea esta regra
+## «enable/disable» -> «conmutar»
+#{\benable/disable}i
+#id="kde_enabledisable"
+#valid msgstr="\bconmuta"
+#hint="enable/disable = conmutar"
+
+# «encounter» -> «atopar» and not «achar»
+{\bencounter}i
+id="kde_encounter"
+valid msgstr="\batop"
+valid !msgstr="\bach"
+hint="encounter -> atopar"
+
+#«acontecemento» -> «event»
+[\bacontecemento]i
+id="kde-dual_event"
+valid msgid="\bevent"
+hint="acontecemento-> event"
+
+# «frame» -> «marco»
+{\bframe}i
+valid before="works?\b"
+valid before="\sbuffer\b"
+valid before="\srate\b"
+id="kde_frame"
+valid msgstr="\bmarco"
+valid msgstr="\bfotograma"
+valid msgstr="\bimaxe"
+hint="«frame» -> «marco»"
+
+# «marco» -> «frame»
+[\bmarcos?]i
+valid before="\skrüger" # person name: marco krüger
+valid before="\smartin" # person: marco martin
+valid before="\scalignano" # person: marco calignano
+valid after="\bdoval\s" # person: irene doval marcos
+valid before="u\b"      # marcou
+id="kde-dual_frame"
+valid msgid="\bframe"
+valid msgid="\bmarks?"
+hint="«marco» -> «frame»/«mark» (moeda)"
+
+# «inline» -> «intercalar»
+{\bin\s?line}i
+id="kde_inline"
+valid msgstr="\bintercala(r|d(o|a)s?)" !env="development"
+valid msgstr="\bintercalán." !env="development"
+valid span="\bin\sline" msgstr="\b(da|en|na|nunha)\sliña" !env="development"
+hint="«inline» -> «intercalar»"
+
+# «node» -> «vértice»
+{\bnodes?}i
+# valid after="free"
+# valid after="\bi"
+# valid after="\ba"
+# valid after="\bk"
+id="kde_node"
+valid env="graph_theory" msgstr="vértices?"
+valid !env="graph_theory" msgstr="\bnodos?"
+hint="«node» -> «vértice» (en teoría de grafos), ou «nodo»"
+
+# «nodo» -> «node»
+[\bnodos?\b]i
+id="kde-dual_node(2)"
+valid msgid="nodekit"
+valid msgid="nodename"
+valid msgid="\bnodes?\b" !env="graph_theory"
+hint="«nodo» -> «node»"
+
+# «ing mode» -> «método de»
+{ing\smodes?\b}i
+valid after="\bfollow"
+valid after="\bnon-\w+"
+valid after="\bwrit"
+id="kde_ing"
+valid msgstr="métodos?\sde\s\w+"
+hint="«ing mode» -> «método de» (non é que \"modo de\" sexa incorrecto, é que ás veces non é máis axeitado)"
+
+# «print» -> «imprimir», «mostra»
+{\bprint}i
+valid !before="ing"
+valid !before="er"
+valid before="screen"
+valid before="\spreview"
+id="kde_print"
+valid msgstr="\bimprim"
+valid msgstr="\bimpresión"
+valid msgstr="\bimpres(o|a)"
+valid msgstr="\bmostr"
+valid before="\ssystem" msgstr="\bsistema\sde\simpresión"
+hint="print = imprimir, impresión, impreso ou mostrar"
+
+# «printing» -> «imprimir», «impresión»
+{\bprinting}i
+id="kde_printing"
+valid msgstr="\bimpresión"
+valid msgstr="\bimprim"
+hint="printing = imprimir, impresión"
+
+# «imprimir» -> «print»
+[\bimprim]i
+id="kde-dual_print"
+valid msgid="\bprint(?!er)"
+valid after="\bversións?\spara\s" msgid="\bprinters?\sfriendly\b"
+hint="imprimir = print"
