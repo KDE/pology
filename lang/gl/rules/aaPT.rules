@@ -28,41 +28,6 @@
 
 include file="filter.include"
 
-# «hide» tradúcese como «agochar»
-{\bhid(e\b|es|ed|ing)}i
-valid after="show\sor\s"
-id="aaPT_hide"
-valid msgstr="\bag(o|ó)ch"
-valid !msgstr="ac(ó|o)ch?"
-hint="«hide» tradúcese como «agochar»"
-
-# «agochar» traduce a «hide»
-[\bagoch]i
-valid msgid="\bhidd?(e[dns]?|ing)\b"
-valid msgid="\b(BCC|blind\s+(carbon\s+)?cop(y(ing)?|ie[ds]))\b"
-id="aaPT-dual_hide"
-hint="«agochar» traduce a «hide»"
-
-# «conceal» → «esconder»
-{\bconceal(s|ed|ing)?}i
-id="aaPT_conceal"
-valid msgstr="\bescond"
-hint="«conceal» → «esconder»"
-
-# «esconder» → «conceal»
-[\bescond]i
-id="aaPT_esconder"
-valid msgid="\bconceal"
-valid msgid="\bescond"
-hint="«esconder» → «conceal»"
-
-# «monitor» tradúcese como «supervisar» (verbo) ou «monitor» (substantivo
-{\bmonitor\w*\b}i
-id="aaPT_monitor"
-valid msgstr="\bsupervis\w+\b"
-valid msgstr="\bmonitor(es)?\b"
-hint="«monitor» tradúcese como «supervisar» (verbo) ou «monitor» (substantivo)"
-
 #####
 ##### Regras procedentes de KDE
 ##### Están aquí porque conteñen referencia a outra ambiente
