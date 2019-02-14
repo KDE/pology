@@ -26,8 +26,64 @@
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 # SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-
 include file="filter.include"
+
+# «edge» -> «aresta»
+{\bedges?}i
+valid !env="graph_theory"
+id="kde_edge(graph_theory)"
+valid msgstr="arestas?"
+valid after="self-" msgstr="lazos?"
+hint="«edge» -> «aresta» (en teoría de grafos); «self-edge» ->  «lazo»"
+
+# «aresta» -> «edge»
+[arestas?]i
+valid !env="graph_theory"
+id="kde-dual_edge(graph_theory)"
+valid msgid="edges?"
+hint="«aresta» -> «edge» (en teoría de grafos)"
+
+# «lazo» -> «self-edge»
+[lazos?]i
+valid !env="graph_theory"
+id="kde-dual_edge2(graph_theory)"
+valid msgid="self-edges?"
+hint="«lazo» -> «self-edge» (en teoría de grafos)"
+
+# «vértice» -> «node»
+[vértices?]i
+valid !env="graph_theory"
+id="kde-dual_node(graph_theory)"
+valid msgid="nodes?"
+hint="«vértice» -> «node» (en teoría de grafos)"
+
+# «Are you sure you want to» -> «Desexa realmente+infinitivo»
+{\bare\syou\ssure\syou\swant\sto(\s(\w+|\W+))+\?}i
+id="expression_interrogation1"
+valid msgstr="\bDesexa\srealmente\s\w+(a|e|i|í|po)r(\s(\w+|\W+))*" !env="informal"
+valid msgstr="\bDesexa\srealmente\s\w+l(o|a)s?(\s\w+)*\?" !env="informal"
+valid msgstr="\b(Desexas|Queres)\s\w+(a|e|i|í|po)r(\s(\w+|\W+))*" env="informal"
+valid msgstr="\b(Desexas|Queres)\s\w+l(o|a)s?(\s\w+)*\?" env="informal"
+hint="«Are you sure you want to» -> «Desexa(s) realmente+infinitivo»"
+
+# «Do you really ...» -> «Desexa realmente + infinitivo»
+{\bdo\syou\sreally(\s(\w+|\W+))+\?}i
+id="expression_interrogation2"
+valid msgstr="\bDesexa\srealmente\s\w+(a|e|i|í|po)r(\s(\w+|\W+))*" !env="informal"
+valid msgstr="\bDesexa\srealmente\s\w+l(o|a)s?(\s\w+)*\?" !env="informal"
+valid msgstr="\b(Desexas|Queres)\s\w+(a|e|i|í|po)r(\s(\w+|\W+))*" env="informal"
+valid msgstr="\b(Desexas|Queres)\s\w+l(o|a)s?(\s\w+)*\?" env="informal"
+hint="«Do you really ...» -> «Desexa realmente+infinitivo»"
+
+#«event» -> «acontecemento» ou «suceso»
+{\bevent}i
+valid before="ually"
+id="kde_event"
+valid msgstr="\bevento" env="development"
+valid msgstr="\bacontecemento" !msgstr="\bevento"
+valid msgstr="\bsuceso" !msgstr="\bevento"
+valid msgstr="\bactividade"
+hint="event-> acontecemento ou suceso (not development environment)"
 
 # «about» tradúcese como «sobre»
 {\b(?<!^)about}i
