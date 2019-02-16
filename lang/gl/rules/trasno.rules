@@ -66,7 +66,7 @@ hint="«monitor» tradúcese como «monitorizar» (verbo) ou «monitor» (substa
 {\b(?<!^)about\b}i
 id="PT-2011_about"
 hint="«about» tradúcese como «sobre»"
-valid before="\s+%?\d+\b"  # about 20 → acerca de 20
+valid before="\s+(%?\d+|one|two|three|four|five|six|seven|eight|nine|ten)\b"  # about 20 → arredor de 20
 valid before="\s+dialogs?\b"
 # be better about finding → ser mellor para atopar
 # be mainly about improving → tratarse principalmente de mellorar
@@ -104,7 +104,6 @@ valid after="\bwarn(ed|ing|s)?\b[\s\w]*\s+"
 valid after="\bwhat\s+"
 # worrying about something → preocupándose de algo
 valid after="\bworr(ie[ds]|y(ing)?)\s+"
-valid env="kde"
 valid msgstr="\bsobre\b"
 
 # «about to» tradúcese como «a piques de»
@@ -272,26 +271,24 @@ hint="«aparencia» traduce a «appearance»"
 id="PT-2011_app"
 hint="«app» tradúcese como «aplicativo»"
 valid msgstr="\baplicativos?\b"
+valid msgstr="\bspp\b"  # arcsec per pixel → segundos de arco por píxel
 
 # «applet» tradúcese como «miniaplicativo» ou «trebello»
-{\bapplet}i
+{\bapplets?\b}i
 id="PT-2011_applet"
-valid env="kde"
-valid msgstr="\bminiaplicativo"
-valid msgstr="\btrebello"
+valid msgstr="\bminiaplicativos?\b"
+valid msgstr="\btrebellos?\b"
 hint="«applet» tradúcese como «miniaplicativo» ou «trebello»"
 
 # «miniaplicativo» traduce a «applet»
 [\bminiaplicativo]i
 id="PT-2011-dual_applet"
-valid env="kde"
 valid msgid="\bapplet"
 hint="«miniaplicativo» traduce a «applet»"
 
 # «trebello» traduce a «applet»
 [\btrebello]i
 id="PT-2011-dual_applet(2)"
-valid env="kde"
 valid msgid="\bapplet"
 hint="«trebello» traduce a «applet»"
 
@@ -890,7 +887,6 @@ hint="«remitir» traduce a «commit»"
 # «computer» tradúcese como «computador»
 {\bcomputer}i
 id="noPT-2012_computer"
-valid env="kde"
 valid after="\bdesktop" msgstr="\bcomputador(es)?\sde\sescritorio"
 valid after="\blaptop"
 valid after="\btablet"

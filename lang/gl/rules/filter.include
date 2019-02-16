@@ -36,7 +36,7 @@ addFilterRegex match="^.*\*\..*\|" repl="Ŧ" on="pmsgid,pmsgstr"
 
 # Wiki stuff
 addFilterRegex match="\[\[[^\]]*(\||\])" repl="¥" on="pmsgid,pmsgstr"
-addFilterRegex match="\[[^\s]*" repl="↑" on="pmsgid,pmsgstr"
+addFilterRegex match="\[http[^]\s]\]*" repl="↑" on="pmsgid,pmsgstr"
 addFilterRegex match="\{\{.*?(\||\}\})" repl="ı" on="pmsgid,pmsgstr"
 
 # Remove long command-line options.
