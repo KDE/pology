@@ -144,6 +144,7 @@ hint="«account» tradúcese como «conta»"
 [\bcontas?\b]i
 id="PT-2013-dual_account"
 valid msgid="\baccounts?\b"
+valid msgid="\baddress(e[ds]|ing)?\b"  # ter en conta
 valid msgid="\bafter\s+all\b"  # a fin de contas
 valid msgid="\bbe\s+(advised|aware|warned)\b"  # ter en conta
 valid msgid="\bbeware\b"  # common typo for ‘be aware’
@@ -164,97 +165,113 @@ hint="«conta» traduce a «account»"
 
 # «add» tradúcese como «engadir»
 {\badd(s|ed|ing)?\b}i
-valid before="ress"
-valid before="ition"
 valid before="-ons?"
+valid before="\s+back\b"  # recuperar
 id="PT-2013_add"
 valid msgstr="\beng[aá]d[aáeéiíoó]\w*\b"
 valid msgstr="\bs[uú]m[aáeéoó]\w*\b"  # sumar
 hint="«add» tradúcese como «engadir»"
 
 # «engadir» traduce a «add»
-[\bengad(ir|a|e|i|í)]i
+[\beng[aá]d[aáeéiíoó]\w*\b]i
 id="PT-2013-dual_add"
-valid msgid="\badd(s|ed|ing)?\b"
+valid msgid="\b(re)?add(s|ed|ing)?\b"
+valid msgid="\b(re)?additions?\b"  # without the addition of → sen engadir
+valid msgid="\bannotat(e[ds]?|ing)\b"  # engadir anotacións
+valid msgid="\b(re)?append(able|ed|ing|s)?\b"
+valid msgid="\b(re)?implement(able|ed|ing|s)?\b"
+valid msgid="\bnamespac(e[ds]?|ing)\b"  # engadir un espazo de nomes
+valid msgid="\b(re)?prepend(able|ed|ing|s)?\b"
+valid msgid="\bscrambl(e[ds]?|ing)\b"  # engadir interferencias
+valid msgid="\bsupport(?!\s+for\b)(ed|ing|s)?\b"  # engadir (compatibilidade|a posibilidade de( usar)?)
 hint="«engadir» traduce a «add»"
 
 # «address» tradúcese como «enderezo»
-{\baddress}i
+{\baddress(es)?\b}i
 id="PT-2013_address"
-valid msgstr="\benderezos?"
+valid msgstr="\baddress(es)?\b"
+valid msgstr="\bdiscursos?\b"  # p. ex. presidenciais
+valid msgstr="\benderezos?\b"
+valid msgstr="\bsoluci[oó]n[aáeéoó]\w*\b"  # solucionar [un problema]
+valid msgstr="\bt\w*\s+en\s+conta\b"  # the parser addresses reviews → o analizador ten en conta as recensións
 hint="«address» tradúcese como «enderezo»"
 
 # «enderezo» traduce a «address»
-[\benderezos?]i
+[\benderezos?\b]i
 id="PT-2013-dual_address"
-valid msgid="\baddress"
+valid msgid="\baddrs?\b"
+valid msgid="\baddress(books?|ee?s)?\b"  # includes typo addressees
+valid msgid="\baddress(ed|ing)\b"  # sector-addressing → asignación de enderezos de sector
 valid before="\s+URL" msgid="\bURLs?\b"
 hint="«enderezo» traduce a «address»"
 
 # «align» tradúcese como «aliñar»
-{\balign(s|ed|ing)?}i
-valid before="ment"
-valid before="\scenter"
+{\balign(s|ed|ing)?\b}i
 id="PT-2013_align"
-valid msgstr="\baliñ(a|o)"
 hint="«align» tradúcese como «aliñar»"
+valid before="\s+[\w\s]*(to\s+((horizontal|vertical)\s+)?)?center\b"  # centrar
+valid before="\s+(four|4)\b"  # catro en liña
+valid before="\s+justif(ied|y)\b"  # xustificar
+valid msgstr="\bal[ií]ñ[aáeéoó]\w*\b"
+valid msgstr="\baliñ\."
 
 # «aliñar» traduce a «align»
-[\baliñ(ar|a|o)]i
+[\bal[ií]ñ(?!amentos?\b)[aáeéoó]\w*\b]i
 id="PT-2013-dual_align"
-valid msgid="\balign"
 hint="«aliñar» traduce a «align»"
+valid msgid="\b(re|un)?align(ed|ing|s)?\b"
+valid msgid="\blin(e[ds]?|ing)\s+up\b"
+valid msgid="\bsnap(p(ed|ing)|s)?\b"
 
 # «align center» tradúcese como «centrar»
-{\balign(s|ed)\scenter}i
+{\balign(s|ed|ing)?\s+[\w\s]*(to\s+((horizontal|vertical)\s+)?)?center\b}i
 id="PT-2013_align-center"
-valid msgstr="\bcentrar"
 hint="«align center» tradúcese como «centrar»"
-
+valid msgstr="\bc[eé]ntr[aáeéoó]\w*\b"
 
 #  «centrar» traduce a «align center»
 # ver regra
-# "PT-2013-dual_center centre"
-#
-# [\b]i
-# id="PT-2013-dual_"
-# valid msgid="\b"
-# hint=""
+# "PT-2013-dual_center-centre"
 
 # «alignment» tradúcese como «aliñamento»
-{\balignment}i
+{\balignments?\b}i
 id="PT-2013_alignment"
-valid msgstr="\baliñamento"
+valid msgstr="\baliñamentos?\b"
+valid msgstr="\balignments?\b"
 hint="«alignment» tradúcese como «aliñamento»"
 
 # «aliñamento» traduce a «alignment»
-[\baliñamento]i
+[\baliñamentos?\b]i
 id="PT-2013-dual_alignment"
-valid msgid="\balignment"
 hint="«aliñamento» traduce a «alignment»"
+valid msgid="\balign(s|ed|ing)?\b"
+valid msgid="\balignments?\b"
+valid msgid="\balignings?\b"
+valid msgid="\bconjunctions?\b"
+valid msgid="\blin(e|ing)(\s+|-)?up\b"
+valid msgid="\bsnap(ping)?s?\b"
 
 # «appearance» tradúcese como «aparencia»
-{\bappearance}i
+{\bappearances?\b}i
 id="PT-2013_appearance"
-valid msgstr="\baparencia"
+valid msgstr="\baparencias?\b"
+valid msgstr="\baparicións?\b"
 hint="«appearance» tradúcese como «aparencia»"
 
 # «aparencia» traduce a «appearance»
-[\baparencia]i
+[\baparencias?\b]i
 id="PT-2013-dual_appearance"
-valid msgid="\bappearance"
+valid msgid="\bappearances?\b"
+valid msgid="\bdisplays?\b"
+valid msgid="\blook(ing)?s?\b"
+valid msgid="\bskins?\b"
 hint="«aparencia» traduce a «appearance»"
 
 # «app» tradúcese como «aplicativo»
 {\bapps?\b}i
-valid before="roximate"
-valid before="ropriate"
-valid before="end"
-valid before="ear"
 id="PT-2011_app"
-valid msgstr="\baplicativo"
 hint="«app» tradúcese como «aplicativo»"
-valid env="kde"
+valid msgstr="\baplicativos?\b"
 
 # «applet» tradúcese como «miniaplicativo» ou «trebello»
 {\bapplet}i

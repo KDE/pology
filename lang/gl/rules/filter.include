@@ -4,8 +4,6 @@
 
 # Remove literal parts of messages, according to the markup
 addFilterHook name="remove/remove-marlits-msg" on="msg"
-# Remove markup as per declared in header
-addFilterHook name="remove/remove-markup-msg" on="msg"
 # Remove entities present both in source and target text
 addFilterHook name="remove/remove-paired-ents" on="msg"
 # Remove accelerator mark
@@ -13,17 +11,21 @@ addFilterHook name="remove/remove-accel-msg-greedy" on="msg"
 # Replace format directives by a tilde
 addFilterHook name="remove/remove-fmtdirs-msg-tick~'$'" on="msg"
 # Replace unvariant parts of the message
-addFilterHook name="remove/remove_literals_msg_tick~u'£'" on="msg" 
+addFilterHook name="remove/remove_literals_msg_tick~u'£'" on="msg"
 
 # Remove XML entities.
 addFilterRegex match="\&[\w\d\.\-]+?\;" repl="" on="pmsgid,pmsgstr"
 
 # Remove function calls like foo(x, y).
-addFilterRegex match="\w+\([\w\s\.\,\-\_]*?\)" repl="€" on="pmsgid,pmsgstr"
+# Ignore foo(s) and foo(es), which are common ways of indicating optional
+# plural forms (e.g. ‘address(es)’).
+addFilterRegex match="\w+\((?!e?s\))[\w\s\.\,\-\_]*?\)" repl="€" on="pmsgid,pmsgstr"
 
 # Remove XML-like tags.
 addFilterRegex match="\<\s*(bcode|command|envar|filename|icode|shortcut|placeholder|style|code|tt|literal|screen|option|keycap|userinput|systemitem|prompt|function|foreignphrase|varname|programlisting|token|markup|parameter|keysym|methodname|sgmltag|arg|classname|type)\b.*?\b\1\>" repl="" on="pmsgid,pmsgstr"
-addFilterRegex match="\<\s*(email|link)\s*>\b.*?\b\1\>" repl="" on="pmsgid,pmsgstr"     
+addFilterRegex match="\<\s*(email|link)\s*>\b.*?\b\1\>" repl="" on="pmsgid,pmsgstr"
+addFilterRegex match="\<\s*br\s*/?\s*\>" repl=" " on="pmsgid,pmsgstr"
+addFilterRegex match="\<\s*/\s*(li|p|ul)\s*\>" repl=" " on="pmsgid,pmsgstr"
 addFilterRegex match="\<.*?\>" repl="" on="pmsgid,pmsgstr"
 
 # Alternatives directives
@@ -40,29 +42,22 @@ addFilterRegex match="\{\{.*?(\||\}\})" repl="ı" on="pmsgid,pmsgstr"
 # Remove long command-line options.
 addFilterRegex match="\-\-\w[\w\_\-]*?\b" repl="" on="pmsgid,pmsgstr"
 
-# Remove environment variables.
-addFilterRegex match="\$\<?[A-Z]+\>?" repl="Þ" on="pmsgid,pmsgstr"
-
 # Remove web pages.
 # addFilterRegex match="((http|https|ftp|sftp)\:\/\/)?([\w\_\-]+\.)+((gov|edu|com|mil|org|net|aero|biz|coop|info|museum|name|pro|mobi)|([a-z]{2,4})|\5\.\6)(\:\d{2,4})?(\/[\w\.\-\_]+)*\/?(\?(\w+\=\w+)(\&(\w+\=\w+))*?)?(\#\w+)?" repl="~" on="pmsgid,pmsgstr"
 
 # Remove email addresses.
 # addFilterRegex match="(mailto\:)?([\w\d\_\-]+)(\.\2)*\@(\2\.)+[\w]{2,4}" repl="~" on="pmsgid,pmsgstr"
 
-# Remove system files.
-addFilterRegex match="(file\:|\#\!)?\/(bin|etc|lib|media|proc|srv|var|boot|home|lib32|mnt|root|sys|cdrom|lib64|sbin|tmp|dev|lost\+found|opt|selinux|usr)(\/[\w\.\-\_]+)*\/?" repl="~" on="pmsgid,pmsgstr"
-
-# Remove more important (as I guees) hidden directories.
-addFilterRegex match="\.(cache|config|cups|dbus|font\w*|java|kde|local|mozilla|openoffice\.org|pulse|qt|ssh|desktop)(\/[\w\.\-\_]+?)*?\/?" repl="~" on="pmsgid,pmsgstr"
-
-# Remove more important (as I guess) hidden files.
+# Remove known path patterns
+addFilterRegex match="(file\:|\#\!)?\/(bin|boot|cdrom|dev|etc|home|lib(32|64)?|lost\+found|media|mnt|opt|proc|root|sbin|selinux|share|srv|sys|tmp|usr|var)([/\w._-]+)*" repl="~" on="pmsgid,pmsgstr"
+addFilterRegex match="\.(cache|config|cups|dbus|font\w*|java|kde|local|mozilla|openoffice\.org|pulse|qt|ssh|desktop)[/\w._-]*" repl="~" on="pmsgid,pmsgstr"
 addFilterRegex match="\.\/?(\w+rc|\w+config|aspell\w*|bash\w*|calendar|directory|fonts\w*?|ICEauthority|lock|mailcap|kderc|profile|Xauthority|Xclients|Xmodmap|Xsession|Xdefaults|Xresources)" repl="~" on="pmsgid,pmsgstr"
-
-# Remove more important (as I guess) commands.
 addFilterRegex match="\.\/configure" repl="~" on="pmsgid,pmsgstr"
-
-# Remove references home directory files.
 addFilterRegex match="\~\.?\/[\w\.\-\_]+" repl="~" on="pmsgid,pmsgstr"
+addFilterRegex match="['\"«‘“][\w._-]+/[/\w._-]*['\"»’”]" repl="~" on="pmsgid,pmsgstr"
+
+# Remove environment variables.
+addFilterRegex match="\$\<?[A-Z]+\>?" repl="Þ" on="pmsgid,pmsgstr"
 
 # Remove single characters in quotes.
 # addFilterRegex match="«.»" repl="~" on="pmsgid,pmsgstr"
