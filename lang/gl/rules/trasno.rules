@@ -66,11 +66,12 @@ hint="«monitor» tradúcese como «monitorizar» (verbo) ou «monitor» (substa
 {\b(?<!^)about\b}i
 id="PT-2011_about"
 hint="«about» tradúcese como «sobre»"
-valid before="\s+(%?\d+|one|two|three|four|five|six|seven|eight|nine|ten)\b"  # about 20 → arredor de 20
+valid before="\s+(magnitude\s+)?(%?\d+\w*|one|two|three|four|five|six|seven|eight|nine|ten)\b"  # about 20 → arredor de 20
+valid before="\s+\wing\b"
 valid before="\s+dialogs?\b"
 # be better about finding → ser mellor para atopar
 # be mainly about improving → tratarse principalmente de mellorar
-valid before="\s+\wing\b"
+valid before="\s+the\s+same\b"  # máis ou menos igual, máis ou menos o mesmo
 valid before="\sto\b" # ver "PT-2013_about to"
 # ask me about my name → pregúntame o meu nome
 valid after="\bask(ed|ing|s)?\b[\s\w]*\s+"
@@ -78,17 +79,20 @@ valid after="\bask(ed|ing|s)?\b[\s\w]*\s+"
 # we are sorry about that → sentímolo
 valid after="\b(be(ing)?|is|are|was|were)\b[\s\w]*\s+"
 valid after="\bcar(e[ds]?|ing)\s+"
+valid after="\bcomplain(ed|ing|s)?\s+"
 valid after="\bdescriptions?\s+"
 valid after="\b(find(ing|s)?|found)\s+out\s+"
 valid after="\bforg(et(s|ting)?|otten)\s+"
 valid after="\bhear([ds]|ing)?\s+"
 # get some idea about that → facerse unha idea diso
 valid after="\bideas?\s+"
+valid after="\binform(ed|ing|s)?\b[\s\w]*\s+"
 valid after="\bkn(ew|ow(ing|s)?)\s"
 valid after="\blearn(ing|s)?\s+"
 # move about → moverse
 valid after="\bmov(e[ds]?|ing)\s+"
 valid after="\bnotif(ie[ds]|y(ing)?)\b[\s\w]*\s+"
+valid after="\bnotifications?\s+"
 # overview about everything → resumo de todo
 valid after="\boverviews?\s+"
 valid after="\bsorry\s+"
@@ -200,7 +204,7 @@ hint="«address» tradúcese como «enderezo»"
 id="PT-2013-dual_address"
 valid msgid="\baddrs?\b"
 valid msgid="\baddress(books?|ee?s)?\b"  # includes typo addressees
-valid msgid="\baddress(ed|ing)\b"  # sector-addressing → asignación de enderezos de sector
+valid msgid="\baddress(ed|ing)\b"  # sector-addressing issues → problemas de enderezos de sectores
 valid before="\s+URL" msgid="\bURLs?\b"
 hint="«enderezo» traduce a «address»"
 
@@ -267,7 +271,7 @@ valid msgid="\bskins?\b"
 hint="«aparencia» traduce a «appearance»"
 
 # «app» tradúcese como «aplicativo»
-{\bapps?\b}i
+{\b(web)?apps?\b}i
 id="PT-2011_app"
 hint="«app» tradúcese como «aplicativo»"
 valid msgstr="\baplicativos?\b"
@@ -287,129 +291,159 @@ valid msgid="\bapplet"
 hint="«miniaplicativo» traduce a «applet»"
 
 # «trebello» traduce a «applet»
-[\btrebello]i
+[\btrebellos?\b]i
 id="PT-2011-dual_applet(2)"
-valid msgid="\bapplet"
-hint="«trebello» traduce a «applet»"
+valid msgid="applet"
+valid msgid="gadget"
+valid msgid="gear"
+valid msgid="widget"
+hint="«trebello» traduce a «applet» e «widget»"
 
 # «application» tradúcese como «aplicativo»
-{\bapplication}i
-valid after="</?" before=">" env="xfce"
-valid before="/x-executable"
-valid before="/x-shellscript"
-valid before="/x-desktop"
+{\bapplications?\b}i
+valid after="</?" before=">"
 valid after="Type="
 id="PT-2011_application"
-valid msgstr="\baplicativo" !env="kde"
-valid msgstr="\bprograma" env="kde"
-valid msgstr="\baplicación" env="kde"
+valid msgstr="\baplicativos?\b"
+valid msgstr="\baplicacións?\b"  # acción ou efecto de aplicar
+valid msgstr="\bapplications?\b"
 hint="«application» tradúcese como «aplicativo»"
 
 # «aplicativo» traduce a «application»
-[\baplicativo]i
+[\baplicativos?\b]i
 id="PT-2011-dual_application"
-valid msgid="\bapplication" !env="kde"
-valid msgid="\bapps?\b" !env="kde"
+valid msgid="\bapplications?\b"
+valid msgid="\b(web)?apps?\b"
+valid msgid="\bapp_?ids?\b"  # identificador de aplicativo
+valid msgid="\bapp_?keys?\b"  # chave de aplicativo
+valid msgid="\bapp_?names?\b"  # nome de aplicativo
+valid msgid="\bmailers?\b"  # aplicativo de correo
 hint="«aplicativo» traduce a «application» e a «app»"
 
 # «arrow» tradúcese como «frecha»
-{\barrow}i
+{\barrows?\b}i
 id="PT-2013_arrow"
-valid msgstr="\bfrecha"
+valid msgstr="\bfrechas?\b"
+valid msgstr="\barrows?\b"
 hint="«arrow» tradúcese como «frecha»"
 
 # «frecha» traduce a «arrow»
-[\bfrecha]i
+[\bfrechas?\b]i
 id="PT-2013-dual_arrow"
-valid msgid="\barrow"
+valid msgid="\barrows?\b"
+valid msgid="\bSagitta\b"
 hint="«frecha» traduce a «arrow»"
 
 # «assign» tradúcese como «asignar»
-{\bassign}i
-valid before="ment"
+{\bassign(ed|ing|s)?\b}i
 id="PT-2013_assign"
-valid msgstr="\basign(a|o)"
+valid msgstr="\bas[ií]gn[aáeéoó]\w*\b"
 hint="«assign» tradúcese como «asignar»"
 
 # «asignar» traduce a «assign»
-[\basign(ar|a|o)]i
+[\bas(?!igna(cións?|dor(as?|es)?)\b)[ií]gn[aáeéoó]\w*\b]i
 id="PT-2013-dual_assign"
-valid msgid="\bassign"
+valid msgid="\b(re|un)?allocat(e[ds]?|ing)\b"
+valid msgid="\b(re|un)?allocs?\b"
+valid msgid="\b(re|un)?assign(ed|ing|s)?\b"
+valid msgid="\bassignees?\b"  # asignado
 hint="«asignar» traduce a «assign»"
 
 # «assignment» tradúcese como «asignación»
-{\bassignment}i
+{\bassignments?\b}i
 id="PT-2013_assignment"
-valid msgstr="\basignación"
+valid msgstr="\basignacións?\b"
 hint="«assignment» tradúcese como «asignación»"
 
 # «asignación» traduce a «assignment»
-[\basignación]i
+[\basignacións?\b]i
 id="PT-2013-dual_assignment"
-valid msgid="\bassignment"
+valid msgid="\b(re)?allocating\b"
+valid msgid="\b(re)?allocate\b"  # edit auto allocate → editar a asignación automática
+valid msgid="\b(re)?alloc(ation)?s?\b"
+valid msgid="\breassign(ed|ing|s)?\b"  # cambiar de asignación
+valid msgid="\bunassign(ed|ing|s)?\b"  # retirar a asignación
+valid msgid="\b(re)?assignments?\b"
 hint="«asignación» traduce a «assignment»"
 
 # «Attach» tradúcese como «anexar», «conectar»
-{\battach(es|ed|ing|ments?)?}i
+{\battach(e[ds]|ing|ments?)?\b}i
 id="PT-2010_attach"
-valid msgstr="anexar"
-valid !msgstr="adxuntar"
-valid msgstr="\bconect"
+valid msgstr="\ban[eé]x[aáeéoó]\w*\b"
+valid msgstr="\battach(e[ds]|ing|ments?)?\b"
+valid msgstr="\bc[oó]ll[aáeéiíoó]\w*\s+[\w\s]*cariño\b"  # get attached → coller caciño
+valid msgstr="\bcol[oó](c[aáoó]|qu[eé])\w*\b"  # a poster attached to a column → un póster colocado en una columna
+valid msgstr="\bcon[eé]ct[aáeéoó]\w*\b"
 hint="«attach» tradúcese como «anexar», «conectar»"
 
 # «anexar» ou «conectar» traduce a «Attach»
-[\banex[a-z]{2,}]i
+[\ban[eé]x[aáeéoó]\w*\b]i
 id="PT-2010-dual_attach"
-valid msgid="\battach(es|ed|ing|ments?|\b)"
+valid msgid="\battach(e[ds]|ing|ments?)?\b"
+valid msgid="\benclos(e[ds]?|ing|ures?)?\b"
 hint="«anexar» ou «conectar» traduce a «attach»"
 
 # «conectar» traduce a «Attach», «connect», «online»
-[\bconect[a-z]{1,}]i
+[\bcon(?!ect(ábe(is|l)|or(es)?)\b)[eé]ct[aáeéoó]\w*\b]i
 id="noPT-2010-dual_attach2/online"
-valid msgid="\b(re)?attach(\s|ed|s|ing)?"
-valid msgid="\on(\b|-)?line"
-valid msgid="\bconnect"
+valid msgid="\b(re)?attach(e[ds]|ing|ments?)?\b"
+valid msgid="\bon[\s-]?line\b"
+valid msgid="\b(inter|re)?connect(ed|ing|s)?\b"
+valid msgid="\b(inter|re)?connections?\b"  # attempt connection → intentar conectar
+valid msgid="\b(hot)?plug(g(ed|ing)|s)?\b"
 hint="«conectar» traduce a «attach» (e conectar)"
 
 # «Attachment» tradúcese como «anexo» ou «conexión»
-{\battachment}i
+{\battachments?\b}i
 id="PT-2010_attachment"
-valid msgstr="anexo"
-valid !msgstr="adxunto"
-valid msgstr="\bconexión"
+valid msgstr="\banexos?\b"
+valid msgstr="\battachments?\b"
+valid msgstr="\bconexións?\b"
 hint="«attachment» tradúcese como «anexo» ou «conexión»"
 
 # «anexo» ou «conexión» traduce a «Attachment»
-[\banexo]i
+[\banexos?\b]i
 id="PT-2010-dual_attachment"
-valid msgid="\battach"
+valid msgid="\battachments?\b"
+valid msgid="\benclosures?\b"
 hint="«anexo»  ou «conexión» traduce a «attachment»"
 
 # «anexo» ou «conexión» traduce a «Attachment»
-[\bconexión]i
+[\bconexións?\b]i
 id="noPT-2010-dual_attachment2"
-valid after="\bsen\s" msgid="\boff(\s|-)?line"
-valid msgid="\battach"
-valid msgid="\bconnection"
-valid msgid="\bconnecting" env="kde"
+valid after="\bsen\s+" msgid="\boff[\s-]*line\b"
+valid msgid="\battachments?\b"
+valid msgid="\bconnect\b"  # connect sequence → secuencia de conexión
+valid msgid="\bconnected\b"  # Last Connected → última conexión
+valid msgid="\bconnecting\b"  # speed up connecting somewhere → acelerar a conexión a algures
+valid msgid="\b(re)?connections?\b"
+valid msgid="\bkeepalive\b"  # mantemento de conexión
+valid msgid="\blink\s+roads?\b"
+valid msgid="\bonline\b"  # online status → estado de conexión
+valid msgid="\bwi([\s-]*fi|reless)\b"  # WiFi → conexión sen fíos
 hint="«conexión» traduce a «connection» e «attachment»"
 
 # «attribute» tradúcese como «atributo»
 {\battributes?\b}i
 id="PT-2013_attribute"
-valid msgstr="\batributos?"
+valid msgstr="\batributos?\b"
+valid msgstr="\battributes?\b"
 hint="«attribute» tradúcese como «atributo»"
 
 # «atributo» traduce a «attribute»
-[\batributos?]i
+[\batributos?\b]i
 id="PT-2013-dual_attribute"
 valid msgid="\battributes?\b"
 hint="«atributo» traduce a «attribute»"
 
 # «background» tradúcese como «fondo»
-{\bbackground}i
+{\bbackground(?!\s+on\b)s?\b}i
 id="PT-2013_background"
-valid msgstr="\bfondo"
+valid msgstr="\bantecedentes\b"
+valid msgstr="\bbackgrounds?\b"
+valid msgstr="\bfondos?\b"
+valid msgstr="\bpaisaxistas?\b"
+valid msgstr="\bsegundo\s+plano\b"
 hint="«background» tradúcese como «fondo»"
 
 # «fondo» traduce a «background»

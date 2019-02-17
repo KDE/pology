@@ -2,19 +2,18 @@
 # by the KDE Galician Team (proxecto@trasno.net)
 # License: GPLv3
 
+# Remove XML entities.
+addFilterRegex match="&nbsp;" repl=" " on="pmsgid,pmsgstr"
+addFilterRegex match="\&[\w\d\.\-]+?\;" repl="" on="pmsgid,pmsgstr"
+
 # Remove literal parts of messages, according to the markup
 addFilterHook name="remove/remove-marlits-msg" on="msg"
 # Remove entities present both in source and target text
 addFilterHook name="remove/remove-paired-ents" on="msg"
 # Remove accelerator mark
 addFilterHook name="remove/remove-accel-msg-greedy" on="msg"
-# Replace format directives by a tilde
-addFilterHook name="remove/remove-fmtdirs-msg-tick~'$'" on="msg"
 # Replace unvariant parts of the message
 addFilterHook name="remove/remove_literals_msg_tick~u'£'" on="msg"
-
-# Remove XML entities.
-addFilterRegex match="\&[\w\d\.\-]+?\;" repl="" on="pmsgid,pmsgstr"
 
 # Remove function calls like foo(x, y).
 # Ignore foo(s) and foo(es), which are common ways of indicating optional
@@ -25,7 +24,7 @@ addFilterRegex match="\w+\((?!e?s\))[\w\s\.\,\-\_]*?\)" repl="€" on="pmsgid,pm
 addFilterRegex match="\<\s*(bcode|command|envar|filename|icode|shortcut|placeholder|style|code|tt|literal|screen|option|keycap|userinput|systemitem|prompt|function|foreignphrase|varname|programlisting|token|markup|parameter|keysym|methodname|sgmltag|arg|classname|type)\b.*?\b\1\>" repl="" on="pmsgid,pmsgstr"
 addFilterRegex match="\<\s*(email|link)\s*>\b.*?\b\1\>" repl="" on="pmsgid,pmsgstr"
 addFilterRegex match="\<\s*br\s*/?\s*\>" repl=" " on="pmsgid,pmsgstr"
-addFilterRegex match="\<\s*/\s*(li|p|ul)\s*\>" repl=" " on="pmsgid,pmsgstr"
+addFilterRegex match="\<\s*/\s*(h[1-6]|li|p|para|title|ul)\s*\>" repl=" " on="pmsgid,pmsgstr"
 addFilterRegex match="\<.*?\>" repl="" on="pmsgid,pmsgstr"
 
 # Alternatives directives
