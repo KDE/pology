@@ -35,6 +35,7 @@ valid msgstr="unitat d'òptica adaptativa"
 hint="Es tradueix per «unitat d'òptica adaptativa» (app-kstars)"
 
 {\bAlignment\b}i
+valid msgid="ekos-alignment"
 valid msgid="\bpost.?Alignment\b"
 valid msgstr="alineació"
 hint="Es tradueix per «alineació» (app-kstars)"
@@ -48,6 +49,14 @@ hint="Es tradueix per «alineació» (app-kstars)"
         valid msgstr="alineació posterior de l'enfocament"
         hint="Es tradueix per «alineació posterior de l'enfocament» (app-kstars)"
 
+    {\baligned\b}i
+    valid msgstr="alinea(da|t)"
+    hint="Es tradueix per «alineat/da» (app-kstars)"
+
+    {\bmisalignment\b}i
+    valid msgstr="desalineació"
+    hint="Es tradueix per «desalineació» (app-kstars)"
+
 # # elevació
 # https://ca.wikipedia.org/wiki/Altitud
 {\baltitude\b}i
@@ -55,24 +64,34 @@ valid msgstr="altitud"
 hint="Es tradueix per «altitud» (app-kstars)"
 
 {\bAngle\b}i
+valid msgid="\bhour\sAngle\b"
 valid msgid="\bAngle\svalue\b"
 valid msgid="\bposition\sangle\b"
 valid msgstr="angle"
 hint="Es tradueix per «angle» (app-kstars)"
 
+    {\bhour\sAngle\b}i
+    valid msgstr="angle horari"
+    hint="Es tradueix per «angle horari» (app-kstars)"
+
     {\bAngle\svalue\b}i
-    valid msgstr="Valor angular"
+    valid msgstr="\bValor angular\b"
     hint="Es tradueix per «Valor angular» (app-kstars)"
 
     # https://ca.wikipedia.org/wiki/Angle_de_posició
-    {\bposition\sangle\b}i
-    valid msgstr="angle de posició"
-    hint="Es tradueix per «angle de posició» (app-kstars)"
+    {\b(position\sangle|PA)\b}i
+    valid msgid="\bSync\sFOV\sto\sPA\b"
+    valid msgstr="\b(angle de posició|AP)\b"
+    hint="Es tradueix per «angle de posició, AP» (app-kstars)"
+
+        {\bSync\sFOV\sto\sPA\b}i
+        valid msgstr="\bSincronitza el CDV amb l'AP\b"
+        hint="Es tradueix per «Sincronitza el CDV amb l'AP» (app-kstars)"
 
 # https://ca.wikipedia.org/wiki/Minut_d'arc
 {\b(arcmin(utes?)?|minutes?(\sof)?\sarc)\b}i
-valid msgstr="minuts? d'arc"
-valid msgstr="min\. d'arc"
+valid msgstr="\bminuts? d'arc\b"
+valid msgstr="\bmin\. d'arc\b"
 hint="Es tradueix per «minut/s d'arc, min. d'arc (Abreujament en anglès: arcmin, amin, am, MOA)» (app-kstars)"
 
 # https://ca.wikipedia.org/wiki/Minut_d'arc
@@ -88,6 +107,7 @@ hint="Es tradueix per «Segur que voleu» (app-kstars)"
 {\bAstrometry\b}i
 valid msgid="Astrometry\.cfg"
 valid msgid="astrometry\.net"
+valid msgid="\/astrometry"
 valid msgstr="astrometry-data" # #
 valid msgstr="fitxer de configuració de l'astrometria"
 valid msgstr="astrometria"
@@ -95,7 +115,8 @@ hint="Es tradueix per «astrometria» (app-kstars)"
 
     {\bastrometry\.net\b}i
     valid msgid="^Astrometry\.net$"
-    valid msgid="\/\/astrometry\.net\/"
+    valid msgid="(data\.|\/\/)astrometry\.net"
+    valid msgid="sudo apt(.?get)? install astrometry.net"
     valid msgstr="«astrometry\.net»"
     hint="Es tradueix per « «astrometry.net» (amb les cometes angleses)» (app-kstars)"
 
@@ -110,6 +131,11 @@ valid ctx="^City\sin\s"
 valid msgstr="unitats? astronòmi(ca|ques)"
 valid msgstr="\bUA\b"
 hint="Es tradueix per «unitat/s astronòmica/ques -UA-» (app-kstars)"
+
+# https://ca.wikipedia.org/wiki/Astrofotografia
+{\bastrophotography\b}i
+valid msgstr="\bastrofotografia\b"
+hint="Es tradueix per «astrofotografia» (app-kstars)"
 
 # https://en.wikipedia.org/wiki/Dither
 # https://ca.wikipedia.org/wiki/Tramat_(informàtica)
@@ -130,16 +156,34 @@ hint="Es tradueix per «guiatge automàtic» (app-kstars)"
     {\bGuider\b}i
     valid msgstr="Sistema de guiat"
     hint="Es tradueix per «Sistema de guiat» (app-kstars)"
+ 
+        {\bguide\shead\b}i
+        valid msgstr="guiatge del capçal"
+        hint="Es tradueix per «guiatge del capçal» (app-kstars)"
 
     {\bGuiding\b}i
     valid msgid="\bAuto.?guid(e|ing)\b"
+    valid msgid="\bfocusing\sor\sguiding\b"
     valid msgstr="guiatge"
     hint="Es tradueix per «guiatge» (app-kstars)"
+
+        {\bfocusing\sor\sguiding\b}i
+        valid msgstr="\benfocar o guiar\b"
+        hint="Es tradueix per «enfocar o guiar» (app-kstars)"
 
 # https://ca.wikipedia.org/wiki/Azimut
 {\bazimuth\b}i
 valid msgstr="azimut"
 hint="Es tradueix per «azimut» (app-kstars)"
+
+{\bbatch\b}i
+valid msgid="\bbatch\smode\b"
+valid msgstr="\bper lots\b"
+hint="Es tradueix per «per lots» (app-kstars)"
+
+    {\bbatch\smode\b}i
+    valid msgstr="\bmode per lots\b"
+    hint="Es tradueix per «mode per lots» (app-kstars)"
 
 # https://ca.wikipedia.org/wiki/Filtre_mosaic_de_Bayer
 {\bbayer\b}i
@@ -157,12 +201,17 @@ hint="Es tradueix per «filtre mosaic de Bayer» (app-kstars)"
     hint="Es tradueix per «patró de Bayer» (app-kstars)"
 
     {\bbayered\b}i
-    valid msgstr="construïda amb el filtre mosaic de Bayer"
-    hint="Es tradueix per «construïda amb el filtre mosaic de Bayer» (app-kstars)"
+    valid msgstr="construïd(a|es) amb el filtre mosaic de Bayer"
+    hint="Es tradueix per «construïda/es amb el filtre mosaic de Bayer» (app-kstars)"
 
     {\bdebayer\b}i
-    valid msgstr="reconstruir des de Bayer"
-    hint="Es tradueix per «reconstruir des de Bayer» (app-kstars)"
+    valid msgid="\bauto.?debayer\b"
+    valid msgstr="reconstr(ueix|ir) des de Bayer"
+    hint="Es tradueix per «reconstrueix/ir des de Bayer» (app-kstars)"
+
+        {\bauto.?debayer\b}i
+        valid msgstr="Reconstrucció automàtica des de Bayer"
+        hint="Es tradueix per «Reconstrucció automàtica des de Bayer» (app-kstars)"
 
     {\b(debayer|demosaic)ing\b}i
     valid msgid="\b(debayer|demosaic)ing\salgorithm\b"
@@ -170,12 +219,29 @@ hint="Es tradueix per «filtre mosaic de Bayer» (app-kstars)"
     hint="Es tradueix per «reconstrucció des de Bayer» (app-kstars)"
 
         {\b(debayer|demosaic)ing\salgorithm\b}i
+        valid msgid="\b(debayer|demosaic)ing\salgorithm\sand\spattern\b"
         valid msgstr="algoritme de reconstrucció des de Bayer"
         hint="Es tradueix per «algoritme de reconstrucció des de Bayer» (app-kstars)"
+
+            {\b(debayer|demosaic)ing\salgorithm\sand\spattern\b}i
+            valid msgstr="algoritme i el patró de reconstrucció des de Bayer"
+            hint="Es tradueix per «algoritme i el patró de reconstrucció des de Bayer» (app-kstars)"
+
+    {\bdebayered\b}i
+    valid msgstr="reconstruïd(a|es) amb el filtre mosaic de Bayer"
+    hint="Es tradueix per «reconstruïda/es amb el filtre mosaic de Bayer» (app-kstars)"
 
 {\bBinoculars\b}i
 valid msgstr="Prismàtics"
 hint="Es tradueix per «Prismàtics» (app-kstars)"
+
+{\bbullseye\b}i
+valid msgstr="\bull de bou\b"
+hint="Es tradueix per «ull de bou» (app-kstars)"
+
+# # {\bcamera\sfeed\b}i
+# # valid msgstr=""
+# # hint="Es tradueix per «» (app-kstars)"
 
 {\bCalibration\b}i
 valid msgstr="calibratge"
@@ -185,15 +251,29 @@ hint="Es tradueix per «calibratge» (app-kstars)"
 valid msgstr="punts? cardinals?"
 hint="Es tradueix per «punt/s cardinal/s» (app-kstars)"
 
+# https://ca.wikipedia.org/wiki/Pol_celeste
+{\bcelestial\spole\b}i
+valid msgid="\bNorth\scelestial\spole\b"
+valid msgstr="\bpol celeste\b"
+hint="Es tradueix per «pol celeste» (app-kstars)"
+
+    {\bNorth\scelestial\spole\b}i
+    valid msgstr="\bpol nord celeste\b"
+    hint="Es tradueix per «pol nord celeste» (app-kstars)"
+
 # https://ca.wikipedia.org/wiki/Cúmul_estel·lar
 {\bClusters?\b}i
-valid msgstr="\bStar\sClusters?\b"
+valid msgid="\bStar\sClusters?\b"
 valid msgstr="Cúmuls?"
 hint="Es tradueix per «Cúmul/s» (app-kstars)"
 
 {\bcolor\sscheme\b}i
 valid msgstr="esquema de colors"
 hint="Es tradueix per «esquema de colors» (app-kstars)"
+
+    {\bcolor\sschemes\b}i
+    valid msgstr="esquemes de colors"
+    hint="Es tradueix per «esquemes de colors» (app-kstars)"
 
 # https://ca.wikipedia.org/wiki/Brúixola
 {\bCompass\b}i
@@ -212,6 +292,23 @@ hint="Es tradueix per «punt/s cardinal/s» (app-kstars)"
 valid msgstr="constel·lació"
 hint="Es tradueix per «constel·lació» (app-kstars)"
 
+{\bcorrection\svector\b}i
+valid msgstr="vector de correcció"
+hint="Es tradueix per «vector de correcció» (app-kstars)"
+
+{\bcross.?hairs?\b}i
+valid msgstr="\bpunts? de mira\b"
+hint="Es tradueix per «punt/s de mira» (app-kstars)"
+
+# # 
+{\bDark\b}i
+valid msgstr="\bObscuritat\b"
+hint="Es tradueix per «Obscuritat» (app-kstars)"
+
+    {\bAuto\sDark\b}i
+    valid msgstr="\bObscuritat automàtica\b"
+    hint="Es tradueix per «Obscuritat automàtica» (app-kstars)"
+
 {\bData\sAcquisition\b}i
 valid msgstr="Adquisició de les dades"
 hint="Es tradueix per «Adquisició de les dades» (app-kstars)"
@@ -224,6 +321,7 @@ hint="Es tradueix per «albada, sortida del Sol» (app-kstars)"
 
 # https://ca.wikipedia.org/wiki/Declinació_(astronomia)
 {\bDec\b}i
+valid msgid="\bDec\s2016\b"
 valid msgstr="\bDec\b"
 hint="Es tradueix per «Dec -declinació-» (app-kstars)"
 
@@ -268,6 +366,7 @@ hint="Es tradueix per «controlador» (app-kstars)"
 
 # https://ca.wikipedia.org/wiki/Eclíptica
 {\bEcliptic\b}i
+valid msgid="ecliptic;"
 valid msgid="\bEcliptic\sCoordinate\b"
 valid msgstr="Eclípti(ca|ques)"
 hint="Es tradueix per «Eclíptica/ques» (app-kstars)"
@@ -280,6 +379,32 @@ hint="Es tradueix per «Eclíptica/ques» (app-kstars)"
         {\bEcliptic\sCoordinate\ssystem\b}i
         valid msgstr="Sistema de coordenades eclíptic"
         hint="Es tradueix per «Sistema de coordenades eclíptic» (app-kstars)"
+
+{\bCelestial\sEquator\b}i
+valid msgstr="equador celeste"
+hint="Es tradueix per «equador celeste» (app-kstars)"
+
+{\blocations?\b}i
+id="appks-location"
+valid msgid="\bLocation\sInfo\sBox\b"
+valid msgid="btarget\slocation\b"
+valid msgid="\btelescope\slocation\b"
+valid msgid="\btime\sand\slocation\ssettings\b"
+valid msgstr="emplaçaments?"
+hint="Es tradueix per «emplaçament/s (del dispositiu) -també ubicació (de l'objectiu) o lloc (punt de la lent, afeu-hi l'id)-» (app-kstars)"
+
+    {\btarget\slocation\b}i
+    valid msgstr="ubicació de l'objectiu"
+    hint="Es tradueix per «ubicació de l'objectiu» (app-kstars)"
+
+    {\btelescope\slocation\b}i
+    valid msgid="\bactual\stelescope\slocation\b"
+    valid msgstr="«emplaçament del telescopi"
+    hint="Es tradueix per «emplaçament del telescopi» (app-kstars)"
+
+        {\bactual\stelescope\slocation\b}i
+        valid msgstr="emplaçament real del telescopi"
+        hint="Es tradueix per «emplaçament real del telescopi» (app-kstars)"
 
 # https://ca.wikipedia.org/wiki/Línia_equatorial
 {\bEquator\b}i
@@ -301,18 +426,40 @@ hint="Es tradueix per «equip» (app-kstars)"
 
 {\bfind\b}i
 valid msgid="\bfind\sout\b"
-valid msgstr="troba"
-hint="Es tradueix per «troba» (app-kstars)"
+valid msgstr="trob(a|eu)"
+hint="Es tradueix per «troba/eu» (app-kstars)"
 
     {\bfind\sout\b}i
     valid msgstr="descobriu"
-# #     valid msgstr="esbrinar"
+    valid msgstr="esbrinar"
     hint="Es tradueix per «descobriu, esbrinar» (app-kstars)"
+
+# https://en.wikipedia.org/wiki/Finderscope
+{\bfinderscope\b}i
+valid msgstr="\bcercador\b"
+hint="Es tradueix per «cercador» (app-kstars)"
 
 # https://en.wikipedia.org/wiki/Telecompressor
 {\bfocal\sreducer\b}i
 valid msgstr="reductor focal"
 hint="Es tradueix per «reductor focal» (app-kstars)"
+
+{\bfocus\b}i
+valid msgid="\bFocus\sInfo\sBox\b"
+valid msgid="\bprime\sfocus\b"
+valid msgid="tool-ekos-focus"
+valid msgstr="enfoca(ment)?"
+valid msgstr="enfoqui"
+hint="Es tradueix per «enfoca, enfocament, enfoqui» (app-kstars)"
+
+    {\bfocusing\b}i
+    valid msgid="\bfocusing\sor\sguiding\b"
+    valid msgstr="enfoca(da|ment|r)"
+    hint="Es tradueix per «enfocament, enfocada» (app-kstars)"
+
+    {\bprime\sfocus\b}i
+    valid msgstr="enfocament primari"
+    hint="Es tradueix per «enfocament primari» (app-kstars)"
 
 # https://ca.wikipedia.org/wiki/Camp_de_visió
 {\bFOV\b}i
@@ -329,6 +476,15 @@ valid msgstr="fotogram(a|es)"
 valid msgstr="enquadr(a|i)"
 hint="Es tradueix per «fotograma/es, enquadra/i» (app-kstars)"
 
+    {\bframming\b}i
+    valid msgstr="enquadrament"
+    hint="Es tradueix per «enquadrament» (app-kstars)"
+
+# # 
+{\bFW\b}i
+valid msgstr="\bAC\b"
+hint="Es tradueix per «AC» (app-kstars)"
+
 # Half-Flux-Radius (HFR)
 # {\b\b}i
 # valid msgstr=""
@@ -336,6 +492,7 @@ hint="Es tradueix per «fotograma/es, enquadra/i» (app-kstars)"
 
 # https://ca.wikipedia.org/wiki/Horitzó
 {\bHorizon\b}i
+valid msgid="horizon;"
 valid msgstr="Horitzó"
 hint="Es tradueix per «Horitzó» (app-kstars)"
 
@@ -353,16 +510,48 @@ hint="Es tradueix per «Objecte/s de l'IC» (app-kstars)"
 
 {\bimaging\b}i
 valid msgid="\bimaging\sprocess\b"
+valid msgstr="imatges obtingudes"
 valid msgstr="obtenció de les imatges"
-hint="Es tradueix per «obtenció de les imatges» (app-kstars)"
+hint="Es tradueix per «obtenció de les imatges, imatges obtingudes» (app-kstars)"
 
     {\bimaging\sprocess\b}i
     valid msgstr="procés d'obtenció de les imatges"
     hint="Es tradueix per «procés d'obtenció de les imatges» (app-kstars)"
 
 {\bInfo\sBox\b}i
+valid msgid="\bFocus\sInfo\sBox\b"
+valid msgid="\bLocation\sInfo\sBox\b"
+valid msgid="\bTime\sInfo\sBox\b"
 valid msgstr="rètol informatiu"
 hint="Es tradueix per «rètol informatiu» (app-kstars)"
+
+    {\bInfo\sBoxes\b}i
+    valid msgstr="rètols informatius"
+    hint="Es tradueix per «rètols informatius» (app-kstars)"
+
+    {\bFocus\sInfo\sBox\b}i
+    valid msgstr="rètol informatiu de l'enfocament"
+    hint="Es tradueix per «rètol informatiu de l'enfocament» (app-kstars)"
+
+        {\bFocus\sBox\b}i
+        valid msgstr="rètol de l'enfocament"
+        hint="Es tradueix per «rètol de l'enfocament» (app-kstars)"
+
+    {\bLocation\sInfo\sBox\b}i
+    valid msgstr="rètol informatiu de l'emplaçament"
+    hint="Es tradueix per «rètol informatiu de l'emplaçament» (app-kstars)"
+
+        {\bLocation\sBox\b}i
+        valid msgstr="rètol de l'emplaçament"
+        hint="Es tradueix per «rètol de l'emplaçament» (app-kstars)"
+
+    {\bTime\sInfo\sBox\b}i
+    valid msgstr="rètol informatiu del temps"
+    hint="Es tradueix per «rètol informatiu del temps» (app-kstars)"
+
+        {\bTime\sBox\b}i
+        valid msgstr="rètol del temps"
+        hint="Es tradueix per «rètol del temps» (app-kstars)"
 
 {\bInvalid\b}i
 valid msgstr="no (és |ser(à|an) |són )?vàlid(a|es|s)?"
@@ -385,9 +574,36 @@ hint="Es tradueix per «dia julià, DJ» (app-kstars)"
     valid msgstr="\bdia gregorià a un de julià\b"
     hint="Es tradueix per «dia gregorià a un de julià» (app-kstars)"
 
+# # 
+{\bLive\b}i
+valid msgid="\bLive\sVideo\b"
+valid msgstr="\ben directe\b"
+hint="Es tradueix per «en directe» (app-kstars)"
+
+    {\bLive\sVideo\b}i
+    valid msgstr="\bVídeo en directe\b"
+    hint="Es tradueix per «Vídeo en directe» (app-kstars)"
+
 {\bmarker\sfile\b}i
 valid msgstr="fitxer de marcadors"
 hint="Es tradueix per «fitxer de marcadors» (app-kstars)"
+
+# # 
+{\bMeasure\sAz\sError\b}i
+valid msgstr="\bMesura de l'error d'azi\."
+hint="Es tradueix per «Mesura de l'error d'azi.» (app-kstars)"
+
+    {\bCorrect\sAz\sError\b}i
+    valid msgstr="\bCorrecció de l'error d'azi\."
+    hint="Es tradueix per «Correcció de l'error d'azi.» (app-kstars)"
+
+    {\bCorrect\sAlt\sError\b}i
+    valid msgstr="\bCorrecció de l'error d'elev\."
+    hint="Es tradueix per «Correcció de l'error d'elev.» (app-kstars)"
+
+    {\bMeasure\sAlt\sError\b}i
+    valid msgstr="\bMesura de l'error d'elev\."
+    hint="Es tradueix per «Mesura de l'error d'elev.» (app-kstars)"
 
 {\bmeridian\sflip\b}i
 valid msgstr="inversió del meridià"
@@ -422,6 +638,7 @@ hint="Es tradueix per «imatge en mosaic» (app-kstars)"
     valid msgstr="súper imatge en mosaic"
     hint="Es tradueix per «súper imatge en mosaic» (app-kstars)"
 
+# https://en.wikipedia.org/wiki/Telescope_mount
 {\bmount\b}i
 valid ctx="^City\sin\s"
 valid msgstr="\bmuntura\b"
@@ -473,7 +690,14 @@ hint="Es tradueix per «Observatori» (app-kstars)"
     valid msgstr="Observatori Yerkes"
     hint="Es tradueix per «Observatori Yerkes» (app-kstars)"
 
+# http://sergioariasfotografia.es/blog/que-es-un-objetivo-parafocal/
+{\bparafocal\b}i
+valid msgstr="parafocals?"
+hint="Es tradueix per «parafocal/s» (app-kstars)"
+
 {\bParallax\b}i
+valid msgid="ai-parallax"
+valid msgid="parallax;"
 valid msgstr="paral·laxi"
 hint="Es tradueix per «paral·laxi» (app-kstars)"
 
@@ -526,12 +750,17 @@ hint="Es tradueix per «procediment» (app-kstars)"
         {\bStart.?up\b}i
         valid msgid="\bStart.?up\sprocedure\b"
         valid msgid="\bStart.?up\stime\b"
+        valid msgid="\bStart.?up\sWizard\b"
         valid msgstr="inici"
         hint="Es tradueix per «inici» (app-kstars)"
 
             {\bStart.?up\stime\b}i
             valid msgstr="temps d'inici"
             hint="Es tradueix per «temps d'inici» (app-kstars)"
+
+            {\bStart.?up\sWizard\b}i
+            valid msgstr="Assistent d'inici"
+            hint="Es tradueix per «Assistent d'inici» (app-kstars)"
 
             {\blead\stime\b}i
             valid msgstr="temps de lliurament"
@@ -540,20 +769,26 @@ hint="Es tradueix per «procediment» (app-kstars)"
 # https://ca.wikipedia.org/wiki/Ascensió_recta
 {\bRA\b}i
 valid ctx="^City\sin\s"
+valid msgid="\bra\.rishab\b"
 valid msgstr="\bAR\b"
 hint="Es tradueix per «AR -ascensió recta-» (app-kstars)"
 
 {\brises?\b}i
 valid msgid="\brises\sat\b"
 valid msgstr="per sota l'horitzó"
-valid msgstr="\bsortida\b"
+valid msgstr="\bsortid(a|es)\b"
 valid msgstr="\bsurt\b"
-hint="Es tradueix per «sortida, surt» (app-kstars)"
+hint="Es tradueix per «sortida/es, surt» (app-kstars)"
 
     {\brises\sat\b}i
     valid msgstr="\bsurt a les\b"
     valid msgstr="\bSortida a les\b"
     hint="Es tradueix per «Sortida a les, surt a les» (app-kstars)"
+
+# # cal mirar
+{\bRMS\b}i
+valid msgstr="\bRMS\b"
+hint="Es tradueix per «RMS» (app-kstars)"
 
 {\brobotic\b}i
 valid msgid="\brobotic\soperation\b"
@@ -564,9 +799,33 @@ hint="Es tradueix per «robotitzat» (app-kstars)"
     valid msgstr="operació robòtica"
     hint="Es tradueix per «operació robòtica» (app-kstars)"
 
-{\brotation\b}i
-valid msgstr="rotaci(ó|onal|ons)"
-hint="Es tradueix per «rotació/onal, rotacions» (app-kstars)"
+# # 
+{\brotator\b}i
+valid msgid="\bfield\srotators?\b"
+valid msgid="\brotator\sangle\b"
+valid msgstr="rotador"
+hint="Es tradueix per «rotador» (app-kstars)"
+
+    {\brotators\b}i
+    valid msgid="\bfield\sbrotators?\b"
+    valid msgstr="rotadors"
+    hint="Es tradueix per «rotadors» (app-kstars)"
+
+        {\bfield\srotators?\b}i
+        valid msgstr="rotadors? de camp"
+        hint="Es tradueix per «rotador/s de camp» (app-kstars)"
+
+        {\brotator\sangle\b}i
+        valid msgstr="angle del rotador"
+        hint="Es tradueix per «angle del rotador» (app-kstars)"
+
+    {\brotating\b}i
+    valid msgstr="\brotar\b"
+    hint="Es tradueix per «rotar» (app-kstars)"
+
+    {\brotation\b}i
+    valid msgstr="rotaci(ó|onal|ons)"
+    hint="Es tradueix per «rotació/onal, rotacions» (app-kstars)"
 
 {\bRoute\b}i
 valid msgstr="Ruta"
@@ -591,6 +850,7 @@ hint="Es tradueix per «programa» (app-kstars)"
         hint="Es tradueix per «temps programat» (app-kstars)"
 
     {\bscheduler\b}i
+    valid msgid="tool-ekos-scheduler"
     valid msgid="scheduler\sjobs?"
     valid msgstr="programador"
     hint="Es tradueix per «programador» (app-kstars)"
@@ -618,8 +878,13 @@ valid msgstr="\bposta a les\b"
 hint="Es tradueix per «es pon a les, posta a les» (app-kstars)"
 
 {\bSetup\sWizard\b}i
+valid msgid="\bTelescope\sSetup\sWizard\b"
 valid msgstr="Assistent d'engegada"
 hint="Es tradueix per «Assistent d'engegada» (app-kstars)"
+
+    {\bTelescope\sSetup\sWizard\b}i
+    valid msgstr="assistent de configuració del telescopi"
+    hint="Es tradueix per «assistent de configuració del telescopi» (app-kstars)"
 
 {\bsequence\b}i
 valid msgid="\bsequence\sfile\b"
@@ -655,6 +920,7 @@ valid msgid="FOWL OF SKY"
 valid msgid="JAVELIN OF SKY"
 valid msgid="SHRINE OF SKY"
 valid msgid="\bSky\sChart\b"
+valid msgid="\bsky\scoordinates\b"
 valid msgid="\bsky\sdisplay\b"
 valid msgid="\bsky\smap\b"
 valid msgid="\bsky.?objects?\b"
@@ -667,14 +933,18 @@ hint="Es tradueix per «Cel» (app-kstars)"
     valid msgstr="carta estel·lar"
     hint="Es tradueix per «carta estel·lar» (app-kstars)"
 
+    {\bsky\scoordinates\b}i
+    valid msgstr="coordenades celestes"
+    hint="Es tradueix per «coordenades celestes» (app-kstars)"
+
     {\bsky\sdisplay\b}i
     valid msgstr="vista del cel"
     hint="Es tradueix per «vista del cel» (app-kstars)"
 
-# # mapa celeste
+# # mapa del cel
     {\bsky\smap\b}i
-    valid msgstr="mapa del cel"
-    hint="Es tradueix per «mapa del cel» (app-kstars)"
+    valid msgstr="mapa celeste"
+    hint="Es tradueix per «mapa celeste» (app-kstars)"
 
 # # objecte al cel
     {\bsky.?objects?\b}i
@@ -692,20 +962,33 @@ valid msgstr="mode de repòs"
 hint="Es tradueix per «mode de repòs» (app-kstars)"
 
 # # 
-{\bslew\b}i
-valid msgstr="orient(a|ació|eu)?"
-hint="Es tradueix per «orienta/ció, orienteu» (app-kstars)"
+{\bslews?\b}i
+valid msgstr="orient(a|ació|ar|eu)?"
+hint="Es tradueix per «orienta/ció, orientar, orienteu» (app-kstars)"
 
     {\bSlewing\b}i
+    valid msgid="\banimated\sslewing\b"
+    valid msgid="\bprocess\sof\sslewing\b"
     valid msgid="wh(en|ile) slewing"
-    valid msgid="slewing mode"
-    valid msgstr="Està orientant"
-    valid msgstr="orienta"
-    hint="Es tradueix per «Està orientant» (app-kstars)"
+    valid msgid="\bslewing\smode\b"
+    valid msgstr="orient(a|ant|i)"
+    hint="Es tradueix per «orienta, orientant», orienti (app-kstars)"
 
-    {\bslewing\smode\b}i
-    valid msgstr="mode transició"
-    hint="Es tradueix per «mode transició» (app-kstars)"
+        {\banimated\sslewing\b}i
+        valid msgstr="transició animada"
+        hint="Es tradueix per «transició animada» (app-kstars)"
+
+        {\bprocess\sof\sslewing\b}i
+        valid msgstr="procés d'orientació"
+        hint="Es tradueix per «procés d'orientació» (app-kstars)"
+
+        {\bslewing\smode\b}i
+        valid msgstr="mode transició"
+        hint="Es tradueix per «mode transició» (app-kstars)"
+
+{\bSolution\sResults\b}i
+valid msgstr="\bResultats de la solució\b"
+hint="Es tradueix per «Resultats de la solució» (app-kstars)"
 
 {\bSolver\b}i
 valid msgstr="Solucionador"
@@ -714,9 +997,14 @@ hint="Es tradueix per «Solucionador» (app-kstars)"
 {\bstar\b}i
 id="appks-star"
 valid msgid="\bAmerican\sAssociation\sof\sVariable\sStar\sObservers\b"
-valid msgid="\bStar\sChart\b"
+valid msgid="\bStar\sCatalogs?\b"
+valid msgid="\bStar\sCharts?\b"
 valid msgid="\bStar\sClusters?\b"
+valid msgid="\bStar\scolors?\b"
+valid msgid="\bStar\sdensity\b"
 valid msgid="\bStar\sdrift\b"
+valid msgid="\bstar\sfields?\b"
+valid msgid="\bStar\sglobe\b"
 valid msgid="\bStar.?Hop\b"
 valid msgid="\bStar\sHopp(er|ing)\b"
 valid msgid="\bStar\sMagnitudes\b"
@@ -729,25 +1017,56 @@ valid msgstr="estrella"
 hint="Es tradueix per «estrella» (app-kstars)"
 
     # https://ca.wikipedia.org/wiki/Associació_Americana_d%27Observadors_d%27Estrelles_Variables
-    {\bAmerican\sAssociation\sof\sVariable\sStar\sObservers\b}i
+    {\b(American\sAssociation\sof\sVariable\sStar\sObservers|AAVSO)\b}i
     valid msgstr="Associació Americana d'Observadors d'Estrelles Variables"
+    valid msgstr="AAVSO"
     hint="Es tradueix per «Associació Americana d'Observadors d'Estrelles Variables» (app-kstars)"
 
-        {\bAAVSO\b}i
-        valid msgstr="\bAAVSO\b"
-        hint="Es tradueix per «Carta estel·lar» (app-kstars)" 
+    {\bStar\sCatalog\b}i
+    valid msgstr="Catàleg d'estrelles"
+    hint="Es tradueix per «Catàleg d'estrelles» (app-kstars)"
 
-    {\bStar\sChart\b}i
-    valid msgstr="Carta estel·lar"
-    hint="Es tradueix per «Carta estel·lar» (app-kstars)"
+        {\bStar\sCatalogs\b}i
+        valid msgstr="Catàlegs d'estrelles"
+        hint="Es tradueix per «Catàlegs d'estrelles» (app-kstars)"
+
+    {\bStar\sCharts?\b}i
+    valid msgstr="Cart(a|es) estel·lars?"
+    hint="Es tradueix per «Carta/es estel·lar/s» (app-kstars)"
 
     {\bStar\sClusters?\b}i
     valid msgstr="cúmuls? d'estrelles"
     hint="Es tradueix per «Cúmul/s d'estrelles» (app-kstars)"
 
+    {\bStar\scolor\b}i
+    valid msgstr="color de l'estrella"
+    hint="Es tradueix per «color de l'estrella» (app-kstars)"
+
+        {\bStar\scolors\b}i
+        valid msgid="\bStar\scolors\sand\sTemperatures\b"
+        valid msgstr="colors de les estrelles"
+        hint="Es tradueix per «colors de les estrelles» (app-kstars)"
+
+        {\bStar\scolors\sand\sTemperatures\b}i
+        valid msgstr="colors i temperatures de les estrelles"
+        hint="Es tradueix per «colors i temperatures de les estrelles» (app-kstars)"
+
+    {\bStar\sdensity\b}i
+    valid msgstr="densitat d'estrelles"
+    hint="Es tradueix per «densitat d'estrelles» (app-kstars)"
+
     {\bstar\sdrift\b}i
     valid msgstr="deriva inicial"
     hint="Es tradueix per «deriva inicial» (app-kstars)"
+
+    {\bstar\sfields?\b}i
+    valid msgstr="camp de l'estrella"
+    hint="Es tradueix per «camp de l'estrella» (app-kstars)"
+
+    # https://ca.wikipedia.org/wiki/Esfera_celeste
+    {\bStar\sglobe\b}i
+    valid msgstr="esfera celeste"
+    hint="Es tradueix per «esfera celeste» (app-kstars)"
 
     # https://en.wikipedia.org/wiki/Star_hopping
     {\bStar.?Hop\b}i
@@ -777,6 +1096,7 @@ hint="Es tradueix per «estrella» (app-kstars)"
 
 {\bstars\b}i
 valid msgid="\bguide\sstars\b"
+valid msgid="stars;"
 valid msgstr="estrelles"
 hint="Es tradueix per «estrelles» (app-kstars)"
 
@@ -784,7 +1104,12 @@ hint="Es tradueix per «estrelles» (app-kstars)"
     valid msgstr="\bestrella guia\b"
     hint="Es tradueix per «estrella guia» (app-kstars)"
 
+{\bSync\b}i
+valid msgstr="Sincronitza"
+hint="Es tradueix per «Sincronitza» (app-kstars)"
+
 {\bTargets?\b}i
+valid msgid="btarget\slocation\b"
 valid msgstr="objectius?"
 hint="Es tradueix per «objectiu/s» (app-kstars)"
 
@@ -798,26 +1123,38 @@ hint="Es tradueix per «visor del punt vermell» (app-kstars)"
 id="appks-time"
 valid msgid="\bAltitude\svs\.?\sTime\b"
 valid msgid="\bany\stime\stonight\b"
+valid msgid="\bat\s(a|this)\stime\b"
 valid msgid="\bexposure\stime\b"
+valid msgid="\b(each|every)\stime\b"
+valid msgid="\bfirst\stime\b"
 valid msgid="\bfunction\sof\stime\b"
 valid msgid="\bglobal\stime\b"
 valid msgid="\blead\stime\b"
 valid msgid="\bLocal\sTime\b"
+valid msgid="\bnext\stime\b"
 valid msgid="\bpassing\sof\stime\b"
+valid msgid="\breal.?time\b"
+valid msgid="\brun.?time\b"
 valid msgid="\bscheduled\stime\b"
 valid msgid="\b(short\s)?durations?\sof\stime\b"
 valid msgid="\bSidereal\sTime\b"
 valid msgid="\bSolar\sTime\b"
+valid msgid="\bspecific\stime\b"
 valid msgid="\bstar\stime\b"
 valid msgid="\bStart.?up\stime\b"
+valid msgid="\b(step\sforward\sin\stime|time\sstep)\b"
+valid msgid="\btime\sand\slocation\ssettings\b"
+valid msgid="\bTime\sBox\b"
 valid msgid="\btime\scalculators?\b"
+valid msgid="\bTime\sInfo\sBox\b"
 valid msgid="\btime\spasses\b"
-valid msgid="\btime\sstep\b"
+valid msgid="\btime\.sleep\b"
 valid msgid="\bTime\sZones?\b"
+valid msgid="\bTransit\stime\b"
 valid msgid="\bUniversal\sTime\b"
 valid msgid="\bvs\.\sTime\b"
 valid msgstr="hora"
-hint="Es tradueix per «hora» (app-kstars)"
+hint="Es tradueix per «hora» -si és temps, afegiu-hi l'id- (app-kstars)"
 
     {\bAltitude\svs\.?\sTime\b}i
     valid msgstr="\bAltitud en funció del temps\b"
@@ -826,6 +1163,14 @@ hint="Es tradueix per «hora» (app-kstars)"
     {\bany\stime\stonight\b}i
     valid msgstr="\bqualsevol moment de la nit\b"
     hint="Es tradueix per «qualsevol moment de la nit» (app-kstars)"
+
+    {\bat\sa\stime\b}i
+    valid msgstr="\ba la vegada\b"
+    hint="Es tradueix per «a la vegada» (app-kstars)"
+
+    {\bat\sthis\stime\b}i
+    valid msgstr="\bEn aquesta ocasió\b"
+    hint="Es tradueix per «En aquesta ocasió» (app-kstars)"
 
     {\bdurations?\sof\stime\b}i
     valid msgid="\bshort\sdurations?\sof\stime\b"
@@ -836,9 +1181,21 @@ hint="Es tradueix per «hora» (app-kstars)"
         valid msgstr="\bperíodes? curts? de temps\b"
         hint="Es tradueix per «període/s curt/s de temps» (app-kstars)"
 
+    {\b(Each|every)\stime\b}i
+    valid msgstr="\bcada vegada\b"
+    hint="Es tradueix per «cada vegada» (app-kstars)"
+
     {\bexposure\stime\b}i
     valid msgstr="\btemps d'exposició\b"
     hint="Es tradueix per «temps d'exposició» (app-kstars)"
+
+        {\bexposure\sduration\b}i
+        valid msgstr="\bdurada de l'exposició\b"
+        hint="Es tradueix per «durada de l'exposició» (app-kstars)"
+
+    {\bfirst\stime\b}i
+    valid msgstr="\bprimera vegada\b"
+    hint="Es tradueix per «primera vegada» (app-kstars)"
 
     {\bfunction\sof\stime\b}i
     valid msgstr="\ben funció del temps\b"
@@ -850,13 +1207,36 @@ hint="Es tradueix per «hora» (app-kstars)"
 
     # # 
     {\b(Local\sTime|LT)\b}i
+    id="appks-lt"
+    valid msgid="\blocal\stime\sand\sdate\b"
     valid msgstr="\blt;"
     valid msgstr="\b(temps local|TL)\b"
     hint="Es tradueix per «temps local, TL» (app-kstars)"
 
+        {\blocal\stime\sand\sdate\b}i
+        valid msgstr="\bdata i hora locals\b"
+        hint="Es tradueix per «data i hora locals» (app-kstars)"
+
+    {\bnext\stime\b}i
+    valid msgstr="\bpropera vegada\b"
+    hint="Es tradueix per «propera vegada» (app-kstars)"
+
     {\bpassing\sof\stime\b}i
     valid msgstr="\bpas del temps\b"
     hint="Es tradueix per «pas del temps» (app-kstars)"
+
+    {\breal.?time\b}i
+    valid msgid="real.?time\sZone\b"
+    valid msgstr="\btemps real\b"
+    hint="Es tradueix per «temps real» (app-kstars)"
+
+        {\breal.?time\sZone\b}i
+        valid msgstr="\bzones horàries reals\b"
+        hint="Es tradueix per «zones horàries reals» (app-kstars)"
+
+    {\brun.?time\b}i
+    valid msgstr="\btemps d'execució\b"
+    hint="Es tradueix per «temps d'execució» (app-kstars)"
 
     # # hora sideral local
     {\b(Sidereal\sTime|ST)\b}i
@@ -875,16 +1255,28 @@ hint="Es tradueix per «hora» (app-kstars)"
     valid msgstr="\btemps solar\b"
     hint="Es tradueix per «temps solar» (app-kstars)"
 
+    {\bspecific\stime\b}i
+    valid msgstr="\btemps determinat\b"
+    hint="Es tradueix per «temps determinat» (app-kstars)"
+
     {\btime\scalculators?\b}i
     valid msgstr="\bcalculador(a|es) de temps\b"
     hint="Es tradueix per «calculadora/es de temps» (app-kstars)"
+
+    {\btime\sand\slocation\ssettings\b}i
+    valid msgstr="\bajustaments de temps i emplaçament\b"
+    hint="Es tradueix per «ajustaments de temps i emplaçament» (app-kstars)"
 
     {\btime\spasses\b}i
     valid msgstr="\btranscorre el temps\b"
     valid msgstr="\bel temps passarà\b"
     hint="Es tradueix per «transcorre el temps, el temps passarà» (app-kstars)"
 
-    {\btime\sstep\b}i
+    {\bTransit\stime\b}i
+    valid msgstr="\btemps de Trànsit\b"
+    hint="Es tradueix per «temps de Trànsit» (app-kstars)"
+
+    {\b(step\sforward\sin\stime|time\sstep)\b}i
     valid msgstr="\bpas temporal\b"
     hint="Es tradueix per «pas temporal» (app-kstars)"
 
@@ -896,14 +1288,42 @@ hint="Es tradueix per «hora» (app-kstars)"
     valid msgstr="\b(temps universal|TU)\b"
     hint="Es tradueix per «temps universal, TU» (app-kstars)"
 
+{\bTrack\b}i
+valid msgid="\bsatellite\stracks\b"
+valid msgstr="Segu(eix|im|ir)"
+hint="Es tradueix per «Segueix, seguim, seguir» (app-kstars)"
+
+    {\bsatellite\stracks\b}i
+    valid msgstr="traces dels satèl·lits"
+    hint="Es tradueix per «traces dels satèl·lits» (app-kstars)"
+
 {\bTrails?\b}i
+valid msgid="\bstar\strails?\b"
+valid msgid="\btrail\sartifacts?\b"
+valid msgstr="seguiment"
 valid msgstr="Tra(ça|ces)"
-hint="Es tradueix per «Traça/ces» (app-kstars)"
+hint="Es tradueix per «Traça/ces, seguiment» (app-kstars)"
+
+    {\bstar\strail\b}i
+    valid msgstr="rastre de l'estrella"
+    hint="Es tradueix per «rastre de l'estrella» (app-kstars)"
+
+        {\bstar\strails\b}i
+        valid msgstr="rastres de les estrelles"
+        hint="Es tradueix per «rastres de les estrelles» (app-kstars)"
+
+    {\btrail\sartifact\b}i
+    valid msgstr="\bartefacte de rastre\b"
+    hint="Es tradueix per «artefacte de rastre» (app-kstars)"
+
+        {\btrail\sartifacts\b}i
+        valid msgstr="\bartefactes de rastre\b"
+        hint="Es tradueix per «artefactes de rastre» (app-kstars)"
 
 {\bTransits?\b}i
-valid msgstr="transita"
+valid msgstr="transita(rà)?"
 valid msgstr="trànsit"
-hint="Es tradueix per «trànsit, transita» (app-kstars)"
+hint="Es tradueix per «trànsit, transita/rà» (app-kstars)"
 
 {\bTurning\soff\b}i
 valid msgstr="Apaga(nt|r)?"
@@ -914,6 +1334,10 @@ hint="Es tradueix per «Agaga/nt/r, S'està apagant» (app-kstars)"
 valid msgstr="Encenent"
 valid msgstr="S'està encenent"
 hint="Es tradueix per «Encenent, S'està encenent» (app-kstars)"
+
+{\bUpload\sJPG\b}i
+valid msgstr="\bPuja en JPG\b"
+hint="Es tradueix per «Puja en JPG» (app-kstars)"
 
 {\bWeather\b}i
 valid msgid="\bbad\sweather\b"
@@ -943,22 +1367,6 @@ hint="Es tradueix per «àmplia àrea» (app-kstars)"
 {\bwide.?field\b}i
 valid msgstr="amb un camp de gran abast"
 hint="Es tradueix per «amb un camp de gran abast» (app-kstars)"
-
-{\b\b}i
-valid msgstr=""
-hint="Es tradueix per «» (app-kstars)"
-
-{\b\b}i
-valid msgstr=""
-hint="Es tradueix per «» (app-kstars)"
-
-{\b\b}i
-valid msgstr=""
-hint="Es tradueix per «» (app-kstars)"
-
-{\b\b}i
-valid msgstr=""
-hint="Es tradueix per «» (app-kstars)"
 
 {\b\b}i
 valid msgstr=""
@@ -1650,10 +2058,10 @@ hint="Es tradueix per «C Xinesa» -constel·lacions- (app-kstars)"
 # #     valid msgstr="CAMBRA"
 # #     hint="Es tradueix per «CAMBRA» -constel·lació xinesa- (app-kstars)"
 
-    {\bSPRING\b}i
-    valid msgid="Si(ding|lver) Spring"
-    valid msgstr="DÈU"
-    hint="Es tradueix per «DÈU» -constel·lació xinesa- (app-kstars)"
+# #     {\bSPRING\b}i
+# #     valid msgid="Si(ding|lver) Spring"
+# #     valid msgstr="DÈU"
+# #     hint="Es tradueix per «DÈU» -constel·lació xinesa- (app-kstars)"
 
     {\bESTABLISHMENT\b}i
     valid msgstr="ESTABLIMENT"
@@ -2066,9 +2474,9 @@ hint="Es tradueix per «C Coreana» -constel·lacions- (app-kstars)"
     valid msgstr="CAP DE CIUTAT"
     hint="Es tradueix per «CAP DE CIUTAT» -constel·lació coreana- (app-kstars)"
 
-    {\bBUILD\b}i
-    valid msgstr="CONSTRUCCIÓ"
-    hint="Es tradueix per «CONSTRUCCIÓ» -constel·lació coreana- (app-kstars)"
+# #     {\bBUILD\b}i
+# #     valid msgstr="CONSTRUCCIÓ"
+# #     hint="Es tradueix per «CONSTRUCCIÓ» -constel·lació coreana- (app-kstars)"
 
     {\bFOWL\sOF\sSKY\b}i
     valid msgstr="GALL CELESTE"
