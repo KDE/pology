@@ -144,9 +144,14 @@ hint="Es tradueix per «astrofotografia» (app-kstars)"
 
 # https://en.wikipedia.org/wiki/Dither
 # https://ca.wikipedia.org/wiki/Tramat_(informàtica)
-{\bAuto\sDithering\b}i
-valid msgstr="\btramat automàtic\b"
-hint="Es tradueix per «tramat automàtic» (app-kstars)"
+{\bDithering\b}i
+valid msgid="\bAuto.?Dithering\b"
+valid msgstr="\btramat\b"
+hint="Es tradueix per «tramat» (app-kstars)"
+
+    {\bAuto.?Dithering\b}i
+    valid msgstr="\btramat automàtic\b"
+    hint="Es tradueix per «tramat automàtic» (app-kstars)"
 
 {\bAuto.?focus\b}i
 valid msgid="\bauto.?focus\s.?amp;\sauto.?guide\b"
@@ -154,22 +159,34 @@ valid msgstr="\benfocament automàtic\b"
 valid msgstr="\benfocant automàticament\b"
 hint="Es tradueix per «enfocament automàtic, enfocant automàticament» (app-kstars)"
 
-{\bAuto.?guid(e|ing)\b}i
-valid msgid="\bauto.?focus\s.?amp;\sauto.?guide\b"
-valid msgstr="\bguiatge automàtic\b"
-hint="Es tradueix per «guiatge automàtic» (app-kstars)"
+{\bguid\b}i
+valid msgid="\bAuto.?guid(e|ing)\b"
+valid msgid="\bguide\shead\b"
+valid msgstr="\bguiatge\b"
+hint="Es tradueix per «guiatge» (app-kstars)"
 
-    {\bauto.?focus\s.?amp;\sauto.?guide\b}i
-    valid msgstr="\benfocament i guiatge automàtics\b"
-    hint="Es tradueix per «enfocament i guiatge automàtics» (app-kstars)"
+    {\bAuto.?guid(e|ing)\b}i
+    valid msgid="\bauto.?focus\s.?amp;\sauto.?guide\b"
+    valid msgstr="\bguiatge automàtic\b"
+    hint="Es tradueix per «guiatge automàtic» (app-kstars)"
 
-    {\bGuider\b}i
-    valid msgstr="\bSistema de guiatge\b"
-    hint="Es tradueix per «Sistema de guiatge» (app-kstars)"
+        {\bauto.?focus\s.?amp;\sauto.?guide\b}i
+        valid msgstr="\benfocament i guiatge automàtics\b"
+        hint="Es tradueix per «enfocament i guiatge automàtics» (app-kstars)"
 
-        {\bOff.?Axis\sGuider\b}i
-        valid msgstr="\bSistema de guiatge descentrat\b"
-        hint="Es tradueix per «Sistema de guiatge descentrat» (app-kstars)"
+        {\bGuider\b}i
+        valid msgid="\bGuider\sCCD\b"
+        valid msgid="\bOff.?Axis\sGuider\b"
+        valid msgstr="\bSistema de guiatge\b"
+        hint="Es tradueix per «Sistema de guiatge» (app-kstars)"
+
+            {\bGuider\sCCD\b}i
+            valid msgstr="\bCCD del sistema de guiatge\b"
+            hint="Es tradueix per «CCD del sistema de guiatge» (app-kstars)"
+ 
+            {\bOff.?Axis\sGuider\b}i
+            valid msgstr="\bSistema de guiatge descentrat\b"
+            hint="Es tradueix per «Sistema de guiatge descentrat» (app-kstars)"
  
         {\bguide\shead\b}i
         valid msgstr="\bguiatge del capçal\b"
@@ -249,6 +266,10 @@ hint="Es tradueix per «filtre mosaic de Bayer» (app-kstars)"
 valid msgid="\bdark\sand\sbias\sframes\b"
 valid msgstr="\bpolaritza(ció|ts?)\b"
 hint="Es tradueix per «polaritzat/s, polarització» (app-kstars)"
+
+{\bbinning\b}i
+valid msgstr="\bagrupament\b"
+hint="Es tradueix per «agrupament» (app-kstars)"
 
 {\bBinoculars\b}i
 valid msgstr="\bprismàtics\b"
@@ -331,8 +352,9 @@ hint="Es tradueix per «vector de correcció» (app-kstars)"
 
 {\bcovers?\b}i
 valid msgid="\bdust\scovers?\b"
+valid msgstr="\bcobriu\b"
 valid msgstr="\btap(a|es)\b"
-hint="Es tradueix per «tapa/es» (app-kstars)"
+hint="Es tradueix per «cobriu, tapa/es» (app-kstars)"
 
     {\bdust\scover\b}i
     valid msgstr="\bFunda de protecció\b"
@@ -425,6 +447,10 @@ hint="Es tradueix per «Planetari per a l'escriptori» (app-kstars)"
 valid ctx="^City\sin\s"
 valid msgstr="\bCúpula\b"
 hint="Es tradueix per «Cúpula» (app-kstars)"
+
+{\bDrift Graphics\b}i
+valid msgstr="\bGràfics de la deriva\b"
+hint="Es tradueix per «Gràfics de la deriva» (app-kstars)"
 
 {\bdrive\b}i
 valid msgid="\bhard\sdrives?\b"
@@ -658,6 +684,15 @@ hint="Es tradueix per «amplada total a la meitat del màxim, FHWM» (app-kstars
 valid msgstr="\bAC\b"
 hint="Es tradueix per «AC» (app-kstars)"
 
+{\bGuide\sScope\b}i
+valid msgid="\bseparate\sGuide\sScope\b"
+valid msgstr="\bàmbit del guiatge\b"
+hint="Es tradueix per «àmbit del guiatge» (app-kstars)"
+
+    {\bseparate\sGuide\sScope\b}i
+    valid msgstr="\bàmbit separat del guiatge\b"
+    hint="Es tradueix per «àmbit separat del guiatge» (app-kstars)"
+
 # # https://en.wikipedia.org/wiki/Half_flux_diameter
 {\b(Half.?Flux.?Radius|HFR)\b}i
 valid msgstr="\b(Radi de mig flux|HFR)\b"
@@ -692,8 +727,8 @@ hint="Es tradueix per «obtenció de les imatges, imatges obtingudes» (app-ksta
     hint="Es tradueix per «procés d'obtenció de les imatges» (app-kstars)"
 
 {\bIncrease\b}i
-valid msgstr="\baugment(a|ar|eu-l(a|o))?\b"
-hint="Es tradueix per «augmenta/r, augmenteu-la/o, augment» (app-kstars)"
+valid msgstr="\baugment(a|ar|eu|eu-l(a|o))?\b"
+hint="Es tradueix per «augmenta/r, augmenteu, augmenteu-la/o, augment» (app-kstars)"
 
 {\bInfo\sBox\b}i
 valid msgid="\bFocus\sInfo\sBox\b"
@@ -920,6 +955,24 @@ hint="Es tradueix per «aparca/r, aparqui» (app-kstars)"
 valid msgstr="\bplaca\b"
 hint="Es tradueix per «placa» (app-kstars)"
 
+{\bpulse\b}i
+valid msgid="\bpulse\scommands\b"
+valid msgstr="\bpols\b"
+hint="Es tradueix per «pols» (app-kstars)"
+
+    {\bpulse\scommands\b}i
+    valid msgstr="\bordres de pols\b"
+    hint="Es tradueix per «ordres de pols» (app-kstars)"
+
+    {\bpulses\b}i
+    valid msgid="\bcorrection\spulses\b"
+    valid msgstr="\bpolsos\b"
+    hint="Es tradueix per «polsos» (app-kstars)"
+
+        {\bcorrection\spulses\b}i
+        valid msgstr="\bpolsos per a la correcció\b"
+        hint="Es tradueix per «polsos per a la correcció» (app-kstars)"
+
 {\bpolynomial\b}i
 valid msgstr="\bPolinomi\b"
 valid msgstr="\bPolinòmic\b"
@@ -969,6 +1022,15 @@ valid ctx="^City\sin\s"
 valid msgid="\bra\.rishab\b"
 valid msgstr="\bAR\b"
 hint="Es tradueix per «AR -ascensió recta-» (app-kstars)"
+
+{\breticle\b}i
+valid msgid="\breticle\sposition\b"
+valid msgstr="\bretícula\b"
+hint="Es tradueix per «retícula» (app-kstars)"
+
+    {\breticle\sposition\b}i
+    valid msgstr="\bposició de retícula\b"
+    hint="Es tradueix per «posició de retícula» (app-kstars)"
 
 {\brises?\b}i
 valid msgid="\brises\sat\b"
