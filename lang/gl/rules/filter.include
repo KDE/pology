@@ -12,8 +12,6 @@ addFilterHook name="remove/remove-marlits-msg" on="msg"
 addFilterHook name="remove/remove-paired-ents" on="msg"
 # Remove accelerator mark
 addFilterHook name="remove/remove-accel-msg-greedy" on="msg"
-# Replace unvariant parts of the message
-addFilterHook name="remove/remove_literals_msg_tick~u'£'" on="msg"
 
 # Remove function calls like foo(x, y).
 # Ignore foo(s) and foo(es), which are common ways of indicating optional
@@ -23,8 +21,9 @@ addFilterRegex match="\w+\((?!e?s\))[\w\s\.\,\-\_]*?\)" repl="€" on="pmsgid,pm
 # Remove XML-like tags.
 addFilterRegex match="\<\s*(bcode|command|envar|filename|icode|shortcut|placeholder|style|code|tt|literal|screen|option|keycap|userinput|systemitem|prompt|function|foreignphrase|varname|programlisting|token|markup|parameter|keysym|methodname|sgmltag|arg|classname|type)\b.*?\b\1\>" repl="" on="pmsgid,pmsgstr"
 addFilterRegex match="\<\s*(email|link)\s*>\b.*?\b\1\>" repl="" on="pmsgid,pmsgstr"
-addFilterRegex match="\<\s*br\s*/?\s*\>" repl=" " on="pmsgid,pmsgstr"
+addFilterRegex match="\<\s*(br|nl)\s*/?\s*\>" repl=" " on="pmsgid,pmsgstr"
 addFilterRegex match="\<\s*/\s*(h[1-6]|li|p|para|title|ul)\s*\>" repl=" " on="pmsgid,pmsgstr"
+addFilterRegex match="<!\[CDATA\[.*?\]\]>" repl="" on="pmsgid,pmsgstr"
 addFilterRegex match="\<.*?\>" repl="" on="pmsgid,pmsgstr"
 
 # Alternatives directives
@@ -41,12 +40,6 @@ addFilterRegex match="\{\{.*?(\||\}\})" repl="ı" on="pmsgid,pmsgstr"
 # Remove long command-line options.
 addFilterRegex match="\-\-\w[\w\_\-]*?\b" repl="" on="pmsgid,pmsgstr"
 
-# Remove web pages.
-# addFilterRegex match="((http|https|ftp|sftp)\:\/\/)?([\w\_\-]+\.)+((gov|edu|com|mil|org|net|aero|biz|coop|info|museum|name|pro|mobi)|([a-z]{2,4})|\5\.\6)(\:\d{2,4})?(\/[\w\.\-\_]+)*\/?(\?(\w+\=\w+)(\&(\w+\=\w+))*?)?(\#\w+)?" repl="~" on="pmsgid,pmsgstr"
-
-# Remove email addresses.
-# addFilterRegex match="(mailto\:)?([\w\d\_\-]+)(\.\2)*\@(\2\.)+[\w]{2,4}" repl="~" on="pmsgid,pmsgstr"
-
 # Remove known path patterns
 addFilterRegex match="(file\:|\#\!)?\/(bin|boot|cdrom|dev|etc|home|lib(32|64)?|lost\+found|media|mnt|opt|proc|root|sbin|selinux|share|srv|sys|tmp|usr|var)([/\w._-]+)*" repl="~" on="pmsgid,pmsgstr"
 addFilterRegex match="\.(cache|config|cups|dbus|font\w*|java|kde|local|mozilla|openoffice\.org|pulse|qt|ssh|desktop)[/\w._-]*" repl="~" on="pmsgid,pmsgstr"
@@ -58,10 +51,7 @@ addFilterRegex match="['\"«‘“][\w._-]+/[/\w._-]*['\"»’”]" repl="~" on=
 # Remove environment variables.
 addFilterRegex match="\$\<?[A-Z]+\>?" repl="Þ" on="pmsgid,pmsgstr"
 
-# Remove single characters in quotes.
-# addFilterRegex match="«.»" repl="~" on="pmsgid,pmsgstr"
-
-# # Especial treatment for «etc.», there may be a comma before it.
+# Especial treatment for «etc.», there may be a comma before it.
 addFilterRegex match="(etc\.|\&etc\;)" repl="etcétera" on="pmsgid,pmsgstr"
 
 # Remove some abreviations.
@@ -78,9 +68,5 @@ addFilterRegex match="(\?{2,3}|\%{2,3}|\:{2,3}|\_{2,3})" repl="~" on="pmsgid,pms
 # Remove more usual smileis.
 addFilterRegex match="\s(\:\)|\(\-\:|\:\)|\(\:|\=\)|\)\-\:\)|\:\-\)|\:\-\(|\;\-\)|\;\))" repl="\s~" on="pmsgid,pmsgstr"
 
-# # Remove numbers and dates
-# addFilterRegex match="[^\%][\dXx]+([\.\,\:\/][\dXx]+)+" repl="~" on="pmsgid,pmsgstr"
-
-# # Remove some types of paragraph tags.
-# addFilterHook name="es:remove_tags_without_translation/remove_tags_without_translation" on="msg"
-
+# Remove URLs
+addFilterRegex match="\bhttps?://[a-z./-]+" repl="~" on="pmsgid,pmsgstr"

@@ -95,6 +95,7 @@ valid after="\bnotif(ie[ds]|y(ing)?)\b[\s\w]*\s+"
 valid after="\bnotifications?\s+"
 # overview about everything → resumo de todo
 valid after="\boverviews?\s+"
+valid after="\bremind(ed|ing|s)?\b[\s\w]*\s+"
 valid after="\bsorry\s+"
 # are you sure about that? → está seguro diso?
 valid after="\b(un)?sure\s+"
@@ -447,72 +448,82 @@ valid msgstr="\bsegundo\s+plano\b"
 hint="«background» tradúcese como «fondo»"
 
 # «fondo» traduce a «background»
-[\bfondo]i
+[\bfondos?\b]i
 id="PT-2013-dual_background"
-valid msgid="\bbackground"
+valid msgid="\bback(ground)?(?!\s+on\b)s?\b"
+valid msgid="\bbgs?\b"
+valid msgid="\bbottom\b"
+valid msgid="\bbottomed\b"  # round-bottomed flask → frasco de fondo redondo
+valid msgid="\bfunds?\b"
+valid msgid="\bfund(ing\s+drives?|rais(er|ing)s?)\b"  # recadacción de fondos
+valid msgid="\bwallpapers?\b"  # fondo de escritorio
 hint="«fondo» traduce a «background»"
 
 # «backend» tradúcece como «infraestrutura»
-{\bback(\s|-)?end}i
+{\bback(\s+|-)?ends?\b}i
 id="PT-2011_backend"
-valid msgstr="\binfraestrutura"
+valid msgstr="\binfraestruturas?\b"
+valid msgstr="\bback(\s+|-)?ends?\b"
 hint="«backend» tradúcese como «infraestrutura»"
 
 # «infraestrutura» traduce a «backend»
-[\binfraestrutura]i
+[\binfraestruturas?\b]i
 id="PT-2011-dual_backend"
-valid msgid="\bbackend"
-valid msgid="\bframework"
+valid msgid="\bback(\s+|-)?ends?\b"
+valid msgid="\bframeworks?\b"
+valid msgid="\binfrastructures?\b"
+valid msgid="\bkf5?\b"  # [versión 5 das] infraestruturas de KDE
 hint="«infraestrutura» traduce a «backend» e «framework»"
 
 # «bitmap» tradúcese como «mapa de bits»
 {\bbitmaps?\b}i
 id="PT-2013_bitmap"
-valid msgstr="\bmapa\sde\sbits"
+valid msgstr="\bmapas?\s+de\s+bits\b"
 hint="«bitmap» tradúcese como «mapa de bits»"
 
 # «mapa de bits» traduce a «bitmap»
-[\bmapa\sde\sbits]i
+[\bmapas?\s+de\s+bits\b]i
 id="PT-2013-dual_bitmap"
-valid msgid="\bbitmap"
+valid msgid="\bbitmaps?\b"
+valid msgid="\braster\b"  # de mapa de bits
 hint="«mapa de bits» traduce a «bitmap»"
 
 # «bookmark» tradúcese como «marcador» ou «marcar»
-{\bbookmark}i
+{\bbookmark(ed|ing|s)?\b}i
 id="PT-2011_bookmark"
-valid msgstr="\bmarcador"
-valid msgstr="\bmarca\b"
-valid msgstr="\bmarcar"
-valid before="ed" msgstr="\bmarcado"
+valid msgstr="\bmarcador(es)?\b"
+valid msgstr="\bm[aá]r(c[aáoó]|qu[eé])\w*\b\b"
 hint="«bookmark» tradúcese como «marcador» ou «marcar»"
 
 # «marcador» traduce a «bookmark»
-[\bmarcador]i
+[\bmarcador(es)?\b]i
 id="PT-2011-dual_bookmark"
-valid msgid="\bbookmark"
+valid msgid="\bbookmark(let)?s?\b"
+valid msgid="\bdial(er|pad)s?\b"
+valid msgid="\bmarkers?\b"
 hint="«marcador» traduce a «bookmark»"
 
 # «boot/start» tradúcese como «arrancar»
-{\bboot}i #Non busca "start", dá moitos falsos positivos e de momento non sei como arranxalo
-valid before="h"
-valid before="loader"
-valid before="able"
+{\bboot(ed|ing|s)?\b}i #Non busca "start", dá moitos falsos positivos e de momento non sei como arranxalo
 id="noPT-2012_boot-start"
-valid msgstr="\barrancar"
-valid msgstr="\barranqu"
+valid msgstr="\barr[aá]n(c[aáoó]|qu[eé])\w*\b"
+valid msgstr="\bboot(ed|ing|s)?\b"
 hint="«boot/start» tradúcese como «arrancar»"
 
 # «arrancar» traduce a «boot/start»
-[\barrancar]i
+[\barr[aá]n(c[aáoó]|qu[eé])\w*\b]i
 id="PT-2012-dual_boot-start"
-valid msgid="\bboot"
-valid msgid="\bstart"
+valid msgid="\b(re)?boot(ed|ing|s)?\b"
+valid msgid="\b(re)?bootups?\b"
+valid msgid="\bsplash(-|\s+)?screens?\b"
+valid msgid="\b(re)?start(ed|ing|s)?\b"
+valid msgid="\b(re)?startups?\b"
 hint="«arrancar» traduce a «boot/start»"
 
 # «border» tradúcese como «fronteira» (xeografía) ou «bordo»
-{\bborder}i
+{\bborders?\b}i
 id="PT-2012_border"
-  # primeiro a recua de NON USARES
+# primeiro a recua de NON USARES
 valid !msgstr="\bbordes?\b"
 valid !msgstr="\bmarxes?\b"
 valid !msgstr="\bbeiras?\b"
@@ -523,58 +534,71 @@ valid !msgstr="\bmarcos?\b"
 valid !msgstr="\blados?\b"
 valid !msgstr="\barestas?\b"
 valid !msgstr="\bcosturas?\b"
-  # agora vai o que si se pode usar
-valid msgstr="\bfronteira" env="geography"
+# agora vai o que si se pode usar
+valid msgstr="\bfronteiras?\b"
 valid msgstr="\bbordos?\b"
 hint="«border» tradúcese como «fronteira» (xeografía) ou «bordo»"
 
 # «fronteira» (xeografía) traduce a «border»
-[\bfronteira]i
+[\bfronteiras?\b]i
 id="PT-2012-dual_border"
-valid msgid="\bborder" env="geography"
+valid msgid="\bborders?\b"
+valid msgid="\bfrontiers?\b"
+valid msgid="\bFrontera\b"  # Jerez de la Frontera → Xerez da Fronteira
 hint="«fronteira» (xeografía) traduce a «border»"
 
 # «bordo» traduce a «border»
 [\bbordos?\b]i
 id="PT-2012-dual_border(2)"
-valid msgid="\bborder"
+valid msgid="\bborders?\b"
+valid msgid="\bbordered\b"  # con bordos
+valid msgid="\bborderless\b"  # sen bordos
+valid msgid="\bedges?\b"
 hint="«bordo» traduce a «border»"
 
 # «breadcrumbs» tradúcese como «ronsel»
-{\bbreadcrumbs}i
+{\bbreadcrumbs?\b}i
 id="PT-2011_breadcrumbs"
-valid msgstr="\bronsel"
+valid msgstr="\bronse(l|is)\b"
 hint="«breadcrumbs» tradúcese como «ronsel»"
 
 # «broadband» tradúcese como «banda larga»
-{\bbroad\s?band}i
+{\bbroad\s*band\b}i
 id="PT-2013_broadband"
-valid msgstr="\bbanda\slarga"
+valid msgstr="\bbanda\s+larga\b"
 hint="«broadband» tradúcese como «banda larga»"
 
 # «banda larga» traduce a «broadband»
-[\bbanda\slarga]i
+[\bbanda\s+larga\b]i
 id="PT-2013-dual_broadband"
-valid msgid="\bbroad\s?band"
+valid msgid="\bbroad\s*band\b"
 hint="«banda larga» traduce a «broadband»"
 
 # «browse» tradúcese como «navegar»
-{\bbrowse}i
-valid before="r"
+{\bbrows(e[ds]?|ing)\b}i
 id="PT-2013_browse"
-valid msgstr="\bnaveg(a|ue)"
-hint="«browse» tradúcese como «navegar»"
+valid msgstr="\bb[uú]s(c[aáoó]|qu[eé])\w*\b"
+valid msgstr="\bexam[ií]n[aáoóeé]\w*\b"
+valid msgstr="\bexpl[oó]r[aáoóeé]\w*\b"
+valid msgstr="\bnav[eé]g([aáoó]|u[eé])\w*\b"
+valid msgstr="\bproc[uú]r[aáoóeé]\w*\b"
+valid msgstr="\bbrows(e[ds]?|ing)\b"
+hint="«browse» tradúcese como «buscar», «examinar», «explorar», «navegar», «procurar»"
 
 # «navegar» traduce a «browse»
-[\bnaveg(a|ue)]i
+[\bnav(?!eg(a(cións?|dor(es)?|ntes?)|ábe(l|is))\b)[eé]g([aáoó]|u[eé])\w*\b]i
 id="PT-2013-dual_browse"
-valid msgid="(?i)\b(brows(e|ing)|navigat\w+)"
+valid msgid="\bbrows(e[ds]?|ing)\b"
+valid msgid="\bnavigat(e[ds]?|ing)\b"
+valid msgid="\bsail(ed|ing|s)?\b"
+valid msgid="\bwalk(ed|ing|s)?\s+through\b"
 hint="«navegar» traduce a «browse» (e a «navigate»)"
 
 # «browser» tradúcese como «navegador»
-{\bbrowser}i
+{\bbrowsers?\b}i
 id="PT-2013_browser"
-valid msgstr="\bnavegador"
+valid msgstr="\bnavegador(es)?\b"
+valid msgstr="\bbrowsers?\b"
 hint="«browser» tradúcese como «navegador»"
 
 # «navegador» traduce a «browser»
