@@ -68,6 +68,10 @@ hint="Es tradueix per «alineació» (app-kstars)"
 valid msgstr="\baltitud\b"
 hint="Es tradueix per «altitud» (app-kstars)"
 
+    {\bAlt\b}i
+    valid msgstr="\bAlt\b"
+    hint="Es tradueix per «Alt» (app-kstars)"
+
 {\bAngle\b}i
 valid msgid="\bhour\sAngle\b"
 valid msgid="\bAngle\svalue\b"
@@ -180,6 +184,10 @@ hint="Es tradueix per «guiatge» (app-kstars)"
         valid msgstr="\bSistema de guiatge\b"
         hint="Es tradueix per «Sistema de guiatge» (app-kstars)"
 
+        {\bGuiders\b}i
+            valid msgstr="\bSistemes de guiatge\b"
+            hint="Es tradueix per «Sistemes de guiatge» (app-kstars)"
+
             {\bGuider\sCCD\b}i
             valid msgstr="\bCCD del sistema de guiatge\b"
             hint="Es tradueix per «CCD del sistema de guiatge» (app-kstars)"
@@ -206,6 +214,10 @@ hint="Es tradueix per «guiatge» (app-kstars)"
 {\bazimuth\b}i
 valid msgstr="\bazimut\b"
 hint="Es tradueix per «azimut» (app-kstars)"
+
+    {\bAz\b}i
+    valid msgstr="\bAz\b"
+    hint="Es tradueix per «Az» (app-kstars)"
 
 {\bbatch\b}i
 valid msgid="\bbatch\smode\b"
@@ -352,9 +364,9 @@ hint="Es tradueix per «vector de correcció» (app-kstars)"
 
 {\bcovers?\b}i
 valid msgid="\bdust\scovers?\b"
-valid msgstr="\bcobriu\b"
+valid msgstr="\bcobr(iu|eixen)\b"
 valid msgstr="\btap(a|es)\b"
-hint="Es tradueix per «cobriu, tapa/es» (app-kstars)"
+hint="Es tradueix per «tapa/es, cobriu, cobreixen» (app-kstars)"
 
     {\bdust\scover\b}i
     valid msgstr="\bFunda de protecció\b"
@@ -370,8 +382,9 @@ hint="Es tradueix per «punt/s de mira» (app-kstars)"
 
 # # 
 {\bDark\b}i
-valid msgid="\bdark\sand\sbias\sframes\b"
-valid msgid="\b(dark\s(and|.?amp;s?;?)\s)?flat\sframes\b"
+valid msgid="\bdark\sand\sbias\b"
+valid msgid="\bdark\sand\sflat\b"
+valid msgid="\bdark\s(grey|red)\b"
 valid msgid="\bdark\sframes?\b"
 valid msgid="\bDark\s(half|Matter)\b"
 valid msgid="\bDark\sNebulae\b"
@@ -385,6 +398,10 @@ hint="Es tradueix per «Obscuritat» (app-kstars)"
     {\bdark\sand\sflat\b}i
     valid msgstr="\bfoscos i plans\b"
     hint="Es tradueix per «foscos i plans» (app-kstars)"
+
+    {\bdark\s(grey|red)\b}i
+    valid msgstr="\b(gris|vermell) fosc\b"
+    hint="Es tradueix per «gris fosc , vermell fosc» (app-kstars)"
 
     {\bDark\shalf\b}i
     valid msgstr="\bmeitat obscura\b"
@@ -728,7 +745,9 @@ hint="Es tradueix per «obtenció de les imatges, imatges obtingudes» (app-ksta
 
 {\bIncrease\b}i
 valid msgstr="\baugment(a|ar|eu|eu-l(a|o))?\b"
-hint="Es tradueix per «augmenta/r, augmenteu, augmenteu-la/o, augment» (app-kstars)"
+valid msgstr="\bfeu pujar\b"
+valid msgstr="\bincrementarà\b"
+hint="Es tradueix per «augmenta/r, augmenteu, augmenteu-la/o, augment, feu pujar, incrementarà» (app-kstars)"
 
 {\bInfo\sBox\b}i
 valid msgid="\bFocus\sInfo\sBox\b"
@@ -812,20 +831,20 @@ hint="Es tradueix per «fitxer de marcadors» (app-kstars)"
 
 # # 
 {\bMeasure\sAz\sError\b}i
-valid msgstr="\bMesura de l'error d'azi\."
-hint="Es tradueix per «Mesura de l'error d'azi.» (app-kstars)"
+valid msgstr="\bMesura l'error de l'Az"
+hint="Es tradueix per «Mesura l'error de l'Az» (app-kstars)"
 
     {\bCorrect\sAz\sError\b}i
-    valid msgstr="\bCorrecció de l'error d'azi\."
-    hint="Es tradueix per «Correcció de l'error d'azi.» (app-kstars)"
+    valid msgstr="\bCorrecció de l'error de l'Az"
+    hint="Es tradueix per «Correcció de l'error de l'Az» (app-kstars)"
 
     {\bCorrect\sAlt\sError\b}i
-    valid msgstr="\bCorrecció de l'error d'elev\."
-    hint="Es tradueix per «Correcció de l'error d'elev.» (app-kstars)"
+    valid msgstr="\bCorrecció de l'error de l'Alt"
+    hint="Es tradueix per «Correcció de l'error de l'Alt» (app-kstars)"
 
     {\bMeasure\sAlt\sError\b}i
-    valid msgstr="\bMesura de l'error d'elev\."
-    hint="Es tradueix per «Mesura de l'error d'elev.» (app-kstars)"
+    valid msgstr="\bMesura l'error de l'Alt"
+    hint="Es tradueix per «Mesura l'error de l'Alt» (app-kstars)"
 
 {\bmeridian\sflip\b}i
 valid msgstr="inversió del meridià"
@@ -850,6 +869,79 @@ hint="Es tradueix per «mil·lisegon/s d'arc (Abreujament en anglès: mas)» (ap
 {\bMilky\sWay\b}i
 valid msgstr="Via làctia"
 hint="Es tradueix per «Via làctia» (app-kstars)"
+
+{\bmodule\b}i
+valid msgstr="-module\b"
+valid msgid="\b(Align(ment)?|Capture|CCD|Focus|Guide|Mount|Scheduler)\smodule\b"
+valid msgstr="\bmòdul\b"
+hint="Es tradueix per «mòdul» (app-kstars)"
+
+    {\bAlign(ment)?\smodule\b}i
+    valid msgid="\bDefault\salign\smodule\sCCD\b"
+    valid msgid="\bDefault\salign\smodule\sFilter\sWheel\b"
+    valid msgstr="\bmòdul per a l'alineació\b"
+    hint="Es tradueix per «mòdul per a l'alineació» (app-kstars)"
+
+        {\bDefault\salign\smodule\sCCD\b}i
+        valid msgstr="\bEl CCD predeterminat del mòdul per a l'alineació\b"
+        hint="Es tradueix per «El CCD predeterminat del mòdul per a l'alineació» (app-kstars)"
+
+        {\bDefault\salign\smodule\sFilter\sWheel\b}i
+        valid msgstr="\bLa roda de filtres predeterminada del mòdul per a l'alineació\b"
+        hint="Es tradueix per «mòdul» (app-kstars)"
+
+    {\bCapture\smodule\b}i
+    valid msgid="\bDefault\scapture\smodule\sCCD\b"
+    valid msgstr="\bmòdul per a la captura\b"
+    hint="Es tradueix per «mòdul per a la captura» (app-kstars)"
+
+        {\bDefault\scapture\smodule\sCCD\b}i
+        valid msgstr="\bEl CCD predeterminat del mòdul per a la captura\b"
+        hint="Es tradueix per «El CCD predeterminat del mòdul per a la captura» (app-kstars)"
+
+    {\bCCD\smodule\b}i
+    valid msgstr="\bmòdul per al CCD\b"
+    hint="Es tradueix per «mòdul per al CCD» (app-kstars)"
+
+    {\bFocus\smodule\b}i
+    valid msgid="\bauto.?focus\smodule\b"
+    valid msgid="\bDefault\sfocus\smodule\sCCD\b"
+    valid msgstr="\bmòdul per a l'enfocament\b"
+    hint="Es tradueix per «mòdul per a l'enfocament» (app-kstars)"
+
+        {\bauto.?focus\smodule\b}i
+        valid msgstr="\bmòdul per a l'enfocament automàtic\b"
+        hint="Es tradueix per «mòdul per a l'enfocament automàtic» (app-kstars)"
+
+        {\bDefault\sfocus\smodule\sCCD\b}i
+        valid msgstr="\bEl CCD predeterminat del mòdul per a l'enfocament\b"
+        hint="Es tradueix per «El CCD predeterminat del mòdul per a l'enfocament» (app-kstars)"
+
+        {\bDefault\sfocus\smodule\sfocuser\b}i
+        valid msgstr="\bL'enfocador predeterminat del mòdul per a l'enfocament\b"
+        hint="Es tradueix per «L'enfocador predeterminat del mòdul per a l'enfocament» (app-kstars)"
+
+    {\bGuide\smodule\b}i
+    valid msgid="\bDefault\sguide\smodule\sCCD\b"
+    valid msgid="\bDefault\sguide\smodule\sST4\sDriver\b"
+    valid msgstr="\bmòdul per al guiatge\b"
+    hint="Es tradueix per «mòdul per al guiatge» (app-kstars)"
+
+        {\bDefault\sguide\smodule\sCCD\b}i
+        valid msgstr="\bEl CCD predeterminat del mòdul per al guiatge\b"
+        hint="Es tradueix per «El CCD predeterminat del mòdul per al guiatge» (app-kstars)"
+
+        {\bDefault\sguide\smodule\sST4\sDriver\b}i
+        valid msgstr="\bEl controlador ST4 predeterminat del mòdul per al guiatge\b"
+        hint="Es tradueix per «El controlador ST4 predeterminat del mòdul per al guiatge» (app-kstars)"
+
+    {\bMount\smodule\b}i
+    valid msgstr="\bmòdul per a la muntura\b"
+    hint="Es tradueix per «mòdul per a la muntura» (app-kstars)"
+
+    {\bScheduler\smodule\b}i
+    valid msgstr="\bmòdul per al programador\b"
+    hint="Es tradueix per «mòdul per al programador» (app-kstars)"
 
 {\bmosaic\simage\b}i
 valid msgid="\bsuper\smosaic\simage\b"
@@ -1140,6 +1232,10 @@ hint="Es tradueix per «es pon a les, posta a les» (app-kstars)"
     valid msgstr="\bposta\b"
     hint="Es tradueix per «posta» (app-kstars)"
 
+{\bSettle\b}i
+valid msgstr="\bposicionament\b"
+hint="Es tradueix per «posicionament» (app-kstars)"
+
 {\bSetup\sWizard\b}i
 valid msgid="\bTelescope\sSetup\sWizard\b"
 valid msgstr="Assistent d'engegada"
@@ -1261,6 +1357,7 @@ hint="Es tradueix per «Solucionador» (app-kstars)"
 valid msgid="open source"
 valid msgid="\bflat\ssource\b"
 valid msgid="\blight\ssources?\b"
+valid msgid="\bsource\sphotons\b"
 valid msgstr="\bfont\b"
 hint="Es tradueix per «font» (app-kstars)"
 
@@ -1291,6 +1388,10 @@ hint="Es tradueix per «font» (app-kstars)"
         {\blight\spanel\b}i
         valid msgstr="\bpanell de llum\b"
         hint="Es tradueix per «panell de llum» (app-kstars)"
+
+    {\bsource\sphotons\b}i
+    valid msgstr="\bfotons d'origen\b"
+    hint="Es tradueix per «fotons d'origen» (app-kstars)"
 
     {\bwall\b}i
     valid msgstr="\bparet\b"
@@ -1490,8 +1591,8 @@ hint="Es tradueix per «hora» -si és temps, afegiu-hi l'id- (app-kstars)"
     hint="Es tradueix per «a la vegada» (app-kstars)"
 
     {\bat\sthis\stime\b}i
-    valid msgstr="\bEn aquesta ocasió\b"
-    hint="Es tradueix per «En aquesta ocasió» (app-kstars)"
+    valid msgstr="\ben aquesta (època|ocasió)\b"
+    hint="Es tradueix per «en aquesta ocasió, en aquesta època» (app-kstars)"
 
     {\bdurations?\sof\stime\b}i
     valid msgid="\bshort\sdurations?\sof\stime\b"
@@ -1590,8 +1691,8 @@ hint="Es tradueix per «hora» -si és temps, afegiu-hi l'id- (app-kstars)"
 
     {\btime\spasses\b}i
     valid msgstr="\btranscorre el temps\b"
-    valid msgstr="\bel temps passarà\b"
-    hint="Es tradueix per «transcorre el temps, el temps passarà» (app-kstars)"
+    valid msgstr="\bel temps (passarà|transcorre)\b"
+    hint="Es tradueix per «transcorre el temps, el temps transcorre, el temps passarà» (app-kstars)"
 
     {\bTransit\stime\b}i
     valid msgstr="\btemps de Trànsit\b"
