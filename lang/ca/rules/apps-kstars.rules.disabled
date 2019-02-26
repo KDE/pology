@@ -27,8 +27,8 @@ addFilterRegex match="\&" on="pmsgid,pmsgstr"
 ## GUI
 #
 
-{\bAborting\.\.\.\b}i
-valid msgstr="S'està interrompent\.\.\."
+{\bAborting\.\.\.}i
+valid msgstr="\bS'està interrompent\.\.\."
 hint="Es tradueix per «S'està interrompent...» (app-kstars)"
 
 {\bAdaptive\sOptics\sunit\b}i
@@ -88,10 +88,16 @@ hint="Es tradueix per «angle» (app-kstars)"
     hint="Es tradueix per «Valor angular» (app-kstars)"
 
     # https://ca.wikipedia.org/wiki/Angle_de_posició
-    {\b(position\sangle|PA)\b}i
+    {\bposition\sangle\b}i
     valid msgid="\bSync\sFOV\sto\sPA\b"
-    valid msgstr="\b(angle de posició|AP)\b"
-    hint="Es tradueix per «angle de posició, AP» (app-kstars)"
+    valid msgstr="\bangle de posició\b"
+    hint="Es tradueix per «angle de posició -AP-» (app-kstars)"
+
+        {\bPA\b}i
+        valid ctx="^Asteroid\sname"
+        valid msgid="\bSync\sFOV\sto\sPA\b"
+        valid msgstr="\bAP\b"
+        hint="Es tradueix per «AP -angle de posició-» (app-kstars)"
 
         {\bSync\sFOV\sto\sPA\b}i
         valid msgstr="\bSincronitza el CDV amb l'AP\b"
@@ -124,7 +130,7 @@ hint="Es tradueix per «astrometria» (app-kstars)"
 
     {\bastrometry\.net\b}i
     valid msgid="^Astrometry\.net$"
-    valid msgid="(data\.|\/\/)astrometry\.net"
+    valid msgid="(data\.|broiler\.|\/\/)astrometry\.net"
     valid msgid="sudo apt(.?get)? install astrometry.net"
     valid msgstr="«astrometry\.net»"
     hint="Es tradueix per « «astrometry.net» (amb les cometes angleses)» (app-kstars)"
@@ -135,11 +141,16 @@ hint="Es tradueix per «astrometria» (app-kstars)"
     hint="Es tradueix per « «astrometry.net» (amb les cometes angleses)» (app-kstars)"
 
 # https://ca.wikipedia.org/wiki/Unitat_astron%C3%B2mica
-{\b(Astronomical\sUnits|AU)\b}i
+{\bAstronomical\sUnits\b}i
 valid ctx="^City\sin\s"
 valid msgstr="\bunitats? astronòmi(ca|ques)\b"
-valid msgstr="\bUA\b"
 hint="Es tradueix per «unitat/s astronòmica/ques -UA-» (app-kstars)"
+
+    {\bAU\b}i
+    valid ctx="^(Asteroid|Comet)\sname"
+    valid ctx="^City in (Baril Station|Haiti|Ontario Canada)"
+    valid msgstr="\bUA\b"
+    hint="Es tradueix per «UA -unitat astronòmica-» (app-kstars)"
 
 # https://ca.wikipedia.org/wiki/Astrofotografia
 {\bastrophotography\b}i
@@ -180,6 +191,7 @@ hint="Es tradueix per «guiatge» (app-kstars)"
 
         {\bGuider\b}i
         valid msgid="\bGuider\sCCD\b"
+        valid msgid="\bLin Guider\b"
         valid msgid="\bOff.?Axis\sGuider\b"
         valid msgstr="\bSistema de guiatge\b"
         hint="Es tradueix per «Sistema de guiatge» (app-kstars)"
@@ -221,8 +233,8 @@ hint="Es tradueix per «azimut» (app-kstars)"
 
 {\bbatch\b}i
 valid msgid="\bbatch\smode\b"
-valid msgstr="\bper lots\b"
-hint="Es tradueix per «per lots» (app-kstars)"
+valid msgstr="\b(iteració|per lots)\b"
+hint="Es tradueix per «per lots, iteració» (app-kstars)"
 
     {\bbatch\smode\b}i
     valid msgstr="\bmode de treball per lots\b"
@@ -230,8 +242,7 @@ hint="Es tradueix per «per lots» (app-kstars)"
 
 # https://ca.wikipedia.org/wiki/Filtre_mosaic_de_Bayer
 {\bbayer\b}i
-valid msgid="\bbayer\sfilter\b"
-valid msgid="\bbayer\spattern\b"
+valid msgid="\bbayer\s(filter|pattern)\b"
 valid msgstr="\bfiltre mosaic de Bayer\b"
 hint="Es tradueix per «filtre mosaic de Bayer» (app-kstars)"
 
@@ -249,8 +260,8 @@ hint="Es tradueix per «filtre mosaic de Bayer» (app-kstars)"
 
     {\bdebayer\b}i
     valid msgid="\bauto.?debayer\b"
-    valid msgstr="\breconstr(ueix|ir) des de Bayer\b"
-    hint="Es tradueix per «reconstrueix/ir des de Bayer» (app-kstars)"
+    valid msgstr="\breconstr(ucció|ueix|ir) des de Bayer\b"
+    hint="Es tradueix per «reconstrueix/ir des de Bayer, reconstrucció des de Bayer» (app-kstars)"
 
         {\bauto.?debayer\b}i
         valid msgstr="\bReconstrucció automàtica des de Bayer\b"
@@ -292,7 +303,7 @@ valid msgstr="\bull de bou\b"
 hint="Es tradueix per «ull de bou» (app-kstars)"
 
 # # {\bcamera\sfeed\b}i
-# # valid msgstr=""
+# # valid msgstr="\b\b"
 # # hint="Es tradueix per «» (app-kstars)"
 
 {\bCalibration\b}i
@@ -305,13 +316,17 @@ hint="Es tradueix per «punt/s cardinal/s» (app-kstars)"
 
 # https://ca.wikipedia.org/wiki/Pol_celeste
 {\bcelestial\spole\b}i
-valid msgid="\bNorth\scelestial\spole\b"
+valid msgid="\b(North|south)\scelestial\spole\b"
 valid msgstr="\bpol celeste\b"
 hint="Es tradueix per «pol celeste» (app-kstars)"
 
     {\bNorth\scelestial\spole\b}i
     valid msgstr="\bpol nord celeste\b"
     hint="Es tradueix per «pol nord celeste» (app-kstars)"
+
+    {\bsouth\scelestial\spole\b}i
+    valid msgstr="\bpol sud celeste\b"
+    hint="Es tradueix per «pol sud celeste» (app-kstars)"
 
 # https://ca.wikipedia.org/wiki/Cúmul_estel·lar
 {\bClusters?\b}i
@@ -388,12 +403,13 @@ valid msgid="\bdark\s(grey|red)\b"
 valid msgid="\bdark\sframes?\b"
 valid msgid="\bDark\s(half|Matter)\b"
 valid msgid="\bDark\sNebulae\b"
+valid msgid="\bdark.?sky\b"
 valid msgstr="\bObscuritat\b"
 hint="Es tradueix per «Obscuritat» (app-kstars)"
 
     {\bAuto\sDark\b}i
-    valid msgstr="\bObscuritat automàtica\b"
-    hint="Es tradueix per «Obscuritat automàtica» (app-kstars)"
+    valid msgstr="\bObscuritat automàtica(ment)?\b"
+    hint="Es tradueix per «Obscuritat automàtica/ment» (app-kstars)"
 
     {\bdark\sand\sflat\b}i
     valid msgstr="\bfoscos i plans\b"
@@ -415,15 +431,24 @@ hint="Es tradueix per «Obscuritat» (app-kstars)"
     valid msgstr="\bnebuloses fosques\b"
     hint="Es tradueix per «nebuloses fosques» (app-kstars)"
 
+    {\bdark.?sky\b}i
+    valid msgstr="\bfoscor del cel\b"
+    hint="Es tradueix per «foscor del cel» (app-kstars)"
+
 {\bData\sAcquisition\b}i
 valid msgstr="\bAdquisició de les dades\b"
 hint="Es tradueix per «Adquisició de les dades» (app-kstars)"
 
 # https://ca.wikipedia.org/wiki/Ortus
 {\bdawn\b}i
-valid msgstr="\balbada\b"
+valid msgid="\b(before\s|pre.?)dawn\b"
+valid msgstr="\balba\b"
 valid msgstr="\bsortida del Sol\b"
-hint="Es tradueix per «albada, sortida del Sol» (app-kstars)"
+hint="Es tradueix per «alba, sortida del Sol» (app-kstars)"
+
+    {\b(before\s|pre.?)dawn\b}i
+    valid msgstr="\babans de l'alba\b"
+    hint="Es tradueix per «abans de l'alba» (app-kstars)"
 
 # https://ca.wikipedia.org/wiki/Declinació_(astronomia)
 {\bDec\b}i
@@ -432,22 +457,8 @@ valid msgstr="\bDec\b"
 hint="Es tradueix per «Dec -declinació-» (app-kstars)"
 
 {\bDecrease\b}i
-valid msgstr="\bDisminuïu-lo\b"
-hint="Es tradueix per «Disminuïu-lo» (app-kstars)"
-
-{\bDeep.?Sky\b}i
-valid msgid="\bDeep\sSky\sobjects?\b"
-valid msgstr="\bcel profund\b"
-hint="Es tradueix per «cel profund» (app-kstars)"
-
-    {\bDeep.?Sky\sobjects?\b}i
-    valid msgid="\bextra\sDeep.?Sky\sobjects?\b"
-    valid msgstr="\bobjectes? del cel profund\b"
-    hint="Es tradueix per «objecte/s del cel profund» (app-kstars)"
-
-        {\bextra\sDeep.?Sky\sobjects?\b}i
-        valid msgstr="\bobjectes? extres del cel profund\b"
-        hint="Es tradueix per «objecte/s extres del cel profund» (app-kstars)"
+valid msgstr="\bDisminu(eix|ïu-lo)\b"
+hint="Es tradueix per «Disminueix, Disminuïu-lo» (app-kstars)"
 
 # https://ca.wikipedia.org/wiki/Minut_d'arc
 # https://ca.wikipedia.org/wiki/Grau_sexagesimal
@@ -465,7 +476,7 @@ valid ctx="^City\sin\s"
 valid msgstr="\bCúpula\b"
 hint="Es tradueix per «Cúpula» (app-kstars)"
 
-{\bDrift Graphics\b}i
+{\bDrift\sGraphics\b}i
 valid msgstr="\bGràfics de la deriva\b"
 hint="Es tradueix per «Gràfics de la deriva» (app-kstars)"
 
@@ -485,14 +496,15 @@ valid msgid="\bEcliptic\sCoordinate\b"
 valid msgstr="\bEclípti(ca|ques)\b"
 hint="Es tradueix per «Eclíptica/ques» (app-kstars)"
 
+    # https://ca.wikipedia.org/wiki/Coordenades_eclíptiques
     {\bEcliptic\sCoordinate\b}i
     valid msgid="\bEcliptic\sCoordinate\ssystem\b"
     valid msgstr="\bcoordenades eclíptiques\b"
     hint="Es tradueix per «coordenades eclíptiques» (app-kstars)"
 
         {\bEcliptic\sCoordinate\ssystem\b}i
-        valid msgstr="\bSistema de coordenades eclíptic\b"
-        hint="Es tradueix per «Sistema de coordenades eclíptic» (app-kstars)"
+        valid msgstr="\bSistema de coordenades eclíptiques\b"
+        hint="Es tradueix per «Sistema de coordenades eclíptiques» (app-kstars)"
 
 {\bCelestial\sEquator\b}i
 valid msgstr="\bequador celeste\b"
@@ -502,11 +514,36 @@ hint="Es tradueix per «equador celeste» (app-kstars)"
 id="appks-location"
 valid msgid="\bflat\slight\ssource\slocation\b"
 valid msgid="\bLocation\sInfo\sBox\b"
-valid msgid="btarget\slocation\b"
-valid msgid="\btelescope\slocation\b"
+valid msgid="\blocation\sservice\b"
+valid msgid="\btarget\slocation\b"
+valid msgid="\b(default|files?|GPS|solver|telescope|wcsinfo)\slocation\b"
 valid msgid="\btime\sand\slocation\ssettings\b"
 valid msgstr="\bemplaçaments?\b"
 hint="Es tradueix per «emplaçament/s (del dispositiu) -també ubicació (de l'objectiu) o lloc (punt de la lent, afeu-hi l'id)-» (app-kstars)"
+
+    {\bdefault\slocation\b}i
+    valid msgstr="\bubicació per omissió\b"
+    hint="Es tradueix per «ubicació per omissió» (app-kstars)"
+
+    {\bfile\slocation\b}i
+    valid msgstr="\bubicació del fitxer\b"
+    hint="Es tradueix per «ubicació del fitxer» (app-kstars)"
+
+        {\bfiles\slocation\b}i
+        valid msgstr="\bubicació dels fitxers\b"
+        hint="Es tradueix per «ubicació dels fitxers» (app-kstars)"
+
+    {\bGPS\slocation\b}i
+    valid msgstr="\bLocalització del GPS\b"
+    hint="Es tradueix per «Localització del GPS» (app-kstars)"
+
+    {\blocation\sservice\b}i
+    valid msgstr="\bservei de localització\b"
+    hint="Es tradueix per «servei de localització» (app-kstars)"
+
+    {\bsolver\slocation\b}i
+    valid msgstr="\bubicació del solucionador\b"
+    hint="Es tradueix per «ubicació del solucionador» (app-kstars)"
 
     {\btarget\slocation\b}i
     valid msgstr="\bubicació de l'objectiu\b"
@@ -521,6 +558,10 @@ hint="Es tradueix per «emplaçament/s (del dispositiu) -també ubicació (de l'
         valid msgstr="\bemplaçament real del telescopi\b"
         hint="Es tradueix per «emplaçament real del telescopi» (app-kstars)"
 
+    {\bwcsinfo\slocation\b}i
+    valid msgstr="\bubicació del wcsinfo\b"
+    hint="Es tradueix per «ubicació del wcsinfo» (app-kstars)"
+
 # https://ca.wikipedia.org/wiki/Línia_equatorial
 {\bEquator\b}i
 valid msgstr="\bEquador\b"
@@ -532,8 +573,8 @@ hint="Es tradueix per «Equador» (app-kstars)"
     hint="Es tradueix per «coordenades equatorials» (app-kstars)"
 
         {\bEquatorial\sCoordinate\sSystem\b}i
-        valid msgstr="\bsistema de coordenades equatorial\b"
-        hint="Es tradueix per «sistema de coordenades equatorial» (app-kstars)"
+        valid msgstr="\bsistema de coordenades equatorials\b"
+        hint="Es tradueix per «sistema de coordenades equatorials» (app-kstars)"
 
 {\bequipment\b}i
 valid msgstr="\bequip\b"
@@ -588,7 +629,7 @@ hint="Es tradueix per «enfoca/r, enfocament, enfoqui» (app-kstars)"
     hint="Es tradueix per «enfocador» (app-kstars)"
 
         {\binward\b}i
-        valid !msgstr="\cap bendins\b"
+        valid !msgstr="\b\cap bendins\b"
         valid msgstr="\bendins\b"
         hint="Es tradueix per «endins» (app-kstars)"
 
@@ -607,9 +648,13 @@ hint="Es tradueix per «enfoca/r, enfocament, enfoqui» (app-kstars)"
     hint="Es tradueix per «punt d'enfocament» (app-kstars)"
 
     {\bfocus\sposition\b}i
-    valid msgid="\b(initial|optical)\sfocus\sposition\b"
+    valid msgid="\b(absolute|initial|optical)\sfocus\sposition\b"
     valid msgstr="\bposició d'enfocament\b"
     hint="Es tradueix per «posició d'enfocament» (app-kstars)"
+
+        {\babsolute\sfocus\sposition\b}i
+        valid msgstr="\bposició absoluta de l'enfocament\b"
+        hint="Es tradueix per «posició absoluta de l'enfocament» (app-kstars)"
 
         {\binitial\sfocus\sposition\b}i
         valid msgstr="\bposició inicial de l'enfocament\b"
@@ -624,14 +669,14 @@ hint="Es tradueix per «enfoca/r, enfocament, enfoqui» (app-kstars)"
     hint="Es tradueix per «enfocament primari» (app-kstars)"
 
 # https://ca.wikipedia.org/wiki/Camp_de_visió
-{\bFOV\b}i
-valid msgstr="\bfov.dat\b"
-valid msgstr="\bCDV\b"
-hint="Es tradueix per «CDV -camp de visió-» (app-kstars)"
+{\bfield.?of.?view\b}i
+valid msgstr="\bcamp de visió\b"
+hint="Es tradueix per «camp de visió -CDV-» (app-kstars)"
 
-    {\bfield.?of.?view\b}i
-    valid msgstr="\bcamp de visió\b"
-    hint="Es tradueix per «camp de visió» (app-kstars)"
+    {\bFOV\b}i
+    valid msgstr="\bfov\.dat\b"
+    valid msgstr="\bCDV\b"
+    hint="Es tradueix per «CDV -camp de visió-» (app-kstars)"
 
 {\bframes?\b}i
 valid msgid="\bdark.?frames?\b"
@@ -698,17 +743,18 @@ hint="Es tradueix per «amplada total a la meitat del màxim, FHWM» (app-kstars
 
 # # 
 {\bFW\b}i
+valid ctx="^Asteroid\sname"
 valid msgstr="\bAC\b"
 hint="Es tradueix per «AC» (app-kstars)"
 
 {\bGuide\sScope\b}i
 valid msgid="\bseparate\sGuide\sScope\b"
-valid msgstr="\bàmbit del guiatge\b"
-hint="Es tradueix per «àmbit del guiatge» (app-kstars)"
+valid msgstr="\bguia telescòpica\b"
+hint="Es tradueix per «guia telescòpica» (app-kstars)"
 
     {\bseparate\sGuide\sScope\b}i
-    valid msgstr="\bàmbit separat del guiatge\b"
-    hint="Es tradueix per «àmbit separat del guiatge» (app-kstars)"
+    valid msgstr="\bguia telescòpica separada\b"
+    hint="Es tradueix per «guia telescòpica separada» (app-kstars)"
 
 # # https://en.wikipedia.org/wiki/Half_flux_diameter
 {\b(Half.?Flux.?Radius|HFR)\b}i
@@ -721,11 +767,15 @@ valid msgid="horizon;"
 valid msgstr="\bhoritzó\b"
 hint="Es tradueix per «horitzó» (app-kstars)"
 
+# https://ca.wikipedia.org/wiki/Coordenades_horitzontals
 {\bHorizontal\sCoordinate\b}i
-valid msgstr="\bcoordenades equatorial com en l'horitzontal\b"
-valid msgstr="\bcoordenades equatorial i horitzontal\b"
-valid msgstr="\bcoordenades horitzontal\b"
-hint="Es tradueix per «coordenades horitzontal» (app-kstars)"
+valid msgid="\bEquatorial\sand\sHorizontal\sCoordinate\b"
+valid msgstr="\bcoordenades horitzontals\b"
+hint="Es tradueix per «coordenades horitzontals» (app-kstars)"
+
+    {\bEquatorial\sand\sHorizontal\sCoordinate\b}i
+    valid msgstr="\bcoordenades equatorials (com|i) horitzontals\b"
+    hint="Es tradueix per «coordenades equatorials com/i horitzontals» (app-kstars)"
 
 # https://en.wikipedia.org/wiki/Index_Catalogue
 {\bIC\sObjects?\b}i
@@ -749,18 +799,18 @@ valid msgstr="\bfeu pujar\b"
 valid msgstr="\bincrementarà\b"
 hint="Es tradueix per «augmenta/r, augmenteu, augmenteu-la/o, augment, feu pujar, incrementarà» (app-kstars)"
 
-{\bInfo\sBox\b}i
-valid msgid="\bFocus\sInfo\sBox\b"
-valid msgid="\bLocation\sInfo\sBox\b"
-valid msgid="\bTime\sInfo\sBox\b"
+{\bInfo.?Box\b}i
+valid msgid="\bFocus\sInfo.?Box\b"
+valid msgid="\bLocation\sInfo.?Box\b"
+valid msgid="\bTime\sInfo.?Box\b"
 valid msgstr="\brètol informatiu\b"
 hint="Es tradueix per «rètol informatiu» (app-kstars)"
 
-    {\bInfo\sBoxes\b}i
+    {\bInfo.?Boxes\b}i
     valid msgstr="\brètols informatius\b"
     hint="Es tradueix per «rètols informatius» (app-kstars)"
 
-    {\bFocus\sInfo\sBox\b}i
+    {\bFocus\sInfo.?Box\b}i
     valid msgstr="\brètol informatiu de l'enfocament\b"
     hint="Es tradueix per «rètol informatiu de l'enfocament» (app-kstars)"
 
@@ -768,7 +818,7 @@ hint="Es tradueix per «rètol informatiu» (app-kstars)"
         valid msgstr="\brètol de l'enfocament\b"
         hint="Es tradueix per «rètol de l'enfocament» (app-kstars)"
 
-    {\bLocation\sInfo\sBox\b}i
+    {\bLocation\sInfo.?Box\b}i
     valid msgstr="\brètol informatiu de l'emplaçament\b"
     hint="Es tradueix per «rètol informatiu de l'emplaçament» (app-kstars)"
 
@@ -776,7 +826,7 @@ hint="Es tradueix per «rètol informatiu» (app-kstars)"
         valid msgstr="\brètol de l'emplaçament\b"
         hint="Es tradueix per «rètol de l'emplaçament» (app-kstars)"
 
-    {\bTime\sInfo\sBox\b}i
+    {\bTime\sInfo.?Box\b}i
     valid msgstr="\brètol informatiu del temps\b"
     hint="Es tradueix per «rètol informatiu del temps» (app-kstars)"
 
@@ -789,7 +839,7 @@ valid msgstr="\b(port de guiatge integrat|IGP)\b"
 hint="Es tradueix per «port de guiatge integrat, IGP» (app-kstars)"
 
 {\bInvalid\b}i
-valid msgstr="no (és |ser(à|an) |són )?vàlid(a|es|s)?"
+valid msgstr="\bno (és |ser(à|an) |són )?vàlid(a|es|s)?"
 hint="Es tradueix per «no és vàlid/a, no vàlid/a, no serà/an vàlida/es, no són vàlids/es» (app-kstars)"
 
 {\bIterative\b}i
@@ -800,14 +850,24 @@ hint="Es tradueix per «Iteratiu» (app-kstars)"
 valid msgstr="\btas(ca|ques)\b"
 hint="Es tradueix per «tasca/ques» (app-kstars)"
 
-{\b(Julian\sDay|JD)\b}i
+{\bJulian\sDay\b}i
 valid msgid="\bGregorian\sto\sJulian\sDay\b"
-valid msgstr="\b(dia julià|DJ)\b"
-hint="Es tradueix per «dia julià, DJ» (app-kstars)"
+valid msgstr="\bdia julià\b"
+hint="Es tradueix per «dia julià -DJ-» (app-kstars)"
 
-    {\b(Gregorian\sDay|GD)\b}i
-    valid msgstr="\b(dia gregorià|GJ)\b"
-    hint="Es tradueix per «dia gregorià, GJ» (app-kstars)"
+    {\bJD\b}i
+    valid ctx="^Asteroid\sname"
+    valid msgstr="\bDJ\b"
+    hint="Es tradueix per «DJ -dia julià-» (app-kstars)"
+
+    {\bGregorian\sDay\b}i
+    valid msgstr="\bdia gregorià\b"
+    hint="Es tradueix per «dia gregorià -GJ-» (app-kstars)"
+
+        {\bGD\b}i
+        valid ctx="^Asteroid\sname"
+        valid msgstr="\bGJ\b"
+        hint="Es tradueix per «GJ -dia gregorià-» (app-kstars)"
 
     {\bGregorian\sto\sJulian\sDay\b}i
     valid msgstr="\bdia gregorià a un de julià\b"
@@ -816,69 +876,81 @@ hint="Es tradueix per «dia julià, DJ» (app-kstars)"
 # # 
 {\bLive\b}i
 id="appks-live"
+valid msgid="\bEkos\sLive\b"
 valid msgid="\bLive\sVideo\b"
 valid msgstr="\ben (directe|viu)\b"
 valid msgstr="\bviviu\b"
 hint="Es tradueix per «en directe, en viu, viviu» (app-kstars)"
+
+    {\bEkos\sLive\b}i
+    valid msgstr="\bEkos Live\b"
+    hint="Es tradueix per «Ekos Live» (app-kstars)"
 
     {\bLive\sVideo\b}i
     valid msgstr="\bVídeo en directe\b"
     hint="Es tradueix per «Vídeo en directe» (app-kstars)"
 
 {\bmarker\sfile\b}i
-valid msgstr="fitxer de marcadors"
+valid msgstr="\bfitxer de marcadors\b"
 hint="Es tradueix per «fitxer de marcadors» (app-kstars)"
 
-# # 
 {\bMeasure\sAz\sError\b}i
-valid msgstr="\bMesura l'error de l'Az"
+valid msgstr="\bMesura l'error de l'Az\b"
 hint="Es tradueix per «Mesura l'error de l'Az» (app-kstars)"
 
     {\bCorrect\sAz\sError\b}i
-    valid msgstr="\bCorrecció de l'error de l'Az"
+    valid msgstr="\bCorrecció de l'error de l'Az\b"
     hint="Es tradueix per «Correcció de l'error de l'Az» (app-kstars)"
 
     {\bCorrect\sAlt\sError\b}i
-    valid msgstr="\bCorrecció de l'error de l'Alt"
+    valid msgstr="\bCorrecció de l'error de l'Alt\b"
     hint="Es tradueix per «Correcció de l'error de l'Alt» (app-kstars)"
 
     {\bMeasure\sAlt\sError\b}i
-    valid msgstr="\bMesura l'error de l'Alt"
+    valid msgstr="\bMesura l'error de l'Alt\b"
     hint="Es tradueix per «Mesura l'error de l'Alt» (app-kstars)"
 
 {\bmeridian\sflip\b}i
-valid msgstr="inversió del meridià"
+valid msgid="\b(after|post)\smeridian\sflip\b\b"
+valid msgstr="\binversió del meridià\b"
 hint="Es tradueix per «inversió del meridià» (app-kstars)"
+
+    {\bafter\smeridian\sflip\b}i
+    valid msgstr="\bdesprés de la inversió del meridià\b"
+    hint="Es tradueix per «després de la inversió del meridià» (app-kstars)"
+
+    {\bpost\smeridian\sflip\b}i
+    valid msgstr="\babans de la inversió del meridià\b"
+    hint="Es tradueix per «abans de la inversió del meridià» (app-kstars)"
 
 # https://ca.wikipedia.org/wiki/Catàleg_Messier
 {\bMessier\sObject\b}i
-valid msgstr="Objectes? Messier"
+valid msgstr="\bObjectes? Messier\b"
 hint="Es tradueix per «Objecte/s Messier» (app-kstars)"
 
 # https://ca.wikipedia.org/wiki/Minut_d'arc
 {\bmicroarcseconds?\b}i
-valid msgstr="microsegons? d'arc"
+valid msgstr="\bmicrosegons? d'arc\b"
 hint="Es tradueix per «microsegon/s d'arc (Abreujament en anglès: μas)» (app-kstars)"
 
 # https://ca.wikipedia.org/wiki/Minut_d'arc
 {\bmilliarcseconds?\b}i
-valid msgstr="mil·lisegons? d'arc"
+valid msgstr="\bmil·lisegons? d'arc\b"
 hint="Es tradueix per «mil·lisegon/s d'arc (Abreujament en anglès: mas)» (app-kstars)"
 
 # https://ca.wikipedia.org/wiki/Via_Làctia
 {\bMilky\sWay\b}i
-valid msgstr="Via làctia"
+valid msgstr="\bVia làctia\b"
 hint="Es tradueix per «Via làctia» (app-kstars)"
 
 {\bmodule\b}i
-valid msgstr="-module\b"
+valid msgstr="\b-module\b"
 valid msgid="\b(Align(ment)?|Capture|CCD|Focus|Guide|Mount|Scheduler)\smodule\b"
 valid msgstr="\bmòdul\b"
 hint="Es tradueix per «mòdul» (app-kstars)"
 
     {\bAlign(ment)?\smodule\b}i
-    valid msgid="\bDefault\salign\smodule\sCCD\b"
-    valid msgid="\bDefault\salign\smodule\sFilter\sWheel\b"
+    valid msgid="\bDefault\salign\smodule\s(CCD|Filter\sWheel)\b"
     valid msgstr="\bmòdul per a l'alineació\b"
     hint="Es tradueix per «mòdul per a l'alineació» (app-kstars)"
 
@@ -945,11 +1017,11 @@ hint="Es tradueix per «mòdul» (app-kstars)"
 
 {\bmosaic\simage\b}i
 valid msgid="\bsuper\smosaic\simage\b"
-valid msgstr="imatge en mosaic"
+valid msgstr="\bimatge en mosaic\b"
 hint="Es tradueix per «imatge en mosaic» (app-kstars)"
 
     {\bsuper\smosaic\simage\b}i
-    valid msgstr="súper imatge en mosaic"
+    valid msgstr="\bsúper imatge en mosaic\b"
     hint="Es tradueix per «súper imatge en mosaic» (app-kstars)"
 
 # https://en.wikipedia.org/wiki/Telescope_mount
@@ -960,12 +1032,12 @@ hint="Es tradueix per «muntura» (app-kstars)"
 
 {\bNebulaes?\b}i
 valid msgid="\bDark\sNebulae\b"
-valid msgstr="Nebuloses"
+valid msgstr="\bNebuloses\b"
 hint="Es tradueix per «Nebuloses» (app-kstars)"
 
 # https://ca.wikipedia.org/wiki/New_General_Catalogue
 {\bNGC\sObjects?\b}i
-valid msgstr="Objectes? del NGC"
+valid msgstr="\bObjectes? del NGC\b"
 hint="Es tradueix per «Objecte/s del NGC» (app-kstars)"
 
 {\bnoisy\simages?\b}i
@@ -973,69 +1045,75 @@ valid msgstr="\bimatges? amb soroll\b"
 hint="Es tradueix per «imatge/s amb soroll» (app-kstars)"
 
 {\bobservation\b}i
-valid msgid="observation\sjob"
-valid msgid="observation\sList"
-valid msgid="\bobservation\sLogging\b"
-valid msgid="\bObservation\sPlanner\b"
-valid msgid="observation\stime"
-valid msgstr="observació"
+valid msgid="\bobservation\s(job|List|Logging|Planner|time)\b"
+valid msgstr="\bobservació\b"
 hint="Es tradueix per «observació» (app-kstars)"
 
     {\bobservation\sjob\b}i
-# #     valid msgstr="una tasca (a|de) la llista d'observació"
-    valid msgstr="tasca d'observació"
+# #     valid msgstr="\buna tasca (a|de) la llista d'observació"
+    valid msgstr="\btasca d'observació\b"
     hint="Es tradueix per «tasca d'observació» (app-kstars)"
 
     {\bobservation\sList\b}i
-    valid msgstr="llista d'observació"
+    valid msgstr="\bllista d'observació\b"
     hint="Es tradueix per «llista d'observació» (app-kstars)"
 
     {\bobservation\sLogging\b}i
-    valid msgstr="registre d'observacions"
+    valid msgstr="\bregistre d'observacions\b"
     hint="Es tradueix per «registre d'observacions» (app-kstars)"
 
     {\bobservation\stime\b}i
-    valid msgstr="hora de l'observació"
-    hint="Es tradueix per «hora de l'observació» (app-kstars)"
+    valid msgid="\bproper\sobservation\stime\b"
+    valid msgstr="\btemps de l'observació\b"
+    hint="Es tradueix per «temps de l'observació» (app-kstars)"
+
+    {\bproper\sobservation\stime\b}i
+    valid msgstr="\btemps adequat (de|per a) l'observació\b"
+    hint="Es tradueix per «temps adequat de l'observació, temps adequat per a l'observació» (app-kstars)"
 
 {\bObservatory\b}i
 valid ctx="^City\sin\s"
-valid msgid="Yerkes\sObservatory\b"
-valid msgstr="Observatori"
+valid msgid="\bYerkes\sObservatory\b"
+valid msgstr="\bObservatori\b"
 hint="Es tradueix per «Observatori» (app-kstars)"
 
     # https://ca.wikipedia.org/wiki/Observatori_Yerkes
     {\bYerkes\sObservatory\b}i
-    valid msgstr="Observatori Yerkes"
+    valid msgstr="\bObservatori Yerkes\b"
     hint="Es tradueix per «Observatori Yerkes» (app-kstars)"
 
 # http://sergioariasfotografia.es/blog/que-es-un-objetivo-parafocal/
 {\bparafocal\b}i
-valid msgstr="parafocals?"
+valid msgstr="\bparafocals?\b"
 hint="Es tradueix per «parafocal/s» (app-kstars)"
 
 {\bParallax\b}i
 valid msgid="ai-parallax"
 valid msgid="parallax;"
-valid msgstr="paral·laxi"
+valid msgstr="\bparal·laxi\b"
 hint="Es tradueix per «paral·laxi» (app-kstars)"
 
 {\bpark\b}i
 valid ctx="^City\sin\s"
-valid msgstr="apar(car?|qui)"
+valid msgid="\bAuto.?Park\b"
+valid msgstr="\bapar(car?|qui)\b"
 hint="Es tradueix per «aparca/r, aparqui» (app-kstars)"
 
+    {\bAuto.?Park\b}i
+    valid msgstr="\baparcament automàtic\b"
+    hint="Es tradueix per «aparcament automàtic» (app-kstars)"
+
     {\bParked\b}i
-    valid msgstr="aparcada"
+    valid msgstr="\baparcada\b"
     hint="Es tradueix per «aparcada» (app-kstars)"
 
     {\bParking\b}i
-    valid msgstr="S'aparcarà"
-    valid msgstr="aparca(nt|ment|r)"
+    valid msgstr="\bS'aparcarà\b"
+    valid msgstr="\baparca(nt|ment|r)\b"
     hint="Es tradueix per «aparcant, S'aparcarà, aparcar, aparcament» (app-kstars)"
 
     {\bunpark\b}i
-    valid msgstr="desaparcar?"
+    valid msgstr="\bdesaparcar?\b"
     hint="Es tradueix per «desaparca/r» (app-kstars)"
 
     {\bUnparking\b}i
@@ -1067,12 +1145,11 @@ hint="Es tradueix per «pols» (app-kstars)"
 
 {\bpolynomial\b}i
 valid msgstr="\bPolinomi\b"
-valid msgstr="\bPolinòmic\b"
-hint="Es tradueix per «Polinòmic, Polinomi» (app-kstars)"
+valid msgstr="\bPolinòmica?\b"
+hint="Es tradueix per «Polinòmic/a, Polinomi» (app-kstars)"
 
 {\bprocedure\b}i
-valid msgid="\bStart.?down\sprocedure\b"
-valid msgid="\bStart.?up\sprocedure\b"
+valid msgid="\bStart.?(down|up)\sprocedure\b"
 valid msgstr="\bprocediment\b"
 hint="Es tradueix per «procediment» (app-kstars)"
 
@@ -1081,39 +1158,43 @@ hint="Es tradueix per «procediment» (app-kstars)"
     hint="Es tradueix per «procediment de tancament» (app-kstars)"
 
         {\bShut.?down\b}i
-        valid msgid="\bStart.?down\sprocedure\b"
-        valid msgstr="tancament"
+        valid msgid="\bS(hu|tar)t.?down\sprocedure\b"
+        valid msgstr="\btancament\b"
         hint="Es tradueix per «tancament» (app-kstars)"
 
     {\bStart.?up\sprocedure\b}i
-    valid msgstr="procediment d'inici"
+    valid msgstr="\bprocediment d'inici\b"
     hint="Es tradueix per «procediment d'inici» (app-kstars)"
 
         {\bStart.?up\b}i
-        valid msgid="\bStart.?up\sprocedure\b"
-        valid msgid="\bStart.?up\stime\b"
-        valid msgid="\bStart.?up\sWizard\b"
-        valid msgstr="inici"
+        valid msgid="\bStart.?up\s(procedure|time|Wizard)\b"
+        valid msgstr="\binici\b"
         hint="Es tradueix per «inici» (app-kstars)"
 
             {\bStart.?up\stime\b}i
-            valid msgstr="temps d'inici"
+            valid msgid="\bfixed\sStart.?up\stime\b"
+            valid msgstr="\btemps d'inici\b"
             hint="Es tradueix per «temps d'inici» (app-kstars)"
 
-            {\bStart.?up\sWizard\b}i
-            valid msgstr="Assistent d'inici"
-            hint="Es tradueix per «Assistent d'inici» (app-kstars)"
+                {\bfixed\sStart.?up\stime\b}i
+                valid msgstr="\btemps fix d'inici\b"
+                hint="Es tradueix per «temps fix d'inici» (app-kstars)"
 
             {\blead\stime\b}i
-            valid msgstr="temps de lliurament"
-            hint="Es tradueix per «temps de lliurament» (app-kstars)"
+            valid msgstr="\btermini de lliurament\b"
+            hint="Es tradueix per «termini de lliurament» (app-kstars)"
 
 # https://ca.wikipedia.org/wiki/Ascensió_recta
-{\bRA\b}i
-valid ctx="^City\sin\s"
-valid msgid="\bra\.rishab\b"
-valid msgstr="\bAR\b"
-hint="Es tradueix per «AR -ascensió recta-» (app-kstars)"
+{\brigth\sascention\b}i
+valid msgstr="\bascensió recta\b"
+hint="Es tradueix per «ascensió recta -AR-» (app-kstars)"
+
+    {\bRA\b}i
+    valid ctx="^Asteroid\sname"
+    valid ctx="^City\sin\s"
+    valid msgid="\bra\.rishab\b"
+    valid msgstr="\bAR\b"
+    hint="Es tradueix per «AR -ascensió recta-» (app-kstars)"
 
 {\breticle\b}i
 valid msgid="\breticle\sposition\b"
@@ -1126,7 +1207,7 @@ hint="Es tradueix per «retícula» (app-kstars)"
 
 {\brises?\b}i
 valid msgid="\brises\sat\b"
-valid msgstr="per sota l'horitzó"
+valid msgstr="\bper sota l'horitzó"
 valid msgstr="\bsortid(a|es)\b"
 valid msgstr="\bsurt\b"
 hint="Es tradueix per «sortida/es, surt» (app-kstars)"
@@ -1143,31 +1224,36 @@ hint="Es tradueix per «RMS» (app-kstars)"
 
 {\brobotic\b}i
 valid msgid="\brobotic\soperation\b"
-valid msgstr="robotitzat"
+valid msgstr="\brobotitzat\b"
 hint="Es tradueix per «robotitzat» (app-kstars)"
 
     {\brobotic\soperation\b}i
-    valid msgstr="operació robòtica"
+    valid msgstr="\boperació robòtica\b"
     hint="Es tradueix per «operació robòtica» (app-kstars)"
 
 # # 
 {\brotator\b}i
+valid msgid="\bde.?rotator\b"
 valid msgid="\bfield\srotators?\b"
 valid msgid="\brotator\sangle\b"
-valid msgstr="rotor"
+valid msgstr="\brotor\b"
 hint="Es tradueix per «rotor» (app-kstars)"
+
+    {\bde.?rotator\b}i
+    valid msgstr="\bdesrotor\b"
+    hint="Es tradueix per «desrotor» (app-kstars)"
 
     {\brotators\b}i
     valid msgid="\bfield\sbrotators?\b"
-    valid msgstr="rotors"
+    valid msgstr="\brotors\b"
     hint="Es tradueix per «rotors» (app-kstars)"
 
         {\bfield\srotators?\b}i
-        valid msgstr="rotors? de camp"
+        valid msgstr="\brotors? de camp\b"
         hint="Es tradueix per «rotor/s de camp» (app-kstars)"
 
         {\brotator\sangle\b}i
-        valid msgstr="angle del rotor"
+        valid msgstr="\bangle del rotor\b"
         hint="Es tradueix per «angle del rotor» (app-kstars)"
 
     {\brotating\b}i
@@ -1175,52 +1261,67 @@ hint="Es tradueix per «rotor» (app-kstars)"
     hint="Es tradueix per «rotar» (app-kstars)"
 
     {\brotation\b}i
-    valid msgstr="rotaci(ó|onal|ons)"
+    valid msgstr="\brotaci(ó|onal|ons)\b"
     hint="Es tradueix per «rotació/onal, rotacions» (app-kstars)"
 
 {\bRoute\b}i
-valid msgstr="Ruta"
+valid msgstr="\bRuta\b"
 hint="Es tradueix per «Ruta» (app-kstars)"
 
 {\bSatellit(es)?\b}i
-valid msgstr="Satèl·lits?"
+valid msgstr="\bSatèl·lits?\b"
 hint="Es tradueix per «Satèl·lit/s» (app-kstars)"
 
 {\bschedule\b}i
-valid msgstr="programa"
+valid msgid="\bmosaic\sschedule\b"
+valid msgstr="\bprograma\b"
 hint="Es tradueix per «programa» (app-kstars)"
 
+    {\bmosaic\sschedule\b}i
+    valid msgstr="\bprogramació en mosaic\b"
+    hint="Es tradueix per «programació en mosaic» (app-kstars)"
+
     {\bscheduled\b}i
+    valid msgid="\bscheduler\sjob\sis\sscheduled\b"
     valid msgid="\bscheduler\stime\b"
-    valid msgstr="programació"
-    valid msgstr="programa(t|da)"
-    hint="Es tradueix per «programació, programat/da» (app-kstars)"
+    valid msgstr="\bprogramació\b"
+    valid msgstr="\bprograma(ts?|da|des)\b"
+    hint="Es tradueix per «programació, programat/s, programada/des» (app-kstars)"
 
         {\bscheduled\stime\b}i
-        valid msgstr="temps programat"
+        valid msgstr="\btemps programat\b"
         hint="Es tradueix per «temps programat» (app-kstars)"
 
     {\bscheduler\b}i
     valid msgid="tool-ekos-scheduler"
-    valid msgid="scheduler\sjobs?"
-    valid msgstr="programador"
+    valid msgid="\bscheduler\sjobs?\b"
+    valid msgstr="\bprogramador\b"
     hint="Es tradueix per «programador» (app-kstars)"
 
     {\bscheduler\sjobs?\b}i
-    valid msgstr="tas(ca|ques) programad(a|es)"
+    valid msgid="\bscheduler\sjob\sis\sscheduled\b"
+    valid msgstr="\btas(ca|ques) programad(a|es)\b"
     hint="Es tradueix per «tasca/ques programada/es» (app-kstars)"
+
+        {\bscheduler\sjob\sis\sscheduled\b}i
+        valid msgstr="\bes programi cap tasca\b"
+        hint="Es tradueix per «es programi cap tasca» (app-kstars)"
+
+    {\bsequence\sjobs?\b}i
+    valid msgstr="\btas(ca|ques) de seqüències\b"
+    hint="Es tradueix per «tasca/ques de seqüències» (app-kstars)"
 
     {\bplanner\b}i
     valid msgid="\bObservation\sPlanner\b"
-    valid msgstr="planificador"
+    valid msgstr="\bplanificador\b"
     hint="Es tradueix per «planificador» (app-kstars)"
 
         {\bObservation\sPlanner\b}i
-        valid msgstr="planificador de l'observació"
+        valid msgstr="\bplanificador de l'observació\b"
         hint="Es tradueix per «planificador de l'observació» (app-kstars)"
 
 {\bSession\sPlan\b}i
-valid msgstr="planificació de la sessió"
+valid msgstr="\bplanificació de la sessió\b"
 hint="Es tradueix per «planificació de la sessió» (app-kstars)"
 
 {\bsets\sat\b}i
@@ -1236,113 +1337,132 @@ hint="Es tradueix per «es pon a les, posta a les» (app-kstars)"
 valid msgstr="\bposicionament\b"
 hint="Es tradueix per «posicionament» (app-kstars)"
 
-{\bSetup\sWizard\b}i
+{\b(Setup|Start.?up)\sWizard\b}i
 valid msgid="\bTelescope\sSetup\sWizard\b"
-valid msgstr="Assistent d'engegada"
+valid msgstr="\bAssistent d'engegada\b"
 hint="Es tradueix per «Assistent d'engegada» (app-kstars)"
 
     {\bTelescope\sSetup\sWizard\b}i
-    valid msgstr="assistent de configuració del telescopi"
+    valid msgstr="\bassistent de configuració del telescopi\b"
     hint="Es tradueix per «assistent de configuració del telescopi» (app-kstars)"
 
 {\bsequence\b}i
-valid msgid="\bsequence\sfile\b"
-valid msgid="\bsequence\smanager\b"
-valid msgid="\bsequence\sprocess\b"
-valid msgid="\bsequence\squeue\b"
-valid msgstr="seqüència"
+valid msgid="\bsequence\s(captures?|file|images|job|manager|process|queue)\b"
+valid msgstr="\bseqüència\b"
 hint="Es tradueix per «seqüència» (app-kstars)"
 
+    {\bsequence\scaptures?\b}i
+    valid msgstr="\bcaptur(a|es) de seqüències\b"
+    hint="Es tradueix per «captura/es de seqüències» (app-kstars)"
+
     {\bsequence\sfile\b}i
-    valid msgstr="fitxer de seqüència"
+    valid msgstr="\bfitxer de seqüència\b"
     hint="Es tradueix per «fitxer de seqüència» (app-kstars)"
 
+    {\bsequence\simages\b}i
+    valid msgstr="\bimatges de la seqüència\b"
+    hint="Es tradueix per «imatges de la seqüència» (app-kstars)"
+
     {\bsequence\smanager\b}i
-    valid msgstr="gestor de seqüències"
+    valid msgstr="\bgestor de seqüències\b"
     hint="Es tradueix per «gestor de seqüències» (app-kstars)"
 
     {\bsequence\sprocess\b}i
-    valid msgstr="procés de la seqüència"
+    valid msgstr="\bprocés de la seqüència\b"
     hint="Es tradueix per «procés de la seqüència» (app-kstars)"
 
     {\bsequence\squeue\b}i
-    valid msgstr="cua de seqüències"
-    hint="Es tradueix per «cua de seqüències» (app-kstars)"
+    valid msgstr="\bcua de la seqüència\b"
+    hint="Es tradueix per «cua de la seqüència» (app-kstars)"
 
 {\bshutter\b}i
-valid msgstr="obturador"
+valid msgstr="\bobturador\b"
 hint="Es tradueix per «obturador» (app-kstars)"
 
 {\bSky\b}i
 valid msgid="\bDeep\sSky\b"
-valid msgid="FOWL OF SKY"
-valid msgid="JAVELIN OF SKY"
-valid msgid="SHRINE OF SKY"
+valid msgid="\bFOWL OF SKY\b"
+valid msgid="\bJAVELIN OF SKY\b"
+valid msgid="\bSHRINE OF SKY\b"
 valid msgid="\bSky\sChart\b"
 valid msgid="\bsky\scoordinates\b"
 valid msgid="\bsky\sdisplay\b"
 valid msgid="\bsky\smap\b"
 valid msgid="\bsky.?objects?\b"
-valid msgstr="Sloan\sDigital\sSky\sSurvey"
-valid msgstr="Digitized\sSky\sSurvey\s.DSS."
+valid msgstr="\bSloan\sDigital\sSky\sSurvey\b"
+valid msgstr="\bDigitized\sSky\sSurvey\s.DSS."
 valid msgstr="\bCel\b"
 hint="Es tradueix per «Cel» (app-kstars)"
 
     {\bsky\sChart\b}i
-    valid msgstr="carta estel·lar"
+    valid msgstr="\bcarta estel·lar\b"
     hint="Es tradueix per «carta estel·lar» (app-kstars)"
 
     {\bsky\scoordinates\b}i
-    valid msgstr="coordenades celestes"
+    valid msgstr="\bcoordenades celestes\b"
     hint="Es tradueix per «coordenades celestes» (app-kstars)"
 
     {\bsky\sdisplay\b}i
-    valid msgstr="vista del cel"
+    valid msgstr="\bvista del cel\b"
     hint="Es tradueix per «vista del cel» (app-kstars)"
 
 # # mapa del cel
     {\bsky\smap\b}i
-    valid msgstr="mapa celeste"
+    valid msgstr="\bmapa celeste\b"
     hint="Es tradueix per «mapa celeste» (app-kstars)"
 
 # # objecte al cel
     {\bsky.?objects?\b}i
     valid msgid="\bcurrent\ssky.?objects?\b"
-    valid msgid="\bDeep.?Sky\sobjects?\b"
-    valid msgstr="objectes? celestes?"
+    valid msgid="\bDeep.?Sky.?objects?\b"
+    valid msgstr="\bobjectes? celestes?\b"
     hint="Es tradueix per «objecte/s celeste/s» (app-kstars)"
 
         {\bcurrent\ssky.?objects?\b}i
-        valid msgstr="objectes? actuals? en el cel"
+        valid msgstr="\bobjectes? actuals? en el cel\b"
         hint="Es tradueix per «objecte/s actual/s en el cel» (app-kstars)"
 
+    {\bDeep.?Sky\b}i
+    valid msgid="\bDeep\sSky\sobjects?\b"
+    valid msgstr="\bcel profund\b"
+    hint="Es tradueix per «cel profund» (app-kstars)"
+
+        {\bDeep.?Sky.?objects?\b}i
+        valid msgid="\bextra\sDeep.?Sky\sobjects?\b"
+        valid msgstr="\bobjectes? del cel profund\b"
+        hint="Es tradueix per «objecte/s del cel profund» (app-kstars)"
+
+            {\bextra\sDeep.?Sky\sobjects?\b}i
+            valid msgstr="\bobjectes? extres del cel profund\b"
+            hint="Es tradueix per «objecte/s extres del cel profund» (app-kstars)"
+
 {\bsleep\smode\b}i
-valid msgstr="mode de repòs"
+valid msgstr="\bmode de repòs\b"
 hint="Es tradueix per «mode de repòs» (app-kstars)"
 
 # # 
 {\bslews?\b}i
-valid msgstr="orient(a|ació|ar|eu)?"
+valid msgstr="\borient(a|ació|ar|eu)?\b"
 hint="Es tradueix per «orienta/ció, orientar, orienteu» (app-kstars)"
 
     {\bSlewing\b}i
     valid msgid="\banimated\sslewing\b"
     valid msgid="\bprocess\sof\sslewing\b"
-    valid msgid="wh(en|ile) slewing"
+    valid msgid="\bwh(en|ile)\sslewing\b"
     valid msgid="\bslewing\smode\b"
-    valid msgstr="orient(a|ant|i)"
-    hint="Es tradueix per «orienta, orientant», orienti (app-kstars)"
+    valid msgstr="\borient(a|ació|ant|i)\b"
+    hint="Es tradueix per «orienta, orientació, orientant, orienti» (app-kstars)"
 
         {\banimated\sslewing\b}i
-        valid msgstr="transició animada"
+        valid msgstr="\btransició animada\b"
         hint="Es tradueix per «transició animada» (app-kstars)"
 
         {\bprocess\sof\sslewing\b}i
-        valid msgstr="procés d'orientació"
+        valid msgstr="\bprocés d'orientació\b"
         hint="Es tradueix per «procés d'orientació» (app-kstars)"
 
         {\bslewing\smode\b}i
-        valid msgstr="mode transició"
+        valid msgstr="\bmode transició\b"
         hint="Es tradueix per «mode transició» (app-kstars)"
 
 {\bSolution\sResults\b}i
@@ -1350,14 +1470,14 @@ valid msgstr="\bResultats de la solució\b"
 hint="Es tradueix per «Resultats de la solució» (app-kstars)"
 
 {\bSolver\b}i
-valid msgstr="Solucionador"
+valid msgstr="\bSolucionador\b"
 hint="Es tradueix per «Solucionador» (app-kstars)"
 
 {\bsource\b}i
-valid msgid="open source"
+valid msgid="\bopen source\b"
 valid msgid="\bflat\ssource\b"
 valid msgid="\blight\ssources?\b"
-valid msgid="\bsource\sphotons\b"
+valid msgid="\bsource\s(catalog|photons|point)\b"
 valid msgstr="\bfont\b"
 hint="Es tradueix per «font» (app-kstars)"
 
@@ -1389,9 +1509,17 @@ hint="Es tradueix per «font» (app-kstars)"
         valid msgstr="\bpanell de llum\b"
         hint="Es tradueix per «panell de llum» (app-kstars)"
 
+    {\bsource\scatalog\b}i
+    valid msgstr="\bcatàleg d'origen\b"
+    hint="Es tradueix per «catàleg d'origen» (app-kstars)"
+
     {\bsource\sphotons\b}i
     valid msgstr="\bfotons d'origen\b"
     hint="Es tradueix per «fotons d'origen» (app-kstars)"
+
+    {\bsource\spoint\b}i
+    valid msgstr="\bpunt d'origen\b"
+    hint="Es tradueix per «punt d'origen» (app-kstars)"
 
     {\bwall\b}i
     valid msgstr="\bparet\b"
@@ -1400,109 +1528,118 @@ hint="Es tradueix per «font» (app-kstars)"
 {\bstar\b}i
 id="appks-star"
 valid msgid="\bAmerican\sAssociation\sof\sVariable\sStar\sObservers\b"
-valid msgid="\bStar\sCatalogs?\b"
-valid msgid="\bStar\sCharts?\b"
-valid msgid="\bStar\sClusters?\b"
-valid msgid="\bStar\scolors?\b"
-valid msgid="\bStar\sdensity\b"
-valid msgid="\bStar\sdrift\b"
-valid msgid="\bstar\sfields?\b"
-valid msgid="\bStar\sglobe\b"
-valid msgid="\bStar.?Hop\b"
-valid msgid="\bStar\sHopp(er|ing)\b"
-valid msgid="\bStar\sMagnitudes\b"
-valid msgid="\bStar\smap\b"
-valid msgid="\bstar\sname\slabels\b"
-valid msgid="\bstar\stime\b"
-valid msgid="STAR OF WOLF"
-valid msgstr="Colors i temperatures de les estrelles"
-valid msgstr="estrella"
+valid msgid="\bStar\s(Catalogs?|Charts?|Clusters?|colors?|density|drift|fields?|globe|Magnitudes|map|name\slabels|time)\b"
+valid msgid="\bStar.?Hop(per|ping)?\b"
+valid msgid="\bstar.?light\b"
+valid msgid="\bSTAR OF WOLF\b"
+valid msgstr="\bColors i temperatures de les estrelles\b"
+valid msgstr="\bestrella\b"
 hint="Es tradueix per «estrella» (app-kstars)"
 
     # https://ca.wikipedia.org/wiki/Associació_Americana_d%27Observadors_d%27Estrelles_Variables
     {\b(American\sAssociation\sof\sVariable\sStar\sObservers|AAVSO)\b}i
-    valid msgstr="Associació Americana d'Observadors d'Estrelles Variables"
-    valid msgstr="AAVSO"
+    valid msgstr="\bAssociació Americana d'Observadors d'Estrelles Variables\b"
+    valid msgstr="\bAAVSO\b"
     hint="Es tradueix per «Associació Americana d'Observadors d'Estrelles Variables» (app-kstars)"
 
     {\bStar\sCatalog\b}i
-    valid msgstr="Catàleg d'estrelles"
+    valid msgstr="\bCatàleg d'estrelles\b"
     hint="Es tradueix per «Catàleg d'estrelles» (app-kstars)"
 
         {\bStar\sCatalogs\b}i
-        valid msgstr="Catàlegs d'estrelles"
+        valid msgid="\badditional\sStar\sCatalogs\b"
+        valid msgstr="\bCatàlegs d'estrelles\b"
         hint="Es tradueix per «Catàlegs d'estrelles» (app-kstars)"
 
+            {\badditional\sStar\sCatalogs\b}i
+            valid msgstr="\bCatàlegs addicionals d'estrelles\b"
+            hint="Es tradueix per «Catàlegs addicionals d'estrelles» (app-kstars)"
+
     {\bStar\sCharts?\b}i
-    valid msgstr="Cart(a|es) estel·lars?"
+    valid msgstr="\bCart(a|es) estel·lars?\b"
     hint="Es tradueix per «Carta/es estel·lar/s» (app-kstars)"
 
     {\bStar\sClusters?\b}i
-    valid msgstr="cúmuls? d'estrelles"
+    valid msgstr="\bcúmuls? d'estrelles\b"
     hint="Es tradueix per «Cúmul/s d'estrelles» (app-kstars)"
 
     {\bStar\scolor\b}i
-    valid msgstr="color de l'estrella"
+    valid msgstr="\bcolor de l'estrella\b"
     hint="Es tradueix per «color de l'estrella» (app-kstars)"
 
         {\bStar\scolors\b}i
         valid msgid="\bStar\scolors\sand\sTemperatures\b"
-        valid msgstr="colors de les estrelles"
+        valid msgstr="\bcolors de les estrelles\b"
         hint="Es tradueix per «colors de les estrelles» (app-kstars)"
 
         {\bStar\scolors\sand\sTemperatures\b}i
-        valid msgstr="colors i temperatures de les estrelles"
+        valid msgstr="\bcolors i temperatures de les estrelles\b"
         hint="Es tradueix per «colors i temperatures de les estrelles» (app-kstars)"
 
     {\bStar\sdensity\b}i
-    valid msgstr="densitat d'estrelles"
+    valid msgstr="\bdensitat d'estrelles\b"
     hint="Es tradueix per «densitat d'estrelles» (app-kstars)"
 
     {\bstar\sdrift\b}i
-    valid msgstr="deriva inicial"
+    valid msgstr="\bderiva inicial\b"
     hint="Es tradueix per «deriva inicial» (app-kstars)"
 
     {\bstar\sfields?\b}i
-    valid msgstr="camp de l'estrella"
-    hint="Es tradueix per «camp de l'estrella» (app-kstars)"
+    valid msgstr="\bcamp estel·lar\b"
+    hint="Es tradueix per «estel·lar» (app-kstars)"
 
     # https://ca.wikipedia.org/wiki/Esfera_celeste
     {\bStar\sglobe\b}i
-    valid msgstr="esfera celeste"
+    valid msgstr="\besfera celeste\b"
     hint="Es tradueix per «esfera celeste» (app-kstars)"
 
+# # 
     # https://en.wikipedia.org/wiki/Star_hopping
     {\bStar.?Hop\b}i
-    valid msgstr="encadena les strelles"
-    valid msgstr="estrelles encadenades"
-    hint="Es tradueix per «estrelles encadenades, encadena les strelles» (app-kstars)"
+    valid msgid="\blarge\sStar.?Hop\b"
+    valid msgstr="\bencadena les estrelles\b"
+    valid msgstr="\bestrelles encadenades\b"
+    hint="Es tradueix per «estrelles encadenades, encadena les estrelles» (app-kstars)"
 
-        {\bStar\sHopper\b}i
-        valid msgstr="saltador entre estrelles"
+        {\blarge\sStar.?Hop\b}i
+        valid msgstr="\bsalt gran entre estrelles\b"
+        hint="Es tradueix per «salt gran entre estrelles» (app-kstars)"
+
+        {\bStar.?Hopper\b}i
+        valid msgstr="\bsaltador entre estrelles\b"
         hint="Es tradueix per «saltador entre estrelles» (app-kstars)"
 
-        {\bStar\sHopping\b}i
-        valid msgstr="salts entre estrelles"
+        {\bStar.?Hopping\b}i
+        valid msgstr="\bsalts entre estrelles\b"
         hint="Es tradueix per «salts entre estrelles» (app-kstars)"
 
+    {\bstar.?light\b}i
+    valid msgstr="\bllum de l'estrella\b"
+    hint="Es tradueix per «llum de l'estrella» (app-kstars)"
+
     {\bStar\sMagnitudes\b}i
-    valid msgstr="Magnituds de les estrelles"
+    valid msgstr="\bMagnituds de les estrelles\b"
     hint="Es tradueix per «Magnituds de les estrelles» (app-kstars)"
 
     {\bStar\smap\b}i
-    valid msgstr="mapa estel·lar"
+    valid msgstr="\bmapa estel·lar\b"
     hint="Es tradueix per «mapa estel·lar» (app-kstars)"
 
     {\bstar\sname\slabels\b}i
-    valid msgstr="etiquetes de nom per a les estrelles"
+    valid msgstr="\betiquetes de nom per a les estrelles\b"
     hint="Es tradueix per «etiquetes de nom per a les estrelles» (app-kstars)"
 
 {\bstars\b}i
+valid msgid="\bbackground\sstars\b"
 valid msgid="\bfuzzy\sstars\b"
 valid msgid="\bguide\sstars\b"
 valid msgid="stars;"
-valid msgstr="estrelles"
+valid msgstr="\bestrelles\b"
 hint="Es tradueix per «estrelles» (app-kstars)"
+
+    {\bbackground\sstars\b}i
+    valid msgstr="\bfons estrellat\b"
+    hint="Es tradueix per «fons estrellat» (app-kstars)"
 
     {\bfuzzy\sstars\b}i
     valid msgstr="\bestrelles difuses\b"
@@ -1513,18 +1650,18 @@ hint="Es tradueix per «estrelles» (app-kstars)"
     hint="Es tradueix per «estrella/es guia» (app-kstars)"
 
 {\bSync\b}i
-valid msgstr="Sincronitza"
+valid msgstr="\bSincronitza\b"
 hint="Es tradueix per «Sincronitza» (app-kstars)"
 
 {\bTargets?\b}i
-valid msgid="btarget\slocation\b"
-valid msgstr="objectius?"
+valid msgid="\btarget\slocation\b"
+valid msgstr="\bobjectius?\b"
 hint="Es tradueix per «objectiu/s» (app-kstars)"
 
 # Telrad: redirigit a
 # https://en.wikipedia.org/wiki/Reflector_sight
 {\b(Telrad|Reflector\ssight)\b}i
-valid msgstr="visor del punt vermell"
+valid msgstr="\bvisor del punt vermell\b"
 hint="Es tradueix per «visor del punt vermell» (app-kstars)"
 
 {\btick\b}i
@@ -1541,46 +1678,54 @@ hint="Es tradueix per «marca» (app-kstars)"
     valid msgstr="\bmarca inicial\b"
     hint="Es tradueix per «marca inicial» (app-kstars)"
 
-{\bTime\b}i
-id="appks-time"
-valid msgid="\bAltitude\svs\.?\sTime\b"
-valid msgid="\bany\stime\stonight\b"
-valid msgid="\bat\s(a|this)\stime\b"
-valid msgid="\bexposure\stime\b"
-valid msgid="\b(each|every)\stime\b"
-valid msgid="\bfirst\stime\b"
-valid msgid="\bfunction\sof\stime\b"
-valid msgid="\bglobal\stime\b"
-valid msgid="\blead\stime\b"
-valid msgid="\bLocal\sTime\b"
-valid msgid="\bnext\stime\b"
-valid msgid="\bpassing\sof\stime\b"
-valid msgid="\breal.?time\b"
-valid msgid="\brun.?time\b"
-valid msgid="\bscheduled\stime\b"
-valid msgid="\b(short\s)?durations?\sof\stime\b"
-valid msgid="\bSidereal\sTime\b"
-valid msgid="\bSolar\sTime\b"
-valid msgid="\bspecific\stime\b"
-valid msgid="\bstar\stime\b"
-valid msgid="\bStart.?up\stime\b"
-valid msgid="\b(step\sforward\sin\stime|time\sstep)\b"
-valid msgid="\btime\sand\slocation\ssettings\b"
-valid msgid="\bTime\sBox\b"
-valid msgid="\btime\scalculators?\b"
-valid msgid="\bTime\sInfo\sBox\b"
-valid msgid="\btime\spasses\b"
-valid msgid="\btime\.sleep\b"
-valid msgid="\bTime\sZones?\b"
-valid msgid="\bTransit\stime\b"
-valid msgid="\bUniversal\sTime\b"
-valid msgid="\bvs\.\sTime\b"
-valid msgstr="hora"
-hint="Es tradueix per «hora» -si és temps, afegiu-hi l'id- (app-kstars)"
+# # {\bTime\b}i
+# # id="appks-time"
+# # valid msgid="\bAltitude\svs\.?\sTime\b"
+# # valid msgid="\bany\stime\stonight\b"
+# # valid msgid="\bat\s(a|this)\stime\b"
+# # valid msgid="\bexposure\stime\b"
+# # valid msgid="\b(each|every)\stime\b"
+# # valid msgid="\bfirst\stime\b"
+# # valid msgid="\bfunction\sof\stime\b"
+# # valid msgid="\bglobal\stime\b"
+# # valid msgid="\blead\stime\b"
+# # valid msgid="\bLocal\sTime\b"
+# # valid msgid="\bnext\stime\b"
+# # valid msgid="\bpassing\sof\stime\b"
+# # valid msgid="\breal.?time\b"
+# # valid msgid="\brun.?time\b"
+# # valid msgid="\bscheduled\stime\b"
+# # valid msgid="\b(short\s)?durations?\sof\stime\b"
+# # valid msgid="\bSidereal\sTime\b"
+# # valid msgid="\bSolar\sTime\b"
+# # valid msgid="\bspecific\stime\b"
+# # valid msgid="\bstar\stime\b"
+# # valid msgid="\bStart.?up\stime\b"
+# # valid msgid="\b(step\sforward\sin\stime|time\sstep)\b"
+# # valid msgid="\btime\sand\slocation\ssettings\b"
+# # valid msgid="\bTime\sBox\b"
+# # valid msgid="\btime\scalculators?\b"
+# # valid msgid="\bTime\sInfo\sBox\b"
+# # valid msgid="\btime\spasses\b"
+# # valid msgid="\btime\.sleep\b"
+# # valid msgid="\bTime\sZones?\b"
+# # valid msgid="\bTransit\stime\b"
+# # valid msgid="\bUniversal\sTime\b"
+# # valid msgid="\bvs\.\sTime\b"
+# # valid msgstr="\bhora\b"
+# # hint="Es tradueix per «hora» -si és temps, afegiu-hi l'id- (app-kstars)"
 
     {\bAltitude\svs\.?\sTime\b}i
     valid msgstr="\bAltitud en funció del temps\b"
     hint="Es tradueix per «Altitud en funció del temps» (app-kstars)"
+
+        {\bElevation\svs\.?\sTime\b}i
+        valid msgstr="\bElevació en funció del temps\b"
+        hint="Es tradueix per «Elevació en funció del temps» (app-kstars)"
+
+        {\borientation\svs\.?\sTime\b}i
+        valid msgstr="\bOrientació en funció del temps\b"
+        hint="Es tradueix per «Orientació en funció del temps» (app-kstars)"
 
     {\bany\stime\stonight\b}i
     valid msgstr="\bqualsevol moment de la nit\b"
@@ -1608,12 +1753,17 @@ hint="Es tradueix per «hora» -si és temps, afegiu-hi l'id- (app-kstars)"
     hint="Es tradueix per «cada vegada» (app-kstars)"
 
     {\bexposure\stime\b}i
+    valid msgid="\btotal\sexposure\stime\b"
     valid msgstr="\btemps d'exposició\b"
     hint="Es tradueix per «temps d'exposició» (app-kstars)"
 
         {\bexposure\sduration\b}i
         valid msgstr="\bdurada de l'exposició\b"
         hint="Es tradueix per «durada de l'exposició» (app-kstars)"
+
+        {\btotal\sexposure\stime\b}i
+        valid msgstr="\btemps total d'exposició\b"
+        hint="Es tradueix per «temps total d'exposició» (app-kstars)"
 
     {\bfirst\stime\b}i
     valid msgstr="\bprimera vegada\b"
@@ -1628,12 +1778,17 @@ hint="Es tradueix per «hora» -si és temps, afegiu-hi l'id- (app-kstars)"
     hint="Es tradueix per «temps global» (app-kstars)"
 
     # # 
-    {\b(Local\sTime|LT)\b}i
+    {\bLocal\sTime\b}i
     id="appks-lt"
     valid msgid="\blocal\stime\sand\sdate\b"
-    valid msgstr="\blt;"
-    valid msgstr="\b(temps local|TL)\b"
-    hint="Es tradueix per «temps local, TL» (app-kstars)"
+    valid msgstr="\btemps local\b"
+    hint="Es tradueix per «temps local -TL-» (app-kstars)"
+
+        {\bLT\b}i
+        valid ctx="^Asteroid\sname"
+        valid msgstr="\blt;"
+        valid msgstr="\bTL\b"
+        hint="Es tradueix per «TL -temps local-» (app-kstars)"
 
         {\blocal\stime\sand\sdate\b}i
         valid msgstr="\bdata i hora locals\b"
@@ -1648,7 +1803,7 @@ hint="Es tradueix per «hora» -si és temps, afegiu-hi l'id- (app-kstars)"
     hint="Es tradueix per «pas del temps» (app-kstars)"
 
     {\breal.?time\b}i
-    valid msgid="real.?time\sZone\b"
+    valid msgid="\breal.?time\sZone\b"
     valid msgstr="\btemps real\b"
     hint="Es tradueix per «temps real» (app-kstars)"
 
@@ -1661,12 +1816,20 @@ hint="Es tradueix per «hora» -si és temps, afegiu-hi l'id- (app-kstars)"
     hint="Es tradueix per «temps d'execució» (app-kstars)"
 
     # # hora sideral local
-    {\b(Sidereal\sTime|ST)\b}i
+    {\bSidereal\sTime\b}i
     valid ctx="^City\sin\s"
     valid ctx="^Country\sname"
     valid ctx="^Region.state\sin\s"
-    valid msgstr="\b(temps sideral|TS)\b"
-    hint="Es tradueix per «temps sideral, TS» (app-kstars)"
+    valid msgstr="\btemps sideral\b"
+    hint="Es tradueix per «temps sideral -TS-» (app-kstars)"
+
+        {\bST\b}i
+        valid ctx="^Asteroid\sname"
+        valid ctx="^City\sin\s"
+        valid ctx="^Country\sname"
+        valid ctx="^Region.state\sin\s"
+        valid msgstr="\bTS\b"
+        hint="Es tradueix per «TS -temps sideral-» (app-kstars)"
 
         {\bstar\stime\b}i
         valid msgstr="\btemps de l'estrella\b"
@@ -1690,13 +1853,14 @@ hint="Es tradueix per «hora» -si és temps, afegiu-hi l'id- (app-kstars)"
     hint="Es tradueix per «ajustaments de temps i emplaçament» (app-kstars)"
 
     {\btime\spasses\b}i
-    valid msgstr="\btranscorre el temps\b"
     valid msgstr="\bel temps (passarà|transcorre)\b"
-    hint="Es tradueix per «transcorre el temps, el temps transcorre, el temps passarà» (app-kstars)"
+    valid msgstr="\bpassa el temps\b"
+    valid msgstr="\btranscorre el temps\b"
+    hint="Es tradueix per «transcorre el temps, el temps transcorre, el temps passarà, passa el temps» (app-kstars)"
 
     {\bTransit\stime\b}i
-    valid msgstr="\btemps de Trànsit\b"
-    hint="Es tradueix per «temps de Trànsit» (app-kstars)"
+    valid msgstr="\btemps de trànsit\b"
+    hint="Es tradueix per «temps de trànsit» (app-kstars)"
 
     {\b(step\sforward\sin\stime|time\sstep)\b}i
     valid msgstr="\bpas temporal\b"
@@ -1706,33 +1870,38 @@ hint="Es tradueix per «hora» -si és temps, afegiu-hi l'id- (app-kstars)"
     valid msgstr="\bzon(a|es) horàri(a|es)\b"
     hint="Es tradueix per «zona/es horària/es» (app-kstars)"
 
-    {\b(Universal\sTime|UT)\b}i
-    valid msgstr="\b(temps universal|TU)\b"
-    hint="Es tradueix per «temps universal, TU» (app-kstars)"
+    {\bUniversal\sTime\b}i
+    valid msgstr="\btemps universal\b"
+    hint="Es tradueix per «temps universal -TU-» (app-kstars)"
+
+        {\bUT\b}i
+        valid ctx="^Asteroid\sname"
+        valid msgstr="\bTU\b"
+        hint="Es tradueix per «TU -temps universal-» (app-kstars)"
 
 {\bTrack\b}i
 valid msgid="\bsatellite\stracks\b"
-valid msgstr="\bSegu(eix|im|ir)\b"
+valid msgstr="\bSegu(eix|im|iment|ir)\b"
 valid msgstr="\btraça\b"
-hint="Es tradueix per «Segueix, seguim, seguir, traça» (app-kstars)"
+hint="Es tradueix per «Segueix, seguim, seguiment, seguir, traça» (app-kstars)"
 
     {\bsatellite\stracks\b}i
-    valid msgstr="traces dels satèl·lits"
+    valid msgstr="\btraces dels satèl·lits\b"
     hint="Es tradueix per «traces dels satèl·lits» (app-kstars)"
 
 {\bTrails?\b}i
 valid msgid="\bstar\strails?\b"
 valid msgid="\btrail\sartifacts?\b"
-valid msgstr="seguiment"
-valid msgstr="Tra(ça|ces)"
+valid msgstr="\bseguiment\b"
+valid msgstr="\bTra(ça|ces)\b"
 hint="Es tradueix per «Traça/ces, seguiment» (app-kstars)"
 
     {\bstar\strail\b}i
-    valid msgstr="rastre de l'estrella"
+    valid msgstr="\brastre de l'estrella\b"
     hint="Es tradueix per «rastre de l'estrella» (app-kstars)"
 
         {\bstar\strails\b}i
-        valid msgstr="rastres de les estrelles"
+        valid msgstr="\brastres de les estrelles\b"
         hint="Es tradueix per «rastres de les estrelles» (app-kstars)"
 
     {\btrail\sartifact\b}i
@@ -1744,18 +1913,18 @@ hint="Es tradueix per «Traça/ces, seguiment» (app-kstars)"
         hint="Es tradueix per «artefactes de rastre» (app-kstars)"
 
 {\bTransits?\b}i
-valid msgstr="transita(rà)?"
-valid msgstr="trànsit"
+valid msgstr="\btransita(rà)?\b"
+valid msgstr="\btrànsit\b"
 hint="Es tradueix per «trànsit, transita/rà» (app-kstars)"
 
 {\bTurning\soff\b}i
-valid msgstr="Apaga(nt|r)?"
-valid msgstr="S'està apagant"
+valid msgstr="\bApaga(nt|r)?\b"
+valid msgstr="\bS'està apagant\b"
 hint="Es tradueix per «Agaga/nt/r, S'està apagant» (app-kstars)"
 
 {\bTurning\son\b}i
-valid msgstr="Encenent"
-valid msgstr="S'està encenent"
+valid msgstr="\bEncenent\b"
+valid msgstr="\bS'està encenent\b"
 hint="Es tradueix per «Encenent, S'està encenent» (app-kstars)"
 
 {\bUpload\sJPG\b}i
@@ -1764,31 +1933,32 @@ hint="Es tradueix per «Puja en JPG» (app-kstars)"
 
 {\bWeather\b}i
 valid msgid="\bbad\sweather\b"
-valid msgid="EMPEROR'S GOD OF WEATHER"
+valid msgid="\bEMPEROR'S GOD OF WEATHER\b"
 valid msgid="\bweather\smonitoring\b"
-valid msgstr="Meteorologia"
-valid msgstr="meteorològi(ca?|ques)"
-valid msgstr="Temps atmosfèric"
-hint="Es tradueix per «Meteorologia, meteorològic/a/ques, Temps atmosfèric» (app-kstars)"
+valid msgstr="\bMeteorologia\b"
+valid msgstr="\bmeteorològi(ca?|cs|ques)\b"
+valid msgstr="\bTemps atmosfèric\b"
+hint="Es tradueix per «Meteorologia, meteorològic/a/ques, Temps atmosfèric, Meteorològics» (app-kstars)"
 
     {\bbad\sweather\b}i
-    valid msgstr="mal temps"
-    hint="Es tradueix per «mal temps» (app-kstars)"
+    valid msgstr="\bmeteorologia dolenta\b"
+    valid msgstr="\bmal temps\b"
+    hint="Es tradueix per «mal temps, meteorologia dolenta» (app-kstars)"
 
     {\bweather\smonitoring\b}i
-    valid msgstr="seguiment del clima"
+    valid msgstr="\bseguiment del clima\b"
     hint="Es tradueix per «seguiment del clima» (app-kstars)"
 
 {\bwhen\sslewing\b}i
-valid msgstr="durant la transició"
+valid msgstr="\bdurant la transició\b"
 hint="Es tradueix per «durant la transició» (app-kstars)"
 
 {\bwide.?area\b}i
-valid msgstr="àmplia àrea"
+valid msgstr="\bàmplia àrea\b"
 hint="Es tradueix per «àmplia àrea» (app-kstars)"
 
 {\bwide.?field\b}i
-valid msgstr="amb un camp de gran abast"
+valid msgstr="\bamb un camp de gran abast\b"
 hint="Es tradueix per «amb un camp de gran abast» (app-kstars)"
 
 #
@@ -1796,702 +1966,702 @@ hint="Es tradueix per «amb un camp de gran abast» (app-kstars)"
 #
 
 {\bC\sWestern\b}i
-valid msgstr="C Occidental"
+valid msgstr="\bC Occidental\b"
 hint="Es tradueix per «C Occidental» -constel·lacions- (app-kstars)"
 
     {\bANDROMEDA\b}i
-    valid msgstr="ANDRÒMEDA"
+    valid msgstr="\bANDRÒMEDA\b"
     hint="Es tradueix per «ANDRÒMEDA» -constel·lació occidental- (app-kstars)"
 
     {\bANTLIA\b}i
-    valid msgstr="MÀQUINA PNEUMÀTICA"
+    valid msgstr="\bMÀQUINA PNEUMÀTICA\b"
     hint="Es tradueix per «MÀQUINA PNEUMÀTICA» -constel·lació occidental- (app-kstars)"
 
     {\bAPUS\b}i
-    valid msgstr="AU DEL PARADÍS"
+    valid msgstr="\bAU DEL PARADÍS\b"
     hint="Es tradueix per «AU DEL PARADÍS» -constel·lació occidental- (app-kstars)"
 
     {\bAQUARIUS\b}i
-    valid msgstr="AQUARI"
+    valid msgstr="\bAQUARI\b"
     hint="Es tradueix per «AQUARI» -constel·lació occidental- (app-kstars)"
 
     {\bAQUILA\b}i
     valid ctx="^City\sin\s"
-    valid msgstr="ÀGUILA"
+    valid msgstr="\bÀGUILA\b"
     hint="Es tradueix per «ÀGUILA» -constel·lació occidental- (app-kstars)"
 
 # #     {\bARA\b}i
-# #     valid msgstr="ALTAR"
+# #     valid msgstr="\bALTAR"
 # #     hint="Es tradueix per «ALTAR» -constel·lació occidental- (app-kstars)"
 
     {\bARIES\b}i
-    valid msgstr="ÀRIES"
+    valid msgstr="\bÀRIES\b"
     hint="Es tradueix per «ÀRIES» -constel·lació occidental- (app-kstars)"
 
     {\bAURIGA\b}i
-    valid msgstr="COTXER"
+    valid msgstr="\bCOTXER\b"
     hint="Es tradueix per «COTXER» -constel·lació occidental- (app-kstars)"
 
     {\bBOOTES\b}i
-    valid msgstr="BOVER"
+    valid msgstr="\bBOVER\b"
     hint="Es tradueix per «BOVER» -constel·lació occidental- (app-kstars)"
 
     {\bCAELUM\b}i
-    valid msgstr="BURÍ"
+    valid msgstr="\bBURÍ\b"
     hint="Es tradueix per «BURÍ» -constel·lació occidental- (app-kstars)"
 
     {\bCAMELOPARDALIS\b}i
-    valid msgstr="GIRAFA"
+    valid msgstr="\bGIRAFA\b"
     hint="Es tradueix per «GIRAFA» -constel·lació occidental- (app-kstars)"
 
     {\bCANCER\b}i
-    valid msgstr="CRANC"
+    valid msgstr="\bCRANC\b"
     hint="Es tradueix per «CRANC» -constel·lació occidental- (app-kstars)"
 
     {\bCANES\sVENATICI\b}i
-    valid msgstr="LLEBRERS"
+    valid msgstr="\bLLEBRERS\b"
     hint="Es tradueix per «LLEBRERS» -constel·lació occidental- (app-kstars)"
 
     {\bCANIS\sMAJOR\b}i
-    valid msgstr="CA MAJOR"
+    valid msgstr="\bCA MAJOR\b"
     hint="Es tradueix per «CA MAJOR» -constel·lació occidental- (app-kstars)"
 
     {\bCANIS\sMINOR\b}i
-    valid msgstr="CA MENOR"
+    valid msgstr="\bCA MENOR\b"
     hint="Es tradueix per «CA MENOR» -constel·lació occidental- (app-kstars)"
 
     {\bCAPRICORNUS\b}i
-    valid msgstr="CAPRICORN"
+    valid msgstr="\bCAPRICORN\b"
     hint="Es tradueix per «CAPRICORN» -constel·lació occidental- (app-kstars)"
 
 # #     {\bCARINA\b}i
-# #     valid msgid="Eta Carina, Keyhole Nebula"
-# #     valid msgstr="QUILLA"
+# #     valid msgid="\bEta Carina, Keyhole Nebula\b"
+# #     valid msgstr="\bQUILLA\b"
 # #     hint="Es tradueix per «QUILLA» -constel·lació occidental- (app-kstars)"
 
     {\bCASSIOPEIA\b}i
-    valid msgstr="CASSIOPEA"
+    valid msgstr="\bCASSIOPEA\b"
     hint="Es tradueix per «CASSIOPEA» -constel·lació occidental- (app-kstars)"
 
 # #     {\bCENTAURUS\b}i
-# #     valid msgstr="CENTAURE"
+# #     valid msgstr="\bCENTAURE\b"
 # #     hint="Es tradueix per «CENTAURE» -constel·lació occidental- (app-kstars)"
 
     {\bCEPHEUS\b}i
-    valid msgstr="CEFEU"
+    valid msgstr="\bCEFEU\b"
     hint="Es tradueix per «CEFEU» -constel·lació occidental- (app-kstars)"
 
     {\bCETUS\b}i
-    valid msgstr="BALENA"
+    valid msgstr="\bBALENA\b"
     hint="Es tradueix per «BALENA» -constel·lació occidental- (app-kstars)"
 
     {\bCHAMAELEON\b}i
-    valid msgstr="CAMALEÓ"
+    valid msgstr="\bCAMALEÓ\b"
     hint="Es tradueix per «CAMALEÓ» -constel·lació occidental- (app-kstars)"
 
     {\bCIRCINUS\b}i
-    valid msgstr="COMPÀS"
+    valid msgstr="\bCOMPÀS\b"
     hint="Es tradueix per «COMPÀS» -constel·lació occidental- (app-kstars)"
 
     {\bCOLUMBA\b}i
-    valid msgstr="COLOMA"
+    valid msgstr="\bCOLOMA\b"
     hint="Es tradueix per «COLOMA» -constel·lació occidental- (app-kstars)"
 
     {\bCORONA\sAUSTRALIS\b}i
-    valid msgstr="CORONA AUSTRAL"
+    valid msgstr="\bCORONA AUSTRAL\b"
     hint="Es tradueix per «CORONA AUSTRAL» -constel·lació occidental- (app-kstars)"
 
     {\bCORONA\sBOREALIS\b}i
-    valid msgstr="CORONA BOREAL"
+    valid msgstr="\bCORONA BOREAL\b"
     hint="Es tradueix per «CORONA BOREAL» -constel·lació occidental- (app-kstars)"
 
     {\bCORVUS\b}i
-    valid msgstr="CORB"
+    valid msgstr="\bCORB\b"
     hint="Es tradueix per «CORB» -constel·lació occidental- (app-kstars)"
 
     {\bCRATER\b}i
-    valid msgstr="COPA"
+    valid msgstr="\bCOPA\b"
     hint="Es tradueix per «COPA» -constel·lació occidental- (app-kstars)"
 
     {\bCRUX\b}i
-    valid msgstr="CREU DEL SUD"
+    valid msgstr="\bCREU DEL SUD\b"
     hint="Es tradueix per «CREU DEL SUD» -constel·lació occidental- (app-kstars)"
 
     {\bCYGNUS\b}i
-    valid msgstr="CIGNE"
+    valid msgstr="\bCIGNE\b"
     hint="Es tradueix per «CIGNE» -constel·lació occidental- (app-kstars)"
 
     {\bDELPHINUS\b}i
-    valid msgstr="DOFÍ"
+    valid msgstr="\bDOFÍ\b"
     hint="Es tradueix per «DOFÍ» -constel·lació occidental- (app-kstars)"
 
     {\bDORADO\b}i
     valid ctx="^City\sin\s"
-    valid msgstr="ORADA"
+    valid msgstr="\bORADA\b"
     hint="Es tradueix per «ORADA» -constel·lació occidental- (app-kstars)"
 
     {\bDRACO\b}i
-    valid msgstr="DRAGÓ"
+    valid msgstr="\bDRAGÓ\b"
     hint="Es tradueix per «DRAGÓ» -constel·lació occidental- (app-kstars)"
 
     {\bEQUULEUS\b}i
-    valid msgstr="CAVALLET"
+    valid msgstr="\bCAVALLET\b"
     hint="Es tradueix per «CAVALLET» -constel·lació occidental- (app-kstars)"
 
     {\bERIDANUS\b}i
-    valid msgstr="ERIDÀ"
+    valid msgstr="\bERIDÀ\b"
     hint="Es tradueix per «ERIDÀ» -constel·lació occidental- (app-kstars)"
 
-    {\bFORNAX\b}i
-    valid msgstr="FORN"
-    hint="Es tradueix per «FORN» -constel·lació occidental- (app-kstars)"
+# #     {\bFORNAX\b}i
+# #     valid msgstr="\bFORN\b"
+# #     hint="Es tradueix per «FORN» -constel·lació occidental- (app-kstars)"
 
     {\bGEMINI\b}i
-    valid msgstr="BESSONS"
+    valid msgstr="\bBESSONS\b"
     hint="Es tradueix per «BESSONS» -constel·lació occidental- (app-kstars)"
 
     {\bGRUS\b}i
-    valid msgstr="GRUA"
+    valid msgstr="\bGRUA\b"
     hint="Es tradueix per «GRUA» -constel·lació occidental- (app-kstars)"
 
 # #     {\bHERCULES\b}i
-# #     valid msgstr="HÈRCULES"
+# #     valid msgstr="\bHÈRCULES\b"
 # #     hint="Es tradueix per «HÈRCULES» -constel·lació occidental- (app-kstars)"
 
     {\bHOROLOGIUM\b}i
-    valid msgstr="RELLOTGE"
+    valid msgstr="\bRELLOTGE\b"
     hint="Es tradueix per «RELLOTGE» -constel·lació occidental- (app-kstars)"
 
     {\bHYDRA\b}i
-    valid msgstr="HIDRA FEMELLA"
+    valid msgstr="\bHIDRA FEMELLA\b"
     hint="Es tradueix per «HIDRA FEMELLA» -constel·lació occidental- (app-kstars)"
 
     {\bINDUS\b}i
-    valid msgstr="INDI"
+    valid msgstr="\bINDI\b"
     hint="Es tradueix per «INDI» -constel·lació occidental- (app-kstars)"
 
     {\bLACERTA\b}i
-    valid msgstr="LLANGARDAIX"
+    valid msgstr="\bLLANGARDAIX\b"
     hint="Es tradueix per «LLANGARDAIX» -constel·lació occidental- (app-kstars)"
 
     {\bLEO\b}i
     valid ctx="^Satellite\sgroup\sname"
-    valid msgstr="LLEÓ"
+    valid msgstr="\bLLEÓ\b"
     hint="Es tradueix per «LLEÓ» -constel·lació occidental- (app-kstars)"
 
     {\bLEO\sMINOR\b}i
-    valid msgstr="LLEÓ MENOR"
+    valid msgstr="\bLLEÓ MENOR\b"
     hint="Es tradueix per «LLEÓ MENOR» -constel·lació occidental- (app-kstars)"
 
     {\bLEPUS\b}i
-    valid msgstr="LLEBRE"
+    valid msgstr="\bLLEBRE\b"
     hint="Es tradueix per «LLEBRE» -constel·lació occidental- (app-kstars)"
 
     {\bLIBRA\b}i
-    valid msgstr="BALANÇA"
+    valid msgstr="\bBALANÇA\b"
     hint="Es tradueix per «BALANÇA» -constel·lació occidental- (app-kstars)"
 
     {\bLUPUS\b}i
-    valid msgstr="LLOP"
+    valid msgstr="\bLLOP\b"
     hint="Es tradueix per «LLOP» -constel·lació occidental- (app-kstars)"
 
     {\bLYNX\b}i
-    valid msgstr="LINX"
+    valid msgstr="\bLINX\b"
     hint="Es tradueix per «LINX» -constel·lació occidental- (app-kstars)"
 
     {\bLYRA\b}i
-    valid msgstr="LIRA"
+    valid msgstr="\bLIRA\b"
     hint="Es tradueix per «LIRA» -constel·lació occidental- (app-kstars)"
 
     {\bMENSA\b}i
-    valid msgstr="TAULA"
+    valid msgstr="\bTAULA\b"
     hint="Es tradueix per «TAULA» -constel·lació occidental- (app-kstars)"
 
     {\bMICROSCOPIUM\b}i
-    valid msgstr="MICROSCOPI"
+    valid msgstr="\bMICROSCOPI\b"
     hint="Es tradueix per «MICROSCOPI» -constel·lació occidental- (app-kstars)"
 
     {\bMONOCEROS\b}i
-    valid msgstr="UNICORN"
+    valid msgstr="\bUNICORN\b"
     hint="Es tradueix per «UNICORN» -constel·lació occidental- (app-kstars)"
 
     {\bMUSCA\b}i
-    valid msgstr="MOSCA"
+    valid msgstr="\bMOSCA\b"
     hint="Es tradueix per «MOSCA» -constel·lació occidental- (app-kstars)"
 
 # #     {\bNORMA\b}i
-# #     valid msgstr="ESCAIRE"
+# #     valid msgstr="\bESCAIRE\b"
 # #     hint="Es tradueix per «ESCAIRE» -constel·lació occidental- (app-kstars)"
 
     {\bOCTANS\b}i
-    valid msgstr="OCTANT"
+    valid msgstr="\bOCTANT\b"
     hint="Es tradueix per «OCTANT» -constel·lació occidental- (app-kstars)"
 
     {\bOPHIUCHUS\b}i
-    valid msgstr="SERPENTARI"
+    valid msgstr="\bSERPENTARI\b"
     hint="Es tradueix per «SERPENTARI» -constel·lació occidental- (app-kstars)"
 
     {\bORION\b}i
-    valid msgstr="ORIÓ"
+    valid msgstr="\bORIÓ\b"
     hint="Es tradueix per «ORIÓ» -constel·lació occidental- (app-kstars)"
 
     {\bPAVO\b}i
-    valid msgstr="GALL DINDI"
+    valid msgstr="\bGALL DINDI\b"
     hint="Es tradueix per «GALL DINDI» -constel·lació occidental- (app-kstars)"
 
     {\bPEGASUS\b}i
-    valid msgstr="PEGÀS"
+    valid msgstr="\bPEGÀS\b"
     hint="Es tradueix per «PEGÀS» -constel·lació occidental- (app-kstars)"
 
-    {\bPERSEUS\b}i
-    valid msgstr="PERSEU"
-    hint="Es tradueix per «PERSEU» -constel·lació occidental- (app-kstars)"
+# #     {\bPERSEUS\b}i
+# #     valid msgstr="\bPERSEU\b"
+# #     hint="Es tradueix per «PERSEU» -constel·lació occidental- (app-kstars)"
 
     {\bPHOENIX\b}i
     valid ctx="^City\sin\s"
-    valid msgstr="FÈNIX"
+    valid msgstr="\bFÈNIX\b"
     hint="Es tradueix per «FÈNIX» -constel·lació occidental- (app-kstars)"
 
     {\bPICTOR\b}i
-    valid msgstr="CAVALLET DEL PINTOR"
+    valid msgstr="\bCAVALLET DEL PINTOR\b"
     hint="Es tradueix per «CAVALLET DEL PINTOR» -constel·lació occidental- (app-kstars)"
 
 # #     {\bPISCES\b}i
-# #     valid msgstr="PEIXOS"
+# #     valid msgstr="\bPEIXOS\b"
 # #     hint="Es tradueix per «PEIXOS» -constel·lació occidental- (app-kstars)"
 
     {\bPISCIS\sAUSTRINUS\b}i
-    valid msgstr="PEIXOS AUSTRAL"
+    valid msgstr="\bPEIXOS AUSTRAL\b"
     hint="Es tradueix per «PEIXOS AUSTRAL» -constel·lació occidental- (app-kstars)"
 
     {\bPUPPIS\b}i
-    valid msgstr="POPA"
+    valid msgstr="\bPOPA\b"
     hint="Es tradueix per «POPA» -constel·lació occidental- (app-kstars)"
 
     {\bPYXIS\b}i
-    valid msgstr="BRÚIXOLA"
+    valid msgstr="\bBRÚIXOLA\b"
     hint="Es tradueix per «BRÚIXOLA» -constel·lació occidental- (app-kstars)"
 
     {\bRETICULUM\b}i
-    valid msgstr="RETICLE"
+    valid msgstr="\bRETICLE\b"
     hint="Es tradueix per «RETICLE» -constel·lació occidental- (app-kstars)"
 
     {\bSAGITTA\b}i
-    valid msgstr="SAGETA"
+    valid msgstr="\bSAGETA\b"
     hint="Es tradueix per «SAGETA» -constel·lació occidental- (app-kstars)"
 
     {\bSAGITTARIUS\b}i
-    valid msgstr="SAGITARI"
+    valid msgstr="\bSAGITARI\b"
     hint="Es tradueix per «SAGITARI» -constel·lació occidental- (app-kstars)"
 
     {\bSCORPIUS\b}i
-    valid msgstr="ESCORPÍ"
+    valid msgstr="\bESCORPÍ\b"
     hint="Es tradueix per «ESCORPÍ» -constel·lació occidental- (app-kstars)"
 
     {\bSCULPTOR\b}i
-    valid msgstr="ESCULTOR"
+    valid msgstr="\bESCULTOR\b"
     hint="Es tradueix per «ESCULTOR» -constel·lació occidental- (app-kstars)"
 
     {\bSCUTUM\b}i
-    valid msgstr="ESCUT"
+    valid msgstr="\bESCUT\b"
     hint="Es tradueix per «ESCUT» -constel·lació occidental- (app-kstars)"
 
     {\bSERPENS\sCAPUT\b}i
-    valid msgstr="CAP DEL SERPENT"
+    valid msgstr="\bCAP DEL SERPENT\b"
     hint="Es tradueix per «CAP DEL SERPENT» -constel·lació occidental- (app-kstars)"
 
     {\bSERPENS\sCAUDA\b}i
-    valid msgstr="CUA DEL SERPENT"
+    valid msgstr="\bCUA DEL SERPENT\b"
     hint="Es tradueix per «CUA DEL SERPENT» -constel·lació occidental- (app-kstars)"
 
     {\bSEXTANS\b}i
-    valid msgstr="SEXTANT"
+    valid msgstr="\bSEXTANT\b"
     hint="Es tradueix per «SEXTANT» -constel·lació occidental- (app-kstars)"
 
     {\bTAURUS\b}i
-    valid msgstr="TAURE"
+    valid msgstr="\bTAURE\b"
     hint="Es tradueix per «TAURE» -constel·lació occidental- (app-kstars)"
 
     {\bTELESCOPIUM\b}i
-    valid msgstr="TELESCOPI"
+    valid msgstr="\bTELESCOPI\b"
     hint="Es tradueix per «TELESCOPI» -constel·lació occidental- (app-kstars)"
 
     {\bTRIANGULUM\b}i
-    valid msgstr="TRIANGLE"
+    valid msgstr="\bTRIANGLE\b"
     hint="Es tradueix per «TRIANGLE» -constel·lació occidental- (app-kstars)"
 
     {\bTRIANGULUM\sAUSTRALE\b}i
-    valid msgstr="TRIANGLE AUSTRAL"
+    valid msgstr="\bTRIANGLE AUSTRAL\b"
     hint="Es tradueix per «TRIANGLE AUSTRAL» -constel·lació occidental- (app-kstars)"
 
     {\bTUCANA\b}i
-    valid msgstr="TUCÀ"
+    valid msgstr="\bTUCÀ\b"
     hint="Es tradueix per «TUCÀ» -constel·lació occidental- (app-kstars)"
 
     {\bURSA\sMAJOR\b}i
-    valid msgstr="ÓSSA MAJOR"
+    valid msgstr="\bÓSSA MAJOR\b"
     hint="Es tradueix per «ÓSSA MAJOR» -constel·lació occidental- (app-kstars)"
 
     {\bURSA\sMINOR\b}i
-    valid msgstr="ÓSSA MENOR"
+    valid msgstr="\bÓSSA MENOR\b"
     hint="Es tradueix per «ÓSSA MENOR» -constel·lació occidental- (app-kstars)"
 
     {\bVELA\b}i
-    valid msgstr="VELA"
+    valid msgstr="\bVELA\b"
     hint="Es tradueix per «VELA» -constel·lació occidental- (app-kstars)"
 
 # #     {\bVIRGO\b}i
-# #     valid msgstr="VERGE"
+# #     valid msgstr="\bVERGE\b"
 # #     hint="Es tradueix per «VERGE» -constel·lació occidental- (app-kstars)"
 
     {\bVOLANS\b}i
-    valid msgstr="PEIX VOLADOR"
+    valid msgstr="\bPEIX VOLADOR\b"
     hint="Es tradueix per «PEIX VOLADOR» -constel·lació occidental- (app-kstars)"
 
     {\bVULPECULA\b}i
-    valid msgstr="GUINEUETA"
+    valid msgstr="\bGUINEUETA\b"
     hint="Es tradueix per «GUINEUETA» -constel·lació occidental- (app-kstars)"
 
 {\bC\sChinese\b}i
-valid msgstr="C Xinesa"
+valid msgstr="\bC Xinesa\b"
 hint="Es tradueix per «C Xinesa» -constel·lacions- (app-kstars)"
 
     {\bNORTHERN\sDIPPER\b}i
-    valid msgstr="CULLEROT DEL NORD"
+    valid msgstr="\bCULLEROT DEL NORD\b"
     hint="Es tradueix per «CULLEROT DEL NORD» -constel·lació xinesa- (app-kstars)"
 
     {\bCURVED\sARRAY\b}i
-    valid msgstr="FORMACIÓ CORBADA"
+    valid msgstr="\bFORMACIÓ CORBADA\b"
     hint="Es tradueix per «FORMACIÓ CORBADA» -constel·lació xinesa- (app-kstars)"
 
     {\bCOILED\sTHONG\b}i
-    valid msgstr="CORRETJA ENROTLLADA"
+    valid msgstr="\bCORRETJA ENROTLLADA\b"
     hint="Es tradueix per «CORRETJA ENROTLLADA» -constel·lació xinesa- (app-kstars)"
 
     {\bWINGS\b}i
-    valid msgstr="ALES"
+    valid msgstr="\bALES\b"
     hint="Es tradueix per «ALES» -constel·lació xinesa- (app-kstars)"
 
     {\bCHARIOT\b}i
-    valid msgstr="CARRO"
+    valid msgstr="\bCARRO\b"
     hint="Es tradueix per «CARRO» -constel·lació xinesa- (app-kstars)"
 
     {\bTAIL\b}i
-    valid msgstr="CUA"
+    valid msgstr="\bCUA\b"
     hint="Es tradueix per «CUA» -constel·lació xinesa- (app-kstars)"
 
     {\bWINNOWING\sBASKET\b}i
-    valid msgstr="SEDÀS"
+    valid msgstr="\bSEDÀS\b"
     hint="Es tradueix per «SEDÀS» -constel·lació xinesa- (app-kstars)"
 
     {\bDIPPER\b}i
-    valid msgstr="CULLEROT"
+    valid msgstr="\bCULLEROT\b"
     hint="Es tradueix per «CULLEROT» -constel·lació xinesa- (app-kstars)"
 
     {\bDRUM\b}i
-    valid msgstr="TAMBOR"
+    valid msgstr="\bTAMBOR\b"
     hint="Es tradueix per «TAMBOR» -constel·lació xinesa- (app-kstars)"
 
     {\bTHREE\sSTEPS\b}i
-    valid msgstr="TRES PASSOS"
+    valid msgstr="\bTRES PASSOS\b"
     hint="Es tradueix per «TRES PASSOS» -constel·lació xinesa- (app-kstars)"
 
     {\bIMPERIAL\sGUARDS\b}i
-    valid msgstr="GUÀRDIES IMPERIALS"
+    valid msgstr="\bGUÀRDIES IMPERIALS\b"
     hint="Es tradueix per «GUÀRDIES IMPERIALS» -constel·lació xinesa- (app-kstars)"
 
     {\bHORN\b}i
-    valid msgstr="CORN"
+    valid msgstr="\bCORN\b"
     hint="Es tradueix per «CORN» -constel·lació xinesa- (app-kstars)"
 
     {\bWILLOW\b}i
-    valid msgstr="SALZE"
+    valid msgstr="\bSALZE\b"
     hint="Es tradueix per «SALZE» -constel·lació xinesa- (app-kstars)"
 
     {\bIMPERIAL\sPASSAGEWAY\b}i
-    valid msgstr="PASSADÍS IMPERIAL"
+    valid msgstr="\bPASSADÍS IMPERIAL\b"
     hint="Es tradueix per «PASSADÍS IMPERIAL» -constel·lació xinesa- (app-kstars)"
 
     {\bKITCHEN\b}i
-    valid msgstr="CUINA"
+    valid msgstr="\bCUINA\b"
     hint="Es tradueix per «CUINA» -constel·lació xinesa- (app-kstars)"
 
     {\bRIVER\sTURTLE\b}i
-    valid msgstr="TORTUGA DE RIU"
+    valid msgstr="\bTORTUGA DE RIU\b"
     hint="Es tradueix per «TORTUGA DE RIU» -constel·lació xinesa- (app-kstars)"
 
     {\bSTOMACH\b}i
-    valid msgstr="ESTÓMAC"
+    valid msgstr="\bESTÓMAC\b"
     hint="Es tradueix per «ESTÓMAC» -constel·lació xinesa- (app-kstars)"
 
     {\bGREAT\sGENERAL\b}i
-    valid msgstr="GRAN GENERAL"
+    valid msgstr="\bGRAN GENERAL\b"
     hint="Es tradueix per «GRAN GENERAL» -constel·lació xinesa- (app-kstars)"
 
 # #     {\bWALL\b}i
-# #     valid msgstr="MUR"
+# #     valid msgstr="\bMUR\b"
 # #     hint="Es tradueix per «MUR» -constel·lació xinesa- (app-kstars)"
 
     {\bLEGS\b}i
-    valid msgstr="POTES"
+    valid msgstr="\bPOTES\b"
     hint="Es tradueix per «POTES» -constel·lació xinesa- (app-kstars)"
 
 # #     {\bROOT\b}i
-# #     valid msgstr="ARREL"
+# #     valid msgstr="\bARREL\b"
 # #     hint="Es tradueix per «ARREL» -constel·lació xinesa- (app-kstars)"
 
     {\bRAMPARTS\b}i
-    valid msgstr="MURALLES"
+    valid msgstr="\bMURALLES\b"
     hint="Es tradueix per «MURALLES» -constel·lació xinesa- (app-kstars)"
 
     {\bFLYING\sCORRIDOR\b}i
-    valid msgstr="CORREDOR VOLADOR"
+    valid msgstr="\bCORREDOR VOLADOR\b"
     hint="Es tradueix per «CORREDOR VOLADOR» -constel·lació xinesa- (app-kstars)"
 
     {\bOUTER\sFENCE\b}i
-    valid msgstr="TANCA EXTERIOR"
+    valid msgstr="\bTANCA EXTERIOR\b"
     hint="Es tradueix per «TANCA EXTERIOR» -constel·lació xinesa- (app-kstars)"
 
     {\bFORD\b}i
     valid ctx="^City\sin\s"
-    valid msgstr="GUAL"
+    valid msgstr="\bGUAL\b"
     hint="Es tradueix per «GUAL» -constel·lació xinesa- (app-kstars)"
 
     {\bSEVEN\sEXCELLENCIES\b}i
-    valid msgstr="SET EXCEL·LÈNCIES"
+    valid msgstr="\bSET EXCEL·LÈNCIES\b"
     hint="Es tradueix per «SET EXCEL·LÈNCIES» -constel·lació xinesa- (app-kstars)"
 
     {\bMARKET\b}i
-    valid msgstr="MERCAT"
+    valid msgstr="\bMERCAT\b"
     hint="Es tradueix per «MERCAT» -constel·lació xinesa- (app-kstars)"
 
     {\bFIVE\sCHARIOTS\b}i
-    valid msgstr="CINC CARROS"
+    valid msgstr="\bCINC CARROS\b"
     hint="Es tradueix per «CINC CARROS» -constel·lació xinesa- (app-kstars)"
 
     {\bROLLED\sTONGUE\b}i
-    valid msgstr="LLENGUA ENROTLLADA"
+    valid msgstr="\bLLENGUA ENROTLLADA\b"
     hint="Es tradueix per «LLENGUA ENROTLLADA» -constel·lació xinesa- (app-kstars)"
 
     {\bNET\b}i
     valid msgstr="\.net"
-    valid msgstr="XARXA"
+    valid msgstr="\bXARXA\b"
     hint="Es tradueix per «XARXA» -constel·lació xinesa- (app-kstars)"
 
     {\bTOILET\b}i
-    valid msgstr="LAVABO"
+    valid msgstr="\bLAVABO\b"
     hint="Es tradueix per «LAVABO» -constel·lació xinesa- (app-kstars)"
 
 # #     {\bSCREEN\b}i
-# #     valid msgstr="PARAVENT"
+# #     valid msgstr="\bPARAVENT\b"
 # #     hint="Es tradueix per «PARAVENT» -constel·lació xinesa- (app-kstars)"
 
     {\bSOLDIERS'\sMARKET\b}i
-    valid msgstr="MERCAT DE SOLDATS"
+    valid msgstr="\bMERCAT DE SOLDATS\b"
     hint="Es tradueix per «MERCAT DE SOLDATS» -constel·lació xinesa- (app-kstars)"
 
     {\bSQUARE\sGRANARY\b}i
-    valid msgstr="GRANER QUADRAT"
+    valid msgstr="\bGRANER QUADRAT\b"
     hint="Es tradueix per «GRANER QUADRAT» -constel·lació xinesa- (app-kstars)"
 
     {\bTHREE\sSTARS\b}i
-    valid msgstr="TRES ESTRELLES"
+    valid msgstr="\bTRES ESTRELLES\b"
     hint="Es tradueix per «TRES ESTRELLES» -constel·lació xinesa- (app-kstars)"
 
     {\bFOUR\sCHANNELS\b}i
-    valid msgstr="QUATRE CANALS"
+    valid msgstr="\bQUATRE CANALS\b"
     hint="Es tradueix per «QUATRE CANALS» -constel·lació xinesa- (app-kstars)"
 
 # #     {\bWELL\b}i
-# #     valid msgstr="POU"
+# #     valid msgstr="\bPOU\b"
 # #     hint="Es tradueix per «POU» -constel·lació xinesa- (app-kstars)"
 
     {\bSOUTH\sRIVER\b}i
-    valid msgstr="RIU DEL SUD"
+    valid msgstr="\bRIU DEL SUD\b"
     hint="Es tradueix per «RIU DEL SUD» -constel·lació xinesa- (app-kstars)"
 
     {\bNORTH\sRIVER\b}i
-    valid msgstr="RIU DEL NORD"
+    valid msgstr="\bRIU DEL NORD\b"
     hint="Es tradueix per «RIU DEL NORD» -constel·lació xinesa- (app-kstars)"
 
     {\bFIVE\sFEUDAL\sKINGS\b}i
-    valid msgstr="CINC REIS FEUDALS"
+    valid msgstr="\bCINC REIS FEUDALS\b"
     hint="Es tradueix per «CINC REIS FEUDALS» -constel·lació xinesa- (app-kstars)"
 
     {\bORCHARD\b}i
-    valid msgstr="HORT"
+    valid msgstr="\bHORT\b"
     hint="Es tradueix per «HORT» -constel·lació xinesa- (app-kstars)"
 
 # #     {\bMEADOWS\b}i
 # #     valid ctx="^City\sin\s"
-# #     valid msgstr="PRATS"
+# #     valid msgstr="\bPRATS\b"
 # #     hint="Es tradueix per «PRATS» -constel·lació xinesa- (app-kstars)"
 
     {\bCIRCULAR\sGRANARY\b}i
-    valid msgstr="GRANER CIRCULAR"
+    valid msgstr="\bGRANER CIRCULAR\b"
     hint="Es tradueix per «GRANER CIRCULAR» -constel·lació xinesa- (app-kstars)"
 
     {\bPURPLE\sPALACE\b}i
-    valid msgstr="PALAU PORPRA"
+    valid msgstr="\bPALAU PORPRA\b"
     hint="Es tradueix per «PALAU PORPRA» -constel·lació xinesa- (app-kstars)"
 
     {\bEXTENDED\sNET\b}i
-    valid msgstr="XARXA EXPANDIDA"
+    valid msgstr="\bXARXA EXPANDIDA\b"
     hint="Es tradueix per «XARXA EXPANDIDA» -constel·lació xinesa- (app-kstars)"
 
     {\bARSENAL\b}i
-    valid msgstr="ARSENAL"
+    valid msgstr="\bARSENAL\b"
     hint="Es tradueix per «ARSENAL» -constel·lació xinesa- (app-kstars)"
 
     {\bHOOK\b}i
-    valid msgid="HOOK FOR DRESS"
-    valid msgstr="GANXO"
+    valid msgid="\bHOOK FOR DRESS\b"
+    valid msgstr="\bGANXO\b"
     hint="Es tradueix per «GANXO» -constel·lació xinesa- (app-kstars)"
 
     {\bSUPREME\sPALACE\b}i
-    valid msgstr="PALAU SUPREM"
+    valid msgstr="\bPALAU SUPREM\b"
     hint="Es tradueix per «PALAU SUPREM» -constel·lació xinesa- (app-kstars)"
 
     {\bJADE\sWELL\b}i
-    valid msgstr="POU DE JADE"
+    valid msgstr="\bPOU DE JADE\b"
     hint="Es tradueix per «POU DE JADE» -constel·lació xinesa- (app-kstars)"
 
     {\bLANCE\b}i
-    valid msgstr="LLANÇA"
+    valid msgstr="\bLLANÇA\b"
     hint="Es tradueix per «LLANÇA» -constel·lació xinesa- (app-kstars)"
 
     {\bBOAT\b}i
-    valid msgid="THE GREAT BOAT OF TAMA RERETI"
-    valid msgstr="BARCA"
+    valid msgid="\bTHE GREAT BOAT OF TAMA RERETI\b"
+    valid msgstr="\bBARCA\b"
     hint="Es tradueix per «BARCA» -constel·lació xinesa- (app-kstars)"
 
     {\bMAUSOLEUM\b}i
-    valid msgstr="MAUSOLEU"
+    valid msgstr="\bMAUSOLEU\b"
     hint="Es tradueix per «MAUSOLEU» -constel·lació xinesa- (app-kstars)"
 
     {\bDOG\b}i
-    valid msgstr="GOS"
+    valid msgstr="\bGOS\b"
     hint="Es tradueix per «GOS» -constel·lació xinesa- (app-kstars)"
 
     {\bEARTH\sGOD.?S\sTEMPLE\b}i
-    valid msgstr="TEMPLE DELS DÉUS DE LA TERRA"
+    valid msgstr="\bTEMPLE DELS DÉUS DE LA TERRA\b"
     hint="Es tradueix per «TEMPLE DELS DÉUS DE LA TERRA» -constel·lació xinesa- (app-kstars)"
 
     {\bBOW\sAND\sARROW\b}i
-    valid msgstr="ARC I FLETXA"
+    valid msgstr="\bARC I FLETXA\b"
     hint="Es tradueix per «ARC I FLETXA» -constel·lació xinesa- (app-kstars)"
 
     {\bPESTLE\b}i
-    valid msgstr="MÀ DE MORTER"
+    valid msgstr="\bMÀ DE MORTER\b"
     hint="Es tradueix per «MÀ DE MORTER» -constel·lació xinesa- (app-kstars)"
 
     {\bMORTAR\b}i
-    valid msgstr="MORTER"
+    valid msgstr="\bMORTER\b"
     hint="Es tradueix per «MORTER» -constel·lació xinesa- (app-kstars)"
 
     {\bROOFTOP\b}i
-    valid msgstr="TEULADA"
+    valid msgstr="\bTEULADA\b"
     hint="Es tradueix per «TEULADA» -constel·lació xinesa- (app-kstars)"
 
     {\bTHUNDERBOLT\b}i
-    valid msgstr="LLAMPEC"
+    valid msgstr="\bLLAMPEC\b"
     hint="Es tradueix per «LLAMPEC» -constel·lació xinesa- (app-kstars)"
 
     {\bCHARIOT\sYARD\b}i
-    valid msgstr="PATI DE CARROS"
+    valid msgstr="\bPATI DE CARROS\b"
     hint="Es tradueix per «PATI DE CARROS» -constel·lació xinesa- (app-kstars)"
 
     {\bGOOD\sGOURD\b}i
-    valid msgstr="CARABASSA SANA"
+    valid msgstr="\bCARABASSA SANA\b"
     hint="Es tradueix per «CARABASSA SANA» -constel·lació xinesa- (app-kstars)"
 
     {\bROTTEN\sGOURD\b}i
-    valid msgstr="CARABASSA PODRIDA"
+    valid msgstr="\bCARABASSA PODRIDA\b"
     hint="Es tradueix per «CARABASSA PODRIDA» -constel·lació xinesa- (app-kstars)"
 
     {\bENCAMPMENT\b}i
-    valid msgstr="CAMPAMENT"
+    valid msgstr="\bCAMPAMENT\b"
     hint="Es tradueix per «CAMPAMENT» -constel·lació xinesa- (app-kstars)"
 
     {\bTHUNDER\sAND\sLIGHTNING\b}i
-    valid msgstr="LLAMP I TRO"
+    valid msgstr="\bLLAMP I TRO\b"
     hint="Es tradueix per «LLAMP I TRO» -constel·lació xinesa- (app-kstars)"
 
     {\bPALACE\sGATE\b}i
-    valid msgstr="PORTA DE PALAU"
+    valid msgstr="\bPORTA DE PALAU\b"
     hint="Es tradueix per «PORTA DE PALAU» -constel·lació xinesa- (app-kstars)"
 
     {\bEMPTINESS\b}i
-    valid msgstr="BUIT"
+    valid msgstr="\bBUIT\b"
     hint="Es tradueix per «BUIT» -constel·lació xinesa- (app-kstars)"
 
     {\bWEAVING\sGIRL\b}i
-    valid msgstr="NENA TEIXIDORA"
+    valid msgstr="\bNENA TEIXIDORA\b"
     hint="Es tradueix per «NENA TEIXIDORA» -constel·lació xinesa- (app-kstars)"
 
     {\bGIRL\b}i
-    valid msgstr="NENA"
+    valid msgstr="\bNENA\b"
     hint="Es tradueix per «NENA» -constel·lació xinesa- (app-kstars)"
 
 # #     {\bOX\b}i
-# #     valid msgstr="BOU"
+# #     valid msgstr="\bBOU\b"
 # #     hint="Es tradueix per «BOU» -constel·lació xinesa- (app-kstars)"
 
     {\bHEART\b}i
-    valid msgstr="COR"
+    valid msgstr="\bCOR\b"
     hint="Es tradueix per «COR» -constel·lació xinesa- (app-kstars)"
 
 # #     {\bROOM\b}i
-# #     valid msgstr="CAMBRA"
+# #     valid msgstr="\bCAMBRA\b"
 # #     hint="Es tradueix per «CAMBRA» -constel·lació xinesa- (app-kstars)"
 
 # #     {\bSPRING\b}i
-# #     valid msgid="Si(ding|lver) Spring"
-# #     valid msgstr="DÈU"
+# #     valid msgid="\bSi(ding|lver) Spring\b"
+# #     valid msgstr="\bDÈU\b"
 # #     hint="Es tradueix per «DÈU» -constel·lació xinesa- (app-kstars)"
 
     {\bESTABLISHMENT\b}i
-    valid msgstr="ESTABLIMENT"
+    valid msgstr="\bESTABLIMENT\b"
     hint="Es tradueix per «ESTABLIMENT» -constel·lació xinesa- (app-kstars)"
 
     {\bFLAIL\b}i
-    valid msgstr="BATOLLA"
+    valid msgstr="\bBATOLLA\b"
     hint="Es tradueix per «BATOLLA» -constel·lació xinesa- (app-kstars)"
 
     {\bSPEAR\b}i
-    valid msgstr=""
+    valid msgstr="\bARPÓ\b"
     hint="Es tradueix per «ARPÓ» -constel·lació xinesa- (app-kstars)"
 
     {\bRIGHT\sFLAG\b}i
-    valid msgstr="BANDERA DRETA"
+    valid msgstr="\bBANDERA DRETA\b"
     hint="Es tradueix per «BANDERA DRETA» -constel·lació xinesa- (app-kstars)"
 
     {\bLEFT\sFLAG\b}i
-    valid msgstr="BANDERA ESQUERRA"
+    valid msgstr="\bBANDERA ESQUERRA\b"
     hint="Es tradueix per «BANDERA ESQUERRA» -constel·lació xinesa- (app-kstars)"
 
     {\bDRUMSTICK\b}i
-    valid msgstr="BAQUETA"
+    valid msgstr="\bBAQUETA\b"
     hint="Es tradueix per «BAQUETA» -constel·lació xinesa- (app-kstars)"
 
 # #     {\bBOND\b}i
-# #     valid msgstr="LLIGAM"
+# #     valid msgstr="\bLLIGAM\b"
 # #     hint="Es tradueix per «LLIGAM» -constel·lació xinesa- (app-kstars)"
 
     {\bWOMAN.?S\sBED\b}i
-    valid msgstr="LLIT DE DONA"
+    valid msgstr="\bLLIT DE DONA\b"
     hint="Es tradueix per «LLIT DE DONA» -constel·lació xinesa- (app-kstars)"
 
     {\bWESTERN\sDOOR\b}i
-    valid msgstr="PORTA OCCIDENTAL"
+    valid msgstr="\bPORTA OCCIDENTAL\b"
     hint="Es tradueix per «PORTA OCCIDENTAL» -constel·lació xinesa- (app-kstars)"
 
     {\bEASTERN\sDOOR\b}i
-    valid msgstr="PORTA ORIENTAL"
+    valid msgstr="\bPORTA ORIENTAL\b"
     hint="Es tradueix per «PORTA ORIENTAL» -constel·lació xinesa- (app-kstars)"
 
     {\bFARMLAND\b}i
-    valid msgstr="TERRA DE CONREU"
+    valid msgstr="\bTERRA DE CONREU\b"
     hint="Es tradueix per «TERRA DE CONREU» -constel·lació xinesa- (app-kstars)"
 
 # #     {\bSTAR\b}i
@@ -2503,624 +2673,624 @@ hint="Es tradueix per «C Xinesa» -constel·lacions- (app-kstars)"
 # #     valid msgid="\bStar\sMagnitudes\b"
 # #     valid msgid="\bStar\smap\b"
 # #     valid msgid="\bstar\sname\slabels\b"
-# #     valid msgid="STAR OF WOLF"
-# #     valid msgstr="ESTRELLA"
+# #     valid msgid="\bSTAR OF WOLF\b"
+# #     valid msgstr="\bESTRELLA\b"
 # #     hint="Es tradueix per «ESTRELLA» -constel·lació xinesa- (app-kstars)"
 
     {\bGHOSTS\b}i
-    valid msgstr="FANTASMES"
+    valid msgstr="\bFANTASMES\b"
     hint="Es tradueix per «FANTASMES» -constel·lació xinesa- (app-kstars)"
 
     {\bXUANYUAN\b}i
-    valid msgstr="XUANYUAN"
+    valid msgstr="\bXUANYUAN\b"
     hint="Es tradueix per «XUANYUAN» -constel·lació xinesa- (app-kstars)"
 
     {\bTRIPOD\b}i
-    valid msgstr="TRÍPODE"
+    valid msgstr="\bTRÍPODE\b"
     hint="Es tradueix per «TRÍPODE» -constel·lació xinesa- (app-kstars)"
 
     {\bNECK\b}i
-    valid msgstr="COLL"
+    valid msgstr="\bCOLL\b"
     hint="Es tradueix per «COLL» -constel·lació xinesa- (app-kstars)"
 
     {\bZAOFU\b}i
-    valid msgstr="ZAOFU"
+    valid msgstr="\bZAOFU\b"
     hint="Es tradueix per «ZAOFU» -constel·lació xinesa- (app-kstars)"
 
     {\bMARKET\sOFFICER\b}i
-    valid msgstr="POLICÍA DEL MERCAT"
+    valid msgstr="\bPOLICÍA DEL MERCAT\b"
     hint="Es tradueix per «POLICÍA DEL MERCAT» -constel·lació xinesa- (app-kstars)"
 
 {\bC\sEgyptian\b}i
-valid msgstr="C Egípcia"
+valid msgstr="\bC Egípcia\b"
 hint="Es tradueix per «C Egípcia» -constel·lacions- (app-kstars)"
 
     {\bBULL.?S\sFORELEG\b}i
-    valid msgstr="POTA DAVANTERA DEL TORO"
+    valid msgstr="\bPOTA DAVANTERA DEL TORO\b"
     hint="Es tradueix per «POTA DAVANTERA DEL TORO» -constel·lació egípcia- (app-kstars)"
 
     {\bTWO\sPOLES\b}i
-    valid msgstr="DOS PALS"
+    valid msgstr="\bDOS PALS\b"
     hint="Es tradueix per «DOS PALS» -constel·lació egípcia- (app-kstars)"
 
     {\bLION\b}i
-    valid msgstr="LLEÓ"
+    valid msgstr="\bLLEÓ\b"
     hint="Es tradueix per «LLEÓ» -constel·lació egípcia- (app-kstars)"
 
     {\bTWO\sJAWS\b}i
-    valid msgstr="DUES MANDÍBULES"
+    valid msgstr="\bDUES MANDÍBULES\b"
     hint="Es tradueix per «DUES MANDÍBULES» -constel·lació egípcia- (app-kstars)"
 
     {\bSAH\b}i
-    valid msgstr="SAH"
+    valid msgstr="\bSAH\b"
     hint="Es tradueix per «SAH» -constel·lació egípcia- (app-kstars)"
 
     {\bBIRD\b}i
-    valid msgstr="OCELL"
+    valid msgstr="\bOCELL\b"
     hint="Es tradueix per «OCELL» -constel·lació egípcia- (app-kstars)"
 
     {\bSEK\b}i
-    valid msgstr="SEK"
+    valid msgstr="\bSEK\b"
     hint="Es tradueix per «SEK» -constel·lació egípcia- (app-kstars)"
 
     {\bTRIANGLE\b}i
-    valid msgstr="TRIANGLE"
+    valid msgstr="\bTRIANGLE\b"
     hint="Es tradueix per «TRIANGLE» -constel·lació egípcia- (app-kstars)"
 
     {\bFERRY\sBOAT\b}i
-    valid msgstr="BARCA"
+    valid msgstr="\bBARCA\b"
     hint="Es tradueix per «BARCA» -constel·lació egípcia- (app-kstars)"
 
     {\bCROCODILE\b}i
-    valid msgstr="COCODRIL"
+    valid msgstr="\bCOCODRIL\b"
     hint="Es tradueix per «COCODRIL» -constel·lació egípcia- (app-kstars)"
 
     {\bSELKIS\b}i
-    valid msgstr="SELKIS"
+    valid msgstr="\bSELKIS\b"
     hint="Es tradueix per «SELKIS» -constel·lació egípcia- (app-kstars)"
 
     {\bPROW\b}i
-    valid msgstr="PROA"
+    valid msgstr="\bPROA\b"
     hint="Es tradueix per «PROA» -constel·lació egípcia- (app-kstars)"
 
     {\bHORUS\b}i
-    valid msgstr="HORUS"
+    valid msgstr="\bHORUS\b"
     hint="Es tradueix per «HORUS» -constel·lació egípcia- (app-kstars)"
 
     {\bSHEEPFOLD\b}i
-    valid msgstr="CLEDA"
+    valid msgstr="\bCLEDA\b"
     hint="Es tradueix per «CLEDA» -constel·lació egípcia- (app-kstars)"
 
     {\bGIANT\b}i
-    valid msgstr="GEGANT"
+    valid msgstr="\bGEGANT\b"
     hint="Es tradueix per «GEGANT» -constel·lació egípcia- (app-kstars)"
 
     {\bHIPPOPOTAMUS\b}i
-    valid msgstr="HIPOPÒTAM"
+    valid msgstr="\bHIPOPÒTAM\b"
     hint="Es tradueix per «HIPOPÒTAM» -constel·lació egípcia- (app-kstars)"
 
     {\bFLOCK\b}i
-    valid msgstr="RAMAT"
+    valid msgstr="\bRAMAT\b"
     hint="Es tradueix per «RAMAT» -constel·lació egípcia- (app-kstars)"
 
     {\bPAIR\sOF\sSTARS\b}i
-    valid msgstr="PARELL D'ESTRELLES"
+    valid msgstr="\bPARELL D'ESTRELLES\b"
     hint="Es tradueix per «PARELL D'ESTRELLES» -constel·lació egípcia- (app-kstars)"
 
     {\bKHANUWY\sFISH\b}i
-    valid msgstr="PEIX KHANUWY"
+    valid msgstr="\bPEIX KHANUWY\b"
     hint="Es tradueix per «PEIX KHANUWY» -constel·lació egípcia- (app-kstars)"
 
     {\bJAW\b}i
-    valid msgid="Moose Jaw"
-    valid msgstr="MANDÍBULA"
+    valid msgid="\bMoose Jaw\b"
+    valid msgstr="\bMANDÍBULA\b"
     hint="Es tradueix per «MANDÍBULA» -constel·lació egípcia- (app-kstars)"
 
     {\bMOORING\sPOST\b}i
-    valid msgstr="AMARRADOR"
+    valid msgstr="\bAMARRADOR\b"
     hint="Es tradueix per «AMARRADOR» -constel·lació egípcia- (app-kstars)"
 
     {\bKENEMET\b}i
-    valid msgstr="KENEMET"
+    valid msgstr="\bKENEMET\b"
     hint="Es tradueix per «KENEMET» -constel·lació egípcia- (app-kstars)"
 
     {\bCHEMATY\b}i
-    valid msgstr="CHEMATY"
+    valid msgstr="\bCHEMATY\b"
     hint="Es tradueix per «CHEMATY» -constel·lació egípcia- (app-kstars)"
 
     {\bWATY\sBEKETY\b}i
-    valid msgstr="WATY BEKETY"
+    valid msgstr="\bWATY BEKETY\b"
     hint="Es tradueix per «WATY BEKETY» -constel·lació egípcia- (app-kstars)"
 
     {\bSHEEP\b}i
-    valid msgstr="OVELLA"
+    valid msgstr="\bOVELLA\b"
     hint="Es tradueix per «OVELLA» -constel·lació egípcia- (app-kstars)"
 
     {\bSTARS\sOF\sWATER\b}i
-    valid msgstr="ESTRELLES D'AIGUA"
+    valid msgstr="\bESTRELLES D'AIGUA\b"
     hint="Es tradueix per «ESTRELLES D'AIGUA» -constel·lació egípcia- (app-kstars)"
 
 {\bC\sInuit\b}i
-valid msgstr="C Inuit"
+valid msgstr="\bC Inuit\b"
 hint="Es tradueix per «C Inuit» -constel·lacions- (app-kstars)"
 
     {\bTWO\sSUNBEAMS\b}i
-    valid msgstr="DOS RAJOS DE SOL"
+    valid msgstr="\bDOS RAJOS DE SOL\b"
     hint="Es tradueix per «DOS RAJOS DE SOL» -constel·lació inuit- (app-kstars)"
 
     {\bTWO\sPLACED\sFAR\sAPART\b}i
-    valid msgstr="DOS SITUATS MOLT LLUNY"
+    valid msgstr="\bDOS SITUATS MOLT LLUNY\b"
     hint="Es tradueix per «DOS SITUATS MOLT LLUNY» -constel·lació inuit- (app-kstars)"
 
     {\bDOGS\b}i
-    valid msgstr="GOSSOS"
+    valid msgstr="\bGOSSOS\b"
     hint="Es tradueix per «GOSSOS» -constel·lació inuit- (app-kstars)"
 
     {\bCOLLARBONES\b}i
-    valid msgstr="CLAVÍCULES"
+    valid msgstr="\bCLAVÍCULES\b"
     hint="Es tradueix per «CLAVÍCULES» -constel·lació inuit- (app-kstars)"
 
     {\bLAMP\sSTAND\b}i
-    valid msgstr="PEDESTAL DE LÀMPADA"
+    valid msgstr="\bPEDESTAL DE LÀMPADA\b"
     hint="Es tradueix per «PEDESTAL DE LÀMPADA» -constel·lació inuit- (app-kstars)"
 
     {\bCARIBOU\b}i
-    valid msgstr="CARIBÚ"
+    valid msgstr="\bCARIBÚ\b"
     hint="Es tradueix per «CARIBÚ» -constel·lació inuit- (app-kstars)"
 
     {\bTWO\sIN\sFRONT\b}i
-    valid msgstr="DOS ENFRONT"
+    valid msgstr="\bDOS ENFRONT\b"
     hint="Es tradueix per «DOS ENFRONT» -constel·lació inuit- (app-kstars)"
 
     {\bBREASTBONE\b}i
-    valid msgstr="ESTÈRNUM"
+    valid msgstr="\bESTÈRNUM\b"
     hint="Es tradueix per «ESTÈRNUM» -constel·lació inuit- (app-kstars)"
 
     {\bRUNNERS\b}i
-    valid msgstr="CORREDORS"
+    valid msgstr="\bCORREDORS\b"
     hint="Es tradueix per «CORREDORS» -constel·lació inuit- (app-kstars)"
 
     {\bBLUBBER\sCONTAINER\b}i
-    valid msgstr="BOL DE GREIX"
+    valid msgstr="\bBOL DE GREIX\b"
     hint="Es tradueix per «BOL DE GREIX» -constel·lació inuit- (app-kstars)"
 
     {\bTHE\sONE\sBEHIND\b}i
-    valid msgstr="EL QUE ÉS DARRERE"
+    valid msgstr="\bEL QUE ÉS DARRERE\b"
     hint="Es tradueix per «EL QUE ÉS DARRERE» -constel·lació inuit- (app-kstars)"
 
 {\bC\sKorean\b}i
-valid msgstr="C Coreana"
+valid msgstr="\bC Coreana\b"
 hint="Es tradueix per «C Coreana» -constel·lacions- (app-kstars)"
 
     {\bHOLY\sKETTLE\b}i
-    valid msgstr="TETERA SAGRADA"
+    valid msgstr="\bTETERA SAGRADA\b"
     hint="Es tradueix per «TETERA SAGRADA» -constel·lació coreana- (app-kstars)"
 
     {\bFARM\sOF\sCAPITAL\sCITY\b}i
-    valid msgstr="GRANJA DE LA CAPITAL"
+    valid msgstr="\bGRANJA DE LA CAPITAL\b"
     hint="Es tradueix per «GRANJA DE LA CAPITAL» -constel·lació coreana- (app-kstars)"
 
     {\bDIGNITY\sOF\sKING\b}i
-    valid msgstr="DIGNITAT DE REI"
+    valid msgstr="\bDIGNITAT DE REI\b"
     hint="Es tradueix per «DIGNITAT DE REI» -constel·lació coreana- (app-kstars)"
 
     {\bNOMINATION\b}i
-    valid msgstr="NOMINACIÓ"
+    valid msgstr="\bNOMINACIÓ\b"
     hint="Es tradueix per «NOMINACIÓ» -constel·lació coreana- (app-kstars)"
 
     {\bGATE\sOF\sSKY\b}i
-    valid msgstr="PORTA DEL CEL"
+    valid msgstr="\bPORTA DEL CEL\b"
     hint="Es tradueix per «PORTA DEL CEL» -constel·lació coreana- (app-kstars)"
 
     {\bEQUALITY\b}i
-    valid msgstr="IGUALTAT"
+    valid msgstr="\bIGUALTAT\b"
     hint="Es tradueix per «IGUALTAT» -constel·lació coreana- (app-kstars)"
 
     {\bHELPER\b}i
-    valid msgstr="AJUDANT"
+    valid msgstr="\bAJUDANT\b"
     hint="Es tradueix per «AJUDANT» -constel·lació coreana- (app-kstars)"
 
     {\bPOSITION\sOF\sHOLY\sKING\b}i
-    valid msgstr="POSICIÓ DEL REI SAGRAT"
+    valid msgstr="\bPOSICIÓ DEL REI SAGRAT\b"
     hint="Es tradueix per «POSICIÓ DEL REI SAGRAT» -constel·lació coreana- (app-kstars)"
 
     {\bNECK\sOF\sDRAGON\b}i
-    valid msgstr="COLL DE DRAC"
+    valid msgstr="\bCOLL DE DRAC\b"
     hint="Es tradueix per «COLL DE DRAC» -constel·lació coreana- (app-kstars)"
 
     {\bBEHEADING\b}i
-    valid msgstr="DECAPITACIÓ"
+    valid msgstr="\bDECAPITACIÓ\b"
     hint="Es tradueix per «DECAPITACIÓ» -constel·lació coreana- (app-kstars)"
 
 # #     {\bJUDGE\b}i
-# #     valid msgid="JUDGE FAULT"
-# #     valid msgstr="JUTGE"
+# #     valid msgid="\bJUDGE FAULT\b"
+# #     valid msgstr="\bJUTGE\b"
 # #     hint="Es tradueix per «JUTGE» -constel·lació coreana- (app-kstars)"
 
     {\bFLUTTERING\sFLAG\b}i
-    valid msgstr="BANDERA ONEJANT"
+    valid msgstr="\bBANDERA ONEJANT\b"
     hint="Es tradueix per «BANDERA ONEJANT» -constel·lació coreana- (app-kstars)"
 
     {\bJAVELIN\sOF\sSKY\b}i
-    valid msgstr="JAVELINA CELESTE"
+    valid msgstr="\bJAVELINA CELESTE\b"
     hint="Es tradueix per «JAVELINA CELESTE» -constel·lació coreana- (app-kstars)"
 
     {\bSEAT\sFOR\sLONGEVITY\b}i
-    valid msgstr="SEIENT PER LA LLARGA VIDA"
+    valid msgstr="\bSEIENT PER LA LLARGA VIDA\b"
     hint="Es tradueix per «SEIENT PER LA LLARGA VIDA» -constel·lació coreana- (app-kstars)"
 
     {\bOAR\sFOR\sVISITOR\b}i
-    valid msgstr="REM PER AL VISITANT"
+    valid msgstr="\bREM PER AL VISITANT\b"
     hint="Es tradueix per «REM PER AL VISITANT» -constel·lació coreana- (app-kstars)"
 
     {\bMILK\sOF\sSKY\b}i
-    valid msgstr="LLET DEL CEL"
+    valid msgstr="\bLLET DEL CEL\b"
     hint="Es tradueix per «LLET DEL CEL» -constel·lació coreana- (app-kstars)"
 
     {\bHOUSE\sOF\sQUEEN\b}i
-    valid msgstr="CASA DE REINA"
+    valid msgstr="\bCASA DE REINA\b"
     hint="Es tradueix per «CASA DE REINA» -constel·lació coreana- (app-kstars)"
 
     {\bANCIENT\sCHARIOT\b}i
-    valid msgstr="CARRO ANTIC"
+    valid msgstr="\bCARRO ANTIC\b"
     hint="Es tradueix per «CARRO ANTIC» -constel·lació coreana- (app-kstars)"
 
     {\bCARRIAGE\sFOR\sKING\b}i
-    valid msgstr="CARRO PER A REI"
+    valid msgstr="\bCARRO PER A REI\b"
     hint="Es tradueix per «CARRO PER A REI» -constel·lació coreana- (app-kstars)"
 
     {\bGENERAL\sOF\sCAVALRY\b}i
-    valid msgstr="GENERAL DE CAVALLERIA"
+    valid msgstr="\bGENERAL DE CAVALLERIA\b"
     hint="Es tradueix per «GENERAL DE CAVALLERIA» -constel·lació coreana- (app-kstars)"
 
     {\bCAVALRY\sOF\sEMPEROR\b}i
-    valid msgstr="CAVALLERIA D'EMPERADOR"
+    valid msgstr="\bCAVALLERIA D'EMPERADOR\b"
     hint="Es tradueix per «CAVALLERIA D'EMPERADOR» -constel·lació coreana- (app-kstars)"
 
     {\bGENERAL\sOF\sMOBILE\sTROOPS\b}i
-    valid msgstr="GENERAL DE TROPES MÒBILS"
+    valid msgstr="\bGENERAL DE TROPES MÒBILS\b"
     hint="Es tradueix per «GENERAL DE TROPES MÒBILS» -constel·lació coreana- (app-kstars)"
 
     {\bEAST\sROAD\b}i
-    valid msgstr="CAMÍ DE L'EST"
+    valid msgstr="\bCAMÍ DE L'EST\b"
     hint="Es tradueix per «CAMÍ DE L'EST» -constel·lació coreana- (app-kstars)"
 
     {\bGATE\sBOLT\b}i
-    valid msgstr="BALDA"
+    valid msgstr="\bBALDA\b"
     hint="Es tradueix per «BALDA» -constel·lació coreana- (app-kstars)"
 
     {\bDOOR\sLOCK\sAND\sKEY\b}i
-    valid msgstr="PANY I CLAU"
+    valid msgstr="\bPANY I CLAU\b"
     hint="Es tradueix per «PANY I CLAU» -constel·lació coreana- (app-kstars)"
 
     {\bPENALTY\b}i
-    valid msgstr="MULTA"
+    valid msgstr="\bMULTA\b"
     hint="Es tradueix per «MULTA» -constel·lació coreana- (app-kstars)"
 
     {\bROYAL\sHALL\b}i
-    valid msgstr="SALÓ REIAL"
+    valid msgstr="\bSALÓ REIAL\b"
     hint="Es tradueix per «SALÓ REIAL» -constel·lació coreana- (app-kstars)"
 
     {\bCHAMBERLAIN\b}i
-    valid msgstr="CAMARLENC"
+    valid msgstr="\bCAMARLENC\b"
     hint="Es tradueix per «CAMARLENC» -constel·lació coreana- (app-kstars)"
 
 # #     {\bSUN\b}i
-# #     valid msgstr="SOL"
+# #     valid msgstr="\bSOL\b"
 # #     hint="Es tradueix per «SOL» -constel·lació coreana- (app-kstars)"
 
     {\bWEST\sROAD\b}i
-    valid msgstr="CAMÍ DE L'OEST"
+    valid msgstr="\bCAMÍ DE L'OEST\b"
     hint="Es tradueix per «CAMÍ DE L'OEST» -constel·lació coreana- (app-kstars)"
 
     {\bSEAT\sOF\sEMPEROR\b}i
-    valid msgstr="SEIENT D'EMPERADOR"
+    valid msgstr="\bSEIENT D'EMPERADOR\b"
     hint="Es tradueix per «SEIENT D'EMPERADOR» -constel·lació coreana- (app-kstars)"
 
     {\bFIVE\sTROOPS\b}i
-    valid msgstr="CINC TROPES"
+    valid msgstr="\bCINC TROPES\b"
     hint="Es tradueix per «CINC TROPES» -constel·lació coreana- (app-kstars)"
 
     {\bRIVER\sOF\sSKY\b}i
-    valid msgstr="RIU DEL CEL"
+    valid msgstr="\bRIU DEL CEL\b"
     hint="Es tradueix per «RIU DEL CEL» -constel·lació coreana- (app-kstars)"
 
     {\bPRAYER\sFOR\sPROGENY\b}i
-    valid msgstr="PREGÀRIA PER A LA NISSAGA"
+    valid msgstr="\bPREGÀRIA PER A LA NISSAGA\b"
     hint="Es tradueix per «PREGÀRIA PER A LA NISSAGA» -constel·lació coreana- (app-kstars)"
 
     {\bFISH\b}i
-    valid msgstr="PEIX"
+    valid msgstr="\bPEIX\b"
     hint="Es tradueix per «PEIX» -constel·lació coreana- (app-kstars)"
 
     {\bFORECAST\b}i
-    valid msgstr="PREDICCIÓ"
+    valid msgstr="\bPREDICCIÓ\b"
     hint="Es tradueix per «PREDICCIÓ» -constel·lació coreana- (app-kstars)"
 
     {\bYARD\sFOR\sEMPRESSES\b}i
-    valid msgstr="PATI PER EMPERADRIUS"
+    valid msgstr="\bPATI PER EMPERADRIUS\b"
     hint="Es tradueix per «PATI PER EMPERADRIUS» -constel·lació coreana- (app-kstars)"
 
     {\bHOLY\sPALACE\b}i
-    valid msgstr="PALAU SAGRAT"
+    valid msgstr="\bPALAU SAGRAT\b"
     hint="Es tradueix per «PALAU SAGRAT» -constel·lació coreana- (app-kstars)"
 
     {\bWINNOW\b}i
-    valid msgstr="ESVENTAR"
+    valid msgstr="\bESVENTAR\b"
     hint="Es tradueix per «ESVENTAR» -constel·lació coreana- (app-kstars)"
 
     {\bOUTER\sPESTLE\b}i
-    valid msgstr="MÀ DE MORTER EXTERIOR"
+    valid msgstr="\bMÀ DE MORTER EXTERIOR\b"
     hint="Es tradueix per «MÀ DE MORTER EXTERIOR» -constel·lació coreana- (app-kstars)"
 
     {\bCHAFF\b}i
-    valid msgstr="PALLA"
+    valid msgstr="\bPALLA\b"
     hint="Es tradueix per «PALLA» -constel·lació coreana- (app-kstars)"
 
     {\bHEAD\sOF\sTOWN\b}i
-    valid msgstr="CAP DE CIUTAT"
+    valid msgstr="\bCAP DE CIUTAT\b"
     hint="Es tradueix per «CAP DE CIUTAT» -constel·lació coreana- (app-kstars)"
 
 # #     {\bBUILD\b}i
-# #     valid msgstr="CONSTRUCCIÓ"
+# #     valid msgstr="\bCONSTRUCCIÓ\b"
 # #     hint="Es tradueix per «CONSTRUCCIÓ» -constel·lació coreana- (app-kstars)"
 
     {\bFOWL\sOF\sSKY\b}i
-    valid msgstr="GALL CELESTE"
+    valid msgstr="\bGALL CELESTE\b"
     hint="Es tradueix per «GALL CELESTE» -constel·lació coreana- (app-kstars)"
 
     {\bSHRINE\sOF\sSKY\b}i
-    valid msgstr="SANTUARI CELESTE"
+    valid msgstr="\bSANTUARI CELESTE\b"
     hint="Es tradueix per «SANTUARI CELESTE» -constel·lació coreana- (app-kstars)"
 
     {\bNORTHEASTERN\sNATIONS\b}i
-    valid msgstr="NACIONS DEL NORDEST"
+    valid msgstr="\bNACIONS DEL NORDEST\b"
     hint="Es tradueix per «NACIONS DEL NORDEST» -constel·lació coreana- (app-kstars)"
 
     {\bOLD\sFARMER\b}i
-    valid msgstr="VELL GRANGER"
+    valid msgstr="\bVELL GRANGER\b"
     hint="Es tradueix per «VELL GRANGER» -constel·lació coreana- (app-kstars)"
 
     {\bSNAPPING\sTURTLE\b}i
-    valid msgstr="TORTUGA MOSSEGADORA"
+    valid msgstr="\bTORTUGA MOSSEGADORA\b"
     hint="Es tradueix per «TORTUGA MOSSEGADORA» -constel·lació coreana- (app-kstars)"
 
     {\bROAD\sFOR\sEMPEROR\b}i
-    valid msgstr="CAMÍ PER EMPERADOR"
+    valid msgstr="\bCAMÍ PER EMPERADOR\b"
     hint="Es tradueix per «CAMÍ PER EMPERADOR» -constel·lació coreana- (app-kstars)"
 
     {\bTHE\sWEAVER\b}i
-    valid msgstr="EL TEIXIDOR"
+    valid msgstr="\bEL TEIXIDOR\b"
     hint="Es tradueix per «EL TEIXIDOR» -constel·lació coreana- (app-kstars)"
 
     {\bRIVER\sADJOINING\sTOWER\b}i
-    valid msgstr="RIU PROP DE LA TORRE"
+    valid msgstr="\bRIU PROP DE LA TORRE\b"
     hint="Es tradueix per «RIU PROP DE LA TORRE» -constel·lació coreana- (app-kstars)"
 
     {\bDRUM\sOF\sRIVER\b}i
-    valid msgstr="TAMBOR DEL RIU"
+    valid msgstr="\bTAMBOR DEL RIU\b"
     hint="Es tradueix per «TAMBOR DEL RIU» -constel·lació coreana- (app-kstars)"
 
     {\bDRUMSTICK\sOF\sSKY\b}i
-    valid msgstr="BAQUETA DEL CEL"
+    valid msgstr="\bBAQUETA DEL CEL\b"
     hint="Es tradueix per «BAQUETA DEL CEL» -constel·lació coreana- (app-kstars)"
 
     {\bCOW\sLEADING\sMAN\b}i
-    valid msgstr="VAQUER"
+    valid msgstr="\bVAQUER\b"
     hint="Es tradueix per «VAQUER» -constel·lació coreana- (app-kstars)"
 
     {\bBANK\sSPREAD\b}i
-    valid msgstr="EXTENSIÓ DEL MARGE"
+    valid msgstr="\bEXTENSIÓ DEL MARGE\b"
     hint="Es tradueix per «EXTENSIÓ DEL MARGE» -constel·lació coreana- (app-kstars)"
 
     {\bBASKET\sFOR\sSILKWORM\b}i
-    valid msgstr="CISTELLA PER A CUCS DE SEDA"
+    valid msgstr="\bCISTELLA PER A CUCS DE SEDA\b"
     hint="Es tradueix per «CISTELLA PER A CUCS DE SEDA» -constel·lació coreana- (app-kstars)"
 
     {\bOFFICER\sFOR\sCART\b}i
-    valid msgstr="OFICIAL PER A CARRETES"
+    valid msgstr="\bOFICIAL PER A CARRETES\b"
     hint="Es tradueix per «OFICIAL PER A CARRETES» -constel·lació coreana- (app-kstars)"
 
     {\bFERRY\sOF\sSKY\b}i
-    valid msgstr="FERRI DEL CEL"
+    valid msgstr="\bFERRI DEL CEL\b"
     hint="Es tradueix per «FERRI DEL CEL» -constel·lació coreana- (app-kstars)"
 
     {\bFRUIT\b}i
-    valid msgstr="FRUITA"
+    valid msgstr="\bFRUITA\b"
     hint="Es tradueix per «FRUITA» -constel·lació coreana- (app-kstars)"
 
     {\bSEED\b}i
-    valid msgstr="LLAVOR"
+    valid msgstr="\bLLAVOR\b"
     hint="Es tradueix per «LLAVOR» -constel·lació coreana- (app-kstars)"
 
     {\bSTORAGE\sFOR\sLADY\b}i
-    valid msgstr="MAGATZEM PER A LA SENYORA"
+    valid msgstr="\bMAGATZEM PER A LA SENYORA\b"
     hint="Es tradueix per «MAGATZEM PER A LA SENYORA» -constel·lació coreana- (app-kstars)"
 
     {\bCOURT\sLADY\b}i
-    valid msgstr="CORTESANA"
+    valid msgstr="\bCORTESANA\b"
     hint="Es tradueix per «CORTESANA» -constel·lació coreana- (app-kstars)"
 
     {\bJUDGE\sFAULT\b}i
-    valid msgstr="JUTJAR UNA FALTA"
+    valid msgstr="\bJUTJAR UNA FALTA\b"
     hint="Es tradueix per «JUTJAR UNA FALTA» -constel·lació coreana- (app-kstars)"
 
     {\bAMEND\sFAULT\b}i
-    valid msgstr="ESMENAR UNA FALTA"
+    valid msgstr="\bESMENAR UNA FALTA\b"
     hint="Es tradueix per «ESMENAR UNA FALTA» -constel·lació coreana- (app-kstars)"
 
     {\bGRANT\sLIFE\b}i
-    valid msgstr="CONCEDIR LA VIDA"
+    valid msgstr="\bCONCEDIR LA VIDA\b"
     hint="Es tradueix per «CONCEDIR LA VIDA» -constel·lació coreana- (app-kstars)"
 
     {\bPUNISH\b}i
-    valid msgstr="CASTIGAR"
+    valid msgstr="\bCASTIGAR\b"
     hint="Es tradueix per «CASTIGAR» -constel·lació coreana- (app-kstars)"
 
     {\bEMPTY\sHOUSE\b}i
-    valid msgstr="CASA BUIDA"
+    valid msgstr="\bCASA BUIDA\b"
     hint="Es tradueix per «CASA BUIDA» -constel·lació coreana- (app-kstars)"
 
     {\bWEEP\b}i
-    valid msgstr="PLORAR"
+    valid msgstr="\bPLORAR\b"
     hint="Es tradueix per «PLORAR» -constel·lació coreana- (app-kstars)"
 
     {\bSOB\b}i
-    valid msgstr="SOMICAR"
+    valid msgstr="\bSOMICAR\b"
     hint="Es tradueix per «SOMICAR» -constel·lació coreana- (app-kstars)"
 
     {\bCASTLE\sWITH\sRAMPART\b}i
-    valid msgstr="CASTELL AMB MURALLA"
+    valid msgstr="\bCASTELL AMB MURALLA\b"
     hint="Es tradueix per «CASTELL AMB MURALLA» -constel·lació coreana- (app-kstars)"
 
     {\bHOOK\sFOR\sDRESS\b}i
-    valid msgstr="PENJA-ROBES"
+    valid msgstr="\bPENJA-ROBES\b"
     hint="Es tradueix per «PENJA-ROBES» -constel·lació coreana- (app-kstars)"
 
     {\bGROOM\b}i
-    valid msgstr="GRUM"
+    valid msgstr="\bGRUM\b"
     hint="Es tradueix per «GRUM» -constel·lació coreana- (app-kstars)"
 
     {\bCHARIOTEER\b}i
-    valid msgstr="CONDUCTOR DE CARRO"
+    valid msgstr="\bCONDUCTOR DE CARRO\b"
     hint="Es tradueix per «CONDUCTOR DE CARRO» -constel·lació coreana- (app-kstars)"
 
 # #     {\bHUMAN\b}i
-# #     valid msgstr="HUMÀ"
+# #     valid msgstr="\bHUMÀ\b"
 # #     hint="Es tradueix per «HUMÀ» -constel·lació coreana- (app-kstars)"
 
     {\bINNER\sPESTLE\b}i
-    valid msgstr="MÀ DE MORTER INTERIOR"
+    valid msgstr="\bMÀ DE MORTER INTERIOR\b"
     hint="Es tradueix per «MÀ DE MORTER INTERIOR» -constel·lació coreana- (app-kstars)"
 
     {\bWAREHOUSE\sOF\sSKY\b}i
-    valid msgstr="MAGATZEM DEL CEL"
+    valid msgstr="\bMAGATZEM DEL CEL\b"
     hint="Es tradueix per «MAGATZEM DEL CEL» -constel·lació coreana- (app-kstars)"
 
     {\bTOMB\b}i
-    valid msgid="OFFICER OF TOMB"
-    valid msgstr="TOMBA"
+    valid msgid="OFFICER OF TOMB\b"
+    valid msgstr="\bTOMBA\b"
     hint="Es tradueix per «TOMBA» -constel·lació coreana- (app-kstars)"
 
     {\bCOVER\sOF\sHOUSE\b}i
-    valid msgstr="COBERTA DE CASA"
+    valid msgstr="\bCOBERTA DE CASA\b"
     hint="Es tradueix per «COBERTA DE CASA» -constel·lació coreana- (app-kstars)"
 
     {\bBROKEN\sMORTAR\b}i
-    valid msgstr="MORTER TRENCAT"
+    valid msgstr="\bMORTER TRENCAT\b"
     hint="Es tradueix per «MORTER TRENCAT» -constel·lació coreana- (app-kstars)"
 
     {\bCLIMBING\sSERPENT\b}i
-    valid msgstr="SERP TREPADORA"
+    valid msgstr="\bSERP TREPADORA\b"
     hint="Es tradueix per «SERP TREPADORA» -constel·lació coreana- (app-kstars)"
 
     {\bPALACE\sOF\sEMPEROR\b}i
-    valid msgstr="PALAU D'EMPERADOR"
+    valid msgstr="\bPALAU D'EMPERADOR\b"
     hint="Es tradueix per «PALAU D'EMPERADOR» -constel·lació coreana- (app-kstars)"
 
     {\bDETACHED\sPALACE\b}i
-    valid msgstr="PALAU SEPARAT"
+    valid msgstr="\bPALAU SEPARAT\b"
     hint="Es tradueix per «PALAU SEPARAT» -constel·lació coreana- (app-kstars)"
 
     {\bOFFICIAL\sFOR\sMATERIALS\sSUPPLY\b}i
-    valid msgstr="OFICIAL DE SUBMINISTRAMENT DE MATERIAL"
+    valid msgstr="\bOFICIAL DE SUBMINISTRAMENT DE MATERIAL\b"
     hint="Es tradueix per «OFICIAL DE SUBMINISTRAMENT DE MATERIAL» -constel·lació coreana- (app-kstars)"
 
     {\bLIGHTNING\b}i
-    valid msgid="THUNDER AND LIGHTNING"
-    valid msgstr="LLAMPEC"
+    valid msgid="THUNDER AND LIGHTNING\b"
+    valid msgstr="\bLLAMPEC\b"
     hint="Es tradueix per «LLAMPEC» -constel·lació coreana- (app-kstars)"
 
     {\bRAMPART\b}i
-    valid msgstr="MURALLA"
+    valid msgstr="\bMURALLA\b"
     hint="Es tradueix per «MURALLA» -constel·lació coreana- (app-kstars)"
 
     {\bTROOPS\sOF\sSKY\b}i
-    valid msgstr="TROPES DEL CEL"
+    valid msgstr="\bTROPES DEL CEL\b"
     hint="Es tradueix per «TROPES DEL CEL» -constel·lació coreana- (app-kstars)"
 
     {\bVILLAGE\sFOR\sPATROL\b}i
-    valid msgstr="POBLE PER A PATRULLES"
+    valid msgstr="\bPOBLE PER A PATRULLES\b"
     hint="Es tradueix per «POBLE PER A PATRULLES» -constel·lació coreana- (app-kstars)"
 
     {\bNET\sOF\sSKY\b}i
-    valid msgstr="XARXA DEL CEL"
+    valid msgstr="\bXARXA DEL CEL\b"
     hint="Es tradueix per «XARXA DEL CEL» -constel·lació coreana- (app-kstars)"
 
     {\bSTABLE\sOF\sSKY\b}i
-    valid msgstr="ESTABLE DEL CEL"
+    valid msgstr="\bESTABLE DEL CEL\b"
     hint="Es tradueix per «ESTABLE DEL CEL» -constel·lació coreana- (app-kstars)"
 
-    {\bEASTERN\sWALL\b}i
-    valid msgstr="MURALLA ORIENTAL"
-    hint="Es tradueix per «MURALLA ORIENTAL» -constel·lació coreana- (app-kstars)"
+# #     {\bEASTERN\sWALL\b}i
+# #     valid msgstr="\bMURALLA ORIENTAL\b"
+# #     hint="Es tradueix per «MURALLA ORIENTAL» -constel·lació coreana- (app-kstars)"
 
     {\bCIVIL\sENGINEER\b}i
-    valid msgstr="ENGINYER CIVIL"
+    valid msgstr="\bENGINYER CIVIL\b"
     hint="Es tradueix per «ENGINYER CIVIL» -constel·lació coreana- (app-kstars)"
 
     {\bTHUNDERBOLTS\b}i
-    valid msgstr="LLAMPS"
+    valid msgstr="\bLLAMPS\b"
     hint="Es tradueix per «LLAMPS» -constel·lació coreana- (app-kstars)"
 
     {\bCLOUDS\sAND\sRAIN\b}i
-    valid msgstr="NÚVOLS I PLUJA"
+    valid msgstr="\bNÚVOLS I PLUJA\b"
     hint="Es tradueix per «NÚVOLS I PLUJA» -constel·lació coreana- (app-kstars)"
 
 # #     {\bHIGHWAY\b}i
-# #     valid msgstr="CARRETERA"
+# #     valid msgstr="\bCARRETERA\b"
 # #     hint="Es tradueix per «CARRETERA» -constel·lació coreana- (app-kstars)"
 
     {\bWHIP\b}i
-    valid msgstr="FUET"
+    valid msgstr="\bFUET\b"
     hint="Es tradueix per «FUET» -constel·lació coreana- (app-kstars)"
 
     {\bOFFICER\sFOR\sCHARIOT\b}i
-    valid msgstr="OFICIAL PER A CARROS"
+    valid msgstr="\bOFICIAL PER A CARROS\b"
     hint="Es tradueix per «OFICIAL PER A CARROS» -constel·lació coreana- (app-kstars)"
 
     {\bSIDE\sROAD\b}i
-    valid msgstr="CAMÍ LATERAL"
+    valid msgstr="\bCAMÍ LATERAL\b"
     hint="Es tradueix per «CAMÍ LATERAL» -constel·lació coreana- (app-kstars)"
 
     {\bARMORY\b}i
-    valid msgstr="ARSENAL"
+    valid msgstr="\bARSENAL\b"
     hint="Es tradueix per «ARSENAL» -constel·lació coreana- (app-kstars)"
 
     {\bSOUTHERN\sGATE\sOF\sEMPERATOR\b}i
-    valid msgstr="PORTA MERIDIONAL DE L'EMPERADOR"
+    valid msgstr="\bPORTA MERIDIONAL DE L'EMPERADOR\b"
     hint="Es tradueix per «PORTA MERIDIONAL DE L'EMPERADOR» -constel·lació coreana- (app-kstars)"
 
     {\bOUTER\sFOLDING\sSCREEN\b}i
-    valid msgstr="PARAVENT PLEGAT EXTERIOR"
+    valid msgstr="\bPARAVENT PLEGAT EXTERIOR\b"
     hint="Es tradueix per «PARAVENT PLEGAT EXTERIOR» -constel·lació coreana- (app-kstars)"
 
     {\bTOILET\sOF\sSKY\b}i
-    valid msgstr="LAVABO DEL CEL"
+    valid msgstr="\bLAVABO DEL CEL\b"
     hint="Es tradueix per «LAVABO DEL CEL» -constel·lació coreana- (app-kstars)"
 
     {\bARCHITECT\b}i
-    valid msgstr="ARQUITECTE"
+    valid msgstr="\bARQUITECTE\b"
     hint="Es tradueix per «ARQUITECTE» -constel·lació coreana- (app-kstars)"
 
     {\bEMPERATOR\b}i
-    valid msgstr="EMPERADOR"
+    valid msgstr="\bEMPERADOR\b"
     hint="Es tradueix per «EMPERADOR» -constel·lació coreana- (app-kstars)"
 
     {\bWATCHTOWER\b}i
-    valid msgstr="TALAIA"
+    valid msgstr="\bTALAIA\b"
     hint="Es tradueix per «TALAIA» -constel·lació coreana- (app-kstars)"
 
     {\bLEFT\sELM\b}i
-    valid msgstr="OM DE L'ESQUERRA"
+    valid msgstr="\bOM DE L'ESQUERRA\b"
     hint="Es tradueix per «OM DE L'ESQUERRA» -constel·lació coreana- (app-kstars)"
 
     {\bRIGHT\sELM\b}i
-    valid msgstr="OM DE LA DRETA"
+    valid msgstr="\bOM DE LA DRETA\b"
     hint="Es tradueix per «OM DE LA DRETA» -constel·lació coreana- (app-kstars)"
 
     {\bSTOREHOUSE\sOF\sSKY\b}i
-    valid msgstr="MAGATZEM DEL CEL"
+    valid msgstr="\bMAGATZEM DEL CEL\b"
     hint="Es tradueix per «MAGATZEM DEL CEL» -constel·lació coreana- (app-kstars)"
 
 #
@@ -3133,11 +3303,14 @@ hint="Es tradueix per «C Coreana» -constel·lacions- (app-kstars)"
 [\bde\sCDV\b]i
 hint="Es tradueix per «del CDV» (app-kstars)"
 
-[\bde\sKStars\b]i
-hint="Es tradueix per «del KStars» (app-kstars)"
+[\sKStars\b]i
+valid msgid="kstars-devel"
+valid msgstr="\b(a|d?e)l KStars\b"
+valid msgstr="\b(pel|projecte) KStars\b"
+hint="Es tradueix per «el KStars, del KStars, al KStars, pel KStars, projecte KStars» (app-kstars)"
 
-[\bEdita\simatge...\b]i
+[\bEdita\simatge\.\.\.]i
 hint="Es tradueix per «Edita la imatge...» (app-kstars)"
 
-[\bS.estan\scarregant\simatges...\b]i
+[\bS.estan\scarregant\simatges\.\.\.]i
 hint="Es tradueix per «S'estan carregant les imatges...» (app-kstars)"
