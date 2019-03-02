@@ -67,6 +67,7 @@ hint="«monitor» tradúcese como «monitorizar» (verbo) ou «monitor» (substa
 id="PT-2011_about"
 hint="«about» tradúcese como «sobre»"
 valid before="\s+(magnitude\s+)?(%?\d+\w*|one|two|three|four|five|six|seven|eight|nine|ten)\b"  # about 20 → arredor de 20
+valid before=":"  # about: → arredor de:
 valid before="\s+\wing\b"
 valid before="\s+dialogs?\b"
 # be better about finding → ser mellor para atopar
@@ -110,6 +111,7 @@ valid after="\bwhat\s+"
 # worrying about something → preocupándose de algo
 valid after="\bworr(ie[ds]|y(ing)?)\s+"
 valid msgstr="\bsobre\b"
+valid msgstr="\babout\b"
 
 # «about to» tradúcese como «a piques de»
 {\b(?<!^)about\sto\b}i
@@ -586,7 +588,7 @@ valid msgstr="\bbrows(e[ds]?|ing)\b"
 hint="«browse» tradúcese como «buscar», «examinar», «explorar», «navegar», «procurar»"
 
 # «navegar» traduce a «browse»
-[\bnav(?!eg(a(cións?|dor(es)?|ntes?)|ábe(l|is))\b)[eé]g([aáoó]|u[eé])\w*\b]i
+[\bnav(?!eg(a(cións?|dor(es)?|ntes?)|ábe(l|is)))[eé]g([aáoó]|u[eé])\w*\b]i
 id="PT-2013-dual_browse"
 valid msgid="\bbrows(e[ds]?|ing)\b"
 valid msgid="\bnavigat(e[ds]?|ing)\b"
@@ -602,137 +604,209 @@ valid msgstr="\bbrowsers?\b"
 hint="«browser» tradúcese como «navegador»"
 
 # «navegador» traduce a «browser»
-[\bnavegador]i
+[\bnavegador(es)?\b]i
 id="PT-2013-dual_browser"
-valid msgid="\bbrowser"
+valid msgid="\bbrowsers?\b"
+valid msgid="\bnavigators?\b"
 hint="«navegador» traduce a «browser»"
 
 # «buffer» tradúcese como «búfer»
-{\bbuffer}i
+{\bbuffers?\b}i
 id="PT-2011_buffer"
-valid msgstr="\bbúfer(es)?"
+valid msgstr="\bbúfer(es)?\b"
 hint="«buffer» tradúcese como «búfer(es)»"
 
 # «búfer» tradúcese como «buffer»
-[\bbúfer]i
+[\bbúfer(es)?\b]i
 id="PT-2011-dual_buffer"
-valid msgid="\bbuffer"
+valid msgid="\bbuffers?\b"
+valid msgid="\bbuffered\b"  # en búfer
+valid msgid="\bbuffering\b"
+valid msgid="\bbuffersystems?\b"  # sistema de búferes
+valid msgid="\bframebuffers?\b"  # búfer de fotogramas
 hint="«búfer» tradúcese como «buffer»"
 
 # «bug» tradúcese como «fallo»
-{\bbugs?}i
-valid before="\sreport"
-valid before="\stracker"
+{\bbug(?!\s+(reports?|track(ers?|ing))\b)s?\b}i
 id="PT-2011_bug"
-valid msgstr="\bfallos?"
+valid msgstr="\bbichos?\b"
+valid msgstr="\bbug(?!\s+(reports?|track(ers?|ing))\b)s?\b"
+valid msgstr="\bfallos?\b"
+valid msgstr="\binsectos?\b"
 hint="«bug» tradúcese como «fallo»"
 
 # «fallo» traduce a «bug»
-[\bfallo]i
-valid before="s"
-valid before="u"
+[\bfallos?\b]i
 id="PT-2011-dual_bug"
-valid msgid="\bbugs?"
-valid msgid="\bfa(il(s|ed|ure)?|ult)"
+valid msgid="\bbugs?\b"
+valid msgid="\bfail(ed|ing|s)?\b"
+valid msgid="\bfailover\b"  # tolerancia de fallos
+valid msgid="\bfailures?\b"
+valid msgid="\bmiss(es)?\b"
+valid msgid="\b(seg)?faults?\b"
 hint="«fallo» traduce a «bug», «fail», «fault» e «failure»"
 
 # «bug report» tradúcese como «informe de erro»
-{\bbug\sreport}i
+{\bbug\s+reports?\b}i
 id="noPT-2011_bug-report"
-valid msgstr="\binformes?\sde\sfallos?"
-valid msgstr="\binformes?\sdo\sfallo"
+valid msgstr="\binformes?\s+d[eo]\s+fallo\b"
 hint="«bug report» tradúcese como «informe do fallo»"
 
 # «informe de erro» traduce a «bug report»
-[\binformes?\sd(e\sfallos|o\sfallo)]i
+[\binformes?\s+d[eo]\s+fallo\b]i
 id="PT-2011-dual_bug-report"
-valid msgid="\bbug\sreport"
+valid msgid="\bbug\s+reports?\b"
+valid msgid="\breport\s+a\s+bug\b"  # informe do fallo
 hint="«informe de fallos» traduce a «bug report»"
 
 # «button» tradúcese como «botón»
-{\bbutton}i
+{\bbuttons?\b}i
 id="PT-2013_button"
-valid msgstr="\bbotón"
+valid msgstr="\bbotóns?\b"
+valid msgstr="\bbuttons?\b"
 hint="«button» tradúcese como «botón»"
 
 # «botón» traduce a «button»
-[\bbotón]i
+[\bbotóns?\b]i
 id="PT-2013-dual_button"
-valid msgid="\bbutton"
+valid msgid="\b[LMR]MB\b"  # Left/Middle/Right Mouse Button
+valid msgid="\b(mouse|push|radio|tool)?buttons?\b"
+valid msgid="\bplugs?\b"
+valid msgid="\bradios?\b"  # botón de alternativa
 hint="«botón» traduce a «button»"
 
 # «cache» tradúcese como «caché»
-{\bcache}i
-valid before="grind" # «cachegrind» é un nome dun software
+{\bcaches?\b}i
 id="PT-2013_cache"
-valid msgstr="\bcaché"
-hint="«cache» tradúcese como «caché» (verbo)"
+valid msgstr="\bcachés?\b"
+hint="«cache» tradúcese como «caché»"
 
 # «caché» traduce a «cache»
-[\bcaché]i
+[\bcachés?\b]i
 id="PT-2013-dual_cache"
-valid msgid="\bcache"
+valid msgid="\bcaches?\b"
+valid msgid="\bcach(ed|ing)\b"  # [gardar] na caché
+valid msgid="\buncached\b"  # ausente na caché
+valid msgid="\brecach(e[ds]?|ing)\b"  # gardar de novo na caché
 hint="«caché» traduce a «cache»"
 
 # «canvas» tradúcese como «lenzo»
-{\bcanvas}i
+{\bcanvas\b}i
 id="PT-2013_canvas"
-valid msgstr="\blenzo"
+valid msgstr="\blenzos?\b"
 hint="«canvas» tradúcese como «lenzo»"
 
 # «lenzo» traduce a «canvas»
-[\blenzo]i
+[\blenzos?\b]i
 id="PT-2013-dual_canvas"
-valid msgid="\bcanvas"
+valid msgid="\bcanvas\b"
 hint="«lenzo» traduce a «canvas»"
 
 # «cell» tradúcese como «cela»
-{\bcell}i
+{\bcells?\b}i
 id="PT-2013_cell"
-valid msgstr="\”celas?\b"
+valid after="\brod\s+"  # bastón [de retina]
+valid msgstr="\bcelas?\b"
+valid msgstr="\bcells?\b"
+valid msgstr="\bcélulas?\b"
+valid msgstr="\bmóbil(es)?\b"
 hint="«cell» tradúcese como «cela»"
 
 # «cela» traduce a «cell»
 [\bcelas?\b]i
 id="PT-2013-dual_cell"
-valid msgid="\bcell"
+valid msgid="\b(char|free)?cells?\b"
+valid msgid="\bcellmates?\b"
 hint="«cela» traduce a «cell»"
 
 # «center/centre» tradúcese como «centrar/centro»
-{\bcent(er|re)}i
+{\b(center(ed|ing|s)?|centr(e[ds]?|ing))\b}i
 id="PT-2013_center-centre"
-valid msgstr="\bcentr(o|ar?|e)"
+valid msgstr="\bc[eé]ntr[aáeéoó]\w*\b"
+valid msgstr="\b(center(ed|ing|s)?|centr(e[ds]?|ing))\b"
 hint="«center/centre» tradúcese como «centrar/centro»"
 
 # «centrar» traduce a «center/centre»
-[\bcentr(o|ar|a|e)\b]i
+[\bc(?!entr(a(l|is)|o(afric|asiátic|europe)[ao]s?))[eé]ntr[aáeéoó](?!d)\w*\b]i
 id="PT-2013-dual_center-centre"
-valid span="centra(r|do|da)" msgid="\balign(ed)\scenter"
-valid msgid="\bcent(er|re)"
+valid msgid="\b(auto|cost|page|media|re)?(center(ed|ing|s)?|centr(e[ds]?|ing))\b"
+valid msgid="\bcentral\b"  # do centro
+valid msgid="\bcentrally\b"  # align centrally → centrar
+valid msgid="\bc(?!entr(a(l|is)|o(afric|asiátic|europe)[ao]s?))[eé]ntr[aáeéoó]\w*\b"
+valid msgid="\bconcentrat(e[ds]?|ing)\b"
+valid msgid="\bfocus(e[ds]|ing)?\b"
+valid msgid="\bmiddle\b"
 hint="«centrar» traduce a «center/centre» (e a «align center)»"
 
 # «change» tradúcese como «cambiar»
-{\bchang(e(d|s)?|ing)}i
+{\bchang(e[ds]?|ing)\b}i
 id="PT-2011_change"
-valid msgstr="\bcambi"
+valid msgstr="\bc[aá]mbi[aáeéoó]\w*\b"
+valid msgstr="\bvolta\b"  # diñeiro en metálico
 hint="«change» tradúcese como «cambiar»"
 
 # «cambiar» traduce a «change»
-[\bcambi]i
+[\bc(?!ambi(a(dor(es)?|ntes?)|ábe(l|is))\b)[aá]mbi[aáeéoó]\w*\b]i
 id="PT-2011-dual_change"
-valid msgid="\bchang(e(d|s)?|ing)"
+valid msgid="\bat\s+the\s+(cost|expense)\s+of\b"  # a cambio de
+valid msgid="\bchang(e[ds]?|ing)\b"
+valid msgid="\bchangeable\b"  # be changeable → poder cambiarse
+valid msgid="\bchangelogs?\b"
+valid msgid="\bchangesets?\b"  # conxunto de cambios
+valid msgid="\bdaylight\s+savings?\b"  # cambio de hora
+valid msgid="\bexchange\s+rates?\b"  # tipo de cambio
+valid msgid="\bfr(eezes?|ozen?)\b"  # desautorizar os cambios
+valid msgid="\b(lower|upper)cas(e[ds]?|ing)\b"  # cambiar a minúsculas, cambiar a maiúsculas
+valid msgid="\bmakeovers?\b"  # cambio de deseño
+valid msgid="\boverhaul(ed|ing|s)?\b"  # facer un cambio completo
+valid msgid="\brealloc(ation)?s?\b"  # cambio de asignación
+valid msgid="\brearrang(e[ds]?|ing)\b"  # cambiar de disposición
+valid msgid="\breassign(ed|ing|s)?\b"  # cambiar a asignación de [algo]
+valid msgid="\b(re|trans)cod(e[ds]?|ing)\b"  # cambiar de codificación
+valid msgid="\b(re|trans)codings\b"  # cambios de codificación
+valid msgid="\breconfigur(e[ds]?|ing)\b"  # cambiar a configuración de [algo]
+valid msgid="\bredesign(ed|ing|s)?\b"  # cambiar o deseño de [algo]
+valid msgid="\brefactor(ed|ing|s)?\b"  # facer cambios internos
+valid msgid="\brefactorings\b"  # cambios internos
+valid msgid="\breformat(t(ed|ing)|s)?\b"  # cambiar de formato
+valid msgid="\breimplement(ed|ing|s)?\b"  # cambiar o código de [algo]
+valid msgid="\brelicens(e[ds]?|ing)\b"  # cambiar de licenza
+valid msgid="\brelocatabilit(y|ies)\b"  # posibilidade de cambio de lugar
+valid msgid="\brelocatable\b"  # que se pode cambiar de lugar
+valid msgid="\brelocat(e[ds]?|ing)\b"  # cambiar [de lugar]
+valid msgid="\bremap(ed|ing|s)?\b"  # cambiar a asociación de [algo] [a algo]
+valid msgid="\brenam(e[ds]?|ing)\b"  # cambiar o nome de [algo]
+valid msgid="\bre-?order(ed|ing|s)?\b"  # cambiar de orde
+valid msgid="\bre-?parent(ed|ing|s)?\b"  # cambiar de pai
+valid msgid="\breposition(ed|ing|s)?\b"  # cambiar de posición
+valid msgid="\breschedul(e[ds]?|ing)\b"  # cambiar o programa de
+valid msgid="\bresiz(e[ds]?|ing)\b"  # cambiar de tamaño
+valid msgid="\b(auto|re|un)?scal(e[ds]?|ing)\b"  # cambiar de escala, cambiar de dimensións
+valid msgid="\bscalable\b"  # que se pode cambiar de dimensións
+valid msgid="\brework(ed|ing|s)?\b"  # facer cambios [internos], cambiar o deseño de [algo]
+valid msgid="\bshift(ed|ing|s)?\b"  # e.g. shift pitch → cambiar de ton
+valid msgid="\bsizable\b"  # que permite cambiar as súas tamaño
+valid msgid="\bswitch(e[ds]|ing)?\b"
+valid msgid="\btoggl(e[ds]?|ing)\b"  # e.g. toggle full screen → cambiar a pantalla completa
+valid msgid="\btransition(ed|ing|s)?\b"
+valid msgid="\bunchanged\b"  # sen cambiar
 hint="«cambiar» traduce a «change»"
 
 # «channel» tradúcese como «canle»
-{\bchannel}i
+{\bchannels?\b}i
 id="PT-2013_channel"
-valid msgstr="\bcanle"
+valid msgstr="\bcanles?\b"
+valid msgstr="\bchannels?\b"
 hint="«channel» tradúcese como «canle»"
 
 # «canle» traduce a «channel»
-[\bcanle]i
+[\bcanles?\b]i
 id="PT-2013-dual_channel"
-valid msgid="\bchannel"
+valid msgid="\bbridges?\b"  # canle que conecta dous recipientes
+valid msgid="\bcanals?\b"
+valid msgid="\bchannels?\b"
+valid msgid="\bpipes?\b"
+valid msgid="\btroughs?\b"
 hint="«canle» traduce a «channel»"
 
 # «chat» tradúcese como «conversa»
