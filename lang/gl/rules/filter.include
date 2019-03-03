@@ -2,6 +2,10 @@
 # by the KDE Galician Team (proxecto@trasno.net)
 # License: GPLv3
 
+# GLOBAL FILTERS ##############################################################
+#
+# These filters are applied to all messages.
+
 # Remove XML entities.
 addFilterRegex match="&nbsp;" repl=" " on="pmsgid,pmsgstr"
 addFilterRegex match="\&[\w\d\.\-]+?\;" repl="" on="pmsgid,pmsgstr"
@@ -22,8 +26,7 @@ addFilterRegex match="\w+\((?!(e?s|fixes)\))[\w\s\.\,\-\_]*?\)" repl="€" on="p
 # Remove XML-like tags.
 addFilterRegex match="\<\s*(bcode|command|envar|filename|icode|shortcut|placeholder|style|code|tt|literal|screen|option|keycap|userinput|systemitem|prompt|function|foreignphrase|varname|programlisting|token|markup|parameter|keysym|methodname|sgmltag|arg|classname|type)\b.*?\b\1\>" repl="" on="pmsgid,pmsgstr"
 addFilterRegex match="\<\s*(email|link)\s*>\b.*?\b\1\>" repl="" on="pmsgid,pmsgstr"
-addFilterRegex match="\<\s*(br|center|nl)\s*/?\s*\>" repl=" " on="pmsgid,pmsgstr"
-addFilterRegex match="\<\s*/\s*(h[1-6]|li|p|para|title|ul)\s*\>" repl=" " on="pmsgid,pmsgstr"
+addFilterRegex match="\<\s*(br|center|h[1-6]|li|nl|p|para|title|ul)\s*/?\s*\>" repl=" " on="pmsgid,pmsgstr"
 addFilterRegex match="<!\[CDATA\[.*?\]\]>" repl="" on="pmsgid,pmsgstr"
 addFilterRegex match="\<.*?\>" repl="" on="pmsgid,pmsgstr"
 
@@ -72,3 +75,18 @@ addFilterRegex match="(\?{2,3}|\%{2,3}|\:{2,3}|\_{2,3})" repl="~" on="pmsgid,pms
 
 # Remove more usual smileis.
 addFilterRegex match="\s(\:\)|\(\-\:|\:\)|\(\:|\=\)|\)\-\:\)|\:\-\)|\:\-\(|\;\-\)|\;\))" repl="\s~" on="pmsgid,pmsgstr"
+
+
+# VALID GROUPS ################################################################
+#
+# These valid groups may be used to skip certain messages in certain rules.
+
+validGroup lista-de-tradutores
+valid msgid="\w+m\b"
+valid comment="trans_comment"
+valid ctx="(EMAIL|NAME) OF TRANSLATORS"
+valid msgid="CREDIT\_FOR\_TRANSLATORS"
+valid msgid="EMAIL OF TRANSLATORS"
+valid msgid="ROLES\_OF\_TRANSLATORS"
+valid msgid="translator-credits"
+valid srcref="\bnatural(file)?queryparser\b"

@@ -810,74 +810,108 @@ valid msgid="\btroughs?\b"
 hint="«canle» traduce a «channel»"
 
 # «chat» tradúcese como «conversa»
-{\bchat}i
-valid before="ham"
+{\bchat(t(ed|ing)|s)?\b}i
 id="PT-2011_chat"
-valid msgstr="\bconvers"
+valid msgstr="\bconv[eé]rs[aáeéoó]\w*\b"
 hint="«chat» tradúcese como «conversa(r)»"
 
 # «conversa» traduce a «chat»
-[\bconvers]i
-valid before="ión"
-valid before="or"
+[\bconv(?!ers(a(cións?|dor(es)?)|or(es)?)\b)[eé]rs[aáeéoó]\w*\b]i
 id="PT-2011-dual_chat"
-valid msgid="\bchat"
-valid msgid="\bconversation"
+valid msgid="\bchat(t(ed|ing)|s)?\b"
+valid msgid="\bchatbots?\b"  # robot de conversa
+valid msgid="\bchatrooms?\b"  # sala de conversas
+valid msgid="\bchatstyles?\b"  # estilo de conversa
+valid msgid="\bchatwindows?\b"  # xanela de conversas
+valid msgid="\bconversat(e[ds]?|ing)\b"
+valid msgid="\bconversations?\b"
+valid msgid="\bdiscuss(e[ds]|ing)?\b"
+valid msgid="\bdiscussions?\b"
+valid msgid="\bgroupchats?\b"  # conversa en grupo
+valid msgid="\btalks?\b"
 hint="«conversa» traduce a «chat»"
 
 # «chat room» tradúcese como «sala de conversas»
-{\bchat\sroom}i
+{\bchat(\s*|-)rooms?\b}i
 id="PT-2011_chat-room"
-valid msgstr="\bsalas?\sde\sconversas"
+valid msgstr="\bsalas?\s+de\s+conversas\b"
 hint="«chat room» tradúcese como «sala de conversas»"
 
 # «sala de conversas» traduce a «chat room»
-[\bsalas?\sde\sconversas]i
+[\bsalas?\s+de\s+conversas\b]i
 id="PT-2011-dual_chat-rom"
-valid msgid="\bchat\sroom"
+valid msgid="\bchat(\s*|-)rooms?\b"
 hint="«sala de conversas» traduce a «chat»"
 
-# «check» tradúcese como «comprobar», «revisar» ou «marcar»
-{\bcheck(s|ed|ing|)?}i
-valid after="\bspell "
-valid before="\s?box"
-valid before=" spell"
-valid before=" out"
+{\b(re)?check(ed|ing|s)?\b}i
 id="noPT-2011_check"
-valid msgstr="\b(com)?pr(o|ó)b"
-valid msgstr="\bcompróban?se"
-valid msgstr="\brevis"
-valid msgstr="\bmar(que|car|cado|cou)"
-valid msgstr="\bescoll"
-hint="«check» tradúcese como «comprobar», «revisar» ou «marcar» (e «escoller»)"
+valid after="\bspell\s+"
+valid before="\s+box(es)?\b"
+valid before="(\s+|-)in\b"
+valid before="(\s+|-)out\b"
+valid msgstr="\b(re)?check(ed|ing|s)?\b"
+valid msgstr="\bcheques?\b"
+valid msgstr="\bcomprobacións?\b"
+valid msgstr="\bcompr[oó]b[aáeéoó]\w*\b"
+valid msgstr="\bcorreccións?\b"
+valid msgstr="\bcorrentes?\b"  # checking account → conta corrente
+valid msgstr="\bcorr[ií]x[aáeéiíoó]\w*\b"
+valid msgstr="\bm[aá]r(c[áaoó]|qu[eé])\w*\b"
+valid msgstr="\brevisións?\b"
+valid msgstr="\brev[ií]s[aáeéoó]\w*\b"
+valid msgstr="\bxaques?\b"
+hint="check → comprobar (xeral), corrixir (ortografía), marcar (unha caixa para marcar), revisar (e.g. a configuración)"
 
 # «comprobar» traduce a «check»
-[\bcomprob]i
+[\bcompr(obador(es)?\b)[oó]b[aáeéoó]\w*\b]i
 id="PT-2011-dual_check"
-valid msgid="\bcheck"
+valid msgid="\b(re)?check(ed|ing|s)?\b"
+valid msgid="\bcheckmarks?\b"  # marca de comprobación
+valid msgid="\bchecksum(m(ed|ing)|s)?\b"  # [facer unha] suma de comprobación
 hint="«comprobar» traduce a «check»"
 
 # «revisar» traduce a «check»
-[\brevis]i
+[\brev(?!is(ións?|or(es)?)\b)[ií]s[aáeéoó]\w*\b]i
 id="noPT-2011-dual_check2"
-valid msgid="\bcheck"
-valid msgid="\breview" env="kde"
-valid msgid="\brevis(e|ing|ion)" env="kde"
+valid msgid="\b(re)?check(ed|ing|s)?\b"
+valid msgid="\b(go(es|ing)?|went)\s+through\b"
+valid msgid="\blook(ed|ing|s)?\s+at\b"
+valid msgid="\bproofread(ing|s)?\b"
+valid msgid="\breview(ed|ing|s)?"
+valid msgid="\brevis(e[ds]?|ing)"
+valid msgid="\btriag(e[ds]?|ing)\b"
 hint="«revisar» traduce a «check»"
 
 # «marcar» traduce a «check»
-[\bmar(c|que)]i
-valid before="e\s"
-valid before="ador"
-valid before="sa"
-valid before="ha"
-valid before="as?\sde\ssubstitución"
-valid before="as?\srexistrada"
-valid before="o(\s|\b)"
+[\bm(?!arc(a(cións?|dor(es)?)|ábe(l|is))\b)[aá]r(c[áaoó]|qu[eé])\w*\b]i
 id="noPT-2011-dual_check3"
-valid msgid="\bcheck"
-valid msgid="\bmark"
-valid msgid="\bbookmark"
+valid msgid="\bbrands?\b"
+valid msgid="\b(re)?check(ed|ing|s)?\b"
+valid msgid="\bcheckbox(es)?\b"  # caixa para marcar
+valid msgid="\bcheckmarks?\b"  # marca de comprobación
+valid msgid="\bdents?\b"
+valid msgid="\bdeprecat(e[ds]?|ing)\b"  # marcar como obsoleto
+valid msgid="\bdeutschmarks?\b"  # German deutschmark → marco alemán
+valid msgid="\bdial(ed|ing|s)?\b"
+valid msgid="\bexpir(e[ds]?|ing)\b"  # marcar como caducado
+valid msgid="\b(bit)?flag(g(ed|ing)|s)?\b"
+valid msgid="\b(photo)?frame(set)?(s|less)?\b"  # marco
+valid msgid="\bgrooves?\b"  # marca
+valid msgid="\bhard\s+edges?\b"  # bordo marcado
+valid msgid="\bmakes?\b"
+valid msgid="\bm(?!arc(a(cións?|dor(es)?)|ábe(l|is))\b)[aá]r(c[áaoó]|qu[eé])\w*\b"
+valid msgid="\b(book|output|place|scroll|tick|trade|water)?mark(ed|ing|s)?\b"
+valid msgid="\bmarkings?\b"
+valid msgid="\bmarkka\b"  # Finnish Markka → marco finés
+valid msgid="\bnotch(es)?\b"
+valid msgid="\b(place|space)(\s*|-)holders?\b"  # marca de posición
+valid msgid="\bscars?\b"
+valid msgid="\bscor(e[ds]?|ing)\b"  # marcar [un gol]
+valid msgid="\bsettings?\b"  # marco (contexto visual)
+valid msgid="\btick(ed|ing|s)?\b"
+valid msgid="\btime(\s*|-)stamps?\b"  # marca de tempo
+valid msgid="\btokens?\b"
+validGroup lista-de-tradutores
 hint="«marcar» traduce a «check» (e a «mark», e algún verbo «bookmark»)"
 
 # «checksum» tradúcese como «suma de comprobación»
