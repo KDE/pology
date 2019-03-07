@@ -509,6 +509,11 @@ id="kct-favicon"
 valid msgstr="icon(a|es) de web"
 hint="Es tradueix per «icon(a|es) de web» (kde-ca-team)"
 
+{\bback\sfiles?\b}i
+id="kct-fileback"
+valid msgstr="fitxers? de resguard"
+hint="Es tradueix per «fitxer/s de resguard» (kde-ca-team)"
+
 {\bfilter\sbox(es|s)?\b}i
 id="kct-filterbox"
 valid msgstr="quadres? de filtre"
