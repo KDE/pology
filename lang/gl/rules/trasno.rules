@@ -165,6 +165,7 @@ valid msgid="\bNB\b"  # ter en conta
 valid msgid="\bnot(e[ds]?|ing)\b"  # ter en conta
 valid msgid="\bnotic(e[ds]?|ing)\b"  # ter en conta
 valid msgid="\bon\s+(my|your|its|her|his|our|their)\s+own\b"  # pola conta de [pronome]
+valid msgid="\b(take[ns]?|took)\s+a\s+care\s+that\b"  # ter en conta
 valid msgid="\btoo\s+soon\b"  # antes da conta
 valid msgid="\bstatements?\b"  # extracto de conta
 hint="«conta» traduce a «account»"
@@ -173,6 +174,7 @@ hint="«conta» traduce a «account»"
 {\badd(s|ed|ing)?\b}i
 valid before="-ons?"
 valid before="\s+back\b"  # recuperar
+valid before="\s+film\s+grain\b"  # granular
 id="PT-2013_add"
 valid msgstr="\beng[aá]d[aáeéiíoó]\w*\b"
 valid msgstr="\bs[uú]m[aáeéoó]\w*\b"  # sumar
