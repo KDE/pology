@@ -698,6 +698,11 @@ id="kct-netbook"
 valid msgstr="ultraportàtils?"
 hint="Es tradueix per «ultraportàtil» (kde-ca-team)"
 
+{\bpanes?\b}i
+id="kct-pane"
+valid msgstr="subfinestr(a|es)"
+hint="Es tradueix per «subfinestra» (kde-ca-team)"
+
 {\bpassphrase\b}i
 id="kct-passphrase"
 valid msgstr="frases? de pas"
