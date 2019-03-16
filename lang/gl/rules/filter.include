@@ -26,7 +26,7 @@ addFilterRegex match="\w+\((?!(e?s|fixes)\))[\w\s\.\,\-\_]*?\)" repl="€" on="p
 # Remove XML-like tags.
 addFilterRegex match="\<\s*(bcode|command|envar|filename|icode|shortcut|placeholder|style|code|tt|literal|screen|option|keycap|userinput|systemitem|prompt|function|foreignphrase|varname|programlisting|token|markup|parameter|keysym|methodname|sgmltag|arg|classname|type)\b.*?\b\1\>" repl="" on="pmsgid,pmsgstr"
 addFilterRegex match="\<\s*(email|link)\s*>\b.*?\b\1\>" repl="" on="pmsgid,pmsgstr"
-addFilterRegex match="\<\s*(br|center|h[1-6]|li|nl|p|para|td|title|ul)\s*/?\s*\>" repl=" " on="pmsgid,pmsgstr"
+addFilterRegex match="\<\s*(br|center|item|h[1-6]|li|list|nl|p|para|td|title|ul)\s*/?\s*\>" repl=" " on="pmsgid,pmsgstr"
 addFilterRegex match="<!\[CDATA\[.*?\]\]>" repl="" on="pmsgid,pmsgstr"
 addFilterRegex match="<i\s+class\s*=\s*'\s*\w{2}\b[^']*'\s*>\s*<\s*/\s*i\s*>" repl="☺" on="pmsgid,pmsgstr"  # icons
 addFilterRegex match="\<.*?\>" repl="" on="pmsgid,pmsgstr"

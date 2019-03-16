@@ -1,4 +1,5 @@
-# Translation choices of Proxecto Trasno (http://termos.trasno.gal/)
+# Terminology choices published by Proxecto Trasno (http://termos.trasno.gal/)
+# as approved during their annual gatherings.
 # License: BSD 3-clause
 # © 2010-2013 Proxecto Trasno
 # © 2019 Adrián Chaves (Gallaecio) <adrian@chaves.io>
@@ -28,42 +29,6 @@
 
 include file="filter.include"
 
-# «hide» tradúcese como «agochar»
-{\bhid(e\b|es|ed|ing)}i
-valid after="show\sor\s"
-id="aaPT_hide"
-valid msgstr="\bag(o|ó)ch"
-valid !msgstr="ac(ó|o)ch?"
-hint="«hide» tradúcese como «agochar»"
-
-# «agochar» traduce a «hide»
-[\bagoch]i
-valid msgid="\b(BCC|blind\s+(carbon\s+)?cop(y(ing)?|ie[ds]))\b"
-valid msgid="\bhidd?(e[dns]?|ing)\b"
-valid msgid="\bstash(e[ds]|ing)?\b"
-id="aaPT-dual_hide"
-hint="«agochar» traduce a «hide»"
-
-# «conceal» → «esconder»
-{\bconceal(s|ed|ing)?}i
-id="aaPT_conceal"
-valid msgstr="\bescond"
-hint="«conceal» → «esconder»"
-
-# «esconder» → «conceal»
-[\bescond]i
-id="aaPT_esconder"
-valid msgid="\bconceal"
-valid msgid="\bescond"
-hint="«esconder» → «conceal»"
-
-# «monitor» tradúcese como «monitorizar» (verbo) ou «monitor» (substantivo
-{\bmonitor\w*\b}i
-id="aaPT_monitor"
-valid msgstr="\bmonitor[ií](c[eé]|z[aáoó])\w*\b"
-valid msgstr="\bmonitor(es)?\b"
-hint="«monitor» tradúcese como «monitorizar» (verbo) ou «monitor» (substantivo)"
-
 {\b(?<!^)about\b}i
 id="PT-2011_about"
 hint="«about» tradúcese como «sobre»"
@@ -83,6 +48,7 @@ valid after="\b(be(ing)?|is|are|was|were)\b[\s\w]*\s+"
 valid after="\bcar(e[ds]?|ing)\s+"
 valid after="\bcomplain(ed|ing|s)?\s+"
 valid after="\bdescriptions?\s+"
+valid after="\bdetails\s+"
 valid after="\b(find(ing|s)?|found)\s+out\s+"
 valid after="\bforg(et(s|ting)?|otten)\s+"
 valid after="\bhear([ds]|ing)?\s+"
@@ -93,6 +59,7 @@ valid after="\bkn(ew|ow(ing|s)?)\s"
 valid after="\blearn(ing|s)?\s+"
 # move about → moverse
 valid after="\bmov(e[ds]?|ing)\s+"
+valid after="\bno\s+"  # e.g. no about information → non hai información
 valid after="\bnotif(ie[ds]|y(ing)?)\b[\s\w]*\s+"
 valid after="\bnotifications?\s+"
 # overview about everything → resumo de todo
@@ -106,6 +73,7 @@ valid after="\btalk(ed|ing|s)?\s+"
 valid after="\bt(ell(ing|s)?|old)\b[\s\w]*\s+"
 # think about → pensar en
 valid after="\bth(ink(ing|s)?|ought)\s+"
+valid after="\bunderst(and(ing|s)?|ood)\s+"  # saber de
 valid after="\bwarn(ed|ing|s)?\b[\s\w]*\s+"
 # what about this? → que pasa con isto?
 valid after="\bwhat\s+"
@@ -113,18 +81,6 @@ valid after="\bwhat\s+"
 valid after="\bworr(ie[ds]|y(ing)?)\s+"
 valid msgstr="\bsobre\b"
 valid msgstr="\babout\b"
-
-# «about to» tradúcese como «a piques de»
-{\b(?<!^)about\sto\b}i
-id="PT-2013_about-to"
-valid msgstr="\ba\spiques\sde\b"
-hint="«about to» tradúcese como «a piques de»"
-
-# «a piques de» traduce a «about to»
-[\ba\spiques\sde\bs]i
-id="PT-2013-dual_about-to"
-valid msgid="\b(?<!^)about\sto\b"
-hint="«a piques de» traduce a «about to»"
 
 # «abort» tradúcese como «interromper»
 {\babort(ed|ing|s)?\b}i
@@ -139,142 +95,6 @@ valid msgid="\babort"
 valid msgid="\binterrupt"
 valid msgid="\bbreak" env="kde"
 hint="«interromper» traduce a «abort» (e a «interrupt») (e a «break»)"
-
-# «account» tradúcese como «conta»
-{\baccounts?\b}i
-id="PT-2013_account"
-valid before="\s+for\b"  # account for → explicar
-valid msgstr="\bcontas?\b"
-hint="«account» tradúcese como «conta»"
-
-# «conta» traduce a «account»
-[\bcontas?\b]i
-id="PT-2013-dual_account"
-valid msgid="\baccounts?\b"
-valid msgid="\baddress(e[ds]|ing)?\b"  # ter en conta
-valid msgid="\bafter\s+all\b"  # a fin de contas
-valid msgid="\bbe\s+(advised|aware|warned)\b"  # ter en conta
-valid msgid="\bbeware\b"  # common typo for ‘be aware’
-valid msgid="\bconsider(ed|ing|s)?\b"  # ter en conta
-valid msgid="\bcount(ed|ing|s)?\b"  # contar
-valid msgid="\bcountdowns?\b"  # conta atrás
-valid msgid="\bdirect\s+debits?\b"  # cargo en conta
-valid msgid="\bdirect\s+deposits?\b"  # imposición en conta
-valid msgid="\bin\s+mind\b"  # [ter] en conta
-valid msgid="\bmind\s+that\b"  # ter en conta
-valid msgid="\bNB\b"  # ter en conta
-valid msgid="\bnot(e[ds]?|ing)\b"  # ter en conta
-valid msgid="\bnotic(e[ds]?|ing)\b"  # ter en conta
-valid msgid="\bon\s+(my|your|its|her|his|our|their)\s+own\b"  # pola conta de [pronome]
-valid msgid="\b(take[ns]?|took)\s+a\s+care\s+that\b"  # ter en conta
-valid msgid="\btoo\s+soon\b"  # antes da conta
-valid msgid="\bstatements?\b"  # extracto de conta
-hint="«conta» traduce a «account»"
-
-# «add» tradúcese como «engadir»
-{\badd(s|ed|ing)?\b}i
-valid before="-ons?"
-valid before="\s+back\b"  # recuperar
-valid before="\s+film\s+grain\b"  # granular
-id="PT-2013_add"
-valid msgstr="\beng[aá]d[aáeéiíoó]\w*\b"
-valid msgstr="\bs[uú]m[aáeéoó]\w*\b"  # sumar
-hint="«add» tradúcese como «engadir»"
-
-# «engadir» traduce a «add»
-[\beng[aá]d[aáeéiíoó]\w*\b]i
-id="PT-2013-dual_add"
-valid msgid="\b(re)?add(s|ed|ing)?\b"
-valid msgid="\b(re)?additions?\b"  # without the addition of → sen engadir
-valid msgid="\bannotat(e[ds]?|ing)\b"  # engadir anotacións
-valid msgid="\b(re)?append(able|ed|ing|s)?\b"
-valid msgid="\b(re)?implement(able|ed|ing|s)?\b"
-valid msgid="\bnamespac(e[ds]?|ing)\b"  # engadir un espazo de nomes
-valid msgid="\b(re)?prepend(able|ed|ing|s)?\b"
-valid msgid="\bscrambl(e[ds]?|ing)\b"  # engadir interferencias
-valid msgid="\bsupport(?!\s+for\b)(ed|ing|s)?\b"  # engadir (compatibilidade|a posibilidade de( usar)?)
-hint="«engadir» traduce a «add»"
-
-# «address» tradúcese como «enderezo»
-{\baddress(es)?\b}i
-id="PT-2013_address"
-valid msgstr="\baddress(es)?\b"
-valid msgstr="\bdiscursos?\b"  # p. ex. presidenciais
-valid msgstr="\benderezos?\b"
-valid msgstr="\bsoluci[oó]n[aáeéoó]\w*\b"  # solucionar [un problema]
-valid msgstr="\bt\w*\s+en\s+conta\b"  # the parser addresses reviews → o analizador ten en conta as recensións
-hint="«address» tradúcese como «enderezo»"
-
-# «enderezo» traduce a «address»
-[\benderezos?\b]i
-id="PT-2013-dual_address"
-valid msgid="\baddrs?\b"
-valid msgid="\baddress(books?|ee?s)?\b"  # includes typo addressees
-valid msgid="\baddress(ed|ing)\b"  # sector-addressing issues → problemas de enderezos de sectores
-valid before="\s+URL" msgid="\bURLs?\b"
-hint="«enderezo» traduce a «address»"
-
-# «align» tradúcese como «aliñar»
-{\balign(s|ed|ing)?\b}i
-id="PT-2013_align"
-hint="«align» tradúcese como «aliñar»"
-valid before="\s+[\w\s]*(to\s+((horizontal|vertical)\s+)?)?center\b"  # centrar
-valid before="\s+(four|4)\b"  # catro en liña
-valid before="\s+justif(ied|y)\b"  # xustificar
-valid msgstr="\bal[ií]ñ[aáeéoó]\w*\b"
-valid msgstr="\baliñ\."
-
-# «aliñar» traduce a «align»
-[\bal[ií]ñ(?!amentos?\b)[aáeéoó]\w*\b]i
-id="PT-2013-dual_align"
-hint="«aliñar» traduce a «align»"
-valid msgid="\b(re|un)?align(ed|ing|s)?\b"
-valid msgid="\blin(e[ds]?|ing)\s+up\b"
-valid msgid="\bsnap(p(ed|ing)|s)?\b"
-
-# «align center» tradúcese como «centrar»
-{\balign(s|ed|ing)?\s+[\w\s]*(to\s+((horizontal|vertical)\s+)?)?center\b}i
-id="PT-2013_align-center"
-hint="«align center» tradúcese como «centrar»"
-valid msgstr="\bc[eé]ntr[aáeéoó]\w*\b"
-
-#  «centrar» traduce a «align center»
-# ver regra
-# "PT-2013-dual_center-centre"
-
-# «alignment» tradúcese como «aliñamento»
-{\balignments?\b}i
-id="PT-2013_alignment"
-valid msgstr="\baliñamentos?\b"
-valid msgstr="\balignments?\b"
-hint="«alignment» tradúcese como «aliñamento»"
-
-# «aliñamento» traduce a «alignment»
-[\baliñamentos?\b]i
-id="PT-2013-dual_alignment"
-hint="«aliñamento» traduce a «alignment»"
-valid msgid="\balign(s|ed|ing)?\b"
-valid msgid="\balignments?\b"
-valid msgid="\balignings?\b"
-valid msgid="\bconjunctions?\b"
-valid msgid="\blin(e|ing)(\s+|-)?up\b"
-valid msgid="\bsnap(ping)?s?\b"
-
-# «appearance» tradúcese como «aparencia»
-{\bappearances?\b}i
-id="PT-2013_appearance"
-valid msgstr="\baparencias?\b"
-valid msgstr="\baparicións?\b"
-hint="«appearance» tradúcese como «aparencia»"
-
-# «aparencia» traduce a «appearance»
-[\baparencias?\b]i
-id="PT-2013-dual_appearance"
-valid msgid="\bappearances?\b"
-valid msgid="\bdisplays?\b"
-valid msgid="\blook(ing)?s?\b"
-valid msgid="\bskins?\b"
-hint="«aparencia» traduce a «appearance»"
 
 # «app» tradúcese como «aplicativo»
 {\b(web)?apps?\b}i
@@ -325,52 +145,6 @@ valid msgid="\bapp_?keys?\b"  # chave de aplicativo
 valid msgid="\bapp_?names?\b"  # nome de aplicativo
 valid msgid="\bmailers?\b"  # aplicativo de correo
 hint="«aplicativo» traduce a «application» e a «app»"
-
-# «arrow» tradúcese como «frecha»
-{\barrows?\b}i
-id="PT-2013_arrow"
-valid msgstr="\bfrechas?\b"
-valid msgstr="\barrows?\b"
-hint="«arrow» tradúcese como «frecha»"
-
-# «frecha» traduce a «arrow»
-[\bfrechas?\b]i
-id="PT-2013-dual_arrow"
-valid msgid="\barrows?\b"
-valid msgid="\bSagitta\b"
-hint="«frecha» traduce a «arrow»"
-
-# «assign» tradúcese como «asignar»
-{\bassign(ed|ing|s)?\b}i
-id="PT-2013_assign"
-valid msgstr="\bas[ií]gn[aáeéoó]\w*\b"
-hint="«assign» tradúcese como «asignar»"
-
-# «asignar» traduce a «assign»
-[\bas(?!igna(cións?|dor(as?|es)?)\b)[ií]gn[aáeéoó]\w*\b]i
-id="PT-2013-dual_assign"
-valid msgid="\b(re|un)?allocat(e[ds]?|ing)\b"
-valid msgid="\b(re|un)?allocs?\b"
-valid msgid="\b(re|un)?assign(ed|ing|s)?\b"
-valid msgid="\bassignees?\b"  # asignado
-hint="«asignar» traduce a «assign»"
-
-# «assignment» tradúcese como «asignación»
-{\bassignments?\b}i
-id="PT-2013_assignment"
-valid msgstr="\basignacións?\b"
-hint="«assignment» tradúcese como «asignación»"
-
-# «asignación» traduce a «assignment»
-[\basignacións?\b]i
-id="PT-2013-dual_assignment"
-valid msgid="\b(re)?allocating\b"
-valid msgid="\b(re)?allocate\b"  # edit auto allocate → editar a asignación automática
-valid msgid="\b(re)?alloc(ation)?s?\b"
-valid msgid="\breassign(ed|ing|s)?\b"  # cambiar de asignación
-valid msgid="\bunassign(ed|ing|s)?\b"  # retirar a asignación
-valid msgid="\b(re)?assignments?\b"
-hint="«asignación» traduce a «assignment»"
 
 # «Attach» tradúcese como «anexar», «conectar»
 {\battach(e[ds]|ing|ments?)?\b}i
@@ -429,41 +203,6 @@ valid msgid="\bonline\b"  # online status → estado de conexión
 valid msgid="\bwi([\s-]*fi|reless)\b"  # WiFi → conexión sen fíos
 hint="«conexión» traduce a «connection» e «attachment»"
 
-# «attribute» tradúcese como «atributo»
-{\battributes?\b}i
-id="PT-2013_attribute"
-valid msgstr="\batributos?\b"
-valid msgstr="\battributes?\b"
-hint="«attribute» tradúcese como «atributo»"
-
-# «atributo» traduce a «attribute»
-[\batributos?\b]i
-id="PT-2013-dual_attribute"
-valid msgid="\battributes?\b"
-hint="«atributo» traduce a «attribute»"
-
-# «background» tradúcese como «fondo»
-{\bbackground(?!\s+on\b)s?\b}i
-id="PT-2013_background"
-valid msgstr="\bantecedentes\b"
-valid msgstr="\bbackgrounds?\b"
-valid msgstr="\bfondos?\b"
-valid msgstr="\bpaisaxistas?\b"
-valid msgstr="\bsegundo\s+plano\b"
-hint="«background» tradúcese como «fondo»"
-
-# «fondo» traduce a «background»
-[\bfondos?\b]i
-id="PT-2013-dual_background"
-valid msgid="\bback(ground)?(?!\s+on\b)s?\b"
-valid msgid="\bbgs?\b"
-valid msgid="\bbottom\b"
-valid msgid="\bbottomed\b"  # round-bottomed flask → frasco de fondo redondo
-valid msgid="\bfunds?\b"
-valid msgid="\bfund(ing\s+drives?|rais(er|ing)s?)\b"  # recadacción de fondos
-valid msgid="\bwallpapers?\b"  # fondo de escritorio
-hint="«fondo» traduce a «background»"
-
 # «backend» tradúcece como «infraestrutura»
 {\bback(\s+|-)?ends?\b}i
 id="PT-2011_backend"
@@ -479,19 +218,6 @@ valid msgid="\bframeworks?\b"
 valid msgid="\binfrastructures?\b"
 valid msgid="\bkf5?\b"  # [versión 5 das] infraestruturas de KDE
 hint="«infraestrutura» traduce a «backend» e «framework»"
-
-# «bitmap» tradúcese como «mapa de bits»
-{\bbitmaps?\b}i
-id="PT-2013_bitmap"
-valid msgstr="\bmapas?\s+de\s+bits\b"
-hint="«bitmap» tradúcese como «mapa de bits»"
-
-# «mapa de bits» traduce a «bitmap»
-[\bmapas?\s+de\s+bits\b]i
-id="PT-2013-dual_bitmap"
-valid msgid="\bbitmaps?\b"
-valid msgid="\braster\b"  # de mapa de bits
-hint="«mapa de bits» traduce a «bitmap»"
 
 # «bookmark» tradúcese como «marcador» ou «marcar»
 {\bbookmark(ed|ing|s)?\b}i
@@ -567,52 +293,6 @@ id="PT-2011_breadcrumbs"
 valid msgstr="\bronse(l|is)\b"
 hint="«breadcrumbs» tradúcese como «ronsel»"
 
-# «broadband» tradúcese como «banda larga»
-{\bbroad\s*band\b}i
-id="PT-2013_broadband"
-valid msgstr="\bbanda\s+larga\b"
-hint="«broadband» tradúcese como «banda larga»"
-
-# «banda larga» traduce a «broadband»
-[\bbanda\s+larga\b]i
-id="PT-2013-dual_broadband"
-valid msgid="\bbroad\s*band\b"
-hint="«banda larga» traduce a «broadband»"
-
-# «browse» tradúcese como «navegar»
-{\bbrows(e[ds]?|ing)\b}i
-id="PT-2013_browse"
-valid msgstr="\bb[uú]s(c[aáoó]|qu[eé])\w*\b"
-valid msgstr="\bexam[ií]n[aáoóeé]\w*\b"
-valid msgstr="\bexpl[oó]r[aáoóeé]\w*\b"
-valid msgstr="\bnav[eé]g([aáoó]|u[eé])\w*\b"
-valid msgstr="\bproc[uú]r[aáoóeé]\w*\b"
-valid msgstr="\bbrows(e[ds]?|ing)\b"
-hint="«browse» tradúcese como «buscar», «examinar», «explorar», «navegar», «procurar»"
-
-# «navegar» traduce a «browse»
-[\bnav(?!eg(a(cións?|dor(es)?|ntes?)|ábe(l|is)))[eé]g([aáoó]|u[eé])\w*\b]i
-id="PT-2013-dual_browse"
-valid msgid="\bbrows(e[ds]?|ing)\b"
-valid msgid="\bnavigat(e[ds]?|ing)\b"
-valid msgid="\bsail(ed|ing|s)?\b"
-valid msgid="\bwalk(ed|ing|s)?\s+through\b"
-hint="«navegar» traduce a «browse» (e a «navigate»)"
-
-# «browser» tradúcese como «navegador»
-{\bbrowsers?\b}i
-id="PT-2013_browser"
-valid msgstr="\bnavegador(es)?\b"
-valid msgstr="\bbrowsers?\b"
-hint="«browser» tradúcese como «navegador»"
-
-# «navegador» traduce a «browser»
-[\bnavegador(es)?\b]i
-id="PT-2013-dual_browser"
-valid msgid="\bbrowsers?\b"
-valid msgid="\bnavigators?\b"
-hint="«navegador» traduce a «browser»"
-
 # «buffer» tradúcese como «búfer»
 {\bbuffers?\b}i
 id="PT-2011_buffer"
@@ -662,85 +342,6 @@ id="PT-2011-dual_bug-report"
 valid msgid="\bbug\s+reports?\b"
 valid msgid="\breport\s+a\s+bug\b"  # informe do fallo
 hint="«informe de fallos» traduce a «bug report»"
-
-# «button» tradúcese como «botón»
-{\bbuttons?\b}i
-id="PT-2013_button"
-valid msgstr="\bbotóns?\b"
-valid msgstr="\bbuttons?\b"
-hint="«button» tradúcese como «botón»"
-
-# «botón» traduce a «button»
-[\bbotóns?\b]i
-id="PT-2013-dual_button"
-valid msgid="\b[LMR]MB\b"  # Left/Middle/Right Mouse Button
-valid msgid="\b(mouse|push|radio|tool)?buttons?\b"
-valid msgid="\bplugs?\b"
-valid msgid="\bradios?\b"  # botón de alternativa
-hint="«botón» traduce a «button»"
-
-# «cache» tradúcese como «caché»
-{\bcaches?\b}i
-id="PT-2013_cache"
-valid msgstr="\bcachés?\b"
-hint="«cache» tradúcese como «caché»"
-
-# «caché» traduce a «cache»
-[\bcachés?\b]i
-id="PT-2013-dual_cache"
-valid msgid="\bcaches?\b"
-valid msgid="\bcach(ed|ing)\b"  # [gardar] na caché
-valid msgid="\buncached\b"  # ausente na caché
-valid msgid="\brecach(e[ds]?|ing)\b"  # gardar de novo na caché
-hint="«caché» traduce a «cache»"
-
-# «canvas» tradúcese como «lenzo»
-{\bcanvas\b}i
-id="PT-2013_canvas"
-valid msgstr="\blenzos?\b"
-hint="«canvas» tradúcese como «lenzo»"
-
-# «lenzo» traduce a «canvas»
-[\blenzos?\b]i
-id="PT-2013-dual_canvas"
-valid msgid="\bcanvas\b"
-hint="«lenzo» traduce a «canvas»"
-
-# «cell» tradúcese como «cela»
-{\bcells?\b}i
-id="PT-2013_cell"
-valid after="\brod\s+"  # bastón [de retina]
-valid msgstr="\bcelas?\b"
-valid msgstr="\bcells?\b"
-valid msgstr="\bcélulas?\b"
-valid msgstr="\bmóbil(es)?\b"
-hint="«cell» tradúcese como «cela»"
-
-# «cela» traduce a «cell»
-[\bcelas?\b]i
-id="PT-2013-dual_cell"
-valid msgid="\b(char|free)?cells?\b"
-valid msgid="\bcellmates?\b"
-hint="«cela» traduce a «cell»"
-
-# «center/centre» tradúcese como «centrar/centro»
-{\b(center(ed|ing|s)?|centr(e[ds]?|ing))\b}i
-id="PT-2013_center-centre"
-valid msgstr="\bc[eé]ntr[aáeéoó]\w*\b"
-valid msgstr="\b(center(ed|ing|s)?|centr(e[ds]?|ing))\b"
-hint="«center/centre» tradúcese como «centrar/centro»"
-
-# «centrar» traduce a «center/centre»
-[\bc(?!entr(a(l|is)|o(afric|asiátic|europe)[ao]s?))[eé]ntr[aáeéoó](?!d)\w*\b]i
-id="PT-2013-dual_center-centre"
-valid msgid="\b(auto|cost|page|media|re)?(center(ed|ing|s)?|centr(e[ds]?|ing))\b"
-valid msgid="\bcentral\b"  # do centro
-valid msgid="\bcentrally\b"  # align centrally → centrar
-valid msgid="\bc(?!entr(a(l|is)|o(afric|asiátic|europe)[ao]s?))[eé]ntr[aáeéoó]\w*\b"
-valid msgid="\bconcentrat(e[ds]?|ing)\b"
-valid msgid="\bfocus(e[ds]|ing)?\b"
-valid msgid="\bmiddle\b"
-hint="«centrar» traduce a «center/centre» (e a «align center)»"
 
 # «change» tradúcese como «cambiar»
 {\bchang(e[ds]?|ing)\b}i
@@ -795,23 +396,6 @@ valid msgid="\btoggl(e[ds]?|ing)\b"  # e.g. toggle full screen → cambiar a pan
 valid msgid="\btransition(ed|ing|s)?\b"
 valid msgid="\bunchanged\b"  # sen cambiar
 hint="«cambiar» traduce a «change»"
-
-# «channel» tradúcese como «canle»
-{\bchannels?\b}i
-id="PT-2013_channel"
-valid msgstr="\bcanles?\b"
-valid msgstr="\bchannels?\b"
-hint="«channel» tradúcese como «canle»"
-
-# «canle» traduce a «channel»
-[\bcanles?\b]i
-id="PT-2013-dual_channel"
-valid msgid="\bbridges?\b"  # canle que conecta dous recipientes
-valid msgid="\bcanals?\b"
-valid msgid="\bchannels?\b"
-valid msgid="\bpipes?\b"
-valid msgid="\btroughs?\b"
-hint="«canle» traduce a «channel»"
 
 # «chat» tradúcese como «conversa»
 {\bchat(t(ed|ing)|s)?\b}i
@@ -931,55 +515,6 @@ id="PT-2011-dual_checksum"
 valid msgid="\bchecksum(m(ed|ing)|s)?\b"
 hint="«suma de comprobación» traduce a «checksum»"
 
-{\bclick(ed|ing|s)?\b}i
-id="PT-2013_click"
-hint="click → calcar, facer clic, premer"
-valid msgstr="\bc[aá]l(c[aáoó]|qu[eé])\w*\b"
-valid msgstr="\bclics?\b"  # facer clic, clic
-valid msgstr="\bpr[eé]m[aáeéiíoó]\w*\b"
-
-# «premer en» traduce a «click»
-[\bpr(?!emíbe(l|is)\b)[eé]m[aáeéiíoó]\w*\s+(en|n[ao]s?|nun(ha)?s?|nest[ae]s?)\b]i
-id="PT-2013-dual_click(1)"
-valid msgid="\bclick(ed|ing|s)?\b"
-valid msgid="\bhit(ing|s)?\b"
-valid msgid="\bpress(e[ds]|ing)?\b"
-valid msgid="\bpush(e[ds]|ing)?\b"
-hint="«premer en» traduce a «click»"
-
-# «premer para» traduce a «click for/to»
-[\bpr(?!emíbe(l|is)\b)[eé]m[aáeéiíoó]\w*\s+para\s+\w+r]i
-id="PT-2013-dual_click(2)"
-valid msgid="\bclick(ed|ing|s)?(\s+|-|\b[^,.]+\s)(for|to)\b"
-valid msgid="\bhit(ing|s)?(\s+|-|\b[^,.]+\s)(for|to)\b"
-valid msgid="\bpress(e[ds]|ing)?(\s+|-|\b[^,.]+\s)(for|to)\b"
-valid msgid="\bpush(e[ds]|ing)?(\s+|-|\b[^,.]+\s)(for|to)\b"
-hint="«premer para» traduce a «click for/to»"
-
-# «premer aquí/aí/e» traduce a «click»
-[\b\bpr(?!emíbe(l|is)\b)[eé]m[aáeéiíoó]\w*\s+(aquí|aí|e)\b]i
-id="PT-2013-dual_click(3)"
-valid msgid="\bclick(ed|ing|s)?\b"
-valid msgid="\bhit(ing|s)?\b"
-valid msgid="\bpress(e[ds]|ing)?\b"
-valid msgid="\bpush(e[ds]|ing)?\b"
-hint="«premer aquí/aí/e» traduce a «click»"
-
-# «client» tradúcese como «cliente»
-{\bclients?\b}i
-id="PT-2013_client"
-valid msgstr="\bclientes?\b"
-valid msgstr="\bclients?\b"
-hint="«client» tradúcese como «cliente»"
-
-# «cliente» traduce a «client»
-[\bclientes?\b]i
-id="PT-2013-dual_client"
-valid msgid="\bclients?\b"
-valid msgid="\bcustomers?\b"
-valid msgid="\bmailers?\b"  # cliente de correo
-hint="«cliente» traduce a «client»"
-
 # «clipboard» tradúcese como «portapapeis»
 {\bclipboards?\b}i
 id="PT-2011_clipboard"
@@ -993,105 +528,124 @@ id="PT-2011-dual_clipboard"
 valid msgid="\bclipboards?\b"
 hint="«portapapeis» traduce a «clipboard»"
 
-# «clock» tradúcese como «reloxo»
-{\bclocks?\b}i
-id="PT-2013_clock"
-valid after="\balarm\s+"  # espertador
-valid after="\bo['’]"  # en punto
-valid msgstr="\breloxos?\b"
-valid msgstr="\bclocks?\b"
-hint="«clock» tradúcese como «reloxo»"
-
-# «reloxo» traduce a «clock»
-[\breloxos?\b]i
-id="PT-2013-dual_clock"
-valid msgid="\bclocks?\b"
-valid msgid="\bhourglass(es)?\b"  # reloxo de area
-valid msgid="\bHorologium\b"  # nome propio de estrela
-valid msgid="\bwatch(es)?\b"  # reloxo de pulso
-valid msgid="\bwatchglass(es)?\b"  # vidro de reloxo
-hint="«reloxo» traduce a «clock»"
-
 # «close» tradúcese como «pechar»
-{\bclose}i
-valid before="r"
+{\bclos(e[ds]?|ing)\b}i
 id="PT-2011_close"
-valid msgstr="\bp(e|é)ch"
+valid msgstr="\bach[eé]g([aáoó]|u[eé])\w*\b"  # get close
+valid msgstr="\bclos(e[ds]?|ing)\b"
+valid msgstr="\bp[eé]ch[aáeéoó]\w*\b"
+valid msgstr="\bpróxim[ao]s?\b"
+valid msgstr="\bpreto\b"
+valid msgstr="\bprimeiros?\s+planos?\b"  # close-up
+valid msgstr="\bsaldos?\s+fina(l|is)\b"  # closing balance
+valid msgstr="\bsubtítulos?\b"  # closing caption
 hint="«close» tradúcese como «pechar»"
 
 # «pechar» traduce a «close»
-[\bpech]i
-valid before="es?\sinesperado" env="kde"
-valid before="ouse\sinesperad" env="kde"
+[\bp(?!echábe(l|is)\b)[eé]ch[aáeéoó]\w*\b]i
 id="noPT-2011-dual_close"
-valid msgid="\bclos(e|ed|ing)"
-valid after="non\s" msgid="unclos(e|ed)" env="kde"
-valid before="es?\s" msgid="crash" env="kde"
+valid msgid="\b(auto|un)?clos(e[ds]?|ing)\b"
+valid msgid="\bclosures?\b"
+valid msgid="\bkeyholes?\b"  # pecho
+valid msgid="\bmutex\b"  # peche de exclusión mutua
+valid msgid="\bshut(t(ed|ing)|s)?\b"
+valid msgid="\bunmatched\b"  # sen pechar (e.g. comiñas)
 hint="«pechar» traduce a «close»"
 
 # «colo(u)r» tradúcese como «cor»
-{\bcolou?rs?}i
-valid before="ize"
-valid span="color" before="ed"
-valid span="color" before="imeter"
-valid span="color" before="ado"
-valid span="colour" before="isation"
+{\bcolou?rs?\b}i
 id="PT-2012_colour"
+valid msgstr="\bbalances?\s+de\s+brancos\b"  # white color balance
 valid msgstr="\bcor(es)?\b"
+valid msgstr="\bcol[oó]r[aáeéoó]\w*\b"
+valid msgstr="\bc[oó]r[aáeéoó]\w*\b"
+valid msgstr="\bcolours?\b"  # English
+valid msgstr="\bcolors\b"  # English (singular skipped as potential typo)
 hint="«colo(u)r» tradúcese como «cor(es)»"
 
 # «cor» traduce a «colour»
 [\bcor(es)?\b]i
 id="PT-2012-dual_colour"
-valid msgid="\bcolou?rs?"
+valid msgid="\bbright(-|\s*)colou?red\b"  # de cores rechamantes
+valid msgid="\bcor(es)?\b"
+valid msgid="\bchromas?\b"  # clave de cor
+valid msgid="\bcolou?rs?\b"
+valid msgid="\bcolou?rless\b"  # sen cores
+valid msgid="\bcolou?rmaps?\b"  # mapa de cores
+valid msgid="\bcolou?rmodes?\b"  # modo de cor
+valid msgid="\bcolou?rmodels?\b"  # modelo de cor
+valid msgid="\bcolou?rnames?\b"  # nome de cor
+valid msgid="\bcolou?rschemes?\b"  # esquema de cores
+valid msgid="\bcolou?rscopes?\b"  # ámbito de cor
+valid msgid="\bcolou?rsets?\b"  # conxunto de cores
+valid msgid="\bcolou?rspaces?\b"  # espazo de cores
+valid msgid="\bdifferently(-|\s*)colou?red\b"  # de cor distinta
+valid msgid="\bsame(-|\s*)colou?red\b"  # da mesma cor
 hint="«cor» traduce a «colour»"
+validGroup lista-de-tradutores
 
 # «Command» tradúcese como «orde»
-{\bcommand}i
+{\bcommands?\b}i
 id="PT-2010_command"
-valid msgstr="orde"
-valid !msgstr="comando"
+valid msgstr="\bcommands?\b"
+valid msgstr="\bordes?\b"
+valid msgstr="\bord[eé]n[aáeéoó]\w*\b"
 hint="«command» tradúcese como «orde»"
 
 # «orde» traduce a «Command»
-[\borde(\"\"|s)]i
-valid after="\sinterpretes?\sde\s"
+[\bordes?\b]i
 id="PT-2010-dual_command"
-valid msgid="\bcommand"
+valid after="\bintérpretes?\s+de\s+"  # shell
+valid msgid="\b(pre)?(command|cmd)s?\b"
+valid msgid="\b(pre)?(command|cmd)lines?\b"  # liña de ordes
+valid msgid="\bCLI\b"  # interface da liña de ordes
+valid msgid="\b(re)?order(ing)?s?\b"
+valid msgid="\breverse\b"  # orde inversa
+valid msgid="\bsequences?\b"  # p. ex. touch in the right sequence → tocar na orde correcta
+valid msgid="\bsort(ing)?s?\b"  # p. ex. sort mode → tipo de orde
 hint="«orde» traduce a «command»"
 
 # «commit» tradúcese como «remitir»
-{\bcommit}i
+{\b(auto)?commit(t(ed|ing)|s)?\b}i
 id="PT-2011_commit"
-valid msgstr="\bremi(ti(r|do|ndo)|s(ión|or)|tíron)"
+valid msgstr="\brem[ií]t[aáeéiíoó]\w*\b"
+valid msgstr="\bremisións?\b"
+valid msgstr="\bcomprom[eé]t[aáeéoó]\w*\b"
+valid msgstr="\bcomprometid[ao]s?\b"
 hint="«commit» tradúcese como «remitir»"
 
 # «remitir» traduce a «commit»
-[\bremi(tir|tido|tindo|sión|sor)]i
+[\brem(?!itentes?\b)[ií]t[aáeéiíoó]\w*\b]i
 id="PT-2011-dual_commit"
-valid msgid="\b(auto)?commit"
+valid msgid="\bcheck(ed|ing|s)?\s+in\b"
+valid msgid="\b(auto)?commit(t(ed|ing)|s)?\b"
+valid msgid="\b(auto)?submit(t(ed|ing)|s)?\b"
 hint="«remitir» traduce a «commit»"
 
 # «computer» tradúcese como «computador»
-{\bcomputer}i
+{\bcomputers?\b}i
 id="noPT-2012_computer"
-valid after="\bdesktop" msgstr="\bcomputador(es)?\sde\sescritorio"
-valid after="\blaptop"
-valid after="\btablet"
-valid msgstr="\bcomputador(?!a)(es)?"
+valid after="\bdesktop\s+" msgstr="\bcomputador(es)?\s+de\s+escritorio\b"
+valid after="\blaptop\s+"
+valid after="\btablet\s+"
+valid msgstr="\bcomputador(es)?\b"
+valid msgstr="\binformátic[ao]s?\b"  # [adxectivo]
+valid msgstr="\bintelixencias?\s+artificia(l|is)\b"  # [no contexto de xogos]
 hint="«computer» tradúcese como «computador»"
 
 # «computador» traduce a «computer»
-[\bcomputador]i
+[\bcomputador(es)?\b]i
 id="PT-2012-dual_computador"
-valid msgid="\bcomputer"
-valid before="\sde\sescritorio" msgid="\bdesktop\scomputer"
+valid msgid="\bcomputers?\b"
+valid msgid="\bcomputerized\b"  # p. ex. computerized version → versión de computador
+valid msgid="\bmainframes?\b"  # computador central
+valid msgid="\bPCs?\b"
 hint="«computador» traduce a «computer»"
 
 # «laptop (computer)» tradúcese como «portátil»
-{\blaptop}i
+{\blaptops?\b}i
 id="PT-2012_computer(2)"
-valid msgstr="\bportátil"
+valid msgstr="\bportátil(es)?\b"
 hint="«laptop (computer)» tradúcese como «portátil»"
 
 # «tablet (computer)» tradúcese como «tableta»
@@ -1111,24 +665,6 @@ valid msgstr="\bpechouse\sinesperad" env="kde"
 valid msgstr="\bfallo" env="kde"
 valid before="ed" msgstr="\bfall(ou|ase)" env="kde"
 hint="«crash» tradúcese como «quebra»"
-
-# «cursor» tradúcese como «cursor»
-{\bcursor}i
-id="PT-2013_cursor"
-valid msgstr="\bcursor"
-hint="«cursor» tradúcese como «cursor»"
-
-# «cursor» traduce a «cursor»
-[\bcursor]i
-id="PT-2013-dual_cursor"
-valid msgid="\bcursor"
-hint="«cursor» traduce a «cursor»"
-
-# «daemon» tradúcese como «daemon»
-{\bdaemon}i
-id="noPT_daemon"
-valid msgstr="\bdaemon"
-hint="«daemon» tradúcese como «daemon»"
 
 # «data» tradúcese como «dato»
 {\bdata\b}i
@@ -1273,20 +809,6 @@ valid msgid="\bnot\senabled"
 valid msgid="\bdeactivate" env="kde"
 hint="«desactivar» traduce a «disable»"
 
-# «disc/disk» tradúcese como «disco»
-{\bdis(c|k)}i
-valid span="disc" before="ard" # «discard»
-id="PT-2013_disc"
-valid msgstr="\bdisco"
-hint="«disc/disk» tradúcese como «disco»"
-
-# «disco» traduce a «disc/k»
-[\bdisco]i
-id="PT-2013-dual_disc"
-valid msgid="\bdis(c|k)"
-valid msgid="\bhard\sdrive" # a/p PT-2012-dual_hard disk
-hint="«disco» traduce a «disc/k»"
-
 # «diskette» tradúcese como «disquete»
 {\b(diskette|floppy(\sdisk)?)}i
 valid span="floppy(\sdisk)?" before="\sdrive"
@@ -1342,52 +864,6 @@ valid msgid="\bdownload"
 valid msgid="\bunload" env="kde"
 hint="«descargar» traduce a «download» (e unload)"
 
-# «draft» tradúcese como «borrador»
-{\bdraft}i
-id="PT-2013_draft"
-valid msgstr="\bborrador"
-hint="«draft» tradúcese como «borrador»"
-
-# «borrador» traduce a «draft»
-[\bborrador]i
-id="PT-2013-dual_draft"
-valid msgid="\bdraft"
-hint="«borrador» traduce a «draft»"
-
-# «drag» tradúcese como «arrastrar»
-{\bdrag}i
-id="PT-2013_drag"
-valid msgstr="\barrastr."
-hint="«drag» tradúcese como «arrastrar»"
-
-# «arrastrar» traduce a «drag»
-[\barrastr.]i
-id="PT-2013-dual_drag"
-valid msgid="\bdrag"
-hint="«arrastrar» traduce a «drag»"
-
-# dado que existe regra para «drag» e para «drop» por separado, esta sobra.
-# # «drag and drop» tradúcese como «arrastrar e soltar»
-# {\bdrag\s(and|[&])\sdrop}i
-# id="PT-2013_drag and drop"
-# valid msgstr="\barrastr(ar|e)\se\ssolt(ar|e)"
-# hint="«drag and drop» tradúcese como «arrastrar e soltar»"
-
-# «draw» tradúcese como «debuxar»
-# «drawing» tradúcese como «debuxo»
-{\bdraw(s|ed|ing)?}i
-id="PT-2013_draw/drawing"
-valid msgstr="\debux(ar?|e|ou)"
-valid span="drawing" msgstr="\bdebuxo"
-hint="«(to) draw» tradúcese como «debuxar», «(a) drawing» como «debuxo»"
-
-# «debuxar/o» traduce a «draw/ing»
-[\bdebux(o|ar|e|ou)]i
-id="PT-2013-dual_draw/drawing"
-valid span="\bdebux(o|ando)" msgid="\bdrawing"
-valid !span="\bdebux(o|ando)" msgid="\bdraw(s|ed)?"
-hint="«debuxar/o» traduce a «draw/ing»"
-
 # «drive» tradúcese como «unidade»
 {\bdrive\b}i
 valid after="floppy(\sdisk)?\s"
@@ -1417,19 +893,6 @@ valid msgid="\bdriver"
 valid msgid="\bcontroller"
 hint="«controlador» traduce a «driver» (e a «controller»)"
 
-# «drop» tradúcese como «soltar»
-{\bdrop}i
-valid before="\s?down" # «(a) drop down» é un tipo de widget
-id="PT-2013_drop"
-valid msgstr="\bsolt(ar|e)"
-hint="«drop» tradúcese como «soltar»"
-
-# «soltar» traduce a «drop»
-[\bsolt(ar|e)]i
-id="PT-2013-dual_drop"
-valid msgid="\bdrop"
-hint="«soltar» traduce a «drop»"
-
 # «edit» tradúcese como «editar»
 {\bedit}i
 valid before="\sbox"
@@ -1443,30 +906,6 @@ hint="«edit» tradúcese como «editar»"
 id="PT-2011-dual_edit"
 valid msgid="\bedit"
 hint="«editar» traduce a «edit»"
-
-# «editor» tradúcese como «editor»
-{\beditor}i
-id="PT-2013_editor"
-valid msgstr="\beditor"
-hint="«editor» tradúcese como «editor»"
-
-# «editor» traduce a «editor»
-[\beditor]i
-id="PT-2013-dual_editor"
-valid msgid="\beditor"
-hint="«editor» traduce a «editor»"
-
-# «emoticon» tradúcese como «emoticona»
-{\bemoticon}i
-id="PT-2013_emoticon"
-valid msgstr="\bemoticona"
-hint="«emoticon» tradúcese como «emoticona»"
-
-# «emoticona» traduce a «emoticon»
-[\bemoticona]i
-id="PT-2013-dual_emoticon"
-valid msgid="\bemoticon"
-hint="«emoticona» traduce a «emoticon»"
 
 # «empty» tradúcese como «baleiro»
 {\bempty}i
@@ -1545,36 +984,6 @@ id="PT-2012-dual_erase"
 valid msgid="\berase"
 hint="«borrar» tradúcese como «erase»"
 
-# «execute/run» tradúcese como «executar»
-{\bexecut(e|ed|es|ing)?}i
-id="PT-2013_execute/run(1)"
-valid before="ion" msgstr="\bexecución"
-valid before="able" msgstr="\bexecutábe(l|is)"
-valid msgstr="\bexecut(ar|a|e|ou|ando)"
-hint="«execute/run» tradúcese como «executar»"
-
-# «executar» traduce a «execute»
-[\bexecu(ción|tábel|tábeis|ar|a|e|ando|ados?|adas?|ou)]i
-id="PT-2013-dual_execute/run"
-valid msgid="\bexecut(able|ion|e|ed|es|ing)"
-valid !span="\bexecut(ábe|ion)" msgid="\brun(s|ed|ning)?"
-hint="«executar» traduce a «execute/run»"
-
-# «execute/run» tradúcese como «executar»
-# «run» tradúcese como «execución»
-{\brun}i
-valid !before="(s|ed|ning)?\b"
-id="PT-2013_execute/run(2)"
-valid before="s?\b" msgstr="\bexecucións?"
-valid before="(s|ed|ning)?\b" msgstr="\bexecut(ar|a|e|ou|ando)"
-hint="«(to) execute/run» tradúcese como «executar», «(a) run» como «execución»"
-
-# «executar/execución» traduce a «run»
-# [\bexecu(ción|t(ar|a|e|ou|ando|ados?|adas?))]i
-# id="PT-2013-dual_execute run(2)"
-# valid msgid="\brun(s|ed|ning)?"
-# hint="«executar/execución» traduce a «run»"
-
 # «fail» e relacionados tradúcense como «fallo»
 {\bfa(il(s|ed|ure)?|ult)}i
 valid span="failed" before="\sto\b"
@@ -1586,18 +995,6 @@ hint="«fail» e relacionados tradúcense como «fallo»"
 
 #«fallo» traduce a «fail»
 #ver regra inversa de «bug»
-
-# «field» tradúcese como «campo»
-{\bfield}i
-id="PT-2013_field"
-valid msgstr="\bcampo"
-hint="«field» tradúcese como «campo»"
-
-# «campo» traduce a «field»
-[\bcampo]i
-id="PT-2013-dual_field"
-valid msgid="\bfield"
-hint="«campo» traduce a «field»"
 
 # «file» tradúcese como «ficheiro»
 {\bfile(\b|s\b)}i
@@ -1644,18 +1041,6 @@ hint="«file package» tradúcese como «paquete de ficheiros»"
 id="PT-2011-dual_file-package"
 valid msgid="\bfile\spackage"
 hint="«paquete de ficheiros» traduce a «file package»"
-
-# «filesystem/file system» tradúcese como «sistema de ficheiros»
-{\bfile\s?system}i
-id="PT-2013_file-system"
-valid msgstr="\bsistemas?\sde\sficheiros"
-hint="«filesystem/file system» tradúcese como «sistema de ficheiros»"
-
-# «sistema de ficheiros» traduce a «filesystem»
-[\bsistemas?\sde\sficheiros]i
-id="PT-2013-dual_file-system"
-valid msgid="\bfile\s?system"
-hint="«sistema de ficheiros» traduce a «filesystem»"
 
 # «find» tradúcese como «atopar»
 {\bfind}i
@@ -1713,18 +1098,6 @@ valid msgid="\bfont"
 valid msgid="\bletter"
 hint="«letra» traduce a «font» e a «letter»"
 
-# «forum» tradúcese como «foro»
-{\bforum}i
-id="PT-2013_forum"
-valid msgstr="\bforos?\b"
-hint="«forum» tradúcese como «foro»"
-
-# «foro» traduce a «forum»
-[\bforos?\b]i
-id="PT-2013-dual_forum"
-valid msgid="\bforum"
-hint="«foro» traduce a «forum»"
-
 # «floppy disk drive» tradúcese como «disqueteira»
 {\bfloppy(\sdisk)?\sdrive}i
 id="PT-2012_floppy-disk-drive"
@@ -1750,18 +1123,6 @@ hint="«framework» tradúcese como «marco de traballo» ou «infraestrutura»"
 id="PT-2011-dual_framework"
 valid msgid="\bframework"
 hint="«marco de traballo» traduce a «framework»"
-
-# «gateway» tradúcese como «pasarela»
-{\bgateway}i
-id="PT-2013_gateway"
-valid msgstr="\bpasarela"
-hint="«gateway» tradúcese como «pasarela»"
-
-# «pasarela» traduce a «gateway»
-[\bpasarela]i
-id="PT-2013-dual_gateway"
-valid msgid="\bgateway"
-hint="«pasarela» traduce a «gateway»"
 
 # «gradient» tradúcese como «gradiente» ou «gradación»
 {\bgradient}i
@@ -1798,20 +1159,6 @@ hint="«hard disk» ou «hard drive» tradúcese como «disco duro»"
 id="PT-2012-dual_hark-disk"
 valid msgid="\bhard(\s?disk|\sdrive)"
 hint="«disco duro» traduce a «hard disk» ou a «hard drive»"
-
-# «help» tradúcese como «axuda»
-{\bhelp(s|ed|ing)?}i
-valid before="er"
-id="PT-2013_help"
-valid msgstr="\baxuda"
-valid msgstr="\baxud(ar|e|ou)?"
-hint="«help» tradúcese como «axuda»"
-
-# «axuda(r)» traduce a «help»
-[\baxud(a|ar|e|ou)]i
-id="PT-2013-dual_help"
-valid msgid="\bhelp(s|es|ing)?"
-hint="«axuda(r)» traduce a «help»"
 
 # «highlight» tradúcese como «realzar»
 {\bhighlight}i
@@ -2032,7 +1379,6 @@ hint="«launcher» tradúcese como «iniciador»"
 id="PT-2011-dual_launcher"
 valid msgid="\blauncher"
 hint="«iniciador» traduce a «launcher»"
-
 
 # «leave» tradúcese como «deixar» ou «saír»
 {\bleav(e|ed|es|ing)}i
@@ -2473,7 +1819,6 @@ id="noPT-2011-dual_rename"
 valid msgid="\brenam(e|es|ed|ing)"
 hint="«renomear» traduce a «rename»"
 
-
 # «replace» tradúcese como «substituir»
 {\breplace}i
 id="PT-2011_replace"
@@ -2501,20 +1846,6 @@ hint="«restart/reboot» tradúcese como «reiniciar»"
 id="PT-2012-dual_restart-reboot"
 valid msgid="\bre(start|boot)"
 hint="«reiniciar» traduce a «restart/reboot»"
-
-
-# # «retry» tradúcese como «reintentar» ou «tentar de novo»
-# {\bretry}i
-# id="noPT-2011_retry"
-# valid msgstr="\breintent"
-# valid msgstr="\bt(entar|énteo|ente|entalo)\sde\snovo"
-# hint="«retry» tradúcese como «reintentar» ou «tentar de novo»"
-#
-# # «reintentar» traduce a «retry»
-# [\breintent]i
-# id="PT-2011-dual_retry"
-# valid msgid="\bretry"
-# hint="«reintentar» traduce a «retry»"
 
 # «rollback» tradúcese como «regresión» ou «regresar»
 {\broll\s?back}i
@@ -2573,34 +1904,6 @@ valid msgid="\bseek"
 valid msgid="\blook\s+up"
 id="noPT-2010-dual_search"
 hint="«busca(r)» traduce a «search», «find», «locate», «seek», e «look up»"
-
-# «server» tradúcese como «servidor»
-{\bserver}i
-id="PT-2013_server"
-valid msgstr="\bservidor"
-hint="«server» tradúcese como «servidor»"
-
-# «servidor» traduce a «server»
-[\bservidor]i
-id="PT-2013-dual_server"
-valid msgid="\b(server|host)"
-hint="«servidor» traduce a «server» (e a «host»)"
-
-# «show» tradúcese como «mostrar»
-{\bshow}i
-id="noPT-2010_show"
-valid msgstr="\bmostr?"
-valid !msgstr="\bamos?"
-hint="«show» tradúcese como «mostrar»"
-
-# «mostrar» traduce a «show»
-[\bmostr(?!axe)]i
-#valid msgid="\b[sS]how(\"\"|s|ed|n)\b"
-valid msgid="\bshow"
-valid msgid="\bdisplay"
-valid msgid="\bprint"
-id="noPT-2010-dual_mostrar"
-hint="«mostrar» traduce a «show», «display» e algúns «print»"
 
 # «speaker» tradúcese como «altofalante»
 {\bspeaker}i
@@ -2870,3 +2173,667 @@ hint="«window» tradúcese como «xanela»"
 id="PT-2010-dual_window"
 valid msgid="\bwindow(\b|s|\s)"
 hint="«xanela» traduce a «window»"
+
+
+# Trasnada de 2013 ############################################################
+#
+# Os acordos non están reflectidos en http://termos.trasno.gal/
+
+# «account» tradúcese como «conta»
+{\baccounts?\b}i
+id="PT-2013_account"
+valid before="\s+for\b"  # account for → explicar
+valid msgstr="\bcontas?\b"
+hint="«account» tradúcese como «conta»"
+
+# «conta» traduce a «account»
+[\bcontas?\b]i
+id="PT-2013-dual_account"
+valid msgid="\baccounts?\b"
+valid msgid="\baddress(e[ds]|ing)?\b"  # ter en conta
+valid msgid="\bafter\s+all\b"  # a fin de contas
+valid msgid="\bbe\s+(advised|aware|warned)\b"  # ter en conta
+valid msgid="\bbeware\b"  # common typo for ‘be aware’
+valid msgid="\bconsider(ed|ing|s)?\b"  # ter en conta
+valid msgid="\bcount(ed|ing|s)?\b"  # contar
+valid msgid="\bcountdowns?\b"  # conta atrás
+valid msgid="\bdirect\s+debits?\b"  # cargo en conta
+valid msgid="\bdirect\s+deposits?\b"  # imposición en conta
+valid msgid="\bin\s+mind\b"  # [ter] en conta
+valid msgid="\bmind\s+that\b"  # ter en conta
+valid msgid="\bNB\b"  # ter en conta
+valid msgid="\bnot(e[ds]?|ing)\b"  # ter en conta
+valid msgid="\bnotic(e[ds]?|ing)\b"  # ter en conta
+valid msgid="\bon\s+(my|your|its|her|his|our|their)\s+own\b"  # pola conta de [pronome]
+valid msgid="\b(take[ns]?|took)\s+a\s+care\s+that\b"  # ter en conta
+valid msgid="\btoo\s+soon\b"  # antes da conta
+valid msgid="\bstatements?\b"  # extracto de conta
+hint="«conta» traduce a «account»"
+
+# «add» tradúcese como «engadir»
+{\badd(s|ed|ing)?\b}i
+valid before="-ons?"
+valid before="\s+back\b"  # recuperar
+valid before="\s+film\s+grain\b"  # granular
+id="PT-2013_add"
+valid msgstr="\beng[aá]d[aáeéiíoó]\w*\b"
+valid msgstr="\bs[uú]m[aáeéoó]\w*\b"  # sumar
+hint="«add» tradúcese como «engadir»"
+
+# «engadir» traduce a «add»
+[\beng[aá]d[aáeéiíoó]\w*\b]i
+id="PT-2013-dual_add"
+valid msgid="\b(re)?add(s|ed|ing)?\b"
+valid msgid="\b(re)?additions?\b"  # without the addition of → sen engadir
+valid msgid="\bannotat(e[ds]?|ing)\b"  # engadir anotacións
+valid msgid="\b(re)?append(able|ed|ing|s)?\b"
+valid msgid="\b(re)?implement(able|ed|ing|s)?\b"
+valid msgid="\bnamespac(e[ds]?|ing)\b"  # engadir un espazo de nomes
+valid msgid="\b(re)?prepend(able|ed|ing|s)?\b"
+valid msgid="\bscrambl(e[ds]?|ing)\b"  # engadir interferencias
+valid msgid="\bsupport(?!\s+for\b)(ed|ing|s)?\b"  # engadir (compatibilidade|a posibilidade de( usar)?)
+hint="«engadir» traduce a «add»"
+
+# «address» tradúcese como «enderezo»
+{\baddress(es)?\b}i
+id="PT-2013_address"
+valid msgstr="\baddress(es)?\b"
+valid msgstr="\bdiscursos?\b"  # p. ex. presidenciais
+valid msgstr="\benderezos?\b"
+valid msgstr="\bsoluci[oó]n[aáeéoó]\w*\b"  # solucionar [un problema]
+valid msgstr="\bt\w*\s+en\s+conta\b"  # the parser addresses reviews → o analizador ten en conta as recensións
+hint="«address» tradúcese como «enderezo»"
+
+# «enderezo» traduce a «address»
+[\benderezos?\b]i
+id="PT-2013-dual_address"
+valid msgid="\baddrs?\b"
+valid msgid="\baddress(books?|ee?s)?\b"  # includes typo addressees
+valid msgid="\baddress(ed|ing)\b"  # sector-addressing issues → problemas de enderezos de sectores
+valid before="\s+URL" msgid="\bURLs?\b"
+hint="«enderezo» traduce a «address»"
+
+# «align» tradúcese como «aliñar»
+{\balign(s|ed|ing)?\b}i
+id="PT-2013_align"
+hint="«align» tradúcese como «aliñar»"
+valid before="\s+[\w\s]*(to\s+((horizontal|vertical)\s+)?)?center\b"  # centrar
+valid before="\s+(four|4)\b"  # catro en liña
+valid before="\s+justif(ied|y)\b"  # xustificar
+valid msgstr="\bal[ií]ñ[aáeéoó]\w*\b"
+valid msgstr="\baliñ\."
+
+# «aliñar» traduce a «align»
+[\bal[ií]ñ(?!amentos?\b)[aáeéoó]\w*\b]i
+id="PT-2013-dual_align"
+hint="«aliñar» traduce a «align»"
+valid msgid="\b(re|un)?align(ed|ing|s)?\b"
+valid msgid="\blin(e[ds]?|ing)\s+up\b"
+valid msgid="\bsnap(p(ed|ing)|s)?\b"
+
+# «align center» tradúcese como «centrar»
+{\balign(s|ed|ing)?\s+[\w\s]*(to\s+((horizontal|vertical)\s+)?)?center\b}i
+id="PT-2013_align-center"
+hint="«align center» tradúcese como «centrar»"
+valid msgstr="\bc[eé]ntr[aáeéoó]\w*\b"
+
+#  «centrar» traduce a «align center»
+# ver regra
+# "PT-2013-dual_center-centre"
+
+# «alignment» tradúcese como «aliñamento»
+{\balignments?\b}i
+id="PT-2013_alignment"
+valid msgstr="\baliñamentos?\b"
+valid msgstr="\balignments?\b"
+hint="«alignment» tradúcese como «aliñamento»"
+
+# «aliñamento» traduce a «alignment»
+[\baliñamentos?\b]i
+id="PT-2013-dual_alignment"
+hint="«aliñamento» traduce a «alignment»"
+valid msgid="\balign(s|ed|ing)?\b"
+valid msgid="\balignments?\b"
+valid msgid="\balignings?\b"
+valid msgid="\bconjunctions?\b"
+valid msgid="\blin(e|ing)(\s+|-)?up\b"
+valid msgid="\bsnap(ping)?s?\b"
+
+# «appearance» tradúcese como «aparencia»
+{\bappearances?\b}i
+id="PT-2013_appearance"
+valid msgstr="\baparencias?\b"
+valid msgstr="\baparicións?\b"
+hint="«appearance» tradúcese como «aparencia»"
+
+# «aparencia» traduce a «appearance»
+[\baparencias?\b]i
+id="PT-2013-dual_appearance"
+valid msgid="\bappearances?\b"
+valid msgid="\bdisplays?\b"
+valid msgid="\blook(ing)?s?\b"
+valid msgid="\bskins?\b"
+hint="«aparencia» traduce a «appearance»"
+
+# «arrow» tradúcese como «frecha»
+{\barrows?\b}i
+id="PT-2013_arrow"
+valid msgstr="\bfrechas?\b"
+valid msgstr="\barrows?\b"
+hint="«arrow» tradúcese como «frecha»"
+
+# «frecha» traduce a «arrow»
+[\bfrechas?\b]i
+id="PT-2013-dual_arrow"
+valid msgid="\barrows?\b"
+valid msgid="\bSagitta\b"
+hint="«frecha» traduce a «arrow»"
+
+# «assign» tradúcese como «asignar»
+{\bassign(ed|ing|s)?\b}i
+id="PT-2013_assign"
+valid msgstr="\bas[ií]gn[aáeéoó]\w*\b"
+hint="«assign» tradúcese como «asignar»"
+
+# «asignar» traduce a «assign»
+[\bas(?!igna(cións?|dor(as?|es)?)\b)[ií]gn[aáeéoó]\w*\b]i
+id="PT-2013-dual_assign"
+valid msgid="\b(re|un)?allocat(e[ds]?|ing)\b"
+valid msgid="\b(re|un)?allocs?\b"
+valid msgid="\b(re|un)?assign(ed|ing|s)?\b"
+valid msgid="\bassignees?\b"  # asignado
+hint="«asignar» traduce a «assign»"
+
+# «assignment» tradúcese como «asignación»
+{\bassignments?\b}i
+id="PT-2013_assignment"
+valid msgstr="\basignacións?\b"
+hint="«assignment» tradúcese como «asignación»"
+
+# «asignación» traduce a «assignment»
+[\basignacións?\b]i
+id="PT-2013-dual_assignment"
+valid msgid="\b(re)?allocating\b"
+valid msgid="\b(re)?allocate\b"  # edit auto allocate → editar a asignación automática
+valid msgid="\b(re)?alloc(ation)?s?\b"
+valid msgid="\breassign(ed|ing|s)?\b"  # cambiar de asignación
+valid msgid="\bunassign(ed|ing|s)?\b"  # retirar a asignación
+valid msgid="\b(re)?assignments?\b"
+hint="«asignación» traduce a «assignment»"
+
+# «attribute» tradúcese como «atributo»
+{\battributes?\b}i
+id="PT-2013_attribute"
+valid msgstr="\batributos?\b"
+valid msgstr="\battributes?\b"
+hint="«attribute» tradúcese como «atributo»"
+
+# «atributo» traduce a «attribute»
+[\batributos?\b]i
+id="PT-2013-dual_attribute"
+valid msgid="\battributes?\b"
+hint="«atributo» traduce a «attribute»"
+
+# «background» tradúcese como «fondo»
+{\bbackground(?!\s+on\b)s?\b}i
+id="PT-2013_background"
+valid msgstr="\bantecedentes\b"
+valid msgstr="\bbackgrounds?\b"
+valid msgstr="\bfondos?\b"
+valid msgstr="\bpaisaxistas?\b"
+valid msgstr="\bsegundo\s+plano\b"
+hint="«background» tradúcese como «fondo»"
+
+# «fondo» traduce a «background»
+[\bfondos?\b]i
+id="PT-2013-dual_background"
+valid msgid="\bback(ground)?(?!\s+on\b)s?\b"
+valid msgid="\bbgs?\b"
+valid msgid="\bbottom\b"
+valid msgid="\bbottomed\b"  # round-bottomed flask → frasco de fondo redondo
+valid msgid="\bfunds?\b"
+valid msgid="\bfund(ing\s+drives?|rais(er|ing)s?)\b"  # recadacción de fondos
+valid msgid="\bwallpapers?\b"  # fondo de escritorio
+hint="«fondo» traduce a «background»"
+
+# «bitmap» tradúcese como «mapa de bits»
+{\bbitmaps?\b}i
+id="PT-2013_bitmap"
+valid msgstr="\bmapas?\s+de\s+bits\b"
+hint="«bitmap» tradúcese como «mapa de bits»"
+
+# «mapa de bits» traduce a «bitmap»
+[\bmapas?\s+de\s+bits\b]i
+id="PT-2013-dual_bitmap"
+valid msgid="\bbitmaps?\b"
+valid msgid="\braster\b"  # de mapa de bits
+hint="«mapa de bits» traduce a «bitmap»"
+
+# «broadband» tradúcese como «banda larga»
+{\bbroad\s*band\b}i
+id="PT-2013_broadband"
+valid msgstr="\bbanda\s+larga\b"
+hint="«broadband» tradúcese como «banda larga»"
+
+# «banda larga» traduce a «broadband»
+[\bbanda\s+larga\b]i
+id="PT-2013-dual_broadband"
+valid msgid="\bbroad\s*band\b"
+hint="«banda larga» traduce a «broadband»"
+
+# «browse» tradúcese como «navegar»
+{\bbrows(e[ds]?|ing)\b}i
+id="PT-2013_browse"
+valid msgstr="\bb[uú]s(c[aáoó]|qu[eé])\w*\b"
+valid msgstr="\bexam[ií]n[aáoóeé]\w*\b"
+valid msgstr="\bexpl[oó]r[aáoóeé]\w*\b"
+valid msgstr="\bnav[eé]g([aáoó]|u[eé])\w*\b"
+valid msgstr="\bproc[uú]r[aáoóeé]\w*\b"
+valid msgstr="\bbrows(e[ds]?|ing)\b"
+hint="«browse» tradúcese como «buscar», «examinar», «explorar», «navegar», «procurar»"
+
+# «navegar» traduce a «browse»
+[\bnav(?!eg(a(cións?|dor(es)?|ntes?)|ábe(l|is)))[eé]g([aáoó]|u[eé])\w*\b]i
+id="PT-2013-dual_browse"
+valid msgid="\bbrows(e[ds]?|ing)\b"
+valid msgid="\bnavigat(e[ds]?|ing)\b"
+valid msgid="\bsail(ed|ing|s)?\b"
+valid msgid="\bwalk(ed|ing|s)?\s+through\b"
+hint="«navegar» traduce a «browse» (e a «navigate»)"
+
+# «browser» tradúcese como «navegador»
+{\bbrowsers?\b}i
+id="PT-2013_browser"
+valid msgstr="\bnavegador(es)?\b"
+valid msgstr="\bbrowsers?\b"
+hint="«browser» tradúcese como «navegador»"
+
+# «navegador» traduce a «browser»
+[\bnavegador(es)?\b]i
+id="PT-2013-dual_browser"
+valid msgid="\bbrowsers?\b"
+valid msgid="\bnavigators?\b"
+hint="«navegador» traduce a «browser»"
+
+# «button» tradúcese como «botón»
+{\bbuttons?\b}i
+id="PT-2013_button"
+valid msgstr="\bbotóns?\b"
+valid msgstr="\bbuttons?\b"
+hint="«button» tradúcese como «botón»"
+
+# «botón» traduce a «button»
+[\bbotóns?\b]i
+id="PT-2013-dual_button"
+valid msgid="\b[LMR]MB\b"  # Left/Middle/Right Mouse Button
+valid msgid="\b(mouse|push|radio|tool)?buttons?\b"
+valid msgid="\bplugs?\b"
+valid msgid="\bradios?\b"  # botón de alternativa
+hint="«botón» traduce a «button»"
+
+# «cache» tradúcese como «caché»
+{\bcaches?\b}i
+id="PT-2013_cache"
+valid msgstr="\bcachés?\b"
+hint="«cache» tradúcese como «caché»"
+
+# «caché» traduce a «cache»
+[\bcachés?\b]i
+id="PT-2013-dual_cache"
+valid msgid="\bcaches?\b"
+valid msgid="\bcach(ed|ing)\b"  # [gardar] na caché
+valid msgid="\buncached\b"  # ausente na caché
+valid msgid="\brecach(e[ds]?|ing)\b"  # gardar de novo na caché
+hint="«caché» traduce a «cache»"
+
+# «canvas» tradúcese como «lenzo»
+{\bcanvas\b}i
+id="PT-2013_canvas"
+valid msgstr="\blenzos?\b"
+hint="«canvas» tradúcese como «lenzo»"
+
+# «lenzo» traduce a «canvas»
+[\blenzos?\b]i
+id="PT-2013-dual_canvas"
+valid msgid="\bcanvas\b"
+hint="«lenzo» traduce a «canvas»"
+
+# «cell» tradúcese como «cela»
+{\bcells?\b}i
+id="PT-2013_cell"
+valid after="\brod\s+"  # bastón [de retina]
+valid msgstr="\bcelas?\b"
+valid msgstr="\bcells?\b"
+valid msgstr="\bcélulas?\b"
+valid msgstr="\bmóbil(es)?\b"
+hint="«cell» tradúcese como «cela»"
+
+# «cela» traduce a «cell»
+[\bcelas?\b]i
+id="PT-2013-dual_cell"
+valid msgid="\b(char|free)?cells?\b"
+valid msgid="\bcellmates?\b"
+hint="«cela» traduce a «cell»"
+
+# «center/centre» tradúcese como «centrar/centro»
+{\b(center(ed|ing|s)?|centr(e[ds]?|ing))\b}i
+id="PT-2013_center-centre"
+valid msgstr="\bc[eé]ntr[aáeéoó]\w*\b"
+valid msgstr="\b(center(ed|ing|s)?|centr(e[ds]?|ing))\b"
+hint="«center/centre» tradúcese como «centrar/centro»"
+
+# «centrar» traduce a «center/centre»
+[\bc(?!entr(a(l|is)|o(afric|asiátic|europe)[ao]s?))[eé]ntr[aáeéoó](?!d)\w*\b]i
+id="PT-2013-dual_center-centre"
+valid msgid="\b(auto|cost|page|media|re)?(center(ed|ing|s)?|centr(e[ds]?|ing))\b"
+valid msgid="\bcentral\b"  # do centro
+valid msgid="\bcentrally\b"  # align centrally → centrar
+valid msgid="\bc(?!entr(a(l|is)|o(afric|asiátic|europe)[ao]s?))[eé]ntr[aáeéoó]\w*\b"
+valid msgid="\bconcentrat(e[ds]?|ing)\b"
+valid msgid="\bfocus(e[ds]|ing)?\b"
+valid msgid="\bmiddle\b"
+hint="«centrar» traduce a «center/centre» (e a «align center)»"
+
+# «channel» tradúcese como «canle»
+{\bchannels?\b}i
+id="PT-2013_channel"
+valid msgstr="\bcanles?\b"
+valid msgstr="\bchannels?\b"
+hint="«channel» tradúcese como «canle»"
+
+# «canle» traduce a «channel»
+[\bcanles?\b]i
+id="PT-2013-dual_channel"
+valid msgid="\bbridges?\b"  # canle que conecta dous recipientes
+valid msgid="\bcanals?\b"
+valid msgid="\bchannels?\b"
+valid msgid="\bpipes?\b"
+valid msgid="\btroughs?\b"
+hint="«canle» traduce a «channel»"
+
+{\bclick(ed|ing|s)?\b}i
+id="PT-2013_click"
+hint="click → calcar, facer clic, premer"
+valid msgstr="\bc[aá]l(c[aáoó]|qu[eé])\w*\b"
+valid msgstr="\bclics?\b"  # facer clic, clic
+valid msgstr="\bpr[eé]m[aáeéiíoó]\w*\b"
+
+# «premer en» traduce a «click»
+[\bpr(?!emíbe(l|is)\b)[eé]m[aáeéiíoó]\w*\s+(en|n[ao]s?|nun(ha)?s?|nest[ae]s?)\b]i
+id="PT-2013-dual_click(1)"
+valid msgid="\bclick(ed|ing|s)?\b"
+valid msgid="\bhit(ing|s)?\b"
+valid msgid="\bpress(e[ds]|ing)?\b"
+valid msgid="\bpush(e[ds]|ing)?\b"
+hint="«premer en» traduce a «click»"
+
+# «premer para» traduce a «click for/to»
+[\bpr(?!emíbe(l|is)\b)[eé]m[aáeéiíoó]\w*\s+para\s+\w+r]i
+id="PT-2013-dual_click(2)"
+valid msgid="\bclick(ed|ing|s)?(\s+|-|\b[^,.]+\s)(for|to)\b"
+valid msgid="\bhit(ing|s)?(\s+|-|\b[^,.]+\s)(for|to)\b"
+valid msgid="\bpress(e[ds]|ing)?(\s+|-|\b[^,.]+\s)(for|to)\b"
+valid msgid="\bpush(e[ds]|ing)?(\s+|-|\b[^,.]+\s)(for|to)\b"
+hint="«premer para» traduce a «click for/to»"
+
+# «premer aquí/aí/e» traduce a «click»
+[\b\bpr(?!emíbe(l|is)\b)[eé]m[aáeéiíoó]\w*\s+(aquí|aí|e)\b]i
+id="PT-2013-dual_click(3)"
+valid msgid="\bclick(ed|ing|s)?\b"
+valid msgid="\bhit(ing|s)?\b"
+valid msgid="\bpress(e[ds]|ing)?\b"
+valid msgid="\bpush(e[ds]|ing)?\b"
+hint="«premer aquí/aí/e» traduce a «click»"
+
+# «client» tradúcese como «cliente»
+{\bclients?\b}i
+id="PT-2013_client"
+valid msgstr="\bclientes?\b"
+valid msgstr="\bclients?\b"
+hint="«client» tradúcese como «cliente»"
+
+# «cliente» traduce a «client»
+[\bclientes?\b]i
+id="PT-2013-dual_client"
+valid msgid="\bclients?\b"
+valid msgid="\bcustomers?\b"
+valid msgid="\bmailers?\b"  # cliente de correo
+hint="«cliente» traduce a «client»"
+
+# «clock» tradúcese como «reloxo»
+{\bclocks?\b}i
+id="PT-2013_clock"
+valid after="\balarm\s+"  # espertador
+valid after="\bo['’]"  # en punto
+valid msgstr="\breloxos?\b"
+valid msgstr="\bclocks?\b"
+hint="«clock» tradúcese como «reloxo»"
+
+# «reloxo» traduce a «clock»
+[\breloxos?\b]i
+id="PT-2013-dual_clock"
+valid msgid="\bclocks?\b"
+valid msgid="\bhourglass(es)?\b"  # reloxo de area
+valid msgid="\bHorologium\b"  # nome propio de estrela
+valid msgid="\bwatch(es)?\b"  # reloxo de pulso
+valid msgid="\bwatchglass(es)?\b"  # vidro de reloxo
+hint="«reloxo» traduce a «clock»"
+
+# «cursor» tradúcese como «cursor»
+{\bcursor}i
+id="PT-2013_cursor"
+valid msgstr="\bcursor"
+hint="«cursor» tradúcese como «cursor»"
+
+# «cursor» traduce a «cursor»
+[\bcursor]i
+id="PT-2013-dual_cursor"
+valid msgid="\bcursor"
+hint="«cursor» traduce a «cursor»"
+
+# «daemon» tradúcese como «daemon»
+{\bdaemon}i
+id="noPT_daemon"
+valid msgstr="\bdaemon"
+hint="«daemon» tradúcese como «daemon»"
+
+# «disc/disk» tradúcese como «disco»
+{\bdis(c|k)}i
+valid span="disc" before="ard" # «discard»
+id="PT-2013_disc"
+valid msgstr="\bdisco"
+hint="«disc/disk» tradúcese como «disco»"
+
+# «disco» traduce a «disc/k»
+[\bdisco]i
+id="PT-2013-dual_disc"
+valid msgid="\bdis(c|k)"
+valid msgid="\bhard\sdrive" # a/p PT-2012-dual_hard disk
+hint="«disco» traduce a «disc/k»"
+
+# «draft» tradúcese como «borrador»
+{\bdraft}i
+id="PT-2013_draft"
+valid msgstr="\bborrador"
+hint="«draft» tradúcese como «borrador»"
+
+# «borrador» traduce a «draft»
+[\bborrador]i
+id="PT-2013-dual_draft"
+valid msgid="\bdraft"
+hint="«borrador» traduce a «draft»"
+
+# «drag» tradúcese como «arrastrar»
+{\bdrag}i
+id="PT-2013_drag"
+valid msgstr="\barrastr."
+hint="«drag» tradúcese como «arrastrar»"
+
+# «arrastrar» traduce a «drag»
+[\barrastr.]i
+id="PT-2013-dual_drag"
+valid msgid="\bdrag"
+hint="«arrastrar» traduce a «drag»"
+
+# dado que existe regra para «drag» e para «drop» por separado, esta sobra.
+# # «drag and drop» tradúcese como «arrastrar e soltar»
+# {\bdrag\s(and|[&])\sdrop}i
+# id="PT-2013_drag and drop"
+# valid msgstr="\barrastr(ar|e)\se\ssolt(ar|e)"
+# hint="«drag and drop» tradúcese como «arrastrar e soltar»"
+
+# «draw» tradúcese como «debuxar»
+# «drawing» tradúcese como «debuxo»
+{\bdraw(s|ed|ing)?}i
+id="PT-2013_draw/drawing"
+valid msgstr="\debux(ar?|e|ou)"
+valid span="drawing" msgstr="\bdebuxo"
+hint="«(to) draw» tradúcese como «debuxar», «(a) drawing» como «debuxo»"
+
+# «debuxar/o» traduce a «draw/ing»
+[\bdebux(o|ar|e|ou)]i
+id="PT-2013-dual_draw/drawing"
+valid span="\bdebux(o|ando)" msgid="\bdrawing"
+valid !span="\bdebux(o|ando)" msgid="\bdraw(s|ed)?"
+hint="«debuxar/o» traduce a «draw/ing»"
+
+# «drop» tradúcese como «soltar»
+{\bdrop}i
+valid before="\s?down" # «(a) drop down» é un tipo de widget
+id="PT-2013_drop"
+valid msgstr="\bsolt(ar|e)"
+hint="«drop» tradúcese como «soltar»"
+
+# «soltar» traduce a «drop»
+[\bsolt(ar|e)]i
+id="PT-2013-dual_drop"
+valid msgid="\bdrop"
+hint="«soltar» traduce a «drop»"
+
+# «editor» tradúcese como «editor»
+{\beditor}i
+id="PT-2013_editor"
+valid msgstr="\beditor"
+hint="«editor» tradúcese como «editor»"
+
+# «editor» traduce a «editor»
+[\beditor]i
+id="PT-2013-dual_editor"
+valid msgid="\beditor"
+hint="«editor» traduce a «editor»"
+
+# «emoticon» tradúcese como «emoticona»
+{\bemoticon}i
+id="PT-2013_emoticon"
+valid msgstr="\bemoticona"
+hint="«emoticon» tradúcese como «emoticona»"
+
+# «emoticona» traduce a «emoticon»
+[\bemoticona]i
+id="PT-2013-dual_emoticon"
+valid msgid="\bemoticon"
+hint="«emoticona» traduce a «emoticon»"
+
+# «execute/run» tradúcese como «executar»
+{\bexecut(e|ed|es|ing)?}i
+id="PT-2013_execute/run(1)"
+valid before="ion" msgstr="\bexecución"
+valid before="able" msgstr="\bexecutábe(l|is)"
+valid msgstr="\bexecut(ar|a|e|ou|ando)"
+hint="«execute/run» tradúcese como «executar»"
+
+# «executar» traduce a «execute»
+[\bexecu(ción|tábel|tábeis|ar|a|e|ando|ados?|adas?|ou)]i
+id="PT-2013-dual_execute/run"
+valid msgid="\bexecut(able|ion|e|ed|es|ing)"
+valid !span="\bexecut(ábe|ion)" msgid="\brun(s|ed|ning)?"
+hint="«executar» traduce a «execute/run»"
+
+# «execute/run» tradúcese como «executar»
+# «run» tradúcese como «execución»
+{\brun}i
+valid !before="(s|ed|ning)?\b"
+id="PT-2013_execute/run(2)"
+valid before="s?\b" msgstr="\bexecucións?"
+valid before="(s|ed|ning)?\b" msgstr="\bexecut(ar|a|e|ou|ando)"
+hint="«(to) execute/run» tradúcese como «executar», «(a) run» como «execución»"
+
+# «executar/execución» traduce a «run»
+# [\bexecu(ción|t(ar|a|e|ou|ando|ados?|adas?))]i
+# id="PT-2013-dual_execute run(2)"
+# valid msgid="\brun(s|ed|ning)?"
+# hint="«executar/execución» traduce a «run»"
+
+# «field» tradúcese como «campo»
+{\bfield}i
+id="PT-2013_field"
+valid msgstr="\bcampo"
+hint="«field» tradúcese como «campo»"
+
+# «campo» traduce a «field»
+[\bcampo]i
+id="PT-2013-dual_field"
+valid msgid="\bfield"
+hint="«campo» traduce a «field»"
+
+# «filesystem/file system» tradúcese como «sistema de ficheiros»
+{\bfile\s?system}i
+id="PT-2013_file-system"
+valid msgstr="\bsistemas?\sde\sficheiros"
+hint="«filesystem/file system» tradúcese como «sistema de ficheiros»"
+
+# «sistema de ficheiros» traduce a «filesystem»
+[\bsistemas?\sde\sficheiros]i
+id="PT-2013-dual_file-system"
+valid msgid="\bfile\s?system"
+hint="«sistema de ficheiros» traduce a «filesystem»"
+
+# «forum» tradúcese como «foro»
+{\bforum}i
+id="PT-2013_forum"
+valid msgstr="\bforos?\b"
+hint="«forum» tradúcese como «foro»"
+
+# «foro» traduce a «forum»
+[\bforos?\b]i
+id="PT-2013-dual_forum"
+valid msgid="\bforum"
+hint="«foro» traduce a «forum»"
+
+# «gateway» tradúcese como «pasarela»
+{\bgateway}i
+id="PT-2013_gateway"
+valid msgstr="\bpasarela"
+hint="«gateway» tradúcese como «pasarela»"
+
+# «pasarela» traduce a «gateway»
+[\bpasarela]i
+id="PT-2013-dual_gateway"
+valid msgid="\bgateway"
+hint="«pasarela» traduce a «gateway»"
+
+# «help» tradúcese como «axuda»
+{\bhelp(s|ed|ing)?}i
+valid before="er"
+id="PT-2013_help"
+valid msgstr="\baxuda"
+valid msgstr="\baxud(ar|e|ou)?"
+hint="«help» tradúcese como «axuda»"
+
+# «axuda(r)» traduce a «help»
+[\baxud(a|ar|e|ou)]i
+id="PT-2013-dual_help"
+valid msgid="\bhelp(s|es|ing)?"
+hint="«axuda(r)» traduce a «help»"
+
+# «server» tradúcese como «servidor»
+{\bserver}i
+id="PT-2013_server"
+valid msgstr="\bservidor"
+hint="«server» tradúcese como «servidor»"
+
+# «servidor» traduce a «server»
+[\bservidor]i
+id="PT-2013-dual_server"
+valid msgid="\b(server|host)"
+hint="«servidor» traduce a «server» (e a «host»)"

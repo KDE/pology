@@ -1,5 +1,4 @@
-# Normalization rules contributed by individual people that have not been
-# ratified by Proxecto Trasno.
+# Terminology choices that do not fit any other file.
 # License: BSD 3-clause
 # © 2010, 2011, 2012, 2014 Proxecto Trasno
 # © 2019 Adrián Chaves (Gallaecio) <adrian@chaves.io>
@@ -749,3 +748,28 @@ valid msgstr="\bacontecemento" !msgstr="\bevento"
 valid msgstr="\bsuceso" !msgstr="\bevento"
 valid msgstr="\bactividade"
 hint="event-> acontecemento ou suceso (not development environment)"
+
+# «conceal» → «esconder»
+{\bconceal(s|ed|ing)?}i
+id="aaPT_conceal"
+valid msgstr="\bescond"
+hint="«conceal» → «esconder»"
+
+# «esconder» → «conceal»
+[\bescond]i
+id="aaPT_esconder"
+valid msgid="\bconceal"
+valid msgid="\bescond"
+hint="«esconder» → «conceal»"
+
+# «about to» tradúcese como «a piques de»
+{\b(?<!^)about\sto\b}i
+id="PT-2013_about-to"
+valid msgstr="\ba\spiques\sde\b"
+hint="«about to» tradúcese como «a piques de»"
+
+# «a piques de» traduce a «about to»
+[\ba\spiques\sde\bs]i
+id="PT-2013-dual_about-to"
+valid msgid="\b(?<!^)about\sto\b"
+hint="«a piques de» traduce a «about to»"

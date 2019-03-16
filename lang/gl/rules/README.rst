@@ -2,23 +2,44 @@
 Pology Rules for Galician
 =========================
 
-Files
+Usage
 =====
 
-Rules are distributed accross the following files:
+To check one or more PO files against the Pology rules for Galician:
 
--   ``n11n.rules``
+#.  Install Pology following the instructions on the first sections of the
+    `Pology documentation`_.
 
-    Rules to normalize translations that are not supported by
-    `Proxecto Trasno`_.
+#.  Run posieve_ with the `check-rules`_ sieve and ``-s lang:gl``, followed by
+    the paths of target files and folders.
 
--   ``trasno.rules``
+    It is also recommended to use a regular expression
+    (``-s rulerx:<regular expression>``) or multiple rule IDs
+    (``-s rule:<rule ID>``) to restrict rules to those in the ``trasno.rules``
+    file, which contains rules that enforce the terminology criteria published_
+    by `Proxecto Trasno`_ as approved during their annual gatherings.
 
-    Rules that are the result of agreements by `Proxecto Trasno`_.
+    These are some other useful parameters to consider:
 
+    -   ``--skip-obsolete`` skips obsolete messages, messages that used to be
+        part of the translations, and are kept in PO files in case they are
+        used in the translations again in the future.
+
+    -   ``-s lokalize`` opens affected messages in Lokalize.
+
+If a specific message violates a rule but the message should be left as is, and
+it makes no sense to update the rule because the message is a rare exception,
+you may add ``skip-rule: <rule ID>`` as a translator comment to the message to
+let that message skip the ofending rule. Multiple rule IDs may be specified
+separated by commas.
+
+.. _check-rules: http://pology.nedohodnik.net/doc/user/en_US/ch-sieve.html#sv-check-rules
+.. _Pology documentation: http://pology.nedohodnik.net/doc/user/en_US/ch-about.html
+.. _posieve: http://pology.nedohodnik.net/doc/user/en_US/ch-sieve.html
+.. _published: http://termos.trasno.gal/
 
 Rule Names
-==========
+----------
 
 Rule IDs follow this pattern::
 
@@ -37,7 +58,9 @@ The following families exist:
 
 -   ``aaPT``
 
-    Rules for agreements that do not come from `Proxecto Trasno`_.
+    Rules for agreements that have been published by `Proxecto Trasno`_ as
+    agreements taken before the start of their annual gatherings where
+    terminology agreements are usually reached.
 
 -   ``clGL``
 
@@ -86,7 +109,7 @@ Galician-to-English counterpart to an English-to-Galician rule.
 
 
 Environments
-============
+------------
 
 Rules support the following environments::
 
@@ -97,6 +120,24 @@ Rules support the following environments::
     geography
     graph_theory
     informal
+
+
+Development
+===========
+
+Files
+-----
+
+Rules are distributed accross the following files:
+
+-   ``n11n.rules``
+
+    Rules to normalize translations that are not supported by
+    `Proxecto Trasno`_.
+
+-   ``trasno.rules``
+
+    Rules that are the result of agreements by `Proxecto Trasno`_.
 
 
 Credits and License
