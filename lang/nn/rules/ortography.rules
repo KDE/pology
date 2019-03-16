@@ -81,6 +81,8 @@ hint="utskiftning → utskifting"
 [skall]i
 hint="skall → skal"
 valid after="hovud"
+valid before="e"
+valid before="ar"
 
 [adressar]i
 hint="adressar → adresser"
