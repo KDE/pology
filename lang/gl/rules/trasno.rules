@@ -642,6 +642,7 @@ hint="«bug» tradúcese como «fallo»"
 [\bfallos?\b]i
 id="PT-2011-dual_bug"
 valid msgid="\bbugs?\b"
+valid msgid="\bbugfix(es)?\b"  # correccións de fallos
 valid msgid="\bfail(ed|ing|s)?\b"
 valid msgid="\bfailover\b"  # tolerancia de fallos
 valid msgid="\bfailures?\b"
@@ -891,6 +892,7 @@ id="noPT-2011-dual_check3"
 valid msgid="\bbrands?\b"
 valid msgid="\b(re)?check(ed|ing|s)?\b"
 valid msgid="\bcheckbox(es)?\b"  # caixa para marcar
+valid msgid="\bchecklists?\b"  # lista para marcar
 valid msgid="\bcheckmarks?\b"  # marca de comprobación
 valid msgid="\bdents?\b"
 valid msgid="\bdeprecat(e[ds]?|ing)\b"  # marcar como obsoleto
@@ -912,85 +914,102 @@ valid msgid="\bscars?\b"
 valid msgid="\bscor(e[ds]?|ing)\b"  # marcar [un gol]
 valid msgid="\bsettings?\b"  # marco (contexto visual)
 valid msgid="\btick(ed|ing|s)?\b"
-valid msgid="\btime(\s*|-)stamps?\b"  # marca de tempo
+valid msgid="\btime(\s*|-)s(ignature|tamp)s?\b"  # marca de tempo
 valid msgid="\btokens?\b"
 validGroup lista-de-tradutores
 hint="«marcar» traduce a «check» (e a «mark», e algún verbo «bookmark»)"
 
 # «checksum» tradúcese como «suma de comprobación»
-{\bchecksum}i
+{\bchecksums?\b}i
 id="PT-2011_checksum"
-valid msgstr="\bsumas?\sde\scomprobación"
+valid msgstr="\bsumas?\s+de\s+comprobación\b"
 hint="«checksum» tradúcese como «suma de comprobación»"
 
 # «suma de comprobación» traduce a «checksum»
-[\bsumas?\sde\scomprobación]i
+[\bsumas?\s+de\s+comprobación\b]i
 id="PT-2011-dual_checksum"
-valid msgid="\bchecksum"
+valid msgid="\bchecksum(m(ed|ing)|s)?\b"
 hint="«suma de comprobación» traduce a «checksum»"
 
-# «click» tradúcese como «premer»
-{\bclick}i
+{\bclick(ed|ing|s)?\b}i
 id="PT-2013_click"
-valid before="ing" msgstr="\bpremendo"
-valid before="\s(for|to)" msgstr="\bprem(er|e|a)\spara\s\w+r" # «premer para infinitivo»
-valid msgstr="\bprem(er|a)\s(en|n(o|a)s?|nun(ha)?s?|nest(e|a)s?)\s"
-valid msgstr="\bprem(er|e|a)\s(aquí|aí|e)\b"
-hint="«click» tradúcese como «premer»(verbo) (usar sen \"en\" só cando non se indique o que"
+hint="click → calcar, facer clic, premer"
+valid msgstr="\bc[aá]l(c[aáoó]|qu[eé])\w*\b"
+valid msgstr="\bclics?\b"  # facer clic, clic
+valid msgstr="\bpr[eé]m[aáeéiíoó]\w*\b"
 
 # «premer en» traduce a «click»
-[\bprem(er|a)\s(en|n(o|a)s?|nun(ha)?s?|nest(e|a)s?)\s]i
+[\bpr(?!emíbe(l|is)\b)[eé]m[aáeéiíoó]\w*\s+(en|n[ao]s?|nun(ha)?s?|nest[ae]s?)\b]i
 id="PT-2013-dual_click(1)"
-valid msgid="\bclick"
+valid msgid="\bclick(ed|ing|s)?\b"
+valid msgid="\bhit(ing|s)?\b"
+valid msgid="\bpress(e[ds]|ing)?\b"
+valid msgid="\bpush(e[ds]|ing)?\b"
 hint="«premer en» traduce a «click»"
 
 # «premer para» traduce a «click for/to»
-[\bprem(er|e|a)\spara\s\w+r]i
+[\bpr(?!emíbe(l|is)\b)[eé]m[aáeéiíoó]\w*\s+para\s+\w+r]i
 id="PT-2013-dual_click(2)"
-valid msgid="\bclick\s(for|to)"
+valid msgid="\bclick(ed|ing|s)?(\s+|-|\b[^,.]+\s)(for|to)\b"
+valid msgid="\bhit(ing|s)?(\s+|-|\b[^,.]+\s)(for|to)\b"
+valid msgid="\bpress(e[ds]|ing)?(\s+|-|\b[^,.]+\s)(for|to)\b"
+valid msgid="\bpush(e[ds]|ing)?(\s+|-|\b[^,.]+\s)(for|to)\b"
 hint="«premer para» traduce a «click for/to»"
 
 # «premer aquí/aí/e» traduce a «click»
-[\b\bprem(er|e|a)\s(aquí|aí|e)\b]i
+[\b\bpr(?!emíbe(l|is)\b)[eé]m[aáeéiíoó]\w*\s+(aquí|aí|e)\b]i
 id="PT-2013-dual_click(3)"
-valid msgid="\bclick"
+valid msgid="\bclick(ed|ing|s)?\b"
+valid msgid="\bhit(ing|s)?\b"
+valid msgid="\bpress(e[ds]|ing)?\b"
+valid msgid="\bpush(e[ds]|ing)?\b"
 hint="«premer aquí/aí/e» traduce a «click»"
 
 # «client» tradúcese como «cliente»
-{\bclient}i
+{\bclients?\b}i
 id="PT-2013_client"
-valid msgstr="\bcliente"
+valid msgstr="\bclientes?\b"
+valid msgstr="\bclients?\b"
 hint="«client» tradúcese como «cliente»"
 
 # «cliente» traduce a «client»
-[\bcliente]i
+[\bclientes?\b]i
 id="PT-2013-dual_client"
-valid msgid="\bclient"
+valid msgid="\bclients?\b"
+valid msgid="\bcustomers?\b"
+valid msgid="\bmailers?\b"  # cliente de correo
 hint="«cliente» traduce a «client»"
 
-# «clipboard» tradúcese como «portarretallos»
-{\bclipboard}i
+# «clipboard» tradúcese como «portapapeis»
+{\bclipboards?\b}i
 id="PT-2011_clipboard"
-valid msgstr="\bportarretallos"
-hint="«clipboard» tradúcese como «portarretallos»"
+valid msgstr="\bportapapeis\b"
+valid msgstr="\bclipboards?\b"
+hint="«clipboard» tradúcese como «portapapeis»"
 
-# «portarretallos» traduce a «clipboard»
-[\bportarretallos]i
+# «portapapeis» traduce a «clipboard»
+[\bportapapeis\b]i
 id="PT-2011-dual_clipboard"
-valid msgid="\bclipboard"
-hint="«portarretallos» traduce a «clipboard»"
+valid msgid="\bclipboards?\b"
+hint="«portapapeis» traduce a «clipboard»"
 
 # «clock» tradúcese como «reloxo»
-{\bclock}i
-valid before="wise" # «clockwise»
+{\bclocks?\b}i
 id="PT-2013_clock"
-valid msgstr="\breloxo"
+valid after="\balarm\s+"  # espertador
+valid after="\bo['’]"  # en punto
+valid msgstr="\breloxos?\b"
+valid msgstr="\bclocks?\b"
 hint="«clock» tradúcese como «reloxo»"
 
 # «reloxo» traduce a «clock»
-[\breloxo]i
+[\breloxos?\b]i
 id="PT-2013-dual_clock"
-valid msgid="\bclock"
+valid msgid="\bclocks?\b"
+valid msgid="\bhourglass(es)?\b"  # reloxo de area
+valid msgid="\bHorologium\b"  # nome propio de estrela
+valid msgid="\bwatch(es)?\b"  # reloxo de pulso
+valid msgid="\bwatchglass(es)?\b"  # vidro de reloxo
 hint="«reloxo» traduce a «clock»"
 
 # «close» tradúcese como «pechar»

@@ -28,6 +28,7 @@ addFilterRegex match="\<\s*(bcode|command|envar|filename|icode|shortcut|placehol
 addFilterRegex match="\<\s*(email|link)\s*>\b.*?\b\1\>" repl="" on="pmsgid,pmsgstr"
 addFilterRegex match="\<\s*(br|center|h[1-6]|li|nl|p|para|td|title|ul)\s*/?\s*\>" repl=" " on="pmsgid,pmsgstr"
 addFilterRegex match="<!\[CDATA\[.*?\]\]>" repl="" on="pmsgid,pmsgstr"
+addFilterRegex match="<i\s+class\s*=\s*'\s*\w{2}\b[^']*'\s*>\s*<\s*/\s*i\s*>" repl="☺" on="pmsgid,pmsgstr"  # icons
 addFilterRegex match="\<.*?\>" repl="" on="pmsgid,pmsgstr"
 
 # Alternatives directives
@@ -45,7 +46,7 @@ addFilterRegex match="\{\{.*?(\||\}\})" repl="ı" on="pmsgid,pmsgstr"
 addFilterRegex match="\-\-\w[\w\_\-]*?\b" repl="" on="pmsgid,pmsgstr"
 
 # Remove URLs
-addFilterRegex match="\bhttps?://[a-z./-]+" repl="~" on="pmsgid,pmsgstr"
+addFilterRegex match="(?i)\bhttps?://[^\s]+" repl="~" on="pmsgid,pmsgstr"
 addFilterRegex match="\b[a-z-]+\.[a-z-][a-z./-]+\b" repl="~" on="pmsgid,pmsgstr" casesens="yes"
 
 # Remove known path patterns
