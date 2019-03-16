@@ -1887,3 +1887,8 @@ valid msgstr="作業フォルダ"
 id="wep_key"
 hint="WEP key = WEP キー"
 valid msgstr="WEP キー"
+
+{advanced .*settings}i
+id="advanced_settings"
+hint="advanced settings = 詳細設定"
+valid msgstr="詳細設定"
