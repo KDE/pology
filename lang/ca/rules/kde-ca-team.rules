@@ -681,6 +681,11 @@ id="kct-textmessagebox"
 valid msgstr="quadres? del missatge de text"
 hint="Es tradueix per «quadre/s del missatge de text» (kde-ca-team)"
 
+{\bmouse.?wheels?\b}i
+id="kct-mousewheel"
+valid msgstr="rod(a|es)\sdel\sratolí"
+hint="Es tradueix per «roda/es del ratolí» (kde-ca-team)"
+
 {\bmultimeter\b}i
 id="kct-multimeter"
 valid msgstr="multímetre"
@@ -830,6 +835,11 @@ hint="Es tradueix per «barra de desplaçament» (kde-ca-team)"
 id="kct-scrollview"
 valid msgstr="vist(a|es) desplaçables?"
 hint="Es tradueix per «vista/es desplaçable/s» (kde-ca-team)"
+
+{\bscrollwheels?\b}i
+id="kct-scrollwheel"
+valid msgstr="rod(a|es)\sdel\sratolí"
+hint="Es tradueix per «roda/es del ratolí» (kde-ca-team)"
 
 {\bseamless\sworkflows?\b}i
 id="kct-seamlessworkflow"
@@ -1040,6 +1050,12 @@ hint="Es tradueix per «vista d'eina» (kde-ca-team)"
 id="kct-toolviews"
 valid msgstr="\bvistes d'eina\b"
 hint="Es tradueix per «vistes d'eina» (kde-ca-team)"
+
+{\btranscod.\b}i
+id="kct-transcode"
+valid msgstr="transcodifi(c|q)."
+valid msgstr="transcode"
+hint="«Transcode» es tradueix per «Transcodificar» (kde-ca-team)"
 
 {\btree.?views?\b}i
 id="kct-treeview"
