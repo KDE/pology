@@ -16,8 +16,9 @@ To check one or more PO files against the Pology rules for Galician:
     It is also recommended to use a regular expression
     (``-s rulerx:<regular expression>``) or multiple rule IDs
     (``-s rule:<rule ID>``) to restrict rules to those in the ``trasno.rules``
-    file, which contains rules that enforce the terminology criteria published_
-    by `Proxecto Trasno`_ as approved during their annual gatherings.
+    file (e.g. ``-s rulerx:^(no)?PT``), which contains rules that enforce the
+    terminology criteria published_ by `Proxecto Trasno`_ as approved during
+    their annual gatherings.
 
     These are some other useful parameters to consider:
 

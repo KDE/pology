@@ -29,6 +29,309 @@
 
 include file="filter.include"
 
+
+# Trasnada de 2010 ############################################################
+
+# «Attach» tradúcese como «anexar», «conectar»
+{\battach(e[ds]|ing|ments?)?\b}i
+id="PT-2010_attach"
+valid msgstr="\ban[eé]x[aáeéoó]\w*\b"
+valid msgstr="\battach(e[ds]|ing|ments?)?\b"
+valid msgstr="\bc[oó]ll[aáeéiíoó]\w*\s+[\w\s]*cariño\b"  # get attached → coller caciño
+valid msgstr="\bcol[oó](c[aáoó]|qu[eé])\w*\b"  # a poster attached to a column → un póster colocado en una columna
+valid msgstr="\bcon[eé]ct[aáeéoó]\w*\b"
+hint="«attach» tradúcese como «anexar», «conectar»"
+
+# «anexar» ou «conectar» traduce a «Attach»
+[\ban[eé]x[aáeéoó]\w*\b]i
+id="PT-2010-dual_attach"
+valid msgid="\battach(e[ds]|ing|ments?)?\b"
+valid msgid="\benclos(e[ds]?|ing|ures?)?\b"
+hint="«anexar» ou «conectar» traduce a «attach»"
+
+# «conectar» traduce a «Attach», «connect», «online»
+[\bcon(?!ect(ábe(is|l)|or(es)?)\b)[eé]ct[aáeéoó]\w*\b]i
+id="noPT-2010-dual_attach2/online"
+valid msgid="\b(re)?attach(e[ds]|ing|ments?)?\b"
+valid msgid="\bon[\s-]?line\b"
+valid msgid="\b(inter|re)?connect(ed|ing|s)?\b"
+valid msgid="\b(inter|re)?connections?\b"  # attempt connection → intentar conectar
+valid msgid="\b(hot)?plug(g(ed|ing)|s)?\b"
+hint="«conectar» traduce a «attach» (e conectar)"
+
+# «Attachment» tradúcese como «anexo» ou «conexión»
+{\battachments?\b}i
+id="PT-2010_attachment"
+valid msgstr="\banexos?\b"
+valid msgstr="\battachments?\b"
+valid msgstr="\bconexións?\b"
+hint="«attachment» tradúcese como «anexo» ou «conexión»"
+
+# «anexo» ou «conexión» traduce a «Attachment»
+[\banexos?\b]i
+id="PT-2010-dual_attachment"
+valid msgid="\battachments?\b"
+valid msgid="\benclosures?\b"
+hint="«anexo»  ou «conexión» traduce a «attachment»"
+
+# «anexo» ou «conexión» traduce a «Attachment»
+[\bconexións?\b]i
+id="noPT-2010-dual_attachment2"
+valid after="\bsen\s+" msgid="\boff[\s-]*line\b"
+valid msgid="\battachments?\b"
+valid msgid="\bconnect\b"  # connect sequence → secuencia de conexión
+valid msgid="\bconnected\b"  # Last Connected → última conexión
+valid msgid="\bconnecting\b"  # speed up connecting somewhere → acelerar a conexión a algures
+valid msgid="\b(re)?connections?\b"
+valid msgid="\bkeepalive\b"  # mantemento de conexión
+valid msgid="\blink\s+roads?\b"
+valid msgid="\bonline\b"  # online status → estado de conexión
+valid msgid="\bwi([\s-]*fi|reless)\b"  # WiFi → conexión sen fíos
+hint="«conexión» traduce a «connection» e «attachment»"
+
+# «Command» tradúcese como «orde»
+{\bcommands?\b}i
+id="PT-2010_command"
+valid msgstr="\bcommands?\b"
+valid msgstr="\bordes?\b"
+valid msgstr="\bord[eé]n[aáeéoó]\w*\b"
+hint="«command» tradúcese como «orde»"
+
+# «orde» traduce a «Command»
+[\bordes?\b]i
+id="PT-2010-dual_command"
+valid after="\bintérpretes?\s+de\s+"  # shell
+valid msgid="\b(pre)?(command|cmd)s?\b"
+valid msgid="\b(pre)?(command|cmd)lines?\b"  # liña de ordes
+valid msgid="\bCLI\b"  # interface da liña de ordes
+valid msgid="\b(re)?order(ing)?s?\b"
+valid msgid="\breverse\b"  # orde inversa
+valid msgid="\bsequences?\b"  # p. ex. touch in the right sequence → tocar na orde correcta
+valid msgid="\bsort(ing)?s?\b"  # p. ex. sort mode → tipo de orde
+hint="«orde» traduce a «command»"
+
+# «find» tradúcese como «atopar»
+{\bf(in(ds?|g)|ound)\b}i
+id="noPT-2010_find"
+valid after="\blost\s+(and|&)\s+"  # obxectos perdidos
+valid before="\s+that"  # descubrir, determinar
+valid before="\s+the\s+time\b"  # ter tempo
+valid before="\s+[^\s]+\s+way\s+into\b"  # introducirse
+valid before="\s+[^.]+\s+(help|use)ful\b"  # ser de utilidade [para o suxeito]
+valid msgstr="\bf(in(ds?|g)|ound)\b"
+valid msgstr="\bat[oó]p[aáeéoó]\w*\b"
+# find here a list of parties → consulte aquí unha lista de festas
+valid msgstr="\bcons[uú]lt[aáeéoó]\w*\b"
+# job <nome> found not running → descubriuse que o traballo <nome> non estaba a executarse
+valid msgstr="\bdesc[oóuú]br[aáeéiíoó]\w*\b"
+# you’ll find it easy → resultaralle doado
+valid msgstr="\bres[uú]lt[aáeéoó]\w*\b"
+hint="«find» tradúcese como «atopar»"
+
+# «atopar» traduce a «find» e «locate»
+[\batop]i
+valid msgid="\bfind|\blocate"
+valid msgid="\bfound"
+valid msgid="\bencounter"
+id="noPT-2010-dual_find"
+hint="«atopar» traduce a «find» e «locate»"
+
+# «grid» tradúcese como «grella»
+{\bgrid}i
+id="noPT-2010_grid"
+valid msgstr="\bgrella"
+hint="«grid» tradúcese como «grella»"
+
+# «grella» traduce a «grid»
+[\bgrella]i
+id="noPT-2010-dual_grid"
+valid msgid="\bgrid?"
+hint="«grella» traduce a «grid»"
+
+# «illegal» tradúcese como «inaceptábel»
+{\billegal}i
+id="PT-2010_illegal"
+valid msgstr="inaceptábel"
+hint="«illegal» tradúcese como «inaceptábel»"
+
+# «inaceptábel» traduce a «ilegal»
+[\binaceptábe(l|is)\b]i
+id="PT-2010-dual_inaceptábel"
+valid msgid="\bilegal"
+valid msgid="\billegal"
+hint="«inaceptábel» traduce a «ilegal»"
+
+# «insert» tradúcese como «inserir» ou «introducir»
+{\binsert(ed|s)}i
+id="noPT-2010_insert"
+valid msgstr="ins(e|i)r"
+valid msgstr="introduc"
+hint="«insert» tradúcese como «inserir» ou «introducir»"
+
+# «inserir» ou «introducir» traducen a «insert»
+[\bins(e|i)r|\bintroduc(?!ión)]i
+valid span="\binser" before="víbel"
+id="noPT-2010-dual_insert"
+valid msgid="\binsert|\benter"
+hint="«inserir» ou «introducir» traducen a «insert» ou «enter»"
+
+# «invalid» tradúcese como «incorrecto»/«non é válido»
+{\binvalid}i
+valid after="\bto\sbe\s"
+valid before="ate"
+id="noPT-2010_invalid"
+valid msgstr="incorrect(o|a)"
+valid msgstr="\bnon\s(ser|é|era|será|sexa|seña)\sválid(o|a)(\b|\s)"
+valid msgstr="\bnon\s(son|eran|sexan|señan)\sválid(o|a)s"
+valid msgstr="non\sválid(o|a)"
+valid msgstr="\bnon\sé\sun(ha)?\s(\w+\s){1,4}válid(o|a)" env="kde"
+hint="«invalid» tradúcese como «incorrecto»/«non é válido»"
+
+# «invalid» tradúcese como «incorrecto»/«non é válido»
+{\bto\sbe\sinvalid\b}i
+id="noPT-2010_invalid2"
+valid msgstr="\bnon\sser\s(válid|correct)(o|a)"
+valid msgstr="\bser\sincorrect(o|a)"
+hint="«to be invalid» -> «non ser correto/válido» ou «ser incorrecto»"
+
+# «invalid» tradúcese como «non é válido»
+[\b(non\s(é\s)?válid(o|a))|(non\sson\sválid(o|a)s)]i
+valid after="argumento"
+id="noPT-2010-dual_invalid"
+valid msgid="\binvalid"
+valid msgid="\b(is|are)?\snot\svalid" env="kde"
+valid after="\baínda\s" msgid="\bnot\syet\svalid" env="kde"
+hint="«non é válido» traducen a «invalid» (e «not valid»"
+
+# «invalid» tradúcese como «incorrecto»
+[\bincorrect(o|a|amente)]i
+valid after="argumento"
+id="noPT-2010-dual_invalid2"
+valid msgid="\binvalid"
+valid msgid="\bincorrect"
+valid msgid="\bwrong"
+valid msgid="\bbad\s\w+" env="kde"
+hint="«incorrecto» traduce a «invalid» (e a «incorrect», e a «wrong»)"
+
+# «locate» tradúcese como «atopar», «buscar» ou «situar»
+{\blocate}i
+id="noPT-2010_locate"
+valid msgstr="\batopa"
+valid msgstr="\bbusc"
+valid msgstr="\bsitu"
+valid msgstr="\bcoloc"
+hint="«locate» tradúcese como «atopar», «buscar», «situar» ou «colocar»"
+
+# «situar» traducen a «locate» ou «place»
+[\bsitu]i
+valid !span="ación\b|acións\b"
+valid msgid="\blocate|\bplace"
+id="PT-2010-dual_locate"
+hint="«situar» traduce a «to locate» ou «to place»"
+
+# «Plugin» tradúcese como «Complemento» ou «engadido»
+{\bplugin}i
+id="PT-2010_plugin"
+valid msgstr="complemento"
+valid msgstr="engadido" !env="kde"
+hint="«Plugin» tradúcese como «Complemento» ou «engadido»"
+
+# «Plug-in» tradúcese como «Complemento», «engadido»
+{\bplug-in}i
+id="PT-2010_plug-in"
+valid msgstr="complemento" #
+valid msgstr="engadido"
+hint="«Plugin» tradúcese como «Complemento» ou «engadido»"
+
+# «Add-on» tradúcese como «Complemento», «engadido»
+{\badd-?on}i
+id="PT-2010_plug-in(2)"
+valid msgstr="complemento"
+valid msgstr="engadido"
+hint="«Add-on» tradúcese como «Complemento» ou «engadido»"
+
+# «Extension» tradúcese como «Complemento», «engadido»
+{\bextension}i
+id="PT-2010_plug-in(3)"
+valid msgstr="complemento"
+valid msgstr="engadido"
+valid msgstr="extensión"
+hint="«Add-on» tradúcese como «Complemento» ou «engadido» (e «extensión» (de ficheiro))"
+
+#«engadido» traduce a «Plugin» e a «added»
+[engadido]i
+id="PT-2010-dual_plugin"
+valid msgid="\bplugin"
+valid msgid="\bplug.?in"
+valid msgid="added\b"
+valid msgid="\badd.?on"
+hint="«engadido» traduce a «Plugin», «added» e «addon»"
+
+# «Complemento» traduce a «Plugin»
+[complemento]i
+id="PT-2010-dual_plugin2"
+valid msgid="\bplugin"
+valid msgid="\bplug.?in"
+valid msgid="\badd.?on"
+hint="«Complemento» traduce a «Plugin» e a «add-on»"
+
+# «search» tradúcese como «buscar»/«busca»
+{\bsearch}i
+id="PT-2010_search"
+valid msgstr="\bbus(c|qu)" !before="eda"
+valid !msgstr="\b(procura|pesquis|pescud)?"
+hint="«search» tradúcese como «busca(r)»"
+
+# «buscar»/«busca» traducen a «search»
+[\bbusc]i
+valid msgid="\bsearch"
+valid msgid="\bfind|\bfound"
+valid msgid="\blocate"
+valid msgid="\bseek"
+valid msgid="\blook\s+up"
+id="noPT-2010-dual_search"
+hint="«busca(r)» traduce a «search», «find», «locate», «seek», e «look up»"
+
+# «Tab» tradúcese como «Lapela», tabulación ou tabulador.
+{\btab}i
+valid before="leau"
+id="PT-2010_tab"
+valid msgstr="lapela"
+valid msgstr="tabula(ción|dor)"
+valid !msgstr="(separador|\baba\b|lingüeta|pestana)"
+hint="«Tab» tradúcese como «Lapela»,tabulador ou tabulación"
+
+# «Lapela» traduce a «tab».
+[\blapela|\btabulador]i
+id="PT-2010-dual_tab"
+valid msgid="\btab" # before="\border|\bstop"
+hint="«Lapela» e «tabulador» traducen a «Tab»"
+
+# Variantes de «tab»
+[\btabulación]i
+id="PT-2010-dual_tab2"
+valid msgid="\btab" before="\sborder|\sstop"
+valid msgid="\btab"
+hint="«tabulación» traduce a «tab»,«Tab order» e «tab stop»"
+
+# «Window» tradúcese como «xanela»
+{\bwindow}i
+id="PT-2010_window"
+valid msgstr="xanela"
+valid after="\bX\s" msgstr="\bx\swindow"
+valid before="s\b" msgstr="windows"
+valid !msgstr="\b(fiestra|ventá)?"
+hint="«window» tradúcese como «xanela»"
+
+# «xanela» traduce a «Window»
+[\bxanelas?\b]i
+id="PT-2010-dual_window"
+valid msgid="\bwindow(\b|s|\s)"
+hint="«xanela» traduce a «window»"
+
+
+# Trasnada de 2011 ############################################################
+
 {\b(?<!^)about\b}i
 id="PT-2011_about"
 hint="«about» tradúcese como «sobre»"
@@ -146,63 +449,6 @@ valid msgid="\bapp_?names?\b"  # nome de aplicativo
 valid msgid="\bmailers?\b"  # aplicativo de correo
 hint="«aplicativo» traduce a «application» e a «app»"
 
-# «Attach» tradúcese como «anexar», «conectar»
-{\battach(e[ds]|ing|ments?)?\b}i
-id="PT-2010_attach"
-valid msgstr="\ban[eé]x[aáeéoó]\w*\b"
-valid msgstr="\battach(e[ds]|ing|ments?)?\b"
-valid msgstr="\bc[oó]ll[aáeéiíoó]\w*\s+[\w\s]*cariño\b"  # get attached → coller caciño
-valid msgstr="\bcol[oó](c[aáoó]|qu[eé])\w*\b"  # a poster attached to a column → un póster colocado en una columna
-valid msgstr="\bcon[eé]ct[aáeéoó]\w*\b"
-hint="«attach» tradúcese como «anexar», «conectar»"
-
-# «anexar» ou «conectar» traduce a «Attach»
-[\ban[eé]x[aáeéoó]\w*\b]i
-id="PT-2010-dual_attach"
-valid msgid="\battach(e[ds]|ing|ments?)?\b"
-valid msgid="\benclos(e[ds]?|ing|ures?)?\b"
-hint="«anexar» ou «conectar» traduce a «attach»"
-
-# «conectar» traduce a «Attach», «connect», «online»
-[\bcon(?!ect(ábe(is|l)|or(es)?)\b)[eé]ct[aáeéoó]\w*\b]i
-id="noPT-2010-dual_attach2/online"
-valid msgid="\b(re)?attach(e[ds]|ing|ments?)?\b"
-valid msgid="\bon[\s-]?line\b"
-valid msgid="\b(inter|re)?connect(ed|ing|s)?\b"
-valid msgid="\b(inter|re)?connections?\b"  # attempt connection → intentar conectar
-valid msgid="\b(hot)?plug(g(ed|ing)|s)?\b"
-hint="«conectar» traduce a «attach» (e conectar)"
-
-# «Attachment» tradúcese como «anexo» ou «conexión»
-{\battachments?\b}i
-id="PT-2010_attachment"
-valid msgstr="\banexos?\b"
-valid msgstr="\battachments?\b"
-valid msgstr="\bconexións?\b"
-hint="«attachment» tradúcese como «anexo» ou «conexión»"
-
-# «anexo» ou «conexión» traduce a «Attachment»
-[\banexos?\b]i
-id="PT-2010-dual_attachment"
-valid msgid="\battachments?\b"
-valid msgid="\benclosures?\b"
-hint="«anexo»  ou «conexión» traduce a «attachment»"
-
-# «anexo» ou «conexión» traduce a «Attachment»
-[\bconexións?\b]i
-id="noPT-2010-dual_attachment2"
-valid after="\bsen\s+" msgid="\boff[\s-]*line\b"
-valid msgid="\battachments?\b"
-valid msgid="\bconnect\b"  # connect sequence → secuencia de conexión
-valid msgid="\bconnected\b"  # Last Connected → última conexión
-valid msgid="\bconnecting\b"  # speed up connecting somewhere → acelerar a conexión a algures
-valid msgid="\b(re)?connections?\b"
-valid msgid="\bkeepalive\b"  # mantemento de conexión
-valid msgid="\blink\s+roads?\b"
-valid msgid="\bonline\b"  # online status → estado de conexión
-valid msgid="\bwi([\s-]*fi|reless)\b"  # WiFi → conexión sen fíos
-hint="«conexión» traduce a «connection» e «attachment»"
-
 # «backend» tradúcece como «infraestrutura»
 {\bback(\s+|-)?ends?\b}i
 id="PT-2011_backend"
@@ -233,59 +479,6 @@ valid msgid="\bbookmark(let)?s?\b"
 valid msgid="\bdial(er|pad)s?\b"
 valid msgid="\bmarkers?\b"
 hint="«marcador» traduce a «bookmark»"
-
-# «boot/start» tradúcese como «arrancar»
-{\bboot(ed|ing|s)?\b}i #Non busca "start", dá moitos falsos positivos e de momento non sei como arranxalo
-id="noPT-2012_boot-start"
-valid msgstr="\barr[aá]n(c[aáoó]|qu[eé])\w*\b"
-valid msgstr="\bboot(ed|ing|s)?\b"
-hint="«boot/start» tradúcese como «arrancar»"
-
-# «arrancar» traduce a «boot/start»
-[\barr[aá]n(c[aáoó]|qu[eé])\w*\b]i
-id="PT-2012-dual_boot-start"
-valid msgid="\b(re)?boot(ed|ing|s)?\b"
-valid msgid="\b(re)?bootups?\b"
-valid msgid="\bsplash(-|\s+)?screens?\b"
-valid msgid="\b(re)?start(ed|ing|s)?\b"
-valid msgid="\b(re)?startups?\b"
-hint="«arrancar» traduce a «boot/start»"
-
-# «border» tradúcese como «fronteira» (xeografía) ou «bordo»
-{\bborders?\b}i
-id="PT-2012_border"
-# primeiro a recua de NON USARES
-valid !msgstr="\bbordes?\b"
-valid !msgstr="\bmarxes?\b"
-valid !msgstr="\bbeiras?\b"
-valid !msgstr="\bmolduras?\b"
-valid !msgstr="\bcontornos?\b"
-valid !msgstr="\blímites?\b"
-valid !msgstr="\bmarcos?\b"
-valid !msgstr="\blados?\b"
-valid !msgstr="\barestas?\b"
-valid !msgstr="\bcosturas?\b"
-# agora vai o que si se pode usar
-valid msgstr="\bfronteiras?\b"
-valid msgstr="\bbordos?\b"
-hint="«border» tradúcese como «fronteira» (xeografía) ou «bordo»"
-
-# «fronteira» (xeografía) traduce a «border»
-[\bfronteiras?\b]i
-id="PT-2012-dual_border"
-valid msgid="\bborders?\b"
-valid msgid="\bfrontiers?\b"
-valid msgid="\bFrontera\b"  # Jerez de la Frontera → Xerez da Fronteira
-hint="«fronteira» (xeografía) traduce a «border»"
-
-# «bordo» traduce a «border»
-[\bbordos?\b]i
-id="PT-2012-dual_border(2)"
-valid msgid="\bborders?\b"
-valid msgid="\bbordered\b"  # con bordos
-valid msgid="\bborderless\b"  # sen bordos
-valid msgid="\bedges?\b"
-hint="«bordo» traduce a «border»"
 
 # «breadcrumbs» tradúcese como «ronsel»
 {\bbreadcrumbs?\b}i
@@ -326,6 +519,7 @@ valid msgid="\bbugfix(es)?\b"  # correccións de fallos
 valid msgid="\bfail(ed|ing|s)?\b"
 valid msgid="\bfailover\b"  # tolerancia de fallos
 valid msgid="\bfailures?\b"
+valid msgid="\bmalfunctions?\b"  # fallo de funcionamento
 valid msgid="\bmiss(es)?\b"
 valid msgid="\b(seg)?faults?\b"
 hint="«fallo» traduce a «bug», «fail», «fault» e «failure»"
@@ -552,59 +746,6 @@ valid msgid="\bshut(t(ed|ing)|s)?\b"
 valid msgid="\bunmatched\b"  # sen pechar (e.g. comiñas)
 hint="«pechar» traduce a «close»"
 
-# «colo(u)r» tradúcese como «cor»
-{\bcolou?rs?\b}i
-id="PT-2012_colour"
-valid msgstr="\bbalances?\s+de\s+brancos\b"  # white color balance
-valid msgstr="\bcor(es)?\b"
-valid msgstr="\bcol[oó]r[aáeéoó]\w*\b"
-valid msgstr="\bc[oó]r[aáeéoó]\w*\b"
-valid msgstr="\bcolours?\b"  # English
-valid msgstr="\bcolors\b"  # English (singular skipped as potential typo)
-hint="«colo(u)r» tradúcese como «cor(es)»"
-
-# «cor» traduce a «colour»
-[\bcor(es)?\b]i
-id="PT-2012-dual_colour"
-valid msgid="\bbright(-|\s*)colou?red\b"  # de cores rechamantes
-valid msgid="\bcor(es)?\b"
-valid msgid="\bchromas?\b"  # clave de cor
-valid msgid="\bcolou?rs?\b"
-valid msgid="\bcolou?rless\b"  # sen cores
-valid msgid="\bcolou?rmaps?\b"  # mapa de cores
-valid msgid="\bcolou?rmodes?\b"  # modo de cor
-valid msgid="\bcolou?rmodels?\b"  # modelo de cor
-valid msgid="\bcolou?rnames?\b"  # nome de cor
-valid msgid="\bcolou?rschemes?\b"  # esquema de cores
-valid msgid="\bcolou?rscopes?\b"  # ámbito de cor
-valid msgid="\bcolou?rsets?\b"  # conxunto de cores
-valid msgid="\bcolou?rspaces?\b"  # espazo de cores
-valid msgid="\bdifferently(-|\s*)colou?red\b"  # de cor distinta
-valid msgid="\bsame(-|\s*)colou?red\b"  # da mesma cor
-hint="«cor» traduce a «colour»"
-validGroup lista-de-tradutores
-
-# «Command» tradúcese como «orde»
-{\bcommands?\b}i
-id="PT-2010_command"
-valid msgstr="\bcommands?\b"
-valid msgstr="\bordes?\b"
-valid msgstr="\bord[eé]n[aáeéoó]\w*\b"
-hint="«command» tradúcese como «orde»"
-
-# «orde» traduce a «Command»
-[\bordes?\b]i
-id="PT-2010-dual_command"
-valid after="\bintérpretes?\s+de\s+"  # shell
-valid msgid="\b(pre)?(command|cmd)s?\b"
-valid msgid="\b(pre)?(command|cmd)lines?\b"  # liña de ordes
-valid msgid="\bCLI\b"  # interface da liña de ordes
-valid msgid="\b(re)?order(ing)?s?\b"
-valid msgid="\breverse\b"  # orde inversa
-valid msgid="\bsequences?\b"  # p. ex. touch in the right sequence → tocar na orde correcta
-valid msgid="\bsort(ing)?s?\b"  # p. ex. sort mode → tipo de orde
-hint="«orde» traduce a «command»"
-
 # «commit» tradúcese como «remitir»
 {\b(auto)?commit(t(ed|ing)|s)?\b}i
 id="PT-2011_commit"
@@ -622,39 +763,6 @@ valid msgid="\b(auto)?commit(t(ed|ing)|s)?\b"
 valid msgid="\b(auto)?submit(t(ed|ing)|s)?\b"
 hint="«remitir» traduce a «commit»"
 
-# «computer» tradúcese como «computador»
-{\bcomputers?\b}i
-id="noPT-2012_computer"
-valid after="\bdesktop\s+" msgstr="\bcomputador(es)?\s+de\s+escritorio\b"
-valid after="\blaptop\s+"
-valid after="\btablet\s+"
-valid msgstr="\bcomputador(es)?\b"
-valid msgstr="\binformátic[ao]s?\b"  # [adxectivo]
-valid msgstr="\bintelixencias?\s+artificia(l|is)\b"  # [no contexto de xogos]
-hint="«computer» tradúcese como «computador»"
-
-# «computador» traduce a «computer»
-[\bcomputador(es)?\b]i
-id="PT-2012-dual_computador"
-valid msgid="\bcomputers?\b"
-valid msgid="\bcomputerized\b"  # p. ex. computerized version → versión de computador
-valid msgid="\bmainframes?\b"  # computador central
-valid msgid="\bPCs?\b"
-hint="«computador» traduce a «computer»"
-
-# «laptop (computer)» tradúcese como «portátil»
-{\blaptops?\b}i
-id="PT-2012_computer(2)"
-valid msgstr="\bportátil(es)?\b"
-hint="«laptop (computer)» tradúcese como «portátil»"
-
-# «tablet (computer)» tradúcese como «tableta»
-{\btablet}i
-valid after="graphics\s"
-id="PT-2012_computer(3)"
-valid msgstr="\btableta"
-hint="«tablet (computer)» tradúcese como «tableta»"
-
 # «crash» tradúcese como «quebra»
 {\bcrash}i
 id="noPT-2011_crash"
@@ -665,47 +773,6 @@ valid msgstr="\bpechouse\sinesperad" env="kde"
 valid msgstr="\bfallo" env="kde"
 valid before="ed" msgstr="\bfall(ou|ase)" env="kde"
 hint="«crash» tradúcese como «quebra»"
-
-# «data» tradúcese como «dato»
-{\bdata\b}i
-id="PT-2012_data"
-valid msgstr="\bdatos?\b"
-valid after="meta\s" msgstr="metadatos?"
-hint="«data» tradúcese como «dato»"
-
-# «dato» traduce a «data»
-[\bdatos?]i
-valid after="bases?\sde\s"
-id="PT-2012-dual_data"
-valid msgid="\bdata\b"
-hint="«dato» traduce a «data»"
-
-# «datadase» tradúcese como «base de datos»
-{\bdatabase}i
-id="PT-2012_database"
-valid msgstr="\bbases?\sde\sdatos"
-hint="«database» tradúcese como «base de datos»"
-
-# «base de datos» traduce a «database»
-[\bbases\sde\sdatos]i
-id="PT-2012-dual_database"
-valid msgid="\bdata\s?base"
-hint="«base de datos» traduce a «database»"
-
-# «date» tradúcese como «data»
-{\bdates?}i
-valid after="\bup\sto\s"
-valid after="\bup-to-"
-valid after="\bout\sof\s"
-id="noPT-2012_date"
-valid msgstr="\bdatas?\b"
-hint="«date» tradúcese como «data»"
-
-# «data» traduce a «date»
-[\bdatas?\b]i
-id="PT-2012-dual_date"
-valid msgid="\bdates?\b"
-hint="«data» traduce a «date»"
 
 # «decrypt» tradúcese como «descifrar»
 {\bdecrypt}i
@@ -730,18 +797,6 @@ hint="«delete» tradúcese como «eliminar»"
 id="PT-2011-dual_delete"
 valid msgid="\bdelet(e|es|ed|ing|ion)"
 hint="«eliminar» traduce a «delete»"
-
-# «description» tradúcese como «descrición»
-{\bdescription}i
-id="PT-2012_description"
-valid msgstr="\bdescricións?"
-hint="«description» tradúcese como «descrición»"
-
-# «descrición» traduce a «description»
-[\bdescricións?]i
-id="PT-2012-dual_description"
-valid msgid="\bdescriptions?\b"
-hint="«descrición» traduce a «description»"
 
 # «detach» tradúcese como «desconectar», «desprender»
 {\bdetach}i
@@ -808,20 +863,6 @@ valid msgid="\bdisabl(e|ing)"
 valid msgid="\bnot\senabled"
 valid msgid="\bdeactivate" env="kde"
 hint="«desactivar» traduce a «disable»"
-
-# «diskette» tradúcese como «disquete»
-{\b(diskette|floppy(\sdisk)?)}i
-valid span="floppy(\sdisk)?" before="\sdrive"
-id="PT-2012_diskette"
-valid msgstr="\bdisquetes?\b"
-hint="«diskette» tradúcese como «disquete»"
-
-# «disquete» traduce a «diskette»
-[\bdisquetes?\b]i
-id="PT-2012-dual_diskette"
-valid msgid="\bdiskettes?"
-valid msgid="\bfloppy(\sdisk)?(?!\sdrive)"
-hint="«disquete» traduce a «diskette»"
 
 # «dock» tradúcese como «doca»
 {\bdocks?\b(?!-able)}i
@@ -913,12 +954,6 @@ id="PT-2011_empty"
 valid msgstr="\bbaleir"
 hint="«empty» tradúcese como «baleiro»"
 
-# «baleiro» traduce a «empty»
-[\bbaleir]i
-id="PT-2012dual_empty"
-valid msgid="\bempty"
-hint="«baleiro» traduce a «empty»"
-
 # «enable» tradúcese como «activar»
 {\benable}i
 valid before="\sthis\s(option|checkbox)"
@@ -956,33 +991,6 @@ id="noPT-2011-dual_encrypt"
 valid msgid="\b(un)?encrypt"
 valid msgid="\bcryptograph"
 hint="«cifrar» traduce a «encrypt»"
-
-# «environment» tradúcese como «ambiente»
-{\benvironment}i
-id="noPT-2012_environment"
-valid msgstr="\bambiente"
-valid !msgstr="\bcortorn[o|a]"
-valid !msgstr="\bentorno"
-hint="«environment» tradúcese como «ambiente»"
-
-# «ambiente» traduce a «environment»
-[\bambiente]i
-id="PT-2012-dual_environment"
-valid msgid="\benvironment"
-hint="«ambiente» traduce a «environment»"
-
-# «erase» tradúcese como «borrar»
-{\berase}i
-id="PT-2012_erase"
-valid msgstr="\bborrar"
-hint="«erase» tradúcese como «borrar»"
-
-# «borrar» traduce a «erase»
-[\bborr\w+]i
-valid span="borrador(es)?"
-id="PT-2012-dual_erase"
-valid msgid="\berase"
-hint="«borrar» tradúcese como «erase»"
 
 # «fail» e relacionados tradúcense como «fallo»
 {\bfa(il(s|ed|ure)?|ult)}i
@@ -1042,34 +1050,226 @@ id="PT-2011-dual_file-package"
 valid msgid="\bfile\spackage"
 hint="«paquete de ficheiros» traduce a «file package»"
 
-# «find» tradúcese como «atopar»
-{\bfind}i
-valid before="\sout"
-id="noPT-2010_find"
-valid msgstr="\batop"
-valid msgstr="\bbusc"
-hint="«find» tradúcese como «atopar»,"
 
-#  «find» tradúcese como «atopar», et al
-{\bfound}i
-valid before="ation"
-valid before="ed"
-valid before="\sout"
-id="noPT-2010_find2"
-valid msgstr="\batop"
-valid msgstr="\bbusc"
-valid msgstr="\bfundad(o|a)"
-valid msgstr="\bfundación"
-valid msgstr="\baparición"
-hint="«find» tradúcese como «atopar», ou «buscar»; «foundation» como fundación; e «found» tamén pode ser unha aparición"
+# Trasnada de 2012 ############################################################
 
-# «atopar» traduce a «find» e «locate»
-[\batop]i
-valid msgid="\bfind|\blocate"
-valid msgid="\bfound"
-valid msgid="\bencounter"
-id="noPT-2010-dual_find"
-hint="«atopar» traduce a «find» e «locate»"
+# «boot/start» tradúcese como «arrancar»
+{\bboot(ed|ing|s)?\b}i #Non busca "start", dá moitos falsos positivos e de momento non sei como arranxalo
+id="noPT-2012_boot-start"
+valid msgstr="\barr[aá]n(c[aáoó]|qu[eé])\w*\b"
+valid msgstr="\bboot(ed|ing|s)?\b"
+hint="«boot/start» tradúcese como «arrancar»"
+
+# «arrancar» traduce a «boot/start»
+[\barr[aá]n(c[aáoó]|qu[eé])\w*\b]i
+id="PT-2012-dual_boot-start"
+valid msgid="\b(re)?boot(ed|ing|s)?\b"
+valid msgid="\b(re)?bootups?\b"
+valid msgid="\bsplash(-|\s+)?screens?\b"
+valid msgid="\b(re)?start(ed|ing|s)?\b"
+valid msgid="\b(re)?startups?\b"
+hint="«arrancar» traduce a «boot/start»"
+
+# «border» tradúcese como «fronteira» (xeografía) ou «bordo»
+{\bborders?\b}i
+id="PT-2012_border"
+# primeiro a recua de NON USARES
+valid !msgstr="\bbordes?\b"
+valid !msgstr="\bmarxes?\b"
+valid !msgstr="\bbeiras?\b"
+valid !msgstr="\bmolduras?\b"
+valid !msgstr="\bcontornos?\b"
+valid !msgstr="\blímites?\b"
+valid !msgstr="\bmarcos?\b"
+valid !msgstr="\blados?\b"
+valid !msgstr="\barestas?\b"
+valid !msgstr="\bcosturas?\b"
+# agora vai o que si se pode usar
+valid msgstr="\bfronteiras?\b"
+valid msgstr="\bbordos?\b"
+hint="«border» tradúcese como «fronteira» (xeografía) ou «bordo»"
+
+# «fronteira» (xeografía) traduce a «border»
+[\bfronteiras?\b]i
+id="PT-2012-dual_border"
+valid msgid="\bborders?\b"
+valid msgid="\bfrontiers?\b"
+valid msgid="\bFrontera\b"  # Jerez de la Frontera → Xerez da Fronteira
+hint="«fronteira» (xeografía) traduce a «border»"
+
+# «bordo» traduce a «border»
+[\bbordos?\b]i
+id="PT-2012-dual_border(2)"
+valid msgid="\bborders?\b"
+valid msgid="\bbordered\b"  # con bordos
+valid msgid="\bborderless\b"  # sen bordos
+valid msgid="\bedges?\b"
+hint="«bordo» traduce a «border»"
+
+# «colo(u)r» tradúcese como «cor»
+{\bcolou?rs?\b}i
+id="PT-2012_colour"
+valid msgstr="\bbalances?\s+de\s+brancos\b"  # white color balance
+valid msgstr="\bcor(es)?\b"
+valid msgstr="\bcol[oó]r[aáeéoó]\w*\b"
+valid msgstr="\bc[oó]r[aáeéoó]\w*\b"
+valid msgstr="\bcolours?\b"  # English
+valid msgstr="\bcolors\b"  # English (singular skipped as potential typo)
+hint="«colo(u)r» tradúcese como «cor(es)»"
+
+# «cor» traduce a «colour»
+[\bcor(es)?\b]i
+id="PT-2012-dual_colour"
+valid msgid="\bbright(-|\s*)colou?red\b"  # de cores rechamantes
+valid msgid="\bcor(es)?\b"
+valid msgid="\bchromas?\b"  # clave de cor
+valid msgid="\bcolou?rs?\b"
+valid msgid="\bcolou?rless\b"  # sen cores
+valid msgid="\bcolou?rmaps?\b"  # mapa de cores
+valid msgid="\bcolou?rmodes?\b"  # modo de cor
+valid msgid="\bcolou?rmodels?\b"  # modelo de cor
+valid msgid="\bcolou?rnames?\b"  # nome de cor
+valid msgid="\bcolou?rschemes?\b"  # esquema de cores
+valid msgid="\bcolou?rscopes?\b"  # ámbito de cor
+valid msgid="\bcolou?rsets?\b"  # conxunto de cores
+valid msgid="\bcolou?rspaces?\b"  # espazo de cores
+valid msgid="\bdifferently(-|\s*)colou?red\b"  # de cor distinta
+valid msgid="\bsame(-|\s*)colou?red\b"  # da mesma cor
+hint="«cor» traduce a «colour»"
+validGroup lista-de-tradutores
+
+# «computer» tradúcese como «computador»
+{\bcomputers?\b}i
+id="noPT-2012_computer"
+valid after="\bdesktop\s+" msgstr="\bcomputador(es)?\s+de\s+escritorio\b"
+valid after="\blaptop\s+"
+valid after="\btablet\s+"
+valid msgstr="\bcomputador(es)?\b"
+valid msgstr="\binformátic[ao]s?\b"  # [adxectivo]
+valid msgstr="\bintelixencias?\s+artificia(l|is)\b"  # [no contexto de xogos]
+hint="«computer» tradúcese como «computador»"
+
+# «computador» traduce a «computer»
+[\bcomputador(es)?\b]i
+id="PT-2012-dual_computador"
+valid msgid="\bcomputers?\b"
+valid msgid="\bcomputerized\b"  # p. ex. computerized version → versión de computador
+valid msgid="\bmainframes?\b"  # computador central
+valid msgid="\bPCs?\b"
+hint="«computador» traduce a «computer»"
+
+# «laptop (computer)» tradúcese como «portátil»
+{\blaptops?\b}i
+id="PT-2012_computer(2)"
+valid msgstr="\bportátil(es)?\b"
+hint="«laptop (computer)» tradúcese como «portátil»"
+
+# «tablet (computer)» tradúcese como «tableta»
+{\btablets?\b}i
+id="PT-2012_computer(3)"
+valid after="\bgraphics\s+"
+valid msgstr="\btabletas?\b"
+hint="«tablet (computer)» tradúcese como «tableta»"
+
+# «data» tradúcese como «dato»
+{\bdata\b}i
+id="PT-2012_data"
+valid msgstr="\bdatos?\b"
+valid after="meta\s" msgstr="metadatos?"
+hint="«data» tradúcese como «dato»"
+
+# «dato» traduce a «data»
+[\bdatos?]i
+valid after="bases?\sde\s"
+id="PT-2012-dual_data"
+valid msgid="\bdata\b"
+hint="«dato» traduce a «data»"
+
+# «datadase» tradúcese como «base de datos»
+{\bdatabase}i
+id="PT-2012_database"
+valid msgstr="\bbases?\sde\sdatos"
+hint="«database» tradúcese como «base de datos»"
+
+# «base de datos» traduce a «database»
+[\bbases\sde\sdatos]i
+id="PT-2012-dual_database"
+valid msgid="\bdata\s?base"
+hint="«base de datos» traduce a «database»"
+
+# «date» tradúcese como «data»
+{\bdates?}i
+valid after="\bup\sto\s"
+valid after="\bup-to-"
+valid after="\bout\sof\s"
+id="noPT-2012_date"
+valid msgstr="\bdatas?\b"
+hint="«date» tradúcese como «data»"
+
+# «data» traduce a «date»
+[\bdatas?\b]i
+id="PT-2012-dual_date"
+valid msgid="\bdates?\b"
+hint="«data» traduce a «date»"
+
+# «description» tradúcese como «descrición»
+{\bdescription}i
+id="PT-2012_description"
+valid msgstr="\bdescricións?"
+hint="«description» tradúcese como «descrición»"
+
+# «descrición» traduce a «description»
+[\bdescricións?]i
+id="PT-2012-dual_description"
+valid msgid="\bdescriptions?\b"
+hint="«descrición» traduce a «description»"
+
+# «diskette» tradúcese como «disquete»
+{\b(diskette|floppy(\sdisk)?)}i
+valid span="floppy(\sdisk)?" before="\sdrive"
+id="PT-2012_diskette"
+valid msgstr="\bdisquetes?\b"
+hint="«diskette» tradúcese como «disquete»"
+
+# «disquete» traduce a «diskette»
+[\bdisquetes?\b]i
+id="PT-2012-dual_diskette"
+valid msgid="\bdiskettes?"
+valid msgid="\bfloppy(\sdisk)?(?!\sdrive)"
+hint="«disquete» traduce a «diskette»"
+
+# «baleiro» traduce a «empty»
+[\bbaleir]i
+id="PT-2012dual_empty"
+valid msgid="\bempty"
+hint="«baleiro» traduce a «empty»"
+
+# «environment» tradúcese como «ambiente»
+{\benvironment}i
+id="noPT-2012_environment"
+valid msgstr="\bambiente"
+valid !msgstr="\bcortorn[o|a]"
+valid !msgstr="\bentorno"
+hint="«environment» tradúcese como «ambiente»"
+
+# «ambiente» traduce a «environment»
+[\bambiente]i
+id="PT-2012-dual_environment"
+valid msgid="\benvironment"
+hint="«ambiente» traduce a «environment»"
+
+# «erase» tradúcese como «borrar»
+{\berase}i
+id="PT-2012_erase"
+valid msgstr="\bborrar"
+hint="«erase» tradúcese como «borrar»"
+
+# «borrar» traduce a «erase»
+[\bborr\w+]i
+valid span="borrador(es)?"
+id="PT-2012-dual_erase"
+valid msgid="\berase"
+hint="«borrar» tradúcese como «erase»"
 
 # «firewall» tradúcese como «devasa»
 {\bfirewall}i
@@ -1136,18 +1336,6 @@ id="PT-2011-dual_gradient"
 valid msgid="\bgradient"
 hint="«gradiente» e «gradación» traduce a «gradient»"
 
-# «grid» tradúcese como «grella»
-{\bgrid}i
-id="noPT-2010_grid"
-valid msgstr="\bgrella"
-hint="«grid» tradúcese como «grella»"
-
-# «grella» traduce a «grid»
-[\bgrella]i
-id="noPT-2010-dual_grid"
-valid msgid="\bgrid?"
-hint="«grella» traduce a «grid»"
-
 # «hard disk» ou «hard drive» tradúcese como «disco duro»
 {\bhard(\s?disk|\sdrive)}i
 id="PT-2012_hard-disk"
@@ -1211,19 +1399,6 @@ id="PT-2011-dual_icon"
 valid msgid="\bicon"
 hint="«icona» traduce a «icon»"
 
-# «illegal» tradúcese como «inaceptábel»
-{\billegal}i
-id="PT-2010_illegal"
-valid msgstr="inaceptábel"
-hint="«illegal» tradúcese como «inaceptábel»"
-
-# «inaceptábel» traduce a «ilegal»
-[\binaceptábe(l|is)\b]i
-id="PT-2010-dual_inaceptábel"
-valid msgid="\bilegal"
-valid msgid="\billegal"
-hint="«inaceptábel» traduce a «ilegal»"
-
 # «initialize» tradúcese como «inicializar»
 {\binitializ}i
 id="PT-2011_initialize"
@@ -1235,58 +1410,6 @@ hint="«initialize» tradúcese como «inicializar»"
 id="PT-2011-dual_initialize"
 valid msgid="\binitializ"
 hint="«inicializar» traduce a «initialize»"
-
-# «insert» tradúcese como «inserir» ou «introducir»
-{\binsert(ed|s)}i
-id="noPT-2010_insert"
-valid msgstr="ins(e|i)r"
-valid msgstr="introduc"
-hint="«insert» tradúcese como «inserir» ou «introducir»"
-
-# «inserir» ou «introducir» traducen a «insert»
-[\bins(e|i)r|\bintroduc(?!ión)]i
-valid span="\binser" before="víbel"
-id="noPT-2010-dual_insert"
-valid msgid="\binsert|\benter"
-hint="«inserir» ou «introducir» traducen a «insert» ou «enter»"
-
-# «invalid» tradúcese como «incorrecto»/«non é válido»
-{\binvalid}i
-valid after="\bto\sbe\s"
-valid before="ate"
-id="noPT-2010_invalid"
-valid msgstr="incorrect(o|a)"
-valid msgstr="\bnon\s(ser|é|era|será|sexa|seña)\sválid(o|a)(\b|\s)"
-valid msgstr="\bnon\s(son|eran|sexan|señan)\sválid(o|a)s"
-valid msgstr="non\sválid(o|a)"
-valid msgstr="\bnon\sé\sun(ha)?\s(\w+\s){1,4}válid(o|a)" env="kde"
-hint="«invalid» tradúcese como «incorrecto»/«non é válido»"
-
-# «invalid» tradúcese como «incorrecto»/«non é válido»
-{\bto\sbe\sinvalid\b}i
-id="noPT-2010_invalid2"
-valid msgstr="\bnon\sser\s(válid|correct)(o|a)"
-valid msgstr="\bser\sincorrect(o|a)"
-hint="«to be invalid» -> «non ser correto/válido» ou «ser incorrecto»"
-
-# «invalid» tradúcese como «non é válido»
-[\b(non\s(é\s)?válid(o|a))|(non\sson\sválid(o|a)s)]i
-valid after="argumento"
-id="noPT-2010-dual_invalid"
-valid msgid="\binvalid"
-valid msgid="\b(is|are)?\snot\svalid" env="kde"
-valid after="\baínda\s" msgid="\bnot\syet\svalid" env="kde"
-hint="«non é válido» traducen a «invalid» (e «not valid»"
-
-# «invalid» tradúcese como «incorrecto»
-[\bincorrect(o|a|amente)]i
-valid after="argumento"
-id="noPT-2010-dual_invalid2"
-valid msgid="\binvalid"
-valid msgid="\bincorrect"
-valid msgid="\bwrong"
-valid msgid="\bbad\s\w+" env="kde"
-hint="«incorrecto» traduce a «invalid» (e a «incorrect», e a «wrong»)"
 
 # «issue» tradúcese como «incidencia»
 {\bissue}i
@@ -1419,22 +1542,6 @@ hint="«listar» traduce a «list»"
 id="PT-2012-dual_list2"
 valid msgid="\blisted"
 hint="«listado» traduce a «listed», para outros usos: lista"
-
-# «locate» tradúcese como «atopar», «buscar» ou «situar»
-{\blocate}i
-id="noPT-2010_locate"
-valid msgstr="\batopa"
-valid msgstr="\bbusc"
-valid msgstr="\bsitu"
-valid msgstr="\bcoloc"
-hint="«locate» tradúcese como «atopar», «buscar», «situar» ou «colocar»"
-
-# «situar» traducen a «locate» ou «place»
-[\bsitu]i
-valid !span="ación\b|acións\b"
-valid msgid="\blocate|\bplace"
-id="PT-2010-dual_locate"
-hint="«situar» traduce a «to locate» ou «to place»"
 
 ######
 ## Aquí vai o cristo de login
@@ -1663,52 +1770,6 @@ id="PT-2011-dual_trust-path"
 valid msgid="\btrust\s(path|chain)"
 hint="«cadea de confianza» traduce a «trust path»"
 
-# «Plugin» tradúcese como «Complemento» ou «engadido»
-{\bplugin}i
-id="PT-2010_plugin"
-valid msgstr="complemento"
-valid msgstr="engadido" !env="kde"
-hint="«Plugin» tradúcese como «Complemento» ou «engadido»"
-
-# «Plug-in» tradúcese como «Complemento», «engadido»
-{\bplug-in}i
-id="PT-2010_plug-in"
-valid msgstr="complemento" #
-valid msgstr="engadido"
-hint="«Plugin» tradúcese como «Complemento» ou «engadido»"
-
-# «Add-on» tradúcese como «Complemento», «engadido»
-{\badd-?on}i
-id="PT-2010_plug-in(2)"
-valid msgstr="complemento"
-valid msgstr="engadido"
-hint="«Add-on» tradúcese como «Complemento» ou «engadido»"
-
-# «Extension» tradúcese como «Complemento», «engadido»
-{\bextension}i
-id="PT-2010_plug-in(3)"
-valid msgstr="complemento"
-valid msgstr="engadido"
-valid msgstr="extensión"
-hint="«Add-on» tradúcese como «Complemento» ou «engadido» (e «extensión» (de ficheiro))"
-
-#«engadido» traduce a «Plugin» e a «added»
-[engadido]i
-id="PT-2010-dual_plugin"
-valid msgid="\bplugin"
-valid msgid="\bplug.?in"
-valid msgid="added\b"
-valid msgid="\badd.?on"
-hint="«engadido» traduce a «Plugin», «added» e «addon»"
-
-# «Complemento» traduce a «Plugin»
-[complemento]i
-id="PT-2010-dual_plugin2"
-valid msgid="\bplugin"
-valid msgid="\bplug.?in"
-valid msgid="\badd.?on"
-hint="«Complemento» traduce a «Plugin» e a «add-on»"
-
 # «printer» tradúcese como «impresora»
 {\bprinters?\b}i
 id="PT-2012_printer"
@@ -1888,23 +1949,6 @@ id="PT-2012-dual_scanner"
 valid msgid="\bscanner"
 hint="«escáner» traduce a «scanner»"
 
-# «search» tradúcese como «buscar»/«busca»
-{\bsearch}i
-id="PT-2010_search"
-valid msgstr="\bbus(c|qu)" !before="eda"
-valid !msgstr="\b(procura|pesquis|pescud)?"
-hint="«search» tradúcese como «busca(r)»"
-
-# «buscar»/«busca» traducen a «search»
-[\bbusc]i
-valid msgid="\bsearch"
-valid msgid="\bfind|\bfound"
-valid msgid="\blocate"
-valid msgid="\bseek"
-valid msgid="\blook\s+up"
-id="noPT-2010-dual_search"
-hint="«busca(r)» traduce a «search», «find», «locate», «seek», e «look up»"
-
 # «speaker» tradúcese como «altofalante»
 {\bspeaker}i
 id="PT-2012_speaker"
@@ -1967,28 +2011,6 @@ hint="«permitir utilizar» traduce a «support»"
 id="PT-2011-dual_support5"
 valid msgid="\bsupport"
 hint="«incluír» traduce a «support»"
-
-# «Tab» tradúcese como «Lapela», tabulación ou tabulador.
-{\btab}i
-valid before="leau"
-id="PT-2010_tab"
-valid msgstr="lapela"
-valid msgstr="tabula(ción|dor)"
-valid !msgstr="(separador|\baba\b|lingüeta|pestana)"
-hint="«Tab» tradúcese como «Lapela»,tabulador ou tabulación"
-
-# «Lapela» traduce a «tab».
-[\blapela|\btabulador]i
-id="PT-2010-dual_tab"
-valid msgid="\btab" # before="\border|\bstop"
-hint="«Lapela» e «tabulador» traducen a «Tab»"
-
-# Variantes de «tab»
-[\btabulación]i
-id="PT-2010-dual_tab2"
-valid msgid="\btab" before="\sborder|\sstop"
-valid msgid="\btab"
-hint="«tabulación» traduce a «tab»,«Tab order» e «tab stop»"
 
 # «(sistema de) seguimento de incidencias» traduce a «bug tracker»
 [\b(sistema\sde\s)?seguimento\sde\sincidencias]i
@@ -2158,21 +2180,6 @@ id="PT-2011-dual_widget"
 valid msgid="\bwidget"
 hint="«trebello» traduce a «widget»"
 valid !env="kde"
-
-# «Window» tradúcese como «xanela»
-{\bwindow}i
-id="PT-2010_window"
-valid msgstr="xanela"
-valid after="\bX\s" msgstr="\bx\swindow"
-valid before="s\b" msgstr="windows"
-valid !msgstr="\b(fiestra|ventá)?"
-hint="«window» tradúcese como «xanela»"
-
-# «xanela» traduce a «Window»
-[\bxanelas?\b]i
-id="PT-2010-dual_window"
-valid msgid="\bwindow(\b|s|\s)"
-hint="«xanela» traduce a «window»"
 
 
 # Trasnada de 2013 ############################################################
