@@ -35,22 +35,22 @@ include file="filter.include"
 # «Attach» tradúcese como «anexar», «conectar»
 {\battach(e[ds]|ing|ments?)?\b}i
 id="PT-2010_attach"
-valid msgstr="\ban[eé]x[aáeéoó]\w*\b"
+valid msgstr="\ban[eé]x[aáeéoó][^\W\d_]*\b"
 valid msgstr="\battach(e[ds]|ing|ments?)?\b"
-valid msgstr="\bc[oó]ll[aáeéiíoó]\w*\s+[\w\s]*cariño\b"  # get attached → coller caciño
-valid msgstr="\bcol[oó](c[aáoó]|qu[eé])\w*\b"  # a poster attached to a column → un póster colocado en una columna
-valid msgstr="\bcon[eé]ct[aáeéoó]\w*\b"
+valid msgstr="\bc[oó]ll[aáeéiíoó][^\W\d_]*\s+([^\W\d_]|\s)*cariño\b"  # get attached → coller cariño
+valid msgstr="\bcol[oó](c[aáoó]|qu[eé])[^\W\d_]*\b"  # a poster attached to a column → un póster colocado en una columna
+valid msgstr="\bcon[eé]ct[aáeéoó][^\W\d_]*\b"
 hint="«attach» tradúcese como «anexar», «conectar»"
 
 # «anexar» ou «conectar» traduce a «Attach»
-[\ban[eé]x[aáeéoó]\w*\b]i
+[\ban[eé]x[aáeéoó][^\W\d_]*\b]i
 id="PT-2010-dual_attach"
 valid msgid="\battach(e[ds]|ing|ments?)?\b"
 valid msgid="\benclos(e[ds]?|ing|ures?)?\b"
 hint="«anexar» ou «conectar» traduce a «attach»"
 
 # «conectar» traduce a «Attach», «connect», «online»
-[\bcon(?!ect(ábe(is|l)|or(es)?)\b)[eé]ct[aáeéoó]\w*\b]i
+[\bcon(?!ect(ábe(is|l)|or(es)?)\b)[eé]ct[aáeéoó][^\W\d_]*\b]i
 id="noPT-2010-dual_attach2/online"
 valid msgid="\b(re)?attach(e[ds]|ing|ments?)?\b"
 valid msgid="\bon[\s-]?line\b"
@@ -94,7 +94,7 @@ hint="«conexión» traduce a «connection» e «attachment»"
 id="PT-2010_command"
 valid msgstr="\bcommands?\b"
 valid msgstr="\bordes?\b"
-valid msgstr="\bord[eé]n[aáeéoó]\w*\b"
+valid msgstr="\bord[eé]n[aáeéoó][^\W\d_]*\b"
 hint="«command» tradúcese como «orde»"
 
 # «orde» traduce a «Command»
@@ -111,42 +111,45 @@ valid msgid="\bsort(ing)?s?\b"  # p. ex. sort mode → tipo de orde
 hint="«orde» traduce a «command»"
 
 # «find» tradúcese como «atopar»
-{\bf(in(ds?|g)|ound)\b}i
+{\bf(ind(ing|s)?|ound)\b}i
 id="noPT-2010_find"
 valid after="\blost\s+(and|&)\s+"  # obxectos perdidos
 valid before="\s+that"  # descubrir, determinar
 valid before="\s+the\s+time\b"  # ter tempo
 valid before="\s+[^\s]+\s+way\s+into\b"  # introducirse
 valid before="\s+[^.]+\s+(help|use)ful\b"  # ser de utilidade [para o suxeito]
-valid msgstr="\bf(in(ds?|g)|ound)\b"
-valid msgstr="\bat[oó]p[aáeéoó]\w*\b"
+valid msgstr="\bf(ind(ing|s)?|ound)\b"
+valid msgstr="\bat[oó]p[aáeéoó][^\W\d_]*\b"
 # find here a list of parties → consulte aquí unha lista de festas
-valid msgstr="\bcons[uú]lt[aáeéoó]\w*\b"
+valid msgstr="\bcons[uú]lt[aáeéoó][^\W\d_]*\b"
 # job <nome> found not running → descubriuse que o traballo <nome> non estaba a executarse
-valid msgstr="\bdesc[oóuú]br[aáeéiíoó]\w*\b"
+valid msgstr="\bdesc[oóuú]br[aáeéiíoó][^\W\d_]*\b"
 # you’ll find it easy → resultaralle doado
-valid msgstr="\bres[uú]lt[aáeéoó]\w*\b"
+valid msgstr="\bres[uú]lt[aáeéoó][^\W\d_]*\b"
 hint="«find» tradúcese como «atopar»"
 
 # «atopar» traduce a «find» e «locate»
-[\batop]i
-valid msgid="\bfind|\blocate"
-valid msgid="\bfound"
-valid msgid="\bencounter"
+[\bat(?!opador(as?|es)?\b)[oó]p[aáeéoó][^\W\d_]*\b]i
 id="noPT-2010-dual_find"
+valid msgid="\bdiscoverable\b"  # doado de atopar
+valid msgid="\bencounter(ed|ing|s)?\b"
+valid msgid="\bf(ind(ing|s)?|ound)\b"
+valid msgid="\blocat(e[ds]?|ing)\b"
+valid msgid="\bmatch(e[ds]?|ing)?\b"  # atopar coincidencias
+valid msgid="\brun(ning|s)?\s+into\b"  # atoparse con
+valid msgid="\btrack(ed|ing|s)?\s+down\b"
+valid msgid="\btrac(e[ds]?|ing)\b"  # atopar a orixe
 hint="«atopar» traduce a «find» e «locate»"
 
-# «grid» tradúcese como «grella»
-{\bgrid}i
+{\bgrids?\b}i
 id="noPT-2010_grid"
-valid msgstr="\bgrella"
-hint="«grid» tradúcese como «grella»"
+hint="grid → grade"
+valid msgstr="\bgrades?\b"
 
-# «grella» traduce a «grid»
-[\bgrella]i
+[\bgrades?\b]i
 id="noPT-2010-dual_grid"
-valid msgid="\bgrid?"
-hint="«grella» traduce a «grid»"
+hint="grid ← grade"
+valid msgid="\bgrids?\b"
 
 # «illegal» tradúcese como «inaceptábel»
 {\billegal}i
@@ -184,7 +187,7 @@ valid msgstr="incorrect(o|a)"
 valid msgstr="\bnon\s(ser|é|era|será|sexa|seña)\sválid(o|a)(\b|\s)"
 valid msgstr="\bnon\s(son|eran|sexan|señan)\sválid(o|a)s"
 valid msgstr="non\sválid(o|a)"
-valid msgstr="\bnon\sé\sun(ha)?\s(\w+\s){1,4}válid(o|a)" env="kde"
+valid msgstr="\bnon\sé\sun(ha)?\s([^\W\d_]+\s){1,4}válid(o|a)" env="kde"
 hint="«invalid» tradúcese como «incorrecto»/«non é válido»"
 
 # «invalid» tradúcese como «incorrecto»/«non é válido»
@@ -210,7 +213,7 @@ id="noPT-2010-dual_invalid2"
 valid msgid="\binvalid"
 valid msgid="\bincorrect"
 valid msgid="\bwrong"
-valid msgid="\bbad\s\w+" env="kde"
+valid msgid="\bbad\s[^\W\d_]+" env="kde"
 hint="«incorrecto» traduce a «invalid» (e a «incorrect», e a «wrong»)"
 
 # «locate» tradúcese como «atopar», «buscar» ou «situar»
@@ -332,63 +335,66 @@ hint="«xanela» traduce a «window»"
 
 # Trasnada de 2011 ############################################################
 
-{\b(?<!^)about\b}i
-id="PT-2011_about"
-hint="«about» tradúcese como «sobre»"
-valid before="\s+(magnitude\s+)?(%?\d+\w*|one|two|three|four|five|six|seven|eight|nine|ten)\b"  # about 20 → arredor de 20
-valid before=":"  # about: → arredor de:
-valid before="\s+\wing\b"
-valid before="\s+dialogs?\b"
-# be better about finding → ser mellor para atopar
-# be mainly about improving → tratarse principalmente de mellorar
-valid before="\s+the\s+same\b"  # máis ou menos igual, máis ou menos o mesmo
-valid before="\sto\b" # ver "PT-2013_about to"
-# ask me about my name → pregúntame o meu nome
-valid after="\bask(ed|ing|s)?\b[\s\w]*\s+"
-# loving is not about desire → amar non vai de desexo
-# we are sorry about that → sentímolo
-valid after="\b(be(ing)?|is|are|was|were)\b[\s\w]*\s+"
-valid after="\bcar(e[ds]?|ing)\s+"
-valid after="\bcomplain(ed|ing|s)?\s+"
-valid after="\bdescriptions?\s+"
-valid after="\bdetails\s+"
-valid after="\b(find(ing|s)?|found)\s+out\s+"
-valid after="\bforg(et(s|ting)?|otten)\s+"
-valid after="\bhear([ds]|ing)?\s+"
-# get some idea about that → facerse unha idea diso
-valid after="\bideas?\s+"
-valid after="\binform(ed|ing|s)?\b[\s\w]*\s+"
-valid after="\bkn(ew|ow(ing|s)?)\s"
-valid after="\blearn(ing|s)?\s+"
-# move about → moverse
-valid after="\bmov(e[ds]?|ing)\s+"
-valid after="\bno\s+"  # e.g. no about information → non hai información
-valid after="\bnotif(ie[ds]|y(ing)?)\b[\s\w]*\s+"
-valid after="\bnotifications?\s+"
-# overview about everything → resumo de todo
-valid after="\boverviews?\s+"
-valid after="\bremind(ed|ing|s)?\b[\s\w]*\s+"
-valid after="\bsorry\s+"
-# are you sure about that? → está seguro diso?
-valid after="\b(un)?sure\s+"
-valid after="\btalk(ed|ing|s)?\s+"
-# tell us about it → cóntenolo
-valid after="\bt(ell(ing|s)?|old)\b[\s\w]*\s+"
-# think about → pensar en
-valid after="\bth(ink(ing|s)?|ought)\s+"
-valid after="\bunderst(and(ing|s)?|ood)\s+"  # saber de
-valid after="\bwarn(ed|ing|s)?\b[\s\w]*\s+"
-# what about this? → que pasa con isto?
-valid after="\bwhat\s+"
-# worrying about something → preocupándose de algo
-valid after="\bworr(ie[ds]|y(ing)?)\s+"
-valid msgstr="\bsobre\b"
-valid msgstr="\babout\b"
+# NOTA: Desactivada por ser «about» unha expresión demasiado xenérica, e a
+# miúdo non poder traducirse como «sobre», senón como palabras tamén moi
+# xenéricas en galego como «de».
+#{\b(?<!^)about\b}i
+#id="PT-2011_about"
+#hint="«about» tradúcese como «sobre»"
+#valid before="\s+(magnitude\s+)?(%?\d+[^\W\d_]*|one|two|three|four|five|six|seven|eight|nine|ten)\b"  ## about 20 → arredor de 20
+#valid before=":"  # about: → arredor de:
+#valid before="\s+[^\W\d_]ing\b"
+#valid before="\s+dialogs?\b"
+## be better about finding → ser mellor para atopar
+## be mainly about improving → tratarse principalmente de mellorar
+#valid before="\s+the\s+same\b"  # máis ou menos igual, máis ou menos o mesmo
+#valid before="\sto\b" # ver "PT-2013_about to"
+## ask me about my name → pregúntame o meu nome
+#valid after="\bask(ed|ing|s)?\b[\s[^\W\d_]]*\s+"
+## loving is not about desire → amar non vai de desexo
+## we are sorry about that → sentímolo
+#valid after="\b(be(ing)?|is|are|was|were)\b[\s[^\W\d_]]*\s+"
+#valid after="\bcar(e[ds]?|ing)\s+"
+#valid after="\bcomplain(ed|ing|s)?\s+"
+#valid after="\bdescriptions?\s+"
+#valid after="\bdetails\s+"
+#valid after="\b(find(ing|s)?|found)\s+out\s+"
+#valid after="\bforg(et(s|ting)?|otten)\s+"
+#valid after="\bhear([ds]|ing)?\s+"
+## get some idea about that → facerse unha idea diso
+#valid after="\bideas?\s+"
+#valid after="\binform(ed|ing|s)?\b[\s[^\W\d_]]*\s+"
+#valid after="\bkn(ew|ow(ing|s)?)\s"
+#valid after="\blearn(ing|s)?\s+"
+## move about → moverse
+#valid after="\bmov(e[ds]?|ing)\s+"
+#valid after="\bno\s+"  # e.g. no about information → non hai información
+#valid after="\bnotif(ie[ds]|y(ing)?)\b[\s[^\W\d_]]*\s+"
+#valid after="\bnotifications?\s+"
+## overview about everything → resumo de todo
+#valid after="\boverviews?\s+"
+#valid after="\bremind(ed|ing|s)?\b[\s[^\W\d_]]*\s+"
+#valid after="\bsorry\s+"
+## are you sure about that? → está seguro diso?
+#valid after="\b(un)?sure\s+"
+#valid after="\btalk(ed|ing|s)?\s+"
+## tell us about it → cóntenolo
+#valid after="\bt(ell(ing|s)?|old)\b[\s[^\W\d_]]*\s+"
+## think about → pensar en
+#valid after="\bth(ink(ing|s)?|ought)\s+"
+#valid after="\bunderst(and(ing|s)?|ood)\s+"  # saber de
+#valid after="\bwarn(ed|ing|s)?\b[\s[^\W\d_]]*\s+"
+## what about this? → que pasa con isto?
+#valid after="\bwhat\s+"
+## worrying about something → preocupándose de algo
+#valid after="\bworr(ie[ds]|y(ing)?)\s+"
+#valid msgstr="\bsobre\b"
+#valid msgstr="\babout\b"
 
 # «abort» tradúcese como «interromper»
 {\babort(ed|ing|s)?\b}i
 id="PT-2011_abort"
-valid msgstr="interr([oó]mp[aáeéoó]\w*|ompid[ao]s?|upcións?)\b"
+valid msgstr="interr([oó]mp[aáeéoó][^\W\d_]*|ompid[ao]s?|upcións?)\b"
 hint="«abort» tradúcese como «interromper»"
 
 # «interromper» traduce a «abort»
@@ -469,7 +475,7 @@ hint="«infraestrutura» traduce a «backend» e «framework»"
 {\bbookmark(ed|ing|s)?\b}i
 id="PT-2011_bookmark"
 valid msgstr="\bmarcador(es)?\b"
-valid msgstr="\bm[aá]r(c[aáoó]|qu[eé])\w*\b\b"
+valid msgstr="\bm[aá]r(c[aáoó]|qu[eé])[^\W\d_]*\b\b"
 hint="«bookmark» tradúcese como «marcador» ou «marcar»"
 
 # «marcador» traduce a «bookmark»
@@ -540,12 +546,12 @@ hint="«informe de fallos» traduce a «bug report»"
 # «change» tradúcese como «cambiar»
 {\bchang(e[ds]?|ing)\b}i
 id="PT-2011_change"
-valid msgstr="\bc[aá]mbi[aáeéoó]\w*\b"
+valid msgstr="\bc[aá]mbi[aáeéoó][^\W\d_]*\b"
 valid msgstr="\bvolta\b"  # diñeiro en metálico
 hint="«change» tradúcese como «cambiar»"
 
 # «cambiar» traduce a «change»
-[\bc(?!ambi(a(dor(es)?|ntes?)|ábe(l|is))\b)[aá]mbi[aáeéoó]\w*\b]i
+[\bc(?!ambi(a(dor(es)?|ntes?)|ábe(l|is))\b)[aá]mbi[aáeéoó][^\W\d_]*\b]i
 id="PT-2011-dual_change"
 valid msgid="\bat\s+the\s+(cost|expense)\s+of\b"  # a cambio de
 valid msgid="\bchang(e[ds]?|ing)\b"
@@ -594,11 +600,11 @@ hint="«cambiar» traduce a «change»"
 # «chat» tradúcese como «conversa»
 {\bchat(t(ed|ing)|s)?\b}i
 id="PT-2011_chat"
-valid msgstr="\bconv[eé]rs[aáeéoó]\w*\b"
+valid msgstr="\bconv[eé]rs[aáeéoó][^\W\d_]*\b"
 hint="«chat» tradúcese como «conversa(r)»"
 
 # «conversa» traduce a «chat»
-[\bconv(?!ers(a(cións?|dor(es)?)|or(es)?)\b)[eé]rs[aáeéoó]\w*\b]i
+[\bconv(?!ers(a(cións?|dor(es)?)|or(es)?)\b)[eé]rs[aáeéoó][^\W\d_]*\b]i
 id="PT-2011-dual_chat"
 valid msgid="\bchat(t(ed|ing)|s)?\b"
 valid msgid="\bchatbots?\b"  # robot de conversa
@@ -634,18 +640,18 @@ valid before="(\s+|-)out\b"
 valid msgstr="\b(re)?check(ed|ing|s)?\b"
 valid msgstr="\bcheques?\b"
 valid msgstr="\bcomprobacións?\b"
-valid msgstr="\bcompr[oó]b[aáeéoó]\w*\b"
+valid msgstr="\bcompr[oó]b[aáeéoó][^\W\d_]*\b"
 valid msgstr="\bcorreccións?\b"
 valid msgstr="\bcorrentes?\b"  # checking account → conta corrente
-valid msgstr="\bcorr[ií]x[aáeéiíoó]\w*\b"
-valid msgstr="\bm[aá]r(c[áaoó]|qu[eé])\w*\b"
+valid msgstr="\bcorr[ií]x[aáeéiíoó][^\W\d_]*\b"
+valid msgstr="\bm[aá]r(c[áaoó]|qu[eé])[^\W\d_]*\b"
 valid msgstr="\brevisións?\b"
-valid msgstr="\brev[ií]s[aáeéoó]\w*\b"
+valid msgstr="\brev[ií]s[aáeéoó][^\W\d_]*\b"
 valid msgstr="\bxaques?\b"
 hint="check → comprobar (xeral), corrixir (ortografía), marcar (unha caixa para marcar), revisar (e.g. a configuración)"
 
 # «comprobar» traduce a «check»
-[\bcompr(obador(es)?\b)[oó]b[aáeéoó]\w*\b]i
+[\bcompr(obador(es)?\b)[oó]b[aáeéoó][^\W\d_]*\b]i
 id="PT-2011-dual_check"
 valid msgid="\b(re)?check(ed|ing|s)?\b"
 valid msgid="\bcheckmarks?\b"  # marca de comprobación
@@ -653,7 +659,7 @@ valid msgid="\bchecksum(m(ed|ing)|s)?\b"  # [facer unha] suma de comprobación
 hint="«comprobar» traduce a «check»"
 
 # «revisar» traduce a «check»
-[\brev(?!is(ións?|or(es)?)\b)[ií]s[aáeéoó]\w*\b]i
+[\brev(?!is(ións?|or(es)?)\b)[ií]s[aáeéoó][^\W\d_]*\b]i
 id="noPT-2011-dual_check2"
 valid msgid="\b(re)?check(ed|ing|s)?\b"
 valid msgid="\b(go(es|ing)?|went)\s+through\b"
@@ -665,7 +671,7 @@ valid msgid="\btriag(e[ds]?|ing)\b"
 hint="«revisar» traduce a «check»"
 
 # «marcar» traduce a «check»
-[\bm(?!arc(a(cións?|dor(es)?)|ábe(l|is))\b)[aá]r(c[áaoó]|qu[eé])\w*\b]i
+[\bm(?!arc(a(cións?|dor(es)?)|ábe(l|is))\b)[aá]r(c[áaoó]|qu[eé])[^\W\d_]*\b]i
 id="noPT-2011-dual_check3"
 valid msgid="\bbrands?\b"
 valid msgid="\b(re)?check(ed|ing|s)?\b"
@@ -682,7 +688,7 @@ valid msgid="\b(photo)?frame(set)?(s|less)?\b"  # marco
 valid msgid="\bgrooves?\b"  # marca
 valid msgid="\bhard\s+edges?\b"  # bordo marcado
 valid msgid="\bmakes?\b"
-valid msgid="\bm(?!arc(a(cións?|dor(es)?)|ábe(l|is))\b)[aá]r(c[áaoó]|qu[eé])\w*\b"
+valid msgid="\bm(?!arc(a(cións?|dor(es)?)|ábe(l|is))\b)[aá]r(c[áaoó]|qu[eé])[^\W\d_]*\b"
 valid msgid="\b(book|output|place|scroll|tick|trade|water)?mark(ed|ing|s)?\b"
 valid msgid="\bmarkings?\b"
 valid msgid="\bmarkka\b"  # Finnish Markka → marco finés
@@ -725,9 +731,9 @@ hint="«portapapeis» traduce a «clipboard»"
 # «close» tradúcese como «pechar»
 {\bclos(e[ds]?|ing)\b}i
 id="PT-2011_close"
-valid msgstr="\bach[eé]g([aáoó]|u[eé])\w*\b"  # get close
+valid msgstr="\bach[eé]g([aáoó]|u[eé])[^\W\d_]*\b"  # get close
 valid msgstr="\bclos(e[ds]?|ing)\b"
-valid msgstr="\bp[eé]ch[aáeéoó]\w*\b"
+valid msgstr="\bp[eé]ch[aáeéoó][^\W\d_]*\b"
 valid msgstr="\bpróxim[ao]s?\b"
 valid msgstr="\bpreto\b"
 valid msgstr="\bprimeiros?\s+planos?\b"  # close-up
@@ -736,7 +742,7 @@ valid msgstr="\bsubtítulos?\b"  # closing caption
 hint="«close» tradúcese como «pechar»"
 
 # «pechar» traduce a «close»
-[\bp(?!echábe(l|is)\b)[eé]ch[aáeéoó]\w*\b]i
+[\bp(?!echábe(l|is)\b)[eé]ch[aáeéoó][^\W\d_]*\b]i
 id="noPT-2011-dual_close"
 valid msgid="\b(auto|un)?clos(e[ds]?|ing)\b"
 valid msgid="\bclosures?\b"
@@ -749,14 +755,14 @@ hint="«pechar» traduce a «close»"
 # «commit» tradúcese como «remitir»
 {\b(auto)?commit(t(ed|ing)|s)?\b}i
 id="PT-2011_commit"
-valid msgstr="\brem[ií]t[aáeéiíoó]\w*\b"
+valid msgstr="\brem[ií]t[aáeéiíoó][^\W\d_]*\b"
 valid msgstr="\bremisións?\b"
-valid msgstr="\bcomprom[eé]t[aáeéoó]\w*\b"
+valid msgstr="\bcomprom[eé]t[aáeéoó][^\W\d_]*\b"
 valid msgstr="\bcomprometid[ao]s?\b"
 hint="«commit» tradúcese como «remitir»"
 
 # «remitir» traduce a «commit»
-[\brem(?!itentes?\b)[ií]t[aáeéiíoó]\w*\b]i
+[\brem(?!itentes?\b)[ií]t[aáeéiíoó][^\W\d_]*\b]i
 id="PT-2011-dual_commit"
 valid msgid="\bcheck(ed|ing|s)?\s+in\b"
 valid msgid="\b(auto)?commit(t(ed|ing)|s)?\b"
@@ -975,7 +981,7 @@ id="noPT-2011-dual_enable"
 valid msgid="\benable"
 valid msgid="\bactiv"
 valid msgid="\bto\sset\s" env="kde"
-valid after="\w:\s" msgid="\w:\son" env="kde"
+valid after="[^\W\d_]:\s" msgid="[^\W\d_]:\son" env="kde"
 hint="«activar» traduce a «enable» (e a activate)"
 
 # «encrypt» tradúcese como «cifrar»
@@ -1056,12 +1062,12 @@ hint="«paquete de ficheiros» traduce a «file package»"
 # «boot/start» tradúcese como «arrancar»
 {\bboot(ed|ing|s)?\b}i #Non busca "start", dá moitos falsos positivos e de momento non sei como arranxalo
 id="noPT-2012_boot-start"
-valid msgstr="\barr[aá]n(c[aáoó]|qu[eé])\w*\b"
+valid msgstr="\barr[aá]n(c[aáoó]|qu[eé])[^\W\d_]*\b"
 valid msgstr="\bboot(ed|ing|s)?\b"
 hint="«boot/start» tradúcese como «arrancar»"
 
 # «arrancar» traduce a «boot/start»
-[\barr[aá]n(c[aáoó]|qu[eé])\w*\b]i
+[\barr[aá]n(c[aáoó]|qu[eé])[^\W\d_]*\b]i
 id="PT-2012-dual_boot-start"
 valid msgid="\b(re)?boot(ed|ing|s)?\b"
 valid msgid="\b(re)?bootups?\b"
@@ -1111,8 +1117,8 @@ hint="«bordo» traduce a «border»"
 id="PT-2012_colour"
 valid msgstr="\bbalances?\s+de\s+brancos\b"  # white color balance
 valid msgstr="\bcor(es)?\b"
-valid msgstr="\bcol[oó]r[aáeéoó]\w*\b"
-valid msgstr="\bc[oó]r[aáeéoó]\w*\b"
+valid msgstr="\bcol[oó]r[aáeéoó][^\W\d_]*\b"
+valid msgstr="\bc[oó]r[aáeéoó][^\W\d_]*\b"
 valid msgstr="\bcolours?\b"  # English
 valid msgstr="\bcolors\b"  # English (singular skipped as potential typo)
 hint="«colo(u)r» tradúcese como «cor(es)»"
@@ -1265,7 +1271,7 @@ valid msgstr="\bborrar"
 hint="«erase» tradúcese como «borrar»"
 
 # «borrar» traduce a «erase»
-[\bborr\w+]i
+[\bborr[^\W\d_]+]i
 valid span="borrador(es)?"
 id="PT-2012-dual_erase"
 valid msgid="\berase"
@@ -1875,7 +1881,7 @@ valid msgstr="\brenomea"
 hint="«rename» tradúcese como «renomear»"
 
 # «renomear» traduce a «rename»
-[\brenome\w+]i
+[\brenome[^\W\d_]+]i
 id="noPT-2011-dual_rename"
 valid msgid="\brenam(e|es|ed|ing)"
 hint="«renomear» traduce a «rename»"
@@ -1973,7 +1979,7 @@ valid msgstr="\bcompatibilidade\sde"
 valid msgstr="\bcompatibilidade"
 valid before="ed" msgstr="\bcompatíbe(l|is)"
 valid msgstr="\badmit"
-valid msgstr="\bpermit(e|en|an|ir)\s\w+[aei]r"
+valid msgstr="\bpermit(e|en|an|ir)\s[^\W\d_]+[aei]r"
 valid msgstr="\bincl(u|ú)"
 valid msgstr="\bpermit(ir|e|a)"
 valid before="\sfor" msgstr="\bimplementación(s)?\sde" env="kde"
@@ -2140,8 +2146,8 @@ valid msgstr="\benv(i|í)."
 hint="«upload» tradúcese como «enviar» ou «envío»"
 
 # «enviar» traduce a «upload»
-[\benv(i|í)\w+]i
-valid before="\w+\sun"
+[\benv(i|í)[^\W\d_]+]i
+valid before="[^\W\d_]+\sun"
 id="noPT-2011-dual_upload"
 valid msgid="\bupload"
 valid msgid="\bsen(d|t)"
@@ -2223,12 +2229,12 @@ valid before="-ons?"
 valid before="\s+back\b"  # recuperar
 valid before="\s+film\s+grain\b"  # granular
 id="PT-2013_add"
-valid msgstr="\beng[aá]d[aáeéiíoó]\w*\b"
-valid msgstr="\bs[uú]m[aáeéoó]\w*\b"  # sumar
+valid msgstr="\beng[aá]d[aáeéiíoó][^\W\d_]*\b"
+valid msgstr="\bs[uú]m[aáeéoó][^\W\d_]*\b"  # sumar
 hint="«add» tradúcese como «engadir»"
 
 # «engadir» traduce a «add»
-[\beng[aá]d[aáeéiíoó]\w*\b]i
+[\beng[aá]d[aáeéiíoó][^\W\d_]*\b]i
 id="PT-2013-dual_add"
 valid msgid="\b(re)?add(s|ed|ing)?\b"
 valid msgid="\b(re)?additions?\b"  # without the addition of → sen engadir
@@ -2247,8 +2253,8 @@ id="PT-2013_address"
 valid msgstr="\baddress(es)?\b"
 valid msgstr="\bdiscursos?\b"  # p. ex. presidenciais
 valid msgstr="\benderezos?\b"
-valid msgstr="\bsoluci[oó]n[aáeéoó]\w*\b"  # solucionar [un problema]
-valid msgstr="\bt\w*\s+en\s+conta\b"  # the parser addresses reviews → o analizador ten en conta as recensións
+valid msgstr="\bsoluci[oó]n[aáeéoó][^\W\d_]*\b"  # solucionar [un problema]
+valid msgstr="\bt[^\W\d_]*\s+en\s+conta\b"  # the parser addresses reviews → o analizador ten en conta as recensións
 hint="«address» tradúcese como «enderezo»"
 
 # «enderezo» traduce a «address»
@@ -2264,14 +2270,14 @@ hint="«enderezo» traduce a «address»"
 {\balign(s|ed|ing)?\b}i
 id="PT-2013_align"
 hint="«align» tradúcese como «aliñar»"
-valid before="\s+[\w\s]*(to\s+((horizontal|vertical)\s+)?)?center\b"  # centrar
+valid before="\s+([^\W\d_]|\s)*(to\s+((horizontal|vertical)\s+)?)?center\b"  # centrar
 valid before="\s+(four|4)\b"  # catro en liña
 valid before="\s+justif(ied|y)\b"  # xustificar
-valid msgstr="\bal[ií]ñ[aáeéoó]\w*\b"
+valid msgstr="\bal[ií]ñ[aáeéoó][^\W\d_]*\b"
 valid msgstr="\baliñ\."
 
 # «aliñar» traduce a «align»
-[\bal[ií]ñ(?!amentos?\b)[aáeéoó]\w*\b]i
+[\bal[ií]ñ(?!amentos?\b)[aáeéoó][^\W\d_]*\b]i
 id="PT-2013-dual_align"
 hint="«aliñar» traduce a «align»"
 valid msgid="\b(re|un)?align(ed|ing|s)?\b"
@@ -2279,10 +2285,10 @@ valid msgid="\blin(e[ds]?|ing)\s+up\b"
 valid msgid="\bsnap(p(ed|ing)|s)?\b"
 
 # «align center» tradúcese como «centrar»
-{\balign(s|ed|ing)?\s+[\w\s]*(to\s+((horizontal|vertical)\s+)?)?center\b}i
+{\balign(s|ed|ing)?\s+([^\W\d_]|\s)*(to\s+((horizontal|vertical)\s+)?)?center\b}i
 id="PT-2013_align-center"
 hint="«align center» tradúcese como «centrar»"
-valid msgstr="\bc[eé]ntr[aáeéoó]\w*\b"
+valid msgstr="\bc[eé]ntr[aáeéoó][^\W\d_]*\b"
 
 #  «centrar» traduce a «align center»
 # ver regra
@@ -2339,11 +2345,11 @@ hint="«frecha» traduce a «arrow»"
 # «assign» tradúcese como «asignar»
 {\bassign(ed|ing|s)?\b}i
 id="PT-2013_assign"
-valid msgstr="\bas[ií]gn[aáeéoó]\w*\b"
+valid msgstr="\bas[ií]gn[aáeéoó][^\W\d_]*\b"
 hint="«assign» tradúcese como «asignar»"
 
 # «asignar» traduce a «assign»
-[\bas(?!igna(cións?|dor(as?|es)?)\b)[ií]gn[aáeéoó]\w*\b]i
+[\bas(?!igna(cións?|dor(as?|es)?)\b)[ií]gn[aáeéoó][^\W\d_]*\b]i
 id="PT-2013-dual_assign"
 valid msgid="\b(re|un)?allocat(e[ds]?|ing)\b"
 valid msgid="\b(re|un)?allocs?\b"
@@ -2431,16 +2437,16 @@ hint="«banda larga» traduce a «broadband»"
 # «browse» tradúcese como «navegar»
 {\bbrows(e[ds]?|ing)\b}i
 id="PT-2013_browse"
-valid msgstr="\bb[uú]s(c[aáoó]|qu[eé])\w*\b"
-valid msgstr="\bexam[ií]n[aáoóeé]\w*\b"
-valid msgstr="\bexpl[oó]r[aáoóeé]\w*\b"
-valid msgstr="\bnav[eé]g([aáoó]|u[eé])\w*\b"
-valid msgstr="\bproc[uú]r[aáoóeé]\w*\b"
+valid msgstr="\bb[uú]s(c[aáoó]|qu[eé])[^\W\d_]*\b"
+valid msgstr="\bexam[ií]n[aáoóeé][^\W\d_]*\b"
+valid msgstr="\bexpl[oó]r[aáoóeé][^\W\d_]*\b"
+valid msgstr="\bnav[eé]g([aáoó]|u[eé])[^\W\d_]*\b"
+valid msgstr="\bproc[uú]r[aáoóeé][^\W\d_]*\b"
 valid msgstr="\bbrows(e[ds]?|ing)\b"
 hint="«browse» tradúcese como «buscar», «examinar», «explorar», «navegar», «procurar»"
 
 # «navegar» traduce a «browse»
-[\bnav(?!eg(a(cións?|dor(es)?|ntes?)|ábe(l|is)))[eé]g([aáoó]|u[eé])\w*\b]i
+[\bnav(?!eg(a(cións?|dor(es)?|ntes?)|ábe(l|is)))[eé]g([aáoó]|u[eé])[^\W\d_]*\b]i
 id="PT-2013-dual_browse"
 valid msgid="\bbrows(e[ds]?|ing)\b"
 valid msgid="\bnavigat(e[ds]?|ing)\b"
@@ -2525,17 +2531,17 @@ hint="«cela» traduce a «cell»"
 # «center/centre» tradúcese como «centrar/centro»
 {\b(center(ed|ing|s)?|centr(e[ds]?|ing))\b}i
 id="PT-2013_center-centre"
-valid msgstr="\bc[eé]ntr[aáeéoó]\w*\b"
+valid msgstr="\bc[eé]ntr[aáeéoó][^\W\d_]*\b"
 valid msgstr="\b(center(ed|ing|s)?|centr(e[ds]?|ing))\b"
 hint="«center/centre» tradúcese como «centrar/centro»"
 
 # «centrar» traduce a «center/centre»
-[\bc(?!entr(a(l|is)|o(afric|asiátic|europe)[ao]s?))[eé]ntr[aáeéoó](?!d)\w*\b]i
+[\bc(?!entr(a(l|is)|o(afric|asiátic|europe)[ao]s?))[eé]ntr[aáeéoó](?!d)[^\W\d_]*\b]i
 id="PT-2013-dual_center-centre"
 valid msgid="\b(auto|cost|page|media|re)?(center(ed|ing|s)?|centr(e[ds]?|ing))\b"
 valid msgid="\bcentral\b"  # do centro
 valid msgid="\bcentrally\b"  # align centrally → centrar
-valid msgid="\bc(?!entr(a(l|is)|o(afric|asiátic|europe)[ao]s?))[eé]ntr[aáeéoó]\w*\b"
+valid msgid="\bc(?!entr(a(l|is)|o(afric|asiátic|europe)[ao]s?))[eé]ntr[aáeéoó][^\W\d_]*\b"
 valid msgid="\bconcentrat(e[ds]?|ing)\b"
 valid msgid="\bfocus(e[ds]|ing)?\b"
 valid msgid="\bmiddle\b"
@@ -2561,12 +2567,12 @@ hint="«canle» traduce a «channel»"
 {\bclick(ed|ing|s)?\b}i
 id="PT-2013_click"
 hint="click → calcar, facer clic, premer"
-valid msgstr="\bc[aá]l(c[aáoó]|qu[eé])\w*\b"
+valid msgstr="\bc[aá]l(c[aáoó]|qu[eé])[^\W\d_]*\b"
 valid msgstr="\bclics?\b"  # facer clic, clic
-valid msgstr="\bpr[eé]m[aáeéiíoó]\w*\b"
+valid msgstr="\bpr[eé]m[aáeéiíoó][^\W\d_]*\b"
 
 # «premer en» traduce a «click»
-[\bpr(?!emíbe(l|is)\b)[eé]m[aáeéiíoó]\w*\s+(en|n[ao]s?|nun(ha)?s?|nest[ae]s?)\b]i
+[\bpr(?!emíbe(l|is)\b)[eé]m[aáeéiíoó][^\W\d_]*\s+(en|n[ao]s?|nun(ha)?s?|nest[ae]s?)\b]i
 id="PT-2013-dual_click(1)"
 valid msgid="\bclick(ed|ing|s)?\b"
 valid msgid="\bhit(ing|s)?\b"
@@ -2575,7 +2581,7 @@ valid msgid="\bpush(e[ds]|ing)?\b"
 hint="«premer en» traduce a «click»"
 
 # «premer para» traduce a «click for/to»
-[\bpr(?!emíbe(l|is)\b)[eé]m[aáeéiíoó]\w*\s+para\s+\w+r]i
+[\bpr(?!emíbe(l|is)\b)[eé]m[aáeéiíoó][^\W\d_]*\s+para\s+[^\W\d_]+r]i
 id="PT-2013-dual_click(2)"
 valid msgid="\bclick(ed|ing|s)?(\s+|-|\b[^,.]+\s)(for|to)\b"
 valid msgid="\bhit(ing|s)?(\s+|-|\b[^,.]+\s)(for|to)\b"
@@ -2584,7 +2590,7 @@ valid msgid="\bpush(e[ds]|ing)?(\s+|-|\b[^,.]+\s)(for|to)\b"
 hint="«premer para» traduce a «click for/to»"
 
 # «premer aquí/aí/e» traduce a «click»
-[\b\bpr(?!emíbe(l|is)\b)[eé]m[aáeéiíoó]\w*\s+(aquí|aí|e)\b]i
+[\b\bpr(?!emíbe(l|is)\b)[eé]m[aáeéiíoó][^\W\d_]*\s+(aquí|aí|e)\b]i
 id="PT-2013-dual_click(3)"
 valid msgid="\bclick(ed|ing|s)?\b"
 valid msgid="\bhit(ing|s)?\b"
