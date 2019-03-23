@@ -727,11 +727,12 @@ valid msgstr="dos"
 valid !msgstr="parella"
 hint="«Pair» es tradueix per «Parell/Dos», no per «Parella» (fals amic)"
 
-# «Pan» es tradueix per «Panorama/Cassola».
+# «Pan» es tradueix per «Desplaçar/Panorama/Cassola».
 {\bpan\b}i
 id="ff-pan"
 valid msgid="Agfa Pan" # docmessages
 valid msgstr="cassola"
+valid msgstr="desplaça."
 valid msgstr="paella"
 valid msgstr="panorama"
 valid msgstr="panoràmic"
