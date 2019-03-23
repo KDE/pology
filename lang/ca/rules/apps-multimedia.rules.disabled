@@ -20,6 +20,14 @@ include file="filter.include"
 # Remove accelerators inside words.
 addFilterRegex match="&" on="pmsgid,pmsgstr"
 
+{\bappimage\b}i
+valid msgstr="«appimage»"
+hint="Es tradueix per « «appimage» » (multimèdia)"
+
+    {\bappimages\b}i
+    valid msgstr="\bles «appimage»"
+    hint="Es tradueix per «les «appimage» » (multimèdia)"
+
 # Al Gnome «artifact» és «artefacte» i «alteracions»
 {\bartifacts?\b}i
 valid msgstr="\bdefectes?\b"
@@ -291,12 +299,12 @@ hint="Es tradueix per «brillant» (multimèdia)"
 
 {\bbrush\b}i
 valid msgid="\bbrush.?(circle|color|composite|count|Density|editor|engines?|Flow\sMode|Library|option\sslider\s.|Outline|packs?|Pipe|Presets?|radius|Selection|sets?|shape|size|Smoothing|strokes?|tip)\b"
-valid msgid="\b(animated|Bristle|Clone|color\ssmudge|current|cut.?Off|deformation|Dynamic|filter|Freehand|grid|Hatching|Hose|Lazy|masked|multi|paint|opacity|Particle|pierced|pixel|Quick|Select\sby|shape|size\sof\s|Sketch|transforming).?Brush\b"
+valid msgid="\b(animated|Bristle|Clone|color\ssmudge|current|cut.?Off|deformation|Dynamic|filter|Freehand|grid|Hatching|Hose|ink(ing)?|Lazy|masked|multi|paint|opacity|Particle|pierced|pixel|Quick|Select\sby|shape|size\sof\s|Sketch|transforming).?Brush\b"
 valid msgstr="\bpinzell\b"
 hint="Es tradueix per «pinzell» (multimèdia)"
 
 {\bbrushes\b}i
-valid msgid="\b(animated|Bristle|Clone|color\ssmudge|current|cut.?Off|deformation|Dynamic|filter|Freehand|grid|Hatching|Hose|Lazy|masked|multi|paint|opacity|Particle|pierced|pixel|Quick|Select\sby|shape|Sketch|transforming).?Brushes\b"
+valid msgid="\b(animated|Bristle|Clone|color\ssmudge|current|cut.?Off|deformation|Dynamic|filter|Freehand|grid|Hatching|Hose|ink(ing)?|Lazy|masked|multi|paint|opacity|Particle|pierced|pixel|Quick|Select\sby|shape|Sketch|transforming).?Brushes\b"
 valid msgstr="\bpinzells\b"
 hint="Es tradueix per «pinzells» (multimèdia)"
 
@@ -385,15 +393,15 @@ hint="Es tradueix per «pinzells» (multimèdia)"
     valid msgstr="\bcanonada del pinzell\b"
     hint="Es tradueix per «canonada del pinzell» (multimèdia)"
 
-    {\bBrush\sPreset\b}i
+    {\bBrush.?Preset\b}i
     valid msgid="\bBrush\sPreset\s(History|icons?|Settings)\b"
     valid msgid="\b(Krita|New|selected)\sBrush\sPreset\b"
-    valid msgstr="\bvalor predefinit del pinzell\b"
-    hint="Es tradueix per «valor predefinit del pinzell» (multimèdia)"
+    valid msgstr="\bpinzell predefinit\b"
+    hint="Es tradueix per «pinzell predefinit» (multimèdia)"
 
             {\bBrush\sPreset\sHistory\b}i
-            valid msgstr="\bHistorial dels valors predefinits del pinzell\b"
-            hint="Es tradueix per «Historial dels valors predefinits del pinzell» (multimèdia)"
+            valid msgstr="\bHistorial dels pinzells predefinits\b"
+            hint="Es tradueix per «Historial dels pinzells predefinits» (multimèdia)"
 
             {\bBrush\sPreset\sicons?\b}i
             valid msgstr="\bicon(a|es) predefinid(a|es) del pinzell\b"
@@ -412,13 +420,14 @@ hint="Es tradueix per «pinzells» (multimèdia)"
             hint="Es tradueix per «valor predefinit nou del pinzell» (multimèdia)"
 
             {\bselected\sBrush\sPreset\b}i
-            valid msgstr="\bvalors predefinits del pinzell seleccionat\b"
-            hint="Es tradueix per «valors predefinits del pinzell seleccionat» (multimèdia)"
+            valid msgstr="\bpinzell predefinit seleccionat\b"
+            hint="Es tradueix per «pinzell predefinit seleccionat» (multimèdia)"
 
-        {\bBrush\sPresets\b}i
+        {\bBrush.?Presets\b}i
         valid msgid="\b(New|ten)\sBrush\sPresets\b"
-        valid msgstr="\bvalors predefinits del pinzell\b"
-        hint="Es tradueix per «valors predefinits del pinzell» (multimèdia)"
+        valid msgstr="\bcap pinzell predefinit\b"
+        valid msgstr="\bpinzells predefinits\b"
+        hint="Es tradueix per «pinzells predefinits» (multimèdia)"
 
             {\bNew\sBrush\sPresets\b}i
             valid msgstr="\bvalors predefinits nous del pinzell\b"
@@ -471,10 +480,10 @@ hint="Es tradueix per «pinzells» (multimèdia)"
         hint="Es tradueix per «mida inicial del pinzell» (multimèdia)"
 
     {\bBrush\sSmoothing\b}i
-    valid msgstr="\bsuavitzat del pinzell\b"
-    hint="Es tradueix per «suavitzat del pinzell» (multimèdia)"
+    valid msgstr="\bsuavitat del pinzell\b"
+    hint="Es tradueix per «suavitat del pinzell» (multimèdia)"
 
-    {\bbrush\stip\b}i
+    {\bbrush.?tip\b}i
     valid msgstr="\bpunta del pinzell\b"
     hint="Es tradueix per «punta del pinzell» (multimèdia)"
 
@@ -537,6 +546,10 @@ hint="Es tradueix per «pinzells» (multimèdia)"
     {\bHose\sBrush(es)?\b}i
     valid msgstr="\bPinzells? de mànega\b"
     hint="Es tradueix per «Pinzell/s de mànega» (multimèdia)"
+
+    {\bink(ing)?\sBrush(es)?\b}i
+    valid msgstr="\bPinzells? de tinta\b"
+    hint="Es tradueix per «Pinzell/s de tinta» (multimèdia)"
 
     {\bLazy\sBrush(es)?\b}i
     valid msgstr="\bPinzells? menys estrictes?\b"
@@ -687,8 +700,8 @@ valid msgstr="\bsimetria del mirall\b"
 hint="Es tradueix per «simetria del mirall» (multimèdia)"
 
 {\bLayer\sStyles?\b}i
-valid msgstr="\bestils? de capa\b"
-hint="Es tradueix per «estil/s de capa» (multimèdia)"
+valid msgstr="\bestils? de la capa\b"
+hint="Es tradueix per «estil/s de la capa» (multimèdia)"
 
 {\bliquify\b}i
 valid msgstr="\bliqüescent\b"
@@ -1004,7 +1017,7 @@ hint="Es tradueix per «correlació, correlaciona/r/rà» (multimèdia)"
 {\bcrops?\b}i
 valid msgid="\bAspect\sRatio\sCrop\b"
 valid msgid="\bAuto.?Crop(ping)?\b"
-valid msgid="\bCrop\sshape\b"
+valid msgid="\bCrop\s(Mask|shape)\b"
 valid msgstr="\bEscap(çant|çar?|çats?|çad(a|es)|ceu|cis)\b"
 hint="Es tradueix per «(Eina:) Escapça/r, escapçat/s, escapçada/des, escapçant, escapceu, escapcis» (multimèdia)"
 
@@ -1021,6 +1034,10 @@ hint="Es tradueix per «(Eina:) Escapça/r, escapçat/s, escapçada/des, escapç
     valid msgstr="\bEscapçament automàtic\b"
     valid msgstr="\bEscapçar? automàticament\b"
     hint="Es tradueix per «(Eina:) Escapçament automàtic, escapça/r automàticament» (multimèdia)"
+
+    {\bCrop\sMask\b}i
+    valid msgstr="\bMàscara d'escapçament\b"
+    hint="Es tradueix per «Màscara d'escapçament» (multimèdia)"
 
     {\bCrop\sshape\b}i
     valid msgstr="\bforma de l'escapçat\b"
@@ -1052,7 +1069,8 @@ hint="Es tradueix per «corba/es» (multimèdia)"
 
     {\bS.?curves?\b}i
     valid msgstr="\bcorb(a|es) S\b"
-    hint="Es tradueix per «corba/es S» (multimèdia)"
+    valid msgstr="\bcorb(a|es) en forma de S\b"
+    hint="Es tradueix per «corba/es S, corba/es en forma de S» (multimèdia)"
 
     {\bCurve\sfree\b}i
     valid msgstr="\bcorba a pols\b"
@@ -1061,6 +1079,14 @@ hint="Es tradueix per «corba/es» (multimèdia)"
     {\bCurve\ssmooth\b}i
     valid msgstr="\bcorba suau\b"
     hint="Es tradueix per «corba suau» (multimèdia)"
+
+{\bdab\b}i
+valid msgstr="\btoc\b"
+hint="Es tradueix per «toc» (multimèdia)"
+
+    {\bdabs\b}i
+    valid msgstr="\btocs\b"
+    hint="Es tradueix per «tocs» (multimèdia)"
 
 # Dark
 {\bdark\b}i
@@ -2100,14 +2126,15 @@ hint="Es tradueix per «píxels» (multimèdia)"
     hint="Es tradueix per «postprocessament, postprocessar/t, postprocés» (multimèdia)"
 
 {\b(per.?)?preset\b}i
-valid msgid="\bBrush\sPreset\b"
+valid msgid="\bBrush.?Presets?\b"
+valid msgstr="«preset\b"
 valid msgstr="\bpreconfigura(ció)?\b"
 valid msgstr="\bpredefini(ció|ts?|da|des)\b"
 valid msgstr="\bvalors? predefinits?\b"
 hint="Es tradueix per «preconfigura/ció, valor/s predefinit/s, predefinit/s, predefinida/des, predefinició» (multimèdia)"
 
     {\bpresets\b}i
-    valid msgid="\bBrush\sPresets\b"
+    valid msgid="\bBrush.?Presets\b"
     valid msgstr="\bValors predefinits\b"
     hint="Es tradueix per «Valors predefinits» (multimèdia)"
 
@@ -2273,17 +2300,9 @@ hint="Es tradueix per «perfil/s, perfilar/t, perfilen» (multimèdia)"
 # Format RAW
 # Al Gnome «RAW» és «en brut», «sense format», «en cru» i «dades crues»
 {\b&?RAW;?\b}i
-valid msgid="\braw\scolors?\b"
-valid msgid="\braw\sconverters?\b"
-valid msgid="\braw\sdevelopers?\b"
-valid msgid="\braw\sfiles?\b"
-valid msgid="\braw\simages?\b"
-valid msgid="\braw\sinformation\b"
-valid msgid="\braw\sprocessing\b"
-valid msgid="\braw\sprocessors?\b"
-valid msgid="\braw\sscans?\b"
+valid msgid="\braw\s(colors?|converters?|developers?|files?|images?|information|process(ing|ors?)|scans?)\b"
 valid msgstr="\bRAW\b"
-hint="Es tradueix per «RAW o &RAW; -si s'admet-» (multimèdia)"
+hint="Es tradueix per «RAW o &RAW; -si s'admet-, o en brut» (multimèdia)"
 
     {\braw\scolors?\b}i
     valid msgstr="\bcolors? crus?\b"
@@ -2365,6 +2384,16 @@ hint="Es tradueix per «escàner/s» (multimèdia)"
 {\bscene.?referred\b}i
 valid msgstr="\ben referència a l'escena\b"
 hint="Es tradueix per «en referència a l'escena» (multimèdia)"
+
+{\bscratchs?\b}i
+valid msgid="\bscratch.?pad\b"
+valid msgstr="\bdes de zero\b"
+hint="Es tradueix per «des de zero» (multimèdia)"
+
+    # quadre d'esborranys
+    {\bscratch.?pad\b}i
+    valid msgstr="\bbloc des de zero\b"
+    hint="Es tradueix per «bloc des de zero» (multimèdia)"
 
 # Scenic
 {\bscenic\b}i
@@ -2554,6 +2583,37 @@ hint="Es tradueix per «(Eina:) Aguditza, aguditzar/ció, agudesa, definir/eix/i
 {\bshift\sCorrections?\b}i
 valid msgstr="\bcorrecci(ó|ons) del desplaçament\b"
 hint="Es tradueix per «correcció/ns del desplaçament» (multimèdia)"
+
+# Krita
+{\bsnap\b}i
+valid msgid="\bangle\ssnap\b"
+valid msgid="\bsnap\s(Options|Orthogonal|single)\b"
+valid msgstr="«snap»"
+valid msgstr="\bajust(i|ar?)\b"
+hint="Es tradueix per «ajusta/r, ajusti, «snap» » (multimèdia)"
+
+    {\bsnap\sOptions\b}i
+    valid msgstr="\bopcions d'ajustament\b"
+    hint="Es tradueix per «opcions d'ajustament» (multimèdia)"
+
+    {\bsnap\sOrthogonal\b}i
+    valid msgstr="\bajust ortogonal\b"
+    hint="Es tradueix per «ajust ortogonal» (multimèdia)"
+
+    {\bsnap\ssingle\b}i
+    valid msgstr="\bajust individual\b"
+    hint="Es tradueix per «ajust individual» (multimèdia)"
+
+    {\bsnapping\b}i
+    valid msgid="\bangle\ssnapping\b"
+    valid msgstr=":ref:\`snapping\`"
+    valid msgstr="\bencaixar els blocs de Lego\b"
+    valid msgstr="\bajust\b"
+    hint="Es tradueix per «ajust» (multimèdia)"
+
+        {\bangle\ssnap(ping)?\b}i
+        valid msgstr="\bajust de l'angle\b"
+        hint="Es tradueix per «ajust de l'angle» (multimèdia)"
 
 # Al Gnome «softening» és «difuminat» i «Suavitza»
 {\bSoften(ing)?\b}i
