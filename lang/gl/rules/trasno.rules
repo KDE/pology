@@ -145,11 +145,15 @@ hint="«atopar» traduce a «find» e «locate»"
 id="noPT-2010_grid"
 hint="grid → grade"
 valid msgstr="\bgrades?\b"
+valid msgstr="\bgrids?\b"
 
 [\bgrades?\b]i
 id="noPT-2010-dual_grid"
 hint="grid ← grade"
 valid msgid="\bgrids?\b"
+valid msgid="\bgridlines?\b"  # liña de grade
+valid msgid="\bgridviews?\b"  # vista de grade
+valid msgid="\bhash(es)?\b"  # símbolo «#»
 
 # «illegal» tradúcese como «inaceptábel»
 {\billegal}i
