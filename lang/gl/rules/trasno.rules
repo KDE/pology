@@ -110,6 +110,18 @@ valid msgid="\bsequences?\b"  # p. ex. touch in the right sequence → tocar na 
 valid msgid="\bsort(ing)?s?\b"  # p. ex. sort mode → tipo de orde
 hint="«orde» traduce a «command»"
 
+{\benter(ed|ing|s)?\b}i
+id="PT-2010_enter"
+hint="enter → inserir (preferido), introducir, escribir"
+valid msgstr="\b[eé]ntr[aáeéoó][^\W\d_]*\b"
+valid msgstr="\bescr[ií]b[aáeéiíoó][^\W\d_]*\b"
+valid msgstr="\bescrit[ao]s?\b"
+valid msgstr="\bintrod[uú](c[eéií]|z[aáoó])[^\W\d_]*\b"
+valid msgstr="\bins[eéií]r[aáeéiíoó][^\W\d_]*\b"
+valid msgstr="\binsercións?\b"
+valid msgstr="\binsert(ed|ing|s)?\b"
+valid msgstr="\bIntro\b"
+
 # «find» tradúcese como «atopar»
 {\bf(ind(ing|s)?|ound)\b}i
 id="noPT-2010_find"
@@ -120,6 +132,8 @@ valid before="\s+[^\s]+\s+way\s+into\b"  # introducirse
 valid before="\s+[^.]+\s+(help|use)ful\b"  # ser de utilidade [para o suxeito]
 valid msgstr="\bf(ind(ing|s)?|ound)\b"
 valid msgstr="\bat[oó]p[aáeéoó][^\W\d_]*\b"
+# find the result of a math problem → calcular o resultado dun problema matemático
+valid msgstr="\bcalc[uú]l[aáeéoó][^\W\d_]*\b"
 # find here a list of parties → consulte aquí unha lista de festas
 valid msgstr="\bcons[uú]lt[aáeéoó][^\W\d_]*\b"
 # job <nome> found not running → descubriuse que o traballo <nome> non estaba a executarse
@@ -156,31 +170,71 @@ valid msgid="\bgridviews?\b"  # vista de grade
 valid msgid="\bhash(es)?\b"  # símbolo «#»
 
 # «illegal» tradúcese como «inaceptábel»
-{\billegal}i
+{\billegal\b}i
 id="PT-2010_illegal"
-valid msgstr="inaceptábel"
+valid msgstr="\billegal\b"
+valid msgstr="\binaceptábe(l|is)\b"
 hint="«illegal» tradúcese como «inaceptábel»"
 
 # «inaceptábel» traduce a «ilegal»
 [\binaceptábe(l|is)\b]i
 id="PT-2010-dual_inaceptábel"
-valid msgid="\bilegal"
-valid msgid="\billegal"
+valid msgid="\bill?egal\b"
+valid msgid="\bnot\s+acceptable\b"
 hint="«inaceptábel» traduce a «ilegal»"
 
-# «insert» tradúcese como «inserir» ou «introducir»
-{\binsert(ed|s)}i
+{\binsert(ed|ing|s)?\b}i
 id="noPT-2010_insert"
-valid msgstr="ins(e|i)r"
-valid msgstr="introduc"
-hint="«insert» tradúcese como «inserir» ou «introducir»"
+hint="insert → inserir (preferido), introducir, escribir"
+valid msgstr="\bescr[ií]b[aáeéiíoó][^\W\d_]*\b"
+valid msgstr="\bescrit[ao]s?\b"
+valid msgstr="\bintrod[uú](c[eéií]|z[aáoó])[^\W\d_]*\b"
+valid msgstr="\bins[eéií]r[aáeéiíoó][^\W\d_]*\b"
+valid msgstr="\binsercións?\b"
+valid msgstr="\binsert(ed|ing|s)?\b"
 
-# «inserir» ou «introducir» traducen a «insert»
-[\bins(e|i)r|\bintroduc(?!ión)]i
-valid span="\binser" before="víbel"
+[\bins[eéií]r[aáeéiíoó][^\W\d_]*\b]i
 id="noPT-2010-dual_insert"
-valid msgid="\binsert|\benter"
-hint="«inserir» ou «introducir» traducen a «insert» ou «enter»"
+hint="enter, insert ← inserir"
+valid before="(\s+[^\W\d_.]+)*\s+en\s+liña\b"  # inline
+valid msgid="\benter(ed|ing|s)?\b"
+valid msgid="\binsert(ed|ing|s)?\b"
+valid msgid="\bkey(ed|ing|s)?\b"
+valid msgid="\bread(ing|s)?(\s+[^\W\d_.]+)*\s+into\b"
+
+[\bintrod(?!ucións?\b)[uú](c[eéií]|z[aáoó])[^\W\d_]*\b]i
+id="PT-2010-dual_insert2"
+hint="enter, insert ← introducir"
+valid msgid="\benter(ed|ing|s)?\b"
+valid msgid="\bfad(e[ds]?|ing)(\s+[^\W\d_.]+)*\s+in\b"  # introducir con fundido
+valid msgid="\bfill(ed|ing|s)?\b"
+valid msgid="\binput(t(ed|ing)|s)?\b"
+valid msgid="\binsert(ed|ing|s)?\b"
+valid msgid="\b(re)?introduc(e[ds]?|ing)\b"
+valid msgid="\bma(de|k(es?|ing))(\s+[^\W\d_.]+)+\s+entry\b"
+valid msgid="\bma(de|k(es?|ing))(\s+[^\W\d_.]+)+\s+way\s+into\b"
+valid msgid="\bsqueez(e[ds]?|ing)(\s+[^\W\d_.]+)*\s+in\b"
+valid msgid="\btransfer(r(ed|ing)|s)?(\s+[^\W\d_.]+)+\s+into\b"
+
+[\bescr[ií]b[aáeéiíoó][^\W\d_]*\b]i
+id="PT-2010-dual_insert3"
+hint="enter, insert ← escribir"
+valid msgid="\bcompos(e[ds]?|ing)\b"
+# filesystems supporting CoW → sistemas de ficheiros que permiten copiar ao escribir
+valid msgid="\bCoW\b"
+valid msgid="\benter(ed|ing|s)?\b"
+valid msgid="\binput(t(ed|ing)|s)?\b"
+valid msgid="\binsert(ed|ing|s)?\b"
+valid msgid="\bmis-?spell(ed|ing|s)?\b"  # escribir mal
+valid msgid="\bmis-?typ(e[ds]?|ing)\b"  # escribir mal
+valid msgid="\bscribes?\b"  # escriba
+valid msgid="\bspell(ed|ing|s)?\b"
+valid msgid="\b(re)?typ(e[ds]?|ing)\b"
+valid msgid="\btypewriters?\b"  # máquina de escribir
+# add support to R/W → permitir ler e escribir
+# add R/W support → permitir lectura e escritura
+valid msgid="\bw\b"
+valid msgid="\b(re)?wr(it(es?|ing|ten)|ote)\b"
 
 # «invalid» tradúcese como «incorrecto»/«non é válido»
 {\binvalid}i
