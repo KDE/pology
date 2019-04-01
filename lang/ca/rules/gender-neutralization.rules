@@ -1,0 +1,38 @@
+#
+# This file collects gender neutralization rules for Catalan language
+# 
+# License: GPLv3
+#
+# Keep this file alphabetically sorted by source regular expression
+#
+# Regles basades en les recomanacions de la guia d'estil de Softcatalà
+#
+# Author: Jordi Mas <jmas@softcatala.org>, 2019
+# 
+
+# Remove XML entities.
+include file="filter.include"
+
+# Remove accelerator and  hyphen inside words.
+addFilterRegex match="(_|~|&)" on="pmsgid,pmsgstr"
+
+{\beverybody\b}i
+id="gender-everybody"
+valid !msgstr="\btots\b|\btotes\b"
+hint="«Everybody» recomanem traduir-ho per «tothom» per a neutralizar el gènere."
+
+{\b(kid|child)\b}i
+id="gender-kid"
+valid !msgstr="\bnen\b|\bnena\b"
+hint="«Kid o child» recomanem traduir-ho per «infant» per a neutralizar el gènere."
+
+{\bkids|children\b}i
+id="gender-kids"
+valid !msgstr="\bnens\b|\bnenes\b"
+valid msgstr="nens i nenes"
+hint="«Kids o children» recomanem traduir-ho per «infants» per a neutralizar el gènere."
+
+{\bwelcome\b}i
+id="gender-welcome"
+valid !msgstr="\bBenvingut\b|\bBenvinguts\b"
+hint="«Welcome» recomanem traduir-ho per «Us donem la benvinguda» per a neutralizar el gènere."
