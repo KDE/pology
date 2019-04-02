@@ -962,6 +962,14 @@ hint="Es tradueix per «Eina: Esvaeix, esvaïment» (multimèdia)"
     valid msgstr="\bEsvaïment lineal\b"
     hint="Es tradueix per «Esvaïment lineal» (multimèdia)"
 
+{\bdraft\b}i
+valid msgstr="\besbós\b"
+hint="Es tradueix per «esbós» (multimèdia)"
+
+    {\bdrafts\b}i
+    valid msgstr="\besbossos\b"
+    hint="Es tradueix per «esbossos» (multimèdia)"
+
 {\bdrawing\stablet\b}i
 valid msgstr="\btauleta de dibuix\b"
 hint="Es tradueix per «tauleta de dibuix» (multimèdia)"
@@ -1019,6 +1027,76 @@ hint="Es tradueix per «característica/ques» (multimèdia)"
     {\bfunctionality\b}i
     valid msgstr="\bfuncionalitats?\b"
     hint="Es tradueix per «funcionalitat/s» (multimèdia)"
+
+{\bfill(ed|ing)?\b}i
+valid msgid="\b(flood|no|winding)\sfill\b"
+valid msgid="\bfill\s(color|layer|opacity|patterns?|rule|special|style)\b"
+valid msgid="\bfilling\s(color|gradient|pattern)\b"
+valid msgstr="\bencara tenen un paper important\b"
+valid msgstr="\bEmplen(ada|ades|ament|arà|at?|en)?\b"
+valid msgstr="\bompl(e|ir)\b"
+hint="Es tradueix per «Emplena/t, emplenada/des, Emplenament, emplenen, emplenarà, omple/ir -a la descripció-» (multimèdia)"
+
+    {\bfills\b}i
+    valid msgstr="\bemplena(ts)\b"
+    valid msgstr="\bomplirà\b"
+    hint="Es tradueix per «emplena/ts, omplirà -a la descripció-» (multimèdia)"
+
+    # farciment
+    {\bfill(ing)?\scolor\b}i
+    valid msgstr="\bcolor de l'emplenat\b"
+    hint="Es tradueix per «color de l'emplenat» (multimèdia)"
+
+    {\bfill\slayer\b}i
+    valid msgid="\bbackground\sfill\slayer\b"
+    valid msgid="\bflood\sfill\slayer\b"
+    valid msgstr="\bcapa d'emplenat\b"
+    hint="Es tradueix per «capa d'emplenat» (multimèdia)"
+
+        {\bbackground\sfill\slayer\b}i
+        valid msgstr="\bcapa d'emplenat del fons\b"
+        hint="Es tradueix per «capa d'emplenat del fons» (multimèdia)"
+
+    {\bfill\sopacity\b}i
+    valid msgstr="\bopacitat de l'emplenat\b"
+    hint="Es tradueix per «opacitat de l'emplenat» (multimèdia)"
+
+    {\bfill\srule\b}i
+    valid msgstr="\bregla de l'emplenat\b"
+    hint="Es tradueix per «regla de l'emplenat» (multimèdia)"
+
+    {\bfill\sspecial\b}i
+    valid msgstr="\bemplenat especial\b"
+    hint="Es tradueix per «emplenat especial» (multimèdia)"
+
+    {\bfill\sstyle\b}i
+    valid msgstr="\bestil de l'emplenat\b"
+    hint="Es tradueix per «estil de l'emplenat» (multimèdia)"
+
+    {\bfilling\sgradient\b}i
+    valid msgstr="\bdegradat de l'emplenat\b"
+    hint="Es tradueix per «degradat de l'emplenat» (multimèdia)"
+
+    {\bfill(ing)?\spatterns?\b}i
+    valid msgstr="\bpatr(ó|ons) de l'emplenat\b"
+    hint="Es tradueix per «patró/ons de l'emplenat» (multimèdia)"
+
+    {\bflood\sfill\b}i
+    valid msgid="\bflood\sfill\slayer\b"
+    valid msgstr="\bemplenat per flux\b"
+    hint="Es tradueix per «emplenat per flux» (multimèdia)"
+
+        {\bflood\sfill\slayer\b}i
+        valid msgstr="\bcapa d'emplenat per flux\b"
+        hint="Es tradueix per «capa d'emplenat per flux» (multimèdia)"
+
+    {\bno\sfill\b}i
+    valid msgstr="\bsense emplenat\b"
+    hint="Es tradueix per «sense emplenat» (multimèdia)"
+
+    {\bwinding\sfill\b}i
+    valid msgstr="\bemplenat sinuós\b"
+    hint="Es tradueix per «emplenat sinuós» (multimèdia)"
 
 {\bfilms?\b}i
 valid msgid="\bFilm.?Grain\b"
@@ -1685,6 +1763,10 @@ hint="Es tradueix per «capa/es» (multimèdia)"
     valid msgstr="\bcap(a|es) visibles?\b"
     hint="Es tradueix per «capa/es visible/s» (multimèdia)"
 
+{\blayout\spaper\b}i
+valid msgstr="\bpaper per a la disposició\b"
+hint="Es tradueix per «paper per a la disposició» (multimèdia)"
+
 {\bLazy\b}i
 valid msgid="\bLazy\sBrush\b"
 valid msgid="\bLazy\ssynchronization\b"
@@ -1786,6 +1868,10 @@ hint="Es tradueix per «menys saturació» (multimèdia)"
         {\bblue\shighlights?\b}i
         valid msgstr="\bllums? blav(a|es) intens(es)?\b"
         hint="Es tradueix per «llum/s blava/es intens/es» (multimèdia)"
+
+{\bline.?arts?\b}i
+valid msgstr="\blínia artística\b"
+hint="Es tradueix per «línia artística» (multimèdia)"
 
 # Linear / Linearily
 {\blinear\b}i
@@ -2135,6 +2221,17 @@ hint="Es tradueix per «desenfocada/es» (multimèdia)"
     {\bsystem\soverhead\b}i
     valid msgstr="\bsobrecàrrega del sistema\b"
     hint="Es tradueix per «sobrecàrrega del sistema» (multimèdia)"
+        
+{\bpanel\b}i
+valid msgid="Panel/Docker"
+valid msgid="\bpanel\slayers?\b"
+valid msgstr="\bvinyeta\b"
+hint="Es tradueix per «vinyeta -compte que es pot tractar d'un plafó-» (multimèdia)"
+        
+    {\bpanels\b}i
+    valid msgid="Panels/Dockers"
+    valid msgstr="\bvinyetes\b"
+    hint="Es tradueix per «vinyetes -compte que es pot tractar de plafons-» (multimèdia)"
 
 # # FIXME
 {\bpass.?through\b}i
@@ -2619,9 +2716,9 @@ valid msgstr="\bescàners?\b"
 hint="Es tradueix per «escàner/s» (multimèdia)"
 
     {\bscanned\b}i
-    valid msgstr="\bescaneja(da|ran|t)?\b"
+    valid msgstr="\bescane(gen|ja|jada|jaran|jat)\b"
     valid msgstr="\bexplora(r|t)?\b"
-    hint="Es tradueix per «escaneja/t/da, escanejaran, explora/r/t» (multimèdia)"
+    hint="Es tradueix per «escaneja/t/da, escanegen, escanejaran, explora/r/t» (multimèdia)"
 
     {\bscanners?\sdevice\b}i
     valid msgstr="\bdispositius? d'escaneig\b"
@@ -2870,8 +2967,8 @@ hint="Es tradueix per «correcció/ns del desplaçament» (multimèdia)"
 valid msgid="\b(angle|(they\swill|they'll))\ssnap\b"
 valid msgid="\bsnap\s(Options|Orthogonal|single)\b"
 valid msgstr="«snap»"
-valid msgstr="\bajust(i|ar?)\b"
-hint="Es tradueix per «ajusta/r, ajusti, «snap» » (multimèdia)"
+valid msgstr="\bajust(ament|ar?|arà|i)\b"
+hint="Es tradueix per «ajusta/r, ajustarà, ajusti, ajustament, «snap» » (multimèdia)"
 
     {\bsnap\sOptions\b}i
     valid msgstr="\bopcions d'ajustament\b"
@@ -2886,15 +2983,19 @@ hint="Es tradueix per «ajusta/r, ajusti, «snap» » (multimèdia)"
     hint="Es tradueix per «ajust individual» (multimèdia)"
 
     {\bsnapping\b}i
-    valid msgid="\bangle\ssnapping\b"
+    valid msgid="\b(angle|without)\ssnapping\b"
     valid msgstr=":ref:\`snapping\`"
     valid msgstr="\bencaixar els blocs de Lego\b"
-    valid msgstr="\bajust(ant)?\b"
-    hint="Es tradueix per «ajust, ajustant» (multimèdia)"
+    valid msgstr="\bajust(ament|ant)?\b"
+    hint="Es tradueix per «ajust, ajustant, ajustament» (multimèdia)"
 
         {\bangle\ssnap(ping)?\b}i
         valid msgstr="\bajust de l'angle\b"
         hint="Es tradueix per «ajust de l'angle» (multimèdia)"
+
+        {\bwithout\ssnapping\b}i
+        valid msgstr="\bsense poder ajustar\b"
+        hint="Es tradueix per «sense poder ajustar» (multimèdia)"
 
     {\b(they\swill|they'll)\ssnap\b}i
     valid msgstr="\bs'ajustaran\b"
