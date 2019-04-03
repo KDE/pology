@@ -1030,7 +1030,7 @@ hint="Es tradueix per «característica/ques» (multimèdia)"
 
 {\bfill(ed|ing)?\b}i
 valid msgid="\b(flood|no|winding)\sfill\b"
-valid msgid="\bfill\s(color|layer|opacity|patterns?|rule|special|style)\b"
+valid msgid="\bfill\s(color|layer|opacity|patterns?|rule|special|style|tool)\b"
 valid msgid="\bfilling\s(color|gradient|pattern)\b"
 valid msgstr="\bencara tenen un paper important\b"
 valid msgstr="\bEmplen(ada|ades|ament|arà|at?|en)?\b"
@@ -1038,7 +1038,7 @@ valid msgstr="\bompl(e|ir)\b"
 hint="Es tradueix per «Emplena/t, emplenada/des, Emplenament, emplenen, emplenarà, omple/ir -a la descripció-» (multimèdia)"
 
     {\bfills\b}i
-    valid msgstr="\bemplena(ts)\b"
+    valid msgstr="\bemplena(ts)?\b"
     valid msgstr="\bomplirà\b"
     hint="Es tradueix per «emplena/ts, omplirà -a la descripció-» (multimèdia)"
 
@@ -1073,6 +1073,10 @@ hint="Es tradueix per «Emplena/t, emplenada/des, Emplenament, emplenen, emplena
     valid msgstr="\bestil de l'emplenat\b"
     hint="Es tradueix per «estil de l'emplenat» (multimèdia)"
 
+    {\bfill\stool\b}i
+    valid msgstr="\beina d'emplenar\b"
+    hint="Es tradueix per «eina d'emplenar» (multimèdia)"
+
     {\bfilling\sgradient\b}i
     valid msgstr="\bdegradat de l'emplenat\b"
     hint="Es tradueix per «degradat de l'emplenat» (multimèdia)"
@@ -1080,6 +1084,10 @@ hint="Es tradueix per «Emplena/t, emplenada/des, Emplenament, emplenen, emplena
     {\bfill(ing)?\spatterns?\b}i
     valid msgstr="\bpatr(ó|ons) de l'emplenat\b"
     hint="Es tradueix per «patró/ons de l'emplenat» (multimèdia)"
+
+    {\bflood\scolor\b}i
+    valid msgstr="\bcolor de l'emplenat\b"
+    hint="Es tradueix per «color de l'emplenat» (multimèdia)"
 
     {\bflood\sfill\b}i
     valid msgid="\bflood\sfill\slayer\b"
@@ -1352,9 +1360,26 @@ hint="Es tradueix per «lluïssor» (multimèdia)"
 valid msgstr="\bgràfi(c|ca|ques)\b"
 hint="Es tradueix per «gràfic/a/ques» (multimèdia)"
 
-{\bgroup\sstack\b}i
-valid msgstr="\bpila de capes\b"
-hint="Es tradueix per «pila de capes» (multimèdia)"
+# group
+    {\bgroup\sLayer\b}i
+    valid msgstr="\bcapa de grup\b"
+    hint="Es tradueix per «capa de grup» (multimèdia)"
+
+        {\bgroup\sLayers\b}i
+        valid msgstr="\bcapes de grup\b"
+        hint="Es tradueix per «capes de grup» (multimèdia)"
+
+    {\bgroup\sshapes\b}i
+    valid msgstr="\bagrupar? les formes\b"
+    hint="Es tradueix per «agrupa/r les formes» (multimèdia)"
+
+        {\bungroup\sshapes\b}i
+        valid msgstr="\bdesagrupar? les formes\b"
+        hint="Es tradueix per «desagrupa/r les formes» (multimèdia)"
+
+    {\bgroup\sstack\b}i
+    valid msgstr="\bpila de grups\b"
+    hint="Es tradueix per «pila de grups» (multimèdia)"
 
 {\bguiding\slines?\b}i
 valid msgstr="\blíni(a|es) guia\b"
@@ -1602,16 +1627,16 @@ hint="Es tradueix per «capa/es» (multimèdia)"
 
     {\bFill\sLayers?\b}i
     valid msgid="\bbackground\sfill\slayers?\b"
-    valid msgstr="\bcap(a|es) de farciment\b"
-    hint="Es tradueix per «capa/es de farciment» (multimèdia)"
+    valid msgstr="\bcap(a|es) d'emplenat\b"
+    hint="Es tradueix per «capa/es d'emplenat» (multimèdia)"
 
         {\bbackground\sfill\slayers?\b}i
-        valid msgstr="\bcap(a|es) de fons de farciment\b"
-        hint="Es tradueix per «capa/es de fons de farciment» (multimèdia)"
+        valid msgstr="\bcap(a|es) d'emplenat del fons\b"
+        hint="Es tradueix per «capa/es d'emplenat del fons» (multimèdia)"
 
         {\bFill\sStyle?\b}i
-        valid msgstr="\bestils? de farciment\b"
-        hint="Es tradueix per «estil/s de farciment» (multimèdia)"
+        valid msgstr="\bestils? de l'emplenat\b"
+        hint="Es tradueix per «estil/s de l'eplenat» (multimèdia)"
 
     {\bFilter\sLayers?\b}i
     valid msgid="\bFilter\sLayers\sand\smasks\b"
@@ -1626,10 +1651,6 @@ hint="Es tradueix per «capa/es» (multimèdia)"
     {\bfor\sLayers?\b}i
     valid msgstr="\bper a l(a|es) cap(a|es)\b"
     hint="Es tradueix per «per a la/es capa/es» (multimèdia)"
-
-    {\bgroup\sLayer\b}i
-    valid msgstr="\bgrup de capes\b"
-    hint="Es tradueix per «grup de capes» (multimèdia)"
 
     {\bink\slayers\b}i
     valid msgstr="\bcapes de tinta\b"
@@ -2370,8 +2391,8 @@ hint="Es tradueix per «píxels» (multimèdia)"
         hint="Es tradueix per «dades dels píxels» (multimèdia)"
 
         {\bpixel.?fill\b}i
-        valid msgstr="\bfarciment dels píxels\b"
-        hint="Es tradueix per «farciment dels píxels» (multimèdia)"
+        valid msgstr="\bemplenat dels píxels\b"
+        hint="Es tradueix per «emplenat dels píxels» (multimèdia)"
 
         {\bpixel.?Grid\b}i
         valid msgstr="\bQuadrícula de píxels\b"
