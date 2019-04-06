@@ -236,43 +236,26 @@ valid msgid="\btypewriters?\b"  # máquina de escribir
 valid msgid="\bw\b"
 valid msgid="\b(re)?wr(it(es?|ing|ten)|ote)\b"
 
-# «invalid» tradúcese como «incorrecto»/«non é válido»
-{\binvalid}i
-valid after="\bto\sbe\s"
-valid before="ate"
+{\binvalid\b}i
 id="noPT-2010_invalid"
-valid msgstr="incorrect(o|a)"
-valid msgstr="\bnon\s(ser|é|era|será|sexa|seña)\sválid(o|a)(\b|\s)"
-valid msgstr="\bnon\s(son|eran|sexan|señan)\sválid(o|a)s"
-valid msgstr="non\sválid(o|a)"
-valid msgstr="\bnon\sé\sun(ha)?\s([^\W\d_]+\s){1,4}válid(o|a)" env="kde"
-hint="«invalid» tradúcese como «incorrecto»/«non é válido»"
+hint="invalid → incorrecto"
+valid msgstr="\bincorrect[ao]s?\b"
 
-# «invalid» tradúcese como «incorrecto»/«non é válido»
-{\bto\sbe\sinvalid\b}i
-id="noPT-2010_invalid2"
-valid msgstr="\bnon\sser\s(válid|correct)(o|a)"
-valid msgstr="\bser\sincorrect(o|a)"
-hint="«to be invalid» -> «non ser correto/válido» ou «ser incorrecto»"
-
-# «invalid» tradúcese como «non é válido»
-[\b(non\s(é\s)?válid(o|a))|(non\sson\sválid(o|a)s)]i
-valid after="argumento"
+[\bincorrect[ao]s?\b]i
 id="noPT-2010-dual_invalid"
-valid msgid="\binvalid"
-valid msgid="\b(is|are)?\snot\svalid" env="kde"
-valid after="\baínda\s" msgid="\bnot\syet\svalid" env="kde"
-hint="«non é válido» traducen a «invalid» (e «not valid»"
-
-# «invalid» tradúcese como «incorrecto»
-[\bincorrect(o|a|amente)]i
-valid after="argumento"
-id="noPT-2010-dual_invalid2"
-valid msgid="\binvalid"
-valid msgid="\bincorrect"
-valid msgid="\bwrong"
-valid msgid="\bbad\s[^\W\d_]+" env="kde"
-hint="«incorrecto» traduce a «invalid» (e a «incorrect», e a «wrong»)"
+hint="invalid ← incorrecto"
+valid msgid="\bbad\b"
+valid msgid="\bfaulty\b"
+valid msgid="\binappropriate\b"
+valid msgid="\bincorrect\b"
+valid msgid="\binvalid\b"
+valid msgid="\bmalformed\b"
+valid msgid="\bmisplacement\b"  # colocación incorrecta
+valid msgid="\bmisreading\b"  # lectura incorrecta
+valid msgid="\bmisspelled\b"
+valid msgid="\bnon-compliant\b"
+valid msgid="\bnot\s+correctly\s+solved\b"
+valid msgid="\bwrong\b"
 
 # «locate» tradúcese como «atopar», «buscar» ou «situar»
 {\blocate}i
@@ -578,6 +561,7 @@ hint="«bug» tradúcese como «fallo»"
 # «fallo» traduce a «bug»
 [\bfallos?\b]i
 id="PT-2011-dual_bug"
+valid msgid="\bbuggy\b"  # con fallos
 valid msgid="\bbugs?\b"
 valid msgid="\bbugfix(es)?\b"  # correccións de fallos
 valid msgid="\bfail(ed|ing|s)?\b"
