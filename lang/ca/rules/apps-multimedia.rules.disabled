@@ -413,20 +413,20 @@ hint="Es tradueix per «pinzells» (multimèdia)"
             hint="Es tradueix per «Historial dels pinzells predefinits» (multimèdia)"
 
             {\bBrush\sPreset\sicons?\b}i
-            valid msgstr="\bicon(a|es) predefinid(a|es) del pinzell\b"
-            hint="Es tradueix per «icona/es predefinida/es del pinzell» (multimèdia)"
+            valid msgstr="\bicon(a|es) dels? pinzells? predefinits?\b"
+            hint="Es tradueix per «icona/es del/s pinzell/s predefinit/s» (multimèdia)"
 
             {\bBrush\sPreset\sSettings\b}i
-            valid msgstr="\bajustaments dels valors predefinits del pinzell\b"
-            hint="Es tradueix per «ajustaments dels valors predefinits del pinzell» (multimèdia)"
+            valid msgstr="\bajustaments del pinzell predefinit\b"
+            hint="Es tradueix per «ajustaments del pinzell predefinit» (multimèdia)"
 
             {\bKrita\sBrush\sPreset\b}i
-            valid msgstr="\bValor predefinit per al pinzell del Krita\b"
-            hint="Es tradueix per «Valor predefinit per al pinzell del Krita» (multimèdia)"
+            valid msgstr="\bpinzell predefinit del Krita\b"
+            hint="Es tradueix per «pinzell predefinit del Krita» (multimèdia)"
 
             {\bNew\sBrush\sPreset\b}i
-            valid msgstr="\bvalor predefinit nou del pinzell\b"
-            hint="Es tradueix per «valor predefinit nou del pinzell» (multimèdia)"
+            valid msgstr="\bpinzell predefinit nou\b"
+            hint="Es tradueix per «pinzell predefinit nou» (multimèdia)"
 
             {\bselected\sBrush\sPreset\b}i
             valid msgstr="\bpinzell predefinit seleccionat\b"
@@ -439,12 +439,12 @@ hint="Es tradueix per «pinzells» (multimèdia)"
         hint="Es tradueix per «pinzells predefinits» (multimèdia)"
 
             {\bNew\sBrush\sPresets\b}i
-            valid msgstr="\bvalors predefinits nous del pinzell\b"
-            hint="Es tradueix per «valors predefinits nous del pinzell» (multimèdia)"
+            valid msgstr="\bpinzell predefinit nou\b"
+            hint="Es tradueix per «pinzell predefinit nou» (multimèdia)"
 
             {\bten\sBrush\sPresets\b}i
-            valid msgstr="\bvalors predefinits dels deu pinzells\b"
-            hint="Es tradueix per «valors predefinits dels deu pinzells» (multimèdia)"
+            valid msgstr="\bpredefinits dels deu pinzells\b"
+            hint="Es tradueix per «predefinits dels deu pinzells» (multimèdia)"
 
     {\bbrush\sradius\b}i
     valid msgid="\bbasic\sbrush\sradius\b"
@@ -625,6 +625,10 @@ hint="Es tradueix per «càmera/es» (multimèdia)"
     {\bpoint.?and.?shoots?\scameras?\b}i
     valid msgstr="\bcàmer(a|es) instantàni(a|es)\b"
     hint="Es tradueix per «càmera/es instantània/es» (multimèdia)"
+
+{\bcanvas\b}i
+valid msgstr="\bllenç\b"
+hint="Es tradueix per «llenç» (multimèdia)"
 
 {\bcharacterization\b}i
 valid msgstr="\bcaracterització\b"
@@ -834,10 +838,18 @@ hint="Es tradueix per «compressió» (multimèdia)"
         valid msgstr="\bbasat en la compressió per ondetes\b"
         hint="Es tradueix per «basat en la compressió per ondetes» (multimèdia)"
 
+{\bconfiguration\smenu\b}i
+valid msgstr="\bmenú de configuració\b"
+hint="Es tradueix per «menú de configuració» (multimèdia)"
+
 {\bcorrelat(e|ion)\b}i
 valid msgstr="\bcorrelaciona(r|rà)?\b"
 valid msgstr="\bcorrelació\b"
 hint="Es tradueix per «correlació, correlaciona/r/rà» (multimèdia)"
+
+{\bcrayons?\b}i
+valid msgstr="\bllapis de colors\b"
+hint="Es tradueix per «llapis de colors -llapis és un nom invariable-» (multimèdia)"
 
 # Crop
 {\bcrops?\b}i
@@ -940,6 +952,15 @@ hint="Es tradueix per «fosc/cos, fosques» (multimèdia)"
 {\bdeconvolution\b}i
 valid msgstr="\bdeconvolució\b"
 hint="Es tradueix per «(Filtre:) deconvolució» (multimèdia)"
+
+{\bdefault\svalues?\b}i
+valid msgid="\bpractical\sdefault\svalue\b"
+valid msgstr="\bvalors? predeterminats?\b"
+hint="Es tradueix per «valor/s predeterminat/s» (multimèdia)"
+
+    {\bpractical\sdefault\svalue\b}i
+    valid msgstr="\bvalor pràctic predeterminat\b"
+    hint="Es tradueix per «valor pràctic predeterminat» (multimèdia)"
 
 {\bDemosaicing\b}i
 valid msgstr="\bReconstrucció\b"
@@ -1438,6 +1459,7 @@ valid msgid="\bimaging\sworkflow\b"
 valid msgid="\blocation\sof\simages?\b"
 valid msgid="\braw\simages?\b"
 valid msgid="\bscenic\simages?\b"
+valid msgstr="«\*\bimage\b\*»" # Krita doc_www
 valid msgstr="\.\.\simage.\simages/" # Krita doc_www
 valid msgstr="\bnom_imatge\b"
 valid msgstr="\bimatges?\b"
@@ -2113,16 +2135,12 @@ hint="Es tradueix per «màscara/es» (multimèdia)"
 # Media
 {\bmedia\b}i
 valid msgid="/media/"
-valid msgid="\bbased\smedia\b"
-valid msgid="\bmedia.?players?\b"
-valid msgid="\bmedia.?Servers?\b"
-valid msgid="\bplaying\smedia\b"
-valid msgid="\bremovable\smedias?\b"
-valid msgid="\bRich\sMedia\b"
+valid msgid="\bmedia.?(players?|Servers?)\b"
+valid msgid="\b(based|playing|removable|Rich|social)\smedias?\b"
 valid msgstr="\bsuports?\b"
 hint="Es tradueix per «suport/s» (multimèdia)"
 
-    {\bbased\smedia\b}i
+    {\bbased\smedias?\b}i
     valid msgstr="\bsuports? basats?\b"
     hint="Es tradueix per «suport/s basat/s» (multimèdia)"
 
@@ -2145,6 +2163,10 @@ hint="Es tradueix per «suport/s» (multimèdia)"
     {\bRich\sMedia\b}i
     valid msgstr="\bContingut enriquit\b"
     hint="Es tradueix per «Contingut enriquit» (multimèdia)"
+
+    {\bsocial\sMedia\b}i
+    valid msgstr="\bxarxes socials\b"
+    hint="Es tradueix per «xarxes socials» (multimèdia)"
 
 {\bmid(dle)?.?tones?\b}i
 valid msgid="\bshadow,\s(middle|midtone).?\sand\shighlights?(\stones)?\b"
@@ -2244,6 +2266,7 @@ hint="Es tradueix per «desenfocada/es» (multimèdia)"
     hint="Es tradueix per «sobrecàrrega del sistema» (multimèdia)"
         
 {\bpanel\b}i
+valid msgid="\bEditor panel\b"
 valid msgid="Panel/Docker"
 valid msgid="\bpanel\slayers?\b"
 valid msgstr="\bvinyeta\b"
@@ -2269,6 +2292,10 @@ valid msgid="\bcolor\spatches?\b"
 valid msgstr="\bmostr(a|es)\b"
 valid msgstr="\bpedaç(os)?\b"
 hint="Es tradueix per «mostra/es, pedaç/os» (multimèdia)"
+
+{\bpens?\b}i
+valid msgstr="\bllapis\b"
+hint="Es tradueix per «llapis -llapis és un nom invariable-» (multimèdia)"
 
 # Photos
 {\bphotos?\b}i
@@ -2366,7 +2393,7 @@ hint="Es tradueix per «píxels» (multimèdia)"
     {\bpixel\b}i
     valid msgid="\b(bad|dead|hot|no|stuck).?pixel\b"
     valid msgid="\bLibre\sPixel\sCup\b"
-    valid msgid="\bpixel.?(and\svector|area|Artist|based|brush|colors|data|fill|Grid|information|selections?|sizes)\b"
+    valid msgid="\bpixel.?(and\svector|area|Artist|based|brush|colors|data|fill|Grid|information|selections?|sizes|values?)\b"
     valid msgstr="\bpíxel\b"
     hint="Es tradueix per «píxel» (multimèdia)"
 
@@ -2428,6 +2455,10 @@ hint="Es tradueix per «píxels» (multimèdia)"
             valid msgstr="\bmides predefinides dels píxels\b"
             hint="Es tradueix per «mides predefinides dels píxels» (multimèdia)"
 
+        {\bpixel.?values?\b}i
+        valid msgstr="\bvalors? dels? píxels?\b"
+        hint="Es tradueix per «valor/s del/s píxel/s» (multimèdia)"
+
     {\bbad\spixels?\b}i
     valid msgstr="\bpíxels? defectu(ós|osos)\b"
     hint="Es tradueix per «píxel/s defectuós/osos» (multimèdia)"
@@ -2477,13 +2508,15 @@ valid msgid="\bBrush.?Presets?\b"
 valid msgstr="«preset\b"
 valid msgstr="\bpreconfigura(ció)?\b"
 valid msgstr="\bpredefini(ció|ts?|da|des)\b"
-valid msgstr="\bvalors? predefinits?\b"
-hint="Es tradueix per «preconfigura/ció, valor/s predefinit/s, predefinit/s, predefinida/des, predefinició» (multimèdia)"
+valid !msgstr="\bValor predefinit\b"
+valid msgstr="\bpredefinit\b"
+hint="Es tradueix per «preconfigura/ció, predefinit/s, predefinida/des, predefinició» (multimèdia)"
 
     {\bpresets\b}i
     valid msgid="\bBrush.?Presets\b"
-    valid msgstr="\bValors predefinits\b"
-    hint="Es tradueix per «Valors predefinits» (multimèdia)"
+    valid !msgstr="\bValors predefinits\b"
+    valid msgstr="\bpredefinits\b"
+    hint="Es tradueix per «predefinits» (multimèdia)"
 
 {\bprinter\b}i
 valid msgid="\bprinter\sprofiles?\b"
@@ -2643,6 +2676,39 @@ hint="Es tradueix per «perfil/s, perfilar/t, perfilen» (multimèdia)"
     valid msgstr="\bampli ventall\b"
     valid msgstr="\bgran varietat\b"
     hint="Es tradueix per «ampli ventall, gran varietat» (multimèdia)"
+
+{\braster\b}i
+valid msgid="\braster\s(animation|data|editing|formats?|graphics?|layers?|selection)\b"
+valid msgstr="\brasteritzats?\b"
+hint="Es tradueix per «rasteritzat/s» (multimèdia)"
+
+    {\braster\sanimation\b}i
+    valid msgstr="\banimació rasteritzada\b"
+    hint="Es tradueix per «animació rasteritzada» (multimèdia)"
+
+    {\braster\sdata\b}i
+    valid msgstr="\bdades rasteritzades\b"
+    hint="Es tradueix per «dades rasteritzades» (multimèdia)"
+
+    {\braster\sediting\b}i
+    valid msgstr="\bedició rasteritzada\b"
+    hint="Es tradueix per «edició rasteritzada» (multimèdia)"
+
+    {\braster\sformats?\b}i
+    valid msgstr="\bformats? ràster\b"
+    hint="Es tradueix per «format/s ràster» (multimèdia)"
+
+    {\braster\sgraphics?\b}i
+    valid msgstr="\bgràfics? rasteritzats?\b"
+    hint="Es tradueix per «gràfic/s rasteritzat/s» (multimèdia)"
+
+    {\braster\slayers?\b}i
+    valid msgstr="\bcap(a|es) ràster\b"
+    hint="Es tradueix per «capa/es ràster» (multimèdia)"
+
+    {\braster\sselection\b}i
+    valid msgstr="\bselecció ràster\b"
+    hint="Es tradueix per «selecció ràster» (multimèdia)"
 
 # Format RAW
 # Al Gnome «RAW» és «en brut», «sense format», «en cru» i «dades crues»
@@ -2833,27 +2899,69 @@ hint="Es tradueix per «paisatges, imatges» (multimèdia)"
         valid msgstr="\bcàmer(a|es) instantàni(a|es)\b"
         hint="Es tradueix per «càmera/es instantània/es» (multimèdia)"
 
-{\bSettings\b}i
-valid msgid="\bKDE\ssystem\ssettings\b"
-valid msgid="\bQuick\sSettings\sDocker\b"
-valid msgid="\bSettings\sdialog\b"
-valid msgid="gt;\bSettings\b"
-valid msgstr="(`|^|«)\bArranjament\b" #"
-valid msgstr="\bArranjament -"
-valid msgstr="\bajustaments\b"
-hint="Es tradueix per «ajustaments o Arranjament amb l'element del menú» (multimèdia)"
+{\bSetting\b}i
+valid msgid="\blocale\ssetting\b"
+valid msgid="\bSetting\sit\b"
+valid msgstr="\bajustament\b"
+valid msgstr="\bajustar\b"
+valid msgstr="\bestabli(ment|nt|r)\b"
+hint="Es tradueix per «ajustament, ajustar, establir, establiment, establint» (multimèdia)"
 
-    {\bKDE\ssystem\ssettings\b}i
-    valid msgstr="\bArranjament del sistema KDE\b"
-    hint="Es tradueix per «Arranjament del sistema KDE» (multimèdia)"
+    {\bSetting\sit\b}i
+    valid msgstr="\bconfigurar-l(a|o)\b"
+    hint="Es tradueix per «configurar-la/o» (multimèdia)"
 
-    {\bQuick\sSettings\sDocker\b}i
-    valid msgstr="\bAcoblador d'arranjament ràpid\b"
-    hint="Es tradueix per «Acoblador d'arranjament ràpid» (multimèdia)"
+    {\bSettings\b}i
+    valid msgid="\bKDE\ssystem\ssettings\b"
+    valid msgid="\b(Local|System)\sSettings\b"
+    valid msgid="\bQuick\sSettings\sDocker\b"
+    valid msgid="\bSettings\s(dialog|file|text\sfile)\b"
+    valid msgid="gt;\bSettings\b"
+    valid msgstr="(`|^|«)\bArranjament\b" #"
+    valid msgstr="(«|<i>)\bArranjament\b(»|</i>)"
+    valid msgstr="--> Arranjament"
+    valid msgstr="\bArranjament -"
+    valid msgstr="\bajustaments\b"
+    hint="Es tradueix per «ajustaments o Arranjament amb l'element del menú» (multimèdia)"
 
-    {\bSettings\sdialog\b}i
-    valid msgstr="\bdiàleg de configuració\b"
-    hint="Es tradueix per «diàleg de configuració» (multimèdia)"
+        {\bLocal\sSettings\b}i
+        valid msgstr="\bConfiguració local\b"
+        hint="Es tradueix per «Configuració local» (multimèdia)"
+
+        {\bQuick\sSettings\sDocker\b}i
+        valid msgstr="\bAcoblador d'arranjament ràpid\b"
+        hint="Es tradueix per «Acoblador d'arranjament ràpid» (multimèdia)"
+
+        {\bSettings\sdialog\b}i
+        valid msgstr="\bdiàleg de configuració\b"
+        hint="Es tradueix per «diàleg de configuració» (multimèdia)"
+
+        {\bsettings\sfile\b}i
+        valid msgid="\bsettings\sfile\sto\s(Load|Save)\b"
+        valid msgstr="\bfitxer d'ajustaments\b"
+        hint="Es tradueix per «fitxer d'ajustaments» (multimèdia)"
+
+            {\bsettings\sfile\sto\s(Load|Save)\b}i
+            valid msgstr="\bfitxer a (carregar|desar) amb els ajustaments\b"
+            hint="Es tradueix per «fitxer a carregar/desar amb els ajustaments» (multimèdia)"
+
+        {\bsettings\stext\sfile\b}i
+        valid msgstr="\bfitxer de text amb els ajustaments\b"
+        hint="Es tradueix per «fitxer de text amb els ajustaments» (multimèdia)"
+
+        {\b(S|s)ystem\s(S|s)ettings\b}
+        valid msgid="\bfile\ssystem\ssettings\b"
+        valid msgid="\bKDE\ssystem\ssettings\b"
+        valid msgstr="\bArranjament del sistema\b"
+        hint="Es tradueix per «Arranjament del sistema» (multimèdia)"
+
+            {\bfile\ssystem\ssettings\b}i
+            valid msgstr="\bajustaments per al sistema de fitxers\b"
+            hint="Es tradueix per «ajustaments per al sistema de fitxers» (multimèdia)"
+
+            {\bKDE\ssystem\ssettings\b}i
+            valid msgstr="\bArranjament del sistema KDE\b"
+            hint="Es tradueix per «Arranjament del sistema KDE» (multimèdia)"
 
 {\bshad(e|ows?)\b}i
 valid msgid="\bshadows\sand\shighlights\b"
@@ -3024,8 +3132,13 @@ hint="Es tradueix per «ajusta/r, ajustarà, ajusti, ajustament, «snap» » (mu
 
 # Al Gnome «softening» és «difuminat» i «Suavitza»
 {\bSoften(ing)?\b}i
+valid msgid="\bSoften(ing)?\sedges?\b"
 valid msgstr="\bsuavitzar?\b"
 hint="Es tradueix per «suavitza/r» (multimèdia)"
+
+    {\bSoften(ing)?\sedges?\b}i
+    valid msgstr="\bvor(a|es) suavitzad(a|es)\b"
+    hint="Es tradueix per «vora/es suavitzada/es» (multimèdia)"
 
 # Vendors
     {\bhardware\svendors?\b}i
@@ -3058,7 +3171,7 @@ hint="Es tradueix per «valor del pas» (multimèdia)"
 valid msgid="\bDo\syou\sstill\swant\sto\scontinue\?\b"
 valid msgid="\bdigital\sstill\scameras?\b"
 valid msgid="\bdigital\sstill\simages?\b"
-valid msgid="\bstill\slifes\b" # natura morta
+valid msgid="\bstill\s(lifes|occurs)\b" # natura morta
 valid msgstr="\bfotogràfi(ca|ques)\b"
 valid msgstr="\bestàti(ca|ques)\b" # fotografia/imatge estàtica
 valid msgstr="\bencara\b"
@@ -3078,6 +3191,18 @@ hint="Es tradueix per «fotogràfica/ques, fotografia/imatge estàtica, encara, 
     {\bstill\slifes\b}i
     valid msgstr="\bnatura morta\b"
     hint="Es tradueix per «natura morta» (multimèdia)"
+
+    {\bstill\soccurs\b}i
+    valid msgstr="\bpersisteix\b"
+    hint="Es tradueix per «persisteix» (multimèdia)"
+
+{\bstrip(ping)?\b}i
+valid msgstr="\bdescart(ar?|arà|eu)\b"
+hint="Es tradueix per «descarta/r, descarteu, descartarà» (multimèdia)"
+
+    {\bstripped\b}i
+    valid msgstr="\bdescart(e|i)n\b"
+    hint="Es tradueix per «descarten/in» (multimèdia)"
 
 {\bstroke\b}i
 valid msgid="\bbrush\sstroke\b"
@@ -3176,10 +3301,10 @@ valid msgid="\btrack\sfiles?\b"
 valid msgid="\bvideo\stracks?\b"
 valid msgstr="\bpe(ça|ces)\b"
 valid msgstr="\bpist(a|es)\b"
-valid msgstr="\bsegu(eixen|iment)\b"
+valid msgstr="\bsegu(eixen|iment|ir)\b"
 valid msgstr="\bTrack%"
 valid msgstr="\btrajecte\b"
-hint="Es tradueix per «pista/es, peça/ces, seguiment, segueixen, trajecte» (multimèdia)"
+hint="Es tradueix per «pista/es, peça/ces, seguir, seguiment, segueixen, trajecte» (multimèdia)"
 
     {\baudio\stracks?\b}i
     valid msgstr="\bpist(a|es) d'àudio\b"
@@ -3199,9 +3324,14 @@ hint="Es tradueix per «pista/es, peça/ces, seguiment, segueixen, trajecte» (m
 
     # Seguidor - kdenlive
     {\btracker\b}i
+    valid msgid="\bbug\stracker\b"
     valid msgid="\bOpen GPS Tracker\b"
     valid msgstr="\blocalitzador\b"
     hint="Es tradueix per «localitzador» (multimèdia)"
+
+        {\bbug\stracker\b}i
+        valid msgstr="\bseguidor d'errors\b"
+        hint="Es tradueix per «seguidor d'errors» (multimèdia)"
 
     {\bvideo\stracks?\b}i
     valid msgstr="\bpist(a|es) de vídeo\b"
@@ -3227,6 +3357,73 @@ hint="Es tradueix per «sense calibrar» (multimèdia)"
 {\bun.?focus\b}i
 valid msgstr="\bmanca de definició\b"
 hint="Es tradueix per «manca de definició» (multimèdia)"
+
+{\bvectors?\b}i
+valid msgid="\bselection\sto\svector\b"
+valid msgid="\bvector\s(data|formats?|graphics?|Images?|Layers?|Libraries|lines?|masks?|node|objects?|optimizations|path|Selections?|shapes?|tools?)\b"
+valid msgstr="\bvectors\b"
+hint="Es tradueix per «vectors» (multimèdia)"
+
+    {\bselection\sto\svector\b}i
+    valid msgstr="\bselecció en vectorial\b"
+    hint="Es tradueix per «selecció en vectorial» (multimèdia)"
+
+    {\bvector\sdata\b}i
+    valid msgstr="\bdades vectorials\b"
+    hint="Es tradueix per «dades vectorials» (multimèdia)"
+
+    {\bvector\sformats?\b}i
+    valid msgstr="\bformats? vectorials?\b"
+    hint="Es tradueix per «format/s vectorial/s» (multimèdia)"
+
+    {\bvector\sgraphics?\b}i
+    valid msgstr="\bgràfics? vectorials?\b"
+    hint="Es tradueix per «gràfic/s vectorial/s» (multimèdia)"
+
+    {\bvector\sImages?\b}i
+    valid msgstr="\bimatges? vectorials?\b"
+    hint="Es tradueix per «imatge/s vectorial/s» (multimèdia)"
+
+    {\bvector\sLibraries\b}i
+    valid msgstr="\bbiblioteques vectorials\b"
+    hint="Es tradueix per «biblioteques vectorials» (multimèdia)"
+
+    {\bvector\slines?\b}i
+    valid msgstr="\blíni(a|es) vectorials?\b"
+    hint="Es tradueix per «línia/es vectorial/s» (multimèdia)"
+
+    {\bvector\snode\b}i
+    valid msgid="\ba\svector\snode\sor\san\sobject\b"
+    valid msgstr="\bnode vectorial\b"
+    hint="Es tradueix per «node vectorial» (multimèdia)"
+
+        {\ba\svector\snode\sor\san\sobject\b}i
+        valid msgstr="\bun node o objecte vectorial\b"
+        hint="Es tradueix per «un node o objecte vectorial» (multimèdia)"
+
+    {\bvector\sobject\b}i
+    valid msgstr="\bobjecte vectorial\b"
+    hint="Es tradueix per «objecte vectorial» (multimèdia)"
+
+        {\bvector\sobjects\b}i
+        valid msgstr="\bobjectes vectorials\b"
+        hint="Es tradueix per «objectes vectorials» (multimèdia)"
+
+    {\bvector\soptimizations\b}i
+    valid msgstr="\boptimitzacions dels vectors?\b"
+    hint="Es tradueix per «optimitzacions dels vector/s» (multimèdia)"
+
+    {\bvector\spath\b}i
+    valid msgstr="\btraç vectorial\b"
+    hint="Es tradueix per «traç vectorial» (multimèdia)"
+
+    {\bvector\sshapes?\b}i
+    valid msgstr="\bform(a|es) vectorials?\b"
+    hint="Es tradueix per «forma/es vectorial/s» (multimèdia)"
+
+    {\bvector\stools?\b}i
+    valid msgstr="\bein(a|es) vectorials?\b"
+    hint="Es tradueix per «eina/es vectorial/s» (multimèdia)"
 
 {\bwarp(ing)?\b}i
 valid msgstr="\bdeforma(ció|nt|r)?\b"
