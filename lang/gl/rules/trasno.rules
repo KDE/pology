@@ -257,20 +257,21 @@ valid msgid="\bnon-compliant\b"
 valid msgid="\bnot\s+correctly\s+solved\b"
 valid msgid="\bwrong\b"
 
-# «locate» tradúcese como «atopar», «buscar» ou «situar»
-{\blocate}i
+{\blocat(e[ds]?|ing)\b}i
 id="noPT-2010_locate"
-valid msgstr="\batopa"
-valid msgstr="\bbusc"
-valid msgstr="\bsitu"
-valid msgstr="\bcoloc"
-hint="«locate» tradúcese como «atopar», «buscar», «situar» ou «colocar»"
+hint="locate → atopar, buscar, situar"
+valid msgstr="\blocat(e[ds]?|ing)\b"
+valid msgstr="\bat[oó]p[aáeéoó][^\W\d_]*"
+valid msgstr="\bb[uú]s(c[aáoó]|qu[eé])[^\W\d_]*"
+valid msgstr="\bsit[uú][aáeéoó][^\W\d_]*"
 
-# «situar» traducen a «locate» ou «place»
-[\bsitu]i
-valid !span="ación\b|acións\b"
-valid msgid="\blocate|\bplace"
+[\bsit(?!uacións?\b)[uú][aáeéoó][^\W\d_]*]i
 id="PT-2010-dual_locate"
+valid msgid="\blocat(e[ds]?|ing)\b"
+valid msgid="\bplac(e[ds]?|ing)\b"
+valid msgid="\bposition(ed|ing|s)?\b"
+valid msgid="\bsituat(e[ds]?|ing)\b"
+valid msgid="\bs(at|it(s?|ting))\b"  # estar situado
 hint="«situar» traduce a «to locate» ou «to place»"
 
 # «Plugin» tradúcese como «Complemento» ou «engadido»
