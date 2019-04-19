@@ -1105,8 +1105,10 @@ hint="«paquete de ficheiros» traduce a «file package»"
 # «boot/start» tradúcese como «arrancar»
 {\bboot(ed|ing|s)?\b}i #Non busca "start", dá moitos falsos positivos e de momento non sei como arranxalo
 id="noPT-2012_boot-start"
-valid msgstr="\barr[aá]n(c[aáoó]|qu[eé])[^\W\d_]*\b"
 valid msgstr="\bboot(ed|ing|s)?\b"
+valid msgstr="\barr[aá]n(c[aáoó]|qu[eé])[^\W\d_]*\b"
+# Boot Player → Botar ao xogador (expulsalo)
+valid msgstr="\bb[oó]t[aáeéoó][^\W\d_]*\b"
 hint="«boot/start» tradúcese como «arrancar»"
 
 # «arrancar» traduce a «boot/start»
