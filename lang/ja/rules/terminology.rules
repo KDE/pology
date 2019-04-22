@@ -768,14 +768,14 @@ valid msgstr="フィンガープリント"
 
 {\bfixed font}i
 id="fixed_font"
-hint="fixed font = 固定幅フォント"
-valid msgstr="固定幅フォント"
+hint="fixed font = 等幅フォント"
+valid msgstr="等幅フォント"
 valid before=" ?size"
 
 {\bfixed width font}i
 id="fixed_width_font"
-hint="fixed width font = 固定幅フォント"
-valid msgstr="固定幅フォント"
+hint="fixed width font = 等幅フォント"
+valid msgstr="等幅フォント"
 
 {\bfont ?sizes?\b}i
 id="font_size"
