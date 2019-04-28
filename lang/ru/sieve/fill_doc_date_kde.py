@@ -29,18 +29,17 @@ class Sieve (object):
         # Some dates have non-standard format, here is the workaround for them:
         self.pretranslated = {
             u'April 8, 2003': u'8 апреля 2003 г.',
-            u'Jun 7, 2005': u'7 июня 2005 г.',
-            u'2007-31-03': u'31 марта 2007 г.',
-            u'June 12, 2005': u'12 июня 2005 г.',
-            u'2009-11-8': u'8 ноября 2009 г.',
-            u'May 25, 2005': u'25 мая 2005 г.',
-            u'28/12/2007': u'28 декабря 2007 г.',
-            u'February 1st, 2005': u'1 февраля 2005 г.',
-            u'June 07, 2005': u'7 июня 2005 г.',
             u'April 7, 2003': u'7 апреля 2003 г.',
-            u'May 2017': u'май 2017 г.',
-            u'2016-16-10': u'10 ноября 2016 г.',
-            u'January 2018': u'январь 2018 г.',
+            u'28/08/2009': u'28 августа 2009 г.',
+            u'22/05/2009': u'22 мая 2009 г.',
+            u'07 January 2005': u'7 января 2005 г.',
+            u'March 7, 2003': u'7 марта 2003 г.',
+            u'March 8, 2003': u'8 марта 2003 г.',
+            u'April 06, 2003': u'6 апреля 2003 г.',
+            u'April 07, 2003': u'7 апреля 2003 г.',
+            u'Month Daynumber, 4-Digit-Year': u'2 февраля 2005 г.',
+            u'April 2018': u'апрель 2018 г.',
+            u'04/02/2007': u'4 февраля 2007 г.',
         }	
     
         # Other dates should have the following format: (yyyy-mm-dd)
@@ -67,7 +66,7 @@ class Sieve (object):
                 replace('m11m', u'ноября').\
                 replace('m12m', u'декабря')
         else:
-            print "This is not a valid date: " + date_en
+            print("\nThis is not a valid date: %s\n" % date_en)
 
     def process (self, msg, cat):
         # Detect documentation update date message
