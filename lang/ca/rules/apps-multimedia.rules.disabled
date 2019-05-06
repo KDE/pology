@@ -348,8 +348,22 @@ valid msgstr="\bpinzell\b"
 hint="Es tradueix per «pinzell» (multimèdia)"
 
     {\bbrush.?cursor\b}i
+    valid msgid="\b(area\sunderneath\s(the\s)?|position\sof\sthe\s)brush.?cursor\b"
+    valid msgid="\byour\sbrush.?cursor\b"
     valid msgstr="\bcursor del pinzell\b"
     hint="Es tradueix per «cursor del pinzell» (multimèdia)"
+
+        {\barea\sunderneath\s(the\s)?brush.?cursor\b}i
+        valid msgstr="\bàrea que es troba sota el cursor del pinzell\b"
+        hint="Es tradueix per «àrea que es troba sota el cursor del pinzell» (multimèdia)"
+
+        {\bposition\sof\sthe\sbrush.?cursor\b}i
+        valid msgstr="\bposició del cursor del pinzell\b"
+        hint="Es tradueix per «posició del cursor del pinzell» (multimèdia)"
+
+        {\byour\sbrush.?cursor\b}i
+        valid msgstr="\bcursor del vostre pinzell\b"
+        hint="Es tradueix per «cursor del vostre pinzell» (multimèdia)"
 
     {\bbrush.?spacing\b}i
     valid msgstr="\bespai entre pinzells\b"
@@ -370,6 +384,7 @@ hint="Es tradueix per «pinzell» (multimèdia)"
     hint="Es tradueix per «sistema de pinzells» (multimèdia)"
 
 {\bbrushes\b}i
+valid msgid="/brushes/"
 valid msgid="\b(animated|Bristle|Clone|color\ssmudge|current|cut.?Off|deformation|Dynamic|filter|Freehand|grid|Hatching|healing|Hose|ink(ing)?|Lazy|masked|multi|paint|opacity|Particle|pierced|pixel|Quick|Select\sby|shape|Sketch|transforming).?Brushes\b"
 valid msgstr="\bpinzells\b"
 hint="Es tradueix per «pinzells» (multimèdia)"
@@ -636,13 +651,17 @@ hint="Es tradueix per «pinzells» (multimèdia)"
     hint="Es tradueix per «(Pinzell:) amb esborronat del color» (multimèdia)"
 
         {\bcolor\ssmudge\sbrush(es)?\b}i
-        valid msgid="\bcolor\ssmudge\sBrush\sEngine\b"
+        valid msgid="\bcolor\ssmudge\sBrush\s(Engine|presets)\b"
         valid msgstr="\bPinzells? amb esborronat del color\b"
         hint="Es tradueix per «Pinzells? amb esborronat del color» (multimèdia)"
 
             {\bcolor\ssmudge\sBrush\sEngine\b}i
             valid msgstr="\bmotor del pinzell amb esborronat del color\b"
             hint="Es tradueix per «motor del pinzell amb esborronat del color» (multimèdia)"
+
+            {\bcolor\ssmudge\sBrush\spresets\b}i
+            valid msgstr="\bpinzells predefinits amb esborronat del color\b"
+            hint="Es tradueix per «pinzells predefinits amb esborronat del color» (multimèdia)"
 
     {\bcurrent\sBrush(es)?\b}i
     valid msgid="\bcurrent\sBrush\sEngine\b"
@@ -655,12 +674,12 @@ hint="Es tradueix per «pinzells» (multimèdia)"
 
     {\bCurve\sBrush(es)?\b}i
     valid msgid="\bCurve\sBrush\sEngine\b"
-    valid msgstr="\bpinzells? «Curve»"
-    hint="Es tradueix per «pinzell/s «Curve»» (multimèdia)"
+    valid msgstr="\bpinzells? de corba"
+    hint="Es tradueix per «pinzell/s de corba» (multimèdia)"
 
         {\bCurve\sBrush\sEngine\b}i
-        valid msgstr="\bmotor del pinzell «Curve»"
-        hint="Es tradueix per «motor del pinzell «Curve»» (multimèdia)"
+        valid msgstr="\bmotor del pinzell de corba"
+        hint="Es tradueix per «motor del pinzell de corba» (multimèdia)"
 
     {\bCut.?Off\b}i
     valid msgid="\bCut.?Off\sBrush(es)?\b"
@@ -2029,6 +2048,7 @@ hint="Es tradueix per «distorsió trapezoidal» (multimèdia)"
 
 # Al Gnome «layer» és «canal»
 {\bLayers?\b}i
+valid msgid="/layers/"
 valid msgid="\b(active|animated|child|clipped|clone|color|current|currently\sselected|deform|file|fill|filter|for|group|ink|input|invisible|isolate|original|paint|panel|picked|selected|shapes|text|(un)?locked|vector|visible)\slayers?\b"
 valid msgid="\blayer\s(bounds|docker|key|masks?|opacity|properties|styles?|transparency|underneath)\b"
 valid msgid="\bMPEG Layer, I, II or III\b"
@@ -2170,6 +2190,7 @@ hint="Es tradueix per «capa/es» (multimèdia)"
         hint="Es tradueix per «capa que hi ha sota el cursor» (multimèdia)"
 
         {\barea\sunderneath\b}i
+        valid msgid="\barea\sunderneath\s(the\s)?brush.?cursor\b"
         valid msgstr="\bàrea subjacent\b"
         hint="Es tradueix per «àrea subjacent» (multimèdia)"
 
@@ -2858,7 +2879,7 @@ hint="Es tradueix per «píxels» (multimèdia)"
     {\bpixel\b}i
     valid msgid="\b(bad|dead|hot|no|stuck).?pixel\b"
     valid msgid="\bLibre\sPixel\sCup\b"
-    valid msgid="\bpixel.?(and\svector|area|Artist|based|brush|colors|data|fill|Grid|information|lights|or\sVector|selections?|sizes|values?)\b"
+    valid msgid="\bpixel.?(and\svector|area|Artist|based|brush(es)?|colors|data|fill|Grid|information|lights|or\sVector|selections?|sizes|values?)\b"
     valid msgstr="\bpíxel\b"
     hint="Es tradueix per «píxel» (multimèdia)"
 
@@ -3029,6 +3050,7 @@ hint="Es tradueix per «provatura/es» (multimèdia)"
 
     # Al Gnome és «proves de programari» i «prova en pantalla»
     {\bsoft.?proof(ing)?\b}i
+    valid msgid="/softproofing/"
     valid msgid="\bhard/soft.?proof(ing)?\b"
     valid msgstr="\bprovatur(a|es) suaus?\b"
     hint="Es tradueix per «provatura/es suau/s» (multimèdia)"
@@ -3613,6 +3635,7 @@ hint="Es tradueix per «ajusta/r, ajustarà, ajusti, ajustament, «snap» » (mu
     hint="Es tradueix per «ajust individual» (multimèdia)"
 
     {\bsnapping\b}i
+    valid msgid="/snapping/"
     valid msgid="\b(angle|without)\ssnapping\b"
     valid msgstr=":ref:\`snapping\`"
     valid msgstr="\bencaixar els blocs de Lego\b"
@@ -3939,6 +3962,19 @@ hint="Es tradueix per «deforma/r, deformació, deformant» (multimèdia)"
 valid msgstr="\besva(eix|ïda|ïdes)\b"
 hint="Es tradueix per «esvaeix, esvaïda/es» (multimèdia)"
 
+{\bwatercolor\b}i
+valid msgstr="\baquarel·la\b"
+hint="Es tradueix per «aquarel·la» (multimèdia)"
+
+{\bwire\b}i
+valid msgid="\bwire.?frame\b"
+valid msgstr="\bcable\b"
+hint="Es tradueix per «cable» (multimèdia)"
+
+    {\bwire.?frame\b}i
+    valid msgstr="\bmarc de cable\b"
+    hint="Es tradueix per «marc de cable» (multimèdia)"
+
 {\bworkroom\b}i
 valid msgstr="\bcambra de treball\b"
 hint="Es tradueix per «cambra de treball» (multimèdia)"
@@ -4209,7 +4245,7 @@ hint="Es tradueix per «deformació/ons» (multimèdia)"
     # Al Gnome «smooth» és «suavitzar»
     {\bSmooth(ness)?\b}i
     valid msgid="\b(Curve|very)\ssmooth\b"
-    valid msgid="\bSmooth\slines\b"
+    valid msgid="\bSmooth\s(lines|transitions)\b"
     valid msgstr="\bsuavitzat?\b"
     valid msgstr="\bsuau\b"
     hint="Es tradueix per «(Eina:) Suau, suavitza/t» (multimèdia)"
@@ -4217,6 +4253,10 @@ hint="Es tradueix per «deformació/ons» (multimèdia)"
         {\bSmooth\slines\b}i
         valid msgstr="\bLínies suaus\b"
         hint="Es tradueix per «Línies suaus» (multimèdia)"
+
+        {\bSmooth\stransitions\b}i
+        valid msgstr="\btransicions suaus\b"
+        hint="Es tradueix per «transicions suaus» (multimèdia)"
 
         {\bSmoother\b}i
         valid msgstr="\bmés suaus?\b"
