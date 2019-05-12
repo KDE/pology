@@ -370,10 +370,14 @@ hint="Es tradueix per «pinzell» (multimèdia)"
     hint="Es tradueix per «espai entre pinzells» (multimèdia)"
 
         {\bspacing\b}i
-        valid msgid="\bbrush.?spacing\b"
+        valid msgid="\b(auto|brush).?spacing\b"
         valid msgid="\b(inter|Line\s)spacing\b"
         valid msgstr="\bespaiat\b"
         hint="Es tradueix per «espaiat» (multimèdia)"
+
+            {\bauto.?spacing\b}i
+            valid msgstr="\bespaiat automàtic\b"
+            hint="Es tradueix per «espaiat automàtic» (multimèdia)"
 
             {\b(inter|Line\s)spacing\b}i
             valid msgstr="\binterlineat\b"
@@ -706,7 +710,7 @@ hint="Es tradueix per «pinzells» (multimèdia)"
     {\bDeform(ation)?\b}i
     valid msgid="\bDeform(ation)?\s(Brush(es)?|Options)\b"
     valid msgid="\b(Color|perspective)\sdeform(ation)?\b"
-    valid msgstr="\bde deformació\b"
+    valid msgstr="\b(de )?deformació\b"
     hint="Es tradueix per «(Pinzell:) de deformació, deformació» (multimèdia)"
 
         {\bColor\sDeform(ation)?\b}i
@@ -807,8 +811,13 @@ hint="Es tradueix per «pinzells» (multimèdia)"
         hint="Es tradueix per «Alçada de la reixa» (multimèdia)"
 
         {\bgrid\sWidth\b}i
-        valid msgstr="\bAmplada de la reixa\b"
-        hint="Es tradueix per «Amplada de la reixa» (multimèdia)"
+        valid msgid="\bgrid\sWidth\sand\sheight\b"
+        valid msgstr="\bamplada de la reixa\b"
+        hint="Es tradueix per «amplada de la reixa» (multimèdia)"
+
+            {\bgrid\sWidth\sand\sheight\b}i
+            valid msgstr="\bamplada i alçada de la reixa\b"
+            hint="Es tradueix per «amplada i alçada de la reixa» (multimèdia)"
 
         {\bperspective\sgrid\b}i
         valid msgstr="\bquadrícula de perspectiva\b"
@@ -1423,6 +1432,10 @@ hint="Es tradueix per «Reconstrucció» (multimèdia)"
 {\bdigital\sasset\smanagement\b}i
 valid msgstr="\bgestió d'actius digitals\b"
 hint="Es tradueix per «gestió d'actius digitals» (multimèdia)"
+
+{\bDisplay\sscaling\sfilter\b}i
+valid msgstr="\bFiltre per escalar la pantalla\b"
+hint="Es tradueix per «Filtre per escalar la pantalla» (multimèdia)"
 
 {\bDodge\b}i
 valid msgid="(Color|linear)\sDodge"
@@ -2804,6 +2817,10 @@ hint="Es tradueix per «desenfocada/es» (multimèdia)"
 valid msgstr="\bSuperposició\b"
 hint="Es tradueix per «Superposició» (multimèdia)"
 
+{\bpaint.?(op|operations?)\b}i
+valid msgstr="\boperaci(ó|ons) de pintat\b"
+hint="Es tradueix per «operació/ons de pintat» (multimèdia)"
+
 {\bpanel\b}i
 valid msgid="\bEditor panel\b"
 valid msgid="Panel/Docker"
@@ -2844,7 +2861,7 @@ hint="Es tradueix per «llapis -llapis és un nom invariable-» (multimèdia)"
 valid msgid="/photos/"
 valid msgid="\b(Google|Intuos|Microsoft)\sPhoto\b"
 valid msgid="\b(Pro|sensitive).?Photo\b"
-valid msgid="\bphoto\s(emitting|emulsion|management|sensitive|studio)\b"
+valid msgid="\bphoto\s(emitting|emulsion|management|retouching|sensitive|studio)\b"
 valid msgstr="\bfotografi(a|es)\b"
 valid msgstr="\bPhoto.?CD\b"
 hint="Es tradueix per «fotografia/es» (multimèdia)"
@@ -2876,6 +2893,10 @@ hint="Es tradueix per «fotografia/es» (multimèdia)"
         {\bsource\sphoto\smanagement\b}i
         valid msgstr="\bgestió de fonts de fotografies\b"
         hint="Es tradueix per «gestió de fonts de fotografies» (multimèdia)"
+
+    {\bphoto\sretouching\b}i
+    valid msgstr="\bretoc fotogràfic\b"
+    hint="Es tradueix per «retoc fotogràfic» (multimèdia)"
 
     {\bphoto\ssensitive\b}i
     valid msgstr="\bfotosensible\b"
@@ -3482,7 +3503,7 @@ hint="Es tradueix per «Selecciona l'opac» (multimèdia)"
 
 {\bSetting\b}i
 valid msgid="\blocale\ssetting\b"
-valid msgid="\bSetting\sit\b"
+valid msgid="\bSetting\s(it|up)\b"
 valid msgstr="\bajustament\b"
 valid msgstr="\bajustar\b"
 valid msgstr="\bestabli(ment|nt|r|u)\b"
@@ -3491,6 +3512,11 @@ hint="Es tradueix per «ajustament, ajustar, establir, establiment, establint, e
     {\bSetting\sit\b}i
     valid msgstr="\bconfigurar-l(a|o)\b"
     hint="Es tradueix per «configurar-la/o» (multimèdia)"
+
+    {\bSetting\sup\b}i
+    valid msgstr="\bconfigur(ar|eu)\b"
+    valid msgstr="\bestabli(r|u)\b"
+    hint="Es tradueix per «configurar/eu, establir/u» (multimèdia)"
 
     {\bSettings\b}i
     valid msgid="\bKDE\ssystem\ssettings\b"
@@ -3641,8 +3667,8 @@ hint="Es tradueix per «(Eina:) Aguditza, aguditzar/ció, agudesa, definir/eix/i
     # Al Gnome «sharper» és «realça les vores»
     {\bsharper\b}i
     valid msgid="\bdetails?\ssharper\b"
-    valid msgstr="\baguditza\b"
-    hint="Es tradueix per «aguditza» (multimèdia)"
+    valid msgstr="\bagu(ditza|t)\b"
+    hint="Es tradueix per «aguditza, agut» (multimèdia)"
 
         {\bdetails?\ssharp(er)?\b}i
         valid msgstr="\bdetalls? més definits?\b"
@@ -3736,9 +3762,31 @@ hint="Es tradueix per «suavitza/r» (multimèdia)"
     valid msgstr="\bdistribuïdors? de programari\b"
     hint="Es tradueix per «distribuïdor/s de programari» (multimèdia)"
 
+{\bSort\sDirection\b}i
+valid msgstr="\bDirecció de l'ordenació\b"
+hint="Es tradueix per «Direcció de l'ordenació» (multimèdia)"
+
 {\bspectrophotometers?\b}i
 valid msgstr="\bespectrofotòmetres?\b"
 hint="Es tradueix per «espectrofotòmetre/s» (multimèdia)"
+
+{\bsprite\b}i
+valid msgid="\bsprite.?sheets?\b"
+valid msgstr="\bfranja\b"
+hint="Es tradueix per «franja» (multimèdia)"
+
+    {\bsprites\b}i
+    valid msgid="\bsprites?.?sheets?\b"
+    valid msgstr="\bfranges\b"
+    hint="Es tradueix per «franges» (multimèdia)"
+
+        {\bsprites?.?sheet\b}i
+        valid msgstr="\bfull de fran(ja|ges)\b"
+        hint="Es tradueix per «full de franja/ges» (multimèdia)"
+
+        {\bsprites?.?sheets\b}i
+        valid msgstr="\bfulls de franges\b"
+        hint="Es tradueix per «fulls de franges» (multimèdia)"
 
 {\bstep\svalue\b}i
 valid msgstr="\bvalor del pas\b"
@@ -3754,9 +3802,10 @@ valid msgstr="\bfotogràfi(ca|ques)\b"
 valid msgstr="\bestàti(ca|ques)\b" # fotografia/imatge estàtica
 valid msgstr="\bencara\b"
 valid msgstr="\bmanteniu\b"
+valid msgstr="\bmentre\b"
 valid msgstr="\bsegu(eix|irà) sent\b"
 valid msgstr="\bTot i així\b"
-hint="Es tradueix per «fotogràfica/ques, fotografia/imatge estàtica, encara, manteniu, segueix/irà sent, Tot i així» (multimèdia)"
+hint="Es tradueix per «fotogràfica/ques, fotografia/imatge estàtica, encara, manteniu, segueix/irà sent, Tot i així, mentre» (multimèdia)"
 
     {\bdigital\sstill\scameras?\b}i
     valid msgstr="\bcàmer(a|es) fotogràfi(ca|ques) digitals?\b"
@@ -3906,10 +3955,14 @@ hint="Es tradueix per «pista/es, peça/ces, seguir, seguiment, segueixen, traje
 
     # Seguidor - kdenlive
     {\btracker\b}i
-    valid msgid="\bbug\stracker\b"
+    valid msgid="\b(eye|bug)\stracker\b"
     valid msgid="\bOpen GPS Tracker\b"
     valid msgstr="\blocalitzador\b"
     hint="Es tradueix per «localitzador» (multimèdia)"
+
+        {\beye\stracker\b}i
+        valid msgstr="\bsegui(dor|ment) dels ulls\b"
+        hint="Es tradueix per «seguidor/ment dels ulls» (multimèdia)"
 
         {\bbug\stracker\b}i
         valid msgstr="\bseguidor d'errors\b"
@@ -4222,7 +4275,8 @@ hint="Es tradueix per «deformació/ons» (multimèdia)"
     {\bIn.?Painting\b}i
     valid comment="Tag\:\stitle" # docmessages
     valid msgstr="\bRepintat\b"
-    hint="Es tradueix per «(Eina:) Repintat» (multimèdia)"
+    valid msgstr="\btornar a pintar\b"
+    hint="Es tradueix per «(Eina:) Repintat, tornar a pintar» (multimèdia)"
 
     {\bInput\sLevels?\b}i
     valid msgid="\bAuto.?Input.?Levels?\b"

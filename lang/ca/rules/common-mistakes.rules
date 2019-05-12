@@ -175,6 +175,7 @@ hint="«esta» s'ha de substituir per «està» (error freqüent)"
 # La persona és "vós", per tant ha de ser «esteu segur» (i similars).
 [\b(esteu|sou|quedeu)\s[a-zàèòéíóú]+s\b]i
 id="common-esteu"
+valid msgstr="\besteu preparats?\b"
 hint="«(vós) esteu segurs» s'ha de substituir per «(vós) esteu segur» (error freqüent)"
 
 # «firewall» es tradueix per «tallafoc», en singular.
