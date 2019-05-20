@@ -1869,14 +1869,12 @@ valid msgstr="\bsaes?\b"
 hint="«quit», «exit» tradúcense como «saír»"
 
 # «quit», «exit» tradúcense como «saír»
-{\bexit}i
+{\bexit(ed|ing|s)?\b}i
 valid before="ter"
 id="noPT-2011_quit2"
-valid msgstr="\bsaí(r|u)"
-valid msgstr="\bsaída"
-valid msgstr="\bexit"
-valid before="ing" msgstr="\bsaíndo"
-hint="«exit» tradúcese como «saír» (e ás veces como exit, caso da orde da shell"
+valid msgstr="\bexit(ed|ing|s)?\b"
+valid msgstr="\bs[aá][eéiíï][^\W\d_]*\b"
+hint="«exit» tradúcese como «saír»"
 
 # «saír» traduce a «quit», «exit»
 # ver regra para log out
