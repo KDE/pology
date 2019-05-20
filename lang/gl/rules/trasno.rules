@@ -1781,8 +1781,8 @@ hint="«terminate» tradúcese como «terminar»"
 
 # «terminar» traduce a «terminate»
 [\btermin]i
-valid before="al\b"
-valid before="ais\b"
+valid before="al"
+valid before="ais"
 id="PT-2011-dual_terminate"
 valid msgid="\bterminat"
 valid after="non\s" msgid="unterminat" env="kde"
