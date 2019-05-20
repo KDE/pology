@@ -15,10 +15,11 @@ To check one or more PO files against the Pology rules for Galician:
 
     It is also recommended to use a regular expression
     (``-s rulerx:<regular expression>``) or multiple rule IDs
-    (``-s rule:<rule ID>``) to restrict rules to those in the ``trasno.rules``
-    file (e.g. ``-s rulerx:^(no)?PT``), which contains rules that enforce the
-    terminology criteria published_ by `Proxecto Trasno`_ as approved during
-    their annual gatherings.
+    (``-s rule:<rule ID>``) to restrict rules to those in the ``rag.rules`` and
+    ``trasno.rules`` files (e.g. ``-s rulerx:^((no)?PT|rag)``), which contains
+    rules that enforce the terminology criteria based on resources from
+    `Real Academia Galega`_, the official language authority, or published_ by
+    `Proxecto Trasno`_ as approved during their annual gatherings.
 
     These are some other useful parameters to consider:
 
@@ -38,6 +39,7 @@ separated by commas.
 .. _Pology documentation: http://pology.nedohodnik.net/doc/user/en_US/ch-about.html
 .. _posieve: http://pology.nedohodnik.net/doc/user/en_US/ch-sieve.html
 .. _published: http://termos.trasno.gal/
+.. _Real Academia Galega: https://academia.gal
 
 Rule Names
 ----------
@@ -48,6 +50,7 @@ Rule IDs follow this pattern::
 
 These are some examples of rule IDs::
 
+    rag-online
     PT-2010_tab
     clGL-modling_bel
     clGL-all_colar
@@ -105,6 +108,10 @@ The following families exist:
 
         These rules only check the Galician text (``msgstr``).
 
+-   ``rag``
+
+    Rules based on resources from `Real Academia Galega`_.
+
 Families may include a ``-dual`` suffix that indicates that the rule is a
 Galician-to-English counterpart to an English-to-Galician rule.
 
@@ -131,10 +138,18 @@ Files
 
 Rules are distributed accross the following files:
 
--   ``n11n.rules``
+-   ``antigas.rules``
 
-    Rules to normalize translations that are not supported by
-    `Proxecto Trasno`_.
+    Terminology choices published by `Proxecto Trasno`_ but not approved during
+    their annual gatherings, instead coming from their old glossary.
+
+-   ``outras.rules``
+
+    Terminology choices that do not fit any other file.
+
+-   ``rag.rules``
+
+    Terminology choices based on resources from `Real Academia Galega`_.
 
 -   ``trasno.rules``
 

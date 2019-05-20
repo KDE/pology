@@ -1724,18 +1724,20 @@ id="PT-2012-dual_offline"
 valid msgid="\boff(\s|-)?line"
 hint="«sen conexión» traduce a «offline»"
 
-# «online» tradúcese como «conectado» ou «con conexión»
-{\bon(\s|-)?line}i
-id="PT-2012_online"
-valid msgstr="\bconectad(o|a)"
-valid msgstr="\bcon\sconexión"
-hint="«online» tradúcese como «conectado» ou «con conexión»"
-
-# «con conexión» traduce a «offline»
-[\bcon\sconexión]i
-id="PT-2012-dual_online"
-valid msgid="\bon(\s|-)?line"
-hint="«con conexión» traduce a «online»"
+# Segundo o DRAG, «en liña» e o termo correcto para as dúas acepcións que
+# describe o glosario de Trasno.
+## «online» tradúcese como «conectado» ou «con conexión»
+#{\bon(\s|-)?line}i
+#id="PT-2012_online"
+#valid msgstr="\bconectad(o|a)"
+#valid msgstr="\bcon\sconexión"
+#hint="«online» tradúcese como «conectado» ou «con conexión»"
+#
+## «con conexión» traduce a «offline»
+#[\bcon\sconexión]i
+#id="PT-2012-dual_online"
+#valid msgid="\bon(\s|-)?line"
+#hint="«con conexión» traduce a «online»"
 
 # «outline» tradúcese como «contorno»
 {\boutline}i
