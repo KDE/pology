@@ -2165,9 +2165,10 @@ valid msgstr="\bactualizo"
 hint="«update» tradúcese como «actualizar» ou «actualización»"
 
 # «actualizar» ou «actualización» traducen a «update»
-[\bactualiza(r|do|ción)]i
+[\bactual[ií](c[eé]|z[aáoó])[^\W\d_]*\b]i
 id="PT-2011-dual_update"
-valid msgid="\bupdat(e|ing)"
+valid msgid="\brefresh(e[ds]|ing)?\b"
+valid msgid="\bupdat(e[ds]?|ing)\b"
 hint="«actualizar» ou «actualización» traducen a «update»"
 
 # «upgrade» tradúcese como «anovar» ou «anovación»
