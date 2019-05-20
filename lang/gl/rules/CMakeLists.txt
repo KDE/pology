@@ -1,6 +1,7 @@
 set(files
+    antigas.rules
     filter.include
-    n11n.rules
+    outras.rules
     trasno.rules
 )
 get_current_source_subdir(srcsubdir)
