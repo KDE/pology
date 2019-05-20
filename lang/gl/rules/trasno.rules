@@ -238,8 +238,10 @@ valid msgid="\b(re)?wr(it(es?|ing|ten)|ote)\b"
 
 {\binvalid\b}i
 id="noPT-2010_invalid"
-hint="invalid → incorrecto"
+hint="invalid → incorrecto (preferente), mal construído, non (ser) válido"
 valid msgstr="\bincorrect[ao]s?\b"
+valid msgstr="\bmal\s+construíd[ao]s?\b"
+valid msgstr="\bválid[ao]s?\b"
 
 [\bincorrect[ao]s?\b]i
 id="noPT-2010-dual_invalid"
@@ -2694,16 +2696,15 @@ valid msgstr="\bdaemon"
 hint="«daemon» tradúcese como «daemon»"
 
 # «disc/disk» tradúcese como «disco»
-{\bdis(c|k)}i
-valid span="disc" before="ard" # «discard»
+{\bdis[ck]s?\b}i
 id="PT-2013_disc"
-valid msgstr="\bdisco"
+valid msgstr="\bdiscos?\b"
 hint="«disc/disk» tradúcese como «disco»"
 
 # «disco» traduce a «disc/k»
-[\bdisco]i
+[\bdiscos?\b]i
 id="PT-2013-dual_disc"
-valid msgid="\bdis(c|k)"
+valid msgid="\bdis[ck]s?\b"
 valid msgid="\bhard\sdrive" # a/p PT-2012-dual_hard disk
 hint="«disco» traduce a «disc/k»"
 
