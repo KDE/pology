@@ -2831,9 +2831,10 @@ valid msgstr="\bcampo"
 hint="«field» tradúcese como «campo»"
 
 # «campo» traduce a «field»
-[\bcampo]i
+[\bcampos?\b]i
 id="PT-2013-dual_field"
-valid msgid="\bfield"
+valid msgid="\bcampos?\b"
+valid msgid="\bfields?\b"
 hint="«campo» traduce a «field»"
 
 # «filesystem/file system» tradúcese como «sistema de ficheiros»
