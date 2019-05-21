@@ -2816,6 +2816,7 @@ hint="«executar» traduce a «execute/run»"
 id="PT-2013_execute/run(2)"
 valid msgstr="\bexecucións?\b"
 valid msgstr="\bexec[uú]t[aáeéoó][^\W\d_]*\b"
+valid msgstr="\b(f([aá](c[eé]|g[aáoó]|i|n|r[aáeéií]|s)|[ií]x[eéoó])[^\W\d_]*|feit[ao]s?)\b"  # run a slideshow → facer unha presentación
 hint="«(to) execute/run» tradúcese como «executar», «(a) run» como «execución»"
 
 # «executar/execución» traduce a «run»
