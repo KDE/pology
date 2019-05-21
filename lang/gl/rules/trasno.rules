@@ -493,6 +493,7 @@ hint="«application» tradúcese como «aplicativo»"
 id="PT-2011-dual_application"
 valid msgid="\bapplications?\b"
 valid msgid="\b(web)?apps?\b"
+valid msgid="\bapp_?icons?\b"  # icona de aplicativo
 valid msgid="\bapp_?ids?\b"  # identificador de aplicativo
 valid msgid="\bapp_?keys?\b"  # chave de aplicativo
 valid msgid="\bapp_?names?\b"  # nome de aplicativo
@@ -1447,9 +1448,10 @@ valid msgstr="\bicon(a|iz)"
 hint="«icon» tradúcese como «icona»"
 
 # «icona» traduce a «icon»
-[\bicona]i
+[\biconas?\b]i
 id="PT-2011-dual_icon"
-valid msgid="\bicon"
+valid msgid="\bicons?\b"
+valid msgid="\bapp_?icons?\b"  # icona de aplicativo
 hint="«icona» traduce a «icon»"
 
 # «initialize» tradúcese como «inicializar»
