@@ -1699,9 +1699,9 @@ valid msgid="\bmenus?"
 hint="«menú» traduce a «menu»"
 
 # «mouse» tradúcese como «rato»
-{\bm(ous|ic)e}i
+{\bm(ous|ic)e\b}i
 id="PT-2012_mouse"
-valid msgstr="\brato"
+valid msgstr="\bratos?\b"
 hint="«mouse» tradúcese como «rato»"
 
 # «rato» traduce a «mouse»
