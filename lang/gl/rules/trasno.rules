@@ -519,7 +519,7 @@ hint="«infraestrutura» traduce a «backend» e «framework»"
 {\bbookmark(ed|ing|s)?\b}i
 id="PT-2011_bookmark"
 valid msgstr="\bmarcador(es)?\b"
-valid msgstr="\bm[aá]r(c[aáoó]|qu[eé])[^\W\d_]*\b\b"
+valid msgstr="\bm[aá]r(c[aáoó]|qu[eé])[^\W\d_]*\b"
 hint="«bookmark» tradúcese como «marcador» ou «marcar»"
 
 # «marcador» traduce a «bookmark»
@@ -1940,13 +1940,12 @@ valid msgstr="\bsubstit(u|ú)"
 hint="«replace» tradúcese como «substituír»"
 
 # «substituir» traduce a «replace»
-[\bsubstitu]i
-valid after="car(a|á)cter(es)?\sde\s"
-valid after="marcas?\sde\s"
+[\bsubstit[uú][aáeéiíoó][^\W\d_]*\b]i
 id="noPT-2011-dual_replace"
-valid msgid="\breplac(e|ing)"
-valid msgid="\bsurrogat"
-valid msgid="\bsubstitut"
+valid msgid="\boverrid(e[ds]?|ing)\b"
+valid msgid="\breplac(e[ds]?|ing)\b"
+valid msgid="\bsurrogat(e[ds]?|ing)\b"
+valid msgid="\bsubstitut(e[ds]?|ing)\b"
 hint="«substituir» traduce a «replace» (e a «surrogate», e a «substitute»)"
 
 # «restart, reboot» tradúcese como «reiniciar»
