@@ -2811,11 +2811,10 @@ hint="«executar» traduce a «execute/run»"
 
 # «execute/run» tradúcese como «executar»
 # «run» tradúcese como «execución»
-{\brun}i
-valid !before="(s|ed|ning)?\b"
+{\brun(s|ed|ning)?\b}i
 id="PT-2013_execute/run(2)"
-valid before="s?\b" msgstr="\bexecucións?"
-valid before="(s|ed|ning)?\b" msgstr="\bexecut(ar|a|e|ou|ando)"
+valid msgstr="\bexecucións?\b"
+valid msgstr="\bexec[uú]t[aáeéoó][^\W\d_]*\b"
 hint="«(to) execute/run» tradúcese como «executar», «(a) run» como «execución»"
 
 # «executar/execución» traduce a «run»
