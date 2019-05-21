@@ -2290,6 +2290,7 @@ valid msgid="\bannotat(e[ds]?|ing)\b"  # engadir anotacións
 valid msgid="\b(re)?append(able|ed|ing|s)?\b"
 valid msgid="\b(re)?implement(able|ed|ing|s)?\b"
 valid msgid="\bnamespac(e[ds]?|ing)\b"  # engadir un espazo de nomes
+valid msgid="\bplug(-|\s*)ins?\b"
 valid msgid="\b(re)?prepend(able|ed|ing|s)?\b"
 valid msgid="\bscrambl(e[ds]?|ing)\b"  # engadir interferencias
 valid msgid="\bsupport(?!\s+for\b)(ed|ing|s)?\b"  # engadir (compatibilidade|a posibilidade de( usar)?)
