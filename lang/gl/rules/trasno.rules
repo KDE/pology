@@ -1658,7 +1658,7 @@ hint="«acceder» traduce a «login», «log/sign in», «log/sign on» (e acces
 id="noPT-2011-dual_login2"
 valid msgid="\b(log\s?|sign\s)(i|o)n"
 valid msgid="\bidentif"
-valid msgid="\bid\b"
+valid msgid="\bu?id\b"
 valid after="non\s" msgid="\bunidentif"
 hint="«identificar» traduce a «login», «log/sign in», «log/sign on» (e identificar)"
 
