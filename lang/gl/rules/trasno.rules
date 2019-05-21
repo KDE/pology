@@ -2519,6 +2519,7 @@ hint="«navegador» traduce a «browser»"
 # «button» tradúcese como «botón»
 {\bbuttons?\b}i
 id="PT-2013_button"
+valid after="\btab\s+"  # tecla de tabulación
 valid msgstr="\bbotóns?\b"
 valid msgstr="\bbuttons?\b"
 hint="«button» tradúcese como «botón»"
