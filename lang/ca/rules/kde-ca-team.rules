@@ -188,7 +188,7 @@ hint="Es tradueix per «buidar», «netejar», «esborrar», «suprimir» (kde-c
 
 {\bcolor\sselector\b}i
 id="kct-colorselector"
-valid msgid="\badvanced\scolor\sselector\b"
+valid msgid="\b(advanced|small)\scolor\sselector\b"
 valid msgstr="\bselector de color\b"
 hint="Es tradueix per «selector de color» (kde-ca-team)"
 
@@ -196,6 +196,11 @@ hint="Es tradueix per «selector de color» (kde-ca-team)"
     id="kct-advancedcolorselector"
     valid msgstr="\bselector avançat del color\b"
     hint="Es tradueix per «selector avançat del color» (kde-ca-team)"
+
+    {\bsmall\scolor\sselector\b}i
+    id="kct-smallcolorselector"
+    valid msgstr="\bselector petit del color\b"
+    hint="Es tradueix per «selector petit del color» (kde-ca-team)"
 
 {\bcolumn\sview\sbox(es|s)?\b}i
 id="kct-columnviewbox"
