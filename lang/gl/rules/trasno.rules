@@ -279,79 +279,74 @@ hint="«situar» traduce a «to locate» ou «to place»"
 # «Plugin» tradúcese como «Complemento» ou «engadido»
 {\bplug-?ins?\b}i
 id="PT-2010_plugin"
+valid msgstr="\bplug-?ins?\b"
 valid msgstr="\bcomplementos?\b"
 valid msgstr="\bengadidos?\b"
 hint="«Plugin» tradúcese como «Complemento» ou «engadido»"
 
 # «Add-on» tradúcese como «Complemento», «engadido»
-{\badd-?on}i
+{\badd-?[io]ns?\b}i
 id="PT-2010_plug-in(2)"
-valid msgstr="complemento"
-valid msgstr="engadido"
+valid msgstr="\badd-?ons?\b"
+valid msgstr="\bcomplementos?\b"
+valid msgstr="\bcomplementari[ao]s?\b"
+valid msgstr="\bengadidos?\b"
 hint="«Add-on» tradúcese como «Complemento» ou «engadido»"
 
 # «Extension» tradúcese como «Complemento», «engadido»
-{\bextension}i
+{\bextensions?\b}i
 id="PT-2010_plug-in(3)"
-valid msgstr="complemento"
-valid msgstr="engadido"
-valid msgstr="extensión"
+valid msgstr="\bcomplementos?\b"
+valid msgstr="\bengadidos?\b"
+valid msgstr="\bextensións?\b"  # de ficheiro
 hint="«Add-on» tradúcese como «Complemento» ou «engadido» (e «extensión» (de ficheiro))"
 
 #«engadido» traduce a «Plugin» e a «added»
-[engadido]i
+[\bengadidos?\b]i
 id="PT-2010-dual_plugin"
-valid msgid="\bplugin"
-valid msgid="\bplug.?in"
-valid msgid="added\b"
-valid msgid="\badd.?on"
+valid msgid="\bplug-?ins?\b"
+valid msgid="\badded\b"
+valid msgid="\badd-?[io]ns?\b"
 hint="«engadido» traduce a «Plugin», «added» e «addon»"
 
 # «Complemento» traduce a «Plugin»
-[complemento]i
+[\bcomplementos?\b]i
 id="PT-2010-dual_plugin2"
-valid msgid="\bplugin"
-valid msgid="\bplug.?in"
-valid msgid="\badd.?on"
+valid msgid="\bplug-?ins?\b"
+valid msgid="\badd-?[io]ns?\b"
 hint="«Complemento» traduce a «Plugin» e a «add-on»"
 
 # «search» tradúcese como «buscar»/«busca»
-{\bsearch}i
+{\bsearch(e[ds]|ing)?\b}i
 id="PT-2010_search"
-valid msgstr="\bbus(c|qu)" !before="eda"
-valid !msgstr="\b(procura|pesquis|pescud)?"
+valid msgstr="\bb[uú]s(c[aáoó]|qu[eé])[^\W\d_]*"
 hint="«search» tradúcese como «busca(r)»"
 
 # «buscar»/«busca» traducen a «search»
-[\bbusc]i
-valid msgid="\bsearch"
-valid msgid="\bfind|\bfound"
-valid msgid="\blocate"
+[\bb[uú]s(c[aáoó]|qu[eé])[^\W\d_]*]i
+valid msgid="\bsearch(e[ds]|ing)?\b"
 valid msgid="\bseek"
-valid msgid="\blook\s+up"
+valid msgid="\blook(ed|ing|s)?\s+up\b"
 id="noPT-2010-dual_search"
-hint="«busca(r)» traduce a «search», «find», «locate», «seek», e «look up»"
+hint="«busca(r)» traduce a «search», «seek», e «look up»"
 
 # «Tab» tradúcese como «Lapela», tabulación ou tabulador.
-{\btab}i
-valid before="leau"
+{\btabs?\b}i
 id="PT-2010_tab"
-valid msgstr="lapela"
-valid msgstr="tabula(ción|dor)"
-valid !msgstr="(separador|\baba\b|lingüeta|pestana)"
+valid msgstr="\blapelas?\b"
+valid msgstr="\btabula(cións?|dor(es)?)\b"
 hint="«Tab» tradúcese como «Lapela»,tabulador ou tabulación"
 
 # «Lapela» traduce a «tab».
-[\blapela|\btabulador]i
+[\b(lapelas?|tabulador(es)?)\b]i
 id="PT-2010-dual_tab"
-valid msgid="\btab" # before="\border|\bstop"
+valid msgid="\btabs?\b"
 hint="«Lapela» e «tabulador» traducen a «Tab»"
 
 # Variantes de «tab»
-[\btabulación]i
+[\btabulacións?\b]i
 id="PT-2010-dual_tab2"
-valid msgid="\btab" before="\sborder|\sstop"
-valid msgid="\btab"
+valid msgid="\btabs?\b"
 hint="«tabulación» traduce a «tab»,«Tab order» e «tab stop»"
 
 # «Window» tradúcese como «xanela»
