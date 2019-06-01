@@ -299,13 +299,14 @@ id="PT-2010_plug-in(3)"
 valid msgstr="\bcomplementos?\b"
 valid msgstr="\bengadidos?\b"
 valid msgstr="\bextensións?\b"  # de ficheiro
-hint="«Add-on» tradúcese como «Complemento» ou «engadido» (e «extensión» (de ficheiro))"
+valid msgstr="\bampliacións?\b"
+hint="extension → complemento, engadido"
 
 #«engadido» traduce a «Plugin» e a «added»
 [\bengadidos?\b]i
 id="PT-2010-dual_plugin"
 valid msgid="\bplug-?ins?\b"
-valid msgid="\badded\b"
+valid msgid="\badd(ed|ing|itions?)\b"
 valid msgid="\badd-?[io]ns?\b"
 hint="«engadido» traduce a «Plugin», «added» e «addon»"
 
@@ -425,14 +426,14 @@ hint="«xanela» traduce a «window»"
 # «abort» tradúcese como «interromper»
 {\babort(ed|ing|s)?\b}i
 id="PT-2011_abort"
-valid msgstr="interr([oó]mp[aáeéoó][^\W\d_]*|ompid[ao]s?|upcións?)\b"
+valid msgstr="\binterr([oó]mp[aáeéoó][^\W\d_]*|ompid[ao]s?|upcións?)\b"
 hint="«abort» tradúcese como «interromper»"
 
 # «interromper» traduce a «abort»
-[\binterromp]i
+[\binterr([oó]mp[aáeéoó][^\W\d_]*|ompid[ao]s?|upcións?)\b]i
 id="noPT-2011-dual_abort"
-valid msgid="\babort"
-valid msgid="\binterrupt"
+valid msgid="\babort(ed|ing|s)?\b"
+valid msgid="\binterrupt(ed|ing|s)?\b"
 valid msgid="\bbreak" env="kde"
 hint="«interromper» traduce a «abort» (e a «interrupt») (e a «break»)"
 
