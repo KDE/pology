@@ -329,11 +329,28 @@ valid msgstr="\bb[uú]s(c[aáoó]|qu[eé])[^\W\d_]*"
 hint="«search» tradúcese como «busca(r)»"
 
 # «buscar»/«busca» traducen a «search»
-[\bb[uú]s(c[aáoó]|qu[eé])[^\W\d_]*]i
+[\bb(?!uscábe(l|is)\b)[uú]s(c[aáoó]|qu[eé])[^\W\d_]*]i
 id="noPT-2010-dual_search"
-valid msgid="\bsearch(e[ds]|ing)?\b"
-valid msgid="\bseek"
-valid msgid="\blook(ed|ing|s)?\s+up\b"
+valid msgid="\bbrows(e[ds]?|ing)\b[\w\s]*\bfor\b"  # browse […] for → examinar […] en busca de
+valid msgid="\bcheck(ed|ing|s)?\b[\w\s]*\bfor\b"  # check […] for → comprobar […] en busca de
+valid msgid="\bintend(ed|ing|s)?\b"
+valid msgid="\bintents?\b"
+valid msgid="\blook(ed|ing|s)?\b([\w\s]*\bfor\b|$|[….,;])"
+valid msgid="\blook(ed|ing|s)?(\s+|-)(in|up)\b"
+valid msgid="\blookups?\b"
+valid msgid="\bmatch(e[ds]|ing)?\b" before="\s+coincidencias\b"
+valid msgid="\bminesweepers?\b"  # buscaminas
+valid msgid="\bmonitor(ed|ing|s)?\b[\w\s]*\bfor\b"  # mmonitor […] for → monitorizar […] en busca de
+valid msgid="\bpagers?\b"
+valid msgid="\bpoll(ed|ing|s)?\b[\w\s]*\bfor\b"  # poll […] for → sondar […] en busca de
+valid msgid="\bquer(y(ing)?|ie[ds])\b[\w\s]*\bfor\b"
+valid msgid="\bquicksearch(es)?\b"
+valid msgid="\breview(ed|ing|s)?\b"  # review […] for → revisar […] en busca de
+valid msgid="\b(re)?scan(n(ed|ing)|s)?\b"  # scan […] for → examinar […] en busca de
+valid msgid="\b(re)?search(e[ds]|ing)?\b"
+valid msgid="\bsearchmodules?\b"
+valid msgid="\bsearchbars?\b"  # barra de busca
+valid msgid="\b(un)?seek"
 hint="«busca(r)» traduce a «search», «seek», e «look up»"
 
 # «Tab» tradúcese como «Lapela», tabulación ou tabulador.
