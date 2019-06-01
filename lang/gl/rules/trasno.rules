@@ -350,18 +350,16 @@ valid msgid="\btabs?\b"
 hint="«tabulación» traduce a «tab»,«Tab order» e «tab stop»"
 
 # «Window» tradúcese como «xanela»
-{\bwindow}i
+{\bwindows?\b}i
 id="PT-2010_window"
-valid msgstr="xanela"
-valid after="\bX\s" msgstr="\bx\swindow"
-valid before="s\b" msgstr="windows"
-valid !msgstr="\b(fiestra|ventá)?"
+valid msgstr="\bwindows?\b"
+valid msgstr="\bxanelas?\b"
 hint="«window» tradúcese como «xanela»"
 
 # «xanela» traduce a «Window»
 [\bxanelas?\b]i
 id="PT-2010-dual_window"
-valid msgid="\bwindow(\b|s|\s)"
+valid msgid="\bwindows?\b"
 hint="«xanela» traduce a «window»"
 
 
@@ -370,6 +368,7 @@ hint="«xanela» traduce a «window»"
 # NOTA: Desactivada por ser «about» unha expresión demasiado xenérica, e a
 # miúdo non poder traducirse como «sobre», senón como palabras tamén moi
 # xenéricas en galego como «de».
+#
 #{\b(?<!^)about\b}i
 #id="PT-2011_about"
 #hint="«about» tradúcese como «sobre»"
