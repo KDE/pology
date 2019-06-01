@@ -277,17 +277,10 @@ valid msgid="\bs(at|it(s?|ting))\b"  # estar situado
 hint="«situar» traduce a «to locate» ou «to place»"
 
 # «Plugin» tradúcese como «Complemento» ou «engadido»
-{\bplugin}i
+{\bplug-?ins?\b}i
 id="PT-2010_plugin"
-valid msgstr="complemento"
-valid msgstr="engadido" !env="kde"
-hint="«Plugin» tradúcese como «Complemento» ou «engadido»"
-
-# «Plug-in» tradúcese como «Complemento», «engadido»
-{\bplug-in}i
-id="PT-2010_plug-in"
-valid msgstr="complemento" #
-valid msgstr="engadido"
+valid msgstr="\bcomplementos?\b"
+valid msgstr="\bengadidos?\b"
 hint="«Plugin» tradúcese como «Complemento» ou «engadido»"
 
 # «Add-on» tradúcese como «Complemento», «engadido»
