@@ -314,22 +314,26 @@ hint="«engadido» traduce a «Plugin», «added» e «addon»"
 # «Complemento» traduce a «Plugin»
 [\bcomplementos?\b]i
 id="PT-2010-dual_plugin2"
-valid msgid="\bplug-?ins?\b"
 valid msgid="\badd-?[io]ns?\b"
+valid msgid="\bcomplements?\b"  # one’s complement → complemento a un
+valid msgid="\bextensions?\b"
+valid msgid="\bplug-?ins?\b"
+valid msgid="\bpluginmaps?\b" # grupo de complementos
 hint="«Complemento» traduce a «Plugin» e a «add-on»"
 
 # «search» tradúcese como «buscar»/«busca»
 {\bsearch(e[ds]|ing)?\b}i
 id="PT-2010_search"
+valid msgstr="\bsearch(e[ds]|ing)?\b"
 valid msgstr="\bb[uú]s(c[aáoó]|qu[eé])[^\W\d_]*"
 hint="«search» tradúcese como «busca(r)»"
 
 # «buscar»/«busca» traducen a «search»
 [\bb[uú]s(c[aáoó]|qu[eé])[^\W\d_]*]i
+id="noPT-2010-dual_search"
 valid msgid="\bsearch(e[ds]|ing)?\b"
 valid msgid="\bseek"
 valid msgid="\blook(ed|ing|s)?\s+up\b"
-id="noPT-2010-dual_search"
 hint="«busca(r)» traduce a «search», «seek», e «look up»"
 
 # «Tab» tradúcese como «Lapela», tabulación ou tabulador.
@@ -452,24 +456,22 @@ valid msgstr="\btrebellos?\b"
 hint="«applet» tradúcese como «miniaplicativo» ou «trebello»"
 
 # «miniaplicativo» traduce a «applet»
-[\bminiaplicativo]i
+[\bminiaplicativos?\b]i
 id="PT-2011-dual_applet"
-valid msgid="\bapplet"
+valid msgid="\bapplets?\b"
 hint="«miniaplicativo» traduce a «applet»"
 
 # «trebello» traduce a «applet»
 [\btrebellos?\b]i
 id="PT-2011-dual_applet(2)"
-valid msgid="applet"
-valid msgid="gadget"
-valid msgid="gear"
-valid msgid="widget"
+valid msgid="\bapplets?\b"
+valid msgid="\bgadgets?\b"
+valid msgid="\bgears?\b"
+valid msgid="\b(dock)?widgets?\b"
 hint="«trebello» traduce a «applet» e «widget»"
 
 # «application» tradúcese como «aplicativo»
 {\bapplications?\b}i
-valid after="</?" before=">"
-valid after="Type="
 id="PT-2011_application"
 valid msgstr="\baplicativos?\b"
 valid msgstr="\baplicacións?\b"  # acción ou efecto de aplicar
