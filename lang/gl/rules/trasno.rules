@@ -568,6 +568,7 @@ id="PT-2011-dual_bug"
 valid msgid="\bbuggy\b"  # con fallos
 valid msgid="\bbugs?\b"
 valid msgid="\bbugfix(es)?\b"  # correccións de fallos
+valid msgid="\bbugfixers?\b"  # correctores de fallos
 valid msgid="\bfail(ed|ing|s)?\b"
 valid msgid="\bfailover\b"  # tolerancia de fallos
 valid msgid="\bfailures?\b"
