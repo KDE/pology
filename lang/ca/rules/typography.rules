@@ -74,7 +74,7 @@ valid after="pty.+" cat="kdevgdb"
 valid cat="amarokcollectionscanner_qt"
 valid cat="baloo_queryparser,baloo_naturalqueryparser,baloowidgets5"
 valid cat="www_www"
-valid msgstr=":(alt|kbd|file|guilabel|menuselection|program|ref):" # Krita doc_www
+valid msgstr=":(alt|kbd|file|guilabel|menuselection|program|ref|term):" # Krita doc_www
 valid msgstr="src \: bash" cat="konsole" # docmessages
 valid msgstr="H \: màquina remota" cat="konsole" # docmessages
 valid msgstr="\s\:\s" cat="kalgebra" # docmessages
@@ -121,7 +121,7 @@ valid span="\:(0|1|\*)" cat="kdm_kdmrc-ref" # docmessages
 valid cat="kdevcvs"
 valid cat="jointhegame,www_www"
 valid cat="baloo_queryparser,baloo_naturalqueryparser,baloowidgets5"
-valid msgstr=":(alt|kbd|file|guilabel|menuselection|program|ref):" # Krita doc_www
+valid msgstr=":(alt|kbd|file|guilabel|menuselection|program|ref|term):" # Krita doc_www
 valid msgstr="HH:MM\[\:SS\]" # docmessages
 valid comment="Tag\:\sprogramlisting" cat="katepart_development" # docmessages
 hint="S'ha de posar un espai després del signe dels dos punts (tipografia)"
@@ -632,7 +632,7 @@ valid comment="Tag\:\suserinput" # docmessages
 valid before="\/share\/apps\/" # docmessages
 valid before="kde4-config" # docmessages
 valid before="\/ssc\/texts\/" # docmessages
-valid msgstr=":(alt|kbd|file|guilabel|menuselection|program|ref):" # Krita doc_www
+valid msgstr=":(alt|kbd|file|guilabel|menuselection|program|ref|term):" # Krita doc_www
 hint="Un accent obert sol «`» és un error, excepte a ordres de terminal (tipografia)"
 
 # «’» un accent tancat sol és un error (ull amb les ordres!).

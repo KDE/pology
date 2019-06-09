@@ -572,6 +572,7 @@ hint="«Font» es tradueix per «Tipus (de lletra)», no per «Font» (fals amic
 # «Gradient» es tradueix per «Degradat».
 {\bgradients?\b}i
 id="ff-gradient"
+valid msgstr="/gradients/"
 valid msgstr="degradats?"
 valid msgstr="gradient" cat="digikam,kalzium,kmplot,kst_common"
 #valid !msgstr="gradient"
