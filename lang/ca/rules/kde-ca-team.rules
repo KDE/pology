@@ -977,6 +977,7 @@ hint="Es tradueix per «safata del sistema» (kde-ca-team)"
 
 {\btabs?(\scharacter)?\b}i
 id="kct-tab"
+valid msgid=":kbd:`Tab`" # a la doc del Krita
 valid msgid="Alt\+Tab" # fals positiu
 valid msgstr="Tab;" # fals positiu etiqueta &Tab;
 valid msgstr="tab" after="alt\+"
