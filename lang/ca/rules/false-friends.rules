@@ -562,6 +562,7 @@ hint="«Firm» es tradueix per «Empresa», no per «Firma» (fals amic)"
 # «Font» es tradueix per «Tipus (de lletra)».
 {\bfonts?\b}i
 id="ff-font"
+valid msgstr="^body \{"
 valid msgstr="tipus"
 valid msgstr="origens?"
 valid msgstr="<font\s"
