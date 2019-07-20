@@ -329,16 +329,16 @@ valid msgstr="\bb[uú]s(c[aáoó]|qu[eé])[^\W\d_]*"
 hint="«search» tradúcese como «busca(r)»"
 
 # «buscar»/«busca» traducen a «search»
-[\bb(?!uscábe(l|is)\b)[uú]s(c[aáoó]|qu[eé])[^\W\d_]*]i
+[\bb(?!usc(ábe(l|is)|ador(es)?)\b)[uú]s(c[aáoó]|qu[eé])[^\W\d_]*]i
 id="noPT-2010-dual_search"
 valid msgid="\bbrows(e[ds]?|ing)\b[\w\s]*\bfor\b"  # browse […] for → examinar […] en busca de
-valid msgid="\bcheck(ed|ing|s)?\b[\w\s]*\bfor\b"  # check […] for → comprobar […] en busca de
+valid msgid="\bcheck(ed|ing|s)?\b[\w\s]*\bfor\b"  # check for → buscar; check […] for → comprobar […] en busca de
 valid msgid="\bintend(ed|ing|s)?\b"
 valid msgid="\bintents?\b"
 valid msgid="\blook(ed|ing|s)?\b([\w\s]*\bfor\b|$|[….,;])"
 valid msgid="\blook(ed|ing|s)?(\s+|-)(in|up)\b"
 valid msgid="\blookups?\b"
-valid msgid="\bmatch(e[ds]|ing)?\b" before="\s+coincidencias\b"
+valid msgid="\bmatch(e[ds]|ing)?\b" before="((\s+automáticas?)?\s+de)?\s+coincidencias\b"
 valid msgid="\bminesweepers?\b"  # buscaminas
 valid msgid="\bmonitor(ed|ing|s)?\b[\w\s]*\bfor\b"  # mmonitor […] for → monitorizar […] en busca de
 valid msgid="\bpagers?\b"
@@ -348,16 +348,19 @@ valid msgid="\bquicksearch(es)?\b"
 valid msgid="\breview(ed|ing|s)?\b"  # review […] for → revisar […] en busca de
 valid msgid="\b(re)?scan(n(ed|ing)|s)?\b"  # scan […] for → examinar […] en busca de
 valid msgid="\b(re)?search(e[ds]|ing)?\b"
-valid msgid="\bsearchmodules?\b"
+valid msgid="\bsearchable\b"  # que se pode buscar
 valid msgid="\bsearchbars?\b"  # barra de busca
+valid msgid="\bsearchmodules?\b"
 valid msgid="\b(un)?seek"
 hint="«busca(r)» traduce a «search», «seek», e «look up»"
 
 # «Tab» tradúcese como «Lapela», tabulación ou tabulador.
 {\btabs?\b}i
 id="PT-2010_tab"
+valid msgstr="\btabs?\b"
 valid msgstr="\blapelas?\b"
 valid msgstr="\btabula(cións?|dor(es)?)\b"
+valid msgstr="\btabulaturas?\b"
 hint="«Tab» tradúcese como «Lapela»,tabulador ou tabulación"
 
 # «Lapela» traduce a «tab».
@@ -455,7 +458,9 @@ hint="«abort» tradúcese como «interromper»"
 [\binterr([oó]mp[aáeéoó][^\W\d_]*|ompid[ao]s?|upcións?)\b]i
 id="noPT-2011-dual_abort"
 valid msgid="\babort(ed|ing|s)?\b"
-valid msgid="\binterrupt(ed|ing|s)?\b"
+valid msgid="\bbr(eak(ing|s)?|roken?)\b"
+valid msgid="\binterrupt(ed|ing|ions?|s)?\b"
+valid msgid="\bintr\.(\s|$)"
 hint="«interromper» traduce a «abort» (e a «interrupt») (e a «break»)"
 
 # «app» tradúcese como «aplicativo»
@@ -689,12 +694,14 @@ hint="«sala de conversas» traduce a «chat»"
 id="noPT-2011_check"
 valid after="\bspell\s+"
 valid before="\s+box(es)?\b"
+valid before="[\w\s]*\bfor\b" # check for → buscar; check […] for → comprobar […] en busca de
 valid before="(\s+|-)in\b"
 valid before="(\s+|-)out\b"
 valid msgstr="\b(re)?check(ed|ing|s)?\b"
 valid msgstr="\bcheques?\b"
 valid msgstr="\bcomprobacións?\b"
 valid msgstr="\bcompr[oó]b[aáeéoó][^\W\d_]*\b"
+valid msgstr="\bcons[uú]lt[aáeéoó][^\W\d_]*\b"
 valid msgstr="\bcorreccións?\b"
 valid msgstr="\bcorrentes?\b"  # checking account → conta corrente
 valid msgstr="\bcorr[ií]x[aáeéiíoó][^\W\d_]*\b"
@@ -702,7 +709,7 @@ valid msgstr="\bm[aá]r(c[áaoó]|qu[eé])[^\W\d_]*\b"
 valid msgstr="\brevisións?\b"
 valid msgstr="\brev[ií]s[aáeéoó][^\W\d_]*\b"
 valid msgstr="\bxaques?\b"
-hint="check → comprobar (xeral), corrixir (ortografía), marcar (unha caixa para marcar), revisar (e.g. a configuración)"
+hint="check → comprobar (xeral), consultar (ler información), corrixir (ortografía), marcar (unha caixa para marcar), revisar (e.g. a configuración)"
 
 # «comprobar» traduce a «check»
 [\bcompr(obador(es)?\b)[oó]b[aáeéoó][^\W\d_]*\b]i
