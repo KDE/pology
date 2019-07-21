@@ -369,14 +369,15 @@ id="PT-2010-dual_tab"
 valid msgid="\btabs?\b"
 valid msgid="\btabbars?\b" msgstr="\bbarras?\s+de\s+lapelas\b"
 valid msgid="\btabb(ed|ing)\b" msgstr="\bcon\s+lapelas\b"
-valid msgid="\btabbing\b" msgstr="\busar\s+o\s+tabulador\b"
 valid msgid="\btabulators?\b" msgstr="\btabulador(es)?\b"
 hint="«Lapela» e «tabulador» traducen a «Tab»"
 
 # Variantes de «tab»
 [\btabulacións?\b]i
 id="PT-2010-dual_tab2"
-valid msgid="\btabs?\b"
+valid msgid="\btab(ulation)?s?\b"
+valid msgid="\btabbing\b"
+valid msgid="\bcrosstab(ulation)?s?\b" msgstr="\btabulacións?\s+cruzadas?\b"
 hint="«tabulación» traduce a «tab»,«Tab order» e «tab stop»"
 
 # «Window» tradúcese como «xanela»
