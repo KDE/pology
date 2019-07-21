@@ -367,6 +367,10 @@ hint="«Tab» tradúcese como «Lapela»,tabulador ou tabulación"
 [\b(lapelas?|tabulador(es)?)\b]i
 id="PT-2010-dual_tab"
 valid msgid="\btabs?\b"
+valid msgid="\btabbars?\b" msgstr="\bbarras?\s+de\s+lapelas\b"
+valid msgid="\btabb(ed|ing)\b" msgstr="\bcon\s+lapelas\b"
+valid msgid="\btabbing\b" msgstr="\busar\s+o\s+tabulador\b"
+valid msgid="\btabulators?\b" msgstr="\btabulador(es)?\b"
 hint="«Lapela» e «tabulador» traducen a «Tab»"
 
 # Variantes de «tab»
