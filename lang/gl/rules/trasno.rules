@@ -57,6 +57,7 @@ valid msgid="\bon[\s-]?line\b"
 valid msgid="\b(inter|re)?connect(ed|ing|s)?\b"
 valid msgid="\b(inter|re)?connections?\b"  # attempt connection → intentar conectar
 valid msgid="\b(hot)?plug(g(ed|ing)|s)?\b"
+valid msgid="\bwir(e[ds]?|ing)\b"
 hint="«conectar» traduce a «attach» (e conectar)"
 
 # «Attachment» tradúcese como «anexo» ou «conexión»
@@ -82,6 +83,7 @@ valid msgid="\battachments?\b"
 valid msgid="\bconnect\b"  # connect sequence → secuencia de conexión
 valid msgid="\bconnected\b"  # Last Connected → última conexión
 valid msgid="\bconnecting\b"  # speed up connecting somewhere → acelerar a conexión a algures
+valid msgid="\bconnectivity\b"  # conexións
 valid msgid="\b(re)?connections?\b"
 valid msgid="\bkeepalive\b"  # mantemento de conexión
 valid msgid="\blink\s+roads?\b"
@@ -249,7 +251,7 @@ hint="invalid ← incorrecto"
 valid msgid="\bbad\b"
 valid msgid="\bfaulty\b"
 valid msgid="\binappropriate\b"
-valid msgid="\bincorrect\b"
+valid msgid="\bincorrect(ly)?\b"
 valid msgid="\binvalid\b"
 valid msgid="\bmalformed\b"
 valid msgid="\bmisplacement\b"  # colocación incorrecta
@@ -600,7 +602,6 @@ id="noPT-2011_bug-report"
 valid msgstr="\binformes?\s+d[eo]\s+fallo\b"
 hint="«bug report» tradúcese como «informe do fallo»"
 
-# «informe de erro» traduce a «bug report»
 [\binformes?\s+d[eo]\s+fallo\b]i
 id="PT-2011-dual_bug-report"
 valid msgid="\bbug\s+reports?\b"
@@ -645,6 +646,7 @@ valid msgid="\brelocatable\b"  # que se pode cambiar de lugar
 valid msgid="\brelocat(e[ds]?|ing)\b"  # cambiar [de lugar]
 valid msgid="\bremap(ed|ing|s)?\b"  # cambiar a asociación de [algo] [a algo]
 valid msgid="\brenam(e[ds]?|ing)\b"  # cambiar o nome de [algo]
+valid msgid="\brenic(e[ds]?|ing)\b"  # cambiar a prioridade de [un proceso]
 valid msgid="\bre-?order(ed|ing|s)?\b"  # cambiar de orde
 valid msgid="\bre-?parent(ed|ing|s)?\b"  # cambiar de pai
 valid msgid="\breposition(ed|ing|s)?\b"  # cambiar de posición
@@ -750,7 +752,7 @@ valid msgid="\bdeutschmarks?\b"  # German deutschmark → marco alemán
 valid msgid="\bdial(ed|ing|s)?\b"
 valid msgid="\bexpir(e[ds]?|ing)\b"  # marcar como caducado
 valid msgid="\b(bit)?flag(g(ed|ing)|s)?\b"
-valid msgid="\b(photo)?frame(set)?(s|less)?\b"  # marco
+valid msgid="\b(photo)?frame(d|set)?(s|less)?\b"  # marco
 valid msgid="\bgrooves?\b"  # marca
 valid msgid="\bhard\s+edges?\b"  # bordo marcado
 valid msgid="\bmakes?\b"
@@ -1162,6 +1164,7 @@ id="PT-2012-dual_border(2)"
 valid msgid="\bborders?\b"
 valid msgid="\bbordered\b"  # con bordos
 valid msgid="\bborderless\b"  # sen bordos
+valid msgid="\bcoasting\b"  # desprazamento cando o dedo abandona a área táctil polo bordo
 valid msgid="\bedges?\b"
 hint="«bordo» traduce a «border»"
 
