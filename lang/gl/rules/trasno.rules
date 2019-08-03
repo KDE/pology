@@ -1964,10 +1964,11 @@ id="PT-2011_rollback"
 valid msgstr="\bregres(ar|ado|ión)"
 hint="«rollback» tradúcese como «regresión» ou «regresar»"
 
-# «regresión» ou «regresar» traducen a «rollback»
-[\bregres(ar|ado|ión)]i
+[\bregr([eé]s[aáeéoó][^\W\d_]*|esións?)\b]i
 id="noPT-2011-dual_rollback"
-valid msgid="\brollback"
+valid msgid="\broll(ed|ing|s)?\s*back\b"
+valid msgid="\bregress(e[ds]|ing)?\b"
+valid msgid="\bregressions?\b"
 hint="«regresión» ou «regresar» traducen a «rollback» (e a «regress»)"
 
 # «scan» tradúcese como «escanear»
