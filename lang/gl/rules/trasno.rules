@@ -862,9 +862,10 @@ valid msgstr="\belimin"
 hint="«delete» tradúcese como «eliminar»"
 
 # «eliminar» traduce a «delete»
-[\belimin]i
+[\belim[ií]n[aáeéoó][^\W\d_]*\b]i
 id="PT-2011-dual_delete"
-valid msgid="\bdelet(e|es|ed|ing|ion)"
+valid msgid="\bdelet(e[ds]?|ing|ions?)\b"
+valid msgid="\beliminat(e[ds]?|ing)\b"
 hint="«eliminar» traduce a «delete»"
 
 # «detach» tradúcese como «desconectar», «desprender»
