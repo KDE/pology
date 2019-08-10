@@ -1913,12 +1913,11 @@ valid msgstr="\bretir"
 valid msgstr="\bdesinstal"
 hint="«remove» tradúcese como «retirar» ou «desinstalar»"
 
-# «retirar» traduce a «remove»
-[\bretir]i
-id="PT-2011-dual_remove"
-valid msgid="\bremove"
-valid msgid="\bremoving"
+[\bret[ií]r[aáeéoó][^\W\d_]*\b]i
 hint="«retirar» traduce a «remove»"
+id="PT-2011-dual_remove"
+valid msgid="\bremov(e[ds]?|ing)\b"
+valid msgid="\bstrip(ed|ing|s)?\b"
 
 # «rename» tradúcese como «renomear»
 {\brenam(e|es|ed|ing)}i
