@@ -1456,7 +1456,7 @@ hint="«icon» tradúcese como «icona»"
 # «icona» traduce a «icon»
 [\biconas?\b]i
 id="PT-2011-dual_icon"
-valid msgid="\bicons?\b"
+valid msgid="\bicon(bar)?s?\b"
 valid msgid="\bapp_?icons?\b"  # icona de aplicativo
 hint="«icona» traduce a «icon»"
 
