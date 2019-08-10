@@ -468,6 +468,7 @@ valid msgid="\babort(ed|ing|s)?\b"
 valid msgid="\bbr(eak(ing|s)?|roken?)\b"
 valid msgid="\binterrupt(ed|ing|ions?|s)?\b"
 valid msgid="\bintr\.(\s|$)"
+valid msgid="\bpaus(e[ds]?|ing)\b"
 hint="«interromper» traduce a «abort» (e a «interrupt») (e a «break»)"
 
 # «app» tradúcese como «aplicativo»
