@@ -1031,14 +1031,12 @@ valid msgstr="\bactiv"
 valid msgstr="\bpermit"
 hint="«enable» tradúcese como «activar»"
 
-# «activar» traduce a «enable»
-[\bactiv]i
-valid before="idade"
-valid before="amente"
+[\bact(?!ivamente\b)[ií]v[aáeéoó][^\W\d_]*\b]i
 id="noPT-2011-dual_enable"
-valid msgid="\benable"
-valid msgid="\bactiv"
 hint="«activar» traduce a «enable» (e a activate)"
+valid msgid="\benabl(e[ds]?|ing)\b"
+valid msgid="\bactivat(e[ds]?|ing)\b"
+valid msgid="\bset(s|ting)?\b"  # set an alarm → activar unha alarma
 
 # «encrypt» tradúcese como «cifrar»
 {\bencrypt}i
