@@ -2134,15 +2134,10 @@ id="PT-2011-dual_tracker3"
 valid msgid="\bbug\stracker"
 hint="«(sistema de) seguimento de incidencias» traduce a «bug tracker»"
 
-# «undo» tradúcese como «desfacer»
-{\bundo}i
-valid before="cument"
+{\bund(id|o(es|ne|ing)?)\b}i
 id="PT-2011_undo"
-valid msgstr="\bdesfacer"
-valid msgstr="\bdesfaga"
-valid msgstr="\bdesfágaa"
-valid before="ne" msgstr="\bdesfeit(o|a)"
 hint="«undo» tradúcese como «desfacer»"
+valid msgstr="\bdes(f([aá](c[eé]|g[aáoó]|i|n|r[aáeéií]|s)|[ií]x[eéoó])[^\W\d_]*|feit[ao]s?)\b"
 
 # «desfacer» traduce a «undo»
 [\bdesfacer]i
