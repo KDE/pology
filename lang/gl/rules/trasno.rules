@@ -1879,9 +1879,9 @@ hint="«exit» tradúcese como «saír»"
 # ver regra para log out
 
 # «redo» tradúcese como «refacer»
-{\bredo}i
+{\bred(id|o(es|ing)?)\b}i
 id="PT-2011_redo"
-valid msgstr="\brefacer"
+valid msgstr="\bre(f([aá](c[eé]|g[aáoó]|i|n|r[aáeéií]|s)|[ií]x[eéoó])[^\W\d_]*|feit[ao]s?)\b"
 hint="«redo» tradúcese como «refacer»"
 
 # «refacer» traduce a  «redo»
