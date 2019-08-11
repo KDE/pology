@@ -1087,15 +1087,13 @@ id="PT-2011_file-a"
 valid msgstr="\benv(iar|íe)\sun"
 hint="«file a» tradúcese como «enviar un»"
 
-# «enviar un informe de erro» traduce «file a bug report»
-[\benvi(ar|ándo(lle)?)\sun\s]i
+[\benv[ií][aáeéoó][^\W\d_]*\s+un(ha)?s?\b]i
 id="noPT-2011-dual_file-a"
-valid msgid="\bfile\sa\s"
-valid msgid="\bsubmit(ting)? a "
-valid msgid="\bsend\sa\s"
-valid msgid="\bupload"
-valid msgid="\bsend\sfile" #caso de "Send &file" -> "Enviar un ficheiro"
 hint="«enviar un» traduce «file (ou submit, ou send) a»"
+valid msgid="\bfil(e[ds]?|ing)\s+an?\b"
+valid msgid="\bsen(d(ing|s)?|t)\s+an?\b"
+valid msgid="\bsubmit(s|t(ed|ing))?\s+an?\b"
+valid msgid="\bupload(ed|ing|s)?\s+an?\b"
 
 # «file package» tradúcese como «paquete de ficheiros»
 {\bfile\spackage}i
