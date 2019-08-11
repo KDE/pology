@@ -1326,10 +1326,9 @@ valid msgstr="\bborrar"
 hint="«erase» tradúcese como «borrar»"
 
 # «borrar» traduce a «erase»
-[\bborr[^\W\d_]+]i
-valid span="borrador(es)?"
+[\bb(?!orr(ador(es)?|ábe(l|is))\b)[oó]rr[^\W\d_]+]i
 id="PT-2012-dual_erase"
-valid msgid="\berase"
+valid msgid="\beras(e[ds]?|ing)\b"
 hint="«borrar» tradúcese como «erase»"
 
 # «firewall» tradúcese como «devasa»
