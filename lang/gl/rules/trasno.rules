@@ -2156,6 +2156,7 @@ hint="«update» tradúcese como «actualizar» ou «actualización»"
 id="PT-2011-dual_update"
 valid msgid="\brefresh(e[ds]|ing)?\b"
 valid msgid="\bupdat(e[ds]?|ing)\b"
+valid msgid="\bup(-|\s+)to(-|\s+)date\b"
 hint="«actualizar» ou «actualización» traducen a «update»"
 
 # «upgrade» tradúcese como «anovar» ou «anovación»
