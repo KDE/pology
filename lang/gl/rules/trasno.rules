@@ -1861,8 +1861,7 @@ valid msgid="\bprovid(e|i)"
 hint="«fornecer» traduce a «provide» (e a «supply»)"
 
 # «quit», «exit» tradúcense como «saír»
-{\bquit}i
-valid before="ter"
+{\bquits?\b}i
 id="noPT-2011_quit"
 valid msgstr="\bsaí(r|u)"
 valid msgstr="\bsaída"
