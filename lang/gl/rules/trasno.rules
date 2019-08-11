@@ -2093,9 +2093,9 @@ valid before="\sde\sincidencias"  msgid="\bbug\stracker"
 hint="«seguimento» traduce a «tracking»"
 
 # «rastrexar» traduce a «track»
-[\brastrex]i
+[\brastr[eé]x[aáeéoó][^\W\d_]*\b]i
 id="PT-2011-dual_track3"
-valid msgid="\btrack\b"
+valid msgid="\b(un)?track(ed|ing|s)?\b"
 hint="«rastrexar» traduce a «track»"
 
 # «tracker» tradúcese como «localizador» (para: !bittorrent)
