@@ -2184,6 +2184,7 @@ valid before="[^\W\d_]+\sun"
 id="noPT-2011-dual_upload"
 valid msgid="\bupload"
 valid msgid="\bsen(d|t)"
+valid msgid="\bship(p(ed|ing)|s)?\b"
 valid before="\s+por\s+correo"
 hint="«enviar» traduce a «upload» (e a «send» e «submit»)"
 
