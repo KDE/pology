@@ -1938,8 +1938,9 @@ hint="«replace» tradúcese como «substituír»"
 id="noPT-2011-dual_replace"
 valid msgid="\boverrid(e[ds]?|ing)\b"
 valid msgid="\breplac(e[ds]?|ing)\b"
-valid msgid="\bsurrogat(e[ds]?|ing)\b"
 valid msgid="\bsubstitut(e[ds]?|ing)\b"
+valid msgid="\bsurrogat(e[ds]?|ing)\b"
+valid msgid="\bsupersed(e[ds]?|ing)?\b"
 hint="«substituir» traduce a «replace» (e a «surrogate», e a «substitute»)"
 
 # «restart, reboot» tradúcese como «reiniciar»
