@@ -967,9 +967,9 @@ valid msgstr="\bdescarg"
 hint="«download» tradúcese como «descarga(r)»"
 
 # «descargar» traduce a «download»
-[\bdescarg]i
+[\bdesc[aá]r(g[aáoó]|gu[eé])[^\W\d_]*\b]i
 id="noPT-2011-dual_download"
-valid msgid="\bdownload"
+valid msgid="\b(down|un)load(ed|ing|s)?\b"
 hint="«descargar» traduce a «download» (e unload)"
 
 # «drive» tradúcese como «unidade»
