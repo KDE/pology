@@ -1615,6 +1615,7 @@ hint="«logout» e «logoff» tradúcense como «saída»"
 id="noPT-2011-dual_logout-logoff"
 valid msgid="\blogo(ut|off)"
 valid msgid="\boutput"
+valid msgid="\bquit(s|t(ed|ing))?\b"
 hint="«saída» traduce a «logout», «logoff» (e a «output», «saída»)"
 
 # «log/sign out» e «log/sign off» tradúcense como «saír»
