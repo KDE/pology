@@ -1299,9 +1299,10 @@ valid msgid="\bfloppy(\sdisk)?(?!\sdrive)"
 hint="«disquete» traduce a «diskette»"
 
 # «baleiro» traduce a «empty»
-[\bbaleir]i
+[\bbaleir[ao]s?\b]i
 id="PT-2012dual_empty"
-valid msgid="\bempty"
+valid msgid="\bblank\b"
+valid msgid="\bempty\b"
 hint="«baleiro» traduce a «empty»"
 
 # «environment» tradúcese como «ambiente»
