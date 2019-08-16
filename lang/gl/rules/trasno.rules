@@ -2782,11 +2782,10 @@ valid msgid="\bemoticon"
 hint="«emoticona» traduce a «emoticon»"
 
 # «execute/run» tradúcese como «executar»
-{\bexecut(e|ed|es|ing)?}i
+{\bexecut(ables?|e[ds]?|ing|ions?)\b}i
 id="PT-2013_execute/run(1)"
-valid before="ion" msgstr="\bexecución"
-valid before="able" msgstr="\bexecutábe(l|is)"
-valid msgstr="\bexecut(ar|a|e|ou|ando)"
+valid msgstr="\bexecucións?\b"
+valid msgstr="\bexec[uú]t[aáeéoó][^\W\d_]*\b"
 hint="«execute/run» tradúcese como «executar»"
 
 # «executar» traduce a «execute»
