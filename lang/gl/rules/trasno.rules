@@ -2713,23 +2713,16 @@ valid msgid="\bdraft"
 hint="«borrador» traduce a «draft»"
 
 # «drag» tradúcese como «arrastrar»
-{\bdrag}i
+{\bdrag(g(ed|ing)|s)?\b}i
 id="PT-2013_drag"
-valid msgstr="\barrastr."
+valid msgstr="\barr[aá]str[aáeéoó][^\W\d_]*\b"
 hint="«drag» tradúcese como «arrastrar»"
 
 # «arrastrar» traduce a «drag»
-[\barrastr.]i
+[\barr[aá]str[aáeéoó][^\W\d_]*\b]i
 id="PT-2013-dual_drag"
-valid msgid="\bdrag"
+valid msgid="\bdrag(g(ed|ing)|s)?\b"
 hint="«arrastrar» traduce a «drag»"
-
-# dado que existe regra para «drag» e para «drop» por separado, esta sobra.
-# # «drag and drop» tradúcese como «arrastrar e soltar»
-# {\bdrag\s(and|[&])\sdrop}i
-# id="PT-2013_drag and drop"
-# valid msgstr="\barrastr(ar|e)\se\ssolt(ar|e)"
-# hint="«drag and drop» tradúcese como «arrastrar e soltar»"
 
 # «draw» tradúcese como «debuxar»
 # «drawing» tradúcese como «debuxo»
