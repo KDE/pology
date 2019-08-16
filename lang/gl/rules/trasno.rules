@@ -1187,6 +1187,7 @@ id="PT-2012-dual_colour"
 valid msgid="\bbright(-|\s*)colou?red\b"  # de cores rechamantes
 valid msgid="\bcor(es)?\b"
 valid msgid="\bchromas?\b"  # clave de cor
+valid msgid="\bcolou?red\b"  # de cores
 valid msgid="\bcolou?rs?\b"
 valid msgid="\bcolou?rless\b"  # sen cores
 valid msgid="\bcolou?rmaps?\b"  # mapa de cores
