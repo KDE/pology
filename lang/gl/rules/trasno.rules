@@ -930,10 +930,11 @@ valid msgstr="\bdesact(i|í)v"
 hint="«disable» tradúcese como «desactivar»"
 
 # «desactivar» traduce a «disable»
-[\bdesact(i|í)v]i
+[\bdesact[ií]v[aáeéoó][^\W\d_]*\b]i
 id="noPT-2011-dual_disable"
-valid msgid="\bdisabl(e|ing)"
-valid msgid="\bnot\senabled"
+valid msgid="\bdeactivat(e[ds]?|ing)\b"
+valid msgid="\bdisabl(e[ds]?|ing)\b"
+valid msgid="\bnot\s+enabled\b"
 hint="«desactivar» traduce a «disable»"
 
 # «dock» tradúcese como «doca»
