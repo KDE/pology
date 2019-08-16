@@ -2695,8 +2695,8 @@ hint="«disc/disk» tradúcese como «disco»"
 # «disco» traduce a «disc/k»
 [\bdiscos?\b]i
 id="PT-2013-dual_disc"
-valid msgid="\bdis[ck]s?\b"
-valid msgid="\bhard\sdrive" # a/p PT-2012-dual_hard disk
+valid msgid="\b(hard)?dis[ck]s?\b"
+valid msgid="\bhard\s*drive" # a/p PT-2012-dual_hard disk
 hint="«disco» traduce a «disc/k»"
 
 # «draft» tradúcese como «borrador»
