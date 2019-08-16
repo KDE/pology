@@ -973,6 +973,7 @@ hint="«download» tradúcese como «descarga(r)»"
 [\bdesc[aá]r(g[aáoó]|gu[eé])[^\W\d_]*\b]i
 id="noPT-2011-dual_download"
 valid msgid="\b(down|un)load(ed|ing|s)?\b"
+valid msgid="\bdischarg(e[ds]?|ing)\b"
 hint="«descargar» traduce a «download» (e unload)"
 
 # «drive» tradúcese como «unidade»
