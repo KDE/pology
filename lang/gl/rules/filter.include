@@ -50,7 +50,7 @@ addFilterRegex match="(?i)\bhttps?://[^\s]+" repl="~" on="pmsgid,pmsgstr"
 addFilterRegex match="\b[a-z-]+\.[a-z-][a-z./-]+\b" repl="~" on="pmsgid,pmsgstr" casesens="yes"
 
 # Remove known path patterns
-addFilterRegex match="(file\:|\#\!)?\/(bin|boot|cdrom|dev|etc|home|lib(32|64)?|lost\+found|media|mnt|opt|proc|root|sbin|selinux|share|srv|sys|tmp|usr|var)([/\w._-]+)*" repl="~" on="pmsgid,pmsgstr"
+addFilterRegex match="(file\:|\#\!)?\/(bin|boot|cdrom|dev|etc|home|lib(32|64)?|lost\+found|media|mnt|opt|proc|root|sbin|selinux|share|srv|sys|tmp|usr|var)\b(/[/\w._-]+)*" repl="~" on="pmsgid,pmsgstr"
 addFilterRegex match="\.(cache|config|cups|dbus|font\w*|java|kde|local|mozilla|openoffice\.org|pulse|qt|ssh|desktop)[/\w._-]*" repl="~" on="pmsgid,pmsgstr"
 addFilterRegex match="\.\/?(\w+rc|\w+config|aspell\w*|bash\w*|calendar|directory|fonts\w*?|ICEauthority|lock|mailcap|kderc|profile|Xauthority|Xclients|Xmodmap|Xsession|Xdefaults|Xresources)" repl="~" on="pmsgid,pmsgstr"
 addFilterRegex match="\.\/configure" repl="~" on="pmsgid,pmsgstr"
