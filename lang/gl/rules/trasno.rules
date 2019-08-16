@@ -1961,7 +1961,7 @@ hint="«restart/reboot» tradúcese como «reiniciar»"
 # «reiniciar» traduce a «restart/reboot»
 [\breinic]i
 id="PT-2012-dual_restart-reboot"
-valid msgid="\bre(start|boot)"
+valid msgid="\bre(start|boot|launch)"
 hint="«reiniciar» traduce a «restart/reboot»"
 
 # «rollback» tradúcese como «regresión» ou «regresar»
