@@ -938,9 +938,10 @@ valid msgid="\bnot\s+enabled\b"
 hint="«desactivar» traduce a «disable»"
 
 # «dock» tradúcese como «doca»
-{\bdocks?\b(?!-able)}i
+{\bdock(ed|ing|s)?\b}i
 id="noPT-2011_dock"
-valid msgstr="\bdoca"
+valid msgstr="\bac[oó]pl[aáeéoó][^\W\d_]*\b"
+valid msgstr="\bdocas?\b"
 hint="«dock» tradúcese como «doca» (e «acoplar»)"
 
 # «doca» traduce a «dock»
