@@ -1925,9 +1925,9 @@ valid msgid="\bremov(e[ds]?|ing)\b"
 valid msgid="\bstrip(ed|ing|s)?\b"
 
 # «rename» tradúcese como «renomear»
-{\brenam(e|es|ed|ing)}i
+{\brenam(e[ds]?|ing)\b}i
 id="PT-2011_rename"
-valid msgstr="\brenomea"
+valid msgstr="\brenom[eé][aáeéoó][^\W\d_]*\b"
 hint="«rename» tradúcese como «renomear»"
 
 # «renomear» traduce a «rename»
