@@ -1631,10 +1631,12 @@ hint="«log/sign out» e «log/sign off» tradúcense como «saír»"
 # «saír» traduce a «quit», «exit», «log/sign out» e «log/sign off»
 [\bsa(í(r|mos|des|n|che|u|s|ron|a|as|an|ra)|i(o|amos|ades|ramos|rades|re(i|mos|des)|rá|rí|a)|e\b)]i
 id="noPT-2011-dual_log/signout-log/signoff"
-valid msgid="\b(quit|exit)"
-valid msgid="\b(log|sign)\s?o(ut|ff)"
-valid msgid="\bleav(e|ing)"
-valid span="saín" before="tes" msgid="\boutgoing"
+valid msgid="\bexit(ed|ing|s)?\b"
+valid msgid="\blog(g(ed|ing)|s)?\s*o(ut|ff)\b"
+valid msgid="\ble(av(es?|ing)|ft)\b"
+valid msgid="\boutgoing\b"
+valid msgid="\bquit(s|t(ed|ing))?\b"
+valid msgid="\bsign(ed|ing|s)?\s*o(ut|ff)\b"
 hint="«saír» traduce a «quit», «exit», «log/sign out» e «log/sign off» (e «leave»)"
 
 # «login», «log/sign in», «log/sign on» tradúcense como «acceder» ou «identificarse»
