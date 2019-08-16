@@ -2436,6 +2436,7 @@ hint="«background» tradúcese como «fondo»"
 # «fondo» traduce a «background»
 [\bfondos?\b]i
 id="PT-2013-dual_background"
+valid msgid="\bbackdrops?\b"
 valid msgid="\bback(ground)?(?!\s+on\b)s?\b"
 valid msgid="\bbgs?\b"
 valid msgid="\bbottom\b"
