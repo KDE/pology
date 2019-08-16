@@ -665,9 +665,10 @@ valid msgid="\bunchanged\b"  # sen cambiar
 hint="«cambiar» traduce a «change»"
 
 # «chat» tradúcese como «conversa»
-{\bchat(t(ed|ing)|s)?\b}i
+{(?i)\bchat(t(ed|ing)|s)?\b}
 id="PT-2011_chat"
-valid msgstr="\bconv[eé]rs[aáeéoó][^\W\d_]*\b"
+valid msgstr="(?i)\bconv[eé]rs[aáeéoó][^\W\d_]*\b"
+valid msgstr="\bInternet\s+Relay\s+Chat\b"  # IRC
 hint="«chat» tradúcese como «conversa(r)»"
 
 # «conversa» traduce a «chat»
