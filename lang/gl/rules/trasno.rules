@@ -2740,10 +2740,9 @@ valid !span="\bdebux(o|ando)" msgid="\bdraw(s|ed)?"
 hint="«debuxar/o» traduce a «draw/ing»"
 
 # «drop» tradúcese como «soltar»
-{\bdrop}i
-valid before="\s?down" # «(a) drop down» é un tipo de widget
+{\bdrop(p(ed|ing)|s)?\b(?!(\s*|-)down\b)}i
 id="PT-2013_drop"
-valid msgstr="\bsolt(ar|e)"
+valid msgstr="\bs[oó]lt[aáeéoó][^\W\d_]*\b"
 hint="«drop» tradúcese como «soltar»"
 
 # «soltar» traduce a «drop»
