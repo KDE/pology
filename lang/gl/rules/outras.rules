@@ -416,11 +416,6 @@ hint="«ubicación, ubicar» -> «localización, localizar»"
 id="clGL-all_xerir"
 hint="xerir -> xestionar"
 
-#comprobar «zoom», preferir «ampliación»
-[\bzoom]i
-id="clGL-all_zoom"
-hint="zoom -> ampliación ?"
-
 # preferir «estase a + infinitivo» no cando de «a + infinitivo»
 [^a\s\w+[aeií]r\b]i
 valid after="Están\s"
