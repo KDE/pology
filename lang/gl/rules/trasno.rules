@@ -2186,9 +2186,9 @@ valid msgstr="\benv(i|í)."
 hint="«upload» tradúcese como «enviar» ou «envío»"
 
 # «enviar» traduce a «upload»
-[\benv(i|í)[^\W\d_]+]i
-valid before="[^\W\d_]+\sun"
+[\benv[ií][aáeéoó][^\W\d_]*\b]i
 id="noPT-2011-dual_upload"
+valid msgid="\bfil(e[ds]?|ing)\s+an?\b"
 valid msgid="\bupload"
 valid msgid="\bsen(d|t)"
 valid msgid="\bship(p(ed|ing)|s)?\b"
