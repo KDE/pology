@@ -1311,19 +1311,9 @@ valid msgid="\bblank\b"
 valid msgid="\bempty\b"
 hint="«baleiro» traduce a «empty»"
 
-# «environment» tradúcese como «ambiente»
-{\benvironment}i
-id="noPT-2012_environment"
-valid msgstr="\bambiente"
-valid !msgstr="\bcortorn[o|a]"
-valid !msgstr="\bentorno"
-hint="«environment» tradúcese como «ambiente»"
-
-# «ambiente» traduce a «environment»
-[\bambiente]i
-id="PT-2012-dual_environment"
-valid msgid="\benvironment"
-hint="«ambiente» traduce a «environment»"
+# A escolla terminolóxica de Trasno de traducir «environment» como «ambiente»
+# quedou obsoleta ao definir a RAG «contorno» como a palabra correcta no eido
+# da informática: https://academia.gal/dicionario/-/termo/busca/contorno
 
 # «erase» tradúcese como «borrar»
 {\berase}i
