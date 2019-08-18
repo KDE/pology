@@ -471,25 +471,22 @@ valid msgid="\bintr\.(\s|$)"
 valid msgid="\bpaus(e[ds]?|ing)\b"
 hint="«interromper» traduce a «abort» (e a «interrupt») (e a «break»)"
 
-# «app» tradúcese como «aplicativo»
-{\b(web)?apps?\b}i
-id="PT-2011_app"
-hint="«app» tradúcese como «aplicativo»"
-valid msgstr="\baplicativos?\b"
-valid msgstr="\bspp\b"  # arcsec per pixel → segundos de arco por píxel
+# A escolla terminolóxica de Trasno de traducir «application» como «aplicativo»
+# quedou obsoleta ao definir a RAG «aplicación» como a palabra correcta:
+# https://academia.gal/dicionario/-/termo/busca/aplicación
 
-# «applet» tradúcese como «miniaplicativo» ou «trebello»
+# «applet» tradúcese como «miniaplicación» ou «trebello»
 {\bapplets?\b}i
 id="PT-2011_applet"
-valid msgstr="\bminiaplicativos?\b"
+valid msgstr="\bminiaplicacións?\b"
 valid msgstr="\btrebellos?\b"
-hint="«applet» tradúcese como «miniaplicativo» ou «trebello»"
+hint="«applet» tradúcese como «miniaplicación» ou «trebello»"
 
-# «miniaplicativo» traduce a «applet»
-[\bminiaplicativos?\b]i
+# «miniaplicación» traduce a «applet»
+[\bminiaplicacións?\b]i
 id="PT-2011-dual_applet"
 valid msgid="\bapplets?\b"
-hint="«miniaplicativo» traduce a «applet»"
+hint="«miniaplicación» traduce a «applet»"
 
 # «trebello» traduce a «applet»
 [\btrebellos?\b]i
@@ -499,26 +496,6 @@ valid msgid="\bgadgets?\b"
 valid msgid="\bgears?\b"
 valid msgid="\b(dock)?widgets?\b"
 hint="«trebello» traduce a «applet» e «widget»"
-
-# «application» tradúcese como «aplicativo»
-{\bapplications?\b}i
-id="PT-2011_application"
-valid msgstr="\baplicativos?\b"
-valid msgstr="\baplicacións?\b"  # acción ou efecto de aplicar
-valid msgstr="\bapplications?\b"
-hint="«application» tradúcese como «aplicativo»"
-
-# «aplicativo» traduce a «application»
-[\baplicativos?\b]i
-id="PT-2011-dual_application"
-valid msgid="\bapplications?\b"
-valid msgid="\b(web)?apps?\b"
-valid msgid="\bapp_?icons?\b"  # icona de aplicativo
-valid msgid="\bapp_?ids?\b"  # identificador de aplicativo
-valid msgid="\bapp_?keys?\b"  # chave de aplicativo
-valid msgid="\bapp_?names?\b"  # nome de aplicativo
-valid msgid="\bmailers?\b"  # aplicativo de correo
-hint="«aplicativo» traduce a «application» e a «app»"
 
 # «backend» tradúcece como «infraestrutura»
 {\bback(\s+|-)?ends?\b}i
@@ -1450,7 +1427,7 @@ hint="«icon» tradúcese como «icona»"
 [\biconas?\b]i
 id="PT-2011-dual_icon"
 valid msgid="\bicon(bar)?s?\b"
-valid msgid="\bapp_?icons?\b"  # icona de aplicativo
+valid msgid="\bapp_?icons?\b"  # icona de aplicación
 hint="«icona» traduce a «icon»"
 
 # «initialize» tradúcese como «inicializar»

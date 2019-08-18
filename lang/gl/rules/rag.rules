@@ -33,6 +33,31 @@ include file="filter.include"
 # Regras baseadas no contido do dicionario da RAG. Nos comentarios indícase a
 # entrada do dicionario na que se apoian as regras.
 
+# aplicación
+
+{\b(web)?apps?\b}i
+id="rag-en-app"
+hint="app → aplicación"
+valid msgstr="\baplicacións?\b"
+valid msgstr="\bspp\b"  # arcsec per pixel → segundos de arco por píxel
+
+{\bapplications?\b}i
+id="rag-en-application"
+hint="application → aplicación"
+valid msgstr="\baplicacións?\b"
+valid msgstr="\bapplications?\b"
+
+[\baplicacións?\b]i
+id="rag-gl-aplicación"
+hint="aplicación ← app, application"
+valid msgid="\bapplications?\b"
+valid msgid="\b(web)?apps?\b"
+valid msgid="\bapp_?icons?\b"  # icona de aplicación
+valid msgid="\bapp_?ids?\b"  # identificador de aplicación
+valid msgid="\bapp_?keys?\b"  # chave de aplicación
+valid msgid="\bapp_?names?\b"  # nome de aplicación
+valid msgid="\bmailers?\b"  # aplicación de correo
+
 # contorno
 
 {\bdesktop\s+environments?\b}i
@@ -42,22 +67,22 @@ hint="desktop environment → contorno de escritorio"
 
 {\benvironment\s+variables?\b}i
 id="rag-en-environment-variable"
-valid msgstr="\bvariábe(l|is)\s+de\s+contorno\b"
 hint="environment variable → variábel de contorno"
+valid msgstr="\bvariábe(l|is)\s+de\s+contorno\b"
 
 [\bcontornos?\s+de\s+escritorio\b]i
 id="rag-gl-contorno-de-escritorio"
-valid msgid="\bdesktop\s+environments?\b"
 hint="contorno de escritorio ← desktop environment"
+valid msgid="\bdesktop\s+environments?\b"
 
 [\bvariábe(l|is)\s+de\s+contorno\b]i
 id="rag-gl-variábel-de-contorno"
-valid msgid="\benvironment\s+variables?\b"
 hint="variábel de contorno ← environment variable"
+valid msgid="\benvironment\s+variables?\b"
 
 # en liña
 
 {\bon(\s+|-)?line\b}i
 id="rag-online"
-valid msgstr="\ben\s+liña\b"
 hint="online → en liña"
+valid msgstr="\ben\s+liña\b"
