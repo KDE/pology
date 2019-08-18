@@ -390,22 +390,6 @@ hint="ocorrencia -> aparición"
 id="clGL-all_ocorreu"
 hint="ocorreu -> produciuse"
 
-#comprobar «TAB» e «separador», preferir «lapela»
-#[\b(tab(?!(let|ula)|separador))]i
-[\b(tab|separador)]i
-valid span="\btab" before="loide"
-valid span="\btab" before="le"
-valid span="\btab" before="ula"
-valid span="\btab" before="oleiro"
-valid span="\btab" after="\btecla\s"
-valid span="\btab" after="\balt\+"
-valid span="\btab(s|ulador|uladores)?\b" msgid="\btabs?\b"
-valid span="\bseparador" msgid="\bsplitter"
-valid span="\bseparador" msgid="\bseparator"
-valid span="\bseparador" msgid="\bdelimiter"
-id="clGL-all_tab/separador"
-hint="tab ou separador -> lapela"
-
 #descarta o uso de «ubicación, ubicar» en favor de «localización, localizar»
 [\bubica]i
 id="clGL-all_ubicación"
