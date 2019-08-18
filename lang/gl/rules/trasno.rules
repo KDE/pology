@@ -2880,3 +2880,13 @@ hint="«server» tradúcese como «servidor»"
 id="PT-2013-dual_server"
 valid msgid="\b(server|host)"
 hint="«servidor» traduce a «server» (e a «host»)"
+
+
+# Acordos sen referencias #####################################################
+#
+# Supostos acordos do Proxecto Trasno dos que faltan referencias para verificar
+# a súa autenticidade.
+
+[\b[^\W\d_]+blemente\b]i
+id="trasno-blemente"
+hint="-blemente → -belmente (p. ex. posiblemente → posibelmente)"
