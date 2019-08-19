@@ -591,6 +591,7 @@ hint="«informe de fallos» traduce a «bug report»"
 {\bchang(e[ds]?|ing)\b}i
 id="PT-2011_change"
 valid msgstr="\bc[aá]mbi[aáeéoó][^\W\d_]*\b"
+valid msgstr="\bchang(e[ds]?|ing)\b"
 valid msgstr="\bvolta\b"  # diñeiro en metálico
 hint="«change» tradúcese como «cambiar»"
 
