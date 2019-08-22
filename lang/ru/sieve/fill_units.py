@@ -45,14 +45,26 @@ class Sieve (object):
             ('atto', u'атто', 'a', u'а'),
             ('zepto', u'зепто', 'z', u'з'),
             ('yocto', u'йокто', 'y', u'и'),
+
+            ('yobi', u'йоби',  'Yi', u'Йи'),
+            ('zebi', u'зеби',  'Zi', u'Зи'),
+            ('exbi', u'эксби', 'Ei', u'Эи'),
+            ('pebi', u'пеби',  'Pi', u'Пи'),
+            ('tebi', u'теби',  'Ti', u'Ти'),
+            ('gibi', u'гиби',  'Gi', u'Ги'),
+            ('mebi', u'меби',  'Mi', u'Ми'),
+            ('kibi', u'киби',  'Ki', u'Ки'),
         ]
 
     # {0} -> "giga", "гига"
     # {1} -> "G", "Г"
-    def translate_with_unit_prefix(self, text, msgid_fmt, msgstr_fmt):
+    def translate_with_unit_prefix(self, text, msgid_fmt, msgstr_fmt, bytes_exception):
         for prefix in self.prefixes:
             if text == msgid_fmt.format(prefix[0], prefix[2]):
-                return msgstr_fmt.format(prefix[1], prefix[3])
+                if bytes_exception and prefix[0] == 'kilo':
+                    return msgstr_fmt.format(prefix[1], u'К') # килобайт/КБ
+                else:
+                    return msgstr_fmt.format(prefix[1], prefix[3])
 
         return None
 
@@ -63,9 +75,9 @@ class Sieve (object):
 
         return None
 
-    def translate_multiple_with_unit_prefix(self, text, unit_pairs):
+    def translate_multiple_with_unit_prefix(self, text, unit_pairs, bytes_exception=False):
         for unit in unit_pairs:
-            tr = self.translate_with_unit_prefix(text, unit[0], unit[1])
+            tr = self.translate_with_unit_prefix(text, unit[0], unit[1], len(unit) > 2 and unit[2])
             if tr is not None:
                 return tr
 
@@ -80,6 +92,8 @@ class Sieve (object):
                 ('{0}amperes', u'{0}амперы'),
                 ('{0}ohms', u'{0}омы'),
                 ('{0}volts', u'{0}вольты'),
+                ('{0}bytes', u'{0}байты'),
+                ('{0}bits', u'{0}биты'),
             ]
             tr = self.translate_multiple_with_unit_prefix(msg.msgid, units)
 
@@ -90,15 +104,19 @@ class Sieve (object):
                 (u'{1}Ω', u'{1}Ом'),
                 # ('{0}ohms', u'{0}омы'),
                 # ('{0}volts', u'{0}вольты'),
+                (u'{1}b', u'{1}бит'),
             ]
             tr = self.translate_multiple_with_unit_prefix(msg.msgid, units)
 
         if msg.msgctxt == 'unit synonyms for matching user input':
+            # TODO replace these tuples with a structure
             units = [
-                (u'{0}ampere;{0}amperes;{1}A', u'{0}ампер;{0}ампера;{0}амперов;{0}амперы;{0}амперах;{1}А'),
-                (u'{0}amp;{0}amps;{0}ampere;{0}amperes;{1}A', u'{0}ампер;{0}ампера;{0}амперов;{0}амперы;{0}амперах;{1}А'),
-                (u'{0}volt;{0}volts;{1}V', u'{0}вольт;{0}вольта;{0}вольтов;{0}вольты;{0}вольтах;{1}В'),
-                (u'{0}ohm;{0}ohms;{1}Ω', u'{0}ом;{0}ома;{0}омов;{0}омы;{0}омах;{1}Ом'),
+                (u'{0}ampere;{0}amperes;{1}A', u'{0}ампер;{0}ампера;{0}амперов;{0}амперы;{0}амперах;{1}А', False),
+                (u'{0}amp;{0}amps;{0}ampere;{0}amperes;{1}A', u'{0}ампер;{0}ампера;{0}амперов;{0}амперы;{0}амперах;{1}А', False),
+                (u'{0}volt;{0}volts;{1}V', u'{0}вольт;{0}вольта;{0}вольтов;{0}вольты;{0}вольтах;{1}В', False),
+                (u'{0}ohm;{0}ohms;{1}Ω', u'{0}ом;{0}ома;{0}омов;{0}омы;{0}омах;{1}Ом', False),
+                (u'{1}B;{0}byte;{0}bytes', u'{1}Б;{0}байт;{0}байта;{0}байтов;{0}байты;{0}байтах', True),
+                (u'{1}b;{0}bit;{0}bits', u'{1}бит;{0}бит;{0}бита;{0}битов;{0}биты;{0}битах', False),
             ]
             tr = self.translate_multiple_with_unit_prefix(msg.msgid, units)
 
@@ -107,6 +125,8 @@ class Sieve (object):
                 ('%1 {0}amperes', u'%1 {0}ампера'),
                 ('%1 {0}volts', u'%1 {0}вольта'),
                 ('%1 {0}ohms', u'%1 {0}ома'),
+                ('%1 {0}bytes', u'%1 {0}байт'),
+                ('%1 {0}bits', u'%1 {0}бит'),
             ]
             tr = self.translate_multiple_with_unit_prefix(msg.msgid, units)
 
@@ -121,6 +141,10 @@ class Sieve (object):
                  (u'%1 {0}ом', u'%1 {0}ома', u'%1 {0}ом', u'%1 {0}ом')),
                 ((u'%1 {0}volt', u'%1 {0}volts'),
                  (u'%1 {0}вольт', u'%1 {0}вольта', u'%1 {0}вольт', u'%1 {0}вольт')),
+                ((u'%1 {0}byte', u'%1 {0}bytes'),
+                 (u'%1 {0}байт', u'%1 {0}байта', u'%1 {0}байт', u'%1 {0}байт')),
+                ((u'%1 {0}bit', u'%1 {0}bits'),
+                 (u'%1 {0}бит', u'%1 {0}бита', u'%1 {0}бит', u'%1 {0}бит')),
             ]
 
             for unit in unit_pairs:
