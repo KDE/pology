@@ -87,7 +87,7 @@ id="rag-online"
 hint="online → en liña"
 valid msgstr="\ben\s+liña\b"
 
-# soporte físico
+# hardware
 
 {\bhardware\b}i
 id="rag-en-hardware"
@@ -102,3 +102,20 @@ hint="hardware → soporte físico"
 id="rag-gl-soporte-físico"
 hint="soporte físico ← hardware"
 valid msgid="\bhardware\b"
+
+# software
+
+{\bsoftware\b}i
+id="rag-en-software"
+hint="software → programa, programas, soporte lóxico"
+valid msgstr="\bsoporte\s+lóxico\b"
+valid msgstr="\bprogramas?\b"
+
+[\bsoftware\b]i
+id="rag-gl-software"
+hint="software → programa, programas, soporte lóxico"
+
+[\bsoporte\s+lóxico\b]i
+id="rag-gl-soporte-lóxico"
+hint="soporte lóxico ← software"
+valid msgid="\bsoftware\b"
