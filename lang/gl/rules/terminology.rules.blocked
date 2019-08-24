@@ -6890,10 +6890,6 @@
     valid msgstr="disco ríxido"
     hint="hard drive = disco ríxido"
 
-    {\bhardware\b}i
-    valid msgstr="hardware"
-    hint="hardware = hardware"
-
     {\bharmless\b}i
     valid msgstr="inofensivo"
     hint="harmless = inofensivo"
@@ -8795,8 +8791,8 @@
     hint="magnification = tamaño"
 
     {\bmagnification software\b}i
-    valid msgstr="software de ampliación de pantalla"
-    hint="magnification software = software de ampliación de pantalla"
+    valid msgstr="programas? de ampliación de pantalla"
+    hint="magnification software = programa de ampliación de pantalla"
 
     {\bmagnifier\b}i
     valid msgstr="lupa"
@@ -13478,21 +13474,13 @@
     valid msgstr="xestor de snippets"
     hint="snippets manager = xestor de snippets"
 
-    {\bsoftware\b}i
-    valid msgstr="software"
-    hint="software = software"
-
-    {\bsoftware\b}i
-    valid msgstr="programa"
-    hint="software = programa"
-
     {\bsoftware package\b}i
-    valid msgstr="paquete de software"
-    hint="software package = paquete de software"
+    valid msgstr="paquete de soporte lóxico"
+    hint="software package = paquete de soporte lóxico"
 
     {\bsoftware sources\b}i
-    valid msgstr="fontes de software"
-    hint="software sources = fontes de software"
+    valid msgstr="fontes de soporte lóxico"
+    hint="software sources = fontes de soporte lóxico"
 
     {\bsolid color\b}i
     valid msgstr="cor sólida"
