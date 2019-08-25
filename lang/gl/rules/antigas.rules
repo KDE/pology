@@ -41,8 +41,8 @@ hint="«hide» tradúcese como «agochar»"
 # «agochar» traduce a «hide»
 [\bagoch]i
 valid msgid="\b(BCC|blind\s+(carbon\s+)?cop(y(ing)?|ie[ds]))\b"
-valid msgid="\bhidd?(e[dns]?|ing)\b"
-valid msgid="\bstash(e[ds]|ing)?\b"
+valid msgid="\b(auto)?hidd?(e[dns]?|ing)\b"
+valid msgid="\b(auto)?stash(e[ds]|ing)?\b"
 id="aaPT-dual_hide"
 hint="«agochar» traduce a «hide»"
 
