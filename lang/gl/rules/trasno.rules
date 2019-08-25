@@ -1437,15 +1437,15 @@ valid msgid="\bapp_?icons?\b"  # icona de aplicación
 hint="«icona» traduce a «icon»"
 
 # «initialize» tradúcese como «inicializar»
-{\binitializ}i
+{\binitiali([cz](e[ds]?|ing)|zations?)\b}i
 id="PT-2011_initialize"
-valid msgstr="\biniciali(z|c)"
+valid msgstr="\binicial[ií](c[eé]|z[aáoó])[^\W\d_]*\b"
 hint="«initialize» tradúcese como «inicializar»"
 
 # «inicializar» traduce a «initialize»
-[\biniciali]i
+[\binicial[ií](c[eé]|z[aáoó])[^\W\d_]*\b]i
 id="PT-2011-dual_initialize"
-valid msgid="\binitializ"
+valid msgid="\binitiali([cz](e[ds]?|ing)|zations?)\b"
 hint="«inicializar» traduce a «initialize»"
 
 # «issue» tradúcese como «incidencia»
