@@ -108,6 +108,18 @@ valid msgid="\borigins?\b"
 valid msgid="\bsources?\b"
 valid msgid="\btypefaces?\b"
 
+# fonte monoespazo
+
+{\bmonospace\b}i
+id="rag-en-monospace"
+hint="monospace → monoespazo"
+valid msgstr="\bmonoespazo\b"
+
+[\bmonoespazo\b]i
+id="rag-gl-monoespazo"
+hint="monoespazo ← monospace"
+valid msgid="\bmonospace\b"
+
 # hardware
 
 {\bhardware\b}i
