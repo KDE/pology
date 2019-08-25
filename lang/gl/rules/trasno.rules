@@ -1021,6 +1021,7 @@ hint="«activar» traduce a «enable» (e a activate)"
 valid msgid="\benabl(e[ds]?|ing)\b"
 valid msgid="\bactivat(e[ds]?|ing)\b"
 valid msgid="\bset(s|ting)?\b"  # set an alarm → activar unha alarma
+valid msgid="\btrigger(ed|ing|s)?\b"  # http://trasno.gal/lista-de-correo-2/?subpage=mailstermail&id=5164
 
 # «encrypt» tradúcese como «cifrar»
 {\bencrypt}i
