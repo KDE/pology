@@ -392,6 +392,7 @@ hint="«window» tradúcese como «xanela»"
 # «xanela» traduce a «Window»
 [\bxanelas?\b]i
 id="PT-2010-dual_window"
+valid msgid="\bwindowing\b"  # de xanelas
 valid msgid="\bwindows?\b"
 hint="«xanela» traduce a «window»"
 
