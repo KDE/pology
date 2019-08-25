@@ -1317,19 +1317,21 @@ valid msgid="\bfirewall"
 id="PT-2011-dual_firewall"
 hint="«devasa» traduce a «firewall»"
 
-# «font» tradúcese como «letra»
-{\bfont}i
-id="noPT-2011_font"
-valid msgstr="\bletra"
-valid msgstr="\btipos?\sde\sletra"
-hint="«font» tradúcese como «letra» (e «fonte tipográfica»"
-
-# «letra» traduce a «font»
-[\bletra]i
-id="noPT-2011-dual_font"
-valid msgid="\bfont"
-valid msgid="\bletter"
-hint="«letra» traduce a «font» e a «letter»"
+# Segundo o DRAG, «fonte» é o termo correcto
+#
+## «font» tradúcese como «letra»
+#{\bfont}i
+#id="noPT-2011_font"
+#valid msgstr="\bletra"
+#valid msgstr="\btipos?\sde\sletra"
+#hint="«font» tradúcese como «letra» (e «fonte tipográfica»"
+#
+## «letra» traduce a «font»
+#[\bletra]i
+#id="noPT-2011-dual_font"
+#valid msgid="\bfont"
+#valid msgid="\bletter"
+#hint="«letra» traduce a «font» e a «letter»"
 
 # «floppy disk drive» tradúcese como «disqueteira»
 {\bfloppy(\sdisk)?\sdrive}i

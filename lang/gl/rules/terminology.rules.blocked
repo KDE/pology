@@ -1282,18 +1282,6 @@
     valid msgstr="nome base"
     hint="basename = nome base"
 
-    {\bbasic\b}i
-    valid msgstr="básico"
-    hint="basic = básico"
-
-    {\bbasic\b}i
-    valid msgstr="basic"
-    hint="basic = basic"
-
-    {\bbasic fonts\b}i
-    valid msgstr="tipos de letra básicos"
-    hint="basic fonts = tipos de letra básicos"
-
     {\bbasic options\b}i
     valid msgstr="opcións básicas"
     hint="basic options = opcións básicas"
@@ -2245,10 +2233,6 @@
     {\bchange\b}i
     valid msgstr="troco"
     hint="change = troco"
-
-    {\bchange font\b}i
-    valid msgstr="modificar tipo de letra"
-    hint="change font = modificar tipo de letra"
 
     {\bchange password\b}i
     valid msgstr="mudar o contrasinal"
@@ -4057,10 +4041,6 @@
     {\bdefault color\b}i
     valid msgstr="cor predefinida"
     hint="default color = cor predefinida"
-
-    {\bdefault font\b}i
-    valid msgstr="tipo de letra predeterminado"
-    hint="default font = tipo de letra predeterminado"
 
     {\bdefault group\b}i
     valid msgstr="grupo predeterminado"
@@ -6178,45 +6158,21 @@
     valid msgstr="seguimento a"
     hint="followup-to = seguimento a"
 
-    {\bfont\b}i
-    valid msgstr="tipo de letra"
-    hint="font = tipo de letra"
-
-    {\bfont effects\b}i
-    valid msgstr="efectos de tipo de letra"
-    hint="font effects = efectos de tipo de letra"
-
     {\bfont face\b}i
-    valid msgstr="tipo de letra"
-    hint="font face = tipo de letra"
-
-    {\bfont face\b}i
-    valid msgstr="estilo de tipo de letra"
-    hint="font face = estilo de tipo de letra"
-
-    {\bfont family\b}i
-    valid msgstr="familia de tipo de letra"
-    hint="font family = familia de tipo de letra"
-
-    {\bfont settings\b}i
-    valid msgstr="definicións de tipo de letra"
-    hint="font settings = definicións de tipo de letra"
-
-    {\bfont settings\b}i
-    valid msgstr="configuracións de tipo de letra"
-    hint="font settings = configuracións de tipo de letra"
+    valid msgstr="estilo de fonte"
+    hint="font face = estilo de fonte"
 
     {\bfont strech\b}i
-    valid msgstr="alongamento de letra"
-    hint="font strech = alongamento de letra"
+    valid msgstr="alongamento de fonte"
+    hint="font strech = alongamento de fonte"
 
     {\bfont weight\b}i
-    valid msgstr="grosor do tipo de letra"
-    hint="font weight = grosor do tipo de letra"
+    valid msgstr="grosor de fonte"
+    hint="font weight = grosor de fonte"
 
     {\bfontchooser\b}i
-    valid msgstr="selector de tipo de letra"
-    hint="fontchooser = selector de tipo de letra"
+    valid msgstr="selector de fonte"
+    hint="fontchooser = selector de fonte"
 
     {\bfontset\b}i
     valid msgstr="conxunto de tipos de letra"
@@ -9359,8 +9315,8 @@
     hint="monospace = Monospace"
 
     {\bmonospace font\b}i
-    valid msgstr="tipo de letra monoespazado"
-    hint="monospace font = tipo de letra monoespazado"
+    valid msgstr="fonte monoespazo"
+    hint="monospace font = fonte monoespazo"
 
     {\bmonospaced\b}i
     valid msgstr="monoespazado"
@@ -12790,10 +12746,6 @@
     valid msgstr="escoller"
     hint="select = escoller"
 
-    {\bselect font\b}i
-    valid msgstr="seleccionar o tipo de letra"
-    hint="select font = seleccionar o tipo de letra"
-
     {\bselectable\b}i
     valid msgstr="seleccionábel"
     hint="selectable = seleccionábel"
@@ -15413,10 +15365,6 @@
     {\btype\b}i
     valid msgstr="tipo"
     hint="type = tipo"
-
-    {\btypeface\b}i
-    valid msgstr="tipo de letra"
-    hint="typeface = tipo de letra"
 
     {\buid\b}i
     valid msgstr="UID"

@@ -87,6 +87,27 @@ id="rag-online"
 hint="online → en liña"
 valid msgstr="\ben\s+liña\b"
 
+# fonte
+
+{\bfonts?\b}i
+id="rag-en-font"
+hint="font → fonte"
+valid msgstr="\bfontes?\b"
+
+{\btypefaces?\b}i
+id="rag-en-typeface"
+hint="typeface → fonte"
+valid msgstr="\bfontes?\b"
+
+[\bfontes?\b]i
+id="rag-gl-fonte"
+hint="fonte ← font, fountain, origin, source, typeface"
+valid msgid="\bfonts?\b"
+valid msgid="\bfountains?\b"
+valid msgid="\borigins?\b"
+valid msgid="\bsources?\b"
+valid msgid="\btypefaces?\b"
+
 # hardware
 
 {\bhardware\b}i
