@@ -539,3 +539,8 @@ hint="Don't use the word 'десктоп'"
 
 # TBD: название программы "Параметры системы" склоняется? Например: "в Параметрах системы"?
 
+# Translation of copyright notice should start with "©"
+*msgid/(©|\(c\)|copyright)/i
+hint="Авторские права начинаются со знака «©»"
+valid !msgid="(20[01][0-9]|199[0-9])"
+valid msgstr="^©"
