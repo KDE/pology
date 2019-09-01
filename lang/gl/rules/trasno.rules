@@ -913,6 +913,7 @@ hint="«disable» tradúcese como «desactivar»"
 id="noPT-2011-dual_disable"
 valid msgid="\bdeactivat(e[ds]?|ing)\b"
 valid msgid="\bdisabl(e[ds]?|ing)\b"
+valid msgid="\binactive\b"
 valid msgid="\bnot\s+enabled\b"
 hint="«desactivar» traduce a «disable»"
 
