@@ -241,6 +241,7 @@ valid msgid="\b(re)?wr(it(es?|ing|ten)|ote)\b"
 {\binvalid\b}i
 id="noPT-2010_invalid"
 hint="invalid → incorrecto (preferente), mal construído, non (ser) válido"
+valid msgstr="\bcorrect[ao]s?\b"  # non (ser) correcto
 valid msgstr="\bincorrect[ao]s?\b"
 valid msgstr="\bmal\s+construíd[ao]s?\b"
 valid msgstr="\bválid[ao]s?\b"
