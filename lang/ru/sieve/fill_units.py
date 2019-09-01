@@ -94,6 +94,7 @@ class Sieve (object):
                 ('{0}volts', u'{0}вольты'),
                 ('{0}bytes', u'{0}байты'),
                 ('{0}bits', u'{0}биты'),
+                ('{0}watts', u'{0}ватты'),
             ]
             tr = self.translate_multiple_with_unit_prefix(msg.msgid, units)
 
@@ -105,6 +106,7 @@ class Sieve (object):
                 # ('{0}ohms', u'{0}омы'),
                 # ('{0}volts', u'{0}вольты'),
                 (u'{1}b', u'{1}бит'),
+                (u'{1}W', u'{1}Вт'),
             ]
             tr = self.translate_multiple_with_unit_prefix(msg.msgid, units)
 
@@ -117,6 +119,7 @@ class Sieve (object):
                 (u'{0}ohm;{0}ohms;{1}Ω', u'{0}ом;{0}ома;{0}омов;{0}омы;{0}омах;{1}Ом', False),
                 (u'{1}B;{0}byte;{0}bytes', u'{1}Б;{0}байт;{0}байта;{0}байтов;{0}байты;{0}байтах', True),
                 (u'{1}b;{0}bit;{0}bits', u'{1}бит;{0}бит;{0}бита;{0}битов;{0}биты;{0}битах', False),
+                (u'{0}watt;{0}watts;{1}W', u'{0}ватт;{0}ватта;{0}ваттов;{0}ватты;{0}ваттах;{1}Вт', False),
             ]
             tr = self.translate_multiple_with_unit_prefix(msg.msgid, units)
 
@@ -127,6 +130,7 @@ class Sieve (object):
                 ('%1 {0}ohms', u'%1 {0}ома'),
                 ('%1 {0}bytes', u'%1 {0}байт'),
                 ('%1 {0}bits', u'%1 {0}бит'),
+                ('%1 {0}watts', u'%1 {0}ватт'),
             ]
             tr = self.translate_multiple_with_unit_prefix(msg.msgid, units)
 
@@ -145,6 +149,8 @@ class Sieve (object):
                  (u'%1 {0}байт', u'%1 {0}байта', u'%1 {0}байт', u'%1 {0}байт')),
                 ((u'%1 {0}bit', u'%1 {0}bits'),
                  (u'%1 {0}бит', u'%1 {0}бита', u'%1 {0}бит', u'%1 {0}бит')),
+                ((u'%1 {0}watt', u'%1 {0}watts'),
+                 (u'%1 {0}ватт', u'%1 {0}ватта', u'%1 {0}ватт', u'%1 {0}ватт')),
             ]
 
             for unit in unit_pairs:
