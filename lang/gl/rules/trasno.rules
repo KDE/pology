@@ -2180,7 +2180,7 @@ valid before="from" msgstr="válid(o|a)"
 hint="«valid» tradúcese como «correcto»"
 
 # «correcto» traduce a «valid»
-[\bcorrecto]i
+[\bcorrect[ao]s?\b]i
 id="noPT-2011-dual_valid"
 valid msgid="\bvalid"
 valid msgid="\bcorrect"
