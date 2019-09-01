@@ -2856,6 +2856,25 @@ valid msgid="\b(server|host)"
 hint="«servidor» traduce a «server» (e a «host»)"
 
 
+# Acordos da lista de correo ##################################################
+#
+# Acordos do Proxecto Trasno acadados por consenso na lista de correo.
+
+# 2019-08-26
+# http://trasno.gal/lista-de-correo-2/?subpage=mailstermail&id=6843&bl=P3N1YnBhZ2U9bWFpbHN0ZXJtYWlscw==
+
+{\bpin(n(ed|ing)|s)?}i
+id="trasno-en-pin"
+hint="pin → fixar"
+valid msgstr="\bf[ií]x[aáeéoó][^\W\d_]*\b"
+
+{\bunpin(n(ed|ing)|s)?}i
+id="trasno-en-unpin"
+hint="unpin → desprender, separar"
+valid msgstr="\bdespr[eé]nd[aáeéiíoó][^\W\d_]*\b"
+valid msgstr="\bsep[aá]r[aáeéoó][^\W\d_]*\b"
+
+
 # Acordos sen referencias #####################################################
 #
 # Supostos acordos do Proxecto Trasno dos que faltan referencias para verificar
