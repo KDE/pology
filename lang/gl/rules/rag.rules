@@ -92,10 +92,15 @@ valid msgstr="\b[nN][aA]\s+W[eE][bB]\b"
 
 # fonte
 
-{\bfonts?\b}i
+{\bfont(?!\s+sizes?\b)s?\b}i
 id="rag-en-font"
 hint="font → fonte"
 valid msgstr="\bfontes?\b"
+
+{\bfont\s+sizes?\b}i
+id="rag-en-font-size"
+hint="font size → tamaño de letra"
+valid msgstr="\btamaños?\s+de\s+letra\b"
 
 {\btypefaces?\b}i
 id="rag-en-typeface"
