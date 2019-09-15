@@ -138,6 +138,17 @@ id="rag-gl-soporte-físico"
 hint="soporte físico ← hardware"
 valid msgid="\bhardware\b"
 
+# separador, tabulador, tabulatura
+
+{\btabs?\b}i
+id="rag-en-tab"
+hint="tab → separador"
+valid msgstr="\btabs?\b"
+valid msgstr="\bseparador(es)?\b"
+valid msgstr="\btabulacións?\b"
+valid msgstr="\btabulador(es)?\b"
+valid msgstr="\btabulaturas?\b"
+
 # software
 
 {\bsoftware\b}i

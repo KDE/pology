@@ -357,23 +357,15 @@ valid msgid="\bsearchmodules?\b"
 valid msgid="\b(un)?seek"
 hint="«busca(r)» traduce a «search», «seek», e «look up»"
 
-# «Tab» tradúcese como «Lapela», tabulación ou tabulador.
-{\btabs?\b}i
-id="PT-2010_tab"
-valid msgstr="\btabs?\b"
-valid msgstr="\blapelas?\b"
-valid msgstr="\btabula(cións?|dor(es)?)\b"
-valid msgstr="\btabulaturas?\b"
-hint="«Tab» tradúcese como «Lapela»,tabulador ou tabulación"
+# A escolla terminolóxica de Trasno de traducir «tab» como «lapela» quedou
+# obsoleta ao definir a RAG «separador» como a palabra correcta:
+# https://academia.gal/dicionario/-/termo/busca/separador
 
-# «Lapela» traduce a «tab».
-[\b(lapelas?|tabulador(es)?)\b]i
+[\btabulador(es)?\b]i
 id="PT-2010-dual_tab"
+hint="tabulador ← tab"
 valid msgid="\btabs?\b"
-valid msgid="\btabbars?\b" msgstr="\bbarras?\s+de\s+lapelas\b"
-valid msgid="\btabb(ed|ing)\b" msgstr="\bcon\s+lapelas\b"
-valid msgid="\btabulators?\b" msgstr="\btabulador(es)?\b"
-hint="«Lapela» e «tabulador» traducen a «Tab»"
+valid msgid="\btabulators?\b"
 
 # Variantes de «tab»
 [\btabulacións?\b]i
