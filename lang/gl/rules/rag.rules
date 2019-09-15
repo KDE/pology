@@ -80,12 +80,15 @@ id="rag-gl-variábel-de-contorno"
 hint="variábel de contorno ← environment variable"
 valid msgid="\benvironment\s+variables?\b"
 
-# en liña
+# en liña, Internet, rede, web
 
-{\bon(\s+|-)?line\b}i
+{(?i)\bon(\s+|-)?line\b}
 id="rag-online"
-hint="online → en liña"
-valid msgstr="\ben\s+liña\b"
+hint="online → en Internet, en liña, na Rede, na Web"
+valid msgstr="\b[eE][nN]\s+I[nN][tT][eE][rR][nN][eE][tT]\b"
+valid msgstr="(?i)\ben\s+liña\b"
+valid msgstr="\b[nN][aA]\s+R[eE][dD][eE]\b"
+valid msgstr="\b[nN][aA]\s+W[eE][bB]\b"
 
 # fonte
 
