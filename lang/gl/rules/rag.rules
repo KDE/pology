@@ -35,12 +35,6 @@ include file="filter.include"
 
 # aplicación
 
-{\b(web)?apps?\b}i
-id="rag-en-app"
-hint="app → aplicación"
-valid msgstr="\baplicacións?\b"
-valid msgstr="\bspp\b"  # arcsec per pixel → segundos de arco por píxel
-
 {\bapplications?\b}i
 id="rag-en-application"
 hint="application → aplicación"

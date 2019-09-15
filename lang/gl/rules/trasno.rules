@@ -2865,7 +2865,7 @@ hint="«servidor» traduce a «server» (e a «host»)"
 # Acordos do Proxecto Trasno acadados por consenso na lista de correo.
 
 # 2019-08-26
-# http://trasno.gal/lista-de-correo-2/?subpage=mailstermail&id=6843&bl=P3N1YnBhZ2U9bWFpbHN0ZXJtYWlscw==
+# http://trasno.gal/lista-de-correo-2/?subpage=mailstermail&id=6843
 
 {\bpin(n(ed|ing)|s)?}i
 id="trasno-en-pin"
@@ -2877,6 +2877,15 @@ id="trasno-en-unpin"
 hint="unpin → desprender, separar"
 valid msgstr="\bdespr[eé]nd[aáeéiíoó][^\W\d_]*\b"
 valid msgstr="\bsep[aá]r[aáeéoó][^\W\d_]*\b"
+
+# 2019-09-04
+# http://trasno.gal/lista-de-correo-2/?subpage=mailstermail&id=6858
+
+{\b(web)?apps?\b}i
+id="trasno-en-app"
+hint="app → apli"
+valid msgstr="\baplis?\b"
+valid msgstr="\bspp\b"  # arcsec per pixel → segundos de arco por píxel
 
 
 # Acordos sen referencias #####################################################
