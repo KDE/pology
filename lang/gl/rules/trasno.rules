@@ -2879,6 +2879,14 @@ hint="app → apli"
 valid msgstr="\baplis?\b"
 valid msgstr="\bspp\b"  # arcsec per pixel → segundos de arco por píxel
 
+# 2019-09-23
+# http://trasno.gal/lista-de-correo-2/?subpage=mailstermail&id=6884
+
+{\bquadrats?\b}i
+id="trasno-en-quadrat"
+hint="quadrat → cuadrícula"
+valid msgstr="\bcuadrículas?\b"
+
 
 # Acordos sen referencias #####################################################
 #
