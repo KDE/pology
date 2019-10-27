@@ -50,7 +50,9 @@ valid msgid="\bapp_?icons?\b"  # icona de aplicación
 valid msgid="\bapp_?ids?\b"  # identificador de aplicación
 valid msgid="\bapp_?keys?\b"  # chave de aplicación
 valid msgid="\bapp_?names?\b"  # nome de aplicación
+valid msgid="\b(un)?apply(ing)?\b"
 valid msgid="\bmailers?\b"  # aplicación de correo
+valid msgid="\b(un)?styl(e|ing)\b"  # aplicación de estilo
 
 # contorno
 
