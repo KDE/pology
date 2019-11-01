@@ -58,8 +58,9 @@ valid msgid="\b(un)?styl(e|ing)\b"  # aplicación de estilo
 
 {\bdesktop\s+environments?\b}i
 id="rag-en-desktop-environment"
-valid msgstr="\bcontornos?\s+de\s+escritorio\b"
 hint="desktop environment → contorno de escritorio"
+valid msgstr="\bdesktop\s+environments?\b"
+valid msgstr="\bcontornos?\s+de\s+escritorio\b"
 
 {\benvironment\s+variables?\b}i
 id="rag-en-environment-variable"
