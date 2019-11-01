@@ -62,20 +62,20 @@ hint="desktop environment → contorno de escritorio"
 valid msgstr="\bdesktop\s+environments?\b"
 valid msgstr="\bcontornos?\s+de\s+escritorio\b"
 
-{\benvironment\s+variables?\b}i
-id="rag-en-environment-variable"
-hint="environment variable → variábel de contorno"
-valid msgstr="\bvariábe(l|is)\s+de\s+contorno\b"
-
 [\bcontornos?\s+de\s+escritorio\b]i
 id="rag-gl-contorno-de-escritorio"
 hint="contorno de escritorio ← desktop environment"
 valid msgid="\bdesktop\s+environments?\b"
 
+{\benv(ironment)?\s*var(iable)?s?\b}i
+id="rag-en-environment-variable"
+hint="environment variable → variábel de contorno"
+valid msgstr="\bvariábe(l|is)\s+de\s+contorno\b"
+
 [\bvariábe(l|is)\s+de\s+contorno\b]i
 id="rag-gl-variábel-de-contorno"
 hint="variábel de contorno ← environment variable"
-valid msgid="\benvironment\s+variables?\b"
+valid msgid="\benv(ironment)?\s*var(iable)?s?\b"
 
 # en liña, Internet, rede, web
 
