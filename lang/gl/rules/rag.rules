@@ -79,13 +79,17 @@ valid msgid="\benv(ironment)?\s*var(iable)?s?\b"
 
 # en liña, Internet, rede, web
 
-{(?i)\bon(\s+|-)?line\b}
-id="rag-online"
-hint="online → en Internet, en liña, na Rede, na Web"
-valid msgstr="\b[eE][nN]\s+I[nN][tT][eE][rR][nN][eE][tT]\b"
+{(?i)\bon-?line\b}
+id="rag-en-online"
+hint="online → (de|en|por) Internet, en liña, (da|na|pola) (Rede|Web)"
+valid msgstr="\b([dD][eE]|[eE][nN]|[pP][oO][rR])\s+I[nN][tT][eE][rR][nN][eE][tT]\b"
 valid msgstr="(?i)\ben\s+liña\b"
-valid msgstr="\b[nN][aA]\s+R[eE][dD][eE]\b"
-valid msgstr="\b[nN][aA]\s+W[eE][bB]\b"
+valid msgstr="\b([dD][aA]|[nN][aA]|[pP][oO][lL][aA])\s+R[eE][dD][eE]\b"
+valid msgstr="\b([dD][aA]|[nN][aA]|[pP][oO][lL][aA])\s+W[eE][bB]\b"
+
+[\binternet\b]
+id="rag-gl-internet"
+hint="internet → Internet"
 
 # fonte
 
