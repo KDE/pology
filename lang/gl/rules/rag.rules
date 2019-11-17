@@ -96,6 +96,7 @@ hint="internet → Internet"
 {\bfont(?!\s+sizes?\b)s?\b}i
 id="rag-en-font"
 hint="font → fonte"
+valid msgstr="\bfont(?!\s+sizes?\b)s?\b"
 valid msgstr="\bfontes?\b"
 
 {\bfont\s+sizes?\b}i
@@ -118,6 +119,11 @@ valid msgid="\bsources?\b"
 valid msgid="\btypefaces?\b"
 
 # fonte monoespazo
+
+{\bfixed\s+(width\s+)?fonts?\b}i
+id="rag-en-fixed-font"
+hint="fixed font, fixed width font → fonte monoespazo"
+valid msgstr="\bfontes?\s+monoespazo\b"
 
 {\bmonospace\b}i
 id="rag-en-monospace"
