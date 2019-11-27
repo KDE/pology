@@ -91,49 +91,23 @@ valid msgstr="\b([dD][aA]|[nN][aA]|[pP][oO][lL][aA])\s+W[eE][bB]\b"
 id="rag-gl-internet"
 hint="internet → Internet"
 
-# fonte
-
-{\bfont(?!\s+sizes?\b)s?\b}i
-id="rag-en-font"
-hint="font → fonte"
-valid msgstr="\bfont(?!\s+sizes?\b)s?\b"
-valid msgstr="\bfontes?\b"
-
-{\bfont\s+sizes?\b}i
-id="rag-en-font-size"
-hint="font size → tamaño de letra"
-valid msgstr="\btamaños?\s+de\s+letra\b"
-
-{\btypefaces?\b}i
-id="rag-en-typeface"
-hint="typeface → fonte"
-valid msgstr="\bfontes?\b"
-
-[\bfontes?\b]i
-id="rag-gl-fonte"
-hint="fonte ← font, fountain, origin, source, typeface"
-valid msgid="\bfonts?\b"
-valid msgid="\bfountains?\b"
-valid msgid="\borigins?\b"
-valid msgid="\bsources?\b"
-valid msgid="\btypefaces?\b"
-
 # fonte monoespazo
 
-{\bfixed\s+(width\s+)?fonts?\b}i
+{\b(?:fixed\s+(?:width\s+)?fonts?(?!\s+sizes?\b)|fonts?\s+with\s+(?:a\s+)?fixed\s+width)\b}i
 id="rag-en-fixed-font"
-hint="fixed font, fixed width font → fonte monoespazo"
+hint="fixed font, fixed width font, font with fixed width → fonte monoespazo"
 valid msgstr="\bfontes?\s+monoespazo\b"
 
-{\bmonospace\b}i
+{\bmonospaced?\b}i
 id="rag-en-monospace"
-hint="monospace → monoespazo"
+hint="monospace, monoespazed → monoespazo"
 valid msgstr="\bmonoespazo\b"
 
 [\bmonoespazo\b]i
 id="rag-gl-monoespazo"
-hint="monoespazo ← monospace"
-valid msgid="\bmonospace\b"
+hint="monoespazo ← fixed width, monospace"
+valid msgid="\b(?:fixed\s+(?:width\s+)?fonts?(?!\s+sizes?\b)|fonts?\s+with\s+(?:a\s+)?fixed\s+width)\b"
+valid msgid="\bmonospaced?\b"
 
 # hardware
 
