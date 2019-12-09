@@ -1,0 +1,103 @@
+# Personal rules for Catalan translations
+# by KDE Catalan Team (kde-i18n-ca@kde.org)
+# License: GPLv3
+
+# Note: For search in GUI, DOC and Sphinx
+
+# include file="filter.include"
+
+addFilterRegex match="&" on="pmsgid,pmsgstr"
+
+{^\bFinds?}i
+valid msgid="Find\s(an\sObject|City|in\sMessage|History|Messages|PDF|provider\ssettings|Resources|someone|Text)"
+valid msgstr="Troba les referències" # applications/lspclient
+valid msgstr="Trobar? (l')?objectes?" # extragear-edu/kstars
+valid msgstr="Troba les vores" # extragear-graphics/digikam
+valid msgstr="Troba" cat="gcompris_qt,gcompris_voices,kdeconnect-android,kdeconnect-kde._json_,org.kde.heaptrack.appdata,plasma_runner_kdeconnect_findmyphone"
+valid !msgstr="Troba"
+valid msgstr="Cerca"
+hint="Cal substituir-ho per «Cerca» (revisió)"
+
+{>\bFinds?}i
+valid msgstr=">Troba l'objecte" # extragear-edu/kstars
+valid msgstr=">Troba les vores" # extragear-graphics/digikam
+valid !msgstr=">Troba"
+valid msgstr=">Cerca"
+hint="Cal substituir-ho per «Cerca» (revisió)"
+
+{\"\bFinds?}i
+valid msgstr="\«Troba l'objecte" # extragear-edu/kstars
+valid msgstr="\«Troba la ciutat" # extragear-edu/kstars
+valid !msgstr="\«Troba"
+valid msgstr="\«Cerca"
+hint="Cal substituir-ho per «Cerca» (revisió)"
+
+{(\'|\`|\*)\bFinds?}i
+valid !msgstr="(\'|\`|\*)Troba"
+valid msgstr="(\'|\`|\*)Cerca"
+hint="Cal substituir-ho per «Cerca» (revisió)"
+
+{\bFind\san\sObject\b}i
+valid msgstr="Troba un objecte"
+hint="Cal substituir-ho per «Troba un objecte» (revisió)"
+
+{\bFind\sFiles\b}i
+valid msgid="\bFind\sFiles\/Folders\b"
+valid msgstr="Cerca als fitxers"
+hint="Cal substituir-ho per «Cerca als fitxers» (revisió)"
+
+    {\bFind\sFiles\/Folders\b}i
+    valid msgstr="Cerca de fitxers i carpetes"
+    hint="Cal substituir-ho per «Cerca de fitxers i carpetes» (revisió)"
+
+{\bFind\sHistory\b}i
+valid msgstr="Cerca a l'historial"
+hint="Cal substituir-ho per «Cerca a l'historial» (revisió)"
+
+{\bFind\sin\sMessage\b}i
+valid msgstr="Cerca al missatge"
+hint="Cal substituir-ho per «Cerca al missatge» (revisió)"
+
+{\bFind\s(in\s)?Messages\b}i
+valid msgstr="Cerca als missatges"
+hint="Cal substituir-ho per «Cerca als missatges» (revisió)"
+
+{\b(Find|Search)\sNext\b}i
+valid msgstr="Cerca la següent"
+hint="Cal substituir-ho per «Cerca la següent -ocurrència-» (revisió)"
+
+    {\b(Find|Search)\sprev(ious)?\b}i
+    valid msgstr="Cerca l'anterior"
+    hint="Cal substituir-ho per «Cerca l'anterior -ocurrència-» (revisió)"
+
+{\bFind\sPDF\b}i
+valid msgstr="Cerca el PDF"
+hint="Cal substituir-ho per «Cerca el PDF» (revisió)"
+
+{\bFind\sprovider\ssettings\b}i
+valid msgstr="Cerca l'arranjament del proveïdor"
+hint="Cal substituir-ho per «Cerca l'arranjament del proveïdor» (revisió)"
+
+{\bFind\sResources\b}i
+valid msgstr="Cerca un recurs"
+hint="Cal substituir-ho per «Cerca un recurs» (revisió)"
+
+{\bFind\sSelected\b}i
+valid msgstr="Cerca la selecció"
+hint="Cal substituir-ho per «Cerca la selecció» (revisió)"
+
+{\bFind\ssomeone\b}i
+valid msgstr="Troba algú"
+hint="Cal substituir-ho per «Troba algú» (revisió)"
+
+{\bFind\sText\b}i
+valid msgstr="Cerca el text"
+hint="Cal substituir-ho per «Cerca el text» (revisió)"
+
+{\bFind\sto\sfind\b}i
+valid msgstr="Text a cercar"
+hint="Cal substituir-ho per «Text a cercar» (revisió)"
+
+{\bFind\sVariants\b}i
+valid msgstr="Cerca les variants"
+hint="Cal substituir-ho per «Cerca les variants» (revisió)"
