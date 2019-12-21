@@ -372,12 +372,12 @@ hint="Es tradueix per «inhabilita» o «desactiva» (kde-ca-team)"
 id="kct-dock"
 valid msgid="Dock\smode"
 valid msgid="(bottom|left|right)\sdock"
-valid msgstr="acobla(da|des|r|ts)?\b"
+valid msgstr="acobla(da|des|r|ts?)?\b"
 valid msgstr="acobladors?\b"
 valid msgstr="acoblables?\b" before="\swindows?"
 valid msgstr="acoblables?\b" before="\sat\sthe\s(bottom|left|right)"
 valid msgstr="acoblables?\b" cat="khotkeys,plasma_applet_icontasks,partitionmanager_usermanual"
-hint="Es tradueix per «acobla/da/des» (kde-ca-team)"
+hint="Es tradueix per «acobla/r, acoblada/des, acoblat/s» (kde-ca-team)"
 
 {\bDock\smode\b}i
 id="kct-dockmode"
@@ -689,8 +689,9 @@ hint="Es tradueix per «quadre/s del missatge de text» (kde-ca-team)"
 
 {\bmouse.?wheels?\b}i
 id="kct-mousewheel"
+valid msgstr="roda\sal\sratolí" # (doc) If you do not have a mouse wheel
 valid msgstr="rod(a|es)\sdel\sratolí"
-hint="Es tradueix per «roda/es del ratolí» (kde-ca-team)"
+hint="Es tradueix per «roda/es del ratolí, roda al ratolí» (kde-ca-team)"
 
 {\bmultimeter\b}i
 id="kct-multimeter"

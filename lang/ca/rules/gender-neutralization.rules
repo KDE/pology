@@ -19,6 +19,7 @@ addFilterRegex match="(_|~|&)" on="pmsgid,pmsgstr"
 {\beverybody\b}i
 id="gender-everybody"
 valid !msgstr="\btots\b|\btotes\b"
+valid msgstr="\btothom\b"
 hint="«Everybody» recomanem traduir-ho per «tothom» per a neutralizar el gènere."
 
 {\b(kid|child)\b}i
@@ -34,6 +35,12 @@ hint="«Kids o children» recomanem traduir-ho per «infants» per a neutralizar
 
 {\bwelcome\b}i
 id="gender-welcome"
+valid msgid="\banyone\sis\swelcome\b"
 valid !msgstr="\bBenvingut\b|\bBenvinguts\b"
 valid msgstr="\bsereu benvinguts\b"
 hint="«Welcome» recomanem traduir-ho per «Us donem la benvinguda» per a neutralizar el gènere."
+
+    {\banyone\sis\swelcome\b}i
+    id="gender-anyone-is-welcome"
+    valid msgstr="\btothom és benvingut/da\b"
+    hint="«anyone is welcome» recomanem traduir-ho per «tothom és benvingut/da» per adaptar-lo al gènere."
