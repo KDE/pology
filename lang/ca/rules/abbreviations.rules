@@ -96,6 +96,7 @@ hint="L'abreviatura del dissabte és «ds.»."
 
 {e\.g\.}i
 id="abbreviations-eg"
+valid msgstr="\bpex;"
 valid msgstr="p. ex."
 valid msgstr="per exemple"
-hint="L'abreviatura de per exemple és «p. ex.» (amb espai inclòs)."
+hint="L'abreviatura de per exemple és «p. ex. (amb espai inclòs), &pex; (a la doc)»."
