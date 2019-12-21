@@ -531,6 +531,14 @@ id="kct-filterbox"
 valid msgstr="quadres? de filtre"
 hint="Es tradueix per «quadre/s de filtre» (kde-ca-team)"
 
+{\bfriendly\b}i
+id="kct-friendly"
+valid msgstr="fàcil d\'(emprar|usar)" 
+valid msgstr="amist(ós|osa)"
+valid !msgstr="amigable"
+hint="«Es tradueix per «fàcil d'emprar» o «fàcil d'usar» (kde-ca-team)"
+# En determinats casos també es pot utilitzar «amistós -osa»
+
 {\bfront.?ends?\b}i
 id="kct-frontend"
 valid msgstr="frontals?"
