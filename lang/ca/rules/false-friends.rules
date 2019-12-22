@@ -869,8 +869,9 @@ hint="«Professor» es tradueix per «Catedràtic», no per «Professor» (fals 
 {\bprove\b}i
 id="ff-prove"
 valid msgstr="demostració"
+valid msgstr="demostrar"
 valid !msgstr="prova"
-hint="«Prove» es tradueix per «Demostració», no per «Prova» (fals amic)"
+hint="«Prove» es tradueix per «Demostració (demostrar)», no per «Prova» (fals amic)"
 
 # «Quartely» es tradueix per «Trimestral».
 {\bquartel(y|ies)\b}i

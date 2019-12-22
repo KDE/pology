@@ -35,12 +35,13 @@ hint="«Kids o children» recomanem traduir-ho per «infants» per a neutralizar
 
 {\bwelcome\b}i
 id="gender-welcome"
-valid msgid="\banyone\sis\swelcome\b"
+valid msgid="\b(ever|an)yone\sis\swelcome\b"
 valid !msgstr="\bBenvingut\b|\bBenvinguts\b"
 valid msgstr="\bsereu benvinguts\b"
 hint="«Welcome» recomanem traduir-ho per «Us donem la benvinguda» per a neutralizar el gènere."
 
-    {\banyone\sis\swelcome\b}i
+    {\b(ever|an)yone\sis\swelcome\b}i
     id="gender-anyone-is-welcome"
-    valid msgstr="\btothom és benvingut/da\b"
-    hint="«anyone is welcome» recomanem traduir-ho per «tothom és benvingut/da» per adaptar-lo al gènere."
+    valid msgstr="\bDonem la benvinguda a tothom\b"
+    valid msgstr="\btothom hi (és|serà) benvingut\b"
+    hint="«anyone is welcome» recomanem traduir-ho per «tothom hi és benvingut, tothom hi serà benvingut, donem la benvinguda a tothom» per adaptar-lo al gènere."
