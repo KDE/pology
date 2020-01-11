@@ -115,6 +115,7 @@ valid msgid="\bmonospaced?\b"
 id="rag-en-hardware"
 hint="hardware → soporte físico"
 valid msgstr="\bsoporte\s+físico\b"
+valid msgstr="\bferraxaría\b"  # hardware store
 
 [\bhardware\b]i
 id="rag-gl-hardware"
@@ -124,6 +125,7 @@ hint="hardware → soporte físico"
 id="rag-gl-soporte-físico"
 hint="soporte físico ← hardware"
 valid msgid="\bhardware\b"
+valid msgid="hw"
 
 # separador, tabulador, tabulatura
 
