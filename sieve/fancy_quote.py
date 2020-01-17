@@ -25,23 +25,23 @@ def setup_sieve (p):
     "Transform ASCII single and double quotes into fancy counterparts."
     ))
 
-    p.add_param("single", unicode,
+    p.add_param("single", str,
                 metavar=_("@info sieve parameter value placeholder", "QUOTES"),
                 desc=_("@info sieve parameter discription",
     "Opening and closing single quote (two characters)."
     ))
-    p.add_param("double", unicode,
+    p.add_param("double", str,
                 metavar=_("@info sieve parameter value placeholder", "QUOTES"),
                 desc=_("@info sieve parameter discription",
     "Opening and closing double quote (two characters)."
     ))
-    p.add_param("longsingle", unicode,
+    p.add_param("longsingle", str,
                 metavar=_("@info sieve parameter value placeholder",
                           "OPEN,CLOSED"),
                 desc=_("@info sieve parameter discription",
     "Opening and closing single quote longer than single character."
     ))
-    p.add_param("longdouble", unicode,
+    p.add_param("longdouble", str,
                 metavar=_("@info sieve parameter value placeholder", 
                           "OPEN,CLOSED"),
                 desc=_("@info sieve parameter discription",

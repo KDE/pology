@@ -14,13 +14,13 @@ import re
 
 # Capitals words in valid contexts in the translated text according with Spanish grammar
 # (beggining of paragraph, after some punctuation characters and after a new line)
-_valid_capital_word_middle = re.compile(u"(?<=[.:?!>»\"]\s)\w*?[A-ZÁÉÍÓÚÜÑÇ]\w*", re.U)
-_valid_capital_word_initial = re.compile(u"^\w*?[A-ZÁÉÍÓÚÜÑÇ]\w*", re.U)
+_valid_capital_word_middle = re.compile("(?<=[.:?!>»\"]\s)\w*?[A-ZÁÉÍÓÚÜÑÇ]\w*", re.U)
+_valid_capital_word_initial = re.compile("^\w*?[A-ZÁÉÍÓÚÜÑÇ]\w*", re.U)
 
 # All capital words in the original English text,
-_ent_capital_word = re.compile(u"\w*?[A-Z]\w*", re.U)
+_ent_capital_word = re.compile("\w*?[A-Z]\w*", re.U)
 # All plural full capital words (acronyms) without the final 's'.
-_ent_capital_word_plural = re.compile(u"[A-Z0-9]+(?=\'?s\b)", re.U)
+_ent_capital_word_plural = re.compile("[A-Z0-9]+(?=\'?s\b)", re.U)
 
 def remove_paired_capital_words (msg, cat):
 	"""

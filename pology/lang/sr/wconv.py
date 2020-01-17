@@ -114,34 +114,34 @@ from pology.resolve import resolve_alternatives
 
 # Transliteration table Serbian Cyrillic->Latin.
 _dict_c2l = {
-    u'а':u'a', u'б':u'b', u'в':u'v', u'г':u'g', u'д':u'd', u'ђ':u'đ',
-    u'е':u'e', u'ж':u'ž', u'з':u'z', u'и':u'i', u'ј':u'j', u'к':u'k',
-    u'л':u'l', u'љ':u'lj',u'м':u'm', u'н':u'n', u'њ':u'nj',u'о':u'o',
-    u'п':u'p', u'р':u'r', u'с':u's', u'т':u't', u'ћ':u'ć', u'у':u'u',
-    u'ф':u'f', u'х':u'h', u'ц':u'c', u'ч':u'č', u'џ':u'dž',u'ш':u'š',
-    u'А':u'A', u'Б':u'B', u'В':u'V', u'Г':u'G', u'Д':u'D', u'Ђ':u'Đ',
-    u'Е':u'E', u'Ж':u'Ž', u'З':u'Z', u'И':u'I', u'Ј':u'J', u'К':u'K',
-    u'Л':u'L', u'Љ':u'Lj',u'М':u'M', u'Н':u'N', u'Њ':u'Nj',u'О':u'O',
-    u'П':u'P', u'Р':u'R', u'С':u'S', u'Т':u'T', u'Ћ':u'Ć', u'У':u'U',
-    u'Ф':u'F', u'Х':u'H', u'Ц':u'C', u'Ч':u'Č', u'Џ':u'Dž',u'Ш':u'Š',
+    'а':'a', 'б':'b', 'в':'v', 'г':'g', 'д':'d', 'ђ':'đ',
+    'е':'e', 'ж':'ž', 'з':'z', 'и':'i', 'ј':'j', 'к':'k',
+    'л':'l', 'љ':'lj','м':'m', 'н':'n', 'њ':'nj','о':'o',
+    'п':'p', 'р':'r', 'с':'s', 'т':'t', 'ћ':'ć', 'у':'u',
+    'ф':'f', 'х':'h', 'ц':'c', 'ч':'č', 'џ':'dž','ш':'š',
+    'А':'A', 'Б':'B', 'В':'V', 'Г':'G', 'Д':'D', 'Ђ':'Đ',
+    'Е':'E', 'Ж':'Ž', 'З':'Z', 'И':'I', 'Ј':'J', 'К':'K',
+    'Л':'L', 'Љ':'Lj','М':'M', 'Н':'N', 'Њ':'Nj','О':'O',
+    'П':'P', 'Р':'R', 'С':'S', 'Т':'T', 'Ћ':'Ć', 'У':'U',
+    'Ф':'F', 'Х':'H', 'Ц':'C', 'Ч':'Č', 'Џ':'Dž','Ш':'Š',
     # accented NFC:
-    u'ѐ':u'è', u'ѝ':u'ì', u'ӣ':u'ī', u'ӯ':u'ū',
-    u'Ѐ':u'È', u'Ѝ':u'Ì', u'Ӣ':u'Ī', u'Ӯ':u'Ū',
+    'ѐ':'è', 'ѝ':'ì', 'ӣ':'ī', 'ӯ':'ū',
+    'Ѐ':'È', 'Ѝ':'Ì', 'Ӣ':'Ī', 'Ӯ':'Ū',
     # frequent accented from NFD to NFC (keys now 2-char):
-    u'а̂':u'â', u'о̂':u'ô', u'а̑':u'ȃ', u'о̑':u'ȏ',
+    'а̂':'â', 'о̂':'ô', 'а̑':'ȃ', 'о̑':'ȏ',
 }
 
 # Transliteration table Serbian Cyrillic->ASCII, basic stripped.
 _dict_c2a_stripped = _dict_c2l.copy()
 _dict_c2a_stripped.update({
-    u'ђ':u'dj', u'ж':u'z', u'ћ':u'c', u'ч':u'c', u'џ':u'dz', u'ш':u's',
-    u'Ђ':u'Dj', u'Ж':u'Z', u'Ћ':u'C', u'Ч':u'C', u'Џ':u'Dz', u'Ш':u'S',
+    'ђ':'dj', 'ж':'z', 'ћ':'c', 'ч':'c', 'џ':'dz', 'ш':'s',
+    'Ђ':'Dj', 'Ж':'Z', 'Ћ':'C', 'Ч':'C', 'Џ':'Dz', 'Ш':'S',
 })
 
 # Transliteration table Serbian Latin->ASCII, basic stripped.
 _dict_l2a_stripped = {
-    u'đ':u'dj', u'ž':u'z', u'ć':u'c', u'č':u'c', u'š':u's',
-    u'Đ':u'Dj', u'Ž':u'Z', u'Ć':u'C', u'Č':u'C', u'Š':u'S',
+    'đ':'dj', 'ž':'z', 'ć':'c', 'č':'c', 'š':'s',
+    'Đ':'Dj', 'Ž':'Z', 'Ć':'C', 'Č':'C', 'Š':'S',
 }
 
 # Transliteration table Serbian any->ASCII, basic stripped.
@@ -152,8 +152,8 @@ _dict_cl2a_stripped.update(_dict_l2a_stripped)
 # Transliteration table English in Serbian Cyrillic->Latin, by keyboard layout.
 _dict_c2a_englay = _dict_c2l.copy()
 _dict_c2a_englay.update({
-    u'љ':u'q', u'њ':u'w', u'ж':u'y', u'џ':u'x',
-    u'Љ':u'Q', u'Њ':u'W', u'Ж':u'Y', u'Џ':u'X',
+    'љ':'q', 'њ':'w', 'ж':'y', 'џ':'x',
+    'Љ':'Q', 'Њ':'W', 'Ж':'Y', 'Џ':'X',
 })
 
 
@@ -189,7 +189,7 @@ def _ctol_w (text, trdict):
     # perhaps something more efficient is possible.
 
     tlen = len(text)
-    ntext = u""
+    ntext = ""
     for i in range(tlen):
         c = text[i]
         c2 = text[i:i+2]
@@ -244,7 +244,7 @@ def hctocl (htext):
     return hctoc(htext), hctol(htext)
 
 
-def cltoh (textc, textl, delims=u"/|¦", full=False):
+def cltoh (textc, textl, delims="/|¦", full=False):
     """
     Construct hybrid Cyrillic text out of clean Cyrillic and Latin texts.
 
@@ -297,8 +297,8 @@ def cltoh (textc, textl, delims=u"/|¦", full=False):
     return "".join(segs)
 
 
-_padc_chr = u"\u0004"
-_padc_alphas = (u"љ", u"њ", u"џ", u"Љ", u"Њ", u"Џ")
+_padc_chr = "\u0004"
+_padc_alphas = ("љ", "њ", "џ", "Љ", "Њ", "Џ")
 
 def _padc (text):
 
@@ -317,29 +317,29 @@ def _unpadc (text):
 # All Ijekavian-Ekavian form pairs have to be unique across all groups.
 # Within a group, one Ijekavian form must not be in the prefix of another.
 _reflex_spec = (
-    (u"›", {
-        u"ије": u"е",
-        u"је": u"е",
+    ("›", {
+        "ије": "е",
+        "је": "е",
     }),
-    (u"‹", {
-        u"иј": u"еј", # гријати → грејати
-        u"иљ": u"ел", # биљешка → белешка
-        u"ио": u"ео", # дио → део
-        u"ље": u"ле", # љето → лето
-        u"ње": u"не", # гњев → гнев
+    ("‹", {
+        "иј": "еј", # гријати → грејати
+        "иљ": "ел", # биљешка → белешка
+        "ио": "ео", # дио → део
+        "ље": "ле", # љето → лето
+        "ње": "не", # гњев → гнев
     }),
-    (u"▹", {
-        u"ије": u"и", # налијевати → наливати
-        u"је": u"и", # утјецај → утицај
+    ("▹", {
+        "ије": "и", # налијевати → наливати
+        "је": "и", # утјецај → утицај
     }),
-    (u"◃", {
-        u"ијел": u"ео", # бијел → бео
-        u"ијен": u"ењ", # лијен → лењ
-        u"ил": u"ел", # вриједила → вредела
-        u"ит": u"ет", # вриједити → вредети
-        u"јел": u"ео", # одјел → одео
-        u"тн": u"тњ", # љетни → летњи
-        u"шње": u"сне", # побјешњели → побеснели
+    ("◃", {
+        "ијел": "ео", # бијел → бео
+        "ијен": "ењ", # лијен → лењ
+        "ил": "ел", # вриједила → вредела
+        "ит": "ет", # вриједити → вредети
+        "јел": "ео", # одјел → одео
+        "тн": "тњ", # љетни → летњи
+        "шње": "сне", # побјешњели → побеснели
     }),
 )
 
@@ -350,19 +350,19 @@ def _derive_reflex_specs (reflex_spec):
     for tick, refmap in reflex_spec:
         # Derive data for dehybridization.
         # Derive Latin cases (must be done before other cases).
-        refmap.update([map(ctol, x) for x in refmap.items()])
+        refmap.update([list(map(ctol, x)) for x in list(refmap.items())])
         # Derive cases with first letter in uppercase.
-        refmap.update([map(unicode.capitalize, x) for x in refmap.items()])
+        refmap.update([list(map(str.capitalize, x)) for x in list(refmap.items())])
         # Derive cases with all letters in uppercase.
-        refmap.update([map(unicode.upper, x) for x in refmap.items()])
+        refmap.update([list(map(str.upper, x)) for x in list(refmap.items())])
         # Compute minimum and maximum reflex lengths.
-        ijklen_min = min(map(len, refmap.keys()))
-        ijklen_max = max(map(len, refmap.keys()))
+        ijklen_min = min(list(map(len, list(refmap.keys()))))
+        ijklen_max = max(list(map(len, list(refmap.keys()))))
         reflex_spec_dehyb.append((tick, refmap, ijklen_min, ijklen_max))
 
         # Derive data for hybridization:
         # {(ekvlen, ijklen, btrk): {ijkfrm: [(ekvfrm, tick)...]}}
-        for ijkfrm, ekvfrm in refmap.items():
+        for ijkfrm, ekvfrm in list(refmap.items()):
             # Compute backtracking from position of jat-reflex difference.
             btrk = 0
             while (    btrk < len(ijkfrm) and btrk < len(ekvfrm)
@@ -382,7 +382,7 @@ def _derive_reflex_specs (reflex_spec):
     # decreasing smaller length of the two reflexes,
     # decreasing greater lenght of the two reflexes.
     tmplst = []
-    pkeys = reflex_spec_hyb.keys()
+    pkeys = list(reflex_spec_hyb.keys())
     pkeys.sort(key=lambda x: (x[0], -min(x[1], x[2]), -max(x[1], x[2])))
     reflex_spec_hyb = [k + (reflex_spec_hyb[k],) for k in pkeys]
 
@@ -518,7 +518,7 @@ def hitoei (htext):
     return hitoe(htext), hitoi(htext)
 
 
-def tohi (text1, text2, ekord=None, delims=u"/|¦", parthyb=False):
+def tohi (text1, text2, ekord=None, delims="/|¦", parthyb=False):
     """
     Construct hybrid Ijekavian text out of Ekavian and Ijekavian texts.
 

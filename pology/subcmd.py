@@ -54,6 +54,7 @@ from pology.colors import cjoin, cinterp
 from pology.fsops import term_width
 from pology.report import format_item_list
 from pology.wrap import wrap_text
+from functools import reduce
 
 
 class ParamParser (object):
@@ -134,7 +135,7 @@ class ParamParser (object):
         """
 
         if subcmds is None:
-            subcmds = self._scviews.keys()
+            subcmds = list(self._scviews.keys())
             subcmds.sort()
 
         fmts = []
@@ -168,7 +169,7 @@ class ParamParser (object):
         """
 
         if subcmds is None:
-            subcmds = self._scviews.keys()
+            subcmds = list(self._scviews.keys())
             subcmds.sort()
 
         maxsclen = max([len(x) for x in subcmds])
@@ -377,7 +378,7 @@ class ParamParser (object):
         for subcmd in subcmds:
             scview = self._scviews[subcmd]
             params[subcmd] = ParamsTemp()
-            for param, val in param_vals[subcmd].iteritems():
+            for param, val in param_vals[subcmd].items():
                 # Construct valid attribute name out of parameter name.
                 to_attr_rx = re.compile(r"[^a-z0-9]+", re.I|re.U)
                 attr = scview._attrnames[param]
@@ -553,7 +554,7 @@ class SubcmdView (object):
         general_ptype = None
         general_multival = None
         general_seplist = None
-        for scview in self._parent._scviews.itervalues():
+        for scview in self._parent._scviews.values():
             general_ptype = scview._ptypes.get(param)
             general_multival = scview._multivals.get(param)
             general_seplist = scview._seplists.get(param)
@@ -745,8 +746,8 @@ class SubcmdView (object):
         @rtype: [string]
         """
 
-        pnames = self._ptypes.keys()
-        fmtnames = dict(zip(pnames, pnames))
+        pnames = list(self._ptypes.keys())
+        fmtnames = dict(list(zip(pnames, pnames)))
 
         if addcol:
             for pname in pnames:

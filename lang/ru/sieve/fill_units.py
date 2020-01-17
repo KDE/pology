@@ -24,36 +24,36 @@ class Sieve (object):
 
     def __init__ (self, params):
         self.prefixes = [
-            ('yotta', u'йотта', 'Y', u'Й'),
-            ('zetta', u'зетта', 'Z', u'З'),
-            ('exa', u'экса', 'E', u'Э'),
-            ('peta', u'пета', 'P', u'П'),
-            ('tera', u'тера', 'T', u'Т'),
-            ('giga', u'гига', 'G', u'Г'),
-            ('mega', u'мега', 'M', u'М'),
-            ('kilo', u'кило', 'k', u'к'),
-            ('hecto', u'гекто', 'h', u'г'),
-            ('deca', u'дека', 'da', u'да'),
-            ('', u'', '', u''),
-            ('deci', u'деци', 'd', u'д'),
-            ('centi', u'санти', 'c', u'с'),
-            ('milli', u'милли', 'm', u'м'),
-            ('micro', u'микро', u'µ', u'мк'),
-            ('nano', u'нано', 'n', u'н'),
-            ('pico', u'пико', 'p', u'п'),
-            ('femto', u'фемто', 'f', u'ф'),
-            ('atto', u'атто', 'a', u'а'),
-            ('zepto', u'зепто', 'z', u'з'),
-            ('yocto', u'йокто', 'y', u'и'),
+            ('yotta', 'йотта', 'Y', 'Й'),
+            ('zetta', 'зетта', 'Z', 'З'),
+            ('exa', 'экса', 'E', 'Э'),
+            ('peta', 'пета', 'P', 'П'),
+            ('tera', 'тера', 'T', 'Т'),
+            ('giga', 'гига', 'G', 'Г'),
+            ('mega', 'мега', 'M', 'М'),
+            ('kilo', 'кило', 'k', 'к'),
+            ('hecto', 'гекто', 'h', 'г'),
+            ('deca', 'дека', 'da', 'да'),
+            ('', '', '', ''),
+            ('deci', 'деци', 'd', 'д'),
+            ('centi', 'санти', 'c', 'с'),
+            ('milli', 'милли', 'm', 'м'),
+            ('micro', 'микро', 'µ', 'мк'),
+            ('nano', 'нано', 'n', 'н'),
+            ('pico', 'пико', 'p', 'п'),
+            ('femto', 'фемто', 'f', 'ф'),
+            ('atto', 'атто', 'a', 'а'),
+            ('zepto', 'зепто', 'z', 'з'),
+            ('yocto', 'йокто', 'y', 'и'),
 
-            ('yobi', u'йоби',  'Yi', u'Йи'),
-            ('zebi', u'зеби',  'Zi', u'Зи'),
-            ('exbi', u'эксби', 'Ei', u'Эи'),
-            ('pebi', u'пеби',  'Pi', u'Пи'),
-            ('tebi', u'теби',  'Ti', u'Ти'),
-            ('gibi', u'гиби',  'Gi', u'Ги'),
-            ('mebi', u'меби',  'Mi', u'Ми'),
-            ('kibi', u'киби',  'Ki', u'Ки'),
+            ('yobi', 'йоби',  'Yi', 'Йи'),
+            ('zebi', 'зеби',  'Zi', 'Зи'),
+            ('exbi', 'эксби', 'Ei', 'Эи'),
+            ('pebi', 'пеби',  'Pi', 'Пи'),
+            ('tebi', 'теби',  'Ti', 'Ти'),
+            ('gibi', 'гиби',  'Gi', 'Ги'),
+            ('mebi', 'меби',  'Mi', 'Ми'),
+            ('kibi', 'киби',  'Ki', 'Ки'),
         ]
 
     # {0} -> "giga", "гига"
@@ -62,7 +62,7 @@ class Sieve (object):
         for prefix in self.prefixes:
             if text == msgid_fmt.format(prefix[0], prefix[2]):
                 if bytes_exception and prefix[0] == 'kilo':
-                    return msgstr_fmt.format(prefix[1], u'К') # килобайт/КБ
+                    return msgstr_fmt.format(prefix[1], 'К') # килобайт/КБ
                 else:
                     return msgstr_fmt.format(prefix[1], prefix[3])
 
@@ -87,70 +87,70 @@ class Sieve (object):
         tr = None
 
         # Example: "gigaamperes" -> "гигаамперы"
-        if msg.msgctxt == u'unit description in lists':
+        if msg.msgctxt == 'unit description in lists':
             units = [
-                ('{0}amperes', u'{0}амперы'),
-                ('{0}ohms', u'{0}омы'),
-                ('{0}volts', u'{0}вольты'),
-                ('{0}bytes', u'{0}байты'),
-                ('{0}bits', u'{0}биты'),
-                ('{0}watts', u'{0}ватты'),
+                ('{0}amperes', '{0}амперы'),
+                ('{0}ohms', '{0}омы'),
+                ('{0}volts', '{0}вольты'),
+                ('{0}bytes', '{0}байты'),
+                ('{0}bits', '{0}биты'),
+                ('{0}watts', '{0}ватты'),
             ]
             tr = self.translate_multiple_with_unit_prefix(msg.msgid, units)
 
         if msg.msgctxt is not None and msg.msgctxt.endswith(' unit symbol'):
             units = [
-                (u'{1}A', u'{1}А'),
-                (u'{1}V', u'{1}В'),
-                (u'{1}Ω', u'{1}Ом'),
+                ('{1}A', '{1}А'),
+                ('{1}V', '{1}В'),
+                ('{1}Ω', '{1}Ом'),
                 # ('{0}ohms', u'{0}омы'),
                 # ('{0}volts', u'{0}вольты'),
-                (u'{1}b', u'{1}бит'),
-                (u'{1}W', u'{1}Вт'),
+                ('{1}b', '{1}бит'),
+                ('{1}W', '{1}Вт'),
             ]
             tr = self.translate_multiple_with_unit_prefix(msg.msgid, units)
 
         if msg.msgctxt == 'unit synonyms for matching user input':
             # TODO replace these tuples with a structure
             units = [
-                (u'{0}ampere;{0}amperes;{1}A', u'{0}ампер;{0}ампера;{0}амперов;{0}амперы;{0}амперах;{1}А', False),
-                (u'{0}amp;{0}amps;{0}ampere;{0}amperes;{1}A', u'{0}ампер;{0}ампера;{0}амперов;{0}амперы;{0}амперах;{1}А', False),
-                (u'{0}volt;{0}volts;{1}V', u'{0}вольт;{0}вольта;{0}вольтов;{0}вольты;{0}вольтах;{1}В', False),
-                (u'{0}ohm;{0}ohms;{1}Ω', u'{0}ом;{0}ома;{0}омов;{0}омы;{0}омах;{1}Ом', False),
-                (u'{1}B;{0}byte;{0}bytes', u'{1}Б;{0}байт;{0}байта;{0}байтов;{0}байты;{0}байтах', True),
-                (u'{1}b;{0}bit;{0}bits', u'{1}бит;{0}бит;{0}бита;{0}битов;{0}биты;{0}битах', False),
-                (u'{0}watt;{0}watts;{1}W', u'{0}ватт;{0}ватта;{0}ваттов;{0}ватты;{0}ваттах;{1}Вт', False),
+                ('{0}ampere;{0}amperes;{1}A', '{0}ампер;{0}ампера;{0}амперов;{0}амперы;{0}амперах;{1}А', False),
+                ('{0}amp;{0}amps;{0}ampere;{0}amperes;{1}A', '{0}ампер;{0}ампера;{0}амперов;{0}амперы;{0}амперах;{1}А', False),
+                ('{0}volt;{0}volts;{1}V', '{0}вольт;{0}вольта;{0}вольтов;{0}вольты;{0}вольтах;{1}В', False),
+                ('{0}ohm;{0}ohms;{1}Ω', '{0}ом;{0}ома;{0}омов;{0}омы;{0}омах;{1}Ом', False),
+                ('{1}B;{0}byte;{0}bytes', '{1}Б;{0}байт;{0}байта;{0}байтов;{0}байты;{0}байтах', True),
+                ('{1}b;{0}bit;{0}bits', '{1}бит;{0}бит;{0}бита;{0}битов;{0}биты;{0}битах', False),
+                ('{0}watt;{0}watts;{1}W', '{0}ватт;{0}ватта;{0}ваттов;{0}ватты;{0}ваттах;{1}Вт', False),
             ]
             tr = self.translate_multiple_with_unit_prefix(msg.msgid, units)
 
-        if msg.msgctxt == u'amount in units (real)':
+        if msg.msgctxt == 'amount in units (real)':
             units = [
-                ('%1 {0}amperes', u'%1 {0}ампера'),
-                ('%1 {0}volts', u'%1 {0}вольта'),
-                ('%1 {0}ohms', u'%1 {0}ома'),
-                ('%1 {0}bytes', u'%1 {0}байт'),
-                ('%1 {0}bits', u'%1 {0}бит'),
-                ('%1 {0}watts', u'%1 {0}ватт'),
+                ('%1 {0}amperes', '%1 {0}ампера'),
+                ('%1 {0}volts', '%1 {0}вольта'),
+                ('%1 {0}ohms', '%1 {0}ома'),
+                ('%1 {0}bytes', '%1 {0}байт'),
+                ('%1 {0}bits', '%1 {0}бит'),
+                ('%1 {0}watts', '%1 {0}ватт'),
             ]
             tr = self.translate_multiple_with_unit_prefix(msg.msgid, units)
 
         return tr
 
     def process_plural(self, msg, cat):
-        if msg.msgctxt == u'amount in units (integer)':
+        if msg.msgctxt == 'amount in units (integer)':
             unit_pairs = [
-                ((u'%1 {0}ampere', u'%1 {0}amperes'),
-                 (u'%1 {0}ампер', u'%1 {0}ампера', u'%1 {0}ампер', u'%1 {0}ампер')),
-                ((u'%1 {0}ohm', u'%1 {0}ohms'),
-                 (u'%1 {0}ом', u'%1 {0}ома', u'%1 {0}ом', u'%1 {0}ом')),
-                ((u'%1 {0}volt', u'%1 {0}volts'),
-                 (u'%1 {0}вольт', u'%1 {0}вольта', u'%1 {0}вольт', u'%1 {0}вольт')),
-                ((u'%1 {0}byte', u'%1 {0}bytes'),
-                 (u'%1 {0}байт', u'%1 {0}байта', u'%1 {0}байт', u'%1 {0}байт')),
-                ((u'%1 {0}bit', u'%1 {0}bits'),
-                 (u'%1 {0}бит', u'%1 {0}бита', u'%1 {0}бит', u'%1 {0}бит')),
-                ((u'%1 {0}watt', u'%1 {0}watts'),
-                 (u'%1 {0}ватт', u'%1 {0}ватта', u'%1 {0}ватт', u'%1 {0}ватт')),
+                (('%1 {0}ampere', '%1 {0}amperes'),
+                 ('%1 {0}ампер', '%1 {0}ампера', '%1 {0}ампер', '%1 {0}ампер')),
+                (('%1 {0}ohm', '%1 {0}ohms'),
+                 ('%1 {0}ом', '%1 {0}ома', '%1 {0}ом', '%1 {0}ом')),
+                (('%1 {0}volt', '%1 {0}volts'),
+                 ('%1 {0}вольт', '%1 {0}вольта', '%1 {0}вольт', '%1 {0}вольт')),
+                (('%1 {0}byte', '%1 {0}bytes'),
+                 ('%1 {0}байт', '%1 {0}байта', '%1 {0}байт', '%1 {0}байт')),
+                (('%1 {0}bit', '%1 {0}bits'),
+                 ('%1 {0}бит', '%1 {0}бита', '%1 {0}бит', '%1 {0}бит')),
+                (('%1 {0}watt', '%1 {0}watts'),
+                 ('%1 {0}ватт', '%1 {0}ватта', '%1 {0}ватт', '%1 {0}ватт')),
             ]
 
             for unit in unit_pairs:

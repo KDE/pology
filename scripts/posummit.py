@@ -12,6 +12,7 @@ import re
 import shutil
 import sys
 import time
+from functools import reduce
 
 try:
     import fallback_import_paths
@@ -60,9 +61,9 @@ def main ():
         "Translate PO files spread across different branches "
         "in a unified fashion.")
     ver = _("@info command version",
-        u"%(cmd)s (Pology) %(version)s\n"
-        u"Copyright © 2007, 2008, 2009, 2010 "
-        u"Chusslove Illich (Часлав Илић) &lt;%(email)s&gt;",
+        "%(cmd)s (Pology) %(version)s\n"
+        "Copyright © 2007, 2008, 2009, 2010 "
+        "Chusslove Illich (Часлав Илић) &lt;%(email)s&gt;",
         cmd="%prog", version=version(), email="caslav.ilic@gmx.net")
 
     opars = ColorOptionParser(usage=usage, description=desc, version=ver)
@@ -355,7 +356,7 @@ class Project (object):
                     file=path))
         self.inclusion_trail.append(path)
         self.locked = True
-        exec open(unicode_to_str(path)) in {"S" : self}
+        exec(open(unicode_to_str(path)), {"S" : self})
         self.locked = False
         self.inclusion_trail.pop()
 
@@ -376,7 +377,7 @@ def derive_project_data (project, options, nwgrefpath=None):
     if sd:
         error(_("@info",
                 "Unknown keys in summit configuration: %(keylist)s.",
-                keylist=format_item_list(sd.keys())))
+                keylist=format_item_list(list(sd.keys()))))
     # Assert that all necessary fields in summit specification exist.
     if s.topdir is None:
         error(_("@info",
@@ -433,7 +434,7 @@ def derive_project_data (project, options, nwgrefpath=None):
         def chain_tests (tests):
             testfs = []
             for test in tests:
-                if isinstance(test, basestring):
+                if isinstance(test, str):
                     testfs.append(regex_to_func(test))
                 elif callable(test):
                     testfs.append(test)
@@ -463,7 +464,7 @@ def derive_project_data (project, options, nwgrefpath=None):
             error(_("@info",
                     "Unknown keys in specification of branch '%(branch)s': "
                     "%(keylist)s.",
-                    branch=b.id, keylist=format_item_list(bd.keys())))
+                    branch=b.id, keylist=format_item_list(list(bd.keys()))))
     p.branches = branches
 
     # Assert that all necessary fields in branch specifications exist.
@@ -532,7 +533,7 @@ def derive_project_data (project, options, nwgrefpath=None):
         # by reflecting the catalogs found in the given path.
         refcats = collect_catalogs(nwgrefpath, ".po",
                                    None, None, None, project, options)
-        for name, spec in refcats.iteritems():
+        for name, spec in refcats.items():
             if name not in p.catalogs[SUMMIT_ID]:
                 path, subdir = spec[0] # all summit catalogs unique
                 tpath = join_ncwd(p.summit.topdir, subdir, name + ".pot")
@@ -542,7 +543,7 @@ def derive_project_data (project, options, nwgrefpath=None):
     project.ascription_filter = None
     for afname, afspec in project.ascription_filters:
         if options.asc_filter is None or afname == options.asc_filter:
-            if isinstance(afspec, basestring):
+            if isinstance(afspec, str):
                 afcall = make_ascription_selector([afspec])
             elif isinstance(afspec, (tuple, list)):
                 afcall = make_ascription_selector(afspec)
@@ -563,14 +564,14 @@ def derive_project_data (project, options, nwgrefpath=None):
 
     # Link summit and ascription catalogs.
     if project.ascription_filter:
-        tmp0 = [(x, y[0][0]) for x, y in p.catalogs[SUMMIT_ID].items()]
+        tmp0 = [(x, y[0][0]) for x, y in list(p.catalogs[SUMMIT_ID].items())]
         tmp1 = [x[0] for x in tmp0]
         tmp2 = collect_ascription_associations([x[1] for x in tmp0])
-        tmp3 = zip([tmp2[0][0]] * len(tmp1), [x[1] for x in tmp2[0][1]])
-        p.aconfs_acatpaths = dict(zip(tmp1, tmp3))
+        tmp3 = list(zip([tmp2[0][0]] * len(tmp1), [x[1] for x in tmp2[0][1]]))
+        p.aconfs_acatpaths = dict(list(zip(tmp1, tmp3)))
 
     # Assure that summit catalogs are unique.
-    for name, spec in p.catalogs[SUMMIT_ID].items():
+    for name, spec in list(p.catalogs[SUMMIT_ID].items()):
         if len(spec) > 1:
             fstr = "\n".join([x[0] for x in spec])
             error(_("@info",
@@ -643,9 +644,8 @@ def derive_project_data (project, options, nwgrefpath=None):
                 for branch_name in branch_names:
 
                     if (    branch_name in branch_templates
-                        and all(map(lambda x: x in p.catalogs[SUMMIT_ID],
-                                    mapped_branch_names.get(branch.id, {})
-                                                       .get(branch_name, [])))
+                        and all([x in p.catalogs[SUMMIT_ID] for x in mapped_branch_names.get(branch.id, {})
+                                                       .get(branch_name, [])])
                     ):
                         # Assemble all branch catalog entries.
                         for template in branch_templates[branch_name]:
@@ -701,7 +701,7 @@ def derive_project_data (project, options, nwgrefpath=None):
             summit_templates = p.tproject.catalogs[SUMMIT_ID]
 
         # Go through all summit templates, recording missing summit catalogs.
-        for name, spec in summit_templates.iteritems():
+        for name, spec in summit_templates.items():
             tpath, tsubdir = spec[0] # all summit catalogs unique
             if name not in p.catalogs[SUMMIT_ID]:
                 # Compose the summit catalog path.
@@ -845,7 +845,7 @@ def derive_project_data (project, options, nwgrefpath=None):
                 branch_subdirs.extend(branch_subdirs_1)
         if branch_subdirs:
             branch_subdirs = list(set(branch_subdirs))
-            subdir_precs = map(p.calc_subdir_precedence, branch_subdirs)
+            subdir_precs = list(map(p.calc_subdir_precedence, branch_subdirs))
             precs_subdirs = sorted(zip(subdir_precs, branch_subdirs))
             branch_subdirs_sel = [sd for pr, sd in precs_subdirs
                                      if pr == precs_subdirs[0][0]]
@@ -1056,7 +1056,7 @@ def collect_catalogs (topdir, catext, by_lang, ignored, split_path,
                     spath = os.path.normpath(spath)
                     catalogs[catn].append((fpath, spath))
 
-    for catpaths in catalogs.values():
+    for catpaths in list(catalogs.values()):
         catpaths.sort(key=lambda x: x[0])
 
     return catalogs
@@ -1331,7 +1331,7 @@ def select_branch_catalogs (branch_id, project, options):
     # or those mentioned in the command line.
     if not options.partspecs:
         branch_catalogs = []
-        for name, spec in pbcats.items():
+        for name, spec in list(pbcats.items()):
             for path, subdir in spec:
                 if options.selcatf(path):
                     branch_catalogs.append((name, path, subdir))
@@ -1348,7 +1348,7 @@ def select_branch_catalogs (branch_id, project, options):
                 if part_spec.find(os.sep) >= 0:
                     sel_subdir = os.path.normpath(part_spec)
                     one_found = False
-                    for name, spec in pbcats.items():
+                    for name, spec in list(pbcats.items()):
                         for path, subdir in spec:
                             if sel_subdir == subdir:
                                 one_found = True
@@ -1364,7 +1364,7 @@ def select_branch_catalogs (branch_id, project, options):
                     # Otherwise, specific catalog is selected.
                     sel_name = part_spec
                     one_found = False
-                    for name, spec in pbcats.items():
+                    for name, spec in list(pbcats.items()):
                         if sel_name == name:
                             for path, subdir in spec:
                                 one_found = True
@@ -1403,7 +1403,7 @@ def select_branch_catalogs (branch_id, project, options):
                     # Complete subdir.
                     sel_subdir = os.path.normpath(part_spec)
                     cats = []
-                    for name, spec in project.catalogs[SUMMIT_ID].items():
+                    for name, spec in list(project.catalogs[SUMMIT_ID].items()):
                         path, subdir = spec[0] # all summit catalogs unique
                         if sel_subdir == subdir:
                             bnames = project.full_inverse_map[name][branch_id]
@@ -1444,7 +1444,7 @@ def select_summit_names (project, options):
     # Collect all summit catalogs selected explicitly or implicitly.
     summit_names = []
     if options.partspecs is None:
-        for name, spec in project.catalogs[SUMMIT_ID].items():
+        for name, spec in list(project.catalogs[SUMMIT_ID].items()):
             path, subdir = spec[0] # summit catalogs are unique
             if options.selcatf(path):
                 summit_names.append(name)
@@ -1456,7 +1456,7 @@ def select_summit_names (project, options):
                     if part_spec.find(os.sep) >= 0: # whole subdir
                         sel_subdir = os.path.normpath(part_spec)
                         one_found = False
-                        for name, spec in project.catalogs[SUMMIT_ID].items():
+                        for name, spec in list(project.catalogs[SUMMIT_ID].items()):
                             path, subdir = spec[0] # summit catalogs are unique
                             if sel_subdir == subdir:
                                 one_found = True
@@ -1481,7 +1481,7 @@ def select_summit_names (project, options):
                     if part_spec.find(os.sep) >= 0: # whole subdir
                         sel_subdir = os.path.normpath(part_spec)
                         one_found = False
-                        for name, spec in project.catalogs[branch_id].items():
+                        for name, spec in list(project.catalogs[branch_id].items()):
                             for path, subdir in spec:
                                 if sel_subdir == subdir:
                                     one_found = True
@@ -1769,7 +1769,7 @@ def summit_gather_single (summit_name, project, options,
     new_summit_path = summit_path
     if branch_subdirs:
         branch_subdirs = list(set(branch_subdirs))
-        subdir_precs = map(project.calc_subdir_precedence, branch_subdirs)
+        subdir_precs = list(map(project.calc_subdir_precedence, branch_subdirs))
         precs_subdirs = sorted(zip(subdir_precs, branch_subdirs))
         branch_subdirs_sel = [sd for pr, sd in precs_subdirs
                                  if pr == precs_subdirs[0][0]]
@@ -1788,8 +1788,8 @@ def summit_gather_single (summit_name, project, options,
             # to the current date.
             # Do not try to trust branch template creation dates,
             # e.g. by copying the latest one.
-            summit_cat.header.set_field(u"POT-Creation-Date", format_datetime(),
-                                        before=u"PO-Revision-Date",
+            summit_cat.header.set_field("POT-Creation-Date", format_datetime(),
+                                        before="PO-Revision-Date",
                                         reorder=True)
 
             # Sync to disk.
@@ -1883,12 +1883,12 @@ def extkey_msg (msg):
         # Something that looks like a hex digest but slightly shorter,
         # so that it does not match any real digest.
         ctxtpad = "abcd1234efgh5665hgfe4321dcba"
-    msg.auto_comment.append(u"%s msgctxt-pad %s"
+    msg.auto_comment.append("%s msgctxt-pad %s"
                             % (_summit_tag_kwprop, ctxtpad))
     if msg.msgctxt is None:
-        msg.msgctxt = u"%s" % ctxtpad
+        msg.msgctxt = "%s" % ctxtpad
     else:
-        msg.msgctxt = u"%s|%s" % (msg.msgctxt, ctxtpad)
+        msg.msgctxt = "%s|%s" % (msg.msgctxt, ctxtpad)
 
     return msg
 
@@ -1922,9 +1922,9 @@ def summit_gather_single_bcat (branch_id, branch_cat, is_primary,
             msg.manual_comment[:] = []
             msg.unfuzzy()
             if msg.msgid_plural is None:
-                msg.msgstr[:] = [u""]
+                msg.msgstr[:] = [""]
             else:
-                msg.msgstr[:] = [u"", u""]
+                msg.msgstr[:] = ["", ""]
 
         # Construct branch message with extended key.
         xkmsg = extkey_msg(msg)
@@ -2209,7 +2209,7 @@ def summit_scatter_single (branch_id, branch_name, branch_subdir,
     # Open the branch catalog and all summit catalogs.
     try:
         branch_cat = Catalog(branch_path_mod, wrapping=project.branches_wrapping)
-    except PologyError, e:
+    except PologyError as e:
         warning(_("@info",
                   "Cannot open the branch catalog '%(file)s' "
                   "to scatter to. The error was:\n"
@@ -2222,7 +2222,7 @@ def summit_scatter_single (branch_id, branch_name, branch_subdir,
             # NOTE: Must be opened monitored to have compatible types
             # when copying message parts to branch message.
             summit_cat = Catalog(summit_path)
-        except PologyError, e:
+        except PologyError as e:
             warning(_("@info",
                       "Cannot open the summit catalog '%(file)s' "
                       "to scatter from. The error was:\n"
@@ -2501,7 +2501,7 @@ def exec_hook_msgstr (branch_id, branch_name, branch_subdir,
         if hook_applicable(branch_ch, branch_id, name_ch,
                            branch_name, branch_subdir):
             piped_msgstr_tmp = call(piped_msgstr, msg, cat)
-            if isinstance(piped_msgstr_tmp, basestring):
+            if isinstance(piped_msgstr_tmp, str):
                 piped_msgstr = piped_msgstr_tmp
 
     return piped_msgstr
@@ -2588,7 +2588,7 @@ def find_summit_comment (msg, summit_tag):
     return -1
 
 
-def get_summit_comment (msg, summit_tag, default=u""):
+def get_summit_comment (msg, summit_tag, default=""):
 
     p = find_summit_comment(msg, summit_tag)
     if p >= 0:
@@ -2599,7 +2599,7 @@ def get_summit_comment (msg, summit_tag, default=u""):
 
 def set_summit_comment (msg, summit_tag, text):
 
-    ctext = unicode(summit_tag + " " + text.strip())
+    ctext = str(summit_tag + " " + text.strip())
     p = find_summit_comment(msg, summit_tag)
     if p >= 0:
         msg.auto_comment[p] = ctext
@@ -2641,7 +2641,7 @@ def summit_override_auto (summit_msg, branch_msg, branch_id, is_primary):
         # FIXME: Once there is a way to reliably tell the root directory
         # of source references, add missing and remove obsolete source
         # references instead.
-        summit_msg.source = Monlist(map(Monpair, branch_msg.source))
+        summit_msg.source = Monlist(list(map(Monpair, branch_msg.source)))
 
         # Split auto comments of the current summit message into
         # summit and non-summit tagged comments.
@@ -2785,8 +2785,8 @@ def summit_merge_single (branch_id, catalog_name, catalog_subdir,
     if vivified:
         hdr = cat.header
         hdr.title = Monlist()
-        hdr.copyright = u""
-        hdr.license = u""
+        hdr.copyright = ""
+        hdr.license = ""
         hdr.author = Monlist()
         hdr.comment = Monlist()
         # Get the project ID from template;
@@ -2794,21 +2794,21 @@ def summit_merge_single (branch_id, catalog_name, catalog_subdir,
         projid = tcat.header.get_field_value("Project-Id-Version")
         if not projid or "PACKAGE" in projid:
             projid = catalog_name
-        hdr.set_field(u"Project-Id-Version", unicode(projid))
+        hdr.set_field("Project-Id-Version", str(projid))
         rdate = time.strftime("%Y-%m-%d %H:%M%z")
-        hdr.set_field(u"PO-Revision-Date", unicode(rdate))
-        hdr.set_field(u"Last-Translator", unicode(project.vivify_w_translator))
-        hdr.set_field(u"Language-Team", unicode(project.vivify_w_langteam))
+        hdr.set_field("PO-Revision-Date", str(rdate))
+        hdr.set_field("Last-Translator", str(project.vivify_w_translator))
+        hdr.set_field("Language-Team", str(project.vivify_w_langteam))
         if project.vivify_w_language:
-            hdr.set_field(u"Language", unicode(project.vivify_w_language),
+            hdr.set_field("Language", str(project.vivify_w_language),
                           after="Language-Team", reorder=True)
-        hdr.set_field(u"Content-Type",
-                      u"text/plain; charset=%s" % project.vivify_w_charset)
-        hdr.set_field(u"Content-Transfer-Encoding", u"8bit")
+        hdr.set_field("Content-Type",
+                      "text/plain; charset=%s" % project.vivify_w_charset)
+        hdr.set_field("Content-Transfer-Encoding", "8bit")
         if project.vivify_w_plurals:
-            hdr.set_field(u"Plural-Forms", unicode(project.vivify_w_plurals))
+            hdr.set_field("Plural-Forms", str(project.vivify_w_plurals))
         else:
-            hdr.remove_field(u"Plural-Forms")
+            hdr.remove_field("Plural-Forms")
 
     # Propagate requested header fields.
     if header_prop_fields:
@@ -2920,7 +2920,7 @@ def normhf (fields, excluded=[]):
 def clear_msg (msg):
 
     msg.unfuzzy()
-    msg.msgstr[:] = [u""] * len(msg.msgstr)
+    msg.msgstr[:] = [""] * len(msg.msgstr)
     msg.manual_comment[:] = []
 
     return msg

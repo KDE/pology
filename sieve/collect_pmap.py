@@ -27,13 +27,13 @@ def setup_sieve (p):
     "Assemble a property map from entries in manual comments."
     ))
 
-    p.add_param("outfile", unicode,
+    p.add_param("outfile", str,
                 metavar=_("@info sieve parameter value placeholder", "FILE"),
                 desc=_("@info sieve parameter discription",
     "File to output the property map into. "
     "If not given, nothing is output (useful for validation runs)."
     ))
-    p.add_param("propcons", unicode,
+    p.add_param("propcons", str,
                 metavar=_("@info sieve parameter value placeholder", "FILE"),
                 desc=_("@info sieve parameter discription",
     "File defining the constraints on property keys and values."
@@ -42,17 +42,17 @@ def setup_sieve (p):
                 desc=_("@info sieve parameter discription",
     "Allow defining additional entry keys."
     ))
-    p.add_param("derivs", unicode,
+    p.add_param("derivs", str,
                 metavar=_("@info sieve parameter value placeholder", "FILE"),
                 desc=_("@info sieve parameter discription",
     "File defining the derivators used in derived entries."
     ))
-    p.add_param("pmhead", unicode, defval=u"pmap:",
+    p.add_param("pmhead", str, defval="pmap:",
                 metavar=_("@info sieve parameter value placeholder", "STRING"),
                 desc=_("@info sieve parameter discription",
     "Prefix which starts property map entries in comments."
     ))
-    p.add_param("sdhead", unicode, defval=u"synder:",
+    p.add_param("sdhead", str, defval="synder:",
                 metavar=_("@info sieve parameter value placeholder", "STRING"),
                 desc=_("@info sieve parameter discription",
     "Prefix which starts syntagma derivator entries in comments."
@@ -164,7 +164,7 @@ class Sieve (object):
                 try:
                     self.synder.import_string(sdexpr)
                     cprops = self.synder.props(sdkey)
-                except Exception, e:
+                except Exception as e:
                     errmsg = str_to_unicode(str(e))
                     warning_on_msg(_("@info",
                                      "Invalid derivation '%(deriv)s':\n"
@@ -172,10 +172,10 @@ class Sieve (object):
                                      msg, cat)
                     return
 
-                jumble = "".join(["".join(x) for x in cprops.items()])
+                jumble = "".join(["".join(x) for x in list(cprops.items())])
                 if not psep:
-                    psep = self._pick_sep(jumble, u"/|¦")
-                    kvsep = self._pick_sep(jumble, u"=:→")
+                    psep = self._pick_sep(jumble, "/|¦")
+                    kvsep = self._pick_sep(jumble, "=:→")
                     if not psep or not kvsep:
                         warning_on_msg(_("@info",
                                          "No known separator are applicable "
@@ -381,10 +381,10 @@ class Sieve (object):
         matched_cons = set()
         errs = []
         adderr = lambda err: errs.append(err)
-        for prop, ip in zip(props, range(len(props))):
+        for prop, ip in zip(props, list(range(len(props)))):
             key, val = prop
             key_matched = False
-            for propcon, ic in zip(propcons, range(len(propcons))):
+            for propcon, ic in zip(propcons, list(range(len(propcons)))):
                 keyrx, keyrxstr, valrx, valrxstr, flags = propcon
                 if keyrx.search(key):
                     key_matched = True
@@ -411,7 +411,7 @@ class Sieve (object):
                          "Key '%(key)s' does not match any constraint.",
                          key=key))
 
-        for propcon, ic in zip(propcons, range(len(propcons))):
+        for propcon, ic in zip(propcons, list(range(len(propcons)))):
             pattern, rlags = propcon[1], propcon[-1]
             if "r" in flags and ic not in matched_cons:
                 adderr(_("@info",

@@ -83,14 +83,14 @@ def resolve_entities (text, entities, ignored=set(), srcname=None,
                 else:
                     unknown.append(entname)
                     if undefrepl is not None:
-                        if isinstance(undefrepl, basestring):
+                        if isinstance(undefrepl, str):
                             entvalr = undefrepl
                         else:
                             entvalr = undefrepl(entname)
 
                 if entvalr is not None:
                     if vfilter is not None:
-                        if isinstance(vfilter, basestring):
+                        if isinstance(vfilter, str):
                             entvalr = vfilter % entvalr
                         else:
                             entvalr = vfilter(entvalr)
@@ -210,7 +210,7 @@ def resolve_alternatives (text, select, total, althead=DEFAULT_ALTHEAD,
         altfilter = lambda x: x
 
     original_text = text
-    new_text = u""
+    new_text = ""
     nresolved = 0
     malformed = False
     p = -1
@@ -858,19 +858,19 @@ def convert_plurals (mapping, plhead):
     @rtype: C{(cat) -> numerr}
     """
 
-    dst_inds = map(set, zip(*mapping))[1]
+    dst_inds = list(map(set, list(zip(*mapping))))[1]
     num_plurals = max(dst_inds) + 1
-    if sorted(dst_inds) != range(num_plurals):
+    if sorted(dst_inds) != list(range(num_plurals)):
         raise PologyError(
             _("@info",
               "Gaps in destination indices for conversion of plural forms "
               "(expected (%(list1)s), got (%(list2)s)).",
-              list1=format_item_list(range(num_plurals)),
+              list1=format_item_list(list(range(num_plurals))),
               list2=format_item_list(sorted(dst_inds))))
 
-    ord_src_inds = zip(*sorted(mapping, key=lambda x: x[1]))[0]
+    ord_src_inds = list(zip(*sorted(mapping, key=lambda x: x[1])))[0]
     def hook (cat):
-        cat.header.set_field(u"Plural-Forms", unicode(plhead),
+        cat.header.set_field("Plural-Forms", str(plhead),
                              after="Content-Transfer-Encoding")
         for msg in cat:
             if msg.msgid_plural is not None:

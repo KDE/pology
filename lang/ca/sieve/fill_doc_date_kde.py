@@ -67,7 +67,7 @@ class Sieve (object):
                 replace('m11m', u'de novembre de').\
                 replace('m12m', u'de desembre de')
         else:
-            print "This is not a valid date: " + date_en
+            print("This is not a valid date: " + date_en)
 
     def process (self, msg, cat):
         # Detect documentation update date message

@@ -29,32 +29,32 @@ def validate (tp, onlysrcs=None, onlykeys=None, demoexp=False, expwkeys=False):
     needed_pkeys = set()
 
     nom_pkeys = (
-        [u"н"],
-        [u"нм", u"нж", u"нс", u"ну"],
+        ["н"],
+        ["нм", "нж", "нс", "ну"],
     )
     needed_pkeys.update(sum(nom_pkeys, []))
 
-    gender_pkey = u"_род"
+    gender_pkey = "_род"
     needed_pkeys.add(gender_pkey)
 
-    known_genders = set((u"м", u"ж", u"с", u"у"))
-    known_genders.update(map(ctol, known_genders))
+    known_genders = set(("м", "ж", "с", "у"))
+    known_genders.update(list(map(ctol, known_genders)))
 
     known_alts = [
-        ("_s", u"сист"),
-        ("_a", u"алт"),
-        ("_a2", u"алт2"),
-        ("_a3", u"алт3"),
+        ("_s", "сист"),
+        ("_a", "алт"),
+        ("_a2", "алт2"),
+        ("_a3", "алт3"),
     ]
-    base_envs = [u"", u"л", u"иј", u"ијл"]
+    base_envs = ["", "л", "иј", "ијл"]
     all_envs = set(base_envs)
     for aenv in [x[1] for x in known_alts]:
         all_envs.update(x + aenv for x in base_envs)
 
     if demoexp:
-        demoexp_pkeys = [u"н", u"г", u"д", u"а", u"в", u"и",
-                         u"нк", u"гк", u"дк", u"ак", u"вк",
-                         u"нм", u"нмп"]
+        demoexp_pkeys = ["н", "г", "д", "а", "в", "и",
+                         "нк", "гк", "дк", "ак", "вк",
+                         "нм", "нмп"]
         needed_pkeys.update(demoexp_pkeys)
 
     dkeys_by_rtkey = {}
@@ -109,7 +109,7 @@ def validate (tp, onlysrcs=None, onlykeys=None, demoexp=False, expwkeys=False):
                               "defines unknown environment '%(env)s'.",
                               file=path, line=lno, col=cno, env=cenv))
                     cnproblems += 1
-        except Exception, e:
+        except Exception as e:
             warning(str_to_unicode(str(e)))
             cnproblems += 1
             continue
@@ -118,11 +118,11 @@ def validate (tp, onlysrcs=None, onlykeys=None, demoexp=False, expwkeys=False):
             # Assure all nominative forms are unique.
             for pkeys in nom_pkeys: # select first nominative set by priority
                 pvals = [props.get(x) for x in pkeys]
-                noms = filter(lambda x: x is not None, pvals)
+                noms = [x for x in pvals if x is not None]
                 if noms:
                     break
             if noms:
-                rtkeys = map(norm_rtkey, noms)
+                rtkeys = list(map(norm_rtkey, noms))
                 for rtkey in rtkeys:
                     odkey = dkeys_by_rtkey.get(rtkey)
                     if odkey is not None and tp.props(dkey) != tp.props(odkey):
@@ -161,7 +161,7 @@ def validate (tp, onlysrcs=None, onlykeys=None, demoexp=False, expwkeys=False):
             # Show selection of expanded properties if requested.
             if demoexp and not cnproblems:
                 demoprops = [(x, props.get(x)) for x in demoexp_pkeys]
-                demoprops = filter(lambda x: x[1] is not None, demoprops)
+                demoprops = [x for x in demoprops if x[1] is not None]
                 fmtprops = ["%s=%s" % (x[0], _escape_pval(x[1]))
                             for x in demoprops]
                 fmtsyns = ["%s" % _escape_syn(x) for x in tp.syns(dkey)]
@@ -208,7 +208,7 @@ def _match_text (text, tests, unmatched_tests=None):
 
     match = False
     for test in tests:
-        if isinstance(test, basestring):
+        if isinstance(test, str):
             if test == text:
                 match = True
                 break
@@ -434,7 +434,7 @@ def _statistics (tp, onlysrcs, onlykeys):
         report(_("@info statistics",
                  "Average derivations per file: %(num).1f",
                  num=(float(len(dkeys)) / len(fpaths))))
-        bydif = sorted([(v[1], v[0]) for k, v in fpaths.items()])
+        bydif = sorted([(v[1], v[0]) for k, v in list(fpaths.items())])
         report(_("@info statistics",
                  "Most derivations in a file: %(num)d (%(file)s)",
                  num=bydif[-1][0], file=bydif[-1][1]))
@@ -450,9 +450,9 @@ def _main ():
     desc = _("@info command description",
         "Check validity and expand derivations from internal trapnakron.")
     ver = _("@info command version",
-        u"%(cmd)s (Pology) %(version)s\n"
-        u"Copyright © 2009, 2010 "
-        u"Chusslove Illich (Часлав Илић) &lt;%(email)s&gt;",
+        "%(cmd)s (Pology) %(version)s\n"
+        "Copyright © 2009, 2010 "
+        "Chusslove Illich (Часлав Илић) &lt;%(email)s&gt;",
         cmd="%prog", version=version(), email="caslav.ilic@gmx.net")
 
     opars = ColorOptionParser(usage=usage, description=desc, version=ver)

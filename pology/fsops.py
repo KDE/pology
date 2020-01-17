@@ -57,7 +57,7 @@ def collect_files (paths,
     @rtype: [string...]
     """
 
-    if isinstance(paths, basestring):
+    if isinstance(paths, str):
         paths = [paths]
 
     filepaths = []
@@ -99,7 +99,7 @@ def collect_files (paths,
         filepaths = ufilepaths
 
     if relcwd:
-        filepaths = map(join_ncwd, filepaths)
+        filepaths = list(map(join_ncwd, filepaths))
 
     return filepaths
 
@@ -124,7 +124,7 @@ def collect_files_by_ext (paths, extension,
     @see: L{collect_files}
     """
 
-    if isinstance(extension, basestring):
+    if isinstance(extension, str):
         extensions = [extension]
     else:
         extensions = extension
@@ -258,7 +258,7 @@ def assert_system (cmdline, echo=False, wdir=None):
     """
 
     if echo:
-        if isinstance(cmdline, basestring):
+        if isinstance(cmdline, str):
             cmdstr = cmdline
         else:
             cmdstr = " ".join(map(escape_sh, cmdline))
@@ -266,11 +266,11 @@ def assert_system (cmdline, echo=False, wdir=None):
     if wdir is not None:
         cwd = getucwd()
         os.chdir(wdir)
-    if isinstance(cmdline, basestring):
+    if isinstance(cmdline, str):
         cmdline = unicode_to_str(cmdline)
         shell = True
     else:
-        cmdline = map(unicode_to_str, cmdline)
+        cmdline = list(map(unicode_to_str, cmdline))
         shell = False
     ret = subprocess.call(cmdline, shell=shell)
     if wdir is not None:
@@ -312,7 +312,7 @@ def collect_system (cmdline, echo=False, wdir=None, env=None, instr=None):
     """
 
     if echo:
-        if isinstance(cmdline, basestring):
+        if isinstance(cmdline, str):
             cmdstr = cmdline
         else:
             cmdstr = " ".join(map(escape_sh, cmdline))
@@ -321,18 +321,18 @@ def collect_system (cmdline, echo=False, wdir=None, env=None, instr=None):
         cwd = getucwd()
         os.chdir(wdir)
     stdin = instr is not None and subprocess.PIPE or None
-    if isinstance(cmdline, basestring):
+    if isinstance(cmdline, str):
         cmdline = unicode_to_str(cmdline)
         shell = True
     else:
-        cmdline = map(unicode_to_str, cmdline)
+        cmdline = list(map(unicode_to_str, cmdline))
         shell = False
     p = subprocess.Popen(cmdline, shell=shell, env=env,
                          stdout=subprocess.PIPE, stderr=subprocess.PIPE,
                          stdin=stdin)
     if instr is not None:
         p.stdin.write(instr.encode(locale.getpreferredencoding()))
-    strout, strerr = map(str_to_unicode, p.communicate())
+    strout, strerr = list(map(str_to_unicode, p.communicate()))
     ret = p.returncode
     if wdir is not None:
         os.chdir(cwd)
@@ -449,7 +449,7 @@ def str_to_unicode (strarg):
     @rtype: unicode string or list of objects
     """
 
-    if isinstance(strarg, unicode):
+    if isinstance(strarg, str):
         return strarg
 
     lenc = locale.getpreferredencoding()
@@ -492,12 +492,12 @@ def unicode_to_str (strarg):
 
     lenc = locale.getpreferredencoding()
 
-    if isinstance(strarg, unicode):
+    if isinstance(strarg, str):
         return strarg.encode(lenc)
     else:
         uargs = []
         for val in strarg:
-            if isinstance(val, unicode):
+            if isinstance(val, str):
                 val = val.encode(lenc)
             uargs.append(val)
         return uargs
@@ -656,11 +656,11 @@ def build_path_selector (incnames=None, incpaths=None,
             p = name.rfind(".")
             if p > 0:
                 name = name[:p]
-        incargs = (  zip(incnames_tf, [name] * len(incnames_tf))
-                   + zip(incpaths_tf, [path] * len(incpaths_tf)))
+        incargs = (  list(zip(incnames_tf, [name] * len(incnames_tf)))
+                   + list(zip(incpaths_tf, [path] * len(incpaths_tf))))
         incress = [x(y) for x, y in incargs]
-        excargs = (  zip(excnames_tf, [name] * len(excnames_tf))
-                   + zip(excpaths_tf, [path] * len(excpaths_tf)))
+        excargs = (  list(zip(excnames_tf, [name] * len(excnames_tf)))
+                   + list(zip(excpaths_tf, [path] * len(excpaths_tf))))
         excress = [x(y) for x, y in excargs]
         return (    (not incress or sumf(incress))
                 and (not excress or not sumf(excress)))
@@ -676,7 +676,7 @@ def _build_path_selector_type (sels):
     def tofunc (sel):
         if hasattr(sel, "search"):
             return lambda x: bool(sel.search(x))
-        elif isinstance(sel, basestring):
+        elif isinstance(sel, str):
             sel_rx = re.compile(sel, re.U)
             return lambda x: bool(sel_rx.search(x))
         elif callable(sel):
@@ -686,7 +686,7 @@ def _build_path_selector_type (sels):
                 _("@info",
                   "Cannot convert object '%(obj)s' into a string matcher.",
                   obj=sel))
-    sels_tf = map(tofunc, sels)
+    sels_tf = list(map(tofunc, sels))
 
     return sels_tf
 
@@ -810,8 +810,8 @@ def collect_paths_from_file (fpath, cmnts=True, incexc=True, respathf=None,
 
     if respathf:
         try:
-            paths = sum(map(respathf, paths), [])
-        except Exception, e:
+            paths = sum(list(map(respathf, paths)), [])
+        except Exception as e:
             abort_or_raise(e)
 
     selectf = build_path_selector(incnames=incnames, incpaths=incpaths,
@@ -821,8 +821,8 @@ def collect_paths_from_file (fpath, cmnts=True, incexc=True, respathf=None,
         return paths, selectf
     else:
         try:
-            paths = filter(selectf, paths)
-        except Exception, e:
+            paths = list(filter(selectf, paths))
+        except Exception as e:
             abort_or_raise(e)
         return paths
 
@@ -910,8 +910,8 @@ def collect_paths_cmdline (rawpaths=None,
         rawpaths2 = rawpaths
         if respathf:
             try:
-                rawpaths2 = sum(map(respathf, rawpaths), [])
-            except Exception, e:
+                rawpaths2 = sum(list(map(respathf, rawpaths)), [])
+            except Exception as e:
                 abort_or_raise(e)
         paths.extend(rawpaths2)
     ffselfs = []
@@ -933,7 +933,7 @@ def collect_paths_cmdline (rawpaths=None,
         if respathf:
             try:
                 paths.extend(respathf(cwd))
-            except Exception, e:
+            except Exception as e:
                 abort_or_raise(e)
         else:
             paths.append(cwd)
@@ -953,8 +953,8 @@ def collect_paths_cmdline (rawpaths=None,
         return paths, selftot
     else:
         try:
-            paths = filter(selftot, paths)
-        except Exception, e:
+            paths = list(filter(selftot, paths))
+        except Exception as e:
             abort_or_raise(e)
         return paths
 
@@ -1002,7 +1002,7 @@ def exit_on_exception (func, cleanup=None):
         if cleanup:
             cleanup()
         exit(100)
-    except Exception, e:
+    except Exception as e:
         report("", newline=False)
         if cleanup:
             cleanup()

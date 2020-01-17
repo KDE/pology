@@ -90,8 +90,8 @@ _good_eicl_combos = set((
 ))
 
 # Elements for composing alternatives directives.
-_alt_sep_scr = u"¦|/"
-_alt_sep_dlc = u"¦|/"
+_alt_sep_scr = "¦|/"
+_alt_sep_dlc = "¦|/"
 
 # Keywords of known target markups.
 _known_markups = (
@@ -101,16 +101,16 @@ _known_markups = (
 )
 
 # Tags found within people names (groups of synonyms).
-_pn_tag_first = (u"i", u"и")
-_pn_tag_last = (u"p", u"п")
-_pn_tag_middle = (u"s", u"с")
+_pn_tag_first = ("i", "и")
+_pn_tag_last = ("p", "п")
+_pn_tag_middle = ("s", "с")
 _pn_all_tags = set(sum((_pn_tag_first, _pn_tag_last, _pn_tag_middle), ()))
 
 # Tag for derivations with unimportant keys.
 _nokey_tag = "x"
 
 # Disambiguation marker.
-_disamb_marker = u"¤"
+_disamb_marker = "¤"
 
 # Enumeration of known derivation key suffixes, for modifying derived values.
 _suff_pltext = "_ot" # for "obican tekst"
@@ -143,18 +143,18 @@ _gnmatch_suff_ids = [_suff_gnmatch_m_id, _suff_gnmatch_z_id,
                      _suff_gnmatch_sk_id, _suff_gnmatch_uk_id]
 _gnmatch_suff_ids_set = set(_gnmatch_suff_ids)
 _gnmatch_suffs_genums = [
-    (_suff_gnmatch_m_id, (u"м", u"m"), (u"ј", u"j")),
-    (_suff_gnmatch_z_id, (u"ж", u"ž"), (u"ј", u"j")),
-    (_suff_gnmatch_s_id, (u"с", u"s"), (u"ј", u"j")),
-    (_suff_gnmatch_u_id, (u"у", u"u"), (u"ј", u"j")),
-    (_suff_gnmatch_mk_id, (u"м", u"m"), (u"к", u"k")),
-    (_suff_gnmatch_zk_id, (u"ж", u"ž"), (u"к", u"k")),
-    (_suff_gnmatch_sk_id, (u"с", u"s"), (u"к", u"k")),
-    (_suff_gnmatch_uk_id, (u"у", u"u"), (u"к", u"k")),
+    (_suff_gnmatch_m_id, ("м", "m"), ("ј", "j")),
+    (_suff_gnmatch_z_id, ("ж", "ž"), ("ј", "j")),
+    (_suff_gnmatch_s_id, ("с", "s"), ("ј", "j")),
+    (_suff_gnmatch_u_id, ("у", "u"), ("ј", "j")),
+    (_suff_gnmatch_mk_id, ("м", "m"), ("к", "k")),
+    (_suff_gnmatch_zk_id, ("ж", "ž"), ("к", "k")),
+    (_suff_gnmatch_sk_id, ("с", "s"), ("к", "k")),
+    (_suff_gnmatch_uk_id, ("у", "u"), ("к", "k")),
 ]
 _suff_systr = "_s" # for "sistemska transkripcija"
 _suff_systr_id = 40
-_systr_ksuff_esuff = (_suff_systr, u"сист")
+_systr_ksuff_esuff = (_suff_systr, "сист")
 _suff_altdv1 = "_a" # for "alternativno izvodjenje"
 _suff_altdv1_id = 50
 _suff_altdv2 = "_a2" # second alternative
@@ -162,9 +162,9 @@ _suff_altdv2_id = 51
 _suff_altdv3 = "_a3" # third alternative
 _suff_altdv3_id = 52
 _altdv_ksuffs_esuffs = [
-    (_suff_altdv1, u"алт"),
-    (_suff_altdv2, u"алт2"),
-    (_suff_altdv3, u"алт3"),
+    (_suff_altdv1, "алт"),
+    (_suff_altdv2, "алт2"),
+    (_suff_altdv3, "алт3"),
 ]
 _aenv_suff_ids = [_suff_systr_id, # order of elements significant
                   _suff_altdv1_id, _suff_altdv2_id, _suff_altdv3_id]
@@ -178,7 +178,7 @@ _pname_suff_ids = [_suff_pname_f_id, _suff_pname_l_id]
 _pname_suff_ids_set = set(_pname_suff_ids)
 
 
-def trapnakron (envec=u"", envel=u"л", envic=u"иј", envil=u"ијл",
+def trapnakron (envec="", envel="л", envic="иј", envil="ијл",
                 markup="plain", tagmap=None,
                 ptsuff=None, ltsuff=None, gnsuff=None,
                 stsuff=None, adsuff=None, nmsuff=None,
@@ -341,13 +341,13 @@ def trapnakron (envec=u"", envel=u"л", envic=u"иј", envil=u"ијл",
         env.append((envec,))
         envprops.append((False, False))
     if envel is not None:
-        env.append((envel, vd(envec, u"")))
+        env.append((envel, vd(envec, "")))
         envprops.append((True, False))
     if envic is not None:
-        env.append((envic, vd(envec, u"")))
+        env.append((envic, vd(envec, "")))
         envprops.append((False, True))
     if envil is not None:
-        env.append((envil, vd(envel, u"л"), vd(envic, u"иј"), vd(envec, u"")))
+        env.append((envil, vd(envel, "л"), vd(envic, "иј"), vd(envec, "")))
         envprops.append((True, True))
 
     # Setup up requests by derivation key suffix.
@@ -362,7 +362,7 @@ def trapnakron (envec=u"", envel=u"л", envic=u"иј", envil=u"ијл",
                 _("@info",
                   "Sequence of gender-number suffixes must have "
                   "exactly 8 elements."))
-        mvends.update(zip(gnsuff, _gnmatch_suff_ids))
+        mvends.update(list(zip(gnsuff, _gnmatch_suff_ids)))
     aenvs = {}
     if adsuff or stsuff:
         kesuffs = [] # must have same order as _aenv_suff_ids
@@ -389,7 +389,7 @@ def trapnakron (envec=u"", envel=u"л", envic=u"иј", envil=u"ијл",
                 _("@info",
                   "Sequence of person name suffixes must have "
                   "exactly 2 elements."))
-        mvends.update(zip(nmsuff, _pname_suff_ids))
+        mvends.update(list(zip(nmsuff, _pname_suff_ids)))
 
     # Setup substitution of empty property keys.
     expkeys = []
@@ -445,7 +445,7 @@ def _get_trapnakron_files (runtime=False):
     return files
 
 
-def trapnakron_plain (envec=u"", envel=u"л", envic=u"иј", envil=u"ијл"):
+def trapnakron_plain (envec="", envel="л", envic="иј", envil="ијл"):
     """
     Constructs trapnakron suitable for application to plain text.
 
@@ -478,7 +478,7 @@ def trapnakron_plain (envec=u"", envel=u"л", envic=u"иј", envil=u"ијл"):
     )
 
 
-def trapnakron_ui (envec=u"", envel=u"л", envic=u"иј", envil=u"ијл"):
+def trapnakron_ui (envec="", envel="л", envic="иј", envil="ијл"):
     """
     Constructs trapnakron suitable for application to UI texts.
 
@@ -502,12 +502,12 @@ def trapnakron_ui (envec=u"", envel=u"л", envic=u"иј", envil=u"ијл"):
         nmsuff=_pname_suffs,
         npkeyto=("am", ("am", "gm")),
         nobrhyp=True,
-        disamb=u"\u2060",
+        disamb="\u2060",
         runtime=True,
     )
 
 
-def trapnakron_docbook4 (envec=u"", envel=u"л", envic=u"иј", envil=u"ијл",
+def trapnakron_docbook4 (envec="", envel="л", envic="иј", envil="ијл",
                          tagmap=None):
     """
     Constructs trapnakron suitable for application to Docbook 4 texts.
@@ -559,7 +559,7 @@ def _sd_dkey_transf (suffspec, tagmap):
         found_suff_ids = set()
         while True:
             plen_suff_ids = len(found_suff_ids)
-            for suff, suff_id in suffspec.items():
+            for suff, suff_id in list(suffspec.items()):
                 if dkey.endswith(suff):
                     dkey = dkey[:-len(suff)]
                     found_suff_ids.add(suff_id)
@@ -854,12 +854,12 @@ def norm_pkey (pkey):
     @rtype: as input
     """
 
-    if isinstance(pkey, basestring):
+    if isinstance(pkey, str):
         return cltoa(pkey)
     elif isinstance(pkey, tuple):
         return tuple(map(cltoa, pkey))
     elif isinstance(pkey, list):
-        return map(cltoa, pkey)
+        return list(map(cltoa, pkey))
     else:
         raise PologyError(
             _("@info",

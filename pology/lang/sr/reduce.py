@@ -11,7 +11,7 @@ from pology.lang.sr.accents import remove_accents
 from pology.lang.sr.wconv import hictoecq, hictoicq
 
 
-_srcyr = u"абвгдђежзијклљмнњопрстћуфхцчџшАБВГДЂЕЖЗИЈКЛЉМНЊОПРСТЋУФХЦЧЏШ"
+_srcyr = "абвгдђежзијклљмнњопрстћуфхцчџшАБВГДЂЕЖЗИЈКЛЉМНЊОПРСТЋУФХЦЧЏШ"
 
 
 def words_ec (text):
@@ -65,7 +65,7 @@ def words_ic_lw (text):
 
 def _dlc_select (w):
 
-    return u"е" in w or u"и" in w
+    return "е" in w or "и" in w
     # ...no len(w) >= 3 because an accelerator marker may have split the word.
 
 

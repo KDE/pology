@@ -33,7 +33,7 @@ def setup_sieve (p):
     var1="poname"
     ))
 
-    p.add_param("field", unicode, multival=True,
+    p.add_param("field", str, multival=True,
                 metavar=_("@info sieve parameter value placeholder", 
                           "FIELD:VALUE"),
                 desc=_("@info sieve parameter discription",
@@ -46,13 +46,13 @@ def setup_sieve (p):
     "(by default the field value is set only if the field already exists "
     "in the header)."
     ))
-    p.add_param("after", unicode,
+    p.add_param("after", str,
                 metavar=_("@info sieve parameter value placeholder", "FIELD"),
                 desc=_("@info sieve parameter discription",
     "When the new field is being added, add it after this field. "
     "If such field does not exist, the new field is added as the last one."
     ))
-    p.add_param("before", unicode,
+    p.add_param("before", str,
                 metavar=_("@info sieve parameter value placeholder", "FIELD"),
                 desc=_("@info sieve parameter discription",
     "When the new field is being added, add it before this field. "
@@ -64,18 +64,18 @@ def setup_sieve (p):
     "'%(par1)s' and '%(par2)s' parameters, reinsert it accordingly.",
     par1="after", par2="before"
     ))
-    p.add_param("remove", unicode, multival=True,
+    p.add_param("remove", str, multival=True,
                 metavar=_("@info sieve parameter value placeholder", "FIELD"),
                 desc=_("@info sieve parameter discription",
     "Remove the field."
     ))
-    p.add_param("removerx", unicode, multival=True,
+    p.add_param("removerx", str, multival=True,
                 metavar=_("@info sieve parameter value placeholder", "REGEX"),
                 desc=_("@info sieve parameter discription",
     "Remove all fields matching the regular expression. "
     "Matching is not case-sensitive."
     ))
-    p.add_param("title", unicode, multival=True,
+    p.add_param("title", str, multival=True,
                 metavar=_("@info sieve parameter value placeholder", "VALUE"),
                 desc=_("@info sieve parameter discription",
     "Set title comment to the given value."
@@ -86,7 +86,7 @@ def setup_sieve (p):
                 desc=_("@info sieve parameter discription",
     "Remove title comments."
     ))
-    p.add_param("copyright", unicode,
+    p.add_param("copyright", str,
                 metavar=_("@info sieve parameter value placeholder", "VALUE"),
                 desc=_("@info sieve parameter discription",
     "Set copyright comment to the given value."
@@ -95,7 +95,7 @@ def setup_sieve (p):
                 desc=_("@info sieve parameter discription",
     "Remove the copyright comment."
     ))
-    p.add_param("license", unicode,
+    p.add_param("license", str,
                 metavar=_("@info sieve parameter value placeholder", "VALUE"),
                 desc=_("@info sieve parameter discription",
     "Set license comment to the given value."
@@ -104,7 +104,7 @@ def setup_sieve (p):
                 desc=_("@info sieve parameter discription",
     "Remove the license comment."
     ))
-    p.add_param("author", unicode, multival=True,
+    p.add_param("author", str, multival=True,
                 metavar=_("@info sieve parameter value placeholder", "VALUE"),
                 desc=_("@info sieve parameter discription",
     "Set author comment to the given value. "
@@ -115,7 +115,7 @@ def setup_sieve (p):
                 desc=_("@info sieve parameter discription",
     "Remove author comments."
     ))
-    p.add_param("comment", unicode, multival=True,
+    p.add_param("comment", str, multival=True,
                 metavar=_("@info sieve parameter value placeholder", "VALUE"),
                 desc=_("@info sieve parameter discription",
     "Set free comment to the given value. "

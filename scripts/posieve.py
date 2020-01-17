@@ -65,9 +65,9 @@ def main ():
         "The first non-option argument is the sieve name; "
         "a list of several comma-separated sieves can be given too.")
     ver = _("@info command version",
-        u"%(cmd)s (Pology) %(version)s\n"
-        u"Copyright © 2007, 2008, 2009, 2010 "
-        u"Chusslove Illich (Часлав Илић) &lt;%(email)s&gt;",
+        "%(cmd)s (Pology) %(version)s\n"
+        "Copyright © 2007, 2008, 2009, 2010 "
+        "Chusslove Illich (Часлав Илић) &lt;%(email)s&gt;",
         cmd="%prog", version=version(), email="caslav.ilic@gmx.net")
 
     opars = ColorOptionParser(usage=usage, description=desc, version=ver)
@@ -254,7 +254,7 @@ def main ():
         # Load file into new module.
         sieve_mod_name = "sieve_" + str(len(sieve_modules))
         sieve_mod = imp.new_module(sieve_mod_name)
-        exec sieve_file in sieve_mod.__dict__
+        exec(sieve_file, sieve_mod.__dict__)
         sieve_file.close()
         sys.modules[sieve_mod_name] = sieve_mod # to avoid garbage collection
         sieve_modules.append((sieve_name, sieve_mod))
@@ -342,7 +342,7 @@ def main ():
                                           incpaths=op.include_paths,
                                           excnames=op.exclude_names,
                                           excpaths=op.exclude_paths)
-    for p in sparams.values():
+    for p in list(sparams.values()):
         p.root_paths = root_paths
         p.raw_colors = op.raw_colors
         p.is_cat_included = is_cat_included
@@ -439,7 +439,7 @@ def main ():
 
         try:
             cat = Catalog(fname, monitored=use_monitored, headonly=use_headonly, single_entry=int(op.single_entry))
-        except CatalogSyntaxError, e:
+        except CatalogSyntaxError as e:
             errwarn(_("@info:progress",
                       "%(file)s: Parsing failed: %(msg)s",
                       file=fname, msg=e))
@@ -455,7 +455,7 @@ def main ():
         for sieve in header_sieves:
             try:
                 ret = sieve.process_header(cat.header, cat)
-            except SieveCatalogError, e:
+            except SieveCatalogError as e:
                 errwarn(_("@info:progress",
                           "%(file)s:header: Sieving failed: %(msg)s",
                           file=fname, msg=e))
@@ -486,12 +486,12 @@ def main ():
                 for sieve in message_sieves:
                     try:
                         ret = sieve.process(msg, cat)
-                    except SieveMessageError, e:
+                    except SieveMessageError as e:
                         errwarn_on_msg(_("@info:progress",
                                          "Sieving failed: %(msg)s", msg=e),
                                          msg, cat)
                         break
-                    except SieveCatalogError, e:
+                    except SieveCatalogError as e:
                         errwarn_on_msg(_("@info:progress",
                                          "Sieving failed: %(msg)s", msg=e),
                                          msg, cat)
@@ -514,7 +514,7 @@ def main ():
         for sieve in header_sieves_last:
             try:
                 ret = sieve.process_header_last(cat.header, cat)
-            except SieveCatalogError, e:
+            except SieveCatalogError as e:
                 errwarn(_("@info:progress",
                           "%(file)s:header: Sieving (after messages) "
                           "failed: %(msg)s",
@@ -549,7 +549,7 @@ def main ():
         if hasattr(sieve, "finalize"):
             try:
                 sieve.finalize()
-            except SieveCatalogError, e:
+            except SieveCatalogError as e:
                 warning(_("@info:progress",
                           "Finalization failed: %(msg)s",
                           msg=e))

@@ -35,7 +35,7 @@ def setup_sieve (p):
     "Spell-check translation using Enchant."
     ))
 
-    p.add_param("provider", unicode, seplist=True,
+    p.add_param("provider", str, seplist=True,
                 metavar=_("@info sieve parameter value placeholder", "NAME"),
                 desc=_("@info sieve parameter discription",
     "The spell-checking provider to use. "

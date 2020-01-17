@@ -27,7 +27,7 @@ def test_if_empty_translation (msg, cat):
 		else:
 			lm = len(msg.msgid)
 		if lm > 0 and len(msg.msgstr[i]) == 0:
-			return [("msgstr", 0, [(0, 0, u'La traducción parece estar vacía')])]
+			return [("msgstr", 0, [(0, 0, 'La traducción parece estar vacía')])]
 
 	return []
 
@@ -61,12 +61,12 @@ def test_if_purepunc (msg, cat):
 			msgid = msgid.replace(" ", "")
 			msgstr = msgstr.replace('"', '')
 			msgstr = msgstr.replace("'", "")
-			msgstr = msgstr.replace(u"«", "")
-			msgstr = msgstr.replace(u"»", "")
+			msgstr = msgstr.replace("«", "")
+			msgstr = msgstr.replace("»", "")
 			msgstr = msgstr.replace(" ", "")
 			msgstr = msgstr.replace("\"", "")
 			if msgid != msgstr:    
-				return [("msgstr", 0, [(0, 0, u'Se ha traducido un texto no alfanumérico')])]
+				return [("msgstr", 0, [(0, 0, 'Se ha traducido un texto no alfanumérico')])]
 
 	return []
 
@@ -91,10 +91,10 @@ def test_if_non_printable_characters (msg, cat):
 	else:
 	    msgid = msg.msgid
 	for c in msgstr:
-	    if (c not in string.printable) and (c not in msgid) and (c not in u"áéíóúüñçÁÉÍÓÚÜÑÇ¿¡|«»©ºª€/"):
-			return [("msgstr", 0, [(0, 0, u'La traducción contiene caracteres no imprimibles')])]
-	    elif (c in string.punctuation) and (c not in msgid) and (c not in u"¿¡|«»©ºª€/.,;:()_-"):
-			return [("msgstr", 0, [(0, 0, u'La traducción contiene signos de puntuación no incluidos en el original')])]
+	    if (c not in string.printable) and (c not in msgid) and (c not in "áéíóúüñçÁÉÍÓÚÜÑÇ¿¡|«»©ºª€/"):
+			return [("msgstr", 0, [(0, 0, 'La traducción contiene caracteres no imprimibles')])]
+	    elif (c in string.punctuation) and (c not in msgid) and (c not in "¿¡|«»©ºª€/.,;:()_-"):
+			return [("msgstr", 0, [(0, 0, 'La traducción contiene signos de puntuación no incluidos en el original')])]
 	return []
 
 def test_if_very_long_translation (msg, cat):
@@ -117,7 +117,7 @@ def test_if_very_long_translation (msg, cat):
 		else:
 			lm = len(msg.msgid.split())
 		if lm > 0 and len(msg.msgstr[i].split()) > (1.6 * lm + 5):
-			return [("msgstr", 0, [(0, 0, u'La traducción parece demasiado larga')])]
+			return [("msgstr", 0, [(0, 0, 'La traducción parece demasiado larga')])]
 
 	return []
 
@@ -144,14 +144,14 @@ def test_if_very_short_translation (msg, cat):
 			else:
 				lm = len(msg.msgid.split())
 			if lm > (1.6 * len(msg.msgstr[i].split()) +  5):
-				return [("msgstr", 0, [(0, 0, u'La traducción parece demasiado corta')])]
+				return [("msgstr", 0, [(0, 0, 'La traducción parece demasiado corta')])]
 
 	return []
 
 
 _valid_word = re.compile("^\w+$", re.U)
-_capital_word = re.compile(u"^[A-Z0-9ÑÇÁÉÍÓÚÁÉÍÓÚÂÊÎÔÛÄËÏÖÜĀ]+$", re.U)
-_proper_name = re.compile(u"^\W*?[A-Z0-9ÑÇÁÉÍÓÚÁÉÍÓÚÂÊÎÔÛÄËÏÖÜĀ]\w+(\W+?[A-Z0-9ÑÇÁÉÍÓÚÁÉÍÓÚÂÊÎÔÛÄËÏÖÜĀ]\w+)+\W*$", re.U)
+_capital_word = re.compile("^[A-Z0-9ÑÇÁÉÍÓÚÁÉÍÓÚÂÊÎÔÛÄËÏÖÜĀ]+$", re.U)
+_proper_name = re.compile("^\W*?[A-Z0-9ÑÇÁÉÍÓÚÁÉÍÓÚÂÊÎÔÛÄËÏÖÜĀ]\w+(\W+?[A-Z0-9ÑÇÁÉÍÓÚÁÉÍÓÚÂÊÎÔÛÄËÏÖÜĀ]\w+)+\W*$", re.U)
 
 def test_if_not_translated (msg, cat):
 	"""
@@ -188,11 +188,11 @@ def test_if_not_translated (msg, cat):
 					if l is None:
 						l = enchant.Dict("es")
 					if e.check(word) and not l.check(word):
-						return [("msgstr", 0, [(0, 0, u'El párrafo parece no estar traducido')])]
+						return [("msgstr", 0, [(0, 0, 'El párrafo parece no estar traducido')])]
 
 	return []
 
-_ent_accel = re.compile(u"&[A-Za-z0-9ÑñÇç](?!\w+;)", re.U)
+_ent_accel = re.compile("&[A-Za-z0-9ÑñÇç](?!\w+;)", re.U)
 
 def test_paired_accelerators (msg, cat):
 	"""
@@ -218,9 +218,9 @@ def test_paired_accelerators (msg, cat):
 		cont_tran = len(_ent_accel.findall(msg.msgstr[i]))
 
 		if cont_orig < cont_tran:
-			return [("msgstr", 0, [(0, 0, u"Sobran aceleradores «&» en la traducción")])]
+			return [("msgstr", 0, [(0, 0, "Sobran aceleradores «&» en la traducción")])]
 		elif cont_orig > cont_tran:
-			return [("msgstr", 0, [(0, 0, u"Faltan aceleradores «&» en la traducción")])]
+			return [("msgstr", 0, [(0, 0, "Faltan aceleradores «&» en la traducción")])]
 	return []
 
 
@@ -244,17 +244,17 @@ def test_paired_strings (msg, cat):
 		else:
 			msgid = msg.msgid
 
-		for s in (["\t", u"tabuladores"],
-					["\r", u"retornos de carro"],
-					["\n", u"saltos de línea"]
+		for s in (["\t", "tabuladores"],
+					["\r", "retornos de carro"],
+					["\n", "saltos de línea"]
 				  ):
 			cont_orig = msgid.count(s[0])
 			cont_tran = msg.msgstr[i].count(s[0])
 
 			if cont_orig < cont_tran:
-				return [("msgstr", 0, [(0, 0, u"Sobran " + s[1] + u" en la traducción")])]
+				return [("msgstr", 0, [(0, 0, "Sobran " + s[1] + " en la traducción")])]
 			elif cont_orig > cont_tran:
-				return [("msgstr", 0, [(0, 0, u"Faltan " + s[1] + u" en la traducción")])]
+				return [("msgstr", 0, [(0, 0, "Faltan " + s[1] + " en la traducción")])]
 	return []
 
 
@@ -278,10 +278,10 @@ def test_paired_brackets (msg, cat):
 		else:
 			msgid = msg.msgid
 
-		for s in ([u"(", u")", u"paréntesis"],
-				  [u"{", u"}", u"llaves"],
-				  [u"[", u"]", u"corchetes"],
-				  [u"«", u"»", u"comillas españolas"]
+		for s in (["(", ")", "paréntesis"],
+				  ["{", "}", "llaves"],
+				  ["[", "]", "corchetes"],
+				  ["«", "»", "comillas españolas"]
 				  ):
 			cont_orig_open = msgid.count(s[0])
 			cont_orig_close = msgid.count(s[1])
@@ -291,9 +291,9 @@ def test_paired_brackets (msg, cat):
 			cont_tran_close = msg.msgstr[i].count(s[1])
 
 			if cont_tran_open < cont_tran_close:
-				return [("msgstr", 0, [(0, 0, u"Sobran " + s[2] + u" en la traducción")])]
+				return [("msgstr", 0, [(0, 0, "Sobran " + s[2] + " en la traducción")])]
 			elif cont_tran_open > cont_tran_close:
-				return [("msgstr", 0, [(0, 0, u"Faltan " + s[2] + u" en la traducción")])]
+				return [("msgstr", 0, [(0, 0, "Faltan " + s[2] + " en la traducción")])]
 	return []
 
 _ent_function = re.compile("(?:\w+\:\:)*\w+\(\)", re.U)
@@ -319,14 +319,14 @@ def test_paired_expressions (msg, cat):
 		else:
 			msgid = msg.msgid
 
-		for expr in ([_ent_function, u"Nombres de función"],
-					 [_ent_parameter, u"Parámetros de orden"]
+		for expr in ([_ent_function, "Nombres de función"],
+					 [_ent_parameter, "Parámetros de orden"]
 					 ):
 			expr_orig = sorted(expr[0].findall(msgid))
 			expr_trans = sorted(expr[0].findall(msg.msgstr[i]))
 
 			if expr_orig != expr_trans:
-				return [("msgstr", 0, [(0, 0, expr[1] + u" distintos en la traducción")])]
+				return [("msgstr", 0, [(0, 0, expr[1] + " distintos en la traducción")])]
 
 	return []
 
@@ -365,7 +365,7 @@ def test_paired_numbers (msg, cat):
 				number_trans += _not_digit.split(number)
 
 		if sorted(number_orig) != sorted(number_trans):
-			return [("msgstr", 0, [(0, 0, u"Valores de números distintos en la traducción")])]
+			return [("msgstr", 0, [(0, 0, "Valores de números distintos en la traducción")])]
 
 	return []
 
@@ -393,7 +393,7 @@ def test_paired_context_tags (msg, cat):
 
 		for tag in _ent_context_tags.findall(msgid):
 			if not (tag[1] in msg.msgstr[i]):
-				return [("msgstr", 0, [(0, 0, u"Valor de etiqueta de contexto" + tag[1] + u"traducido indebidamente")])]
+				return [("msgstr", 0, [(0, 0, "Valor de etiqueta de contexto" + tag[1] + "traducido indebidamente")])]
 
 	return []
 
@@ -421,10 +421,10 @@ def test_paired_xml_entities (msg, cat):
 
 		for tag in _ent_xml_entities.findall(msgid):
 			if not (tag in msg.msgstr[i]):
-				return [("msgstr", 0, [(0, 0, u"Etiqueta XML" + tag + u"no encontrada en la traducción")])]
+				return [("msgstr", 0, [(0, 0, "Etiqueta XML" + tag + "no encontrada en la traducción")])]
 
 		for tag in _ent_xml_entities.findall(msg.msgstr[i]):
 			if not (tag in msgid):
-				return [("msgstr", 0, [(0, 0, u"Etiqueta XML" + tag + u"no encontrada en el texto original")])]
+				return [("msgstr", 0, [(0, 0, "Etiqueta XML" + tag + "no encontrada en el texto original")])]
 
 	return []
