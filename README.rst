@@ -117,6 +117,16 @@ Currently there is no dedicated bug tracking system,
 so use the mailing list for bug reports and patches as well.
 
 
+Running the tests
+-----------------
+
+To run the automated tests, install tox_ and use it::
+
+    tox
+
+.. _tox: https://tox.readthedocs.io/en/latest/
+
+
 Authors
 -------
 
