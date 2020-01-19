@@ -52,13 +52,13 @@ _ascwrapping = ["fine"]
 # Flag used to mark diffed messages.
 # NOTE: All diff flags should start with 'ediff', as some other scripts
 # only need to check if any of them is present.
-_diffflag = "ediff"
-_diffflag_tot = "ediff-total"
-_diffflag_ign = "ediff-ignored"
+_diffflag = u"ediff"
+_diffflag_tot = u"ediff-total"
+_diffflag_ign = u"ediff-ignored"
 
 # Flags used to explicitly mark messages as reviewed or unreviewed.
-_revdflags = ("reviewed", "revd", "rev") # synonyms
-_urevdflags = ("unreviewed", "nrevd", "nrev") # synonyms
+_revdflags = (u"reviewed", u"revd", u"rev") # synonyms
+_urevdflags = (u"unreviewed", u"nrevd", u"nrev") # synonyms
 
 # Comment used to show ascription chain in messages marked for review.
 _achncmnt = "~ascto:"
@@ -107,9 +107,9 @@ def main ():
         "Keep track of who, when, and how, has translated, modified, "
         "or reviewed messages in a collection of PO files.")
     ver = _("@info command version",
-        "%(cmd)s (Pology) %(version)s\n"
-        "Copyright © 2008, 2009, 2010 "
-        "Chusslove Illich (Часлав Илић) &lt;%(email)s&gt;",
+        u"%(cmd)s (Pology) %(version)s\n"
+        u"Copyright © 2008, 2009, 2010 "
+        u"Chusslove Illich (Часлав Илић) &lt;%(email)s&gt;",
         cmd="%prog", version=version(), email="caslav.ilic@gmx.net")
 
     opars = ColorOptionParser(usage=usage, description=desc, version=ver)
@@ -688,7 +688,7 @@ def status (options, aconfs_catpaths, mode):
     # Report totals.
     totals_a, totals_na = {}, {}
     for totals, counts in ((totals_a, counts_a), (totals_na, counts_na)):
-        for st, cnt_per_cat in list(counts.items()):
+        for st, cnt_per_cat in counts.items():
             totals[st] = sum(cnt_per_cat.values())
     # See previous NOTE.
     if sum(totals_a.values()) > 0 or sum(totals_na.values()) > 0:
@@ -707,7 +707,7 @@ def status (options, aconfs_catpaths, mode):
     if options.show_by_file:
         catpaths = set()
         for counts in (counts_a, counts_na):
-            catpaths.update(sum([list(x.keys()) for x in list(counts.values())], []))
+            catpaths.update(sum([x.keys() for x in counts.values()], []))
         catpaths = sorted(catpaths)
         if catpaths:
             coln.insert(0, _("@title:column", "catalog"))
@@ -820,7 +820,7 @@ def commit (options, aconfs_catpaths, mode):
             res = commit_cat(options, aconf, mode.user, catpath, acatpath,
                              mode.selector)
             ccounts, crevels, catmod = res
-            for st, (nmod, nrev) in list(ccounts.items()):
+            for st, (nmod, nrev) in ccounts.items():
                 counts[st][0] += nmod
                 counts[st][1] += nrev
             revels[catpath] = crevels
@@ -1172,7 +1172,7 @@ def diff_cat (options, aconf, catpath, acatpath, stest, aselect):
             else:
                 ascfmt = "%s:%s" % (a.user, shtype)
             ascfmts.append(ascfmt)
-        achnfmt = "%s %s" % (_achncmnt, " ".join(ascfmts))
+        achnfmt = u"%s %s" % (_achncmnt, " ".join(ascfmts))
         msg.auto_comment.append(achnfmt)
 
         diffed_msgs.append(msg)
@@ -1406,57 +1406,57 @@ def init_asc_cat (acatpath, aconf):
     acat = Catalog(acatpath, create=True, monitored=True, wrapping=_ascwrapping)
     ahdr = acat.header
 
-    ahdr.title = Monlist(["Ascription shadow for %s.po" % acat.name])
+    ahdr.title = Monlist([u"Ascription shadow for %s.po" % acat.name])
 
-    translator = "Ascriber"
+    translator = u"Ascriber"
 
     if aconf.teamemail:
-        author = "%s <%s>" % (translator, aconf.teamemail)
+        author = u"%s <%s>" % (translator, aconf.teamemail)
     else:
-        author = "%s" % translator
+        author = u"%s" % translator
     ahdr.author = Monlist([author])
 
-    ahdr.copyright = "Copyright same as for the original catalog."
-    ahdr.license = "License same as for the original catalog."
-    ahdr.comment = Monlist(["===== DO NOT EDIT MANUALLY ====="])
+    ahdr.copyright = u"Copyright same as for the original catalog."
+    ahdr.license = u"License same as for the original catalog."
+    ahdr.comment = Monlist([u"===== DO NOT EDIT MANUALLY ====="])
 
-    ahdr.set_field("Project-Id-Version", str(acat.name))
-    ahdr.set_field("Report-Msgid-Bugs-To", str(aconf.teamemail or ""))
-    ahdr.set_field("PO-Revision-Date", format_datetime(_dt_start))
-    ahdr.set_field("Content-Type", "text/plain; charset=UTF-8")
-    ahdr.set_field("Content-Transfer-Encoding", "8bit")
+    ahdr.set_field(u"Project-Id-Version", unicode(acat.name))
+    ahdr.set_field(u"Report-Msgid-Bugs-To", unicode(aconf.teamemail or ""))
+    ahdr.set_field(u"PO-Revision-Date", format_datetime(_dt_start))
+    ahdr.set_field(u"Content-Type", u"text/plain; charset=UTF-8")
+    ahdr.set_field(u"Content-Transfer-Encoding", u"8bit")
 
     if aconf.teamemail:
         ltr = "%s <%s>" % (translator, aconf.teamemail)
     else:
         ltr = translator
-    ahdr.set_field("Last-Translator", str(ltr))
+    ahdr.set_field(u"Last-Translator", unicode(ltr))
 
     if aconf.langteam:
         if aconf.teamemail:
-            tline = "%s <%s>" % (aconf.langteam, aconf.teamemail)
+            tline = u"%s <%s>" % (aconf.langteam, aconf.teamemail)
         else:
             tline = aconf.langteam
-        ahdr.set_field("Language-Team", str(tline))
+        ahdr.set_field(u"Language-Team", unicode(tline))
     else:
         ahdr.remove_field("Language-Team")
 
     if aconf.langcode:
-        ahdr.set_field("Language", str(aconf.langcode))
+        ahdr.set_field(u"Language", unicode(aconf.langcode))
     else:
         ahdr.remove_field("Language")
 
     if aconf.plforms:
-        ahdr.set_field("Plural-Forms", str(aconf.plforms))
+        ahdr.set_field(u"Plural-Forms", unicode(aconf.plforms))
     else:
-        ahdr.remove_field("Plural-Forms")
+        ahdr.remove_field(u"Plural-Forms")
 
     return acat
 
 
 def update_asc_hdr (acat):
 
-    acat.header.set_field("PO-Revision-Date", format_datetime(_dt_start))
+    acat.header.set_field(u"PO-Revision-Date", format_datetime(_dt_start))
 
 
 def create_post_merge_cat (cat, prev_msgs):

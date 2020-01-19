@@ -29,12 +29,12 @@ def setup_sieve (p):
                 desc=_("@info sieve parameter discription",
     "Remove embedded lists of no-pipe flags (# |, foo, ...)."
     ))
-    p.add_param("pattern", str,
+    p.add_param("pattern", unicode,
                 metavar=_("@info sieve parameter value placeholder", "REGEX"),
                 desc=_("@info sieve parameter discription",
     "Remove comments matching the regular expression."
     ))
-    p.add_param("exclude", str,
+    p.add_param("exclude", unicode,
                 metavar=_("@info sieve parameter value placeholder", "REGEX"),
                 desc=_("@info sieve parameter discription",
     "Remove comments not matching the regular expression."

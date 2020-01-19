@@ -29,7 +29,7 @@ def setup_sieve (p):
                 desc=_("@info sieve parameter discription",
     "Also add tags to fuzzy messages."
     ))
-    p.add_param("branch", str, seplist=True,
+    p.add_param("branch", unicode, seplist=True,
                 metavar=_("@info sieve parameter value placeholder", "BRANCH"),
                 desc=_("@info sieve parameter discription",
     "In summit catalogs, consider only messages belonging to given branch. "
@@ -37,7 +37,7 @@ def setup_sieve (p):
     ))
 
 
-_flag_untranslated = "untranslated"
+_flag_untranslated = u"untranslated"
 
 class Sieve (object):
 

@@ -71,9 +71,9 @@ def split_text (text, markup=False, format=None):
             lastword = False
 
     if lastword:
-        intrs.append("")
+        intrs.append(u"")
     if len(intrs) == len(words):
-        intrs.insert(0, "")
+        intrs.insert(0, u"")
 
     if format == "c-format":
         words, intrs = _mod_on_format_c(words, intrs)

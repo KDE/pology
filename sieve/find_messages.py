@@ -26,7 +26,6 @@ from pology.msgreport import report_msg_to_lokalize
 from pology.report import report, error, warning, format_item_list
 from pology.sieve import SieveError
 from pology.sieve import add_param_poeditors
-from functools import reduce
 
 
 def setup_sieve (p):
@@ -50,49 +49,49 @@ def setup_sieve (p):
 
     # NOTE: Do not add default values for matchers,
     # we need None to see if they were issued or not.
-    p.add_param("msgid", str, multival=True,
+    p.add_param("msgid", unicode, multival=True,
                 metavar=_("@info sieve parameter value placeholder", "REGEX"),
                 desc=_("@info sieve parameter discription",
     "Matches if the '%(field)s' field matches the regular expression.",
     field="msgid"
     ))
-    p.add_param("nmsgid", str, multival=True,
+    p.add_param("nmsgid", unicode, multival=True,
                 metavar=_("@info sieve parameter value placeholder", "REGEX"),
                 desc=_("@info sieve parameter discription",
     "Matches if the '%(field)s' field does not match the regular expression.",
     field="msgid"
     ))
-    p.add_param("msgstr", str, multival=True,
+    p.add_param("msgstr", unicode, multival=True,
                 metavar=_("@info sieve parameter value placeholder", "REGEX"),
                 desc=_("@info sieve parameter discription",
     "Matches if the '%(field)s' field matches the regular expression.",
     field="msgstr"
     ))
-    p.add_param("nmsgstr", str, multival=True,
+    p.add_param("nmsgstr", unicode, multival=True,
                 metavar=_("@info sieve parameter value placeholder", "REGEX"),
                 desc=_("@info sieve parameter discription",
     "Matches if the '%(field)s' field does not match the regular expression.",
     field="msgstr"
     ))
-    p.add_param("msgctxt", str, multival=True,
+    p.add_param("msgctxt", unicode, multival=True,
                 metavar=_("@info sieve parameter value placeholder", "REGEX"),
                 desc=_("@info sieve parameter discription",
     "Matches if the '%(field)s' field matches the regular expression.",
     field="msgctxt"
     ))
-    p.add_param("nmsgctxt", str, multival=True,
+    p.add_param("nmsgctxt", unicode, multival=True,
                 metavar=_("@info sieve parameter value placeholder", "REGEX"),
                 desc=_("@info sieve parameter discription",
     "Matches if the '%(field)s' field does not match the regular expression.",
     field="msgctxt"
     ))
-    p.add_param("comment", str, multival=True,
+    p.add_param("comment", unicode, multival=True,
                 metavar=_("@info sieve parameter value placeholder", "REGEX"),
                 desc=_("@info sieve parameter discription",
     "Matches if a comment line (extracted or translator) "
     "matches the regular expression."
     ))
-    p.add_param("ncomment", str, multival=True,
+    p.add_param("ncomment", unicode, multival=True,
                 metavar=_("@info sieve parameter value placeholder", "REGEX"),
                 desc=_("@info sieve parameter discription",
     "Matches if a comment line (extracted or translator) "
@@ -122,12 +121,12 @@ def setup_sieve (p):
                 desc=_("@info sieve parameter discription",
     "Matches if the message is not active (not translated or obsolete)."
     ))
-    p.add_param("flag", str, multival=True,
+    p.add_param("flag", unicode, multival=True,
                 metavar=_("@info sieve parameter value placeholder", "REGEX"),
                 desc=_("@info sieve parameter discription",
     "Matches if one of the flags matches the regular expression."
     ))
-    p.add_param("nflag", str, multival=True,
+    p.add_param("nflag", unicode, multival=True,
                 metavar=_("@info sieve parameter value placeholder", "REGEX"),
                 desc=_("@info sieve parameter discription",
     "Matches if none of the flags matches the regular expression."
@@ -156,46 +155,46 @@ def setup_sieve (p):
     "(0 or less means any number of characters).",
     field1="msgid", field2="msgstr"
     ))
-    p.add_param("lspan", str,
+    p.add_param("lspan", unicode,
                 metavar=_("@info sieve parameter value placeholder",
                           "START:END"),
                 desc=_("@info sieve parameter discription",
     "Matches if the message line number is in the given range "
     "(including starting line, excluding ending line)."
     ))
-    p.add_param("nlspan", str,
+    p.add_param("nlspan", unicode,
                 metavar=_("@info sieve parameter value placeholder",
                           "START:END"),
                 desc=_("@info sieve parameter discription",
     "Matches if the message line number is not in the given range "
     "(including starting line, excluding ending line)."
     ))
-    p.add_param("espan", str,
+    p.add_param("espan", unicode,
                 metavar=_("@info sieve parameter value placeholder",
                           "START:END"),
                 desc=_("@info sieve parameter discription",
     "Matches if the message entry number is in the given range "
     "(including starting entry, excluding ending entry)."
     ))
-    p.add_param("nespan", str,
+    p.add_param("nespan", unicode,
                 metavar=_("@info sieve parameter value placeholder",
                           "START:END"),
                 desc=_("@info sieve parameter discription",
     "Matches if the message entry number is not in the given range "
     "(including starting entry, excluding ending entry)."
     ))
-    p.add_param("branch", str, seplist=True,
+    p.add_param("branch", unicode, seplist=True,
                 metavar=_("@info sieve parameter value placeholder", "BRANCH"),
                 desc=_("@info sieve parameter discription",
     "In summit catalogs, match only messages belonging to given branch. "
     "Several branches can be given as comma-separated list."
     ))
-    p.add_param("nbranch", str, seplist=True,
+    p.add_param("nbranch", unicode, seplist=True,
                 metavar=_("@info sieve parameter value placeholder", "BRANCH"),
                 desc=_("@info sieve parameter discription",
     "Match only messages not belonging to given branch."
     ))
-    p.add_param("fexpr", str,
+    p.add_param("fexpr", unicode,
                 metavar=_("@info sieve parameter value placeholder",
                           "EXPRESSION"),
                 desc=_("@info sieve parameter discription",
@@ -213,7 +212,7 @@ def setup_sieve (p):
     "\n\n"
     "fexpr:'msgid/quuk/ and msgstr/Qaak/c'"
     ))
-    p.add_param("nfexpr", str,
+    p.add_param("nfexpr", unicode,
                 metavar=_("@info sieve parameter value placeholder",
                           "EXPRESSION"),
                 desc=_("@info sieve parameter discription",
@@ -232,7 +231,7 @@ def setup_sieve (p):
                 desc=_("@info sieve parameter discription",
     "Case-sensitive text matching."
     ))
-    p.add_param("accel", str, multival=True,
+    p.add_param("accel", unicode, multival=True,
                 metavar=_("@info sieve parameter value placeholder", "CHAR"),
                 desc=_("@info sieve parameter discription",
     "Character which is used as UI accelerator marker in text fields, "
@@ -245,14 +244,14 @@ def setup_sieve (p):
     "Add '%(flag)s' flag to each matched message.",
     flag=_flag_mark
     ))
-    p.add_param("filter", str, multival=True,
+    p.add_param("filter", unicode, multival=True,
                 metavar=_("@info sieve parameter value placeholder", "HOOK"),
                 desc=_("@info sieve parameter discription",
     "F1A hook specification, to filter the msgstr fields through "
     "before matching them. "
     "Several hooks can be specified by repeating the parameter."
     ))
-    p.add_param("replace", str,
+    p.add_param("replace", unicode,
                 metavar=_("@info sieve parameter value placeholder",
                           "REPLSTR"),
                 desc=_("@info sieve parameter discription",
@@ -267,7 +266,7 @@ def setup_sieve (p):
     add_param_poeditors(p)
 
 
-_flag_mark = "match"
+_flag_mark = u"match"
 
 
 class Sieve (object):
@@ -305,7 +304,7 @@ class Sieve (object):
                             m = make_msg_matcher(value, params)
                         else:
                             m = make_matcher(name, value, [], params, neg)
-                    except ExprError as e:
+                    except ExprError, e:
                         raise SieveError(str_to_unicode(str(e)))
                     matchers.append(m)
 

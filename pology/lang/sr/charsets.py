@@ -12,48 +12,48 @@ from pology.report import warning
 
 
 chset_iso8859_5 = set(
-" !\"#$%&'()*+,-./0123456789:;<=>?@"
-"ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`"
-"abcdefghijklmnopqrstuvwxyz{|}~\u00a0"
-"ЁЂЃЄЅІЇЈЉЊЋЌ­ЎЏАБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ"
-"абвгдежзийклмнопрстуфхцчшщъыьэюя№ёђѓєѕіїјљњћќ§ўџ"
+u" !\"#$%&'()*+,-./0123456789:;<=>?@"
+u"ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`"
+u"abcdefghijklmnopqrstuvwxyz{|}~\u00a0"
+u"ЁЂЃЄЅІЇЈЉЊЋЌ­ЎЏАБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ"
+u"абвгдежзийклмнопрстуфхцчшщъыьэюя№ёђѓєѕіїјљњћќ§ўџ"
 )
 
 translit_iso8859_5 = {
 }
 
 chset_iso8859_2 = set(
-" !\"#$%&'()*+,-./0123456789:;<=>?@"
-"ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`"
-"abcdefghijklmnopqrstuvwxyz{|}~\u00a0"
-"Ą˘Ł¤ĽŚ§¨ŠŞŤŹ­ŽŻ°"
-"ą˛ł´ľśˇ¸šşťź˝žż"
-"ŔÁÂĂÄĹĆÇČÉĘËĚÍÎĎĐŃŇÓÔŐÖ×ŘŮÚŰÜÝŢß"
-"ŕáâăäĺćçčéęëěíîďđńňóôőö÷řůúűüýţ˙"
+u" !\"#$%&'()*+,-./0123456789:;<=>?@"
+u"ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`"
+u"abcdefghijklmnopqrstuvwxyz{|}~\u00a0"
+u"Ą˘Ł¤ĽŚ§¨ŠŞŤŹ­ŽŻ°"
+u"ą˛ł´ľśˇ¸šşťź˝žż"
+u"ŔÁÂĂÄĹĆÇČÉĘËĚÍÎĎĐŃŇÓÔŐÖ×ŘŮÚŰÜÝŢß"
+u"ŕáâăäĺćçčéęëěíîďđńňóôőö÷řůúűüýţ˙"
 )
 
 translit_iso8859_2 = {
-    "×": "×",
+    u"×": u"×",
 }
 
 translit_ascii = {
-    "—": "--",
-    "–": "-",
-    "„": "\"",
-    "“": "\"",
-    "‘": "'",
-    "’": "'",
-    "€": "EUR",
-    "©": "c",
-    "×": "x",
-    "\u2011": "-", # non-breaking hyphen
-    "\u00a0": " ", # no-break space
-    "\u2009": "", # thin space
-    "\u202f": "", # narrow no-break space
-    "\u200b": "", # zero-width space
-    "ä": "ae",
-    "ö": "oe",
-    "ü": "ue",
+    u"—": "--",
+    u"–": "-",
+    u"„": "\"",
+    u"“": "\"",
+    u"‘": "'",
+    u"’": "'",
+    u"€": "EUR",
+    u"©": "c",
+    u"×": "x",
+    u"\u2011": "-", # non-breaking hyphen
+    u"\u00a0": " ", # no-break space
+    u"\u2009": "", # thin space
+    u"\u202f": "", # narrow no-break space
+    u"\u200b": "", # zero-width space
+    u"ä": "ae",
+    u"ö": "oe",
+    u"ü": "ue",
     # TODO: Add more.
     #u"": "",
 }

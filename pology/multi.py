@@ -60,7 +60,7 @@ class Multidict (object):
 
     def __iter__ (self):
 
-        return iter(self.keys())
+        return self.iterkeys()
 
 
     def get (self, key, defval=None):
@@ -74,17 +74,17 @@ class Multidict (object):
 
     def iterkeys (self):
 
-        return self._Iterator(lambda x: iter(x.keys()))
+        return self._Iterator(lambda x: x.iterkeys())
 
 
     def itervalues (self):
 
-        return self._Iterator(lambda x: iter(x.values()))
+        return self._Iterator(lambda x: x.itervalues())
 
 
     def iteritems (self):
 
-        return self._Iterator(lambda x: iter(x.items()))
+        return self._Iterator(lambda x: x.iteritems())
 
 
     class _Iterator (object):
@@ -95,10 +95,10 @@ class Multidict (object):
         def __iter__ (self):
             return self
 
-        def __next__ (self):
+        def next (self):
             while self._iters:
                 try:
-                    return next(self._iters[0])
+                    return self._iters[0].next()
                 except StopIteration:
                     self._iters.pop(0)
             raise StopIteration

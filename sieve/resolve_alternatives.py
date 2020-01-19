@@ -27,7 +27,7 @@ def setup_sieve (p):
     "Resolve alternative directives in translation."
     ))
 
-    p.add_param("alt", str, mandatory=True,
+    p.add_param("alt", unicode, mandatory=True,
                 metavar=_("@info sieve parameter value placeholder", "N,Mt"),
                 desc=_("@info sieve parameter discription",
     "N is index (1-based) of the alternative to take from each directive, "

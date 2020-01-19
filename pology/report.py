@@ -220,7 +220,7 @@ def init_file_progress (fpaths, timeint=1.0, stream=sys.stderr, addfmt=None):
         return pstr
 
     pfmt = ("%%1s %%%dd/%d %%s" % (len(str(len(fpaths))), len(fpaths)))
-    pspins = ["–", "\\", "|", "/"]
+    pspins = [u"–", u"\\", u"|", u"/"]
     i_spin = [0]
     i_file = [0]
     seen_fpaths = set()
@@ -337,12 +337,12 @@ def format_item_list (items, incmp=False, quoted=False):
                  "...")
     quoting = t_("@item:intext quotes around each element in the list",
                  "'%(el)s'")
-    itemstrs = list(map(str, items))
+    itemstrs = map(unicode, items)
     if quoted:
         itemstrs = [quoting.with_args(el=x).to_string() for x in items]
     if not incmp:
         if len(itemstrs) == 0:
-            return ""
+            return u""
         elif len(itemstrs) == 1:
             return itemstrs[0]
         elif len(itemstrs) == 2:

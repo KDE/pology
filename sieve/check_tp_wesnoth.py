@@ -19,7 +19,6 @@ from pology.msgreport import report_msg_to_lokalize
 from pology.sieve import add_param_poeditors
 from pology.sieve import SieveError
 from pology.message import MessageUnsafe
-from functools import reduce
 
 
 _ctxtsep = "^"
@@ -30,9 +29,9 @@ def setup_sieve (p):
     p.set_desc(_("@info sieve discription",
     "Check validity of messages in catalogs of The Battle for Wesnoth."
     ))
-    chnames = list(_known_checks.keys())
+    chnames = _known_checks.keys()
     chnames.sort()
-    p.add_param("check", str, seplist=True,
+    p.add_param("check", unicode, seplist=True,
                 metavar=_("@info sieve parameter value placeholder",
                           "KEYWORD,..."),
                 desc=_("@info sieve parameter discription",
@@ -393,7 +392,7 @@ def _check_wml_att (tag, content):
         p = p4 + 1
 
     if not spans:
-        for att, mandatory in list(_known_tags[tag].items()):
+        for att, mandatory in _known_tags[tag].items():
             if mandatory and att not in have_atts:
                 spans.append((0, 0,
                               _("@info",
@@ -543,7 +542,7 @@ from pology import datadir
 
 _tags_wml = _known_tags
 _specpath = os.path.join(datadir(), "spec", "pango.l1")
-_tags_pango = list(collect_xml_spec_l1(_specpath).keys())
+_tags_pango = collect_xml_spec_l1(_specpath).keys()
 
 _first_tag_rx = re.compile(r"<\s*(\w+)[^>]*>", re.U)
 

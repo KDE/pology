@@ -78,7 +78,7 @@ def froments (name, args=(), kwargs={}, vfilter=None, testsub=False):
     if testsub:
         dkeysub1 = "__test1234a__"
         dkeysub2 = "__test1234b__"
-        tp.import_string("""
+        tp.import_string(u"""
         >%s/base/aff.sd
         %s: лопт|а, лопт|е+2, лопт|ин, лопта|сти
         %s: ваљ|ак, ваљ|ци+, ваљк|ов, ваљка|сти
@@ -133,7 +133,7 @@ def froments_t1 (msgstr, msg, cat):
 
     global _froments_t1_hook
     if not _froments_t1_hook:
-        _froments_t1_hook = froments("ui", vfilter="^%s", testsub=True)
+        _froments_t1_hook = froments("ui", vfilter=u"^%s", testsub=True)
 
     return _froments_t1_hook(msgstr, msg, cat)
 
@@ -146,7 +146,7 @@ def froments_t1db (msgstr, msg, cat):
 
     global _froments_t1_hook
     if not _froments_t1_hook:
-        _froments_t1_hook = froments("docbook4", vfilter="^%s", testsub=True)
+        _froments_t1_hook = froments("docbook4", vfilter=u"^%s", testsub=True)
 
     return _froments_t1_hook(msgstr, msg, cat)
 

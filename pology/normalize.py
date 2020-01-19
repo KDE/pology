@@ -149,15 +149,15 @@ def xentitize (s):
 # As defined by http://www.unicode.org/faq/unsup_char.html.
 _invisible_character_codepoints = ([]
     + [0x200C, 0x200D] # cursive joiners
-    + list(range(0x202A, 0x202E + 1)) # bidirectional format controls
+    + range(0x202A, 0x202E + 1) # bidirectional format controls
     + [0x00AD] # soft hyphen
     + [0x2060, 0xFEFF] # word joiners
     + [0x200B] # the zero width space
-    + list(range(0x2061, 0x2064 + 1)) # invisible math operators
+    + range(0x2061, 0x2064 + 1) # invisible math operators
     + [0x115F, 0x1160] # Jamo filler characters
-    + list(range(0xFE00, 0xFE0F + 1)) # variation selectors
+    + range(0xFE00, 0xFE0F + 1) # variation selectors
 )
-_invchstr = "".join(map(chr, _invisible_character_codepoints))
+_invchstr = "".join(map(unichr, _invisible_character_codepoints))
 _invisible_character_replrx = re.compile("[%s]" % _invchstr, re.U)
 
 def noinvisible (s):
@@ -314,7 +314,7 @@ def demangle_srcrefs (collsrcs=None, collsrcmap=None, truesrcheads=None,
         if isinstance(msg, MessageUnsafe):
             msg.source = truerefs
         else:
-            msg.source = Monlist(list(map(Monpair, truerefs)))
+            msg.source = Monlist(map(Monpair, truerefs))
 
         return numerr
 
@@ -339,7 +339,7 @@ def uniq_source (msg, cat):
     if isinstance(msg, MessageUnsafe):
         msg.source = uniqrefs
     else:
-        msg.source = Monlist(list(map(Monpair, uniqrefs)))
+        msg.source = Monlist(map(Monpair, uniqrefs))
 
 
 
@@ -398,8 +398,8 @@ def canonical_header (hdr, cat):
     return nerr
 
 
-_yr1_rx = re.compile(r"^\s*(\d{4}|\d{2})\s*$")
-_yr2_rx = re.compile(r"^\s*(\d{4}|\d{2})\s*[-—–]\s*(\d{4}|\d{2})\s*$")
+_yr1_rx = re.compile(ur"^\s*(\d{4}|\d{2})\s*$")
+_yr2_rx = re.compile(ur"^\s*(\d{4}|\d{2})\s*[-—–]\s*(\d{4}|\d{2})\s*$")
 
 def _fix_authors (hdr, cat):
 
@@ -453,7 +453,7 @@ def _fix_authors (hdr, cat):
                     ystr = (ystr[0] == "9" and "19" or "20") + ystr
                 years.append(int(ystr))
             else:
-                years.extend(list(range(int(m.group(1)), int(m.group(2)) + 1)))
+                years.extend(range(int(m.group(1)), int(m.group(2)) + 1))
         if not years:
             continue
 
@@ -469,10 +469,10 @@ def _fix_authors (hdr, cat):
 
     # Post-process authors data.
     authlst = []
-    for name, adata in list(authors.items()):
+    for name, adata in authors.items():
         adata["years"] = list(adata["years"])
         adata["years"].sort()
-        adata["years"] = list(map(str, adata["years"]))
+        adata["years"] = map(str, adata["years"])
         adata["name"] = name
         authlst.append(adata)
 
@@ -481,7 +481,7 @@ def _fix_authors (hdr, cat):
     # Construct new author comments.
     authcmnts = Monlist()
     for a in authlst:
-        acmnt = "%s <%s>, %s." % (a["name"], a["email"],
+        acmnt = u"%s <%s>, %s." % (a["name"], a["email"],
                                     ", ".join(a["years"]))
         authcmnts.append(acmnt)
 

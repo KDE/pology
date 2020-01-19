@@ -191,7 +191,7 @@ def _match_patterns (text, patterns):
         pattern = patterns[i]
 
         span = None
-        if isinstance(pattern, str):
+        if isinstance(pattern, basestring):
             p = text.find(pattern)
             if p >= 0:
                 span = (p, p + len(pattern))

@@ -16,7 +16,7 @@ how they are used, and what is the behavior when they are not set.
 
 import codecs
 import os
-from configparser import SafeConfigParser
+from ConfigParser import SafeConfigParser
 
 from pology import _, n_
 from pology.report import error
@@ -138,7 +138,7 @@ class section:
         @rtype: unicode or as C{default}
         """
 
-        return self._value(str, name, default, "string")
+        return self._value(unicode, name, default, "string")
 
 
     def integer (self, name, default=None):
@@ -191,7 +191,7 @@ class section:
         @rtype: unicode or as C{default}
         """
 
-        value = self._value(str, name, None, "string")
+        value = self._value(unicode, name, None, "string")
         if value is None:
             return default
         lst = value.split(sep)
@@ -217,7 +217,7 @@ class section:
         @rtype: unicode or as C{default}
         """
 
-        value = self._value(str, name, None, "string")
+        value = self._value(unicode, name, None, "string")
         if value is None:
             return default
         value = value.strip()

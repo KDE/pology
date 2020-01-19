@@ -29,7 +29,7 @@ def setup_sieve (p):
     "See documentation for the description of the XML format used."
     ))
 
-    p.add_param("xml", str,
+    p.add_param("xml", unicode,
                 metavar=_("@info sieve parameter value placeholder", "FILE"),
                 desc=_("@info sieve parameter discription",
     "Write the XML tree into a file instead to standard output."

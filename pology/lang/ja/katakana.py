@@ -20,7 +20,7 @@ def katakana (text):
         c = text[i]
         if _is_katakana(c):
             ntext.append(c)
-        elif c == "・":
+        elif c == u"・":
             c_prev = text[i-1:i]
             c_next = text[i+1:i+2]
             if _is_katakana(c_prev) and _is_katakana(c_next):
@@ -34,5 +34,5 @@ def katakana (text):
 
 def _is_katakana (c):
 
-    return (c >= "ァ" and c <= "ヴ") or c == "ー"
+    return (c >= u"ァ" and c <= u"ヴ") or c == u"ー"
 

@@ -66,7 +66,7 @@ class Sieve (object):
                               filt=tfname))
 
                 # Process result based on hook type.
-                if isinstance(res, str):
+                if isinstance(res, basestring):
                     # Modification hook.
                     msg.msgstr[i] = res
                 elif isinstance(res, list):

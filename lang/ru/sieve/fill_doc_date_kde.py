@@ -28,43 +28,43 @@ class Sieve (object):
     def __init__ (self, params):
         # Some dates have non-standard format, here is the workaround for them:
         self.pretranslated = {
-            'April 8, 2003': '8 апреля 2003 г.',
-            'April 7, 2003': '7 апреля 2003 г.',
-            '28/08/2009': '28 августа 2009 г.',
-            '22/05/2009': '22 мая 2009 г.',
-            '07 January 2005': '7 января 2005 г.',
-            'March 7, 2003': '7 марта 2003 г.',
-            'March 8, 2003': '8 марта 2003 г.',
-            'April 06, 2003': '6 апреля 2003 г.',
-            'April 07, 2003': '7 апреля 2003 г.',
-            'Month Daynumber, 4-Digit-Year': '2 февраля 2005 г.',
-            'April 2018': 'апрель 2018 г.',
-            '04/02/2007': '4 февраля 2007 г.',
+            u'April 8, 2003': u'8 апреля 2003 г.',
+            u'April 7, 2003': u'7 апреля 2003 г.',
+            u'28/08/2009': u'28 августа 2009 г.',
+            u'22/05/2009': u'22 мая 2009 г.',
+            u'07 January 2005': u'7 января 2005 г.',
+            u'March 7, 2003': u'7 марта 2003 г.',
+            u'March 8, 2003': u'8 марта 2003 г.',
+            u'April 06, 2003': u'6 апреля 2003 г.',
+            u'April 07, 2003': u'7 апреля 2003 г.',
+            u'Month Daynumber, 4-Digit-Year': u'2 февраля 2005 г.',
+            u'April 2018': u'апрель 2018 г.',
+            u'04/02/2007': u'4 февраля 2007 г.',
         }	
     
         # Other dates should have the following format: (yyyy-mm-dd)
         self.date_re = re.compile("^[0-9][0-9][0-9][0-9]\-[0-9][0-9]\-[0-9][0-9]$")
 
     def format_date (self, date_en):
-        if date_en in self.pretranslated:
+        if self.pretranslated.has_key(date_en):
             return self.pretranslated[date_en]
         elif self.date_re.match(date_en):
-            date_result = os.popen("date '+%-d m%mm %Y' -d " + date_en).readlines()[0].decode('utf-8').rstrip() + ' г.'
+            date_result = os.popen("date '+%-d m%mm %Y' -d " + date_en).readlines()[0].decode('utf-8').rstrip() + u' г.'
 
             # Translate name of months into Russian
 	    return date_result.\
-                replace('m01m', 'января').\
-                replace('m02m', 'февраля').\
-                replace('m03m', 'марта').\
-                replace('m04m', 'апреля').\
-                replace('m05m', 'мая').\
-                replace('m06m', 'июня').\
-                replace('m07m', 'июля').\
-                replace('m08m', 'августа').\
-                replace('m09m', 'сентября').\
-                replace('m10m', 'октября').\
-                replace('m11m', 'ноября').\
-                replace('m12m', 'декабря')
+                replace('m01m', u'января').\
+                replace('m02m', u'февраля').\
+                replace('m03m', u'марта').\
+                replace('m04m', u'апреля').\
+                replace('m05m', u'мая').\
+                replace('m06m', u'июня').\
+                replace('m07m', u'июля').\
+                replace('m08m', u'августа').\
+                replace('m09m', u'сентября').\
+                replace('m10m', u'октября').\
+                replace('m11m', u'ноября').\
+                replace('m12m', u'декабря')
         else:
             print("\nThis is not a valid date: %s\n" % date_en)
 

@@ -58,14 +58,14 @@ class Sieve (object):
         if (    msg.fuzzy
             and msg.msgid == msg.msgid_previous
             and msg.msgid_plural == msg.msgid_plural_previous
-            and (   _stripped(msg.msgctxt or "")
-                 == _stripped(msg.msgctxt_previous or ""))
+            and (   _stripped(msg.msgctxt or u"")
+                 == _stripped(msg.msgctxt_previous or u""))
         ):
             msg.unfuzzy()
             if self.flag_review:
                 # Add as manual comment, as any other type will vanish
                 # when catalog is merged with template.
-                msg.manual_comment.append("unreviewed-context")
+                msg.manual_comment.append(u"unreviewed-context")
             self.nmatch += 1
 
 

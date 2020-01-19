@@ -29,7 +29,7 @@ from pology import PologyError, _, n_
 
 def _gather_modcount (obj):
     modcount = 0
-    for cnt in list(getattr(obj, "#", {}).values()): # own counts
+    for cnt in getattr(obj, "#", {}).values(): # own counts
         modcount += cnt
     for att in getattr(obj, "_spec", {}): # sub counts
         if att != "*": # single sub counts
@@ -74,7 +74,7 @@ def _assert_spec_single (att, obj, spec):
         _assert_spec_init(obj, spec["spec"])
 
 def _assert_spec_init (self, spec):
-    for att, subspec in list(spec.items()):
+    for att, subspec in spec.items():
         if att != "*":
             if not subspec.get("derived", False):
                 _assert_spec_single(att, self.__dict__["_" + att], subspec)

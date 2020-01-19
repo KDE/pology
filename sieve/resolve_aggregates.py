@@ -116,11 +116,11 @@ def _selvar_first (texts):
 def _selvar_frequent (texts):
 
     tinds_by_text = {}
-    for text, tind in zip(texts, list(range(len(texts)))):
+    for text, tind in zip(texts, range(len(texts))):
         if text not in tinds_by_text:
             tinds_by_text[text] = []
         tinds_by_text[text].append(tind)
-    tinds = sorted(list(tinds_by_text.values()), key=lambda x: (-len(x), x))
+    tinds = sorted(tinds_by_text.values(), key=lambda x: (-len(x), x))
 
     return texts[tinds[0][0]]
 
@@ -153,5 +153,5 @@ _splitter_rx = re.compile(r"\n?(?:#-){3,}# .*? (?:#-){3,}#\n?")
 def _resolve_aggtext (aggtext, selvar):
 
     texts = _splitter_rx.split(aggtext)[1:]
-    return str(selvar(texts)) if texts else aggtext
+    return unicode(selvar(texts)) if texts else aggtext
 

@@ -11,7 +11,7 @@ Interfaces may change arbitrarily between any two Pology releases.
 """
 
 import codecs
-from configparser import SafeConfigParser
+from ConfigParser import SafeConfigParser
 import datetime
 import imp
 import os
@@ -471,7 +471,7 @@ def collect_ascription_history (msg, acat, aconf,
     if hfilter:
         def flt (msg):
             msg = MessageUnsafe(msg)
-            msg.msgstr = list(map(hfilter, msg.msgstr))
+            msg.msgstr = map(hfilter, msg.msgstr)
             return msg
         ahist_r = []
         a_prevmod = None
@@ -574,27 +574,27 @@ def collect_ascription_history_segment (amsg, acat, aconf):
                 pmsg_seq = []
                 for i in range(len(amsg_seq)):
                     aval = amsg_seq[i]
-                    pval = _amsg_step_value(aval, shead, "\n",
+                    pval = _amsg_step_value(aval, shead, u"\n",
                                             spos[field], pvals[field], i)
                     # ...do not break if None, has to roll all spos items
                     if pval is not None:
                         while i >= len(pmsg_seq):
-                            pmsg_seq.append("")
+                            pmsg_seq.append(u"")
                         pmsg_seq[i] = pval
                 _set_from_sequence(pmsg_seq, pmsg, field)
         else:
             pmsg = MessageUnsafe(ahist[-1].msg) # must exist
         if a.fuzz:
-            pmsg.flag.add("fuzzy")
-        elif "fuzzy" in pmsg.flag:
-            pmsg.flag.remove("fuzzy")
+            pmsg.flag.add(u"fuzzy")
+        elif u"fuzzy" in pmsg.flag:
+            pmsg.flag.remove(u"fuzzy")
         pmsg.obsolete = a.obs
         a.rmsg, a.msg = amsg, pmsg
         ahist.append(a)
 
     # Sort history by date and put it in reverse.
     # If several ascriptions have same time stamps, preserve their order.
-    ahist_ord = list(zip(ahist, list(range(len(ahist)))))
+    ahist_ord = zip(ahist, range(len(ahist)))
     ahist_ord.sort(key=lambda x: (x[0].date, x[1]))
     ahist_ord.reverse()
     ahist = [x[0] for x in ahist_ord]
@@ -714,10 +714,10 @@ def _amsg_step_value (aval, shead, stail, spos, pvals, i):
     return pval
 
 
-_trsep_head = "|"
-_trsep_head_ext = "~"
-_trsep_mod_none = "x"
-_trsep_mod_eq = "e"
+_trsep_head = u"|"
+_trsep_head_ext = u"~"
+_trsep_mod_none = u"x"
+_trsep_mod_eq = u"e"
 
 def _field_separator_head (length):
 
@@ -736,7 +736,7 @@ def _needed_separator_length (msg):
             values = msg.get(field)
             if values is None:
                 continue
-            if isinstance(values, str):
+            if isinstance(values, basestring):
                 values = [values]
             for value in values:
                 if sephead in value:
@@ -762,7 +762,7 @@ def _get_as_sequence (msg, field, asc=True):
     elif field in _fields_comment:
         # Report comments as a single newline-delimited entry.
         if msg_seq:
-            msg_seq = ["\n".join(msg_seq)]
+            msg_seq = [u"\n".join(msg_seq)]
 
     return msg_seq
 
@@ -836,9 +836,9 @@ def ascribe_review (msg, user, dt, tags, acat, aconf):
     _ascribe_any(msg, user, acat, AscPoint.ATYPE_REV, tags, aconf, dt)
 
 
-_atag_sep = "/"
-_mark_fuzz = "f"
-_mark_obs = "o"
+_atag_sep = u"/"
+_mark_fuzz = u"f"
+_mark_obs = u"o"
 
 def _ascribe_any (msg, user, acat, atype, atags, aconf, dt=None):
 
@@ -898,9 +898,9 @@ def _ascribe_any (msg, user, acat, atype, atags, aconf, dt=None):
 
     # Update state.
     if msg.fuzzy:
-        amsg.flag.add("fuzzy")
+        amsg.flag.add(u"fuzzy")
     else:
-        amsg.flag.remove("fuzzy")
+        amsg.flag.remove(u"fuzzy")
     if msg.obsolete:
         amsg.obsolete = True
     else:
@@ -926,7 +926,7 @@ def _add_nonid (amsg, msg, slen, rahist):
     shead = _field_separator_head(slen)
     nones = [_field_separator_head(x.slen) + _trsep_mod_none
              for x in rahist if x.slen]
-    padnone = "\n".join(nones)
+    padnone = u"\n".join(nones)
 
     for field in _nonid_fields_tracked:
 
@@ -958,7 +958,7 @@ def _add_nonid (amsg, msg, slen, rahist):
             else:
                 add = shead + _trsep_mod_none
             if amsg_seq[i]:
-                amsg_seq[i] += "\n"
+                amsg_seq[i] += u"\n"
             amsg_seq[i] += add
 
         _set_from_sequence(amsg_seq, amsg, field)
@@ -968,7 +968,7 @@ fld_sep = ":"
 
 def _asc_append_field (msg, field, value):
 
-    stext = "".join([field, fld_sep, " ", str(value)])
+    stext = u"".join([field, fld_sep, " ", str(value)])
     msg.auto_comment.append(stext)
 
 
@@ -1032,8 +1032,8 @@ def merge_modified (msg1, msg2):
             if msg1.get(field) != msg2.get(field):
                 return False
     else:
-        fields = (msg1.fuzzy and list(zip(_fields_previous, _fields_current))
-                              or list(zip(_fields_current, _fields_previous)))
+        fields = (msg1.fuzzy and zip(_fields_previous, _fields_current)
+                              or zip(_fields_current, _fields_previous))
         for field1, field2 in fields:
             if msg1.get(field1) != msg2.get(field2):
                 return False
@@ -1349,7 +1349,7 @@ def make_ascription_selector (selspecs, hist=False):
                       sel=sname))
         try:
             selector = sfactory(sargs)
-        except PologyError as e:
+        except PologyError, e:
             raise PologyError(
                 _("@info",
                   "Selector '%(sel)s' not created due to "
@@ -1370,7 +1370,7 @@ def make_ascription_selector (selspecs, hist=False):
         for selector, selspec in selectors:
             try:
                 res = selector(msg, cat, ahist, aconf)
-            except PologyError as e:
+            except PologyError, e:
                 raise PologyError(
                     _("@info",
                       "Selector '%(sel)s' failed on message "
@@ -1431,7 +1431,7 @@ def import_ascription_extensions (modpath):
     # Load file into new module.
     modname = "mod" + str(len(_external_mods))
     xmod = imp.new_module(modname)
-    exec(modfile, xmod.__dict__)
+    exec modfile in xmod.__dict__
     modfile.close()
     _external_mods[modname] = xmod # to avoid garbage collection
 
@@ -1446,7 +1446,7 @@ def import_ascription_extensions (modpath):
 
     # Warn of unknown externals.
     known_xms = set(xms)
-    for xm in [x for x in dir(xmod) if x.startswith("asc_")]:
+    for xm in filter(lambda x: x.startswith("asc_"), dir(xmod)):
         if xm not in known_xms:
             warning(_("@info",
                       "Unknown external resource '%(res)s' "
@@ -1726,10 +1726,10 @@ def _selector_hexpr (args):
                         amsg2_value = amsg2.get(field)
                         if amsg2_value is None:
                             pass
-                        elif isinstance(amsg2_value, str):
+                        elif isinstance(amsg2_value, basestring):
                             setattr(amsg2, field, None)
                         else:
-                            amsg2_value = [""] * len(amsg2_value)
+                            amsg2_value = [u""] * len(amsg2_value)
                     i_next = len(ahist)
                 amsg = MessageUnsafe(a.msg)
                 msg_ediff(amsg2, amsg, emsg=amsg, addrem=addrem)

@@ -20,37 +20,37 @@ from pology.monitored import Monitored, Monlist, Monset, Monpair
 
 _Message_spec = {
     "manual_comment" : {"type" : Monlist,
-                        "spec" : {"*" : {"type" : str}}},
+                        "spec" : {"*" : {"type" : unicode}}},
     "auto_comment" : {"type" : Monlist,
-                      "spec" : {"*" : {"type" : str}}},
+                      "spec" : {"*" : {"type" : unicode}}},
     "source" : {"type" : Monlist,
                 "spec" : {"*" : {"type" : Monpair,
-                                 "spec" : {"first" : {"type" : str},
+                                 "spec" : {"first" : {"type" : unicode},
                                            "second" : {"type" : int}}}}},
     "flag" : {"type" : Monset,
-              "spec" : {"*" : {"type" : str}}},
+              "spec" : {"*" : {"type" : unicode}}},
 
     "obsolete" : {"type" : bool},
 
-    "msgctxt_previous" : {"type" : (str, type(None))},
-    "msgid_previous" : {"type" : (str, type(None))},
-    "msgid_plural_previous" : {"type" : (str, type(None))},
+    "msgctxt_previous" : {"type" : (unicode, type(None))},
+    "msgid_previous" : {"type" : (unicode, type(None))},
+    "msgid_plural_previous" : {"type" : (unicode, type(None))},
 
-    "msgctxt" : {"type" : (str, type(None))},
-    "msgid" : {"type" : str},
-    "msgid_plural" : {"type" : (str, type(None))},
+    "msgctxt" : {"type" : (unicode, type(None))},
+    "msgid" : {"type" : unicode},
+    "msgid_plural" : {"type" : (unicode, type(None))},
     "msgstr" : {"type" : Monlist,
-                "spec" : {"*" : {"type" : str}}},
+                "spec" : {"*" : {"type" : unicode}}},
 
-    "key" : {"type" : str, "derived" : True},
-    "fmt" : {"type" : str, "derived" : True},
-    "inv" : {"type" : str, "derived" : True},
-    "trn" : {"type" : str, "derived" : True},
+    "key" : {"type" : unicode, "derived" : True},
+    "fmt" : {"type" : unicode, "derived" : True},
+    "inv" : {"type" : unicode, "derived" : True},
+    "trn" : {"type" : unicode, "derived" : True},
     "fuzzy" : {"type" : bool},
     "untranslated" : {"type" : bool, "derived" : True},
     "translated" : {"type" : bool, "derived" : True},
     "active" : {"type" : bool, "derived" : True},
-    "format" : {"type" : str, "derived" : True},
+    "format" : {"type" : unicode, "derived" : True},
 
     "refline" : {"type" : int},
     "refentry" : {"type" : int},
@@ -359,7 +359,7 @@ class Message_base (object):
             return format_flag
 
         elif att == "fuzzy":
-            return "fuzzy" in self.flag
+            return u"fuzzy" in self.flag
 
         elif att == "key_previous":
             if self.msgid_previous is not None:
@@ -377,17 +377,17 @@ class Message_base (object):
         for field in fields:
             val = self.get(field)
             if field in _Message_state_fields:
-                fval = val and "1" or "0"
+                fval = val and u"1" or u"0"
             elif field in _Message_list_fields:
-                fval = "\x02".join(["%s" % x for x in val])
+                fval = u"\x02".join([u"%s" % x for x in val])
             elif field in _Message_list2_fields:
-                fval = "\x02".join(["%s:%s" % tuple(x) for x in val])
+                fval = u"\x02".join([u"%s:%s" % tuple(x) for x in val])
             elif field in _Message_set_fields:
-                vlst = ["%s" % x for x in val]
+                vlst = [u"%s" % x for x in val]
                 vlst.sort()
-                fval = "\x02".join(vlst)
+                fval = u"\x02".join(vlst)
             else:
-                fval = val is None and "\x00" or "%s" % val
+                fval = val is None and u"\x00" or u"%s" % val
             fmtvals.append(fval)
         return "\x04".join(fmtvals)
 
@@ -426,9 +426,9 @@ class Message_base (object):
 
         elif att == "fuzzy":
             if val == True:
-                self.flag.add("fuzzy")
-            elif "fuzzy" in self.flag:
-                self.flag.remove("fuzzy")
+                self.flag.add(u"fuzzy")
+            elif u"fuzzy" in self.flag:
+                self.flag.remove(u"fuzzy")
 
         else:
             self.__dict__["^getsetattr"].__setattr__(self, att, val)
@@ -522,7 +522,7 @@ class Message_base (object):
             # Rearange so that fuzzy is first, if present.
             flst = []
             for fl in self.flag:
-                if fl == "fuzzy":
+                if fl == u"fuzzy":
                     if colorize >= 1:
                         fl = ColorString("<underline>%s</underline>") % fl
                     flst.insert(0, fl)
@@ -542,7 +542,7 @@ class Message_base (object):
                 msgsth = getattr(self, att)
                 if msgsth is not None or att in _Message_mandatory_fields:
                     if msgsth is None:
-                        msgsth = ""
+                        msgsth = u""
                     if att.endswith("_previous"):
                         fname = att[:-len("_previous")]
                         pstat = "prev"
@@ -563,7 +563,7 @@ class Message_base (object):
 
         if force or mod["msgstr"] or not self._lines_msgstr or new_plurality:
             self._lines_msgstr = []
-            msgstr = self.msgstr or [""]
+            msgstr = self.msgstr or [u""]
             if self.msgid_plural is None:
                 fname = "msgstr"
                 if colorize >= 1:
@@ -603,7 +603,7 @@ class Message_base (object):
         lins.extend(self._lines_msgstr)
 
         if self._lines_all[-1] != "\n":
-            lins.extend("\n")
+            lins.extend(u"\n")
 
 
     def to_lines (self, wrapf=wrap_field, force=False, colorize=0):
@@ -745,7 +745,7 @@ class Message_base (object):
         self.msgid_plural_previous = None
         if msgstrlen is None:
             msgstrlen = len(self.msgstr)
-        self.msgstr = type(self.msgstr)([""] * msgstrlen)
+        self.msgstr = type(self.msgstr)([u""] * msgstrlen)
 
 
     def state (self):
@@ -906,7 +906,7 @@ class Message (Message_base, Monitored): # order important for get/setattr
 
         self._manual_comment = Monlist(init.get("manual_comment", [])[:])
         self._auto_comment = Monlist(init.get("auto_comment", [])[:])
-        self._source = Monlist(list(map(Monpair, init.get("source", [])[:])))
+        self._source = Monlist(map(Monpair, init.get("source", [])[:]))
         self._flag = Monset(init.get("flag", []))
 
         self._obsolete = init.get("obsolete", False)
@@ -916,11 +916,11 @@ class Message (Message_base, Monitored): # order important for get/setattr
         self._msgid_plural_previous = init.get("msgid_plural_previous", None)
 
         self._msgctxt = init.get("msgctxt", None)
-        self._msgid = init.get("msgid", "")
+        self._msgid = init.get("msgid", u"")
         self._msgid_plural = init.get("msgid_plural", None)
         self._msgstr = Monlist(init.get("msgstr", [])[:])
 
-        self._fuzzy = ("fuzzy" in self._flag and not self._obsolete)
+        self._fuzzy = (u"fuzzy" in self._flag and not self._obsolete)
 
         self._refline = init.get("refline", -1)
         self._refentry = init.get("refentry", -1)
@@ -1011,9 +1011,9 @@ class MessageUnsafe (Message_base):
         self.msgid_plural_previous = init.get("msgid_plural_previous", None)
 
         self.msgctxt = init.get("msgctxt", None)
-        self.msgid = init.get("msgid", "")
+        self.msgid = init.get("msgid", u"")
         self.msgid_plural = init.get("msgid_plural", None)
-        self.msgstr = list(init.get("msgstr", [""]))
+        self.msgstr = list(init.get("msgstr", [u""]))
 
         self.refline = init.get("refline", -1)
         self.refentry = init.get("refentry", -1)

@@ -30,7 +30,6 @@ from pology.rules import loadRules, printStat
 from pology.sieve import add_param_lang, add_param_env, add_param_poeditors
 from pology.timeout import TimedOutException
 from pology.sieve import SieveError, SieveCatalogError, SieveMessageError
-from functools import reduce
 
 
 # Pattern used to marshall path of cached files
@@ -40,7 +39,7 @@ _MARSHALL = "+++"
 _CACHEDIR = expandvars("$HOME/.pology-check_rules-cache/")
 
 # Flag to add to failed messages, if requested.
-_flag_mark = "failed-rule"
+_flag_mark = u"failed-rule"
 
 
 def setup_sieve (p):
@@ -66,14 +65,14 @@ def setup_sieve (p):
     "Load only rules explicitly belonging to environment given by '%(par)s'.",
     par="env"
     ))
-    p.add_param("accel", str, multival=True,
+    p.add_param("accel", unicode, multival=True,
                 metavar=_("@info sieve parameter value placeholder", "CHAR"),
                 desc=_("@info sieve parameter discription",
     "Character which is used as UI accelerator marker in text fields. "
     "If a catalog defines accelerator marker in the header, "
     "this value overrides it."
     ))
-    p.add_param("markup", str, seplist=True,
+    p.add_param("markup", unicode, seplist=True,
                 metavar=_("@info sieve parameter value placeholder", "KEYWORD"),
                 desc=_("@info sieve parameter discription",
     "Markup that can be expected in text fields, as special keyword "
@@ -83,13 +82,13 @@ def setup_sieve (p):
     "this value overrides it."
     "Several markups can be given as comma-separated list."
     ))
-    p.add_param("rfile", str, multival=True,
+    p.add_param("rfile", unicode, multival=True,
                 metavar=_("@info sieve parameter value placeholder", "PATH"),
                 desc=_("@info sieve parameter discription",
     "Load rules from a file, rather than internal Pology rules. "
     "Several rule files can be given by repeating the parameter."
     ))
-    p.add_param("rdir", str, multival=True,
+    p.add_param("rdir", unicode, multival=True,
                 metavar=_("@info sieve parameter value placeholder", "DIRPATH"),
                 desc=_("@info sieve parameter discription",
     "Load rules from a directory, rather than internal Pology rules."
@@ -103,37 +102,37 @@ def setup_sieve (p):
                 desc=_("@info sieve parameter discription",
     "Do not show message content at all when reporting failures."
     ))
-    p.add_param("rule", str, seplist=True,
+    p.add_param("rule", unicode, seplist=True,
                 metavar=_("@info sieve parameter value placeholder", "RULEID"),
                 desc=_("@info sieve parameter discription",
     "Apply only the rule given by this identifier. "
     "Several identifiers can be given as comma-separated list."
     ))
-    p.add_param("rulerx", str, multival=True,
+    p.add_param("rulerx", unicode, multival=True,
                 metavar=_("@info sieve parameter value placeholder", "REGEX"),
                 desc=_("@info sieve parameter discription",
     "Apply only the rules with identifiers matching this regular expression. "
     "Several patterns can be given by repeating the parameter."
     ))
-    p.add_param("norule", str, seplist=True,
+    p.add_param("norule", unicode, seplist=True,
                 metavar=_("@info sieve parameter value placeholder", "RULEID"),
                 desc=_("@info sieve parameter discription",
     "Do not apply rule given by this identifier. "
     "Several identifiers can be given as comma-separated list."
     ))
-    p.add_param("norulerx", str, multival=True,
+    p.add_param("norulerx", unicode, multival=True,
                 metavar=_("@info sieve parameter value placeholder", "REGEX"),
                 desc=_("@info sieve parameter discription",
     "Do not apply the rules with identifiers matching this regular expression. "
     "Several patterns can be given by repeating the parameter."
     ))
-    p.add_param("branch", str, seplist=True,
+    p.add_param("branch", unicode, seplist=True,
                 metavar=_("@info sieve parameter value placeholder", "BRANCH"),
                 desc=_("@info sieve parameter discription",
     "In summit catalogs, consider only messages belonging to given branch. "
     "Several branches can be given as comma-separated list."
     ))
-    p.add_param("xml", str,
+    p.add_param("xml", unicode,
                 metavar=_("@info sieve parameter value placeholder", "PATH"),
                 desc=_("@info sieve parameter discription",
     "Write rule failures into an XML file instead of stdout."
@@ -218,7 +217,7 @@ class Sieve (object):
             #Create cache dir (only if we want wml output)
             try:
                 os.mkdir(_CACHEDIR)
-            except IOError as e:
+            except IOError, e:
                 raise SieveError(_("@info",
                                    "Cannot create cache directory '%(dir)s':\n"
                                    "%(msg)s",
@@ -430,7 +429,7 @@ class Sieve (object):
                                 "rule %(rule)s ==> %(msg)s",
                                 rule=rule.displayName, msg=rule.hint))
                     for part, item, spans, fval in hl:
-                        repls.extend(["↳ %s" % x[2]
+                        repls.extend([u"↳ %s" % x[2]
                                      for x in spans if len(x) > 2])
                 report_msg_to_lokalize(msg, cat, cjoin(repls, "\n"))
 

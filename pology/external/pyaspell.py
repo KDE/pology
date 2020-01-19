@@ -349,18 +349,18 @@ Aspell = AspellLinux
 if __name__ == '__main__':
 	# TODO: more test cases
 	a = Aspell(("lang", "en"))
-	print(a.check("when"))
-	print(a.suggest("wehn"))
+	print a.check("when")
+	print a.suggest("wehn")
 	a.add_replacement_pair("wehn", "ween")
-	print(a.suggest("wehn"))
+	print a.suggest("wehn")
 
-	print(a.session_dict())
-	print(a.check("pyaspell"))
+	print a.session_dict()
+	print a.check("pyaspell")
 	a.session_dict("pyaspell")
-	print(a.session_dict())
-	print(a.check("pyaspell"))
+	print a.session_dict()
+	print a.check("pyaspell")
 	a.session_dict(clear=True)
-	print(a.session_dict())
+	print a.session_dict()
 	
 	a.close()
 

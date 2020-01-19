@@ -84,7 +84,7 @@ def add_param_lang (p, appx=None):
     )
     if appx:
         desc = "%s\n\n%s" % (desc, appx)
-    p.add_param("lang", str,
+    p.add_param("lang", unicode,
                 metavar=_("@info sieve parameter value placeholder", "CODE"),
                 desc=desc)
 
@@ -105,7 +105,7 @@ def add_param_env (p, appx=None):
     )
     if appx:
         desc = "%s\n\n%s" % (desc, appx)
-    p.add_param("env", str, seplist=True,
+    p.add_param("env", unicode, seplist=True,
                 metavar=_("@info sieve parameter value placeholder", "CODE"),
                 desc=desc)
 
@@ -123,7 +123,7 @@ def add_param_accel (p, appx=None):
     )
     if appx:
         desc = "%s\n\n%s" % (desc, appx)
-    p.add_param("accel", str, multival=True,
+    p.add_param("accel", unicode, multival=True,
                 metavar=_("@info sieve parameter value placeholder", "CHAR"),
                 desc=desc)
 
@@ -142,7 +142,7 @@ def add_param_markup (p, appx=None):
     )
     if appx:
         desc = "%s\n\n%s" % (desc, appx)
-    p.add_param("markup", str, seplist=True,
+    p.add_param("markup", unicode, seplist=True,
                 metavar=_("@info sieve parameter value placeholder", "KEYWORD"),
                 desc=desc)
 
@@ -175,7 +175,7 @@ def add_param_filter (p, intro=None):
     if intro:
         desc = "%s\n\n%s" % (intro, desc)
 
-    p.add_param("filter", str, multival=True,
+    p.add_param("filter", unicode, multival=True,
                 metavar=_("@info sieve parameter value placeholder",
                           "HOOKSPEC"),
                 desc=desc)
@@ -199,7 +199,7 @@ def add_param_entdef (p):
     Add C{entdef} parameter to sieve parameters.
     """
 
-    p.add_param("entdef", str, multival=True,
+    p.add_param("entdef", unicode, multival=True,
                 metavar="FILE",
                 desc=_("@info sieve parameter discription; "
                        "in the last line only 'entname' and 'entvalue' "
@@ -231,7 +231,7 @@ def add_param_spellcheck (p):
         ))
     add_param_accel(p)
     add_param_markup(p)
-    p.add_param("skip", str,
+    p.add_param("skip", unicode,
                 metavar=_("@info sieve parameter value placeholder", "REGEX"),
                 desc=_("@info sieve parameter discription",
     "Regular expression to eliminate from spell-checking words that match it."
