@@ -31,7 +31,6 @@ and translation projects.
 """
 
 import gettext
-import locale
 import os
 import re
 
@@ -47,11 +46,9 @@ def datadir ():
     @rtype: string
     """
 
-    lenc = locale.getpreferredencoding()
-    datadir = "@CONFIG_DATADIR@".decode(lenc) # configured if installed
+    datadir = "@CONFIG_DATADIR@" # configured if installed
     if not os.path.isdir(datadir): # if running from source dir
-        srcdir = os.path.dirname(os.path.dirname(__file__))
-        datadir = srcdir.decode(lenc)
+        datadir = os.path.dirname(os.path.dirname(__file__))
     return datadir
 
 
@@ -63,11 +60,10 @@ def localedir ():
     @rtype: string
     """
 
-    lenc = locale.getpreferredencoding()
-    localedir = "@CONFIG_LOCALEDIR@".decode(lenc) # configured if installed
+    localedir = "@CONFIG_LOCALEDIR@" # configured if installed
     if not os.path.isdir(localedir): # if running from source dir
         srcdir = os.path.dirname(os.path.dirname(__file__))
-        localedir = os.path.join(srcdir, "mo").decode(lenc)
+        localedir = os.path.join(srcdir, "mo")
     return localedir
 
 
@@ -79,13 +75,12 @@ def version ():
     @rtype: string
     """
 
-    lenc = locale.getpreferredencoding()
-    verstr = "@CONFIG_VERSION@".decode(lenc) # configured if installed
+    verstr = "@CONFIG_VERSION@" # configured if installed
     if verstr.startswith("@"): # if running from source dir
         try:
             verfile = os.path.join(datadir(), "VERSION")
-            for line in open(verfile):
-                line = line.decode("UTF-8").strip()
+            for line in open(verfile, encoding='utf-8'):
+                line = line.strip()
                 if line:
                     verstr = line
                     break
@@ -263,7 +258,7 @@ class TextTrans:
         """
 
         if self._msgid_plural is None:
-            trf = _tr.ugettext # camouflaged against xgettext
+            trf = _tr.gettext # camouflaged against xgettext
             if self._msgctxt is None:
                 msgstr = trf(self._msgid)
             else:
@@ -278,7 +273,7 @@ class TextTrans:
                       "No '%(arg)s' keyword argument to "
                       "plural translation request.",
                       arg="num"))
-            trf = _tr.ungettext # camouflaged against xgettext
+            trf = _tr.ngettext # camouflaged against xgettext
             if self._msgctxt is None:
                 msgstr = trf(self._msgid, self._msgid_plural, n)
             else:
@@ -309,12 +304,5 @@ class PologyError (Exception):
         self._msg = msg
 
 
-    def  __unicode__ (self):
-
+    def  __str__(self):
         return str(self._msg)
-
-
-    def  __str__ (self):
-
-        return self.__unicode__().encode(locale.getpreferredencoding())
-

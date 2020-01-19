@@ -287,7 +287,7 @@ def _fill_color_string_class ():
         return wmethod
 
     for attrname in (
-        "__getitem__", "__getslice__", "__mul__", "__rmul__",
+        "__getitem__", "__mul__", "__rmul__",
         "capitalize", "center", "expandtabs", "ljust", "lower", "lstrip",
         "replace", "rjust", "rsplit", "rstrip", "split", "strip", "swapcase",
         "title", "translate", "upper", "zfill",

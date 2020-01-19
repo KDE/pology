@@ -84,28 +84,29 @@ def _read_lines_and_encoding (file, filename):
     fstr = file.read()
     # Determine line ending.
     maxlno = 0
-    for clend in ("\r\n", "\n", "\r"): # "\r\n" should be checked first
+    for clend in (b"\r\n", b"\n", b"\r"): # "\r\n" should be checked first
         lno = len(fstr.split(clend))
         if maxlno < lno:
             maxlno = lno
             lend = clend
-    lines = [x + "\n" for x in fstr.split(lend)]
-    if lines[-1] == "\n":
+    lines = [x + b"\n" for x in fstr.split(lend)]
+    if lines[-1] == b"\n":
         lines.pop()
 
     enc = None
-    enc_rx = re.compile(r"Content-Type:.*charset=(.+?)\\n", re.I)
+    enc_rx = re.compile(rb"Content-Type:.*charset=(.+?)\\n", re.I)
     for line in lines:
-        if line.strip().startswith("#:"):
+        if line.strip().startswith(b"#:"):
             break
         m = enc_rx.search(line)
         if m:
             enc = m.group(1).strip()
-            if not enc or enc == "CHARSET": # no encoding given
+            if not enc or enc == b"CHARSET": # no encoding given
                 enc = None
             break
     if enc is None:
-        enc = "UTF-8" # fall back to UTF-8 if encoding not found
+        enc = b"UTF-8" # fall back to UTF-8 if encoding not found
+    enc = enc.decode()
 
     enclines = []
     lno = 0
