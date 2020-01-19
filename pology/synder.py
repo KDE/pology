@@ -15,7 +15,7 @@ in the user manual, at C{doc/user/lingo.docbook#sec-lgsynder}.
 """
 
 import copy
-import cPickle as pickle
+import pickle as pickle
 import hashlib
 import locale
 import os
@@ -59,7 +59,7 @@ class SynderError (PologyError):
             self.line = pos
             self.col = None
 
-        PologyError.__init__(self, unicode(self))
+        PologyError.__init__(self, str(self))
 
 
     def __unicode__ (self):
@@ -83,7 +83,7 @@ class SynderError (PologyError):
                   code=self.code, msg=self.message, source=self.source,
                   line=self.line, col=self.col)
 
-        return unicode(s)
+        return str(s)
 
 
 # ----------------------------------------
@@ -260,7 +260,7 @@ def compile_file (path, cpath=None, doraise=False):
 
     try:
         _compile_file_w(path, cpath)
-    except Exception, e:
+    except Exception as e:
         if doraise:
             raise
         else:
@@ -636,7 +636,7 @@ def _ctx_handler_inc (source, instr, pos, bpos):
     _ctx_exp,
     _ctx_tag,
     _ctx_inc,
-) = range(8)
+) = list(range(8))
 
 _ctx_handlers = (
     _ctx_handler_void,
@@ -736,7 +736,7 @@ class _SDSource:
 
     def __unicode__ (self):
         return (  "============> %s\n" % self.name
-                + "\n".join(map(unicode, self.derivs)))
+                + "\n".join(map(str, self.derivs)))
     def __str__ (self):
         return self.__unicode__().encode(locale.getpreferredencoding())
 
@@ -757,8 +757,8 @@ class _SDDeriv:
 
     def __unicode__ (self):
         return (  "  -----> %d:%d\n" % self.pos
-                + "  " + "\n  ".join(map(unicode, self.syns)) + "\n"
-                + "\n".join(map(unicode, self.envs)))
+                + "  " + "\n  ".join(map(str, self.syns)) + "\n"
+                + "\n".join(map(str, self.envs)))
     def __str__ (self):
         return self.__unicode__().encode(locale.getpreferredencoding())
 
@@ -779,7 +779,7 @@ class _SDEnv:
 
     def __unicode__ (self):
         return (  "    @%s:%d:%d\n" % ((self.name,) + self.pos)
-                + "\n".join(map(unicode, self.props)))
+                + "\n".join(map(str, self.props)))
     def __str__ (self):
         return self.__unicode__().encode(locale.getpreferredencoding())
 
@@ -800,7 +800,7 @@ class _SDSyn:
 
     def __unicode__ (self):
         return (  "{p:%d:%d|%s}=" % (self.pos + (self.hidden,))
-                + u"".join(map(unicode, self.segs)))
+                + "".join(map(str, self.segs)))
     def __str__ (self):
         return self.__unicode__().encode(locale.getpreferredencoding())
 
@@ -821,8 +821,8 @@ class _SDProp:
 
     def __unicode__ (self):
         return (  "      %d:%d " % self.pos
-                + "k=" + u"".join(map(unicode, self.keys)) + " "
-                + "v=" + u"".join(map(unicode, self.segs)))
+                + "k=" + "".join(map(str, self.keys)) + " "
+                + "v=" + "".join(map(str, self.segs)))
     def __str__ (self):
         return self.__unicode__().encode(locale.getpreferredencoding())
 
@@ -865,7 +865,7 @@ class _SDExp:
         self.kext = kext
 
     def __unicode__ (self):
-        return u"{e:%d:%d:%s|%s|%s|%s}" % (self.pos + (self.ref, self.mask,
+        return "{e:%d:%d:%s|%s|%s|%s}" % (self.pos + (self.ref, self.mask,
                                                        self.caps, self.kext))
     def __str__ (self):
         return self.__unicode__().encode(locale.getpreferredencoding())
@@ -883,7 +883,7 @@ class _SDTag:
         self.names = []
 
     def __unicode__ (self):
-        return u"{g:%d:%d:%s}" % (self.pos + ("+".join(self.names),))
+        return "{g:%d:%d:%s}" % (self.pos + ("+".join(self.names),))
     def __str__ (self):
         return self.__unicode__().encode(locale.getpreferredencoding())
 
@@ -1120,7 +1120,7 @@ class Synder (object):
     def _normenv (self, env):
 
         if isinstance(env, (tuple, list)):
-            if not env or isinstance(env[0], basestring):
+            if not env or isinstance(env[0], str):
                 env = (env,)
         else:
             env = ((env,),)
@@ -1293,9 +1293,9 @@ class Synder (object):
 
         noconfres_oderivs = []
         if self._strictkey or to_remove_keys == keyf(deriv):
-            noconfres_oderivs.extend(to_remove_keys_other.keys())
+            noconfres_oderivs.extend(list(to_remove_keys_other.keys()))
         else:
-            for oderiv, keys in to_remove_keys_other.items():
+            for oderiv, keys in list(to_remove_keys_other.items()):
                 if keyf(oderiv) == keys:
                     noconfres_oderivs.append(oderiv)
 
@@ -1316,7 +1316,7 @@ class Synder (object):
         else:
             for key in to_remove_keys:
                 keyf(deriv).remove(key)
-            for oderiv, keys in to_remove_keys_other.items():
+            for oderiv, keys in list(to_remove_keys_other.items()):
                 for key in keys:
                     keyf(oderiv).remove(key)
                     kmap.pop(key)
@@ -1417,13 +1417,13 @@ class Synder (object):
 
         # Construct raw derivation and extract key-value pairs.
         rprops = self._derive(deriv, env1)
-        props = dict([(x, self._simple_segs(y[0])) for x, y in rprops.items()
+        props = dict([(x, self._simple_segs(y[0])) for x, y in list(rprops.items())
                                                    if not y[1].canceling])
 
         # Internally transform keys if requested.
         if self._pkeyitf:
             nprops = []
-            for pkey, segs in props.items():
+            for pkey, segs in list(props.items()):
                 pkey = self._pkeyitf(pkey)
                 if pkey is not None:
                     nprops.append((pkey, segs))
@@ -1455,7 +1455,7 @@ class Synder (object):
                 for seg in prop.segs:
                     if isinstance(seg, _SDExp):
                         eprops = self._expand(seg, deriv, env1)
-                        if len(eprops) != 1 or eprops.keys()[0]:
+                        if len(eprops) != 1 or list(eprops.keys())[0]:
                             if cprops:
                                 for cpkey, csegskey in list(cprops.items()):
                                     if not csegskey[1].cut:
@@ -1467,27 +1467,27 @@ class Synder (object):
                                             cprops.pop(cpkey)
                                             if not cprops:
                                                 break
-                                for epkey, esegskey in eprops.items():
+                                for epkey, esegskey in list(eprops.items()):
                                     if esegskey[1].cut:
                                         cprops[epkey] = esegskey
                                 if not cprops:
                                     break
                             else:
-                                for pkey, (esegs, key) in eprops.items():
+                                for pkey, (esegs, key) in list(eprops.items()):
                                     csegs = esegs[:]
                                     if not key.cut:
                                         csegs[:0] = fsegs
                                     cprops[pkey] = (csegs, key)
                         else:
-                            esegs = eprops.values()[0][0]
+                            esegs = list(eprops.values())[0][0]
                             if cprops:
-                                for pkey, (csegs, key) in cprops.items():
+                                for pkey, (csegs, key) in list(cprops.items()):
                                     if not key.cut or pkey in ownpkeys:
                                         csegs.extend(esegs)
                             else:
                                 fsegs.extend(esegs)
                     elif cprops:
-                        for pkey, (csegs, key) in cprops.items():
+                        for pkey, (csegs, key) in list(cprops.items()):
                             if not key.cut or pkey in ownpkeys:
                                 csegs.append(seg)
                     else:
@@ -1501,7 +1501,7 @@ class Synder (object):
                 dprops.update(cprops)
 
         # Eliminate leading and trailing empty text segments.
-        map(self._trim_segs, [x[0] for x in dprops.values()])
+        list(map(self._trim_segs, [x[0] for x in list(dprops.values())]))
 
         self._raw_props_by_deriv_env1[(deriv, env1)] = dprops
         return dprops
@@ -1531,7 +1531,7 @@ class Synder (object):
 
         # Drop terminal properties.
         nprops = []
-        for pkey, (segs, key) in props.items():
+        for pkey, (segs, key) in list(props.items()):
             if not key.terminal:
                 nprops.append((pkey, (segs, key)))
         props = dict(nprops)
@@ -1541,7 +1541,7 @@ class Synder (object):
             # Eliminate all obtained keys not matching the mask.
             # Reduce by mask those that match.
             nprops = []
-            for pkey, segskey in props.items():
+            for pkey, segskey in list(props.items()):
                 if len(pkey) != len(exp.mask):
                     continue
                 mpkey = ""
@@ -1559,7 +1559,7 @@ class Synder (object):
         # Apply key extension.
         if exp.kext is not None:
             nprops = []
-            for pkey, (segs, key) in props.items():
+            for pkey, (segs, key) in list(props.items()):
                 npkey = exp.kext.replace(_ch_exp_kext_pl, pkey)
                 nprops.append((npkey, (segs, key)))
             props = dict(nprops)
@@ -1568,7 +1568,7 @@ class Synder (object):
         if exp.caps is not None:
             chcaps = first_to_upper if exp.caps else first_to_lower
             nprops = []
-            for pkey, (segs, key) in props.items():
+            for pkey, (segs, key) in list(props.items()):
                 chcapsed = False
                 nsegs = []
                 for seg in segs:
@@ -1597,8 +1597,8 @@ class Synder (object):
     def _trim_segs (self, segs):
 
         for i0, di, stripf in (
-            (0, 1, unicode.lstrip),
-            (len(segs) - 1, -1, unicode.rstrip),
+            (0, 1, str.lstrip),
+            (len(segs) - 1, -1, str.rstrip),
         ):
             i = i0
             while i >= 0 and i < len(segs):
@@ -1677,7 +1677,7 @@ class Synder (object):
         """
 
         if not single:
-            return self._visible_deriv_by_dkey.keys()
+            return list(self._visible_deriv_by_dkey.keys())
         else:
             return self._single_dkeys
 
@@ -1759,7 +1759,7 @@ class Synder (object):
         pkeys = set()
         for env1 in env:
             props = self._getprops(deriv, env1)
-            pkeys.update(props.keys())
+            pkeys.update(list(props.keys()))
 
         return pkeys
 
@@ -1861,7 +1861,7 @@ class Synder (object):
         @rtype: [string*]
         """
 
-        return list(self.iterkeys())
+        return list(self.keys())
 
 
     def values (self):
@@ -1872,7 +1872,7 @@ class Synder (object):
         @rtype: [string*]
         """
 
-        return list(self.itervalues())
+        return list(self.values())
 
 
     def items (self):
@@ -1883,7 +1883,7 @@ class Synder (object):
         @rtype: [(string, string)*]
         """
 
-        return list(self.iteritems())
+        return list(self.items())
 
 
     def __contains__ (self, ckey):
@@ -1922,7 +1922,7 @@ class Synder (object):
         @rtype: iterator(string)
         """
 
-        return self.iterkeys()
+        return iter(self.keys())
 
 
     def iterkeys (self):
@@ -1967,7 +1967,7 @@ class Synder (object):
         def __iter__ (self):
             return self
 
-        def next (self):
+        def __next__ (self):
             return self._it() # expected to raise StopIteration on its own
 
 
@@ -1977,7 +1977,7 @@ class Synder (object):
         gdat = [None, []] # dkey, pkeys
         def next ():
             while not gdat[1]:
-                gdat[0] = it.next() # will raise StopIteration
+                gdat[0] = next(it) # will raise StopIteration
                 gdat[1] = self.pkeys(gdat[0])
             dkey = gdat[0]
             pkey = gdat[1].pop()

@@ -36,8 +36,8 @@ class MPC:
         "msgctxt", "msgid", "msgid_plural",
     ]
     prev_fields = [x + "_previous" for x in curr_fields]
-    currprev_fields = zip(curr_fields, prev_fields)
-    prevcurr_fields = zip(prev_fields, curr_fields)
+    currprev_fields = list(zip(curr_fields, prev_fields))
+    prevcurr_fields = list(zip(prev_fields, curr_fields))
 
     def __init__ (self):
         _raise_no_inst(self.__class__.__name__)
@@ -45,9 +45,9 @@ class MPC:
 
 # Syntax tokens in embedded diff catalogs.
 class EDST:
-    hmsgctxt_field = u"X-Ediff-Header-Context" # by spec
-    hmsgctxt_el = u"~" # by spec
-    filerev_sep = u" <<< " # by spec
+    hmsgctxt_field = "X-Ediff-Header-Context" # by spec
+    hmsgctxt_el = "~" # by spec
+    filerev_sep = " <<< " # by spec
 
     def __init__ (self):
         _raise_no_inst(self.__class__.__name__)
@@ -223,7 +223,7 @@ def _pair_msgs (cat1, cat2,
     # Delay inverting of catalogs until necessary.
     def icat_w (cat, icat_pack):
         if icat_pack[0] is None:
-            #print "===> inverting: %s" % cat.filename
+            #print("===> inverting: %s" % cat.filename)
             icat = Catalog("", create=True, monitored=False)
             for msg in cat:
                 upprogf()
@@ -242,7 +242,7 @@ def _pair_msgs (cat1, cat2,
     # Delay merging of catalogs until necessary.
     def mcat_w (cat1, cat2, mcat_pack):
         if mcat_pack[0] is None:
-            #print "===> merging: %s -> %s" % (cat1.filename, cat2.filename)
+            #print("===> merging: %s -> %s" % (cat1.filename, cat2.filename))
             # Merge is done if requested and both catalogs exist.
             if merge and not cat1.created() and not cat2.created():
                 mcat_pack[0] = merge_pofile(cat1.filename, cat2.filename,
@@ -429,7 +429,7 @@ def diff_hdrs (hdr1, hdr2, vpath1, vpath2, hmsgctxt, ecat, colorize):
     vpaths = [vpath1, vpath2]
     # Always use slashes as path separator, for portability of ediffs.
     vpaths = [x.replace(os.path.sep, "/") for x in vpaths]
-    ehmsg.msgid = u"- %s\n+ %s" % tuple(vpaths)
+    ehmsg.msgid = "- %s\n+ %s" % tuple(vpaths)
     # Add trailing newline if msgstr has it, again to appease msgfmt.
     if ehmsg.msgstr[0].endswith("\n"):
         ehmsg.msgid += "\n"
@@ -438,7 +438,7 @@ def diff_hdrs (hdr1, hdr2, vpath1, vpath2, hmsgctxt, ecat, colorize):
     ehmsg.msgctxt = hmsgctxt
 
     # Add conspicuous separator at the top of the header.
-    ehmsg.manual_comment.insert(0, u"=" * 76)
+    ehmsg.manual_comment.insert(0, "=" * 76)
 
     return ehmsg, dr > 0.0
 
@@ -452,38 +452,38 @@ def init_ediff_header (ehdr, hmsgctxt=EDST.hmsgctxt_el, extitle=None):
     listtype = type(ehdr.title)
 
     if extitle is not None:
-        title = u"+- ediff (%s) -+" % extitle
+        title = "+- ediff (%s) -+" % extitle
     else:
-        title = u"+- ediff -+"
+        title = "+- ediff -+"
     ehdr.title = listtype([title])
 
     year = time.strftime("%Y")
     if email:
-        author = u"%s <%s>, %s." % (user, email, year)
+        author = "%s <%s>, %s." % (user, email, year)
     else:
-        author = u"%s, %s." % (user, year)
+        author = "%s, %s." % (user, year)
     #ehdr.author = listtype([author])
     ehdr.author = listtype([])
 
-    ehdr.copyright = u""
-    ehdr.license = u""
+    ehdr.copyright = ""
+    ehdr.license = ""
     ehdr.comment = listtype()
 
     rfv = ehdr.replace_field_value # shortcut
 
-    rfv("Project-Id-Version", u"ediff")
+    rfv("Project-Id-Version", "ediff")
     ehdr.remove_field("Report-Msgid-Bugs-To")
     ehdr.remove_field("POT-Creation-Date")
-    rfv("PO-Revision-Date", unicode(time.strftime("%Y-%m-%d %H:%M%z")))
+    rfv("PO-Revision-Date", str(time.strftime("%Y-%m-%d %H:%M%z")))
     enc = "UTF-8" # strictly, input catalogs may have different encodings
-    rfv("Content-Type", u"text/plain; charset=%s" % enc)
-    rfv("Content-Transfer-Encoding", u"8bit")
+    rfv("Content-Type", "text/plain; charset=%s" % enc)
+    rfv("Content-Transfer-Encoding", "8bit")
     if email:
-        translator = u"%s <%s>" % (user, email)
+        translator = "%s <%s>" % (user, email)
     else:
-        translator = u"%s" % user
+        translator = "%s" % user
     rfv("Last-Translator", translator)
-    rfv("Language-Team", u"Differs")
+    rfv("Language-Team", "Differs")
     # FIXME: Something smarter? (Not trivial.)
     ehdr.remove_field("Plural-Forms")
 
@@ -493,7 +493,7 @@ def init_ediff_header (ehdr, hmsgctxt=EDST.hmsgctxt_el, extitle=None):
 
 def get_msgctxt_for_headers (cat):
 
-    hmsgctxt = u""
+    hmsgctxt = ""
     good = False
     while not good:
         hmsgctxt += EDST.hmsgctxt_el

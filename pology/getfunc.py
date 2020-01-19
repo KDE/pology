@@ -220,7 +220,7 @@ def get_hook (modpath, lang=None, proj=None, func=None, args=None, abort=False):
     if args is not None:
         try:
             call = eval("call(%s)" % args)
-        except Exception, e:
+        except Exception as e:
             fspec = "%s/%s" % (modpath, func)
             _raise_or_abort(_("@info",
                               "Cannot create hook by applying function "
@@ -323,7 +323,7 @@ def get_result (modpath, lang=None, proj=None, func=None, args="", abort=False):
                           mod=modpath, func=func), abort)
     try:
         res = eval("call(%s)" % args)
-    except Exception, e:
+    except Exception as e:
         fspec = "%s/%s" % (modpath, func)
         _raise_or_abort(_("@info",
                           "Evaluating function '%(func)s' "

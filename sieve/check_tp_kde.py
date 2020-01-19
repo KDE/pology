@@ -37,9 +37,9 @@ def setup_sieve (p):
     "of whether original itself is valid (default is to check translation "
     "only if original passes checks)."
     ))
-    chnames = _known_checks.keys()
+    chnames = list(_known_checks.keys())
     chnames.sort()
-    p.add_param("check", unicode, seplist=True,
+    p.add_param("check", str, seplist=True,
                 metavar=_("@info sieve parameter value placeholder",
                           "KEYWORD,..."),
                 desc=_("@info sieve parameter discription",
@@ -204,7 +204,7 @@ def _check_kde4markup (msg, cat, pcache, hl):
         return 0
     if not strict:
         if (   validate_kde4_l1(msg.msgid, ents=[])
-            or validate_kde4_l1(msg.msgid_plural or u"", ents=[])
+            or validate_kde4_l1(msg.msgid_plural or "", ents=[])
         ):
             return 0
 
@@ -245,7 +245,7 @@ def _check_qtmarkup (msg, cat, pcache, hl):
         return 0
     if not strict:
         if (   validate_qtrich_l1(msg.msgid, ents=[])
-            or validate_qtrich_l1(msg.msgid_plural or u"", ents=[])
+            or validate_qtrich_l1(msg.msgid_plural or "", ents=[])
         ):
             return 0
 
@@ -294,7 +294,7 @@ def _check_htmlmarkup (msg, cat, pcache, hl):
         return 0
     if not strict:
         if (   validate_html_l1(msg.msgid, ents=[])
-            or validate_html_l1(msg.msgid_plural or u"", ents=[])
+            or validate_html_l1(msg.msgid_plural or "", ents=[])
         ):
             return 0
 
@@ -346,7 +346,7 @@ def _qtdt_parse (text):
 
 def _is_qtdt_msg (msg):
 
-    return (   (_qtdt_flag in (msg.msgctxt or u"").lower())
+    return (   (_qtdt_flag in (msg.msgctxt or "").lower())
             or (_qtdt_flag in msg.flag))
 
 
@@ -470,7 +470,7 @@ def _check_trcredits (msg, cat, pcache, hl):
                      num1=len(names), num2=len(emails))
             errors.append(emsg)
         else:
-            for name, email, i in zip(names, emails, range(1, len(names) + 1)):
+            for name, email, i in zip(names, emails, list(range(1, len(names) + 1))):
                 if not name and not email:
                     emsg = _("@info",
                              "Both name and email address "
@@ -554,12 +554,12 @@ def _on_cat_hl (catspecs): # as decorator
 # Like _add_cat_check_hl, except that instead of updating the highlight,
 # check function returns a single error message or a list of error messages.
 def _add_cat_check (check, catspecs):
-    if isinstance(catspecs, basestring):
+    if isinstance(catspecs, str):
         catspecs = [catspecs]
     def check_mod (msg, cat, pcache, hl):
         errors = check(msg, cat, pcache)
         if errors:
-            if isinstance(errors, basestring):
+            if isinstance(errors, str):
                 errors = [errors]
             hl.append(("msgstr", 0, [(None, None, x) for x in errors]))
             return len(errors)

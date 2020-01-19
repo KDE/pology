@@ -39,19 +39,19 @@ def setup_sieve (p):
 
     add_param_spellcheck(p)
 
-    p.add_param("enc", unicode,
+    p.add_param("enc", str,
                 metavar=_("@info sieve parameter value placeholder",
                           "ENCODING"),
                 desc=_("@info sieve parameter discription",
     "Encoding for text sent to Aspell."
     ))
-    p.add_param("var", unicode,
+    p.add_param("var", str,
                 metavar=_("@info sieve parameter value placeholder",
                           "VARIETY"),
                 desc=_("@info sieve parameter discription",
     "Variety of the Aspell dictionary."
     ))
-    p.add_param("xml", unicode,
+    p.add_param("xml", str,
                 metavar=_("@info sieve parameter value placeholder", "FILE"),
                 desc=_("@info sieve parameter discription",
     "Build XML report file at given path."
@@ -192,13 +192,13 @@ class Sieve (object):
                 # Create Aspell object.
                 import pology.external.pyaspell as A
                 try:
-                    self.aspells[ckey] = A.Aspell(self.aspellOptions.items())
-                except A.AspellConfigError, e:
+                    self.aspells[ckey] = A.Aspell(list(self.aspellOptions.items()))
+                except A.AspellConfigError as e:
                     raise SieveError(
                         _("@info",
                           "Aspell configuration error:\n%(msg)s",
                           msg=e))
-                except A.AspellError, e:
+                except A.AspellError as e:
                     raise SieveError(
                         _("@info",
                           "Cannot initialize Aspell:\n%(msg)s",
@@ -257,7 +257,7 @@ class Sieve (object):
             # Skip message with context in the ignoredContext list
             skip=False
             for context in self.ignoredContext:
-                if context in (msg.msgctxt or u"").lower():
+                if context in (msg.msgctxt or "").lower():
                     skip=True
                     break
                 for comment in msg.auto_comment:
@@ -341,7 +341,7 @@ class Sieve (object):
 
     def finalize (self):
         # Remove composited personal dictionaries.
-        for tmpDictFile in self.tmpDictFiles.values():
+        for tmpDictFile in list(self.tmpDictFiles.values()):
             if isfile(tmpDictFile):
                 os.unlink(tmpDictFile)
 

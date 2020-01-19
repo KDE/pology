@@ -25,7 +25,7 @@ def setup_sieve (p):
     p.set_desc(_("@info sieve discription",
     "Initialize or update the PO header with own translator data."
     ))
-    p.add_param("proj", unicode, mandatory=True,
+    p.add_param("proj", str, mandatory=True,
                 metavar=_("@info sieve parameter value placeholder", "ID"),
                 desc=_("@info sieve parameter discription",
     "Project ID in Pology configuration file, "
@@ -88,7 +88,7 @@ class Sieve (object):
                       field="language"))
         self.encoding = (   prjcfg.string("encoding")
                          or usrcfg.string("encoding")
-                         or u"UTF-8")
+                         or "UTF-8")
         self.plforms = (   prjcfg.string("plural-forms")
                         or usrcfg.string("plural-forms"))
         if not self.plforms:
@@ -108,10 +108,10 @@ class Sieve (object):
         if self.p.init:
             # Assemble translation title.
             if self.langteam:
-                title = (u"Translation of %(title)s into %(lang)s."
+                title = ("Translation of %(title)s into %(lang)s."
                          % dict(title="%poname", lang="%langname"))
             else:
-                title = (u"Translation of %(title)s."
+                title = ("Translation of %(title)s."
                          % dict(title="%poname"))
             # Remove some placeholders.
             if "YEAR" in hdr.copyright:

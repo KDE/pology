@@ -44,9 +44,9 @@ def main ():
     desc = _("@info command description",
         "Rewrap message strings in PO files.")
     ver = _("@info command version",
-        u"%(cmd)s (Pology) %(version)s\n"
-        u"Copyright © 2007, 2008, 2009, 2010 "
-        u"Chusslove Illich (Часлав Илић) &lt;%(email)s&gt;",
+        "%(cmd)s (Pology) %(version)s\n"
+        "Copyright © 2007, 2008, 2009, 2010 "
+        "Chusslove Illich (Часлав Илић) &lt;%(email)s&gt;",
         cmd="%prog", version=version(), email="caslav.ilic@gmx.net")
 
     opars = ColorOptionParser(usage=usage, description=desc, version=ver)

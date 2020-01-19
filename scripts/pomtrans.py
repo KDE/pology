@@ -51,9 +51,9 @@ def main ():
     desc = _("@info command description",
         "Perform machine translation of PO files.")
     ver = _("@info command version",
-        u"%(cmd)s (Pology) %(version)s\n"
-        u"Copyright © 2009, 2010 "
-        u"Chusslove Illich (Часлав Илић) &lt;%(email)s&gt;",
+        "%(cmd)s (Pology) %(version)s\n"
+        "Copyright © 2009, 2010 "
+        "Chusslove Illich (Часлав Илић) &lt;%(email)s&gt;",
         cmd="%prog", version=version(), email="caslav.ilic@gmx.net")
 
     opars = ColorOptionParser(usage=usage, description=desc, version=ver)
@@ -313,7 +313,7 @@ def to_translate (msg, options):
     return msg.untranslated
 
 
-_flag_mtrans = u"mtrans"
+_flag_mtrans = "mtrans"
 
 def decorate (msg, options):
 
@@ -363,7 +363,7 @@ def reduce_for_encoding (text, enc):
     while True:
         try:
             text.encode(enc)
-        except UnicodeEncodeError, e:
+        except UnicodeEncodeError as e:
             start, end = e[2], e[3]
             text = text[:start] + ("?" * (end - start)) + text[end:]
         finally:
@@ -393,11 +393,11 @@ class Translator_apertium (object):
         else:
             mode = "%s-%s" % (slang, tlang)
 
-        optional_parameters = u""
+        optional_parameters = ""
         if options.data_directory:
-            optional_parameters = u"-d %s" % options.data_directory
+            optional_parameters = "-d %s" % options.data_directory
 
-        self.cmdline = u"%s -u -f html-noent %s %s" % (
+        self.cmdline = "%s -u -f html-noent %s %s" % (
             cmdpath, optional_parameters, mode)
 
         entpath = os.path.join(datadir(), "spec", "html.entities")
@@ -483,7 +483,7 @@ class Translator_google (object):
 
     def translate (self, texts):
 
-        import urllib
+        import urllib.request, urllib.parse, urllib.error
         try:
             import simplejson
         except:
@@ -499,14 +499,14 @@ class Translator_google (object):
         texts_tr = []
         for text in texts:
             params = baseparams + (("q", text.encode("utf8")),)
-            parfmt = "&".join(["%s=%s" % (p, urllib.quote_plus(v))
+            parfmt = "&".join(["%s=%s" % (p, urllib.parse.quote_plus(v))
                                for p, v in params])
             execurl = "%s?%s" % (baseurl, parfmt)
             try:
-                res = simplejson.load(urllib.FancyURLopener().open(execurl))
-                text_tr = unicode(res["data"]["translations"][0]["translatedText"])
+                res = simplejson.load(urllib.request.FancyURLopener().open(execurl))
+                text_tr = str(res["data"]["translations"][0]["translatedText"])
             except:
-                text_tr = u""
+                text_tr = ""
             texts_tr.append(text_tr)
 
         return texts_tr
@@ -518,7 +518,7 @@ class Translator_google (object):
 _known_transervs = {}
 def _init ():
     tspref = "Translator_"
-    for locvar, locval in globals().items():
+    for locvar, locval in list(globals().items()):
         if locvar.startswith(tspref):
             _known_transervs[locvar[len(tspref):]] = locval
 _init()

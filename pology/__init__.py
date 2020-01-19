@@ -109,7 +109,7 @@ def version_info ():
     verstr = version()
     verrx = re.compile(r"^(\d+)\.(\d+)\.?(\d+)?(.*)$")
     m = verrx.match(verstr)
-    major, minor, bugfix = map(int, [x or "0" for x in m.groups()[:3]])
+    major, minor, bugfix = list(map(int, [x or "0" for x in m.groups()[:3]]))
     suffix = m.groups()[-1]
     verinfo = (major, minor, bugfix, suffix)
 
@@ -311,7 +311,7 @@ class PologyError (Exception):
 
     def  __unicode__ (self):
 
-        return unicode(self._msg)
+        return str(self._msg)
 
 
     def  __str__ (self):

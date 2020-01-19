@@ -161,16 +161,16 @@ def loadRulesFromFile(filePath, stat, envs=set(), seenMsgFilters={}):
     inGroup=False #Flag that indicate we are currently parsing a validGroup bloc
 
     valid=[]
-    pattern=u""
+    pattern=""
     msgpart=""
-    hint=u""
+    hint=""
     ident=None
     disabled=False
     manual=False
     casesens=True
     environ=None
     validGroup={}
-    validGroupName=u""
+    validGroupName=""
     identLines={}
     globalEnviron=None
     globalMsgFilters=[]
@@ -232,9 +232,9 @@ def loadRulesFromFile(filePath, stat, envs=set(), seenMsgFilters={}):
                                       mfilter=msgFilterFunc,
                                       rfilter=ruleFilterFunc,
                                       trigger=triggerFunc))
-                    pattern=u""
+                    pattern=""
                     msgpart=""
-                    hint=u""
+                    hint=""
                     ident=None
                     disabled=False
                     manual=False
@@ -246,7 +246,7 @@ def loadRulesFromFile(filePath, stat, envs=set(), seenMsgFilters={}):
                 elif inGroup:
                     inGroup=False
                     validGroup[validGroupName]=valid
-                    validGroupName=u""
+                    validGroupName=""
                 valid=[]
             
             if not fields:
@@ -431,18 +431,18 @@ def loadRulesFromFile(filePath, stat, envs=set(), seenMsgFilters={}):
                       "Unknown directive '%(dir)s'.",
                       dir=fields[0][0]))
 
-    except _IdentError, e:
+    except _IdentError as e:
         raise PologyError(
             _("@info",
               "Identifier '%(id)s' at %(file)s:%(line)d "
               "previously encountered at %(pos)s.",
               id=e.args[0], file=filePath, line=lno, pos=e.args[1]))
-    except IOError, e:
+    except IOError as e:
         raise PologyError(
             _("@info",
               "Cannot read rule file '%(file)s'. The error was: %(msg)s",
               file=filePath, msg=e.args[0]))
-    except _SyntaxError, e:
+    except _SyntaxError as e:
         raise PologyError(
             _("@info",
               "Syntax error at %(file)s:%(line)d:\n%(msg)s",
@@ -966,7 +966,7 @@ class Rule(object):
             if self.rfilter:
                 pattern=self.rfilter(pattern, "pattern")
             self.pattern=re.compile(pattern, self.reflags)
-        except Exception, e:
+        except Exception as e:
             warning(_("@info",
                       "Invalid pattern '%(pattern)s', disabling rule:\n"
                       "%(msg)s",
@@ -1035,7 +1035,7 @@ class Rule(object):
                                re.compile(vrx, self.reflags))
                     entry.append((key, value))
                 self.valid.append(entry)
-            except Exception, e:
+            except Exception as e:
                 warning(_("@info",
                           "Invalid validity definition '%(dfn)s', skipped. "
                           "The error was:\n%(msg)s",
@@ -1165,7 +1165,7 @@ class Rule(object):
                         failed_spans[skey] = (part, item, [], text)
                     failed_spans[skey][2].append(pmatch.span())
 
-        return failed_spans.values()
+        return list(failed_spans.values())
 
 
     def _processWithTrigger (self, msg, cat, envs):
@@ -1202,7 +1202,7 @@ class Rule(object):
                         failed_spans[skey] = (part, item, [], ftext)
                     failed_spans[skey][2].append(span)
 
-        return failed_spans.values()
+        return list(failed_spans.values())
 
 
     def _filter_message (self, msg, cat, envs):

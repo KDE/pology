@@ -78,7 +78,7 @@ def equip_header (hdr, cat):
 
     fvs = []
     fvs.append(("Language", lang, "Language-Team", False))
-    fvs.append(("X-Environment", u"kde", None, True))
+    fvs.append(("X-Environment", "kde", None, True))
     if accmark is not None:
         fvs.append(("X-Accelerator-Marker", accmark, None, False))
     if mtypes is not None:
@@ -90,7 +90,7 @@ def equip_header (hdr, cat):
         if not (existing and fkeep):
             if len(existing) > 1:
                 hdr.remove_field(fnam)
-            hdr.set_field(unicode(fnam), unicode(fval), after=fnamaft)
+            hdr.set_field(str(fnam), str(fval), after=fnamaft)
 
     return 0
 

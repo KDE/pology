@@ -53,9 +53,9 @@ def main ():
         "Merge PO file with itself or compendium, "
         "to produce fuzzy matches on similar messages.")
     ver = _("@info command version",
-        u"%(cmd)s (Pology) %(version)s\n"
-        u"Copyright © 2009, 2010 "
-        u"Chusslove Illich (Часлав Илић) &lt;%(email)s&gt;",
+        "%(cmd)s (Pology) %(version)s\n"
+        "Copyright © 2009, 2010 "
+        "Chusslove Illich (Часлав Илић) &lt;%(email)s&gt;",
         cmd="%prog", version=version(), email="caslav.ilic@gmx.net")
 
     opars = ColorOptionParser(usage=usage, description=desc, version=ver)
