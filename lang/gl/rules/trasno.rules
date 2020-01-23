@@ -2789,6 +2789,7 @@ hint="«field» tradúcese como «campo»"
 id="PT-2013-dual_field"
 valid msgid="\bcampos?\b"
 valid msgid="\bfields?\b"
+valid msgid="\bentr(y|ies)\b"  # form entry → campo de formulario
 hint="«campo» traduce a «field»"
 
 # «filesystem/file system» tradúcese como «sistema de ficheiros»
