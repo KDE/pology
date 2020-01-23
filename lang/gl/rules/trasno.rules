@@ -2555,6 +2555,7 @@ valid msgid="\bconcentrat(e[ds]?|ing)\b"
 valid msgid="\bfocus(e[ds]|ing)?\b"
 valid msgid="\bmiddle\b"
 hint="«centrar» traduce a «center/centre» (e a «align center)»"
+validGroup lista-de-tradutores
 
 # «channel» tradúcese como «canle»
 {\bchannels?\b}i
