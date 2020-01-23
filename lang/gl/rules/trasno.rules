@@ -735,6 +735,7 @@ valid msgid="\bm(?!arc(a(cións?|dor(es)?)|ábe(l|is))\b)[aá]r(c[áaoó]|qu[eé
 valid msgid="\b(book|output|place|scroll|tick|trade|water)?mark(ed|ing|s)?\b"
 valid msgid="\bmarkings?\b"
 valid msgid="\bmarkka\b"  # Finnish Markka → marco finés
+valid msgid="\bmarkup\b"  # marcado
 valid msgid="\bnotch(es)?\b"
 valid msgid="\b(place|space)(\s*|-)holders?\b"  # marca de posición
 valid msgid="\bscars?\b"
