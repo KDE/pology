@@ -146,10 +146,12 @@ id="rag-en-software"
 hint="software → programa, programas, soporte lóxico"
 valid msgstr="\bsoporte\s+lóxico\b"
 valid msgstr="\bprogramas?\b"
+valid msgstr="\bFree\s+Software\s+Foundation\b"
 
 [\bsoftware\b]i
 id="rag-gl-software"
 hint="software → programa, programas, soporte lóxico"
+valid msgstr="\bFree\s+Software\s+Foundation\b"
 
 [\bsoporte\s+lóxico\b]i
 id="rag-gl-soporte-lóxico"
