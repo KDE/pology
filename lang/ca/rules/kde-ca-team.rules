@@ -749,63 +749,64 @@ valid msgstr="Plasma Active"
 valid !msgstr="actiu"
 hint="«Plasma Active» es tradueix per «Plasma Active» (kde-ca-team)"
 
-{\bpop.?ups?\b}i
-id="kct-popup"
-valid msgid="\b(action|combo.?box|fading|morphing|notification|preview|sliding)\spop.?ups?\b"
-valid msgid="\bpop.?up\s(menus?|notifications?)\b"
-valid msgstr="\bemergents?\b"
-hint="Es tradueix per «emergent/s» (kde-ca-team)"
-
-    {\baction\spop.?ups?\b}i
-    id="kct-action-popup"
-    valid msgstr="\bemergents? d'acció\b"
-    hint="Es tradueix per «emergent/s d'acció» (kde-ca-team)"
-
-    {\bcombo.?box\spop.?ups?\b}i
-    id="kct-combox-popup"
-    valid msgstr="\bemergents? dels? quadres? combinats?\b"
-    hint="Es tradueix per «emergent/s del/s quadre/s combinat/s» (kde-ca-team)"
-
-    {\bfading\spop.?ups?\b}i
-    id="kct-fad-popup"
-    valid msgstr="\bemergents? esvaïts?\b"
-    hint="Es tradueix per «emergent/s esvaït/s» (kde-ca-team)"
-
-    [\b(missatges?|finestr(a|es))\semergents?\b]i
-    hint="Es tradueix per «emergent/s» (kde-ca-team)"
-
-    [\b(missatges?|finestr(a|es))\semergents?\sde\snotificació\b]i
-    hint="Es tradueix per «emergent/s de notificació» (kde-ca-team)"
-
-    {\bmorphing\spop.?ups?\b}i
-    id="kct-morph-popup"
-    valid msgstr="\bemergents? en metamorfosi\b"
-    hint="Es tradueix per «emergent/s en metamorfosi» (kde-ca-team)"
-
-    {\bnotification\spop.?ups?\b}i
-    id="kct-notf-popup"
-    valid msgstr="\bemergents? de notificació\b"
-    hint="Es tradueix per «emergent/s de notificació» (kde-ca-team)"
-
-    {\bpreview\spop.?ups?\b}i
-    id="kct-previ-popup"
-    valid msgstr="\bvist(a|es) prèvi(a|es) emergents?\b"
-    hint="Es tradueix per «Vista/es prèvia/es emergent/s» (kde-ca-team)"
-
-    {\bpop.?up\smenus?\b}i
-    id="kct-popup-menu"
-    valid msgstr="\bmenús? emergents?\b"
-    hint="Es tradueix per «menú/s emergent/s» (kde-ca-team)"
-
-    {\bpop.?up\snotifications?\b}i
-    id="kct-popup-notf"
-    valid msgstr="\bnotificaci(ó|ons) emergents?\b"
-    hint="Es tradueix per «notificació/ons emergent/s» (kde-ca-team)"
-
-    {\bsliding\spop.?ups?\b}i
-    id="kct-slid-popup"
-    valid msgstr="\bemergents? desplaçant-se\b"
-    hint="Es tradueix per «emergent/s desplaçant-se» (kde-ca-team)"
+# This rule must be improved: «emergent» in Catalan is an adjective, not a substantive
+#{\bpop.?ups?\b}i
+#id="kct-popup"
+#valid msgid="\b(action|combo.?box|fading|morphing|notification|preview|sliding)\spop.?ups?\b"
+#valid msgid="\bpop.?up\s(menus?|notifications?)\b"
+#valid msgstr="\bemergents?\b"
+#hint="Es tradueix per «emergent/s» (kde-ca-team)"
+#
+#    {\baction\spop.?ups?\b}i
+#    id="kct-action-popup"
+#    valid msgstr="\bemergents? d'acció\b"
+#    hint="Es tradueix per «emergent/s d'acció» (kde-ca-team)"
+#
+#    {\bcombo.?box\spop.?ups?\b}i
+#    id="kct-combox-popup"
+#    valid msgstr="\bemergents? dels? quadres? combinats?\b"
+#    hint="Es tradueix per «emergent/s del/s quadre/s combinat/s» (kde-ca-team)"
+#
+#    {\bfading\spop.?ups?\b}i
+#    id="kct-fad-popup"
+#    valid msgstr="\bemergents? esvaïts?\b"
+#    hint="Es tradueix per «emergent/s esvaït/s» (kde-ca-team)"
+#
+#    [\b(missatges?|finestr(a|es))\semergents?\b]i
+#    hint="Es tradueix per «emergent/s» (kde-ca-team)"
+#
+#    [\b(missatges?|finestr(a|es))\semergents?\sde\snotificació\b]i
+#    hint="Es tradueix per «emergent/s de notificació» (kde-ca-team)"
+#
+#    {\bmorphing\spop.?ups?\b}i
+#    id="kct-morph-popup"
+#    valid msgstr="\bemergents? en metamorfosi\b"
+#    hint="Es tradueix per «emergent/s en metamorfosi» (kde-ca-team)"
+#
+#    {\bnotification\spop.?ups?\b}i
+#    id="kct-notf-popup"
+#    valid msgstr="\bemergents? de notificació\b"
+#    hint="Es tradueix per «emergent/s de notificació» (kde-ca-team)"
+#
+#    {\bpreview\spop.?ups?\b}i
+#    id="kct-previ-popup"
+#    valid msgstr="\bvist(a|es) prèvi(a|es) emergents?\b"
+#    hint="Es tradueix per «Vista/es prèvia/es emergent/s» (kde-ca-team)"
+#
+#    {\bpop.?up\smenus?\b}i
+#    id="kct-popup-menu"
+#    valid msgstr="\bmenús? emergents?\b"
+#    hint="Es tradueix per «menú/s emergent/s» (kde-ca-team)"
+#
+#    {\bpop.?up\snotifications?\b}i
+#    id="kct-popup-notf"
+#    valid msgstr="\bnotificaci(ó|ons) emergents?\b"
+#    hint="Es tradueix per «notificació/ons emergent/s» (kde-ca-team)"
+#
+#    {\bsliding\spop.?ups?\b}i
+#    id="kct-slid-popup"
+#    valid msgstr="\bemergents? desplaçant-se\b"
+#    hint="Es tradueix per «emergent/s desplaçant-se» (kde-ca-team)"
 
 {\bpreview\sbox(es|s)?\b}i
 id="kct-previewbox"
