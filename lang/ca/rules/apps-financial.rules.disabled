@@ -1,0 +1,420 @@
+# Information technology for Catalan translations
+# by KDE Catalan Team (kde-i18n-ca@kde.org)
+# License: GPLv3
+
+# extragear-office
+
+# include file="filter.include"
+
+# Remove XML entities.
+# include file="../filter.include"
+
+# Remove accelerator and  hyphen inside words.
+addFilterRegex match="(\&|\-)" on="pmsgid,pmsgstr"
+
+{\baccounts?.?payable\b}i
+valid msgstr="\bcomptes? per pagar\b"
+hint="Cal substituir-ho per «comptes? per pagar» (revisió)"
+
+{\baccounts?.?receivable\b}i
+valid msgstr="\bcomptes? per cobrar\b"
+hint="Cal substituir-ho per «comptes? per cobrar» (revisió)"
+
+{\bamount\b}i
+valid msgid="\bloan\samount\b"
+valid msgstr="\bquantitat\b"
+valid msgstr="\bsaldo\b"
+hint="Cal substituir-ho per «quantitat, saldo» (revisió)"
+
+{\bAsset\b}i
+valid msgid="\basset(\sand\sliability)?\saccounts?\b"
+valid msgstr="\bActius\b"
+hint="Cal substituir-ho per «Actius» (revisió)"
+
+    {\basset\saccount\b}i
+    valid msgstr="\bcompte d'actiu\b"
+    hint="Cal substituir-ho per «compte d'actiu» (revisió)"
+
+    {\basset\sand\sliability\saccounts\b}i
+    valid msgstr="\bcomptes d'actiu i passiu\b"
+    hint="Cal substituir-ho per «comptes d'actiu i passiu» (revisió)"
+
+{\bbalance\b}i
+valid msgstr="\bSaldo\b"
+hint="Cal substituir-ho per «Saldo» (revisió)"
+
+{\bBalloon\spayment\b}i
+valid msgstr="\bPagament final\b"
+hint="Cal substituir-ho per «Pagament final» (revisió)"
+
+{\bbill\b}i
+valid msgstr="\bfactura\b"
+hint="Cal substituir-ho per «factura» (revisió)"
+
+    {\bbills\b}i
+    valid msgstr="\bfactures\b"
+    hint="Cal substituir-ho per «factures» (revisió)"
+
+{\bbrokerage\b}i
+valid msgstr="\bcorretatge\b"
+hint="Cal substituir-ho per «corretatge» (revisió)"
+
+{\bBudget(s|ing)?\b}i
+valid msgstr="\bPressupost(os)?\b"
+hint="Cal substituir-ho per «Pressupost(os)?» (revisió)"
+
+{\bCash\b}i
+valid msgstr="\bEfectiu\b"
+hint="Cal substituir-ho per «Efectiu» (revisió)"
+
+{\bCC\b}i
+valid msgstr="\bCD\b"
+hint="Cal substituir-ho per «CD» (revisió)"
+
+{\bchart\b}i
+valid msgstr="\bgràfic\b"
+hint="Cal substituir-ho per «gràfic» (revisió)"
+
+    {\bcharts\b}i
+    valid msgstr="\bgràfics\b"
+    hint="Cal substituir-ho per «gràfics» (revisió)"
+
+{\bCleared\b}i
+valid msgstr="\bLiquidat\b"
+hint="Cal substituir-ho per «Liquidat» (revisió)"
+
+{\bCost\sCenter\b}i
+valid msgstr="\bcentre de despesa\b"
+hint="Cal substituir-ho per «centre de despesa» (revisió)"
+
+{\bcredit\sunion\b}i
+valid msgstr="\bCooperativa de crèdit\b"
+hint="Cal substituir-ho per «Cooperativa de crèdit» (revisió)"
+
+{\bCurrency\b}i
+valid msgstr="\bmoneda\b"
+hint="Cal substituir-ho per «moneda» (revisió)"
+
+    {\bCurrencies\b}i
+    valid msgstr="\bDivises\b"
+    hint="Cal substituir-ho per «Divises» (revisió)"
+
+{\bdeposit\b}i
+valid msgstr="\bingrés\b"
+hint="Cal substituir-ho per «ingrés, * dipòsit» (revisió)"
+
+    {\bdeposits\b}i
+    valid msgstr="\bingressos\b"
+    hint="Cal substituir-ho per «ingressos, * dipòsits» (revisió)"
+
+# {\bentry\b}i
+# valid msgid="\b(menu|source)\sentry\b"
+# valid msgstr="\bintroducció\b"
+# hint="Cal substituir-ho per «introducció» (revisió)"
+
+    {\bmenu\sentry\b}i
+    valid msgstr="\bentrada de menú\b"
+    hint="Cal substituir-ho per «entrada de menú» (revisió)"
+
+    {\bsource\sentry\b}i
+    valid msgstr="\bentrada de la font\b"
+    hint="Cal substituir-ho per «entrada de la font» (revisió)"
+
+{\bExpenses?\b}i
+valid msgstr="\bDespes(a|es)\b"
+hint="Cal substituir-ho per «Despes(a|es)» (revisió)"
+
+{\bFee\b}i
+valid msgstr="\b(Càrrec|Comissió)\b"
+hint="Cal substituir-ho per «Càrrec, Comissió» (revisió)"
+
+    {\bFees\b}i
+    valid msgstr="\b(Càrrecs|Comissions)\b"
+    hint="Cal substituir-ho per «Càrrecs, Comissions» (revisió)"
+
+{\bfinancial\b}i
+valid msgid="\bfinancial\smanager\b"
+valid msgstr="\bfinanceres\b"
+hint="Cal substituir-ho per «financeres» (revisió)"
+
+    {\bfinancial\smanager\b}i
+    valid msgstr="\bgestor financer\b"
+    hint="Cal substituir-ho per «gestor financer» (revisió)"
+
+{\bForecast(ing)\b}i
+valid msgstr="\bPrevisi(ó|ons)\b"
+hint="Cal substituir-ho per «Previsi(ó|ons)» (revisió)"
+
+{\bHome.?Page\b}i
+valid msgstr="\bPàgina principal\b"
+hint="Cal substituir-ho per «Pàgina principal» (revisió)"
+
+{\bIncome\b}i
+valid msgstr="\bIngrés\b"
+hint="Cal substituir-ho per «Ingrés» (revisió)"
+
+    {\bIncomes\b}i
+    valid msgstr="\bIngressos\b"
+    hint="Cal substituir-ho per «Ingressos» (revisió)"
+
+{\binterest\b}i
+valid msgid="\bInterest\s(change|rate)\b"
+valid msgstr="\binter(ès|essos)\b"
+hint="Cal substituir-ho per «interès/essos» (revisió)"
+
+    {\bInterest\schange\b}i
+    valid msgstr="\bcanvi del tipus d'interès\b"
+    hint="Cal substituir-ho per «canvi del tipus d'interès» (revisió)"
+
+    {\bInterest\srate\b}i
+    valid msgstr="\bTipus d'interès\b"
+    hint="Cal substituir-ho per «Tipus d'interès» (revisió)"
+
+{\bInvestment\b}i
+valid msgstr="\bInversió\b"
+hint="Cal substituir-ho per «Inversió» (revisió)"
+
+    {\bInvestments\b}i
+    valid msgstr="\bInversions\b"
+    hint="Cal substituir-ho per «Inversions» (revisió)"
+
+{\bLedger\b}i
+valid msgid="\bLedger\sLens\b"
+valid msgstr="\bLlibre major\b"
+hint="Cal substituir-ho per «Llibre major» (revisió)"
+
+    {\bLedger\sLens\b}i
+    valid msgstr="\bLupa del llibre major\b"
+    hint="Cal substituir-ho per «Lupa del llibre major» (revisió)"
+
+    {\bLedgers\b}i
+    valid msgstr="\bLlibres majors\b"
+    hint="Cal substituir-ho per «Llibres majors» (revisió)"
+
+{\bLiabilit(y|ies)\b}i
+valid msgstr="\b(Passius?|Responsabilitat)\b"
+hint="Cal substituir-ho per «(Passius?|Responsabilitat)» (revisió)"
+
+{\bLoans?\b}i
+valid msgid="\bloan\s(amount|payment)\b"
+valid msgstr="\bPréstecs?\b"
+hint="Cal substituir-ho per «Préstecs?» (revisió)"
+
+    {\bloan\samount\b}i
+    valid msgid="\boriginal\sloan\samount\b"
+    valid msgstr="\b(quantitat|romanent|saldo) del préstec\b"
+    hint="Cal substituir-ho per «quantitat/saldo/romanent del préstec» (revisió)"
+
+        {\boriginal\sloan\samount\b}i
+        valid msgstr="\bquantitat inicial prestada\b"
+        hint="Cal substituir-ho per «quantitat inicial prestada» (revisió)"
+
+    {\bloan\spayment\b}i
+    valid msgstr="\bpagament del préstec\b"
+    hint="Cal substituir-ho per «pagament del préstec» (revisió)"
+
+{\bOutbox\b}i
+valid msgstr="\bSafata de sortida\b"
+hint="Cal substituir-ho per «Safata de sortida» (revisió)"
+
+{\boutgoings?\b}i
+valid msgstr="\bdespes(a|es)\b"
+hint="Cal substituir-ho per «despes(a|es)» (revisió)"
+
+{\bParent\sAccount\b}i
+valid msgstr="\bcompte pare\b"
+hint="Cal substituir-ho per «compte pare» (revisió)"
+
+{\bPayee\b}i
+valid msgstr="\bBeneficiari\b"
+hint="Cal substituir-ho per «Beneficiari» (revisió)"
+
+    {\bPayees\b}i
+    valid msgstr="\bBeneficiaris\b"
+    hint="Cal substituir-ho per «Beneficiaris» (revisió)"
+
+{\bpayer\b}i
+valid msgstr="\bpagador\b"
+hint="Cal substituir-ho per «pagador» (revisió)"
+
+    {\bpayers\b}i
+    valid msgstr="\bpagadors\b"
+    hint="Cal substituir-ho per «pagadors» (revisió)"
+
+{\bPayment\b}i
+valid msgid="\bPayment\sfrequency\b"
+valid msgid="\bperiodical\spayment\b"
+valid msgstr="\bPagament\b"
+hint="Cal substituir-ho per «Pagament» (revisió)"
+
+    {\bfinal\samortization\spayment\b}i
+    valid msgstr="\bPagament de l'amortització final\b"
+    hint="Cal substituir-ho per «Pagament de l'amortització final» (revisió)"
+
+    {\bPayment\sfrequency\b}i
+    valid msgstr="\bFreqüència dels pagaments\b"
+    hint="Cal substituir-ho per «Freqüència dels pagaments» (revisió)"
+
+    {\bPayments\b}i
+    valid msgid="\bperiodical\spayments\b"
+    valid msgstr="\bPagaments\b"
+    hint="Cal substituir-ho per «Pagaments» (revisió)"
+
+    {\bperiodical\spayment\b}i
+    valid msgstr="\bpagament periòdic\b"
+    hint="Cal substituir-ho per «pagament periòdic» (revisió)"
+
+        {\bperiodical\spayments\b}i
+        valid msgstr="\bpagaments periòdics\b"
+        hint="Cal substituir-ho per «pagaments periòdics» (revisió)"
+
+{\bpayroll\b}i
+valid msgstr="\bnòmina\b"
+hint="Cal substituir-ho per «nòmina» (revisió)"
+
+    {\bpayrolls\b}i
+    valid msgstr="\bnòmines\b"
+    hint="Cal substituir-ho per «nòmines» (revisió)"
+
+{\bpersonal\sfinance\b}i
+valid msgid="\bpersonal(..quote.)?\sfinance\smanagers?\b"
+valid msgstr="\bfinances personals\b"
+hint="Cal substituir-ho per «finances personals» (revisió)"
+
+    {\bpersonal(..quote.)?\sfinance\smanagers?\b}i
+    valid msgstr="\bgestors? de finances personals\b"
+    hint="Cal substituir-ho per «gestors? de finances personals» (revisió)"
+
+{\bportfolio\b}i
+valid msgstr="\bcartera\b"
+hint="Cal substituir-ho per «cartera» (revisió)"
+
+{\breceipt\b}i
+valid msgstr="\brebut\b"
+hint="Cal substituir-ho per «rebut» (revisió)"
+
+    {\breceipts\b}i
+    valid msgstr="\brebuts\b"
+    hint="Cal substituir-ho per «rebuts» (revisió)"
+
+{\bReconciliation\b}i
+valid msgstr="\bConciliació\b"
+hint="Cal substituir-ho per «Conciliació» (revisió)"
+
+{\brecorded\b}i
+valid msgstr="\benregistrarà\b"
+hint="Cal substituir-ho per «enregistrarà» (revisió)"
+
+{\bReports\b}i
+valid msgstr="\bInformes\b"
+hint="Cal substituir-ho per «Informes» (revisió)"
+
+{\brouting\snumber\b}i
+valid msgstr="\bcodi de banc\b"
+hint="Cal substituir-ho per «codi de banc» (revisió)"
+
+{\bSavings?\b}i
+valid msgid="\bsavings\saccount\b"
+valid msgstr="\bEstalvis?\b"
+hint="Cal substituir-ho per «Estalvis?» (revisió)"
+
+    {\bsavings\saccount\b}i
+    valid msgstr="\bcompte d'estalvi\b"
+    hint="Cal substituir-ho per «compte d'estalvi» (revisió)"
+
+{\bSchedule\b}i
+valid msgstr="\bPlanificació\b"
+hint="Cal substituir-ho per «Planificació» (revisió)"
+
+    {\bSchedules\b}i
+    valid msgstr="\bPlanificacions\b"
+    hint="Cal substituir-ho per «Planificacions» (revisió)"
+
+{\bSecurity\b}i
+valid msgstr="\btítol\b"
+hint="Cal substituir-ho per «títol» (revisió)"
+
+{\bSettings\b}i
+valid msgid="<b>\bSettings\b</b>"
+valid msgid="\bpreference\ssettings\b"
+valid msgid="\bSettings\sdialog\b"
+valid msgstr="\bAjustaments\b"
+hint="Cal substituir-ho per «Ajustaments» (revisió)"
+
+    {<b>\bSettings\b</b>}i
+    valid msgstr="\bArranjament\b"
+    hint="Cal substituir-ho per «Arranjament» (revisió)"
+
+    {\bpreference\ssettings\b}i
+    valid msgstr="\bpreferència als ajustaments\b"
+    hint="Cal substituir-ho per «preferència als ajustaments» (revisió)"
+
+    {\bSettings\sdialog\b}i
+    valid msgstr="\bdiàleg de configuració\b"
+    hint="Cal substituir-ho per «diàleg de configuració» (revisió)"
+
+{\bSort\sCode\b}i
+valid msgstr="\bCodi d'ordenació\b"
+hint="Cal substituir-ho per «Codi d'ordenació» (revisió)"
+
+{\bsplit\b}i
+valid msgstr="\bdesglossament\b"
+hint="Cal substituir-ho per «desglossament» (revisió)"
+
+    {\bsplits\b}i
+    valid msgstr="\bdesglossaments\b"
+    hint="Cal substituir-ho per «desglossaments» (revisió)"
+
+{\bstatement\b}i
+valid msgstr="\b(extracte|declaració|rebut)\b"
+hint="Cal substituir-ho per «extracte, declaració, rebut» (revisió)"
+
+    {\bstatements\b}i
+    valid msgstr="\b(extractes|declaracions|rebuts)\b"
+    hint="Cal substituir-ho per «extractes, declaracions, rebuts» (revisió)"
+
+{\bstock\b}i
+valid msgstr="\baccions\b"
+hint="Cal substituir-ho per «accions» (revisió)"
+
+{\bsupplier\b}i
+valid msgstr="\bproveïdor\b"
+hint="Cal substituir-ho per «proveïdor» (revisió)"
+
+    {\bsuppliers\b}i
+    valid msgstr="\bproveïdors\b"
+    hint="Cal substituir-ho per «proveïdors» (revisió)"
+
+{\bTerm\b}i
+valid msgstr="\btermini\b"
+hint="Cal substituir-ho per «termini» (revisió)"
+
+{\bTotal\sBalance\b}i
+valid msgstr="\bSaldo total\b"
+hint="Cal substituir-ho per «Saldo total» (revisió)"
+
+{\bTransaction\b}i
+valid msgid="\bTransaction\sform\b"
+valid msgstr="\bOperació\b"
+hint="Cal substituir-ho per «Operació» (revisió)"
+
+    {\bTransactions\b}i
+    valid msgstr="\bOperacions\b"
+    hint="Cal substituir-ho per «Operacions» (revisió)"
+
+    {\bTransaction\sform\b}i
+    valid msgstr="\bformulari de l'operació\b"
+    hint="Cal substituir-ho per «formulari de l'operació» (revisió)"
+
+{\bVAT\b}i
+valid msgstr="\bIVA\b"
+hint="Cal substituir-ho per «IVA» (revisió)"
+
+{\bworth\b}i
+valid msgstr="\bpatrimoni\b"
+hint="Cal substituir-ho per «patrimoni» (revisió)"
+
+{\bworth\sforecast\b}i
+valid msgstr="\bpatrimoni net\b"
+hint="Cal substituir-ho per «patrimoni net» (revisió)"
+
