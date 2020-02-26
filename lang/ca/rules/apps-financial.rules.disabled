@@ -64,8 +64,13 @@ valid msgstr="\bPressupost(os)?\b"
 hint="Cal substituir-ho per «Pressupost(os)?» (revisió)"
 
 {\bCash\b}i
+valid msgid="\bCash\sFlow\b"
 valid msgstr="\bEfectiu\b"
 hint="Cal substituir-ho per «Efectiu» (revisió)"
+
+    {\bCash\sFlow\b}i
+    valid msgstr="\bFlux de caixa\b"
+    hint="Cal substituir-ho per «Flux de caixa» (revisió)"
 
 {\bCC\b}i
 valid msgstr="\bCD\b"
@@ -80,8 +85,8 @@ hint="Cal substituir-ho per «gràfic» (revisió)"
     hint="Cal substituir-ho per «gràfics» (revisió)"
 
 {\bCleared\b}i
-valid msgstr="\bLiquidat\b"
-hint="Cal substituir-ho per «Liquidat» (revisió)"
+valid msgstr="\bLiquidad(a|es)\b"
+hint="Cal substituir-ho per «Liquidada/es» (revisió)"
 
 {\bCost\sCenter\b}i
 valid msgstr="\bcentre de despesa\b"
@@ -92,8 +97,9 @@ valid msgstr="\bCooperativa de crèdit\b"
 hint="Cal substituir-ho per «Cooperativa de crèdit» (revisió)"
 
 {\bCurrency\b}i
+valid msgstr="\bdivisa\b"
 valid msgstr="\bmoneda\b"
-hint="Cal substituir-ho per «moneda» (revisió)"
+hint="Cal substituir-ho per «moneda, divisa» (revisió)"
 
     {\bCurrencies\b}i
     valid msgstr="\bDivises\b"
@@ -125,12 +131,12 @@ valid msgstr="\bDespes(a|es)\b"
 hint="Cal substituir-ho per «Despes(a|es)» (revisió)"
 
 {\bFee\b}i
-valid msgstr="\b(Càrrec|Comissió)\b"
-hint="Cal substituir-ho per «Càrrec, Comissió» (revisió)"
+valid msgstr="\b(Despesa|Comissió)\b"
+hint="Cal substituir-ho per «Despesa, Comissió» (revisió)"
 
     {\bFees\b}i
-    valid msgstr="\b(Càrrecs|Comissions)\b"
-    hint="Cal substituir-ho per «Càrrecs, Comissions» (revisió)"
+    valid msgstr="\b(Despeses|Comissions)\b"
+    hint="Cal substituir-ho per «Despeses, Comissions» (revisió)"
 
 {\bfinancial\b}i
 valid msgid="\bfinancial\smanager\b"
@@ -150,8 +156,13 @@ valid msgstr="\bPàgina principal\b"
 hint="Cal substituir-ho per «Pàgina principal» (revisió)"
 
 {\bIncome\b}i
+valid msgid="\bIncome\sand\sExpenses\b"
 valid msgstr="\bIngrés\b"
 hint="Cal substituir-ho per «Ingrés» (revisió)"
+
+    {\bIncome\sand\sExpenses\b}i
+    valid msgstr="\bIngressos i despeses\b"
+    hint="Cal substituir-ho per «Ingressos i despeses» (revisió)"
 
     {\bIncomes\b}i
     valid msgstr="\bIngressos\b"
@@ -175,6 +186,7 @@ valid msgstr="\bInversió\b"
 hint="Cal substituir-ho per «Inversió» (revisió)"
 
     {\bInvestments\b}i
+    valid msgid="details\.investments\.onlinequotes"
     valid msgstr="\bInversions\b"
     hint="Cal substituir-ho per «Inversions» (revisió)"
 
@@ -188,12 +200,13 @@ hint="Cal substituir-ho per «Llibre major» (revisió)"
     hint="Cal substituir-ho per «Lupa del llibre major» (revisió)"
 
     {\bLedgers\b}i
+    valid msgid="details\.ledgers"
     valid msgstr="\bLlibres majors\b"
     hint="Cal substituir-ho per «Llibres majors» (revisió)"
 
 {\bLiabilit(y|ies)\b}i
-valid msgstr="\b(Passius?|Responsabilitat)\b"
-hint="Cal substituir-ho per «(Passius?|Responsabilitat)» (revisió)"
+valid msgstr="\bPassius?\b"
+hint="Cal substituir-ho per «Passius?» (revisió)"
 
 {\bLoans?\b}i
 valid msgid="\bloan\s(amount|payment)\b"
@@ -282,7 +295,7 @@ valid msgstr="\bfinances personals\b"
 hint="Cal substituir-ho per «finances personals» (revisió)"
 
     {\bpersonal(..quote.)?\sfinance\smanagers?\b}i
-    valid msgstr="\bgestors? de finances personals\b"
+    valid msgstr="\bgestors? de finances (.quote.)?personals\b"
     hint="Cal substituir-ho per «gestors? de finances personals» (revisió)"
 
 {\bportfolio\b}i
@@ -327,27 +340,39 @@ valid msgstr="\bPlanificació\b"
 hint="Cal substituir-ho per «Planificació» (revisió)"
 
     {\bSchedules\b}i
+    valid msgid="details\.schedules"
     valid msgstr="\bPlanificacions\b"
     hint="Cal substituir-ho per «Planificacions» (revisió)"
 
 {\bSecurity\b}i
-valid msgstr="\btítol\b"
-hint="Cal substituir-ho per «títol» (revisió)"
+valid msgstr="\btítols\b"
+hint="Cal substituir-ho per «títols» (revisió)"
 
 {\bSettings\b}i
-valid msgid="<b>\bSettings\b</b>"
-valid msgid="\bpreference\ssettings\b"
+valid msgid="details\.settings"
+valid msgid="(\.|>)\bSettings\b(\.|</)"
+valid msgid="\b(locale|preference)\ssettings\b"
+valid msgid="\bSettings\sand\sHelp\sMenu\b"
 valid msgid="\bSettings\sdialog\b"
 valid msgstr="\bAjustaments\b"
 hint="Cal substituir-ho per «Ajustaments» (revisió)"
 
-    {<b>\bSettings\b</b>}i
+    {(\.|>)\bSettings\b(\.|</)}i
+    valid msgid="details\.settings"
     valid msgstr="\bArranjament\b"
     hint="Cal substituir-ho per «Arranjament» (revisió)"
+
+    {\blocale\ssettings\b}i
+    valid msgstr="\bconfiguració regional\b"
+    hint="Cal substituir-ho per «configuració regional» (revisió)"
 
     {\bpreference\ssettings\b}i
     valid msgstr="\bpreferència als ajustaments\b"
     hint="Cal substituir-ho per «preferència als ajustaments» (revisió)"
+
+    {\bSettings\sand\sHelp\sMenu\b}i
+    valid msgstr="\bd?els menús Arranjament i Ajuda\b"
+    hint="Cal substituir-ho per «dels / els menús Arranjament i Ajuda» (revisió)"
 
     {\bSettings\sdialog\b}i
     valid msgstr="\bdiàleg de configuració\b"
@@ -386,6 +411,7 @@ hint="Cal substituir-ho per «proveïdor» (revisió)"
     hint="Cal substituir-ho per «proveïdors» (revisió)"
 
 {\bTerm\b}i
+valid msgid="<.?term>\b"
 valid msgstr="\btermini\b"
 hint="Cal substituir-ho per «termini» (revisió)"
 
@@ -411,10 +437,10 @@ valid msgstr="\bIVA\b"
 hint="Cal substituir-ho per «IVA» (revisió)"
 
 {\bworth\b}i
-valid msgstr="\bpatrimoni\b"
-hint="Cal substituir-ho per «patrimoni» (revisió)"
+valid msgstr="\bvalor\b"
+hint="Cal substituir-ho per «valor» (revisió)"
 
 {\bworth\sforecast\b}i
-valid msgstr="\bpatrimoni net\b"
-hint="Cal substituir-ho per «patrimoni net» (revisió)"
+valid msgstr="\bprevisió del valor\b"
+hint="Cal substituir-ho per «previsió del valor» (revisió)"
 
