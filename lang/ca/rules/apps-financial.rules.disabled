@@ -108,6 +108,11 @@ hint="Cal substituir-ho per «factura/es» (revisió)"
 valid msgstr="\bbons\b"
 hint="Cal substituir-ho per «bons» (revisió)"
 
+# https://ca.wikipedia.org/wiki/Corredor_(finances)
+{\bbroker\b}i
+valid msgstr="\bcorredor\b"
+hint="Cal substituir-ho per «corredor» (revisió)"
+
 {\bbrokerage\b}i
 valid msgid="\bstock\sbrokerage\b"
 valid msgstr="\bcorretatge\b"
@@ -131,7 +136,7 @@ hint="Cal substituir-ho per «Pressupost(os)?, pressupostat/da» (revisió)"
     hint="Cal substituir-ho per «Previsió del pressupost» (revisió)"
 
 {\bCash\b}i
-valid msgid="\bCash\sFlow\b"
+valid msgid="\bCash\s(dividend|Flow)\b"
 valid msgstr="\bEfectiu\b"
 hint="Cal substituir-ho per «Efectiu» (revisió)"
 
@@ -181,8 +186,9 @@ valid msgstr="\bmarc de l'ordre\b"
 hint="Cal substituir-ho per «marc de l'ordre» (revisió)"
 
 {\bcommodit(y|ies)\b}i
+valid msgstr="\bmatèri(a|es) primer(a|es)\b"
 valid msgstr="\bmercaderi(a|es)\b"
-hint="Cal substituir-ho per «mercaderia/es» (revisió)"
+hint="Cal substituir-ho per «mercaderia/es, matèria/es primera/es» (revisió)"
 
 {\bCompound(ed|ing)\b}i
 valid msgid="\bInterest\s(is\s)?Compound(ed|ing)\b"
@@ -202,11 +208,11 @@ valid msgstr="\bcentres? de despesa\b"
 hint="Cal substituir-ho per «centre/s de despesa» (revisió)"
 
 {\bCurrenc(y|ies)\b}i
-valid msgid="\b(base|default|Trading)\scurrency\b"
+valid msgid="\b(base|default|market\sexchange|Trading)\scurrency\b"
 valid msgid="\bcurrency\s(conversions?|Pairs?|Rates?)\b"
 valid msgid="\bcurrencies\sare\snot\sconverted\b"
 valid msgid="details\.currencies"
-valid msgid="\bmultiple\scurrencies\b"
+valid msgid="\b(multiple|trading)\scurrencies\b"
 valid msgid="\bstock\sand\scurrency\sprices\b"
 valid msgstr="\bdivis(a|es)\b"
 valid msgstr="\bmoned(a|es)\b"
@@ -232,7 +238,7 @@ hint="Cal substituir-ho per «divisa/es, moneda/es» (revisió)"
     valid msgstr="\bParell(a|es) de divises\b"
     hint="Cal substituir-ho per «Parella/es de divises» (revisió)"
 
-    {\bcurrency\sRates?\b}i
+    {\b(currency|Exchange)\sRates?\b}i
     valid msgstr="\bTipus de canvi\b"
     hint="Cal substituir-ho per «Tipus de canvi» (revisió)"
 
@@ -248,10 +254,9 @@ hint="Cal substituir-ho per «divisa/es, moneda/es» (revisió)"
     valid msgstr="\bcotització dels valors i divises\b"
     hint="Cal substituir-ho per «cotització dels valors i divises» (revisió)"
 
-    # https://en.wikipedia.org/wiki/Foreign_exchange_market
-    {\bTrading\sCurrency\b}i
-    valid msgstr="\bMercat de divises\b"
-    hint="Cal substituir-ho per «Mercat de divises» (revisió)"
+    {\bTrading\sCurrenc(y|ies)\b}i
+    valid msgstr="\bdivis(a|es) del? (mercat|negociació)\b"
+    hint="Cal substituir-ho per «divisa/es del mercat, divisa/es de negociació» (revisió)"
 
 {\bdeposits?\b}i
 valid msgid="\bcleared\sdeposits?\b"
@@ -262,10 +267,23 @@ hint="Cal substituir-ho per «ingrés/essos, * dipòsit/s» (revisió)"
     valid msgstr="\bingr(és|essos) liquidats?\b"
     hint="Cal substituir-ho per «ingrés/essos liquidat/s» (revisió)"
 
-{\bdividend\b}i
-valid msgid="\bstocks\sdividend\b"
-valid msgstr="\bdividend\b"
-hint="Cal substituir-ho per «dividend» (revisió)"
+# https://ca.wikipedia.org/wiki/Derivat_financer
+{\bderivatives?\b}i
+valid msgstr="\bderivats?\b"
+hint="Cal substituir-ho per «derivat/s» (revisió)"
+
+{\bdisbursements?\b}i
+valid msgstr="\bdesemborsaments?\b"
+hint="Cal substituir-ho per «desemborsament/s» (revisió)"
+
+{\bdividends?\b}i
+valid msgid="\b(cash|stocks)\sdividend\b"
+valid msgstr="\bdividends?\b"
+hint="Cal substituir-ho per «dividend/s» (revisió)"
+
+    {\bcash\sdividend\b}i
+    valid msgstr="\bdividend en efectiu\b"
+    hint="Cal substituir-ho per «dividend en efectiu» (revisió)"
 
     {\bstocks\sdividend\b}i
     valid msgstr="\bdividend en accions\b"
@@ -289,6 +307,11 @@ hint="Cal substituir-ho per «dividend» (revisió)"
 valid msgstr="\bAcci(ó|ons)\b"
 hint="Cal substituir-ho per «Accions (tipus de compte), acció» (revisió)"
 
+# https://ca.wikipedia.org/wiki/Euro
+{\bEUR\b}i
+valid msgstr="\bEUR\b"
+hint="Cal substituir-ho per «EUR (codi ISO 4217 per a la zona euro de la Unió Europea, símbol: €)» (revisió)"
+
 {\bExpenses?\b}i
 valid msgid="\bexpense/income\scategory\b"
 valid msgstr="\bDespes(a|es)\b"
@@ -297,6 +320,10 @@ hint="Cal substituir-ho per «Despeses (tipus de compte), despesa» (revisió)"
     {\bexpense/income\scategory\b}i
     valid msgstr="\bcategoria de despeses/ingressos\b"
     hint="Cal substituir-ho per «categoria de despeses/ingressos» (revisió)"
+
+{\bFactors?\b}i
+valid msgstr="\bFactors?\b"
+hint="Cal substituir-ho per «Factor/s» (revisió)"
 
 {\bFees\b}i
 valid msgid="\bfee\samount\b"
@@ -335,6 +362,27 @@ hint="Cal substituir-ho per «Previsi(ó|ons)» (revisió)"
     valid msgstr="\bDies a preveure\b"
     hint="Cal substituir-ho per «Dies a preveure» (revisió)"
 
+{\bformulae\b}i
+valid msgstr="\bfórmules\b"
+hint="Cal substituir-ho per «fórmules» (revisió)"
+
+{\bFraction\b}i
+valid msgstr="\bFracció\b"
+hint="Cal substituir-ho per «Fracció» (revisió)"
+
+{\bfunds\b}i
+valid msgid="\bfund\sthe\stransfer\b"
+valid msgstr="\bfons\b"
+hint="Cal substituir-ho per «fons» (revisió)"
+
+    {\bfund\sthe\stransfer\b}i
+    valid msgstr="\bfinançar la transferència\b"
+    hint="Cal substituir-ho per «finançar la transferència» (revisió)"
+
+{\bFutures\b}i
+valid msgstr="\bfuturs\b"
+hint="Cal substituir-ho per «futurs» (revisió)"
+
 {\bgross\b}i
 valid msgid="\b(gross(\/|\sor\s)net|gross)\samount\b"
 valid msgstr="\bbrut\b"
@@ -347,6 +395,12 @@ hint="Cal substituir-ho per «brut» (revisió)"
 {\bholder\b}i
 valid msgstr="\btitular\b"
 hint="Cal substituir-ho per «titular» (revisió)"
+
+{\bholdings?\b}i
+valid msgstr="\bmantingueu premuda\b"
+valid msgstr="\bposseeix\b"
+valid msgstr="\btinen(ça|ces)\b"
+hint="Cal substituir-ho per «tinença/ces, posseeix, (tecla: mantingueu premuda)» (revisió)"
 
 {\bHome.?Page\b}i
 valid msgstr="\bPàgina principal\b"
@@ -395,14 +449,20 @@ hint="Cal substituir-ho per «interès/essos» (revisió)"
     hint="Cal substituir-ho per «Tipus d'interès» (revisió)"
 
 {\bInvestments?\b}i
-valid msgid="details\.investments\.onlinequotes"
+valid msgid="details\.investments"
 valid msgid="\bInvestment\s(fees|loan)\b"
+valid msgid="\breturn\son\sinvestments?\b"
 valid msgstr="\bInversi(ó|ons)\b"
 hint="Cal substituir-ho per «Inversió/ons» (revisió)"
 
     {\bInvestment\sfees\b}i
     valid msgstr="\bDespeses de la inversió\b"
     hint="Cal substituir-ho per «Despeses de la inversió» (revisió)"
+
+    # https://ca.wikipedia.org/wiki/Retorn_de_la_inversió
+    {\breturn\son\sinvestments?\b}i
+    valid msgstr="\bretorns? de la inversió\b"
+    hint="Cal substituir-ho per «retorn/s de la inversió (ROI -Return On Investment-» (revisió)"
 
 {\bLedger\b}i
 valid msgid="\bLedger\s(balance|Lens)\b"
@@ -467,6 +527,25 @@ hint="Cal substituir-ho per «vincula/r, segueixi (a l'explicació)» (revisió)
     valid msgstr="\bdesvincular?\b"
     hint="Cal substituir-ho per «desvincula/r» (revisió)"
 
+{\bmarket\b}i
+valid msgstr="\bmarket\sexchange\scurrency\b"
+valid msgstr="\b(stock|Trading)\smarkets?\b"
+valid msgstr="\bmercat\b"
+hint="Cal substituir-ho per «mercat» (revisió)"
+
+    {\bmarket\sexchange\scurrency\b}i
+    valid msgstr="\bdivisa de canvi del mercat\b"
+    hint="Cal substituir-ho per «divisa de canvi del mercat» (revisió)"
+
+    # https://ca.wikipedia.org/wiki/Mercat_de_valors
+    {\bstock\smarkets?\b}i
+    valid msgstr="\bmercats? de valors\b"
+    hint="Cal substituir-ho per «mercat/s de valors» (revisió)"
+    #
+    {\bTrading\smarkets?\b}i
+    valid msgstr="\bmercats? borsaris?\b"
+    hint="Cal substituir-ho per «mercat/s borsaris?» (revisió)"
+
 {\bnet\b}i
 valid msgid="\bnet\samount\b"
 valid msgstr="\bnet\b"
@@ -480,6 +559,16 @@ hint="Cal substituir-ho per «net» (revisió)"
         {\bgross(\/|\sor\s)net\samount\b}i
         valid msgstr="\bimport brut(\/|\so\s)net\b"
         hint="Cal substituir-ho per «import brut o net, import brut/net» (revisió)"
+
+{\bonline\ssources?\b}i
+valid msgstr="\bfonts? en línia\b"
+hint="Cal substituir-ho per «font/s en línia» (revisió)"
+
+# https://ca.wikipedia.org/wiki/Opció
+{\boptions?\b}i
+valid msgid="<.?option>"
+valid msgstr="\bopci(ó|ons)\b"
+hint="Cal substituir-ho per «opció/ons» (revisió)"
 
 {\bOutbox\b}i
 valid msgstr="\bSafata de sortida\b"
@@ -562,6 +651,18 @@ hint="Cal substituir-ho per «finances personals» (revisió)"
 valid msgstr="\bcartera\b"
 hint="Cal substituir-ho per «cartera» (revisió)"
 
+{\bprice\squoted\b}i
+valid msgstr="\bpreu cotitzat\b"
+hint="Cal substituir-ho per «preu cotitzat» (revisió)"
+
+{\bprofitable\sreturn\b}i
+valid msgstr="\brendibilitat\b"
+hint="Cal substituir-ho per «rendibilitat» (revisió)"
+
+{\bquote\ssources?\b}i
+valid msgstr="\bfonts? de cotització\b"
+hint="Cal substituir-ho per «font/s de cotització» (revisió)"
+
 {\breceipt\b}i
 valid msgstr="\brebut\b"
 hint="Cal substituir-ho per «rebut» (revisió)"
@@ -583,9 +684,17 @@ hint="Cal substituir-ho per «Conciliació» (revisió)"
 valid msgstr="\benregistra(r|rà?|t)\b"
 hint="Cal substituir-ho per «enregistrar/à, enregistrat» (revisió)"
 
+{\breinvestments?\b}i
+valid msgstr="\breinversi(ó|ons)\b"
+hint="Cal substituir-ho per «reinversió/ons» (revisió)"
+
 {\bReports\b}i
 valid msgstr="\bInformes\b"
 hint="Cal substituir-ho per «Informes» (revisió)"
+
+{\bretirement\b}i
+valid msgstr="\bjubilació\b"
+hint="Cal substituir-ho per «jubilació» (revisió)"
 
 {\brouting\snumber\b}i
 valid msgstr="\bcodi de banc\b"
@@ -625,14 +734,23 @@ hint="Cal substituir-ho per «Planificació/ons, planifica/r, planifico» (revis
     valid msgstr="\bcap planificació\b"
     hint="Cal substituir-ho per «cap planificació» (revisió)"
 
-{\bSecurity\b}i
-valid msgid="\bSecurity\sdetail\b"
+{\bSecurit(y|ies)\b}i
+valid msgid="\bSecurit(y|ies)\s(detail|trading)\b"
 valid msgstr="\btítols?\b"
 hint="Cal substituir-ho per «títols?» (revisió)"
 
-    {\bSecurity\sdetail\b}i
+    {\bSecurit(y|ies)\sdetails?\b}i
     valid msgstr="\bdetalls del títol\b"
     hint="Cal substituir-ho per «detalls del títol» (revisió)"
+
+    {\bSecurit(y|ies)\strading\b}i
+    valid msgstr="\boper(a|es) els? títols?\b"
+    hint="Cal substituir-ho per «opera/en el/s títol/s» (revisió)"
+
+# https://ca.wikipedia.org/wiki/Corona_sueca
+{\bSEK\b}i
+valid msgstr="\bSEK\b"
+hint="Cal substituir-ho per «SEK (codi ISO 4217 per a la corona sueca, símbol: SKr)» (revisió)"
 
 {\bSettings\b}i
 valid msgid="details\.settings"
@@ -663,6 +781,12 @@ hint="Cal substituir-ho per «Ajustaments» (revisió)"
     valid msgstr="\bdiàleg de configuració\b"
     hint="Cal substituir-ho per «diàleg de configuració» (revisió)"
 
+# https://ca.wikipedia.org/wiki/Acció_empresarial
+{\bshares?\b}i
+valid msgid="/share/"
+valid msgstr="\bacci(ó|ons)\b"
+hint="Cal substituir-ho per «acció/ons» (revisió)"
+
 {\bSort\sCode\b}i
 valid msgstr="\bCodi d'ordenació\b"
 hint="Cal substituir-ho per «Codi d'ordenació» (revisió)"
@@ -677,22 +801,26 @@ valid msgstr="\binstrucció\b"
 hint="Cal substituir-ho per «extracte/s, declaració/ons, rebut/s, * instrucció (en el cas d'ordres SQL)» (revisió)"
 
 {\bstocks?\b}i
-valid msgid="\bstock\s(and\sCurrency\sPrices\b|brokerage|prices|quotes)\b"
-valid msgid="\bstock\sdividend\b"
+valid msgid="\bstock\s(and\sCurrency\sPrices\b|brokerage|dividend|markets?|prices|quotes)\b"
 valid msgstr="\bvalors?\b"
 hint="Cal substituir-ho per «valor/s (si es detalla serà acció/ons)» (revisió)"
 
     {\bOnline\sPrice\sQuotes\b}i
-    valid msgstr="\bCotització en línia dels preus\b"
-    hint="Cal substituir-ho per «Cotització en línia dels preus» (revisió)"
+    valid msgstr="\bCotitzaci(ó|ons) en línia dels preus\b"
+    hint="Cal substituir-ho per «Cotització/ons en línia dels preus» (revisió)"
+ 
+        {\bprice\squotes?\b}i
+        valid msgid="\bOnline\sprice\squotes?\b"
+        valid msgstr="\bofert(a|es) de preu\b"
+        hint="Cal substituir-ho per «oferta/es de preu» (revisió)"
 
     {\bstocks\sprices\b}i
     valid msgstr="\bcotització dels valors\b"
     hint="Cal substituir-ho per «cotització dels valors» (revisió)"
 
-    {\bstock\squotes\b}i
-    valid msgstr="\bCotització dels valors\b"
-    hint="Cal substituir-ho per «Cotització dels valors» (revisió)"
+    {\bstocks\sprices\b}i
+    valid msgstr="\bcotització dels valors\b"
+    hint="Cal substituir-ho per «cotització dels valors» (revisió)"
 
 {\bsuppliers?\b}i
 valid msgstr="\bproveïdors?\b"
@@ -707,9 +835,32 @@ valid msgid="<.?term>\b"
 valid msgstr="\btermini\b"
 hint="Cal substituir-ho per «termini» (revisió)"
 
+# https://ca.wikipedia.org/wiki/Tíquer
+{\bTickers?\b}i
+valid msgid="\bTicker\ssymbols?\b"
+valid msgstr="\btíquers?\b"
+hint="Cal substituir-ho per «tíquer/s (o un símbol borsari)» (revisió)"
+
+    {\bTicker\ssymbols?\b}i
+    valid msgid="\btrading\sor\sticker\ssymbols?\b"
+    valid msgstr="\bsímbols? borsaris?\b"
+    hint="Cal substituir-ho per «símbol/s borsari/s» (revisió)"
+    # juntes ↓
+    {\bTrading\sSymbols?\b}i
+    valid msgstr="\bSímbols? (comercials?|de cotització)\b"
+    hint="Cal substituir-ho per «Símbol/s comercial/s, Símbol/s de cotització» (revisió)"
+
+        {\btrading\sor\sticker\ssymbols?\b}i
+        valid msgstr="\bsímbols? de cotització o borsaris?\b"
+        hint="Cal substituir-ho per «símbol/s de cotització o borsari/s» (revisió)"
+
 {\btracking\sof\slots\b}i
 valid msgstr="\bseguiment de lots\b"
 hint="Cal substituir-ho per «seguiment de lots» (revisió)"
+
+{\btraded\b}i
+valid msgstr="\bcotitz(a|at|en)\b"
+hint="Cal substituir-ho per «cotitza/t, cotitzen» (revisió)"
 
 {\bTransactions?\b}i
 valid msgid="\bTransaction\s(amount|Detail|form|history|list|search)\b"
@@ -727,7 +878,8 @@ hint="Cal substituir-ho per «Operació/ons» (revisió)"
     {\bTransaction\sform\b}i
     valid msgstr="\bformulari d'operacions\b"
     valid msgstr="\bformulari de l'operació\b"
-    hint="Cal substituir-ho per «formulari d'operacions, formulari de l'operació» (revisió)"
+    valid msgstr="\bformulari per a l'operació\b"
+    hint="Cal substituir-ho per «formulari d'operacions, formulari de l'operació, formulari per a l'operació» (revisió)"
 
     {\bTransaction\slist\b}i
     valid msgstr="\bllista d'operacions\b"
@@ -740,6 +892,16 @@ hint="Cal substituir-ho per «Operació/ons» (revisió)"
     {\bTransaction\shistory\b}i
     valid msgstr="\bhistorial de les operacions\b"
     hint="Cal substituir-ho per «historial de les operacions» (revisió)"
+
+{\bTransfers?\b}i
+valid msgstr="\bTransferènci(a|es)\b"
+valid msgstr="\btransfer(eix|irà?|iu)\b"
+hint="Cal substituir-ho per «Transferència/es, transfereix, transferir/à, transferiu» (revisió)"
+
+# https://ca.wikipedia.org/wiki/Dòlar_dels_Estats_Units
+{\bUSD\b}i
+valid msgstr="\bUSD\b"
+hint="Cal substituir-ho per «USD (codi ISO 4217 per al dòlar dels Estats Units d'Amèrica, símbol: $)» (revisió)"
 
 {\bVAT\b}i
 valid msgid="\bVAT\s(account|amount)\b"
@@ -757,6 +919,10 @@ hint="Cal substituir-ho per «valor, valien» (revisió)"
     {\bworth\sforecast\b}i
     valid msgstr="\bprevisió del valor\b"
     hint="Cal substituir-ho per «previsió del valor» (revisió)"
+
+{\byields?\b}i
+valid msgstr="\brendiments?\b"
+hint="Cal substituir-ho per «rendiment/s» (revisió)"
 
 # https://ca.wikipedia.org/wiki/Rendibilitat_a_venciment
 {\bYTM\b}i
