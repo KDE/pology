@@ -1096,6 +1096,38 @@ id="kct-tittlebar"
 valid msgstr="barr(a|es) de títol"
 hint="Es tradueix per «barra/es de títol» (kde-ca-team)"
 
+{\bto.?dos?\b}i
+id="kct-todo"
+valid msgid="\bsub.?to.?dos?\b"
+valid msgid="\bto.?do\s(editor|list|view)\b"
+valid msgstr="tas(ca|ques) pendents?"
+hint="Es tradueix per «tasca/ques pendent/s» (kde-ca-team)"
+
+    {\bsub.?to.?dos?\b}i
+    id="kct-subtodo"
+    valid msgstr="subtas(ca|ques) pendents?"
+    hint="Es tradueix per «subtasca/ques pendent/s» (kde-ca-team)"
+
+    {\bto.?do\seditor\b}i
+    id="kct-todo-editor"
+    valid msgstr="editor de tasques pendents"
+    hint="Es tradueix per «editor de tasques pendents» (kde-ca-team)"
+
+    {\bto.?do\slist\b}i
+    id="kct-todo-list"
+    valid msgstr="llista de tasques pendents"
+    hint="Es tradueix per «llista de tasques pendents» (kde-ca-team)"
+
+        {\btask\slists?\b}i
+        id="kct-task-list"
+        valid msgstr="llist(a|es) de tasques"
+        hint="Es tradueix per «llista/es de tasques» (kde-ca-team)"
+
+    {\bto.?do\sview\b}i
+    id="kct-todo-view"
+    valid msgstr="vista de les tasques pendents"
+    hint="Es tradueix per «vista de les tasques pendents» (kde-ca-team)"
+
 {\btool.?bars?\b}i
 id="kct-toolbar"
 valid msgstr="barr(a|es) d'eines"
