@@ -1099,6 +1099,7 @@ hint="Es tradueix per «barra/es de títol» (kde-ca-team)"
 {\bto.?dos?\b}i
 id="kct-todo"
 valid msgid="\bsub.?to.?dos?\b"
+valid msgid="\bto\sdo\b"
 valid msgid="\bto.?do\s(editor|list|view)\b"
 valid msgstr="tas(ca|ques) pendents?"
 hint="Es tradueix per «tasca/ques pendent/s» (kde-ca-team)"
