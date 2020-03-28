@@ -1102,7 +1102,8 @@ valid msgid="\bsub.?to.?dos?\b"
 valid msgid="\bto\sdo\b"
 valid msgid="\bto.?do\s(editor|list|view)\b"
 valid msgstr="tas(ca|ques) pendents?"
-hint="Es tradueix per «tasca/ques pendent/s» (kde-ca-team)"
+valid msgstr="per fer"
+hint="Es tradueix per «tasca/ques pendent/s» (tasques) o «per fer» (altres elements) (kde-ca-team)"
 
     {\bsub.?to.?dos?\b}i
     id="kct-subtodo"
