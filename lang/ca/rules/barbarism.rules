@@ -49,7 +49,6 @@ hint="«customitzar» s'ha de substituir per «personalitzar, adaptar al(s) clie
 
 #[\bdest(í|ins)\b]i
 #id="barb-desti"
-#valid msgstr="evolució i destí" cat="kstars_darkmatter" # docmessages
 #hint="«destí» s'ha de substituir per «destinació/ons» \
 #Explicació: \
 #No s'ha de confondre destí ('potència sobrehumana que fixa per endavant el curs dels #esdeveniments i la sort reservada a cadascú', 'sort reservada a cadascú') amb destinació #('acció de destinar', 'fi a què algú o alguna cosa són destinats', 'lloc on és tramesa alguna #cosa o es dirigeix algú'). \
@@ -192,7 +191,6 @@ valid msgstr="une?s po(cs|ques)"
 valid msgstr="unes(.*)(amb|contra) les altres"
 valid msgstr="\buns dos\b"
 valid msgstr="une?s \d"
-valid msgstr="Es mostren unes" cat="kstars" # docmessages (KStars)
 valid msgstr="une?s de"
 valid msgstr="uns (certs )?criteris"
 valid msgstr="uns resultats"
@@ -220,16 +218,12 @@ valid msgstr="són unes restes arqueològiques"
 valid msgstr="fixa uns valors de temperatura"
 valid msgstr="utilitzar uns missatges nous"
 valid msgstr="uns temps de"
-valid msgstr="unes (línies|llistes)" cat="digikam"
 valid msgstr="No corris amb unes tisores"
 valid msgstr="uns (als )?altres"
 valid msgstr="aparença d'unes fletxes"
-valid msgstr="\ba unes longituds" cat="kstars_blackbody" # docmessages
 valid msgstr="presència d'uns llavis"
 valid msgstr="unes mides" # docmessages
 valid msgstr="uns valors" # docmessages
-valid msgstr="unes biblioteques" cat="www_www"
-valid msgstr="uns termes" cat="www_www"
 hint="«uns / unes (quantitatiu)» -com a quantitatiu- s'ha de substituir per: \
 «- alguns \
  - uns quants \
