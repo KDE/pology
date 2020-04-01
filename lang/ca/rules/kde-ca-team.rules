@@ -24,9 +24,6 @@ hint="Es tradueix per «miniaplicació/ons» (kde-ca-team)"
 {\bbackends?\b}i
 id="kct-backend"
 valid msgstr="dorsals?"
-valid msgstr="gestor" cat="apper,libshaman,pkupdates"
-valid msgstr="motor" cat="marble.appdata"
-valid msgstr="backend" cat="kdeprint_cups-config,kdeprint_cupsoptions" # docmessages
 hint="Es tradueix per «dorsal» (kde-ca-team)"
 #NOTA: El Termcat tradueix «backend» per «processador dorsal»
 
@@ -92,17 +89,11 @@ valid msgid="text.?box(es|s)?"		# -> quadre/s de text
 valid msgid="tool.?box(es|s)?"		# -> quadre/s d'eines
 valid msgid="view\sbox(es|s)?"		# -> quadre/s de vista
 valid msgid="out of the box"
-valid msgstr="quadrat: Nebulosa gasosa"	# docmessages (KStars)
 valid msgstr="quadres?"
 valid msgstr="casell(a|es)"
-valid msgstr="caix(a|es)" cat="kxsconfig,kpovmodeler,kmid,knode,ksysguard,kdm_theme-ref,konqueror_browser,konqueror_filemanager,kstars_blackbody,step_tutorials"
-valid msgstr="vuit discs i una caixa" cat="step_examples" # docmessages
-valid msgstr="dins d'una caixa" cat="step_examples" # docmessages
-valid msgstr="capsa" cat="libkdeedu,kstars,libkeduvocdocument"
 valid msgstr="box(es)?"
 valid msgstr="apartats? de correus"            # post office  -> apartat de correus
 valid msgstr="claudàtors?"                     # box bracket  -> claudàtor
-valid msgstr="equips?" cat="kdeprint_add-printer-wiz,kdeprint_cupsoptions,kdeprint_getting-started,kdeprint_tech-overview,kdeprint_theory,kioslave_print" # docmessages
 hint="Es tradueix per «quadre» o «casella»: generalment \
 els «quadres» permeten introduir text/nombres, i \
 les «caselles» s'activen o es desactiven (kde-ca-team)"
@@ -119,10 +110,7 @@ hint="Es tradueix per «àmplia/gran varietat, ampli ventall, ventall més ampli
 id="kct-button"
 valid msgid="slid(er|ing)\sbutton"
 valid msgstr="bot(ó|ons)"
-valid msgstr="button" cat="klinkstatus"
 valid msgstr="B(D|E|M)R" # Per a docmessages &BDR;/&BER;/&BMR;
-valid comment="Tag\:\sprogramlisting" cat="kcontrol_kremotecontrol" # docmessages
-valid comment="Tag\:\sterm" cat="kdm_theme-ref" # docmessages
 hint="Es tradueix per «botó/botons» (kde-ca-team)"
 
 {\bcarets?\b}i
@@ -144,15 +132,11 @@ hint="Es tradueix per «marca/ques de selecció» (kde-ca-team)"
 {\bcheck.?box(es|s)?\b}i
 id="kct-checkbox"
 valid msgstr="casell(a|es) de selecció"
-valid msgstr="CheckBox" cat="kommander_dcop,kommander_editor,kommander_widgets" # docmessages
 hint="Es tradueix per «casella/es de selecció» (kde-ca-team)"
 
 {\bchecksums?\b}i
 id="kct-checksum"
-valid msgstr="^CHECKSUM$" comment="Tag\:\spara" cat="kexi" # docmessages
-valid comment="Tag\:\sprogramlisting" # docmessages
 valid msgstr="sum(a|es) de verificació"
-valid msgstr="Checksum Definition \#1" cat="kleopatra"
 hint="Es tradueix per «suma de verificació» (kde-ca-team)"
 
 {\bciphers?\b}i
@@ -180,10 +164,8 @@ valid msgstr="esborr(a|ant|arà|eu)"
 valid msgstr="supr(essió|essions|imeix|imint|imiu|imir|imits?|imida|imides)"
 valid msgstr="clar(a|iana|ianes)?" # "clear sky"- > «cel clar»
 valid msgstr="ser(è|ena)"
-valid msgstr="clear" cat="konversation,kstars,kmtrace_man-demangle.1,kturtle_glossary,kturtle_programming-reference"
 valid msgstr="liquid(ats?|ada|ades|i)" cat="kmymoney"
 valid msgstr="text" before="\stext"
-valid msgstr="completar" cat="bomber"
 hint="Es tradueix per «buidar», «netejar», «esborrar», «suprimir» (kde-ca-team)"
 
 {\bcolor\sselector\b}i
@@ -215,8 +197,6 @@ hint="Es tradueix per «barra de la columna» (kde-ca-team)"
 {\bcombo.?box(es|s)?\b}i
 id="kct-combobox"
 valid msgstr="quadres? combinats?"
-valid msgstr="quadrecombinat" cat="kexi"
-valid msgstr="ComboBox" cat="kommander_dcop,kommander_editor,kommander_widgets" # docmessages
 hint="Es tradueix per «quadre/s combinat/s» (kde-ca-team)"
 
 {\bcombo.?list(es|s)?\b}i
@@ -316,7 +296,6 @@ hint="Es tradueix per «descodificació, descodificacions, descodificant» (kde-
 id="kct-decrypt"
 valid msgstr="desencriptar?"
 valid msgstr="desencript(eu|is)"
-valid msgstr="decrypt" cat="kleopatra,libknetworkmanager,libmessageviewer,plasmanetworkmanagement_vpncui"
 hint="Es tradueix per «desencriptar» (kde-ca-team)"
 
 {\bdecrypted\b}i
@@ -348,7 +327,6 @@ id="kct-dialog"
 valid msgid="dialogs?.?box(es|s)?"		# -> diàleg/s
 valid msgid="login.?(dialogs?|box(es|s)?)"	# -> quadre/s / diàleg/s d'inici de sessió
 valid msgstr="diàlegs?"
-valid msgstr="@dialog" cat="kommander_specials" # docmessages
 valid comment="Tag\:\sliterallayout" # docmessages
 hint="Es tradueix per «diàleg/s» (kde-ca-team)"
 
@@ -376,7 +354,6 @@ valid msgstr="acobla(da|des|r|ts?)?\b"
 valid msgstr="acobladors?\b"
 valid msgstr="acoblables?\b" before="\swindows?"
 valid msgstr="acoblables?\b" before="\sat\sthe\s(bottom|left|right)"
-valid msgstr="acoblables?\b" cat="khotkeys,plasma_applet_icontasks,partitionmanager_usermanual"
 hint="Es tradueix per «acobla/r, acoblada/des, acoblat/s» (kde-ca-team)"
 
 {\bDock\smode\b}i
@@ -425,7 +402,7 @@ hint="Es tradueix per «acoblador/s» (kde-ca-team)"
 {\bdrop.?(down.?)?(selection\s)?box(es|s)?\b}i
 id="kct-dropdown"
 valid msgstr="llist(a|es)? desplegables?"
-valid msgstr="Dropbox" cat="kipiplugin_dropbox,libpimcommon,www_www"
+valid msgstr="Dropbox" # Servei Dropbox
 hint="Es tradueix per «llista/es desplegable/s» (kde-ca-team)"
 
 {\bedit(ing)?.?box(es|s)?\b}i
@@ -442,8 +419,6 @@ hint="Es tradueix per «incrustar, també: inclòs/osa/osos, incloure» (kde-ca-
 {\bemoticons?\b}i
 id="kct-emoticon"
 valid msgstr="emoticon(a|es)"
-valid msgstr="emoticons" after="apps\/kopete\/pics\/"
-valid msgstr="emoticon" cat="kopete_emoticonspec"
 hint="Es tradueix per «emoticona/es» (kde-ca-team)"
 
 {\bencode\b}i
@@ -465,7 +440,6 @@ hint="Es tradueix per «codificador» (kde-ca-team)"
 {\bencodings?\b}i
 id="kct-encoding"
 valid msgid="Content-Transfer-Encoding"
-valid msgstr="^ENCODING$" comment="Tag\:\spara" cat="kexi" # docmessages
 valid msgstr="codificaci(ó|ons)"
 valid msgstr="codificant"
 valid msgstr="codifica(r|va)"
@@ -475,12 +449,10 @@ hint="Es tradueix per «codificació, codificacions, codificant» (kde-ca-team)"
 {\bencrypt(ing)?\b}i
 id="kct-encrypt"
 valid msgstr="encript(ar?|eu|is?|o)"
-valid msgstr="encrypt" cat="kleopatra,okular_poppler"
 hint="Es tradueix per «encriptar» (kde-ca-team)"
 
 {\bencrypted\b}i
 id="kct-encrypted"
-valid msgstr="^ENCRYPTED$" comment="Tag\:\spara" cat="kexi" # docmessages
 valid msgstr="encripta(t|ts|da|des|r)"
 valid msgstr="encripti"
 hint="Es tradueix per «encripti/eu, encriptat, encriptada» (kde-ca-team)"
@@ -589,7 +561,6 @@ hint="Es tradueix per «el/s gràfic/s» (kde-ca-team)"
 
 {\bgreeters?\b}i
 id="kct-greeter"
-valid msgstr="greeter" cat="kdm_kdmrc-ref,kdm_theme-ref"
 valid msgstr="benvingud(a|es)"
 valid msgstr="pantalla de benvinguda"
 hint="Es tradueix per «pantalla de benvinguda, benvinguda» (kde-ca-team)"
@@ -651,15 +622,12 @@ hint="Es tradueix per «biblioteca/ques» (kde-ca-team)"
 {\blist.?box(es|s)?\b}i
 id="kct-listbox"
 valid msgstr="quadres? de llista"
-valid msgstr="quadredellista" cat="kexi"
-valid msgstr="ListBox" cat="kommander_dcop,kommander_editor,kommander_widgets" # docmessages
 hint="Es tradueix per «quadre/s de llista» (kde-ca-team)"
 
 {\blocales?\b}i
 id="kct-locale"
 valid msgstr="configuració regional"
 valid msgstr="configuracions regionals"
-valid msgstr="locale" comment="Tag\:\spara" cat="gcompris,kabcclient_man-kabcclient.1" # docmessages
 hint="Es tradueix per «configuració/ons regional/s» (kde-ca-team)"
 
 {\blogin.?(dialogs?|box(es|s)?)\b}i
@@ -672,7 +640,6 @@ hint="Es tradueix per «quadre/s / diàleg/s d'inici de sessió» (kde-ca-team)"
 id="kct-mailbox"
 valid msgstr="bústi(a|es) de correu"
 valid msgstr="bústi(a|es)"
-valid msgstr="mailbox" before="\sfiles?" cat="kmail_faq,kmail_importing"
 hint="Es tradueix per «bústia/es, bústia/es de correu» (kde-ca-team)"
 
 {\bmailing.?lists?\b}i
@@ -711,7 +678,6 @@ hint="Es tradueix per «multímetre» (kde-ca-team)"
 {\bname.?space\b}i
 id="kct-namespace"
 valid msgstr="\bespai de noms?\b"
-valid msgstr="\bEspaiDeNom\b" cat="libkimap,libkimap5"
 hint="Es tradueix per «espai de nom/s» (kde-ca-team)"
 # NOTA: El Termcat tradueix "namespace" per «espi de nom» i per «espai de noms», indistintament. Normalment, és refereix a més d'un nom (funció, variable, etc. dins el mateix espai)
 
@@ -816,8 +782,6 @@ hint="Es tradueix per «quadre/s de vista prèvia» (kde-ca-team)"
 {\bprogress.?bars?\b}i
 id="kct-progressbar"
 valid msgstr="barr(a|es) de progrés"
-valid msgstr="barraDeProgrés" cat="kexi,krossmodulewords"
-valid msgstr="ProgressBar" cat="www_www"
 hint="Es tradueix per «barra/es de progrés» (kde-ca-team)"
 
 {\bradio.?box\b}i
@@ -828,7 +792,6 @@ hint="Es tradueix per «quadre de botons d'opció» (kde-ca-team)"
 {\bradio.?buttons?\b}i
 id="kct-radiobutton"
 valid msgstr="bot(ó|ons) d'opció"
-valid msgstr="RadioButtons?" cat="kommander_dcop,kommander_editor,kommander_widgets" # docmessages
 hint="Es tradueix per «botó/ons d'opció» (kde-ca-team)"
 
 {\bradio.?groups?\b}i
@@ -839,27 +802,14 @@ hint="Es tradueix per «grup/s de botons d'opció» (kde-ca-team)"
 {\branges?\b}i
 id="kct-range"
 valid msgid="(broad|wider?)\sranges?"
-valid msgid="The Range Prototype" # docmessages
-valid msgstr="abast(ar)?"
+valid msgstr="abast(ar|en)?"
 valid msgstr="amplitud" # context d'estadística
 valid msgstr="àre(a|es)"
 valid msgstr="caren(a|es)" # de muntanyes
 valid msgstr="gamma"
 valid msgstr="intervals?"
 valid msgstr="marge" # HDR (High dynamic range): Marge dinàmic elevat
-valid msgstr="contingut" cat="katepart4,ktexteditor5"
 valid msgstr="ventall"
-valid msgstr="«Range»" # docmessages
-valid msgstr="contingut" cat="kate_configuring-part" # docmessages
-valid msgstr="van des d'(estris|una)" cat="glossary,kpovmodeler" # docmessages
-valid msgstr="Aquestes van des d'aplicacions i tecnologies específiques" cat="khelpcenter" # docmessages
-valid msgstr="oscil·la entre" cat="ksysguard" # docmessages
-valid msgstr="sèrie" cat="gwenview" # docmessages
-valid msgstr="po(den|t) variar" cat="kstars_stars,simon" # docmessages
-valid msgstr="avanci més enllà" cat="kstars_solarsys" # docmessages
-valid msgstr="\(range\)" cat="kdesvn_man-kdesvn.1" # docmessages
-valid comment="Tag\:\sprogramlisting" # docmessages
-valid comment="Tag\:\ssynopsis" # docmessages
 hint="Es tradueix per «abast, àrea, interval/s, HDR: Marge dinàmic elevat» (kde-ca-team)"
 
 {\bremov(al|es?|ed|ing)\b}i
@@ -871,8 +821,7 @@ valid msgstr="traieu"
 valid msgstr="tre(ure|t|u)"
 valid msgstr="extre(t|u)"
 valid msgstr="desmuntant" cat="plasma_applet_notifier,plasma_applet_org.kde.plasma.devicenotifier"
-valid msgstr="allunyeu" cat="kalzium"
-valid msgstr="remove" cat="amarok,amarokpkg,cervisia,kdeqt,libkpackage5,libplasma5,plasmapkg"
+valid msgstr="remove" cat="amarok,amarokpkg,cervisia,libkpackage5,libplasma5,plasmapkg"
 valid msgstr="remove" before="-trailing-space"
 hint="Es tradueix per «eliminar», «suprimir», «treure» o «desfer» (kde-ca-team)"
 
@@ -880,9 +829,6 @@ hint="Es tradueix per «eliminar», «suprimir», «treure» o «desfer» (kde-c
 {\bscreenshots?\b}i
 id="kct-screenshoot"
 valid msgstr="captur(a|es) de pantalla"
-valid msgstr="captur(a|es)" cat="marble_qt"
-valid msgstr="screenshots" cat="kipiplugin_debianscreenshots"
-valid msgstr="screenshot" cat="kdm_theme-ref" # docmessages
 hint="«screenshot» es tradueix per «captura de pantalla» (kde-ca-team)"
 
 {\bscripts?\b}i
@@ -894,10 +840,6 @@ hint="Es tradueix per «script/s» (kde-ca-team)"
 id="kct-scripting"
 valid msgstr="crea(r|ció)?\s(de\s)?scripts"
 valid msgstr="scripts? creats?"
-valid msgstr="scripts" cat="kexi,krossmoduleplan,krossmodulewords,krossmodulekword,plasma-desktop,kdelibs4,khtml5,superkaramba"
-valid msgstr="script" cat="kommander"
-valid msgstr="llenguatges\sde script" cat="kcmkonqhtml"
-valid msgstr="scripts utilitzats" cat="kommander_dcop" # docmessages
 hint="Es tradueix per «crea/r scripts, creació de scripts, scripts creat/s» (kde-ca-team)"
 
 {\bscroll.?bars?\b}i
@@ -929,7 +871,6 @@ hint="Es tradueix per «quadre/s de cerca» (kde-ca-team)"
 id="kct-selectionbox"
 valid msgid="drop.?(down.?)?(selection\s)?box(es|s)?" # -> llista/es desplegable/s
 valid msgstr="casell(a|es) de selecció"
-valid msgstr="requadre de selecció" cat="kstars"
 hint="Es tradueix per «casella/es de selecció» (kde-ca-team)"
 
 {\bshaded\sbox(es|s)?\b}i
@@ -942,8 +883,6 @@ id="kct-shortcut"
 valid msgstr="drecer(a|es)"
 valid msgstr="acc(és|sos) ràpids?"
 valid msgstr="shortcut>" # marca XML
-valid msgstr="abreujament" cat="kmouth" # docmessages
-valid msgstr="abreviatura" cat="knode_using-subscribing" # docmessages
 hint="Es tradueix per -segons el sentit que tingui- «drecera/es|accés ràpid» (kde-ca-team)"
 
 {\bside.?bars?\b}i
@@ -955,10 +894,6 @@ hint="Es tradueix per «barra/es lateral/s» (kde-ca-team)"
 id="kct-slider"
 valid msgid="slid(er|ing)\sbutton"	# -> botó de control lliscant
 valid msgstr="controls? lliscants?"
-valid msgstr="controllliscant" cat="kexi"
-valid msgstr="lliscant" cat="krita"
-valid msgstr="lliscament" cat="kxsconfig"
-valid msgstr="Slider" cat="www_www"
 hint="Es tradueix per «control/s lliscant/s» (kde-ca-team)"
 
 {\bslid(er|ing)\sbutton\b}i
@@ -974,9 +909,8 @@ hint="Es tradueix per «targeta/es intel·ligent/s» (kde-ca-team)"
 # «snapshot» es tradueix generalment per «captura de pantalla».
 {\bsnapshots?\b}i
 id="kct-snapshot"
-valid msgstr="^SNAPSHOT$" comment="Tag\:\spara" cat="kexi" # docmessages
 valid msgstr="captur(a|es) de pantalla"
-valid msgstr="captur(a|es)" cat="digikam,massif-visualizer,massif-visualizer.appdata,org.kde.massif-visualizer.appdata,kate,pate,kdevvalgrind"
+valid msgstr="captur(a|es)" cat="digikam,massif-visualizer,massif-visualizer.appdata,org.kde.massif-visualizer.appdata,kate,kdevvalgrind"
 valid msgstr="instantàni(a|es)" cat="glossary,kstars,okular-kde-org_www,rekonq,systemd-kcm"
 valid msgstr="punts? de sincronisme"
 hint="«snapshot» es tradueix *generalment* per «captura de pantalla» (kde-ca-team)"
@@ -992,7 +926,6 @@ hint="Es tradueix per «divisor, separador» (kde-ca-team)"
 {\bspin.?box(es|s)?\b}i
 id="kct-spinbox"
 valid msgstr="bot(ó|ons) de selecció de valors"
-valid msgstr="botodeselecciodevalors" cat="kexi"
 hint="Es tradueix per «botó/ons de selecció de valors» (kde-ca-team)"
 
 {\bspool\b}i
@@ -1000,7 +933,6 @@ id="kct-spool"
 valid before="\sfile" # «spool file» es comprova més endavant
 valid msgstr="encuar" # Verb «to spool»
 valid msgstr="gestió de cues" # Nom «spool»
-valid msgstr="Spool" after="Meta\sPrint\s" # docmessages
 hint="Es tradueix per «encuar/gestió de cues» (kde-ca-team)"
 
 {\bspoolers?\b}i
@@ -1057,10 +989,8 @@ valid msgstr="pestany(a|es)"
 valid msgstr="tabuladors?"
 valid msgstr="tabulaci(ó|ons)"
 valid msgstr="caràcter de tabulació"
-valid msgstr="tab" cat="kdelibs4,kcmkeyboard,kabcclient,katepart4,kbibtex,kdeqt,ki18n5,ktexteditor5,ktextwidgets5,ktouch,kwave,digikam,simonshortcutcommand,trojita_common" # Tecla Tab
+valid msgstr="tab" cat="kcmkeyboard,kbibtex,ktouch,kwave,digikam,trojita_common" # Tecla Tab
 valid msgstr="tabulatur(a|es)" cat="amarok" # Tablature -> Tabulatura (Termcat: música)
-valid msgstr="encastat" cat="kcontrol_filetypes" # docmessages
-valid msgstr="~" after="screenshot.+" cat="korganizer" # docmessages
 valid msgstr="«tab:»" # docmessages
 valid comment="Tag\:\sprogramlisting" # docmessages
 hint="Es tradueix per «pestanya/es|tabulació/ons/dor, caràcter de tabulació» (kde-ca-team)"
@@ -1072,7 +1002,6 @@ hint="Es tradueix per «quadre amb pestanyes» (kde-ca-team)"
 {\btabbed\swindows?\b}i
 id="kct-tabbedwindow"
 valid msgstr="finestr(a|es) amb pestanyes"
-valid msgstr="té dues pestanyes" cat="kdf"
 hint="Es tradueix per «finestra/es amb pestanyes» (kde-ca-team)"
 
 {\btar\s?balls?\b}
@@ -1088,7 +1017,6 @@ hint="Es tradueix per «barra de tasques» (kde-ca-team)"
 {\btext.?box(es|s)?\b}i
 id="kct-textbox"
 valid msgstr="quadres? de text"
-valid msgstr="quadredetext" cat="kexi"
 hint="Es tradueix per «quadre/s de text» (kde-ca-team)"
 
 {\btitle.?bars?\b}i
@@ -1136,7 +1064,6 @@ valid msgstr="barr(a|es) d'eines"
 valid msgstr="barra\/es d'eines"
 valid msgstr="barra de localització" # fals positiu (Location Toolbar)
 valid msgstr="barra de simulació" # fals positiu (Simulation Toolbar)
-valid msgstr="toolbar" cat="calligra"
 hint="Es tradueix per «barra/es d'eines» (kde-ca-team)"
 
 {\btool.?box(es|s)?\b}i
@@ -1176,8 +1103,6 @@ hint="Es tradueix per «vista/es en arbre» (kde-ca-team)"
 {\bunencrypted\b}i
 id="kct-unencrypted"
 valid msgid="to\sconnect\sunencrypted"
-valid msgstr="^UNENCRYPTED$" comment="Tag\:\spara" cat="kexi" # docmessages
-valid msgstr="unencrypted" after="store-displayed-messages-" # docmessages
 valid msgstr="sense encriptar"
 valid msgstr="no està encripta(t|da)"
 valid msgstr="no encriptad(a|es)"
@@ -1216,7 +1141,6 @@ hint="Es tradueix per «barra/es de títol de la finestra» (kde-ca-team)"
 id="kct-wip"
 valid msgstr="esborr(a|nt|rà)"
 valid msgstr="cortinet(a|es)" cat="kdenlive"
-valid msgstr="netejar" cat="kxsconfig"
 hint="Es tradueix per «esborrar» (kde-ca-team)"
 
 # «Wireless» es tradueix per «Sense fil» (Termcat)

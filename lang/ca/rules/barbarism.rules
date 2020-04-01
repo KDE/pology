@@ -49,7 +49,6 @@ hint="«customitzar» s'ha de substituir per «personalitzar, adaptar al(s) clie
 
 #[\bdest(í|ins)\b]i
 #id="barb-desti"
-#valid msgstr="evolució i destí" cat="kstars_darkmatter" # docmessages
 #hint="«destí» s'ha de substituir per «destinació/ons» \
 #Explicació: \
 #No s'ha de confondre destí ('potència sobrehumana que fixa per endavant el curs dels #esdeveniments i la sort reservada a cadascú', 'sort reservada a cadascú') amb destinació #('acció de destinar', 'fi a què algú o alguna cosa són destinats', 'lloc on és tramesa alguna #cosa o es dirigeix algú'). \
@@ -88,19 +87,7 @@ valid msgstr="igual com\b"
 valid msgstr="igual o "
 valid msgstr="igual mida"
 valid msgstr="igual per a\b"
-valid msgstr="No igual"
-valid msgstr="Més petit o igual"
-valid msgstr="exactament igual"
 valid msgstr="signe .?igual.?"
-valid msgstr="igual" cat="htmlsearch,simoncalculatorcommand,digikam,amarok,krusader,analitza,analitza_qt,calligrasheets,sheets,kcells,ppdtranslations4,libmailcommon,kipiplugin_wikimedia,kst_common"
-valid msgstr="Compartir Igual" cat="simonlib,kipiplugin_mediawiki"
-valid msgstr="d'igual a igual" # extragear-base/libknetworkmanager.po
-valid msgstr="D'igual manera" # docmessages/kdepim/kmail_configure.po
-valid msgstr="un estat igual" cat="umbrello_uml_basics" # docmessages
-valid msgstr="es mantenen igual" cat="klipper" # docmessages
-valid msgstr="ha de ser igual" # docmessages
-valid msgstr="és igual," # docmessages
-valid msgstr="igual i oposada" # docmessages
 valid msgstr="per igual" # docmessages
 hint="«igual» és incorrecte l'ús d'aquest adjectiu en funció adverbial \
 de possibilitat en comptes de: \
@@ -116,14 +103,7 @@ Exemples: \
 
 [\bigual (a|al|als)( la| les)?\b]i
 id="barb-igual_a"
-valid msgstr="d'igual a igual" # extragear-base/libknetworkmanager.po
-valid msgstr="és igual a l'esperada"
-valid msgstr="igual a ~" cat="amarok,digikam"
-valid msgstr="igual al nom" cat="digikam"
-valid msgstr="igual a\b" cat="libmailcommon,kopete_chatstyle,kmail_using-kmail,calligrasheets,sheets,kcells"
-valid msgstr="igual a .+(massa|vector)" cat="kalzium,kig"
-valid msgstr="igual a 1 polzada"
-hint="«igual a» -en comparacions- s'ha de substituir per «igual que, major que, menor que» (barbarisme)"
+hint="«igual a» -en comparacions- s'ha de substituir per «igual que, major que, menor que, fa» (barbarisme)"
 
 [\blink(s)\b]i
 id="barb-link"
@@ -211,7 +191,6 @@ valid msgstr="une?s po(cs|ques)"
 valid msgstr="unes(.*)(amb|contra) les altres"
 valid msgstr="\buns dos\b"
 valid msgstr="une?s \d"
-valid msgstr="Es mostren unes" cat="kstars" # docmessages (KStars)
 valid msgstr="une?s de"
 valid msgstr="uns (certs )?criteris"
 valid msgstr="uns resultats"
@@ -239,19 +218,12 @@ valid msgstr="són unes restes arqueològiques"
 valid msgstr="fixa uns valors de temperatura"
 valid msgstr="utilitzar uns missatges nous"
 valid msgstr="uns temps de"
-valid msgstr="com a unes barres" cat="ksysguard" # docmessages
-valid msgstr="une?s" cat="htmlsearch"
-valid msgstr="unes (línies|llistes)" cat="digikam,kipiplugin_metadataedit"
 valid msgstr="No corris amb unes tisores"
 valid msgstr="uns (als )?altres"
-valid msgstr="Les unes no afecten a les altres" cat="kcontrol_kcmcss" # docmessages
 valid msgstr="aparença d'unes fletxes"
-valid msgstr="\ba unes longituds" cat="kstars_blackbody" # docmessages
 valid msgstr="presència d'uns llavis"
 valid msgstr="unes mides" # docmessages
 valid msgstr="uns valors" # docmessages
-valid msgstr="unes biblioteques" cat="www_www"
-valid msgstr="uns termes" cat="www_www"
 hint="«uns / unes (quantitatiu)» -com a quantitatiu- s'ha de substituir per: \
 «- alguns \
  - uns quants \

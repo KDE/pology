@@ -5659,14 +5659,17 @@ hint="Es tradueix per «transformació, transforma/i/r» (multimèdia)"
         valid msgstr="\btransformació de la visualització o de la pantalla\b"
         hint="Es tradueix per «transformació de la visualització o de la pantalla» (multimèdia)"
 
-# «cut» i «clipping» és «retalla»
+# En general, "trim" es tradueix per «retalla» o «elimina blancs»
+# https://www.softcatala.org/recursos/web_search.py?source=trim&target=&project=tots
+# En algun cas concret també es pot traduir per «ajusta» o «talla» (cabell)
 {\btrim\b}i
-valid msgstr="\bajusta\b"
-hint="Es tradueix per «ajusta» (multimèdia)"
+valid msgstr="\bretalla\b"
+valid msgstr="\belimina blancs\b"
+hint="Es tradueix per «retalla» o «elimina blancs» (multimèdia)"
 
     {\bripple\strim\b}i
-    valid msgstr="\bajusta l'arrissat\b"
-    hint="Es tradueix per «ajusta l'arrissat» (multimèdia)"
+    valid msgstr="\bretalla l'arrissat\b"
+    hint="Es tradueix per «retalla l'arrissat» (multimèdia)"
 
 {\btruncation\seffects?\b}i
 valid msgstr="\befectes? de truncament\b"
