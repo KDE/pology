@@ -1,0 +1,177 @@
+# Common language errors for Korean
+# Shinjo Park <kde@peremen.name>, 2019.
+
+# Adopted from the ruleset of ko-po-check (https://github.com/changwoo/ko-po-check)
+# Original Author: Changwoo Ryu <cwryu@debian.org>
+# License: GPLv3+
+ 
+include file="puretext.filters"
+
+# 카빈다: 앙골라의 지역 이름
+[밍나합니다|거싱|살마|[가-힣]빈다]
+id="language/2벌식-오타"
+hint="두벌식 오타로 보입니다."
+valid msgstr="카빈다"
+
+[않\s*(한|함|합니다|된|됨|됩니다)]
+id="language/안"
+hint="짧은 부정문에서는 '않'이 아니라 '안'을 씁니다"
+
+[(?<!모)읍니다]
+id="language/습니다"
+hint="'읍니다'가 아니라 '습니다'입니다'"
+
+# Borrowed from lang/ja/rules/style.rules
+[ +\(&[A-Z\d]\)]
+id="language/accelkey_space"
+hint="가속기 키 앞에 띄어 쓰지 않습니다"
+
+[\(&[a-z]\)]
+id="language/accelkey_lowercase"
+hint="가속기 키가 소문자입니다"
+
+[\.\.\. *\([_&][A-Z\d]\)]
+id="language/accelkey_elipsis"
+hint="말줄임표는 가속기 키 뒤에 써야 합니다"
+
+#[^([Cc]opyright )?\([Cc]\) ]
+#id="copyright_re"
+#hint="copyright notice는 번역하면 안 됩니다"
+#valid msgstr=msgid
+
+*hook name="ko:language/redundant_plural" on="msgstr"
+id="language/redundant_plural"
+hint="불필요한 복수형 표현"
+
+# ...하기 위하여/위해 => ...하려면
+[[가-힣]+기 위(하여|해)]
+id="language/위하여"
+hint="어색한 표현. '-하려면'과 같이 쓰십시오."
+
+# ...와 함께
+# 웹 문서에서는 제외
+[\S+와 함께]
+id="language/함께"
+hint="어색한 표현. 풀어서 써 보십시오."
+valid cat="kde-org-announcements-releases okular-kde-org_www www_www"
+
+# ...에 의해
+[\S+에 의해]
+id="language/의해"
+hint="어색한 표현. 수동태 문장을 바꿔 보십시오."
+
+# 필요로 하다
+[필요로 하\S+]
+id="language/필요로"
+hint="어색한 표현. '필요하다'와 같이 간결히 쓰십시오."
+
+# 필요가 있다
+[필요가 있\S+]
+id="language/필요가"
+hint="어색한 표현. '...해야 합니다'와 같이 간결히 쓰십시오."
+
+# 존재하지 않다
+[존재하지 않\S+]
+id="language/존재하지"
+hint="어색한 표현. '없다'와 같이 간결히 쓰십시오."
+
+# ...할 것입니다
+# 과거형인 "-했을 것입니다"는 예외
+*hook name="ko:language/hal_geosipnida" on="msgstr"
+id="language/것입니다"
+hint="어색한 표현. '...합니다'와 같이 간결히 쓰십시오."
+
+# ...하시기 바랍니다
+[\S+시기 바랍니다]
+id="language/바랍니다"
+hint="어색한 표현. '...하십시오'와 같이 간결히 쓰십시오."
+
+# "N개의 아무개"
+[%\S*[du](개|가지)의 \S+]
+id="language/개의"
+hint="어색한 표현. '몇개/몇가지의 아무개' 대신 '아무개 몇개/몇가지'와 같이 쓰십시오."
+
+# ...을 포함
+[\S+[를을이가] 포함\S+]
+id="language/포함"
+hint="어색한 표현. '..이 들어 있다'와 같이 바꿔 쓰십시오."
+
+[\s([A-Za-z가-힣]*[가-힣];)\s+]
+id="language/no_semicolon_msgstr"
+hint="우리말 맞춤법에서는 세미콜론을 쓰지 않습니다"
+valid ctx="^Keywords$"
+
+# 오타로 보이는 불완전한 음절 찾기 (U+3131..U+318E)
+# 예외: 인덱스 표시 ('ㄱ-ㅅ', 'ㄱㄴㄷ' 등)
+[[ㄱ-ㆎ]+]
+id="language/typo_incomplete"
+hint="음절이 불완전합니다. 오타로 보입니다"
+valid msgstr="^[ㄱ-ㆎ]-[ㄱ-ㆎ]"
+valid msgstr="^[ㄱ-ㆎ][ㄱ-ㆎ][ㄱ-ㆎ]"
+
+# TODO: ㅈ, ㅊ, ㅉ 다음의 이중 모음
+
+# 받침에 대한 조사 구별
+# 조건: addFilterHook name="remove/remove-fmtdirs-msg-tick~'~'" on="msg"
+# 해당 filterHook이 있으면 모든 %n이 ~ 문자열로 대체됨.
+[~(이|가|을|를|은|는|와|과|로|으로|로서|으로서|로써|으로써|로부터|으로부터|라는|이라는)]
+id="language/조사_받침"
+valid msgstr="~(이\(가\)|을\(를\)|은\(는\)|와\(과\)|\(으\)로|\(으\)로써|\(으\)로부터|\(이\)라는)"
+hint="받침에 대한 조사 구별이 없습니다"
+
+# 잘못된 문장 부호 사용(주로 일본어나 중국어를 원문으로 번역할 때 발견됨)
+[[。、]]
+id="language/invalid_punctuation"
+hint="고리점과 모점은 한국어 가로쓰기에서 쓰지 않습니다"
+
+[[『』「」《》〈〉]]
+id="language/invalid_punctuation_2"
+hint="낱표와 화살괄호는 따옴표로 대체하십시오"
+
+# CJK Compatibility 영역(U+3300..U+33FF) 사용 금지
+[[㌀-㏿]+]
+id="language/cjk_compatibility"
+hint="한중일 호환용 영역에 있는 기호는 사용하지 않습니다. 풀어서 쓰십시오"
+
+# TODO: 괄호, 쌍점 주위 띄어쓰기 검사
+
+# (비트|바이트) 등 한글로 쓴 단위 앞에 띄어쓰기 없음 검사
+[(~|[0-9]+) +(비트|바이트|시간|분|초)\b]
+id="language/단위"
+hint="단위 명사는 숫자와 단위 사이를 띄어 쓰지 않습니다."
+
+# TODO: (합|됩)니다/(하|되)지 앞에 띄어쓰기 없음 검사
+
+# TODO: hspell/ko
+
+# 의존명사를 위한 -할 형태의 동사 모음
+[(가져올|갈|걸|고칠|나타날|내릴|놓일|되돌릴|만들|바꿀|보낼|볼|생길|시킬|쓸|알|얻어낼|얻을|없앨|열|올|일|읽어들일|읽을|있을|잠글|지울|찾을|할)수(가|도|는)?\s]
+id="language/dependent_noun_1"
+hint="의존 명사는 띄어 써야 합니다"
+
+[(가져올|갈|걸|고칠|나타날|내릴|놓일|되돌릴|만들|바꿀|보낼|볼|생길|시킬|쓸|알|얻어낼|얻을|없앨|열|올|일|읽어들일|읽을|있을|잠글|지울|찾을|할)\s*수(있|없)]
+id="language/dependent_noun_2"
+hint="의존 명사는 띄어 써야 합니다"
+
+[(가져올|갈|걸|고칠|나타날|내릴|놓일|되돌릴|만들|바꿀|보낼|볼|생길|시킬|쓸|알|얻어낼|얻을|없앨|열|올|일|읽어들일|읽을|있을|잠글|지울|찾을|할)때(가|도|는)?\s]
+id="language/dependent_noun_3"
+hint="'~할 때'라고 띄어 써야 합니다"
+
+# 조사 모음
+#josa_re = '(?:'+'|'.join([
+#    '가', '이', '이\(가\)', '가\(이\)', '\(이\)가', '\(가\)이',
+#    '를', '을', '을\(를\)', '를\(을\)', '\(을\)를', '\(를\)을',
+#    '는', '은', '은\(는\)', '는\(은\)', '\(은\)는', '\(는\)은',
+#    '와', '과', '와\(과\)', '과\(와\)',
+#    '로', '으로', '\(으\)로',
+#    '로서', '으로서', '\(으\)로서',
+#    '로써', '으로써', '\(으\)로써',
+#    '로부터', '으로부터', '\(으\)로부터',
+#    '라는', '이라는', '\(이\)라는',
+#    '의', '도', '에', '에서', '만', '부터',
+#    ])+')'
+#        're':    re.compile('([0-9A-Za-z-+\`\'\"\u2019\u201D()%_]+ ' +
+#                            josa_re + ')(?:$|\s)'),
+[([0-9A-Za-z-+\`\'"’”()%_]+ (?:가|이|이\(가\)|가\(이\)|\(이\)가|\(가\)이|를|을|을\(를\)|를\(을\)|\(을\)를|\(를\)을|는|은|은\(는\)|는\(은\)|\(은\)는|\(는\)은|와|과|와\(과\)|과\(와\)|로|으로|\(으\)로|로서|으로서|\(으\)로서|로써|으로써|\(으\)로써|로부터|으로부터|\(으\)로부터|라는|이라는|\(이\)라는|의|도|에|에서|만|부터))(?:$|\s)]
+id="language/조사"
+hint="조사는 체언에 붙여 써야 합니다"
