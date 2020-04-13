@@ -13,19 +13,21 @@
 addFilterRegex match="(\&|\-)" on="pmsgid,pmsgstr"
 
 # main items
+# TODO: hauria de ser «L» per a liquidada/es
 {\bC\b}i
 valid msgid="\bJohn C\b"
 valid msgid="\bC/C\+\+"
-valid msgstr="\bL\b"
-hint="Cal substituir-ho per «L (marca per a liquidada/es)» (revisió)"
+valid msgstr="\bC\b"
+hint="Cal substituir-ho per «C (és la drecera, la marca per a liquidada/es és L)» (revisió)"
 
 {\bM\b}i
 valid msgstr="\bM\b"
 hint="Cal substituir-ho per «M (operació/ons marcada/es)» (revisió)"
 
+# TODO: hauria de ser «C» per a conciliada/es
 {\bR\b}i
-valid msgstr="\bC\b"
-hint="Cal substituir-ho per «C (marca per a conciliada/es)» (revisió)"
+valid msgstr="\bR\b"
+hint="Cal substituir-ho per «R (és la drecera, la marca per a conciliada/es és C)» (revisió)"
 
 ##
 
@@ -154,13 +156,18 @@ valid msgstr="\bcorredor\b"
 hint="Cal substituir-ho per «corredor» (revisió)"
 
 {\bbrokerage\b}i
+valid msgid="\bbrokerage\s(account|institution)\b"
 valid msgid="\bstock\sbrokerage\b"
-valid msgstr="\bcorretatge\b"
-hint="Cal substituir-ho per «corretatge» (revisió)"
+valid msgstr="\bValors\b"
+hint="Cal substituir-ho per «Valors» (revisió)"
 
-    {\bstock\sbrokerage\b}i
-    valid msgstr="\bcorretatge de valors\b"
-    hint="Cal substituir-ho per «corretatge de valors» (revisió)"
+    {\bbrokerage\saccount\b}i
+    valid msgstr="\bcompte de valors\b"
+    hint="Cal substituir-ho per «compte de valors» (revisió)"
+
+    {\bbrokerage\sinstitution\b}i
+    valid msgstr="\bagència de borsa\b"
+    hint="Cal substituir-ho per «agència de borsa» (revisió)"
 
 {\bBudget(ed|s|ing)?\b}i
 valid msgid="\bBudget\sForecast\b"
@@ -1098,6 +1105,10 @@ hint="Cal substituir-ho per «tíquer/s (o un símbol borsari)» (revisió)"
         valid msgstr="\bsímbols? de cotització o borsaris?\b"
         hint="Cal substituir-ho per «símbol/s de cotització o borsari/s» (revisió)"
 
+{\b(to\s)?handle(ing)?\b}i
+valid msgstr="\bgesti(ó|ona(rà?)?)\b"
+hint="Cal substituir-ho per «gestió, gestiona/r/rà» (revisió)"
+
 {\btracking\sof\slots\b}i
 valid msgstr="\bseguiment de lots\b"
 hint="Cal substituir-ho per «seguiment de lots» (revisió)"
@@ -1243,8 +1254,8 @@ hint="Cal substituir-ho per «IVA (Value-added Tax -> impost sobre el valor afeg
     hint="Cal substituir-ho per «vista de les planificacions» (revisió)"
 
 {\bwithdrawals?\b}i
-valid msgstr="\bretirad(a|es)\b"
-hint="Cal substituir-ho per «retirada/es» (revisió)"
+valid msgstr="\breintegraments?\b"
+hint="Cal substituir-ho per «reintegrament/s» (revisió)"
 
 {\bworth\b}i
 valid msgstr="\bval(ien|or)\b"
