@@ -807,6 +807,28 @@ valid msgstr="preservatiu"
 valid !msgstr="conservant"
 hint="«Preservative» es tradueix per «Preservatiu», no per «Conservant» (fals amic)"
 
+# «Preserve» es tradueix en general per «Conservar»/«Mantenir».
+# DIEC: preservar
+# v. tr. [LC] Protegir (algú o alguna cosa) d’un dany possible o probable, o de qualsevol fet 
+# no desitjat. Preservar una planta del fred. Preservar la roba de les arnes. Preservar el fons 
+# històric d’un arxiu.  
+{\bpreserve(d|s)?\b}i
+id="ff-preserve"
+valid msgstr="conserv(a|at|ada|arà|eu)"
+valid msgstr="mant(én|ingut|inguda|indrà)"
+valid !msgstr="preserv(a|at|ada|arà|eu)"
+hint="«Preserve» es tradueix per «Conservar/Mantenir», no per «Preservar» (fals amic)"
+
+# «Preservation» es tradueix en general per «Conservació»/«Manteniment».
+# DIEC: preservació
+# f. [LC] Acció de preservar; l’efecte.
+{\bpreservations?\b}i
+id="ff-preservation"
+valid msgstr="conservaci(ó|ons)"
+valid msgstr="manteniments?"
+valid !msgstr="preservaci(ó|ons)"
+hint="«Preservation» es tradueix per «Conservació/Manteniment», no per «Preservació» (fals amic)"
+
 # «Presume» es tradueix per «Suposar»
 {\bpresume\b}i
 id="ff-presume"
