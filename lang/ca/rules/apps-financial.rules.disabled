@@ -138,6 +138,10 @@ hint="Cal substituir-ho per «factura/es» (revisió)"
     valid msgstr="\bfactur(a|es) de serveis\b"
     hint="Cal substituir-ho per «factura/es de serveis» (revisió)"
 
+{\bbookmarks?\b}i
+valid msgstr="\bpunts?\b"
+hint="Cal substituir-ho per «punt/s» (revisió)"
+
 {\bbonds\b}i
 valid msgstr="\bbons\b"
 hint="Cal substituir-ho per «bons» (revisió)"
@@ -171,8 +175,8 @@ hint="Cal substituir-ho per «Valors» (revisió)"
 
 {\bBudget(ed|s|ing)?\b}i
 valid msgid="\bBudget\sForecast\b"
-valid msgstr="\bPressupost(ada|at|os)?\b"
-hint="Cal substituir-ho per «Pressupost(os)?, pressupostat/da» (revisió)"
+valid msgstr="\bPressupost(ada|ades|ats?|os)?\b"
+hint="Cal substituir-ho per «Pressupost/os, pressupostat/s, pressupostada/es» (revisió)"
 
     {\bBudget\sForecast\b}i
     valid msgstr="\bPrevisió del pressupost\b"
@@ -219,6 +223,14 @@ hint="Cal substituir-ho per «gràfic» (revisió)"
 {\bcheckbooks?\b}i
 valid msgstr="\btalonaris? de xecs\b"
 hint="Cal substituir-ho per «talonari/s de xecs» (revisió)"
+
+{\bchecked\b}i
+valid msgstr="\bmarcad(a|es)\b" # KMyMoney
+valid msgstr="\bverificad(a|es)\b" # KMyMoney
+hint="Cal substituir-ho per «KMyMoney: marcada/es, verificada/es» (revisió)"
+# valid msgstr="^Si se selecciona," # SKrooge
+# valid msgstr="\bcomprova(ts?|da|des)\b" # SKrooge
+# hint="Cal substituir-ho per «SKrooge: comprovat/s, comprovada/des» (revisió)"
 
 # Es manté en femení per a depurar la IGU
 {\bCleared\b}i
@@ -385,6 +397,10 @@ hint="Cal substituir-ho per «venciment/s, vençuda/es, venç, venci/en» (revis
     valid msgstr="\bendarrer(eix|ida|ides|its?)\b"
     hint="Cal substituir-ho per «endarrerida/es, endarrerit/s, endarrereix» (revisió)"
 
+{\bEdition\sPanels?\b}i
+valid msgstr="\bPlaf(ó|ons) d'edició\b"
+hint="Cal substituir-ho per «Plafó/ons d'edició» (revisió)"
+
 # entry
     {\bEntry\sOrder\b}i
     valid msgstr="\bOrdre d'entrada\b"
@@ -508,6 +524,10 @@ hint="Cal substituir-ho per «fons» (revisió)"
 {\bFutures\b}i
 valid msgstr="\bfuturs\b"
 hint="Cal substituir-ho per «futurs» (revisió)"
+
+{\bgraphs?\b}i
+valid msgstr="\bgràfics?\b"
+hint="Cal substituir-ho per «gràfic/s» (revisió)"
 
 {\bgross\b}i
 valid msgid="\b(gross(\/|\sor\s)net|gross)\samount\b"
@@ -771,6 +791,10 @@ hint="Cal substituir-ho per «deute/s, deuen» (revisió)"
     valid msgstr="\bimport que es deu\b"
     hint="Cal substituir-ho per «import que es deu» (revisió)"
 
+{\bpage\schooser\b}i
+valid msgstr="\bselector de pàgina\b"
+hint="Cal substituir-ho per «selector de pàgina» (revisió)"
+
 {\bParent\sAccount\b}i
 valid msgstr="\bcompte pare\b"
 hint="Cal substituir-ho per «compte pare» (revisió)"
@@ -852,6 +876,18 @@ hint="Cal substituir-ho per «finances personals» (revisió)"
     valid msgstr="\bgestor (de|per a) les finances personals\b"
     hint="Cal substituir-ho per «gestors? de finances personals, gestor de les finances personals, gestor per a les finances personals» (revisió)"
 
+{\bpin(ed)?\b}i
+valid msgstr="\bfixa(da|fes|r)?\b"
+hint="Cal substituir-ho per «fixa/da/des, fixar» (revisió)"
+
+    {\bunpin\b}i
+    valid msgstr="\bdesprèn\b"
+    hint="Cal substituir-ho per «desprèn» (revisió)"
+
+{\bpointed\b}i
+valid msgstr="\bapunta(|da|des|ts?)\b"
+hint="Cal substituir-ho per «apuntat/s, apuntada/des»» (revisió)"
+
 {\bportfolio\b}i
 valid msgstr="\bcartera\b"
 hint="Cal substituir-ho per «cartera» (revisió)"
@@ -916,11 +952,12 @@ hint="Cal substituir-ho per «reinversió» (revisió)"
     hint="Cal substituir-ho per «reinversió/ons» (revisió)"
 
 {\brents?\b}i
-valid msgstr="\blloguers?\b"
-hint="Cal substituir-ho per «lloguer/s» (revisió)"
+valid msgstr="\bllogue(rs?|u)\b"
+hint="Cal substituir-ho per «lloguer/s, llogueu» (revisió)"
 
 {\bReports?\b}i
 valid msgid="details\.reports"
+valid msgid="linkend=.reports.>"
 valid msgstr="\bInformes?\b"
 hint="Cal substituir-ho per «Informe/s» (revisió)"
 
@@ -968,6 +1005,7 @@ hint="Cal substituir-ho per «Planificada/des» (revisió)"
 {\bSchedules?\b}i
 valid msgid="details\.schedules"
 valid msgid="\bno\sschedules\b"
+valid msgid="\byou\sschedule\b"
 valid msgstr="\bPlanific(a|ar|o)\b"
 valid msgstr="\bPlanificaci(ó|ons)\b"
 hint="Cal substituir-ho per «Planificació/ons, planifica/r, planifico» (revisió)"
@@ -975,6 +1013,10 @@ hint="Cal substituir-ho per «Planificació/ons, planifica/r, planifico» (revis
     {\bno\sschedules\b}i
     valid msgstr="\bcap planificació\b"
     hint="Cal substituir-ho per «cap planificació» (revisió)"
+
+    {\byou\sschedule\b}i
+    valid msgstr="\bplanifiqueu\b"
+    hint="Cal substituir-ho per «planifiqueu» (revisió)"
 
 # https://ca.wikipedia.org/wiki/Valor_mobiliari
 {\bSecurit(y|ies)\b}i
@@ -1040,8 +1082,8 @@ hint="Cal substituir-ho per «despesa» (revisió)"
 
 {\bsplits?\b}i
 id="fnc-splits"
-valid msgstr="\bdesgloss(a|ada|aments?|ar|at|en)\b"
-hint="Cal substituir-ho per «desglossa/r, desglossat/da, desglossen, desglossament/s» (revisió)"
+valid msgstr="\bdesgloss(a|ada|ades|aments?|ar|arà|at|en)\b"
+hint="Cal substituir-ho per «desglossa/r, desglossat/da, desglossades, desglossen, desglossament/s, desglossarà» (revisió)"
 
 {\bstatements?\b}i
 valid msgstr="\b(extractes?|declaraci(ó|ons)|rebuts?)\b"
@@ -1049,7 +1091,7 @@ valid msgstr="\binstrucció\b"
 hint="Cal substituir-ho per «extracte/s, declaració/ons, rebut/s, * instrucció (en el cas d'ordres SQL)» (revisió)"
 
 {\bstocks?\b}i
-valid msgid="\bstock\s(and\sCurrency\sPrices\b|brokerage|dividend|markets?|prices|quotes)\b"
+valid msgid="\bstock\s(and\sCurrency\sPrices\b|brokerage|dividend|exchange\sindex|markets?|prices|quotes)\b"
 valid msgstr="\bvalors?\b"
 hint="Cal substituir-ho per «valor/s (si es detalla serà acció/ons)» (revisió)"
 
@@ -1061,6 +1103,11 @@ hint="Cal substituir-ho per «valor/s (si es detalla serà acció/ons)» (revisi
         valid msgid="\bOnline\sprice\squotes?\b"
         valid msgstr="\bofert(a|es) de preu\b"
         hint="Cal substituir-ho per «oferta/es de preu» (revisió)"
+
+    # https://ca.wikipedia.org/wiki/Índex_borsari
+    {\bstocks\sexchange\sindex\b}i
+    valid msgstr="\bíndex borsari\b"
+    hint="Cal substituir-ho per «índex borsari» (revisió)"
 
     {\bstocks\sprices\b}i
     valid msgstr="\bcotització dels valors\b"
@@ -1082,7 +1129,7 @@ hint="Cal substituir-ho per «Impostos» (revisió)"
 valid msgid="\b(generic|in|search|under\sthe|very\sgeneral)\sterms?\b"
 valid msgid="\bterm\s(Category|Commodity|Transfer)\b"
 valid msgid="\bterms\s(and\sconditions|of agreement)\b"
-valid msgid="<.?term>\b"
+valid msgid="<.?term(\s|>)\b"
 valid msgstr="\bterminis?\b"
 hint="Cal substituir-ho per «termini/s» (revisió)"
 
