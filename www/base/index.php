@@ -39,10 +39,10 @@ t_("<p class='first'>Latest release can be downloaded from here:</p>".
    sprintf("%s/%s/%s", $rooturl, $reldir, $relfile), $relfile,
    sprintf("%s/%s/", $rooturl, $reldir), sprintf("%s/", $reldir));
 
-$repourl_dvl = "svn://anonsvn.kde.org/home/kde/trunk/l10n-support/pology";
-$webrepourl_dvl = "http://websvn.kde.org/trunk/l10n-support/pology/";
-t_("<p>Latest development code can be obtained from a Subversion repository:</p>".
-   "<div class='inset'><p><code>svn checkout %s</code></p></div>".
+$repourl_dvl = "https://invent.kde.org/sdk/pology.git";
+$webrepourl_dvl = "https://invent.kde.org/sdk/pology";
+t_("<p>Latest development code can be obtained from a Git repository:</p>".
+   "<div class='inset'><p><code>git clone %s</code></p></div>".
    "<p class='cont'>or browsed through a <a href='%s'>web interface</a>.</p>",
    $repourl_dvl, $webrepourl_dvl);
 
