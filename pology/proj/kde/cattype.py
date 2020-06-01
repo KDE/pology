@@ -25,8 +25,7 @@ def get_project_subdir (catpath):
     apath = os.path.abspath(catpath)
     up1dir = os.path.basename(os.path.dirname(apath))
     up2dir = os.path.basename(os.path.dirname(os.path.dirname(apath)))
-    if (   not re.search(r"^(kde|frameworks|applications|pim|koffice|calligra|extragear|playground|qt|www|others|wikitolearn)", up1dir)
-        or not re.search(r"^(|doc|wiki)messages$", up2dir)
+    if (not re.search(r"^(|doc|wiki)messages$", up2dir)
     ):
         subdir = None
     else:
