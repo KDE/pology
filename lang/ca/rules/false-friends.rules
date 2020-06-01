@@ -166,8 +166,6 @@ id="ff-card"
 valid !msgstr="tarj(a|es)"
 valid msgstr="target(a|es)"
 valid msgstr="cart(a|es)" cat=",kpoker,lskat,kpat,pairs.appdata"
-valid msgstr="cartes" cat="libmuon,muon-installer" before="\sgames?"
-valid msgstr="baralla de cartes" cat="digikam_editor-transform" # docmessages
 valid !msgstr="cart(a|es)"
 hint="«Card» es tradueix per «Targeta», no per «Carta» (fals amic)"
 
@@ -576,7 +574,7 @@ id="ff-gradient"
 valid msgstr="/gradients/"
 valid msgstr="degradats?"
 valid msgstr="gradient" cat="digikam,kalzium,kmplot,kst_common"
-#valid !msgstr="gradient"
+valid !msgstr="gradient"
 hint="«Gradient» es tradueix per «Degradat», no per «Gradient» -excepte la funció matemàtica- (fals amic)"
 
 # «Gripe» es tradueix per «Mal de ventre».
@@ -637,7 +635,6 @@ hint="«Institut» es tradueix per «Fundació o organització», no per «Insti
 id="ff-introduce"
 valid msgstr="present(ar|a|em|i)"
 valid msgstr="provo(car|ca|qui)"
-valid msgstr="introduir" cat="bluedevil"
 valid !msgstr="introdu(ir|eixi|eixin)"
 hint="«Introduce» es tradueix per «Presentar», no per «Introduir» (fals amic)"
 
@@ -674,14 +671,6 @@ hint="«Lyrics» es tradueix per «Lletra», no per «Lírica» (fals amic)"
 {\bnet\b}i
 id="ff-net"
 valid msgstr="xarxa"
-valid msgstr=".net" cat="kdevphpdocs"
-valid msgstr="net" cat="smb4k,smb4k-core"
-valid msgstr="net" cat="kmymoney,sheets_functions" # Valor net
-valid msgstr="net" cat="ksirk" after="@kdetalk\."
-valid msgstr="net" cat="tables,kcells,kspread,calligrasheets,sheets" before="\spresent value"# Valor actual net
-valid msgstr="net" cat="kuser" before="\sgetlocalsid"
-valid msgstr="net" cat="marble" after="rotate\.aprs\."
-valid msgstr="net" cat="plasma_applet_pastebin" after="hosting\."
 valid msgstr="net" after="@(att|cberger|comcast|earthlink|example|frogmouth|gmx|ibm|kdab|kdemail|mediaone|meyerhome|nerim|netscape|openprojects|pacbell|planete|telecorp|tuxerver|usa|users\.sf|verticaladdiction)\."
 valid msgstr="net" after="(darkorb|eigentlich|gmx|@gmx\sDOT|kdemail|linux\sru|mis|shani|tantalo)\s"
 valid msgstr="net" after="irc\.freenode\."
@@ -690,8 +679,8 @@ valid msgstr="net" after="perldoc:/"
 valid msgstr="net" after="print\.sf\."
 valid msgstr="net" after="sourceforge(\.|\s)"
 valid msgstr="net" before="\seffect"
-valid !msgstr="net"
 valid msgstr=" dot net" # Fals positiu amb les adreces de correu
+valid !msgstr="net"
 hint="«Net» es tradueix per «Xarxa», no per «Net» (fals amic)"
 
 # «Notice» es tradueix per «Anunci».
@@ -739,9 +728,6 @@ valid msgstr="paella"
 valid msgstr="panorama"
 valid msgstr="panoràmic"
 valid msgstr="panoràmica"
-valid msgstr="d'una\sa\sl'altre" cat="kxsconfig"
-valid msgstr="pan" cat="digikam" after="agfa\s"
-valid msgstr="pan" cat="kdelibs4,kdelibs4support,kdecalendarsystems,kdecalendarsystems5,libplasmanetworkmanagement-editor,plasmanetworkmanagement-libs"
 valid msgstr="pan" before="\sflute"
 valid !msgstr="pa"
 hint="«Pan» es tradueix per «Panorama/Cassola», no per «Pa» (fals amic)"
@@ -776,7 +762,6 @@ hint="«Parent» es tradueix per «Pare/mare», no per «Parent» (fals amic)"
 {\bpet\b}i
 id="ff-pet"
 valid msgstr="animal"
-valid msgstr="pet" cat="kxsconfig" after="commodore\s"
 valid !msgstr="pet"
 hint="«Pet» es tradueix per «Animal», no per «Pet» (fals amic)"
 
@@ -812,7 +797,6 @@ hint="«Physician» es tradueix per «Metge», no per «Físic» (fals amic)"
 id="ff-plain"
 valid msgstr="normals?"
 valid msgstr="senzill(a|s|es)"
-valid msgstr="plana" cat="kgeography"
 valid !msgstr="pla(na|nes)"
 hint="«Plain» es tradueix per «Senzill», no per «Pla» (fals amic)"
 
@@ -822,6 +806,28 @@ id="ff-preservative"
 valid msgstr="preservatiu"
 valid !msgstr="conservant"
 hint="«Preservative» es tradueix per «Preservatiu», no per «Conservant» (fals amic)"
+
+# «Preserve» es tradueix en general per «Conservar»/«Mantenir».
+# DIEC: preservar
+# v. tr. [LC] Protegir (algú o alguna cosa) d’un dany possible o probable, o de qualsevol fet 
+# no desitjat. Preservar una planta del fred. Preservar la roba de les arnes. Preservar el fons 
+# històric d’un arxiu.  
+{\bpreserve(d|s)?\b}i
+id="ff-preserve"
+valid msgstr="conserv(a|at|ada|arà|eu)"
+valid msgstr="mant(én|ingut|inguda|indrà)"
+valid !msgstr="preserv(a|at|ada|arà|eu)"
+hint="«Preserve» es tradueix per «Conservar/Mantenir», no per «Preservar» (fals amic)"
+
+# «Preservation» es tradueix en general per «Conservació»/«Manteniment».
+# DIEC: preservació
+# f. [LC] Acció de preservar; l’efecte.
+{\bpreservations?\b}i
+id="ff-preservation"
+valid msgstr="conservaci(ó|ons)"
+valid msgstr="manteniments?"
+valid !msgstr="preservaci(ó|ons)"
+hint="«Preservation» es tradueix per «Conservació/Manteniment», no per «Preservació» (fals amic)"
 
 # «Presume» es tradueix per «Suposar»
 {\bpresume\b}i
@@ -932,7 +938,6 @@ hint="«Receipt» es tradueix per «Rebut», no per «Recepta» (fals amic)"
 {\brecipients?\b}i
 id="ff-recipient"
 valid msgstr="destinataris?"
-valid msgstr="recipient" cat="kleopatra"
 valid !msgstr="recipients?"
 hint="«recipient» es tradueix per «Destinatari», no per «Recipient» (fals amic)"
 
@@ -974,9 +979,6 @@ hint="«Rest» es tradueix per «Descansar», no per «Restar» (fals amic)"
 {\bresume\b}i
 id="ff-resume"
 valid msgstr="repren(dre|c|s)"
-valid msgstr="resumint" cat="libkdcraw"
-valid msgstr="resume" cat="konversation" after="dcc\s"
-valid msgstr="resume" cat="kdm" # docmessages
 valid !msgstr="resum"
 hint="«Resume» es tradueix per «Reprendre», no per «Resum» (fals amic)"
 
@@ -1051,10 +1053,7 @@ hint="«Silicon» es tradueix per «Silici», no per «Silicona» (fals amic)"
 {\bsimple\b}i
 id="ff-simple"
 valid msgstr="senzill(a|s|es)"
-valid msgstr="senzilles" cat="umbrello_other_features"
-valid msgstr="mer"
-valid msgstr="simple" cat="kuser" after="LDAP\s"
-valid msgstr="simple" cat="kdeqt"
+valid msgstr="única?"
 valid !msgstr="simples?"
 valid !msgstr="simplement"
 hint="«Simple» es tradueix per «Senzill», no per «Simple» (fals amic)"

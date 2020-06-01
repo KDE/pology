@@ -9,8 +9,6 @@ include file="filter.include"
 
 [\bbe(ns)?\b]i
 id="da-be"
-valid msgstr="(ogoffart|andygoossens) at (tiscalinet|telenet) be"
-valid msgid="Be'er Sheva"
 valid msgid="(fr|nl)-be"
 valid msgid="UTF16-BE"
 valid msgid="UTF32-BE"
@@ -74,7 +72,7 @@ hint="Cal revisar-ho «\
 -> dóna, dónes: formes del verb donar» \
 (accent_diacrític)"
 
-# [\b\b]i
+# [\bes\b]i
 # hint="Cal revisar-ho «\
 # es: pronom reflexiu \
 # és: forma del verb ser» \
@@ -188,7 +186,7 @@ hint="Cal revisar-ho «\
 -- pórca: faixa de terra» \
 (accent_diacrític)"
 
-# [\b\b]i
+# [\bquè\b]i
 # hint="Cal revisar-ho «\
 # que: relatiu -sense preposició-, exclamatiu \
 # què: relatiu tònic, interrogatiu» \
@@ -231,7 +229,7 @@ hint="Cal revisar-ho «\
 -- sèu: greix» \
 (accent_diacrític)"
 
-# [\b\b]i
+# [\bsí\b]i
 # hint="Cal revisar-ho «\
 # si: nota musical; cavitat d'un ós; pronom reflexiu; conjunció \
 # sí: adverbi (afirmació)» \

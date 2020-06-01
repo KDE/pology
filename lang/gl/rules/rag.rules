@@ -134,6 +134,7 @@ id="rag-en-tab"
 hint="tab → separador"
 valid msgstr="\btabs?\b"
 valid msgstr="\bseparador(es)?\b"
+valid msgstr="\btáboas?\b"
 valid msgstr="\btabulacións?\b"
 valid msgstr="\btabulador(es)?\b"
 valid msgstr="\btabulaturas?\b"
@@ -145,10 +146,13 @@ id="rag-en-software"
 hint="software → programa, programas, soporte lóxico"
 valid msgstr="\bsoporte\s+lóxico\b"
 valid msgstr="\bprogramas?\b"
+valid msgstr="\bFree\s+Software\s+Foundation\b"
 
 [\bsoftware\b]i
 id="rag-gl-software"
 hint="software → programa, programas, soporte lóxico"
+valid msgstr="\bFree\s+Software\s+Foundation\b"
+validGroup lista-de-tradutores
 
 [\bsoporte\s+lóxico\b]i
 id="rag-gl-soporte-lóxico"

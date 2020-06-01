@@ -274,11 +274,6 @@ hint="comprobar o formato dos creditos da tradución"
 id="gnome-gl_achar"
 hint="achar -> encontrar"
 
-#descarta o uso de «aplicación» en favor de «aplicativo»
-[\baplicación]i
-id="gnome-gl_aplicación"
-hint="aplicación -> aplicativo"
-
 #descarta o uso de «apropiado» en favor de «axeitado»
 [\bapropriad]i
 id="gnome-gl_apropiado"

@@ -96,9 +96,9 @@ d_utdata = d_psam_pop %>%
   
 # Legg til ekstrakolonnar
 # (Brukar NA i staden for "" på grunn av seinare eksport)
-d_utdata$val = NA       # Paradigmet me vel for denne typen ord
-d_utdata$kommentar = NA # Kommentar til valet/paradigmekomboen
-d_utdata$unntak = NA    # Ev. unntak, på forma LEMMA_ID1=700,LEMMA_ID2=49G,…
+d_utdata$val = NA_character_       # Paradigmet me vel for denne typen ord
+d_utdata$kommentar = NA_character_ # Kommentar til valet/paradigmekomboen
+d_utdata$unntak = NA_character_    # Ev. unntak, på forma LEMMA_ID1=700,LEMMA_ID2=49G,…
 
 
 # Les inn gammal fil (for oppdatering)

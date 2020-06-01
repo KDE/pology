@@ -16,9 +16,9 @@ Obtaining
 ---------
 
 Source releases of Pology can be fetched from http://pology.nedohodnik.net/.
-The latest development code can be obtained from a Subversion repository:
+The latest development code can be obtained from a Git repository:
 
-  $ svn checkout svn://anonsvn.kde.org/home/kde/trunk/l10n-support/pology
+  $ git clone https://invent.kde.org/sdk/pology.git
 
 
 Installing

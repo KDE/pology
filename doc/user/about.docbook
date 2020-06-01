@@ -28,16 +28,16 @@
 <para>Naturally, the easiest way is to install Pology packages for your operating system distribution, if they exist. Otherwise you must obtain Pology as source code, but you will still be able to prepare it for use quite simply.</para>
 
 <para>You can either download a release tarball from <emphasis>[[insert link here]]</emphasis>, or fetch the latest development version from the version control repository. To do the latter, execute<footnote>
-    <para><command>svn</command> is the primary command of <ulink url="http://subversion.tigris.org/">Subversion</ulink> version control system. Subversion is almost certainly ready for installation from your operating system's package repositories.</para>
+    <para><command>git</command> is the primary command of the <ulink url="https://git-scm.com/">Git</ulink> version control system. Git is almost certainly ready for installation from your operating system's package repositories.</para>
 </footnote>:
 <programlisting language="bash">
 $ cd <replaceable>PARENTDIR</replaceable>
-$ svn checkout svn://anonsvn.kde.org/home/kde/trunk/l10n-support/pology
+$ git clone https://invent.kde.org/sdk/pology.git
 </programlisting>
-This will create the <filename>pology</filename> subdirectory inside the <replaceable>PARENTDIR</replaceable>, and download full Pology source into it. When you want to update to the latest version later on, you do not have to download everything again; instead you can execute <userinput>svn update</userinput> in the directory Pology's root directory:
+This will create the <filename>pology</filename> subdirectory inside the <replaceable>PARENTDIR</replaceable>, and download full Pology source into it. When you want to update to the latest version later on, you do not have to download everything again; instead you can execute <userinput>git pull</userinput> in the directory Pology's root directory:
 <programlisting language="bash">
 $ cd <replaceable>POLOGYDIR</replaceable>
-$ svn update
+$ git pull
 </programlisting>
 This will fetch only the modifications since the checkout (or the previous update) and apply them to the existing source tree.</para>
 

@@ -735,6 +735,7 @@ valid msgid="\bm(?!arc(a(cións?|dor(es)?)|ábe(l|is))\b)[aá]r(c[áaoó]|qu[eé
 valid msgid="\b(book|output|place|scroll|tick|trade|water)?mark(ed|ing|s)?\b"
 valid msgid="\bmarkings?\b"
 valid msgid="\bmarkka\b"  # Finnish Markka → marco finés
+valid msgid="\bmarkup\b"  # marcado
 valid msgid="\bnotch(es)?\b"
 valid msgid="\b(place|space)(\s*|-)holders?\b"  # marca de posición
 valid msgid="\bscars?\b"
@@ -2555,6 +2556,7 @@ valid msgid="\bconcentrat(e[ds]?|ing)\b"
 valid msgid="\bfocus(e[ds]|ing)?\b"
 valid msgid="\bmiddle\b"
 hint="«centrar» traduce a «center/centre» (e a «align center)»"
+validGroup lista-de-tradutores
 
 # «channel» tradúcese como «canle»
 {\bchannels?\b}i
@@ -2787,6 +2789,7 @@ hint="«field» tradúcese como «campo»"
 id="PT-2013-dual_field"
 valid msgid="\bcampos?\b"
 valid msgid="\bfields?\b"
+valid msgid="\bentr(y|ies)\b"  # form entry → campo de formulario
 hint="«campo» traduce a «field»"
 
 # «filesystem/file system» tradúcese como «sistema de ficheiros»
