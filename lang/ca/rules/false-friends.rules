@@ -275,15 +275,29 @@ valid msgstr="consentiment"
 valid !msgstr="consens"
 hint="«Consent» es tradueix per «Consentiment», no per «Consens» (fals amic)"
 
-### Regla desactivada: «Consistent» pot ser una traducció adequada per "Consistent", 
-### en funció del context. No apareix a la llista de falsos amics de la viquipèdia (25/10/2015)
-## «Consistent» es tradueix per «Compatible».
-#{\bconsistents?\b}i
-#id="ff-consistent"
-#valid msgstr="compatibles?"
-#valid msgstr="coherents?"
-#valid !msgstr="consistents?"
-#hint="«Consistent» es tradueix per «Compatible», no per «Consistent» (fals amic)"
+## Segons la Viquipèdia (23/06/2020), «Consistent» s'ha de traduir per:
+##   persistent, constant, coherent, conseqüent, regular, uniforme, 
+##   que no varia sinó allò em què consisteix quelcom
+# «Consistent» es tradueix generalment per «Coherent/constant».
+{\bconsistents?\b}i
+id="ff-consistent"
+valid msgstr="coherents?"
+valid msgstr="conseqüents?"
+valid msgstr="constants?"
+valid msgstr="persistents?"
+valid msgstr="regulars?"
+valid msgstr="uniformes?"
+valid !msgstr="consistents?"
+hint="«Consistent» es tradueix generalment per «Coherent/constant» (excepte densitat de materials), no per «Consistent» (fals amic)"
+
+# «Consistency» es tradueix generalment per «Coherència/constància».
+{\bconsistency\b}i
+id="ff-consistency"
+valid msgstr="coherència"
+valid msgstr="constància"
+valid msgstr="persistència"
+valid !msgstr="consistència"
+hint="«Consistency» es tradueix generalment per «Coherència/constància» (excepte densitat de materials), no per «Consistència» (fals amic)"
 
 # «Constipated» es tradueix per «Restret».
 {\bconstipated\b}i
@@ -608,12 +622,26 @@ hint="«Idiom» es tradueix per «Frase feta», no per «Idioma» (fals amic)"
 #valid !msgstr="il·lusió"
 #hint="«Illusion» es tradueix per «Miratge», no per «Il·lusió» (fals amic)"
 
-# «Inconsistence» es tradueix per «Incoherència».
-{\binconsistence\b}i
-id="ff-inconsistence"
+## Segons la Viquipèdia (23/06/2020), «Consistent» s'ha de traduir per:
+##   persistent, constant, coherent, conseqüent, regular, uniforme, 
+##   que no varia sinó allò em què consisteix quelcom
+# «Inonsistent» es tradueix generalment per «Incoherent/inconstant».
+{\binconsistents?\b}i
+id="ff-inconsistent"
+valid msgstr="incoherents?"
+valid msgstr="inconseqüents?"
+valid msgstr="inconstants?"
+valid msgstr="irregulars?"
+valid !msgstr="inconsistents?"
+hint="«Inconsistent» es tradueix generalment per «Incoherent/inconstant» (excepte densitat de materials), no per «Inconsistent» (fals amic)"
+
+# «Inconsistency» es tradueix generalment per «Incoherència/inconstància».
+{\binconsistency\b}i
+id="ff-inconsistency"
 valid msgstr="incoherència"
+valid msgstr="inconstància"
 valid !msgstr="inconsistència"
-hint="«Inconsistence» es tradueix per «Incoherència», no per «Inconsistència» (fals amic)"
+hint="«Inconsistency» es tradueix generalment per «Incoherència/inconstància» (excepte densitat de materials), no per «Inconsistència» (fals amic)"
 
 # «Ingenuity» es tradueix per «Enginy».
 {\bingenuity\b}i
