@@ -19,19 +19,10 @@ hint="-lig → -leg"
 [haldt]
 hint="haldt → halde"
 
-[lest]i
+[leste?\b]i
 id="lest"
-hint="lest → lesen/lese/lesne [og verbet leste → las]"
-valid after="[Tt]ryl" before="av"
+hint="lest(e) → lesen/lese/lesne [og verbet leste → las]"
 valid after="\b[Ff]"
-valid after="[pP]a" before="in(sk|a)e?\b"
-valid after="Cho" before="erol\b"
-valid after="e\b" before="\bCe"
-valid after="\b[Bb]ob" before="iging"
-valid after="\b[Cc]el" before="orleik"
-valid after="\b[Ss]til" before="åande"
-valid after="\b[M]i" before="olpe"
-valid after="\b[Rr]ul" before="ol"
 
 [bærbar]i
 hint="bærbar → berbar"
