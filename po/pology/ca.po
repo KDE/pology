@@ -3,13 +3,13 @@
 # This file is distributed under the license LGPL version 2.1 or
 # version 3 or later versions approved by the membership of KDE e.V.
 #
-# Antoni Bella Pérez <antonibella5@yahoo.com>, 2011, 2012, 2014, 2015.
+# Antoni Bella Pérez <antonibella5@yahoo.com>, 2011, 2012, 2014, 2015, 2020.
 msgid ""
 msgstr ""
 "Project-Id-Version: pology\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-07-24 14:09+0200\n"
-"PO-Revision-Date: 2015-08-02 02:10+0100\n"
+"PO-Revision-Date: 2020-07-31 22:43+0200\n"
 "Last-Translator: Antoni Bella Pérez <antonibella5@yahoo.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 2.0\n"
+"X-Generator: Lokalize 20.04.3\n"
 
 #: pology/ascript.py:103
 #, python-format
@@ -1117,7 +1117,7 @@ msgstr ""
 #, python-format
 msgctxt "@info"
 msgid "<bold>[warning]</bold> <orange>%(msg)s</orange>"
-msgstr "<bold>[atenció]</bold> <orange>%(msg)s</orange>"
+msgstr "<bold>[avís]</bold> <orange>%(msg)s</orange>"
 
 #: pology/report.py:149
 #, python-format
@@ -1418,7 +1418,7 @@ msgid ""
 "Invalid pattern '%(pattern)s', disabling rule:\n"
 "%(msg)s"
 msgstr ""
-"Patró no vàlid «%(pattern)s», es deshabilita la regla:\n"
+"Patró no vàlid «%(pattern)s», s'inhabilita la regla:\n"
 "%(msg)s"
 
 #: pology/rules.py:975 pology/rules.py:994
@@ -1827,11 +1827,11 @@ msgid ""
 "name without extension; :/+REGEX excludes by full path. If read directories "
 "are expanded into subpaths, these directives apply to those paths too."
 msgstr ""
-"Les línies que comencen amb «:» es tractaran com a directives per incloure o "
-"excloure fitxers/directoris del processament, de la següent manera: :-ExpReg "
-"exclou per nom base sense l'extensió, :/-ExpReg exclou per camí complet, :"
-"+ExpReg inclou per nom base sense l'extensió, :/+ExpReg exclou per camí "
-"complet. Si els directoris són de lectura s'expandiran en sub-camins, "
+"Les línies que comencen amb «:» es tractaran com a directives per a incloure "
+"o excloure fitxers/directoris del processament, de la següent manera: "
+":-ExpReg exclou per nom base sense l'extensió, :/-ExpReg exclou per camí "
+"complet, :+ExpReg inclou per nom base sense l'extensió, :/+ExpReg exclou per "
+"camí complet. Si els directoris són de lectura s'expandiran en sub-camins, "
 "aquestes directives també s'aplicaran a aquests camins."
 
 #: pology/stdcmdopt.py:122
@@ -2078,7 +2078,7 @@ msgstr "[%(arg)s és un de: %(vallist)s]"
 #: pology/subcmd.py:681
 msgctxt "@info"
 msgid "No description available."
-msgstr "Ni hi ha disponible cap descripció."
+msgstr "No hi ha disponible cap descripció."
 
 #: pology/subcmd.py:686
 msgctxt "@info"
@@ -2567,7 +2567,7 @@ msgstr ""
 #, python-format
 msgctxt "@info"
 msgid "Unknown option '%(opt)s' in command line."
-msgstr ""
+msgstr "Opció desconeguda «%(opt)s» a la línia d'ordres."
 
 #: scripts/normalize-aspell-word-list.py:68 scripts/organizeDict.py:68
 #, python-format
@@ -2625,6 +2625,8 @@ msgid ""
 "Keep track of who, when, and how, has translated, modified, or reviewed "
 "messages in a collection of PO files."
 msgstr ""
+"Manté un seguiment de qui, quan i com ha traduït, modificat o revisat els "
+"missatges en una col·lecció de fitxers PO."
 
 #: scripts/poascribe.py:110
 #, python-format
@@ -2648,6 +2650,9 @@ msgid ""
 "Select a message from ascription history by this selector. Can be repeated, "
 "in which case the message is selected if all selectors match it."
 msgstr ""
+"Selecciona un missatge des de l'historial d'adscripció mitjançant aquest "
+"selector. Es pot repetir, en aquest cas el missatge se seleccionarà si tots "
+"els selectors coincideixen."
 
 #: scripts/poascribe.py:126 scripts/poselfmerge.py:64
 msgctxt "@info command line value placeholder"
@@ -2663,17 +2668,24 @@ msgid ""
 "difference, and 1 never to show it; a convenient range is 0.6-0.8. When the "
 "difference is not shown, the '%(flag)s' flag is added to the message."
 msgstr ""
+"Es necessita una similitud mínima ajustada entre dues versions d'un missatge "
+"per a mostrar la diferència incrustada. Interval de 0,0-1,0, on 0 vol dir "
+"mostrar sempre la diferència, i 1 no mostrar mai. Un interval adequat és "
+"0,6-0,8. Quan no es mostra la diferència, s'afegirà al missatge l'indicador "
+"«%(flag)s»."
 
 #: scripts/poascribe.py:140
 msgctxt "@info command line option description"
 msgid "Next to global summary, also present results by file."
-msgstr ""
+msgstr "Junt amb el resum global, també presenta els resultats per fitxer."
 
 #: scripts/poascribe.py:145
 msgctxt "@info command line option description"
 msgid ""
 "Do not commit catalogs to version control (when version control is used)."
 msgstr ""
+"No entrega els catàlegs al control de versions (quan s'usa el control de "
+"versions)."
 
 #: scripts/poascribe.py:149
 msgctxt "@info command line value placeholder"
@@ -2683,12 +2695,12 @@ msgstr "NIVELL"
 #: scripts/poascribe.py:152
 msgctxt "@info command line option description"
 msgid "Consider ascription history up to this level into the past."
-msgstr ""
+msgstr "Considera l'historial d'adscripció fins a aquest nivell en el passat."
 
 #: scripts/poascribe.py:155
 msgctxt "@info command line value placeholder"
 msgid "SPEC"
-msgstr ""
+msgstr "SPEC"
 
 #: scripts/poascribe.py:158
 msgctxt "@info command line option description"
@@ -2699,6 +2711,11 @@ msgid ""
 "be used to separate selected difference segments in resulting messages (if "
 "this substring is empty, space is used)."
 msgstr ""
+"Redueix cada missatge en l'historial a una part de la diferència des de la "
+"primera modificació anterior: a segments afegits, eliminats o iguals. El "
+"valor comença amb un dels caràcters «a», «r» o «i», seguit d'una subcadena "
+"que es farà servir per a separar els segments de diferència seleccionats en "
+"els missatges resultants (si aquesta subcadena està buida, s'usarà espai)."
 
 #: scripts/poascribe.py:167
 msgctxt "@info command line value placeholder"
@@ -2712,6 +2729,9 @@ msgid ""
 "comparing them (relevant in some modes). Can be repeated to add several "
 "filters."
 msgstr ""
+"Passa els camps de text dels missatges rellevants a través d'un filtre abans "
+"de fer-los coincidir o comparar-los (rellevant en alguns modes). Es pot "
+"repetir per a afegir diversos filtres."
 
 #: scripts/poascribe.py:177
 msgctxt "@info command line option description"
@@ -2719,6 +2739,8 @@ msgid ""
 "When operating under a filter, also show filtered versions of whatever is "
 "shown in original (e.g. in diffs)."
 msgstr ""
+"Quan opera sota un filtre, també mostrarà les versions filtrades del que es "
+"mostra en original (p. ex., en els «diff»)."
 
 #: scripts/poascribe.py:183
 msgctxt "@info command line option description"
@@ -2726,6 +2748,8 @@ msgid ""
 "Do not remove review-significant flags from messages (possibly convert them "
 "as appropriate)."
 msgstr ""
+"No elimina els indicadors de revisió significativa dels missatges "
+"(possiblement els convertirà segons correspongui)."
 
 #: scripts/poascribe.py:187
 msgctxt "@info command line value placeholder"
@@ -2739,11 +2763,13 @@ msgid ""
 "Version control commit message for original catalogs, when %(opt)s is in "
 "effect."
 msgstr ""
+"Missatge d'entrega en el control de versions per als catàlegs originals, quan "
+"%(opt)s està en vigor."
 
 #: scripts/poascribe.py:198
 msgctxt "@info command line option description"
 msgid "Open selected messages in one of the supported PO editors."
-msgstr ""
+msgstr "Obre els missatges seleccionats en un dels editors PO admesos."
 
 #: scripts/poascribe.py:201
 msgctxt "@info command line value placeholder"
@@ -2757,6 +2783,9 @@ msgid ""
 "in that catalog would be at most the given fraction (0.0-1.0) of total "
 "number of messages."
 msgstr ""
+"Només selecciona els missatges en un catàleg si el nombre total de missatges "
+"seleccionats en aquest catàleg és com a màxim la fracció indicada (0,0-1,0) "
+"del nombre total de missatges."
 
 #: scripts/poascribe.py:212
 msgctxt "@info command line option description"
@@ -2764,6 +2793,9 @@ msgid ""
 "Consider only messages matched by this selector. Can be repeated, in which "
 "case the message is selected if all selectors match it."
 msgstr ""
+"Considera només els missatges que coincideixin amb aquest selector. Es pot "
+"repetir, en aquest cas el missatge se seleccionarà si coincideixen tots els "
+"selectors."
 
 #: scripts/poascribe.py:217
 msgctxt "@info command line value placeholder"
@@ -2776,6 +2808,8 @@ msgid ""
 "Tag to add or consider in ascription records. Several tags may be given "
 "separated by commas."
 msgstr ""
+"Etiqueta per a afegir o considerar en els registres d'adscripció. Es poden "
+"indicar diverses etiquetes separades per comes."
 
 #: scripts/poascribe.py:224
 msgctxt "@info command line value placeholder"
@@ -2785,7 +2819,7 @@ msgstr "USUARI"
 #: scripts/poascribe.py:227
 msgctxt "@info command line option description"
 msgid "User in whose name the operation is performed."
-msgstr ""
+msgstr "Usuari en nom del qual es realitza l'operació."
 
 #: scripts/poascribe.py:232
 msgctxt "@info command line option description"
@@ -2793,6 +2827,8 @@ msgid ""
 "Update headers in catalogs which contain modifications before committing "
 "them, with user's translator information."
 msgstr ""
+"Actualitza les capçaleres en els catàlegs que contenen modificacions abans de "
+"confirmar-los, amb la informació de traductor de l'usuari."
 
 #: scripts/poascribe.py:238
 msgctxt "@info command line option description"
@@ -2805,6 +2841,8 @@ msgid ""
 "Write paths of all original catalogs modified by ascription operations into "
 "the given file."
 msgstr ""
+"Escriu els camins de tots els catàlegs originals modificats per les "
+"operacions d'adscripció a dins del fitxer indicat."
 
 #: scripts/poascribe.py:248
 msgctxt "@info command line value placeholder"
@@ -3176,7 +3214,7 @@ msgstr ""
 #: scripts/poediff.py:62
 msgctxt "@info command description"
 msgid "Create embedded diffs of PO files."
-msgstr "Crea diff incrustats dels fitxers PO."
+msgstr "Crea «diff» incrustats dels fitxers PO."
 
 #: scripts/poediff.py:64 scripts/poepatch.py:71 scripts/pomtrans.py:54
 #: scripts/poselfmerge.py:56 lang/sr/scripts/pohybdl.py:40
@@ -3193,7 +3231,7 @@ msgstr ""
 #: scripts/poediff.py:77
 msgctxt "@info command line option description"
 msgid "Do not diff obsolete messages."
-msgstr ""
+msgstr "No fa el «diff» dels missatges obsolets."
 
 #: scripts/poediff.py:80
 msgctxt "@info command line value placeholder"
@@ -3206,21 +3244,25 @@ msgctxt "@info command line option description"
 msgid ""
 "Paths are under version control by given VCS; can be one of: %(vcslist)s."
 msgstr ""
+"Els camins estan sota el control de versions pel VCS indicat. Pot ser un de: "
+"%(vcslist)s."
 
 #: scripts/poediff.py:90 scripts/posieve.py:115
 msgctxt "@info command line option description"
 msgid "List the names of available options."
-msgstr ""
+msgstr "Llista els noms de les opcions disponibles."
 
 #: scripts/poediff.py:95
 msgctxt "@info command line option description"
 msgid "List the keywords of known version control systems."
 msgstr ""
+"Llista les paraules clau per als sistemes de control de versions coneguts."
 
 #: scripts/poediff.py:100 scripts/poepatch.py:105
 msgctxt "@info command line option description"
 msgid "Do not try to indirectly pair messages by merging catalogs."
 msgstr ""
+"No intenta aparellar indirectament els missatges en fusionar els catàlegs."
 
 #: scripts/poediff.py:103 scripts/poselfmerge.py:79
 msgctxt "@info command line value placeholder"
@@ -3231,6 +3273,8 @@ msgstr "FITXER_PO"
 msgctxt "@info command line option description"
 msgid "Output diff catalog to a file instead of stdout."
 msgstr ""
+"Sortida del catàleg de diferències a un fitxer en lloc de a la sortida "
+"estàndard (stdout)."
 
 #: scripts/poediff.py:111
 msgctxt "@info command line option description"
@@ -3238,11 +3282,13 @@ msgid ""
 "When two directories are diffed, ignore catalogs which are not present in "
 "both directories."
 msgstr ""
+"Quan dos directoris són diferents, ignora els catàlegs que no són presents en "
+"ambdós directoris."
 
 #: scripts/poediff.py:117
 msgctxt "@info command line option description"
 msgid "Do not display any progress info."
-msgstr ""
+msgstr "No mostra cap informació sobre el progrés."
 
 #: scripts/poediff.py:122
 #, python-format
@@ -3262,6 +3308,8 @@ msgid ""
 "Revision from which to diff to current working copy, or from first to second "
 "revision (if VCS is given)."
 msgstr ""
+"Revisió des de la qual crear la diferència a la còpia de treball actual, o "
+"des de la primera a la segona revisió (si s'indica VCS)."
 
 #: scripts/poediff.py:135
 msgctxt "@info command line option description"
@@ -3269,6 +3317,8 @@ msgid ""
 "Do not diff headers and do not write out the top header (resulting output "
 "cannot be used as patch)."
 msgstr ""
+"No diferencia les capçaleres i no escriu la capçalera superior (la sortida "
+"resultant no es podrà usar com a pedaç)."
 
 #: scripts/poediff.py:141
 #, python-format
@@ -3278,6 +3328,9 @@ msgid ""
 "effort that was needed to update the translation from old to new paths. "
 "Ignores %(opt1)s and %(opt1)s options."
 msgstr ""
+"En lloc de generar la diferència, calcula i genera una estimació de l'esforç "
+"necessari per a actualitzar la traducció des dels camins antics als nous. "
+"Ignora les opcions %(opt1)s i %(opt1)s."
 
 #: scripts/poediff.py:176
 #, python-format
@@ -3354,7 +3407,7 @@ msgstr ""
 #: scripts/poepatch.py:69
 msgctxt "@info command description"
 msgid "Apply embedded diff of PO files as patch."
-msgstr ""
+msgstr "Aplica «diff» incrustats dels fitxers PO com un pedaç."
 
 #: scripts/poepatch.py:81
 msgctxt "@info command line option description"
@@ -3362,6 +3415,8 @@ msgid ""
 "Apply every message to its paired message in the target file, irrespective "
 "of whether its non-pairing parts match too."
 msgstr ""
+"Aplica cada missatge al seu missatge aparellat en el fitxer de destinació, "
+"independentment de si les seves parts no aparellades també coincideixen."
 
 #: scripts/poepatch.py:85
 msgctxt "@info command line value placeholder"
@@ -3372,6 +3427,8 @@ msgstr "DIR"
 msgctxt "@info command line option description"
 msgid "Prepend this directory path to any resolved target file path."
 msgstr ""
+"Anteposa aquest camí de directori a qualsevol camí de fitxer de destinació "
+"que es resolgui."
 
 #: scripts/poepatch.py:93
 msgctxt "@info command line option description"
@@ -3379,11 +3436,14 @@ msgid ""
 "Instead of applying resolved newer version of the message, add the full "
 "embedded diff into the target file."
 msgstr ""
+"En comptes d'aplicar la versió més nova resolta del missatge, afegeix tot el "
+"«diff» incrustat al fitxer de destinació."
 
 #: scripts/poepatch.py:100
 msgctxt "@info command line option description"
 msgid "Read the patch from the given file instead of standard input."
 msgstr ""
+"Llegeix el pedaç des del fitxer indicat en lloc de l'entrada estàndard."
 
 #: scripts/poepatch.py:108
 msgctxt "@info command line value placeholder"
@@ -3397,6 +3457,9 @@ msgid ""
 "found in the ediff file (like in patch(1)). If not given, only the base name "
 "of each file is taken."
 msgstr ""
+"Retira el prefix més petit que conté el NÚM de barres diagonals de cada nom "
+"de fitxer trobat al fitxer «ediff» (com en el pedaç(1)). Si no s'indica, "
+"només es prendrà el nom base de cada fitxer."
 
 #: scripts/poepatch.py:118
 msgctxt "@info command line option description"
@@ -3404,30 +3467,32 @@ msgid ""
 "Instead of applying a patch, resolve all embedded differences in given paths "
 "to newer versions of messages."
 msgstr ""
+"En lloc d'aplicar un pedaç, resoldrà totes les diferències incrustades en els "
+"camins indicat a les versions més noves dels missatges."
 
 #: scripts/poepatch.py:133
 #, python-format
 msgctxt "@info"
 msgid "Too many arguments in command line: %(argspec)s"
-msgstr ""
+msgstr "Hi ha massa arguments a la línia d'ordres: %(argspec)s"
 
 #: scripts/poepatch.py:137
 #, python-format
 msgctxt "@info"
 msgid "Option %(opt)s expects a positive integer value."
-msgstr ""
+msgstr "L'opció %(opt)s esperava un valor enter positiu."
 
 #: scripts/poepatch.py:162
 #, python-format
 msgctxt "@info"
 msgid "Path '%(path)s' is not a file or does not exist."
-msgstr ""
+msgstr "El camí «%(path)s» no és un fitxer o no existeix."
 
 #: scripts/poepatch.py:173
 #, python-format
 msgctxt "@info ediff is shorthand for \"embedded difference\""
 msgid "Error reading ediff '%(file)s'."
-msgstr ""
+msgstr "Error en llegir l'«ediff» «%(file)s»."
 
 #: scripts/poepatch.py:181
 #, python-format
@@ -3563,7 +3628,7 @@ msgstr "%(cmd)s [OPCIONS] TRANSERV CAMINS..."
 #: scripts/pomtrans.py:52
 msgctxt "@info command description"
 msgid "Perform machine translation of PO files."
-msgstr ""
+msgstr "Realitza la traducció automàtica dels fitxers PO."
 
 #: scripts/pomtrans.py:62
 msgctxt "@info command line value placeholder"
@@ -3576,6 +3641,8 @@ msgid ""
 "Accelerator marker character used in messages. Detected from catalogs if not "
 "given."
 msgstr ""
+"Caràcter marcador d'accelerador usat en els missatges. Detectat des dels "
+"catàlegs, si no s'indica."
 
 #: scripts/pomtrans.py:70
 msgctxt "@info command line option description"
@@ -3583,12 +3650,14 @@ msgid ""
 "Translate from translation to another language, found in compendium file at "
 "the given path."
 msgstr ""
+"Tradueix des de la traducció a un altre idioma, la qual es troba al fitxer de "
+"compendi en el camí indicat."
 
 #: scripts/pomtrans.py:80
 #, python-format
 msgctxt "@info command line option description"
 msgid "Add '%(flag)s' flag to translated messages."
-msgstr ""
+msgstr "Afegeix l'indicador «%(flag)s» als missatges traduïts."
 
 #: scripts/pomtrans.py:84
 msgctxt "@info command line value placeholder"
@@ -3602,12 +3671,15 @@ msgid ""
 "translation mode constructed based on source and target language. Mode "
 "string format is translation service dependent."
 msgstr ""
+"Mode de traducció per al servei de traducció triat. Superposa el mode de "
+"traducció predeterminat construït segons l'idioma d'origen i de destinació. "
+"El mode per al format de cadena dependrà del servei de traducció."
 
 #: scripts/pomtrans.py:94
 #, python-format
 msgctxt "@info command line option description"
 msgid "Do not add '%(flag)s' flag to translated messages."
-msgstr ""
+msgstr "No afegeix l'indicador «%(flag)s» als missatges traduïts."
 
 #: scripts/pomtrans.py:98
 msgctxt "@info command line value placeholder"
@@ -3621,6 +3693,9 @@ msgid ""
 "For given target catalog path, the path to parallel catalog is constructed "
 "by replacing once SEARCH with REPLACE."
 msgstr ""
+"Tradueix des de la traducció a un altre idioma que es troba en catàlegs "
+"paral·lels. Per al camí d'un catàleg de destinació indicat, el camí cap al "
+"catàleg paral·lel es construirà substituint un cop «SEARCH» amb «REPLACE»."
 
 #: scripts/pomtrans.py:106 scripts/pomtrans.py:112
 msgctxt "@info command line value placeholder"
@@ -3630,12 +3705,13 @@ msgstr "IDIOMA"
 #: scripts/pomtrans.py:108
 msgctxt "@info command line option description"
 msgid "Source language code. Detected from catalogs if not given."
-msgstr ""
+msgstr "Codi de l'idioma d'origen. Detectat des dels catàlegs, si no s'indica."
 
 #: scripts/pomtrans.py:114
 msgctxt "@info command line option description"
 msgid "Target language code. Detected from catalogs if not given."
 msgstr ""
+"Codi de l'idioma de destinació. Detectat des dels catàlegs, si no s'indica."
 
 #: scripts/pomtrans.py:118
 msgctxt "@info command line value placeholder"
@@ -3646,29 +3722,30 @@ msgstr "CAMÍ"
 msgctxt "@info command line option description"
 msgid "Custom path to translation service executable (where applicable)."
 msgstr ""
+"Camí personalitzat cap a l'executable del servei de traducció (si escau)."
 
 #: scripts/pomtrans.py:138
 msgctxt "@info"
 msgid "Translation service not specified."
-msgstr ""
+msgstr "No s'ha especificat el servei de traducció."
 
 #: scripts/pomtrans.py:142
 #, python-format
 msgctxt "@info"
 msgid "Translation service '%(serv)s' not known."
-msgstr ""
+msgstr "No es coneix el servei de traducció «%(serv)s»."
 
 #: scripts/pomtrans.py:183 scripts/pomtrans.py:282
 #, python-format
 msgctxt "@info"
 msgid "Translation service failure on '%(file)s'."
-msgstr ""
+msgstr "El servei de traducció ha fallat a «%(file)s»."
 
 #: scripts/pomtrans.py:221
 #, python-format
 msgctxt "@info"
 msgid "Compendium '%(file)s' does not exist."
-msgstr ""
+msgstr "El compendi «%(file)s» no existeix."
 
 #: scripts/pomtrans.py:229
 #, python-format
@@ -3733,7 +3810,7 @@ msgstr "%(cmd)s [opcions] FITXER_PO..."
 #: scripts/porewrap.py:45
 msgctxt "@info command description"
 msgid "Rewrap message strings in PO files."
-msgstr ""
+msgstr "Reajusta les cadenes de missatges en els fitxers PO."
 
 #: scripts/porewrap.py:47 scripts/posieve.py:68 scripts/posummit.py:63
 #, python-format
@@ -3750,7 +3827,7 @@ msgstr ""
 #: scripts/porewrap.py:57 scripts/poselfmerge.py:88
 msgctxt "@info command line option description"
 msgid "More detailed progress information."
-msgstr ""
+msgstr "Informació de progrés més detallada."
 
 #: scripts/porewrap.py:64 scripts/poselfmerge.py:109
 msgctxt "@info"
@@ -3761,7 +3838,7 @@ msgstr "No s'ha donat cap fitxer d'entrada."
 #, python-format
 msgctxt "@info:progress"
 msgid "Rewrapping: %(file)s"
-msgstr ""
+msgstr "S'està reajustant: %(file)s"
 
 #: scripts/poselfmerge.py:53
 msgctxt "@info command description"
@@ -3948,7 +4025,7 @@ msgstr "Sortida de la informació de progrés més detallada."
 #: scripts/posieve.py:177
 msgctxt "@info"
 msgid "No sieve to apply given."
-msgstr "No s'ha indicat un filtre per aplicar."
+msgstr "No s'ha indicat un filtre a aplicar."
 
 #: scripts/posieve.py:243
 #, python-format
@@ -5264,8 +5341,8 @@ msgstr[1] "%(num)d actives"
 msgctxt "@item:intext inserted below as %(dis)s"
 msgid "%(num)d disabled"
 msgid_plural "%(num)d disabled"
-msgstr[0] "%(num)d deshabilitada"
-msgstr[1] "%(num)d deshabilitades"
+msgstr[0] "%(num)d inhabilitada"
+msgstr[1] "%(num)d inhabilitades"
 
 #: sieve/check_rules.py:547
 #, python-format
