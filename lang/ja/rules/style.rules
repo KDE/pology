@@ -578,3 +578,33 @@ id="tag-italic"
 hint="本当に必要でなければイタリック体の使用を避けてください (引用符や KUIT タグに置き換えるとか)"
 valid span="<i>イタリック体</i>" cat="quanta, kopete"
 valid cat="kalgebra"
+
+
+#
+# styles for editing docs.krita.org files
+#
+
+[:kbd:`.*?`]
+id="krita-docs-kbd"
+hint="前後にスペースが必要"
+valid after="^|[ \(\)、。]" before="$|[ \(\):、。]"
+
+[:guilabel:`.*?`]
+id="krita-docs-guilabel"
+hint="前後にスペースが必要"
+valid after="^|[ \(\)、。]" before="$|[ \):、。]"
+
+[:ref:`.*?`]
+id="krita-docs-ref"
+hint="前後にスペースが必要"
+valid after="^|[ \(\)、。]" before="$|[ \(\):、。]"
+
+[:menuselection:`.*?`]
+id="krita-docs-menuselection"
+hint="前後にスペースが必要"
+valid after="^|[ \(\)、。]" before="$|[ \(\):、。]"
+
+[\|mouse(left|middle|right)\|]
+id="krita-docs-mouse"
+hint="前後にスペースが必要"
+valid after="^|[ \(\)、。]" before="$|[ \(\):、。]"
