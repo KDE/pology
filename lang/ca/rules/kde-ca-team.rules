@@ -570,6 +570,12 @@ id="kct-groupbox"
 valid msgstr="grup de caselles"
 hint="Es tradueix per «grup de caselles» (kde-ca-team)"
 
+# «heatmap» es tradueix per «gràfic d'intensitat de colors» (Termcat)
+{\bheatmaps?\b}i
+id="kct-heatmap"
+valid msgstr="gràfics?\sd'intensitat\sde\scolors"
+hint="«Heatmap» es tradueix per «Gràfic d'intensitat de colors» (kde-ca-team)"
+
 {\bicon\slist\b}i
 id="kct-iconlist"
 valid msgstr="llista d'icones"
@@ -811,6 +817,14 @@ valid msgstr="intervals?"
 valid msgstr="marge" # HDR (High dynamic range): Marge dinàmic elevat
 valid msgstr="ventall"
 hint="Es tradueix per «abast, àrea, interval/s, HDR: Marge dinàmic elevat» (kde-ca-team)"
+
+# «refresh rate» el traduim per «freqüència d'actualització» (kde-i18n-ca mailing list)
+# El Termcat accepta: freqüència de mostratge i freqüència de refrescament
+{\brefresh\srate\b}i
+id="kct-refresh_rate"
+valid msgstr="freqüència\sd'actualització"
+valid !msgstr="freqüència\sde\srefresc"
+hint="«Refresh rate» ho traduim per «Freqüència d'actualització» (kct-ca-team)"
 
 {\bremov(al|es?|ed|ing)\b}i
 id="kct-remove"
@@ -1131,6 +1145,13 @@ hint="«wallpaper» es tradueix per «fons de pantalla», no per «paper pintat�
 id="kct-wifi"
 valid msgstr="Wi.?Fi"
 hint="Es tradueix per «Wi-Fi» (kde-ca-team)"
+
+# «widget» es tradueix per «giny» (Termcat).
+{\bwidgets?\b}i
+id="kct-widget"
+valid msgstr="ginys?"
+valid !msgstr="estris?"
+hint="«widget» es tradueix per «giny»/«estri» (kde-ca-team)"
 
 {\bwindow\stitle\sbars?\b}i
 id="kct-windowtittlebar"

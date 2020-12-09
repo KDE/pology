@@ -2,6 +2,10 @@
 # by KDE Catalan Team (kde-i18n-ca@kde.org)
 # License: GPLv3
 
+# Remove accelerators.
+addFilterRegex match="(\&|~|_)" on="pmsgid,pmsgstr"
+
+# Remove XML entities
 include file="filter.include"
 
 # «adició» ha de ser «addició» (quan es refereix a sumar).
@@ -31,6 +35,12 @@ hint="«al respecte» s'ha de substituir per «referent a això» (error freqüe
 [\ba\sno\sser\sque\b]i
 id="common-anoserque"
 hint="«a no ser que» s'ha de substituir per «llevat que», «fora que» etc. (error freqüent)"
+
+# «ajustament/s» s'ha de substituir per «arranjament», «configuració», «opció».
+[\bajustaments?\b}]
+id="common-ajustament"
+valid msgid="adjustments?"
+hint="«Ajustament/s» s'ha de substituir per «Arranjament», «Configuració», «Opció» (common)"
 
 # «atlas» es tradueix per «atles» (excepte l'estrella Atlas).
 {\batlas\b}i
@@ -219,6 +229,13 @@ hint="«sufixe/prefixe» s'ha de substituir per «sufix/prefix» (error freqüen
 id="common-hihan"
 hint="«hi han» s'ha de substituir per «hi ha» (error freqüent)"
 
+# «neutral» es tradueix per «neutre» en el cas de colors
+{\bneutrals?\b}i
+id="common-neutral"
+valid msgstr="neutr(a|e)s?"
+valid msgstr="independents?"
+hint="«Neutral» s'ha de traduir per «neutre» en el cas de colors/imatges. Els païssos poden ser «neutrals» (error freqüent)"
+
 # «per el» ha de ser «pel».
 [\bper\sel\b]i
 id="common-pel"
@@ -234,6 +251,12 @@ hint="«p.ex.» s'abrevia amb un espai al mig «p. ex.» (error freqüent)"
 id="common-por"
 valid="Por\&t"
 hint="«por» s'ha de substituir per un mot correcte (error freqüent)"
+
+# Un refresc és una beguda refrescant
+[\brefresc\b]i
+id="common-refresc"
+valid msgstr="refrescament"
+hint="«Refresc» és una beguda, segurament cal dir «actualització» (error freqüent)"
 
 # «rés» (del verb resar) no s'ha de confondre amb «res» (nothing).
 [\b(R|r)és\b]i
@@ -253,10 +276,39 @@ hint="«router» es tradueix per «encaminador» (error freqüent)"
 id="common-sempreiquan"
 hint="«sempre i quan» és incorrecte, cal utilitzar «sempre que» (error freqüent)"
 
+# «setting» es tradueix per «arranjament», «configuració», «opció».
+{\bsetting\b}i
+id="common-setting"
+valid msgstr="opció"
+valid msgstr="arranjament"
+valid msgstr="configuració"
+valid msgstr="arranj(a|ant)"
+valid msgstr="defini(nt|r|t)"
+valid msgstr="establi(nt|r)"
+valid !msgstr="ajustament"
+hint="«Setting» es tradueix per «Arranjament», «Configuració», «Opció», no per «Ajustament» (common)"
+
+# «settings» es tradueix per «arranjament», «configuració», «opcions».
+{\bsettings\b}i
+id="common-settings"
+valid msgstr="arranjament"
+valid msgstr="configuració"
+valid msgstr="opcions"
+valid msgstr="paràmetres" #Provisional
+valid msgstr="preferències" #Provisional
+valid msgstr="valors" #Provisional
+valid msgstr="settings"
+hint="«Settings» es tradueix per «Arranjament», «Configuració», «Opcions», no per «Ajustament/s» (common)"
+
 # «síntesi» en català, s'utilitza normalment en singular.
 [\b(S|s)íntesis\b]i
 id="common-sintesi"
 hint="«síntesis» s'utilitza normalment en singular «síntesi» (error freqüent)"
+
+# «solapar» no és al diccionar català
+[\bsolap(a|ar|ant|eu)\b]i
+id="common-solap"
+hint="El verb «solapar» no existix en català. Excepció: «solapa» és una peça de roba, la part d'un sobre o la part d'un llibre que queda per sobre d'una altra (error freqüent)"
 
 # «tal i com» ha de ser «tal com».
 [\btal\si\scom\b]i
@@ -294,14 +346,6 @@ hint="«URL» és masculí (Localitzador Uniforme de Recursos) (error freqüent)
 [\bves\b]i
 id="common-ves"
 hint="«ves» (verb anar) cal que porti accent «vés» (error freqüent)"
-
-# «widget» es tradueix per «estri».
-# El Termcat recomana traduir «widget» per «giny»
-{\bwidgets?\b}i
-id="common-widget"
-valid msgstr="estris?"
-valid msgstr="ginys?"
-hint="«widget» es tradueix per «giny»/«estri» (error freqüent)"
 
 # «world» es tradueix per «món» (amb accent).
 {\bworld\b}i
