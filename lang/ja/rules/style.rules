@@ -593,18 +593,36 @@ valid after="^|[ \(\)、。]" before="$|[ \(\):、。]"
 id="krita-docs-guilabel"
 hint="前後にスペースが必要"
 valid after="^|[ \(\)、。]" before="$|[ \):、。]"
+valid cat="websites-docs-krita-org"
 
 [:ref:`.*?`]
 id="krita-docs-ref"
 hint="前後にスペースが必要"
 valid after="^|[ \(\)、。]" before="$|[ \(\):、。]"
+valid cat="websites-docs-krita-org"
 
 [:menuselection:`.*?`]
 id="krita-docs-menuselection"
 hint="前後にスペースが必要"
 valid after="^|[ \(\)、。]" before="$|[ \(\):、。]"
+valid cat="websites-docs-krita-org"
 
 [\|mouse(left|middle|right)\|]
 id="krita-docs-mouse"
 hint="前後にスペースが必要"
 valid after="^|[ \(\)、。]" before="$|[ \(\):、。]"
+valid cat="websites-docs-krita-org"
+
+[``]
+id="krita-docs-backticks"
+hint="片側にスペースが必要"
+valid after="[ 、]"
+valid before="[ ]"
+valid cat="websites-docs-krita-org"
+
+[\*+]
+id="krita-docs-star"
+hint="片側にスペースが必要"
+valid after="^|[ 、]"
+valid before="[ ]"
+valid cat="websites-docs-krita-org"
