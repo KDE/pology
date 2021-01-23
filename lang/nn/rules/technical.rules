@@ -30,5 +30,9 @@ valid !comment="shortcut key name, do not translate"
 id="tastatursnarveg"
 hint="Desse tastatursnarvegane skal ikkje omsetjast (jf. kommentar i kjeldekoden)"
 
+[\.$]
+valid !comment="path: screenshot/caption"
+id="appdata-skjermbilete"
+hint="Skildringar av skjermbilete i appdata-filer skal aldri slutta med punktum"
 
 # End of rules
