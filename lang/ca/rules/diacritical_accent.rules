@@ -32,6 +32,7 @@ hint="Cal revisar-ho «\
 # (accent_diacrític)"
 
 [\bcólls?\b]i
+id="da-coll"
 hint="Cal revisar-ho «\
 -> coll: part del cos \
 -- Cóll: topònim» \
@@ -59,6 +60,7 @@ hint="Cal revisar-ho «\
 #(accent_diacrític)"
 
 [\bdéus?\b]i
+id="da-deu"
 valid msgid="\bGODS?\b"
 hint="Cal revisar-ho «\
 -> deu: font; numeral \
@@ -112,6 +114,7 @@ hint="Cal revisar-ho «\
 #(accent_diacrític)"
 
 [\bma\b]i
+id="da-ma"
 valid !msgstr="màxima"
 hint="Cal revisar-ho «\
 -- ma: (plural mes): forma del femení de l’adjectiu possessiu mon \
@@ -119,6 +122,7 @@ hint="Cal revisar-ho «\
 (accent_diacrític)"
 
 [\bmes\b]i
+id="da-mes"
 valid !msgstr="màximes"
 hint="Cal revisar-ho «\
 -- mes: dotzena part d'un any; possessiu; però; participi de metre \
@@ -142,6 +146,7 @@ hint="Cal revisar-ho «\
 #(accent_diacrític)"
 
 [\bmon\b]i
+id="da-mon"
 valid msgid="Mon"
 hint="Cal revisar-ho «\
 -- mon (plural mos): possessiu \
@@ -186,6 +191,7 @@ hint="Cal revisar-ho «\
 #(accent_diacrític)"
 
 [\bpèls?\b]i
+id="da-pel"
 valid msgid="bristles?"
 valid msgid="\bFurs?\b"
 valid msgid="\bHairs?\b"
@@ -223,6 +229,7 @@ hint="Cal revisar-ho «\
 #(accent_diacrític)"
 
 [\bsé\b]i
+id="da-se"
 valid msgid="Know"
 hint="Cal revisar-ho «\
 -> se: pronom reflexiu \
@@ -276,6 +283,7 @@ hint="Cal revisar-ho «\
 (accent_diacrític)"
 
 [\bson\b]i
+id="da-son"
 valid msgid="sleep"
 valid msgid="Mae Hong Son"
 valid msgid="Lang Son"
