@@ -167,4 +167,19 @@ hint="Bruk av eit ord som er unormert (alltid vore det eller gått ut av ordboka
 id="imperativending"
 hint="imperativ skal aldri slutta på -ér («installer», ikkje «installér»)"
 
+*hook name="nn:exclusion/exclude-forms~['subst-mask-artikkel']" on="msgstr"
+id="hankjønn"
+valid before="-"
+hint="Ordet har feil artikkel (det er hankjønn, ikkje hokjønn eller inkjekjønn)"
+
+*hook name="nn:exclusion/exclude-forms~['subst-fem-artikkel']" on="msgstr"
+id="hokjønn"
+valid before="-"
+hint="Ordet har feil artikkel (det er hokjønn, ikkje hankjønn eller inkjekjønn)"
+
+*hook name="nn:exclusion/exclude-forms~['subst-noyt-artikkel']" on="msgstr"
+id="inkjekjønn"
+valid before="-"
+hint="Ordet har feil artikkel (det er inkjekjønn, ikkje hankjønn eller hokjønn)"
+
 # End of rules
