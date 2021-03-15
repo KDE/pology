@@ -607,6 +607,18 @@ hint="前後にスペースが必要"
 valid after="^|[ \(\)、。]" before="$|[ \(\):、。]"
 valid cat="websites-docs-krita-org"
 
+[:literal:`.*?`]
+id="krita-docs-literal"
+hint="前後にスペースが必要"
+valid after="^|[ \(\)、。]" before="$|[ \(\):、。]"
+valid cat="websites-docs-krita-org"
+
+[:file:`.*?`]
+id="krita-docs-file"
+hint="前後にスペースが必要"
+valid after="^|[ \(\)、。]" before="$|[ \):、。]"
+valid cat="websites-docs-krita-org"
+
 [\|mouse(left|middle|right)\|]
 id="krita-docs-mouse"
 hint="前後にスペースが必要"
@@ -622,13 +634,13 @@ valid cat="websites-docs-krita-org"
 [``]
 id="krita-docs-backticks"
 hint="片側にスペースが必要"
-valid after="^|[ 、]"
-valid before="[ ]"
+valid after="^|[ 、。]"
+valid before="$|[ 、]"
 valid cat="websites-docs-krita-org"
 
 [\*+]
 id="krita-docs-star"
 hint="片側にスペースが必要"
-valid after="^|[ 、。]"
-valid before="[ 、]"
+valid after="^|[ 、。\(]"
+valid before="[ 、。\)]"
 valid cat="websites-docs-krita-org"
