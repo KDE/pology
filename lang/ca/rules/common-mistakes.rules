@@ -258,11 +258,6 @@ id="common-refresc"
 valid msgstr="refrescament"
 hint="«Refresc» és una beguda, segurament cal dir «actualització» (error freqüent)"
 
-# «rés» (del verb resar) no s'ha de confondre amb «res» (nothing).
-[\b(R|r)és\b]i
-id="common-res"
-hint="«rés» (de resar) no s'ha de confondre amb «res» (res de res) (error freqüent)"
-
 # «router» es tradueix per «encaminador».
 {\brouters?\b}i
 id="common-router"
@@ -341,11 +336,6 @@ hint="«tutorial» es tradueix per «guia/es d'aprenentatge, també: programa/es
 [\b(la|les|una|unes)\sURL\b]i
 id="common-URL"
 hint="«URL» és masculí (Localitzador Uniforme de Recursos) (error freqüent)"
-
-# «ves» del verb anar cal que porti accent «vés».
-[\bves\b]i
-id="common-ves"
-hint="«ves» (verb anar) cal que porti accent «vés» (error freqüent)"
 
 # «world» es tradueix per «món» (amb accent).
 {\bworld\b}i
