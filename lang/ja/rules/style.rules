@@ -641,6 +641,6 @@ valid cat="websites-docs-krita-org"
 [\*+]
 id="krita-docs-star"
 hint="片側にスペースが必要"
-valid after="^|[ 、。\(]"
-valid before="[ 、。\)]"
+valid after="^|[ 、。\(\)]"
+valid before="$|[ 、。\)]"
 valid cat="websites-docs-krita-org"
