@@ -53,7 +53,7 @@ hint="어색한 표현. '-하려면'과 같이 쓰십시오."
 [\S+와 함께]
 id="language/함께"
 hint="어색한 표현. 풀어서 써 보십시오."
-valid cat="kde-org-announcements-releases okular-kde-org_www www_www"
+valid cat="kde-org-announcements-releases,okular-kde-org_www,www_www"
 
 # ...에 의해
 [\S+에 의해]
@@ -95,6 +95,7 @@ hint="어색한 표현. '몇개/몇가지의 아무개' 대신 '아무개 몇개
 [\S+[를을이가] 포함\S+]
 id="language/포함"
 hint="어색한 표현. '..이 들어 있다'와 같이 바꿔 쓰십시오."
+disabled
 
 [\s([A-Za-z가-힣]*[가-힣];)\s+]
 id="language/no_semicolon_msgstr"
