@@ -1,0 +1,410 @@
+# Information technology for Catalan translations
+# License: GPLv3
+#
+
+# include file="filter.include"
+
+addFilterRegex match="&" on="pmsgid,pmsgstr"
+
+# Noms de joc https://en.wikipedia.org/wiki/List_of_patience_games
+    {\b(A|a)ces\s(U|u)p\b}
+    valid msgstr="\bAsos amunt\b"
+    hint="Cal substituir la traducció per «Asos amunt» -nom de joc- (revisió -KPatience-)"
+
+    {\b(B|b)aker.?s\s(D|d)ozen\b}i
+    valid msgstr="\bDotzena de Baker\b"
+    hint="Cal substituir la traducció per «Dotzena de Baker» -nom de joc- (revisió -KPatience-)"
+
+    {\b(B|b)eleaguered\s(C|c)astle\b}
+    valid msgstr="\bCastell assetjat\b"
+    hint="Cal substituir la traducció per «Castell assetjat» -nom de joc- (revisió -KPatience-)"
+
+    {\b(C|c)astle\b}
+    valid msgid="\b(B|b)eleaguered\s(C|c)astle\b"
+    valid msgstr="\bCastell\b"
+    hint="Cal substituir la traducció per «Castell» -nom de joc- (revisió -KPatience-)"
+
+    {\b(C|c)astles\sin\s(S|s)pain\b}
+    valid msgstr="\bCastells a Espanya\b"
+    hint="Cal substituir la traducció per «Castells a Espanya» -nom de joc- (revisió -KPatience-)"
+
+    # https://en.wikipedia.org/wiki/Beleaguered_Castle
+    {\b(C|c)itadel\b}
+    valid msgstr="\bCitadel\b"
+    hint="Cal substituir la traducció per «Citadel» -nom de joc- (revisió -KPatience-)"
+
+    {\b(E|e)xiled\s(K|k)ings\b}
+    valid msgstr="\bReis exiliats\b"
+    hint="Cal substituir la traducció per «Reis exiliats» -nom de joc- (revisió -KPatience-)"
+
+    {\b(E|e)ight\s(O|o)ff\b}
+    valid msgstr="\bVuit fora\b"
+    hint="Cal substituir la traducció per «Vuit fora» -nom de joc- (revisió -KPatience-)"
+
+    {\b(F|f)orecell\b}
+    valid msgstr="\bForecell\b"
+    hint="Cal substituir la traducció per «Forecell» -nom de joc- (revisió -KPatience-)"
+
+    {\b(F|f)orty\s(.?|.?amp;)\s(E|e)ight\b}
+    valid msgstr="\bQuaranta i vuit\b"
+    hint="Cal substituir la traducció per «Quaranta i vuit» -nom de joc- (revisió -KPatience-)"
+
+    {\b(F|f)reecell\b}
+    valid msgstr="\bCel·la lliure\b"
+    hint="Cal substituir la traducció per «Cel·la lliure» -nom de joc- (revisió -KPatience-)"
+
+    {\b(G|g)olf\b}
+    valid msgstr="\bGolf\b"
+    hint="Cal substituir la traducció per «Golf» -nom de joc- (revisió -KPatience-)"
+
+    {\b(G|g)randfather\b}
+    valid msgid="\bGrandfather.s\sClock\b"
+    valid msgstr="\bEl iaio\b"
+    hint="Cal substituir la traducció per «El iaio» -nom de joc- (revisió -KPatience-)"
+
+    {\b(G|g)randfather.s\s(C|c)lock\b}
+    valid msgstr="\bEl rellotge de l'avi\b"
+    hint="Cal substituir la traducció per «El rellotge de l'avi» -nom de joc- (revisió -KPatience-)"
+
+    {\b(G|g)ypsy\b}
+    valid msgstr="\bGitano\b"
+    hint="Cal substituir la traducció per «Gitano» -nom de joc- (revisió -KPatience-)"
+
+    {\b(P|p)ortuguese\s(S|s)olitaire\b}
+    valid msgstr="\bSolitari portuguès\b"
+    hint="Cal substituir la traducció per «Solitari portuguès» -nom de joc- (revisió -KPatience-)"
+
+    {\b(S|s)eahaven\s(T|t)owers\b}
+    valid msgstr="\bTorres del refugi de mar\b"
+    hint="Cal substituir la traducció per «Torres del refugi de mar» -nom de joc- (revisió -KPatience-)"
+
+    {\b(S|s)iegecraft\b}
+    valid msgstr="\bSetge\b"
+    hint="Cal substituir la traducció per «Setge» -nom de joc- (revisió -KPatience-)"
+
+    {\b(S|s)imple\s(S|s)imon\b}
+    valid msgstr="\bEl ximple Simó\b"
+    hint="Cal substituir la traducció per «El ximple Simó» -nom de joc- (revisió -KPatience-)"
+
+    {\b(S|s)panish\s(P|p)atience\b}
+    valid msgstr="\bSolitari espanyol\b"
+    hint="Cal substituir la traducció per «Solitari espanyol» -nom de joc- (revisió -KPatience-)"
+
+    {\b(S|s)pider\b}
+    valid msgstr="\bAranya\b"
+    hint="Cal substituir la traducció per «Aranya» -nom de joc- (revisió -KPatience-)"
+
+    {\b(S|s)treets\sand\s(A|a)lleys\b}
+    valid msgstr="\bCarrers i carrerons\b"
+    hint="Cal substituir la traducció per «Carrers i carrerons» -nom de joc- (revisió -KPatience-)"
+
+    {\b(S|s)tronghold\b}
+    valid msgstr="\bFortalesa\b"
+    hint="Cal substituir la traducció per «Fortalesa» -nom de joc- (revisió -KPatience-)"
+
+    # https://ca.wikipedia.org/wiki/Yukon
+    {\b(Y|y)ukon\b}
+    valid msgstr="\bYukon\b"
+    hint="Cal substituir la traducció per «Yukon» -nom de joc- (revisió -KPatience-)"
+
+{\baces?\b}i
+valid msgstr="\bas(os)?\b"
+hint="Cal substituir la traducció per «as, asos» -carta de la baralla- (revisió -KPatience-)"
+
+{\bascending(\sorder)?\b}i
+valid msgstr="\bordre ascendent\b"
+hint="Cal substituir la traducció per «ordre ascendent» (revisió -KPatience-)"
+
+{\bbuilt\sdown\b}i
+valid msgstr="\bconstrueixen cap avall\b"
+hint="Cal substituir la traducció per «construeixen cap avall» (revisió -KPatience-)"
+
+{\bcard\senters\splay\b}i
+valid msgstr="\bcarta entra en joc\b"
+hint="Cal substituir la traducció per «carta entra en joc» (revisió -KPatience-)"
+
+{\bclubs\b}i
+valid msgstr="\btrèvols\b"
+hint="Cal substituir la traducció per «trèvols» -pal de la baralla- (revisió -KPatience-)"
+
+{\bdealts?\b}i
+valid msgstr="\breparteix(en)?\b"
+valid msgstr="\brepartiments?\b"
+hint="Cal substituir la traducció per «reparteix/en, repartiment/s» (revisió -KPatience-)"
+
+{\bdecks?\b}i
+valid msgid="\bcard\sdecks?\b"
+valid msgstr="\bbarall(a|es)\b"
+hint="Cal substituir la traducció per «baralla/es» (revisió -KPatience-)"
+
+    {\bcard\sdecks?\b}i
+    valid msgstr="\bbarall(a|es) de cartes\b"
+    hint="Cal substituir la traducció per «baralla/es de cartes» (revisió -KPatience-)"
+
+{\bdescending(\sorder)?\b}i
+valid msgstr="\bordre descendent\b"
+hint="Cal substituir la traducció per «ordre descendent» (revisió -KPatience-)"
+
+{\bdiamonds\b}i
+valid msgstr="\bdiamants\b"
+hint="Cal substituir la traducció per «diamants» -pal de la baralla- (revisió -KPatience-)"
+
+{\bdrop\b}i
+valid msgid="\bauto.?drop\b"
+valid msgstr="\bcol·loca(ció)?\b"
+hint="Cal substituir la traducció per «col·loca(ció)?» (revisió -KPatience-)"
+
+    {\bauto.?drop\b}i
+    valid msgstr="\bcol·locació automàtica\b"
+    hint="Cal substituir la traducció per «col·locació automàtica» (revisió -KPatience-)"
+
+{\bface\sdown\b}i
+valid msgstr="\bcara avall\b"
+hint="Cal substituir la traducció per «cara avall» (revisió -KPatience-)"
+
+{\bface\sup\b}i
+valid msgid="\bflipped\sface\sup\b"
+valid msgstr="\bcara amunt\b"
+hint="Cal substituir la traducció per «cara amunt» (revisió -KPatience-)"
+
+{\bfamily\b}i
+valid msgid="\breal\sfamil(y|ies)\b"
+valid msgstr="\bfamília\b"
+hint="Cal substituir la traducció per «família» (revisió -KPatience-)"
+
+    {\breal\sfamil(y|ies)\b}i
+    valid msgstr="\bfamíli(a|es) reals?\b"
+    hint="Cal substituir la traducció per «família/es real/s» (revisió -KPatience-)"
+
+{\bfits\b}i
+valid msgstr="\bencaixa\b"
+hint="Cal substituir la traducció per «encaixa» (revisió -KPatience-)"
+
+{\bflipped\b}i
+valid msgid="\bflipped\sface\sup\b"
+valid msgstr="\bcapgirarà\b"
+hint="Cal substituir la traducció per «capgirarà» (revisió -KPatience-)"
+
+    {\bflipped\sface\sup\b}i
+    valid msgstr="\bgirarà cara amunt\b"
+    hint="Cal substituir la traducció per «girarà cara amunt» (revisió -KPatience-)"
+
+{\bfoundation\b}i
+valid msgid="\bfoundation\spiles?\b"
+valid msgstr="\bbase\b"
+hint="Cal substituir la traducció per «base» (revisió -KPatience-)"
+
+    {\bfoundation\spiles?\b}i
+    valid msgstr="\bmunts? base\b"
+    hint="Cal substituir la traducció per «munt/s base» (revisió -KPatience-)"
+
+{\bfree\scells?\b}i
+valid msgstr="\bcel·l(a|es) lliures?\b"
+hint="Cal substituir la traducció per «cel·la/es lliure/s» (revisió -KPatience-)"
+
+{\bgame\sfield\b}i
+valid msgstr="\bcamp de joc\b"
+hint="Cal substituir la traducció per «camp de joc» (revisió -KPatience-)"
+
+{\bgame\svariants?\b}i
+valid msgstr="\bvariants? del joc\b"
+hint="Cal substituir la traducció per «variant/s del joc» (revisió -KPatience-)"
+
+{\bgrab\sthe\scards\b}i
+valid msgstr="\bprendre les cartes\b"
+hint="Cal substituir la traducció per «prendre les cartes» (revisió -KPatience-)"
+
+{\bhearts\b}i
+valid msgstr="\bcors\b"
+hint="Cal substituir la traducció per «cors» -pal de la baralla- (revisió -KPatience-)"
+
+{\bjack\b}i
+valid msgstr="\bsota\b"
+hint="Cal substituir la traducció per «sota» -carta de la baralla- (revisió -KPatience-)"
+
+{\bkings?\b}i
+valid msgid="\bExiled\sKings\b"
+valid msgstr="\breis?\b"
+hint="Cal substituir la traducció per «rei/s» -carta de la baralla- (revisió -KPatience-)"
+
+{\bon\stop(\sof\sit)?\b}i
+valid msgid="\bon\stop\sof\s(each\sother|it)\b"
+valid msgstr="\ba dalt\b"
+valid msgstr="\bdamunt\b"
+hint="Cal substituir la traducció per «a dalt, damunt» (revisió -KPatience-)"
+
+  {\b(from|on)\sthe\stop\b}i
+  valid msgstr="\bde dalt\b"
+  hint="Cal substituir la traducció per «de dalt» (revisió -KPatience-)"
+
+    {\bon\stop\sof\seach\sother\b}i
+    valid msgstr="\buna a sobre de l'altra\b"
+    hint="Cal substituir la traducció per «una a sobre de l'altra» (revisió -KPatience-)"
+
+{\bpatience\b}i
+valid msgstr="\bsolitari\b"
+hint="Cal substituir la traducció per «solitari» (revisió -KPatience-)"
+
+{\bpatience\sgames?\b}i
+valid msgid="\btypical\spatience\sgames?\b"
+valid msgstr="\bjocs? del solitari\b"
+hint="Cal substituir la traducció per «joc/s del solitari» (revisió -KPatience-)"
+
+    {\bsolitaire\b}i
+    valid msgstr="\bsolitari\b"
+    hint="Cal substituir la traducció per «solitari» (revisió -KPatience-)"
+
+    {\btypical\spatience\sgames?\b}i
+    valid msgstr="\bjocs? típics del solitari\b"
+    hint="Cal substituir la traducció per «joc/s típics del solitari» (revisió -KPatience-)"
+
+{\bpicking\sup\b}i
+valid msgstr="\brecollir\b"
+hint="Cal substituir la traducció per «recollir» (revisió -KPatience-)"
+
+{\bpiles?\b}i
+valid msgid="\b(foundation|free|(free\s)?playing|waste)\spiles?\b"
+valid msgid="\bstacks?\b"
+valid msgstr="\bmunts?\b"
+hint="Cal substituir la traducció per «munt/s» (revisió -KPatience-)"
+
+    {\bfree\spiles?\b}i
+    valid msgstr="\bmunts? buits?\b"
+    hint="Cal substituir la traducció per «munt/s buit/s» (revisió -KPatience-)"
+
+    {\bplaying\spiles?\b}i
+    valid msgid="\bfree\splaying\spiles?\b"
+    valid msgstr="\bmunts? de joc\b"
+    hint="Cal substituir la traducció per «munt/s de joc» (revisió -KPatience-)"
+
+        {\bfree\splaying\spiles?\b}i
+        valid msgstr="\bmunts? de joc buits\b"
+        hint="Cal substituir la traducció per «munt/s de joc buits» (revisió -KPatience-)"
+
+    {\bstacks?\b}i
+    valid msgstr="\bpil(a|es)\b"
+    hint="Cal substituir la traducció per «pila/es» (revisió -KPatience-)"
+
+    {\bwaste\spile\b}i
+    valid msgstr="\bmunt de descart\b"
+    hint="Cal substituir la traducció per «munt de descart» (revisió -KPatience-)"
+
+{\bplace\b}i
+valid msgstr="\bposar?\b"
+hint="Cal substituir la traducció per «posa/r» (revisió -KPatience-)"
+
+    {\bplaced\b}i
+    valid msgstr="\bcol·locarà\b"
+    hint="Cal substituir la traducció per «col·locarà» (revisió -KPatience-)"
+
+{\bput(ing)?\b}i
+valid msgid="\bput\sdown\b"
+valid msgstr="\bposar?\b"
+hint="Cal substituir la traducció per «posa/r» (revisió -KPatience-)"
+
+    {\bput\sdown\b}i
+    valid msgstr="\bqueden\b"
+    hint="Cal substituir la traducció per «queden» (revisió -KPatience-)"
+
+{\bqueen\b}i
+valid msgstr="\breina\b"
+hint="Cal substituir la traducció per «reina» -carta de la baralla- (revisió -KPatience-)"
+
+{\bredeal\b}i
+valid msgstr="\breparti(ment|r)\b"
+valid msgstr="\btornar? a donar\b"
+hint="Cal substituir la traducció per «repartir/ment, torna/r a donar» (revisió -KPatience-)"
+
+{\bremoved\b}i
+valid msgstr="\btreguin?\b"
+hint="Cal substituir la traducció per «tregui/n» (revisió -KPatience-)"
+
+{\breordering\b}i
+valid msgstr="\breordenament\b"
+valid msgstr="\btornar a ordenar\b"
+hint="Cal substituir la traducció per «reordenament, tornar a ordenar» (revisió -KPatience-)"
+
+{\breserves\b}i
+valid msgstr="\breserves\b"
+hint="Cal substituir la traducció per «reserves» (revisió -KPatience-)"
+
+{\bscan\b}i
+valid msgstr="\binspeccioni\b"
+hint="Cal substituir la traducció per «inspeccioni» (revisió -KPatience-)"
+
+{\bsequences?\b}i
+valid msgstr="\bplaying\ssequences?\b"
+valid msgstr="\bseqüènci(a|es)\b"
+hint="Cal substituir la traducció per «seqüència/es» (revisió -KPatience-)"
+
+    {\bplaying\ssequences?\b}i
+    valid msgstr="\bseqüènci(a|es) de joc\b"
+    hint="Cal substituir la traducció per «seqüència/es de joc» (revisió -KPatience-)"
+
+{\bshuffled\b}i
+valid msgstr="\bbarrejades\b"
+hint="Cal substituir la traducció per «barrejades» (revisió -KPatience-)"
+
+{\bslots?\b}i
+valid msgid="\b(empty|free)\sslots?\b"
+valid msgstr="\branur(a|es)\b"
+hint="Cal substituir la traducció per «ranura/es» (revisió -KPatience-)"
+
+    {\bempty\sslots?\b}i
+    valid msgstr="\branur(a|es) buid(a|es)\b"
+    hint="Cal substituir la traducció per «ranura/es buida/es» (revisió -KPatience-)"
+
+    {\bfree\sslots?\b}i
+    valid msgstr="\branur(a|es) lliures?\b"
+    hint="Cal substituir la traducció per «ranura/es lliure/s» (revisió -KPatience-)"
+
+{\bspaces?\b}i
+valid msgid="\b(empty|free)\sspaces?\b"
+valid msgstr=".?Space;"
+valid msgstr="\bbuits?\b"
+hint="Cal substituir la traducció per «buit/s» (revisió -KPatience-)"
+
+    {\bempty\sspaces?\b}i
+    valid msgstr="\bespais? buits?\b"
+    hint="Cal substituir la traducció per «espai/s buit/s» (revisió -KPatience-)"
+
+    {\bfree\sspaces?\b}i
+    valid msgstr="\bbuits? lliures?\b"
+    hint="Cal substituir la traducció per «buit/s lliure/s» (revisió -KPatience-)"
+
+{\bspades\b}i
+valid msgstr="\bpiques\b"
+hint="Cal substituir la traducció per «piques» -pal de la baralla- (revisió -KPatience-)"
+
+{\bstarting\spattern\b}i
+valid msgstr="\bpatró inicial\b"
+hint="Cal substituir la traducció per «patró inicial» (revisió -KPatience-)"
+
+{\bsuits?\b}i
+valid msgstr="\bcolls?\b"
+hint="Cal substituir la traducció per «coll/s» (revisió -KPatience-)"
+
+{\btableau\b}i
+valid msgstr="\bquadre\b"
+hint="Cal substituir la traducció per «quadre» (revisió -KPatience-)"
+
+{\btaken\b}i
+valid msgstr="\bagafades\b"
+hint="Cal substituir la traducció per «agafades» (revisió -KPatience-)"
+
+{\btalons?\b}i
+valid msgstr="\bmalls?\b"
+hint="Cal substituir la traducció per «mall/s» (revisió -KPatience-)"
+
+    {\bempty\stalons?\b}i
+    valid msgstr="\bmalls? buits?\b"
+    hint="Cal substituir la traducció per «mall/s buit/s» (revisió -KPatience-)"
+
+    {\bstock\b}i
+    valid msgstr="\bmall\b"
+    hint="Cal substituir la traducció per «mall» (revisió -KPatience-)"
+
+{\btop(most)?\scard\b}i
+valid msgstr="\bcarta de dalt\b"
+hint="Cal substituir la traducció per «carta de dalt» (revisió -KPatience-)"
+
