@@ -11,9 +11,14 @@ addFilterRegex match="&" on="pmsgid,pmsgstr"
     valid msgstr="\bAsos amunt\b"
     hint="Cal substituir la traducció per «Asos amunt» -nom de joc- (revisió -KPatience-)"
 
-    {\b(B|b)aker.?s\s(D|d)ozen\b}i
-    valid msgstr="\bDotzena de Baker\b"
-    hint="Cal substituir la traducció per «Dotzena de Baker» -nom de joc- (revisió -KPatience-)"
+    {\b(B|b)aker.?s\s(D|d)ozen\b}
+    valid msgstr="\bDotzena de forners\b"
+    hint="Cal substituir la traducció per «Dotzena de forners» -nom de joc- (revisió -KPatience-)"
+
+        {\b(B|b)aker(.?s)?\b}
+        valid msgid="\b(B|b)aker.?s\s(D|d)ozen\b"
+        valid msgstr="\bDotzena de forners\b"
+        hint="Cal substituir la traducció per «Dotzena de forners» -esdevé d'un nom de joc- (revisió -KPatience-)"
 
     {\b(B|b)eleaguered\s(C|c)astle\b}
     valid msgstr="\bCastell assetjat\b"
@@ -58,7 +63,7 @@ addFilterRegex match="&" on="pmsgid,pmsgstr"
     hint="Cal substituir la traducció per «Golf» -nom de joc- (revisió -KPatience-)"
 
     {\b(G|g)randfather\b}
-    valid msgid="\bGrandfather.s\sClock\b"
+    valid msgid="\bGrandfather.s\s(C|c)lock\b"
     valid msgstr="\bEl iaio\b"
     hint="Cal substituir la traducció per «El iaio» -nom de joc- (revisió -KPatience-)"
 
@@ -69,6 +74,10 @@ addFilterRegex match="&" on="pmsgid,pmsgstr"
     {\b(G|g)ypsy\b}
     valid msgstr="\bGitano\b"
     hint="Cal substituir la traducció per «Gitano» -nom de joc- (revisió -KPatience-)"
+
+    {\b(K|k)londike\b}
+    valid msgstr="\bKlondike\b"
+    hint="Cal substituir la traducció per «Klondike» -nom de joc- (revisió -KPatience-)"
 
     {\b(P|p)ortuguese\s(S|s)olitaire\b}
     valid msgstr="\bSolitari portuguès\b"
@@ -112,8 +121,18 @@ valid msgstr="\bas(os)?\b"
 hint="Cal substituir la traducció per «as, asos» -carta de la baralla- (revisió -KPatience-)"
 
 {\bascending(\sorder)?\b}i
+valid msgid="\bascending\s(or\sdescending\s)?sequences?\b"
 valid msgstr="\bordre ascendent\b"
 hint="Cal substituir la traducció per «ordre ascendent» (revisió -KPatience-)"
+
+    {\bascending\ssequences?\b}i
+    valid msgid="real\sascending\ssequences?"
+    valid msgstr="\bseqüènci(a|es) en ordre ascendent\b"
+    hint="Cal substituir la traducció per «seqüència/es en ordre ascendent» (revisió -KPatience-)"
+
+    {\breal\sascending\ssequences?\b}i
+    valid msgstr="\bseqüènci(a|es) reals? en ordre ascendent\b"
+    hint="Cal substituir la traducció per «seqüència/es real/s en ordre ascendent» (revisió -KPatience-)"
 
 {\bbuilt\sdown\b}i
 valid msgstr="\bconstrueixen cap avall\b"
@@ -127,10 +146,21 @@ hint="Cal substituir la traducció per «carta entra en joc» (revisió -KPatien
 valid msgstr="\btrèvols\b"
 hint="Cal substituir la traducció per «trèvols» -pal de la baralla- (revisió -KPatience-)"
 
+# TODO
 {\bdealts?\b}i
 valid msgstr="\breparteix(en)?\b"
-valid msgstr="\brepartiments?\b"
-hint="Cal substituir la traducció per «reparteix/en, repartiment/s» (revisió -KPatience-)"
+valid msgstr="\breparti(ments?|r|t)\b"
+hint="Cal substituir la traducció per «reparteix/en, repartiment/s, repartir/t» (revisió -KPatience-)"
+
+# TODO
+{\bdeals?\b}i
+valid msgstr="\bm(à|ans)\b"
+hint="Cal substituir la traducció per «mà, mans» (revisió -KPatience-)"
+
+    {\bre.?deal(ing)?\b}i
+    valid msgstr="\brepartir de nou\b"
+    valid msgstr="\bTorna a donar\b"
+    hint="Cal substituir la traducció per «repartir de nou,Torna a donar» (revisió -KPatience-)"
 
 {\bdecks?\b}i
 valid msgid="\bcard\sdecks?\b"
@@ -138,12 +168,23 @@ valid msgstr="\bbarall(a|es)\b"
 hint="Cal substituir la traducció per «baralla/es» (revisió -KPatience-)"
 
     {\bcard\sdecks?\b}i
-    valid msgstr="\bbarall(a|es) de cartes\b"
-    hint="Cal substituir la traducció per «baralla/es de cartes» (revisió -KPatience-)"
+    valid msgstr="\bbarall(a|es)\b"
+    valid !msgstr="\bbarall(a|es) de cartes\b"
+    hint="Cal substituir la traducció per «baralla/es» (revisió -KPatience-)"
 
 {\bdescending(\sorder)?\b}i
+valid msgid="\bdescending\ssequences?\b"
 valid msgstr="\bordre descendent\b"
 hint="Cal substituir la traducció per «ordre descendent» (revisió -KPatience-)"
+
+    {\bdescending\ssequences?\b}i
+    valid msgid="\bascending\sor\sdescending\ssequence\b"
+    valid msgstr="\bseqüènci(a|es) en ordre descendent\b"
+    hint="Cal substituir la traducció per «seqüència/es en ordre descendent» (revisió -KPatience-)"
+
+        {\bascending\sor\sdescending\ssequence\b}i
+        valid msgstr="\bseqüència en ordre ascendent o descendent\b"
+        hint="Cal substituir la traducció per «seqüència en ordre ascendent o descendent» (revisió -KPatience-)"
 
 {\bdiamonds\b}i
 valid msgstr="\bdiamants\b"
@@ -264,7 +305,6 @@ hint="Cal substituir la traducció per «recollir» (revisió -KPatience-)"
 
 {\bpiles?\b}i
 valid msgid="\b(foundation|free|(free\s)?playing|waste)\spiles?\b"
-valid msgid="\bstacks?\b"
 valid msgstr="\bmunts?\b"
 hint="Cal substituir la traducció per «munt/s» (revisió -KPatience-)"
 
@@ -294,8 +334,8 @@ valid msgstr="\bposar?\b"
 hint="Cal substituir la traducció per «posa/r» (revisió -KPatience-)"
 
     {\bplaced\b}i
-    valid msgstr="\bcol·locarà\b"
-    hint="Cal substituir la traducció per «col·locarà» (revisió -KPatience-)"
+    valid msgstr="\bposarà?\b"
+    hint="Cal substituir la traducció per «posar/à» (revisió -KPatience-)"
 
 {\bput(ing)?\b}i
 valid msgid="\bput\sdown\b"
@@ -316,8 +356,9 @@ valid msgstr="\btornar? a donar\b"
 hint="Cal substituir la traducció per «repartir/ment, torna/r a donar» (revisió -KPatience-)"
 
 {\bremoved\b}i
+valid msgstr="traurà"
 valid msgstr="\btreguin?\b"
-hint="Cal substituir la traducció per «tregui/n» (revisió -KPatience-)"
+hint="Cal substituir la traducció per «traurà, tregui/n» (revisió -KPatience-)"
 
 {\breordering\b}i
 valid msgstr="\breordenament\b"
@@ -342,8 +383,12 @@ hint="Cal substituir la traducció per «seqüència/es» (revisió -KPatience-)
     hint="Cal substituir la traducció per «seqüència/es de joc» (revisió -KPatience-)"
 
 {\bshuffled\b}i
-valid msgstr="\bbarrejades\b"
-hint="Cal substituir la traducció per «barrejades» (revisió -KPatience-)"
+valid msgstr="\bbarallades\b"
+hint="Cal substituir la traducció per «barallades» (revisió -KPatience-)"
+
+{\bshuffling\b}i
+valid msgstr="\bbarallar\b"
+hint="Cal substituir la traducció per «barallar» (revisió -KPatience-)"
 
 {\bslots?\b}i
 valid msgid="\b(empty|free)\sslots?\b"
