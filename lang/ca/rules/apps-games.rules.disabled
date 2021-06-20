@@ -12,13 +12,12 @@ addFilterRegex match="&" on="pmsgid,pmsgstr"
     hint="Cal substituir la traducció per «Asos amunt» -nom de joc- (revisió -KPatience-)"
 
     {\b(B|b)aker.?s\s(D|d)ozen\b}
-    valid msgstr="\bDotzena de forners\b"
-    hint="Cal substituir la traducció per «Dotzena de forners» -nom de joc- (revisió -KPatience-)"
+    valid msgstr="\bDotzena del forner\b"
+    hint="Cal substituir la traducció per «Dotzena del forner» -nom de joc- (revisió -KPatience-)"
 
-        {\b(B|b)aker(.?s)?\b}
-        valid msgid="\b(B|b)aker.?s\s(D|d)ozen\b"
-        valid msgstr="\bDotzena de forners\b"
-        hint="Cal substituir la traducció per «Dotzena de forners» -esdevé d'un nom de joc- (revisió -KPatience-)"
+    {\b(B|b)aker.?s\s(G|g)ame\b}
+    valid msgstr="\bJoc del forner\b"
+    hint="Cal substituir la traducció per «Joc del forner» -nom de joc- (revisió -KPatience-)"
 
     {\b(B|b)eleaguered\s(C|c)astle\b}
     valid msgstr="\bCastell assetjat\b"
@@ -116,6 +115,14 @@ addFilterRegex match="&" on="pmsgid,pmsgstr"
     valid msgstr="\bYukon\b"
     hint="Cal substituir la traducció per «Yukon» -nom de joc- (revisió -KPatience-)"
 
+# Llistat de glossaris:
+# https://en.wikipedia.org/wiki/Glossary_of_card_game_terms
+# https://en.wikipedia.org/wiki/Glossary_of_patience_terms
+# https://ca.wikipedia.org/wiki/Baralla_de_cartes#Vocabulari
+
+# https://en.wikipedia.org/wiki/Ace
+# https://ca.wikipedia.org/wiki/As_(carta)
+# https://dlc.iec.cat/Results?EntradaText=as
 {\baces?\b}i
 valid msgstr="\bas(os)?\b"
 hint="Cal substituir la traducció per «as, asos» -carta de la baralla- (revisió -KPatience-)"
@@ -131,8 +138,8 @@ hint="Cal substituir la traducció per «ordre ascendent» (revisió -KPatience-
     hint="Cal substituir la traducció per «seqüència/es en ordre ascendent» (revisió -KPatience-)"
 
     {\breal\sascending\ssequences?\b}i
-    valid msgstr="\bseqüènci(a|es) reals? en ordre ascendent\b"
-    hint="Cal substituir la traducció per «seqüència/es real/s en ordre ascendent» (revisió -KPatience-)"
+    valid msgstr="\bseqüènci(a|es) reials? en ordre ascendent\b"
+    hint="Cal substituir la traducció per «seqüència/es reial/s en ordre ascendent» (revisió -KPatience-)"
 
 {\bbuilt\sdown\b}i
 valid msgstr="\bconstrueixen cap avall\b"
@@ -142,25 +149,26 @@ hint="Cal substituir la traducció per «construeixen cap avall» (revisió -KPa
 valid msgstr="\bcarta entra en joc\b"
 hint="Cal substituir la traducció per «carta entra en joc» (revisió -KPatience-)"
 
+# https://en.wikipedia.org/wiki/Clubs_(suit)
+# https://dlc.iec.cat/Results?EntradaText=tr%C3%A8vol
 {\bclubs\b}i
 valid msgstr="\btrèvols\b"
 hint="Cal substituir la traducció per «trèvols» -pal de la baralla- (revisió -KPatience-)"
 
-# TODO
-{\bdealts?\b}i
-valid msgstr="\breparteix(en)?\b"
-valid msgstr="\breparti(ments?|r|t)\b"
-hint="Cal substituir la traducció per «reparteix/en, repartiment/s, repartir/t» (revisió -KPatience-)"
-
-# TODO
+# https://en.wikipedia.org/wiki/Card_game#Deal
 {\bdeals?\b}i
 valid msgstr="\bm(à|ans)\b"
 hint="Cal substituir la traducció per «mà, mans» (revisió -KPatience-)"
 
+    # Passat simple i participi passat de «deal»
+    {\bdealts?\b}i
+    valid msgstr="\breparteix(en)?\b"
+    valid msgstr="\breparti(ments?|r|t)\b"
+    hint="Cal substituir la traducció per «reparteix/en, repartiment/s, repartir/t» (revisió -KPatience-)"
+
     {\bre.?deal(ing)?\b}i
-    valid msgstr="\brepartir de nou\b"
-    valid msgstr="\bTorna a donar\b"
-    hint="Cal substituir la traducció per «repartir de nou,Torna a donar» (revisió -KPatience-)"
+    valid msgstr="\btornar? a donar\b"
+    hint="Cal substituir la traducció per «torna/r a donar» (revisió -KPatience-)"
 
 {\bdecks?\b}i
 valid msgid="\bcard\sdecks?\b"
@@ -186,9 +194,17 @@ hint="Cal substituir la traducció per «ordre descendent» (revisió -KPatience
         valid msgstr="\bseqüència en ordre ascendent o descendent\b"
         hint="Cal substituir la traducció per «seqüència en ordre ascendent o descendent» (revisió -KPatience-)"
 
+# https://en.wikipedia.org/wiki/Diamonds_(suit)
+# https://ca.wikipedia.org/wiki/Baralla_de_cartes#Significat_dels_colls_en_la_baralla_francesa
+# https://dlc.iec.cat/Results?EntradaText=diamants
 {\bdiamonds\b}i
 valid msgstr="\bdiamants\b"
 hint="Cal substituir la traducció per «diamants» -pal de la baralla- (revisió -KPatience-)"
+
+# TODO
+{\bdraw\b}i
+valid msgstr="\broba\b"
+hint="Cal substituir la traducció per «roba» (revisió -KPatience-)"
 
 {\bdrop\b}i
 valid msgid="\bauto.?drop\b"
@@ -214,8 +230,8 @@ valid msgstr="\bfamília\b"
 hint="Cal substituir la traducció per «família» (revisió -KPatience-)"
 
     {\breal\sfamil(y|ies)\b}i
-    valid msgstr="\bfamíli(a|es) reals?\b"
-    hint="Cal substituir la traducció per «família/es real/s» (revisió -KPatience-)"
+    valid msgstr="\bfamíli(a|es) reials?\b"
+    hint="Cal substituir la traducció per «família/es reial/s» (revisió -KPatience-)"
 
 {\bfits\b}i
 valid msgstr="\bencaixa\b"
@@ -230,14 +246,18 @@ hint="Cal substituir la traducció per «capgirarà» (revisió -KPatience-)"
     valid msgstr="\bgirarà cara amunt\b"
     hint="Cal substituir la traducció per «girarà cara amunt» (revisió -KPatience-)"
 
-{\bfoundation\b}i
+# https://en.wikipedia.org/wiki/Glossary_of_patience_terms#Foundation
+# https://ca.wikipedia.org/wiki/Basa_(naips)
+# https://dlc.iec.cat/Results?EntradaText=basa
+# basa o plega
+{\bfoundations?\b}i
 valid msgid="\bfoundation\spiles?\b"
-valid msgstr="\bbase\b"
-hint="Cal substituir la traducció per «base» (revisió -KPatience-)"
+valid msgstr="\bbas(a|es)\b"
+hint="Cal substituir la traducció per «basa/es» (revisió -KPatience-)"
 
     {\bfoundation\spiles?\b}i
-    valid msgstr="\bmunts? base\b"
-    hint="Cal substituir la traducció per «munt/s base» (revisió -KPatience-)"
+    valid msgstr="\bmunts? basa\b"
+    hint="Cal substituir la traducció per «munt/s basa» (revisió -KPatience-)"
 
 {\bfree\scells?\b}i
 valid msgstr="\bcel·l(a|es) lliures?\b"
@@ -255,14 +275,20 @@ hint="Cal substituir la traducció per «variant/s del joc» (revisió -KPatienc
 valid msgstr="\bprendre les cartes\b"
 hint="Cal substituir la traducció per «prendre les cartes» (revisió -KPatience-)"
 
+# https://en.wikipedia.org/wiki/Hearts_(suit)
+# https://ca.wikipedia.org/wiki/Baralla_de_cartes#Significat_dels_colls_en_la_baralla_francesa
 {\bhearts\b}i
 valid msgstr="\bcors\b"
 hint="Cal substituir la traducció per «cors» -pal de la baralla- (revisió -KPatience-)"
 
+# https://en.wikipedia.org/wiki/Jack_(playing_card)
+# https://dlc.iec.cat/Results?EntradaText=sota
 {\bjack\b}i
 valid msgstr="\bsota\b"
 hint="Cal substituir la traducció per «sota» -carta de la baralla- (revisió -KPatience-)"
 
+# https://en.wikipedia.org/wiki/King_(playing_card)
+# https://dlc.iec.cat/Results?EntradaText=rei
 {\bkings?\b}i
 valid msgid="\bExiled\sKings\b"
 valid msgstr="\breis?\b"
@@ -279,17 +305,23 @@ hint="Cal substituir la traducció per «a dalt, damunt» (revisió -KPatience-)
   hint="Cal substituir la traducció per «de dalt» (revisió -KPatience-)"
 
     {\bon\stop\sof\seach\sother\b}i
-    valid msgstr="\buna a sobre de l'altra\b"
-    hint="Cal substituir la traducció per «una a sobre de l'altra» (revisió -KPatience-)"
+    valid msgstr="\buna damunt de l'altra\b"
+    hint="Cal substituir la traducció per «una damunt de l'altra» (revisió -KPatience-)"
 
-{\bpatience\b}i
-valid msgstr="\bsolitari\b"
-hint="Cal substituir la traducció per «solitari» (revisió -KPatience-)"
-
+# https://dlc.iec.cat/Results?EntradaText=solitari (cap referència a «paciència» com a nom del joc)
 {\bpatience\sgames?\b}i
-valid msgid="\btypical\spatience\sgames?\b"
+valid msgid="\b(simple|typical)\spatience\sgames?\b"
 valid msgstr="\bjocs? del solitari\b"
 hint="Cal substituir la traducció per «joc/s del solitari» (revisió -KPatience-)"
+
+    {\bpatience\b}i
+    valid msgid="\bpatience\sgames?"
+    valid msgstr="\bsolitari\b"
+    hint="Cal substituir la traducció per «solitari» (revisió -KPatience-)"
+
+    {\bsimple\spatience\sgames?\b}i
+    valid msgstr="\bjocs? senzills? del solitari\b"
+    hint="Cal substituir la traducció per «joc/s senzill/s del solitari» (revisió -KPatience-)"
 
     {\bsolitaire\b}i
     valid msgstr="\bsolitari\b"
@@ -303,6 +335,7 @@ hint="Cal substituir la traducció per «joc/s del solitari» (revisió -KPatien
 valid msgstr="\brecollir\b"
 hint="Cal substituir la traducció per «recollir» (revisió -KPatience-)"
 
+# https://dlc.iec.cat/Results?EntradaText=munt
 {\bpiles?\b}i
 valid msgid="\b(foundation|free|(free\s)?playing|waste)\spiles?\b"
 valid msgstr="\bmunts?\b"
@@ -322,8 +355,13 @@ hint="Cal substituir la traducció per «munt/s» (revisió -KPatience-)"
         hint="Cal substituir la traducció per «munt/s de joc buits» (revisió -KPatience-)"
 
     {\bstacks?\b}i
-    valid msgstr="\bpil(a|es)\b"
-    hint="Cal substituir la traducció per «pila/es» (revisió -KPatience-)"
+    valid msgid="\bcard\sstacks?\b"
+    valid msgstr="\bmunts?\b"
+    hint="Cal substituir la traducció per «munt/s» (revisió -KPatience-)"
+
+        {\bcard\sstacks?\b}i
+        valid msgstr="\bmunts? de cartes\b"
+        hint="Cal substituir la traducció per «munt/s de cartes» (revisió -KPatience-)"
 
     {\bwaste\spile\b}i
     valid msgstr="\bmunt de descart\b"
@@ -346,14 +384,20 @@ hint="Cal substituir la traducció per «posa/r» (revisió -KPatience-)"
     valid msgstr="\bqueden\b"
     hint="Cal substituir la traducció per «queden» (revisió -KPatience-)"
 
+# https://en.wikipedia.org/wiki/Queen_(playing_card)
+# https://dlc.iec.cat/Results?EntradaText=reina
 {\bqueen\b}i
 valid msgstr="\breina\b"
 hint="Cal substituir la traducció per «reina» -carta de la baralla- (revisió -KPatience-)"
 
-{\bredeal\b}i
-valid msgstr="\breparti(ment|r)\b"
-valid msgstr="\btornar? a donar\b"
-hint="Cal substituir la traducció per «repartir/ment, torna/r a donar» (revisió -KPatience-)"
+{\breal\b}i
+valid msgid="\breal\s(ascending\ssequences?|famil(y|ies))\b"
+valid msgstr="\breials?\b"
+hint="Cal substituir la traducció per «reial/s» (revisió -KPatience-)"
+
+    {\bactual\b}i
+    valid msgstr="\breals?\b"
+    hint="Cal substituir la traducció per «real/s» (revisió -KPatience-)"
 
 {\bremoved\b}i
 valid msgstr="traurà"
@@ -373,6 +417,8 @@ hint="Cal substituir la traducció per «reserves» (revisió -KPatience-)"
 valid msgstr="\binspeccioni\b"
 hint="Cal substituir la traducció per «inspeccioni» (revisió -KPatience-)"
 
+# https://en.wikipedia.org/wiki/Run_(cards) (també «straight« o »sequence»)
+# https://dlc.iec.cat/Results?EntradaText=seq%C3%BC%C3%A8ncia
 {\bsequences?\b}i
 valid msgstr="\bplaying\ssequences?\b"
 valid msgstr="\bseqüènci(a|es)\b"
@@ -382,13 +428,16 @@ hint="Cal substituir la traducció per «seqüència/es» (revisió -KPatience-)
     valid msgstr="\bseqüènci(a|es) de joc\b"
     hint="Cal substituir la traducció per «seqüència/es de joc» (revisió -KPatience-)"
 
+# https://en.wikipedia.org/wiki/Shuffling
+# https://dlc.iec.cat/Results?EntradaText=barrejar
+# Escartejar, mesclar, barrejar o fer les cartes
 {\bshuffled\b}i
-valid msgstr="\bbarallades\b"
-hint="Cal substituir la traducció per «barallades» (revisió -KPatience-)"
+valid msgstr="\bbarrejades\b"
+hint="Cal substituir la traducció per «barrejades» (revisió -KPatience-)"
 
-{\bshuffling\b}i
-valid msgstr="\bbarallar\b"
-hint="Cal substituir la traducció per «barallar» (revisió -KPatience-)"
+    {\bshuffling\b}i
+    valid msgstr="\bbarrejar\b"
+    hint="Cal substituir la traducció per «barrejar» (revisió -KPatience-)"
 
 {\bslots?\b}i
 valid msgid="\b(empty|free)\sslots?\b"
@@ -417,6 +466,9 @@ hint="Cal substituir la traducció per «buit/s» (revisió -KPatience-)"
     valid msgstr="\bbuits? lliures?\b"
     hint="Cal substituir la traducció per «buit/s lliure/s» (revisió -KPatience-)"
 
+# https://en.wikipedia.org/wiki/Spades_(suit)
+# https://ca.wikipedia.org/wiki/Baralla_de_cartes#Significat_dels_colls_en_la_baralla_francesa
+# https://dlc.iec.cat/Results?EntradaText=piques
 {\bspades\b}i
 valid msgstr="\bpiques\b"
 hint="Cal substituir la traducció per «piques» -pal de la baralla- (revisió -KPatience-)"
@@ -425,10 +477,16 @@ hint="Cal substituir la traducció per «piques» -pal de la baralla- (revisió 
 valid msgstr="\bpatró inicial\b"
 hint="Cal substituir la traducció per «patró inicial» (revisió -KPatience-)"
 
+# https://en.wikipedia.org/wiki/Glossary_of_patience_terms
+# https://ca.wikipedia.org/wiki/Coll_(cartes)
+# https://ca.wikipedia.org/wiki/Baralla_de_cartes#Significat_dels_colls_en_la_baralla_francesa
+# https://dlc.iec.cat/Results?EntradaText=sota (fa referència)
 {\bsuits?\b}i
 valid msgstr="\bcolls?\b"
 hint="Cal substituir la traducció per «coll/s» (revisió -KPatience-)"
 
+# https://en.wikipedia.org/wiki/Glossary_of_patience_terms#Tableau
+# TODO
 {\btableau\b}i
 valid msgstr="\bquadre\b"
 hint="Cal substituir la traducció per «quadre» (revisió -KPatience-)"
@@ -437,6 +495,8 @@ hint="Cal substituir la traducció per «quadre» (revisió -KPatience-)"
 valid msgstr="\bagafades\b"
 hint="Cal substituir la traducció per «agafades» (revisió -KPatience-)"
 
+# https://en.wikipedia.org/wiki/Talon_(cards) (també «stock»)
+# https://dlc.iec.cat/Results?EntradaText=mall
 {\btalons?\b}i
 valid msgstr="\bmalls?\b"
 hint="Cal substituir la traducció per «mall/s» (revisió -KPatience-)"
@@ -445,9 +505,9 @@ hint="Cal substituir la traducció per «mall/s» (revisió -KPatience-)"
     valid msgstr="\bmalls? buits?\b"
     hint="Cal substituir la traducció per «mall/s buit/s» (revisió -KPatience-)"
 
-    {\bstock\b}i
-    valid msgstr="\bmall\b"
-    hint="Cal substituir la traducció per «mall» (revisió -KPatience-)"
+    {\bstocks?\b}i
+    valid msgstr="\bmalls?\b"
+    hint="Cal substituir la traducció per «mall/s» (revisió -KPatience-)"
 
 {\btop(most)?\scard\b}i
 valid msgstr="\bcarta de dalt\b"
