@@ -6,6 +6,252 @@
 
 addFilterRegex match="&" on="pmsgid,pmsgstr"
 
+# Granatier
+
+{\barenas?\b}i
+valid msgid="\barena\s(block|bomb\smortar|ground|ice|wall)\b"
+valid msgstr="\bcamps? de batalla\b"
+hint="Cal substituir la traducció per «camps? de batalla» (revisió -Granatier-)"
+
+    {\barena\sblock\b}i
+    valid msgstr="\bbloc en el camp de batalla\b"
+    hint="Cal substituir la traducció per «bloc en el camp de batalla» (revisió -Granatier-)"
+
+    {\barena\sbomb\smortar\b}i
+    valid msgstr="\bmorter de bombes en el camp de batalla\b"
+    hint="Cal substituir la traducció per «morter de bombes en el camp de batalla» (revisió -Granatier-)"
+
+    {\barena\sground\b}i
+    valid msgstr="\bterreny del camp de batalla\b"
+    hint="Cal substituir la traducció per «terreny del camp de batalla» (revisió -Granatier-)"
+
+    {\bice\b}i
+    valid msgstr="\bgel\b"
+    hint="Cal substituir la traducció per «gel» (revisió -Granatier-)"
+
+        {\barena\sice\b}i
+        valid msgstr="\bgel del camp de batalla\b"
+        hint="Cal substituir la traducció per «gel del camp de batalla» (revisió -Granatier-)"
+
+    {\barena\swall\b}i
+    valid msgstr="\bmur del camp de batalla\b"
+    hint="Cal substituir la traducció per «mur del camp de batalla» (revisió -Granatier-)"
+
+{\bblast\b}i
+valid msgid="\bblast\s(Matrix|range)\b"
+valid msgid="\bbomb\sblast\b"
+valid msgstr="\bexplosió\b"
+hint="Cal substituir la traducció per «explosió» (revisió -Granatier-)"
+
+    {\bBlast\sMatrix\b}i
+    valid msgstr="\bMatriu explosiva\b"
+    hint="Cal substituir la traducció per «Matriu explosiva -nom de camp de batalla-» (revisió -Granatier-)"
+
+    {\bblast\srange\b}i
+    valid msgstr="\babast de l'explosió\b"
+    hint="Cal substituir la traducció per «abast de l'explosió» (revisió -Granatier-)"
+
+{\bblocks?\b}i
+valid msgid="\barena\sblock\b"
+valid msgstr="\bblocs?\b"
+hint="Cal substituir la traducció per «blocs?» (revisió -Granatier-)"
+
+{\bbombs?\b}i
+valid msgid="\bbomb\s(armory|attack|blast|mortar|bomb)\b"
+valid msgid="\blay(ing)?\sbombs\b"
+valid msgstr="\bbomb(a|es)\b"
+hint="Cal substituir la traducció per «bomb(a|es)» (revisió -Granatier-)"
+
+    {\barmor(y|ies)\b}i
+    valid msgid="\bbomb\sarmory\b"
+    valid msgstr="\barsenals?\b"
+    hint="Cal substituir la traducció per «arsenal/s» (revisió -Granatier-)"
+
+        {\bbomb\sarmory\b}i
+        valid msgstr="\barsenal de bombes\b"
+        hint="Cal substituir la traducció per «arsenal de bombes» (revisió -Granatier-)"
+
+    {\bBomb\sAttack\b}i
+    valid msgstr="\bBombardeig\b"
+    hint="Cal substituir la traducció per «Bombardeig -nom de camp de batalla-» (revisió -Granatier-)"
+
+    {\bbomb\sblast\b}i
+    valid msgid="\bbomb\sblast\srange\b"
+    valid msgstr="\bexplosió d'una bomba\b"
+    hint="Cal substituir la traducció per «explosió d'una bomba» (revisió -Granatier-)"
+
+        {\bbomb\sblast\srange\b}i
+        valid msgstr="\babast de l'explosió de les bombes\b"
+        hint="Cal substituir la traducció per «abast de l'explosió de les bombes» (revisió -Granatier-)"
+
+    {\bmortars?\b}i
+    valid msgid="\bbomb\smortar\b"
+    valid msgstr="\bmorters?\b"
+    hint="Cal substituir la traducció per «morter/s» (revisió -Granatier-)"
+
+        {\bbomb\smortar\b}i
+        valid msgid="\barena\sbomb\smortar\b"
+        valid msgstr="\bmorter de bombes\b"
+        hint="Cal substituir la traducció per «morter de bombes» (revisió -Granatier-)"
+
+{\bbonus(es)?\b}i
+valid msgid="\bbonus\s(bomb|kick|neutral\s(Pandora|resurrect)|power|shield|speed|throw)\b"
+valid msgstr="\bbonificaci(ó|ons)\b"
+hint="Cal substituir la traducció per «bonificaci(ó|ons)» (revisió -Granatier-)"
+
+    {\bbonus\sbomb\b}i
+    valid msgstr="\bbonificació de bomba\b"
+    hint="Cal substituir la traducció per «bonificació de bomba» (revisió -Granatier-)"
+
+    {\bkick\b}i
+    valid msgid="\bbonus\skick\b"
+    valid msgstr="\bxutar\b"
+    hint="Cal substituir la traducció per «xutar» (revisió -Granatier-)"
+
+        {\bbonus\skick\b}i
+        valid msgstr="\bbonificació de xutar\b"
+        hint="Cal substituir la traducció per «bonificació de xutar» (revisió -Granatier-)"
+
+    {\bPandora\b}i
+    valid msgid="\bbonus\sneutral\sPandora\b"
+    valid msgstr="\bPandora\b"
+    hint="Cal substituir la traducció per «Pandora» (revisió -Granatier-)"
+
+        {\bbonus\sneutral\sPandora\b}i
+        valid msgstr="\bbonificació neutral de Pandora\b"
+        hint="Cal substituir la traducció per «bonificació neutral de Pandora» (revisió -Granatier-)"
+
+    {\bresurrect\b}i
+    valid msgid="\bbonus\sneutral\sresurrect\b"
+    valid msgstr="\bresurrecció\b"
+    hint="Cal substituir la traducció per «resurrecció» (revisió -Granatier-)"
+
+        {\bbonus\sneutral\sresurrect\b}i
+        valid msgstr="\bBonificació neutral de resurrecció\b"
+        hint="Cal substituir la traducció per «Bonificació neutral de resurrecció» (revisió -Granatier-)"
+
+    {\bpower\b}i
+    valid msgid="\bbonus\spower\b"
+    valid msgstr="\bpotència\b"
+    hint="Cal substituir la traducció per «potència» (revisió -Granatier-)"
+
+        {\bbonus\spower\b}i
+        valid msgstr="\bbonificació de potència\b"
+        hint="Cal substituir la traducció per «bonificació de potència» (revisió -Granatier-)"
+
+    {\bshield\b}i
+    valid msgid="\bbonus\sshield\b"
+    valid msgstr="\bescut\b"
+    hint="Cal substituir la traducció per «escut» (revisió -Granatier-)"
+
+        {\bbonus\sshield\b}i
+        valid msgstr="\bbonificació d'escut\b"
+        hint="Cal substituir la traducció per «bonificació d'escut» (revisió -Granatier-)"
+
+    {\bspeed\b}i
+    valid msgid="\bbonus\sspeed\b"
+    valid msgstr="\bvelocitat\b"
+    hint="Cal substituir la traducció per «velocitat» (revisió -Granatier-)"
+
+        {\bbonus\sspeed\b}i
+        valid msgstr="\bbonificació de velocitat\b"
+        hint="Cal substituir la traducció per «bonificació de velocitat» (revisió -Granatier-)"
+
+    {\bthrow\b}i
+    valid msgid="\bbonus\sthrow\b"
+    valid msgstr="\bllançarà?\b"
+    hint="Cal substituir la traducció per «llança/àr» (revisió -Granatier-)"
+
+        {\bbonus\sthrow\b}i
+        valid msgstr="\bbonificació de llançar\b"
+        hint="Cal substituir la traducció per «bonificació de llançar» (revisió -Granatier-)"
+
+{\bcharacters?\b}i
+valid msgstr="\bpersonatges?\b"
+hint="Cal substituir la traducció per «personatge/s» (revisió -Granatier-)"
+
+{\bgrounds?\b}i
+valid msgid="\barena\sground\b"
+valid msgstr="\bterrenys?\b"
+hint="Cal substituir la traducció per «terreny/s -també terra-» (revisió -Granatier-)"
+
+{\bhandicaps?\b}i
+valid msgid="\bhandicap\s(hyperactive|mirror|restrain|scatty|slow)\b"
+valid msgstr="\bdesavantatges?\b"
+hint="Cal substituir la traducció per «desavantatges?» (revisió -Granatier-)"
+
+    {\bhyperactive\b}i
+    valid msgid="\bhandicap\shyperactive\b"
+    valid msgstr="\bhiperactivitat\b"
+    hint="Cal substituir la traducció per «hiperactivitat» (revisió -Granatier-)"
+
+        {\bhandicap\shyperactive\b}i
+        valid msgstr="\bDesavantatge d'hiperactivitat\b"
+        hint="Cal substituir la traducció per «Desavantatge d'hiperactivitat» (revisió -Granatier-)"
+
+    {\bmirrors?\b}i
+    valid msgid="\bhandicap\smirror\b"
+    valid msgstr="\bmiralls?\b"
+    hint="Cal substituir la traducció per «mirall/s» (revisió -Granatier-)"
+
+        {\bhandicap\smirror\b}i
+        valid msgstr="\bdesavantatge de mirall\b"
+        hint="Cal substituir la traducció per «desavantatge de mirall» (revisió -Granatier-)"
+
+    {\brestrains?\b}i
+    valid msgid="\bhandicap\srestrain\b"
+    valid msgstr="\brestricci(ó|ons)\b"
+    hint="Cal substituir la traducció per «restricció/ons» (revisió -Granatier-)"
+
+        {\bhandicap\srestrain\b}i
+        valid msgstr="\bdesavantatge de restricció\b"
+        hint="Cal substituir la traducció per «desavantatge de restricció» (revisió -Granatier-)"
+
+    {\bscatty\b}i
+    valid msgid="\bhandicap\sscatty\b"
+    valid msgstr="\batabalat\b"
+    hint="Cal substituir la traducció per «atabalat» (revisió -Granatier-)"
+
+        {\bhandicap\sscatty\b}i
+        valid msgstr="\bdesavantatge d'atabalat\b"
+        hint="Cal substituir la traducció per «desavantatge d'atabalat» (revisió -Granatier-)"
+
+    {\bslow\b}i
+    valid msgid="\bhandicap\sslow\b"
+    valid msgstr="\balenteixen\b"
+    valid msgstr="\blentitud\b"
+    hint="Cal substituir la traducció per «lentitud, alenteixen» (revisió -Granatier-)"
+
+        {\bhandicap\sslow\b}i
+        valid msgstr="\bdesavantatge de lentitud\b"
+        hint="Cal substituir la traducció per «desavantatge de lentitud» (revisió -Granatier-)"
+
+{\bholes?\b}i
+valid msgstr="\bforats?\b"
+hint="Cal substituir la traducció per «forat/s» (revisió -Granatier-)"
+
+{\blay\sa\sbomb\b}i
+valid msgstr="\bposar una bomba\b"
+hint="Cal substituir la traducció per «posar una bomba» (revisió -Granatier-)"
+
+{\blay(ing)?\sbombs\b}i
+valid msgstr="\bcol·lo(car|queu) (les )?bombes\b"
+hint="Cal substituir la traducció per «col·locar (les)? bombes, col·loqueu bombes» (revisió -Granatier-)"
+
+{\bsudden\sdeath\b}i
+valid msgid="\bsudden\sdeath\smode\b"
+valid msgstr="\bmort sobtada\b"
+hint="Cal substituir la traducció per «mort sobtada» (revisió -Granatier-)"
+
+    {\bsudden\sdeath\smode\b}i
+    valid msgstr="\bmode de mort sobtada\b"
+    hint="Cal substituir la traducció per «mode de mort sobtada» (revisió -Granatier-)"
+
+{\bwalls?\b}i
+valid msgstr="\bmurs?\b"
+hint="Cal substituir la traducció per «mur/s» (revisió -Granatier-)"
+
+# KPatience
 # Noms de joc https://en.wikipedia.org/wiki/List_of_patience_games
     {\b(A|a)ces\s(U|u)p\b}
     valid msgstr="\bAsos amunt\b"
@@ -456,7 +702,7 @@ hint="Cal substituir la traducció per «ranura/es» (revisió -KPatience-)"
 valid msgid="\b(empty|free)\sspaces?\b"
 valid msgstr=".?Space;"
 valid msgstr="\bbuits?\b"
-hint="Cal substituir la traducció per «buit/s» (revisió -KPatience-)"
+hint="Cal substituir la traducció per «buit/s -també la tecla espai-» (revisió -KPatience-)"
 
     {\bempty\sspaces?\b}i
     valid msgstr="\bespais? buits?\b"
