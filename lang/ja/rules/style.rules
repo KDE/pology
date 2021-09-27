@@ -469,7 +469,7 @@ clearFilters
 valid before="\\n"
 valid before="[\s]"
 valid before="$"
-valid before="([。？、」”’\"'/<>:|\]]|, |\.\.\.)"
+valid before="([。？、」”’\"'/<>:|\]]|, |\.\.\.|…)"
 valid before="[=\+\-]"
 valid after="\(La" before="TeX"
 valid after="\(X" before="HTML"
@@ -615,6 +615,12 @@ valid cat="websites-docs-krita-org"
 
 [:file:`.*?`]
 id="krita-docs-file"
+hint="前後にスペースが必要"
+valid after="^|[ \(\)、。]" before="$|[ \):、。]"
+valid cat="websites-docs-krita-org"
+
+[:program:`.*?`]
+id="krita-docs-program"
 hint="前後にスペースが必要"
 valid after="^|[ \(\)、。]" before="$|[ \):、。]"
 valid cat="websites-docs-krita-org"
