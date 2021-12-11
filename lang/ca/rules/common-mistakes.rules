@@ -256,7 +256,7 @@ hint="«por» s'ha de substituir per un mot correcte (error freqüent)"
 [\brefresc\b]i
 id="common-refresc"
 valid msgstr="refrescament"
-hint="«Refresc» és una beguda, segurament cal dir «actualització» (error freqüent)"
+hint="«refresc» és una beguda, segurament cal dir «actualització» (error freqüent)"
 
 # «router» es tradueix per «encaminador».
 {\brouters?\b}i
@@ -264,6 +264,14 @@ id="common-router"
 valid msgstr="encaminadors?"
 valid msgstr="serveis? d'itineraris"
 hint="«router» es tradueix per «encaminador» (error freqüent)"
+
+# «ruler» es tradueix per «regle» (masculí) si es refereix a l'instrument per a 
+#  traçar línies rectes i mesurar.
+# https://dlc.iec.cat/Results?DecEntradaText=regle
+{\brulers?\b}i
+id="common-ruler"
+valid msgstr="regles?"
+hint="«ruler» es tradueix per «regle», en masculí (error freqüent) si és l'instrument"
 
 # «sempre i quan» és incorrecte, cal utilitzar «sempre que».
 # http://cv.uoc.edu/tren/trenacc/web/LLENGUA.GLOSSNOMEN/glossari_entrades.frame_detall?i_paraula=341
