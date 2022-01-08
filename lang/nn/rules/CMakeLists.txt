@@ -1,8 +1,9 @@
 set(files
+    application-names.rules
+    bokmal-words.rules
     domain.rules
     english.rules
     grammar.rules
-    bokmal-words.rules
     kde.rules
     ortography.rules
     puretext.filters
