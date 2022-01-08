@@ -351,4 +351,10 @@ hint="touchpad → styreplate (ikkje styrepute, peikeplate e.l.)"
 [\bopent\b]i
 hint="opent → ope"
 
+[sysken]i
+hint="sysken → søsken"
+
+[syster|systre(r|ene)?]i
+hint="syster → søster"
+
 # End of rules
