@@ -1,4 +1,5 @@
 set(files
+    domain.rules
     english.rules
     grammar.rules
     bokmal-words.rules
