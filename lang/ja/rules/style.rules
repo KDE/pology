@@ -581,72 +581,73 @@ valid cat="kalgebra"
 
 
 #
-# styles for editing docs.krita.org files
+# rules for websites-docs-krita-org/*.po files
 #
 
 [:kbd:`.*?`]
 id="krita-docs-kbd"
 hint="前後にスペースが必要"
 valid after="^|[ \(\)、。]" before="$|[ \(\):、。]"
+valid !catrx="docs_krita_org_*"
 
 [:guilabel:`.*?`]
 id="krita-docs-guilabel"
 hint="前後にスペースが必要"
 valid after="^|[ \(\)、。]" before="$|[ \):、。]"
-valid cat="websites-docs-krita-org"
+valid !catrx="docs_krita_org_*"
 
 [:ref:`.*?`]
 id="krita-docs-ref"
 hint="前後にスペースが必要"
 valid after="^|[ \(\)、。]" before="$|[ \(\):、。]"
-valid cat="websites-docs-krita-org"
+valid !catrx="docs_krita_org_*"
 
 [:menuselection:`.*?`]
 id="krita-docs-menuselection"
 hint="前後にスペースが必要"
 valid after="^|[ \(\)、。]" before="$|[ \(\):、。]"
-valid cat="websites-docs-krita-org"
+valid !catrx="docs_krita_org_*"
 
 [:literal:`.*?`]
 id="krita-docs-literal"
 hint="前後にスペースが必要"
 valid after="^|[ \(\)、。]" before="$|[ \(\):、。]"
-valid cat="websites-docs-krita-org"
+valid !catrx="docs_krita_org_*"
 
 [:file:`.*?`]
 id="krita-docs-file"
 hint="前後にスペースが必要"
 valid after="^|[ \(\)、。]" before="$|[ \):、。]"
-valid cat="websites-docs-krita-org"
+valid !catrx="docs_krita_org_*"
 
 [:program:`.*?`]
 id="krita-docs-program"
 hint="前後にスペースが必要"
 valid after="^|[ \(\)、。]" before="$|[ \):、。]"
-valid cat="websites-docs-krita-org"
+valid !catrx="docs_krita_org_*"
 
 [\|mouse(left|middle|right)\|]
 id="krita-docs-mouse"
 hint="前後にスペースが必要"
 valid after="^|[ \(\)、。]" before="$|[ \(\):、。]"
-valid cat="websites-docs-krita-org"
+valid !catrx="docs_krita_org_*"
 
 [\|(path tool|tooltransform)\|]
 id="krita-docs-tool"
 hint="前後にスペースが必要"
 valid after="^|[ \(\)、。]" before="$|[ \(\):、。]"
-valid cat="websites-docs-krita-org"
+valid !catrx="docs_krita_org_*"
 
 [``]
 id="krita-docs-backticks"
 hint="片側にスペースが必要"
 valid after="^|[ 、。]"
 valid before="$|[ 、]"
-valid cat="websites-docs-krita-org"
+valid !catrx="docs_krita_org_*"
 
 [\*+]
 id="krita-docs-star"
 hint="片側にスペースが必要"
 valid after="^|[ 、。\(\)]"
 valid before="$|[ 、。\)]"
-valid cat="websites-docs-krita-org"
+valid !catrx="docs_krita_org_*"
