@@ -25,7 +25,7 @@ hint="Teksten i hjelpetittel/-mål/-krav i GCompris må slutta med punktum (med 
 valid !ctx="ActivityInfo\|"
 valid !comment="Help title|goal|prerequisite"
 
-[[^\.]$]
+[\.$]
 id="ds-gcompris-endringslogg-punktum"
-hint="Oppføringar i endringsloggen i GCompris må slutta med punktum"
+hint="Oppføringar i endringsloggen i GCompris skal ikkje slutta med punktum"
 valid !ctx="ChangeLog\|"
