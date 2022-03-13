@@ -27,9 +27,11 @@ hint="半角のスラッシュを使ってください。"
 id="hankaku5"
 hint="半角のスペースを使ってください。"
 
-[\d ?進]
-hint="漢数字を使ってください [十進数]"
-valid before="行|捗"
+# it appears more common these days to use "10進数" than "十進数"
+#[\d ?進]
+#id="number base"
+#hint="漢数字を使ってください [十進数]"
+#valid before="行|捗"
 
 [\d ?次]
 hint="漢数字を使ってください [二次曲線]"
