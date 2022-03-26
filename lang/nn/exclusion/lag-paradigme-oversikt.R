@@ -23,20 +23,50 @@ mappe_ordbank = "~/utvikling/ordbanken"
 mappe_frek = "~/utvikling/kde/trunk/l10n-support/nn/skript/frekvensoversikt"
 
 # Les ordbankfiler og fjern unødvendige kolonnar
-les_fil = function(filnamn) {
-  d = read_tsv(paste0(mappe_ordbank, "/", filnamn))
-  d$X1 = NULL           # Fjern kolonne med linjenummer
-  d$`'NOB_2012'` = NULL # Fjern uinteressant kolonne
+les_fil = function(filnamn, ...) {
+  d = read_tsv(paste0(mappe_ordbank, "/", filnamn), ...)
   d
 }
 
 # Les inn alle datafilene
-d_lemma = les_fil("lemma_nn.txt")
-d_fullform = les_fil("fullformsliste_nn.txt")
-d_lemmaparadigme = les_fil("lemma_paradigme_nn.txt")
-d_paradigme = les_fil("paradigme_boying_nn.txt")
+d_lemma = les_fil(
+  "lemma_nn.txt",
+  col_types = cols_only(LEMMA_ID = col_integer(), GRUNNFORM = col_character()))
+d_fullform = les_fil(
+  "fullformsliste_nn.txt",
+  col_types = cols_only(
+    LEMMA_ID = col_integer(),
+    OPPSLAG = col_character(),
+    TAG = col_character(),
+    PARADIGME_ID = col_character(),
+    BOY_NUMMER = col_integer(),
+    FRADATO = col_character(),
+    TILDATO = col_character(),
+    NORMERING = col_character()
+  )
+)
+d_lemmaparadigme = les_fil(
+  "lemma_paradigme_nn.txt",
+  col_types = cols_only(
+    LEMMA_ID = col_integer(),
+    PARADIGME_ID = col_character(),
+    NORMERING = col_character(),
+    FRADATO = col_character(),
+    TILDATO = col_character(),
+    KOMMENTAR = col_character()
+  )
+)
+d_paradigme = les_fil(
+  "paradigme_boying_nn.txt",
+  col_types = cols_only(
+    PARADIGME_ID = col_character(),
+    BOY_NUMMER = col_integer(),
+    BOY_GRUPPE = col_character(),
+    BOY_UTTRYKK = col_character()
+  )
+)
 d_frek = read_table(paste0(mappe_frek, "/", "frekvens-nn.dat"),
-                    col_names=c("frek","OPPSLAG"), col_type="nc")
+                    col_names = c("frek", "OPPSLAG"), col_types = "nc")
 
 
 
