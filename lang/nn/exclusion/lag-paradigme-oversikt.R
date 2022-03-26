@@ -81,8 +81,8 @@ d_ffrek = d_fullform %>%
   left_join(d_frek, by="OPPSLAG")
 d_lfrek = d_ffrek %>% 
   group_by(LEMMA_ID) %>% 
-  summarise(frek = sum(frek, na.rm = TRUE)) %>% 
-  left_join(d_lemma)
+  summarise(frek = sum(frek, na.rm = TRUE), .groups = "drop") %>% 
+  left_join(d_lemma, by = "LEMMA_ID")
 
 # d_lemmaparadigme skal i utgangspunktet innehalda alle
 # bøyingsparadigma til dei ulike lemmaa (gjer det ikkje heilt,
@@ -98,7 +98,7 @@ d_lp = d_lemmaparadigme %>%
 d_psam_alle = d_lp %>% 
   group_by(LEMMA_ID) %>% 
   summarise(par_tekst = str_c(PARADIGME_ID, collapse=","),
-            n_par = n())
+            n_par = n(), .groups = "drop")
 
 # Sjå berre på tilfelle der me har valfridom i bøying
 d_psam = d_psam_alle %>% 
@@ -108,7 +108,7 @@ d_psam = d_psam_alle %>%
 # det mest frekvente lemmaet for
 # kvar paradigmekombo
 d_psam_pop = d_psam %>%
-  left_join(d_lfrek) %>% 
+  left_join(d_lfrek, by = "LEMMA_ID") %>% 
   arrange(par_tekst, desc(frek)) %>% 
   distinct(par_tekst, .keep_all = TRUE) %>%  # Berre første/mest populære lemma
   arrange(desc(frek)) # Sorter paradigmekomboar etter frekvens
