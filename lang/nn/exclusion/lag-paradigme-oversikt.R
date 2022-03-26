@@ -183,9 +183,9 @@ if(!all(d$ok_val)) {
 # Hent ut unntaka frå ein tekststreng
 # og lag ein tibble med tilhøyrande info
 hent_unntak = function(x) {
-  str_split_fixed(x, "=", 2) %>% 
-	as_tibble %>% 
-	set_names(c("LEMMA_ID", "val"))
+  d_unntak = str_split_fixed(x, "=", 2)
+  colnames(d_unntak) = c("LEMMA_ID", "val")
+  as_tibble(d_unntak)
 }
 
 # Unntaksmønstera, med éi rad for
