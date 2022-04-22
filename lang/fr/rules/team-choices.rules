@@ -609,10 +609,12 @@ hint="Traduisez « frontend » par « interface »"
 valid msgstr="pointeur"
 hint="Traduisez « mouse cursor » et « mouse pointer » par « pointeur de la souris »"
 
-
+{mouse (wheel)}i
+valid msgstr="molette"
+hint="Traduisez « mouse wheel » et par « molette de la souris »"
 
 {\battachment method}i
 valid msgstr="[Mm]éthode.* pour joindre"
-hint="Traduisez « attachment method » par « méthode pour joindre »."
+hint="Traduisez « attachment method » par « méthode pour joindre »"
 
 # End of rule file
