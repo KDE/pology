@@ -144,15 +144,23 @@ def merge_pofile (catpath, tplpath,
         # (unless such message already exists in the catalog).
         # This way, untranslated messages will get fuzzy matched again,
         # and fuzzy messages may get updated translation.
+        # However, do not do this for messages where a previous translated
+        # message does already exist in the catalog, is fuzzy, and
+        # does not have previous fields, since then that one will be
+        # fuzzy matched and propagate its lack of previous fields.
         if rebase_existing_fuzzies:
             rebase_dummy_messages = []
             for msg in cat:
                 if msg.untranslated:
                     cat.remove_on_sync(msg)
                 elif msg.fuzzy and msg.msgid_previous:
-                    cat.remove_on_sync(msg)
                     omsgs = cat.select_by_key(msg.msgctxt_previous,
                                               msg.msgid_previous)
+                    if (   not omsgs
+                        or not omsgs[0].fuzzy
+                        or omsgs[0].msgid_previous is not None
+                    ):
+                        cat.remove_on_sync(msg)
                     if not omsgs:
                         dmsg = Message()
                         dmsg.msgctxt = msg.msgctxt_previous
