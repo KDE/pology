@@ -9,7 +9,7 @@ if(NOT py2t_target_count)
 endif()
 
 
-set(py_compfile_script ${CMAKE_BINARY_DIR}/python2_compfile.py)
+set(py_compfile_script ${CMAKE_BINARY_DIR}/python3_compfile.py)
 file(WRITE ${py_compfile_script} "
 import os, sys, py_compile
 pyfile, pycfile = sys.argv[1:]
@@ -31,7 +31,7 @@ macro(INSTALL_PYTHON2_MODULE_FILES pkgdirpath)
     string(REPLACE ${CMAKE_SOURCE_DIR}/ "" srcsubdir
                    ${CMAKE_CURRENT_SOURCE_DIR})
     string(REPLACE "/" "-" targbase ${srcsubdir})
-    set(target "${targbase}-plt${py2t_target_count}-compile-python2-files")
+    set(target "${targbase}-plt${py2t_target_count}-compile-python3-files")
     math(EXPR py2t_target_count "${py2t_target_count} + 1")
 
     set(pycfiles)

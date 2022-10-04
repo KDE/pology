@@ -2,20 +2,20 @@
 
 include(FindPackageHandleStandardArgs)
 
-set(py_version_script ${CMAKE_BINARY_DIR}/python2_version.py)
+set(py_version_script ${CMAKE_BINARY_DIR}/python3_version.py)
 file(WRITE ${py_version_script} "
 import sys
 sys.stdout.write('.'.join(map(str, sys.version_info[:3])))
 ")
 
-set(py_pkgdir_script ${CMAKE_BINARY_DIR}/python2_pkgdir.py)
+set(py_pkgdir_script ${CMAKE_BINARY_DIR}/python3_pkgdir.py)
 file(WRITE ${py_pkgdir_script} "
 import sys, distutils.sysconfig
 sys.stdout.write(distutils.sysconfig.get_python_lib())
 ")
 
 if(NOT PYTHON2_EXECUTABLE)
-    find_program(PYTHON2_EXECUTABLE NAMES python2 python)
+    find_program(PYTHON2_EXECUTABLE NAMES python3 python)
     message(STATUS
         "Looking for Python 2 executable "
         "(use -DPYTHON2_EXECUTABLE= to set manually)...")
