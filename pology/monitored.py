@@ -284,6 +284,9 @@ class Monpair (Monitored):
         else:
             raise IndexError
 
+    def __hash__(self):
+        return hash((self._first, self._second))
+
 
 # =============================================================================
 # Monitored list.
