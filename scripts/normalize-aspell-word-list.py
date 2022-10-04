@@ -18,12 +18,12 @@ Usage::
 
 import locale
 from codecs import open
-from os.path import abspath, basename
+from os.path import basename
 import re
 import sys
 
 try:
-    import fallback_import_paths
+    pass
 except:
     pass
 from pology import _, n_

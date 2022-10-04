@@ -14,12 +14,10 @@ in different contexts and scenario. May colorize some output.
 # NOTE: These functions are not in pology.report module,
 # as that would cause circular module dependencies.
 
-from copy import deepcopy
 import os
-import re
 import sys
 
-from pology import _, n_
+from pology import _
 from pology.message import Message
 from pology.colors import ColorString, cjoin, cinterp
 from pology.diff import adapt_spans

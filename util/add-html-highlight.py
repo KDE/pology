@@ -8,8 +8,8 @@ import sys
 from pygments import highlight
 from pygments.formatters import HtmlFormatter
 from pygments.lexers import get_lexer_by_name
-from pygments.lexer import RegexLexer, bygroups, include
-from pygments.token import Keyword, Comment, Name, String, Text, Number, Generic
+from pygments.lexer import bygroups, include
+from pygments.token import Comment, Generic, Name, Number, String, Text
 from pygments.util import ClassNotFound
 
 

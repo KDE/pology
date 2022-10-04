@@ -16,10 +16,10 @@ import re
 import shutil
 import tempfile
 
-from pology import PologyError, _, n_
+from pology import PologyError, _
 from pology.escape import escape_sh
 from pology.fsops import collect_system, system_wd, unicode_to_str, join_ncwd
-from pology.report import report, warning
+from pology.report import warning
 
 
 _vcskeys_by_pkey = {}

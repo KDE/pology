@@ -1,5 +1,3 @@
-from collections.abc import Hashable
-
 from pology.message import Message
 
 

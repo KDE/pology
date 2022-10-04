@@ -9,7 +9,6 @@ Documented in C{doc/user/sieving.docbook}.
 @license: GPLv3
 """
 
-import os
 import re
 
 from pology import _, n_

@@ -7,10 +7,8 @@ Escaping texts in various contexts.
 @license: GPLv3
 """
 
-import re
 
-from pology import PologyError, _, n_
-from pology.report import warning
+from pology import PologyError, _
 
 
 _escapes_c = {

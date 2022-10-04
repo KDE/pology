@@ -12,9 +12,8 @@ Documented in C{doc/user/sieving.docbook}.
 from codecs import open
 import locale
 import os
-from os.path import abspath, basename, dirname, isfile, isdir, join
+from os.path import abspath, dirname, isdir, isfile, join
 import re
-import sys
 from time import strftime
 
 from pology import datadir, _, n_

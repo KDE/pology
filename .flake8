@@ -1,0 +1,11 @@
+[flake8]
+exclude =
+    bin
+    .tox
+    venv
+ignore=
+    E,
+    W,
+    F507,
+    F821,
+    F841

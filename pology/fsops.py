@@ -14,7 +14,7 @@ import re
 import subprocess
 import sys
 
-from pology import PologyError, _, n_
+from pology import PologyError, _
 import pology.config
 from pology.escape import escape_sh
 from pology.report import report, error, warning

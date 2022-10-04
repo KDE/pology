@@ -12,7 +12,6 @@ Documented in C{doc/user/sieving.docbook}.
 import codecs
 import locale
 import os
-import sys
 
 from pology import _, n_
 from pology.catalog import Catalog

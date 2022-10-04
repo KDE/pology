@@ -11,7 +11,6 @@ Documented in C{doc/user/sieving.docbook}.
 
 from pology import _, n_
 from pology.escape import unescape_c as unescape
-from pology.msgreport import warning_on_msg
 from pology.report import report
 from pology.sieve import SieveError
 

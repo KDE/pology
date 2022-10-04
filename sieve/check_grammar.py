@@ -11,14 +11,13 @@ Documented in C{doc/user/sieving.docbook}.
 
 from http.client import HTTPConnection
 import socket
-import sys
 from urllib.parse import urlencode
 from xml.dom.minidom import parseString
 
 from pology import _, n_
 from pology.colors import cjoin
-from pology.msgreport import report_msg_to_lokalize, warning_on_msg
-from pology.report import report, warning
+from pology.msgreport import report_msg_to_lokalize
+from pology.report import report
 from pology.sieve import SieveError, SieveCatalogError
 from pology.sieve import add_param_lang, add_param_accel, add_param_markup
 from pology.sieve import add_param_filter

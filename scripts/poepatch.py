@@ -11,7 +11,7 @@ Documented in C{doc/user/diffpatch.docbook#sec-dpdiff}.
 """
 
 try:
-    import fallback_import_paths
+    pass
 except:
     pass
 
@@ -21,7 +21,7 @@ import locale
 import re
 from tempfile import NamedTemporaryFile
 
-from pology import version, _, n_
+from pology import _, version
 from pology.colors import ColorOptionParser
 from pology.report import error, warning, report
 from pology.msgreport import error_on_msg, warning_on_msg

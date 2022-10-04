@@ -12,7 +12,7 @@ Documented in C{doc/user/sieving.docbook}.
 from pology import _, n_
 from pology.markup import flag_no_check_markup
 from pology.markup import validate_kde4_l1
-from pology.msgreport import report_on_msg, report_on_msg_hl
+from pology.msgreport import report_on_msg_hl
 from pology.msgreport import report_msg_to_lokalize
 from pology.report import report
 from pology.sieve import add_param_poeditors

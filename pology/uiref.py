@@ -26,7 +26,7 @@ import hashlib
 import os
 import re
 
-from pology import _, n_
+from pology import _
 from pology.catalog import Catalog
 from pology.remove import remove_accel_msg, remove_markup_msg
 from pology.colors import cjoin

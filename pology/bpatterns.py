@@ -13,7 +13,7 @@ Use L{rules<pology.rules>} through C{check-rules} sieve instead.
 import re
 import codecs
 
-from pology import _, n_
+from pology import _
 from pology.comments import manc_parse_flag_list
 from pology.msgreport import report_on_msg, report_msg_content
 

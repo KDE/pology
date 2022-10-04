@@ -9,7 +9,6 @@ Documented in C{doc/user/sieving.docbook}.
 @license: GPLv3
 """
 
-import re
 
 from pology import _, n_
 from pology.comments import parse_summit_branches

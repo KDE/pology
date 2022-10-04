@@ -11,9 +11,8 @@ import os
 import re
 import codecs
 import xml.parsers.expat
-import difflib
 
-from pology import PologyError, datadir, _, n_
+from pology import PologyError, _, datadir
 from pology.comments import manc_parse_flag_list
 from pology.diff import adapt_spans
 from pology.entities import read_entities

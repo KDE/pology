@@ -11,7 +11,7 @@ import os
 import re
 import unicodedata
 
-from pology import _, n_
+from pology import _
 from pology.message import MessageUnsafe
 from pology.monitored import Monlist, Monpair
 from pology.report import warning

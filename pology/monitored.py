@@ -22,7 +22,7 @@ in standard data types are available through their monitored counterparts
 @license: GPLv3
 """
 
-from pology import PologyError, _, n_
+from pology import PologyError, _
 
 # =============================================================================
 # Internal functions.

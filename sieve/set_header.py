@@ -9,11 +9,9 @@ Documented in C{doc/user/sieving.docbook}.
 @license: GPLv3
 """
 
-import time
 import re
 
-from pology import _, n_
-from pology.report import report, warning
+from pology import _
 from pology.resolve import expand_vars
 from pology.sieve import SieveError
 

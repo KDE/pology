@@ -12,13 +12,10 @@ Interfaces may change arbitrarily between any two Pology releases.
 
 import codecs
 from configparser import SafeConfigParser
-import datetime
 import os
-import re
-import time
 from types import ModuleType
 
-from pology import PologyError, _, n_, t_
+from pology import PologyError, _, t_
 from pology.header import format_datetime, parse_datetime
 from pology.message import Message, MessageUnsafe
 from pology.comments import parse_summit_branches

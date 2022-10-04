@@ -12,7 +12,7 @@ U{http://aspn.activestate.com/ASPN/Cookbook/Python/Recipe/307871}.
 
 import signal
 
-from pology import PologyError, _, n_
+from pology import PologyError, _
 from pology.report import report
 
 

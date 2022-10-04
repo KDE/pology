@@ -10,7 +10,7 @@ Matchers and matcher helpers for various objects.
 import locale
 import re
 
-from pology import _, n_
+from pology import _
 from pology.comments import parse_summit_branches
 from pology.fsops import str_to_unicode
 from pology.message import MessageUnsafe

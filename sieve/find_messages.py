@@ -9,21 +9,16 @@ Documented in C{doc/user/sieving.docbook}.
 @license: GPLv3
 """
 
-import locale
-import os
 import re
-import sys
 
 from pology import _, n_
-from pology.message import MessageUnsafe
-from pology.remove import remove_accel_msg
 from pology.fsops import str_to_unicode
 from pology.getfunc import get_hook_ireq
 from pology.match import make_msg_matcher, make_matcher, make_filtered_msg
 from pology.match import ExprError
 from pology.msgreport import report_msg_content
 from pology.msgreport import report_msg_to_lokalize
-from pology.report import report, error, warning, format_item_list
+from pology.report import format_item_list, report
 from pology.sieve import SieveError
 from pology.sieve import add_param_poeditors
 from functools import reduce

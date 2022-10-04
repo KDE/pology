@@ -7,7 +7,7 @@ Conversions between character sets in Serbian texts.
 @license: GPLv3
 """
 
-from pology import _, n_
+from pology import _
 from pology.report import warning
 
 

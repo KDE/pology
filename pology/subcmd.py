@@ -43,13 +43,10 @@ is not guaranteed. Always name them in calls.
 # Actually, the main reason for not using Divergloss' module directly
 # is to avoid dependency.
 
-import fnmatch
-import locale
-import os
 import re
 import sys
 
-from pology import PologyError, _, n_
+from pology import PologyError, _
 from pology.colors import cjoin, cinterp
 from pology.fsops import term_width
 from pology.report import format_item_list

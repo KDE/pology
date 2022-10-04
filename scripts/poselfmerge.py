@@ -14,16 +14,14 @@ Documented in C{doc/user/misctools.docbook#sec-miselfmerge}.
 import locale
 import os
 import shutil
-import sys
 
 try:
-    import fallback_import_paths
+    pass
 except:
     pass
 
-from pology import version, _, n_
+from pology import _, version
 from pology.catalog import Catalog
-from pology.message import MessageUnsafe
 from pology.colors import ColorOptionParser
 import pology.config as pology_config
 from pology.fsops import collect_paths_cmdline, collect_catalogs

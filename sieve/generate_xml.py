@@ -10,15 +10,11 @@ Documented in C{doc/user/sieving.docbook}.
 """
 
 from codecs import open
-import locale
 import os
-from os.path import abspath, basename, dirname, isdir, isfile, join
-import sys
+from os.path import abspath, basename, dirname
 
-from pology import _, n_
+from pology import _
 from pology.report import report
-from pology.rules import loadRules, Rule
-from pology.timeout import TimedOutException
 
 
 def setup_sieve (p):

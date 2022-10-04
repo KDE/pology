@@ -7,12 +7,10 @@ Fetch Pology modules, functions, data, etc. by various handles.
 @license: GPLv3
 """
 
-import sys
-import os
 import re
 
-from pology import PologyError, _, n_
-from pology.report import error, warning
+from pology import PologyError, _
+from pology.report import error
 
 
 def get_module (modpath, lang=None, proj=None, abort=False, wpath=False):

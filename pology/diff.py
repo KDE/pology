@@ -11,7 +11,7 @@ from difflib import SequenceMatcher
 import random
 import re
 
-from pology import PologyError, _, n_
+from pology import PologyError, _
 from pology.colors import ColorString, cjoin
 from pology.message import MessageUnsafe
 from pology.report import error

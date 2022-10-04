@@ -106,7 +106,7 @@ without conflicts, in single text and even interwoven
 """
 
 from pology import PologyError, _, n_
-from pology.diff import word_diff, tdiff
+from pology.diff import word_diff
 from pology.report import warning, format_item_list
 from pology.resolve import resolve_alternatives_simple
 from pology.resolve import resolve_alternatives

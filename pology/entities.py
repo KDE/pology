@@ -10,7 +10,7 @@ Handle entity definitions.
 import os
 import xml.parsers.expat
 
-from pology import PologyError, _, n_
+from pology import PologyError, _
 from pology.fsops import collect_files_by_ext
 from pology.report import warning
 

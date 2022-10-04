@@ -13,11 +13,11 @@ import codecs
 import re
 import tempfile
 
-from pology import PologyError, datadir, _, n_
+from pology import PologyError, _, datadir
 from pology.comments import manc_parse_flag_list, manc_parse_list
 import pology.config
 from pology.msgreport import report_on_msg
-from pology.report import warning, format_item_list
+from pology.report import format_item_list
 
 
 # Pipe flag to manually prevent spellcheck for a particular message.

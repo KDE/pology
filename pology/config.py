@@ -18,7 +18,7 @@ import codecs
 import os
 from configparser import ConfigParser
 
-from pology import _, n_
+from pology import _
 from pology.report import error
 
 

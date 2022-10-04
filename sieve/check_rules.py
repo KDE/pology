@@ -15,7 +15,6 @@ from locale import getpreferredencoding
 import os
 from os.path import abspath, basename, dirname, exists, expandvars, join
 import re
-import sys
 from time import strftime, strptime, mktime
 
 from pology import _, n_

@@ -7,10 +7,9 @@ Wrappers for commands from Gettext tools.
 @license: GPLv3
 """
 
-import os
 import subprocess
 
-from pology import _, n_
+from pology import _
 from pology.report import warning
 from pology.fsops import unicode_to_str
 

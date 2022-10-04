@@ -17,20 +17,17 @@ See C{doc/user/lingo.docbook#sec-lgrules} for detailed discussion of rules.
 """
 
 from codecs import open
-from locale import getlocale
-from os.path import dirname, basename, isdir, join, isabs
+from os.path import dirname, isabs, isdir, join
 from os import listdir
 import re
-import sys
 from time import time
 
-from pology import PologyError, datadir, _, n_
+from pology import PologyError, _, datadir
 from pology.message import MessageUnsafe
 from pology.config import strbool
 from pology.getfunc import get_hook_ireq, split_ireq
 from pology.report import report, warning, format_item_list
 from pology.tabulate import tabulate
-from pology.timeout import timed_out
 
 TIMEOUT=8 # Time in sec after which a rule processing is timeout
 

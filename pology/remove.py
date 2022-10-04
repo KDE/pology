@@ -9,7 +9,7 @@ Remove special substrings from text.
 
 import re
 
-from pology import _, n_
+from pology import _
 from pology.comments import manc_parse_field_values, manc_parse_list
 import pology.markup as M
 from pology.msgreport import warning_on_msg

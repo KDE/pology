@@ -17,27 +17,23 @@ import shutil
 import sys
 
 try:
-    import fallback_import_paths
+    pass
 except:
     pass
 
-from pology import version, _, n_, t_
+from pology import _, t_, version
 from pology.catalog import Catalog
-from pology.message import MessageUnsafe
 from pology.colors import ColorOptionParser, set_coloring_globals, cjoin
 import pology.config as pology_config
 from pology.fsops import str_to_unicode, collect_catalogs
 from pology.fsops import exit_on_exception
-from pology.diff import msg_ediff
-from pology.report import error, warning, report, format_item_list
+from pology.report import error, format_item_list, report
 from pology.report import list_options
 from pology.report import init_file_progress
 from pology.stdcmdopt import add_cmdopt_colors
 from pology.vcs import available_vcs, make_vcs
 
-from pology.internal.poediffpatch import MPC, EDST
-from pology.internal.poediffpatch import msg_eq_fields, msg_copy_fields
-from pology.internal.poediffpatch import msg_clear_prev_fields
+from pology.internal.poediffpatch import EDST
 from pology.internal.poediffpatch import diff_cats, diff_hdrs
 from pology.internal.poediffpatch import init_ediff_header
 from pology.internal.poediffpatch import get_msgctxt_for_headers
