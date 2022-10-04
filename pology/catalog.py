@@ -1146,7 +1146,7 @@ class Catalog (Monitored):
         @param noobsend: do not reorder messages to group all obsolete at end
         @type noobsend: bool
         @param writefh: file to write the catalog to
-        @type writefh: file-like object
+        @type writefh: file-like object open in binary mode
         @param fitplural: whether to fit the number of msgstr fields in
             clean plural messages to plural header specification
         @type fitplural: bool
@@ -1271,7 +1271,7 @@ class Catalog (Monitored):
             # ...needs Python 2.6
             tmpfname = os.path.join(pdirpath,
                                     os.path.basename(self._filename) + "~tmpw")
-            ofl = open(tmpfname, "w")
+            ofl = open(tmpfname, "wb")
         else:
             ofl = writefh
         ofl.writelines(enclines)
