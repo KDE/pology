@@ -1,3 +1,4 @@
 tests:
   script:
+    - pip install tox
     - tox
