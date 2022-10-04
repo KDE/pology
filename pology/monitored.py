@@ -374,6 +374,12 @@ class Monlist (Monitored):
                 return False
         return True
 
+    def __hash__(self):
+        return hash(
+            (
+                tuple(self.__dict__["*"]),
+            )
+        )
 
     def __ne__ (self, other):
 
@@ -484,6 +490,13 @@ class Monset (Monitored):
             if self.__dict__["*"][i] not in other:
                 return False
         return True
+
+    def __hash__(self):
+        return hash(
+            (
+                tuple(self.__dict__["*"]),
+            )
+        )
 
 
     def __ne__ (self, other):
