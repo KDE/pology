@@ -48,7 +48,7 @@ def _get_module (name, cmsg=None):
     return _modules_on_request[name]
 
 
-def report_on_msg (text, msg, cat, subsrc=None, file=sys.stdout.buffer):
+def report_on_msg (text, msg, cat, subsrc=None, file=sys.stdout):
     """
     Report on a PO message.
 
@@ -72,7 +72,7 @@ def report_on_msg (text, msg, cat, subsrc=None, file=sys.stdout.buffer):
     report(text, subsrc=subsrc, showcmd=False)
 
 
-def warning_on_msg (text, msg, cat, subsrc=None, file=sys.stderr.buffer):
+def warning_on_msg (text, msg, cat, subsrc=None, file=sys.stderr):
     """
     Warning on a PO message.
 
@@ -96,7 +96,7 @@ def warning_on_msg (text, msg, cat, subsrc=None, file=sys.stderr.buffer):
     warning(text, subsrc=subsrc, showcmd=False)
 
 
-def error_on_msg (text, msg, cat, code=1, subsrc=None, file=sys.stderr.buffer):
+def error_on_msg (text, msg, cat, code=1, subsrc=None, file=sys.stderr):
     """
     Error on a PO message (aborts the execution).
 
@@ -123,7 +123,7 @@ def error_on_msg (text, msg, cat, code=1, subsrc=None, file=sys.stderr.buffer):
 
 
 def report_on_msg_hl (highlight, msg, cat, fmsg=None,
-                      subsrc=None, file=sys.stdout.buffer):
+                      subsrc=None, file=sys.stdout):
     """
     Report on parts of a PO message.
 
@@ -286,7 +286,7 @@ def report_msg_content (msg, cat,
                         wrapf=None, force=False,
                         note=None, delim=None, highlight=None,
                         showmsg=True, fmsg=None, showfmsg=False,
-                        subsrc=None, file=sys.stdout.buffer):
+                        subsrc=None, file=sys.stdout):
     """
     Report the content of a PO message.
 

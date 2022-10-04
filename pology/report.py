@@ -34,6 +34,8 @@ def encwrite(file, text):
     @type text: string or unicode
     """
 
+    if hasattr(file, "buffer"):
+        file = file.buffer
     enc = getattr(file, "encoding", None) or locale.getpreferredencoding()
     text = text.encode(enc, "replace")
 
@@ -55,7 +57,7 @@ def encwrite(file, text):
     file.write(text)
 
 
-def report (text, showcmd=False, subsrc=None, file=sys.stdout.buffer, newline=True):
+def report (text, showcmd=False, subsrc=None, file=sys.stdout, newline=True):
     """
     Generic report.
 
@@ -109,7 +111,7 @@ def report (text, showcmd=False, subsrc=None, file=sys.stdout.buffer, newline=Tr
     encwrite(file, text)
 
 
-def warning (text, showcmd=True, subsrc=None, file=sys.stderr.buffer):
+def warning (text, showcmd=True, subsrc=None, file=sys.stderr):
     """
     Generic warning.
 
@@ -129,7 +131,7 @@ def warning (text, showcmd=True, subsrc=None, file=sys.stderr.buffer):
     report(rtext, showcmd=showcmd, subsrc=subsrc, file=file)
 
 
-def error (text, code=1, showcmd=True, subsrc=None, file=sys.stderr.buffer):
+def error (text, code=1, showcmd=True, subsrc=None, file=sys.stderr):
     """
     Generic error (aborts the execution).
 
@@ -152,7 +154,7 @@ def error (text, code=1, showcmd=True, subsrc=None, file=sys.stderr.buffer):
     sys.exit(code)
 
 
-def init_file_progress (fpaths, timeint=1.0, stream=sys.stderr.buffer, addfmt=None):
+def init_file_progress (fpaths, timeint=1.0, stream=sys.stderr, addfmt=None):
     """
     Create a function to output progress bar while processing files.
 
