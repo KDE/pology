@@ -21,7 +21,7 @@ from pology.colors import ColorString
 
 _prev_text_cr = [None, None]
 
-def encwrite (file, text):
+def encwrite(file, text):
     """
     Write unicode text to file using best encoding guess.
 
@@ -45,17 +45,17 @@ def encwrite (file, text):
         _prev_text_cr[1] = None
 
     # If current output is returning to line start with CR, record it.
-    if text.endswith("\r"):
+    if text.endswith(b"\r"):
         cstr = text
         if "\n" in cstr:
-            cstr = cstr[cstr.rfind("\n") + 1:]
+            cstr = cstr[cstr.rfind(b"\n") + 1:]
         _prev_text_cr[0] = cstr
         _prev_text_cr[1] = file
 
     file.write(text)
 
 
-def report (text, showcmd=False, subsrc=None, file=sys.stdout, newline=True):
+def report (text, showcmd=False, subsrc=None, file=sys.stdout.buffer, newline=True):
     """
     Generic report.
 
@@ -109,7 +109,7 @@ def report (text, showcmd=False, subsrc=None, file=sys.stdout, newline=True):
     encwrite(file, text)
 
 
-def warning (text, showcmd=True, subsrc=None, file=sys.stderr):
+def warning (text, showcmd=True, subsrc=None, file=sys.stderr.buffer):
     """
     Generic warning.
 
@@ -129,7 +129,7 @@ def warning (text, showcmd=True, subsrc=None, file=sys.stderr):
     report(rtext, showcmd=showcmd, subsrc=subsrc, file=file)
 
 
-def error (text, code=1, showcmd=True, subsrc=None, file=sys.stderr):
+def error (text, code=1, showcmd=True, subsrc=None, file=sys.stderr.buffer):
     """
     Generic error (aborts the execution).
 
@@ -152,7 +152,7 @@ def error (text, code=1, showcmd=True, subsrc=None, file=sys.stderr):
     sys.exit(code)
 
 
-def init_file_progress (fpaths, timeint=1.0, stream=sys.stderr, addfmt=None):
+def init_file_progress (fpaths, timeint=1.0, stream=sys.stderr.buffer, addfmt=None):
     """
     Create a function to output progress bar while processing files.
 
