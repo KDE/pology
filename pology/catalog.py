@@ -2502,9 +2502,9 @@ class Catalog (Monitored):
 
             # Select match groups.
             fuzzies = {}
-            for src, fcnt in fcnts.items():
+            for src, fcnt in sorted(fcnts.items()):
                 shares = []
-                for osrc, ccnt in ccnts[src].items():
+                for osrc, ccnt in sorted(ccnts[src].items()):
                     share = ccnt / (fcnt + 1.0) # tip a bit to avoid fcnt of 0.x
                     if share >= minshare:
                         shares.append((osrc, share))
@@ -2513,7 +2513,7 @@ class Catalog (Monitored):
                     fuzzies[src] = [f for f, s in shares]
 
             # Update the dictionary of renamings.
-            for src, fuzzsrcs in fuzzies.items():
+            for src, fuzzsrcs in sorted(fuzzies.items()):
                 group = [src] + fuzzsrcs
                 for src in group:
                     if src not in renamings:
