@@ -959,6 +959,25 @@ class Message (Message_base, Monitored): # order important for get/setattr
             and self._refline == other._refline
             and self._refentry == other._refentry
         )
+    
+    def __hash__(self):
+        return (
+            self._manual_comment,
+            self._auto_comment,
+            self._source,
+            self._flag,
+            self._obsolete,
+            self._msgctxt_previous,
+            self._msgid_previous,
+            self._msgid_plural_previous,
+            self._msgctxt,
+            self._msgid,
+            self._msgid_plural,
+            self._msgstr,
+            self._fuzzy,
+            self._refline,
+            self._refentry,
+        )
 
     def __repr__(self):
         return 'Message({{"refline": {}, "msgid": {}, ...}})'.format(
