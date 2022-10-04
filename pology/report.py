@@ -39,7 +39,7 @@ def encwrite(file, text):
 
     # If last output was returning to line start with CR, clean up the line.
     if _prev_text_cr[0] is not None and not _prev_text_cr[1].closed:
-        cstr = "\r%s\r" % (" " * len(_prev_text_cr[0]))
+        cstr = b"\r%s\r" % (b" " * len(_prev_text_cr[0]))
         _prev_text_cr[0] = None
         _prev_text_cr[1].write(cstr)
         _prev_text_cr[1] = None
@@ -47,7 +47,7 @@ def encwrite(file, text):
     # If current output is returning to line start with CR, record it.
     if text.endswith(b"\r"):
         cstr = text
-        if "\n" in cstr:
+        if b"\n" in cstr:
             cstr = cstr[cstr.rfind(b"\n") + 1:]
         _prev_text_cr[0] = cstr
         _prev_text_cr[1] = file
