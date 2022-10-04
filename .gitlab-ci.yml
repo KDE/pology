@@ -1,6 +1,26 @@
-tests:
-  before_script:
-    - apt-get -qq update && apt-get -qq install -y python3 python3-pip
-    - pip3 install tox
+image: "python:3.10"
+
+before_script:
+  - pip install tox
+
+stages:
+  - Check
+  - Test
+
+flake8:
+  stage: Check
   script:
-    - tox
+    - tox -e flake8
+
+# Test with the minimum version of dependencies.
+test-minimum:
+  stage: Test
+  image: "python:3.7"
+  script:
+    - tox -e py
+
+# Test with the latest version of dependencies.
+test-latest:
+  stage: Test
+  script:
+    - tox -e py
