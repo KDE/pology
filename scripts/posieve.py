@@ -16,11 +16,11 @@ except:
     pass
 
 import glob
-import imp
 import locale
 import os
 import re
 import sys
+from types import ModuleType
 
 from pology import datadir, version, _, n_, t_
 from pology.catalog import Catalog, CatalogSyntaxError
@@ -254,7 +254,7 @@ def main ():
                     file=sieve_path))
         # Load file into new module.
         sieve_mod_name = "sieve_" + str(len(sieve_modules))
-        sieve_mod = imp.new_module(sieve_mod_name)
+        sieve_mod = ModuleType(sieve_mod_name)
         exec(sieve_file, sieve_mod.__dict__)
         sys.modules[sieve_mod_name] = sieve_mod # to avoid garbage collection
         sieve_modules.append((sieve_name, sieve_mod))
