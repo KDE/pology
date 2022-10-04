@@ -961,7 +961,7 @@ class Message (Message_base, Monitored): # order important for get/setattr
         )
     
     def __hash__(self):
-        return (
+        return hash((
             self._manual_comment,
             self._auto_comment,
             self._source,
@@ -977,7 +977,7 @@ class Message (Message_base, Monitored): # order important for get/setattr
             self._fuzzy,
             self._refline,
             self._refentry,
-        )
+        ))
 
     def __repr__(self):
         return 'Message({{"refline": {}, "msgid": {}, ...}})'.format(
