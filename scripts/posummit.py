@@ -2366,6 +2366,9 @@ def summit_scatter_single (branch_id, branch_name, branch_subdir,
         for branch_msg in branch_cat:
             if branch_msg.active and branch_msg not in scattered_branch_msgs:
                 branch_msg.fuzzy = True
+                branch_msg.msgctxt_previous = branch_msg.msgctxt
+                branch_msg.msgid_previous = branch_msg.msgid
+                branch_msg.msgid_plural_previous = branch_msg.msgid_plural
 
     # Update branch header based on primary summit catalog.
     # Copy over all header parts from summit to branch,

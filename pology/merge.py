@@ -241,6 +241,9 @@ def merge_pofile (catpath, tplpath,
                          or len(proper_words(msg.msgid, accels=acc)) < minwnex)
                 ):
                     msg.fuzzy = True
+                    msg.msgctxt_previous = msg.msgctxt
+                    msg.msgid_previous = msg.msgid
+                    msg.msgid_plural_previous = msg.msgid_plural
 
         # Eliminate fuzzy matches not passing the adjusted similarity limit.
         if correct_fuzzy_matches:
