@@ -83,7 +83,7 @@ hint="(for)stådd → (for)stått"
 hint="hevd(e) → heva"
 valid after="i "
 
-[å tinga]i
+[\bå tinga]i
 hint="tinga → abonnera"
 
 [behandl]i
@@ -121,6 +121,7 @@ hint="hyrne → hjørne"
 
 [(høra|kjør)]i
 hint="høra/kjøra → høyra/køyra"
+valid after="s"
 
 [\blata\b]i
 hint="lata → la"
@@ -201,6 +202,7 @@ hint="breidde/høgde/lengde → breidd/høgd/lengd"
 hint="bli(r) → vert(a)"
 
 [\bvort(en|ne|e)?\b]i
+id="vorte"
 hint="vorte/vorten/vortne → blitt"
 
 [\bsleppt]i
@@ -348,5 +350,11 @@ hint="touchpad → styreplate (ikkje styrepute, peikeplate e.l.)"
 
 [\bopent\b]i
 hint="opent → ope"
+
+[sysken]i
+hint="sysken → søsken"
+
+[syster|systre(r|ene)?]i
+hint="syster → søster"
 
 # End of rules

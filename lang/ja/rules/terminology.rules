@@ -170,7 +170,7 @@ valid msgstr="帯域幅"
 {\bbinary}i
 id="binary"
 hint="binary = 二進|二進法"
-valid !ctx="encoding|coding" !comment="encoding" !before=" encoding" !after="switch base to "
+valid !ctx="encoding|coding" !comment="encoding" !before=" (encoding|representation|system|value|[0-9])" !after="switch base to "
 valid msgstr="二進|二進法"
 
 {\bbinary}i
@@ -185,7 +185,7 @@ hint="binary = 実行ファイル"
 valid before=" (file|data|format|xml|package|viewer|filter|equal|comparison|image|clock|lineart)"
 valid ctx="encoding|coding"
 valid comment="encoding"
-valid before=" encoding|, octal| number"
+valid before=" encoding| representation|, octal| number| system| value| [0-9]"
 valid after="switch base to "
 valid cat="cervisia"
 valid msgstr="実行ファイル"
@@ -1646,7 +1646,14 @@ valid msgstr="一時ファイル"
 {\bterminal}i
 id="terminal"
 hint="terminal = ターミナル"
+valid after="(positive|negative) "
 valid msgstr="ターミナル"
+
+{\bterminal}i
+id="terminal2"
+hint="terminal = 端子"
+valid !after="(positive|negative) "
+valid msgstr="端子"
 
 {\bterminal emulator}i
 id="terminal_emulator"

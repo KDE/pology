@@ -62,3 +62,7 @@ id="gongeteikn"
 hint="Bruk ×, ikkje x, for å markera skjermoppløysing, biletstorleik og liknande"
 valid span="\b0x"
 
+[(er|var) (eitt|éin|éi) av]
+id="eitt-av"
+hint="Skal truleg vera «eit/ein/ei av», ikkje «eitt/éin/éi av» (med mindre det er eit poeng at det berre er 1 av det/den/han/ho – sjå https://www.sprakradet.no/svardatabase/sporsmal-og-svar/et-eller-ett/)"
+

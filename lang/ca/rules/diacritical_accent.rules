@@ -18,11 +18,12 @@ hint="Cal revisar-ho «\
 -> bé (plural béns): possessions; adverbi; conjunció» \
 (accent_diacrític)"
 
-[\bbót(a|es)\b]i
-hint="Cal revisar-ho «\
--> bota: calçat; verb botar \
--- bóta: recipient» \
-(accent_diacrític)"
+# D'acord amb la nova normativa (2016), ja no porta accent
+#[\bbót(a|es)\b]i
+#hint="Cal revisar-ho «\
+#-> bota: calçat; verb botar \
+#-- bóta: recipient» \
+#(accent_diacrític)"
 
 # [\bcóc\b]i
 # hint="Cal revisar-ho «\
@@ -31,30 +32,35 @@ hint="Cal revisar-ho «\
 # (accent_diacrític)"
 
 [\bcólls?\b]i
+id="da-coll"
 hint="Cal revisar-ho «\
 -> coll: part del cos \
 -- Cóll: topònim» \
 (accent_diacrític)"
 
-[\bcóm\b]i
-hint="Cal revisar-ho «\
--> com: adverbi (com fer ratafia)\
--- cóm: obi (http://ca.wikipedia.org/wiki/Cóm)» \
-(accent_diacrític)"
+# D'acord amb la nova normativa (2016), ja no porta accent
+#[\bcóm\b]i
+#hint="Cal revisar-ho «\
+#-> com: adverbi (com fer ratafia)\
+#-- cóm: obi (http://ca.wikipedia.org/wiki/Cóm)» \
+#(accent_diacrític)"
 
-[\bcóps?\b]i
-hint="Cal revisar-ho «\
--> cop: encontre violent, colp, etc. \
--- cóp: cerro; mesura de capacitat; gran copa, etc.» \
-(accent_diacrític)"
+# D'acord amb la nova normativa (2016), ja no porta accent
+#[\bcóps?\b]i
+#hint="Cal revisar-ho «\
+#-> cop: encontre violent, colp, etc. \
+#-- cóp: cerro; mesura de capacitat; gran copa, etc.» \
+#(accent_diacrític)"
 
-[\bcós\b]i
-hint="Cal revisar-ho «\
--> cos: conjunt d'un organisme; corporació \
--- cós: cursa» \
-(accent_diacrític)"
+# D'acord amb la nova normativa (2016), ja no porta accent
+#[\bcós\b]i
+#hint="Cal revisar-ho «\
+#-> cos: conjunt d'un organisme; corporació \
+#-- cós: cursa» \
+#(accent_diacrític)"
 
 [\bdéus?\b]i
+id="da-deu"
 valid msgid="\bGODS?\b"
 hint="Cal revisar-ho «\
 -> deu: font; numeral \
@@ -63,14 +69,15 @@ hint="Cal revisar-ho «\
 -- Déu: nom propi d'algun déu monoteista» \
 (accent_diacrític)"
 
-[\bdon(a|es)\b]i
-valid msgid="Females?"
-valid msgid="Wom(a|e)ns?"
-valid msgid="wifes?"
-hint="Cal revisar-ho «\
--- dona, dones: ésser humà de gènere femení; muller \
--> dóna, dónes: formes del verb donar» \
-(accent_diacrític)"
+# D'acord amb la nova normativa (2016), ja no porta accent
+#[\bdon(a|es)\b]i
+#valid msgid="Females?"
+#valid msgid="Wom(a|e)ns?"
+#valid msgid="wifes?"
+#hint="Cal revisar-ho «\
+#-- dona, dones: ésser humà de gènere femení; muller \
+#-> dóna, dónes: formes del verb donar» \
+#(accent_diacrític)"
 
 # [\bes\b]i
 # hint="Cal revisar-ho «\
@@ -78,31 +85,36 @@ hint="Cal revisar-ho «\
 # és: forma del verb ser» \
 # (accent_diacrític)"
 
-[\bféu\b]i
-hint="Cal revisar-ho «\
--> feu: domini, senyoria; verb fer (Indicatiu/Subjuntiu/Imperatiu present: vos. feu) \
--- féu: verb fer (Indicatiu passat simple: ell féu)» \
-(accent_diacrític)"
+# D'acord amb la nova normativa (2016), ja no porta accent
+#[\bféu\b]i
+#hint="Cal revisar-ho «\
+#-> feu: domini, senyoria; verb fer (Indicatiu/Subjuntiu/Imperatiu present: vos. feu) \
+#-- féu: verb fer (Indicatiu passat simple: ell féu)» \
+#(accent_diacrític)"
 
-[\bfóra\b]i
-hint="Cal revisar-ho «\
--> fora: adverbi (fora de joc) \
--- fóra: verb ser o ésser (Indicatiu condicional: jo seria, ell seria -o fóra-)» \
-(accent_diacrític)"
+# D'acord amb la nova normativa (2016), ja no porta accent
+#[\bfóra\b]i
+#hint="Cal revisar-ho «\
+#-> fora: adverbi (fora de joc) \
+#-- fóra: verb ser o ésser (Indicatiu condicional: jo seria, ell seria -o fóra-)» \
+#(accent_diacrític)"
 
-[\bjócs?\b]i
-hint="Cal revisar-ho «\
--> joc, jocs: acció de jugar, entreteniment \
--- jóc: indret on van a dormir els ocells jóc, jócs (però joca): ajocat» \
-(accent_diacrític)"
+# D'acord amb la nova normativa (2016), ja no porta accent
+#[\bjócs?\b]i
+#hint="Cal revisar-ho «\
+#-> joc, jocs: acció de jugar, entreteniment \
+#-- jóc: indret on van a dormir els ocells jóc, jócs (però joca): ajocat» \
+#(accent_diacrític)"
 
-[\blés\b]i
-hint="Cal revisar-ho «\
--> les: article; pronom; adjectiu (antònim de il·lès) \
--- Lés: topònim» \
-(accent_diacrític)"
+# D'acord amb la nova normativa (2016), ja no porta accent
+#[\blés\b]i
+#hint="Cal revisar-ho «\
+#-> les: article; pronom; adjectiu (antònim de il·lès) \
+#-- Lés: topònim» \
+#(accent_diacrític)"
 
 [\bma\b]i
+id="da-ma"
 valid !msgstr="màxima"
 hint="Cal revisar-ho «\
 -- ma: (plural mes): forma del femení de l’adjectiu possessiu mon \
@@ -110,27 +122,31 @@ hint="Cal revisar-ho «\
 (accent_diacrític)"
 
 [\bmes\b]i
+id="da-mes"
 valid !msgstr="màximes"
 hint="Cal revisar-ho «\
 -- mes: dotzena part d'un any; possessiu; però; participi de metre \
 -> més: quantitatiu» \
 (accent_diacrític)"
 
-[\bmèu\b]i
-hint="Cal revisar-ho «\
--> meu: possessiu \
--- mèu: miol del gat» \
-(accent_diacrític)"
+# D'acord amb la nova normativa (2016), ja no porta accent
+#[\bmèu\b]i
+#hint="Cal revisar-ho «\
+#-> meu: possessiu \
+#-- mèu: miol del gat» \
+#(accent_diacrític)"
 
-[\bmòlta?\b]i
-valid msgstr="\bcafè mòlt\b"
-hint="Cal revisar-ho «\
--> molt, molta: quantitatiu \
--- mòlt, mòlta: participi de moldre \
--- mòlta: acció de moldre» \
-(accent_diacrític)"
+# D'acord amb la nova normativa (2016), ja no porta accent
+#[\bmòlta?\b]i
+#valid msgstr="\bcafè mòlt\b"
+#hint="Cal revisar-ho «\
+#-> molt, molta: quantitatiu \
+#-- mòlt, mòlta: participi de moldre \
+#-- mòlta: acció de moldre» \
+#(accent_diacrític)"
 
 [\bmon\b]i
+id="da-mon"
 valid msgid="Mon"
 hint="Cal revisar-ho «\
 -- mon (plural mos): possessiu \
@@ -138,39 +154,44 @@ hint="Cal revisar-ho «\
 -> món (però mons): univers» \
 (accent_diacrític)"
 
-[\bmor(a|es)\b]i
-valid msgid="Mora"
-hint="Cal revisar-ho «\
--- mora: dona magribina; retard \
--> móra: (plural móres): fruita \
--> Móra: forma part d'alguns topònims» \
-(accent_diacrític)"
+# D'acord amb la nova normativa (2016), ja no porta accent
+#[\bmor(a|es)\b]i
+#valid msgid="Mora"
+#hint="Cal revisar-ho «\
+#-- mora: dona magribina; retard \
+#-> móra: (plural móres): fruita \
+#-> Móra: forma part d'alguns topònims» \
+#(accent_diacrític)"
 
-[\bnét(a|es|s)?\b]i
-valid msgid="GRANDCHILDREN"
-hint="Cal revisar-ho «\
--> net (neta, nets, netes): adjectiu \
--- nét (néta, néts, nétes): parentiu familiar» \
-(accent_diacrític)"
+# D'acord amb la nova normativa (2016), ja no porta accent
+#[\bnét(a|es|s)?\b]i
+#valid msgid="GRANDCHILDREN"
+#hint="Cal revisar-ho «\
+#-> net (neta, nets, netes): adjectiu \
+#-- nét (néta, néts, nétes): parentiu familiar» \
+#(accent_diacrític)"
 
-[\bnós\b]i
-hint="Cal revisar-ho «\
--> nos: pronom personal feble \
--- nós: plural majestàtic» \
-(accent_diacrític)"
+# D'acord amb la nova normativa (2016), ja no porta accent
+#[\bnós\b]i
+#hint="Cal revisar-ho «\
+#-> nos: pronom personal feble \
+#-- nós: plural majestàtic» \
+#(accent_diacrític)"
 
-[\bós(sos|sa|ses)?\b]i
-id="da-os"
-valid msgid="URSA"
-valid msgid="BEAR"
-hint="Cal revisar-ho «\
--> os, ossos: part de l'esquelet \
--> ossa, osses: ossada, esquelet \
--- ós, óssos: animal \
--- óssa, ósses: animal» \
-(accent_diacrític)"
+# D'acord amb la nova normativa (2016), ja no porta accent
+#[\bós(sos|sa|ses)?\b]i
+#id="da-os"
+#valid msgid="URSA"
+#valid msgid="BEAR"
+#hint="Cal revisar-ho «\
+#-> os, ossos: part de l'esquelet \
+#-> ossa, osses: ossada, esquelet \
+#-- ós, óssos: animal \
+#-- óssa, ósses: animal» \
+#(accent_diacrític)"
 
 [\bpèls?\b]i
+id="da-pel"
 valid msgid="bristles?"
 valid msgid="\bFurs?\b"
 valid msgid="\bHairs?\b"
@@ -180,11 +201,12 @@ hint="Cal revisar-ho «\
 -- pèl (plural pèls): vellositat» \
 (accent_diacrític)"
 
-[\bpórca\b]i
-hint="Cal revisar-ho «\
--> porca: femella del porc \
--- pórca: faixa de terra» \
-(accent_diacrític)"
+# D'acord amb la nova normativa (2016), ja no porta accent
+#[\bpórca\b]i
+#hint="Cal revisar-ho «\
+#-> porca: femella del porc \
+#-- pórca: faixa de terra» \
+#(accent_diacrític)"
 
 # [\bquè\b]i
 # hint="Cal revisar-ho «\
@@ -192,42 +214,48 @@ hint="Cal revisar-ho «\
 # què: relatiu tònic, interrogatiu» \
 # (accent_diacrític)"
 
-[\brés\b]i
-hint="Cal revisar-ho «\
--> res: pronom; pl. de re (nota musical) \
--- rés: pregària» \
-(accent_diacrític)"
+# D'acord amb la nova normativa (2016), ja no porta accent
+#[\brés\b]i
+#hint="Cal revisar-ho «\
+#-> res: pronom; pl. de re (nota musical) \
+#-- rés: pregària» \
+#(accent_diacrític)"
 
-[\bròssa\b]i
-hint="Cal revisar-ho «\
--> rossa: dona amb els cabells clars \
--- ròssa: animal vell i flac» \
-(accent_diacrític)"
+# D'acord amb la nova normativa (2016), ja no porta accent
+#[\bròssa\b]i
+#hint="Cal revisar-ho «\
+#-> rossa: dona amb els cabells clars \
+#-- ròssa: animal vell i flac» \
+#(accent_diacrític)"
 
 [\bsé\b]i
+id="da-se"
 valid msgid="Know"
 hint="Cal revisar-ho «\
 -> se: pronom reflexiu \
 -- sé: forma del verb saber» \
 (accent_diacrític)"
 
-[\bsécs?\b]i
-hint="Cal revisar-ho «\
--> sec: eixut; forma del verb seure \
--- séc: plec de roba» \
-(accent_diacrític)"
+# D'acord amb la nova normativa (2016), ja no porta accent
+#[\bsécs?\b]i
+#hint="Cal revisar-ho «\
+#-> sec: eixut; forma del verb seure \
+#-- séc: plec de roba» \
+#(accent_diacrític)"
 
-[\bsègles?\b]i
-hint="Cal revisar-ho «\
--> segle: cent anys \
--- sègle: sègol» \
-(accent_diacrític)"
+# D'acord amb la nova normativa (2016), ja no porta accent
+#[\bsègles?\b]i
+#hint="Cal revisar-ho «\
+#-> segle: cent anys \
+#-- sègle: sègol» \
+#(accent_diacrític)"
 
-[\bsèus?\b]i
-hint="Cal revisar-ho «\
--> seu: catedral; pronom possessiu; forma del verb seure \
--- sèu: greix» \
-(accent_diacrític)"
+# D'acord amb la nova normativa (2016), ja no porta accent
+#[\bsèus?\b]i
+#hint="Cal revisar-ho «\
+#-> seu: catedral; pronom possessiu; forma del verb seure \
+#-- sèu: greix» \
+#(accent_diacrític)"
 
 # [\bsí\b]i
 # hint="Cal revisar-ho «\
@@ -235,12 +263,13 @@ hint="Cal revisar-ho «\
 # sí: adverbi (afirmació)» \
 # (accent_diacrític)"
 
-[\bsoc\b]i
-valid msgid="SoC"
-hint="Cal revisar-ho «\
--- soc: calçat; tros de fusta; mercat \
--> sóc: verb ser» \
-(accent_diacrític)"
+# D'acord amb la nova normativa (2016), ja no porta accent
+#[\bsoc\b]i
+#valid msgid="SoC"
+#hint="Cal revisar-ho «\
+#-- soc: calçat; tros de fusta; mercat \
+#-> sóc: verb ser» \
+#(accent_diacrític)"
 
 [\bsòls?\b]i
 id="da-sol"
@@ -254,6 +283,7 @@ hint="Cal revisar-ho «\
 (accent_diacrític)"
 
 [\bson\b]i
+id="da-son"
 valid msgid="sleep"
 valid msgid="Mae Hong Son"
 valid msgid="Lang Son"
@@ -275,33 +305,31 @@ hint="Cal revisar-ho «\
 -> té: verb tenir» \
 (accent_diacrític)"
 
-[\btòts?\b]i
-hint="Cal revisar-ho «\
--> tot: adjectiu \
--- tòt: broc gros d'un càntir» \
-(accent_diacrític)"
+# D'acord amb la nova normativa (2016), ja no porta accent
+#[\btòts?\b]i
+#hint="Cal revisar-ho «\
+#-> tot: adjectiu \
+#-- tòt: broc gros d'un càntir» \
+#(accent_diacrític)"
 
-# [\b\b]i
-# hint="Cal revisar-ho «\
-# us: pronom personal feble \
-# ús: acció d'usar; substantiu» \
-# (accent_diacrític)"
+# D'acord amb la nova normativa (2016), ja no porta accent
+#[\bven(en|s)\b]i
+#hint="Cal revisar-ho «\
+#-- vens, venen: formes del verb vendre \
+#-> véns, vénen: formes del verb venir» \
+#(accent_diacrític)"
 
-[\bven(en|s)\b]i
-hint="Cal revisar-ho «\
--- vens, venen: formes del verb vendre \
--> véns, vénen: formes del verb venir» \
-(accent_diacrític)"
+# D'acord amb la nova normativa (2016), ja no porta accent
+#[\bves\b]i
+#hint="Cal revisar-ho «\
+#-- ves: tros de tela; lletra v en pl.; reducció de veges \
+#-> vés: verb anar» \
+#(accent_diacrític)"
 
-[\bves\b]i
-hint="Cal revisar-ho «\
--- ves: tros de tela; lletra v en pl.; reducció de veges \
--> vés: verb anar» \
-(accent_diacrític)"
-
-[\bvéus?\b]i
-hint="Cal revisar-ho «\
--> veu: so de les cordes vocals; present de veure \
--- véu: passat de veure» \
-(accent_diacrític)"
+# D'acord amb la nova normativa (2016), ja no porta accent
+#[\bvéus?\b]i
+#hint="Cal revisar-ho «\
+#-> veu: so de les cordes vocals; present de veure \
+#-- véu: passat de veure» \
+#(accent_diacrític)"
 

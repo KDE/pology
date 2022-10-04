@@ -1,0 +1,1841 @@
+# Information technology for Catalan translations
+# License: GPLv3
+#
+
+# include file="filter.include"
+
+# Remove accelerators inside words.
+addFilterRegex match="&" on="pmsgid,pmsgstr"
+
+# c++
+# Coverity
+# g++
+# Julia
+# Lua
+# Markdown
+# Maxima
+# NSIS
+# OBJ
+# Octave
+# Magma
+# MathML
+# Metamath
+# PL/I
+# PLI
+# PLY
+# Pony
+# Praat
+# Python
+# Qalculate
+# QML
+# R
+# Sage
+# Scilab
+# Stan
+# STL
+# TaskJuggler
+# Tex
+# Tiger
+# Varnish
+
+## plasmoide
+# Media Player
+#
+# Banshee
+# Cantata
+# D-Bus
+# Gthumb
+# Jabber
+# KCharSelect
+# Kcontrol
+# KDialog
+# khtml
+# Kio
+# KWebKit
+# KNewStuff
+# Nepomuk
+# Pidgin
+# qwant
+# Wayland
+#
+# docbooks
+# Flatpak
+# RTL
+# Snappy
+
+# Base
+[gueu\b]i
+valid msgstr="\b(apagueu|arrossegueu|carregueu|conegueu|descarregueu|engegueu|jugueu|navegueu|pagueu|pugueu|recarregueu|sigueu|vulgueu)\b" # acceptades
+valid msgstr="\b(digueu|estigueu|hagueu|inclogueu|mantingueu|mogueu|obtingueu|sapigueu)\b" # no acceptades
+valid msgstr="\bTingueu(\s(en compte|present))?\b"
+hint="Cal mirar-ho, per exemple «hàgiu» (revisió)"
+
+    [\bdigueu\b]i
+    hint="Cal substituir la traducció per «dieu» (revisió)"
+
+    [\bestigueu\b]i
+    hint="Cal substituir la traducció per «esteu, feu servir» (revisió)"
+
+    [\bhagueu\b]i
+    hint="Cal substituir la traducció per «hàgiu» (revisió)"
+
+    [\binclogueu\b]i
+    hint="Cal substituir la traducció per «incloeu» (revisió)"
+
+    [\bmantingueu\b]i
+    hint="Cal substituir la traducció per «manteniu» (revisió)"
+
+    [\bmogueu\b]i
+    hint="Cal substituir la traducció per «moveu» (revisió)"
+
+    [\btingueu\b]i
+    valid msgstr="\bTingueu(\s(en compte|present))?\b"
+    hint="Cal substituir la traducció per «teniu» (revisió)"
+
+        {\bNote\sthat\b}i
+        valid msgid="\btake\sNote\sthat\b"
+        valid msgstr="\bTingueu\s(en compte|present)\b"
+        valid msgstr="\bCal tenir (en compte|present)\b"
+        valid msgstr="\bRecordeu que\b"
+        hint="Cal substituir la traducció per «Cal tenir en compte, Recordeu que» (revisió)"
+
+            {\btake\sNote\sthat\b}i
+            valid msgstr="\bPreneu nota que\b"
+            hint="Cal substituir la traducció per «Preneu nota que» (revisió)"
+
+            [\bTingueu\sen\scompte\b]i
+            hint="Cal substituir la traducció per «Cal tenir en compte, Cal tenir present, Recordeu que» (revisió)"
+
+            [\bTingueu\spresent\b]i
+            hint="Cal substituir la traducció per «Cal tenir en compte, Cal tenir present, Recordeu que» (revisió)"
+
+    [\bobtingueu\b]i
+    hint="Cal substituir la traducció per «obteniu» (revisió)"
+
+    [\bsapigueu\b]i
+    hint="Cal substituir la traducció per «heu de saber, sabeu» (revisió)"
+
+[\bpels?\b]i
+valid msgstr="\bcontrolada pel (corrent|voltatge)\b"
+valid msgstr="\bcreat pel VDG del KDE\b"
+valid msgstr="\b(estimada|gestionada) pel programador\b"
+valid msgstr="\bGenerat pel Tellico\b"
+valid msgstr="\bpel qual es coneix\b"
+valid msgstr="\bpel que\b"
+valid msgstr="\bpel valor especificat\b"
+valid msgstr="\bpel\·lícul(a|es)\b"
+valid msgstr="\bproporcionats pel projecte\b"
+valid msgstr="\bse substitueix pel\b"
+valid msgstr="\bse us preguntarà pel seu nom\b"
+valid msgstr="\bsubstituïda pel\b"
+hint="Mireu si cal substituir la traducció per «per al/s...» (revisió)"
+
+[\bper\b]i
+valid msgid="\bStep\s(Into|Out|Over)\b"
+valid msgid="\bTODO\b"
+valid msgstr="-per-ema\b"
+valid msgstr="%1 per %(1|2) píxels\b"
+valid msgstr="«per»"
+valid msgstr="\bacceleració per maquinari\b"
+valid msgstr="\badreça per línia\b"
+valid msgstr="\badm(ès|esa) per aquest dorsal\b"
+valid msgstr="^\bagrupa per\b"
+valid msgstr="\barc per píxel\b"
+valid msgstr="\bassistida per ordinador\b"
+valid msgstr="\b(àudio|comunicacions|dades|tv|veu) per satèl·lit\b"
+valid msgstr="\bbanda ampla per mòbil\b"
+valid msgstr="\bbrins (predeterminats )?per (puntada|repunt)\b"
+valid msgstr="\b(balanç comptable|d'impostos|de les inversions|en inversions|operacions|valor net) per (any|beneficiari|categoria|compte|etiqueta|institució|mes|setmana|tipus)\b"
+valid msgstr="\bbits per (color|marc|mostra|segon)\b"
+valid msgstr="\bbtu per hora per peu (cúbic|quadrat)\b"
+valid msgstr="\bbytes per (grup|línia)\b"
+valid msgstr="\bcamps per segon\b"
+valid msgstr="\bcaràcter per caràcter\b"
+valid msgstr="\bcaràcters per (línia|minut|segon)\b"
+valid msgstr="^\bcerca per\b"
+valid msgstr="\bcodificadors? per maquinari\b"
+valid msgstr="^\bcomença per\b"
+valid msgstr="\bcomença per 0\b"
+valid msgstr="\bcompromès per (altres )?forats de seguretat\b"
+valid msgstr="\bconnecta(ts?|da|des) per torrent\b"
+valid msgstr="\b(connectats|superposats) per línies\b"
+valid msgstr="\bconnexions per torrent\b"
+valid msgstr="\bcost per hora\b"
+valid msgstr="\bcostat per costat\b"
+valid msgstr="\bcreat per Adobe\b"
+valid msgstr="\bde per mig\b"
+valid msgstr="\bdefini(da|t) per l'usuari\b"
+valid msgstr="\bdelimitats? per (espai|línies)\b"
+valid msgstr="\bdesenvolupa(da|t) per (Adobe|Kodak)\b"
+valid msgstr="^\bdifuminat per\b"
+valid msgstr="\bdivi(deix(en)?|dir|sible|sió) per\b"
+valid msgstr="\bethernet per cable\b"
+valid msgstr="^\bfiltr(a|e) per\b"
+valid msgstr="\bformat per diòxid\b"
+valid msgstr="\b(fotogrames|Gigabytes|Kilobytes|Megabytes) per segon\b"
+valid msgstr="\bgràcies per formar part\b"
+valid msgstr="\bgrams? per (mil·li)?litre\b"
+valid msgstr="\bguanya(da|ts) per cada enemic\b"
+valid msgstr="\bho ha establert per vós\b"
+valid msgstr="\bhora per (darrere|davant)\b"
+valid msgstr="^\bhores per\b"
+valid msgstr="\binversi(ó|ons) per (compte|tipus)\b"
+valid msgstr="\bkilobits per segon\b"
+valid msgstr="\bllegible per l'usuari\b"
+valid msgstr="\blínia per línia\b"
+valid msgstr="\blínia per polsada\b"
+valid msgstr="\blitres? per 100 quilòmetres\b"
+valid msgstr="\blletra per lletra\b"
+valid msgstr="\blliur(a|es)-força per polzada quadrada\b"
+valid msgstr="\blliur(a|es) per (iarda cúbica|peu cúbic|polzada (cúbica|quadrada))\b"
+valid msgstr="\bmetres per (hora|segon)\b"
+valid msgstr="\bmill(a|es) per galó (imperial|nord-americà)\b"
+valid msgstr="\bmill(a|es) per hora\b"
+valid msgstr="\bmilles (nàutiques )?per (hora|segon)\b"
+valid msgstr="^\bmostra per\b"
+valid msgstr="\bmostres per (fotograma|segon)\b"
+valid msgstr="\bnavegació per satèl·lit\b"
+valid msgstr="\bno (acaba|comença) per\b"
+valid msgstr="\bnomés per invitació\b"
+valid msgstr="\bordena per comptador\b"
+valid msgstr="^\bordena(ció)? per\b"
+valid msgstr="\bpart per part\b"
+valid msgstr="\bper a\b"
+valid msgstr="\bper (absorció|escalfament|ingestió|inhalació|xoc)"
+valid msgstr="\bper als?\b"
+valid msgstr="\bper alt\b"
+valid msgstr="\bper altra banda\b"
+valid msgstr="\bper aquest motiu\b,"
+valid msgstr="\bper ara\b,"
+valid msgstr="\bper avançat\b"
+valid msgstr="\bper blocs\b"
+valid msgstr="\bper Bluetooth\b"
+valid msgstr="\bper cable\b"
+valid msgstr="\bper canal\b"
+valid msgstr="\bper carretera\b"
+valid msgstr="\bper cent\b"
+valid msgstr="\bper (come(s|tes)|espais)\b"
+valid msgstr="\bper contra\b,"
+valid msgstr="\bper correu\b"
+valid msgstr="\bper damunt\b"
+valid msgstr="\bper darrer cop\b"
+valid msgstr="\bper darrera vegada\b"
+valid msgstr="\bper definició\b"
+valid msgstr="\bper descomptat\b"
+valid msgstr="\bper desgràcia\b,"
+valid msgstr="\bper en\b"
+valid msgstr="\bper endavant\b"
+valid msgstr="\bper exemple\b"
+valid msgstr="\bper fi\b"
+valid msgstr="\bper igual\b"
+valid msgstr="\bper Internet\b"
+valid msgstr="\bper l'"
+valid msgstr="\bper l(a|es)\b"
+valid msgstr="\bper la comunitat\b"
+valid msgstr="\bper limitacions de les Qt\b"
+valid msgstr="\bper lots\b"
+valid msgstr="\bper metre quadrat\b"
+valid msgstr="\bper mida\b"
+valid msgstr="\bper mil·límetre\b"
+valid msgstr="\bper minut\b"
+valid msgstr="\bper mitjà\b"
+valid msgstr="\bper mol\b"
+valid msgstr="\bper motius\b"
+valid msgstr="\bper on\b"
+valid msgstr="\bper ondetes\b"
+valid msgstr="\bper pàgina\b"
+valid msgstr="\bper part\b"
+valid msgstr="\bper primer cop\b"
+valid msgstr="\bper primera vegada\b"
+valid msgstr="\bper prop\b"
+valid msgstr="\bper què\b"
+valid msgstr="\bper raons\b"
+valid msgstr="\bper regla general\b"
+valid msgstr="\bper restriccions de\b"
+valid msgstr="\bper separat\b"
+valid msgstr="\bper similitud\b"
+valid msgstr="\bper (sobre|sota)\b"
+valid msgstr="\bper tal\b"
+valid msgstr="\bper tant\b"
+valid msgstr="\bper torns?\b,"
+valid msgstr="\bper tot arreu\b"
+valid msgstr="\bper un moment\b"
+valid msgstr="\bper una coma\b"
+valid msgstr="\bpeus? per segon\b"
+valid msgstr="\bpíxels per radiant\b"
+valid msgstr="\bpolzades per segon\b"
+valid msgstr="\bpreu per acció\b"
+valid msgstr="\bProte(cció|gits?) per contrasenya\b"
+valid msgstr="\bpunts per polzada\b"
+valid msgstr="\bquilograms? per (litre|metre cúbic)\b"
+valid msgstr="\bquilòmetres? per (hora|litre)\b"
+valid msgstr="\brenderitzador per programari\b"
+valid msgstr="\bseparada per un espai\b"
+valid msgstr="\bseparat per dos punts\b"
+valid msgstr="\bsi per algun motiu\b"
+valid msgstr="\bsubratllat per espais\b"
+valid msgstr="\bsubstituiran per (caràcters|subratllats)\b"
+valid msgstr="\btant per cent\b"
+valid msgstr="\btemps per volta\b"
+valid msgstr="\bun(ça|ces) per peu cúbic\b"
+valid msgstr="\bun(ça|ces) per polzada cúbica\b"
+valid msgstr="\bvegades per segon\b"
+valid msgstr="\bvalor per línia\b"
+valid msgstr="\bValors separats per\b"
+valid msgstr="\bwatts? per metre (cúbic|kelvin)\b"
+valid msgstr="\b(CCMP|TKIP|WEP40|WEP104) per (grups|parelles)\b"
+hint="Cal revisar si substituir-ho per «per a (per a dur a terme -finalitat-), per al, pel/s» (revisió)"
+# Exemples:
+# Mode emprat per la càmera per establir l'exposició quan es va prendre la imatge.
+# Mode emprat per la càmera per a establir l'exposició quan es va prendre la imatge.
+
+{(,|\()\swhich\b}i
+valid msgstr="\bdels? quals?\b"
+valid msgstr="\bdes del qual\b"
+valid msgstr="\b(als?|els?|la|les) quals?\b"
+valid msgstr="\bquin(a|es|s)?\b"
+valid msgstr="\bpel qual\b"
+hint="Cal substituir la traducció per «el/s qual/s, la/es qual/s» (revisió)"
+
+# Noms de les aplicacions
+## KDE Addons ##
+# Dolphin Plugins
+# FFmpeg Thumbnailer
+# FileStash
+# Kamera
+# KCron
+# KDE Connect
+# kdegraphics-mobipocket
+# kdegraphics-thumbnailers
+# KDevelop PHP Support
+# KDevelop Python Support
+# KIO AudioCD
+# KIO GDrive
+# KIPI Plugins
+# KUIViewer KPart
+# Kup
+# Markdown Viewer KPart
+# Latte
+# Printer Configuration
+# Samba Filesharing Plugin
+# Symmy
+# KDE Wacom tablet module
+# Zeroconf Support
+
+## KDE Development ##
+# Cervisia
+# Clazy
+# ELF Dissector
+# Heaptrack
+# KAppTemplate
+# KCachegrind
+# KDebugSettings
+# kdesrc-build
+# kdesvn
+# KDevelop
+# KDiff3
+# KImageMapEditor
+# Kirigami Gallery
+# Kompare
+# KUIViewer
+# KUserFeedback Console
+
+[\b(al?|del?|pe(l|r))\s(L|l)(O|o)kalize\b]
+valid msgstr="\b(al|del) Lokalize\b"
+valid msgstr="\b(al|del) lokalize\b;"
+hint="Cal substituir la traducció per «al Lokalize/&lokalize; | del Lokalize/&lokalize; | per al Lokalize/&lokalize; (compte: s'ha creat per al NomAplicació o creat pel NomAplicació -aquesta última és un ús molt menys habitual-)» (revisió)"
+
+# Massif-Visualizer
+# Umbrello
+
+## KDE Education ##
+[\b(al?|del?|pe(l|r))(\sa)?\s(l\')?(A|a)rtikulate\b]
+valid msgstr="\b(a|de) l'Artikulate\b"
+valid msgstr="\b(a|de) l'artikulate\b;"
+hint="Cal substituir la traducció per «a l'Artikulate/&artikulate; | de l'Artikulate/&artikulate; | per a l'Artikulate/&artikulate; (compte: s'ha creat per a l'NomAplicació o creat per l'NomAplicació -aquesta última és un ús molt menys habitual-)» (revisió)"
+
+[\b(al?|del?|pe(l|r))\s(B|b)linken\b]
+valid msgstr="\b(al|del) Blinken\b"
+valid msgstr="\b(al|del) blinken\b;"
+hint="Cal substituir la traducció per «al Blinken, al &blinken; | del Blinken, del &blinken; | per al Blinken/&blinken; (compte: s'ha creat per al NomAplicació o creat pel NomAplicació -aquesta última és un ús molt menys habitual-)» (revisió)"
+
+[\b(al?|del?|pe(l|r))\s(C|c)antor\b]
+valid msgstr="\b(al|del) Cantor\b"
+valid msgstr="\b(al|del) cantor\b;"
+hint="Cal substituir la traducció per «al Cantor, al &cantor; | del Cantor, del &cantor; | per al Cantor/&cantor; (compte: s'ha creat per al NomAplicació o creat pel NomAplicació -aquesta última és un ús molt menys habitual-)» (revisió)"
+
+[\b(al?|del?|pe(l|r))\s(G|g)(C|c)ompris\b]
+valid msgstr="\b(al|del) GCompris\b"
+valid msgstr="\b(al|del) gcompris\b;"
+hint="Cal substituir la traducció per «al GCompris, al &gcompris; | del GCompris, del &gcompris; | per al GCompris/&gcompris; (compte: s'ha creat per al NomAplicació o creat pel NomAplicació -aquesta última és un ús molt menys habitual-)» (revisió)"
+
+[\b(al?|del?|pe(l|r))\s(K|k)(A|a)lzium\b]
+valid msgstr="\b(al|del) Kalzium\b"
+valid msgstr="\b(al|del) kalzium\b;"
+hint="Cal substituir la traducció per «al Kalzium, al &kalzium; | del Kalzium, del &kalzium; | per al Kalzium/&kalzium; (compte: s'ha creat per al NomAplicació o creat pel NomAplicació -aquesta última és un ús molt menys habitual-)» (revisió)"
+
+[\b(al?|del?|pe(l|r))\s(K|k)(A|a)lgebra\b]
+valid msgstr="\b(al|del) KAlgebra\b"
+valid msgstr="\b(al|del) kalgebra\b;"
+hint="Cal substituir la traducció per «al KAlgebra, al &kalgebra; | del KAlgebra, del &kalgebra; | per al KAlgebra/&kalgebra; (compte: s'ha creat per al NomAplicació o creat pel NomAplicació -aquesta última és un ús molt menys habitual-)» (revisió)"
+
+[\b(al?|del?|pe(l|r))\s(K|k)(A|a)nagram\b]
+valid msgstr="\b(al|del) Kanagram\b"
+valid msgstr="\b(al|del) kanagram\b;"
+hint="Cal substituir la traducció per «al Kanagram, al &kanagram; | del Kanagram, del &kanagram; | per al Kanagram/&kanagram; (compte: s'ha creat per al NomAplicació o creat pel NomAplicació -aquesta última és un ús molt menys habitual-)» (revisió)"
+
+[\b(al?|del?|pe(l|r))\s(K|k)(A|a)rtographer\b]
+valid msgstr="\b(al|del) Kartographer\b"
+valid msgstr="\b(al|del) kartographer\b;"
+hint="Cal substituir la traducció per «al Kartographer, al &kartographer; | del Kartographer, del &kartographer; | per al Kartographer/&kartographer; (compte: s'ha creat per al NomAplicació o creat pel NomAplicació -aquesta última és un ús molt menys habitual-)» (revisió)"
+
+[\b(al?|del?|pe(l|r))\s(K|k)(B|b)(I|i)(B|b)(T|t)(E|e)(X|x)\b]
+valid msgstr="\b(al|del) KBibTeX\b"
+valid msgstr="\b(al|del) kbibtex\b;"
+hint="Cal substituir la traducció per «al KBibTeX, al &kbibtex; | del KBibTeX, del &kbibtex; | per al KBibTeX/&kbibtex; (compte: s'ha creat per al NomAplicació o creat pel NomAplicació -aquesta última és un ús molt menys habitual-)» (revisió)"
+
+[\b(al?|del?|pe(l|r))\s(K|k)(B|b)ruch\b]
+valid msgstr="\b(al|del) KBruch\b"
+valid msgstr="\b(al|del) kbruch\b;"
+hint="Cal substituir la traducció per «al KBruch, al &kbruch; | del KBruch, del &kbruch; | per al KBruch/&kbruch; (compte: s'ha creat per al NomAplicació o creat pel NomAplicació -aquesta última és un ús molt menys habitual-)» (revisió)"
+
+[\b(al?|del?|pe(l|r))\s(K|k)(G|g)eography\b]
+valid msgstr="\b(al|del) KGeography\b"
+valid msgstr="\b(al|del) kgeography\b;"
+hint="Cal substituir la traducció per «al KGeography/&kgeography; | del KGeography/&kgeography; | per al KGeography/&kgeography; (compte: s'ha creat per al NomAplicació o creat pel NomAplicació -aquesta última és un ús molt menys habitual-)» (revisió)"
+
+[\b(al?|del?|pe(l|r))\s(K|k)(H|h)ang(M|m)an\b]
+valid msgstr="\b(al|del) KHangMan\b"
+valid msgstr="\b(al|del) khangman\b;"
+hint="Cal substituir la traducció per «al KHangMan/&khangman; | del KHangMan/&khangman; | per al KHangMan/&khangman; (compte: s'ha creat per al NomAplicació o creat pel NomAplicació -aquesta última és un ús molt menys habitual-)» (revisió)"
+
+[\b(al?|del?|pe(l|r))\s(K|k)(I|i)g\b]
+valid msgstr="\b(al|del) Kig\b"
+valid msgstr="\b(al|del) kig\b;"
+hint="Cal substituir la traducció per «al Kig/&kig; | del Kig/&kig; | per al Kig/&kig; (compte: s'ha creat per al NomAplicació o creat pel NomAplicació -aquesta última és un ús molt menys habitual-)» (revisió)"
+
+[\b(al?|del?|pe(l|r))\s(K|k)(I|i)ten\b]
+valid msgstr="\b(al|del) Kiten\b"
+valid msgstr="\b(al|del) kiten\b;"
+hint="Cal substituir la traducció per «al Kiten/&kiten; | del Kiten/&kiten; | per al Kiten/&kiten; (compte: s'ha creat per al NomAplicació o creat pel NomAplicació -aquesta última és un ús molt menys habitual-)» (revisió)"
+
+[\b(al?|del?|pe(l|r))\s(K|k)(L|l)ettres\b]
+valid msgstr="\b(al|del) KLettres\b"
+valid msgstr="\b(al|del) klettres\b;"
+hint="Cal substituir la traducció per «al KLettres/&klettres; | del KLettres/&klettres; | per al KLettres/&klettres; (compte: s'ha creat per al NomAplicació o creat pel NomAplicació -aquesta última és un ús molt menys habitual-)» (revisió)"
+
+[\b(al?|del?|pe(l|r))\s(K|k)(M|m)(P|p)lot\b]
+valid msgstr="\b(al|del) KmPlot\b"
+valid msgstr="\b(al|del) kmplot\b;"
+hint="Cal substituir la traducció per «al KmPlot/&kmplot; | del KmPlot/&kmplot; | per al KmPlot/&kmplot; (compte: s'ha creat per al NomAplicació o creat pel NomAplicació -aquesta última és un ús molt menys habitual-)» (revisió)"
+
+[\b(al?|del?|pe(l|r))\s(K|k)(S|s)tars\b]
+valid msgstr="\b(al|del) KStars\b"
+valid msgstr="\b(al|del) kstars\b;"
+hint="Cal substituir la traducció per «al KStars/&kstars; | del KStars/&kstars; | per al KStars/&kstars; (compte: s'ha creat per al NomAplicació o creat pel NomAplicació -aquesta última és un ús molt menys habitual-)» (revisió)"
+
+[\b(al?|del?|pe(l|r))\s(K|k)(T|t)ouch\b]
+valid msgstr="\b(al|del) KTouch\b"
+valid msgstr="\b(al|del) ktouch\b;"
+hint="Cal substituir la traducció per «al KTouch/&ktouch; | del KTouch/&ktouch; | per al KTouch/&ktouch; (compte: s'ha creat per al NomAplicació o creat pel NomAplicació -aquesta última és un ús molt menys habitual-)» (revisió)"
+
+[\b(al?|del?|pe(l|r))\s(K|k)(T|t)urtle\b]
+valid msgstr="\b(al|del) KTurtle\b"
+valid msgstr="\b(al|del) kturtle\b;"
+hint="Cal substituir la traducció per «al KTurtle/&kturtle; | del KTurtle/&kturtle; | per al KTurtle/&kturtle; (compte: s'ha creat per al NomAplicació o creat pel NomAplicació -aquesta última és un ús molt menys habitual-)» (revisió)"
+
+[\b(al?|del?|pe(l|r))\s(K|k)(W|w)ord(Q|q)uiz\b]
+valid msgstr="\b(al|del) KWordQuiz\b"
+valid msgstr="\b(al|del) kwordquiz\b;"
+hint="Cal substituir la traducció per «al KWordQuiz/&kwordquiz; | del KWordQuiz/&kwordquiz; | per al KWordQuiz/&kwordquiz; (compte: s'ha creat per al NomAplicació o creat pel NomAplicació -aquesta última és un ús molt menys habitual-)» (revisió)"
+
+[\b(al?|del?|pe(l|r))\s(L|l)ab(P|p)lot\b]
+valid msgstr="\b(al|del) LabPlot\b"
+valid msgstr="\b(al|del) labplot\b;"
+hint="Cal substituir la traducció per «al LabPlot/&labplot; | del LabPlot/&labplot; | per al LabPlot/&labplot; (compte: s'ha creat per al NomAplicació o creat pel NomAplicació -aquesta última és un ús molt menys habitual-)» (revisió)"
+
+[\b(al?|del?|pe(l|r))\s(M|m)(A|a)rble\b]
+valid msgstr="\b(al|del) Marble\b"
+valid msgstr="\b(al|del) marble\b;"
+hint="Cal substituir la traducció per «al Marble/&marble; | del Marble/&marble; | per al Marble/&marble; (compte: s'ha creat per al NomAplicació o creat pel NomAplicació -aquesta última és un ús molt menys habitual-)» (revisió)"
+
+[\b(al?|del?|pe(l|r))\s(M|m)(I|i)nuet\b]
+valid msgstr="\b(al|del) Minuet\b"
+valid msgstr="\b(al|del) minuet\b;"
+hint="Cal substituir la traducció per «al Minuet/&minuet; | del Minuet/&minuet; | per al Minuet/&minuet; (compte: s'ha creat per al NomAplicació o creat pel NomAplicació -aquesta última és un ús molt menys habitual-)» (revisió)"
+
+[\b(al?|del?|pe(l|r))\s(P|p)(A|a)rley\b]
+valid msgstr="\b(al|del) Parley\b"
+valid msgstr="\b(al|del) parley\b;"
+hint="Cal substituir la traducció per «al Parley/&parley; | del Parley/&parley; | per al Parley/&parley; (compte: s'ha creat per al NomAplicació o creat pel NomAplicació -aquesta última és un ús molt menys habitual-)» (revisió)"
+
+[\b(al?|del?|pe(l|r))\s(R|r)(O|o)cs\b]
+valid msgstr="\b(al|del) Rocs\b"
+valid msgstr="\b(al|del) rocs\b;"
+hint="Cal substituir la traducció per «al Rocs/&rocs; | del Rocs/&rocs; | per al Rocs/&rocs; (compte: s'ha creat per al NomAplicació o creat pel NomAplicació -aquesta última és un ús molt menys habitual-)» (revisió)"
+
+[\b(al?|del?|pe(l|r))(\sa)?\s(l\')?(S|s)tep\b]
+valid msgstr="\b(a|de) l'Step\b"
+valid msgstr="\b(a|de) l'step\b;"
+hint="Cal substituir la traducció per «a l'Step/&step; | de l'Step/&step; | per a l'Step/&step; (compte: s'ha creat per a l'NomAplicació o creat per l'NomAplicació -aquesta última és un ús molt menys habitual-)» (revisió)"
+
+## KDE Games ##
+# Blinken
+# Bomber
+# Bovo
+# GCompris
+# Granatier
+# Kajongg
+# Kanagram
+# Kapman
+# KAtomic
+# KBlackbox
+# KBlocks
+# KBounce
+# KBreakOut
+# KDiamond
+# KFourInLine
+# KGoldrunner
+# KHangMan
+# Kigo
+# Killbots
+# Kiriki
+# KJumpingCube
+# Klickety
+# KMahjongg
+# KMines
+# Kolor Lines
+# KNetWalk
+# KNights
+# Kolf
+# Kollision
+# Konquest
+# KPatience
+# KReversi
+# KShisen
+# KSirk
+# KSnakeDuel
+# KSpaceDuel
+# KSquares
+# KSudoku
+# Kubrick
+# LSkat
+# Naval Battle
+# Palapeli
+# Picmi
+# Potato Guy
+
+## KDE Graphics ##
+# Ikona
+# SymbolEditor
+# AtCore Test Client
+# digiKam
+# Gwenview
+# KColorChooser
+# KGraphViewer
+# KolourPaint
+# KPhotoAlbum
+# Krita
+# KRuler
+# KXStitch
+# Okular
+# pvfViewer
+# Showfoto
+# Skanlite
+
+## KDE Internet ##
+# Akregator
+
+[\b(al?|del?|pe(l|r))\s(C|c)(H|h)oqok\b]
+valid msgstr="\b(al|del) Choqok\b"
+valid msgstr="\b(al|del) choqok\b;"
+hint="Cal substituir la traducció per «al Choqok/&choqok; | del Choqok/&choqok; | per al Choqok/&choqok; (compte: s'ha creat per al NomAplicació o creat pel NomAplicació -aquesta última és un ús molt menys habitual-)» (revisió)"
+
+[\b(al?|del?|pe(l|r))\s(F|a)(A|a)lkon\b]
+valid msgstr="\b(al|del) Falkon\b"
+valid msgstr="\b(al|del) falkon\b;"
+hint="Cal substituir la traducció per «al Falkon/&falkon; | del Falkon/&falkon; | per al Falkon/&falkon; (compte: s'ha creat per al NomAplicació o creat pel NomAplicació -aquesta última és un ús molt menys habitual-)» (revisió)"
+
+[\b(al?|del?|pe(l|r))\s(K|k)(G|g)et\b]
+valid msgstr="\b(al|del) KGet\b"
+valid msgstr="\b(al|del) kget\b;"
+hint="Cal substituir la traducció per «al KGet/&kget; | del KGet/&kget; | per al KGet/&kget; (compte: s'ha creat per al NomAplicació o creat pel NomAplicació -aquesta última és un ús molt menys habitual-)» (revisió)"
+
+[\b(al?|del?|pe(l|r))\s(K|k)(M|m)ail\b]
+valid msgstr="\b(al|del) KMail\b"
+valid msgstr="\b(al|del) kmail\b;"
+hint="Cal substituir la traducció per «al KMail/&kmail; | del KMail/&kmail; | per al KMail/&kmail; (compte: s'ha creat per al NomAplicació o creat pel NomAplicació -aquesta última és un ús molt menys habitual-)» (revisió)"
+
+[\b(al?|del?|pe(l|r))\s(K|k)(O|o)nqueror\b]
+valid msgstr="\b(al|del) Konqueror\b"
+valid msgstr="\b(al|del) konqueror\b;"
+hint="Cal substituir la traducció per «al Konqueror/&konqueror; | del Konqueror/&konqueror; | per al Konqueror/&konqueror; (compte: s'ha creat per al NomAplicació o creat pel NomAplicació -aquesta última és un ús molt menys habitual-)» (revisió)"
+
+[\b(al?|del?|pe(l|r))\s(K|k)(O|o)nversation\b]
+valid msgstr="\b(al|del) Konversation\b"
+valid msgstr="\b(al|del) konversation\b;"
+hint="Cal substituir la traducció per «al Konversation/&konversation; | del Konversation/&konversation; | per al Konversation/&konversation; (compte: s'ha creat per al NomAplicació o creat pel NomAplicació -aquesta última és un ús molt menys habitual-)» (revisió)"
+
+[\b(al?|del?|pe(l|r))\s(K|k)(O|o)pete\b]
+valid msgstr="\b(al|del) Kopete\b"
+valid msgstr="\b(al|del) kopete\b;"
+hint="Cal substituir la traducció per «al Kopete/&kopete; | del Kopete/&kopete; | per al Kopete/&kopete; (compte: s'ha creat per al NomAplicació o creat pel NomAplicació -aquesta última és un ús molt menys habitual-)» (revisió)"
+
+[\b(al?|del?|pe(l|r))\s(K|k)(R|r)(D|d)(C|c)\b]
+valid msgstr="\b(al|del) Remote Desktop Connection\b"
+valid msgstr="\b(al|del) krdc\b;"
+hint="Cal substituir la traducció per «al KRDC/&krdc; | del KRDC/&krdc; | per al KRDC/&krdc; (compte: s'ha creat per al NomAplicació o creat pel NomAplicació -aquesta última és un ús molt menys habitual-)» (revisió)"
+
+[\b(al?|del?|pe(l|r))\s(K|k)(R|r)(F|f)(B|b)\b]
+valid msgstr="\b(al|del) Krfb\b"
+valid msgstr="\b(al|del) krfb\b;"
+hint="Cal substituir la traducció per «al Krfb/&krfb; | del Krfb/&krfb; | per al Krfb/&krfb; (compte: s'ha creat per al NomAplicació o creat pel NomAplicació -aquesta última és un ús molt menys habitual-)» (revisió)"
+
+[\b(al?|del?|pe(l|r))\s(K|k)(T|t)orrent\b]
+valid msgstr="\b(al|del) KTorrent\b"
+valid msgstr="\b(al|del) ktorrent\b;"
+hint="Cal substituir la traducció per «al KTorrent/&ktorrent; | del KTorrent/&ktorrent; | per al KTorrent/&ktorrent; (compte: s'ha creat per al NomAplicació o creat pel NomAplicació -aquesta última és un ús molt menys habitual-)» (revisió)"
+
+# Angelfish Webbrowser
+# PIM Data Exporter
+# Banji
+# Ruqola
+# RuqolaQml
+# SieveEditor
+
+## KDE Multimedia ##
+[\b(al?|del?|pe(l|r))\s(D|d)ragon\s(P|p)layer\b]
+valid msgstr="\b(al|del) Dragon\sPlayer\b"
+valid msgstr="\b(al|del) dragon\b;"
+hint="Cal substituir la traducció per «al Dragon Player/&dragon; | del Dragon Player/&dragon; | per al Dragon Player/&dragon; (compte: s'ha creat per al NomAplicació o creat pel NomAplicació -aquesta última és un ús molt menys habitual-)» (revisió)"
+
+[\b(al?|del?|pe(l|r))(\sa)?\s(l\')?(E|e)lisa\b]
+valid msgstr="\b(a|de) l'Elisa\b"
+valid msgstr="\b(a|de) l'elisa\b;"
+hint="Cal substituir la traducció per «a l'Elisa/&elisa; | de l'Elisa/&elisa; | per a l'Elisa/&elisa; (compte: s'ha creat per a l'NomAplicació o creat per l'NomAplicació -aquesta última és un ús molt menys habitual-)» (revisió)"
+
+[\b(al?|del?|pe(l|r))\s(J|j)(U|u)(K|k)\b]
+valid msgstr="\b(al|del) JuK\b"
+valid msgstr="\b(al|del) juk\b;"
+hint="Cal substituir la traducció per «al JuK/&juk; | del JuK/&juk; | per al JuK/&juk; (compte: s'ha creat per al NomAplicació o creat pel NomAplicació -aquesta última és un ús molt menys habitual-)» (revisió)"
+
+[\b(al?|del?|pe(l|r))\s(K|k)3(B|b)\b]
+valid msgstr="\b(al|del) K3b\b"
+valid msgstr="\b(al|del) k3b\b;"
+hint="Cal substituir la traducció per «al K3b/&k3b; | del K3b/&k3b; | per al K3b/&k3b; (compte: s'ha creat per al NomAplicació o creat pel NomAplicació -aquesta última és un ús molt menys habitual-)» (revisió)"
+
+[\b(al?|del?|pe(l|r))\s(K|k)(A|a)ffeine\b]
+valid msgstr="\b(al|del) Kaffeine\b"
+valid msgstr="\b(al|del) kaffeine\b;"
+hint="Cal substituir la traducció per «al Kaffeine/&kaffeine; | del Kaffeine/&kaffeine; | per al Kaffeine/&kaffeine; (compte: s'ha creat per al NomAplicació o creat pel NomAplicació -aquesta última és un ús molt menys habitual-)» (revisió)"
+
+[\b(al?|del?|pe(l|r))\s(K|k)(A|a)moso\b]
+valid msgstr="\b(al|del) Kamoso\b"
+valid msgstr="\b(al|del) kamoso\b;"
+hint="Cal substituir la traducció per «al Kamoso/&kamoso; | del Kamoso/&kamoso; | per al Kamoso/&kamoso; (compte: s'ha creat per al NomAplicació o creat pel NomAplicació -aquesta última és un ús molt menys habitual-)» (revisió)"
+
+[\b(al?|del?|pe(l|r))\s(K|k)(D|d)enlive\b]
+valid msgstr="\b(al|del) Kdenlive\b"
+valid msgstr="\b(al|del) kdenlive\b;"
+hint="Cal substituir la traducció per «al Kdenlive/&kdenlive; | del Kdenlive/&kdenlive; | per al Kdenlive/&kdenlive; (compte: s'ha creat per al NomAplicació o creat pel NomAplicació -aquesta última és un ús molt menys habitual-)» (revisió)"
+
+[\b(al?|del?|pe(l|r))\s(K|k)(I|i)(D|d)3\b]
+valid msgstr="\b(al|del) Kid3\b"
+valid msgstr="\b(al|del) kid3\b;"
+hint="Cal substituir la traducció per «al Kid3/&kid3 | del Kid3/&dkid3 | per al Kid3/&dkid3; (compte: s'ha creat per al NomAplicació o creat pel NomAplicació -aquesta última és un ús molt menys habitual-)» (revisió)"
+
+[\b(al?|del?|pe(l|r))\s(K|k)(M|m)ix\b]
+valid msgstr="\b(al|del) KMix\b"
+valid msgstr="\b(al|del) kmix\b;"
+hint="Cal substituir la traducció per «al KMix/&kmix; | del KMix/&kmix; | per al KMix/&kmix; (compte: s'ha creat per al NomAplicació o creat pel NomAplicació -aquesta última és un ús molt menys habitual-)» (revisió)"
+
+[\b(al?|del?|pe(l|r))\s(K|k)(M|m)(P|p)layer\b]
+valid msgstr="\b(al|del) KMPlayer\b"
+valid msgstr="\b(al|del) kmplayer\b;"
+hint="Cal substituir la traducció per «al KMPlayer/&kmplayer; | del KMPlayer/&kmplayer; | per al KMPlayer/&kmplayer; (compte: s'ha creat per al NomAplicació o creat pel NomAplicació -aquesta última és un ús molt menys habitual-)» (revisió)"
+
+# Kwave
+[\b(al?|del?|pe(l|r))\s(K|k)(W|w)ave\b]
+valid msgstr="\b(al|del) Kwave\b"
+valid msgstr="\b(al|del) kwave\b;"
+hint="Cal substituir la traducció per «al Kwave/&kwave; | del Kwave/&kwave; | per al Kwave/&kwave; (compte: s'ha creat per al NomAplicació o creat pel NomAplicació -aquesta última és un ús molt menys habitual-)» (revisió)"
+
+# Plasma Camera
+
+## KDE Office ##
+# Calindori
+# Calligra Sheets
+# Calligra Stage
+# Calligra Words
+# KAddressBook
+# KBibTeX
+# KDE Itinerary
+# KEuroCalc
+# KEXI
+# Kile
+# KMail
+# KMyMoney
+# Kontact
+# KOrganizer
+# KTimeTracker
+# Lokalize
+# Okular
+# Plan
+# SieveEditor
+
+[\b(al?|del?|pe(l|r))(\sa)?\s(l\')?(S|s)(K|k)rooge\b]
+valid msgstr="\b(a|de) l'Skrooge\b"
+valid msgstr="\b(a|de) l'skrooge\b;"
+hint="Cal substituir la traducció per «a l'Skrooge/&skrooge; | de l'Skrooge/&skrooge; | per a l'Skrooge/&skrooge; (compte: s'ha creat per a l'NomAplicació o creat per l'NomAplicació -aquesta última és un ús molt menys habitual-)» (revisió)"
+
+# Tellico
+# Trojitá
+
+## KDE System ##
+# Apper
+# Dolphin
+# KDE Partition Manager
+# KDiskFree
+# KHelpCenter
+# Konsole
+# KSystemLog
+# KWalletManager
+# Muon Package Manager
+# Yakuake
+
+## KDE Utilities ##
+[\b(al?|del?|pe(l|r))(\sa)?\s(l\')?(A|a)(R|r)(K|k)\b]
+valid msgstr="\b(a|de) l'Ark\b"
+valid msgstr="\b(a|de) l'ark\b;"
+hint="Cal substituir la traducció per «a l'Ark/&ark; | de l'Ark/&ark; | per a l'Ark/&ark; (compte: s'ha creat per a l'NomAplicació o creat per l'NomAplicació -aquesta última és un ús molt menys habitual-)» (revisió)"
+
+[\b(al?|del?|pe(l|r))\s(F|f)ile(L|l)ight\b]
+valid msgstr="\b(al|del) Filelight\b"
+valid msgstr="\b(al|del) filelight\b;"
+hint="Cal substituir la traducció per «al Filelight/&filelight; | del Filelight/&filelight; | per al Filelight/&filelight; (compte: s'ha creat per al NomAplicació o creat pel NomAplicació -aquesta última és un ús molt menys habitual-)» (revisió)"
+
+# KDE Itinerary
+
+[\b(al?|del?|pe(l|r))\s(K|k)(A|a)larm\b]
+valid msgstr="\b(al|del) KAlarm\b"
+valid msgstr="\b(al|del) kalarm\b;"
+hint="Cal substituir la traducció per «al KAlarm/&kalarm; | del KAlarm/&kalarm; | per al KAlarm/&kalarm; (compte: s'ha creat per al NomAplicació o creat pel NomAplicació -aquesta última és un ús molt menys habitual-)» (revisió)"
+
+[\b(al?|del?|pe(l|r))\s(K|k)(A|a)te\b]
+valid msgstr="\b(al|del) Kate\b"
+valid msgstr="\b(al|del) kate\b;"
+hint="Cal substituir la traducció per «al Kate/&kate; | del Kate/&kate; | per al Kate/&kate; (compte: s'ha creat per al NomAplicació o creat pel NomAplicació -aquesta última és un ús molt menys habitual-)» (revisió)"
+
+[\b(al?|del?|pe(l|r))\s(K|k)(B|b)ackup\b]
+valid msgstr="\b(al|del) KBackup\b"
+valid msgstr="\b(al|del) kbackup\b;"
+hint="Cal substituir la traducció per «al KBackup/&kbackup; | del KBackup/&kbackup; | per al KBackup/&kbackup; (compte: s'ha creat per al NomAplicació o creat pel NomAplicació -aquesta última és un ús molt menys habitual-)» (revisió)"
+
+[\b(al?|del?|pe(l|r))\s(K|k)(C|c)alc\b]
+valid msgstr="\b(al|del) KCalc\b"
+valid msgstr="\b(al|del) kcalc\b;"
+hint="Cal substituir la traducció per «al KCalc/&kcalc; | del KCalc/&kcalc; | per al KCalc/&kcalc; (compte: s'ha creat per al NomAplicació o creat pel NomAplicació -aquesta última és un ús molt menys habitual-)» (revisió)"
+
+[\b(al?|del?|pe(l|r))\s(K|k)(C|c)har(S|s)elect\b]
+valid msgstr="\b(al|del) KCharSelect\b"
+valid msgstr="\b(al|del) kcharselect\b;"
+hint="Cal substituir la traducció per «al KCharSelect/&kcharselect; | del KCharSelect/&kcharselect; | per al KCharSelect/&kcharselect; (compte: s'ha creat per al NomAplicació o creat pel NomAplicació -aquesta última és un ús molt menys habitual-)» (revisió)"
+
+# KDialog
+# Keysmith
+# KFind
+# KFloppy
+# KGpg
+# Kleopatra
+# KMag
+# KMouseTool
+# KMouth
+# KNotes
+# KRename
+# Kronometer
+# Krusader
+# KTeaTime
+# KTimer
+# KTimeTracker
+# KTrip
+
+[\b(al?|del?|pe(l|r))\s(K|k)(W|w)rite\b]
+valid msgstr="\b(al|del) KWrite\b"
+valid msgstr="\b(al|del) kwrite\b;"
+hint="Cal substituir la traducció per «al KWrite/&kwrite; | del KWrite/&kwrite; | per al KWrite/&kwrite; (compte: s'ha creat per al NomAplicació o creat pel NomAplicació -aquesta última és un ús molt menys habitual-)» (revisió)"
+
+# Okteta
+# RSI Break
+# Smb4K
+# Spectacle
+# Sweeper
+# Zanshin
+
+# General
+[\. \bper\sexemple\b]
+hint="Cal substituir la traducció per «. Per exemple, (majúscula, i potser una coma)» (revisió)"
+
+[\b(1|2|3).D\b]i
+valid msgid="\b(1|2|3)D\b"
+valid msgstr="%(1|2|3)\$?d\b"
+valid msgstr="\b(1|2|3) d'"
+hint="Cal substituir la traducció per «1D, 2D, 3D» (revisió)"
+
+[\ba\sFacebook\b]i
+valid msgid="\bFacebook\sexport\b"
+hint="Cal substituir la traducció per «al Facebook» (revisió)"
+
+    {\bFacebook\sexport\b}i
+    valid msgstr="\bExporta al Facebook\b"
+    hint="Cal substituir la traducció per «Exporta al Facebook» (revisió)"
+
+{\bAborting\b}i
+valid msgid="(\.|,)\s\bAborting\b"
+valid msgid="\bbefore\saborting\b"
+valid msgstr="\binterrompre\b"
+valid msgstr="\bS'està interrompent\b"
+valid msgstr="\bs'ha interromput\b"
+valid msgstr="\bs'interromp\b"
+hint="Cal substituir la traducció per «interrompre, S'està interrompent, s'interromp, s'ha interromput» (revisió)"
+
+    {(\.|,)\s\bAborting\b}i
+    valid msgstr="(\.|,)\s\b(S|s)'ha interromput\b"
+    valid msgstr="(\.|,)\s\b(S|s)'interromp\b"
+    hint="Cal substituir la traducció per «. S'interromp, , s'interromp, s'ha interromput» (revisió)"
+
+    {\.\s\bRetrying\b}i
+    valid msgstr="\.\s\bEs tornarà a intentar\b"
+    valid msgstr="\.\s\bTorneu-ho a intentar\b"
+    hint="Cal substituir la traducció per «. Torneu-ho a intentar,. Es tornarà a intentar» (revisió)"
+
+    {\bbefore\saborting\b}i
+    valid msgstr="\babans d'interrompre\b"
+    hint="Cal substituir la traducció per «abans d'interrompre» (revisió)"
+
+{\bAuthentication\sProblem\b}i
+valid msgstr="\bProblema en l'autenticació\b"
+hint="Cal substituir la traducció per «Problema en l'autenticació» (revisió)"
+
+[\bal\sFlash\b]i
+hint="Cal substituir la traducció per «a Flash (és un format de fitxer -no un servei-)» (revisió)"
+
+[\bal\sscript\b]i
+hint="Cal substituir la traducció per «a l'script)» (revisió)"
+
+{\bApply\sa\sbackground\swatermark\b}i
+valid msgstr="\bAplica una marca d'aigua al fons\b"
+hint="Cal substituir la traducció per «Aplica una marca d'aigua al fons» (revisió)"
+
+{\bAuthentication\sFailed\b}i
+valid msgstr="\bHa fallat en l'autenticació\b"
+hint="Cal substituir la traducció per «Ha fallat en l'autenticació» (revisió)"
+
+{\bBackend\sConfiguration\b}i
+valid msgstr="\bConfiguració del dorsal per a\b"
+hint="Cal substituir la traducció per «Configuració del dorsal per a» (revisió)"
+
+{\bbuil(d|t).?in\b}i
+valid msgstr="\bincorpor(a|en)\b"
+valid msgstr="\bintegra(da|des|ts?) en construir\b"
+hint="Cal substituir la traducció per «integrat/s en construir, integrada/es en construir, incorpora/en» (revisió)"
+
+{\bCannot\screate\sthumbnail\sfor\b}i
+valid msgstr="\bNo s'ha pogut crear la miniatura per al?\b"
+hint="Cal substituir la traducció per «No s'ha pogut crear la miniatura per a/l» (revisió)"
+
+{\bCannot\sopen\sfile\b}i
+valid msgstr="\bNo s'ha pogut obrir el fitxer\b"
+hint="Cal substituir la traducció per «No s'ha pogut obrir el fitxer» (revisió)"
+
+# clic
+    {\bdouble.?click\b}i
+    valid msgstr="\bdoble clic\b"
+    hint="Cal substituir la traducció per «doble clic» (revisió)"
+
+    {\bsingle.?click\b}i
+    valid msgstr="\bclic únic\b"
+    valid msgstr="\bun sol clic\b"
+    hint="Cal substituir la traducció per «clic únic, un sol clic» (revisió)"
+
+    {\bmiddle.?click\b}i
+    valid msgstr="\bclic del mig\b"
+    hint="Cal substituir la traducció per «clic del mig» (revisió)"
+
+{\bClose\sDocument\b}i
+valid msgstr="\bTanca el document\b"
+hint="Cal substituir la traducció per «Tanca el document» (revisió)"
+
+{\bChecksum\stype\b}i
+valid msgstr="\bTipus per a la suma de verificació\b"
+hint="Cal substituir la traducció per «Tipus per a la suma de verificació» (revisió)"
+
+{\bchoice\squestion\b}i
+valid msgstr="\belecció múltiple\b"
+hint="Cal substituir la traducció per «elecció múltiple» (revisió)"
+
+{\bColor\sChooser\b}i
+valid msgstr="\bSelector de color\b"
+hint="Cal substituir la traducció per «Selector de color» (revisió)"
+
+{\bcolor\sscheme\b}i
+valid msgstr="\besquema de color\b"
+hint="Cal substituir la traducció per «esquema de color» (revisió)"
+
+{\bComma\sseparated\svalues\b}i
+valid msgstr="\bValors separats per comes\b"
+hint="Cal substituir la traducció per «Valors separats per comes» (revisió)"
+
+    {\bSemicolon\sseparated\svalues\b}i
+    valid msgstr="\bValors separats per punts i comes\b"
+    hint="Cal substituir la traducció per «Valors separats per punts i comes» (revisió)"
+
+    {\bTab\sseparated\svalues\b}i
+    valid msgstr="\bValors separats per tabuladors\b"
+    hint="Cal substituir la traducció per «Valors separats per tabuladors» (revisió)"
+
+    {\bwhitespace\sseparated\svalues\b}i
+    valid msgstr="\bValors separats per espais en blanc\b"
+    hint="Cal substituir la traducció per «Valors separats per espais en blanc» (revisió)"
+
+{\bConnecting\sto\s}i
+valid msgstr="\bconnectar amb un projecte\b"
+valid msgstr="\ben connectar amb\b"
+valid msgstr="\bS'està connectant amb\b"
+hint="Cal substituir la traducció per «S'està connectant amb, en connectar amb, connectar amb un projecte» (revisió)"
+
+{\bCould\snot\sload\sprint\spreview\spart\b}i
+valid msgstr="\bNo s'ha pogut carregar la part per a la vista prèvia d'impressió\b"
+hint="Cal substituir la traducció per «No s'ha pogut carregar la part per a la vista prèvia d'impressió» (revisió)"
+
+{\bCould\snot\sopen\sa\stemporary\sfile\b}i
+valid msgstr="\bNo s'ha pogut obrir un fitxer temporal\b"
+hint="Cal substituir la traducció per «No s'ha pogut obrir un fitxer temporal» (revisió)"
+
+{\bCountless\sfixes\b}i
+valid msgstr="\bIncomptables esmenes\b"
+hint="Cal substituir la traducció per «Incomptables esmenes» (revisió)"
+
+{\bCurrent\sSession\sonly\b}i
+valid msgstr="\bNomés durant la sessió actual\b"
+hint="Cal substituir la traducció per «Només durant la sessió actual» (revisió)"
+
+{\bCurrent\sSession\sonly\b}i
+valid msgstr="\bNomés durant la sessió actual\b"
+hint="Cal substituir la traducció per «Només durant la sessió actual» (revisió)"
+
+{\bDefault\smap\sfont\b}i
+valid msgstr="\bTipus de lletra predeterminat per al mapa\b"
+hint="Cal substituir la traducció per «Tipus de lletra predeterminat per al mapa» (revisió)"
+
+[\bdel?\s(C|c)\b]
+valid msgstr="\bde C\b"
+hint="Cal substituir la traducció per «de C» (revisió)"
+
+[\bdel?\s(C|c)\+\+]
+valid msgstr="\bde C\+\+"
+hint="Cal substituir la traducció per «de C++» (revisió)"
+
+[\bdel?\s(C|c)lang.?(T|t)idy\b]
+valid msgstr="\bde Clang-Tidy\b"
+hint="Cal substituir la traducció per «de Clang-Tidy» (revisió)"
+
+[\bdel?\s(C|c)(M|m)ake\b]
+valid msgstr="\bde CMake\b"
+hint="Cal substituir la traducció per «de CMake» (revisió)"
+
+[\bdel?\s(C|c)ppcheck\b]
+valid msgstr="\bde Cppcheck\b"
+hint="Cal substituir la traducció per «de Cppcheck» (revisió)"
+
+[\bdel?\s(C|c)(U|u)(P|p)(S|s)\b]
+valid msgstr="\bde CUPS\b"
+hint="Cal substituir la traducció per «de CUPS» (revisió)"
+
+[\bdel?\s(G|g)(S|s)treamer]
+valid msgstr="\bde GStreamer"
+hint="Cal substituir la traducció per «de GStreamer» (revisió)"
+
+[\bdel?\s(J|j)ava\b]
+valid msgstr="\bde Java\b"
+hint="Cal substituir la traducció per «de Java» (revisió)"
+
+[\bdel?\s(J|j)ava(S|s)cript\b]
+valid msgstr="\bde JavaScript\b"
+valid msgstr="\bde javascript;"
+hint="Cal substituir la traducció per «de JavaScript, de &javascript;» (revisió)"
+
+    {\bin\s(J|j)(S|s)\b}
+    valid msgstr="\ben JS\b"
+    hint="Cal substituir la traducció per «en JS» (revisió)"
+
+[\bdel?\s(K|k)(G|g)oldrunner\b]
+valid msgstr="\bdel KGoldrunner\b"
+hint="Cal substituir la traducció per «del KGoldrunner» (revisió)"
+
+[\bdel?\s(L|l)(D|d)(A|a)(P|p)\b]
+valid msgstr="\bde LDAP\b"
+hint="Cal substituir la traducció per «de LDAP» (revisió)"
+
+[\bdel?\s(L|l)inux\b]
+valid msgstr="\bde Linux\b"
+hint="Cal substituir la traducció per «de Linux» (revisió)"
+
+[\bdel?\s(N|n)etbios\b]
+valid msgstr="\bde Netbios\b"
+hint="Cal substituir la traducció per «de Netbios» (revisió)"
+
+[\bdel?\s(P|p)erl\b]
+valid msgstr="\bde Perl\b"
+hint="Cal substituir la traducció per «de Perl» (revisió)"
+
+[\bdel?\s(P|p)honon\b]
+valid msgstr="\bde Phonon\b"
+hint="Cal substituir la traducció per «de Phonon» (revisió)"
+
+[\bdel?\s(P|p)(H|h)(P|p)\b]
+valid msgstr="\bde PHP\b"
+hint="Cal substituir la traducció per «de PHP» (revisió)"
+
+[\bdel?\s(P|p)ython\b]
+valid msgstr="\bde Python\b"
+hint="Cal substituir la traducció per «de Python» (revisió)"
+
+[\bdel?\s(S|s)amba\b]
+valid msgstr="\bde Samba\b"
+hint="Cal substituir la traducció per «de Samba» (revisió)"
+
+    [\bper\sal?\s(S|s)amba\b]
+    valid msgstr="\bper a Samba\b"
+    hint="Cal substituir la traducció per «per a Samba» (revisió)"
+
+[\bdel?\s(S|s)(A|a)(N|n)(E|e)\b]
+valid msgstr="\bde SANE\b"
+hint="Cal substituir la traducció per «de SANE» (revisió)"
+
+[\bdel\sscript\b]i
+valid msgstr="\bde l'script\b"
+hint="Cal substituir la traducció per «de l'script» (revisió)"
+
+    [\bel\sscript\b]i
+    valid msgstr="\bl'script\b"
+    hint="Cal substituir la traducció per «l'script» (revisió)"
+
+[\bdel?\s(S|s)(D|d)(D|d)(M|m)\b]
+valid msgstr="\bde l'SDDM\b"
+hint="Cal substituir la traducció per «de l'SDDM» (revisió)"
+
+[\bdel?\s(W|w)indows\b]
+valid msgid="\bWindows\sServer\b"
+valid msgstr="\bde Windows\b"
+hint="Cal substituir la traducció per «de Windows» (revisió)"
+
+    {\bWindows\sServer\b}i
+    valid msgstr="\bdel Windows Server\b"
+    hint="Cal substituir la traducció per «del Windows Server» (revisió)"
+
+[\bdel?\s(V|v)(K|k)ontakte\b]
+valid msgstr="\bde VKontakte\b"
+hint="Cal substituir la traducció per «de VKontakte» (revisió)"
+
+{\bDelete\scontact\b}i
+valid msgstr="\bSuprimeix el contacte\b"
+hint="Cal substituir la traducció per «Suprimeix el contacte» (revisió)"
+
+{\bDevice\sneeds\scharging\b}i
+valid msgstr="\bCal carregar el dispositiu\b"
+hint="Cal substituir la traducció per «Cal carregar el dispositiu» (revisió)"
+
+[\bdeshabilita]i
+hint="Cal substituir la traducció per «inhabilita» (revisió)"
+
+{\bDiff\/Patch\sFrontend\b}i
+valid msgstr="\bFrontal per al .diff.\/.patch."
+hint="Cal substituir la traducció per «Frontal per al «diff»/«patch»» (revisió)"
+
+{\bencrypting\sGPG\skey\b}i
+valid msgstr="\bclau d'encriptatge GPG\b"
+hint="Cal substituir la traducció per «clau d'encriptatge GPG» (revisió)"
+
+{\bEnter\sarguments\sto\sgive\sto\sthe\sexecutable\b}i
+valid msgstr="\bIntroduïu els arguments a proporcionar a l'executable\b"
+hint="Cal substituir la traducció per «Introduïu els arguments a proporcionar a l'executable» (revisió)"
+
+[\bés\sa\sdins\b]i
+hint="Cal substituir la traducció per «està a dins» (revisió)"
+
+    [\bsón\sa\sdins\b]i
+    hint="Cal substituir la traducció per «estan a dins» (revisió)"
+
+[\bés\sadmès\b]i
+hint="Cal substituir la traducció per «està admès (mirar amb compte)» (revisió)"
+
+    [\bsón\sadmeses\b]i
+    hint="Cal substituir la traducció per «estan admeses (mirar mb compte)» (revisió)"
+
+[\bés\sbui(da|t)\b]i
+hint="Cal substituir la traducció per «està buit/da» (revisió)"
+
+    [\bsón\sbuides\b]i
+    hint="Cal substituir la traducció per «estan buides» (revisió)"
+
+[\bés\scorrupte\b]i
+hint="Cal substituir la traducció per «està corrupte» (revisió)"
+
+    [\bsón\scorruptes\b]i
+    hint="Cal substituir la traducció per «estan corruptes» (revisió)"
+
+[\bés\s(al\s)?damunt\b]i
+hint="Cal substituir la traducció per «està al damunt» (revisió)"
+
+    [\bsón\s(al\s)?damunt\b]i
+    hint="Cal substituir la traducció per «estan al damunt» (revisió)"
+
+[\bés\sdisponible\b]i
+hint="Cal substituir la traducció per «està disponible» (revisió)"
+
+    [\bsón\sdisponibles\b]i
+    hint="Cal substituir la traducció per «estan disponibles» (revisió)"
+
+[\bés\sen\sús\b]i
+hint="Cal substituir la traducció per «està en ús» (revisió)"
+
+    [\bsón\sen\sús\b]i
+    hint="Cal substituir la traducció per «estan en ús» (revisió)"
+
+[\bés\soberta?\b]i
+hint="Cal substituir la traducció per «està obert/a» (revisió)"
+
+    [\bsón\sobertes\b]i
+    hint="Cal substituir la traducció per «estan obertes» (revisió)"
+
+[\bés\stanca(da|t)\b]i
+hint="Cal substituir la traducció per «està tancat/da» (revisió)"
+
+    [\bsón\stanca(des|ts)\b]i
+    hint="Cal substituir la traducció per «estan tancats/des» (revisió)"
+
+{\b(E|e)(U|u)(L|l)(A|a)\b}
+valid msgstr="\bCLUF\b"
+hint="Cal substituir la traducció per «CLUF» (revisió)"
+
+{\bExternal\sdiff\sdisplay\b}i
+valid msgid="\bUse\sExternal\sdiff\sdisplay\b"
+valid msgstr="\bVisor extern per a .?diff.?\b"
+hint="Cal substituir la traducció per «Visor extern per a «diff»» (revisió)"
+
+    {\bUse\sExternal\sdiff\sdisplay\b}i
+    valid msgstr="\bUsa un visor extern per a .?diff.?\b"
+    hint="Cal substituir la traducció per «Usa un visor extern per a «diff»» (revisió)"
+
+{\bExternal\smerge\sprogram\b}i
+valid msgstr="\bPrograma extern per a .?merge.?\b"
+hint="Cal substituir la traducció per «Programa extern per a «merge»» (revisió)"
+
+{\bFailed\sto\sestablish\sa\ssecure\sconnection\b}i
+valid msgstr="\bHa fallat en establir una connexió segura\b"
+hint="Cal substituir la traducció per «Ha fallat en establir una connexió segura» (revisió)"
+
+{\bFeatures\:}i
+valid msgstr="\bCaracterístiques:"
+hint="Cal substituir la traducció per «Característiques:» (revisió)"
+
+{\bFile\sAssociations?\b}i
+valid msgstr="\bassociaci(ó|ons) de fitxer\b"
+hint="Cal substituir la traducció per «associació/ons de fitxer» (revisió)"
+
+{\bFlash.?Cards?\s}i
+valid msgid="\bFlash\sCard\sTrainer\b"
+valid msgstr="\btarget(a|es) didàcti(ca|ques)\b"
+hint="Cal substituir la traducció per «targeta/es didàctica/ques» (revisió)"
+
+    {\bFlash\sCard\sTrainer\b}i
+    valid msgstr="\bEntrenador amb didàctiques\b"
+    hint="Cal substituir la traducció per «Entrenador amb targetes didàctiques» (revisió)"
+
+{\bformer\smaintainer\b}i
+valid msgid="\bformer\smaintainer\sand\sprogrammer\b"
+valid msgstr="\bantic mantenidor\b"
+valid msgstr="\bmantenidor anterior\b"
+hint="Cal substituir la traducció per «mantenidor anterior, antic mantenidor» (revisió)"
+
+    {\bformer\smaintainer\sand\sprogrammer\b}i
+    valid msgstr="\bMantenidor i programador anterior\b"
+    hint="Cal substituir la traducció per «Mantenidor i programador anterior» (revisió)"
+
+{\bFile\sExists\b}i
+valid msgstr="\bEl fitxer ja existeix\b"
+hint="Cal substituir la traducció per «El fitxer ja existeix» (revisió)"
+
+{\bfile.?types?\b}i
+valid msgid="\bfile.?types\sEditor\b"
+valid msgstr="\btipus de fitxer\b"
+hint="Cal substituir la traducció per «tipus de fitxer» (revisió)"
+
+    {\bfile.?types\sEditor\b}i
+    valid msgstr="\bEditor per als tipus de fitxer\b"
+    hint="Cal substituir la traducció per «Editor per als tipus de fitxer» (revisió)"
+
+{\bFile\sPatterns?\b}i
+valid msgstr="\bPatr(ó|ons) de fitxer\b"
+valid msgstr="\bPatró\/ons de fitxer\b"
+hint="Cal substituir la traducció per «patró/ons de fitxer» (revisió)"
+
+{\bforever\b}i
+valid msgstr="\bper a sempre\b"
+hint="Cal substituir la traducció per «per a sempre» (revisió)"
+
+{\bGame\sOptions\b}i
+valid msgstr="\bOpcions del joc\b"
+hint="Cal substituir la traducció per «Opcions del joc» (revisió)"
+
+{\bGame\spaused\b}i
+valid msgstr="\bJoc en pausa\b"
+hint="Cal substituir la traducció per «Joc en pausa» (revisió)"
+
+{\bGenerate\sfile.?structure\sto\sstart\sa\s(PHP|Python|Ruby)\sapplication\b}i
+valid msgstr="\bGenera l'estructura de fitxers per a començar una aplicació en (PHP|Python|Ruby)\b"
+hint="Cal substituir la traducció per «Genera l'estructura de fitxers per a començar una aplicació en PHP/Python/Ruby» (revisió)"
+
+    {\bSimple\s(PHP|Python|Ruby)\sapplication\b}i
+    valid msgstr="\bUna aplicació senzilla en (PHP|Python|Ruby)\b"
+    hint="Cal substituir la traducció per «Una aplicació senzilla en PHP/Python/Ruby» (revisió)"
+
+{\bHighlighting\sfor\sMakefiles.\sPython\b}i
+valid msgstr="\bRessaltat per als fitxers en Make. Python\b"
+hint="Cal substituir la traducció per «Ressaltat per als fitxers en Make, Python» (revisió)"
+
+{\bhold\b}i
+valid msgstr="--hold\b"
+valid msgstr="\bcongela(da|des|ts?)?\b"
+valid msgstr="\ben espera\b"
+valid msgstr="\bes continua prement\b"
+valid msgstr="\bmantenir premu(da|t)\b"
+valid msgstr="\bmanteniu(-lo)? premu(da|t)\b"
+valid msgstr="\bretenir\b"
+hint="Cal substituir la traducció per «manteniu premuda, manteniu-lo premut, mantenir premut/da, retenir, congela/da/des/t/ts, en espera, es continua prement» (revisió)"
+
+{\bImage\sViewer\b}i
+valid msgid="\bEmbeddable\sImage\sViewer\b"
+valid msgstr="\bVisor d'imatges\b"
+hint="Cal substituir la traducció per «Visor d'imatges» (revisió)"
+
+    {\bEmbeddable\sImage\sViewer\b}i
+    valid msgstr="\bVisor incrustable d'imatges\b"
+    hint="Cal substituir la traducció per «Visor incrustable d'imatges» (revisió)"
+
+{\bImport\sfrom\sfile\b}i
+valid msgstr="\bImporta des d'un fitxer\b"
+hint="Cal substituir la traducció per «Importa des d'un fitxer» (revisió)"
+
+{\bin\sKirigami\b}i
+valid msgstr="\bcreada amb el Kirigami\b"
+valid msgstr="\bescrita en Kirigami\b"
+hint="Cal substituir la traducció per «creada amb el Kirigami, escrita en Kirigami» (revisió)"
+
+{\bin\sNew\sWindow\b}i
+valid msgstr="\ben una finestra nova\b"
+hint="Cal substituir la traducció per «en una finestra nova» (revisió)"
+
+{\bin\s(a\s)?New\sTab\b}i
+valid msgstr="\ben una pestanya nova\b"
+hint="Cal substituir la traducció per «en una pestanya nova» (revisió)"
+
+{\bin\sthe\scurrent\spage\b}i
+valid msgstr="\ben la pàgina actual\b"
+hint="Cal substituir la traducció per «en la pàgina actual» (revisió)"
+
+{\bin\sthe\sexecution\b}i
+valid msgstr="\ben l'execució\b"
+hint="Cal substituir la traducció per «en l'execució» (revisió)"
+
+{\bin\sthe\squeue\b}i
+valid msgstr="\ba la cua\b"
+hint="Cal substituir la traducció per «a la cua» (revisió)"
+
+{\bin\syour\saccounts?\b}i
+valid msgstr="\ben els? vostres? comptes?\b"
+valid msgstr="\bque hi ha al vostre compte\b"
+hint="Cal substituir la traducció per «en el/s vostre/s compte/s, que hi ha al vostre compte» (revisió)"
+
+{\bin\swindow\b}i
+valid msgstr="\ba la finestra\b"
+hint="Cal substituir la traducció per «a la finestra» (revisió)"
+
+{^\bJump\sto\b}i
+valid msgstr="^\bSalta a(ls?)?\b"
+hint="Cal substituir la traducció per «Salta a/l/ls» (revisió)"
+
+{\bKanji\sBrowser\b}i
+valid msgstr="\bFullejador del Kanji\b"
+hint="Cal substituir la traducció per «Fullejador del Kanji -mirar altres coincidències amb navegador-» (revisió)"
+
+{\b(K|k)(D|d)(E|e)(\s)?(1|2|3|4)\b}
+valid msgstr="{{KDE(3|4)}}"
+valid msgstr="/kde3"
+valid msgstr="/\.kde4/"
+valid msgstr="\bKDE (1|2|3|4)\b"
+valid msgstr="\bsèries 4.(0|1|2|3) del KDE\b"
+hint="Cal substituir la traducció per «KDE 1/2/3/4» (revisió)"
+
+{\bKDE\sConnect\b}i
+valid msgstr="\bKDE Connect\b"
+hint="Cal substituir la traducció per «KDE Connect» (revisió)"
+
+{\bkey.?bindings?\b}i
+valid msgstr="\bkey_bindings\b"
+valid msgstr="\/keybindings.html\b"
+valid msgstr="\blligams? de tecla\b"
+hint="Cal substituir la traducció per «lligam/s de tecla» (revisió)"
+
+{\bKF5\sport\b}i
+valid msgid="\bInitial\sKF5\sport\b"
+valid msgstr="\bAdaptació als KF5\b"
+hint="Cal substituir la traducció per «Adaptació als KF5» (revisió)"
+
+    {\bInitial\sKF5\sport\b}i
+    valid msgstr="\bAdaptació inicial als KF5\b"
+    hint="Cal substituir la traducció per «Adaptació inicial als KF5» (revisió)"
+
+{\bLast\sUsed\sViews\b}i
+valid msgid="\bOpens\sa\slist\sto\swalk\sthrough\sthe\slist\sof\slast\sused\sviews\b"
+valid msgid="\bWalk\sthrough\sthe\slist\sof\slast\sused\sviews\b"
+valid msgstr="\bvistes emprades per darrera vegada\b"
+hint="Cal substituir la traducció per «vistes emprades per darrera vegada» (revisió)"
+
+    {\bOpens\sa\slist\sto\swalk\sthrough\sthe\slist\sof\slast\sused\sviews\b}i
+    valid msgid="\bOpens\sa\slist\sto\swalk\sthrough\sthe\slist\sof\slast\sused\sviews\sin\sreverse\b"
+    valid msgstr="\bObre una llista per a recórrer les vistes emprades per darrera vegada\b"
+    hint="Cal substituir la traducció per «Obre una llista per a recórrer les vistes emprades per darrera vegada» (revisió)"
+
+        {\bOpens\sa\slist\sto\swalk\sthrough\sthe\slist\sof\slast\sused\sviews\sin\sreverse\b}i
+        valid msgstr="\bObre una llista per a recórrer a l'inrevés les vistes emprades per darrera vegada\b"
+        hint="Cal substituir la traducció per «Obre una llista per a recórrer a l'inrevés les vistes emprades per darrera vegada» (revisió)"
+
+    {\bWalk\sthrough\sthe\slist\sof\slast\sused\sviews\b}i
+    valid msgid="\bOpens\sa\slist\sto\swalk\sthrough\sthe\slist\sof\slast\sused\sviews\b"
+    valid msgstr="\bRecorre les vistes emprades per darrera vegada\b"
+    hint="Cal substituir la traducció per «Recorre les vistes emprades per darrera vegada» (revisió)"
+
+{^\bLoad\sfile\b}i
+valid msgstr="\bCarrega un fitxer\b"
+hint="Cal substituir la traducció per «Carrega un fitxer» (revisió)"
+
+{\bLogin\sFailed\b}i
+valid msgstr="\bHa fallat l'inici de la sessió\b"
+hint="Cal substituir la traducció per «Ha fallat l'inici de la sessió» (revisió)"
+
+{\bLogo\sscripts?\b}i
+valid msgstr="\bscripts? en Logo\b"
+hint="Cal substituir la traducció per «script/s en Logo» (revisió)"
+
+{\bLow\sdisk\sspace\b}i
+valid msgstr="\bEspai escàs al disc\b"
+hint="Cal substituir la traducció per «Espai escàs al disc» (revisió)"
+
+{\bMakes\sthe\sdialog\stransient\sfor\san\sX\sapp\sspecified\sby\swinid\b}i
+valid msgstr="\bFes el diàleg transitori per a una aplicació X especificada pel .?winid.?\b"
+hint="Cal substituir la traducció per «Fes el diàleg transitori per a una aplicació X especificada pel «winid»» (revisió)"
+
+{\bMake\s(value\s)?default\b}i
+valid msgstr="\bConverteix en el (valor )?predeterminat\b"
+hint="Cal substituir la traducció per «Converteix en el valor predeterminat, Converteix en el predeterminat» (revisió)"
+
+{\bMarkup\sLanguage\sFormat\b}i
+valid msgstr="\bFormat del llenguatge de marques\b"
+hint="Cal substituir la traducció per «Format del llenguatge de marques» (revisió)"
+
+{\bmessage\sboxes\b}i
+valid msgstr="\bquadres de missatge\b"
+hint="Cal substituir la traducció per «quadres de missatge» (revisió)"
+
+{\bmodes?\b}i
+valid msgid="\bDocument\smode\b"
+valid msgstr="\bmodes?\b"
+hint="Cal substituir la traducció per «mode/s» (revisió)"
+
+    {\bDocument\smode\b}i
+    valid msgid="\bMultiple\sDocument\smode\b"
+    valid msgstr="\bmode document\b"
+    hint="Cal substituir la traducció per «mode document» (revisió)"
+
+        {\bMultiple\sDocument\smode\b}i
+        valid msgstr="\bMode múltiples documents\b"
+        hint="Cal substituir la traducció per «Mode múltiples documents» (revisió)"
+
+{\bmultiples?\b}i
+valid msgid="--multiple\b"
+valid msgid="\bmultiple-sources\b"
+valid msgid="\bMULTIPLE\.(OPERATIONS)?\(?\b"
+valid msgstr="\bmúltiples?\b"
+hint="Cal substituir la traducció per «múltiple/s» (revisió)"
+
+{\bNo\sdescription\savailable\b}i
+valid msgstr="\bNo hi ha disponible cap descripció\b"
+hint="Cal substituir la traducció per «No hi ha disponible cap descripció» (revisió)"
+
+[\bNo\shi\sha\sres\sper\sa\b]i
+hint="Cal substituir la traducció per «No hi ha res a» (revisió)"
+
+{\bNo\ssuch\sdevice\b}i
+valid msgstr="\bEl dispositiu no existeix\b"
+hint="Cal substituir la traducció per «El dispositiu no existeix» (revisió)"
+
+{\bfile\sdialogs?\b}i
+valid msgid="\b(Change\sData|Open|Save)\sfile\sdialog\b"
+valid msgstr="\bdiàlegs? de fitxers\b"
+hint="Cal substituir la traducció per «diàleg/s de fitxers» (revisió)"
+
+    {\bChange\sData\sfile\sdialog\b}i
+    valid msgstr="\bdiàleg de canvi del fitxer de dades\b"
+    hint="Cal substituir la traducció per «diàleg per al canvi del fitxer de dades» (revisió)"
+
+    {\bOpen\sfile\sdialog\b}i
+    valid msgstr="\bDiàleg per a obrir fitxers\b"
+    hint="Cal substituir la traducció per «Diàleg per a obrir fitxers» (revisió)"
+
+    {\bSave\sfile\sdialog\b}i
+    valid msgstr="\bDiàleg per a desar fitxers\b"
+    hint="Cal substituir la traducció per «Diàleg per a desar fitxers» (revisió)"
+
+[\b(L|l)(A|a)(T|t)(E|e)(X|x)\b]
+valid msgstr="latex;"
+valid msgstr="\bLaTeX\b"
+hint="Cal substituir la traducció per «LaTeX» (revisió)"
+
+{\bMail\sfilter\slog\senabled\b}i
+valid msgstr="\bActivat el registre per al filtratge de correu\b"
+hint="Cal substituir la traducció per «Activat el registre per al filtratge de correu» (revisió)"
+
+{\bMarkdown\sdocuments\b}i
+valid msgstr="\bdocuments? en Markdown\b"
+hint="Cal substituir la traducció per «document/s en Markdown» (revisió)"
+
+{\bMobile\sBroadband\b}i
+valid msgid="\bMobile\sBroadband\s(device|network)\b"
+valid msgstr="\bbanda ampla per mòbil\b"
+hint="Cal substituir la traducció per «banda ampla per mòbil» (revisió)"
+
+    {\bMobile\sBroadband\sdevice\b}i
+    valid msgstr="\bdispositiu mòbil de banda ampla\b"
+    hint="Cal substituir la traducció per «dispositiu mòbil de banda ampla» (revisió)"
+
+    {\bMobile\sBroadband\snetwork\b}i
+    valid msgstr="\bxarxa mòbil de banda ampla\b"
+    hint="Cal substituir la traducció per «xarxa mòbil de banda ampla» (revisió)"
+
+{\bOverwrite\sFile\?\b}i
+valid msgstr="\bSobreescric el fitxer\?\b"
+hint="Cal substituir la traducció per «Sobreescric el fitxer?» (revisió)"
+
+{\bon.?screen\b}i
+valid msgstr="\ben pantalla\b"
+hint="Cal substituir la traducció per «en pantalla (OSD), a la pantalla» (revisió)"
+
+# OpenDocument
+    {\bOpenDocument\sPresentations?\b}i
+    valid msgstr="\bpresentaci(ó|ons) en OpenDocument\b"
+    hint="Cal substituir la traducció per «presentació/ons en OpenDocument» (revisió)"
+
+    {\bOpenDocument\sText\b}i
+    valid msgstr="\bText(os)? en OpenDocument\b"
+    hint="Cal substituir la traducció per «Text/os en OpenDocument» (revisió)"
+
+{^\bOpen\sImage\b}i
+valid msgid="^\bOpen\sImage\sFile\b"
+valid msgstr="^\bObre una imatge\b"
+hint="Cal substituir la traducció per «Obre una imatge» (revisió)"
+
+    {^\bOpen\sImage\sFile\b}i
+    valid msgstr="^\bObre un fitxer d'imatge\b"
+    hint="Cal substituir la traducció per «Obre un fitxer d'imatge» (revisió)"
+
+{\bOutput\sfilename\b}i
+valid msgstr="\bNom per al fitxer de sortida\b"
+hint="Cal substituir la traducció per «Nom per al fitxer de sortida» (revisió)"
+
+# {\boverride(den)?\b}i
+# valid msgid="\bOverride\scharacter\sencoding\b"
+# valid msgstr="\bsuperpos(ades|ar|en|ició)\b"
+# hint="Cal substituir la traducció per «superposades, superposen, superposar, superposició» (revisió)"
+
+    {\bOverride\scharacter\sencoding\b}i
+    valid msgstr="\bRectifica la codificació dels caràcters\b"
+    hint="Cal substituir la traducció per «Rectifica la codificació dels caràcters» (revisió)"
+
+{\bPause\sSlideshow\b}i
+valid msgstr="\bFes pausa en el passi de diapositives\b"
+hint="Cal substituir la traducció per «Fes pausa en el passi de diapositives» (revisió)"
+
+[\bper\ssobre\si\ssota\b]i
+hint="Cal substituir la traducció per «per sobre i per sota» (revisió)"
+
+[\b(P|p)lasma\b]
+valid msgid="\/plasma-workspace\/"
+valid msgid="\.plasma\."
+valid msgid="\bPlasma\s(active|desktop|mobile)\b"
+valid msgstr="\bdel\sPlasma\b"
+valid msgstr=".?plasma;"
+valid msgstr="\bPlasma\b"
+hint="Cal substituir la traducció per «Plasma» (revisió)"
+
+    [\bdel?\s(P|p)lasma\b]
+    valid msgstr="\bdel\sPlasma\b"
+    valid msgstr="\bdel\s.?plasma;"
+    hint="Cal substituir la traducció per «del Plasma» (revisió)"
+
+    {\b(P|p)lasma\s(A|a)ctive\b}
+    valid msgstr="\bPlasma Active\b"
+    hint="Cal substituir la traducció per «Plasma Active» (revisió)"
+
+    {\bPlasma\sdesktop\b}i
+    valid msgstr="\bescriptori Plasma\b"
+    hint="Cal substituir la traducció per «escriptori Plasma» (revisió)"
+
+    {\b(P|p)lasma\s(M|m)obile\b}
+    valid msgstr="\bPlasma mòbil\b"
+    hint="Cal substituir la traducció per «Plasma mòbil» (revisió)"
+
+{\bPlayer\sName\b}i
+valid msgstr="\bNom del jugador\b"
+hint="Cal substituir la traducció per «Nom del jugador» (revisió)"
+
+    {\bPlayer\sNames\b}i
+    valid msgstr="\bNoms dels jugadors\b"
+    hint="Cal substituir la traducció per «Noms dels jugadors» (revisió)"
+
+{\bPlayground\b}i
+valid msgstr="\bZona de joc\b"
+hint="Cal substituir la traducció per «Zona de joc» (revisió)"
+
+{,\s\bplease.?\scheck\syour\sinstallation\b}i
+valid msgstr=", \bcomproveu la instal·lació\b"
+hint="Cal substituir la traducció per «, comproveu la instal·lació» (revisió)"
+
+    {\.\s\bPlease.?\scheck\syour\sinstallation\b}i
+    valid msgstr="\. \bSi us plau, comproveu la instal·lació\b"
+    hint="Cal substituir la traducció per «Si us plau, comproveu la instal·lació» (revisió)"
+
+{\bPlease.?choose\sanother\sname\b}i
+valid msgstr="\bSi us plau, trieu un altre nom\b"
+valid msgstr="\bSi us plau, trieu-ne un altre\b"
+hint="Cal substituir la traducció per «Si us plau, trieu un altre nom, Si us plau, trieu-ne un altre.» (revisió)"
+
+[\bpodeu\strobar\b]i
+valid msgstr="\b(el )?trobareu\b"
+hint="Cal substituir la traducció per «trobareu, el trobareu» (revisió)"
+
+{\bprofile\sdata\svisualization\b}i
+valid msgstr="\bvisualització per a les dades d'anàlisi del rendiment\b"
+hint="Cal substituir la traducció per «visualització per a les dades d'anàlisi del rendiment» (revisió)"
+
+{\bProfiler\sFrontend\b}i
+valid msgstr="\bFrontal per a l'analitzador del rendiment\b"
+hint="Cal substituir la traducció per «Frontal per a l'analitzador del rendiment» (revisió)"
+
+{\bprovides\sa\sfrontend\sfor\b}i
+valid msgstr="\bproveeix d'un frontal per al\b"
+hint="Cal substituir la traducció per «proveeix d'un frontal per al» (revisió)"
+
+{\bQt\sDesigner\sUI\sFile\sViewer\b}i
+valid msgstr="\bVisor de fitxers UI del Qt Designer\b"
+hint="Cal substituir la traducció per «Visor de fitxers UI del Qt Designer» (revisió)"
+
+{\bquick\sstart\sguide\b}i
+valid msgstr="\bGuia d'inici ràpid al\b"
+hint="Cal substituir la traducció per «Guia d'inici ràpid al» (revisió)"
+
+{\bRadical\sSelector\b}i
+valid msgstr="\bSelector de radicals\b"
+hint="Cal substituir la traducció per «Selector de radicals» (revisió)"
+
+{\bReplace(ment)?\b}i
+valid msgid="--replace\b"
+valid msgid="\breplace-tabs\b"
+valid msgid="\bREPLACE\("
+valid msgstr="\bsubstitu(ció|eix(is|o?)|int|ir|irà|iran|ïu|t)\b"
+hint="Cal substituir la traducció per «substitució, substitueix/o/is, substituir/à/an, substituïu, substituint, substitut» (revisió)"
+
+    {\bReplaced\b}i
+    valid msgstr="\bsubstitu(ció|eix(i|en)?|irà?|ïd(a|es)|iran|ïts?)\b"
+    hint="Cal substituir la traducció per «substitueix/i/en, substitució, substituïda/es, substituït/s, substituir/à/an» (revisió)"
+
+{\bRequeue\b}i
+valid msgstr="\bRetorna a la cua\b"
+hint="Cal substituir la traducció per «Retorna a la cua» (revisió)"
+
+{\bReplace\swith:?$}i
+valid msgstr="\bSubstitueix amb:?$"
+hint="Cal substituir la traducció per «Substitueix amb/:» (revisió)"
+
+{\bReset\sto\sdefault\b}i
+valid msgstr="\bRestableix als valors predeterminats\b"
+hint="Cal substituir la traducció per «Restableix als valors predeterminats» (revisió)"
+
+{\bResource\sto\smanage\sDAV\scalendars\sand\saddress\sbooks\b}i
+valid msgstr="\bRecurs per a gestionar calendaris i llibretes d'adreces DAV\b"
+hint="Cal substituir la traducció per «Recurs per a gestionar calendaris i llibretes d'adreces DAV» (revisió)"
+
+{\bScreenshot\sCapture\sUtility\b}i
+valid msgstr="\bUtilitat per a prendre captures de pantalla\b"
+hint="Cal substituir la traducció per «Utilitat per a prendre captures de pantalla» (revisió)"
+
+{\bScripting\sAPI\b}i
+valid msgstr="\bL'API per a crear scripts\b"
+hint="Cal substituir la traducció per «L'API per a crear scripts» (revisió)"
+
+{\bSelect\sa\sworking\sdirectory\sfor\sthe\sexecutable\b}i
+valid msgstr="\bSeleccioneu un directori de treball per a l'executable\b"
+hint="Cal substituir la traducció per «Seleccioneu un directori de treball per a l'executable» (revisió)"
+
+{\bService\snot\savailable\b}i
+valid msgstr="\bEl servei no està disponible\b"
+hint="Cal substituir la traducció per «El servei no està disponible» (revisió)"
+
+{\bSession\sInitiation\sProtocol\b}i
+valid msgstr="\bProtocol per a la iniciació de la sessió\b"
+hint="Cal substituir la traducció per «Protocol per a la iniciació de la sessió» (revisió)"
+
+{\bShow\sadvanced\soptions\b}i
+valid msgstr="\bMostra les opcions avançades\b"
+hint="Cal substituir la traducció per «Mostra les opcions avançades» (revisió)"
+
+{\bShow\stext\sbeside\sicon\b}i
+valid msgstr="\bMostra el text sota les icones\b"
+hint="Cal substituir la traducció per «Mostra el text sota les icones» (revisió)"
+
+[\bsiguin\sen\b]i
+valid msgstr="\bestiguin en\b"
+hint="Cal substituir la traducció per «estiguin en» (revisió)"
+
+[\bsón\spart\b]i
+hint="Cal substituir la traducció per «formen part» (revisió)"
+
+{\bSTARTTLS\sis\snot\ssupported\sby\sthe\sserver.\stry\susing\sSSL\/TLS\sinstead\b}i
+valid msgstr="\bSTARTTLS no està acceptat pel servidor. proveu amb SSL\/TLS\b"
+hint="Cal substituir la traducció per «STARTTLS no està acceptat pel servidor, proveu amb SSL/TLS» (revisió)"
+
+# # step
+#     {\bStep\sInto\b}i
+#     valid msgstr="\bAvança per dins\b"
+#     hint="Cal substituir la traducció per «Avança per dins» (revisió)"
+# 
+#     {\bStep\sOut\b}i
+#     valid msgstr="\bAvança per fora\b"
+#     hint="Cal substituir la traducció per «Avança per fora» (revisió)"
+# 
+#     {\bStep\sOver\b}i
+#     valid msgstr="\bAvança per sobre\b"
+#     hint="Cal substituir la traducció per «Avança per sobre» (revisió)"
+
+{\bStore\spasswords\sfor\sremote\sconnections\b}i
+valid msgstr="\bDesa les contrasenyes per a les connexions remotes\b"
+hint="Cal substituir la traducció per «Desa les contrasenyes per a les connexions remotes» (revisió)"
+
+{\bSubversion\sRevision\sControl\b}i
+valid msgstr="\bControl de revisions de Subversion\b"
+hint="Cal substituir la traducció per «Control de revisions de Subversion» (revisió)"
+
+{\bsystem\smonitor\b}i
+valid msgstr="\bMonitor del sistema\b"
+hint="Cal substituir la traducció per «Monitor del sistema» (revisió)"
+
+{\bTab\sposition\b}i
+valid msgstr="\bPosició de la (pestanya|tabulació)\b"
+hint="Cal substituir la traducció per «Posició de la pestanya, posició de la tabulació» (revisió)"
+
+{\bTap\b}i
+valid msgstr="\bto(cs?|car?|queu)\b"
+hint="Cal substituir la traducció per «toqueu, toca/r, toc/s» (revisió)"
+
+{\bText\sCompletion\b}i
+valid msgid="\bAutomatic\sText\sCompletion\b"
+valid msgstr="\bCompleció del text\b"
+hint="Cal substituir la traducció per «Compleció del text» (revisió)"
+
+    {\bAutomatic\sText\sCompletion\b}i
+    valid msgstr="\bCompleció automàtica del text\b"
+    hint="Cal substituir la traducció per «Compleció automàtica del text» (revisió)"
+
+{\bText\sto\ssearch\sfor\b$}i
+valid msgstr="\bText a cercar\b$"
+hint="Cal substituir la traducció per «Text a cercar» (revisió)"
+
+{\bThe\sdefault\sway\sof\sattaching\sdropped\semails\sto\b}i
+valid msgstr="\bLa forma predeterminada d'adjuntar els correus arrossegats a\b"
+hint="Cal substituir la traducció per «La forma predeterminada d'adjuntar els correus arrossegats a» (revisió)"
+
+{\bThe\sdocument\s\"%1\"\shas\sbeen\smodified\b}i
+valid msgstr="\bEl document «%1» ha estat modificat\b"
+hint="Cal substituir la traducció per «El document «%1» ha estat modificat» (revisió)"
+
+{\bThe\sfollowing\spackage\shas\snot\sbeen\sverified\sby\sits\sauthor.\sDownloading\suntrusted\spackages\shas\sbeen\sdisallowed\sby\syour\scurrent\sconfiguration\b}i
+valid msgstr="\bEl següent paquet no ha estat verificat pel seu autor. La configuració actual no permet baixar paquets sense verificar\b"
+hint="Cal substituir la traducció per «El següent paquet no ha estat verificat pel seu autor. La configuració actual no permet baixar paquets sense verificar» (revisió)"
+
+    {\bThe\sfollowing\spackages\shave\snot\sbeen\sverified\sby\stheir\sauthors.\sDownloading\suntrusted\spackages\shas\sbeen\sdisallowed\sby\syour\scurrent\sconfiguration\b}i
+    valid msgstr="\bEls següents paquets no han estat verificats pels seus autors. La configuració actual no permet baixar paquets sense verificar\b"
+    hint="Cal substituir la traducció per «Els següents paquets no han estat verificats pels seus autors. La configuració actual no permet baixar paquets sense verificar» (revisió)"
+
+{\bThe\sgraphical\stheme\sto\sbe\sused\b}i
+valid msgstr="\bEl tema gràfic que s'usarà\b"
+hint="Cal substituir la traducció per «El tema gràfic que s'usarà» (revisió)"
+
+{\bThe\smessage\sclass\b}i
+valid msgstr="\bLa classe del missatge\b"
+hint="Cal substituir la traducció per «La classe del missatge» (revisió)"
+
+{\bThe\spackage\ssystem\scould\snot\sbe\sinitialized.\syour\sconfiguration\smay\sbe\sbroken\b}i
+valid msgstr="\bEl sistema de paquets no s'ha pogut inicialitzar. la configuració pot estar trencada\b"
+hint="Cal substituir la traducció per «El sistema de paquets no s'ha pogut inicialitzar, la configuració pot estar trencada» (revisió)"
+
+# Theme
+    [\bdel?\s(B|b)risa\b]
+    valid msgstr="\bdel Brisa\b"
+    hint="Cal substituir la traducció per «del Brisa (tema)» (revisió)"
+
+        {\bBreeze\b}i
+        valid msgstr="\bBrisa\b"
+        hint="Cal substituir la traducció per «Brisa (tema)» (revisió)"
+
+        {\b(B|b)reeze\s(D|d)ark\b}
+        valid msgstr="\bBrisa fosca\b"
+        hint="Cal substituir la traducció per «Brisa fosca (tema)» (revisió)"
+
+        {\b(B|b)reeze\s(F|f)lat\b}
+        valid msgstr="\bBrisa plana\b"
+        hint="Cal substituir la traducció per «Brisa plana (tema)» (revisió)"
+
+        {\b(B|b)reeze\s(L|l)ight\b}
+        valid msgstr="\bBrisa clara\b"
+        hint="Cal substituir la traducció per «Brisa clara (tema)» (revisió)"
+
+    [\b(del?)\s(O|o)xygen\b]
+    valid msgstr="\bde l'Oxygen\b"
+    hint="Cal substituir la traducció per «de l'Oxygen (tema)» (revisió)"
+
+    [\bd.(O|o)xygen\b]
+    valid msgstr="\bde l'Oxygen\b"
+    hint="Cal substituir la traducció per «de l'Oxygen (tema)» (revisió)"
+
+{\btime.?line\b}i
+valid msgstr="\blínia de temps\b"
+hint="Cal substituir la traducció per «línia de temps» (revisió)"
+
+# to
+    {\bto\sbe\simported\b.?$}i
+    valid msgstr="\ba importar\b"
+    hint="Cal substituir la traducció per «a importar» (revisió)"
+
+    {\bto\sedit\b.?$}i
+    valid msgstr="\ba editar\b"
+    hint="Cal substituir la traducció per «a editar» (revisió)"
+
+    {\bto\sconfirm\b.?$}i
+    valid msgstr="\ba confirmar\b"
+    hint="Cal substituir la traducció per «a confirmar» (revisió)"
+
+    {\bto\sopen\b.?$}i
+    valid msgstr="\ba obrir\b"
+    hint="Cal substituir la traducció per «a obrir» (revisió)"
+
+    {\bto\srun\b.?$}i
+    valid msgstr="\ba executar\b"
+    hint="Cal substituir la traducció per «a executar» (revisió)"
+
+    {\bto\ssave\b.?$}i
+    valid msgstr="\ba desar\b"
+    hint="Cal substituir la traducció per «a desar» (revisió)"
+
+    {\bto\suse\b.?$}i
+    valid msgid="\byou(\swant|would\slike)\sto\suse\b.?$"
+    valid msgstr="\ba u(s|tilitz)ar\b"
+    hint="Cal substituir la traducció per «a usar, a utilitzar» (revisió)"
+
+        {\byou\swant\sto\suse\b.?$}i
+        valid msgstr="\bvoleu u(s|tilitz)ar\b"
+        hint="Cal substituir la traducció per «voleu usar, voleu utilitzar» (revisió)"
+
+        {\byou\swould\slike\sto\suse\b.?$}i
+        valid msgstr="\bvoleu u(s|tilitz)ar\b"
+        hint="Cal substituir la traducció per «voleu usar, voleu utilitzar» (revisió)"
+
+[\btorrents\b]i
+hint="Cal substituir la traducció per «torrent (és un format de fitxer)» (revisió)"
+
+    [\bmagnets\b]i
+    hint="Cal substituir la traducció per «magnet (és un format de fitxer)» (revisió)"
+
+{\btraining\ssession\b}i
+valid msgstr="\bsessió d'entrenament\b"
+hint="Cal substituir la traducció per «sessió d'entrenament» (revisió)"
+
+{\bTrash\sSettings\b}i
+valid msgstr="\bConfiguració per a la paperera\b"
+hint="Cal substituir la traducció per «Configuració per a la paperera» (revisió)"
+
+{\bthreads?\b}i
+valid msgstr="\bfils? de conversa\b"
+hint="Cal substituir la traducció per «fil/s de conversa» (revisió)"
+
+{\bUDP\stracker\ssupport\b}i
+valid msgstr="\bSuport per al seguidor UDP\b"
+hint="Cal substituir la traducció per «Suport per al seguidor UDP» (revisió)"
+
+{\bYou\sdo\snot\shave\senough\sdisk\sspace\sin\sthe\sdirectory\b}i
+valid msgstr="\bNo hi ha espai suficient en el disc al directori\b"
+hint="Cal substituir la traducció per «No hi ha espai suficient en el disc al directori» (revisió)"
+
+{\bVarious\sSuggestions\s(.?|and)\sTesting\b}i
+valid msgstr="\bDiversos suggeriments i proves\b"
+hint="Cal substituir la traducció per «Diversos suggeriments i proves» (revisió)"
+
+{\bvia\sKross\b}i
+valid msgstr="\bmitjançant el Kross\b"
+hint="Cal substituir la traducció per «mitjançant el Kross» (revisió)"
+
+{\bviewer\b}i
+valid msgid="\bviewer\sBackends?\b"
+valid msgstr="\bvisor\b"
+hint="Cal substituir la traducció per «visor» (revisió)"
+
+    {\bviewer\sBackends?\b}i
+    valid msgstr="\bdorsals de visualització\b"
+    hint="Cal substituir la traducció per «dorsals de visualització» (revisió)"
+
+{\bVirtual\sGlobe\b}i
+valid msgstr="\bGlobus terraqüi virtual\b"
+hint="Cal substituir la traducció per «Globus terraqüi virtual» (revisió)"
+
+[\bvisualització\sprèvia\b]i
+hint="Cal substituir la traducció per «vista prèvia» (revisió)"
+
+{\bWindow\sClass\sName\b}i
+valid msgstr="\bNom de la classe de finestra\b"
+hint="Cal substituir la traducció per «Nom de la classe de finestra» (revisió)"
+
+# Volume
+    {\bDecrease\sVolume\b}i
+    valid msgstr="\bAbaixa el volum\b"
+    hint="Cal substituir la traducció per «Abaixa el volum» (revisió)"
+
+    {\bIncrease\sVolume\b}i
+    valid msgstr="\bApuja el volum\b"
+    hint="Cal substituir la traducció per «Apuja el volum» (revisió)"
+
+{\bwhole\sapplication\b}i
+valid msgstr="\btota l'aplicació\b"
+hint="Cal substituir la traducció per «tota l'aplicació» (revisió)"
+
+[\b(W|w)(I|i).?(F|f)(I|i)\b]
+valid msgstr="\bWi-Fi\b"
+hint="Cal substituir la traducció per «Wi-Fi» (revisió)"
+
+[\b(W|w)(I|i)(N|n)(C|c)(E|e)\b]
+valid msgstr="\bWinCE\b"
+hint="Cal substituir la traducció per «WinCE» (revisió)"
+
+{\bZoom\sto\sFit\b}i
+valid msgstr="\bZoom fins ajustar\b"
+valid msgstr="\bZoom fins que ajusti\b"
+hint="Cal substituir la traducció per «Zoom fins que ajusti, Zoom fins ajustar» (revisió)"
+

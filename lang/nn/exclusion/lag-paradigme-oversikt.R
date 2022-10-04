@@ -23,20 +23,50 @@ mappe_ordbank = "~/utvikling/ordbanken"
 mappe_frek = "~/utvikling/kde/trunk/l10n-support/nn/skript/frekvensoversikt"
 
 # Les ordbankfiler og fjern unødvendige kolonnar
-les_fil = function(filnamn) {
-  d = read_tsv(paste0(mappe_ordbank, "/", filnamn))
-  d$X1 = NULL           # Fjern kolonne med linjenummer
-  d$`'NOB_2012'` = NULL # Fjern uinteressant kolonne
+les_fil = function(filnamn, ...) {
+  d = read_tsv(paste0(mappe_ordbank, "/", filnamn), ...)
   d
 }
 
 # Les inn alle datafilene
-d_lemma = les_fil("lemma_nn.txt")
-d_fullform = les_fil("fullformsliste_nn.txt")
-d_lemmaparadigme = les_fil("lemma_paradigme_nn.txt")
-d_paradigme = les_fil("paradigme_boying_nn.txt")
+d_lemma = les_fil(
+  "lemma_nn.txt",
+  col_types = cols_only(LEMMA_ID = col_integer(), GRUNNFORM = col_character()))
+d_fullform = les_fil(
+  "fullformsliste_nn.txt",
+  col_types = cols_only(
+    LEMMA_ID = col_integer(),
+    OPPSLAG = col_character(),
+    TAG = col_character(),
+    PARADIGME_ID = col_character(),
+    BOY_NUMMER = col_integer(),
+    FRADATO = col_character(),
+    TILDATO = col_character(),
+    NORMERING = col_character()
+  )
+)
+d_lemmaparadigme = les_fil(
+  "lemma_paradigme_nn.txt",
+  col_types = cols_only(
+    LEMMA_ID = col_integer(),
+    PARADIGME_ID = col_character(),
+    NORMERING = col_character(),
+    FRADATO = col_character(),
+    TILDATO = col_character(),
+    KOMMENTAR = col_character()
+  )
+)
+d_paradigme = les_fil(
+  "paradigme_boying_nn.txt",
+  col_types = cols_only(
+    PARADIGME_ID = col_character(),
+    BOY_NUMMER = col_integer(),
+    BOY_GRUPPE = col_character(),
+    BOY_UTTRYKK = col_character()
+  )
+)
 d_frek = read_table(paste0(mappe_frek, "/", "frekvens-nn.dat"),
-                    col_names=c("frek","OPPSLAG"), col_type="nc")
+                    col_names = c("frek", "OPPSLAG"), col_types = "nc")
 
 
 
@@ -51,8 +81,8 @@ d_ffrek = d_fullform %>%
   left_join(d_frek, by="OPPSLAG")
 d_lfrek = d_ffrek %>% 
   group_by(LEMMA_ID) %>% 
-  summarise(frek = sum(frek, na.rm = TRUE)) %>% 
-  left_join(d_lemma)
+  summarise(frek = sum(frek, na.rm = TRUE), .groups = "drop") %>% 
+  left_join(d_lemma, by = "LEMMA_ID")
 
 # d_lemmaparadigme skal i utgangspunktet innehalda alle
 # bøyingsparadigma til dei ulike lemmaa (gjer det ikkje heilt,
@@ -68,7 +98,7 @@ d_lp = d_lemmaparadigme %>%
 d_psam_alle = d_lp %>% 
   group_by(LEMMA_ID) %>% 
   summarise(par_tekst = str_c(PARADIGME_ID, collapse=","),
-            n_par = n())
+            n_par = n(), .groups = "drop")
 
 # Sjå berre på tilfelle der me har valfridom i bøying
 d_psam = d_psam_alle %>% 
@@ -78,7 +108,7 @@ d_psam = d_psam_alle %>%
 # det mest frekvente lemmaet for
 # kvar paradigmekombo
 d_psam_pop = d_psam %>%
-  left_join(d_lfrek) %>% 
+  left_join(d_lfrek, by = "LEMMA_ID") %>% 
   arrange(par_tekst, desc(frek)) %>% 
   distinct(par_tekst, .keep_all = TRUE) %>%  # Berre første/mest populære lemma
   arrange(desc(frek)) # Sorter paradigmekomboar etter frekvens
@@ -153,9 +183,9 @@ if(!all(d$ok_val)) {
 # Hent ut unntaka frå ein tekststreng
 # og lag ein tibble med tilhøyrande info
 hent_unntak = function(x) {
-  str_split_fixed(x, "=", 2) %>% 
-	as_tibble %>% 
-	set_names(c("LEMMA_ID", "val"))
+  d_unntak = str_split_fixed(x, "=", 2)
+  colnames(d_unntak) = c("LEMMA_ID", "val")
+  as_tibble(d_unntak)
 }
 
 # Unntaksmønstera, med éi rad for

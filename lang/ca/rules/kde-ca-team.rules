@@ -288,7 +288,7 @@ hint="Es tradueix per «descodificador» (kde-ca-team)"
 id="kct-decoding"
 valid msgstr="descodificaci(ó|ons)"
 valid msgstr="descodifica(nt|va|ven)"
-valid msgstr="descodificar"
+valid msgstr="descodificar?"
 hint="Es tradueix per «descodificació, descodificacions, descodificant» (kde-ca-team)"
 
 # (to)
@@ -428,7 +428,7 @@ hint="Es tradueix per «codificar» (kde-ca-team)"
 
 {\bencoded\b}i
 id="kct-encoded"
-valid msgstr="codifica(r|t|ts|da|des)"
+valid msgstr="codifica(r|t|ts|da|des|nt)"
 valid msgstr="codifiquen"
 hint="Es tradueix per «codifica/r/t/ts, codificada/des, codifiquen» (kde-ca-team)"
 
@@ -569,6 +569,12 @@ hint="Es tradueix per «pantalla de benvinguda, benvinguda» (kde-ca-team)"
 id="kct-groupbox"
 valid msgstr="grup de caselles"
 hint="Es tradueix per «grup de caselles» (kde-ca-team)"
+
+# «heatmap» es tradueix per «gràfic d'intensitat de colors» (Termcat)
+{\bheatmaps?\b}i
+id="kct-heatmap"
+valid msgstr="gràfics?\sd'intensitat\sde\scolors"
+hint="«Heatmap» es tradueix per «Gràfic d'intensitat de colors» (kde-ca-team)"
 
 {\bicon\slist\b}i
 id="kct-iconlist"
@@ -812,13 +818,21 @@ valid msgstr="marge" # HDR (High dynamic range): Marge dinàmic elevat
 valid msgstr="ventall"
 hint="Es tradueix per «abast, àrea, interval/s, HDR: Marge dinàmic elevat» (kde-ca-team)"
 
+# «refresh rate» el traduim per «freqüència d'actualització» (kde-i18n-ca mailing list)
+# El Termcat accepta: freqüència de mostratge i freqüència de refrescament
+{\brefresh\srate\b}i
+id="kct-refresh_rate"
+valid msgstr="freqüència\sd'actualització"
+valid !msgstr="freqüència\sde\srefresc"
+hint="«Refresh rate» ho traduim per «Freqüència d'actualització» (kct-ca-team)"
+
 {\bremov(al|es?|ed|ing)\b}i
 id="kct-remove"
 valid msgstr="desfe(r|u)"
 valid msgstr="elimin(a|ar|ació|ant|ats?|eu|en|i|in|is|o)"
 valid msgstr="supr(essió|essions|imeix|imint|imiu|imir|imits?|imida|imides)"
-valid msgstr="traieu"
-valid msgstr="tre(ure|t|u)"
+valid msgstr="tra(ieu|urà)"
+valid msgstr="tre(guin?|t|u|ure)"
 valid msgstr="extre(t|u)"
 valid msgstr="desmuntant" cat="plasma_applet_notifier,plasma_applet_org.kde.plasma.devicenotifier"
 valid msgstr="remove" cat="amarok,amarokpkg,cervisia,libkpackage5,libplasma5,plasmapkg"
@@ -911,7 +925,7 @@ hint="Es tradueix per «targeta/es intel·ligent/s» (kde-ca-team)"
 id="kct-snapshot"
 valid msgstr="captur(a|es) de pantalla"
 valid msgstr="captur(a|es)" cat="digikam,massif-visualizer,massif-visualizer.appdata,org.kde.massif-visualizer.appdata,kate,kdevvalgrind"
-valid msgstr="instantàni(a|es)" cat="glossary,kstars,okular-kde-org_www,rekonq,systemd-kcm"
+valid msgstr="instantàni(a|es)" cat="glossary,kdenlive,kstars,okular-kde-org_www,rekonq,systemd-kcm"
 valid msgstr="punts? de sincronisme"
 hint="«snapshot» es tradueix *generalment* per «captura de pantalla» (kde-ca-team)"
 
@@ -1004,7 +1018,7 @@ id="kct-tabbedwindow"
 valid msgstr="finestr(a|es) amb pestanyes"
 hint="Es tradueix per «finestra/es amb pestanyes» (kde-ca-team)"
 
-{\btar\s?balls?\b}
+{\btar\s?balls?\b}i
 id="kct-tarball"
 valid msgstr="arxius? tar"
 hint="Es tradueix per «arxiu/s tar» (kde-ca-team)"
@@ -1132,6 +1146,13 @@ id="kct-wifi"
 valid msgstr="Wi.?Fi"
 hint="Es tradueix per «Wi-Fi» (kde-ca-team)"
 
+# «widget» es tradueix per «giny» (Termcat).
+{\bwidgets?\b}i
+id="kct-widget"
+valid msgstr="ginys?"
+valid !msgstr="estris?"
+hint="«widget» es tradueix per «giny»/«estri» (kde-ca-team)"
+
 {\bwindow\stitle\sbars?\b}i
 id="kct-windowtittlebar"
 valid msgstr="barr(a|es) de títol de la finestra"
@@ -1140,7 +1161,7 @@ hint="Es tradueix per «barra/es de títol de la finestra» (kde-ca-team)"
 {\bwip(es?|ed|ing)\b}i
 id="kct-wip"
 valid msgstr="esborr(a|nt|rà)"
-valid msgstr="cortinet(a|es)" cat="kdenlive"
+valid msgstr="cortinet(a|es)" cat="kdenlive,docs_kdenlive_org_effects_and_compositions___transitions,docs_kdenlive_org_effects_and_compositions___transitions___composite,docs_kdenlive_org_effects_and_compositions___transitions___wipe"
 hint="Es tradueix per «esborrar» (kde-ca-team)"
 
 # «Wireless» es tradueix per «Sense fil» (Termcat)
