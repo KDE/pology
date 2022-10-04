@@ -16,13 +16,13 @@ how they are used, and what is the behavior when they are not set.
 
 import codecs
 import os
-from configparser import SafeConfigParser
+from configparser import ConfigParser
 
 from pology import _, n_
 from pology.report import error
 
 
-_config = SafeConfigParser()
+_config = ConfigParser()
 
 def _parse_config ():
 
