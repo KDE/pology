@@ -475,6 +475,8 @@ class Message_base (object):
 
         return not self.__eq__(omsg)
 
+    def __hash__ (self):
+        return id(self)//16
 
     def _renew_lines_bymod (self, mod, wrapf=wrap_field, force=False,
                             colorize=0):
@@ -940,48 +942,6 @@ class Message (Message_base, Monitored): # order important for get/setattr
         self._lines_msgid = init.get("_lines_msgid", [])[:]
         self._lines_msgid_plural = init.get("_lines_msgid_plural", [])[:]
         self._lines_msgstr = init.get("_lines_msgstr", [])[:]
-
-    def __eq__(self, other):
-        return (
-            self._manual_comment == other._manual_comment
-            and self._auto_comment == other._auto_comment
-            and self._source == other._source
-            and self._flag == other._flag
-            and self._obsolete == other._obsolete
-            and self._msgctxt_previous == other._msgctxt_previous
-            and self._msgid_previous == other._msgid_previous
-            and self._msgid_plural_previous == other._msgid_plural_previous
-            and self._msgctxt == other._msgctxt
-            and self._msgid == other._msgid
-            and self._msgid_plural == other._msgid_plural
-            and self._msgstr == other._msgstr
-            and self._fuzzy == other._fuzzy
-            and self._refline == other._refline
-            and self._refentry == other._refentry
-        )
-    
-    def __hash__(self):
-        return hash((
-            self._manual_comment,
-            self._auto_comment,
-            self._source,
-            self._flag,
-            self._obsolete,
-            self._msgctxt_previous,
-            self._msgid_previous,
-            self._msgid_plural_previous,
-            self._msgctxt,
-            self._msgid,
-            self._msgid_plural,
-            self._msgstr,
-            self._fuzzy,
-            self._refline,
-            self._refentry,
-        ))
-
-    def __repr__(self):
-        return 'Message({{"refline": {}, "msgid": {}, ...}})'.format(
-            repr(self._refline), repr(self._msgid))
 
     def _renew_lines (self, wrapf=wrap_field, force=False, colorize=0):
 
