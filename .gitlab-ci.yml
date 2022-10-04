@@ -1,5 +1,6 @@
 tests:
   before_script:
-    - apt-get -qq update && apt-get -qq install -y tox
+    - apt-get -qq update && apt-get -qq install -y python3 python3-pip
+    - pip3 install tox
   script:
     - tox
