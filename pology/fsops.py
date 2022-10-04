@@ -487,7 +487,7 @@ def unicode_to_str (strarg):
     @rtype: raw string or list of objects
     """
 
-    if isinstance(strarg, str):
+    if isinstance(strarg, bytes):
         return strarg
 
     lenc = locale.getpreferredencoding()
