@@ -245,8 +245,8 @@ def main ():
             # Sieve name is its path.
             sieve_path = sieve_name
         try:
-            with open(unicode_to_str(sieve_path)) as input:
-                sieve_file = input.read()
+            with open(unicode_to_str(sieve_path)) as sieve_file:
+                sieve_code = sieve_file.read()
             # ...unicode_to_str because of exec below.
         except IOError:
             error(_("@info",
@@ -255,7 +255,7 @@ def main ():
         # Load file into new module.
         sieve_mod_name = "sieve_" + str(len(sieve_modules))
         sieve_mod = ModuleType(sieve_mod_name)
-        exec(sieve_file, sieve_mod.__dict__)
+        exec(sieve_code, sieve_mod.__dict__)
         sys.modules[sieve_mod_name] = sieve_mod # to avoid garbage collection
         sieve_modules.append((sieve_name, sieve_mod))
         if not hasattr(sieve_mod, "Sieve"):

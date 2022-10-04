@@ -13,10 +13,10 @@ Interfaces may change arbitrarily between any two Pology releases.
 import codecs
 from configparser import SafeConfigParser
 import datetime
-import imp
 import os
 import re
 import time
+from types import ModuleType
 
 from pology import PologyError, _, n_, t_
 from pology.header import format_datetime, parse_datetime
@@ -1421,7 +1421,8 @@ def import_ascription_extensions (modpath):
 
     # Load external module.
     try:
-        modfile = open(unicode_to_str(modpath))
+        with open(unicode_to_str(modpath)) as modfile:
+            module_code = modfile.read()
         # ...unicode_to_str because of exec below.
     except IOError:
         raise PologyError(
@@ -1430,8 +1431,8 @@ def import_ascription_extensions (modpath):
               file=modpath))
     # Load file into new module.
     modname = "mod" + str(len(_external_mods))
-    xmod = imp.new_module(modname)
-    exec(modfile, xmod.__dict__)
+    xmod = ModuleType(modname)
+    exec(module_code, xmod.__dict__)
     modfile.close()
     _external_mods[modname] = xmod # to avoid garbage collection
 
