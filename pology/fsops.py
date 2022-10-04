@@ -454,12 +454,12 @@ def str_to_unicode (strarg):
 
     lenc = locale.getpreferredencoding()
 
-    if isinstance(strarg, str):
+    if isinstance(strarg, bytes):
         return strarg.decode(lenc, "replace")
     else:
         uargs = []
         for val in strarg:
-            if isinstance(val, str):
+            if isinstance(val, bytes):
                 val = val.decode(lenc, "replace")
             uargs.append(val)
         return uargs
