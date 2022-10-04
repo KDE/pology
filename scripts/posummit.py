@@ -257,7 +257,7 @@ class Project (object):
             "opmodes" : opmodes,
             "options" : options,
 
-            "summit" : "",
+            "summit" : {},
             "branches" : [],
             "mappings" : [],
             "subdir_mappings" : [],
@@ -356,7 +356,9 @@ class Project (object):
                     file=path))
         self.inclusion_trail.append(path)
         self.locked = True
-        exec(open(unicode_to_str(path)), {"S" : self})
+        with open(path) as input:
+            code = input.read()
+            exec(code, {"S" : self})
         self.locked = False
         self.inclusion_trail.pop()
 
