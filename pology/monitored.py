@@ -311,6 +311,8 @@ class Monlist (Monitored):
         """
 
         if lst is not None:
+            if isinstance(lst, str):
+                raise ValueError(f"Expected a list, got {type(lst)}: {lst!r}")
             self.__dict__["*"] = list(lst)
         else:
             self.__dict__["*"] = list()

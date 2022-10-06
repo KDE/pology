@@ -23,10 +23,17 @@ SIEVE_PARAMS = SieveParams()
     "msgid,msgstr,output",
     (
         ("foo", "bar", None),
+        # ASCII letters are valid accelerator characters.
+        (
+            "&foo",
+            "&bar",
+            None,
+        ),
+        # Non-ASCII characters are not valid accelerator characters.
         (
             "Opt&ion:",
             "&Პარამეტრი:",
-            "KDE4 markup: not well-formed (invalid token).",
+            None,
         ),
     ),
 )
@@ -38,7 +45,7 @@ def test_check_tp_kde(msgid, msgstr, output):
         catalog = Catalog("messages/aa/foo.po", readfh=catalog_input)
     sieve = CheckTpKDESieve(SIEVE_PARAMS)
     sieve.process_header(hdr=None, cat=catalog)
-    message = Message({"msgid": msgid, "msgstr": msgstr})
+    message = Message({"msgid": msgid, "msgstr": [msgstr]})
     with patch('pology.sieve.check_tp_kde.report_on_msg_hl') as callee:
         sieve.process(message, cat=catalog)
         if output is not None:
