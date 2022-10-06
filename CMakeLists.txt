@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 2.8.3)
+cmake_minimum_required(VERSION 2.8.12)
 
 ###
 ### Set project.
@@ -6,12 +6,14 @@ cmake_minimum_required(VERSION 2.8.3)
 
 set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake ${CMAKE_MODULE_PATH})
 
-set(PROJECT_NAME "pology")
 file(READ "VERSION" version)
 string(REPLACE "\n" "" version "${version}")
+
+set(PROJECT_NAME "pology")
 set(PROJECT_VERSION "${version}")
-message(STATUS "Configuring ${PROJECT_NAME} ${PROJECT_VERSION}")
-project(${PROJECT_NAME} NONE)
+
+cmake_policy(SET CMP0048 NEW)
+project(${PROJECT_NAME} VERSION "${version}")
 
 if(NOT cmake_install_prefix_cached)
     if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
@@ -25,7 +27,7 @@ endif()
 set(cmake_install_prefix_cached ${CMAKE_INSTALL_PREFIX}
     CACHE INTERNAL "Cache stamp for CMAKE_INSTALL_PREFIX.")
 
-find_package(Python2 2.5 REQUIRED)
+find_package(Python3 3.7 REQUIRED)
 find_package(DocbookXSL 1.75.2)
 find_package(LibXml2)
 find_package(Xsltproc)
@@ -81,15 +83,12 @@ include(EpydocTools)
 include(GettextTools)
 include(PologyTools)
 include(ProjectTools)
-include(Python2Tools)
+include(Python3Tools)
 
 # Include subdirectories.
 add_subdirectory(pology)
 add_subdirectory(scripts)
-add_subdirectory(sieve)
-add_subdirectory(lang)
 add_subdirectory(doc)
-add_subdirectory(spec)
 add_subdirectory(completion)
 add_subdirectory(syntax)
 add_subdirectory(po)

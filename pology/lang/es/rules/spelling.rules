@@ -64,9 +64,9 @@ addFilterRegex match="(?<=\w)\'(?=\w)" repl="" on="pmsgid,pmsgstr"
 addFilterRegex match="(?u)(?<=\w)\.(?=\s[A-Z])" repl="" casesens="yes" on="pmsgid,pmsgstr"
 
 # Omit some Spanish sufixes and prefixes
-#addFilterRegex match=u"(?u)(?<=\w)(mente|lo|la|le|los|las|les)\b" repl="" on="pmsgid,pmsgstr"
-#addFilterRegex match=u"(?u)(?<=\w)(ando|ación|ble|bles)\b" repl="r" on="pmsgid,pmsgstr"
-#addFilterRegex match=u"(?u)\b(anti|archi|auto|contra|cuasi|des|epi|eqi|ex|extra|foto|geo|h[ií]per|infra|inter|intra|macro|maxi|mega|meta|micro|mini|mono|multi|peri|pluri|poli|pos|post|pre|pro|retro|semi|seudo|sobre|sub|s[uú]per|supra|tele|trans|ultra|vice)(?=\w+\b)" repl="" on="pmsgid,pmsgstr"
+#addFilterRegex match="(?u)(?<=\w)(mente|lo|la|le|los|las|les)\b" repl="" on="pmsgid,pmsgstr"
+#addFilterRegex match="(?u)(?<=\w)(ando|ación|ble|bles)\b" repl="r" on="pmsgid,pmsgstr"
+#addFilterRegex match="(?u)\b(anti|archi|auto|contra|cuasi|des|epi|eqi|ex|extra|foto|geo|h[ií]per|infra|inter|intra|macro|maxi|mega|meta|micro|mini|mono|multi|peri|pluri|poli|pos|post|pre|pro|retro|semi|seudo|sobre|sub|s[uú]per|supra|tele|trans|ultra|vice)(?=\w+\b)" repl="" on="pmsgid,pmsgstr"
 
 # Omit paired capitalized words.
 addFilterHook name="es:remove_subs/remove_original_capital_words" on="msg"

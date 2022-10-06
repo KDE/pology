@@ -55,7 +55,7 @@ translit_ascii = {
     "ö": "oe",
     "ü": "ue",
     # TODO: Add more.
-    #u"": "",
+    #"": "",
 }
 
 

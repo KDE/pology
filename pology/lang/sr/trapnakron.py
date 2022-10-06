@@ -54,7 +54,7 @@ to readers), using a script based on these few lines::
     >>> from pology.resolve import resolve_entities_simple as resents
     >>> tp = trapnakron_plain()
     >>>
-    >>> s = u"...пројектовању ракета &qianxuesen-g; привукле су идеје..."
+    >>> s = "...пројектовању ракета &qianxuesen-g; привукле су идеје..."
     >>> print resents(s, tp)
     ...пројектовању ракета Ћена Сјуесена привукле су идеје...
     >>>

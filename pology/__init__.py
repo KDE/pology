@@ -57,7 +57,7 @@ def localedir ():
     @rtype: string
     """
 
-    localedir = "@CONFIG_LOCALEDIR@" # configured if installed
+    localedir = "/usr/local/share/locale" # configured if installed
     if not os.path.isdir(localedir): # if running from source dir
         srcdir = os.path.dirname(os.path.dirname(__file__))
         localedir = os.path.join(srcdir, "mo")
@@ -72,7 +72,7 @@ def version ():
     @rtype: string
     """
 
-    verstr = "@CONFIG_VERSION@" # configured if installed
+    verstr = "0.13" # configured if installed
     if verstr.startswith("@"): # if running from source dir
         try:
             verfile = os.path.join(datadir(), "VERSION")

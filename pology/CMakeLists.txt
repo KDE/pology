@@ -33,7 +33,6 @@ set(modules
     report.py
     resolve.py
     rules.py
-    sieve.py
     spell.py
     split.py
     stdcmdopt.py
@@ -48,7 +47,9 @@ set(modules
 get_current_source_subdir(srcsubdir)
 install_python3_module_files(${srcsubdir} ${modules})
 
-add_subdirectory(proj)
-add_subdirectory(lang)
-add_subdirectory(internal)
 add_subdirectory(external)
+add_subdirectory(internal)
+add_subdirectory(lang)
+add_subdirectory(proj)
+add_subdirectory(sieve)
+add_subdirectory(spec)

@@ -1,7 +1,7 @@
 # TODO: Add doc comments for all this stuff.
 
-if(NOT PYTHON2_EXECUTABLE)
-    find_package(Python2 2)
+if(NOT PYTHON3_EXECUTABLE)
+    find_package(Python3)
 endif()
 
 if(NOT py2t_target_count)
@@ -17,16 +17,16 @@ py_compile.compile(pyfile, pycfile, doraise=True)
 ")
 
 
-macro(INSTALL_PYTHON2_MODULE_FILES pkgdirpath)
+macro(INSTALL_PYTHON3_MODULE_FILES pkgdirpath)
     set(pyfiles ${ARGN})
 
     if(IS_ABSOLUTE pkgdirpath)
         message(FATAL_ERROR
             "Installation directory for Python modules must be "
-            "a relative path (subdirectory of PYTHON2_PACKAGES_DIR).")
+            "a relative path (subdirectory of PYTHON3_PACKAGES_DIR).")
     endif()
 
-    set(instdir ${PYTHON2_PACKAGES_DIR}/${pkgdirpath})
+    set(instdir ${PYTHON3_PACKAGES_DIR}/${pkgdirpath})
 
     string(REPLACE ${CMAKE_SOURCE_DIR}/ "" srcsubdir
                    ${CMAKE_CURRENT_SOURCE_DIR})
@@ -44,7 +44,7 @@ macro(INSTALL_PYTHON2_MODULE_FILES pkgdirpath)
             set(pycfile ${pyfile}c)
         endif()
         add_custom_command(OUTPUT ${pycfile}
-                           COMMAND ${PYTHON2_EXECUTABLE} ${py_compfile_script}
+                           COMMAND ${PYTHON3_EXECUTABLE} ${py_compfile_script}
                                    ${pyfile} ${pycfile}
                            DEPENDS ${pyfile})
         set(pycfiles ${pycfiles} ${pycfile})

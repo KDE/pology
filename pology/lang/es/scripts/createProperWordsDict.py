@@ -34,9 +34,9 @@ def _main ():
 	desc = _("@info command description",
 		"Obtains a list of proper words from the message text ")
 	ver = _("@info command version",
-		u"%(cmd)s (Pology) %(version)s\n"
-		u"Copyright ©  2011 "
-		u"Javier Viñal &lt;%(email)s&gt;",
+		"%(cmd)s (Pology) %(version)s\n"
+		"Copyright ©  2011 "
+		"Javier Viñal &lt;%(email)s&gt;",
 		cmd="%prog", version=version(), email="fjvinal@gmail.com")
 
 	opars = ColorOptionParser(usage=usage, description=desc, version=ver)

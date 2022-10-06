@@ -37,15 +37,15 @@ class Sieve (object):
 
     def setUbsp(self, text):
         """Set correctly unbreakable spaces"""
-        text=text.replace(u"\xa0", u" ")
-        text=text.replace(u"&nbsp;:", u"\xc2\xa0:")
-        text=text.replace(u" :", u"\xa0:")
-        text=text.replace(u" ;", u"\xa0;")
-        text=text.replace(u" ?", u"\xa0?")
-        text=text.replace(u" !", u"\xa0!")
-        text=text.replace(u"« ", u"«\xa0")
-        text=text.replace(u" »", u"\xa0»")
-        text=text.replace(u" / ", u"\xa0/ ")
-        text=self.percent.sub(u"\xa0%", text)
-        
+        text=text.replace("\xa0", " ")
+        text=text.replace("&nbsp;:", "\xc2\xa0:")
+        text=text.replace(" :", "\xa0:")
+        text=text.replace(" ;", "\xa0;")
+        text=text.replace(" ?", "\xa0?")
+        text=text.replace(" !", "\xa0!")
+        text=text.replace("« ", "«\xa0")
+        text=text.replace(" »", "\xa0»")
+        text=text.replace(" / ", "\xa0/ ")
+        text=self.percent.sub("\xa0%", text)
+
         return text

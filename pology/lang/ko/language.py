@@ -38,7 +38,7 @@ def redundant_plural (msgstr, msg, cat):
     @rtype: C{(msgstr, msg, cat) -> spans}
     """
 
-    return check(PLURAL_R, PLURAL_EXCLUDE, msgstr, msg, cat, u"Unnecessary plural '%(match)s'.")
+    return check(PLURAL_R, PLURAL_EXCLUDE, msgstr, msg, cat, "Unnecessary plural '%(match)s'.")
 
 SYLLABLE_WITH_T_RIEUL = '[%s]' % ''.join([chr(c) for c in
                                           range(0xAC00 + 8, 0xD7A4, 28)])
@@ -67,6 +67,6 @@ def check(r, exclude, msgstr, msg, cat, errmsg):
         p1, p2 = m.span()
         if exclude and exclude.match(msgstr[p1:p2].strip()):
             continue
-        spans.append((p1, p2, _(u"@info", errmsg, match=msgstr[p1:p2].strip())))
+        spans.append((p1, p2, _("@info", errmsg, match=msgstr[p1:p2].strip())))
 
     return spans

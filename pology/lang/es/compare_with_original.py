@@ -50,7 +50,7 @@ def test_if_purepunc (msg, cat):
 
 	for i in range(len(msg.msgstr)):
 		msgstr = msg.msgstr[i]
-                if i > 0:
+		if i > 0:
 			msgid = msg.msgid_plural
 		else:
 			msgid = msg.msgid
@@ -65,7 +65,7 @@ def test_if_purepunc (msg, cat):
 			msgstr = msgstr.replace("»", "")
 			msgstr = msgstr.replace(" ", "")
 			msgstr = msgstr.replace("\"", "")
-			if msgid != msgstr:    
+			if msgid != msgstr:
 				return [("msgstr", 0, [(0, 0, 'Se ha traducido un texto no alfanumérico')])]
 
 	return []
@@ -91,10 +91,47 @@ def test_if_non_printable_characters (msg, cat):
 	else:
 	    msgid = msg.msgid
 	for c in msgstr:
-	    if (c not in string.printable) and (c not in msgid) and (c not in "áéíóúüñçÁÉÍÓÚÜÑÇ¿¡|«»©ºª€/"):
-			return [("msgstr", 0, [(0, 0, 'La traducción contiene caracteres no imprimibles')])]
-	    elif (c in string.punctuation) and (c not in msgid) and (c not in "¿¡|«»©ºª€/.,;:()_-"):
-			return [("msgstr", 0, [(0, 0, 'La traducción contiene signos de puntuación no incluidos en el original')])]
+		if (
+			(c not in string.printable)
+			and (c not in msgid)
+			and (c not in "áéíóúüñçÁÉÍÓÚÜÑÇ¿¡|«»©ºª€/")
+		):
+			return [
+				(
+					"msgstr",
+					0,
+					[
+						(
+							0,
+							0,
+							(
+								'La traducción contiene caracteres no ' 'imprimibles'
+							)
+						)
+					]
+				)
+			]
+		elif (
+			(c in string.punctuation)
+			and (c not in msgid)
+			and (c not in "¿¡|«»©ºª€/.,;:()_-")
+		):
+			return [
+				(
+					"msgstr",
+					0,
+					[
+						(
+							0,
+							0,
+							(
+								'La traducción contiene signos de puntuación '
+								'no incluidos en el original'
+							)
+						)
+					]
+				)
+			]
 	return []
 
 def test_if_very_long_translation (msg, cat):
@@ -161,7 +198,7 @@ def test_if_not_translated (msg, cat):
 	[type V4A hook].
 	@return: parts
 	"""
-	
+
 	if msg.msgctxt in ("EMAIL OF TRANSLATORS", "NAME OF TRANSLATORS", "ROLES OF TRANSLATORS"):
 		return []
 
@@ -173,14 +210,14 @@ def test_if_not_translated (msg, cat):
 			msgid = msg.msgid_plural
 		else:
 			msgid = msg.msgid
-			
+
 		if _proper_name.match(msg.msgstr[i]) or _purepunc.match(msgid):
 			continue
 
-                e = None
-                l = None
+		e = None
+		l = None
 		if len(msgid) > 0 and msgid == msg.msgstr[i]:
-			 for word in split.proper_words(msgid, markup=True, accels=['&']):
+			for word in split.proper_words(msgid, markup=True, accels=['&']):
 				if _valid_word.match(word) and not _capital_word.match(word):
 					word = word.encode("utf-8")
 					if e is None:
@@ -344,10 +381,10 @@ def test_paired_numbers (msg, cat):
 	"""
 	if msg.msgctxt in ("EMAIL OF TRANSLATORS", "NAME OF TRANSLATORS", "ROLES OF TRANSLATORS"):
 		return []
- 
+
 	if msg.msgid in ("Your emails", "Your names", "CREDIT_FOR_TRANSLATORS", "ROLES_OF_TRANSLATORS"):
 		return []
-   
+
 	for i in range(len(msg.msgstr)):
 		if i > 0:
 			msgid = msg.msgid_plural
