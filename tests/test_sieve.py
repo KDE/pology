@@ -20,12 +20,17 @@ SIEVE_PARAMS = SieveParams()
 
 
 @pytest.mark.parametrize(
-    "input,output",
+    "msgid,msgstr,output",
     (
-        ("&Პარამეტრი:", 'KDE4 markup: not well-formed (invalid token).'),
+        ("foo", "bar", None),
+        (
+            "Opt&ion:",
+            "&Პარამეტრი:",
+            "KDE4 markup: not well-formed (invalid token).",
+        ),
     ),
 )
-def test_check_tp_kde(input, output):
+def test_check_tp_kde(msgid, msgstr, output):
     catalog_file_path = (
         os.path.join(os.path.dirname(__file__), "files/template.pot")
     )
@@ -33,9 +38,11 @@ def test_check_tp_kde(input, output):
         catalog = Catalog("messages/aa/foo.po", readfh=catalog_input)
     sieve = CheckTpKDESieve(SIEVE_PARAMS)
     sieve.process_header(hdr=None, cat=catalog)
-    message = Message({"msgstr": input})
+    message = Message({"msgid": msgid, "msgstr": msgstr})
     with patch('pology.sieve.check_tp_kde.report_on_msg_hl') as callee:
         sieve.process(message, cat=catalog)
-        issues = [('msgstr', 0, [(0, 1, ColorString(output))])]
-        callee.assert_called_once_with(issues, message, catalog)
-    assert sieve.nproblems == 1
+        if output is not None:
+            issues = [('msgstr', 0, [(0, 1, ColorString(output))])]
+            callee.assert_called_once_with(issues, message, catalog)
+        else:
+            callee.assert_not_called()
