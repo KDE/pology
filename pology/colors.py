@@ -111,12 +111,6 @@ class ColorString (str):
         return "%s(%s)" % (self.__class__.__name__, str.__repr__(self))
 
 
-    def join (self, strings):
-
-        rstrings = [self._escape(s) for s in strings]
-        return ColorString(str.join(self, rstrings))
-
-
     def resolve (self, ctype=None, dest=None):
         """
         Resolve color markup according to given type and destination.
