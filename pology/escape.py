@@ -92,7 +92,6 @@ def escape_c (s):
 
     @see: L{unescape_c}
     """
-
     return type(s)().join([_escapes_c_wpref.get(c, c) for c in s])
 
 

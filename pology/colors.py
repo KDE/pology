@@ -77,7 +77,6 @@ class ColorString (str):
     """
 
     def _escape (self, v):
-
         if isinstance(v, str) and not isinstance(v, ColorString):
             v = str(v)
             v = _escape_xml_ents(v)
@@ -109,6 +108,15 @@ class ColorString (str):
     def __repr__ (self):
 
         return "%s(%s)" % (self.__class__.__name__, str.__repr__(self))
+
+    def __iter__(self):
+        for c in str(self):
+            yield self.__class__(c)
+
+
+    def join (self, strings):
+        rstrings = [self._escape(s) for s in strings]
+        return ColorString(str.join(self, rstrings))
 
 
     def resolve (self, ctype=None, dest=None):

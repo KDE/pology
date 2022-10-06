@@ -12,6 +12,16 @@ class TTYMock:
 TTY_MOCK = TTYMock()
 
 
+def test_iter():
+    character_list = [c for c in ColorString("foo")]
+    assert character_list == [
+        ColorString("f"),
+        ColorString("o"),
+        ColorString("o"),
+    ]
+    assert all(isinstance(c, ColorString) for c in character_list)
+
+
 @pytest.mark.parametrize(
     "input,output,ctype,dest",
     (
