@@ -196,7 +196,7 @@ def xml_to_plain (text, tags=None, subs={}, ents={}, keepws=set(),
                 curel = parent.pop()
                 if not opening:
                     # Record closing tag literal if not opening as well.
-                    curel[-1][2] = tag_literal 
+                    curel[-1][2] = tag_literal
             else: # faulty markup, move top element
                 eltree = [[tag, None, tag_literal, None, curel]]
                 curel = eltree
@@ -552,7 +552,7 @@ def kuit_to_plain (text):
     @rtype: string
     """
 
-    return xml_to_plain(text, _kuit_tags, _kuit_subs, _kuit_ents, 
+    return xml_to_plain(text, _kuit_tags, _kuit_subs, _kuit_ents,
                               _kuit_keepws, _kuit_ignels)
 
 
@@ -1069,7 +1069,7 @@ def _escape_amp_accel (text):
         # and it is in front of an alphanumeric or itself.
         nc = text[p1 + 1:p1 + 2]
         if (    (p2 < 0 or not _simple_ent_rx.match(text[p1 + 1:p2]))
-            and (nc.isalnum() or nc == "&")
+            and (nc.isdigit() or nc.isascii() or nc == "&")
         ):
             # Check if the next one is an ampersand too,
             # i.e. if it's a self-escaped accelerator marker.

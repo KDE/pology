@@ -6,6 +6,8 @@ from pology.markup import _escape_amp_accel
     "input,output",
     (
         ("&Save", "&amp;Save"),
+        # Non-Latin characters cannot work as accelerator characters.
+        ("&Პარამეტრი:", "&Პარამეტრი:"),
     ),
 )
 def test_escape_amp_accel(input, output):
