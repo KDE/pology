@@ -1069,7 +1069,7 @@ def _escape_amp_accel (text):
         # and it is in front of an alphanumeric or itself.
         nc = text[p1 + 1:p1 + 2]
         if (    (p2 < 0 or not _simple_ent_rx.match(text[p1 + 1:p2]))
-            and (nc.isdigit() or nc.isascii() or nc == "&")
+            and (nc.isdigit() or nc.isascii() and nc.isalpha() or nc == "&")
         ):
             # Check if the next one is an ampersand too,
             # i.e. if it's a self-escaped accelerator marker.
