@@ -1,5 +1,0 @@
-add_subdirectory(doc)
-add_subdirectory(rules)
-add_subdirectory(scripts)
-add_subdirectory(spell)
-add_subdirectory(trapnakron)
