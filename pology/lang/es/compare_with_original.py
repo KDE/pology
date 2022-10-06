@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 """
 Make some comparations between the translation and the original text.
 
@@ -10,7 +8,7 @@ Make some comparations between the translation and the original text.
 import re
 import string
 import enchant
-from pology import _, n_, split
+from pology import split
 
 
 def test_if_empty_translation (msg, cat):
