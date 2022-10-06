@@ -96,7 +96,7 @@ Source code
 
 Source releases of Pology can be fetched from http://pology.nedohodnik.net/.
 
-The latest development code can be obtained from https://commits.kde.org/pology.
+The latest development code can be obtained from https://invent.kde.org/sdk/pology.
 
 
 Contact
