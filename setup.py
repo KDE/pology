@@ -20,4 +20,5 @@ setup(
         "Operating System :: OS Independent",
     ],
     python_requires='>=3.7',
+    include_package_data=True,
 )

@@ -46,10 +46,7 @@ def datadir ():
     @rtype: string
     """
 
-    datadir = "@CONFIG_DATADIR@" # configured if installed
-    if not os.path.isdir(datadir): # if running from source dir
-        datadir = os.path.dirname(os.path.dirname(__file__))
-    return datadir
+    return os.path.dirname(__file__)
 
 
 def localedir ():
