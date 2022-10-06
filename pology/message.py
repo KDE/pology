@@ -553,7 +553,7 @@ class Message_base (object):
                         pstat = "curr"
                         if colorize >= 1:
                             fname = ColorString("<bold>%s</bold>") % fname
-                    self.__dict__[att_lins] = wrapf(fname, msgsth,
+                    self.__dict__[att_lins] = wrapf(fname, _escape(msgsth),
                                                     prefix[pstat])
 
         # msgstr must be renewed if the plurality of the message changed.
@@ -571,7 +571,7 @@ class Message_base (object):
                 if colorize >= 1:
                     fname = ColorString("<bold>%s</bold>") % fname
                 self._lines_msgstr.extend(wrapf(fname,
-                                          msgstr[0],
+                                          _escape(msgstr[0]),
                                           prefix["curr"]))
             else:
                 for i in range(len(msgstr)):
@@ -579,7 +579,7 @@ class Message_base (object):
                     if colorize >= 1:
                         fname = ColorString("<bold>%s</bold>") % fname
                     self._lines_msgstr.extend(wrapf(fname,
-                                                    msgstr[i],
+                                                    _escape(msgstr[i]),
                                                     prefix["curr"]))
 
         # Marshal the lines into proper order.
