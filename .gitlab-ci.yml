@@ -27,8 +27,12 @@ test-min-cmake:
     - make
     - make install
     - pip install pytest
+
+    # Run tests from a separate, empty folder to make sure folders from the
+    # build our source folders are not picked up as Python modules.
     - mkdir empty
     - cd empty
+
     - pytest ../../tests
 
 test-max-src:
