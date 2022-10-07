@@ -21,7 +21,7 @@ import locale
 import os
 import re
 
-from pology import PologyError, _
+from pology import PologyError, _, n_
 from pology.fsops import str_to_unicode
 from pology.normalize import simplify
 from pology.report import warning, format_item_list

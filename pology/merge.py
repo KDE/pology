@@ -11,7 +11,7 @@ import os
 import shutil
 from tempfile import NamedTemporaryFile
 
-from pology import PologyError, _
+from pology import PologyError, _, n_
 from pology.catalog import Catalog
 from pology.diff import editprob
 from pology.fsops import unicode_to_str

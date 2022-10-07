@@ -7,9 +7,11 @@ Replace value-defining segments in text with their values.
 @license: GPLv3
 """
 
+import difflib
+import os
 import re
 
-from pology import PologyError, _
+from pology import PologyError, _, n_
 from pology.report import warning, format_item_list
 
 

@@ -7,6 +7,7 @@ Pretty-printing of tabular data.
 @license: GPLv3
 """
 
+import copy
 
 from pology.colors import ColorString, cjoin
 

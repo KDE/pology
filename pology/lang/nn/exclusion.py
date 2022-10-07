@@ -15,7 +15,8 @@ import os
 import re
 import codecs
 
-from pology import _, datadir
+from pology import datadir, _, n_
+from pology.fsops import collect_files_by_ext
 from pology.split import split_text
 
 

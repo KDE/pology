@@ -15,7 +15,7 @@ import sys
 import locale
 import time
 
-from pology import TextTrans, _, t_
+from pology import _, n_, t_, TextTrans
 from pology.colors import ColorString
 
 

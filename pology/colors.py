@@ -8,6 +8,7 @@ Standard codes for terminal colors.
 """
 
 from optparse import OptionParser
+import re
 import sys
 
 # NOTE: Must not import anything from Pology, as top __init__ includes this.

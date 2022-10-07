@@ -13,7 +13,7 @@ possibly followed by some optional parameters, and return C{None}.
 @license: GPLv3
 """
 
-from pology import _
+from pology import _, n_
 from pology.colors import get_coloring_types
 from pology.report import format_item_list
 

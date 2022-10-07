@@ -10,7 +10,8 @@ Rules with dynamically generated regex. Some rules are adopted from ko-po-check.
 
 import re
 
-from pology import _
+from pology import datadir, _, n_
+from pology.diff import adapt_spans
 
 PLURAL_JOSA_RE = r'(도|로|만|에|은|을|이|의)'
 # 많이 등장하는 명사만 쓴다

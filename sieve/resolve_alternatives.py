@@ -10,6 +10,9 @@ Documented in C{doc/user/sieving.docbook}.
 """
 
 
+import os
+import re
+import sys
 
 from pology import _, n_
 from pology.msgreport import warning_on_msg

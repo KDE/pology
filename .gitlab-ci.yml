@@ -1,23 +1,11 @@
 image: "python:3.10"
 
-stages:
-  - Check
-  - Test
-
-flake8:
-  stage: Check
-  before_script:
-    - pip install flake8
-  script:
-    - flake8
-
 # We test combinations that cover the following scenarios:
 #
 # - Minimum and latest version of dependencies (e.g. Python).
 # - System-wide installation with CMake and direct source usage.
 
 test-min-cmake:
-  stage: Test
   image: "python:3.7"
   script:
     - apt-get update -qq && apt-get install -y -qq cmake
@@ -36,7 +24,6 @@ test-min-cmake:
     - pytest ../../tests
 
 test-max-src:
-  stage: Test
   script:
     - export PATH="$(pwd)/bin:$PATH"
     - export PYTHONPATH="$(pwd):$PYTHONPATH"

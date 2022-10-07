@@ -1,6 +1,13 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
+# -*- coding: UTF-8 -*-
+
+try:
+    import fallback_import_paths
+except:
+    pass
 
 import sys
+import os
 import locale
 from tempfile import NamedTemporaryFile
 

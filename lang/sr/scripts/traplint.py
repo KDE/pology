@@ -1,11 +1,17 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
+# -*- coding: UTF-8 -*-
+
+try:
+    import fallback_import_paths
+except:
+    pass
 
 import sys
 import os
 import re
 import locale
 
-from pology import PologyError, version, _
+from pology import PologyError, version, _, n_
 from pology.lang.sr.wconv import ctol, hictoall
 from pology.lang.sr.trapnakron import rootdir
 from pology.lang.sr.trapnakron import trapnakron_ui

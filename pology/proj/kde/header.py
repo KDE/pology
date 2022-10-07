@@ -10,7 +10,7 @@ Additional header operations for KDE Translation Project.
 import os
 import re
 
-from pology import _
+from pology import _, n_
 from pology.report import warning
 from pology.proj.kde.cattype import get_project_subdir
 from pology.proj.kde.cattype import is_txt_cat, is_qt_cat, is_docbook_cat

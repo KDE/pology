@@ -9,7 +9,7 @@ Various checks for translations into Serbian.
 
 import re
 
-from pology import _
+from pology import _, n_
 from pology.diff import adapt_spans
 from pology.msgreport import warning_on_msg
 

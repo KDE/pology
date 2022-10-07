@@ -11,7 +11,7 @@ Documented in C{doc/user/sieving.docbook}.
 
 from pology import _, n_
 from pology.getfunc import get_hook_ireq
-from pology.report import report
+from pology.report import report, warning
 from pology.sieve import add_param_filter
 from pology.sieve import SieveError
 

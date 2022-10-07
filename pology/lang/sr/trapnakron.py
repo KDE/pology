@@ -68,10 +68,10 @@ import os
 import re
 
 import pology
-from pology import PologyError, _
-from pology.lang.sr.nobr import to_nobr_hyphens
+from pology import PologyError, _, n_
+from pology.lang.sr.nobr import to_nobr_hyphens, nobrhyp_char
 from pology.lang.sr.wconv import ctol, cltoa
-from pology.lang.sr.wconv import hctocl
+from pology.lang.sr.wconv import hctoc, hctol, hitoe, hitoi, hctocl
 from pology.lang.sr.wconv import cltoh, tohi
 from pology.fsops import collect_files_by_ext
 from pology.normalize import identify, xentitize, simplify

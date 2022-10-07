@@ -11,7 +11,7 @@ Documented in C{doc/user/lingo.docbook#sec-lgmtrans}.
 """
 
 try:
-    pass
+    import fallback_import_paths
 except:
     pass
 
@@ -20,7 +20,7 @@ import subprocess
 import sys
 import os
 
-from pology import _, datadir, version
+from pology import datadir, version, _, n_
 from pology.catalog import Catalog
 from pology.colors import ColorOptionParser
 import pology.config as pology_config

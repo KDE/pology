@@ -14,7 +14,9 @@ import os
 
 from pology import _, n_
 from pology.catalog import Catalog
+from pology.header import Header
 from pology.report import report
+from pology.sieve import SieveError
 
 
 def setup_sieve (p):

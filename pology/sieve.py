@@ -11,8 +11,9 @@ This module contains some common helpers which are used by many sieves.
 @license: GPLv3
 """
 
+import locale
 
-from pology import PologyError, _
+from pology import PologyError, _, n_
 from pology.comments import manc_parse_flag_list
 
 
@@ -21,6 +22,7 @@ class SieveError (PologyError):
     Base exception class for sieve errors with special meaning.
     """
 
+    pass
 
 
 class SieveMessageError (SieveError):
@@ -31,6 +33,7 @@ class SieveMessageError (SieveError):
     other messages from the same catalog to the sieve.
     """
 
+    pass
 
 
 class SieveCatalogError (SieveError):
@@ -42,6 +45,7 @@ class SieveCatalogError (SieveError):
     but can send messages from other catalogs.
     """
 
+    pass
 
 
 def parse_sieve_flags (msg):

@@ -29,7 +29,7 @@ this module will not be available (nor needed).
 """
 
 import sys
-from os.path import realpath, sep
+from os.path import realpath, sep, dirname
 
 pologypath = sep.join(realpath(sys.argv[0]).split(sep)[:-2])
 sys.path.insert(0, pologypath)

@@ -12,7 +12,7 @@ Documented in C{doc/user/sieving.docbook}.
 from pology import _, n_
 from pology.getfunc import get_hook_ireq
 from pology.msgreport import report_msg_content
-from pology.report import report
+from pology.report import report, warning, error
 from pology.sieve import add_param_filter
 from pology.sieve import SieveError
 

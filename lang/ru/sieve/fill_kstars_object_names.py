@@ -11,10 +11,12 @@ Sieve has no options.
 @license: GPLv3
 """
 
-import re
+from pology import _, n_
+from pology.report import report
 
-from pology import _
 from pology.msgreport import report_msg_content
+import os
+import re
 
 def setup_sieve (p):
 

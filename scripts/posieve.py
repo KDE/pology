@@ -11,17 +11,18 @@ Reference documentation in C{doc/user/sieving.docbook}.
 """
 
 try:
-    pass
+    import fallback_import_paths
 except:
     pass
 
 import glob
 import locale
 import os
+import re
 import sys
 from types import ModuleType
 
-from pology import _, datadir, t_, version
+from pology import datadir, version, _, n_, t_
 from pology.catalog import Catalog, CatalogSyntaxError
 from pology.colors import ColorOptionParser, set_coloring_globals
 import pology.config as pology_config
@@ -31,8 +32,8 @@ from pology.fsops import collect_catalogs, collect_system
 from pology.fsops import build_path_selector, collect_paths_from_file
 from pology.fsops import collect_paths_cmdline
 from pology.fsops import exit_on_exception
-from pology.msgreport import error_on_msg, warning_on_msg
-from pology.report import error, report, warning
+from pology.msgreport import report_on_msg, warning_on_msg, error_on_msg
+from pology.report import error, warning, report, encwrite
 from pology.report import init_file_progress
 from pology.report import list_options
 from pology.report import format_item_list

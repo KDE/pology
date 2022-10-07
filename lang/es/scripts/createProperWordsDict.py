@@ -7,12 +7,15 @@
 # It is a tool that helps to complete the local dictionary.
 # The code is adapted from the Servian team pology scripts by Chusslove Illich.
 
+import fallback_import_paths
+
 import sys
+import os
 import re
 import locale
 import enchant
 
-from pology import version, _
+from pology import version, _, n_
 from pology.catalog import Catalog
 from pology.colors import ColorOptionParser
 from pology.fsops import str_to_unicode, collect_catalogs

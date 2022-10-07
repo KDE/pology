@@ -16,7 +16,7 @@ not meet your exact needs.
 import re
 import unicodedata
 
-from pology import PologyError, _
+from pology import PologyError, _, n_
 
 
 # Regex for splitting C{<...>} into tag name and few other elements.

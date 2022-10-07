@@ -11,12 +11,15 @@ import copy
 import difflib
 import os
 import re
+import tempfile
 import time
+import types
 
-from pology import PologyError, _
+from pology import PologyError, _, n_
 from pology.header import Header, format_datetime
 from pology.message import Message as MessageMonitored
 from pology.message import MessageUnsafe as MessageUnsafe
+from pology.escape import escape_c as escape
 from pology.escape import unescape_c as unescape
 from pology.fsops import mkdirpath
 from pology.monitored import Monitored
@@ -32,6 +35,7 @@ class CatalogSyntaxError (PologyError):
     e.g. on invalid syntax or non-decodable characters.
     """
 
+    pass
 
 
 def _parse_quoted (s):

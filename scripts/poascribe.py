@@ -2,7 +2,7 @@
 # -*- coding: UTF-8 -*-
 
 try:
-    pass
+    import fallback_import_paths
 except:
     pass
 
@@ -14,7 +14,7 @@ import sys
 from tempfile import NamedTemporaryFile
 import time
 
-from pology import _, n_, t_, version
+from pology import PologyError, version, _, n_, t_
 from pology.ascript import collect_ascription_associations
 from pology.ascript import collect_ascription_history
 from pology.ascript import collect_ascription_history_segment
@@ -25,7 +25,7 @@ from pology.ascript import make_ascription_selector
 from pology.ascript import AscPoint
 from pology.catalog import Catalog
 from pology.header import Header, TZInfo, format_datetime
-from pology.message import MessageUnsafe
+from pology.message import Message, MessageUnsafe
 from pology.gtxtools import msgfmt
 from pology.colors import ColorOptionParser, cjoin
 import pology.config as pology_config

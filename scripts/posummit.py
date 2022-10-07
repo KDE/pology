@@ -14,7 +14,7 @@ import time
 from functools import reduce
 
 try:
-    pass
+    import fallback_import_paths
 except:
     pass
 
@@ -26,8 +26,8 @@ from pology.catalog import Catalog
 from pology.header import Header, format_datetime
 from pology.message import Message, MessageUnsafe
 from pology.colors import ColorOptionParser
-from pology.fsops import str_to_unicode
-from pology.fsops import assert_system, mkdirpath
+from pology.fsops import str_to_unicode, unicode_to_str
+from pology.fsops import mkdirpath, assert_system, collect_system
 from pology.fsops import getucwd, join_ncwd
 from pology.fsops import collect_paths_cmdline, build_path_selector
 from pology.fsops import exit_on_exception

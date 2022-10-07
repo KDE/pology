@@ -11,13 +11,15 @@ Documented in C{doc/user/misctools.docbook#sec-mirewrap}.
 """
 
 import locale
+import os
+import sys
 
 try:
-    pass
+    import fallback_import_paths
 except:
     pass
 
-from pology import _, version
+from pology import version, _, n_
 from pology.catalog import Catalog
 from pology.colors import ColorOptionParser
 import pology.config as pology_config
