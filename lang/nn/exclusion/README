@@ -144,6 +144,30 @@ awk -F'\t' '
 rm -f subst-ok* subst-mask.dat subst-fem.dat
 
 
+# The file ‘subst-mask-artikkel.dat’ contains a list of masculine
+# nouns but prefixed with the indefinite articles ‘ei’ and ‘eit’.
+# Only words that are not homographs with other words are included.
+# The files ‘subst-fem-artikkel.dat’ and ‘subst-noyt-artikkel.dat’
+# are similar, but for feminine and neuter words, respectively.
+#
+# The files are generated from ‘fullform_nn.dat’ using these commands:
+
+grep -F '	subst	' fullform_nn.dat > subst.tmp
+grep -F -v '	subst	' fullform_nn.dat | awk -F'\t' '{ print $2 }' | sort -u > ikkje-subst.tmp
+grep -F '	eint	ub	' subst.tmp > subst-grunnord.tmp
+grep -F '	subst	mask' subst-grunnord.tmp | awk -F'\t' '{ print $2 }' | sort -u > subst-mask.tmp
+grep -F '	subst	fem' subst-grunnord.tmp | awk -F'\t' '{ print $2 }'  | sort -u > subst-fem.tmp
+grep -F '	subst	nøyt' subst-grunnord.tmp | awk -F'\t' '{ print $2 }' | sort -u > subst-noyt.tmp
+cat ikkje-subst.tmp subst-fem.tmp subst-noyt.tmp | sort -u > ikkje-subst-mask.tmp
+cat ikkje-subst.tmp subst-mask.tmp subst-noyt.tmp | sort -u > ikkje-subst-fem.tmp
+cat ikkje-subst.tmp subst-mask.tmp subst-fem.tmp | sort -u > ikkje-subst-noyt.tmp
+comm subst-mask.tmp ikkje-subst-mask.tmp | awk -F'\t' '{if ($1) { print "ei " $1 "\neit " $1 }}' > subst-mask-artikkel.dat
+comm subst-fem.tmp ikkje-subst-fem.tmp  | awk -F'\t' '{if ($1) { print "ein " $1 "\neit " $1 }}' > subst-fem-artikkel.dat
+comm subst-noyt.tmp ikkje-subst-noyt.tmp | awk -F'\t' '{if ($1) { print "ein " $1 "\nei " $1 }}' > subst-noyt-artikkel.dat
+rm -f subst.tmp ikkje-subst.tmp subst-grunnord.tmp subst-mask.tmp subst-fem.tmp subst-noyt.tmp \
+      ikkje-subst-mask.tmp ikkje-subst-fem.tmp ikkje-subst-noyt.tmp
+
+
 
 # Remove some common (correct) spellings from the ‘klammeformer’
 # word list (-ar/-ane suffix on masculine nouns and -er/-ene

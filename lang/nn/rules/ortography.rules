@@ -19,19 +19,10 @@ hint="-lig → -leg"
 [haldt]
 hint="haldt → halde"
 
-[lest]i
+[leste?\b]i
 id="lest"
-hint="lest → lesen/lese/lesne [og verbet leste → las]"
-valid after="[Tt]ryl" before="av"
+hint="lest(e) → lesen/lese/lesne [og verbet leste → las]"
 valid after="\b[Ff]"
-valid after="[pP]a" before="in(sk|a)e?\b"
-valid after="Cho" before="erol\b"
-valid after="e\b" before="\bCe"
-valid after="\b[Bb]ob" before="iging"
-valid after="\b[Cc]el" before="orleik"
-valid after="\b[Ss]til" before="åande"
-valid after="\b[M]i" before="olpe"
-valid after="\b[Rr]ul" before="ol"
 
 [bærbar]i
 hint="bærbar → berbar"
@@ -79,6 +70,7 @@ hint="CDen → CD-en, PCane → PC-ane, osv."
 hint="utskiftning → utskifting"
 
 [skall]i
+id="skall"
 hint="skall → skal"
 valid after="hovud"
 valid before="e"
@@ -116,6 +108,16 @@ hint="trå/trø i kraft → tre i kraft"
 
 [førde?\b]
 hint="utførd, overførd etc. → utført, overført etc."
+
+# I følgjande regel burde me eigentleg òg sett på
+# leddsetningar som startar med «Om», men det er for
+# mange tekstar av typen «Om programnamn» o.l.,
+# så regelen hadde ikkje blitt påliteleg. Heldigvis
+# har me i praksis få leddsetningar som startar med «Om»
+# i omsetjingane.
+[\b(Viss|Dersom) [^,]+$]
+id="komma-leddsetning-viss"
+hint="Skal alltid vera komma etter leddsetning (som her startar med «Viss» eller «Dersom») som står først i heilsetning"
 
 ## «Oppgje» kan visst tyda det same på nynorsk som på bokmål,
 ## likevel, så kommenterer ut denne regelen …
@@ -164,8 +166,11 @@ valid span="Sitter" after="Harald "
 valid span="Saudi" before="-Arabia"
 valid span="pH-verdi"
 valid span="eigde"
+valid span="søsken"
+valid span="søster|søstre"
 valid span="\b[Kk]rets(en|ar|ane)?\b"
 valid msgstr="^©"
+valid span="Orknøyene"
 
 *hook name="nn:exclusion/exclude-forms~['unormert']" on="msgstr"
 id="unormert"
@@ -175,5 +180,20 @@ hint="Bruk av eit ord som er unormert (alltid vore det eller gått ut av ordboka
 *hook name="nn:exclusion/exclude-forms~['imperativfeil']" on="msgstr"
 id="imperativending"
 hint="imperativ skal aldri slutta på -ér («installer», ikkje «installér»)"
+
+*hook name="nn:exclusion/exclude-forms~['subst-mask-artikkel']" on="msgstr"
+id="hankjønn"
+valid before="-"
+hint="Ordet har feil artikkel (det er hankjønn, ikkje hokjønn eller inkjekjønn)"
+
+*hook name="nn:exclusion/exclude-forms~['subst-fem-artikkel']" on="msgstr"
+id="hokjønn"
+valid before="-"
+hint="Ordet har feil artikkel (det er hokjønn, ikkje hankjønn eller inkjekjønn)"
+
+*hook name="nn:exclusion/exclude-forms~['subst-noyt-artikkel']" on="msgstr"
+id="inkjekjønn"
+valid before="-"
+hint="Ordet har feil artikkel (det er inkjekjønn, ikkje hankjønn eller hokjønn)"
 
 # End of rules

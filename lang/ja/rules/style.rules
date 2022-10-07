@@ -27,9 +27,11 @@ hint="半角のスラッシュを使ってください。"
 id="hankaku5"
 hint="半角のスペースを使ってください。"
 
-[\d ?進]
-hint="漢数字を使ってください [十進数]"
-valid before="行|捗"
+# it appears more common these days to use "10進数" than "十進数"
+#[\d ?進]
+#id="number base"
+#hint="漢数字を使ってください [十進数]"
+#valid before="行|捗"
 
 [\d ?次]
 hint="漢数字を使ってください [二次曲線]"
@@ -469,7 +471,7 @@ clearFilters
 valid before="\\n"
 valid before="[\s]"
 valid before="$"
-valid before="([。？、」”’\"'/<>:|\]]|, |\.\.\.)"
+valid before="([。？、」”’\"'/<>:|\]]|, |\.\.\.|…)"
 valid before="[=\+\-]"
 valid after="\(La" before="TeX"
 valid after="\(X" before="HTML"
@@ -578,3 +580,76 @@ id="tag-italic"
 hint="本当に必要でなければイタリック体の使用を避けてください (引用符や KUIT タグに置き換えるとか)"
 valid span="<i>イタリック体</i>" cat="quanta, kopete"
 valid cat="kalgebra"
+
+
+#
+# rules for websites-docs-krita-org/*.po files
+#
+
+[:kbd:`.*?`]
+id="krita-docs-kbd"
+hint="前後にスペースが必要"
+valid after="^|[ \(\)、。]" before="$|[ \(\):、。]"
+valid !catrx="docs_krita_org_*"
+
+[:guilabel:`.*?`]
+id="krita-docs-guilabel"
+hint="前後にスペースが必要"
+valid after="^|[ \(\)、。]" before="$|[ \):、。]"
+valid !catrx="docs_krita_org_*"
+
+[:ref:`.*?`]
+id="krita-docs-ref"
+hint="前後にスペースが必要"
+valid after="^|[ \(\)、。]" before="$|[ \(\):、。]"
+valid !catrx="docs_krita_org_*"
+
+[:menuselection:`.*?`]
+id="krita-docs-menuselection"
+hint="前後にスペースが必要"
+valid after="^|[ \(\)、。]" before="$|[ \(\):、。]"
+valid !catrx="docs_krita_org_*"
+
+[:literal:`.*?`]
+id="krita-docs-literal"
+hint="前後にスペースが必要"
+valid after="^|[ \(\)、。]" before="$|[ \(\):、。]"
+valid !catrx="docs_krita_org_*"
+
+[:file:`.*?`]
+id="krita-docs-file"
+hint="前後にスペースが必要"
+valid after="^|[ \(\)、。]" before="$|[ \):、。]"
+valid !catrx="docs_krita_org_*"
+
+[:program:`.*?`]
+id="krita-docs-program"
+hint="前後にスペースが必要"
+valid after="^|[ \(\)、。]" before="$|[ \):、。]"
+valid !catrx="docs_krita_org_*"
+
+[\|mouse(left|middle|right)\|]
+id="krita-docs-mouse"
+hint="前後にスペースが必要"
+valid after="^|[ \(\)、。]" before="$|[ \(\):、。]"
+valid !catrx="docs_krita_org_*"
+
+[\|(path tool|tooltransform)\|]
+id="krita-docs-tool"
+hint="前後にスペースが必要"
+valid after="^|[ \(\)、。]" before="$|[ \(\):、。]"
+valid !catrx="docs_krita_org_*"
+
+[``]
+id="krita-docs-backticks"
+hint="片側にスペースが必要"
+valid after="^|[ 、。]"
+valid before="$|[ 、]"
+valid !catrx="docs_krita_org_*"
+
+[\*+]
+id="krita-docs-star"
+hint="片側にスペースが必要"
+valid after="^|[ 、。\(\)]"
+valid before="$|[ 、。\)]"
+valid !catrx="docs_krita_org_*"
