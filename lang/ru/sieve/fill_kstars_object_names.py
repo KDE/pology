@@ -13,10 +13,10 @@ Sieve has no options.
 
 from pology import _, n_
 from pology.report import report
-
 from pology.msgreport import report_msg_content
 import os
 import re
+
 
 def setup_sieve (p):
 

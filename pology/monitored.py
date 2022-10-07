@@ -284,9 +284,6 @@ class Monpair (Monitored):
         else:
             raise IndexError
 
-    def __hash__(self):
-        return hash((self._first, self._second))
-
 
 # =============================================================================
 # Monitored list.
@@ -311,8 +308,6 @@ class Monlist (Monitored):
         """
 
         if lst is not None:
-            if isinstance(lst, str):
-                raise ValueError(f"Expected a list, got {type(lst)}: {lst!r}")
             self.__dict__["*"] = list(lst)
         else:
             self.__dict__["*"] = list()
@@ -379,12 +374,6 @@ class Monlist (Monitored):
                 return False
         return True
 
-    def __hash__(self):
-        return hash(
-            (
-                tuple(self.__dict__["*"]),
-            )
-        )
 
     def __ne__ (self, other):
 
@@ -495,13 +484,6 @@ class Monset (Monitored):
             if self.__dict__["*"][i] not in other:
                 return False
         return True
-
-    def __hash__(self):
-        return hash(
-            (
-                tuple(self.__dict__["*"]),
-            )
-        )
 
 
     def __ne__ (self, other):

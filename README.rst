@@ -120,11 +120,11 @@ so use the mailing list for bug reports and patches as well.
 Running the tests
 -----------------
 
-To run the automated tests, install tox_ and use it::
+To run the automated tests, install pytest_ and use it::
 
-    tox
+    pytest tests/
 
-.. _tox: https://tox.readthedocs.io/en/latest/
+.. _pytest: https://docs.pytest.org/en/latest/
 
 
 Authors
