@@ -34,5 +34,7 @@ test-min-cmake:
 test-max-src:
   stage: Test
   script:
+    - export PATH="$(pwd)/bin:$PATH"
+    - export PYTHONPATH="$(pwd):$PYTHONPATH"
     - pip install pytest
     - pytest tests
