@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 2.8.12)
+cmake_minimum_required(VERSION 2.8.3)
 
 ###
 ### Set project.
@@ -6,14 +6,12 @@ cmake_minimum_required(VERSION 2.8.12)
 
 set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake ${CMAKE_MODULE_PATH})
 
+set(PROJECT_NAME "pology")
 file(READ "VERSION" version)
 string(REPLACE "\n" "" version "${version}")
-
-set(PROJECT_NAME "pology")
 set(PROJECT_VERSION "${version}")
-
-cmake_policy(SET CMP0048 NEW)
-project(${PROJECT_NAME} VERSION "${version}")
+message(STATUS "Configuring ${PROJECT_NAME} ${PROJECT_VERSION}")
+project(${PROJECT_NAME} NONE)
 
 if(NOT cmake_install_prefix_cached)
     if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
@@ -88,7 +86,10 @@ include(Python3Tools)
 # Include subdirectories.
 add_subdirectory(pology)
 add_subdirectory(scripts)
+add_subdirectory(sieve)
+add_subdirectory(lang)
 add_subdirectory(doc)
+add_subdirectory(spec)
 add_subdirectory(completion)
 add_subdirectory(syntax)
 add_subdirectory(po)
