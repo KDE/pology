@@ -1,0 +1,220 @@
+# Terminology checks for KDE translation into Japanese.
+# Japanese KDE translation team <kde-jp@kde.org>
+# License: GPLv3
+
+include file="puretext.filters"
+
+[メールソフト|メールプログラム|メーラー]
+id="mailsoft-j"
+hint="メールクライアント"
+
+[ゴミ箱]
+id="trash-j"
+hint="Trash = ごみ箱 [平仮名と漢字で書いてください]"
+
+[実行可能ファイル]
+id="executable-j"
+hint="executable (file) = 実行ファイル"
+
+[トレイアイコン]
+id="trayicon-j"
+hint="(system) tray icon = システムトレイアイコン [略さずに]"
+valid after="システム"
+disabled
+
+[アプリ]
+id="application-j"
+hint="application = アプリケーション [略さずに]"
+valid before="ケーション"
+valid ctx="kgm"
+
+[復号化]
+id="decrypt-j"
+hint="復号 (Decrypt) には「化」は付けません"
+
+[新規]
+id="new-j"
+hint="あとに単語が続くときは「新規ウィンドウ」ではなく「新しいウィンドウ」のようにしてください。Create New は「新規作成」、単独の New は「新規」。"
+valid before="$|\.\.\.|:|作成|ボタン|を|または|のみ"
+
+[タイプ]
+id="type-j"
+hint="間に「の」を入れた方がいいのでは？ [例: デバイスのタイプ]"
+valid after="ステレオ|プロト|サブ|ファイル|データ|オブジェクト"
+valid !after="[ァ-ヴー]"
+disabled
+
+[\bweb\b]i
+id="web-j"
+hint="Web = ウェブ [片仮名で書いてください]"
+valid ctx="Query"
+valid msgstr="Java Web Start"
+valid span="^Web$" ctx="Name"
+
+[bittorrent|Bittorrent]
+id="bittorent-j"
+hint="BitTorrent [大文字と小文字の違いに注意]"
+
+[(?<!Q)(DBUS|DBus|Dbus|D-BUS|D-bus)]
+id="dbus-j"
+hint="D-Bus [大文字と小文字の違いに注意 cf. QDBus]"
+
+[EXIF]
+id="exif-j"
+hint="Exif [大文字と小文字の違いに注意]"
+
+[Gimp|gimp]
+id="gimp-j"
+hint="GIMP [全部大文字で]"
+
+[Javascript]
+id="javascript-j"
+hint="JavaScript [大文字と小文字の違いに注意]"
+
+[Latex|LaTex]
+id="latex-j"
+hint="LaTeX [大文字と小文字の違いに注意]"
+
+[Postscript]
+id="postscript-j"
+hint="PostScript [大文字と小文字の違いに注意]"
+
+[\bOk\b]
+id="ok"
+hint="OK [大文字で]"
+
+[\bUrl\b]
+id="url"
+hint="URL [全部大文字で]"
+
+[\bJpeg\b]
+id="jpeg"
+hint="JPEG [全部大文字で]"
+
+[\bIO\b]
+id="io"
+hint="I/O [間にスラッシュを入れる]"
+
+{access control list}i
+id="access_control_list"
+hint="access control list = アクセス制御リスト [ACL]"
+valid msgstr="アクセス制御リスト"
+
+{keep aspect ratio}i
+id="keep_aspect_ratio"
+hint="keepaspect = アスペクト比を保つ"
+valid msgstr="アスペクト比を保つ"
+
+{install new theme}i
+id="install_new_theme"
+hint="install new theme = 新しいテーマをインストール"
+valid msgstr="新しいテーマをインストール"
+
+{get new themes}i
+id="get_new_theme"
+hint="get new themes = 新しいテーマを取得"
+valid msgstr="新しいテーマを取得"
+
+{case sensitive}i
+id="case_sensitive-o"
+hint="case sensitive = 大文字と小文字を区別する"
+valid !ctx="@option:check"
+valid msgstr="大文字と小文字を区別する"
+
+{\bunsaved chagnes?}i
+id="unsaved_changes"
+hint="unsaved changes = 未保存の変更"
+valid msgstr="未保存の変更"
+
+{please try again later}i
+id="tryagainlater"
+hint="try again later = しばらくたってからやり直してください"
+valid msgstr="しばらくたってからやり直してください"
+
+
+# 用語集にない (terminology.rules にない) カタカナ語の表記ゆれをチェックします。
+addFilterHook name="ja:katakana" on="pmsgstr"
+
+[アダプター]
+hint="adaptor = アダプタ"
+
+[インストーラー]
+hint="installer = インストーラ"
+
+[エディター]
+hint="editor = エディタ"
+
+[エントリー]
+hint="entry = エントリ"
+
+[カテゴリー]
+hint="category = カテゴリ"
+
+[カレンダ\b]
+hint="calendar = カレンダー"
+
+[ギャラリ\b]
+hint="gallery = ギャラリー"
+
+[コンピューター]
+hint="computer = コンピュータ"
+
+[\bカンマ\b]
+hint="comma = コンマ"
+
+[スキャナー]
+hint="scanner = スキャナ"
+
+[スライダ\b]
+hint="slider = スライダー"
+
+[センサ\b]
+hint="sensor = センサー"
+
+[ダイアル]
+hint="dial = ダイヤル"
+
+[タイマ\b]
+hint="timer = タイマー"
+
+[ディジタル]
+hint="digital = デジタル"
+
+[ドライバー]
+hint="driver = ドライバ"
+
+[フィルター]
+hint="filter = フィルタ"
+
+[フッター]
+hint="footer = フッタ"
+
+[プライバシ\b]
+hint="privacy = プライバシー"
+
+[プレセット]
+hint="preset = プリセット"
+
+[プリンター]
+hint="printer = プリンタ"
+
+[プロセッサー]
+hint="processor = プロセッサ"
+
+[ヘッダー]
+hint="header = ヘッダ"
+
+[ヘッドホン]
+hint="headphone = ヘッドフォン"
+
+[\bマーカ\b]
+hint="marker = マーカー"
+
+[\bメーカ\b]
+hint="maker = メーカー"
+
+[ライブラリー]
+hint="library = ライブラリ"
+
+[ヴァージョン]
+hint="version = バージョン"

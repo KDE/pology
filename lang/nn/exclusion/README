@@ -1,0 +1,156 @@
+# Exclusion dictionaries for Norwegian Nynorsk
+# ────────────────────────────────────────────
+#
+# [Note: This file is runnable using ‘sh’.]
+#
+# To generate the dictionaries, you need four files:
+#   fullform_nn-r103.txt, fullform_nn-r183.txt
+#   fullform_nn.dat, fullform_nb.dat
+#
+# The file fullform_nn-r103.txt and fullform_nn-r183.txt
+# should be a checkout of revision 103 and 183,
+# respectively, of the file fullform_nn.txt from ordbanken
+# https://savannah.nongnu.org/projects/ordbanken/
+# (Only revision 103 and earlier revisions contain
+# information on ‘klammeformer’, while only revision 183
+# and earlier revisions contain information on
+# ‘unormert’ words.)
+#
+# The .dat files are word list files from the *latest*
+# revision of ordbanken (compiled using the ‘make’ command).
+
+
+# The file ‘klammeformer.dat’ contains a list of all
+# words that were ‘klammeformer’ in the pre-2012
+# Norwegian Nynorsk ortography. It is generated
+# from ‘fullform_nn-r103.txt’ using these commands:
+
+grep -v '^*' fullform_nn-r103.txt > alle.txt
+grep -Fv " klammeform" alle.txt > hovudformer.txt
+
+cut -f3 -d'	' alle.txt | sort | uniq > alle.dat
+cut -f3 -d'	' hovudformer.txt | sort | uniq > hovudformer.dat
+comm -3 alle.dat hovudformer.dat > klammeformer.txt
+
+rm -f alle.* hovudformer.*
+
+# And ‘klammeformer.txt’ is further modified into
+# ‘klammeformer.dat’ later in the script, to remove
+# some spellings of nouns which are now allowed.
+
+
+
+# The file ‘unormert.dat’ contains a list of all
+# words that were included in the latest
+# version of Norsk ordbank that contained information
+# on ‘unormert’ words but are not present in the
+# current version of Norsk ordbank. That is, it
+# contains a list of ‘unormert’ words and other
+# word which have been removed from the dictionary.
+
+cut -f2 -d'	' fullform_nn.dat | sort | uniq > alle.dat
+grep -v '^*' fullform_nn-r183.txt | cut -f3 -d'	' | sort | uniq > gamle.txt
+comm -13 alle.dat gamle.txt > unormert.txt
+comm -23 unormert.txt klammeformer.txt > unormert.dat
+rm -f alle.dat gamle.txt unormert.txt
+
+
+
+# The file ‘bokmal-words.dat’ contains a list of all words that
+# are valid in Norwegian Bokmål, but not in Norwegian Nynorsk.
+# Words containing only non-letter characters or containing
+# uppercase letters are excluded, to avoid too many false
+# positives. Still, there will be *many* false positives, so
+# this file should not be used in any ‘default’ rule sets.
+# It is generated from ‘fullform_nn.dat’ and ‘fullform_bm.dat’
+# using these commands:
+
+cut -f2 -d'	' fullform_nn.dat | sed 's/ /\n/g' | grep -v '^[^A-Za-zÆØÅæøå]\+$' | grep -v '[A-ZÆØÅ]' | sort | uniq > ord-nn.txt
+cut -f2 -d'	' fullform_nb.dat | sed 's/ /\n/g' | grep -v '^[^A-Za-zÆØÅæøå]\+$' | grep -v '[A-ZÆØÅ]' | sort | uniq > ord-nb.txt
+
+comm -23 ord-nb.txt ord-nn.txt > bokmal-words.dat
+
+rm -f ord-nn.txt ord-nb.txt
+
+
+
+# The file ‘imperativfeil.dat’ contains a list of imperatives
+# misspelled with an accent. For example, it contains the
+# word ‘installér’ (should be spelled ‘installer’).
+grep -F 'verb	imp' fullform_nn.dat | awk -F'\t' '{ print $2 }' | \
+grep '^[^-].*er$' | sort -u | sed 's/er$/ér/' > imperativfeil.dat
+
+
+# The file ‘e-infinitiv.dat’ contains a list of all infinitives
+# ending in -e where there are no other word forms with the 
+# exact same spelling. For example, it contains the word ‘lagre’
+# (should be spelled ‘lagra’ according to our translation guidelines), 
+# but not the word ‘opne’, as ‘opne’ is also used as an adjective,
+# for example in ‘fleire opne program’. The file is generated from
+# ‘fullform_nn.dat’ using these commands:
+
+awk -F'\t' '
+{
+  ordklasse=$3
+  tid=$4
+  bokstav=substr($2,length($2),length($2))
+  stamme=substr($2,1,length($2)-1)
+  if( ((ordklasse=="verb") && (tid=="inf" || tid=="imp")) && bokstav=="a" && $1 == stamme "e")
+    print $1
+}' fullform_nn.dat | sort -u > ea-inf.txt
+grep -v '	verb	i\(nf\|mp\)' fullform_nn.dat | cut -f2 -d'	' | grep e$ | sort -u > e-ord.txt
+comm -23 ea-inf.txt e-ord.txt > e-infinitiv.dat
+rm -f a-inf.txt ea-inf.txt e-ord.txt
+
+
+# The file ‘subst-mask-er.dat’ contains a list of -er/-ene inflections of
+# masculine nouns that can have both a -ar/-ane or a -er/-ene suffix.
+# For example, the noun «gjest» can be written as gjestar/gjestane
+# or gjester/gjestene, so the output file contains ‘gjester’ and ‘gjestene’.
+# Note that the (masculine) noun ‘elv’ is removed, as it’s a rare word
+# and conflicts with the feminine ‘elv’.
+#
+# The file ‘subst-fem-ar.dat’ contains a list of -ar/-ane inflections of
+# feminine nouns that can have both a -ar/-ane or a -er/-ene suffix.
+# For example, the noun «sideelv» can be written as sideelver/sideelvene
+# or sideelvar/sideelvane, so the output file contains ‘sideelvar’ and 
+# ‘sideelvane’.
+#
+# The files are generated from ‘fullform_nn.dat’ using these commands:
+
+grep -F '	subst' fullform_nn.dat > subst-ok.dat
+awk -F'\t' '{ print $(NF-1) "\t" $0 }' subst-ok.dat | sort -t"	" -k2,2 -k1,1 -k5 -k3,3 > subst-ok-sort.dat
+grep -F '	mask	' subst-ok-sort.dat | grep -v '	elv	.*mask' > subst-mask.dat
+grep -F '	fem	' subst-ok-sort.dat > subst-fem.dat
+
+awk -F'\t' '
+{
+  if( $1==previd && ((substr($3,length($3)-2,length($3))=="ene" && prevw==substr($3,1,length($3)-3)"ane") ||
+                     (substr($3,length($3)-1,length($3))=="er" && prevw==substr($3,1,length($3)-2)"ar")) )
+  print $3
+  previd=$1
+  prevw=$3
+}' subst-mask.dat > subst-mask-er.dat
+
+awk -F'\t' '
+{
+  if( $1==previd && ((substr($3,length($3)-2,length($3))=="ane" && prevw==substr($3,1,length($3)-3)"ene") ||
+                     (substr($3,length($3)-1,length($3))=="ar" && prevw==substr($3,1,length($3)-2)"er")) )
+    print $3
+    previd=$1
+    prevw=$3
+}' subst-fem.dat > subst-fem-ar.dat
+
+rm -f subst-ok* subst-mask.dat subst-fem.dat
+
+
+
+# Remove some common (correct) spellings from the ‘klammeformer’
+# word list (-ar/-ane suffix on masculine nouns and -er/-ene
+# suffix on feminine nouns).
+sed 's/a\(r\|ne\)$/e\1/' subst-fem-ar.dat > words-ok.txt
+sed 's/e\(r\|ne\)$/a\1/' subst-mask-er.dat >> words-ok.txt
+sort words-ok.txt | uniq > words-ok.dat
+comm -23 klammeformer.txt words-ok.dat > klammeformer.dat
+
+rm -f words-ok.txt words-ok.dat klammeformer.txt

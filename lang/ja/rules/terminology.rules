@@ -1,0 +1,1894 @@
+# Terminology checks for KDE translation into Japanese.
+# Japanese KDE translation team <kde-jp@kde.org>
+# License: GPLv3
+
+include file="puretext.filters"
+
+{\bcertificate authorit(y|ies)}i
+id="CA"
+hint="certificate authority = 認証局 [CA]"
+valid msgstr="認証局"
+
+{\bcertificate revocation lists?}i
+id="CRL"
+hint="certificate revocation list = 証明書失効リスト [CRL]"
+valid msgstr="証明書失効リスト"
+
+{^Abort$}
+id="abort"
+hint="Abort = 中止"
+valid msgstr="中止"
+
+{\baccess\b}i
+id="access"
+hint="access = アクセス"
+valid msgstr="アクセス"
+disabled
+
+{\baccess\b}i
+id="access2"
+hint="access = 権限"
+valid !after="have (write|read) "
+valid msgstr="権限"
+
+{\baccessibility}i
+id="accessibility"
+hint="accessibility = アクセシビリティ"
+valid msgstr="アクセシビリティ" !msgstr="アクセシビリティー"
+
+{\baddress book}i
+id="address_book"
+hint="address book = アドレス帳"
+valid msgstr="アドレス帳"
+
+{Appearance}
+id="appearance"
+hint="appearance = 外観"
+valid before=" time"
+valid msgstr="外観"
+
+{^Apply$}
+id="apply"
+hint="Apply = 適用"
+valid msgstr="適用"
+
+{\barchives?\b|\barchiv(ed|ing)\b}i
+id="archive"
+hint="archive = アーカイブ"
+valid msgstr="アーカイブ" !msgstr="書庫|アーカイブ化"
+
+{\barchivers?\b}i
+id="archiver"
+hint="archiver = アーカイバ"
+valid msgstr="アーカイバ"
+
+{\barguments?\b}i
+id="argument"
+hint="argument = 引数"
+valid msgstr="引数"
+valid msgid="complex number" msgstr="偏角"
+
+{\barguments?\b}i
+id="argument2"
+hint="argument = 偏角 [複素数の偏角]"
+valid !msgid="complex number"
+valid msgstr="偏角"
+
+{\bascending}i
+id="ascending"
+hint="ascending = 昇順"
+valid msgstr="昇順"
+valid before=" numbers"
+
+{\bASCII\b|\bAscii\b|\bascii\b}
+id="ascii"
+hint="ASCII = ASCII [すべて大文字で。ASCII art はカタカナでアスキーアート。]"
+valid msgstr="ASCII" !before="[ -](Art|art|ART)"
+valid msgstr="アスキーアート" before="[ -](Art|art|ART)"
+
+{aspect ratio}i
+id="aspect_ratio"
+hint="aspect ratio = アスペクト比"
+valid msgstr="アスペクト比"
+
+{\bassistant\b}i
+id="assistant"
+hint="assistant = ウィザード"
+valid after="(Qt|KDevelop|ruler) "
+valid before="'s name"
+valid before=" super-hero"
+valid cat="kooka"
+valid msgstr="ウィザード"
+
+{\bassistant}i
+id="assistant2"
+hint="assistant = アシスタント"
+valid msgstr="アシスタント"
+disabled
+
+{\battachments?\b}i
+id="attachment"
+hint="attachment = 添付ファイル"
+valid msgstr="添付ファイル" !msgstr="添付物"
+valid before=" method" msgstr="添付方法"
+
+{\battributes?\b}i
+id="attribute"
+hint="attribute = 属性"
+valid msgstr="属性"
+valid msgid="physical attributes" msgstr="物理特性"
+
+{\baudio\b}i
+id="audio"
+hint="audio = 音声 [映像に対する音声]"
+valid cat="k3b, libk3b, desktop_extragear-multimedia_k3b, k3b.desktop" before=" track"
+valid !before=" (output|input|capture|device|backend|track|channel|stream|frame|data|(samle|sampling) rate|bitrate|delay)"
+valid msgstr="音声"
+
+{\baudio}i
+id="audio2"
+hint="audio = 音声"
+valid cat="k3b, libk3b" before=" file" !before=" file format"
+valid !before=" (file|(file ?)?format|codec)"
+valid msgstr="音声"
+
+{\baudio\b}i
+id="audio3"
+hint="audio = オーディオ"
+valid !before=" (CD|DVD|player|card|server)"
+valid msgid="Enhanced Audio CD" msgstr="CD-Extra"
+valid msgstr="オーディオ"
+
+{\bauthenticat(e|ing|ion)}i
+id="authentication"
+hint="authentication = 認証"
+valid msgstr="認証"
+valid cat="kfileshare" msgstr="(Client )?(plaintext|lanman|NTLM(v2)?) authentication"
+valid cat="kopete" msgid="Simple Authentication and Security Layer" msgstr="SASL"
+
+{\bauthoriz(e|ing|ation)}i
+id="authorization"
+hint="authorization = 許可|権限|権限付与|承認"
+valid msgstr="許可|権限|権限付与|承認"
+
+{\bavatars?\b}i
+id="avatar"
+hint="avatar = アバター"
+valid msgstr="アバター" !msgstr="アバタ(?!ー)"
+
+{^Back$}
+id="back"
+hint="Back = 戻る"
+valid ctx="Back side|Back of"
+valid msgstr="戻る"
+
+{\bbandwidth\b}i
+id="bandwidth"
+hint="bandwidth = 帯域幅"
+valid msgstr="帯域幅"
+
+{\bbinary}i
+id="binary"
+hint="binary = 二進|二進法"
+valid !ctx="encoding|coding" !comment="encoding" !before=" encoding" !after="switch base to "
+valid msgstr="二進|二進法"
+
+{\bbinary}i
+id="binary2"
+hint="binary = バイナリ"
+valid !before=" (file|data|format|xml|package|viewer|filter|equal|comparison|image|clock|lineart)"
+valid msgstr="バイナリ"
+
+{\bbinary}i
+id="binary3"
+hint="binary = 実行ファイル"
+valid before=" (file|data|format|xml|package|viewer|filter|equal|comparison|image|clock|lineart)"
+valid ctx="encoding|coding"
+valid comment="encoding"
+valid before=" encoding|, octal| number"
+valid after="switch base to "
+valid cat="cervisia"
+valid msgstr="実行ファイル"
+
+{\bbold\b}i
+id="bold"
+hint="bold = ボールド"
+valid after="very "
+valid msgstr="ボールド"
+
+{\bbookmarks?\b}i
+id="bookmark"
+hint="bookmark = ブックマーク"
+valid msgstr="ブックマーク"
+
+{\bBrowse\.\.\.}
+id="browse"
+hint="Browse... = ブラウズ..."
+valid msgstr="ブラウズ..."
+
+{^Cancel$}
+id="cancel"
+hint="Cancel = キャンセル"
+valid msgstr="キャンセル"
+
+{\bcapture}i
+id="capture"
+hint="capture = キャプチャ"
+valid msgstr="キャプチャ"
+disabled
+
+{\bchapters?\b}i
+id="chapter"
+hint="chapter = 章"
+valid cat="k3b, libk3b, kmplayer, kplayer, kaffeine4, kaffeinegl, dragonplayer"
+valid msgstr="章"
+valid after="DVD "
+valid cat="kile" before="\*?{title}"
+
+{\bchapters?\b}i
+id="chapter2"
+hint="chapter = チャプター [DVD の映像シーンの区切り]"
+valid !after="DVD " !cat="k3b, libk3b, kmplayer, kplayer, kaffeine4, kaffeinegl, dragonplayer"
+valid msgstr="チャプター" !msgstr="チャプタ(?!ー)"
+valid after="the Configuration dialog "
+
+{\bcharacter sets?\b}i
+id="character_set"
+hint="character set = 文字セット"
+valid msgstr="文字セット"
+valid cat="kfileshare" msgstr="Character set:"
+
+{\bcharsets?\b}i
+id="charset"
+hint="charset = 文字セット"
+valid msgstr="文字セット"
+valid cat="kfileshare" msgstr="(DOS|UNIX|Display) charset:"
+
+{$Clear$}
+id="clear"
+hint="Clear = クリア"
+valid msgstr="クリア"
+
+{\bclear[ -]?text}i
+id="clear_text"
+hint="clear text = 平文"
+valid !msgid="password|crypto|encrypt"
+valid msgstr="平文"
+
+{^Clear Text$}
+id="clear_text_action"
+hint="Clear Text = テキストをクリア"
+valid !ctx="action"
+valid msgstr="テキストをクリア"
+
+{^Close$}
+id="close"
+hint="Close = 閉じる"
+valid msgstr="閉じる"
+
+{^Collapse All$}
+id="collapse_all"
+hint="Collapse All = すべてたたむ"
+valid msgstr="すべてたたむ"
+
+{\bcolor dialog}i
+id="color_dialog"
+hint="color dialog = 色選択ダイアログ"
+valid msgstr="色選択ダイアログ"
+
+{\bcolor picker}i
+id="color_picker"
+hint="color picker = カラーピッカー"
+valid msgstr="カラーピッカー"
+valid before=" dialog"
+
+{\bcolor space}i
+id="color_space"
+hint="color space = 色空間"
+valid msgstr="色空間"
+
+{\bcolumns?}i
+id="column"
+hint="column = カラム|列"
+valid msgstr="(カラム|列)"
+valid cat="kspread" msgid="columns?\("
+disabled
+
+{\bcommand line\b}i
+id="command_line"
+hint="command line = コマンドライン"
+valid msgstr="コマンドライン"
+
+{\bcompact(s|ing|ed)?\b}i
+id="compact"
+hint="compact = 最適化"
+valid span="compact" before=" (disk|flash|style|mode|view)"
+valid span="compact" after="more "
+valid span="compact" ctx="view(ing)? mode"
+valid msgstr="最適化"
+
+{\bcompaction\n}i
+id="compaction"
+hint="compaction = 最適化"
+valid msgstr="最適化"
+
+{\bconstant bitrate\b}i
+id="constant_bitrate"
+hint="constant bitrate = 固定ビットレート"
+valid msgstr="固定ビットレート"
+
+{\bcontents?\b}i
+id="content"
+hint="content = 中身|内容"
+valid msgstr="中身|内容"
+disabled
+
+{\bcontents?\b}i
+id="content2"
+hint="content = コンテンツ"
+valid !after="(web|digital|digitized|active) " !before=" provider"
+valid msgstr="コンテンツ"
+
+{\bcontents\b}
+id="content3"
+hint="content = 目次"
+valid msgstr="目次"
+disabled
+
+{\bcontext menu}i
+id="context_menu"
+hint="context menu = コンテキストメニュー"
+valid msgstr="コンテキストメニュー" !msgstr="コンテクスト"
+
+{\bcookies?\b}i
+id="cookie"
+hint="cookie = クッキー"
+valid msgstr="クッキー" !msgstr="cookie"
+
+{^Copy$}
+id="copy"
+hint="Copy = コピー"
+valid msgstr="コピー"
+
+{^Copy Here$}
+id="copy_here"
+hint="Copy Here = ここにコピー"
+valid msgstr="ここにコピー"
+
+{\bcase sensitive}i
+id="case_sensitive"
+hint="case sensitive = 大文字と小文字を区別"
+valid msgstr="大文字と小文字を区別"
+valid cat="kfileshare" msgstr="Case sensitive"
+
+{^Create New$}
+id="create_new"
+hint="Create New = 新規作成"
+valid msgstr="新規作成"
+
+{^Cut$}
+id="cut"
+hint="Cut = 切り取り"
+valid msgstr="切り取り"
+
+{Decrease Font Sizes?}
+id="decrease_font_size"
+hint="Decrease Font Size = フォントサイズを小さく"
+valid msgstr="フォントサイズを小さく"
+
+{^Decrease Volume$}
+id="decrease_volume"
+hint="Decrease Volume = 音量を下げる"
+valid msgstr="音量を下げる"
+
+{\bdecryption keys?}i
+id="decryption_key"
+hint="decryption key = 復号鍵"
+valid msgstr="復号鍵"
+
+{\bdefault}i
+id="default"
+hint="default = 標準"
+valid msgstr="標準"
+disabled
+
+{\bdefault}i
+id="default2"
+hint="default = デフォルト"
+valid msgstr="デフォルト"
+disabled
+
+{\bdefault}i
+id="default3"
+hint="default = 通常"
+valid msgstr="通常"
+disabled
+
+{^Defaults$}
+id="defaults"
+hint="Defaults = 標準設定"
+valid msgstr="標準設定"
+
+{^Delete$}
+id="delete"
+hint="Delete = 削除"
+valid msgstr="削除"
+valid ctx="keyboard-key-name|QShortcut" msgstr="Delete"
+
+{\bdelimiters?}i
+id="delimiter"
+hint="delimiter = 区切り文字"
+valid before=" line"
+valid cat="kile"
+valid msgstr="区切り文字"
+
+{\bdelimiters?}i
+id="delimiter2"
+hint="delimiter = デリミタ"
+valid !cat="kile"
+valid msgstr="デリミタ" !msgstr="デリミター"
+
+{\bdesceinding}i
+id="descending"
+hint="descending = 降順"
+valid msgstr="降順"
+
+{^Deselect$}
+id="deselect"
+hint="Deselect = 選択解除"
+valid msgstr="選択解除"
+
+{^Deselect All$}
+id="deselect_all"
+hint="Deselect All = すべて選択解除"
+valid msgstr="すべて選択解除"
+
+{\bdesktop search}i
+id="desktop_search"
+hint="desktop search = デスクトップ検索"
+valid msgstr="デスクトップ検索"
+
+{\bdevices?}i
+id="device"
+hint="device = デバイス"
+valid msgstr="デバイス"
+valid after="multi-function " msgstr="複合機" cat="system-config-printer-kde"
+
+{^Discard$}
+id="discard"
+hint="Discard = 破棄"
+valid msgstr="破棄"
+
+{^Discard Changes$}
+id="discard_changes"
+hint="Discard Changes = 変更を破棄"
+valid msgstr="変更を破棄"
+
+{\bdisplay}i
+id="display"
+hint="display = ディスプレイ"
+valid msgstr="ディスプレイ"
+disabled
+
+{\bdisplay}i
+id="display2"
+hint="display = 表示"
+valid msgstr="表示"
+disabled
+
+{Do not ask again}
+id="do_not_ask_again"
+hint="Do not ask again = 次回から確認しない"
+valid msgstr="次回から確認しない"
+
+{Do not show this message again}
+id="do_not_show_this_message_again"
+hint="Do not show this message again = 次回からこのメッセージを表示しない"
+valid msgstr="次回からこのメッセージを表示しない"
+
+{\bdock(ing)?\b}i
+id="dock"
+hint="dock = ドッキング"
+valid msgstr="ドッキング"
+disabled
+
+{\bdockers?\b}i
+id="docker"
+hint="docker = ドッキングパネル|パネル"
+valid msgstr="ドッキングパネル|パネル"
+
+{\bdocuments?}i
+id="document"
+hint="document = 文書"
+valid msgstr="文書"
+disabled
+
+{\bdocuments?}i
+id="document2"
+hint="document = ドキュメント"
+valid msgstr="ドキュメント"
+disabled
+
+{^Down$}
+id="down"
+hint="Down = 下へ"
+valid ctx="QShortcut|keyboard-key-name|network"
+valid msgstr="下へ"
+
+{\bdrag and drop\b}i
+id="drag_and_drop"
+hint="drag and drop = ドラッグ＆ドロップ"
+valid msgstr="ドラッグ＆ドロップ"
+
+{^Edit$}
+id="edit"
+hint="Edit = 編集"
+valid msgstr="編集"
+
+{\beject(s|ed|ing|or)?\b}i
+hint="eject = イジェクト"
+id="eject"
+valid msgstr="イジェクト"
+
+{\belements?\b}i
+id="element"
+hint="element = 要素 [GUI や XML の要素]"
+valid !msgstr="エレメント"
+
+{\belements?\b}i
+id="element2"
+hint="element = 元素 [化学元素]"
+valid msgstr="元素"
+disabled
+
+{\be[-]?mail address(es)?}i
+id="email_address"
+hint="email address = メールアドレス [E を付けずに]"
+valid msgstr="メールアドレス" !msgstr="e[ -]?メールアドレス"
+
+{\bemoticons?\b}i
+id="emoticon"
+hint="emoticon = 感情アイコン"
+valid msgstr="感情アイコン"
+
+{^Empty Trash$}
+id="empty_trash"
+hint="Empty Trash = ごみ箱を空にする"
+valid msgstr="ごみ箱を空にする"
+
+{\bencryption certificates?}i
+id="encryption_certificate"
+hint="encryption certificate = 暗号化用証明書"
+valid msgstr="暗号化用証明書"
+
+{\bencryption keys?}i
+id="encryption_key"
+hint="encryption key = 暗号化鍵"
+valid msgstr="暗号化鍵"
+
+{\bend of line\n}i
+id="end_of_line"
+hint="end of line = 行末"
+valid msgstr="行末"
+disabled
+
+{\bend of line\b}i
+id="end_of_line2"
+hint="end of line = 改行コード"
+valid msgstr="改行コード"
+disabled
+
+{Enlarge Fonts?}
+id="enlarge_font"
+hint="Enlarge Font = フォントサイズを大きく"
+valid msgstr="フォントサイズを大きく"
+
+{\bentit(y|ies)}i
+id="entity"
+hint="entity = エンティティ"
+valid msgstr="エンティティ" !msgstr="エンティティー"
+
+{\benvironment variables?\b}i
+id="environment_variable"
+hint="environment variable = 環境変数"
+valid msgstr="環境変数"
+
+{\bexecutable}i
+id="executable"
+hint="executable = 実行ファイル"
+valid before=" (file|program|code|script|attribute)"
+valid after="(is|not|mark the file as|kills the) "
+valid ctx="is executable"
+valid msgstr="実行ファイル"
+
+{\bexecutable}i
+id="executable2"
+hint="executable = 実行可能"
+valid !before=" (code|script|attribute)" !after="(is|not|mark the file as) " !ctx="is executable"
+valid msgstr="実行可能"
+
+{\bexecutable files?}i
+id="executable_file"
+hint="executable file = 実行ファイル"
+valid msgstr="実行ファイル"
+
+{\bexecutable programs?}i
+id="executable_program"
+hint="executable program = 実行ファイル"
+valid msgstr="実行ファイル"
+
+{\bexit ?status}i
+id="exit_status"
+hint="exit status = 終了ステータス"
+valid msgstr="終了ステータス"
+
+{^Expand All$}
+id="expand_all"
+hint="Expand All = すべて展開"
+valid msgstr="すべて展開"
+
+{\bexport(s|ed|ing)?\b}i
+id="export"
+hint="export = エクスポート"
+valid msgstr="エクスポート" !msgstr="エキスポート"
+
+{\bextensions?}i
+id="extension"
+hint="extension = 拡張子"
+valid msgstr="拡張子"
+disabled
+
+{\bextensions?}i
+id="extension2"
+hint="extension = エクステンション|拡張機能"
+valid msgstr="エクステンション|拡張機能"
+disabled
+
+{\bextra toolbar}i
+id="extra_toolbar"
+hint="extra toolbar = 拡張ツールバー"
+valid msgstr="拡張ツールバー"
+
+{\bextract(s|ed|ing|tion)?\b}i
+id="extract"
+hint="extract = 展開"
+valid !cat="ark" !msgid="archive"
+valid msgstr="展開"
+
+{\bextract(s|ed|ing|tion)?\b}i
+id="extract2"
+hint="extract = 取り出す|抽出"
+valid msgstr=" (取り出[さしすせそ]|抽出)"
+disabled
+
+{\bfacing pages}i
+id="facing_pages"
+hint="facing pages = 見開きページ [文書の表示モード]"
+valid msgstr="見開きページ"
+
+{\bfavicons?\b}i
+id="favicon"
+hint="favicon = ファビコン"
+valid msgstr="ファビコン"
+
+{\bfax\b}i
+id="fax"
+hint="fax = ファクス"
+valid msgstr="ファクス" !msgstr="ファックス"
+
+{\bfile manager}i
+id="file_manager"
+hint="file manager = ファイルマネージャ"
+valid msgstr="ファイルマネージャ" !msgstr="マネージャー"
+
+{\bfilenames?}i
+id="filename"
+hint="filename = ファイル名"
+valid msgstr="ファイル名"
+valid after="(HTML|text|output) " msgstr="ファイルの名前"
+
+{\bfilter bar}i
+id="filter_bar"
+hint="filter bar = フィルタバー"
+valid msgstr="フィルタバー"
+
+{^Find$}
+id="find"
+hint="Find = 検索"
+valid msgstr="検索"
+
+{\bfirewall}i
+id="firewall"
+hint="firewall = ファイアウォール"
+valid msgstr="ファイアウォール" !msgstr="ファイアーウォール|ファイヤー?ウォール"
+
+{Fit to Height}
+id="fit_to_height"
+hint="Fit to Height = 高さに合わせる"
+valid msgstr="高さに合わせる"
+
+{Fit to Page}
+id="fit_to_page"
+hint="Fit to Page = ページに合わせる"
+valid before=" (Width|Height)"
+valid msgstr="ページに合わせる"
+
+{Fit to Selection}
+id="fit_to_selection"
+hint="Fit to Selection = 選択範囲に合わせる"
+valid msgstr="選択範囲に合わせる"
+
+{Fit to Width}
+id="fit_to_width"
+hint="Fit to Width = 幅に合わせる"
+valid msgstr="幅に合わせる"
+
+{\bflat view\b}i
+id="flat_view"
+hint="flat view = フラット表示"
+valid msgstr="フラット表示"
+
+{\bfile dialog}i
+id="file_dialog"
+hint="file dialog = ファイル選択ダイアログ"
+valid after="[\w\-]"
+valid msgstr="ファイル選択ダイアログ"
+
+{\bfile format}i
+id="file_format"
+hint="file format = ファイルフォーマット"
+valid msgstr="ファイルフォーマット"
+disabled
+
+{\bfile ?size}i
+id="file_size"
+hint="file size = ファイルサイズ"
+valid msgstr="ファイルサイズ"
+
+{^Find Next$}
+id="find_next"
+hint="Find Next = 次を検索"
+valid msgstr="次を検索"
+
+{^Find Prev$}
+id="find_prev"
+hint="Find Prev = 前を検索"
+valid msgstr="前を検索"
+
+{^Find Previous$}
+id="find_previous"
+hint="Find Previous = 前を検索"
+valid msgstr="前を検索"
+
+{\bfingerprint}i
+id="finger_print"
+hint="finger print = フィンガープリント"
+valid after="audio "
+valid msgstr="フィンガープリント"
+
+{\bfixed font}i
+id="fixed_font"
+hint="fixed font = 等幅フォント"
+valid msgstr="等幅フォント"
+valid before=" ?size"
+
+{\bfixed width font}i
+id="fixed_width_font"
+hint="fixed width font = 等幅フォント"
+valid msgstr="等幅フォント"
+
+{\bfont ?sizes?\b}i
+id="font_size"
+hint="font size = フォントサイズ"
+valid msgstr="フォントサイズ"
+valid after="relative " msgstr="フォントの相対サイズ"
+
+{\bformat toolbar}i
+id="format_toolbar"
+hint="format toolbar = 書式ツールバー"
+valid msgstr="書式ツールバー"
+
+{^Forward$}
+id="forward"
+hint="Forward = 進む [前へ進む]"
+valid cat="kmail, knode, mailody"
+valid msgstr="進む"
+
+{\bforward(s|ed|ing)?\b}i
+id="forward2"
+hint="Forward = 転送 [メッセージを転送]"
+valid !ctx="message|msg" !msgid="message"
+valid msgstr="転送"
+
+{\bforward(ed|s)?\b}i
+id="forward3"
+hint="Forward = フォワード [ポートをフォワード]"
+valid !msgid="\bports?\b"
+valid msgstr="フォワード"
+
+{\bframe}i
+id="frame"
+hint="frame = 枠 [ウィンドウの装飾]"
+valid msgstr="枠"
+disabled
+
+{\bframe}i
+id="frame2"
+hint="frame = フレーム [ウェブページのフレーム]"
+valid msgstr="フレーム"
+disabled
+
+{\bframe}i
+id="frame3"
+hint="frame = フレーム [伝送単位]"
+valid msgstr="フレーム"
+disabled
+
+{\bfree ?space\b}i
+id="free_space"
+hint="free space = 空き容量|空き領域"
+valid msgstr="空き(領域|容量)"
+
+{\bfrom cursor}i
+id="from_cursor"
+hint="from cursor = カーソル位置から"
+valid msgstr="カーソル位置から"
+
+{\bfull text search}i
+id="full_text_search"
+hint="full text search = 全文検索"
+valid msgstr="全文検索"
+
+{\bfull ?screen\b}i
+id="fullscreen"
+hint="fullscreen = フルスクリーン"
+valid msgstr="フルスクリーン" !msgstr="全画面"
+valid cat="kgrab, ksnapshot" msgstr="スクリーン全体"
+
+{\bhex editor}i
+id="hex_editor"
+hint="hex editor = バイナリエディタ"
+valid msgstr="バイナリエディタ" !msgstr="エディター|十六進エディタ"
+
+{\bhidden files?}i
+id="hidden_file"
+hint="hidden file = 隠しファイル"
+valid msgstr="隠しファイル"
+valid cat="kfileshare" msgstr="Hidden files:"
+
+{\bhue\b}i
+id="hue"
+hint="hue = 色相"
+valid msgstr="色相"
+valid ctx="kgm"
+
+{\bimages?\b}i
+id="image"
+hint="image = 画像"
+valid msgstr="画像"
+disabled
+
+{\bimages?\b}i
+id="image2"
+hint="image = イメージ"
+valid msgstr="イメージ"
+disabled
+
+{\bimport(s|ed|ing)?\b}i
+id="import"
+hint="import = インポート"
+valid msgstr="インポート"
+
+{Increase Font Sizes?}
+id="increase_font_size"
+hint="Increase Font Size = フォントサイズを大きく"
+valid msgstr="フォントサイズを大きく"
+
+{^Increase Volume$}
+id="increase_volume"
+hint="Increase Volume = 音量を上げる"
+valid msgstr="音量を上げる"
+
+{\bindex(es)?\b|\bindices}i
+id="index"
+hint="index = 索引"
+valid !cat="kile" !before=" (page)"
+valid msgstr="索引"
+valid cat="kile" before="{"
+
+{\bindex(es)?\b|\bindices}i
+id="index2"
+hint="index = インデックス"
+valid !cat="nepomuk, kerry, kcmbeagle" !after="(search) "
+valid msgstr="インデックス"
+
+{\bindex(es)?|\bindices}i
+id="index3"
+hint="index = 指数"
+valid msgstr="指数"
+disabled
+
+{\bindexer}i
+id="indexer"
+hint="indexer = インデクサ"
+valid msgstr="インデクサ"
+
+{\bindexing}i
+id="indexing"
+hint="indexing = インデックス作成"
+valid msgstr="インデックス[のを]?作成"
+valid after="re-" msgstr="インデックス[のを]?再作成"
+
+{^Insert$}
+id="insert"
+hint="Insert = 挿入"
+valid msgstr="挿入"
+valid ctx="QShortcut" msgstr="Insert"
+valid ctx="keyboard-key-name" msgstr="Insert"
+
+{\binstant messenger}i
+id="instant_messenger"
+hint="instant messenger = インスタントメッセンジャー"
+valid msgstr="インスタントメッセンジャー"
+
+{\binterface}i
+id="interface"
+hint="interface = インターフェース"
+valid msgstr="インターフェース"
+
+{^Invert Selection$}
+id="invert_selection"
+hint="Invert Selection = 選択反転"
+valid msgstr="選択反転"
+
+{\binternet service provider}i
+id="isp"
+hint="internet service provider = ISP|インターネットサービスプロバイダ"
+valid msgstr="ISP|インターネットサービスプロバイダ" !msgstr="プロバイダー"
+
+{\bitalic}i
+id="italic"
+hint="italic = イタリック"
+valid msgstr="イタリック"
+
+{\bjournals?\b}i
+id="journal"
+hint="journal = 日記"
+valid msgstr="日記"
+
+{\bkey pairs?}i
+id="key_pair"
+hint="key pair = 鍵ペア"
+valid msgstr="鍵ペア"
+valid after="secret " msgstr="秘密鍵のペア"
+
+{\blandscape}i
+id="landscape"
+hint="landscape = 横長"
+valid msgstr="横長"
+disabled
+
+{\blandscape}i
+id="landscape2"
+hint="landscape = ランドスケープ"
+valid msgstr="ランドスケープ"
+disabled
+
+{\blaunchers?\b}i
+id="launcher"
+hint="launcher = ランチャー"
+valid after="compiz-kde-"
+valid msgstr="ランチャー" !msgstr="ランチャ(?!ー)|ラウンチャー?"
+
+{\bline break}i
+id="line_break"
+hint="line break = 改行"
+valid msgstr="改行"
+disabled
+
+{\bline numbers?}i
+id="line_number"
+hint="line number = 行番号"
+valid msgstr="行番号"
+
+{^Link Here$}
+id="link_here"
+hint="Link Here = ここにリンク"
+valid msgstr="ここにリンク(?!を)"
+
+{\blocation ?bar}i
+id="location_bar"
+hint="location bar = 場所バー"
+valid msgstr="場所バー"
+
+{\bmail client}i
+id="mail_client"
+hint="mail client = メールクライアント"
+valid msgstr="メールクライアント"
+
+{\bmain toolbar}i
+id="main_toolbar"
+hint="main toolbar = メインツールバー"
+valid msgstr="メインツールバー"
+
+{\bmain window}i
+id="main_window"
+hint="main window = メインウィンドウ"
+valid msgstr="メインウィンドウ"
+
+{^Maximize$}
+id="maximize"
+hint="Maximize = 最大化"
+valid msgstr="最大化"
+
+{\bmedia player}i
+id="media_player"
+hint="media player = メディアプレーヤー"
+valid msgstr="メディアプレーヤー"
+
+{\b(MIME|Mime|mime)[ -]?[Tt]ypes?}
+id="mime_type"
+hint="MIME type = MIME タイプ"
+valid msgstr="MIME タイプ"
+valid cat="kfmclient, kioclient" msgstr="mimetype"
+
+{^Minimize$}
+id="minimize"
+hint="Minimize = 最小化"
+valid msgstr="最小化"
+
+{\bmodifier keys?}i
+id="modifier_key"
+hint="modifier key = 修飾キー"
+valid msgstr="修飾キー"
+
+{\bmonitor}i
+id="monitor"
+hint="monitor = モニタ"
+valid msgstr="モニタ"
+disabled
+
+{\bmonitor}i
+id="monitor2"
+hint="monitor = 監視"
+valid msgstr="監視"
+disabled
+
+{\bmonitor}i
+id="monitor3"
+hint="monitor = モニタ"
+valid msgstr="モニタ"
+disabled
+
+{\bmonospace}i
+id="monospace"
+hint="monospace = モノスペース"
+valid msgstr="モノスペース"
+
+{\bmount(s|ed|ing)?\b}i
+id="mount"
+hint="mount = マウント"
+valid before=" (Athos|Ekar|Erebus|Evans|Graham|John|Lemmon|Mario|Palomar|Stromlo|Wilson)"
+valid msgstr="マウント"
+valid span="mounted" before=" on a telescope"
+valid msgstr="mount"
+
+{\bmount ?point}i
+id="mount_point"
+hint="mount point = マウントポイント"
+valid msgstr="マウントポイント"
+
+{^Move Down$}
+id="move_down"
+hint="Move Down = 下へ移動"
+valid msgstr="下へ移動"
+
+{^Move Here$}
+id="move_here"
+hint="Move Here = ここに移動"
+valid msgstr="ここに移動"
+
+{^Move to Trash$}
+id="move_to_trash"
+hint="Move to Trash = ごみ箱に移動"
+valid msgstr="ごみ箱に移動"
+
+{^Move Up$}
+id="move_up"
+hint="Move Up = 上へ移動"
+valid msgstr="上へ移動"
+
+{\bnetwork failure}i
+id="network_failure"
+hint="network failure = ネットワーク障害"
+valid msgstr="ネットワーク障害"
+
+{\bnewline}i
+id="newline"
+hint="newline = 改行"
+valid msgstr="改行"
+disabled
+
+{^Next$}
+id="next"
+hint="Next = 次へ"
+valid msgstr="次へ"
+valid ctx="Next page" msgstr="次のページ"
+valid ctx="Opposite to Prior" msgstr="1 画面下へスクロール"
+valid ctx="(following|next) track" msgstr="次のトラック"
+
+{\boblique}i
+id="oblique"
+hint="oblique = オブリック"
+valid msgstr="オブリック"
+
+{Open\.\.\.}
+id="open"
+hint="Open... = 開く..."
+valid msgstr="開く\.\.\."
+
+{Open With\.\.\.}
+id="open_with"
+hint="Open With... = アプリケーションで開く..."
+valid msgstr="アプリケーションで開く\.\.\."
+
+{\bon screen display}i
+id="osd"
+hint="on screen display = OSD|オンスクリーンディスプレイ"
+valid msgstr="OSD|オンスクリーンディスプレイ"
+
+{^Overwrite$}
+id="overwrite"
+hint="Overwrite = 上書き"
+valid msgstr="上書き"
+
+{\bpagers?\b}i
+id="pager"
+hint="pager = ポケットベル"
+valid !msgstr="ポケベル"
+
+{\bpagers?\b}i
+id="pager2"
+hint="pager = ページャ"
+valid !msgstr="ページャー"
+
+{\bparameters?}i
+id="parameter"
+hint="parameter = パラメータ"
+valid msgstr="パラメータ"
+valid cat="kipiplugin_metadataedit" msgstr="IPTC-NAA Digital Newsphoto Parameter Record"
+valid cat="kspread"
+
+{\bpars(e[sd]?|ing)\b}i
+id="parse"
+hint="parse = 解析"
+valid msgstr="解析" !msgstr="パース"
+
+{\bparsers?\b}i
+id="parser"
+hint="parser = パーサ"
+valid msgstr="パーサ" !msgstr="パーサー"
+
+{\bpassword dialog}i
+id="password_dialog"
+hint="password dialog = パスワード入力ダイアログ"
+valid msgstr="パスワード入力ダイアログ"
+
+{^Paste$}
+id="paste"
+hint="Paste = 貼り付け"
+valid msgstr="貼り付け"
+valid ctx="Name" msgstr="Paste"
+
+{^Pause$}
+id="pause"
+hint="Pause = 一時停止"
+valid msgstr="一時停止"
+valid cat="rsibreak" msgstr="休憩"
+valid ctx="QShortcut" msgstr="Pause"
+
+{\bpermissions}i
+id="permission"
+hint="permission = パーミッション"
+valid !after="(file|advanced|change|check|inherit|preserve|by) " !ctx="sort by"
+valid msgstr="パーミッション"
+
+{\bpermissions?}i
+id="permission2"
+hint="permission = 権限"
+valid !after="have( the)?( (read|write|read/write|access|(sufficient|enough|necessary|required|correct|right)( (access|read|write))?))? "
+valid msgstr="権限"
+
+{\bpermissions?}i
+id="permission3"
+hint="permission = 許可"
+valid msgstr="許可"
+disabled
+
+{\bplain[ -]?text}i
+id="plain_text"
+hint="plain text = プレーンテキスト"
+valid msgstr="プレーンテキスト"
+disabled
+
+{\bplain[ -]?text}i
+id="plain_text2"
+hint="plain text = 平文 [暗号化されていないデータ]"
+valid !msgid="password|crypto|encrypt"
+valid msgstr="平文"
+
+{^Play$}
+id="play"
+hint="Play = 再生 [メディアファイルを再生]"
+valid ctx="game"
+valid cat="ksudoku, kmj" msgid="Play" msgstr="プレイ"
+valid msgstr="再生"
+
+{^Play$|^PLAY$}
+id="play2"
+hint="Play = プレイ [ゲームをプレイ]"
+valid !ctx="game"
+valid msgstr="プレイ"
+
+{\bplayer}i
+id="player"
+hint="player = プレーヤー [メディアプレーヤー]"
+valid after="computer |AI |human "
+valid cat="katomic, kbattleship, kfourinline, kiriki, kjumpingcube, kolf, konquest, kreversi, kspaceduel, ksquares, libkdegames, lskat, desktop_playground-games, playground-games.desktop, kbackgammon, kombination, kttt, libksirtet, ktron, kigo, kmj, draughts, fruitwars, ktankserver"
+valid after="Dragon |Kaffeine "
+valid after="%"
+valid msgstr="プレーヤー" !msgstr="プレーヤ(?!ー)|プレイヤー"
+
+{\bplayers?}i
+id="player2"
+hint="player = プレイヤー [ゲームの参加者]"
+valid after="single " msgstr="1 人プレイ"
+valid after="two " before=" game" msgstr="2 人"
+valid before=" is AI" msgstr="AI がプレイ"
+valid after="media |audio |music |movie |video |midi |karaoke |file |CD |DVD |MPEG "
+valid after="external"
+valid after="%"
+valid cat="amarok, k3b, libk3b, kplayer, kaffeine4, kmplayer, juk, kcmnotify"
+valid after="Dragon |Kaffeine |XMMS |DJ-Mixer and "
+valid msgstr="プレイヤー" !msgstr="プレイヤ(?!ー)|プレーヤー?"
+
+{\bplaylists?}i
+id="playlist"
+hint="playlist = プレイリスト"
+valid msgstr="プレイリスト"
+
+{\bportrait}i
+id="portrait"
+hint="portrait = 縦長"
+valid msgstr="縦長"
+disabled
+
+{\bportrait}i
+id="portrait2"
+hint="portrait = ポートレート"
+valid msgstr="ポートレート"
+disabled
+
+{\bpreferences\b}i
+id="preferences"
+hint="preferences = 設定"
+valid msgstr="設定"
+
+{^Previous$}
+id="previous"
+hint="Previous = 前へ"
+valid msgstr="前へ"
+valid ctx="Previous page" msgstr="前のページ"
+valid ctx="(preceding|previous) track" msgstr="前のトラック"
+valid ctx="preselected user" msgstr="前回のユーザ"
+
+{Print\.\.\.}
+id="print"
+hint="Print... = 印刷..."
+valid msgstr="印刷\.\.\."
+
+{^Print Preview$}
+id="print_preview"
+hint="Print Preview = 印刷プレビュー"
+valid msgstr="印刷プレビュー"
+
+{\bprivate keys?}i
+id="private_key"
+hint="private key = 秘密鍵"
+valid msgstr="秘密鍵"
+
+{\bprogress ?bar}i
+id="progress_bar"
+hint="progress bar = 進捗バー"
+valid msgstr="進捗バー"
+
+{\bpropert(y|ies)}i
+id="property"
+hint="property = プロパティ"
+valid msgstr="プロパティ" !msgstr="プロパティー"
+valid after="(food|physical) "
+
+{\bproviders?}i
+id="provider"
+hint="provider = プロバイダ"
+valid after="(search|internet service) "
+valid msgstr="プロバイダ" !msgstr="プロバイダー"
+
+{\bproxy}i
+id="proxy"
+hint="proxy = プロキシ"
+valid msgstr="プロキシ" !msgstr="プロキシー|プロクシ"
+valid cat="kfileshare" msgstr="(DNS|WINS|Msdfs) proxy"
+
+{\bpublic keys?}i
+id="public_key"
+hint="public key = 公開鍵"
+valid msgstr="公開鍵"
+
+{^Quit$}
+id="quit"
+hint="Quit = 終了"
+valid msgstr="終了"
+
+{\b(Raw|RAW) [Ii]mages?}
+id="raw_image"
+hint="Raw image = RAW 画像"
+valid msgstr="RAW 画像"
+
+{\bread[\- ]only}i
+id="read_only"
+hint="read only = 読み取り専用"
+valid msgstr="読み取り専用"
+
+{^Redo$}
+id="redo"
+hint="Redo = やり直す"
+valid msgstr="やり直す"
+
+{^Reload$}
+id="reload"
+hint="Reload = 再読み込み"
+valid msgstr="再読み込み"
+
+{^Rename$}
+id="rename"
+hint="Rename = 名前変更"
+valid msgstr="名前変更"
+
+{^Replace$}
+id="replace"
+hint="Replace = 置換"
+valid msgstr="置換"
+
+{\brequests?\b}i
+id="request"
+hint="request = 要求"
+valid !msgstr="リクエスト"
+
+{^Reset$}
+id="reset"
+hint="Reset = リセット"
+valid msgstr="リセット"
+
+{Reset to Defaults}
+id="reset_to_defaults"
+hint="Reset to Defaults = 標準設定に戻す"
+valid msgstr="標準設定に戻す"
+
+{\bresources?\b}i
+id="resource"
+hint="resource = リソース"
+valid msgstr="リソース"
+valid after="uniform " before=" locator"
+
+{^Restore$}
+id="restore"
+hint="Restore = 復元"
+valid msgstr="復元"
+
+{\breturn values?}i
+id="return_value"
+hint="return value = 戻り値"
+valid msgstr="戻り値"
+
+{\brippers?}i
+id="ripper"
+hint="ripper = リッパー"
+valid msgstr="リッパー"
+
+{\bsample rates?}i
+id="sample_rate"
+hint="sample rate = サンプリングレート"
+valid msgstr="サンプリングレート"
+
+{\bsampling rates?}i
+id="sampling_rate"
+hint="sampling rate = サンプリングレート"
+valid msgstr="サンプリングレート"
+
+{\bsans serif}i
+id="sans_serif"
+hint="sans serif = サンセリフ"
+valid msgstr="サンセリフ"
+
+{\bsaturation}i
+id="saturation"
+hint="saturation = 彩度"
+valid msgstr="彩度"
+
+{^Save$}
+id="save"
+hint="Save = 保存"
+valid msgstr="保存"
+
+{Save As\.\.\.}
+id="save_as"
+hint="Save As... = 名前を付けて保存..."
+valid msgstr="名前を付けて保存\.\.\."
+
+{\bscreen ruler}i
+id="screen_ruler"
+hint="screen ruler = スクリーンルーラー"
+valid msgstr="スクリーンルーラー"
+
+{\bscreen saver}i
+id="screen_saver"
+hint="screen saver = スクリーンセーバー"
+valid msgstr="スクリーンセーバー"
+
+{\bscroll ?bars?}i
+id="scroll_bar"
+hint="scroll bar = スクロールバー"
+valid msgstr="スクロールバー"
+
+{^Search$}
+id="search"
+hint="Search = 検索"
+valid msgstr="検索"
+
+{\bsearch ?bar}i
+id="search_bar"
+hint="search bar = 検索バー"
+valid msgstr="検索バー"
+
+{\bsearch providers?}i
+id="search_provider"
+hint="search provider = 検索プロバイダ"
+valid msgstr="検索プロバイダ" !msgstr="プロバイダー"
+
+{\bsecret keys?}i
+id="secret_key"
+hint="secret key = 秘密鍵"
+valid msgstr="秘密鍵"
+
+{\bsecurity}i
+id="security"
+hint="security = セキュリティ|安全|安全性"
+valid msgstr="セキュリティ|安全|安全性" !msgstr="セキュリティー"
+valid cat="kalzium" msgid="Risks/Security Phrases" msgstr="R/S フレーズ"
+valid cat="kfileshare" msgstr="Paranoid server security|Force directory security mode:|Force security mode:|Directory security mask:|Security mask:"
+valid cat="kspread" msgstr="証券"
+valid cat="sheets" msgstr="証券"
+
+{^Select All$}
+id="select_all"
+hint="Select All = すべて選択"
+valid msgstr="すべて選択"
+
+{\bseparators?}i
+id="separator"
+hint="separator = セパレータ [メニューやツールバーで項目のグループを区切る線]"
+valid !after="(insert|add|delete|remove) " !before=" (color|width)"
+valid msgstr="セパレータ" !msgstr="セパレーター"
+
+{\bseparators?}i
+id="separator2"
+hint="separator = 区切り|区切り文字"
+valid !after="thousands " !before=" characters?"
+valid msgstr="区切り|区切り文字"
+
+{\bserif}i
+id="serif"
+hint="serif = セリフ"
+valid after="(sans|dejavu|liberation|luxi) "
+valid msgstr="セリフ"
+
+{\bservers?\b}i
+id="server"
+hint="server = サーバ"
+valid !msgstr="サーバー"
+
+{Shrink Fonts?\b}
+id="shrink_font"
+hint="Shrink Font = フォントサイズを小さく"
+valid msgstr="フォントサイズを小さく"
+
+{\bsigning certificates?}i
+id="signing_certificate"
+hint="signing certificate = 署名用証明書"
+valid msgstr="署名用証明書"
+
+{\bsigning keys?}i
+id="signing_key"
+hint="signing key = 署名鍵"
+valid msgstr="署名鍵"
+
+{\bsmileys?\b}i
+id="smiley"
+hint="smiley = 顔文字"
+valid before=" pixmap"
+valid after="pretty "
+valid msgstr="顔文字"
+
+{Snap to Grid}
+id="snap_to_grid"
+hint="Snap to Grid = グリッドに合わせる"
+valid msgstr="グリッドに合わせる"
+
+{\bsort(s|ed|ing)?\b}i
+id="sort"
+hint="sort = ソート"
+valid span="sort|sorts" before=" of"
+valid after="of all " span="sorts"
+valid after="of some " span="sort"
+valid msgstr="ソート"
+
+{\bspaces?\b}i
+id="space"
+hint="space = スペース [語と語の区切りを表すために空ける空白]"
+valid msgstr="スペース"
+disabled
+
+{\bspace\b}i
+id="space2"
+hint="space = 領域 [ディスク領域、スワップ領域、メモリ領域など]"
+valid !after="(disk|swap|memory) "
+valid msgstr="領域"
+
+{\bspace\b}i
+id="space3"
+hint="space = 宇宙"
+valid msgstr="宇宙"
+disabled
+
+{\bspace}i
+id="space4"
+hint="space = スペース [空間、場所]"
+valid msgstr="スペース"
+disabled
+
+{\bspams?\b}i
+id="spam"
+hint="spam = スパム"
+valid msgstr="スパム"
+
+{\bstatus ?bar}i
+id="statusbar"
+hint="statusbar = ステータスバー"
+valid msgstr="ステータスバー"
+
+{^Stop$}
+id="stop"
+hint="Stop = 停止"
+valid msgstr="停止"
+
+{\bstorage}i
+id="storage"
+hint="storage = ストレージ"
+valid !before=" (device|media|medium)" !after="mass "
+valid msgstr="ストレージ"
+
+{\bstorage}i
+id="storage2"
+hint="storage = 保存"
+valid msgstr="保存"
+disabled
+
+{\bstrikeout}i
+id="strikeout"
+hint="strikeout = 取り消し線"
+valid msgstr="取り消し線"
+
+{\bswitchers?\b}i
+id="switcher"
+hint="switcher = スイッチャー"
+valid msgstr="スイッチャー" !msgstr="スイッチャ(?!ー)"
+
+{\bsyntax\b}i
+id="syntax"
+hint="syntax = 構文|文法"
+valid before=" (error|highlighting)"
+valid msgstr="構文|文法"
+
+{\bsyntax errors?}i
+id="syntax_error"
+hint="syntax error = 構文エラー"
+valid msgstr="構文エラー"
+
+{\bsyntax highlighting}i
+id="syntax_highlighting"
+hint="syntax highlighting = 構文強調表示"
+valid msgstr="構文強調表示"
+
+{\bsystem tray}i
+id="system_tray"
+hint="system tray = システムトレイ"
+valid msgstr="システムトレイ"
+
+{System Settings}
+id="systemsettings"
+hint="System Settings = KDE システム設定"
+valid msgstr="KDE システム設定"
+disabled
+
+{\btab ?bars?\b}i
+id="tab_bar"
+hint="tab bar = タブバー"
+valid msgstr="タブバー"
+
+{\btable of contents}i
+id="table_of_contents"
+hint="table of contents = 目次"
+valid msgstr="目次"
+valid cat="k3b, libk3b" msgstr="内容一覧"
+
+{\btemplates?\b}i
+id="template"
+hint="template = テンプレート"
+valid msgstr="テンプレート"
+valid cat="kfileshare" msgstr="Template homedir:|Template shell:|Template primary group:"
+
+{\btemporary file}i
+id="temporary_file"
+hint="temporary file = 一時ファイル"
+valid msgstr="一時ファイル"
+
+{\bterminal}i
+id="terminal"
+hint="terminal = ターミナル"
+valid msgstr="ターミナル"
+
+{\bterminal emulator}i
+id="terminal_emulator"
+hint="terminal emulator = ターミナルエミュレータ"
+valid msgstr="ターミナルエミュレータ"
+
+{\btext editor}i
+id="text_editor"
+hint="text editor = テキストエディタ"
+valid msgstr="テキストエディタ" !msgstr="エディター"
+
+{\bthreshold}i
+id="threshold"
+hint="threshold = しきい値"
+valid msgstr="しきい値"
+
+{\bthumbnails?}i
+id="thumbnail"
+hint="thumbnail = サムネイル"
+valid msgstr="サムネイル"
+
+{\btime[ -]?zones?\b}i
+id="time_zone"
+hint="time zone = タイムゾーン"
+valid msgstr="タイムゾーン"
+
+{\btitle ?bars?\b}i
+id="title_bar"
+hint="title bar = タイトルバー"
+valid msgstr="タイトルバー"
+
+{\b[Tt]o-?[Dd]os?}
+id="todo"
+hint="to-do = To-Do"
+valid msgstr="To-Do" !msgstr="To-Dos|To ?Dos?|[Tt]o[- ]?dos?"
+
+{\btooltips?}i
+id="tooltip"
+hint="tooltip = ツールチップ"
+valid msgstr="ツールチップ"
+
+{\btree view\b}i
+id="tree_view"
+hint="tree view = ツリー表示 [表示モード。ウィジェットを指す場合はツリービュー]"
+valid msgstr="ツリー表示"
+
+{\btree view\b}i
+id="tree_view2"
+hint="tree view = ツリービュー"
+valid msgstr="ツリービュー"
+disabled
+
+{\bunderline}i
+id="underline"
+hint="underline = 下線"
+valid msgstr="下線"
+
+{^Undo$}
+id="undo"
+hint="Undo = 元に戻す"
+valid msgstr="元に戻す"
+
+{\bunmount}i
+id="unmount"
+hint="unmount = アンマウント"
+valid msgstr="アンマウント" !msgstr="マウント解除"
+valid msgstr="unmount"
+
+{^Up$}
+id="up"
+hint="Up = 上へ"
+valid ctx="QShortcut|keyboard-key-name|network"
+valid msgstr="上へ"
+
+{^Up$}
+id="up2"
+hint="Up = 上へ"
+valid ctx="QShortcut|keyboard-key-name|network"
+valid msgstr="上へ"
+disabled
+
+{\busers?}i
+id="user"
+hint="user = ユーザ"
+valid !msgstr="ユーザー"
+
+{\buser ?names?}i
+id="username"
+hint="username = ユーザ名"
+valid msgstr="ユーザ名"
+valid msgstr="username"
+
+{\butilit(y|ies)}i
+id="utility"
+hint="utility = ユーティリティ"
+valid msgstr="ユーティリティ" !msgstr="ユーティリティー"
+
+{\bvalues?}i
+id="value"
+hint="value = 値"
+valid msgstr="値"
+disabled
+
+{\bvalue}i
+id="value2"
+hint="value = 明度 [HSV の V]"
+valid !ctx="HSV"
+valid msgstr="明度"
+
+{\bvariables?\b}i
+id="variable"
+hint="variable = 変数"
+valid ctx="variable star"
+valid before=" (star|nebula)"
+valid before="[ -](bitrate|width|depth|space|block size|viewpoint)"
+valid msgstr="変数"
+
+{\bvariable\b}i
+id="variable2"
+hint="variable = 可変"
+valid !before="[ -](bitrate|width|depth|space|block size|viewpoint)"
+valid msgstr="可変"
+
+{\bvariables?\b}i
+id="variable3"
+hint="variable = 変光星 [variable star]"
+valid !before=" star" !ctx="variable star"
+valid msgstr="変光星"
+
+{\bvariable bitrate\b}i
+id="variable_bitrate"
+hint="variable bitrate = 可変ビットレート"
+valid msgstr="可変ビットレート"
+
+{\bvendors?\b}i
+id="vendor"
+hint="vendor = ベンダー"
+valid msgstr="ベンダー"
+
+{\bversion control system}i
+id="version_control_system"
+hint="version control system = バージョン管理システム"
+valid msgstr="バージョン管理システム"
+
+{\bvideo\b}i
+id="video"
+hint="video = 映像 [音声に対する映像]"
+valid !before=" (output|input|capture|device|track|channel|stream|frame|data|(samle|sampling) rate|bitrate)"
+valid msgstr="映像"
+
+{\bvideo\b}i
+id="video2"
+hint="video = 動画 [静止画に対する動画]"
+valid !before=" (file|(file ?)?format|codec|player)"
+valid msgstr="動画"
+
+{\bvideo\b}i
+id="video3"
+hint="video = ビデオ"
+valid !before=" (CD|DVD|card|driver|port|chat|camera|conference|conferencing)"
+valid msgstr="ビデオ"
+
+{\bview mode}i
+id="view_mode"
+hint="view mode = 表示モード"
+valid after="split |tree "
+valid msgstr="表示モード"
+
+{\bviewers?\b}i
+id="viewer"
+hint="viewer = ビューア"
+valid msgstr="ビューア" !msgstr="ビューアー|ビューワー?|ビュ[ワア]ー"
+valid cat="kipiplugin_simpleviewerexport" after="simple ?" msgstr="simpleviewer"
+
+{\bvirus}i
+id="virus"
+hint="virus = ウイルス"
+valid msgstr="ウイルス"
+
+{^Volume Down$}
+id="volume_down"
+hint="Volume Down = 音量を下げる"
+valid msgstr="音量を下げる"
+
+{^Volume Up$}
+id="volume_up"
+hint="Volume Up = 音量を上げる"
+valid msgstr="音量を上げる"
+
+{\bwallets?\b}i
+id="wallet"
+hint="wallet = ウォレット"
+valid msgstr="ウォレット"
+
+{\bweb browser}i
+id="web_browser"
+hint="web browser = ウェブブラウザ"
+valid msgstr="ウェブブラウザ"
+
+{\bwhole words only}i
+id="whole_words_only"
+hint="whole words only = 単語単位"
+valid msgstr="単語単位"
+
+{\bwidgets?\b}i
+id="widget"
+hint="widget = ウィジェット"
+valid msgstr="ウィジェット" !msgstr="ウィジット"
+
+{\bwired}i
+id="wired"
+hint="wired = 有線"
+valid msgstr="有線"
+
+{\bwireless}i
+id="wireless"
+hint="wireless = ワイヤレス"
+valid msgstr="ワイヤレス"
+valid after="802-11-"
+
+{\bwizards?\b}i
+id="wizard"
+hint="wizard = ウィザード"
+valid msgstr="ウィザード"
+valid cat="kfileshare" msgstr="Show add printer wizard"
+
+{\bworking cop(y|ies)}i
+id="working_copy"
+hint="working copy = 作業コピー"
+valid msgstr="作業コピー"
+
+{\bworking folders?}i
+id="working_folder"
+hint="working folder = 作業フォルダ"
+valid msgstr="作業フォルダ"
+
+{\bwep keys?}i
+id="wep_key"
+hint="WEP key = WEP キー"
+valid msgstr="WEP キー"
+
+{advanced .*settings}i
+id="advanced_settings"
+hint="advanced settings = 詳細設定"
+valid msgstr="詳細設定"

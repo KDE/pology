@@ -1,0 +1,618 @@
+# Translation choices of french team
+# by the KDE French Team (kde-francophone@kde.org)
+# License: GPLv3
+
+include file="filter.include"
+
+validGroup filenameTag
+valid after="<filename>.*" before=".*</filename>"
+
+validGroup foreignphraseTag
+valid after="<foreignphrase>.*" before=".*</foreignphrase>"
+
+validGroup programlistingTag
+valid after="<programlisting>.*" before=".*</programlisting>"
+
+validGroup computeroutputTag
+valid after="<computeroutput>.*" before=".*</computeroutput>"
+
+validGroup inParenthesis
+valid after="\(" before="\)"
+
+validGroup inQuotes
+valid after="«&unbsp;" before="&unbsp;»"
+
+validGroup optionTag
+valid after="<option>.*" before=".*</option>"
+
+validGroup systemitemTag
+valid after=".*<systemitem.*>" before=".*</systemitem>"
+
+validGroup ulinkTag
+valid after="ulink .*" before=".*\">"
+
+validGroup urlTag
+valid after="url=\".*" before=".*</ulink>"
+
+validGroup userinputTag
+valid after="<userinput>.*" before=".*</userinput>"
+
+validGroup guilabelTag
+valid after="<guilabel>.*" before=".*</guilabel>"
+
+validGroup guimenuitemTag
+valid after="<guimenuitem>.*" before=".*</guimenuitem>"
+
+validGroup linkTag
+valid after="linkend=\".*" before=".*\".*>"
+
+validGroup imagedataTag
+valid after="<imagedata fileref=.*" before=".*/>"
+
+validGroup glossseealsoTag
+valid after="<glossseealso.*" before=".*</glossseealso>"
+
+validGroup linkstart
+valid after="&amp;linkstart;.*" before=".*\"&amp;linkmid;"
+valid after="&amp;linkmid;.*" before=".*&amp;linkend;"
+
+validGroup quoteTag
+valid after="<quote>.*" before=".*</quote>"
+
+validGroup commandTag
+valid after="<command>.*" before=".*</command>"
+
+[(\b[Ee]ntrer\b)|(\b[Ee]ntré[^e])|(\b[Ee]ntrez\b)]
+valid before="&sp;dans&sp;"
+valid before="&sp;en&sp;"
+valid after="C&"
+valid cat="kolf" before=" ((la)|(une)) balle"
+valid cat="konsole" after="vous&sp;qui&sp;" before="&sp;ici"
+valid cat="kmail" before=" réellement dans le dossier"
+valid cat="kalzium" before=" de l'air"
+valid cat="kgoldrunner"
+valid before=" au Panthéon| au tableau des meilleurs"
+valid ctx="Enter folder"
+hint="Nous préférons « saisir » à « entrer » (elle est où la porte ?)"
+
+[entrées? ?/( ?|&unbsp;)sorties?]
+hint="Homogénéité : entrées / sorties (avec une espace insécable entre « entrée » et « / »)"
+
+[entrée&unbsp;/ sortie|entrées&unbsp;/ sortie(?!s)|entrée&unbsp;/ sorties]
+valid after="[Uu]ne "
+valid after="l'"
+valid after="d'"
+hint="Utilisez cette expression au pluriel « entrées / sorties »"
+
+[k?ioslave]
+validGroup glossseealsoTag
+valid after="kcm|/"
+valid before="&unbsp;» (ou|en anglais)"
+hint="Traduisez ce mot par « module d'entrée / sortie »"
+
+[^ici]i
+valid cat="kamala" before="\s/"
+valid msgstr="ici$"
+hint="Ne commencez pas une phrase par « Ici » mais utilisez plutôt une tournure de la forme : « Vous pouvez ici... » "
+
+[manettes?]i
+hint="Le mot « joystick » ne doit pas être traduit (choix de l'équipe)"
+
+[valide([^zr]|$)]
+valid cat="kppp_kppp-faq" msgid="pppd\[1182.*"
+valid after="il&sp;"
+valid after="XML non "
+hint="Choix de l'équipe : « valable/non valable » (au lieu de « valide/non valide »)"
+
+[\bstop\b]
+validGroup userinputTag
+valid cat="konsole"
+valid cat="ksysv" after="^" before="$"
+valid cat="ksysv"
+valid cat="libksieve" msgid="\"stop\""
+valid cat="kmail_troubleshooting" msgid="akonadictl stop"
+hint="préférons « arrêt » à « stop »"
+
+[[Rr]@épertoire]
+validGroup linkstart
+valid after="services? de " before="s"
+valid before=" téléphon"
+valid cat="konqueror,konqueror_filemanager" after="Notez que le terme <quote>dossier</quote> est souvent utilisé à la place de <quote>"
+hint="préférons « dossier » à « répertoire »"
+
+[taper|tapant]
+valid before="&sp;$"
+valid cat="ktouch" after="apprendre&sp;à&sp;"
+valid cat="ktouch" after="apprenez&sp;à&sp;"
+valid cat="kcm_touchpad"
+hint="Mieux vaut « saisir » que « taper »"
+
+[bouton\s*\w*\s*milieu]
+hint="bouton du milieu -> bouton central"
+
+[compact]i
+valid after="le mode &?"
+valid after="barres? d'outils "
+valid after="affichage "
+valid after="RelaxNG-"
+valid before=" (Disc|PCI|GSM|Flash)"
+valid cat="juk" before="</guimenuitem>" after="<guimenuitem>"
+valid cat="juk" after="juk-viewmode-"
+valid cat="konqueror,konqueror_filemanager,konqueror_commands"
+valid cat="kcontrol_kwintabbox" after="vue.+"
+valid cat="kstars_ellipticalgalaxies" after="Blue " before=" dwarf"
+valid cat="kstars_darkmatter" after="MAssive " before=" Halo"
+valid cat="kstars_darkmatter" after="objets hypothétiques "
+hint="Choix de l'équipe : « compresser » (au lieu de « compacter »)"
+
+[[Gg]ard(é|er)]
+valid before=" à l'œil"
+valid before=" un œil"
+valid after="[Ss]auve"
+valid after="[Rr]e"
+valid before=" au repos"
+valid before=" à l'esprit"
+hint="Choix de l'équipe : utilisation du verbe conserver"
+
+[Notes?&unbsp;:|P\.?S\.?&unbsp;:]
+valid after="CU|X|Moteur "
+valid msgid="Rating:"
+valid cat="knotes"
+valid cat="korganizer"
+valid cat="messageviewerplugins"
+valid cat="libnoteshared"
+valid cat="gwenview" after="^"
+valid cat="step_qt" after="Formule|Image"
+valid cat="kile" after="&DVI;-"
+hint="Utilisez le mot « Remarque : » (homogénéité)"
+
+[r@eguli@ere]
+valid after="vérification&sp;"
+valid after="casse&sp;"
+valid after="adresse&sp;"
+valid cat="konqueror" after="colonne&sp;"
+valid before="ment"
+valid after="ir"
+valid after="pauses? "
+valid cat="kverbos"
+valid cat="kgoldrunner" after="ascension&sp;"
+valid after="grille.+"
+hint="Choix de l'équipe : « expression rationnelle » (et non régulière)"
+
+[rendez vous]i
+valid cat="korganizer"
+hint="Utiliser plutôt 'Aller...' (sinon, ca fait un peu 'Rendez-vous, vous êtes cerné(e)s !')"
+
+[sauver]i
+hint="sauver -> enregistrer"
+
+[sauve]i
+valid msgid="backup"
+valid cat="kdat"
+valid cat="desktop_playground-sysadmin,playground-sysadmin.desktop"
+valid cat="akonaditray" msgid="back.*up|restor"
+valid cat="kpilot" msgid="back.*up|restor"
+valid after="&sp;des?&sp;" before="gardes?"
+valid after="&sp;une&sp;" before="garde"
+hint="sauver -> enregistrer (homogénéité)"
+
+[(enregistrer|afficher|sélectionner) tout$]i
+hint="Mettez le mot « tout » en premier, par exemple « Tout enregistrer »"
+
+[systray]i
+validGroup imagedataTag
+valid after="k"
+valid ctx="Keywords"
+valid ctx="Name"
+valid before="_shot"
+hint="La traduction de « systray » est « boîte à miniatures »"
+
+[URL mal ]
+valid before="formée"
+hint="Homogénéité : utiliser « URL mal formée »"
+
+[URL non ]
+hint="Homogénéité : utiliser « URL mal formée »"
+
+[\bitems?\b]
+validGroup foreignphraseTag
+validGroup linkTag
+validGroup programlistingTag
+valid ctx="Query"
+valid after="</|<"
+valid cat="kile"
+valid cat="kdm_theme-ref" msgid="&amp;lt;\?xml version=\"1.0\".*"
+valid cat="kdm_theme-ref" after="/"
+valid cat="kdm_theme-ref" before=" type"
+hint="item(s) -> élément(s)"
+
+[modules? enfichable]i
+hint="plugin -> module externe"
+
+[\bplugins?\b]
+validGroup filenameTag
+validGroup linkTag
+valid after="\(" before="\)"
+valid after="kmdr-"
+valid after="kipi-"
+valid after="frei0r-"
+valid before="-"
+valid cat="kcmkonqhtml" after="/"
+valid cat="desktop_playground-multimedia,playground-multimedia.desktop" before="$"
+valid after="linkend=\"\S*" before="\S*\">"
+valid after="<ulink url=\"\S*" before="\S*\">"
+valid after="shell-"
+hint="plugin -> module externe"
+
+[\broot\b]
+#validGroup inQuotes
+validGroup inParenthesis
+validGroup optionTag
+validGroup systemitemTag
+validGroup computeroutputTag
+valid after="uid |UID "
+valid after="/"
+valid after="-"
+valid after="-l "
+valid before="@"
+valid after="<filename class=\"directory\">" before="</filename>"
+valid cat="cupsdconf4" after="<b>" before="</b>"
+valid cat="processui"
+hint="Dans un contexte utilisateur, utiliser la traduction « superutilisateur ». Seul l'identifiant est « root »"
+
+[additif|greffon]i
+hint="plugin -> module externe"
+
+[OK|O\.k|Okay|ok]
+validGroup computeroutputTag
+valid after="[A-Za-z]"
+valid before="ama" # Okayama city
+valid before="ular|teta"
+valid after="<email>\S*" before="\S*</email>"
+valid cat="kdm" msgid="if kdmctl*"
+hint="Utilisez « Ok » (homogénéité)"
+
+[tuyau]i
+valid cat="kxsconfig" after="&sp;"
+valid cat="kalzium" msgid="pipe"
+hint="hint/tip -> astuce (homogénéité)"
+
+[clef]i
+hint="Utilisez plutôt le mot « clé » (homogénéité)"
+
+[->]
+valid after="pstoraster -" before=" rastertopcl"
+valid cat="khotkeys" after="&sp;"
+valid cat="kverbos" after="-"
+valid cat="ppdtranslations4" before=" CMJ"
+valid cat="kalzium" after="&sp;" before="&sp;"
+valid cat="kwordquiz,kturtle_programming-reference" after="&sp;" before="&sp;"
+valid after="<!--.*[^-]-" # HTML Comment
+valid before="$"
+valid cat="kile"
+hint="Utiliser le format « Fichier / Exporter sous » (avec une barre oblique)"
+
+[vous pouvez ici]
+hint="A remplacer par « vous pouvez (faire...) ici »"
+
+[proximité]
+valid after="à "
+valid after="une "
+hint="Utiliser « serveur mandataire » (au lieu de « serveur de proximité » ou « proxy »)"
+
+[proxy]i
+valid before="\)" after="\(&?"
+valid after="http_|HTTP_|FTP_|HTTPS_|SOCKS_"
+valid after="no_|no &|mon|Find"
+valid after="XembedSni"
+valid after="<ulink url=\"\S+" before="\S*\">"
+valid cat="kmail" after="mon"
+valid after="<foreignphrase>" before="</foreignphrase>"
+valid ctx="Query"
+hint="Utiliser « serveur mandataire » (au lieu de « serveur de proximité » ou « proxy »)"
+
+[(B|b)arre d'outils? (principale|d'affichage)]
+hint="Traduisez simplement « xxx Toolbar » par « Barre de xxx » (ex. : Main Toolbar -> Barre principale)"
+
+[module&sp;de&sp;contr]
+hint="On dit « module de configuration », pas « module de contrôle » (homogénéité)"
+
+[@etes-vous s@ur]
+hint="« Voulez-vous vraiment... » est préférable (homogénéité)"
+
+[non trouv@é]
+valid after="^&lt;" before="&gt;$"
+valid after="[Pp]ho"
+hint="Utiliser une formule en « Impossible de trouver xxx » (homogénéité)"
+
+[pas été trouvé]
+valid cat="kommander"
+hint="Utiliser une formule en « Impossible de trouver » (homogénéité)"
+
+[ne peut pas @etre]
+valid cat="kcminfo"
+valid cat="kdesu"
+valid cat="kioslave_nntp"
+valid cat="tellico_details" before=" utilisé pour grouper"
+valid after="et |qui "
+hint="Utiliser une formule en « Impossible de... » (homogénéite)"
+
+[Désirez-?vous]i
+hint="« Désirez-vous » -> « Voulez-vous » (homogénéité)"
+
+[Souhaitez-?vous]i
+hint="« Souhaitez-vous » -> « Voulez-vous » (homogénéité)"
+
+[Va ]
+valid after="Ja"
+valid cat="konqueror_commands" before="dans votre page personnelle"
+valid cat="konqueror" msgid="Go to your home page.*"
+valid cat="kile" msgid="Jump.*"
+hint="« Va » -> « Aller » (à l'infinitif)"
+
+[dans votre \$?PATH]
+hint="Utiliser la forme « en suivant votre PATH »"
+
+[par votre \$?PATH]
+hint="Utiliser la forme « en suivant votre PATH »"
+
+[chemins?]i
+valid before=" équestre| de randonnée| de bézier| critique"
+valid cat="kdeprint_final-word" after="se fraie un "
+valid cat="klines"
+valid cat="kgoldrunner"
+valid cat="koffice"
+valid cat="planlibs"
+valid cat="kioslave_fish"
+valid before=" de recherche"
+valid after="petit bonhomme de "
+valid after="a"
+valid cat="kdeprint_theory" after="dessiner un "
+valid cat="fundamentals_ui" after="Trouver son "
+hint="Traduisez « path » par « emplacement » dans le contexte de dossiers/fichiers et par « chemin » dans un contexte graphique."
+
+[désinitialiser]i
+hint="Utiliser « libérer » dans le cas d'un périphérique (mot « umount » en anglais)"
+
+[d@emont@er?]i
+valid after="«&unbsp;" before="&unbsp;»"
+hint="Utiliser « libérer » dans le cas d'un périphérique (mot « umount » en anglais)"
+
+[nom de connexion]
+valid cat="kwlan" after="fournir un "
+hint="Utiliser « nom d'utilisateur » à la place..."
+
+[en train de]
+hint="On peut sûrement supprimer le « en train de » pour alléger..."
+
+[entre de configuration]
+valid after="C"
+hint="Mettre une majuscule à « Centre de configuration de KDE »"
+
+[visualis|visionneu]
+valid cat="kile"
+valid ctx="Name"
+hint="Utiliser « afficheur » plutôt que « visualiseur » (ou ses dérivés) ou alors « aperçu » pour traduire « preview »"
+
+[r@ecup@er]i
+valid msgid="recover"
+valid after="ir"
+valid before="er le contrôle"
+valid cat="kgoldrunner"
+valid cat="kalzium"
+valid cat="konversation"
+valid cat="konqueror" before="ation" msgid="retrieval"
+valid cat="kdenlive"
+hint="Connotation familière. Choix de l'équipe : « réception/recevoir » (au lieu de « récupération/récupérer ») ou « accéder à »"
+
+[paquetage]
+hint="Choix de l'équipe : « paquet »"
+
+[montrer]i
+valid before=" l'afficheur"
+valid after="lui |vous |leur |dé"
+valid cat="gwenview" before=" vos photos"
+valid cat="kile" before="ont comment"
+hint="Traduire « show » par « afficher »"
+
+[messages? électronique]i
+hint="Le choix de l'équipe est « courrier électronique » ou « courriel » quand il n'y a pas la place"
+
+[courriers?]i
+validGroup guilabelTag
+validGroup guimenuitemTag
+valid before=" électronique"
+valid before=" indésirable"
+hint="Utilisez l'expression « courrier électronique » ou tout simplement « courriel » quand il n'y a pas la place"
+
+[surnom]i
+valid !msgid="nick"
+valid cat="kdeprint_final-word"
+hint="Traduire « nick » ou « nickname » par « pseudo »"
+
+{deprecated}i
+valid msgstr="déconseillé"
+valid msgid="PNG (or the deprecated &GIF;)*" cat="kile"
+hint="Traduire « deprecated » par « déconseillé »"
+
+{credentials}i
+valid msgstr="identifiants"
+hint="Traduire « credentials » par « identifiants »"
+
+[\bN/A\b|\bN/B\b|\bN/C\b]i
+valid cat="kspread,sheets"
+valid cat="sheets_functions"
+hint="Traduisez ceci par « n/d »"
+
+[didacti.iel|tutorial]i
+validGroup urlTag
+validGroup ulinkTag
+valid after="http://\S+/"
+valid after="k"
+valid cat="kmail_faq" after="Modify_KDE_Software_Defaults\">"
+hint="Traduisez ceci par « tutoriel» (choix de l'équipe)"
+
+[coloris|colorie|coloria]i
+hint="Utilisez plutôt le verbe « colorer » ou le substantif « coloration »"
+
+{Shift\b}
+valid msgstr="\bMaj\b"
+valid msgstr="\bMajuscule\b"
+valid after="(Hue|First|Second|Third|Pitch) "
+valid before=" (left|right|up|down)"
+valid before="-JIS"
+valid cat="kcontrol_khotkeys" after="<userinput>.*" before=".*</userinput>"
+hint="Traduisez « Shift » par « Maj » (sans point à la fin)"
+
+{spacer}
+valid msgstr="séparateur"
+hint="Utilisez le mot « séparateur » pour traduire « spacer »"
+
+[\bpresse]i
+valid after="publication de "
+valid after="articles? de "
+valid after="sociétés? de "
+valid before="-papier"
+valid cat="ppdtranslations4" before=" pour"
+hint="Traduisez « press » avec les verbes « cliquer » ou « appuyer »"
+
+{\bcrop\b}i
+valid msgstr="rogn"
+hint="Traduisez « crop » avec le verbe « rogner »"
+
+{controller}i
+valid msgstr="contrôleur"
+valid before="::"
+valid cat="step" msgstr="régulateur"
+hint="Traduisez « controller » par « contrôleur »"
+
+[effets? du bureau]i
+hint="Traduisez « Desktop effects » par « Effets de bureau »"
+
+{\bactivity|\bactivities}i
+valid msgstr="activités?"
+hint="Traduisez « Activity » par « Activité » dans le contexte du bureau plasma"
+
+[événement]
+hint="Utilisez « évènement » (homogénéité)"
+
+{Calligra Sheets}
+valid msgstr="Calligra Sheets"
+hint="Ne pas traduire « Calligra Sheets »"
+
+{seeder}
+valid msgstr="source"
+hint="Traduisez « seeder » par « source »"
+
+{leecher}
+valid msgstr="preneur"
+hint="Traduisez « leecher » par « preneur »"
+
+{seeding}
+valid msgstr="partage"
+hint="Traduisez « seeding » par « partage »"
+
+[panneau]i
+valid !msgid="control panel"
+valid cat="kcm_platform"
+valid cat="kstars"
+hint="Traduisez « Control Panel » par « Tableau de bord »"
+
+{slider}i
+valid msgstr="curseur"
+valid before=" algorithm"
+valid before="Handle"
+valid after="Progress "
+hint="Traduisez « slider » par « curseur »"
+
+{Do not ask again}i
+valid msgstr="Ne plus poser la question"
+hint="Traduisez cela tout simplement par « Ne plus poser la question »"
+
+[Mettre en évidence]i
+hint="Utilisez plutôt « Mettre en valeur » (homogénéité)"
+
+{\bgroupware\b}i
+valid msgstr="logiciel de groupe"
+valid msgstr="groupe de travail"
+valid msgstr="collaboration"
+valid after="Open "
+hint="Traduisez « groupware » par « logiciel de groupe de travail » ou « logiciel de groupe » (version courte) lorsque c'est un nom ou « collaboration » dans le contexte d'un adjectif"
+
+{\brepositor}i
+validGroup urlTag
+valid msgstr="dépôt"
+valid cat="kile" before="/" after="/"
+hint="Traduisez « repository » par « dépôt »"
+
+{\bwidgets?\b}i
+validGroup glossseealsoTag
+validGroup foreignphraseTag
+valid cat="glossary" msgid="The &amp;GUI; of &amp;kde; is built on top.*"
+valid msgstr="composants? graphique?"
+valid msgstr="bouton"
+hint="Traduisez « widget » par « composant graphique »"
+
+[\bfavoris?]i
+valid msgstr="signet"
+valid msgstr="favoris[e|é|a]"
+valid msgid="favorite"
+hint="Utilisez « signet » et non « favori »"
+
+{\battachments?\b}i
+valid msgid="attachment method"
+valid msgstr="pièces? jointe"
+valid msgstr="piece_?jointe."
+valid msgstr="fichiers? joint"
+valid cat="kmail_configure" after="image "
+valid msgstr="joindre"
+valid msgstr="attachement"
+hint="Traduisez « attachement » par pièce jointe"
+
+[\burl\b]
+validGroup ulinkTag
+valid after="--|\?|&"
+valid after="<link "
+valid cat="kopete" after="type=\".*\" "
+hint="Utilisez « URL » en majuscule"
+
+[\b(un|cet) url\b]i
+hint="L'usage est d'utiliser un féminin : « une url »"
+
+{\b(typeface|font)\b}i
+validGroup commandTag
+valid msgstr="police"
+valid after="</?"
+valid before="-" # CSS
+valid msgid="bold (typeface|font)" msgstr="en gras"
+valid msgstr="caractères" cat="khangman"
+valid msgid="var fontCommands.*" cat="kile_scripting"
+valid msgid="<guilabel>Typeface Size</guilabel>*" cat="kile"
+valid msgstr=".*Zoom.*"
+hint="Utilisez « police » pour traduire « typeface » ou « font » (bien qu'il s'agisse d'un abus de langage)."
+
+{\bthumb}i
+valid msgstr="vignette"
+hint="Traduisez « thumb » ou « thumbnail » par « vignette »"
+
+{backend}i
+validGroup foreignphraseTag
+valid msgstr="moteur"
+valid cat="kmail_troubleshooting" msgstr="Vous obtenez le message <foreignphrase>Unable to fetch item from backend.*"
+hint="Traduisez « backend » par « moteur »"
+
+{frontend}i
+valid msgstr="interface"
+hint="Traduisez « frontend » par « interface »"
+
+{mouse (cursor|pointer)}i
+valid msgstr="pointeur"
+hint="Traduisez « mouse cursor » et « mouse pointer » par « pointeur de la souris »"
+
+
+
+{\battachment method}i
+valid msgstr="[Mm]éthode.* pour joindre"
+hint="Traduisez « attachment method » par « méthode pour joindre »."
+
+# End of rule file

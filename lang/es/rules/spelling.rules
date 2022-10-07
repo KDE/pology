@@ -1,0 +1,78 @@
+# Translation choices of spanish team
+# Copyrigth 2010-2014, Javier Viñal (fjvinal@gmail.com)
+# by the KDE Spanish Team (kde-l10n-es@kde.org)
+# License: GPLv3
+
+# Omit some abbreviations
+addFilterRegex match="\b\w{1,2}[ºª²³]" repl="" on="pmsgid,pmsgstr"
+addFilterRegex match="µ\w{1,2}\b" repl="" on="pmsgid,pmsgstr"
+addFilterRegex match="µ[Tt]orrent\b" repl="" on="pmsgid,pmsgstr"
+
+# Omit units after numbers
+addFilterRegex match="(?=\d\s)\w{1,2}\b" repl="" on="pmsgid,pmsgstr"
+
+include file="filter.include"
+
+# Omit group of words not translatables
+addFilterRegex match="\b(echo\snest|make\s(un)?install|(little|big)\sendian|summer\sof\scode|plug\sand\splay)\b" repl="" on="pmsgid,pmsgstr"
+addFilterRegex match="\b(lost\+found|\b(if|of)\=[\w.-]+|\.?\w+(rc|config|conf)\b|\babout\:\w+|\bkioclient\s\w+\b|qt\.\w+\b)" repl="" on="pmsgid,pmsgstr"
+addFilterRegex match="\b(Microsoft|Windows|Outlook|Internet|Google|Adobe)(\s[A-Z]\w+)+\b" repl="" on="pmsgid,pmsgstr"
+addFilterRegex match="\b(Remember\sthe\sMilk|MySQL\s[Ss]erver|Active\sDirectory|Juniper\sNetworks|servidor\sX)\b" repl="" on="pmsgid,pmsgstr"
+addFilterRegex match="\b(is\.gd|ur\.ly)\b" repl="" on="pmsgid,pmsgstr"
+addFilterRegex match="\b(man|info)\:\/\w+\b" repl="" on="pmsgid,pmsgstr"
+
+# Omit words between quotes.
+addFilterRegex match="(?u)\\?\"\S+?\"" repl="" on="pmsgid,pmsgstr"
+addFilterRegex match="(?u)\\?\'\S+?\'" repl="" on="pmsgid,pmsgstr"
+addFilterRegex match="(?u)«\S+?»" repl="" on="pmsgid,pmsgstr"
+
+# Omit words between brackets.
+addFilterRegex match="(?u)\{\S+?\}" repl="" on="pmsgid,pmsgstr"
+addFilterRegex match="(?u)\(\S+?\)" repl="" on="pmsgid,pmsgstr"
+addFilterRegex match="(?u)[\[]\S+?[\]]" repl="" on="pmsgid,pmsgstr"
+addFilterRegex match="(?u)\<\S+?\>" repl="" on="pmsgid,pmsgstr"
+
+# Omit compounds words.
+addFilterRegex match="(?u)\b\w+(\-\w+)+\b" repl="" on="pmsgid,pmsgstr"
+addFilterRegex match="(?u)\b[A-Za-z]*(\_[A-Za-z]+)+\b" repl="" on="pmsgid,pmsgstr"
+
+# Omit words preceded by some special characters.
+addFilterRegex match="(?u)(?<=\W)[/+.:-]{1,2}\w+\b" repl="" on="pmsgid,pmsgstr"
+addFilterRegex match="(?u)^[/+.:-]{1,2}\w+\b" repl="" on="pmsgid,pmsgstr"
+addFilterRegex match="(?u)(?<=[>=])(true|false)" repl="" on="pmsgid,pmsgstr"
+addFilterRegex match="(?u)\\\\\w\b" repl="" on="pmsgid,pmsgstr"
+
+# Omit words witch contains at least one number.
+addFilterRegex match="(?u)\b[a-zA-Z]+\d\w*\b" repl="" casesens="yes" on="pmsgid,pmsgstr"
+
+# Omit some mathematical expressions
+addFilterRegex match="(?u)\b(entero|índice|intervalo|orden|cada|tras|los|las|datos|eje|error|inicio|usuario)\s(\w+\s)?[ijklmnxyz]\b" repl="" on="pmsgid,pmsgstr"
+addFilterRegex match="(?u)(\/s(eg)?\b|\bn\!|\b[xyz]\^\w\b|\b[ijklmnxyz]\s(mínim[oa]|medi[oa]|máxim[oa])\b|\b(exp|log)\()" repl="" on="pmsgid,pmsgstr"
+addFilterRegex match="(?u)[xyz]\s(días|semanas|meses|años)" repl="" on="pmsgid,pmsgstr"
+
+# Omit particles between propernames.
+addFilterRegex match="(?u)(?<=\w)\s(aka|da|de|de\sla|del|der|do|du|la|van|vom|von|y)\s(?=[A-Z])" repl=" " casesens="yes" on="pmsgid,pmsgstr"
+addFilterRegex match="(?u)(?<=\w)\s(and|of|the)\s(?=[A-Z])" repl=" " casesens="yes" on="pmsgid,pmsgstr"
+
+# Omit saxon genitive.
+addFilterRegex match="(?<=\w)\'s\b" repl="" on="pmsgid,pmsgstr"
+
+# Omit single quotes into names.
+addFilterRegex match="(?<=\w)\'(?=\w)" repl="" on="pmsgid,pmsgstr"
+
+# Omit dots after names.
+addFilterRegex match="(?u)(?<=\w)\.(?=\s[A-Z])" repl="" casesens="yes" on="pmsgid,pmsgstr"
+
+# Omit some Spanish sufixes and prefixes
+#addFilterRegex match=u"(?u)(?<=\w)(mente|lo|la|le|los|las|les)\b" repl="" on="pmsgid,pmsgstr"
+#addFilterRegex match=u"(?u)(?<=\w)(ando|ación|ble|bles)\b" repl="r" on="pmsgid,pmsgstr"
+#addFilterRegex match=u"(?u)\b(anti|archi|auto|contra|cuasi|des|epi|eqi|ex|extra|foto|geo|h[ií]per|infra|inter|intra|macro|maxi|mega|meta|micro|mini|mono|multi|peri|pluri|poli|pos|post|pre|pro|retro|semi|seudo|sobre|sub|s[uú]per|supra|tele|trans|ultra|vice)(?=\w+\b)" repl="" on="pmsgid,pmsgstr"
+
+# Omit paired capitalized words.
+addFilterHook name="es:remove_subs/remove_original_capital_words" on="msg"
+
+*hook name="spell/check_spell_sp~lang='es'" on="msgstr"
+id="sp-0-check-spell-hook"
+hint="Error ortográfico."
+
+# End of rule file

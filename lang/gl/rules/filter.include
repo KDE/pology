@@ -1,0 +1,93 @@
+# Filters include for Galician language
+# by the KDE Galician Team (proxecto@trasno.net)
+# License: GPLv3
+
+# GLOBAL FILTERS ##############################################################
+#
+# These filters are applied to all messages.
+
+# Remove XML entities.
+addFilterRegex match="&nbsp;" repl=" " on="pmsgid,pmsgstr"
+addFilterRegex match="\&[\w\d\.\-]+?\;" repl="" on="pmsgid,pmsgstr"
+
+# Remove literal parts of messages, according to the markupaddFilterHook name="remove/remove-marlits-msg" on="msg"
+# Remove entities present both in source and target text
+addFilterHook name="remove/remove-paired-ents" on="msg"
+# Remove accelerator mark
+addFilterHook name="remove/remove-accel-msg-greedy" on="msg"
+
+# Remove function calls like foo(x, y).
+# Ignore foo(s) and foo(es), which are common ways of indicating optional
+# plural forms (e.g. ‘address(es)’).
+# Also ignore:
+# - bugs(fixes)
+addFilterRegex match="\w+\((?!(e?s|fixes)\))[\w\s\.\,\-\_]*?\)" repl="€" on="pmsgid,pmsgstr"
+
+# Remove XML-like tags.
+addFilterRegex match="\<\s*(bcode|command|envar|filename|icode|shortcut|placeholder|style|code|tt|literal|screen|option|keycap|userinput|systemitem|prompt|function|foreignphrase|varname|programlisting|token|markup|parameter|keysym|methodname|sgmltag|arg|classname|type)\b.*?\b\1\>" repl="" on="pmsgid,pmsgstr"
+addFilterRegex match="\<\s*(email|link)\s*>\b.*?\b\1\>" repl="" on="pmsgid,pmsgstr"
+addFilterRegex match="\<\s*(br|center|item|h[1-6]|li|list|nl|p|para|td|title|ul)\s*/?\s*\>" repl=" " on="pmsgid,pmsgstr"
+addFilterRegex match="<!\[CDATA\[.*?\]\]>" repl="" on="pmsgid,pmsgstr"
+addFilterRegex match="<i\s+class\s*=\s*'\s*\w{2}\b[^']*'\s*>\s*<\s*/\s*i\s*>" repl="☺" on="pmsgid,pmsgstr"  # icons
+addFilterRegex match="\<.*?\>" repl="" on="pmsgid,pmsgstr"
+
+# Alternatives directives
+addFilterRegex match="~@(.)(.*?)\1(.*?)\1" repl="¶" on="pmsgid,pmsgstr"
+
+# Extension filter, e.g. "*.png|PNG files"
+addFilterRegex match="^.*\*\..*\|" repl="" on="pmsgid,pmsgstr"
+
+# Wiki stuff
+addFilterRegex match="\[\[[^\]]*(\||\])" repl="¥" on="pmsgid,pmsgstr"
+addFilterRegex match="\[http[^]\s]\]*" repl="↑" on="pmsgid,pmsgstr"
+addFilterRegex match="\{\{.*?(\||\}\})" repl="ı" on="pmsgid,pmsgstr"
+
+# Remove long command-line options.
+addFilterRegex match="\-\-\w[\w\_\-]*?\b" repl="" on="pmsgid,pmsgstr"
+
+# Remove URLs
+addFilterRegex match="(?i)\bhttps?://[^\s]+" repl="~" on="pmsgid,pmsgstr"
+addFilterRegex match="\b[a-z-]+\.[a-z-][a-z./-]+\b" repl="~" on="pmsgid,pmsgstr" casesens="yes"
+
+# Remove known path patterns
+addFilterRegex match="(file\:|\#\!)?\/(bin|boot|cdrom|dev|etc|home|lib(32|64)?|lost\+found|media|mnt|opt|proc|root|sbin|selinux|share|srv|sys|tmp|usr|var)\b(/[/\w._-]+)*" repl="~" on="pmsgid,pmsgstr"
+addFilterRegex match="\.(cache|config|cups|dbus|font\w*|java|kde|local|mozilla|openoffice\.org|pulse|qt|ssh|desktop)[/\w._-]*" repl="~" on="pmsgid,pmsgstr"
+addFilterRegex match="\.\/?(\w+rc|\w+config|aspell\w*|bash\w*|calendar|directory|fonts\w*?|ICEauthority|lock|mailcap|kderc|profile|Xauthority|Xclients|Xmodmap|Xsession|Xdefaults|Xresources)" repl="~" on="pmsgid,pmsgstr"
+addFilterRegex match="\.\/configure" repl="~" on="pmsgid,pmsgstr"
+addFilterRegex match="\~\.?\/[\w\.\-\_]+" repl="~" on="pmsgid,pmsgstr"
+addFilterRegex match="['\"«‘“][\w._-]+/[/\w._-]*['\"»’”]" repl="~" on="pmsgid,pmsgstr"
+
+# Remove environment variables.
+addFilterRegex match="\$\<?[A-Z]+\>?" repl="Þ" on="pmsgid,pmsgstr"
+
+# Especial treatment for «etc.», there may be a comma before it.
+addFilterRegex match="(etc\.|\&etc\;)" repl="etcétera" on="pmsgid,pmsgstr"
+
+# Remove some abreviations.
+addFilterRegex match="\b(Ex\.|ex\.|p\.\sex\.|EUA|a\.m\.|p\.m\.|n\.t\.\expr\.)" repl="~" on="pmsgid,pmsgstr"
+addFilterRegex match="\b(Sr\.|Sra\.|Dr\.|Dra\.)" repl="~" on="pmsgid,pmsgstr"
+addFilterRegex match="\b(apt\.|art\.|avda\.|av\.|cent\.|dept\.)" repl="~" on="pmsgid,pmsgstr"
+addFilterRegex match="\b(máx.|mín\.|páx\.)" repl="~" on="pmsgstr"
+addFilterRegex match="\b(pl\.|pral\.|Prof\.|P\.\s\S\.|Rep\.|R\.\sI\.\P\.)" repl="~" on="pmsgid,pmsgstr"
+addFilterRegex match="\b(tel\.|trad\.|Univ\.)" repl="~" on="pmsgid,pmsgstr"
+
+# Remove special puntuactions.
+addFilterRegex match="(\?{2,3}|\%{2,3}|\:{2,3}|\_{2,3})" repl="~" on="pmsgid,pmsgstr"
+
+# Remove more usual smileis.
+addFilterRegex match="\s(\:\)|\(\-\:|\:\)|\(\:|\=\)|\)\-\:\)|\:\-\)|\:\-\(|\;\-\)|\;\))" repl="\s~" on="pmsgid,pmsgstr"
+
+
+# VALID GROUPS ################################################################
+#
+# These valid groups may be used to skip certain messages in certain rules.
+
+validGroup lista-de-tradutores
+valid msgid="\w+m\b"
+valid comment="trans_comment"
+valid ctx="(EMAIL|NAME) OF TRANSLATORS"
+valid msgid="CREDIT\_FOR\_TRANSLATORS"
+valid msgid="EMAIL OF TRANSLATORS"
+valid msgid="ROLES\_OF\_TRANSLATORS"
+valid msgid="translator-credits"
+valid srcref="\bnatural(file)?queryparser\b"

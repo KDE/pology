@@ -1,0 +1,318 @@
+# Common Catalan mistakes
+# by KDE Catalan Team (kde-i18n-ca@kde.org)
+# License: GPLv3
+
+include file="filter.include"
+
+# «adició» ha de ser «addició» (quan es refereix a sumar).
+# «adició» (amb una «d») és l'acceptació d'una herència
+[\badici[ó|ons|onar|onals?]\b]i
+id="common-adicio"
+hint="«adició» s'ha de substituir per «addició» (error freqüent)"
+
+# «a el» ha de ser «al».
+[\ba\sel\b]i
+id="common-al"
+valid before="\·" 
+hint="«a el» s'ha de substituir per «al» (error freqüent)"
+
+# «afectar a» ha de ser «afectar» (és transitiu).
+[\bafect[a-zàé]+\sa(ls?)\b]i
+id="common-afecta"
+hint="«afectar a» s'ha de substituir per «afectar» (error freqüent)"
+
+# «al respecte» (castellanisme) ha de ser «pel que fa al cas», «referent a això», «respecte a».
+[\bal\srespecte\b]i
+id="common-alrespecte"
+hint="«al respecte» s'ha de substituir per «referent a això» (error freqüent)"
+
+# «a no ser que» (castellanisme) ha de ser «llevat que», «fora que», «tret que», 
+# «excepte que», «si no és que» (aquesta darrera forma implica canvi de temps verbal).
+[\ba\sno\sser\sque\b]i
+id="common-anoserque"
+hint="«a no ser que» s'ha de substituir per «llevat que», «fora que» etc. (error freqüent)"
+
+# «atlas» es tradueix per «atles» (excepte l'estrella Atlas).
+{\batlas\b}i
+id="common-atlas"
+valid msgstr="atles" # mapes 
+hint="«atlas» es tradueix per «atles», si no és una estrella  (error freqüent)"
+
+# «abaix»  s'ha de substituir per «avall», «a baix», «part inferior», etc.
+[\babaix\b]i
+id="common-abaix"
+hint="«abaix» s'ha de substituir per «avall», «a baix», «part inferior», etc. (error freqüent)"
+
+# «beep» es tradueix per «so d'avís» o «timbre» (maquinari).
+{\bbeeps?\b}i
+id="common-beep"
+valid msgstr="so d'avís"
+valid msgstr="timbre" # Quan es refereix a maquinari
+hint="«beep» es tradueix per «so d'avís» o «timbre» (error freqüent)"
+
+# «blog» es tradueix per «blog» (veure DLC de l'IEC des del 03/2013).
+{\bblogs?\b}i
+id="common-blog"
+valid msgstr="blog"
+hint="«blog» es tradueix per «blog» (error freqüent)"
+
+# «blogger» es tradueix per «bloguer» (veure DLC de l'IEC des del 03/2013).
+{\bbloggers?\b}i
+id="common-blogger"
+valid msgstr="bloguers?"
+hint="«blogger» es tradueix per «bloguer» (error freqüent)"
+
+# «califica» ha de ser «qualifica».
+[\bcalifi]i
+id="common-califi"
+hint="«califica» s'ha de substituir per «qualifica» (error freqüent)"
+
+# «cero» ha de ser «zero».
+[\bceros?\b]i
+id="common-cero"
+hint="«cero» s'ha de substituir per «zero» (error freqüent)"
+
+# «clic esquerra» ha de ser «clic esquerre» (en masculí).
+[\bclic esquerra]i
+id="common-clic"
+hint="«clic esquerra» s'ha de substituir per «clic esquerre» (en masculí) (error freqüent)"
+
+## «darrera» (i derivats) ha de ser «darrere» (excepte femení de darrer).
+#[darrera]i
+#hint="«darrera» s'ha de substituir per «darrere», excepte femení de darrer (error freqüent)"
+
+# «de el» ha de ser «del».
+[\bde\sel\b]i
+id="common-del"
+hint="«de el» s'ha de substituir per «del» (error freqüent)"
+
+# «del contrari» (castellanisme) ha de ser «altrament», «d'altra manera», 
+# «en cas contrari», «si no», etc.
+[\bdel\scontrari\b]i
+id="common-delcontrari"
+hint="«del contrari» s'ha de substituir per altrament», «d'altra manera», etc. (error freqüent)"
+
+# «de que» ha de ser «que».
+[\bde\sque\b]i
+id="common-deque"
+hint="«de que» s'ha de substituir per «que» (error freqüent)"
+
+# «d'script» ha de ser «de script».
+# https://ca.wikipedia.org/wiki/Regles_d'apostrofació_del_català
+# la preposició «de» no s'apostrofa davant una «s» líquida (l'article «el» sí s'apostrofa)
+[\bd'script]i
+id="common-dscript"
+hint="«d'script» no s'apostrofa, s'ha de substituir per «de script» (error freqüent)"
+
+# «des de que» ha de ser «des que».
+[\bdes\sde\sque\b]i
+id="common-desdeque"
+hint="«des de que» s'ha de substituir per «des que» (error freqüent)"
+
+# «decodificar» ha de ser «descodificar».
+[\bdecodifi]i
+id="common-decodifi"
+hint="«decodificar» s'ha de substituir per «descodificar» (error freqüent)"
+
+# «desaturar» ha de ser «dessaturar».
+[\bdesatura]i
+id="common-desatura"
+hint="«desaturar» s'ha de substituir per «dessaturar» (error freqüent)"
+
+# «deprès» normalment és l'adverbi «després» (accent tancat).
+# «deprès» és un adjectiu amb significat «Que amb facilitat es desprèn del que té»
+# «deprès» també és el participi del verb «desprendre»
+[\bdesprès\b]i
+id="common-despres"
+hint="«desprès» quan és adverbi s'ha de substituir per «després» (error freqüent)"
+
+# «devant» (i derivats) ha de ser «davant».
+[devant]i
+id="common-devant"
+hint="«devant» (i derivats) s'ha de substituir per «davant» (error freqüent)"
+
+# «diferent a» ha de ser «diferent de».
+[\bdiferents?\sa\b]i
+id="common-diferent_a"
+hint="«diferent a» s'ha de substituir per «diferent de» (error freqüent)"
+
+# «doncs» ha de ser «perquè/ja que».
+# "doncs" expressa una conseqüència o una conclusió d'allò que s'acaba de dir. 
+# En altres casos, cal utilitzar "ja que" o "perquè" 
+# (http://www2.upc.edu/slt/fl/fitxa_content.php?id=35&tipus=p)
+[\,\sdoncs\b]i
+id="common-doncs"
+hint="«doncs» s'ha de substituir per «perquè/ja que» (error freqüent)"
+
+# «enlloc de» ha de ser «en lloc de».
+[\benlloc\sde\b]i
+id="common-enllocde"
+hint="«enlloc de» s'ha de substituir per «en lloc de» (error freqüent)"
+
+# «enrera» ha de ser «enrere».
+[enrera]i
+id="common-enrera"
+hint="«enrera» s'ha de substituir per «enrere» (error freqüent)"
+
+[\bes\s(s|ce|ci)]i
+id="common-es_s"
+valid msgstr="\/es senar"
+valid msgstr="(L|l)a\/es (s|c)"
+valid msgstr="Salaam" after="Dar\s" # Dar es Salaam
+hint="Davant de paraules començades per «s» o «ce|ci», el pronom «es» es canvia per la forma «se» (se substitueix/se senten/se suprimeix...) (error freqüent)"
+
+# «esperar a» ha de ser «esperar».
+[\besperar\sa\b]i
+id="common-esperaa"
+hint="«esperar a» s'ha de substituir per «esperar» (error freqüent)"
+
+# «esta» ha de ser «està».
+[\besta\b]i
+id="common-esta"
+hint="«esta» s'ha de substituir per «està» (error freqüent)"
+
+# «esteu/sou/quedeu» + +adj plural (com «esteu segurs»)
+# La persona és "vós", per tant ha de ser «esteu segur» (i similars).
+[\b(esteu|sou|quedeu)\s[a-zàèòéíóú]+s\b]i
+id="common-esteu"
+hint="«(vós) esteu segurs» s'ha de substituir per «(vós) esteu segur» (error freqüent)"
+
+# «firewall» es tradueix per «tallafoc», en singular.
+# https://ca.wikipedia.org/wiki/Tallafoc_%28inform%C3%A0tica%29
+# «firewalls» es tradueix per «tallafocs» (en plural)
+{\bfirewall\b}i
+id="common-firewall"
+valid msgstr="tallafoc"
+hint="«firewall» es tradueix per «tallafoc», en singular (error freqüent)"
+
+# «fixe» ha de ser «fix» (i prefix, sufix).
+[\bfixes?\b]i
+id="common-fixe"
+valid msgid="fixes"
+valid msgstr="xfixes"
+hint="«fixe (sufixe/prefixe)» s'ha de substituir per «fix (sufix/prefix)» (error freqüent)"
+
+# «gama» ha de ser «gamma»
+[\bgam(a|es)\b]i
+id="common-gama"
+valid msgstr="Gama" after="Vasco\sda\s"
+hint="«gama» s'ha de substituir per «gamma, gammes» (error freqüent)"
+
+# «gaseós» ha de ser «gasós»
+[\bgase(os|ós)(a|es)\b]i
+id="common-gaseos"
+hint="«gaseosa» s'ha de substituir per «gasós, gasosa, gasoses» (error freqüent)"
+
+# «mapejar» ha de ser «mapar».
+[\bmapej[a-zàé]+\b]i
+id="common-mapejar"
+hint="«mapejar» s'ha de substituir per «mapar» (error freqüent)"
+
+# «prefixe/sufixe» ha de ser «prefix/sufix».
+[\b(pre|suf)fixes?\b]i
+id="common-prefixe"
+valid msgid="fixes"
+hint="«sufixe/prefixe» s'ha de substituir per «sufix/prefix» (error freqüent)"
+
+# «hi han» ha de ser «hi ha».
+[\bhi\sha(n|vien)\b]i
+id="common-hihan"
+hint="«hi han» s'ha de substituir per «hi ha» (error freqüent)"
+
+# «per el» ha de ser «pel».
+[\bper\sel\b]i
+id="common-pel"
+hint="«per el» s'ha de substituir per «pel» (error freqüent)"
+
+# «per exemple» s'abrevia amb un espai al mig «p. ex.».
+[\bp\.ex\.]i
+id="common-pex"
+hint="«p.ex.» s'abrevia amb un espai al mig «p. ex.» (error freqüent)"
+
+# «por» hauria de ser «pot» (o algun altre mot correcte).
+[\bpor\b]i
+id="common-por"
+valid="Por\&t"
+hint="«por» s'ha de substituir per un mot correcte (error freqüent)"
+
+# «rés» (del verb resar) no s'ha de confondre amb «res» (nothing).
+[\b(R|r)és\b]i
+id="common-res"
+hint="«rés» (de resar) no s'ha de confondre amb «res» (res de res) (error freqüent)"
+
+# «router» es tradueix per «encaminador».
+{\brouters?\b}i
+id="common-router"
+valid msgstr="encaminadors?"
+valid msgstr="serveis? d'itineraris"
+hint="«router» es tradueix per «encaminador» (error freqüent)"
+
+# «sempre i quan» és incorrecte, cal utilitzar «sempre que».
+# http://cv.uoc.edu/tren/trenacc/web/LLENGUA.GLOSSNOMEN/glossari_entrades.frame_detall?i_paraula=341
+[\b(S|s)empre i quan\b]i
+id="common-sempreiquan"
+hint="«sempre i quan» és incorrecte, cal utilitzar «sempre que» (error freqüent)"
+
+# «síntesi» en català, s'utilitza normalment en singular.
+[\b(S|s)íntesis\b]i
+id="common-sintesi"
+hint="«síntesis» s'utilitza normalment en singular «síntesi» (error freqüent)"
+
+# «tal i com» ha de ser «tal com».
+[\btal\si\scom\b]i
+id="common-talicom"
+hint="«tal i com» s'ha de substituir per «tal com» (error freqüent)"
+
+# «tea» es tradueix per «te» (sense accent) (error freqüent).
+{\btea\b}i
+id="common-tea"
+valid msgstr="te"
+hint="«tea» es tradueix per «te» (sense accent) (error freqüent)"
+
+# «té» del verb tenir cal que porti accent.
+[\bte\b]i
+id="common-te"
+valid msgid="tea"
+valid msgid="te"
+valid after="-"
+hint="«té» (verb tenir) cal que porti accent (error freqüent)"
+
+# «tutorial» es tradueix per «guia d'aprenentatge».
+{\btutorials?\b}i
+id="common-tutorial"
+valid msgstr="gui(a|es) d'aprenentatge"
+valid msgstr="program(a|es) d'aprenentatge"
+valid msgstr="(camp|partida) d'aprenentatge"
+hint="«tutorial» es tradueix per «guia/es d'aprenentatge, també: programa/es d'aprenentatge, camp | partida d'aprenentatge» (error freqüent)"
+
+# «URL» és masculí (Localitzador Uniforme de Recursos)
+[\b(la|les|una|unes)\sURL\b]i
+id="common-URL"
+hint="«URL» és masculí (Localitzador Uniforme de Recursos) (error freqüent)"
+
+# «ves» del verb anar cal que porti accent «vés».
+[\bves\b]i
+id="common-ves"
+hint="«ves» (verb anar) cal que porti accent «vés» (error freqüent)"
+
+# «widget» es tradueix per «estri».
+# El Termcat recomana traduir «widget» per «giny»
+{\bwidgets?\b}i
+id="common-widget"
+valid msgstr="estris?"
+valid msgstr="ginys?"
+hint="«widget» es tradueix per «giny»/«estri» (error freqüent)"
+
+# «world» es tradueix per «món» (amb accent).
+{\bworld\b}i
+id="common-world"
+valid msgstr="humanitat"
+valid msgstr="mapamundi"
+valid msgstr="món"
+valid msgstr="mundial"
+valid msgstr="web"
+valid msgstr="world"
+valid msgstr="WWW" before="\swide\sweb"
+hint="«world» es tradueix per «món» (amb accent) (error freqüent)"
+
+# End of common mistakes rules file
