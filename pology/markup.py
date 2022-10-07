@@ -604,7 +604,7 @@ def _prep_docbook4_to_plain ():
         "_parabr" : ("", WS_NEWLINE*2, None),
         "_ws" : (" ", " ", None),
         "_ui" : ("[", "]", None),
-        "_uipath" : ("", "", lambda s: re.sub("\]\s*\[", "->", s, re.U)),
+        "_uipath" : ("", "", lambda s: re.sub(r"\]\s*\[", "->", s, re.U)),
     }
     _dbk_subs.update([(x, _dbk_subs["_nows"]) for x in _dbk_tags])
     _dbk_subs.update([(x, _dbk_subs["_parabr"]) for x in
@@ -702,8 +702,8 @@ def collect_xml_spec_l1 (specpath):
 
     dtag_attr = "pe-common-attrib"
 
-    valid_tag_rx = re.compile("^[\w-]+$")
-    valid_attr_rx = re.compile("^[\w-]+$")
+    valid_tag_rx = re.compile(r"^[\w-]+$")
+    valid_attr_rx = re.compile(r"^[\w-]+$")
 
     c_tag, c_attr, c_attre, c_stag = list(range(4))
 

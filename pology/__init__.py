@@ -48,7 +48,6 @@ def datadir ():
 
     datadir = "@CONFIG_DATADIR@" # configured if installed
     if not os.path.isdir(datadir): # if running from source dir
-        raise ValueError(datadir)
         srcdir = os.path.dirname(os.path.dirname(__file__))
         datadir = srcdir
     return datadir
@@ -62,7 +61,7 @@ def localedir ():
     @rtype: string
     """
 
-    localedir = "/usr/local/share/locale" # configured if installed
+    localedir = "@CONFIG_LOCALEDIR@" # configured if installed
     if not os.path.isdir(localedir): # if running from source dir
         srcdir = os.path.dirname(os.path.dirname(__file__))
         localedir = os.path.join(srcdir, "mo")
@@ -77,7 +76,7 @@ def version ():
     @rtype: string
     """
 
-    verstr = "0.13" # configured if installed
+    verstr = "@CONFIG_VERSION@" # configured if installed
     if verstr.startswith("@"): # if running from source dir
         try:
             verfile = os.path.join(datadir(), "VERSION")

@@ -37,7 +37,7 @@ def _parse_config ():
     # Parse the config if available.
     if os.path.isfile(cfgpath):
         ifl = codecs.open(cfgpath, "r", "UTF-8")
-        _config.readfp(ifl)
+        _config.read_file(ifl)
         ifl.close()
 
 # Parse configuration on first import.

@@ -217,11 +217,11 @@ def _compile_file_w (path, cpath=None):
         cpath = path + _compfile_suff
 
     # Parse the file.
-    ifs = open(path, "r")
+    ifs = open(path, "rb")
     lines = ifs.readlines()
     ifs.close()
 
-    m = re.search(r"^#\s+~~~\s+(\S+)\s+~~~\s*$", lines[0]) if lines else None
+    m = re.search(br"^#\s+~~~\s+(\S+)\s+~~~\s*$", lines[0]) if lines else None
     enc = m and m.group(1) or "UTF-8"
     lines = [x.decode(enc) for x in lines]
 
@@ -298,7 +298,7 @@ def _include_sources (source, incpaths):
 
 
 _compfile_suff = "c"
-_compfile_dver = "0003"
+_compfile_dver = b"0003"
 _compfile_hlen = hashlib.md5().digest_size * 2
 
 def _write_parsed_file (source, path, cpath=None):
@@ -314,7 +314,7 @@ def _write_parsed_file (source, path, cpath=None):
     # Write out data version and file hash.
     fhc.write(_compfile_dver)
     hasher = hashlib.md5
-    fhc.write(hashlib.md5(fh.read()).hexdigest() + "\n")
+    fhc.write(hashlib.md5(fh.read()).hexdigest().encode() + b"\n")
     pickle.dump(source, fhc, 2) # 0 for ASCII instead of binary
     fhc.close()
 

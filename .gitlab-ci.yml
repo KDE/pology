@@ -1,26 +1,38 @@
 image: "python:3.10"
 
-before_script:
-  - pip install tox
-
 stages:
   - Check
   - Test
 
 flake8:
   stage: Check
+  before_script:
+    - pip install flake8
   script:
-    - tox -e flake8
+    - flake8
 
-# Test with the minimum version of dependencies.
-test-minimum:
+# We test combinations that cover the following scenarios:
+#
+# - Minimum and latest version of dependencies (e.g. Python).
+# - System-wide installation with CMake and direct source usage.
+
+test-min-cmake:
   stage: Test
   image: "python:3.7"
   script:
-    - tox -e py
+    - apt-get update -qq && apt-get install -y -qq cmake
+    - mkdir build
+    - cd build
+    - cmake ..
+    - make
+    - make install
+    - pip install pytest
+    - mkdir empty
+    - cd empty
+    - pytest ../../tests
 
-# Test with the latest version of dependencies.
-test-latest:
+test-max-src:
   stage: Test
   script:
-    - tox -e py
+    - pip install pytest
+    - pytest tests
