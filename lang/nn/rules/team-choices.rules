@@ -357,4 +357,8 @@ hint="sysken → søsken"
 [syster|systre(r|ene)?]i
 hint="syster → søster"
 
+[jarn]i
+hint="jarn → jern"
+valid after="B" before="e"
+
 # End of rules
