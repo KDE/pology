@@ -99,17 +99,20 @@ class Monitored (object):
     """
 
     def __getattr__ (self, att):
-        attp = "_" + att
-        if att.startswith("_"):
-            return self.__dict__[att]
-        elif att == "modcount":
-            return _gather_modcount(self)
-        elif att.endswith("_modcount"):
-            return self.__dict__["#"][att[:-len("_modcount")]]
-        elif att == "#":
-            return self.__dict__[att]
-        else:
-            return self.__dict__[attp]
+        try:
+            attp = "_" + att
+            if att.startswith("_"):
+                return self.__dict__[att]
+            elif att == "modcount":
+                return _gather_modcount(self)
+            elif att.endswith("_modcount"):
+                return self.__dict__["#"][att[:-len("_modcount")]]
+            elif att == "#":
+                return self.__dict__[att]
+            else:
+                return self.__dict__[attp]
+        except KeyError:
+            raise AttributeError
 
     def __setattr__ (self, att, val):
         if att.startswith("_"):
