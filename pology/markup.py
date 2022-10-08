@@ -28,7 +28,7 @@ flag_no_check_markup = "no-check-markup"
 
 
 _nlgr_rx = re.compile(r"\n{2,}")
-_wsgr_rx = re.compile(r"\s+")
+_wsgr_rx = re.compile(r"\s+", re.ASCII)
 
 def plain_to_unwrapped (text):
     """
