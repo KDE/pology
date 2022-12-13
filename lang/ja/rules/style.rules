@@ -459,7 +459,7 @@ valid after="タグ名" before="属性1, 属性2" cat="quanta"
 valid after="s" before="\[a\-zA\-Z\]\+\)" cat="quanta"
 valid after="%artist\)" before="アルバム名" cat="kopete"
 valid after="。:" cat="kopete"
-valid after="\left" cat="kile"
+valid after="\\left" cat="kile"
 valid after="%1" before="%2, %3\)" cat="kalgebra"
 valid cat="kspread"
 valid cat="sheets"
@@ -589,7 +589,13 @@ valid cat="kalgebra"
 [:kbd:`.*?`]
 id="krita-docs-kbd"
 hint="前後にスペースが必要"
-valid after="^|[ \(\)、。]" before="$|[ \(\):、。]"
+valid after="^|[ \(\)、。]" before="$|[ \(\):、。,]"
+valid !catrx="docs_krita_org_*"
+
+[:dfn:`.*?`]
+id="krita-docs-dfn"
+hint="前後にスペースが必要"
+valid after="^|[ \(\)、。]" before="$|[ \(\):、。,]"
 valid !catrx="docs_krita_org_*"
 
 [:guilabel:`.*?`]
@@ -601,13 +607,13 @@ valid !catrx="docs_krita_org_*"
 [:ref:`.*?`]
 id="krita-docs-ref"
 hint="前後にスペースが必要"
-valid after="^|[ \(\)、。]" before="$|[ \(\):、。]"
+valid after="^|[ \(\)、。]" before="$|[ \(\):、。\.]"
 valid !catrx="docs_krita_org_*"
 
 [:menuselection:`.*?`]
 id="krita-docs-menuselection"
 hint="前後にスペースが必要"
-valid after="^|[ \(\)、。]" before="$|[ \(\):、。]"
+valid after="^|[ \(\)、。]" before="$|[ \(\):、。\.]"
 valid !catrx="docs_krita_org_*"
 
 [:literal:`.*?`]
@@ -643,13 +649,13 @@ valid !catrx="docs_krita_org_*"
 [``]
 id="krita-docs-backticks"
 hint="片側にスペースが必要"
-valid after="^|[ 、。]"
+valid after="^|[ 、。(]"
 valid before="$|[ 、]"
 valid !catrx="docs_krita_org_*"
 
 [\*+]
 id="krita-docs-star"
 hint="片側にスペースが必要"
-valid after="^|[ 、。\(\)]"
-valid before="$|[ 、。\)]"
+valid after="^|[ 、。\(\)\']"
+valid before="$|[ 、。\)\':]"
 valid !catrx="docs_krita_org_*"
