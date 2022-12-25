@@ -12,8 +12,10 @@ Documented in C{doc/user/sieving.docbook}.
 import codecs
 import locale
 import os
+from pathlib import Path
 import re
 import tempfile
+from time import strftime
 
 from pology import PologyError, datadir, _, n_
 from pology.spell import flag_no_check_spell, elist_well_spelled
@@ -23,6 +25,7 @@ import pology.config as cfg
 from pology.getfunc import get_hook_ireq
 from pology.msgreport import report_on_msg
 from pology.msgreport import report_msg_to_lokalize
+from pology.msgreport import spell_xml_error
 from pology.report import report, warning, format_item_list
 from pology.sieve import SieveError, SieveCatalogError
 from pology.split import proper_words
@@ -31,18 +34,24 @@ from pology.sieve import add_param_spellcheck, add_param_poeditors
 
 def setup_sieve (p):
 
-    p.set_desc(_("@info sieve discription",
+    p.set_desc(_("@info sieve description",
     "Spell-check translation using Enchant."
     ))
 
     p.add_param("provider", str, seplist=True,
                 metavar=_("@info sieve parameter value placeholder", "NAME"),
-                desc=_("@info sieve parameter discription",
+                desc=_("@info sieve parameter description",
     "The spell-checking provider to use. "
     "Several provider can be given as comma-separated list."
     ))
 
     add_param_spellcheck(p)
+
+    p.add_param("xml", str,
+                metavar=_("@info sieve parameter value placeholder", "FILE"),
+                desc=_("@info sieve parameter description",
+    "Build XML report file at given path."
+    ))
 
 
 class Sieve (object):
@@ -85,6 +94,11 @@ class Sieve (object):
         self.words_only = params.list
         self.lokalize = params.lokalize
 
+        # File we are processing
+        self.filename = ""
+        # File used for the XML output, if requested
+        self.xmlFile = None
+
         # Langenv-dependent elements built along the way.
         self.checkers = {}
         self.word_lists = {}
@@ -95,6 +109,17 @@ class Sieve (object):
         # Indicators to the caller:
         self.caller_sync = False # no need to sync catalogs
         self.caller_monitored = False # no need for monitored messages
+
+        if params.xml:
+            try:
+                # TODO: create nice api to manage xml file in rules.py
+                self.xmlFile = Path(params.xml).open("w")
+                self.xmlFile.write('<?xml version="1.0" encoding="UTF-8"?>\n')
+                self.xmlFile.write('<pos date="%s">\n' % strftime('%c'))
+            except Exception as exc:
+                warning(_("@info",
+                          "Cannot open file '%(file)s': %(ex)s. XML output "
+                          "disabled.", file=params.xml, ex=exc))
 
 
     def process_header (self, hdr, cat):
@@ -135,6 +160,17 @@ class Sieve (object):
         if self.markup is not None:
             cat.set_markup(self.markup)
 
+        # Close previous/open new XML section.
+        if self.xmlFile:
+            filename = Path(cat.filename).name
+            # Close previous PO.
+            if self.filename != "":
+                self.xmlFile.write("</po>\n")
+            self.filename = filename
+            # Open new PO.
+            poTag='<po name="%s">\n' % filename
+            self.xmlFile.write(poTag) # Write to result
+
 
     def process (self, msg, cat):
 
@@ -142,6 +178,7 @@ class Sieve (object):
             return
 
         failed_w_suggs = []
+        msgstr_cnt = 0
 
         for msgstr in msg.msgstr:
 
@@ -188,6 +225,11 @@ class Sieve (object):
                         failed_w_suggs.append((word, suggs))
 
                     if not self.words_only:
+                        if self.xmlFile:
+                            xmlError = spell_xml_error(msg, cat, word, suggs,
+                                                       msgstr_cnt)
+                            self.xmlFile.writelines(xmlError)
+
                         if suggs:
                             fsuggs = format_item_list(suggs, incmp=incmp)
                             report_on_msg(_("@info",
@@ -200,6 +242,8 @@ class Sieve (object):
                                             "Unknown word '%(word)s'.",
                                             word=word),
                                           msg, cat)
+
+            msgstr_cnt += 1 # Increase msgstr id count
 
         if self.lokalize and failed_w_suggs:
             repls = [_("@label", "Spelling errors:")]
@@ -228,6 +272,11 @@ class Sieve (object):
                 wlist = list(self.unknown_words)
                 wlist.sort(lambda x, y: locale.strcoll(x.lower(), y.lower()))
                 report("\n".join(wlist))
+
+        if self.xmlFile:
+            self.xmlFile.write("</po>\n")
+            self.xmlFile.write("</pos>\n")
+            self.xmlFile.close()
 
 
 # Get checker object from Enchant.
