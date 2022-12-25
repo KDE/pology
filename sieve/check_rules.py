@@ -11,7 +11,6 @@ Documented in C{doc/user/sieving.docbook}.
 """
 
 from codecs import open
-from locale import getpreferredencoding
 import os
 from os.path import abspath, basename, dirname, exists, expandvars, join
 import re
@@ -208,7 +207,7 @@ class Sieve (object):
                 #TODO: create nice api to manage xml file and move it to rules.py
                 self.xmlFile = open(xmlPath, "w", "utf-8")
                 self.xmlFile.write('<?xml version="1.0" encoding="UTF-8"?>\n')
-                self.xmlFile.write('<pos date="%s">\n' % strftime('%c').decode(getpreferredencoding()))
+                self.xmlFile.write('<pos date="%s">\n' % strftime('%c'))
             else:
                 warning(_("@info",
                           "Cannot open file '%(file)s'. XML output disabled.",

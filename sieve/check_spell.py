@@ -113,7 +113,7 @@ class Sieve (object):
                 #TODO: create nice api to manage xml file and move it to rules.py
                 self.xmlFile=open(xmlPath, "w", "utf-8")
                 self.xmlFile.write('<?xml version="1.0" encoding="UTF-8"?>\n')
-                self.xmlFile.write('<pos date="%s">\n' % strftime('%c').decode(locale.getpreferredencoding()))
+                self.xmlFile.write('<pos date="%s">\n' % strftime('%c'))
             else:
                 warning(_("@info",
                           "Cannot open file '%(file)s'. XML output disabled.",
