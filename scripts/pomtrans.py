@@ -411,13 +411,11 @@ class Translator_apertium (object):
         # to have each text interpreted as standalone sentence.
         # FIXME: Any way to really translate each text in turn,
         # without it being horribly slow?
-        sep0 = "<br class='..."
-        sep1 = "..."
-        sep2 = "'/>."
+        tag = "<br>"
         sep = None
-        nsep = 0
+        nsep = 1
         while not sep: # determine shortest acceptable separator
-            sep = sep0 + sep1 * nsep + sep2
+            sep = tag * nsep + "."
             for text in texts:
                 if sep in text:
                     sep = None

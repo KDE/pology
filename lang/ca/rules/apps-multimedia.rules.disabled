@@ -1610,17 +1610,17 @@ hint="Es tradueix per «pinzells» (multimèdia)"
 
     {\bHatch(e|ing)\b}i
     valid msgid="\bHatching\sBrush(es)?\b"
-    valid msgstr="\bpatró de moiré\b"
-    hint="Es tradueix per «(Pinzell:) «amb un» patró de moiré (tècnica de pintura)» (multimèdia)"
+    valid msgstr="\bpatró de moaré\b"
+    hint="Es tradueix per «(Pinzell:) «amb un» patró de moaré (tècnica de pintura)» (multimèdia)"
 
         {\bHatching\sBrush(es)?\b}i
         valid msgid="\bHatching\sBrush\sEngine\b"
-        valid msgstr="\bPinzells? amb un patró de moiré\b"
-        hint="Es tradueix per «Pinzell/s amb un patró de moiré» (multimèdia)"
+        valid msgstr="\bPinzells? amb un patró de moaré\b"
+        hint="Es tradueix per «Pinzell/s amb un patró de moaré» (multimèdia)"
 
             {\bHatching\sBrush\sEngine\b}i
-            valid msgstr="\bmotor del pinzell amb un patró de moiré\b"
-            hint="Es tradueix per «motor del pinzell amb un patró de moiré» (multimèdia)"
+            valid msgstr="\bmotor del pinzell amb un patró de moaré\b"
+            hint="Es tradueix per «motor del pinzell amb un patró de moaré» (multimèdia)"
 
     {\bhealing\sbrush(es)?\b}i
     valid msgstr="\bpinzells? corrector\b"
