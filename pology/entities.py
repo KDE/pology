@@ -52,7 +52,7 @@ def parse_entities (defstr, src=None):
     p.EntityDeclHandler = handler
     try:
         p.Parse(defstr, True)
-    except xml.parsers.expat.ExpatError as inst:
+    except xml.parsers.expat.ExpatError, inst:
         if src:
             raise PologyError(
                 _("@info error report for a named source",
@@ -89,7 +89,7 @@ def read_entities (filepath, fcap=False):
     @see: L{parse_entities}
     """
 
-    if isinstance(filepath, str):
+    if isinstance(filepath, basestring):
         fnames = [filepath]
     else:
         fnames = filepath
@@ -173,10 +173,10 @@ def fcap_entities (entities, update=False):
 
     if update:
         fcaps = entities
-        iterents = list(entities.items())
+        iterents = entities.items()
     else:
         fcaps = {}
-        iterents = iter(entities.items())
+        iterents = entities.iteritems()
 
     for name, value in iterents:
         # Upper-case entity name.

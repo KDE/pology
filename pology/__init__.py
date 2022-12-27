@@ -31,6 +31,7 @@ and translation projects.
 """
 
 import gettext
+import locale
 import os
 import re
 
@@ -46,10 +47,11 @@ def datadir ():
     @rtype: string
     """
 
-    datadir = "@CONFIG_DATADIR@" # configured if installed
+    lenc = locale.getpreferredencoding()
+    datadir = "@CONFIG_DATADIR@".decode(lenc) # configured if installed
     if not os.path.isdir(datadir): # if running from source dir
         srcdir = os.path.dirname(os.path.dirname(__file__))
-        datadir = srcdir
+        datadir = srcdir.decode(lenc)
     return datadir
 
 
@@ -61,10 +63,11 @@ def localedir ():
     @rtype: string
     """
 
-    localedir = "@CONFIG_LOCALEDIR@" # configured if installed
+    lenc = locale.getpreferredencoding()
+    localedir = "@CONFIG_LOCALEDIR@".decode(lenc) # configured if installed
     if not os.path.isdir(localedir): # if running from source dir
         srcdir = os.path.dirname(os.path.dirname(__file__))
-        localedir = os.path.join(srcdir, "mo")
+        localedir = os.path.join(srcdir, "mo").decode(lenc)
     return localedir
 
 
@@ -76,12 +79,13 @@ def version ():
     @rtype: string
     """
 
-    verstr = "@CONFIG_VERSION@" # configured if installed
+    lenc = locale.getpreferredencoding()
+    verstr = "@CONFIG_VERSION@".decode(lenc) # configured if installed
     if verstr.startswith("@"): # if running from source dir
         try:
             verfile = os.path.join(datadir(), "VERSION")
-            for line in open(verfile, encoding='utf-8'):
-                line = line.strip()
+            for line in open(verfile):
+                line = line.decode("UTF-8").strip()
                 if line:
                     verstr = line
                     break
@@ -105,7 +109,7 @@ def version_info ():
     verstr = version()
     verrx = re.compile(r"^(\d+)\.(\d+)\.?(\d+)?(.*)$")
     m = verrx.match(verstr)
-    major, minor, bugfix = list(map(int, [x or "0" for x in m.groups()[:3]]))
+    major, minor, bugfix = map(int, [x or "0" for x in m.groups()[:3]])
     suffix = m.groups()[-1]
     verinfo = (major, minor, bugfix, suffix)
 
@@ -259,7 +263,7 @@ class TextTrans:
         """
 
         if self._msgid_plural is None:
-            trf = _tr.gettext # camouflaged against xgettext
+            trf = _tr.ugettext # camouflaged against xgettext
             if self._msgctxt is None:
                 msgstr = trf(self._msgid)
             else:
@@ -274,7 +278,7 @@ class TextTrans:
                       "No '%(arg)s' keyword argument to "
                       "plural translation request.",
                       arg="num"))
-            trf = _tr.ngettext # camouflaged against xgettext
+            trf = _tr.ungettext # camouflaged against xgettext
             if self._msgctxt is None:
                 msgstr = trf(self._msgid, self._msgid_plural, n)
             else:
@@ -305,5 +309,12 @@ class PologyError (Exception):
         self._msg = msg
 
 
-    def  __str__(self):
-        return str(self._msg)
+    def  __unicode__ (self):
+
+        return unicode(self._msg)
+
+
+    def  __str__ (self):
+
+        return self.__unicode__().encode(locale.getpreferredencoding())
+

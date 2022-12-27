@@ -258,18 +258,18 @@ def _construct_aspell (lang, envs, encoding, variety, extopts, suponly):
         if extopts:
             aopts.update(extopts)
 
-        aopts = dict([(x, y.encode(encoding)) for x, y in list(aopts.items())])
+        aopts = dict([(x, y.encode(encoding)) for x, y in aopts.items()])
 
         # Create Aspell object.
         import pology.external.pyaspell as A
         try:
-            checker = A.Aspell(list(aopts.items()))
-        except A.AspellConfigError as e:
+            checker = A.Aspell(aopts.items())
+        except A.AspellConfigError, e:
             raise PologyError(
                 _("@info",
                   "Aspell configuration error:\n%(msg)s",
                   msg=e))
-        except A.AspellError as e:
+        except A.AspellError, e:
             raise PologyError(
                 _("@info",
                   "Cannot initialize Aspell:\n%(msg)s",
@@ -333,7 +333,7 @@ def _compose_personal_dict (lang, envs):
         tmpf.write("personal_ws-1.1 %s %d UTF-8\n" % (lang, len(words)))
         tmpf.writelines([x + "\n" for x in words])
         tmpf.close()
-    except Exception as e:
+    except Exception, e:
         raise PologyError(
             _("@info",
               "Cannot create composited spelling dictionary "
@@ -514,14 +514,14 @@ def _construct_enchant (provider, lang, envs, encoding, variety, suponly):
         # Create Enchant broker.
         try:
             broker = enchant.Broker()
-        except Exception as e:
+        except Exception, e:
             raise PologyError(
                 _("@info",
                   "Cannot initialize Enchant:\n%(msg)s",
                   msg=e))
 
         # Find Enchant language.
-        e_langs = list(filter(broker.dict_exists, [variety, lang]))
+        e_langs = filter(broker.dict_exists, [variety, lang])
         if e_langs:
             e_lang = e_langs[0]
         else:
@@ -540,7 +540,7 @@ def _construct_enchant (provider, lang, envs, encoding, variety, suponly):
         # Choose the provider for the selected language.
         try:
             broker.set_ordering((e_lang or "*"), provider)
-        except Exception as e:
+        except Exception, e:
             raise PologyError(
                 _("@info",
                   "Cannot configure Enchant for provider '%(pvd)s':\n%(msg)s",

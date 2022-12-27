@@ -33,7 +33,7 @@ class Sieve (object):
     def finalize (self):
 
         if self.nmatch > 0:
-            print("Total messages changed: %d" % (self.nmatch,))
+            print "Total messages changed: %d" % (self.nmatch,)
 
     def setUbsp(self, text):
         """Set correctly unbreakable spaces"""

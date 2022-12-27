@@ -10,7 +10,7 @@ Header entry in PO catalogs.
 from pology import PologyError
 from pology.wrap import wrap_field
 from pology.monitored import Monitored, Monlist, Monpair
-from .message import Message
+from message import Message
 
 import datetime
 import time
@@ -18,17 +18,17 @@ import re
 
 _Header_spec = {
     "title" : {"type" : Monlist,
-               "spec" : {"*" : {"type" : str}}},
-    "copyright" : {"type" : (str, type(None))},
-    "license" : {"type" : (str, type(None))},
+               "spec" : {"*" : {"type" : unicode}}},
+    "copyright" : {"type" : (unicode, type(None))},
+    "license" : {"type" : (unicode, type(None))},
     "author" : {"type" : Monlist,
-                "spec" : {"*" : {"type" : str}}},
+                "spec" : {"*" : {"type" : unicode}}},
     "comment" : {"type" : Monlist,
-                 "spec" : {"*" : {"type" : str}}},
+                 "spec" : {"*" : {"type" : unicode}}},
     "field" : {"type" : Monlist,
                "spec" : {"*" : {"type" : Monpair,
-                                "spec" : {"first" : {"type" : str},
-                                          "second" : {"type" : str}}}}},
+                                "spec" : {"first" : {"type" : unicode},
+                                          "second" : {"type" : unicode}}}}},
     "initialized" : {"type" : bool, "derived" : True},
     # Dummies for summary iteration in catalog:
     "obsolete" : {"type" : bool, "derived" : True},
@@ -91,7 +91,7 @@ class Header (Monitored):
             self._license = hdr._license
             self._author = Monlist(hdr._author)
             self._comment = Monlist(hdr._comment)
-            self._field = Monlist(list(map(Monpair, hdr._field)))
+            self._field = Monlist(map(Monpair, hdr._field))
 
             # Create the message.
             self._message = hdr.to_msg()
@@ -100,15 +100,15 @@ class Header (Monitored):
             msg = init
             # Comments.
             self._title = Monlist()
-            self._copyright = ""
-            self._license = ""
+            self._copyright = u""
+            self._license = u""
             self._author = Monlist()
             self._comment = Monlist()
             intitle = True
             for c in msg.manual_comment:
                 if 0: pass
                 elif (    not self._copyright
-                      and re.search(r"copyright|\(C\)|©", c, re.I|re.U)
+                      and re.search(ur"copyright|\(C\)|©", c, re.I|re.U)
                 ):
                     self._copyright = c
                     intitle = False
@@ -136,24 +136,24 @@ class Header (Monitored):
             self._message = Message(msg)
 
         else: # create default fields
-            self._title = Monlist(["SOME DESCRIPTIVE TITLE."]);
-            self._copyright = "Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER"
-            self._license = "This file is distributed under the same license as the PACKAGE package."
-            self._author = Monlist(["FIRST AUTHOR <EMAIL@ADDRESS>, YEAR."])
-            self._comment = Monlist([""])
+            self._title = Monlist([u"SOME DESCRIPTIVE TITLE."]);
+            self._copyright = u"Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER"
+            self._license = u"This file is distributed under the same license as the PACKAGE package."
+            self._author = Monlist([u"FIRST AUTHOR <EMAIL@ADDRESS>, YEAR."])
+            self._comment = Monlist([u""])
 
             self._field = Monlist([
-                Monpair(("Project-Id-Version", "PACKAGE VERSION")),
-                Monpair(("Report-Msgid-Bugs-To", "")),
-                Monpair(("POT-Creation-Date", format_datetime())),
-                Monpair(("PO-Revision-Date", "YEAR-MO-DA HO:MI+ZONE")),
-                Monpair(("Last-Translator", "FULL NAME <EMAIL@ADDRESS>")),
-                Monpair(("Language-Team", "LANGUAGE <LL@li.org>")),
-                Monpair(("Language", "")),
-                Monpair(("MIME-Version", "1.0")),
-                Monpair(("Content-Type", "text/plain; charset=CHARSET")),
-                Monpair(("Content-Transfer-Encoding", "8bit")),
-                Monpair(("Plural-Forms", "nplurals=INTEGER; plural=EXPRESSION;")),
+                Monpair((u"Project-Id-Version", u"PACKAGE VERSION")),
+                Monpair((u"Report-Msgid-Bugs-To", u"")),
+                Monpair((u"POT-Creation-Date", format_datetime())),
+                Monpair((u"PO-Revision-Date", u"YEAR-MO-DA HO:MI+ZONE")),
+                Monpair((u"Last-Translator", u"FULL NAME <EMAIL@ADDRESS>")),
+                Monpair((u"Language-Team", u"LANGUAGE <LL@li.org>")),
+                Monpair((u"Language", u"")),
+                Monpair((u"MIME-Version", u"1.0")),
+                Monpair((u"Content-Type", u"text/plain; charset=CHARSET")),
+                Monpair((u"Content-Transfer-Encoding", u"8bit")),
+                Monpair((u"Plural-Forms", u"nplurals=INTEGER; plural=EXPRESSION;")),
             ])
 
             # Create the message.
@@ -240,7 +240,7 @@ class Header (Monitored):
                 m.manual_comment.append(c)
 
         if force or self.field_modcount or self.field.modcount:
-            m.msgstr = Monlist([""])
+            m.msgstr = Monlist([u""])
             for field in self.field:
                 m.msgstr[0] += "%s: %s\n" % tuple(field)
 
@@ -387,7 +387,7 @@ class Header (Monitored):
             if self.field[i][0] == name:
                 nfound += 1
                 if nfound - 1 == nth:
-                    self.field[i] = Monpair((str(name), new_value))
+                    self.field[i] = Monpair((unicode(name), new_value))
                     break
 
         return nfound - 1 == nth
@@ -519,7 +519,7 @@ def format_datetime (dt=None, wsec=False):
         else:
             dtstr = time.strftime(_dt_fmt_nosec)
 
-    return str(dtstr)
+    return unicode(dtstr)
 
 
 _parse_date_rxs = [re.compile(x) for x in (

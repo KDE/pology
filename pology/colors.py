@@ -15,11 +15,11 @@ import sys
 
 
 _xml_entities = {
-    "lt": "<",
-    "gt": ">",
-    "apos": "'",
-    "quot": "\"",
-    "amp": "&",
+    u"lt": u"<",
+    u"gt": u">",
+    u"apos": u"'",
+    u"quot": u"\"",
+    u"amp": u"&",
 }
 
 def _resolve_xml_ents (text):
@@ -53,13 +53,13 @@ def _resolve_xml_ents (text):
 def _escape_xml_ents (text):
 
     rtext = text.replace("&", "&amp;")
-    for ent, val in list(_xml_entities.items()):
+    for ent, val in _xml_entities.items():
         if val != "&":
             rtext = rtext.replace(val, "&" + ent + ";")
     return rtext
 
 
-class ColorString (str):
+class ColorString (unicode):
     """
     Class for strings with color markup.
 
@@ -78,8 +78,9 @@ class ColorString (str):
     """
 
     def _escape (self, v):
-        if isinstance(v, str) and not isinstance(v, ColorString):
-            v = str(v)
+
+        if isinstance(v, basestring) and not isinstance(v, ColorString):
+            v = unicode(v)
             v = _escape_xml_ents(v)
 
         return v
@@ -87,37 +88,34 @@ class ColorString (str):
 
     def __add__ (self, other):
 
-        return ColorString(str.__add__(self, self._escape(other)))
+        return ColorString(unicode.__add__(self, self._escape(other)))
 
 
     def __radd__ (self, other):
 
-        return ColorString(str.__add__(self._escape(other), self))
+        return ColorString(unicode.__add__(self._escape(other), self))
 
 
     def __mod__ (self, args):
 
         if isinstance(args, dict):
-            rargs = dict((k, self._escape(v)) for k, v in list(args.items()))
+            rargs = dict((k, self._escape(v)) for k, v in args.items())
         elif isinstance(args, tuple):
             rargs = tuple(self._escape(v) for v in args)
         else:
             rargs = self._escape(args)
-        return ColorString(str.__mod__(self, rargs))
+        return ColorString(unicode.__mod__(self, rargs))
 
 
     def __repr__ (self):
 
-        return "%s(%s)" % (self.__class__.__name__, str.__repr__(self))
-
-    def __iter__(self):
-        for c in str(self):
-            yield self.__class__(c)
+        return "%s(%s)" % (self.__class__.__name__, unicode.__repr__(self))
 
 
     def join (self, strings):
+
         rstrings = [self._escape(s) for s in strings]
-        return ColorString(str.join(self, rstrings))
+        return ColorString(unicode.join(self, rstrings))
 
 
     def resolve (self, ctype=None, dest=None):
@@ -156,7 +154,7 @@ class ColorString (str):
         if color_pack is None:
             color_pack = _color_packs.get("none")
         colorf, escapef, finalf = color_pack
-        text = str(self)
+        text = unicode(self)
         rtext, epos = self._resolve_markup_w(text, len(text), 0, None, None,
                                              colorf, escapef)
         rtext = finalf(rtext)
@@ -259,7 +257,7 @@ class ColorString (str):
         if c == "<":
             pos2 = self.find(">", pos)
             if pos2 > 0:
-                vis, rlen = "", pos2 + 1 - pos
+                vis, rlen = u"", pos2 + 1 - pos
         elif c == "&":
             pos2 = self.find(";", pos)
             if pos2 > 0:
@@ -276,12 +274,12 @@ def _fill_color_string_class ():
     def wrap_return_type (method):
         def wmethod (self, *args, **kwargs):
             res = method(self, *args, **kwargs)
-            if isinstance(res, str):
+            if isinstance(res, basestring):
                 res = ColorString(res)
             elif isinstance(res, (tuple, list)):
                 res2 = []
                 for el in res:
-                    if isinstance(el, str):
+                    if isinstance(el, basestring):
                         el = ColorString(el)
                     res2.append(el)
                 res = type(res)(res2)
@@ -289,18 +287,18 @@ def _fill_color_string_class ():
         return wmethod
 
     for attrname in (
-        "__getitem__", "__mul__", "__rmul__",
+        "__getitem__", "__getslice__", "__mul__", "__rmul__",
         "capitalize", "center", "expandtabs", "ljust", "lower", "lstrip",
         "replace", "rjust", "rsplit", "rstrip", "split", "strip", "swapcase",
         "title", "translate", "upper", "zfill",
     ):
-        method = getattr(str, attrname)
+        method = getattr(unicode, attrname)
         setattr(ColorString, attrname, wrap_return_type(method))
 
 _fill_color_string_class()
 
 
-def cjoin (strings, joiner=""):
+def cjoin (strings, joiner=u""):
     """
     Join strings into a L{ColorString} if any of them are L{ColorString},
     otherwise into type of joiner.
@@ -341,7 +339,7 @@ def cinterp (format, *args, **kwargs):
 
     iargs = args or kwargs
     if not isinstance(format, ColorString):
-        for v in (list(iargs.values()) if isinstance(iargs, dict) else iargs):
+        for v in (iargs.values() if isinstance(iargs, dict) else iargs):
             if isinstance(v, ColorString):
                 format = ColorString(format)
                 break
@@ -359,9 +357,9 @@ class ColorOptionParser (OptionParser):
         if isinstance(val, ColorString):
             val = val.resolve("term", sys.stdout)
         elif isinstance(val, (list, tuple)):
-            val = list(map(self._cv, val))
+            val = map(self._cv, val)
         elif isinstance(val, dict):
-            val = dict((k, self._cv(v)) for k, v in list(val.items()))
+            val = dict((k, self._cv(v)) for k, v in val.items())
         return val
 
 
@@ -383,7 +381,7 @@ def get_coloring_types ():
     List of keywords of all available coloring types.
     """
 
-    return list(_color_packs.keys())
+    return _color_packs.keys()
 
 
 def set_coloring_globals (ctype="term", outdep=True):

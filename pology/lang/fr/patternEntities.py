@@ -11,15 +11,15 @@ from pology.resolve import resolve_entities_simple
 
 
 entities={}
-entities["cr"]="\r"
-entities["lf"]="\n"
-entities["lt"]="<"
-entities["gt"]=">"
-entities["sp"]=" "
-entities["quot"]='\"'
-entities["amp"]="&"
-entities["unbsp"]="\xa0"
-entities["nbsp"]=" "
+entities["cr"]=u"\r"
+entities["lf"]=u"\n"
+entities["lt"]=u"<"
+entities["gt"]=u">"
+entities["sp"]=u" "
+entities["quot"]=u'\"'
+entities["amp"]=u"&"
+entities["unbsp"]=u"\xa0"
+entities["nbsp"]=u" "
 
 
 def patternEntities(pattern):

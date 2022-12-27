@@ -62,7 +62,7 @@ class Sieve (object):
         # original itself is valid XML.
         if not self.strict:
             if (   validate_kde4_l1(msg.msgid, ents={})
-                or validate_kde4_l1(msg.msgid_plural or "", ents={})
+                or validate_kde4_l1(msg.msgid_plural or u"", ents={})
             ):
                 return
 

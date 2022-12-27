@@ -39,19 +39,19 @@ def setup_sieve (p):
 
     add_param_spellcheck(p)
 
-    p.add_param("enc", str,
+    p.add_param("enc", unicode,
                 metavar=_("@info sieve parameter value placeholder",
                           "ENCODING"),
                 desc=_("@info sieve parameter discription",
     "Encoding for text sent to Aspell."
     ))
-    p.add_param("var", str,
+    p.add_param("var", unicode,
                 metavar=_("@info sieve parameter value placeholder",
                           "VARIETY"),
                 desc=_("@info sieve parameter discription",
     "Variety of the Aspell dictionary."
     ))
-    p.add_param("xml", str,
+    p.add_param("xml", unicode,
                 metavar=_("@info sieve parameter value placeholder", "FILE"),
                 desc=_("@info sieve parameter discription",
     "Build XML report file at given path."
@@ -113,7 +113,7 @@ class Sieve (object):
                 #TODO: create nice api to manage xml file and move it to rules.py
                 self.xmlFile=open(xmlPath, "w", "utf-8")
                 self.xmlFile.write('<?xml version="1.0" encoding="UTF-8"?>\n')
-                self.xmlFile.write('<pos date="%s">\n' % strftime('%c'))
+                self.xmlFile.write('<pos date="%s">\n' % strftime('%c').decode(locale.getpreferredencoding()))
             else:
                 warning(_("@info",
                           "Cannot open file '%(file)s'. XML output disabled.",
@@ -192,13 +192,13 @@ class Sieve (object):
                 # Create Aspell object.
                 import pology.external.pyaspell as A
                 try:
-                    self.aspells[ckey] = A.Aspell(list(self.aspellOptions.items()))
-                except A.AspellConfigError as e:
+                    self.aspells[ckey] = A.Aspell(self.aspellOptions.items())
+                except A.AspellConfigError, e:
                     raise SieveError(
                         _("@info",
                           "Aspell configuration error:\n%(msg)s",
                           msg=e))
-                except A.AspellError as e:
+                except A.AspellError, e:
                     raise SieveError(
                         _("@info",
                           "Cannot initialize Aspell:\n%(msg)s",
@@ -257,7 +257,7 @@ class Sieve (object):
             # Skip message with context in the ignoredContext list
             skip=False
             for context in self.ignoredContext:
-                if context in (msg.msgctxt or "").lower():
+                if context in (msg.msgctxt or u"").lower():
                     skip=True
                     break
                 for comment in msg.auto_comment:
@@ -341,7 +341,7 @@ class Sieve (object):
 
     def finalize (self):
         # Remove composited personal dictionaries.
-        for tmpDictFile in list(self.tmpDictFiles.values()):
+        for tmpDictFile in self.tmpDictFiles.values():
             if isfile(tmpDictFile):
                 os.unlink(tmpDictFile)
 

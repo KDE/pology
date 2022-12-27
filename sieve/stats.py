@@ -38,7 +38,7 @@ def setup_sieve (p):
     "statistics on request."
     ))
 
-    p.add_param("accel", str, multival=True,
+    p.add_param("accel", unicode, multival=True,
                 metavar=_("@info sieve parameter value placeholder", "CHAR"),
                 desc=_("@info sieve parameter discription",
     "Character which is used as UI accelerator marker in text fields, "
@@ -54,13 +54,13 @@ def setup_sieve (p):
                 desc=_("@info sieve parameter discription",
     "List catalogs which are not fully translated, with incompletness counts."
     ))
-    p.add_param("incompfile", str,
+    p.add_param("incompfile", unicode,
                 metavar=_("@info sieve parameter value placeholder", "FILE"),
                 desc=_("@info sieve parameter discription",
     "Write paths of catalogs that are not fully translated into a file, "
     "one per line."
     ))
-    p.add_param("templates", str,
+    p.add_param("templates", unicode,
                 metavar=_("@info sieve parameter value placeholder",
                           "FIND:REPLACE"),
                 desc=_("@info sieve parameter discription",
@@ -71,7 +71,7 @@ def setup_sieve (p):
     "catalog, its directory is taken and the path to corresponding templates "
     "directory constructed by replacing first occurence of FIND with REPLACE."
     ))
-    p.add_param("branch", str, seplist=True,
+    p.add_param("branch", unicode, seplist=True,
                 metavar=_("@info sieve parameter value placeholder", "BRANCH"),
                 desc=_("@info sieve parameter discription",
     "In summit catalogs, count in only messages belonging to given branch. "
@@ -89,14 +89,14 @@ def setup_sieve (p):
     "Count in only messages which have at least this many words, "
     "either in original or translation."
     ))
-    p.add_param("lspan", str,
+    p.add_param("lspan", unicode,
                 metavar=_("@info sieve parameter value placeholder", "FROM:TO"),
                 desc=_("@info sieve parameter discription",
     "Count in only messages at or after line FROM, and before line TO. "
     "If FROM is empty, 0 is assumed; "
     "if TO is empty, total number of lines is assumed."
     ))
-    p.add_param("espan", str,
+    p.add_param("espan", unicode,
                 metavar=_("@info sieve parameter value placeholder", "FROM:TO"),
                 desc=_("@info sieve parameter discription",
     "Count in only messages at or after entry FROM, and before entry TO. "
@@ -143,7 +143,7 @@ def setup_sieve (p):
     "Include into statistics only catalogs with sufficient completeness, "
     "as ratio of translated to other messages (real value between 0 and 1)."
     ))
-    p.add_param("filter", str, multival=True,
+    p.add_param("filter", unicode, multival=True,
                 metavar=_("@info sieve parameter value placeholder", "HOOK"),
                 desc=_("@info sieve parameter discription",
     "F1A hook specification, to filter the translation through. "
@@ -436,7 +436,7 @@ class Sieve (object):
             self.count["tot"][0] += 1
             categories.add("tot")
             if nswords:
-                categories.update(list(nswords.keys()))
+                categories.update(nswords.keys())
 
         if msg.obsolete: # do not split obsolete into fuzzy/translated
             self.count["obs"][0] += 1
@@ -486,7 +486,7 @@ class Sieve (object):
         if self.template_subdirs:
             # Collect all catalogs in template subdirs.
             tpaths = collect_catalogs(self.template_subdirs)
-            tpaths = list(filter(self.p.is_cat_included, tpaths))
+            tpaths = filter(self.p.is_cat_included, tpaths)
             # Filter to have only POTs remain.
             tpaths = [x for x in tpaths if x.endswith(".pot")]
             # Filter to leave out matched templates.
@@ -507,7 +507,7 @@ class Sieve (object):
         if self.p.mincomp is not None:
             ncounts = {}
             ninccats = {}
-            for filename, count in self.counts.items():
+            for filename, count in self.counts.iteritems():
                 cr = float(count["trn"][0]) / (count["tot"][0] or 1)
                 if cr >= self.p.mincomp:
                     ncounts[filename] = count
@@ -521,7 +521,7 @@ class Sieve (object):
         count_overall = self._count_zero()
         counts_bydir = {}
         filenames_bydir = {}
-        for filename, count in self.counts.items():
+        for filename, count in self.counts.iteritems():
 
             count_overall = self._count_sum(count_overall, count)
 
@@ -539,7 +539,7 @@ class Sieve (object):
         # Arrange sets into ordered list with titles.
         counts = []
         if self.p.bydir:
-            cdirs = list(counts_bydir.keys());
+            cdirs = counts_bydir.keys();
             cdirs.sort()
             for cdir in cdirs:
                 if self.p.byfile:
@@ -551,7 +551,7 @@ class Sieve (object):
                              "(overall)"), count_overall, True))
 
         elif self.p.byfile:
-            filenames = list(self.counts.keys())
+            filenames = self.counts.keys()
             self._sort_equiv_filenames(filenames)
             for filename in filenames:
                 counts.append((filename, self.counts[filename], False))
@@ -635,7 +635,7 @@ class Sieve (object):
         # Output the table of catalogs which are not fully translated,
         # if requested.
         if self.p.incomplete and self.incomplete_catalogs:
-            filenames = list(self.incomplete_catalogs.keys())
+            filenames = self.incomplete_catalogs.keys()
             self._sort_equiv_filenames(filenames)
             data = []
             # Column of catalog filenames.
@@ -666,7 +666,7 @@ class Sieve (object):
             dfmt = ["%%-%ds" % maxfl, "%d", "%d", "%d", "%d", "%d", "%d"]
             # Output.
             report("-")
-            report(tabulate(data, coln=coln, dfmt=dfmt, space="   ", none="-",
+            report(tabulate(data, coln=coln, dfmt=dfmt, space="   ", none=u"-",
                             colorize=True))
 
         # Write file names of catalogs which are not fully translated
@@ -779,7 +779,7 @@ class Sieve (object):
 
         # Output the table.
         report(tabulate(data, rown=rown, coln=coln, dfmt=dfmt,
-                        space="   ", none="-", colorize=True))
+                        space="   ", none=u"-", colorize=True))
 
 
     def _msg_bar_stats (self, counts, title, count, summed):
@@ -802,9 +802,9 @@ class Sieve (object):
 
         # Count categories to display and chars/colors associated to them.
         # Note: Use only characters from Latin1.
-        tspecs = (("trn", "×", "green"),
-                  ("fuz", "¤", "blue"),
-                  ("unt", "·", "red"))
+        tspecs = (("trn", u"×", "green"),
+                  ("fuz", u"¤", "blue"),
+                  ("unt", u"·", "red"))
 
         # Find out maximum counts overall.
         maxcounts = dict(trn=0, fuz=0, unt=0, tot=0)
@@ -828,10 +828,10 @@ class Sieve (object):
 
         # Character widths of maximum count categories.
         maxcountscw = {}
-        for tkey, tval in maxcounts.items():
+        for tkey, tval in maxcounts.iteritems():
             maxcountscw[tkey] = len(str(tval))
         maxcountscw_jumbled = {}
-        for tkey, tval in maxcounts_jumbled.items():
+        for tkey, tval in maxcounts_jumbled.iteritems():
             maxcountscw_jumbled[tkey] = len(str(tval))
 
         # Formatted counts by disjunct categories.

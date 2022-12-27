@@ -20,21 +20,21 @@ import sys, pology
 sys.stdout.write(pology.datadir())
 ")
 
-if(NOT PYTHON3_EXECUTABLE)
-    find_package(Python3 3.7)
+if(NOT PYTHON2_EXECUTABLE)
+    find_package(Python2 2.5)
 endif()
 
 message(STATUS "Looking for Pology Python library...")
-execute_process(COMMAND ${PYTHON3_EXECUTABLE} -B ${pl_import_script}
+execute_process(COMMAND ${PYTHON2_EXECUTABLE} -B ${pl_import_script}
                 OUTPUT_VARIABLE POLOGY_LIB_DIR)
 
 if(POLOGY_LIB_DIR)
-    execute_process(COMMAND ${PYTHON3_EXECUTABLE} -B ${pl_version_script}
+    execute_process(COMMAND ${PYTHON2_EXECUTABLE} -B ${pl_version_script}
                     OUTPUT_VARIABLE POLOGY_VERSION)
 
     if(NOT POLOGY_DATA_DIR)
         message(STATUS "Looking for Pology data directory...")
-        execute_process(COMMAND ${PYTHON3_EXECUTABLE} -B ${pl_datadir_script}
+        execute_process(COMMAND ${PYTHON2_EXECUTABLE} -B ${pl_datadir_script}
                         OUTPUT_VARIABLE POLOGY_DATA_DIR)
         if(POLOGY_DATA_DIR)
             message(STATUS

@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python2
 # -*- coding: utf-8 -*-
 
 # Obtains a list of proper words (that that begins with a capital letter or
@@ -61,7 +61,7 @@ def _main ():
 
 	dict_en.close()
 	for word in sorted(dict_local.session_dict()):
-		print(word)
+		print word
 	dict_local.session_dict(clear=True)
 	dict_local.close()
 

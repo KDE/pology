@@ -84,29 +84,28 @@ def _read_lines_and_encoding (file, filename):
     fstr = file.read()
     # Determine line ending.
     maxlno = 0
-    for clend in (b"\r\n", b"\n", b"\r"): # "\r\n" should be checked first
+    for clend in ("\r\n", "\n", "\r"): # "\r\n" should be checked first
         lno = len(fstr.split(clend))
         if maxlno < lno:
             maxlno = lno
             lend = clend
-    lines = [x + b"\n" for x in fstr.split(lend)]
-    if lines[-1] == b"\n":
+    lines = [x + "\n" for x in fstr.split(lend)]
+    if lines[-1] == "\n":
         lines.pop()
 
     enc = None
-    enc_rx = re.compile(rb"Content-Type:.*charset=(.+?)\\n", re.I)
+    enc_rx = re.compile(r"Content-Type:.*charset=(.+?)\\n", re.I)
     for line in lines:
-        if line.strip().startswith(b"#:"):
+        if line.strip().startswith("#:"):
             break
         m = enc_rx.search(line)
         if m:
             enc = m.group(1).strip()
-            if not enc or enc == b"CHARSET": # no encoding given
+            if not enc or enc == "CHARSET": # no encoding given
                 enc = None
             break
     if enc is None:
-        enc = b"UTF-8" # fall back to UTF-8 if encoding not found
-    enc = enc.decode()
+        enc = "UTF-8" # fall back to UTF-8 if encoding not found
 
     enclines = []
     lno = 0
@@ -114,7 +113,7 @@ def _read_lines_and_encoding (file, filename):
         lno += 1
         try:
             encline = line.decode(enc)
-        except UnicodeDecodeError as e:
+        except UnicodeDecodeError, e:
             raise CatalogSyntaxError(
                 _("@info",
                   "Text decoding failure at %(file)s:%(line)d:%(col)d "
@@ -128,7 +127,7 @@ def _read_lines_and_encoding (file, filename):
 def _parse_po_file (file, MessageType=MessageMonitored,
                     headonly=False, lcache=True):
 
-    if isinstance(file, str):
+    if isinstance(file, basestring):
         filename = file
         file = open(filename, "rb")
         close_later = True
@@ -146,7 +145,7 @@ def _parse_po_file (file, MessageType=MessageMonitored,
 
     ctx_modern, ctx_obsolete, \
     ctx_previous, ctx_current, \
-    ctx_none, ctx_msgctxt, ctx_msgid, ctx_msgid_plural, ctx_msgstr = list(range(9))
+    ctx_none, ctx_msgctxt, ctx_msgid, ctx_msgid_plural, ctx_msgstr = range(9)
 
     messages1 = list()
     lno = 0
@@ -431,8 +430,8 @@ def _srcref_repack (srcrefs):
 _Catalog_spec = {
     # Data.
     "header" : {"type" : Header},
-    "filename" : {"type" : (str,)},
-    "name" : {"type" : (str,), "derived" : True},
+    "filename" : {"type" : types.StringTypes},
+    "name" : {"type" : types.StringTypes, "derived" : True},
     "*" : {}, # messages sequence: the type is assigned at construction
 }
 
@@ -1146,7 +1145,7 @@ class Catalog (Monitored):
         @param noobsend: do not reorder messages to group all obsolete at end
         @type noobsend: bool
         @param writefh: file to write the catalog to
-        @type writefh: file-like object open in binary mode
+        @type writefh: file-like object
         @param fitplural: whether to fit the number of msgstr fields in
             clean plural messages to plural header specification
         @type fitplural: bool
@@ -1171,7 +1170,7 @@ class Catalog (Monitored):
                     and len(msg.msgstr) != n
                     and all(len(s) == 0 for s in msg.msgstr)
                 ):
-                    msg.msgstr[:] = [""] * n
+                    msg.msgstr[:] = [u""] * n
 
         # If catalog is not monitored, force syncing.
         if not self._monitored:
@@ -1252,7 +1251,7 @@ class Catalog (Monitored):
         for i, line in enumerate(flines):
             try:
                 encline = line.encode(self._encoding)
-            except UnicodeEncodeError as e:
+            except UnicodeEncodeError, e:
                 raise CatalogSyntaxError(
                     _("@info",
                       "Text encoding failure at %(file)s:%(line)d:%(col)d "
@@ -1271,7 +1270,7 @@ class Catalog (Monitored):
             # ...needs Python 2.6
             tmpfname = os.path.join(pdirpath,
                                     os.path.basename(self._filename) + "~tmpw")
-            ofl = open(tmpfname, "wb")
+            ofl = open(tmpfname, "w")
         else:
             ofl = writefh
         ofl.writelines(enclines)
@@ -1637,7 +1636,7 @@ class Catalog (Monitored):
                 and (   (exid and msg.msgid == msgid)
                      or (not exid and msgid_rx.search(msg.msgid)))
                 and (   (exctxt and msg.msgctxt == msgctxt)
-                     or (not exctxt and msgctxt_rx.search(msg.msgctxt or "")))
+                     or (not exctxt and msgctxt_rx.search(msg.msgctxt or u"")))
             ):
                 selected_msgs.append(msg)
 
@@ -1789,8 +1788,8 @@ class Catalog (Monitored):
 
         self._encoding = encoding
 
-        ctval = "text/plain; charset=%s" % encoding
-        self.header.set_field("Content-Type", ctval)
+        ctval = u"text/plain; charset=%s" % encoding
+        self.header.set_field(u"Content-Type", ctval)
 
 
     def accelerator (self):
@@ -1997,7 +1996,7 @@ class Catalog (Monitored):
         """
 
         if lang is not None:
-            self._lang = str(lang)
+            self._lang = unicode(lang)
         else:
             self._lang = None
         self._lang_determined = True
@@ -2237,7 +2236,7 @@ class Catalog (Monitored):
             sorted_source = sorted(msg.source,
                                    key=lambda s: (s[0].lower(), s[1]))
             if self._monitored:
-                msg.source = Monlist(list(map(Monpair, sorted_source)))
+                msg.source = Monlist(map(Monpair, sorted_source))
             else:
                 msg.source = sorted_source
 
@@ -2329,28 +2328,28 @@ class Catalog (Monitored):
 
         if title:
             title = expand_vars(title, varmap, varhead)
-            hdr.title[:] = [str(title)]
+            hdr.title[:] = [unicode(title)]
         elif title == "":
             hdr.title[:] = []
 
         if copyright:
             copyright = expand_vars(copyright, varmap, varhead)
-            hdr.copyright = str(copyright)
+            hdr.copyright = unicode(copyright)
         elif copyright == "":
             hdr.copyright = None
 
         if license:
             license = expand_vars(license, varmap, varhead)
-            hdr.license = str(license)
+            hdr.license = unicode(license)
         elif license == "":
             hdr.license = None
 
         if project:
-            hdr.set_field("Project-Id-Version", str(project))
+            hdr.set_field(u"Project-Id-Version", unicode(project))
         elif project == "":
-            hdr.remove_field("Project-Id-Version")
+            hdr.remove_field(u"Project-Id-Version")
 
-        hdr.set_field("PO-Revision-Date", format_datetime())
+        hdr.set_field(u"PO-Revision-Date", format_datetime())
 
         if name or email:
             if name and email:
@@ -2362,14 +2361,14 @@ class Catalog (Monitored):
 
             # Remove author placeholder.
             for i in range(len(hdr.author)):
-                if "FIRST AUTHOR" in hdr.author[i]:
+                if u"FIRST AUTHOR" in hdr.author[i]:
                     hdr.author.pop(i)
                     break
 
             # Look for current author in the comments,
             # to update only years if present.
             cyear = time.strftime("%Y")
-            acfmt = "%s, %s."
+            acfmt = u"%s, %s."
             new_author = True
             for i in range(len(hdr.author)):
                 if tr_ident in hdr.author[i]:
@@ -2384,10 +2383,10 @@ class Catalog (Monitored):
             if new_author:
                 hdr.author.append(acfmt % (tr_ident, cyear))
 
-            hdr.set_field("Last-Translator", str(tr_ident))
+            hdr.set_field(u"Last-Translator", unicode(tr_ident))
 
         elif name == "" or email == "":
-            hdr.remove_field("Last-Translator")
+            hdr.remove_field(u"Last-Translator")
 
         if langname:
             tm_ident = None
@@ -2395,35 +2394,35 @@ class Catalog (Monitored):
                 tm_ident = "%s <%s>" % (langname, teamemail)
             elif langname:
                 tm_ident = langname
-            hdr.set_field("Language-Team", str(tm_ident))
+            hdr.set_field(u"Language-Team", unicode(tm_ident))
         elif langname == "":
-            hdr.remove_field("Language-Team")
+            hdr.remove_field(u"Language-Team")
 
         if langcode:
-            hdr.set_field("Language", str(langcode), after="Language-Team")
+            hdr.set_field(u"Language", unicode(langcode), after="Language-Team")
         elif langcode == "":
-            hdr.remove_field("Language")
+            hdr.remove_field(u"Language")
 
         if encoding:
-            ctval = "text/plain; charset=%s" % encoding
-            hdr.set_field("Content-Type", ctval)
+            ctval = u"text/plain; charset=%s" % encoding
+            hdr.set_field(u"Content-Type", ctval)
         elif encoding == "":
-            hdr.remove_field("Content-Type")
+            hdr.remove_field(u"Content-Type")
 
         if ctenc:
-            hdr.set_field("Content-Transfer-Encoding", str(ctenc))
+            hdr.set_field(u"Content-Transfer-Encoding", unicode(ctenc))
         elif ctenc == "":
-            hdr.remove_field("Content-Transfer-Encoding")
+            hdr.remove_field(u"Content-Transfer-Encoding")
 
         if plforms:
-            hdr.set_field("Plural-Forms", str(plforms))
+            hdr.set_field(u"Plural-Forms", unicode(plforms))
         elif plforms == "":
-            hdr.remove_field("Plural-Forms")
+            hdr.remove_field(u"Plural-Forms")
 
         if poeditor:
-            hdr.set_field("X-Generator", str(poeditor))
+            hdr.set_field(u"X-Generator", unicode(poeditor))
         elif poeditor == "":
-            hdr.remove_field("X-Generator")
+            hdr.remove_field(u"X-Generator")
 
         return hdr
 

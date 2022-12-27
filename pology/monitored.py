@@ -29,7 +29,7 @@ from pology import PologyError, _, n_
 
 def _gather_modcount (obj):
     modcount = 0
-    for cnt in list(getattr(obj, "#", {}).values()): # own counts
+    for cnt in getattr(obj, "#", {}).values(): # own counts
         modcount += cnt
     for att in getattr(obj, "_spec", {}): # sub counts
         if att != "*": # single sub counts
@@ -74,7 +74,7 @@ def _assert_spec_single (att, obj, spec):
         _assert_spec_init(obj, spec["spec"])
 
 def _assert_spec_init (self, spec):
-    for att, subspec in list(spec.items()):
+    for att, subspec in spec.items():
         if att != "*":
             if not subspec.get("derived", False):
                 _assert_spec_single(att, self.__dict__["_" + att], subspec)
@@ -99,20 +99,17 @@ class Monitored (object):
     """
 
     def __getattr__ (self, att):
-        try:
-            attp = "_" + att
-            if att.startswith("_"):
-                return self.__dict__[att]
-            elif att == "modcount":
-                return _gather_modcount(self)
-            elif att.endswith("_modcount"):
-                return self.__dict__["#"][att[:-len("_modcount")]]
-            elif att == "#":
-                return self.__dict__[att]
-            else:
-                return self.__dict__[attp]
-        except KeyError:
-            raise AttributeError
+        attp = "_" + att
+        if att.startswith("_"):
+            return self.__dict__[att]
+        elif att == "modcount":
+            return _gather_modcount(self)
+        elif att.endswith("_modcount"):
+            return self.__dict__["#"][att[:-len("_modcount")]]
+        elif att == "#":
+            return self.__dict__[att]
+        else:
+            return self.__dict__[attp]
 
     def __setattr__ (self, att, val):
         if att.startswith("_"):

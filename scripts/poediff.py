@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python2
 # -*- coding: UTF-8 -*-
 
 """
@@ -61,9 +61,9 @@ def main ():
     desc = _("@info command description",
         "Create embedded diffs of PO files.")
     ver = _("@info command version",
-        "%(cmd)s (Pology) %(version)s\n"
-        "Copyright © 2009, 2010 "
-        "Chusslove Illich (Часлав Илић) &lt;%(email)s&gt;",
+        u"%(cmd)s (Pology) %(version)s\n"
+        u"Copyright © 2009, 2010 "
+        u"Chusslove Illich (Часлав Илић) &lt;%(email)s&gt;",
         cmd="%prog", version=version(), email="caslav.ilic@gmx.net")
 
     showvcs = list(set(available_vcs()).difference(["none"]))
@@ -341,10 +341,10 @@ def diff_pairs (pspecs, merge,
 
     # Set the most used wrapping policy for the ediff catalog.
     if wrappings:
-        wrapping = sorted(list(wrappings.items()), key=lambda x: x[1])[-1][0]
+        wrapping = sorted(wrappings.items(), key=lambda x: x[1])[-1][0]
         ecat.set_wrapping(wrapping)
         if wrapping is not None:
-            ecat.header.set_field("X-Wrapping", ", ".join(wrapping))
+            ecat.header.set_field(u"X-Wrapping", u", ".join(wrapping))
 
     return ecat, ndiffed
 
@@ -357,17 +357,17 @@ def collect_file_pairs (dpath1, dpath2, paired_only):
     if os.path.isfile(dpath1):
         return [(dpath1, dpath2)]
 
-    bysub1, bysub2 = list(map(collect_and_split_fpaths, (dpath1, dpath2)))
+    bysub1, bysub2 = map(collect_and_split_fpaths, (dpath1, dpath2))
 
     # Try to pair files by subdirectories.
     # FIXME: Can and should anything smarter be done?
     fpairs = []
-    subdirs = list(set(list(bysub1.keys()) + list(bysub2.keys())))
+    subdirs = list(set(bysub1.keys() + bysub2.keys()))
     subdirs.sort()
     for subdir in subdirs:
         flinks1 = bysub1.get(subdir, {})
         flinks2 = bysub2.get(subdir, {})
-        filenames = list(set(list(flinks1.keys()) + list(flinks2.keys())))
+        filenames = list(set(flinks1.keys() + flinks2.keys()))
         filenames.sort()
         for filename in filenames:
             fpath1 = flinks1.get(filename, "")

@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python2
 # -*- coding: UTF-8 -*-
 
 """
@@ -39,13 +39,12 @@ from pology.internal.poediffpatch import msg_clear_prev_fields
 from pology.internal.poediffpatch import diff_cats
 from pology.internal.poediffpatch import init_ediff_header
 from pology.internal.poediffpatch import get_msgctxt_for_headers
-from functools import reduce
 
 
-_flag_ediff = "ediff"
-_flag_ediff_to_cur = "%s-to-cur" % _flag_ediff
-_flag_ediff_to_new = "%s-to-new" % _flag_ediff
-_flag_ediff_no_match = "%s-no-match" % _flag_ediff
+_flag_ediff = u"ediff"
+_flag_ediff_to_cur = u"%s-to-cur" % _flag_ediff
+_flag_ediff_to_new = u"%s-to-new" % _flag_ediff
+_flag_ediff_no_match = u"%s-no-match" % _flag_ediff
 _flags_all = (
     _flag_ediff,
     _flag_ediff_to_cur, _flag_ediff_to_new,
@@ -69,9 +68,9 @@ def main ():
     desc = _("@info command description",
         "Apply embedded diff of PO files as patch.")
     ver = _("@info command version",
-        "%(cmd)s (Pology) %(version)s\n"
-        "Copyright © 2009, 2010 "
-        "Chusslove Illich (Часлав Илић) &lt;%(email)s&gt;",
+        u"%(cmd)s (Pology) %(version)s\n"
+        u"Copyright © 2009, 2010 "
+        u"Chusslove Illich (Часлав Илић) &lt;%(email)s&gt;",
         cmd="%prog", version=version(), email="caslav.ilic@gmx.net")
 
     opars = ColorOptionParser(usage=usage, description=desc, version=ver)
@@ -183,7 +182,7 @@ def apply_ediff (op):
                 field=EDST.hmsgctxt_field))
     edsplits = []
     cehmsg = None
-    smsgid = "\x00"
+    smsgid = u"\x00"
     ecat.add_last(MessageUnsafe(dict(msgctxt=hmsgctxt, msgid=smsgid))) # sentry
     for emsg in ecat:
         if emsg.msgctxt == hmsgctxt:
@@ -334,7 +333,7 @@ def apply_ediff (op):
             if not rejected_ehmsg:
                 # Clean header diff.
                 ehmsg.manual_comment = ehmsg.manual_comment[:1]
-                ehmsg.msgstr[0] = ""
+                ehmsg.msgstr[0] = u""
             rcat.add_last(ehmsg)
             for emsg, flag in rejected_emsgs_flags:
                 # Reembed to avoid any conflicts.
@@ -367,7 +366,7 @@ def apply_ediff (op):
 
 
 # Patch application types.
-_pt_merge, _pt_insert, _pt_remove = list(range(3))
+_pt_merge, _pt_insert, _pt_remove = range(3)
 
 def patch_messages (cat, emsgs, ecat, options):
 
@@ -732,7 +731,7 @@ def clear_header_metadata (ehmsg):
     ehmsg = MessageUnsafe(ehmsg)
     ehmsg.manual_comment.pop(0)
     ehmsg.msgctxt = None
-    ehmsg.msgid = ""
+    ehmsg.msgid = u""
 
     return ehmsg
 

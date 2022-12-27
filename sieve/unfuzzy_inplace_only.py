@@ -62,9 +62,9 @@ class Sieve (object):
         ):
             # Normalize <...> tags for checking.
             msgid_previous_n = _norm_inpl(msg.msgid_previous)
-            msgid_plural_previous_n = _norm_inpl(msg.msgid_plural_previous or "")
+            msgid_plural_previous_n = _norm_inpl(msg.msgid_plural_previous or u"")
             msgid_n = _norm_inpl(msg.msgid)
-            msgid_plural_n = _norm_inpl(msg.msgid_plural or "")
+            msgid_plural_n = _norm_inpl(msg.msgid_plural or u"")
 
             if (    msgid_n == msgid_previous_n
                 and msgid_plural_n == msgid_plural_previous_n

@@ -23,8 +23,8 @@ from pology import PologyError, _, n_
 _tag_split_rx = re.compile(r"^\s*<\s*(/?)\s*(\w+)[^/>]*(/?)\s*>\s*$")
 
 # Characters for "natural" breaks where to wrap the text.
-_natbr_after = ".,;/-)]}"
-_natbr_before = "%({["
+_natbr_after = u".,;/-)]}"
+_natbr_before = u"%({["
 
 # Strings at which the text should be wrapped before or after.
 _prebr = ("|/|",)
@@ -304,7 +304,7 @@ def _atomize (text):
     """
 
     atoms = []
-    isuc = isinstance(text, str)
+    isuc = isinstance(text, unicode)
     vsegf = getattr(text, "visual_segment", None)
     rpos = 0
     vpos = 0

@@ -514,7 +514,7 @@ def _marlit_tags (mtype):
 
 def _build_tagged_rx (tags):
 
-    if isinstance(tags, str):
+    if isinstance(tags, basestring):
         tags = tags.split()
     # For proper regex matching, tags that begin with a substring
     # equal to another full tag must come before that full tag.

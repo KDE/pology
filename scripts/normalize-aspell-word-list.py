@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python2
 # -*- coding: UTF-8 -*-
 
 """
@@ -83,7 +83,7 @@ def organize (dictPath, reminv=False):
 
     # Read all words and eliminate duplicates.
     words=set()
-    validCharacters=re.compile(r"^[\w\d\'・-]+$", re.UNICODE)
+    validCharacters=re.compile(ur"^[\w\d\'・-]+$", re.UNICODE)
     lno = 0
     for word in dictFile:
         lno += 1

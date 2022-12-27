@@ -88,7 +88,7 @@ class Sieve (object):
                     msgs_to_report.append(msg)
                     keys_of_msgs_to_report.add(msg.key)
 
-        for msgs in list(self.msgs_to_unfuzzy_by_msgid.values()):
+        for msgs in self.msgs_to_unfuzzy_by_msgid.values():
             for msg in msgs:
                 if msg.key not in keys_of_msgs_to_report:
                     msg.unfuzzy()
