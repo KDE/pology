@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: UTF-8 -*-
 
 try:
@@ -37,9 +37,9 @@ def _main ():
         "Compose hybridized Ijekavian-Ekavian translation out of "
         "translation modified from Ekavian to Ijekavian or vice-versa.")
     ver = _("@info command version",
-        u"%(cmd)s (Pology) %(version)s\n"
-        u"Copyright © 2009, 2010 "
-        u"Chusslove Illich (Часлав Илић) &lt;%(email)s&gt;",
+        "%(cmd)s (Pology) %(version)s\n"
+        "Copyright © 2009, 2010 "
+        "Chusslove Illich (Часлав Илић) &lt;%(email)s&gt;",
         cmd="%prog", version=version(), email="caslav.ilic@gmx.net")
 
     opars = ColorOptionParser(usage=usage, description=desc, version=ver)
@@ -128,7 +128,7 @@ def hybdl (path, path0, accnohyb=False):
                 diffed = True
         if diffed:
             msg_ediff_to_new(msg, msg)
-            msg.flag.add(u"reviewed")
+            msg.flag.add("reviewed")
 
         # Fetch original message.
         msg0 = cat0.get(msg)
@@ -158,7 +158,7 @@ def hybdl (path, path0, accnohyb=False):
                 texthinv = tohi(text, text0, parthyb=True)
                 textshinv.append(texthinv)
         if accnohyb or textsh == textshinv:
-            for i, texth in zip(range(len(msg.msgstr)), textsh):
+            for i, texth in zip(list(range(len(msg.msgstr))), textsh):
                 msg.msgstr[i] = texth
             nhybridized += 1
         else:

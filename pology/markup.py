@@ -28,7 +28,7 @@ flag_no_check_markup = "no-check-markup"
 
 
 _nlgr_rx = re.compile(r"\n{2,}")
-_wsgr_rx = re.compile(r"\s+")
+_wsgr_rx = re.compile(r"\s+", re.ASCII)
 
 def plain_to_unwrapped (text):
     """
@@ -80,7 +80,7 @@ _ws_masks = {
     WS_TAB: "\t",
     WS_NEWLINE: "\n",
 }
-_ws_unmasks = dict([(y, x) for x, y in _ws_masks.items()])
+_ws_unmasks = dict([(y, x) for x, y in list(_ws_masks.items())])
 
 def xml_to_plain (text, tags=None, subs={}, ents={}, keepws=set(),
                   ignels=set()):
@@ -197,7 +197,7 @@ def xml_to_plain (text, tags=None, subs={}, ents={}, keepws=set(),
                 curel = parent.pop()
                 if not opening:
                     # Record closing tag literal if not opening as well.
-                    curel[-1][2] = tag_literal 
+                    curel[-1][2] = tag_literal
             else: # faulty markup, move top element
                 eltree = [[tag, None, tag_literal, None, curel]]
                 curel = eltree
@@ -378,7 +378,7 @@ def _resolve_tags_r (elseq, tags=None, subs={}, keepws=set(), ignels=set()):
             if repl_post is None:
                 repl_post = ""
             repl_cont_orig = repl_cont
-            if not isinstance(repl_cont, basestring):
+            if not isinstance(repl_cont, str):
                 repl_cont = _resolve_tags_r(el[-1], tags, subs, keepws, ignels)
                 if el[0] in keepws:
                     # Mask whitespace in wrapped text.
@@ -416,14 +416,14 @@ def _resolve_tags_r (elseq, tags=None, subs={}, keepws=set(), ignels=set()):
 
 def _mask_ws (text):
 
-    for mask, ws in _ws_masks.items():
+    for mask, ws in list(_ws_masks.items()):
         text = text.replace(ws, mask)
     return text
 
 
 def _unmask_ws (text):
 
-    for mask, ws in _ws_masks.items():
+    for mask, ws in list(_ws_masks.items()):
         text = text.replace(mask, ws)
     return text
 
@@ -445,7 +445,7 @@ _html_subs.update([(x, _html_subs["_parabr"]) for x in
                    "br dd dl dt h1 h2 h3 h4 h5 h6 hr li p pre td th tr"
                    "".split()])
 _html_ents = { # in addition to default XML entities
-    "nbsp": u"\xa0",
+    "nbsp": "\xa0",
 }
 _html_keepws = set("""
     code pre xmp
@@ -491,7 +491,7 @@ _qtrich_subs.update([(x, _qtrich_subs["_parabr"]) for x in
                    "br dd dl dt h1 h2 h3 h4 h5 h6 hr li p pre td th tr"
                    "".split()])
 _qtrich_ents = { # in addition to default XML entities
-    "nbsp": u"\xa0",
+    "nbsp": "\xa0",
 }
 _qtrich_keepws = set("""
     code pre
@@ -553,13 +553,13 @@ def kuit_to_plain (text):
     @rtype: string
     """
 
-    return xml_to_plain(text, _kuit_tags, _kuit_subs, _kuit_ents, 
+    return xml_to_plain(text, _kuit_tags, _kuit_subs, _kuit_ents,
                               _kuit_keepws, _kuit_ignels)
 
 
 _htkt_tags = set(list(_qtrich_tags) + list(_kuit_tags))
-_htkt_subs = dict(_qtrich_subs.items() + _kuit_subs.items())
-_htkt_ents = dict(_qtrich_ents.items() + _kuit_ents.items())
+_htkt_subs = dict(list(_qtrich_subs.items()) + list(_kuit_subs.items()))
+_htkt_ents = dict(list(_qtrich_ents.items()) + list(_kuit_ents.items()))
 _htkt_keepws = set(list(_qtrich_keepws) + list(_kuit_keepws))
 _htkt_ignels = set(list(_qtrich_ignels) + list(_kuit_ignels))
 
@@ -605,7 +605,7 @@ def _prep_docbook4_to_plain ():
         "_parabr" : ("", WS_NEWLINE*2, None),
         "_ws" : (" ", " ", None),
         "_ui" : ("[", "]", None),
-        "_uipath" : ("", "", lambda s: re.sub("\]\s*\[", "->", s, re.U)),
+        "_uipath" : ("", "", lambda s: re.sub(r"\]\s*\[", "->", s, re.U)),
     }
     _dbk_subs.update([(x, _dbk_subs["_nows"]) for x in _dbk_tags])
     _dbk_subs.update([(x, _dbk_subs["_parabr"]) for x in
@@ -703,10 +703,10 @@ def collect_xml_spec_l1 (specpath):
 
     dtag_attr = "pe-common-attrib"
 
-    valid_tag_rx = re.compile("^[\w-]+$")
-    valid_attr_rx = re.compile("^[\w-]+$")
+    valid_tag_rx = re.compile(r"^[\w-]+$")
+    valid_attr_rx = re.compile(r"^[\w-]+$")
 
-    c_tag, c_attr, c_attre, c_stag = range(4)
+    c_tag, c_attr, c_attre, c_stag = list(range(4))
 
     ifs = codecs.open(specpath, "r", "UTF-8").read()
     lenifs = len(ifs)
@@ -892,7 +892,7 @@ def collect_xml_spec_l1 (specpath):
     if dentry_attr:
         for attr in dentry_attr.attrs:
             attre = dentry_attr.avlints.get(attr)
-            for entry in spec.values():
+            for entry in list(spec.values()):
                 if entry.attrs is None:
                     entry.attrs = set()
                 if attr not in entry.attrs:
@@ -1021,7 +1021,7 @@ def validate_xml_l1 (text, spec=None, xmlfmt=None, ents=None,
     # Parse and check.
     try:
         parser.Parse(text.encode(xenc), True)
-    except xml.parsers.expat.ExpatError, e:
+    except xml.parsers.expat.ExpatError as e:
         errmsg = _("@info a problem in the given type of markup "
                    "(e.g. HTML, Docbook)",
                    "%(mtype)s markup: %(snippet)s.",
@@ -1110,7 +1110,7 @@ def _handler_start_element (tag, attrs):
     # Normalize names to lower case if allowed.
     if not g.casesens:
         tag = tag.lower()
-        attrs = dict([(x.lower(), y) for x, y in attrs.items()])
+        attrs = dict([(x.lower(), y) for x, y in list(attrs.items())])
 
     # Check existence of the tag.
     if tag not in g.spec and tag != _dummy_top:
@@ -1130,7 +1130,7 @@ def _handler_start_element (tag, attrs):
 
     # Check applicability of attributes and validity of their values.
     if elspec.attrs is not None:
-        for attr, aval in attrs.items():
+        for attr, aval in list(attrs.items()):
             if attr not in elspec.attrs:
                 errmsgs.append(_("@info",
                                  "%(mtype)s markup: invalid attribute "
@@ -1406,7 +1406,7 @@ def _check_xml_w (check, strict, entities, mkeyw, spanrep,
                   ignctxt=(), ignid=(), ignctxtsw=(), ignidsw=()):
 
     if mkeyw is not None:
-        if isinstance(mkeyw, basestring):
+        if isinstance(mkeyw, str):
             mkeyw = [mkeyw]
         mkeyw = set(mkeyw)
 
@@ -1436,7 +1436,7 @@ def _check_xml_w (check, strict, entities, mkeyw, spanrep,
         if (   flag_no_check_markup in manc_parse_flag_list(msg, "|")
             or (    not strict
                 and (   check(msg.msgid, ents=entities)
-                     or check(msg.msgid_plural or u"", ents=entities)))
+                     or check(msg.msgid_plural or "", ents=entities)))
         ):
             return [] if spanrep else 0
         spans = check(msgstr, ents=entities)
@@ -1457,7 +1457,7 @@ _loaded_entities_cache = {}
 
 def _get_entities (entspec):
 
-    if not isinstance(entspec, basestring):
+    if not isinstance(entspec, str):
         return entspec
 
     entities = _loaded_entities_cache.get(entspec)
@@ -1902,7 +1902,7 @@ def nument_to_char (nument):
     if unknown_digits:
         return None
 
-    return unichr(int(numstr, base))
+    return chr(int(numstr, base))
 
 
 def validate_xmlents (text, ents={}, default=False, numeric=False):

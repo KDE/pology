@@ -117,6 +117,16 @@ Currently there is no dedicated bug tracking system,
 so use the mailing list for bug reports and patches as well.
 
 
+Running the tests
+-----------------
+
+To run the automated tests, install pytest_ and use it::
+
+    pytest tests/
+
+.. _pytest: https://docs.pytest.org/en/latest/
+
+
 Authors
 -------
 

@@ -56,7 +56,7 @@ def available_vcs (flat=False):
     """
 
     if flat:
-        return _vcstypes_by_akey.keys()
+        return list(_vcstypes_by_akey.keys())
     else:
         return _vcskeys_by_pkey.copy()
 
@@ -505,7 +505,7 @@ class VcsSubversion (VcsBase):
     def add (self, paths, repadd=False):
         # Base override.
 
-        if isinstance(paths, basestring):
+        if isinstance(paths, str):
             paths = [paths]
         if not paths:
             return True
@@ -620,7 +620,7 @@ class VcsSubversion (VcsBase):
     def commit (self, paths, message=None, msgfile=None, incparents=True):
         # Base override.
 
-        if isinstance(paths, basestring):
+        if isinstance(paths, str):
             paths = [paths]
         if not paths:
             return True
@@ -665,7 +665,7 @@ class VcsSubversion (VcsBase):
         if res[-1] != 0:
             return []
         rev = ""
-        next_rev, next_cmsg = range(2)
+        next_rev, next_cmsg = list(range(2))
         entries = []
         next = -1
         for line in res[0].strip().split("\n"):
@@ -788,7 +788,7 @@ class VcsGit (VcsBase):
     def _gitroot (self, paths):
 
         single = False
-        if isinstance(paths, basestring):
+        if isinstance(paths, str):
             paths = [paths]
             single = True
 
@@ -831,7 +831,7 @@ class VcsGit (VcsBase):
     def add (self, paths, repadd=False):
         # Base override.
 
-        if isinstance(paths, basestring):
+        if isinstance(paths, str):
             paths = [paths]
         if not paths:
             return True
@@ -977,7 +977,7 @@ class VcsGit (VcsBase):
     def commit (self, paths, message=None, msgfile=None, incparents=True):
         # Base override.
 
-        if isinstance(paths, basestring):
+        if isinstance(paths, str):
             paths = [paths]
         if not paths:
             return True
@@ -1033,7 +1033,7 @@ class VcsGit (VcsBase):
         if res[-1] != 0:
             return []
         rev = ""
-        next_auth, next_date, next_cmsg = range(3)
+        next_auth, next_date, next_cmsg = list(range(3))
         next = -1
         entries = []
         lines = res[0].split("\n")

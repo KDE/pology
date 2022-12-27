@@ -28,7 +28,7 @@ def setup_sieve (p):
     "Remove embedded differences from previous fields."
     ))
 
-    p.add_param("branch", unicode, seplist=True,
+    p.add_param("branch", str, seplist=True,
                 metavar=_("@info sieve parameter value placeholder", "BRANCH"),
                 desc=_("@info sieve parameter discription",
     "In summit catalogs, process only messages belonging to given branch. "

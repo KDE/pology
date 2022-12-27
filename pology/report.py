@@ -21,7 +21,7 @@ from pology.colors import ColorString
 
 _prev_text_cr = [None, None]
 
-def encwrite (file, text):
+def encwrite(file, text):
     """
     Write unicode text to file using best encoding guess.
 
@@ -34,21 +34,23 @@ def encwrite (file, text):
     @type text: string or unicode
     """
 
+    if hasattr(file, "buffer"):
+        file = file.buffer
     enc = getattr(file, "encoding", None) or locale.getpreferredencoding()
     text = text.encode(enc, "replace")
 
     # If last output was returning to line start with CR, clean up the line.
     if _prev_text_cr[0] is not None and not _prev_text_cr[1].closed:
-        cstr = "\r%s\r" % (" " * len(_prev_text_cr[0]))
+        cstr = b"\r%s\r" % (b" " * len(_prev_text_cr[0]))
         _prev_text_cr[0] = None
         _prev_text_cr[1].write(cstr)
         _prev_text_cr[1] = None
 
     # If current output is returning to line start with CR, record it.
-    if text.endswith("\r"):
+    if text.endswith(b"\r"):
         cstr = text
-        if "\n" in cstr:
-            cstr = cstr[cstr.rfind("\n") + 1:]
+        if b"\n" in cstr:
+            cstr = cstr[cstr.rfind(b"\n") + 1:]
         _prev_text_cr[0] = cstr
         _prev_text_cr[1] = file
 
@@ -220,7 +222,7 @@ def init_file_progress (fpaths, timeint=1.0, stream=sys.stderr, addfmt=None):
         return pstr
 
     pfmt = ("%%1s %%%dd/%d %%s" % (len(str(len(fpaths))), len(fpaths)))
-    pspins = [u"–", u"\\", u"|", u"/"]
+    pspins = ["–", "\\", "|", "/"]
     i_spin = [0]
     i_file = [0]
     seen_fpaths = set()
@@ -337,12 +339,12 @@ def format_item_list (items, incmp=False, quoted=False):
                  "...")
     quoting = t_("@item:intext quotes around each element in the list",
                  "'%(el)s'")
-    itemstrs = map(unicode, items)
+    itemstrs = list(map(str, items))
     if quoted:
         itemstrs = [quoting.with_args(el=x).to_string() for x in items]
     if not incmp:
         if len(itemstrs) == 0:
-            return u""
+            return ""
         elif len(itemstrs) == 1:
             return itemstrs[0]
         elif len(itemstrs) == 2:

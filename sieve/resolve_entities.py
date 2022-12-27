@@ -24,7 +24,7 @@ def setup_sieve (p):
     ))
 
     add_param_entdef(p)
-    p.add_param("ignore", unicode, seplist=True,
+    p.add_param("ignore", str, seplist=True,
                 metavar=_("@info sieve parameter value placeholder",
                           "ENTITY1,..."),
                 desc=_("@info sieve parameter discription",

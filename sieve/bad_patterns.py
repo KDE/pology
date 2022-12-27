@@ -22,7 +22,7 @@ def setup_sieve (p):
     "Check for presence of bad patterns in translation."
     ))
 
-    p.add_param("pattern", unicode, multival=True,
+    p.add_param("pattern", str, multival=True,
                 metavar=_("@info sieve parameter value placeholder", "STRING"),
                 desc=_("@info sieve parameter discription",
     "A pattern to check against. "
@@ -30,7 +30,7 @@ def setup_sieve (p):
     "depending on the '%s' parameter. "
     "This parameter can be repeated to add several patterns."
     ))
-    p.add_param("fromfile", unicode, multival=True,
+    p.add_param("fromfile", str, multival=True,
                 metavar=_("@info sieve parameter value placeholder", "PATH"),
                 desc=_("@info sieve parameter discription",
     "Read patterns to check against from a file. "

@@ -42,7 +42,7 @@ _old_cls = _old_vtag + _old_clsc
 _all_wrappers = set((_new_opn, _new_cls, _old_opn, _old_cls))
 
 _tmp_wr = (_new_vtag, _new_opnc, _new_clsc, _old_vtag, _old_opnc, _old_clsc)
-_tmp_wrlen = map(len, _tmp_wr)
+_tmp_wrlen = list(map(len, _tmp_wr))
 if max(_tmp_wrlen) != 1 or min(_tmp_wrlen) != 1:
     error(_("@info \"ediff\" is shorthand for \"embedded difference\"",
             "All ediff wrapper elements must be of unit length."))
@@ -233,7 +233,7 @@ def _dinterleave (els_old, els_new, reductf, cutoff):
         for pl_new in pls_new:
             i += 1
             sim = 0.0
-            pairs = zip(pl_old, pl_new)
+            pairs = list(zip(pl_old, pl_new))
             for i_old, i_new in pairs:
                 if i_old is None or i_new is None:
                     continue
@@ -414,7 +414,7 @@ def word_diff (text_old, text_new, markup=False, format=None, diffr=False):
 
     # Join contiguous new/old/both segments, make tagged tuples.
     ndlist = []
-    S_EQU, S_NEW, S_OLD = range(3)
+    S_EQU, S_NEW, S_OLD = list(range(3))
     state = S_EQU
     cseg = []
     len_equ, len_old, len_new = 0, 0, 0
@@ -897,7 +897,7 @@ def _escunesc_ewraps (text, unescape):
                 else:
                     segs.append(text[pp:p - _ediff_esc_len] + wend)
                 p += lwend
-        text = u"".join(segs)
+        text = "".join(segs)
 
     return text
 
@@ -1047,7 +1047,7 @@ def adapt_spans (otext, ftext, spans, merge=True):
     return aspans
 
 
-_dt_state, _dt_single, _dt_list = range(3)
+_dt_state, _dt_single, _dt_list = list(range(3))
 
 _msg_diff_parts = (
     ("obsolete", _dt_state),
@@ -1144,7 +1144,7 @@ def msg_diff (msg1, msg2, pfilter=None, addrem=None, diffr=False):
     ar_dtyp = None
     if addrem:
         mode = addrem[0]
-        ar_sep = unicode(addrem[1:] or " ")
+        ar_sep = str(addrem[1:] or " ")
         if mode in ("=", "e"):
             ar_dtyp = _equ_tag
         elif mode in ("+", "a"):
@@ -1236,20 +1236,20 @@ def msg_diff (msg1, msg2, pfilter=None, addrem=None, diffr=False):
 
 
 _dcmnt_field = "auto_comment" # to use manual_comment would be bad idea
-_dcmnt_head = u"ediff:"
-_dcmnt_head_esc = u"~" # must be single character
-_dcmnt_sep = u", "
-_dcmnt_asep = u" "
-_dcmnt_ind_state = u"state"
-_dcmnt_ind_ctxtpad = u"ctxtpad"
-_dcmnt_ind_infsep = u"infsep"
+_dcmnt_head = "ediff:"
+_dcmnt_head_esc = "~" # must be single character
+_dcmnt_sep = ", "
+_dcmnt_asep = " "
+_dcmnt_ind_state = "state"
+_dcmnt_ind_ctxtpad = "ctxtpad"
+_dcmnt_ind_infsep = "infsep"
 _dcmnt_all_inds = ( # ordered
     _dcmnt_ind_state, _dcmnt_ind_ctxtpad, _dcmnt_ind_infsep,
 )
-_ctxtpad_sep = u"|"
-_ctxtpad_noctxt = u"~"
-_ctxtpad_alnums = u"abcdefghijklmnopqrstuvwxyz0123456789"
-_infsep_blk = u"~="
+_ctxtpad_sep = "|"
+_ctxtpad_noctxt = "~"
+_ctxtpad_alnums = "abcdefghijklmnopqrstuvwxyz0123456789"
+_infsep_blk = "~="
 _infsep_minlen = 20
 
 def msg_ediff (msg1, msg2, pfilter=None, addrem=None,
@@ -1354,8 +1354,8 @@ def msg_ediff (msg1, msg2, pfilter=None, addrem=None,
     # Construct list of embedded diffs out of original difference list.
     if not addrem:
         mtoe = lambda x: (x[0], x[1], _assemble_ediff(x[2], colorize), x[3])
-        ediffs = map(mtoe, wdiffs)
-        ediffs_pf = map(mtoe, wdiffs_pf)
+        ediffs = list(map(mtoe, wdiffs))
+        ediffs_pf = list(map(mtoe, wdiffs_pf))
     else:
         ediffs = wdiffs
         ediffs_pf = wdiffs_pf
@@ -1394,7 +1394,7 @@ def msg_ediff (msg1, msg2, pfilter=None, addrem=None,
             setattr(emsg, part, ediff)
         elif typ == _dt_list:
             lst = emsg.get(part)
-            lst.extend([u""] * (item + 1 - len(lst)))
+            lst.extend([""] * (item + 1 - len(lst)))
             if ediffs_pf:
                 ediff_pf = ediffs_pf[i][2]
                 if ediff_pf and ediff_pf != ediff:
@@ -1420,7 +1420,7 @@ def msg_ediff (msg1, msg2, pfilter=None, addrem=None,
         or (enoctxt is not None and emsg.msgctxt == enoctxt)
     ):
         noctxtind = emsg.msgctxt is None and _ctxtpad_noctxt or ""
-        octxt = emsg.msgctxt or u""
+        octxt = emsg.msgctxt or ""
         while True:
             padding = "".join([random.choice(_ctxtpad_alnums)
                                for x in range(5)])
@@ -1568,7 +1568,7 @@ def _msg_ediff_to_x (emsg, rmsg, new):
     # Remove context padding.
     if ctxtpad:
         val = emsg.get("msgctxt")
-        p = val.rfind(ctxtpad or u"")
+        p = val.rfind(ctxtpad or "")
         if (   p < 0
             or val[p - len(_ctxtpad_sep):p] != _ctxtpad_sep
             or val[p + len(ctxtpad):] not in (_ctxtpad_noctxt, "")

@@ -20,8 +20,8 @@ pology.synder.compile_file(sdfile, sdcfile, doraise=True)
 macro(INSTALL_SYNDER_FILES instdir)
     set(sdfiles ${ARGN})
 
-    if(NOT PYTHON2_EXECUTABLE)
-        message(FATAL_ERROR "PYTHON2_EXECUTABLE is not set.")
+    if(NOT PYTHON3_EXECUTABLE)
+        message(FATAL_ERROR "PYTHON3_EXECUTABLE is not set.")
     endif()
 
     string(REPLACE ${CMAKE_SOURCE_DIR}/ "" srcsubdir
@@ -40,7 +40,7 @@ macro(INSTALL_SYNDER_FILES instdir)
             set(sdcfile ${sdfile}c)
         endif()
         add_custom_command(OUTPUT ${sdcfile}
-                           COMMAND ${PYTHON2_EXECUTABLE} -B ${pl_compsyn_script}
+                           COMMAND ${PYTHON3_EXECUTABLE} -B ${pl_compsyn_script}
                                    ${sdfile} ${sdcfile}
                            DEPENDS ${sdfile})
         set(sdcfiles ${sdcfiles} ${sdcfile})

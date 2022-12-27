@@ -10,17 +10,17 @@ Accent equivalence in regular expression patterns.
 import re
 
 accents={}
-accents[u"e"] = u"[%s]" % u"|".join([u'e', u'é', u'è', u'ê', u'E', u'É', u'È', u'Ê'])
-accents[u"é"] = u"[%s]" % u"|".join([u'é', u'è', u'ê', u'É', u'È', u'Ê'])
-accents[u"è"] = u"[%s]" % u"|".join([u'é', u'è', u'ê', u'É', u'È', u'Ê'])
-accents[u"ê"] = u"[%s]" % u"|".join([u'é', u'è', u'ê', u'É', u'È', u'Ê'])
-accents[u"a"] = u"[%s]" % u"|".join([u'a', u'à', u'â', u'A', u'À', u'Â'])
-accents[u"à"] = u"[%s]" % u"|".join([u'à', u'â', u'À', u'Â'])
-accents[u"â"] = u"[%s]" % u"|".join([u'à', u'â', u'À', u'Â'])
-accents[u"u"] = u"[%s]" % u"|".join([u'u', u'ù', u'û', u'U', u'Ù', u'Û'])
-accents[u"ù"] = u"[%s]" % u"|".join([u'ù', u'û', u'Ù', u'Û'])
-accents[u"û"] = u"[%s]" % u"|".join([u'ù', u'û', u'Ù', u'Û'])
-accentPattern=re.compile(u"@([%s])" % u"|".join(accents.keys()))
+accents["e"] = "[%s]" % "|".join(['e', 'é', 'è', 'ê', 'E', 'É', 'È', 'Ê'])
+accents["é"] = "[%s]" % "|".join(['é', 'è', 'ê', 'É', 'È', 'Ê'])
+accents["è"] = "[%s]" % "|".join(['é', 'è', 'ê', 'É', 'È', 'Ê'])
+accents["ê"] = "[%s]" % "|".join(['é', 'è', 'ê', 'É', 'È', 'Ê'])
+accents["a"] = "[%s]" % "|".join(['a', 'à', 'â', 'A', 'À', 'Â'])
+accents["à"] = "[%s]" % "|".join(['à', 'â', 'À', 'Â'])
+accents["â"] = "[%s]" % "|".join(['à', 'â', 'À', 'Â'])
+accents["u"] = "[%s]" % "|".join(['u', 'ù', 'û', 'U', 'Ù', 'Û'])
+accents["ù"] = "[%s]" % "|".join(['ù', 'û', 'Ù', 'Û'])
+accents["û"] = "[%s]" % "|".join(['ù', 'û', 'Ù', 'Û'])
+accentPattern=re.compile("@([%s])" % "|".join(list(accents.keys())))
 
 
 def patternAccents(pattern):

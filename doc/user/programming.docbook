@@ -33,12 +33,12 @@
 <para>To take a <classname>Monlist</classname> instance as an example, here is how it behaves on its own:
 <programlisting language="python">
 >>> from pology.monitored import Monlist
->>> l = Monlist([u"a", u"b", u"c"])
+>>> l = Monlist(["a", "b", "c"])
 >>> l.modcount
 0
 >>> l.append(10)
 >>> l
-Monlist([u"a", u"b", u"c", 10])
+Monlist(["a", "b", "c", 10])
 >>> l.modcount
 1
 >>>
@@ -53,41 +53,39 @@ Monlist([])
 Traceback (most recent call last):
 ...
 pology.PologyError: Expected &lt;type 'unicode'&gt; for sequence element, got &lt;type 'int'&gt;.
->>> msg.msgstr.append(u"bar")
+>>> msg.msgstr.append("bar")
 >>> msg.msgstr.modcount
 1
 >>> msg.modcount
 1
 </programlisting>
-The <classname>Message</classname> class has type constraints added to its attributes, and therefore addition of an integer to the <varname>.msgstr</varname> list was rejected: only <type>unicode</type> values are allowed. This is particularly important due to the basic string type in Python being the raw byte array <type>str</type><footnote>
-<para>In Python 2 to be precise, on which Pology is based, while in Python 3 there are only Unicode strings.</para>
-</footnote>, to automatically prevent carelessness with encodings. Once a proper string was added to <varname>.msgstr</varname> list, its modification counter increased, but also the modification counter of the parent object.</para>
+The <classname>Message</classname> class has type constraints added to its attributes, and therefore addition of an integer to the <varname>.msgstr</varname> list was rejected: only <type>str</type> values are allowed, to prevent carelessness with encodings. Once a proper string was added to <varname>.msgstr</varname> list, its modification counter increased, but also the modification counter of the parent object.</para>
 
 <para>A few more notes on modification counters. Consider this example:
 <programlisting language="python">
 >>> msg = Message()
->>> msg.msgstr = Monlist(u"foo")
+>>> msg.msgstr = Monlist("foo")
 >>> msg.msgstr.modcount
 0
 >>> msg.msgstr_modcount
 1
 >>> msg.modcount
 1
->>> msg.msgstr[0] = u"foo"
+>>> msg.msgstr[0] = "foo"
 >>> msg.msgstr.modcount
 0
->>> msg.msgstr = Monlist(u"foo")
+>>> msg.msgstr = Monlist("foo")
 >>> msg.msgstr_modcount
 1
 >>> msg.modcount
 1
 </programlisting>
-<literal>Monlist(u"foo")</literal> itself is a fresh list with modification counter at 0, so after it was assigned to <varname>msg.msgstr</varname>, its modification counter is still 0. However, every attribute of a parent monitored object also has the associated <emphasis>attribute</emphasis> modification counter, denoted with trailing <literal>_modcount</literal>; therefore <varname>msg.msgstr_modcount</varname> did increase on assignment, and so did the parent <varname>msg.modcount</varname>. Modification tracking actually checks for equality of values, so when same-valued objects are repeadetly assigned (starting from <literal>msg.msgstr[0] = u"foo"</literal> above), modification counters do not increase.</para>
+<literal>Monlist("foo")</literal> itself is a fresh list with modification counter at 0, so after it was assigned to <varname>msg.msgstr</varname>, its modification counter is still 0. However, every attribute of a parent monitored object also has the associated <emphasis>attribute</emphasis> modification counter, denoted with trailing <literal>_modcount</literal>; therefore <varname>msg.msgstr_modcount</varname> did increase on assignment, and so did the parent <varname>msg.modcount</varname>. Modification tracking actually checks for equality of values, so when same-valued objects are repeadetly assigned (starting from <literal>msg.msgstr[0] = "foo"</literal> above), modification counters do not increase.</para>
 
 <para>Compound monitored objects may also have the attributes themselves constrained, to prevent typos and other brain glitches from causing mysterious wrong behavior when processing PO files. For example:
 <programlisting language="python">
 >>> msg = Message()
->>> msg.msgtsr = Monlist(u"foo")
+>>> msg.msgtsr = Monlist("foo")
 Traceback (most recent call last):
 ...
 pology.PologyError: Attribute 'msgtsr' is not among specified.
@@ -107,9 +105,9 @@ pology.PologyError: Attribute 'msgtsr' is not among specified.
 >>> from pology.monitored import Monpair
 >>> from pology.message import Message
 >>> msg = Message()
->>> msg.msgid = u"Foo %s"
->>> msg.msgstr.append(u"Bar %s")
->>> msg.flag.add(u"c-format")
+>>> msg.msgid = "Foo %s"
+>>> msg.msgstr.append("Bar %s")
+>>> msg.flag.add("c-format")
 >>> msg.fuzzy = True
 >>> print msg.to_string(),
 #, fuzzy, c-format
@@ -126,7 +124,7 @@ Attribute access provides the least hassle, while being guarded by monitoring, a
 
 <para>There are also several derived, read-only attributes for special purposes. For example, if in some context the messages are to be tracked in a dictionary by their keys, there is the <varname>.key</varname> attribute available, which is an undefined but unique combination of <varname>.msgctxt</varname> and <varname>.msgid</varname> attributes. Or, there is the <varname>.active</varname> attribute which is <literal>True</literal> if the message is neither fuzzy nor obsolete, i.e. its translation (if there is one) would be used by the consumer of the PO file that the message is part of.</para>
 
-<para><classname>Message</classname> has a number of methods for frequent operations that need to read or modify more than one attribute. For example, to thoroughly unfuzzy a message, it is not sufficient to just remove its fuzzy flag (by setting <varname>.fuzzy</varname> to <literal>False</literal> or removing <literal>u"fuzzy"</literal> from <varname>.flag</varname> set), but previous field comments (<literal>#| ...</literal>) should be removed as well, and this is what <function>.unfuzzy()</function> method does:
+<para><classname>Message</classname> has a number of methods for frequent operations that need to read or modify more than one attribute. For example, to thoroughly unfuzzy a message, it is not sufficient to just remove its fuzzy flag (by setting <varname>.fuzzy</varname> to <literal>False</literal> or removing <literal>"fuzzy"</literal> from <varname>.flag</varname> set), but previous field comments (<literal>#| ...</literal>) should be removed as well, and this is what <function>.unfuzzy()</function> method does:
 <programlisting language="python">
 >>> print msg.to_string(),
 #| msgid "Foubar"
@@ -148,10 +146,10 @@ Other methods include those to copy over a subset of parts from another message,
 <programlisting language="python">
 def translate_moo_as_mu (msg):
 
-    if msg.msgid == u"Moo!":  # works for both
-        msg.msgstr = [u"Mu!"]  # raises exception if Message
-        msg.msgstr[:] = [u"Mu!"]  # works for both
-        msg.msgstr[0] = u"Mu!"  # works for both (when not empty)
+    if msg.msgid == "Moo!":  # works for both
+        msg.msgstr = ["Mu!"]  # raises exception if Message
+        msg.msgstr[:] = ["Mu!"]  # works for both
+        msg.msgstr[0] = "Mu!"  # works for both (when not empty)
 </programlisting>
 If you need to create an empty message of the same type as another message, or make a same-type copy of the message, you can use <function>type</function> built-in:
 <programlisting language="python">

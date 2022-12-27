@@ -117,13 +117,13 @@ def tabulate (data, coln=None, rown=None, dfmt=None, space="  ", none="",
     if _dfmt is None:
         _dfmt = []
     if _rown is not None:
-        _dfmt.insert(0, u"%s") # header corner
+        _dfmt.insert(0, "%s") # header corner
     for c in range(len(_dfmt), ncols + co):
-        _dfmt.append(u"%s")
+        _dfmt.append("%s")
 
     # Stringize data.
     # ...nice fat deep assembly of empty stringized table:
-    sdata = [[u"" for i in range(nrows + ro)] for j in range(ncols + co)]
+    sdata = [["" for i in range(nrows + ro)] for j in range(ncols + co)]
     # ...table body:
     for c in range(ncols):
         for r in range(nrows):
@@ -135,19 +135,19 @@ def tabulate (data, coln=None, rown=None, dfmt=None, space="  ", none="",
     if _coln is not None:
         for c in range(ncols + co):
             if _coln[c] is not None:
-                sdata[c][0] = u"%s" % (_coln[c],)
+                sdata[c][0] = "%s" % (_coln[c],)
     # ...row names:
     if _rown is not None:
         for r in range(nrows + ro):
             if _rown[r] is not None:
-                sdata[0][r] = u"%s" % (_rown[r],)
+                sdata[0][r] = "%s" % (_rown[r],)
 
     # Rotate needed data for output.
     if rotated:
         _coln, _rown = _rown, _coln
         ncols, nrows = nrows, ncols
         co, ro = ro, co
-        sdata_r = [[u"" for i in range(nrows + ro)] for j in range(ncols + co)]
+        sdata_r = [["" for i in range(nrows + ro)] for j in range(ncols + co)]
         for c in range(ncols + co):
             for r in range(nrows + ro):
                 sdata_r[c][r] = sdata[r][c]
@@ -163,24 +163,24 @@ def tabulate (data, coln=None, rown=None, dfmt=None, space="  ", none="",
 
     # Reformat strings to maximum length per column.
     for c in range(co, ncols + co):
-        lfmt = u"%" + str(maxlen[c]) + "s"
+        lfmt = "%" + str(maxlen[c]) + "s"
         for r in range(ro, nrows + ro):
             sdata[c][r] = lfmt % (sdata[c][r],)
         # ...but column names aligned as requested:
         if _coln is not None:
             if colnra:
-                lfmt = u"%" + str(maxlen[c]) + "s"
+                lfmt = "%" + str(maxlen[c]) + "s"
             else:
-                lfmt = u"%-" + str(maxlen[c]) + "s"
+                lfmt = "%-" + str(maxlen[c]) + "s"
             sdata[c][0] = lfmt % (sdata[c][0],)
             if colorize:
                 sdata[c][0] = ColorString("<purple>%s</purple>") % sdata[c][0]
     # ...but row names aligned as requested:
     if _rown is not None:
         if rownra:
-            lfmt = u"%" + str(maxlen[0]) + "s"
+            lfmt = "%" + str(maxlen[0]) + "s"
         else:
-            lfmt = u"%-" + str(maxlen[0]) + "s"
+            lfmt = "%-" + str(maxlen[0]) + "s"
         for r in range(nrows + ro):
             sdata[0][r] = lfmt % (sdata[0][r],)
             if colorize:

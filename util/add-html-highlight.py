@@ -81,7 +81,7 @@ def unescape_xml (s):
 
 
 _hide_tags_rx = re.compile(r"<.*?>", re.S|re.U)
-_hide_tags_rseq = u"⌒"
+_hide_tags_rseq = "⌒"
 
 def hide_tags (s):
 
@@ -136,7 +136,7 @@ GettextXLexer.tokens = {
             bygroups(Name.Variable)),
         (r'"', String, 'string'),
         (r'^\.\.\.$', Text), # for cutting out intermediate messages
-        (ur'\u2060', Text), # for not splitting on empty line in POT extraction
+        (r'\u2060', Text), # for not splitting on empty line in POT extraction
         (r'\s+', Text),
     ],
     'string': [

@@ -9,10 +9,10 @@ Documented in C{doc/user/sieving.docbook}.
 @license: GPLv3
 """
 
-from httplib import HTTPConnection
+from http.client import HTTPConnection
 import socket
 import sys
-from urllib import urlencode
+from urllib.parse import urlencode
 from xml.dom.minidom import parseString
 
 from pology import _, n_

@@ -257,14 +257,14 @@ def _resolve_ui_w (headrefs, tagrefs, uipathseps, uicpaths, uicpathenv,
 
     # Markup keywords should remain None if not a sequence or string.
     if mkeyw is not None:
-        if isinstance(mkeyw, basestring):
+        if isinstance(mkeyw, str):
             mkeyw = [mkeyw]
         mkeyw = set(mkeyw)
 
     # Construct post-filtering hook.
     if pfhook is None:
         pfhook = lambda x: x
-    elif isinstance(pfhook, basestring):
+    elif isinstance(pfhook, str):
         pfhook = get_hook_ireq(pfhook)
     # ...else assume it is already a hook function.
 
@@ -512,7 +512,7 @@ def _load_norm_ui_cats (cat, uicpaths, xmlescape):
     # Remove previous catalogs not reused by this call.
     # TODO: Better strategy for removing from cache.
     for chkey in set(_norm_cats_cache.keys()).difference(chkeys):
-        #print "Removing normalized UI catalog '%s'..." % list(chkey)
+        #print("Removing normalized UI catalog '%s'..." % list(chkey))
         del _norm_cats_cache[chkey]
 
     return uicats
@@ -536,13 +536,13 @@ def _norm_ui_cat (cat, xmlescape):
             msgs_by_normkey[normkey] = []
         msgs_by_normkey[normkey].append((msg, orig_msgkey))
 
-    for msgs in msgs_by_normkey.values():
+    for msgs in list(msgs_by_normkey.values()):
         # If there are several messages with same normalized key and
         # different translations, add extra disambiguations to context.
         # These disambiguations must not depend on message ordering.
         if len(msgs) > 1:
             # Check equality of translations.
-            msgstr0 = u""
+            msgstr0 = ""
             for msg, d1 in msgs:
                 if msg.translated:
                     if not msgstr0:
@@ -554,7 +554,7 @@ def _norm_ui_cat (cat, xmlescape):
                 tails = set()
                 for msg, (octxt, omsgid) in msgs:
                     if msg.msgctxt is None:
-                        msg.msgctxt = u""
+                        msg.msgctxt = ""
                     tail = hashlib.md5(omsgid).hexdigest()
                     n = 4 # minimum size of the disambiguation tail
                     while tail[:n] in tails:
@@ -651,7 +651,7 @@ def _resolve_single_uiref (uitext, uicats, hookcl_f3c, hookcl_v3c, fdiralt):
                 if alst[0].startswith(_uiref_argsrepl):
                     alst[0] = alst[0][1:]
                     single = True
-                for fdalt, fdnorm in fdiralt.items():
+                for fdalt, fdnorm in list(fdiralt.items()):
                     if alst[0].startswith(fdalt):
                         plhold = alst[0].replace(fdalt, fdnorm, 1)
                         if single:
@@ -767,12 +767,12 @@ def _resolve_single_uiref (uitext, uicats, hookcl_f3c, hookcl_v3c, fdiralt):
 
 
 # Special tokens used in UI references.
-_uiref_ctxsep = u"|" # normal context separator
-_uiref_ctxsep2 = u"¦" # arcane context separator (fallback)
-_uiref_argsep = u"^" # normal argument separator
-_uiref_argsep2 = u"ª" # arcane argument separator (fallback)
-_uiref_argplsep = u":" # placeholder separator in arguments
-_uiref_argsrepl = u"!" # placeholder start to indicate single replacement
+_uiref_ctxsep = "|" # normal context separator
+_uiref_ctxsep2 = "¦" # arcane context separator (fallback)
+_uiref_argsep = "^" # normal argument separator
+_uiref_argsep2 = "ª" # arcane argument separator (fallback)
+_uiref_argplsep = ":" # placeholder separator in arguments
+_uiref_argsrepl = "!" # placeholder start to indicate single replacement
 
 # Present message from a normalized catalog in reference format,
 # suitable for inserting as a reference.
@@ -808,5 +808,5 @@ def _split_uirefpath (ptext, uirefpath, uipathseps):
         return [(ptext, uirefpath)]
     else:
         rsplit = uirefpath.split(sep)
-        return zip([ptext] + [sep] * (len(rsplit) - 1), rsplit)
+        return list(zip([ptext] + [sep] * (len(rsplit) - 1), rsplit))
 
