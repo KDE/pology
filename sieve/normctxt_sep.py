@@ -22,7 +22,7 @@ def setup_sieve (p):
     "Convert separator-embedded context to Gettext context."
     ))
 
-    p.add_param("sep", unicode, mandatory=True,
+    p.add_param("sep", str, mandatory=True,
                 metavar=_("@info sieve parameter value placeholder", "STRING"),
                 desc=_("@info sieve parameter discription",
     "Separator between the context and the text in msgid field."

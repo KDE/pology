@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 # -*- coding: UTF-8 -*-
 
 """
@@ -50,7 +50,7 @@ def main():
     ruleFile.close()
 
 def usage():
-    print "\t%s <autocorrect file> <output rule file>" % sys.argv[0]
+    print("\t%s <autocorrect file> <output rule file>" % sys.argv[0])
     sys.exit(1)
 
 if __name__ == '__main__':

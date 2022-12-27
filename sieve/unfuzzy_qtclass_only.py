@@ -45,8 +45,8 @@ class Sieve (object):
         if (    msg.fuzzy
             and msg.msgid == msg.msgid_previous
             and msg.msgid_plural == msg.msgid_plural_previous
-            and (   _stripped(msg.msgctxt or u"")
-                 == _stripped(msg.msgctxt_previous or u""))
+            and (   _stripped(msg.msgctxt or "")
+                 == _stripped(msg.msgctxt_previous or ""))
         ):
             msg.unfuzzy()
             self.nmatch += 1

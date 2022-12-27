@@ -25,7 +25,7 @@ _escapes_c = {
     "\\" : "\\",
 }
 
-_unescapes_c = dict([(y, x) for x, y in _escapes_c.items()])
+_unescapes_c = dict([(y, x) for x, y in list(_escapes_c.items())])
 
 def unescape_c (s):
     """
@@ -80,7 +80,7 @@ def unescape_c (s):
     return type(s)().join(segs)
 
 
-_escapes_c_wpref = dict([(x, "\\" + y) for x, y in _escapes_c.items()])
+_escapes_c_wpref = dict([(x, "\\" + y) for x, y in list(_escapes_c.items())])
 
 def escape_c (s):
     """
@@ -94,7 +94,6 @@ def escape_c (s):
 
     @see: L{unescape_c}
     """
-
     return type(s)().join([_escapes_c_wpref.get(c, c) for c in s])
 
 
@@ -139,7 +138,7 @@ def split_escaped (text, sep):
     @rtype: list of strings
     """
 
-    alakazoom = u"\u0004"
+    alakazoom = "\u0004"
     tmp = text.replace(sep + sep, alakazoom).split(sep)
     return [x.replace(alakazoom, sep) for x in tmp]
 

@@ -28,7 +28,7 @@ def setup_sieve (p):
     "where the partial correction tree is available."
     ))
 
-    p.add_param("pathdelta", unicode, mandatory=True,
+    p.add_param("pathdelta", str, mandatory=True,
                 metavar=_("@info sieve parameter value placeholder",
                           "FIND[:REPLACE]"),
                 desc=_("@info sieve parameter discription",

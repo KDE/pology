@@ -83,7 +83,7 @@ class ExprError (Exception):
         else:
             repstr = _("@info", "Invalid expression.")
 
-        return unicode(repstr)
+        return str(repstr)
 
 
     def __str__ (self):
@@ -165,7 +165,7 @@ def make_msg_matcher (exprstr, mopts=None, abort=False):
         if p < len(exprstr):
             raise ExprError(exprstr, _("@item:intext",
                                        "premature end of expression"))
-    except ExprError, e:
+    except ExprError as e:
         if abort:
             error(str_to_unicode(str(e)))
         else:
@@ -215,10 +215,10 @@ def _prep_attrobj (aobj, dctdef=None):
         dct = aobj or {}
         class _Data: pass
         aobj = _Data()
-        for key, value in dct.items():
+        for key, value in list(dct.items()):
             setattr(aobj, key, value)
 
-    for key, val in (dctdef or {}).items():
+    for key, val in list((dctdef or {}).items()):
         if not hasattr(aobj, key):
             setattr(aobj, key, val)
 
@@ -382,7 +382,7 @@ def _build_expr_matcher (mname, exprstr, start, end, params):
             p += 1
         mmods = list(exprstr[pp:p])
 
-    #print "{%s}{%s}{%s}" % (mname, mval, mmods)
+    #print("{%s}{%s}{%s}" % (mname, mval, mmods))
     return make_matcher(mname, mval, mmods, params), p
 
 
@@ -549,7 +549,7 @@ def _rx_in_any_text (regex, texts, hl):
             hl_dct[hl_key][0].append(m.span())
             match = True
 
-    hl.extend([x + y for x, y in hl_dct.items()])
+    hl.extend([x + y for x, y in list(hl_dct.items())])
 
     return match
 

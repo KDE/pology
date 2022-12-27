@@ -53,7 +53,7 @@ def msgfilter (filtr, options=[]):
 
     def wrapper (filepath):
         cmdargs = base_cmdargs + ["-i", filepath, "-o", filepath] + filtr
-        cmdargs = map(unicode_to_str, cmdargs)
+        cmdargs = list(map(unicode_to_str, cmdargs))
         ret = subprocess.call(cmdargs)
         if ret:
             warning(_("@info",
@@ -96,7 +96,7 @@ def msgfmt (options=[]):
 
     def wrapper (filepath):
         cmdargs = base_cmdargs + [filepath]
-        cmdargs = map(unicode_to_str, cmdargs)
+        cmdargs = list(map(unicode_to_str, cmdargs))
         ret = subprocess.call(cmdargs)
         if ret:
             warning(_("@info",

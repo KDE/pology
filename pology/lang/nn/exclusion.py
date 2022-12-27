@@ -34,7 +34,7 @@ def exclude_forms (dictnames):
     """
 
     phrases = _load_phrases(dictnames)
-    maxwords = max(map(lambda x: len(split_text(x)[0]), phrases))
+    maxwords = max([len(split_text(x)[0]) for x in phrases])
 
     def hook (msgstr, msg, cat):
 
@@ -84,7 +84,7 @@ def _load_phrases (dictnames):
                               dictname + ".dat")
 
         phrases1 = codecs.open(exfile, "r", "UTF-8").read().split("\n")[:-1]
-        phrases1 = map(_normph, phrases1)
+        phrases1 = list(map(_normph, phrases1))
         phrases.update(phrases1)
 
     return phrases

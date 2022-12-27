@@ -22,12 +22,12 @@ def setup_sieve (p):
     "Convert delimiter-embedded context to Gettext context."
     ))
 
-    p.add_param("head", unicode, mandatory=True,
+    p.add_param("head", str, mandatory=True,
                 metavar=_("@info sieve parameter value placeholder", "STRING"),
                 desc=_("@info sieve parameter discription",
     "Start of the msgid field which indicates that the context follows."
     ))
-    p.add_param("tail", unicode, mandatory=True,
+    p.add_param("tail", str, mandatory=True,
                 metavar=_("@info sieve parameter value placeholder", "STRING"),
                 desc=_("@info sieve parameter discription",
     "End of context in msgid field, after which the text follows."

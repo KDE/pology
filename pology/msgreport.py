@@ -158,14 +158,14 @@ def report_on_msg_hl (highlight, msg, cat, fmsg=None,
         name, item, spans = hspec[:3]
 
         if name == "msgctxt":
-            text = msg.msgctxt or u""
-            ftext = fmsg.msgctxt or u""
+            text = msg.msgctxt or ""
+            ftext = fmsg.msgctxt or ""
         elif name == "msgid":
             text = msg.msgid
             ftext = fmsg.msgid
         elif name == "msgid_plural":
-            text = msg.msgid_plural or u""
-            ftext = fmsg.msgid_plural or u""
+            text = msg.msgid_plural or ""
+            ftext = fmsg.msgid_plural or ""
         elif name == "msgstr":
             text = msg.msgstr[item]
             ftext = fmsg.msgstr[item]
@@ -249,7 +249,7 @@ def report_msg_to_lokalize (msg, cat, report=None):
         try: globals()['lokalizeobj']
         except:
             bus = dbus.SessionBus()
-            lokalize_dbus_instances=lambda:filter(lambda name: name.startswith('org.kde.lokalize'),bus.list_names())
+            lokalize_dbus_instances=lambda:[name for name in bus.list_names() if name.startswith('org.kde.lokalize')]
             for lokalize_dbus_instance in lokalize_dbus_instances():
                 try:
                     globals()['lokalizeinst']=lokalize_dbus_instance
@@ -390,7 +390,7 @@ def report_msg_content (msg, cat,
                 # Take filtered text if available and not already taken.
                 if len(hspec) > 3 and len(phspec) <= 3:
                     phspec.append(hspec[3])
-        highlight = highlightd.values()
+        highlight = list(highlightd.values())
 
         for hspec in highlight:
             name, item, spans = hspec[:3]
@@ -407,12 +407,12 @@ def report_msg_content (msg, cat,
 
             if name == "msgctxt":
                 if msg.msgctxt or ffmsg.msgctxt:
-                    msg.msgctxt = hl(msg.msgctxt or u"", ffmsg.msgctxt or u"")
+                    msg.msgctxt = hl(msg.msgctxt or "", ffmsg.msgctxt or "")
             elif name == "msgid":
                 msg.msgid = hl(msg.msgid, ffmsg.msgid)
             elif name == "msgid_plural":
-                msg.msgid_plural = hl(msg.msgid_plural or u"",
-                                      ffmsg.msgid_plural or u"")
+                msg.msgid_plural = hl(msg.msgid_plural or "",
+                                      ffmsg.msgid_plural or "")
             elif name == "msgstr":
                 msg.msgstr[item] = hl(msg.msgstr[item], ffmsg.msgstr[item])
             elif name == "manual_comment":
@@ -624,7 +624,7 @@ def rule_xml_error(msg, cat, rule, span, pluralId=0):
     xmlError.append("\t<error>\n")
     xmlError.append("\t\t<line>%s</line>\n" % msg.refline)
     xmlError.append("\t\t<refentry>%s</refentry>\n" % msg.refentry)
-    xmlError.append("\t\t<msgctxt><![CDATA[%s]]></msgctxt>\n" % _escapeCDATA(msg.msgctxt or u""))
+    xmlError.append("\t\t<msgctxt><![CDATA[%s]]></msgctxt>\n" % _escapeCDATA(msg.msgctxt or ""))
     xmlError.append("\t\t<msgid><![CDATA[%s]]></msgid>\n" % _escapeCDATA(msg.msgid))
     xmlError.append("\t\t<msgstr><![CDATA[%s]]></msgstr>\n" % _escapeCDATA(msg.msgstr[pluralId]))
     for begin, end in span:
@@ -673,7 +673,7 @@ def spell_xml_error(msg, cat, faultyWord, suggestions, pluralId=0):
     xmlError.append("\t<error>\n")
     xmlError.append("\t\t<line>%s</line>\n" % msg.refline)
     xmlError.append("\t\t<refentry>%s</refentry>\n" % msg.refentry)
-    xmlError.append("\t\t<msgctxt><![CDATA[%s]]></msgctxt>\n" % _escapeCDATA(msg.msgctxt or u""))
+    xmlError.append("\t\t<msgctxt><![CDATA[%s]]></msgctxt>\n" % _escapeCDATA(msg.msgctxt or ""))
     xmlError.append("\t\t<msgid><![CDATA[%s]]></msgid>\n" % _escapeCDATA(msg.msgid))
     xmlError.append("\t\t<msgstr><![CDATA[%s]]></msgstr>\n" % _escapeCDATA(msg.msgstr[pluralId]))
     xmlError.append("\t\t<faulty>%s</faulty>\n" % faultyWord)

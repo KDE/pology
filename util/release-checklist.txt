@@ -39,7 +39,7 @@
 
     cd /tmp/pology-$version
     mkdir build && cd build
-    cmake .. -DCMAKE_INSTALL_PREFIX=/tmp/pology-$version-inst -DPYTHON2_PACKAGES_DIR=/tmp/pology-$version-inst/lib/python/dist-packages
+    cmake .. -DCMAKE_INSTALL_PREFIX=/tmp/pology-$version-inst -DPYTHON3_PACKAGES_DIR=/tmp/pology-$version-inst/lib/python/dist-packages
     make && make install
 
   on errors: fix, commit, merge to trunk, go back to tarball creation or earlier.

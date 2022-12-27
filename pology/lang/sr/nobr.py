@@ -19,7 +19,7 @@ from pology import PologyError
 from pology.lang.sr.wconv import ctol
 
 
-nobrhyp_char = u"\u2011"
+nobrhyp_char = "\u2011"
 
 
 def to_nobr_hyphens (mode=0, wchars="", unsafe=False):
@@ -58,12 +58,12 @@ def to_nobr_hyphens (mode=0, wchars="", unsafe=False):
     nobrhyp_rxstrs = []
     if mode == 0:
         # Catching possible replacement by text before hyphen.
-        nobrhyp_rxstrs.append(ur"\b(\w{1,4})(-)([\w%s])" % wchars)
+        nobrhyp_rxstrs.append(r"\b(\w{1,4})(-)([\w%s])" % wchars)
         # Catching possible replacement by text after hyphen.
-        nobrhyp_rxstrs.append(ur"([\w%s])(-)(\w{1,4})\b" % wchars)
+        nobrhyp_rxstrs.append(r"([\w%s])(-)(\w{1,4})\b" % wchars)
     elif mode == 1:
         # Catching possible replacement by text after hyphen.
-        nobrhyp_rxstrs.append(ur"([\w%s])(-)(\w{1})\b" % wchars)
+        nobrhyp_rxstrs.append(r"([\w%s])(-)(\w{1})\b" % wchars)
     else:
         raise PologyError(
             _("@info",
