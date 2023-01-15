@@ -66,6 +66,10 @@ hint="cd/pc → CD/PC"
 [(CD|PC)('’|en|ar|ane)]i
 hint="CDen → CD-en, PCane → PC-ane, osv."
 
+[\b[Ww][Ii][ -]?[Ff][Ii]\b]
+hint="wifi, WiFi, wi-fi, … → Wi-Fi"
+valid span="Wi-Fi"
+
 [utskiftning]i
 hint="utskiftning → utskifting"
 
