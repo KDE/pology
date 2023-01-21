@@ -11,7 +11,7 @@ test-min-cmake:
     - apt-get update -qq && apt-get install -y -qq cmake
     - mkdir build
     - cd build
-    - cmake ..
+    - cmake -DCMAKE_INSTALL_PATH=/usr/local ..
     - make
     - make install
     - pip install pytest
@@ -20,6 +20,9 @@ test-min-cmake:
     # build our source folders are not picked up as Python modules.
     - mkdir empty
     - cd empty
+    # but include the directory for files which are not installed
+    # inside a canonical python import path
+    - export PYTHONPATH="/usr/local/share/pology:$PYTHONPATH"
 
     - pytest ../../tests
 
