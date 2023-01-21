@@ -14,6 +14,7 @@ test-min-cmake:
     - cmake -DCMAKE_INSTALL_PATH=/usr/local ..
     - make
     - make install
+    - pip install mock
     - pip install pytest
 
     # Run tests from a separate, empty folder to make sure folders from the
