@@ -10,7 +10,8 @@ Documented in C{doc/user/sieving.docbook}.
 """
 
 import codecs
-import locale
+from functools import cmp_to_key
+from locale import strcoll
 import os
 from pathlib import Path
 import re
@@ -270,7 +271,7 @@ class Sieve (object):
                 report("===== " + msg)
             else:
                 wlist = list(self.unknown_words)
-                wlist.sort(lambda x, y: locale.strcoll(x.lower(), y.lower()))
+                wlist.sort(key=cmp_to_key(strcoll))
                 report("\n".join(wlist))
 
         if self.xmlFile:
