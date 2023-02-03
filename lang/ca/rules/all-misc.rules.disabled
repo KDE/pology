@@ -1120,12 +1120,12 @@ hint="Cal substituir la traducció per «CLUF» (revisió)"
 
 {\bExternal\sdiff\sdisplay\b}i
 valid msgid="\bUse\sExternal\sdiff\sdisplay\b"
-valid msgstr="\bVisor extern per a .?diff.?\b"
-hint="Cal substituir la traducció per «Visor extern per a «diff»» (revisió)"
+valid msgstr="\bVisualitzador extern per a .?diff.?\b"
+hint="Cal substituir la traducció per «Visualitzador extern per a «diff»» (revisió)"
 
     {\bUse\sExternal\sdiff\sdisplay\b}i
-    valid msgstr="\bUsa un visor extern per a .?diff.?\b"
-    hint="Cal substituir la traducció per «Usa un visor extern per a «diff»» (revisió)"
+    valid msgstr="\bUsa un visualitzador extern per a .?diff.?\b"
+    hint="Cal substituir la traducció per «Usa un visualitzador extern per a «diff»» (revisió)"
 
 {\bExternal\smerge\sprogram\b}i
 valid msgstr="\bPrograma extern per a .?merge.?\b"
@@ -1216,12 +1216,12 @@ hint="Cal substituir la traducció per «manteniu premuda, manteniu-lo premut, m
 
 {\bImage\sViewer\b}i
 valid msgid="\bEmbeddable\sImage\sViewer\b"
-valid msgstr="\bVisor d'imatges\b"
-hint="Cal substituir la traducció per «Visor d'imatges» (revisió)"
+valid msgstr="\bVisualitzador d'imatges\b"
+hint="Cal substituir la traducció per «Visualitzador d'imatges» (revisió)"
 
     {\bEmbeddable\sImage\sViewer\b}i
-    valid msgstr="\bVisor incrustable d'imatges\b"
-    hint="Cal substituir la traducció per «Visor incrustable d'imatges» (revisió)"
+    valid msgstr="\bVisualitzador incrustable d'imatges\b"
+    hint="Cal substituir la traducció per «Visualitzador incrustable d'imatges» (revisió)"
 
 {\bImport\sfrom\sfile\b}i
 valid msgstr="\bImporta des d'un fitxer\b"
@@ -1537,8 +1537,8 @@ valid msgstr="\bproveeix d'un frontal per al\b"
 hint="Cal substituir la traducció per «proveeix d'un frontal per al» (revisió)"
 
 {\bQt\sDesigner\sUI\sFile\sViewer\b}i
-valid msgstr="\bVisor de fitxers UI del Qt Designer\b"
-hint="Cal substituir la traducció per «Visor de fitxers UI del Qt Designer» (revisió)"
+valid msgstr="\bVisualitzador de fitxers UI del Qt Designer\b"
+hint="Cal substituir la traducció per «Visualitzador de fitxers UI del Qt Designer» (revisió)"
 
 {\bquick\sstart\sguide\b}i
 valid msgstr="\bGuia d'inici ràpid al\b"
@@ -1795,8 +1795,8 @@ hint="Cal substituir la traducció per «mitjançant el Kross» (revisió)"
 
 {\bviewer\b}i
 valid msgid="\bviewer\sBackends?\b"
-valid msgstr="\bvisor\b"
-hint="Cal substituir la traducció per «visor» (revisió)"
+valid msgstr="\bvisualitzador\b"
+hint="Cal substituir la traducció per «visualitzador» (revisió)"
 
     {\bviewer\sBackends?\b}i
     valid msgstr="\bdorsals de visualització\b"
@@ -1838,4 +1838,3 @@ hint="Cal substituir la traducció per «WinCE» (revisió)"
 valid msgstr="\bZoom fins ajustar\b"
 valid msgstr="\bZoom fins que ajusti\b"
 hint="Cal substituir la traducció per «Zoom fins que ajusti, Zoom fins ajustar» (revisió)"
-

@@ -333,3 +333,19 @@ hint="Cal revisar-ho «\
 #-- véu: passat de veure» \
 #(accent_diacrític)"
 
+# Accents diacrítics erronis, segons la nova normativa (2016):
+[\bdóna\b]i
+id="da-dona"
+hint="Elimineu l'accent diacrític de «dóna» (accent_diacrític)"
+
+[\bsóc\b]i
+id="da-soc"
+hint="Elimineu l'accent diacrític de «sóc» (accent_diacrític)"
+
+[\bvénen\b]i
+id="da-venen"
+hint="Elimineu l'accent diacrític de «vénen» (accent_diacrític)"
+
+[\bvés\b]i
+id="da-ves"
+hint="Elimineu l'accent diacrític de «vés» (accent_diacrític)"
