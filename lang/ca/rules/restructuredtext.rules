@@ -1,0 +1,49 @@
+# reStructuredText Rules
+# Copyrigth 2017-2023, Antoni Bella Pérez (antonibella5@yahoo.com)
+# by KDE Catalan Team (kde-i18n-ca@kde.org)
+# License: GPLv3+
+
+
+{>\`_}
+valid msgstr=">\`_"
+hint="Surely lacks a link «(NOTE: does not work on some links. Those that have been changed...)» (reStructuredText)"
+
+{\s\`}
+valid msgstr="(\s«|\s|\')\`"
+hint="Surely the previous space should be removed or missing a link (reStructuredText)"
+
+{:alt:}
+valid msgstr=":alt:"
+hint="Surely missing the bond «:alt:» (reStructuredText)"
+
+{:file:}
+valid msgstr=":file:"
+hint="Surely missing the bond «:file:» (reStructuredText)"
+
+{:guilabel:}
+valid msgstr=":guilabel:"
+hint="Surely missing the bond «:guilabel:» (reStructuredText)"
+
+{:kbd:}
+valid msgstr=":kbd:"
+hint="Surely missing the bond «:kbd:» (reStructuredText)"
+
+{:menuselection:}
+valid msgstr=":menuselection:"
+hint="Surely missing the bond «:menuselection:» (reStructuredText)"
+
+{:program:}
+valid msgstr=":program:"
+hint="Surely missing the bond «:program:» (reStructuredText)"
+
+{:ref:}
+valid msgstr=":ref:"
+hint="Surely missing the bond «:ref:» (reStructuredText)"
+
+{:su[bp]:}
+valid msgstr=":su[bp]:"
+hint="Surely missing the bond «:sub: o :sup:» (reStructuredText)"
+
+{:term:}
+valid msgstr=":term:"
+hint="Surely missing the bond «:term:» (reStructuredText)"
