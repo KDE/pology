@@ -4,22 +4,22 @@
 # License: GPLv3+
 
 
-{\s\(<[^<]\{1,\}>\)\`(_|)}
-valid msgstr="\s\(<[^<]\{1,\}>\)\`(_|)"
+{\s(<[^<]{1,}>)\`(_|)}
+valid msgstr="\s(<[^<]{1,}>)\`(_|)"
 hint="Surely missing a link (reStructuredText)"
 
 {(^|\s)\`}
-valid msgid="(^|\'|\s«|\s)\`\`(\`|)"
+valid msgid="(^|\s)\`\`(\`|)"
 valid msgstr="(^|\'|\s«|\s)\`"
 hint="Surely the previous space should be removed or missing a link (reStructuredText)"
 
     {(^|\s)\`\`}
-    valid msgid="(^|\'|\s«|\s)\`\`\`"
-    valid msgstr="(^|\'|\s«|\s)\`\`"
+    valid msgid="(^|\s)\`\`\`"
+    valid msgstr="(^|\(|\'|\s«|\s)\`\`"
     hint="Surely the previous space should be removed or missing a link (reStructuredText)"
 
     {(^|\s)\`\`\`}
-    valid msgstr="(^|\'|\s«|\s)\`\`\`"
+    valid msgstr="(^|\(|\'|\s«|\s)\`\`\`"
     hint="Surely the previous space should be removed or missing a link (reStructuredText)"
 
 {:alt:}
