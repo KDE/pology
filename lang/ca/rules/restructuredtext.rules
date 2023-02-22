@@ -4,13 +4,23 @@
 # License: GPLv3+
 
 
-{>\`_}
-valid msgstr=">\`_"
-hint="Surely lacks a link «(NOTE: does not work on some links. Those that have been changed...)» (reStructuredText)"
+{\s\(<[^<]\{1,\}>\)\`(_|)}
+valid msgstr="\s\(<[^<]\{1,\}>\)\`(_|)"
+hint="Surely missing a link (reStructuredText)"
 
-{\s\`}
-valid msgstr="(\s«|\s|\')\`"
+{(^|\s)\`}
+valid msgid="(^|\'|\s«|\s)\`\`(\`|)"
+valid msgstr="(^|\'|\s«|\s)\`"
 hint="Surely the previous space should be removed or missing a link (reStructuredText)"
+
+    {(^|\s)\`\`}
+    valid msgid="(^|\'|\s«|\s)\`\`\`"
+    valid msgstr="(^|\'|\s«|\s)\`\`"
+    hint="Surely the previous space should be removed or missing a link (reStructuredText)"
+
+    {(^|\s)\`\`\`}
+    valid msgstr="(^|\'|\s«|\s)\`\`\`"
+    hint="Surely the previous space should be removed or missing a link (reStructuredText)"
 
 {:alt:}
 valid msgstr=":alt:"
