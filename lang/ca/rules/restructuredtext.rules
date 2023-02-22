@@ -6,21 +6,21 @@
 
 {\s(<[^<]{1,}>)\`(_|)}
 valid msgstr="\s(<[^<]{1,}>)\`(_|)"
-hint="Surely missing a link (reStructuredText)"
+hint="Surely the previous space should be removed or missing a link (reStructuredText)"
 
 {(^|\s)\`}
 valid msgid="(^|\s)\`\`(\`|)"
 valid msgstr="(^|\'|\s«|\s)\`"
-hint="Surely the previous space should be removed or missing a link (reStructuredText)"
+hint="Surely missing a link or italic text (reStructuredText)"
 
     {(^|\s)\`\`}
     valid msgid="(^|\s)\`\`\`"
     valid msgstr="(^|\(|\'|\s«|\s)\`\`"
-    hint="Surely the previous space should be removed or missing a link (reStructuredText)"
+    hint="Surely missing (reStructuredText)"
 
     {(^|\s)\`\`\`}
     valid msgstr="(^|\(|\'|\s«|\s)\`\`\`"
-    hint="Surely the previous space should be removed or missing a link (reStructuredText)"
+    hint="Surely missing (reStructuredText)"
 
 {:alt:}
 valid msgstr=":alt:"
