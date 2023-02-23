@@ -22,6 +22,24 @@ hint="Surely missing a link or italic text (reStructuredText)"
     valid msgstr="(^|\(|\'|\s«|\s)\`\`\`"
     hint="Surely missing (reStructuredText)"
 
+{\*\b}
+valid msgid="\*\*\b"
+valid msgstr="(\(|\'|«|)\*\b"
+hint="Surely missing italic text (reStructuredText)"
+
+    {\*\*\b}
+    valid msgstr="(\(|\'|«|)\*\*\b"
+    hint="Surely missing italic text (reStructuredText)"
+
+{\([^[:alnum:]]\)/\*}
+valid msgid="\([^[:alnum:]]\)/\*\*"
+valid msgstr="\([^[:alnum:]]\)/\*"
+hint="Surely missing bold text (reStructuredText)"
+
+    {\([^[:alnum:]]\)/\*\*}
+    valid msgstr="\([^[:alnum:]]\)/\*\*"
+    hint="Surely missing bold text (reStructuredText)"
+
 {:alt:}
 valid msgstr=":alt:"
 hint="Surely missing the bond «:alt:» (reStructuredText)"
@@ -52,7 +70,7 @@ hint="Surely missing the bond «:ref:» (reStructuredText)"
 
 {:su[bp]:}
 valid msgstr=":su[bp]:"
-hint="Surely missing the bond «:sub: o :sup:» (reStructuredText)"
+hint="Surely missing the bond «:sub: or :sup:» (reStructuredText)"
 
 {:term:}
 valid msgstr=":term:"
