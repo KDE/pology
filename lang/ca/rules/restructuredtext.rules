@@ -13,7 +13,7 @@ hint="Surely the previous space should be removed or missing a link (reStructure
 id="rst-link0italic"
 valid msgid="(^|\s)\`\`(\`|)"
 valid msgstr="(^|\'|\s«|\s)\`"
-hint="Surely missing a link or italic text (reStructuredText)"
+hint="Surely missing a link or a start bold markup (reStructuredText)"
 
     {(^|\s)\`\`}
     id="rst-2tilde"
@@ -26,27 +26,44 @@ hint="Surely missing a link or italic text (reStructuredText)"
     valid msgstr="(^|\(|\'|\s«|\s)\`\`\`"
     hint="Surely missing (reStructuredText)"
 
+{(…|\.|:|\b)\`(\s|\.|,|\)|$)}
+id="rst-italic2"
+valid msgid="(…|\.|:|\»|\b)\`\`(\`|)(\s|\.|,|\)|$)"
+valid msgstr="(…|\.|:|\»|\b)\`(\s|\.|,|\»|\)|$)"
+hint="Surely missing a link or an end bold markup (reStructuredText)"
+
+    {(…|\.|:|\b)\`\`(\s|\.|\)|$)}
+    id="rst-tilde2"
+    valid msgid="(…|\.|:|\»|\b)\`\`\`(\s|\.|,|\)|$)"
+    valid msgstr="(…|\.|:|\»|\b)\`\`(\s|\.|,|\»|\)|$)"
+    hint="Surely missing (reStructuredText)"
+
+    {(…|\.|:|\b)\`\`\`(\s|\.|\)|$)}
+    id="rst-tilde3"
+    valid msgstr="(…|\.|:|\»|\b)\`\`\`(\s|\.|,|\»|\)|$)"
+    hint="Surely missing (reStructuredText)"
+
 {\*\b}
 id="rst-1asterisk"
 valid msgid="\*\*\b"
 valid msgstr="(\(|\'|«|)\*\b"
-hint="Surely missing italic text (reStructuredText)"
+hint="Surely missing a start italic markup - without spaces too (reStructuredText)"
 
     {\*\*\b}
     id="rst-2asterisk"
     valid msgstr="(\(|\'|«|)\*\*\b"
-    hint="Surely missing italic text (reStructuredText)"
+    hint="Surely missing a start bold markup - without spaces too (reStructuredText)"
 
 {(…|\.|:|\b)\*}
 id="rst-asterisk1"
 valid msgid="(…|\.|:|\b)\*\*"
 valid msgstr="(…|\.|:|»|\b)\*"
-hint="Surely missing bold text (reStructuredText)"
+hint="Surely missing an end italic markup - without spaces too (reStructuredText)"
 
     {(…|\.|:|\b)\*\*}
     id="rst-asterisk2"
     valid msgstr="(…|\.|:|»|\b)\*\*"
-    hint="Surely missing bold text (reStructuredText)"
+    hint="Surely missing an end bold markup - without spaces too (reStructuredText)"
 
 {:alt:}
 id="rst-alt"
