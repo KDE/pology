@@ -26,86 +26,91 @@ hint="Surely missing a link or a start bold markup (reStructuredText)"
     valid msgstr="(^|\(|\'|\s«|\s)\`\`\`"
     hint="Surely missing (reStructuredText)"
 
-{(…|\.|:|\b)\`(\s|\.|,|\)|$)}
+{(…|\.|:|\)|\b)\`(\s|\.|:|,|\)|$)}
 id="rst-italic2"
-valid msgid="(…|\.|:|\»|\b)\`\`(\`|)(\s|\.|,|\)|$)"
-valid msgstr="(…|\.|:|\»|\b)\`(\s|\.|,|\»|\)|$)"
+valid msgid="(…|\.|:|\»|\)|\b)\`\`(\`|)(\s|\.|:|,|-|\»\)|$)"
+valid msgstr="(…|\.|:|\»|\)|\b)\`(\s|\.|:|,|-|\»|\)|$)"
 hint="Surely missing a link or an end bold markup (reStructuredText)"
 
-    {(…|\.|:|\b)\`\`(\s|\.|\)|$)}
+    {(…|\.|:|\)|\b)\`\`(\s|\.|:|\)|$)}
     id="rst-tilde2"
-    valid msgid="(…|\.|:|\»|\b)\`\`\`(\s|\.|,|\)|$)"
-    valid msgstr="(…|\.|:|\»|\b)\`\`(\s|\.|,|\»|\)|$)"
+    valid msgid="(…|\.|:|\»|\)|\b)\`\`\`(\s|\.|:|,|-|\»|\)|$)"
+    valid msgstr="(…|\.|:|\»|\)|\b)\`\`(\s|\.|:|,|-|\»|\)|$)"
     hint="Surely missing (reStructuredText)"
 
-    {(…|\.|:|\b)\`\`\`(\s|\.|\)|$)}
+    {(…|\.|:|\)|\b)\`\`\`(\s|\.|:|\)|$)}
     id="rst-tilde3"
-    valid msgstr="(…|\.|:|\»|\b)\`\`\`(\s|\.|,|\»|\)|$)"
+    valid msgstr="(…|\.|:|\»|\)|\b)\`\`\`(\s|\.|:|,|-|\»|\)|$)"
     hint="Surely missing (reStructuredText)"
 
-{\*\b}
+{\*(\(|\b)}
 id="rst-1asterisk"
-valid msgid="\*\*\b"
-valid msgstr="(\(|\'|«|)\*\b"
+valid msgid="\*\*(\(|\b)"
+valid msgstr="(\(|\'|«|)\*(\(|\b)"
 hint="Surely missing a start italic markup - without spaces too (reStructuredText)"
 
-    {\*\*\b}
+    {\*\*(\(|\b)}
     id="rst-2asterisk"
-    valid msgstr="(\(|\'|«|)\*\*\b"
+    valid msgstr="(\(|\'|«|)\*\*(\(|\b)"
     hint="Surely missing a start bold markup - without spaces too (reStructuredText)"
 
-{(…|\.|:|\b)\*}
+{(…|\.|:|\)|%|\b)\*}
 id="rst-asterisk1"
-valid msgid="(…|\.|:|\b)\*\*"
-valid msgstr="(…|\.|:|»|\b)\*"
+valid msgid="(…|\.|:|\)|%|\b)\*\*"
+valid msgstr="(…|\.|:|»|\)|%|\b)\*"
 hint="Surely missing an end italic markup - without spaces too (reStructuredText)"
 
-    {(…|\.|:|\b)\*\*}
+    {(…|\.|:|\)|%|\b)\*\*}
     id="rst-asterisk2"
-    valid msgstr="(…|\.|:|»|\b)\*\*"
+    valid msgstr="(…|\.|:|»|\)|%|\b)\*\*"
     hint="Surely missing an end bold markup - without spaces too (reStructuredText)"
 
-{:alt:}
+{:alt:\`}
 id="rst-alt"
-valid msgstr=":alt:"
-hint="Surely missing the bond «:alt:» (reStructuredText)"
+valid msgstr=":alt:\`"
+hint="Surely missing the bond «:alt:`» (reStructuredText)"
 
-{:file:}
+{:dfn:\`}
+id="rst-dfn"
+valid msgstr=":dfn:\`"
+hint="Surely missing the bond «:dfn:`» (reStructuredText)"
+
+{:file:\`}
 id="rst-file"
-valid msgstr=":file:"
-hint="Surely missing the bond «:file:» (reStructuredText)"
+valid msgstr=":file:\`"
+hint="Surely missing the bond «:file:`» (reStructuredText)"
 
-{:guilabel:}
+{:guilabel:\`}
 id="rst-guilabel"
-valid msgstr=":guilabel:"
-hint="Surely missing the bond «:guilabel:» (reStructuredText)"
+valid msgstr=":guilabel:\`"
+hint="Surely missing the bond «:guilabel:`» (reStructuredText)"
 
-{:kbd:}
+{:kbd:\`}
 id="rst-kbd"
-valid msgstr=":kbd:"
-hint="Surely missing the bond «:kbd:» (reStructuredText)"
+valid msgstr=":kbd:\`"
+hint="Surely missing the bond «:kbd:`» (reStructuredText)"
 
-{:menuselection:}
+{:menuselection:\`}
 id="rst-menuselection"
-valid msgstr=":menuselection:"
-hint="Surely missing the bond «:menuselection:» (reStructuredText)"
+valid msgstr=":menuselection:\`"
+hint="Surely missing the bond «:menuselection:`» (reStructuredText)"
 
-{:program:}
+{:program:\`}
 id="rst-program"
-valid msgstr=":program:"
-hint="Surely missing the bond «:program:» (reStructuredText)"
+valid msgstr=":program:\`"
+hint="Surely missing the bond «:program:`» (reStructuredText)"
 
-{:ref:}
+{:ref:\`}
 id="rst-ref"
-valid msgstr=":ref:"
-hint="Surely missing the bond «:ref:» (reStructuredText)"
+valid msgstr=":ref:\`"
+hint="Surely missing the bond «:ref:`» (reStructuredText)"
 
-{:su[bp]:}
+{:su[bp]:\`}
 id="rst-subp"
-valid msgstr=":su[bp]:"
-hint="Surely missing the bond «:sub: or :sup:» (reStructuredText)"
+valid msgstr=":su([bp]):\`"
+hint="Surely missing the bond «:sub:` or :sup:`» (reStructuredText)"
 
-{:term:}
+{:term:\`}
 id="rst-term"
-valid msgstr=":term:"
-hint="Surely missing the bond «:term:» (reStructuredText)"
+valid msgstr=":term:\`"
+hint="Surely missing the bond «:term:`» (reStructuredText)"
