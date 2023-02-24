@@ -37,15 +37,15 @@ hint="Surely missing italic text (reStructuredText)"
     valid msgstr="(\(|\'|«|)\*\*\b"
     hint="Surely missing italic text (reStructuredText)"
 
-{\([^[:alnum:]]\)/\*}
+{(…|\.|:|\b)\*}
 id="rst-asterisk1"
-valid msgid="\([^[:alnum:]]\)/\*\*"
-valid msgstr="\([^[:alnum:]]\)/\*"
+valid msgid="(…|\.|:|\b)\*\*"
+valid msgstr="(…|\.|:|»|\b)\*"
 hint="Surely missing bold text (reStructuredText)"
 
-    {\([^[:alnum:]]\)/\*\*}
+    {(…|\.|:|\b)\*\*}
     id="rst-asterisk2"
-    valid msgstr="\([^[:alnum:]]\)/\*\*"
+    valid msgstr="(…|\.|:|»|\b)\*\*"
     hint="Surely missing bold text (reStructuredText)"
 
 {:alt:}
