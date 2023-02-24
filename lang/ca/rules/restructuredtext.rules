@@ -5,73 +5,90 @@
 
 
 {\s(<[^<]{1,}>)\`(_|)}
+id="rst-link2"
 valid msgstr="\s(<[^<]{1,}>)\`(_|)"
 hint="Surely the previous space should be removed or missing a link (reStructuredText)"
 
 {(^|\s)\`}
+id="rst-link0italic"
 valid msgid="(^|\s)\`\`(\`|)"
 valid msgstr="(^|\'|\s«|\s)\`"
 hint="Surely missing a link or italic text (reStructuredText)"
 
     {(^|\s)\`\`}
+    id="rst-2tilde"
     valid msgid="(^|\s)\`\`\`"
     valid msgstr="(^|\(|\'|\s«|\s)\`\`"
     hint="Surely missing (reStructuredText)"
 
     {(^|\s)\`\`\`}
+    id="rst-3tilde"
     valid msgstr="(^|\(|\'|\s«|\s)\`\`\`"
     hint="Surely missing (reStructuredText)"
 
 {\*\b}
+id="rst-1asterisk"
 valid msgid="\*\*\b"
 valid msgstr="(\(|\'|«|)\*\b"
 hint="Surely missing italic text (reStructuredText)"
 
     {\*\*\b}
+    id="rst-2asterisk"
     valid msgstr="(\(|\'|«|)\*\*\b"
     hint="Surely missing italic text (reStructuredText)"
 
 {\([^[:alnum:]]\)/\*}
+id="rst-asterisk1"
 valid msgid="\([^[:alnum:]]\)/\*\*"
 valid msgstr="\([^[:alnum:]]\)/\*"
 hint="Surely missing bold text (reStructuredText)"
 
     {\([^[:alnum:]]\)/\*\*}
+    id="rst-asterisk2"
     valid msgstr="\([^[:alnum:]]\)/\*\*"
     hint="Surely missing bold text (reStructuredText)"
 
 {:alt:}
+id="rst-alt"
 valid msgstr=":alt:"
 hint="Surely missing the bond «:alt:» (reStructuredText)"
 
 {:file:}
+id="rst-file"
 valid msgstr=":file:"
 hint="Surely missing the bond «:file:» (reStructuredText)"
 
 {:guilabel:}
+id="rst-guilabel"
 valid msgstr=":guilabel:"
 hint="Surely missing the bond «:guilabel:» (reStructuredText)"
 
 {:kbd:}
+id="rst-kbd"
 valid msgstr=":kbd:"
 hint="Surely missing the bond «:kbd:» (reStructuredText)"
 
 {:menuselection:}
+id="rst-menuselection"
 valid msgstr=":menuselection:"
 hint="Surely missing the bond «:menuselection:» (reStructuredText)"
 
 {:program:}
+id="rst-program"
 valid msgstr=":program:"
 hint="Surely missing the bond «:program:» (reStructuredText)"
 
 {:ref:}
+id="rst-ref"
 valid msgstr=":ref:"
 hint="Surely missing the bond «:ref:» (reStructuredText)"
 
 {:su[bp]:}
+id="rst-subp"
 valid msgstr=":su[bp]:"
 hint="Surely missing the bond «:sub: or :sup:» (reStructuredText)"
 
 {:term:}
+id="rst-term"
 valid msgstr=":term:"
 hint="Surely missing the bond «:term:» (reStructuredText)"
