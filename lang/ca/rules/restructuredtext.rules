@@ -1,5 +1,5 @@
 # reStructuredText Rules
-# Copyrigth 2017-2023, Antoni Bella Pérez (antonibella5@yahoo.com)
+# Copyrigth 2019-2023, Antoni Bella Pérez (antonibella5@yahoo.com)
 # by KDE Catalan Team (kde-i18n-ca@kde.org)
 # License: GPLv3+
 
@@ -62,28 +62,35 @@ hint="Surely missing a start italic markup - without spaces too (reStructuredTex
 
 {([…:%]|\.|\)|\b)\*}
 id="rst-asterisk1"
-valid msgid="\)\*4"
-valid msgid="\*(\(1-\)|)alpha"
-valid msgid="\*256"
-valid msgid="50\*100"
-valid msgid="[53]\*4"
+valid msgid="\d\*(EPS|pi|x)"
+valid msgid="d.\*f"
 valid msgid="L\*a\*b"
 valid msgid="hq\*x"
 valid msgid="kdenlive_\*"
+valid msgid="m\*n"
+valid msgid="meet\*boss"
+valid msgid="X\*Y"
 valid msgid="([…:%]|\.|\)|\b)\*\*(\*|)"
-valid msgstr="([…:»%]|\.|\-|\)|\b)\*(\.|[,:?]|\»|\-|\)|\s|$)"
+valid msgstr="([…:%]|\.|\»|\-|\)|\b)\*(\.|[_,;:!?<]|\»|\-|\\|\||\{|\}|\]|\(|\)|\d|\s|$)"
+valid msgstr="Q\*Application"
 hint="Surely missing an end italic markup - without spaces too, but yes at the end (reStructuredText)"
 
     {([…:%]|\.|\)|\b)\*\*}
     id="rst-asterisk2"
-#     valid msgstr="\*\*(concept|bestand|gebied|lijnen|schuifregelaar|sbestand|weergave)"
     valid msgid="([…:%]|\.|\)|\b)\*\*\*"
-    valid msgstr="([…:»%]|\.|\)|\b)\*\*(\.|[,;:!]|\»|\-|\)|\s|$)"
+    valid msgstr="([…:%]|\.|\)|\b)\*\*\b"
+    valid msgstr="([…:%]|\.|\»|\)|\b)\*\*(\.|[_,;:!?<]|\»|\-|\\|\||\{|\}|\]|\(|\)|\d|\s|$)"
     hint="Surely missing an end bold markup - without spaces too, but yes at the end (reStructuredText)"
+
+        [([…:%]|\.|\)|\b)\*\*\b]
+        id="rst-asterisk2a"
+        valid msgid="CMAKE\*POLICY\*\*_"
+        valid msgstr="([…:%]|\.|\)|\b)\*\*(\s)"
+        hint="Surely missing a right end bold markup - can not highlight only half word (reStructuredText)"
 
     {([…:%]|\.|\)|\b)\*\*\*}
     id="rst-asterisk3"
-    valid msgstr="([…:»%]|\.|\)|\b)\*\*\*(\.|[,;:!]|\»|\-|\)|\s|$)"
+    valid msgstr="([…:%]|\.|\»|\)|\b)\*\*\*(\.|[,;:!]|\»|\-|\)|\s|$)"
     hint="Surely missing an end bold markup - without spaces too, but yes at the end (reStructuredText)"
 
 {:alt:\`}
@@ -113,7 +120,7 @@ hint="Surely missing the bond «:kbd:`» - without an additional space too (reSt
 
 {:menuselection:\`}
 id="rst-menuselection"
-valid msgstr=":menuselection:\`\b(.*?)\`(\s|\.|\)|[:,»]|$)"
+valid msgstr=":menuselection:\`\b(.*?)\`(\s|\.|\)|[:,]|\»|$)"
 hint="Surely missing the bond «:menuselection:`» - without an additional space too - doesn't allow text styling (reStructuredText)"
 
 {:program:\`}
@@ -123,12 +130,8 @@ hint="Surely missing the bond «:program:`» - without an additional space too (
 
 {:ref:\`}
 id="rst-ref"
-valid msgstr=":ref:\`\b(.*?)\`(\s|\.|\)|[:,»]|$)"
+valid msgstr=":ref:\`\b(.*?)\`(\s|\.|\)|[:,]|\»|$)"
 hint="Surely missing the bond «:ref:`» - without an additional space too, but yes at the end (reStructuredText)"
-
-    [(\s|\()(:alt|:dfn|:file|:guilabel|:kbd|:menuselection|:program|:ref|:su[bp]|:term)\`(.*?)\s<(.*?)>\`(\s|\.|\)|[:,]|$)]
-    valid msgstr="<http"
-    hint="Surely missing the bond «:alt:`, :dfn:`, :file:`, :guilabel:`, :kbd:`, :menuselection:`, :program:`, :ref:`, :sub:` or :sup:`, :term:`» (reStructuredText)"
 
 {:su[bp]:\`}
 id="rst-subp"
@@ -139,3 +142,7 @@ hint="Surely missing the bond «:sub:` or :sup:`» - without an additional space
 id="rst-term"
 valid msgstr=":term:\`\b(.*?)\`(\s|\.|\)|[:,]|$)"
 hint="Surely missing the bond «:term:`» - without an additional space too (reStructuredText)"
+
+    [(\s|\s\()(:alt|:dfn|:file|:guilabel|:kbd|:menuselection|:program|:ref|:su[bp]|:term)\`(.*?)\s(<[^<]{1,}>)\`(\s|\.|\)|[:,]|$)]
+    valid msgstr="<http"
+    hint="Surely missing a bond «:alt:`, :dfn:`, :file:`, :guilabel:`, :kbd:`, :menuselection:`, :program:`, :ref:`, :sub:` or :sup:`, :term:`» (reStructuredText)"
