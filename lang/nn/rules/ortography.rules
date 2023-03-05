@@ -123,6 +123,12 @@ hint="utførd, overførd etc. → utført, overført etc."
 id="komma-leddsetning-viss"
 hint="Skal alltid vera komma etter leddsetning (som her startar med «Viss» eller «Dersom») som står først i heilsetning"
 
+# For «Når» ser me berre på det som faktisk ser ut
+# som setningar, dvs. sluttar på puktum e.l.
+[\bNår [^,]+[\.!?][^,]*$]
+id="komma-leddsetning-naar"
+hint="Skal alltid vera komma etter leddsetning (som her startar med «Når») som står først i heilsetning"
+
 ## «Oppgje» kan visst tyda det same på nynorsk som på bokmål,
 ## likevel, så kommenterer ut denne regelen …
 ##
