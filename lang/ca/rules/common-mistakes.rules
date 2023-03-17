@@ -213,6 +213,12 @@ hint="«gama» s'ha de substituir per «gamma, gammes» (error freqüent)"
 id="common-gaseos"
 hint="«gaseosa» s'ha de substituir per «gasós, gasosa, gasoses» (error freqüent)"
 
+# «la API» ha de ser «l'API».
+# API és: Application Programing Interface (Interfície de Programació d'Aplicació)
+[\b(L|l)a\sAPI\b]
+id="common-lapi"
+hint="«la API» s'apostrofa, s'ha de substituir per «l'API» (error freqüent)"
+
 # «mapejar» ha de ser «mapar».
 [\bmapej[a-zàé]+\b]i
 id="common-mapejar"
