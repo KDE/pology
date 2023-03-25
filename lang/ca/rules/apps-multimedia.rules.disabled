@@ -987,14 +987,15 @@ hint="Es tradueix per «pinzell» (multimèdia)"
     valid msgstr="\bpinzell de pintura\b"
     hint="Es tradueix per «pinzell de pintura» (multimèdia)"
 
-    {\brigger\b}i
-    valid msgid="\brigger.?brush\b"
-    valid msgstr="\btruges\b"
-    hint="Es tradueix per «truges (són els pèls del pinzell)» (multimèdia)"
-
-        {\brigger.?brush\b}i
-        valid msgstr="\bpinzell amb truges\b"
-        hint="Es tradueix per «pinzell amb truges (són els pèls del pinzell)» (multimèdia)"
+# «truja» té altres significats al diccionari. Els pèls de pinzell s'anomenen «cerres»
+#    {\brigger\b}i
+#    valid msgid="\brigger.?brush\b"
+#    valid msgstr="\btruges\b"
+#    hint="Es tradueix per «truges (són els pèls del pinzell)» (multimèdia)"
+#
+#        {\brigger.?brush\b}i
+#        valid msgstr="\bpinzell amb truges\b"
+#        hint="Es tradueix per «pinzell amb truges (són els pèls del pinzell)» (multimèdia)"
 
 {\bbrushes\b}i
 valid msgid="/brushes/"
