@@ -55,6 +55,10 @@ def setup_sieve (p):
     ))
 
 
+def remove_saxon_genivite(word):
+    return re.sub(r"['’]s$", "", word)
+
+
 class Sieve (object):
 
     def __init__ (self, params):
@@ -181,7 +185,15 @@ class Sieve (object):
         failed_w_suggs = []
         msgstr_cnt = 0
 
-        msgid_words = proper_words(msg.msgid, True, cat.accelerator(), msg.format)
+        msgid_words = [
+            remove_saxon_genivite(word)
+            for word in proper_words(
+                msg.msgid,
+                True,
+                cat.accelerator(),
+                msg.format,
+            )
+        ]
 
         for msgstr in msg.msgstr:
 
