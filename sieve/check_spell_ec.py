@@ -216,7 +216,6 @@ class Sieve (object):
 
             for word in words:
                 if word in msgid_words:
-                    print(repr(msgid_words))
                     continue
 
                 if self.checker.check(word):
