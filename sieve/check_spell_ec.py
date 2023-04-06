@@ -181,6 +181,8 @@ class Sieve (object):
         failed_w_suggs = []
         msgstr_cnt = 0
 
+        msgid_words = proper_words(msg.msgid, True, cat.accelerator(), msg.format)
+
         for msgstr in msg.msgstr:
 
             # Skip message if explicitly requested.
@@ -213,36 +215,42 @@ class Sieve (object):
             words = [x for x in words if x not in locally_ignored]
 
             for word in words:
-                if not self.checker.check(word):
-                    failed = True
-                    self.unknown_words.add(word)
+                if word in msgid_words:
+                    print(repr(msgid_words))
+                    continue
 
-                    if not self.words_only or self.lokalize:
-                        suggs = self.checker.suggest(word)
-                        incmp = False
-                        if len(suggs) > 5: # do not put out too many words
-                            suggs = suggs[:5]
-                            incmp = True
-                        failed_w_suggs.append((word, suggs))
+                if self.checker.check(word):
+                    continue
 
-                    if not self.words_only:
-                        if self.xmlFile:
-                            xmlError = spell_xml_error(msg, cat, word, suggs,
-                                                       msgstr_cnt)
-                            self.xmlFile.writelines(xmlError)
+                failed = True
+                self.unknown_words.add(word)
 
-                        if suggs:
-                            fsuggs = format_item_list(suggs, incmp=incmp)
-                            report_on_msg(_("@info",
-                                            "Unknown word '%(word)s' "
-                                            "(suggestions: %(wordlist)s).",
-                                            word=word, wordlist=fsuggs),
-                                          msg, cat)
-                        else:
-                            report_on_msg(_("@info",
-                                            "Unknown word '%(word)s'.",
-                                            word=word),
-                                          msg, cat)
+                if not self.words_only or self.lokalize:
+                    suggs = self.checker.suggest(word)
+                    incmp = False
+                    if len(suggs) > 5: # do not put out too many words
+                        suggs = suggs[:5]
+                        incmp = True
+                    failed_w_suggs.append((word, suggs))
+
+                if not self.words_only:
+                    if self.xmlFile:
+                        xmlError = spell_xml_error(msg, cat, word, suggs,
+                                                    msgstr_cnt)
+                        self.xmlFile.writelines(xmlError)
+
+                    if suggs:
+                        fsuggs = format_item_list(suggs, incmp=incmp)
+                        report_on_msg(_("@info",
+                                        "Unknown word '%(word)s' "
+                                        "(suggestions: %(wordlist)s).",
+                                        word=word, wordlist=fsuggs),
+                                        msg, cat)
+                    else:
+                        report_on_msg(_("@info",
+                                        "Unknown word '%(word)s'.",
+                                        word=word),
+                                        msg, cat)
 
             msgstr_cnt += 1 # Increase msgstr id count
 
