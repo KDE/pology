@@ -55,8 +55,8 @@ def setup_sieve (p):
     ))
 
 
-def remove_saxon_genivite(word):
-    return re.sub(r"['’]s$", "", word)
+def normalize_msgid_word(word):
+    return re.sub(r"['’]s$", "", word).lower()
 
 
 class Sieve (object):
@@ -182,11 +182,17 @@ class Sieve (object):
         if not msg.translated:
             return
 
+        if (
+            msg.msgctxt
+            and re.search(r"^(EMAIL|NAME) OF TRANSLATORS$", msg.msgctxt)
+        ):
+            return
+
         failed_w_suggs = []
         msgstr_cnt = 0
 
         msgid_words = [
-            remove_saxon_genivite(word)
+            normalize_msgid_word(word)
             for word in proper_words(
                 msg.msgid,
                 True,
@@ -227,7 +233,7 @@ class Sieve (object):
             words = [x for x in words if x not in locally_ignored]
 
             for word in words:
-                if word in msgid_words:
+                if word.lower() in msgid_words:
                     continue
 
                 if self.checker.check(word):
