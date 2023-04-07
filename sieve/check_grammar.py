@@ -9,6 +9,7 @@ Documented in C{doc/user/sieving.docbook}.
 @license: GPLv3
 """
 
+import json
 from http.client import HTTPConnection
 import socket
 import sys
@@ -26,7 +27,7 @@ from pology.getfunc import get_hook_ireq
 from pology.sieve import add_param_poeditors
 
 
-_REQUEST="/?language=%s&disabled=HUNSPELL_RULE&%s"
+_REQUEST="/v2/check?language=%s&disabledRules=%s&%s"
 
 def setup_sieve (p):
 
@@ -81,7 +82,7 @@ class Sieve (object):
 
         # As LT server does not seem to read disabled rules from his config file, we manage exception here
         #TODO: investigate deeper this problem and make a proper bug report to LT devs.
-        self.disabledRules=["UPPERCASE_SENTENCE_START","COMMA_PARENTHESIS_WHITESPACE"]
+        self.disabledRules=["HUNSPELL_RULE","UPPERCASE_SENTENCE_START","COMMA_PARENTHESIS_WHITESPACE"]
 
         # Create connection to the LanguageTool server
         self.connection=HTTPConnection(host, port)
@@ -127,46 +128,52 @@ class Sieve (object):
                                   "Cannot execute filter '%(filt)s'.",
                                   filt=pfname))
 
-                self.connection.request("GET", _REQUEST % (self.lang, urlencode({"text":msgstr.encode("UTF-8")})))
+                self.connection.request(
+                    "GET",
+                    _REQUEST % (
+                        self.lang,
+                        ",".join(self.disabledRules),
+                        urlencode({"text":msgstr.encode("UTF-8")}),
+                    )
+                )
                 response=self.connection.getresponse()
-                if response:
-                    responseData=response.read()
-                    if "error" in responseData:
-                        dom=parseString(responseData)
-                        for error in dom.getElementsByTagName("error"):
-                            if error.getAttribute("ruleId") in self.disabledRules:
-                                continue
-                            self.nmatch+=1
-                            report("-"*(len(msgstr)+8))
-                            report(_("@info",
-                                     "<bold>%(file)s:%(line)d(#%(entry)d)</bold>",
-                                     file=cat.filename, line=msg.refline, entry=msg.refentry))
-                            #TODO: create a report function in the right place
-                            #TODO: color in red part of context that make the mistake
-                            report(_("@info",
-                                     "<bold>Context:</bold> %(snippet)s",
-                                     snippet=error.getAttribute("context")))
-                            report(_("@info",
-                                     "(%(rule)s) <bold><red>==></red></bold> %(note)s",
-                                     rule=error.getAttribute("ruleId"),
-                                     note=error.getAttribute("msg")))
-                            report("")
-                            if self.lokalize:
-                                repls = [_("@label", "Grammar errors:")]
-                                repls.append(_(
-                                    "@info",
-                                    "<bold>%(file)s:%(line)d(#%(entry)d)</bold>",
-                                    file=cat.filename,
-                                    line=msg.refline,
-                                    entry=msg.refentry
-                                ))
-                                repls.append(_(
-                                    "@info",
-                                    "(%(rule)s) <bold><red>==></red></bold> %(note)s",
-                                    rule=error.getAttribute("ruleId"),
-                                    note=error.getAttribute("msg")
-                                ))
-                                report_msg_to_lokalize(msg, cat, cjoin(repls, "\n"))
+                if not response:
+                    continue
+                matches = json.loads(response.read())["matches"]
+                if not matches:
+                    continue
+                for match in matches:
+                    self.nmatch+=1
+                    report("-"*(len(msgstr)+8))
+                    report(_("@info",
+                                "<bold>%(file)s:%(line)d(#%(entry)d)</bold>",
+                                file=cat.filename, line=msg.refline, entry=msg.refentry))
+                    #TODO: create a report function in the right place
+                    #TODO: color in red part of context that make the mistake
+                    report(_("@info",
+                                "<bold>Context:</bold> %(snippet)s",
+                                snippet=match["context"]["text"]))
+                    report(_("@info",
+                                "(%(rule)s) <bold><red>==></red></bold> %(note)s",
+                                rule=match["rule"]["id"],
+                                note=match["message"]))
+                    report("")
+                    if self.lokalize:
+                        repls = [_("@label", "Grammar errors:")]
+                        repls.append(_(
+                            "@info",
+                            "<bold>%(file)s:%(line)d(#%(entry)d)</bold>",
+                            file=cat.filename,
+                            line=msg.refline,
+                            entry=msg.refentry
+                        ))
+                        repls.append(_(
+                            "@info",
+                            "(%(rule)s) <bold><red>==></red></bold> %(note)s",
+                            rule=match["rule"]["id"],
+                            note=match["message"]
+                        ))
+                        report_msg_to_lokalize(msg, cat, cjoin(repls, "\n"))
         except socket.error:
             raise SieveError(_("@info",
                                "Cannot connect to LanguageTool server. "
