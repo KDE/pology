@@ -40,7 +40,7 @@ class Sieve (object):
             'Month Daynumber, 4-Digit-Year': '2 февраля 2005 г.',
             'April 2018': 'апрель 2018 г.',
             '04/02/2007': '4 февраля 2007 г.',
-        }	
+        }
     
         # Other dates should have the following format: (yyyy-mm-dd)
         self.date_re = re.compile("^[0-9][0-9][0-9][0-9]\-[0-9][0-9]\-[0-9][0-9]$")
@@ -52,7 +52,7 @@ class Sieve (object):
             date_result = os.popen("date '+%-d m%mm %Y' -d " + date_en).readlines()[0].decode('utf-8').rstrip() + ' г.'
 
             # Translate name of months into Russian
-	    return date_result.\
+            return date_result.\
                 replace('m01m', 'января').\
                 replace('m02m', 'февраля').\
                 replace('m03m', 'марта').\
@@ -71,8 +71,8 @@ class Sieve (object):
     def process (self, msg, cat):
         # Detect documentation update date message
         if ("\n".join(msg.auto_comment) == "Tag: date"):
-	    new_msgstr = self.format_date(msg.msgid)
-	    if (msg.fuzzy or msg.msgstr[0] != new_msgstr):
+            new_msgstr = self.format_date(msg.msgid)
+            if (msg.fuzzy or msg.msgstr[0] != new_msgstr):
                 msg.msgstr[0] = new_msgstr
                 msg.unfuzzy()
                 report_msg_content(msg, cat)
