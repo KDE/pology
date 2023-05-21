@@ -41,7 +41,7 @@ class Sieve (object):
             u'May 22, 2011': u'22 de maig de 2011',
             u'August 3 2012': u'22 d\'agost de 2012',
             u'April 7, 2003': u'7 d\'abril de 2003',
-        }	
+        }
     
         # Other dates should have the following format: (yyyy-mm-dd)
         self.date_re = re.compile("^[0-9][0-9][0-9][0-9]\-[0-9][0-9]\-[0-9][0-9]$")
@@ -53,7 +53,7 @@ class Sieve (object):
             date_result = os.popen("date '+%-d m%mm %Y' -d " + date_en).readlines()[0].decode('utf-8').rstrip() + u''
 
             # Translate name of months into Catalan
-	    return date_result.\
+            return date_result.\
                 replace('m01m', u'de gener de').\
                 replace('m02m', u'de febrer de').\
                 replace('m03m', u'de març de').\
@@ -72,8 +72,8 @@ class Sieve (object):
     def process (self, msg, cat):
         # Detect documentation update date message
         if ("\n".join(msg.auto_comment) == "Tag: date"):
-	    new_msgstr = self.format_date(msg.msgid)
-	    if (msg.fuzzy or msg.msgstr[0] != new_msgstr):
+            new_msgstr = self.format_date(msg.msgid)
+            if (msg.fuzzy or msg.msgstr[0] != new_msgstr):
                 msg.msgstr[0] = new_msgstr
                 msg.unfuzzy()
                 report_msg_content(msg, cat)

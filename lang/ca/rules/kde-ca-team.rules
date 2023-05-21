@@ -915,6 +915,11 @@ id="kct-sliderbutton"
 valid msgstr="botó de control lliscant"
 hint="Es tradueix per «botó de control lliscant» (kde-ca-team)"
 
+{\bslide-?shows?\b}i
+id="kct-slideshow"
+valid msgstr="presentaci(ó|ons) de diapositives"
+hint="Es tradueix per «presentació de diapositives» (kde-ca-team)"
+
 {\bsmart.?cards?\b}i
 id="kct-smartcard"
 valid msgstr="target(a|es) intel·ligents?"
@@ -925,7 +930,7 @@ hint="Es tradueix per «targeta/es intel·ligent/s» (kde-ca-team)"
 id="kct-snapshot"
 valid msgstr="captur(a|es) de pantalla"
 valid msgstr="captur(a|es)" cat="digikam,massif-visualizer,massif-visualizer.appdata,org.kde.massif-visualizer.appdata,kate,kdevvalgrind"
-valid msgstr="instantàni(a|es)" cat="glossary,kdenlive,kstars,okular-kde-org_www,rekonq,systemd-kcm"
+valid msgstr="instantàni(a|es)" cat="glossary,kdenlive,kstars,okular-kde-org,rekonq,systemd-kcm"
 valid msgstr="punts? de sincronisme"
 hint="«snapshot» es tradueix *generalment* per «captura de pantalla» (kde-ca-team)"
 
