@@ -54,6 +54,16 @@ def setup_sieve (p):
     "Build XML report file at given path."
     ))
 
+    p.add_param(
+        "allow_msgid_words",
+        bool,
+        defval=False,
+        desc=_(
+            "@info sieve parameter discription",
+            "Allow words that also exist in the source string."
+        ),
+    )
+
 
 def normalize_msgid_word(word):
     return re.sub(r"['’]s$", "", word).lower()
@@ -126,6 +136,8 @@ class Sieve (object):
                           "Cannot open file '%(file)s': %(ex)s. XML output "
                           "disabled.", file=params.xml, ex=exc))
 
+        self.allow_msgid_words = params.allow_msgid_words
+
 
     def process_header (self, hdr, cat):
 
@@ -191,15 +203,17 @@ class Sieve (object):
         failed_w_suggs = []
         msgstr_cnt = 0
 
-        msgid_words = [
-            normalize_msgid_word(word)
-            for word in proper_words(
-                msg.msgid,
-                True,
-                cat.accelerator(),
-                msg.format,
-            )
-        ]
+        msgid_words = []
+        if self.allow_msgid_words:
+            msgid_words = [
+                normalize_msgid_word(word)
+                for word in proper_words(
+                    msg.msgid,
+                    True,
+                    cat.accelerator(),
+                    msg.format,
+                )
+            ]
 
         for msgstr in msg.msgstr:
 
@@ -233,7 +247,7 @@ class Sieve (object):
             words = [x for x in words if x not in locally_ignored]
 
             for word in words:
-                if word.lower() in msgid_words:
+                if self.allow_msgid_words and word.lower() in msgid_words:
                     continue
 
                 if self.checker.check(word):
