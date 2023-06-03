@@ -9,13 +9,12 @@ test-min-cmake:
   image: "python:3.7"
   script:
     - apt-get update -qq && apt-get install -y -qq cmake
+    - pip install -r test-requirements.txt
     - mkdir build
     - cd build
     - cmake -DCMAKE_INSTALL_PATH=/usr/local ..
     - make
     - make install
-    - pip install mock
-    - pip install pytest
 
     # Run tests from a separate, empty folder to make sure folders from the
     # build our source folders are not picked up as Python modules.
@@ -27,9 +26,14 @@ test-min-cmake:
 
     - pytest ../../tests
 
-test-max-src:
+coverage:
   script:
+    - pip install -r test-requirements.txt
     - export PATH="$(pwd)/bin:$PATH"
     - export PYTHONPATH="$(pwd):$PYTHONPATH"
-    - pip install pytest
-    - pytest tests
+    - pytest --cov=pology --cov=scripts --cov=sieve --cov-report term --cov-report xml:coverage.xml tests/
+  artifacts:
+    reports:
+      coverage_report:
+        coverage_format: cobertura
+        path: coverage.xml
