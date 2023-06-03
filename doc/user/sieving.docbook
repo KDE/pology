@@ -2574,6 +2574,15 @@ Note that percent characters in the <literal>plural-forms</literal> field are es
 
 </sect2>
 
+<sect2 id="sv-fr:setApostrophe">
+<title><command>fr:setApostrophe</command></title>
+
+<para>In French language, the <literal>’</literal> character is the apostrophe. A rule in the French team is to use directly <literal>'</literal>. <command>fr:setApostrophe</command> will detect the <literal>’</literal> and transform them to <literal>'</literal>.</para>
+
+<para>There are no parameters.</para>
+
+</sect2>
+
 <sect2 id="sv-ru:fill-doc-date-kde">
 <title><command>ru:fill-doc-date-kde</command></title>
 
