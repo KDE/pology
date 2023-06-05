@@ -54,6 +54,20 @@ def setup_sieve (p):
     "Build XML report file at given path."
     ))
 
+    p.add_param(
+        "allow_msgid_words",
+        bool,
+        defval=False,
+        desc=_(
+            "@info sieve parameter discription",
+            "Allow words that also exist in the source string."
+        ),
+    )
+
+
+def normalize_msgid_word(word):
+    return re.sub(r"['’]s$", "", word).lower()
+
 
 class Sieve (object):
 
@@ -122,6 +136,8 @@ class Sieve (object):
                           "Cannot open file '%(file)s': %(ex)s. XML output "
                           "disabled.", file=params.xml, ex=exc))
 
+        self.allow_msgid_words = params.allow_msgid_words
+
 
     def process_header (self, hdr, cat):
 
@@ -178,8 +194,26 @@ class Sieve (object):
         if not msg.translated:
             return
 
+        if (
+            msg.msgctxt
+            and re.search(r"^(EMAIL|NAME) OF TRANSLATORS$", msg.msgctxt)
+        ):
+            return
+
         failed_w_suggs = []
         msgstr_cnt = 0
+
+        msgid_words = []
+        if self.allow_msgid_words:
+            msgid_words = [
+                normalize_msgid_word(word)
+                for word in proper_words(
+                    msg.msgid,
+                    True,
+                    cat.accelerator(),
+                    msg.format,
+                )
+            ]
 
         for msgstr in msg.msgstr:
 
@@ -213,36 +247,41 @@ class Sieve (object):
             words = [x for x in words if x not in locally_ignored]
 
             for word in words:
-                if not self.checker.check(word):
-                    failed = True
-                    self.unknown_words.add(word)
+                if self.allow_msgid_words and word.lower() in msgid_words:
+                    continue
 
-                    if not self.words_only or self.lokalize:
-                        suggs = self.checker.suggest(word)
-                        incmp = False
-                        if len(suggs) > 5: # do not put out too many words
-                            suggs = suggs[:5]
-                            incmp = True
-                        failed_w_suggs.append((word, suggs))
+                if self.checker.check(word):
+                    continue
 
-                    if not self.words_only:
-                        if self.xmlFile:
-                            xmlError = spell_xml_error(msg, cat, word, suggs,
-                                                       msgstr_cnt)
-                            self.xmlFile.writelines(xmlError)
+                failed = True
+                self.unknown_words.add(word)
 
-                        if suggs:
-                            fsuggs = format_item_list(suggs, incmp=incmp)
-                            report_on_msg(_("@info",
-                                            "Unknown word '%(word)s' "
-                                            "(suggestions: %(wordlist)s).",
-                                            word=word, wordlist=fsuggs),
-                                          msg, cat)
-                        else:
-                            report_on_msg(_("@info",
-                                            "Unknown word '%(word)s'.",
-                                            word=word),
-                                          msg, cat)
+                if not self.words_only or self.lokalize:
+                    suggs = self.checker.suggest(word)
+                    incmp = False
+                    if len(suggs) > 5: # do not put out too many words
+                        suggs = suggs[:5]
+                        incmp = True
+                    failed_w_suggs.append((word, suggs))
+
+                if not self.words_only:
+                    if self.xmlFile:
+                        xmlError = spell_xml_error(msg, cat, word, suggs,
+                                                    msgstr_cnt)
+                        self.xmlFile.writelines(xmlError)
+
+                    if suggs:
+                        fsuggs = format_item_list(suggs, incmp=incmp)
+                        report_on_msg(_("@info",
+                                        "Unknown word '%(word)s' "
+                                        "(suggestions: %(wordlist)s).",
+                                        word=word, wordlist=fsuggs),
+                                        msg, cat)
+                    else:
+                        report_on_msg(_("@info",
+                                        "Unknown word '%(word)s'.",
+                                        word=word),
+                                        msg, cat)
 
             msgstr_cnt += 1 # Increase msgstr id count
 
