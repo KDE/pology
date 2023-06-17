@@ -6,6 +6,12 @@
 #
 # These filters are applied to all messages.
 
+# Normalize ellipsis.
+addFilterRegex match="\.\.\." repl="…" on="pmsgid,pmsgstr"
+
+# MIME filter, e.g. "audio/x-mp3 audio/x-wav |Sound Files"
+addFilterRegex match="^\s*[a-z\d-]+/[a-z\d-]+(\s*[a-z\d-]+/[a-z\d-]+)*\s*\|\s*" repl="" on="pmsgid,pmsgstr"
+
 # Remove XML entities.
 addFilterRegex match="&nbsp;" repl=" " on="pmsgid,pmsgstr"
 addFilterRegex match="\&[\w\d\.\-]+?\;" repl="" on="pmsgid,pmsgstr"
@@ -64,18 +70,21 @@ addFilterRegex match="\$\<?[A-Z]+\>?" repl="Þ" on="pmsgid,pmsgstr"
 addFilterRegex match="(etc\.|\&etc\;)" repl="etcétera" on="pmsgid,pmsgstr"
 
 # Remove some abreviations.
-addFilterRegex match="\b(Ex\.|ex\.|p\.\sex\.|EUA|a\.m\.|p\.m\.|n\.t\.\expr\.)" repl="~" on="pmsgid,pmsgstr"
+addFilterRegex match="\b(Ex\.|ex\.|p\.\sex\.|EUA|a\.m\.|p\.m\.|n\.t\.expr\.)" repl="~" on="pmsgid,pmsgstr"
 addFilterRegex match="\b(Sr\.|Sra\.|Dr\.|Dra\.)" repl="~" on="pmsgid,pmsgstr"
 addFilterRegex match="\b(apt\.|art\.|avda\.|av\.|cent\.|dept\.)" repl="~" on="pmsgid,pmsgstr"
 addFilterRegex match="\b(máx.|mín\.|páx\.)" repl="~" on="pmsgstr"
-addFilterRegex match="\b(pl\.|pral\.|Prof\.|P\.\s\S\.|Rep\.|R\.\sI\.\P\.)" repl="~" on="pmsgid,pmsgstr"
+addFilterRegex match="\b(pl\.|pral\.|Prof\.|P\.\s\S\.|Rep\.|R\.\sI\.P\.)" repl="~" on="pmsgid,pmsgstr"
 addFilterRegex match="\b(tel\.|trad\.|Univ\.)" repl="~" on="pmsgid,pmsgstr"
 
 # Remove special puntuactions.
 addFilterRegex match="(\?{2,3}|\%{2,3}|\:{2,3}|\_{2,3})" repl="~" on="pmsgid,pmsgstr"
 
 # Remove more usual smileis.
-addFilterRegex match="\s(\:\)|\(\-\:|\:\)|\(\:|\=\)|\)\-\:\)|\:\-\)|\:\-\(|\;\-\)|\;\))" repl="\s~" on="pmsgid,pmsgstr"
+addFilterRegex match="\s(\:\)|\(\-\:|\:\)|\(\:|\=\)|\)\-\:\)|\:\-\)|\:\-\(|\;\-\)|\;\))" repl=" ~" on="pmsgid,pmsgstr"
+
+# Remove placeholders.
+addFilterRegex match="%{[^}]*}" repl="~" on="pmsgid,pmsgstr"
 
 
 # VALID GROUPS ################################################################

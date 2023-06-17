@@ -666,14 +666,6 @@
     valid msgstr="arquitectura"
     hint="architecture = arquitectura"
 
-    {\barchive\b}i
-    valid msgstr="arquivo"
-    hint="archive = arquivo"
-
-    {\barchive\b}i
-    valid msgstr="arquivar"
-    hint="archive = arquivar"
-
     {\barchive file\b}i
     valid msgstr="ficheiro de arquivo"
     hint="archive file = ficheiro de arquivo"
@@ -881,14 +873,6 @@
     {\battribute\b}i
     valid msgstr="atributo"
     hint="attribute = atributo"
-
-    {\baudio\b}i
-    valid msgstr="son"
-    hint="audio = son"
-
-    {\baudio\b}i
-    valid msgstr="de son"
-    hint="audio = de son"
 
     {\baudio device\b}i
     valid msgstr="dispositivo de son"
@@ -16655,13 +16639,3 @@
 # valid msgstr="\bDesexa\srealmente\s\w+(a|e|i|í|po)r(\s(\w+|\W+))*"
 # valid msgstr="\bDesexa\srealmente\s\w+l(o|a)s?(\s\w+)*\?"
 # hint="«Are you sure you want to» -> «Desexa realmente+infinitivo»"
-#
-# # «print preview» -> «previsualización da impresión» / «vista previa do impreso»
-# {\bprint\spreview(?!\s(window|part))}i
-# id="noPT-2010-expression_print preview"
-# valid msgstr="\bprevisualizacións?\sda\impresión"
-# valid msgstr="\bvistas?\sprevia\sdos?\simpresos?"
-# valid msgstr="\bprevisualizar\so\simpreso"
-# valid msgstr="\bimprimir\sa\svista\sprevia"
-# hint="«print preview» -> «previsualización da impresión» / «vista previa do impreso»"
-#
