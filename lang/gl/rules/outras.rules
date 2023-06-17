@@ -69,66 +69,6 @@ hint="usar «coma» cando sexa imprescindíbel"
 id="clGL-modling_interrogacion-excl-iniciais"
 hint="evitar usar sinais iniciais de interrogación ou exclamación"
 
-
-#####
-#Acordos das trasnadas
-#####
-
-# Prefírese a terminación en bel
-[\b[\w\-_]+bles?(\s|\b)]i
-# excepcións
-valid span="(fe|ca|dou|tre|ipta)bles?"
-valid span="[\-_]+"
-valid span="robles" after="eduardo\s" # nome dun programador
-valid span="\bmarble\b" # nome dun programa
-valid span="\bGrenoble\b" # cidade
-valid span="\bHubble\b" # o satélite telescopio
-valid span="\bGabble\b" # un servizo
-valid span="\bPebbles?\b" # un produto
-valid span="tables?\b" # moitos falsos positivos, grazas a Latex
-id="PT-2011-gl_bel"
-hint="terminación en -bel"
-
-# descarta o uso de «dende» en favor de «desde»
-[\bdende\b]i
-id="PT-2011-gl_dende"
-hint="dende -> desde"
-
-# descarta o uso de «vacío» en favor de «baleiro»
-[\bvac(ío|ía|ia|ie|io)]i
-id="PT-2011-gl_vacío"
-hint="vacío -> baleiro"
-
-#evitar usar «lanzar» en favor de «iniciar» (un executábel)
-[\blanz]i
-valid !msgid="\blaunch"
-valid ctx="X-KDE-Keywords"
-id="PT-2011-gl_lanzar"
-hint="lanzar -> iniciar"
-
-# preferir «lista» e non «listaxe»
-[\blistaxe]i
-id="PT-2012-gl_listaxe"
-hint="«listaxe» -> «lista»?"
-
-# usar «son» no canto de «audio»
-[\baudio]i
-valid ctx="X-KDE-Keywords"
-valid before="visual"
-valid before="\s?cd" env="kde" # «audiocd» é un kioslave
-id="PT-2011-gl_audio"
-hint="audio -> son"
-
-# preferir «computador» e non «computadora»
-[\bcomputadora]i
-id="PT-2012-gl_computadora"
-hint="«computadora» -> «computador»?"
-
-
-######
-# Fin dos acordos das trasnadas
-######
-
 # avisar de «tódolos»
 [\btódol(a|o)s]i
 id="noPT-gl_tódolos"
@@ -152,113 +92,6 @@ hint="«mais» -> «pero»"
 [\b(ir|ías?|vou|vas|vai)\sa\s\w+[aei]r\b]i
 id="noPT-gl_ir+a+infinitivo"
 hint="«ir a infinitivo» -> «ir ìnfinitivo»"
-
-# «failed to» -> «produciuse un erro ao + infinitivo»
-{\bfailed\sto\s}i
-valid after="(^|\.|:|,|;|\()\s?"
-id="noPT-2012-expression_failed to"
-# valid msgstr="produciuse\sun\serro\sao\s(pór|\w+[aei]r)"
-# valid env="kde" before="find\b"
-hint="«failed to» -> «produciuse un erro ao + infinitivo»"
-
-# «verbing word word failed.» -> «produciuse un erro ao + infinitivo»
-{\b\w+ing\s(\w+\s){,5}?failed(\.|,|$)}i
-id="noPT-2012-expression_failed."
-valid msgstr="produciuse\sun\serro\sao\s(pór|\w+[aei]r)"
-hint="«participlepresent word+ failed.» -> «produciuse un erro ao + infinitivo»"
-
-# «An error occurred while doing» -> «produciuse un erro ao + infinitivo»
-{\ban\serror\soccurred\s(while\s)?\w+ing}i
-id="PT-2012-expression_an error occurred doing"
-valid msgstr="produciuse\sun\serro\sao\s(pór|\w+[aei]r)"
-hint="«An error occurred (while) verb_ing» -> «produciuse un erro ao + infinitivo»"
-
-# «There was an error while doing» -> «produciuse un erro ao + infinitivo»
-{\b(there\swas\san\s)?error\s(while\s)?\w+ing}i
-valid !span="there\swas\san\s" after="\w+ed\san\s"  #Isto apártase da trasnada
-valid !span="there\swas\san\s" after="(^|\.\s)"     # Como funcione isto é que non sei nada de regexes
-valid span="error\sduring\b"
-valid span="error\scausing\b"
-id="noPT-2012-expression_(there was an) error (while) doing"
-valid msgstr="produciuse\sun\serro\sao\s(pór|\w+[aei]r)"
-valid span="while" msgstr="\bProduciuse\sun\serro\smentres\sse\s\w+(ía|aba)" env="kde" #Isto apártase da Trasnada
-valid span="while" env="kde" msgstr="\bProduciuse\sun\serro\s(de\s\w+)[,2]\sao\s(pór|\w+[aei]r)­" # Isto apartase da Trasnada
-valid env="gnome" msgstr="\bproduciuse\sun\serro\s\w+[,6]\sao\s(pór|\w+[aei]r)" #Isto tampouco é moi axustado á Trasnada
-hint="«(There was an) error (while) verb_ing» -> «produciuse un erro ao + infinitivo»"
-
-# «Can not be ed» -> «Non é/foi posíbel infinitivo»
-{\bcan(\snot|not|n't)\sbe\s\w+ed\b}i
-id="noPT-2012-expression_cannot be"
-valid msgstr="\bnon\s(é|foi|ha\sser|sexa)\sposíbel\s(pór|\w+[aei]r)"
-valid msgstr="\bnon\s(é|foi|ha\sser|sexa)\sposíbel\s\w+[aei]l(a|o)s?"
-hint="«can not be ed» -> «Non é/foi/ha ser/sexa posíbel infinitivo»"
-
-# «Can not» -> «Non é/foi posíbel infinitivo»
-{\bCan(\snot|not|n't)}
-id="PT-2012-expression_cannot infinitivo"
-valid msgstr="\b(N|n)on\s(é|foi)\sposíbel\spór"
-valid msgstr="\b(N|n)on\s(é|foi)\sposíbel\s\w+[aei]r"
-hint="«Can not» -> «Non é/foi posíbel infinitivo»"
-
-# «Could not» -> «Non é/foi posíbel infinitivo»
-{\bcould(\snot|n't)}i
-valid !after="(^|\.|:|,|;|\()\s?"
-id="noPT-2012-expression_could not infinitivo"
-valid msgstr="\bnon\s(é|foi)\sposíbel\s(pospor|pór|\w+[aeií]r)"
-valid msgstr="\bnon\s(é|foi)\sposíbel\s\w+(a|e|i)l(a|o)s?"
-#o que segue apártase da Trasnada
-valid msgstr="\bnon\spoida\s(pó|(\w+[aei])r)\b" env="kde"
-valid msgstr="\bnon\s(é|foi)\b(capaz|quen)\bde\b(pó|(\w+[aei])r)\b" env="kde"
-valid msgstr="\bnon\sse\b\w+(ou|aron)\b" env="kde"
-hint="«Could not» -> «Non é/foi posíbel infinitivo»"
-
-# «Could not be participio» -> «Non é/foi posíbel infinitivo»
-{\bcould(\snot|n't)\sbe\b}i
-id="noPT-2012-expression_could not be"
-valid msgstr="\bnon\s(é|foi)\sposíbel\s(pór|\w+[aei]r)"
-valid msgstr="\bnon\s(é|foi)\sposíbel\s\w+[aei]l(a|o)s?"
-#o que segue apártase da Trasnada
-valid msgstr="\bnon\bpoida\s(pó|(\w+[aei])r)\b" env="kde"
-valid msgstr="\bnon\b(é|foi)\b(capaz|quen)\bde\b(pó|(\w+[aei])r)\b" env="kde"
-hint="«could not be» -> «Non é/foi posíbel infinitivo»"
-
-# «Unable to verb» -> «Non é/foi posíbel infinitivo»
-{\bunable\sto}i
-id="noPT-2012-expression_unable to"
-valid after="(be|is|are|was|were)\s"
-# # valid !after="(^|:|\.)\s?" # normalmente vai despois de algo disto.
-valid after="(^|\(|,|\.|\*|;)\s?" msgstr="\bnon\s(é|foi)\sposíbel\s(pór|\w+[aei]r)"
-valid after=":\s?" !env="kde" msgstr="\bnon\s(é|foi)\sposíbel\s(pór|\w+[aei]r)"
-valid after=":\s?"  msgstr="\bnon\sfoi\sposíbel\s(pór|\w+[aei]r)" env="kde" #xa que estamos
-hint="«unable to» -> «non é/foi posíbel + infinitivo»"
-
-# «Non se puido» -> «Non foi posíbel»
-# Pero só en determinadas frases habituais.
-[\bnon\sse\sp(uido|ode)\b]i
-valid after="^"
-id="PT-2012-expression-gl_non se puido"
-#valid msgid="^Can\'t\b"
-#valid msgid="^Can\snot\b"
-#valid msgid="^Cannot\b"
-#valid msgid="^Couldn\'t\b"
-#valid msgid="^Could\snot\b"
-#valid msgid="\bfailed\sto\s"
-valid msgid="\bcan\'t\sbe\s\S+ed\b"
-valid msgid="\bcan\s?not\sbe\s\S+ed\b"
-valid msgid="\bcouldn\'t\sbe\s\S+ed\b"
-valid msgid="\bcould\snot\sbe\s\S+ed\b"
-hint="non se puido -> non é/foi posíbel"
-
-# «fallo ao» -> «produciuse un erro ao»
-[\bfallou?\sao\b]i
-id="PT-2012-expression-gl_fallo ao"
-# valid after="\bproduciuse\sun\s"
-hint="fallo ao -> produciuse un erro ao"
-
-# «Houbo un erro ao» -> «Produciuse un erro ao»
-[\bhoubo\sun\serro\sao\b]i
-id="PT-2012-expression-gl_houbo un erro ao"
-hint="houbo un erro ao -> Produciuse un erro ao"
 
 #####
 # Regras específicas de GNOME
@@ -489,15 +322,6 @@ valid before="\sproblem"    # por mor da cacofonía: produciuse un problema
 id="expression_there-was-an-error"
 valid msgstr="\bProduciuse\sun(\b|s|ha)"
 hint="There was an error -> Produciuse un erro"
-
-# «print preview» -> «previsualización da impresión» / «vista previa do impreso»
-{\bprint\spreview(?!\s(window|part))}i
-id="noPT-2010-expression_print preview"
-valid msgstr="\bprevisualizacións?\sda\impresión"
-valid msgstr="\bvistas?\sprevia\sdos?\simpresos?"
-valid msgstr="\bprevisualizar\so\simpreso"
-valid msgstr="\bimprimir\sa\svista\sprevia"
-hint="«print preview» -> «previsualización da impresión» / «vista previa do impreso»"
 
 #####
 # Fin das regras específicas de KDE
@@ -735,15 +559,3 @@ id="aaPT_esconder"
 valid msgid="\bconceal"
 valid msgid="\bescond"
 hint="«esconder» → «conceal»"
-
-# «about to» tradúcese como «a piques de»
-{\b(?<!^)about\sto\b}i
-id="PT-2013_about-to"
-valid msgstr="\ba\spiques\sde\b"
-hint="«about to» tradúcese como «a piques de»"
-
-# «a piques de» traduce a «about to»
-[\ba\spiques\sde\bs]i
-id="PT-2013-dual_about-to"
-valid msgid="\b(?<!^)about\sto\b"
-hint="«a piques de» traduce a «about to»"
