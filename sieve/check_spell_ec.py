@@ -59,14 +59,48 @@ def setup_sieve (p):
         bool,
         defval=False,
         desc=_(
-            "@info sieve parameter discription",
+            "@info sieve parameter description",
             "Allow words that also exist in the source string."
+        ),
+    )
+
+    p.add_param(
+        "uncamel_bad",
+        bool,
+        defval=False,
+        desc=_(
+            "@info sieve parameter description",
+            (
+                "If a camelCase word does not pass spell checking, split it "
+                "into separate words and try again."
+            ),
         ),
     )
 
 
 def normalize_msgid_word(word):
     return re.sub(r"['’]s$", "", word).lower()
+
+
+def is_camel_case(word):
+    return bool(re.search(r".[A-Z]", word))
+
+
+def uncamel(word):
+    """Return a list of words from a camelCase word.
+
+    >>> uncamel("camelCase")
+    ["camel", "Case"]
+    """
+    words = []
+    char_buffer = []
+    for char in word:
+        if char.isupper() and char_buffer:
+            words.append("".join(char_buffer))
+            char_buffer = []
+        char_buffer.append(char)
+    words.append("".join(char_buffer))
+    return words
 
 
 class Sieve (object):
@@ -137,6 +171,7 @@ class Sieve (object):
                           "disabled.", file=params.xml, ex=exc))
 
         self.allow_msgid_words = params.allow_msgid_words
+        self.uncamel_bad = params.uncamel_bad
 
 
     def process_header (self, hdr, cat):
@@ -219,6 +254,37 @@ class Sieve (object):
                 )
             ]
 
+
+        def report_word(word):
+            self.unknown_words.add(word)
+
+            if not self.words_only or self.lokalize:
+                incmp = False
+                suggs = self.checker.suggest(word)
+                if len(suggs) > 5: # do not put out too many words
+                    suggs = suggs[:5]
+                    incmp = True
+                failed_w_suggs.append((word, suggs, incmp))
+
+            if not self.words_only:
+                if self.xmlFile:
+                    xmlError = spell_xml_error(msg, cat, word, suggs,
+                                                msgstr_cnt)
+                    self.xmlFile.writelines(xmlError)
+
+                if suggs:
+                    fsuggs = format_item_list(suggs, incmp=incmp)
+                    report_on_msg(_("@info",
+                                    "Unknown word '%(word)s' "
+                                    "(suggestions: %(wordlist)s).",
+                                    word=word, wordlist=fsuggs),
+                                    msg, cat)
+                else:
+                    report_on_msg(_("@info",
+                                    "Unknown word '%(word)s'.",
+                                    word=word),
+                                    msg, cat)
+
         for msgstr in msg.msgstr:
 
             # Skip message if explicitly requested.
@@ -250,6 +316,8 @@ class Sieve (object):
             locally_ignored = manc_parse_list(msg, elist_well_spelled, ",")
             words = [x for x in words if x not in locally_ignored]
 
+            msgid_inner_words = None
+
             for word in words:
                 if self.allow_msgid_words and word.lower() in msgid_words:
                     continue
@@ -257,41 +325,30 @@ class Sieve (object):
                 if self.checker.check(word):
                     continue
 
-                failed = True
-                self.unknown_words.add(word)
+                if not is_camel_case(word):
+                    report_word(word)
+                    continue
 
-                if not self.words_only or self.lokalize:
-                    suggs = self.checker.suggest(word)
-                    incmp = False
-                    if len(suggs) > 5: # do not put out too many words
-                        suggs = suggs[:5]
-                        incmp = True
-                    failed_w_suggs.append((word, suggs))
+                for inner_word in uncamel(word):
+                    if (
+                        self.allow_msgid_words
+                        and any(
+                            inner_word.lower() in msgid_word
+                            for msgid_word in msgid_words
+                        )
+                    ):
+                        continue
 
-                if not self.words_only:
-                    if self.xmlFile:
-                        xmlError = spell_xml_error(msg, cat, word, suggs,
-                                                    msgstr_cnt)
-                        self.xmlFile.writelines(xmlError)
+                    if self.checker.check(inner_word):
+                        continue
 
-                    if suggs:
-                        fsuggs = format_item_list(suggs, incmp=incmp)
-                        report_on_msg(_("@info",
-                                        "Unknown word '%(word)s' "
-                                        "(suggestions: %(wordlist)s).",
-                                        word=word, wordlist=fsuggs),
-                                        msg, cat)
-                    else:
-                        report_on_msg(_("@info",
-                                        "Unknown word '%(word)s'.",
-                                        word=word),
-                                        msg, cat)
+                    report_word(inner_word)
 
             msgstr_cnt += 1 # Increase msgstr id count
 
         if self.lokalize and failed_w_suggs:
             repls = [_("@label", "Spelling errors:")]
-            for word, suggs in failed_w_suggs:
+            for word, suggs, incmp in failed_w_suggs:
                 if suggs:
                     fmtsuggs=format_item_list(suggs, incmp=incmp)
                     repls.append(_("@item",
