@@ -195,8 +195,12 @@ class Sieve (object):
             return
 
         if (
-            msg.msgctxt
-            and re.search(r"^(EMAIL|NAME) OF TRANSLATORS$", msg.msgctxt)
+            (
+                msg.msgctxt
+                and re.search(r"^(EMAIL|NAME) OF TRANSLATORS$", msg.msgctxt)
+            )
+            or msg.msgid == "CREDIT_FOR_TRANSLATORS"
+
         ):
             return
 
