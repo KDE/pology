@@ -222,6 +222,7 @@ valid msgid="\btypewriters?\b"  # máquina de escribir
 valid msgid="\bw\b"
 valid msgid="\b(re)?wr(it(es?|ing|ten)|ote)\b"
 valid msgid="\bcontact(ed|ing|s)?\b"  # contact at <enderezo de correo electrónico> → escribir a
+valid msgid="\breach(e[ds]|ing)?\b"  # reach at <enderezo de correo electrónico> → escribir a
 valid msgid="\bwriters?\b"  # persoa dedicada a escribir
 
 # invalid → incorrecto, mal construído, non é válido, non válido
@@ -478,7 +479,7 @@ valid msgid="\bbeep(ed|ing|s)?\b"  # emitir un son de aviso
 [\baudio]i
 id="PT-2011-gl_audio"
 hint="audio → son"
-valid ctx="X-KDE-Keywords"
+valid ctx="\bKeywords\b"
 valid after="Monkey's\s*"  # APE
 valid after="Free\s*Lossless\s*"  # FLAC
 valid after="JACK\s*"  # JACK ACK
