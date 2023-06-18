@@ -574,10 +574,21 @@ id="en-blog"
 hint="blog → bitácora"
 valid msgstr="\b(micro)?bitácoras?\b"
 
+{\bboarding\s*pass(es)?\b}i
+id="en-boarding-pass"
+hint="boarding pass → tarxeta de embarque"
+valid msgstr="\btarxetas?\s*de\s*embarque\b"
+
 {\bcloudiness\b}i
 id="en-cloudiness"
 hint="cloudiness → nebulosidade"
 valid msgstr="\bnebulosidade\b"
+
+{\bdisplay\s*names?\b}i
+id="en-display-name"
+hint="display name → nome visíbel"
+valid msgstr="\bnomes?\s*visíbe(l|is)\b"
+valid msgstr="\bam[oó]s[aáeéoó]\S*\s*os?\s*nomes?\b"
 
 {\bfreezing\b}i
 id="en-freezing"
@@ -605,6 +616,11 @@ hint="post → publicar, publicación"
 valid msgstr="\bpubl[ií]c[aáeéoó]"
 valid msgstr="\bpublicacións?\b"
 
+{\bscripting\b}i
+id="en-scripting"
+hint="scripting → guionización"
+valid msgstr="\bguionización\b"
+
 {\btimestamps?\b}i
 id="en-timestamp"
 hint="timestamp → marca de tempo"
@@ -612,8 +628,9 @@ valid msgstr="\bmarcas?\s*de\s*tempo\b"
 
 {\btriggers?\b}i
 id="en-trigger"
-hint="trigger → detonante"
+hint="trigger → detonante, provocar"
 valid msgstr="\bdetonantes?\b"
+valid msgstr="\bprov[oó](c[aáoó]|qu[eé])"
 
 {\bunpark(ed|ing|s)?\b}i
 id="en-unpark"
@@ -629,6 +646,10 @@ valid msgstr="\bverbos[ao]s?\b"
 id="gl-almacenaxe"
 hint="almacenaxe → almacenamento"
 
+[\baspas?\b]i
+id="gl-aspas"
+hint="aspas → comiñas"
+
 [\b(micro)?blogs?\b]i
 id="gl-blog"
 hint="blog → bitácora"
@@ -636,6 +657,15 @@ hint="blog → bitácora"
 [\b(sub\s*-?\s*directorios?\b]i
 id="gl-directorio"
 hint="directorio → cartafol"
+
+[:$]
+id="gl-dous-puntos-finais"
+hint="A cadea orixinal non remata en «:»."
+valid msgid=":$"
+
+[\bempr[eé](g[aáoó]|gu[eé])]i
+id="gl-empregar"
+hint="empregar → usar"
 
 [\bespecif(?!icacións?\b)[ií](c[aáoó]|qu[eé])]i
 id="gl-especificar"
@@ -649,15 +679,22 @@ hint="grella → grade"
 id="gl-lapela"
 hint="lapela → separador"
 
-[\bm[oó]str[aáeéoó]]i
+[\bm(?!ostrarios?\b)[oó]str[aáeéoó]]i
 id="gl-mostrar"
 hint="mostrar → amosar"
+valid msgid="\bsamples?\b"
 
 [[^.:…]$]
 id="gl-punto-final"
 hint="Usa punto final."
-valid !ctx="(comment|description|option:check|q(checkbox|label)|tooltip|whatsthis)" !comment="Tag: refpurpose"
+valid comment="path: component/name"
+valid !ctx="(@info:status|comment|description|option:check|q(checkbox|label)|(tool|usage)tip|whatsthis)" !comment="(Tag: refpurpose|path: (component/summary|description/p|screenshot/caption))"
+valid ctx="tooltip|whatsthis" msgid="(\n|:.*?:)"  # Indicadores dunha lista.
 
 [\bscripts?\b]i
 id="gl-script"
 hint="script → guión"
+
+[\bseguranzas?\b]i
+id="gl-seguranza"
+hint="seguranza → seguridade"
