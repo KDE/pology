@@ -559,3 +559,36 @@ id="aaPT_esconder"
 valid msgid="\bconceal"
 valid msgid="\bescond"
 hint="«esconder» → «conceal»"
+
+#####
+# Fin das regras específicas de KDE para terminoloxía
+#####
+
+# Regras arbitrarias #--------------------------------------------------------#
+#
+# Regras alleas a acordos da comunidade que cada quen pode usar ou non segundo
+# lle pareza.
+
+{\b(micro)?blogs?\b}i
+id="en-blog"
+hint="blog → bitácora"
+valid msgstr="\b(micro)?bitácoras?\b"
+
+{\bpost(ed|ing|s)?\b}i
+id="en-post"
+hint="post → publicar, publicación"
+valid msgstr="\bpubl[ií]c[aáeéoó]"
+valid msgstr="\bpublicacións?\b"
+
+[\b(micro)?blogs?\b]i
+id="gl-blog"
+hint="blog → bitácora"
+
+[\bm[oó]str[aáeéoó]]i
+id="gl-mostrar"
+hint="mostrar → amosar"
+
+*msgctxt/(comment|description|tooltip|whatsthis)/i
+id="gl-punto-final"
+hint="Usa punto final."
+valid msgstr="\.$"
