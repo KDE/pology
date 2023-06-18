@@ -121,7 +121,7 @@ _r_shopt_rx = (re.compile(r"(^|[^\w])(--|-|/)[\w-]+", re.U), "")
 _r_tags_rx = (re.compile(r"<.*?>"), " ")
 _r_ents_rx = (re.compile(r"&[\w.:-]+;", re.U), " ")
 _r_numents_rx = (re.compile(r"&#x?\d+;"), " ")
-_r_digits_rx = (re.compile(r"\d+"), " ")
+_r_digits_rx = (re.compile(r"[\d⁰¹²³⁴⁵⁶⁷⁸⁹₀₁₂₃₄₅₆₇₈₉]+"), " ")
 
 _r_fmtd_c_rx = (re.compile(r"(?<!%)%($\d+)?[+ ]?(\d+)?\.?(\d+)?[a-z]"), "", "c")
 _r_fmtd_qt_rx = (re.compile(r"%\d+"), "", "qt")
@@ -203,4 +203,3 @@ def proper_words (text, markup=False, accels=None, format=None):
     words = [x for x in rwords if _word_ok_rx.search(x)]
 
     return words
-
