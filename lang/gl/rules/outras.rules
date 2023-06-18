@@ -574,21 +574,90 @@ id="en-blog"
 hint="blog → bitácora"
 valid msgstr="\b(micro)?bitácoras?\b"
 
+{\bcloudiness\b}i
+id="en-cloudiness"
+hint="cloudiness → nebulosidade"
+valid msgstr="\bnebulosidade\b"
+
+{\bfreezing\b}i
+id="en-freezing"
+hint="freezing → xélida"
+valid msgstr="\bxélid[ao]s?\b"
+
+{\bhex\s*editors?\b}i
+id="en-hex-editor"
+hint="hex editor → editor de binario"
+valid msgstr="\beditor(es)?\s*de\s*binario\b"
+
+{\bpark(ed|ing|s)?\b}i
+id="en-park"
+hint="park → aparcar"
+valid msgstr="\bap[aá]r(c[aáoó]|qu[eé])"
+
+{\bplasmoids?\b}i
+id="en-plasmoid"
+hint="plasmoid → trebello"
+valid msgstr="\btrebellos?\b"
+
 {\bpost(ed|ing|s)?\b}i
 id="en-post"
 hint="post → publicar, publicación"
 valid msgstr="\bpubl[ií]c[aáeéoó]"
 valid msgstr="\bpublicacións?\b"
 
+{\btimestamps?\b}i
+id="en-timestamp"
+hint="timestamp → marca de tempo"
+valid msgstr="\bmarcas?\s*de\s*tempo\b"
+
+{\btriggers?\b}i
+id="en-trigger"
+hint="trigger → detonante"
+valid msgstr="\bdetonantes?\b"
+
+{\bunpark(ed|ing|s)?\b}i
+id="en-unpark"
+hint="unpark → desaparcar"
+valid msgstr="\bdesap[aá]r(c[aáoó]|qu[eé])"
+
+{\bverbose\b}i
+id="en-verbose"
+hint="verbose → verbosa"
+valid msgstr="\bverbos[ao]s?\b"
+
+[\balmacenaxes?\b]i
+id="gl-almacenaxe"
+hint="almacenaxe → almacenamento"
+
 [\b(micro)?blogs?\b]i
 id="gl-blog"
 hint="blog → bitácora"
+
+[\b(sub\s*-?\s*directorios?\b]i
+id="gl-directorio"
+hint="directorio → cartafol"
+
+[\bespecif(?!icacións?\b)[ií](c[aáoó]|qu[eé])]i
+id="gl-especificar"
+hint="especificar → indicar"
+
+[\bgrellas?\b]i
+id="gl-grella"
+hint="grella → grade"
+
+[\blapelas?\b]i
+id="gl-lapela"
+hint="lapela → separador"
 
 [\bm[oó]str[aáeéoó]]i
 id="gl-mostrar"
 hint="mostrar → amosar"
 
-*msgctxt/(comment|description|tooltip|whatsthis)/i
+[[^.:…]$]
 id="gl-punto-final"
 hint="Usa punto final."
-valid msgstr="\.$"
+valid !ctx="(comment|description|option:check|q(checkbox|label)|tooltip|whatsthis)" !comment="Tag: refpurpose"
+
+[\bscripts?\b]i
+id="gl-script"
+hint="script → guión"
