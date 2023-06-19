@@ -662,6 +662,7 @@ valid msgid="\bnotch(es)?\b"
 valid msgid="\b(place|space)(\s*|-)holders?\b"  # marca de posición
 valid msgid="\bscars?\b"
 valid msgid="\bscor(e[ds]?|ing)\b"  # marcar [un gol]
+valid msgid="\bsets?\b"
 valid msgid="\bsettings?\b"  # marco (contexto visual)
 valid msgid="\btick(ed|ing|s)?\b"
 valid msgid="\btime(\s*|-)s(ignature|tamp)s?\b"  # marca de tempo
@@ -795,7 +796,7 @@ hint="«delete» tradúcese como «eliminar»"
 [\belim(?!inacións?\b)[ií]n[aáeéoó]]i
 id="PT-2011-dual_delete"
 valid msgid="\bclear(ed|ing|s)?\b"
-valid msgid="\bdelet(e[ds]?|ing)\b"
+valid msgid="\b(un)?delet(e[ds]?|ing)\b"
 valid msgid="\bfor\s*deletion\b"  # para eliminar
 valid msgid="\bdrop(p(ed|ing)|s)?\b"
 valid msgid="\bremov(e[ds]?|ing)\b"
