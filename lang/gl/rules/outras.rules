@@ -579,26 +579,54 @@ id="en-boarding-pass"
 hint="boarding pass → tarxeta de embarque"
 valid msgstr="\btarxetas?\s*de\s*embarque\b"
 
+{\bbuilt-in\b}i
+id="en-built-in"
+hint="built-in → de serie"
+valid msgstr="\bde\s+serie\b"
+
 {\bcloudiness\b}i
 id="en-cloudiness"
 hint="cloudiness → nebulosidade"
 valid msgstr="\bnebulosidade\b"
 
+{\bdatabases?\b}i
+id="en-database"
+hint="database → base de datos"
+valid msgstr="\bbases?\s*de\s*datos\b"
+
 {\bdisplay\s*names?\b}i
 id="en-display-name"
-hint="display name → nome visíbel"
-valid msgstr="\bnomes?\s*visíbe(l|is)\b"
+hint="display name → nome visual"
+valid msgstr="\bnomes?\s*visua(l|is)\b"
 valid msgstr="\bam[oó]s[aáeéoó]\S*\s*os?\s*nomes?\b"
+
+{\benvironments?\b}i
+id="en-environment"
+hint="environment → contorno"
+valid after="\b(familiar|welcoming)\s*"
+valid msgstr="\bcontornos?\b"
 
 {\bfreezing\b}i
 id="en-freezing"
 hint="freezing → xélida"
 valid msgstr="\bxélid[ao]s?\b"
+valid msgstr="\bconxelar\b"
+valid msgstr="\bconxelación\b"
 
 {\bhex\s*editors?\b}i
 id="en-hex-editor"
 hint="hex editor → editor de binario"
 valid msgstr="\beditor(es)?\s*de\s*binario\b"
+
+{\binternet\s*browsers?\b}i
+id="en-internet-browser"
+hint="internet browser → navegador web"
+valid msgstr="\bnavegador(es)?\s*web\b"
+
+{\bluminance\b}i
+id="en-luminance"
+hint="luminance → luminancia"
+valid msgstr="\bluminancia\b"
 
 {\bpark(ed|ing|s)?\b}i
 id="en-park"
@@ -610,27 +638,65 @@ id="en-plasmoid"
 hint="plasmoid → trebello"
 valid msgstr="\btrebellos?\b"
 
-{\bpost(ed|ing|s)?\b}i
+{\bpost(ed|ing|s)?\b(?!-)}
 id="en-post"
 hint="post → publicar, publicación"
-valid msgstr="\bpubl[ií]c[aáeéoó]"
-valid msgstr="\bpublicacións?\b"
+valid before="(?i)\s*offices?\b"
+valid msgstr="\bpost\b"
+valid msgstr="(?i)\bpubl[ií](c[aáoó]|qu[eé])"
+valid msgstr="(?i)\bpublicacións?\b"
+
+{\brequests?\b}i
+id="en-request"
+hint="request → solicitude"
+valid msgstr="\bsolicitudes?\b"
+valid msgstr="\bsolic[ií]t[aáeéoó]"
+valid after="\bat\s*your\s*" msgstr="\bno\s*seu\s*nome\b"
+valid after="\bon\s*" msgstr="\bbaixo\s*demanda\b"
+
+{\bretweet(ed|ing|s)?\b}i
+id="en-retweet"
+hint="retweet → promover"
+valid msgstr="\bprom[oó]v[aáeéiíoó]"
 
 {\bscripting\b}i
 id="en-scripting"
 hint="scripting → guionización"
 valid msgstr="\bguionización\b"
 
+{\bsets?\b(?!(\s*(as\s*default|focus)|.*?\s+(on|to|true|up))\b)}i
+id="en-set"
+hint="set → definir"
+valid after="\bcharacter\s*"
+valid after="^If\s*" before="\s*,"
+valid msgstr="\bdef[ií]n[aáeéiíoó]"
+valid msgstr="\bconxuntos?\b"  # Matemáticas
+valid msgstr="\bgrupos?\b"
+valid msgstr="\blotes?\b"
+valid msgstr="\bseries?\b"
+
+{\bstarting\s*points?\b}i
+id="en-starting-point"
+hint="starting point → punto de partida"
+valid msgstr="\bpuntos?\s*de\s*partida\b"
+
 {\btimestamps?\b}i
 id="en-timestamp"
 hint="timestamp → marca de tempo"
 valid msgstr="\bmarcas?\s*de\s*tempo\b"
 
-{\btriggers?\b}i
+{\btoggl(e[ds]?|ing)\b}i
+id="en-toggle"
+hint="toggle → conmutar"
+valid msgstr="\bconm[uú]t[aáeéoó]"
+
+{\btrigger(?!\s*warnings?\b)s?\b}i
 id="en-trigger"
-hint="trigger → detonante, provocar"
+hint="trigger → detonante, provocar, disparar"
 valid msgstr="\bdetonantes?\b"
+valid msgstr="\bdisp[aá]r[aáeéoó]"
 valid msgstr="\bprov[oó](c[aáoó]|qu[eé])"
+valid msgstr="\bl[eé]v[aáeéoó]\S*\s+(a|ás?|aos?)\b"
 
 {\bunpark(ed|ing|s)?\b}i
 id="en-unpark"
@@ -646,6 +712,10 @@ valid msgstr="\bverbos[ao]s?\b"
 id="gl-almacenaxe"
 hint="almacenaxe → almacenamento"
 
+[\b(mini)?aplicativos?\b]i
+id="gl-aplicativo"
+hint="aplicativo → aplicación"
+
 [\baspas?\b]i
 id="gl-aspas"
 hint="aspas → comiñas"
@@ -653,6 +723,18 @@ hint="aspas → comiñas"
 [\b(micro)?blogs?\b]i
 id="gl-blog"
 hint="blog → bitácora"
+
+[\bcomandos?\b]i
+id="gl-comando"
+hint="comando → orde"
+
+[\bconvites?\b]i
+id="gl-convite"
+hint="convite → invitación"
+
+[\bCPUs?\b]i
+id="gl-cpu"
+hint="CPU → procesador"
 
 [\b(sub\s*-?\s*directorios?\b]i
 id="gl-directorio"
@@ -667,7 +749,7 @@ valid msgid=":$"
 id="gl-empregar"
 hint="empregar → usar"
 
-[\bespecif(?!icacións?\b)[ií](c[aáoó]|qu[eé])]i
+[\bespecif(?!ica(cións?|mente)\b)[ií](c[aáoó]|qu[eé])]i
 id="gl-especificar"
 hint="especificar → indicar"
 
@@ -679,17 +761,34 @@ hint="grella → grade"
 id="gl-lapela"
 hint="lapela → separador"
 
-[\bm(?!ostrarios?\b)[oó]str[aáeéoó]]i
+[\bm(?!ostra(rios?|xes?)\b)[oó]str[aáeéoó]]i
 id="gl-mostrar"
 hint="mostrar → amosar"
-valid msgid="\bsamples?\b"
+valid msgid="\bsampler?s?\b"
 
-[[^.:…]$]
+[\bpedidos?\b]i
+id="gl-pedido"
+hint="pedido → solicitude"
+valid !msgid="\brequests?\b"
+
+[\bpoida\s*que\b]i
+id="gl-poida-que"
+hint="poida que → pode que"
+
+[\bprox(ys?|ies)\b]i
+id="gl-proxy"
+hint="proxy → mandatario"
+valid msgid="\bmandatarios?\b"
+
+[[^.:…!]\s*$]
 id="gl-punto-final"
 hint="Usa punto final."
 valid comment="path: component/name"
-valid !ctx="(@info:status|comment|description|option:check|q(checkbox|label)|(tool|usage)tip|whatsthis)" !comment="(Tag: refpurpose|path: (component/summary|description/p|screenshot/caption))"
+valid !ctx="(@info:status|comment|description|option:check|Q(CheckBox|Label)|(tool|usage)tip|whatsthis)" !comment="(Tag: refpurpose|path: (component/summary|description/p|screenshot/caption))"
 valid ctx="tooltip|whatsthis" msgid="(\n|:.*?:)"  # Indicadores dunha lista.
+valid ctx=","
+valid ctx="^description"  # Visto en Habitica.
+valid msgid="%\d$"
 
 [\bscripts?\b]i
 id="gl-script"
@@ -698,3 +797,7 @@ hint="script → guión"
 [\bseguranzas?\b]i
 id="gl-seguranza"
 hint="seguranza → seguridade"
+
+[\b(ser|é|son)\s*capa(z|ces)\s*de\b]i
+id="gl-ser-capaz"
+hint="ser capaz de → poder"
