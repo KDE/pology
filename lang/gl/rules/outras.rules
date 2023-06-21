@@ -569,6 +569,11 @@ hint="«esconder» → «conceal»"
 # Regras alleas a acordos da comunidade que cada quen pode usar ou non segundo
 # lle pareza.
 
+{\baddress\s*books?\b}i
+id="en-address-book"
+hint="address book → axenda de enderezos"
+valid msgstr="\baxendas?\s*de\s*enderezos\b"
+
 {\b(micro)?blogs?\b}i
 id="en-blog"
 hint="blog → bitácora"
@@ -594,6 +599,11 @@ id="en-database"
 hint="database → base de datos"
 valid msgstr="\bbases?\s*de\s*datos\b"
 
+{\bdecibels?\b}i
+id="en-decibel"
+hint="decibel → decibel (plural: decibeles)"
+valid msgstr="\bdecibel(es)?\b"
+
 {\bdisplay\s*names?\b}i
 id="en-display-name"
 hint="display name → nome visual"
@@ -613,6 +623,16 @@ valid msgstr="\bxélid[ao]s?\b"
 valid msgstr="\bconxelar\b"
 valid msgstr="\bconxelación\b"
 
+{\bgantt\b}i
+id="en-gantt"
+hint="Gantt → Gantt"
+valid msgstr="\bGantt\b"
+
+{(?i)\bgantt\s*charts?\b}
+id="en-gantt-chart"
+hint="Gantt chart → diagrama de Gantt"
+valid msgstr="\b[Dd]iagramas?\s*de\s*Gantt\b"
+
 {\bhex\s*editors?\b}i
 id="en-hex-editor"
 hint="hex editor → editor de binario"
@@ -627,6 +647,11 @@ valid msgstr="\bnavegador(es)?\s*web\b"
 id="en-luminance"
 hint="luminance → luminancia"
 valid msgstr="\bluminancia\b"
+
+{\bmenu\s*items?\b}i
+id="en-menu-item"
+hint="menu item → entrada de menú"
+valid msgstr="\bentradas?\s*de\s*menú\b"
 
 {\bpark(ed|ing|s)?\b}i
 id="en-park"
@@ -664,6 +689,11 @@ id="en-scripting"
 hint="scripting → guionización"
 valid msgstr="\bguionización\b"
 
+{\bseparators?\b}i
+id="en-separator"
+hint="separator → divisoria"
+valid msgstr="\bdivisorias?\b"
+
 {\bsets?\b(?!(\s*(as\s*default|focus)|.*?\s+(on|to|true|up))\b)}i
 id="en-set"
 hint="set → definir"
@@ -674,6 +704,11 @@ valid msgstr="\bconxuntos?\b"  # Matemáticas
 valid msgstr="\bgrupos?\b"
 valid msgstr="\blotes?\b"
 valid msgstr="\bseries?\b"
+
+{\bsplash\s*screens?\b}i
+id="en-splash-screen"
+hint="splash screen → pantalla de inicio"
+valid msgstr="\bpantallas?\s*de\s*inicio\b"
 
 {\bstarting\s*points?\b}i
 id="en-starting-point"
@@ -752,6 +787,10 @@ hint="empregar → usar"
 [\bespecif(?!ica(cións?|mente)\b)[ií](c[aáoó]|qu[eé])]i
 id="gl-especificar"
 hint="especificar → indicar"
+
+[\bgantt\b]
+id="gl-gantt"
+hint="gantt → Gantt"
 
 [\bgrellas?\b]i
 id="gl-grella"

@@ -290,10 +290,6 @@
     valid msgstr="bloque de enderezos"
     hint="address block = bloque de enderezos"
 
-    {\baddress book\b}i
-    valid msgstr="caderno de enderezos"
-    hint="address book = caderno de enderezos"
-
     {\baddress data source\b}i
     valid msgstr="fonte de datos de enderezos"
     hint="address data source = fonte de datos de enderezos"
@@ -6414,10 +6410,6 @@
     valid msgstr="gamma"
     hint="gamma = gamma"
 
-    {\bgantt chart\b}i
-    valid msgstr="gráfica de gantt"
-    hint="gantt chart = gráfica de gantt"
-
     {\bgap\b}i
     valid msgstr="intervalo"
     hint="gap = intervalo"
@@ -9029,10 +9021,6 @@
     {\bmenu contains\b}i
     valid msgstr="o menú contén"
     hint="menu contains = o menú contén"
-
-    {\bmenu item\b}i
-    valid msgstr="elemento de menú"
-    hint="menu item = elemento de menú"
 
     {\bmenubar\b}i
     valid msgstr="barra de menú"
@@ -11762,10 +11750,6 @@
     valid msgstr="eliminación"
     hint="removing = eliminación"
 
-    {\brename\b}i
-    valid msgstr="mudar o nome"
-    hint="rename = mudar o nome"
-
     {\brender\b}i
     valid msgstr="renderizar"
     hint="render = renderizar"
@@ -12794,10 +12778,6 @@
     valid msgstr="sentinela"
     hint="sentinel = sentinela"
 
-    {\bseparator\b}i
-    valid msgstr="separador"
-    hint="separator = separador"
-
     {\bseparator line\b}i
     valid msgstr="liña separadora"
     hint="separator line = liña separadora"
@@ -13713,18 +13693,6 @@
     {\bspinning\b}i
     valid msgstr="xiratorio"
     hint="spinning = xiratorio"
-
-    {\bsplash screen\b}i
-    valid msgstr="pantalla de benvida"
-    hint="splash screen = pantalla de benvida"
-
-    {\bsplash screen\b}i
-    valid msgstr="pantalla de inicio"
-    hint="splash screen = pantalla de inicio"
-
-    {\bsplash screen\b}i
-    valid msgstr="pantalla de presentación"
-    hint="splash screen = pantalla de presentación"
 
     {\bspline\b}i
     valid msgstr="spline"
