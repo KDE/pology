@@ -223,6 +223,7 @@ valid msgid="\bw\b"
 valid msgid="\b(re)?wr(it(es?|ing|ten)|ote)\b"
 valid msgid="\bcontact(ed|ing|s)?\b"  # contact at <enderezo de correo electrónico> → escribir a
 valid msgid="\breach(e[ds]|ing)?\b"  # reach at <enderezo de correo electrónico> → escribir a
+valid msgid="\bsen(d(s|ing)?|t)\b"  # send [email] → escribir [por correo electrónico]
 valid msgid="\bwriters?\b"  # persoa dedicada a escribir
 
 # invalid → incorrecto, mal construído, non é válido, non válido
@@ -427,7 +428,7 @@ valid msgstr="\barqu[ií]v[aáeéoó]"
 [\barqu(?!ivador(es)?)[ií]v[aáeéoó]]i
 id="trasno-11.0-gl-arquivar"
 hint="arquivar, arquivo ← archive"
-valid ctx="\bKeywords\b"
+validGroup keywords
 valid msgid="\barchiv(e[ds]?|ing)\b"
 valid msgid="\barchival\b"
 
@@ -464,7 +465,7 @@ hint="son ← audio, sound"
 valid after="\bnon\s*"  # «ser», p. ex. «non son de confianza»
 valid before="(\s*(como|moi)\b)?\s*\S+s"  # «ser», p. ex. «son incorrectos»
 valid before="/"  # Tipo MIME (p. ex. «audio/x-mp3»)
-valid msgid="\baudios?\b"
+valid msgid="audio"
 valid msgid="\baudiocds?\b"  # CD de son
 valid msgid="\bsounds?\b"
 valid msgid="\bsoundcards?\b"  # tarxeta de son
@@ -479,7 +480,7 @@ valid msgid="\bbeep(ed|ing|s)?\b"  # emitir un son de aviso
 [\baudio]i
 id="PT-2011-gl_audio"
 hint="audio → son"
-valid ctx="\bKeywords\b"
+validGroup keywords
 valid after="Monkey's\s*"  # APE
 valid after="Free\s*Lossless\s*"  # FLAC
 valid after="JACK\s*"  # JACK ACK
@@ -536,6 +537,7 @@ id="PT-2011_change"
 valid msgstr="\bc[aá]mbi[aáeéoó][^\W\d_]*\b"
 valid msgstr="\bchang(e[ds]?|ing)\b"
 valid msgstr="\bvolta\b"  # diñeiro en metálico
+valid before=".*?\bnames?\b"  # renomear
 hint="«change» tradúcese como «cambiar»"
 
 [\bc(?!ambi(a(dor(es)?|ntes?)|ábe(l|is))\b)[aá]mbi[aáeéoó][^\W\d_]*\b]i
@@ -555,6 +557,7 @@ valid msgid="\boverhaul(ed|ing|s)?\b"  # facer un cambio completo
 valid msgid="\brealloc(ation)?s?\b"  # cambio de asignación
 valid msgid="\brearrang(e[ds]?|ing)\b"  # cambiar de disposición
 valid msgid="\breassign(ed|ing|s)?\b"  # cambiar a asignación de [algo]
+valid msgid="\bre-?bind(ed|ing|s)?\b"  # cambiar a asignación de [algo]
 valid msgid="\b(re|trans)cod(e[ds]?|ing)\b"  # cambiar de codificación
 valid msgid="\b(re|trans)codings\b"  # cambios de codificación
 valid msgid="\breconfigur(e[ds]?|ing)\b"  # cambiar a configuración de [algo]
@@ -693,6 +696,7 @@ valid msgstr="\bl[ií]mp[aáeéoó]"
 [\bl(?!imp(a(dor(as?|es)?|mente)|ezas?))[ií]mp[aáeéoó]]i
 id="trasno-11.0-gl-limpar"
 hint="limpar ← clean"
+validGroup keywords
 valid msgid="\bclean(ed|ing|s)?\b"
 valid msgid="\bcleanup\b"  # «clean up» mal escrito
 valid msgid="\bclear(ed|ing|s)?\b"
@@ -1020,7 +1024,7 @@ hint="vacío -> baleiro"
 #evitar usar «lanzar» en favor de «iniciar» (un executábel)
 [\blanz]i
 valid !msgid="\blaunch"
-valid ctx="X-KDE-Keywords"
+validGroup keywords
 id="PT-2011-gl_lanzar"
 hint="lanzar -> iniciar"
 
@@ -2060,7 +2064,8 @@ hint="«rename» tradúcese como «renomear»"
 # «renomear» traduce a «rename»
 [\brenome[^\W\d_]+]i
 id="noPT-2011-dual_rename"
-valid msgid="\brenam(e|es|ed|ing)"
+valid msgid="\brenam(e[ds]?|ing)\b"
+valid msgid="\bchang(e[ds]?|ing)\b.*?\bnames?\b"
 hint="«renomear» traduce a «rename»"
 
 # «replace» tradúcese como «substituir»

@@ -66,16 +66,9 @@ addFilterRegex match="['\"«‘“][\w._-]+/[/\w._-]*['\"»’”]" repl="~" on=
 # Remove environment variables.
 addFilterRegex match="\$\<?[A-Z]+\>?" repl="Þ" on="pmsgid,pmsgstr"
 
-# Especial treatment for «etc.», there may be a comma before it.
-addFilterRegex match="(etc\.|\&etc\;)" repl="etcétera" on="pmsgid,pmsgstr"
-
 # Remove some abreviations.
-addFilterRegex match="\b(Ex\.|ex\.|p\.\sex\.|EUA|a\.m\.|p\.m\.|n\.t\.expr\.)" repl="~" on="pmsgid,pmsgstr"
-addFilterRegex match="\b(Sr\.|Sra\.|Dr\.|Dra\.)" repl="~" on="pmsgid,pmsgstr"
-addFilterRegex match="\b(apt\.|art\.|avda\.|av\.|cent\.|dept\.)" repl="~" on="pmsgid,pmsgstr"
-addFilterRegex match="\b(máx.|mín\.|páx\.)" repl="~" on="pmsgstr"
-addFilterRegex match="\b(pl\.|pral\.|Prof\.|P\.\s\S\.|Rep\.|R\.\sI\.P\.)" repl="~" on="pmsgid,pmsgstr"
-addFilterRegex match="\b(tel\.|trad\.|Univ\.)" repl="~" on="pmsgid,pmsgstr"
+addFilterRegex match="\bn\.t\.expr\." repl="~" on="pmsgid,pmsgstr"
+addFilterRegex match="\b(apt\.|cent\.|dept\.)" repl="~" on="pmsgid,pmsgstr"
 
 # Remove special puntuactions.
 addFilterRegex match="(\?{2,3}|\%{2,3}|\:{2,3}|\_{2,3})" repl="~" on="pmsgid,pmsgstr"
@@ -100,3 +93,11 @@ valid msgid="EMAIL OF TRANSLATORS"
 valid msgid="ROLES\_OF\_TRANSLATORS"
 valid msgid="translator-credits"
 valid srcref="\bnatural(file)?queryparser\b"
+
+# Mensaxes, xeralmente listas de palabras clave, nas que o obxectivo é listar
+# todas as formas posíbeis de referirse a un concepto, e polo tanto as regras
+# de normalización non teñen sentido.
+validGroup keywords
+valid ctx="^(X-KDE-)?Keywords$"
+valid comment="ctx:([^,]+,)*\s*keywords\s*(,|$)"
+valid srcref="\.rst:1$"

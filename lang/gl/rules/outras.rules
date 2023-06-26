@@ -579,6 +579,11 @@ id="en-blog"
 hint="blog → bitácora"
 valid msgstr="\b(micro)?bitácoras?\b"
 
+{\bbackends?\b}i
+id="en-backend"
+hint="backend → motor"
+valid msgstr="\bmotor(es)?\b"
+
 {\bboarding\s*pass(es)?\b}i
 id="en-boarding-pass"
 hint="boarding pass → tarxeta de embarque"
@@ -594,6 +599,17 @@ id="en-cloudiness"
 hint="cloudiness → nebulosidade"
 valid msgstr="\bnebulosidade\b"
 
+{\bcollaps(e[ds]?|ing)\b}i
+id="en-collapse"
+hint="collapse → recoller"
+valid msgstr="\brec[oó]ll[aáeéiíoó]"
+valid msgstr="\bcol[aá]ps[aáeéoó]"
+
+{\bCPUs?\b}i
+id="en-cpu"
+hint="CPU → procesador"
+valid msgstr="\bprocesador(es)?\b"
+
 {\bdatabases?\b}i
 id="en-database"
 hint="database → base de datos"
@@ -604,17 +620,43 @@ id="en-decibel"
 hint="decibel → decibel (plural: decibeles)"
 valid msgstr="\bdecibel(es)?\b"
 
+{\bdirectory\s*servers?\b}i
+id="en-directory-server"
+hint="directory server → servidor de nomes"
+valid msgstr="\bservidor(es)?\s*de\s*nomes\b"
+
+{\bdirectory\s*services?\b}i
+id="en-directory-service"
+hint="directory service → servizo de nomes"
+valid after="\bpodcast\s*"
+valid msgstr="\bservizos?\s*de\s*nomes\b"
+
 {\bdisplay\s*names?\b}i
 id="en-display-name"
 hint="display name → nome visual"
 valid msgstr="\bnomes?\s*visua(l|is)\b"
 valid msgstr="\bam[oó]s[aáeéoó]\S*\s*os?\s*nomes?\b"
 
+{\bemojis?\b}i
+id="en-emoji"
+hint="emoji → expresión"
+valid msgstr="\bexpresións?\b"
+
 {\benvironments?\b}i
 id="en-environment"
 hint="environment → contorno"
 valid after="\b(familiar|welcoming)\s*"
 valid msgstr="\bcontornos?\b"
+valid msgstr="\bmedioambienta(l|is)\b"
+
+{\bexpand(ed|ing|s)?\b}i
+id="en-expand"
+hint="expand → expandir"
+valid msgstr="\bexpand(ed|ing|s)?\b"
+valid msgstr="\bexp[aá]nd[aáeéiíoó]"
+valid msgstr="\bexpansións?\b"
+valid msgstr="\baum[eé]nt[aáeéoó]"
+valid msgstr="\bsubstit[uú][aáeéiíoó]"
 
 {\bfreezing\b}i
 id="en-freezing"
@@ -632,6 +674,12 @@ valid msgstr="\bGantt\b"
 id="en-gantt-chart"
 hint="Gantt chart → diagrama de Gantt"
 valid msgstr="\b[Dd]iagramas?\s*de\s*Gantt\b"
+
+{\bhackers?\b}i
+id="en-hacker"
+hint="hacker → [persoa] intrusa, [equipo de] intrusión"
+valid msgstr="\bintrusas?\b"
+valid msgstr="\bintrusións?\b"
 
 {\bhex\s*editors?\b}i
 id="en-hex-editor"
@@ -653,23 +701,45 @@ id="en-menu-item"
 hint="menu item → entrada de menú"
 valid msgstr="\bentradas?\s*de\s*menú\b"
 
+{\blight\s*tables?\b}i
+id="en-light-table"
+hint="light table → mesa de luz"
+valid msgstr="\bmesas?\s*de\s*luz\b"
+
+{\boverrid(es?|den|ing)?\b}i
+id="en-override"
+hint="override → sobredefinir"
+valid msgstr="\bsobredef[ií]n[aáeéiíoó]"
+
 {\bpark(ed|ing|s)?\b}i
 id="en-park"
 hint="park → aparcar"
 valid msgstr="\bap[aá]r(c[aáoó]|qu[eé])"
+
+{\bpipes?\b}i
+id="en-pipe"
+hint="pipe → cano"
+valid msgstr="\bcanos?\b"
+valid msgstr="\bcanal(?!izacións?\b)[ií]z[aáeéoó]"
+
+{\bpipings?\b}i
+id="en-piping"
+hint="piping → canalización"
+valid msgstr="\bcanalizacións?\b"
 
 {\bplasmoids?\b}i
 id="en-plasmoid"
 hint="plasmoid → trebello"
 valid msgstr="\btrebellos?\b"
 
-{\bpost(ed|ing|s)?\b(?!-)}
+{\bpost(ed|ing|s)?\b(?!-)}i
 id="en-post"
 hint="post → publicar, publicación"
-valid before="(?i)\s*offices?\b"
+valid before="\s*offices?\b"
+valid before="\s*process"
 valid msgstr="\bpost\b"
-valid msgstr="(?i)\bpubl[ií](c[aáoó]|qu[eé])"
-valid msgstr="(?i)\bpublicacións?\b"
+valid msgstr="\bpubl[ií](c[aáoó]|qu[eé])"
+valid msgstr="\bpublicacións?\b"
 
 {\brequests?\b}i
 id="en-request"
@@ -692,6 +762,7 @@ valid msgstr="\bguionización\b"
 {\bseparators?\b}i
 id="en-separator"
 hint="separator → divisoria"
+valid after="\bthousands?\s*"
 valid msgstr="\bdivisorias?\b"
 
 {\bsets?\b(?!(\s*(as\s*default|focus)|.*?\s+(on|to|true|up))\b)}i
@@ -704,6 +775,17 @@ valid msgstr="\bconxuntos?\b"  # Matemáticas
 valid msgstr="\bgrupos?\b"
 valid msgstr="\blotes?\b"
 valid msgstr="\bseries?\b"
+
+{\bsliders?\b}i
+id="en-slider"
+hint="slider→ control esvaradío"
+valid msgstr="\bcontrol\s*esvaradío\b"
+valid msgstr="\bcontrois\s*esvaradíos\b"
+
+{\bsockets?\b}i
+id="en-socket"
+hint="socket → toma"
+valid msgstr="\btomas?\b"
 
 {\bsplash\s*screens?\b}i
 id="en-splash-screen"
@@ -724,14 +806,16 @@ valid msgstr="\bmarcas?\s*de\s*tempo\b"
 id="en-toggle"
 hint="toggle → conmutar"
 valid msgstr="\bconm[uú]t[aáeéoó]"
+valid msgstr="\btoggl(e[ds]?|ing)\b"
 
 {\btrigger(?!\s*warnings?\b)s?\b}i
 id="en-trigger"
-hint="trigger → detonante, provocar, disparar"
+hint="trigger → detonante, provocar, disparar, activar"
 valid msgstr="\bdetonantes?\b"
 valid msgstr="\bdisp[aá]r[aáeéoó]"
 valid msgstr="\bprov[oó](c[aáoó]|qu[eé])"
 valid msgstr="\bl[eé]v[aáeéoó]\S*\s+(a|ás?|aos?)\b"
+valid msgstr="\bact[ií]v[aáeéoó]"
 
 {\bunpark(ed|ing|s)?\b}i
 id="en-unpark"
@@ -743,6 +827,21 @@ id="en-verbose"
 hint="verbose → verbosa"
 valid msgstr="\bverbos[ao]s?\b"
 
+{\bwall\s*-?\s*papers?\b}i
+id="en-wallpaper"
+hint="wallpaper → fondo"
+valid msgstr="\bfondos?\b(?!\s*de\s*(escritorio|pantalla)\b)"
+valid msgstr="\bwall\s*-?\s*papers?\b"
+
+{\bworkarounds?\b}i
+id="en-workaround"
+hint="workaround → apaño"
+valid msgstr="\bapaños?\b"
+
+[\badministrador(es)?\b]i
+id="gl-administrador"
+hint="administrador → [persoa] administradora, [equipo de] administración"
+
 [\balmacenaxes?\b]i
 id="gl-almacenaxe"
 hint="almacenaxe → almacenamento"
@@ -750,14 +849,23 @@ hint="almacenaxe → almacenamento"
 [\b(mini)?aplicativos?\b]i
 id="gl-aplicativo"
 hint="aplicativo → aplicación"
+validGroup keywords
 
 [\baspas?\b]i
 id="gl-aspas"
 hint="aspas → comiñas"
 
+[\bautor(es)?\b]i
+id="gl-autor"
+hint="autor → [persoa] autora, autoría"
+
 [\b(micro)?blogs?\b]i
 id="gl-blog"
 hint="blog → bitácora"
+
+[(?<!\.)\bcom\b]i
+id="gl-com"
+hint="com → con"
 
 [\bcomandos?\b]i
 id="gl-comando"
@@ -771,7 +879,20 @@ hint="convite → invitación"
 id="gl-cpu"
 hint="CPU → procesador"
 
-[\b(sub\s*-?\s*directorios?\b]i
+[\bdesenvolvedor(es)?\b]i
+id="gl-desenvolvedor"
+hint="desenvolvedor → [persoa] desenvolvedora, [equipo de] desenvolvemento"
+
+[\bdes(?!exos\b)[eé]x[aáeéoó]]i
+id="gl-desexar"
+hint="desexar → querer"
+valid before="\w*\s*boa\s*sorte\b"
+valid msgstr="\bnon\s*desexad[ao]s?\b"
+valid after="\bestamos\s*" msgid="\bcan([’']t|not)\s*wait\b"
+valid msgid="\bdesir(e[ds]?|ing)\b"
+valid msgid="\bwishes\b"
+
+[\b(sub\s*-?\s*)?directorios?\b]i
 id="gl-directorio"
 hint="directorio → cartafol"
 
@@ -788,22 +909,62 @@ hint="empregar → usar"
 id="gl-especificar"
 hint="especificar → indicar"
 
+[\bexp[ií]r[aáeéoó]]i
+id="gl-expirar"
+hint="expirar → caducar, rematar"
+validGroup keywords
+valid msgid="\bbreath(ed|ing|s)?\s*out\b"
+
 [\bgantt\b]
 id="gl-gantt"
 hint="gantt → Gantt"
+
+[\bGPUs?\b]i
+id="gl-gpu"
+hint="GPU → procesador gráfico"
 
 [\bgrellas?\b]i
 id="gl-grella"
 hint="grella → grade"
 
+[\s-\s]i
+id="gl-guión"
+hint="«-» → «—» (o guión curto só se usa para unir palabras, sen espazos arredor)"
+
+[\bintimidades?\b]i
+id="gl-intimidade"
+hint="intimidade → privacidade"
+valid msgid="\bprivacidades?\b"
+
 [\blapelas?\b]i
 id="gl-lapela"
 hint="lapela → separador"
+
+[\bmantedor(es)?\b]i
+id="gl-mantedor"
+hint="mantedor → [persoa] mantedora, mantemento"
+
+[\bmensaxerías?\b]i
+id="gl-mensaxería"
+hint="mensaxería → mensaxaría"
+
+[\b[Mm]ime\b]
+id="gl-mime"
+hint="mime → MIME"
+valid msgid="\bMIME\b"
 
 [\bm(?!ostra(rios?|xes?)\b)[oó]str[aáeéoó]]i
 id="gl-mostrar"
 hint="mostrar → amosar"
 valid msgid="\bsampler?s?\b"
+
+[\b[dn]?[ao]s?\s*(Kopete)\b]i
+id="gl-nome-programa"
+hint="Non usar artigo cos nomes de programa."
+
+[\bp\.ex\.]i
+id="gl-p-ex"
+hint="p.ex. → p. ex."
 
 [\bpedidos?\b]i
 id="gl-pedido"
@@ -814,19 +975,29 @@ valid !msgid="\brequests?\b"
 id="gl-poida-que"
 hint="poida que → pode que"
 
+[\bpor\s*favor\b]i
+id="gl-por-favor"
+hint="Evite «por favor»"
+
+[\bpr[oó]v[aáeéoó]]i
+id="gl-provar"
+hint="provar → probar"
+
+[\bprogramador(es)?\b]i
+id="gl-programador"
+hint="programador → [persoa] programadora, [equipo de] programación"
+
 [\bprox(ys?|ies)\b]i
 id="gl-proxy"
 hint="proxy → mandatario"
 valid msgid="\bmandatarios?\b"
 
-[[^.:…!]\s*$]
+[[^.:…!?\s](\s|\n)*$]
 id="gl-punto-final"
 hint="Usa punto final."
 valid comment="path: component/name"
-valid !ctx="(@info:status|comment|description|option:check|Q(CheckBox|Label)|(tool|usage)tip|whatsthis)" !comment="(Tag: refpurpose|path: (component/summary|description/p|screenshot/caption))"
-valid ctx="tooltip|whatsthis" msgid="(\n|:.*?:)"  # Indicadores dunha lista.
-valid ctx=","
-valid ctx="^description"  # Visto en Habitica.
+valid !ctx="(?i)(@info:status|option:(check|radio)|Q(CheckBox|Label)|(tool|usage)tip|whatsthis)" !ctx="^(Comment|Description)$" !comment="(Tag: refpurpose|path: (component/summary|description/p|screenshot/caption)|QCheckBox|toolTip)"
+valid ctx="tooltip|whatsthis" msgid=":.*?:"  # Indicadores dunha lista.
 valid msgid="%\d$"
 
 [\bscripts?\b]i
@@ -840,3 +1011,15 @@ hint="seguranza → seguridade"
 [\b(ser|é|son)\s*capa(z|ces)\s*de\b]i
 id="gl-ser-capaz"
 hint="ser capaz de → poder"
+
+[\b(ser|é|son)\s*necesario\s*\w*[aei]r\b]i
+id="gl-ser-necesario"
+hint="ser necesario [infinitivo] → haber que [infinitivo]"
+
+[\busuarios?\b]i
+id="gl-usuario"
+hint="usuario → [persoa] usuaria, uso"
+
+[\butilizacións?\b]i
+id="gl-utilización"
+hint="utilización → uso"
