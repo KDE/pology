@@ -1328,7 +1328,7 @@ class Rule(object):
             elif bkey == "srcref":
                 match = False
                 for file, lno in msg.source:
-                    if value.search(file):
+                    if value.search(f"{file}:{lno}"):
                         match = True
                         break
                 if invert: match = not match
