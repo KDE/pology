@@ -1,12 +1,22 @@
 set(files
+    abbreviations.rules
+    acronyms.rules
     barbarism.rules
     common-mistakes.rules
+    date-format.rules
+    diacritical_accent.rules
     doc-entities.rules
     false-friends.rules
     filter.include
+    gender-neutralization.rules
     html-tag.rules
+    iso_4217.rules
+    iso_639.rules
     kde-ca-team.rules
     keys.rules
+    punctuation.rules
+    restructuredtext.rules
+    terminology-sc.rules
     typography.rules
 )
 get_current_source_subdir(srcsubdir)
