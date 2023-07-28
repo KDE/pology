@@ -6,7 +6,8 @@
 # License: GPLv3
 #
 # Keep this file alphabetically sorted by source regular expression
-
+#
+# Author: Jordi Mas <jmas@softcatala.org>, 2015-2019
 
 # Remove XML entities.
 include file="filter.include"
@@ -23,6 +24,11 @@ hint="«Backslash» es tradueix per «barra inversa»."
 id="t-sc-blog"
 valid msgstr="blog"
 hint="«Blog» es tradueix per «blog»."
+
+{\bbox\b}i
+id="t-sc-box"
+valid !msgstr="capsa"
+hint="«Box» no es tradueix per «capsa», ja que es refereix a un receptacle de tres dimensions. Suggerim «caixa» quan es refereix a quadre, requadre o rectangle (dues dimensions)."
 
 {^cancel$}i
 id="t-sc-cancel"
@@ -44,6 +50,11 @@ id="t-sc-command-line"
 valid msgstr="línia d'ordres"
 hint="«Command line» es tradueix per «línia d'ordres»."
 
+{^copy$}i
+id="t-sc-copy"
+valid msgstr="Copia"
+hint="«Copy» es tradueix per «Copia» quan és una acció, habitualment a menús i botons."
+
 {^cut$}i
 id="t-sc-cut"
 valid msgstr="Retalla"
@@ -59,6 +70,11 @@ id="t-sc-edit"
 valid msgstr="Edita"
 hint="«Edit» es tradueix per «edita» quan és una acció, habitualment a menús i botons."
 
+{\b(en|unen|de)crypt.*?}i
+id="t-sc-encrypt"
+valid !msgstr="encript.*?"
+hint="La preferència terminològica és traduir «encrypt/encryption/unencrypt/unencryption» per «xifrar/xifratge/desxifrar/desxifratge» (és el terme que s'ha usat històricament)."
+
 {^exit$}i
 id="t-sc-exit"
 valid msgstr="Surt"
@@ -70,6 +86,11 @@ id="t-sc-firewall"
 valid !msgstr="tallafocs"
 hint="«firewall» es tradueix per «tallafoc», en singular."
 
+{\bhyperlink(s)?\b}i
+id="t-sc-hyperlink"
+valid !msgstr="hiperenlla(ç|ços)"
+hint="«Hiperenllaç» ha caigut en desús. Cal usar simplement «enllaç»."
+
 {^help$}i
 id="t-sc-help"
 valid msgstr="Ajuda"
@@ -80,15 +101,52 @@ id="t-sc-linespacing"
 valid msgstr="interlineat"
 hint="«interlineat» és la forma acceptada pel TERMCAT."
 
+{\blistbox\b}i
+id="t-sc-listbox"
+valid msgstr="quadre de llista"
+hint="«Listbox» es tradueix per «quadre de llista»."
+
 {\bmonitor.*\b}i
 id="t-sc-monitor"
-valid !msgstr="monitoritzar"
+valid !msgstr="monitoritz"
 hint="«Monitoritzar» no existeix com a verb."
+
+{^New (\w+)[:]?$}i
+id="t-sc-new"
+valid !msgstr="^(nou|nova|noves|nous).*$"
+valid msgstr="Nou Hampshire"
+valid msgstr="Nou Mèxic"
+valid msgstr="nou moscada"
+valid msgstr="nou realisme"
+valid msgstr="Nou Testament"
+valid msgstr="nou vòmica"
+valid msgstr="Nous Territoris"
+valid msgstr="Nova Amsterdam"
+valid msgstr="Nova Anglaterra"
+valid msgstr="Nova Brunsvic"
+valid msgstr="Nova Caledònia"
+valid msgstr="Nova Califòrnia"
+valid msgstr="Nova Delhi"
+valid msgstr="nova economia"
+valid msgstr="nova empresa"
+valid msgstr="Nova Espanya"
+valid msgstr="Nova Gal·les del Sud"
+valid msgstr="Nova Guinea"
+valid msgstr="Nova Irlanda"
+valid msgstr="Nova Jersey"
+valid msgstr="Nova Orleans"
+valid msgstr="Nova York"
+valid msgstr="Nova Zelanda"
+valid msgstr="Noves Hèbrides"
+valid msgstr="noves tecnologies"
+valid msgstr="Nova versió"
+hint="En català el substantiu va després del nom, llavors diem «Carpeta nova» en comptes de «Nova carpeta»."
 
 {^ok$}i
 id="t-sc-ok"
 valid msgstr="D'acord"
 valid msgstr="Acceptable"
+valid msgstr="Correcte"
 hint="«Ok» es tradueix per «d'acord» quan és una acció, habitualment a menús i botons."
 
 {^paste$}i
@@ -101,15 +159,15 @@ id="t-sc-path"
 valid !msgstr="ruta"
 hint="«Path» es tradueix per «camí», no pas per «ruta»."
 
-{\bpause.*\b}i
+{\bpaus.*\b}i
 id="t-sc-pause"
 valid !msgstr="pausar"
-hint="«Pausar» no existeix com a verb."
+hint="«Pausar» no existeix com a verb. Es tradueix per «posar en pausa», «fer una pausa»"
 
 {\bperceptual\b}i
 id="t-sc-perceptual"
 valid !msgstr="Perceptual"
-hint="«Perceptual» és un aglicisme, cal usar «perceptiu»."
+hint="«Perceptual» és un anglicisme, cal usar «perceptiu»."
 
 {\bplot.*\b}i
 id="t-sc-plot"
@@ -142,13 +200,19 @@ hint="«Save» es tradueix per «desa» quan és una acció, habitualment a men�
 {\bsandbox\b}i
 id="t-sc-sandbox"
 valid msgstr="entorn de proves"
-hint="«Sandbox» ho traduïm com a «entorn de proves»."
+valid msgstr="espai aïllat"
+hint="«Sandbox» ho traduïm com a «entorn de proves» o «espai aïllat» segons el context."
 
 {^save as$}i
 id="t-sc-save-as"
 valid msgstr="anomena i desa"
 valid msgstr="desa com a" # Acceptat pel Termcat
 hint="«Save as» es tradueix per «anomena i desa» quan és una acció, habitualment a menús i botons."
+
+{\bsheet(s)?\b}i
+id="t-sc-sheet"
+valid !msgstr="fulla|fulles"
+hint="«fulla» en femení fa referència a una part d'una planta. Cal usar «full» que es fa referència a un tros de paper rectangular."
 
 {^undo$}i
 id="t-sc-undo"
