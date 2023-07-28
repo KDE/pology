@@ -72,6 +72,7 @@ hint="«Edit» es tradueix per «edita» quan és una acció, habitualment a men
 
 {\b(en|unen|de)crypt.*?}i
 id="t-sc-encrypt"
+valid !env="KDE"
 valid !msgstr="encript.*?"
 hint="La preferència terminològica és traduir «encrypt/encryption/unencrypt/unencryption» per «xifrar/xifratge/desxifrar/desxifratge» (és el terme que s'ha usat històricament)."
 
