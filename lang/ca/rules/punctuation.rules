@@ -53,3 +53,24 @@ id="punctuation-accent-quotes"
 valid msgstr='.*?(=`.*?`).*?' #Used to skip when it's assigned in xml/html
 valid msgstr=".*?(«.*?»).*?"
 hint='En català usem cometes baixes («») en comptes de cometes (``) per encloure expressions (punctuation)'
+
+# Negative reg exp /^((?!REGULAR_EXPRESSION_HERE).)*$/
+{^((?!(([:])( )*$)).)*$}
+id="punctuation-colon-no"
+valid msgstr="[^:]$"
+hint="Si el missatge original no acaba en dos punts, la traducció tampoc hauria de fer-ho (punctuation)"
+
+{^((?!(([\.…!])( )*$)).)*$}
+id="punctuation-period-no"
+valid msgstr="[^\.]$"
+hint="Si el missatge original no acaba en punt, la traducció tampoc hauria de fer-ho (punctuation)"
+
+{[^ ]$}
+id="punctuation-space-end-no"
+valid msgstr="[^ ]$"
+hint="Si el missatge original no acaba en espai, la traducció tampoc hauria de fer-ho (punctuation)"
+
+{^ .*}
+id="punctuation-space-start-no"
+valid msgstr="^ .*"
+hint="Si el missatge original comença en espai però la traducció no (punctuation)"
