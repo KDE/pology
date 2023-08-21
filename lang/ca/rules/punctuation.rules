@@ -12,7 +12,7 @@ valid msgstr="\:\s*$"
 hint="Si el missatge origen acaba amb dos punts, el missatge destí també hauria (punctuation)"
 
 # If the source message ends with a period, the target message must end with a period.
-{\.\s*$}i
+{[^\.]\.\s*$}i
 id="punctuation-period"
 valid msgstr="\.\s*$"
 valid msgstr="\&(BDR|etc|kde|kimagemapeditor);$"
