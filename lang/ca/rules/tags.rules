@@ -1,0 +1,188 @@
+#
+# HTML, XML rules for Catalan translations
+# License: GPLv3
+#
+# Author: Jordi Mas <jmas@softcatala.org>, 2017, 2019
+#
+# Detects HTML, XML tags commonly used in strings that are not present
+# potentially showing break texts or not an accurate representation
+#
+# When developing these rules I optimized for providing as few false positives
+# as possible. This is why we do exact string matching.
+
+
+### Standard HTML tags used also in many XML documents 
+
+{<title>}
+id="tags-title"
+valid msgstr="<title>"
+hint="Falta l'etiqueta <title>"
+
+{<\/title>}
+id="tags-title-close"
+valid msgstr="</title>"
+hint="Falta l'etiqueta </title>"
+
+{<bold>}
+id="tags-bold"
+valid msgstr="<bold>"
+hint="Falta l'etiqueta <bold>"
+
+{<\/bold>}
+id="tags-bold-close"
+valid msgstr="</bold>"
+hint="Falta l'etiqueta </bold>"
+
+{<b>}
+id="tags-b"
+valid msgstr="<b>"
+hint="Falta l'etiqueta <b>"
+
+{<\/b>}
+id="tags-b-close"
+valid msgstr="<\/b>"
+hint="Falta l'etiqueta </b>"
+
+{<italic>}
+id="tags-italic"
+valid msgstr="<italic>"
+hint="Falta l'etiqueta <italic>"
+
+{<\/italic>}
+id="tags-italic-close"
+valid msgstr="</italic>"
+hint="Falta l'etiqueta </italic>"
+
+{<i>}
+id="tags-i"
+valid msgstr="<i>"
+hint="Falta l'etiqueta <i>"
+
+{<\/i>}
+id="tags-i-close"
+valid msgstr="<\/i>"
+hint="Falta l'etiqueta </i>"
+
+{<em>}
+id="tags-em"
+valid msgstr="<em>"
+hint="Falta l'etiqueta <em>"
+
+{<\/em>}
+id="tags-em-close"
+valid msgstr="</em>"
+hint="Falta l'etiqueta </em>"
+
+{<li>}
+id="tags-li"
+valid msgstr="<li>"
+hint="Falta l'etiqueta <li>"
+
+### http://projectmallard.org/1.1/ tags used extensively in GNOME documentation
+
+{<app>}
+id="tags-app"
+valid msgstr="<app>"
+hint="Falta l'etiqueta <app>"
+
+{<\/app>}
+id="tags-app-close"
+valid msgstr="</app>"
+hint="Falta l'etiqueta </app>"
+
+{<cmd>}
+id="tags-cmd"
+valid msgstr="<cmd>"
+hint="Falta l'etiqueta <cmd>"
+
+{<\/cmd>}
+id="tags-cmd-close"
+valid msgstr="</cmd>"
+hint="Falta l'etiqueta </cmd>"
+
+{<link}
+id="tags-link"
+valid msgstr="<link"
+hint="Falta l'etiqueta <link"
+
+{<\/link}
+id="tags-link-close"
+valid msgstr="</link"
+hint="Falta l'etiqueta </link"
+
+{<gui>}
+id="tags-gui"
+valid msgstr="<gui>"
+hint="Falta l'etiqueta <gui>"
+
+{<\/gui>}
+id="tags-gui-close"
+valid msgstr="</gui>"
+hint="Falta l'etiqueta </gui>"
+
+{<guiseq>}
+id="tags-guiseq"
+valid msgstr="<guiseq>"
+hint="Falta l'etiqueta <guiseq>"
+
+{<\/guiseq>}
+id="tags-guiseq-close"
+valid msgstr="</guiseq>"
+hint="Falta l'etiqueta </guiseq>"
+
+{<keyseq>}
+id="tags-keyseq"
+valid msgstr="<keyseq>"
+hint="Falta l'etiqueta <keyseq>"
+
+{<\/keyseq>}
+id="tags-keyseq-close"
+valid msgstr="</keyseq>"
+hint="Falta l'etiqueta </keyseq>"
+
+{<key>}
+id="tags-key"
+valid msgstr="<key>"
+hint="Falta l'etiqueta <key>"
+
+{<\/key>}
+id="tags-key-close"
+valid msgstr="</key>"
+hint="Falta l'etiqueta </key>"
+
+### DocBook 5.0 tags
+
+{<quote>}
+id="tags-quote"
+valid !env="KDE"
+valid msgstr="<quote>"
+hint="Falta l'etiqueta <quote>"
+
+{<\/quote>}
+id="tags-quote-close"
+valid !env="KDE"
+valid msgstr="</quote>"
+hint="Falta l'etiqueta </quote>"
+
+#"<placeholder-1/>"
+{<*.-[0-9]/>}
+id="tags-placeholders"
+valid msgstr="<*.-[0-9]/>"
+hint="Falta una etiqueta."
+
+### Spaces & tags
+
+{[ ]<[a-z|0-9|_-]*[^/?]>}i
+id="tags-spaces-start"
+valid msgstr="(\.|,|;|>|\+)<[a-z|0-9|_-]*[^/?]>"  # OK after punctuation marks
+valid !msgstr="[a-z]<[a-z|0-9|_-]*[^/?]>"
+hint="Falta un espai abans d'una etiqueta el que fa que el text i l'etiqueta es mostrin com una única paraula."
+
+{</[a-z|0-9|_-]*>[ ]}i
+id="tags-spaces-end"
+valid msgstr="<[a-z|0-9|_-]*[^/?]>(\.|,|;|:|<|\+)" # OK before punctuation marks
+valid msgstr="</bcode>" # Line-breaking body of code, for short listings (https://techbase.kde.org/Development/Tutorials/Localization/i18n_Semantics)
+valid msgstr="</h[0-9]>" # OK before html headers
+valid msgstr="</p>" # OK before html tag for paragrph
+valid !msgstr="</[a-z|0-9|_-]*>[a-z]"
+hint="Falta un espai després d'una etiqueta el que fa que el text i l'etiqueta es mostrin com una única paraula."
