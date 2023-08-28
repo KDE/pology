@@ -574,25 +574,60 @@ id="en-address-book"
 hint="address book → axenda de enderezos"
 valid msgstr="\baxendas?\s*de\s*enderezos\b"
 
-{\b(micro)?blogs?\b}i
-id="en-blog"
-hint="blog → bitácora"
-valid msgstr="\b(micro)?bitácoras?\b"
+{\balternates?\b}i
+id="en-alternate"
+hint="alternate → alternar, outra, por quendas, variante"
+valid msgstr="\balt[eé]rn[aáeéoó]"
+valid msgstr="\boutr[ao]s?\b"
+valid msgstr="\bpor\s*quendas\b"
+valid msgstr="\bvariantes?\b"
+
+{\bartifacts?\b}i
+id="en-artifact"
+hint="artifact → artefacto, defecto [visual]"
+valid msgstr="\bartefactos?\b"
+valid msgstr="\bdefectos?\b"
 
 {\bbackends?\b}i
 id="en-backend"
 hint="backend → motor"
 valid msgstr="\bmotor(es)?\b"
 
+{\b(micro)?blogs?\b}i
+id="en-blog"
+hint="blog → bitácora"
+valid msgstr="\b(micro)?bitácoras?\b"
+
 {\bboarding\s*pass(es)?\b}i
 id="en-boarding-pass"
 hint="boarding pass → tarxeta de embarque"
 valid msgstr="\btarxetas?\s*de\s*embarque\b"
 
+{\bboot\s*splash\s*screens?\b}i
+id="en-boot-splash-screen"
+hint="boot splash screen → pantalla de arranque"
+valid msgstr="\bpantallas?\s*de\s*arranque\b"
+
+{\bbranch(es)?\b}i
+id="en-branch"
+hint="branch → rama"
+valid msgstr="\bramas?\b"
+
 {\bbuilt-in\b}i
 id="en-built-in"
-hint="built-in → de serie"
-valid msgstr="\bde\s+serie\b"
+hint="built-in → incluída"
+valid msgstr="\bincl[uú][aáeéiíoó]"
+
+{\bchat(t(ed|ing)|s)?\b}i
+id="en-chat"
+hint="chat → charla, charlar"
+valid msgstr="\bch[aá]rl[aáeéoó]"
+
+{\bclear(ed|ing|s)?\b}i
+id="en-clear"
+hint="clear → baleirar"
+valid msgstr="\bbal[eé]ir[aáeéoó]"
+valid after="\bma(de|k(es?|ing))\b.*" msgstr="\bd[eé]ix[aáeéoó]\S*?\s*claro\b"  # make clear → deixar claro
 
 {\bcloudiness\b}i
 id="en-cloudiness"
@@ -604,6 +639,12 @@ id="en-collapse"
 hint="collapse → recoller"
 valid msgstr="\brec[oó]ll[aáeéiíoó]"
 valid msgstr="\bcol[aá]ps[aáeéoó]"
+
+{\bcore\s*developers?\b}i
+id="en-core-developer"
+hint="core developer → [persoa] desenvolvedora principal, [equipo de] desenvolvemento principal"
+valid msgstr="\bdesenvolvedoras?\s*principa(l|is)\b"
+valid msgstr="\bdesenvolvementos?\s*principa(l|is)\b"
 
 {\bCPUs?\b}i
 id="en-cpu"
@@ -691,6 +732,16 @@ id="en-internet-browser"
 hint="internet browser → navegador web"
 valid msgstr="\bnavegador(es)?\s*web\b"
 
+{\bissuers?\b}i
+id="en-issuer"
+hint="issuer → expedidor"
+valid msgstr="\bexpedidor(es)?\b"
+
+{\blooks?[\s-]*and[\s-]*feels?\b}i
+id="en-look-and-feel"
+hint="look and feel → xeito"
+valid msgstr="\bxeitos?\b"
+
 {\bluminance\b}i
 id="en-luminance"
 hint="luminance → luminancia"
@@ -732,6 +783,18 @@ id="en-plasmoid"
 hint="plasmoid → trebello"
 valid msgstr="\btrebellos?\b"
 
+{\bpopups?\b}i
+id="en-popup"
+hint="popup → xanela emerxente"
+valid after="\bpreview\s*"
+valid before="\s*menus?\b"
+valid msgstr="\bxanelas?\s*emerxentes?\b"
+
+{\bpopup\s*menus?\b}i
+id="en-popup-menu"
+hint="popup menu → menú emerxente"
+valid msgstr="\bmenús?\s*emerxentes?\b"
+
 {\bpost(ed|ing|s)?\b(?!-)}i
 id="en-post"
 hint="post → publicar, publicación"
@@ -740,6 +803,11 @@ valid before="\s*process"
 valid msgstr="\bpost\b"
 valid msgstr="\bpubl[ií](c[aáoó]|qu[eé])"
 valid msgstr="\bpublicacións?\b"
+
+{\bprivacy\s*polic(y|ies)\b}i
+id="en-privacy-policy"
+hint="privacy policy → directiva de privacidade"
+valid msgstr="\bdirectivas?\s*de\s*privacidade\b"
 
 {\brequests?\b}i
 id="en-request"
@@ -765,22 +833,35 @@ hint="separator → divisoria"
 valid after="\bthousands?\s*"
 valid msgstr="\bdivisorias?\b"
 
-{\bsets?\b(?!(\s*(as\s*default|focus)|.*?\s+(on|to|true|up))\b)}i
+{\bsets?\b(?!(\s*(as\s*default|focus|phrase)|.*?\s+(on|to|true|up)|-up)\b)}i
 id="en-set"
 hint="set → definir"
 valid after="\bcharacter\s*"
 valid after="^If\s*" before="\s*,"
+valid before="\s*as\s*wallpaper"  # usar de fondo
+valid msgstr="\bsets?\b"
 valid msgstr="\bdef[ií]n[aáeéiíoó]"
 valid msgstr="\bconxuntos?\b"  # Matemáticas
 valid msgstr="\bgrupos?\b"
 valid msgstr="\blotes?\b"
 valid msgstr="\bseries?\b"
+valid msgstr="\bxogos?\b"
+
+{\bsharpen(ed|ing|s)?\b}i
+id="en-sharpen"
+hint="sharpen → enfocar"
+valid msgstr="\benf[oó](c[aáoó]|qu[eé])"
 
 {\bsliders?\b}i
 id="en-slider"
-hint="slider→ control esvaradío"
+hint="slider → control esvaradío"
 valid msgstr="\bcontrol\s*esvaradío\b"
 valid msgstr="\bcontrois\s*esvaradíos\b"
+
+{\bslugs?\b}i
+id="en-slug"
+hint="slug → alias"
+valid msgstr="\balias\b"
 
 {\bsockets?\b}i
 id="en-socket"
@@ -790,6 +871,7 @@ valid msgstr="\btomas?\b"
 {\bsplash\s*screens?\b}i
 id="en-splash-screen"
 hint="splash screen → pantalla de inicio"
+valid after="boot\s*"
 valid msgstr="\bpantallas?\s*de\s*inicio\b"
 
 {\bstarting\s*points?\b}i
@@ -797,16 +879,37 @@ id="en-starting-point"
 hint="starting point → punto de partida"
 valid msgstr="\bpuntos?\s*de\s*partida\b"
 
+{\bsys(tem)\s*trays?\b}i
+id="en-system-tray"
+hint="system tray → área de notificación"
+valid msgstr="\báreas?\s*de\s*notificación\b"
+
+{\btime\s*lines?\b}i
+id="en-timeline"
+hint="timeline → cronoloxía"
+valid msgstr="\bcronoloxías?\b"
+
 {\btimestamps?\b}i
 id="en-timestamp"
 hint="timestamp → marca de tempo"
 valid msgstr="\bmarcas?\s*de\s*tempo\b"
+
+{\b(tocs?|tables?\s*of\s*contents)\b}i
+id="en-toc"
+hint="ToC, table of contents → índice"
+valid msgstr="\bíndices?\b"
 
 {\btoggl(e[ds]?|ing)\b}i
 id="en-toggle"
 hint="toggle → conmutar"
 valid msgstr="\bconm[uú]t[aáeéoó]"
 valid msgstr="\btoggl(e[ds]?|ing)\b"
+valid before=".*?\s*on/off" msgstr="ac[eé]nd[aáeéiíoó]\S*\s*ou\s*ap[aá]g([aáoó]|u[eé])"
+
+{\btooltips?\b}i
+id="en-tooltip"
+hint="tooltip → indicación emerxente"
+valid msgstr="\bindicacións?\s*emerxentes?\b"
 
 {\btrigger(?!\s*warnings?\b)s?\b}i
 id="en-trigger"
@@ -821,6 +924,11 @@ valid msgstr="\bact[ií]v[aáeéoó]"
 id="en-unpark"
 hint="unpark → desaparcar"
 valid msgstr="\bdesap[aá]r(c[aáoó]|qu[eé])"
+
+{\bvaults?\b}i
+id="en-vault"
+hint="vault (encrypted container) → cofre"
+valid msgstr="\bcofres?\b"
 
 {\bverbose\b}i
 id="en-verbose"
@@ -837,6 +945,10 @@ valid msgstr="\bwall\s*-?\s*papers?\b"
 id="en-workaround"
 hint="workaround → apaño"
 valid msgstr="\bapaños?\b"
+
+[^a\s+\w+[aei]r\b]i
+id="gl-a-infinitivo"
+hint="A [infinitivo] → [Xerundio]"
 
 [\badministrador(es)?\b]i
 id="gl-administrador"
@@ -858,6 +970,10 @@ hint="aspas → comiñas"
 [\bautor(es)?\b]i
 id="gl-autor"
 hint="autor → [persoa] autora, autoría"
+
+[[aei]bles?\b]i
+id="gl-ble"
+hint="-ble → -bél"
 
 [\b(micro)?blogs?\b]i
 id="gl-blog"
@@ -909,11 +1025,23 @@ hint="empregar → usar"
 id="gl-especificar"
 hint="especificar → indicar"
 
+[^estase\s+a\s+\w+[aei]r\b]i
+id="gl-estase-a-infinitivo"
+hint="Estase a [infinitivo] → [Xerundio]"
+
 [\bexp[ií]r[aáeéoó]]i
 id="gl-expirar"
 hint="expirar → caducar, rematar"
 validGroup keywords
 valid msgid="\bbreath(ed|ing|s)?\s*out\b"
+
+[\bfora\s+d(e|[ao]s?)\b]i
+id="gl-fora"
+hint="fora → fóra"
+
+[\bgallas?\b]
+id="gl-galla"
+hint="galla → rama"
 
 [\bgantt\b]
 id="gl-gantt"
@@ -962,6 +1090,10 @@ valid msgid="\bsampler?s?\b"
 id="gl-nome-programa"
 hint="Non usar artigo cos nomes de programa."
 
+[\borganizador(es)?\b]i
+id="gl-organizador"
+hint="organizador → [persoa] organizadora, organización"
+
 [\bp\.ex\.]i
 id="gl-p-ex"
 hint="p.ex. → p. ex."
@@ -975,11 +1107,15 @@ valid !msgid="\brequests?\b"
 id="gl-poida-que"
 hint="poida que → pode que"
 
+[\bpólas?\b]
+id="gl-póla"
+hint="póla → rama"
+
 [\bpor\s*favor\b]i
 id="gl-por-favor"
 hint="Evite «por favor»"
 
-[\bpr[oó]v[aáeéoó]]i
+[\bpr[oó]v(?![eé](dor(es)?\b|ñ)|[oó](c[aáoó]|qu[eé]))[aáeéoó]]i
 id="gl-provar"
 hint="provar → probar"
 
@@ -991,13 +1127,16 @@ hint="programador → [persoa] programadora, [equipo de] programación"
 id="gl-proxy"
 hint="proxy → mandatario"
 valid msgid="\bmandatarios?\b"
+validGroup keywords
 
-[[^.:…!?\s](\s|\n)*$]
+[[^.:…!?\s]((\s|\n){2,})?$]
 id="gl-punto-final"
 hint="Usa punto final."
-valid comment="path: component/name"
-valid !ctx="(?i)(@info:status|option:(check|radio)|Q(CheckBox|Label)|(tool|usage)tip|whatsthis)" !ctx="^(Comment|Description)$" !comment="(Tag: refpurpose|path: (component/summary|description/p|screenshot/caption)|QCheckBox|toolTip)"
+valid comment="path: component/name|property \(shortcut\)"
+valid !ctx="(?i)(@info:(credit Role|status|usagetip)|QCheckBox|(tool|usage)tip|whatsthis)" !ctx="^(Comment|Description)$" !comment="(Tag: refpurpose|path: (component/summary|description/p|screenshot/caption)|QCheckBox|(status|tool)Tip)"
 valid ctx="tooltip|whatsthis" msgid=":.*?:"  # Indicadores dunha lista.
+valid ctx="@action"
+valid comment="KTitleWidget|property \((windowTitle|text\), (item|widget \((KComboBox|Q\w*?(Button|Label|SpinBox))))"
 valid msgid="%\d$"
 
 [\bscripts?\b]i
@@ -1016,6 +1155,14 @@ hint="ser capaz de → poder"
 id="gl-ser-necesario"
 hint="ser necesario [infinitivo] → haber que [infinitivo]"
 
+[\bslugs?\b]i
+id="gl-slug"
+hint="slug → alias"
+
+[\b(tocs?|táboas?\s*d(e|os)\s*contidos)\b]i
+id="gl-toc"
+hint="ToC, táboa de contidos → índice"
+
 [\busuarios?\b]i
 id="gl-usuario"
 hint="usuario → [persoa] usuaria, uso"
@@ -1023,3 +1170,7 @@ hint="usuario → [persoa] usuaria, uso"
 [\butilizacións?\b]i
 id="gl-utilización"
 hint="utilización → uso"
+
+[\bvarelos?\b]
+id="gl-varelo"
+hint="varelo → rama"

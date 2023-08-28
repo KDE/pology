@@ -377,7 +377,8 @@ hint="«window» tradúcese como «xanela»"
 [\bxanelas?\b]i
 id="PT-2010-dual_window"
 valid msgid="\bwindowing\b"  # de xanelas
-valid msgid="windows?\b"
+valid msgid="window(ed|ing|s)?\b"
+valid msgid="popups?\b"  # xanela emerxente
 hint="«xanela» traduce a «window»"
 
 
@@ -821,6 +822,7 @@ hint="«develop» tradúcese como «desenvolver»"
 
 [\bdesenvolv]i
 id="PT-2011-dual_develop"
+valid msgid="\bdev\b"
 valid msgid="\bdevelop"
 valid msgid="\bAgile\b"  # desenvolvemento áxil de software
 valid msgid="\bauthors?\b"
@@ -895,7 +897,7 @@ hint="«edit» tradúcese como «editar»"
 
 [\bed[ií](?!t(ábe(l|is)|or(es|ia(l|is))?)\b)(t[aáeéoó]|cións?\b)]i
 id="PT-2011-dual_edit"
-valid msgid="\bedit(ed|ing|s|ions?)?\b"
+valid msgid="\bedit(ed|ing|s|ions?|ors?)?\b"
 valid after="\ban[uú]l[aáeéoó]\S*\s+a\s+" msgid="\bunedit(ed|ing|s)?\b"
 valid after="\banulacións?\s+de\s+" msgid="\bunedit(ion)?s?\b"
 hint="«editar» traduce a «edit»"
