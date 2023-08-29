@@ -16,6 +16,7 @@ set(files
     keys.rules
     punctuation.rules
     restructuredtext.rules
+    tags.rules
     terminology-sc.rules
     typography.rules
 )

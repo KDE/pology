@@ -154,14 +154,14 @@ hint="Falta l'etiqueta </key>"
 
 {<quote>}
 id="tags-quote"
-valid !env="KDE"
 valid msgstr="<quote>"
+valid msgstr="«"
 hint="Falta l'etiqueta <quote>"
 
 {<\/quote>}
 id="tags-quote-close"
-valid !env="KDE"
 valid msgstr="</quote>"
+valid msgstr="»"
 hint="Falta l'etiqueta </quote>"
 
 #"<placeholder-1/>"
