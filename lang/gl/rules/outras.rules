@@ -564,6 +564,41 @@ hint="«esconder» → «conceal»"
 # Fin das regras específicas de KDE para terminoloxía
 #####
 
+# Acordos da lista de correo ##################################################
+#
+# Acordos do Proxecto Trasno acadados por consenso na lista de correo.
+
+# 2019-08-26
+# http://trasno.gal/lista-de-correo-2/?subpage=mailstermail&id=6843
+
+{\bpin(n(ed|ing)|s)?}i
+id="trasno-en-pin"
+hint="pin → fixar"
+valid msgstr="\bf[ií]x[aáeéoó][^\W\d_]*\b"
+
+{\bunpin(n(ed|ing)|s)?}i
+id="trasno-en-unpin"
+hint="unpin → desprender, separar"
+valid msgstr="\bdespr[eé]nd[aáeéiíoó][^\W\d_]*\b"
+valid msgstr="\bsep[aá]r[aáeéoó][^\W\d_]*\b"
+
+# 2019-09-04
+# http://trasno.gal/lista-de-correo-2/?subpage=mailstermail&id=6858
+
+{\b(web)?apps?\b}i
+id="trasno-en-app"
+hint="app → apli"
+valid msgstr="\baplis?\b"
+valid msgstr="\bspp\b"  # arcsec per pixel → segundos de arco por píxel
+
+# 2019-09-23
+# http://trasno.gal/lista-de-correo-2/?subpage=mailstermail&id=6884
+
+{\bquadrats?\b}i
+id="trasno-en-quadrat"
+hint="quadrat → cuadrícula"
+valid msgstr="\bcuadrículas?\b"
+
 # Regras arbitrarias #--------------------------------------------------------#
 #
 # Regras alleas a acordos da comunidade que cada quen pode usar ou non segundo
@@ -625,7 +660,7 @@ valid msgstr="\bch[aá]rl[aáeéoó]"
 
 {\bclear(ed|ing|s)?\b}i
 id="en-clear"
-hint="clear → baleirar"
+hint="clear → baleirar (a lista de)"
 valid msgstr="\bbal[eé]ir[aáeéoó]"
 valid after="\bma(de|k(es?|ing))\b.*" msgstr="\bd[eé]ix[aáeéoó]\S*?\s*claro\b"  # make clear → deixar claro
 

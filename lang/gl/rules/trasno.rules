@@ -1000,7 +1000,8 @@ hint="«paquete de ficheiros» traduce a «file package»"
 
 # Prefírese a terminación en bel
 [\b[\w\-_]+bles?(\s|\b)]i
-# excepcións
+id="PT-2011-gl_bel"
+hint="terminación en -bel"
 valid span="(fe|ca|dou|tre|ipta)bles?"
 valid span="[\-_]+"
 valid span="robles" after="eduardo\s" # nome dun programador
@@ -1010,8 +1011,10 @@ valid span="\bHubble\b" # o satélite telescopio
 valid span="\bGabble\b" # un servizo
 valid span="\bPebbles?\b" # un produto
 valid span="tables?\b" # moitos falsos positivos, grazas a Latex
-id="PT-2011-gl_bel"
-hint="terminación en -bel"
+
+[\b[^\W\d_]+blemente\b]i
+id="trasno-blemente"
+hint="-blemente → -belmente (p. ex. posiblemente → posibelmente)"
 
 # descarta o uso de «dende» en favor de «desde»
 [\bdende\b]i
@@ -3153,47 +3156,132 @@ valid msgid="\b(?<!^)about\sto\b"
 hint="«a piques de» traduce a «about to»"
 
 
-# Acordos da lista de correo ##################################################
-#
-# Acordos do Proxecto Trasno acadados por consenso na lista de correo.
+# Trasnada 23.0 #-------------------------------------------------------------#
 
-# 2019-08-26
-# http://trasno.gal/lista-de-correo-2/?subpage=mailstermail&id=6843
+# Diálogo que permite completar un proceso por pasos mediante varias páxinas.
 
-{\bpin(n(ed|ing)|s)?}i
-id="trasno-en-pin"
-hint="pin → fixar"
-valid msgstr="\bf[ií]x[aáeéoó][^\W\d_]*\b"
+{\bassistants?\b}i
+id="trasno-assistant"
+hint="assistant → asistente (diálogo)"
+valid msgstr="\basistentes?\b"
+valid msgstr="\bsecretari[ao]s?\b"
 
-{\bunpin(n(ed|ing)|s)?}i
-id="trasno-en-unpin"
-hint="unpin → desprender, separar"
-valid msgstr="\bdespr[eé]nd[aáeéiíoó][^\W\d_]*\b"
-valid msgstr="\bsep[aá]r[aáeéoó][^\W\d_]*\b"
+{\bwizards?\b}i
+id="trasno-wizard"
+hint="wizard → asistente (diálogo)"
+valid msgstr="\basistentes?\b"
+valid msgstr="\b(mag[ao]s?|maxias?)\b"
 
-# 2019-09-04
-# http://trasno.gal/lista-de-correo-2/?subpage=mailstermail&id=6858
+# Barra que contén distintos tipos de controis.
+# —
+# Barra de controis para un fin indicado (p. ex. «navigation toolbar»).
 
-{\b(web)?apps?\b}i
-id="trasno-en-app"
-hint="app → apli"
-valid msgstr="\baplis?\b"
-valid msgstr="\bspp\b"  # arcsec per pixel → segundos de arco por píxel
+{\btools?(-|\s*)bars?\b}i
+id="trasno-toolbar"
+hint="toolbar → barra de ferramentas, barra de [fin] (p. ex. navigation toolbar → barra de navegación)"
+valid msgstr="\bbarras?\s*d(e|[ao]s?)\b"
 
-# 2019-09-23
-# http://trasno.gal/lista-de-correo-2/?subpage=mailstermail&id=6884
+{([.,:/|\;-]\s+|^\s*)\btools?(-|\s*)bars?\b}i
+id="trasno-toolbar-2"
+hint="toolbar → barra de ferramentas"
+valid msgstr="\bbarras?\s*de\s*ferramentas\b"
 
-{\bquadrats?\b}i
-id="trasno-en-quadrat"
-hint="quadrat → cuadrícula"
-valid msgstr="\bcuadrículas?\b"
+# Barra cunha asa que permite desprazar o contido dunha vista nunha dirección.
 
+{\bscroll(-|\s*)bars?\b}i
+id="trasno-scrollbar"
+hint="scrollbar → barra de desprazamento"
+valid msgstr="\bbarras?\s*de\s*desprazamento\b"
 
-# Acordos sen referencias #####################################################
-#
-# Supostos acordos do Proxecto Trasno dos que faltan referencias para verificar
-# a súa autenticidade.
+# Zona de información de estado, xeralmente na parte inferior dunha xanela.
 
-[\b[^\W\d_]+blemente\b]i
-id="trasno-blemente"
-hint="-blemente → -belmente (p. ex. posiblemente → posibelmente)"
+{\bstatus(-|\s*)bars?\b}i
+id="trasno-statusbar"
+hint="statusbar → barra de estado"
+valid msgstr="\bbarras?\s*de\s*estado\b"
+
+# Barra de diálogo que adoita aparecer como unha extensión temporal dunha
+# «toolbar» existente.
+
+{\b(info(rmation)?)(-|\s*)bars?\b}i
+id="trasno-infobar"
+hint="infobar → barra de información"
+valid msgstr="\bbarras?\s*de\s*información\b"
+
+# Barra na que están os botóns de «tab» nunha vista de «tabs».
+
+{\btab(-|\s*)bars?\b}i
+id="trasno-tabbar"
+hint="tabbar → barra de lapelas"
+valid msgstr="\bbarras?\s*de\s*lapelas\b"
+
+# Barra que permite abrir menús.
+
+{\bmenu(-|\s*)bars?\b}i
+id="trasno-menu-bar"
+hint="menu bar → barra de menú"
+valid msgstr="\bbarras?\s*de\s*menú\b"
+
+# Barra que indica o progreso dunha operación.
+
+{\bprogress(-|\s*)bars?\b}i
+id="trasno-progress-bar"
+hint="progress bar → barra de progreso"
+valid msgstr="\bbarras?\s*de\s*progreso\b"
+
+# Barra de controis que se amosa a un lado da xanela dunha aplicación.
+
+{\bside(-|\s*)bars?\b}i
+id="trasno-sidebar"
+hint="sidebar → barra lateral"
+valid msgstr="\bbarras?\s*latera(l|is)\b"
+
+# Caixa para escribir texto.
+
+{\b(text(-|\s*)(entry(-|\s*))?box(es)?|text(-|\s*)entry(-|\s*)widgets?)\b}i
+id="trasno-textbox"
+hint="textbox, text entry widget → caixa de texto"
+valid msgstr="\bcaixas?\s*de\s*texto\b"
+
+# Elemento de visualización ou interacción dunha interface gráfica.
+
+{\b(controls?|widgets?|(interface|GUI|UI)\s*components?)\b}i
+id="trasno-control"
+hint="component, control, widget → control (elemento dunha interface gráfica)"
+valid msgstr="\bcontro(l|is)\b"
+valid msgstr="\btrebellos?\b"
+valid msgstr="\bcontr[oó]l[aáeéoó]"
+valid after="\b(remote|slider|spin)\s*"
+valid msgstr="\bCtrl\b"
+
+# Divisor visual, que normalmente se pode mover, entre grupos de controis. Por
+# exemplo, unha separación entre dúas vistas que se pode mover para ampliar
+# unha vista reducindo a outra.
+
+{\bsplitters?\b}i
+id="trasno-splitter"
+hint="splitter → divisor"
+valid msgstr="\bdivisor(es)?\b"
+
+{\bseparators?\b}i
+id="trasno-separator"
+hint="separator → divisor (splitter), espazador (spacer), lapela (tab), liña"
+valid msgstr="\bdivisor(es)?\b"
+valid msgstr="\bespazador(es)?\b"
+valid msgstr="\blapelas?\b"
+valid msgstr="\bliñas?\b"
+# Existen casos sen acordo nos que acae «separador»: de milleiros ou decimais
+# en números, de ficheiros e cartafoles en rutas. Neses casos, pode haber
+# contextos nos que acaia o verbo, «separar».
+valid msgstr="\bseparador(es)?\b"
+valid msgstr="\bsep[aá]r[aáeéoó]"
+
+#  [Control] que fornece información ou opcións dependentes do contexto.
+#  Péchase premendo fóra del, premendo Esc, ou similar.
+
+{\bpop(-|\s*)overs?\b}i
+id="trasno-popover"
+hint="popover → emerxente"
+valid msgstr="\bemerxentes?\b"
+
+# … (aínda non están todos os acordos)
