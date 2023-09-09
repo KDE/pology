@@ -375,7 +375,6 @@ valid msgid="\bwork(ed|ing|s)?\s*out\b"  # ser o que se busca
 valid msgid="\blisten(ed|ing|s)?\s*for\b"  # escoitar en busca de
 
 # tab → tabulación, tabulador, Tab
-# «lapela» está pendente de discusión pola escolla de «separador» no DRAG.
 
 [\btabulador(es)?\b]i
 id="trasno-tabulators_reverse"
@@ -1980,6 +1979,12 @@ valid msgid="\bsen(d|t)"
 valid msgid="\bship(p(ed|ing)|s)?\b"
 valid before="\s+por\s+correo"
 
+# part of a hardware or software system that is closest to the user.
+{\bfront(-|\s*)ends?\b}i
+id="trasno-frontend"
+hint="«frontend» tradúcese como «interface»"
+valid msgstr="\binterfaces?\b"
+
 # Trasnada 12.0 #-------------------------------------------------------------#
 
 # «boot/start» tradúcese como «arrancar»
@@ -3165,24 +3170,6 @@ hint="assistant → asistente (diálogo)"
 valid msgstr="\basistentes?\b"
 valid msgstr="\bsecretari[ao]s?\b"
 
-
-# grid → grade, grella
-
-{\bgrids?\b}i
-id="trasno-grid"
-hint="grid → grade"
-valid msgstr="\bgrades?\b"
-valid msgstr="\bgrellas?\b"
-valid msgstr="\bgrids?\b"
-
-[\b(grade|grella)s?\b]i
-id="trasno-grid_reverse"
-hint="grid ← grade"
-valid msgid="\bgrids?\b"
-valid msgid="\bgridlines?\b"  # liña de grade
-valid msgid="\bgridviews?\b"  # vista de grade
-valid msgid="\bhash(es)?\b"  # símbolo «#»
-
 {\bwizards?\b}i
 id="trasno-wizard"
 hint="wizard → asistente (diálogo)"
@@ -3293,12 +3280,161 @@ valid msgstr="\bliñas?\b"
 valid msgstr="\bseparador(es)?\b"
 valid msgstr="\bsep[aá]r[aáeéoó]"
 
-#  [Control] que fornece información ou opcións dependentes do contexto.
-#  Péchase premendo fóra del, premendo Esc, ou similar.
+# [Control] que fornece información ou opcións dependentes do contexto. Péchase
+# premendo fóra del, premendo Esc, ou similar.
+# —
+# Globo que fornece información ou opcións dependentes do contexto. Péchase
+# premendo fóra del, premendo Esc, ou similar.
 
 {\bpop(-|\s*)overs?\b}i
 id="trasno-popover"
-hint="popover → emerxente"
+hint="popover → xanela emerxente (subst.), emerxente (adx.)"
 valid msgstr="\bemerxentes?\b"
 
-# … (aínda non están todos os acordos)
+# Control que introduce un espazo de separación entre controis ou grupos de
+# controis.
+
+{\bspacers?\b}i
+id="trasno-spacer"
+hint="spacer → espazador"
+valid msgstr="\bespazador(es)?\b"
+
+# Espazo que impide que se separen as palabras.
+
+{\b(nbsp|(no(-|\s*)break|non(-|\s*)breaking)(-|\s*)space)s?\b}i
+id="trasno-nbsp"
+hint="non-breaking space (nbsp) → espazo irrompíbel"
+valid msgstr="\bespazos?\s*irrompíbe(l|is)\b"
+
+# Texto nunha interface. Por exemplo, o texto dentro dun botón, antes dunha
+# caixa de texto, ou ao carón dunha caixa para marcar.
+
+{\blabels?\b}i
+id="trasno-label"
+hint="label → etiqueta"
+valid msgstr="\betiquetas?\b"
+
+# Estrutura con eixes que se cruzan para organizar elementos como bloques de
+# texto ou imaxes.
+# —
+# Referencia visual de liñas horizontais e verticais perpendiculares.
+# —
+# Organización de información en filas e columnas.
+
+{\bgrids?\b}i
+id="trasno-grid"
+hint="grid → grade"
+valid msgstr="\bgrades?\b"
+valid msgstr="\bgrids?\b"
+valid msgstr="\btáboas?\b"
+
+[\bgrades?\b]i
+id="trasno-grid_reverse"
+hint="grid ← grade"
+valid msgid="\bgrids?\b"
+valid msgid="\bgridlines?\b"  # liña de grade
+valid msgid="\bgridviews?\b"  # vista de grade
+valid msgid="\bhash(es)?\b"  # símbolo «#»
+
+# Guión que impide que se separen as palabras que une.
+
+{\b(no(-|\s*)break|non(-|\s*)breaking)(-|\s*)hyphens?\b}i
+id="trasno-non-breaking-hyphen"
+hint="non-breaking hyphen → guión irrompíbel"
+valid msgstr="\bguións?\s*irrompíbe(l|is)\b"
+
+# Espazo que permite a unha persoa interactuar con software mediante elementos
+# visuais.
+
+{\binterfaces?\b}i
+id="trasno-interface"
+hint="«interface» tradúcese como «interface»"
+valid msgstr="\binterfaces?\b"
+
+{\bUIs?\b}
+id="trasno-ui"
+hint="«UI» mantense na tradución, quitando o sufixo «-s» se existe (as siglas non fan o plural así en galego)."
+valid msgstr="\bUI\b"
+
+{\bGUIs?\b}
+id="trasno-gui"
+hint="«GUI» mantense na tradución, quitando o sufixo «-s» se existe (as siglas non fan o plural así en galego)."
+valid msgstr="\bGUI\b"
+
+# Nunha vista con varias páxinas, que só mostra unha páxina de cada vez, e que
+# permite acceder a outras páxinas mediante unha barra de botóns, «tab» é o
+# conxunto formado por un botón e a súa páxina.
+
+{\btabs?\b}i
+id="trasno-tab"
+hint="«tab» tradúcese como «lapela»"
+valid msgstr="\blapelas?\b"
+valid msgstr="\bTab\b"  # tecla
+
+# Separador visual estático entre grupos de controis. Por exemplo, unha liña
+# que separa grupos de entradas relacionadas nun menú, ou grupos de botóns
+# nunha «toolbar».
+
+{\blines?\b}i
+id="trasno-line"
+hint="«line» tradúcese como «liña»"
+valid msgstr="\bliñas?\b"
+
+# Indicación visual que aparece cando se activa unha «checkbox», «radio
+# button», ou un control similar.
+
+{\bcheck(-|\s*)marks?\b}i
+id="trasno-checkmark"
+hint="«checkmark» tradúcese como «marca»"
+valid msgstr="\bmarcas?\b"
+
+{\bflags?\b}i
+id="trasno-flag"
+hint="«flag» (checkmark) tradúcese como «marca»"
+valid msgstr="\bmarcas?\b"
+
+{\bmarks?\b}i
+id="trasno-mark"
+hint="«mark» (checkmark) tradúcese como «marca»"
+valid msgstr="\bmarcas?\b"
+
+{\bticks?\b}i
+id="trasno-tick"
+hint="«tick» (checkmark) tradúcese como «marca»"
+valid msgstr="\bmarcas?\b"
+
+# Agrupación visual de controis relacionados.
+
+{\bfield(-|\s*)sets?\b}i
+id="trasno-fieldset"
+hint="«fieldset» (agrupación visual de controis) tradúcese como «marco»"
+valid msgstr="\bmarcos?\b"
+
+{\bframes?\b}i
+id="trasno-frame"
+hint="«frame» (agrupación visual de controis) tradúcese como «marco»"
+valid msgstr="\bmarcos?\b"
+
+{\bgroup(-|\s*)box(es)?\b}i
+id="trasno-group-box"
+hint="«group box» (agrupación visual de controis) tradúcese como «marco»"
+valid msgstr="\bmarcos?\b"
+
+{\bstatic(-|\s*)box(es)?\b}i
+id="trasno-static-box"
+hint="«static box» (agrupación visual de controis) tradúcese como «marco»"
+valid msgstr="\bmarcos?\b"
+
+# Organización de información en filas e columnas.
+
+{\btables?\b}i
+id="trasno-table"
+hint="«table» tradúcese como «táboa»"
+valid msgstr="\btáboas?\b"
+
+# Control que amosa unha vista xerárquica de información.
+
+{\btree(-|\s*)(list|view)s?\b}i
+id="trasno-tree-view"
+hint="«tree list» e «tree view» tradúcense como «vista en árbore»"
+valid msgstr="\bvistas?\s*en\s*árbore\b"
