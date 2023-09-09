@@ -647,6 +647,7 @@ valid msgstr="\bpantallas?\s*de\s*arranque\b"
 id="en-branch"
 hint="branch → rama"
 valid msgstr="\bramas?\b"
+valid msgstr="\bdesvíos?\b"
 
 {\bbuilt-in\b}i
 id="en-built-in"
@@ -1201,6 +1202,7 @@ hint="ToC, táboa de contidos → índice"
 [\busuarios?\b]i
 id="gl-usuario"
 hint="usuario → [persoa] usuaria, uso"
+valid msgstr="\busuarias?\b"
 
 [\butilizacións?\b]i
 id="gl-utilización"
