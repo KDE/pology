@@ -51,7 +51,6 @@ valid msgstr="\bdaemon"
 
 # attach → anexar
 
-# TODO esta esta duplicada coa trasno-2010-attach ?
 # «conectar» traduce a «Attach», «connect», «online»
 [\bcon(?!ect(ábe(is|l)|or(es)?)\b)[eé]ct[aáeéoó][^\W\d_]*\b]i
 id="trasno-attach2/online_reverse"
@@ -80,7 +79,6 @@ valid msgid="\benclos(e[ds]?|ing|ures?)?\b"
 
 # attachment → anexo
 
-# TODO: dulicada de trasno-2010-attachment
 # «anexo» ou «conexión» traduce a «Attachment»
 [\bconexións?\b]i
 id="trasno-attachment2_reverse"
@@ -1168,7 +1166,12 @@ hint="«keyword» tradúcese como «palabra clave», (ou palabra reservada, en l
 valid msgstr="\bpalabras?\sclave"
 valid msgstr="\bpalabras?\sreservada" env="development"
 
-# TODO: falta landscape
+{\blandscapes?\b}i
+id="trasno-landscape"
+hint="«landscape» tradúcese como «apaisado», «horizontal» ou «paisaxe» segundo o contexto."
+valid msgstr="\bapaisad[ao]s?\b"
+valid msgstr="\bhorizonta(l|is)\b"
+valid msgstr="\bpaisaxes?\b"
 
 #evitar usar «lanzar» en favor de «iniciar» (un executábel)
 [\blanz]i
@@ -1189,8 +1192,15 @@ id="trasno-library_reverse"
 hint="«biblioteca» traduce a «library»"
 valid msgid="\blibrar(y|ies)"
 
-# TODO: falta modification
-# TODO: falta modify
+{\bmodifications?\b}i
+id="trasno-modification"
+hint="«modification» tradúcese como «modificación»"
+valid msgstr="\bmodificacións?\b"
+
+{\bmodif(y|ie[ds]|ing)\b}i
+id="trasno-modify"
+hint="«modify» tradúcese como «modificar»"
+valid msgstr="\bmodif[ií](c[aáoó]|qu[eé])"
 
 # «passphrase» tradúcese como «frase de paso»
 {\bpassphrase}i
@@ -1216,8 +1226,17 @@ id="trasno-password_reverse"
 hint="«contrasinal» traduce a «password»"
 valid msgid="\bpassword"
 
-# TODO: falta paste
-# TODO: falta portrait
+{\bpast(e[ds]?|ing)\b}i
+id="trasno-paste"
+hint="«paste» tradúcese como «pegar»"
+valid msgstr="\bp[eé]g([aáoó]|u[eé])"
+
+{\bportraits?\b}i
+id="trasno-portrait"
+hint="«portrait» tradúcese como «natural», «retrato» ou «vertical»"
+valid msgstr="\bnatura(l|is)\b"
+valid msgstr="\bretratos?\b"
+valid msgstr="\bvertica(l|is)\b"
 
 # «provide» tradúcese como «fornecer»
 {\bprovide}i
@@ -1249,11 +1268,11 @@ hint="«refacer» traduce a  «redo»"
 valid msgid="\bredo"
 
 # «remove» tradúcese como «retirar» ou «desinstalar»
-{\bremove}i
+{\bremov(e[ds]?|ing)\b}i
 id="trasno-remove"
 hint="«remove» tradúcese como «retirar» ou «desinstalar»"
-valid msgstr="\bretir"
-valid msgstr="\bdesinstal"
+valid msgstr="\bret[ií]r[aáeéoó]"
+valid msgstr="\bdesinst[aá]l[aáeéoó]"
 
 [\bret[ií]r[aáeéoó][^\W\d_]*\b]i
 id="trasno-remove_reverse"
@@ -1261,7 +1280,10 @@ hint="«retirar» traduce a «remove»"
 valid msgid="\bremov(e[ds]?|ing)\b"
 valid msgid="\bstrip(ed|ing|s)?\b"
 
-# TODO: falta uninstall con remove
+{\buninstall(ed|ing|s)?\b}i
+id="trasno-uninstall"
+hint="«uninstall» tradúcese como «desinstalar»"
+valid msgstr="\bdesinst[aá]l[aáeéoó]"
 
 # «rename» tradúcese como «renomear»
 {\brenam(e[ds]?|ing)\b}i
@@ -1305,9 +1327,10 @@ valid msgid="\broll(ed|ing|s)?\s*back\b"
 valid msgid="\bregress(e[ds]|ing)?\b"
 valid msgid="\bregressions?\b"
 
-
-# TODO: falta rotate
-
+{\brotat(e[ds]?|ing)\b}i
+id="trasno-rotate"
+hint="«rotate» tradúcese como «rotar»"
+valid msgstr="\br[oó]t[aáeéoó]"
 
 ######
 ## Aquí vai o cristo de login
@@ -2614,14 +2637,17 @@ valid msgid="\bdisplays?\b"
 valid msgid="\blook(ing)?s?\b"
 valid msgid="\bskins?\b"
 
+{\barrays?\b}i
+id="trasno-array"
+hint="«array» tradúcese como «matriz»"
+valid msgstr="\bmatri(z|ces)\b"
+
 # «arrow» tradúcese como «frecha»
 {\barrows?\b}i
 id="trasno-arrow"
 hint="«arrow» tradúcese como «frecha»"
 valid msgstr="\bfrechas?\b"
 valid msgstr="\barrows?\b"
-
-# TODO: falta array
 
 # «frecha» traduce a «arrow»
 [\bfrechas?\b]i
