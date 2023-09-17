@@ -87,6 +87,12 @@ id="t-sc-firewall"
 valid !msgstr="tallafocs"
 hint="«firewall» es tradueix per «tallafoc», en singular."
 
+{\bfont(s)?\b}i
+id="t-sc-font"
+valid !env="KDE" # Temporal: només aplica a versió KF6 o superior
+valid !msgstr="tipus de|tipografia"
+hint="«font» es tradueix per «lletra» o «lletra tipogràfica». «font family» es tradueix per «família tipogràfica»."
+
 {\bhyperlink(s)?\b}i
 id="t-sc-hyperlink"
 valid !msgstr="hiperenlla(ç|ços)"
@@ -214,6 +220,12 @@ hint="«Save as» es tradueix per «anomena i desa» quan és una acció, habitu
 id="t-sc-sheet"
 valid !msgstr="fulla|fulles"
 hint="«fulla» en femení fa referència a una part d'una planta. Cal usar «full» que es fa referència a un tros de paper rectangular."
+
+{\btypeface(s)?\b}i
+id="t-sc-typeface"
+valid !env="KDE" # Temporal: només aplica a versió KF6 o superior
+valid !msgstr="tipus de|tipografia"
+hint="«typeface» es tradueix per «família tipogràfica»."
 
 {^undo$}i
 id="t-sc-undo"
