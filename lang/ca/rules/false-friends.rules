@@ -575,16 +575,16 @@ valid msgstr="empresa"
 valid !msgstr="firma"
 hint="«Firm» es tradueix per «Empresa», no per «Firma» (fals amic)"
 
-# «Font» es tradueix per «Tipus (de lletra)».
-{\bfonts?\b}i
-id="ff-font"
-valid msgstr="^body \{"
-valid msgstr="tipus"
-valid msgstr="origens?"
-valid msgstr="<font\s"
-valid msgstr="font" before="-(style|weight)"
-valid !msgstr="fonts?"
-hint="«Font» es tradueix per «Tipus (de lletra)», no per «Font» (fals amic)"
+## «Font» es tradueix per «Tipus (de lletra)».
+#{\bfonts?\b}i
+#id="ff-font"
+#valid msgstr="^body \{"
+#valid msgstr="tipus"
+#valid msgstr="origens?"
+#valid msgstr="<font\s"
+#valid msgstr="font" before="-(style|weight)"
+#valid !msgstr="fonts?"
+#hint="«Font» es tradueix per «Tipus (de lletra)», no per «Font» (fals amic)"
 
 # «Gradient» es tradueix per «Degradat».
 {\bgradients?\b}i
