@@ -51,7 +51,7 @@ valid before="pserver"
 valid before="="
 valid before="ext\:"
 valid after="\d+" before="\s?\d+"
-valid msgstr=":(alt|kbd|file|guilabel|menuselection|program|ref|sub|sup|term):" # Krita doc_www
+valid msgstr=":(abbr|alt|kbd|file|guilabel|menuselection|program|ref|sub|sup|term):" # Krita doc_www
 hint="No s'ha de posar cap espai abans del signe dels dos punts (tipografia)"
 
 [\:\S]
@@ -79,7 +79,7 @@ valid span="\:q"
 valid span="\:\'"
 valid span="\:\="
 valid span="\:e"
-valid msgstr="\:(alt|dfn|file|guilabel|kbd|menuselection|program|ref|sub|sup|term)\:" # Krita doc_www
+valid msgstr="\:(abbr|alt|dfn|file|guilabel|kbd|menuselection|program|ref|sub|sup|term)\:" # Krita doc_www
 valid msgstr="HH:MM\[\:SS\]" # docmessages
 hint="S'ha de posar un espai després del signe dels dos punts (tipografia)"
 
