@@ -60,11 +60,12 @@ valid msgstr="so d'avís"
 valid msgstr="timbre" # Quan es refereix a maquinari
 hint="«beep» es tradueix per «so d'avís» o «timbre» (error freqüent)"
 
-# «blog» es tradueix per «blog» (veure DLC de l'IEC des del 03/2013).
-{\bblogs?\b}i
-id="common-blog"
-valid msgstr="blog"
-hint="«blog» es tradueix per «blog» (error freqüent)"
+# Aquesta regla ja està al fitxer terminology-sc (id=t-sc-blog)
+## «blog» es tradueix per «blog» (veure DLC de l'IEC des del 03/2013).
+#{\bblogs?\b}i
+#id="common-blog"
+#valid msgstr="blog"
+#hint="«blog» es tradueix per «blog» (error freqüent)"
 
 # «blogger» es tradueix per «bloguer» (veure DLC de l'IEC des del 03/2013).
 {\bbloggers?\b}i
