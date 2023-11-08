@@ -7,6 +7,9 @@
 
 # Remove XML entities.
 include file="filter.include"
+# addFilterRegex match="\\\[" repl="~" on="pmsgid,pmsgstr"
+# addFilterRegex match="\\\]" repl="~" on="pmsgid,pmsgstr"
+
 # addFilterRegex match="\\" repl="/" on="pmsgid"
 # addFilterRegex match="&.*;" repl="" on="pmsgid"
 # addFilterRegex match=">\s<" repl="" on="pmsgid"
@@ -200,7 +203,7 @@ hint="Es tradueix per «treball artístic» (multimèdia)"
     valid msgstr="\btreballs artístics\b"
     hint="Es tradueix per «treballs artístics» (multimèdia)"
 
-# Al Gnome «aspect.?ratio» és «#proporció d'aspecte» 
+# Al Gnome «aspect.?ratio» és «#proporció d'aspecte»
 {\baspect.?ratio\b}i
 valid msgstr="\brelació d'aspecte\b"
 hint="Es tradueix per «relació d'aspecte» (multimèdia)"
@@ -255,17 +258,17 @@ valid msgstr="\bbisella(da|des|t)\b"
 hint="Es tradueix per «bisell/s, bisellada/es, bisellat» (multimèdia)"
 
 # Bézier
-{\b(B|b)(e|é)zier\b}
-valid msgid="\b(B|b)(e|é)zier\scurves?\b"
+{\b[Bb][eé]zier\b}
+valid msgid="\b[Bb][eé]zier\scurves?\b"
 valid msgstr="\bBézier\b"
 hint="Es tradueix per «Bézier» (multimèdia)"
 
-    {\b(B|b)(e|é)zier\scurves?\b}
-    valid msgid="\bcubic\s(B|b)(e|é)zier\scurves?\b"
-    valid msgstr="\b(c|C)orb(a|es) de Bézier\b"
+    {\b[Bb][eé]zier\scurves?\b}
+    valid msgid="\bcubic\s[Bb][eé]zier\scurves?\b"
+    valid msgstr="\b[Cc]orb(a|es) de Bézier\b"
     hint="Es tradueix per «Eina: corba/es de Bézier (al Krita)» (multimèdia)"
 
-    {\bcubic\s(B|b)(e|é)zier\scurves?\b}
+    {\bcubic\s[Bb][eé]zier\scurves?\b}
     valid msgstr="\bcorb(a|es) cúbi(ca|ques) de Bézier\b"
     hint="Es tradueix per «corba/es cúbica/ques de Bézier» (multimèdia)"
 
@@ -321,7 +324,7 @@ valid msgid="\bblend\s(areas?|masks?)\b"
 valid msgid="\bblending\s(exposure|modes?|process)\b"
 valid msgid="\b(color|Color\sPicker|exposure|pyramid|stack|textured)\sblending\b"
 valid msgid="\bExpoblending\b"
-valid msgstr="\bbarreja(r|t)?\b"
+valid msgstr="\bbarreja[rt]?\b"
 hint="Es tradueix per «(Efecte:) Barreja, barreja/r/t» (multimèdia)"
 
     {\bblend\sareas?\b}i
@@ -338,23 +341,23 @@ hint="Es tradueix per «(Efecte:) Barreja, barreja/r/t» (multimèdia)"
     valid msgstr="\bmodes? de barreja\b"
     hint="Es tradueix per «mode/s de barreja» (multimèdia)"
 
-        {\b(B|b)lend(ing)?\s(M|m)ode\sto\s(:guilabel:`|'|\")?Copy\sBlue(`|'|\")?\b}
+        {\b[Bb]lend(ing)?\s[Mm]ode\sto\s(:guilabel:`|'|\")?Copy\sBlue(`|'|\")?\b}
         valid msgstr="\bmode de barreja a (:guilabel:`|«)?Copia el blau(`|»)?\b"
         hint="Es tradueix per «mode de barreja a «Copia el blau» » (multimèdia)"
 
-        {\b(B|b)lend(ing)?\s(M|m)ode\sto\s(:guilabel:`|'|\")?Copy\sGreen(`|'|\")?\b}
+        {\b[Bb]lend(ing)?\s[Mm]ode\sto\s(:guilabel:`|'|\")?Copy\sGreen(`|'|\")?\b}
         valid msgstr="\bmode de barreja a (:guilabel:`|«)?Copia el verd(`|»)?\b"
         hint="Es tradueix per «mode de barreja a «Copia el verd» » (multimèdia)"
 
-        {\b(B|b)lend(ing)?\s(M|m)ode\sto\s(:guilabel:`|'|\")?Copy\sRed(`|'|\")?\b}
+        {\b[Bb]lend(ing)?\s[Mm]ode\sto\s(:guilabel:`|'|\")?Copy\sRed(`|'|\")?\b}
         valid msgstr="\bmode de barreja a (:guilabel:`|«)?Copia el vermell(`|»)?\b"
         hint="Es tradueix per «mode de barreja a «Copia el vermell» » (multimèdia)"
 
-        {('|\"|\*\*)?\b(B|b)ehind('|\"|\*\*)?\s(B|b)lend(ing)?\s(M|m)ode\b}
+        {('|\"|\*\*)?\b[Bb]ehind('|\"|\*\*)?\s[Bb]lend(ing)?\s[Mm]ode\b}
         valid msgstr="\bmode de barreja («|\*\*)?Darrere\b(»|\*\*)?"
         hint="Es tradueix per «mode de barreja Darrere» (multimèdia)"
 
-        {\b(B|b)lend(ing)?\s(M|m)ode\sto\s('|\"|\*\*)?(B|b)ehind\b('|\"|\*\*)?}
+        {\b[Bb]lend(ing)?\s[Mm]ode\sto\s('|\"|\*\*)?[Bb]ehind\b('|\"|\*\*)?}
         valid msgstr="\bmode de barreja a («|\*\*)?Darrere\b(»|\*\*)?"
         hint="Es tradueix per «mode de barreja a Darrere» (multimèdia)"
 
@@ -364,11 +367,11 @@ hint="Es tradueix per «(Efecte:) Barreja, barreja/r/t» (multimèdia)"
             valid msgstr="\bDarrere\b"
             hint="Es tradueix per «Mode de barreja al Krita: Darrere» (multimèdia)"
 
-        {('|\"|\*\*)?\b(C|c)lear('|\"|\*\*)?\s(B|b)lend(ing)?\s(M|m)ode\b}
+        {('|\"|\*\*)?\b[Cc]lear('|\"|\*\*)?\s[Bb]lend(ing)?\s[Mm]ode\b}
         valid msgstr="\bmode de barreja («|\*\*)?Neteja\b(»|\*\*)?"
         hint="Es tradueix per «mode de barreja Neteja» (multimèdia)"
 
-        {\b(B|b)lend(ing)?\s(M|m)ode\sto\s('|\"|\*\*)?(C|c)lear\b('|\"|\*\*)?}
+        {\b[Bb]lend(ing)?\s[Mm]ode\sto\s('|\"|\*\*)?[Cc]lear\b('|\"|\*\*)?}
         valid msgstr="\bmode de barreja a («|\*\*)?Neteja\b(»|\*\*)?"
         hint="Es tradueix per «mode de barreja a Neteja» (multimèdia)"
 
@@ -378,13 +381,13 @@ hint="Es tradueix per «(Efecte:) Barreja, barreja/r/t» (multimèdia)"
             valid msgstr="\bNetejar?\b"
             hint="Es tradueix per «Mode de barreja al Krita: Neteja, netejar» (multimèdia)"
 
-        {('|\"|\*\*)?\b(C|c)olor('|\"|\*\*)?\s(B|b)lend(ing)?\s(M|m)ode\b}
-        valid msgid="('|\"|\*\*)?\b(C|c)olor('|\"|\*\*)?\s(B|b)lend(ing)?\s(M|m)ode\b"
+        {('|\"|\*\*)?\b[Cc]olor('|\"|\*\*)?\s[Bb]lend(ing)?\s[Mm]ode\b}
+        valid msgid="('|\"|\*\*)?\b[Cc]olor('|\"|\*\*)?\s[Bb]lend(ing)?\s[Mm]ode\b"
         valid msgstr="\bmode de barreja («|\*\*)?Color\b(»|\*\*)?"
         hint="Es tradueix per «mode de barreja Color» (multimèdia)"
 
-        {\b(B|b)lend(ing)?\s(M|m)ode\sto\s('|\"|\*\*)?(C|c)olor\b('|\"|\*\*)?}
-        valid msgid="\b(B|b)lend(ing)?\s(M|m)ode\sto\s('|\"|\*\*)?(C|c)olor(\s(D|d)odge|(B|b)urn)\b('|\"|\*\*)?"
+        {\b[Bb]lend(ing)?\s[Mm]ode\sto\s('|\"|\*\*)?[Cc]olor\b('|\"|\*\*)?}
+        valid msgid="\b[Bb]lend(ing)?\s[Mm]ode\sto\s('|\"|\*\*)?[Cc]olor(\s[Dd]odge|[Bb]urn)\b('|\"|\*\*)?"
         valid msgstr="\bmode de barreja a («|\*\*)?Color\b(»|\*\*)?"
         hint="Es tradueix per «mode de barreja a Color» (multimèdia)"
 
@@ -398,11 +401,11 @@ hint="Es tradueix per «(Efecte:) Barreja, barreja/r/t» (multimèdia)"
                 valid msgstr="\bbarreja més precisa del color\b"
                 hint="Es tradueix per «barreja més precisa del color» (multimèdia)"
 
-        {('|\"|\*\*)?\b(C|c)olor.?(B|b)urn('|\"|\*\*)?\s(B|b)lend(ing)?\s(M|m)ode\b}
+        {('|\"|\*\*)?\b[Cc]olor.?[Bb]urn('|\"|\*\*)?\s[Bb]lend(ing)?\s[Mm]ode\b}
         valid msgstr="\bmode de barreja («|\*\*)?Cremat del color\b(»|\*\*)?"
         hint="Es tradueix per «mode de barreja Cremat del color» (multimèdia)"
 
-        {\b(B|b)lend(ing)?\s(M|m)ode\sto\s('|\"|\*\*)?(C|c)olor.?(B|b)urn\b('|\"|\*\*)?}
+        {\b[Bb]lend(ing)?\s[Mm]ode\sto\s('|\"|\*\*)?[Cc]olor.?[Bb]urn\b('|\"|\*\*)?}
         valid msgstr="\bmode de barreja a («|\*\*)?Cremat del color\b(»|\*\*)?"
         hint="Es tradueix per «mode de barreja a Cremat del color» (multimèdia)"
 
@@ -412,11 +415,11 @@ hint="Es tradueix per «(Efecte:) Barreja, barreja/r/t» (multimèdia)"
             valid msgstr="\bCremat del color\b"
             hint="Es tradueix per «Mode de barreja al Krita: Cremat del color» (multimèdia)"
 
-        {('|\"|\*\*)?\b(C|c)olor.?(D|d)odge('|\"|\*\*)?\s(B|b)lend(ing)?\s(M|m)ode\b}
+        {('|\"|\*\*)?\b[Cc]olor.?[Dd]odge('|\"|\*\*)?\s[Bb]lend(ing)?\s[Mm]ode\b}
         valid msgstr="\bmode de barreja («|\*\*)?Esvaïment del color\b(»|\*\*)?"
         hint="Es tradueix per «mode de barreja Esvaïment del color» (multimèdia)"
 
-        {\b(B|b)lend(ing)?\s(M|m)ode\sto\s('|\"|\*\*)?(C|c)olor.?(D|d)odge\b('|\"|\*\*)?}
+        {\b[Bb]lend(ing)?\s[Mm]ode\sto\s('|\"|\*\*)?[Cc]olor.?[Dd]odge\b('|\"|\*\*)?}
         valid msgstr="\bmode de barreja a («|\*\*)?Esvaïment del color\b(»|\*\*)?"
         hint="Es tradueix per «mode de barreja a Esvaïment del color» (multimèdia)"
 
@@ -426,11 +429,11 @@ hint="Es tradueix per «(Efecte:) Barreja, barreja/r/t» (multimèdia)"
             valid msgstr="\bEsvaïment del color\b"
             hint="Es tradueix per «Mode de barreja al Krita: Esvaïment del color» (multimèdia)"
 
-        {('|\"|\*\*)?\b(D|d)arken('|\"|\*\*)?\s(B|b)lend(ing)?\s(M|m)ode\b}
+        {('|\"|\*\*)?\b[Dd]arken('|\"|\*\*)?\s[Bb]lend(ing)?\s[Mm]ode\b}
         valid msgstr="\bmode de barreja («|\*\*)?Fosca\b(»|\*\*)?"
         hint="Es tradueix per «mode de barreja Fosca» (multimèdia)"
 
-        {\b(B|b)lend(ing)?\s(M|m)ode\sto\s('|\"|\*\*)?(D|d)arken\b('|\"|\*\*)?}
+        {\b[Bb]lend(ing)?\s[Mm]ode\sto\s('|\"|\*\*)?[Dd]arken\b('|\"|\*\*)?}
         valid msgstr="\bmode de barreja a («|\*\*)?Fosca\b(»|\*\*)?"
         hint="Es tradueix per «mode de barreja a Fosca» (multimèdia)"
 
@@ -446,11 +449,11 @@ hint="Es tradueix per «(Efecte:) Barreja, barreja/r/t» (multimèdia)"
                 valid msgstr="\bEnfosquiment alfa\b"
                 hint="Es tradueix per «Enfosquiment alfa» (multimèdia)"
 
-        {('|\"|\*\*)?\b(D|d)ifference('|\"|\*\*)?\s(B|b)lend(ing)?\s(M|m)ode\b}
+        {('|\"|\*\*)?\b[Dd]ifference('|\"|\*\*)?\s[Bb]lend(ing)?\s[Mm]ode\b}
         valid msgstr="\bmode de barreja («|\*\*)?Diferència\b(»|\*\*)?"
         hint="Es tradueix per «mode de barreja Diferència» (multimèdia)"
 
-        {\b(B|b)lend(ing)?\s(M|m)ode\sto\s('|\"|\*\*)?(D|d)ifference\b('|\"|\*\*)?}
+        {\b[Bb]lend(ing)?\s[Mm]ode\sto\s('|\"|\*\*)?[Dd]ifference\b('|\"|\*\*)?}
         valid msgstr="\bmode de barreja a («|\*\*)?Diferència\b(»|\*\*)?"
         hint="Es tradueix per «mode de barreja a Diferència» (multimèdia)"
 
@@ -461,11 +464,11 @@ hint="Es tradueix per «(Efecte:) Barreja, barreja/r/t» (multimèdia)"
             valid msgstr="\bDiferències\b"
             hint="Es tradueix per «Mode de barreja al Krita: Diferència, diferències» (multimèdia)"
 
-        {('|\"|\*\*)?\b(D|d)issolve('|\"|\*\*)?\s(B|b)lend(ing)?\s(M|m)ode\b}
+        {('|\"|\*\*)?\b[Dd]issolve('|\"|\*\*)?\s[Bb]lend(ing)?\s[Mm]ode\b}
         valid msgstr="\bmode de barreja («|\*\*)?Dissolució\b(»|\*\*)?"
         hint="Es tradueix per «mode de barreja Dissolució» (multimèdia)"
 
-        {\b(B|b)lend(ing)?\s(M|m)ode\sto\s('|\"|\*\*)?(D|d)issolve\b('|\"|\*\*)?}
+        {\b[Bb]lend(ing)?\s[Mm]ode\sto\s('|\"|\*\*)?[Dd]issolve\b('|\"|\*\*)?}
         valid msgstr="\bmode de barreja a («|\*\*)?Dissolució\b(»|\*\*)?"
         hint="Es tradueix per «mode de barreja a Dissolució» (multimèdia)"
 
@@ -476,11 +479,11 @@ hint="Es tradueix per «(Efecte:) Barreja, barreja/r/t» (multimèdia)"
             valid msgstr="\bDissolució\b"
             hint="Es tradueix per «Mode de barreja al Krita: Dissolució, Dissol» (multimèdia)"
 
-        {('|\"|\*\*)?\b[Ee]xclusion('|\"|\*\*)?\s(B|b)lend(ing)?\s(M|m)ode\b}
+        {('|\"|\*\*)?\b[Ee]xclusion('|\"|\*\*)?\s[Bb]lend(ing)?\s[Mm]ode\b}
         valid msgstr="\bmode de barreja («|\*\*)?Exclusió\b(»|\*\*)?"
         hint="Es tradueix per «mode de barreja Exclusió» (multimèdia)"
 
-        {\b(B|b)lend(ing)?\s(M|m)ode\sto\s('|\"|\*\*)?[Ee]xclusion\b('|\"|\*\*)?}
+        {\b[Bb]lend(ing)?\s[Mm]ode\sto\s('|\"|\*\*)?[Ee]xclusion\b('|\"|\*\*)?}
         valid msgstr="\bmode de barreja a («|\*\*)?Exclusió\b(»|\*\*)?"
         hint="Es tradueix per «mode de barreja a Exclusió» (multimèdia)"
 
@@ -491,11 +494,11 @@ hint="Es tradueix per «(Efecte:) Barreja, barreja/r/t» (multimèdia)"
             valid msgstr="\bExclusió\b"
             hint="Es tradueix per «Mode de barreja al Krita: Exclusió, excloure'n» (multimèdia)"
 
-        {('|\"|\*\*)?\b(H|h)ard.?(L|l)ight('|\"|\*\*)?\s(B|b)lend(ing)?\s(M|m)ode\b}
+        {('|\"|\*\*)?\b[Hh]ard.?[Ll]ight('|\"|\*\*)?\s[Bb]lend(ing)?\s[Mm]ode\b}
         valid msgstr="\bmode de barreja («|\*\*)?Llum forta\b(»|\*\*)?"
         hint="Es tradueix per «mode de barreja Llum forta» (multimèdia)"
 
-        {\b(B|b)lend(ing)?\s(M|m)ode\sto\s('|\"|\*\*)?(H|h)ard.?(L|l)ight\b('|\"|\*\*)?}
+        {\b[Bb]lend(ing)?\s[Mm]ode\sto\s('|\"|\*\*)?[Hh]ard.?[Ll]ight\b('|\"|\*\*)?}
         valid msgstr="\bmode de barreja a («|\*\*)?Llum forta\b(»|\*\*)?"
         hint="Es tradueix per «mode de barreja a Llum forta» (multimèdia)"
 
@@ -505,11 +508,11 @@ hint="Es tradueix per «(Efecte:) Barreja, barreja/r/t» (multimèdia)"
             valid msgstr="\bLlum forta\b"
             hint="Es tradueix per «Mode de barreja al Krita: Llum forta» (multimèdia)"
 
-        {('|\"|\*\*)?\b(H|h)ard.?(M|m)ix('|\"|\*\*)?\s(B|b)lend(ing)?\s(M|m)ode\b}
+        {('|\"|\*\*)?\b[Hh]ard.?[Mm]ix('|\"|\*\*)?\s[Bb]lend(ing)?\s[Mm]ode\b}
         valid msgstr="\bmode de barreja («|\*\*)?Mescla forta\b(»|\*\*)?"
         hint="Es tradueix per «mode de barreja Mescla forta» (multimèdia)"
 
-        {\b(B|b)lend(ing)?\s(M|m)ode\sto\s('|\"|\*\*)?(H|h)ard.?(M|m)ix\b('|\"|\*\*)?}
+        {\b[Bb]lend(ing)?\s[Mm]ode\sto\s('|\"|\*\*)?[Hh]ard.?[Mm]ix\b('|\"|\*\*)?}
         valid msgstr="\bmode de barreja a («|\*\*)?Mescla forta\b(»|\*\*)?"
         hint="Es tradueix per «mode de barreja a Mescla forta» (multimèdia)"
 
@@ -519,11 +522,11 @@ hint="Es tradueix per «(Efecte:) Barreja, barreja/r/t» (multimèdia)"
             valid msgstr="\bMescla forta\b"
             hint="Es tradueix per «Mode de barreja al Krita: Mescla forta» (multimèdia)"
 
-        {('|\"|\*\*)?\b(H|h)ard.?(O|o)verlay('|\"|\*\*)?\s(B|b)lend(ing)?\s(M|m)ode\b}
+        {('|\"|\*\*)?\b[Hh]ard.?[Oo]verlay('|\"|\*\*)?\s[Bb]lend(ing)?\s[Mm]ode\b}
         valid msgstr="\bmode de barreja («|\*\*)?Superposició forta\b(»|\*\*)?"
         hint="Es tradueix per «mode de barreja Superposició forta» (multimèdia)"
 
-        {\b(B|b)lend(ing)?\s(M|m)ode\sto\s('|\"|\*\*)?(H|h)ard.?(O|o)verlay\b('|\"|\*\*)?}
+        {\b[Bb]lend(ing)?\s[Mm]ode\sto\s('|\"|\*\*)?[Hh]ard.?[Oo]verlay\b('|\"|\*\*)?}
         valid msgstr="\bmode de barreja a («|\*\*)?Superposició forta\b(»|\*\*)?"
         hint="Es tradueix per «mode de barreja a Superposició forta» (multimèdia)"
 
@@ -533,11 +536,11 @@ hint="Es tradueix per «(Efecte:) Barreja, barreja/r/t» (multimèdia)"
             valid msgstr="\bSuperposició forta\b"
             hint="Es tradueix per «Mode de barreja al Krita: Superposició forta» (multimèdia)"
 
-        {('|\"|\*\*)?\b(H|h)ue('|\"|\*\*)?\s(B|b)lend(ing)?\s(M|m)ode\b}
+        {('|\"|\*\*)?\b[Hh]ue('|\"|\*\*)?\s[Bb]lend(ing)?\s[Mm]ode\b}
         valid msgstr="\bmode de barreja («|\*\*)?To\b(»|\*\*)?"
         hint="Es tradueix per «mode de barreja To» (multimèdia)"
 
-        {\b(B|b)lend(ing)?\s(M|m)ode\sto\s('|\"|\*\*)?(H|h)ue\b('|\"|\*\*)?}
+        {\b[Bb]lend(ing)?\s[Mm]ode\sto\s('|\"|\*\*)?[Hh]ue\b('|\"|\*\*)?}
         valid msgstr="\bmode de barreja a («|\*\*)?To\b(»|\*\*)?"
         hint="Es tradueix per «mode de barreja a To» (multimèdia)"
 
@@ -552,11 +555,11 @@ hint="Es tradueix per «(Efecte:) Barreja, barreja/r/t» (multimèdia)"
                 valid msgstr="\broda de tons\b"
                 hint="Es tradueix per «roda de tons» (multimèdia)"
 
-        {('|\"|\*\*)?\b(L|l)ighten('|\"|\*\*)?\s(B|b)lend(ing)?\s(M|m)ode\b}
+        {('|\"|\*\*)?\b[Ll]ighten('|\"|\*\*)?\s[Bb]lend(ing)?\s[Mm]ode\b}
         valid msgstr="\bmode de barreja («|\*\*)?Aclarit\b(»|\*\*)?"
         hint="Es tradueix per «mode de barreja Aclarit» (multimèdia)"
 
-        {\b(B|b)lend(ing)?\s(M|m)ode\sto\s('|\"|\*\*)?(L|l)ighten\b('|\"|\*\*)?}
+        {\b[Bb]lend(ing)?\s[Mm]ode\sto\s('|\"|\*\*)?[Ll]ighten\b('|\"|\*\*)?}
         valid msgstr="\bmode de barreja a («|\*\*)?Aclarit\b(»|\*\*)?"
         hint="Es tradueix per «mode de barreja a Aclarit» (multimèdia)"
 
@@ -568,11 +571,11 @@ hint="Es tradueix per «(Efecte:) Barreja, barreja/r/t» (multimèdia)"
             valid msgstr="\bAclarit\b"
             hint="Es tradueix per «Mode de barreja al Krita: Aclarit» (multimèdia)"
 
-        {('|\"|\*\*)?\b(L|l)inear.?(B|b)urn('|\"|\*\*)?\s(B|b)lend(ing)?\s(M|m)ode\b}
+        {('|\"|\*\*)?\b[Ll]inear.?[Bb]urn('|\"|\*\*)?\s[Bb]lend(ing)?\s[Mm]ode\b}
         valid msgstr="\bmode de barreja («|\*\*)?Cremat lineal\b(»|\*\*)?"
         hint="Es tradueix per «mode de barreja Cremat lineal» (multimèdia)"
 
-        {\b(B|b)lend(ing)?\s(M|m)ode\sto('|\"|\*\*)?(L|l)inear.?(B|b)urn\b('|\"|\*\*)?}
+        {\b[Bb]lend(ing)?\s[Mm]ode\sto('|\"|\*\*)?[Ll]inear.?[Bb]urn\b('|\"|\*\*)?}
         valid msgstr="\bmode de barreja a («|\*\*)?Cremat lineal\b(»|\*\*)?"
         hint="Es tradueix per «mode de barreja a Cremat lineal» (multimèdia)"
 
@@ -582,11 +585,11 @@ hint="Es tradueix per «(Efecte:) Barreja, barreja/r/t» (multimèdia)"
             valid msgstr="\bCremat lineal\b"
             hint="Es tradueix per «Mode de barreja al Krita: Cremat lineal» (multimèdia)"
 
-        {('|\"|\*\*)?\b(L|l)inear.?(D|d)odge('|\"|\*\*)?\s(B|b)lend(ing)?\s(M|m)ode\b}
+        {('|\"|\*\*)?\b[Ll]inear.?[Dd]odge('|\"|\*\*)?\s[Bb]lend(ing)?\s[Mm]ode\b}
         valid msgstr="\bmode de barreja («|\*\*)?Esvaïment lineal\b(»|\*\*)?"
         hint="Es tradueix per «mode de barreja Esvaïment lineal» (multimèdia)"
 
-        {\b(B|b)lend(ing)?\s(M|m)ode\sto\s('|\"|\*\*)?(L|l)inear.?(D|d)odge\b('|\"|\*\*)?}
+        {\b[Bb]lend(ing)?\s[Mm]ode\sto\s('|\"|\*\*)?[Ll]inear.?[Dd]odge\b('|\"|\*\*)?}
         valid msgstr="\bmode de barreja a («|\*\*)?Esvaïment lineal\b(»|\*\*)?"
         hint="Es tradueix per «mode de barreja a Esvaïment lineal» (multimèdia)"
 
@@ -596,11 +599,11 @@ hint="Es tradueix per «(Efecte:) Barreja, barreja/r/t» (multimèdia)"
             valid msgstr="\bEsvaïment lineal\b"
             hint="Es tradueix per «Mode de barreja al Krita: Esvaïment lineal» (multimèdia)"
 
-        {('|\"|\*\*)?\b(L|l)inear.?(L|l)ight('|\"|\*\*)?\s(B|b)lend(ing)?\s(M|m)ode\b}
+        {('|\"|\*\*)?\b[Ll]inear.?[Ll]ight('|\"|\*\*)?\s[Bb]lend(ing)?\s[Mm]ode\b}
         valid msgstr="\bmode de barreja («|\*\*)?Llum lineal\b(»|\*\*)?"
         hint="Es tradueix per «mode de barreja Llum lineal» (multimèdia)"
 
-        {\b(B|b)lend(ing)?\s(M|m)ode\sto\s('|\"|\*\*)?(L|l)inear.?(L|l)ight\b('|\"|\*\*)?}
+        {\b[Bb]lend(ing)?\s[Mm]ode\sto\s('|\"|\*\*)?[Ll]inear.?[Ll]ight\b('|\"|\*\*)?}
         valid msgstr="\bmode de barreja a («|\*\*)?Llum lineal\b(»|\*\*)?"
         hint="Es tradueix per «mode de barreja a Llum lineal» (multimèdia)"
 
@@ -610,11 +613,11 @@ hint="Es tradueix per «(Efecte:) Barreja, barreja/r/t» (multimèdia)"
             valid msgstr="\bLlum lineal\b"
             hint="Es tradueix per «Mode de barreja al Krita: Llum lineal» (multimèdia)"
 
-        {('|\"|\*\*)?\b(L|l)uminosity('|\"|\*\*)?\s(B|b)lend(ing)?\s(M|m)ode\b}
+        {('|\"|\*\*)?\b[Ll]uminosity('|\"|\*\*)?\s[Bb]lend(ing)?\s[Mm]ode\b}
         valid msgstr="\bmode de barreja («|\*\*)?Lluminositat\b(»|\*\*)?"
         hint="Es tradueix per «mode de barreja Lluminositat» (multimèdia)"
 
-        {\b(B|b)lend(ing)?\s(M|m)ode\sto\s('|\"|\*\*)?(L|l)uminosity\b('|\"|\*\*)?}
+        {\b[Bb]lend(ing)?\s[Mm]ode\sto\s('|\"|\*\*)?[Ll]uminosity\b('|\"|\*\*)?}
         valid msgstr="\bmode de barreja a («|\*\*)?Lluminositat\b(»|\*\*)?"
         hint="Es tradueix per «mode de barreja a Lluminositat» (multimèdia)"
 
@@ -624,11 +627,11 @@ hint="Es tradueix per «(Efecte:) Barreja, barreja/r/t» (multimèdia)"
             valid msgstr="\bLluminositat\b"
             hint="Es tradueix per «Mode de barreja al Krita: Lluminositat» (multimèdia)"
 
-        {('|\"|\*\*)?\b(M|m)ultiply('|\"|\*\*)?\s(B|b)lend(ing)?\s(M|m)ode\b}
+        {('|\"|\*\*)?\b[Mm]ultiply('|\"|\*\*)?\s[Bb]lend(ing)?\s[Mm]ode\b}
         valid msgstr="\bmode de barreja («|\*\*)?Multiplica\b(»|\*\*)?"
         hint="Es tradueix per «mode de barreja Multiplica» (multimèdia)"
 
-        {\b(B|b)lend(ing)?\s(M|m)ode\sto\s('|\"|\*\*)?(M|m)ultiply\b('|\"|\*\*)?}
+        {\b[Bb]lend(ing)?\s[Mm]ode\sto\s('|\"|\*\*)?[Mm]ultiply\b('|\"|\*\*)?}
         valid msgstr="\bmode de barreja a («|\*\*)?Multiplica\b(»|\*\*)?"
         hint="Es tradueix per «mode de barreja a Multiplica» (multimèdia)"
 
@@ -643,11 +646,11 @@ hint="Es tradueix per «(Efecte:) Barreja, barreja/r/t» (multimèdia)"
                 valid msgstr="\bmultipliqueu\b"
                 hint="Es tradueix per «multipliqueu» (multimèdia)"
 
-        {('|\"|\*\*)?\b(N|n)ormal('|\"|\*\*)?\s(B|b)lend(ing)?\s(M|m)ode\b}
+        {('|\"|\*\*)?\b[Nn]ormal('|\"|\*\*)?\s[Bb]lend(ing)?\s[Mm]ode\b}
         valid msgstr="\bmode de barreja («|\*\*)?Normal\b(»|\*\*)?"
         hint="Es tradueix per «mode de barreja Normal» (multimèdia)"
 
-        {\b(B|b)lend(ing)?\s(M|m)ode\sto\s('|\"|\*\*)?(N|n)ormal\b('|\"|\*\*)?}
+        {\b[Bb]lend(ing)?\s[Mm]ode\sto\s('|\"|\*\*)?[Nn]ormal\b('|\"|\*\*)?}
         valid msgstr="\bmode de barreja a («|\*\*)?Normal\b(»|\*\*)?"
         hint="Es tradueix per «mode de barreja a Normal» (multimèdia)"
 
@@ -658,11 +661,11 @@ hint="Es tradueix per «(Efecte:) Barreja, barreja/r/t» (multimèdia)"
             valid msgstr="\bNormal\b"
             hint="Es tradueix per «Mode de barreja al Krita: Normal» (multimèdia)"
 
-        {('|\"|\*\*)?\b(O|o)verlay('|\"|\*\*)?\s(B|b)lend(ing)?\s(M|m)ode\b}
+        {('|\"|\*\*)?\b[Oo]verlay('|\"|\*\*)?\s[Bb]lend(ing)?\s[Mm]ode\b}
         valid msgstr="\bmode de barreja («|\*\*)?Superposició\b(»|\*\*)?"
         hint="Es tradueix per «mode de barreja Superposició» (multimèdia)"
 
-        {\b(B|b)lend(ing)?\s(M|m)ode\sto\s('|\"|\*\*)?(O|o)verlay\b('|\"|\*\*)?}
+        {\b[Bb]lend(ing)?\s[Mm]ode\sto\s('|\"|\*\*)?[Oo]verlay\b('|\"|\*\*)?}
         valid msgstr="\bmode de barreja a («|\*\*)?Superposició\b(»|\*\*)?"
         hint="Es tradueix per «mode de barreja a Superposició» (multimèdia)"
 
@@ -673,11 +676,11 @@ hint="Es tradueix per «(Efecte:) Barreja, barreja/r/t» (multimèdia)"
             valid msgstr="\bSuperpos(ar?|ats?|ició)\b"
             hint="Es tradueix per «Mode de barreja al Krita: Superposició, superposa/r, superposat/s, a sobre» (multimèdia)"
 
-        {('|\"|\*\*)?\b(P|p)in.?(L|l)ight('|\"|\*\*)?\s(B|b)lend(ing)?\s(M|m)ode\b}
+        {('|\"|\*\*)?\b[Pp]in.?[Ll]ight('|\"|\*\*)?\s[Bb]lend(ing)?\s[Mm]ode\b}
         valid msgstr="\bmode de barreja («|\*\*)?Llum focal\b(»|\*\*)?"
         hint="Es tradueix per «mode de barreja Llum focal» (multimèdia)"
 
-        {\b(B|b)lend(ing)?\s(M|m)ode\sto\s('|\"|\*\*)?(P|p)in.?(L|l)ight\b('|\"|\*\*)?}
+        {\b[Bb]lend(ing)?\s[Mm]ode\sto\s('|\"|\*\*)?[Pp]in.?[Ll]ight\b('|\"|\*\*)?}
         valid msgstr="\bmode de barreja a («|\*\*)?Llum focal\b(»|\*\*)?"
         hint="Es tradueix per «mode de barreja a Llum focal» (multimèdia)"
 
@@ -687,11 +690,11 @@ hint="Es tradueix per «(Efecte:) Barreja, barreja/r/t» (multimèdia)"
             valid msgstr="\bLlum focal\b"
             hint="Es tradueix per «Mode de barreja al Krita: Llum focal» (multimèdia)"
 
-        {('|\"|\*\*)?\b[Ss]aturation('|\"|\*\*)?\s(B|b)lend(ing)?\s(M|m)ode\b}
+        {('|\"|\*\*)?\b[Ss]aturation('|\"|\*\*)?\s[Bb]lend(ing)?\s[Mm]ode\b}
         valid msgstr="\bmode de barreja («|\*\*)?Saturació\b(»|\*\*)?"
         hint="Es tradueix per «mode de barreja Saturació» (multimèdia)"
 
-        {\b(B|b)lend(ing)?\s(M|m)ode\sto\s('|\"|\*\*)?[Ss]aturation\b('|\"|\*\*)?}
+        {\b[Bb]lend(ing)?\s[Mm]ode\sto\s('|\"|\*\*)?[Ss]aturation\b('|\"|\*\*)?}
         valid msgstr="\bmode de barreja a («|\*\*)?Saturació\b(»|\*\*)?"
         hint="Es tradueix per «mode de barreja a Saturació» (multimèdia)"
 
@@ -703,11 +706,11 @@ hint="Es tradueix per «(Efecte:) Barreja, barreja/r/t» (multimèdia)"
             valid msgstr="\bSaturació\b"
             hint="Es tradueix per «Eina/Mode de barreja: Saturació» (multimèdia)"
 
-        {('|\"|\*\*)?\b[Ss]creen('|\"|\*\*)?\s(B|b)lend(ing)?\s(M|m)ode\b}
+        {('|\"|\*\*)?\b[Ss]creen('|\"|\*\*)?\s[Bb]lend(ing)?\s[Mm]ode\b}
         valid msgstr="\bmode de barreja («|\*\*)?Pantalla\b(»|\*\*)?"
         hint="Es tradueix per «mode de barreja Pantalla» (multimèdia)"
 
-        {\b(B|b)lend(ing)?\s(M|m)ode\sto\s('|\"|\*\*)?[Ss]creen\b('|\"|\*\*)?}
+        {\b[Bb]lend(ing)?\s[Mm]ode\sto\s('|\"|\*\*)?[Ss]creen\b('|\"|\*\*)?}
         valid msgstr="\bmode de barreja a («|\*\*)?Pantalla\b(»|\*\*)?"
         hint="Es tradueix per «mode de barreja a Pantalla» (multimèdia)"
 
@@ -722,11 +725,11 @@ hint="Es tradueix per «(Efecte:) Barreja, barreja/r/t» (multimèdia)"
                 valid msgstr="\bGenerador de pantalles\b"
                 hint="Es tradueix per «Generador de pantalles» (multimèdia)"
 
-        {('|\"|\*\*)?\b[Ss]oft.?(L|l)ight('|\"|\*\*)?\s(B|b)lend(ing)?\s(M|m)ode\b}
+        {('|\"|\*\*)?\b[Ss]oft.?[Ll]ight('|\"|\*\*)?\s[Bb]lend(ing)?\s[Mm]ode\b}
         valid msgstr="\bmode de barreja («|\*\*)?Llum suau\b(»|\*\*)?"
         hint="Es tradueix per «mode de barreja Llum suau» (multimèdia)"
 
-        {\b(B|b)lend(ing)?\s(M|m)ode\sto\s('|\"|\*\*)?[Ss]oft.?(L|l)ight\b('|\"|\*\*)?}
+        {\b[Bb]lend(ing)?\s[Mm]ode\sto\s('|\"|\*\*)?[Ss]oft.?[Ll]ight\b('|\"|\*\*)?}
         valid msgstr="\bmode de barreja a («|\*\*)?Llum suau\b(»|\*\*)?"
         hint="Es tradueix per «mode de barreja a Llum suau» (multimèdia)"
 
@@ -736,11 +739,11 @@ hint="Es tradueix per «(Efecte:) Barreja, barreja/r/t» (multimèdia)"
             valid msgstr="\bLlum suau\b"
             hint="Es tradueix per «Mode de barreja al Krita: Llum suau» (multimèdia)"
 
-        {('|\"|\*\*)?\b(V|v)ivid.?(L|l)ight('|\"|\*\*)?\s(B|b)lend(ing)?\s(M|m)ode\b}
+        {('|\"|\*\*)?\b[Vv]ivid.?[Ll]ight('|\"|\*\*)?\s[Bb]lend(ing)?\s[Mm]ode\b}
         valid msgstr="\bmode de barreja («|\*\*)?Llum vívida\b(»|\*\*)?"
         hint="Es tradueix per «mode de barreja Llum vívida» (multimèdia)"
 
-        {\b(B|b)lend(ing)?\s(M|m)ode\sto\s('|\"|\*\*)?(V|v)ivid.?(L|l)ight\b('|\"|\*\*)?}
+        {\b[Bb]lend(ing)?\s[Mm]ode\sto\s('|\"|\*\*)?[Vv]ivid.?[Ll]ight\b('|\"|\*\*)?}
         valid msgstr="\bmode de barreja a («|\*\*)?Llum vívida\b(»|\*\*)?"
         hint="Es tradueix per «mode de barreja a Llum vívida» (multimèdia)"
 
@@ -783,7 +786,7 @@ valid msgstr="\bengrand(eix|ir)\b"
 hint="Es tradueix per «(Eina -acció-:) Canvia la mida, engrandeix, engrandir» (multimèdia)"
 
 # Blur
-# Al Gnome és «difumina» 
+# Al Gnome és «difumina»
 # Al Gnome «blurring» és «desenfoc»
 # Al Gnome «blurred» és «desenfocada»
 # Al Gnome «blur» és «ombra» i «difumina»
@@ -896,7 +899,7 @@ hint="Es tradueix per «brillant» (multimèdia)"
         valid msgstr="\bcolors realment brillants\b"
         hint="Es tradueix per «colors realment brillants» (multimèdia)"
 
-    # Al Gnome «brightness» és «lluminositat» 
+    # Al Gnome «brightness» és «lluminositat»
     {\bbrightness\b}i
     valid msgid="\bBrightness/Contrast/Gamma\b"
     valid msgid="\bbrightness\sThreshold\b"
@@ -987,15 +990,14 @@ hint="Es tradueix per «pinzell» (multimèdia)"
     valid msgstr="\bpinzell de pintura\b"
     hint="Es tradueix per «pinzell de pintura» (multimèdia)"
 
-# «truja» té altres significats al diccionari. Els pèls de pinzell s'anomenen «cerres»
-#    {\brigger\b}i
-#    valid msgid="\brigger.?brush\b"
-#    valid msgstr="\btruges\b"
-#    hint="Es tradueix per «truges (són els pèls del pinzell)» (multimèdia)"
+#     {\brigger\b}i
+#     valid msgid="\brigger.?brush\b"
+#     valid msgstr="\btruges\b"
+#     hint="Es tradueix per «truges (són els pèls del pinzell)» (multimèdia)"
 #
-#        {\brigger.?brush\b}i
-#        valid msgstr="\bpinzell amb truges\b"
-#        hint="Es tradueix per «pinzell amb truges (són els pèls del pinzell)» (multimèdia)"
+#         {\brigger.?brush\b}i
+#         valid msgstr="\bpinzell amb truges\b"
+#         hint="Es tradueix per «pinzell amb truges (són els pèls del pinzell)» (multimèdia)"
 
 {\bbrushes\b}i
 valid msgid="/brushes/"
@@ -1131,10 +1133,15 @@ hint="Es tradueix per «pinzells» (multimèdia)"
             valid msgstr="\bmotors? nous? de pinzells del MyPaint\b"
             hint="Es tradueix per «motor/s nou/s de pinzells del MyPaint» (multimèdia)"
 
-        {\bKrita('s)?\sbrush\sEngines?\b}i
+        {\bKrita('s)?\sbrush\sEngine\b}i
         valid msgid="\bNew\sKrita('s)?\sbrush\sEngines?\b"
-        valid msgstr="\bmotors? de pinzells del Krita\b"
-        hint="Es tradueix per «motor/s de pinzells del Krita» (multimèdia)"
+        valid msgstr="\bmotor de pinzells del Krita\b"
+        hint="Es tradueix per «motor de pinzells del Krita» (multimèdia)"
+
+            {\bKrita('s)?\sbrush\sEngines\b}i
+            valid msgid="\bNew\sKrita('s)?\sbrush\sEngines?\b"
+            valid msgstr="\bmotors de pinzell del Krita\b"
+            hint="Es tradueix per «motors de pinzell del Krita» (multimèdia)"
 
             {\bNew\sKrita('s)?\sbrush\sEngines?\b}i
             valid msgstr="\bmotors? nous? de pinzells del Krita\b"
@@ -1174,7 +1181,7 @@ hint="Es tradueix per «pinzells» (multimèdia)"
     hint="Es tradueix per «punta de pinzell» (multimèdia)"
 
     {\bBrush.?Preset\b}i
-    valid msgid="\bBrush.?Preset\s(bundle|collections?|docker|History|icons?|selector|Settings)\b"
+    valid msgid="\bBrush.?Preset\s(bundle|collections?|docker|file\sformat|History|icons?|selector|Settings)\b"
     valid msgid="\bbrush preset editor\b"
     valid msgid="\b(Digital\sAtelier|Krita|New|selected)\sBrush.?Preset\b"
     valid msgstr="\bpinzell predefinit\b"
@@ -1193,6 +1200,15 @@ hint="Es tradueix per «pinzells» (multimèdia)"
                     {\bcomplete\snew\sBrush.?Preset\sbundle\b}i
                     valid msgstr="\bpaquet complet de pinzells predefinits nous\b"
                     hint="Es tradueix per «paquet complet de pinzells predefinits nous» (multimèdia)"
+
+            {\bBrush.?Preset\sfile\sformat\b}i
+            valid msgid="\bupdated\sBrush.?Preset\sfile\sformat\b"
+            valid msgstr="\bformat de fitxer per als pinzells predefinits\b"
+            hint="Es tradueix per «format de fitxer per als pinzells predefinits» (multimèdia)"
+
+                {\bupdated\sBrush.?Preset\sfile\sformat\b}i
+                valid msgstr="\bformat de fitxer actualitzat per als pinzells predefinits\b"
+                hint="Es tradueix per «format de fitxer actualitzat per als pinzells predefinits» (multimèdia)"
 
             {\bbrush.?preset\scollections?\b}i
             valid msgid="\bspecial\sbrush.?preset\scollections?\b"
@@ -1691,7 +1707,7 @@ hint="Es tradueix per «pinzells» (multimèdia)"
     valid msgstr="\bPinzells? menys estrictes?\b"
     hint="Es tradueix per «Pinzell/s menys estricte/s» (multimèdia)"
 
-    {\bliqu(e|i)fy\sBrush(es)?\b}i
+    {\bliqu[ei]fy\sBrush(es)?\b}i
     valid msgstr="\bPinzells? liqüescents?\b"
     hint="Es tradueix per «Pinzell/s liqüescent/s» (multimèdia)"
 
@@ -2098,7 +2114,7 @@ valid msgid="\bcolorimetric\sintents?\b"
 valid msgstr="\bcolorimetria\b"
 hint="Es tradueix per «colorimetria» (multimèdia)"
 
-    # Al Gnome «Absolute colorimetric» és «Mètrica de color absoluta» 
+    # Al Gnome «Absolute colorimetric» és «Mètrica de color absoluta»
     {\babsolute\scolorimetric\b}i
     valid msgid="\babsolute\scolorimetric\sintents?\b"
     valid msgstr="\bcolorimetria absoluta\b"
@@ -2149,6 +2165,10 @@ hint="Es tradueix per «colorimetria» (multimèdia)"
     {\bcolorimetric\saccuracy\b}i
     valid msgstr="\bprecisió colorimètrica\b"
     hint="Es tradueix per «precisió colorimètrica» (multimèdia)"
+
+{\bcolor.?spaces?\b}i
+valid msgstr="\bespais? de color\b"
+hint="Es tradueix per «espai/s de color» (multimèdia)"
 
 # https://ca.wikipedia.org/wiki/Compàs_(geometria)
 {\bcompass\b}i
@@ -2295,7 +2315,7 @@ hint="Es tradueix per «corba/es» (multimèdia)"
         hint="Es tradueix per «línies de corba» (multimèdia)"
 
         {\bto\sbe\scurved\b}i
-        valid msgstr="\bper a corbar-l(a|o)\b"
+        valid msgstr="\bper a corbar-l[ao]\b"
         hint="Es tradueix per «per a corbar-la/o» (multimèdia)"
 
     {\bS.?curves?\b}i
@@ -2404,17 +2424,17 @@ hint="Es tradueix per «Eina: Esvaeix, esvaïment» (multimèdia)"
     valid msgstr="\bSelector avançat del color\b"
     hint="Es tradueix per «Selector avançat del color -al Krita és un acoblador-» (multimèdia)"
 
-        {\b(A|a)dvanced\s(C|c)olor\s[Ss]elector\s(D|d)ocker\b}
-        valid msgstr="\b(A|a)coblador Selector avançat del color\b"
+        {\b[Aa]dvanced\s[Cc]olor\s[Ss]elector\s[Dd]ocker\b}
+        valid msgstr="\b[Aa]coblador Selector avançat del color\b"
         hint="Es tradueix per «acoblador Selector avançat del color» (multimèdia)"
 
-    {\b(A|a)nimation\s(D|d)ocker\b}
-    valid msgid="\bold\s(A|a)nimation\s(D|d)ocker\b"
-    valid msgstr="\b(A|a)coblador Animació\b"
+    {\b[Aa]nimation\s[Dd]ocker\b}
+    valid msgid="\bold\s[Aa]nimation\s[Dd]ocker\b"
+    valid msgstr="\b[Aa]coblador Animació\b"
     hint="Es tradueix per «acoblador Animació» (multimèdia)"
 
-        {\bold\s(A|a)nimation\s(D|d)ocker\b}
-        valid msgstr="\b(A|a)coblador antic Animació\b"
+        {\bold\s[Aa]nimation\s[Dd]ocker\b}
+        valid msgstr="\b[Aa]coblador antic Animació\b"
         hint="Es tradueix per «acoblador antic Animació» (multimèdia)"
 
     {\bAnimation\sCurves\b}i
@@ -2422,12 +2442,12 @@ hint="Es tradueix per «Eina: Esvaeix, esvaïment» (multimèdia)"
     valid msgstr="\bCorbes d'animació\b"
     hint="Es tradueix per «Corbes d'animació -al Krita és un acoblador-» (multimèdia)"
 
-        {\b(A|a)nimation\s(C|c)urves\s(D|d)ocker\b}
-        valid msgstr="\b(A|a)coblador Corbes d'animació\b"
+        {\b[Aa]nimation\s[Cc]urves\s[Dd]ocker\b}
+        valid msgstr="\b[Aa]coblador Corbes d'animació\b"
         hint="Es tradueix per «acoblador Corbes d'animació» (multimèdia)"
 
-    {\b(A|a)rrange\s(D|d)ocker\b}
-    valid msgstr="\b(A|a)coblador Organitza\b"
+    {\b[Aa]rrange\s[Dd]ocker\b}
+    valid msgstr="\b[Aa]coblador Organitza\b"
     hint="Es tradueix per «acoblador Organitza» (multimèdia)"
 
     {\bArtistic\sColor\sSelector\b}i
@@ -2435,12 +2455,12 @@ hint="Es tradueix per «Eina: Esvaeix, esvaïment» (multimèdia)"
     valid msgstr="\bSelector de color artístic\b"
     hint="Es tradueix per «Selector de color artístic -al Krita és un acoblador-» (multimèdia)"
 
-        {\b(A|a)rtistic\s(C|c)olor\s[Ss]elector\s(D|d)ocker\b}
-        valid msgstr="\b(A|a)coblador Selector de color artístic\b"
+        {\b[Aa]rtistic\s[Cc]olor\s[Ss]elector\s[Dd]ocker\b}
+        valid msgstr="\b[Aa]coblador Selector de color artístic\b"
         hint="Es tradueix per «acoblador Selector de color artístic» (multimèdia)"
 
-    {\b(B|b)rush.?(P|p)resets?\s(D|d)ocker\b}
-    valid msgstr="\b(A|a)coblador Pinzells predefinits\b"
+    {\b[Bb]rush.?[Pp]resets?\s[Dd]ocker\b}
+    valid msgstr="\b[Aa]coblador Pinzells predefinits\b"
     hint="Es tradueix per «acoblador Pinzells predefinits» (multimèdia)"
 
     {\bBrush.?Presets?\sHistory\b}i
@@ -2448,12 +2468,12 @@ hint="Es tradueix per «Eina: Esvaeix, esvaïment» (multimèdia)"
     valid msgstr="\bHistorial dels pinzells predefinits\b"
     hint="Es tradueix per «Historial dels pinzells predefinits -al Krita és un acoblador-» (multimèdia)"
 
-        {\b(B|b)rush.?(P|p)resets?\s(H|h)istory\s(D|d)ocker\b}
-        valid msgstr="\b(A|a)coblador Historial dels pinzells predefinits\b"
+        {\b[Bb]rush.?[Pp]resets?\s[Hh]istory\s[Dd]ocker\b}
+        valid msgstr="\b[Aa]coblador Historial dels pinzells predefinits\b"
         hint="Es tradueix per «acoblador Historial dels pinzells predefinits» (multimèdia)"
 
-    {\b(C|c)hannel\s(D|d)ocker\b}
-    valid msgstr="\b(A|a)coblador Canals\b"
+    {\b[Cc]hannel\s[Dd]ocker\b}
+    valid msgstr="\b[Aa]coblador Canals\b"
     hint="Es tradueix per «acoblador Canals» (multimèdia)"
 
     {\bComics\sManager\b}i
@@ -2461,12 +2481,12 @@ hint="Es tradueix per «Eina: Esvaeix, esvaïment» (multimèdia)"
     valid msgstr="\bGestor de còmics\b"
     hint="Es tradueix per «Gestor de còmics -al Krita és un acoblador-» (multimèdia)"
 
-        {\b(C|c)omics\s(M|m)anager\s(D|d)ocker\b}
-        valid msgstr="\b(A|a)coblador Gestor de còmics\b"
+        {\b[Cc]omics\s[Mm]anager\s[Dd]ocker\b}
+        valid msgstr="\b[Aa]coblador Gestor de còmics\b"
         hint="Es tradueix per «acoblador Gestor de còmics» (multimèdia)"
 
-    {\b(C|c)omposition\s(D|d)ocker\b}
-    valid msgstr="\b(A|a)coblador Composició\b"
+    {\b[Cc]omposition\s[Dd]ocker\b}
+    valid msgstr="\b[Aa]coblador Composició\b"
     hint="Es tradueix per «acoblador Composició» (multimèdia)"
 
     {\bDigital\sColors\sMixer\b}i
@@ -2474,8 +2494,8 @@ hint="Es tradueix per «Eina: Esvaeix, esvaïment» (multimèdia)"
     valid msgstr="\bMesclador digital dels colors\b"
     hint="Es tradueix per «Mesclador digital dels colors -al Krita és un acoblador-» (multimèdia)"
 
-        {\b(D|d)igital\s(C|c)olors\s(M|m)ixer\s(D|d)ocker\b}
-        valid msgstr="\b(A|a)coblador Mesclador digital de colors\b"
+        {\b[Dd]igital\s[Cc]olors\s[Mm]ixer\s[Dd]ocker\b}
+        valid msgstr="\b[Aa]coblador Mesclador digital de colors\b"
         hint="Es tradueix per «acoblador Mesclador digital de colors» (multimèdia)"
 
         {\bmixing\scolor\b}
@@ -2488,8 +2508,8 @@ hint="Es tradueix per «Eina: Esvaeix, esvaïment» (multimèdia)"
     valid msgstr="\bTransformació lliure\b"
     hint="Es tradueix per «Transforma lliurement -al Krita és un acoblador-, transformació lliure» (multimèdia)"
 
-        {\b[Ff]ree\s[Tt]ransform\s(D|d)ocker\b}
-        valid msgstr="\b(A|a)coblador Transforma lliurement\b"
+        {\b[Ff]ree\s[Tt]ransform\s[Dd]ocker\b}
+        valid msgstr="\b[Aa]coblador Transforma lliurement\b"
         hint="Es tradueix per «acoblador Transforma lliurement -al Krita és un acoblador-» (multimèdia)"
 
     {\bGamut\sMasks\b}i
@@ -2497,37 +2517,37 @@ hint="Es tradueix per «Eina: Esvaeix, esvaïment» (multimèdia)"
     valid msgstr="\bMàscares de gamma\b"
     hint="Es tradueix per «Màscares de gamma -al Krita és un acoblador-» (multimèdia)"
 
-        {\b(G|g)amut\s(M|m)asks\s(D|d)ocker\b}
-        valid msgstr="\b(A|a)coblador Màscares de gamma\b"
+        {\b[Gg]amut\s[Mm]asks\s[Dd]ocker\b}
+        valid msgstr="\b[Aa]coblador Màscares de gamma\b"
         hint="Es tradueix per «acoblador Màscares de gamma» (multimèdia)"
 
-    {\b(G|g)rid\s(D|d)ocker\b}
-    valid msgstr="\b(A|a)coblador Quadrícula\b"
+    {\b[Gg]rid\s[Dd]ocker\b}
+    valid msgstr="\b[Aa]coblador Quadrícula\b"
     hint="Es tradueix per «acoblador Quadrícula» (multimèdia)"
 
-    {\b(G|g)rid\sand\s(G|g)uides\s(D|d)ocker\b}
-    valid msgstr="\b(A|a)coblador Quadrícula i guies\b"
+    {\b[Gg]rid\sand\s[Gg]uides\s[Dd]ocker\b}
+    valid msgstr="\b[Aa]coblador Quadrícula i guies\b"
     hint="Es tradueix per «acoblador Quadrícula i guies» (multimèdia)"
 
-    {\b(H|h)istogram\s(D|d)ocker\b}
-    valid msgstr="\b(A|a)coblador Histograma\b"
+    {\b[Hh]istogram\s[Dd]ocker\b}
+    valid msgstr="\b[Aa]coblador Histograma\b"
     hint="Es tradueix per «acoblador Histograma» (multimèdia)"
 
-    {\b(L|l)ast\s(D|d)ocuments\s(D|d)ocker\b}
-    valid msgstr="\b(A|a)coblador Darrers documents\b"
+    {\b[Ll]ast\s[Dd]ocuments\s[Dd]ocker\b}
+    valid msgstr="\b[Aa]coblador Darrers documents\b"
     hint="Es tradueix per «acoblador Darrers documents» (multimèdia)"
 
-    {\b(L|l)ayers?.?(D|d)ocker\b}
+    {\b[Ll]ayers?.?[Dd]ocker\b}
     valid msgid="\blayer_docker\b"
-    valid msgstr="\b(A|a)coblador Capes\b"
+    valid msgstr="\b[Aa]coblador Capes\b"
     hint="Es tradueix per «acoblador Capes» (multimèdia)"
 
-    {\b(L|l)og\s(V|v)iewer\s(D|d)ocker\b}
-    valid msgstr="\b(A|a)coblador Visor del registre\b"
+    {\b[Ll]og\s[Vv]iewer\s[Dd]ocker\b}
+    valid msgstr="\b[Aa]coblador Visor del registre\b"
     hint="Es tradueix per «acoblador Visor del registre» (multimèdia)"
 
     # Look-up Table (taula de cerca)
-    {\b(l|L)(u|U)(t|T)\b}
+    {\b[Ll][Uu][Tt]\b}
     valid msgstr="\bLUT\b"
     hint="Es tradueix per «LUT (o «taula de cerca»)» (multimèdia)"
 
@@ -2536,12 +2556,12 @@ hint="Es tradueix per «Eina: Esvaeix, esvaïment» (multimèdia)"
         valid msgstr="\bGestió de la LUT\b"
         hint="Es tradueix per «Gestió de la LUT -al Krita és un acoblador- («taula de cerca»)» (multimèdia)"
 
-            {\bLUT\s(M|m)anagement\s(D|d)ocker\b}
-            valid msgstr="\b(A|a)coblador Gestió de la LUT\b"
+            {\bLUT\s[Mm]anagement\s[Dd]ocker\b}
+            valid msgstr="\b[Aa]coblador Gestió de la LUT\b"
             hint="Es tradueix per «acoblador Gestió de la LUT («taula de cerca»)» (multimèdia)"
 
         # Color Look-up Table (taula de cerca del color)
-        {\b(c|C)(l|L)(u|U)(t|T)\b}
+        {\b[Cc][Ll][Uu][Tt]\b}
         valid msgstr="\bcLUT\b"
         hint="Es tradueix per «cLUT (o «taula de cerca del color»)» (multimèdia)"
 
@@ -2559,25 +2579,25 @@ hint="Es tradueix per «Eina: Esvaeix, esvaïment» (multimèdia)"
         valid msgstr="\bPells de ceba\b"
         hint="Es tradueix per «Pells de ceba -al Krita és un acoblador-» (multimèdia)"
 
-            {\b(O|o)nion\s[Ss]kins?\s(D|d)ocker\b}
-            valid msgstr="\b(A|a)coblador Pell de ceba\b"
+            {\b[Oo]nion\s[Ss]kins?\s[Dd]ocker\b}
+            valid msgstr="\b[Aa]coblador Pell de ceba\b"
             hint="Es tradueix per «acoblador Pell de ceba» (multimèdia)"
 
-    {\b(O|o)verview\s(D|d)ocker\b}
-    valid msgstr="\b(A|a)coblador Vista general\b"
+    {\b[Oo]verview\s[Dd]ocker\b}
+    valid msgstr="\b[Aa]coblador Vista general\b"
     hint="Es tradueix per «acoblador Vista general» (multimèdia)"
 
-    {\b(P|p)alette\s(D|d)ocker\b}
-    valid msgstr="\b(A|a)coblador Paleta\b"
+    {\b[Pp]alette\s[Dd]ocker\b}
+    valid msgstr="\b[Aa]coblador Paleta\b"
     hint="Es tradueix per «acoblador Paleta» (multimèdia)"
 
-    {\b(P|p)atterns\s(D|d)ocker\b}
-    valid msgstr="\b(A|a)coblador Patrons\b"
+    {\b[Pp]atterns\s[Dd]ocker\b}
+    valid msgstr="\b[Aa]coblador Patrons\b"
     hint="Es tradueix per «acoblador Patrons» (multimèdia)"
 
     # TODO:
-    {\b(P|p)reset\s(D|d)ocker\b}
-    valid msgstr="\b(A|a)coblador Pinzells predefinits\b"
+    {\b[Pp]reset\s[Dd]ocker\b}
+    valid msgstr="\b[Aa]coblador Pinzells predefinits\b"
     hint="Es tradueix per «acoblador Pinzells predefinits» (multimèdia)"
 
     {\bQuick\sSettings\b}i
@@ -2585,17 +2605,17 @@ hint="Es tradueix per «Eina: Esvaeix, esvaïment» (multimèdia)"
     valid msgstr="\bConfiguració ràpida\b"
     hint="Es tradueix per «Configuració ràpida -al Krita és un acoblador-» (multimèdia)"
 
-        {\b(Q|q)uick\s[Ss]ettings\s(D|d)ocker\b}
-        valid msgstr="\b(A|a)coblador Configuració ràpida\b"
+        {\b[Qq]uick\s[Ss]ettings\s[Dd]ocker\b}
+        valid msgstr="\b[Aa]coblador Configuració ràpida\b"
         hint="Es tradueix per «acoblador Configuració ràpida» (multimèdia)"
 
-    {\b[Ss]hape\s(P|p)roperties\b}
-    valid msgid="\b[Ss]hape\s(P|p)roperties\s(D|d)ocker\b"
+    {\b[Ss]hape\s[Pp]roperties\b}
+    valid msgid="\b[Ss]hape\s[Pp]roperties\s[Dd]ocker\b"
     valid msgstr="\bPropietats de la forma\b"
     hint="Es tradueix per «Propietats de la forma -al Krita és un acoblador-» (multimèdia)"
 
-        {\b[Ss]hape\s(P|p)roperties\s(D|d)ocker\b}
-        valid msgstr="\b(A|a)coblador Propietats de la forma\b"
+        {\b[Ss]hape\s[Pp]roperties\s[Dd]ocker\b}
+        valid msgstr="\b[Aa]coblador Propietats de la forma\b"
         hint="Es tradueix per «acoblador Propietats de la forma -al Krita és un acoblador-» (multimèdia)"
 
     {\bSmall\sColor\sSelector\b}i
@@ -2603,8 +2623,8 @@ hint="Es tradueix per «Eina: Esvaeix, esvaïment» (multimèdia)"
     valid msgstr="\bSelector petit del color\b"
     hint="Es tradueix per «Selector petit del color -al Krita és un acoblador-» (multimèdia)"
 
-        {\b[Ss]mall\s(C|c)olor\s[Ss]elector\s(D|d)ocker\b}
-        valid msgstr="\b(A|a)coblador Selector petit del color\b"
+        {\b[Ss]mall\s[Cc]olor\s[Ss]elector\s[Dd]ocker\b}
+        valid msgstr="\b[Aa]coblador Selector petit del color\b"
         hint="Es tradueix per «acoblador Selector petit del color» (multimèdia)"
 
     {\bSpecific\sColor\sSelector\b}i
@@ -2612,17 +2632,17 @@ hint="Es tradueix per «Eina: Esvaeix, esvaïment» (multimèdia)"
     valid msgstr="\bSelector de color específic\b"
     hint="Es tradueix per «Selector de color específic -al Krita és un acoblador-» (multimèdia)"
 
-        {\b[Ss]pecific\s(C|c)olor\s[Ss]elector\s(D|d)ocker\b}
-        valid msgstr="\b(A|a)coblador Selector de color específic\b"
+        {\b[Ss]pecific\s[Cc]olor\s[Ss]elector\s[Dd]ocker\b}
+        valid msgstr="\b[Aa]coblador Selector de color específic\b"
         hint="Es tradueix per «acoblador Selector de color específic» (multimèdia)"
 
     {\btask.?set\b}i
-    valid msgid="\b\b[Tt]ask.?[Ss]et\s(D|d)ocker\b\b"
+    valid msgid="\b\b[Tt]ask.?[Ss]et\s[Dd]ocker\b\b"
     valid msgstr="\bConjunt de tasques\b"
     hint="Es tradueix per «Conjunt de tasques -al Krita és un acoblador-» (multimèdia)"
 
-        {\b[Tt]ask.?[Ss]et\s(D|d)ocker\b}
-        valid msgstr="\b(A|a)coblador Conjunt de tasques\b"
+        {\b[Tt]ask.?[Ss]et\s[Dd]ocker\b}
+        valid msgstr="\b[Aa]coblador Conjunt de tasques\b"
         hint="Es tradueix per «acoblador Conjunt de tasques» (multimèdia)"
 
     {\bTimeline\b}i
@@ -2630,21 +2650,21 @@ hint="Es tradueix per «Eina: Esvaeix, esvaïment» (multimèdia)"
     valid msgstr="\bLínia de temps\b"
     hint="Es tradueix per «Línia de temps -al Krita és un acoblador-» (multimèdia)"
 
-        {\b[Tt]imeline\s(D|d)ocker\b}
-        valid msgstr="\b(A|a)coblador Línia de temps\b"
+        {\b[Tt]imeline\s[Dd]ocker\b}
+        valid msgstr="\b[Aa]coblador Línia de temps\b"
         hint="Es tradueix per «acoblador Línia de temps» (multimèdia)"
 
-    {\b[Tt]oolbox\s(D|d)ocker\b}
-    valid msgstr="\b(A|a)coblador Quadre d'eines\b"
+    {\b[Tt]oolbox\s[Dd]ocker\b}
+    valid msgstr="\b[Aa]coblador Quadre d'eines\b"
     hint="Es tradueix per «acoblador Quadre d'eines» (multimèdia)"
 
-    {\b[Tt]ool\s(O|o)ptions\b}
-    valid msgid="\b[Tt]ool\s(O|o)ptions\s(D|d)ocker\b"
+    {\b[Tt]ool\s[Oo]ptions\b}
+    valid msgid="\b[Tt]ool\s[Oo]ptions\s[Dd]ocker\b"
     valid msgstr="\bOpcions de l'eina\b"
     hint="Es tradueix per «Opcions de l'eina -al Krita és un acoblador-» (multimèdia)"
 
-        {\b[Tt]ool\s(O|o)ptions\s(D|d)ocker\b}
-        valid msgstr="\b(A|a)coblador Opcions de l'eina\b"
+        {\b[Tt]ool\s[Oo]ptions\s[Dd]ocker\b}
+        valid msgstr="\b[Aa]coblador Opcions de l'eina\b"
         hint="Es tradueix per «acoblador Opcions de l'eina» (multimèdia)"
 
     {\bTask.?Sets?\b}i
@@ -2652,12 +2672,12 @@ hint="Es tradueix per «Eina: Esvaeix, esvaïment» (multimèdia)"
     valid msgstr="\bConjunts? de tasques\b"
     hint="Es tradueix per «Conjunt/s de tasques -al Krita és un acoblador (2º)-» (multimèdia)"
 
-        {\b[Tt]ask.?[Ss]ets\s(D|d)ocker\b}
-        valid msgstr="\b(A|a)coblador Conjunts de tasques\b"
+        {\b[Tt]ask.?[Ss]ets\s[Dd]ocker\b}
+        valid msgstr="\b[Aa]coblador Conjunts de tasques\b"
         hint="Es tradueix per «acoblador Conjunts de tasques» (multimèdia)"
 
-    {\b[Tt]ouch\s(D|d)ocker\b}
-    valid msgstr="\b(A|a)coblador Tàctil\b"
+    {\b[Tt]ouch\s[Dd]ocker\b}
+    valid msgstr="\b[Aa]coblador Tàctil\b"
     hint="Es tradueix per «acoblador Tàctil» (multimèdia)"
 
     {\bUndo.?History\b}i
@@ -2665,8 +2685,8 @@ hint="Es tradueix per «Eina: Esvaeix, esvaïment» (multimèdia)"
     valid msgstr="\bHistorial de desfer\b"
     hint="Es tradueix per «Historial de desfer -al Krita és un acoblador-» (multimèdia)"
 
-        {\b(U|u)ndo.?(H|h)istory\s(D|d)ocker\b}
-        valid msgstr="\b(A|a)coblador Historial de desfer\b"
+        {\b[Uu]ndo.?[Hh]istory\s[Dd]ocker\b}
+        valid msgstr="\b[Aa]coblador Historial de desfer\b"
         hint="Es tradueix per «acoblador Historial de desfer» (multimèdia)"
 
     {\bVector\sLibraries\b}i
@@ -2674,8 +2694,8 @@ hint="Es tradueix per «Eina: Esvaeix, esvaïment» (multimèdia)"
     valid msgstr="\bBiblioteques vectorials\b"
     hint="Es tradueix per «Biblioteques vectorials -al Krita és un acoblador-» (multimèdia)"
 
-        {\b(V|v)ector\s(L|l)ibraries\s(D|d)ocker\b}
-        valid msgstr="\b(A|a)coblador Biblioteques vectorials\b"
+        {\b[Vv]ector\s[Ll]ibraries\s[Dd]ocker\b}
+        valid msgstr="\b[Aa]coblador Biblioteques vectorials\b"
         hint="Es tradueix per «acoblador Biblioteques vectorials» (multimèdia)"
 
 {\bdraft\b}i
@@ -2857,7 +2877,7 @@ hint="Es tradueix per «Emplena/t/ts, emplenada/des, emplenant/ment, emplenen, e
 
     {\b[Ff]ill\s[Tt]ool\b}
     valid msgid="\b[Ee]nclose and [Ff]ill\s[Tt]ool\b"
-    valid msgid="\b[Ss]hape\s[Ff]ill\s(t|T)ool\b"
+    valid msgid="\b[Ss]hape\s[Ff]ill\s[Tt]ool\b"
     valid msgstr="\b[Ee]ina d'emplenat\b"
     hint="Es tradueix per «eina d'emplenat» (multimèdia)"
 
@@ -3071,7 +3091,7 @@ hint="Es tradueix per «gamma» (multimèdia)"
     hint="Es tradueix per «interval de costum» (multimèdia)"
 
 # TODO: revisar «gamut»
-# Al Gnome «gamut» és «gamut» 
+# Al Gnome «gamut» és «gamut»
 {\bgamut\b}i
 valid msgid="\b(color|expanded|large|medium|out.?of|small|wide).?gamut\b"
 valid msgid="\bgamut.?clipping\b"
@@ -3281,7 +3301,7 @@ hint="Es tradueix per «Fa/Fer/s créixer, --> créixer» (multimèdia)"
 
     {\bgrowing\b}i
     valid msgid="\bgrowing\sand\sshrinking\b"
-    valid msgstr="\bfe(r|s) créixer\b"
+    valid msgstr="\bfe[rs] créixer\b"
     hint="Es tradueix per «fer/s créixer» (multimèdia)"
 
         {\bgrowing\sand\sshrinking\b}i
@@ -3314,7 +3334,7 @@ hint="Es tradueix per «(Guia:) Triangles harmoniosos» (multimèdia)"
     valid msgstr="\bTriangles harmoniosos equiangulars\b"
     hint="Es tradueix per «(Guia:) Triangles harmoniosos equiangulars» (multimèdia)"
 
-{\b(H|h)(D|d)\b}
+{\b[Hh][Dd]\b}
 valid msgstr="\bMVP10U\sHD\b"
 valid msgstr="\bAD\b"
 valid msgstr="\bformats HD\b"
@@ -3598,11 +3618,11 @@ hint="Es tradueix per «capa/es» (multimèdia)"
     hint="Es tradueix per «capa/es de filtratge (no confondre amb filtrar les capes)» (multimèdia)"
 
         {\bFilter\sLayer\s(and|or)\smask\b}i
-        valid msgstr="\bcapa (i|o) màscara de filtratge\b"
+        valid msgstr="\bcapa [io] màscara de filtratge\b"
         hint="Es tradueix per «capa i/o màscara de filtratge» (multimèdia)"
 
         {\bFilter\sLayers\s(and|or)\smasks\b}i
-        valid msgstr="\bcapes (i|o) màscares de filtratge\b"
+        valid msgstr="\bcapes [io] màscares de filtratge\b"
         hint="Es tradueix per «capes i/o màscares de filtratge» (multimèdia)"
 
     {\bfor\sLayers?\b}i
@@ -3711,12 +3731,12 @@ hint="Es tradueix per «capa/es» (multimèdia)"
     hint="Es tradueix per «MPEG1 de capa III (p. ex., àudio en MPEG...)» (multimèdia)"
 
     {\bMPEG.?(1|2|3)\sAudio\sLayer\b}i
-    valid msgid="\bMPEG.?(1|2|3)\sAudio\sLayer\s(2|3)\b"
+    valid msgid="\bMPEG.?(1|2|3)\sAudio\sLayer\s[23]\b"
     valid msgstr="\bÀudio en MPEG de capa (1|2|3)\b"
     hint="Es tradueix per «Àudio en MPEG de capa 1/2/3» (multimèdia)"
 
-    {\bMPEG.?(1|2|3)\sAudio\sLayer\s(2|3)\b}i
-    valid msgstr="\bÀudio en MPEG (2|3) de capa (1|2|3)\b"
+    {\bMPEG.?(1|2|3)\sAudio\sLayer\s[23]\b}i
+    valid msgstr="\bÀudio en MPEG [23] de capa (1|2|3)\b"
     hint="Es tradueix per «Àudio en MPEG 2/3 de capa 1/2/3» (multimèdia)"
 
     {\boriginal\slayers?\b}i
@@ -3907,7 +3927,7 @@ hint="Es tradueix per «línia artística» (multimèdia)"
 # Linear / Linearily
 {\blinear\b}i
 valid msgid="\blinear\s(histogram|luminance|or\slogarithmic\shistogram)\b"
-valid msgid="\b(bi|no(n|t)|scene).?linear\b"
+valid msgid="\b(bi|no[nt]|scene).?linear\b"
 valid msgstr="\blineals?\b"
 hint="Es tradueix per «lineal/s» (multimèdia)"
 
@@ -3929,20 +3949,20 @@ hint="Es tradueix per «lineal/s» (multimèdia)"
     hint="Es tradueix per «luminància lineal» (multimèdia)"
 
     {\blinearly\b}i
-    valid msgid="\bno(n|t).?linearly\b"
+    valid msgid="\bno[nt].?linearly\b"
     valid msgstr="\bde forma lineal\b"
     hint="Es tradueix per «de forma lineal» (multimèdia)"
 
-    {\bno(n|t).?linear\b}i
-    valid msgid="\bis\sno(n|t).?linear\b"
+    {\bno[nt].?linear\b}i
+    valid msgid="\bis\sno[nt].?linear\b"
     valid msgstr="\bno lineals?\b"
     hint="Es tradueix per «no lineal/s» (multimèdia)"
 
-        {\bis\sno(n|t).?linear\b}i
+        {\bis\sno[nt].?linear\b}i
         valid msgstr="\bno és lineal\b"
         hint="Es tradueix per «no és lineal» (multimèdia)"
 
-    {\bno(n|t).?linearly\b}i
+    {\bno[nt].?linearly\b}i
     valid msgstr="\bde forma no lineal\b"
     hint="Es tradueix per «de forma no lineal» (multimèdia)"
 
@@ -3955,7 +3975,7 @@ hint="Es tradueix per «lineal/s» (multimèdia)"
         valid msgstr="\buna altra sortida lineal de l'escena\b"
         hint="Es tradueix per «una altra sortida lineal de l'escena» (multimèdia)"
 
-{\bliqu(e|i)fy\b}i
+{\bliqu[ei]fy\b}i
 valid msgstr="\bliqüescent\b"
 hint="Es tradueix per «liqüescent» (multimèdia)"
 
@@ -4414,7 +4434,8 @@ hint="Es tradueix per «desenfocada/es» (multimèdia)"
 # Over / Overhead
     {\bover.?compression\b}i
     valid msgstr="\bexcés de compressió\b"
-    hint="Es tradueix per «excés de compressió» (multimèdia)"
+    valid msgstr="\bsobre la compressió\b"
+    hint="Es tradueix per «excés de compressió, sobre la compressió» (multimèdia)"
 
     {\bover.?exposure\b}i
     valid msgstr="\bsobreexposició\b"
@@ -4639,7 +4660,7 @@ hint="Es tradueix per «imatges?, (compte: fotografia/es, si escau)» (multimèd
     hint="Es tradueix per «imatges RAW» (multimèdia)"
 
 # Pixels
-# Al Gnome «pixels per inch» és «punts per polzada» 
+# Al Gnome «pixels per inch» és «punts per polzada»
 {\bpixels\b}i
 valid msgid="\b(bad|dead|hot|no|stuck).?pixels\b"
 valid msgstr="\bpíxels\b"
@@ -4816,7 +4837,7 @@ valid msgstr="\bperspectiva\b"
 hint="Es tradueix per «perspectiva» (multimèdia)"
 
     {\b(1|2|3)\spoint\sperspective\b}i
-    valid msgstr="\bperspectiva d('1|e (2|3)) punts?\b"
+    valid msgstr="\bperspectiva d('1|e [23]) punts?\b"
     hint="Es tradueix per «perspectiva d'1 punt, perspectiva de 2/3 punts» (multimèdia)"
 
     {\bfish.?eye\sperspective\b}i
@@ -5194,15 +5215,15 @@ hint="Es tradueix per «executor» (multimèdia)"
         valid msgstr="\bScripter\b"
         hint="Es tradueix per «Scripter» (multimèdia)"
 
-        {\b(P|p)ython\scommands?\b}
-        valid msgstr="\b(O|o)rdres? de Python\b"
+        {\b[Pp]ython\scommands?\b}
+        valid msgstr="\b[Oo]rdres? de Python\b"
         hint="Es tradueix per «ordre/s de Python» (multimèdia)"
 
-        {\b(P|p)ython\splugins?\b}
-        valid msgstr="\b(C|c)onnectors? en Python\b"
+        {\b[Pp]ython\splugins?\b}
+        valid msgstr="\b[Cc]onnectors? en Python\b"
         hint="Es tradueix per «connector/s en Python» (multimèdia)"
 
-        {\b(P|p)ython\sscripts?\b}
+        {\b[Pp]ython\sscripts?\b}
         valid msgstr="\b[Ss]cripts? en Python\b"
         hint="Es tradueix per «script/s en Python» (multimèdia)"
 
@@ -5222,7 +5243,7 @@ hint="Es tradueix per «escàner/s» (multimèdia)"
 
     {\bscanned\b}i
     valid msgstr="\bescane(gen|ja|jada|jades|jaran|jat)\b"
-    valid msgstr="\bexplora(r|t)?\b"
+    valid msgstr="\bexplora[rt]?\b"
     hint="Es tradueix per «escaneja/t/da/des, escanegen, escanejaran, explora/r/t» (multimèdia)"
 
     {\bscanners?\sdevice\b}i
@@ -5415,7 +5436,7 @@ hint="Es tradueix per «ajustament, ajustar, estableixen, establir, establiment,
     hint="Es tradueix per «diàleg de configuració» (multimèdia)"
 
     {\bSetting\sit\b}i
-    valid msgstr="\bconfigurar-l(a|o)\b"
+    valid msgstr="\bconfigurar-l[ao]\b"
     hint="Es tradueix per «configurar-la/o» (multimèdia)"
 
     {\bSetting\sup\b}i
@@ -5426,7 +5447,7 @@ hint="Es tradueix per «ajustament, ajustar, estableixen, establir, establiment,
     {\bSettings\b}i
     valid msgid="\b(brush|(file|KDE)\s|Local|System)\sSettings\b"
     valid msgid="\bSettings\s(dialog|Docker|file|Menu|text file)\b"
-    valid msgstr="(\«|\>)Arranjament(\»|\<)"
+    valid msgstr="(`|\«|\>)Arranjament(\»|\<)?"
     valid msgstr="\bmenú Arranjament\b"
     valid msgstr="\bconfiguració\b"
     valid msgstr="\bopcions de configuració\b"
@@ -5612,7 +5633,7 @@ hint="Es tradueix per «(Eina:) Aguditza, aguditzar/ció, agudesa, definir/eix/i
     hint="Es tradueix per «desenfoc» (multimèdia)"
 
     # Màscara d'enfocament? (fr: Masque flou)
-    # Al Gnome «Unsharp Mask» és «Emmascara les parts borroses» 
+    # Al Gnome «Unsharp Mask» és «Emmascara les parts borroses»
     {\bUnsharp\sMask\b}i
     valid msgstr="\bMàscara de desenfocament\b"
     hint="Es tradueix per «(Eina:) Màscara de desenfocament» (multimèdia)"
@@ -5844,7 +5865,8 @@ hint="Es tradueix per «fotogràfica/ques, fotografia/imatge estàtica, encara, 
 {\bStrength\b}i
 valid msgstr="\bdispersió\b"
 valid msgstr="\bIntensitat\b"
-hint="Es tradueix per «Intensitat o dispersió» (multimèdia)"
+valid msgstr="\bpunt fort\b"
+hint="Es tradueix per «Intensitat o dispersió, (també pot ser «punt fort»)» (multimèdia)"
 
 {\btextured\b}i
 valid msgid="\b(hard|very)\stextured\b"
@@ -5871,11 +5893,12 @@ hint="Es tradueix per «amb textura/es» (multimèdia)"
 
 {\bstrip(ping)?\b}i
 valid msgstr="\bdescart(ar?|arà|eu)\b"
+valid msgstr="\bfranja\b"
 valid msgstr="\btira\b"
 hint="Es tradueix per «descarta/r, descarteu, descartarà, franja (franja de color/s), tira (tira de còmic)» (multimèdia)"
 
     {\bstripped\b}i
-    valid msgstr="\bdescart(e|i)n\b"
+    valid msgstr="\bdescart[ei]n\b"
     hint="Es tradueix per «descarten/in» (multimèdia)"
 
 {\bstroke\b}i
@@ -6015,7 +6038,7 @@ valid msgstr="\btrajectes?\b"
 hint="Es tradueix per «pista/es, peça/ces, seguir, seguiment, seguiran, segueixen, trajecte/s» (multimèdia)"
 
     {\bvideo\s(and|or)\saudio\stracks?\b}i
-    valid msgstr="\bpist(a|es) de vídeo (i|o) àudio\b"
+    valid msgstr="\bpist(a|es) de vídeo [io] àudio\b"
     hint="Es tradueix per «pista/es de vídeo i/o àudio» (multimèdia)"
 
         {\baudio\stracks?\b}i
@@ -6556,7 +6579,7 @@ hint="Es tradueix per «recombinació dels components XYZ d'un vector» (multim�
     {\bSmooth(ness)?\b}i
     valid msgid="\b(Curve|very)\ssmooth\b"
     valid msgid="\bSmooth\s(lines|transitions)\b"
-    valid msgstr="\bsuavitza(r|t)?\b"
+    valid msgstr="\bsuavitza[rt]?\b"
     valid msgstr="\bsuaus?\b"
     hint="Es tradueix per «(Eina:) Suau, suaus, suavitza/r/t» (multimèdia)"
 
@@ -6575,7 +6598,7 @@ hint="Es tradueix per «recombinació dels components XYZ d'un vector» (multim�
         # Al Gnome «smoothing» és «suavitzant», «suavitzador» i «suavitzat»
         {\bSmoothing\b}i
         valid msgid="\bBrush\sSmoothing\b"
-        valid msgstr="\bsuavitza(r|t)\b"
+        valid msgstr="\bsuavitza[rt]\b"
         hint="Es tradueix per «suavitzar/t» (multimèdia)"
 
         {\bvery\ssmooth\b}i
@@ -6665,7 +6688,7 @@ hint="Es tradueix per «recombinació dels components XYZ d'un vector» (multim�
     valid msgstr="\bGot(a|es) de pluja\b"
     hint="Es tradueix per «(Efecte:) Gotes de pluja» (multimèdia)"
 
-    # Al Gnome «Twirl» és «Desparasita» 
+    # Al Gnome «Twirl» és «Desparasita»
     {\bTwirl\b}i
     valid msgstr="\bdona la volta\b"
     valid msgstr="\bMolinet\b"
@@ -6717,8 +6740,8 @@ hint="Segurament manca el vincle «:program:» (multimèdia)"
 valid msgstr=":ref:"
 hint="Segurament manca el vincle «:ref:» (multimèdia)"
 
-{:su(b|p):}
-valid msgstr=":su(b|p):"
+{:su[bp]:}
+valid msgstr=":su[bp]:"
 hint="Segurament manca el vincle «:sub: o :sup:» (multimèdia)"
 
 {:term:}
