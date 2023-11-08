@@ -641,4 +641,7 @@ valid after="(balise|substitut) "
 valid after="(CCMP|TKIP|WEP104|WEP40) "
 hint="Préférer « associer » et « dissocier » à « appairer » ou « apparier »"
 
+[MacOS]i
+hint="MacOS -> macOS"
+
 # End of rule file
