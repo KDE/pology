@@ -17,8 +17,8 @@ answer :;
 appendix : label status;
 appendixinfo :;
 application : class moreinfo;
-area : coords label linkends otherunits units;
-areaset : coords label otherunits units;
+area : !coords label linkends otherunits units;
+areaset : !coords label otherunits units;
 areaspec : otherunits units;
 arg : choice rep;
 article : class parentbook status;
@@ -42,7 +42,7 @@ bibliolist :;
 bibliomisc :;
 bibliomixed :;
 bibliomset : relation;
-biblioref : begin end endterm linkend units xrefstyle;
+biblioref : begin end endterm !linkend units xrefstyle;
 bibliorelation : class otherclass othertype type;
 biblioset : relation;
 bibliosource : class otherclass;
@@ -51,7 +51,7 @@ blockquote :;
 book : fpi label status;
 bookinfo : contents;
 bridgehead : renderas;
-callout : arearefs;
+callout : !arearefs;
 calloutlist :;
 caption :
   align class onclick ondblclick onkeydown onkeypress onkeyup
@@ -95,14 +95,14 @@ confnum :;
 confsponsor :;
 conftitle :;
 constant : class;
-constraint : linkend;
+constraint : !linkend;
 constraintdef :;
 constructorsynopsis : language;
 contractnum :;
 contractsponsor :;
 contrib :;
 copyright :;
-coref : label linkend;
+coref : label !linkend;
 corpauthor :;
 corpcredit : class;
 corpname :;
@@ -121,7 +121,7 @@ entry :
   onmousemove onmouseout onmouseover onmouseup rotate rowsep spanname
   style title valign;
 entrytbl :
-  align char charoff class colname cols colsep nameend namest onclick
+  align char charoff class colname !cols colsep nameend namest onclick
   ondblclick onkeydown onkeypress onkeyup onmousedown onmousemove
   onmouseout onmouseover onmouseup rowsep spanname style tgroupstyle
   title;
@@ -141,7 +141,7 @@ filename : class moreinfo path;
 firstname :;
 firstterm : baseform linkend;
 footnote : label;
-footnoteref : bar foo label linkend;
+footnoteref : label !linkend;
 foreignphrase :;
 formalpara :;
 funcdef :;
@@ -221,7 +221,7 @@ legalnotice :;
 lhs :;
 lineage :;
 lineannotation :;
-link : endterm linkend type xrefstyle;
+link : endterm !linkend type xrefstyle;
 listitem : override;
 literal : moreinfo;
 literallayout :
@@ -255,7 +255,7 @@ msgrel :;
 msgset :;
 msgsub :;
 msgtext :;
-nonterminal : def;
+nonterminal : !def;
 note :;
 objectinfo :;
 olink :
@@ -292,7 +292,7 @@ primaryie : linkends;
 printhistory :;
 procedure :;
 production :;
-productionrecap : linkend;
+productionrecap : !linkend;
 productionset :;
 productname : class;
 productnumber :;
@@ -388,7 +388,7 @@ simpara :;
 simplelist : columns type;
 simplemsgentry : audience level origin;
 simplesect :;
-spanspec : align char charoff colsep nameend namest rowsep spanname;
+spanspec : align char charoff colsep !nameend !namest rowsep !spanname;
 state :;
 step : performance;
 stepalternatives : performance;
@@ -405,7 +405,7 @@ superscript :;
 surname :;
 symbol : class;
 synopfragment :;
-synopfragmentref : linkend;
+synopfragmentref : !linkend;
 synopsis :
   continuation format label language linenumbering startinglinenumber;
 systemitem : class moreinfo;
@@ -439,7 +439,7 @@ tfoot :
   class onclick ondblclick onkeydown onkeypress onkeyup onmousedown
   onmousemove onmouseout onmouseover onmouseup style title valign;
 tgroup :
-  align char charoff class cols colsep onclick ondblclick onkeydown
+  align char charoff class !cols colsep onclick ondblclick onkeydown
   onkeypress onkeyup onmousedown onmousemove onmouseout onmouseover
   onmouseup rowsep style tgroupstyle title;
 th :
@@ -475,7 +475,7 @@ tr :
   xreflabel;
 trademark : class;
 type :;
-ulink : type url xrefstyle;
+ulink : type !url xrefstyle;
 uri : type;
 userinput : moreinfo;
 varargs :;
@@ -490,7 +490,7 @@ void :;
 volumenum :;
 warning :;
 wordasword :;
-xref : endterm linkend xrefstyle;
+xref : endterm !linkend xrefstyle;
 year :;
 
 # Dummy tag for common attributes.
