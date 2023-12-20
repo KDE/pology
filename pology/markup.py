@@ -905,7 +905,7 @@ def collect_xml_spec_l1 (specpath):
 
 class _L1Element:
 
-    def __init__ (self, tag=None, attrs=None, mattrs=set(), avlints={},
+    def __init__ (self, tag=None, attrs=None, mattrs=None, avlints=None,
                   stags=None):
 
         # The tag of this element (string).
@@ -913,10 +913,10 @@ class _L1Element:
         # Possible attributes (set, or None meaning any).
         self.attrs = attrs
         # Mandatory attributes (set).
-        self.mattrs = mattrs
+        self.mattrs = mattrs or set()
         # Validator functions for attribute values, per attribute (dict).
         # Validator does not have to be defined for each attribute.
-        self.avlints = avlints
+        self.avlints = avlints or {}
         # Possible subelements by tag (set, or None meaning any).
         self.stags = stags
 
