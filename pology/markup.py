@@ -1144,6 +1144,15 @@ def _handler_start_element (tag, attrs):
                                      "'%(val)s' to attribute '%(attr)s'.",
                                      mtype=g.xmlfmt, val=aval, attr=attr))
 
+    # Check presence of mandatory attributes.
+    if elspec.mattrs is not None:
+        for attr in elspec.mattrs:
+            if attr not in attrs:
+                errmsgs.append(_("@info",
+                                 "%(mtype)s markup: missing mandatory attribute "
+                                 "'%(attr)s' to tag '%(tag)s'.",
+                                 mtype=g.xmlfmt, attr=attr, tag=tag))
+
     # Check proper parentage.
     if g.tagstack:
         ptag = g.tagstack[-1]
