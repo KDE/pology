@@ -1,7 +1,7 @@
-#!/bin/sh
+#!/bin/bash
 # Generate API documentation from Python sources with the Epydoc tool.
 
-function exit_usage ()
+exit_usage ()
 {
     cmd=`basename $0`
     echo "\

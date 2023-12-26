@@ -1,6 +1,6 @@
-#!/bin/sh
+#!/bin/bash
 
-function exit_usage ()
+exit_usage ()
 {
     cmd=`basename $0`
     echo "\
