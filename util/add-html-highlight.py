@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: UTF-8 -*-
 
 import os
@@ -25,7 +25,7 @@ def main ():
 def add_html_highlight (infile):
 
     ifh = open(infile)
-    htmlstr = ifh.read().decode("utf8")
+    htmlstr = ifh.read()
     ifh.close()
 
     pre_rx = re.compile(r"(<pre .*?>)"
@@ -61,7 +61,7 @@ def add_html_highlight (infile):
     htmlstr_mod = "".join(segs)
 
     ofh = open(infile, "w")
-    ofh.write(htmlstr_mod.encode("utf8"))
+    ofh.write(htmlstr_mod)
     ofh.close()
 
 
