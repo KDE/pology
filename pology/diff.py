@@ -361,7 +361,7 @@ def word_diff (text_old, text_new, markup=False, format=None, diffr=False):
         lw, li = split_text(text, markup, format)
         segments.append([])
         segment_isintr.append([])
-        map(add_segment, li, lw + [''])
+        list(map(add_segment, li, lw + ['']))
 
     # Create the tagged difference.
     dlist = tdiff(segments[0], segments[1])
