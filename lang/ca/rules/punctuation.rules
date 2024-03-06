@@ -63,6 +63,7 @@ hint="Si el missatge original no acaba en dos punts, la traducció tampoc hauria
 {^((?!(([\.…!])( )*$)).)*$}
 id="punctuation-period-no"
 valid msgstr="[^\.]$"
+valid msgstr="^.{2,4}?\.$" # Avoid false positives on abbreviations (ds., gen., etc.)  
 hint="Si el missatge original no acaba en punt, la traducció tampoc hauria de fer-ho (punctuation)"
 
 {[^ ]$}
