@@ -7,6 +7,8 @@ image: "python:3.10"
 
 test-min-cmake:
   image: "python:3.7"
+  tags:
+    - Linux
   script:
     - apt-get update -qq && apt-get install -y -qq cmake
     - pip install -r test-requirements.txt
@@ -27,6 +29,8 @@ test-min-cmake:
     - pytest ../../tests
 
 coverage:
+  tags:
+    - Linux
   script:
     - pip install -r test-requirements.txt
     - export PATH="$(pwd)/bin:$PATH"
