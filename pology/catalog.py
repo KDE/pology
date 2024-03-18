@@ -560,26 +560,32 @@ class Catalog (Monitored):
         # Read messages or create empty catalog.
         if not truncate and (os.path.exists(filename) or readfh):
             file = readfh or filename
-            m, e, t = _parse_po_file(file, message_type, headonly, monitored)
-            self._encoding = e
-            self._created_from_scratch = False
-            if not m[0].msgctxt and not m[0].msgid:
-                # Proper PO, containing the header.
-                self._header = Header(m[0])
-                self._header._committed = True # status for sync
-                if (single_entry > 0):
-                    self.__dict__["*"] = [m[single_entry]]
+            try:
+                m, e, t = _parse_po_file(file, message_type, headonly, monitored)
+                self._encoding = e
+                self._created_from_scratch = False
+                if not m[0].msgctxt and not m[0].msgid:
+                    # Proper PO, containing the header.
+                    self._header = Header(m[0])
+                    self._header._committed = True # status for sync
+                    if (single_entry > 0):
+                        self.__dict__["*"] = [m[single_entry]]
+                    else:
+                        self.__dict__["*"] = m[1:]
                 else:
-                    self.__dict__["*"] = m[1:]
-            else:
-                # Improper PO, missing the header.
-                self._header = Header()
-                self._header._committed = False # status for sync
-                if (single_entry > 0):
-                    self.__dict__["*"] = [m[single_entry-1]]
-                else:
-                    self.__dict__["*"] = m
-            self._tail = t
+                    # Improper PO, missing the header.
+                    self._header = Header()
+                    self._header._committed = False # status for sync
+                    if (single_entry > 0):
+                        self.__dict__["*"] = [m[single_entry-1]]
+                    else:
+                        self.__dict__["*"] = m
+                self._tail = t
+            except PologyError as error:
+                raise  PologyError(
+                _("@info",
+                  "Failed parsing '%(file)s'. Error '%(err)s'",
+                  file=filename, err=error))
         else:
             self._encoding = "UTF-8"
             self._created_from_scratch = True
