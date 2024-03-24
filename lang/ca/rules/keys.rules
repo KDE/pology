@@ -48,7 +48,7 @@ hint="La tecla «Backspace» es tradueix per «Retrocés»/«tecla de retrocés�
 {(\bBackspace;|<key(cap|sym)?>.?Backspace.?</key(cap|sym)?>)}
 id="k-Backspace-2"
 valid msgstr="\bRetro;" # <keysym>Retrocés</keysym>
-valid msgstr="<key(sym)?>Retrocés</key(sym)?>"
+valid msgstr="<key(cap)?>Retrocés</key(cap)?>"
 hint="Es tradueix per «&Retro;», «<key>Retrocés</key>(Gnome)/<keysym>Retrocés</keysym>(KDE)» (keys)"
 
 # Break key: Break -> Interr
