@@ -1,7 +1,7 @@
 # -*- coding: UTF-8 -*
 
 """
-Catch inofficial ortography forms in Norwegian Nynorsk translation.
+Catch inofficial orthography forms in Norwegian Nynorsk translation.
 
 The check expects that the translation is plain text,
 i.e. that any markup has been removed from it beforehand;
@@ -22,7 +22,7 @@ from pology.split import split_text
 
 def exclude_forms (dictnames):
     """
-    Check for excluded ortography forms in translation [hook factory].
+    Check for excluded orthography forms in translation [hook factory].
 
     @param dictnames: base names of files from which to collect excluded forms;
         file paths will be assembled as

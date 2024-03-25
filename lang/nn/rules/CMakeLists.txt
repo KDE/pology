@@ -5,7 +5,7 @@ set(files
     english.rules
     grammar.rules
     kde.rules
-    ortography.rules
+    orthography.rules
     puretext.filters
     team-choices.rules
     technical.rules

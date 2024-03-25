@@ -17,7 +17,7 @@
 
 <para>The first level is simply the "language". In linguistic sense this can be a language proper (whatever that means), a dialect, a variant written in different script, etc. Each language in this sense is assigned a code in Pology, when first elements of support for that language are introduced. By convention this code should be an <ulink url="http://en.wikipedia.org/wiki/ISO_639">ISO 639</ulink> code (either two- or three-digit) if applicable, but in principle can be anything. Another convenient source of language codes is the GNU C library. For example, Portugese language spoken in Portugal would have the code <literal>pt</literal> (ISO 639) while Portugese spoken in Brazil would be <literal>pt_BR</literal> (GNU C library).</para>
 
-<para>The second level of language-specificity is the "environment". In linguistic terms this could be whatever distinct but minor variations in vocabulary, style, tone, or ortography, which are specific to certain groups of people within a single language community. Within Pology, this level is used to support variations between specific translation environments, such as long-standing translation projects and their teams. Although translating into the same language, translation teams will almost inevitably have some differences in terminology, style guidelines, etc. Environments also have codes assigned.</para>
+<para>The second level of language-specificity is the "environment". In linguistic terms this could be whatever distinct but minor variations in vocabulary, style, tone, or orthography, which are specific to certain groups of people within a single language community. Within Pology, this level is used to support variations between specific translation environments, such as long-standing translation projects and their teams. Although translating into the same language, translation teams will almost inevitably have some differences in terminology, style guidelines, etc. Environments also have codes assigned.</para>
 
 <para>In every application in Pology, the language and its environments have a hierarchical relation. In general, language-specific elements defined outside of a specific environment ("environment-agnostic" elements) are a sort of a relaxed least common denominator, and specific environments add their own elements to that. Relaxed means that environment-agnostic elements can sometimes include that which holds for most but not all environments, while each environment can override what it needs to. This prevents the environment-agnostic language support from getting too limited just to cater for perculiarities in certain environments.</para>
 
@@ -198,7 +198,7 @@ In the usual translation process, an embedded UI label is manually translated ju
 <sect2 id="sec-lguiformat">
 <title>Wrapping UI References</title>
 
-<para>If UI references are inserted into the text informally (even if relying on certain ortographic or typographic conventions), then they must be manually wrapped in the translation using an explicit UI reference directive. For example:
+<para>If UI references are inserted into the text informally (even if relying on certain orthographic or typographic conventions), then they must be manually wrapped in the translation using an explicit UI reference directive. For example:
 <programlisting language="po">
 #: comic.cpp:466
 msgid "Press the \"Get New Comics...\" button to install comics."

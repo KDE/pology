@@ -4,7 +4,7 @@
 Equip text with no-break characters where possibly helpful.
 
 The way text is wrapped in UI, by a general wrapping algorithm,
-is sometimes really not appropriate for Serbian ortography.
+is sometimes really not appropriate for Serbian orthography.
 For example, hyphen-separated case ending should not be wrapped.
 This module contains functions to heuristically replace ordinary
 with no-break characters, where such bad breaks can be expected.

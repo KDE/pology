@@ -25,7 +25,7 @@ def equip_header (hdr, cat):
       - C{Language}: the language code of translation;
             set only if the language can be determined
       - C{X-Environment}: linguistic subset of the language of translation
-            (team choices on terminology, ortography...);
+            (team choices on terminology, orthography...);
             set to C{kde} if not existing, otherwise left untouched.
       - C{X-Accelerator-Marker}: accelerator marker character which may
             be encountered in text

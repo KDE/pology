@@ -22,7 +22,7 @@
 
 # The file ‘klammeformer.dat’ contains a list of all
 # words that were ‘klammeformer’ in the pre-2012
-# Norwegian Nynorsk ortography. It is generated
+# Norwegian Nynorsk orthography. It is generated
 # from ‘fullform_nn-r103.txt’ using these commands:
 
 grep -v '^*' fullform_nn-r103.txt > alle.txt

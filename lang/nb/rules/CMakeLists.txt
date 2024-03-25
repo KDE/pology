@@ -1,5 +1,5 @@
 set(files
-    ortography.rules
+    orthography.rules
     puretext.filters
 )
 get_current_source_subdir(srcsubdir)

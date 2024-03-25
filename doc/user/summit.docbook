@@ -812,7 +812,7 @@ You can see that the complete dependency chain to which <filename>foobaz_info.po
 <sect2 id="sec-sucfghooks">
 <title>Summit Hooks</title>
 
-<para>Summit operations (gather, merge, scatter) are characterized by having PO files and messages flowing between the summit and branches. It is then natural to think of adding some <emphasis>filtering</emphasis> into these flows. For example, on scatter, one could do small ortographic adjustments in translation, or automatically insert translated UI references.<footnote>
+<para>Summit operations (gather, merge, scatter) are characterized by having PO files and messages flowing between the summit and branches. It is then natural to think of adding some <emphasis>filtering</emphasis> into these flows. For example, on scatter, one could do small orthographic adjustments in translation, or automatically insert translated UI references.<footnote>
 <para>Another possibility are validation filters, which do not modify the text but report possible problems, though <link linkend="sec-lgrules">validation rules</link> and <link linkend="sv-check-rules">the <command>check-rules</command> sieve</link> are likely a better solution.</para>
 </footnote></para>
 

@@ -1,6 +1,6 @@
 set(files
     domain.rules
-    ortography.rules
+    orthography.rules
     puretext.filters
     techne-kde.rules
     terminology-kde.rules

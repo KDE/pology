@@ -73,7 +73,7 @@ Based on this example, translating a PO file looks rather simple, and for the mo
 
 <para>Each message in the previous example also contains the <emphasis>source reference comment</emphasis>, which is the line starting with <literal>#:</literal> above the <literal>msgid "..."</literal> line. It tells from which source file of the program code (or source document of any kind), and the line in that source file, the message has been extracted into the PO file. This piece of data may look strange at first--of what use is it to translators, to merit inclusion in the PO file? Since the PO format has been developed in context of free software, the source reference enables you to actually look up the message in the source file, when you need <emphasis>more context</emphasis> to translate a certain message. This does not require of you to be a programmer, as source code is frequently readable enough to infer the message context without actually understanding the code.</para>
 
-<para>For example, in the translation the text in title position may need to have a certain grammatical or ortographical form, and it may not be apparent from the PO file alone if the message:
+<para>For example, in the translation the text in title position may need to have a certain grammatical or orthographical form, and it may not be apparent from the PO file alone if the message:
 <programlisting language="po">
 #: addcatdialog.cpp:45
 msgid "Import Catalog"
@@ -518,7 +518,7 @@ Tools that write out PO files usually unconditionally wrap the text at newlines,
 msgid "The \"face\" on Mars"
 msgstr "„Lice“ na Marsu"
 </programlisting>
-This holds both for double and single quotes. Do check if some particular quote pairs are prescribed by the ortography of your language, and use them if they are.</para>
+This holds both for double and single quotes. Do check if some particular quote pairs are prescribed by the orthography of your language, and use them if they are.</para>
 
 </sect2>
 
