@@ -11,7 +11,7 @@ Interfaces may change arbitrarily between any two Pology releases.
 """
 
 import codecs
-from configparser import SafeConfigParser
+from configparser import ConfigParser
 import datetime
 import os
 import re
@@ -86,7 +86,7 @@ class AscConfig (object):
         @type cfgpath: string
         """
 
-        config = SafeConfigParser()
+        config = ConfigParser()
         ifl = codecs.open(cfgpath, "r", "UTF-8")
         config.readfp(ifl)
         ifl.close()
