@@ -325,6 +325,14 @@ id="stig"
 hint="stig(en) → sti(en) (søkjestig o.l. – men «stigar» ein klatrar i er sjølvsagt OK)"
 valid after="kun"
 
+[søke]i
+id="verb-søke"
+hint="søke- → søkje-"
+valid before="t\b"
+
+[\bsøka\b]i
+hint="søka → søkja"
+
 [\blata?\b]i
 id="lata"
 hint="lata → la, lat → la"
