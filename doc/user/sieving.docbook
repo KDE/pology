@@ -2583,6 +2583,82 @@ Note that percent characters in the <literal>plural-forms</literal> field are es
 
 </sect2>
 
+<sect2 id="sv-fr:wesnoth">
+<title><command>fr:wesnoth</command></title>
+
+<para>A set of rules and corrections that can be automatically applied to the French translations of the Battle For Wesnoth.</para>
+
+<para>There are three levels of correction:
+<itemizedlist>
+
+<listitem>
+<para>level 1: basic correction</para>
+<para>Use unbreakable space before « » ; : ! ? % and remove double space.</para>
+</listitem>
+
+
+<listitem>
+<para>level 2: advanced correction (may break something)</para>
+<para>Replace ' by typographic apostrophe ’, and paid attention to pango/cairo balise and escaped <literal>\\'</literal>, like in <literal>&lt;italic>text='...'&lt;/italic></literal>
+It may need to be run several times to work correctly.</para>
+</listitem>
+
+<listitem>
+<para>level 3: very unstable correction (surely break something)</para>
+<para>Remove space before . and ,</para>
+</listitem>
+
+</itemizedlist>
+
+You can also use special filters, which make one specific task.
+
+</para>
+
+<para>Parameters:
+
+<variablelist>
+
+<varlistentry>
+<term><option>quiet</option></term>
+<listitem>
+<para>Don't show the summary at the end of the sieve. Useful for script usage.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>level</option></term>
+<listitem>
+<para>Set the level(s) of correction (1, 2 or 3). To use multiple levels, just put them together like <literal>level:12</literal> for levels 1 and 2</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>extra_spaces</option></term>
+<listitem>
+<para>(Special filter) Replace extra spaces at start and end of a message by punctuation space. You must give the number of the message where you want to replace extra spaces, in a comma-separated list. For example, <literal>extra_spaces:12,45,789</literal> to replace in the messages 12, 45 and 789.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>ellipsis3points</option></term>
+<listitem>
+<para>(Special filter) Replace all Unicode ellipsis (…) by three dots (...).</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>ellipsisUnicode</option></term>
+<listitem>
+<para>(Special filter) Replace all three dots (...) by Unicode ellipsis (…). May break something.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</para>
+
+</sect2>
+
 <sect2 id="sv-ru:fill-doc-date-kde">
 <title><command>ru:fill-doc-date-kde</command></title>
 
