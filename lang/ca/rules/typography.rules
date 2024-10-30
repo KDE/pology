@@ -371,7 +371,7 @@ hint="Hi ha dos articles (del/dels) repetits o consecutius (tipografia)"
 id="t-apo1"
 valid msgstr="el\s(Icedove|iode|ioga|uombat|iogurt|Iugosl|Utah)" # paraules comencen per i/u consonàntiques
 valid msgstr="el\s(head)" # paraules comencen per h aspirada (no muda) consonàntiques
-##valid cat="kgeography" # Noms de localitats
+valid msgstr="(a|de|e)l\s(One[D|d]rive)" # paraules forasteres que es pronuncien amb diftong
 hint="Cal apostrofar «el/al/del/pel» davant de vocal (o h) (tipografia)"
 
 # manca apòstrof: la + vocal (també amb H -excepte i,u,hi,hu àtones-)
@@ -391,7 +391,7 @@ valid msgstr="de\s(Icedove|iode|ioga|uombat|iogurt|Iugosl|Utah)" # paraules come
 valid msgstr="de\s(a|hac)" # noms de lletra
 valid msgstr="de\s(Stalin|Scala|Stuttgart|striptease)" # s líquida
 valid msgstr="de\s(Oliveira)" # Excepcions
-##valid cat="kgeography" # Noms de localitats
+valid msgstr="de\s(One[D|d]rive)" # paraules forasteres que es pronuncien amb diftong
 hint="Cal apostrofar «de» davant de vocal (o h) (tipografia)"
 
 # «e» sola és un error.
