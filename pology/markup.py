@@ -1779,7 +1779,7 @@ def validate_kde4_l1 (text, ents=None):
     if ents is not None:
         ents = Multidict([ents, _kde4_ents])
 
-    xmlfmt = _("@item markup type", "KDE4")
+    xmlfmt = _("@item markup type", "KDE")
     return validate_xml_l1(text, spec=_kde4_l1, xmlfmt=xmlfmt, ents=ents,
                            accelamp=True, casesens=False)
 
