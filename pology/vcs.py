@@ -802,7 +802,7 @@ class VcsGit (VcsBase):
             pdir = path
         while True:
             gitpath = os.path.join(pdir, ".git")
-            if os.path.isdir(gitpath):
+            if os.path.isdir(gitpath) or os.path.isfile(gitpath):
                 root = pdir
                 break
             pdir_p = pdir
