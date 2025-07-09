@@ -1,27 +1,8 @@
 # reStructuredText Rules
-# Copyrigth 2019-2025, Antoni Bella Pérez (antonibella5@yahoo.com)
+# Copyrigth 2019-2023, Antoni Bella Pérez (antonibella5@yahoo.com)
 # by KDE Catalan Team (kde-i18n-ca@kde.org)
 # License: GPLv3+
 
-{\*\*([-<>0123456789ABCDEFGHIJKLMNOPQRSTVWYZ])\*\*}
-id="rst-shorcut"
-valid msgstr="\*\*([-<>0123456789ABCDEFGHIJKLMNOPQRSTVWYZ])\*\*"
-hint="Surely missing a keyboard shortcut (reStructuredText)"
-
-{(\*\*\\\*\*)}
-id="rst-shorcut2"
-valid msgstr="(\*\*\\\*\*)"
-hint="Surely missing a keyboard shortcut (reStructuredText)"
-
-{(\*\*\+\*\*)}
-id="rst-shorcut3"
-valid msgstr="(\*\*\+\*\*)"
-hint="Surely missing a keyboard shortcut (reStructuredText)"
-
-{\*\*(F[0123456789][0123456789]?)\*\*}
-id="rst-shorcut-f"
-valid msgstr="\*\*(F[0123456789][0123456789]?)\*\*"
-hint="Surely missing a keyboard shortcut (reStructuredText)"
 
 {\s(<[^<]{1,}>)\`(_|)}
 id="rst-link2"
@@ -122,11 +103,6 @@ id="rst-dfn"
 valid msgstr=":dfn:\`(\b|«)(.*?)\`(\s|\.|\)|[:,]|$)"
 hint="Surely missing the bond «:dfn:`» - without an additional space too (reStructuredText)"
 
-{:doc:\`}
-id="rst-doc"
-valid msgstr=":doc:\`\b(.*?)\`(\s|\.|\)|[:,]|\»|$)"
-hint="Surely missing the bond «:doc:`» - without an additional space too, but yes at the end (reStructuredText)"
-
 {:file:\`}
 id="rst-file"
 valid msgstr=":file:\`(\.|[<~%]|\$|\*|\/|\b)(.*?)\`(\s|\.|\-|\»|\)|[:,]|$)"
@@ -136,11 +112,6 @@ hint="Surely missing the bond «:file:`» - without an additional space too (reS
 id="rst-guilabel"
 valid msgstr=":guilabel:\`(\b|\.\.\.|['+=<«]|>>)(.*?)\`(\s|\.|\-|\»|\)|[:,!]|$)"
 hint="Surely missing the bond «:guilabel:`» - without an additional space too (reStructuredText)"
-
-{:literal:\`}
-id="rst-literal"
-valid msgstr=":literal:\`(\b|['+=<]|\\|\/|\-|\*|\)|\()(.*?)\`(\s|\.|\-|\)|[:,]|$)"
-hint="Surely missing the bond «:literal:`» - without an additional space too (reStructuredText)"
 
 {:kbd:\`}
 id="rst-kbd"
@@ -172,6 +143,6 @@ id="rst-term"
 valid msgstr=":term:\`\b(.*?)\`(\s|\.|\)|[:,]|$)"
 hint="Surely missing the bond «:term:`» - without an additional space too (reStructuredText)"
 
-    [(\s|\s\()(:alt|:dfn|:doc|:file|:guilabel|:kbd|:literal|:menuselection|:program|:ref|:su[bp]|:term)\`(.*?)\s(<[^<]{1,}>)\`(\s|\.|\)|[:,]|$)]
+    [(\s|\s\()(:alt|:dfn|:file|:guilabel|:kbd|:menuselection|:program|:ref|:su[bp]|:term)\`(.*?)\s(<[^<]{1,}>)\`(\s|\.|\)|[:,]|$)]
     valid msgstr="<http"
-    hint="Surely missing a bond «:alt:`, :dfn:`, :doc:`, :file:`, :guilabel:`, :kbd:`, :literal:`, :menuselection:`, :program:`, :ref:`, :sub:` or :sup:`, :term:`» (reStructuredText)"
+    hint="Surely missing a bond «:alt:`, :dfn:`, :file:`, :guilabel:`, :kbd:`, :menuselection:`, :program:`, :ref:`, :sub:` or :sup:`, :term:`» (reStructuredText)"
