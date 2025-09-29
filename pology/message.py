@@ -1003,7 +1003,8 @@ class MessageUnsafe (Message_base):
         self.manual_comment = list(init.get("manual_comment", []))
         self.auto_comment = list(init.get("auto_comment", []))
         self.source = [tuple(x) for x in init.get("source", [])]
-        self.flag = set(init.get("flag", []))
+        # Convert the set this way to keep the flags order
+        self.flag = dict.fromkeys(init.get("flag", []))
 
         self.obsolete = init.get("obsolete", False)
 
