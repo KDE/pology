@@ -2346,8 +2346,10 @@ def summit_scatter_single (branch_id, branch_name, branch_subdir,
                 # so only assert this for robustness.
                 if summit_msg.msgid_plural != branch_msg.msgid_plural:
                     error(_("@info",
-                            "Cannot scatter messages with "
-                            "different plurality."))
+                            "Cannot scatter messages with different plurality."
+                            "\nSUMMIT: {0}\nBRANCH: {1}".format(
+                                summit_msg.msgid_plural,
+                                branch_msg.msgid_plural)))
 
                 for i in range(len(summit_msg.msgstr)):
                     piped_msgstr = exec_hook_msgstr(
