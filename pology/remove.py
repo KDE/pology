@@ -424,7 +424,7 @@ def remove_marlits_text (text, msg, cat):
     [type F3A hook].
 
     An "intersection" of L{remove_markup_text} and L{remove_literals_text},
-    where literals segments are determined by markup, and both the segment text
+    where literal segments are determined by markup, and both the segment text
     and its markup is removed. See documentation of these hooks for notes
     on what is considered literal and how markup type is determined.
 

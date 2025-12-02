@@ -12,7 +12,7 @@ switch it off for better performance. Modifications to PO files on disk are
 always explicit, and Pology tries to change as few lines as possible to be
 friendly to version control systems.
 
-Pology provides utility various modules for typical processing needs of
+Pology provides various utility modules for typical processing needs of
 different kinds of data in PO files. These include word-splitting,
 markup handling, wrapping, comment parsing, summary reporting,
 validation, etc.

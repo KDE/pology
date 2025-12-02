@@ -1625,13 +1625,13 @@ def _msg_ediff_to_x (emsg, rmsg, new):
 def editprob (oldtext, newtext):
     """
     Compute the probability that a human would rather edit the old text
-    to obtain the new text, then write it from scratch.
+    to obtain the new text than write it from scratch.
 
     Classical algorithms to compute similarity ratio between two texts
     sometimes produce high ratios for texts which a human would unlikely
     consider similar enough to make one text by editing the other,
     and vice versa.
-    This functions uses some heuristics to derive the probability
+    This function uses some heuristics to derive the probability
     that one text was really edited by a human into the other.
 
     Not commutative in general.

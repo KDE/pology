@@ -3,7 +3,7 @@
 """
 Standard command line options.
 
-This module defines command lines options frequently used by various scripts,
+This module defines command line options frequently used by various scripts,
 in a form suitable for adding to their option lists.
 
 All functions in this module take an C{optparse.OptionParser} instance,

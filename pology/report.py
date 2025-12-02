@@ -288,7 +288,7 @@ def list_options (optparser, short=False, both=False):
     @param both: whether to show both long and short name of an option
     @type both: bool
 
-    @returns: formated list of option names
+    @returns: formatted list of option names
     @rtype: string
     """
 

@@ -475,8 +475,8 @@ class SubcmdView (object):
         For help purposes, parameter may be given a description and
         metavariable to represent its value.
 
-        If the parameter being added to current subcommand has the name
-        same as a previously defined parameter to another subcommand,
+        If the parameter being added to current subcommand has the same
+        name as a previously defined parameter to another subcommand,
         then the current parameter shares semantics with the old one.
         This means that the type and list nature of current parameter must
         match that of the previous one (i.e. C{ptype}, C{multival}, and

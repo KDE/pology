@@ -966,7 +966,7 @@ class Synder (object):
         >>> sd.pkeys("Venus")
         ['gen', 'acc', 'nom', 'dat', 'gender']
 
-    Syntax errors in derivations sources will raise L{SynderError}
+    Syntax errors in derivation sources will raise L{SynderError}
     exceptions on import.
     Unresolvable conflicts in derivation keys will be reported
     as warning on import, and conflicted derivations will not be imported.

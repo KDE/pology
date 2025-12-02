@@ -212,7 +212,7 @@ def report_msg_to_lokalize (msg, cat, report=None):
     """
     Open catalog in Lokalize and jump to message.
 
-    Lokalize is a CAT tool for KDE 4, U{http://userbase.kde.org/Lokalize}.
+    Lokalize is a CAT tool for KDE, U{http://userbase.kde.org/Lokalize}.
     This function opens the catalog in Lokalize (if not already open)
     and jumps to the given message within it.
 
@@ -496,7 +496,7 @@ def report_msg_content (msg, cat,
 def rule_error(msg, cat, rule, highlight=None, fmsg=None, showmsg=True,
                predelim=False):
     """
-    Print formated rule error message on screen.
+    Print formatted rule error message on screen.
 
     @param msg: pology.message.Message object
     @param cat: pology.catalog.Catalog object
@@ -528,7 +528,7 @@ def rule_error(msg, cat, rule, highlight=None, fmsg=None, showmsg=True,
 
 def multi_rule_error (msg, cat, rspec, showmsg=True, predelim=False):
     """
-    Print formated rule error messages on screen.
+    Print formatted rule error messages on screen.
 
     Like L{rule_error}, but reports multiple failed rules at once.
     Contents of the matched message is shown only once for all rules,
@@ -639,7 +639,7 @@ def rule_xml_error(msg, cat, rule, span, pluralId=0):
 
 
 def spell_error(msg, cat, faultyWord, suggestions):
-    """Print formated rule error message on screen
+    """Print formatted rule error message on screen
     @param msg: pology.message.Message object
     @param cat: pology.catalog.Catalog object
     @param faultyWord: badly spelled word

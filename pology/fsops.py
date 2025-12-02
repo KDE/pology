@@ -27,7 +27,7 @@ def collect_files (paths,
     Collect list of files from given directory and file paths.
 
     C{paths} can be any sequence of strings, or a single string.
-    Directories can be searched for files recursively or non-resursively,
+    Directories can be searched for files recursively or non-recursively,
     as requested by the C{recurse} parameter.
     Parameters C{sort} and C{unique} determine if the resulting paths
     are sorted alphabetically increasing and if duplicate paths are removed.
@@ -240,7 +240,7 @@ def assert_system (cmdline, echo=False, wdir=None):
     """
     Execute command line and assert success.
 
-    If the command exits with non-zero zero state, the program aborts.
+    If the command exits with non-zero status code, the program aborts.
 
     C{cmdline} can be either a monolithic string, in which case it is
     executed through a shell, or a list of argument strings,
@@ -469,7 +469,7 @@ def unicode_to_str (strarg):
     """
     Convert a unicode string into raw byte sequence.
 
-    Strings goint to the environment should frequently be raw byte sequences,
+    Strings going to the environment should frequently be raw byte sequences,
     and need to be converted from Unicode strings according to system locale
     (e.g. command-line arguments).
     This function will take either a single Unicode string or any sequence
@@ -981,7 +981,7 @@ def exit_on_exception (func, cleanup=None):
     Gracefully exit a Pology script when an exception is received.
 
     Any error message will be printed, any progress lines will be cleared,
-    and keyboard interrupt will exist silently.
+    and keyboard interrupt will exit silently.
 
     The backtrace can be shown instead (on non-keyboard interrupt exceptions)
     by setting C{[global]/show-backtrace} user configuration field to true.

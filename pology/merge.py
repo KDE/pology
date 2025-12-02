@@ -94,7 +94,7 @@ def merge_pofile (catpath, tplpath,
     @param abort: whether to abort execution if C{msgmerge} fails
     @type abort: bool
 
-    @returns: whether merging succedded, or catalog object
+    @returns: whether merging succeeded, or catalog object
     @rtype: bool or L{Catalog<catalog.Catalog>} or C{None}
     """
 

@@ -68,7 +68,7 @@ def printStat(rules):
 def loadRules(lang, envs=[], envOnly=False, ruleFiles=None, stat=False,
               printInfo=False):
     """Load rules for a given language
-    @param lang: lang as a string in two caracter (i.e. fr). If none or empty, try to autodetect language
+    @param lang: lang as a string of two characters (i.e. fr). If none or empty, try to autodetect language
     @param envs: also load rules applicable in these environments
     @param envOnly: load only rules applicable in given environments
     @param ruleFiles: a list of rule files to load instead of internal
@@ -931,7 +931,7 @@ class Rule(object):
         self.manual=manual # Whether rule is manually applied
         self.count=0      # Number of time rule have been triggered
         self.time=0       # Total time of rule process calls
-        self.stat=stat    # Wheter to gather stat or not. Default is false (10% perf hit due to time() call)
+        self.stat=stat    # Whether to gather stat or not. Default is false (10% perf hit due to time() call)
         self.casesens=casesens # Whether regex matches are case-sensitive
         self.environ=environ # Environment in which to apply the rule
         self.mfilter=mfilter # Function to filter the message before checking

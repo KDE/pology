@@ -250,7 +250,7 @@ class Header (Monitored):
 
     def __eq__ (self, ohdr):
         """
-        Reports wheter headers are equal in all apparent parts.
+        Reports whether headers are equal in all apparent parts.
 
         "Apparent" parts include all those which are visible in the PO file.
         I.e. the check will ignore internal states, like line caches, etc.
@@ -264,7 +264,7 @@ class Header (Monitored):
 
     def __ne__ (self, ohdr):
         """
-        Reports wheter headers are not equal in some apparent parts.
+        Reports whether headers are not equal in some apparent parts.
 
         Equivalent to C{not (self == ohdr)}.
 

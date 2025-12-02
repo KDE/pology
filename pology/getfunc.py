@@ -92,7 +92,7 @@ def split_ireq (ireq, abort=False):
     The item request is a string of the form
     C{[lang:][proj%]path[/item][~args]} (or C{[proj%][lang:]...}),
     which this function parses into C{(path, lang, proj, item, args)} tuple.
-    If language, project, item or argument strings are not not stated,
+    If language, project, item or argument strings are not stated,
     their value in the tuple will be C{None}.
     The language should be a proper language code,
     the project an identifier-like string,
