@@ -335,7 +335,7 @@ def _rm_lit_in_msg (msg, cat, strs, rxs, heu, subs=""):
 
 
 def remove_literals_text (text, msg, cat):
-    """
+    r"""
     Remove literal segments from one of the text fields of the message
     [type F3A hook].
 

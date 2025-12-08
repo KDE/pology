@@ -44,7 +44,7 @@ class Sieve (object):
         }
     
         # Other dates should have the following format: (yyyy-mm-dd)
-        self.date_re = re.compile("^[0-9][0-9][0-9][0-9]\-[0-9][0-9]\-[0-9][0-9]$")
+        self.date_re = re.compile(r"^[0-9][0-9][0-9][0-9]\-[0-9][0-9]\-[0-9][0-9]$")
 
     def format_date (self, date_en):
         if self.pretranslated.has_key(date_en):

@@ -1,6 +1,6 @@
 # -*- coding: UTF-8 -*-
 
-"""
+r"""
 Handle subcommands and their parameters.
 
 Subcommands are putting main command into different modes of operation.

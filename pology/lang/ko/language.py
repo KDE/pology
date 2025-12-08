@@ -46,9 +46,9 @@ SYLLABLE_WITH_T_RIEUL = '[%s]' % ''.join([chr(c) for c in
 SYLLABLE_WITH_T_SSANGSIOS = '[%s]' % \
                             ''.join([chr(c) for c in
                                      range(0xAC00 + 0x14, 0xD7A4, 28)])
-GEOSIPNIDA_R = re.compile('\S+' + SYLLABLE_WITH_T_RIEUL + u' 것입니다')
+GEOSIPNIDA_R = re.compile(r'\S+' + SYLLABLE_WITH_T_RIEUL + u' 것입니다')
 # 과거형인 "-했을 것입니다"는 예외
-GEOSIPNIDA_EXCLUDE = re.compile('\S+' + SYLLABLE_WITH_T_SSANGSIOS + u'을 것입니다')
+GEOSIPNIDA_EXCLUDE = re.compile(r'\S+' + SYLLABLE_WITH_T_SSANGSIOS + u'을 것입니다')
 
 def hal_geosipnida (msgstr, msg, cat):
     """

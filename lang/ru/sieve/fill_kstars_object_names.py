@@ -30,7 +30,7 @@ class Sieve (object):
     def __init__ (self, params):
         pass
         # Other dates should have the following format: (yyyy-mm-dd)
-        self.date_re = re.compile("^[0-9][0-9][0-9][0-9]\-[0-9][0-9]\-[0-9][0-9]$")
+        self.date_re = re.compile(r"^[0-9][0-9][0-9][0-9]\-[0-9][0-9]\-[0-9][0-9]$")
 
     def translate (self, msg):
         if msg.msgctxt == "Asteroid name (optional)" and re.match(r'\([0-9]{4} [A-Z]{2}[0-9]{1,3}\)', msg.msgid):

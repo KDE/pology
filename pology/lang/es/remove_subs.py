@@ -14,11 +14,11 @@ import re
 
 # Capitals words in valid contexts in the translated text according with Spanish grammar
 # (beggining of paragraph, after some punctuation characters and after a new line)
-_valid_capital_word_middle = re.compile("(?<=[.:?!>»\"]\s)\w*?[A-ZÁÉÍÓÚÜÑÇ]\w*", re.U)
-_valid_capital_word_initial = re.compile("^\w*?[A-ZÁÉÍÓÚÜÑÇ]\w*", re.U)
+_valid_capital_word_middle = re.compile(r"(?<=[.:?!>»\"]\s)\w*?[A-ZÁÉÍÓÚÜÑÇ]\w*", re.U)
+_valid_capital_word_initial = re.compile(r"^\w*?[A-ZÁÉÍÓÚÜÑÇ]\w*", re.U)
 
 # All capital words in the original English text,
-_ent_capital_word = re.compile("\w*?[A-Z]\w*", re.U)
+_ent_capital_word = re.compile(r"\w*?[A-Z]\w*", re.U)
 # All plural full capital words (acronyms) without the final 's'.
 _ent_capital_word_plural = re.compile("[A-Z0-9]+(?=\'?s\b)", re.U)
 
@@ -82,7 +82,7 @@ def remove_original_capital_words (msg, cat):
 	
 	return 0
 	
-_ent_parameter = re.compile("(%\d%?|\$\{.+?\}|\$\w+|%(?:\d\$)?[ds]|%\|.+?\|)", re.U)
+_ent_parameter = re.compile(r"(%\d%?|\$\{.+?\}|\$\w+|%(?:\d\$)?[ds]|%\|.+?\|)", re.U)
 
 def remove_paired_parameters (msg, cat):
 	"""
@@ -112,7 +112,7 @@ def remove_paired_parameters (msg, cat):
 
 	return 0
 
-_ent_xml_entity = re.compile("\<\/?\w+\>")
+_ent_xml_entity = re.compile(r"\<\/?\w+\>")
 
 _auto_comment_tag = ("trans_comment", "literallayout", "option", "programlisting", "othercredit",
 	"author", "email", "holder",

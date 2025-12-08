@@ -65,7 +65,7 @@ def _main ():
 	dict_local.session_dict(clear=True)
 	dict_local.close()
 
-_ent_proper_word = re.compile("^\w*?[A-Z]\w*$")
+_ent_proper_word = re.compile(r"^\w*?[A-Z]\w*$")
 
 def extract_proper_words (path, dict_en, dict_local):
 

@@ -27,7 +27,7 @@ class Sieve (object):
 
         self.nmatch = 0
 
-        self.percent=re.compile("( %)(?=$| |\.|,)")
+        self.percent=re.compile(r"( %)(?=$| |\.|,)")
 
     def process (self, msg, cat):
 

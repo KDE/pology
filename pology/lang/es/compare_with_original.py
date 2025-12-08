@@ -32,7 +32,7 @@ def test_if_empty_translation (msg, cat):
 	return []
 
 
-_purepunc = re.compile("^\W+$", re.U)
+_purepunc = re.compile(r"^\W+$", re.U)
 
 def test_if_purepunc (msg, cat):
 	"""
@@ -186,9 +186,9 @@ def test_if_very_short_translation (msg, cat):
 	return []
 
 
-_valid_word = re.compile("^\w+$", re.U)
-_capital_word = re.compile("^[A-Z0-9ÑÇÁÉÍÓÚÁÉÍÓÚÂÊÎÔÛÄËÏÖÜĀ]+$", re.U)
-_proper_name = re.compile("^\W*?[A-Z0-9ÑÇÁÉÍÓÚÁÉÍÓÚÂÊÎÔÛÄËÏÖÜĀ]\w+(\W+?[A-Z0-9ÑÇÁÉÍÓÚÁÉÍÓÚÂÊÎÔÛÄËÏÖÜĀ]\w+)+\W*$", re.U)
+_valid_word = re.compile(r"^\w+$", re.U)
+_capital_word = re.compile(r"^[A-Z0-9ÑÇÁÉÍÓÚÁÉÍÓÚÂÊÎÔÛÄËÏÖÜĀ]+$", re.U)
+_proper_name = re.compile(r"^\W*?[A-Z0-9ÑÇÁÉÍÓÚÁÉÍÓÚÂÊÎÔÛÄËÏÖÜĀ]\w+(\W+?[A-Z0-9ÑÇÁÉÍÓÚÁÉÍÓÚÂÊÎÔÛÄËÏÖÜĀ]\w+)+\W*$", re.U)
 
 def test_if_not_translated (msg, cat):
 	"""
@@ -229,7 +229,7 @@ def test_if_not_translated (msg, cat):
 
 	return []
 
-_ent_accel = re.compile("&[A-Za-z0-9ÑñÇç](?!\w+;)", re.U)
+_ent_accel = re.compile(r"&[A-Za-z0-9ÑñÇç](?!\w+;)", re.U)
 
 def test_paired_accelerators (msg, cat):
 	"""
@@ -333,8 +333,8 @@ def test_paired_brackets (msg, cat):
 				return [("msgstr", 0, [(0, 0, "Faltan " + s[2] + " en la traducción")])]
 	return []
 
-_ent_function = re.compile("(?:\w+\:\:)*\w+\(\)", re.U)
-_ent_parameter = re.compile("(?<=\W)\-\-\w+(?:\-\w+)*", re.U)
+_ent_function = re.compile(r"(?:\w+\:\:)*\w+\(\)", re.U)
+_ent_parameter = re.compile(r"(?<=\W)\-\-\w+(?:\-\w+)*", re.U)
 
 def test_paired_expressions (msg, cat):
 	"""
@@ -368,8 +368,8 @@ def test_paired_expressions (msg, cat):
 	return []
 
 
-_ent_number = re.compile("\b\d+([\s.,:/-]\d+)*\b", re.U)
-_not_digit = re.compile("\D", re.U)
+_ent_number = re.compile(r"\b\d+([\s.,:/-]\d+)*\b", re.U)
+_not_digit = re.compile(r"\D", re.U)
 
 def test_paired_numbers (msg, cat):
 	"""
@@ -406,7 +406,7 @@ def test_paired_numbers (msg, cat):
 
 	return []
 
-_ent_context_tags = re.compile("\<(application|bcode|command|email|envar|filename|icode|link|returnvalue)\>(.+?)\<\/\1\>", re.U)
+_ent_context_tags = re.compile(r"\<(application|bcode|command|email|envar|filename|icode|link|returnvalue)\>(.+?)\<\/\1\>", re.U)
 
 def test_paired_context_tags (msg, cat):
 	"""
@@ -434,7 +434,7 @@ def test_paired_context_tags (msg, cat):
 
 	return []
 
-_ent_xml_entities = re.compile("\<\/(application|bcode|command|email|emphasis|envar|filename|icode|interface|link|message|nl|numid|placeholder|resource|shortcut|note|warning|para|title|subtitle|list|item|)\>", re.U)
+_ent_xml_entities = re.compile(r"\<\/(application|bcode|command|email|emphasis|envar|filename|icode|interface|link|message|nl|numid|placeholder|resource|shortcut|note|warning|para|title|subtitle|list|item|)\>", re.U)
 
 def test_paired_xml_entities (msg, cat):
 	"""

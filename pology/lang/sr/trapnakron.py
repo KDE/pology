@@ -868,7 +868,7 @@ def norm_pkey (pkey):
               type=type(pkey)))
 
 
-_norm_rtkey_rx = re.compile("\s", re.U)
+_norm_rtkey_rx = re.compile(r"\s", re.U)
 
 def norm_rtkey (text):
     """

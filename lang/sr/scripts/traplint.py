@@ -235,14 +235,14 @@ def _match_text (text, tests, unmatched_tests=None):
 
 def _escape_pval (pval):
 
-    pval = pval.replace(",", "\,")
+    pval = pval.replace(",", r"\,")
     return pval
 
 
 def _escape_syn (pval):
 
-    pval = pval.replace(",", "\,")
-    pval = pval.replace(":", "\:")
+    pval = pval.replace(",", r"\,")
+    pval = pval.replace(":", r"\:")
     return pval
 
 

@@ -134,7 +134,7 @@ def _check_spell_w (provider, lang, encoding, variety, extopts,
 
     # FIXME: It is said that no fancy word-splitting is done on the text,
     # but still, best to split it assuming plain text?
-    wsplit_rx = re.compile("[^\W\d_]+", re.U)
+    wsplit_rx = re.compile(r"[^\W\d_]+", re.U)
     def wsplit (text, msg, cat):
         word_spans = []
         for m in wsplit_rx.finditer(text):
