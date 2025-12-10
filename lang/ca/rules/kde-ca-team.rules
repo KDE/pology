@@ -413,8 +413,9 @@ hint="Es tradueix per «quadre/s d'edició» (kde-ca-team)"
 {\bembed(dable|ded|ding)?\b}i
 id="kct-embed"
 valid msgstr="incrust(a|ar|at|able|ats|en|eu)"
+valid msgstr="immersi(ó|ons)" # Context d'IA
 valid msgstr="incl(òs|osa|osos|oure)" # docmessages
-hint="Es tradueix per «incrustar, també: inclòs/osa/osos, incloure» (kde-ca-team)"
+hint="Es tradueix per «incrustar, també: inclòs/osa/osos, incloure. Context IA: immersió» (kde-ca-team)"
 
 {\bemoticons?\b}i
 id="kct-emoticon"
@@ -813,6 +814,7 @@ valid msgstr="amplitud" # context d'estadística
 valid msgstr="àre(a|es)"
 valid msgstr="caren(a|es)" # de muntanyes
 valid msgstr="gamma"
+valid msgstr="sèrie"
 valid msgstr="intervals?"
 valid msgstr="marge" # HDR (High dynamic range): Marge dinàmic elevat
 valid msgstr="ventall"
