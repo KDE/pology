@@ -207,7 +207,7 @@ def init_file_progress (fpaths, timeint=1.0, stream=sys.stderr, addfmt=None):
     try:
         import curses
         curses.setupterm()
-    except:
+    except Exception:
         return lambda x=None: x
 
     def postfmt (pstr):

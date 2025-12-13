@@ -16,7 +16,7 @@ import sys
 
 try:
     import fallback_import_paths
-except:
+except Exception:
     pass
 
 from pology import version, _, n_

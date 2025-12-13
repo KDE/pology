@@ -18,7 +18,7 @@ import sys
 
 try:
     import fallback_import_paths
-except:
+except Exception:
     pass
 
 from pology import version, _, n_
@@ -118,14 +118,14 @@ def main ():
     # Convert non-string options to needed types.
     try:
         op.min_words_exact = int(op.min_words_exact)
-    except:
+    except ValueError:
         error(_("@info",
                 "Value to option %(opt)s must be an integer number, "
                 "given '%(val)s' instead.",
                 opt="--min-words-exact", val=op.min_words_exact))
     try:
         op.min_adjsim_fuzzy = float(op.min_adjsim_fuzzy)
-    except:
+    except ValueError:
         error(_("@info",
                 "Value to option %(opt)s must be a real number, "
                 "given '%(val)s' instead.",

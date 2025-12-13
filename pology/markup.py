@@ -754,7 +754,7 @@ def collect_xml_spec_l1 (specpath):
     def make_rx_lint (rx_str, rx_flags, wch, lincol):
         try:
             rx = re.compile(rx_str, rx_flags)
-        except:
+        except re.PatternError:
             signal(_("@info the regex is already quoted when inserted",
                      "Cannot compile regular expression %(regex)s.",
                      regex=(wch + rx_str + wch)),

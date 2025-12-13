@@ -309,7 +309,7 @@ class ParamParser (object):
                     if not scview._seplists[param]:
                         try:
                             val = ptype(strval)
-                        except:
+                        except Exception:
                             raise SubcmdError(
                                 _("@info",
                                   "Cannot convert value '%(val)s' to "
@@ -321,7 +321,7 @@ class ParamParser (object):
                         tmplst = strval.split(",")
                         try:
                             val = [ptype(x) for x in tmplst]
-                        except:
+                        except Exception:
                             raise SubcmdError(
                                 _("@info",
                                   "Cannot convert value '%(val)s' to "

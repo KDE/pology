@@ -1784,7 +1784,7 @@ def _read_msg_texts (path):
 
     try:
         lines = open(path).readlines()
-    except:
+    except Exception:
         raise PologyError(
             _("@info",
               "Cannot read file '%(file)s'.",

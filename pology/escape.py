@@ -64,7 +64,7 @@ def unescape_c (s):
                 try:
                     ec = chr(int(dd, c == "x" and 16 or 8))
                     p += 3
-                except:
+                except ValueError:
                     pass
         else:
             ec = _unescapes_c.get(c)

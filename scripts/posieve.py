@@ -12,7 +12,7 @@ Reference documentation in C{doc/user/sieving.docbook}.
 
 try:
     import fallback_import_paths
-except:
+except Exception:
     pass
 
 import glob

@@ -413,7 +413,7 @@ def make_matcher (name, value, mods, params, neg=False):
             rxflags |= re.I
         try:
             regex = re.compile(value, rxflags)
-        except:
+        except re.PatternError:
             raise ExprError(None, _("@item:intext",
                                     "invalid regular expression '%(regex)s'",
                                     regex=value))
@@ -494,7 +494,7 @@ def make_matcher (name, value, mods, params, neg=False):
             start, end = value.split(":", 1)
             start = int(start) if start else 0
             end = int(end) if end else None
-        except:
+        except ValueError:
             raise ExprError(value, _("@item:intext", "invalid line span"), 0)
         def matcher (msgf, msg, cat, hl=[]):
             cend = end
@@ -507,7 +507,7 @@ def make_matcher (name, value, mods, params, neg=False):
             start, end = value.split(":", 1)
             start = int(start) if start else 0
             end = int(end) if end else None
-        except:
+        except ValueError:
             raise ExprError(value, _("@item:intext", "invalid entry span"), 0)
         def matcher (msgf, msg, cat, hl=[]):
             cend = end

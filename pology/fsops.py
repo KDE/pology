@@ -584,7 +584,7 @@ def term_width (stream=sys.stdout, default=None):
     try:
         import curses
         curses.setupterm()
-    except:
+    except Exception:
         return default
 
     ncols = curses.tigetnum("cols")
@@ -791,7 +791,7 @@ def collect_paths_from_file (fpath, cmnts=True, incexc=True, respathf=None,
                     dstr = line[len(shead):]
                     try:
                         rx = re.compile(dstr, re.U)
-                    except:
+                    except re.PatternError:
                         raise PologyError(
                             _("@info",
                               "Invalid regular expression in inclusion/"

@@ -12,7 +12,7 @@ Documented in C{doc/user/lingo.docbook#sec-lgmtrans}.
 
 try:
     import fallback_import_paths
-except:
+except Exception:
     pass
 
 import locale
@@ -484,7 +484,7 @@ class Translator_google (object):
         import urllib.request, urllib.parse, urllib.error
         try:
             import simplejson
-        except:
+        except Exception:
             error(_("@info",
                     "Python module '%(mod)s' not available. "
                     "Try installing the '%(pkg)s' package.",
@@ -503,7 +503,7 @@ class Translator_google (object):
             try:
                 res = simplejson.load(urllib.request.FancyURLopener().open(execurl))
                 text_tr = str(res["data"]["translations"][0]["translatedText"])
-            except:
+            except Exception:
                 text_tr = ""
             texts_tr.append(text_tr)
 

@@ -649,7 +649,7 @@ def _parse_ascription_fields (amsg, acat, aconf):
         datestr = lst.pop(0).strip()
         try:
             date = parse_datetime(datestr)
-        except:
+        except Exception:
             warning_on_msg(_("@info",
                              "Malformed date string "
                              "in ascription comment '%(cmnt)s'.",
@@ -673,7 +673,7 @@ def _parse_ascription_fields (amsg, acat, aconf):
             if tmp:
                 try:
                     seplen = int(tmp)
-                except:
+                except ValueError:
                     warning_on_msg(_("@info",
                                      "Malformed separator length "
                                      "in ascription comment '%(cmnt)s'.",

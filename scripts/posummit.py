@@ -15,7 +15,7 @@ from functools import reduce
 
 try:
     import fallback_import_paths
-except:
+except Exception:
     pass
 
 from pology import version, _, n_, t_, PologyError
@@ -424,7 +424,7 @@ def derive_project_data (project, options, nwgrefpath=None):
         def regex_to_func (rxstr):
             try:
                 rx = re.compile(rxstr, re.U)
-            except:
+            except re.PatternError:
                 error(_("@info",
                         "Invalid regular expression '%(regex)s' "
                         "in include-exclude specification "

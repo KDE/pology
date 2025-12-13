@@ -85,7 +85,7 @@ def version ():
                 if line:
                     verstr = line
                     break
-        except:
+        except Exception:
             pass
 
     return verstr

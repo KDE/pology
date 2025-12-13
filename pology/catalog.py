@@ -220,7 +220,7 @@ def _parse_po_file (file, MessageType=MessageMonitored,
                             try:
                                 line = int(lst[1])
                                 assert line > 0
-                            except:
+                            except ValueError:
                                 file = srcref
                                 line = -1
                             loc.msg.source.append((file, line))

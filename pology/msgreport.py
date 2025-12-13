@@ -35,7 +35,7 @@ def _get_module (name, cmsg=None):
     if name not in _modules_on_request:
         try:
             _modules_on_request[name] = __import__(name)
-        except:
+        except Exception:
             if cmsg:
                 warning(_("@info",
                           "Cannot import module '%(mod)s'; consequence:\n"
@@ -247,7 +247,7 @@ def report_msg_to_lokalize (msg, cat, report=None):
 
     try:
         try: globals()['lokalizeobj']
-        except:
+        except KeyError:
             bus = dbus.SessionBus()
             lokalize_dbus_instances=lambda:[name for name in bus.list_names() if name.startswith('org.kde.lokalize')]
             for lokalize_dbus_instance in lokalize_dbus_instances():
@@ -256,7 +256,7 @@ def report_msg_to_lokalize (msg, cat, report=None):
                     globals()['lokalizeobj']=bus.get_object(globals()['lokalizeinst'],'/ThisIsWhatYouWant')
                     globals()['openFileInEditor']=globals()['lokalizeobj'].get_dbus_method('openFileInEditor','org.kde.Lokalize.MainWindow')
                     globals()['visitedcats']={}
-                except:
+                except KeyError:
                     pass
             if 'openFileInEditor' not in globals():
                 return
@@ -280,7 +280,7 @@ def report_msg_to_lokalize (msg, cat, report=None):
             addTemporaryEntryNote=editorobj.get_dbus_method('addTemporaryEntryNote','org.kde.Lokalize.Editor')
             addTemporaryEntryNote(msg.refentry-1,report.resolve(ctype="none"))
 
-    except:
+    except Exception:
         return
 
 

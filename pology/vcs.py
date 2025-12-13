@@ -460,7 +460,7 @@ class VcsNoop (VcsBase):
 
         try:
             os.shutil.copyfile(path, dstpath)
-        except:
+        except Exception:
             return False
         return True
 
@@ -964,7 +964,7 @@ class VcsGit (VcsBase):
             tarpath = os.path.join(tardir, path)
             try:
                 shutil.move(tarpath, dstpath)
-            except:
+            except Exception:
                 ret = False
             if os.path.isdir(tardir):
                 shutil.rmtree(tardir)

@@ -24,7 +24,7 @@ import sys
 
 try:
     import fallback_import_paths
-except:
+except Exception:
     pass
 from pology import _, n_
 from pology.report import report, error

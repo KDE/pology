@@ -18,7 +18,7 @@ import sys
 
 try:
     import fallback_import_paths
-except:
+except Exception:
     pass
 
 from pology import version, _, n_, t_
@@ -303,7 +303,7 @@ def diff_pairs (pspecs, merge,
         for fpath in fpaths:
             try:
                 cats.append(Catalog(fpath, create=True, monitored=False))
-            except:
+            except Exception:
                 error_wcl(_("@info",
                             "Cannot parse catalog '%(file)s'.",
                             file=fpath), norem=[fpath])
@@ -464,7 +464,7 @@ def pairs_update_effort (pspecs, quiet=False):
         for fpath in fpaths:
             try:
                 cats.append(Catalog(fpath, create=True, monitored=False))
-            except:
+            except Exception:
                 error_wcl(_("@info",
                             "Cannot parse catalog '%(file)s'.",
                             file=fpath), norem=[fpath])

@@ -308,7 +308,7 @@ def _write_parsed_file (source, path, cpath=None):
     try:
         fhc = open(cpath, "wb")
         fh = open(path, "rb")
-    except:
+    except OSError:
         return False
 
     # Write out data version and file hash.
@@ -327,7 +327,7 @@ def _read_parsed_file (path):
     try:
         fhc = open(cpath, "rb")
         fh = open(path, "rb")
-    except:
+    except OSError:
         return None
 
     # Check if data version and file hashes match.

@@ -553,7 +553,7 @@ def _construct_enchant (provider, lang, envs, encoding, variety, suponly):
             else:
                 checker = enchant.DictWithPWL(e_lang, dictpath, None, broker)
             checker.check(".")
-        except:
+        except Exception:
             raise PologyError(
                 _("@info",
                   "Enchant test check for language '%(lang)s' failed.",

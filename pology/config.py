@@ -108,7 +108,7 @@ class section:
         if typ is not bool:
             try:
                 cvalue = typ(value)
-            except:
+            except Exception:
                 cvalue = None
         else:
             cvalue = strbool(value)

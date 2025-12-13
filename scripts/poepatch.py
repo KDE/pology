@@ -12,7 +12,7 @@ Documented in C{doc/user/diffpatch.docbook#sec-dpdiff}.
 
 try:
     import fallback_import_paths
-except:
+except Exception:
     pass
 
 import sys
@@ -169,7 +169,7 @@ def apply_ediff (op):
         readfh = sys.stdin
     try:
         ecat = Catalog(edfpath, monitored=False, readfh=readfh)
-    except:
+    except Exception:
         error(_("@info ediff is shorthand for \"embedded difference\"",
                 "Error reading ediff '%(file)s'.",
                 file=edfpath))
@@ -242,7 +242,7 @@ def apply_ediff (op):
                 continue
             try:
                 cat = Catalog(fpath1)
-            except:
+            except Exception:
                 warning(_("@info",
                           "Error reading catalog '%(file)s', skipping it.",
                           file=fpath1))
@@ -254,7 +254,7 @@ def apply_ediff (op):
                 cat = Catalog(fpath2, create=True)
                 if cat.created():
                     cat.set_wrapping(ecat.wrapping())
-            except:
+            except Exception:
                 if os.path.isfile(fpath2):
                     warning(_("@info",
                               "Error reading catalog '%(file)s', skipping it.",
@@ -757,7 +757,7 @@ def unembed_ediff (path, all=False, old=False):
 
     try:
         cat = Catalog(path)
-    except:
+    except Exception:
         warning(_("@info",
                   "Error reading catalog '%(file)s', skipping it.",
                   file=path))

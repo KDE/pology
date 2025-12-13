@@ -298,7 +298,7 @@ def _literals_spec (msg, cat):
         if rx_str:
             try:
                 rxs.append(re.compile(rx_str, re.U|re.S))
-            except:
+            except Exception:
                 warning_on_msg(_("@info",
                                  "Field %(field)s states "
                                  "malformed regex '%(re)s'.",
@@ -608,7 +608,7 @@ def rewrite_msgid (msg, cat):
         srch, repl = lst[1], lst[2]
         try:
             rx = re.compile(srch, re.U)
-        except:
+        except re.PatternError:
             warning_on_msg(_("@info",
                              "Invalid search pattern in "
                              "rewrite directive '%(dir)s'.", dir=rwspec),
@@ -622,7 +622,7 @@ def rewrite_msgid (msg, cat):
             msg.msgid = rx.sub(repl, msg.msgid)
             if msg.msgid_plural is not None:
                 msg.msgid_plural = rx.sub(repl, msg.msgid_plural)
-        except:
+        except Exception:
             warning_on_msg(_("@info",
                              "Error in application of "
                              "rewrite directive '%(dir)s'.", dir=rwspec),
@@ -682,7 +682,7 @@ def rewrite_inverse (msg, cat):
     srch = rwspecs[0]
     try:
         rx = re.compile(srch, re.U)
-    except:
+    except re.PatternError:
         warning_on_msg(_("@info",
                          "Invalid search pattern '%(pattern)s' in "
                          "inverse rewrite directive.", pattern=srch),
