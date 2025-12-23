@@ -32,7 +32,7 @@ from pology.fsops import getucwd, join_ncwd
 from pology.fsops import collect_paths_cmdline, build_path_selector
 from pology.fsops import exit_on_exception
 from pology.merge import merge_pofile
-from pology.monitored import Monpair, Monlist
+from pology.monitored import Monpair, Monlist, Monset
 from pology.msgreport import report_on_msg
 from pology.report import report, error, warning, format_item_list
 from pology.report import init_file_progress
@@ -2139,6 +2139,7 @@ def gather_merge_msg (summit_msg, msg):
                 summit_msg.msgid_plural = msg.msgid_plural
             summit_msg.msgstr = Monlist(msg.msgstr)
             if summit_msg.msgid_plural == msg.msgid_plural:
+                summit_msg.flag = Monset(msg.flag)
                 summit_msg.unfuzzy()
 
     elif summit_msg.untranslated and (msg.translated or msg.fuzzy):
@@ -2151,6 +2152,7 @@ def gather_merge_msg (summit_msg, msg):
             if msg.msgid_plural is not None:
                 summit_msg.msgid_plural = msg.msgid_plural
             summit_msg.msgstr = Monlist(msg.msgstr)
+            summit_msg.flag = Monset(msg.flag)
             summit_msg.fuzzy = msg.fuzzy
 
 
