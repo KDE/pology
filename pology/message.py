@@ -741,6 +741,8 @@ class Message_base (object):
 
         if not keepmanc:
             self.manual_comment = type(self.manual_comment)()
+        if not isinstance(self.flag, Monset):
+            self.flag = Monset(self.flag)
         self.fuzzy = False # also removes fuzzy flag
         self.msgctxt_previous = None
         self.msgid_previous = None
