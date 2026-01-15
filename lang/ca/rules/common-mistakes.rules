@@ -155,6 +155,12 @@ hint="«diferent a» s'ha de substituir per «diferent de» (error freqüent)"
 id="common-doncs"
 hint="«doncs» s'ha de substituir per «perquè/ja que» (error freqüent)"
 
+# «emparellar» ha de ser «aparellar» (dlc.iec.cat).
+# «emparellar» és per a persones (posar-se al mateix nivell) o animals (amb fins reproductius)
+[\bemparell]i
+id="common-emparellar"
+hint="«emparellar» s'ha de substituir per «aparellar» (error freqüent)"
+
 # «enlloc de» ha de ser «en lloc de».
 [\benlloc\sde\b]i
 id="common-enllocde"
