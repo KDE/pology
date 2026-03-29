@@ -345,6 +345,18 @@ valid msgid="te"
 valid after="-"
 hint="«té» (verb tenir) cal que porti accent (error freqüent)"
 
+# «timezone» es tradueix per «fus horari» (error freqüent).
+{\btimezones?\b}i
+id="common-timezone"
+valid msgstr="fus(os)?\shoraris?"
+hint="«timezone» es tradueix per «fus horari» (error freqüent)"
+
+# «time zone» es tradueix per «fus horari» (error freqüent).
+{\btime\szones?\b}i
+id="common-time_zone"
+valid msgstr="fus(os)?\shoraris?"
+hint="«time zone» es tradueix per «fus horari» (error freqüent)"
+
 # «tutorial» es tradueix per «guia d'aprenentatge».
 {\btutorials?\b}i
 id="common-tutorial"
