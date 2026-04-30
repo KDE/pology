@@ -62,6 +62,14 @@ def setup_sieve (p):
                 
     add_param_poeditors(p)
 
+    # As LT server does not seem to read disabled rules from his config file, we manage exception here
+    #TODO: investigate deeper this problem and make a proper bug report to LT devs.
+    default_disabled_rules = [
+        "COMMA_PARENTHESIS_WHITESPACE",
+        "HUNSPELL_RULE",
+        "UPPERCASE_SENTENCE_START",
+    ]
+
     p.add_param(
         "disable",
         str,
@@ -70,6 +78,7 @@ def setup_sieve (p):
             "@info sieve parameter description",
             "List of LanguageTool rule IDs to disable."
         ),
+        defval=default_disabled_rules
     )
 
 
@@ -90,14 +99,7 @@ class Sieve (object):
         port=params.port
         #TODO: autodetect tcp port by reading LanguageTool config file if host is localhost
 
-        # As LT server does not seem to read disabled rules from his config file, we manage exception here
-        #TODO: investigate deeper this problem and make a proper bug report to LT devs.
-        default_disabled_rules = {
-            "COMMA_PARENTHESIS_WHITESPACE",
-            "HUNSPELL_RULE",
-            "UPPERCASE_SENTENCE_START",
-        }
-        self.disabledRules = set(params.disable) or default_disabled_rules
+        self.disabledRules = set(params.disable)
 
         # Create connection to the LanguageTool server
         self.connection=HTTPConnection(host, port)
