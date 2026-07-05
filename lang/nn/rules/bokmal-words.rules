@@ -13,3 +13,12 @@ include file="puretext.filters"
 environment mformsjekk
 id="bokmålsord"
 hint="Bruk av eit ord som berre er gyldig på bokmål."
+valid span="en" after="-" # Endinga -en, eks. «ID-en»
+valid span="et" after="-" # Endinga -et, eks. «API-et»
+valid msgstr="©" # Typisk personnamn som liknar på bokmålsord
+valid span="Sitter" after="Harald "
+valid span="EN" after="\/\/" # HTML-deklarasjon
+valid ctx="star name"
+valid ctx="^City in "
+valid ctx="\.kgm$"
+valid span="Letter"

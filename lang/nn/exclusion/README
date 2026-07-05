@@ -3,9 +3,10 @@
 #
 # [Note: This file is runnable using ‘sh’.]
 #
-# To generate the dictionaries, you need four files:
+# To generate the dictionaries, you need six files:
 #   fullform_nn-r103.txt, fullform_nn-r183.txt
 #   fullform_nn.dat, fullform_nb.dat
+#   article-nn.json article-nb.json
 #
 # The file fullform_nn-r103.txt and fullform_nn-r183.txt
 # should be a checkout of revision 103 and 183,
@@ -18,6 +19,13 @@
 #
 # The .dat files are word list files from the *latest*
 # revision of ordbanken (compiled using the ‘make’ command).
+#
+# The .json files contains the latest version of the
+# Norwegian Nynorsk and Norwegian Bokmål dictionaries and
+# can be downloaded using the following commands:
+#
+# curl -sL https://ord.uib.no/bm/fil/article.json.gz | gunzip > article-nb.json
+# curl -sL https://ord.uib.no/nn/fil/article.json.gz | gunzip > article-nn.json
 
 
 # The file ‘klammeformer.dat’ contains a list of all
@@ -58,19 +66,16 @@ rm -f alle.dat gamle.txt unormert.txt
 
 # The file ‘bokmal-words.dat’ contains a list of all words that
 # are valid in Norwegian Bokmål, but not in Norwegian Nynorsk.
-# Words containing only non-letter characters or containing
-# uppercase letters are excluded, to avoid too many false
-# positives. Still, there will be *many* false positives, so
-# this file should not be used in any ‘default’ rule sets.
-# It is generated from ‘fullform_nn.dat’ and ‘fullform_bm.dat’
+# It is generated from ‘article-nn.json’ and ‘article-nb.json’
 # using these commands:
 
-cut -f2 -d'	' fullform_nn.dat | sed 's/ /\n/g' | grep -v '^[^A-Za-zÆØÅæøå]\+$' | grep -v '[A-ZÆØÅ]' | sort | uniq > ord-nn.txt
-cut -f2 -d'	' fullform_nb.dat | sed 's/ /\n/g' | grep -v '^[^A-Za-zÆØÅæøå]\+$' | grep -v '[A-ZÆØÅ]' | sort | uniq > ord-nb.txt
+jq -r '.. | .lemmas? | .. | .word_form? | values' article-nn.json | sort | uniq > ord-nn.txt
+jq -r '.. | .lemmas? | .. | .word_form? | values' article-nb.json | sort | uniq > ord-nb.txt
 
-comm -23 ord-nb.txt ord-nn.txt > bokmal-words.dat
+comm -23 ord-nb.txt ord-nn.txt > tmp.dat
+comm -23 tmp.dat <(sort actual-nynorsk-words.txt) > bokmal-words.dat
 
-rm -f ord-nn.txt ord-nb.txt
+rm -f ord-nn.txt ord-nb.txt tmp.dat
 
 
 
