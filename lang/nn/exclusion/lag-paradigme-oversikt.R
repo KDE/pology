@@ -10,6 +10,9 @@
 # Brukar òg ordfrekvensinformasjon frå KDE-omsettinga,
 # for å få betre ordeksempel (funkar ikkje perfekt,
 # men er nyttig).
+# Sjå https://l10n.no/verktoy/frekvensstatistikk.html
+# for informasjon om korleis du kan generera
+# ordfrekvensdata for bruk i skriptet.
 
 
 # Innstillingar og filinnlesing -------------------------------------------
@@ -20,7 +23,7 @@ library(tidyverse)
 # Mappe som inneheld filene til Norsk ordbank
 # og frekvensinformasjon frå KDE-omsettinga
 mappe_ordbank = "~/utvikling/ordbanken"
-mappe_frek = "~/utvikling/kde/trunk/l10n-support/nn/skript/frekvensoversikt"
+mappe_frek = "~/utvikling/l10n-ordfrekvens"
 
 # Les ordbankfiler og fjern unødvendige kolonnar
 les_fil = function(filnamn, ...) {
