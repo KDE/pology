@@ -174,7 +174,7 @@ d = d_oppdatert
 # Bør først sjekka at paradigmekoden me har valt faktisk er
 # ein av dei gyldige paradigmekodane for lemmaet
 d = d %>% mutate(ok_val = is.na(val) | 
-								 	str_detect(par_tekst, str_c("\\b", d$val, "\\b")))
+								 	str_detect(par_tekst, paste0("\\b", d$val, "\\b")))
 if(!all(d$ok_val)) {
 	stop(paste0("Minst éin paradigmekombo har ugyldig paradigmekode valt:\n",
 							paste0(format(filter(d, !ok_val)), collapse="\n")))
