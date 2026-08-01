@@ -412,6 +412,10 @@ def _fix_authors (hdr, cat):
     for a in hdr.author:
         pos += 1
 
+        # Change SPDX-style lines to normal gettext author format
+        a = re.sub(r"^SPDX-FileCopyrightText:\s*([0-9, —–-]+)\s+(.*)$",
+                   r"\2, \1", a)
+
         m = re.search(r"(.*?)<(.*?)>(.*)$", a)
         if not m:
             warning(_("@info",

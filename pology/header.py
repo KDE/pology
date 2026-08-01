@@ -109,6 +109,7 @@ class Header (Monitored):
                 if 0: pass
                 elif (    not self._copyright
                       and re.search(r"copyright|\(C\)|©", c, re.I|re.U)
+                      and not re.search(r"SPDX-FileCopyrightText:", c) # --> author comment
                 ):
                     self._copyright = c
                     intitle = False
