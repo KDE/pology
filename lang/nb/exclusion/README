@@ -3,8 +3,30 @@
 #
 # [Note: This file is runnable using ‘sh’.]
 # 
+# The .json files contains the latest version of the
+# Norwegian Nynorsk and Norwegian Bokmål dictionaries and
+# can be downloaded using the following commands:
+#
+# curl -sL https://ord.uib.no/bm/fil/article.json.gz | gunzip > article-nb.json
+# curl -sL https://ord.uib.no/nn/fil/article.json.gz | gunzip > article-nn.json
+
 # The file ‘imperativfeil.dat’ contains a list of imperatives
 # misspelled with an accent. For example, it contains the
 # word ‘installér’ (should be spelled ‘installer’).
 fgrep 'verb imp' fullformsliste_nb.txt | awk -F'\t' '{ print $2 }' | \
 grep '^[^-].*er$' | sort -u | sed 's/er$/ér/' > imperativfeil.dat
+
+
+
+# The file ‘nynorsk-words.dat’ contains a list of all words that
+# are valid in Norwegian Nynorsk, but not in Norwegian Bokmål.
+# It is generated from ‘article-nn.json’ and ‘article-nb.json’
+# using these commands:
+
+jq -r '.. | .lemmas? | .. | .word_form? | values' article-nn.json | sort | uniq > ord-nn.txt
+jq -r '.. | .lemmas? | .. | .word_form? | values' article-nb.json | sort | uniq > ord-nb.txt
+
+comm -23 ord-nn.txt ord-nb.txt > tmp.dat
+comm -23 tmp.dat <(sort actual-bokmal-words.txt) > nynorsk-words.dat
+
+rm -f ord-nn.txt ord-nb.txt tmp.dat

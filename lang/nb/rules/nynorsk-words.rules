@@ -1,0 +1,17 @@
+# Words and phrases that are only valid Norwegian Nynorsk, not in Norwegian Bokmål.
+# Karl Ove Hufthammer <karl@huftis.org>
+# License: GPLv3
+
+include file="puretext.filters"
+
+*hook name="nb:exclusion/exclude-forms~['nynorsk-words']" on="msgstr"
+id="nynorskord"
+hint="Bruk av et ord som bare er gyldig på nynorsk."
+valid span="Knut"
+valid span="Anne"
+valid span="Hansen"
+valid span="URI"
+valid span="UK"
+valid span="Verde"
+valid span="DOS"
+
