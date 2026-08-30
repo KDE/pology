@@ -95,6 +95,9 @@ valid after="&amp;linkmid;.*" before=".*&amp;linkend;"
 validGroup replaceableTag
 valid after="<replaceable>.*" before=".*</replaceable>"
 
+validGroup imageTag
+valid before="\["
+
 [:]
 validGroup alone
 validGroup cdataTag
@@ -245,6 +248,7 @@ validGroup keysymTag
 validGroup userinputTag
 validGroup calligraFunction
 validGroup perlScript
+validGroup imageTag
 valid after="&unbsp;" before="\)"
 valid after="&unbsp;" before="&unbsp;»"
 valid after="^<" before="--.*--&gt;$"
@@ -258,6 +262,7 @@ valid after="!" before="&lf;"
 valid after="!" before="<"
 valid after="x!"
 valid after="<"
+valid after=">"
 valid after="&unbsp;" before="(&lt;\/[a-zA-Z0-9]&gt;)*&lt;\/qt&gt;" 
 valid after="&lt;" before="-- Ce fichier a été généré par Konqueror --&gt;"
 valid cat="kspread,sheets" after="[abcx\)!]|\(valeur\)"

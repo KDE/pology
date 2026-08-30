@@ -56,8 +56,8 @@ validGroup linkstart
 valid after="&amp;linkstart;.*" before=".*\"&amp;linkmid;"
 valid after="&amp;linkmid;.*" before=".*&amp;linkend;"
 
-[\bboites?\b]i
-hint="boite => boîte (avec un accent circonflexe)"
+[\bboîtes?\b]i
+hint="boîte => boite (sans accent circonflexe, réforme orthographique de 1990)"
  
 [bopite]i
 hint="L'erreur classique quand on a raté la touche ^ :)"
@@ -81,15 +81,15 @@ hint="celà -> cela"
 valid after="&" 
 hint="Mettre un accent grave"
 
-[rafraich]i
-hint="Les dérivés de « rafraîchir » veulent un accent circonflexe sur le « i »"
+[rafraîch]i
+hint="Suppression de l'accent circonflexe dans les dérivés de « rafraichir » (orthographe de 1990)"
 
 [@érreur|Érreur]i
 hint="Pas d'accent aigu sur le premier « e »"
 
-[chaine]i
+[chaîne]i
 valid after="[pP]ro"
-hint="Mettre un accent circonflexe sur le « i »"
+hint="Ne pas mettre un accent circonflexe sur le « i » (réforme orthographique de 1990)"
 
 [resaisir]i
 hint="Mettre deux « s » (ressaisir)"
