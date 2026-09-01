@@ -741,8 +741,6 @@ class Message_base (object):
 
         if not keepmanc:
             self.manual_comment = type(self.manual_comment)()
-        if not isinstance(self.flag, Monset):
-            self.flag = Monset(self.flag)
         self.fuzzy = False # also removes fuzzy flag
         self.msgctxt_previous = None
         self.msgid_previous = None
@@ -967,6 +965,30 @@ class Message (Message_base, Monitored): # order important for get/setattr
         return self._renew_lines_bymod(mod, wrapf, force, colorize)
 
 
+class _OrderedFlags (dict):
+    """
+    A set of flags which stays in the order the flags were added in.
+
+    The flags are held in a dictionary rather than a set, so that they
+    come out in the order they went in. Only the few set methods that
+    Pology actually calls on flags are added here, and they behave like
+    their counterparts in L{Monset}, where L{Message} keeps its own
+    flags. C{remove} is forgiving in the same way: if the flag is not
+    there, it is simply left alone.
+
+    @see: L{MessageUnsafe}
+    """
+
+    def add (self, flag):
+
+        self[flag] = None
+
+
+    def remove (self, flag):
+
+        self.pop(flag, None)
+
+
 class MessageUnsafe (Message_base):
     """
     The lightweight class for catalog entries, for read-only applications.
@@ -1006,7 +1028,7 @@ class MessageUnsafe (Message_base):
         self.auto_comment = list(init.get("auto_comment", []))
         self.source = [tuple(x) for x in init.get("source", [])]
         # Convert the set this way to keep the flags order
-        self.flag = dict.fromkeys(init.get("flag", []))
+        self.flag = _OrderedFlags.fromkeys(init.get("flag", []))
 
         self.obsolete = init.get("obsolete", False)
 
