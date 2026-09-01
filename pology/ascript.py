@@ -88,7 +88,7 @@ class AscConfig (object):
 
         config = ConfigParser()
         ifl = codecs.open(cfgpath, "r", "UTF-8")
-        config.readfp(ifl)
+        config.read_file(ifl)
         ifl.close()
 
         self.path = cfgpath
