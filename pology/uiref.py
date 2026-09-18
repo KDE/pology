@@ -555,7 +555,7 @@ def _norm_ui_cat (cat, xmlescape):
                 for msg, (octxt, omsgid) in msgs:
                     if msg.msgctxt is None:
                         msg.msgctxt = ""
-                    tail = hashlib.md5(omsgid).hexdigest()
+                    tail = hashlib.md5(omsgid.encode("utf-8")).hexdigest()
                     n = 4 # minimum size of the disambiguation tail
                     while tail[:n] in tails:
                         n += 1
