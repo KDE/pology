@@ -39,9 +39,9 @@ hint="evitar o uso da segunda forma do artigo"
 
 # Prefírese a terminación en -aría(s), agás palabras obrigadas como batería, galería...
 [\b[A-Za-z]+erías?(\s|\b)]i
-valid span="^(alm|bat|deb|esquec|gal|hab|mensax|pod|qu|quer|ref|ser|s|t)ería"
 id="clGL-modling_aria"
 hint="prefírese a terminación en -aría"
+valid span="^(alm|bat|deb|esquec|exced|gal|hab|mensax|parec|pod|qu|quer|ref|ser|s|t)ería"
 
 # Prefírese contracción prep(a)+art(o) -> ao , non "ó"
 [\bós?\s]i
@@ -55,14 +55,6 @@ valid !before="(?!(min|ti|el|ela|si|min|nos|vos|nosoutr(o|a)s|vosoutr(o|a)s|el(e
 # da comparativa ca + artigo determinado (a/o), polo menos nalgúns casos
 id="clGL-modling_ca"
 hint="usar «cá» (que + a) cando sexa imprescindíbel"
-
-# Coma min/ti/el/ela/nos/nosoutros/vos/vosoutros/eles/elas.
-[\bcoma\s(?!(min|ti|el|si|min|ela|nos|vos|nosoutr(o|a)s|vosoutr(o|a)s|el(e|a)s))]i
-valid after="\bpuntos?\se\s" # «puntos e comas»
-valid after="\bda\s"         # «algo da coma» → refírese ao «,»-
-valid after="\bunha\s"       # «unha coma»
-id="clGL-modling_coma"
-hint="usar «coma» cando sexa imprescindíbel"
 
 # Evitar usar ¿ e ¡ (interrogación e exclamación iniciais)
 [(¡|¿)]i
@@ -78,11 +70,6 @@ hint="«tódolos» -> «todos os»?"
 [\bcarpeta]i
 id="noPT-gl_carpeta"
 hint="«carpeta» -> «cartafol»?"
-
-# usar a conxunción adversativa «pero», retirando os usos de «mais»
-[\bmais\b]i
-id="clGl-all_mais"
-hint="«mais» -> «pero»"
 
 #####
 # Gramática (this shouldn't be here, but the grammar checker is not always used as should be...)
@@ -103,7 +90,7 @@ id="gnome_translator credits"
 hint="comprobar o formato dos creditos da tradución"
 
 #descarta o uso de «achar» en favor de «encontrar»
-[\bach]i
+[\b[aá]ch(?!eg)[aáeéoó]]i
 id="gnome-gl_achar"
 hint="achar -> encontrar"
 
@@ -132,11 +119,6 @@ hint="predefinido -> predeterminado"
 [\.{3}]i
 id="gnome-gl_reticencias"
 hint="... -> …"
-
-#descarta o uso de «válido» en favor de «correcto»
-[\bválid(o|a)]i
-id="gnome-gl_valido"
-hint="valido -> correcto"
 
 #####
 # Regras específicas de GNOME para terminoloxía
@@ -170,8 +152,8 @@ hint="validator -> validador"
 # «validación» -> «validation»
 [\bvalidación]i
 id="gnome-dual_validation"
-valid msgstr="\bvalidation"
 hint="validación -> validation"
+valid msgid="\bvalidation"
 
 
 
@@ -189,11 +171,6 @@ hint="validación -> validation"
 [\blinea(l|is)]i
 id="clGL_lineal"
 hint="«lineal» → «linear»"
-
-#descarta o uso de «amosar» en favor de «mostrar»
-[\bamos(a|o|e)]i
-id="clGL-all_amosar"
-hint="amosar -> mostrar"
 
 # regra comentada porque non dá achadegas
 ##descarta o uso de «colar» en favor de «(a)pegar»
@@ -228,18 +205,6 @@ hint="«ubicación, ubicar» -> «localización, localizar»"
 id="clGL-all_xerir"
 hint="xerir -> xestionar"
 
-# preferir «estase a + infinitivo» no cando de «a + infinitivo»
-[^a\s\w+[aeií]r\b]i
-valid after="Están\s"
-valid after="Estanse\s"
-valid after="Está\s"
-valid after="Estase\s"
-valid after="estex?a\s"
-valid after="estar\s"
-valid span="a partir"
-id="clGL-all_a+infinitivo"
-hint="«a+infinitivo» -> «estase a infinitivo"
-
 # preferir «se han examinar/ han ser examinados» no canto de «serán examinados»
 [\b\w+rán?\s[A-Za-z]+ad(o|a)s?]i
 valid !span="\b(ser|estar)án"
@@ -261,14 +226,14 @@ hint="enable this option = escolla/er esta opción"
 # «when/if this option/checkbox is enabled»-> «se escolleu/sinalou esta opción»
 {\b(when|if)\sthis\s(option|checkbox)\sis\senabled}i
 id="expression_when|if this option|checkbox is enabled"
-valid msgstr="\bse\sescolle\sesta\sopción"
+valid msgstr="\bse\sactiva\sesta\sopción"
 hint="when|if this option|checkbox is enabled -> se escolle esta opción"
 
 # «enable»
 {\b(when|if)\sthis\sis\senabled}i
 id="expression_when|if this is enabled"
-valid msgstr="\bse\sescolle\sesta\sopción"
-hint="is this is enabled -> se escolle esta opción"
+valid msgstr="\bse\sactiva\sesta\sopción"
+hint="is this is enabled -> se activa esta opción"
 
 # «enable»
 {\b(if|when)\senabled}i
@@ -299,8 +264,8 @@ hint="when/if this is disabled -> se esta opción non está escollida/marcada"
 # «if/when disabled»
 {\b(if|when)\sdisabled}i
 id="expression_if/when disabled"
-valid msgstr="\bse\sdesmarca\sesta\sopción"
-hint="if/when disabled -> se desmarca esta opción"
+valid msgstr="\bse\sdesactiva\sesta\sopción"
+hint="if/when disabled -> se desactiva esta opción"
 
 # «when selected»
 {\bwhen\sselected}i
@@ -359,20 +324,6 @@ id="kde-dual_append"
 valid msgid="\bappend"
 hint=" amecer -> append"
 
-# «applet» tradúcese como «applet»
-{\bapplet}i
-id="kde_applet"
-valid msgstr="\bapplet"
-hint="«applet» tradúcese como «applet»"
-
-# «applet» traduce a «applet»
-[\bapplet]i
-id="kde-dual_applet"
-valid msgid="\bapplet"
-hint="«applet» traduce a «applet»"
-
-
-
 # «not enabled»
 {\bnot enabled\b}
 valid after="\bif\s"
@@ -401,39 +352,8 @@ id="kde-dual_event"
 valid msgid="\bevent"
 hint="acontecemento-> event"
 
-# «frame» -> «marco»
-{\bframe}i
-valid before="works?\b"
-valid before="\sbuffer\b"
-valid before="\srate\b"
-id="kde_frame"
-valid msgstr="\bmarco"
-valid msgstr="\bfotograma"
-valid msgstr="\bimaxe"
-hint="«frame» -> «marco»"
-
-# «marco» -> «frame»
-[\bmarcos?]i
-valid before="\skrüger" # person name: marco krüger
-valid before="\smartin" # person: marco martin
-valid before="\scalignano" # person: marco calignano
-valid after="\bdoval\s" # person: irene doval marcos
-valid before="u\b"      # marcou
-id="kde-dual_frame"
-valid msgid="\bframe"
-valid msgid="\bmarks?"
-hint="«marco» -> «frame»/«mark» (moeda)"
-
-# «inline» -> «intercalar»
-{\bin\s?line}i
-id="kde_inline"
-valid msgstr="\bintercala(r|d(o|a)s?)" !env="development"
-valid msgstr="\bintercalán." !env="development"
-valid span="\bin\sline" msgstr="\b(da|en|na|nunha)\sliña" !env="development"
-hint="«inline» -> «intercalar»"
-
 # «node» -> «vértice»
-{\bnodes?}i
+{\bnodes?\b}i
 # valid after="free"
 # valid after="\bi"
 # valid after="\ba"
@@ -450,15 +370,6 @@ valid msgid="nodekit"
 valid msgid="nodename"
 valid msgid="\bnodes?\b" !env="graph_theory"
 hint="«nodo» -> «node»"
-
-# «ing mode» -> «método de»
-{ing\smodes?\b}i
-valid after="\bfollow"
-valid after="\bnon-\w+"
-valid after="\bwrit"
-id="kde_ing"
-valid msgstr="métodos?\sde\s\w+"
-hint="«ing mode» -> «método de» (non é que \"modo de\" sexa incorrecto, é que ás veces non é máis axeitado)"
 
 # «print» -> «imprimir», «mostra»
 {\bprint}i
@@ -484,6 +395,7 @@ hint="printing = imprimir, impresión"
 # «imprimir» -> «print»
 [\bimprim]i
 id="kde-dual_print"
+valid msgid="\becho(e[ds]|ing)?\b"
 valid msgid="\bprint(?!er)"
 valid after="\bversións?\spara\s" msgid="\bprinters?\sfriendly\b"
 hint="imprimir = print"
@@ -519,34 +431,6 @@ id="kde-dual_node(graph_theory)"
 valid msgid="nodes?"
 hint="«vértice» -> «node» (en teoría de grafos)"
 
-# «Are you sure you want to» -> «Desexa realmente+infinitivo»
-{\bare\syou\ssure\syou\swant\sto(\s(\w+|\W+))+\?}i
-id="expression_interrogation1"
-valid msgstr="\bDesexa\srealmente\s\w+(a|e|i|í|po)r(\s(\w+|\W+))*" !env="informal"
-valid msgstr="\bDesexa\srealmente\s\w+l(o|a)s?(\s\w+)*\?" !env="informal"
-valid msgstr="\b(Desexas|Queres)\s\w+(a|e|i|í|po)r(\s(\w+|\W+))*" env="informal"
-valid msgstr="\b(Desexas|Queres)\s\w+l(o|a)s?(\s\w+)*\?" env="informal"
-hint="«Are you sure you want to» -> «Desexa(s) realmente+infinitivo»"
-
-# «Do you really ...» -> «Desexa realmente + infinitivo»
-{\bdo\syou\sreally(\s(\w+|\W+))+\?}i
-id="expression_interrogation2"
-valid msgstr="\bDesexa\srealmente\s\w+(a|e|i|í|po)r(\s(\w+|\W+))*" !env="informal"
-valid msgstr="\bDesexa\srealmente\s\w+l(o|a)s?(\s\w+)*\?" !env="informal"
-valid msgstr="\b(Desexas|Queres)\s\w+(a|e|i|í|po)r(\s(\w+|\W+))*" env="informal"
-valid msgstr="\b(Desexas|Queres)\s\w+l(o|a)s?(\s\w+)*\?" env="informal"
-hint="«Do you really ...» -> «Desexa realmente+infinitivo»"
-
-#«event» -> «acontecemento» ou «suceso»
-{\bevent}i
-valid before="ually"
-id="kde_event"
-valid msgstr="\bevento" env="development"
-valid msgstr="\bacontecemento" !msgstr="\bevento"
-valid msgstr="\bsuceso" !msgstr="\bevento"
-valid msgstr="\bactividade"
-hint="event-> acontecemento ou suceso (not development environment)"
-
 # «conceal» → «esconder»
 {\bconceal(s|ed|ing)?}i
 id="aaPT_conceal"
@@ -564,53 +448,336 @@ hint="«esconder» → «conceal»"
 # Fin das regras específicas de KDE para terminoloxía
 #####
 
-# Acordos da lista de correo ##################################################
+# Regras arbitrarias #--------------------------------------------------------#
 #
-# Acordos do Proxecto Trasno acadados por consenso na lista de correo.
+# Regras propostas, alleas a acordos da comunidade que cada quen pode usar ou
+# non segundo lle pareza.
 
-# 2019-08-26
-# http://trasno.gal/lista-de-correo-2/?subpage=mailstermail&id=6843
 
-{\bpin(n(ed|ing)|s)?}i
-id="trasno-en-pin"
-hint="pin → fixar"
-valid msgstr="\bf[ií]x[aáeéoó][^\W\d_]*\b"
-
-{\bunpin(n(ed|ing)|s)?}i
-id="trasno-en-unpin"
-hint="unpin → desprender, separar"
-valid msgstr="\bdespr[eé]nd[aáeéiíoó][^\W\d_]*\b"
-valid msgstr="\bsep[aá]r[aáeéoó][^\W\d_]*\b"
-
-# 2019-09-04
-# http://trasno.gal/lista-de-correo-2/?subpage=mailstermail&id=6858
+# http://trasno.gal/lista-de-correo-2/?subpage=mailstermail&id=6858 (2019-09-04)
+# Incompatíbel con «proposta-app-aplicación».
 
 {\b(web)?apps?\b}i
-id="trasno-en-app"
+id="proposta-app-apli"
 hint="app → apli"
 valid msgstr="\baplis?\b"
 valid msgstr="\bspp\b"  # arcsec per pixel → segundos de arco por píxel
 
-# 2019-09-23
-# http://trasno.gal/lista-de-correo-2/?subpage=mailstermail&id=6884
 
-{\bquadrats?\b}i
-id="trasno-en-quadrat"
-hint="quadrat → cuadrícula"
-valid msgstr="\bcuadrículas?\b"
+# Incompatíbel con «proposta-app-apli».
 
-# Regras arbitrarias #--------------------------------------------------------#
-#
-# Regras alleas a acordos da comunidade que cada quen pode usar ou non segundo
-# lle pareza.
+{\b(web)?apps?\b}i
+id="proposta-app-aplicación"
+hint="app → aplicación"
+valid msgstr="\baplicacións?\b"
+valid msgstr="\bspp\b"  # arcsec per pixel → segundos de arco por píxel
+
+
+{\barg(ument)?s?\b}i
+id="proposta-argument"
+hint="arg, argument → argumento"
+valid msgstr="\bargumentos?\b"
+
+
+{\bback-up\b}i
+id="proposta-back-up"
+hint="back-up → de salvagarda"
+valid msgstr="\bde\s*salvagarda\b"
+
+
+{\bback(ed|ing|s)?\s+up\b}i
+id="proposta-backing-up"
+hint="back up → salvagardar"
+valid msgstr="\bsalvag[aá]rd[aáeéoó]"
+
+
+{\bbackups?\b}i
+id="proposta-backup"
+hint="backup → salvagarda"
+valid msgstr="\bsalvagardas?\b"
+
+
+{\bbook(ed|ing|s)?\b}i
+id="proposta-book"
+hint="book → libro, reserva, reservar"
+valid msgstr="\blibros?\b"
+valid msgstr="\bres[eé]rv[aáeéoó]"
+valid msgstr="\bbooks?\b"  # p. ex. Google Books
+valid after="\baddress\s+"
+valid after="\bcomic\s+"
+
+
+{\bbuild\s*sets?\b}i
+id="proposta-build-set"
+hint="build set → grupo de construción"
+valid msgstr="\bgrupos?\s+de\s+construción\b"
+
+
+# Baseada na escolla da RAG posterior á trasnada na que se chegou a un acordo
+# sobre o termo.
+# Incompatíbel con «trasno-chat» e «trasno-chat_reverse».
+
+{\bchat(t?(ed|ing)|s)?\b}i
+id="proposta-chat"
+hint="chat → charla, charlar"
+valid msgstr="\bch[aá]rl[aáeéoó]"
+
+{\bchat\s*rooms?\b}i
+id="proposta-chatroom"
+hint="chatroom → sala de charla"
+valid msgstr="\bsalas?\s+de\s+charla\b"
+
+
+[\bcoma\s(?!(min|vostede|ti|el|si|min|ela|nós|vós|nosoutr[ao]s|vosoutr[ao]s|el[ae]s))]i
+id="proposta-coma-como"
+hint="coma → como (hai casos nas que *debe* usarse «coma», consúltese o dicionario)"
+valid msgid="\bcomma\b"
+valid after="\bpuntos?\s*e\s*" # «puntos e comas»
+valid after="\bda\s*"         # «algo da coma» → refírese ao «,»-
+valid after="\bunha\s*"       # «unha coma»
+valid before="\s*flotante\b"
+valid before="\s*como\b"  # «coma como separador»
+
+
+{(\bare\syou\ssure\syou\swant\sto(\s(\w+|\W+))+\?|\bdo\syou\sreally(\s(\w+|\W+))+\?)}i
+id="proposta-confirmación"
+hint="«Are you sure you want to», «Do you really» → «Seguro que quere»"
+valid msgstr="\bseguro\s*que\s*queres?\b"
+
+
+[\ba\s+[ao]s?\b]i
+id="proposta-contracción-a"
+hint="Hai un «a» sen contraer"
+
+
+[\bcon\s+([ao]s?|un(ha)s?)\b]i
+id="proposta-contracción-con"
+hint="Hai un «con» sen contraer"
+
+
+[\bde\s+([ao]s?|un(ha)s?|est?[ae]s?|aquel(as?|es)?|algúns?|algunhas?|outr[ao]s?)\b]i
+id="proposta-contracción-de"
+hint="Hai un «de» sen contraer"
+
+
+[\ben\s+([ao]s?|un(ha)s?|est?[ae]s?|aquel(as?|es)?|algúns?|algunhas?|outr[ao]s?)\b]i
+id="proposta-contracción-en"
+hint="Hai un «en» sen contraer"
+
+
+[\bpor\s+[ao]s?\b]i
+id="proposta-contracción-por"
+hint="Hai un «por» sen contraer"
+
+
+{\bcoverages?\b}i
+id="proposta-coverage"
+hint="coverage → cobertura"
+valid msgstr="\bcoberturas?\b"
+
+
+{\cycl(e[ds]?|ing)\b}i
+id="proposta-cycle"
+hint="cycle → circular"
+valid msgstr="\bcirc[uú]l[aáeéoó]"
+
+
+# daemon → servizo
+# Incompatíbel con «preacordo-daemon-daemon».
+
+{\bdaemons?\b}i
+id="proposta-daemon-servizo"
+hint="daemon → servizo"
+valid msgstr="\bservizos?\b"
+
+
+{\bembedded\b}i
+id="proposta-embedded"
+hint="embedded → incrustada"
+valid msgstr="\bincr[uú]st[aáeéoó]"
+
+
+{\bend-to-end\b}i
+id="proposta-end-to-end"
+hint="end-to-end → de extremo a extremo"
+valid msgstr="\bde\s*extremo\s*a\s*extremo\b"
+
+
+[\bequipos?\s+de\sadministración\b]i
+id="proposta-equipo-de-administración"
+hint="equipo de administración → equipo administrador"
+
+
+[\bequipos?\s+de\sdesenvolvemento\b]i
+id="proposta-equipo-de-desenvolvemento"
+hint="equipo de desenvolvemento → equipo desenvolvedor"
+
+
+[\bequipos?\s+de\smantemento\b]i
+id="proposta-equipo-de-mantemento"
+hint="equipo de mantemento → equipo mantedor"
+
+
+[\bequipos?\s+de\sprogramación\b]i
+id="proposta-equipo-de-programación"
+hint="equipo de programación → equipo programador"
+
+
+[\bequipos?\s+de\ssecretaría\b]i
+id="proposta-equipo-de-secretaría"
+hint="equipo de secretaría → equipo secretario"
+
+
+[\bestá\s*segur[ao]\s*de\s*que\s*quere\b]i
+id="proposta-está-seguro"
+hint="está seguro de que quere → seguro que quere"
+
+
+{\bevents?\b}i
+id="proposta-event-evento"
+hint="event → evento"
+valid msgstr="\beventos?\b"
+valid msgstr="\bfestas?\b"  # p. ex. summer splash event → festa da auga
+
+
+{\bin(-|\s*)line\b}i
+id="proposta-inline"
+hint="inline → intercalar, in situ, incorporada [no corpo dunha mensaxe de correo electrónico]"
+valid msgstr="\binterc[aá]l[aáeéoó]"
+valid msgstr="\b(da|en|na|nunha)\s*liña\b"
+valid msgstr="\bin\s*situ\b"
+valid msgstr="\bincorporad[ao]s?\b"
+
+
+[\bmais\b]i
+id="proposta-mais-pero"
+hint="mais → pero (contraposición), máis (aumento)"
+
+
+{\boffsets?\b}i
+id="proposta-offset"
+hint="offset → desprazamento, diferenza"
+# Movemento, p. ex. dun texto, con respecto á súa posición inicial.
+valid msgstr="\bdesprazamentos?\b"
+# Cantidade (p. ex. de tempo) de diferenza (positiva ou negativa) con respecto
+# a un valor de referencia.
+valid msgstr="\bdiferenzas?\b"
+valid msgstr="\bposicións?\b"  # p. ex. error at offset %1 → erro na posición %1
+valid msgstr="\bpuntos?\b"  # p. ex. truncation offset → punto de corte
+
+
+# Dado que «abertura» ten máis acepcións que «apertura», preferir esta última
+# para as acepcións que teñen en común.
+
+[\baberturas?\b]i
+id="proposta-opening-abertura-apertura"
+hint="abertura (opening) → apertura"
+valid msgstr="\baperturas?\b"
+
+
+[\bp\.ex\.\b]
+id="proposta-p-ex"
+hint="p.ex. → p. ex."
+
+
+{\bparam(eter)s?\b}i
+id="proposta-parameter"
+hint="param, parameter → parámetro"
+valid msgstr="\bparámetros?\b"
+
+
+[\bpor\s*defecto\b]i
+id="proposta-por-defecto"
+hint="por defecto → predeterminada"
+
+
+# LanguageTool detecta a maioría de casos nos que se separa o % do número, que
+# non é correcto en galego. Esta regra permite detectar casos que usan un
+# marcador de posición.
+
+[%[\da-z]\s+%(?![\da-z])]i
+id="proposta-porcentaxe"
+hint="Escriba a porcentaxe sen espazos (estilo estándar)."  # Mensaxe copiada de LT
+
+
+# Incompatíbel con «preacordo-print_preview».
+
+{\bprint\s*previews?\b}i
+id="proposta-print-preview"
+hint="print preview → vista de impresión"
+valid msgstr="\bvistas?\s*de\s*impresión\b"
+
+
+{\bresponsive\b}i
+id="proposta-responsive"
+hint="responsive → adaptábel"
+valid msgstr="\badaptábe(l|is)\b"
+
+
+[\bsecretari[ao]s?\b]i
+id="proposta-secretario"
+hint="secretario → [persoa] secretaria, [equipo] secretario, secretaría"
+valid after="\bpersoas?\s+" span="secretarias?"
+valid after="\bequipos?\s+"
+
+
+{\bstrip(ped|ing|s)?\b}i
+id="proposta-strip"
+hint="strip → rozar (quitar texto innecesario)"
+valid msgstr="\br[oó](z[aáoó]|c[eé])"
+
+
+{\bsubmit(ted|ing|s)?\b}i
+id="proposta-submit"
+hint="submit → entregar"
+valid msgstr="\bentr[eé]g([aáoó]|u[eé])"
+
+
+[(\b(contigo|ti|teu|túa)\b|\b(podes|queres|tes|uses|únete)\b)]i
+id="proposta-ti"
+hint="https://trasno.gal/colaborar/traducir/recursos/estilo/trato/"
+valid env="docs"
+valid env="game"
+valid env="informal"
+valid env="kids"
+valid env="website"
+
+
+{\btrim(m?(ed|ing)|s)?\b}i
+id="proposta-trim"
+hint="trim → recortar (quitar texto dos extremos)"
+valid msgstr="\brec[oó]rt[aáeéoó]"
+
+
+{\bunmut(e[ds]?|ing)\b}i
+id="proposta-unmute"
+hint="unmute → activar o son"
+valid msgstr="\bact[ií]v[aáeéoó]\S*\s*o\s*son\b"
+
+
+[\bválid[ao]s?\b]i
+id="proposta-válido-correcto"
+hint="válido → correcto"
+
+
+[\bv[oó]lv[aáeéiíoó]\S*\s+a\s+\S*[aei]r\b]i
+id="proposta-volver-a"
+hint="volver a [infinitivo] → volver [infinitivo]"
+
+
+[(\b(vostede)\b|\b(únase)\b)]i
+id="proposta-vostede"
+hint="https://trasno.gal/colaborar/traducir/recursos/estilo/trato/"
+valid !env="game"
+
 
 {\baddress\s*books?\b}i
-id="en-address-book"
+id="proposta-en-address-book"
 hint="address book → axenda de enderezos"
 valid msgstr="\baxendas?\s*de\s*enderezos\b"
 
 {\balternates?\b}i
-id="en-alternate"
+id="proposta-en-alternate"
 hint="alternate → alternar, outra, por quendas, variante"
 valid msgstr="\balt[eé]rn[aáeéoó]"
 valid msgstr="\boutr[ao]s?\b"
@@ -618,116 +785,115 @@ valid msgstr="\bpor\s*quendas\b"
 valid msgstr="\bvariantes?\b"
 
 {\bartifacts?\b}i
-id="en-artifact"
+id="proposta-en-artifact"
 hint="artifact → artefacto, defecto [visual]"
 valid msgstr="\bartefactos?\b"
 valid msgstr="\bdefectos?\b"
 
-{\bbackends?\b}i
-id="en-backend"
-hint="backend → motor"
-valid msgstr="\bmotor(es)?\b"
-
 {\b(micro)?blogs?\b}i
-id="en-blog"
+id="proposta-en-blog"
 hint="blog → bitácora"
 valid msgstr="\b(micro)?bitácoras?\b"
 
 {\bboarding\s*pass(es)?\b}i
-id="en-boarding-pass"
+id="proposta-en-boarding-pass"
 hint="boarding pass → tarxeta de embarque"
 valid msgstr="\btarxetas?\s*de\s*embarque\b"
 
 {\bboot\s*splash\s*screens?\b}i
-id="en-boot-splash-screen"
+id="proposta-en-boot-splash-screen"
 hint="boot splash screen → pantalla de arranque"
 valid msgstr="\bpantallas?\s*de\s*arranque\b"
 
 {\bbranch(es)?\b}i
-id="en-branch"
+id="proposta-en-branch"
 hint="branch → rama"
 valid msgstr="\bramas?\b"
 valid msgstr="\bdesvíos?\b"
 
 {\bbuilt-in\b}i
-id="en-built-in"
+id="proposta-en-built-in"
 hint="built-in → incluída"
 valid msgstr="\bincl[uú][aáeéiíoó]"
 
-{\bchat(t(ed|ing)|s)?\b}i
-id="en-chat"
-hint="chat → charla, charlar"
-valid msgstr="\bch[aá]rl[aáeéoó]"
-
 {\bclear(ed|ing|s)?\b}i
-id="en-clear"
-hint="clear → baleirar (a lista de)"
+id="proposta-en-clear"
+hint="clear → baleirar (a lista de), borrar (p. ex. un texto, unha mensaxe), eliminar (p. ex. o historial), limpar (algo que está sucio)"
 valid msgstr="\bbal[eé]ir[aáeéoó]"
+valid msgstr="\bb[oó]rr[aáeéoó]"
+valid msgstr="\bl[ií]mp[aáeéoó]"
 valid after="\bma(de|k(es?|ing))\b.*" msgstr="\bd[eé]ix[aáeéoó]\S*?\s*claro\b"  # make clear → deixar claro
+valid before="$|.*?\b(bookmarks?|histor(y|ies))\b" msgstr="\belim[ií]n[aáeéoó]\S*"  # clear history → eliminar o historial
+valid before="$|.*?\b(all|data|filters?|messages?|stat(es?|us(es)?)|text)\b" msgstr="\bb[oó]rr[aáeéoó]\S*"  # clear message → borrar a mensaxe
+valid before="$|.*?\bselections?\b" msgstr="\ban[uú]l[aáeéoó]\S*"  # clear selection → anular a selección
+valid before="$|.*?\b(stat(istic)?s|statistical\s*data)\b" msgstr="\belim[ií]n[aáeéoó]\S*"  # clear statistics → eliminar as estatísticas
+valid span="clear" before="\s*text\b"  msgstr="\btexto\s+simple\b"
 
 {\bcloudiness\b}i
-id="en-cloudiness"
+id="proposta-en-cloudiness"
 hint="cloudiness → nebulosidade"
 valid msgstr="\bnebulosidade\b"
 
 {\bcollaps(e[ds]?|ing)\b}i
-id="en-collapse"
-hint="collapse → recoller"
-valid msgstr="\brec[oó]ll[aáeéiíoó]"
+id="proposta-en-collapse"
+hint="collapse → pregar"
+valid msgstr="\bpr[eé]g([aáoó]|u[eé])"
 valid msgstr="\bcol[aá]ps[aáeéoó]"
 
 {\bcore\s*developers?\b}i
-id="en-core-developer"
-hint="core developer → [persoa] desenvolvedora principal, [equipo de] desenvolvemento principal"
+id="proposta-en-core-developer"
+hint="core developer → [persoa] desenvolvedora principal, [equipo] desenvolvedor principal, desenvolvemento principal"
 valid msgstr="\bdesenvolvedoras?\s*principa(l|is)\b"
+valid msgstr="\bequipos?\s+desenvolvedor(es)?\s+principa(l|is)\b"
 valid msgstr="\bdesenvolvementos?\s*principa(l|is)\b"
 
 {\bCPUs?\b}i
-id="en-cpu"
+id="proposta-en-cpu"
 hint="CPU → procesador"
 valid msgstr="\bprocesador(es)?\b"
 
 {\bdatabases?\b}i
-id="en-database"
+id="proposta-en-database"
 hint="database → base de datos"
 valid msgstr="\bbases?\s*de\s*datos\b"
 
 {\bdecibels?\b}i
-id="en-decibel"
+id="proposta-en-decibel"
 hint="decibel → decibel (plural: decibeles)"
 valid msgstr="\bdecibel(es)?\b"
 
 {\bdirectory\s*servers?\b}i
-id="en-directory-server"
+id="proposta-en-directory-server"
 hint="directory server → servidor de nomes"
 valid msgstr="\bservidor(es)?\s*de\s*nomes\b"
 
 {\bdirectory\s*services?\b}i
-id="en-directory-service"
+id="proposta-en-directory-service"
 hint="directory service → servizo de nomes"
 valid after="\bpodcast\s*"
 valid msgstr="\bservizos?\s*de\s*nomes\b"
 
 {\bdisplay\s*names?\b}i
-id="en-display-name"
+id="proposta-en-display-name"
 hint="display name → nome visual"
 valid msgstr="\bnomes?\s*visua(l|is)\b"
 valid msgstr="\bam[oó]s[aáeéoó]\S*\s*os?\s*nomes?\b"
 
 {\bemojis?\b}i
-id="en-emoji"
+id="proposta-en-emoji"
 hint="emoji → expresión"
 valid msgstr="\bexpresións?\b"
 
 {\benvironments?\b}i
-id="en-environment"
+id="proposta-en-environment"
 hint="environment → contorno"
 valid after="\b(familiar|welcoming)\s*"
 valid msgstr="\bcontornos?\b"
+valid msgstr="\bmedio\s*ambiente\b"
 valid msgstr="\bmedioambienta(l|is)\b"
 
 {\bexpand(ed|ing|s)?\b}i
-id="en-expand"
+id="proposta-en-expand"
 hint="expand → expandir"
 valid msgstr="\bexpand(ed|ing|s)?\b"
 valid msgstr="\bexp[aá]nd[aáeéiíoó]"
@@ -736,103 +902,105 @@ valid msgstr="\baum[eé]nt[aáeéoó]"
 valid msgstr="\bsubstit[uú][aáeéiíoó]"
 
 {\bfreezing\b}i
-id="en-freezing"
+id="proposta-en-freezing"
 hint="freezing → xélida"
 valid msgstr="\bxélid[ao]s?\b"
 valid msgstr="\bconxelar\b"
 valid msgstr="\bconxelación\b"
 
 {\bgantt\b}i
-id="en-gantt"
+id="proposta-en-gantt"
 hint="Gantt → Gantt"
 valid msgstr="\bGantt\b"
 
 {(?i)\bgantt\s*charts?\b}
-id="en-gantt-chart"
+id="proposta-en-gantt-chart"
 hint="Gantt chart → diagrama de Gantt"
 valid msgstr="\b[Dd]iagramas?\s*de\s*Gantt\b"
 
 {\bhackers?\b}i
-id="en-hacker"
-hint="hacker → [persoa] intrusa, [equipo de] intrusión"
+id="proposta-en-hacker"
+hint="hacker → [persoa] intrusa, [equipo] intruso, intrusión"
 valid msgstr="\bintrusas?\b"
+valid msgstr="\bequipos?\s+intrusos?\b"
 valid msgstr="\bintrusións?\b"
 
 {\bhex\s*editors?\b}i
-id="en-hex-editor"
+id="proposta-en-hex-editor"
 hint="hex editor → editor de binario"
 valid msgstr="\beditor(es)?\s*de\s*binario\b"
 
 {\binternet\s*browsers?\b}i
-id="en-internet-browser"
+id="proposta-en-internet-browser"
 hint="internet browser → navegador web"
 valid msgstr="\bnavegador(es)?\s*web\b"
 
 {\bissuers?\b}i
-id="en-issuer"
+id="proposta-en-issuer"
 hint="issuer → expedidor"
 valid msgstr="\bexpedidor(es)?\b"
 
 {\blooks?[\s-]*and[\s-]*feels?\b}i
-id="en-look-and-feel"
+id="proposta-en-look-and-feel"
 hint="look and feel → xeito"
 valid msgstr="\bxeitos?\b"
 
 {\bluminance\b}i
-id="en-luminance"
+id="proposta-en-luminance"
 hint="luminance → luminancia"
 valid msgstr="\bluminancia\b"
 
 {\bmenu\s*items?\b}i
-id="en-menu-item"
+id="proposta-en-menu-item"
 hint="menu item → entrada de menú"
 valid msgstr="\bentradas?\s*de\s*menú\b"
 
 {\blight\s*tables?\b}i
-id="en-light-table"
+id="proposta-en-light-table"
 hint="light table → mesa de luz"
 valid msgstr="\bmesas?\s*de\s*luz\b"
 
 {\boverrid(es?|den|ing)?\b}i
-id="en-override"
+id="proposta-en-override"
 hint="override → sobredefinir"
 valid msgstr="\bsobredef[ií]n[aáeéiíoó]"
 
 {\bpark(ed|ing|s)?\b}i
-id="en-park"
+id="proposta-en-park"
 hint="park → aparcar"
 valid msgstr="\bap[aá]r(c[aáoó]|qu[eé])"
 
 {\bpipes?\b}i
-id="en-pipe"
-hint="pipe → cano"
+id="proposta-en-pipe"
+hint="pipe → canalizar, cano, de canalización"
 valid msgstr="\bcanos?\b"
 valid msgstr="\bcanal(?!izacións?\b)[ií]z[aáeéoó]"
+valid msgstr="\bde canalización\b"
 
 {\bpipings?\b}i
-id="en-piping"
+id="proposta-en-piping"
 hint="piping → canalización"
 valid msgstr="\bcanalizacións?\b"
 
 {\bplasmoids?\b}i
-id="en-plasmoid"
+id="proposta-en-plasmoid"
 hint="plasmoid → trebello"
 valid msgstr="\btrebellos?\b"
 
 {\bpopups?\b}i
-id="en-popup"
+id="proposta-en-popup"
 hint="popup → xanela emerxente"
 valid after="\bpreview\s*"
-valid before="\s*menus?\b"
+valid before="\s*(menu|note|notice)s?\b"
 valid msgstr="\bxanelas?\s*emerxentes?\b"
 
 {\bpopup\s*menus?\b}i
-id="en-popup-menu"
+id="proposta-en-popup-menu"
 hint="popup menu → menú emerxente"
 valid msgstr="\bmenús?\s*emerxentes?\b"
 
-{\bpost(ed|ing|s)?\b(?!-)}i
-id="en-post"
+{\bpost(?!\s*mortem\b)(ed|ing|s)?\b(?!-)}i
+id="proposta-en-post"
 hint="post → publicar, publicación"
 valid before="\s*offices?\b"
 valid before="\s*process"
@@ -841,12 +1009,12 @@ valid msgstr="\bpubl[ií](c[aáoó]|qu[eé])"
 valid msgstr="\bpublicacións?\b"
 
 {\bprivacy\s*polic(y|ies)\b}i
-id="en-privacy-policy"
+id="proposta-en-privacy-policy"
 hint="privacy policy → directiva de privacidade"
 valid msgstr="\bdirectivas?\s*de\s*privacidade\b"
 
 {\brequests?\b}i
-id="en-request"
+id="proposta-en-request"
 hint="request → solicitude"
 valid msgstr="\bsolicitudes?\b"
 valid msgstr="\bsolic[ií]t[aáeéoó]"
@@ -854,101 +1022,97 @@ valid after="\bat\s*your\s*" msgstr="\bno\s*seu\s*nome\b"
 valid after="\bon\s*" msgstr="\bbaixo\s*demanda\b"
 
 {\bretweet(ed|ing|s)?\b}i
-id="en-retweet"
+id="proposta-en-retweet"
 hint="retweet → promover"
 valid msgstr="\bprom[oó]v[aáeéiíoó]"
 
 {\bscripting\b}i
-id="en-scripting"
+id="proposta-en-scripting"
 hint="scripting → guionización"
 valid msgstr="\bguionización\b"
 
-{\bseparators?\b}i
-id="en-separator"
-hint="separator → divisoria"
-valid after="\bthousands?\s*"
-valid msgstr="\bdivisorias?\b"
-
 {\bsets?\b(?!(\s*(as\s*default|focus|phrase)|.*?\s+(on|to|true|up)|-up)\b)}i
-id="en-set"
+id="proposta-en-set"
 hint="set → definir"
 valid after="\bcharacter\s*"
 valid after="^If\s*" before="\s*,"
 valid before="\s*as\s*wallpaper"  # usar de fondo
 valid msgstr="\bsets?\b"
 valid msgstr="\bdef[ií]n[aáeéiíoó]"
-valid msgstr="\bconxuntos?\b"  # Matemáticas
-valid msgstr="\bgrupos?\b"
+valid msgstr="\b(sub)?conxuntos?\b"  # Matemáticas
+valid msgstr="\b(sub)?grupos?\b"
 valid msgstr="\blotes?\b"
 valid msgstr="\bseries?\b"
 valid msgstr="\bxogos?\b"
 
 {\bsharpen(ed|ing|s)?\b}i
-id="en-sharpen"
+id="proposta-en-sharpen"
 hint="sharpen → enfocar"
 valid msgstr="\benf[oó](c[aáoó]|qu[eé])"
 
 {\bsliders?\b}i
-id="en-slider"
+id="proposta-en-slider"
 hint="slider → control esvaradío"
 valid msgstr="\bcontrol\s*esvaradío\b"
 valid msgstr="\bcontrois\s*esvaradíos\b"
 
 {\bslugs?\b}i
-id="en-slug"
+id="proposta-en-slug"
 hint="slug → alias"
 valid msgstr="\balias\b"
 
 {\bsockets?\b}i
-id="en-socket"
+id="proposta-en-socket"
 hint="socket → toma"
 valid msgstr="\btomas?\b"
 
 {\bsplash\s*screens?\b}i
-id="en-splash-screen"
+id="proposta-en-splash-screen"
 hint="splash screen → pantalla de inicio"
 valid after="boot\s*"
 valid msgstr="\bpantallas?\s*de\s*inicio\b"
 
 {\bstarting\s*points?\b}i
-id="en-starting-point"
+id="proposta-en-starting-point"
 hint="starting point → punto de partida"
 valid msgstr="\bpuntos?\s*de\s*partida\b"
 
 {\bsys(tem)\s*trays?\b}i
-id="en-system-tray"
+id="proposta-en-system-tray"
 hint="system tray → área de notificación"
 valid msgstr="\báreas?\s*de\s*notificación\b"
 
 {\btime\s*lines?\b}i
-id="en-timeline"
+id="proposta-en-timeline"
 hint="timeline → cronoloxía"
+valid after="-"  # p. ex. current-time line → liña deste intre
 valid msgstr="\bcronoloxías?\b"
 
 {\btimestamps?\b}i
-id="en-timestamp"
+id="proposta-en-timestamp"
 hint="timestamp → marca de tempo"
 valid msgstr="\bmarcas?\s*de\s*tempo\b"
 
 {\b(tocs?|tables?\s*of\s*contents)\b}i
-id="en-toc"
+id="proposta-en-toc"
 hint="ToC, table of contents → índice"
 valid msgstr="\bíndices?\b"
 
 {\btoggl(e[ds]?|ing)\b}i
-id="en-toggle"
+id="proposta-en-toggle"
 hint="toggle → conmutar"
 valid msgstr="\bconm[uú]t[aáeéoó]"
+valid msgstr="\binv[eé]rt[aáeéiíoó]"
 valid msgstr="\btoggl(e[ds]?|ing)\b"
 valid before=".*?\s*on/off" msgstr="ac[eé]nd[aáeéiíoó]\S*\s*ou\s*ap[aá]g([aáoó]|u[eé])"
 
 {\btooltips?\b}i
-id="en-tooltip"
+id="proposta-en-tooltip"
 hint="tooltip → indicación emerxente"
 valid msgstr="\bindicacións?\s*emerxentes?\b"
 
 {\btrigger(?!\s*warnings?\b)s?\b}i
-id="en-trigger"
+id="proposta-en-trigger"
 hint="trigger → detonante, provocar, disparar, activar"
 valid msgstr="\bdetonantes?\b"
 valid msgstr="\bdisp[aá]r[aáeéoó]"
@@ -957,257 +1121,255 @@ valid msgstr="\bl[eé]v[aáeéoó]\S*\s+(a|ás?|aos?)\b"
 valid msgstr="\bact[ií]v[aáeéoó]"
 
 {\bunpark(ed|ing|s)?\b}i
-id="en-unpark"
+id="proposta-en-unpark"
 hint="unpark → desaparcar"
 valid msgstr="\bdesap[aá]r(c[aáoó]|qu[eé])"
 
 {\bvaults?\b}i
-id="en-vault"
+id="proposta-en-vault"
 hint="vault (encrypted container) → cofre"
 valid msgstr="\bcofres?\b"
 
 {\bverbose\b}i
-id="en-verbose"
+id="proposta-en-verbose"
 hint="verbose → verbosa"
 valid msgstr="\bverbos[ao]s?\b"
 
 {\bwall\s*-?\s*papers?\b}i
-id="en-wallpaper"
+id="proposta-en-wallpaper"
 hint="wallpaper → fondo"
 valid msgstr="\bfondos?\b(?!\s*de\s*(escritorio|pantalla)\b)"
 valid msgstr="\bwall\s*-?\s*papers?\b"
 
 {\bworkarounds?\b}i
-id="en-workaround"
+id="proposta-en-workaround"
 hint="workaround → apaño"
 valid msgstr="\bapaños?\b"
 
-[^a\s+\w+[aei]r\b]i
-id="gl-a-infinitivo"
+[^a\s+(?!singular\b)\w+[aei]r\b]i
+id="proposta-gl-a-infinitivo"
 hint="A [infinitivo] → [Xerundio]"
 
 [\badministrador(es)?\b]i
-id="gl-administrador"
-hint="administrador → [persoa] administradora, [equipo de] administración"
+id="proposta-gl-administrador"
+hint="administrador → [persoa] administradora, [equipo] administrador, administración"
+valid after="\bequipos?\s+"
 
 [\balmacenaxes?\b]i
-id="gl-almacenaxe"
+id="proposta-gl-almacenaxe"
 hint="almacenaxe → almacenamento"
 
 [\b(mini)?aplicativos?\b]i
-id="gl-aplicativo"
+id="proposta-gl-aplicativo"
 hint="aplicativo → aplicación"
 validGroup keywords
 
 [\baspas?\b]i
-id="gl-aspas"
+id="proposta-gl-aspas"
 hint="aspas → comiñas"
 
 [\bautor(es)?\b]i
-id="gl-autor"
+id="proposta-gl-autor"
 hint="autor → [persoa] autora, autoría"
 
-[[aei]bles?\b]i
-id="gl-ble"
-hint="-ble → -bél"
-
 [\b(micro)?blogs?\b]i
-id="gl-blog"
+id="proposta-gl-blog"
 hint="blog → bitácora"
 
 [(?<!\.)\bcom\b]i
-id="gl-com"
+id="proposta-gl-com"
 hint="com → con"
 
 [\bcomandos?\b]i
-id="gl-comando"
+id="proposta-gl-comando"
 hint="comando → orde"
 
 [\bconvites?\b]i
-id="gl-convite"
+id="proposta-gl-convite"
 hint="convite → invitación"
 
 [\bCPUs?\b]i
-id="gl-cpu"
+id="proposta-gl-cpu"
 hint="CPU → procesador"
 
 [\bdesenvolvedor(es)?\b]i
-id="gl-desenvolvedor"
-hint="desenvolvedor → [persoa] desenvolvedora, [equipo de] desenvolvemento"
+id="proposta-gl-desenvolvedor"
+hint="desenvolvedor → [persoa] desenvolvedora, [equipo] desenvolvedor, desenvolvemento"
+valid after="\bequipos?\s+"
 
-[\bdes(?!exos\b)[eé]x[aáeéoó]]i
-id="gl-desexar"
+[\bdes(?!(exos|exábe(l|is))\b)[eé]x[aáeéoó]]i
+id="proposta-gl-desexar"
 hint="desexar → querer"
 valid before="\w*\s*boa\s*sorte\b"
 valid msgstr="\bnon\s*desexad[ao]s?\b"
 valid after="\bestamos\s*" msgid="\bcan([’']t|not)\s*wait\b"
 valid msgid="\bdesir(e[ds]?|ing)\b"
+valid msgid="\btarget\b" msgstr="\bdesexad[ao]s?\b"
 valid msgid="\bwishes\b"
 
 [\b(sub\s*-?\s*)?directorios?\b]i
-id="gl-directorio"
+id="proposta-gl-directorio"
 hint="directorio → cartafol"
+valid before="\s*de\s*LDAP\b"
 
 [:$]
-id="gl-dous-puntos-finais"
+id="proposta-gl-dous-puntos-finais"
 hint="A cadea orixinal non remata en «:»."
 valid msgid=":$"
 
 [\bempr[eé](g[aáoó]|gu[eé])]i
-id="gl-empregar"
+id="proposta-gl-empregar"
 hint="empregar → usar"
 
 [\bespecif(?!ica(cións?|mente)\b)[ií](c[aáoó]|qu[eé])]i
-id="gl-especificar"
+id="proposta-gl-especificar"
 hint="especificar → indicar"
 
 [^estase\s+a\s+\w+[aei]r\b]i
-id="gl-estase-a-infinitivo"
+id="proposta-gl-estase-a-infinitivo"
 hint="Estase a [infinitivo] → [Xerundio]"
 
 [\bexp[ií]r[aáeéoó]]i
-id="gl-expirar"
+id="proposta-gl-expirar"
 hint="expirar → caducar, rematar"
 validGroup keywords
 valid msgid="\bbreath(ed|ing|s)?\s*out\b"
 
 [\bfora\s+d(e|[ao]s?)\b]i
-id="gl-fora"
+id="proposta-gl-fora"
 hint="fora → fóra"
 
 [\bgallas?\b]
-id="gl-galla"
+id="proposta-gl-galla"
 hint="galla → rama"
 
 [\bgantt\b]
-id="gl-gantt"
+id="proposta-gl-gantt"
 hint="gantt → Gantt"
 
 [\bGPUs?\b]i
-id="gl-gpu"
+id="proposta-gl-gpu"
 hint="GPU → procesador gráfico"
 
 [\bgrellas?\b]i
-id="gl-grella"
+id="proposta-gl-grella"
 hint="grella → grade"
 
 [\s-\s]i
-id="gl-guión"
-hint="«-» → «—» (o guión curto só se usa para unir palabras, sen espazos arredor)"
+id="proposta-gl-guión"
+hint="«-» → «−» (signo de resta) ou «—» (guión longo), o guión curto só se usa para unir palabras, sen espazos arredor."
 
 [\bintimidades?\b]i
-id="gl-intimidade"
+id="proposta-gl-intimidade"
 hint="intimidade → privacidade"
 valid msgid="\bprivacidades?\b"
 
-[\blapelas?\b]i
-id="gl-lapela"
-hint="lapela → separador"
-
 [\bmantedor(es)?\b]i
-id="gl-mantedor"
-hint="mantedor → [persoa] mantedora, mantemento"
+id="proposta-gl-mantedor"
+hint="mantedor → [persoa] mantedora, [equipo] mantedor, mantemento"
+valid after="\bequipos?\s+"
 
 [\bmensaxerías?\b]i
-id="gl-mensaxería"
+id="proposta-gl-mensaxería"
 hint="mensaxería → mensaxaría"
 
 [\b[Mm]ime\b]
-id="gl-mime"
+id="proposta-gl-mime"
 hint="mime → MIME"
 valid msgid="\bMIME\b"
 
 [\bm(?!ostra(rios?|xes?)\b)[oó]str[aáeéoó]]i
-id="gl-mostrar"
+id="proposta-gl-mostrar"
 hint="mostrar → amosar"
 valid msgid="\bsampler?s?\b"
 
 [\b[dn]?[ao]s?\s*(Kopete)\b]i
-id="gl-nome-programa"
+id="proposta-gl-nome-programa"
 hint="Non usar artigo cos nomes de programa."
 
 [\borganizador(es)?\b]i
-id="gl-organizador"
-hint="organizador → [persoa] organizadora, organización"
+id="proposta-gl-organizador"
+hint="organizador → [persoa] organizadora, quen organiza, organización"
 
 [\bp\.ex\.]i
-id="gl-p-ex"
+id="proposta-gl-p-ex"
 hint="p.ex. → p. ex."
 
 [\bpedidos?\b]i
-id="gl-pedido"
+id="proposta-gl-pedido"
 hint="pedido → solicitude"
 valid !msgid="\brequests?\b"
 
 [\bpoida\s*que\b]i
-id="gl-poida-que"
+id="proposta-gl-poida-que"
 hint="poida que → pode que"
 
 [\bpólas?\b]
-id="gl-póla"
+id="proposta-gl-póla"
 hint="póla → rama"
 
 [\bpor\s*favor\b]i
-id="gl-por-favor"
+id="proposta-gl-por-favor"
 hint="Evite «por favor»"
 
-[\bpr[oó]v(?![eé](dor(es)?\b|ñ)|[oó](c[aáoó]|qu[eé]))[aáeéoó]]i
-id="gl-provar"
+[\bpr[oó]v(?![eé](dor(es)?\b|n\b|ñ)|[oó](c[aáoó]|qu[eé]))[aáeéoó]]i
+id="proposta-gl-provar"
 hint="provar → probar"
 
 [\bprogramador(es)?\b]i
-id="gl-programador"
-hint="programador → [persoa] programadora, [equipo de] programación"
+id="proposta-gl-programador"
+hint="programador → [persoa] programadora, [equipo] programador, programación"
+valid after="\bequipos?\s+"
 
 [\bprox(ys?|ies)\b]i
-id="gl-proxy"
+id="proposta-gl-proxy"
 hint="proxy → mandatario"
 valid msgid="\bmandatarios?\b"
 validGroup keywords
 
 [[^.:…!?\s]((\s|\n){2,})?$]
-id="gl-punto-final"
+id="proposta-gl-punto-final"
 hint="Usa punto final."
 valid comment="path: component/name|property \(shortcut\)"
-valid !ctx="(?i)(@info:(credit Role|status|usagetip)|QCheckBox|(tool|usage)tip|whatsthis)" !ctx="^(Comment|Description)$" !comment="(Tag: refpurpose|path: (component/summary|description/p|screenshot/caption)|QCheckBox|(status|tool)Tip)"
+valid !ctx="(?i)(@info:(credit Role|status|usagetip)|QCheckBox|QRadioButton|(tool|usage)tip|whatsthis)" !ctx="^(Comment|Description)$" !comment="(Tag: refpurpose|path: (component/summary|description/p|screenshot/caption)|QCheckBox|QRadioButton|(status|tool)Tip|whatsthis)"
 valid ctx="tooltip|whatsthis" msgid=":.*?:"  # Indicadores dunha lista.
 valid ctx="@action"
 valid comment="KTitleWidget|property \((windowTitle|text\), (item|widget \((KComboBox|Q\w*?(Button|Label|SpinBox))))"
 valid msgid="%\d$"
 
 [\bscripts?\b]i
-id="gl-script"
+id="proposta-gl-script"
 hint="script → guión"
 
 [\bseguranzas?\b]i
-id="gl-seguranza"
+id="proposta-gl-seguranza"
 hint="seguranza → seguridade"
 
 [\b(ser|é|son)\s*capa(z|ces)\s*de\b]i
-id="gl-ser-capaz"
+id="proposta-gl-ser-capaz"
 hint="ser capaz de → poder"
 
 [\b(ser|é|son)\s*necesario\s*\w*[aei]r\b]i
-id="gl-ser-necesario"
+id="proposta-gl-ser-necesario"
 hint="ser necesario [infinitivo] → haber que [infinitivo]"
 
 [\bslugs?\b]i
-id="gl-slug"
+id="proposta-gl-slug"
 hint="slug → alias"
 
 [\b(tocs?|táboas?\s*d(e|os)\s*contidos)\b]i
-id="gl-toc"
+id="proposta-gl-toc"
 hint="ToC, táboa de contidos → índice"
 
 [\busuarios?\b]i
-id="gl-usuario"
+id="proposta-gl-usuario"
 hint="usuario → [persoa] usuaria, uso"
 valid msgstr="\busuarias?\b"
 
-[\butilizacións?\b]i
-id="gl-utilización"
-hint="utilización → uso"
+[\butil[ií](z[aáoó]|c[eé])]i
+id="proposta-gl-utilizar"
+hint="utilizar → usar"
 
 [\bvarelos?\b]
-id="gl-varelo"
+id="proposta-gl-varelo"
 hint="varelo → rama"

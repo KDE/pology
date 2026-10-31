@@ -30,23 +30,6 @@
 
 include file="filter.include"
 
-# Fora de Trasnada #-------------------------------------------------------------#
-
-# «print preview» -> «previsualización da impresión» / «vista previa do impreso»
-{\bprint\spreview(?!\s(window|part))}i
-id="trasno-print_preview"
-hint="«print preview» -> «previsualización da impresión» / «vista previa do impreso»"
-valid msgstr="\bprevisualizacións?\s*da\s*impresión"
-valid msgstr="\bvistas?\sprevia\sdos?\simpresos?"
-valid msgstr="\bprevisualizar\so\simpreso"
-valid msgstr="\bimprimir\sa\svista\sprevia"
-
-# «daemon» tradúcese como «daemon»
-{\bdaemon}i
-id="trasno-daemon"
-hint="«daemon» tradúcese como «daemon»"
-valid msgstr="\bdaemon"
-
 # Trasnada 10.0 #-------------------------------------------------------------#
 
 # attach → anexar
@@ -136,6 +119,7 @@ valid msgid="\bsort(ing)?s?\b"  # p. ex. sort mode → tipo de orde
 id="trasno-find"
 hint="«find» tradúcese como «atopar»"
 valid after="\blost\s+(and|&)\s+"  # obxectos perdidos
+valid before="\s+out\b"  # descubrir
 valid before="\s+that"  # descubrir, determinar
 valid before="\s+the\s+time\b"  # ter tempo
 valid before="\s+[^\s]+\s+way\s+into\b"  # introducirse
@@ -247,6 +231,7 @@ valid msgid="\bw\b"
 valid msgid="\b(re)?wr(it(es?|ing|ten)|ote)\b"
 valid msgid="\bcontact(ed|ing|s)?\b"  # contact at <enderezo de correo electrónico> → escribir a
 valid msgid="\breach(e[ds]|ing)?\b"  # reach at <enderezo de correo electrónico> → escribir a
+valid msgid="\be?-?mail(ed|ing|s)?\b"  # mail <someone> → escribir a <alguén>
 valid msgid="\bsen(d(s|ing)?|t)\b"  # send [email] → escribir [por correo electrónico]
 valid msgid="\bwriters?\b"  # persoa dedicada a escribir
 
@@ -272,7 +257,9 @@ valid msgid="\bmalformed\b"
 valid msgid="\bmisplacement\b"  # colocación incorrecta
 valid msgid="\bmisreading\b"  # lectura incorrecta
 valid msgid="\bmisspelled\b"
+valid msgid="\bmisuse\b"  # uso incorrecto
 valid msgid="\bnon-compliant\b"
+valid msgid="\bnot\s+correct\b"
 valid msgid="\bnot\s+correctly\s+solved\b"
 valid msgid="\bwrong\b"
 
@@ -349,7 +336,8 @@ valid msgstr="\bb[uú]s(c[aáoó]|qu[eé])[^\W\d_]*"
 [\bb(?!usc(ábe(l|is)|ador(es)?)\b)[uú]s(c[aáoó]|qu[eé])[^\W\d_]*]i
 id="trasno-search_reverse"
 hint="«busca(r)» traduce a «search», «seek», e «look up»"
-valid msgid="\bbrows(e[ds]?|ing)\b[\w\s]*\bfor\b"  # browse […] for → examinar […] en busca de
+valid msgid="\bbrows(e[ds]?)\b[\w\s]*\bfor\b"  # browse […] for → examinar […] en busca de
+valid msgid="\bbrowsing\b"  # p. ex. info browsing → busca de información
 valid msgid="\bcheck(ed|ing|s)?\b[\w\s]*\bfor\b"  # check for → buscar; check […] for → comprobar […] en busca de
 valid msgid="\bintend(ed|ing|s)?\b"
 valid msgid="\bintents?\b"
@@ -446,12 +434,14 @@ valid msgid="plasmoid"
 id="trasno-widget"
 hint="«widget» tradúcese como «trebello»"
 valid msgstr="\btrebello"
+valid after="\bsplitter\s*"  # divisor
 
 # «trebello» traduce a «widget»
 [\btrebello]i
 id="trasno-widget_reverse"
 hint="«trebello» traduce a «widget»"
 valid msgid="\bwidget"
+valid msgid="\bplasmoids?\b"
 
 # archive → arquivar, arquivo
 
@@ -673,7 +663,7 @@ valid msgid="\breview(ed|ing|s)?"
 valid msgid="\brevis(e[ds]?|ing)"
 valid msgid="\btriag(e[ds]?|ing)\b"
 
-[\bm(?!arc(a(cións?|dor(es)?)|ábe(l|is))\b)[aá]r(c[áaoó]|qu[eé])[^\W\d_]*\b]i
+[\bm(?!arc(a(cións?|dor(es)?)|ábe(l|is)|os?)\b)[aá]r(c[áaoó]|qu[eé])[^\W\d_]*\b]i
 id="trasno-check3_reverse"
 hint="«marcar» traduce a «check» (e a «mark», e algún verbo «bookmark»)"
 valid msgid="\bbrands?\b"  # marca
@@ -707,6 +697,7 @@ valid msgid="\bsettings?\b"  # marco (contexto visual)
 valid msgid="\btick(ed|ing|s)?\b"
 valid msgid="\btime(\s*|-)s(ignature|tamp)s?\b"  # marca de tempo
 valid msgid="\btokens?\b"
+valid msgid="\bsource\s*specials?\b"  # marcas de posición (LaTeX)
 validGroup lista-de-tradutores
 
 # checksum → suma de comprobación
@@ -787,6 +778,7 @@ valid msgid="\block(ed|ing|s)?\b"  # lock vault → pechar unha caixa forte
 valid msgid="\blog(g(ed|ing)|s)?(\s+\S+)*\s+out\b"  # pecho
 valid msgid="\bmutex\b"  # peche de exclusión mutua
 valid msgid="\bshut(t(ed|ing)|s)?\b"
+valid msgid="\bstray\b"  # p. ex. stray quote → comiña sen pechar
 valid msgid="\bunmatched\b"  # sen pechar (e.g. comiñas)
 
 # commit → remisión, remitir
@@ -838,10 +830,12 @@ id="trasno-delete_reverse"
 hint="«eliminar» traduce a «delete»"
 valid msgid="\bclear(ed|ing|s)?\b"
 valid msgid="\b(un)?delet(e[ds]?|ing)\b"
-valid msgid="\bfor\s*deletion\b"  # para eliminar
 valid msgid="\bdrop(p(ed|ing)|s)?\b"
-valid msgid="\bremov(e[ds]?|ing)\b"
 valid msgid="\beliminat(e[ds]?|ing)\b"
+valid msgid="\bfor\s*deletion\b"  # para eliminar
+valid msgid="\bprun(e[ds]?|ing)\b"
+valid msgid="\bremov(e[ds]?|ing)\b"
+valid msgid="\bstrip(p(ed|ing)|s)?\b"
 
 # develop → desenvolver
 # developer → desenvolvedor
@@ -936,12 +930,14 @@ hint="«editar» traduce a «edit»"
 valid msgid="\bedit(ed|ing|s|ions?|ors?)?\b"
 valid after="\ban[uú]l[aáeéoó]\S*\s+a\s+" msgid="\bunedit(ed|ing|s)?\b"
 valid after="\banulacións?\s+de\s+" msgid="\bunedit(ion)?s?\b"
+valid msgid="\bcomposers?\b"
 
 # «empty» tradúcese como «baleiro»
 {\bempty}i
 id="trasno-empty"
 hint="«empty» tradúcese como «baleiro»"
 valid msgstr="\bbaleir"
+valid msgstr="\ben\s+branco\b"
 
 # descarta o uso de «vacío» en favor de «baleiro»
 [\bvac(ío|ía|ia|ie|io)]i
@@ -953,7 +949,8 @@ hint="vacío -> baleiro"
 id="trasno-empty2_reverse"
 hint="«baleiro» traduce a «empty»"
 valid msgid="\bblank\b"
-valid msgid="\bempty\b"
+valid msgid="\bempt(y(ing)?|ie[ds])\b"
+valid msgid="\bvacuums?\b"
 
 # «enable» tradúcese como «activar»
 {\benable}i
@@ -965,17 +962,23 @@ valid after="\b(when|if)\sthis\s(option|checkbox)\sis\s"
 valid after="\b(when|if)\sthis\sis\s"
 valid after="\b(if|when)\s"
 valid after="\bnot\s"
-valid msgstr="\bactiv"
-valid msgstr="\bpermit"
+valid msgstr="\bact[ií]v[aáeéoó]"
+valid msgstr="\bperm[ií]t[aáeéiíoó]"
 
 [\bact(?!ivamente\b)[ií]v[aáeéoó][^\W\d_]*\b]i
 id="trasno-enable_reverse"
 hint="«activar» traduce a «enable» (e a activate)"
 valid msgid="\benabl(e[ds]?|ing)\b"
 valid msgid="\bactivat(e[ds]?|ing)\b"
+valid msgid="\bactivations?\b"
 valid msgid="\bactive\b"
+valid msgid="\bon\b"
 valid msgid="\bset(s|ting)?\b"  # set an alarm → activar unha alarma
 valid msgid="\btrigger(ed|ing|s)?\b"  # http://trasno.gal/lista-de-correo-2/?subpage=mailstermail&id=5164
+valid msgid="\bturn(ed|ing|s)?\b.*?\bon\b"
+valid msgid="\btrue\b"  # p. ex. if true → se se activa
+valid msgid="\bunmut(e[ds]?|ing)\b"  # activar o son
+valid span="activ[ao]s?" msgid="\bup\b"  # p. ex. network is up → a rede está activa
 
 # «encrypt» tradúcese como «cifrar»
 {\bencrypt}i
@@ -990,18 +993,22 @@ hint="«cifrar» traduce a «encrypt»"
 valid before="as?\sdecima(l|is)"
 valid msgid="\b(un)?encrypt"
 valid msgid="\bcryptograph"
+valid msgid="\bdigits?\b"  # cifra
+valid msgid="\bfigures?\b"  # cifra
 
 # «erase» tradúcese como «borrar»
 {\berase}i
 id="trasno-erase"
 hint="«erase» tradúcese como «borrar»"
-valid msgstr="\bborrar"
+valid msgstr="\bb[oó]rr[aáeéoó]"
 
 # «borrar» traduce a «erase»
 [\bb(?!orr(ador(es)?|ábe(l|is))\b)[oó]rr[^\W\d_]+]i
 id="trasno-erase_reverse"
-hint="«borrar» tradúcese como «erase»"
+hint="«borrar» traduce a «erase»"
 valid msgid="\beras(e[ds]?|ing)\b"
+valid msgid="\bsquiggles?\b"  # borrancho (garabato)
+valid msgid="\bclear(ed|ing|s)?\b"
 
 #«fallo» traduce a «fail»
 #ver regra inversa de «bug»
@@ -1013,12 +1020,20 @@ hint="«file» tradúcese como «ficheiro»"
 valid after="<" before=">"
 valid before="\sa\s"
 valid msgstr="\bficheiro"
+valid msgstr="\bg[aá]rd[aáeéoó]"  # p. ex. file a message into a box → gardar unha mensaxe nunha caixa
 
 # «ficheiro» traduce a «file»
 [\bficheiro]i
 id="trasno-file_reverse"
 hint="«ficheiro» traduce a «file»"
-valid msgid="\bfile"
+# Permitimos calquera palabra que remate en -file porque en inglés hai nomes
+# propios como «Dockerfile» ou «Makefile» que omiten a palabra «file». Por
+# exemplo, «a Dockerfile [file]» tradúcese como «un ficheiro Dockerfile», en
+# inglés adoitan omitir ese «file» pero en galego non podemos omitir
+# «ficheiro».
+valid msgid="files?\b"
+valid msgid="\blockfiles?\b"
+valid msgid="\bfile(names?|systems?|types?)\b"
 valid after="\sa\s"
 valid before="\sde\srexistro" msgid="logfile"
 
@@ -1032,9 +1047,10 @@ valid msgstr="\benv(iar|íe)\sun"
 id="trasno-file-a_reverse"
 hint="«enviar un» traduce «file (ou submit, ou send) a»"
 valid msgid="\bfil(e[ds]?|ing)\s+an?\b"
-valid msgid="\bsen(d(ing|s)?|t)\s+an?\b"
+valid msgid="\bsen(d(ing|s)?|t)\b"
 valid msgid="\bsubmit(s|t(ed|ing))?\s+an?\b"
 valid msgid="\bupload(ed|ing|s)?\s+an?\b"
+valid msgid="\bemail(s|ed|ing)?\b"  # Regra sen artigo, p. ex. email us → envíanos unha mensaxe por correo electrónico
 
 # «file package» tradúcese como «paquete de ficheiros»
 {\bfile\spackage}i
@@ -1093,7 +1109,7 @@ valid msgid="\bhard(\s?disk|\sdrive)"
 {\bhighlight}i
 id="trasno-highlight"
 hint="«highlight» tradúcese como «realzar» ou «realce»"
-valid msgstr="\breal(zar?|zad(o|a)|ce)"
+valid msgstr="\bre[aá]l(z[aáoó]|c[eé])"
 
 # «realzar» traduce a «highlight»
 [\breal(zar|zado|ce)]i
@@ -1112,9 +1128,11 @@ valid msgstr="\bhistorial"
 id="trasno-history_reverse"
 hint="«historial» traduce a «history»"
 valid msgid="\bhistory"
+valid before="\s*completo\b" msgid="\ball\s*time\b"  # all time data → historial completo de datos
+valid msgid="\bscrollbacks?\b"
 
 # «icon» tradúcese como «icona»
-{\bicon}i
+{\bicons?\b}i
 id="trasno-icon"
 hint="«icon» tradúcese como «icona»"
 valid before="if."
@@ -1124,16 +1142,19 @@ valid msgstr="\bicon(a|iz)"
 [\biconas?\b]i
 id="trasno-icon_reverse"
 hint="«icona» traduce a «icon»"
+valid msgid="\bfavicons?\b"  # icona de páxina
 valid msgid="\bicons?\b"
 valid msgid="\biconbars?\b"  # barra de iconas
 valid msgid="\biconbox(es)?\b"  # caixa de iconas
 valid msgid="\bapp_?icons?\b"  # icona de aplicativo
 
 # «item» tradúcese como «elemento»
-{\b(i|í)tem}i
+{\bitems?\b}i
 id="trasno-item"
 hint="«item» tradúcese como «elemento»"
 valid msgstr="\belemento"
+valid msgid="\bmenu\s*items?\b"  # menu item → entrada de menú
+valid msgstr="\bobxectos?\b"  # con representación física
 
 # «elemento» traduce a «item»
 [\belemento]i
@@ -1141,6 +1162,7 @@ id="trasno-item_reverse"
 hint="«elemento» traduce a «item»"
 valid msgid="\bitem"
 valid msgid="\b(list)?element"
+valid msgid="\bcontents?\b"  # p. ex. content count → número de elementos
 
 # «key» tradúcese como «tecla»
 {\bkey}i
@@ -1189,7 +1211,8 @@ valid msgstr="\bbiblioteca"
 [\bbiblioteca]i
 id="trasno-library_reverse"
 hint="«biblioteca» traduce a «library»"
-valid msgid="\blibrar(y|ies)"
+valid msgid="\blibrar(y|ies)\b"
+valid msgid="\blibs?\b"
 
 {\bmodifications?\b}i
 id="trasno-modification"
@@ -1238,10 +1261,11 @@ valid msgstr="\bretratos?\b"
 valid msgstr="\bvertica(l|is)\b"
 
 # «provide» tradúcese como «fornecer»
-{\bprovide}i
+{\bprovid(e[ds]?|ing)\b}i
 id="trasno-provide"
 hint="«provide» tradúcese como «fornecer» (ou «especificar» ou «dar»)"
-valid before="\ssupport"
+valid before="\s+feedback\b"  # opinar
+valid before="\s+support\b"  # apoiar
 valid after="if\s" env="gnome"
 valid msgstr="\bforn(e|é)c."
 valid msgstr="\bforn(e|é)z."
@@ -1252,7 +1276,10 @@ valid msgstr="\bdá\s"
 [\bfornec]i
 id="trasno-provide_reverse"
 hint="«fornecer» traduce a «provide» (e a «supply»)"
+valid msgid="\b(giv(e[ns]?|ing)|gave)\b"
+valid msgid="\boffer(ed|ing|s)?\b"
 valid msgid="\bprovid(e|i)"
+valid msgid="\bsuppl(y(ing)?|ie[ds])\b"
 
 # «redo» tradúcese como «refacer»
 {\bred(id|o(es|ing)?)\b}i
@@ -1272,12 +1299,21 @@ id="trasno-remove"
 hint="«remove» tradúcese como «retirar» ou «desinstalar»"
 valid msgstr="\bret[ií]r[aáeéoó]"
 valid msgstr="\bdesinst[aá]l[aáeéoó]"
+valid msgstr="\belim[ií]n[aáeéoó]"  # remove text → eliminar o texto (se non se move a ningures)
+valid msgstr="\bqu[ií]t[aáeéoó]"  # remove avatar health → quitar vida ao avatar
 
 [\bret[ií]r[aáeéoó][^\W\d_]*\b]i
 id="trasno-remove_reverse"
 hint="«retirar» traduce a «remove»"
 valid msgid="\bremov(e[ds]?|ing)\b"
 valid msgid="\bstrip(ed|ing|s)?\b"
+valid msgid="\bclean(ed?|ing|s)?\b"  # p. ex. clean indentation → retirar o sangrado
+valid msgid="\bdeselect(ed|ing|s)?\b"  # retirar da selección
+valid msgid="\bdisallow(e[ds]?|ing)\b"  # retirar o permiso
+valid msgid="\bunindent(t?(ed|ing)|s)?\b"  # retirar o sangrado
+valid msgid="\bunpick(ed|ing|s)?\b"  # retirar da selección
+valid msgid="\bunpublish(ed|ing|es)?\b"  # retirar unha publicación
+valid msgid="\bunset(ting|s)?\b"  # retirar a definición
 
 {\buninstall(ed|ing|s)?\b}i
 id="trasno-uninstall"
@@ -1312,6 +1348,7 @@ valid msgid="\breplac(e[ds]?|ing)\b"
 valid msgid="\bsubstitut(e[ds]?|ing)\b"
 valid msgid="\bsurrogat(e[ds]?|ing)\b"
 valid msgid="\bsupersed(e[ds]?|ing)?\b"
+valid msgid="\boverwrit(es?|ing|ten)\b"
 
 # «rollback» tradúcese como «regresión» ou «regresar»
 {\broll\s?back}i
@@ -1347,10 +1384,15 @@ valid msgstr="\bsaír"
 [\bsaída]i
 id="trasno-logout-logoff_reverse"
 hint="«saída» traduce a «logout», «logoff» (e a «output», «saída»)"
+valid msgid="\bcheck-?out\b"  # check-out date → data de saída
 valid msgid="\bexit\b"  # exit code → código de saída
+valid msgid="\bguid(e[ds]?|ing)\b.*?\bout\b"  # guiar ata a saída
 valid msgid="\blogo(ut|off)"
+valid msgid="\boutbox(es)?\b"
 valid msgid="\boutput"
 valid msgid="\bquit(s|t(ed|ing))?\b"
+valid msgid="\bstdout\b"  # saída estándar
+valid msgid="\bways?\s*out\b"
 
 # «log/sign out» e «log/sign off» tradúcense como «saír»
 {\b(log(s|ged|ging)?|sign(s|ed|ing)?)\so(ut|ff)}i
@@ -1359,16 +1401,20 @@ hint="«log/sign out» e «log/sign off» tradúcense como «saír»"
 valid msgstr="\bsaí(r|u|che)"
 valid msgstr="\bsae\b"
 valid msgstr="\bsaia"
+valid msgstr="\brexistro\b"  # log file → ficheiro de rexistro
 
 # «saír» traduce a «quit», «exit», «log/sign out» e «log/sign off»
-[\bsa(í(r|mos|des|n|che|u|s|ron|a|as|an|ra)|i(o|amos|ades|ramos|rades|re(i|mos|des)|rá|rí|a)|e\b)]i
+[\bsa(í(r|mos|des|n(?!tes?\b)|che|u|s|ron|a|as|an|ra)|i(o|amos|ades|ramos|rades|re(i|mos|des)|rá|rí|a)|e\b)]i
 id="trasno-log/signout-log/signoff_reverse"
 hint="«saír» traduce a «quit», «exit», «log/sign out» e «log/sign off» (e «leave»)"
+valid msgid="\b(comes?|coming|came)\s*out\b"
 valid msgid="\bexit(ed|ing|s)?\b"
+valid msgid="\b(go(es|ing|ne)?|went)\s*out\b"
 valid msgid="\blog(g(ed|ing)|s)?\s*o(ut|ff)\b"
 valid msgid="\ble(av(es?|ing)|ft)\b"
 valid msgid="\boutgoing\b"
 valid msgid="\bquit(s|t(ed|ing))?\b"
+valid msgid="\bstep(ed|ing|s)?\s*o(ut|ff)\b"
 valid msgid="\bsign(ed|ing|s)?\s*o(ut|ff)\b"
 
 # «login», «log/sign in», «log/sign on» tradúcense como «acceder» ou «identificarse»
@@ -1387,8 +1433,10 @@ valid !msgstr="\binici(ar|e|ou)\ssesión"
 [\bacce(d|so)]i
 id="trasno-login1_reverse"
 hint="«acceder» traduce a «login», «log/sign in», «log/sign on» (e access)"
-valid msgid="\b(log\s?|sign\s)(i|o)n"
+valid msgid="\b(log(g(ed|ing)|s)?|sign(ed|ing|s)?)\s?(ins?|into|ons?)\b"
 valid msgid="\baccess"
+valid msgid="\bInternet-facing\b"  # [aplicación] que accede a Internet
+valid msgid="\bhotspots?\b"  # punto de acceso
 
 # «identificar» traduce a «login», «log/sign in», «log/sign on» (e identificar)
 [\bidentifi(c|qu)]i
@@ -1396,8 +1444,9 @@ id="trasno-login2_reverse"
 hint="«identificar» traduce a «login», «log/sign in», «log/sign on» (e identificar)"
 valid msgid="\b(log\s?|sign\s)(i|o)n"
 valid msgid="\bidentif"
-valid msgid="\bu?id\b"
+valid msgid="\bu?ids?\b"
 valid after="non\s" msgid="\bunidentif"
+valid msgid="\brealms?\b"  # área de identificación compartida
 
 #  Falta a regra para «username», «user name», «login», «login name» que
 #  se traducen como «nome de usuario».
@@ -1405,12 +1454,12 @@ valid after="non\s" msgid="\bunidentif"
 {\buser\s?name}i
 id="trasno-username"
 hint="«username» tradúcese como «nome de usuario»"
-valid msgstr="\bnomes?\sd(e|os?|as?)\susuario"
+valid msgstr="\bnomes?\sd(e|os?|as?)\susuari[oa]"
 
 {\blogin\sname}i
 id="trasno-username2"
 hint="«login name» tradúcese como «nome de usuario»"
-valid msgstr="\bnomes?\sd(e|os?|as?)\susuario"
+valid msgstr="\bnomes?\s*d(e|[ao]s?)\s*usuari[ao]\b"
 
 # «nome de usuario» traduce a «user name» e a «login (name)»
 [\bnomes?\sd(e|os?)\susuario]i
@@ -1424,18 +1473,21 @@ valid msgid="\blogin"
 #####
 
 # «support» tradúcese como «asistencia técnica», «ser compatíbel con», «admitir», «permitir utilizar», «incluír»
-{\bsupport}i
+{\b(un)?support}i
 id="trasno/2012_support"
 hint="«support» tradúcese como «asistencia técnica», «ser compatíbel con», «admitir», «permitir utilizar», «incluír»"
-valid msgstr="\basistencia\stécnica"
+valid msgstr="\basistencia\b"
 valid msgstr="\bservizos?\stécnico"
-valid msgstr="\bcompatíbe(l|is)\b"
-valid msgstr="\bde\scompatibilidade"
-valid msgstr="\bcompatibilidade"
+valid msgstr="\b(in)?compatíbe(l|is)\b"
+valid msgstr="\b(in)?compatibilidades?\b"
 valid msgstr="\badmit"
-valid msgstr="\bpermit(e|en|an|ir)\s[^\W\d_]+[aei]r"
+valid msgstr="\bperm[ií]t[aáeéiíoó]"
 valid msgstr="\bincl(u|ú)"
 valid msgstr="\bpermit(ir|e|a)"
+valid msgstr="\bap[oó]i[aáeéoó]"
+valid msgstr="\bposibilidade\b"  # p. ex. support for using this → posibilidade de usar isto
+valid msgstr="\bfuncionalidade\b"  # p. ex. scripting support → funcionalidade de guionización
+valid after="\bhelp(ed|ing|s)?\s+" msgstr="\bax[uú]d[aáeéoó]"  # p. ex. help support us → axúdanos
 
 # «asistencia técnica» traduce a «support»
 [\basistencia\stécnica]i
@@ -1454,6 +1506,8 @@ valid msgid="\bsupport"
 id="trasno-support3_reverse"
 hint="«admitir» traduce a «support»"
 valid msgid="\b(un)?support"
+valid msgid="\bpossible\b"  # p. ex. possible values are … → admite os valores …
+valid msgid="\badmit(t?(ed|ing)|s)?\b"
 
 # «permitir utilizar» traduce a «support»
 [\bpermit(e|en|ir)\sutilizar]i
@@ -1483,13 +1537,10 @@ valid msgid="\bundo"
 {\bupdate}i
 id="trasno-update"
 hint="«update» tradúcese como «actualizar» ou «actualización»"
-valid msgstr="\bactualiza(r|do|ción)"
-valid msgstr="\bactualice"
-valid msgstr="\bactualiz(a|á)"
-valid msgstr="\bactualizo"
+valid msgstr="\bactual[ií](z[aáoó]|c[eé])"
 
 # «actualizar» ou «actualización» traducen a «update»
-[\bactual[ií](c[eé]|z[aáoó])[^\W\d_]*\b]i
+[\bactual(?!izador(es)?\b)[ií](c[eé]|z[aáoó])[^\W\d_]*\b]i
 id="trasno-update_reverse"
 hint="«actualizar» ou «actualización» traducen a «update»"
 valid msgid="\brefresh(e[ds]|ing)?\b"
@@ -1497,36 +1548,30 @@ valid msgid="\bupdat(e[ds]?|ing)\b"
 valid msgid="\bup(-|\s+)to(-|\s+)date\b"
 
 # «upgrade» tradúcese como «anovar» ou «anovación»
-{\bupgrad}i
+{\bupgrad(e[ds]=|ing)\b}i
 id="trasno-upgrade"
 hint="«upgrade» tradúcese como «anovar» ou «anovación»"
-valid before="e\b" msgstr="\banova(r|ción)"
-valid before="ed" msgstr="\banovado"
-valid msgstr="\banovou"
+valid msgstr="\ban[oó]v[aáeéoó]"
 
 # «anovar» ou «anovación» traducen a «upgrade»
 [\banova(r|do|ción)]i
 id="trasno-upgrade_reverse"
 hint="«anovar» ou «anovación» traducen a «upgrade»"
-valid msgid="\bupgrade"
+valid msgid="\bupgrad(e[ds]?|ing)\b"
 
 # Prefírese a terminación en bel
-[\b[\w\-_]+bles?(\s|\b)]i
+[(?<=[aei])bles?\b]i
 id="trasno-gl_bel"
 hint="terminación en -bel"
-valid span="(fe|ca|dou|tre|ipta)bles?"
-valid span="[\-_]+"
-valid span="robles" after="eduardo\s" # nome dun programador
-valid span="\bmarble\b" # nome dun programa
-valid span="\bGrenoble\b" # cidade
-valid span="\bHubble\b" # o satélite telescopio
-valid span="\bGabble\b" # un servizo
-valid span="\bPebbles?\b" # un produto
-valid span="tables?\b" # moitos falsos positivos, grazas a Latex
+valid after="\b(ca|dou|fe|(ip)?ta|sa|tre)$"
+
+[\bestabl[eé](c[eéií]|z[aáoó])]i
+id="trasno-establecer"
+hint="establecer → estabelecer"
 
 [\b[^\W\d_]+blemente\b]i
 id="trasno-blemente"
-hint="-blemente → -belmente (p. ex. posiblemente → posibelmente)"
+hint="-blemente → -belmente (p. ex. posiblemente → posibelmente). Este tipo de erro pode corrixirse automaticamente con Pology, pregunta á xente de Trasno se queres saber como."
 
 # descarta o uso de «dende» en favor de «desde»
 [\bdende\b]i
@@ -1557,6 +1602,7 @@ id="trasno-backend"
 hint="«backend» tradúcese como «infraestrutura»"
 valid msgstr="\binfraestruturas?\b"
 valid msgstr="\bback(\s+|-)?ends?\b"
+valid msgstr="\bmotor(es)?\b"  # mesmo significado que «engine», p. ex. arquive backend → motor de arquivo
 
 # «infraestrutura» traduce a «backend»
 [\binfraestruturas?\b]i
@@ -1574,10 +1620,10 @@ hint="«breadcrumbs» tradúcese como «ronsel»"
 valid msgstr="\bronse(l|is)\b"
 
 # «bug» tradúcese como «fallo»
-{\bbug(?!\s+(reports?|track(ers?|ing))\b)s?\b}i
+{\bbug(?!\s+(reports?|track(ers?|ing)|triaging)\b)s?\b}i
 id="trasno-bug"
 hint="«bug» tradúcese como «fallo»"
-valid msgstr="\bbichos?\b"
+valid msgstr="\bb[ei]chos?\b"
 valid msgstr="\bbug(?!\s+(reports?|track(ers?|ing))\b)s?\b"
 valid msgstr="\bfallos?\b"
 valid msgstr="\binsectos?\b"
@@ -1590,6 +1636,7 @@ valid msgid="\bbuggy\b"  # con fallos
 valid msgid="\bbugs?\b"
 valid msgid="\bbugfix(es)?\b"  # correccións de fallos
 valid msgid="\bbugfixers?\b"  # correctores de fallos
+valid msgid="\bbugtrackers?\b"  # sistema de seguimento de incidencias
 valid msgid="\bfail(ed|ing|s)?\b"
 valid msgid="\bfailover\b"  # tolerancia de fallos
 valid msgid="\bfailures?\b"
@@ -1649,6 +1696,7 @@ valid msgid="\bchat(\s*|-)rooms?\b"
 id="trasno-crash"
 hint="«crash» tradúcese como «quebra»"
 valid msgstr="\bquebr.?"
+valid msgstr="\bcolisións?\b"
 
 # «detach» tradúcese como «desconectar», «desprender»
 {\bdetach}i
@@ -1662,6 +1710,7 @@ valid msgstr="\bdesacopl" env="gnome"
 id="trasno-detach_reverse"
 hint="«desprender» traduce a «detach»"
 valid msgid="\bdetach"
+valid msgid="\bunpin(n?(ed|ing)|s)?"
 
 # «desconectar» traduce a «detach» ou a «offline» (e a «disconnect»)
 [\bdesconect.]i
@@ -1688,6 +1737,7 @@ valid msgid="\bdevice"
 id="trasno-dock"
 hint="«dock» tradúcese como «doca» (e «acoplar»)"
 valid msgstr="\bac[oó]pl[aáeéoó][^\W\d_]*\b"
+valid span="docking" msgstr="\bancoraxe\b"
 valid msgstr="\bdocas?\b"
 
 # «doca» traduce a «dock»
@@ -1700,7 +1750,7 @@ valid msgid="\bdock"
 {\bdownload}i
 id="trasno-download"
 hint="«download» tradúcese como «descarga(r)»"
-valid msgstr="\bdescarg"
+valid msgstr="\bdesc[aá]rg([aáoó]|u[eé])"
 
 # «descargar» traduce a «download»
 [\bdesc[aá]r(g[aáoó]|gu[eé])[^\W\d_]*\b]i
@@ -1716,6 +1766,7 @@ hint="«drive» tradúcese como «unidade» (en kde aceptase lector de CD)"
 valid after="floppy(\sdisk)?\s"
 valid msgstr="\bunidade"
 valid after="hard\s"
+valid msgstr="\bcond[uú](z[aáoó]|c[eéií])"
 
 # «unidade» traduce a «drive»
 [\bunidade]i
@@ -1729,9 +1780,13 @@ valid msgid="\bunit"
 id="trasno-fail"
 hint="«fail» e relacionados tradúcense como «fallo»"
 valid span="failed" before="\sto\b"
+valid span="failed" after="\Sing\s+"
+valid span="failed" before="\s+\S+ing\b"
 valid span="failed" before="\swith\b"
 valid span="failed" before="\.|:|,|;"
 valid msgstr="\bfall."
+valid msgstr="\bnon\s*(é|foi)\s*posíbel\b"
+valid msgstr="\bproduciuse\s*un\s*erro\s*ao\b"
 
 # «framework» tradúcese como «marco de traballo» ou «infraestrutura»
 {\bframework}i
@@ -1752,25 +1807,29 @@ valid msgid="\bframework"
 id="trasno-issue"
 hint="«issue» tradúcese como «incidencia» (e «expendido»)"
 valid before="r"
-valid msgstr="\sincidencia"
-valid msgstr="\bnúmero" cat="commit-digest"
+valid msgstr="\bincidencias?\b"
+valid msgstr="\bd[aáeéoó].*?\bordes?\b"  # issue a command → dar unha orde
+valid msgstr="\bexp[eé]d[aáeéiíoó]"  # issue a certificate → expedir un certificado
+valid msgstr="\bnúmeros?\b"  # p. ex. magazine issue → número da revista
+valid msgstr="\bord[eé]n[aáeéoó]"
+valid msgstr="\bproblemas?\b"  # p. ex. accesibility issue → problema de accesibilidade
+valid msgstr="\bpublicacións?\b"  # p. ex. issue year → ano de publicación
 
 # «incidencia» traduce a «issue»
 [\bincidencia]i
 id="trasno-issue_reverse"
 hint="«incidencia» traduce a «issue»"
 valid msgid="\bissue"
-valid after="\bseguimento\sde\s" msgid="\bbug\stracker"
+valid after="\bseguimento\sde\s" msgid="\bbug\s*(trackers?|tracking\s*systems?)\b"
 valid msgid="\bincidence"
+valid msgid="\bbug\s*triaging\b"  # organización de incidencias
 
 # «kill» tradúcese como «matar»
 {\bkill}i
 id="trasno-kill"
 hint="«kill» tradúcese como «matar» (ollo, que pode ser a orde kill)"
 valid before="ustrator"
-valid msgstr="\bmat(a|ar|ou)"
-valid before="ed" msgstr="\bmatado"
-valid msgstr="matal(a|o)"
+valid msgstr="\bm[aá]t[aáeéoó]"
 valid msgstr="\bkill"
 valid before="er" msgstr="\basasino"
 
@@ -1811,13 +1870,14 @@ valid before="ais"
 valid msgid="\bterminat"
 
 # «Path» tradúcese como «ruta».
-{\bpath(\b|\s|s)}i
+{\b[Pp]aths?\b}
 id="trasno-path"
-hint="«Path» tradúcese como «ruta»"
-valid after="trust\s"
+hint="«path» tradúcese como «ruta»"
+valid after="(?i)trust\s"
 valid after="<" before=">"
-valid msgstr="\bruta"
-valid msgstr="\bsecuencias?\sde\svértices"
+valid msgstr="(?i)\brutas?\b"
+valid msgstr="(?i)\bsecuencias?\s+de\s+vértices\b"
+valid msgstr="(?i)\bcamiños?\b"  # No sentido físico.
 
 # «Trust path» tradúcese como «cadea de confianza»
 {\btrust\spath}i
@@ -1830,6 +1890,7 @@ valid msgstr="\bcadea\sde\sconfianza"
 id="trasno-path_reverse"
 hint="«Ruta» traduce a «path»"
 valid msgid="\bpath" !after="trust"
+valid msgid="\bfilenames?\b"  # A miúdo significa «ruta de ficheiro» en vez de «nome de ficheiro».
 
 # «secuencia de vértices» traduce a «path»
 [\bsecuencias?\sde\svértices]i
@@ -1848,9 +1909,8 @@ valid msgid="\btrust\s(path|chain)"
 {\bquit(s|t(ed|ing))?\b}i
 id="trasno-quit"
 hint="«quit», «exit» tradúcense como «saír»"
-valid msgstr="\bsaí(r|u)"
-valid msgstr="\bsaída"
-valid msgstr="\bsaes?\b"
+valid msgstr="\bs[aá][aáeéiíoó]"
+valid msgstr="\bd[eé]ix[aáeéoó]\S*\s*de\b"  # p. ex. quit searching → deixar de buscar
 
 # «quit», «exit» tradúcense como «saír»
 {\bexit(ed|ing|s)?\b}i
@@ -1879,22 +1939,25 @@ valid msgid="\bremovable"
 [\b(sistema\sde\s)?seguimento\sde\sincidencias]i
 id="trasno-tracker4_reverse"
 hint="«(sistema de) seguimento de incidencias» traduce a «bug tracker»"
-valid msgid="\bbug\stracker"
+valid msgid="\bbug\s*(trackers?|tracking\s*systems?)\b"
 
 # «track» tradúcese como «pista» ou «seguir/rastrexar»
 {\btrack}i
 id="trasno-track"
 hint="«track» tradúcese como «pista» ou «seguir/rastrexar»"
 valid after="keeps? "
+valid before="\s+down\b"  # localizar
 valid msgstr="\bpista"
 valid msgstr="\bs(e|i)g(o|ue|ui)"
 valid msgstr="\brastrex"
+valid msgstr="\bcontr[oó]l[aáeéoó]"  # p. ex. track your time → controle o seu tempo
 
 # «pista» traduce a «track»
-[\bpista]i
+[\bpistas?\b]i
 id="trasno-track_reverse"
 hint="«pista» traduce a «track»"
 valid msgid="\btracks?\b"
+valid msgid="\bhints?\b"
 
 # «seguir» traduce a «track»
 [\bs(e|i)g(o|ue|ui)]i
@@ -1902,21 +1965,28 @@ id="trasno-track2_reverse"
 hint="«seguir» traduce a «track» (e a «follow»)"
 valid before="nte"
 valid before="mento"
-valid msgid="\btrack(\b|\s|s|ed)"
+valid msgid="\btrack(\b|\s|s|ed|ing)"
+valid msgid="\bcontinu(e[ds]?|ing)\b"  # p. ex. continue using → seguir usando
 valid msgid="\bfollow"
+valid msgid="\bke(ep(ing|s)?|pt)\b"  # p. ex. be kept in view → seguir á vista
+valid msgid="\bin\s*a\s*row\b" msgstr="\bseguid[ao]s?\b"
+valid msgid="\bremain(ed|ing|s)?\b"
+valid msgid="\bstill\s+be\b"  # p. ex. will still be available → seguirá dispoñíbel
+valid msgid="\btrailing\b"
 
 # «seguimento» traduce a «tracking»
 [\bseguimento]i
 id="trasno-track3_reverse"
 hint="«seguimento» traduce a «tracking»"
-valid msgid="\btracking"
-valid before="\sde\sincidencias"  msgid="\bbug\stracker"
+valid msgid="\b(un)?track(ed|ing|s)?\b"
+valid before="\sde\sincidencias"  msgid="\bbug\s*tracker"
+valid msgid="\bfollow(ing)?\b"
 
 # «rastrexar» traduce a «track»
 [\brastr[eé]x[aáeéoó][^\W\d_]*\b]i
 id="trasno-track4_reverse"
 hint="«rastrexar» traduce a «track»"
-valid msgid="\b(un)?track(ed|ing|s)?\b"
+valid msgid="\b(un)?track(ed|ers?|ing|s)?\b"
 
 # «tracker» tradúcese como «localizador» (para: !bittorrent)
 {\btracker}i
@@ -1948,7 +2018,7 @@ valid msgstr="\b(sistema(\sweb)?\sde\s)?seguimento\sde\sincidencias"
 [\b(sistema\sde\s)?seguimento\sde\sincidencias]i
 id="trasno-tracker3_reverse"
 hint="«(sistema de) seguimento de incidencias» traduce a «bug tracker»"
-valid msgid="\bbug\stracker"
+valid msgid="\bbug\s*(trackers?|tracking\s*systems?)\b"
 
 # «offline» tradúcese como «desconectado» ou «sen conexión»
 {\boff(\s|-)?line}i
@@ -1962,6 +2032,7 @@ valid msgstr="\bsen\sconexión"
 id="trasno-offline_reverse"
 hint="«sen conexión» traduce a «offline»"
 valid msgid="\boff(\s|-)?line"
+valid msgid="\bno\s*connection\b"
 
 # «upload» tradúcese como «enviar»
 {\bupload}i
@@ -1977,7 +2048,7 @@ valid msgid="\bfil(e[ds]?|ing)\s+an?\b"
 valid msgid="\bupload"
 valid msgid="\bsen(d|t)"
 valid msgid="\bship(p(ed|ing)|s)?\b"
-valid before="\s+por\s+correo"
+valid before=".*?\bpor\s+correo\b"
 
 # part of a hardware or software system that is closest to the user.
 {\bfront(-|\s*)ends?\b}i
@@ -2042,12 +2113,13 @@ valid msgid="\bbordered\b"  # con bordos
 valid msgid="\bborderless\b"  # sen bordos
 valid msgid="\bcoasting\b"  # desprazamento cando o dedo abandona a área táctil polo bordo
 valid msgid="\bedges?\b"
+valid msgid="\bon board\b"  # a bordo
 
 
 # «Can not be ed» -> «Non é/foi posíbel infinitivo»
 {\bcan(\snot|not|n't)\sbe\s\w+ed\b}i
 id="trasno-expression_cannot be"
-hint="«can not be ed» -> «Non é/foi/ha ser/sexa posíbel infinitivo»"
+hint="«can not be [participio]» -> «Non é/foi/ha ser/sexa posíbel infinitivo»"
 valid msgstr="\bnon\s(é|foi|ha\sser|sexa)\sposíbel\s(pór|\w+[aei]r)"
 valid msgstr="\bnon\s(é|foi|ha\sser|sexa)\sposíbel\s\w+[aei]l(a|o)s?"
 
@@ -2076,36 +2148,18 @@ id="trasno-expression_could not be"
 hint="«could not be» -> «Non é/foi posíbel infinitivo»"
 valid msgstr="\bnon\s(é|foi)\sposíbel\s(pór|\w+[aei]r)"
 valid msgstr="\bnon\s(é|foi)\sposíbel\s\w+[aei]l(a|o)s?"
-#o que segue apártase da Trasnada
-valid msgstr="\bnon\bpoida\s(pó|(\w+[aei])r)\b" env="kde"
-valid msgstr="\bnon\b(é|foi)\b(capaz|quen)\bde\b(pó|(\w+[aei])r)\b" env="kde"
 
 # «Unable to verb» -> «Non é/foi posíbel infinitivo»
 {\bunable\sto}i
 id="trasno-expression_unable to"
 hint="«unable to» -> «non é/foi posíbel + infinitivo»"
-valid after="(be|is|are|was|were)\s"
+valid after="(be|is|are|was|were|['´’]re)\s"
 # # valid !after="(^|:|\.)\s?" # normalmente vai despois de algo disto.
 valid after="(^|\(|,|\.|\*|;)\s?" msgstr="\bnon\s(é|foi)\sposíbel\s(pór|\w+[aei]r)"
-valid after=":\s?" !env="kde" msgstr="\bnon\s(é|foi)\sposíbel\s(pór|\w+[aei]r)"
-valid after=":\s?"  msgstr="\bnon\sfoi\sposíbel\s(pór|\w+[aei]r)" env="kde" #xa que estamos
+valid after=":\s?" msgstr="\bnon\s(é|foi)\sposíbel\s(pór|\w+[aei]r)"
 
 # «Non se puido» -> «Non foi posíbel»
-# Pero só en determinadas frases habituais.
-[\bnon\sse\sp(uido|ode)\b]i
-id="trasno-expression-gl_non se puido"
-hint="non se puido -> non é/foi posíbel"
-valid after="^"
-#valid msgid="^Can\'t\b"
-#valid msgid="^Can\snot\b"
-#valid msgid="^Cannot\b"
-#valid msgid="^Couldn\'t\b"
-#valid msgid="^Could\snot\b"
-#valid msgid="\bfailed\sto\s"
-valid msgid="\bcan\'t\sbe\s\S+ed\b"
-valid msgid="\bcan\s?not\sbe\s\S+ed\b"
-valid msgid="\bcouldn\'t\sbe\s\S+ed\b"
-valid msgid="\bcould\snot\sbe\s\S+ed\b"
+# Non hai regras porque só aplica a determinadas frases habituais.
 
 # «colo(u)r» tradúcese como «cor»
 {\bcolou?rs?\b}i
@@ -2171,8 +2225,10 @@ valid msgstr="\btabletas?\b"
 {\bdata\b}i
 id="trasno-data"
 hint="«data» tradúcese como «dato»"
+valid after="\bmeta(\s|-)*" msgstr="\bmetadatos?\b"
 valid msgstr="\bdatos?\b"
-valid after="meta\s" msgstr="metadatos?"
+valid msgstr="\bnúmeros\b"  # p. ex. int data → números enteiros
+valid msgstr="\bcadeas\b"  # p. ex. string data → cadeas
 
 # «dato» traduce a «data»
 [\bdatos?]i
@@ -2180,6 +2236,9 @@ valid after="bases?\sde\s"
 id="trasno-data_reverse"
 hint="«dato» traduce a «data»"
 valid msgid="\bdata\b"
+valid msgid="\bdatasets?\b"  # grupo de datos
+valid msgid="\bdatasources?\b"  # fonte de datos
+valid msgid="\bdatatypes?\b"  # tipo de dato
 
 # «datadase» tradúcese como «base de datos»
 {\bdatabase}i
@@ -2194,7 +2253,7 @@ hint="«base de datos» traduce a «database»"
 valid msgid="\bdata\s?base"
 
 # «date» tradúcese como «data»
-{\bdates?}i
+{\bdates?\b}i
 id="trasno-date"
 hint="«date» tradúcese como «data»"
 valid after="\bup\sto\s"
@@ -2207,12 +2266,18 @@ valid msgstr="\bdatas?\b"
 id="trasno-date_reverse"
 hint="«data» traduce a «date»"
 valid msgid="\bdates?\b"
+valid msgid="\b(date)?times?\b"
+valid msgid="\bbirthdates?\b"
+valid msgid="\bdue\b"  # data límite
+valid msgid="\bexpiry\s*times?\b"  # data de caducidade
+valid msgid="\bsince\b"  # p. ex. subscribed since → data de subscrición
 
 # «description» tradúcese como «descrición»
 {\bdescription}i
 id="trasno-description"
 hint="«description» tradúcese como «descrición»"
 valid msgstr="\bdescricións?"
+valid msgstr="\bdescritiv[ao]s?"  # adxectivo
 
 # «descrición» traduce a «description»
 [\bdescricións?]i
@@ -2261,7 +2326,7 @@ valid msgstr="\binicial[ií](c[eé]|z[aáoó])[^\W\d_]*\b"
 [\binicial[ií](c[eé]|z[aáoó])[^\W\d_]*\b]i
 id="trasno-initialize_reverse"
 hint="«inicializar» traduce a «initialize»"
-valid msgid="\binitiali([cz](e[ds]?|ing)|zations?)\b"
+valid msgid="\binit(iali([cz](e[ds]?|ing)|zations?)|s?)?\b"
 
 # «keyboard» tradúcese como «teclado»
 {\bkeyboard}i
@@ -2285,16 +2350,20 @@ valid msgstr="\bportátil(es)?\b"
 {\blist(s|ed|ing)?\b}i
 id="trasno-list"
 hint="«list» tradúcese como «listar», «lista» ou «listado» (adxectivo)"
-valid msgstr="\blista"
-valid msgstr="\blístanse"
+valid msgstr="\bl[ií]st[aáeéoó]"
+valid msgstr="\blists?\b"
+valid after="\btree\s*"
 
 # «listar» traduce a «list»
-[\blist]i
+[\bl[ií]st[aáoóeé]]i
 id="trasno-list_reverse"
 hint="«listar» traduce a «list»"
-valid before="a"
-valid msgid="\blist"
-valid before="o" msgid="\bready"
+valid msgid="\b(allow|black|check|deny|mail|mailing|play|wait|white|wish)?list"
+valid msgid="\bclever\b"
+valid msgid="\bcombo\s*box(es)?\b"  # lista despregábel
+valid msgid="\bdrop(\s*|-)down\s*box(es)?\b"  # lista despregábel
+valid msgid="\bready\b"
+valid msgid="\bsuccess\b"
 
 # «listado» traduce a «listed»
 [\blistado]i
@@ -2312,13 +2381,14 @@ valid msgstr="\bmenús?"
 [\bmenús?\b]i
 id="trasno-menu_reverse"
 hint="«menú» traduce a «menu»"
-valid msgid="\bmenus?"
+valid msgid="\b(context|user)?menus?"
 
 # «mouse» tradúcese como «rato»
 {\bm(ous|ic)e\b}i
 id="trasno-mouse"
 hint="«mouse» tradúcese como «rato»"
 valid msgstr="\bratos?\b"
+valid msgstr="\bcursor(es)?\b"
 
 # «rato» traduce a «mouse»
 [\brato]i
@@ -2333,6 +2403,7 @@ valid before="r"
 id="trasno-outline"
 hint="«outline» tradúcese como «contorno»"
 valid msgstr="\bcontorno"
+valid msgstr="\besquemas?\b"
 
 # «contorno» traduce a «outline»
 [\bcontorno]i
@@ -2363,10 +2434,12 @@ valid msgid="\bre(start|boot|launch)"
 id="trasno-scan"
 hint="«scan» tradúcese como «escanear»"
 valid before="ner"
-valid msgstr="\bescan"
-valid before="ning" msgstr="\besta(nse?\sa\sbuscar)"
-valid before="ning" msgstr="\bbuscando"
-valid msgstr="busc"
+valid msgstr="\bescan[eé][aáeéoó]"
+valid msgstr="\banal[ií](z[aáoó]|c[eé])"
+valid msgstr="\banálises?\b"
+valid msgstr="\bb[uú]s(c[aáoó]|qu[eé])"
+valid msgstr="\bexam[ií]n[aáeéoó]"
+valid msgstr="\bexames?\b"
 
 # «escanear» traduce a «scan»
 [\bescane]i
@@ -2416,6 +2489,7 @@ valid msgid="\bprinters?"
 id="trasno-launch"
 hint="«launch» tradúcese como «iniciar» (un executábel)"
 valid msgstr="\binici"
+valid msgstr="\bt[ií]r[aáeéoó]"  # p. ex. launch darts → tirar dardos
 
 # «launcher» tradúcese como «iniciador»
 {\blauncher}i
@@ -2427,14 +2501,16 @@ valid msgstr="\biniciador"
 [\biniciador]i
 id="trasno-launcher_reverse"
 hint="«iniciador» traduce a «launcher»"
-valid msgid="\blauncher"
+valid msgid="\blaunchers?\b"
+valid msgid="\bstarters?\b"
 
 # «leave» tradúcese como «deixar» ou «saír»
 {\bleav(e|ed|es|ing)}i
 id="trasno-leave"
 hint="«leave» tradúcese como «deixar» ou «saír»"
-valid msgstr="\bsa(i|í)(r|u|che)"
+valid msgstr="\bs[aá]([iï][aáoó]|[eéií])"
 valid msgstr="\bd(e|é)ix"
+valid msgstr="\bom[ií]t[aáeéiíoó]"  # leave out
 
 # preferir «lista» e non «listaxe»
 [\blistaxe]i
@@ -2449,10 +2525,9 @@ hint="«computadora» -> «computador»?"un
 # «failed to» -> «produciuse un erro ao + infinitivo»
 {\bfailed\sto\s}i
 id="trasno-expression_failed to"
-valid after="(^|\.|:|,|;|\()\s?"
 hint="«failed to» -> «produciuse un erro ao + infinitivo»"
-# valid msgstr="produciuse\sun\serro\sao\s(pór|\w+[aei]r)"
-# valid env="kde" before="find\b"
+valid after="(^|\.|:|,|;|\()\s?"
+valid msgstr="produciuse\sun\serro\sao\s(pór|\w+[aei]r)"
 
 # «verbing word word failed.» -> «produciuse un erro ao + infinitivo»
 {\b\w+ing\s(\w+\s){,5}?failed(\.|,|$)}i
@@ -2461,7 +2536,7 @@ hint="«participlepresent word+ failed.» -> «produciuse un erro ao + infinitiv
 valid msgstr="produciuse\sun\serro\sao\s(pór|\w+[aei]r)"
 
 # «An error occurred while doing» -> «produciuse un erro ao + infinitivo»
-{\ban\serror\soccurred\s(while\s)?\w+ing}i
+{\ban\serror\soccurred\s*(?!during\b)(while\s)?\w+ing}i
 id="trasno-expression_an error occurred doing"
 hint="«An error occurred (while) verb_ing» -> «produciuse un erro ao + infinitivo»"
 valid msgstr="produciuse\sun\serro\sao\s(pór|\w+[aei]r)"
@@ -2474,7 +2549,7 @@ valid !span="there\swas\san\s" after="\w+ed\san\s"  #Isto apártase da trasnada
 valid !span="there\swas\san\s" after="(^|\.\s)"     # Como funcione isto é que non sei nada de regexes
 valid span="error\sduring\b"
 valid span="error\scausing\b"
-valid msgstr="produciuse\sun\serro\sao\s(pór|\w+[aei]r)"
+valid msgstr="produciuse\sun\serro(\s*(descoñecido|inesperado))?\sao\s(pór|\w+[aei]r)"
 valid span="while" msgstr="\bProduciuse\sun\serro\smentres\sse\s\w+(ía|aba)" env="kde" #Isto apártase da Trasnada
 valid span="while" env="kde" msgstr="\bProduciuse\sun\serro\s(de\s\w+)[,2]\sao\s(pór|\w+[aei]r)­" # Isto apartase da Trasnada
 valid env="gnome" msgstr="\bproduciuse\sun\serro\s\w+[,6]\sao\s(pór|\w+[aei]r)" #Isto tampouco é moi axustado á Trasnada
@@ -2532,6 +2607,7 @@ valid msgid="\bNB\b"  # ter en conta
 valid msgid="\bnot(e[ds]?|ing)\b"  # ter en conta
 valid msgid="\bnotic(e[ds]?|ing)\b"  # ter en conta
 valid msgid="\bon\s+(my|your|its|her|his|our|their)\s+own\b"  # pola conta de [pronome]
+valid msgid="\bsolo\b"  # pola túa conta
 valid msgid="\b(take[ns]?|took)\s+a\s+care\s+that\b"  # ter en conta
 valid msgid="\btoo\s+soon\b"  # antes da conta
 valid msgid="\bstatements?\b"  # extracto de conta
@@ -2568,6 +2644,7 @@ hint="«address» tradúcese como «enderezo»"
 valid msgstr="\baddress(es)?\b"
 valid msgstr="\bdiscursos?\b"  # p. ex. presidenciais
 valid msgstr="\benderezos?\b"
+valid msgstr="\bresp[oó]nd[aáeéiíoó]"  # p. ex. address a question → responder unha pregunta
 valid msgstr="\bsoluci[oó]n[aáeéoó][^\W\d_]*\b"  # solucionar [un problema]
 valid msgstr="\bt[^\W\d_]*\s+en\s+conta\b"  # the parser addresses reviews → o analizador ten en conta as recensións
 
@@ -2578,6 +2655,8 @@ hint="«enderezo» traduce a «address»"
 valid msgid="\baddrs?\b"
 valid msgid="\baddress(books?|ee?s)?\b"  # includes typo addressees
 valid msgid="\baddress(ed|ing)\b"  # sector-addressing issues → problemas de enderezos de sectores
+valid msgid="\bemails?\b"  # enderezos de correo electrónico
+valid msgid="\blocation\s*bar\b"  # barra de enderezos
 valid before="\s+URL" msgid="\bURLs?\b"
 
 # «align» tradúcese como «aliñar»
@@ -2666,6 +2745,7 @@ valid msgid="\bSagitta\b"
 id="trasno-assign"
 hint="«assign» tradúcese como «asignar»"
 valid msgstr="\bas[ií]gn[aáeéoó][^\W\d_]*\b"
+valid after="\bre-" msgstr="\breas[ií]gn[aáeéoó][^\W\d_]*\b"
 
 # «asignar» traduce a «assign»
 [\bas(?!igna(cións?|dor(as?|es)?)\b)[ií]gn[aáeéoó][^\W\d_]*\b]i
@@ -2712,8 +2792,10 @@ id="trasno-background"
 hint="«background» tradúcese como «fondo»"
 valid msgstr="\bantecedentes\b"
 valid msgstr="\bbackgrounds?\b"
+valid msgstr="\bexperiencia\b"
 valid msgstr="\bfondos?\b"
 valid msgstr="\bpaisaxistas?\b"
+valid msgstr="\brealidades?\b"  # people from all backgrounds → xente de todas as realidades
 valid msgstr="\bsegundo\s+plano\b"
 
 # «fondo» traduce a «background»
@@ -2727,6 +2809,7 @@ valid msgid="\bbottom\b"
 valid msgid="\bbottomed\b"  # round-bottomed flask → frasco de fondo redondo
 valid msgid="\bfunds?\b"
 valid msgid="\bfund(ing\s+drives?|rais(er|ing)s?)\b"  # recadacción de fondos
+valid msgid="\bseafloors?\b"  # fondo mariño
 valid msgid="\bwallpapers?\b"  # fondo de escritorio
 
 # «bitmap» tradúcese como «mapa de bits»
@@ -2804,6 +2887,7 @@ valid msgid="\b[LMR]MB\b"  # Left/Middle/Right Mouse Button
 valid msgid="\b(mouse|push|radio|tool)?buttons?\b"
 valid msgid="\bplugs?\b"
 valid msgid="\bradios?\b"  # botón de alternativa
+valid msgstr="\bpr[eé]m\w* o botón (dereito|esquerdo)\b"  # left-click, right-click
 
 # «cache» tradúcese como «caché»
 {\bcaches?\b}i
@@ -2894,7 +2978,7 @@ valid msgstr="\bclics?\b"  # facer clic, clic
 valid msgstr="\bpr[eé]m[aáeéiíoó][^\W\d_]*\b"
 
 # «premer en» traduce a «click»
-[\bpr(?!emíbe(l|is)\b)[eé]m[aáeéiíoó][^\W\d_]*\s+(en|n[ao]s?|nun(ha)?s?|nest[ae]s?)\b]i
+[\bpr(?!(emíbe(l|is)|emios?)\b)[eé]m[aáeéiíoó][^\W\d_]*\s+(en|n[ao]s?|nun(ha)?s?|nest[ae]s?)\b]i
 id="trasno-click_reverse"
 hint="«premer en» traduce a «click»"
 valid msgid="\bclick(ed|ing|s)?\b"
@@ -2964,7 +3048,10 @@ valid msgstr="\bcursor"
 [\bcursor]i
 id="trasno-cursor_reverse"
 hint="«cursor» traduce a «cursor»"
-valid msgid="\bcursor"
+valid msgid="\b(multi)?cursors?\b"
+valid msgid="\bcarets?\b"
+valid msgid="\bmouses?\b"
+valid msgid="\bpointers?\b"
 
 # «disc/disk» tradúcese como «disco»
 {\bdis[ck]s?\b}i
@@ -2978,6 +3065,7 @@ id="trasno-disc_reverse"
 hint="«disco» traduce a «disc/k»"
 valid msgid="\b(hard)?dis[ck]s?\b"
 valid msgid="\bhard\s*drive" # a/p trasno-2012-dual_hard disk
+valid msgid="\bvinyls?\b"  # disco de vinilo
 
 # «draft» tradúcese como «borrador»
 {\bdraft}i
@@ -2986,16 +3074,19 @@ hint="«draft» tradúcese como «borrador»"
 valid msgstr="\bborrador"
 
 # «borrador» traduce a «draft»
-[\bborrador]i
+[\bborrador(es)?\b]i
 id="trasno-draft_reverse"
 hint="«borrador» traduce a «draft»"
-valid msgid="\bdraft"
+valid msgid="\bdrafts?\b"
+valid msgid="\berasers?\b"
+valid msgid="\bstubs?\b"
 
 # «drag» tradúcese como «arrastrar»
 {\bdrag(g(ed|ing)|s)?\b}i
 id="trasno-drag"
 hint="«drag» tradúcese como «arrastrar»"
 valid msgstr="\barr[aá]str[aáeéoó][^\W\d_]*\b"
+valid msgstr="\bb[oó]t[aáeéoó]\S*\s*para\s*atrás\b"
 
 # «arrastrar» traduce a «drag»
 [\barr[aá]str[aáeéoó][^\W\d_]*\b]i
@@ -3005,11 +3096,12 @@ valid msgid="\bdrag(g(ed|ing)|s)?\b"
 
 # «draw» tradúcese como «debuxar»
 # «drawing» tradúcese como «debuxo»
-{\bdraw(s|ed|ing)?}i
+{\bdraw(s|ed|ing)?\b}i
 id="trasno-draw-drawing"
 hint="«(to) draw» tradúcese como «debuxar», «(a) drawing» como «debuxo»"
-valid msgstr="\bdebux(ar?|e|ou)"
-valid span="drawing" msgstr="\bdebuxo"
+valid msgstr="\bdeb[uú]x[aáeéoó]"
+valid msgstr="\bam[oó]s[aáeéoó]"  # «draw» no sentido de «display»
+valid msgstr="\bs[aá](c[aáoó]|qu[eé])"
 
 # «debuxar/o» traduce a «draw/ing»
 [\bdebux(o|ar|e|ou)]i
@@ -3017,18 +3109,28 @@ id="trasno-draw-drawing_reverse"
 hint="«debuxar/o» traduce a «draw/ing»"
 valid span="\bdebux(o|ando)" msgid="\bdrawing"
 valid !span="\bdebux(o|ando)" msgid="\bdraw(s|ed)?"
+valid msgid="\bcartoons?\b"
 
 # «drop» tradúcese como «soltar»
 {\bdrop(p(ed|ing)|s)?\b(?!(\s*|-)down\b)}i
 id="trasno-drop"
 hint="«drop» tradúcese como «soltar»"
+valid before="\s*shadows?\b"
 valid msgstr="\bs[oó]lt[aáeéoó][^\W\d_]*\b"
+valid msgstr="\bcaídas?\b"
+valid msgstr="\bcanc[eé]l[aáeéoó]"
+valid msgstr="\belim[ií]n[aáeéoó]"
+valid msgstr="\bdimin[uú][aáeéiíoó]"
+valid msgstr="\bs[aá]lt[aáeéoó]"  # p. ex. drop a frame → saltar un fotograma
+valid msgstr="\brecomp[eé]ns[aáeéií]" env="game"
+valid msgstr="\bsorpresas?\b" env="game"
 
 # «soltar» traduce a «drop»
 [\bsolt(ar|e)]i
 id="trasno-drop_reverse"
 hint="«soltar» traduce a «drop»"
 valid msgid="\bdrop"
+valid msgid="\breleas(ing|e[ds]?)\b"
 
 # «editor» tradúcese como «editor»
 {\beditor}i
@@ -3040,7 +3142,9 @@ valid msgstr="\beditor"
 [\beditor]i
 id="trasno-editor_reverse"
 hint="«editor» traduce a «editor»"
-valid msgid="\beditor"
+valid msgid="\bcomposers?\b"
+valid msgid="\beditors?\b"
+valid msgid="\bpublishers?\b"
 
 # «emoticon» tradúcese como «emoticona»
 {\bemoticon}i
@@ -3053,6 +3157,7 @@ valid msgstr="\bemoticona"
 id="trasno-emoticon_reverse"
 hint="«emoticona» traduce a «emoticon»"
 valid msgid="\bemoticon"
+valid msgid="\bsmileys?\b"
 
 # «execute/run» tradúcese como «executar»
 {\bexecut(ables?|e[ds]?|ing|ions?)\b}i
@@ -3070,12 +3175,15 @@ valid !span="\bexecut(ábe|ion)" msgid="\brun(s|ed|ning)?"
 
 # «execute/run» tradúcese como «executar»
 # «run» tradúcese como «execución»
-{\brun(s|ed|ning)?\b}i
+{\brun(s|ed|ning)?\b(?!\s+out\b)}i
 id="trasno-execute-run2"
 hint="«(to) execute/run» tradúcese como «executar», «(a) run» como «execución»"
 valid msgstr="\bexecucións?\b"
 valid msgstr="\bexec[uú]t[aáeéoó][^\W\d_]*\b"
 valid msgstr="\b(f([aá](c[eé]|g[aáoó]|i|n|r[aáeéií]|s)|[ií]x[eéoó])[^\W\d_]*|feit[ao]s?)\b"  # run a slideshow → facer unha presentación
+valid msgstr="\blid[eé]r[aáeéoó]"  # p. ex. running a group → liderar un grupo
+valid before="\s+into\b"
+valid before="\s+backwards?\b"
 
 # «executar/execución» traduce a «run»
 # [\bexecu(ción|t(ar|a|e|ou|ando|ados?|adas?))]i
@@ -3084,7 +3192,7 @@ valid msgstr="\b(f([aá](c[eé]|g[aáoó]|i|n|r[aáeéií]|s)|[ií]x[eéoó])[^\
 # valid msgid="\brun(s|ed|ning)?"
 
 # «field» tradúcese como «campo»
-{\bfield}i
+{\bfields?\b}i
 id="trasno-field"
 hint="«field» tradúcese como «campo»"
 valid msgstr="\bcampo"
@@ -3096,6 +3204,7 @@ hint="«campo» traduce a «field»"
 valid msgid="\bcampos?\b"
 valid msgid="\bfields?\b"
 valid msgid="\bentr(y|ies)\b"  # form entry → campo de formulario
+valid msgid="\barenas?\b"
 
 # «filesystem/file system» tradúcese como «sistema de ficheiros»
 {\bfile\s?system}i
@@ -3107,7 +3216,7 @@ valid msgstr="\bsistemas?\sde\sficheiros"
 [\bsistemas?\sde\sficheiros]i
 id="trasno-file-system_reverse"
 hint="«sistema de ficheiros» traduce a «filesystem»"
-valid msgid="\bfile\s?system"
+valid msgid="\bfile(\s?|-)system"
 
 # «forum» tradúcese como «foro»
 {\bforum}i
@@ -3134,18 +3243,25 @@ hint="«pasarela» traduce a «gateway»"
 valid msgid="\bgateway"
 
 # «help» tradúcese como «axuda»
-{\bhelp(s|ed|ing)?}i
+{\bhelp(?!ers?\b)(s|ed|ing)?\b}i
 id="trasno-help"
 hint="«help» tradúcese como «axuda»"
-valid before="er"
-valid msgstr="\baxuda"
-valid msgstr="\baxud(ar|e|ou)?"
+valid msgstr="\bhelp(?!ers?\b)(s|ed|ing)?\b"
+valid msgstr="\bax[uú]d[aáeéoó]"
+valid after="\bto\s*" span="help" before="\s*you\s+\w" msgstr="\bpara\s*\S*[aei]r\b"  # p. ex. use this to help you find → usa isto para atopar
 
 # «axuda(r)» traduce a «help»
 [\baxud(a|ar|e|ou)]i
 id="trasno-help_reverse"
 hint="«axuda(r)» traduce a «help»"
-valid msgid="\bhelp(s|es|ing)?"
+valid msgid="\bhelp(s|ed|ing)?\b"
+valid msgid="\baids?\b"
+valid msgid="\bassist(s|ed|ing)?\b"
+valid msgid="\bassistance\b"
+valid msgid="\bhelpfulness\b"
+valid msgid="\bhints?\b"
+valid msgid="\b(tool)?tips?\b"
+valid msgid="\bma(de|k(es?|ing))\s+a(\s+(big|significant|small))?\s+difference\b"
 
 # «server» tradúcese como «servidor»
 {\bserver}i
@@ -3157,7 +3273,7 @@ valid msgstr="\bservidor"
 [\bservidor]i
 id="trasno-server_reverse"
 hint="«servidor» traduce a «server» (e a «host»)"
-valid msgid="\b(server|host)"
+valid msgid="\b(key|mail)?(server|host)"
 
 
 # Trasnada 23.0 #-------------------------------------------------------------#
@@ -3256,6 +3372,7 @@ valid msgstr="\bcontro(l|is)\b"
 valid msgstr="\btrebellos?\b"
 valid msgstr="\bcontr[oó]l[aáeéoó]"
 valid after="\b(remote|slider|spin)\s*"
+valid after="\bsplitter\s*"  # divisor
 valid msgstr="\bCtrl\b"
 
 # Divisor visual, que normalmente se pode mover, entre grupos de controis. Por
@@ -3313,6 +3430,7 @@ valid msgstr="\bespazos?\s*irrompíbe(l|is)\b"
 id="trasno-label"
 hint="label → etiqueta"
 valid msgstr="\betiquetas?\b"
+valid msgstr="\bselos?\b"  # p. ex. recording label → selo discográfico
 
 # Estrutura con eixes que se cruzan para organizar elementos como bloques de
 # texto ou imaxes.
@@ -3350,6 +3468,7 @@ valid msgstr="\bguións?\s*irrompíbe(l|is)\b"
 id="trasno-interface"
 hint="«interface» tradúcese como «interface»"
 valid msgstr="\binterfaces?\b"
+valid msgid="\buser\s*interface\s*applications?\b"  # aplicación gráfica
 
 {\bUIs?\b}
 id="trasno-ui"
@@ -3370,6 +3489,8 @@ id="trasno-tab"
 hint="«tab» tradúcese como «lapela»"
 valid msgstr="\blapelas?\b"
 valid msgstr="\bTab\b"  # tecla
+valid msgstr="\btabulacións?\b"  # carácter
+valid msgstr="\btabulaturas?\b"  # (música)
 
 # Separador visual estático entre grupos de controis. Por exemplo, unha liña
 # que separa grupos de entradas relacionadas nun menú, ou grupos de botóns
@@ -3392,16 +3513,23 @@ valid msgstr="\bmarcas?\b"
 id="trasno-flag"
 hint="«flag» (checkmark) tradúcese como «marca»"
 valid msgstr="\bmarcas?\b"
+valid msgstr="\bm[aá]r(c[aáoó]|qu[eé])"
+valid msgstr="\bbandeiras?\b"
+valid msgstr="\bindicador(es)?\b"
 
 {\bmarks?\b}i
 id="trasno-mark"
 hint="«mark» (checkmark) tradúcese como «marca»"
 valid msgstr="\bmarcas?\b"
+valid msgstr="\bm[aá]r(c[aáoó]|qu[eé])"
+valid after="\bexclamation\s*"  # signo de exclamación
+valid after="\bquestion\s*"  # signo de interrogación
+valid after="\bquotation\s*"  # comiñas
 
 {\bticks?\b}i
 id="trasno-tick"
 hint="«tick» (checkmark) tradúcese como «marca»"
-valid msgstr="\bmarcas?\b"
+valid msgstr="\bm[aá]r(c[aáoó]|qu[eé])"
 
 # Agrupación visual de controis relacionados.
 
@@ -3414,6 +3542,15 @@ valid msgstr="\bmarcos?\b"
 id="trasno-frame"
 hint="«frame» (agrupación visual de controis) tradúcese como «marco»"
 valid msgstr="\bmarcos?\b"
+valid msgstr="\bchamadas?\b"  # contexto: depuración de código
+valid msgstr="\bfotogramas?\b"
+
+[\bmarcos?\b]i
+id="trasno-frame_reversed"
+hint="marco ← frame, mark (moeda)"
+valid msgid="\bmarcos?\b"
+valid msgid="\b(photo)?frames?\b"
+valid msgid="\bmarks?\b"
 
 {\bgroup(-|\s*)box(es)?\b}i
 id="trasno-group-box"
@@ -3427,9 +3564,10 @@ valid msgstr="\bmarcos?\b"
 
 # Organización de información en filas e columnas.
 
-{\btables?\b}i
+{\btables?\b(?!\s*of\s*contents\b)}i
 id="trasno-table"
 hint="«table» tradúcese como «táboa»"
+valid msgstr="\bmesas?\b"  # p. ex. light table → mesa de luz
 valid msgstr="\btáboas?\b"
 
 # Control que amosa unha vista xerárquica de información.
@@ -3438,3 +3576,63 @@ valid msgstr="\btáboas?\b"
 id="trasno-tree-view"
 hint="«tree list» e «tree view» tradúcense como «vista en árbore»"
 valid msgstr="\bvistas?\s*en\s*árbore\b"
+
+
+# Fóra de Trasnadas / Glosario antigo #---------------------------------------#
+#
+# Regras baseadas no glosario antigo de Trasno.
+
+# «print preview» -> «previsualización da impresión» / «vista previa do impreso»
+# Incompatíbel con «proposta-print-preview».
+{\bprint\spreview(?!\s(window|part))}i
+id="preacordo-print_preview"
+hint="«print preview» -> «previsualización da impresión» / «vista previa do impreso»"
+valid msgstr="\bprevisualizacións?\s*da\s*impresión"
+valid msgstr="\bvistas?\sprevia\sdos?\simpresos?"
+valid msgstr="\bprevisualizar\so\simpreso"
+valid msgstr="\bimprimir\sa\svista\sprevia"
+
+# «daemon» tradúcese como «daemon»
+# Incompatíbel con «proposta-daemon-servizo».
+{\bdaemon}i
+id="preacordo-daemon-daemon"
+hint="«daemon» tradúcese como «daemon»"
+valid msgstr="\bdaemon"
+
+# Fóra de Trasnadas / Lista de correo #---------------------------------------#
+#
+# Acordos do Proxecto Trasno acadados por consenso na lista de correo, pero
+# aínda non confirmados durante unha Trasnada.
+
+# 2019-08-26
+# http://trasno.gal/lista-de-correo-2/?subpage=mailstermail&id=6843
+
+{(?i)\bpin(n(ed|ing)|s)?\b}
+id="preacordo-trasno-en-pin"
+hint="pin → fixar"
+valid msgstr="(?i)\bf[ií]x[aáeéoó][^\W\d_]*\b"
+valid msgid="\bPIN\b" msgstr="\bPIN\b"
+valid msgstr="(?i)\bbroches?\b"
+valid msgstr="(?i)\bchinchetas?\b"
+
+{\bunpin(n(ed|ing)|s)?}i
+id="preacordo-trasno-en-unpin"
+hint="unpin → desprender, separar"
+valid msgstr="\bdespr[eé]nd[aáeéiíoó][^\W\d_]*\b"
+valid msgstr="\bsep[aá]r[aáeéoó][^\W\d_]*\b"
+
+# 2019-09-23
+# http://trasno.gal/lista-de-correo-2/?subpage=mailstermail&id=6884
+
+{\bquadrats?\b}i
+id="preacordo-en-quadrat"
+hint="quadrat → cuadrícula"
+valid msgstr="\bcuadrículas?\b"
+
+
+# Fóra de Trasnadas / Canle de Telegram #-------------------------------------#
+#
+# Acordos do Proxecto Trasno acadados por consenso na canle de Telegram, pero
+# aínda non confirmados durante unha Trasnada.
+
+# …

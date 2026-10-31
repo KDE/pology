@@ -77,6 +77,17 @@ id="rag-gl-variábel-de-contorno"
 hint="variábel de contorno ← environment variable"
 valid msgid="\benv(ironment)?\s*var(iable)?s?\b"
 
+# correo lixo
+
+{\bspam\b}i
+id="rag-en-spam"
+hint="spam, spam message, spam messages → correo lixo"
+valid msgstr="\bcorreo\s*lixo\b"
+
+[\bspam\b]i
+id="rag-gl-spam"
+hint="spam → correo lixo"
+
 # en liña, Internet, rede, web
 
 {(?i)\bon-?line\b}
@@ -111,7 +122,7 @@ valid msgid="\bmonospaced?\b"
 
 # hardware
 
-{\bhardware\b}i
+{\bhardware\b(?!\s*keyboards?)}i
 id="rag-en-hardware"
 hint="hardware → soporte físico"
 valid msgstr="\bsoporte\s+físico\b"
@@ -126,18 +137,6 @@ id="rag-gl-soporte-físico"
 hint="soporte físico ← hardware"
 valid msgid="\bhardware\b"
 valid msgid="hw"
-
-# separador, tabulador, tabulatura
-
-{\btabs?\b}i
-id="rag-en-tab"
-hint="tab → separador"
-valid msgstr="\btabs?\b"
-valid msgstr="\bseparador(es)?\b"
-valid msgstr="\btáboas?\b"
-valid msgstr="\btabulacións?\b"
-valid msgstr="\btabulador(es)?\b"
-valid msgstr="\btabulaturas?\b"
 
 # software
 
@@ -158,3 +157,4 @@ validGroup lista-de-tradutores
 id="rag-gl-soporte-lóxico"
 hint="soporte lóxico ← software"
 valid msgid="\bsoftware\b"
+valid msgid="\bopen(\s*|-)source\b"  # p. ex. the power of open source → o poder do soporte lóxico libre

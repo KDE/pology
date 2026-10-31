@@ -1,0 +1,97 @@
+# Personal terminology choices of Adrian Chaves (Gallaecio).
+# License: BSD 3-clause
+# © 2024 Adrián Chaves (Gallaecio) <adrian@chaves.io>
+# All rights reserved.
+#
+# Redistribution and use in source and binary forms, with or without
+# modification, are permitted provided that the following conditions are met:
+#     * Redistributions of source code must retain the above copyright
+#       notice, this list of conditions and the following disclaimer.
+#     * Redistributions in binary form must reproduce the above copyright
+#       notice, this list of conditions and the following disclaimer in the
+#       documentation and/or other materials provided with the distribution.
+#     * Neither the name of the Proxecto Trasno nor the
+#       names of its contributors may be used to endorse or promote products
+#       derived from this software without specific prior written permission.
+#
+# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+# AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+# IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+# ARE DISCLAIMED. IN NO EVENT SHALL PROXECTO TRASNO BE LIABLE FOR ANY
+# DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+# (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+# LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+# ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+# (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+# SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+include file="filter.include"
+
+# Nota: Algunhas escollas contradín escollas de Trasno porque corresponden a
+# criterios que considero máis importantes:
+#
+# 1.  Inclusividade: Usar vocabulario inclusivo, incluído evitar as formas
+#     masculinas en substantivos referidos a persoas que teñen formas feminina
+#     e masculina.
+#
+# 2.  Normativa: Seguir os criterios da Real Academia Galega.
+#
+# Ao usar Pology, quizais teñas que desactivar algunhas destas regras (ou as
+# equivalentes de Trasno) segundo as túas preferencias.
+
+# Inclusividade #-------------------------------------------------------------#
+
+{\ballow\s*lists?\b}i
+id="gallaecio-allow-list"
+hint="allow list → lista permitida"
+valid msgstr="\blistas?\s*permitidas?\b"
+
+{\bblack\s*lists?\b}i
+id="gallaecio-blacklist"
+hint="blacklist → lista prohibida"
+valid msgstr="\blistas?\s*prohibidas?\b"
+
+{\bdeny\s*lists?\b}i
+id="gallaecio-deny-list"
+hint="deny list → lista prohibida"
+valid msgstr="\blistas?\s*prohibidas?\b"
+
+{\buser\s?names?\b}i
+id="gallaecio-username"
+hint="username → nome de persoa usuaria"
+valid msgstr="\bnomes?\sd(e|as?)\spersoas?\susuarias?\b"
+
+{\bwhite\s*lists?\b}i
+id="gallaecio-whitelist"
+hint="white list → lista permitida"
+valid msgstr="\blistas?\s*permitidas?\b"
+
+# Normativa #-----------------------------------------------------------------#
+
+
+# Xeral #---------------------------------------------------------------------#
+
+{\bfavicons?\b}i
+id="gallaecio-favicon"
+hint="favicon → icona de páxina"
+valid msgstr="\biconas?\s+d(e|as?)\s+páxinas?\b"
+
+{\bhardware\s*keyboards?\b}i
+id="gallaecio-hardware-keyboard"
+hint="hardware keyboard → teclado físico"
+valid msgstr="\bteclados?\s*físicos?\b"
+
+{\bpayloads?\b}i
+id="gallaecio-payload"
+hint="payload → corpo (nunha transferencia de datos, p. ex. nunha solicitude HTTP)"
+valid msgstr="\bcorpos?\b"
+
+{\braw\b}i
+id="gallaecio-raw"
+hint="raw → en bruto"
+valid msgstr="\ben\s*bruto\b"
+
+{\brecording\s*labels?\b}i
+id="gallaecio-recording-label"
+hint="recording label → selo discográfico"
+valid msgstr="\bselos?\s*discográficos?\b"
