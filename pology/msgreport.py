@@ -15,6 +15,7 @@ in different contexts and scenario. May colorize some output.
 # as that would cause circular module dependencies.
 
 from copy import deepcopy
+import json
 import os
 import re
 import sys
@@ -681,6 +682,91 @@ def spell_xml_error(msg, cat, faultyWord, suggestions, pluralId=0):
         xmlError.append("\t\t<suggestion>%s</suggestion>\n" % suggestion)
     xmlError.append("\t</error>\n")
     return xmlError
+
+
+def rule_json_error (msg, cat, rule, spans, file=sys.stdout):
+    """
+    Write machine-readable rule error to a JSON-lines stream.
+
+    One JSON object per affected message field is written to C{file},
+    one object per line, encoded as UTF-8 (no ASCII escapes).
+    The C{spans} in each object are lists of C{[start, end]} character
+    offsets (Unicode characters, not bytes) into the text of the affected
+    field of the catalog message, so that a consumer can highlight them
+    without any conversion.
+
+    @param msg: pology.message.Message object
+    @param cat: pology.catalog.Catalog object
+    @param rule: pology.rules.Rule object
+    @param spans: highlight specification (see L{report_msg_content})
+    @param file: file object to write the JSON lines to
+    """
+
+    for hspec in spans:
+        part, item, part_spans = hspec[:3]
+        ftext = hspec[3] if len(hspec) > 3 else None
+        _write_incidence_json(msg, cat, part, item, part_spans, ftext,
+                              {"rule": rule.ident}, file)
+
+
+def spell_json_error (msg, cat, faultyWord, pluralId=0, spans=None,
+                      file=sys.stdout):
+    """
+    Write machine-readable spelling error to a JSON-lines stream.
+
+    One JSON object is written to C{file}, as a single line, encoded as
+    UTF-8 (no ASCII escapes). The C{spans} are lists of C{[start, end]}
+    character offsets (Unicode characters, not bytes) of the faulty word
+    in the text of the C{msgstr} plural form, so that a consumer can
+    highlight them without any conversion.
+
+    @param msg: pology.message.Message object
+    @param cat: pology.catalog.Catalog object
+    @param faultyWord: badly spelled word
+    @param pluralId: index of the affected msgstr plural form
+    @param spans: list of 2-tuples of character offsets into the msgstr form
+    @param file: file object to write the JSON line to
+    """
+
+    _write_incidence_json(msg, cat, "msgstr", pluralId, spans or [], None,
+                          {"word": faultyWord}, file)
+
+
+def _write_incidence_json (msg, cat, part, item, spans, ftext, ident, file):
+    """Write one JSON line for an incidence in a single message field."""
+
+    text = _msg_field_text(msg, part, item)
+    if text is not None:
+        spans = adapt_spans(text, ftext if ftext is not None else text,
+                            spans, merge=True)
+    spans = [[span[0], span[1]] for span in spans
+             if isinstance(span[0], int) and isinstance(span[1], int)]
+    record = {
+        "file": cat.filename,
+        "line": msg.refline,
+        "entry": msg.refentry,
+        "msgctxt": msg.msgctxt or "",
+        "msgid": msg.msgid,
+        "field": part,
+        "plural": item if part == "msgstr" else 0,
+        "spans": spans,
+    }
+    record.update(ident)
+    file.write(json.dumps(record, ensure_ascii=False) + "\n")
+
+
+def _msg_field_text (msg, part, item):
+    """Text of the given message field, or C{None} if not a plain text field."""
+
+    if part == "msgid":
+        return msg.msgid
+    if part == "msgid_plural":
+        return msg.msgid_plural
+    if part == "msgctxt":
+        return msg.msgctxt
+    if part == "msgstr" and isinstance(item, int) and item < len(msg.msgstr):
+        return msg.msgstr[item]
+    return None
 
 
 # Format string for message reference, based on the file descriptor.
