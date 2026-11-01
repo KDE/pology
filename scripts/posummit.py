@@ -91,10 +91,27 @@ def main ():
         action="store_true", dest="verbose", default=False,
         help=_("@info command line option description",
                "Output more detailed progress info"))
+    opars.add_option(
+        "--progress-file",
+        action="store", dest="progfile", default=None,
+        help=_("@info command line option description",
+               "Write machine-readable progress to the given file, "
+               "one line of the form <current>/<total>\\t<path> per "
+               "processed file."))
     add_cmdopt_filesfrom(opars)
     add_cmdopt_incexc(opars)
 
     options, free_args = opars.parse_args(str_to_unicode(sys.argv[1:]))
+
+    # Open the machine-readable progress file, if requested.
+    options.progstream = None
+    if options.progfile:
+        try:
+            options.progstream = open(options.progfile, "w")
+        except OSError as e:
+            error(_("@info",
+                    "Cannot open progress file '%(file)s': %(error)s",
+                    file=options.progfile, error=e.strerror))
 
     # Look for the config file through parent directories.
     parent = getucwd()
@@ -1088,11 +1105,12 @@ def summit_gather (project, options):
 
     # Setup progress indicator.
     upprog = lambda x=None: x
-    if not options.verbose:
+    if not options.verbose or options.progstream:
         catpaths = [project.catalogs[SUMMIT_ID][x][0][0] for x in summit_names]
         upprog = init_file_progress(catpaths,
                                     addfmt=t_("@info:progress",
-                                              "Gathering: %(file)s"))
+                                              "Gathering: %(file)s"),
+                                    progstream=options.progstream)
 
     # Gather all selected catalogs.
     for name in summit_names:
@@ -1159,11 +1177,12 @@ def summit_scatter (project, options):
 
     # Setup progress indicator.
     upprog = lambda x=None: x
-    if not options.verbose:
+    if not options.verbose or options.progstream:
         catpaths = [x[3] for x in scatter_specs if x[1]]
         upprog = init_file_progress(catpaths,
                                     addfmt=t_("@info:progress",
-                                              "Scattering: %(file)s"))
+                                              "Scattering: %(file)s"),
+                                    progstream=options.progstream)
 
     # Scatter to branch catalogs.
     for scatter_spec in scatter_specs:
@@ -1275,11 +1294,12 @@ def summit_merge (project, options):
 
     # Setup progress indicator.
     upprog = lambda x=None: x
-    if not options.verbose:
+    if not options.verbose or options.progstream:
         catpaths = [x[3] for x in merge_specs]
         upprog = init_file_progress(catpaths,
                                     addfmt=t_("@info:progress",
-                                              "Merging: %(file)s"))
+                                              "Merging: %(file)s"),
+                                    progstream=options.progstream)
 
     # Merge catalogs.
     for merge_spec in merge_specs:

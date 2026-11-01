@@ -580,6 +580,8 @@ $ posummit $SOMEWHERE/summit-config-shared bb scatter
 
 <para>If summit update (merge, gather, or both, depending on the summit mode) is scheduled to run automatically, the maintainer should make sure to be notified when <command>posummit</command> aborts, so that mismatches can be promptly handled.</para>
 
+<para>While PO files are processed, <command>posummit</command> shows a progress bar on standard error. When it is run from another program, the <option>--progress-file=<replaceable>PATH</replaceable></option> option can be used instead: it makes <command>posummit</command> write machine-readable progress to <replaceable>PATH</replaceable>, one line of the form <literal>&lt;current&gt;/&lt;total&gt;\t&lt;path&gt;</literal> per processed PO file, flushed immediately and independently of whether standard error is a terminal.</para>
+
 <para>The obvious advantage of this maintenance method is that other team members do not need to know anything about workings of the summit. They only fetch updated summit PO files, translate them, and submit them back. The disadvantage is that summit update may interfere with a particular translator who happened to be working on a PO file which just got updated in the repository, causing merge conflicts when he attempts to submit that PO file.</para>
 
 </sect2>
