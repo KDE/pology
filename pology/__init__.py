@@ -93,6 +93,18 @@ def _version_from_package ():
         return None
 
 
+def _resolve_version (configured):
+
+    if configured and not configured.startswith("@"): # CMake install
+        return configured
+    return (
+        _version_from_file(os.path.join(os.path.dirname(__file__), "VERSION"))
+        or _version_from_file(os.path.join(datadir(), "VERSION"))
+        or _version_from_package()
+        or configured
+    )
+
+
 def version ():
     """
     Get Pology version string.
@@ -101,16 +113,7 @@ def version ():
     @rtype: string
     """
 
-    verstr = "@CONFIG_VERSION@" # configured if installed
-    if verstr.startswith("@"): # if running from source dir or wheel
-        verstr = (
-            _version_from_file(os.path.join(os.path.dirname(__file__), "VERSION"))
-            or _version_from_file(os.path.join(datadir(), "VERSION"))
-            or _version_from_package()
-            or verstr
-        )
-
-    return verstr
+    return _resolve_version("@CONFIG_VERSION@") # configured if installed
 
 
 def version_info ():
