@@ -14,7 +14,6 @@ how they are used, and what is the behavior when they are not set.
 @license: GPLv3
 """
 
-import codecs
 import os
 from configparser import ConfigParser
 
@@ -36,7 +35,7 @@ def _parse_config ():
 
     # Parse the config if available.
     if os.path.isfile(cfgpath):
-        ifl = codecs.open(cfgpath, "r", "UTF-8")
+        ifl = open(cfgpath, "r", encoding="UTF-8")
         _config.read_file(ifl)
         ifl.close()
 

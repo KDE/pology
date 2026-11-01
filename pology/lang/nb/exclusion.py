@@ -13,7 +13,6 @@ otherwise, problems masked by markup may not be reported.
 
 import os
 import re
-import codecs
 
 from pology import datadir, _, n_
 from pology.fsops import collect_files_by_ext
@@ -83,7 +82,7 @@ def _load_phrases (dictnames):
         exfile = os.path.join(datadir(), "lang", "nb", "exclusion",
                               dictname + ".dat")
 
-        phrases1 = codecs.open(exfile, "r", "UTF-8").read().split("\n")[:-1]
+        phrases1 = open(exfile, "r", encoding="UTF-8").read().split("\n")[:-1]
         phrases1 = list(map(_normph, phrases1))
         phrases.update(phrases1)
 

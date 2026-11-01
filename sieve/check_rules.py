@@ -10,7 +10,6 @@ Documented in C{doc/user/sieving.docbook}.
 @license: GPLv3
 """
 
-from codecs import open
 import os
 from os.path import abspath, basename, dirname, exists, expandvars, join
 import re
@@ -205,7 +204,7 @@ class Sieve (object):
             xmlPath = params.xml
             if os.access(dirname(abspath(xmlPath)), os.W_OK):
                 #TODO: create nice api to manage xml file and move it to rules.py
-                self.xmlFile = open(xmlPath, "w", "utf-8")
+                self.xmlFile = open(xmlPath, "w", encoding="utf-8", newline="")
                 self.xmlFile.write('<?xml version="1.0" encoding="UTF-8"?>\n')
                 self.xmlFile.write('<pos date="%s">\n' % strftime('%c'))
             else:
@@ -310,14 +309,14 @@ class Sieve (object):
                 if os.stat(self.cachePath)[8] > poDate:
                     if self.ruleinfo:
                         report(_("@info:progress", "Using cache."))
-                    self.xmlFile.writelines(open(self.cachePath, "r", "utf-8").readlines())
+                    self.xmlFile.writelines(open(self.cachePath, "r", encoding="utf-8").readlines())
                     self.cached = True
 
         # No cache available, create it for next time
         if self.xmlFile and newFile and not self.cached:
             if self.ruleinfo:
                 report(_("@info", "No cache available, processing file."))
-            self.cacheFile = open(self.cachePath, "w", "utf-8")
+            self.cacheFile = open(self.cachePath, "w", encoding="utf-8", newline="")
 
         # Handle start/end of files for XML output (not needed for text output)
         if self.xmlFile and newFile:

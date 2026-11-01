@@ -15,14 +15,12 @@ in the user manual, at C{doc/user/lingo.docbook#sec-lgsynder}.
 """
 
 import copy
-import pickle as pickle
+import pickle
 import hashlib
-import locale
 import os
 import re
 
 from pology import PologyError, _, n_
-from pology.fsops import str_to_unicode
 from pology.normalize import simplify
 from pology.report import warning, format_item_list
 from pology.resolve import first_to_upper, first_to_lower
@@ -62,7 +60,7 @@ class SynderError (PologyError):
         PologyError.__init__(self, str(self))
 
 
-    def __unicode__ (self):
+    def __str__ (self):
 
         if self.source is None:
             s = _("@info context of error",
@@ -268,7 +266,7 @@ def compile_file (path, cpath=None, doraise=False):
                       "Derivation file '%(file)s' cannot be compiled "
                       "due to the following error:\n"
                       "%(msg)s",
-                      file=path, msg=str_to_unicode(str(e))))
+                      file=path, msg=str(e)))
             return False
     else:
         return True
@@ -734,11 +732,9 @@ class _SDSource:
         #...
 
 
-    def __unicode__ (self):
+    def __str__ (self):
         return (  "============> %s\n" % self.name
                 + "\n".join(map(str, self.derivs)))
-    def __str__ (self):
-        return self.__unicode__().encode(locale.getpreferredencoding())
 
 
 # Derivation.
@@ -755,12 +751,10 @@ class _SDDeriv:
         # Environments (SDEnv).
         self.envs = []
 
-    def __unicode__ (self):
+    def __str__ (self):
         return (  "  -----> %d:%d\n" % self.pos
                 + "  " + "\n  ".join(map(str, self.syns)) + "\n"
                 + "\n".join(map(str, self.envs)))
-    def __str__ (self):
-        return self.__unicode__().encode(locale.getpreferredencoding())
 
 
 # Environment.
@@ -777,11 +771,9 @@ class _SDEnv:
         # Properties (SDProp).
         self.props = []
 
-    def __unicode__ (self):
+    def __str__ (self):
         return (  "    @%s:%d:%d\n" % ((self.name,) + self.pos)
                 + "\n".join(map(str, self.props)))
-    def __str__ (self):
-        return self.__unicode__().encode(locale.getpreferredencoding())
 
 
 # Syntagma.
@@ -798,11 +790,9 @@ class _SDSyn:
         # Syntagma segments (SDText, SDTag).
         self.segs = []
 
-    def __unicode__ (self):
+    def __str__ (self):
         return (  "{p:%d:%d|%s}=" % (self.pos + (self.hidden,))
                 + "".join(map(str, self.segs)))
-    def __str__ (self):
-        return self.__unicode__().encode(locale.getpreferredencoding())
 
 
 # Property.
@@ -819,12 +809,10 @@ class _SDProp:
         # Value segments (SDText, SDExp, SDTag).
         self.segs = []
 
-    def __unicode__ (self):
+    def __str__ (self):
         return (  "      %d:%d " % self.pos
                 + "k=" + "".join(map(str, self.keys)) + " "
                 + "v=" + "".join(map(str, self.segs)))
-    def __str__ (self):
-        return self.__unicode__().encode(locale.getpreferredencoding())
 
 
 # Property key.
@@ -842,12 +830,10 @@ class _SDKey:
         self.terminal = terminal
         self.canceling = canceling
 
-    def __unicode__ (self):
+    def __str__ (self):
         return "{k:%d:%d:%s|%s&%s}" % (self.pos + (self.name,
                                                    self.cut, self.terminal,
                                                    self.canceling))
-    def __str__ (self):
-        return self.__unicode__().encode(locale.getpreferredencoding())
 
 
 # Expander.
@@ -864,11 +850,9 @@ class _SDExp:
         self.caps = caps
         self.kext = kext
 
-    def __unicode__ (self):
+    def __str__ (self):
         return "{e:%d:%d:%s|%s|%s|%s}" % (self.pos + (self.ref, self.mask,
                                                        self.caps, self.kext))
-    def __str__ (self):
-        return self.__unicode__().encode(locale.getpreferredencoding())
 
 
 # Tag.
@@ -882,10 +866,8 @@ class _SDTag:
         # Names associated to this tag.
         self.names = []
 
-    def __unicode__ (self):
-        return "{g:%d:%d:%s}" % (self.pos + ("+".join(self.names),))
     def __str__ (self):
-        return self.__unicode__().encode(locale.getpreferredencoding())
+        return "{g:%d:%d:%s}" % (self.pos + ("+".join(self.names),))
 
 
 # Text segment.
@@ -899,10 +881,8 @@ class _SDText:
         # Text.
         self.text = text
 
-    def __unicode__ (self):
-        return "{t:%d:%d:%s}" % (self.pos + (self.text,))
     def __str__ (self):
-        return self.__unicode__().encode(locale.getpreferredencoding())
+        return "{t:%d:%d:%s}" % (self.pos + (self.text,))
 
 
 # ----------------------------------------

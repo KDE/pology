@@ -26,7 +26,6 @@ from pology.catalog import Catalog
 from pology.header import Header, format_datetime
 from pology.message import Message, MessageUnsafe
 from pology.colors import ColorOptionParser
-from pology.fsops import str_to_unicode, unicode_to_str
 from pology.fsops import mkdirpath, assert_system, collect_system
 from pology.fsops import getucwd, join_ncwd
 from pology.fsops import collect_paths_cmdline, build_path_selector
@@ -94,7 +93,7 @@ def main ():
     add_cmdopt_filesfrom(opars)
     add_cmdopt_incexc(opars)
 
-    options, free_args = opars.parse_args(str_to_unicode(sys.argv[1:]))
+    options, free_args = opars.parse_args(sys.argv[1:])
 
     # Look for the config file through parent directories.
     parent = getucwd()
@@ -2217,7 +2216,7 @@ def summit_scatter_single (branch_id, branch_name, branch_subdir,
                   "Cannot open the branch catalog '%(file)s' "
                   "to scatter to. The error was:\n"
                   "%(msg)s",
-                  file=branch_path_mod, msg=str_to_unicode(str(e))))
+                  file=branch_path_mod, msg=str(e)))
         return
     summit_cats = []
     for summit_path in summit_paths:
@@ -2230,7 +2229,7 @@ def summit_scatter_single (branch_id, branch_name, branch_subdir,
                       "Cannot open the summit catalog '%(file)s' "
                       "to scatter from. The error was:\n"
                       "%(msg)s",
-                      file=summit_path, msg=str_to_unicode(str(e))))
+                      file=summit_path, msg=str(e)))
             return
         summit_cats.append(summit_cat)
 

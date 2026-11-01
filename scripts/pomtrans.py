@@ -26,7 +26,6 @@ from pology.colors import ColorOptionParser
 import pology.config as pology_config
 from pology.entities import read_entities
 from pology.fsops import collect_catalogs, collect_system
-from pology.fsops import str_to_unicode
 from pology.fsops import exit_on_exception
 from pology.message import MessageUnsafe
 from pology.remove import remove_accel_msg
@@ -125,7 +124,7 @@ def main ():
         help=_("@info command line option description",
                "Custom path to a translation data directory (where applicable)."))
 
-    (op, free_args) = opars.parse_args(str_to_unicode(sys.argv[1:]))
+    (op, free_args) = opars.parse_args(sys.argv[1:])
 
     # Could use some speedup.
     try:
@@ -364,9 +363,9 @@ def reduce_for_encoding (text, enc):
         try:
             text.encode(enc)
         except UnicodeEncodeError as e:
-            start, end = e[2], e[3]
+            start, end = e.start, e.end
             text = text[:start] + ("?" * (end - start)) + text[end:]
-        finally:
+        else:
             break
     return text
 

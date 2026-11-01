@@ -9,9 +9,9 @@ Documented in C{doc/user/sieving.docbook}.
 @license: GPLv3
 """
 
-from codecs import open
 import locale
 import os
+from functools import cmp_to_key
 from os.path import abspath, basename, dirname, isfile, isdir, join
 import re
 import sys
@@ -111,7 +111,7 @@ class Sieve (object):
             xmlPath=params.xml
             if os.access(dirname(abspath(xmlPath)), os.W_OK):
                 #TODO: create nice api to manage xml file and move it to rules.py
-                self.xmlFile=open(xmlPath, "w", "utf-8")
+                self.xmlFile=open(xmlPath, "w", encoding="utf-8", newline="")
                 self.xmlFile.write('<?xml version="1.0" encoding="UTF-8"?>\n')
                 self.xmlFile.write('<pos date="%s">\n' % strftime('%c'))
             else:
@@ -216,7 +216,7 @@ class Sieve (object):
             self.ignoredContexts[ckey] = []
             ignoredContextFile=join(datadir(), "lang", clang, "spell", "ignoredContext")
             if isfile(ignoredContextFile):
-                for line in open(ignoredContextFile, "r", "utf-8"):
+                for line in open(ignoredContextFile, "r", encoding="utf-8"):
                     line=line.strip()
                     if line.startswith("#") or line=="":
                         continue
@@ -348,7 +348,8 @@ class Sieve (object):
         if self.unknownWords is not None:
             slist = list(self.unknownWords)
             if slist:
-                slist.sort(lambda x, y: locale.strcoll(x.lower(), y.lower()))
+                slist.sort(key=cmp_to_key(
+                    lambda x, y: locale.strcoll(x.lower(), y.lower())))
                 report("\n".join(slist))
         else:
             if self.nmatch:
@@ -394,7 +395,7 @@ class Sieve (object):
             words.extend(_read_dict_file(dictFile))
         tmpDictFile=("compdict-%d.aspell" % os.getpid())
         self.tmpDictFiles[lang]=tmpDictFile
-        file=open(tmpDictFile, "w", "UTF-8")
+        file=open(tmpDictFile, "w", encoding="UTF-8", newline="")
         file.write("personal_ws-1.1 %s %d UTF-8\n" % (lang, len(words)))
         file.writelines([x+"\n" for x in words])
         file.close()
@@ -422,7 +423,7 @@ def _read_dict_file (fname):
 
     # Parse the header for encoding.
     encDefault="UTF-8"
-    file=open(fname, "r", encDefault)
+    file=open(fname, "r", encoding=encDefault)
     header=file.readline()
     m=re.search(r"^(\S+)\s+(\S+)\s+(\d+)\s+(\S+)\s*", header)
     if not m:
@@ -434,7 +435,7 @@ def _read_dict_file (fname):
     # Reopen in correct encoding if not the default.
     if enc.lower() != encDefault.lower():
         file.close()
-        file=open(fname, "r", enc)
+        file=open(fname, "r", encoding=enc)
 
     # Read words.
     words=[]
@@ -456,7 +457,7 @@ class _QuasiSpell (object):
 
     def check (self, encWord):
 
-        word=str.decode(encWord, self.encoding)
+        word=encWord.decode(self.encoding)
         if (    word not in self.validWords
             and word.lower() not in self.validWords
         ):

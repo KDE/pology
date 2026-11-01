@@ -18,7 +18,6 @@ from pology.lang.sr.trapnakron import trapnakron_ui
 from pology.lang.sr.trapnakron import norm_pkey, norm_rtkey
 from pology.lang.sr.trapnakron import _disamb_marker
 from pology.colors import ColorOptionParser
-from pology.fsops import str_to_unicode
 from pology.normalize import identify
 from pology.report import report, warning, format_item_list
 from pology.vcs import VcsSubversion
@@ -110,7 +109,7 @@ def validate (tp, onlysrcs=None, onlykeys=None, demoexp=False, expwkeys=False):
                               file=path, line=lno, col=cno, env=cenv))
                     cnproblems += 1
         except Exception as e:
-            warning(str_to_unicode(str(e)))
+            warning(str(e))
             cnproblems += 1
             continue
 
@@ -484,7 +483,7 @@ def _main ():
         help=_("@info command line option description",
                "Show statistics."))
 
-    (options, free_args) = opars.parse_args(str_to_unicode(sys.argv[1:]))
+    (options, free_args) = opars.parse_args(sys.argv[1:])
 
     try:
         import psyco

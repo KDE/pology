@@ -49,7 +49,7 @@ class Sieve (object):
         if date_en in self.pretranslated:
             return self.pretranslated[date_en]
         elif self.date_re.match(date_en):
-            date_result = os.popen("date '+%-d m%mm %Y' -d " + date_en).readlines()[0].decode('utf-8').rstrip() + ' г.'
+            date_result = os.popen("date '+%-d m%mm %Y' -d " + date_en).readlines()[0].rstrip() + ' г.'
 
             # Translate name of months into Russian
             return date_result.\

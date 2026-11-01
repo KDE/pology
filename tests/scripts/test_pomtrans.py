@@ -1,10 +1,7 @@
-try:
-    from mock import MagicMock, patch
-except ImportError:
-    from unittest.mock import MagicMock, patch
+from unittest.mock import MagicMock, patch
 import pytest
 
-from scripts.pomtrans import Translator_apertium
+from scripts.pomtrans import Translator_apertium, reduce_for_encoding
 
 
 @pytest.fixture(
@@ -56,3 +53,8 @@ def test_apertium_translation_workflow(
     setup_call, translation_call = collection_patch.call_args_list
     assert translation_call.kwargs["instr"] == expected_translator_input
     assert translation == expected_translation
+
+
+def test_reduce_for_encoding_replaces_only_unencodable_text():
+    assert reduce_for_encoding("plain", "ascii") == "plain"
+    assert reduce_for_encoding("e\u0301t\u00e9", "ascii") == "e?t?"

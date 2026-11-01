@@ -27,7 +27,6 @@ from pology.catalog import Catalog, CatalogSyntaxError
 from pology.colors import ColorOptionParser, set_coloring_globals
 import pology.config as pology_config
 from pology.escape import escape_sh
-from pology.fsops import str_to_unicode, unicode_to_str
 from pology.fsops import collect_catalogs, collect_system
 from pology.fsops import build_path_selector, collect_paths_from_file
 from pology.fsops import collect_paths_cmdline
@@ -173,7 +172,7 @@ def main ():
     add_cmdopt_incexc(opars)
     add_cmdopt_colors(opars)
 
-    (op, free_args) = opars.parse_args(str_to_unicode(sys.argv[1:]))
+    (op, free_args) = opars.parse_args(sys.argv[1:])
 
     if op.list_options:
         report(list_options(opars))
@@ -245,9 +244,8 @@ def main ():
             # Sieve name is its path.
             sieve_path = sieve_name
         try:
-            with open(unicode_to_str(sieve_path)) as sieve_file:
+            with open(sieve_path) as sieve_file:
                 sieve_code = sieve_file.read()
-            # ...unicode_to_str because of exec below.
         except IOError:
             error(_("@info",
                     "Cannot load sieve '%(file)s'.",

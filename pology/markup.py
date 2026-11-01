@@ -9,7 +9,6 @@ Convert and validate markup in text.
 
 import os
 import re
-import codecs
 import xml.parsers.expat
 import difflib
 
@@ -708,7 +707,7 @@ def collect_xml_spec_l1 (specpath):
 
     c_tag, c_attr, c_attre, c_stag = list(range(4))
 
-    ifs = codecs.open(specpath, "r", "UTF-8").read()
+    ifs = open(specpath, "r", encoding="UTF-8").read()
     lenifs = len(ifs)
 
     pos = [0, 1, 1]

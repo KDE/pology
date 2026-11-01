@@ -11,7 +11,6 @@ Use L{rules<pology.rules>} through C{check-rules} sieve instead.
 """
 
 import re
-import codecs
 
 from pology import _, n_
 from pology.comments import manc_parse_flag_list
@@ -145,7 +144,7 @@ _flag_no_bad_patterns = "no-bad-patterns"
 # #-comments possible.
 def _load_patterns (filepath):
 
-    ifl = codecs.open(filepath, "r", "UTF-8")
+    ifl = open(filepath, "r", encoding="UTF-8")
 
     rem_cmnt_rx = re.compile(r"#.*")
     patterns = []

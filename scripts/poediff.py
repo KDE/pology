@@ -26,7 +26,7 @@ from pology.catalog import Catalog
 from pology.message import MessageUnsafe
 from pology.colors import ColorOptionParser, set_coloring_globals, cjoin
 import pology.config as pology_config
-from pology.fsops import str_to_unicode, collect_catalogs
+from pology.fsops import collect_catalogs
 from pology.fsops import exit_on_exception
 from pology.diff import msg_ediff
 from pology.report import error, warning, report, format_item_list
@@ -145,7 +145,7 @@ def main ():
                opt1="-b", opt2="-n"))
     add_cmdopt_colors(opars)
 
-    (op, free_args) = opars.parse_args(str_to_unicode(sys.argv[1:]))
+    (op, free_args) = opars.parse_args(sys.argv[1:])
 
     if op.list_options:
         report(list_options(opars))

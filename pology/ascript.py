@@ -10,7 +10,6 @@ Interfaces may change arbitrarily between any two Pology releases.
 @license: GPLv3
 """
 
-import codecs
 from configparser import ConfigParser
 import datetime
 import os
@@ -23,7 +22,7 @@ from pology.header import format_datetime, parse_datetime
 from pology.message import Message, MessageUnsafe
 from pology.comments import parse_summit_branches
 from pology.diff import msg_ediff
-from pology.fsops import join_ncwd, str_to_unicode, unicode_to_str
+from pology.fsops import join_ncwd
 from pology.match import make_msg_fmatcher
 from pology.monitored import Monlist
 from pology.msgreport import warning_on_msg
@@ -87,7 +86,7 @@ class AscConfig (object):
         """
 
         config = ConfigParser()
-        ifl = codecs.open(cfgpath, "r", "UTF-8")
+        ifl = open(cfgpath, "r", encoding="UTF-8")
         config.read_file(ifl)
         ifl.close()
 
@@ -1355,7 +1354,7 @@ def make_ascription_selector (selspecs, hist=False):
                   "Selector '%(sel)s' not created due to "
                   "the following error:\n"
                   "%(msg)s",
-                  sel=selspec, msg=str_to_unicode(str(e))))
+                  sel=selspec, msg=str(e)))
         if negated:
             selector = _negate_selector(selector)
         selectors.append((selector, selspec))
@@ -1378,7 +1377,7 @@ def make_ascription_selector (selspecs, hist=False):
                       "with the following error:\n"
                       "%(msg)s",
                       sel=selspec, file=cat.filename, line=msg.refline,
-                      entry=msg.refentry, msg=str_to_unicode(str(e))))
+                      entry=msg.refentry, msg=str(e)))
             if not res:
                 return res
         return res
@@ -1421,9 +1420,8 @@ def import_ascription_extensions (modpath):
 
     # Load external module.
     try:
-        with open(unicode_to_str(modpath)) as modfile:
+        with open(modpath) as modfile:
             module_code = modfile.read()
-        # ...unicode_to_str because of exec below.
     except IOError:
         raise PologyError(
             _("@info",

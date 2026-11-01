@@ -101,7 +101,7 @@ $ . <replaceable>POLOGYDIR</replaceable>/completion/bash/pology
 <para><ulink url="http://www.gnu.org/software/gettext/">Gettext</ulink> >= 0.17. Some Pology scripts use Gettext tools internally, and the library module <ulink url="../../api/html/pology.gtxtools-module.html"><literal>pology.gtxtools</literal></ulink> wraps some of Gettext tools for use inside Python scripts. Also needed to build Pology user interface and documentation translations.</para>
 </listitem>
 <listitem>
-<para><ulink url="http://www.python.org/">Python</ulink> >= 2.5.</para>
+<para><ulink url="http://www.python.org/">Python</ulink> >= 3.11.</para>
 </listitem>
 </itemizedlist>
 </para>

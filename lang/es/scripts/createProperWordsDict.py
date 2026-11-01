@@ -18,7 +18,7 @@ import enchant
 from pology import version, _, n_
 from pology.catalog import Catalog
 from pology.colors import ColorOptionParser
-from pology.fsops import str_to_unicode, collect_catalogs
+from pology.fsops import collect_catalogs
 from pology.fsops import collect_paths_cmdline
 from pology.split import proper_words
 # from pology.msgreport import warning_on_msg, report_msg_content
@@ -44,7 +44,7 @@ def _main ():
 	opars = ColorOptionParser(usage=usage, description=desc, version=ver)
 	add_cmdopt_filesfrom(opars)
 
-	(options, free_args) = opars.parse_args(str_to_unicode(sys.argv[1:]))
+	(options, free_args) = opars.parse_args(sys.argv[1:])
 
 	# Collect PO files in given paths.
 	popaths = collect_paths_cmdline(rawpaths=free_args,

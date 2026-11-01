@@ -17,7 +17,7 @@ Usage::
 """
 
 import locale
-from codecs import open
+from functools import cmp_to_key
 from os.path import abspath, basename
 import re
 import sys
@@ -58,7 +58,7 @@ def organize (dictPath, reminv=False):
 
     report(dictPath)
     dictEncDefault = "UTF-8"
-    dictFile=open(dictPath, "r", dictEncDefault)
+    dictFile=open(dictPath, "r", encoding=dictEncDefault)
 
     # Parse the header for language and encoding.
     header=dictFile.readline()
@@ -79,7 +79,7 @@ def organize (dictPath, reminv=False):
     # Reopen in correct encoding if not the default.
     if dictEnc.lower() != dictEncDefault.lower():
         dictFile.close()
-        dictFile=open(dictPath, "r", dictEnc)
+        dictFile=open(dictPath, "r", encoding=dictEnc)
 
     # Read all words and eliminate duplicates.
     words=set()
@@ -111,10 +111,11 @@ def organize (dictPath, reminv=False):
     numWords=len(words)
 
     # Sort the list according to current locale, ignoring case.
-    words.sort(lambda x, y: locale.strcoll(x.lower(), y.lower()))
+    words.sort(key=cmp_to_key(
+        lambda x, y: locale.strcoll(x.lower(), y.lower())))
 
     # Write back the updated dictionary.
-    dictFile=open(dictPath, "w", dictEnc)
+    dictFile=open(dictPath, "w", encoding=dictEnc, newline="")
     dictFile.write("%s %s %d %s\n" % (dictType, dictLang, numWords, dictEnc))
     dictFile.write("\n".join(words))
     dictFile.write("\n")

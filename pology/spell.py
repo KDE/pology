@@ -9,7 +9,6 @@ author: Javier Vinal (Javier Viñal) <fjvinal@gmail.com>
 """
 
 import os
-import codecs
 import re
 import tempfile
 
@@ -329,7 +328,7 @@ def _compose_personal_dict (lang, envs):
     tmpf = tempfile.NamedTemporaryFile()
     tmpf.close()
     try:
-        tmpf = codecs.open(tmpf.name, "w", "UTF-8")
+        tmpf = open(tmpf.name, "w", encoding="UTF-8", newline="")
         tmpf.write("personal_ws-1.1 %s %d UTF-8\n" % (lang, len(words)))
         tmpf.writelines([x + "\n" for x in words])
         tmpf.close()
@@ -348,7 +347,7 @@ def _read_dict_file (filepath):
 
     # Parse the header for encoding.
     enc_def = "UTF-8"
-    file = codecs.open(filepath, "r", enc_def)
+    file = open(filepath, "r", encoding=enc_def)
     header = file.readline()
     m = re.search(r"^(\S+)\s+(\S+)\s+(\d+)\s+(\S+)\s*", header)
     if not m:
@@ -360,7 +359,7 @@ def _read_dict_file (filepath):
     # Reopen in correct encoding if not the default.
     if enc.lower() != enc_def.lower():
         file.close()
-        file = codecs.open(filepath, "r", enc)
+        file = open(filepath, "r", encoding=enc)
 
     # Read words.
     words = []
@@ -382,7 +381,7 @@ class _QuasiSpell (object):
 
     def check (self, encword):
 
-        word = str.decode(encword, self._enc)
+        word = encword.decode(self._enc)
         return (   word in self._words
                 or word.lower() in self._words)
 

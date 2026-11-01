@@ -7,7 +7,6 @@ Operations with environment, file system and external commands.
 @license: GPLv3
 """
 
-import codecs
 import locale
 import os
 import re
@@ -246,9 +245,6 @@ def assert_system (cmdline, echo=False, wdir=None):
     executed through a shell, or a list of argument strings,
     when the process is started directly with these arguments.
 
-    C{cmdline} is processed with L{unicode_to_str} to convert any
-    unicode strings to raw byte strings in expected system encoding.
-
     @param cmdline: command line to execute
     @type cmdline: string
     @param echo: whether to echo the supplied command line
@@ -267,10 +263,8 @@ def assert_system (cmdline, echo=False, wdir=None):
         cwd = getucwd()
         os.chdir(wdir)
     if isinstance(cmdline, str):
-        cmdline = unicode_to_str(cmdline)
         shell = True
     else:
-        cmdline = list(map(unicode_to_str, cmdline))
         shell = False
     ret = subprocess.call(cmdline, shell=shell)
     if wdir is not None:
@@ -292,9 +286,6 @@ def collect_system (cmdline, echo=False, wdir=None, env=None, instr=None):
     C{cmdline} can be either a monolithic string, in which case it is
     executed through a shell, or a list of argument strings,
     when the process is started directly with these arguments.
-
-    C{cmdline} is processed with L{unicode_to_str} to convert any
-    unicode strings to raw byte strings in expected system encoding.
 
     @param cmdline: command line to execute
     @type cmdline: string or [string*]
@@ -322,17 +313,16 @@ def collect_system (cmdline, echo=False, wdir=None, env=None, instr=None):
         os.chdir(wdir)
     stdin = instr is not None and subprocess.PIPE or None
     if isinstance(cmdline, str):
-        cmdline = unicode_to_str(cmdline)
         shell = True
     else:
-        cmdline = list(map(unicode_to_str, cmdline))
         shell = False
     p = subprocess.Popen(cmdline, shell=shell, env=env,
                          stdout=subprocess.PIPE, stderr=subprocess.PIPE,
                          stdin=stdin)
     if instr is not None:
         p.stdin.write(instr.encode(locale.getpreferredencoding()))
-    strout, strerr = list(map(str_to_unicode, p.communicate()))
+    lenc = locale.getpreferredencoding()
+    strout, strerr = [x.decode(lenc, "replace") for x in p.communicate()]
     ret = p.returncode
     if wdir is not None:
         os.chdir(cwd)
@@ -375,7 +365,7 @@ def lines_from_file (filepath, encoding=None):
         encoding = locale.getpreferredencoding()
 
     try:
-        ifl = codecs.open(filepath, "r", encoding)
+        ifl = open(filepath, "r", encoding=encoding)
     except:
         warning(_("@info",
                   "Cannot open '%(file)s' for reading.",
@@ -425,82 +415,6 @@ def join_ncwd (*elements):
         path = os.path.normpath(path)
 
     return path
-
-
-def str_to_unicode (strarg):
-    """
-    Convert a raw string value or sequence of values into Unicode.
-
-    Strings comming in from the environment are frequently raw byte sequences,
-    and need to be converted into Unicode strings according to system locale
-    (e.g. command-line arguments).
-    This function will take either a single raw string or any sequence
-    of raw strings and convert it into a Unicode string or list thereof.
-
-    If the input value is not a single raw or unicode string,
-    it is assumed to be a sequence of values.
-    In case there are values in the input which are not raw strings,
-    they will be carried over into the result as-is.
-
-    @param strarg: input string or sequence
-    @type strarg: string, unicode, or sequence of objects
-
-    @returns: unicode string or sequence of objects
-    @rtype: unicode string or list of objects
-    """
-
-    if isinstance(strarg, str):
-        return strarg
-
-    lenc = locale.getpreferredencoding()
-
-    if isinstance(strarg, bytes):
-        return strarg.decode(lenc, "replace")
-    else:
-        uargs = []
-        for val in strarg:
-            if isinstance(val, bytes):
-                val = val.decode(lenc, "replace")
-            uargs.append(val)
-        return uargs
-
-
-def unicode_to_str (strarg):
-    """
-    Convert a unicode string into raw byte sequence.
-
-    Strings going to the environment should frequently be raw byte sequences,
-    and need to be converted from Unicode strings according to system locale
-    (e.g. command-line arguments).
-    This function will take either a single Unicode string or any sequence
-    of Unicode strings and convert it into a raw string or list thereof.
-
-    If the input value is not a single raw or unicode string,
-    it is assumed to be a sequence of values.
-    In case there are values in the input which are not Unicode strings,
-    they will be carried over into the result as-is.
-
-    @param strarg: input string or sequence
-    @type strarg: string, unicode, or sequence of objects
-
-    @returns: raw string or sequence of objects
-    @rtype: raw string or list of objects
-    """
-
-    if isinstance(strarg, bytes):
-        return strarg
-
-    lenc = locale.getpreferredencoding()
-
-    if isinstance(strarg, str):
-        return strarg.encode(lenc)
-    else:
-        uargs = []
-        for val in strarg:
-            if isinstance(val, str):
-                val = val.encode(lenc)
-            uargs.append(val)
-        return uargs
 
 
 def get_env_langs ():
@@ -763,7 +677,7 @@ def collect_paths_from_file (fpath, cmnts=True, incexc=True, respathf=None,
 
     if abort:
         def abort_or_raise (e):
-            error(str_to_unicode(str(e)))
+            error(str(e))
     else:
         def abort_or_raise (e):
             raise
@@ -900,7 +814,7 @@ def collect_paths_cmdline (rawpaths=None,
 
     if abort:
         def abort_or_raise (e):
-            error(str_to_unicode(str(e)))
+            error(str(e))
     else:
         def abort_or_raise (e):
             raise
@@ -961,19 +875,13 @@ def collect_paths_cmdline (rawpaths=None,
 
 def getucwd ():
     """
-    Get path of current working directory as Unicode string.
-
-    C{os.getcwd()} returns a raw byte sequence, to which
-    the L{str_to_unicode} function is applied to make best guess
-    at decoding it into a unicode string.
+    Get path of current working directory.
 
     @returns: path of current working directory
     @rtype: string
     """
 
-    rawcwd = os.getcwd()
-    cwd = str_to_unicode(rawcwd)
-    return cwd
+    return os.getcwd()
 
 
 def exit_on_exception (func, cleanup=None):
@@ -1009,5 +917,5 @@ def exit_on_exception (func, cleanup=None):
         if pology.config.section("global").boolean("show-backtrace"):
             raise
         else:
-            error(str_to_unicode(str(e)), code=1)
+            error(str(e), code=1)
 

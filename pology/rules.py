@@ -16,7 +16,6 @@ See C{doc/user/lingo.docbook#sec-lgrules} for detailed discussion of rules.
 @license: GPLv3
 """
 
-from codecs import open
 from locale import getlocale
 from os.path import dirname, basename, isdir, join, isabs
 from os import listdir
@@ -182,7 +181,7 @@ def loadRulesFromFile(filePath, stat, envs=set(), seenMsgFilters={}):
     lno=0
 
     try:
-        lines=open(filePath, "r", "UTF-8").readlines()
+        lines=open(filePath, "r", encoding="UTF-8").readlines()
         lines.append("\n") # sentry line
         fileStack=[]
         while True:
@@ -495,7 +494,7 @@ def _includeFile (fields, includingFilePath):
                   "'%(file1)s' from '%(file2)s'.",
                   file1=filePath, file2=includingFilePath))
 
-    lines=open(filePath, "r", "UTF-8").readlines()
+    lines=open(filePath, "r", encoding="UTF-8").readlines()
     lines.append("\n") # sentry line
 
     return lines, filePath, 0

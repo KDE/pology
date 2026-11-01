@@ -18,7 +18,7 @@ from pology.lang.sr.wconv import tohi
 from pology.colors import ColorOptionParser
 from pology.comments import manc_parse_flag_list
 from pology.diff import msg_ediff, msg_ediff_to_new
-from pology.fsops import str_to_unicode, collect_catalogs
+from pology.fsops import collect_catalogs
 from pology.fsops import collect_paths_cmdline
 from pology.msgreport import warning_on_msg, report_msg_content
 from pology.report import report, warning, error, format_item_list
@@ -58,7 +58,7 @@ def _main ():
                "instead of local latest revision."))
     add_cmdopt_filesfrom(opars)
 
-    (options, free_args) = opars.parse_args(str_to_unicode(sys.argv[1:]))
+    (options, free_args) = opars.parse_args(sys.argv[1:])
 
     try:
         import psyco

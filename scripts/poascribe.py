@@ -31,7 +31,6 @@ from pology.colors import ColorOptionParser, cjoin
 import pology.config as pology_config
 from pology.diff import msg_ediff, msg_ediff_to_new
 from pology.diff import editprob
-from pology.fsops import str_to_unicode, unicode_to_str
 from pology.fsops import collect_paths_cmdline, collect_catalogs
 from pology.fsops import mkdirpath, join_ncwd
 from pology.fsops import exit_on_exception
@@ -263,7 +262,7 @@ def main ():
     add_cmdopt_filesfrom(opars)
     add_cmdopt_incexc(opars)
 
-    (options, free_args) = opars.parse_args(str_to_unicode(sys.argv[1:]))
+    (options, free_args) = opars.parse_args(sys.argv[1:])
 
     # Parse operation mode and its arguments.
     if len(free_args) < 1:
@@ -547,7 +546,7 @@ def get_commit_message_file_path (user):
     cmsg = open(fpath, "r").read()
     if not cmsg.endswith("\n"):
         cmsg += "\n"
-    fmt_user = unicode_to_str(fmt_commit_user(user))
+    fmt_user = fmt_commit_user(user)
     if cmsg.count("\n") == 1:
         cmsg = cmsg[:-1] + " " + fmt_user + "\n"
     else:

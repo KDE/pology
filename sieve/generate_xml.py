@@ -9,7 +9,6 @@ Documented in C{doc/user/sieving.docbook}.
 @license: GPLv3
 """
 
-from codecs import open
 import locale
 import os
 from os.path import abspath, basename, dirname, isdir, isfile, join
@@ -54,7 +53,7 @@ class Sieve (object):
         if params.xml:
             xmlPath = params.xml
             if os.access(dirname(abspath(xmlPath)), os.W_OK):
-                self.xmlFile=open(xmlPath, "w", "utf-8")
+                self.xmlFile=open(xmlPath, "w", encoding="utf-8", newline="")
             else:
                 warning(_("@info",
                           "Cannot open file '%(file)s'. XML output disabled.",

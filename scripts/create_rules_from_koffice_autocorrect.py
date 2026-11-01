@@ -14,7 +14,6 @@ Usage::
 
 import re
 import sys
-from codecs import open
 import locale
 
 def main():
@@ -24,9 +23,9 @@ def main():
         usage()
     
     #TODO: check file is readable
-    kofficeFile=open(sys.argv[1], "r", "utf-8")
+    kofficeFile=open(sys.argv[1], "r", encoding="utf-8")
     #TODO: check path is writable
-    ruleFile=open(sys.argv[2], "w", "utf-8")
+    ruleFile=open(sys.argv[2], "w", encoding="utf-8", newline="")
     
     # Regexp to find autocorrect items
     regexp=re.compile('<item find="(.*?)" replace="(.*?)" />')

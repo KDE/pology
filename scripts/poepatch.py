@@ -26,7 +26,7 @@ from pology.colors import ColorOptionParser
 from pology.report import error, warning, report
 from pology.msgreport import error_on_msg, warning_on_msg
 import pology.config as pology_config
-from pology.fsops import str_to_unicode, mkdirpath, collect_catalogs
+from pology.fsops import mkdirpath, collect_catalogs
 from pology.fsops import exit_on_exception
 from pology.catalog import Catalog
 from pology.message import Message, MessageUnsafe
@@ -119,7 +119,7 @@ def main ():
                "Instead of applying a patch, resolve all embedded differences "
                "in given paths to newer versions of messages."))
 
-    (op, free_args) = opars.parse_args(str_to_unicode(sys.argv[1:]))
+    (op, free_args) = opars.parse_args(sys.argv[1:])
 
     # Could use some speedup.
     try:

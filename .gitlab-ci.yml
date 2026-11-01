@@ -1,4 +1,4 @@
-image: "python:3.10"
+image: "python:3.15"
 
 # We test combinations that cover the following scenarios:
 #
@@ -6,7 +6,7 @@ image: "python:3.10"
 # - System-wide installation with CMake and direct source usage.
 
 test-min-cmake:
-  image: "python:3.7"
+  image: "python:3.11"
   tags:
     - Linux
   script:

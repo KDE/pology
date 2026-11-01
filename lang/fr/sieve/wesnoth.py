@@ -11,7 +11,6 @@ inspired from other sieves
 
 import re
 
-from typing import List
 from pology import _, n_
 from pology.report import report
 from pology.sieve import add_param_filter

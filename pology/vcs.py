@@ -11,6 +11,7 @@ various version control systems.
 @license: GPLv3
 """
 
+import locale
 import os
 import re
 import shutil
@@ -18,7 +19,7 @@ import tempfile
 
 from pology import PologyError, _, n_
 from pology.escape import escape_sh
-from pology.fsops import collect_system, system_wd, unicode_to_str, join_ncwd
+from pology.fsops import collect_system, system_wd, join_ncwd
 from pology.report import report, warning
 
 
@@ -652,7 +653,7 @@ class VcsSubversion (VcsBase):
         cmdline += ["--targets", tmppath]
         # Do not use collect_system(), user may need to input stuff.
         cmdstr = " ".join(map(escape_sh, cmdline))
-        success = (os.system(unicode_to_str(cmdstr)) == 0)
+        success = (os.system(cmdstr) == 0)
         os.remove(tmppath)
 
         return success
@@ -1007,7 +1008,7 @@ class VcsGit (VcsBase):
                       "Git is resetting paths in index which are "
                       "not to be committed."))
             cmdline = "git reset %s" % " ".join(rpaths)
-            system_wd(unicode_to_str(cmdline), root)
+            system_wd(cmdline, root)
             # ...seems to return != 0 even if it did what it was told to.
 
         # Commit the index.
@@ -1018,7 +1019,7 @@ class VcsGit (VcsBase):
             cmdline += ["-F", msgfile]
         # Do not use collect_system(), user may need to input stuff.
         cmdstr = " ".join(map(escape_sh, cmdline))
-        if system_wd(unicode_to_str(cmdstr), root) != 0:
+        if system_wd(cmdstr, root) != 0:
             return False
 
         return True
@@ -1191,7 +1192,7 @@ def _crop_log (entries, rev1, rev2):
 
 def _temp_paths_file (paths):
 
-    content = unicode_to_str("\n".join(paths) + "\n")
+    content = ("\n".join(paths) + "\n").encode(locale.getpreferredencoding())
     tmpf, tmppath = tempfile.mkstemp()
     os.write(tmpf, content)
     os.close(tmpf)

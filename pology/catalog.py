@@ -1263,7 +1263,7 @@ class Catalog (Monitored):
                     _("@info",
                       "Text encoding failure at %(file)s:%(line)d:%(col)d "
                       "under assumed encoding '%(enc)s'.",
-                      file=self._filename, line=(i + 1), col=e[2],
+                      file=self._filename, line=(i + 1), col=e.start,
                       enc=self._encoding))
             enclines.append(encline)
         if not writefh:

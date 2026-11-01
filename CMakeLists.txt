@@ -25,7 +25,7 @@ endif()
 set(cmake_install_prefix_cached ${CMAKE_INSTALL_PREFIX}
     CACHE INTERNAL "Cache stamp for CMAKE_INSTALL_PREFIX.")
 
-find_package(Python3 3.7 REQUIRED)
+find_package(Python3 3.11 REQUIRED)
 find_package(DocbookXSL 1.75.2)
 find_package(LibXml2)
 find_package(Xsltproc)

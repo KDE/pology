@@ -21,7 +21,7 @@ sys.stdout.write(pology.datadir())
 ")
 
 if(NOT PYTHON3_EXECUTABLE)
-    find_package(Python3 3.7)
+    find_package(Python3 3.11)
 endif()
 
 message(STATUS "Looking for Pology Python library...")

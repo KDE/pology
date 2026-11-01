@@ -14,7 +14,6 @@ from tempfile import NamedTemporaryFile
 from pology import PologyError, _, n_
 from pology.catalog import Catalog
 from pology.diff import editprob
-from pology.fsops import unicode_to_str
 from pology.message import Message
 from pology.split import proper_words
 
@@ -202,7 +201,7 @@ def merge_pofile (catpath, tplpath,
         opts.append("--quiet")
     fmtopts = " ".join(opts)
     cmdline = "msgmerge %s %s %s" % (fmtopts, catpath, tplpath)
-    mrgres = os.system(unicode_to_str(cmdline))
+    mrgres = os.system(cmdline)
     if mrgres != 0:
         if abort:
             raise PologyError(

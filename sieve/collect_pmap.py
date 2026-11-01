@@ -14,7 +14,6 @@ import re
 
 from pology import _, n_
 from pology.colors import cjoin
-from pology.fsops import str_to_unicode
 from pology.msgreport import warning_on_msg
 from pology.report import report, format_item_list
 from pology.sieve import SieveError
@@ -165,7 +164,7 @@ class Sieve (object):
                     self.synder.import_string(sdexpr)
                     cprops = self.synder.props(sdkey)
                 except Exception as e:
-                    errmsg = str_to_unicode(str(e))
+                    errmsg = str(e)
                     warning_on_msg(_("@info",
                                      "Invalid derivation '%(deriv)s':\n"
                                      "%(msg)s", deriv=sddef, msg=errmsg),
@@ -310,7 +309,7 @@ class Sieve (object):
                                "Property constraint file '%(file)s' "
                                "does not exist.",
                                file=fpath))
-        lines = open(fpath).read().decode("UTF-8").split("\n")
+        lines = open(fpath, encoding="UTF-8").read().split("\n")
         if not lines[-1]:
             lines.pop()
 

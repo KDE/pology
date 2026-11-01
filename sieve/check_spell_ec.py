@@ -9,7 +9,6 @@ Documented in C{doc/user/sieving.docbook}.
 @license: GPLv3
 """
 
-import codecs
 from functools import cmp_to_key
 from locale import strcoll
 import os
@@ -459,7 +458,7 @@ def _read_wlist_aspell (fname):
     # Parse the header for encoding.
 
     defenc = "UTF-8"
-    fl = codecs.open(fname, "r", defenc)
+    fl = open(fname, "r", encoding=defenc)
     header = fl.readline()
     m = re.search(r"^(\S+)\s+(\S+)\s+(\d+)\s+(\S+)\s*", header)
     if not m:
@@ -471,7 +470,7 @@ def _read_wlist_aspell (fname):
     # Reopen in correct encoding if not the default.
     if enc.lower() != defenc.lower():
         fl.close()
-        fl = codecs.open(fname, "r", enc)
+        fl = open(fname, "r", encoding=enc)
 
     # Read words.
     words = []

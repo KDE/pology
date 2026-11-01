@@ -9,7 +9,6 @@ Documented in C{doc/user/sieving.docbook}.
 @license: GPLv3
 """
 
-import codecs
 import locale
 import os
 import sys
@@ -674,7 +673,7 @@ class Sieve (object):
         if self.p.incompfile:
             filenames = sorted(self.incomplete_catalogs.keys())
             cmdlenc = locale.getpreferredencoding()
-            ofl = codecs.open(self.p.incompfile, "w", cmdlenc)
+            ofl = open(self.p.incompfile, "w", encoding=cmdlenc, newline="")
             ofl.writelines([x + "\n" for x in filenames])
             ofl.close()
 

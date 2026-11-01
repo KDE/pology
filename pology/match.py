@@ -7,12 +7,10 @@ Matchers and matcher helpers for various objects.
 @license: GPLv3
 """
 
-import locale
 import re
 
 from pology import _, n_
 from pology.comments import parse_summit_branches
-from pology.fsops import str_to_unicode
 from pology.message import MessageUnsafe
 from pology.remove import remove_accel_msg
 from pology.report import error
@@ -51,7 +49,7 @@ class ExprError (Exception):
         self.end = end
 
 
-    def __unicode__ (self):
+    def __str__ (self):
 
         if self.expr is not None and self.start is not None:
             start = self.start
@@ -84,11 +82,6 @@ class ExprError (Exception):
             repstr = _("@info", "Invalid expression.")
 
         return str(repstr)
-
-
-    def __str__ (self):
-
-        return self.__unicode__().encode(locale.getpreferredencoding())
 
 
 def make_filtered_msg (msg, cat, accels=None, filters=[]):
@@ -167,7 +160,7 @@ def make_msg_matcher (exprstr, mopts=None, abort=False):
                                        "premature end of expression"))
     except ExprError as e:
         if abort:
-            error(str_to_unicode(str(e)))
+            error(str(e))
         else:
             raise
     return expr

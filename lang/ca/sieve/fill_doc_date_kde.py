@@ -47,10 +47,10 @@ class Sieve (object):
         self.date_re = re.compile(r"^[0-9][0-9][0-9][0-9]\-[0-9][0-9]\-[0-9][0-9]$")
 
     def format_date (self, date_en):
-        if self.pretranslated.has_key(date_en):
+        if date_en in self.pretranslated:
             return self.pretranslated[date_en]
         elif self.date_re.match(date_en):
-            date_result = os.popen("date '+%-d m%mm %Y' -d " + date_en).readlines()[0].decode('utf-8').rstrip() + u''
+            date_result = os.popen("date '+%-d m%mm %Y' -d " + date_en).readlines()[0].rstrip() + u''
 
             # Translate name of months into Catalan
             return date_result.\

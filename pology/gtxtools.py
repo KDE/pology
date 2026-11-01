@@ -12,7 +12,6 @@ import subprocess
 
 from pology import _, n_
 from pology.report import warning
-from pology.fsops import unicode_to_str
 
 
 def msgfilter (filtr, options=[]):
@@ -53,7 +52,6 @@ def msgfilter (filtr, options=[]):
 
     def wrapper (filepath):
         cmdargs = base_cmdargs + ["-i", filepath, "-o", filepath] + filtr
-        cmdargs = list(map(unicode_to_str, cmdargs))
         ret = subprocess.call(cmdargs)
         if ret:
             warning(_("@info",
@@ -96,7 +94,6 @@ def msgfmt (options=[]):
 
     def wrapper (filepath):
         cmdargs = base_cmdargs + [filepath]
-        cmdargs = list(map(unicode_to_str, cmdargs))
         ret = subprocess.call(cmdargs)
         if ret:
             warning(_("@info",
