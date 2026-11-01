@@ -69,6 +69,31 @@ def parse_sieve_flags (msg):
     return set(manc_parse_flag_list(msg, "|"))
 
 
+# Sieve flag to skip all checks on a message.
+flag_no_check = "no-check"
+
+
+def msg_no_check (msg):
+    """
+    Check whether C{no-check} sieve flag is set on a message.
+
+    The flag is set by a manual comment of the form::
+
+        # |, no-check
+
+    It suppresses reporting of all checks on the message, but no other
+    processing of it.
+
+    @param msg: message to check
+    @type msg: Message
+
+    @returns: C{True} if the flag is set, C{False} otherwise
+    @rtype: bool
+    """
+
+    return flag_no_check in parse_sieve_flags(msg)
+
+
 def add_param_lang (p, appx=None):
     """
     Add C{lang} parameter to sieve parameters.

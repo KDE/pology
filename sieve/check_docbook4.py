@@ -15,6 +15,7 @@ from pology.msgreport import report_on_msg_hl, report_msg_content
 from pology.msgreport import report_msg_to_lokalize
 from pology.report import report
 from pology.sieve import add_param_poeditors
+from pology.sieve import msg_no_check
 
 
 def setup_sieve (p):
@@ -50,6 +51,9 @@ class Sieve (object):
 
         # Check only translated messages.
         if not msg.translated:
+            return
+
+        if msg_no_check(msg):
             return
 
         highlight = self.check(msg, cat)

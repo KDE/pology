@@ -21,6 +21,7 @@ from pology.normalize import identify
 from pology.report import report, format_item_list
 from pology.sieve import add_param_poeditors
 from pology.sieve import SieveError, SieveCatalogError, parse_sieve_flags
+from pology.sieve import msg_no_check
 from pology.proj.kde.cattype import get_project_subdir
 from pology.proj.kde.cattype import is_txt_cat, is_qt_cat, is_docbook_cat
 from pology.proj.kde.cattype import is_html_cat, is_unknown_cat
@@ -127,6 +128,9 @@ class Sieve (object):
     def process (self, msg, cat):
 
         if not msg.translated:
+            return
+
+        if msg_no_check(msg):
             return
 
         highlight = []

@@ -149,10 +149,11 @@ Actually the only significant element of the header is the encoding. Language co
 
 <para>Sometimes a message or a few words in it should not be spell-checked. This can be, for example, when the message is dense computer input (like a command line synopsis), or when a word is part of a literal phrase (such as an email address). It may be possible to filter the text to remove some of the non-checkable words prior to spell-checking (especially when spell-checking is done as a <link linkend="sec-lgrules">validation rule</link>), but not all such words can be automatically detect. For example, especially problematic are onomatopoeic constructs ("Aaargh! Who released the beast?!").</para>
 
-<para>For this reason it is possible to manually skip spell-checking on a message, or on certain words within a message, by adding a <link linkend="sec-cmskipcheck">special translator comment</link>. The whole message is skipped by adding the <literal>no-check-spell</literal> translator flag to it:
+<para>For this reason it is possible to manually skip spell-checking on a message, or on certain words within a message, by adding a <link linkend="sec-cmskipcheck">special translator comment</link>. The whole message is skipped by adding the <literal>no-check-spell</literal> or <literal>no-check</literal> translator flag to it:
 <programlisting language="po">
 # |, no-check-spell
 </programlisting>
+The <literal>no-check</literal> flag skips all checks on the message, not only spell-checking.
 Words within the message are skipped by listing them in <literal>well-spelled:</literal> translator comment, comma- or space-separated:
 <programlisting language="po">
 # well-spelled: Aaarg, gaaah, khh

@@ -29,6 +29,7 @@ from pology.rules import loadRules, printStat
 from pology.sieve import add_param_lang, add_param_env, add_param_poeditors
 from pology.timeout import TimedOutException
 from pology.sieve import SieveError, SieveCatalogError, SieveMessageError
+from pology.sieve import msg_no_check
 from functools import reduce
 
 
@@ -262,6 +263,9 @@ class Sieve (object):
 
         # Apply rules only on translated messages.
         if not msg.translated:
+            return
+
+        if msg_no_check(msg):
             return
 
         # Apply rules only to messages from selected branches.

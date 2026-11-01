@@ -1378,6 +1378,14 @@ Instructions are always composed of two or more words, separated by hyphens, end
 This is a "translator flag" comment, which is used to set processing instructions too simple to occupy one whole comment line (e.g. those of the switch type, never needing arguments). It starts with <literal>|,</literal>, and continues with comma-separated list of flag-like keywords.</para>
 </listitem>
 
+<listitem>
+<para>All checks can be skipped on a message in one go with the following translator flag:
+<programlisting language="po">
+# |, no-check
+</programlisting>
+This suppresses reporting of all checks on the message, but does not affect any other processing of the message; in particular, the message is not dropped from the catalog. It is useful for messages which are not natural language, such as format strings.</para>
+</listitem>
+
 </itemizedlist>
 </para>
 

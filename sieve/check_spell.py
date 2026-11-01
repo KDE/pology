@@ -27,6 +27,7 @@ from pology.msgreport import spell_error, spell_xml_error
 from pology.msgreport import report_msg_to_lokalize
 from pology.report import report, warning, format_item_list
 from pology.sieve import SieveError, SieveCatalogError
+from pology.sieve import msg_no_check
 from pology.split import proper_words
 from pology.sieve import add_param_spellcheck
 
@@ -248,6 +249,9 @@ class Sieve (object):
     def process (self, msg, cat):
 
         if not msg.translated:
+            return
+
+        if msg_no_check(msg):
             return
 
         id=0 # Count msgstr plural forms

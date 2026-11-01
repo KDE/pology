@@ -18,6 +18,7 @@ from pology.msgreport import report_on_msg_hl, report_msg_content
 from pology.msgreport import report_msg_to_lokalize
 from pology.sieve import add_param_poeditors
 from pology.sieve import SieveError
+from pology.sieve import msg_no_check
 from pology.message import MessageUnsafe
 from functools import reduce
 
@@ -97,6 +98,9 @@ class Sieve (object):
     def process (self, msg, cat):
 
         if not msg.translated:
+            return
+
+        if msg_no_check(msg):
             return
 
         highlight = []

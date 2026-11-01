@@ -462,6 +462,8 @@ Strings after the dot can be anything, but a sequence of numbers or letters in a
 </itemizedlist>
 </para>
 
+<para>All checks can be skipped on a message by adding the <literal>no-check</literal> <link linkend="p-trflag">translator flag</link>.</para>
+
 </sect2>
 
 <sect2 id="sv-check-grammar">
@@ -470,6 +472,8 @@ Strings after the dot can be anything, but a sequence of numbers or letters in a
 <para><command>check-grammar</command> checks translation with LanguageTool, an open source grammar and style checker (<ulink url="http://www.languagetool.org/">http://www.languagetool.org/</ulink>). LanguageTool supports a number of languages to greater or smaller extent, which you can check on <ulink url="http://www.languagetool.org/languages/">its web site</ulink>.</para>
 
 <para>LanguageTool can be run as standalone program or in client-server mode, and this sieve expects the latter. This means that LanguageTool has to be up and running before this sieve is run. Messages in which problems are discovered are reported to standard output.</para>
+
+<para>Checking can be skipped on a message by adding the <literal>no-check</literal> <link linkend="p-trflag">translator flag</link>.</para>
 
 <para>Parameters:
 <variablelist>
@@ -536,6 +540,8 @@ Strings after the dot can be anything, but a sequence of numbers or letters in a
 
 </itemizedlist>
 </para>
+
+<para>All checks can be skipped on a message by adding the <literal>no-check</literal> <link linkend="p-trflag">translator flag</link>.</para>
 
 </sect2>
 
@@ -696,6 +702,8 @@ Strings after the dot can be anything, but a sequence of numbers or letters in a
 </programlisting>
 </para>
 
+<para>All rules can be disabled on a message by adding the <literal>no-check</literal> <link linkend="p-trflag">translator flag</link>.</para>
+
 </sect2>
 
 <sect2 id="sv-check-spell">
@@ -838,7 +846,7 @@ Strings after the dot can be anything, but a sequence of numbers or letters in a
 </variablelist>
 </para>
 
-<para><command>check-spell-ec</command> may be told to skip checking specific messages and words, and it may use internal supplemental spelling dictionaries. See <xref linkend="sec-lgspell"/> for these and other details on spell-checking in Pology.</para>
+<para><command>check-spell-ec</command> may be told to skip checking specific messages and words, and it may use internal supplemental spelling dictionaries. See <xref linkend="sec-lgspell"/> for these and other details on spell-checking in Pology. In particular, checking can be skipped on a message by adding the <literal>no-check-spell</literal> or <literal>no-check</literal> <link linkend="p-trflag">translator flag</link>.</para>
 
 <para>Enchant can be configured for use in Pology through user configuration, so that it is not necessary to issue some parameters on every run. See <xref linkend="sec-cmcfgenchant"/>.</para>
 
@@ -931,6 +939,8 @@ Strings after the dot can be anything, but a sequence of numbers or letters in a
 
 <para>All markup checks can be skipped on a message by adding the <literal>no-check-markup</literal> <link linkend="p-trflag">translator flag</link>.</para>
 
+<para>All checks can be skipped on a message by adding the <literal>no-check</literal> <link linkend="p-trflag">translator flag</link>.</para>
+
 </sect2>
 
 <sect2 id="sv-check-tp-wesnoth">
@@ -1003,6 +1013,8 @@ Strings after the dot can be anything, but a sequence of numbers or letters in a
 
 </itemizedlist>
 </para>
+
+<para>All checks can be skipped on a message by adding the <literal>no-check</literal> <link linkend="p-trflag">translator flag</link>.</para>
 
 </sect2>
 

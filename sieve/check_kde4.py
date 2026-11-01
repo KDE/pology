@@ -16,7 +16,7 @@ from pology.msgreport import report_on_msg, report_on_msg_hl
 from pology.msgreport import report_msg_to_lokalize
 from pology.report import report
 from pology.sieve import add_param_poeditors
-from pology.sieve import parse_sieve_flags
+from pology.sieve import parse_sieve_flags, msg_no_check
 
 
 def setup_sieve (p):
@@ -55,7 +55,9 @@ class Sieve (object):
             return
 
         # Do not check messages when told so.
-        if flag_no_check_markup in parse_sieve_flags(msg):
+        if (    msg_no_check(msg)
+            or flag_no_check_markup in parse_sieve_flags(msg)
+        ):
             return
 
         # In in non-strict mode, check XML of translation only if the
