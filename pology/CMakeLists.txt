@@ -49,6 +49,7 @@ get_current_source_subdir(srcsubdir)
 install_python3_module_files(${srcsubdir} ${modules})
 
 add_subdirectory(proj)
+add_subdirectory(scripts)
 add_subdirectory(lang)
 add_subdirectory(internal)
 add_subdirectory(external)
