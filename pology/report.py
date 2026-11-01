@@ -154,7 +154,8 @@ def error (text, code=1, showcmd=True, subsrc=None, file=sys.stderr):
     sys.exit(code)
 
 
-def init_file_progress (fpaths, timeint=1.0, stream=sys.stderr, addfmt=None):
+def init_file_progress (fpaths, timeint=1.0, stream=sys.stderr, addfmt=None,
+                        progstream=None):
     """
     Create a function to output progress bar while processing files.
 
@@ -188,6 +189,12 @@ def init_file_progress (fpaths, timeint=1.0, stream=sys.stderr, addfmt=None):
     a delayed translation (L{TextTrans}) with single named formatting
     directive C{%(file)s}, or a plain string with same formatting directive.
 
+    Machine-readable progress, independent of whether C{stream} is
+    a terminal, is written to C{progstream} if given, one flushed line
+    per file::
+
+        <current>/<total>\\t<path>
+
     @param fpaths: collection of file paths
     @type fpaths: list of strings
     @param timeint: update interval in seconds
@@ -196,19 +203,23 @@ def init_file_progress (fpaths, timeint=1.0, stream=sys.stderr, addfmt=None):
     @type stream: file
     @param addfmt: additional format for the progress line
     @type addfmt: (text) -> text or L{TextTrans} or string
+    @param progstream: the stream to write machine-readable progress to
+    @type progstream: file
 
     @returns: progress updating function
     @rtype: (file_path, last_time, time_interval) -> new_last_time
     """
 
-    if not fpaths or not stream.isatty():
+    if not fpaths or not (stream.isatty() or progstream):
         return lambda x=None: x
 
-    try:
-        import curses
-        curses.setupterm()
-    except Exception:
-        return lambda x=None: x
+    term = stream.isatty()
+    if term:
+        try:
+            import curses
+            curses.setupterm()
+        except Exception:
+            term = False
 
     def postfmt (pstr):
         if callable(addfmt):
@@ -227,8 +238,9 @@ def init_file_progress (fpaths, timeint=1.0, stream=sys.stderr, addfmt=None):
     i_file = [0]
     seen_fpaths = set()
     otime = [-timeint]
-    enc = getattr(stream, "encoding", None) or locale.getpreferredencoding()
-    minenclen = len(postfmt(pfmt % (pspins[0], 0, "")).encode(enc, "replace"))
+    if term:
+        enc = getattr(stream, "encoding", None) or locale.getpreferredencoding()
+        minenclen = len(postfmt(pfmt % (pspins[0], 0, "")).encode(enc, "replace"))
 
     def update_progress (fpath=None):
 
@@ -243,6 +255,13 @@ def init_file_progress (fpaths, timeint=1.0, stream=sys.stderr, addfmt=None):
             if fpath not in seen_fpaths:
                 seen_fpaths.add(fpath)
                 i_file[0] += 1
+                if progstream:
+                    progstream.write("%d/%d\t%s\n"
+                                     % (i_file[0], len(fpaths), fpath))
+                    progstream.flush()
+
+            if not term:
+                return
 
             # Squeeze file path to fit into the terminal width.
             curses.setupterm()
@@ -257,9 +276,9 @@ def init_file_progress (fpaths, timeint=1.0, stream=sys.stderr, addfmt=None):
 
             pstr = postfmt(pfmt % (pspins[i_spin[0]], i_file[0], rfpath))
             encwrite(stream, "\r%s\r" % pstr)
-        else:
+        elif term:
             encwrite(stream, "")
-        stream.flush()
+            stream.flush()
 
     return update_progress
 
