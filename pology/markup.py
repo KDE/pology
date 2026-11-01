@@ -427,14 +427,23 @@ def _unmask_ws (text):
         text = text.replace(mask, ws)
     return text
 
+_entpath_html = os.path.join(datadir(), "spec", "html.entities")
+html_entities = read_entities(_entpath_html)
+
 _html_tags = set("""
-    a address applet area b base basefont big blockquote body br button
-    caption center cite code col colgroup dd del dfn dir div dl dt
-    em fieldset font form frame frameset h1 h2 h3 h4 h5 h6 head hr html
-    i iframe img input ins isindex kbd label legend li link map menu meta
-    noframes noscript ol option p param pre
-    s samp script select small span strike strong style sub sup
-    table tbody td textarea tfoot th thead title tr tt u ul var xmp
+    a abbr acronym address applet area article aside audio b base basefont
+    bdi bdo big blockquote body br button
+    canvas caption center cite code col colgroup
+    data datalist dd del details dfn dialog dir div dl dt
+    em embed fieldset figcaption figure font footer form frame frameset
+    h1 h2 h3 h4 h5 h6 head header hgroup hr html
+    i iframe img input ins isindex kbd label legend li link
+    main map mark menu meta meter nav noframes noscript
+    object ol optgroup option output p param picture pre progress
+    q rp rt ruby s samp script search section select slot small source span
+    strike strong style sub summary sup
+    table tbody td template textarea tfoot th thead time title tr track tt
+    u ul var video wbr xmp
 """.split())
 _html_subs = {
     "_nows" : ("", "", None),
@@ -443,10 +452,14 @@ _html_subs = {
 _html_subs.update([(x, _html_subs["_nows"]) for x in _html_tags])
 _html_subs.update([(x, _html_subs["_parabr"]) for x in
                    "br dd dl dt h1 h2 h3 h4 h5 h6 hr li p pre td th tr"
+                   " article aside details dialog figcaption figure footer"
+                   " header hgroup main nav section summary"
                    "".split()])
-_html_ents = { # in addition to default XML entities
-    "nbsp": "\xa0",
-}
+# Entities resolved before tags, so exclude those which could introduce
+# markup themselves (default XML entities handle such cases afterwards).
+_html_ents = dict([(name, value)
+                   for name, value in html_entities.items()
+                   if "<" not in value and "&" not in value])
 _html_keepws = set("""
     code pre xmp
 """.split())
@@ -1579,9 +1592,6 @@ def check_docbook4_msg (strict=False, entities={}, mkeyw=None):
 
     return checkf
 
-
-_entpath_html = os.path.join(datadir(), "spec", "html.entities")
-html_entities = read_entities(_entpath_html)
 
 _html_l1 = None
 

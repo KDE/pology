@@ -753,7 +753,7 @@ Both positive and negative wrapping options are provided in order to be able to 
 <para>Pology currently recognizes the following markup types:
 <itemizedlist>
 <listitem><para><literal>docbook4</literal> -- Docbook 4.x markup, in documentation POs</para></listitem>
-<listitem><para><literal>html</literal> -- HTML 4.01</para></listitem>
+<listitem><para><literal>html</literal> -- HTML5 markup</para></listitem>
 <listitem><para><literal>kde4</literal> -- markup in KDE4 UI POs, a mix of Qt rich-text and KUIT</para></listitem>
 <listitem><para><literal>kuit</literal> -- UI semantic markup in KDE 4</para></listitem>
 <listitem><para><literal>qtrich</literal> -- Qt rich-text, (almost) a subset of HTML</para></listitem>
