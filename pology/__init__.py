@@ -68,6 +68,31 @@ def localedir ():
     return localedir
 
 
+def _version_from_file (verfile):
+
+    try:
+        with open(verfile, encoding='utf-8') as f:
+            for line in f:
+                line = line.strip()
+                if line:
+                    return line
+    except OSError:
+        pass
+    return None
+
+
+def _version_from_package ():
+
+    try:
+        from importlib.metadata import version as dist_version
+    except ImportError: # no stdlib importlib.metadata before 3.8
+        return None
+    try:
+        return dist_version("pology")
+    except Exception: # package not installed
+        return None
+
+
 def version ():
     """
     Get Pology version string.
@@ -77,16 +102,13 @@ def version ():
     """
 
     verstr = "@CONFIG_VERSION@" # configured if installed
-    if verstr.startswith("@"): # if running from source dir
-        try:
-            verfile = os.path.join(datadir(), "VERSION")
-            for line in open(verfile, encoding='utf-8'):
-                line = line.strip()
-                if line:
-                    verstr = line
-                    break
-        except Exception:
-            pass
+    if verstr.startswith("@"): # if running from source dir or wheel
+        verstr = (
+            _version_from_file(os.path.join(os.path.dirname(__file__), "VERSION"))
+            or _version_from_file(os.path.join(datadir(), "VERSION"))
+            or _version_from_package()
+            or verstr
+        )
 
     return verstr
 
