@@ -44,7 +44,8 @@ def setup_sieve (p):
     "(%(fieldlist)s) using the '%(par)s' parameter. "
     "Any matching parameter can be repeated when it makes sense "
     "(e.g. two matches on msgid).",
-    fieldlist=format_item_list(["msgctxt", "msgid", "msgstr", "comment"]),
+    fieldlist=format_item_list(["msgctxt", "msgid", "msgstr", "comment",
+                                "skiprule", "wellspelled"]),
     par="or"
     ))
 
@@ -97,6 +98,34 @@ def setup_sieve (p):
                 desc=_("@info sieve parameter discription",
     "Matches if a comment line (extracted or translator) "
     "does not match the regular expression."
+    ))
+    p.add_param("skiprule", str, multival=True,
+                metavar=_("@info sieve parameter value placeholder", "RULEID"),
+                desc=_("@info sieve parameter discription",
+    "Matches if the message has the exact rule identifier in "
+    "a '%(prefix)s' translator comment.",
+    prefix="skip-rule:"
+    ))
+    p.add_param("nskiprule", str, multival=True,
+                metavar=_("@info sieve parameter value placeholder", "RULEID"),
+                desc=_("@info sieve parameter discription",
+    "Matches if the message does not have the exact rule identifier in "
+    "a '%(prefix)s' translator comment.",
+    prefix="skip-rule:"
+    ))
+    p.add_param("wellspelled", str, multival=True,
+                metavar=_("@info sieve parameter value placeholder", "WORD"),
+                desc=_("@info sieve parameter discription",
+    "Matches if the message has the exact word in "
+    "a '%(prefix)s' translator comment.",
+    prefix="well-spelled:"
+    ))
+    p.add_param("nwellspelled", str, multival=True,
+                metavar=_("@info sieve parameter value placeholder", "WORD"),
+                desc=_("@info sieve parameter discription",
+    "Matches if the message does not have the exact word in "
+    "a '%(prefix)s' translator comment.",
+    prefix="well-spelled:"
     ))
     p.add_param("transl", bool,
                 desc=_("@info sieve parameter discription",
@@ -326,6 +355,7 @@ class Sieve (object):
         # - then matchers which can be AND or OR
         expr_andor = make_match_group([
             "msgctxt", "msgid", "msgstr", "comment",
+            "skiprule", "wellspelled",
             "fexpr",
         ], negatable=True, orlinked=self.p.or_match)
 

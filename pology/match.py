@@ -11,11 +11,12 @@ import locale
 import re
 
 from pology import _, n_
-from pology.comments import parse_summit_branches
+from pology.comments import manc_parse_list, parse_summit_branches
 from pology.fsops import str_to_unicode
 from pology.message import MessageUnsafe
 from pology.remove import remove_accel_msg
 from pology.report import error
+from pology.spell import elist_well_spelled
 
 
 _all_ops = set()
@@ -337,7 +338,10 @@ def _build_expr_r (exprstr, start, end, params):
 
 
 # Matchers taking a value.
-_op_matchers = set(["msgctxt", "msgid", "msgstr", "comment", "flag", "branch"])
+_op_matchers = set([
+    "msgctxt", "msgid", "msgstr", "comment", "flag", "branch",
+    "skiprule", "wellspelled",
+])
 # Matchers not taking a value.
 _nop_matchers = set(["transl", "obsol", "active", "plural"])
 
@@ -450,6 +454,14 @@ def make_matcher (name, value, mods, params, neg=False):
             texts.extend([(msgf.source[i][0], "source", i)
                           for i in range(len(msgf.source))])
             return _rx_in_any_text(regex, texts, hl)
+
+    elif name == "skiprule":
+        def matcher (msgf, msg, cat, hl=[]):
+            return value in manc_parse_list(msgf, "skip-rule:", ",")
+
+    elif name == "wellspelled":
+        def matcher (msgf, msg, cat, hl=[]):
+            return value in manc_parse_list(msgf, elist_well_spelled, ",")
 
     elif name == "transl":
         def matcher (msgf, msg, cat, hl=[]):

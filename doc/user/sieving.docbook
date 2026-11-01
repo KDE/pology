@@ -1358,6 +1358,20 @@ For details, see the description of <option>fexpr</option> below.</para>
 </varlistentry>
 
 <varlistentry>
+<term><option>(n)skiprule:<replaceable>ruleid</replaceable></option></term>
+<listitem>
+<para>Exact rule identifier in a <literal>skip-rule:</literal> translator comment. Unlike string matchers, the value is matched as a whole and not as a regular expression.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>(n)wellspelled:<replaceable>word</replaceable></option></term>
+<listitem>
+<para>Exact word in a <literal>well-spelled:</literal> translator comment. Unlike string matchers, the value is matched as a whole and not as a regular expression.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
 <term><option>(n)flag:<replaceable>regex</replaceable></option></term>
 <listitem>
 <para>Regular expression to match flags. This matches each flag in turn, and not the flag comment as a monolithic string. The condition is satisfed as whole if any flag matches.</para>
@@ -1503,7 +1517,7 @@ $ posieve find-messages -s msgstr:'(f)oobar' -s replace:'\1umbar'
 <varlistentry>
 <term><option>or</option></term>
 <listitem>
-<para>Boolean OR instead of AND linking of conditions, but only for string matchers: <option>msgctxt</option>, <option>msgid</option>, <option>msgstr</option>, <option>comment</option>. This restriction may seem odd, but it is what is mostly needed in practice. For example, the set of conditions:
+<para>Boolean OR instead of AND linking of conditions, but only for string matchers: <option>msgctxt</option>, <option>msgid</option>, <option>msgstr</option>, <option>comment</option>, <option>skiprule</option>, <option>wellspelled</option>. This restriction may seem odd, but it is what is mostly needed in practice. For example, the set of conditions:
 <programlisting language="bash">
 -s msgctxt:tooltip -s comment:tooltip -s transl -s or
 </programlisting>
